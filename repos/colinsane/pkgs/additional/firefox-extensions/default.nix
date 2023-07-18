@@ -88,6 +88,7 @@ in lib.makeScope newScope (self: with self; {
     #
     # TODO: give these updateScript's
     browserpass-extension = callPackage ./browserpass-extension { };
+    bypass-paywalls-clean = callPackage ./bypass-paywalls-clean { };
     ether-metamask = fetchAddon "ether-metamask" "webextension@metamask.io" "sha256-UI83wUUc33OlQYX+olgujeppoo2D2PAUJ+Wma5mH2O0=";
     i2p-in-private-browsing = fetchAddon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io" "sha256-dJcJ3jxeAeAkRvhODeIVrCflvX+S4E0wT/PyYzQBQWs=";
     sidebery = fetchAddon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}" "sha256-YONfK/rIjlsrTgRHIt3km07Q7KnpIW89Z9r92ZSCc6w=";
@@ -102,6 +103,7 @@ in lib.makeScope newScope (self: with self; {
   browserpass-extension = (wrapAddon unwrapped.browserpass-extension {})
     .withoutPermission "notifications";
 
+  bypass-paywalls-clean = wrapAddon unwrapped.bypass-paywalls-clean {};
   ether-metamask = wrapAddon unwrapped.ether-metamask {};
   i2p-in-private-browsing = wrapAddon unwrapped.i2p-in-private-browsing {};
   sidebery = wrapAddon unwrapped.sidebery {};

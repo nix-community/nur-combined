@@ -1,0 +1,24 @@
+commit 780d994fb2dd53b88f81ffa47b98e9433a861e30
+Author: Colin <colin@uninsane.org>
+Date:   2023-07-18 22:24:34 +0000
+
+    disable metrics reporting
+
+diff --git a/background.js b/background.js
+index 7c7338b..2da515a 100644
+--- a/background.js
++++ b/background.js
+@@ -896,13 +896,6 @@ ext_api.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+   }
+ });
+ 
+-setInterval(function () {
+-  let current_date_str = currentDateStr();
+-  if (last_date_str < current_date_str) {
+-    bpc_count_daily_users(current_date_str);
+-    last_date_str = current_date_str;
+-  }
+-}, 60 * 60 * 1000);
+ 
+ var extraInfoSpec = ['blocking', 'requestHeaders'];
+ if (ext_api.webRequest.OnBeforeSendHeadersOptions.hasOwnProperty('EXTRA_HEADERS'))

@@ -2,7 +2,6 @@
 , fetchFromGitHub
 , fetchFromGitea
 , gnused
-, jq
 , mkYarnModules
 , zip
 }:

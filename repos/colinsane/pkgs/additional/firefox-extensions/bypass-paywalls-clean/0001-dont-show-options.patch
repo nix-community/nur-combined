@@ -1,0 +1,37 @@
+commit dd8eabcd90ea0ea0df5c4554524ef9f82589bb35
+Author: Colin <colin@uninsane.org>
+Date:   2023-07-18 22:23:58 +0000
+
+    don't show options on first-run
+
+diff --git a/background.js b/background.js
+index e0c38e6..5d4acf4 100644
+--- a/background.js
++++ b/background.js
+@@ -148,7 +148,6 @@ function setDefaultOptions() {
+       return [key, val.domain]
+     })
+   }, function () {
+-    ext_api.runtime.openOptionsPage();
+   });
+ }
+ 
+@@ -1453,18 +1452,6 @@ ext_api.runtime.onMessage.addListener(function (message, sender) {
+   }
+ });
+ 
+-// show the opt-in tab on installation
+-ext_api.storage.local.get(["optInShown", "customShown"], function (result) {
+-  if (!result.optInShown || !result.customShown) {
+-    ext_api.tabs.create({
+-      url: "options/optin/opt-in.html"
+-    });
+-    ext_api.storage.local.set({
+-      "optInShown": true,
+-      "customShown": true
+-    });
+-  }
+-});
+ 
+ function filterObject(obj, filterFn, mapFn = function (val, key) {
+   return [key, val];

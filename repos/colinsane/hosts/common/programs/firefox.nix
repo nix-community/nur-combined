@@ -154,7 +154,10 @@ in
           package = pkgs.firefox-extensions.browserpass-extension;
           enable = lib.mkDefault true;
         };
-        # TODO: add bypass-paywalls-clean (build from source)
+        bypass-paywalls-clean = {
+          package = pkgs.firefox-extensions.bypass-paywalls-clean;
+          enable = lib.mkDefault true;
+        };
         ether-metamask = {
           package = pkgs.firefox-extensions.ether-metamask;
           enable = lib.mkDefault false;  # until i can disable the first-run notification

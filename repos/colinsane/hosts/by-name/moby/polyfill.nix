@@ -11,8 +11,8 @@
 
     # i don't do crypto stuff on moby
     addons.ether-metamask.enable = false;
-    # sideberry UX doesn't make sense on small screen
-    addons.sideberry.enable = false;
+    # sidebery UX doesn't make sense on small screen
+    addons.sidebery.enable = false;
   };
 
   sane.gui.sxmo = {

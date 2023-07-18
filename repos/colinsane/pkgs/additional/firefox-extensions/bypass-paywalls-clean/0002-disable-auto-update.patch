@@ -1,0 +1,37 @@
+commit b70a3f247e6f3e6a91e69f98b1f8f2849f8455aa
+Author: Colin <colin@uninsane.org>
+Date:   2023-07-18 22:24:19 +0000
+
+    disable auto updates
+
+diff --git a/background.js b/background.js
+index 9e4bdd3..7c7338b 100644
+--- a/background.js
++++ b/background.js
+@@ -14,7 +14,7 @@ if (typeof ext_api.action !== 'object') {
+ 
+ var dompurify_sites = [];
+ var optin_setcookie = false;
+-var optin_update = true;
++var optin_update = false;
+ var blocked_referer = false;
+ 
+ // defaultSites are loaded from sites.js at installation extension
+@@ -410,7 +410,7 @@ ext_api.storage.local.get({
+   sites_excluded: [],
+   ext_version_old: '2.3.9.0',
+   optIn: false,
+-  optInUpdate: true
++  optInUpdate: false
+ }, function (items) {
+   var sites = items.sites;
+   optionSites = sites;
+@@ -474,7 +474,7 @@ ext_api.storage.local.get({
+   disabledSites = defaultSites_grouped_domains.concat(customSites_domains).filter(x => !enabledSites.includes(x));
+   add_grouped_enabled_domains(grouped_sites);
+   set_rules(sites, updatedSites, customSites);
+-  if (enabledSites.includes('#options_optin_update_rules')) {
++  if (false) {
+     check_sites_updated();
+     sites_custom_ext_json = 'https://gitlab.com/magnolia1234/bypass-paywalls-' + url_loc + '-clean/-/raw/master/custom/sites_custom.json';
+   } 
