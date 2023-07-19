@@ -430,17 +430,17 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "446dcddfe9b41270d03559f9b2105dc1c1d5b02c";
+    version = "b14c83889c7860c174276d05dec6554169a681d9";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "446dcddfe9b41270d03559f9b2105dc1c1d5b02c";
+      rev = "b14c83889c7860c174276d05dec6554169a681d9";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-iXy1qv30MnHJjQ9d3+LswEVoAh8E2A/ljN7itzLsCNM=";
+      sha256 = "sha256-MJuTwEI599Y7q+0u0DMxRYaXsZfpksc2csgnK9Ghp/E=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-446dcddfe9b41270d03559f9b2105dc1c1d5b02c/Cargo.lock;
+      lockFile = ./swayosd-b14c83889c7860c174276d05dec6554169a681d9/Cargo.lock;
       outputHashes = { };
     };
     date = "2023-07-18";
@@ -510,14 +510,14 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "3e1176e8969c9110bd16ff8c57ccbd38ecdbd0c0";
+    version = "56df72f61cdde326119631358d57b8895a8912f1";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "3e1176e8969c9110bd16ff8c57ccbd38ecdbd0c0";
+      rev = "56df72f61cdde326119631358d57b8895a8912f1";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-SggaOx2KTxmdUnG2ZDsntClBQEifbagXamwP2oF62Ag=";
+      sha256 = "sha256-3QvUTNTLfW0U/oE0fJ+4/t8ekYwlbrLBqmr651DTW3o=";
     };
     date = "2023-07-18";
   };
