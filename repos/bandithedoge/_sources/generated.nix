@@ -138,15 +138,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "19cccbf8988a67ff2e1fab14341230b220e4e5c8";
+    version = "4b4670d9bf6fd0d0ffae515e43b51dd5265c4427";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "19cccbf8988a67ff2e1fab14341230b220e4e5c8";
+      rev = "4b4670d9bf6fd0d0ffae515e43b51dd5265c4427";
       fetchSubmodules = false;
-      sha256 = "sha256-o8oo0tuRR6eYhh4IYnNaeQ810RdIeF9JJQdJHuzRN3U=";
+      sha256 = "sha256-75EdHB/5I8VBONBedm+HVEERtIAPK71TSiI91LFsI5I=";
     };
-    date = "2023-07-09";
+    date = "2023-07-19";
   };
   lua-dbus = {
     pname = "lua-dbus";
@@ -173,15 +173,15 @@
   };
   luakit = {
     pname = "luakit";
-    version = "858dc946b01487e6ba2475cb7a9bede34c17d134";
+    version = "ad1f840dd209785ab26de6707207d42784132660";
     src = fetchFromGitHub {
       owner = "luakit";
       repo = "luakit";
-      rev = "858dc946b01487e6ba2475cb7a9bede34c17d134";
+      rev = "ad1f840dd209785ab26de6707207d42784132660";
       fetchSubmodules = false;
-      sha256 = "sha256-TKQvnavoofGtBo2aBJtZVZjrmm5Ln7vOgW9bAXjcpRM=";
+      sha256 = "sha256-B8AGcZavkb+7fQ2NKW9/hHxmX69NB6FuRfJaOtJy4v8=";
     };
-    date = "2023-01-29";
+    date = "2023-07-18";
   };
   lv2vst = {
     pname = "lv2vst";
@@ -264,15 +264,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "a6c19d7cb49fe7de40d86c3157fdeb445ee5c16c";
+    version = "316357530fd9cfaf06f31e249526e430acf1912c";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "a6c19d7cb49fe7de40d86c3157fdeb445ee5c16c";
+      rev = "316357530fd9cfaf06f31e249526e430acf1912c";
       fetchSubmodules = false;
-      sha256 = "sha256-R0xx2SPLHICNUsn6Dx2LwQ7tZCs8I7R05+8FFGagc9M=";
+      sha256 = "sha256-yYM4sZAKNp5ysxwpJjNwFKs6/hMVLRhc8smSuIFNrR4=";
     };
-    date = "2023-06-27";
+    date = "2023-07-18";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
