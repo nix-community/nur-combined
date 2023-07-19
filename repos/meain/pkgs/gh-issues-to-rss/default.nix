@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "gh-issues-to-rss";
-  version = "0.3.3";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "meain";
     repo = "gh-issues-to-rss";
     rev = "${version}";
-    sha256 = "sha256-cZKCwPIyAVwNeNC+uSThqupRq2bFSg0ZVqRhQa8/UOY=";
+    sha256 = "sha256-DRJ6opCIiEF/dLdwX28J0zQKJ5BJO2zJIkNRL/W4kew=";
   };
 
-  vendorSha256 = "sha256-ZLFD1ynNgsm8i3nACx/SSA68gsNUto3ZFpUF0aNnDGA=";
+  vendorSha256 = "sha256-Zdg+IXjGluV5sOORcq9M0FKxfstBu64VdKb9jkrS0Rw=";
   proxyVendor = true;
 
   postInstall = ''
