@@ -506,10 +506,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.11.1";
+      version = "3.11.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4137192/control_panel_for_twitter-3.11.1.xpi";
-      sha256 = "9ef818be0d8a0c18559da3d7add938a7c57aa9959012db6f3d9eda5fa26571bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4138729/control_panel_for_twitter-3.11.2.xpi";
+      sha256 = "ac54cf32b993230bb816ec955751f600d9820c9491a9202309e164408b7f1ba3";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -778,6 +778,34 @@
         homepage = "https://duckduckgo.com/app";
         description = "Simple and seamless privacy protection for your browser: tracker blocking, cookie protection, DuckDuckGo private search, email protection, HTTPS upgrading, and much more.";
         license = licenses.asl20;
+        platforms = platforms.all;
+        };
+      };
+    "ebates" = buildFirefoxXpiAddon {
+      pname = "ebates";
+      version = "5.28.0";
+      addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118743/ebates-5.28.0.xpi";
+      sha256 = "83537e2085af05117b4f36f0fc8afc2d4baa0d876f43879f3cdedf02ef0ad0d2";
+      meta = with lib;
+      {
+        homepage = "https://www.rakuten.com";
+        description = "Start shopping smarter with Cash Back and coupons. By clicking Add to Firefox you agree to the Rakuten Extension <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/8b9325bcbde33c23c7bcf3d7e6409074294d4d283d8d2465beb954789b8adbd9/https%3A//www.rakuten.com/help/article/rakuten-cash-back-button-privacy-notice-360052819794\" rel=\"nofollow\">Terms &amp; Conditions</a>";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "ebates-express-cash-back" = buildFirefoxXpiAddon {
+      pname = "ebates-express-cash-back";
+      version = "7.8.1";
+      addonId = "ebatesca@ebates.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3952935/ebates_express_cash_back-7.8.1.xpi";
+      sha256 = "7d0b79886ea02e3b97ae3734978f300e514c11e94946a5681ab7a9d98147d713";
+      meta = with lib;
+      {
+        homepage = "https://www.rakuten.ca/";
+        description = "Always forgetting Cash Back?\nLet us help. Shop like you normally would at your favourite stores and we’ll alert you when Cash Back is available. Trust us, you’ll never forget Cash Back again!";
+        license = licenses.mpl11;
         platforms = platforms.all;
         };
       };
@@ -1548,6 +1576,25 @@
       {
         homepage = "https://js.extension.sh";
         description = "The ultimate search extension for Javascript!";
+        platforms = platforms.all;
+        };
+      };
+    "keepa" = buildFirefoxXpiAddon {
+      pname = "keepa";
+      version = "4.10";
+      addonId = "amptra@keepa.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041807/keepa-4.10.xpi";
+      sha256 = "473a1e745065d054e590099a1cb8226fc466d9e3eda5962711bcefbcf38e7b24";
+      meta = with lib;
+      {
+        homepage = "https://Keepa.com";
+        description = "→ Price History charts \n→ Price Drop &amp; Availability Alerts\n→ Over 1 billion tracked products\n→ Supports Amazon .com | .co.uk | .de | .co.jp | .fr | .ca | .it | .es | .in | .mx";
+        license = {
+          shortName = "keepa";
+          fullName = "License for Keepa.com - Amazon Price Tracker";
+          url = "https://addons.mozilla.org/en-CA/firefox/addon/keepa/license/";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };
@@ -2604,6 +2651,20 @@
         platforms = platforms.all;
         };
       };
+    "pushbullet" = buildFirefoxXpiAddon {
+      pname = "pushbullet";
+      version = "366";
+      addonId = "jid1-BYcQOfYfmBMd9A@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4088745/pushbullet-366.xpi";
+      sha256 = "556d3b42a71ac1c032cbcd0c91106a5773fbd07fb65a3362a908a89823cad96f";
+      meta = with lib;
+      {
+        homepage = "https://www.pushbullet.com";
+        description = "Pushbullet enables you to see your calls and texts on your computer and easily send links and files from your computer to phone.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "pywalfox" = buildFirefoxXpiAddon {
       pname = "pywalfox";
       version = "2.0.11";
@@ -3010,10 +3071,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.8";
+      version = "3.6.9";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132639/steam_database-3.6.8.xpi";
-      sha256 = "9f2a8c212739ac0587465dce11fa8f731fd317871e7a8b742e4dafb669538aa3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4138684/steam_database-3.6.9.xpi";
+      sha256 = "382b2368df6aea3ea91a355ad38447771f1029075733806ecd43d77b78e829bb";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";

@@ -206,6 +206,16 @@
     }
   },
   {
+    "slug": "ebates"
+  },
+  {
+    "slug": "ebates-express-cash-back",
+    "license": {
+      "tag": "predefined",
+      "shortName": "mpl11"
+    }
+  },
+  {
     "slug": "ecosia-the-green-search",
     "pname": "ecosia"
   },
@@ -424,6 +434,16 @@
   },
   {
     "slug": "js-search-extension"
+  },
+  {
+    "slug": "keepa",
+    "license": {
+      "tag": "custom",
+      "shortName": "keepa",
+      "fullName": "License for Keepa.com - Amazon Price Tracker",
+      "url": "https://addons.mozilla.org/en-CA/firefox/addon/keepa/license/",
+      "free": false
+    }
   },
   {
     "slug": "keepass-helper-url-in-title",
@@ -734,6 +754,9 @@
   },
   {
     "slug": "protondb-for-steam"
+  },
+  {
+    "slug": "pushbullet"
   },
   {
     "slug": "pywalfox"
