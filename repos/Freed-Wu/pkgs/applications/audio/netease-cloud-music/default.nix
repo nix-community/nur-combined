@@ -136,8 +136,7 @@ stdenv.mkDerivation rec {
       --set QCEF_INSTALL_PATH "$out/lib/netease-cloud-music/qcef" \
       --set QT_XKB_CONFIG_ROOT "${xorg.xkeyboardconfig}/share/X11/xkb" \
       --set XDG_SESSION_TYPE x11 \
-      --set QT_QPA_PLATFORM xcb \
-      --unset WAYLAND_DISPLAY
+      --set QT_QPA_PLATFORM xcb
   '';
 
   meta = with lib; {
