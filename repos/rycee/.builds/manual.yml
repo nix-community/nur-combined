@@ -6,8 +6,8 @@ secrets:
   - 582562a1-e61c-48ae-9822-deb4b63caccb
   - d139710a-7d26-4598-a6db-411e443ba75c
 environment:
-  # Pinned 2023-06-15.
-  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/ff1cd885da89c8f27091d7cf45af95b97970170f.tar.gz"
+  # Pinned 2023-07-19.
+  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/57695599bdc4f7bfe5d28cfa23f14b3d8bdf8a5f.tar.gz"
   NIX_CONFIG: "experimental-features = nix-command flakes"
 tasks:
   - setup: |
