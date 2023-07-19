@@ -36,7 +36,7 @@ in {
     custom.pidgin
     (custom.neovim.override { inherit colors; })
     (custom.emacs.override { inherit colors; })
-    custom.firefox
+    # custom.firefox # now I am using chromium
     custom.vscode.programming
     devenv
     dotenv
