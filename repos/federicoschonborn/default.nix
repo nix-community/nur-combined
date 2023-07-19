@@ -14,6 +14,7 @@
   atoms = pkgs.callPackage ./packages/atoms { inherit atoms-core; };
   atoms-core = pkgs.python3Packages.callPackage ./packages/atoms-core { };
   blurble = pkgs.callPackage ./packages/blurble { };
+  boulder = pkgs.callPackage ./packages/boulder { };
   brisk-menu = pkgs.callPackage ./packages/brisk-menu { };
   bsdutils = pkgs.callPackage ./packages/bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc { };
@@ -51,6 +52,7 @@
     enableZlib = true;
   };
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme { };
+  flyaway = pkgs.callPackage ./packages/flyaway { wlroots = wlroots_0_16; };
   gradebook = pkgs.callPackage ./packages/gradebook { };
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit { };
   libgta = pkgs.callPackage ./packages/libgta { };
@@ -84,6 +86,8 @@
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell { };
   metronome = pkgs.callPackage ./packages/metronome { };
   morewaita = pkgs.callPackage ./packages/morewaita { };
+  moss = pkgs.callPackage ./packages/moss { };
+  moss-container = pkgs.callPackage ./packages/moss-container { };
   mucalc = pkgs.callPackage ./packages/mucalc { };
   opensurge = pkgs.callPackage ./packages/opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./packages/qv { inherit libtgd; };
@@ -93,4 +97,16 @@
   telegraph = pkgs.callPackage ./packages/telegraph { };
   textsnatcher = pkgs.callPackage ./packages/textsnatcher { };
   tuba = pkgs.callPackage ./packages/tuba { };
+
+  wlroots_0_16 = pkgs.wlroots.overrideAttrs (prev: rec {
+    version = "0.16.2";
+    src = pkgs.fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "wlroots";
+      repo = "wlroots";
+      rev = version;
+      hash = "sha256-JeDDYinio14BOl6CbzAPnJDOnrk4vgGNMN++rcy2ItQ=";
+    };
+    buildInputs = prev.buildInputs ++ [ pkgs.hwdata ];
+  });
 }
