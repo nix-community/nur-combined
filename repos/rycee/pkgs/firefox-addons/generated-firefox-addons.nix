@@ -630,10 +630,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.1.8";
+      version = "1.1.9";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139260/dearrow-1.1.8.xpi";
-      sha256 = "113361caf26821edeee44216998fccabf70f884f650cd485ad6c937d0adc2489";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4140187/dearrow-1.1.9.xpi";
+      sha256 = "2c2e32fa606b5d9ed12e4e65c104592b7816b41ba78589b0c6c0ed3a029d1e37";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -769,10 +769,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.7.8";
+      version = "2023.7.13";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4129067/duckduckgo_for_firefox-2023.7.8.xpi";
-      sha256 = "21692d0ebdd60665f911ae47704ccfb734bb5531e716fef0f5cf0b8aea961f8c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4138156/duckduckgo_for_firefox-2023.7.13.xpi";
+      sha256 = "77a4315fbf4e04260713b3bbc12600e5e27f3a7f37fd7deb5ab583db2efbd75f";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -956,10 +956,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.71";
+      version = "2.72";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4129841/firemonkey-2.71.xpi";
-      sha256 = "191b9ba4b843d585fb98411c8d477eca9c021f541963d356e2a6f0a60a41e48d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4140283/firemonkey-2.72.xpi";
+      sha256 = "2ec4526552639efb2488c3460e8202f50a1616ba68598768dd85a7ea3dbd4a5b";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -1086,10 +1086,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230716.180334";
+      version = "116.0.20230718.185323";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139500/francais_language_pack-116.0.20230716.180334.xpi";
-      sha256 = "1c3629b4a1150562e6dc87caa54076e6abba4775f1be5e7f7a7b3c1217da8e6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4140705/francais_language_pack-116.0.20230718.185323.xpi";
+      sha256 = "cc930cda1342df485abf51b5ab0eeb752a8eaf35286d003f2e528df2aa53cd52";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
