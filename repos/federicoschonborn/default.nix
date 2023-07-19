@@ -14,7 +14,7 @@
   atoms = pkgs.callPackage ./packages/atoms { inherit atoms-core; };
   atoms-core = pkgs.python3Packages.callPackage ./packages/atoms-core { };
   blurble = pkgs.callPackage ./packages/blurble { };
-  boulder = pkgs.callPackage ./packages/boulder { };
+  boulder = pkgs.callPackage ./packages/boulder { inherit libmossSrc; };
   brisk-menu = pkgs.callPackage ./packages/brisk-menu { };
   bsdutils = pkgs.callPackage ./packages/bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc { };
@@ -86,8 +86,8 @@
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell { };
   metronome = pkgs.callPackage ./packages/metronome { };
   morewaita = pkgs.callPackage ./packages/morewaita { };
-  moss = pkgs.callPackage ./packages/moss { };
-  moss-container = pkgs.callPackage ./packages/moss-container { };
+  moss = pkgs.callPackage ./packages/moss { inherit libmossSrc; };
+  moss-container = pkgs.callPackage ./packages/moss-container { inherit libmossSrc; };
   mucalc = pkgs.callPackage ./packages/mucalc { };
   opensurge = pkgs.callPackage ./packages/opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./packages/qv { inherit libtgd; };
@@ -97,6 +97,14 @@
   telegraph = pkgs.callPackage ./packages/telegraph { };
   textsnatcher = pkgs.callPackage ./packages/textsnatcher { };
   tuba = pkgs.callPackage ./packages/tuba { };
+
+  libmossSrc = pkgs.fetchFromGitHub {
+    name = "libmoss";
+    owner = "serpent-os";
+    repo = "libmoss";
+    rev = "v1.2.0";
+    hash = "sha256-P7QUheCxwt7lTh3K1NEUas4TyojMrzTsNWj8UVQqkl0=";
+  };
 
   wlroots_0_16 = pkgs.wlroots.overrideAttrs (prev: rec {
     version = "0.16.2";

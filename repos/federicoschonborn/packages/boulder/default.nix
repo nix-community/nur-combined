@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, libmossSrc
 , curl
 , ldc
 , lmdb
@@ -24,13 +25,7 @@ stdenv.mkDerivation rec {
       hash = "sha256-FBacbTvU9diD+kK0x1KzSVw6xcbOeVytsmDQBv1QZ0w=";
     })
 
-    (fetchFromGitHub {
-      name = "libmoss";
-      owner = "serpent-os";
-      repo = "libmoss";
-      rev = "v1.2.0";
-      hash = "sha256-P7QUheCxwt7lTh3K1NEUas4TyojMrzTsNWj8UVQqkl0=";
-    })
+    libmossSrc
   ];
 
   sourceRoot = "boulder";
