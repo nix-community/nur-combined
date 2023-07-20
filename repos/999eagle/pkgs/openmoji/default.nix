@@ -2,10 +2,11 @@
   stdenv,
   fetchFromGitHub,
   nanoemoji,
+  resvg,
   gettext,
   runCommand,
   #fontFormats ? ["cbdt" "glyf_colr_0" "glyf_colr_1" "sbix" "picosvgz" "untouchedsvgz"],
-  fontFormats ? ["glyf_colr_0" "glyf_colr_1"],
+  fontFormats ? ["cbdt" "glyf_colr_0" "glyf_colr_1"],
   xmlstarlet,
   python3,
   woff2,
@@ -33,6 +34,7 @@ in
 
     nativeBuildInputs = [
       nanoemoji
+      resvg
       gettext # for envsubst
       xmlstarlet
       python3.pkgs.fonttools
@@ -68,18 +70,21 @@ in
         woff2_compress build/fonts/OpenMoji-color-$method.ttf
       done
 
-      for colr_version in 0 1; do
-        if ! [ -f "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" ]; then
-          continue
-        fi
-        cp \
-          "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" \
-          build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
+      # skip rendering svg
+      # see https://github.com/hfg-gmuend/openmoji/issues/438
 
-        maximum_color build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
+      # for colr_version in 0 1; do
+      #   if ! [ -f "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" ]; then
+      #     continue
+      #   fi
+      #   cp \
+      #     "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" \
+      #     build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
 
-        woff2_compress build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
-      done
+      #   maximum_color build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
+
+      #   woff2_compress build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
+      # done
 
       runHook postBuild
     '';

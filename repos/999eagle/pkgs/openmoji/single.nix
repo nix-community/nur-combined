@@ -4,10 +4,11 @@
   stdenv,
 }: format: let
   supportedFormats = [
+    "cbdt"
     "glyf_colr_0"
     "glyf_colr_1"
-    "colr0_svg"
-    "colr1_svg"
+    #"colr0_svg"
+    #"colr1_svg"
   ];
 in
   assert builtins.elem format supportedFormats;
