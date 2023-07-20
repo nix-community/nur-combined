@@ -2,6 +2,7 @@ name: "Build and populate cache"
 on:
   pull_request:
   push:
+  workflow_dispatch: # allows manual triggering
     branches:
       - main
       - master
@@ -36,7 +37,7 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-21.11
+          - nixpkgs=channel:nixos-23.05
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -45,7 +46,6 @@ jobs:
       uses: cachix/install-nix-action@v22
       with:
         nix_path: "${{ matrix.nixPath }}"
-        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
