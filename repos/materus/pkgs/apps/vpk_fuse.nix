@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A FUSE filesystem which can open Valve PacKage files (VPK).";
-    homepage = "https://xmake.io";
+    homepage = "https://github.com/ElementW/vpk_fuse";
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

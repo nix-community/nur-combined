@@ -11,22 +11,6 @@ in
       ./materusPC
       inputs.private.systemModule
       profiles.osProfile
-
-      inputs.home-manager.nixosModules.home-manager
-      {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.materus = { config ,... }: {
-          imports = [
-            ../home/materus
-            materusPC/extraHome.nix
-            profiles.homeProfile
-            inputs.private.homeModule
-          ];
-          materus.profile.nixpkgs.enable = false;
-        };
-        home-manager.extraSpecialArgs = { inherit inputs; inherit materusFlake; };
-      }
     ];
   };
   flamaster = inputs.nixpkgs.lib.nixosSystem rec {

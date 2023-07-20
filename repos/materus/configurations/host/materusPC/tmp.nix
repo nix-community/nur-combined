@@ -1,13 +1,4 @@
 { config, pkgs, lib, inputs, materusFlake, materusPkgs, ... }:
-let
-
-  grml-config = pkgs.fetchFromGitHub {
-    owner = "grml";
-    repo = "grml-etc-core";
-    rev = "a2cda85d3d56fd5f5a7b954a444fd151318c4680";
-    sha256 = "0ap8lmqi45yjyjazdm1v64fz1rfqhkhfpdp2z17ag6hs5wi6i67y";
-  };
-in
 {
   virtualisation.lxc.enable = true;
   virtualisation.lxc.lxcfs.enable = true;
@@ -173,7 +164,7 @@ in
       enable = true;
       interactiveShellInit = ''
         if [[ ''${__MATERUS_HM_ZSH:-0} == 0 ]]; then
-          source ${grml-config}/etc/zsh/zshrc
+          source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
         fi
       '';
       promptInit = ''
@@ -252,7 +243,7 @@ in
     mprocs
     tldr
     bat
-
+    config.materus.profile.packages.home-manager
 
     # pgcli
     # litecli
@@ -321,7 +312,7 @@ in
   environment.etc = {
 
     
-
+    /*
     "libvirt/hooks/qemu.d/win11/prepare/begin/start.sh" = {
       text =
         ''
@@ -450,14 +441,18 @@ in
           systemctl set-property --runtime -- system.slice AllowedCPUs=0-3
           systemctl set-property --runtime -- init.scope AllowedCPUs=0-3
         '';
-      /*text = ''
+        
+
+
+      text = ''
         #!/usr/bin/env bash
         reboot
         '';*-/
         mode = "0755";
         };
         "libvirt/vgabios/patched.rom".source = ./vbios.rom;
-        }; */
+        }; 
     };
+    */
   };
 }

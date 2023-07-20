@@ -46,6 +46,7 @@
 , asio
 , websocketpp
 , amf-headers 
+, libGL
 }:
 
 let
@@ -53,13 +54,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "obs-studio-amf";
-  version = "29.1.2";
+  version = "29.1.3";
 
   src = fetchFromGitHub {
     owner = "obsproject";
     repo = "obs-studio";
     rev = version;
-    sha256 = "sha256-+8GAf5z6A8bBd2lj+qTi0Yg3R5RiHkn/Qb5zKfgqh4k=";
+    sha256 = "sha256-D0DPueMtopwz5rLgM8QcPT7DgTKcJKQHnst69EY9V6Q=";
     fetchSubmodules = true;
   };
 
@@ -141,6 +142,7 @@ stdenv.mkDerivation rec {
   preFixup = ''
     qtWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xorg.libX11 libvlc ]}"
+      --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL ]}"
       --prefix LD_LIBRARY_PATH : "$out/lib"
       ''${gappsWrapperArgs[@]}
     )

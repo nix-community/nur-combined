@@ -21,6 +21,12 @@ let
       pkgs.xorg.libXinerama
       pkgs.xorg.libXScrnSaver
       pkgs.xorg.xinput
+      pkgs.xorg.xcbutilwm
+      pkgs.xorg.xcbutilimage
+      pkgs.xorg.xcbutilkeysyms
+      pkgs.xorg.xcbutilerrors
+      pkgs.xorg.xcbutilrenderutil
+      pkgs.xorg.xcbutil
       pkgs.libinput
       pkgs.openvdb
       pkgs.tbb_2021_8
@@ -31,10 +37,13 @@ let
       pkgs.fuse
       pkgs.libsForQt5.breeze-qt5
       pkgs.libsForQt5.breeze-gtk
+      pkgs.libsForQt5.dolphin
       pkgs.samba4Full
       pkgs.tdb
+      pkgs.jbig2enc
+      pkgs.jbig2dec
+      pkgs.brave
 
-      config.materus.profile.packages.firefox
     ] ++ config.materus.profile.packages.list.fonts;
 
     extraLibraries = pkgs: [

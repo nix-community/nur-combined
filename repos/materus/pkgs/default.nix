@@ -21,7 +21,5 @@ rec {
 
   vpk_fuse = callPackage ./apps/vpk_fuse.nix {};
 
-  xmake = callPackage ./dev/xmake {};
-
 
 }

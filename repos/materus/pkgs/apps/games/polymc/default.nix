@@ -93,6 +93,7 @@ stdenv.mkDerivation rec {
         installPhase = ''
           mkdir -p $out/bin
           ln -s $src/bin/polymc $out/bin/polymc
+          ln -s $src/share $out/share
         '';
 
         postFixup = let javaPaths = lib.makeSearchPath "bin/java" (extraJDKs); in
