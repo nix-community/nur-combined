@@ -13,6 +13,7 @@
   libwebp,
   libheif,
   libjxl,
+  openexr_3,
   fontconfig,
   libxkbcommon,
   wayland,
@@ -37,6 +38,7 @@ let
     heif = libheif;
     tiff = libtiff;
     jpeg = libjpeg_turbo;
+    exr = openexr_3;
   };
 
   optionalFeature = f: c: if c then "-D${f}=enabled" else "-D${f}=disabled";
@@ -49,14 +51,14 @@ assert builtins.all (b: lib.assertOneOf "each backend" b (builtins.attrNames bac
 
 stdenv.mkDerivation rec {
   pname = "swayimg";
-  version = "1.11";
+  version = "1.12";
   outputs = [ "out" "man" ];
 
   src = fetchFromGitHub {
     owner = "artemsen";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-UwIufR3EwbpNVHD1GypV3qNgiqDRllwtxAM0CZPodn0=";
+    sha256 = "sha256-aKDt4lPh4w0AOucN7VrA7mo8SHI9eJqdrpJF+hG93gI=";
   };
 
   mesonFlags = [
