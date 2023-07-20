@@ -2,10 +2,8 @@
 
 { lib, stdenv
 , fetchFromGitHub
-, fetchpatch
 , cmake
 , pkg-config
-, boost17x
 , openssl
 , olm
 , spdlog
@@ -17,13 +15,13 @@
 }:
 stdenv.mkDerivation {
   pname = "mtxclient";
-  version = "unstable-2023-04-10";
+  version = "unstable-2023-07-08";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "mtxclient";
-    rev = "e136bc27b28d3bb5683735eb5a65d6ef2534ca3a";
-    hash = "sha256-+8mwLs1ZfGt97+z5820mlfWdT+HNX5w2py3xVWApPZY=";
+    rev = "4c5eb930eb4157bba7420a27474ca4ecb80c09d2";
+    hash = "sha256-BawNRCYWFvtjGaPh3WaYz6YT3JZ322HKh60LcfjMPYs=";
   };
 
   cmakeFlags = [
@@ -46,7 +44,6 @@ stdenv.mkDerivation {
   buildInputs = [
     spdlog
     nlohmann_json
-    boost17x
     openssl
     olm
     libevent

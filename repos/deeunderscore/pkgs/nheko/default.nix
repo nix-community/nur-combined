@@ -6,43 +6,38 @@
 , cmake
 , wrapQtAppsHook
 , asciidoctor
-, boost17x
+, qtbase
+, qttools
+, qtsvg
+, qtmultimedia
+, qtkeychain
 , cmark
 , coeurl
 , curl
 , libevent
-, libsecret
 , lmdb
 , lmdbxx
-, mkDerivation
 , mtxclient
 , nlohmann_json
 , olm
 , pkg-config
-, qtbase
-, qtgraphicaleffects
-, qtimageformats
-, qtkeychain
-, qtmultimedia
-, qtquickcontrols2
-, qttools
 , re2
 , spdlog
-, qtmacextras
+, httplib
 , voipSupport ? true
 , gst_all_1
 , libnice
 }:
 
-mkDerivation {
+stdenv.mkDerivation {
   pname = "nheko";
-  version = "unstable-2023-05-06";
+  version = "unstable-2023-07-18";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    rev = "0a55c8ee175c9538849b81f7a47779c101d355ca";
-    hash = "sha256-kIx43kyFEI2KWbGNVfqjLkZ4v2W3MXXQZkV5qLwnBIY=";
+    rev = "918520429a7c132879187232af4d373df00f3aff";
+    hash = "sha256-8OCNVryN08uo2TzQGOycddDqwZmT9crdRX1LCBrB6KM=";
   };
 
   nativeBuildInputs = [
@@ -54,33 +49,31 @@ mkDerivation {
   ];
 
   buildInputs = [
-    boost17x
+    qtbase
+    qttools
+    qtsvg
+    qtmultimedia
+    qtkeychain
     cmark
     coeurl
     curl
     libevent
-    libsecret
     lmdb
     mtxclient
     nlohmann_json
     olm
-    qtbase
-    qtgraphicaleffects
-    qtimageformats
-    qtkeychain
-    qtmultimedia
-    qtquickcontrols2
-    qttools
     re2
     spdlog
-  ] ++ lib.optional stdenv.isDarwin qtmacextras
-    ++ lib.optionals voipSupport (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      (gst-plugins-good.override { qt5Support = true; })
-      gst-plugins-bad
-      libnice
-    ]);
+    httplib
+  ] ++ lib.optionals voipSupport (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    (gst-plugins-good.override { qt5Support = true; })
+    gst-plugins-bad
+    libnice
+  ]);
+
+  LC_ALL = lib.optionalString (!stdenv.isDarwin) "C.UTF-8";
 
   cmakeFlags = [
     "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
