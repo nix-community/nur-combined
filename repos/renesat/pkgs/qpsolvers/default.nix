@@ -16,13 +16,20 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-GrYAhTWABBvU6rGoHi00jBa7ryjCNgzO/hQBTdSW9cg=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [flit];
+  nativeBuildInputs = with python3.pkgs; [flit unittestCheckHook];
 
   propagatedBuildInputs = with python3.pkgs; [
     daqp
     ecos
     numpy
-    osqp
+    (
+      osqp.overrideAttrs (old: {
+        postPatch = ''
+          ${old.postPatch}
+          sed -i 's/np.int)/int)/g' src/osqp/*.py
+        '';
+      })
+    )
     scipy
     (scs.overrideAttrs (
       old: {
@@ -35,6 +42,9 @@ python3.pkgs.buildPythonPackage rec {
         };
       }
     ))
+
+    # Test
+    quadprog
   ];
 
   setuptoolsCheckPhase = ":";
