@@ -10,6 +10,7 @@
 , qttools
 , qtsvg
 , qtmultimedia
+, qtimageformats
 , qtkeychain
 , cmark
 , coeurl
@@ -53,6 +54,7 @@ stdenv.mkDerivation {
     qttools
     qtsvg
     qtmultimedia
+    qtimageformats
     qtkeychain
     cmark
     coeurl
