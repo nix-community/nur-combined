@@ -2,7 +2,7 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "misans";
-  version = "6.2";
+  version = "1.0";
 
   src = fetchzip {
     url = "https://cdn.cnbj1.fds.api.mi-img.com/vipmlmodel/font/MiSans/MiSans.zip";
