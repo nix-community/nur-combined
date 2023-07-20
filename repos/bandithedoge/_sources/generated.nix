@@ -138,13 +138,13 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "4b4670d9bf6fd0d0ffae515e43b51dd5265c4427";
+    version = "41a41c8152f9561d6bc91e647d6d39f871f2972a";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "4b4670d9bf6fd0d0ffae515e43b51dd5265c4427";
+      rev = "41a41c8152f9561d6bc91e647d6d39f871f2972a";
       fetchSubmodules = false;
-      sha256 = "sha256-75EdHB/5I8VBONBedm+HVEERtIAPK71TSiI91LFsI5I=";
+      sha256 = "sha256-i3qalesDugeUDHOW4Lrj0pGgipbR+AMpB2+UQQj4n40=";
     };
     date = "2023-07-19";
   };
@@ -264,15 +264,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "316357530fd9cfaf06f31e249526e430acf1912c";
+    version = "f3f396bf1d3a8def0fb1ab67d96116a4025c4fe2";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "316357530fd9cfaf06f31e249526e430acf1912c";
+      rev = "f3f396bf1d3a8def0fb1ab67d96116a4025c4fe2";
       fetchSubmodules = false;
-      sha256 = "sha256-yYM4sZAKNp5ysxwpJjNwFKs6/hMVLRhc8smSuIFNrR4=";
+      sha256 = "sha256-OnkOsaHNoj5FeniB6bap4+URFX3S4ALL1s+1DWs2H18=";
     };
-    date = "2023-07-18";
+    date = "2023-07-19";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";

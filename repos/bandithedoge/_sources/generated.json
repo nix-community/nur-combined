@@ -233,11 +233,11 @@
       "name": null,
       "owner": "kmonad",
       "repo": "kmonad",
-      "rev": "4b4670d9bf6fd0d0ffae515e43b51dd5265c4427",
-      "sha256": "sha256-75EdHB/5I8VBONBedm+HVEERtIAPK71TSiI91LFsI5I=",
+      "rev": "41a41c8152f9561d6bc91e647d6d39f871f2972a",
+      "sha256": "sha256-i3qalesDugeUDHOW4Lrj0pGgipbR+AMpB2+UQQj4n40=",
       "type": "github"
     },
-    "version": "4b4670d9bf6fd0d0ffae515e43b51dd5265c4427"
+    "version": "41a41c8152f9561d6bc91e647d6d39f871f2972a"
   },
   "lua-dbus": {
     "cargoLocks": null,
@@ -436,7 +436,7 @@
   },
   "tailwindcss-intellisense": {
     "cargoLocks": null,
-    "date": "2023-07-18",
+    "date": "2023-07-19",
     "extract": null,
     "name": "tailwindcss-intellisense",
     "passthru": null,
@@ -448,11 +448,11 @@
       "name": null,
       "owner": "tailwindlabs",
       "repo": "tailwindcss-intellisense",
-      "rev": "316357530fd9cfaf06f31e249526e430acf1912c",
-      "sha256": "sha256-yYM4sZAKNp5ysxwpJjNwFKs6/hMVLRhc8smSuIFNrR4=",
+      "rev": "f3f396bf1d3a8def0fb1ab67d96116a4025c4fe2",
+      "sha256": "sha256-OnkOsaHNoj5FeniB6bap4+URFX3S4ALL1s+1DWs2H18=",
       "type": "github"
     },
-    "version": "316357530fd9cfaf06f31e249526e430acf1912c"
+    "version": "f3f396bf1d3a8def0fb1ab67d96116a4025c4fe2"
   },
   "xmonad-entryhelper": {
     "cargoLocks": null,
