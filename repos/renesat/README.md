@@ -4,6 +4,8 @@
 
 ## Packages
 
-- *[datalad](https://github.com/datalad/datalad)*
-- *[autorestic](https://github.com/cupcakearmy/autorestic)*
+- *[daqp](https://github.com/cupcakearmy/autorestic)*: `daqp` и `daqp-python`
+- *[qpsolbers](https://github.com/qpsolvers/qpsolvers)*
 - *[activitywatch-bin](https://github.com/ActivityWatch/activitywatch)*
+- *[hledger-utils](https://pypi.org/project/hledger-utils/)*
+- *[math-preview](https://gitlab.com/matsievskiysv/math-preview)*
