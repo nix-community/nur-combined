@@ -2,7 +2,6 @@
   stdenv,
   fetchFromGitHub,
   nanoemoji,
-  resvg,
   gettext,
   runCommand,
   #fontFormats ? ["cbdt" "glyf_colr_0" "glyf_colr_1" "sbix" "picosvgz" "untouchedsvgz"],
@@ -34,7 +33,6 @@ in
 
     nativeBuildInputs = [
       nanoemoji
-      resvg
       gettext # for envsubst
       xmlstarlet
       python3.pkgs.fonttools

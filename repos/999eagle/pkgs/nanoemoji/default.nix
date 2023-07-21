@@ -1,4 +1,5 @@
 {
+  lib,
   python3,
   fetchFromGitHub,
   resvg,
@@ -54,6 +55,10 @@ in
       pytest
       ninja
       picosvg
+    ];
+
+    makeWrapperArgs = [
+      "--prefix PATH : ${lib.makeBinPath [resvg pngquant]}"
     ];
 
     preCheck = ''
