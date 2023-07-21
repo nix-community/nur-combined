@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "accosmin-org";
     repo = "libnano";
-    rev = "7b97a5e3cec630542ac21f51eb5b37404ff8f53d";
-    sha256 = "sha256-QBylHxaJbaMo4GFnQmYPoZpq1EfUqrnMSMDG4bSr+xM=";
+    rev = "1bc529dd9c80755c4e29e58a28a5449d7ef7a41a";
+    sha256 = "sha256-GgOFY/gJQl18m/4oIQPoxhF5v5bHW3yn97oFwWNgTLw=";
   };
 
   nativeBuildInputs = [
@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ eigen ];
 
   cmakeFlags = [
-    "-DNANO_BUILD_CMD_APP=ON"
+    "-DCMAKE_CXX_FLAGS=-march=x86-64-v3"
+    "-DNANO_BUILD_CMD_APP=OFF"
     "-DNANO_BUILD_TESTS=OFF"
   ];
 
