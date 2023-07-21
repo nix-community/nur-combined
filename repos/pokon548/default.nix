@@ -19,6 +19,7 @@
   tencent-qq-electron = pkgs.callPackage ./pkgs/tencent-qq-electron { };
   tencent-qq-electron-bwrap =
     pkgs.callPackage ./pkgs/tencent-qq-electron-bwrap { };
+
   chengla-electron = pkgs.callPackage ./pkgs/chengla-electron { };
 
   plasma5-wallpapers-dynamic =

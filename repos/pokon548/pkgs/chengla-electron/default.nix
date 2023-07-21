@@ -1,48 +1,54 @@
-{ lib, stdenv, callPackage, fetchurl, nixosTests }:
+{ stdenv, lib, fetchurl, appimageTools, makeWrapper, electron_25 }:
 
-let
-  inherit (stdenv.hostPlatform) system;
-  throwSystem = throw "Unsupported system: ${system}";
-
-  plat = { x86_64-linux = "amd64"; }.${system} or throwSystem;
-
-  archive_fmt = "zip";
-
-  sha256 = {
-    x86_64-linux = "sha256-eKEKjJCJ0u4VJ2KyXKVbcCMGYlRrncB8jAYbqe3dsfI=";
-  }.${system} or throwSystem;
-
-  sourceRoot = if stdenv.isDarwin then "" else ".";
-in rec {
-  inherit sourceRoot;
-
-  # Please backport all compatible updates to the stable release.
-  # This is important for the extension ecosystem.
-  version = "1.0";
+let electron = electron_25;
+in stdenv.mkDerivation rec {
   pname = "chengla-electron";
-
-  executableName = "chengla-linux-unofficial";
-  longName = "Chengla Linux Unofficial";
-  shortName = "chengla-linux-unofficial";
+  version = "1.0";
 
   src = fetchurl {
     url =
-      "https://github.com/pokon548/chengla-for-linux/releases/download/v${version}/chengla-linux-unofficial-${plat}-${version}.${archive_fmt}";
-    inherit sha256;
+      "https://github.com/pokon548/chengla-for-linux/releases/download/v${version}/chengla-linux-unofficial-1.0.0.AppImage";
+    sha256 = "sha256-daY6TVUuQGWiDrzYA9s/Oht2AsRzSDW6sFk/eiFLaIo=";
+    name = "${pname}-${version}.AppImage";
   };
 
+  appimageContents = appimageTools.extractType2 {
+    name = "${pname}-${version}";
+    inherit src;
+  };
+
+  dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin $out/share/${pname} $out/share/applications
+
+    cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
+    cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/${pname}.desktop
+    cp -a ${appimageContents}/usr/share/icons $out/share
+
+    substituteInPlace $out/share/applications/${pname}.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
+
+    runHook postInstall
+  '';
+
+  postFixup = ''
+    makeWrapper ${electron}/bin/electron $out/bin/${pname} \
+      --add-flags $out/share/${pname}/resources/app.asar \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
+  '';
+
   meta = with lib; {
-    description = ''
-      Unofficial Chengla Client for Linux
-    '';
-    longDescription = ''
-      Unofficial Chengla Client for Linux, built on Electron
-    '';
-    homepage = "https://github.com/pokon548/chengla-for-linux";
-    downloadPage = "https://github.com/pokon548/chengla-for-linux/releases";
+    description = "Chengla unofficial client for Linux";
+    homepage =
+      "https://github.com/pokon548/chengla-for-linux";
     license = licenses.gpl3;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    mainProgram = "chengla-linux-unofficial";
     platforms = [ "x86_64-linux" ];
   };
 }
