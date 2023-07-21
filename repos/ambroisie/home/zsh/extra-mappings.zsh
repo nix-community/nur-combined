@@ -92,6 +92,10 @@ if [ -n "${terminfo[kpp]}" ]; then
     bindkey -M emacs "${terminfo[kpp]}" up-line-or-history
     bindkey -M viins "${terminfo[kpp]}" up-line-or-history
     bindkey -M vicmd "${terminfo[kpp]}" up-line-or-history
+else
+    bindkey -M emacs "^[[5~" up-line-or-history
+    bindkey -M viins "^[[5~" up-line-or-history
+    bindkey -M vicmd "^[[5~" up-line-or-history
 fi
 
 # PageDown goes forward in history
@@ -99,6 +103,10 @@ if [ -n "${terminfo[knp]}" ]; then
   bindkey -M emacs "${terminfo[knp]}" down-line-or-history
   bindkey -M viins "${terminfo[knp]}" down-line-or-history
   bindkey -M vicmd "${terminfo[knp]}" down-line-or-history
+else
+    bindkey -M emacs "^[[6~" down-line-or-history
+    bindkey -M viins "^[[6~" down-line-or-history
+    bindkey -M vicmd "^[[6~" down-line-or-history
 fi
 
 # Home goes to the beginning of the line
@@ -106,6 +114,10 @@ if [ -n "${terminfo[khome]}" ]; then
     bindkey -M emacs "${terminfo[khome]}" beginning-of-line
     bindkey -M viins "${terminfo[khome]}" beginning-of-line
     bindkey -M vicmd "${terminfo[khome]}" beginning-of-line
+else
+    bindkey -M emacs "^[[1~" beginning-of-line
+    bindkey -M viins "^[[1~" beginning-of-line
+    bindkey -M vicmd "^[[1~" beginning-of-line
 fi
 
 # End goes to the end of the line
@@ -113,4 +125,8 @@ if [ -n "${terminfo[kend]}" ]; then
     bindkey -M emacs "${terminfo[kend]}"  end-of-line
     bindkey -M viins "${terminfo[kend]}"  end-of-line
     bindkey -M vicmd "${terminfo[kend]}"  end-of-line
+else
+    bindkey -M emacs "^[[4~"  end-of-line
+    bindkey -M viins "^[[4~"  end-of-line
+    bindkey -M vicmd "^[[4~"  end-of-line
 fi
