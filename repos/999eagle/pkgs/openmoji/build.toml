@@ -2,8 +2,9 @@
 
 output_file = "$source/build/$saturation/OpenMoji-$saturation-$method.ttf"
 color_format = "$method"
-ascender = 1045
-descender = -275
+
+ascender = $ascender
+descender = $descender
 
 [axis.wght]
 name = "Weight"

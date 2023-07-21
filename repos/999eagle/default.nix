@@ -10,7 +10,12 @@
   github-linguist = pkgs.callPackage ./pkgs/github-linguist {};
   millipixels = pkgs.callPackage ./pkgs/millipixels {};
   nanoemoji = pkgs.callPackage ./pkgs/nanoemoji {};
-  openmoji = pkgs.callPackage ./pkgs/openmoji {inherit nanoemoji;};
+  openmoji = pkgs.callPackage ./pkgs/openmoji {
+    inherit nanoemoji;
+    # increase emoji size, values from Noto Color Emoji
+    ascender = "1900";
+    descender = "-500";
+  };
   openmojiPackage = pkgs.callPackage ./pkgs/openmoji/single.nix {inherit openmoji;};
   pkcs11-provider = pkgs.callPackage ./pkgs/pkcs11-provider.nix {};
   sea-orm-cli = pkgs.callPackage ./pkgs/sea-orm-cli {};

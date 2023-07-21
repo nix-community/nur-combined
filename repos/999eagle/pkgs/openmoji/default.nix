@@ -4,20 +4,23 @@
   nanoemoji,
   gettext,
   runCommand,
-  #fontFormats ? ["cbdt" "glyf_colr_0" "glyf_colr_1" "sbix" "picosvgz" "untouchedsvgz"],
-  fontFormats ? ["cbdt" "glyf_colr_0" "glyf_colr_1"],
   xmlstarlet,
   python3,
   woff2,
+  # font configuration options
+  # available color formats: ["cbdt" "glyf_colr_0" "glyf_colr_1" "sbix" "picosvgz" "untouchedsvgz"]
+  fontFormats ? ["cbdt" "glyf_colr_0" "glyf_colr_1"],
+  ascender ? "1045",
+  descender ? "-275",
 }: let
   buildToml = method: let
     saturation = "color";
   in
     runCommand "OpenMoji-${saturation}-${method}.toml" {
-      inherit method saturation;
+      inherit method saturation ascender descender;
       toml = ./build.toml;
     } ''
-      ${gettext}/bin/envsubst '$method $saturation' < $toml > $out
+      ${gettext}/bin/envsubst '$method $saturation $ascender $descender' < $toml > $out
     '';
   fontDescriptions = builtins.map buildToml fontFormats;
 in
