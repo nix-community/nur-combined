@@ -17,10 +17,14 @@
   todoist-electron = pkgs.callPackage ./pkgs/todoist-electron { };
   v2raya = pkgs.callPackage ./pkgs/v2raya { };
   tencent-qq-electron = pkgs.callPackage ./pkgs/tencent-qq-electron { };
-  tencent-qq-electron-bwrap = pkgs.callPackage ./pkgs/tencent-qq-electron-bwrap { };
+  tencent-qq-electron-bwrap =
+    pkgs.callPackage ./pkgs/tencent-qq-electron-bwrap { };
+  chengla-electron = pkgs.callPackage ./pkgs/chengla-electron { };
 
-  plasma5-wallpapers-dynamic = pkgs.libsForQt5.callPackage ./pkgs/plasma5-wallpapers-dynamic { };
-  plasma5-applets-window-appmenu = pkgs.libsForQt5.callPackage ./pkgs/plasma5-applets-window-appmenu { };
+  plasma5-wallpapers-dynamic =
+    pkgs.libsForQt5.callPackage ./pkgs/plasma5-wallpapers-dynamic { };
+  plasma5-applets-window-appmenu =
+    pkgs.libsForQt5.callPackage ./pkgs/plasma5-applets-window-appmenu { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
