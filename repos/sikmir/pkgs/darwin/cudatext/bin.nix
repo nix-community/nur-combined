@@ -2,16 +2,16 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
-  version = "1.190.1.0";
+  version = "1.195.0.5";
 
   src = {
     "aarch64-darwin" = fetchurl {
       url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-aarch64-${finalAttrs.version}.dmg";
-      hash = "sha256-Rr1i+dkesQ4T6kFQZyjvMgGYltyf3UMbzrtaMw+6ToQ=";
+      hash = "sha256-GMaqPnSEjzENcNpFi7YF5qENyk/sDEHCU/Xk/hYQtrQ=";
     };
     "x86_64-darwin" = fetchurl {
       url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
-      hash = "sha256-QgiVsiOrSafjlMDv9DXmjyCMR/J/iKw0NRBC3eV6aSw=";
+      hash = "sha256-pNwpTACaK/tpA2bcZa0QyAndbT/r2aLomfynNibJcH4=";
     };
   }.${stdenv.hostPlatform.system};
 
@@ -20,8 +20,12 @@ stdenv.mkDerivation (finalAttrs: {
   sourceRoot = ".";
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/Applications
     cp -R *.app $out/Applications
+
+    runHook postInstall
   '';
 
   meta = with lib; {

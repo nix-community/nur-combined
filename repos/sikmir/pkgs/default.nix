@@ -37,6 +37,7 @@ lib.makeScope newScope (
       inherit (darwin.apple_sdk.frameworks) LocalAuthentication;
     };
     podman-desktop-bin = callPackage ./darwin/podman-desktop/bin.nix { };
+    qtcreator-bin = callPackage ./darwin/qtcreator/bin.nix { };
     qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
     sloth-bin = callPackage ./darwin/sloth { };
 
