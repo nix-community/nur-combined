@@ -64,18 +64,13 @@
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
 
 ### perf
+- add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled
+    - every package here can be auto-generated, and marked with some env var so that it doesn't pollute the pure package set
+    - would be super handy for package prototyping!
 - why does nixos-rebuild switch take 5 minutes when net is flakey?
     - trying to auto-mount servo?
     - something to do with systemd services restarting/stalling
     - maybe wireguard & its refresh operation, specifically?
-- fix OOM for large builds like webkitgtk
-    - these use significant /tmp space.
-    - either place /tmp on encrypted-cleared-at-boot storage
-        - which probably causes each CPU load for the encryption
-    - or have nix builds use a subdir of /tmp like /tmp/nix/...
-        - and place that on non-encrypted clear-on-boot (with very lax writeback/swappiness to minimize writes)
-    - **or set up encrypted swap**
-        - encrypted swap could remove the need for my encrypted-cleared-at-boot stuff
 - get moby to build without binfmt emulation (i.e. make all emulation explicit)
   - then i can distribute builds across servo + desko, and also allow servo to pull packages from desko w/o worrying about purity
 
