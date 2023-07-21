@@ -1,8 +1,15 @@
 # this file configures preferences per program, without actually enabling any programs.
 # the goal is to separate the place where we decide *what* to use (i.e. `sane.programs.firefox.enable = true` -- at the toplevel)
 # from where we specific how that thing should behave *if* it's in use.
+#
+# NixOS backgrounds:
+# - <https://github.com/NixOS/nixos-artwork>
+# - <https://itsfoss.com/content/images/2023/04/nixos-tutorials.png>
 
 { pkgs, sane-lib, ... }:
+let
+  bg-01 = ./nixos-bg-01.png;
+in
 {
   sane.programs.firefox.config = {
     # compromise impermanence for the sake of usability
@@ -36,6 +43,7 @@
       # - close is 16th entry
       SXMO_BEMENU_LANDSCAPE_LINES = "11";  # default 8
       SXMO_BEMENU_PORTRAIT_LINES = "16";  # default 16
+      SXMO_BG_IMG = "${bg-01}";
       SXMO_LOCK_IDLE_TIME = "15";  # how long between screenoff -> lock -> back to screenoff (default: 8)
       # gravity: how far to tilt the device before the screen rotates
       # for a given setting, normal <-> invert requires more movement then left <-> right
@@ -71,7 +79,7 @@
     package = pkgs.sxmo-utils.overrideAttrs (base: {
       postPatch = (base.postPatch or "") + ''
         # don't enable gestures at launch
-        sed -i '/superctl start sxmo_hook_lisgd/d' ./configs/default_hooks/sxmo_hook_start.sh
+        # sed -i '/superctl start sxmo_hook_lisgd/d' ./configs/default_hooks/sxmo_hook_start.sh
 
         cat <<EOF >> ./configs/default_hooks/sxmo_hook_start.sh
         # rotate UI based on physical display angle by default

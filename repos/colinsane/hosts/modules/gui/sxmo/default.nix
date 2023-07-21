@@ -13,8 +13,10 @@
 #     - injects PATH into each script
 # - perhaps sxmo-utils is best packaged via the `resholve` shell solver?
 #
-# sxmo documentation:
-# - <repo:anjan/sxmo-docs-next>
+# sxmo upstream links:
+# - docs (rendered): <https://man.sr.ht/~anjan/sxmo-docs-next/>
+# - issue tracker: <https://todo.sr.ht/~mil/sxmo-tickets>
+# - mail list (patches): <https://lists.sr.ht/~mil/sxmo-devel>
 #
 # sxmo technical overview:
 # - inputs

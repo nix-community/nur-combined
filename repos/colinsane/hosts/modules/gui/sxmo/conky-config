@@ -1,24 +1,49 @@
 -- configversion: 737cb1de0389cee32a04785691a446a2
+
+-- docs: <https://conky.cc/variables>
+-- color names are X11 colors: <https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart>
+-- - can also use #rrggbb syntax
+-- example configs: <https://forum.manjaro.org/t/conky-showcase-2022/97123>
+-- example configs: <https://www.reddit.com/r/Conkyporn/>
+
 conky.config = {
     out_to_wayland = true,
+    update_interval = 10,
+
     alignment = 'middle_middle',
-    own_window_argb_value = 0,
     own_window_type = 'desktop',
-    default_shade_color = 'grey',
-    draw_shades = false,
+    -- own_window_argb_value: opacity of the background (0-255)
+    own_window_argb_value = 92,
+    own_window_colour = '#beebe5',  -- beebe5 matches nixos flake bg color
+
+    -- "border" pads the entire conky window
+    -- this can be used to control the extend of the own_window background
+    border_inner_margin = 8,
+    -- optionally, actually draw borders
+    -- draw_borders = true,
+
+    -- shades are drop-shadows, outline is the centered version. both apply to text only
+    draw_shades = true,
+    draw_outline = false,
+    default_shade_color = '#beebe5',
+    default_outline_color = '#beebe5',
+
     font = 'Sxmo:size=8',
     use_xft = true,
-    update_interval = 10,
+
+    default_color = '#ffffff',
+    color1 = '000000',
+    color2 = '404040',
 }
 
 conky.text = [[
-${alignc}${font Sxmo:size=50:style=Bold}${exec date +"%H:%M"}${font}
-${font Sxmo:size=20}${color lightgrey}${alignc}${exec date +"%a %d %b"}${color}${font}
+${color1}${shadecolor 707070}${font Sxmo:size=50:style=Bold}${alignc}${exec date +"%H:%M"}${font}
+${color2}${shadecolor a4d7d0}${font Sxmo:size=20}${alignc}${exec date +"%a %d %b"}${font}
 
 
-${alignc}${font Sxmo:size=22:style=Bold}${color lightgrey}${exec @bat@ }${font}
+${color1}${shadecolor}${font Sxmo:size=22:style=Bold}${alignc}${exec @bat@ }${font}
 
 
-${alignc}${font Sxmo:size=16}${color lightgrey}⇅ ${downspeedf wlan0}K/s${font}
-${alignc}${font Sxmo:size=16}${color lightgrey}☵ $memperc%  $cpu%${font}
+${color2}${shadecolor a4d7d0}${font Sxmo:size=16}${alignc}⇅ ${downspeedf wlan0}K/s${font}
+${font Sxmo:size=16}${alignc}☵ $memperc%  $cpu%${font}
 ]]
