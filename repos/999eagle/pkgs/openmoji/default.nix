@@ -68,21 +68,17 @@ in
         woff2_compress build/fonts/OpenMoji-color-$method.ttf
       done
 
-      # skip rendering svg
-      # see https://github.com/hfg-gmuend/openmoji/issues/438
+      for colr_version in 0 1; do
+        if ! [ -f "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" ]; then
+          continue
+        fi
 
-      # for colr_version in 0 1; do
-      #   if ! [ -f "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" ]; then
-      #     continue
-      #   fi
-      #   cp \
-      #     "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" \
-      #     build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
+        maximum_color \
+          "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" \
+          --output_file "$(pwd)/build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf"
 
-      #   maximum_color build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
-
-      #   woff2_compress build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
-      # done
+        woff2_compress build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
+      done
 
       runHook postBuild
     '';
