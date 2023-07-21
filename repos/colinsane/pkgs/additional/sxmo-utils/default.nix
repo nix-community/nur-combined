@@ -110,6 +110,11 @@ stdenv.mkDerivation rec {
       url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42443/mbox";
       hash = "sha256-c4VySbVJgsbh2h+CnCgwWWe5WkAregpYFqL8n3WRXwY=";
     })
+    (fetchpatch {
+      # Make config gesture toggle persistent
+      url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42876/mbox";
+      hash = "sha256-Oa0MI0Kt9Xgl5L1KarHI6Yn4+vpRxUSujB1iY4hlK9c=";
+    })
     ./0104-full-auto-rotate.patch
     ./0105-more-apps.patch
     # ./0106-no-restart-lisgd.patch
