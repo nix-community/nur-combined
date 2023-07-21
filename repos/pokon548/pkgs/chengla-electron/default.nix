@@ -3,12 +3,12 @@
 let electron = electron_25;
 in stdenv.mkDerivation rec {
   pname = "chengla-electron";
-  version = "1.0";
+  version = "1.0.1";
 
   src = fetchurl {
     url =
-      "https://github.com/pokon548/chengla-for-linux/releases/download/v${version}/chengla-linux-unofficial-1.0.0.AppImage";
-    sha256 = "sha256-daY6TVUuQGWiDrzYA9s/Oht2AsRzSDW6sFk/eiFLaIo=";
+      "https://github.com/pokon548/chengla-for-linux/releases/download/v${version}/chengla-linux-unofficial-${version}.AppImage";
+    sha256 = "sha256-trQTEEl722TKm39zMUchXpHtFYfMjOHlyF5QrY8cXxU=";
     name = "${pname}-${version}.AppImage";
   };
 
@@ -46,8 +46,7 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Chengla unofficial client for Linux";
-    homepage =
-      "https://github.com/pokon548/chengla-for-linux";
+    homepage = "https://github.com/pokon548/chengla-for-linux";
     license = licenses.gpl3;
     platforms = [ "x86_64-linux" ];
   };
