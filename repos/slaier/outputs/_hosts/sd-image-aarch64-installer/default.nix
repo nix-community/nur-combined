@@ -12,8 +12,6 @@ in
 {
   imports = map (x: x.default or { }) modules-enable;
 
-  _module.args.settings = { };
-
   nix.settings = {
     substituters = [
       "http://local.local:5000"

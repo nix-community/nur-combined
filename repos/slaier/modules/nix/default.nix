@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, settings, ... }:
+{ pkgs, inputs, config, ... }:
 {
   nix.settings = {
     substituters = [
@@ -14,10 +14,14 @@
     flake-registry = "/etc/nix/registry.json";
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 5d";
+  };
+
   nix.extraOptions = ''
     experimental-features = nix-command flakes
-    min-free = ${toString ((settings.nix-min-free or (30 * 1024)) * 1024 * 1024)}
-    max-free = ${toString ((settings.nix-max-free or (100 * 1024)) * 1024 * 1024)}
     !include ${config.sops.secrets.nix_access_token.path}
   '';
 

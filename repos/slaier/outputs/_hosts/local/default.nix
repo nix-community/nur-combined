@@ -38,8 +38,6 @@ in
       { programs.command-not-found.enable = false; }
     ]);
 
-  _module.args.settings = { };
-
   home-manager.users.nixos.imports = map (x: x.home or { }) modules-enable;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -67,8 +65,10 @@ in
     dogdns
     gammastep
     git
+    gocryptfs
     hydra-check
     hyperfine
+    iotop
     keepassxc
     killall
     librespeed-cli
@@ -83,7 +83,9 @@ in
     p7zip
     pavucontrol
     pciutils
+    rust-petname
     safeeyes
+    sops
     tdesktop
     tealdeer
     unrar
