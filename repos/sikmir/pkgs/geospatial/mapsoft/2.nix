@@ -26,13 +26,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
-  version = "2.0";
+  version = "2.2";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
     rev = "${finalAttrs.version}-alt1";
-    hash = "sha256-cZHxCqfAY0DT3Zr3AdY3BMtzsiC9yXA2CUD/uM27SRE=";
+    hash = "sha256-++v9rlBmH/65XwI7uz6Vdk8NAPOq5jwwqiKpzxD76A8=";
     fetchSubmodules = true;
   };
 
@@ -54,6 +54,10 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace vmap_data/scripts/vmaps_get_fig --replace "vmaps.sh" "$out/bin/vmaps.sh"
     substituteInPlace vmap_data/scripts/vmaps_in --replace "vmaps.sh" "$out/bin/vmaps.sh"
     substituteInPlace vmap_data/scripts/vmaps.sh --replace "/usr" "$out"
+
+    # https://github.com/slazav/mapsoft2-libs/commit/9300f93e171769bbf8710d9dfa5f2724b7b6142d
+    substituteInPlace modules/geo_data/conv_geo.test.cpp \
+      --replace "PROJ_AT_LEAST_VERSION(9, 2, 1)" "PROJ_AT_LEAST_VERSION(9, 2, 0)"
   '';
 
   nativeBuildInputs = [
