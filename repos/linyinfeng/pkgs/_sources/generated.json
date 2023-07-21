@@ -47,11 +47,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2WI8ZlUqv4rMBkDv16/Xr9NuuQaA3sZu+c/32mbmpWI=",
+            "sha256": "sha256-46KKmBLq75K0kT4DHDhWQuBEyZhnfxiEPEA8h8dcWNM=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.29/Clash.for.Windows-0.20.29-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.30/Clash.for.Windows-0.20.30-x64-linux.tar.gz"
         },
-        "version": "0.20.29"
+        "version": "0.20.30"
     },
     "clash-premium-aarch64-linux": {
         "cargoLocks": null,
@@ -789,7 +789,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2023-07-19",
+        "date": "2023-07-21",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -799,12 +799,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "430f0e5d654de8b538fafb9f619511b1ae8c84b2",
-            "sha256": "sha256-pyyorZ7NtpcmluovW559rWVhh7tfGQO+5QgBlmIbG4U=",
+            "rev": "effad1a5c3111fa8fecf44b6129772c7cd144990",
+            "sha256": "sha256-PfUmeG459C+WUAYyd7ZHdHdUZukoy6jHHdmR+iCYDQQ=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "430f0e5d654de8b538fafb9f619511b1ae8c84b2"
+        "version": "effad1a5c3111fa8fecf44b6129772c7cd144990"
     },
     "wemeet": {
         "cargoLocks": null,
