@@ -1,7 +1,7 @@
 { fetchurl, lib, stdenv, unzip }:
 let
   pname = "meslo-nerd-powerlevel10k";
-  version = "1.0";
+  version = "2.3.3";
 in
 fetchurl {
   name = "${pname}-${version}";
@@ -12,7 +12,7 @@ fetchurl {
   postFetch = ''
     install -D $downloadedFile "$out/share/fonts/truetype/MesloLGS NF Regular.ttf"
   '';
-  sha256 = "055xd88sw0xfpy8mgmdvp7057bksbf1mn1nbxk710j0dw9dzahmg";
+  sha256 = "sha256-T1rYKMy6mpviwLkc5fK2t0h3VWhZa8r1gq37xA6bw50=";
 
   meta = {
     description = "A version of Apple’s Menlo-Regular font patched for Powerlevel10k";
