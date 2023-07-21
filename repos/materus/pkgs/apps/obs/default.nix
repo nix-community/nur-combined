@@ -47,6 +47,8 @@
 , websocketpp
 , amf-headers 
 , libGL
+, vulkan-loader
+, swiftshader
 }:
 
 let
@@ -107,6 +109,7 @@ stdenv.mkDerivation rec {
     libva
     srt
     qtwayland
+    swiftshader
   ]
   ++ optionals scriptingSupport [ luajit python3 ]
   ++ optional alsaSupport alsa-lib
@@ -120,6 +123,7 @@ stdenv.mkDerivation rec {
       cp -r $i cef/Release/
       cp -r $i cef/Resources/
     done
+    cp -r ${swiftshader}/lib/libvk_swiftshader.so cef/Release/
     cp -r ${libcef}/lib/libcef.so cef/Release/
     cp -r ${libcef}/lib/libcef_dll_wrapper.a cef/libcef_dll_wrapper/
     cp -r ${libcef}/include cef/
@@ -142,7 +146,7 @@ stdenv.mkDerivation rec {
   preFixup = ''
     qtWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xorg.libX11 libvlc ]}"
-      --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL ]}"
+      --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL vulkan-loader ]}"
       --prefix LD_LIBRARY_PATH : "$out/lib"
       ''${gappsWrapperArgs[@]}
     )
