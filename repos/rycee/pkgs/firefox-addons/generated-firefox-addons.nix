@@ -630,10 +630,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.1.9";
+      version = "1.2.1";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4140187/dearrow-1.1.9.xpi";
-      sha256 = "2c2e32fa606b5d9ed12e4e65c104592b7816b41ba78589b0c6c0ed3a029d1e37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141604/dearrow-1.2.1.xpi";
+      sha256 = "7fe37cc2b7c0de66a4a834063c8b4d32a736cdfaf2fcd98d4346bbcaf593ab3a";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -914,10 +914,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.10";
+      version = "2.3.11";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134385/facebook_container-2.3.10.xpi";
-      sha256 = "a06499857c39be72dad1e18089b55b9404a361f2d047b9961a8e478b099628a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141092/facebook_container-2.3.11.xpi";
+      sha256 = "90dd562ffe0e6637791456558eabe083b0253e2b8a5df28f0ed0fdf1b7b175d0";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -1114,10 +1114,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230718.185323";
+      version = "116.0.20230720.200012";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4140705/francais_language_pack-116.0.20230718.185323.xpi";
-      sha256 = "cc930cda1342df485abf51b5ab0eeb752a8eaf35286d003f2e528df2aa53cd52";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141773/francais_language_pack-116.0.20230720.200012.xpi";
+      sha256 = "7061e4dde4565fc3f7a69c85f8307e6389899345ee8b4de060b72c9918bfefa7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1824,10 +1824,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.52";
+      version = "2.6.53";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4129532/localcdn_fork_of_decentraleyes-2.6.52.xpi";
-      sha256 = "2582c17b30a8a5cad2feb0af1f4e267caf4dd51c79ef93d2e5912877c12bea3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139291/localcdn_fork_of_decentraleyes-2.6.53.xpi";
+      sha256 = "a6a4bfd910563106a7ca0e4842037a1cd55b796b631e2522962b50acd5abfac4";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2612,10 +2612,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.3.1";
+      version = "1.4.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4137272/proton_pass-1.3.1.xpi";
-      sha256 = "736c7eaa7769e4c9c001cbec4141ec03a10746aa8847ec7dbf06ffb121669e7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141563/proton_pass-1.4.1.xpi";
+      sha256 = "f87e9d9ccb1dc5c45e7cc4c626b3586723222efa4f0594f0e6825491ccd3e976";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -3680,10 +3680,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.7.0";
+      version = "4.0.0";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4114394/view_image-3.7.0.xpi";
-      sha256 = "6e1402538af7238f7a38dd005fbde257148e99986698e11aab25a0bd641ae6ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139866/view_image-4.0.0.xpi";
+      sha256 = "1502e6f8093e881f4ad927d3ed29989aa86b473ca586d2dca4d6e0cbcae7b8c6";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
