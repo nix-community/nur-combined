@@ -147,6 +147,14 @@ in
       enable = true;
       credentialsFile = secrets."transmission/credentials".path;
     };
+    # Self-hosted todo app
+    vikunja = {
+      enable = true;
+      mail = {
+        enable = true;
+        configFile = secrets."vikunja/mail".path;
+      };
+    };
     # Simple, in-kernel VPN
     wireguard = {
       enable = true;

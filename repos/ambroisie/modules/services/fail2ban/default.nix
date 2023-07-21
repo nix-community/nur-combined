@@ -28,10 +28,10 @@ in
         rndtime = "5m"; # Use 5 minute jitter to avoid unban evasion
       };
 
-      jails.DEFAULT = '';
-        findtime = 4h
-        bantime = 10m
-      '';
+      jails.DEFAULT.settings = {
+        findtime = "4h";
+        bantime = "10m";
+      };
     };
   };
 }
