@@ -77,10 +77,18 @@ in
         fi
 
         maximum_color \
+          --build_dir="build/color" \
           "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" \
           --output_file "$(pwd)/build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf"
 
         woff2_compress build/fonts/OpenMoji-color-colr''${colr_version}_svg.ttf
+
+        maximum_color \
+          --build_dir="build/color" --bitmaps \
+          "build/fonts/OpenMoji-color-glyf_colr_''${colr_version}.ttf" \
+          --output_file "$(pwd)/build/fonts/OpenMoji-color-cbdt_colr''${colr_version}_svg.ttf"
+
+        woff2_compress build/fonts/OpenMoji-color-cbdt_colr''${colr_version}_svg.ttf
       done
 
       runHook postBuild

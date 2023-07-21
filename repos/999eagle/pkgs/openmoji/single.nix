@@ -9,6 +9,8 @@
     "glyf_colr_1"
     "colr0_svg"
     "colr1_svg"
+    "cbdt_colr0_svg"
+    "cbdt_colr1_svg"
   ];
 in
   assert builtins.elem format supportedFormats;
