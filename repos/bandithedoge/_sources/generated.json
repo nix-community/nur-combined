@@ -56,7 +56,7 @@
   },
   "carla": {
     "cargoLocks": null,
-    "date": "2023-07-20",
+    "date": "2023-07-21",
     "extract": null,
     "name": "carla",
     "passthru": null,
@@ -68,11 +68,11 @@
       "name": null,
       "owner": "falkTX",
       "repo": "Carla",
-      "rev": "cb7f1a975790dda458481e88de0a29c433b706c9",
-      "sha256": "sha256-CaaaW3/TwxMnEWW4cxAq3SFcADYAZS3pf7J+RTrBQdU=",
+      "rev": "8d4bf13cd411307649f3e4327d855d98f06fb76f",
+      "sha256": "sha256-AyS3loLUFrqAHEybjyQ06iHu2aviFb1Zh5jFbni7Vyk=",
       "type": "github"
     },
-    "version": "cb7f1a975790dda458481e88de0a29c433b706c9"
+    "version": "8d4bf13cd411307649f3e4327d855d98f06fb76f"
   },
   "dmenu-flexipatch": {
     "cargoLocks": null,
@@ -416,7 +416,7 @@
   },
   "taffybar": {
     "cargoLocks": null,
-    "date": "2023-07-14",
+    "date": "2023-07-21",
     "extract": null,
     "name": "taffybar",
     "passthru": null,
@@ -428,11 +428,11 @@
       "name": null,
       "owner": "taffybar",
       "repo": "taffybar",
-      "rev": "b57006885d35cee63244b1559813ca4b5990e04c",
-      "sha256": "sha256-aSta0A0WCGnZ/MPCAr//LoNWNnxLdaqOo437EB9405Y=",
+      "rev": "6b121b4d1a0f7bbc2b4bffd534a4f99d27063eb7",
+      "sha256": "sha256-1qHqmTMdD4yOP0JdyvTaHbb3Woa9fu0Qdo6mMCPJTWM=",
       "type": "github"
     },
-    "version": "b57006885d35cee63244b1559813ca4b5990e04c"
+    "version": "6b121b4d1a0f7bbc2b4bffd534a4f99d27063eb7"
   },
   "tailwindcss-intellisense": {
     "cargoLocks": null,
