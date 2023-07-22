@@ -10,11 +10,12 @@ let
     # limit = 0                    => download and keep *all* articles
     # download_full_article = true => populate feed by downloading the webpage -- not just what's encoded in the RSS <article> tags
     # - use this for articles where the RSS only encodes content previews
+    # - in practice, most articles don't work with download_full_article = false
     # enable_filter         = true => only render content that matches the filter_element css selector.
     let fields = [
       (lib.escapeShellArg feed.url)
       "limit = 5"
-      "download_full_article = false"
+      "download_full_article = true"
       "include_images = true"
       "enable_filter = false"
       "filter_element = \"\""

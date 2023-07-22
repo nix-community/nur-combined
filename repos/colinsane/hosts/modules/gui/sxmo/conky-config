@@ -13,11 +13,12 @@ conky.config = {
     alignment = 'middle_middle',
     own_window_type = 'desktop',
     -- own_window_argb_value: opacity of the background (0-255)
-    own_window_argb_value = 92,
-    own_window_colour = '#beebe5',  -- beebe5 matches nixos flake bg color
+    own_window_argb_value = 0,
+    -- own_window_argb_value = 92,
+    -- own_window_colour = '#beebe5',  -- beebe5 matches nixos flake bg color
 
     -- "border" pads the entire conky window
-    -- this can be used to control the extend of the own_window background
+    -- this can be used to control the extent of the own_window background
     border_inner_margin = 8,
     -- optionally, actually draw borders
     -- draw_borders = true,

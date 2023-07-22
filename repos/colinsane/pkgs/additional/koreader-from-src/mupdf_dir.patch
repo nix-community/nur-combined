@@ -1,0 +1,15 @@
+diff --git a/base/Makefile.defs b/base/Makefile.defs
+index dbb95daa..1293e5d5 100644
+--- a/base/Makefile.defs
++++ b/base/Makefile.defs
+@@ -732,8 +732,8 @@ MINIZIP_DIR=$(CURDIR)/$(MINIZIP_BUILD_DIR)/minizip-prefix/src/minizip
+ AES_LIB_DIR=$(MINIZIP_DIR)/aes
+ AES_LIB=$(MINIZIP_DIR)/libaes.a
+ 
+-MUPDF_BUILD_DIR=$(CURDIR)/$(THIRDPARTY_DIR)/mupdf/build/$(MACHINE)
+-MUPDF_DIR=$(MUPDF_BUILD_DIR)/mupdf-prefix/src/mupdf
++MUPDF_BUILD_DIR=$(THIRDPARTY_DIR)/mupdf/build/$(MACHINE)
++MUPDF_DIR=$(CURDIR)/$(MUPDF_BUILD_DIR)/mupdf-prefix/src/mupdf
+ MUPDF_LIB_DIR=$(MUPDF_DIR)/build/$(if $(KODEBUG),debug,release)
+ MUPDF_LIB_STATIC=$(MUPDF_LIB_DIR)/libmupdf.a
+ MUPDF_THIRDPARTY_LIBS=$(MUPDF_LIB_DIR)/libmupdfthird.a \

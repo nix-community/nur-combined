@@ -1,0 +1,20 @@
+diff --git a/base/Makefile.third b/base/Makefile.third
+index f6a80523..1080ab98 100644
+--- a/base/Makefile.third
++++ b/base/Makefile.third
+@@ -137,7 +137,6 @@ $(MUPDF_LIB) $(MUPDF_DIR)/include: $(JPEG_LIB) \
+ 		$(HARFBUZZ_LIB) $(HARFBUZZ_DIR)/include \
+ 		$(LIBWEBP_LIB) $(LIBWEBP_DIR)/include \
+ 		$(ZLIB) $(AES_LIB) $(THIRDPARTY_DIR)/mupdf/*.*
+-	-rm -rf $(MUPDF_BUILD_DIR)
+ 	install -d $(MUPDF_BUILD_DIR)
+ 	cd $(MUPDF_BUILD_DIR) && \
+ 		$(CMAKE) $(CMAKE_FLAGS) \
+@@ -665,7 +664,6 @@ $(OUTPUT_DIR)/data/KoboUSBMS.tar.gz: $(THIRDPARTY_DIR)/kobo-usbms/*.*
+ # ===========================================================================
+ # common lua library for networking
+ $(LUASOCKET): $(THIRDPARTY_DIR)/luasocket/*.*
+-	-rm -rf $(LUASOCKET) $(LUASOCKET_BUILD_DIR)
+ 	install -d $(LUASOCKET_BUILD_DIR)
+ 	cd $(LUASOCKET_BUILD_DIR) && \
+ 		$(CMAKE) $(CMAKE_FLAGS) \

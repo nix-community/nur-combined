@@ -1,0 +1,13 @@
+diff --git a/base/thirdparty/cmake_modules/koreader_thirdparty_git.cmake b/base/thirdparty/cmake_modules/koreader_thirdparty_git.cmake
+index d8f9207a..32bee97c 100644
+--- a/base/thirdparty/cmake_modules/koreader_thirdparty_git.cmake
++++ b/base/thirdparty/cmake_modules/koreader_thirdparty_git.cmake
+@@ -24,6 +24,8 @@ endif()
+ 
+ set(run 0)
+ 
++message(STATUS \"ko_write_gitclone_script: checking '${gitclone_infofile}' against '${gitclone_stampfile}'\")
++
+ if(\"${gitclone_infofile}\" IS_NEWER_THAN \"${gitclone_stampfile}\")
+   set(run 1)
+ endif()

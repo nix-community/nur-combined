@@ -1,0 +1,134 @@
+diff --git a/base/thirdparty/dropbear/CMakeLists.txt b/base/thirdparty/dropbear/CMakeLists.txt
+index 51fca147..7f593ecd 100644
+--- a/base/thirdparty/dropbear/CMakeLists.txt
++++ b/base/thirdparty/dropbear/CMakeLists.txt
+@@ -43,7 +43,7 @@ include(ExternalProject)
+ set(DROPBEAR_VER "2018.76")
+ ExternalProject_Add(
+     ${PROJECT_NAME}
+-    URL http://deb.debian.org/debian/pool/main/d/dropbear/dropbear_${DROPBEAR_VER}.orig.tar.bz2
++    URL file://@dropbear@
+     URL_MD5 c3912f7fcdcc57c99937e4a79480d2c2
+     DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
+     PATCH_COMMAND COMMAND ${PATCH_CMD1} COMMAND ${PATCH_CMD2} COMMAND
+diff --git a/base/thirdparty/gettext/CMakeLists.txt b/base/thirdparty/gettext/CMakeLists.txt
+index 0ba8c635..c1bc122c 100644
+--- a/base/thirdparty/gettext/CMakeLists.txt
++++ b/base/thirdparty/gettext/CMakeLists.txt
+@@ -38,7 +38,7 @@ set(GETTEXT_VER "0.21")
+ include(ExternalProject)
+ ExternalProject_Add(
+     ${PROJECT_NAME}
+-    URL http://ftpmirror.gnu.org/gettext/gettext-${GETTEXT_VER}.tar.gz
++    URL file://@gettext@
+     URL_MD5 28b1cd4c94a74428723ed966c38cf479
+     DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
+     PATCH_COMMAND COMMAND ${PATCH_CMD}
+diff --git a/base/thirdparty/libffi/CMakeLists.txt b/base/thirdparty/libffi/CMakeLists.txt
+index 972c991b..4409b18a 100644
+--- a/base/thirdparty/libffi/CMakeLists.txt
++++ b/base/thirdparty/libffi/CMakeLists.txt
+@@ -24,7 +24,7 @@ set(LIBFFI_VER "3.4.4")
+ ExternalProject_Add(
+     ${PROJECT_NAME}
+     DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
+-    URL https://github.com/libffi/libffi/releases/download/v${LIBFFI_VER}/libffi-${LIBFFI_VER}.tar.gz
++    URL file://@libffi@
+     URL_MD5 0da1a5ed7786ac12dcbaf0d499d8a049
+     CONFIGURE_COMMAND ${CFG_CMD}
+     # skip the rest, we only need the header for glib
+diff --git a/base/thirdparty/libiconv/CMakeLists.txt b/base/thirdparty/libiconv/CMakeLists.txt
+index 6a45ddc7..c8cf2974 100644
+--- a/base/thirdparty/libiconv/CMakeLists.txt
++++ b/base/thirdparty/libiconv/CMakeLists.txt
+@@ -19,7 +19,7 @@ set(GETTEXT_VER "1.15")
+ include(ExternalProject)
+ ExternalProject_Add(
+     libiconv
+-    URL http://ftpmirror.gnu.org/libiconv/libiconv-${GETTEXT_VER}.tar.gz
++    URL file://@libiconv@
+     URL_MD5 ace8b5f2db42f7b3b3057585e80d9808
+     DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
+     CONFIGURE_COMMAND ${CFG_CMD}
+diff --git a/base/thirdparty/lpeg/CMakeLists.txt b/base/thirdparty/lpeg/CMakeLists.txt
+index b7345e61..c5859b68 100644
+--- a/base/thirdparty/lpeg/CMakeLists.txt
++++ b/base/thirdparty/lpeg/CMakeLists.txt
+@@ -48,7 +48,7 @@ include(ExternalProject)
+ ExternalProject_Add(
+     ${PROJECT_NAME}
+     DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
+-    URL http://distcache.FreeBSD.org/ports-distfiles/lpeg-${LPEG_RELEASE}.tar.gz
++    URL file://@lpeg@
+     URL_MD5 d342571886f1abcb7afe6a83d024d583
+     BUILD_IN_SOURCE 1
+     PATCH_COMMAND COMMAND ${PATCH_CMD}
+diff --git a/base/thirdparty/sdcv/CMakeLists.txt b/base/thirdparty/sdcv/CMakeLists.txt
+index f19d441f..54394e0a 100644
+--- a/base/thirdparty/sdcv/CMakeLists.txt
++++ b/base/thirdparty/sdcv/CMakeLists.txt
+@@ -92,11 +92,7 @@ ko_write_gitclone_script(
+ 
+ download_project(
+     PROJ ${PROJECT_NAME}
+-    GIT_REPOSITORY
+-    https://github.com/Dushistov/sdcv.git
+-    GIT_TAG
+-    ${SDCV_GIT_COMMIT}
+-    #DOWNLOAD_COMMAND ${CMAKE_COMMAND} -P ${GIT_CLONE_SCRIPT_FILENAME}
++    URL file://@sdcv@
+     PATCH_COMMAND COMMAND ${PATCH_CMD1} COMMAND ${PATCH_CMD2}
+ )
+ 
+diff --git a/base/thirdparty/sdl2/CMakeLists.txt b/base/thirdparty/sdl2/CMakeLists.txt
+index a963385c..6376cfe8 100644
+--- a/base/thirdparty/sdl2/CMakeLists.txt
++++ b/base/thirdparty/sdl2/CMakeLists.txt
+@@ -19,7 +19,7 @@ set(SDL2_VER "2.28.1")
+ set(SDL2_MD5 "ccd2cd02b2ad4f71c2588747028953c3")
+ download_project(
+     PROJ ${PROJECT_NAME}
+-    URL https://github.com/libsdl-org/SDL/releases/download/release-${SDL2_VER}/SDL2-${SDL2_VER}.tar.gz
++    URL file://@sdl2@
+     URL_MD5 ${SDL2_MD5}
+     PATCH_COMMAND COMMAND ${PATCH_CMD}
+ )
+diff --git a/base/thirdparty/sqlite/CMakeLists.txt b/base/thirdparty/sqlite/CMakeLists.txt
+index 0353b145..9de56105 100644
+--- a/base/thirdparty/sqlite/CMakeLists.txt
++++ b/base/thirdparty/sqlite/CMakeLists.txt
+@@ -37,7 +37,7 @@ set(SQLITE_VER "3420000")
+ ExternalProject_Add(
+     ${PROJECT_NAME}
+     DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
+-    URL https://www.sqlite.org/2023/sqlite-autoconf-${SQLITE_VER}.tar.gz
++    URL file://@sqlite@
+     URL_MD5 0c5a92bc51cf07cae45b4a1e94653dea
+     BUILD_IN_SOURCE 1
+     CONFIGURE_COMMAND ${CFG_CMD}
+diff --git a/base/thirdparty/tar/CMakeLists.txt b/base/thirdparty/tar/CMakeLists.txt
+index 9d0b82ca..1c1d4b8e 100644
+--- a/base/thirdparty/tar/CMakeLists.txt
++++ b/base/thirdparty/tar/CMakeLists.txt
+@@ -62,7 +62,7 @@ include(ExternalProject)
+ set(TAR_VER "1.34")
+ ExternalProject_Add(
+     ${PROJECT_NAME}
+-    URL http://ftpmirror.gnu.org/tar/tar-${TAR_VER}.tar.gz
++    URL file://@tar@
+     URL_MD5 9d5949e4c2d9665546ac65dafc0e726a
+     DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
+     PATCH_COMMAND COMMAND ${PATCH_CMD1} COMMAND ${PATCH_CMD2}
+diff --git a/base/thirdparty/zlib/CMakeLists.txt b/base/thirdparty/zlib/CMakeLists.txt
+index 2350186d..0ea1394d 100644
+--- a/base/thirdparty/zlib/CMakeLists.txt
++++ b/base/thirdparty/zlib/CMakeLists.txt
+@@ -52,7 +52,7 @@ set(ZLIB_MD5 "7d9fc1d78ae2fa3e84fe98b77d006c63")
+ ExternalProject_Add(
+     ${PROJECT_NAME}
+     DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
+-    URL http://gentoo.osuosl.org/distfiles/zlib-${ZLIB_VER}.tar.xz
++    URL file://@zlib@
+     URL_MD5 ${ZLIB_MD5}
+     BUILD_IN_SOURCE 1
+     PATCH_COMMAND COMMAND ${PATCH_CMD1} COMMAND ${PATCH_CMD2} COMMAND ${PATCH_CMD3}

@@ -1,0 +1,13 @@
+diff --git a/base/thirdparty/lua-Spore/CMakeLists.txt b/base/thirdparty/lua-Spore/CMakeLists.txt
+index 15593193..31140257 100644
+--- a/base/thirdparty/lua-Spore/CMakeLists.txt
++++ b/base/thirdparty/lua-Spore/CMakeLists.txt
+@@ -29,7 +29,7 @@ set(BUILD_CMD ${ROCKS_CMD} make --tree=${OUTPUT_DIR}/rocks ${LUA_SPORE_ROCKSPEC}
+ set(BUILD_CMD ${BUILD_CMD} "CC=${CC}" "CFLAGS=${CFLAGS}" "LD=${LD}")
+ set(BUILD_CMD ${BUILD_CMD} "LUA_INCDIR=${LUA_INCDIR}" "LUA_LIBDIR=${LUA_LIBDIR}")
+ 
+-set(PATCH_CMD sh -c "mkdir -p doc && ${ISED} \"s| 'luasocket|--'luasocket|g\" ${LUA_SPORE_ROCKSPEC}")
++set(PATCH_CMD sh -c "mkdir -p doc && ${ISED} \"s| 'luajson|--'luajson|g\" ${LUA_SPORE_ROCKSPEC} && ${ISED} \"s| 'luasocket|--'luasocket|g\" ${LUA_SPORE_ROCKSPEC}")
+ 
+ ko_write_gitclone_script(
+     GIT_CLONE_SCRIPT_FILENAME
