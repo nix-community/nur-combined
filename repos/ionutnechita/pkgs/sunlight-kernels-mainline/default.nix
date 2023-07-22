@@ -1,12 +1,12 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.5.0-rc1";
+  modDirVersion = "6.5.0-rc2";
   parts = lib.splitString "-" modDirVersion;
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
   extraVer = "";
-  hash = "sha256-BDU3lNQkMmdEhnel8jlmomzHFuufPvdW9Ktcc/i/Na8=";
+  hash = "";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
@@ -18,7 +18,7 @@ buildLinux (args // rec {
     src = fetchFromGitHub {
       owner = "sunlightlinux";
       repo = "linux-sunlight";
-      rev = "4a8a0bc5ac692a8af463bc5b23e7bb8244489bda";
+      rev = "d9b45696ec8273378aa27312d91efb36c10c19cd";
       inherit hash;
     };
 
