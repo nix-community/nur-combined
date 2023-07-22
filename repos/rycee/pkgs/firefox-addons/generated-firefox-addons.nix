@@ -970,10 +970,10 @@
       };
     "firefox-translations" = buildFirefoxXpiAddon {
       pname = "firefox-translations";
-      version = "1.3.2buildid20230220.141944";
+      version = "1.3.4buildid20230720.091143";
       addonId = "firefox-translations-addon@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4074062/firefox_translations-1.3.2buildid20230220.141944.xpi";
-      sha256 = "2fc03ecd608b7e1fa78866cd786354e6344e260dd8af8cf6468f80d1e14531e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141509/firefox_translations-1.3.4buildid20230720.091143.xpi";
+      sha256 = "d2ad4d71079754aec1fab2a03294a5ab5992bd377c57561cfa331e61b5c440e3";
       meta = with lib;
       {
         homepage = "https://blog.mozilla.org/en/mozilla/local-translation-add-on-project-bergamot/";
@@ -1735,10 +1735,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.6.2";
+      version = "2.7.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4116106/libredirect-2.6.2.xpi";
-      sha256 = "e813e907abd4bc5871cb23bd95305221eee4f99d6ca8f82f1d696f6bd8dcaa41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4142055/libredirect-2.7.0.xpi";
+      sha256 = "271c9b7ff8e776e45fb8773d60e9456b20d20ddbf885cdd09a94552edaddd255";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -2612,10 +2612,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.4.1";
+      version = "1.4.2";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141563/proton_pass-1.4.1.xpi";
-      sha256 = "f87e9d9ccb1dc5c45e7cc4c626b3586723222efa4f0594f0e6825491ccd3e976";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4142086/proton_pass-1.4.2.xpi";
+      sha256 = "e947695516af8b4d7dc305e93afc2c215bb32fcd69bd5f23641d13c9472e77d5";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -3030,10 +3030,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.10";
+      version = "5.4.12";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128665/sponsorblock-5.4.10.xpi";
-      sha256 = "6ff39316685211467f098ad8084e2b1d5310998f98efc93c8d218ca11f2fb190";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141271/sponsorblock-5.4.12.xpi";
+      sha256 = "79f3f41985aea3d1a052d2a546e096c525469d677aca6f17c18414897355aa60";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -3825,10 +3825,10 @@
       };
     "web-archives" = buildFirefoxXpiAddon {
       pname = "web-archives";
-      version = "4.0.0";
+      version = "4.1.0";
       addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4065318/view_page_archive-4.0.0.xpi";
-      sha256 = "3e0e0a7d757135975e093e2339f750ce8a762be47c802c59679a0994931ed346";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139299/view_page_archive-4.1.0.xpi";
+      sha256 = "8c5d42c863981044b999b4c10cbb7e87cc86da569e158707d70c4eec946d8edc";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
