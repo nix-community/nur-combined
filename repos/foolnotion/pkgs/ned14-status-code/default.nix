@@ -1,16 +1,15 @@
 
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake, git }:
 
 stdenv.mkDerivation rec {
-  pname = "quickcpplib";
+  pname = "ned14-status-code";
   version = "0.1.0.0";
 
   src = fetchFromGitHub {
     owner = "ned14";
-    repo = "quickcpplib";
-    rev = "e948736ca111f004cfd6452943c8ef58a6415b61";
-    sha256 = "sha256-lk3fmU7nN7X4aF9j628iSVKyaVvhREEW8AK7ngz/Jxk=";
-    fetchSubmodules = true;
+    repo = "status-code";
+    rev = "b9825d432856ad350096951374f9988735f36de8";
+    sha256 = "sha256-J6LQWTpv5Ds9qMkyhNRK8BN7WyY1dyCQpbANfNim9tM=";
   };
 
   nativeBuildInputs = [ cmake ];

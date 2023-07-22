@@ -110,6 +110,13 @@
   qpdfview-qt5 = pkgs.libsForQt5.callPackage ./pkgs/qpdfview { };
   qpdfview-qt6 = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
+  ned14-quickcpplib = pkgs.callPackage ./pkgs/ned14-quickcpplib { };
+  ned14-status-code = pkgs.callPackage ./pkgs/ned14-status-code { };
+  #ned14-outcome = pkgs.callPackage ./pkgs/ned14-outcome {
+  #  quickcpplib = ned14-quickcpplib;
+  #  status-code = ned14-status-code;
+  #};
+
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
 
   upscayl = pkgs.callPackage ./pkgs/upscayl { };
