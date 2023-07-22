@@ -4,15 +4,10 @@ set -Eeuo pipefail
 
 root="$(readlink --canonicalize -- "$(dirname -- "$0")/..")"
 
-# Mock nixpkgs
-trap 'rm -f "$root/_update.nix"' EXIT; cat > "$root/_update.nix" << NIX
-{}: import <nixpkgs> { overlays = [ (import ./overlay.nix) ]; }
-NIX
-
 # Run update scripts
 nixpkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" --show-trace \
-  --arg include-overlays "(import $root/_update.nix { }).overlays" \
+  --arg include-overlays "(import <nixpkgs> { overlays = [ (import ./overlay.nix) ]; }).overlays" \
   --arg keep-going 'true' \
   --arg predicate "(
     let prefix = \"$root/pkgs/\"; prefixLen = builtins.stringLength prefix;
