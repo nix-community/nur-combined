@@ -36,6 +36,7 @@ buildGoModule rec {
     homepage = "https://github.com/IceWhaleTech/CasaOS";
     changelog = "https://github.com/IceWhaleTech/CasaOS/blob/${src.rev}/CHANGELOG.md";
     mainProgram = "CasaOS";
+    platforms = platforms.linux;
     license = licenses.asl20;
   };
 }
