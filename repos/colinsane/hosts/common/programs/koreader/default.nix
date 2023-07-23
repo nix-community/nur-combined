@@ -1,4 +1,4 @@
-{ config, lib, sane-lib, ... }:
+{ config, lib, pkgs, sane-lib, ... }:
 
 let
   feeds = sane-lib.feeds;
@@ -23,6 +23,7 @@ let
   ) wantedFeeds;
 in {
   sane.programs.koreader = {
+    package = pkgs.koreader-from-src;
     # koreader applies these lua "patches" at boot:
     # - <https://github.com/koreader/koreader/wiki/User-patches>
     # - TODO: upstream this patch to koreader
