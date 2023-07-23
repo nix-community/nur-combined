@@ -86,6 +86,8 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "lsdlsrb2";
     homepage = "https://git.do.srb2.org/SinnamonLat/SRB2";
     license = licenses.gpl2Only;
+    # TODO: Fix Darwin build
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 })
