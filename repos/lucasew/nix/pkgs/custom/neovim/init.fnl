@@ -150,5 +150,37 @@
 (cmd "nmap <C-p> :Telescope<CR>")
 (cmd "nmap <C-.> :Telescope lsp_code_actions<CR>")
 
-(print "Config fennel carregada")
+;; COQ
+(tset vim.g :coq_settings {
+  :xdg true
+  :keymap.recommended true
+  :auto_start :shut-up
+})
+(vim.cmd.COQnow :--shut-up)
+
+
+; Theming
+(tset vim.g :nixcfg_is_dark true)
+
+(let
+  [
+    default-white-theme :paper
+    default-dark-theme :embark
+  ]
+(do
+  (vim.api.nvim_create_user_command :ToggleTheme (fn [opts]
+    (let [
+          is-dark (not vim.g.nixcfg_is_dark) ;; inverter pq é dark por padrão
+          custom-theme (if (= nix_colors_theme "") nil nix_colors_theme)
+          chosen-dark-theme (or custom-theme default-dark-theme)
+          chosen-theme (if is-dark chosen-dark-theme default-white-theme)
+      ] (do
+          (tset vim.g :nixcfg_is_dark is-dark)
+          (vim.cmd.colorscheme chosen-theme)
+          (print "theme: " chosen-theme)
+        ))
+    ) {})))
+
+; (print "Config fennel carregada")
+
 nil
