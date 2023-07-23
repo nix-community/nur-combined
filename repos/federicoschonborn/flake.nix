@@ -21,7 +21,7 @@
     in
     {
       legacyPackages = forAllSystems (pkgs: import ./. { inherit pkgs; });
-      packages = forAllSystems (pkgs: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${pkgs.system});
+      packages = forAllSystems (pkgs: nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) self.legacyPackages.${pkgs.system});
       formatter = forAllSystems (pkgs: pkgs.nixpkgs-fmt);
     };
 }
