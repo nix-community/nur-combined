@@ -8,6 +8,9 @@ xdg-open https://nixos.org/manual/nixpkgs
 # NixOS manual
 xdg-open https://nixos.org/manual/nixos
 
+# nixpkgs package search
+xdg-open https://search.nixos.org/packages
+
 % web, bookmark, documentation, search, nix
 # Noogle
 xdg-open https://noogle.dev/
