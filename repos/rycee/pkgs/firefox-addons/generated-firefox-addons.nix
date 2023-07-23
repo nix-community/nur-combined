@@ -310,6 +310,20 @@
         platforms = platforms.all;
         };
       };
+    "brandon1024-find" = buildFirefoxXpiAddon {
+      pname = "brandon1024-find";
+      version = "2.2.1";
+      addonId = "{6fa42eda-38ca-4126-96d5-3163f0de6900}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3825098/brandon1024_find-2.2.1.xpi";
+      sha256 = "54f29a6839a83ef6b07f9fbeae1e6e7697d8416f16ce45d3bdc17ec5d8a243ca";
+      meta = with lib;
+      {
+        homepage = "https://github.com/brandon1024/find/";
+        description = "A find-in-page extension with support for regular expressions.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
       version = "3.7.2";
@@ -2365,6 +2379,20 @@
         platforms = platforms.all;
         };
       };
+    "passff" = buildFirefoxXpiAddon {
+      pname = "passff";
+      version = "1.14.1";
+      addonId = "passff@invicem.pro";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069548/passff-1.14.1.xpi";
+      sha256 = "465c204212b93546d20dc8fef2c99ac8b06b2d884cd2d38aaf73d825c8be7383";
+      meta = with lib;
+      {
+        homepage = "https://github.com/passff/passff";
+        description = "Add-on that allows users of the unix password manager 'pass' (see <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/24f646fb865abe6edf9e3f626db62565bfdc2e7819ab33a5b4c30a9573787988/https%3A//www.passwordstore.org/\" rel=\"nofollow\">https://www.passwordstore.org/</a>) to access their password store from Firefox";
+        license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
     "pay-by-privacy-com" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy-com";
       version = "1.6.3";
@@ -2689,6 +2717,20 @@
       {
         homepage = "https://www.rabattcorner.ch";
         description = "Jetzt bei jedem Online-Einkauf bis zu 25% Cashback erhalten. <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/be8bb3eaeaba31de0d5f89ccc266fa9cf18fda0fabad24266491f7c9342df151/http%3A//Rabattcorner.ch\" rel=\"nofollow\">Rabattcorner.ch</a> zahlt dir nach jedem Einkauf in einem der über 700 angeschlossenen Online Shops einen Teil deines Einkaufsbetrags zurück.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "raindropio" = buildFirefoxXpiAddon {
+      pname = "raindropio";
+      version = "6.6.13";
+      addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139890/raindropio-6.6.13.xpi";
+      sha256 = "f4e38405c6b2d62b13dfd74cbc3c6432005c4341d3057975004fdb76b79946d5";
+      meta = with lib;
+      {
+        homepage = "https://raindrop.io";
+        description = "All-in-one bookmark manager";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
