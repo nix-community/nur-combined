@@ -52,7 +52,6 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [ ]
-    ++ lib.optional stdenv.isDarwin darwin.dyld
     ++ lib.optional withCfitsio cfitsio
     ++ lib.optional withDmctk dcmtk
     ++ lib.optional withExiv2 exiv2
@@ -75,6 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/tgd/";
     downloadPage = "https://marlam.de/tgd/download/";
     license = licenses.mit;
+    broken = stdenv.isDarwin;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 })

@@ -32,7 +32,6 @@
 , enableLibpci ? false
 , pciutils
 , enableMesa ? false
-, mesa
 , mesa_drivers
 , enableOpencl ? false
 , ocl-icd

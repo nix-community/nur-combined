@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , python3Packages
 , fetchFromGitHub
 , blueprint-compiler
@@ -139,7 +140,7 @@ python3Packages.buildPythonApplication rec {
     description = "Development tools at your fingertips";
     homepage = "https://github.com/aleiepure/devtoolbox";
     license = licenses.gpl3Plus;
-    platforms = platforms.linux;
+    broken = stdenv.isDarwin;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 }

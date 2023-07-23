@@ -13,7 +13,6 @@
 , ktexteditor
 , ktextwidgets
 , kxmlgui
-, mesa
 , ninja
 , syntax-highlighting
 , wrapQtAppsHook
