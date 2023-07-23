@@ -4,6 +4,7 @@
 , fetchzip
 , cmake
 , curl
+, darwin
 , game-music-emu
 , libopenmpt
 , libpng
@@ -54,6 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2
     SDL2_mixer
     zlib
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.CoreFoundation
   ];
 
   cmakeFlags = [

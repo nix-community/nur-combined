@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , autoreconfHook
+, libtool
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -21,6 +22,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     autoreconfHook
+  ];
+
+  makeFlags = [
+    "LIBTOOL=${libtool}/bin/libtool"
   ];
 
   meta = with lib; {

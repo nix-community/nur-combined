@@ -2,7 +2,6 @@
 , stdenv
 , fetchzip
 , cmake
-, darwin
 
 , withCfitsio ? false
 , cfitsio

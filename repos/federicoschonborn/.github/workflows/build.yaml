@@ -47,6 +47,9 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
+      - name: Setup Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v2
+
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E "(import <nixpkgs> {}).lib.version"
 

@@ -52,6 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
       bsd2
       bsdOriginal
     ];
+    # Missing <features.h>
+    broken = stdenv.isDarwin;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 })

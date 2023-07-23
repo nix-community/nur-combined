@@ -52,5 +52,6 @@ stdenv.mkDerivation (finalAttrs: {
       # libmoss
       boost
     ];
+    platforms = platforms.linux;
   };
 })

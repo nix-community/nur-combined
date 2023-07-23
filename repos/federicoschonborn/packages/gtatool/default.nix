@@ -96,5 +96,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A set of commands that manipulate GTAs on various levels";
+    broken = stdenv.isDarwin;
   };
 })

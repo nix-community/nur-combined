@@ -48,5 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Serpent OS Build Tool";
     homepage = "https://github.com/serpent-os/boulder";
     license = with licenses; [ zlib ];
+    platforms = platforms.linux;
   };
 })

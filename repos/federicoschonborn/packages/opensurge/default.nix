@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , allegro5
 , cmake
-, mesa
 , ninja
 , surgescript
 }:
