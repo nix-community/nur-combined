@@ -92,9 +92,6 @@ stdenv.mkDerivation rec {
     # eudev
   ];
 
-  unpackPhase = ''
-    dpkg -x "$src" .
-  '';
   # Refer https://aur.archlinux.org/cgit/aur.git/tree/exclude.list?h=netease-cloud-music
   # don't use NixOS's qt5
   # --set QT_PLUGIN_PATH "${qt5.qtbase}/${qt5.qtbase.qtPluginPrefix}" \
