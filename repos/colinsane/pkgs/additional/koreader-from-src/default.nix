@@ -40,6 +40,15 @@ let
       propagatedBuildInputs = [ lpeg ];
     })
   ]);
+  crossTargets = {
+    # koreader-base Makefile targets to use when compiling for the given host platform
+    # only used when cross compiling
+    aarch64 = "debian-arm64";
+  };
+  target = if stdenv.buildPlatform == stdenv.hostPlatform then
+    "debian"
+  else
+    crossTargets."${stdenv.hostPlatform.parsed.cpu.name}";
 in
 stdenv.mkDerivation rec {
   pname = "koreader-from-src";
@@ -86,11 +95,13 @@ stdenv.mkDerivation rec {
   sourceRoot = "koreader";
 
   nativeBuildInputs = [
+    buildPackages.stdenv.cc  # TODO: move to depsBuildBuild?
     autoconf  # autotools is used by some thirdparty libraries
     automake
     autoPatchelfHook  # TODO: needed?
     cmake  # for koreader/base submodule
     dpkg
+    gettext
     git
     libtool
     makeWrapper
@@ -103,7 +114,6 @@ stdenv.mkDerivation rec {
     luaEnv.pkgs.luarocks
   ];
   buildInputs = [
-    gettext
     # luajson
     luaEnv
   ];
@@ -112,9 +122,8 @@ stdenv.mkDerivation rec {
   let
     env = "${buildPackages.coreutils}/bin/env";
   in ''
-    # patchShebangs platform/debian/do_debian_package.sh
-
     substituteInPlace ../openssl/config --replace '/usr/bin/env' '${env}'
+    substituteInPlace ../openssl/Configure --replace '/usr/bin/env' '${env}'
 
     chmod +x ../glib/gio/gio-querymodules-wrapper.py
     chmod +x ../glib/gio/tests/gengiotypefuncs.py
@@ -134,6 +143,9 @@ stdenv.mkDerivation rec {
     substituteInPlace ../glib/glib/gtester-report.in --replace '/usr/bin/env @PYTHON@' '@PYTHON@'
     substituteInPlace ../glib/gobject/glib-genmarshal.in --replace '/usr/bin/env @PYTHON@' '@PYTHON@'
     substituteInPlace ../glib/gobject/glib-mkenums.in --replace '/usr/bin/env @PYTHON@' '@PYTHON@'
+
+    substituteInPlace ../harfbuzz/autogen.sh --replace 'which pkg-config' 'which $PKG_CONFIG'
+    substituteInPlace ../fribidi/autogen.sh --replace 'which pkg-config' 'which $PKG_CONFIG'
   '';
 
   dontConfigure = true;
@@ -187,26 +199,29 @@ stdenv.mkDerivation rec {
     (name: src:
       let
         # for machine-agnostic libraries (e.g. pure lua), koreader doesn't build them in a flavored directory
-        machine = if src.machineAgnostic or false then "" else "x86_64-unknown-linux-gnu";
+        machine = if src.machineAgnostic or false then "" else stdenv.hostPlatform.config;
       in
         ''install_lib "${name}" "${src.source.rev}" "${machine}"''
     )
     sources.thirdparty
   ) + ''
 
-    make TARGET=debian DEBIAN=1 SHELL=sh VERBOSE=1
+    make TARGET=${target} DEBIAN=1 SHELL=sh VERBOSE=1
   '';
-  # XXX: ^ don't specify INSTALL_DIR="$out" as make arg because that conflicts with vars used by third-party libs
-  # might be safe to specify that as an env var, though?
+  env = lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) {
+    CHOST = stdenv.hostPlatform.config;
+  };
 
   installPhase = ''
-    make TARGET=debian DEBIAN=1 debianupdate
-    mv koreader-debian-x86_64-unknown-linux-gnu/debian/usr $out
+    make TARGET=${target} DEBIAN=1 debianupdate
+    mv koreader-${target}-${stdenv.hostPlatform.config}/debian/usr $out
 
     wrapProgram $out/bin/koreader --prefix LD_LIBRARY_PATH : ${
       lib.makeLibraryPath [ SDL2 ]
     }
   '';
+  # XXX: ^ don't specify INSTALL_DIR="$out" as make arg because that conflicts with vars used by third-party libs
+  # might be safe to specify that as an env var, though?
   # XXX: nixpkgs adds glib and gtk3-x11 to LD_LIBRARY_PATH as well
 
   passthru = {

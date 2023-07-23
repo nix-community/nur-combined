@@ -153,6 +153,12 @@ class Torrent:
     def is_manga(self, default: bool = False) -> bool:
         return is_cat(self.categories, MANGA_CATS, default)
 
+    def is_h265(self) -> bool:
+        meta = self.title.lower()
+        return "h265" in meta \
+            or "x265" in meta \
+            or "HEVC" in meta
+
 class Client:
     def __init__(self):
         self.apikey = open("/run/secrets/jackett_apikey").read().strip()
@@ -176,12 +182,14 @@ class Client:
         return sorted(torrents, reverse=True)
 
 
-def filter_results(results: list[Torrent], full: bool, top: int, manga: bool) -> list[Torrent]:
+def filter_results(results: list[Torrent], full: bool, top: int, manga: bool, h265: bool) -> list[Torrent]:
     """
     take the complete query and filter further based on CLI options
     """
     if manga:
         results = [t for t in results if t.is_manga(default=True)]
+    if h265:
+        results = [t for t in results if t.is_h265()]
     if not full:
         results = results[:top]
     return results
@@ -195,6 +203,7 @@ def parse_args(args: list[str]) -> dict:
         top="5",
         verbose=False,
         manga=False,
+        h265=False,
     )
     while args:
         arg = args[0]
@@ -218,9 +227,11 @@ def main(args: list[str]):
     help = options.pop("help")
     json = options.pop("json")
     query = options.pop("query")
+    assert options.get("top") is not True, "use `--top=N`, not `--top N`"
     top = int(options.pop("top"))
     verbose = options.pop("verbose")
     manga = options.pop("manga")
+    h265 = options.pop("h265")
 
     if options != {}:
         raise BadCliArgs(f"unexpected options: {options}")
@@ -235,7 +246,7 @@ def main(args: list[str]):
     results = client.query(query)
     num_results = len(results)
 
-    results = filter_results(results, full, top, manga)
+    results = filter_results(results, full, top, manga, h265)
 
     if json:
         dumpable = [t.to_dict() for t in results]
