@@ -1,6 +1,8 @@
 { lib
+, stdenv
 , rustPlatform
 , fetchFromGitHub
+, darwin
 , openssl
 , pkg-config
 }:
@@ -24,6 +26,8 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [
     openssl
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.CoreServices
   ];
 
   meta = with lib; {
