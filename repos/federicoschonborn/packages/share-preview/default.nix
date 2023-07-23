@@ -59,8 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
     pango
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
   ];
 
   meta = with lib; {

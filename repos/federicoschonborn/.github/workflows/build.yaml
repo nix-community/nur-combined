@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   schedule:
     # Everyday at 03:55
-    - cron: "55 3 * * *"
+    - cron: 55 3 * * *
 
 env:
   NUR_REPO: federicoschonborn
@@ -16,19 +16,25 @@ env:
 
 jobs:
   build:
-    name: "Build (${{ matrix.os-name }}; Channel: ${{ matrix.channel }})"
+    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
     strategy:
       matrix:
         include:
-          - os-name: Linux
-            os: ubuntu-latest
+          - os: ubuntu-latest
+            system: x86_64-linux
             channel: nixos-unstable
-          - os-name: Linux
-            os: ubuntu-latest
+          - os: ubuntu-latest
+            system: x86_64-linux
+            channel: nixos-23.05
+          - os: ubuntu-latest
+            system: x86_64-linux
             channel: nixpkgs-unstable
-          - os-name: macOS
-            os: macos-latest
+          - os: macos-latest
+            system: x86_64-darwin
             channel: nixpkgs-unstable
+          - os: macos-latest
+            system: x86_64-darwin
+            channel: nixpkgs-23.05-darwin
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
@@ -37,7 +43,7 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v22
         with:
-          nix_path: "nixpkgs=channel:${{ matrix.channel }}"
+          nix_path: nixpkgs=channel:${{ matrix.channel }}
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
@@ -69,4 +75,4 @@ jobs:
     needs: build
     steps:
       - name: Trigger NUR update
-        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}"
+        run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}

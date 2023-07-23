@@ -48,6 +48,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "A test compositor to gain familiarity with Wayland and wlroots";
     homepage = "https://gitlab.com/serebit/flyaway";
+    platforms = platforms.linux;
     license = licenses.asl20;
   };
 }

@@ -13,6 +13,7 @@
 , ktexteditor
 , ktextwidgets
 , kxmlgui
+, mesa
 , ninja
 , syntax-highlighting
 , wrapQtAppsHook
@@ -55,6 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Graphical Git client for KDE";
     homepage = "https://apps.kde.org/kommit/";
     license = licenses.gpl3Plus;
+    # Grabs mesa and kconfigwidgets.
+    broken = stdenv.isDarwin;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 })

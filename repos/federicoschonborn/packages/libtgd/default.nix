@@ -2,6 +2,7 @@
 , stdenv
 , fetchzip
 , cmake
+, darwin
 
 , withCfitsio ? false
 , cfitsio
@@ -51,6 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [ ]
+    ++ lib.optional stdenv.isDarwin darwin.dyld
     ++ lib.optional withCfitsio cfitsio
     ++ lib.optional withDmctk dcmtk
     ++ lib.optional withExiv2 exiv2

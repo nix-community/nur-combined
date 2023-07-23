@@ -32,6 +32,7 @@
 , enableLibpci ? false
 , pciutils
 , enableMesa ? false
+, mesa
 , mesa_drivers
 , enableOpencl ? false
 , ocl-icd
@@ -109,6 +110,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/LinusDierheimer/fastfetch";
     changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.mit;
+    # buildInputs grabs mesa and libselinux somehow.
+    broken = stdenv.isDarwin;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 })

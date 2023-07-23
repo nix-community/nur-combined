@@ -27,8 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libtgd
     qtbase
-    qtwayland
-  ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [ qtwayland ];
 
   meta = with lib; {
     description = "A a viewer for 2D data such as images, sensor data, simulations, renderings and videos";
