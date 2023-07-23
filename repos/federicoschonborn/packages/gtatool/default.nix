@@ -81,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optional withPcl pcl
   ++ lib.optional withPfs pfstools
   ++ lib.optional withPng libpng
-  ++ lib.optionals withQt [qt5.qtbase qt5.wrapQtAppsHook]
+  ++ lib.optionals withQt [ qt5.qtbase qt5.wrapQtAppsHook ]
   ++ lib.optional withSndfile libsndfile
   ++ lib.optional withTeem teem;
 
