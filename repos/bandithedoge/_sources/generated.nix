@@ -39,15 +39,15 @@
   };
   carla = {
     pname = "carla";
-    version = "8d4bf13cd411307649f3e4327d855d98f06fb76f";
+    version = "f69896bcff8a4154bb07f792ece2bb157c3f1cdb";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "8d4bf13cd411307649f3e4327d855d98f06fb76f";
+      rev = "f69896bcff8a4154bb07f792ece2bb157c3f1cdb";
       fetchSubmodules = false;
-      sha256 = "sha256-AyS3loLUFrqAHEybjyQ06iHu2aviFb1Zh5jFbni7Vyk=";
+      sha256 = "sha256-lvywW2ZCjGDDnU3ZECWph281oOnUWcVHgeshxlHF2fA=";
     };
-    date = "2023-07-21";
+    date = "2023-07-22";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
