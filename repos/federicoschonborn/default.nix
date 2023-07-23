@@ -60,7 +60,6 @@
     enableGio = true;
     enableGlx = true;
     enableImagemagick = true;
-    enableLibcjson = true;
     enableLibnm = true;
     enableLibpci = true;
     enableMesa = true;
