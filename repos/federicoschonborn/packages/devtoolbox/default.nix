@@ -140,7 +140,7 @@ python3Packages.buildPythonApplication rec {
     description = "Development tools at your fingertips";
     homepage = "https://github.com/aleiepure/devtoolbox";
     license = licenses.gpl3Plus;
-    broken = stdenv.isDarwin;
+    broken = stdenv.isDarwin || versionOlder blueprint-compiler.version "0.8.0";
     maintainers = with maintainers; [ federicoschonborn ];
   };
 }

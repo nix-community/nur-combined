@@ -3,6 +3,7 @@
 , fetchFromGitLab
 , cairo
 , cargo
+, darwin
 , desktop-file-utils
 , gdk-pixbuf
 , glib
@@ -57,6 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
     gtk4
     libadwaita
     pango
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Foundation
   ];
 
   meta = with lib; {
