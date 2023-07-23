@@ -77,29 +77,32 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ ]
     ++ lib.optionals enableChafa [ chafa ]
-    ++ lib.optionals enableDbus [ dbus ]
-    ++ lib.optionals enableDconf [ dconf ]
-    ++ lib.optionals enableEgl [ libGL ]
     ++ lib.optionals enableFreetype [ freetype ]
-    # glib depends on pcre2 and libselinux depends on pcre16
-    ++ lib.optionals enableGio [ glib libselinux libsepol pcre16 pcre2 utillinux ]
-    ++ lib.optionals enableGlx [ libglvnd ]
     ++ lib.optionals enableImagemagick [ imagemagick ]
     ++ lib.optionals enableLibcjson [ cjson ]
-    ++ lib.optionals enableLibnm [ networkmanager ]
-    ++ lib.optionals enableLibpci [ pciutils ]
-    ++ lib.optionals enableMesa [ mesa_drivers.dev ]
-    ++ lib.optionals enableOpencl [ ocl-icd opencl-headers ]
-    ++ lib.optionals enablePulse [ pulseaudio ]
-    ++ lib.optionals enableRpm [ rpm ]
     ++ lib.optionals enableSqlite3 [ sqlite ]
-    ++ lib.optionals enableVulkan [ vulkan-loader ]
-    ++ lib.optionals enableWayland [ libffi wayland ]
-    ++ lib.optionals enableX11 [ xorg.libX11 ]
-    ++ lib.optionals enableXcb [ xorg.libXau xorg.libXdmcp xorg.libxcb ]
-    ++ lib.optionals enableXfconf [ xfce.xfconf ]
-    ++ lib.optionals enableXrandr [ xorg.libXext xorg.libXrandr ]
-    ++ lib.optionals enableZlib [ zlib ];
+    ++ lib.optionals enableZlib [ zlib ]
+    ++ (
+    lib.optionals (!stdenv.isDarwin) [ ]
+      ++ lib.optionals enableDbus [ dbus ]
+      ++ lib.optionals enableDconf [ dconf ]
+      ++ lib.optionals enableEgl [ libGL ]
+      # glib depends on pcre2 and libselinux depends on pcre16
+      ++ lib.optionals enableGio [ glib libselinux libsepol pcre16 pcre2 utillinux ]
+      ++ lib.optionals enableGlx [ libglvnd ]
+      ++ lib.optionals enableLibnm [ networkmanager ]
+      ++ lib.optionals enableLibpci [ pciutils ]
+      ++ lib.optionals enableMesa [ mesa_drivers.dev ]
+      ++ lib.optionals enablePulse [ pulseaudio ]
+      ++ lib.optionals enableRpm [ rpm ]
+      ++ lib.optionals enableVulkan [ vulkan-loader ]
+      ++ lib.optionals enableWayland [ libffi wayland ]
+      ++ lib.optionals enableX11 [ xorg.libX11 ]
+      ++ lib.optionals enableXcb [ xorg.libXau xorg.libXdmcp xorg.libxcb ]
+      ++ lib.optionals enableXfconf [ xfce.xfconf ]
+      ++ lib.optionals enableXrandr [ xorg.libXext xorg.libXrandr ]
+      ++ lib.optionals enableOpencl [ ocl-icd opencl-headers ]
+  );
 
   cmakeFlags = [ "-DTARGET_DIR_ROOT=${placeholder "out"}" ];
 
