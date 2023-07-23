@@ -1,12 +1,12 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.1.34-sunlight1";
+  modDirVersion = "6.1.36-sunlight1";
   parts = lib.splitString "-" modDirVersion;
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
   extraVer = "";
-  hash = "sha256-SCVBlhahQOY843wzmhqBO2v0s3VAThGGJzFoxpyqKVE=";
+  hash = "sha256-5TGuPxWpZ4YypCxvzekKO7PchFG07qm/SOgMTUyq64w=";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
