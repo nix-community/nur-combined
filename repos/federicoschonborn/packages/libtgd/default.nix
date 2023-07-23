@@ -7,7 +7,7 @@
 , cfitsio
 , withDmctk ? false
 , dcmtk
-, withExiv2 ? withLibjpeg || withLibpng
+, withExiv2 ? withJpeg || withPng
 , exiv2
 , withFfmpeg ? false
 , ffmpeg
@@ -17,24 +17,24 @@
 , libgta
 , withHdf5 ? false
 , hdf5-cpp
-, withImagemagick ? false
-, imagemagick
-, withLibjpeg ? false
+, withJpeg ? false
 , libjpeg
-, withLibpng ? false
-, libpng
-, withLibtiff ? false
-, libtiff
+, withMagick ? false
+, imagemagick
 , withMatio ? false
 , matio
 , withMuparser ? false
 , muparser
 , withOpenexr ? false
 , openexr_3
-, withPfstools ? false
+, withPfs ? false
 , pfstools
+, withPng ? false
+, libpng
 , withPoppler ? false
 , poppler
+, withTiff ? false
+, libtiff
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -58,15 +58,15 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withGdal gdal
     ++ lib.optional withGta libgta
     ++ lib.optional withHdf5 hdf5-cpp
-    ++ lib.optional withImagemagick imagemagick
-    ++ lib.optional withLibjpeg libjpeg
-    ++ lib.optional withLibpng libpng
-    ++ lib.optional withLibtiff libtiff
+    ++ lib.optional withJpeg libjpeg
+    ++ lib.optional withMagick imagemagick
     ++ lib.optional withMatio matio
     ++ lib.optional withMuparser muparser
     ++ lib.optional withOpenexr openexr_3
-    ++ lib.optional withPfstools pfstools
-    ++ lib.optional withPoppler poppler;
+    ++ lib.optional withPfs pfstools
+    ++ lib.optional withPng libpng
+    ++ lib.optional withPoppler poppler
+    ++ lib.optional withTiff libtiff;
 
   meta = with lib; {
     description = "A library to make working with multidimensional arrays in C++ easy";

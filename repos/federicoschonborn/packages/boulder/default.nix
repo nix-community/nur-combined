@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, libmossSrc
+, libmoss
 , curl
 , ldc
 , lmdb
@@ -12,7 +12,7 @@
 , zstd
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "boulder";
   version = "1.0.1";
 
@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
       name = "boulder";
       owner = "serpent-os";
       repo = "boulder";
-      rev = "v${version}";
+      rev = "v${finalAttrs.version}";
       hash = "sha256-FBacbTvU9diD+kK0x1KzSVw6xcbOeVytsmDQBv1QZ0w=";
     })
 
-    libmossSrc
+    libmoss
   ];
 
   sourceRoot = "boulder";
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/serpent-os/boulder";
     license = with licenses; [ zlib ];
   };
-}
+})

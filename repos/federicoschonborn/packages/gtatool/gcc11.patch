@@ -1,0 +1,10 @@
+--- gtatool-2.4.0/src/base/dbg.cpp~	2018-06-13 12:02:10.000000000 +0200
++++ gtatool-2.4.0/src/base/dbg.cpp	2021-08-29 22:22:22.440264892 +0200
+@@ -21,6 +21,7 @@
+ #include <cstdlib>
+ #include <cerrno>
+ #include <cstring>
++#include <exception>
+ #include <new>
+ #if HAVE_BACKTRACE
+ # include <cstdio>

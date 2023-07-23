@@ -1,13 +1,13 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, libmossSrc
+, libmoss
 , ldc
 , meson
 , ninja
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "moss-container";
   version = "unstable-2023-04-13";
 
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
         hash = "sha256-BUVFPPbW/UdRk0gnznGEpYI63+DoLvPEC8loicSeWek=";
       })
 
-    libmossSrc
+    libmoss
   ];
 
   sourceRoot = "moss-container";

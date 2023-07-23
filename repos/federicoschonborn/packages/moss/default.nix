@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, libmossSrc
+, libmoss
 , curl
 , ldc
 , lmdb
@@ -12,7 +12,7 @@
 , zstd
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "moss";
   version = "1.0.1";
 
@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
       name = "moss";
       owner = "serpent-os";
       repo = "moss";
-      rev = "v${version}";
+      rev = "v${finalAttrs.version}";
       hash = "sha256-56qqO/DDNXH2skpi2u1wl7kmfx9RYD9sTZH6micn59c=";
     })
 
-    libmossSrc
+    libmoss
   ];
 
   sourceRoot = "moss";
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
       boost
     ];
   };
-}
+})
