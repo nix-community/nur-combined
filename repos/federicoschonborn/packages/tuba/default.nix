@@ -20,13 +20,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tuba";
-  version = "0.3.2";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "GeopJr";
     repo = "Tuba";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-PSEPpJn/lYpeI6AN2AY73NpOcDkMm0zNqeSdELn5HvY=";
+    hash = "sha256-sLdkSIevz2spL+Q5sS+ugqEbqJTXrLxmszzijtKvY6k=";
   };
 
   nativeBuildInputs = [
