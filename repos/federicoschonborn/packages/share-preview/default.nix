@@ -4,6 +4,7 @@
 , cairo
 , cargo
 , curl
+, darwin
 , desktop-file-utils
 , gdk-pixbuf
 , glib
@@ -58,6 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
     pango
     zlib
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Foundation
   ];
 
   meta = with lib; {
