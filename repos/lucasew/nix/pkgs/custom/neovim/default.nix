@@ -100,6 +100,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
     packages.plugins.start = with vimPlugins; [
       # utils
       coq_nvim
+      coq-artifacts
       echodoc
       emmet-vim
       fennel-nvim
