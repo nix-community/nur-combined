@@ -166,13 +166,15 @@
   [
     default-white-theme :paper
     default-dark-theme :embark
+    nix-colors-theme vim.g.nix_colors_theme
+    custom-theme (if (= nix-colors-theme "") nil nix-colors-theme)
+    chosen-dark-theme (or custom-theme default-dark-theme)
   ]
 (do
+  (vim.cmd.colorscheme chosen-dark-theme)
   (vim.api.nvim_create_user_command :ToggleTheme (fn [opts]
     (let [
           is-dark (not vim.g.nixcfg_is_dark) ;; inverter pq é dark por padrão
-          custom-theme (if (= nix_colors_theme "") nil nix_colors_theme)
-          chosen-dark-theme (or custom-theme default-dark-theme)
           chosen-theme (if is-dark chosen-dark-theme default-white-theme)
       ] (do
           (tset vim.g :nixcfg_is_dark is-dark)
