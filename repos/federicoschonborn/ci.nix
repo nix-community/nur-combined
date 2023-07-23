@@ -9,11 +9,15 @@
 #
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
-{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib }:
-with builtins; let
+{ pkgs ? import <nixpkgs> { } }:
+
+let
+  inherit (builtins) attrNames attrValues concatLists filter listToAttrs isAttrs;
+  inherit (pkgs) lib stdenv;
+
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false) && (p.meta.license.free or true) && (lib.meta.availableOn currentSystem p);
+  isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true && lib.meta.availableOn stdenv.hostPlatform p;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
   nameValuePair = n: v: { name = n; value = v; };
