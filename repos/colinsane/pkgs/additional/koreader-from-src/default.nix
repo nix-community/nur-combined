@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
   );
 
   patches = [
-    ./debug.patch
-    # ./mupdf_dir.patch  #< TODO: needed?
+    ./debug.patch  #< not needed to build, just helps debug packaging issues
     ./no_rm_build_dirs.patch
     ./lua-Spore-no-luajson.patch  #< TODO: test this at runtime! we ship luajson, but just don't expose it via luarocks...
     (substituteAll (
