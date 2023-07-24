@@ -3,10 +3,16 @@
 
 window#waybar {
   background-color: #418379;
-  border-bottom: 2px solid #1f5e54;
+  border-bottom: 0px solid #1f5e54;
   color: #ffffff;
   transition-property: background-color;
   transition-duration: .2s;
+}
+
+.modules-right {
+  /* workspace buttons (LHS) get padding between it and the screen edge */
+  /* replicate that same padding for whatever's on the RHS (i.e. the clock) */
+  margin-right: 5px;
 }
 
 #workspaces button {
@@ -14,7 +20,7 @@ window#waybar {
   background-color: #418379;
   color: #ffffff;
   /* Use box-shadow instead of border so the text isn't offset */
-  box-shadow: inset 0 -2px #1f5e54;
+  box-shadow: inset 0 0px #1f5e54;
   /* Avoid rounded borders under each workspace name */
   border: none;
   border-radius: 0;
@@ -30,7 +36,7 @@ window#waybar {
 
 #workspaces button.focused {
   background-color: #63a89c;
-  box-shadow: inset 0 -2px #2c8274;
+  box-shadow: inset 0 0px #2c8274;
 }
 
 #workspaces button.urgent {
