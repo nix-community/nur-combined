@@ -4,7 +4,7 @@
 [
   { # TOP BAR
     layer = "top";
-    height = 32;
+    height = 28;
 
     modules-left = [ "sway/workspaces" ];
     modules-center = [ ];

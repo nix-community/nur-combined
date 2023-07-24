@@ -1,0 +1,58 @@
+/* style docs: https://github.com/Alexays/Waybar/wiki/Styling */
+/* defaults: https://github.com/Alexays/Waybar/blob/master/resources/style.css */
+
+window#waybar {
+  background-color: #418379;
+  border-bottom: 2px solid #1f5e54;
+  color: #ffffff;
+  transition-property: background-color;
+  transition-duration: .2s;
+}
+
+#workspaces button {
+  padding: 0 5px;
+  background-color: #418379;
+  color: #ffffff;
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 -2px #1f5e54;
+  /* Avoid rounded borders under each workspace name */
+  border: none;
+  border-radius: 0;
+}
+
+#workspaces button:hover {
+  /* i don't want hover effects, so reset this styling to be the same as default button */
+  /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+  background: inherit;
+  box-shadow: inherit;
+  text-shadow: inherit;
+}
+
+#workspaces button.focused {
+  background-color: #63a89c;
+  box-shadow: inset 0 -2px #2c8274;
+}
+
+#workspaces button.urgent {
+  background-color: #e64291;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
+
+#tray {
+  background-color: #418379;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+ 
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #e64291;
+}

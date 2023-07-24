@@ -263,8 +263,8 @@ in
           in
             (pkgs.formats.json {}).generate "waybar-config.json" waybar-config;
 
-        # sane.user.fs.".config/waybar/style.css".symlink.text =
-        #   builtins.readFile ./waybar-style.css;
+        sane.user.fs.".config/waybar/style.css".symlink.text =
+          builtins.readFile ./waybar-style.css;
 
         sane.user.fs.".config/sxmo/conky.conf".symlink.target = let
           battery_estimate = pkgs.static-nix-shell.mkBash {

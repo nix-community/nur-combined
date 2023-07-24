@@ -39,6 +39,21 @@ mode "menu" {
     bindsym --input-device=1:1:1c21800.lradc XF86AudioMute exec nothing # just a placeholder for "menu" mode
 }
 
+hide_edge_borders smart
+default_border pixel 1
+titlebar_border_thickness 1
+# XX YY distance from edge of window title to edge of text
+# the YY distance here determines the heigh of the overall title
+titlebar_padding 12 1
+title_align center
+
+### tab colors (#border #background #text [#indicator #childBorder])
+# fucused & unfocused are the main interest
+client.focused #1f5e54 #418379 #ffffff
+client.focused_inactive #1f5e54 #5f676a
+client.unfocused #1f5e54 #1f554c #b4b4b4
+client.urgent #e64291 #e64291 #ffffff
+
 ### Key bindings
 #
 # Basics:
@@ -213,10 +228,6 @@ bar {
 
 for_window [app_id="foot" title=".*sxmo/modem/.*/draft.txt.*"] resize set height 25
 for_window [title="megapixels"] inhibit_idle open
-
-default_border pixel 3
-titlebar_border_thickness 3
-hide_edge_borders smart
 
 include /etc/sway/config.d/*
 
