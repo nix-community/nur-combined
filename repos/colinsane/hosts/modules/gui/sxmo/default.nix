@@ -213,6 +213,31 @@ in
           wantedBy = [ "display-manager.service" ];
         };
 
+        # if superd fails to start a service within 100ms, it'll try to start again
+        # the fallout of this is that during intense lag (e.g. OOM or swapping) it can
+        # start the service many times.
+        # see <repo:craftyguy/superd:internal/cmd/cmd.go>
+        # TODO: better fix may be to patch `sxmo_hook_lisgdstart.sh` and force it to behave as a singleton
+        systemd.services."dedupe-sxmo-lisgd" = {
+          description = "kill duplicate lisgd processes started by superd";
+          serviceConfig = {
+            Type = "oneshot";
+          };
+          script = ''
+            if [ "$(${pkgs.procps}/bin/pgrep -c lisgd)" -gt 1 ]; then
+              echo 'killing duplicated lisgd daemons'
+              ${pkgs.psmisc}/bin/killall lisgd  # let superd restart it
+            fi
+          '';
+          wantedBy = [ "multi-user.target" ];
+        };
+        systemd.timers."dedupe-sxmo-lisgd" = {
+          wantedBy = [ "dedupe-sxmo-lisgd.service" ];
+          timerConfig = {
+            OnUnitActiveSec = "2min";
+          };
+        };
+
         sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle {
           symlink.text = "";
         };
