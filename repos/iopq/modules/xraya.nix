@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  xraya = pkgs.callPackage ../pkgs/default.nix { };
+  xraya = pkgs.callPackage ../pkgs/xraya/default.nix { };
 in {
   options = {
     services.xraya = {
