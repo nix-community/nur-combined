@@ -69,6 +69,20 @@
         platforms = platforms.all;
         };
       };
+    "alfred-launcher-integration" = buildFirefoxXpiAddon {
+      pname = "alfred-launcher-integration";
+      version = "1.2.0";
+      addonId = "alfredfirefox@deanishe.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3713996/alfred_launcher_integration-1.2.0.xpi";
+      sha256 = "73e620f6c01dd61c7f1a9b17aae54cdcfded46214dc0b685296f9594a221f639";
+      meta = with lib;
+      {
+        homepage = "https://github.com/deanishe/alfred-firefox";
+        description = "Integrate Firefox with Alfred — Search your Firefox bookmarks &amp; history and control Firefox tabs from Alfred.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "amp2html" = buildFirefoxXpiAddon {
       pname = "amp2html";
       version = "2.1.0";
@@ -1098,6 +1112,20 @@
         platforms = platforms.all;
         };
       };
+    "foxytab" = buildFirefoxXpiAddon {
+      pname = "foxytab";
+      version = "2.31";
+      addonId = "foxytab@eros.man";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066782/foxytab-2.31.xpi";
+      sha256 = "5d8e5499bf4ccb6571d00a9ea885445fcb532c5dd090d5c57621d69098a4c77a";
+      meta = with lib;
+      {
+        homepage = "https://github.com/erosman/support";
+        description = "Collection of Tab Related Actions e.g. Duplicate, Close Duplicates, Close to the Left, Copy Title, Merge Windows, Save as PDF, Copy Urls Tab/All/Left/Right, Host keep/close/close other, Sort by URL/Title, Asce/Desc, Move, Reload, Reload Timer";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "fraidycat" = buildFirefoxXpiAddon {
       pname = "fraidycat";
       version = "1.1.10";
@@ -1822,6 +1850,20 @@
         platforms = platforms.all;
         };
       };
+    "linkding-extension" = buildFirefoxXpiAddon {
+      pname = "linkding-extension";
+      version = "1.7";
+      addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4116913/linkding_extension-1.7.xpi";
+      sha256 = "7784f443d86e577799d4858e23eee6c19571470528c05d83ba8fbe835bbedb8d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/sissbruecker/linkding-extension/";
+        description = "Companion extension for the linkding bookmark manager";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "linkhints" = buildFirefoxXpiAddon {
       pname = "linkhints";
       version = "1.3.1";
@@ -2105,6 +2147,20 @@
         platforms = platforms.all;
         };
       };
+    "ng-inspect" = buildFirefoxXpiAddon {
+      pname = "ng-inspect";
+      version = "1.0";
+      addonId = "jid1-v6jvJrqACQCakw@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/670891/ng_inspect-1.0.xpi";
+      sha256 = "1bf9d575ff790ae5afdef2f48ceda0062842a1232e6806009657f67bf7f2238b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/christophehurpeau/ng-inspect";
+        description = "Inspect the angular scope in the developper tools inspector";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "nighttab" = buildFirefoxXpiAddon {
       pname = "nighttab";
       version = "7.3.0";
@@ -2283,6 +2339,20 @@
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
         description = "Ensure Reddit always loads the old design";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "omnisearch" = buildFirefoxXpiAddon {
+      pname = "omnisearch";
+      version = "1.4.5";
+      addonId = "{5bc8d6f7-79e6-42b0-a64e-06a05dc2db5d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925614/omnisearch-1.4.5.xpi";
+      sha256 = "11b1ed044efc29ce48a2206049959700f59c33f5d631087fc83efea5b2d02696";
+      meta = with lib;
+      {
+        homepage = "https://github.com/alyssaxuu/omni";
+        description = "Supercharge Firefox with commands, shortcuts, and more";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -3026,6 +3096,20 @@
         platforms = platforms.all;
         };
       };
+    "snoozetabs" = buildFirefoxXpiAddon {
+      pname = "snoozetabs";
+      version = "1.1.1";
+      addonId = "snoozetabs@mozilla.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1209734/snoozetabs-1.1.1.xpi";
+      sha256 = "b1273ab8309af084b177f71d3e794de32ac2b663e70d76c12260d1805b9cd62a";
+      meta = with lib;
+      {
+        homepage = "https://github.com/bwinton/SnoozeTabs#readme";
+        description = "Snooze Tabs help you focus your attention online, whether you want to remove distractions for now or save something for later. Hit the snooze icon to dismiss tabs you don’t want now, and set an alarm to bring them back when you need them.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
       version = "0.7.2";
@@ -3389,6 +3473,20 @@
         homepage = "https://github.com/jlebon/textern";
         description = "Edit text in your favourite external editor!";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "theater-mode-for-youtube" = buildFirefoxXpiAddon {
+      pname = "theater-mode-for-youtube";
+      version = "0.2.2";
+      addonId = "{b8326f03-322f-4112-96bd-e7996548d99f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141330/theater_mode_for_youtube-0.2.2.xpi";
+      sha256 = "700cd19d1b55c2f78edb088aacd905d5c59ff2dbeebd03a01c5c65bb27b24bac";
+      meta = with lib;
+      {
+        homepage = "https://webextension.org/listing/youtube-tools.html?theater";
+        description = "Force YouTube to open in its player in the theater mode";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -3931,6 +4029,25 @@
       {
         description = "This extension restores the old Wikipedia Layout and Design by appending \"?useskin=vector\" to Wikipedia URLs.";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "wikiwand-wikipedia-modernized" = buildFirefoxXpiAddon {
+      pname = "wikiwand-wikipedia-modernized";
+      version = "5.1.3";
+      addonId = "jid1-D7momAzRw417Ag@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3694180/wikiwand_wikipedia_modernized-5.1.3.xpi";
+      sha256 = "ed6633af652b1e609aed8660b8251573265d38ee051c9e4c5920dbf19b325d86";
+      meta = with lib;
+      {
+        homepage = "http://www.wikiwand.com";
+        description = "Good old Wikipedia gets a great new look";
+        license = {
+          shortName = "wikiwand";
+          fullName = "Terms of Service - Wikiwand";
+          url = "https://www.wikiwand.com/terms";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };

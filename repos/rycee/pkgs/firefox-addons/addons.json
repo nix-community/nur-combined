@@ -26,6 +26,9 @@
     "slug": "adsum-notabs"
   },
   {
+    "slug": "alfred-launcher-integration"
+  },
+  {
     "slug": "amp2html"
   },
   {
@@ -300,6 +303,9 @@
     "slug": "foxyproxy-standard"
   },
   {
+    "slug": "foxytab"
+  },
+  {
     "slug": "fraidycat"
   },
   {
@@ -514,6 +520,9 @@
     "slug": "link-gopher"
   },
   {
+    "slug": "linkding-extension"
+  },
+  {
     "slug": "linkhints"
   },
   {
@@ -591,6 +600,9 @@
     "slug": "news-feed-eradicator"
   },
   {
+    "slug": "ng-inspect"
+  },
+  {
     "slug": "nighttab"
   },
   {
@@ -654,6 +666,9 @@
   },
   {
     "slug": "old-reddit-redirect"
+  },
+  {
+    "slug": "omnisearch"
   },
   {
     "slug": "onetab",
@@ -848,6 +863,9 @@
     }
   },
   {
+    "slug": "snoozetabs"
+  },
+  {
     "slug": "solarized-light",
     "license": {
       "tag": "custom",
@@ -947,6 +965,9 @@
   },
   {
     "slug": "textern"
+  },
+  {
+    "slug": "theater-mode-for-youtube"
   },
   {
     "slug": "to-deepl"
@@ -1107,6 +1128,16 @@
   },
   {
     "slug": "wikipedia-vector-skin"
+  },
+  {
+    "slug": "wikiwand-wikipedia-modernized",
+    "license": {
+      "tag": "custom",
+      "shortName": "wikiwand",
+      "fullName": "Terms of Service - Wikiwand",
+      "url": "https://www.wikiwand.com/terms",
+      "free": false
+    }
   },
   {
     "slug": "windscribe"
