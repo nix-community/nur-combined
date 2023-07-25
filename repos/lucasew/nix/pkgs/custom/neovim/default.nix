@@ -23,8 +23,7 @@ let
     buildVimPlugin
     buildVimPluginFrom2Nix
   ;
-in
-let
+
   pluginNocapsquit = buildVimPlugin {
     name = "nocapsquit";
     src = fetchFromGitHub {
