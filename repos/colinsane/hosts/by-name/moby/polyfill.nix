@@ -29,6 +29,7 @@ in
   };
 
   sane.gui.sxmo = {
+    nogesture = true;
     settings = {
       ### hardware: touch screen
       SXMO_LISGD_INPUT_DEVICE = "/dev/input/by-path/platform-1c2ac00.i2c-event";
@@ -168,10 +169,6 @@ in
     };
     package = pkgs.sxmo-utils.overrideAttrs (base: {
       postPatch = (base.postPatch or "") + ''
-        # don't enable gestures at launch
-        # sed -i '/superctl start sxmo_hook_lisgd/d' ./configs/default_hooks/sxmo_hook_start.sh
-        sed -i '1 a touch ~/.cache/sxmo/sxmo.nogesture' ./configs/default_hooks/sxmo_hook_start.sh
-
         cat <<EOF >> ./configs/default_hooks/sxmo_hook_start.sh
         # rotate UI based on physical display angle by default
         sxmo_daemons.sh start autorotate sxmo_autorotate.sh

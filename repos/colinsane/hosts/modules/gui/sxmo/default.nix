@@ -126,6 +126,11 @@ in
       default = false;
       description = "inhibit lock-on-idle and screenoff-on-idle";
     };
+    sane.gui.sxmo.nogesture = mkOption {
+      type = types.bool;
+      default = false;
+      description = "don't start lisgd gesture daemon by default";
+    };
   };
 
   config = lib.mkMerge [
@@ -239,6 +244,9 @@ in
         };
 
         sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle {
+          symlink.text = "";
+        };
+        sane.user.fs.".cache/sxmo/sxmo.nogesture" = lib.mkIf cfg.nogesture {
           symlink.text = "";
         };
         sane.user.fs.".config/sxmo/profile".symlink.text = let

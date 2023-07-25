@@ -12,8 +12,9 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ./firmware.nix
+    ./bootloader.nix
     ./fs.nix
+    ./gps.nix
     ./kernel.nix
     ./polyfill.nix
   ];

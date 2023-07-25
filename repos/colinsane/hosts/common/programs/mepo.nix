@@ -9,12 +9,18 @@
     persist.private = [
       { type = "file"; path = ".cache/mepo/savestate"; }
     ];
+
+    # give mepo access to gpsd for location data, if that's enabled.
+    # same with geoclue2.
+    suggestedPrograms = lib.optional config.services.gpsd.enable "gpsd"
+      ++ lib.optional config.services.geoclue2.enable "geoclue2-with-demo-agent"
+    ;
   };
 
-  programs.mepo = lib.mkIf config.sane.programs.mepo.enabled {
-    # enable location services (via geoclue)
-    enable = true;
-    # more precise, via gpsd ("may require additional config")
-    # programs.mepo.gpsd.enable = true
-  };
+  # programs.mepo = lib.mkIf config.sane.programs.mepo.enabled {
+  #   # enable location services (via geoclue)
+  #   enable = true;
+  #   # more precise, via gpsd ("may require additional config")
+  #   # programs.mepo.gpsd.enable = true
+  # };
 }
