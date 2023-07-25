@@ -284,10 +284,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.5.1";
+      version = "2023.7.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128403/bitwarden_password_manager-2023.5.1.xpi";
-      sha256 = "92f491cf260e4018192e94e866e5b2c5cd00102873d032331e28fe6ae308c010";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4140393/bitwarden_password_manager-2023.7.1.xpi";
+      sha256 = "a33971d80f552279f96579786938ae8e88c4b95c29f8339c42f5de47f15200ad";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1128,10 +1128,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230720.200012";
+      version = "116.0.20230724.170120";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141773/francais_language_pack-116.0.20230720.200012.xpi";
-      sha256 = "7061e4dde4565fc3f7a69c85f8307e6389899345ee8b4de060b72c9918bfefa7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4143349/francais_language_pack-116.0.20230724.170120.xpi";
+      sha256 = "94c6259267923c8dcc0459d30b3349833f59ddbc47730c74e5b57f9c636d3010";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
