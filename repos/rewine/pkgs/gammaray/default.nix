@@ -16,13 +16,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "GammaRay";
-  version = "unstable-2023-03-02";
+  version = "unstable-2023-06-22";
 
   src = fetchFromGitHub {
     owner = "KDAB";
     repo = pname;
-    rev = "e3879212bc3265563f922d1bc57ef343bdcb9768";
-    hash = "sha256-Sqy9QeFhqAX8wKpfHbQTTXbWf0cXU/MRxLRFEqp2eRU=";
+    rev = "8f2dfd4eb2aa58885f59405c5a247de100c2a41c";
+    hash = "sha256-qhhtbNjX/sPMqiTPRW+joUtXL9FF0KjX00XtS+ujDmQ=";
   };
 
   nativeBuildInputs = [ cmake wrapQtAppsHook pkg-config ];

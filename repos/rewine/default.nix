@@ -20,15 +20,6 @@ with pkgs; rec {
   libkysdk-base = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-base { };
   #libkysdk-applications = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-applications { inherit libkysdk-base; };
   #peony = pkgs.libsForQt5.callPackage ./pkgs/peony { inherit ukui-interface; };
-
-  xmake = pkgs.callPackage ./pkgs/xmake { 
-    luaPackages = pkgs.lua54Packages;
-  };
-  mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {
-    inherit xmake pdfhummus ;
-  };
-  pdfhummus = pkgs.libsForQt5.callPackage ./pkgs/pdfhummus { };
-  #libaesgm = pkgs.callPackage ./pkgs/libaesgm { };
-
+  mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {  };
   kylin-virtual-keyboard = libsForQt5.callPackage ./pkgs/kylin-virtual-keyboard { };
 }
