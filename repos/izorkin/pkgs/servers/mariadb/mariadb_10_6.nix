@@ -28,11 +28,11 @@ mariadb = server // {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.6.12";
+  version = "10.6.14";
 
   src = fetchurl {
     url = "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
-    sha256 = "sha256-PtLrdCnC+uVCPKVcZhdC0QfjUkbxqwwQcJbwxLg5Rjo=";
+    sha256 = "sha256-RQQ3x0qORMdrPAs0O5NH65AyAVRYUVZdeNmmJGdqsgI=";
     name   = "mariadb-${version}.tar.gz";
   };
 
@@ -52,7 +52,6 @@ common = rec { # attributes common to both builds
 
   patches = [
     ./patch/cmake-includedir.patch
-    ./patch/10.4-libressl-3.5-support.patch
   ]
   # Fixes a build issue as documented on
   # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073

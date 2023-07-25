@@ -29,11 +29,11 @@ mariadb = server // {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.4.28";
+  version = "10.4.30";
 
   src = fetchurl {
     url = "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
-    sha256 = "sha256-AD/SPzxu5RYXbhtisLQ822zdPc1OMPhVwcWrK6r1qGw=";
+    sha256 = "sha256-/LvaZxxseEwDFQJiYj8NgYlMkRUz58PCdvJW8voSEAw=";
     name   = "mariadb-${version}.tar.gz";
   };
 
@@ -54,7 +54,6 @@ common = rec { # attributes common to both builds
 
   patches = [
     ./patch/cmake-includedir.patch
-    ./patch/10.4-libressl-3.5-support.patch
   ];
 
   cmakeFlags = [

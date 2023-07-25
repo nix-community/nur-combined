@@ -1060,10 +1060,12 @@ let
     sha256 = "16jr5v3pff3f1yd61hh4pb279ivb7np1kf8mhvfw16g0fsvx33js";
 
     configureFlags = with pkgs; [
-      "--with-yaml=${libyaml}"
+      "--with-yaml=${libyaml.dev}"
     ];
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
+
+    buildInputs = with pkgs; [ libyaml ];
 
     meta.broken = !isPhp56;
   };
@@ -1075,10 +1077,12 @@ let
     sha256 = "sha256-WTfrlyLd9tZGJnmc+gJFmP8kUuoVeZLk5nMxolP5AjY=";
 
     configureFlags = with pkgs; [
-      "--with-yaml=${libyaml}"
+      "--with-yaml=${libyaml.dev}"
     ];
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
+
+    buildInputs = with pkgs; [ libyaml ];
 
     meta.broken = isPhp56;
   };

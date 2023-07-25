@@ -2,20 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libssh2";
-  version = "1.10.0";
+  version = "1.11.0";
 
   src = fetchurl {
     url = "${meta.homepage}/download/${pname}-${version}.tar.gz";
-    sha256 = "0l8xwhhscvss7q007vpbkbv7jh9s43579rx2sf8lnfgd7l7yjr1d";
+    sha256 = "sha256-NzYWHkHiaTMk3rOMJs/cPv5iCdY0ukJY2xzs/2pa1GE=";
   };
 
   outputs = [ "out" "dev" "devdoc" ];
-
-  patches = [
-    # https://github.com/libssh2/libssh2/pull/700
-    # openssl: add support for LibreSSL 3.5.x
-    ./patch/openssl_add_support_for_libressl_3_5.patch
-  ];
 
   buildInputs = [ openssl zlib ]
     ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64;

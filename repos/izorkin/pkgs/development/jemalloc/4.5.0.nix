@@ -32,6 +32,12 @@ stdenv.mkDerivation rec {
     ]
   ;
 
+  patches = [
+    # https://github.com/jemalloc/jemalloc/pull/2244
+    # Use volatile to workaround buffer overflow false positives.
+    ./patch/fix-integration-test.patch
+  ];
+
   doCheck = true;
 
   enableParallelBuilding = true;
