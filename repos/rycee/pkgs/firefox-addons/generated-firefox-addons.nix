@@ -534,10 +534,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.11.2";
+      version = "3.12.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4138729/control_panel_for_twitter-3.11.2.xpi";
-      sha256 = "ac54cf32b993230bb816ec955751f600d9820c9491a9202309e164408b7f1ba3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4142858/control_panel_for_twitter-3.12.0.xpi";
+      sha256 = "a75f4840d9f7ef927d9e5833e09c6001624aad259025f79f6386815049c5b830";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1975,10 +1975,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.33.1";
+      version = "10.34.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4136645/ether_metamask-10.33.1.xpi";
-      sha256 = "f3d1416d2232a7432756be9631488e4ed1151f600e2d6e4754d6238d1c6a23f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141042/ether_metamask-10.34.0.xpi";
+      sha256 = "cc74bd00e9c7c07f518e50e3e86ff7e26e8494df7a7abe7da66dcbb3702db9eb";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -2224,10 +2224,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.25";
+      version = "11.4.26";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4136347/noscript-11.4.25.xpi";
-      sha256 = "36b44a4af8b57188db230c29284dd64626611ee6b46fbf8ef3e352317fbf55aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141345/noscript-11.4.26.xpi";
+      sha256 = "283db0eaebbd2888c1a852f5acabaa8e0225ff1eb1a97a25bceaedfd14d9f44c";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2378,10 +2378,10 @@
       };
     "onetab" = buildFirefoxXpiAddon {
       pname = "onetab";
-      version = "1.59";
+      version = "1.77";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3946687/onetab-1.59.xpi";
-      sha256 = "8976b6841f3f729d349a23333e6544c4e973ada7486a8a20f85e151d65ca6191";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141225/onetab-1.77.xpi";
+      sha256 = "826a3cb359031b187d33c7fb4abf2a7e5b1bf117c973e6e59dd644b212a696a6";
       meta = with lib;
       {
         homepage = "http://www.one-tab.com";
@@ -2905,10 +2905,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.7.8";
+      version = "23.7.25";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4135873/refined_github-23.7.8.xpi";
-      sha256 = "9e6555c0b8e11f782ae997783ec6caa0c1f00f6ec9af0b42937a9335f184668a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4143551/refined_github-23.7.25.xpi";
+      sha256 = "93a337436378a9cba17c81c442f7013b2359f5109e358487211643a98d1f3387";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -3675,10 +3675,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.50.0";
+      version = "1.51.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4121906/ublock_origin-1.50.0.xpi";
-      sha256 = "10618003e70b528c3f17996e373146d39e6b15f777ac4ca1f214da2ffdb7a5b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141256/ublock_origin-1.51.0.xpi";
+      sha256 = "8b73468bc233a11dd2895219466381783d19123857dd0b6fd16a01820fca4834";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
