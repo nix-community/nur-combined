@@ -298,12 +298,10 @@ lib.makeScope newScope (
     goldendict-bin = callPackage ./linguistics/goldendict/bin.nix { };
     gt-bash-client = callPackage ./linguistics/gt-bash-client { };
     gt4gd = callPackage ./linguistics/gt4gd { };
-    hfst = callPackage ./linguistics/hfst { };
     i18n-editor-bin = callPackage ./linguistics/i18n-editor { jre = pkgs.jdk11; };
     lsdreader = callPackage ./linguistics/lsdreader { };
     mikatools = callPackage ./linguistics/mikatools { };
     odict = callPackage ./linguistics/odict { };
-    python-hfst = callPackage ./linguistics/python-hfst { };
     pytorchtext = callPackage ./linguistics/pytorchtext { };
     redict = libsForQt5.callPackage ./linguistics/redict { };
     revtok = callPackage ./linguistics/revtok { };
