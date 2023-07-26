@@ -4,7 +4,7 @@ let
 in {
   options = {
     services.xraya = {
-      enable = lib.options.mkEnableOption "the v2rayA service";
+      enable = lib.options.mkEnableOption "the xrayA service";
     };
   };
 
