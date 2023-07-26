@@ -314,10 +314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.7.8";
+    version = "23.7.25";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4135873/refined_github-23.7.8.xpi";
-    sha256 = "9e6555c0b8e11f782ae997783ec6caa0c1f00f6ec9af0b42937a9335f184668a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4143551/refined_github-23.7.25.xpi";
+    sha256 = "93a337436378a9cba17c81c442f7013b2359f5109e358487211643a98d1f3387";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -427,10 +427,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.50.0";
+    version = "1.51.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4121906/ublock_origin-1.50.0.xpi";
-    sha256 = "10618003e70b528c3f17996e373146d39e6b15f777ac4ca1f214da2ffdb7a5b3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4141256/ublock_origin-1.51.0.xpi";
+    sha256 = "8b73468bc233a11dd2895219466381783d19123857dd0b6fd16a01820fca4834";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
