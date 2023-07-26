@@ -19,18 +19,24 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X 'ariga.io/atlas/cmd/atlas/internal/cmdapi.flavor=community'"
-    "-X 'ariga.io/atlas/cmd/atlas/internal/cmdapi.version=v${version}'"
+    "-X ariga.io/atlas/cmd/atlas/internal/cmdapi.flavor=community"
+    "-X ariga.io/atlas/cmd/atlas/internal/cmdapi.version=v${version}"
   ];
 
   passthru.updateScript = nix-update-script { };
 
-  # this test case presume that sed in darwin is BSD sed, but coreutils includes GNU sed
+  # L1-2: this test case presume that sed in darwin is BSD sed, but coreutils includes GNU sed
   # remove this if statement
-  # https://github.com/ariga/atlas/blob/8698b91741fe091a55a11abfe2d9513c6c25a3ec/cmd/atlas/internal/cmdapi/migrate_test.go#L1837
-  preCheck = ''
-    sed -zEi 's/if runtime\.GOOS == "darwin" \{[^}]+\}//' internal/cmdapi/migrate_test.go
-    sed -Ei 's/\"runtime\"//' internal/cmdapi/migrate_test.go
+  #
+  # L3: the string `Atlas CLI - development` it hardcoded in 0.12.0,
+  # but it should be `Atlas CLI v0.12.0`
+  # replace it with what it shoule be
+  #
+  # https://github.com/NixOS/nixpkgs/issues/197774
+  postPatch = ''
+    sed -zEi 's/if runtime\.GOOS == "darwin" \{[^}]+\}//' cmd/atlas/internal/cmdapi/migrate_test.go
+    sed -Ei 's/\"runtime\"//' cmd/atlas/internal/cmdapi/migrate_test.go
+    sed -Ei 's/Atlas CLI - development/Atlas CLI v${version}/' cmd/atlas/internal/cmdapi/migrate_test.go
   '';
 
   nativeCheckInputs = [ git ];
