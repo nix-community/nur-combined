@@ -228,7 +228,8 @@
 
       dontUnpack = true;
       buildInputs = []
-        ++ (with pkgs.custom; [ neovim emacs firefox tixati ])
+        ++ (with pkgs.custom; [ neovim ])
+        # ++ (with pkgs.custom; [ firefox tixati emacs ])
         ++ (with pkgs.custom.vscode; [ common programming ])
         ++ (with self.nixosConfigurations; [
           riverwood.config.system.build.toplevel
