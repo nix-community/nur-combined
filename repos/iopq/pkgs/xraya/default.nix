@@ -19,8 +19,6 @@ let
     sha256 = "gdT0VFcNkSd0TH1VJPnbErdoCBp077rcNWOJkaxfhi4=";
   };
 
-#  src = /home/iopq/sw/xraya;
-
   web = mkYarnPackage {
     inherit pname version;
     src = "${src}/gui";
@@ -76,11 +74,11 @@ buildGoModule {
 
   meta = with lib; {
     description = "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
-    homepage = "https://github.com/v2rayA/v2rayA";
+    homepage = "https://github.com/iopq/xraya";
     mainProgram = "xrayA";
     license = licenses.agpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ elliot ];
+    maintainers = with maintainers; [ iopq ];
   };
 }
 
