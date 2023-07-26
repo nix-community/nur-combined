@@ -24,15 +24,6 @@ let
     buildVimPluginFrom2Nix
   ;
 
-  pluginNocapsquit = buildVimPlugin {
-    name = "nocapsquit";
-    src = fetchFromGitHub {
-        owner = "lucasew";
-        repo = "nocapsquit.vim";
-        rev = "4418b78b635e797eab915bc54380a2a7e66d2e84";
-        sha256 = "1jwwiq321b86bh1z3shcprgh2xs5n1xjy9s364zxlxy8qhwfsryq";
-    };
-  };
   pluginIonideVim = buildVimPlugin {
     name = "ionide-vim";
     src = fetchFromGitHub {
@@ -53,33 +44,6 @@ let
       ${pkgs.unzip}/bin/unzip -o -d $out/share/vim-plugins/ionide-vim/fsac ${zip}
       chmod 555 $out/share/vim-plugins/ionide-vim/fsac -R
     '';
-  };
-  themeStarrynight = buildVimPlugin {
-    name = "starrynight";
-    src = fetchFromGitHub {
-      owner = "josegamez82";
-      repo = "starrynight";
-      rev = "fcc8776f64061251a73158515a0ce82304fe4518";
-      sha256 = "0zspnzgn5aixwcp7klj5vaijmj4ca6hjj58jrz5aqn10dv41s02p";
-    };
-  };
-  themePaper = buildVimPlugin {
-    name = "vim-paper";
-    src = fetchFromGitHub {
-      owner = "YorickPeterse";
-      repo = "vim-paper";
-      rev = "67763e10371beb56f9059efe257ec2db2fec2848";
-      sha256 = "CEPT2LtDc5hKnA7wrdEX6nzik29o6ewUgGvif5j5l+c=";
-    };
-  };
-  themePreto = buildVimPlugin {
-    name = "vim-preto";
-    src = fetchFromGitHub {
-      owner = "ewilazarus";
-      repo = "preto";
-      rev = "b9200d9a0ff09c4bc8b1cf054f61f12f49438454";
-      sha256 = "sha256-N7GLBVxO9FbLqo9FKJJndnHRnekunxwVAjcgu4l8jLw=";
-    };
   };
   fennel-nvim = buildVimPlugin {
     name = "fennel-nvim";
@@ -109,7 +73,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       vim-commentary
       vim-fetch # support for stacktrace paths
       telescope-nvim
-      pluginNocapsquit
+      yescapsquit-vim
       trouble-nvim
 
       # language specific
@@ -129,9 +93,9 @@ in wrapNeovim pkgs.neovim-unwrapped {
       # themes
       embark-vim
       onedark-vim
-      themePaper
-      themePreto
-      themeStarrynight
+      starrynight
+      vim-paper
+      preto
 
       indentLine
       nvim-web-devicons
