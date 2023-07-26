@@ -16,6 +16,13 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-hzXqT5pQ0Q/IELSoMwrhmrY1pw0jOUukShnNowsQt6o=";
 
+  ldflags = [
+    "-s"
+    "-w"
+    "-X 'ariga.io/atlas/cmd/atlas/internal/cmdapi.flavor=community'"
+    "-X 'ariga.io/atlas/cmd/atlas/internal/cmdapi.version=v${version}'"
+  ];
+
   passthru.updateScript = nix-update-script { };
 
   # this test case presume that sed in darwin is BSD sed, but coreutils includes GNU sed
