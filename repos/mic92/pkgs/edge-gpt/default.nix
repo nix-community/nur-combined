@@ -6,14 +6,14 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "edge-gpt";
-  version = "0.12.1";
+  version = "0.13.0";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "acheong08";
     repo = "EdgeGPT";
     rev = version;
-    hash = "sha256-QExnCBXyn2aujTElSDMcJ7E8YKpukuuEQwGDB8x5UOg=";
+    hash = "sha256-KHtf2u3IJcKvX63c2zDXRyBrLXaDe3xgVkqIdEcyu1s=";
   };
 
   postPatch = ''
