@@ -7,6 +7,7 @@
     pciutils
     glxinfo
     lm_sensors
+    usbutils
   ];
 }
 
