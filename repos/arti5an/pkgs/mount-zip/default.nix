@@ -1,15 +1,15 @@
 { lib, stdenv, fetchFromGitHub, fuse, boost, gcc, icu, libzip, pandoc
 , pkg-config }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mount-zip";
   version = "1.0.8";
 
   src = fetchFromGitHub {
     owner = "google";
     repo = "mount-zip";
-    rev = "v${version}";
-    sha256 = "+slN5eedSddYKgiNLq4KZ5BXwvGQw9859sVfkcIBYeo=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-+slN5eedSddYKgiNLq4KZ5BXwvGQw9859sVfkcIBYeo=";
   };
 
   nativeBuildInputs = [ boost gcc icu pandoc pkg-config ];
@@ -28,4 +28,4 @@ stdenv.mkDerivation rec {
     maintainers = [ "arti5an" ];
     platforms = platforms.linux;
   };
-}
+})
