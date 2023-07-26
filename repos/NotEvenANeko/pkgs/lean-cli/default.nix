@@ -1,12 +1,12 @@
 { buildGoModule, fetchFromGitHub, lib, nix-update-script }:
 
 buildGoModule rec {
-  name = "lean-cli";
+  pname = "lean-cli";
   version = "1.2.4";
 
   src = fetchFromGitHub {
     owner = "leancloud";
-    repo = name;
+    repo = pname;
     rev = "v${version}";
     hash = "sha256-fIkNeZdhyTH2BmvMOXZG2iu31KQaySQY/+6lAlRFjfk=";
   };
@@ -23,7 +23,7 @@ buildGoModule rec {
     homepage = "https://github.com/leancloud/lean-cli/tree/master";
     license = licenses.asl20;
     mainProgram = "lean";
-    maintainers = [{
+    maintainers = [ {
       name = "NotEvenANeko";
       email = "neko@qwq.icu";
       github = "NotEvenANeko";
@@ -32,6 +32,6 @@ buildGoModule rec {
       keys = [{
         fingerprint = "C7C3 8D62 BCC4 0F16 9EB2 B89B 3DC2 A7C6 1244 603E";
       }];
-    }];
+    } ];
   };
 }

@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   lean-cli = pkgs.callPackage ./pkgs/lean-cli { };
+  atlas = pkgs.callPackage ./pkgs/atlas { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
