@@ -21,14 +21,14 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "wiliwili";
-  version = "1.0.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "xfangfang";
     repo = "wiliwili";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-PO4qzdf71gNEpVI7809fhF0shky8CjXt1sttOWEDTDQ=";
+    hash = "sha256-+bYa8xczSr56E9JgjWIZiaj4kfdk+w2aUTuQi+DcZq4=";
   };
 
   nativeBuildInputs = [
