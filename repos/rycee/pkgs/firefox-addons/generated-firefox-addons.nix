@@ -1156,10 +1156,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230724.170120";
+      version = "115.0.20230726.201356";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4143349/francais_language_pack-116.0.20230724.170120.xpi";
-      sha256 = "94c6259267923c8dcc0459d30b3349833f59ddbc47730c74e5b57f9c636d3010";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4144401/francais_language_pack-115.0.20230726.201356.xpi";
+      sha256 = "e2b6e97ca7f5736716fdfd1bbe498ebd212ed95a91be7dcd5d4bfc990c0255f0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3057,10 +3057,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.43";
+      version = "1.21.47";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128372/single_file-1.21.43.xpi";
-      sha256 = "96ca441d989867e67c235f92c5601d77ead20552a5bdafb7615c04364911cc05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4143436/single_file-1.21.47.xpi";
+      sha256 = "87f2be785ce8552c6662dd037cbf931e30238cd7711c2b33fa653869b8e8657a";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -3600,10 +3600,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.15";
+      version = "3.9.16";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4088468/tree_style_tab-3.9.15.xpi";
-      sha256 = "7c993bae2d43488615f1a3b7459a2c35730a486b3855049709c636a84751d252";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141929/tree_style_tab-3.9.16.xpi";
+      sha256 = "703c0a1d8d62329aa93ccf3a637911661dd752d0c0d714736521df7aeecc52e9";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -3773,10 +3773,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.3.4";
+      version = "1.4.0";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4135687/vencord_web-1.3.4.xpi";
-      sha256 = "14b04578841c93ed96a1720f3389138831c9cecb74e397a70df4881d6806361b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4144170/vencord_web-1.4.0.xpi";
+      sha256 = "2c2a65eb34304c3fd092ebb7a09b1e5451d52f94b077e4ff38c8753f27c42620";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
