@@ -16,26 +16,31 @@ env:
 
 jobs:
   build:
-    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
+    name: Build (${{ matrix.runs-on }} · ${{ matrix.channel }})
     strategy:
       matrix:
-        include:
-          - os: ubuntu-latest
-            system: x86_64-linux
-            channel: nixos-unstable
-          - os: ubuntu-latest
-            system: x86_64-linux
-            channel: nixos-23.05
-          - os: ubuntu-latest
-            system: x86_64-linux
-            channel: nixpkgs-unstable
-          - os: macos-latest
-            system: x86_64-darwin
-            channel: nixpkgs-unstable
-          - os: macos-latest
-            system: x86_64-darwin
+        runs-on:
+          - ubuntu-latest
+          - macos-latest
+        channel:
+          - nixos-23.05
+          - nixos-23.05-small
+          - nixpkgs-23.05-darwin
+          - nixos-unstable
+          - nixos-unstable-small
+          - nixpkgs-unstable
+        exclude:
+          - runs-on: ubuntu-latest
             channel: nixpkgs-23.05-darwin
-    runs-on: ${{ matrix.os }}
+          - runs-on: macos-latest
+            channel: nixos-23.05
+          - runs-on: macos-latest
+            channel: nixos-23.05-small
+          - runs-on: macos-latest
+            channel: nixos-unstable
+          - runs-on: macos-latest
+            channel: nixos-unstable-small
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
