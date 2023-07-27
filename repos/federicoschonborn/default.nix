@@ -34,6 +34,9 @@
 
       wrapProgram $out/bin/apx --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.docker pkgs.distrobox ]}
     '';
+    meta = oldAttrs.meta // {
+      platforms = pkgs.lib.platforms.linux;
+    };
   });
   atoms = pkgs.callPackage ./packages/atoms { inherit atoms-core; };
   atoms-core = pkgs.python3Packages.callPackage ./packages/atoms-core { };

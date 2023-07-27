@@ -16,34 +16,55 @@ env:
 
 jobs:
   build:
-    name: Build (${{ matrix.runs-on }} · ${{ matrix.channel }})
+    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
     strategy:
+      fail-fast: false
       matrix:
         runs-on:
           - ubuntu-latest
-          - macos-latest
+        system:
+          - aarch64-linux
+          # - armv5tel-linux
+          # - armv6l-linux
+          # - armv7l-linux
+          # - i686-linux
+          # - mipsel-linux
+          # - powerpc64le-linux
+          # - riscv64-linux
+          - x86_64-linux
         channel:
           - nixos-23.05
           - nixos-23.05-small
-          - nixpkgs-23.05-darwin
           - nixos-unstable
           - nixos-unstable-small
           - nixpkgs-unstable
-        exclude:
-          - runs-on: ubuntu-latest
+        include:
+          - runs-on: macos-latest
+            system: x86_64-darwin
             channel: nixpkgs-23.05-darwin
           - runs-on: macos-latest
-            channel: nixos-23.05
+            system: x86_64-darwin
+            channel: nixpkgs-unstable
           - runs-on: macos-latest
-            channel: nixos-23.05-small
+            system: aarch64-darwin
+            channel: nixpkgs-23.05-darwin
           - runs-on: macos-latest
-            channel: nixos-unstable
-          - runs-on: macos-latest
-            channel: nixos-unstable-small
+            system: aarch64-darwin
+            channel: nixpkgs-unstable
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Setup Docker
+        run: |
+          brew install docker
+          colima start
+        if: matrix.runs-on == 'macos-latest' && matrix.system != 'aarch64-linux'
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v2.2.0
+        if: matrix.system != 'x86_64-linux'
 
       - name: Install nix
         uses: cachix/install-nix-action@v22
@@ -51,9 +72,7 @@ jobs:
           nix_path: nixpkgs=channel:${{ matrix.channel }}
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup Magic Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v2
+            system = ${{ matrix.system }}
 
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E "(import <nixpkgs> {}).lib.version"
