@@ -6,11 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 {pkgs ? import <nixpkgs> {}}: rec {
-  git-credential-manager = pkgs.callPackage ./pkgs/git-credential-manager {};
   github-linguist = pkgs.callPackage ./pkgs/github-linguist {};
   millipixels = pkgs.callPackage ./pkgs/millipixels {};
-  nanoemoji = pkgs.callPackage ./pkgs/nanoemoji {};
-  openmoji = pkgs.callPackage ./pkgs/openmoji {inherit nanoemoji;};
+  openmoji = pkgs.callPackage ./pkgs/openmoji {};
   openmojiPackage = pkgs.callPackage ./pkgs/openmoji/single.nix {inherit openmoji;};
   pkcs11-provider = pkgs.callPackage ./pkgs/pkcs11-provider.nix {};
   sea-orm-cli = pkgs.callPackage ./pkgs/sea-orm-cli {};
