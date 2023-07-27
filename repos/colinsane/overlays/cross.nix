@@ -815,6 +815,11 @@ in {
   #   # '';
   # });
 
+  mpvScripts = prev.mpvScripts // {
+    # "line 1: pkg-config: command not found"
+    #   "mpris.c:1:10: fatal error: gio/gio.h: No such file or directory"
+    mpris = addNativeInputs [ final.pkg-config ] prev.mpvScripts.mpris;
+  };
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
   ncftp = addNativeInputs [ final.bintools ] prev.ncftp;

@@ -10,7 +10,8 @@
     package = pkgs.wrapMpv pkgs.mpv-unwrapped {
       scripts = with pkgs.mpvScripts; [
         mpris
-        uosc
+        # uosc
+        pkgs.mpv-uosc-latest
       ];
     };
     persist.plaintext = [ ".config/mpv/watch_later" ];
