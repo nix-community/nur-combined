@@ -37,7 +37,7 @@
       "lemoa"  # lemmy app
       # "lollypop"
       "mepo"  # maps viewer
-      # "mpv"
+      "mpv"
       # "networkmanagerapplet"
       # "newsflash"
       "nheko"
@@ -50,7 +50,6 @@
       # "tdesktop"  # broken on phosh
       # "tokodon"
       "tuba"  # mastodon/pleroma client (stores pw in keyring)
-      "vlc"
       # "whalebird"  # pleroma client (Electron). input is broken on phosh.
       "xterm"  # broken on phosh
     ];
@@ -84,6 +83,7 @@
       "obsidian"
       "slic3r"
       "steam"
+      "vlc"
       "wireshark"  # could maybe ship the cli as sysadmin pkg
     ];
   };

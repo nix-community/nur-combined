@@ -210,6 +210,14 @@ in {
   #   ];
   # });
 
+  clapper = prev.clapper.overrideAttrs (upstream: {
+    # use the host gjs (meson's find_program expects it to be executable)
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace bin/meson.build \
+        --replace "find_program('gjs').path()" "'${final.gjs}/bin/gjs'"
+    '';
+  });
+
   # colord = prev.colord.override {
   #   # doesn't fix: "ld: error adding symbols: file in wrong format"
   #   inherit (emulated) stdenv;
