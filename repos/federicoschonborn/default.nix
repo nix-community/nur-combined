@@ -196,10 +196,10 @@
 
   libmoss = pkgs.fetchFromGitHub {
     name = "libmoss";
-    owner = "serpent-os";
+    owner = "FedericoSchonborn";
     repo = "libmoss";
-    rev = "v1.2.0";
-    hash = "sha256-P7QUheCxwt7lTh3K1NEUas4TyojMrzTsNWj8UVQqkl0=";
+    rev = "fc143087d0d7b124a3dfd7c5e635223d9b12064a";
+    hash = "sha256-oOm2luvqIr41ehDbfQUEGrJ4LdrngIo0RJ1OqGHD3d4=";
   };
 
   wlroots_0_16 = pkgs.wlroots.overrideAttrs (prev: rec {
