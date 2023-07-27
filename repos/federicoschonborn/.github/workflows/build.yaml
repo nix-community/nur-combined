@@ -60,11 +60,11 @@ jobs:
         run: |
           brew install docker
           colima start
-        if: matrix.runs-on == 'macos-latest' && matrix.system != 'aarch64-linux'
+        if: matrix.runs-on == 'macos-latest' && matrix.system != 'x86_64-darwin'
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v2.2.0
-        if: matrix.system != 'x86_64-linux'
+        if: matrix.system != 'x86_64-linux' && matrix.system != 'x86_64-darwin'
 
       - name: Install nix
         uses: cachix/install-nix-action@v22
@@ -72,7 +72,6 @@ jobs:
           nix_path: nixpkgs=channel:${{ matrix.channel }}
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            system = ${{ matrix.system }}
 
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E "(import <nixpkgs> {}).lib.version"
@@ -89,12 +88,13 @@ jobs:
             --allowed-uris https://static.rust-lang.org \
             --option restrict-eval true \
             --option allow-import-from-derivation true \
+            --option system ${{ matrix.system }} \
             --drv-path --show-trace \
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             -I $PWD
 
       - name: Build nix packages
-        run: nix shell -f "<nixpkgs>" nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs -build-flags "-L"
+        run: nix shell -f "<nixpkgs>" nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs -build-flags "-L --option system ${{ matrix.system }}"
 
   deploy:
     name: Deploy
