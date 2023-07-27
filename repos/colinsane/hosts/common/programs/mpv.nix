@@ -9,6 +9,7 @@
   sane.programs.mpv = {
     package = pkgs.wrapMpv pkgs.mpv-unwrapped {
       scripts = with pkgs.mpvScripts; [
+        mpris
         uosc
       ];
     };
