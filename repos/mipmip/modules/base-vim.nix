@@ -11,5 +11,7 @@
     git-sync
     gitFull
     neovim
+
+    ruby # for Linny
   ];
 }

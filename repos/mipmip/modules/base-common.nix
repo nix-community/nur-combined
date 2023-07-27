@@ -57,9 +57,6 @@
     gcc
     pkg-config
 
-    ruby
-    rake
-
     trash-cli
   ];
 }
