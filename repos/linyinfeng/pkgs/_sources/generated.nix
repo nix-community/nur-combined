@@ -300,16 +300,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "a5f72c8aecadb937cd9d93b812c32e4ba5c45d6d";
+    version = "d9c024d6e691d432795e11593b88bddff1b77b76";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "a5f72c8aecadb937cd9d93b812c32e4ba5c45d6d";
+      rev = "d9c024d6e691d432795e11593b88bddff1b77b76";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-3q6+W3sulQjVqwIuyVDnadCyp5r8tOqOrwX7vm+AtwA=";
+      sha256 = "sha256-KV0znnOxEqa3E5g+7sXnOrDQdydZH3wHNwuxoEdenhw=";
     };
-    date = "2023-07-27";
+    date = "2023-07-28";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -430,20 +430,20 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "b14c83889c7860c174276d05dec6554169a681d9";
+    version = "53483fe1d4601ae49d341aa5dbd45358e7d24fa5";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "b14c83889c7860c174276d05dec6554169a681d9";
+      rev = "53483fe1d4601ae49d341aa5dbd45358e7d24fa5";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-MJuTwEI599Y7q+0u0DMxRYaXsZfpksc2csgnK9Ghp/E=";
+      sha256 = "sha256-3f/fmoZ9H21pxcJ2fQYIwdNGYGXXA4SrALlYi4nPrOU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-b14c83889c7860c174276d05dec6554169a681d9/Cargo.lock;
+      lockFile = ./swayosd-53483fe1d4601ae49d341aa5dbd45358e7d24fa5/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-07-18";
+    date = "2023-07-28";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
@@ -510,16 +510,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "9207fff627059b922fb790e30d68fea23f76146e";
+    version = "629686f76022fd1424ba5ee8118f3a2b7a361d5e";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "9207fff627059b922fb790e30d68fea23f76146e";
+      rev = "629686f76022fd1424ba5ee8118f3a2b7a361d5e";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Mk8VHbV7W+5O+Nox4I0D7BFKv1GT0jepVM+82zonOfE=";
+      sha256 = "sha256-HuGc3efsscx4Dh9yunJ+jlpYqGCB+XPTaJex3Q/qAcw=";
     };
-    date = "2023-07-24";
+    date = "2023-07-28";
   };
   wemeet = {
     pname = "wemeet";

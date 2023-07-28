@@ -472,7 +472,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-07-27",
+        "date": "2023-07-28",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -482,12 +482,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a5f72c8aecadb937cd9d93b812c32e4ba5c45d6d",
-            "sha256": "sha256-3q6+W3sulQjVqwIuyVDnadCyp5r8tOqOrwX7vm+AtwA=",
+            "rev": "d9c024d6e691d432795e11593b88bddff1b77b76",
+            "sha256": "sha256-KV0znnOxEqa3E5g+7sXnOrDQdydZH3wHNwuxoEdenhw=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "a5f72c8aecadb937cd9d93b812c32e4ba5c45d6d"
+        "version": "d9c024d6e691d432795e11593b88bddff1b77b76"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -663,11 +663,11 @@
     "swayosd": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./swayosd-b14c83889c7860c174276d05dec6554169a681d9/Cargo.lock",
+                "./swayosd-53483fe1d4601ae49d341aa5dbd45358e7d24fa5/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-07-18",
+        "date": "2023-07-28",
         "extract": null,
         "name": "swayosd",
         "passthru": null,
@@ -677,12 +677,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b14c83889c7860c174276d05dec6554169a681d9",
-            "sha256": "sha256-MJuTwEI599Y7q+0u0DMxRYaXsZfpksc2csgnK9Ghp/E=",
+            "rev": "53483fe1d4601ae49d341aa5dbd45358e7d24fa5",
+            "sha256": "sha256-3f/fmoZ9H21pxcJ2fQYIwdNGYGXXA4SrALlYi4nPrOU=",
             "type": "git",
             "url": "https://github.com/ErikReider/SwayOSD.git"
         },
-        "version": "b14c83889c7860c174276d05dec6554169a681d9"
+        "version": "53483fe1d4601ae49d341aa5dbd45358e7d24fa5"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,
@@ -789,7 +789,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2023-07-24",
+        "date": "2023-07-28",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -799,12 +799,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9207fff627059b922fb790e30d68fea23f76146e",
-            "sha256": "sha256-Mk8VHbV7W+5O+Nox4I0D7BFKv1GT0jepVM+82zonOfE=",
+            "rev": "629686f76022fd1424ba5ee8118f3a2b7a361d5e",
+            "sha256": "sha256-HuGc3efsscx4Dh9yunJ+jlpYqGCB+XPTaJex3Q/qAcw=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "9207fff627059b922fb790e30d68fea23f76146e"
+        "version": "629686f76022fd1424ba5ee8118f3a2b7a361d5e"
     },
     "wemeet": {
         "cargoLocks": null,
