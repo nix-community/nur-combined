@@ -41,9 +41,11 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Update packages
-      if: (github.event_name == 'schedule') && (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
+      if: (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
       run: |
         export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        export TMPDIR=$(pwd)/tmp
+        mkdir -p $TMPDIR
         nix eval --json --impure --expr '(import ./ci.nix {}).allPkgs' | jq -rc '.[]' | while read i; do ./update.py -P $i; done
     - name: Check evaluation
       run: |
@@ -55,7 +57,8 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: |
+        nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Push changes
       uses: stefanzweifel/git-auto-commit-action@v4
       if: (github.event_name == 'schedule') && (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
