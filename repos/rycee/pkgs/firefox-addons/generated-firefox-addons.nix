@@ -658,10 +658,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.1";
+      version = "1.2.2";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141604/dearrow-1.2.1.xpi";
-      sha256 = "7fe37cc2b7c0de66a4a834063c8b4d32a736cdfaf2fcd98d4346bbcaf593ab3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145008/dearrow-1.2.2.xpi";
+      sha256 = "8dce096c7a0f7cc8bf6169d198afdbca952a2111097a3fbc150f52098b271e9c";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1156,10 +1156,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230726.201356";
+      version = "116.0.20230727.152340";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4144401/francais_language_pack-115.0.20230726.201356.xpi";
-      sha256 = "e2b6e97ca7f5736716fdfd1bbe498ebd212ed95a91be7dcd5d4bfc990c0255f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4144827/francais_language_pack-116.0.20230727.152340.xpi";
+      sha256 = "d01c4ec69984e2dc0e53b7b8a60480bf53f3ca86d5bcb8da91294473bf4ddaa1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1777,10 +1777,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.7.0";
+      version = "2.7.1";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4142055/libredirect-2.7.0.xpi";
-      sha256 = "271c9b7ff8e776e45fb8773d60e9456b20d20ddbf885cdd09a94552edaddd255";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4144580/libredirect-2.7.1.xpi";
+      sha256 = "564e56e1ccccf2f445b6cb9485c602609589a23052d2a53ab491cbce51c6b42f";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
