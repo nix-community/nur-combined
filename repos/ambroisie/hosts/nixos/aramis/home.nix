@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   my.home = {
+    # Use graphical pinentry
+    bitwarden.pinentry = "gtk2";
     # Ebook library
     calibre.enable = true;
     # Some amount of social life

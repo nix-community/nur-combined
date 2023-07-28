@@ -4,6 +4,7 @@
     ./aliases
     ./atuin
     ./bat
+    ./bitwarden
     ./bluetooth
     ./calibre
     ./comma

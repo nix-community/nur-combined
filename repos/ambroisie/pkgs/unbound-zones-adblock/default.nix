@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
   installPhase =
     let
       gawkCmd = lib.concatStringsSep " " [
-        ''${gawk}/bin/awk''
+        (lib.getExe gawk)
         '''{sub(/\r$/,"")}''
         ''{sub(/^127\.0\.0\.1/,"0.0.0.0")}''
         ''BEGIN { OFS = "" }''

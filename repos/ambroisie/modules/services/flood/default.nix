@@ -30,7 +30,7 @@ in
 
       serviceConfig = {
         ExecStart = lib.concatStringsSep " " [
-          "${pkgs.flood}/bin/flood"
+          (lib.getExe pkgs.flood)
           "--port ${builtins.toString cfg.port}"
           "--rundir /var/lib/${cfg.stateDir}"
         ];

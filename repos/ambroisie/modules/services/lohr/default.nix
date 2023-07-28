@@ -4,8 +4,6 @@ let
   cfg = config.my.services.lohr;
   settingsFormat = pkgs.formats.yaml { };
 
-  lohrPkg = pkgs.ambroisie.lohr;
-
   lohrStateDirectory = "lohr";
   lohrHome = "/var/lib/lohr/";
 in
@@ -80,7 +78,7 @@ in
           let
             configFile = settingsFormat.generate "lohr-config.yaml" cfg.setting;
           in
-          "${lohrPkg}/bin/lohr --config ${configFile}";
+          "${lib.getExe pkgs.ambroisie.lohr} --config ${configFile}";
         StateDirectory = lohrStateDirectory;
         WorkingDirectory = lohrHome;
         User = "lohr";

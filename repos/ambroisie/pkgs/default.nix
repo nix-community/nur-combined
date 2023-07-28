@@ -26,6 +26,8 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   osc52 = pkgs.callPackage ./osc52 { };
 
+  rbw-pass = pkgs.callPackage ./rbw-pass { };
+
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };
 
   unified-hosts-lists = pkgs.callPackage ./unified-hosts-lists { };
@@ -41,8 +43,6 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
   woodpecker-cli = pkgs.callPackage ./woodpecker/cli.nix { };
 
   woodpecker-frontend = pkgs.callPackage ./woodpecker/frontend.nix { };
-
-  woodpecker-plugin-git = pkgs.callPackage ./woodpecker-plugin-git { };
 
   woodpecker-server = pkgs.callPackage ./woodpecker/server.nix { };
 })

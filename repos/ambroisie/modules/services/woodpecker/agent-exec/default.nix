@@ -33,7 +33,7 @@ in
       restartIfChanged = false;
 
       path = with pkgs; [
-        ambroisie.woodpecker-plugin-git
+        woodpecker-plugin-git
         bash
         coreutils
         git

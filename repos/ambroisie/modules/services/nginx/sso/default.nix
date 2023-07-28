@@ -60,7 +60,7 @@ in
         WorkingDirectory = "/var/lib/nginx-sso";
         # The files to be merged might not have the correct permissions
         ExecStartPre = ''+${pkgs.writeScript "merge-nginx-sso-config" ''
-          #!${pkgs.bash}/bin/bash
+          #!${lib.getExe pkgs.bash}
           rm -f '${confPath}'
           ${utils.genJqSecretsReplacementSnippet cfg.configuration confPath}
 
@@ -70,7 +70,7 @@ in
         ''
         }'';
         ExecStart = lib.mkForce ''
-          ${pkg}/bin/nginx-sso \
+          ${lib.getExe pkg} \
             --config ${confPath} \
             --frontend-dir ${pkg}/share/frontend
         '';

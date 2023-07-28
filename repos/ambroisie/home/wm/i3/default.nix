@@ -27,13 +27,13 @@ let
   genMovementBindings = f: addVimKeyBindings (lib.my.genAttrs' movementKeys f);
 
   # Used in multiple scripts to show messages through keybindings
-  notify-send = "${pkgs.libnotify}/bin/notify-send";
+  notify-send = lib.getExe pkgs.libnotify;
 
   # Screen backlight management
-  changeBacklight = "${pkgs.ambroisie.change-backlight}/bin/change-backlight";
+  changeBacklight = lib.getExe pkgs.ambroisie.change-backlight;
 
   # Audio and volume management
-  changeAudio = "${pkgs.ambroisie.change-audio}/bin/change-audio";
+  changeAudio = lib.getExe pkgs.ambroisie.change-audio;
 
   # Lock management
   toggleXautolock =
@@ -61,8 +61,8 @@ in
       ambroisie.dragger # drag-and-drop from the CLI
       ambroisie.i3-get-window-criteria # little helper for i3 configuration
       arandr # Used by a mapping
-      pamixer # Used by a mapping
       playerctl # Used by a mapping
+      xdotool # Used by 'rofi-rbw', in a mapping
     ];
 
     xsession.windowManager.i3 = {
@@ -189,6 +189,7 @@ in
             "${modifier}+d" = "exec rofi -show drun -disable-history";
             "${modifier}+Shift+d" = "exec rofi -show run -disable-history";
             "${modifier}+p" = "exec --no-startup-id flameshot gui";
+            "${modifier}+Ctrl+p" = "exec ${lib.getExe pkgs.rofi-rbw}";
             "${modifier}+Shift+p" = "exec rofi -show emoji";
             "${modifier}+b" =
               let

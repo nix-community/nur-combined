@@ -2,7 +2,6 @@
 let
   cfg = config.my.services.drone;
   hasRunner = (name: builtins.elem name cfg.runners);
-  dockerPkg = pkgs.drone-runner-docker;
 in
 {
   config = lib.mkIf (cfg.enable && hasRunner "docker") {
@@ -25,7 +24,7 @@ in
         EnvironmentFile = [
           cfg.sharedSecretFile
         ];
-        ExecStart = "${dockerPkg}/bin/drone-runner-docker";
+        ExecStart = lib.getExe pkgs.drone-runner-docker;
         User = "drone-runner-docker";
         Group = "drone-runner-docker";
       };

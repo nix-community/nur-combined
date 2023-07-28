@@ -8,7 +8,7 @@ let
     realName = lib.mkDefault "Bruno BELANYI";
     userName = lib.mkDefault (mkMailAddress address domain);
     passwordCommand =
-      lib.mkDefault [ "${pkgs.ambroisie.bw-pass}/bin/bw-pass" "Mail" passName ];
+      lib.mkDefault [ (lib.getExe pkgs.ambroisie.rbw-pass) "Mail" passName ];
 
     address = mkMailAddress address domain;
     aliases = builtins.map (lib.flip mkMailAddress domain) aliases;

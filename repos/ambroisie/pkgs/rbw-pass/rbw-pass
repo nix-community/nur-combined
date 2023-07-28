@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+usage() {
+    printf '%s\n' "Usage: bw-pass [directory name] <account name>" >&2
+}
+
+error_out() {
+    printf '%s\n' "$1" >&2
+    rofi -dmenu -no-fixed-num-lines -p "$1"
+    exit 1
+}
+
+ensure_logged_in() {
+    rbw login
+}
+
+query_password() {
+    # Either use with `query_password <directory> <account name>
+    # Or `query_password <account name>` when the account has no directory
+
+    local FOLDER_ARGS=()
+    local PASSWORD
+
+    # FIXME: no way to enforce filering by "no folder"
+    if [ $# -eq 2 ]; then
+        FOLDER_ARGS+=(--folder "$1")
+        shift
+    fi
+    PASSWORD="$(rbw get "${FOLDER_ARGS[@]}" "$1")"
+
+    if [ -z "$PASSWORD" ]; then
+        error_out "Did not find password for '$1'"
+    fi
+    printf '%s\n' "$PASSWORD"
+}
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+    usage
+    exit 1
+fi
+
+ensure_logged_in
+query_password "$@"

@@ -47,8 +47,8 @@ in
 
       command = mkOption {
         type = types.str;
-        default = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
-        example = "\${pkgs.i3lock}/bin/i3lock -n -i lock.png";
+        default = "${lib.getExe pkgs.i3lock} -n -c 000000";
+        example = "\${lib.getExe pkgs.i3lock} -n -i lock.png";
         description = "Locker command to run";
       };
 

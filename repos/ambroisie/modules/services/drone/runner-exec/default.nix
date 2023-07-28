@@ -2,7 +2,6 @@
 let
   cfg = config.my.services.drone;
   hasRunner = (name: builtins.elem name cfg.runners);
-  execPkg = pkgs.drone-runner-exec;
 in
 {
   config = lib.mkIf (cfg.enable && hasRunner "exec") {
@@ -53,7 +52,7 @@ in
         EnvironmentFile = [
           cfg.sharedSecretFile
         ];
-        ExecStart = "${execPkg}/bin/drone-runner-exec";
+        ExecStart = lib.getExe pkgs.drone-runner-exec;
         User = "drone-runner-exec";
         Group = "drone-runner-exec";
       };

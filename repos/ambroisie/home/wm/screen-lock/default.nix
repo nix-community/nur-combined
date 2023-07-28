@@ -5,7 +5,7 @@ let
   notficationCmd =
     let
       duration = toString (cfg.notify.delay * 1000);
-      notifyCmd = "${pkgs.libnotify}/bin/notify-send -u critical -t ${duration}";
+      notifyCmd = "${lib.getExe pkgs.libnotify} -u critical -t ${duration}";
     in
     # Needs to be surrounded by quotes for systemd to launch it correctly
     ''"${notifyCmd} -- 'Locking in ${toString cfg.notify.delay} seconds'"'';

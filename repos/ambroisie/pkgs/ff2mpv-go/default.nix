@@ -12,7 +12,7 @@ buildGoModule rec {
   vendorHash = null;
 
   postPatch = ''
-    sed -i -e 's,"mpv","${mpv}/bin/mpv",' ff2mpv.go
+    sed -i -e 's,"mpv","${lib.getExe mpv}",' ff2mpv.go
   '';
 
   postInstall = ''

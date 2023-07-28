@@ -9,7 +9,7 @@ in
     settings = {
       notify-cmd =
         let
-          notify-send = "${pkgs.libnotify}/bin/notify-send";
+          notify-send = lib.getExe pkgs.libnotify;
         in
         pkgs.writeScript "mail-notifier" ''
           SENDER="$1"
