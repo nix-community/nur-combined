@@ -249,34 +249,46 @@
             nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${host} --use-remote-sudo $@
           '';
         in {
+          help = {
+            type = "app";
+            program = let
+              helpMsg = builtins.toFile "nixos-config-help-message" ''
+                commands:
+                - `nix run '.#help'`
+                  - show this message
+                - `nix run '.#update-feeds'`
+                  - updates metadata for all feeds
+                - `nix run '.#init-feed' <url>`
+                - `nix run '.#deploy-{lappy,moby,moby-test,servo}' [nixos-rebuild args ...]`
+                - `nix run '.#check-nur'`
+              '';
+            in builtins.toString (pkgs.writeShellScript "nixos-config-help" ''
+              cat ${helpMsg}
+            '');
+          };
           update-feeds = {
             type = "app";
             program = "${pkgs.feeds.updateScript}";
           };
 
           init-feed = {
-            # use like `nix run '.#init-feed' uninsane.org`
             type = "app";
             program = "${pkgs.feeds.initFeedScript}";
           };
 
           deploy-lappy = {
-            # `nix run '.#deploy-lappy'`
             type = "app";
             program = ''${deployScript "lappy" "switch"}'';
           };
           deploy-moby-test = {
-            # `nix run '.#deploy-moby-test'`
             type = "app";
             program = ''${deployScript "moby" "test"}'';
           };
           deploy-moby = {
-            # `nix run '.#deploy-moby'`
             type = "app";
             program = ''${deployScript "moby" "switch"}'';
           };
           deploy-servo = {
-            # `nix run '.#deploy-servo'`
             type = "app";
             program = ''${deployScript "servo" "switch"}'';
           };

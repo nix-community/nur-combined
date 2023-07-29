@@ -41,7 +41,7 @@
     '';
     fs.".config/mpv/script-opts/uosc.conf".symlink.text = let
       play_pause_btn = "cycle:play_arrow:pause:no=pause/yes=play_arrow";
-      rev_btn = "command:replay_30:seek -30";
+      rev_btn = "command:replay_10:seek -10";
       fwd_btn = "command:forward_30:seek 30";
     in ''
       # docs:

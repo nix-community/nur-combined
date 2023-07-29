@@ -107,8 +107,6 @@ let
 
     komikku = callPackage ./patched/komikku { inherit (unpatched) komikku; };
 
-    lemmy-server = callPackage ./patched/lemmy-server { inherit (unpatched) lemmy-server; };
-
     phoc = callPackage ./patched/phoc { inherit (unpatched) phoc; };
 
 
