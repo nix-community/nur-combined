@@ -39,15 +39,15 @@
   };
   carla = {
     pname = "carla";
-    version = "62e17bf0e180ec97aa227f142fc3274602aa554f";
+    version = "b180e624d2d1b3f24af29f8f5384fa24a4ee0c29";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "62e17bf0e180ec97aa227f142fc3274602aa554f";
+      rev = "b180e624d2d1b3f24af29f8f5384fa24a4ee0c29";
       fetchSubmodules = false;
-      sha256 = "sha256-Ie0h28Plpy4ZPvJv/21+oDFQT5+L2O0GFD8ja4D9b4Y=";
+      sha256 = "sha256-Xi16CtArLqVR2TX9aKckWTKcwhVTZ/ZOHSwWjwBxVl4=";
     };
-    date = "2023-07-25";
+    date = "2023-07-28";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -252,15 +252,15 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "6b121b4d1a0f7bbc2b4bffd534a4f99d27063eb7";
+    version = "20e73ee40ac467efd392b807ea0ece0e858abb68";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "6b121b4d1a0f7bbc2b4bffd534a4f99d27063eb7";
+      rev = "20e73ee40ac467efd392b807ea0ece0e858abb68";
       fetchSubmodules = false;
-      sha256 = "sha256-1qHqmTMdD4yOP0JdyvTaHbb3Woa9fu0Qdo6mMCPJTWM=";
+      sha256 = "sha256-IRAAHDNcTg5REk+qo6zJ+yZNWeWvWlkUADDOsj2yVcc=";
     };
-    date = "2023-07-21";
+    date = "2023-07-28";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
