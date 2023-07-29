@@ -8,14 +8,16 @@ My personal [NUR](https://github.com/nix-community/NUR) repository.
 
 ## Cache
 
-Caching is provided by Cachix and is currently available for the following platforms:
+This repository uses GitHub Actions to build and push all packages to a cache
+provided by Cachix and is currently available for the following platforms:
 
 | System          | Branch                 |
 |-----------------|------------------------|
 | `x86_64-linux`  | `nixos-23.05`          |
-| `x86_64-linux`  | `nixos-23.05-small`    |
+| `aarch64-linux` | `nixos-23.05`          |
 | `x86_64-linux`  | `nixos-unstable`       |
-| `x86_64-linux`  | `nixos-unstable-small` |
+| `aarch64-linux` | `nixos-unstable`       |
 | `x86_64-linux`  | `nixpkgs-unstable`     |
+| `aarch64-linux` | `nixpkgs-unstable`     |
 | `x86_64-darwin` | `nixpkgs-23.05-darwin` |
 | `x86_64-darwin` | `nixpkgs-unstable`     |
