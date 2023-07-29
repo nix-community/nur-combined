@@ -534,10 +534,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.12.0";
+      version = "3.13.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4142858/control_panel_for_twitter-3.12.0.xpi";
-      sha256 = "a75f4840d9f7ef927d9e5833e09c6001624aad259025f79f6386815049c5b830";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4143903/control_panel_for_twitter-3.13.1.xpi";
+      sha256 = "07dab84e411d19da503b1f8968f835decc18dfb720bfcefd994b812d11e1574b";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -658,10 +658,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4145008/dearrow-1.2.2.xpi";
-      sha256 = "8dce096c7a0f7cc8bf6169d198afdbca952a2111097a3fbc150f52098b271e9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145060/dearrow-1.2.3.xpi";
+      sha256 = "d3f354d45129fe3c651a2405c479238a821d6e7324d1a0ec44e9a137f87bbefd";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2359,10 +2359,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.11.0";
+      version = "2.13.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118285/1password_x_password_manager-2.11.0.xpi";
-      sha256 = "c02b78db3f4847553239a44d3ccb8453dbac1c8145ddabf00a8fe5dcd8c8e068";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141204/1password_x_password_manager-2.13.0.xpi";
+      sha256 = "19c39051689dbc9c10abc556df1e89b62a9ee20cd5edfbc375d2c5dd12650eeb";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -3183,10 +3183,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.1.0";
+      version = "1.2.0";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4138782/statshunters-1.1.0.xpi";
-      sha256 = "4ef8455ad7aa3f32d7fd50ca18752201a98b2c7c6c20351417f731dc03203059";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145231/statshunters-1.2.0.xpi";
+      sha256 = "c9799dd7a651216e620f2076b08674b34e6428f8c50cf9f1820c3d4d598f0de0";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -3633,10 +3633,10 @@
       };
     "tst-tab-search" = buildFirefoxXpiAddon {
       pname = "tst-tab-search";
-      version = "0.0.6";
+      version = "0.0.7";
       addonId = "@tst-search";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009035/tst_search-0.0.6.xpi";
-      sha256 = "1c4ebfaadb2af712684acc96d12da69e86d4bcff9db84c97c20d3576722a4981";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145356/tst_search-0.0.7.xpi";
+      sha256 = "5979b6ebc694ed1e62d27fec8f750dcb7f09ca393a4ce8ca552d56b7e7241bef";
       meta = with lib;
       {
         homepage = "https://github.com/NiklasGollenstede/tst-search#readme";
@@ -3876,10 +3876,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.14.0";
+      version = "2.15.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4076005/violentmonkey-2.14.0.xpi";
-      sha256 = "6c25cfb7d464c22ea4c560e5271a0cacd49b8fe0c404420fb5b4fd2c78880b2d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4142251/violentmonkey-2.15.0.xpi";
+      sha256 = "894e54cbe9dcd235deaef054b9268a955fed9afee156ebd42249c2b161c55352";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
