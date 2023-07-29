@@ -1,37 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtsvg, qtbase }:
+{ lib, stdenv, fetchFromGitHub, cmake, qmake, qtsvg, qt5compat, qtbase }:
 
 stdenv.mkDerivation rec {
   pname = "cutechess";
-  version = "1.2.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "cutechess";
     repo = "cutechess";
-    rev = "e47db4d9553d9a76202ee3c8f2357f5d3ed59f49";
-    sha256 = "sha256-hRVQfiE0bbsrz7sxGmI7Q5ztAbg2G5vYbjtKkuH6w+U=";
+    rev = "v${version}";
+    sha256 = "sha256-nWY6A1fD4L24Dchp9x3v0s6rsDebSxZYBmXDZbP912c=";
   };
 
-  buildInputs = [ qtbase qtsvg ];
+  buildInputs = [ qtbase qtsvg qt5compat ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [ cmake qmake ];
 
   dontWrapQtApps = true;
 
   meta = with lib; {
-    description = "Graphical user interface, command-line interface and library for playing chess.";
+    description = "Graphical user interface, command-line interface and library for playing chess";
     homepage = "https://github.com/cutechess/cutechess";
     license = licenses.gpl3;
     platforms = platforms.all;
     #maintainers = with maintainers; [ foolnotion ];
   };
-
-  installPhase = ''
-    mkdir -p $out/bin
-    strip projects/cli/cutechess-cli
-    strip projects/gui/cutechess
-
-    cp projects/cli/cutechess-cli $out/bin/
-    cp projects/gui/cutechess $out/bin/
-    '';
 }
 

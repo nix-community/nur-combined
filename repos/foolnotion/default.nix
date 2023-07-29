@@ -32,7 +32,7 @@
 
   cppitertools = pkgs.callPackage ./pkgs/cppitertools { };
 
-  cutechess = pkgs.libsForQt5.callPackage ./pkgs/cutechess { };
+  cutechess = pkgs.qt6Packages.callPackage ./pkgs/cutechess { qt5compat = pkgs.qt6.qt5compat; };
 
   eli5 = pkgs.python3Packages.callPackage ./pkgs/eli5 { };
 
