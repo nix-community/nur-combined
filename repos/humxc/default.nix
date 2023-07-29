@@ -15,6 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   misans = pkgs.callPackage ./pkgs/misans { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  hmcl-bin = pkgs.callPackage ./pkgs/hmcl-bin { };
+  fluent-cursors-theme = pkgs.callPackage ./pkgs/fluent-cursors-theme { };
 }
