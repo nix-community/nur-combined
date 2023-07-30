@@ -25,13 +25,13 @@
 
 rustPlatform.buildRustPackage rec {
   name = "yazi";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "sxyazi";
     repo = name;
     rev = "v${version}";
-    hash = "sha256-vSs8uacj89cZm8TccN8xRsQxDEVxyTeGSSdLnFjnj8w=";
+    hash = "sha256-0yMMYqZ/8WXPcXJuBflgJzaUn+/eIcWioR/aun2HOYo=";
   };
 
   postPatch =
@@ -73,7 +73,7 @@ rustPlatform.buildRustPackage rec {
           --replace '"zoxide"' '"${zoxide}/bin/zoxide"'
       '';
 
-  cargoHash = "sha256-OB2R2sQ72HmnHvTUfAj7NCovI7JyQtWp9x7d3y02kpg=";
+  cargoHash = "sha256-HcNwoJtOns0Lj9A9CWJ2iOnUHIuPPzGemovobzMGQSA=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 
