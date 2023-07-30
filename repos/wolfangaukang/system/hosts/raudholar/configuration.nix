@@ -6,13 +6,12 @@
 
 }:
 
-let
-  inherit (inputs) self;
-
-in {
+{
   imports = [
+    inputs.self.nixosModules.cloudflare-warp
+
     #<nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
-    "${self}/system/profiles/base/console.nix"
+    "${inputs.self}/system/profiles/base/console.nix"
   ];
 
   # FIXME: Still testing
@@ -51,6 +50,9 @@ in {
   #  #  '';
   #  #};
   #};
+
+  # Extra settings (22.11)
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "20.09";
 }

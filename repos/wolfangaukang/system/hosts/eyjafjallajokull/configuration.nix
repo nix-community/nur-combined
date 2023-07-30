@@ -1,14 +1,12 @@
-{ config, lib, hostname, inputs, ... }:
+{ config, lib, pkgs, hostname, inputs, ... }:
 
-let
-  inherit (lib) mkDefault;
-  inherit (inputs) self;
-
-in {
+{
   imports = [
+    inputs.nixos-hardware.nixosModules.system76
+
     ./disk-setup.nix
     ./hardware-configuration.nix
-    "${self}/system/profiles/sets/workstation.nix"
+    "${inputs.self}/system/profiles/sets/workstation.nix"
   ];
 
   profile = {
@@ -33,6 +31,8 @@ in {
     specialisations.work.simplerisk.enable = true;
   };
 
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+
   sops.secrets."machine_id" = {
     sopsFile = ./secrets.yml;
     mode = "0644";
@@ -41,7 +41,7 @@ in {
   environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
 
   # Extra settings (22.11)
-  nixpkgs.hostPlatform = mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "23.05";
 }

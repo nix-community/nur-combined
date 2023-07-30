@@ -1,15 +1,15 @@
-{ config, lib, hostname, inputs, ... }:
+{ config, lib, pkgs, hostname, inputs, ... }:
 
-let
-  inherit (lib) mkDefault;
-  inherit (inputs) self;
-
-in {
+{
   imports = [
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t430
+
     ./disk-setup.nix
     ./hardware-configuration.nix
-    "${self}/system/profiles/sets/workstation.nix"
+    "${inputs.self}/system/profiles/sets/workstation.nix"
   ];
+
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_3;
 
   profile = {
     nix = {
@@ -45,7 +45,7 @@ in {
   users.extraGroups.video.members = [ "bjorn" ];
 
   # Extra settings (22.11)
-  nixpkgs.hostPlatform = mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "23.05";
 }

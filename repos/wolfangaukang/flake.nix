@@ -15,10 +15,13 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     impermanence.url = "github:nix-community/impermanence";
     nixgl.url = "github:guibou/nixGL";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
     sops.url = "github:Mic92/sops-nix";
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    utils.url = "github:numtide/flake-utils";
 
     # Personal projects
     sab.url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot?ref=main";
@@ -32,154 +35,89 @@
     hm-firejail.url = "github:VAWVAW/home-manager/firejail";
   };
 
-  outputs = { self, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, nur, utils, ... }@inputs:
+  outputs = { self, nixos, nixpkgs, utils, nixgl, nur, ... }@inputs:
     let
-      inherit (utils.lib) mkFlake exportModules flattenTree;
-
-      pkgs = import nixpkgs { inherit system; };
-
-      # Local exports
       local = {
-        modules = exportModules [ ./system/modules/personal ];
-        overlays = import ./overlays { inherit inputs; };
         lib = import ./lib { inherit inputs; };
-        pkgs = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
+        overlays = import ./overlays { inherit inputs; };
       };
-      inherit (local.lib) importAttrset forAllSystems mkHome mkSystem;
 
-      # Overlays
       overlays = [
         nixgl.overlay
         nur.overlay
       ] ++ (local.overlays);
 
-      # System settings
-      users = [ "bjorn" ];
-      # Currently only supporting this system
-      system = "x86_64-linux";
+      systems = [ "x86_64-linux" ];
 
+      systemPkgs = nixpkgs.legacyPackages;
+      forEachSystem = f: nixos.lib.genAttrs systems (system: f systemPkgs.${system});
 
-    in mkFlake rec {
-      inherit self inputs;
+    in {
+      # Needed to make packages.python3Packages work on nix flake check
+      packages = forEachSystem (pkgs: utils.lib.flattenTree (import ./pkgs/top-level { inherit pkgs; }));
+      devShells = forEachSystem (pkgs: import ./shells { inherit pkgs; });
+      formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
-      # FUP settings
-      supportedSystems = [ system ];
+      nixosModules = import ./system/modules;
+      homeManagerModules = import ./home/modules;
 
-      # Need to test this later
-      channelsConfig = { allowUnfree = true; };
-
-      sharedOverlays = overlays;
-
-      channels = {
-        nixos.input = nixos;
-        nixos-stable.input = nixos-stable;
-        nixpkgs.input = nixpkgs;
-      };
-
-      nix = {
-        generateRegistryFromInputs = true;
-        generateNixPathFromInputs = true;
-      };
-
-      hostDefaults = {
-        channelName = "nixos";
-        modules = [ local.modules.personal ];
-      };
-
-      hosts =
+      nixosConfigurations =
         let
-          usersWithRoot = users ++ [ "root" ];
-          kernels = pkgs.linuxKernel.packages;
-          system76Hardware = [ nixos-hardware.nixosModules.system76 ];
+          baseUsers = {
+            system = [ "root" "bjorn" ];
+            hm = [ "bjorn" ];
+          };
 
         in {
-          eyjafjallajokull = mkSystem {
+          eyjafjallajokull = local.lib.mkNixos {
             inherit inputs overlays;
-            users = usersWithRoot;
+            users = baseUsers.system;
             hostname = "eyjafjallajokull";
-            # Can't upgrade because of vboxnet
-            kernel = kernels.linux_6_1;
-            extra-modules = system76Hardware;
             enable-impermanence = true;
             enable-sops = true;
             enable-hm = true;
-            hm-users = users;
+            hm-users = baseUsers.hm;
             enable-sops-hm = true;
           };
 
-          holuhraun = mkSystem {
+          holuhraun = local.lib.mkNixos {
             inherit inputs overlays;
-            users = usersWithRoot;
+            users = baseUsers.system;
             hostname = "holuhraun";
-            # Can't upgrade because of ZFS
-            kernel = kernels.linux_6_1;
-            extra-modules = system76Hardware;
             enable-impermanence = true;
             enable-sops = true;
             enable-hm = true;
-            hm-users = users;
+            hm-users = baseUsers.hm;
             enable-impermanence-hm = true;
             enable-sops-hm = true;
           };
 
-          torfajokull = mkSystem {
+          torfajokull = local.lib.mkNixos {
             inherit inputs overlays;
-            users = usersWithRoot;
+            users = baseUsers.system;
             hostname = "torfajokull";
-            kernel = kernels.linux_6_3;
-            extra-modules = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
             enable-impermanence = true;
             enable-sops = true;
             enable-hm = true;
-            hm-users = users;
+            hm-users = baseUsers.hm;
             enable-sops-hm = true;
           };
 
           Katla =
             let
               users = [ "nixos" ];
-              username = builtins.elemAt users 0;
-            in mkSystem {
+            in local.lib.mkNixos {
               inherit inputs overlays users;
               hostname = "katla";
-              extra-modules = [ nixos-wsl.nixosModules.wsl ];
               hm-users = users;
-            } // { specialArgs = { inherit username; }; };
+              extra-special-args = { inherit users; };
+            };
 
-          vm = mkSystem {
+          vm = local.lib.mkNixos {
             inherit inputs overlays;
             users = [ "root" ];
             hostname = "raudholar";
-            extra-modules = [ nixosModules.cloudflare-warp ];
-          } // { channelName = "nixpkgs"; };
-        };
-
-      outputsBuilder = channels:
-        let pkgs = channels.nixpkgs;
-        inherit (pkgs) mkShell flac flacon shntool sops ssh-to-age;
-        in {
-          devShells = {
-            flac = mkShell { buildInputs = [ flacon flac shntool ]; };
-            sops-env = mkShell { buildInputs = [ sops ssh-to-age ]; };
           };
         };
-
-      # Common settings
-      nixosModules = importAttrset ./system/modules;
-      packages = forAllSystems (system: flattenTree local.pkgs);
-      templates = import ./templates;
-
-      # Home-Manager specifics
-      hmModules = importAttrset ./home/modules;
-      homeConfigurations = {
-        wsl = mkHome {
-          inherit inputs overlays system;
-          hostname = "katla";
-          username = "nixos";
-          channel = inputs.nixpkgs;
-        };
-      };
-      wsl = self.homeConfigurations.wsl.activationPackage;
-
     };
 }

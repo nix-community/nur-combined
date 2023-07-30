@@ -2,8 +2,10 @@
 
 let
   overlays = [
-    # Comment when #194940 is merged
-    (import ./upwork-require.nix)
+    (import ./nixpkgs-release.nix { inherit inputs; })
+    (import ./nixpkgs-unstable.nix { inherit inputs; })
+  ] ++ [
+    (import ./local-apps.nix)
     (import ./sab.nix { inherit inputs; })
     (import ./shnsplit-24w.nix)
   ];

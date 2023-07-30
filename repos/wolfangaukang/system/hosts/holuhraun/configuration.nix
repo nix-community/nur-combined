@@ -1,20 +1,22 @@
 { config, lib, pkgs, hostname, inputs, ... }:
 
 let
-  inherit (lib) mkForce;
-  inherit (inputs) self;
-  system-lib = import "${self}/system/lib" { inherit inputs; };
+  system-lib = import "${inputs.self}/system/lib" { inherit inputs; };
   inherit (system-lib) obtainIPV4Address obtainIPV4GatewayAddress;
-  inherit (pkgs) heroic retroarch;
+  inherit (pkgs) heroic retroarch virt-manager;
   inherit (pkgs.libretro) mgba bsnes-mercury-performance;
 
 in {
   imports =
     [
+      inputs.nixos-hardware.nixosModules.system76
+
       ./disk-setup.nix
       ./hardware-configuration.nix
-      "${self}/system/profiles/sets/workstation.nix"
+      "${inputs.self}/system/profiles/sets/workstation.nix"
     ];
+
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
 
   networking = {
     interfaces.enp5s0 = {
@@ -89,6 +91,9 @@ in {
   };
 
   #environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
+
+  # Extra settings (22.11)
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "23.05"; # Did you read the comment?
 

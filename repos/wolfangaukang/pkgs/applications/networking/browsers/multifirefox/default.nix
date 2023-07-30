@@ -8,12 +8,12 @@ let
 
 in stdenv.mkDerivation {
   pname = "multifirefox";
-  version = "unstable-2023-04-18";
+  version = "unstable-2023-07-28";
 
   src = fetchgit {
     url = "https://codeberg.org/wolfangaukang/multifirefox";
-    rev = "ddf4f4965d0a78d1429d9475f0fb6968ee3bc7b8";
-    sha256 = "sha256-ohBOEs5Th1k0rv2Lp/vvP7EQNQYBuEdA0+5nQjSRfNE=";
+    rev = "293b3fa3f01dc80483823129dad4f5cc536659bf";
+    sha256 = "sha256-xRW+OiQr7SOdo27OsvJvs04yVbVTwOYzrD5rjj84Vns=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
