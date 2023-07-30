@@ -416,7 +416,7 @@
   },
   "taffybar": {
     "cargoLocks": null,
-    "date": "2023-07-28",
+    "date": "2023-07-29",
     "extract": null,
     "name": "taffybar",
     "passthru": null,
@@ -428,11 +428,11 @@
       "name": null,
       "owner": "taffybar",
       "repo": "taffybar",
-      "rev": "20e73ee40ac467efd392b807ea0ece0e858abb68",
-      "sha256": "sha256-IRAAHDNcTg5REk+qo6zJ+yZNWeWvWlkUADDOsj2yVcc=",
+      "rev": "175f0ee5c8c599cb72332c42516ef59ed6189e66",
+      "sha256": "sha256-BlSP4JJ1pYvGtiuvYh7royLWoyC9xts6WS28c4KeIgQ=",
       "type": "github"
     },
-    "version": "20e73ee40ac467efd392b807ea0ece0e858abb68"
+    "version": "175f0ee5c8c599cb72332c42516ef59ed6189e66"
   },
   "tailwindcss-intellisense": {
     "cargoLocks": null,
