@@ -1,4 +1,4 @@
-{ nvsrcs, lib, gtk2, gtk3, gdk-pixbuf, dbus-glib, xorg, stdenv, libpulseaudio, autoPatchelfHook, makeWrapper }:
+{ nvsrcs, lib, gtk2, gtk3, gdk-pixbuf, dbus-glib, xorg, stdenv, libpulseaudio, autoPatchelfHook, makeWrapper, wrapGAppsHook }:
 stdenv.mkDerivation {
   name = "seamonkey";
   inherit (nvsrcs.seamonkey) src version;
@@ -10,8 +10,11 @@ stdenv.mkDerivation {
     makeWrapper
     dbus-glib
     xorg.libXt
-    autoPatchelfHook
   ]; # ++ firefox-unwrapped.buildInputs;
+  nativeBuildInputs = [
+    wrapGAppsHook
+    autoPatchelfHook
+  ];
   installPhase = ''
       mkdir -p $out/{bin,usr,lib,share/applications}
       cp -r $src/* $out/usr

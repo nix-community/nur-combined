@@ -139,13 +139,13 @@ let
         sha512 = "+AWBwjGadtksxjOQSFDhPNQbed7icNXApT4+2BNpsXzcCBiInq2H9XW0O8sfHFaPmnQRs7cg/P0fAr2IWQSW0g==";
       };
     };
-    "envinfo-7.8.1" = {
+    "envinfo-7.10.0" = {
       name = "envinfo";
       packageName = "envinfo";
-      version = "7.8.1";
+      version = "7.10.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.8.1.tgz";
-        sha512 = "/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==";
+        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.10.0.tgz";
+        sha512 = "ZtUjZO6l5mwTHvc1L9+1q5p/R3wTopcfqMW8r5t8SJSKqeVI/LtajORwRFEKpEFuekjD0VBjwu1HMxL4UalIRw==";
       };
     };
     "fs-extra-10.1.0" = {
@@ -427,13 +427,13 @@ let
         sha512 = "Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==";
       };
     };
-    "semver-7.3.8" = {
+    "semver-7.5.4" = {
       name = "semver";
       packageName = "semver";
-      version = "7.3.8";
+      version = "7.5.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-7.3.8.tgz";
-        sha512 = "NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz";
+        sha512 = "1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==";
       };
     };
     "shebang-command-2.0.0" = {
@@ -620,7 +620,7 @@ let
       sources."cross-spawn-7.0.3"
       sources."debug-2.6.9"
       sources."duplexer2-0.0.2"
-      sources."envinfo-7.8.1"
+      sources."envinfo-7.10.0"
       sources."fs-extra-10.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
@@ -648,7 +648,7 @@ let
       sources."readable-stream-1.1.14"
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.1.2"
-      sources."semver-7.3.8"
+      sources."semver-7.5.4"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
       sources."sisteransi-1.0.5"

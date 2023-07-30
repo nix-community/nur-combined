@@ -3,10 +3,10 @@
 {
   cakeml = {
     pname = "cakeml";
-    version = "v2117";
+    version = "v2157";
     src = fetchzip {
-      url = "https://github.com/CakeML/cakeml/releases/download/v2117/cake-x64-64.tar.gz";
-      sha256 = "09rja9n2ml6hzbvijb5yjskl5yfig6cpcnnibhz45mghrh58j6g3";
+      url = "https://github.com/CakeML/cakeml/releases/download/v2157/cake-x64-64.tar.gz";
+      sha256 = "sha256-1NxxU/L/LRKwZWMMT0F4/4jcxsBtkmr36vmOHF6VcDQ=";
     };
   };
   guile-config = {
@@ -14,7 +14,7 @@
     version = "0.5.0";
     src = fetchzip {
       url = "https://gitlab.com/a-sassmannshausen/guile-config/-/archive/0.5.0/guile-config-0.5.0.tar.gz";
-      sha256 = "1xrl8bdcvvvbsrms0s3pp3d698541fv5b5kyy1z2kwli7akvdiph";
+      sha256 = "sha256-8Ma2pzqR8il+8H6WVbYLpKBk2rh3aKBr1mvvzdpCNPc=";
     };
   };
   guile-hall = {
@@ -22,7 +22,7 @@
     version = "0.4.1";
     src = fetchzip {
       url = "https://gitlab.com/a-sassmannshausen/guile-hall/-/archive/0.4.1/guile-hall-0.4.1.tar.gz";
-      sha256 = "0yrrik1v1xbik5h5q7w2cxrx6gvkmcdm32dl36i7xqdq8pr8sh2d";
+      sha256 = "sha256-TUCN8kW44X6iGbSJURurcz/Tc2eCH1xgmXH1sMOMOXs=";
     };
   };
   seamonkey = {
@@ -30,7 +30,7 @@
     version = "2.53.16";
     src = fetchzip {
       url = "https://archive.mozilla.org/pub/seamonkey/releases/2.53.16/linux-x86_64/en-US/seamonkey-2.53.16.en-US.linux-x86_64.tar.bz2";
-      sha256 = "02q586ksn7z812rw2z2kw9brrjgc0c2a5m2pj2ailxnm0g6m6chx";
+      sha256 = "sha256-HTJTzQPVdhqVkFfUogQD7MmcV+JTfMGzCOgfq6dBBQs=";
     };
   };
   trufflesqueak = {
