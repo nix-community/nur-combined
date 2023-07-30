@@ -2,6 +2,8 @@
 , fetchFromGitHub
 , lib
 
+, withFile ? true
+, file
 , withJq ? true
 , jq
 , withUnar ? true
@@ -31,11 +33,16 @@ rustPlatform.buildRustPackage rec {
     owner = "sxyazi";
     repo = name;
     rev = "v${version}";
-    hash = "sha256-0yMMYqZ/8WXPcXJuBflgJzaUn+/eIcWioR/aun2HOYo=";
+    hash = "sha256-dWRlO6hFSzd9l/HdLzpi4ErH82uEGDPXnK4uRVpfJuE=";
   };
 
   postPatch =
-    lib.optionalString withJq
+    lib.optionalString withFile
+      ''
+        substituteInPlace src/core/external/file.rs \
+          --replace '"file"' '"${file}/bin/file"'
+      ''
+    + lib.optionalString withJq
       ''
         substituteInPlace src/core/external/jq.rs \
           --replace '"jq"' '"${jq}/bin/jq"'
