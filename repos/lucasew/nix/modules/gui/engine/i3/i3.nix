@@ -242,5 +242,6 @@ exec_always systemctl restart --user nm-applet.service blueberry-tray.service kd
 
 default_border pixel 2
 hide_edge_borders smart
+focus_on_window_activation urgent
   '';
 }
