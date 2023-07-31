@@ -27,4 +27,6 @@
   cb = pkgs.callPackage ./pkgs/cb { };
   toki = pkgs.callPackage ./pkgs/toki { };
   garden = pkgs.callPackage ./pkgs/garden { };
+
+  cntb-bin = pkgs.callPackage ./pkgs/cntb-bin { };
 }
