@@ -142,7 +142,7 @@ in
         ${if builtins.isInt v.crystal then "KERNEL==\"${n}\", SUBSYSTEM==\"cxadc\", ATTR{device/parameters/crystal}=\"${builtins.toString v.crystal}\"" else ""}
         ${if builtins.isInt v.latency then "KERNEL==\"${n}\", SUBSYSTEM==\"cxadc\", ATTR{device/parameters/latency}=\"${builtins.toString v.latency}\"" else ""}
         ${if builtins.isInt v.level then "KERNEL==\"${n}\", SUBSYSTEM==\"cxadc\", ATTR{device/parameters/level}=\"${builtins.toString v.level}\"" else ""}
-        ${if builtins.isBool v.sixdb then "KERNEL==\"${n}\", SUBSYSTEM=\"cxadc\", ATTR{device/parameters/sixdb}=\"${if v.sixdb then "1" else "0"}\"" else ""}
+        ${if builtins.isBool v.sixdb then "KERNEL==\"${n}\", SUBSYSTEM==\"cxadc\", ATTR{device/parameters/sixdb}=\"${if v.sixdb then "1" else "0"}\"" else ""}
         ${if builtins.isBool v.tenbit  then "KERNEL==\"${n}\", SUBSYSTEM==\"cxadc\", ATTR{device/parameters/tenbit}=\"${if v.tenbit then "1" else "0"}\"" else ""}
         ${if builtins.isInt v.tenxfsc then "KERNEL==\"${n}\", SUBSYSTEM==\"cxadc\", ATTR{device/parameters/tenxfsc}=\"${builtins.toString v.tenxfsc}\"" else ""}
         ${if builtins.isInt v.vmux then "KERNEL==\"${n}\", SUBSYSTEM==\"cxadc\", ATTR{device/parameters/vmux}=\"${builtins.toString v.vmux}\"" else ""}
