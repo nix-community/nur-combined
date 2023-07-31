@@ -396,10 +396,10 @@
       };
     "c-c-search-extension" = buildFirefoxXpiAddon {
       pname = "c-c-search-extension";
-      version = "0.3.0";
+      version = "0.4.0";
       addonId = "{e737d9cb-82de-4f23-83c6-76f70a82229c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3957223/c_c_search_extension-0.3.0.xpi";
-      sha256 = "7cc6d2b11d4b5d1689feed6c4f9a45f467e2764f5a9fc12339172d0b348c7b1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145773/c_c_search_extension-0.4.0.xpi";
+      sha256 = "abafbcb454bb0270d4dafdc1a0bce7810eae06226e33e685df9d2592256932dc";
       meta = with lib;
       {
         homepage = "https://cpp.extension.sh";
