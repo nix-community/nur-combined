@@ -449,6 +449,20 @@
         platforms = platforms.all;
         };
       };
+    "cliget" = buildFirefoxXpiAddon {
+      pname = "cliget";
+      version = "2.1.0";
+      addonId = "cliget@zaidabdulla.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3707199/cliget-2.1.0.xpi";
+      sha256 = "5277da8f3b051fc1c05742520eecd5be7ea445638161d2c86f546ba27246db61";
+      meta = with lib;
+      {
+        homepage = "https://github.com/zaidka/cliget";
+        description = "Download login-protected files from the command line using curl, wget or aria2.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "close-other-windows" = buildFirefoxXpiAddon {
       pname = "close-other-windows";
       version = "0.1";
@@ -3656,6 +3670,20 @@
         homepage = "https://github.com/joshuacant/";
         description = "This add-on requires Tree Style Tab. It extends Tree Style Tab to allow tab changing by mouse wheel scrolling and reloading a tab when double clicking it.";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "tubearchivist-companion" = buildFirefoxXpiAddon {
+      pname = "tubearchivist-companion";
+      version = "0.1.4";
+      addonId = "{08f0f80f-2b26-4809-9267-287a5bdda2da}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4110386/tubearchivist_companion-0.1.4.xpi";
+      sha256 = "defac08a71da1b2471ce8d1aadc31aaba26667b07f767d9fdad6947272eeaae9";
+      meta = with lib;
+      {
+        homepage = "https://github.com/tubearchivist/browser-extension";
+        description = "Interact with your selfhosted TA server.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };

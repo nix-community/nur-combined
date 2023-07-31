@@ -116,6 +116,9 @@
     "slug": "clearurls"
   },
   {
+    "slug": "cliget"
+  },
+  {
     "slug": "close-other-windows"
   },
   {
@@ -1025,6 +1028,9 @@
   {
     "slug": "tst-search",
     "pname": "tst-tab-search"
+  },
+  {
+    "slug": "tubearchivist-companion"
   },
   {
     "slug": "ublacklist"
