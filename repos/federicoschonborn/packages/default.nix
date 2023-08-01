@@ -1,31 +1,4 @@
 { pkgs ? import <nixpkgs> { } }: rec {
-  apx_v2 = pkgs.apx.overrideAttrs (oldAttrs: {
-    version = "unstable-2023-07-17";
-    src = pkgs.fetchFromGitHub {
-      owner = "Vanilla-OS";
-      repo = "apx";
-      rev = "dd36d35c240a1ecb33f5583d850cba29e9c7470f";
-      hash = "sha256-tVKmgDYAONNC0f3PRhbtTpfIwQw7/RulANPVWaXz53A=";
-    };
-    # Same as Nixpkgs' but without the manpage copying.
-    postInstall = ''
-      mkdir -p $out/etc/apx
-
-      cat > "$out/etc/apx/config.json" <<EOF
-        {
-          "containername": "apx_managed",
-          "image": "docker.io/library/ubuntu",
-          "pkgmanager": "apt",
-          "distroboxpath": "${pkgs.distrobox}/bin/distrobox"
-        }
-      EOF
-
-      wrapProgram $out/bin/apx --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.docker pkgs.distrobox ]}
-    '';
-    meta = oldAttrs.meta // {
-      platforms = pkgs.lib.platforms.linux;
-    };
-  });
   atoms = pkgs.callPackage ./atoms.nix { inherit atoms-core; };
   atoms-core = pkgs.python3Packages.callPackage ./atoms-core.nix { };
   blurble = pkgs.callPackage ./blurble.nix { };
@@ -66,6 +39,35 @@
   telegraph = pkgs.callPackage ./telegraph.nix { };
   textsnatcher = pkgs.callPackage ./textsnatcher.nix { };
   tuba = pkgs.callPackage ./tuba.nix { };
+  xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec.nix { };
+
+  apx_v2 = pkgs.apx.overrideAttrs (oldAttrs: {
+    version = "unstable-2023-07-17";
+    src = pkgs.fetchFromGitHub {
+      owner = "Vanilla-OS";
+      repo = "apx";
+      rev = "dd36d35c240a1ecb33f5583d850cba29e9c7470f";
+      hash = "sha256-tVKmgDYAONNC0f3PRhbtTpfIwQw7/RulANPVWaXz53A=";
+    };
+    # Same as Nixpkgs' but without the manpage copying.
+    postInstall = ''
+      mkdir -p $out/etc/apx
+
+      cat > "$out/etc/apx/config.json" <<EOF
+        {
+          "containername": "apx_managed",
+          "image": "docker.io/library/ubuntu",
+          "pkgmanager": "apt",
+          "distroboxpath": "${pkgs.distrobox}/bin/distrobox"
+        }
+      EOF
+
+      wrapProgram $out/bin/apx --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.docker pkgs.distrobox ]}
+    '';
+    meta = oldAttrs.meta // {
+      platforms = pkgs.lib.platforms.linux;
+    };
+  });
 
   fastfetchFull = (fastfetch.overrideAttrs (oldAttrs: {
     pname = "${oldAttrs.pname}-full";
