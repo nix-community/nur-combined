@@ -14,8 +14,9 @@ python3Packages.buildPythonPackage rec {
   };
   patches = [ ./0001-bs-loosen-tomlkit-dep-version-constraint.patch ];
 
-  buildInputs = with python3Packages; [
+  buildInputs = [
     poetry
+    python3Packages.poetry-core
   ];
   propagatedBuildInputs = with python3Packages; [
     halo

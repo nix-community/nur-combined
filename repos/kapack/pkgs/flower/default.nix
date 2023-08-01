@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     ./0001-loosen-protobuf-version-requirement.patch
   ];
 
-  nativeBuildInputs = [ python3Packages.poetry ];
+  nativeBuildInputs = [ python3Packages.poetry-core ];
   propagatedBuildInputs = with python3Packages; [
     numpy
     protobuf

@@ -35,8 +35,6 @@ rec {
 
   batexpe = pkgs.callPackage ./pkgs/batexpe { };
 
-  batprotocol-cpp = pkgs.callPackage ./pkgs/batprotocol/cpp.nix { inherit flatbuffers debug; };
-
   batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit redox debug; simgrid = simgrid-332light; intervalset = intervalsetlight; };
   batsim = batsim-410;
   batsim-docker = pkgs.callPackage ./pkgs/batsim/batsim-docker.nix { inherit batsim; };
@@ -67,13 +65,11 @@ rec {
 
   ear =  pkgs.callPackage ./pkgs/ear { };
 
-  enoslib = pkgs.callPackage ./pkgs/enoslib { inherit execo ring iotlabsshcli distem python-grid5000; };
+  enoslib = pkgs.callPackage ./pkgs/enoslib { inherit execo iotlabsshcli distem python-grid5000; };
 
   evalys = pkgs.callPackage ./pkgs/evalys { inherit procset; };
 
   execo = pkgs.callPackage ./pkgs/execo { };
-
-  flatbuffers = pkgs.callPackage ./pkgs/flatbuffers/2.0.nix { };
 
   flower = pkgs.callPackage ./pkgs/flower { inherit iterators; };
 
@@ -134,8 +130,6 @@ rec {
   oar2 = pkgs.callPackage ./pkgs/oar2 { };
 
   oar3 = oar;
-
-  ring = pkgs.callPackage ./pkgs/ring { inherit wirerope; };
 
   simgrid-327 = pkgs.callPackage ./pkgs/simgrid/simgrid327.nix { inherit debug; };
   simgrid-328 = pkgs.callPackage ./pkgs/simgrid/simgrid328.nix { inherit debug; };

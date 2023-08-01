@@ -13,7 +13,10 @@ python3Packages.buildPythonPackage rec {
   };
   patches = [ ./0001-bs-loosen-pyzmq-version-constraint.patch ];
 
-  nativeBuildInputs = [ poetry ];
+  nativeBuildInputs = [
+    poetry
+    python3Packages.poetry-core
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     pyzmq
@@ -45,7 +48,7 @@ python3Packages.buildPythonPackage rec {
   '';
 
   meta = {
-    broken = false;
+    broken = true;
     homepage = "https://github.com/oar-team/oar3";
     description = "OAR: a Versatile Resource and Job Manager";
     license = lib.licenses.lgpl21;

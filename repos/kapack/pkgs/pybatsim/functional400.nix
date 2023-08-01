@@ -1,4 +1,4 @@
-{ lib, python3Packages, poetry, pybatsim-core, callPackage }:
+{ lib, python3Packages, pybatsim-core, callPackage }:
 
 python3Packages.buildPythonPackage rec {
   pname = "pybatsim-functional";
@@ -10,7 +10,7 @@ python3Packages.buildPythonPackage rec {
   src = "${pybatsim-src}/${pname}";
 
   buildInputs = with python3Packages; [
-    poetry
+    poetry-core
   ];
   propagatedBuildInputs = with python3Packages; [
     pybatsim-core
