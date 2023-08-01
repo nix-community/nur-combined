@@ -243,13 +243,13 @@
         sha512 = "IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==";
       };
     };
-    "emmet-2.4.5" = {
+    "emmet-2.4.6" = {
       name = "emmet";
       packageName = "emmet";
-      version = "2.4.5";
+      version = "2.4.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.5.tgz";
-        sha512 = "xOiVNINJFh0dMik+KzXSEYbAnFLTnadEzanxj7+F15uIf6avQwu3uPa1wI/8AFtOWKZ8lHg7TjC83wXcPhgOPw==";
+        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.6.tgz";
+        sha512 = "dJfbdY/hfeTyf/Ef7Y7ubLYzkBvPQ912wPaeVYpAxvFxkEBf/+hJu4H6vhAvFN6HlxqedlfVn2x1S44FfQ97pg==";
       };
     };
     "fast-glob-3.3.1" = {
@@ -861,7 +861,7 @@ in {
       sources."@emmetio/css-abbreviation-2.1.8"
       sources."@emmetio/scanner-1.0.4"
       sources."@types/node-17.0.45"
-      sources."emmet-2.4.5"
+      sources."emmet-2.4.6"
       sources."typescript-4.9.5"
       sources."vscode-jsonrpc-6.0.0"
       sources."vscode-languageserver-7.0.0"
@@ -882,10 +882,10 @@ in {
   "@olrtg/emmet-language-server" = nodeEnv.buildNodePackage {
     name = "_at_olrtg_slash_emmet-language-server";
     packageName = "@olrtg/emmet-language-server";
-    version = "2.0.4";
+    version = "2.1.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@olrtg/emmet-language-server/-/emmet-language-server-2.0.4.tgz";
-      sha512 = "feKkdEk+lhkpB8YMsDLUSkPgGHtRaTMCB39jTs6F7gUoNGIrdyLR9ftx+rtyVPTG/Y/JAz9jf09UMiu+3ehTrg==";
+      url = "https://registry.npmjs.org/@olrtg/emmet-language-server/-/emmet-language-server-2.1.0.tgz";
+      sha512 = "zex6Z1wqhf6/b8iPHVJKXULY/80Nv9XEOPCUIkP8c27GIkvxKZ471g0ahJZlitvf4a5WmDENcNjamtO1X8os9A==";
     };
     dependencies = [
       sources."@emmetio/abbreviation-2.3.3"
@@ -913,7 +913,7 @@ in {
       sources."defu-6.1.2"
       sources."destr-2.0.0"
       sources."dotenv-16.3.1"
-      sources."emmet-2.4.5"
+      sources."emmet-2.4.6"
       sources."fast-glob-3.3.1"
       sources."fastq-1.15.0"
       sources."fill-range-7.0.1"
