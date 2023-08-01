@@ -825,10 +825,10 @@
       };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
-      version = "5.28.0";
+      version = "5.30.0";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118743/ebates-5.28.0.xpi";
-      sha256 = "83537e2085af05117b4f36f0fc8afc2d4baa0d876f43879f3cdedf02ef0ad0d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4144173/ebates-5.30.0.xpi";
+      sha256 = "b8ca552a2bd47fc3f0455d8171588d483ea3769c0def97ec5e562ba2dabce81b";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -1170,10 +1170,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230727.152340";
+      version = "117.0.20230731.150216";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4144827/francais_language_pack-116.0.20230727.152340.xpi";
-      sha256 = "d01c4ec69984e2dc0e53b7b8a60480bf53f3ca86d5bcb8da91294473bf4ddaa1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146391/francais_language_pack-117.0.20230731.150216.xpi";
+      sha256 = "346fc26e26d28decaa144480f53b6643a10145564c7862017a5d8f2fea17391d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1211,10 +1211,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.10.3";
+      version = "8.11.1";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119594/ghostery-8.10.3.xpi";
-      sha256 = "defa8468cc1ebd6929903b9552ebbba56f345e36c513e7620f4632022c3ff65a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4142024/ghostery-8.11.1.xpi";
+      sha256 = "df20c00c94603ca153c8f10d6ee63694af024fd069fbfb369a70624859ba4e6a";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -1266,10 +1266,10 @@
       };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "1.18";
+      version = "1.19";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4075459/gitpod-1.18.xpi";
-      sha256 = "c574a0c595bea36735a7206d4bbbe1d699255dcafec228b3143e3d47838be0f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146259/gitpod-1.19.xpi";
+      sha256 = "1baf0452938bd496764b9d62b77795d8ca891d26de43042ea092cc41fb681802";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -3801,10 +3801,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.4.0";
+      version = "1.4.1";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4144170/vencord_web-1.4.0.xpi";
-      sha256 = "2c2a65eb34304c3fd092ebb7a09b1e5451d52f94b077e4ff38c8753f27c42620";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146634/vencord_web-1.4.1.xpi";
+      sha256 = "da0aa001ee52d3ec4946e40508d3a500170c739169807d04aac2d0b20092a555";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
@@ -3848,10 +3848,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "4.0.0";
+      version = "4.1.0";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139866/view_image-4.0.0.xpi";
-      sha256 = "1502e6f8093e881f4ad927d3ed29989aa86b473ca586d2dca4d6e0cbcae7b8c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4144160/view_image-4.1.0.xpi";
+      sha256 = "efcf73bf394d6b2bb04cac1b9b590e1cd3458c40182a62cd76fc002f84b57ea9";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
