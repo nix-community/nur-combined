@@ -136,6 +136,9 @@ in
         };
       };
       home.packages = with pkgs; [
+        # Bash
+        nodePackages.bash-language-server
+
         # Markdown
         marksman
 
