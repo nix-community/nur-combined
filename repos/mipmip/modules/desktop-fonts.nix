@@ -8,6 +8,7 @@ let
     open-sans
     inter
     rubik
+    lato
   ];
 in
 {
