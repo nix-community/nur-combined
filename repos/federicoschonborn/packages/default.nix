@@ -23,6 +23,7 @@
   libgta = pkgs.callPackage ./libgta.nix { };
   libtgd = pkgs.callPackage ./libtgd.nix { inherit libgta; };
   libxo = pkgs.callPackage ./libxo { };
+  libzypp = pkgs.callPackage ./libzypp.nix { libsolv = libsolv-libzypp; };
   liquidshell = pkgs.libsForQt5.callPackage ./liquidshell.nix { };
   marknote = pkgs.libsForQt5.callPackage ./marknote.nix { };
   metronome = pkgs.callPackage ./metronome.nix { };
@@ -41,6 +42,7 @@
   textsnatcher = pkgs.callPackage ./textsnatcher.nix { };
   tuba = pkgs.callPackage ./tuba.nix { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec.nix { };
+  zypper = pkgs.callPackage ./zypper.nix { inherit libzypp; };
 
   apx_v2 = pkgs.apx.overrideAttrs (oldAttrs: {
     version = "unstable-2023-07-17";
@@ -132,6 +134,16 @@
     withSndfile = true;
     withTeem = true;
   };
+
+  libsolv-libzypp = pkgs.libsolv.overrideAttrs (oldAttrs: {
+    pname = "libsolv-libzypp";
+    cmakeFlags = oldAttrs.cmakeFlags ++ [
+      "-DENABLE_HELIXREPO=true"
+    ];
+    meta = oldAttrs.meta // {
+      description = "${oldAttrs.meta.description} (for libzypp)";
+    };
+  });
 
   libtgdFull = (libtgd.overrideAttrs (oldAttrs: {
     pname = "${oldAttrs.pname}-full";
