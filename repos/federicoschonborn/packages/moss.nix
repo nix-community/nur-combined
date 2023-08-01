@@ -53,5 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
       boost
     ];
     platforms = platforms.linux;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

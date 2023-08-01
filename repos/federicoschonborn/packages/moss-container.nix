@@ -43,5 +43,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/serpent-os/moss-container";
     license = with licenses; [ zlib ];
     platforms = platforms.linux;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 }
