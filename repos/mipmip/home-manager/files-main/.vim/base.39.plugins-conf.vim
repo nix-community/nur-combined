@@ -77,6 +77,6 @@ let g:openbrowser_search_engines = {
 
 let g:openbrowser_default_search = 'kagi'
 
-let g:mip_exec_path = "/home/pim/cTextUtils/mip.rs/target/release/mip"
+"let g:mip_exec_path = "/home/pim/cTextUtils/mip.rs/target/release/mip"
 
 let g:camelcasemotion_key = ';'

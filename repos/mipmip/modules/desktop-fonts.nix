@@ -1,21 +1,17 @@
 { config, lib, pkgs, ... }:
 
-{
-  environment.systemPackages = with pkgs; [
+let
+  fontsList = with pkgs; [
     meslo-lg
     awesome
     dejavu_fonts
     open-sans
     inter
+    rubik
   ];
-
-  fonts.fonts = with pkgs; [
-    open-sans
-    meslo-lg
-    awesome
-    dejavu_fonts
-  ];
-
-
+in
+{
+  environment.systemPackages = fontsList;
+  fonts.fonts = fontsList;
 }
 

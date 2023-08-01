@@ -7,8 +7,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "mipmip";
     repo = "mip.rs";
-    rev = "3d77218c7404fb14fec5aa72bb91e0748cdb220b";
-    hash = "sha256-84ak0EIY0v5kAQJfDuM89fe9k50Elp1+dzDYTShXzXM=";
+    rev = "fed2c56f0d1b2151f9add15eacf2cb000ffc12ea";
+    hash = "sha256-t2qDn6x4eNbMF6LLhgVarJbEt3qwqQJOzi8JEbU+yiE=";
   };
 
   cargoSha256 = "sha256-fzfNHukLWrmli6o9XE0iSQDheFMy91awU3R4UA9jN0k=";
