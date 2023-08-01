@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchurl
 , mono
 , pkg-config
@@ -19,4 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     zstd # unpackPhase
   ];
+
+  meta = with lib; {
+    platforms = platforms.linux;
+  };
 })
