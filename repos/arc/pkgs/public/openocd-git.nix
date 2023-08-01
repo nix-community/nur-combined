@@ -35,6 +35,6 @@
   '';
 
   meta = old.meta or {} // {
-    broken = old.meta.broken or false || openocd.stdenv.isDarwin;
+    broken = old.meta.broken or false || openocd.stdenv.isDarwin || lib.isNixpkgsUnstable or false;
   };
 })
