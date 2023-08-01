@@ -41,6 +41,7 @@
   telegraph = pkgs.callPackage ./telegraph.nix { };
   textsnatcher = pkgs.callPackage ./textsnatcher.nix { };
   tuba = pkgs.callPackage ./tuba.nix { };
+  upkg = pkgs.callPackage ./upkg.nix { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec.nix { };
   zypper = pkgs.callPackage ./zypper.nix { inherit libzypp; };
 

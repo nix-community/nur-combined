@@ -72,6 +72,7 @@ stdenv.mkDerivation rec {
     description = "ZYpp Package Management library";
     homepage = "https://github.com/openSUSE/libzypp";
     license = with licenses; [ gpl2Plus ];
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 }

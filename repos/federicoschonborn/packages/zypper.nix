@@ -32,6 +32,7 @@ stdenv.mkDerivation rec {
     description = "World's most powerful command line package manager";
     homepage = "https://github.com/opensuse/zypper";
     license = with licenses; [ gpl2Plus ];
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
     broken = true;
   };
