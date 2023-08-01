@@ -19,6 +19,8 @@
       ../../modules/base-tmux.nix
       ../../modules/base-vim.nix
 
+      ../../modules/desktop-openai.nix
+
       ../../modules/desktop-chrome.nix
       ../../modules/desktop-communication.nix
       ../../modules/desktop-dtp.nix

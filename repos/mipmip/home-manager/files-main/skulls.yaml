@@ -153,11 +153,13 @@ tracklib:
 #school
 #stappendam-in-html
 
-#cTextUtils:
+cTextUtils:
+  base_dir: ~/cTextUtils
+  repos:
+    - source: mipmip/mip.rs
 #carl
 #cli-hacking
 #mip.cr
-#mip.rs
 #vim-open-mip
 #vim-show-in-filemanager
 

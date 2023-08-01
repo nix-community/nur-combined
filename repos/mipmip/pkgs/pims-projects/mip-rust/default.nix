@@ -7,11 +7,11 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "mipmip";
     repo = "mip.rs";
-    rev = "c3426cfc391243f08e43465d08e320b64fca0810";
-    hash = "sha256-qlt9+cGTciszkRGCrWBoaXL+ocvA98ykGtvMMJRc1Qg=";
+    rev = "3d77218c7404fb14fec5aa72bb91e0748cdb220b";
+    hash = "sha256-84ak0EIY0v5kAQJfDuM89fe9k50Elp1+dzDYTShXzXM=";
   };
 
-  cargoSha256 = "sha256-qsXF0Ya+TNuWFEDMdXRkJHQec6DanD7ZQZNYmT+ijJo=";
+  cargoSha256 = "sha256-fzfNHukLWrmli6o9XE0iSQDheFMy91awU3R4UA9jN0k=";
 
   nativeBuildInputs = [ pkg-config glib cairo webkitgtk ];
 
