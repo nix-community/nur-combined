@@ -1,4 +1,5 @@
 { pkgs ? import <nixpkgs> { } }: rec {
+  arkade = pkgs.libsForQt5.callPackage ./arkade.nix { };
   atoms = pkgs.callPackage ./atoms.nix { inherit atoms-core; };
   atoms-core = pkgs.python3Packages.callPackage ./atoms-core.nix { };
   blurble = pkgs.callPackage ./blurble.nix { };
