@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, wrapQtAppsHook, cmake, pkg-config, git
-, qtbase, qtquickcontrols, qtmultimedia, openal, glew, vulkan-headers, vulkan-loader, libpng
+, qtbase, qtmultimedia, qtwayland, openal, glew, vulkan-headers, vulkan-loader, libpng, libSM
 , ffmpeg, libevdev, libusb1, zlib, curl, wolfssl, python3, pugixml, faudio, flatbuffers
 , sdl2Support ? true, SDL2
 , cubebSupport ? true, cubeb
@@ -8,10 +8,10 @@
 
 let
   # Keep these separate so the update script can regex them
-  rpcs3GitVersion = "15413-53c1da8f9";
-  rpcs3Version = "0.0.28-15413-53c1da8f9";
-  rpcs3Revision = "53c1da8f94c70685fd0f50a5b1052a83140e79e1";
-  rpcs3Sha256 = "0pyc98xgdn7n7sjv5c0fjbnzx9ay7ifpiadc5g35nk46k35bih3l";
+  rpcs3GitVersion = "15420-ef12da774";
+  rpcs3Version = "0.0.29-15420-ef12da774";
+  rpcs3Revision = "ef12da774e12548b4c0ceebf478b66d258bb8aa1";
+  rpcs3Sha256 = "0vqjv91ddz7sikvd9v4r2q3cgp5dgbl1n22fm8bw90szr4srwfn0";
 
   ittapi = fetchFromGitHub {
     owner = "intel";
@@ -64,8 +64,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook ];
 
   buildInputs = [
-    qtbase qtquickcontrols qtmultimedia openal glew vulkan-headers vulkan-loader libpng ffmpeg
-    libevdev zlib libusb1 curl wolfssl python3 pugixml faudio flatbuffers
+    qtbase qtmultimedia qtwayland openal glew vulkan-headers vulkan-loader libpng ffmpeg
+    libevdev zlib libusb1 curl wolfssl python3 pugixml faudio flatbuffers libSM
   ] ++ lib.optional sdl2Support SDL2
     ++ lib.optionals cubebSupport cubeb.passthru.backendLibs
     ++ lib.optional waylandSupport wayland;
