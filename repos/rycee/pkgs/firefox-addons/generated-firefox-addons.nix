@@ -478,10 +478,10 @@
       };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.3.2";
+      version = "0.3.3";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4138391/codecov-0.3.2.xpi";
-      sha256 = "89b7f3650b83d7027615e60800d644bd230e86128bc504c0b04d4391c47508ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146769/codecov-0.3.3.xpi";
+      sha256 = "01f55a03acd090949cfce2f5bbbc6e8e16cf947fd79376a7436d441e2df29143";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -1170,10 +1170,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "117.0.20230731.150216";
+      version = "117.0.20230801.180159";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146391/francais_language_pack-117.0.20230731.150216.xpi";
-      sha256 = "346fc26e26d28decaa144480f53b6643a10145564c7862017a5d8f2fea17391d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147051/francais_language_pack-117.0.20230801.180159.xpi";
+      sha256 = "5f3958c7b3974b8cb0030af7ad3b47a6f9b623ea573ec75ae276a8df0f3573c2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2724,10 +2724,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.4.2";
+      version = "1.5.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4142086/proton_pass-1.4.2.xpi";
-      sha256 = "e947695516af8b4d7dc305e93afc2c215bb32fcd69bd5f23641d13c9472e77d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146211/proton_pass-1.5.0.xpi";
+      sha256 = "9eac18e0ea10ebebf93c5904244ba7c50667246566813cde2ec4e7bb7796bc03";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -2877,10 +2877,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.6";
+      version = "6.1.7";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133273/reddit_moderator_toolbox-6.1.6.xpi";
-      sha256 = "d7a980e318ad20ac4e1a9945ca4faad0b74fadbdf122ecd8e8e3e4b9ec381978";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147237/reddit_moderator_toolbox-6.1.7.xpi";
+      sha256 = "ddb68b37bf6ca907ac8fa234464b335c74c259563fc131dc43151a4366d9fbfb";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -3071,10 +3071,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.47";
+      version = "1.21.50";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4143436/single_file-1.21.47.xpi";
-      sha256 = "87f2be785ce8552c6662dd037cbf931e30238cd7711c2b33fa653869b8e8657a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145476/single_file-1.21.50.xpi";
+      sha256 = "5cd8b6cab50dcfcb6b73b9fd0e869b53e463432d92107186c2dc859c027de40a";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -3197,10 +3197,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.2.0";
+      version = "1.2.1";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4145231/statshunters-1.2.0.xpi";
-      sha256 = "c9799dd7a651216e620f2076b08674b34e6428f8c50cf9f1820c3d4d598f0de0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146721/statshunters-1.2.1.xpi";
+      sha256 = "f287878c9786a3df427630a6ac92bb7cc492ff6851cafa9c707c36bfc1533aa7";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
