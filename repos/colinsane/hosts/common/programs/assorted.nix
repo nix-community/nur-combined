@@ -72,10 +72,10 @@
         # "cdrtools"
         "clinfo"
         "dmidecode"
+        "dtrx"  # `unar` alternative, "Do The Right eXtraction"
         "efivar"
         # "flashrom"
         "fwupd"
-        "gh"  # MS GitHub cli
         "git"  # needed as a user package, for config.
         # "gnupg"
         # "gocryptfs"
@@ -90,8 +90,6 @@
         "neovim"  # needed as a user package, for swap persistence
         # "nettools"
         # "networkmanager"
-        "nix-index"
-        "nixpkgs-review"
         # "nixos-generators"
         "nmon"
         # "node2nix"
@@ -102,20 +100,29 @@
         # "python3Packages.eyeD3"  # music tagging
         "ripgrep"  # needed as a user package so that its user-level config file can be installed
         "rsync"
-        "sane-scripts"
-        "sequoia"
+        "sane-scripts"  # TODO: split; moby doesn't need the duplicity related ones
         "snapper"
         "sops"
         "speedtest-cli"
         # "ssh-to-age"
         "sudo"
         # "tageditor"  # music tagging
-        "unar"
+        # "unar"
         "wireguard-tools"
         "xdg-terminal-exec"
         "xdg-utils"  # for xdg-open
         # "yarn"
         "zsh"
+      ];
+    };
+
+    desktopConsoleUtils = {
+      package = null;
+      suggestedPrograms = [
+        "gh"  # MS GitHub cli
+        "nix-index"
+        "nixpkgs-review"
+        "sequoia"
       ];
     };
 
@@ -134,7 +141,7 @@
       suggestedPrograms = [
         "aerc"  # email client
         "msmtp"  # sendmail
-        "offlineimap"  # email mailox sync
+        "offlineimap"  # email mailbox sync
         "sfeed"  # RSS fetcher
         "visidata"  # TUI spreadsheet viewer/editor
         "w3m"  # web browser
@@ -177,12 +184,6 @@
 
     fluffychat-moby.persist.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
-    # XXX by default fractal stores its state in ~/.local/share/<UUID>.
-    # after logging in, manually change ~/.local/share/keyrings/... to point it to some predictable subdir.
-    # then reboot (so that libsecret daemon re-loads the keyring...?)
-    fractal-latest.persist.private = [ ".local/share/fractal" ];
-    fractal-next.persist.private = [ ".local/share/fractal" ];
-
     # MS GitHub stores auth token in .config
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
     gh.persist.private = [ ".config/gh" ];
@@ -192,13 +193,6 @@
     monero-gui.persist.plaintext = [ ".bitmonero" ];
 
     mumble.persist.private = [ ".local/share/Mumble" ];
-
-    # not strictly necessary, but allows caching articles; offline use, etc.
-    nheko.persist.private = [
-      ".config/nheko"  # config file (including client token)
-      ".cache/nheko"  # media cache
-      ".local/share/nheko"  # per-account state database
-    ];
 
     # settings (electron app)
     obsidian.persist.plaintext = [ ".config/obsidian" ];

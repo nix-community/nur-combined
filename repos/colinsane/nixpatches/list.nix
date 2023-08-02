@@ -58,15 +58,15 @@ in [
   #   hash = "sha256-oQEM3EZfAOmfZzDu9faCqyOFZsdHYGn1mVBgkxt68Zg=";
   # })
   (fetchpatch' {
-    saneCommit = "c3becd7cdf144d85d12e2e76663e9549a0536efd";
     title = "firefox-pmos-mobile: init at 4.0.2";
+    saneCommit = "c3becd7cdf144d85d12e2e76663e9549a0536efd";
     hash = "sha256-NRh2INUMA2K7q8zioqKA7xwoqg7v6sxpuJRpTG5IP1Q=";
   })
 
-  # splatmoji: init at 1.2.0
   (fetchpatch' {
-    saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
+    title = "splatmoji: init at 1.2.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
+    saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
     hash = "sha256-jDXYLlXaEBKMrZ2dgxc6ucrcX/5dtqoIIKw+Ay19vlc=";
   })
 
@@ -77,7 +77,7 @@ in [
   #   hash = "sha256-eTwEbVULYjmOW7zUFcTUqvBZqUFjHTKFhvmU2m3XQeo=";
   # })
 
-  ./2022-12-19-i2p-aarch64.patch
+  # ./2022-12-19-i2p-aarch64.patch
 
   # fix for CMA memory leak in mesa: <https://gitlab.freedesktop.org/mesa/mesa/-/issues/8198>
   # fixed in mesa 22.3.6: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/21330/diffs>
@@ -87,18 +87,15 @@ in [
   # upgrade to 22.3.6 instead
   # ./2023-02-28-mesa-22.3.6.patch
 
-  # fix qt6.qtbase and qt6.qtModule to cross-compile.
-  # unfortunately there's some tangle that makes that difficult to do via the normal `override` facilities
-  ./2023-03-03-qtbase-cross-compile.patch
 
   # let ccache cross-compile
   # TODO: why doesn't this apply?
   # ./2023-03-04-ccache-cross-fix.patch
 
-  # 2023-04-11: bambu-studio: init at 01.06.02.04
   (fetchpatch' {
+    title = "bambu-studio: init at 01.06.02.04";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/206495";
-    hash = "sha256-XG4hvHXmP/wgiKuNRCAfttaGLrg/6mAOr+YvAVmycKQ=";
+    hash = "sha256-Z+IOzd+bnxjg6neF1YcrRDTzz9GhJfbbj0Wa8yTXsa4=";
   })
 
   # (fetchpatch' {
@@ -164,19 +161,20 @@ in [
   #   hash = "sha256-2easgOtJfzvVcz/3nt3lo1GKLLotrM4CkBRyTgIAhHU=";
   # })
   (fetchpatch' {
+    # includes hare-json and hare-ev as pre-reqs
     title = "bonsai: init at 1.0.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
     hash = "sha256-HqtDgisbR0xOUY4AxhzEv+2JJMPyQMawKo6nbd9pxhE=";
   })
 
   # make alsa-project members overridable
-  ./2023-05-31-toplevel-alsa.patch
-
-  # qt6 qtwebengine: specify `python` as buildPackages
-  ./2023-06-02-qt6-qtwebengine-cross.patch
-
-  # Jellyfin: don't build via `libsForQt5.callPackage`
-  ./2023-06-06-jellyfin-no-libsForQt5-callPackage.patch
+  (fetchpatch' {
+    title = "alsa-project: expose the scope as a top-level package to support overrides";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246656";
+    saneCommit = "28f76deae50cc53f5f6a5e846e04426357b8ce2e";
+    # hash = "sha256-dBWStotLBa4LN7JmriTzoFX3/SQr/qxGO8glv3MNyZQ=";
+    hash = "sha256-QvurEnupAdPVVnHYl4DC1OqJronGt31REkTJO/alr60=";
+  })
 
   # pin to a pre-0.17.3 release
   # removing this and using stock 0.17.3 (also 0.17.4) causes:
@@ -188,12 +186,6 @@ in [
   # or perhaps the whole set of migrations here isn't being running right.
   # related: <https://github.com/NixOS/nixpkgs/issues/236890#issuecomment-1585030861>
   # ./2023-06-10-lemmy-downgrade.patch
-
-  # (fetchpatch' {
-  #   title = "gpodder: wrap with missing `xdg-utils` path";
-  #   saneCommit = "10d0ac11bc083cbcf0d6340950079b3888095abf";
-  #   hash = "sha256-cu8L30ZiUJnWFGRR/SK917TC7TalzpGkurGkUAAxl54=";
-  # })
 
   (fetchpatch' {
     title = "koreader: 2023.04 -> 2023.05.1";
@@ -209,6 +201,15 @@ in [
   })
 
   (fetchpatch' {
+    # fixes iio-sensor-proxy cross-compilation
+    # merged 2023/08/01
+    title = "iio-sensor-proxy: 3.0 -> 3.5, cleanup";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/245773";
+    hash = "sha256-6Ho3A+xyVJoip+y5ioc/U8nPZ9O1SlvLenuzkYEAbuo=";
+  })
+
+
+  (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/240602";
     saneCommit = "50767d5746fd80657e997b43fc5d82ba0c2c2447";
@@ -220,6 +221,133 @@ in [
     saneCommit = "69162cbf727264e50fc9d7222a03789d12644705";
     hash = "sha256-rD0es4uUbaLMrI9ZB2HzPmRLyu/ixNBLAFyDJtFHNko=";
   })
+
+  (fetchpatch' {
+    title = "p11-kit: build with meson";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/244633";
+    hash = "sha256-+z6hosSyt6ynLpUKS0TsHRoLOS8ck/SK9Y7W2zVUnCQ=";
+  })
+  (fetchpatch' {
+    title = "p11-kit: use mesonEmulatorHook for cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/245124";
+    hash = "sha256-8NqqLBbjt1fLj4ZYhat7wPqQSv/aez9IwgSK2b4CfW8=";
+  })
+
+  # (fetchpatch' {
+  #   title = "libgudev: fix cross failing to build checks";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/245761";
+  #   hash = "sha256-jEQeGAcDGrv0TYouBTfn5ubWaosWg/ecmUW0ii1QIVs=";
+  # })
+
+  (fetchpatch' {
+    title = "python310Packages.gssapi: support cross compilation";
+    saneCommit = "4766ae46f863734fbe96dc4e537870b6b3894cf4";
+    hash = "sha256-qCAJjPRoH8nvKzB+uwDQtGQbFfHS/MiY7m1J0BMl7tY=";
+  })
+  (fetchpatch' {
+    title = "perlPackages.FileBaseDir: 0.08 -> 0.09";
+    saneCommit = "acc990b04bbe8c99587eadccc65f100c326ec204";
+    hash = "sha256-8s789GGARJH1i088OGBjGGnL2l5m8Q+iBPS213QsS6A=";
+  })
+  (fetchpatch' {
+    title = "perlPackages.TestFile: 1.443 -> 1.993";
+    saneCommit = "6cf080fb51d034f9c2ddd60cef7dee7d041afd3e";
+    hash = "sha256-fAZpduh3JZeFixJ4yX0wkh/GRp0gYKsTT+XkNdpK7CU=";
+  })
+  (fetchpatch' {
+    title = "xdg-utils: enable cross compilation";
+    saneCommit = "b7aa5e0c1ec06723cf1594de192703a65be21497";
+    hash = "sha256-4iE2EDIe3nSkB8xFXucyCH7k2oiIoBiuYZYAtF31G38=";
+  })
+  (fetchpatch' {
+    # N.B.: duplicates outstanding, approved PR: <https://github.com/NixOS/nixpkgs/pull/245761>
+    title = "libgudev: support cross compilation";
+    saneCommit = "4dc30718fe01e9dbed4ffc2ff375148da218e86b";
+    hash = "sha256-Nb2LphSyv8Dayqfwqfua0eKtNzsnaf7PC/KYUhIvnT8=";
+  })
+  (fetchpatch' {
+    title = "gupnp: fix cross compilation";
+    saneCommit = "a1604d867581239c53a3dda0c845a2eb49aa814a";
+    hash = "sha256-euYjOa/axVlFlWo73Xkcg0t4ip/bOCyGbZmynvhM6sc=";
+  })
+  (fetchpatch' {
+    title = "blueman: support cross compilation";
+    saneCommit = "e070195bdf213dffb0164574397b6a7417f81c9e";
+    hash = "sha256-6JnIJCVBbV4tmFinX7Qv2wO2AThrgxrnyb9T4Ov6p5w=";
+  })
+  (fetchpatch' {
+    title = "tracker: support cross compilation";
+    saneCommit = "bea390fd0c4fda96db5b1fad06ee071a10561305";
+    hash = "sha256-Y2tVoTvSIIT9ufghqqsXgmqWq9daH+WKj4JHZgWbWwE=";
+  })
+  (fetchpatch' {
+    title = "tracker-miners: support cross compilation";
+    saneCommit = "24b062309ea8baa2d8303c0610c9ec7b8c399e8b";
+    hash = "sha256-Jj+1z2DeCEY+DqI1J4vYjYJwDDMRcA93CqpZSXzG0wE=";
+  })
+  (fetchpatch' {
+    title = "upower: fix cross compilation";
+    saneCommit = "3ab262456acc016c8dc834df1d1f7e61a00e01e3";
+    hash = "sha256-kTFZVu9oDiYH4W4SoQQj0pNuo9hTJk6jUy+hy34HUtA=";
+  })
+  (fetchpatch' {
+    title = "upower: don't pass unnecessary nativeBuildInputs";
+    saneCommit = "e2cbfb1bc81afadc5d31c18d43e774fa9a985f98";
+    hash = "sha256-7Q9Fjp7xrw3e887inc5cc01OvuOhThnVYduSLNtv2d0=";
+  })
+  (fetchpatch' {
+    title = "iio-sensor-proxy: support cross compilation";
+    saneCommit = "dc1c3341fef6c64d5fbc983670819cf7932f5be1";
+    hash = "sha256-lSVGjNepRLMfLgaAG3zv/BfoEhJg8yX7EqaCgu8/b8I=";
+  })
+  (fetchpatch' {
+    title = "mpvScripts.mpris: support cross compilation";
+    saneCommit = "f7cd92e2afa26852ccf53f8ca59c13d82bf7bf64";
+    hash = "sha256-MB3qloOW4pXZmbCIVsUKP2DnPoePmBf+qRc2x/o+nDw=";
+  })
+  (fetchpatch' {
+    title = "wvkbd: support cross compilation";
+    saneCommit = "34379f5770662b483ab0cbe252cf23dd663d84dc";
+    hash = "sha256-Duim5hPBtfGePBte29ZUtojyRAts9lQlbleUsTJNkwI=";
+  })
+  (fetchpatch' {
+    title = "clapper: support cross compilation";
+    saneCommit = "8a171b49aca406f8220f016e56964b3fae53a3df";
+    hash = "sha256-R11IYatGhSXxZnJxJid519Oc9Kh56D9NT2/cxf2CLuM=";
+  })
+  (fetchpatch' {
+    title = "gcr_4: support cross compilation";
+    saneCommit = "a8c3d69236fa67382a8c18cc1ef0f34610fd3275";
+    hash = "sha256-UnLqkkpXxBKaqlsoD1jUIigZkxgLtNpjmMHOx10HpfE=";
+  })
+  (fetchpatch' {
+    title = "networkmanager-openvpn: support cross compilation";
+    saneCommit = "6f53c267fbeb2ff543f075032a7e73af2d4bcb9e";
+    hash = "sha256-gq9AyKH7/k2ZVSZ3jpPJPt3uAM+CllXQnaiC1tE1r/8=";
+  })
+  (fetchpatch' {
+    title = "WIP: networkmanager-sstp: support cross compilation";
+    saneCommit = "6de63fe320406ec9a509db721c52b3894a93bda2";
+    hash = "sha256-EY3bQuv/80JbpquUJhc89CcYAgN9A9KkpsSitw/684I=";
+  })
+  (fetchpatch' {
+    title = "WIP: networkmanager-l2tp: support cross compilation";
+    saneCommit = "7a4191c570b0e5a1ab257222c26a4a2ecb945037";
+    hash = "sha256-FiPJhHGqZ8MFwLY+1t6HgbK6ndomFSYUKvApvrikRHE=";
+  })
+
+  (fetchpatch' {
+    title = "dtrx: 8.5.1 -> 8.5.3";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246282";
+    saneCommit = "eba9bbc251db942ae27f87824cae643b5f3198c2";
+    # hash = "sha256-wgpjUXQ/ZnRY5AJ9xOL2BToA7hDaokDiMmPkMt0Y5go=";
+    hash = "sha256-awUDlibmxcJcdMZeBXcWR1U+P/GCxCH/lalhwZ5Er90=";
+  })
+  # (fetchpatch' {
+  #   title = "dtrx: don't double-wrap the binary";
+  #   saneCommit = "97a9d12b6c31a58e9067eae7cdcd3f53055c124c";
+  #   hash = "sha256-g+p96OrBOQAwwH7nwHBuM/KGeIrnBzh9u9lL0M0sYWo=";
+  # })
 
   # (fetchpatch' {
   #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
@@ -234,4 +362,14 @@ in [
   ./02-rpi4-uboot.patch
 
   # ./07-duplicity-rich-url.patch
+
+  # fix qt6.qtbase and qt6.qtModule to cross-compile.
+  # unfortunately there's some tangle that makes that difficult to do via the normal `override` facilities
+  # ./2023-03-03-qtbase-cross-compile.patch
+
+  # qt6 qtwebengine: specify `python` as buildPackages
+  # ./2023-06-02-qt6-qtwebengine-cross.patch
+
+  # Jellyfin: don't build via `libsForQt5.callPackage`
+  # ./2023-06-06-jellyfin-no-libsForQt5-callPackage.patch
 ]

@@ -47,8 +47,10 @@ let
     lib.mkIf portCfg.visibleTo.wan {
       "upnp-forward-${port}" = {
         description = "forward port ${port} from upstream gateway to this host";
-        serviceConfig.Type = "oneshot";
         restartTriggers = [(builtins.toJSON portCfg)];
+
+        serviceConfig.Type = "oneshot";
+        serviceConfig.TimeoutSec = "6min";
 
         after = [ "network.target" ];
         wantedBy = [ "upnp-forwards.target" ];
@@ -120,9 +122,9 @@ in
       systemd.timers.upnp-forwards = {
         wantedBy = [ "network.target" ];
         timerConfig = {
-          OnStartupSec = "1min";
+          OnStartupSec = "75s";
           OnCalendar = cfg.upnpRenewInterval;
-          RandomizeDelaySec = "2min";
+          RandomizeDelaySec = "30s";
           Unit = "upnp-forwards.target";
         };
       };

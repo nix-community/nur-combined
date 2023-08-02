@@ -97,7 +97,14 @@ stdenv.mkDerivation rec {
       url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42441/mbox";
       hash = "sha256-YmkJ4JLIG/mHosRlVQqvWzujFMBsuDf5nVT3iOi40zU=";
     })
-    ./0003-fix-xkb-paths.patch
+    (fetchpatch {
+      # merged post 1.14.2
+      # i only care about patch no. 2
+      # [1/2] suspend toggle: silence rm failure noise
+      # [2/2] config: fix keyboard files location
+      url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42880/mbox";
+      hash = "sha256-tAMPBb6vwzj1dFMTEaqrcCJU6FbQirwZgB0+tqW3rQA=";
+    })
     ./0004-no-busybox.patch
     # wanted to fix/silence some non-fatal errors
     ./0005-system-audio.patch
@@ -110,6 +117,13 @@ stdenv.mkDerivation rec {
       url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42443/mbox";
       hash = "sha256-c4VySbVJgsbh2h+CnCgwWWe5WkAregpYFqL8n3WRXwY=";
     })
+    # (fetchpatch {
+    #   XXX: doesn't apply cleanly to 1.14.2 release
+    #   # Don't wait for led or status bar in state change hooks
+    #   # - significantly decreases the time between power-button state transitions
+    #   url = "https://lists.sr.ht/~mil/sxmo-devel/patches/43109/mbox";
+    #   hash = "sha256-4uR2u6pa62y6SaRHYRn15YGDPILAs7py0mPbAjsgwM4=";
+    # })
     (fetchpatch {
       # Make config gesture toggle persistent
       url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42876/mbox";

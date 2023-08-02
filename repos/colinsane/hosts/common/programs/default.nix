@@ -9,6 +9,7 @@
     ./evince.nix
     ./firefox.nix
     ./fontconfig.nix
+    ./fractal.nix
     ./git.nix
     ./gnome-feeds.nix
     ./gpodder.nix
@@ -21,11 +22,13 @@
     ./koreader
     ./libreoffice.nix
     ./lemoa.nix
+    ./megapixels.nix
     ./mepo.nix
     ./mpv.nix
     ./msmtp.nix
     ./neovim.nix
     ./newsflash.nix
+    ./nheko.nix
     ./nix-index.nix
     ./obsidian.nix
     ./offlineimap.nix
@@ -37,6 +40,7 @@
     ./tangram.nix
     ./vlc.nix
     ./wireshark.nix
+    ./xarchiver.nix
     ./zeal.nix
     ./zsh
   ];

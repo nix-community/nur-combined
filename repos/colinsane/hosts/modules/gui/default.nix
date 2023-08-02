@@ -21,11 +21,11 @@
       "epiphany"  # gnome's web browser
       "evince"  # works on phosh
       # "foliate"  # e-book reader
+      # "fractal"  # matrix client
       # "gnome.cheese"
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
-      "gnome.file-roller"
+      # "gnome.file-roller"
       # "gnome.gnome-maps"  # works on phosh
-      "gnome.nautilus"
       # "gnome-podcasts"
       # "gnome.gnome-system-monitor"
       # "gnome.gnome-terminal"  # works on phosh
@@ -61,7 +61,7 @@
       "audacity"
       "blanket"  # ambient noise generator
       "brave"  # for the integrated wallet -- as a backup
-      "chromium"
+      # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
       "dino"
       "electrum"
       "element-desktop"
@@ -69,7 +69,9 @@
       "gajim"  # XMPP client
       "gimp"  # broken on phosh
       "gnome.dconf-editor"
+      "gnome.file-roller"
       "gnome.gnome-disk-utility"
+      "gnome.nautilus"  # file browser
       # "gnome.totem"  # video player, supposedly supports UPnP
       "handbrake"
       "hase"
@@ -78,7 +80,7 @@
       "kdenlive"
       "kid3"  # audio tagging
       "krita"
-      "libreoffice-fresh"
+      "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
       "mumble"
       "obsidian"
       "slic3r"
@@ -92,6 +94,8 @@
     package = null;
     suggestedPrograms = [
       "megapixels"  # camera app
+      "portfolio-filemanager"
+      "xarchiver"
     ];
   };
 

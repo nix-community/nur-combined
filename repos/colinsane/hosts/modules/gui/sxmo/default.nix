@@ -176,7 +176,7 @@ in
         services.blueman.enable = true;
 
         # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
-        fonts.fonts = [ pkgs.nerdfonts ];
+        fonts.packages = [ pkgs.nerdfonts ];
 
         # some programs (e.g. fractal/nheko) **require** a "Secret Service Provider"
         services.gnome.gnome-keyring.enable = true;

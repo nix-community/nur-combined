@@ -8,7 +8,8 @@
       serif = [ "DejaVu Serif" ];
       sansSerif = [ "DejaVu Sans" ];
     };
-    enableDefaultFonts = true;
-    fonts = with pkgs; [ font-awesome noto-fonts-emoji hack-font ];
+    #vvv enables dejavu_fonts, freefont_ttf, gyre-fonts, liberation_ttf, unifont, noto-fonts-emoji
+    enableDefaultPackages = true;
+    packages = with pkgs; [ font-awesome noto-fonts-emoji hack-font ];
   };
 }

@@ -5,6 +5,7 @@
 final: prev:
 let
   pkgs = import ./pkgs.nix;
+  preferences = import ./preferences.nix;
   disable-flakey-tests = import ./disable-flakey-tests.nix;
   optimizations = import ./optimizations.nix;
   cross = import ./cross.nix;
@@ -18,6 +19,7 @@ let
 in
   renderOverlays [
     pkgs
+    preferences
     disable-flakey-tests
     (ifCross optimizations)
     (ifCross cross)

@@ -123,6 +123,8 @@ let
     (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)
     ## Ezra Klein Show
     (fromDb "feeds.simplecast.com/82FI35Px" // pol)
+    ## Wireshark Podcast o_0
+    (fromDb "sharkbytes.transistor.fm" // tech)
   ];
 
   texts = [

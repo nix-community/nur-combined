@@ -144,7 +144,7 @@ let
     reclaim-disk-space = static-nix-shell.mkBash {
       pname = "sane-reclaim-disk-space";
       src = ./src;
-      pkgs = [ "nix" "rmlint" "util-linux" ];
+      pkgs = [ "nix" ];
     };
     secrets-dump = static-nix-shell.mkBash {
       pname = "sane-secrets-dump";

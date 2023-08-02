@@ -18,6 +18,7 @@
   sane.roles.build-machine.enable = true;
   sane.roles.build-machine.emulation = false;
   sane.zsh.showDeadlines = false;  # ~/knowledge doesn't always exist
+  sane.programs.consoleUtils.suggestedPrograms = [ "desktopConsoleUtils" ];
   sane.services.dyn-dns.enable = true;
   sane.services.wg-home.enable = true;
   sane.services.wg-home.enableWan = true;

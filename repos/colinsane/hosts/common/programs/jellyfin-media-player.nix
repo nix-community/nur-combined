@@ -3,7 +3,9 @@
 {
   sane.programs.jellyfin-media-player = {
     # package = pkgs.jellyfin-media-player;
-    package = pkgs.jellyfin-media-player-qt6;
+    # qt6 version is slightly buggy, but also most qtwebengine apps (e.g. zeal) are on qt5
+    #   so using qt6 would force yet *another* qtwebengine compile.
+    # package = pkgs.jellyfin-media-player-qt6;
 
     # jellyfin stores things in a bunch of directories: this one persists auth info.
     # it *might* be possible to populate this externally (it's Qt stuff), but likely to

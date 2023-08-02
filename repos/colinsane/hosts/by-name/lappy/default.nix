@@ -19,7 +19,7 @@
     "desktopGuiApps"
     "stepmania"
   ];
-  sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" ];
+  sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" "desktopConsoleUtils" ];
 
   sops.secrets.colin-passwd.neededForUsers = true;
 

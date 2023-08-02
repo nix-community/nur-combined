@@ -56,7 +56,7 @@ let
 
     # packages i haven't used for a while, may or may not still work
     # fluffychat-moby = callPackage ./additional/fluffychat-moby { };
-    # fractal-latest = callPackage ./additional/fractal-latest { };
+    fractal-latest = callPackage ./additional/fractal-latest { };
     # kaiteki = callPackage ./additional/kaiteki { };
     # tokodon = libsForQt5.callPackage ./additional/tokodon { };
 
@@ -88,6 +88,8 @@ let
     browserpass = callPackage ./patched/browserpass { inherit (unpatched) browserpass; };
 
     cozy = callPackage ./patched/cozy { inherit (unpatched) cozy; };
+
+    engrampa = callPackage ./patched/engrampa { inherit (unpatched) mate; };
 
     # mozilla keeps nerfing itself and removing configuration options
     firefox-unwrapped = callPackage ./patched/firefox-unwrapped { inherit (unpatched) firefox-unwrapped; };

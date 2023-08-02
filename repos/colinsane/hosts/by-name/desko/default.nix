@@ -25,7 +25,7 @@
   sane.programs.steam.enableFor.user.colin = true;
 
   sane.programs.guiApps.suggestedPrograms = [ "desktopGuiApps" ];
-  sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" ];
+  sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" "desktopConsoleUtils" ];
   # sane.programs.devPkgs.enableFor.user.colin = true;
 
   boot.loader.efi.canTouchEfiVariables = false;

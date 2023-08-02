@@ -174,6 +174,7 @@
         disable-flakey-tests = final: prev: import ./overlays/disable-flakey-tests.nix final prev;
         pkgs = final: prev: import ./overlays/pkgs.nix final prev;
         pins = final: prev: import ./overlays/pins.nix final prev;
+        preferences = final: prev: import ./overlays/preferences.nix final prev;
         optimizations = final: prev: import ./overlays/optimizations.nix final prev;
         passthru = final: prev:
           let
@@ -239,14 +240,14 @@
       apps."x86_64-linux" =
         let
           pkgs = self.legacyPackages."x86_64-linux";
-          deployScript = host: action: pkgs.writeShellScript "deploy-${host}" ''
+          deployScript = host: addr: action: pkgs.writeShellScript "deploy-${host}" ''
             nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} $@
             sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result-${host})
 
             # XXX: this triggers another config eval & (potentially) build.
             # if the config changed between these invocations, the above signatures might not apply to the deployed config.
             # let the user handle that edge case by re-running this whole command
-            nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${host} --use-remote-sudo $@
+            nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${addr} --use-remote-sudo $@
           '';
         in {
           help = {
@@ -278,19 +279,19 @@
 
           deploy-lappy = {
             type = "app";
-            program = ''${deployScript "lappy" "switch"}'';
+            program = ''${deployScript "lappy" "lappy" "switch"}'';
           };
           deploy-moby-test = {
             type = "app";
-            program = ''${deployScript "moby" "test"}'';
+            program = ''${deployScript "moby" "moby-hn" "test"}'';
           };
           deploy-moby = {
             type = "app";
-            program = ''${deployScript "moby" "switch"}'';
+            program = ''${deployScript "moby" "moby-hn" "switch"}'';
           };
           deploy-servo = {
             type = "app";
-            program = ''${deployScript "servo" "switch"}'';
+            program = ''${deployScript "servo" "servo" "switch"}'';
           };
 
           check-nur = {
