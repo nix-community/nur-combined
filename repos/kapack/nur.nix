@@ -36,7 +36,8 @@ rec {
   batexpe = pkgs.callPackage ./pkgs/batexpe { };
 
   batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit redox debug; simgrid = simgrid-334light; intervalset = intervalsetlight; };
-  batsim = batsim-410;
+  batsim-420 = pkgs.callPackage ./pkgs/batsim/batsim420.nix { inherit redox debug; simgrid = simgrid-334light; intervalset = intervalsetlight; };
+  batsim = batsim-420;
   batsim-docker = pkgs.callPackage ./pkgs/batsim/batsim-docker.nix { inherit batsim; };
 
   elastisim = pkgs.callPackage ./pkgs/elastisim { };
