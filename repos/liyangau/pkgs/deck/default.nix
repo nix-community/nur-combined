@@ -4,16 +4,16 @@
   installShellFiles,
   fetchFromGitHub,
 }: let
-  sha = "d3f0a67";
+  sha = "86497a5";
 in
   buildGoModule rec {
     pname = "deck";
-    version = "1.24.0";
+    version = "1.25.0";
     src = fetchFromGitHub {
       owner = "Kong";
       repo = "deck";
       rev = "v${version}";
-      hash = "sha256-Ax3Xxg2DqlVx1bl9TTJn2MVhnaKPn416nL1/IWpQusw=";
+      hash = "sha256-dmzxCgZ0HLT9he8jS7lMtSFg5vbEbs8q368vE3lafhQ=";
     };
 
     nativeBuildInputs = [installShellFiles];
