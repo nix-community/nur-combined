@@ -211,16 +211,10 @@ let
       src = ./src;
     };
   };
-in
-symlinkJoin {
-  name = "sane-scripts";
-  paths = lib.attrValues sane-bin;
-  passthru = sane-bin // {
-    lib = sane-lib;
-  };
-  meta = {
-    description = "collection of scripts associated with sane systems";
-    homepage = "https://git.uninsane.org";
-    platforms = lib.platforms.all;
+in sane-bin // {
+  lib = sane-lib;
+  all = symlinkJoin {
+    name = "sane-scripts";
+    paths = lib.attrValues sane-bin;
   };
 }

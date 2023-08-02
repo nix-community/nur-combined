@@ -44,8 +44,7 @@ let
     mpv-uosc-latest = callPackage ./additional/mpv-uosc-latest { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
-    # TODO: use `recurseIntoAttrs` ?
-    sane-scripts = callPackage ./additional/sane-scripts { };
+    sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
     static-nix-shell = callPackage ./additional/static-nix-shell { };
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
     sxmo-utils = callPackage ./additional/sxmo-utils { };
