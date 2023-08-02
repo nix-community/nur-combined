@@ -59,8 +59,7 @@ in
         StateDirectory = "nginx-sso";
         WorkingDirectory = "/var/lib/nginx-sso";
         # The files to be merged might not have the correct permissions
-        ExecStartPre = ''+${pkgs.writeScript "merge-nginx-sso-config" ''
-          #!${lib.getExe pkgs.bash}
+        ExecStartPre = ''+${pkgs.writeShellScript "merge-nginx-sso-config" ''
           rm -f '${confPath}'
           ${utils.genJqSecretsReplacementSnippet cfg.configuration confPath}
 
