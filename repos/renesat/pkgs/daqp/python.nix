@@ -5,7 +5,7 @@
   fetchFromGitHub,
 }:
 python3.pkgs.buildPythonPackage rec {
-  pname = "daqp";
+  pname = "daqp-python";
   version = "0.5.1";
 
   src = fetchFromGitHub {
@@ -15,7 +15,9 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-in7Ci/wM7i0csJ4XVfo1lboWOyfuuU+8E+TzGmMV3x0=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [cython];
+  nativeBuildInputs = with python3.pkgs; [unittestCheckHook];
+
+  propagatedBuildInputs = with python3.pkgs; [cython ];
 
   postPatch = ''
     sed -i 's|../../../daqp|../..|' interfaces/daqp-python/setup.py

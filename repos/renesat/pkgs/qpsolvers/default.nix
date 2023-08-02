@@ -8,6 +8,7 @@
 python3.pkgs.buildPythonPackage rec {
   pname = "qpsolvers";
   version = "3.4.0";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "qpsolvers";
@@ -46,8 +47,6 @@ python3.pkgs.buildPythonPackage rec {
     # Test
     quadprog
   ];
-
-  setuptoolsCheckPhase = ":";
 
   buildPhase = ''
     flit build

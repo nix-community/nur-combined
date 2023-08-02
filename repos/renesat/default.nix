@@ -19,6 +19,7 @@ let
     daqp = pkgs.callPackage ./pkgs/daqp { };
     daqp-python = pkgs.callPackage ./pkgs/daqp/python.nix { };
     qpsolvers = pkgs.callPackage ./pkgs/qpsolvers { daqp=daqp-python; };
+    normcap = pkgs.callPackage ./pkgs/normcap {};
   };
   supportedSystem = (name: pkg: builtins.elem system pkg.meta.platforms);
 in (pkgs.lib.filterAttrs supportedSystem packages) // aliases
