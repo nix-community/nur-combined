@@ -6,14 +6,14 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "edge-gpt";
-  version = "0.13.0";
+  version = "0.13.1";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "acheong08";
     repo = "EdgeGPT";
     rev = version;
-    hash = "sha256-KHtf2u3IJcKvX63c2zDXRyBrLXaDe3xgVkqIdEcyu1s=";
+    hash = "sha256-nfPTph04CsWWQyfljteFdn6q1RpetYwz6MaD3s3V+ow=";
   };
 
   postPatch = ''
@@ -34,7 +34,7 @@ python3.pkgs.buildPythonPackage rec {
   ];
 
   checkInputs = [ python3.pkgs.pytest ];
-
+  doCheck = false; # requires internet
 
   pythonImportsCheck = [
     "EdgeGPT"
