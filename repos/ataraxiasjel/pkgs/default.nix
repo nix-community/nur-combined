@@ -10,6 +10,7 @@ with pkgs; with lib; {
   bibata-cursors-tokyonight = callPackage ./bibata-cursors-tokyonight { };
   ceserver = callPackage ./ceserver { };
   gruvbox-plus-icons = callPackage ./gruvbox-plus-icons { };
+  hoyolab-daily-bot = callPackage ./hoyolab-daily-bot { };
   mpris-ctl = callPackage ./mpris-ctl { };
   proton-ge = callPackage ./proton-ge { };
   protonhax = callPackage ./protonhax { };
