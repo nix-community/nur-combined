@@ -6,5 +6,7 @@
 
     # XXX by default fractal stores its state in ~/.local/share/stable/<UUID>.
     persist.private = [ ".local/share/stable" ];
+
+    suggestedPrograms = [ "gnome-keyring" ];
   };
 }

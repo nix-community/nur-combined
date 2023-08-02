@@ -4,7 +4,9 @@
   imports = [
     ./aerc.nix
     ./assorted.nix
+    ./chatty.nix
     ./cozy.nix
+    ./element-desktop.nix
     ./epiphany.nix
     ./evince.nix
     ./firefox.nix
@@ -12,6 +14,7 @@
     ./fractal.nix
     ./git.nix
     ./gnome-feeds.nix
+    ./gnome-keyring.nix
     ./gpodder.nix
     ./gthumb.nix
     ./helix.nix
@@ -38,6 +41,7 @@
     ./steam.nix
     ./sublime-music.nix
     ./tangram.nix
+    ./tuba.nix
     ./vlc.nix
     ./wireshark.nix
     ./xarchiver.nix

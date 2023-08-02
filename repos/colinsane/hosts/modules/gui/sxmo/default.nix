@@ -178,9 +178,6 @@ in
         # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
         fonts.packages = [ pkgs.nerdfonts ];
 
-        # some programs (e.g. fractal/nheko) **require** a "Secret Service Provider"
-        services.gnome.gnome-keyring.enable = true;
-
         # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
         services.gnome.at-spi2-core.enable = true;
 

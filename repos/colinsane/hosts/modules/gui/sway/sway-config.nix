@@ -170,4 +170,13 @@ in ''
     pos 1920,0
     res 1920x1080
   }
+
+  # XXX: needed for xdg-desktop-portal-* to work.
+  # this is how we expose these env vars to user dbus services:
+  # - DISPLAY
+  # - WAYLAND_DISPLAY
+  # - SWAYSOCK
+  # - XDG_CURRENT_DESKTOP
+  # for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
+  include /etc/sway/config.d/*
 ''

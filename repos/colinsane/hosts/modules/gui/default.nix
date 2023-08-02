@@ -10,16 +10,18 @@
 
   sane.programs.guiApps = {
     package = null;
-    suggestedPrograms = [
-      "firefox"
+    suggestedPrograms = lib.optionals (pkgs.system == "x86_64-linux") [
+      "x86GuiApps"
+    ] ++ [
+      # package sets
       "tuiApps"
-    ] ++ lib.optional (pkgs.system == "x86_64-linux") "x86GuiApps"
-    ++ [
+    ] ++ [
       # "celluloid"  # mpv frontend
       "cozy"  # audiobook player
       # "emote"
       "epiphany"  # gnome's web browser
       "evince"  # works on phosh
+      "firefox"
       # "foliate"  # e-book reader
       # "fractal"  # matrix client
       # "gnome.cheese"
@@ -38,9 +40,9 @@
       # "lollypop"
       "mepo"  # maps viewer
       "mpv"
+      "nheko"
       # "networkmanagerapplet"
       # "newsflash"
-      "nheko"
       "pavucontrol"
       # "picard"  # music tagging
       # "libsForQt5.plasmatube"  # Youtube player

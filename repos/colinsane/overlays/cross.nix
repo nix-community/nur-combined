@@ -315,6 +315,47 @@ in {
     ];
   });
 
+  # TODO: use `buildRustPackage`?
+  # - find another rust package that uses a `-sys` crate (with a build script)?
+  #   - `halloy` uses openssl-sys (1 patch version ahead of fractal), builds
+  #   - uses `cargoBuildHook`, which sets the x86 CC
+  # - copy from gst_all_1.gst-plugins-rs
+  #   - that's the rust dep which fails to build; nixpkgs chatter makes it sound like cargo-c is the culprit
+  # fractal-next = prev.fractal-next.override {
+  #   # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
+  #   # seems to hang when compiling fractal
+  #   inherit (emulated) cargo meson rustc rustPlatform stdenv;
+  # };
+  # fractal-next = prev.fractal-next.overrideAttrs (upstream: {
+  #   env = let
+  #     inherit (final) buildPackages stdenv rust;
+  #     ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
+  #     cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
+  #     ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+  #     cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
+  #     rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;
+  #     rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
+  #     rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
+  #   in {
+  #     # taken from <pkgs/build-support/rust/hooks/default.nix>
+  #     # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
+  #     "CC_${rustBuildPlatform}" = "${ccForBuild}";
+  #     "CXX_${rustBuildPlatform}" = "${cxxForBuild}";
+  #     "CC_${rustTargetPlatform}" = "${ccForHost}";
+  #     "CXX_${rustTargetPlatform}" = "${cxxForHost}";
+  #   };
+  #   mesonFlags = (upstream.mesonFlags or []) ++
+  #     (let
+  #       # ERROR: 'rust' compiler binary not defined in cross or native file
+  #       crossFile = final.writeText "cross-file.conf" ''
+  #       [binaries]
+  #       rust = [ 'rustc', '--target', '${final.rust.toRustTargetSpec final.stdenv.hostPlatform}' ]
+  #     '';
+  #     in
+  #       lib.optionals (final.stdenv.hostPlatform != final.stdenv.buildPlatform) [ "--cross-file=${crossFile}" ]
+  #     );
+  # });
+
   # 2023/07/31: upstreaming is unblocked -- if i can rework to not use emulation
   fwupd-efi = prev.fwupd-efi.override {
     # fwupd-efi queries meson host_machine to decide what arch to build for.

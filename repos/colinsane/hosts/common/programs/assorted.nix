@@ -174,9 +174,6 @@
     # creds, but also 200 MB of node modules, etc
     discord.persist.private = [ ".config/discord" ];
 
-    # creds/session keys, etc
-    element-desktop.persist.private = [ ".config/Element" ];
-
     # `emote` will show a first-run dialog based on what's in this directory.
     # mostly, it just keeps a LRU of previously-used emotes to optimize display order.
     # TODO: package [smile](https://github.com/mijorus/smile) for probably a better mobile experience.
