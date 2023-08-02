@@ -10,6 +10,10 @@ let
         # disables the upstream "goabackend" feature -- presumably "Gnome Online Accounts Backend"
         # frees us from webkit_4_1, in turn.
         enableBackend = false;
+        gvfs = pkgs.gvfs.override {
+          # saves 20 minutes of build time, for unused feature
+          samba = null;
+        };
       };
     };
   };
@@ -19,6 +23,10 @@ let
         # disables the upstream "goabackend" feature -- presumably "Gnome Online Accounts Backend"
         # frees us from webkit_4_1, in turn.
         enableBackend = false;
+        gvfs = pkgs.gvfs.override {
+          # saves 20 minutes of build time, for unused feature
+          samba = null;
+        };
       };
     };
   };

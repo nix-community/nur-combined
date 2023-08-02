@@ -216,6 +216,7 @@ in {
   #   inherit (emulated) stdenv;
   # };
   # cantarell-fonts = prev.cantarell-fonts.override {
+  #   # close this after upstreaming: <https://github.com/NixOS/nixpkgs/issues/50855>
   #   # fixes error where python3.10-skia-pathops dependency isn't available for the build platform
   #   inherit (emulated) stdenv;
   # };
@@ -883,6 +884,8 @@ in {
     # fixes "fatal error: lmdb++.h: No such file or directory
     buildInputs = orig.buildInputs ++ [ final.lmdbxx ];
   });
+  # 2023/08/02: upstreaming in PR: <https://github.com/NixOS/nixpkgs/pull/225111/files>
+  # - needs (my) review
   notmuch = prev.notmuch.overrideAttrs (upstream: {
     # fixes "Error: The dependencies of notmuch could not be satisfied"  (xapian, gmime, glib, talloc)
     # when cross-compiling, we only have a triple-prefixed pkg-config which notmuch's configure script doesn't know how to find.
