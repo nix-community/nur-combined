@@ -20,11 +20,12 @@ let
     );
 in [
 
-  (fetchpatch' {
-    title = "libkiwix: 12.0.0 -> 12.1.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/246700";
-    hash = "sha256-LyTkWNgG1mynCdckKm3Hj9ifzLemyrhJ9BFVaPppwgw=";
-  })
+  # (fetchpatch' {
+  #   # TODO: check back in on this around 2023-10-01
+  #   title = "libkiwix: 12.0.0 -> 12.1.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/246700";
+  #   hash = "sha256-LyTkWNgG1mynCdckKm3Hj9ifzLemyrhJ9BFVaPppwgw=";
+  # })
 
   # (fetchpatch' {
   #   # XXX: doesn't cleanly apply; fetch `firefox-pmos-mobile` branch from my git instead
@@ -152,25 +153,25 @@ in [
   })
 
   # (fetchpatch' {
-  #   title = "hare-json: init at unstable-2023-01-31";
-  #   saneCommit = "260f9c6ac4e3564acbceb46aa4b65fbb652f8e23";
-  #   hash = "sha256-bjLKANo0+zaxugJlEk1ObPqRHWOKptD7dXB+/xzsYqA=";
+  #   title = "hare-json: init at unstable-2023-02-25";
+  #   saneCommit = "6c88c2b087755e8f60c9f61c6361dec2f7a38155";
+  #   hash = "sha256-9TTlhwLDZESaFC02k4+YER+NvoNVPz9wFYV79+Dmuxs=";
   # })
   # (fetchpatch' {
   #   title = "hare-ev: init at unstable-2022-12-29";
-  #   saneCommit = "4058200a407c86c5d963bc49b608aa1a881cbbf2";
-  #   hash = "sha256-wm1aavbCfxBhcOXh4EhFO4u0LrA9tNr0mSczHUK8mQU=";
+  #   saneCommit = "1761049e9b8620091f29bf864ecbbf204b0c56b4";
+  #   hash = "sha256-H2ekBJx/iRX8E4uVmdEyaAZVhqeM25QbwvQ9Ki7fMQ0=";
   # })
   # (fetchpatch' {
   #   title = "bonsai: init at 1.0.0";
-  #   saneCommit = "65d37294d939384e8db400ea82d25ce8b4ad6897";
-  #   hash = "sha256-2easgOtJfzvVcz/3nt3lo1GKLLotrM4CkBRyTgIAhHU=";
+  #   saneCommit = "507252828934c73c7cffe255dae237c041676c27";
+  #   hash = "sha256-HwycOd3v4IifdQqQmMP6w14g0E/T9RAjAw41AsUZQoc=";
   # })
   (fetchpatch' {
     # includes hare-json and hare-ev as pre-reqs
     title = "bonsai: init at 1.0.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
-    hash = "sha256-HqtDgisbR0xOUY4AxhzEv+2JJMPyQMawKo6nbd9pxhE=";
+    hash = "sha256-f7tdHz0lFsSJO8C0saMuG8e7VzSx8XDy/UXjbqWHP9M=";
   })
 
   # make alsa-project members overridable
@@ -236,20 +237,21 @@ in [
     saneCommit = "4766ae46f863734fbe96dc4e537870b6b3894cf4";
     hash = "sha256-qCAJjPRoH8nvKzB+uwDQtGQbFfHS/MiY7m1J0BMl7tY=";
   })
-  (fetchpatch' {
-    title = "perlPackages.FileBaseDir: 0.08 -> 0.09";
-    saneCommit = "acc990b04bbe8c99587eadccc65f100c326ec204";
-    hash = "sha256-8s789GGARJH1i088OGBjGGnL2l5m8Q+iBPS213QsS6A=";
-  })
-  (fetchpatch' {
-    title = "perlPackages.TestFile: 1.443 -> 1.993";
-    saneCommit = "6cf080fb51d034f9c2ddd60cef7dee7d041afd3e";
-    hash = "sha256-fAZpduh3JZeFixJ4yX0wkh/GRp0gYKsTT+XkNdpK7CU=";
-  })
+  # (fetchpatch' {
+  #   title = "perlPackages.FileBaseDir: 0.08 -> 0.09";
+  #   saneCommit = "acc990b04bbe8c99587eadccc65f100c326ec204";
+  #   hash = "sha256-8s789GGARJH1i088OGBjGGnL2l5m8Q+iBPS213QsS6A=";
+  # })
+  # (fetchpatch' {
+  #   title = "perlPackages.TestFile: 1.443 -> 1.993";
+  #   saneCommit = "6cf080fb51d034f9c2ddd60cef7dee7d041afd3e";
+  #   hash = "sha256-fAZpduh3JZeFixJ4yX0wkh/GRp0gYKsTT+XkNdpK7CU=";
+  # })
   (fetchpatch' {
     title = "xdg-utils: enable cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246954";
     saneCommit = "b7aa5e0c1ec06723cf1594de192703a65be21497";
-    hash = "sha256-4iE2EDIe3nSkB8xFXucyCH7k2oiIoBiuYZYAtF31G38=";
+    hash = "sha256-zT0NYmGhJV24GmfjKj1xKcj9+gRMSOy3504tS/xv6Cw=";
   })
   # (fetchpatch' {
   #   # N.B.: duplicates outstanding, merged PR: <https://github.com/NixOS/nixpkgs/pull/246362>
@@ -260,8 +262,10 @@ in [
   # })
   (fetchpatch' {
     title = "gupnp: fix cross compilation";
-    saneCommit = "a1604d867581239c53a3dda0c845a2eb49aa814a";
-    hash = "sha256-euYjOa/axVlFlWo73Xkcg0t4ip/bOCyGbZmynvhM6sc=";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246931";
+    saneCommit = "3af24c9e517689d048bb62511c6e8acf9bc55684";
+    # hash = "sha256-6yl6I/zOcUe0TDKEi/vjEzyU4OWoGi0PMht3VOKWmQo=";
+    hash = "sha256-NYA72+liKZXnUoAGor3MR62YmZNsNPJ3SEfWGhpeiY4=";
   })
   (fetchpatch' {
     title = "blueman: support cross compilation";
@@ -280,19 +284,24 @@ in [
     hash = "sha256-Jj+1z2DeCEY+DqI1J4vYjYJwDDMRcA93CqpZSXzG0wE=";
   })
   (fetchpatch' {
+    # PR also includes the nativeBuildInputs fix
     title = "upower: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246945";
     saneCommit = "3ab262456acc016c8dc834df1d1f7e61a00e01e3";
-    hash = "sha256-kTFZVu9oDiYH4W4SoQQj0pNuo9hTJk6jUy+hy34HUtA=";
+    # hash = "sha256-kTFZVu9oDiYH4W4SoQQj0pNuo9hTJk6jUy+hy34HUtA=";
+    hash = "sha256-PpC9YRMqg/wPfFgAPNV80mwbZWCKxNi4agxNf0yQutI=";
   })
-  (fetchpatch' {
-    title = "upower: don't pass unnecessary nativeBuildInputs";
-    saneCommit = "e2cbfb1bc81afadc5d31c18d43e774fa9a985f98";
-    hash = "sha256-7Q9Fjp7xrw3e887inc5cc01OvuOhThnVYduSLNtv2d0=";
-  })
+  # (fetchpatch' {
+  #   title = "upower: don't pass unnecessary nativeBuildInputs";
+  #   saneCommit = "e2cbfb1bc81afadc5d31c18d43e774fa9a985f98";
+  #   hash = "sha256-7Q9Fjp7xrw3e887inc5cc01OvuOhThnVYduSLNtv2d0=";
+  # })
   (fetchpatch' {
     title = "iio-sensor-proxy: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246947";
     saneCommit = "dc1c3341fef6c64d5fbc983670819cf7932f5be1";
-    hash = "sha256-lSVGjNepRLMfLgaAG3zv/BfoEhJg8yX7EqaCgu8/b8I=";
+    # hash = "sha256-lSVGjNepRLMfLgaAG3zv/BfoEhJg8yX7EqaCgu8/b8I=";
+    hash = "sha256-0rO+qkWgdrZsuHnoRdQ0SqEEW+PYcJaLixrOgJSOssk=";
   })
   (fetchpatch' {
     title = "mpvScripts.mpris: support cross compilation";
@@ -336,8 +345,10 @@ in [
   })
   (fetchpatch' {
     title = "libgnt: 2.14.1 -> 2.14.3";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246937";
     saneCommit = "ecd423195d72036a209912868ad02742cb4b6fcd";
-    hash = "sha256-u4V/UHNtd2c3+FppuJ5LeLNSV8ZaLe8cqj8HmcW2a/0=";
+    # hash = "sha256-u4V/UHNtd2c3+FppuJ5LeLNSV8ZaLe8cqj8HmcW2a/0=";
+    hash = "sha256-cGhJSby0K+e1hKPdPZjLFRKvwjGaTbq/kb6Fxj2v8g8=";
   })
   (fetchpatch' {
     title = "pidgin: support cross compilation";
