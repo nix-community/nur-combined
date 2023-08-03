@@ -225,13 +225,13 @@
         sha512 = "+uO4+qr7msjNNWKYPHqN/3+Dx3NFkmIzayk2L1MyZQlvgZb/J1A0fo410dpKrN2SnqFjt8n4JL8fDJE0wIgjFQ==";
       };
     };
-    "destr-2.0.0" = {
+    "destr-2.0.1" = {
       name = "destr";
       packageName = "destr";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/destr/-/destr-2.0.0.tgz";
-        sha512 = "FJ9RDpf3GicEBvzI3jxc2XhHzbqD8p4ANw/1kPsFBfTvP1b7Gn/Lg1vO7R9J4IVgoMbyUmFrFGZafJ1hPZpvlg==";
+        url = "https://registry.npmjs.org/destr/-/destr-2.0.1.tgz";
+        sha512 = "M1Ob1zPSIvlARiJUkKqvAZ3VAqQY6Jcuth/pBKQ2b1dX/Qx0OnJ8Vux6J2H5PTMQeRzWrrbTu70VxBfv/OPDJA==";
       };
     };
     "dotenv-16.3.1" = {
@@ -911,7 +911,7 @@ in {
       sources."cross-spawn-7.0.3"
       sources."debug-4.3.4"
       sources."defu-6.1.2"
-      sources."destr-2.0.0"
+      sources."destr-2.0.1"
       sources."dotenv-16.3.1"
       sources."emmet-2.4.6"
       sources."fast-glob-3.3.1"
