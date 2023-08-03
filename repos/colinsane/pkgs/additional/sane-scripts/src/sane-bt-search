@@ -11,6 +11,7 @@ options:
   --full     display all results
   --help     show this help message and exit
   --manga    show only manga results
+  --h265     show only H.265 video (HEVC)
   --json     output one json document instead of a human-readable table
   --top=<n>  show the <n> top rated torrents (default: 5)
   --verbose  show more information, useful for debugging/development
