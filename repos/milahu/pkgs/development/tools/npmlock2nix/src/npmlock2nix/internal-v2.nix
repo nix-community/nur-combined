@@ -1,6 +1,6 @@
-{ nodejs-16_x, jq, openssl, coreutils, stdenv, mkShell, lib, fetchurl, writeText, writeShellScript, runCommand, fetchFromGitHub }:
+{ nodejs, jq, openssl, coreutils, stdenv, mkShell, lib, fetchurl, writeText, writeShellScript, runCommand, fetchFromGitHub }:
 rec {
-  default_nodejs = nodejs-16_x;
+  default_nodejs = nodejs;
 
   ## helper functions that allow users to define common source override mechanism
 

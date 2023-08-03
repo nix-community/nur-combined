@@ -4,7 +4,7 @@ with python3Packages;
 
 buildPythonApplication rec {
   pname = "archive-org-downloader";
-  version = "2023-01-16";
+  version = "2023.01.16";
   propagatedBuildInputs = [
     requests
     tqdm

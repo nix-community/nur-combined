@@ -1,0 +1,91 @@
+all latex dependencies (pdflatex, pdfpages.sty, atbegshi.sty, ...)
+are provided by texlive.combined.scheme-small
+
+
+
+$ nix-locate bin/pdflatex --top-level
+texlive.combined.scheme-small.out                     0 s /nix/store/69kk62n2vk06vl907kwvvnhp5l34mfin-texlive-combined-small-2021.20210408/bin/pdflatex
+texlive.combined.scheme-basic.out                     0 s /nix/store/bml0l9qv5lvm2zv6z5pgwdnkvnh2apjm-texlive-combined-basic-2021.20210408/bin/pdflatex
+texlive.combined.scheme-gust.out                      0 s /nix/store/f257nn3hwdpvl493hbl80vlk5zycr89d-texlive-combined-gust-2021.20210408/bin/pdflatex
+texlive.combined.scheme-medium.out                    0 s /nix/store/xn35r8q1vck3kgm6rm42ibgy1wnyymc6-texlive-combined-medium-2021.20210408/bin/pdflatex
+texlive.combined.scheme-medium.out                  825 x /nix/store/xn35r8q1vck3kgm6rm42ibgy1wnyymc6-texlive-combined-medium-2021.20210408/bin/pdflatexpicscale
+texlive.combined.scheme-tetex.out                     0 s /nix/store/rizpyx3ikgfndj0w853mypk681izads8-texlive-combined-tetex-2021.20210408/bin/pdflatex
+tetex.out                                             0 s /nix/store/q9w55m6lh7gl6siz533l7mfzqmpzx0zr-tetex-3.0/bin/pdflatex
+texlive.combined.scheme-full.out                      0 s /nix/store/whqyksd2i3ab6qimfbvnlx0np7rc0z49-texlive-combined-full-2021.20210408/bin/pdflatex
+texlive.combined.scheme-full.out                      0 s /nix/store/whqyksd2i3ab6qimfbvnlx0np7rc0z49-texlive-combined-full-2021.20210408/bin/pdflatex-dev
+texlive.combined.scheme-full.out                    819 x /nix/store/whqyksd2i3ab6qimfbvnlx0np7rc0z49-texlive-combined-full-2021.20210408/bin/pdflatexpicscale
+
+
+
+$ nix path-info --closure-size nixpkgs#tetex
+/nix/store/czl98a4qhsmsb8ayqbxj64fa5kicwpjh-tetex-3.0     289762456 # 289 MB
+
+$ nix path-info --closure-size nixpkgs#texlive.combined.scheme-basic
+/nix/store/zvyhkyfxsxza11d78cqz5vr8sg2jc8q1-texlive-combined-basic-2022-final     289328656 # 289 MB
+
+$ nix path-info --closure-size nixpkgs#texlive.combined.scheme-small
+/nix/store/g2kq8f5q6x31yvb242f8754dbbkgivf3-texlive-combined-small-2022-final     426674872 # 426 MB
+
+$ nix path-info --closure-size nixpkgs#texlive.combined.scheme-gust
+/nix/store/0zyn0rm6qv4qd9vcxph7vfk1w2fyijab-texlive-combined-gust-2022-final      774235608 # 774 MB
+
+$ nix path-info --closure-size nixpkgs#texlive.combined.scheme-tetex
+/nix/store/i5rm1i9ihzgn3dzq3jlx4jmdps1fm115-texlive-combined-tetex-2022-final    1339170440 # 1339 MB
+
+$ nix path-info --closure-size nixpkgs#texlive.combined.scheme-full
+/nix/store/gjx5l5jylrx2l99r6lq86s60fc94s0x7-texlive-combined-full-2022-final     4133634744 # 4133 MB
+
+
+
+texlive.combined.scheme-basic: pdfjam ERROR: LaTeX package pdfpages.sty is not installed
+
+$ nix-locate --top-level pdfpages.sty
+tetex.out                                        47,263 r /nix/store/q9w55m6lh7gl6siz533l7mfzqmpzx0zr-tetex-3.0/share/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+perl534Packages.LaTeXML.out                       1,712 r /nix/store/qxvcykw8ggis1acxd7c36pf46fdyxvvg-perl5.34.0-LaTeXML-0.8.6/lib/perl5/site_perl/5.34.0/LaTeXML/Package/pdfpages.sty.ltxml
+perl532Packages.LaTeXML.out                       1,712 r /nix/store/x9fcxx1pbcbmxg9n4jgvfmki74linqsh-perl5.32.1-LaTeXML-0.8.6/lib/perl5/site_perl/5.32.1/LaTeXML/Package/pdfpages.sty.ltxml
+
+
+
+tetex: pdfjam ERROR: LaTeX package atbegshi.sty is not installed
+
+$ nix-locate --top-level atbegshi.sty
+-> no packages
+
+but atbegshi is in pkgs/tools/typesetting/tex/texlive/pkgs.nix
+
+$ nix-locate --top-level /atbegshi
+texlive.combined.scheme-small.out                     0 s /nix/store/69kk62n2vk06vl907kwvvnhp5l34mfin-texlive-combined-small-2021.20210408/share/texmf/tex/generic/atbegshi
+texlive.combined.scheme-context.out                   0 s /nix/store/5di00invhxxln6ry17bqzhsh88b56z1w-texlive-combined-context-2021.20210408/share/texmf/tex/generic/atbegshi
+texlive.combined.scheme-basic.out                     0 s /nix/store/bml0l9qv5lvm2zv6z5pgwdnkvnh2apjm-texlive-combined-basic-2021.20210408/share/texmf/tex/generic/atbegshi
+texlive.combined.scheme-gust.out                      0 s /nix/store/f257nn3hwdpvl493hbl80vlk5zycr89d-texlive-combined-gust-2021.20210408/share/texmf/tex/generic/atbegshi
+texlive.combined.scheme-medium.out                    0 s /nix/store/xn35r8q1vck3kgm6rm42ibgy1wnyymc6-texlive-combined-medium-2021.20210408/share/texmf/tex/generic/atbegshi
+texlive.combined.scheme-tetex.out                     0 s /nix/store/rizpyx3ikgfndj0w853mypk681izads8-texlive-combined-tetex-2021.20210408/share/texmf/tex/generic/atbegshi
+texlive.combined.scheme-full.out                      0 s /nix/store/whqyksd2i3ab6qimfbvnlx0np7rc0z49-texlive-combined-full-2021.20210408/share/texmf/tex/generic/atbegshi
+
+https://duckduckgo.com/?q=atbegshi.sty
+https://www.ctan.org/pkg/atbegshi
+https://tex.stackexchange.com/questions/520975/atbegshi-sty-not-found
+https://github.com/rstudio/tinytex/issues/163 # Include atbegshi package?
+      tlmgr install atbegshi
+      tlmgr install atveryend
+      tlmgr install rerunfilecheck
+
+
+
+$ nix-locate --top-level /pdfpages | grep ^texlive.combined
+texlive.combined.scheme-small.out                     0 s /nix/store/69kk62n2vk06vl907kwvvnhp5l34mfin-texlive-combined-small-2021.20210408/share/texmf/tex/latex/pdfpages
+texlive.combined.scheme-gust.out                      0 s /nix/store/f257nn3hwdpvl493hbl80vlk5zycr89d-texlive-combined-gust-2021.20210408/share/texmf/tex/latex/pdfpages
+texlive.combined.scheme-medium.out                    0 s /nix/store/xn35r8q1vck3kgm6rm42ibgy1wnyymc6-texlive-combined-medium-2021.20210408/share/texmf/tex/latex/pdfpages
+texlive.combined.scheme-tetex.out                     0 s /nix/store/rizpyx3ikgfndj0w853mypk681izads8-texlive-combined-tetex-2021.20210408/share/texmf/tex/latex/pdfpages
+texlive.combined.scheme-full.out                      0 s /nix/store/whqyksd2i3ab6qimfbvnlx0np7rc0z49-texlive-combined-full-2021.20210408/share/texmf/tex/latex/pdfpages
+
+note: basic does not work, because pdfpages is missing
+
+these should work:
+texlive.combined.scheme-small
+texlive.combined.scheme-gust
+texlive.combined.scheme-medium
+texlive.combined.scheme-tetex
+texlive.combined.scheme-full
+
+-> texlive.combined.scheme-small is the smallest package

@@ -78,7 +78,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   proftpd = callPackage ./pkgs/proftpd/proftpd.nix { };
 
-  pyload = callPackage ./pkgs/pyload/pyload.nix { };
+  pyload = python3.pkgs.pyload;
 
   rose = callPackage ./pkgs/rose/rose.nix { };
 
@@ -101,8 +101,28 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libalf = callPackage ./pkgs/libalf/libalf.nix { };
 
-  python3 = pkgs.python3 // {
-    pkgs = (pkgs.python3.pkgs or {}) // {
+  #python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
+
+    # fix: error: attribute 'sitePackages' missing: python3.sitePackages
+    sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
+
+    # FIXME scope with new callPackage
+    #pkgs = (pkgs.python3.pkgs or {}) // ({
+    # error: attribute 'buildPythonApplication' missing: python3.pkgs.buildPythonApplication
+    #pkgs = (pkgs.python3.pkgs or {}) // lib.makeScope pkgs.newScope (self: with self; {
+    # https://github.com/NixOS/nixpkgs/commit/632c4f2c9ba1f88cd5662da7bedf2ca5f0cda4a9 # add scope
+    #pkgs = (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
+
+      # fix recursion
+      python3.pkgs = self;
+      python3Packages = self;
 
       aalpy = python3.pkgs.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
 
@@ -137,8 +157,63 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
       };
 
-    };
-  };
+      # nix-build . -A python3.pkgs.libarchive-c
+      # https://github.com/NixOS/nixpkgs/pull/241606
+      # python310Packages.libarchive-c: 4.0 -> 5.0
+      libarchive-c = python3.pkgs.callPackage ./pkgs/python3/pkgs/libarchive-c/libarchive-c.nix {
+        libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
+      };
+
+      # fix flask: ERROR: Could not find a version that satisfies the requirement blinker>=1.6.2
+      # nix-init ./pkgs/python3/pkgs/blinker/blinker.nix --url https://github.com/pallets-eco/blinker
+      blinker = python3.pkgs.callPackage ./pkgs/python3/pkgs/blinker/blinker.nix { };
+
+      # fix flask: ERROR: Could not find a version that satisfies the requirement Werkzeug>=2.3.3
+      # nix-init ./pkgs/python3/pkgs/werkzeug/werkzeug.nix --url https://github.com/pallets/werkzeug
+      werkzeug = python3.pkgs.callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
+
+      # https://github.com/NixOS/nixpkgs/pull/245320
+      # python3Packages.flask: 2.2.5 -> 2.3.2
+      # nix-init pkgs/python3/pkgs/flask/flask.nix --url https://github.com/pallets/flask
+      # FIXME use python3.pkgs.werkzeug from this scope
+      flask = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
+
+      # nix-init pkgs/python3/pkgs/flask-caching/flask-caching.nix --url https://github.com/pallets-eco/flask-caching
+      # FIXME: ERROR: Could not find a version that satisfies the requirement Flask<3 (from flask-caching) (from versions: none)
+      # update?
+      flask-caching = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
+
+      # no: nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://github.com/colour-science/flask-compress
+      # fix: LookupError: setuptools-scm was unable to detect version for /build/source.
+      # Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such as GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
+      # nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://pypi.org/project/flask-compress
+      flask-compress = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
+
+      # nix-init pkgs/python3/pkgs/flask-session/flask-session.nix --url https://github.com/pallets-eco/flask-session
+      flask-session = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
+
+      # nix-init pkgs/python3/pkgs/flask-babel/flask-babel.nix --url https://github.com/python-babel/flask-babel
+      flask-babel = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
+
+      # nix-init pkgs/python3/pkgs/flask-session2/flask-session2.nix --url https://github.com/christopherpickering/flask-session2
+      flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
+
+      # no: nix-init pkgs/python3/pkgs/flask-themes2/flask-themes2.nix --url https://github.com/sysr-q/flask-themes2
+      # update version: 0.1.3 -> 1.0.0
+      # https://github.com/sysr-q/flask-themes2/issues/13 # add git tags for pypi versions
+      # nix-init pkgs/python3/pkgs/flask-themes2/flask-themes2.nix --url https://pypi.org/project/Flask-Themes2/
+      flask-themes2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-themes2/flask-themes2.nix { };
+
+      pyjsparser = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
+
+      js2py = python3.pkgs.callPackage ./pkgs/python3/pkgs/js2py/js2py.nix { };
+
+      # python3.pkgs.pyload
+      pyload = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
+
+    }))); # python3.pkgs
+
+  }))); # python3
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
@@ -157,6 +232,16 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   brother-hll5100dn = callPackage ./pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix { };
 
   npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
+
+  nix-gitignore = callPackage ./pkgs/build-support/nix-gitignore/nix-gitignore.nix { };
+
+  # mvn2nix
+  inherit (callPackage ./pkgs/development/tools/mvn2nix/mvn2nix.nix { })
+    mvn2nix
+    mvn2nix-bootstrap
+    buildMavenRepository
+    buildMavenRepositoryFromLockFile
+  ;
 
   # TODO
   #xi = callPackages ./pkgs/xi { };
@@ -287,6 +372,49 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   mediawiki-dump2html = callPackage ./pkgs/development/tools/mediawiki-dump2html/mediawiki-dump2html.nix { };
 
   mediawiki2html = python3.pkgs.callPackage ./pkgs/development/tools/mediawiki2html/mediawiki2html.nix { };
+
+  pandoc-bin = pkgs.haskellPackages.callPackage ./pkgs/development/tools/pandoc-bin/pandoc-bin.nix { };
+
+  mwdumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
+  mediawiki-dumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
+
+  pdfjam = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam.nix { };
+  pdfjam-extras = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam-extras.nix { };
+
+  curl-with-allow-dot-onion = (pkgs.curl.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or []) ++ [
+      # add support for CURL_ALLOW_DOT_ONION=1
+      # fix: I want to resolve onion addresses
+      # https://github.com/curl/curl/discussions/11125
+      (pkgs.fetchurl {
+        url = "https://github.com/curl/curl/pull/11236.patch";
+        sha256 = "sha256-Ma5pOVLTAz/bbdmo4s5QH3UFDlpVr7DZ9xSMcUy98B8=";
+      })
+    ];
+  }));
+
+  git-with-allow-dot-onion = (pkgs.git.override {
+    curl = curl-with-allow-dot-onion;
+  });
+
+  radicle = callPackage ./pkgs/applications/version-management/radicle/radicle.nix { };
+
+  radicle-httpd = radicle.overrideAttrs (oldAttrs: {
+    pname = "radicle-httpd";
+    buildAndTestSubdir = "radicle-httpd";
+  });
+
+  radicle-interface = callPackage ./pkgs/applications/version-management/radicle-interface/radicle-interface.nix { };
+
+  radicle-bin = callPackage ./pkgs/applications/version-management/radicle/radicle-bin.nix { };
+
+  cargo2nix = callPackage ./pkgs/development/tools/rust/cargo2nix/cargo2nix.nix { };
+
+  unarr = callPackage ./pkgs/tools/archivers/unarr/unarr.nix { };
+
+  # https://github.com/NixOS/nixpkgs/pull/244713
+  # libarchive: 3.6.2 -> 3.7.0
+  libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
 
 }
 

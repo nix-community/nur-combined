@@ -10,6 +10,7 @@
 , file-read-backwards
 , pymysql
 , python3
+, pkgs
 
 # FIXME move to pkgs/python3/pkgs
 
@@ -156,7 +157,7 @@ python3Packages.buildPythonApplication rec {
     # fix import path
     cd $out/bin
     for f in .*-wrapped; do
-      substituteInPlace "$f" --replace "], site._init_pathinfo());" ",'$out/${python3.sitePackages}/wikiteam3'], site._init_pathinfo());"
+      substituteInPlace "$f" --replace "], site._init_pathinfo());" ",'$out/${pkgs.python3.sitePackages}/wikiteam3'], site._init_pathinfo());"
     done
   '';
 

@@ -1,0 +1,425 @@
+<p><b>MWDumper</b> is a tool written in Java for extracting sets of pages from a MediaWiki dump file. For example, it can load <b><a href="https://en.wikipedia.org/wiki/Wikipedia:Database_download" class="extiw" title="w:Wikipedia:Database download">Wikipedia's content</a></b> into MediaWiki. 
+</p><p>MWDumper can read MediaWiki XML export dumps (version 0.3, minus uploads), perform optional filtering, and output back to XML or to SQL statements to add things directly to a database in 1.4 or 1.5 schema.
+</p>
+<style data-mw-deduplicate="TemplateStyles:r4199118">.mw-parser-output .note{background-position:left 7px top 50%;padding:0.5em 0.5em 0.5em 40px;margin:0.5em 0;overflow:hidden;background-color:#f8f9fa;background-repeat:no-repeat;border:1px solid #ddd}.mw-parser-output .note-inline{display:inline-block;vertical-align:middle}.mw-parser-output .note-info{background-color:#f6efe5;background-image:url("https://upload.wikimedia.org/wikipedia/commons/d/d5/OOjs_UI_icon_reference_20_ac6600.svg");background-size:25px;border-color:#ac6600;padding-left:40px;min-height:28px}.mw-parser-output .note-reminder{background-color:#fff9ea;background-image:url("https://upload.wikimedia.org/wikipedia/commons/a/a8/OOjs_UI_icon_lightbulb-yellow.svg");background-size:25px;border-color:#fc3;min-height:28px}.mw-parser-output .note-warn{background-color:#fff9ea;background-image:url("https://upload.wikimedia.org/wikipedia/commons/3/3b/OOjs_UI_icon_alert-warning.svg");background-size:25px;border-color:#fc3;min-height:28px}.mw-parser-output .note-error{background-color:#fee7e6;background-image:url("https://upload.wikimedia.org/wikipedia/commons/b/bf/OOjs_UI_icon_notice-destructive.svg");background-size:25px;border-color:#c33;min-height:28px}</style><div role="note" class="note note-info">While this can be used to import XML dumps into a MediaWiki database, it might not be the best choice for small imports (say, 100 pages or less). See <a href="//www.mediawiki.org/wiki/Special:MyLanguage/Manual:Importing_XML_dumps" title="Special:MyLanguage/Manual:Importing XML dumps">Manual:Importing XML dumps</a><span style="display:none"><a href="//www.mediawiki.org/wiki/Manual:Importing_XML_dumps" title="Manual:Importing XML dumps"> </a></span> for an overview.</div>
+<meta property="mw:PageProp/toc">
+<h2><span class="mw-headline" id="Where_to_find_it">Where to find it</span></h2>
+<p>To import current XML export dumps, you'll need an up-to-date build of MWDumper...
+</p><p>You can build an up to date MWDumper from <a href="https://gerrit.wikimedia.org/g/mediawiki/tools/mwdumper/%2B/HEAD/" class="extiw" title="git:mediawiki/tools/mwdumper/+/HEAD/">source</a>. <i>(See <a href="#How_to_build_MWDumper_from_source">#How to build MWDumper from source</a>, below).</i>  
+</p><p>If you have Docker and do not want to build it yourself, you can use the following Docker image which does it for you: <a rel="nofollow" class="external free" href="https://hub.docker.com/r/ueland/mwdumper/">https://hub.docker.com/r/ueland/mwdumper/</a>
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<h3><span class="mw-headline" id="Prerequisites_for_imports_via_MWDumper">Prerequisites for imports via MWDumper</span></h3>
+<p>Before using mwdumper, your page, text, revision and redirect tables must be empty. To empty them, do this (note that this will wipe out an existing wiki):
+</p>
+<ul><li>In SQL: <code class="mw-highlight mw-highlight-lang-sql mw-content-ltr" dir="ltr"><span class="n">USE</span><span class="w"> </span><span class="n">wikidb</span><span class="p">;</span><span class="w"> </span><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">page</span><span class="p">;</span><span class="w"> </span><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nb">text</span><span class="p">;</span><span class="w"> </span><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">revision</span><span class="p">;</span><span class="w"> </span><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">redirect</span><span class="p">;</span></code></li>
+<li>In maintenance directory: <code>php rebuildall.php</code></li></ul>
+<h3><span class="mw-headline" id="Import_dump_files_with_MWDumper">Import dump files with MWDumper</span></h3>
+<p>Sample command line for a direct database import:
+</p>
+<pre>  java -jar mwdumper.jar --format=sql:1.25 pages_full.xml.bz2 |
+    mysql -u &lt;username&gt; -p &lt;databasename&gt;
+</pre>
+<p>or 
+</p>
+<pre>  cd mwdumper/src
+  javac org/mediawiki/dumper/Dumper.java
+  cd ..
+  java -classpath ./src org.mediawiki.dumper.Dumper --format=sql:1.25 pages_full.xml.bz2 |
+    mysql -u &lt;username&gt; -p &lt;databasename&gt;
+
+Note: javac org/mediawiki/dumper/Dumper.java will throw errors and this will have to be debugged
+     ./org/mediawiki/dumper/filters/predicates/AdHocListFilter.java:5: error: 
+     package com.google.common.base does not exist
+     import com.google.common.base.Splitter;
+ 
+</pre>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r4199118"><div role="note" class="note note-info">A <a rel="nofollow" class="external text" href="https://github.com/bcollier">third party developer</a> has added features to output in a tab delimited format for processing large dumps. The compiled version is <a rel="nofollow" class="external text" href="https://github.com/bcollier/mwdumper/blob/master/build/mwdumper.jar">mwdumper.jar</a> and the code for the project is <a rel="nofollow" class="external text" href="https://github.com/bcollier/mwdumper">mwdumper</a>. To use the update you have to specify a separate output file for pages since you don't want to have the two tab delimited output files dumped together. This was done specifically for processing the large Wikipedia Dumps using Hadoop. Usage is shown below:
+<pre>cat train.xml | java -jar mwdumper.jar --format=flatfile:pages_output_file.txt - --quiet &gt; train.txt
+</pre></div>
+<p>Hint: The tables <code>page</code>, <code>revision</code>, <code>text</code> must be empty for a successful import. 
+</p>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r4199118"><div role="note" class="note note-info">This command will keep going even if MySQL reports an error. This is probably not what you want - if you use the <a href="#direct_connection_to_mysql">direct connection to MySQL</a>, the import will stop when errors occur.</div>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r4199118"><div role="note" class="note note-info">If you <code>nohup</code> a <code>mwdumper</code> command, be sure to use the <code>--quiet</code> option.</div>
+<h3><span class="mw-headline" id="A_note_on_character_encoding">A note on character encoding</span></h3>
+<p>Make sure the database is expecting utf8-encoded text.  If the database is expecting latin1 encoded text (which MySQL does by default), you'll get invalid characters in your tables if you use the output of mwdumper directly. One way to do this is to pass <code>--default-character-set=utf8</code> to MySQL in the above sample command.
+</p><p>If you want to use the output of mwdumper in a JDBC URL, you should use set <code>characterEncoding=utf8</code> in the query string.
+</p><p>Also make sure that your MediaWiki tables use <a rel="nofollow" class="external text" href="https://dev.mysql.com/doc/refman/8.0/en/charset-table.html">CHARACTER SET=binary</a>. Otherwise, you may get error messages like <code>Duplicate entry in UNIQUE Key 'name_title'</code> because MySQL fails to distinguish certain characters.
+</p>
+<h3><span class="mw-headline" id="Complex_filtering">Complex filtering</span></h3>
+<p>You can also do complex filtering to produce multiple output files:
+</p>
+<pre>  java -jar mwdumper.jar \
+    --output=bzip2:pages_public.xml.bz2 \
+      --format=xml \
+      --filter=notalk \
+      --filter=namespace:\!NS_USER \
+      --filter=latest \
+    --output=bzip2:pages_current.xml.bz2 \
+      --format=xml \
+      --filter=latest \
+    --output=gzip:pages_full_1.25.sql.gz \
+      --format=sql:1.25 \
+    --output=gzip:pages_full_1.5.sql.gz \
+      --format=sql:1.5 \
+    --output=gzip:pages_full_1.4.sql.gz \
+      --format=sql:1.4 \
+    pages_full.xml.gz
+</pre>
+<p>A bare parameter will be interpreted as a file to read XML input from;
+if "-" or none is given, input will be read from stdin. Input files with ".gz" or ".bz2" extensions will be decompressed as gzip and bzip2 streams, respectively.
+</p><p>Internal decompression of 7-zip .7z files is not yet supported; you can pipe such files through p7zip's 7za:
+</p>
+<pre>  7za e -so pages_full.xml.7z |
+    java -jar mwdumper.jar --format=sql:1.25 |
+    mysql -u &lt;username&gt; -p &lt;databasename&gt;
+</pre>
+<p>Defaults if no parameters are given:
+</p>
+<ul><li>read uncompressed XML from stdin</li>
+<li>write uncompressed XML to stdout</li>
+<li>no filtering</li></ul>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Output_sinks">Output sinks</span></h3>
+<table class="wikitable">
+<tbody><tr>
+<td>--output=stdout
+</td>
+<td>Send uncompressed XML or SQL output to stdout for piping.<br>
+<p>(May have charset issues.) This is the default if no output is specified.
+</p>
+</td></tr>
+<tr>
+<td>--output=file:&lt;filename.xml&gt;
+</td>
+<td>Write uncompressed output to a file.
+</td></tr>
+<tr>
+<td>--output=gzip:&lt;filename.xml.gz&gt;
+</td>
+<td>Write compressed output to a file.
+</td></tr>
+<tr>
+<td>--output=bzip2:&lt;filename.xml.bz2&gt;
+</td>
+<td>Write compressed output to a file.
+</td></tr>
+<tr>
+<td>--output=mysql:&lt;jdbc url&gt;
+</td>
+<td>Valid only for SQL format output; opens a connection to the MySQL server and sends commands to it directly.<br>
+<p>This will look something like:<br>
+mysql://localhost/databasename?user=&lt;username&gt;&amp;password=&lt;password&gt;
+</p>
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Output_formats">Output formats</span></h3>
+<pre>  --format=xml
+      Output back to MediaWiki's XML export format; use this for filtering dumps for limited import. Output should be idempotent.
+  --format=sql:1.4
+      SQL statements formatted for bulk import in MediaWiki 1.4's schema.
+  --format=sql:1.5
+      SQL statements formatted for bulk import in MediaWiki 1.5's schema.
+      Both SQL schema versions currently require that the table structure be already set up in an empty database; use maintenance/tables.sql from the MediaWiki distribution.
+  --format=sql:1.25
+     SQL statements formatted for bulk import in MediaWiki 1.25's schema.
+</pre>
+<h3><span class="mw-headline" id="Filter_actions">Filter actions</span></h3>
+<pre>  --filter=latest
+      Skips all but the last revision listed for each page.
+      FIXME: currently this pays no attention to the timestamp or
+      revision number, but simply the order of items in the dump.
+      This may or may not be strictly correct.
+  --filter=list:&lt;list-filename&gt;
+      Excludes all pages whose titles do not appear in the given file.
+      Use one title per line; blanks and lines starting with # are
+      ignored. Talk and subject pages of given titles are both matched.
+  --filter=exactlist:&lt;list-filename&gt;
+      As above, but does not try to match associated talk/subject pages.
+  --filter=namespace:[!]&lt;NS_KEY,NS_OTHERKEY,100,...&gt;
+      Includes only pages in (or not in, with "!") the given namespaces.
+      You can use the NS_* constant names or the raw numeric keys.
+  --filter=notalk
+      Excludes all talk pages from output (including custom namespaces)
+  --filter=titlematch:&lt;regex&gt;
+      Excludes all pages whose titles do not match the regex.
+</pre>
+<h3><span class="mw-headline" id="Misc_options">Misc options</span></h3>
+<pre>  --progress=&lt;n&gt;
+      Change progress reporting interval from the default 1000 revisions.
+  --quiet
+      Don't send any progress output to stderr. Recommended when running under nohup.
+</pre>
+<h3><span class="mw-headline" id="Direct_connection_to_MySQL">Direct connection to MySQL</span></h3>
+<h4><span class="mw-headline" id="Example_of_using_mwdumper_with_a_direct_connection_to_MySQL">Example of using mwdumper with a direct connection to MySQL</span></h4>
+<pre>java -server -classpath mysql-connector-java-3.1.11/mysql-connector-java-3.1.11-bin.jar:mwdumper.jar \
+   org.mediawiki.dumper.Dumper --output=mysql://127.0.0.1/testwiki?user=wiki\&amp;password=wiki \
+   --format=sql:1.25 20051020_pages_articles.xml.bz2
+</pre>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r4199118"><div role="note" class="note note-info">* You will need the <a rel="nofollow" class="external text" href="https://www.mysql.com/products/connector/">mysql-connector JDBC driver</a>. On Ubuntu this comes in package <b>libmysql-java</b> and is installed at <code>/usr/share/java/mysql-connector-java.jar</code>. 
+<ul><li>The JRE does not allow you to mix the -jar and -classpath arguments (hence the different command structure).</li>
+<li>The --output argument must before the --format argument.</li>
+<li>The ampersand in the MySQL URI must be escaped on Unix-like systems.</li></ul></div>
+<p><br>
+</p>
+<h4><span class="mw-headline" id="Example_of_using_mwdumper_with_a_direct_connection_to_MySQL_on_WindowsXP">Example of using mwdumper with a direct connection to MySQL on WindowsXP</span></h4>
+<p>Had problems with the example above... this following example works better on XP....
+</p><p>1.Create a batch file with the following text.
+</p>
+<pre>set class=mwdumper.jar;mysql-connector-java-3.1.12/mysql-connector-java-3.1.12-bin.jar
+set data="C:\Documents and Settings\All Users.WINDOWS\Documents\en.wiki\enwiki-20060207-pages-articles.xml.bz2"
+java -client -classpath %class% org.mediawiki.dumper.Dumper "--output=mysql://127.0.0.1/wikidb?user=&lt;username&gt;&amp;password=&lt;password&gt;&amp;characterEncoding=UTF8" "--format=sql:1.25" %data%
+pause
+</pre>
+<p>2.Download the mysql-connector-java-3.1.12-bin.jar and mwdumper.jar
+</p><p>3.Run the batch file.
+</p>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r4199118"><div role="note" class="note note-info">#It still reports a problem with the import files, "duplicate key"...
+<ol><li>The class path separator is a&nbsp;; (semi-colon) in this example; different from the example above.</li></ol></div>
+<p>The "duplicate key" error may result from the page, revision and text tables in the database not being empty, or from character encoding problems. See <a href="#A_note_on_character_encoding">A note on character encoding</a>.
+</p>
+<h2><span class="mw-headline" id="Performance_Tips">Performance Tips</span></h2>
+<dl><dd><i>Please elaborate on these tips if you can.</i></dd></dl>
+<p>To speed up importing into a database, you might try the following:
+</p>
+<h3><span class="mw-headline" id="Remove_indexes_and_auto-increment_fields">Remove indexes and auto-increment fields</span></h3>
+<p>Temporarily remove all indexes and auto_increment fields from the following tables: page, revision and text. This gives a tremendous speed bump, because MySQL will otherwise be updating these indexes after each insert. 
+</p><p>Don't forget to recreate the indexes afterwards. 
+</p>
+<ol><li>Remove indexes:
+<ul><li>You can use the procedure from <a rel="nofollow" class="external free" href="http://www.javaquery.com/2014/03/mysql-queries-to-show-all-database.html">http://www.javaquery.com/2014/03/mysql-queries-to-show-all-database.html</a> to remove indexes. Execute multiple times and check with "show index from page", etc. if the indexes are removed. See also the drop index statements <a href="#Alternate_method_of_loading_a_huge_wiki">below</a>.</li></ul></li>
+<li>Remove primary keys: In MySQL execute:
+<ul><li>alter table revision drop primary key;</li>
+<li>alter table text drop primary key;</li>
+<li>alter table page drop primary key;</li></ul></li>
+<li>Remove auto increment fields: In MySQL execute:
+<ul><li>alter table revision change rev_id rev_id int(10) unsigned not null;</li>
+<li>alter table text change old_id old_id int(10) unsigned not null;</li>
+<li>alter table page change page_id page_id int(10) unsigned not null;</li></ul></li></ol>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r4199118"><div role="note" class="note note-info">It will take a long time to recreate all the removed data.</div>
+<h3><span class="mw-headline" id="Set_-server_option">Set -server option</span></h3>
+<p>Java's -server option may significantly increase performance on some versions of Sun's JVM for large files. (Not all installations will have this available.)
+</p>
+<h3><span id="Increase_MySQL.27s_innodb_log_file_size"></span><span class="mw-headline" id="Increase_MySQL's_innodb_log_file_size">Increase MySQL's innodb_log_file_size</span></h3>
+<p>Increase MySQL's innodb_log_file_size in /etc/mysql/my.cnf. The default is as little as 5mb, but you can improve performance dramatically by increasing this to reduce the number of disk writes. innodb_log_file_size=64M is <a rel="nofollow" class="external text" href="https://www.percona.com/blog/2008/11/21/how-to-calculate-a-good-innodb-log-file-size/">commonly</a> a good log size; too large of a size may <a rel="nofollow" class="external text" href="https://www.percona.com/blog/2016/05/31/what-is-a-big-innodb_log_file_size/">increase</a> recovery time more than is desirable.
+</p><p>Shut down the server cleanly, and <a rel="nofollow" class="external text" href="https://www.percona.com/blog/2011/07/09/how-to-change-innodb_log_file_size-safely/">move away</a> (don't delete) the log files, which are in /var/lib/mysql and named ib_logfile0, ib_logfile1, and so on. Change the innodb_log_file_size setting. Then restart the server. Test to see if the server is working; if all is well, you can delete the log files you moved.
+</p>
+<h3><span class="mw-headline" id="Disable_the_binary_log">Disable the binary log</span></h3>
+<p>If you don't need it, disable the binary log (log-bin option) during the import. On a standalone machine this is just wasteful, writing a second copy of every query that you'll never use.
+</p><p>To test if binary log is enabled via SQL command, issue the following statement:
+</p>
+<div class="mw-highlight mw-highlight-lang-sql mw-content-ltr" dir="ltr"><pre><span></span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'log_bin'</span><span class="p">;</span>
+</pre></div>
+<h3><span class="mw-headline" id="More_tips_in_the_MySQL_reference_manual">More tips in the MySQL reference manual</span></h3>
+<p>Various other wacky tips can be found in the <a rel="nofollow" class="external text" href="https://dev.mysql.com/doc/refman/8.0/en/optimizing-server.html">MySQL reference manual</a>.  If you find any useful ones, please write about them here.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<p>If strange XML errors are encountered under Java 1.4, try 1.5:
+</p>
+<ul><li><a rel="nofollow" class="external free" href="http://java.sun.com/j2se/1.5.0/download.jsp">http://java.sun.com/j2se/1.5.0/download.jsp</a></li>
+<li><a rel="nofollow" class="external free" href="http://www.apple.com/downloads/macosx/apple/java2se50release1.html">http://www.apple.com/downloads/macosx/apple/java2se50release1.html</a></li></ul>
+<p>If mwdumper gives <b>java.lang.IllegalArgumentException: Invalid contributor</b> exception, see <a href="https://phabricator.wikimedia.org/T20328" class="extiw" title="phabricator:T20328">task T20328</a>.
+</p><p>If it gives <b>java.lang.OutOfMemoryError: Java heap space</b> exception, run it with larger heap size, for example <code>java -Xms128m -Xmx1000m -jar mwdumper.jar ...</code> (first is starting, second maximum size) (<a href="https://phabricator.wikimedia.org/T23937" class="extiw" title="phabricator:T23937">task T23937</a>)
+</p><p>If an error is thrown with a reference to page_counter being missing, use the <code>--format=sql:1.25</code> parameter. Alternatively, you can create a page_counter column on the <a href="//www.mediawiki.org/wiki/Special:MyLanguage/Manual:page_table" title="Special:MyLanguage/Manual:page table">page</a><span style="display:none"><a href="//www.mediawiki.org/wiki/Manual:Page_table" title="Manual:Page table"> </a></span> table.
+</p><p>Importing XML dumps from old MediaWiki versions may give errors of "Column 'rev_sha1' cannot be null". You'll need to change the column to accept null values, and run <a href="//www.mediawiki.org/wiki/Special:MyLanguage/Manual:populateRevisionSha1.php" title="Special:MyLanguage/Manual:populateRevisionSha1.php">populateRevisionSha1.php</a><span style="display:none"><a href="//www.mediawiki.org/wiki/Manual:PopulateRevisionSha1.php" title="Manual:PopulateRevisionSha1.php"> </a></span> afterwards.
+</p>
+<h2><span class="mw-headline" id="How_to_build_MWDumper_from_source">How to build MWDumper from source</span></h2>
+<p>You can build MWDumper from <a href="https://gerrit.wikimedia.org/g/mediawiki/tools/mwdumper/%2B/HEAD/" class="extiw" title="git:mediawiki/tools/mwdumper/+/HEAD/">source</a> and let <a href="https://en.wikipedia.org/wiki/Apache_Maven" class="extiw" title="wikipedia:Apache Maven">Maven</a> sort out the dependencies. Just:
+</p>
+<div class="mw-highlight mw-highlight-lang-bash mw-content-ltr" dir="ltr"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://phabricator.wikimedia.org/diffusion/MWDU/mwdumper.git
+<span class="nb">cd</span><span class="w"> </span>mwdumper
+mvn<span class="w"> </span>compile
+mvn<span class="w"> </span>package
+</pre></div>
+<p>It should generate the <code>mwdumper&lt;version number&gt;.jar</code> file (for example <code>mwdumper-1.25.jar</code>) on the folder named <code>target</code>.
+</p><p>Note that usage examples on this page use <code>class=mwdumper.jar</code>, so you should either rename the file to mwdumper.jar, or use <code>class=mwdumper-1.25.jar</code> instead.
+</p>
+<h2><span class="mw-headline" id="Programming">Programming</span></h2>
+<h3><span class="mw-headline" id="Reporting_bugs">Reporting bugs</span></h3>
+<p>Bugs can be reported in <a class="external text" href="https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?projects=Utilities-mwDumper">the Wikimedia bug tracker</a>.
+</p>
+<h3><span id="Change_history_.28abbreviated.29"></span><span class="mw-headline" id="Change_history_(abbreviated)">Change history (abbreviated)</span></h3>
+<ul><li>2016-04-23: Updated Xerces library to fix intermittent UTF-8 breakage</li>
+<li>... various bug fixes ...</li>
+<li>... build system changed to Maven ...</li>
+<li>... various bug fixes ...</li>
+<li>2005-10-25: Switched SqlWriter.sqlEscape back to less memory-hungry StringBuffer</li>
+<li>2005-10-24: Fixed SQL output in non-UTF-8 locales</li>
+<li>2005-10-21: Applied more speedup patches from Folke</li>
+<li>2005-10-11: SQL direct connection, GUI work begins</li>
+<li>2005-10-10: Applied speedup patches from Folke Behrens</li>
+<li>2005-10-05: Use bulk inserts in SQL mode</li>
+<li>2005-09-29: Converted from C# to Java</li>
+<li>2005-08-27: Initial extraction code</li></ul>
+<h3><span class="mw-headline" id="Todo">Todo</span></h3>
+<ul><li>Add some more junit tests</li>
+<li>Include table initialization in SQL output</li>
+<li>Allow use of table prefixes in SQL output</li>
+<li>Ensure that titles and other bits are validated correctly.</li>
+<li>Test XML input for robustness</li>
+<li>Provide filter to strip ID numbers</li>
+<li>&lt;siteinfo&gt; is technically optional; live without it and use default namespaces</li>
+<li>GUI frontend(s)</li>
+<li>Port to Python?&nbsp;;)</li></ul>
+<h2><span class="mw-headline" id="Alternate_method_of_loading_a_huge_wiki">Alternate method of loading a huge wiki</span></h2>
+<style data-mw-deduplicate="TemplateStyles:r4199130">.mw-parser-output .mw-version{border:1px solid #72777d;font-size:80%;line-height:1.2;border-collapse:collapse}.mw-parser-output .mw-version-ltr{float:right;margin:0 0 .5em .5em;text-align:right}.mw-parser-output .mw-version-rtl{float:left;margin:0 .5em .5em 0;text-align:left}.mw-parser-output .mw-version td{padding:.1em .3em}.mw-parser-output .mw-version-versionbox{border:5px solid #00af89;text-align:center}.mw-parser-output .mw-version-versionnumber{font-weight:bold;font-size:180%}.mw-parser-output .mw-version-version .mw-version-versionbox{border-color:#c8ccd1}.mw-parser-output .mw-version.mw-version-version2 .mw-version-versionbox{border-top-color:#c8ccd1;border-right-color:#c8ccd1;border-left-color:#c8ccd1}.mw-parser-output .mw-version-version-unsupported .mw-version-versionbox{border-color:#d33}.mw-parser-output .mw-version.mw-version-version2-unsupported .mw-version-versionbox{border-top-color:#d33;border-right-color:#d33;border-left-color:#d33}.mw-parser-output .mw-version-version-legacy .mw-version-versionbox{border-color:#f93}.mw-parser-output .mw-version.mw-version-version2-legacy .mw-version-versionbox{border-top-color:#f93;border-right-color:#f93;border-left-color:#f93}.mw-parser-output .mw-version-version-stable .mw-version-versionbox,.mw-parser-output .mw-version.mw-version.mw-version-and-later .mw-version-versionbox{border-color:#00af89}.mw-parser-output .mw-version.mw-version-version2-stable .mw-version-versionbox{border-top-color:#00af89;border-right-color:#00af89;border-left-color:#00af89}.mw-parser-output .mw-version-version-future .mw-version-versionbox{border-color:#8080c0}.mw-parser-output .mw-version.mw-version-version2-future .mw-version-versionbox{border-top-color:#8080c0;border-right-color:#8080c0;border-left-color:#8080c0}.mw-parser-output .mw-version-version-alpha .mw-version-versionbox{border-style:dotted}</style>
+<table class="mw-version mw-version-ltr mw-version-version mw-version-version-unsupported mw-version-and-later"><tbody><tr>
+<td>MediaWiki version:</td>
+<td class="mw-version-versionbox" title="The latest stable version is 1.40"><div class="mw-version-versionnumber"><small>≥</small> 1.32</div></td>
+</tr></tbody></table>
+<dl><dd><i>Warning: This method takes days to run.</i></dd></dl>
+<p>If you have to load a huge wiki this might help...
+</p><p>Below is a set of instructions that makes loading a large wiki less error prone and <i>maybe</i> a bit faster.  It is not a script but rather a set of commands you can copy into bash (running in a screen session.)  You'll have to babysit and customize the process for your needs.
+</p>
+<table class="warning-message" style="background-color: #fee7e6; border: 1px #d33 solid; box-sizing: border-box; margin: 0.5em 0; padding: 0.5em;"><tbody><tr><td style="white-space: nowrap; vertical-align: top;"><span style="position: relative; top: -2px;"><span typeof="mw:File"><span><img alt="Warning" src="//upload.wikimedia.org/wikipedia/commons/thumb/b/bf/OOjs_UI_icon_notice-destructive.svg/18px-OOjs_UI_icon_notice-destructive.svg.png" decoding="async" width="18" height="18" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/bf/OOjs_UI_icon_notice-destructive.svg/27px-OOjs_UI_icon_notice-destructive.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/bf/OOjs_UI_icon_notice-destructive.svg/36px-OOjs_UI_icon_notice-destructive.svg.png 2x" data-file-width="20" data-file-height="20"></span></span></span> <b>Warning:</b> </td><td style="padding-left: 0.5em vertical-align: top;">Those commands drop several indices and then re-adds them again after the import. However, the index definition is from a specific MediaWiki version, which may not match your current version of MediaWiki. Use this method if you know what are you doing, and check if index definitions are correct.</td></tr></tbody></table>
+<pre># Dump SQL to disk in even sized chunks.  This takes about 80 Gb of hard drive space and 3 hours for enwiki.
+# Setup the db to receive the chunks.  This takes a few seconds.
+# Import the chunks.  This takes a few days for enwiki.
+# Rebuild the DB.  This takes another day for enwiki.
+# Run standard post import cleanup.  I haven't finished this step successfully yet but some of it can be skipped I think.
+
+export DUMP_PREFIX=/public/datasets/public/enwiki/20130604/enwiki-20130604
+export DIR_ROOT=/data/project/dump
+export DIR=${DIR_ROOT}/enwiki
+export EXPORT_PROCESSES=4
+export IMPORT_PROCESSES=4
+export DB=enwiki2
+export EXPORT_FILE_SIZE=5
+export EXPORT_FILE_SUFFIX_LENGTH=8
+export LOG=~/log
+
+bash -c 'sleep 1 &amp;&amp; echo y' | mysqladmin drop ${DB} -u root
+sudo rm -rf ${DIR}
+rm -rf ${LOG}
+
+sudo mkdir -p ${DIR}
+sudo chown -R ${USER} ${DIR_ROOT}
+mkdir -p ${LOG}
+
+# Dump SQL to disk in even sized chunks.
+# Sort by size descending to keep as many threads as possible hopping.
+# uconv cleans up UTF-8 errors in the source files.
+# grep removes BEGIN and COMMIT statements that mwdumper thinks are good, but I do better below
+sudo apt-get install openjdk-7-jdk libicu-dev -y #jdk for mwdumper and libicu-dev for uconv
+ls -1S ${DUMP_PREFIX}-pages-meta-current*.xml-p* |
+  xargs -I{} -P${EXPORT_PROCESSES} -t bash -c '
+  mkdir -p ${DIR}/$(basename {})
+  cd ${DIR}/$(basename {})
+  bunzip2 -c {} |
+    uconv -f UTF-8 -t ascii --callback escape-xml-dec -v 2&gt; ${LOG}/$(basename {}).uconv |
+    java -jar ~/mwdumper-1.16.jar --format=sql:1.25 2&gt; ${LOG}/$(basename {}).mwdumper |
+    grep INSERT |
+    split -l ${EXPORT_FILE_SIZE} -a ${EXPORT_FILE_SUFFIX_LENGTH} 2&gt; ${LOG}/$(basename {}).split
+  '
+
+# Setup the db to receive the chunks.
+mysqladmin create ${DB} --default-character-set=utf8 -u root
+mysql -u root ${DB} &lt; /srv/mediawiki/maintenance/tables.sql
+mysql -u root ${DB} &lt;&lt;HERE
+ALTER TABLE page
+  CHANGE page_id page_id INTEGER UNSIGNED,
+  DROP INDEX name_title,
+  DROP INDEX page_random,
+  DROP INDEX page_len,
+  DROP INDEX page_redirect_namespace_len;
+ALTER TABLE revision 
+  CHANGE rev_id rev_id INTEGER UNSIGNED,
+  DROP INDEX rev_page_id,
+  DROP INDEX rev_timestamp,
+  DROP INDEX page_timestamp,
+  DROP INDEX user_timestamp,
+  DROP INDEX usertext_timestamp,
+  DROP INDEX page_user_timestamp;
+ALTER TABLE text
+  CHANGE old_id old_id INTEGER UNSIGNED;
+HERE
+
+# Import the chunks
+# Each chunk is wrapped in a transaction and if the import succeeds the chunk is removed from disk.
+# This means you should be able to safely ctrl-c the process at any time and rerun this block and
+# it'll pick up where it left off.  The worst case scenario is you'll get some chunk that was added
+# but not deleted and you'll see mysql duplicate key errors.  Or something like that.  Anyway, if you
+# are reading this you are a big boy and can figure out how clean up the database or remove the file.
+echo 'BEGIN;' &gt; ${DIR_ROOT}/BEGIN
+echo 'COMMIT;' &gt; ${DIR_ROOT}/COMMIT
+find ${DIR} -type f |
+  sort -R |
+  xargs -I{} -P${IMPORT_PROCESSES} -t bash -c '
+    cat ${DIR_ROOT}/BEGIN {} ${DIR_ROOT}/COMMIT | mysql -u root ${DB} &amp;&amp;
+    rm {}'
+
+# Rebuild the DB
+mysql -u root ${DB} &lt;&lt;HERE
+CREATE TABLE bad_page AS 
+  SELECT page_namespace, page_title, COUNT(*) AS count
+  FROM page GROUP BY page_namespace, page_title
+  HAVING count &gt; 1;
+UPDATE page, bad_page
+  SET page.page_title = CONCAT(page.page_title, page.page_id)
+  WHERE page.page_namespace = bad_page.page_namespace AND page.page_title = bad_page.page_title;
+DROP TABLE bad_page;
+ALTER TABLE page
+  CHANGE page_id page_id INTEGER UNSIGNED AUTO_INCREMENT,
+  ADD UNIQUE INDEX name_title (page_namespace,page_title),
+  ADD INDEX page_random (page_random),
+  ADD INDEX page_len (page_len),
+  ADD INDEX page_redirect_namespace_len (page_is_redirect, page_namespace, page_len);
+ALTER TABLE revision 
+  CHANGE rev_id rev_id INTEGER UNSIGNED AUTO_INCREMENT,
+  ADD UNIQUE INDEX rev_page_id (rev_page, rev_id),
+  ADD INDEX rev_timestamp (rev_timestamp),
+  ADD INDEX page_timestamp (rev_page,rev_timestamp),
+  ADD INDEX user_timestamp (rev_user,rev_timestamp),
+  ADD INDEX usertext_timestamp (rev_user_text,rev_timestamp),
+  ADD INDEX page_user_timestamp (rev_page,rev_user,rev_timestamp);
+ALTER TABLE text
+  CHANGE old_id old_id INTEGER UNSIGNED AUTO_INCREMENT;
+HERE
+
+# Run standard post import cleanup
+cd /srv/mediawiki
+php maintenance/update.php
+</pre>
+<h2><span class="mw-headline" id="Notes">Notes</span></h2>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a href="//www.mediawiki.org/wiki/Special:MyLanguage/Manual:Importing_XML_dumps" title="Special:MyLanguage/Manual:Importing XML dumps">Manual:Importing XML dumps</a><span style="display:none"><a href="//www.mediawiki.org/wiki/Manual:Importing_XML_dumps" title="Manual:Importing XML dumps"> </a></span></li>
+<li><a href="//www.mediawiki.org/wiki/Special:MyLanguage/Manual:Grabbers" title="Special:MyLanguage/Manual:Grabbers">Manual:Grabbers</a><span style="display:none"><a href="//www.mediawiki.org/wiki/Manual:Grabbers" title="Manual:Grabbers"> </a></span></li></ul>
+<!-- 
+NewPP limit report
+Parsed by mw‐web.eqiad.canary‐7f5d48df79‐qlvdr
+Cached time: 20230701055007
+Cache expiry: 1814400
+Reduced expiry: false
+Complications: [show‐toc]
+CPU time usage: 0.294 seconds
+Real time usage: 0.360 seconds
+Preprocessor visited node count: 1430/1000000
+Post‐expand include size: 14581/2097152 bytes
+Template argument size: 8399/2097152 bytes
+Highest expansion depth: 17/100
+Expensive parser function count: 7/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 23622/5000000 bytes
+Lua time usage: 0.044/10.000 seconds
+Lua memory usage: 1414525/52428800 bytes
+Number of Wikibase entities loaded: 0/400
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  170.764      1 -total
+ 35.73%   61.009      1 Template:Historical
+ 32.26%   55.081      1 Template:Notice
+ 31.02%   52.965      1 Template:Ambox
+ 26.34%   44.976      7 Template:Note
+ 23.21%   39.630      5 Template:Ll
+ 18.39%   31.402      1 Template:MW_1.32
+ 17.44%   29.787      1 Template:MW_version
+ 15.43%   26.354      1 Template:MW_version/layout
+  9.58%   16.354     10 Template:Translatable
+-->
+
+<!-- Saved in parser cache with key mediawikiwiki:pcache:idhash:4657-0!canonical and timestamp 20230701055006 and revision id 5749622. Rendering was triggered because: page-view
+ -->
+</div>

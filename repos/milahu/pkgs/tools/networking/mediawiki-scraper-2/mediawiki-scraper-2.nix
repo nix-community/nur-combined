@@ -10,6 +10,7 @@
 , lxml
 , python311
 , python3
+, pkgs
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -148,11 +149,13 @@ python3Packages.buildPythonApplication rec {
   '';
 
   # fix: ./result/bin/launcher: ModuleNotFoundError: No module named 'dumpgenerator'
+  # fix: error: attribute 'sitePackages' missing: python3.sitePackages
+  #    substituteInPlace "$f" --replace "], site._init_pathinfo());" ",'$out/${python3.sitePackages}/wikiteam'], site._init_pathinfo());"
   postFixup = ''
     # fix import path
     cd $out/bin
     for f in .*-wrapped; do
-      substituteInPlace "$f" --replace "], site._init_pathinfo());" ",'$out/${python3.sitePackages}/wikiteam'], site._init_pathinfo());"
+      substituteInPlace "$f" --replace "], site._init_pathinfo());" ",'$out/${pkgs.python3.sitePackages}/wikiteam'], site._init_pathinfo());"
     done
   '';
 

@@ -53,7 +53,12 @@ python3.pkgs.buildPythonApplication rec {
     cchardet
     chardet
     charset-normalizer
-    faust-cchardet
+
+    # fix: Found duplicated packages in closure for dependency 'faust-cchardet':
+    #   faust-cchardet 2.1.18 (/nix/store/5dh8azfs1lw8g8l44ha8f4msmvsqjvl1-python3.10-faust-cchardet-2.1.18/lib/python3.10/site-packages)
+    #   faust-cchardet 2.1.18 (/nix/store/y7ga51jnjkn7784mrhfnxv69d2nisdyp-faust-cchardet-2.1.18/lib/python3.10/site-packages)
+    #faust-cchardet
+
     ffmpeg-python
     future
     numpy
