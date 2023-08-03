@@ -9,6 +9,7 @@
 , kirigami2
 , ki18n
 , kpackage
+, nix-update-script
 }:
 
 stdenv.mkDerivation {
@@ -36,6 +37,12 @@ stdenv.mkDerivation {
     ki18n
     kpackage
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+  };
 
   meta = with lib; {
     description = "Collection of Arcade games developed in Kirigami";

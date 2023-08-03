@@ -11,6 +11,7 @@
 , kconfig
 , ki18n
 , kdbusaddons
+, nix-update-script
 }:
 
 stdenv.mkDerivation {
@@ -40,6 +41,12 @@ stdenv.mkDerivation {
     ki18n
     kdbusaddons
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+  };
 
   meta = with lib; {
     description = "Generate the lorem ipsum text";

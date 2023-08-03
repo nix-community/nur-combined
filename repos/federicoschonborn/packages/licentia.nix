@@ -13,18 +13,19 @@
 , kcoreaddons
 , kconfig
 , ki18n
+, nix-update-script
 }:
 
 stdenv.mkDerivation {
   pname = "licentia";
-  version = "unstable-2023-07-31";
+  version = "unstable-2023-08-02";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "licentia";
-    rev = "8744512cbc984ea342e9a70997d970e530ffa156";
-    hash = "sha256-eA7du+YnYL7enWNkLKpgw5YBAioL2S5DOsSxSKzaggw=";
+    rev = "189fcc53051536b0150cfb0a177aa1b4021afac7";
+    hash = "sha256-qeGnusTngzDr7YGa58Duwu9pGpCqfLzaeQJIYoTqXPI=";
   };
 
   nativeBuildInputs = [
@@ -44,6 +45,12 @@ stdenv.mkDerivation {
     kconfig
     ki18n
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+  };
 
   meta = with lib; {
     description = "Choose a license for your project";

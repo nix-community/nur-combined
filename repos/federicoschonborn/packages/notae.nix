@@ -13,6 +13,7 @@
 , ki18n
 , kdbusaddons
 , syntax-highlighting
+, nix-update-script
 }:
 
 stdenv.mkDerivation {
@@ -44,6 +45,12 @@ stdenv.mkDerivation {
     kdbusaddons
     syntax-highlighting
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+  };
 
   meta = with lib; {
     description = "A simple note taking application that automatically saves your work";

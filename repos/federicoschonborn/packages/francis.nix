@@ -13,18 +13,19 @@
 , kdbusaddons
 , ki18n
 , knotifications
+, nix-update-script
 }:
 
 stdenv.mkDerivation {
   pname = "francis";
-  version = "unstable-2023-07-31";
+  version = "unstable-2023-08-02";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "utilities";
     repo = "francis";
-    rev = "e24930d968d0eea9ae55143189a7098502dc7ed8";
-    hash = "sha256-73YT1sC1Y+qZBffWJaiuQNqTJAfdgOaa2CzD7uBxh50=";
+    rev = "53ca525aa03f994a48f3fe69d065e0e4ec6b8519";
+    hash = "sha256-TdqjEP4JOP/lpuah7dFqcwvfc3RkPsWwASTdabcjn20=";
   };
 
   nativeBuildInputs = [
@@ -44,6 +45,12 @@ stdenv.mkDerivation {
     ki18n
     knotifications
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+  };
 
   meta = with lib; {
     description = "Track your time";

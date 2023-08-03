@@ -47,12 +47,12 @@
   zypper = pkgs.callPackage ./zypper.nix { inherit libzypp; };
 
   apx_v2 = pkgs.apx.overrideAttrs (oldAttrs: {
-    version = "unstable-2023-07-17";
+    version = "unstable-2023-07-30";
     src = pkgs.fetchFromGitHub {
       owner = "Vanilla-OS";
       repo = "apx";
-      rev = "dd36d35c240a1ecb33f5583d850cba29e9c7470f";
-      hash = "sha256-tVKmgDYAONNC0f3PRhbtTpfIwQw7/RulANPVWaXz53A=";
+      rev = "d51bcf0680498a99a0835222838f1383ba8510ef";
+      hash = "sha256-lGsl6Tbo5AUpNeWbbfMUS8H+Gmt66tqkyxclXiC2I0Y=";
     };
     # Same as Nixpkgs' but without the manpage copying.
     postInstall = ''
@@ -69,6 +69,11 @@
 
       wrapProgram $out/bin/apx --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.docker pkgs.distrobox ]}
     '';
+    passthru = {
+      updateScript = pkgs.nix-update-script {
+        extraArgs = [ "--version" "branch" ];
+      };
+    };
     meta = oldAttrs.meta // {
       platforms = pkgs.lib.platforms.linux;
     };

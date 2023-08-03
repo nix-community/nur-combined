@@ -5,6 +5,7 @@
 , ldc
 , meson
 , ninja
+, nix-update-script
 }:
 
 stdenv.mkDerivation {
@@ -31,6 +32,12 @@ stdenv.mkDerivation {
     meson
     ninja
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+  };
 
   meta = with lib; {
     description = "Manage lightweight containers";

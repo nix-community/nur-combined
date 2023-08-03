@@ -13,6 +13,7 @@
 , wayland-protocols
 , wlroots
 , xorg
+, nix-update-script
 }:
 
 stdenv.mkDerivation {
@@ -44,6 +45,12 @@ stdenv.mkDerivation {
     xorg.libxcb
     xorg.xcbutilwm
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+  };
 
   meta = with lib; {
     description = "A test compositor to gain familiarity with Wayland and wlroots";

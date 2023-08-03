@@ -10,18 +10,19 @@
 , ki18n
 , kconfig
 , kcoreaddons
+, nix-update-script
 }:
 
 stdenv.mkDerivation {
   pname = "marknote";
-  version = "unstable-2023-07-31";
+  version = "unstable-2023-08-02";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "office";
     repo = "marknote";
-    rev = "5360aadf401de046c74cc68d8c0bfb8910dd0393";
-    hash = "sha256-XJNFB0zxWxYKVeo6Ykz13x7SCDOmnGZfzjHnYwkvBDw=";
+    rev = "eca72aa5e8ba2572e611c338575b9ac4083878b5";
+    hash = "sha256-5VO/HLOELSbSg1WdXmFPX53SC+lWKwO87m3DpLMAzNs=";
   };
 
   nativeBuildInputs = [
@@ -38,6 +39,12 @@ stdenv.mkDerivation {
     kconfig
     kcoreaddons
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [ "--version" "branch" ];
+    };
+  };
 
   meta = with lib; {
     description = "A simple markdown note management app";
