@@ -105,7 +105,7 @@ in {
     # jellyfin-web  # in node-dependencies-jellyfin-web: "node: command not found"  (nodePackages don't cross compile)
     # libgccjit  # "../../gcc-9.5.0/gcc/jit/jit-result.c:52:3: error: 'dlclose' was not declared in this scope"  (needed by emacs!)
     # libsForQt5  # if we emulate qt5, we're better off emulating libsForQt5 else qt complains about multiple versions of qtbase
-    mepo  # /build/source/src/sdlshim.zig:1:20: error: C import failed
+    # mepo  # /build/source/src/sdlshim.zig:1:20: error: C import failed
     # perlInterpreters  # perl5.36.0-Module-Build perl5.36.0-Test-utf8 (see tracking issues ^)
     # qgnomeplatform
     # qtbase
@@ -789,6 +789,30 @@ in {
     # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [ final.pkg-config ];
   });
 
+  mepo = (prev.mepo.override {
+    # emulate zig and stdenv to fix:
+    # - "/build/source/src/sdlshim.zig:1:20: error: C import failed"
+    # emulate makeWrapper to fix:
+    # - "error: makeWrapper/makeShellWrapper must be in nativeBuildInputs"
+    inherit (emulated) makeWrapper stdenv zig;
+  }).overrideAttrs (upstream: {
+    nativeBuildInputs = [ final.pkg-config emulated.makeWrapper ];
+    # ref to zig by full path because otherwise it doesn't end up on the path...
+    checkPhase = lib.replaceStrings [ "zig" ] [ "${emulated.zig}/bin/zig" ] upstream.checkPhase;
+    installPhase = lib.replaceStrings [ "zig" ] [ "${emulated.zig}/bin/zig" ] upstream.installPhase;
+  });
+  # mepo = (prev.mepo.override {
+  #   inherit (emulated) stdenv;
+  # }).overrideAttrs (upstream: {
+  #   nativeBuildInputs = with final; [ pkg-config emulated.makeWrapper ];
+  #   buildInputs = with final; [
+  #     curl SDL2 SDL2_gfx SDL2_image SDL2_ttf jq ncurses
+  #     emulated.zig
+  #   ];
+  # });
+  # mepo = mvToBuildInputs [ emulated.zig ] (prev.mepo.override {
+  #   inherit (emulated) makeWrapper stdenv zig;
+  # });
   # mepo = (prev.mepo.override {
   #   inherit (emulated)
   #     stdenv
@@ -1335,18 +1359,35 @@ in {
   tangram = (prev.tangram.override {
     # N.B. blueprint-compiler is in nativeBuildInputs.
     # the trick here is to force the aarch64 versions to be used during build (via emulation),
-    # which -- if we also emulate gobject-introspection (and the transient gjs dep) -- gets us the right gobject-introspection dirs.
-    # `dontCheck` because tests time out.
-    blueprint-compiler = dontCheck emulated.blueprint-compiler;
-    gjs = dontCheck emulated.gjs;
-    inherit (emulated) gobject-introspection;
+    blueprint-compiler = (useEmulatedStdenv final.blueprint-compiler).overrideAttrs (upstream: {
+      # default is to propagate gobject-introspection *as a buildInput*, when it's supposed to be native.
+      propagatedBuildInputs = [];
+      # "Namespace Gtk not available"
+      doCheck = false;
+    });
+    # blueprint-compiler = dontCheck emulated.blueprint-compiler;
+    # gjs = dontCheck emulated.gjs;
+    # gjs = dontCheck (mvToBuildInputs [ final.gobject-introspection ] (useEmulatedStdenv final.gjs));
+    # gjs = dontCheck (final.gjs.override {
+    #   inherit (emulated) stdenv gobject-introspection;
+    # });
+    # inherit (emulated) gobject-introspection;
+    # gobject-introspection = useEmulatedStdenv final.gobject-introspection;
   }).overrideAttrs (upstream: {
-    # depsBuildBuild = [ final.pkg-config ];  # else no `gio` dep found
     postPatch = (upstream.postPatch or "") + ''
       substituteInPlace src/meson.build \
         --replace "find_program('gjs').full_path()" "'${final.gjs}/bin/gjs'"
     '';
+    # buildInputs = upstream.buildInputs ++ [ final.gobject-introspection ];
+    # nativeBuildInputs = lib.remove final.gobject-introspection upstream.nativeBuildInputs;
   });
+  # tangram = (mvToBuildInputs [ final.blueprint-compiler final.gobject-introspection ] prev.tangram).overrideAttrs (upstream: {
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     substituteInPlace src/meson.build \
+  #       --replace "find_program('gjs').full_path()" "'${final.gjs}/bin/gjs'"
+  #   '';
+  # });
+
   # 2023/07/31: upstreaming is unblocked,implemented on servo
   # fixes "meson.build:204:12: ERROR: Can not run test applications in this cross environment."
   # tracker = addNativeInputs [ final.mesonEmulatorHook ] prev.tracker;

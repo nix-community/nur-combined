@@ -200,14 +200,6 @@ in [
     hash = "sha256-uNerTwyFzivTU+o9bEKmNMFceOmy2AKONfKJWI5qkzo=";
   })
 
-  (fetchpatch' {
-    # fixes iio-sensor-proxy cross-compilation
-    # merged 2023/08/01
-    title = "iio-sensor-proxy: 3.0 -> 3.5, cleanup";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/245773";
-    hash = "sha256-6Ho3A+xyVJoip+y5ioc/U8nPZ9O1SlvLenuzkYEAbuo=";
-  })
-
 
   (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
@@ -233,12 +225,6 @@ in [
     hash = "sha256-8NqqLBbjt1fLj4ZYhat7wPqQSv/aez9IwgSK2b4CfW8=";
   })
 
-  # (fetchpatch' {
-  #   title = "libgudev: fix cross failing to build checks";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/245761";
-  #   hash = "sha256-jEQeGAcDGrv0TYouBTfn5ubWaosWg/ecmUW0ii1QIVs=";
-  # })
-
   (fetchpatch' {
     title = "python310Packages.gssapi: support cross compilation";
     saneCommit = "4766ae46f863734fbe96dc4e537870b6b3894cf4";
@@ -259,12 +245,13 @@ in [
     saneCommit = "b7aa5e0c1ec06723cf1594de192703a65be21497";
     hash = "sha256-4iE2EDIe3nSkB8xFXucyCH7k2oiIoBiuYZYAtF31G38=";
   })
-  (fetchpatch' {
-    # N.B.: duplicates outstanding, approved PR: <https://github.com/NixOS/nixpkgs/pull/245761>
-    title = "libgudev: support cross compilation";
-    saneCommit = "4dc30718fe01e9dbed4ffc2ff375148da218e86b";
-    hash = "sha256-Nb2LphSyv8Dayqfwqfua0eKtNzsnaf7PC/KYUhIvnT8=";
-  })
+  # (fetchpatch' {
+  #   # N.B.: duplicates outstanding, merged PR: <https://github.com/NixOS/nixpkgs/pull/246362>
+  #   # - also a stale, approved PR: <https://github.com/NixOS/nixpkgs/pull/245761>
+  #   title = "libgudev: support cross compilation";
+  #   saneCommit = "4dc30718fe01e9dbed4ffc2ff375148da218e86b";
+  #   hash = "sha256-Nb2LphSyv8Dayqfwqfua0eKtNzsnaf7PC/KYUhIvnT8=";
+  # })
   (fetchpatch' {
     title = "gupnp: fix cross compilation";
     saneCommit = "a1604d867581239c53a3dda0c845a2eb49aa814a";
@@ -275,11 +262,12 @@ in [
     saneCommit = "e070195bdf213dffb0164574397b6a7417f81c9e";
     hash = "sha256-6JnIJCVBbV4tmFinX7Qv2wO2AThrgxrnyb9T4Ov6p5w=";
   })
-  (fetchpatch' {
-    title = "tracker: support cross compilation";
-    saneCommit = "bea390fd0c4fda96db5b1fad06ee071a10561305";
-    hash = "sha256-Y2tVoTvSIIT9ufghqqsXgmqWq9daH+WKj4JHZgWbWwE=";
-  })
+  # (fetchpatch' {
+  #   # N.B.: duplicates merged PR: <https://github.com/NixOS/nixpkgs/pull/246369>
+  #   title = "tracker: support cross compilation";
+  #   saneCommit = "bea390fd0c4fda96db5b1fad06ee071a10561305";
+  #   hash = "sha256-Y2tVoTvSIIT9ufghqqsXgmqWq9daH+WKj4JHZgWbWwE=";
+  # })
   (fetchpatch' {
     title = "tracker-miners: support cross compilation";
     saneCommit = "24b062309ea8baa2d8303c0610c9ec7b8c399e8b";
