@@ -326,7 +326,7 @@ jobs:
           && (github.repository == 'sigprof/nur-packages')
           && (github.ref == 'refs/heads/master')
           && (env.ci_success == 'true')
-        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=$NUR_REPO"
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=$NUR_REPO"
 
       - name: Report CI status
         run: $ci_success
