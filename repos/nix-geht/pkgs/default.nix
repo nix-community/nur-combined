@@ -9,10 +9,12 @@ with lib; let
 
   vpp-pkgs = callPackage ./vpp {};
   shinyblink = callPackage ./shinyblink {};
+  vifino = callPackage ./vifino.nix {};
 in
   rec {
     # TODO: More packages!
     inherit (shinyblink) ffshot ff-overlay ff-sort ff-glitch ff-notext;
+    inherit (vifino) artsy;
 
     opensoundmeter = pkgs.libsForQt5.callPackage ./opensoundmeter.nix {};
   }
