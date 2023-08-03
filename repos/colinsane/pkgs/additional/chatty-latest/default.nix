@@ -42,6 +42,11 @@ chatty.overrideAttrs (upstream: {
     fetchSubmodules = true;
   };
 
+  postPatch = (upstream.postPatch or "") + ''
+    substituteInPlace build-aux/meson/postinstall.py \
+      --replace 'gtk-update-icon-cache' 'gtk4-update-icon-cache'
+  '';
+
   nativeBuildInputs = [
     appstream-glib
     desktop-file-utils

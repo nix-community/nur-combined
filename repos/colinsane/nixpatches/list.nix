@@ -20,6 +20,12 @@ let
     );
 in [
 
+  (fetchpatch' {
+    title = "libkiwix: 12.0.0 -> 12.1.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246700";
+    hash = "sha256-LyTkWNgG1mynCdckKm3Hj9ifzLemyrhJ9BFVaPppwgw=";
+  })
+
   # (fetchpatch' {
   #   # XXX: doesn't cleanly apply; fetch `firefox-pmos-mobile` branch from my git instead
   #   title = "firefox-pmos-mobile: init at -pmos-2.2.0";
@@ -322,6 +328,21 @@ in [
     title = "WIP: networkmanager-l2tp: support cross compilation";
     saneCommit = "7a4191c570b0e5a1ab257222c26a4a2ecb945037";
     hash = "sha256-FiPJhHGqZ8MFwLY+1t6HgbK6ndomFSYUKvApvrikRHE=";
+  })
+  (fetchpatch' {
+    title = "gtkspell2: support cross compilation";
+    saneCommit = "56348833b4411e9fe2016c24c7fc4af1e3c1d28a";
+    hash = "sha256-0RMxouOBw7SUmQDLB2qGey714DaM0AOvZlZ5nB+Lkc4=";
+  })
+  (fetchpatch' {
+    title = "libgnt: 2.14.1 -> 2.14.3";
+    saneCommit = "ecd423195d72036a209912868ad02742cb4b6fcd";
+    hash = "sha256-u4V/UHNtd2c3+FppuJ5LeLNSV8ZaLe8cqj8HmcW2a/0=";
+  })
+  (fetchpatch' {
+    title = "pidgin: support cross compilation";
+    saneCommit = "caacbcc54e217f5ee9281422777a7f712765f71a";
+    hash = "sha256-PDCp4GOm6hWcRob4kz7qXZfxAF6YbYrESx9idoS3e/s=";
   })
 
   (fetchpatch' {

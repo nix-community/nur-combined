@@ -17,6 +17,7 @@
       "tuiApps"
     ] ++ [
       # "celluloid"  # mpv frontend
+      "chatty"  # matrix/xmpp/irc client
       "cozy"  # audiobook player
       # "emote"
       "epiphany"  # gnome's web browser
@@ -64,11 +65,11 @@
       "blanket"  # ambient noise generator
       "brave"  # for the integrated wallet -- as a backup
       # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
-      "dino"
+      # "dino"  # XMPP client
       "electrum"
       "element-desktop"
       # "font-manager"  #< depends on webkitgtk4_0 (expensive to build)
-      "gajim"  # XMPP client
+      # "gajim"  # XMPP client
       "gimp"  # broken on phosh
       "gnome.dconf-editor"
       "gnome.file-roller"
