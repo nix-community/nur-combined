@@ -16,6 +16,7 @@
   firefox-gnome-theme = pkgs.callPackage ./firefox-gnome-theme.nix { };
   flyaway = pkgs.callPackage ./flyaway.nix { wlroots = wlroots_0_16; };
   francis = pkgs.libsForQt5.callPackage ./francis.nix { kirigami-addons = kirigami-addons_0_10; };
+  game-of-life = pkgs.callPackage ./game-of-life.nix { };
   gradebook = pkgs.callPackage ./gradebook.nix { };
   gtatool = pkgs.callPackage ./gtatool { inherit libgta teem; };
   kommit = pkgs.libsForQt5.callPackage ./kommit.nix { };
@@ -34,6 +35,7 @@
   notae = pkgs.libsForQt5.callPackage ./notae.nix { };
   opensurge = pkgs.callPackage ./opensurge.nix { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./qv.nix { inherit libtgd; };
+  rollit = pkgs.callPackage ./rollit.nix { };
   share-preview = pkgs.callPackage ./share-preview.nix { };
   srb2p = pkgs.callPackage ./srb2p { };
   surgescript = pkgs.callPackage ./surgescript.nix { };
