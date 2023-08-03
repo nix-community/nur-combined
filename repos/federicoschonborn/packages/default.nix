@@ -40,6 +40,7 @@
   teem = pkgs.callPackage ./teem.nix { };
   telegraph = pkgs.callPackage ./telegraph.nix { };
   textsnatcher = pkgs.callPackage ./textsnatcher.nix { };
+  thunderbird-gnome-theme = pkgs.callPackage ./thunderbird-gnome-theme.nix { };
   tuba = pkgs.callPackage ./tuba.nix { };
   upkg = pkgs.callPackage ./upkg.nix { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec.nix { };
