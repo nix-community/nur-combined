@@ -265,10 +265,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.4";
+      version = "7.5.6";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4100224/betterttv-7.5.4.xpi";
-      sha256 = "182a357a5776a2bdf90f070beee5cf5160adbbffa7122677bde9284cd8d97677";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145249/betterttv-7.5.6.xpi";
+      sha256 = "cf16c62d58e959691da3cc37cb5d68d167afaa3f2568767c2fbbf9c9c809906e";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -548,10 +548,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.13.1";
+      version = "3.13.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4143903/control_panel_for_twitter-3.13.1.xpi";
-      sha256 = "07dab84e411d19da503b1f8968f835decc18dfb720bfcefd994b812d11e1574b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145183/control_panel_for_twitter-3.13.3.xpi";
+      sha256 = "7dc5c546992c8911c57d378fb3d779025c51db1127a9c99ff607245b1df479a8";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1053,10 +1053,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.64";
+      version = "6.1.65";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132197/flagfox-6.1.64.xpi";
-      sha256 = "22373272060d043043efb42a68833a2155af902ae966c20ffff37bebe7d4aa5e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4145861/flagfox-6.1.65.xpi";
+      sha256 = "a35011fc1b47ab050f28f89373ae2d7ac20694601bcc21cacc79ec3fc61116cf";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -1544,10 +1544,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.20";
+      version = "4.27";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133951/youtube_addon-4.20.xpi";
-      sha256 = "8c132ae9b3354158ff0b1b9b33e68ce6194f8347ed074964e74caca1d1ecd84e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146141/youtube_addon-4.27.xpi";
+      sha256 = "1504608ca9d116d70a126f89c221d3982536029c7bf21cb65e68b8f950c83713";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -2877,10 +2877,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.7";
+      version = "6.1.8";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147237/reddit_moderator_toolbox-6.1.7.xpi";
-      sha256 = "ddb68b37bf6ca907ac8fa234464b335c74c259563fc131dc43151a4366d9fbfb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147655/reddit_moderator_toolbox-6.1.8.xpi";
+      sha256 = "a599c184e460982276b9fbc0dcba11883d70ee9fe046bec5840c232730be3365";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
