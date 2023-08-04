@@ -915,11 +915,40 @@ rules:
   - DOMAIN-SUFFIX,statuspage.io,PROXY
   - DOMAIN-SUFFIX,trello.com,PROXY
   - DOMAIN-SUFFIX,trellocdn.com,PROXY
+  # NAME: Mozilla
+  # AUTHOR: blackmatrix7
+  # REPO: https://github.com/blackmatrix7/ios_rule_script
+  # UPDATED: 2023-04-07 14:51:20
+  # DOMAIN-SUFFIX: 22
+  # TOTAL: 22
+  - DOMAIN-SUFFIX,bugzilla.org,PROXY
+  - DOMAIN-SUFFIX,crates.io,PROXY
+  - DOMAIN-SUFFIX,developer.allizom.org,PROXY
+  - DOMAIN-SUFFIX,docs.rs,PROXY
+  - DOMAIN-SUFFIX,extensionworkshop.com,PROXY
+  - DOMAIN-SUFFIX,firefox.com,PROXY
+  - DOMAIN-SUFFIX,firefox.com.cn,PROXY
+  - DOMAIN-SUFFIX,firefoxusercontent.com,PROXY
+  - DOMAIN-SUFFIX,getpocket.com,PROXY
+  - DOMAIN-SUFFIX,mdn.mozillademos.org,PROXY
+  - DOMAIN-SUFFIX,mdn.mozit.cloud,PROXY
+  - DOMAIN-SUFFIX,mofoprod.net,PROXY
+  - DOMAIN-SUFFIX,mozilla.com,PROXY
+  - DOMAIN-SUFFIX,mozilla.community,PROXY
+  - DOMAIN-SUFFIX,mozilla.net,PROXY
+  - DOMAIN-SUFFIX,mozilla.org,PROXY
+  - DOMAIN-SUFFIX,pocket-image-cache.com,PROXY
+  - DOMAIN-SUFFIX,rust-lang.org,PROXY
+  - DOMAIN-SUFFIX,rustup.rs,PROXY
+  - DOMAIN-SUFFIX,seamonkey-project.org,PROXY
+  - DOMAIN-SUFFIX,sentry.prod.mozaws.net,PROXY
+  - DOMAIN-SUFFIX,thunderbird.net,PROXY
   # misc
   - DOMAIN-SUFFIX,7-zip.org,PROXY
   - DOMAIN-SUFFIX,kernel.org,PROXY
   - DOMAIN-SUFFIX,nmap.org,PROXY
   - DOMAIN-SUFFIX,vivaldi.com,PROXY
+  - DOMAIN-SUFFIX,medium.com,PROXY
 
   # Final
   - MATCH,DIRECT

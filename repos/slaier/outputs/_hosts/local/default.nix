@@ -13,7 +13,6 @@ let
     firefox
     fish
     fonts
-    genymotion
     git
     grub
     gtk
