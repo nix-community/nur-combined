@@ -1170,10 +1170,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "117.0.20230801.180159";
+      version = "117.0.20230803.180221";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147051/francais_language_pack-117.0.20230801.180159.xpi";
-      sha256 = "5f3958c7b3974b8cb0030af7ad3b47a6f9b623ea573ec75ae276a8df0f3573c2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148161/francais_language_pack-117.0.20230803.180221.xpi";
+      sha256 = "b7e0da165ee3fdea8465b3f82df2c3027d02d18e62be59370b9d5ab509aa5864";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2668,10 +2668,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.7.1";
+      version = "2.7.2";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4105551/private_relay-2.7.1.xpi";
-      sha256 = "e4270f45c39065eb929a798bc974037cae2462d1aa13d913cc2423da57792af7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146811/private_relay-2.7.2.xpi";
+      sha256 = "c80b873c7a4a833e953d976e50b689ef6121e99ea98857777253c16bc43e7ec4";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -2877,10 +2877,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.8";
+      version = "6.1.10";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147655/reddit_moderator_toolbox-6.1.8.xpi";
-      sha256 = "a599c184e460982276b9fbc0dcba11883d70ee9fe046bec5840c232730be3365";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148396/reddit_moderator_toolbox-6.1.10.xpi";
+      sha256 = "48d54e071785e78a1f4418c4748e0a802f1ec1ca9f23ea7f2c60ec418a93a35b";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -2919,10 +2919,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.7.25";
+      version = "23.8.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4143551/refined_github-23.7.25.xpi";
-      sha256 = "93a337436378a9cba17c81c442f7013b2359f5109e358487211643a98d1f3387";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148042/refined_github-23.8.3.xpi";
+      sha256 = "3b0f9547fe388ba6e0366a111b25fb1db2492182747ac80949838d662ce3d295";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -3071,10 +3071,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.50";
+      version = "1.21.54";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4145476/single_file-1.21.50.xpi";
-      sha256 = "5cd8b6cab50dcfcb6b73b9fd0e869b53e463432d92107186c2dc859c027de40a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147638/single_file-1.21.54.xpi";
+      sha256 = "7f665313e8095380dc97c23743b75079ff685d08144399d5676e0718f244ccc6";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -3588,10 +3588,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.8.1.0";
+      version = "9.8.2.0";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4126844/traduzir_paginas_web-9.8.1.0.xpi";
-      sha256 = "3530300cef923ac189c6991942160deb9c1fdb4c67432e58d4827a5eee4121c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146578/traduzir_paginas_web-9.8.2.0.xpi";
+      sha256 = "7025e4631b73971fbc670a07e80f911dbc33b72680f2138a29d65c5ea8dbe168";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
