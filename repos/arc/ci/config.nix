@@ -40,6 +40,7 @@ in {
           "ruby-2.7.8"
           "openssl-1.1.1t"
           "openssl-1.1.1u"
+          "openssl-1.1.1v"
         ];
       };
     };
