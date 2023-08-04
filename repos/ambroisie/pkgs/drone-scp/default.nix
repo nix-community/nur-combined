@@ -20,5 +20,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/appleboy/drone-scp";
     license = licenses.mit;
+    mainProgram = "drone-scp";
   };
 }

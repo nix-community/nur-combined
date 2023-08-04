@@ -37,12 +37,4 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
   volantes-cursors = pkgs.callPackage ./volantes-cursors { };
 
   wifi-qr = pkgs.callPackage ./wifi-qr { };
-
-  woodpecker-agent = pkgs.callPackage ./woodpecker/agent.nix { };
-
-  woodpecker-cli = pkgs.callPackage ./woodpecker/cli.nix { };
-
-  woodpecker-frontend = pkgs.callPackage ./woodpecker/frontend.nix { };
-
-  woodpecker-server = pkgs.callPackage ./woodpecker/server.nix { };
 })

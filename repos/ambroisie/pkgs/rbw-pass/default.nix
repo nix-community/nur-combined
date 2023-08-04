@@ -34,7 +34,8 @@ stdenvNoCC.mkDerivation rec {
     description = "A simple script to query a password from rbw";
     homepage = "https://git.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
-    platforms = platforms.linux;
+    mainProgram = "rbw-pass";
     maintainers = with maintainers; [ ambroisie ];
+    platforms = platforms.linux;
   };
 }

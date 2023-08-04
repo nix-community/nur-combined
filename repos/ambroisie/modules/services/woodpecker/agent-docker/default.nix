@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.my.services.woodpecker;
 
@@ -9,8 +9,6 @@ in
     services.woodpecker-agents = {
       agents.docker = {
         enable = true;
-
-        package = pkgs.ambroisie.woodpecker-agent;
 
         environment = {
           WOODPECKER_SERVER = "localhost:${toString cfg.rpcPort}";

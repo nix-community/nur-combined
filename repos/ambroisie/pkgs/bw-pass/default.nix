@@ -36,7 +36,8 @@ stdenvNoCC.mkDerivation rec {
     description = "A simple script to query a password from bitwarden";
     homepage = "https://git.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
-    platforms = platforms.linux;
+    mainProgram = "bw-pass";
     maintainers = with maintainers; [ ambroisie ];
+    platforms = platforms.linux;
   };
 }

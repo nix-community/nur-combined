@@ -23,6 +23,7 @@ qt5.mkDerivation rec {
     description = "A CLI drag-and-drop tool";
     homepage = "https://git.belanyi.fr/ambroisie/dragger";
     license = licenses.mit;
+    mainProgram = "dragger";
     maintainers = with maintainers; [ ambroisie ];
     platforms = platforms.linux;
   };

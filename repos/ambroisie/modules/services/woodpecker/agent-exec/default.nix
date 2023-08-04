@@ -10,8 +10,6 @@ in
       agents.exec = {
         enable = true;
 
-        package = pkgs.ambroisie.woodpecker-agent;
-
         environment = {
           WOODPECKER_SERVER = "localhost:${toString cfg.rpcPort}";
           WOODPECKER_MAX_WORKFLOWS = "10";

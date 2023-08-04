@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.my.services.woodpecker;
 in
@@ -6,8 +6,6 @@ in
   config = lib.mkIf cfg.enable {
     services.woodpecker-server = {
       enable = true;
-
-      package = pkgs.ambroisie.woodpecker-server;
 
       environment = {
         WOODPECKER_OPEN = "true";

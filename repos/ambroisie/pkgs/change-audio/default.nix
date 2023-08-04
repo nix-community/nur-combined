@@ -35,7 +35,8 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://git.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
-    platforms = platforms.linux;
+    mainProgram = "change-audio";
     maintainers = with maintainers; [ ambroisie ];
+    platforms = platforms.linux;
   };
 }

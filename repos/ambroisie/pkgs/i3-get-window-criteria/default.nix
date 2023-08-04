@@ -35,7 +35,8 @@ stdenvNoCC.mkDerivation rec {
     description = "Helper script to query i3 window criterions";
     homepage = "https://git.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
-    platforms = platforms.unix;
+    mainProgram = "i3-get-window-criteria";
     maintainers = with maintainers; [ ambroisie ];
+    platforms = platforms.unix;
   };
 }

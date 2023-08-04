@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Classic cursor with a flying style";
     homepage = "https://github.com/varlesh/volantes-cursors";
     license = licenses.gpl2Only;
-    platforms = platforms.linux;
     maintainers = with maintainers; [ ambroisie ];
+    platforms = platforms.linux;
   };
 }

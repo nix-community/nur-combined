@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "https://github.com/StevenBlack/hosts";
     license = licenses.mit;
-    platforms = platforms.all;
     maintainers = with maintainers; [ ambroisie ];
+    platforms = platforms.all;
   };
 }

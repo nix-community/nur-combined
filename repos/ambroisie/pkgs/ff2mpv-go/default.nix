@@ -26,5 +26,6 @@ buildGoModule rec {
     '';
     homepage = "https://git.clsr.net/util/ff2mpv-go/";
     license = licenses.publicDomain;
+    mainProgram = "ff2mpv-go";
   };
 }

@@ -1,5 +1,5 @@
 labels:
-  type: exec
+  backend: local
 
 pipeline:
 - name: nix flake check
