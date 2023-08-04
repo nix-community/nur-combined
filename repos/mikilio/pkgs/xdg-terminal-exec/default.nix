@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://github.com/Vladimir-csp/xdg-terminal-exec";
     description = "Proposal for XDG terminal execution utility";
-    license = licenses.gpl3Only;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = [];
   };

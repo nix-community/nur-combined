@@ -21,4 +21,6 @@ in {
 } // ifSupported {
   xwaylandvideobridge = pkgs.libsForQt5.callPackage ./pkgs/xwaylandvideobridge { };
   xwaylandvideobridge-hypr = pkgs.libsForQt5.callPackage ./pkgs/xwaylandvideobridge { isHyprland = true; };
+  xdg-terminal-exec = pkgs.callPackage ./pkgs/xdg-terminal-exec {};
+  ttf-ms-fonts = pkgs.callPackage ./pkgs/ttf-ms-fonts {};
 }
