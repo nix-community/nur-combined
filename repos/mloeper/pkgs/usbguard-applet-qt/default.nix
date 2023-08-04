@@ -1,7 +1,8 @@
 { lib, stdenv, pkgs, fetchFromGitHub, ... }: 
 
 stdenv.mkDerivation {
-  name = "usbguard-applet-qt";
+  pname = "usbguard-applet-qt";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "pinotree";
