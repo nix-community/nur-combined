@@ -39,15 +39,15 @@
   };
   carla = {
     pname = "carla";
-    version = "3b101d03a8b1d18347e2a62cb1a6c95ceda7bf45";
+    version = "7ad60fc7de9a16bd5d8f8eafdd896e6083245c9f";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "3b101d03a8b1d18347e2a62cb1a6c95ceda7bf45";
+      rev = "7ad60fc7de9a16bd5d8f8eafdd896e6083245c9f";
       fetchSubmodules = false;
-      sha256 = "sha256-RHzLXwbKT5fmPImlKxT3j5CUz74TlxeCV171UMFL54k=";
+      sha256 = "sha256-YpIcTuB9bS9oo9WBDiKAVg0ye1SLW6gXGYkcEjYf2GI=";
     };
-    date = "2023-07-30";
+    date = "2023-08-03";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -173,15 +173,15 @@
   };
   luakit = {
     pname = "luakit";
-    version = "ad1f840dd209785ab26de6707207d42784132660";
+    version = "b143b383cc80d51825e2b609a03bfd64d0e99a22";
     src = fetchFromGitHub {
       owner = "luakit";
       repo = "luakit";
-      rev = "ad1f840dd209785ab26de6707207d42784132660";
+      rev = "b143b383cc80d51825e2b609a03bfd64d0e99a22";
       fetchSubmodules = false;
-      sha256 = "sha256-B8AGcZavkb+7fQ2NKW9/hHxmX69NB6FuRfJaOtJy4v8=";
+      sha256 = "sha256-HkDWng+XdyN3LkX3ejSVqJKZJpe9qgabNqTN1d7ryng=";
     };
-    date = "2023-07-18";
+    date = "2023-08-03";
   };
   lv2vst = {
     pname = "lv2vst";

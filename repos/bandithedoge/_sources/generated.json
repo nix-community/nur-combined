@@ -56,7 +56,7 @@
   },
   "carla": {
     "cargoLocks": null,
-    "date": "2023-07-30",
+    "date": "2023-08-03",
     "extract": null,
     "name": "carla",
     "passthru": null,
@@ -68,11 +68,11 @@
       "name": null,
       "owner": "falkTX",
       "repo": "Carla",
-      "rev": "3b101d03a8b1d18347e2a62cb1a6c95ceda7bf45",
-      "sha256": "sha256-RHzLXwbKT5fmPImlKxT3j5CUz74TlxeCV171UMFL54k=",
+      "rev": "7ad60fc7de9a16bd5d8f8eafdd896e6083245c9f",
+      "sha256": "sha256-YpIcTuB9bS9oo9WBDiKAVg0ye1SLW6gXGYkcEjYf2GI=",
       "type": "github"
     },
-    "version": "3b101d03a8b1d18347e2a62cb1a6c95ceda7bf45"
+    "version": "7ad60fc7de9a16bd5d8f8eafdd896e6083245c9f"
   },
   "dmenu-flexipatch": {
     "cargoLocks": null,
@@ -281,7 +281,7 @@
   },
   "luakit": {
     "cargoLocks": null,
-    "date": "2023-07-18",
+    "date": "2023-08-03",
     "extract": null,
     "name": "luakit",
     "passthru": null,
@@ -293,11 +293,11 @@
       "name": null,
       "owner": "luakit",
       "repo": "luakit",
-      "rev": "ad1f840dd209785ab26de6707207d42784132660",
-      "sha256": "sha256-B8AGcZavkb+7fQ2NKW9/hHxmX69NB6FuRfJaOtJy4v8=",
+      "rev": "b143b383cc80d51825e2b609a03bfd64d0e99a22",
+      "sha256": "sha256-HkDWng+XdyN3LkX3ejSVqJKZJpe9qgabNqTN1d7ryng=",
       "type": "github"
     },
-    "version": "ad1f840dd209785ab26de6707207d42784132660"
+    "version": "b143b383cc80d51825e2b609a03bfd64d0e99a22"
   },
   "lv2vst": {
     "cargoLocks": null,
