@@ -1,4 +1,4 @@
-{ lib, newScope, selfLib, fishPlugins, emacsPackages, librime }:
+{ lib, newScope, selfLib, fishPlugins, emacsPackages, librime, matrix-sdk-crypto-nodejs-0_1_0-beta_3 }:
 
 lib.makeScope newScope (
   self:
@@ -30,7 +30,9 @@ lib.makeScope newScope (
       fishPluginsToplevel = fishPlugins;
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
-    matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot { };
+    matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot {
+      matrix-sdk-crypto-nodejs = matrix-sdk-crypto-nodejs-0_1_0-beta_3;
+    };
     matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };
     matrix-wechat = callPackage ./matrix-wechat { };
