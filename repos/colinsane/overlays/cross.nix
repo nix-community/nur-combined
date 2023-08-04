@@ -89,35 +89,6 @@ in {
 
   # packages which don't cross compile
   inherit (emulated)
-    # adwaita-qt6  # although qtbase cross-compiles with minor change, qtModule's qtbase can't
-    # bonsai
-    # conky  # needs to be able to build lua
-    # duplicity  # python3.10-s3transfer
-    # gdk-pixbuf  # cross-compiled version doesn't output bin/gdk-pixbuf-thumbnailer  (used by webp-pixbuf-loader
-    # gnome-tour
-    # grpc
-    # hare
-    # harec
-    # nixpkgs hdf5 is at commit 3e847e003632bdd5fdc189ccbffe25ad2661e16f
-    # hdf5  # configure: error: cannot run test program while cross compiling
-    # http2
-    # ibus  # "error: cannot run test program while cross compiling"
-    # jellyfin-web  # in node-dependencies-jellyfin-web: "node: command not found"  (nodePackages don't cross compile)
-    # libgccjit  # "../../gcc-9.5.0/gcc/jit/jit-result.c:52:3: error: 'dlclose' was not declared in this scope"  (needed by emacs!)
-    # libsForQt5  # if we emulate qt5, we're better off emulating libsForQt5 else qt complains about multiple versions of qtbase
-    # mepo  # /build/source/src/sdlshim.zig:1:20: error: C import failed
-    # perlInterpreters  # perl5.36.0-Module-Build perl5.36.0-Test-utf8 (see tracking issues ^)
-    # qgnomeplatform
-    # qtbase
-    # qt5  # qt5.qtbase, qt5.qtx11extras fails, but we can't selectively emulate them.
-    # qt6  # "You need to set QT_HOST_PATH to cross compile Qt."
-    # sequoia  # "/nix/store/q8hg17w47f9xr014g36rdc2gi8fv02qc-clang-aarch64-unknown-linux-gnu-12.0.1-lib/lib/libclang.so.12: cannot open shared object file: No such file or directory"', /build/sequoia-0.27.0-vendor.tar.gz/bindgen/src/lib.rs:1975:31"
-    # splatmoji
-    # tangram  # gjs / custom gjspack thing
-    # twitter-color-emoji  # /nix/store/0wk6nr1mryvylf5g5frckjam7g7p9gpi-bash-5.2-p15/bin/bash: line 1: pkg-config: command not found
-    # visidata  # python3.10-psycopg2 python3.10-pandas python3.10-h5py
-    # webkitgtk_4_1  # requires nativeBuildInputs = perl.pkgs.FileCopyRecursive => perl5.36.0-Test-utf8
-    # xdg-utils  # perl5.36.0-File-BaseDir / perl5.36.0-Module-Build
   ;
 
 
@@ -171,39 +142,24 @@ in {
   #   # TODO: we could link farm, or we could skip straight to cross compilation and not emulate stdenv
   # });
 
-  # mod_dnssd = prev.mod_dnssd.override {
-  #   inherit (emulated) stdenv;
-  # };
-
-  apacheHttpdPackagesFor = apacheHttpd: self:
-    let
-      prevHttpdPkgs = prev.apacheHttpdPackagesFor apacheHttpd self;
-    in prevHttpdPkgs // {
-      # fixes "configure: error: *** Sorry, could not find apxs ***"
-      # mod_dnssd = prevHttpdPkgs.mod_dnssd.override {
-      #   inherit (emulated) stdenv;
-      # };
-      # TODO: the below apxs doesn't have a valid shebang (#!/replace/with/...).
-      #   we can't replace it at the origin?
-      mod_dnssd = prevHttpdPkgs.mod_dnssd.overrideAttrs (upstream: {
-        configureFlags = upstream.configureFlags ++ [
-          "--with-apxs=${self.apacheHttpd.dev}/bin"
-        ];
-      });
-    };
-
   # apacheHttpdPackagesFor = apacheHttpd: self:
   #   let
-  #     prevHttpdPkgs = lib.fix (emulated.apacheHttpdPackagesFor apacheHttpd);
-  #   in
-  #     (prev.apacheHttpdPackagesFor apacheHttpd self) // {
-  #       # inherit (prevHttpdPkgs) mod_dnssd;
-  #       mod_dnssd = prevHttpdPkgs.mod_dnssd.override {
-  #         inherit (self) apacheHttpd;
-  #       };
-  #     };
+  #     prevHttpdPkgs = prev.apacheHttpdPackagesFor apacheHttpd self;
+  #   in prevHttpdPkgs // {
+  #     # fixes "configure: error: *** Sorry, could not find apxs ***"
+  #     # mod_dnssd = prevHttpdPkgs.mod_dnssd.override {
+  #     #   inherit (emulated) stdenv;
+  #     # };
+  #     # N.B.: the below apxs doesn't have a valid shebang (#!/replace/with/...).
+  #     #   we can't replace it at the origin?
+  #     mod_dnssd = prevHttpdPkgs.mod_dnssd.overrideAttrs (upstream: {
+  #       configureFlags = upstream.configureFlags ++ [
+  #         "--with-apxs=${self.apacheHttpd.dev}/bin"
+  #       ];
+  #     });
+  #   };
 
-  # 2023/07/31: upstreaming is unblocked,implemented on servo
+  # 2023/08/03: upstreaming is unblocked,implemented on servo, but has x86 in the runtime closure
   # blueman = prev.blueman.overrideAttrs (orig: {
   #   # configure: error: ifconfig or ip not found, install net-tools or iproute2
   #   nativeBuildInputs = orig.nativeBuildInputs ++ [ final.iproute2 ];
@@ -303,11 +259,11 @@ in {
   #   # fixes "configure: error: cannot run test program while cross compiling"
   #   inherit (emulated) stdenv;
   # };
-  emacs = prev.emacs.override {
-    nativeComp = false;  # will be renamed to `withNativeCompilation` in future
-    # TODO: we can specify 'action-if-cross-compiling' to actually invoke the test programs:
-    # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
-  };
+  # emacs = prev.emacs.override {
+  #   nativeComp = false;  # will be renamed to `withNativeCompilation` in future
+  #   # future: we can specify 'action-if-cross-compiling' to actually invoke the test programs:
+  #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
+  # };
 
   firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
     unwrapped = super.unwrapped // {
@@ -319,16 +275,16 @@ in {
   });
 
   # 2023/07/31: upstreaming is blocked on ostree dep
-  flatpak = prev.flatpak.overrideAttrs (upstream: {
-    # fixes "No package 'libxml-2.0' found"
-    buildInputs = upstream.buildInputs ++ [ final.libxml2 ];
-    configureFlags = upstream.configureFlags ++ [
-      "--enable-selinux-module=no"  # fixes "checking for /usr/share/selinux/devel/Makefile... configure: error: cannot check for file existence when cross compiling"
-      "--disable-gtk-doc"  # fixes "You must have gtk-doc >= 1.20 installed to build documentation for Flatpak"
-    ];
-  });
+  # flatpak = prev.flatpak.overrideAttrs (upstream: {
+  #   # fixes "No package 'libxml-2.0' found"
+  #   buildInputs = upstream.buildInputs ++ [ final.libxml2 ];
+  #   configureFlags = upstream.configureFlags ++ [
+  #     "--enable-selinux-module=no"  # fixes "checking for /usr/share/selinux/devel/Makefile... configure: error: cannot check for file existence when cross compiling"
+  #     "--disable-gtk-doc"  # fixes "You must have gtk-doc >= 1.20 installed to build documentation for Flatpak"
+  #   ];
+  # });
 
-  # TODO: use `buildRustPackage`?
+  # future: use `buildRustPackage`?
   # - find another rust package that uses a `-sys` crate (with a build script)?
   #   - `halloy` uses openssl-sys (1 patch version ahead of fractal), builds
   #   - uses `cargoBuildHook`, which sets the x86 CC
@@ -390,6 +346,7 @@ in {
   # });
   # solves (meson) "Run-time dependency libgcab-1.0 found: NO (tried pkgconfig and cmake)", and others.
   # 2023/07/31: upstreaming is blocked on argyllcms, fwupd-efi, libavif
+  # TODO: can i purge fwupd from my system?
   fwupd = (addBuildInputs
     [ final.gcab ]
     (mvToBuildInputs [ final.gnutls ] prev.fwupd)
@@ -433,7 +390,7 @@ in {
     #   - that's an explicit choice/limitation in nixpkgs upstream
     # - TODO: vapi stuff is contained in <dconf.dev:/share/vala/vapi/dconf.vapi>
     #   it's cross-platform; should be possible to ship dconf only in buildInputs & point dconf-editor to the right place
-    dconf-editor = addNativeInputs [ final.dconf ] super.dconf-editor;
+    # dconf-editor = addNativeInputs [ final.dconf ] super.dconf-editor;
     evince = super.evince.overrideAttrs (orig: {
       # 2023/07/31: upstreaming is blocked on libavif
       # fixes (meson) "Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)"
@@ -469,20 +426,20 @@ in {
     file-roller = mvToNativeInputs [ final.glib ] super.file-roller;
     # 2023/08/01: upstreaming is unblocked
     # fixes: "meson.build:75:6: ERROR: Program 'gtk-update-icon-cache' not found or not executable"
-    gnome-clocks = addNativeInputs [ final.gtk4 ] super.gnome-clocks;
+    # gnome-clocks = addNativeInputs [ final.gtk4 ] super.gnome-clocks;
     # 2023/07/31: upstreaming is blocked on argyllcms, libavif
     # fixes: "src/meson.build:3:0: ERROR: Program 'glib-compile-resources' not found or not executable"
-    gnome-color-manager = mvToNativeInputs [ final.glib ] super.gnome-color-manager;
+    # gnome-color-manager = mvToNativeInputs [ final.glib ] super.gnome-color-manager;
     # 2023/08/01: upstreaming is blocked by apache-httpd, argyllcms, ibus, libavif, webp-pixbuf-loader
     # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
-    gnome-control-center = mvToNativeInputs [ final.glib ] super.gnome-control-center;
+    # gnome-control-center = mvToNativeInputs [ final.glib ] super.gnome-control-center;
     gnome-keyring = super.gnome-keyring.overrideAttrs (orig: {
       # 2023/07/31: upstreaming is unblocked, but requires a different fix
       # fixes "configure.ac:374: error: possibly undefined macro: AM_PATH_LIBGCRYPT"
       nativeBuildInputs = orig.nativeBuildInputs ++ [ final.libgcrypt final.openssh final.glib ];
     });
     # fixes: "Program gdbus-codegen found: NO"
-    gnome-remote-desktop = mvToNativeInputs [ final.glib ] super.gnome-remote-desktop;
+    # gnome-remote-desktop = mvToNativeInputs [ final.glib ] super.gnome-remote-desktop;
     # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
     #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
     #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
@@ -501,34 +458,30 @@ in {
     #   #   "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
     #   # ];
     # });
-    gnome-shell = super.gnome-shell.overrideAttrs (upstream: {
-      # 2023/08/01: upstreaming is blocked on argyllcms, gnome-keyring, gnome-clocks, ibus, libavif, webp-pixbuf-loader
-      nativeBuildInputs = upstream.nativeBuildInputs ++ [
-        final.gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
-        final.buildPackages.gobject-introspection  # fixes "shew| Build-time dependency gobject-introspection-1.0 found: NO"
-      ];
-      buildInputs = lib.remove final.gobject-introspection upstream.buildInputs;
-      # try to reduce gobject-introspection/shew dependencies
-      # TODO: these likely aren't all necessary
-      mesonFlags = [
-        "-Dextensions_app=false"
-        "-Dextensions_tool=false"
-        "-Dman=false"
-        "-Dgtk_doc=false"
-        # fixes "src/st/meson.build:198:2: ERROR: Dependency "libmutter-test-12" not found, tried pkgconfig"
-        "-Dtests=false"
-      ];
-      outputs = [ "out" "dev" ];
-      postPatch = upstream.postPatch or "" + ''
-        # disable introspection for the gvc (libgnome-volume-control) subproject
-        # to remove its dependency on gobject-introspection
-        sed -i s/introspection=true/introspection=false/ meson.build
-        sed -i 's/libgvc_gir/# libgvc_gir/' meson.build src/meson.build
-      '';
-    });
-    # gnome-settings-daemon = super.gnome-settings-daemon.overrideAttrs (orig: {
-    #   # does not fix original error
-    #   nativeBuildInputs = orig.nativeBuildInputs ++ [ final.mesonEmulatorHook ];
+    # gnome-shell = super.gnome-shell.overrideAttrs (upstream: {
+    #   # 2023/08/01: upstreaming is blocked on argyllcms, gnome-keyring, gnome-clocks, ibus, libavif, webp-pixbuf-loader
+    #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+    #     final.gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
+    #     final.buildPackages.gobject-introspection  # fixes "shew| Build-time dependency gobject-introspection-1.0 found: NO"
+    #   ];
+    #   buildInputs = lib.remove final.gobject-introspection upstream.buildInputs;
+    #   # try to reduce gobject-introspection/shew dependencies
+    #   # TODO: these likely aren't all necessary
+    #   mesonFlags = [
+    #     "-Dextensions_app=false"
+    #     "-Dextensions_tool=false"
+    #     "-Dman=false"
+    #     "-Dgtk_doc=false"
+    #     # fixes "src/st/meson.build:198:2: ERROR: Dependency "libmutter-test-12" not found, tried pkgconfig"
+    #     "-Dtests=false"
+    #   ];
+    #   outputs = [ "out" "dev" ];
+    #   postPatch = upstream.postPatch or "" + ''
+    #     # disable introspection for the gvc (libgnome-volume-control) subproject
+    #     # to remove its dependency on gobject-introspection
+    #     sed -i s/introspection=true/introspection=false/ meson.build
+    #     sed -i 's/libgvc_gir/# libgvc_gir/' meson.build src/meson.build
+    #   '';
     # });
     gnome-settings-daemon = super.gnome-settings-daemon.overrideAttrs (orig: {
       # 2023/07/31: upstreaming is blocked on argyllcms, libavif
@@ -545,15 +498,15 @@ in {
     });
     # 2023/08/01: upstreaming is blocked on argyllcms, gnome-keyring, gnome-clocks, ibus, libavif, webp-pixbuf-loader (gnome-shell)
     # fixes: "gdbus-codegen not found or executable"
-    gnome-session = mvToNativeInputs [ final.glib ] super.gnome-session;
-    gnome-terminal = super.gnome-terminal.overrideAttrs (orig: {
-      # 2023/07/31: upstreaming is blocked on argyllcms, apache-httpd, gnome-keyring, libavif, gnome-clocks, ibus, webp-pixbuf-loader
-      # fixes "meson.build:343:0: ERROR: Dependency "libpcre2-8" not found, tried pkgconfig"
-      buildInputs = orig.buildInputs ++ [ final.pcre2 ];
-    });
+    # gnome-session = mvToNativeInputs [ final.glib ] super.gnome-session;
+    # gnome-terminal = super.gnome-terminal.overrideAttrs (orig: {
+    #   # 2023/07/31: upstreaming is blocked on argyllcms, apache-httpd, gnome-keyring, libavif, gnome-clocks, ibus, webp-pixbuf-loader
+    #   # fixes "meson.build:343:0: ERROR: Dependency "libpcre2-8" not found, tried pkgconfig"
+    #   buildInputs = orig.buildInputs ++ [ final.pcre2 ];
+    # });
     # 2023/07/31: upstreaming is blocked on apache-httpd
     # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
-    gnome-user-share = addNativeInputs [ final.glib ] super.gnome-user-share;
+    # gnome-user-share = addNativeInputs [ final.glib ] super.gnome-user-share;
     mutter = (super.mutter.overrideAttrs (orig: {
       # 2023/07/31: upstreaming is blocked on argyllcms, libavif
       nativeBuildInputs = orig.nativeBuildInputs ++ [
@@ -634,26 +587,12 @@ in {
     buildInputs = upstream.buildInputs ++ [ final.libxml2 ];
   });
 
-  haskell = prev.haskell // {
-    packageOverrides = self: super:
-    let
-      super' = super // (prev.haskell.packageOverrides self super);
-    in
-      {
-        xml-conduit = super'.xml-conduit.overrideAttrs (upstream: {
-          # fails even when compiles on build platform:
-          # - `nix build '.#host-pkgs.moby.buildPackages.haskellPackages.xml-conduit'`
-          doCheck = false;
-        });
-      };
-  };
-
   # hdf5 = prev.hdf5.override {
   #   inherit (emulated) stdenv;
   # };
 
   # "setup: line 1595: ant: command not found"
-  i2p = mvToNativeInputs [ final.ant final.gettext ] prev.i2p;
+  # i2p = mvToNativeInputs [ final.ant final.gettext ] prev.i2p;
 
   # ibus = (prev.ibus.override {
   #   inherit (emulated)
@@ -682,7 +621,7 @@ in {
   # iio-sensor-proxy = addNativeInputs [ final.glib ] prev.iio-sensor-proxy;
 
   # fixes: "make: gcc: No such file or directory"
-  java-service-wrapper = useEmulatedStdenv prev.java-service-wrapper;
+  # java-service-wrapper = useEmulatedStdenv prev.java-service-wrapper;
 
   # javaPackages = prev.javaPackages // {
   #   compiler = prev.javaPackages.compiler // {
@@ -891,11 +830,11 @@ in {
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
   # 2023/07/31: upstreaming is blocked on libavif cross compilation
-  networkmanager-openconnect = mvToNativeInputs [ final.glib ] prev.networkmanager-openconnect;
+  # networkmanager-openconnect = mvToNativeInputs [ final.glib ] prev.networkmanager-openconnect;
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
   # 2023/07/31: upstreaming is unblocked,implemented
-  networkmanager-openvpn = mvToNativeInputs [ final.glib ] prev.networkmanager-openvpn;
+  # networkmanager-openvpn = mvToNativeInputs [ final.glib ] prev.networkmanager-openvpn;
   # 2023/07/31: upstreaming is unblocked,implemented
   # networkmanager-sstp = (
   #   # fixes "gdbus-codegen: command not found"
@@ -905,7 +844,7 @@ in {
   #   )
   # );
   # 2023/07/31: upstreaming is blocked on vpnc cross compilation
-  networkmanager-vpnc = mvToNativeInputs [ final.glib ] prev.networkmanager-vpnc;
+  # networkmanager-vpnc = mvToNativeInputs [ final.glib ] prev.networkmanager-vpnc;
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
   # 2023/07/27: upstreaming is blocked on p11-kit, coeurl cross compilation
@@ -922,38 +861,38 @@ in {
   });
   # 2023/08/02: upstreaming in PR: <https://github.com/NixOS/nixpkgs/pull/225111/files>
   # - needs (my) review
-  notmuch = prev.notmuch.overrideAttrs (upstream: {
-    # fixes "Error: The dependencies of notmuch could not be satisfied"  (xapian, gmime, glib, talloc)
-    # when cross-compiling, we only have a triple-prefixed pkg-config which notmuch's configure script doesn't know how to find.
-    # so just replace these with the nix-supplied env-var which resolves to the relevant pkg-config.
-    postPatch = upstream.postPatch or "" + ''
-      sed -i 's/pkg-config/\$PKG_CONFIG/g' configure
-    '';
-    XAPIAN_CONFIG = final.buildPackages.writeShellScript "xapian-config" ''
-      exec ${lib.getBin final.xapian}/bin/xapian-config $@
-    '';
-    # depsBuildBuild = [ final.gnupg ];
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      final.gnupg  # nixpkgs specifies gpg as a buildInput instead of a nativeBuildInput
-      final.perl  # used to build manpages
-      # final.pythonPackages.python
-      # final.shared-mime-info
-    ];
-    buildInputs = with final; [
-      xapian gmime3 talloc zlib  # dependencies described in INSTALL
-      # perl
-      # pythonPackages.python
-      ruby  # notmuch links against ruby.so
-    ];
-    # buildInputs =
-    #   (lib.remove
-    #     final.perl
-    #     (lib.remove
-    #       final.gmime
-    #       (lib.remove final.gnupg upstream.buildInputs)
-    #     )
-    #   ) ++ [ final.gmime ];
-  });
+  # notmuch = prev.notmuch.overrideAttrs (upstream: {
+  #   # fixes "Error: The dependencies of notmuch could not be satisfied"  (xapian, gmime, glib, talloc)
+  #   # when cross-compiling, we only have a triple-prefixed pkg-config which notmuch's configure script doesn't know how to find.
+  #   # so just replace these with the nix-supplied env-var which resolves to the relevant pkg-config.
+  #   postPatch = upstream.postPatch or "" + ''
+  #     sed -i 's/pkg-config/\$PKG_CONFIG/g' configure
+  #   '';
+  #   XAPIAN_CONFIG = final.buildPackages.writeShellScript "xapian-config" ''
+  #     exec ${lib.getBin final.xapian}/bin/xapian-config $@
+  #   '';
+  #   # depsBuildBuild = [ final.gnupg ];
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #     final.gnupg  # nixpkgs specifies gpg as a buildInput instead of a nativeBuildInput
+  #     final.perl  # used to build manpages
+  #     # final.pythonPackages.python
+  #     # final.shared-mime-info
+  #   ];
+  #   buildInputs = with final; [
+  #     xapian gmime3 talloc zlib  # dependencies described in INSTALL
+  #     # perl
+  #     # pythonPackages.python
+  #     ruby  # notmuch links against ruby.so
+  #   ];
+  #   # buildInputs =
+  #   #   (lib.remove
+  #   #     final.perl
+  #   #     (lib.remove
+  #   #       final.gmime
+  #   #       (lib.remove final.gnupg upstream.buildInputs)
+  #   #     )
+  #   #   ) ++ [ final.gmime ];
+  # });
   # notmuch = prev.notmuch.overrideAttrs (upstream: {
   #   # fixes "Error: The dependencies of notmuch could not be satisfied"  (xapian, gmime, glib, talloc)
   #   # when cross-compiling, we only have a triple-prefixed pkg-config which notmuch's configure script doesn't know how to find.
@@ -1030,95 +969,89 @@ in {
   #   inherit (emulated) stdenv;
   # };
 
-  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-    (py-final: py-prev: {
+  # pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+  #   (py-final: py-prev: {
 
-      aiohttp = py-prev.aiohttp.overridePythonAttrs (orig: {
-        # fixes "ModuleNotFoundError: No module named 'setuptools'"
-        propagatedBuildInputs = orig.propagatedBuildInputs ++ [
-          py-final.setuptools
-        ];
-      });
+  #     # aiohttp = py-prev.aiohttp.overridePythonAttrs (orig: {
+  #     #   # fixes "ModuleNotFoundError: No module named 'setuptools'"
+  #     #   propagatedBuildInputs = orig.propagatedBuildInputs ++ [
+  #     #     py-final.setuptools
+  #     #   ];
+  #     # });
 
-      cryptography = py-prev.cryptography.override {
-        inherit (emulated) cargo rustc rustPlatform;  # "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
-      };
+  #     # 2023/08/03: fix is in staging:
+  #     # - <https://github.com/NixOS/nixpkgs/pull/244135>
+  #     # cryptography = py-prev.cryptography.override {
+  #     #   inherit (emulated) cargo rustc rustPlatform;  # "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
+  #     # };
 
-      defcon = py-prev.defcon.overridePythonAttrs (orig: {
-        nativeBuildInputs = orig.nativeBuildInputs ++ orig.nativeCheckInputs;
-      });
-      executing = py-prev.executing.overridePythonAttrs (orig: {
-        # test has an assertion that < 1s of CPU time elapsed => flakey
-        disabledTestPaths = orig.disabledTestPaths or [] ++ [
-          # "tests/test_main.py::TestStuff::test_many_source_for_filename_calls"
-          "tests/test_main.py"
-        ];
-      });
-      # gssapi = py-prev.gssapi.overridePythonAttrs (_orig: {
-      #   # 2023/07/29: upstreaming is unblocked,implemented on servo pr/cross-2023-07-28 branch
-      #   # "krb5-aarch64-unknown-linux-gnu-1.20.1/lib/libgssapi_krb5.so: cannot open shared object file"
-      #   # setup.py only needs this to detect if kerberos was configured with gssapi support (not sure why it doesn't call krb5-config for that?)
-      #   # it doesn't actually link or use anything from the build krb5 except a "canary" symobl.
-      #   # GSSAPI_MAIN_LIB = "${final.buildPackages.krb5}/lib/libgssapi_krb5.so";
-      #   env.GSSAPI_SUPPORT_DETECT = lib.boolToString (prev.stdenv.buildPlatform.canExecute prev.stdenv.hostPlatform);
-      # });
-      # h5py = py-prev.h5py.overridePythonAttrs (orig: {
-      #   # XXX: can't upstream until its dependency, hdf5, is fixed. that looks TRICKY.
-      #   # - the `setup_configure.py` in h5py tries to dlopen (and call into) the hdf5 lib to query the version and detect features like MPI
-      #   # - it could be patched with ~10 LoC in the HDF5LibWrapper class.
-      #   #
-      #   # expose numpy and hdf5 as available at build time
-      #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs ++ orig.buildInputs;
-      #   buildInputs = [];
-      #   # HDF5_DIR = "${hdf5}";
-      # });
-      ipython = py-prev.ipython.overridePythonAttrs (orig: {
-        # fixes "FAILED IPython/terminal/tests/test_debug_magic.py::test_debug_magic_passes_through_generators - pexpect.exceptions.TIMEOUT: Timeout exceeded."
-        disabledTests = orig.disabledTests ++ [ "test_debug_magic_passes_through_generator" ];
-      });
-      mutatormath = py-prev.mutatormath.overridePythonAttrs (orig: {
-        nativeBuildInputs = orig.nativeBuildInputs or [] ++ orig.nativeCheckInputs;
-      });
-      pandas = py-prev.pandas.overridePythonAttrs (orig: {
-        # XXX: we only actually need numpy when building in ~/nixpkgs repo: not sure why we need all the propagatedBuildInputs here.
-        # nativeBuildInputs = orig.nativeBuildInputs ++ [ py-final.numpy ];
-        nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs;
-      });
-      psycopg2 = py-prev.psycopg2.overridePythonAttrs (orig: {
-        # TODO: upstream  (see tracking issue)
-        #
-        # psycopg2 *links* against libpg, so we need the host postgres available at build time!
-        # present-day nixpkgs only includes it in nativeBuildInputs
-        buildInputs = orig.buildInputs ++ [ final.postgresql ];
-      });
-      s3transfer = py-prev.s3transfer.overridePythonAttrs (orig: {
-        # tests explicitly expect host CPU == build CPU
-        # Bail out! ERROR:../plugins/core.c:221:qemu_plugin_vcpu_init_hook: assertion failed: (success)
-        # Bail out! ERROR:../accel/tcg/cpu-exec.c:954:cpu_exec: assertion failed: (cpu == current_cpu)
-        disabledTestPaths = orig.disabledTestPaths ++ [
-          # "tests/functional/test_processpool.py::TestProcessPoolDownloader::test_cleans_up_tempfile_on_failure"
-          "tests/functional/test_processpool.py"
-          # "tests/unit/test_compat.py::TestBaseManager::test_can_provide_signal_handler_initializers_to_start"
-          "tests/unit/test_compat.py"
-        ];
-      });
-      # scipy = py-prev.scipy.override {
-      #   inherit (emulated) stdenv;
-      # };
-      # scipy = py-prev.scipy.overridePythonAttrs (orig: {
-      #   # "/nix/store/yhz6yy9bp52x9fvcda4lr6kgsngxnv2l-python3.10-numpy-1.24.2/lib/python3.10/site-packages/numpy/core/include/../lib/libnpymath.a: error adding symbols: file in wrong format"
-      #   # mesonFlags = orig.mesonFlags or [] ++ [ "-Duse-pythran=false" ];
-      #   # don't know how to plumb meson falgs through python apps
-      #   # postPatch = orig.postPatch or "" + ''
-      #   #   sed -i "s/option('use-pythran', type: 'boolean', value: true,/option('use-pythran', type: 'boolean', value: false,/" meson_options.txt
-      #   # '';
-      #   SCIPY_USE_PYTHRAN = false;
-      #   nativeBuildInputs = lib.remove py-final.pythran orig.nativeBuildInputs;
-      # });
-      # skia-pathops = ?
-      #   it tries to call `cc` during the build, but can't find it.
-    })
-  ];
+  #     # defcon = py-prev.defcon.overridePythonAttrs (orig: {
+  #     #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.nativeCheckInputs;
+  #     # });
+  #     # executing = py-prev.executing.overridePythonAttrs (orig: {
+  #     #   # test has an assertion that < 1s of CPU time elapsed => flakey
+  #     #   disabledTestPaths = orig.disabledTestPaths or [] ++ [
+  #     #     # "tests/test_main.py::TestStuff::test_many_source_for_filename_calls"
+  #     #     "tests/test_main.py"
+  #     #   ];
+  #     # });
+  #     # h5py = py-prev.h5py.overridePythonAttrs (orig: {
+  #     #   # XXX: can't upstream until its dependency, hdf5, is fixed. that looks TRICKY.
+  #     #   # - the `setup_configure.py` in h5py tries to dlopen (and call into) the hdf5 lib to query the version and detect features like MPI
+  #     #   # - it could be patched with ~10 LoC in the HDF5LibWrapper class.
+  #     #   #
+  #     #   # expose numpy and hdf5 as available at build time
+  #     #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs ++ orig.buildInputs;
+  #     #   buildInputs = [];
+  #     #   # HDF5_DIR = "${hdf5}";
+  #     # });
+  #     # ipython = py-prev.ipython.overridePythonAttrs (orig: {
+  #     #   # fixes "FAILED IPython/terminal/tests/test_debug_magic.py::test_debug_magic_passes_through_generators - pexpect.exceptions.TIMEOUT: Timeout exceeded."
+  #     #   disabledTests = orig.disabledTests ++ [ "test_debug_magic_passes_through_generator" ];
+  #     # });
+  #     # mutatormath = py-prev.mutatormath.overridePythonAttrs (orig: {
+  #     #   nativeBuildInputs = orig.nativeBuildInputs or [] ++ orig.nativeCheckInputs;
+  #     # });
+  #     # pandas = py-prev.pandas.overridePythonAttrs (orig: {
+  #     #   # XXX: we only actually need numpy when building in ~/nixpkgs repo: not sure why we need all the propagatedBuildInputs here.
+  #     #   # nativeBuildInputs = orig.nativeBuildInputs ++ [ py-final.numpy ];
+  #     #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs;
+  #     # });
+  #     # psycopg2 = py-prev.psycopg2.overridePythonAttrs (orig: {
+  #     #   # TODO: upstream  (see tracking issue)
+  #     #   #
+  #     #   # psycopg2 *links* against libpg, so we need the host postgres available at build time!
+  #     #   # present-day nixpkgs only includes it in nativeBuildInputs
+  #     #   buildInputs = orig.buildInputs ++ [ final.postgresql ];
+  #     # });
+  #     # s3transfer = py-prev.s3transfer.overridePythonAttrs (orig: {
+  #     #   # tests explicitly expect host CPU == build CPU
+  #     #   # Bail out! ERROR:../plugins/core.c:221:qemu_plugin_vcpu_init_hook: assertion failed: (success)
+  #     #   # Bail out! ERROR:../accel/tcg/cpu-exec.c:954:cpu_exec: assertion failed: (cpu == current_cpu)
+  #     #   disabledTestPaths = orig.disabledTestPaths ++ [
+  #     #     # "tests/functional/test_processpool.py::TestProcessPoolDownloader::test_cleans_up_tempfile_on_failure"
+  #     #     "tests/functional/test_processpool.py"
+  #     #     # "tests/unit/test_compat.py::TestBaseManager::test_can_provide_signal_handler_initializers_to_start"
+  #     #     "tests/unit/test_compat.py"
+  #     #   ];
+  #     # });
+  #     # scipy = py-prev.scipy.override {
+  #     #   inherit (emulated) stdenv;
+  #     # };
+  #     # scipy = py-prev.scipy.overridePythonAttrs (orig: {
+  #     #   # "/nix/store/yhz6yy9bp52x9fvcda4lr6kgsngxnv2l-python3.10-numpy-1.24.2/lib/python3.10/site-packages/numpy/core/include/../lib/libnpymath.a: error adding symbols: file in wrong format"
+  #     #   # mesonFlags = orig.mesonFlags or [] ++ [ "-Duse-pythran=false" ];
+  #     #   # don't know how to plumb meson falgs through python apps
+  #     #   # postPatch = orig.postPatch or "" + ''
+  #     #   #   sed -i "s/option('use-pythran', type: 'boolean', value: true,/option('use-pythran', type: 'boolean', value: false,/" meson_options.txt
+  #     #   # '';
+  #     #   SCIPY_USE_PYTHRAN = false;
+  #     #   nativeBuildInputs = lib.remove py-final.pythran orig.nativeBuildInputs;
+  #     # });
+  #     # skia-pathops = ?
+  #     #   it tries to call `cc` during the build, but can't find it.
+  #   })
+  # ];
 
   qt5 = (prev.qt5.override {
     # build all qt5 modules using emulation...
@@ -1423,18 +1356,18 @@ in {
   # `ar` is provided by bintools
   # 2023/07/27: upstreaming is blocked on p11-kit, gnustep cross compilation
   unar = addNativeInputs [ final.bintools ] prev.unar;
-  unixODBCDrivers = prev.unixODBCDrivers // {
-    # TODO: should this package be deduped with toplevel psqlodbc in upstream nixpkgs?
-    psql = prev.unixODBCDrivers.psql.overrideAttrs (_upstream: {
-      # XXX: these are both available as configureFlags, if we prefer that (we probably do, so as to make them available only during specific parts of the build).
-      ODBC_CONFIG = final.buildPackages.writeShellScript "odbc_config" ''
-        exec ${final.stdenv.hostPlatform.emulator final.buildPackages} ${final.unixODBC}/bin/odbc_config $@
-      '';
-      PG_CONFIG = final.buildPackages.writeShellScript "pg_config" ''
-        exec ${final.stdenv.hostPlatform.emulator final.buildPackages} ${final.postgresql}/bin/pg_config $@
-      '';
-    });
-  };
+  # unixODBCDrivers = prev.unixODBCDrivers // {
+  #   # TODO: should this package be deduped with toplevel psqlodbc in upstream nixpkgs?
+  #   psql = prev.unixODBCDrivers.psql.overrideAttrs (_upstream: {
+  #     # XXX: these are both available as configureFlags, if we prefer that (we probably do, so as to make them available only during specific parts of the build).
+  #     ODBC_CONFIG = final.buildPackages.writeShellScript "odbc_config" ''
+  #       exec ${final.stdenv.hostPlatform.emulator final.buildPackages} ${final.unixODBC}/bin/odbc_config $@
+  #     '';
+  #     PG_CONFIG = final.buildPackages.writeShellScript "pg_config" ''
+  #       exec ${final.stdenv.hostPlatform.emulator final.buildPackages} ${final.postgresql}/bin/pg_config $@
+  #     '';
+  #   });
+  # };
   # 2023/07/31: upstreaming is unblocked,implemented
   # upower = prev.upower.overrideAttrs (upstream: {
   #   # cross-compiled builds seem to not create the installedTest files
@@ -1443,11 +1376,11 @@ in {
   #   postFixup = "";
   # });
 
-  visidata = prev.visidata.override {
-    # hdf5 / h5py don't cross-compile, but i don't use that file format anyway.
-    # setting this to null means visidata will work as normal but not be able to load hdf files.
-    h5py = null;
-  };
+  # visidata = prev.visidata.override {
+  #   # hdf5 / h5py don't cross-compile, but i don't use that file format anyway.
+  #   # setting this to null means visidata will work as normal but not be able to load hdf files.
+  #   h5py = null;
+  # };
   # 2023/07/27: upstreaming is blocked on p11-kit, qtbase cross compilation
   vlc = prev.vlc.overrideAttrs (orig: {
     # fixes: "configure: error: could not find the LUA byte compiler"
@@ -1474,11 +1407,11 @@ in {
   #   isGraphical = false;
   #   # gtk3 = final.emptyDirectory;
   # };
-  xapian = prev.xapian.overrideAttrs (upstream: {
-    # the output has #!/bin/sh scripts.
-    # - shebangs get re-written on native build, but not cross build
-    buildInputs = upstream.buildInputs ++ [ final.bash ];
-  });
+  # xapian = prev.xapian.overrideAttrs (upstream: {
+  #   # the output has #!/bin/sh scripts.
+  #   # - shebangs get re-written on native build, but not cross build
+  #   buildInputs = upstream.buildInputs ++ [ final.bash ];
+  # });
   # fixes "No package 'xdg-desktop-portal' found"
   # 2023/07/27: upstreaming is blocked on p11-kit,argyllcms cross compilation
   xdg-desktop-portal-gtk = mvToBuildInputs [ final.xdg-desktop-portal ] prev.xdg-desktop-portal-gtk;

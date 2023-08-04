@@ -7,4 +7,23 @@
     # this means we lose firewire support (oh well..?)
     ffadoSupport = false;
   };
+
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (pySelf: pySuper: {
+      # TODO(2023/08/02): cryptography (a dependency of komikku -> keyring -> secretstorage -> cryptography) doesn't cross compile
+      # so disable it. can be re-enabled in next staging -> master merge.
+      # see:
+      # - <https://github.com/NixOS/nixpkgs/pull/245287/files>
+      # - <https://github.com/NixOS/nixpkgs/pull/244135>
+      keyring = (pySuper.keyring.override {
+        secretstorage = null;
+        jeepney = null;
+      }).overrideAttrs (upstream: {
+        postPatch = (upstream.postPatch or "") + ''
+          sed -i /SecretStorage/d setup.cfg
+          sed -i /jeepney/d setup.cfg
+        '';
+      });
+    })
+  ];
 })

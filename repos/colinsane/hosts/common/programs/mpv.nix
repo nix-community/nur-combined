@@ -8,6 +8,7 @@
 {
   sane.programs.mpv = {
     package = pkgs.wrapMpv pkgs.mpv-unwrapped {
+      youtubeSupport = false;  #< XXX(2023/08/03): doesn't cross compile until next staging -> master merge
       scripts = with pkgs.mpvScripts; [
         mpris
         # uosc
