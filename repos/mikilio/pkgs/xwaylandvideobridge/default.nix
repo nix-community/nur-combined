@@ -16,13 +16,14 @@
 , isHyprland ? false
 }:
 
-stdenv.mkDerivation {
-  name = "xwaylandvideobridge";
+stdenv.mkDerivation rec {
+  pname = "xwaylandvideobridge";
+  version = "6b76657f9e171e726c7c8d9c194d29d0026be268";
 
   src = fetchgit {
     url = "https://invent.kde.org/system/xwaylandvideobridge.git";
     sha256 = "sha256-XgrgRXqBUbdz6tegVMTwppTYWJVqPyGoXfjhRCQEBxs=";
-    rev = "6b76657f9e171e726c7c8d9c194d29d0026be268";
+    rev = version;
   };
 
   nativeBuildInputs = [
