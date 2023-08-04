@@ -5,25 +5,25 @@ let
 in
 {
   systemd.tmpfiles.rules = [
-    "d /var/lib/chromerdp-container 0700 root root - -"
+    "d /var/lib/chromenx-container 0700 root root - -"
   ];
 
-  containers.chrome-rdp = {
+  containers.chrome-nx = {
     autoStart = true;
     privateNetwork = true;
     hostAddress = "192.168.68.1";
-    localAddress = "192.168.68.2";
+    localAddress = "192.168.68.3";
     forwardPorts = [
       {
-        hostPort = config.containers.chrome-rdp.config.services.xrdp.port;
-        containerPort = config.containers.chrome-rdp.config.services.xrdp.port;
+        hostPort = 2222;
+        containerPort = 22;
         protocol = "tcp";
       }
     ];
     bindMounts = {
       chrome-profile = {
         mountPoint = "/home";
-        hostPath = "/var/lib/chromerdp-container";
+        hostPath = "/var/lib/chromenx-container";
         isReadOnly = false;
       };
     };
@@ -40,27 +40,16 @@ in
       hardware.pulseaudio = {
         enable = true;
         extraModules = [
-          super-pkgs.pulseaudio-module-xrdp
+          # super-pkgs.pulseaudio-module-xrdp
         ];
       };
       environment.systemPackages = with pkgs; [
         chromium
         firefox
-        super-pkgs.pulseaudio-module-xrdp
+        # super-pkgs.pulseaudio-module-xrdp
       ];
-      services.xrdp = {
-        enable = true;
-        package = pkgs.xrdp.overrideAttrs (old: {
-          configureFlags = old.configureFlags ++ [ "--enable-mp3lame" "--enable-vsock" "--enable-pixman" "--enable-rdpsndaudin" "--enable-tjpeg" ];
-          buildInputs = old.buildInputs ++ [ pkgs.lame pkgs.pixman pkgs.libjpeg_turbo ];
-          postPatch = ''
-            ${old.postPatch}
-            substituteInPlace configure.ac --replace /usr/include/ ""
-          '';
-        });
-        openFirewall = true;
-        defaultWindowManager = ''xfce4-session'';
-      };
+      services.x2goserver.enable = true;
+      services.openssh.enable = true;
       users.users.test = {
         isNormalUser = true;
         extraGroups = [ "wheel" "video" "render" "audio"];

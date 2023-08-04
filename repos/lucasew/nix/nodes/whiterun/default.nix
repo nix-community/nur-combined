@@ -21,6 +21,8 @@ in {
     ./sshfs.nix
     ./zfs.nix
     ./container-inet-rdp.nix
+    ./container-inet-nx.nix
+    ./container-nat.nix
   ];
 
   services.transmission.enable = true;
