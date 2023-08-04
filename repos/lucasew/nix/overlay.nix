@@ -75,6 +75,8 @@ in
     pkgs = prev;
   };
 
+  pulseaudio-module-xrdp = cp ./pkgs/pulseaudio-module-xrdp.nix;
+
   wineApps = {
     cs_extreme = cp ./pkgs/wineApps/cs_extreme.nix;
     dead_space = cp ./pkgs/wineApps/dead_space.nix;

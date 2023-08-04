@@ -20,6 +20,7 @@ in {
     ./rocm-gambiarra.nix
     ./sshfs.nix
     ./zfs.nix
+    ./container-inet-rdp.nix
   ];
 
   services.transmission.enable = true;
