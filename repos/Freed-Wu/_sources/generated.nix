@@ -19,13 +19,13 @@
   };
   g3kb-switch = {
     pname = "g3kb-switch";
-    version = "1.2";
+    version = "1.3";
     src = fetchFromGitHub {
       owner = "lyokha";
       repo = "g3kb-switch";
-      rev = "1.2";
+      rev = "1.3";
       fetchSubmodules = false;
-      sha256 = "sha256-Nq2psfy51hZQEm57PUSvs17Pp2z6pe30h9BOLbOYV4k=";
+      sha256 = "sha256-90ELWRVHkdLLQoUIQuE1yc2F1Rj9UOMcxmKTmK1S8yY=";
     };
   };
   help2man = {
