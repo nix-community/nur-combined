@@ -209,8 +209,20 @@ in {
   #   nativeBuildInputs = orig.nativeBuildInputs ++ [ final.iproute2 ];
   # });
   bonsai = prev.bonsai.override {
-    inherit (emulated) hare stdenv;
+    inherit (emulated) stdenv;
+    hare = final.hare.override {
+      inherit (emulated) stdenv;
+      # inherit (emulated) stdenv harePackages qbe;
+      qbe = useEmulatedStdenv final.qbe;
+      harePackages.harec = final.harePackages.harec.override {
+        inherit (emulated) stdenv;
+        qbe = useEmulatedStdenv final.qbe;
+      };
+    };
   };
+  # bonsai = prev.bonsai.override {
+  #   inherit (emulated) stdenv hare;
+  # };
   # brltty = prev.brltty.override {
   #   # configure: error: no acceptable C compiler found in $PATH
   #   inherit (emulated) stdenv;
