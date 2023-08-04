@@ -14,6 +14,7 @@
 , glib
 , gtk4
 , libadwaita
+, libxml2
 , pango
 }:
 
@@ -37,6 +38,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cargo
     desktop-file-utils
+    libxml2
     meson
     ninja
     pkg-config
