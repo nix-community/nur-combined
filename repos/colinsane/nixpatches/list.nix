@@ -234,8 +234,9 @@ in [
 
   (fetchpatch' {
     title = "python310Packages.gssapi: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/247048";
     saneCommit = "4766ae46f863734fbe96dc4e537870b6b3894cf4";
-    hash = "sha256-qCAJjPRoH8nvKzB+uwDQtGQbFfHS/MiY7m1J0BMl7tY=";
+    hash = "sha256-7JZqAlcNFP6orJZCEqe5eodVxTUHeSLGyniRvw/+PuQ=";
   })
   # (fetchpatch' {
   #   title = "perlPackages.FileBaseDir: 0.08 -> 0.09";
@@ -251,7 +252,7 @@ in [
     title = "xdg-utils: enable cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/246954";
     saneCommit = "b7aa5e0c1ec06723cf1594de192703a65be21497";
-    hash = "sha256-zT0NYmGhJV24GmfjKj1xKcj9+gRMSOy3504tS/xv6Cw=";
+    hash = "sha256-jA84RKt4nOEZsBlACaqa0GeBiDdFOBYARgAq4NgTqtY=";
   })
   # (fetchpatch' {
   #   # N.B.: duplicates outstanding, merged PR: <https://github.com/NixOS/nixpkgs/pull/246362>
@@ -284,13 +285,19 @@ in [
     hash = "sha256-Jj+1z2DeCEY+DqI1J4vYjYJwDDMRcA93CqpZSXzG0wE=";
   })
   (fetchpatch' {
-    # PR also includes the nativeBuildInputs fix
-    title = "upower: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/246945";
-    saneCommit = "3ab262456acc016c8dc834df1d1f7e61a00e01e3";
-    # hash = "sha256-kTFZVu9oDiYH4W4SoQQj0pNuo9hTJk6jUy+hy34HUtA=";
-    hash = "sha256-PpC9YRMqg/wPfFgAPNV80mwbZWCKxNi4agxNf0yQutI=";
+    # alternate fix for upower; Arturrin
+    title = "upower: Fix cross";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/247031";
+    hash = "sha256-Skn1dO+SDXbrWYWn8QpSBzYaTis/KUXLEY+pJxO9pWM=";
   })
+  # (fetchpatch' {
+  #   # PR also includes the nativeBuildInputs fix
+  #   title = "upower: fix cross compilation";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/246945";
+  #   saneCommit = "3ab262456acc016c8dc834df1d1f7e61a00e01e3";
+  #   # hash = "sha256-kTFZVu9oDiYH4W4SoQQj0pNuo9hTJk6jUy+hy34HUtA=";
+  #   hash = "sha256-PpC9YRMqg/wPfFgAPNV80mwbZWCKxNi4agxNf0yQutI=";
+  # })
   # (fetchpatch' {
   #   title = "upower: don't pass unnecessary nativeBuildInputs";
   #   saneCommit = "e2cbfb1bc81afadc5d31c18d43e774fa9a985f98";

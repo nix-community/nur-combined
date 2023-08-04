@@ -96,8 +96,8 @@ in {
     # gdk-pixbuf  # cross-compiled version doesn't output bin/gdk-pixbuf-thumbnailer  (used by webp-pixbuf-loader
     # gnome-tour
     # grpc
-    hare
-    harec
+    # hare
+    # harec
     # nixpkgs hdf5 is at commit 3e847e003632bdd5fdc189ccbffe25ad2661e16f
     # hdf5  # configure: error: cannot run test program while cross compiling
     # http2
@@ -1111,7 +1111,7 @@ in {
   qt5 = (prev.qt5.override {
     # build all qt5 modules using emulation...
     inherit (emulated) stdenv;
-  }).overrideScope' (self: super: {
+  }).overrideScope (self: super: {
     # but for anything using `libsForQt5.callPackage`, don't emulate.
     # note: alternative approach is to only `libsForQt5` (it's a separate scope),.
     # it inherits so much from the `qt5` scope, so not a clear improvement.
