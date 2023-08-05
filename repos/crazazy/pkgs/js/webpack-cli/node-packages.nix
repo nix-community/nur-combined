@@ -139,13 +139,13 @@ let
         sha512 = "6xwYfHbajpoF0xLW+iwLkhwgvLoZDfjYfoFNu8ftMoXINzwuymNLd9u/KmwtdT2GbR+/Cz66otEGEVVUHX9QLQ==";
       };
     };
-    "is-core-module-2.12.1" = {
+    "is-core-module-2.13.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.12.1";
+      version = "2.13.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.12.1.tgz";
-        sha512 = "Q4ZuBAe2FUsKtyQJoQHlvP8OvBERxO3jEmy1I7hcRXcJBGGHFh/aJBswbXuS9sgrDH2QUO8ilkwNPHvHMd8clg==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.13.0.tgz";
+        sha512 = "Z7dk6Qo8pOCp3l4tsX2C5ZVas4V+UxwQodwZhLopL91TX8UyyHEXafPcyoeeWuLrwzHcr3igO78wNLwHJHsMCQ==";
       };
     };
     "is-plain-object-2.0.4" = {
@@ -265,13 +265,13 @@ let
         sha512 = "/vxpCXddiX8NGfGO/mTafwjq4aFa/71pvamip0++IQk3zG8cbCj0fifNPrjjF1XMXUne91jL9OoxmdykoEtifQ==";
       };
     };
-    "resolve-1.22.3" = {
+    "resolve-1.22.4" = {
       name = "resolve";
       packageName = "resolve";
-      version = "1.22.3";
+      version = "1.22.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/resolve/-/resolve-1.22.3.tgz";
-        sha512 = "P8ur/gp/AmbEzjr729bZnLjXK5Z+4P0zhIJgBgzqRih7hL7BOukHGtSTA3ACMY467GRFz3duQsi0bDZdR7DKdw==";
+        url = "https://registry.npmjs.org/resolve/-/resolve-1.22.4.tgz";
+        sha512 = "PXNdCiPqDqeUou+w1C2eTQbNfxKSuMxqTCuvlmmMsk1NWHL5fRrhY6Pl0qEYYc6+QqGClco1Qj8XnjPego4wfg==";
       };
     };
     "resolve-cwd-3.0.0" = {
@@ -377,7 +377,7 @@ let
       sources."has-1.0.3"
       sources."import-local-3.1.0"
       sources."interpret-3.1.1"
-      sources."is-core-module-2.12.1"
+      sources."is-core-module-2.13.0"
       sources."is-plain-object-2.0.4"
       sources."isexe-2.0.0"
       sources."isobject-3.0.1"
@@ -391,7 +391,7 @@ let
       sources."path-parse-1.0.7"
       sources."pkg-dir-4.2.0"
       sources."rechoir-0.8.0"
-      sources."resolve-1.22.3"
+      sources."resolve-1.22.4"
       sources."resolve-cwd-3.0.0"
       sources."resolve-from-5.0.0"
       sources."shallow-clone-3.0.1"

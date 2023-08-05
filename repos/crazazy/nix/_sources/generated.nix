@@ -27,10 +27,10 @@
   };
   seamonkey = {
     pname = "seamonkey";
-    version = "2.53.16";
+    version = "2.53.17";
     src = fetchzip {
-      url = "https://archive.mozilla.org/pub/seamonkey/releases/2.53.16/linux-x86_64/en-US/seamonkey-2.53.16.en-US.linux-x86_64.tar.bz2";
-      sha256 = "sha256-HTJTzQPVdhqVkFfUogQD7MmcV+JTfMGzCOgfq6dBBQs=";
+      url = "https://archive.mozilla.org/pub/seamonkey/releases/2.53.17/linux-x86_64/en-US/seamonkey-2.53.17.en-US.linux-x86_64.tar.bz2";
+      sha256 = "sha256-KaE9Vt5E4ZgStriNHYDZ/RjUw4h9Fa1/GDyEEIXhdkw=";
     };
   };
   trufflesqueak = {
