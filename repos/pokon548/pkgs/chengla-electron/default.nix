@@ -3,12 +3,12 @@
 let electron = electron_25;
 in stdenv.mkDerivation rec {
   pname = "chengla-electron";
-  version = "1.0.2";
+  version = "1.0.3";
 
   src = fetchurl {
     url =
       "https://github.com/pokon548/chengla-for-linux/releases/download/v${version}/chengla-linux-unofficial-${version}.AppImage";
-    sha256 = "sha256-/TC31JzzsVPWdNjalVxIir7rM8RmPh+DETNlnexHVVc=";
+    sha256 = "sha256-dwFEMelL/669Ckqq/NuMxycizrf/D1p/hiCROYb27h0=";
     name = "${pname}-${version}.AppImage";
   };
 
@@ -26,11 +26,11 @@ in stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/share/${pname} $out/share/applications
+    mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/512x512
 
     cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
     cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/${pname}.desktop
-    cp -a ${appimageContents}/usr/share/icons $out/share
+    cp -a ${appimageContents}/usr/share/icons/hicolor/512x512/apps $out/share/icons/hicolor/512x512
 
     substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
