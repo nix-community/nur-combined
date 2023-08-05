@@ -1,0 +1,35 @@
+diff --git a/xmake.lua b/xmake.lua
+index d6e712886..02512c147 100644
+--- a/xmake.lua
++++ b/xmake.lua
+@@ -136,7 +136,7 @@ if is_plat("mingw") then
+ elseif is_plat("macosx") then
+     set_configvar("GS_EXE", "bin/gs")
+ else
+-    set_configvar("GS_EXE", false)
++    set_configvar("GS_EXE", "@ghostscript@/bin/gs")
+ end
+ 
+ set_configvar("STDC_HEADERS", true)
+@@ -174,8 +174,8 @@ add_configfiles(
+     "src/System/config.h.xmake", {
+         filename = "config.h",
+         variables = {
+-            GS_FONTS = "../share/ghostscript/fonts:/usr/share/fonts:",
+-            GS_LIB = "../share/ghostscript/9.06/lib:",
++            GS_FONTS = "@ghostscript@/share/ghostscript/fonts:/usr/share/fonts:",
++            GS_LIB = "@ghostscript@/share/ghostscript/@ghostscriptVersion@/lib:",
+             OS_MACOS = is_plat("macosx"),
+             MACOSX_EXTENSIONS = is_plat("macosx"),
+             OS_MINGW = is_plat("mingw"),
+@@ -315,8 +315,8 @@ target("libmogan") do
+         "src/System/config.h.xmake", {
+             filename = "config.h",
+             variables = {
+-                GS_FONTS = "../share/ghostscript/fonts:/usr/share/fonts:",
+-                GS_LIB = "../share/ghostscript/9.06/lib:",
++                GS_FONTS = "@ghostscript@/share/ghostscript/fonts:/usr/share/fonts:",
++                GS_LIB = "@ghostscript@/share/ghostscript/@ghostscriptVersion@/lib:",
+                 OS_MACOS = is_plat("macosx"),
+                 MACOSX_EXTENSIONS = is_plat("macosx"),
+                 OS_MINGW = is_plat("mingw"),

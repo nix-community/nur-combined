@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, substituteAll
 , xmake
 , cmake
 , pkg-config
@@ -18,8 +19,7 @@
 , brotli
 , libiconv
 , pdfhummus
-, nowide
-, boost
+, ghostscript
 }:
 
 stdenv.mkDerivation rec {
@@ -35,6 +35,11 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./use-system-lib.patch
+    (substituteAll {
+      src = ./patch-ghostscript-path.diff;
+      inherit ghostscript;
+      ghostscriptVersion = ghostscript.version;
+    })
   ];
 
   nativeBuildInputs = [
@@ -62,8 +67,6 @@ stdenv.mkDerivation rec {
     brotli
     libiconv
     pdfhummus
-    #nowide
-    #boost
   ];
 
   buildPhase = ''
@@ -76,19 +79,20 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${lib.getDev qtsvg}/include/QtSvg"
     "-L${pdfhummus}/lib"
-    "-lLibAesgm"
-    "-lPDFWriter"
+    "-lLibAesgm" "-lPDFWriter"
   ];
 
   installPhase = ''
+    runHook preInstall
     xmake install -o $out
+    runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A structure editor delivered by Xmacs Labs";
     homepage    = "https://mogan.app";
-    license     = licenses.gpl3Plus;
-    platforms   = platforms.all;
-    maintainers = with maintainers; [ rewine ];
+    license     = lib.licenses.gpl3Plus;
+    platforms   = lib.platforms.all;
+    maintainers = with lib.maintainers; [ rewine ];
   };
 }
