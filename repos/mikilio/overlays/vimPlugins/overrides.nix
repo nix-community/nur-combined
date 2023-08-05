@@ -29,7 +29,7 @@ self: super: {
     postPatch = ''
       substituteInPlace lua/knap.lua \
         --replace luaposix ${luaPackages.luaposix}/lib/${luaPackages.luaposix.version}/posix
-      substituteInPlace pandoc
+      substituteInPlace lua/knap.lua \
         --replace pandoc ${pandoc}/bin/pandoc
     '';
   };
