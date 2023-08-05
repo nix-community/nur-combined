@@ -15,9 +15,15 @@
       patchedFlakeFor = system: import "${patchedPkgsFor system}/flake.nix";
       patchedFlakeOutputsFor = system:
         (patchedFlakeFor system).outputs { inherit self; };
+
+      extractBuildPlatform = nixosSystemArgs:
+        let
+          firstMod = builtins.head nixosSystemArgs.modules;
+        in
+          firstMod.nixpkgs.buildPlatform or nixosSystemArgs.system;
     in
     {
-      lib.nixosSystem = args: (patchedFlakeOutputsFor args.system).lib.nixosSystem args;
+      lib.nixosSystem = args: (patchedFlakeOutputsFor (extractBuildPlatform args)).lib.nixosSystem args;
 
       legacyPackages = builtins.mapAttrs
         (system: _:

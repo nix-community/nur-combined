@@ -94,7 +94,17 @@
       evalHost = { name, local, target }: nixpkgs.lib.nixosSystem {
         system = target;
         modules = [
-          (import ./hosts/instantiate.nix { localSystem = local; hostName = name; })
+          {
+            nixpkgs = (if (local != null) then {
+              buildPlatform = local;
+            } else {}) // {
+              # TODO: does the earlier `system` arg to nixosSystem make its way here?
+              hostPlatform.system = target;
+            };
+            # nixpkgs.buildPlatform = local;  # set by instantiate.nix instead
+            # nixpkgs.config.replaceStdenv = { pkgs }: pkgs.ccacheStdenv;
+          }
+          (import ./hosts/instantiate.nix { hostName = name; })
           self.nixosModules.default
           self.nixosModules.passthru
           {
@@ -103,12 +113,6 @@
               self.overlays.sane-all
             ];
           }
-          ({ lib, ... }: {
-            # TODO: does the earlier `system` arg to nixosSystem make its way here?
-            nixpkgs.hostPlatform.system = target;
-            # nixpkgs.buildPlatform = local;  # set by instantiate.nix instead
-            # nixpkgs.config.replaceStdenv = { pkgs }: pkgs.ccacheStdenv;
-          })
         ];
       };
     in {
