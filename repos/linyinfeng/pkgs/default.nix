@@ -1,12 +1,4 @@
-{ lib
-, newScope
-, selfLib
-, fishPlugins
-, emacsPackages
-, librime
-, matrix-sdk-crypto-nodejs
-, matrix-sdk-crypto-nodejs-0_1_0-beta_3
-}:
+{ lib, newScope, selfLib, fishPlugins, emacsPackages, librime, matrix-sdk-crypto-nodejs-0_1_0-beta_3 }:
 
 lib.makeScope newScope (
   self:
@@ -39,10 +31,7 @@ lib.makeScope newScope (
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
     matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot {
-      matrix-sdk-crypto-nodejs =
-        if matrix-sdk-crypto-nodejs.version == "0.1.0-beta.3"
-        then matrix-sdk-crypto-nodejs
-        else matrix-sdk-crypto-nodejs-0_1_0-beta_3;
+      matrix-sdk-crypto-nodejs = matrix-sdk-crypto-nodejs-0_1_0-beta_3;
     };
     matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };
