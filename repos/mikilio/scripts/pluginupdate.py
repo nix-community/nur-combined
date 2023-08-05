@@ -316,7 +316,6 @@ def load_plugins_from_csv(config: FetchConfig, input_file: Path,) -> List[Plugin
 
 def run_nix_expr(expr):
     with CleanEnvironment():
-        print (expr)
         cmd = ["nix", "eval", "--extra-experimental-features",
                 "nix-command", "--impure", "--json", "--expr", expr]
         log.debug("Running command %s", " ".join(cmd))
