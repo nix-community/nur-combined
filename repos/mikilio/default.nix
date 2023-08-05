@@ -9,18 +9,23 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  inherit (pkgs) lib system;
-  ifSupported = with lib; attr : filterAttrs (name: value: elem system value.meta.platforms) attr;
+  inherit (pkgs) lib hostPlatform;
+  ifSupported = with lib; (attr:
+    mapAttrsRecursiveCond
+    ( as: as?recurseForDerivations && as.recurseForDerivations)
+    (_: v: if (meta.availableOn hostPlatform v) then v else null)
+    attr
+  );
 
 in {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  overlays = import ./overlays {inherit pkgs;}; # nixpkgs overlays
 
-} // ifSupported {
-  xwaylandvideobridge = pkgs.libsForQt5.callPackage ./pkgs/xwaylandvideobridge { };
-  xwaylandvideobridge-hypr = pkgs.libsForQt5.callPackage ./pkgs/xwaylandvideobridge { isHyprland = true; };
-  xdg-terminal-exec = pkgs.callPackage ./pkgs/xdg-terminal-exec {};
-  ttf-ms-fonts = pkgs.callPackage ./pkgs/ttf-ms-fonts {};
-}
+} // ifSupported ( with pkgs; {
+  xwaylandvideobridge = libsForQt5.callPackage ./pkgs/xwaylandvideobridge { };
+  xwaylandvideobridge-hypr = libsForQt5.callPackage ./pkgs/xwaylandvideobridge { isHyprland = true; };
+  xdg-terminal-exec = callPackage ./pkgs/xdg-terminal-exec {};
+  ttf-ms-fonts = callPackage ./pkgs/ttf-ms-fonts {};
+})
