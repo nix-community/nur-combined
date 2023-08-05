@@ -9,7 +9,7 @@
 , kirigami2
 , ki18n
 , kpackage
-, nix-update-script
+, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
@@ -39,9 +39,7 @@ stdenv.mkDerivation {
   ];
 
   passthru = {
-    updateScript = nix-update-script {
-      extraArgs = [ "--version" "branch" ];
-    };
+    updateScript = unstableGitUpdater { };
   };
 
   meta = with lib; {

@@ -49,7 +49,7 @@
   zypper = pkgs.callPackage ./zypper.nix { inherit libzypp; };
 
   apx_v2 = pkgs.apx.overrideAttrs (oldAttrs: {
-    version = "unstable-2023-07-30";
+    version = "2.0.0";
     src = pkgs.fetchFromGitHub {
       owner = "Vanilla-OS";
       repo = "apx";
@@ -72,9 +72,7 @@
       wrapProgram $out/bin/apx --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.docker pkgs.distrobox ]}
     '';
     passthru = {
-      updateScript = pkgs.nix-update-script {
-        extraArgs = [ "--version" "branch" ];
-      };
+      updateScript = pkgs.unstableGitUpdater { };
     };
     meta = oldAttrs.meta // {
       platforms = pkgs.lib.platforms.linux;

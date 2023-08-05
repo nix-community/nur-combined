@@ -58,6 +58,7 @@ stdenv.mkDerivation rec {
     description = "";
     homepage = "https://gitlab.com/zelikos/rollit";
     license = licenses.gpl3Only;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 }

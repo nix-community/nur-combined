@@ -1,7 +1,7 @@
 { lib
 , stdenvNoCC
 , fetchFromGitHub
-, nix-update-script
+, unstableGitUpdater
 }:
 
 stdenvNoCC.mkDerivation {
@@ -25,9 +25,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   passthru = {
-    updateScript = nix-update-script {
-      extraArgs = [ "--version" "branch" ];
-    };
+    updateScript = unstableGitUpdater { };
   };
 
   meta = with lib; {

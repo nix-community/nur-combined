@@ -27,7 +27,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libzypp";
-  version = "17.31.17";
+  version = "17.31.18";
 
   src = fetchFromGitHub {
     owner = "openSUSE";

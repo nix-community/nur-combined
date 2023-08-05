@@ -60,6 +60,7 @@ stdenv.mkDerivation rec {
     description = "A Conway's Game Of Life application for the gnome desktop";
     homepage = "https://github.com/sixpounder/game-of-life";
     license = licenses.gpl3Only;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 }
