@@ -6,11 +6,9 @@
 , cmake
 , pkg-config
 , wrapQtAppsHook
-, git
-, unzip
-, curl
 , qtbase
 , qtsvg
+, curl
 , freetype
 , zlib
 , bzip2
@@ -19,6 +17,8 @@
 , brotli
 , libiconv
 , pdfhummus
+, git
+, unzip
 , ghostscript
 }:
 
@@ -52,12 +52,8 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
 
   buildInputs = [
-    # make xmake happly
-    git
-    unzip
-    curl
-
     qtbase
+    curl
     qtsvg
     freetype
     zlib
@@ -67,24 +63,34 @@ stdenv.mkDerivation rec {
     brotli
     libiconv
     pdfhummus
+    # make xmake happly
+    git
+    unzip
   ];
 
-  buildPhase = ''
+  configurePhase = ''
+    runHook preConfigure
     export HOME=$(mktemp -d)
-    xmake g --network=private
-    #xmake f
-    xmake build --yes --verbose --diagnosis --all -j $NIX_BUILD_CORES 
+    xmake global --network=private
+    xmake config -m release --verbose --yes --diagnosis
+    runHook postConfigure
+  '';
+
+  buildPhase = ''
+    runHook preBuild
+    xmake build --yes --verbose --all -j $NIX_BUILD_CORES 
+    runHook postBuild
   '';
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${lib.getDev qtsvg}/include/QtSvg"
-    "-L${pdfhummus}/lib"
+    #"-L${pdfhummus}/lib"
     "-lLibAesgm" "-lPDFWriter"
   ];
 
   installPhase = ''
     runHook preInstall
-    xmake install -o $out
+    xmake install -o $out mogan_install
     runHook postInstall
   '';
 
