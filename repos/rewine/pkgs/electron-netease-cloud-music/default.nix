@@ -8,11 +8,11 @@
 }:
 let
   pname = "electron-netease-cloud-music";
-  version = "0.9.36";
+  version = "0.9.38";
   srcs = {
     asar = fetchurl {
       url = "https://github.com/Rocket1184/${pname}/releases/download/v${version}/${pname}_v${version}.asar";
-      sha256 = "sha256-ElJKdI+yuvvjUtqEulyFHz3VvMKXgAbX9QXwRk1oQkg=";
+      sha256 = "sha256-kXGxhY6NW0+u98C+HPeGw7gk3sX/4qQBSxyCOeY8q8w=";
     };
     icon = fetchurl {
       url = "https://raw.githubusercontents.com/Rocket1184/electron-netease-cloud-music/master/assets/icons/icon.svg";
