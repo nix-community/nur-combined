@@ -42,6 +42,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
+  postPatch = ''
+    substituteInPlace src/Plugins/Freetype/free_type.cpp \
+      --replace "/usr/lib/libfreetype" "${freetype}/lib/libfreetype"
+  '';
+
   nativeBuildInputs = [
     xmake
     cmake
