@@ -23,7 +23,6 @@
 
   # non-free firmware
   hardware.enableRedistributableFirmware = true;
-  services.fwupd.enable = true;
 
   # powertop will default to putting USB devices -- including HID -- to sleep after TWO SECONDS
   powerManagement.powertop.enable = false;

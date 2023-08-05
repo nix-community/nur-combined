@@ -12,6 +12,7 @@
     ./firefox.nix
     ./fontconfig.nix
     ./fractal.nix
+    ./fwupd.nix
     ./git.nix
     ./gnome-feeds.nix
     ./gnome-keyring.nix

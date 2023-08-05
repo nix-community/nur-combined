@@ -326,15 +326,15 @@ in {
   # });
 
   # 2023/07/31: upstreaming is unblocked -- if i can rework to not use emulation
-  fwupd-efi = prev.fwupd-efi.override {
-    # fwupd-efi queries meson host_machine to decide what arch to build for.
-    #   for some reason, this gives x86_64 unless meson itself is emulated.
-    #   maybe meson's use of "host_machine" actually mirrors nix's "build machine"?
-    inherit (emulated)
-      stdenv  # fixes: "efi/meson.build:162:0: ERROR: Program or command 'gcc' not found or not executable"
-      meson  # fixes: "efi/meson.build:33:2: ERROR: Problem encountered: gnu-efi support requested, but headers were not found"
-    ;
-  };
+  # fwupd-efi = prev.fwupd-efi.override {
+  #   # fwupd-efi queries meson host_machine to decide what arch to build for.
+  #   #   for some reason, this gives x86_64 unless meson itself is emulated.
+  #   #   maybe meson's use of "host_machine" actually mirrors nix's "build machine"?
+  #   inherit (emulated)
+  #     stdenv  # fixes: "efi/meson.build:162:0: ERROR: Program or command 'gcc' not found or not executable"
+  #     meson  # fixes: "efi/meson.build:33:2: ERROR: Problem encountered: gnu-efi support requested, but headers were not found"
+  #   ;
+  # };
   # fwupd-efi = prev.fwupd-efi.overrideAttrs (upstream: {
   #   # does not fix: "efi/meson.build:162:0: ERROR: Program or command 'gcc' not found or not executable"
   #   makeFlags = upstream.makeFlags or [] ++ [ "CC=${prev.stdenv.cc.targetPrefix}cc" ];
@@ -346,7 +346,6 @@ in {
   # });
   # solves (meson) "Run-time dependency libgcab-1.0 found: NO (tried pkgconfig and cmake)", and others.
   # 2023/07/31: upstreaming is blocked on argyllcms, fwupd-efi, libavif
-  # TODO: can i purge fwupd from my system?
   fwupd = (addBuildInputs
     [ final.gcab ]
     (mvToBuildInputs [ final.gnutls ] prev.fwupd)
@@ -740,18 +739,88 @@ in {
     # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [ final.pkg-config ];
   });
 
-  mepo = (prev.mepo.override {
-    # emulate zig and stdenv to fix:
-    # - "/build/source/src/sdlshim.zig:1:20: error: C import failed"
-    # emulate makeWrapper to fix:
-    # - "error: makeWrapper/makeShellWrapper must be in nativeBuildInputs"
-    inherit (emulated) makeWrapper stdenv zig;
-  }).overrideAttrs (upstream: {
-    nativeBuildInputs = [ final.pkg-config emulated.makeWrapper ];
-    # ref to zig by full path because otherwise it doesn't end up on the path...
-    checkPhase = lib.replaceStrings [ "zig" ] [ "${emulated.zig}/bin/zig" ] upstream.checkPhase;
-    installPhase = lib.replaceStrings [ "zig" ] [ "${emulated.zig}/bin/zig" ] upstream.installPhase;
-  });
+  mepo =
+    # let
+    #   zig = final.zig.override {
+    #     inherit (emulated) stdenv;
+    #   };
+    #   # makeWrapper = final.makeWrapper.override {
+    #   #   inherit (emulated) stdenv;
+    #   # };
+    #   # makeWrapper = emulated.stdenv.mkDerivation final.makeWrapper;
+    # in
+    # (prev.mepo.overrideAttrs (upstream: {
+    #   checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.checkPhase;
+    #   installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.installPhase;
+    # })).override {
+    #   inherit (emulated) stdenv;
+    #   inherit zig;
+    # };
+    final.callPackage ({
+      stdenv
+      , upstreamMepo
+      , makeWrapper
+      , pkg-config
+      , zig
+      # buildInputs
+      , curl
+      , SDL2
+      , SDL2_gfx
+      , SDL2_image
+      , SDL2_ttf
+      , jq
+      , ncurses
+    }: stdenv.mkDerivation {
+      inherit (upstreamMepo)
+        pname
+        version
+        src
+        # buildInputs
+        preBuild
+        doCheck
+        postInstall
+        meta
+      ;
+      # moves pkg-config to buildInputs where zig can see it, and uses the host build of zig.
+      nativeBuildInputs = [ makeWrapper ];
+      buildInputs = [
+        curl SDL2 SDL2_gfx SDL2_image SDL2_ttf jq ncurses pkg-config
+      ];
+      checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstreamMepo.checkPhase;
+      installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstreamMepo.installPhase;
+    }) {
+      upstreamMepo = prev.mepo;
+      inherit (emulated) stdenv;
+      zig = useEmulatedStdenv final.zig;
+    };
+    # (prev.mepo.override {
+    #   # emulate zig and stdenv to fix:
+    #   # - "/build/source/src/sdlshim.zig:1:20: error: C import failed"
+    #   # emulate makeWrapper to fix:
+    #   # - "error: makeWrapper/makeShellWrapper must be in nativeBuildInputs"
+    #   # inherit (emulated) makeWrapper stdenv;
+    #   inherit (emulated) stdenv;
+    #   inherit zig;
+    #   # inherit makeWrapper;
+    # }).overrideAttrs (upstream: {
+    #   # nativeBuildInputs = [ final.pkg-config makeWrapper ];
+    #   # nativeBuildInputs = [ final.pkg-config emulated.makeWrapper ];
+    #   # ref to zig by full path because otherwise it doesn't end up on the path...
+    #   #checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.checkPhase;
+    #   #installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.installPhase;
+    # });
+  # mepo = (prev.mepo.override {
+  #   # emulate zig and stdenv to fix:
+  #   # - "/build/source/src/sdlshim.zig:1:20: error: C import failed"
+  #   # emulate makeWrapper to fix:
+  #   # - "error: makeWrapper/makeShellWrapper must be in nativeBuildInputs"
+  #   inherit (emulated) makeWrapper stdenv zig;
+  # }).overrideAttrs (upstream: {
+  #   nativeBuildInputs = [ final.pkg-config emulated.makeWrapper ];
+  #   # ref to zig by full path because otherwise it doesn't end up on the path...
+  #   checkPhase = lib.replaceStrings [ "zig" ] [ "${emulated.zig}/bin/zig" ] upstream.checkPhase;
+  #   installPhase = lib.replaceStrings [ "zig" ] [ "${emulated.zig}/bin/zig" ] upstream.installPhase;
+  # });
   # mepo = (prev.mepo.override {
   #   inherit (emulated) stdenv;
   # }).overrideAttrs (upstream: {

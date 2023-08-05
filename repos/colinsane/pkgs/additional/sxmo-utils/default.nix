@@ -3,6 +3,7 @@
 , bemenu
 , bonsai
 , conky
+, coreutils
 , dbus
 , fetchgit
 , fetchpatch
@@ -135,10 +136,23 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    sed -i 's@/usr/lib/udev/rules\.d@/etc/udev/rules.d@' Makefile
+    # allow sxmo to source its init file
     sed -i "s@/etc/profile\.d/sxmo_init.sh@$out/etc/profile.d/sxmo_init.sh@" scripts/core/*.sh
-    sed -i "s@/usr/bin/@@g" scripts/core/sxmo_version.sh
+    # remove absolute paths
+    substituteInPlace scripts/core/sxmo_version.sh \
+      --replace "/usr/bin/" ""
+
+    # let superd find sxmo service binaries at runtime via PATH
+    # TODO: replace with fully-qualified paths
     sed -i 's:ExecStart=/usr/bin/:ExecStart=/usr/bin/env :' configs/superd/services/*.service
+
+    # install udev rules to where nix expects
+    substituteInPlace Makefile \
+      --replace "/usr/lib/udev/rules.d" "/etc/udev/rules.d"
+    # avoid relative paths in udev rules
+    substituteInPlace configs/udev/90-sxmo.rules \
+      --replace "/bin/chgrp" "${coreutils}/bin/chgrp" \
+      --replace "/bin/chmod" "${coreutils}/bin/chmod"
   '';
 
   nativeBuildInputs = [
