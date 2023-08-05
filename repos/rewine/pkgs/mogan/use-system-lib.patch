@@ -1,32 +1,36 @@
 diff --git a/xmake.lua b/xmake.lua
-index 6e393a061..50bf6d520 100644
+index d6e712886..62e30da58 100644
 --- a/xmake.lua
 +++ b/xmake.lua
-@@ -56,19 +56,19 @@ if is_plat("linux") and (linuxos.name() == "debian" or linuxos.name() == "ubuntu
+@@ -55,23 +55,23 @@ if is_plat("linux") and (linuxos.name() == "debian" or linuxos.name() == "ubuntu
      end
  else
      if not is_plat("wasm") then
 -        add_requires("libiconv 1.17", {system=false})
 -        add_requires("libcurl 7.84.0", {system=false})
-+        -- add_requires("libiconv", {system=true})
++        -- iconv support is stemming from the C library
 +        add_requires("libcurl >=7.84.0", {system=true})
      end
 -    add_requires("libpng 1.6.37", {system=false})
--    add_requires("zlib 1.2.12", {system=false})
 -    add_requires("libjpeg v9e", {system=false})
 -    add_requires("freetype 2.12.1", {system=false})
--    add_requires("sqlite3 3.39.0+200", {system=false})
 +    add_requires("libpng >=1.6.37", {system=true})
-+    add_requires("zlib >=1.2.12", {system=true})
 +    add_requires("libjpeg", {system=true})
-+    add_requires("freetype2 >=2.12.1", {alias="freetype",system=true})
-+    add_requires("sqlite3 >=3.39.0+200", {system=true})
++    add_requires("freetype2 >=2.12.1", {system=true})
+     if is_plat ("macosx") then
+         add_requires("sqlite3", {system=true})
+     else
+-        add_requires("sqlite3 3.39.0+200", {system=false})
++        add_requires("sqlite3 >=3.39.0+200", {system=true})
+     end
  end
  
- local PDFHUMMUS_VERSION = "4.1"
+ local PDFHUMMUS_VERSION = "4.5.10"
  if not is_plat("wasm") then
 -    add_requires("pdfhummus "..PDFHUMMUS_VERSION, {system=false,configs={libpng=true,libjpeg=true}})
+-    add_requires("nowide_standalone 11.2.0", {system=false})
 +    add_requires("cmake::PDFHummus", {alias="pdfhummus",system=true,configs={link_libraries="PDFHummus::PDFWriter PDFHummus::LibAesgm"}})
++    -- only mingw plat need nowide_standalone
  end
  
- local XMACS_VERSION="1.1.2"
+ local XMACS_VERSION="1.1.4"

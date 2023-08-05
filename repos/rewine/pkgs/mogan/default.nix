@@ -18,22 +18,23 @@
 , brotli
 , libiconv
 , pdfhummus
+, nowide
+, boost
 }:
 
 stdenv.mkDerivation rec {
   pname = "mogan";
-  version = "1.1.2";
+  version = "1.1.4";
 
   src = fetchFromGitHub {
     owner = "XmacsLabs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-7QxcQT5THbVouRsTzte6h7vTnGvldHiOJQiiwSC06us=";
+    hash = "sha256-RtXWIhAu8QvWtzqZP5c4m/zSrW3a7r9nVL7qVrDQqxc=";
   };
 
   patches = [
     ./use-system-lib.patch
-    ./fix-build.patch
   ];
 
   nativeBuildInputs = [
@@ -46,6 +47,7 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
 
   buildInputs = [
+    # make xmake happly
     git
     unzip
     curl
@@ -60,17 +62,22 @@ stdenv.mkDerivation rec {
     brotli
     libiconv
     pdfhummus
+    #nowide
+    #boost
   ];
 
   buildPhase = ''
     export HOME=$(mktemp -d)
     xmake g --network=private
     #xmake f
-    xmake build --yes --verbose --diagnosis --all
+    xmake build --yes --verbose --diagnosis --all -j $NIX_BUILD_CORES 
   '';
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${lib.getDev qtsvg}/include/QtSvg"
+    "-L${pdfhummus}/lib"
+    "-lLibAesgm"
+    "-lPDFWriter"
   ];
 
   installPhase = ''
