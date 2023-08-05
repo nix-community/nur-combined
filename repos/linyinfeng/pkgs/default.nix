@@ -1,7 +1,11 @@
 { lib
 , newScope
 , selfLib
-, pkgs
+, fishPlugins
+, emacsPackages
+, librime
+, matrix-sdk-crypto-nodejs
+, matrix-sdk-crypto-nodejs-0_1_0-beta_3
 }:
 
 lib.makeScope newScope (
@@ -28,17 +32,17 @@ lib.makeScope newScope (
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
     emacsPackages = lib.recurseIntoAttrs (callPackage ./emacs-packages {
-      emacsPackagesToplevel = pkgs.emacsPackages;
+      emacsPackagesToplevel = emacsPackages;
     });
     fishPlugins = lib.recurseIntoAttrs (callPackage ./fish-plugins {
-      fishPluginsToplevel = pkgs.fishPlugins;
+      fishPluginsToplevel = fishPlugins;
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
     matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot {
       matrix-sdk-crypto-nodejs =
-        if pkgs.matrix-sdk-crypto-nodejs.version == "0.1.0-beta.3"
-        then pkgs.matrix-sdk-crypto-nodejs
-        else pkgs.matrix-sdk-crypto-nodejs-0_1_0-beta_3;
+        if matrix-sdk-crypto-nodejs.version == "0.1.0-beta.3"
+        then matrix-sdk-crypto-nodejs
+        else matrix-sdk-crypto-nodejs-0_1_0-beta_3;
     };
     matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };
@@ -48,7 +52,7 @@ lib.makeScope newScope (
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
-    rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
+    rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor librime);
     swayosd = callPackage ./swayosd { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
