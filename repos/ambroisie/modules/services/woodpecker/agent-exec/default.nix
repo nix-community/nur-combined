@@ -52,7 +52,7 @@ in
         BindReadOnlyPaths = [
           "/etc/passwd:/etc/passwd"
           "/etc/group:/etc/group"
-          "/nix/var/nix/profiles/system/etc/nix:/etc/nix"
+          "/etc/nix:/etc/nix"
           "${config.environment.etc."ssh/ssh_known_hosts".source}:/etc/ssh/ssh_known_hosts"
           "/etc/machine-id"
           # channels are dynamic paths in the nix store, therefore we need to bind mount the whole thing

@@ -57,6 +57,12 @@ in
             })
             (lib.optionalAttrs config.my.home.bluetooth.enable {
               block = "bluetooth";
+              mac = "88:C9:E8:6B:B7:55";
+              format = " $icon Quarks{ $percentage|} ";
+              disconnected_format = "";
+            })
+            (lib.optionalAttrs config.my.home.bluetooth.enable {
+              block = "bluetooth";
               mac = "F7:78:BA:76:52:F7";
               format = " $icon MX Ergo{ $percentage|} ";
               disconnected_format = "";
