@@ -1,9 +1,8 @@
-# nur-packages
+# ❄ nur-packages ❄
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-![Build and populate cache](https://github.com/mikilio/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
-
+[![Build and populate cache](https://github.com/mikilio/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)]()
 [![Cachix Cache](https://img.shields.io/badge/cachix-mikilio-blue.svg)](https://mikilio.cachix.org)
 
 ## Setup
@@ -13,4 +12,15 @@ To use cached binaries with Cachix refer to [NixOS Wiki](https://nixos.wiki/wiki
 
 ## Packages
 
+| Name                       | Description                                                  |
+|----------------------------|--------------------------------------------------------------|
+| `xwaylandvideobridge`      | Utility to allow streaming Wayland windows to X applications |
+| `xwaylandvideobridge-hypr` | `xwaylandvideobridge` with patches for Hyprland |
+| `ttf-ms-fonts`             | Microsoft Core Webfonts |
+| `xdg-terminal-exec`        | Experimental XDG specification for applications running on a terminal emulator |
 
+## Overlays
+
+| Name                       | Description                                                  |
+|----------------------------|--------------------------------------------------------------|
+| vimPlugins                 | Adds additional plugins not available in nixpkgs |
