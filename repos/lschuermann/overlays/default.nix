@@ -1,5 +1,3 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  wpa-supplicant-sslv3 = import ./wpa-supplicant-sslv3.nix;
 }
