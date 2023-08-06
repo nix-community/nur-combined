@@ -1,6 +1,6 @@
 { global, config, lib, ... }:
 let
-  node = global.nodeIps.${config.networking.hostName}.ts or "127.0.0.1";
+  node = global.nodeIps.${config.networking.hostName}.ts or null;
 
   nginxDomains = builtins.attrNames config.services.nginx.virtualHosts;
   baseDomain = "${config.networking.hostName}.${config.networking.domain}";
@@ -20,7 +20,7 @@ in {
       except-interface=virbr0
     '';
   };
-  networking.hosts = {
+  networking.hosts = lib.mkIf (node != null) {
     "${node}" = allMySubdomains;
   };
 }
