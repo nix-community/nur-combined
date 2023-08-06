@@ -45,5 +45,7 @@ in lib.makeScope pkgs.newScope (self:
 
     qr2text = self.callPackage ./pkgs/qr2text { };
 
+    urlp = self.callPackage ./pkgs/urlp { };
+
     overlay = lib.composeManyExtensions (thisLib.importNixFiles ./overlays);
   })
