@@ -9,8 +9,8 @@ final: prev:
     src = fetchFromGitHub {
       owner = "Mikilio";
       repo = "knap";
-      rev = "25e48f815a5dab17ef205a111900e9518d01fa4c";
-      sha256 = "0w6hakls5q1ds3fbdi1jxfvgyb551z9nhgsxaf45z62hlrbyf115";
+      rev = "4ccf472092ec04db1a23678df35d07dd6bdb5158";
+      sha256 = "13502iz2ynxg73r17nqskxwia7lr9ybmjzx67ypbxfgfjjjlfdxh";
     };
     meta.homepage = "https://github.com/Mikilio/knap/";
   };
