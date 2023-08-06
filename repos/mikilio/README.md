@@ -2,7 +2,7 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-[![Build][build-badge]][build]
+[![Build and populate cache](https://github.com/mikilio/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)](https://github.com/Mikilio/nur-packages/actions)
 [![Cachix Cache](https://img.shields.io/badge/cachix-mikilio-blue.svg)](https://mikilio.cachix.org)
 
 ## Setup
