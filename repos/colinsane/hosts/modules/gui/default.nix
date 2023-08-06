@@ -41,7 +41,6 @@
       # "lollypop"
       "mepo"  # maps viewer
       "mpv"
-      "nheko"
       # "networkmanagerapplet"
       # "newsflash"
       "pavucontrol"
@@ -85,6 +84,7 @@
       "krita"
       "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
       "mumble"
+      "nheko"
       "obsidian"
       "slic3r"
       "steam"

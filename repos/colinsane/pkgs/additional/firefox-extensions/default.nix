@@ -29,7 +29,7 @@ let
     };
   in (stdenv.mkDerivation ({
     # heavily borrows from <repo:nixos/nixpkgs:pkgs/build-support/fetchfirefoxaddon/default.nix>
-    inherit (addon) name;
+    name = "${addon.name}-wrapped";
     unpackPhase = ''
       echo "patching firefox addon $name into $out/${extid}.xpi"
 
@@ -64,7 +64,7 @@ let
     '';
   } // args')).overrideAttrs (final: upstream: {
     passthru = (upstream.passthru or {}) // {
-      withAttrs = attrs: wrapAddon final.finalPackage attrs;
+      withAttrs = attrs: wrapAddon addon (args // attrs);
       withPostPatch = postPatch: final.passthru.withAttrs { inherit postPatch; };
       # given an addon, repackage it without some `perm`ission
       withoutPermission = perm: final.passthru.withPostPatch ''
@@ -92,9 +92,9 @@ in lib.makeScope newScope (self: with self; {
     ether-metamask = fetchAddon "ether-metamask" "webextension@metamask.io" "sha256-UI83wUUc33OlQYX+olgujeppoo2D2PAUJ+Wma5mH2O0=";
     i2p-in-private-browsing = fetchAddon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io" "sha256-dJcJ3jxeAeAkRvhODeIVrCflvX+S4E0wT/PyYzQBQWs=";
     sidebery = fetchAddon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}" "sha256-YONfK/rIjlsrTgRHIt3km07Q7KnpIW89Z9r92ZSCc6w=";
-    sponsorblock = fetchAddon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-b/OTFmhSEUZ/CYrYCE4rHVMQmY+Y78k8jSGMoR8vsZA=";
+    sponsorblock = fetchAddon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-kIVx/Yl2IZ0/0RqLMf4+HJojoDA7oOUYwZfFvMt/2XE=";
     ublacklist = fetchAddon "ublacklist" "@ublacklist" "sha256-NZ2FmgJiYnH7j2Lkn0wOembxaEphmUuUk0Ytmb0rNWo=";
-    ublock-origin = fetchAddon "ublock-origin" "uBlock0@raymondhill.net" "sha256-EGGAA+cLUow/F5luNzFG055rFfd3rEyh8hTaL/23pbM=";
+    ublock-origin = fetchAddon "ublock-origin" "uBlock0@raymondhill.net" "sha256-i3NGi8IzoR3SiVIZRmOBeD0ZEjhX3Qtv0WoBgg/KSDQ=";
 
     # TODO: build bypass-paywalls from source? it's mysteriously disappeared from the Mozilla store.
     # bypass-paywalls-clean = fetchAddon "bypass-paywalls-clean" "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}" "sha256-oUwdqdAwV3DezaTtOMx7A/s4lzIws+t2f08mwk+324k=";

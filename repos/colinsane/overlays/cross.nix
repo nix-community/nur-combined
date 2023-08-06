@@ -66,6 +66,82 @@ let
     inherit (emulated) stdenv;
   };
   emulated = mkEmulated final prev;
+
+  # given a package that's defined for build == host,
+  # build it from the native build machine by emulating the builder.
+  emulateBuilder = pkg: let
+    # fix up the nixpkgs command that runs a Linux OS inside QEMU:
+    # qemu_kvm doesn't support x86_64 -> aarch64; but full qemu package does.
+    qemuCommandLinux = lib.replaceStrings
+      [ "${final.buildPackages.qemu_kvm}" ]
+      [ "${final.buildPackages.qemu}"]
+      final.vmTools.qemuCommandLinux;
+  in
+    # without binfmt emulation, leverage the `vmTools.runInLinuxVM` infrastructure:
+    # final.vmTools.runInLinuxVM pkg
+    #
+    # except `runInLinuxVM` doesn't seem to support cross compilation (what's its purpose, then?)
+    # so hack its components into something which *does* handle cross compilation
+    lib.overrideDerivation pkg ({ builder, args, ... }: {
+      builder = "${final.buildPackages.bash}/bin/sh";
+      args = ["-e" (final.buildPackages.vmTools.vmRunCommand qemuCommandLinux)];
+      # orig{Builder,Args} gets used by the vmRunCommand script:
+      origBuilder = builder;
+      origArgs = args;
+
+      QEMU_OPTS = "-m 16386";  # MiB of RAM
+      enableParallelBuilding = true;
+
+      # finally, let nix know that this package should be built by the build system
+      system = final.stdenv.buildPlatform.system;
+    }) // {
+      override = attrs: emulateBuilder (pkg.override attrs);
+      overrideAttrs = mergeFn: emulateBuilder (pkg.overrideAttrs mergeFn);
+    }
+    # alternatively, `proot` could let us get per-package binfmt:
+    # - <https://proot-me.github.io/>
+    # - i.e., execute host programs *and* build programs, mixed
+  ;
+
+  emulateBuildMachine =
+    let
+      # patch packages which can't ordinarily exist in buildPackages
+      preFixPkg = p:
+        if p.name or null == "make-shell-wrapper-hook" then
+          p.overrideAttrs (_: {
+            # unconditionally use the outermost targetPackages shell
+            shell = final.runtimeShell;
+          })
+          # p.__spliced.buildBuild.overrideAttrs (_: {
+          #   shell = "TODO"; # final.targetPackages.runtimeShell;
+          # })
+          # final.makeBinaryWrapper
+        else
+          p
+        ;
+      unsplicePkg = p: p.__spliced.hostTarget or p;
+      unsplicePkgs = ps: map (p: unsplicePkg (preFixPkg p)) ps;
+    in
+      pkg: emulateBuilder ((pkg.override {
+        inherit (emulated) stdenv;
+      }).overrideAttrs (upstream: {
+        # for this purpose, the naming in `depsAB` is "inputs build for A, used to create packages in B" (i think).
+        # when cross compiling x86_64 -> aarch64, most packages are
+        # - build: x86_64
+        # - target: aarch64
+        # - host: aarch64
+        # so, we only need to replace the build packages with alternates.
+        depsBuildBuild = unsplicePkgs (upstream.depsBuildBuild or []);
+        nativeBuildInputs = unsplicePkgs (upstream.nativeBuildInputs or []);
+        depsBuildTarget = unsplicePkgs (upstream.depsBuildTarget or []);
+
+        depsBuildBuildPropagated = unsplicePkgs (upstream.depsBuildBuildPropagated or []);
+        propagatedNativeBuildInputs = unsplicePkgs (upstream.propagatedNativeBuildInputs or []);
+        depsBuildTargetPropagated = unsplicePkgs (upstream.depsBuildTargetPropagated or []);
+
+        nativeCheckInputs = unsplicePkgs (upstream.nativeCheckInputs or []);
+        nativeInstallCheckInputs = unsplicePkgs (upstream.nativeInstallCheckInputs or []);
+      }));
 in {
   inherit emulated;
 
@@ -164,18 +240,14 @@ in {
   #   # configure: error: ifconfig or ip not found, install net-tools or iproute2
   #   nativeBuildInputs = orig.nativeBuildInputs ++ [ final.iproute2 ];
   # });
-  bonsai = prev.bonsai.override {
-    inherit (emulated) stdenv;
-    hare = final.hare.override {
-      inherit (emulated) stdenv;
-      # inherit (emulated) stdenv harePackages qbe;
-      qbe = useEmulatedStdenv final.qbe;
-      harePackages.harec = final.harePackages.harec.override {
-        inherit (emulated) stdenv;
-        qbe = useEmulatedStdenv final.qbe;
-      };
-    };
-  };
+  bonsai = emulateBuildMachine (prev.bonsai.override {
+    hare = emulateBuildMachine (final.hare.override {
+      qbe = emulateBuildMachine final.qbe;
+      harePackages.harec = emulateBuildMachine (final.harePackages.harec.override {
+        qbe = emulateBuildMachine final.qbe;
+      });
+    });
+  });
   # bonsai = prev.bonsai.override {
   #   inherit (emulated) stdenv hare;
   # };
@@ -265,14 +337,42 @@ in {
   #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   # };
 
-  firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
-    unwrapped = super.unwrapped // {
-      browserpass-extension = super.unwrapped.browserpass-extension.override {
-        # bash: line 1: node_modules/.bin/prettier: cannot execute: required file not found
-        inherit (emulated) mkYarnModules;
-      };
-    };
-  });
+  # firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
+  #   unwrapped = super.unwrapped // {
+  #     # browserpass-extension = super.unwrapped.browserpass-extension.override {
+  #     #   # bash: line 1: node_modules/.bin/prettier: cannot execute: required file not found
+  #     #   # same with less and browserify.
+  #     #   inherit (emulated) mkYarnModules;
+  #     # };
+  #     # browserpass-extension = emulateBuildMachine super.unwrapped.browserpass-extension;
+  #     browserpass-extension = super.unwrapped.browserpass-extension.override {
+  #       mkYarnModules = args: emulateBuildMachine {
+  #         override = { stdenv }: (
+  #           (final.yarn2nix-moretea.override {
+  #             pkgs = final.pkgs.__splicedPackages // { inherit stdenv; };
+  #           }).mkYarnModules args
+  #         ).overrideAttrs (upstream: {
+  #           # i guess the VM creates the output directory for the derivation? not sure.
+  #           # and `mv` across the VM boundary breaks, too?
+  #           # original errors:
+  #           # - "mv: cannot create directory <$out>: File exists"
+  #           # - "mv: failed to preserve ownership for"
+  #           buildPhase = lib.replaceStrings
+  #             [
+  #               "mkdir $out"
+  #               "mv "
+  #             ]
+  #             [
+  #               "mkdir $out || true ; chmod +w deps/browserpass-extension-modules/package.json"
+  #               "cp -Rv "
+  #             ]
+  #             upstream.buildPhase
+  #           ;
+  #         });
+  #       };
+  #     });
+  #   };
+  # });
 
   # 2023/07/31: upstreaming is blocked on ostree dep
   # flatpak = prev.flatpak.overrideAttrs (upstream: {
@@ -684,7 +784,10 @@ in {
   };
   koreader = (prev.koreader.override {
     # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
-    inherit (emulated) luajit;
+    # inherit (emulated) luajit;
+    luajit = emulateBuildMachine (final.luajit.override {
+      buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
+    });
   }).overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       final.autoPatchelfHook
@@ -692,7 +795,10 @@ in {
   });
   koreader-from-src = prev.koreader-from-src.override {
     # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
-    inherit (emulated) luajit;
+    # inherit (emulated) luajit;
+    luajit = emulateBuildMachine (final.luajit.override {
+      buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
+    });
   };
   # libgweather = rmNativeInputs [ final.glib ] (prev.libgweather.override {
   #   # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
@@ -739,76 +845,145 @@ in {
     # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [ final.pkg-config ];
   });
 
-  mepo =
-    # let
-    #   zig = final.zig.override {
-    #     inherit (emulated) stdenv;
-    #   };
-    #   # makeWrapper = final.makeWrapper.override {
-    #   #   inherit (emulated) stdenv;
-    #   # };
-    #   # makeWrapper = emulated.stdenv.mkDerivation final.makeWrapper;
-    # in
-    # (prev.mepo.overrideAttrs (upstream: {
-    #   checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.checkPhase;
-    #   installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.installPhase;
-    # })).override {
-    #   inherit (emulated) stdenv;
-    #   inherit zig;
-    # };
-    final.callPackage ({
-      stdenv
-      , upstreamMepo
-      , makeWrapper
-      , pkg-config
-      , zig
-      # buildInputs
-      , curl
-      , SDL2
-      , SDL2_gfx
-      , SDL2_image
-      , SDL2_ttf
-      , jq
-      , ncurses
-    }: stdenv.mkDerivation {
-      inherit (upstreamMepo)
-        pname
-        version
-        src
-        # buildInputs
-        preBuild
-        doCheck
-        postInstall
-        meta
-      ;
-      # moves pkg-config to buildInputs where zig can see it, and uses the host build of zig.
-      nativeBuildInputs = [ makeWrapper ];
-      buildInputs = [
-        curl SDL2 SDL2_gfx SDL2_image SDL2_ttf jq ncurses pkg-config
-      ];
-      checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstreamMepo.checkPhase;
-      installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstreamMepo.installPhase;
-    }) {
-      upstreamMepo = prev.mepo;
-      inherit (emulated) stdenv;
-      zig = useEmulatedStdenv final.zig;
-    };
-    # (prev.mepo.override {
-    #   # emulate zig and stdenv to fix:
-    #   # - "/build/source/src/sdlshim.zig:1:20: error: C import failed"
-    #   # emulate makeWrapper to fix:
-    #   # - "error: makeWrapper/makeShellWrapper must be in nativeBuildInputs"
-    #   # inherit (emulated) makeWrapper stdenv;
-    #   inherit (emulated) stdenv;
-    #   inherit zig;
-    #   # inherit makeWrapper;
-    # }).overrideAttrs (upstream: {
-    #   # nativeBuildInputs = [ final.pkg-config makeWrapper ];
-    #   # nativeBuildInputs = [ final.pkg-config emulated.makeWrapper ];
-    #   # ref to zig by full path because otherwise it doesn't end up on the path...
-    #   #checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.checkPhase;
-    #   #installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.installPhase;
-    # });
+  mepo = prev.mepo.overrideAttrs (upstream: {
+    doCheck = false;
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      # zig hardcodes the /lib/ld-linux.so interpreter which breaks nix dynamic linking & dep tracking
+      final.autoPatchelfHook
+      # zig hard-codes `pkg-config` inside lib/std/build.zig
+      (final.buildPackages.writeShellScriptBin "pkg-config" ''
+        exec $PKG_CONFIG $@
+      '')
+    ];
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace src/sdlshim.zig \
+        --replace 'cInclude("SDL2/SDL_image.h")' 'cInclude("SDL_image.h")' \
+        --replace 'cInclude("SDL2/SDL_ttf.h")' 'cInclude("SDL_ttf.h")'
+      substituteInPlace build.zig \
+        --replace 'step.linkSystemLibrary("curl")' 'step.linkSystemLibrary("libcurl")' \
+        --replace 'exe.install();' 'exe.install(); if (true) { return; } // skip tests when cross compiling'
+    '';
+    # optional `zig build` debugging flags:
+    # - --verbose
+    # - --verbose-cimport
+    # - --help
+    installPhase = ''
+      runHook preInstall
+
+      zig build -Dtarget=aarch64-linux-gnu -Drelease-safe=true -Dcpu=baseline --prefix $out install
+      install -d $out/share/man/man1
+
+      runHook postInstall
+    '';
+  });
+
+  # mepo = emulateBuildMachine (prev.mepo.override {
+  #   zig = (final.buildPackages.zig.overrideAttrs (upstream: {
+  #     cmakeFlags = (upstream.cmakeFlags or []) ++ [
+  #       "-DZIG_EXECUTABLE=${final.buildPackages.zig}/bin/zig"
+  #       "-DZIG_TARGET_TRIPLE=aarch64-linux-gnu"
+  #       # "-DZIG_MCPU=${final.targetPlatform.gcc.cpu}"
+  #     ];
+  #     # makeFlags = (upstream.makeFlags or []) ++ [
+  #     #   # stop at the second stage.
+  #     #   # the third stage would be a self-hosted compiler (i.e. build the compiler using what you just built),
+  #     #   # but that only works on native builds
+  #     #   "zig2"
+  #     # ];
+  #   }));
+  # });
+  # mepo = prev.mepo.overrideAttrs (upstream: {
+  #   installPhase = lib.replaceStrings [ "zig " ] [ "zig -Dtarget=aarch64-linux "] upstream.installPhase;
+  #   doCheck = false;
+  # });
+
+  # mepo =
+  #   # let
+  #   #   zig = final.zig.override {
+  #   #     inherit (emulated) stdenv;
+  #   #   };
+  #   #   # makeWrapper = final.makeWrapper.override {
+  #   #   #   inherit (emulated) stdenv;
+  #   #   # };
+  #   #   # makeWrapper = emulated.stdenv.mkDerivation final.makeWrapper;
+  #   # in
+  #   # (prev.mepo.overrideAttrs (upstream: {
+  #   #   checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.checkPhase;
+  #   #   installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.installPhase;
+  #   # })).override {
+  #   #   inherit (emulated) stdenv;
+  #   #   inherit zig;
+  #   # };
+  # let
+  #   mepoDefn = {
+  #     stdenv
+  #     , upstreamMepo
+  #     , makeWrapper
+  #     , pkg-config
+  #     , zig
+  #     # buildInputs
+  #     , curl
+  #     , SDL2
+  #     , SDL2_gfx
+  #     , SDL2_image
+  #     , SDL2_ttf
+  #     , jq
+  #     , ncurses
+  #   }: stdenv.mkDerivation {
+  #     inherit (upstreamMepo)
+  #       pname
+  #       version
+  #       src
+  #       # buildInputs
+  #       preBuild
+  #       doCheck
+  #       postInstall
+  #       meta
+  #     ;
+  #     # moves pkg-config to buildInputs where zig can see it, and uses the host build of zig.
+  #     nativeBuildInputs = [ makeWrapper ];
+  #     buildInputs = [
+  #       curl SDL2 SDL2_gfx SDL2_image SDL2_ttf jq ncurses pkg-config
+  #     ];
+  #     checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstreamMepo.checkPhase;
+  #     installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstreamMepo.installPhase;
+  #   };
+  # in
+  #   emulateBuildMachine (final.callPackage mepoDefn {
+  #     upstreamMepo = prev.mepo;
+  #     zig = final.zig.overrideAttrs (upstream: {
+  #       # TODO: for zig1 we can actually set ZIG_EXECUTABLE and use the build zig.
+  #       # zig2 doesn't support that.
+  #       postPatch = (upstream.postPatch or "") + ''
+  #         substituteInPlace CMakeLists.txt \
+  #           --replace "COMMAND zig1 " "COMMAND ${final.stdenv.hostPlatform.emulator final.buildPackages} $PWD/build/zig1 " \
+  #           --replace "COMMAND zig2 " "COMMAND ${final.stdenv.hostPlatform.emulator final.buildPackages} $PWD/build/zig2 "
+  #       '';
+  #     });
+  #     # zig = emulateBuildMachine (final.zig.overrideAttrs (upstream: {
+  #     #   # speed up the emulated build by skipping docs and tests
+  #     #   outputs = [ "out" ];
+  #     #   postBuild = "";  # don't build docs
+  #     #   doInstallCheck = false;
+  #     #   doCheck = false;
+  #     # }));
+  #   });
+  #   # (prev.mepo.override {
+  #   #   # emulate zig and stdenv to fix:
+  #   #   # - "/build/source/src/sdlshim.zig:1:20: error: C import failed"
+  #   #   # emulate makeWrapper to fix:
+  #   #   # - "error: makeWrapper/makeShellWrapper must be in nativeBuildInputs"
+  #   #   # inherit (emulated) makeWrapper stdenv;
+  #   #   inherit (emulated) stdenv;
+  #   #   inherit zig;
+  #   #   # inherit makeWrapper;
+  #   # }).overrideAttrs (upstream: {
+  #   #   # nativeBuildInputs = [ final.pkg-config makeWrapper ];
+  #   #   # nativeBuildInputs = [ final.pkg-config emulated.makeWrapper ];
+  #   #   # ref to zig by full path because otherwise it doesn't end up on the path...
+  #   #   #checkPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.checkPhase;
+  #   #   #installPhase = lib.replaceStrings [ "zig" ] [ "${zig}/bin/zig" ] upstream.installPhase;
+  #   # });
   # mepo = (prev.mepo.override {
   #   # emulate zig and stdenv to fix:
   #   # - "/build/source/src/sdlshim.zig:1:20: error: C import failed"
@@ -1122,21 +1297,101 @@ in {
   #   })
   # ];
 
-  qt5 = (prev.qt5.override {
-    # build all qt5 modules using emulation...
-    inherit (emulated) stdenv;
-  }).overrideScope (self: super: {
-    # but for anything using `libsForQt5.callPackage`, don't emulate.
-    # note: alternative approach is to only `libsForQt5` (it's a separate scope),.
-    # it inherits so much from the `qt5` scope, so not a clear improvement.
-    mkDerivation = self.mkDerivationWith final.stdenv.mkDerivation;
-    callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit (final) stdenv; };
-    qtbase = super.qtbase.override {
-      # qtbase is the only thing in `qt5` scope that references `[stdenv.]mkDerivation`.
-      # to emulate it, we emulate stdenv; all the other qt5 members are emulated via `qt5.qtModule`
-      inherit (emulated) stdenv;
+  # qt5 = prev.qt5.overrideScope (self: super: {
+  #   # emulate all qt5 modules
+  #   # this is a good idea, because qt is touchy about mixing "versions",
+  #   # but idk if it's necessary -- i haven't tried selective emulation.
+  #   #
+  #   # qt5's `callPackage` doesn't use the final `qtModule`, but the non-overriden one.
+  #   # so to modify `qtModule` we have to go through callPackage.
+  #   callPackage = self.newScope {
+  #     inherit (self) qtCompatVersion srcs stdenv;
+  #     qtModule = args: emulateBuildMachine {
+  #       # clunky emulateBuildMachine API, when not used via `callPackage`
+  #       override = _attrs: super.qtModule args;
+  #     };
+  #   };
+  #   # emulate qtbase (which doesn't go through qtModule)
+  #   qtbase = emulateBuildMachine super.qtbase;
+  # });
+
+  # qt5 = prev.qt5.overrideScope (self: super:
+  #   let
+  #     emulateQtModule = pkg: emulateBuildMachine {
+  #       # qtModule never gets `stdenv`
+  #       override = _stdenv: pkg;
+  #     };
+  #   in {
+  #   qtbase = emulateBuildMachine super.qtbase;
+  #   qtdeclarative = emulateQtModule super.qtdeclarative;
+  #   qtgraphicaleffects = emulateQtModule super.qtgraphicaleffects;
+  #   qtimageformats = emulateQtModule super.qtimageformats;
+  #   qtkeychain = emulateQtModule super.qtkeychain;
+  #   qtmultimedia = emulateQtModule super.qtmultimedia;
+  #   qtquickcontrols = emulateQtModule super.qtquickcontrols;
+  #   qtquickcontrols2 = emulateQtModule super.qtquickcontrols2;
+  #   qtsvg = emulateQtModule super.qtsvg;
+  #   qttools = emulateQtModule super.qttools;
+  #   qtwayland = emulateQtModule super.qtwayland;
+  # });
+
+  qt5 = prev.qt5.override {
+    # emulate qt5base and all qtModules.
+    # because qt5 doesn't place this `stdenv` argument into its scope, `libsForQt5` doesn't inherit
+    # this stdenv. so anything using `libsForQt5.callPackage` builds w/o emulation.
+    stdenv = final.stdenv // {
+      mkDerivation = args: emulateBuildMachine {
+        override = { stdenv }: stdenv.mkDerivation args;
+      };
     };
-  });
+  };
+
+  # qt5 = prev.qt5.overrideScope (self: super: {
+  #   # stdenv.mkDerivation is used by qtModule, so this emulates all the qt modules
+  #   stdenv = final.stdenv // {
+  #     mkDerivation = args: emulateBuildMachine {
+  #       override = { stdenv }: stdenv.mkDerivation args;
+  #     };
+  #   };
+  #   # callPackage/mkDerivation is used by libsForQt5, so we avoid emulating qt consumers.
+  #   # mkDerivation = final.stdenv.mkDerivation;
+  #   # callPackage = self.newScope {
+  #   #   inherit (self) qtCompatVersion qtModule srcs;
+  #   #   inherit (final) stdenv;
+  #   # };
+
+  #   # qtbase = emulateBuildMachine super.qtbase;
+  # });
+  # libsForQt5 = prev.libsForQt5.overrideScope (self: super: {
+  #   stdenv = final.stdenv;
+  #   inherit (self.stdenv) mkderivation;
+  # });
+
+  # qt5 = (prev.qt5.override {
+  #   # qt5 modules see this stdenv; they don't pick up the scope's qtModule or stdenv
+  #   stdenv = emulated.stdenv // {
+  #     # mkDerivation = args: emulateBuildMachine (final.stdenv.mkDerivation args);
+  #     mkDerivation = args: emulateBuildMachine {
+  #       # clunky emulateBuildMachine API, when not used via `callPackage`
+  #       override = _attrs: final.stdenv.mkDerivation args;
+  #     };
+  #   };
+  # }).overrideScope (self: super: {
+  #   # but for anything using `libsForQt5.callPackage`, don't emulate.
+  #   # note: alternative approach is to only `libsForQt5` (it's a separate scope),.
+  #   # it inherits so much from the `qt5` scope, so not a clear improvement.
+  #   mkDerivation = self.mkDerivationWith final.stdenv.mkDerivation;
+  #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit (final) stdenv; };
+  #   # except, still emulate qtbase.
+  #   # all other modules build with qtModule (which emulates), except for qtbase which is behind a `callPackage` and uses `stdenv.mkDerivation`.
+  #   # therefore we need to re-emulate it when make callPackage not emulate here.
+  #   qtbase = emulateBuildMachine super.qtbase;
+  #   # qtbase = super.qtbase.override {
+  #   #   # qtbase is the only thing in `qt5` scope that references `[stdenv.]mkDerivation`.
+  #   #   # to emulate it, we emulate stdenv; all the other qt5 members are emulated via `qt5.qtModule`
+  #   #   inherit (emulated) stdenv;
+  #   # };
+  # });
   # qt5 = emulated.qt5.overrideScope (self: super: {
   #   # emulate all the qt5 packages, but rework `libsForQt5.callPackage` and `mkDerivation`
   #   # to use non-emulated stdenv by default.
@@ -1373,12 +1628,12 @@ in {
   tangram = (prev.tangram.override {
     # N.B. blueprint-compiler is in nativeBuildInputs.
     # the trick here is to force the aarch64 versions to be used during build (via emulation),
-    blueprint-compiler = (useEmulatedStdenv final.blueprint-compiler).overrideAttrs (upstream: {
+    blueprint-compiler = emulateBuildMachine (final.blueprint-compiler.overrideAttrs (upstream: {
       # default is to propagate gobject-introspection *as a buildInput*, when it's supposed to be native.
       propagatedBuildInputs = [];
       # "Namespace Gtk not available"
       doCheck = false;
-    });
+    }));
     # blueprint-compiler = dontCheck emulated.blueprint-compiler;
     # gjs = dontCheck emulated.gjs;
     # gjs = dontCheck (mvToBuildInputs [ final.gobject-introspection ] (useEmulatedStdenv final.gjs));

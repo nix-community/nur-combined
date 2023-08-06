@@ -1,8 +1,8 @@
 { stdenv
 , fetchFromGitHub
 , fetchFromGitea
-, gnused
 , mkYarnModules
+, nodejs
 , zip
 }:
 
@@ -25,7 +25,8 @@ let
   #   sha256 = "sha256-dSRZ2ToEOPhzHNvlG8qdewa7689gT8cNB7nXkN3/Avo=";
   # };
   browserpass-extension-yarn-modules = mkYarnModules {
-    inherit pname version;
+    inherit version;
+    pname = "${pname}-modules";
     packageJSON = ./package.json;
     yarnLock = ./yarn.lock;
     # yarnNix is auto-generated. to update: leave unset, then query the package deps and copy it out of the store.
@@ -37,9 +38,20 @@ let
 in stdenv.mkDerivation {
   inherit pname version src;
 
+  nativeBuildInputs = [ nodejs zip ];
+
   postPatch = ''
     # dependencies are built separately: skip the yarn install
-    ${gnused}/bin/sed -i /yarn\ install/d src/Makefile
+    # prettier, lessc, browserify are made available here via the modules,
+    # which are for the host (even the devDependencies are compiled for the host).
+    # but we can just run those via the build node.
+    #
+    # alternative would be to patchShebangs in the node_modules dir.
+    substituteInPlace src/Makefile \
+      --replace "yarn install" "true" \
+      --replace '	$(PRETTIER)' '	node $(PRETTIER)' \
+      --replace '	$(LESSC)' '	node $(LESSC)' \
+      --replace '	$(BROWSERIFY)' '	node $(BROWSERIFY)'
   '';
 
   preBuild = ''
@@ -48,7 +60,7 @@ in stdenv.mkDerivation {
 
   installPhase = ''
     pushd firefox
-    ${zip}/bin/zip -r $out ./*
+    zip -r $out ./*
     popd
   '';
 
