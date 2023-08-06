@@ -292,11 +292,22 @@ in {
     ];
   });
 
-  conky = ((useEmulatedStdenv prev.conky).override {
+  # conky = ((useEmulatedStdenv prev.conky).override {
+  #   # docbook2x dependency doesn't cross compile
+  #   docsSupport = prev.stdenv.buildPlatform.canExecute prev.stdenv.hostPlatform;
+  # }).overrideAttrs (upstream: {
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [ final.git ];
+  # });
+  conky = (prev.conky.override {
     # docbook2x dependency doesn't cross compile
     docsSupport = prev.stdenv.buildPlatform.canExecute prev.stdenv.hostPlatform;
   }).overrideAttrs (upstream: {
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [ final.git ];
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      # "Unable to find program 'git'"
+      final.git
+      # "bash: line 1: toluapp: command not found"
+      final.toluapp
+    ];
   });
 
   # cozy = prev.cozy.override {
