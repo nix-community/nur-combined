@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -18,6 +18,9 @@
   zsh-capture-completion = pkgs.callPackage ./pkgs/zsh-capture-completion.nix { };
   ueforth = pkgs.callPackage ./pkgs/ueforth.nix { };
   gd32-dfu-utils = pkgs.callPackage ./pkgs/gd32-dfu-utils.nix { };
-  openocd-riscv = pkgs.callPackage ./pkgs/openocd-riscv.nix { };
+  openocd-riscv = pkgs.callPackage ./pkgs/openocd-riscv.nix {
+    inherit libgpiod1;
+  };
+  libgpiod1 = pkgs.callPackage ./pkgs/libgpiod1.nix { };
 
 }
