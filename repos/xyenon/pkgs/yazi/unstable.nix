@@ -87,7 +87,7 @@ rustPlatform.buildRustPackage rec {
           --replace '"zoxide"' '"${zoxide}/bin/zoxide"'
       '';
 
-  cargoHash = "sha256-E2+y+ALmUc0d+YKTAtjq4qPvxb+ZtkCA19PiJHB4jPk=";
+  cargoHash = "sha256-LBnrxGaFTrZhtgM7JfNn2BCFmD5ZGfmE4x1j1u+QYlM=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 
