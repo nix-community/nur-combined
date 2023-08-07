@@ -348,42 +348,37 @@ in {
   #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   # };
 
-  # firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
-  #   unwrapped = super.unwrapped // {
-  #     # browserpass-extension = super.unwrapped.browserpass-extension.override {
-  #     #   # bash: line 1: node_modules/.bin/prettier: cannot execute: required file not found
-  #     #   # same with less and browserify.
-  #     #   inherit (emulated) mkYarnModules;
-  #     # };
-  #     # browserpass-extension = emulateBuildMachine super.unwrapped.browserpass-extension;
-  #     browserpass-extension = super.unwrapped.browserpass-extension.override {
-  #       mkYarnModules = args: emulateBuildMachine {
-  #         override = { stdenv }: (
-  #           (final.yarn2nix-moretea.override {
-  #             pkgs = final.pkgs.__splicedPackages // { inherit stdenv; };
-  #           }).mkYarnModules args
-  #         ).overrideAttrs (upstream: {
-  #           # i guess the VM creates the output directory for the derivation? not sure.
-  #           # and `mv` across the VM boundary breaks, too?
-  #           # original errors:
-  #           # - "mv: cannot create directory <$out>: File exists"
-  #           # - "mv: failed to preserve ownership for"
-  #           buildPhase = lib.replaceStrings
-  #             [
-  #               "mkdir $out"
-  #               "mv "
-  #             ]
-  #             [
-  #               "mkdir $out || true ; chmod +w deps/browserpass-extension-modules/package.json"
-  #               "cp -Rv "
-  #             ]
-  #             upstream.buildPhase
-  #           ;
-  #         });
-  #       };
-  #     });
-  #   };
-  # });
+  firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
+    unwrapped = super.unwrapped // {
+      browserpass-extension = super.unwrapped.browserpass-extension.override {
+        # this overlay is optional for binfmt machines, but non-binfmt can't cross-compile the modules (for use at runtime)
+        mkYarnModules = args: emulateBuildMachine {
+          override = { stdenv }: (
+            (final.yarn2nix-moretea.override {
+              pkgs = final.pkgs.__splicedPackages // { inherit stdenv; };
+            }).mkYarnModules args
+          ).overrideAttrs (upstream: {
+            # i guess the VM creates the output directory for the derivation? not sure.
+            # and `mv` across the VM boundary breaks, too?
+            # original errors:
+            # - "mv: cannot create directory <$out>: File exists"
+            # - "mv: failed to preserve ownership for"
+            buildPhase = lib.replaceStrings
+              [
+                "mkdir $out"
+                "mv "
+              ]
+              [
+                "mkdir $out || true ; chmod +w deps/browserpass-extension-modules/package.json"
+                "cp -Rv "
+              ]
+              upstream.buildPhase
+            ;
+          });
+        };
+      };
+    };
+  });
 
   # 2023/07/31: upstreaming is blocked on ostree dep
   # flatpak = prev.flatpak.overrideAttrs (upstream: {

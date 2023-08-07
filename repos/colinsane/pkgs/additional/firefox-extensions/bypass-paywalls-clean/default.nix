@@ -20,8 +20,10 @@ stdenv.mkDerivation rec {
     ./0003-disable-metrics.patch
   ];
 
+  nativeBuildInputs = [ zip ];
+
   installPhase = ''
-    ${zip}/bin/zip -r $out ./*
+    zip -r $out ./*
   '';
 
   passthru = {

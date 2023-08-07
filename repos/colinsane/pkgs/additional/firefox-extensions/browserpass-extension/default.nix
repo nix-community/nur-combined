@@ -65,6 +65,7 @@ in stdenv.mkDerivation {
   '';
 
   passthru = {
+    yarn-modules = browserpass-extension-yarn-modules;
     extid = "browserpass@maximbaz.com";
   };
 }
