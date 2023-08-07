@@ -37,7 +37,7 @@ cmp.setup({
         entries = "native",
     },
     sources = {
-        { name = "path", priority_weight = 110 },
+        { name = "async_path", priority_weight = 110 },
         { name = "nvim_lsp", priority_weight = 100 },
         { name = "nvim_lua", priority_weight = 90 },
         { name = "luasnip", priority_weight = 80 },
