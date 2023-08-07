@@ -144,12 +144,36 @@ in [
   #   hash = "sha256-MNG8C0OgdPnFQ8SF2loiEhXJuP2z4n9pkXr8Zh4X7QU=";
   # })
 
+  # 2023-08-06: conky wayland + cross compilation patches.
+  # nix path-info shows clean
+  # branch is wip-conky-cross2 on servo
+  # factoring out those feature abstractions was possibly overkill.
+  # the manual wayland-scanner patching is unfortunate, but within
+  #   acceptable norms of the existing package.
   (fetchpatch' {
-    title = "conky: support wayland";
-    # saneCommit = "82978099c3a0d5fb4925351da1b0e2598503dc6c";
-    # hash = "sha256-lnDGEDhmeOIXfFnizEIVUiUzI7nMvpoCERbdjhR+Bto=";
-    saneCommit = "3ad928e20b498444e3a106b182e09317cea9a11f";
-    hash = "sha256-lvIASvQWVFbjHsQwO2EhEBUTSq1UkHvriaZZ2iS0ulU=";
+    title = "conky: factor out an abstraction for feature flags";
+    saneCommit = "3ddf13038d6df90ad0db36a41d55e4077818a3e9";
+    hash = "sha256-CjLzndFEH1Ng9CqKX8gxCJ6n/wFv5U/sHnQE0FMYILc=";
+  })
+  (fetchpatch' {
+    title = "conky: simplify the features even more";
+    saneCommit = "1c4aa404743f1ae7d5b95f18a96c4057ca251a96";
+    hash = "sha256-0zhiw9siIkFgFW4sow+X88NBEa3ggCe1t1HJ5xFH4ac=";
+  })
+  (fetchpatch' {
+    title = "conky: support cross compilation";
+    saneCommit = "01e607e11c7e5bbbfe6ad132fb72394ec29dab0a";
+    hash = "sha256-Bm/XFLvE7gEyLPlBWNSAcU3qwwqKLIRdpoe0/1aHUho=";
+  })
+  (fetchpatch' {
+    title = "conky: add wayland support";
+    saneCommit = "84c51f67e02ebc7f118fd3171bd10f1978d4f1e6";
+    hash = "sha256-gRYbkzCe3q1R7X/FeOcz/haURQkeAfmED1/ZQlCCdWE=";
+  })
+  (fetchpatch' {
+    title = "conky: remove no-op sed patch";
+    saneCommit = "e8b19984a2858ca24b7e8f5acd20be8b7dfe1af0";
+    hash = "sha256-K3mG1kcyB7sQZ7ZRCdlinNsV6mCcl3eIUI2ldSmcbJE=";
   })
 
   # (fetchpatch' {
