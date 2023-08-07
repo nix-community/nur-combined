@@ -39,6 +39,7 @@
       "koreader"
       "lemoa"  # lemmy app
       # "lollypop"
+      "mate.engrampa"  # archive manager
       "mepo"  # maps viewer
       "mpv"
       # "networkmanagerapplet"
@@ -71,7 +72,7 @@
       # "gajim"  # XMPP client
       "gimp"  # broken on phosh
       "gnome.dconf-editor"
-      "gnome.file-roller"
+      # "gnome.file-roller"
       "gnome.gnome-disk-utility"
       "gnome.nautilus"  # file browser
       # "gnome.totem"  # video player, supposedly supports UPnP

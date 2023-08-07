@@ -1,7 +1,10 @@
 { stdenv
+, bash
 , bc
 , bemenu
 , bonsai
+, buildPackages
+, busybox
 , conky
 , coreutils
 , dbus
@@ -40,13 +43,13 @@
 let
   # anything which any sxmo script or default hook in this package might invoke
   runtimeDeps = [
-    bc
+    bc  # also in busybox
     bemenu
     bonsai
     conky
     dbus
     # dmenu  # or dmenu-wayland? only used on x11?
-    gnugrep
+    gnugrep  # also in busybox
     gojq
     grim
     inotify-tools
@@ -106,7 +109,6 @@ stdenv.mkDerivation rec {
       url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42880/mbox";
       hash = "sha256-tAMPBb6vwzj1dFMTEaqrcCJU6FbQirwZgB0+tqW3rQA=";
     })
-    ./0004-no-busybox.patch
     # wanted to fix/silence some non-fatal errors
     ./0005-system-audio.patch
     ./0007-workspace-wrapping.patch
@@ -160,11 +162,16 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  installFlags = [
-    "OPENRC=0"
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  buildInputs = [ bash ];  # needed here so stdenv's `patchShebangsAuto` hook sets the right interpreter
+
+  installPhase = ''
+    runHook preInstall
+
+    # busybox is used by setup_config_version.sh, but placing it in nativeBuildInputs breaks the nix builder
+    PATH="$PATH:${buildPackages.busybox}/bin" make OPENRC=0 DESTDIR=$out PREFIX= install
+
+    runHook postInstall
+  '';
 
   # we don't wrap sxmo_common.sh or sxmo_init.sh
   # which is unfortunate, for non-sxmo-utils files that might source though.
