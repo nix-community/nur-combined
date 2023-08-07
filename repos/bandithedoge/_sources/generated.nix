@@ -138,15 +138,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "5bdd05a9415eaf35b163d6ee8feaa7f64ad9b73d";
+    version = "ad69e1be793e61dce2d586481c0f6dda7d978c25";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "5bdd05a9415eaf35b163d6ee8feaa7f64ad9b73d";
+      rev = "ad69e1be793e61dce2d586481c0f6dda7d978c25";
       fetchSubmodules = false;
-      sha256 = "sha256-pphRp5UIbbKfRJl9MLny3CMUI+SDMISim3Ol2Wh73Bg=";
+      sha256 = "sha256-mak2sOtyT4LOcn6zPPMdaWH92tm9qC7Hta7+IaMmTGk=";
     };
-    date = "2023-07-26";
+    date = "2023-08-06";
   };
   lua-dbus = {
     pname = "lua-dbus";
@@ -311,15 +311,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "1bc89335ca42b83ce759fd4cd0fd518e43b7983d";
+    version = "274df747dfe322fe953de7f9641ed9972c94c870";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "1bc89335ca42b83ce759fd4cd0fd518e43b7983d";
+      rev = "274df747dfe322fe953de7f9641ed9972c94c870";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-ziyLEH5yZSVDn6qPeGDQXfbZjXZxUnQiigrq8pvddFI=";
+      sha256 = "sha256-kKE9kETdqlasP9aw8XA3LAR0STo2qzSSz4T/7grV2yw=";
     };
-    date = "2023-06-11";
+    date = "2023-08-06";
   };
 }
