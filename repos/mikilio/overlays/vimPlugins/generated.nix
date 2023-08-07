@@ -5,12 +5,12 @@ final: prev:
 {
   knap = buildVimPluginFrom2Nix {
     pname = "knap";
-    version = "2023-08-06";
+    version = "2023-08-07";
     src = fetchFromGitHub {
       owner = "Mikilio";
       repo = "knap";
-      rev = "71896a99b18c878d351e1f6f9f75c11a19be4cbf";
-      sha256 = "074xrydgh0nlals5xskj53z9gmakxb68glmlnvhrs8pv85qadssv";
+      rev = "f4cb28fbb1469458f4b654062eb4ba53b92dc0be";
+      sha256 = "03y5w5n4jykly3rfnmr4a8iaxpwxgasz99yj3kvf1bd8fdsj1mda";
     };
     meta.homepage = "https://github.com/Mikilio/knap/";
   };
