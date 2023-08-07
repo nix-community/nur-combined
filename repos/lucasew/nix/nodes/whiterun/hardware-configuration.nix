@@ -28,7 +28,7 @@
       fsType = "zfs";
     };
 
-  fileSystems."/var/journal" =
+  fileSystems."/var/log/journal" =
     { device = "zroot/root/system/var/journal";
       fsType = "zfs";
     };
