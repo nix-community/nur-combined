@@ -1,17 +1,17 @@
 { rustPlatform, fetchFromGitHub, bash, lib, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
-  name = "catp";
+  pname = "catp";
   version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "rapiz1";
-    repo = name;
+    repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-yYvJJFXEOxUz+R50ioyHQp3GqF4V8J+vYBPxh4AuA3E=";
+    hash = "sha256-yYvJJFXEOxUz+R50ioyHQp3GqF4V8J+vYBPxh4AuA3E=";
   };
 
-  cargoSha256 = "sha256-21zcL3ibhfVIqsX6UCN30V0XGHBiIAfzjMBkHFoGckg=";
+  cargoHash = "sha256-ErJif5ZOgMPYaUdsaTcLqJVIgl0pYRHdI2+XiNjdee4=";
 
   checkInputs = [ bash ];
   preCheck = ''

@@ -1,12 +1,12 @@
 { lib, fetchFromGitHub, buildGoModule, nix-update-script }:
 
 buildGoModule rec {
-  name = "lux";
+  pname = "lux";
   version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "iawia002";
-    repo = name;
+    repo = pname;
     rev = "v${version}";
     hash = "sha256-klm1985qBErFfYIWPjr1/n6nYr/jA9dbrDMfw4bf1tM=";
   };

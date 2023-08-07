@@ -15,12 +15,12 @@
 }:
 
 let
-  immer = stdenv.mkDerivation {
-    name = "immer";
+  immer = stdenv.mkDerivation rec {
+    pname = "immer";
     version = "unstable";
     src = fetchFromGitHub {
       owner = "arximboldi";
-      repo = "immer";
+      repo = pname;
       rev = "5e9fe0b3476d1036824fc8934433ba3ddc85a90f";
       hash = "sha256-6Re9+9upHW73k2q/lp65Azu06au1vw609U9QS8XXIO8=";
     };
@@ -38,12 +38,12 @@ let
     };
   };
 
-  zug = stdenv.mkDerivation {
-    name = "zug";
+  zug = stdenv.mkDerivation rec {
+    pname = "zug";
     version = "unstable";
     src = fetchFromGitHub {
       owner = "arximboldi";
-      repo = "zug";
+      repo = pname;
       rev = "d7e814b45fceceee3cb1442997d8b46cee4764ec";
       hash = "sha256-zImjvOEW05lAPDcSWvGmWe2SyEdTyfj/DMgOc2C+hPM=";
     };
@@ -57,12 +57,12 @@ let
     };
   };
 
-  lager = stdenv.mkDerivation {
-    name = "lager";
+  lager = stdenv.mkDerivation rec {
+    pname = "lager";
     version = "unstable";
     src = fetchFromGitHub {
       owner = "arximboldi";
-      repo = "lager";
+      repo = pname;
       rev = "8fd338d6d67dd2efc4f38c0634c2f849a7db8774";
       hash = "sha256-SJ3+DjMQ3ZRUtCov9rscNhk4Zsdqizcz4ae3szs/wro=";
     };
@@ -77,11 +77,11 @@ let
   };
 
   cpr = stdenv.mkDerivation rec {
-    name = "cpr";
+    pname = "cpr";
     version = "1.6.0";
     src = fetchFromGitHub {
       owner = "libcpr";
-      repo = name;
+      repo = pname;
       rev = "refs/tags/${version}";
       hash = "sha256-Y2jCINX4Gb5bKLCibYmtDllk1HrxwZE62BBHABK4TX0=";
     };
@@ -96,14 +96,14 @@ let
     };
   };
 in
-stdenv.mkDerivation {
-  name = "libkazv";
+stdenv.mkDerivation rec {
+  pname = "libkazv";
   version = "unstable-2023-07-28";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
-    repo = "libkazv";
+    repo = pname;
     rev = "30c36a46926d210711a5ce2606f776aec14a4d5f";
     hash = "sha256-V5OX9lLVg9ujtcbzF0THcWnGqNh9WzwCd3+1oqDjHoM=";
   };

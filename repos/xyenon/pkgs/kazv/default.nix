@@ -18,14 +18,14 @@
 , unstableGitUpdater
 }:
 
-stdenv.mkDerivation {
-  name = "kazv";
+stdenv.mkDerivation rec {
+  pname = "kazv";
   version = "unstable-2023-07-29";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
-    repo = "kazv";
+    repo = pname;
     fetchSubmodules = true;
     rev = "93f5590d151075a336b79157fcee73ac39a1b454";
     hash = "sha256-4FBiqfTRlMOuykKsTOu/tdSN5oQAintG/m1tj/PRBbk=";

@@ -1,13 +1,13 @@
 { buildNpmPackage, fetchzip, lib }:
 
 let
-  name = "github-copilot-cli";
+  pname = "github-copilot-cli";
   version = "0.1.33";
-  baseUrl = "https://registry.npmjs.org/@githubnext/${name}";
-  pkgUrl = "${baseUrl}/-/${name}-${version}.tgz";
+  baseUrl = "https://registry.npmjs.org/@githubnext/${pname}";
+  pkgUrl = "${baseUrl}/-/${pname}-${version}.tgz";
 in
 buildNpmPackage {
-  inherit name version;
+  inherit pname version;
 
   src = fetchzip {
     url = pkgUrl;
@@ -22,7 +22,7 @@ buildNpmPackage {
 
   dontNpmBuild = true;
 
-  passthru.updateScript = [ ./updater.sh baseUrl name version ];
+  passthru.updateScript = [ ./updater.sh baseUrl pname version ];
 
   meta = with lib;
     {

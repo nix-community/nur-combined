@@ -1,12 +1,12 @@
 { lib, fetchFromGitHub, buildGoModule, unstableGitUpdater }:
 
 buildGoModule rec {
-  name = "go-check";
+  pname = "go-check";
   version = "unstable-2023-01-05";
 
   src = fetchFromGitHub {
     owner = "Dreamacro";
-    repo = name;
+    repo = pname;
     rev = "a62daa7f5376a1b21d56a344e8b82fb038bbbf1b";
     hash = "sha256-bUj5cr2SYWN2Jv3LjZx5lJYXWX9S5vGOMY8iwr7YalY=";
   };
