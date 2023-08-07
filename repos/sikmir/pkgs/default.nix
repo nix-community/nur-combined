@@ -27,6 +27,7 @@ lib.makeScope newScope (
 
     amethyst-bin = callPackage ./darwin/amethyst/bin.nix { };
     cudatext-bin = callPackage ./darwin/cudatext/bin.nix { };
+    darktable-bin = callPackage ./darwin/darktable/bin.nix { };
     finch = callPackage ./darwin/finch {
       buildGoModule = pkgs.buildGo120Module;
     };
