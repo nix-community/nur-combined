@@ -1329,7 +1329,7 @@ in {
   #   qtdeclarative = emulateQtModule super.qtdeclarative;
   #   qtgraphicaleffects = emulateQtModule super.qtgraphicaleffects;
   #   qtimageformats = emulateQtModule super.qtimageformats;
-  #   qtkeychain = emulateQtModule super.qtkeychain;
+  #   qtkeychain = emulateQtModule super.qtkeychain;  #< doesn't exist?
   #   qtmultimedia = emulateQtModule super.qtmultimedia;
   #   qtquickcontrols = emulateQtModule super.qtquickcontrols;
   #   qtquickcontrols2 = emulateQtModule super.qtquickcontrols2;
@@ -1338,16 +1338,32 @@ in {
   #   qtwayland = emulateQtModule super.qtwayland;
   # });
 
-  qt5 = prev.qt5.override {
-    # emulate qt5base and all qtModules.
-    # because qt5 doesn't place this `stdenv` argument into its scope, `libsForQt5` doesn't inherit
-    # this stdenv. so anything using `libsForQt5.callPackage` builds w/o emulation.
-    stdenv = final.stdenv // {
-      mkDerivation = args: emulateBuildMachine {
-        override = { stdenv }: stdenv.mkDerivation args;
-      };
-    };
-  };
+  # qt5 = let
+  #   emulatedQt5 = prev.qt5.override {
+  #     # emulate qt5base and all qtModules.
+  #     # because qt5 doesn't place this `stdenv` argument into its scope, `libsForQt5` doesn't inherit
+  #     # this stdenv. so anything using `libsForQt5.callPackage` builds w/o emulation.
+  #     stdenv = final.stdenv // {
+  #       mkDerivation = args: emulateBuildMachine {
+  #         override = { stdenv }: stdenv.mkDerivation args;
+  #       };
+  #     };
+  #   };
+  # in prev.qt5.overrideScope (self: super: {
+  #   inherit (emulatedQt5)
+  #     qtbase
+  #     # without emulation these all fail with "Project ERROR: Cannot run compiler 'g++'."
+  #     qtdeclarative
+  #     qtgraphicaleffects
+  #     qtimageformats
+  #     qtmultimedia
+  #     qtquickcontrols
+  #     qtquickcontrols2
+  #     qtsvg
+  #     qttools
+  #     qtwayland
+  #   ;
+  # });
 
   # qt5 = prev.qt5.overrideScope (self: super: {
   #   # stdenv.mkDerivation is used by qtModule, so this emulates all the qt modules
