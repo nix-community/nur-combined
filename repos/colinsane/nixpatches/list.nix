@@ -241,8 +241,8 @@ in [
   })
 
   # (fetchpatch' {
-  #   # TODO: send this upstream!
   #   title = "mepo: 1.1 -> 1.1.2";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/247866";
   #   saneCommit = "eee68d7146a6cd985481cdd8bca52ffb204de423";
   #   hash = "sha256-uNerTwyFzivTU+o9bEKmNMFceOmy2AKONfKJWI5qkzo=";
   # })
