@@ -1,11 +1,13 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf mkForce;
+  inherit (lib) mkIf mkForce mkDefault;
 in
 {
   config = mkIf config.services.magnetico.enable {
     networking.ports.magnetico-web.enable = true;
+    networking.ports.magnetico-web.port = mkDefault 49146;
     networking.ports.magnetico-crawler.enable = true;
+    networking.ports.magnetico-crawler.port = mkDefault 49140;
     services.magnetico.web = {
       inherit (config.networking.ports.magnetico-web) port;
     };

@@ -7,27 +7,26 @@ in
 {
   config = mkIf config.services.transmission.enable {
     networking.ports = {
-      transmission-0000.enable = true; # highest port
-      transmission-0001.enable = true;
-      transmission-0002.enable = true;
-      transmission-0003.enable = true;
-      transmission-0004.enable = true;
-      transmission-0005.enable = true;
-      transmission-0006.enable = true;
-      transmission-0007.enable = true;
-      transmission-0008.enable = true;
-      transmission-0009.enable = true;
-      transmission-0010.enable = true;
-      transmission-9999.enable = true; # lowest port
-      transmission-rpc.enable = true; # lowest port
+      transmission-000 = { enable = true; port = 49120;}; # highest port
+      transmission-001 = { enable = true; port = 49119;};
+      transmission-002 = { enable = true; port = 49118;};
+      transmission-003 = { enable = true; port = 49117;};
+      transmission-004 = { enable = true; port = 49116;};
+      transmission-005 = { enable = true; port = 49115;};
+      transmission-006 = { enable = true; port = 49114;};
+      transmission-007 = { enable = true; port = 49113;};
+      transmission-008 = { enable = true; port = 49112;};
+      transmission-009 = { enable = true; port = 49111;};
+      transmission-999 = { enable = true; port = 49110;}; # lowest port
+      transmission-rpc  = { enable = true; port = 49109;};
     };
     services.transmission = {
       openFirewall = true;
       openPeerPorts = true;
       settings = {
         peer-port-random-on-start = true;
-        peer-port-random-low = config.networking.ports.transmission-9999.port;
-        peer-port-random-high = config.networking.ports.transmission-0000.port;
+        peer-port-random-low = config.networking.ports.transmission-999.port;
+        peer-port-random-high = config.networking.ports.transmission-000.port;
         rpc-port = config.networking.ports.transmission-rpc.port;
         message-level = 3; # journalctl all the things, hope it doesnt spam
         utp-enabled = true;

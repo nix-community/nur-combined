@@ -19,6 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     networking.ports.cf-torrent.enable = mkDefault true;
+    networking.ports.cf-torrent.port = mkDefault 49151;
 
     services.cf-torrent.port = mkDefault config.networking.ports.cf-torrent.port;
 
