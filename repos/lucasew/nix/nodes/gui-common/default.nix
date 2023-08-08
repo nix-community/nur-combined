@@ -14,6 +14,7 @@ in {
     ./tuning.nix
     ./ipfs.nix
     ./gamemode.nix
+    ./syncthing.nix
   ];
   nixpkgs = {
     config = {

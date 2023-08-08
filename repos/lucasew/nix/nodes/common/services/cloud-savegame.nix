@@ -1,7 +1,9 @@
 { self, config, pkgs, lib, bumpkin, ... }:
 let
   inherit (lib) mkOption mkIf mkEnableOption types optionalString optional;
-  ini = pkgs.formats.ini {};
+  ini = pkgs.formats.ini {
+    listToValue = value: builtins.concatStringsSep config.options.services.cloud-savegame.settings.general.divider;
+  };
   cloud-savegame = pkgs.callPackage "${bumpkin.unpacked.cloud-savegame}/package.nix" {};
   cfg = config.services.cloud-savegame;
 in {
@@ -44,7 +46,7 @@ in {
         These are converted to the ini file
       '';
 
-      type = types.anything;
+      type = ini.type;
 
       example = builtins.fromTOML "${self.inputs.cloud-savegame}/demo.cfg";
 

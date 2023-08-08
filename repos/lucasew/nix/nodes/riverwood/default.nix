@@ -26,6 +26,8 @@ in
     ]
   ;
 
+  services.syncthing.enable = true;
+
   boot.plymouth.enable = true;
 
   services.pocket2kindle.enable = true;
