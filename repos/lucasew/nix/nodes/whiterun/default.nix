@@ -25,8 +25,6 @@ in {
     ./container-nat.nix
   ];
 
-  services.syncthing.enable = true;
-
   services.transmission.enable = true;
   systemd.services.transmission.serviceConfig.BindPaths = [
     "/storage/downloads"
