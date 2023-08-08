@@ -29,13 +29,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "yazi";
-  version = "unstable-2023-08-07";
+  version = "unstable-2023-08-08";
 
   src = fetchFromGitHub {
     owner = "sxyazi";
     repo = pname;
-    rev = "4b8c1ade07c419bce86c51c57957857dbd5ca10d";
-    hash = "sha256-cwIiknYUkQ0vsp93FfbRzkWqKL4HIlAUHK++Z58ez/w=";
+    rev = "f9836f2f8ab25b91bd1758699cd4df5e48b6d532";
+    hash = "sha256-QdRUGVUkVINT0AVjZi4zPQcQIFIvvhp1LKBrjk/jcHw=";
   };
 
   postPatch =
@@ -87,13 +87,9 @@ rustPlatform.buildRustPackage rec {
           --replace '"zoxide"' '"${zoxide}/bin/zoxide"'
       '';
 
-  cargoHash = "sha256-LBnrxGaFTrZhtgM7JfNn2BCFmD5ZGfmE4x1j1u+QYlM=";
+  cargoHash = "sha256-hL1bJ6zJ5CavXWshlc8fJy0+SJXKOgk7XEAFKExhCjM=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
-
-  postInstall = ''
-    mv $out/bin/app $out/bin/yazi
-  '';
 
   passthru.updateScript = unstableGitUpdater { };
 
