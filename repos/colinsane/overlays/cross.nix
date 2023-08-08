@@ -851,8 +851,8 @@ in {
     # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [ final.pkg-config ];
   });
 
-  mepo = prev.mepo.overrideAttrs (upstream: {
-    doCheck = false;
+  mepo-latest = prev.mepo-latest.overrideAttrs (upstream: {
+    dontUseZigCheck = true;
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # zig hardcodes the /lib/ld-linux.so interpreter which breaks nix dynamic linking & dep tracking
       final.autoPatchelfHook
@@ -869,18 +869,15 @@ in {
         --replace 'step.linkSystemLibrary("curl")' 'step.linkSystemLibrary("libcurl")' \
         --replace 'exe.install();' 'exe.install(); if (true) { return; } // skip tests when cross compiling'
     '';
+    # skip the mepo -docman self-documenting invocation
+    postInstall = ''
+      install -d $out/share/man/man1
+    '';
     # optional `zig build` debugging flags:
     # - --verbose
     # - --verbose-cimport
     # - --help
-    installPhase = ''
-      runHook preInstall
-
-      zig build -Dtarget=aarch64-linux-gnu -Drelease-safe=true -Dcpu=baseline --prefix $out install
-      install -d $out/share/man/man1
-
-      runHook postInstall
-    '';
+    zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
 
   # mepo = emulateBuildMachine (prev.mepo.override {

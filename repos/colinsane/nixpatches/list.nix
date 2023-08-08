@@ -176,15 +176,20 @@ in [
     hash = "sha256-K3mG1kcyB7sQZ7ZRCdlinNsV6mCcl3eIUI2ldSmcbJE=";
   })
 
+  # (fetchpatch' {
+  #   title = "gtk3: compile schemas even when cross compiling";
+  #   saneCommit = "5ee69670071f583bdffe2718dc46763fa1698f92";
+  #   hash = "sha256-ZX3lY63qUW2XuwCoxffbLYoFxckDImKy+S8mqlYJcvk=";
+  # })
+  # (fetchpatch' {
+  #   title = "gtk4: compile schemas even when cross compiling";
+  #   saneCommit = "7a1c5e3a5d1ff82c8afa659c7f903d5309d5de6a";
+  #   hash = "sha256-Tz8NBcIqGE9rCqbOrixgbvApYDEAHWCg4lZbklL/xXc=";
+  # })
   (fetchpatch' {
-    title = "gtk3: compile schemas even when cross compiling";
-    saneCommit = "62be06cac9e81bbdd9c9f0b69f85b594a4d8a121";
-    hash = "sha256-ui7ueC8c4nzDUU59pHMv0lmzSjG5XpjOLBge7VbBe4g=";
-  })
-  (fetchpatch' {
-    title = "gtk4: compile schemas even when cross compiling";
-    saneCommit = "ce52ebef321918ad94a31143a96db9f1672fe9a3";
-    hash = "sha256-SfVViHkOrbV8dd+iunBFO41YyW45bt3uvGR+uKWqbvg=";
+    title = "gtk{3,4}: compile schemas even when cross compiling";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/247844";
+    hash = "sha256-1CsjLgMvX0Lx500UDzal5HZi78hb7zBcb+AlNPF6NvA=";
   })
 
   # (fetchpatch' {
@@ -235,13 +240,12 @@ in [
     hash = "sha256-38sND/UNRj5WAYYKpzdrRBIOK4UAT14RzbIv49KmNNw=";
   })
 
-  (fetchpatch' {
-    # TODO: send this upstream!
-    title = "mepo: 1.1 -> 1.1.2";
-    saneCommit = "eee68d7146a6cd985481cdd8bca52ffb204de423";
-    hash = "sha256-uNerTwyFzivTU+o9bEKmNMFceOmy2AKONfKJWI5qkzo=";
-  })
-
+  # (fetchpatch' {
+  #   # TODO: send this upstream!
+  #   title = "mepo: 1.1 -> 1.1.2";
+  #   saneCommit = "eee68d7146a6cd985481cdd8bca52ffb204de423";
+  #   hash = "sha256-uNerTwyFzivTU+o9bEKmNMFceOmy2AKONfKJWI5qkzo=";
+  # })
 
   (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
@@ -396,10 +400,10 @@ in [
   })
 
   (fetchpatch' {
-    # TODO(2023/08/06): upstream. the closure looks fine
     title = "mate.engrampa: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/247841";
     saneCommit = "3c76cdaf837f48861e4c3347b480c9a18b5b4a72";
-    hash = "sha256-+4VhCmIpuM9opRhCvPsB7XYVQdHbdCTqlYsizbHga7Y=";
+    hash = "sha256-rT0CBTOFxHQAvxqjWeNRJ2jenDuNRSo+gVDoPFKzHSM=";
   })
 
   (fetchpatch' {

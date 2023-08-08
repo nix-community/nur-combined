@@ -28,6 +28,7 @@ let
     eg25-manager = callPackage ./additional/eg25-manager { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
     lemoa = callPackage ./additional/lemoa { };
+    mepo-latest = callPackage ./additional/mepo-latest { inherit (unpatched) mepo; };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     firefox-extensions = lib.recurseIntoAttrs (callPackage ./additional/firefox-extensions { });
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
