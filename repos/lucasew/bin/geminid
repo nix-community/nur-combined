@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+from argparse import ArgumentParser
+import socket
+import ssl
+import logging
+from urllib.parse import urlparse, urlunparse, urljoin
+import mimetypes
+import io
+import subprocess
+import os
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+mimetypes.init()
+
+parser = ArgumentParser()
+
+parser.add_argument('folder', default=Path('.').resolve(), type=Path)
+parser.add_argument('--host', dest='host', default='127.0.0.1')
+parser.add_argument('-k', '--ssl-keyfile', dest='ssl_keyfile', type=Path)
+parser.add_argument('-c', '--ssl-cert', dest='ssl_cert', type=Path)
+parser.add_argument('-v', '--verbose', dest='verbose', action='store_true')
+parser.add_argument('-l', '--listdir', dest='list_dir', action='store_true')
+parser.add_argument('-x', '--cgi', dest='enable_cgi', action='store_true')
+
+args = parser.parse_args()
+if args.verbose:
+    logger.setLevel(logging.DEBUG)
+
+args.folder = args.folder.resolve()
+
+if args.ssl_keyfile is None or args.ssl_cert is None:
+    from tempfile import mkdtemp
+    from OpenSSL import crypto, SSL
+    tempdir = Path(mkdtemp())
+
+    print(f"Generating temp certificates to: {tempdir}")
+    k = crypto.PKey()
+    k.generate_key(crypto.TYPE_RSA, 4096)
+    cert = crypto.X509()
+    subject = cert.get_subject()
+    subject.CN = socket.gethostname()
+    cert.set_serial_number(1)
+    cert.gmtime_adj_notBefore(0)
+    cert.gmtime_adj_notAfter(1 << 33)
+    cert.set_issuer(cert.get_subject())
+    cert.set_pubkey(k)
+    cert.sign(k, 'sha512')
+    args.ssl_keyfile = tempdir / "private.key"
+    args.ssl_cert = tempdir / "certificate.crt"
+    args.ssl_cert.write_bytes(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
+    args.ssl_keyfile.write_bytes(crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
+
+context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+context.load_cert_chain(args.ssl_cert, args.ssl_keyfile)
+
+def conn_send_str(conn, msg):
+    conn.send(msg.encode('utf-8'))
+    if args.verbose:
+        for line in msg.split('\n'):
+            logger.debug(f'conn_send_str: {line}')
+
+def handle_request(connection, request):
+    url_path = request.path
+    unparsed_url = urlunparse(request)
+    name_parts = url_path.split('.')
+
+    if len(url_path) > 0 and url_path[0] == '/':
+        url_path = url_path[1:]
+    item = (args.folder / url_path).resolve()
+    if not str(item).startswith(str(args.folder)):
+        logger.warn(f'Someone tried to exploit relative paths: {request.path}')
+        conn_send_str(connection, '51 not found\r\n')
+    elif item.is_dir() and args.list_dir:
+        conn_send_str(connection, '20 text/gemini\r\n')
+        conn_send_str(connection, '# File listing\r\n')
+        for file in [item / '../', *item.iterdir()]:
+            unparsed_appended = urljoin(unparsed_url.replace('gemini://', 'http://'), file.name).replace('http://', 'gemini://')
+            conn_send_str(connection, f'=> {unparsed_appended} {file.name}\r\n')
+    elif item.is_file():
+        mime = mimetypes.guess_type(str(item))
+        if str(item).endswith('.gmi'):
+            mime = 'text/gemini'
+        if args.enable_cgi and len(name_parts) > 2 and name_parts[-2] == 'cgi'  and os.access(item, os.X_OK):
+            command = str(item.resolve())
+            logger.info(f'Running command: {command}')
+            res = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            conn_send_str(connection, f'20 {mime}\r\n')
+            while res.poll() is None:
+                (chunk, _) = res.communicate()
+                connection.send(chunk)
+        else:
+            conn_send_str(connection, f'20 {mime}\r\n')
+            with item.open('rb') as f:
+                while True:
+                    chunk = f.read(1024)
+                    if not chunk:
+                        break
+                    connection.send(chunk)
+    else:
+        conn_send_str(connection, '51 not found\r\n')
+    connection.sendall(b'')
+    logger.debug('Finalizing connection')
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server.bind((args.host, 1965))
+    server.listen(1965)
+    logger.info('Listening on port 1965...')
+    while True:
+        connection, (client_host, client_port) = server.accept()
+        logger.debug(f'Accept connection from: "{client_host}:{client_port}"')
+        with context.wrap_socket(connection, server_side=True) as connection:
+            data = b''
+            while True:
+                chunk = connection.recv(1024)
+                if not chunk:
+                    break
+                logger.debug(f'Recv chunk sz={len(chunk)}')
+                data += chunk
+                if len(chunk) < 1024:
+                    break
+            request_url = data.decode('utf-8').strip()
+            logger.info(f'REQUEST(from={client_host}:{client_port}): {request_url}')
+            request = urlparse(request_url)
+
+            handle_request(connection, request)
+            connection.close()
+
