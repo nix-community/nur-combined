@@ -56,6 +56,7 @@ in {
     ncdu
     nix-option
     nix-prefetch-scripts
+    nix-output-monitor
     obsidian
     pkg
     rclone
