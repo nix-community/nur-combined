@@ -12,4 +12,5 @@
     See https://github.com/NixOS/nixpkgs/blob/nixos-unstable/doc/languages-frameworks/vim.section.md#vim-out-of-tree-overlays
   */
   vimPlugins = pkgs.callPackage ./vimPlugins {};
+  thunar = import ./thunar;
 }
