@@ -243,6 +243,9 @@ in {
               prefix = "/login";
               shared_secret = "generate";
             };
+            logging.loggers = {
+              hangups.level = mkDefault "INFO";
+            };
           };
         };
       };
@@ -350,10 +353,12 @@ in {
               max_retries = 4;
               retry_backoff_base = 1.5;
             };
-            web.auth = mapAttrs (_: mkOptionDefault) {
-              public = "https://example.com/login/";
-              prefix = "/login";
+            provisioning = mapAttrs (_: mkOptionDefault) {
+              prefix = "/_matrix/provision";
               shared_secret = "generate";
+            };
+            logging.loggers = {
+              maugclib.level = mkDefault "INFO";
             };
           };
         };
@@ -1230,8 +1235,6 @@ in {
             };
             loggers = {
               mau.level = mkDefault "DEBUG";
-              maugclib.level = mkDefault "INFO";
-              hangups.level = mkDefault "INFO";
               aiohttp.level = mkDefault "INFO";
             };
             root = {
