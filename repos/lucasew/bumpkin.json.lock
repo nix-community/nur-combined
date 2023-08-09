@@ -245,11 +245,11 @@
     },
     "telegram-sendmail": {
         "default_branch": "heads/main",
-        "github_commit": "94c601f2d46edc1cc2dc109634ff199039d297d3",
-        "sha256": "00f40ce3b7b9e91a63f686656f8afcbfff4b70d2fccd7fbf174a4dbe862a5761",
-        "final_url": "https://codeload.github.com/lucasew/telegram-sendmail/tar.gz/94c601f2d46edc1cc2dc109634ff199039d297d3",
+        "github_commit": "b3d17061a9b720d7e033388c565cfb841e44a735",
+        "sha256": "712263889421132d2f1e8ca6367e0951645e6fce3dbf8e895af031e0af42c3d2",
+        "final_url": "https://codeload.github.com/lucasew/telegram-sendmail/tar.gz/b3d17061a9b720d7e033388c565cfb841e44a735",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1691547605
+        "_bpk_last_update": 1691549750
     },
     "nbr": {
         "default_branch": "heads/master",
