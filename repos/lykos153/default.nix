@@ -29,4 +29,5 @@
   garden = pkgs.callPackage ./pkgs/garden { };
 
   cntb-bin = pkgs.callPackage ./pkgs/cntb-bin { };
+  coord = pkgs.callPackage ./pkgs/coord { };
 }
