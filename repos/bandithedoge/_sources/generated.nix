@@ -15,15 +15,15 @@
   };
   bling = {
     pname = "bling";
-    version = "401985a327797cf146d95789f83421beeda8a27e";
+    version = "01944af235e3f9ac72990cf9f4e545f344c28c4e";
     src = fetchFromGitHub {
       owner = "blingcorp";
       repo = "bling";
-      rev = "401985a327797cf146d95789f83421beeda8a27e";
+      rev = "01944af235e3f9ac72990cf9f4e545f344c28c4e";
       fetchSubmodules = false;
-      sha256 = "sha256-emJz0RuySe4ysIcgFQyABajsH642336asOiVpf3MLqA=";
+      sha256 = "sha256-/5FGZIgznn5ssxe9/M7NxEevDDo7gdY7V6QgN3u11LQ=";
     };
-    date = "2023-05-22";
+    date = "2023-08-08";
   };
   cardinal = {
     pname = "cardinal";
