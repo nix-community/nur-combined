@@ -211,7 +211,7 @@ in [
     # includes hare-json and hare-ev as pre-reqs
     title = "bonsai: init at 1.0.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
-    hash = "sha256-f7tdHz0lFsSJO8C0saMuG8e7VzSx8XDy/UXjbqWHP9M=";
+    hash = "sha256-HaTr7GBCfK1I2e7K4k2dUGZ6hZf4PwtEFobLaSz262M=";
   })
 
   # make alsa-project members overridable
