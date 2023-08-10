@@ -73,5 +73,8 @@ The reference LTFS implementation.
 # vapoursynth-bwdif
 This is a vapoursynth dependency for QTGMC.
 
+# amcdx-video-patcher-cli
+This is a tool for editing ProRes MOV files.
+
 # pyhht
 This is a dependency of vhs-decode.
