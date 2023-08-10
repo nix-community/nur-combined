@@ -17,27 +17,19 @@ let
   '';
 in
 {
-  options.programs.fzf = {
-    enable = mkEnableOption "Whether to enable yazi.";
+  options.programs.yazi = {
+    enable = mkEnableOption "yazi";
 
     package = mkOption {
       type = types.package;
-      default = pkgs.yazi;
-      defaultText = literalExpression "pkgs.yazi";
+      default = pkgs.nur.repos.xyenon.yazi;
+      defaultText = literalExpression "pkgs.nur.repos.xyenon.yazi";
       description = "Yazi package to install.";
     };
 
-    enableBashIntegration = mkOption {
-      default = true;
-      type = types.bool;
-      description = "Whether to enable Bash integration.";
-    };
+    enableBashIntegration = mkEnableOption "Bash integration";
 
-    enableZshIntegration = mkOption {
-      default = true;
-      type = types.bool;
-      description = "Whether to enable Zsh integration.";
-    };
+    enableZshIntegration = mkEnableOption "Zsh integration";
 
     keymap = mkOption {
       type = tomlFormat.type;
