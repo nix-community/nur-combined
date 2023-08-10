@@ -4,6 +4,36 @@
     else if value == false then "false"
     else toString value;
   defaultUpdated = "1970-01-01T00:00:00Z";
+  apply = {
+    star = {
+      desc = "star matching mail";
+      prop = "shouldStar";
+    };
+    archive = {
+      desc = "archive matching mail";
+      prop = "shouldArchive";
+    };
+    trash = {
+      desc = "trash matching mail";
+      prop = "shouldTrash";
+    };
+    read = {
+      desc = "mark matching mail as read";
+      prop = "shouldMarkAsRead";
+    };
+    important = {
+      desc = "mark matching mail as important";
+      prop = "shouldAlwaysMarkAsImportant";
+    };
+    neverImportant = {
+      desc = "never mark matching mail as important";
+      prop = "shouldNeverMarkAsImportant";
+    };
+    neverSpam = {
+      desc = "never mark matching mail as spam";
+      prop = "shouldNeverSpam";
+    };
+  };
   filterModule = { config, name, ... }: {
     options = {
       title = mkOption {
@@ -26,6 +56,17 @@
         type = with types; attrsOf (oneOf [ str bool ]);
         default = { };
       };
+      apply = mapAttrs (_: { desc, ... }: mkOption {
+        description = "Instruct the filter to ${desc}";
+        type = types.bool;
+        default = false;
+      }) apply // {
+        label = mkOption {
+          description = "Instruct the filter to label matching mail";
+          type = types.nullOr types.str;
+          default = null;
+        };
+      };
       out = {
         xmlContent = mkOption {
           type = types.lines;
@@ -36,6 +77,10 @@
       properties = mapAttrs (_: mkOptionDefault) {
         sizeOperator = "s_sl";
         sizeUnit = "s_smb";
+      } // mapAttrs' (name: { prop, ... }: nameValuePair prop (
+        mkIf config.apply.${name} (mkOptionDefault true)
+      )) apply // {
+        label = mkIf (config.apply.label != null) (mkOptionDefault config.apply.label);
       };
       out.xmlContent = mkMerge (singleton (mkBefore ''
         <category term='filter'></category>
