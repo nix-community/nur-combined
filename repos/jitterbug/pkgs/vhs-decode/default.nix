@@ -46,6 +46,9 @@ let
       prePatch = ''
         substituteInPlace "pyproject.toml" \
           --replace ", \"static-ffmpeg\"" ""
+
+        substituteInPlace "pyproject.toml" \
+          --replace "numba>=0.48" "numba"
       '';
 
       doCheck = false;
