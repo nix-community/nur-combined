@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.programs.yazi;
+  tomlFormat = pkgs.formats.toml { };
 
   shellIntegration = ''
     function ya() {
