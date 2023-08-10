@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildGoModule, docker, docker-compose }:
+{ lib, fetchFromGitHub, buildGoModule, docker }:
 
 buildGoModule rec {
   pname = "ddev";
