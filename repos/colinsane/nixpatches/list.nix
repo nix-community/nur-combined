@@ -260,17 +260,6 @@ in [
     hash = "sha256-rD0es4uUbaLMrI9ZB2HzPmRLyu/ixNBLAFyDJtFHNko=";
   })
 
-  (fetchpatch' {
-    title = "p11-kit: build with meson";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/244633";
-    hash = "sha256-+z6hosSyt6ynLpUKS0TsHRoLOS8ck/SK9Y7W2zVUnCQ=";
-  })
-  (fetchpatch' {
-    title = "p11-kit: use mesonEmulatorHook for cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/245124";
-    hash = "sha256-8NqqLBbjt1fLj4ZYhat7wPqQSv/aez9IwgSK2b4CfW8=";
-  })
-
   # (fetchpatch' {
   #   title = "perlPackages.FileBaseDir: 0.08 -> 0.09";
   #   saneCommit = "acc990b04bbe8c99587eadccc65f100c326ec204";
@@ -316,25 +305,6 @@ in [
     saneCommit = "24b062309ea8baa2d8303c0610c9ec7b8c399e8b";
     hash = "sha256-Jj+1z2DeCEY+DqI1J4vYjYJwDDMRcA93CqpZSXzG0wE=";
   })
-  (fetchpatch' {
-    # alternate fix for upower; Arturrin
-    title = "upower: Fix cross";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/247031";
-    hash = "sha256-Skn1dO+SDXbrWYWn8QpSBzYaTis/KUXLEY+pJxO9pWM=";
-  })
-  # (fetchpatch' {
-  #   # PR also includes the nativeBuildInputs fix
-  #   title = "upower: fix cross compilation";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/246945";
-  #   saneCommit = "3ab262456acc016c8dc834df1d1f7e61a00e01e3";
-  #   # hash = "sha256-kTFZVu9oDiYH4W4SoQQj0pNuo9hTJk6jUy+hy34HUtA=";
-  #   hash = "sha256-PpC9YRMqg/wPfFgAPNV80mwbZWCKxNi4agxNf0yQutI=";
-  # })
-  # (fetchpatch' {
-  #   title = "upower: don't pass unnecessary nativeBuildInputs";
-  #   saneCommit = "e2cbfb1bc81afadc5d31c18d43e774fa9a985f98";
-  #   hash = "sha256-7Q9Fjp7xrw3e887inc5cc01OvuOhThnVYduSLNtv2d0=";
-  # })
   (fetchpatch' {
     title = "iio-sensor-proxy: support cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/246947";

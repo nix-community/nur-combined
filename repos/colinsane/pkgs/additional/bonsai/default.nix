@@ -18,6 +18,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-jOtFUpl2/Aa7f8JMZf6g63ayFOi+Ci+i7Ac63k63znc=";
   };
 
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace 'hare build' 'hare build $(HARE_TARGET_FLAGS)'
+  '';
+
+  env.HARE_TARGET_FLAGS =
+    if stdenv.hostPlatform.isAarch64 then
+      "-t aarch64"
+    else if stdenv.hostPlatform.isRiscV64 then
+      "-t riscv64"
+    else if stdenv.hostPlatform.isx86_64 then
+      "-t x86_64"
+    else
+      "";
+
   nativeBuildInputs = [
     hare
     hare-ev
@@ -31,7 +46,7 @@ stdenv.mkDerivation rec {
     # export ARFLAGS="-csr"
   '';
 
-  installFlags = [ "PREFIX=" "DESTDIR=$(out)" ];
+  installFlags = [ "PREFIX=$(out)" ];
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "v";

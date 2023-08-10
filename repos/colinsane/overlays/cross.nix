@@ -240,14 +240,14 @@ in {
   #   # configure: error: ifconfig or ip not found, install net-tools or iproute2
   #   nativeBuildInputs = orig.nativeBuildInputs ++ [ final.iproute2 ];
   # });
-  bonsai = emulateBuildMachine (prev.bonsai.override {
-    hare = emulateBuildMachine (final.hare.override {
-      qbe = emulateBuildMachine final.qbe;
-      harePackages.harec = emulateBuildMachine (final.harePackages.harec.override {
-        qbe = emulateBuildMachine final.qbe;
-      });
-    });
-  });
+  # bonsai = emulateBuildMachine (prev.bonsai.override {
+  #   hare = emulateBuildMachine (final.hare.override {
+  #     qbe = emulateBuildMachine final.qbe;
+  #     harePackages.harec = emulateBuildMachine (final.harePackages.harec.override {
+  #       qbe = emulateBuildMachine final.qbe;
+  #     });
+  #   });
+  # });
   # bonsai = prev.bonsai.override {
   #   inherit (emulated) stdenv hare;
   # };

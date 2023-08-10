@@ -113,7 +113,8 @@ in lib.makeScope newScope (self: with self; {
       # XXX: i tried to build sponsorblock from source and patch this *before* it gets webpack'd,
       # but web shit is absolutely cursed and building from source requires a fucking PhD
       # (if you have one, feel free to share your nix package)
-      ${gnused}/bin/sed -i 's/default\.config\.userID)/default.config.userID && false)/' js/background.js
+      substituteInPlace js/background.js \
+        --replace 'default.config.userId)' 'default.config.userID && false)'
     '';
 
   ublacklist = wrapAddon unwrapped.ublacklist {};

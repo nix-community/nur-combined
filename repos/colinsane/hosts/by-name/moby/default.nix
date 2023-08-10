@@ -37,6 +37,7 @@
   ];
 
   sane.gui.sxmo.enable = true;
+  sane.services.eg25-manager.enable = true;
   sane.programs.guiApps.suggestedPrograms = [ "handheldGuiApps" ];
   # sane.programs.consoleUtils.enableFor.user.colin = false;
   # sane.programs.guiApps.enableFor.user.colin = false;
