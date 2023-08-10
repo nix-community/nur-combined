@@ -472,7 +472,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-07-31",
+        "date": "2023-08-08",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -482,12 +482,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1c1c005f1dbf9b25898885e666b49b9d32a8d90d",
-            "sha256": "sha256-CNcom2rbnGCAZXuM/d3fj1HijEf4N7QFZsMkkMpGaGw=",
+            "rev": "010a1bc668b0ad67cbeb3fd745912faceeaa7369",
+            "sha256": "sha256-E0wAjWXD9FEkyePsOkJwfzJ5dGmjaBaNA9KLNr6WkrU=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "1c1c005f1dbf9b25898885e666b49b9d32a8d90d"
+        "version": "010a1bc668b0ad67cbeb3fd745912faceeaa7369"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -789,7 +789,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2023-08-02",
+        "date": "2023-08-09",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -799,12 +799,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "94c34a29c4e377bd9b2ab08e07a034336ed93e27",
-            "sha256": "sha256-K2tWYktMLkWnwqLcb5I9GcyY79oxvUdSd2aMmgWBWNw=",
+            "rev": "b084bf721e921f3bac3e8ca10f9d9ab8e0f7dcc7",
+            "sha256": "sha256-FR7zePMdwWeyw+8Ci89TvLa4OXow9U4i0yNEH0C07Mw=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "94c34a29c4e377bd9b2ab08e07a034336ed93e27"
+        "version": "b084bf721e921f3bac3e8ca10f9d9ab8e0f7dcc7"
     },
     "wemeet": {
         "cargoLocks": null,
@@ -815,11 +815,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bHIPnJ5ioYF/xjrunpbjXohifJUMu/rVdt76v2DaCmc=",
+            "sha256": "sha256-mAUXh/C4Vv4cCpiVszbonVVsQjKSXioQsFuEcS3QXFI=",
             "type": "url",
-            "url": "https://updatecdn.meeting.qq.com/cos/22516e32c067130e73b91ea0793495ae/TencentMeeting_0300000000_3.15.0.402_x86_64_default.publish.deb"
+            "url": "https://updatecdn.meeting.qq.com/cos/174f137e819ba174c7be6949bb03e665/TencentMeeting_0300000000_3.15.1.400_x86_64_default.publish.deb"
         },
-        "version": "3.15.0.402"
+        "version": "3.15.1.400"
     },
     "yacd": {
         "cargoLocks": null,

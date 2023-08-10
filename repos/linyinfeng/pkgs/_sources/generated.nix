@@ -300,16 +300,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "1c1c005f1dbf9b25898885e666b49b9d32a8d90d";
+    version = "010a1bc668b0ad67cbeb3fd745912faceeaa7369";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "1c1c005f1dbf9b25898885e666b49b9d32a8d90d";
+      rev = "010a1bc668b0ad67cbeb3fd745912faceeaa7369";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-CNcom2rbnGCAZXuM/d3fj1HijEf4N7QFZsMkkMpGaGw=";
+      sha256 = "sha256-E0wAjWXD9FEkyePsOkJwfzJ5dGmjaBaNA9KLNr6WkrU=";
     };
-    date = "2023-07-31";
+    date = "2023-08-08";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -510,23 +510,23 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "94c34a29c4e377bd9b2ab08e07a034336ed93e27";
+    version = "b084bf721e921f3bac3e8ca10f9d9ab8e0f7dcc7";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "94c34a29c4e377bd9b2ab08e07a034336ed93e27";
+      rev = "b084bf721e921f3bac3e8ca10f9d9ab8e0f7dcc7";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-K2tWYktMLkWnwqLcb5I9GcyY79oxvUdSd2aMmgWBWNw=";
+      sha256 = "sha256-FR7zePMdwWeyw+8Ci89TvLa4OXow9U4i0yNEH0C07Mw=";
     };
-    date = "2023-08-02";
+    date = "2023-08-09";
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.15.0.402";
+    version = "3.15.1.400";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/22516e32c067130e73b91ea0793495ae/TencentMeeting_0300000000_3.15.0.402_x86_64_default.publish.deb";
-      sha256 = "sha256-bHIPnJ5ioYF/xjrunpbjXohifJUMu/rVdt76v2DaCmc=";
+      url = "https://updatecdn.meeting.qq.com/cos/174f137e819ba174c7be6949bb03e665/TencentMeeting_0300000000_3.15.1.400_x86_64_default.publish.deb";
+      sha256 = "sha256-mAUXh/C4Vv4cCpiVszbonVVsQjKSXioQsFuEcS3QXFI=";
     };
   };
   yacd = {
