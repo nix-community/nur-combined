@@ -851,7 +851,11 @@ in {
     # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [ final.pkg-config ];
   });
 
-  mepo-latest = prev.mepo-latest.overrideAttrs (upstream: {
+  mepo = (prev.mepo.override {
+    # nixpkgs mepo correctly puts `zig_0_10.hook` in nativeBuildInputs,
+    # but for some reason that tries to use the host zig instead of the build zig.
+    zig_0_10 = final.buildPackages.zig_0_10;
+  }).overrideAttrs (upstream: {
     dontUseZigCheck = true;
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # zig hardcodes the /lib/ld-linux.so interpreter which breaks nix dynamic linking & dep tracking

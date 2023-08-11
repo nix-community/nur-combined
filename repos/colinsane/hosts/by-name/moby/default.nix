@@ -152,6 +152,13 @@
     #
     # NB: the above log is default level. though less specific, there's a `err` level message that also signals this:
     # sun4i-drm display-engine: failed to bind 1ee0000.hdmi (ops sun8i_dw_hdmi_ops [sun8i_drm_hdmi]): -17
+    # NB: this is the most common, but not the only, failure mode for `display-manager`.
+    # another error seems characterized by these dmesg logs, in which reprobing sun8i_drm_hdmi does not fix:
+    # ```syslog
+    # sun6i-mipi-dsi 1ca0000.dsi: Couldn't get the MIPI D-PHY
+    # sun4i-drm display-engine: Couldn't bind all pipelines components
+    # sun6i-mipi-dsi 1ca0000.dsi: Couldn't register our component
+    # ```
 
     if (${dmesg} --kernel --level err --color=never --notime | ${grep} -q 'sun4i-drm display-engine: failed to bind 1ee0000.hdmi')
     then
