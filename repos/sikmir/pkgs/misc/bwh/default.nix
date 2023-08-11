@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "bwh";
-  version = "2023-02-05";
+  version = "1.0.3";
 
   src = fetchFromGitea {
     domain = "git.skyjake.fi";
     owner = "skyjake";
     repo = "bwh";
-    rev = "4b13d98f9aac38455ab1db9313af33211edd6ea0";
-    hash = "sha256-oEIctSJEBxHuL6pBwbAb9PrIDcpMwYmjMIkpqhW+McY=";
+    rev = "v${version}";
+    hash = "sha256-POKjvUGFS3urc1aqOvfCAApUnRxoZhU725eYRAS4Z2w=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
