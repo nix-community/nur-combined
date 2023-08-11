@@ -8,7 +8,7 @@ let
 
   shellIntegration = ''
     function ya() {
-      tmp="$(mktemp -t "yazi-cwd")"
+      tmp="$(mktemp -t "yazi-cwd.XXXXXXXX")"
       yazi --cwd-file="$tmp"
       if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
         cd -- "$cwd"
