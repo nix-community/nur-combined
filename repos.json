@@ -137,8 +137,14 @@
         "c0deaddict": {
             "url": "https://github.com/c0deaddict/nur-packages"
         },
+        "caarlos0": {
+            "url": "https://github.com/caarlos0/nur"
+        },
         "chagra": {
             "url": "https://github.com/ihebchagra/nur-packages"
+        },
+        "charmbracelet": {
+            "url": "https://github.com/charmbracelet/nur"
         },
         "chisui": {
             "url": "https://github.com/chisui/nur-pkgs"
@@ -295,6 +301,9 @@
         },
         "geonix": {
             "url": "https://github.com/imincik/geonix"
+        },
+        "goreleaser": {
+            "url": "https://github.com/goreleaser/nur"
         },
         "grafcube": {
             "url": "https://github.com/Grafcube/nur-packages"
