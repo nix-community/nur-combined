@@ -16,7 +16,7 @@ buildGoModule rec {
   postFixup = ''
     mkdir $out/${pname}
     mv $out/bin $out/${pname}/
-    install -m644 -Dt $out/${pname} plugin.yaml
+    cp -r {config,plugin.yaml} $out/${pname}/
   '';
 
   meta = with lib; {
