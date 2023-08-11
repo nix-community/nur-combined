@@ -1,13 +1,10 @@
 { lib
 , buildLinux
-, buildPackages
 , fetchFromGitHub
-, modDirVersionArg ? null
-, nixosTests
-, perl
 , pkgs
+# something inside nixpkgs calls `override` on the kernel and passes in extra arguments
 , ...
-} @ args:
+}@args:
 
 with lib;
 
@@ -34,6 +31,16 @@ let
   kernelConfig = with lib.kernel; {
     # NB: nix adds the CONFIG_ prefix to each of these.
     # if you add the prefix yourself nix will IGNORE YOUR CONFIG.
+
+    # optimize for faster builds.
+    # see <repo:kernel.org/linux:Documentation/admin-guide/quickly-build-trimmed-linux.rst>
+    DEBUG_KERNEL = lib.mkForce no;  # option group which seems to just gate the other DEBUG_ opts?
+    DEBUG_INFO = lib.mkForce no;  # for gdb debugging
+    DEBUG_INFO_BTF = lib.mkForce no;  # BPF debug symbols. rec by <https://nixos.wiki/wiki/Linux_kernel#Too_high_ram_usage>
+    SCHED_DEBUG = lib.mkForce no;  # determines /sys/kernel/debug/sched
+    # SUNRPC_DEBUG = lib.mkForce no;  # i use NFS though
+
+    # taken from mobile-nixos config?? or upstream megous config??
     RTL8723CS = module;
     BT_HCIUART_3WIRE = yes;
     BT_HCIUART_RTL = yes;
@@ -99,35 +106,36 @@ let
   extraKernelPatches = [
     pkgs.kernelPatches.bridge_stp_helper
     pkgs.kernelPatches.request_key_helper
-    (patchDefconfig kernelConfig)
+    # (patchDefconfig kernelConfig)
   ];
 
 
   # create a kernelPatch which overrides nixos' defconfig with extra options
-  patchDefconfig = config: {
-    # defconfig options. this method comes from here:
-    # - https://discourse.nixos.org/t/the-correct-way-to-override-the-latest-kernel-config/533/9
-    name = "linux-megous-defconfig";
-    patch = null;
-    extraStructuredConfig = config;
+  # patchDefconfig = config: {
+  #   # defconfig options. this method comes from here:
+  #   # - https://discourse.nixos.org/t/the-correct-way-to-override-the-latest-kernel-config/533/9
+  #   name = "linux-megous-defconfig";
+  #   patch = null;
+  #   extraStructuredConfig = config;
+  # };
+
+in buildLinux (args // {
+  version = base + rc;
+
+  # modDirVersion needs to be x.y.z, where `z` could be `Z-rcN`
+  # nix kernel build will sanity check us if we get the modDirVersion wrong
+  modDirVersion = base + rc;
+
+  # branchVersion needs to be x.y
+  extraMeta.branch = versions.majorMinor base;
+
+  src = fetchFromGitHub {
+    owner = "megous";
+    repo = "linux";
+    inherit rev hash;
   };
 
-  overridenArgs = args // rec {
-    version = base + rc;
+  kernelPatches = (args.kernelPatches or []) ++ extraKernelPatches;
 
-    # modDirVersion needs to be x.y.z, will automatically add .0 if needed
-    modDirVersion = if (modDirVersionArg == null) then concatStringsSep "." (take 3 (splitVersion "${version}.0")) + rc else modDirVersionArg;
-
-    # branchVersion needs to be x.y
-    extraMeta.branch = versions.majorMinor version;
-
-    src = fetchFromGitHub {
-      owner = "megous";
-      repo = "linux";
-      inherit rev hash;
-    };
-  } // (args.argsOverride or { });
-  finalArgs = overridenArgs // {
-    kernelPatches = overridenArgs.kernelPatches or [] ++ extraKernelPatches;
-  };
-in buildLinux finalArgs
+  structuredExtraConfig = (args.structuredExtraConfig or {}) // kernelConfig;
+})
