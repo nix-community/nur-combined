@@ -10,7 +10,7 @@ in
   options.my.home.tmux = with lib; {
     enable = my.mkDisableOption "tmux terminal multiplexer";
 
-    enabledPassthrough = mkEnableOption "tmux DCS passthrough sequence";
+    enablePassthrough = mkEnableOption "tmux DCS passthrough sequence";
   };
 
   config.programs.tmux = lib.mkIf cfg.enable {
@@ -70,7 +70,7 @@ in
       set -g status-left-length 16
 
       ${
-        lib.optionalString cfg.enabledPassthrough ''
+        lib.optionalString cfg.enablePassthrough ''
           # Allow any application to use the tmux DCS for passthrough
           set -g allow-passthrough on
         ''
