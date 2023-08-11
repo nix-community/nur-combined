@@ -36,6 +36,8 @@ rec {
 
   helm-2to3 = pkgs.callPackage ./pkgs/helm-2to3 { };
 
+  helm-mapkubeapis = pkgs.callPackage ./pkgs/helm-mapkubeapis { };
+
   helm-whatup = pkgs.callPackage ./pkgs/helm-whatup { };
 
   i3-balance-workspace = pkgs.python3Packages.callPackage ./pkgs/i3-balance-workspace { };
