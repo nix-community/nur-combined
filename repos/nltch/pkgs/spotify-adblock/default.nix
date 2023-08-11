@@ -15,6 +15,24 @@
       hash = "sha256-5tZ+Y7dhzb6wmyQ+5FIJDHH0KqkXbiB259Yo7ATGjSU=";
     };
     cargoSha256 = "sha256-VwYMDEbFhGmpWCrdh/Aa49vvalh42C6E3/t067mxmoI=";
+
+    patchPhase = ''
+      substituteInPlace src/lib.rs \
+        --replace 'config.toml' $out/etc/spotify-adblock/config.toml
+    '';
+
+    buildPhase = ''
+      make
+     '';
+
+    installPhase = ''
+      mkdir -p $out/etc/spotify-adblock
+      install -D --mode=644 config.toml $out/etc/spotify-adblock
+      mkdir -p $out/lib
+      install -D --mode=644 --strip target/release/libspotifyadblock.so $out/lib
+      
+    '';
+
   };
   spotifywm = stdenv.mkDerivation {
     name = "spotifywm";
