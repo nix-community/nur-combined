@@ -11,18 +11,21 @@
   chess-clock = pkgs.callPackage ./chess-clock.nix { };
   devtoolbox = pkgs.callPackage ./devtoolbox.nix { };
   eloquens = pkgs.libsForQt5.callPackage ./eloquens.nix { };
-  fastfetch = pkgs.callPackage ./fastfetch.nix { };
+  fastfetch = pkgs.callPackage ./fastfetch.nix { inherit fastfetch; };
+  fastfetchFull = pkgs.lib.warn "fastfetchFull has been renamed to fastfetch.full" fastfetch.full;
   fielding = pkgs.libsForQt5.callPackage ./fielding.nix { };
   firefox-gnome-theme = pkgs.callPackage ./firefox-gnome-theme.nix { };
   flyaway = pkgs.callPackage ./flyaway.nix { wlroots = wlroots_0_16; };
   francis = pkgs.libsForQt5.callPackage ./francis.nix { kirigami-addons = kirigami-addons_0_10; };
   game-of-life = pkgs.callPackage ./game-of-life.nix { };
   gradebook = pkgs.callPackage ./gradebook.nix { };
-  gtatool = pkgs.callPackage ./gtatool { inherit libgta teem; };
+  gtatool = pkgs.callPackage ./gtatool { inherit gtatool; inherit libgta teem; };
+  gtatoolFull = pkgs.lib.warn "gtatoolFull has been renamed to gtatool.full" gtatool.full;
   kommit = pkgs.libsForQt5.callPackage ./kommit.nix { };
   licentia = pkgs.libsForQt5.callPackage ./licentia.nix { kirigami-addons = kirigami-addons_0_10; };
   libgta = pkgs.callPackage ./libgta.nix { };
-  libtgd = pkgs.callPackage ./libtgd.nix { inherit libgta; };
+  libtgd = pkgs.callPackage ./libtgd.nix { inherit libtgd; inherit libgta; };
+  libtgdFull = pkgs.lib.warn "libtgdFull has been renamed to libtgd.full" libtgd.full;
   libxo = pkgs.callPackage ./libxo { };
   libzypp = pkgs.callPackage ./libzypp.nix { libsolv = libsolv-libzypp; };
   liquidshell = pkgs.libsForQt5.callPackage ./liquidshell.nix { };
@@ -39,7 +42,10 @@
   share-preview = pkgs.callPackage ./share-preview.nix { };
   srb2p = pkgs.callPackage ./srb2p { };
   surgescript = pkgs.callPackage ./surgescript.nix { };
-  teem = pkgs.callPackage ./teem.nix { };
+  teem = pkgs.callPackage ./teem.nix { inherit teem; };
+  teemFull = pkgs.lib.warn "teemFull has been renamed to teem.full" teem.full;
+  teemExperimental = pkgs.lib.warn "teemExperimental has been renamed to teem.experimental" teem.experimental;
+  teemExperimentalFull = pkgs.lib.warn "teemExperimentalFull has been renamed to teem.experimentalFull" teem.experimentalFull;
   telegraph = pkgs.callPackage ./telegraph.nix { };
   textsnatcher = pkgs.callPackage ./textsnatcher.nix { };
   thunderbird-gnome-theme = pkgs.callPackage ./thunderbird-gnome-theme.nix { };
@@ -79,69 +85,6 @@
     };
   });
 
-  fastfetchFull = (fastfetch.overrideAttrs (oldAttrs: {
-    pname = "${oldAttrs.pname}-full";
-    meta = oldAttrs.meta // {
-      description = "${oldAttrs.meta.description} (with all features enabled)";
-    };
-  })).override {
-    enableChafa = true;
-    enableDbus = true;
-    enableDconf = true;
-    enableEgl = true;
-    enableFreetype = true;
-    enableGio = true;
-    enableGlx = true;
-    enableImagemagick = true;
-    enableLibnm = true;
-    enableLibpci = true;
-    enableMesa = true;
-    enableOpencl = true;
-    enablePulse = true;
-    enableRpm = true;
-    enableSqlite3 = true;
-    enableVulkan = true;
-    enableWayland = true;
-    enableX11 = true;
-    enableXcb = true;
-    enableXfconf = true;
-    enableXrandr = true;
-    enableZlib = true;
-  };
-
-  gtatoolFull = (gtatool.overrideAttrs (oldAttrs: {
-    pname = "${oldAttrs.pname}-full";
-    meta = oldAttrs.meta // {
-      description = "${oldAttrs.meta.description} (with all features enabled)";
-      # Only God knows why this fails during installPhase but the non-full
-      # package doesn't.
-      broken = true;
-    };
-  })).override {
-    withBashCompletion = true;
-    withDcmtk = true;
-    # Needs patching
-    withExr = false;
-    # Needs patching
-    withFfmpeg = false;
-    withGdal = true;
-    withJpeg = true;
-    # ImageMagick 6 is marked as insecure
-    withMagick = false;
-    withMatio = true;
-    withMuparser = true;
-    withNetcdf = true;
-    withNetpbm = true;
-    withPcl = true;
-    # Requires ImageMagick 6
-    withPfs = false;
-    withPng = true;
-    # Needs patching
-    withQt = false;
-    withSndfile = true;
-    withTeem = true;
-  };
-
   libsolv-libzypp = pkgs.libsolv.overrideAttrs (oldAttrs: {
     pname = "libsolv-libzypp";
     cmakeFlags = oldAttrs.cmakeFlags ++ [
@@ -151,64 +94,6 @@
       description = "${oldAttrs.meta.description} (for libzypp)";
     };
   });
-
-  libtgdFull = (libtgd.overrideAttrs (oldAttrs: {
-    pname = "${oldAttrs.pname}-full";
-    meta = oldAttrs.meta // {
-      description = "${oldAttrs.meta.description} (with all features enabled)";
-    };
-  })).override {
-    withCfitsio = true;
-    withDmctk = true;
-    withExiv2 = true;
-    withFfmpeg = true;
-    withGdal = true;
-    withGta = true;
-    withHdf5 = true;
-    withJpeg = true;
-    # ImageMagick 6 is marked as insecure
-    withMagick = false;
-    withMatio = true;
-    withMuparser = true;
-    withOpenexr = true;
-    # Requires ImageMagick 6
-    withPfs = false;
-    withPng = true;
-    withPoppler = true;
-    withTiff = true;
-  };
-
-  teemFull = (teem.overrideAttrs (oldAttrs: {
-    pname = "${oldAttrs.pname}-full";
-    meta = oldAttrs.meta // {
-      description = "${oldAttrs.meta.description} (with all features enabled)";
-    };
-  })).override {
-    withLevmar = true;
-    withFftw3 = true;
-  };
-
-  teemExperimental = (teem.overrideAttrs (oldAttrs: {
-    pname = "${oldAttrs.pname}-experimental";
-    meta = oldAttrs.meta // {
-      description = "${oldAttrs.meta.description} (with experimental libraries and applications enabled)";
-    };
-  })).override {
-    withExperimentalLibs = true;
-    withExperimentalApps = true;
-  };
-
-  teemExperimentalFull = (teem.overrideAttrs (oldAttrs: {
-    pname = "${oldAttrs.pname}-experimental-full";
-    meta = oldAttrs.meta // {
-      description = "${oldAttrs.meta.description} (with experimental libraries and applications, and all features enabled)";
-    };
-  })).override {
-    withLevmar = true;
-    withFftw3 = true;
-    withExperimentalLibs = true;
-    withExperimentalApps = true;
-  };
 
   libmoss = pkgs.fetchFromGitHub {
     name = "libmoss";

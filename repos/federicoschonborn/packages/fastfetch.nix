@@ -55,6 +55,8 @@
 , enableXrandr ? false
 , enableZlib ? false
 , zlib
+
+, fastfetch
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -103,6 +105,38 @@ stdenv.mkDerivation (finalAttrs: {
   );
 
   cmakeFlags = [ "-DTARGET_DIR_ROOT=${placeholder "out"}" ];
+
+  passthru = {
+    full = (fastfetch.overrideAttrs (oldAttrs: {
+      pname = "${oldAttrs.pname}-full";
+      meta = oldAttrs.meta // {
+        description = "${oldAttrs.meta.description} (with all features enabled)";
+      };
+    })).override {
+      enableChafa = true;
+      enableDbus = true;
+      enableDconf = true;
+      enableEgl = true;
+      enableFreetype = true;
+      enableGio = true;
+      enableGlx = true;
+      enableImagemagick = true;
+      enableLibnm = true;
+      enableLibpci = true;
+      enableMesa = true;
+      enableOpencl = true;
+      enablePulse = true;
+      enableRpm = true;
+      enableSqlite3 = true;
+      enableVulkan = true;
+      enableWayland = true;
+      enableX11 = true;
+      enableXcb = true;
+      enableXfconf = true;
+      enableXrandr = true;
+      enableZlib = true;
+    };
+  };
 
   meta = with lib; {
     description = "Like neofetch, but much faster because written in C";
