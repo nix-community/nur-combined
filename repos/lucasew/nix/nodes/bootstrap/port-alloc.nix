@@ -23,6 +23,7 @@ let
     internal ? null,
     relatedPackages ? null,
     visible ? null,
+    dontThrow ? false,
   }: mkOption {
     inherit
       description
@@ -47,7 +48,7 @@ let
         isValid = validateFunc thisItem;
         hasProblem = isConflict || !isValid;
       in {
-        "${thisConflictKey}" = y; # if validateFunc thisItem then y else warn "Found invalid value at key ${y}. Suggestion: change ${valueKey} to `${suggestedValueLiteral}`" y;
+        "${thisConflictKey}" = y;
         _conflict = if (x._conflict or null) != null then x._conflict else (if isConflict then {from = conflictKey; to = y; } else null);
         _invalid = (x._invalid or []) ++ (optional (!isValid) y);
       })) {} definedItems;
@@ -60,10 +61,30 @@ let
       suggestedValue = suggestValue firstValue;
       suggestedValueLiteral = valueLiteral suggestedValue;
 
-      handleMissingKeyPath = passthru: if keyPath != "" then passthru else warn "mkAllocModule: keyPath missing. Error messages will be less useful" passthru;
-      handleMissingValues = passthru: if length undefinedItems == 0 then passthru else throw "Key ${getFullKey (head undefinedItems)} is missing a value. Suggestion: set the value to: `${suggestedValueLiteral}`";
-      handleConflicts = passthru: if conflictDict._conflict == null then passthru else throw "Key ${getFullKey conflictDict._conflict.from} and ${getFullKey conflictDict._conflict.to} have the same values. Suggestion: change the value of one of them to: `${suggestedValueLiteral}`";
-      handleInvalidValues = passthru: if length conflictDict._invalid == 0 then passthru else throw "The following keys have invalid values: ${concatStringsSep ", "(map (getFullKey) conflictDict._invalid)}. Suggestion: change the value of the first key to: `${suggestedValueLiteral}`";
+      handleCondition = isThrow: condition: message: _passthru:
+        let
+          handler = if isThrow then lib.throwIfNot else lib.warnIfNot;
+          handledValue = handler condition message _passthru;
+
+          dontThrowValue = _passthru // {
+            _message = (_passthru._message or []) ++ (optional (!condition) message);
+            _conflictDict = conflictDict;
+            _steps = builtins.mapAttrs (k: v: v items) { inherit handleMissingKeyPath handleMissingValues handleConflicts handleInvalidValues; };
+          };
+          handledValueDontThrow = if condition then _passthru else dontThrowValue;
+        in if dontThrow then handledValueDontThrow else handledValue;
+
+      handleConditionThrow = handleCondition true;
+      handleConditionWarn = handleCondition false;
+
+      handleMissingKeyPath = handleConditionWarn (keyPath != "")
+        "mkAllocModule: keyPath missing. Error messages will be less useful";
+      handleMissingValues = handleConditionThrow (length undefinedItems == 0)
+        "Key ${getFullKey (head undefinedItems)} is missing a value. Suggestion: set the value to: `${suggestedValueLiteral}`";
+      handleConflicts = handleConditionThrow (conflictDict._conflict == null)
+        "Key ${getFullKey conflictDict._conflict.from} and ${getFullKey conflictDict._conflict.to} have the same values. Suggestion: change the value of one of them to: `${suggestedValueLiteral}`";
+      handleInvalidValues = handleConditionThrow (length conflictDict._invalid == 0)
+        "The following keys have invalid values: ${concatStringsSep ", " (map (getFullKey) conflictDict._invalid)}. Suggestion: change the value of the first key to: `${suggestedValueLiteral}`";
 
     in lib.pipe items [
       handleMissingKeyPath
@@ -88,6 +109,9 @@ let
 
 in {
   options.networking.ports = mkAllocModule {
+    # dontThrow = true;
+    keyPath = "networking.ports";
+
     valueKey = "port";
     valueType = types.port;
     cfg = config.networking.ports;
@@ -99,7 +123,6 @@ in {
     succFunc = x: x - 1;
     valueLiteral = toString;
     validateFunc = x: (types.port.check x) && (x > 1024);
-    keyPath = "networking.ports";
     example = literalExpression ''{
       app = {
         enable = true;
@@ -122,6 +145,11 @@ in {
       enable = false;
       port = 22;
     };
+    # teste.enable = true;
+    # teste2 = {
+    #   enable = true;
+    #   port = 49139;
+    # };
     trabson = {
       enable = true;
       port = 49139;
