@@ -41,7 +41,6 @@
       # "lollypop"
       "mate.engrampa"  # archive manager
       "mepo"  # maps viewer
-      "cantata"  # music player (mpd frontend)
       "mpv"
       # "networkmanagerapplet"
       # "newsflash"
@@ -65,6 +64,7 @@
       "audacity"
       "blanket"  # ambient noise generator
       "brave"  # for the integrated wallet -- as a backup
+      "cantata"  # music player (mpd frontend)
       # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
       # "dino"  # XMPP client
       "electrum"
