@@ -27,5 +27,17 @@ final: prev:
     meta.homepage = "https://github.com/jakewvincent/texmagic.nvim/";
   };
 
+  harpoon = buildVimPluginFrom2Nix {
+    pname = "harpoon";
+    version = "2023-08-12";
+    src = fetchFromGitHub {
+      owner = "Mikilio";
+      repo = "harpoon";
+      rev = "27c8bbe2604a0dcfd357e2cb423b60a19a646a6b";
+      sha256 = "1fcgw06xll20dp073rfjs872y0g6mabmmyrw9xmb483xgvxxbsz9";
+    };
+    meta.homepage = "https://github.com/Mikilio/harpoon/";
+  };
+
 
 }
