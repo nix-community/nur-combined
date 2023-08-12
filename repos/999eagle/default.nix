@@ -14,4 +14,5 @@
   sea-orm-cli = pkgs.callPackage ./pkgs/sea-orm-cli {};
   swayaudioidleinhibit = pkgs.callPackage ./pkgs/swayaudioidleinhibit.nix {};
   synapse-find-unreferenced-state-groups = pkgs.callPackage ./pkgs/synapse-find-unreferenced-state-groups.nix {};
+  wys = pkgs.callPackage ./pkgs/wys {};
 }
