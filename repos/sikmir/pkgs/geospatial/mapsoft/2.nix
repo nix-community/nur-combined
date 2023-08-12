@@ -58,6 +58,12 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/slazav/mapsoft2-libs/commit/9300f93e171769bbf8710d9dfa5f2724b7b6142d
     substituteInPlace modules/geo_data/conv_geo.test.cpp \
       --replace "PROJ_AT_LEAST_VERSION(9, 2, 1)" "PROJ_AT_LEAST_VERSION(9, 2, 0)"
+  '' + lib.optionalString stdenv.isDarwin ''
+    # https://github.com/slazav/mapsoft2/issues/65
+    substituteInPlace modules/geom/Makefile --replace "point " "" --replace "rect " ""
+    substituteInPlace modules/iconv/Makefile --replace "SIMPLE_TESTS" "#SIMPLE_TESTS"
+    substituteInPlace modules/filename/filename.cpp --replace "st_mtim" "st_mtimespec"
+    sed -i '1i #include <unistd.h>' modules/tmpdir/tmpdir.cpp
   '';
 
   nativeBuildInputs = [
@@ -102,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://slazav.github.io/mapsoft2";
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    platforms = platforms.unix;
     skip.ci = true;
   };
 })
