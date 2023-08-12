@@ -31,22 +31,22 @@ let
         sha512 = "pPTNuaAG3QMH+buKyBIGJs3g/S5y0caxw0ygM3YyE6yJFySwiGGSzA+mM3KJ8QQvzeLh3blwgSonkFjgQdxzMw==";
       };
     };
-    "@eslint/eslintrc-2.1.1" = {
+    "@eslint/eslintrc-2.1.2" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "2.1.1";
+      version = "2.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-2.1.1.tgz";
-        sha512 = "9t7ZA7NGGK8ckelF0PQCfcxIUzs1Md5rrO6U/c+FIQNanea5UZC0wqKXH4vHBccmu4ZJgZ2idtPeW7+Q2npOEA==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-2.1.2.tgz";
+        sha512 = "+wvgpDsrB1YqAMdEUCcnTlpfVBH7Vqn6A/NT3D8WVXFIaKMlErPIZT3oCIAVCOtarRpMtelZLqJeU3t7WY6X6g==";
       };
     };
-    "@eslint/js-8.46.0" = {
+    "@eslint/js-8.47.0" = {
       name = "_at_eslint_slash_js";
       packageName = "@eslint/js";
-      version = "8.46.0";
+      version = "8.47.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/js/-/js-8.46.0.tgz";
-        sha512 = "a8TLtmPi8xzPkCbp/OGFUo5yhRkHM2Ko9kOWP4znJr0WAhWyThaw3PnwX4vOTWOAMsV2uRt32PPDcEz63esSaA==";
+        url = "https://registry.npmjs.org/@eslint/js/-/js-8.47.0.tgz";
+        sha512 = "P6omY1zv5MItm93kLM8s2vr1HICJH8v0dvddDhysbIuZ+vcjOHg5Zbkf1mTkcmi2JA9oBG2anOkRnW8WJTS8Og==";
       };
     };
     "@humanwhocodes/config-array-0.11.10" = {
@@ -274,13 +274,13 @@ let
         sha512 = "dOt21O7lTMhDM+X9mB4GX+DZrZtCUJPL/wlcTqxyrx5IvO0IYtILdtrQGQp+8n5S0gwSVmOf9NQrjMOgfQZlIg==";
       };
     };
-    "eslint-visitor-keys-3.4.2" = {
+    "eslint-visitor-keys-3.4.3" = {
       name = "eslint-visitor-keys";
       packageName = "eslint-visitor-keys";
-      version = "3.4.2";
+      version = "3.4.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.2.tgz";
-        sha512 = "8drBzUEyZ2llkpCA67iYrgEssKDUu68V8ChqqOfFupIaG/LCVPUT+CoGJpT77zJprs4T/W7p07LP7zAIMuweVw==";
+        url = "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.3.tgz";
+        sha512 = "wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag==";
       };
     };
     "espree-9.6.1" = {
@@ -427,13 +427,13 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "globals-13.20.0" = {
+    "globals-13.21.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.20.0";
+      version = "13.21.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.20.0.tgz";
-        sha512 = "Qg5QtVkCy/kv3FUSlu4ukeZDVf9ee0iXLAUYX13gbR17bnejFTzr4iS9bY7kwCf1NztRNm1t91fjOiyx4CSwPQ==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.21.0.tgz";
+        sha512 = "ybyme3s4yy/t/3s35bewwXKOf7cvzfreG2lH0lZl0JB7I4GxRP2ghxOK/Nb9EkRXdbBXZLfq/p/0W2JUONB/Gg==";
       };
     };
     "graphemer-1.4.0" = {
@@ -863,14 +863,14 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.46.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.46.0.tgz"; sha1 = "a06a0ff6974e53e643acc42d1dcf2e7f797b3552"; };
+    version = "8.47.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.47.0.tgz"; sha1 = "c95f9b935463fb4fad7005e626c7621052e90806"; };
     dependencies = [
       sources."@aashutoshrathi/word-wrap-1.2.6"
       sources."@eslint-community/eslint-utils-4.4.0"
       sources."@eslint-community/regexpp-4.6.2"
-      sources."@eslint/eslintrc-2.1.1"
-      sources."@eslint/js-8.46.0"
+      sources."@eslint/eslintrc-2.1.2"
+      sources."@eslint/js-8.47.0"
       sources."@humanwhocodes/config-array-0.11.10"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
@@ -896,7 +896,7 @@ let
       sources."doctrine-3.0.0"
       sources."escape-string-regexp-4.0.0"
       sources."eslint-scope-7.2.2"
-      sources."eslint-visitor-keys-3.4.2"
+      sources."eslint-visitor-keys-3.4.3"
       sources."espree-9.6.1"
       sources."esquery-1.5.0"
       sources."esrecurse-4.3.0"
@@ -913,7 +913,7 @@ let
       sources."fs.realpath-1.0.0"
       sources."glob-7.2.3"
       sources."glob-parent-6.0.2"
-      sources."globals-13.20.0"
+      sources."globals-13.21.0"
       sources."graphemer-1.4.0"
       sources."has-flag-4.0.0"
       sources."ignore-5.2.4"
