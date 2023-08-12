@@ -2,7 +2,7 @@
 , fetchFromGitHub
 , libhandy
 }:
-gpodder.overrideAttrs (upstream: rec {
+gpodder.overridePythonAttrs (upstream: rec {
   pname = "gpodder-adaptive";
   version = "3.11.1+1";
   src = fetchFromGitHub {
