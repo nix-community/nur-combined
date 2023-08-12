@@ -18,6 +18,7 @@ with pkgs; with lib; {
   rpcs3 = qt6Packages.callPackage ./rpcs3 { };
   seadrive-fuse = callPackage ./seadrive-fuse { };
   waydroid-script = callPackage ./waydroid-script { };
+  wine-ge = callPackage ./wine-ge { };
 
   inherit (callPackage ./rosepine-gtk {}) rosepine-gtk-theme rosepine-gtk-icons;
   inherit (callPackage ./tokyonight-gtk {}) tokyonight-gtk-theme tokyonight-gtk-icons;
