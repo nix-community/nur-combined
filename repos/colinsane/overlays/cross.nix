@@ -951,9 +951,11 @@ in {
   }).overrideAttrs (upstream: {
     dontUseZigCheck = true;
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      # zig hardcodes the /lib/ld-linux.so interpreter which breaks nix dynamic linking & dep tracking
-      final.autoPatchelfHook
-      # zig hard-codes `pkg-config` inside lib/std/build.zig
+      # zig hardcodes the /lib/ld-linux.so interpreter which breaks nix dynamic linking & dep tracking.
+      # this shouldn't have to be buildPackages.autoPatchelfHook...
+      # but without specifying `buildPackages` the host coreutils ends up on the builder's path and breaks things
+      final.buildPackages.autoPatchelfHook
+      # # zig hard-codes `pkg-config` inside lib/std/build.zig
       (final.buildPackages.writeShellScriptBin "pkg-config" ''
         exec $PKG_CONFIG $@
       '')
