@@ -67,43 +67,133 @@ let
   };
   emulated = mkEmulated final prev;
 
+  linuxMinimal = final.linux.override {
+    # customize stock linux to compile using fewer resources.
+    # on desko, takes 24 min v.s. 35~40 min for linux-megous
+    # default config is in:
+    # - <pkgs/os-specific/linux/kernel/common-config.nix>
+    # documentation per config option is found with, for example:
+    # - `fd Kconfig . | xargs rg 'config SUNRPC_DEBUG'`
+    structuredExtraConfig = with lib.kernel; {
+      # recommended by: <https://nixos.wiki/wiki/Linux_kernel#Too_high_ram_usage>
+      DEBUG_INFO_BTF = lib.mkForce no;
+
+      # other debug-related things i can probably disable
+      CC_OPTIMIZE_FOR_SIZE = lib.mkForce yes;
+      DEBUG_INFO = lib.mkForce no;
+      DEBUG_KERNEL = lib.mkForce no;
+      GDB_SCRIPTS = lib.mkForce no;
+      SCHED_DEBUG = lib.mkForce no;
+      SUNRPC_DEBUG = lib.mkForce no;
+
+      # disable un-needed features
+      BT = no;
+      CAN = no;
+      DRM = no;  # uses a lot of space when compiling
+      FPGA = no;
+      GNSS = no;
+      IIO = no;  # 500 MB
+      INPUT_TOUCHSCREEN = no;
+      MEDIA_SDR_SUPPORT = no;
+      NFC = no;
+      SND = no;  # also uses a lot of disk space when compiling
+      SOUND = no;
+      WAN = no;  # X.25 protocol support
+      WIRELESS = no;  # 1.4 GB (drivers/net/wireless), doesn't actually disable this
+      WWAN = no;  # Wireless WAN
+      # disable features nixos explicitly enables, which we still don't need
+      FONTS = lib.mkForce no;
+      FB = lib.mkForce no;
+      # INET = no;  # TCP/IP. `INET` means "IP network" (even when used on a LAN), not "Internet"
+      MEMTEST = lib.mkForce no;
+      # # NET = lib.mkForce no;  # we need net (9pnet_virtio; unix) for sharing fs with the build machine
+      MEDIA_ANALOG_TV_SUPPORT = lib.mkForce no;
+      MEDIA_CAMERA_SUPPORT = lib.mkForce no;
+      MEDIA_DIGITAL_TV_SUPPORT = lib.mkForce no;  # 150 MB disk space when compiling
+      MICROCODE = lib.mkForce no;
+      STAGING = lib.mkForce no;  # 450 MB disk space when compiling
+    };
+  };
   # given a package that's defined for build == host,
   # build it from the native build machine by emulating the builder.
-  emulateBuilder = pkg: let
+  emulateBuilderQemu = pkg: let
+    vmTools = final.vmTools.override {
+      kernel = final.linux-megous or final.linux;  #< HACK: guess at whatever deployed linux we're using, to avoid building two kernels
+    };
     # fix up the nixpkgs command that runs a Linux OS inside QEMU:
     # qemu_kvm doesn't support x86_64 -> aarch64; but full qemu package does.
     qemuCommandLinux = lib.replaceStrings
       [ "${final.buildPackages.qemu_kvm}" ]
-      [ "${final.buildPackages.qemu}"]
-      final.vmTools.qemuCommandLinux;
+      [ "${final.buildPackages.qemu}" ]
+      vmTools.qemuCommandLinux;
+    vmRunCommand = final.buildPackages.vmTools.vmRunCommand qemuCommandLinux;
   in
     # without binfmt emulation, leverage the `vmTools.runInLinuxVM` infrastructure:
-    # final.vmTools.runInLinuxVM pkg
+    # final.buildPackages.vmTools.runInLinuxVM pkg
     #
-    # except `runInLinuxVM` doesn't seem to support cross compilation (what's its purpose, then?)
-    # so hack its components into something which *does* handle cross compilation
+    # except `runInLinuxVM` doesn't quite work OOTB (see above),
+    # so hack its components into something which *does* work.
     lib.overrideDerivation pkg ({ builder, args, ... }: {
       builder = "${final.buildPackages.bash}/bin/sh";
-      args = ["-e" (final.buildPackages.vmTools.vmRunCommand qemuCommandLinux)];
+      args = [ "-e" vmRunCommand ];
       # orig{Builder,Args} gets used by the vmRunCommand script:
       origBuilder = builder;
       origArgs = args;
 
-      QEMU_OPTS = "-m 16386";  # MiB of RAM
+      QEMU_OPTS = "-m 16384";  # MiB of RAM
       enableParallelBuilding = true;
 
       # finally, let nix know that this package should be built by the build system
       system = final.stdenv.buildPlatform.system;
     }) // {
-      override = attrs: emulateBuilder (pkg.override attrs);
-      overrideAttrs = mergeFn: emulateBuilder (pkg.overrideAttrs mergeFn);
+      override = attrs: emulateBuilderQemu (pkg.override attrs);
+      overrideAttrs = mergeFn: emulateBuilderQemu (pkg.overrideAttrs mergeFn);
     }
-    # alternatively, `proot` could let us get per-package binfmt:
-    # - <https://proot-me.github.io/>
-    # - i.e., execute host programs *and* build programs, mixed
   ;
 
-  emulateBuildMachine =
+  # given a package that's defined for build == host,
+  # build it from a "proot": a chroot-like environment where `exec` is hooked to invoke qemu instead.
+  # this is like binfmt, but configured to run *only* the emulated host and not the build machine
+  # see: <https://proot-me.github.io/>
+  # hinted at by: <https://www.tweag.io/blog/2022-03-31-running-wasm-native-hybrid-code/>
+  #
+  # this doesn't quite work:
+  # - proot'd aarch64 shell will launch child processes in qemu
+  # - but those children won't launch their children in qemu
+  # need to somehow recursively proot...
+  # emulateBuilderProot = pkg:
+  #   lib.overrideDerivation pkg ({ builder, args, ... }: {
+  #     builder = "${final.buildPackages.bash}/bin/sh";
+  #     args = [ "-e" prootBuilder ];
+  #     origBuilder = builder;
+  #     origArgs = args;
+
+  #     enableParallelBuilding = true;  # TODO: inherit from `pkg`?
+  #     NIX_DEBUG = "6";
+
+  #     # finally, let nix know that this package should be built by the build system
+  #     system = final.stdenv.buildPlatform.system;
+  #   }) // {
+  #     override = attrs: emulateBuilderProot (pkg.override attrs);
+  #     overrideAttrs = mergeFn: emulateBuilderProot (pkg.overrideAttrs mergeFn);
+  #   };
+
+  # prootBuilder = let
+  #   proot = "${final.buildPackages.proot}/bin/proot";
+  #   # prootFlags = "-r / -b /:/";
+  #   prootFlags = "-b /nix:/nix -b /tmp:/tmp";
+  #   # prootFlags = "-b /:/ -b ${final.bash}/bin/sh:/bin/sh";  # --mixed-mode false
+  #   qemu = "${final.buildPackages.qemu}/bin/qemu-aarch64";
+  # in
+  #   final.pkgs.writeText "proot-run" ''
+  #     echo "proot: ${proot} -q ${qemu} ${prootFlags} $origBuilder $origArgs"
+  #     ${proot} -q ${qemu} ${prootFlags} $origBuilder $origArgs
+  #     echo "exited proot"
+  #   '';
+
+  # given a package defined for build != host, transform it to build on the host.
+  # i.e. build using the host's stdenv.
+  buildOnHost =
     let
       # patch packages which can't ordinarily exist in buildPackages
       preFixPkg = p:
@@ -122,7 +212,7 @@ let
       unsplicePkg = p: p.__spliced.hostTarget or p;
       unsplicePkgs = ps: map (p: unsplicePkg (preFixPkg p)) ps;
     in
-      pkg: emulateBuilder ((pkg.override {
+      pkg: (pkg.override {
         inherit (emulated) stdenv;
       }).overrideAttrs (upstream: {
         # for this purpose, the naming in `depsAB` is "inputs build for A, used to create packages in B" (i think).
@@ -141,7 +231,10 @@ let
 
         nativeCheckInputs = unsplicePkgs (upstream.nativeCheckInputs or []);
         nativeInstallCheckInputs = unsplicePkgs (upstream.nativeInstallCheckInputs or []);
-      }));
+      });
+
+  buildInQemu = pkg: emulateBuilderQemu (buildOnHost pkg);
+  # buildInProot = pkg: emulateBuilderProot (buildOnHost pkg);
 in {
   inherit emulated;
 
@@ -352,7 +445,7 @@ in {
     unwrapped = super.unwrapped // {
       browserpass-extension = super.unwrapped.browserpass-extension.override {
         # this overlay is optional for binfmt machines, but non-binfmt can't cross-compile the modules (for use at runtime)
-        mkYarnModules = args: emulateBuildMachine {
+        mkYarnModules = args: buildInQemu {
           override = { stdenv }: (
             (final.yarn2nix-moretea.override {
               pkgs = final.pkgs.__splicedPackages // { inherit stdenv; };
@@ -791,7 +884,7 @@ in {
   koreader = (prev.koreader.override {
     # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
     # inherit (emulated) luajit;
-    luajit = emulateBuildMachine (final.luajit.override {
+    luajit = buildInQemu (final.luajit.override {
       buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
     });
   }).overrideAttrs (upstream: {
@@ -802,7 +895,7 @@ in {
   koreader-from-src = prev.koreader-from-src.override {
     # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
     # inherit (emulated) luajit;
-    luajit = emulateBuildMachine (final.luajit.override {
+    luajit = buildInQemu (final.luajit.override {
       buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
     });
   };
@@ -1651,7 +1744,7 @@ in {
   tangram = (prev.tangram.override {
     # N.B. blueprint-compiler is in nativeBuildInputs.
     # the trick here is to force the aarch64 versions to be used during build (via emulation),
-    blueprint-compiler = emulateBuildMachine (final.blueprint-compiler.overrideAttrs (upstream: {
+    blueprint-compiler = buildInQemu (final.blueprint-compiler.overrideAttrs (upstream: {
       # default is to propagate gobject-introspection *as a buildInput*, when it's supposed to be native.
       propagatedBuildInputs = [];
       # "Namespace Gtk not available"

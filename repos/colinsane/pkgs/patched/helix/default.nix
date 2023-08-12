@@ -11,12 +11,15 @@ let
   };
 in
 helix.overrideAttrs (upstream: {
+  nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+    rsync
+  ];
   configurePhase = (upstream.configurePhase or "") + ''
     cat ${languages} >> languages.toml
     substituteAllInPlace languages.toml
 
-    ${rsync}/bin/rsync -arv ${tree-sitter-nix-shell.generated}/ runtime/grammars/sources/nix-shell/
-    ${rsync}/bin/rsync -arv ${tree-sitter-nix-shell}/queries/ runtime/queries/nix-shell/
+    rsync -arv ${tree-sitter-nix-shell.generated}/ runtime/grammars/sources/nix-shell/
+    rsync -arv ${tree-sitter-nix-shell}/queries/ runtime/queries/nix-shell/
 
     # helix tries to delete the sources during installPhase
     chmod -R +w runtime/grammars/sources/nix-shell

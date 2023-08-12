@@ -381,6 +381,12 @@ in [
   #   saneCommit = "97a9d12b6c31a58e9067eae7cdcd3f53055c124c";
   #   hash = "sha256-g+p96OrBOQAwwH7nwHBuM/KGeIrnBzh9u9lL0M0sYWo=";
   # })
+  (fetchpatch' {
+    # TODO: send upstream
+    title = "nixos/dconf: support cross compilation";
+    saneCommit = "08f7cdebc58eeaa62cb349dab57db3be7a0c073d";
+    hash = "sha256-gqHUGeTQnr0f99gqEdd+VANLkWO+joLxz5I0RSarznE=";
+  })
 
   # (fetchpatch' {
   #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
