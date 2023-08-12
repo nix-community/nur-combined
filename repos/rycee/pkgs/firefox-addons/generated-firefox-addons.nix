@@ -478,10 +478,10 @@
       };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.3.3";
+      version = "0.4.0";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146769/codecov-0.3.3.xpi";
-      sha256 = "01f55a03acd090949cfce2f5bbbc6e8e16cf947fd79376a7436d441e2df29143";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4151270/codecov-0.4.0.xpi";
+      sha256 = "20290d0b0cd87aa2301cc51be8a38e388164c4a451050e5dc8db6abbc671b23c";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -548,10 +548,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.13.3";
+      version = "3.14.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4145183/control_panel_for_twitter-3.13.3.xpi";
-      sha256 = "7dc5c546992c8911c57d378fb3d779025c51db1127a9c99ff607245b1df479a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148689/control_panel_for_twitter-3.14.1.xpi";
+      sha256 = "eb1febce1898a1894d34af92f44e002e861cf4f07034a280fd84794e3460464d";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -672,10 +672,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.4";
+      version = "1.2.6";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4145703/dearrow-1.2.4.xpi";
-      sha256 = "c3ef31c2b08d5c8a7d72d6194f8f58bff6d22ec4ad9a68fbcfcbbb201579c0d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148631/dearrow-1.2.6.xpi";
+      sha256 = "e19633b86044c80641ac09e4b4703779552f7cc01af8b535aca252ef9b7d1716";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -811,10 +811,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.7.13";
+      version = "2023.8.2";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4138156/duckduckgo_for_firefox-2023.7.13.xpi";
-      sha256 = "77a4315fbf4e04260713b3bbc12600e5e27f3a7f37fd7deb5ab583db2efbd75f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147390/duckduckgo_for_firefox-2023.8.2.xpi";
+      sha256 = "4c9d7cc8a977629f74dba1f9d04caceee57ae2ee380c25be1b75acdacddbc962";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -909,10 +909,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.119.1";
+      version = "2.0.119.2";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134489/enhancer_for_youtube-2.0.119.1.xpi";
-      sha256 = "0ecdbe7e66d6dd6d459bc58c68d35f86612502feb30edd2c10262b4b87f1f3a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150710/enhancer_for_youtube-2.0.119.2.xpi";
+      sha256 = "196ef1c75b712ccf5a40ddf99d7073efbed62cb1d93ba557d1b6200ee4962688";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -1170,10 +1170,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "117.0.20230803.180221";
+      version = "116.0.20230811.183303";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4148161/francais_language_pack-117.0.20230803.180221.xpi";
-      sha256 = "b7e0da165ee3fdea8465b3f82df2c3027d02d18e62be59370b9d5ab509aa5864";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152098/francais_language_pack-116.0.20230811.183303.xpi";
+      sha256 = "0b245605436de538d94698052e6222e98b7c6a1285611592d8c527473a16cac5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1239,14 +1239,28 @@
       };
     "gitako-github-file-tree" = buildFirefoxXpiAddon {
       pname = "gitako-github-file-tree";
-      version = "3.11.4";
+      version = "3.11.5";
       addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4112863/gitako_github_file_tree-3.11.4.xpi";
-      sha256 = "5c094a8b916d50128bd33a9fd300eb1c27e80831d877a34a9133b6c89c14c017";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4151276/gitako_github_file_tree-3.11.5.xpi";
+      sha256 = "d9a0d7d96aa5c3f9995bff4885db69d3bbc0039385ad9fb9c3b3a9d55180f0e9";
       meta = with lib;
       {
         homepage = "https://github.com/EnixCoda/Gitako";
         description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "github-file-icons" = buildFirefoxXpiAddon {
+      pname = "github-file-icons";
+      version = "1.5.0";
+      addonId = "{85860b32-02a8-431a-b2b1-40fbd64c9c69}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086645/github_file_icons-1.5.0.xpi";
+      sha256 = "d3b2008bbf303dbe2cac06dc114897d8abaa802e60deafebd56892a39962ac71";
+      meta = with lib;
+      {
+        homepage = "https://github.com/xxhomey19/github-file-icon";
+        description = "A Firefox Add-On which gives different filetypes different icons to GitHub, Gitlab, Bitbucket, gitea and gogs.";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -1488,10 +1502,10 @@
       };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.207";
+      version = "1.0.209";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4136788/hover_zoom_plus-1.0.207.xpi";
-      sha256 = "69a1c251a0edea0b9a21ea683d558785e936350e585ed690c1d46eca7a38f569";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4151261/hover_zoom_plus-1.0.209.xpi";
+      sha256 = "57b5b3bc447b237980a6fa76b8ec69adb700951879e55046ec15e1d07fe27c7d";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -1516,10 +1530,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.7";
+      version = "3.4.8";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101836/i_dont_care_about_cookies-3.4.7.xpi";
-      sha256 = "8c3006e1177c5da41b2bca2503c9924970f07c96a49023a9602a5d00a604f70b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150668/i_dont_care_about_cookies-3.4.8.xpi";
+      sha256 = "9af77f1f8c4baadc7ccdd75865e22fbe2575cb8e4f10ed85ae33a0fc3119ae32";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1544,10 +1558,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.27";
+      version = "4.28";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146141/youtube_addon-4.27.xpi";
-      sha256 = "1504608ca9d116d70a126f89c221d3982536029c7bf21cb65e68b8f950c83713";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4149760/youtube_addon-4.28.xpi";
+      sha256 = "318a7c8555b173246dc985f6ae931f2ece7490e8505d31f8910b48158e303d46";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -1619,6 +1633,20 @@
         homepage = "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies";
         description = "Community version of the popular extension \"I don't care about cookies\"  \n\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d899243c3222e303a4ac90833f850da61cdf8f7779e2685f60f657254302216d/https%3A//github.com/OhMyGuus/I-Dont-Care-About-Cookies\" rel=\"nofollow\">https://github.com/OhMyGuus/I-Dont-Care-About-Cookies</a>";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "joplin-web-clipper" = buildFirefoxXpiAddon {
+      pname = "joplin-web-clipper";
+      version = "2.11.2";
+      addonId = "{8419486a-54e9-11e8-9401-ac9e17909436}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4094039/joplin_web_clipper-2.11.2.xpi";
+      sha256 = "ed95819cd4ecab2c6d002debba8c333a7646274a51d4cf9b9da4a0385cb91a24";
+      meta = with lib;
+      {
+        homepage = "https://joplinapp.org";
+        description = "Capture and save web pages and screenshots from your browser to Joplin. The Joplin application is required to get this extension working - <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/e114587689ca9fbf9d43f2f1fe9ea7468a336e7649e1b8c2e49e0035bb30b3a9/https%3A//joplinapp.org\" rel=\"nofollow\">https://joplinapp.org</a>";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -2001,10 +2029,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.3.8";
+      version = "4.4.0";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133335/modheader_firefox-4.3.8.xpi";
-      sha256 = "5220f3b029988bfeccdfc987428edbb9be34307333efc25d1506114c94b92407";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147448/modheader_firefox-4.4.0.xpi";
+      sha256 = "c5b1183734009a04f204cd7e6f2ddbea7ef925d726aa038c3437c68dd3059973";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2020,10 +2048,10 @@
       };
     "modrinthify" = buildFirefoxXpiAddon {
       pname = "modrinthify";
-      version = "1.6.2";
+      version = "1.7";
       addonId = "{5183707f-8a46-4092-8c1f-e4515bcebbad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4109455/modrinthify-1.6.2.xpi";
-      sha256 = "a194eec073b21cc58c11f59103e4b079888561e3783947b6e37e3947bef53f52";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152047/modrinthify-1.7.xpi";
+      sha256 = "7f64b9f2b910f381fb0f4eee3825ba12604a045370cc8640a22abeee01217abf";
       meta = with lib;
       {
         homepage = "https://github.com/devBoi76/modrinthify";
@@ -2345,10 +2373,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.7.1";
+      version = "1.7.2";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134634/old_reddit_redirect-1.7.1.xpi";
-      sha256 = "d473230e527e007ae98414bc68ffe4f98ed997d2f25a71c349e4e13288d0da62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150346/old_reddit_redirect-1.7.2.xpi";
+      sha256 = "9bd4f42b340e3777253d49e72c679c6a1bac55141438d954614ce01bd85b7018";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -2465,10 +2493,10 @@
       };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.14.1";
+      version = "1.15";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4069548/passff-1.14.1.xpi";
-      sha256 = "465c204212b93546d20dc8fef2c99ac8b06b2d884cd2d38aaf73d825c8be7383";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150951/passff-1.15.xpi";
+      sha256 = "766dc6fef3190a1def43fd4b317f9f2af83ccc6201a89109fec9f17c6035fe38";
       meta = with lib;
       {
         homepage = "https://github.com/passff/passff";
@@ -2724,10 +2752,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.5.0";
+      version = "1.5.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146211/proton_pass-1.5.0.xpi";
-      sha256 = "9eac18e0ea10ebebf93c5904244ba7c50667246566813cde2ec4e7bb7796bc03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148575/proton_pass-1.5.1.xpi";
+      sha256 = "a450af142e03023ea683a7f7163c77d0d6019968c846330c7cce67809e1fcc98";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -2933,10 +2961,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.9";
+      version = "3.0.0.10";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4107777/return_youtube_dislikes-3.0.0.9.xpi";
-      sha256 = "025aa38442c58a466382c7dd7796bf5890083a22b091e764566899605c60e1a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147411/return_youtube_dislikes-3.0.0.10.xpi";
+      sha256 = "bcf4a5d271341a3dab3337bd6d5328f762c8b6b3447562316c166f902be3ad84";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -3071,10 +3099,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.54";
+      version = "1.21.56";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147638/single_file-1.21.54.xpi";
-      sha256 = "7f665313e8095380dc97c23743b75079ff685d08144399d5676e0718f244ccc6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150494/single_file-1.21.56.xpi";
+      sha256 = "a56aff440f862b96417b76b1b46ec65572d36248f0e8712aef292f21ff248155";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -3170,10 +3198,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.12";
+      version = "5.4.14";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141271/sponsorblock-5.4.12.xpi";
-      sha256 = "79f3f41985aea3d1a052d2a546e096c525469d677aca6f17c18414897355aa60";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147236/sponsorblock-5.4.14.xpi";
+      sha256 = "908571fd8976219d3fd11a8b31fe3e1c9a23a0303ba0e518c197c5bccb7fd971";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -3211,10 +3239,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.9";
+      version = "3.6.11";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4138684/steam_database-3.6.9.xpi";
-      sha256 = "382b2368df6aea3ea91a355ad38447771f1029075733806ecd43d77b78e829bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150694/steam_database-3.6.11.xpi";
+      sha256 = "ec6b77debe15b9a534591734913cc096f6ef2e902e1c42e91d44c0736d01a585";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -3689,10 +3717,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.3.1";
+      version = "8.3.2.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119793/ublacklist-8.3.1.xpi";
-      sha256 = "359d859a02626271fb8f62e49f4c0e7a66f1684a61994b9493462d99bd2b356a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148811/ublacklist-8.3.2.1.xpi";
+      sha256 = "b9a450e2e771b1ce01e866eef7f6ccda11198f2b48004c4affa25915042b7fbf";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -3801,10 +3829,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.4.1";
+      version = "1.4.2";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146634/vencord_web-1.4.1.xpi";
-      sha256 = "da0aa001ee52d3ec4946e40508d3a500170c739169807d04aac2d0b20092a555";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148648/vencord_web-1.4.2.xpi";
+      sha256 = "f408948a63ef30a01b016b0e6cb3c9b3427e030896067f79dea17c54a60ef917";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
@@ -3965,10 +3993,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.63";
+      version = "6.10.65";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4124210/wappalyzer-6.10.63.xpi";
-      sha256 = "3aa75bdfbb2b451f42299bb26401e5506735188863ecc65e0a0e7c8fb3183015";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150627/wappalyzer-6.10.65.xpi";
+      sha256 = "2f157f2c5b03a84168e2c2b0afddde38e753508d4d350953322522845686d411";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
