@@ -32,6 +32,11 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace src/app/CMakeLists.txt \
       --replace "/usr" "$out"
+    sed -i '1i #include <iostream>' src/app-validate/main.cpp
+    substituteInPlace src/app-validate/main.cpp \
+      --replace "OptionParseException" "exceptions::parsing"
+    substituteInPlace src/app/main.cpp \
+      --replace "OptionParseException" "exceptions::parsing"
   '' + lib.optionalString stdenv.cc.isClang ''
     substituteInPlace src/libmqtt-to-influxdb/CMakeLists.txt \
       --replace "stdc++fs" ""
