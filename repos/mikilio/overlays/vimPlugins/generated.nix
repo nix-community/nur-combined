@@ -9,7 +9,7 @@ final: prev:
     src = fetchFromGitHub {
       owner = "Mikilio";
       repo = "harpoon";
-      rev = "a0a53f813b727f6bc5fe782f7550fd752ef88380";
+      rev = "efdb139e041f039ba201e315290e36583b6867df";
       sha256 = "0nbgfq5hlyvqn0b5sz3x9fc1awihyrm8jngm82awagssfcxqkbnw";
     };
     meta.homepage = "https://github.com/Mikilio/harpoon/";
