@@ -72,8 +72,6 @@ rec {
 
   traceshark = pkgs.qt5.callPackage ./pkgs/traceshark { };
 
-  threema-web = pkgs.callPackage ./pkgs/threema-web { };
-
   untilport = pkgs.callPackage ./pkgs/untilport { };
 
   yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { };

@@ -1,4 +1,4 @@
-{ lib, buildGoModule, fetchFromGitHub, sqlite, postgresql }:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "goatcounter";
@@ -15,7 +15,6 @@ buildGoModule rec {
 
   ldflags = ["-X=main.Version=${version}"];
 
-  #LD_LIBRARY_PATH = lib.makeLibraryPath [ sqlite postgresql ] ;
   doCheck = false;
 
   vendorSha256 = "sha256-nKfqZ5hGGVLBY/hnJJPCrS/9MlGoR2MWFUWDnpwWgyM=";
