@@ -4,6 +4,7 @@
   imports = [
     ./aerc.nix
     ./assorted.nix
+    ./cantata.nix
     ./chatty.nix
     ./cozy.nix
     ./element-desktop.nix
@@ -28,6 +29,7 @@
     ./lemoa.nix
     ./megapixels.nix
     ./mepo.nix
+    ./mopidy.nix
     ./mpv.nix
     ./msmtp.nix
     ./neovim.nix

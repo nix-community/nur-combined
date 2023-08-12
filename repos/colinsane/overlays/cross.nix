@@ -1,5 +1,4 @@
 # upstreaming status:
-# - p11-kit builds on staging
 # - xdg-utils builds on servo branch
 #   - xdg-utils is blocked on perl5.36.0-Module-Build
 #     - needed for File-BaseDir, used by File-MimeInfo
@@ -9,9 +8,28 @@
 # - blueman builds on servo branch
 # - tracker builds on servo branch
 # - upower builds on servo branch
-# - wvkbd builds on servo branch
 # - directfb needs investigation on servo
-# - engrampa fails on servo, same way as it does on desko
+# - engrampa builds on servo branch
+#
+# non-binfmt build status:
+# - webkitgtk fails 90% through build:
+#   - ```
+#     [6376/6819] Generating ../../WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c
+#     FAILED: WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c /build/webkitgtk-2.40.5/build/WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c 
+#     cd /build/webkitgtk-2.40.5/build/Source/WebKit && /nix/store/6xbpap00kkdgrayizbc61mzf19ygsp9j-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner private-code //nix/store/26nypvflsc8ggbdkns0wjvh4mjrj>
+#     /nix/store/6xbpap00kkdgrayizbc61mzf19ygsp9j-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner: line 5: syntax error: unterminated quoted string
+#     ```
+# - x11_ssh_askpass fails with tricky wants-to-run-its-own-compiled-code issue (imake)
+# - tuba fails trying to invoke the aarch64 gettext during build
+# - rpm (wanted by dtrx, but technically optional) fails during configure; can't find python
+# - portfolio fails during meson configure; finds host python, can't execute it
+# - playerctl fails during install; tries to run `playerctl-scan` (for building docs? should be easy fix)
+# - neovim-ruby fails; tries to run host ruby
+# - luajit fails; tries to run the host gcc
+# - cozy fails during install; can't run post_install_desktop_database.py
+# - kitty fails
+#
+# outstanding issues for software i don't have deployed:
 # - gdk-pixbuf doesn't generate `gdk-pixbuf-thumbnailer` on cross
 #   - been this way since 2018: <https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/20>
 #   - as authored upstream, thumbnailer depends on loader.cache, and neither are built during cross compilation.
