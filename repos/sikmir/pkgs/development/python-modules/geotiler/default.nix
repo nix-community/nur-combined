@@ -2,20 +2,17 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "geotiler";
-  version = "0.14.4";
+  version = "0.15.0";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "wrobell";
     repo = "geotiler";
     rev = "geotiler-${version}";
-    hash = "sha256-OEz7LhkmAkfGNTSu5aUeMsNaUa4Whzg9520n3ILbDKw=";
+    hash = "sha256-xqAsjuUMODZvkSMyGXpP1/FTyqNKPfa8l4Zr2CUHaDY=";
   };
 
-  postPatch = ''
-    sed -i '/setuptools_git/d' setup.py
-  '';
-
-  propagatedBuildInputs = with python3Packages; [ aiohttp cytoolz numpy pillow ];
+  propagatedBuildInputs = with python3Packages; [ aiohttp cytoolz numpy pillow setuptools ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook pytest-cov ];
 
