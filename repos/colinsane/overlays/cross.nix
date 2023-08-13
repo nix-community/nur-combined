@@ -1417,6 +1417,33 @@ in {
   #   })
   # ];
 
+  qt5 = let
+    emulatedQt5 = prev.qt5.override {
+      # emulate qt5base and all qtModules.
+      # because qt5 doesn't place this `stdenv` argument into its scope, `libsForQt5` doesn't inherit
+      # this stdenv. so anything using `libsForQt5.callPackage` builds w/o emulation.
+      stdenv = final.stdenv // {
+        mkDerivation = args: buildInQemu {
+          override = { stdenv }: stdenv.mkDerivation args;
+        };
+      };
+    };
+  in prev.qt5.overrideScope (self: super: {
+    inherit (emulatedQt5)
+      qtbase
+      # without emulation these all fail with "Project ERROR: Cannot run compiler 'g++'."
+      qtdeclarative
+      qtgraphicaleffects
+      qtimageformats
+      qtmultimedia
+      qtquickcontrols
+      qtquickcontrols2
+      qtsvg
+      qttools
+      qtwayland
+    ;
+  });
+
   # qt5 = prev.qt5.overrideScope (self: super: {
   #   # emulate all qt5 modules
   #   # this is a good idea, because qt is touchy about mixing "versions",
@@ -1455,37 +1482,10 @@ in {
   #   qtwayland = emulateQtModule super.qtwayland;
   # });
 
-  # qt5 = let
-  #   emulatedQt5 = prev.qt5.override {
-  #     # emulate qt5base and all qtModules.
-  #     # because qt5 doesn't place this `stdenv` argument into its scope, `libsForQt5` doesn't inherit
-  #     # this stdenv. so anything using `libsForQt5.callPackage` builds w/o emulation.
-  #     stdenv = final.stdenv // {
-  #       mkDerivation = args: emulateBuildMachine {
-  #         override = { stdenv }: stdenv.mkDerivation args;
-  #       };
-  #     };
-  #   };
-  # in prev.qt5.overrideScope (self: super: {
-  #   inherit (emulatedQt5)
-  #     qtbase
-  #     # without emulation these all fail with "Project ERROR: Cannot run compiler 'g++'."
-  #     qtdeclarative
-  #     qtgraphicaleffects
-  #     qtimageformats
-  #     qtmultimedia
-  #     qtquickcontrols
-  #     qtquickcontrols2
-  #     qtsvg
-  #     qttools
-  #     qtwayland
-  #   ;
-  # });
-
   # qt5 = prev.qt5.overrideScope (self: super: {
   #   # stdenv.mkDerivation is used by qtModule, so this emulates all the qt modules
   #   stdenv = final.stdenv // {
-  #     mkDerivation = args: emulateBuildMachine {
+  #     mkDerivation = args: buildInQemu {
   #       override = { stdenv }: stdenv.mkDerivation args;
   #     };
   #   };
@@ -1496,7 +1496,7 @@ in {
   #   #   inherit (final) stdenv;
   #   # };
 
-  #   # qtbase = emulateBuildMachine super.qtbase;
+  #   # qtbase = buildInQemu super.qtbase;
   # });
   # libsForQt5 = prev.libsForQt5.overrideScope (self: super: {
   #   stdenv = final.stdenv;
@@ -1506,9 +1506,9 @@ in {
   # qt5 = (prev.qt5.override {
   #   # qt5 modules see this stdenv; they don't pick up the scope's qtModule or stdenv
   #   stdenv = emulated.stdenv // {
-  #     # mkDerivation = args: emulateBuildMachine (final.stdenv.mkDerivation args);
-  #     mkDerivation = args: emulateBuildMachine {
-  #       # clunky emulateBuildMachine API, when not used via `callPackage`
+  #     # mkDerivation = args: buildInQemu (final.stdenv.mkDerivation args);
+  #     mkDerivation = args: buildInQemu {
+  #       # clunky buildInQemu API, when not used via `callPackage`
   #       override = _attrs: final.stdenv.mkDerivation args;
   #     };
   #   };
@@ -1521,7 +1521,7 @@ in {
   #   # except, still emulate qtbase.
   #   # all other modules build with qtModule (which emulates), except for qtbase which is behind a `callPackage` and uses `stdenv.mkDerivation`.
   #   # therefore we need to re-emulate it when make callPackage not emulate here.
-  #   qtbase = emulateBuildMachine super.qtbase;
+  #   qtbase = buildInQemu super.qtbase;
   #   # qtbase = super.qtbase.override {
   #   #   # qtbase is the only thing in `qt5` scope that references `[stdenv.]mkDerivation`.
   #   #   # to emulate it, we emulate stdenv; all the other qt5 members are emulated via `qt5.qtModule`
