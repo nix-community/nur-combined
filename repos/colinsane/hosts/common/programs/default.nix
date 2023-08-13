@@ -38,6 +38,7 @@
     ./nix-index.nix
     ./obsidian.nix
     ./offlineimap.nix
+    ./rhythmbox.nix
     ./ripgrep.nix
     ./sfeed.nix
     ./splatmoji.nix

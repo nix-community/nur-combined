@@ -88,6 +88,7 @@
       "mumble"
       "nheko"
       "obsidian"
+      "rhythmbox"  # local music player
       "slic3r"
       "steam"
       "vlc"
