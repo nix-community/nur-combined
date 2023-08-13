@@ -39,4 +39,6 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
   volantes-cursors = pkgs.callPackage ./volantes-cursors { };
 
   wifi-qr = pkgs.callPackage ./wifi-qr { };
+
+  zsh-done = pkgs.callPackage ./zsh-done { };
 })
