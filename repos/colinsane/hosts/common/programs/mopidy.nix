@@ -1,10 +1,15 @@
-# load the web client at:
-# - <http://localhost:6680>
-# chat:
-# - <https://mopidy.zulipchat.com/>
+# chat: <https://mopidy.zulipchat.com/>
+# config docs: <https://docs.mopidy.com/en/latest/config/>
+# web client: <http://localhost:6680>
+# mpd: hosted on `localhost:6600`, no password`
+#
+# dump config:
+# - `mopidy config`
 # update local file index with
-# - `mopidy --config ... local scan`
-# mopidy hosts mpd (when enabled) at localhost:6600; no password
+# - `mopidy local scan`
+#
+# if running as service, those commands are `mopidy --config ... <command>`
+# and config path is found by `systemctl cat mopidy`
 { config, lib, pkgs, ... }:
 
 let
@@ -48,39 +53,4 @@ in
     # - .cache/mopidy
     # - .config/mopidy
   };
-  # services.mopidy = lib.mkIf config.sane.programs.mopidy.enabled {
-  #   enable = true;
-  #   extensionPackages = with pkgs; [
-  #     mopidy-iris  # web client: <https://github.com/jaedb/Iris>
-  #     mopidy-jellyfin
-  #     mopidy-local
-  #     mopidy-mpd
-  #     mopidy-mpris
-  #     mopidy-spotify
-  #     # TODO: mopidy-podcast, mopidy-youtube
-
-  #     # alternate web clients:
-  #     # mopidy-moped: <https://github.com/martijnboland/moped>
-  #     # mopidy-muse: <https://github.com/cristianpb/muse>
-  #   ];
-
-  #   # config docs: <https://docs.mopidy.com/en/latest/config/>
-  #   # to query config:
-  #   # - `systemctl cat mopidy`
-  #   # - copy the Exec line, then run it as daemon user with `config` arg, e.g.
-  #   # - `sudo -u mopidy /nix/store/975g6qzz72ajsj7qcmq8123jbr0iq7fg-mopidy-with-extensions-3.4.1/bin/mopidy --config /nix/store/678mid699jcz4y56avyg4nsmjy0zmp7v-mopidy.conf config`
-  #   configuration = ''
-  #     [file]
-  #     media_dirs =
-  #       /home/colin/Music
-
-  #     [iris]
-  #     country = US
-  #     locale = en_US
-  #   '';
-  #   # TODO:
-  #   # set spotify.username, spotify.password, jellyfin....
-  #   # but these are secret so can't go in the above configuration line
-  #   # there is a configurationFiles option, though.
-  # };
 }
