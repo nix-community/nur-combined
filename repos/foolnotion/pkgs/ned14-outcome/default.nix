@@ -22,7 +22,6 @@ stdenv.mkDerivation rec {
     "-Dstatus-code_DIR=${status-code}"
     "-DOUTCOME_ENABLE_DEPENDENCY_SMOKE_TEST=OFF"  # Leave this always on to test everything compiles
     "-DCMAKE_DISABLE_FIND_PACKAGE_Git=ON"
-    "-DCXX_CONCEPTS_FLAGS="
   ];
 
   meta = with lib; {

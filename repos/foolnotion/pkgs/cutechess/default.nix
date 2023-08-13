@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cutechess";
-  version = "1.3.0";
+  version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "cutechess";
     repo = "cutechess";
     rev = "v${version}";
-    sha256 = "sha256-nWY6A1fD4L24Dchp9x3v0s6rsDebSxZYBmXDZbP912c=";
+    sha256 = "sha256-P44Twbw2MGz+oTzPwMFCe73zPxAex6uYjSTtaUypfHw=";
   };
 
   buildInputs = [ qtbase qtsvg qt5compat ];
