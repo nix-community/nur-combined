@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , symlinkJoin
 , ffmpeg
-, flac
 , pyhht
 , stdenv
 , cmake
@@ -28,6 +27,10 @@ let
       pname = "py-vhs-decode";
       inherit src version;
 
+      buildInputs = [
+        ffmpeg
+      ];
+
       propagatedBuildInputs = with python3Packages; [
         cython
         numpy
@@ -37,8 +40,6 @@ let
         scipy
         matplotlib
         soundfile
-        ffmpeg
-        flac
         pyhht
         samplerate
       ];
