@@ -320,7 +320,6 @@ lib.makeScope newScope (
     arduinojson = callPackage ./misc/arduinojson { };
     ascii-dash = callPackage ./misc/ascii-dash { };
     bash-completor = callPackage ./misc/bash-completor { };
-    blink = callPackage ./misc/blink { };
     btpd = callPackage ./misc/btpd { };
     bwh = callPackage ./misc/bwh {
       inherit (darwin.apple_sdk.frameworks) AppKit;
