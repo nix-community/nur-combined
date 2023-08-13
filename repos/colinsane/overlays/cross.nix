@@ -1426,23 +1426,23 @@ in {
   #   # so to modify `qtModule` we have to go through callPackage.
   #   callPackage = self.newScope {
   #     inherit (self) qtCompatVersion srcs stdenv;
-  #     qtModule = args: emulateBuildMachine {
-  #       # clunky emulateBuildMachine API, when not used via `callPackage`
+  #     qtModule = args: buildInQemu {
+  #       # clunky buildInQemu API, when not used via `callPackage`
   #       override = _attrs: super.qtModule args;
   #     };
   #   };
   #   # emulate qtbase (which doesn't go through qtModule)
-  #   qtbase = emulateBuildMachine super.qtbase;
+  #   qtbase = buildInQemu super.qtbase;
   # });
 
   # qt5 = prev.qt5.overrideScope (self: super:
   #   let
-  #     emulateQtModule = pkg: emulateBuildMachine {
+  #     emulateQtModule = pkg: buildInQemu {
   #       # qtModule never gets `stdenv`
   #       override = _stdenv: pkg;
   #     };
   #   in {
-  #   qtbase = emulateBuildMachine super.qtbase;
+  #   qtbase = buildInQemu super.qtbase;
   #   qtdeclarative = emulateQtModule super.qtdeclarative;
   #   qtgraphicaleffects = emulateQtModule super.qtgraphicaleffects;
   #   qtimageformats = emulateQtModule super.qtimageformats;
