@@ -39,5 +39,17 @@ final: prev:
     meta.homepage = "https://github.com/jakewvincent/texmagic.nvim/";
   };
 
+  lsp-zero-nvim = buildVimPluginFrom2Nix {
+    pname = "lsp-zero.nvim";
+    version = "2023-08-12";
+    src = fetchFromGitHub {
+      owner = "VonHeikemen";
+      repo = "lsp-zero.nvim";
+      rev = "04d2bd53ebc490378e25cb399942a5f48f5befd2";
+      sha256 = "1n922b6gvx5sbqy07g4nim75553rb7sh4qs649p2l1dfm05xv0da";
+    };
+    meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
+  };
+
 
 }

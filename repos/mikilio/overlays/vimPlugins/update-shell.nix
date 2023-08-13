@@ -11,6 +11,6 @@ mkShell {
     bash
     pyEnv
     nix
-    nix-prefetch-scripts
+    nix-prefetch-git
   ];
 }
