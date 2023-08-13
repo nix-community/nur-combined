@@ -1,4 +1,0 @@
-source 'https://rubygems.org'
-gem 'rvpacker'
-# This was required but not declared
-gem 'scanf'
