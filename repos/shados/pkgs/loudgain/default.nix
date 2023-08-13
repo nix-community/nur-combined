@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # See loudgain PR #50
       url = "https://github.com/hughmcmaster/loudgain/commit/977332e9e45477b1b41a5af7a2484f92b340413b.patch";
-      sha256 = "113bhaxhfs14cbfjdyqc2br97faxlazg7ppf0b29mpgc5f228f6r";
+      sha256 = "sha256-h6SduvURdmyNb1X8I8g6MDaes9aNshWd0ifwWJhVTzw=";
       name = "loudgain-ffmpeg5.patch";
     })
   ];
