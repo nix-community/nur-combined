@@ -20,19 +20,19 @@ in
     };
   };
 
-  config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
       home.packages = with pkgs; [
         gdb
       ];
 
       xdg.configFile."gdb/gdbinit".source = ./gdbinit;
-    })
+    }
 
     (lib.mkIf cfg.rr.enable {
       home.packages = [
         cfg.rr.package
       ];
     })
-  ];
+  ]);
 }
