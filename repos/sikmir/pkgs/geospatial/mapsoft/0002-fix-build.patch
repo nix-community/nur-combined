@@ -1,8 +1,7 @@
-Submodule modules contains modified content
-diff --git i/modules/pc/libdb.pc w/modules/pc/libdb.pc
+diff --git i/pc/libdb.pc w/pc/libdb.pc
 index 6a40e95..682c932 100644
---- i/modules/pc/libdb.pc
-+++ w/modules/pc/libdb.pc
+--- i/pc/libdb.pc
++++ w/pc/libdb.pc
 @@ -1,5 +1,11 @@
 +prefix=@db@
 +exec_prefix=${prefix}
@@ -16,10 +15,10 @@ index 6a40e95..682c932 100644
 -Libs: -ldb
 +Libs: -L${libdir} -ldb
 +Cflags: -I${includedir}
-diff --git i/modules/pc/libgif.pc w/modules/pc/libgif.pc
+diff --git i/pc/libgif.pc w/pc/libgif.pc
 index cb154c9..24d8898 100644
---- i/modules/pc/libgif.pc
-+++ w/modules/pc/libgif.pc
+--- i/pc/libgif.pc
++++ w/pc/libgif.pc
 @@ -1,5 +1,11 @@
 +prefix=@giflib@
 +exec_prefix=${prefix}
@@ -33,10 +32,10 @@ index cb154c9..24d8898 100644
 -Libs: -lgif
 +Libs: -L${libdir} -lgif
 +Cflags: -I${includedir}
-diff --git i/modules/tmpdir/Makefile w/modules/tmpdir/Makefile
+diff --git i/tmpdir/Makefile w/tmpdir/Makefile
 index d44adac..c0b361e 100644
---- i/modules/tmpdir/Makefile
-+++ w/modules/tmpdir/Makefile
+--- i/tmpdir/Makefile
++++ w/tmpdir/Makefile
 @@ -1,6 +1,6 @@
  MOD_HEADERS  := tmpdir.h
  MOD_SOURCES  := tmpdir.cpp
