@@ -5,12 +5,12 @@ final: prev:
 {
   harpoon = buildVimPluginFrom2Nix {
     pname = "harpoon";
-    version = "2023-08-12";
+    version = "2023-08-13";
     src = fetchFromGitHub {
       owner = "Mikilio";
       repo = "harpoon";
-      rev = "efdb139e041f039ba201e315290e36583b6867df";
-      sha256 = "0nbgfq5hlyvqn0b5sz3x9fc1awihyrm8jngm82awagssfcxqkbnw";
+      rev = "7d9f2afcaff69d11ad648bad0c84876911b8279e";
+      sha256 = "0lmqn2zzk91dg1xw1zxb8rcv16a0j8ih50ffvka96kmwdxlldrkd";
     };
     meta.homepage = "https://github.com/Mikilio/harpoon/";
   };

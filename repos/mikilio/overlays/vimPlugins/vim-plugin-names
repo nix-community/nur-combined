@@ -1,3 +1,4 @@
 repo,branch,alias
+https://github.com/Mikilio/harpoon/,HEAD,
 https://github.com/Mikilio/knap/,HEAD,
 https://github.com/jakewvincent/texmagic.nvim/,HEAD,
