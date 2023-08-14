@@ -81,7 +81,7 @@
       "handbrake"
       "hase"
       "inkscape"
-      "jellyfin-media-player"
+      # "jellyfin-media-player"
       "kdenlive"
       "kid3"  # audio tagging
       "krita"
