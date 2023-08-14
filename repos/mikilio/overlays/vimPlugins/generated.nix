@@ -27,6 +27,18 @@ final: prev:
     meta.homepage = "https://github.com/Mikilio/knap/";
   };
 
+  lsp-zero-nvim = buildVimPluginFrom2Nix {
+    pname = "lsp-zero.nvim";
+    version = "2023-08-12";
+    src = fetchFromGitHub {
+      owner = "VonHeikemen";
+      repo = "lsp-zero.nvim";
+      rev = "04d2bd53ebc490378e25cb399942a5f48f5befd2";
+      sha256 = "1n922b6gvx5sbqy07g4nim75553rb7sh4qs649p2l1dfm05xv0da";
+    };
+    meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
+  };
+
   texmagic-nvim = buildVimPluginFrom2Nix {
     pname = "texmagic.nvim";
     version = "2022-05-15";
@@ -39,16 +51,16 @@ final: prev:
     meta.homepage = "https://github.com/jakewvincent/texmagic.nvim/";
   };
 
-  lsp-zero-nvim = buildVimPluginFrom2Nix {
-    pname = "lsp-zero.nvim";
-    version = "2023-08-12";
+  netrw-nvim = buildVimPluginFrom2Nix {
+    pname = "netrw.nvim";
+    version = "2023-06-29";
     src = fetchFromGitHub {
-      owner = "VonHeikemen";
-      repo = "lsp-zero.nvim";
-      rev = "04d2bd53ebc490378e25cb399942a5f48f5befd2";
-      sha256 = "1n922b6gvx5sbqy07g4nim75553rb7sh4qs649p2l1dfm05xv0da";
+      owner = "prichrd";
+      repo = "netrw.nvim";
+      rev = "596435bd2f5b0162b86c97ca8244e2b0862d3a4a";
+      sha256 = "13q841gj7v1iqj0g7iy8216nxp9v6rlzsm6gxmz2bqcl715gggyz";
     };
-    meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
+    meta.homepage = "https://github.com/prichrd/netrw.nvim/";
   };
 
 
