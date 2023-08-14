@@ -4,7 +4,10 @@ let thisLib = import ./lib { inherit pkgs lib callPackage; };
 in lib.makeScope pkgs.newScope (self:
   (thisLib.callNixFiles self.callPackage ./pkgs) // {
 
-    lib = lib.extend (self: super: thisLib);
+    lib = lib.extend (self: super:
+      # this extra callPackage call is needed to give
+      # the result an `override` ability.
+      (callPackage ./lib { }));
 
     qemuImages =
       pkgs.recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
