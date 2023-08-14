@@ -63,16 +63,16 @@ final: prev:
     meta.homepage = "https://github.com/jakewvincent/texmagic.nvim/";
   };
 
-  ltex-ls-nvim = buildVimPluginFrom2Nix {
-    pname = "ltex-ls.nvim";
-    version = "2022-08-26";
+  ltex_extra-nvim = buildVimPluginFrom2Nix {
+    pname = "ltex_extra.nvim";
+    version = "2023-07-28";
     src = fetchFromGitHub {
-      owner = "vigoux";
-      repo = "ltex-ls.nvim";
-      rev = "c8139ea6b7f3d71adcff121e16ee8726037ffebd";
-      sha256 = "0ascwzdxi6wybf1mb14dqi2yyjs7nykp946xb1kwrwx1pqpc13cd";
+      owner = "barreiroleo";
+      repo = "ltex_extra.nvim";
+      rev = "9bed99b2b8488cc2daf66c76d2e0cf051ee80d13";
+      sha256 = "1v4vxfysvisl9l91f519mbj4r7a43gzfyaj4cbgs3fc650h00f1g";
     };
-    meta.homepage = "https://github.com/vigoux/ltex-ls.nvim/";
+    meta.homepage = "https://github.com/barreiroleo/ltex_extra.nvim/";
   };
 
 
