@@ -97,4 +97,6 @@ rec {
   # matrix-hookshot = pkgs.callPackage ./pkgs/matrix-hookshot { };
 
   acme-dns = pkgs.callPackage ./pkgs/acme-dns {};
+
+  cameractrls = pkgs.callPackage ./pkgs/cameractrls {};
 }
