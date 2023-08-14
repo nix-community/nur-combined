@@ -39,6 +39,18 @@ final: prev:
     meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
   };
 
+  netrw-nvim = buildVimPluginFrom2Nix {
+    pname = "netrw.nvim";
+    version = "2023-06-29";
+    src = fetchFromGitHub {
+      owner = "prichrd";
+      repo = "netrw.nvim";
+      rev = "596435bd2f5b0162b86c97ca8244e2b0862d3a4a";
+      sha256 = "13q841gj7v1iqj0g7iy8216nxp9v6rlzsm6gxmz2bqcl715gggyz";
+    };
+    meta.homepage = "https://github.com/prichrd/netrw.nvim/";
+  };
+
   texmagic-nvim = buildVimPluginFrom2Nix {
     pname = "texmagic.nvim";
     version = "2022-05-15";
@@ -51,16 +63,16 @@ final: prev:
     meta.homepage = "https://github.com/jakewvincent/texmagic.nvim/";
   };
 
-  netrw-nvim = buildVimPluginFrom2Nix {
-    pname = "netrw.nvim";
-    version = "2023-06-29";
+  ltex-ls-nvim = buildVimPluginFrom2Nix {
+    pname = "ltex-ls.nvim";
+    version = "2022-08-26";
     src = fetchFromGitHub {
-      owner = "prichrd";
-      repo = "netrw.nvim";
-      rev = "596435bd2f5b0162b86c97ca8244e2b0862d3a4a";
-      sha256 = "13q841gj7v1iqj0g7iy8216nxp9v6rlzsm6gxmz2bqcl715gggyz";
+      owner = "vigoux";
+      repo = "ltex-ls.nvim";
+      rev = "c8139ea6b7f3d71adcff121e16ee8726037ffebd";
+      sha256 = "0ascwzdxi6wybf1mb14dqi2yyjs7nykp946xb1kwrwx1pqpc13cd";
     };
-    meta.homepage = "https://github.com/prichrd/netrw.nvim/";
+    meta.homepage = "https://github.com/vigoux/ltex-ls.nvim/";
   };
 
 
