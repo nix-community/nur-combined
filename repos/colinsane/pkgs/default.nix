@@ -29,6 +29,7 @@ let
     chatty-latest = callPackage ./additional/chatty-latest { };
     eg25-manager = callPackage ./additional/eg25-manager { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
+    g4music = callPackage ./additional/g4music { };
     lemoa = callPackage ./additional/lemoa { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     firefox-extensions = lib.recurseIntoAttrs (callPackage ./additional/firefox-extensions { });

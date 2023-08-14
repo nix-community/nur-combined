@@ -77,6 +77,13 @@ in [
     hash = "sha256-jDXYLlXaEBKMrZ2dgxc6ucrcX/5dtqoIIKw+Ay19vlc=";
   })
 
+  # broken...
+  # (fetchpatch' {
+  #   title = "g4music: init at 2.4";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/242943";
+  #   hash = "sha256-kB79SI0v/6VYcr/Vb6n4KvqEvEiNPRVTF3kYsoxlwdM=";
+  # })
+
   # (fetchpatch {
   #   # stdenv: fix cc for pseudo-crosscompilation
   #   # closed because it breaks pkgsStatic (as of 2023/02/12)

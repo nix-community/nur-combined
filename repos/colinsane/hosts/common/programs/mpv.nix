@@ -26,6 +26,10 @@
       save-position-on-quit=yes
       keep-open=yes
 
+      # force GUI, even for tracks w/o album art
+      # see: <https://www.reddit.com/r/mpv/comments/rvrrpt/oscosdgui_and_arch_linux/>
+      player-operation-mode=pseudo-gui
+
       # use uosc instead (for On Screen Controls)
       osc=no
       # uosc provides its own seeking/volume indicators, so you also don't need this

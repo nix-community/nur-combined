@@ -191,6 +191,12 @@ let
       src = ./src;
       pkgs = [ "rsync" ];
     };
+    sync-music = static-nix-shell.mkPython3Bin {
+      pname = "sane-sync-music";
+      src = ./src;
+      pkgs = [ "ffmpeg" "sox" ];
+      pyPkgs = [ "unidecode" ];
+    };
     vpn-down = static-nix-shell.mkBash {
       pname = "sane-vpn-down";
       src = ./src;

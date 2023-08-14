@@ -14,6 +14,7 @@
     ./fontconfig.nix
     ./fractal.nix
     ./fwupd.nix
+    ./g4music.nix
     ./git.nix
     ./gnome-feeds.nix
     ./gnome-keyring.nix

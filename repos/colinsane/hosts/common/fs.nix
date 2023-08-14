@@ -123,6 +123,14 @@ in
   };
   sane.fs."/mnt/desko-root" = sane-lib.fs.wantedDir;
 
+  fileSystems."/mnt/moby-home" = {
+    device = "colin@moby-hn:/home/colin";
+    fsType = "fuse.sshfs";
+    options = fsOpts.sshColin ++ fsOpts.noauto;
+    noCheck = true;
+  };
+  sane.fs."/mnt/moby-home" = sane-lib.fs.wantedDir;
+
   environment.pathsToLink = [
     # needed to achieve superuser access for user-mounted filesystems (see optionsRoot above)
     # we can only link whole directories here, even though we're only interested in pkgs.openssh

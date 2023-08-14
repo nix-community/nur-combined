@@ -213,17 +213,24 @@ let
   # i.e. build using the host's stdenv.
   buildOnHost =
     let
-      # patch packages which can't ordinarily exist in buildPackages
+      # patch packages which don't expect to be moved to a different platform
       preFixPkg = p:
         if p.name or null == "make-shell-wrapper-hook" then
           p.overrideAttrs (_: {
             # unconditionally use the outermost targetPackages shell
             shell = final.runtimeShell;
           })
-          # p.__spliced.buildBuild.overrideAttrs (_: {
-          #   shell = "TODO"; # final.targetPackages.runtimeShell;
-          # })
           # final.makeBinaryWrapper
+        else if p.pname or null == "pkg-config-wrapper" then
+          p.override {
+            # default pkg-config.__spliced.hostTarget still wants to run on the build machine.
+            # overriding buildPackages fixes that, and overriding stdenvNoCC makes it be just `pkg-config`, unmangled.
+            stdenvNoCC = emulated.stdenvNoCC;
+            buildPackages = final.hostPackages;  # TODO: just `final`?
+          }
+        # else if p.pname == "wrap-gapps-hook" then
+        #   # avoid faulty propagated gtk3/gtk4
+        #   final.wrapGAppsNoGuiHook
         else
           p
         ;

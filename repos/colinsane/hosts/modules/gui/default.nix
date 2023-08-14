@@ -25,6 +25,7 @@
       "firefox"
       # "foliate"  # e-book reader
       # "fractal"  # matrix client
+      "g4music"  # local music player
       # "gnome.cheese"
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
       # "gnome.file-roller"

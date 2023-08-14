@@ -1,0 +1,204 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.unidecode ])" -p ffmpeg -p sox
+# vim: set filetype=python :
+import argparse
+import concurrent.futures
+import logging
+import multiprocessing
+import os
+import subprocess
+
+from pathlib import Path
+from unidecode import unidecode
+
+logger = logging.getLogger(__name__)
+
+MAKE_MP3 = [
+    '.flac',
+    '.oga',
+    '.ogg',
+    '.opus',
+    '.wav',
+    '.wma',
+]
+COPY_RAW = [
+    '.aac',
+    '.bmp',
+    '.gif',
+    '.jpeg',
+    '.jpg',
+    '.m4a',
+    '.mp3',
+    '.png',
+]
+IGNORE = [
+    '.DS_Store',
+    '.avi',
+    '.cue',
+    '.inf',
+    '.log',
+    '.lyrics',
+    '.m3u',
+    '.mov',
+    '.mp4',
+    '.nsf_',
+    '.pdf',
+    '.toc',
+    '.txt',
+    '.webm',
+]
+
+class Encoder:
+    def __init__(self, dry_run: bool = False):
+        self.dry_run = dry_run
+
+    def check_output_no_sideeffect(self, args: list[str]) -> bytes:
+        return subprocess.check_output(args)
+
+    def check_output(self, args: list[str]) -> str:
+        if self.dry_run:
+            logger.debug("not invoking because dry run: " + ' '.join(args))
+            return b""
+        else:
+            return subprocess.check_output(args)
+
+    def cp(self, source: Path, dest: Path) -> None:
+        self.check_output(['cp', str(source), str(dest)])
+
+    def ensure_dir(self, dir: Path) -> None:
+        if self.dry_run:
+             logger.debug(f"not invoking because dry run: os.makedirs({dir!r}, exist_ok=True)")
+
+        else:
+            os.makedirs(str(dir), exist_ok=True)
+
+    def remove(self, path: Path) -> None:
+        if self.dry_run:
+            logger.debug(f"not invoking because dry run: os.remove({path!r})")
+        else:
+            os.remove(path)
+
+    def convert(self, source: Path, dest: Path) -> None:
+        source_samplerate = None
+        try:
+            source_samplerate = int(self.check_output_no_sideeffect(['soxi', '-r', str(source)]).decode("utf-8").strip())
+        except:
+            if str(source).endswith('.wma'):
+                logging.debug(f'unsupported extension for samplerate: {source}')
+            else:
+                logging.warning(f'unable to obtain samplerate for {source}')
+
+        samplerate_map = {
+            192000: 48000,
+            96000: 48000,
+            88200: 44100,
+            # preserve as-is
+            48000: 48000,
+            44100: 44100,
+        }
+
+        target_samplerate = samplerate_map.get(source_samplerate)
+        if source_samplerate and not target_samplerate:
+            logging.warning(f'unable to map source sample rate: {source_samplerate}')
+        samplerate_flags = ['-ar', str(target_samplerate)] if target_samplerate else []
+
+        self.check_output([
+            'ffmpeg',
+            '-i', str(source),
+            '-codec:v', 'copy',
+            '-codec:a', 'libmp3lame',
+            '-qscale:a', '0'
+        ] + samplerate_flags + [str(dest)])
+
+
+def clean_name(path: str) -> Path:
+    '''
+    transform a path into something which most filesystems/protocols can reliably support
+    '''
+    out_path = Path()
+    for part in path.parts:
+        blacklisted = '"\'!@#$%^&*()[]{};:,<>?`~|\\/'
+        part = unidecode(part)
+        part = ''.join(c for c in part if c not in blacklisted)
+        out_path /= part
+    return out_path
+
+def target_name(source_name: str) -> Path:
+    n = clean_name(source_name)
+    if n.suffix in MAKE_MP3:
+        return Path(str(n) + '.mp3')
+    else:
+        return n
+
+def calculate_delta(in_dir: str, out_dir: str) -> tuple[set[Path], set[Path]]:
+    '''
+    Returns the set of dest files which need to be deleted, followed by the files to copy
+    '''
+    in_files = { p.relative_to(in_dir) for p in Path(in_dir).rglob("*") if not p.is_dir() }
+    logger.info(f'found {len(in_files)} files in source')
+    existing_out_files = { p.relative_to(out_dir) for p in Path(out_dir).rglob("*") if not p.is_dir() }
+    logger.info(f'found {len(existing_out_files)} files in dest')
+
+    expected_out_files = { target_name(n) for n in in_files }
+
+    to_del = { f for f in existing_out_files if f not in expected_out_files }
+    logger.info(f'found {len(to_del)} files to delete')
+    to_copy = { f for f in in_files if target_name(f) not in existing_out_files and f.suffix not in IGNORE }
+    logger.info(f'found {len(to_copy)} files to copy')
+
+    return to_del, to_copy
+
+def rm_dest_files(encoder: Encoder, out_dir: str, files: set[Path]) -> None:
+    for f in files:
+        logger.info(f'removing {f} because it does not exist on host')
+        encoder.remove(Path(out_dir) / f)
+
+def copy_one(encoder: Encoder, source: Path, dest: Path) -> None:
+    encoder.ensure_dir(dest.parent)
+    if source.suffix in MAKE_MP3:
+        logger.debug(f'converting {source} -> {dest}')
+        encoder.convert(source, dest)
+    elif source.suffix in COPY_RAW:
+        logger.debug(f'copying {source} -> {dest}')
+        encoder.cp(source, dest)
+    else:
+        logger.warning(f"skipping {source} because I don't know what to do with that file type")
+
+def cp_src_files(encoder: Encoder, in_dir: Path, out_dir: Path, src_names: set[Path], jobs: int):
+    logger.info(f'using {jobs} jobs to copy {len(src_names)} files')
+    # Parallel(n_jobs=jobs)(delayed(copy_one)(encoder, in_dir / n, out_dir / target_name(n)) for n in src_names)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as executor:
+        for n in src_names:
+            executor.submit(copy_one, encoder, in_dir / n, out_dir / target_name(n))
+
+
+def sync_all(in_dir: str, out_dir: str, jobs: int = None, dry_run: bool = False) -> None:
+    encoder = Encoder(dry_run=dry_run)
+    to_del, to_copy = calculate_delta(in_dir, out_dir)
+
+    rm_dest_files(encoder, out_dir, to_del)
+    cp_src_files(encoder, in_dir, out_dir, to_copy, jobs = jobs or multiprocessing.cpu_count())
+
+def main() -> None:
+    logging.basicConfig()
+    logger.setLevel(logging.INFO)
+
+    parser = argparse.ArgumentParser(description="synchronize music from one directory to another, possibly compressing it")
+    parser.add_argument("src", help="source directory")
+    parser.add_argument("dest", help="destination directory")
+    parser.add_argument("--jobs", help="number of cores to compress music with (default: all CPU cores)", default=None, type=int)
+    parser.add_argument("--dry-run", action='store_true', help="don't actually run any commands")
+    parser.add_argument("--verbose", action='store_true', help="more logging")
+    parser.add_argument("--quiet", action='store_true', help="less logging")
+
+    args = parser.parse_args()
+
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+    if args.quiet:
+        logger.setLevel(logging.WARN)
+
+    sync_all(args.src, args.dest, args.jobs, args.dry_run)
+
+if __name__ == '__main__':
+    main()

@@ -298,6 +298,16 @@
             program = ''${deployScript "servo" "servo" "switch"}'';
           };
 
+          sync-moby = {
+            # copy music from the current device to moby
+            # TODO: should i actually sync from /mnt/servo-media/Music instead of the local drive?
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "sync-to-moby" ''
+              sudo mount /mnt/moby-home
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music ~/Music /mnt/moby-home/Music
+            '');
+          };
+
           check-nur = {
             # `nix run '.#check-nur'`
             # validates that my repo can be included in the Nix User Repository
