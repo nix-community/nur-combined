@@ -17,6 +17,7 @@
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
   rusty-rain = pkgs.callPackage ./pkgs/rusty-rain { };
   shinydir = pkgs.callPackage ./pkgs/shinydir { };
-  #lsd-git = pkgs.callPackage ./pkgs/lsd-git { };
+  lsd-git = pkgs.callPackage ./pkgs/lsd-git { };
+  specsheet = pkgs.callPackage ./pkgs/specsheet { };
   #ind = pkgs.callPackage ./pkgs/ind { };
 }

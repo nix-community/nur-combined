@@ -3,15 +3,15 @@
 # Modified from the offical nixpkg https://github.com/NixOS/nixpkgs/blob/9c85697da8e59561151aa279df44ae51a367ed7d/pkgs/tools/misc/lsd/default.nix
 rustPlatform.buildRustPackage rec {
   pname = "lsd";
-  version = "master";
+  version = "8acaabe"; # Latest commit as of 08/15/2023
 
   src = fetchgit {
     url = "https://github.com/lsd-rs/lsd.git";
     rev = version;
-    hash = "";
+    hash = "sha256-3qsJrHFmMn7TWFjTx7C6SdPKu1sxzZPopzXYG7s7Kok=";
   };
 
-  cargoSha256 = "sha256-t7J7hIbLlRq99Yd2/3Zn+PbHhJtaJRdDluDXN0Hp/Jc=";
+  cargoSha256 = "sha256-gRrkqWkZCmab/kzG7omg74ErSy4mvV0wATVpCZt1VXs=";
 
   nativeBuildInputs = [ installShellFiles pandoc ];
   postInstall = ''
