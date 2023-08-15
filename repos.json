@@ -44,6 +44,9 @@
         "afreakk": {
             "url": "https://github.com/afreakk/mynixrepo"
         },
+        "agaia": {
+            "url": "https://github.com/adam-gaia/nur-packages"
+        },
         "alarsyo": {
             "file": "pkgs/default.nix",
             "url": "https://github.com/alarsyo/nixos-config"
