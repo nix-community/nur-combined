@@ -5,14 +5,12 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{pkgs ? import <nixpkgs> {}}: rec {
+{pkgs ? import <nixpkgs> {}}: {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib {inherit pkgs;}; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  libtickit = pkgs.callPackage ./pkgs/libtickit {};
-  a4term = pkgs.callPackage ./pkgs/a4term {inherit libtickit;};
   appendURL = pkgs.callPackage ./pkgs/mpvScripts/appendURL {};
   ttf-literation = pkgs.callPackage ./pkgs/fonts/ttf-literation {};
   IRust = pkgs.callPackage ./pkgs/irust {};
