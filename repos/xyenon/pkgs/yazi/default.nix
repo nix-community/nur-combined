@@ -6,6 +6,8 @@
 , file
 , withJq ? true
 , jq
+, withPoppler ? true
+, poppler_utils
 , withUnar ? true
 , unar
 , withFfmpegthumbnailer ? true
@@ -27,60 +29,65 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "yazi";
-  version = "0.1.2";
+  version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "sxyazi";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-dWRlO6hFSzd9l/HdLzpi4ErH82uEGDPXnK4uRVpfJuE=";
+    hash = "sha256-xzCktGDifcdwipcCOyL9gqmLrOUt/hSDoHEtRlP4DC4=";
   };
 
   postPatch =
     lib.optionalString withFile
       ''
-        substituteInPlace src/core/external/file.rs \
+        substituteInPlace core/src/external/file.rs \
           --replace '"file"' '"${file}/bin/file"'
       ''
     + lib.optionalString withJq
       ''
-        substituteInPlace src/core/external/jq.rs \
+        substituteInPlace core/src/external/jq.rs \
           --replace '"jq"' '"${jq}/bin/jq"'
+      ''
+    + lib.optionalString withPoppler
+      ''
+        substituteInPlace core/src/external/pdftoppm.rs \
+          --replace '"pdftoppm"' '"${poppler_utils}/bin/pdftoppm"'
       ''
     + lib.optionalString withUnar
       ''
-        substituteInPlace src/core/external/lsar.rs \
+        substituteInPlace core/src/external/lsar.rs \
           --replace '"lsar"' '"${unar}/bin/lsar"'
-        substituteInPlace src/core/external/unar.rs \
+        substituteInPlace core/src/external/unar.rs \
           --replace '"unar"' '"${unar}/bin/unar"'
       ''
     + lib.optionalString withFfmpegthumbnailer
       ''
-        substituteInPlace src/core/external/ffmpegthumbnailer.rs \
+        substituteInPlace core/src/external/ffmpegthumbnailer.rs \
           --replace '"ffmpegthumbnailer"' '"${ffmpegthumbnailer}/bin/ffmpegthumbnailer"'
       ''
     + lib.optionalString withFd
       ''
-        substituteInPlace src/core/external/fd.rs \
+        substituteInPlace core/src/external/fd.rs \
           --replace '"fd"' '"${fd}/bin/fd"'
       ''
     + lib.optionalString withRipgrep
       ''
-        substituteInPlace src/core/external/rg.rs \
+        substituteInPlace core/src/external/rg.rs \
           --replace '"rg"' '"${ripgrep}/bin/rg"'
       ''
     + lib.optionalString withFzf
       ''
-        substituteInPlace src/core/external/fzf.rs \
+        substituteInPlace core/src/external/fzf.rs \
           --replace '"fzf"' '"${fzf}/bin/fzf"'
       ''
     + lib.optionalString withZoxide
       ''
-        substituteInPlace src/core/external/zoxide.rs \
+        substituteInPlace core/src/external/zoxide.rs \
           --replace '"zoxide"' '"${zoxide}/bin/zoxide"'
       '';
 
-  cargoHash = "sha256-2cFEod16m64ATGe36Y3zZ3N3K+YpRbVQt+pvtewmNoQ=";
+  cargoHash = "sha256-C47dvHiM9aBjX2v9AzxSGMy5OHFycCA5+MDRa7xTrxE=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 

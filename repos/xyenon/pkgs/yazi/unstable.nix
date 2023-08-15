@@ -24,7 +24,7 @@
 , stdenv
 , Foundation
 
-, unstableGitUpdater
+, nix-update-script
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -34,8 +34,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "sxyazi";
     repo = pname;
-    rev = "8fd3d15918b9ebba127fe11cff38b1bb73393f60";
-    hash = "sha256-Txqvo0i0Tv+wbeZhELs1csPjiW4JQXnosBynI/x9cM4=";
+    rev = "d83b8027f954897e799a6f026c3278d65cb04741";
+    hash = "sha256-xzCktGDifcdwipcCOyL9gqmLrOUt/hSDoHEtRlP4DC4=";
   };
 
   postPatch =
@@ -87,11 +87,11 @@ rustPlatform.buildRustPackage rec {
           --replace '"zoxide"' '"${zoxide}/bin/zoxide"'
       '';
 
-  cargoHash = "sha256-cIbBeWOW1ymufOgeA5olAqqRSS8VZnKRCOtv3d04VgU=";
+  cargoHash = "sha256-ER4O6DEK1/IcuCQEfxf8nzc7pbnlE/hRe1m5QrS6rr0=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version" "branch" ]; };
 
   meta = with lib; {
     description = "Blazing fast terminal file manager written in Rust, based on async I/O";
