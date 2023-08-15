@@ -21,9 +21,10 @@ in {
     ./sshfs.nix
     ./zfs.nix
     ./container-inet-rdp.nix
-    ./container-inet-nx.nix
     ./container-nat.nix
   ];
+
+  services.nginx.enable = true;
 
   services.xserver.windowManager.i3.enable = true;
 

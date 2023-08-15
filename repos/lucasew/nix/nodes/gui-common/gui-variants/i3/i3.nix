@@ -1,6 +1,5 @@
-{pkgs, lib, ...}: 
-# https://thomashunter.name/i3-configurator/
-with pkgs.custom.colors.colors;
+{pkgs, lib, config, ...}:
+
 let
   custom_rofi = pkgs.custom.rofi.override { inherit (pkgs.custom) colors; };
   inherit (pkgs) writeShellScript makeDesktopItem;
@@ -34,23 +33,25 @@ let
     exec = "${locker}";
   };
 in {
-  environment.systemPackages = with pkgs; [
-    lockerSpace
-    custom_rofi
-    terminator
-  ];
-  services.xserver.windowManager.i3 = {
-    enable = true;
-    configFile = "/etc/i3config";
-    extraPackages = with pkgs; [
-      playerctl
+
+  config = lib.mkIf config.services.xserver.windowManager.i3.enable {
+    # https://thomashunter.name/i3-configurator/
+    environment.systemPackages = with pkgs; [
+      lockerSpace
       custom_rofi
-      pulseaudio
-      feh
-      brightnessctl
+      terminator
     ];
-  };
-  environment.etc."i3status".text = lib.mkForce ''
+    services.xserver.windowManager.i3 = {
+      configFile = "/etc/i3config";
+      extraPackages = with pkgs; [
+        playerctl
+        custom_rofi
+        pulseaudio
+        feh
+        brightnessctl
+      ];
+    };
+    environment.etc."i3status".text = with pkgs.custom.colors.colors; lib.mkForce ''
 general {
   colors = true
   color_bad = "#${base08}"
@@ -92,9 +93,9 @@ cpu_usage {
 
 order += "memory"
 memory {
-       format = "🐸 %percentage_used"
-       threshold_degraded = "10%"
-       format_degraded = "🐸 %free"
+      format = "🐸 %percentage_used"
+      threshold_degraded = "10%"
+      format_degraded = "🐸 %free"
 }
 
 order += "volume master"
@@ -125,7 +126,7 @@ tztime local {
 
 
   '';
-  environment.etc."i3config".text = lib.mkForce ''
+    environment.etc."i3config".text = with pkgs.custom.colors.colors; lib.mkForce ''
 set $mod ${mod}
 
 bar {
@@ -244,4 +245,5 @@ default_border pixel 2
 hide_edge_borders smart
 focus_on_window_activation urgent
   '';
+  };
 }

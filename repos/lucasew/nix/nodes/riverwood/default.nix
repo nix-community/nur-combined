@@ -21,6 +21,8 @@ in
     ]
   ;
 
+  services.nginx.enable = true;
+
   services.xserver.windowManager.i3.enable = true;
 
   boot.plymouth.enable = true;

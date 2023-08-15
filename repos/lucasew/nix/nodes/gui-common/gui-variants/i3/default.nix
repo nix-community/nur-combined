@@ -8,14 +8,14 @@
     ./lockscreen.nix
     ./kdeconnect.nix
   ];
+
   config = lib.mkIf config.services.xserver.windowManager.i3.enable {
-    services.dunst.enable = lib.mkDefault true;
-    programs.xss-lock.enable = lib.mkDefault true;
-    programs.kdeconnect.enable = lib.mkDefault true;
+    services.dunst.enable = true;
+    programs.xss-lock.enable = true;
+    programs.kdeconnect.enable = true;
 
     services.xserver = {
-      enable = lib.mkDefault true;
-      displayManager.defaultSession = "none+i3";
+      displayManager.defaultSession = lib.mkDefault "none+i3";
       windowManager.i3 = {
         configFile = "/etc/i3config";
       };
@@ -30,8 +30,8 @@
     };
 
     services.picom = {
-      enable = lib.mkDefault true;
-      vSync = lib.mkDefault true;
+      enable = true;
+      vSync = true;
     };
     environment.systemPackages = with pkgs; [
       gnome.eog # eye of gnome

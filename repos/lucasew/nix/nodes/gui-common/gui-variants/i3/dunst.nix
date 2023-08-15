@@ -1,10 +1,5 @@
 {pkgs, config, lib, ...}:
 
-let
-  inherit (pkgs) dunst custom;
-  inherit (custom) colorpipe;
-in
-
 {
   options.services.dunst.enable = lib.mkEnableOption "dunst";
 
@@ -71,7 +66,7 @@ in
       wantedBy = [ "graphical-session.target" ];
       enable = true;
       restartIfChanged = true;
-      path = [ dunst colorpipe ];
+      path = [ pkgs.dunst pkgs.custom.colorpipe ];
       script = ''
         cat /etc/dunstconfig | colorpipe > /run/user/`id -u`/dunstconfig
         dunst -config /run/user/`id -u`/dunstconfig
