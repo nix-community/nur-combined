@@ -26,12 +26,12 @@ let
   openjdk = "20.0.2";
 
   sha256_x64_linux = "sha256-sq9EKhN6w6YyJ4vPXRSlIf6UbDU/Lfsyh15yvBbmMjo=";
-  sha256_x64_darwin = "sha256-nRRWTWiog8bRblmmPIPE5YibA34St3ZrJpZN91qEDUg=";
-  sha256_aarch64_darwin = "sha256-TBTrBxOfGo6MV+Md49P3sDfqVG1e+NraqfVbw9WTppk=";
+  sha256_x64_darwin = "sha256-PdOHIwaFR1C3tMuFEfelSEXHGYI5WQW4YUe+NGLxA0c=";
+  sha256_aarch64_darwin = "sha256-lJ5FabM1uQnqZgwtFfcRt/mHMz+4UwnvlifcdOmlbJs=";
 
   platform = if stdenv.isDarwin then "macosx" else "linux";
   hash = if stdenv.isAarch64 && stdenv.isDarwin then sha256_aarch64_darwin else if stdenv.isDarwin then sha256_x64_darwin else sha256_x64_linux;
-  extension = if stdenv.isDarwin then "zip" else "tar.gz";
+  extension = "tar.gz";
   architecture = if stdenv.isAarch64 then "aarch64" else "x64";
 
   runtimeDependencies = [
