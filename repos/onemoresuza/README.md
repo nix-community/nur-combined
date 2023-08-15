@@ -9,6 +9,12 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
+To have access to the binary cache, add the following to yout `nix.conf`:
+
+```
+trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWoWuPPg5yg7BZQy0=
+```
+
 ## Featured Packages
 
 - **Fonts**:
