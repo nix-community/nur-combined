@@ -12,11 +12,14 @@
         "armv7l-linux"
       ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      #cleanDefaultNix = with nixpkgs.lib;
+      #  a: filterAttrs (key: _:
+      #    all (s: s != key) ["lib" "modules" "overlays"]) a;
     in
     {
-      packages = forAllSystems (system: import ./default.nix {
+      packages = forAllSystems (system: (import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
-      });
+      }));
       overlay = import ./overlay.nix;
     };
 }

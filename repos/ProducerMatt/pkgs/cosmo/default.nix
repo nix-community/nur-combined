@@ -20,8 +20,8 @@
 let
   commonMeta = rec {
     name = "cosmopolitan";
-    version = "2023-06-18";
-    rev = "48b2afb192ec18eca40c0b25603c02a2e3b578e9";
+    version = "2023-08-14";
+    rev = "b494d565499c6eb49fd2f48ce036623d2baf63b4";
     changelog = "https://github.com/jart/cosmopolitan/commits/${rev}";
   };
 
