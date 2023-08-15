@@ -1,4 +1,5 @@
-{ appimageTools, lib, fetchurl, fetchzip, electron, makeWrapper, libsecret, p7zip }:
+{ appimageTools, lib, fetchurl, fetchzip, electron, makeWrapper, libsecret
+, p7zip }:
 
 let
   pname = "qq";
@@ -7,18 +8,21 @@ let
 
   srcs = {
     electron = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/64bd2578/linuxqq_3.0.0-565_x86_64.AppImage";
+      url =
+        "https://dldir1.qq.com/qqfile/qq/QQNT/64bd2578/linuxqq_3.0.0-565_x86_64.AppImage";
       sha256 = "sha256-uoxGwuG+RP1XiNEvQZ5yLHh2rYU1TxBsl9NYaYZ78AI=";
     };
   };
-  
+
   src = srcs.electron;
 
   appimageContents = (appimageTools.extract { inherit name src; });
 
 in appimageTools.wrapAppImage {
   inherit version name;
-  src = appimageContents;
+  src = lib.warn
+    "${name} from pokon548's NUR is deprecated and will be removed from NUR repo soon. Migrate by changing nur.repos.pokon548.tencent-qq-electron to pkgs.qq"
+    appimageContents;
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
@@ -31,14 +35,12 @@ in appimageTools.wrapAppImage {
 
   #passthru.version = version;
 
-  extraPkgs = pkgs: with pkgs; [
-    libsecret
-    libappindicator-gtk3
-  ];
+  extraPkgs = pkgs: with pkgs; [ libsecret libappindicator-gtk3 ];
 
   meta = with lib; {
     homepage = "https://im.qq.com";
-    description = "(Deprecated. You should migrate to nixpkgs distribution) Official Tencent QQ client for Linux (Beta)";
+    description =
+      "(Deprecated. You should migrate to nixpkgs distribution) Official Tencent QQ client for Linux (Beta)";
     platforms = [ "x86_64-linux" ];
     license = licenses.unfree;
   };

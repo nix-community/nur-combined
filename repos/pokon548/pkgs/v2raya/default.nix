@@ -1,13 +1,5 @@
-{ lib
-, fetchFromGitHub
-, mkYarnPackage
-, buildGoModule
-, makeWrapper
-, v2ray
-, v2ray-geoip
-, v2ray-domain-list-community
-, symlinkJoin
-}:
+{ lib, fetchFromGitHub, mkYarnPackage, buildGoModule, makeWrapper, v2ray
+, v2ray-geoip, v2ray-domain-list-community, symlinkJoin }:
 let
   pname = "v2raya";
   version = "unstable-2023-03-17";
@@ -40,18 +32,15 @@ let
     paths = [ v2ray-geoip v2ray-domain-list-community ];
   };
 
-in
-buildGoModule {
+in buildGoModule {
   inherit pname version;
 
-  src = "${src}/service";
+  src = lib.warn
+    "${pname} from pokon548's NUR is deprecated and will be removed from NUR repo soon. Migrate by changing nur.repos.pokon548.v2raya to pkgs.v2raya"
+    "${src}/service";
   vendorSha256 = "sha256-Ud4pwS0lz7zSTowg3gXNllfDyj8fu33H1L20szxPcOA=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/v2rayA/v2rayA/conf.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X github.com/v2rayA/v2rayA/conf.Version=${version}" ];
 
   subPackages = [ "." ];
 
@@ -71,7 +60,8 @@ buildGoModule {
   '';
 
   meta = with lib; {
-    description = "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
+    description =
+      "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
     homepage = "https://github.com/v2rayA/v2rayA";
     mainProgram = "v2rayA";
     license = licenses.agpl3Only;
