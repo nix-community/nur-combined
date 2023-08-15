@@ -20,6 +20,12 @@ let
     );
 in [
 
+  (fetchpatch' {
+    title = "liberation_ttf_v1: fix build after #248865";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/249059";
+    hash = "sha256-hZwUk/nt5a670IUCd+iys0Cj9+oxEpsrFu9Y/zZ9Ccg=";
+  })
+
   # (fetchpatch' {
   #   # TODO: check back in on this around 2023-10-01
   #   title = "libkiwix: 12.0.0 -> 12.1.0";
@@ -303,20 +309,6 @@ in [
     hash = "sha256-Jj+1z2DeCEY+DqI1J4vYjYJwDDMRcA93CqpZSXzG0wE=";
   })
   (fetchpatch' {
-    title = "iio-sensor-proxy: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/246947";
-    saneCommit = "dc1c3341fef6c64d5fbc983670819cf7932f5be1";
-    # hash = "sha256-lSVGjNepRLMfLgaAG3zv/BfoEhJg8yX7EqaCgu8/b8I=";
-    hash = "sha256-0rO+qkWgdrZsuHnoRdQ0SqEEW+PYcJaLixrOgJSOssk=";
-  })
-  (fetchpatch' {
-    title = "mpvScripts.mpris: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/247087";
-    saneCommit = "f7cd92e2afa26852ccf53f8ca59c13d82bf7bf64";
-    # hash = "sha256-MB3qloOW4pXZmbCIVsUKP2DnPoePmBf+qRc2x/o+nDw=";
-    hash = "sha256-uMbnfO0WY2/AFpvvnHQGKVSTE2rPrm3SCef4f04Bt78=";
-  })
-  (fetchpatch' {
     title = "clapper: support cross compilation";
     saneCommit = "8a171b49aca406f8220f016e56964b3fae53a3df";
     hash = "sha256-R11IYatGhSXxZnJxJid519Oc9Kh56D9NT2/cxf2CLuM=";
@@ -357,13 +349,6 @@ in [
     title = "pidgin: support cross compilation";
     saneCommit = "caacbcc54e217f5ee9281422777a7f712765f71a";
     hash = "sha256-PDCp4GOm6hWcRob4kz7qXZfxAF6YbYrESx9idoS3e/s=";
-  })
-
-  (fetchpatch' {
-    title = "mate.engrampa: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/247841";
-    saneCommit = "3c76cdaf837f48861e4c3347b480c9a18b5b4a72";
-    hash = "sha256-rT0CBTOFxHQAvxqjWeNRJ2jenDuNRSo+gVDoPFKzHSM=";
   })
 
   (fetchpatch' {
