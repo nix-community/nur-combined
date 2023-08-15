@@ -17,12 +17,12 @@ final: prev:
 
   knap = buildVimPluginFrom2Nix {
     pname = "knap";
-    version = "2023-08-07";
+    version = "2023-08-03";
     src = fetchFromGitHub {
       owner = "Mikilio";
       repo = "knap";
-      rev = "9ab1252b992dc8bacc8e82fce683395ac474986f";
-      sha256 = "1krddc2mfcjsydkc3dk4a07aafpd0iy4fw6ag67ky4plli6ipcp5";
+      rev = "d5ba9aa7f50e2b795fbd64a61186105d6db05da5";
+      sha256 = "1ww7vdsyvv92s5ravbfazhkmfw8b24cnj2hi3n582kk9qnq1bzzs";
     };
     meta.homepage = "https://github.com/Mikilio/knap/";
   };
@@ -37,6 +37,18 @@ final: prev:
       sha256 = "1n922b6gvx5sbqy07g4nim75553rb7sh4qs649p2l1dfm05xv0da";
     };
     meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
+  };
+
+  ltex_extra-nvim = buildVimPluginFrom2Nix {
+    pname = "ltex_extra.nvim";
+    version = "2023-07-28";
+    src = fetchFromGitHub {
+      owner = "barreiroleo";
+      repo = "ltex_extra.nvim";
+      rev = "9bed99b2b8488cc2daf66c76d2e0cf051ee80d13";
+      sha256 = "1v4vxfysvisl9l91f519mbj4r7a43gzfyaj4cbgs3fc650h00f1g";
+    };
+    meta.homepage = "https://github.com/barreiroleo/ltex_extra.nvim/";
   };
 
   netrw-nvim = buildVimPluginFrom2Nix {
@@ -61,18 +73,6 @@ final: prev:
       sha256 = "19r6sdyaxkjmm9k5l97n4fcp5ycx8d3v9kyydxzcpxji5synv2gq";
     };
     meta.homepage = "https://github.com/jakewvincent/texmagic.nvim/";
-  };
-
-  ltex_extra-nvim = buildVimPluginFrom2Nix {
-    pname = "ltex_extra.nvim";
-    version = "2023-07-28";
-    src = fetchFromGitHub {
-      owner = "barreiroleo";
-      repo = "ltex_extra.nvim";
-      rev = "9bed99b2b8488cc2daf66c76d2e0cf051ee80d13";
-      sha256 = "1v4vxfysvisl9l91f519mbj4r7a43gzfyaj4cbgs3fc650h00f1g";
-    };
-    meta.homepage = "https://github.com/barreiroleo/ltex_extra.nvim/";
   };
 
 
