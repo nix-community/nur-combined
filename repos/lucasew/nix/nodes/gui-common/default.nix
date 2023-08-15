@@ -4,6 +4,7 @@ let
 in {
   imports = [
     ../common
+    ./gui-variants
     ./audio.nix
     ./gui.nix
     ./networking.nix
@@ -15,6 +16,9 @@ in {
     ./ipfs.nix
     ./gamemode.nix
     ./syncthing.nix
+    ./wallpaper.nix
+    ./extra-fonts.nix
+    ./gui-variants
   ];
   nixpkgs = {
     config = {

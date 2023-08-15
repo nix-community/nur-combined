@@ -25,6 +25,8 @@ in {
     ./container-nat.nix
   ];
 
+  services.xserver.windowManager.i3.enable = true;
+
   services.transmission.enable = true;
   systemd.services.transmission.serviceConfig.BindPaths = [
     "/storage/downloads"

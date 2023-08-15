@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {self, global, pkgs, config, lib, ... }@args:
 let
   inherit (self) inputs;
@@ -9,8 +5,7 @@ let
   hostname = "riverwood";
 in
 {
-  imports =
-    [
+  imports = [
       ./hardware-configuration.nix
       ../gui-common
 
@@ -25,6 +20,8 @@ in
       ./tuning.nix
     ]
   ;
+
+  services.xserver.windowManager.i3.enable = true;
 
   boot.plymouth.enable = true;
 

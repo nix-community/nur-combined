@@ -1,4 +1,4 @@
-{pkgs, lib, ...}:
+{pkgs, lib, config, ...}:
 with pkgs.custom.colors.colors;
 let
   inherit (pkgs) i3lock-color;
@@ -27,10 +27,9 @@ let
     "--keyhl-color=${base08}"
     "--bshl-color=${base08}"
   ];
-in {
+in lib.mkIf config.programs.xss-lock.enable {
   programs.xss-lock = {
-    enable = true;
-    lockerCommand = ''
+    lockerCommand = lib.mkDefault ''
       ${i3lock-color}/bin/i3lock-color ${concatStringsSep " " (map toString locker-params)}
     '';
     extraOptions = [];

@@ -1,14 +1,14 @@
 {pkgs, global, ...}: {
-  imports = [
-    ../../modules/gui/system.nix
-  ];
-  services.xserver.displayManager.lightdm = {
-    background = pkgs.custom.wallpaper;
-    greeters.enso = {
-      enable = true;
-      blur = true;
+  services.xserver = {
+    desktopManager.xterm.enable = false;
+    displayManager.lightdm = {
+      background = pkgs.custom.wallpaper;
+      greeters.enso = {
+        enable = true;
+        blur = true;
+      };
     };
-  };
+};
 
   fonts.fonts = with pkgs; [
     siji
