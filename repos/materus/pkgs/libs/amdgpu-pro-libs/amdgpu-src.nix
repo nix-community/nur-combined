@@ -1,484 +1,484 @@
 { fetchurl }: {
-  version = "5.5.2";
+  version = "5.5.3";
   bit64 = rec {
     amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu/amdgpu_5.5.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu/amdgpu_5.5.50503-1620033.22.04_amd64.deb";
       name = "amdgpu";
       sha256 =
-        "45c196ce09d1f8a12d8dffb3b30d2308ec251d94bcc213718276e8cdaef1c538";
+        "2df139e9abb9b773509aa1e10b2071f8c1976cba90c9e828865bcbb619fdabb1";
     });
 
     amdgpu-core = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-core/amdgpu-core_5.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-core/amdgpu-core_5.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-core";
       sha256 =
-        "7d2f63753b155bdd80ad82c4bfc8da122998604b8f7cc3429aa4d3010721af4f";
+        "439d84f4c5dc2bdd21eb1028b22d44260775970976687a81ad3ed5df19703741";
     });
 
     amdgpu-dkms = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms_6.0.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms_6.0.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-dkms";
       sha256 =
-        "82dd14d419160dd410a93dfbc975f44492eb29c1acb3e93e4b82c2413d23e8a6";
+        "f5e641366369ba334ab422af9e3d21852aeea5b5b01a1182d0ab6c6c4252de60";
     });
 
     amdgpu-dkms-firmware = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_6.0.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_6.0.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-dkms-firmware";
       sha256 =
-        "ba314b92aa54f4b245e0fd0e02c2e18b47340e8bef7fc03959fdc52f27d03705";
+        "4092ec684ffd840e5b68a340bb77bcede9c7f6b7e20ca9d2c8e8d6cbd7a2b962";
     });
 
     amdgpu-dkms-headers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-headers_6.0.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-headers_6.0.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-dkms-headers";
       sha256 =
-        "ffc8c59f00dbaa7dbded0c3cca1f484e686d4351bbf8274b9fa027c544d476f2";
+        "b6a4cb41977f3ca404412bc858f9c44daff159ecc57cd27ce4d714fc55e68fc0";
     });
 
     amdgpu-doc = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-doc/amdgpu-doc_5.5-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-doc/amdgpu-doc_5.5-1620033.22.04_all.deb";
       name = "amdgpu-doc";
       sha256 =
-        "1c484a8609cd8598baf7d87bd411724ecf1272d0c2be99fe03221b8d471487a8";
+        "6f59473a300ef47ff158370635d00a6117b8e4539bb35e807a515e2ef39d2c1c";
     });
 
     amdgpu-install = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-install/amdgpu-install_5.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-install/amdgpu-install_5.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-install";
       sha256 =
-        "3e133d1a0113544adb00fb1e7874771ce2e1c963af320ae14dfe150c029b2bcb";
+        "928a3768ec57ad5d426ce2f0a69d0d590232b4db7258fe65052bb3f75cd6f584";
     });
 
     amdgpu-lib = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu/amdgpu-lib_5.5.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu/amdgpu-lib_5.5.50503-1620033.22.04_amd64.deb";
       name = "amdgpu-lib";
       sha256 =
-        "fbfd89925bc0fef5791b01c0ea861cd2755060f8b66e6beefaef2c19bc396ea4";
+        "fdab070a6196b048c6f81bd0c132ef34ba81b0acb40396df65d7c0f48b37a717";
     });
 
     amdgpu-lib32 = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu/amdgpu-lib32_5.5.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu/amdgpu-lib32_5.5.50503-1620033.22.04_amd64.deb";
       name = "amdgpu-lib32";
       sha256 =
-        "06845d4bc419558d96a31176dc238b18aa44ded045753b940d61640380bfbd7b";
+        "91af5476d96e3f468593b5a305e175ab325d342b4798e5fad9ecccdfd5090ed5";
     });
 
     gst-omx-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/g/gst-omx-amdgpu/gst-omx-amdgpu_1.0.0.1.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/g/gst-omx-amdgpu/gst-omx-amdgpu_1.0.0.1.50503-1620033.22.04_amd64.deb";
       name = "gst-omx-amdgpu";
       sha256 =
-        "88b8fff67b28820a9b55e616e6eea813568600f191440238337a34039c34cbf5";
+        "759307b05b857ba4b0f4ab4a4ca3aa0633758de0e73cbadf72c959c26a9861b3";
     });
 
     libdrm-amdgpu-amdgpu1 = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-amdgpu1_2.4.114.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-amdgpu1_2.4.114.50503-1620033.22.04_amd64.deb";
       name = "libdrm-amdgpu-amdgpu1";
       sha256 =
-        "03a09a690c51c85cd0ecb443b7c8757b1477c1f5641fd1432dad7058bfd9cfce";
+        "87ccaf55e02832b4ecc3931482891000a720614661b02509636d00486f321237";
     });
 
     libdrm-amdgpu-common = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.50503-1630490.22.04_all.deb";
       name = "libdrm-amdgpu-common";
       sha256 =
-        "4b2221ff726fd94d503cbb42be56f261e9c5c60c5fda8cffa9487272a7665c6c";
+        "142f664971682d0bb49f84577003aa70561498605bb689cfda821563051d53c4";
     });
 
     libdrm-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-dev_2.4.114.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-dev_2.4.114.50503-1620033.22.04_amd64.deb";
       name = "libdrm-amdgpu-dev";
       sha256 =
-        "02e90b45ce999829cb69757cb64b3c0b8ee4854839547d3200f598f78d096da2";
+        "3d720b24920b6282fd4c5f087537bf2833685c5054ff611d86e01d9cd679a29a";
     });
 
     libdrm-amdgpu-radeon1 = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-radeon1_2.4.114.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-radeon1_2.4.114.50503-1620033.22.04_amd64.deb";
       name = "libdrm-amdgpu-radeon1";
       sha256 =
-        "5ea465f696ac4a501fc2ee31828e3d1654c91c9c3804cfc25f1d7cbb359be7a1";
+        "46f2dac61247fc64a3c379f32fbc77471815ded752f27fa94f78c3c45b212a31";
     });
 
     libdrm-amdgpu-utils = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-utils_2.4.114.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-utils_2.4.114.50503-1620033.22.04_amd64.deb";
       name = "libdrm-amdgpu-utils";
       sha256 =
-        "4aa57730dc94485f65b21d7f72aedd888045d055275b160bb1def31478d2eeee";
+        "0b7b3454496a86a6dd38baa255d4989b7cf8225ccc21d46d2f46a7398df35ab1";
     });
 
     libdrm2-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm2-amdgpu_2.4.114.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm2-amdgpu_2.4.114.50503-1620033.22.04_amd64.deb";
       name = "libdrm2-amdgpu";
       sha256 =
-        "3c49d7718c67ed06911a27c42c1a65c200e887760cd6183b4eccb783df915da3";
+        "8220a7cd9ebf9b681dd5b7dc6acf2c916c5605293f99ca4cff114387161e9246";
     });
 
     libegl1-amdgpu-mesa = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libegl1-amdgpu-mesa";
       sha256 =
-        "0ab509da153612060fd856ddacef9b29348d50038f771188e1f76c9c8892c09b";
+        "b3db5087206b1206e201e5b3ca1bd5ea1e721ba81e51e0fd6bcc35ec51f42835";
     });
 
     libegl1-amdgpu-mesa-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa-dev_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa-dev_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libegl1-amdgpu-mesa-dev";
       sha256 =
-        "1c1276d0e3a290ea9b4a82550e345ebd3af931b8cd19aad8cd859ad7f2a0d91e";
+        "592b6c9c42ac4d37fc8852901b895164e508ebf976cd081bfec887abdb41d844";
     });
 
     libegl1-amdgpu-mesa-drivers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa-drivers_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa-drivers_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libegl1-amdgpu-mesa-drivers";
       sha256 =
-        "7a0e6a14a620dc24680c0d7569e12e2aed754a2784d53bd397afd1965c4d6ae8";
+        "3825d8419cfe3009d9f4732092817a2cc5c823d490c4d278815cd9962edb5d36";
     });
 
     libgbm-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgbm-amdgpu-dev_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgbm-amdgpu-dev_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libgbm-amdgpu-dev";
       sha256 =
-        "1915239eee0a91d8b129719fd46db6140c3759f0033d7992e188410e4051fa80";
+        "7b38f02d815495ef49f5ab918d8305d380549456a6f5b3cbf091cdf198cd2fb9";
     });
 
     libgbm1-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgbm1-amdgpu_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgbm1-amdgpu_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libgbm1-amdgpu";
       sha256 =
-        "b2231c66e9a9469036f6002b091c1fa025e0ecd9e87da2bacf96878e9405aa8a";
+        "1bd5ecb195cd3c7348fbc85074d54b39a6babc9ef65ef779a8b99fb7b21ae6b5";
     });
 
     libgl1-amdgpu-mesa-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-dev_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-dev_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libgl1-amdgpu-mesa-dev";
       sha256 =
-        "7cb4f84da74b2ba77114543a9dd9944960d69e651cce7db1c9fbbbc23c85e765";
+        "57449e1fa33da8ab0282da7dd50f1b79eab69b93c1f8b55e0fefaae0cd6d8189";
     });
 
     libgl1-amdgpu-mesa-dri = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-dri_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-dri_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libgl1-amdgpu-mesa-dri";
       sha256 =
-        "94a39c3d0f7166503ed159792b1368f1fbd155fbfe732f56f95e238e2f7bf89c";
+        "96b6f6524b7ea375a4dc7664ca4d98a06f36654d9ece0ceb19d1c3175c8077b5";
     });
 
     libgl1-amdgpu-mesa-glx = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-glx_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-glx_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libgl1-amdgpu-mesa-glx";
       sha256 =
-        "b529f8309730616af4f9c5cfa032056eb9c83313a27ecbf634f1d46d85b2d9d8";
+        "a438d0a572eafc5bf153e033d20d59f327a2307610908866c3eea9607210caf2";
     });
 
     libglapi-amdgpu-mesa = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libglapi-amdgpu-mesa_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libglapi-amdgpu-mesa_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libglapi-amdgpu-mesa";
       sha256 =
-        "65af1314e0e6f2e4e6c2f28278eb2810fe558daf305d04cad30be5488b1ee049";
+        "29548554a1e72aa879929c2a3fffab71de48c88d846cf0b51616ae663ad926ef";
     });
 
-    libllvm15_0_50502-amdgpu = (fetchurl {
+    libllvm15_0_50503-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/libllvm15.0.50502-amdgpu_15.0.50502-1607507.22.04_amd64.deb";
-      name = "libllvm15_0_50502-amdgpu";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/libllvm15.0.50503-amdgpu_15.0.50503-1620033.22.04_amd64.deb";
+      name = "libllvm15_0_50503-amdgpu";
       sha256 =
-        "2dbf2fa889b86bc2834433cec92e02853999ba8a88035437ff3399e2ce67d570";
+        "8fd723577b15aad292d581a499f4a5134847688bc4fda90fae8dffca946794e1";
     });
 
     libxatracker-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libxatracker-amdgpu-dev_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libxatracker-amdgpu-dev_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libxatracker-amdgpu-dev";
       sha256 =
-        "2eb44df1e4b9cc9a1b2b5ec6e3f473541afe3d0cba301f443273a3061f0f3264";
+        "ef7e411e3ea91c70ba078b97c807f43443012734c18589df506a83aa21f01ff1";
     });
 
     libxatracker2-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libxatracker2-amdgpu_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libxatracker2-amdgpu_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "libxatracker2-amdgpu";
       sha256 =
-        "daffdd12454f253e1dbfe441f816bf4f530d300533fc1c61bcee7335d5620b75";
+        "3e231699a64170ff0fecaf397ffa6c38d56f63a625cbae48e66d1998a16cf833";
     });
 
     llvm-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu_15.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu_15.0.50503-1620033.22.04_amd64.deb";
       name = "llvm-amdgpu";
       sha256 =
-        "f3a216b662a47843e9f4c505327a5ea15c539bbeec9c6a3122ef8ace25b76da9";
+        "123016f28828db9114739ed8c85894f578a14deb37e289b4a8d5e141ac1d55a0";
     });
 
-    llvm-amdgpu-15_0_50502 = (fetchurl {
+    llvm-amdgpu-15_0_50503 = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50502_15.0.50502-1607507.22.04_amd64.deb";
-      name = "llvm-amdgpu-15_0_50502";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50503_15.0.50503-1620033.22.04_amd64.deb";
+      name = "llvm-amdgpu-15_0_50503";
       sha256 =
-        "7b7a8025c1e3437d09ddaf9133f0d331075e66550b03f526cc6f1715c628871e";
+        "06d2aa184cfe8129fc6056849e06c8a55f911db935903d8cf76ca24320707799";
     });
 
-    llvm-amdgpu-15_0_50502-dev = (fetchurl {
+    llvm-amdgpu-15_0_50503-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50502-dev_15.0.50502-1607507.22.04_amd64.deb";
-      name = "llvm-amdgpu-15_0_50502-dev";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50503-dev_15.0.50503-1620033.22.04_amd64.deb";
+      name = "llvm-amdgpu-15_0_50503-dev";
       sha256 =
-        "28e71d3bacec29d428c3f7e29a9793e5bfc420e6f99d3192aae03d3adcbe3b96";
+        "72dc7d06ac5e10732a14d8144a215951ea34ef4d3e51b159d88e19535755d696";
     });
 
-    llvm-amdgpu-15_0_50502-runtime = (fetchurl {
+    llvm-amdgpu-15_0_50503-runtime = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50502-runtime_15.0.50502-1607507.22.04_amd64.deb";
-      name = "llvm-amdgpu-15_0_50502-runtime";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50503-runtime_15.0.50503-1620033.22.04_amd64.deb";
+      name = "llvm-amdgpu-15_0_50503-runtime";
       sha256 =
-        "010c1537fbeeb0848398e897c9a4f12a052ffb1c4d483aca9687d114c7172f04";
+        "a95a2090b91d689a80e7d5c2d5fe3db4111bc0f54c59bbf0616a2105def7404a";
     });
 
     llvm-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-dev_15.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-dev_15.0.50503-1620033.22.04_amd64.deb";
       name = "llvm-amdgpu-dev";
       sha256 =
-        "cd28dd13ab469b9eba6b744e8746f5b81b1f2afeaca610da41a08730172ad8e8";
+        "986d88600b50d7f3f7f4f61845a317d96e244039050d812b16c60bb36a0e21b5";
     });
 
     llvm-amdgpu-runtime = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-runtime_15.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-runtime_15.0.50503-1620033.22.04_amd64.deb";
       name = "llvm-amdgpu-runtime";
       sha256 =
-        "98b9f6a965f081ef6484b36363ce83443fbad8ecf40b80e3a684fe5401ad57dc";
+        "cce921f8fd51cdef6190c488c7f155fa24e0b374447cffa8e07937cd3b98e850";
     });
 
     mesa-amdgpu-common-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-common-dev_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-common-dev_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "mesa-amdgpu-common-dev";
       sha256 =
-        "1de4e135e77075fc1dc8d738799f17f6b562df1d3061ea69e0b890a9caaabe75";
+        "501bfc2bf68eb15812608dcd04e0bc722bf210998c8c68d8ded9779c66761ab7";
     });
 
     mesa-amdgpu-omx-drivers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-omx-drivers_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-omx-drivers_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "mesa-amdgpu-omx-drivers";
       sha256 =
-        "73762195ee321d0e16c10d43d138a6c2aba68ea5a320bcf9b0817cefecb8da49";
+        "b6f320f38d8d9d5466a216fe02e2cb3ae0e7781757bf5ab47a7c53bdaabdf8e2";
     });
 
     mesa-amdgpu-va-drivers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-va-drivers_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-va-drivers_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "mesa-amdgpu-va-drivers";
       sha256 =
-        "e00cfedf90198dad93ba11ad23c177e5d96f16f32593e734f038891b2313e7c6";
+        "1d8a7217ff2913916bb70e66709ca94e0ab5f95a7c59f6ba95197e19391e1190";
     });
 
     mesa-amdgpu-vdpau-drivers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-vdpau-drivers_23.1.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-vdpau-drivers_23.1.0.50503-1620033.22.04_amd64.deb";
       name = "mesa-amdgpu-vdpau-drivers";
       sha256 =
-        "704d0eee6ca8d8f0851d4ab8dba0d0ba11bb44f61696fb8a6811f751bf94eafa";
+        "98c57281b946f70cb6253a021f86d40f8e2453d981db17905f741d38921afa98";
     });
 
     smi-lib-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/s/smi-lib-amdgpu/smi-lib-amdgpu_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/s/smi-lib-amdgpu/smi-lib-amdgpu_23.10-1620044.22.04_amd64.deb";
       name = "smi-lib-amdgpu";
       sha256 =
-        "1ef69671a4a0f55e1e531d63c62247546a42e483057c56ae2a84f1b897f075b6";
+        "3106de3b8a9b8851039990b035969de336441e33255a2dbe422cba196c60c540";
     });
 
     smi-lib-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/s/smi-lib-amdgpu/smi-lib-amdgpu-dev_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/s/smi-lib-amdgpu/smi-lib-amdgpu-dev_23.10-1620044.22.04_amd64.deb";
       name = "smi-lib-amdgpu-dev";
       sha256 =
-        "79f40a183c7f319ab23624842c95d869ac2e8c15a7f868adab2ecb34f629ca82";
+        "f52c81d1d7b9aa99c980ed3b04d23cb7a98ea2c99eefe48c7c80817fc1f78512";
     });
 
     vulkan-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/v/vulkan-amdgpu/vulkan-amdgpu_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/v/vulkan-amdgpu/vulkan-amdgpu_23.10-1620044.22.04_amd64.deb";
       name = "vulkan-amdgpu";
       sha256 =
-        "b9681c9f9f0e5046bc5fcb79c87cc290ef68272546c69394471adaa11143b799";
+        "0a7a5661f691dfcd2235c9b0b72af1e38cd62404b5191bad7992c38d1de5f3cf";
     });
 
     xserver-xorg-amdgpu-video-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/x/xserver-xorg-amdgpu-video-amdgpu/xserver-xorg-amdgpu-video-amdgpu_22.0.0.50502-1607507.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/x/xserver-xorg-amdgpu-video-amdgpu/xserver-xorg-amdgpu-video-amdgpu_22.0.0.50503-1620033.22.04_amd64.deb";
       name = "xserver-xorg-amdgpu-video-amdgpu";
       sha256 =
-        "3181760df9069e84c876fe665a9c253ff46075d757d6dcf5033edcb056b0b7a4";
+        "d9580230b509d6785712d1c96059bdccbdbbb2ea58cb940b6eaae4bdaf06fead";
     });
 
     amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/a/amdgpu-pro/amdgpu-pro_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/a/amdgpu-pro/amdgpu-pro_23.10-1620044.22.04_amd64.deb";
       name = "amdgpu-pro";
       sha256 =
-        "a30e134959f84b5bcc3261e96c524d93e937546fc6a04a730803afa72de346c4";
+        "d01e7745c603d043dd31355c09d64d48e3dd0417ad2b486c59feaaa7334612ca";
     });
 
     amdgpu-pro-core = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/a/amdgpu-pro-core/amdgpu-pro-core_23.10-1610704.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/a/amdgpu-pro-core/amdgpu-pro-core_23.10-1620044.22.04_all.deb";
       name = "amdgpu-pro-core";
       sha256 =
-        "44308120f794ecbdf58c916461c9091633eb912faebdfacd157f7a221e2f433e";
+        "17dd002acd256973d855666d450bae728c32e8af83686efb5636f16cdcafd099";
     });
 
     amdgpu-pro-lib32 = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/a/amdgpu-pro/amdgpu-pro-lib32_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/a/amdgpu-pro/amdgpu-pro-lib32_23.10-1620044.22.04_amd64.deb";
       name = "amdgpu-pro-lib32";
       sha256 =
-        "bb10a5042bf72930da28202befb1f1e3519e78d89c2e9424d0060d106360d931";
+        "b89fd5ba9b77b63984a48f8cf235fcd11a6b80a877418e61205455618085de11";
     });
 
     amdgpu-pro-oglp = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/amdgpu-pro-oglp_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/amdgpu-pro-oglp_23.10-1620044.22.04_amd64.deb";
       name = "amdgpu-pro-oglp";
       sha256 =
-        "306d9db6e4e0214ffcf071345537f1d2bddce45c4a7e2c3a9a4794d96709f2c6";
+        "06ffd94f840cf5f9be1a33ba17a55bd6d5a7ee4c8aec61b61d28cee2fa30f36b";
     });
 
     amf-amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/a/amf-amdgpu-pro/amf-amdgpu-pro_1.4.30-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/a/amf-amdgpu-pro/amf-amdgpu-pro_1.4.30-1620044.22.04_amd64.deb";
       name = "amf-amdgpu-pro";
       sha256 =
-        "4472ef4a7da6d0a2f611dd9ca9daa484aa70b841ccf1f76e1006382f26759efd";
+        "8d97dd0f579ec0f66fbb39193e738387c1a87fc4b390c5457ab85c7388a2bd18";
     });
 
     clinfo-amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/c/clinfo-amdgpu-pro/clinfo-amdgpu-pro_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/c/clinfo-amdgpu-pro/clinfo-amdgpu-pro_23.10-1620044.22.04_amd64.deb";
       name = "clinfo-amdgpu-pro";
       sha256 =
-        "5755ab4dff2786f5c8db7e4eee5cc0e8f28718ca25de0ff3c035c2edc24902f1";
+        "ccafa503361ca1deec5bd7dab1db9976e832a5b1625dd2037bce9faaf525de86";
     });
 
     libamdenc-amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/liba/libamdenc-amdgpu-pro/libamdenc-amdgpu-pro_1.0-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/liba/libamdenc-amdgpu-pro/libamdenc-amdgpu-pro_1.0-1620044.22.04_amd64.deb";
       name = "libamdenc-amdgpu-pro";
       sha256 =
-        "d6f9bf25e7afdd3b970a4085e153b2e58b182b1fbfd2ce2e4db9f8a3620eda7d";
+        "e49358959ea9cd8e72c9eae70070f7710fec95e82d6df7aee2a2083d931648c2";
     });
 
     libegl1-amdgpu-pro-oglp = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libegl1-amdgpu-pro-oglp_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libegl1-amdgpu-pro-oglp_23.10-1620044.22.04_amd64.deb";
       name = "libegl1-amdgpu-pro-oglp";
       sha256 =
-        "cab69049946339cc424bf5ba7d61b3e9c0eaf0c4565583695de8a2ee9773733f";
+        "a115e81b4dc3260a74604e2f7337dcec7baad0cddd47d06fe5a97da7d377dd7e";
     });
 
     libgl1-amdgpu-pro-oglp-dri = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-dri_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-dri_23.10-1620044.22.04_amd64.deb";
       name = "libgl1-amdgpu-pro-oglp-dri";
       sha256 =
-        "805087531cba13f22423732dfc4ab14e4b4965bcbc4a3e846d37380d4b4fd04a";
+        "09af64d7c1ab60e7ad812fc2579288e7a90a5d9b6916dda1413177df8f3ce543";
     });
 
     libgl1-amdgpu-pro-oglp-ext = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-ext_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-ext_23.10-1620044.22.04_amd64.deb";
       name = "libgl1-amdgpu-pro-oglp-ext";
       sha256 =
-        "82feeaa589d6cdea8b0ad285b49e85cb49c8d2ef4db80a673deb836fd78a43c2";
+        "2dfeb21b2044c981150dc4208f67235e977481dfd2958e26e0061f8259781de0";
     });
 
     libgl1-amdgpu-pro-oglp-gbm = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-gbm_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-gbm_23.10-1620044.22.04_amd64.deb";
       name = "libgl1-amdgpu-pro-oglp-gbm";
       sha256 =
-        "1865ad72ea01a93ffae91298d39dc19e0dd438790f3a295258f84f8243d76240";
+        "927835781f05e42255c89828048cd51cb39121085525d0cfe2b78e90efe22128";
     });
 
     libgl1-amdgpu-pro-oglp-glx = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-glx_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-glx_23.10-1620044.22.04_amd64.deb";
       name = "libgl1-amdgpu-pro-oglp-glx";
       sha256 =
-        "05ca1d665ce4920daf71951239e4194d0f423f09fb254814a26f5206f0aed63a";
+        "326f5252a6ae6dd62e4bd1961ac21a61daa5f5c7fab8e8be72d7ec195c2cc0f3";
     });
 
     libgles1-amdgpu-pro-oglp = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgles1-amdgpu-pro-oglp_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgles1-amdgpu-pro-oglp_23.10-1620044.22.04_amd64.deb";
       name = "libgles1-amdgpu-pro-oglp";
       sha256 =
-        "e517c8c50e6c3e8fe087d4ce07753f1c25cabe6e9597c2c082b2aecfcda98561";
+        "7c9546e7b69a3e8969ec72234a669fffbf35be0fc6a157454f48b12776211f91";
     });
 
     libgles2-amdgpu-pro-oglp = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgles2-amdgpu-pro-oglp_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgles2-amdgpu-pro-oglp_23.10-1620044.22.04_amd64.deb";
       name = "libgles2-amdgpu-pro-oglp";
       sha256 =
-        "963bec8e481997708072e03afc2215cc48c9c04727b0557d843f782fd871bd5b";
+        "e1a4a38acfd1a8af86a95a454aad7dc324d13ce37c70e70a17baddc07994d615";
     });
 
     ocl-icd-libopencl1-amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro_23.10-1620044.22.04_amd64.deb";
       name = "ocl-icd-libopencl1-amdgpu-pro";
       sha256 =
-        "8bb2430672afff9c2c2a948d537ebca4effd1f1e90f052d9e13559f4cf495b4c";
+        "0c926f42175ce785fe38fb220c423f52951d725b71d825ae5b3d54f5bf6d88fa";
     });
 
     ocl-icd-libopencl1-amdgpu-pro-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro-dev_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro-dev_23.10-1620044.22.04_amd64.deb";
       name = "ocl-icd-libopencl1-amdgpu-pro-dev";
       sha256 =
-        "a204106415c1febb9dc562a10a4baa219485d41fa4f13176e07766370c1eaea6";
+        "3e273d857cf43bb186f8b66c637687af562e2e68e2fdea243039127b835f7b24";
     });
 
     opencl-legacy-amdgpu-pro-icd = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/opencl-legacy-amdgpu-pro/opencl-legacy-amdgpu-pro-icd_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/opencl-legacy-amdgpu-pro/opencl-legacy-amdgpu-pro-icd_23.10-1620044.22.04_amd64.deb";
       name = "opencl-legacy-amdgpu-pro-icd";
       sha256 =
-        "04e9227c8f5d7fb64f551608b2c2553c60d651d14dbe7579cb413317d91b7648";
+        "dd2c3f427cfc14c5956dbd726ead88b07d08736a40abfc391011d84b2a44a53c";
     });
 
     vulkan-amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_23.10-1610704.22.04_amd64.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_23.10-1620044.22.04_amd64.deb";
       name = "vulkan-amdgpu-pro";
       sha256 =
-        "c0ae52d71f09451344c5ea5ae44e5bf5a5597988ef695345d5cb1cf2af84f696";
+        "fdfa431eba6168ad5feca3d0ad5736a9595d2923418905c767c3e84c7659157f";
     });
 
     all = [
@@ -507,13 +507,13 @@
       libgl1-amdgpu-mesa-dri
       libgl1-amdgpu-mesa-glx
       libglapi-amdgpu-mesa
-      libllvm15_0_50502-amdgpu
+      libllvm15_0_50503-amdgpu
       libxatracker-amdgpu-dev
       libxatracker2-amdgpu
       llvm-amdgpu
-      llvm-amdgpu-15_0_50502
-      llvm-amdgpu-15_0_50502-dev
-      llvm-amdgpu-15_0_50502-runtime
+      llvm-amdgpu-15_0_50503
+      llvm-amdgpu-15_0_50503-dev
+      llvm-amdgpu-15_0_50503-runtime
       llvm-amdgpu-dev
       llvm-amdgpu-runtime
       mesa-amdgpu-common-dev
@@ -547,370 +547,370 @@
   bit32 = rec {
     amdgpu-core = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-core/amdgpu-core_5.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-core/amdgpu-core_5.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-core";
       sha256 =
-        "7d2f63753b155bdd80ad82c4bfc8da122998604b8f7cc3429aa4d3010721af4f";
+        "439d84f4c5dc2bdd21eb1028b22d44260775970976687a81ad3ed5df19703741";
     });
 
     amdgpu-dkms = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms_6.0.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms_6.0.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-dkms";
       sha256 =
-        "82dd14d419160dd410a93dfbc975f44492eb29c1acb3e93e4b82c2413d23e8a6";
+        "f5e641366369ba334ab422af9e3d21852aeea5b5b01a1182d0ab6c6c4252de60";
     });
 
     amdgpu-dkms-firmware = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_6.0.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_6.0.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-dkms-firmware";
       sha256 =
-        "ba314b92aa54f4b245e0fd0e02c2e18b47340e8bef7fc03959fdc52f27d03705";
+        "4092ec684ffd840e5b68a340bb77bcede9c7f6b7e20ca9d2c8e8d6cbd7a2b962";
     });
 
     amdgpu-dkms-headers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-headers_6.0.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-headers_6.0.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-dkms-headers";
       sha256 =
-        "ffc8c59f00dbaa7dbded0c3cca1f484e686d4351bbf8274b9fa027c544d476f2";
+        "b6a4cb41977f3ca404412bc858f9c44daff159ecc57cd27ce4d714fc55e68fc0";
     });
 
     amdgpu-doc = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-doc/amdgpu-doc_5.5-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-doc/amdgpu-doc_5.5-1620033.22.04_all.deb";
       name = "amdgpu-doc";
       sha256 =
-        "1c484a8609cd8598baf7d87bd411724ecf1272d0c2be99fe03221b8d471487a8";
+        "6f59473a300ef47ff158370635d00a6117b8e4539bb35e807a515e2ef39d2c1c";
     });
 
     amdgpu-install = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/a/amdgpu-install/amdgpu-install_5.5.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-install/amdgpu-install_5.5.50503-1620033.22.04_all.deb";
       name = "amdgpu-install";
       sha256 =
-        "3e133d1a0113544adb00fb1e7874771ce2e1c963af320ae14dfe150c029b2bcb";
+        "928a3768ec57ad5d426ce2f0a69d0d590232b4db7258fe65052bb3f75cd6f584";
     });
 
     libdrm-amdgpu-amdgpu1 = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-amdgpu1_2.4.114.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-amdgpu1_2.4.114.50503-1620033.22.04_i386.deb";
       name = "libdrm-amdgpu-amdgpu1";
       sha256 =
-        "5a71d902a82deac092b0fa7d8d7f54126a3490f547d06f390246af9eee4808a0";
+        "bd40135ba30038b180b4ede66430c82ab4dd8a98ea7512cb10ed8ec36b73eda1";
     });
 
     libdrm-amdgpu-common = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.50502-1607507.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.50503-1630490.22.04_all.deb";
       name = "libdrm-amdgpu-common";
       sha256 =
-        "4b2221ff726fd94d503cbb42be56f261e9c5c60c5fda8cffa9487272a7665c6c";
+        "142f664971682d0bb49f84577003aa70561498605bb689cfda821563051d53c4";
     });
 
     libdrm-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-dev_2.4.114.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-dev_2.4.114.50503-1620033.22.04_i386.deb";
       name = "libdrm-amdgpu-dev";
       sha256 =
-        "387c1ecb39e247f8cbcccaaf594e1c03b96c00bb8b94e43681b54b464543ef11";
+        "010a832ff97f6a6dc452f0016f617ef1ea83a7a10cc1c73f5554a5f923a412fa";
     });
 
     libdrm-amdgpu-radeon1 = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-radeon1_2.4.114.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-radeon1_2.4.114.50503-1620033.22.04_i386.deb";
       name = "libdrm-amdgpu-radeon1";
       sha256 =
-        "d8d017f4c5d785ab09bf6e2c9a09c30bea13a272833d707f334b5bf4c6bba0b4";
+        "badadbcbaad839be99e79cd40e26e11f3fe7f1ec4f7196782974ea760772fdbb";
     });
 
     libdrm-amdgpu-utils = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-utils_2.4.114.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm-amdgpu-utils_2.4.114.50503-1620033.22.04_i386.deb";
       name = "libdrm-amdgpu-utils";
       sha256 =
-        "8523fee460420f6ae3df737c9f88b102f612c8d128926b8c1036e76f2eecf3aa";
+        "c481fb8f348ececa1ba37678e305a275303f36db6f58675e955b50bcbcfc3727";
     });
 
     libdrm2-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm2-amdgpu_2.4.114.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu/libdrm2-amdgpu_2.4.114.50503-1620033.22.04_i386.deb";
       name = "libdrm2-amdgpu";
       sha256 =
-        "466468240d8716e044b7ad47c3915830dda41e910f573e414ba04ce74cdf5c10";
+        "9420bfd5b1ff8fdd62f34eb91b79f2dc88d1fc0b4ba8e1012ced4f3de83b77e9";
     });
 
     libegl1-amdgpu-mesa = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libegl1-amdgpu-mesa";
       sha256 =
-        "acda275a698b91a68e2fb21562e080d7e0143627b572b4ff8859ea547595f7de";
+        "2eae9f60466766b0962eaae1b0fdcbbe7d710c1b1f1fbeb998da523cda9c7e84";
     });
 
     libegl1-amdgpu-mesa-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa-dev_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa-dev_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libegl1-amdgpu-mesa-dev";
       sha256 =
-        "feb53d571a0929dc81d51bdd83aca76cf8003c27a74d23c86228b116773436c9";
+        "27fe1f1e8c4156e6765f87af2b92ac070eff7dd85f7869c92bdfe515eb82ee73";
     });
 
     libegl1-amdgpu-mesa-drivers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa-drivers_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libegl1-amdgpu-mesa-drivers_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libegl1-amdgpu-mesa-drivers";
       sha256 =
-        "45ec6aaa392ef14a74dce3e667e85cbb241cc9d6d6894b26ac2be7eac7edafeb";
+        "aaf1186cb47d2d45d3a079878503e90849d7ad559252b46a0ddd5ab7d859d2d7";
     });
 
     libgbm-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgbm-amdgpu-dev_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgbm-amdgpu-dev_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libgbm-amdgpu-dev";
       sha256 =
-        "af33d2016eb1ba8bad96454550fbed7c539e17f38e83154725c5fdec49e92a4e";
+        "ee1c5573d24027afae002fce8c856a6217afc33e20fa55f5d0a92b3c66d3f337";
     });
 
     libgbm1-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgbm1-amdgpu_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgbm1-amdgpu_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libgbm1-amdgpu";
       sha256 =
-        "514ba77bf820d4b3b6f6674716db83120436751ea2f92b9dd10671b1f1104e02";
+        "fdf9914bb976029a5b31a671414a5d71b41e25f1e7cdbfd6e3a5a75381a0bc08";
     });
 
     libgl1-amdgpu-mesa-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-dev_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-dev_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libgl1-amdgpu-mesa-dev";
       sha256 =
-        "92f12489f686ad505b4ae9d4d087133d49a60f86ffec38662c3b8d2a965a7d22";
+        "bccefa81c74d9e6bbdfcbedcb645b2dc43bc920cffe4ab1036c44e6df47546e4";
     });
 
     libgl1-amdgpu-mesa-dri = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-dri_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-dri_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libgl1-amdgpu-mesa-dri";
       sha256 =
-        "e7a26effe97990e5523f51429b95c4e419a551fba42b4c304c9e162cccac0fd6";
+        "ed2b95bee12ca439107696a73592df7d93792c506329334e1737d390a77d4939";
     });
 
     libgl1-amdgpu-mesa-glx = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-glx_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libgl1-amdgpu-mesa-glx_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libgl1-amdgpu-mesa-glx";
       sha256 =
-        "0253020758f075b511bc4e109886ecea82d140b1148f1a00a4360c3eed2b23fb";
+        "f661a04434294490d007fe49a4906c89a404f27c9bc58895d88b66b8957230a2";
     });
 
     libglapi-amdgpu-mesa = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libglapi-amdgpu-mesa_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libglapi-amdgpu-mesa_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libglapi-amdgpu-mesa";
       sha256 =
-        "3b8f517f3405cccec3cac9df256579a2da7b38496534ac5c4d06b30cfa0f4ad4";
+        "462c9c0c299eceabc9b8c25bfdc89f340d11ba86281fde52a6851c5d70fb2b18";
     });
 
-    libllvm15_0_50502-amdgpu = (fetchurl {
+    libllvm15_0_50503-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/libllvm15.0.50502-amdgpu_15.0.50502-1607507.22.04_i386.deb";
-      name = "libllvm15_0_50502-amdgpu";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/libllvm15.0.50503-amdgpu_15.0.50503-1620033.22.04_i386.deb";
+      name = "libllvm15_0_50503-amdgpu";
       sha256 =
-        "902ac7751de6cc83e299c977e951b440e8561c7f67304bbbd690c937d2daebaf";
+        "664890e22a94a9f868b9e9e4044e6073b5b12f7a00b2bca491065c273f520abf";
     });
 
     libxatracker-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libxatracker-amdgpu-dev_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libxatracker-amdgpu-dev_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libxatracker-amdgpu-dev";
       sha256 =
-        "32d108f6ab0433c6e45a3f6dc632b2e16151e8873fe5e94d2419e70f7a75fe48";
+        "a1d589164cc1e70e2c40ba5ba912a60ebcf5fc93f4d57061e956685a4abeb900";
     });
 
     libxatracker2-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/libxatracker2-amdgpu_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/libxatracker2-amdgpu_23.1.0.50503-1620033.22.04_i386.deb";
       name = "libxatracker2-amdgpu";
       sha256 =
-        "bf1360f4940936d2c15d89e90cd6ebf4f19ddfe368baa211fc92160feae6f5b9";
+        "5643ac19de07bac6a7ae858bef487ceb42871d347803e63ff07134329fd444cb";
     });
 
     llvm-amdgpu = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu_15.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu_15.0.50503-1620033.22.04_i386.deb";
       name = "llvm-amdgpu";
       sha256 =
-        "2ed144724d39ab9574105a41678bb1bf910def055378c7f308f415a65408d9a7";
+        "a6d060835902aea308bc164bf4b095418b70ccfe728284c09ffc35664b68281e";
     });
 
-    llvm-amdgpu-15_0_50502 = (fetchurl {
+    llvm-amdgpu-15_0_50503 = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50502_15.0.50502-1607507.22.04_i386.deb";
-      name = "llvm-amdgpu-15_0_50502";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50503_15.0.50503-1620033.22.04_i386.deb";
+      name = "llvm-amdgpu-15_0_50503";
       sha256 =
-        "57f75748864cfa1adecf49eef6c7ed5172f4e7132daeed898f14fc06c6a23290";
+        "c10b5875b7c4b01cd8db13405443a3aa6135e701ed1270deab0eb139b0a6d22c";
     });
 
-    llvm-amdgpu-15_0_50502-dev = (fetchurl {
+    llvm-amdgpu-15_0_50503-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50502-dev_15.0.50502-1607507.22.04_i386.deb";
-      name = "llvm-amdgpu-15_0_50502-dev";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50503-dev_15.0.50503-1620033.22.04_i386.deb";
+      name = "llvm-amdgpu-15_0_50503-dev";
       sha256 =
-        "eff08d96e8b44005dce96abe59e782c96a6f7cf2dfee4559075d51980f845ec7";
+        "b27baed2a4dfee6c74bf498a2a3b460adb270e3505a5b02a6419d9c4a1094a8a";
     });
 
-    llvm-amdgpu-15_0_50502-runtime = (fetchurl {
+    llvm-amdgpu-15_0_50503-runtime = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50502-runtime_15.0.50502-1607507.22.04_i386.deb";
-      name = "llvm-amdgpu-15_0_50502-runtime";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-15.0.50503-runtime_15.0.50503-1620033.22.04_i386.deb";
+      name = "llvm-amdgpu-15_0_50503-runtime";
       sha256 =
-        "76e80e21907533799d26d012e09cebcce0fd7ba36a1752ed20cae1aac6dd5359";
+        "0913ca11a57c31c04e66cd1e8dbd26ef33c0a0e217ecc58c0c8785b2295334eb";
     });
 
     llvm-amdgpu-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-dev_15.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-dev_15.0.50503-1620033.22.04_i386.deb";
       name = "llvm-amdgpu-dev";
       sha256 =
-        "8bb218eb39a389bb3261e03f85b385a4aaebd4efe1f5939510ce71f1ac1a8407";
+        "6402ba6238f950e1e24edf8708217f4c09815f95a0240ba9eb83d1f92161363d";
     });
 
     llvm-amdgpu-runtime = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-runtime_15.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/l/llvm-amdgpu/llvm-amdgpu-runtime_15.0.50503-1620033.22.04_i386.deb";
       name = "llvm-amdgpu-runtime";
       sha256 =
-        "1ee3804527ed32b8a52cefc942092d3ad39b69e17589d320a140d556d874930f";
+        "f83f73148c787d588e10e1cf99341efd8ceb0622557c87077b764fa28e929fd5";
     });
 
     mesa-amdgpu-common-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-common-dev_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-common-dev_23.1.0.50503-1620033.22.04_i386.deb";
       name = "mesa-amdgpu-common-dev";
       sha256 =
-        "ae6954484ae3e17f6415e35366a5ff8ea354705816bc81da4403f42a1430ef7c";
+        "44ce9a8c632a91890f5e8cd94f33834bbeee729df70c858bdf294faabee3ea26";
     });
 
     mesa-amdgpu-omx-drivers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-omx-drivers_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-omx-drivers_23.1.0.50503-1620033.22.04_i386.deb";
       name = "mesa-amdgpu-omx-drivers";
       sha256 =
-        "56754ec121a91ae2c0a13e7a4736420492389ad4b26ba26050f3090847b0dca4";
+        "89f5fe4098283b8101969f66e016def532bfd5b89e740e2e841ce9662fe1bd78";
     });
 
     mesa-amdgpu-va-drivers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-va-drivers_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-va-drivers_23.1.0.50503-1620033.22.04_i386.deb";
       name = "mesa-amdgpu-va-drivers";
       sha256 =
-        "ec107ccab98ceeaafbfdc47c3de6b054f9fc6edda1e905796b91b758c6b1a48c";
+        "c8f682d87bfc52756decca4b03da4f2aa7973fb2e0ee7cd026cb54e61583f244";
     });
 
     mesa-amdgpu-vdpau-drivers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-vdpau-drivers_23.1.0.50502-1607507.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/m/mesa-amdgpu/mesa-amdgpu-vdpau-drivers_23.1.0.50503-1620033.22.04_i386.deb";
       name = "mesa-amdgpu-vdpau-drivers";
       sha256 =
-        "646e4ae5ddb0e10cd6723c210e5cda7ba035f0cf01b5b6276d3c4a301e1e2311";
+        "6b97beb7eb57cb68fd3f95f5ceed860d0bbaf3b45d696dd50afefae25e6ceb04";
     });
 
     amdgpu-pro-core = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/a/amdgpu-pro-core/amdgpu-pro-core_23.10-1610704.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/a/amdgpu-pro-core/amdgpu-pro-core_23.10-1620044.22.04_all.deb";
       name = "amdgpu-pro-core";
       sha256 =
-        "44308120f794ecbdf58c916461c9091633eb912faebdfacd157f7a221e2f433e";
+        "17dd002acd256973d855666d450bae728c32e8af83686efb5636f16cdcafd099";
     });
 
     amdgpu-pro-oglp = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/amdgpu-pro-oglp_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/amdgpu-pro-oglp_23.10-1620044.22.04_i386.deb";
       name = "amdgpu-pro-oglp";
       sha256 =
-        "e20ccbb96d0d9127d240eebcb11a3004052f09e660e7caf76b15dd1180d7227d";
+        "593fe55bb12ab029413ee9824a4808cafb8b05fe61ada52dfde9dc990479d5b8";
     });
 
     clinfo-amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/c/clinfo-amdgpu-pro/clinfo-amdgpu-pro_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/c/clinfo-amdgpu-pro/clinfo-amdgpu-pro_23.10-1620044.22.04_i386.deb";
       name = "clinfo-amdgpu-pro";
       sha256 =
-        "7a16e92453ecfb88fa30d0bc016767c72a8af06b4f50e6c73561da991c2a6f5c";
+        "7487985576f13aa29024d3a913e0519e47995e2d3001d2e8eb7ba4e0580ad46d";
     });
 
     libegl1-amdgpu-pro-oglp = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libegl1-amdgpu-pro-oglp_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libegl1-amdgpu-pro-oglp_23.10-1620044.22.04_i386.deb";
       name = "libegl1-amdgpu-pro-oglp";
       sha256 =
-        "ac9f723442773fef1ef5a3e87e45feb195089c7506887aa03433b427537772b4";
+        "3946dabb829a48e00ea351a8ae048a3dfc46bfe3f69b343267cf9690b49dc961";
     });
 
     libgl1-amdgpu-pro-oglp-dri = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-dri_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-dri_23.10-1620044.22.04_i386.deb";
       name = "libgl1-amdgpu-pro-oglp-dri";
       sha256 =
-        "89a605e6bfd32bfe14e5cf8e6118cef8fba5689792364e02db6c35153bbebdda";
+        "a0d821c82cb2a91953c08e4e895da28749d905470a13ce03bee5937959edba27";
     });
 
     libgl1-amdgpu-pro-oglp-glx = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-glx_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgl1-amdgpu-pro-oglp-glx_23.10-1620044.22.04_i386.deb";
       name = "libgl1-amdgpu-pro-oglp-glx";
       sha256 =
-        "f9ab26a8840fd2481f17b6462a95c071e7c0cdbd8312c7cb027cbbdfefe28432";
+        "f677cd6e4dfa007e12bafb96f8a3fe0a68c15f90fd6644822c701795ef246a4c";
     });
 
     libgles1-amdgpu-pro-oglp = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgles1-amdgpu-pro-oglp_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgles1-amdgpu-pro-oglp_23.10-1620044.22.04_i386.deb";
       name = "libgles1-amdgpu-pro-oglp";
       sha256 =
-        "b069c5b4c51d65fdc30a25aa619f0ff9d8acd9082a0f2d80aa7327cd7bd3ca09";
+        "4fdc52e18a178230329c4eca2567bd1077b47334614d0cf6e1f7234289b05374";
     });
 
     libgles2-amdgpu-pro-oglp = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgles2-amdgpu-pro-oglp_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/oglp-amdgpu-pro/libgles2-amdgpu-pro-oglp_23.10-1620044.22.04_i386.deb";
       name = "libgles2-amdgpu-pro-oglp";
       sha256 =
-        "2debaf9911b3dea990b86c908fe6d965ff3ec274c52fce0c1454ec229538041b";
+        "21df77d705ee11de4303911a8e29eb14f38b775b48da9ae5d00467ee50a9ab52";
     });
 
     ocl-icd-libopencl1-amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro_23.10-1620044.22.04_i386.deb";
       name = "ocl-icd-libopencl1-amdgpu-pro";
       sha256 =
-        "2a0eaf84689030ddfd57422ec894d56f005740f2b61f2ae59c4b08c1bf531aaf";
+        "efb6f688fa9932602de380735f495d04b393f8e349949b6f9fae57ee5494e1c5";
     });
 
     ocl-icd-libopencl1-amdgpu-pro-dev = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro-dev_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/ocl-icd-amdgpu-pro/ocl-icd-libopencl1-amdgpu-pro-dev_23.10-1620044.22.04_i386.deb";
       name = "ocl-icd-libopencl1-amdgpu-pro-dev";
       sha256 =
-        "9d82125d4d24f64f99216758ab4d44281a8da7f381082278f3426fb59e245d69";
+        "e6a4bf971467ffa609aad27831f7a90f0c0ebb3c956fbc810ccd3d3a1310c2d3";
     });
 
     opencl-legacy-amdgpu-pro-icd = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/o/opencl-legacy-amdgpu-pro/opencl-legacy-amdgpu-pro-icd_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/o/opencl-legacy-amdgpu-pro/opencl-legacy-amdgpu-pro-icd_23.10-1620044.22.04_i386.deb";
       name = "opencl-legacy-amdgpu-pro-icd";
       sha256 =
-        "f0ceaca1c1ad5cce979ce98a5a01895cb7d03b0fb2a48b9efe292d2cfeb4ace3";
+        "705fd3dca144f8c8800f9657e68e2445d815d742c44b24068cd0fadb569ce0bc";
     });
 
     vulkan-amdgpu-pro = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.2/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_23.10-1610704.22.04_i386.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_23.10-1620044.22.04_i386.deb";
       name = "vulkan-amdgpu-pro";
       sha256 =
-        "3a7a7972717353e3e025c5c14df926bc77138cb5ed0785acda958974222612b6";
+        "c5f131368336f7c48639e75c1a18c58cef9e32598682a59839ab0567f96c799a";
     });
 
     all = [
@@ -935,13 +935,13 @@
       libgl1-amdgpu-mesa-dri
       libgl1-amdgpu-mesa-glx
       libglapi-amdgpu-mesa
-      libllvm15_0_50502-amdgpu
+      libllvm15_0_50503-amdgpu
       libxatracker-amdgpu-dev
       libxatracker2-amdgpu
       llvm-amdgpu
-      llvm-amdgpu-15_0_50502
-      llvm-amdgpu-15_0_50502-dev
-      llvm-amdgpu-15_0_50502-runtime
+      llvm-amdgpu-15_0_50503
+      llvm-amdgpu-15_0_50503-dev
+      llvm-amdgpu-15_0_50503-runtime
       llvm-amdgpu-dev
       llvm-amdgpu-runtime
       mesa-amdgpu-common-dev
