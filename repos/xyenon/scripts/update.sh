@@ -8,7 +8,8 @@ root="$(readlink --canonicalize -- "$(dirname -- "$0")/..")"
 nixpkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" --show-trace \
   --arg include-overlays "(import <nixpkgs> { overlays = [ (import ./overlay.nix) ]; }).overlays" \
-  --arg keep-going 'true' \
+  --argstr keep-going 'true' \
+  --argstr commit 'true' \
   --arg predicate "(
     let prefix = \"$root/pkgs/\"; prefixLen = builtins.stringLength prefix;
     in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
