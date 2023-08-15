@@ -10,7 +10,6 @@ in {
 
     "${self.inputs.impermanence}/nixos.nix"
 
-    ../../modules/cachix/system.nix
     ./modules
     ./nvidia.nix
   ];

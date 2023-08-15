@@ -6,8 +6,8 @@ in
 {
   imports = [
     ../bootstrap
-    ../../modules/cachix/system.nix
-    ../../modules/hold-gc/system.nix
+    ./cachix.nix
+    ./hold-gc.nix
     "${bumpkin.unpacked.simple-dashboard}/nixos-module.nix"
 
     ./ansible-python.nix
