@@ -29,13 +29,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "yazi";
-  version = "unstable-2023-08-11";
+  version = "unstable-2023-08-15";
 
   src = fetchFromGitHub {
     owner = "sxyazi";
     repo = pname;
-    rev = "a5eed70872e1aafe62bbaa89263959b69f617e9c";
-    hash = "sha256-a8TVCIQRo2nQ6boj6/jDp3U0/DROcLqZF6OdAmyINMk=";
+    rev = "8fd3d15918b9ebba127fe11cff38b1bb73393f60";
+    hash = "sha256-Txqvo0i0Tv+wbeZhELs1csPjiW4JQXnosBynI/x9cM4=";
   };
 
   postPatch =
@@ -87,7 +87,7 @@ rustPlatform.buildRustPackage rec {
           --replace '"zoxide"' '"${zoxide}/bin/zoxide"'
       '';
 
-  cargoHash = "sha256-oBW1MDPSMCxzsqkbZEVLLt7M7C7bscDLZXl2gANnTak=";
+  cargoHash = "sha256-cIbBeWOW1ymufOgeA5olAqqRSS8VZnKRCOtv3d04VgU=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 
