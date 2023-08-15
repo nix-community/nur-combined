@@ -5,7 +5,7 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "pass-extension-tail";
-  version = "unstable";
+  version = "unstable-2022-04-06";
 
   src = fetchFromGitHub {
     owner = "palortoff";
