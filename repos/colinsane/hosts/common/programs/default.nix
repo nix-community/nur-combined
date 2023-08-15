@@ -3,6 +3,7 @@
 {
   imports = [
     ./aerc.nix
+    ./alacritty.nix
     ./assorted.nix
     ./cantata.nix
     ./chatty.nix

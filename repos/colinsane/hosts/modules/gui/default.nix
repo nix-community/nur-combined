@@ -16,6 +16,7 @@
       # package sets
       "tuiApps"
     ] ++ [
+      "alacritty"  # terminal emulator
       # "celluloid"  # mpv frontend
       "chatty"  # matrix/xmpp/irc client
       "cozy"  # audiobook player

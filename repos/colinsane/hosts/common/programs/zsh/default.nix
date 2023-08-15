@@ -7,6 +7,7 @@
 #   - $ZDOTDIR/.zprofile
 # - if interactive:
 #   - /etc/zshrc
+#     -> /etc/zinputrc
 #   - $ZDOTDIR/.zshrc
 # - if login (again):
 #   - /etc/zlogin
@@ -79,6 +80,18 @@ in
           hash -d tmp="/home/colin/tmp"
           hash -d uninsane="/home/colin/dev/uninsane"
           hash -d Videos="/home/colin/Videos"
+
+          # emulate bash keybindings
+          bindkey -e
+
+          # or manually recreate what i care about...
+          # key[Left]=''${terminfo[kcub1]}
+          # key[Right]=''${terminfo[kcuf1]}
+          # bindkey '^R'               history-incremental-search-backward
+          # bindkey '^A'               beginning-of-line
+          # bindkey '^E'               end-of-line
+          # bindkey "^''${key[Left]}"  backward-word
+          # bindkey "^''${key[Right]}" forward-word
         '';
       };
     })

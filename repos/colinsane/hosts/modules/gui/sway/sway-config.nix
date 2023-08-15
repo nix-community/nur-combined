@@ -3,9 +3,8 @@ let
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
   sed = "${pkgs.gnused}/bin/sed";
   wtype = "${pkgs.wtype}/bin/wtype";
-  kitty = "${pkgs.kitty}/bin/kitty";
   launcher-cmd = fuzzel;
-  terminal-cmd = kitty;
+  terminal-cmd = "${pkgs.xdg-terminal-exec}/bin/xdg-terminal-exec";
   lock-cmd = "${pkgs.swaylock}/bin/swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30";
   vol-up-cmd = "${pkgs.pulsemixer}/bin/pulsemixer --change-volume +5";
   vol-down-cmd = "${pkgs.pulsemixer}/bin/pulsemixer --change-volume -5";
