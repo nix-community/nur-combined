@@ -77,6 +77,7 @@
             "electron-18.1.0"
             "electron-21.4.0"
             "openssl-1.1.1u"
+            "openssl-1.1.1v"
         ];
       };
       overlays = if disableOverlays then [] else (overlays ++ (builtins.attrValues self.outputs.overlays));

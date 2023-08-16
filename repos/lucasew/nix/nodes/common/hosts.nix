@@ -19,7 +19,7 @@ in {
       except-interface=virbr0
     '';
   };
-  networking.hosts = lib.mkIf (node != null) {
-    "${node}" = allMySubdomains;
-  };
+  networking.extraHosts = lib.mkIf (node != null) ''
+    ${node} ${lib.concatStringsSep " " allMySubdomains}
+  '';
 }

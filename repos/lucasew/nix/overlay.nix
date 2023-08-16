@@ -141,4 +141,6 @@ in
       stripRoot = false;
     };
   });
+
+  nix = prev.nixVersions.nix_2_15;
 }

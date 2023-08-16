@@ -15,6 +15,7 @@
     programs.kdeconnect.enable = true;
 
     services.xserver = {
+      enable = lib.mkDefault true;
       displayManager.defaultSession = lib.mkDefault "none+i3";
       windowManager.i3 = {
         configFile = "/etc/i3config";
