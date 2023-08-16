@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   kose-font = pkgs.callPackage ./pkgs/kose-font { };
-  adw-gtk3 = pkgs.callPackage ./pkgs/adw-gtk3 { };
   sddm-lain-wired-theme = pkgs.callPackage ./pkgs/sddm-lain-wired-theme { };
   sddm-sugar-candy = pkgs.callPackage ./pkgs/sddm-sugar-candy { };
   klassy = pkgs.libsForQt5.callPackage ./pkgs/klassy { };
