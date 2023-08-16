@@ -17,8 +17,6 @@
 , levmar
 , withFftw3 ? false
 , fftw
-
-, teem
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -47,40 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     "-DENABLE_EXPERIMENTAL_LIBS=${lib.boolToString withExperimentalLibs}"
     "-DENABLE_EXPERIMENTAL_APPS=${lib.boolToString withExperimentalApps}"
   ];
-
-  passthru = {
-    full = (teem.overrideAttrs (oldAttrs: {
-      pname = "${oldAttrs.pname}-full";
-      meta = oldAttrs.meta // {
-        description = "${oldAttrs.meta.description} (with all features enabled)";
-      };
-    })).override {
-      withLevmar = true;
-      withFftw3 = true;
-    };
-
-    experimental = (teem.overrideAttrs (oldAttrs: {
-      pname = "${oldAttrs.pname}-experimental";
-      meta = oldAttrs.meta // {
-        description = "${oldAttrs.meta.description} (with experimental libraries and applications enabled)";
-      };
-    })).override {
-      withExperimentalLibs = true;
-      withExperimentalApps = true;
-    };
-
-    experimentalFull = (teem.overrideAttrs (oldAttrs: {
-      pname = "${oldAttrs.pname}-experimental-full";
-      meta = oldAttrs.meta // {
-        description = "${oldAttrs.meta.description} (with experimental libraries and applications, and all features enabled)";
-      };
-    })).override {
-      withLevmar = true;
-      withFftw3 = true;
-      withExperimentalLibs = true;
-      withExperimentalApps = true;
-    };
-  };
 
   meta = with lib; {
     description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";

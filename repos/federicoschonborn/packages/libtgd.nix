@@ -35,8 +35,6 @@
 , poppler
 , withTiff ? false
 , libtiff
-
-, libtgd
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -69,34 +67,6 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withPng libpng
     ++ lib.optional withPoppler poppler
     ++ lib.optional withTiff libtiff;
-
-  passthru = {
-    full = (libtgd.overrideAttrs (oldAttrs: {
-      pname = "${oldAttrs.pname}-full";
-      meta = oldAttrs.meta // {
-        description = "${oldAttrs.meta.description} (with all features enabled)";
-      };
-    })).override {
-      withCfitsio = true;
-      withDmctk = true;
-      withExiv2 = true;
-      withFfmpeg = true;
-      withGdal = true;
-      withGta = true;
-      withHdf5 = true;
-      withJpeg = true;
-      # ImageMagick 6 is marked as insecure
-      withMagick = false;
-      withMatio = true;
-      withMuparser = true;
-      withOpenexr = true;
-      # Requires ImageMagick 6
-      withPfs = false;
-      withPng = true;
-      withPoppler = true;
-      withTiff = true;
-    };
-  };
 
   meta = with lib; {
     description = "A library to make working with multidimensional arrays in C++ easy";

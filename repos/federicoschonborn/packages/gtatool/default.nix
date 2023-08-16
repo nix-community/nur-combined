@@ -45,8 +45,6 @@
 , libsndfile
 , withTeem ? false
 , teem
-
-, gtatool
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -95,41 +93,6 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.withFeature withRat "rat")
     (lib.withFeature withRaw "raw")
   ];
-
-  passthru = {
-    full = (gtatool.overrideAttrs (oldAttrs: {
-      pname = "${oldAttrs.pname}-full";
-      meta = oldAttrs.meta // {
-        description = "${oldAttrs.meta.description} (with all features enabled)";
-        # Only God knows why this fails during installPhase but the non-full
-        # package doesn't.
-        broken = true;
-      };
-    })).override {
-      withBashCompletion = true;
-      withDcmtk = true;
-      # Needs patching
-      withExr = false;
-      # Needs patching
-      withFfmpeg = false;
-      withGdal = true;
-      withJpeg = true;
-      # ImageMagick 6 is marked as insecure
-      withMagick = false;
-      withMatio = true;
-      withMuparser = true;
-      withNetcdf = true;
-      withNetpbm = true;
-      withPcl = true;
-      # Requires ImageMagick 6
-      withPfs = false;
-      withPng = true;
-      # Needs patching
-      withQt = false;
-      withSndfile = true;
-      withTeem = true;
-    };
-  };
 
   meta = {
     description = "A set of commands that manipulate GTAs on various levels";
