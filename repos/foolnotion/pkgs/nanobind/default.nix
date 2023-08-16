@@ -1,16 +1,17 @@
 { lib, stdenv, fetchFromGitHub, cmake, robin-map, python,
+buildShared ? false,
 enableTesting ? false
 }:
 
 stdenv.mkDerivation rec {
   pname = "nanobind";
-  version = "1.4.0";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "wjakob";
     repo = "nanobind";
-    rev = "05cba0ef85ba2bb68aa115af4b74c30aa2aa7bec";
-    sha256 = "sha256-LNL0vVBWPfq4XhfWfe1blfmkpkSEU8hlJ+S4aHo5v+M=";
+    rev = "v${version}";
+    hash = "sha256-GoHGABNXixriXJLd0A8guIwWbBxHOHEx5DinVP2yKuw=";
     fetchSubmodules = true;
   };
 
