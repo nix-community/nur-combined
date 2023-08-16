@@ -21,7 +21,7 @@ rec {
   realrtcw = callPackage ./pkgs/realrtcw.nix { };
   re3 = callPackage ./pkgs/re3 {};
   revc = callPackage ./pkgs/re3/revc.nix { inherit re3; };
-  bitwig-studio3 = callPackage ./pkgs/bitwig-studio3.nix {};
+  bitwig-studio5 = callPackage ./pkgs/bitwig-studio5 {};
   massdns = callPackage ./pkgs/massdns.nix {};
   wireless-regdb = callPackage ./pkgs/wireless-regdb {};
   edgevpn = callPackage ./pkgs/edgevpn {};
