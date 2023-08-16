@@ -1,5 +1,6 @@
 { lib
 , buildLinux
+, fetchpatch
 , fetchFromGitHub
 , pkgs
 # something inside nixpkgs calls `override` on the kernel and passes in extra arguments
@@ -39,6 +40,9 @@ let
     DEBUG_INFO_BTF = lib.mkForce no;  # BPF debug symbols. rec by <https://nixos.wiki/wiki/Linux_kernel#Too_high_ram_usage>
     SCHED_DEBUG = lib.mkForce no;  # determines /sys/kernel/debug/sched
     # SUNRPC_DEBUG = lib.mkForce no;  # i use NFS though
+
+    # modem_power is incompatible with eg25-manager: <https://gitlab.com/mobian1/eg25-manager/-/issues/38>
+    MODEM_POWER = no;
 
     # taken from mobile-nixos config?? or upstream megous config??
     RTL8723CS = module;
@@ -107,6 +111,15 @@ let
     pkgs.kernelPatches.bridge_stp_helper
     pkgs.kernelPatches.request_key_helper
     # (patchDefconfig kernelConfig)
+    {
+      # Drop modem-power from DT to allow eg25-manager to have full control.
+      # source: <https://github.com/NixOS/mobile-nixos/pull/573>
+      name = "remove-modem-power-from-devicetree";
+      patch = fetchpatch {
+        url = "https://gitlab.com/postmarketOS/pmaports/-/raw/164e9f010dcf56642d8e6f422a994b927ae23f38/device/main/linux-postmarketos-allwinner/0007-dts-pinephone-drop-modem-power-node.patch";
+        sha256 = "nYCoaYj8CuxbgXfy5q43Xb/ebe5DlJ1Px571y1/+lfQ=";
+      };
+    }
   ];
 
 

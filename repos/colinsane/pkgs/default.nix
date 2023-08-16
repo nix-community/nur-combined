@@ -44,6 +44,7 @@ let
     koreader-from-src = callPackage ./additional/koreader-from-src { };
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
+    linux-manjaro = callPackage ./additional/linux-manjaro { };
     linux-megous = callPackage ./additional/linux-megous { };
     mcg = callPackage ./additional/mcg { };
     mpv-uosc-latest = callPackage ./additional/mpv-uosc-latest { };

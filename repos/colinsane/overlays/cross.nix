@@ -7,6 +7,8 @@
 # - blueman builds on servo branch
 # - tracker builds on servo branch
 # - directfb needs investigation on servo
+# patches need to be authored & sent upstream:
+# - playerctl (just disable docs on cross)
 #
 # non-binfmt build status:
 # - webkitgtk fails 90% through build:
@@ -20,7 +22,6 @@
 # - tuba fails trying to invoke the aarch64 gettext during build
 # - rpm (wanted by dtrx, but technically optional) fails during configure; can't find python
 # - portfolio fails during meson configure; finds host python, can't execute it
-# - playerctl fails during install; tries to run `playerctl-scan` (for building docs? should be easy fix)
 # - neovim-ruby fails; tries to run host ruby
 # - luajit fails; tries to run the host gcc
 # - cozy fails during install; can't run post_install_desktop_database.py
@@ -830,16 +831,6 @@ in {
   #   ];
   # });
 
-  # fixes "ERROR: Program 'glib-compile-resources' not found or not executable
-  # 2023/08/01: upstreaming is unblocked,implemented on servo
-  # - different failure mode though:
-  # - "configure: error: cannot run C compiled programs"
-  # - "If you meant to cross compile, use `--host`"
-  # nixpkgs merged 3.0 -> 3.5 update
-  # - <https://github.com/NixOS/nixpkgs/pull/245773/files>
-  # - still needs glib in native build inputs
-  # iio-sensor-proxy = addNativeInputs [ final.glib ] prev.iio-sensor-proxy;
-
   # fixes: "make: gcc: No such file or directory"
   # java-service-wrapper = useEmulatedStdenv prev.java-service-wrapper;
 
@@ -1327,11 +1318,16 @@ in {
       final.desktop-file-utils  # fixes "meson.build:116:8: ERROR: Program 'update-desktop-database' not found or not executable"
     ];
   } prev.phosh-mobile-settings;
+
   # pipewire = prev.pipewire.override {
   #   # avoid a dep on python3.10-PyQt5, which has mixed qt5 versions.
   #   # this means we lose firewire support (oh well..?)
   #   ffadoSupport = false;
   # };
+
+  playerctl = prev.playerctl.overrideAttrs (upstream: {
+    mesonFlags = upstream.mesonFlags ++ [ "-Dgtk-doc=false" ];
+  });
 
   # psqlodbc = prev.psqlodbc.override {
   #   # fixes "configure: error: odbc_config not found (required for unixODBC build)"
@@ -1833,13 +1829,6 @@ in {
   #     '';
   #   });
   # };
-  # 2023/07/31: upstreaming is unblocked,implemented
-  # upower = prev.upower.overrideAttrs (upstream: {
-  #   # cross-compiled builds seem to not create the installedTest files
-  #   outputs = lib.remove "installedTests" upstream.outputs;
-  #   postInstall = lib.replaceStrings [ "installedTests" ] [ "" ] upstream.postInstall;
-  #   postFixup = "";
-  # });
 
   # visidata = prev.visidata.override {
   #   # hdf5 / h5py don't cross-compile, but i don't use that file format anyway.
@@ -1889,6 +1878,25 @@ in {
     )
   );
 
+  # 2023/07/31: upstreaming is blocked on playerctl
+  waybar = (prev.waybar.override {
+    runTests = false;
+    cavaSupport = false;  # doesn't cross compile
+    # hopefully fixes: "/nix/store/sc1pz0zaqwpai24zh7xx0brjinflmc6v-aarch64-unknown-linux-gnu-binutils-2.40/bin/aarch64-unknown-linux-gnu-ld: /nix/store/ghxl1zrfnvh69dmv7xa1swcbyx06va4y-wayland-1.22.0/lib/libwayland-client.so: error adding symbols: file in wrong format"
+    wrapGAppsHook = final.wrapGAppsHook.override {
+      isGraphical = false;
+    };
+  }).overrideAttrs (upstream: {
+    depsBuildBuild = upstream.depsBuildBuild or [] ++ [ final.pkg-config ];
+  });
+
+  webkitgtk = prev.webkitgtk.overrideAttrs (upstream: {
+    # fixes "wayland-scanner: line 5: syntax error: unterminated quoted string"
+    # if this works i can maybe remove `wayland` from nativeBuildInputs altogether?
+    cmakeFlags = upstream.cmakeFlags ++ [
+      "-DWAYLAND_SCANNER=${final.buildPackages.wayland-scanner}/bin/wayland-scanner"
+    ];
+  });
   # webkitgtk = prev.webkitgtk.override { stdenv = final.ccacheStdenv; };
 
   webp-pixbuf-loader = prev.webp-pixbuf-loader.overrideAttrs (upstream: {
@@ -1913,29 +1921,6 @@ in {
       });
     };
   };
-
-  # 2023/07/31: upstreaming is blocked on playerctl
-  waybar = (prev.waybar.override {
-    runTests = false;
-    cavaSupport = false;  # doesn't cross compile
-    # hopefully fixes: "/nix/store/sc1pz0zaqwpai24zh7xx0brjinflmc6v-aarch64-unknown-linux-gnu-binutils-2.40/bin/aarch64-unknown-linux-gnu-ld: /nix/store/ghxl1zrfnvh69dmv7xa1swcbyx06va4y-wayland-1.22.0/lib/libwayland-client.so: error adding symbols: file in wrong format"
-    wrapGAppsHook = final.wrapGAppsHook.override {
-      isGraphical = false;
-    };
-  }).overrideAttrs (upstream: {
-    depsBuildBuild = upstream.depsBuildBuild or [] ++ [ final.pkg-config ];
-  });
-
-  # 2023/07/28: upstreaming is unblocked; implemented on servo pr/cross-2023-07-28 branch
-  # wvkbd = (
-  #   # "wayland-scanner: no such program"
-  #   mvToNativeInputs [ final.wayland-scanner ] prev.wvkbd
-  # ).overrideAttrs (upstream: {
-  #   postPatch = upstream.postPatch or "" + ''
-  #     substituteInPlace Makefile \
-  #       --replace "pkg-config" "$PKG_CONFIG"
-  #   '';
-  # });
 
   # 2023/07/30: upstreaming is blocked on unar (gnustep), unless i also make that optional
   xarchiver = mvToNativeInputs [ final.libxslt ] prev.xarchiver;
