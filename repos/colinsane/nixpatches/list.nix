@@ -297,12 +297,6 @@ in [
     saneCommit = "e070195bdf213dffb0164574397b6a7417f81c9e";
     hash = "sha256-6JnIJCVBbV4tmFinX7Qv2wO2AThrgxrnyb9T4Ov6p5w=";
   })
-  # (fetchpatch' {
-  #   # N.B.: duplicates merged PR: <https://github.com/NixOS/nixpkgs/pull/246369>
-  #   title = "tracker: support cross compilation";
-  #   saneCommit = "bea390fd0c4fda96db5b1fad06ee071a10561305";
-  #   hash = "sha256-Y2tVoTvSIIT9ufghqqsXgmqWq9daH+WKj4JHZgWbWwE=";
-  # })
   (fetchpatch' {
     title = "tracker-miners: support cross compilation";
     saneCommit = "24b062309ea8baa2d8303c0610c9ec7b8c399e8b";
@@ -356,6 +350,13 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/249093";
     saneCommit = "08f7cdebc58eeaa62cb349dab57db3be7a0c073d";
     hash = "sha256-gqHUGeTQnr0f99gqEdd+VANLkWO+joLxz5I0RSarznE=";
+  })
+
+  (fetchpatch' {
+    title = "playerctl: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/249512";
+    saneCommit = "67df31a8984ab3067af5b65446d2808b0aedadc6";
+    hash = "sha256-qY0bjMoFneC5VJ467TeiuOycLYNaVO7Xo/0fCauDZAM=";
   })
 
   # (fetchpatch' {

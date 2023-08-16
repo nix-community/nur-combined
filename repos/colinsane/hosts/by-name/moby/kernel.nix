@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
-  # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-megous;
-  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-manjaro;
+  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-megous;
+  # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-manjaro;
   # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_latest;
 
   # alternatively, apply patches directly to stock nixos kernel:

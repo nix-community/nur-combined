@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   sane.persist.sys.plaintext = [
@@ -6,7 +6,29 @@
     { user = "postgres"; group = "postgres"; path = "/var/lib/postgresql"; }
   ];
   services.postgresql.enable = true;
-  # services.postgresql.dataDir = "/opt/postgresql/13";
+
+  # HOW TO UPDATE:
+  # postgres version updates are manual and require intervention.
+  # - `sane-stop-all-servo`
+  # - `systemctl start postgresql`
+  # - as `sudo su postgres`:
+  #   - `cd /var/log/postgresql`
+  #   - `pg_dumpall > state.sql`
+  #   - `echo placeholder > <new_version>`  # to prevent state from being created earlier than we want
+  # - then, atomically:
+  #   - update the `services.postgresql.package` here
+  #   - `dataDir` is atomically updated to match package; don't touch
+  #   - `nixos-rebuild --flake . switch ; sane-stop-all-servo`
+  # - `sudo rm -rf /var/lib/postgresql/<new_version>`
+  # - `systemctl start postgresql`
+  # - as `sudo su postgres`:
+  #   - `cd /var/lib/postgreql`
+  #   - `psql -f state.sql`
+  # - restart dependent services (maybe test one at a time)
+
+  services.postgresql.package = pkgs.postgresql_15;
+
+
   # XXX colin: for a proper deploy, we'd want to include something for Pleroma here too.
   # services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
   #   CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD '<password goes here>';
