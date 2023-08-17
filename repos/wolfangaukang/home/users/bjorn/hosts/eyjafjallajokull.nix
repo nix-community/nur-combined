@@ -24,6 +24,8 @@ in {
     aegisub
     burpsuite
     stremio
+    telegram-desktop
+    tutanota-desktop
   ];
   #programs.firejail.wrappedBinaries.stremio = generateFirejailWrappedBinaryConfig { pkg = pkgs.stremio; pkg_name = "stremio"; enable_desktop = true; desktop_file_name = "smartcode-stremio"; };
 }
