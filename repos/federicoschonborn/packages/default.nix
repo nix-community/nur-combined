@@ -15,12 +15,12 @@
   fielding = pkgs.libsForQt5.callPackage ./fielding.nix { };
   firefox-gnome-theme = pkgs.callPackage ./firefox-gnome-theme.nix { };
   flyaway = pkgs.callPackage ./flyaway.nix { wlroots = wlroots_0_16; };
-  francis = pkgs.libsForQt5.callPackage ./francis.nix { kirigami-addons = kirigami-addons_0_10; };
+  francis = pkgs.libsForQt5.callPackage ./francis.nix { };
   game-of-life = pkgs.callPackage ./game-of-life.nix { };
   gradebook = pkgs.callPackage ./gradebook.nix { };
   gtatool = pkgs.callPackage ./gtatool { inherit libgta teem; };
   kommit = pkgs.libsForQt5.callPackage ./kommit.nix { };
-  licentia = pkgs.libsForQt5.callPackage ./licentia.nix { kirigami-addons = kirigami-addons_0_10; };
+  licentia = pkgs.libsForQt5.callPackage ./licentia.nix { };
   libgta = pkgs.callPackage ./libgta.nix { };
   libtgd = pkgs.callPackage ./libtgd.nix { inherit libgta; };
   libxo = pkgs.callPackage ./libxo { };
@@ -230,19 +230,5 @@
       hash = "sha256-JeDDYinio14BOl6CbzAPnJDOnrk4vgGNMN++rcy2ItQ=";
     };
     buildInputs = prev.buildInputs ++ [ pkgs.hwdata ];
-  });
-
-  kirigami-addons_0_10 = pkgs.libsForQt5.kirigami-addons.overrideAttrs (oldAttrs: rec {
-    version = "0.10.0";
-    src = pkgs.fetchFromGitLab {
-      domain = "invent.kde.org";
-      owner = "libraries";
-      repo = "kirigami-addons";
-      rev = "v${version}";
-      hash = "sha256-wwc0PCY8vNCmmwfIYYQhQea9AYkHakvTaERtazz8npQ=";
-    };
-    meta = oldAttrs.meta // (with pkgs.lib; {
-      platforms = platforms.linux;
-    });
   });
 }
