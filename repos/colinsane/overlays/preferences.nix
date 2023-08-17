@@ -1,14 +1,19 @@
 # personal preferences
 # prefer to encode these in `sane.programs`
 # resort to this method for e.g. system dependencies, or things which are referenced from too many places.
-(next: prev: {
-  pipewire = prev.pipewire.override {
+(self: super: with self; {
+  g4music = super.g4music.overrideAttrs (upstream: {
+    buildInputs = upstream.buildInputs ++ [
+      gst_all_1.gst-plugins-bad  # for e.g. m4a support
+    ];
+  });
+  pipewire = super.pipewire.override {
     # avoid a dep on python3.10-PyQt5, which has mixed qt5 versions.
     # this means we lose firewire support (oh well..?)
     ffadoSupport = false;
   };
 
-  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+  pythonPackagesExtensions = super.pythonPackagesExtensions ++ [
     (pySelf: pySuper: {
       keyring = (pySuper.keyring.override {
         # jaraco-classes doesn't cross compile, but it looks like `keyring`
