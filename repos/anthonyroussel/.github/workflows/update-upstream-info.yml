@@ -1,0 +1,43 @@
+name: Update upstream-info.json
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *'
+
+jobs:
+  update-upstream-info:
+    name: Update Upstream information
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v20
+        with:
+          nix_path: nixpkgs=channel:nixos-23.05
+
+      - name: Configure Git author and create branch
+        run: |
+          cd pkgs/shadow-client
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b update-shadow-channels
+
+      - name: Update Upstream information file
+        run: ./update.py --commit
+
+      - name: Push branch
+        run: git push origin update-shadow-channels -f
+
+      - name: Create pull request
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "update-shadow-channels"
+          destination_branch: "master"
+          pr_title: "Update upstream-info.json"
+          pr_reviewer: "anthonyroussel"
+          pr_label: "update"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
