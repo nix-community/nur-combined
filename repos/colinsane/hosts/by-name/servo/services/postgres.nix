@@ -1,5 +1,10 @@
 { pkgs, ... }:
 
+let
+  GiB = n: MiB 1024*n;
+  MiB = n: KiB 1024*n;
+  KiB = n: 1024*n;
+in
 {
   sane.persist.sys.plaintext = [
     # TODO: mode?
@@ -39,10 +44,33 @@
   #     LC_CTYPE = "C";
   # '';
 
-  # TODO: perf tuning
+  # perf tuning
   # - for recommended values see: <https://pgtune.leopard.in.ua/>
   # - for official docs (sparse), see: <https://www.postgresql.org/docs/11/config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE>
-  # services.postgresql.settings = { ... }
+  services.postgresql.settings = {
+    # DB Version: 15
+    # OS Type: linux
+    # DB Type: web
+    # Total Memory (RAM): 32 GB
+    # CPUs num: 12
+    # Data Storage: ssd
+    max_connections = 200;
+    shared_buffers = "8GB";
+    effective_cache_size = "24GB";
+    maintenance_work_mem = "2GB";
+    checkpoint_completion_target = 0.9;
+    wal_buffers = "16MB";
+    default_statistics_target = 100;
+    random_page_cost = 1.1;
+    effective_io_concurrency = 200;
+    work_mem = "10485kB";
+    min_wal_size = "1GB";
+    max_wal_size = "4GB";
+    max_worker_processes = 12;
+    max_parallel_workers_per_gather = 4;
+    max_parallel_workers = 12;
+    max_parallel_maintenance_workers = 4;
+  };
 
   # daily backups to /var/backup
   services.postgresqlBackup.enable = true;

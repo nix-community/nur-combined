@@ -63,6 +63,7 @@ in
       database: "pleroma",
       hostname: "localhost",
       pool_size: 10,
+      prepare: :named,
       parameters: [
           plan_cache_mode: "force_custom_plan"
       ]
