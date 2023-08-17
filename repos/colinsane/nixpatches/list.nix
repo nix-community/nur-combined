@@ -19,11 +19,15 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
-
   (fetchpatch' {
-    title = "liberation_ttf_v1: fix build after #248865";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/249059";
-    hash = "sha256-hZwUk/nt5a670IUCd+iys0Cj9+oxEpsrFu9Y/zZ9Ccg=";
+    title = "komikku: 1.22.0 -> 1.23.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/249575";
+    hash = "sha256-CjVAFRcnTjA9DpOdwFwifgriQ9QFFGzchMB0tIVlAQM=";
+  })
+  (fetchpatch' {
+    title = "komga: 1.3.0 -> 1.3.1";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/249546";
+    hash = "sha256-F5rUwZi536r0NkJ2PNVuJK1eXG0lj8q8h9C91CgfhfA=";
   })
 
   # (fetchpatch' {
@@ -81,12 +85,6 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
     saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
     hash = "sha256-jDXYLlXaEBKMrZ2dgxc6ucrcX/5dtqoIIKw+Ay19vlc=";
-  })
-
-  (fetchpatch' {
-    title = "g4music: init at 2.4";  #< actually v 3.2
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/242943";
-    hash = "sha256-O1uokuocr9T+RK1PsyclnYR37WxI8O6swp5y3kwDNMs=";
   })
 
   # (fetchpatch {

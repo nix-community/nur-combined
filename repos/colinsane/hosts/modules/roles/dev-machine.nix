@@ -24,8 +24,7 @@ in
     (mkIf cfg {
       sane.programs.docsets.enableFor.system = true;
       sane.programs.ldd-aarch64.enableFor.user.colin = true;
-      # TODO: migrate this to `sane.user.programs.zeal.enable = true`
-      sane.programs.zeal.enableFor.user.colin = true;
+      # sane.programs.zeal.enableFor.user.colin = true;
     })
   ];
 }

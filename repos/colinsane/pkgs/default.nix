@@ -29,7 +29,6 @@ let
     chatty-latest = callPackage ./additional/chatty-latest { };
     eg25-manager = callPackage ./additional/eg25-manager { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
-    g4music = unpatched.g4music or (callPackage ./additional/g4music { });
     lemoa = callPackage ./additional/lemoa { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     firefox-extensions = lib.recurseIntoAttrs (callPackage ./additional/firefox-extensions { });
@@ -112,8 +111,6 @@ let
 
     # jackett doesn't allow customization of the bind address: this will probably always be here.
     jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };
-
-    komikku = callPackage ./patched/komikku { inherit (unpatched) komikku; };
 
     phoc = callPackage ./patched/phoc { inherit (unpatched) phoc; };
 

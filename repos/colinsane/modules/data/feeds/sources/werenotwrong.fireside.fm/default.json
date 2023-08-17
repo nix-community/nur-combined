@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 232527,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "Not wrong political opinions.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 67,
+  "last_updated": "2023-08-09T21:26:55+00:00",
+  "score": -10,
+  "self_url": "https://feeds.acast.com/public/shows/6490a2ce7ded6b001126fa5b",
+  "site_name": "",
+  "site_url": "",
+  "title": "We're Not Wrong",
+  "url": "https://feeds.acast.com/public/shows/6490a2ce7ded6b001126fa5b",
+  "velocity": 0.145,
+  "version": "rss20"
+}

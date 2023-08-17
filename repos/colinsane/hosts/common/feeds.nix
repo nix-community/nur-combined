@@ -67,7 +67,12 @@ let
     (fromDb "craphound.com" // pol)
     ## Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)
+    ## also Maggie Killjoy
+    (fromDb "feeds.megaphone.fm/behindthebastards" // pol)
+    ## Jennifer Briney
     (fromDb "congressionaldish.libsyn.com" // pol)
+    (fromDb "werenotwrong.fireside.fm" // pol)
+    (fromDb "usefulidiots.substack.com" // pol)
     # (mkPod "https://podcasts.la.utexas.edu/this-is-democracy/feed/podcast/" // pol // weekly)
     ## Civboot -- https://anchor.fm/civboot
     (fromDb "anchor.fm/s/34c7232c/podcast/rss" // tech)
@@ -125,6 +130,8 @@ let
     (fromDb "feeds.simplecast.com/82FI35Px" // pol)
     ## Wireshark Podcast o_0
     (fromDb "sharkbytes.transistor.fm" // tech)
+    ## 3/4 German; 1/4 eps are English
+    (fromDb "omegataupodcast.net" // tech)
   ];
 
   texts = [

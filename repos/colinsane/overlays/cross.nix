@@ -889,9 +889,7 @@ in {
       ./kitty-no-docs.patch
     ];
   });
-  komikku = prev.komikku.override {
-    komikku = wrapGAppsHook4Fix prev.komikku.unpatched;
-  };
+  komikku = wrapGAppsHook4Fix prev.komikku;
   koreader = (prev.koreader.override {
     # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
     # inherit (emulated) luajit;
