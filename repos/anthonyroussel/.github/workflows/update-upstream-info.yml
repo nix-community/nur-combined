@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 */12 * * *'
 
+defaults:
+  run:
+    working-directory: ./pkgs/shadow-client
+
 jobs:
   update-upstream-info:
     name: Update Upstream information
@@ -21,7 +25,6 @@ jobs:
 
       - name: Configure Git author and create branch
         run: |
-          cd pkgs/shadow-client
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b update-shadow-channels
