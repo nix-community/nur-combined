@@ -18,13 +18,13 @@
 
 buildPythonPackage rec {
   pname = "python-engineio";
-  version = "3.14.2";
+  version = "3.15.0-pre9e82c6ef";
 
   src = fetchFromGitHub {
-    owner = "miguelgrinberg";
+    owner = "graham33";
     repo = "python-engineio";
-    rev = "v${version}";
-    sha256 = "1r3gvizrknbv036pvxid1l726wkb0l43bdaz5y879s7j3ipyb464";
+    rev = "9e82c6ef77ecb0573fae33a3522cd452e712a4eb";
+    sha256 = "sha256-hxuKmCmovdC6mnGfFtN+9Dk6vmS82fhvUVbRpDAmK/8=";
   };
 
   propagatedBuildInputs = [

@@ -9,18 +9,14 @@
 
 buildPythonPackage rec {
   pname = "python-socketio";
-  version = "4.6.1";
+  version = "4.7.0-preb5f4bb9";
 
   src = fetchFromGitHub {
-    owner = "miguelgrinberg";
+    owner = "graham33";
     repo = "python-socketio";
-    rev = "v${version}";
-    sha256 = "14dijag17v84v0pp9qi89h5awb4h4i9rj0ppkixqv6is9z9lflw5";
+    rev = "b5f4bb9013226d41314085db044bdea9fb8c4b1d";
+    sha256 = "sha256-L5A/MAb9XIcW2YlCtic6B5yP85hRrrjkDFeldGDxvOs=";
   };
-
-  patches = [
-    ./0001-Explicitly-create-tasks-for-coroutines-before-waitin.patch
-  ];
 
   propagatedBuildInputs = [
     bidict

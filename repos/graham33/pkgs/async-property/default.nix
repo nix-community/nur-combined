@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "async-property";
-  version = "0.2.1";
+  version = "0.2.2";
 
   src = fetchFromGitHub {
     owner = "ryananguiano";
     repo = "async_property";
     rev = "v${version}";
-    sha256 = "sha256-ciJlIkARwHuMcHkT3WLHF8BaDeqGyotc/vIdKILPSw8=";
+    sha256 = "sha256-Bn8PDAGNLeL3/g6mB9lGQm1jblHIOJl2w248McJ3oaE=";
   };
 
   propagatedBuildInputs = [

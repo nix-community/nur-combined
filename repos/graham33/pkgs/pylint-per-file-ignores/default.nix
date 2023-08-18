@@ -1,19 +1,25 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, poetry-core
 , pylint
 , tomli
 }:
 
 buildPythonPackage rec {
   pname = "pylint-per-file-ignores";
-  version = "1.2.0";
+  version = "1.2.1";
+  format = "pyproject";
   
   src = fetchPypi {
     pname = "pylint_per_file_ignores";
     inherit version;
-    sha256 = "sha256-Zl4p3QIGG73XDO1yc6aXGID+l6OiwVYVrSsx5WdVmzw=";
+    sha256 = "sha256-wodbmCw+3ONjc3Lv3EiJhnlmxRUxNie+oyuFWLh2tNo=";
   };
+
+  nativeBuildInputs = [
+    poetry-core
+  ];
 
   propagatedBuildInputs = [
     pylint
