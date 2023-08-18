@@ -6,7 +6,7 @@ let
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
   extraVer = "";
-  hash = "sha256-xQdqr388gHLc3fqBwozSyN5EDyyjFjc1ijmtRqaCm0M=";
+  hash = "sha256-LD3G9IIbsNVWIH5/bOJyexWCiL5bTmHiQLJ88tNCTF0=";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
@@ -18,7 +18,7 @@ buildLinux (args // rec {
     src = fetchFromGitHub {
       owner = "sunlightlinux";
       repo = "linux-sunlight";
-      rev = "15d47d0c2ab24b1eec29e5a762c799b2e76589b2";
+      rev = "6d471f4c560c86478566ee348db059bcfb9f1714";
       inherit hash;
     };
 
