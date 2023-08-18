@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qutebrowser-bin";
-  version = "2.5.3";
+  version = "3.0.0";
 
   src = fetchfromgh {
     owner = "qutebrowser";
     repo = "qutebrowser";
     name = "qutebrowser-${finalAttrs.version}.dmg";
-    hash = "sha256-T3DMZhIuXxI1tDCEi7knu6lscGCVSjU1UW76SaKd1N4=";
+    hash = "sha256-TFh5UAjU34s0EstNxQWPxVv0m0YrySKt5yKdh4Hl0pc=";
     version = "v${finalAttrs.version}";
   };
 
