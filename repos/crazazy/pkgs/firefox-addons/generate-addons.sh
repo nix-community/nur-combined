@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 DEFAULT_PROFILE=$(cat ~/.mozilla/firefox/profiles.ini | grep 'Default=...*' | cut -d = -f 2)
 cat "$HOME/.mozilla/firefox/$DEFAULT_PROFILE/addons.json" | jq '.addons|map({slug:(.reviewURL|split("/")|.[6])})'> addons.json
-nix run -f "https://github.com/nix-community/NUR/archive/master.tar.gz" repos.rycee.firefox-addons-generator \
-	--arg pkgs 'import <nixpkgs> {}' \
-	-c nixpkgs-firefox-addons addons.json ./generated.nix
+nix-build  "https://github.com/nix-community/NUR/archive/master.tar.gz" \
+           -A repos.ethancedwards8.firefox-addons-generator \
+           --arg pkgs 'import <nixpkgs> {}'
+./result/bin/nixpkgs-firefox-addons addons.json ./generated.nix
+rm result
 if [[ ! -e ./default.nix ]]; then
 cat > ./default.nix << EOF
 # Derived from: https://github.com/nix-community/nur-combined/blob/master/repos/ijohanne/pkgs/firefox-plugins/default.nix

@@ -29,10 +29,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.7.1";
+      version = "1.7.3";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134634/old_reddit_redirect-1.7.1.xpi";
-      sha256 = "d473230e527e007ae98414bc68ffe4f98ed997d2f25a71c349e4e13288d0da62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152567/old_reddit_redirect-1.7.3.xpi";
+      sha256 = "0635622093c91a0893849182a92c8c7356427d6a4dee5b61a8e985edda9e0e39";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
