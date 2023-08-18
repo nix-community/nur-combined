@@ -312,14 +312,28 @@
       };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.3.37";
+      version = "0.3.38";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101016/blocktube-0.3.37.xpi";
-      sha256 = "be673f7184595afa2c84206d978490025597199adb46e95e66e7b8a670d1d49c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152352/blocktube-0.3.38.xpi";
+      sha256 = "09e79457ecf19596570fdef9f90d4374861785738f71d3558b013be7208477d2";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
         description = "YouTube™ Content Blocker\nBlock channels and videos from YouTube™\nFast and easy";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "boring-rss" = buildFirefoxXpiAddon {
+      pname = "boring-rss";
+      version = "0.5";
+      addonId = "{45d4d1a3-4faa-42b7-9747-bcf2153310cd}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3660917/boring_rss-0.5.xpi";
+      sha256 = "23da27d92980bf0793cabf9722813a45cbf55a24a44434a217c3d38af4b2cdfb";
+      meta = with lib;
+      {
+        homepage = "https://git.sr.ht/~tomf/boring-rss";
+        description = "A low-permission button to find RSS/Atom feeds in the current page.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
@@ -423,10 +437,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "16.1.0";
+      version = "17.1.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128289/censor_tracker-16.1.0.xpi";
-      sha256 = "a679840ecd00aeafe5464cb9fcfdf4a1cd71e4b88b806ef2c1f016be3c5dcc0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4154200/censor_tracker-17.1.0.xpi";
+      sha256 = "dfd80773c89b40575b12d422072fa929904a6b0f9e4a0cfb330fc57772266585";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
@@ -478,10 +492,10 @@
       };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.4.0";
+      version = "0.4.1";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4151270/codecov-0.4.0.xpi";
-      sha256 = "20290d0b0cd87aa2301cc51be8a38e388164c4a451050e5dc8db6abbc671b23c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4153163/codecov-0.4.1.xpi";
+      sha256 = "884d1b9a6962d383f5ca135ae02359febbe4ec10cebe114de7fdc39eda4c7fe9";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -548,10 +562,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.14.1";
+      version = "3.15.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4148689/control_panel_for_twitter-3.14.1.xpi";
-      sha256 = "eb1febce1898a1894d34af92f44e002e861cf4f07034a280fd84794e3460464d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152958/control_panel_for_twitter-3.15.0.xpi";
+      sha256 = "0cb93af96cb8e21d2b25945d7f92248b5edd1734364b70e57ce4318ba3320b6c";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -658,10 +672,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.64";
+      version = "4.9.65";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128489/darkreader-4.9.64.xpi";
-      sha256 = "c09ed43a96dccab1de3445aac263de0569e3333da330d645094e3f938f13b30e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4151368/darkreader-4.9.65.xpi";
+      sha256 = "964d7fdeec1dc90b5238a82db699de7a2bbf54e3e2bf18569befff451f35f89a";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -672,10 +686,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.6";
+      version = "1.2.10";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4148631/dearrow-1.2.6.xpi";
-      sha256 = "e19633b86044c80641ac09e4b4703779552f7cc01af8b535aca252ef9b7d1716";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4154837/dearrow-1.2.10.xpi";
+      sha256 = "1c8e9961a02afe6f3154a09590932269033a790d81577c79d77805ead8b7385d";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -736,6 +750,19 @@
         homepage = "https://github.com/revir/dictionaries";
         description = "Dictionariez(Dictionaries): This extension help you reading articles, looking up words of any language in various dictionaries, and exporting words to Anki, facilitating your language learning process.";
         license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
+    "disable-facebook-news-feed" = buildFirefoxXpiAddon {
+      pname = "disable-facebook-news-feed";
+      version = "3.3";
+      addonId = "{85cd2b5d-b3bd-4037-8335-ced996a95092}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015709/disable_facebook_news_feed-3.3.xpi";
+      sha256 = "8706de4ac241ff223ab9983b22c5805fcc8afb8477e574d9f873065fa72d4dbb";
+      meta = with lib;
+      {
+        description = "Removes News Feed from Facebook. Saves hours of scrolling.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -1040,10 +1067,10 @@
       };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
-      version = "0.2.14";
+      version = "0.2.15";
       addonId = "firenvim@lacamb.re";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026386/firenvim-0.2.14.xpi";
-      sha256 = "a8c495a59e30eaabbb3fcd188db9b5e28b40bffefe41a3f0fa22ecc58c80c2b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152359/firenvim-0.2.15.xpi";
+      sha256 = "9ea9fce1f69eaebaccfb19fc37d35a5378e7b540a47845cada6edbd2a29b66d0";
       meta = with lib;
       {
         description = "Turn Firefox into a Neovim client.";
@@ -1170,10 +1197,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230811.183303";
+      version = "117.0.20230817.175856";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4152098/francais_language_pack-116.0.20230811.183303.xpi";
-      sha256 = "0b245605436de538d94698052e6222e98b7c6a1285611592d8c527473a16cac5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4154878/francais_language_pack-117.0.20230817.175856.xpi";
+      sha256 = "7f1fc4f3dcacd93ace577d48252e05be0784a1bf0e7b7ddcaa32e7c96ec449cf";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1239,10 +1266,10 @@
       };
     "gitako-github-file-tree" = buildFirefoxXpiAddon {
       pname = "gitako-github-file-tree";
-      version = "3.11.5";
+      version = "3.11.6";
       addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4151276/gitako_github_file_tree-3.11.5.xpi";
-      sha256 = "d9a0d7d96aa5c3f9995bff4885db69d3bbc0039385ad9fb9c3b3a9d55180f0e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152377/gitako_github_file_tree-3.11.6.xpi";
+      sha256 = "1988cc8cbe3cd035daec0bc039e9ccf97093912093366cebc5c0d992065de561";
       meta = with lib;
       {
         homepage = "https://github.com/EnixCoda/Gitako";
@@ -1610,14 +1637,14 @@
       };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "1.42";
+      version = "2.13";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/730512/ipvfoo_pmarks-1.42.xpi";
-      sha256 = "3429c60ea4d73725842e4ed729c05f8eae414c3d9337cf70443da13b3ddcdbe0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4155127/ipvfoo_pmarks-2.13.xpi";
+      sha256 = "704047eb5b8076c07324f48e853de2f8af76ae6110fc58d22ab0d7e2f383c488";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
-        description = "Display the server IP address, with a realtime summary of IPv4, IPv6, and HTTPS information across all page elements.\n\n(This is primarily a Chrome extension, so it's a bit glitchy due to Firefox's inexact implementation of the APIs.)";
+        description = "Display the server IP address, with a realtime summary of IPv4, IPv6, and HTTPS information across all page elements.";
         license = licenses.asl20;
         platforms = platforms.all;
         };
@@ -1660,6 +1687,20 @@
       {
         homepage = "https://js.extension.sh";
         description = "The ultimate search extension for Javascript!";
+        platforms = platforms.all;
+        };
+      };
+    "kagi-search" = buildFirefoxXpiAddon {
+      pname = "kagi-search";
+      version = "0.3.6";
+      addonId = "search@kagi.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4147453/kagi_search_for_firefox-0.3.6.xpi";
+      sha256 = "3fc443be32f05be37cf3063b33eff4cd7da0d4def6ecdc0a643aed7a3cdc09cd";
+      meta = with lib;
+      {
+        homepage = "https://kagi.com";
+        description = "A simple helper extension for setting Kagi as a default search engine, and automatically logging in to Kagi in private browsing windows.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -1922,10 +1963,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.53";
+      version = "2.6.54";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139291/localcdn_fork_of_decentraleyes-2.6.53.xpi";
-      sha256 = "a6a4bfd910563106a7ca0e4842037a1cd55b796b631e2522962b50acd5abfac4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150072/localcdn_fork_of_decentraleyes-2.6.54.xpi";
+      sha256 = "33b837b85b07d93e12b5d612f3133f096a44c4a21359cfc6d5bb0a4fb1be57fa";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2048,10 +2089,10 @@
       };
     "modrinthify" = buildFirefoxXpiAddon {
       pname = "modrinthify";
-      version = "1.7";
+      version = "1.7.1";
       addonId = "{5183707f-8a46-4092-8c1f-e4515bcebbad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4152047/modrinthify-1.7.xpi";
-      sha256 = "7f64b9f2b910f381fb0f4eee3825ba12604a045370cc8640a22abeee01217abf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152621/modrinthify-1.7.1.xpi";
+      sha256 = "eef38c5b7eee035850afb1f5bcba6b70d1bf88de4bf898e3d12affe13f69902e";
       meta = with lib;
       {
         homepage = "https://github.com/devBoi76/modrinthify";
@@ -2236,6 +2277,20 @@
         platforms = platforms.all;
         };
       };
+    "nitter-redirect" = buildFirefoxXpiAddon {
+      pname = "nitter-redirect";
+      version = "1.1.5";
+      addonId = "{513646f8-fb87-4135-a41e-4cf1d1ccccf2}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3614778/nitter_redirect-1.1.5.xpi";
+      sha256 = "a85d0c99d4e99c7dd3907af63ce2c88653af4723f564d68a4a1b1d5bce2b995e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/SimonBrazell/nitter-redirect";
+        description = "Redirects Twitter requests to Nitter, the privacy friendly alternative.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "no-pdf-download" = buildFirefoxXpiAddon {
       pname = "no-pdf-download";
       version = "1.0.6";
@@ -2327,10 +2382,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.9.3";
+      version = "7.9.5";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4130309/octotree-7.9.3.xpi";
-      sha256 = "c89229d197f62b4f2830c8aa94a52ad296426cddc140e8ab706ec137f866197b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4154049/octotree-7.9.5.xpi";
+      sha256 = "5ca104e132335c9d1c6a2cd911e4162199c4d03a662b775327f747a7cc31c704";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -2373,10 +2428,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.7.2";
+      version = "1.7.3";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4150346/old_reddit_redirect-1.7.2.xpi";
-      sha256 = "9bd4f42b340e3777253d49e72c679c6a1bac55141438d954614ce01bd85b7018";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152567/old_reddit_redirect-1.7.3.xpi";
+      sha256 = "0635622093c91a0893849182a92c8c7356427d6a4dee5b61a8e985edda9e0e39";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -2396,6 +2451,20 @@
         homepage = "https://github.com/alyssaxuu/omni";
         description = "Supercharge Firefox with commands, shortcuts, and more";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "one-click-wayback" = buildFirefoxXpiAddon {
+      pname = "one-click-wayback";
+      version = "0.2";
+      addonId = "tom@tom.tf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3658464/one_click_wayback-0.2.xpi";
+      sha256 = "652adb4b0b1358f47fdb9ab0fd4ff9ab4cfdabde785219b7819849cbb6467e82";
+      meta = with lib;
+      {
+        homepage = "https://git.sr.ht/~tomf/one-click-wayback";
+        description = "View cached versions of your current page in the Wayback Machine.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -2696,10 +2765,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.7.2";
+      version = "2.7.3";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146811/private_relay-2.7.2.xpi";
-      sha256 = "c80b873c7a4a833e953d976e50b689ef6121e99ea98857777253c16bc43e7ec4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4153224/private_relay-2.7.3.xpi";
+      sha256 = "0aa656a9cce59ce5c1be1261b9a55ff48d45a21ab732f14d29326c9a2ca2ea0f";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -2752,10 +2821,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.5.1";
+      version = "1.5.2";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4148575/proton_pass-1.5.1.xpi";
-      sha256 = "a450af142e03023ea683a7f7163c77d0d6019968c846330c7cce67809e1fcc98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4153167/proton_pass-1.5.2.xpi";
+      sha256 = "512745eae92ceae7c727976dcd93531247b42a212b3dd562b92ab16fd4a8424e";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -3085,10 +3154,10 @@
       };
     "simplelogin" = buildFirefoxXpiAddon {
       pname = "simplelogin";
-      version = "2.9.2";
+      version = "2.10.0";
       addonId = "addon@simplelogin";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4028552/simplelogin-2.9.2.xpi";
-      sha256 = "1cda6f6cab1ef3783fdf34d128fea3913f8cc7d9bd9d2c28eb98fc0c297c32e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4135577/simplelogin-2.10.0.xpi";
+      sha256 = "7fd004c598d628ee0f04e8cb16cd1179ae2bb95f11906c560611d9ad0bc93b43";
       meta = with lib;
       {
         homepage = "https://simplelogin.io";
@@ -3198,10 +3267,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.14";
+      version = "5.4.15";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147236/sponsorblock-5.4.14.xpi";
-      sha256 = "908571fd8976219d3fd11a8b31fe3e1c9a23a0303ba0e518c197c5bccb7fd971";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4151024/sponsorblock-5.4.15.xpi";
+      sha256 = "d4eb5ed41611ac75328d1d5f6fbe9e07d81ec00cf7a2836129e51e650c9269ab";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -3239,10 +3308,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.11";
+      version = "3.7.0";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4150694/steam_database-3.6.11.xpi";
-      sha256 = "ec6b77debe15b9a534591734913cc096f6ef2e902e1c42e91d44c0736d01a585";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4152370/steam_database-3.7.0.xpi";
+      sha256 = "33babb1c18054e4ad741c61aa46a5fc45654acc1e2af2181b2b331be716c8c59";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";

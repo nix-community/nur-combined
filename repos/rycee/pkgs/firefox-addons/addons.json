@@ -88,6 +88,9 @@
     "slug": "blocktube"
   },
   {
+    "slug": "boring-rss"
+  },
+  {
     "slug": "brandon1024-find"
   },
   {
@@ -190,6 +193,9 @@
   {
     "slug": "dictionnaire-français1",
     "pname": "french-dictionary"
+  },
+  {
+    "slug": "disable-facebook-news-feed"
   },
   {
     "slug": "disable-javascript"
@@ -454,6 +460,10 @@
     "slug": "js-search-extension"
   },
   {
+    "slug": "kagi-search-for-firefox",
+    "pname": "kagi-search"
+  },
+  {
     "slug": "keepa",
     "license": {
       "tag": "custom",
@@ -625,6 +635,9 @@
     }
   },
   {
+    "slug": "nitter-redirect"
+  },
+  {
     "slug": "no-pdf-download"
   },
   {
@@ -678,6 +691,9 @@
   },
   {
     "slug": "omnisearch"
+  },
+  {
+    "slug": "one-click-wayback"
   },
   {
     "slug": "onetab",
