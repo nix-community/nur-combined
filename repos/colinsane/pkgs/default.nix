@@ -112,7 +112,7 @@ let
     # jackett doesn't allow customization of the bind address: this will probably always be here.
     jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };
 
-    modemmanager = callPackage ./patched/modemmanager { inherit (unpatched) modemmanager; };
+    # modemmanager = callPackage ./patched/modemmanager { inherit (unpatched) modemmanager; };
 
     phoc = callPackage ./patched/phoc { inherit (unpatched) phoc; };
 

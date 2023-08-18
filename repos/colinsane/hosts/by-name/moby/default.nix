@@ -116,6 +116,11 @@
     services.pipewire.environment.ALSA_CONFIG_UCM2            = ucm-env;
     services.pipewire-pulse.environment.ALSA_CONFIG_UCM2      = ucm-env;
     services.wireplumber.environment.ALSA_CONFIG_UCM2         = ucm-env;
+
+
+    # TODO: move elsewhere...
+    # N.B.: the extra "" in ExecStart serves to force upstream ExecStart to be ignored
+    services.ModemManager.serviceConfig.ExecStart = [ "" "${pkgs.modemmanager}/bin/ModemManager --debug" ];
   };
 
   services.udev.extraRules = let

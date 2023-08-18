@@ -3,6 +3,8 @@
 , fetchpatch
 , fetchFromGitHub
 , pkgs
+# modem_power is incompatible with eg25-manager: <https://gitlab.com/mobian1/eg25-manager/-/issues/38>
+, withModemPower ? true
 # something inside nixpkgs calls `override` on the kernel and passes in extra arguments
 , ...
 }@args:
@@ -41,8 +43,7 @@ let
     SCHED_DEBUG = lib.mkForce no;  # determines /sys/kernel/debug/sched
     # SUNRPC_DEBUG = lib.mkForce no;  # i use NFS though
 
-    # modem_power is incompatible with eg25-manager: <https://gitlab.com/mobian1/eg25-manager/-/issues/38>
-    MODEM_POWER = no;
+    MODEM_POWER = lib.mkIf (!withModemPower) no;
 
     # taken from mobile-nixos config?? or upstream megous config??
     RTL8723CS = module;
@@ -111,6 +112,7 @@ let
     pkgs.kernelPatches.bridge_stp_helper
     pkgs.kernelPatches.request_key_helper
     # (patchDefconfig kernelConfig)
+  ] ++ lib.optionals (!withModemPower) [
     {
       # Drop modem-power from DT to allow eg25-manager to have full control.
       # source: <https://github.com/NixOS/mobile-nixos/pull/573>
