@@ -12,11 +12,11 @@
     "datagrip": {
       "update-channel": "DataGrip RELEASE",
       "url-template": "https://download.jetbrains.com/datagrip/datagrip-{version}.tar.gz",
-      "version": "2023.2",
-      "sha256": "f8344dad4f502a215440fb7ccbc4c69acdd0b18f33d855f0d0d0d2bbe44a5f26",
-      "url": "https://download.jetbrains.com/datagrip/datagrip-2023.2.tar.gz",
+      "version": "2023.2.1",
+      "sha256": "0b20f0dc61d8fd9b42962d4931c64742dd17e3f008dfec2c8863a56b1bc4be9b",
+      "url": "https://download.jetbrains.com/datagrip/datagrip-2023.2.1.tar.gz",
       "version-major-minor": "2022.3",
-      "build_number": "232.8660.111"
+      "build_number": "232.9559.28"
     },
     "gateway": {
       "update-channel": "Gateway EAP",
