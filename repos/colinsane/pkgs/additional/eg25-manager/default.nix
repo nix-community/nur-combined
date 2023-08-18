@@ -14,7 +14,8 @@
 , glib
 , libgudev
 , libusb1
-, modemmanager
+# if true, build with MMGLIB. if false, eg25-manager won't speak to modemmanager and will be usable standalone
+, withModemManager ? true, modemmanager
 }:
 
 let
@@ -59,6 +60,7 @@ stdenv.mkDerivation rec {
     libgpiod1
     libgudev
     libusb1
+  ] ++ lib.optionals withModemManager [
     modemmanager
   ];
 

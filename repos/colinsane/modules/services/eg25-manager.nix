@@ -12,20 +12,25 @@ let
   '';
 in
 {
-  options.sane.services.eg25-manager = {
-    enable = lib.mkEnableOption "Quectel EG25 modem manager service";
+  options.sane.services.eg25-manager = with lib; {
+    enable = mkEnableOption "Quectel EG25 modem manager service";
+    package = mkOption {
+      type = types.package;
+      default = pkgs.eg25-manager;
+    };
   };
   config = lib.mkIf cfg.enable {
     # eg25-manager package ships udev rules *and* a systemd service.
     # for that reason, i think it needs to be on the system path for the systemd service to be enabled.
-    services.udev.packages = [ pkgs.eg25-manager ];
+    services.udev.packages = [ cfg.package ];
 
     # but actually, let's define our own systemd service so that we can control config
     systemd.services.eg25-manager = {
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.eg25-manager}/bin/eg25-manager --config ${eg25-config-toml}";
+        ExecStart = "${cfg.package}/bin/eg25-manager --config ${eg25-config-toml}";
         ExecStartPre = pkgs.writeShellScript "unload-modem-power" ''
+          # see issue: <https://gitlab.com/mobian1/eg25-manager/-/issues/38>
           ${pkgs.kmod}/bin/modprobe -r modem_power && echo "WARNING: kernel configured with CONFIG_MODEM_POWER=y, may be incompatible with eg25-manager" || true
         '';
 
