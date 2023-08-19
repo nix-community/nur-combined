@@ -26,5 +26,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isLinux; # ./tools/build-dist: cannot execute: required file not found
   };
 })

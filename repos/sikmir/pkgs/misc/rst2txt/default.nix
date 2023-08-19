@@ -16,6 +16,7 @@ python3Packages.buildPythonApplication rec {
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   propagatedBuildInputs = with python3Packages; [
+    docutils
     pygments
     setuptools # pkg_resources
   ];
