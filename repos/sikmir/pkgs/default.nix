@@ -361,6 +361,9 @@ lib.makeScope newScope (
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
     ocelotgui = libsForQt5.callPackage ./misc/ocelotgui { };
+    opcua-stack = callPackage ./misc/opcua-stack {
+      openssl = pkgs.openssl_1_1;
+    };
     playonmac = callPackage ./misc/playonmac { };
     plotjuggler = libsForQt5.callPackage ./misc/plotjuggler { };
     pnoise = callPackage ./misc/pnoise { };
