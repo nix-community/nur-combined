@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
     homepage = "https://asneg.github.io/projects/opcuastack";
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }
