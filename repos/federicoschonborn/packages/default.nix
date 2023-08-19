@@ -44,7 +44,6 @@
   telegraph = pkgs.callPackage ./telegraph { };
   textsnatcher = pkgs.callPackage ./textsnatcher { };
   thunderbird-gnome-theme = pkgs.callPackage ./thunderbird-gnome-theme { };
-  tuba = pkgs.callPackage ./tuba { };
   upkg = pkgs.callPackage ./upkg { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   yyjson = pkgs.callPackage ./yyjson { };
