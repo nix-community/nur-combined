@@ -52,7 +52,7 @@ in
     publicKeys = all;
   };
 
-  "nix-serve/cache-key.age".publicKeys = all;
+  "nix-cache/cache-key.age".publicKeys = all;
 
   "paperless/password.age".publicKeys = all;
   "paperless/secret-key.age".publicKeys = all;

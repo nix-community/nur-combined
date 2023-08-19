@@ -93,9 +93,9 @@ in
       enable = true;
       passwordFile = secrets."nextcloud/password".path;
     };
-    nix-serve = {
+    nix-cache = {
       enable = true;
-      secretKeyFile = secrets."nix-serve/cache-key".path;
+      secretKeyFile = secrets."nix-cache/cache-key".path;
     };
     nginx = {
       enable = true;
