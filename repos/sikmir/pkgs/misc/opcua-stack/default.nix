@@ -13,6 +13,10 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/src";
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt --replace "/usr" "$out"
+  '';
+
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [ boost openssl ];

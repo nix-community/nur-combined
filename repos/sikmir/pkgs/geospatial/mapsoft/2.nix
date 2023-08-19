@@ -3,6 +3,9 @@
 , fetchFromGitHub
 , fetchpatch
 , substituteAll
+, copyDesktopItems
+, desktopToDarwinBundle
+, makeDesktopItem
 , db
 , fig2dev
 , giflib
@@ -85,14 +88,26 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace vmap_data/scripts/vmaps.sh --replace "/usr" "$out"
   '';
 
+  desktopItems = [
+    (makeDesktopItem {
+      name = "ms2view";
+      exec = "ms2view";
+      comment = "Viewer for geodata and raster maps";
+      desktopName = "ms2view";
+      genericName = "Mapsoft2 viewer";
+      categories = [ "Geography" "Geoscience" "Science" ];
+    })
+  ];
+
   nativeBuildInputs = [
+    copyDesktopItems
     fig2dev
     imagemagick
     perlPackages.perl
     pkg-config
     unzip
     wrapGAppsHook
-  ];
+  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     db
