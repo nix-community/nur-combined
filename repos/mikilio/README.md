@@ -8,7 +8,7 @@
 ## Setup
 
 Manuals and guides can be found at the [NUR](https://github.com/nix-community/NUR) repository.
-To use cached binaries with Cachix refer to [NixOS Wiki](https://nixos.wiki/wiki/Binary_Cache#Using_a_binary_cache)
+To use cached binaries with Cachix refer to [NixOS Wiki](https://nixos.wiki/wiki/Binary_Cache#Using_a_binary_cache).
 
 ## Packages
 

@@ -18,11 +18,11 @@
 
 stdenv.mkDerivation rec {
   pname = "xwaylandvideobridge";
-  version = "6b76657f9e171e726c7c8d9c194d29d0026be268";
+  version = "8842032fe672575a9dfe44adc7ef84b468d931fe";
 
   src = fetchgit {
     url = "https://invent.kde.org/system/xwaylandvideobridge.git";
-    sha256 = "sha256-XgrgRXqBUbdz6tegVMTwppTYWJVqPyGoXfjhRCQEBxs=";
+    sha256 = "sha256-XRqv8VLSINO0nVBDiuhbc26p/aJh9pWUqGtFeoTo1LY=";
     rev = version;
   };
 
