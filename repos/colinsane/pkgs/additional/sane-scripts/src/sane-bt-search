@@ -26,6 +26,7 @@ options:
 
 from dataclasses import dataclass
 from datetime import datetime
+import argparse
 import logging
 import json
 import natsort
@@ -195,61 +196,31 @@ def filter_results(results: list[Torrent], full: bool, top: int, manga: bool, h2
         results = results[:top]
     return results
 
-def parse_args(args: list[str]) -> dict:
-    options = dict(
-        full=False,
-        help=False,
-        json=False,
-        query="",
-        top="5",
-        verbose=False,
-        manga=False,
-        h265=False,
-    )
-    while args:
-        arg = args[0]
-        del args[0]
-        if arg.startswith('--'):
-            opt = arg[2:]
-            if "=" in opt:
-                name, val = opt.split('=')
-            else:
-                name, val = opt, True
-            options[name] = val
-        else:
-            options["query"] = options["query"] + " " + arg if options["query"] else arg
-
-    return options
-
 def main(args: list[str]):
     logging.basicConfig()
-    options = parse_args(args)
-    full = options.pop("full")
-    help = options.pop("help")
-    json = options.pop("json")
-    query = options.pop("query")
-    assert options.get("top") is not True, "use `--top=N`, not `--top N`"
-    top = int(options.pop("top"))
-    verbose = options.pop("verbose")
-    manga = options.pop("manga")
-    h265 = options.pop("h265")
+    logging.getLogger().setLevel(logging.WARNING)
 
-    if options != {}:
-        raise BadCliArgs(f"unexpected options: {options}")
-    if help:
-        raise BadCliArgs()
+    parser = argparse.ArgumentParser(description='search torrent trackers')
+    parser.add_argument('--full', action='store_true', help='show all results')
+    parser.add_argument('--top', help='how many results to show (default: 5)')
+    parser.add_argument('--json', action='store_true', help='output results in json')
+    parser.add_argument('--verbose', action='store_true')
+    parser.add_argument('--manga', action='store_true', help='show only manga results')
+    parser.add_argument('--h265', action='store_true', help='show only H.265/HEVC results (might cause false negatives)')
+    parser.add_argument("query", help="text to search for in torrent titles/descriptions")
 
-    if verbose:
+    args = parser.parse_args()
+
+    if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
-
     client = Client()
-    results = client.query(query)
+    results = client.query(args.query)
     num_results = len(results)
 
-    results = filter_results(results, full, top, manga, h265)
+    results = filter_results(results, args.full, int(args.top or "5"), args.manga, args.h265)
 
-    if json:
+    if args.json:
         dumpable = [t.to_dict() for t in results]
         print(json.dumps(dumpable))
     else:
