@@ -28,6 +28,7 @@
   liquidshell = pkgs.libsForQt5.callPackage ./liquidshell { };
   marknote = pkgs.libsForQt5.callPackage ./marknote { };
   metronome = pkgs.callPackage ./metronome { };
+  minesector = pkgs.callPackage ./minesector { };
   morewaita = pkgs.callPackage ./morewaita { };
   moss = pkgs.callPackage ./moss { inherit libmoss; };
   moss-container = pkgs.callPackage ./moss-container { inherit libmoss; };

@@ -1,0 +1,39 @@
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, SDL2
+, SDL2_image
+, SDL2_ttf
+, SDL2_mixer
+}:
+
+stdenv.mkDerivation rec {
+  pname = "minesector";
+  version = "1.1.5";
+
+  src = fetchFromGitHub {
+    owner = "grassdne";
+    repo = "minesector";
+    rev = version;
+    hash = "sha256-VMTXZ4CIk9RpE4R9shHPl0R/T7mJUKY2b8Zi0DPW0/Q=";
+  };
+
+  nativeBuildInputs = [
+    cmake
+  ];
+
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_ttf
+    SDL2_mixer
+  ];
+
+  meta = with lib; {
+    description = "Snazzy Minesweeper-based game built with SDL2";
+    homepage = "https://github.com/grassdne/minesector";
+    license = licenses.mit;
+    maintainers = with maintainers; [ federicoschonborn ];
+  };
+}
