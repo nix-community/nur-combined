@@ -16,7 +16,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mezz64/python-nut2";
     license = licenses.gpl3;
     description = "A Python abstraction class to access NUT servers.";
-    # TODO: maintainer
-    #maintainers = with maintainers; [ graham33 ];
+    maintainers = with maintainers; [ graham33 ];
   };
 }

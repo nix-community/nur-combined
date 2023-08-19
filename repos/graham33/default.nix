@@ -43,6 +43,7 @@ let
       monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
       neohubapi = pySelf.callPackage ./pkgs/neohubapi { };
       pylint-per-file-ignores = pySelf.callPackage ./pkgs/pylint-per-file-ignores { };
+      pymiele = pySelf.callPackage ./pkgs/pymiele { };
       pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
       pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
       pytest-picked = pySelf.callPackage ./pkgs/pytest-picked { };
@@ -56,6 +57,8 @@ let
       aioambient = null;
       simplisafe-python = null;
     };
+
+    miele-custom-component = callPackage ./pkgs/miele-custom-component { };
 
     octopus-energy = callPackage ./pkgs/octopus-energy { };
 
@@ -91,6 +94,7 @@ in rec {
     home-assistant
     home-assistant-miele
     homeAssistantPackageOverrides
+    miele-custom-component
     octopus-energy
     solis-sensor
     tesla-custom-component
