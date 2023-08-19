@@ -13,13 +13,13 @@
   inquirerpy = callPackage ./inquirerpy.nix { inherit pfzy; };
 in python3Packages.buildPythonApplication rec {
   pname = "waydroid-script";
-  version = "unstable-2023-07-25";
+  version = "unstable-2023-08-18";
 
   src = fetchFromGitHub {
     repo = "waydroid_script";
     owner = "casualsnek";
-    rev = "489159c5f90aabb211ce4e960d7de0378120a11e";
-    hash = "sha256-lr3MndlJqOgUm89v6rvqtYMjPKriGZVyMvljl2uYzKA=";
+    rev = "4db9bb3cba248212cef043786f47149609e79a71";
+    hash = "sha256-oUQ7t/pR1900kWd/pn16YYWp0MpW4NpRP8+/3FXoG5k=";
   };
 
   propagatedBuildInputs = with python3Packages; [
