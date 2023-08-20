@@ -25,12 +25,6 @@ in [
     hash = "sha256-CjVAFRcnTjA9DpOdwFwifgriQ9QFFGzchMB0tIVlAQM=";
   })
 
-  (fetchpatch' {
-    title = "g4music: add gst-plugins-bad for m4a support";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/249992";
-    hash = "sha256-bKlx0vN6Xx0jouPG81YkAf22eIjyReaG/YGnPrmO9xk=";
-  })
-
   # (fetchpatch' {
   #   # TODO: check back in on this around 2023-10-01
   #   title = "libkiwix: 12.0.0 -> 12.1.0";
