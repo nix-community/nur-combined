@@ -308,6 +308,16 @@
             '');
           };
 
+          sync-lappy = {
+            # copy music from servo to lappy
+            # can run this from any device that has ssh access to lappy
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "sync-to-lappy" ''
+              sudo mount /mnt/lappy-home
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music /mnt/servo-media/Music /mnt/lappy-home/Music
+            '');
+          };
+
           check-nur = {
             # `nix run '.#check-nur'`
             # validates that my repo can be included in the Nix User Repository
