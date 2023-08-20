@@ -37,4 +37,6 @@ rec {
   aml-upgrade-package-extract = callPackage ./pkgs/aml-upgrade-package-extract.nix {};
   dsdt = callPackage ./pkgs/dsdt.nix;
   ath10k-firmware = callPackage ./pkgs/ath10k-firmware.nix {};
+  wrapWine = callPackage ./pkgs/wrapWine.nix {};
+  cubesuite = callPackage ./pkgs/cubesuite.nix { inherit wrapWine; };
 }
