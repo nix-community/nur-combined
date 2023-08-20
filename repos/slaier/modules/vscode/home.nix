@@ -11,6 +11,7 @@
         llvm-vs-code-extensions.vscode-clangd
         mkhl.direnv
         ms-python.python
+        ms-python.vscode-pylance
         ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh
         redhat.vscode-yaml
@@ -86,6 +87,7 @@
       ];
       "dev.containers.dockerComposePath" = lib.getExe pkgs.podman-compose;
       "dev.containers.dockerPath" = lib.getExe pkgs.podman;
+      "direnv.restart.automatic" = true;
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "${lib.getExe pkgs.nil}";
       "nix.serverSettings" = {
