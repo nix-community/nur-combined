@@ -34,8 +34,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "sxyazi";
     repo = pname;
-    rev = "4f52d829bb52b672ea033b2fab819ed0585c4406";
-    hash = "sha256-kxzqkvDS+7ixPv8NOHGH0jTJCxw33Hlr7q3/4TudMg8=";
+    rev = "c051df3f605108a45b8cd69be8f1d7910442fe7b";
+    hash = "sha256-wDME9ftQYetIAIZAFmvweQmH6OHbrADQGlVGt5jaWRs=";
   };
 
   postPatch =
