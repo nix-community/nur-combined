@@ -1,7 +1,14 @@
-{ pkgs ? import ./nix { }, lib ? pkgs.lib }:
+{ lib
+, pkgs
+, pnpm-install-only ? null
+, nodejs-hide-symlinks ? null
+}:
+
 let
-  v1_internal = pkgs.callPackage ./internal-v1.nix { };
-  v2_internal = pkgs.callPackage ./internal-v2.nix { };
+  internal = pkgs.callPackage ./internal.nix {
+    inherit pnpm-install-only nodejs-hide-symlinks;
+  };
+
   separatePublicAndInternalAPI = api: extraAttributes: {
     inherit (api) shell build node_modules;
 
@@ -13,13 +20,11 @@ let
       api
     );
   } // (lib.listToAttrs (map (name: lib.nameValuePair name api.${name}) extraAttributes));
-  v1 = separatePublicAndInternalAPI v1_internal [ ];
-  v2 = separatePublicAndInternalAPI v2_internal [ "packageRequirePatchShebangs" ];
+
+  internalPublic = separatePublicAndInternalAPI internal [ "packageRequirePatchShebangs" ];
 in
 {
-  inherit v1;
-  v2 = lib.mapAttrs (_: lib.warn "[npmlock2nix] You are using the new v2 beta api. The interface isn't stable yet. Please report any issues at https://github.com/nix-community/npmlock2nix/issues") v2;
+  v1 = internalPublic;
+  v2 = internalPublic;
   tests = pkgs.callPackage ./tests { };
-} // (lib.mapAttrs
-  (lib.warn "[npmlock2nix] You are using the unversion prefix for builders. This is fine for now. In the future we will move to a versioned interface (old versions remain as they are). The currently used functions are availabe as `npmlock2nix.v1` for example `npmlock2nix.v1.build`.")
-  v1)
+} // internalPublic

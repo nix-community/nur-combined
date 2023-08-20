@@ -10,7 +10,6 @@ https://discourse.nixos.org/t/how-to-provide-gstreamer-to-a-python-gtk-applicati
 */
 
 { lib
-, python3Packages
 , fetchFromGitHub
 , gtk3
 , wrapGAppsHook
@@ -22,9 +21,12 @@ https://discourse.nixos.org/t/how-to-provide-gstreamer-to-a-python-gtk-applicati
 , isocodes
 , intltool
 , python3
+, buildPythonPackage
+, pygobject3
+, chardet
 }:
 
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "gaupol";
   version = "1.10.1.20220221";
   src = fetchFromGitHub {
@@ -34,7 +36,7 @@ python3Packages.buildPythonPackage rec {
     sha256 = "hYnIwQjs3HBwOAurBZNFyJ7oXFRkrFcgc96tZNVpUk0=";
   };
   propagatedBuildInputs = [
-    python3Packages.pygobject3 # gi
+    pygobject3 # gi
     gdk-pixbuf # Gdk
     gobject-introspection
   ];
@@ -45,7 +47,7 @@ python3Packages.buildPythonPackage rec {
     # optional
     gspell
     isocodes
-    python3Packages.chardet
+    chardet
     #python3Packages.distutils_extra
 
     # optional: internal video player

@@ -1,5 +1,6 @@
 { lib
-, python3Packages
+, buildPythonPackage
+, buildPythonApplication
 , fetchFromGitHub
 , fetchurl
 , fetchPypi
@@ -10,7 +11,7 @@
 let
 
   # TODO move to pkgs/python3/pkgs
-  htmldata = python3Packages.buildPythonPackage rec {
+  htmldata = buildPythonPackage rec {
     pname = "htmldata";
     version = "1.1.1";
     # https://web.archive.org/web/20080820063040/http://www.connellybarnes.com/code/htmldata/
@@ -25,7 +26,7 @@ let
 
 in
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "mediawiki2html";
   version = "0.1.0.0";
   src = fetchFromGitHub {

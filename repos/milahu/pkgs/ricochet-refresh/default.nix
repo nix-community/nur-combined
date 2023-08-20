@@ -1,55 +1,27 @@
-# RUN:
-# nix-build -E 'with import <nixpkgs> { }; libsForQt5.callPackage ./default.nix { }'
-# ./result/bin/ricochet-refresh
-
 { lib
 , stdenv
-, fetchurl
 , fetchFromGitHub
-, fontconfig
-, freetype
-, libxcb
-, libxkbcommon
-, xorg
+, fetchFromGitLab
 , makeDesktopItem
 , copyDesktopItems
 , pkg-config
-, qmake
+, cmake
 , qtbase
 , qttools
 , qtmultimedia
 , qtquick1
 , qtquickcontrols
+, qtquickcontrols2
 , openssl
 , protobuf
 , wrapQtAppsHook
+, fmt
 }:
 
-let
-  rpath = lib.makeLibraryPath [
-    fontconfig
-    freetype
-    libxcb
-    libxkbcommon
-    stdenv.cc.cc.lib
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
-    xorg.libX11
-    xorg.libXext
-  ];
+stdenv.mkDerivation rec {
 
-in
-
-stdenv.mkDerivation rec { # https://nixos.org/manual/nixpkgs/stable/#qt-default-nix
-#libsForQt5.mkDerivation rec { # https://discourse.nixos.org/t/wrapqtappshook-out-of-tree/5619
   pname = "ricochet-refresh";
-  version = "3.0.10"; # 2021-06-27
-
-  # stripping breaks if rpath is set to a longer value using patchelf prior
-  # see: https://github.com/NixOS/patchelf/issues/10
-  dontStrip = true;
+  version = "3.0.16-unstable-2023-07-30";
 
   src = fetchFromGitHub {
     repo = "ricochet-refresh";
@@ -58,17 +30,56 @@ stdenv.mkDerivation rec { # https://nixos.org/manual/nixpkgs/stable/#qt-default-
     /*
     owner = "blueprint-freespeech";
     #rev = "v${version}-release";
-    rev = "8cfea824db141a0850a410321ae4da5cc44fbd8f"; # required for "fetchSubmodules = true;"?
-    sha256 = "0d1ln9z96ki26s8dyhaaaai88fs4mv9swvywmzq9pqzc0dwfk41p";
+    rev = "e1635d68ab08201d95c1eb823035c948836f7bd0";
+    sha256 = "sha256-Qoj43Nwf81V1UVQLwT2qBaNjYA9ctv8W9UVcRF5A/pU=";
     */
 
-    # some patches to fix build
+    # fix cmake install paths
+    # https://github.com/blueprint-freespeech/ricochet-refresh/pull/176
     owner = "milahu";
-    rev = "580a5afc723b40b93c3b5b0949addbc8d73ee182";
-    sha256 = "0m45isjim9s87hlr7f7qfxkjl1csil54qjcq15v5mzlzary6qg4w";
+    rev = "4da56bed894628a2ed70e83c63df9c3ce5d669b9";
+    sha256 = "sha256-Aa8/u5tSfd9xjPn64+Jp/LbidLbraf8ROyDd46/hESw=";
 
-    fetchSubmodules = true;
+    # no. this is slow
+    #fetchSubmodules = true;
   };
+
+  # fetch git modules manually, this is faster
+  # https://github.com/blueprint-freespeech/ricochet-refresh/blob/main/.gitmodules
+  # https://github.com/blueprint-freespeech/ricochet-refresh/tree/main/src/extern
+
+  # not needed
+  /*
+  # https://github.com/fmtlib/fmt
+  fmt-version = "10.1.0";
+  fmt-src = fetchFromGitHub {
+    owner = "fmtlib";
+    repo = "fmt";
+    rev = fmt-version;
+    sha256 = "sha256-t/Mcl3n2dj8UEnptQh4YgpvWrxSYN3iGPZ3LKwzlPAg=";
+  };
+  */
+
+  # https://gitlab.torproject.org/tpo/core/tor
+  tor-version = "0.4.8.3-rc";
+  tor-src = fetchFromGitLab {
+    domain = "gitlab.torproject.org";
+    owner = "tpo";
+    repo = "core/tor";
+    rev = "tor-${tor-version}";
+    hash = "sha256-A/XG8TpjiA4zq45ttuYDHb+tixZcQOp51b3Ne/m2fJY=";
+  };
+
+  /*
+    rm -rf src/extern/fmt
+    ln -s ${fmt-src} src/extern/fmt
+  */
+  postUnpack = ''
+    pushd $sourceRoot
+    rm -rf src/extern/tor
+    ln -s ${tor-src} src/extern/tor
+    popd
+  '';
 
   desktopItem = [
     (makeDesktopItem {
@@ -77,64 +88,44 @@ stdenv.mkDerivation rec { # https://nixos.org/manual/nixpkgs/stable/#qt-default-
       icon = "ricochet-refresh";
       desktopName = "Ricochet Refresh";
       genericName = "Ricochet Refresh";
-      categories = "Network;InstantMessaging;";
+      categories = [ "Network" "InstantMessaging" ];
     })
   ];
 
   buildInputs = [
-    qtbase qtmultimedia qtquick1 qtquickcontrols
-    openssl protobuf
+    qtbase
+    qtmultimedia
+    qtquick1
+    qtquickcontrols
+    qtquickcontrols2
+    openssl
+    protobuf
+    fmt
   ];
 
   nativeBuildInputs = [
     pkg-config
-    qmake
+    cmake
     qttools
     copyDesktopItems
     wrapQtAppsHook
   ];
 
   preConfigure = ''
-    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags openssl)"
-
-    mkdir build
-    cd build
+    cd src
   '';
 
-  qmakeFlags = [
-    #"DEFINES+=RICOCHET_NO_PORTABLE" # By default, Ricochet Refresh will be portable, and configuration is stored in a folder named config next to the binary. Add DEFINES+=RICOCHET_NO_PORTABLE to the qmake command for a system-wide installation using platform configuration paths instead.
-    "RICOCHET_REFRESH_VERSION=${version}" # used in src/tego_ui/tego_ui.pro
-    "../src" # relative to build
+  cmakeFlags = [
+    # TODO more?
+    "-DRICOCHET_REFRESH_INSTALL_DESKTOP=ON"
+    "-DUSE_SUBMODULE_FMT=OFF"
   ];
-
-  installPhase = ''
-    cd /build/source # undo "cd build"
-
-    mkdir -p $out/bin
-    cp build/release/tego_ui/ricochet-refresh $out/bin
-
-    # other build artifacts
-    # TODO install these?
-    # build/release/tst_cryptokey/tst_cryptokey
-    # build/release/tst_contactidvalidator/tst_contactidvalidator
-    # build/release/libtego/libtego.a
-    # build/release/libtego_ui/libtego_ui.a
-
-    mkdir -p $out/share/applications
-    cp $desktopItem/share/applications"/"* $out/share/applications
-
-    mkdir -p $out/share/pixmaps
-    cp src/tego_ui/icons/ricochet_refresh.png $out/share/pixmaps
-  '';
-
-  # RCC: Error in 'translation/embedded.qrc': Cannot find file 'ricochet_en.qm'
-  enableParallelBuilding = false;
 
   meta = with lib; {
     description = "Private, anonymous, and metadata resistant instant messaging using Tor onion services";
     homepage = "https://www.ricochetrefresh.net";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    #maintainers = teams.blueprint-freespeech.members; # FIXME attribute 'blueprint-freespeech' missing
+    platforms = platforms.all;
+    maintainers = [ ];
   };
 }

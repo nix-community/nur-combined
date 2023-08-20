@@ -1,7 +1,7 @@
 # superseded by https://github.com/mediawiki-client-tools/mediawiki-scraper
 
 { lib
-, python3Packages
+, buildPythonApplication
 , fetchFromGitHub
 , internetarchive
 , kitchen
@@ -11,9 +11,10 @@
 , python311
 , python3
 , pkgs
+, poetry-core
 }:
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "mediawiki-scraper";
   # version 3.0.0 in https://github.com/mediawiki-client-tools/mediawiki-scraper
   baseVersion = "2.0.0";
@@ -161,11 +162,11 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  buildInputs = with python3Packages; [
+  buildInputs = [
     poetry-core
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     internetarchive
     kitchen
     mwclient

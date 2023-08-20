@@ -1,6 +1,10 @@
-{ lib, fetchFromGitHub, python3Packages }:
-
-with python3Packages;
+{ lib
+, fetchFromGitHub
+, buildPythonApplication
+, requests
+, tqdm
+, img2pdf
+}:
 
 buildPythonApplication rec {
   pname = "archive-org-downloader";

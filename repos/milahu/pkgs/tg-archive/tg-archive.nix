@@ -1,11 +1,8 @@
-/*
-nix-build -E 'with import <nixpkgs> { }; callPackage ./tg-archive.nix { }'
-./result/bin/tg-archive
-*/
-
 { lib
-, python3Packages
 , fetchFromGitHub
+, fetchPypi
+, buildPythonPackage
+, buildPythonApplication
 , fetchpatch
 , gtk3
 , wrapGAppsHook
@@ -18,13 +15,22 @@ nix-build -E 'with import <nixpkgs> { }; callPackage ./tg-archive.nix { }'
 , intltool
 , rustPlatform
 , file # libmagic
+#, python-telegram-bot # gi
+, telethon
+, jinja2
+, pyyaml # PyYAML
+, cryptg
+, pillow # Pillow
+, feedgen
+, python-magic
+#, pkg_resources
+, setuptools # pkg_resources
+, setuptools-rust
 }:
 
 let
 
-  fetchPypi = python3Packages.fetchPypi;
-
-  cryptg = python3Packages.buildPythonPackage rec {
+  cryptg = buildPythonPackage rec {
     pname = "cryptg";
     #version = "0.3.1"; # ERROR: The Cargo.lock file doesn't exist
     version = "0.3.1.unstable-2022-05-10";
@@ -41,20 +47,20 @@ let
       sha256 = "sha256-StTCVh0NBEE6J7fV+sCq2eOmhuRDgyS711qZDwduWm0=";
     };
     #sourceRoot = "source/bindings/python";
-    nativeBuildInputs = /*[ python3Packages.setuptools-rust ] ++*/ (with rustPlatform; [
+    nativeBuildInputs = /*[ setuptools-rust ] ++*/ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc
     ]);
-    buildInputs = (with python3Packages; [
+    buildInputs = [
       #importlib-resources
       setuptools-rust
-    ]);
-    propagatedBuildInputs = (with python3Packages; [
+    ];
+    propagatedBuildInputs = [
       #jsonschema
       #h_matchers
-    ]);
-    checkInputs = with python3Packages; [
+    ];
+    checkInputs = [
     ];
     meta = with lib; {
       homepage = "https://github.com/cher-nov/cryptg";
@@ -63,26 +69,26 @@ let
     };
   };
 
-  python-magic = python3Packages.buildPythonPackage rec {
+  python-magic = buildPythonPackage rec {
     pname = "python-magic";
     version = "0.4.26";
     src = fetchPypi {
       inherit pname version;
       sha256 = "sha256-gmLBMAH5BK1bck04teW18X7ARQriSd7zmKYuTjMQilA=";
     };
-    buildInputs = (with python3Packages; [
+    buildInputs = [
       #importlib-resources
-    ]);
+    ];
     # https://github.com/ahupp/python-magic/blob/master/magic/loader.py#L34
     postPatch = ''
       sed -i "s|yield 'libmagic.so.1'|yield '${file}/lib/libmagic.so.1'|" magic/loader.py
     '';
-    propagatedBuildInputs = (with python3Packages; [
+    propagatedBuildInputs = [
       #jsonschema
       #h_matchers
       file # libmagic
-    ]);
-    checkInputs = with python3Packages; [
+    ];
+    checkInputs = [
       file # libmagic
     ];
     meta = with lib; {
@@ -94,7 +100,7 @@ let
 
 in
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "tg-archive";
   version = "unstable-2022-02-17";
   src = fetchFromGitHub {
@@ -118,14 +124,14 @@ python3Packages.buildPythonApplication rec {
     })
     (fetchpatch {
       url = "https://github.com/knadh/tg-archive/pull/65.diff";
-      sha256 = "sha256-Ul0ZMIZf2OY0oADVoqwfvQJpc1SoZ6DhsAafolFpXII=";
+      sha256 = "sha256-y7mGlpLbv1q9h6yFkLLRM9Lya9wuyGLdaAMTXlPmUGM=";
     })
     (fetchpatch {
       url = "https://github.com/knadh/tg-archive/pull/66.diff";
       sha256 = "sha256-bQS2nY++VqEabmCy1Bj70VEx4DHMLO/69Q6TvMH6HNw=";
     })
   ];
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     #python-telegram-bot # gi
     telethon
     jinja2
@@ -145,8 +151,8 @@ python3Packages.buildPythonApplication rec {
     # optional
     gspell
     isocodes
-    python3Packages.chardet
-    #python3Packages.distutils_extra
+    chardet
+    #distutils_extra
 
     # optional: internal video player
     gst_all_1.gstreamer

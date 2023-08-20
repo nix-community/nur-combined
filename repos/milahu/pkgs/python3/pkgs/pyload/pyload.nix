@@ -14,9 +14,10 @@
 , unrar
 , rhino
 , spidermonkey
+, buildPythonApplication
 }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "pyload";
 
   # versions https://github.com/pyload/pyload/issues/4339

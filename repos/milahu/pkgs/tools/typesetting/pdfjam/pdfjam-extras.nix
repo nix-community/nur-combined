@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , pdfjam
+, texlive
 }:
 
 stdenv.mkDerivation rec {
@@ -18,12 +19,13 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [
     # TODO? add pdfjam to PATH
     pdfjam
+    texlive.combined.scheme-small
   ];
 
   installPhase = ''
     mkdir -p $out
     cp -r bin $out
-    sed -i '2i\export PATH=$PATH:${pdfjam}/bin' $out/bin/*
+    sed -i '2i\export PATH=$PATH:${pdfjam}/bin:${texlive.combined.scheme-small}/bin' $out/bin/*
     mkdir -p $out/share/man
     cp -r man1 $out/share/man
   '';

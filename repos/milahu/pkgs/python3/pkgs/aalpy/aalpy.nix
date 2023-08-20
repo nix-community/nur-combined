@@ -1,11 +1,12 @@
 { lib
+, buildPythonPackage
 , python3
 , fetchFromGitHub
 }:
 
 let aalpy =
 
-python3.pkgs.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "AALpy";
   version = "2022-11-24";
   src = fetchFromGitHub {

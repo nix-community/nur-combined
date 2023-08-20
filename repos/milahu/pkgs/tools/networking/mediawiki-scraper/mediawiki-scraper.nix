@@ -1,5 +1,6 @@
 { lib
-, python3Packages
+, buildPythonPackage
+, buildPythonApplication
 , fetchFromGitHub
 , internetarchive
 , kitchen
@@ -34,7 +35,7 @@ let
 
   # https://github.com/NixOS/nixpkgs/pull/175279
   # fix: error: poster3 is unmaintained and source is no longer available
-  poster3 = python3Packages.buildPythonPackage rec {
+  poster3 = buildPythonPackage rec {
     pname = "poster3";
     version = "0.9.0";
     src = fetchFromGitHub {
@@ -65,7 +66,7 @@ let
     };
   };
 
-  pywikibot = python3Packages.buildPythonPackage rec {
+  pywikibot = buildPythonPackage rec {
     pname = "pywikibot";
     version = "8.1.2";
     # git: https://gerrit.wikimedia.org/r/pywikibot/core
@@ -100,7 +101,7 @@ let
     };
   };
 
-  mwparserfromhell = python3Packages.buildPythonPackage rec {
+  mwparserfromhell = buildPythonPackage rec {
     pname = "mwparserfromhell";
     version = "0.6.4";
     src = fetchPypi {
@@ -110,7 +111,7 @@ let
     doCheck = false;
   };
 
-  wikitools3 = python3Packages.buildPythonPackage rec {
+  wikitools3 = buildPythonPackage rec {
     pname = "wikitools3";
     version = "3.0.1";
     src = fetchPypi {
@@ -136,7 +137,7 @@ let
 
 in
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "mediawiki-scraper";
   version = "3.0.0-unstable-2023-06-09";
   src = fetchFromGitHub {
@@ -161,7 +162,7 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     internetarchive
     kitchen
     mwclient
@@ -172,7 +173,7 @@ python3Packages.buildPythonApplication rec {
     wikitools3
     pywikibot
   ];
-  buildInputs = with python3Packages; [
+  buildInputs = [
     poetry-core
   ];
   meta = with lib; {

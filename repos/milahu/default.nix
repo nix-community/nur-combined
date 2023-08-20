@@ -37,9 +37,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   aether-server = pkgs.libsForQt5.callPackage ./pkgs/aether-server/default.nix { };
 
-  archive-org-downloader = callPackage ./pkgs/archive-org-downloader/default.nix { };
+  archive-org-downloader = python3.pkgs.callPackage ./pkgs/archive-org-downloader/default.nix { };
 
-  rpl = callPackage ./pkgs/rpl/default.nix { };
+  rpl = python3.pkgs.callPackage ./pkgs/rpl/default.nix { };
 
   svn2github = callPackage ./pkgs/svn2github/default.nix { };
 
@@ -72,17 +72,18 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   srtgen = callPackage ./pkgs/srtgen { };
 
-  gaupol = callPackage ./pkgs/gaupol/gaupol.nix { };
+  gaupol = python3.pkgs.callPackage ./pkgs/gaupol/gaupol.nix { };
 
   autosub-by-abhirooptalasila = callPackage ./pkgs/autosub-by-abhirooptalasila/autosub.nix { };
 
   proftpd = callPackage ./pkgs/proftpd/proftpd.nix { };
 
   pyload = python3.pkgs.pyload;
+  #pyload = python3Packages.pyload;
 
   rose = callPackage ./pkgs/rose/rose.nix { };
 
-  tg-archive = callPackage ./pkgs/tg-archive/tg-archive.nix { };
+  tg-archive = python3.pkgs.callPackage ./pkgs/tg-archive/tg-archive.nix { };
 
   jaq = callPackage ./pkgs/jaq/jaq.nix { };
 
@@ -101,14 +102,22 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   libalf = callPackage ./pkgs/libalf/libalf.nix { };
 
+  # alias: python3.pkgs -> python3Packages
+  # no: error: attribute 'newScope' missing
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  #python3 = pkgs.recurseIntoAttrs ((({
+  python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
+    pkgs = python3Packages;
+  })));
+
   #python3 = pkgs.recurseIntoAttrs (((pkgs.python3 // {
   #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
   #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
+  #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
   #python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
-  python3 = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
 
     # fix: error: attribute 'sitePackages' missing: python3.sitePackages
-    sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
+    #sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
 
     # FIXME scope with new callPackage
     #pkgs = (pkgs.python3.pkgs or {}) // ({
@@ -118,102 +127,139 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     #pkgs = (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
     #pkgs = (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
     #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
-    pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
+    #pkgs = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
+
+  # TODO better?
+  #python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; (pkgs.python3.pkgs // {
+  #python3Packages = pkgs.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; ({
+  python3Packages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in ({
+  #python3Packages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in (pkgs.python3Packages // {
+
+      # fix: error: attribute 'buildPythonPackage' missing: python3.pkgs.buildPythonPackage
+      #python3 = pkgs.python3;
+      python3 = pkgs.python3 // {
+        # fix recursion
+        #pkgs = self;
+        # fix: error: undefined variable 'setuptools'
+        pkgs = pkgs.python3.pkgs // self;
+      };
+
+      # fix: error: evaluation aborted with the following error message: 'Function called without required argument "buildPythonPackage" at /run/user/1000/tmp.Z1u4CqXj61-nur-eval-test/repo/pkgs/python3/pkgs/aalpy/aalpy.nix:2'
+      buildPythonPackage = pkgs.python3.pkgs.buildPythonPackage;
+      # fix: error: attribute 'buildPythonApplication' missing
+      buildPythonApplication = pkgs.python3.pkgs.buildPythonApplication;
 
       # fix recursion
-      python3.pkgs = self;
+      #python3.pkgs = self;
       python3Packages = self;
 
-      aalpy = python3.pkgs.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+      # fix: error: evaluation aborted with the following error message: 'Function called without required argument "buildPythonPackage" at /run/user/1000/tmp.Z1u4CqXj61-nur-eval-test/repo/pkgs/python3/pkgs/aalpy/aalpy.nix:2'
+      # no:
+      #callPackage = self.callPackage;
 
-      auditok = python3.pkgs.callPackage ./pkgs/python3/pkgs/auditok/auditok.nix { };
+      # FIXME: error: evaluation aborted with the following error message: 'Function called without required argument "buildPythonPackage" at /run/user/1000/tmp.Z1u4CqXj61-nur-eval-test/repo/pkgs/python3/pkgs/aalpy/aalpy.nix:2'
+      aalpy = callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+      # ok:
+      #aalpy = self.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
 
-      pysubs2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/pysubs2/pysubs2.nix { };
+      auditok = callPackage ./pkgs/python3/pkgs/auditok/auditok.nix { };
 
-      ete3 = python3.pkgs.callPackage pkgs/python3/pkgs/ete3/ete3.nix { };
+      pysubs2 = callPackage ./pkgs/python3/pkgs/pysubs2/pysubs2.nix { };
 
-      faust-cchardet = python3.pkgs.callPackage ./pkgs/python3/pkgs/faust-cchardet/faust-cchardet.nix { };
+      # TODO move
+      #ffsubsync = callPackage ./pkgs/python3/pkgs/ffsubsync/ffsubsync.nix { };
+      ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
 
-      pocketsphinx = python3.pkgs.callPackage ./pkgs/python3/pkgs/pocketsphinx/pocketsphinx.nix {
+      ete3 = callPackage pkgs/python3/pkgs/ete3/ete3.nix { };
+
+      faust-cchardet = callPackage ./pkgs/python3/pkgs/faust-cchardet/faust-cchardet.nix { };
+
+      pocketsphinx = callPackage ./pkgs/python3/pkgs/pocketsphinx/pocketsphinx.nix {
         pkgs = pkgs // {
           # fix: error: pocketsphinx has been removed: unmaintained
           inherit pocketsphinx;
         };
       };
 
-      speechrecognition = python3.pkgs.callPackage ./pkgs/python3/pkgs/speechrecognition/speechrecognition.nix { };
+      speechrecognition = callPackage ./pkgs/python3/pkgs/speechrecognition/speechrecognition.nix { };
 
-      tpot = python3.pkgs.callPackage ./pkgs/python3/pkgs/tpot/tpot.nix {
+      tpot = callPackage ./pkgs/python3/pkgs/tpot/tpot.nix {
         # FIXME scope
-        update-checker = python3.pkgs.callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
+        update-checker = callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
       };
 
-      update-checker = python3.pkgs.callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
+      update-checker = callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
 
-      pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
+      pydot-ng = callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
 
-      dcase-util = python3.pkgs.callPackage ./pkgs/python3/pkgs/dcase-util/dcase-util.nix {
+      dcase-util = callPackage ./pkgs/python3/pkgs/dcase-util/dcase-util.nix {
         # FIXME scope
-        pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
+        pydot-ng = callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
       };
 
       # nix-build . -A python3.pkgs.libarchive-c
       # https://github.com/NixOS/nixpkgs/pull/241606
       # python310Packages.libarchive-c: 4.0 -> 5.0
-      libarchive-c = python3.pkgs.callPackage ./pkgs/python3/pkgs/libarchive-c/libarchive-c.nix {
+      libarchive-c = callPackage ./pkgs/python3/pkgs/libarchive-c/libarchive-c.nix {
         libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
       };
 
       # fix flask: ERROR: Could not find a version that satisfies the requirement blinker>=1.6.2
       # nix-init ./pkgs/python3/pkgs/blinker/blinker.nix --url https://github.com/pallets-eco/blinker
-      blinker = python3.pkgs.callPackage ./pkgs/python3/pkgs/blinker/blinker.nix { };
+      blinker = callPackage ./pkgs/python3/pkgs/blinker/blinker.nix { };
 
       # fix flask: ERROR: Could not find a version that satisfies the requirement Werkzeug>=2.3.3
       # nix-init ./pkgs/python3/pkgs/werkzeug/werkzeug.nix --url https://github.com/pallets/werkzeug
-      werkzeug = python3.pkgs.callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
+      werkzeug = callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
 
       # https://github.com/NixOS/nixpkgs/pull/245320
       # python3Packages.flask: 2.2.5 -> 2.3.2
       # nix-init pkgs/python3/pkgs/flask/flask.nix --url https://github.com/pallets/flask
       # FIXME use python3.pkgs.werkzeug from this scope
-      flask = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
+      #flask = callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
+      flask = self.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-caching/flask-caching.nix --url https://github.com/pallets-eco/flask-caching
       # FIXME: ERROR: Could not find a version that satisfies the requirement Flask<3 (from flask-caching) (from versions: none)
       # update?
-      flask-caching = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
+      flask-caching = callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
 
       # no: nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://github.com/colour-science/flask-compress
       # fix: LookupError: setuptools-scm was unable to detect version for /build/source.
       # Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such as GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
       # nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://pypi.org/project/flask-compress
-      flask-compress = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
+      flask-compress = callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-session/flask-session.nix --url https://github.com/pallets-eco/flask-session
-      flask-session = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
+      flask-session = callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-babel/flask-babel.nix --url https://github.com/python-babel/flask-babel
-      flask-babel = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
+      flask-babel = callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
 
       # nix-init pkgs/python3/pkgs/flask-session2/flask-session2.nix --url https://github.com/christopherpickering/flask-session2
-      flask-session2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
+      flask-session2 = callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
 
       # no: nix-init pkgs/python3/pkgs/flask-themes2/flask-themes2.nix --url https://github.com/sysr-q/flask-themes2
       # update version: 0.1.3 -> 1.0.0
       # https://github.com/sysr-q/flask-themes2/issues/13 # add git tags for pypi versions
       # nix-init pkgs/python3/pkgs/flask-themes2/flask-themes2.nix --url https://pypi.org/project/Flask-Themes2/
-      flask-themes2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/flask-themes2/flask-themes2.nix { };
+      flask-themes2 = callPackage ./pkgs/python3/pkgs/flask-themes2/flask-themes2.nix { };
 
-      pyjsparser = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
+      pyjsparser = callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
 
-      js2py = python3.pkgs.callPackage ./pkgs/python3/pkgs/js2py/js2py.nix { };
+      js2py = callPackage ./pkgs/python3/pkgs/js2py/js2py.nix { };
 
       # python3.pkgs.pyload
+      #pyload = callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
       pyload = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
 
-    }))); # python3.pkgs
+      git-filter-repo = callPackage ./pkgs/development/python-modules/git-filter-repo/git-filter-repo.nix { };
 
-  }))); # python3
+    #}))); # python3.pkgs
+
+  #}))); # python3
+
+  }))); # python3Packages
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
@@ -246,7 +292,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # TODO
   #xi = callPackages ./pkgs/xi { };
 
-  subdl = callPackage ./pkgs/applications/video/subdl/subdl.nix { };
+  subdl = python3.pkgs.callPackage ./pkgs/applications/video/subdl/subdl.nix { };
 
   # TODO callPackages? seems to be no difference (singular vs plural)
   #inherit (callPackages ./pkgs/development/tools/parsing/antlr/4.nix { })
@@ -341,18 +387,18 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   lzturbo = callPackage ./pkgs/tools/compression/lzturbo/lzturbo.nix { };
 
-  netgear-telnetenable = callPackage ./pkgs/tools/networking/netgear-telnetenable/netgear-telnetenable.nix { };
+  netgear-telnetenable = python3.pkgs.callPackage ./pkgs/tools/networking/netgear-telnetenable/netgear-telnetenable.nix { };
 
   cmix = callPackage ./pkgs/tools/compression/cmix/cmix.nix { };
 
   # already in nixpkgs
   #kaitai-struct-compiler = callPackage ./pkgs/development/tools/parsing/kaitai-struct-compiler/kaitai-struct-compiler.nix { };
 
-  ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
+  ffsubsync = python3.pkgs.ffsubsync;
 
   surge-filesharing = callPackage ./pkgs/applications/networking/p2p/surge-filesharing/surge-filesharing.nix { };
 
-  tribler = callPackage ./pkgs/applications/networking/p2p/tribler/tribler.nix { };
+  tribler = python3.pkgs.callPackage ./pkgs/applications/networking/p2p/tribler/tribler.nix { };
 
   # pocketsphinx was removed in https://github.com/NixOS/nixpkgs/pull/170124
   # based on update in closed PR https://github.com/NixOS/nixpkgs/pull/169609
@@ -380,6 +426,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   pdfjam = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam.nix { };
   pdfjam-extras = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam-extras.nix { };
+
+  pdfselect = callPackage ./pkgs/tools/typesetting/pdfselect/pdfselect.nix { };
 
   curl-with-allow-dot-onion = (pkgs.curl.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or []) ++ [
@@ -415,6 +463,58 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # https://github.com/NixOS/nixpkgs/pull/244713
   # libarchive: 3.6.2 -> 3.7.0
   libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
+
+  git-filter-repo = python3.pkgs.git-filter-repo;
+
+  # nix-init ./pkgs/applications/audio/tap-bpm-cli/tap-bpm-cli.nix --url https://github.com/marakoss/tap-bpm-cli
+  tap-bpm-cli = callPackage ./pkgs/applications/audio/tap-bpm-cli/tap-bpm-cli.nix { };
+
+  # https://github.com/NixOS/nixpkgs/pull/158152 # gh2md: init at 2.0.0
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/backup/gh2md/default.nix
+  gh2md = python3.pkgs.callPackage ./pkgs/tools/backup/gh2md/gh2md.nix { };
+
+  nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
+
+  nodePackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in ({
+
+    cowsay = callPackage ./pkgs/node/pkgs/cowsay/cowsay.nix { };
+
+    npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
+      # FIXME scope
+      pnpm-install-only = callPackage ./pkgs/node/pkgs/pnpm-install-only/pnpm-install-only.nix {
+        # bootstrap npmlock2nix without pnpm-install-only
+        npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
+          pnpm-install-only = null;
+        };
+      };
+      # FIXME scope
+      nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
+    };
+
+    pnpm-install-only = callPackage ./pkgs/node/pkgs/pnpm-install-only/pnpm-install-only.nix {
+      # bootstrap npmlock2nix without pnpm-install-only
+      npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
+        pnpm-install-only = null;
+      };
+    };
+
+  })));
+
+  fontforge-dev = pkgs.fontforge.overrideAttrs (oldAttrs: {
+    version = oldAttrs.version + "-dev";
+    dontBuild = true;
+    # install fontforge-config.h and fontforge-version-extras.h
+    installPhase = ''
+      mkdir -p $out/include
+      cp inc/*.h $out/include
+    '';
+    meta = oldAttrs.meta // {
+      description = "fontforge include files: /include/fontforge-config.h and /include/fontforge-version-extras.h";
+    };
+  });
+
+  # https://github.com/NixOS/nixpkgs/commits/master/pkgs/tools/security/tor/torsocks.nix
+  torsocks = callPackage ./pkgs/tools/security/tor/torsocks.nix { };
 
 }
 

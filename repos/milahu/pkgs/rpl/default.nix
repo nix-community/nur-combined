@@ -1,13 +1,16 @@
-# nix-build -E 'with import <nixpkgs> { }; callPackage ./default.nix { }'
-
-{ lib, fetchFromGitHub, python3Packages }:
+{ lib
+, fetchFromGitHub
+, buildPythonApplication
+#, argparse-manpage # TODO
+, chardet
+}:
 
 let
   rev = "4467bd46a7a798f738247a7f090c1505176bd597";
   sha256 = "0yf3pc3fws4nnh4nd8d3jpglmsyi69d17qqgpcnkpqca5l4cd25w";
 in
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "rpl";
   version = builtins.substring 0 7 rev;
 
@@ -29,8 +32,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   buildInputs = [
-    #python3Packages.argparse-manpage # TODO
-    python3Packages.chardet
+    #argparse-manpage # TODO
+    chardet
   ];
 
   installPhase = ''

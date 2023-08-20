@@ -8,16 +8,63 @@ https://github.com/NixOS/nixpkgs/pull/184096
 , stdenv
 , fetchFromGitHub
 , python3
+, buildPythonPackage
+, toPythonModule
+, wrapPython
+, fetchPypi
+, cryptography
+, libnacl
+, netifaces
+, aiohttp
+, aiohttp-apispec
+, pyopenssl
+, pyasn1
+, asynctest
+, marshmallow
 , makeWrapper
 , libtorrent-rasterbar-1_2_x
 , qt5
+, setuptools
+, text-unidecode
+, defusedxml
+, markupsafe
+
+, anyio
+, chardet
+#, cherrypy
+, configobj
+#, cryptography
+, decorator
+, faker
+#, feedparser
+, lz4
+#, m2crypto
+#, netifaces
+, networkx
+, pony
+, psutil
+, pydantic
+, pyyaml
+, sentry-sdk
+, service-identity
+, yappi
+, yarl # keep this dependency higher than 1.6.3. See: https://github.com/aio-libs/yarl/issues/517
+, bitarray
+, file-read-backwards
+# https://github.com/Tribler/tribler/blob/main/requirements.txt
+, pillow
+#pycrypto
+, pyqt5
+, pyqt5_sip
+, pyqtgraph
+, pyqtwebengine
 }:
 
 let
 
-  libtorrent = (python3.pkgs.toPythonModule (libtorrent-rasterbar-1_2_x)).python;
+  libtorrent = (toPythonModule (libtorrent-rasterbar-1_2_x)).python;
 
-  pyipv8 = python3.pkgs.buildPythonPackage rec {
+  pyipv8 = buildPythonPackage rec {
     # https://pypi.org/project/pyipv8/
     pname = "pyipv8";
     version = "2.10";
@@ -27,7 +74,7 @@ let
       rev = version;
       sha256 = "sha256-BIrjChj6xhTkrYUFX0byNIrGgMli5HJm9Zu5f2igtFg=";
     };
-    propagatedBuildInputs = with python3.pkgs; [
+    propagatedBuildInputs = [
       cryptography
       libnacl
       netifaces
@@ -47,9 +94,7 @@ let
     doCheck = false;
   };
 
-  fetchPypi = python3.pkgs.fetchPypi;
-
-  human-readable = python3.pkgs.buildPythonPackage rec {
+  human-readable = buildPythonPackage rec {
     # https://pypi.org/project/human-readable/
     pname = "human_readable";
     version = "1.3.2";
@@ -58,7 +103,7 @@ let
       sha256 = "sha256-WSkGxjWj3XRBcGzfbhN0TD2antuhU3XTRK9Wdf3rDhI=";
     };
 /*
-    propagatedBuildInputs = with python3.pkgs; [
+    propagatedBuildInputs = [
       cryptography
       libnacl
       netifaces
@@ -93,13 +138,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    python3.pkgs.wrapPython
+    wrapPython
     makeWrapper
   ];
 
-  buildInputs = with python3.pkgs; [
+  buildInputs = [
     # https://github.com/Tribler/tribler/blob/main/requirements-build.txt
-    python
+    python3
     setuptools
     text-unidecode
     defusedxml
@@ -111,7 +156,7 @@ stdenv.mkDerivation rec {
   #propagatedBuildInputs = [
   pythonPath = [
     libtorrent
-  ] ++ (with python3.pkgs; [
+  ] ++ ([
     # https://github.com/Tribler/tribler/blob/main/requirements-core.txt
     aiohttp
     aiohttp-apispec
@@ -154,7 +199,7 @@ stdenv.mkDerivation rec {
   ]);
 
   /*
-  checkInputs = with python3.pkgs; [
+  checkInputs = [
     # https://github.com/Tribler/tribler/blob/main/requirements-test.txt
     pytest-asyncio
     pytest-timeout
@@ -166,7 +211,7 @@ stdenv.mkDerivation rec {
     # Nasty hack; call wrapPythonPrograms to set program_PYTHONPATH.
     wrapPythonPrograms
     cp -prvd ./* $out/
-    makeWrapper ${python3.pkgs.python}/bin/python $out/bin/tribler \
+    makeWrapper ${python3}/bin/python3 $out/bin/tribler \
         --set QT_QPA_PLATFORM_PLUGIN_PATH ${qt5.qtbase.bin}/lib/qt-*/plugins/platforms \
         --set QT_PLUGIN_PATH "${qt5.qtsvg.bin}/${qt5.qtbase.qtPluginPrefix}" \
         --set _TRIBLERPATH "$out/src" \
