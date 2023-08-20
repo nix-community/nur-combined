@@ -108,6 +108,7 @@
           ExecStart = config.cmdline;
           WorkingDirectory = config.dataDir;
           RuntimeDirectory = [ config.name ];
+          RuntimeDirectoryMode = "0750";
         } (mkIf config.createUser {
           User = config.user;
           Group = config.group;
