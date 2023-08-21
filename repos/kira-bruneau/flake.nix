@@ -70,7 +70,7 @@
         apps = {
           sync = {
             type = "app";
-            program = toString (nurPkgs.callPackage ./maintainers/scripts/sync.nix {
+            program = nixpkgs.lib.getExe (nurPkgs.callPackage ./maintainers/scripts/sync.nix {
               rev = nixpkgs.rev;
             });
           };

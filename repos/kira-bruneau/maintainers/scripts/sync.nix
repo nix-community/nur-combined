@@ -7,7 +7,7 @@
 { rev
 , lib
 , writeText
-, writeScript
+, writeShellApplication
 , coreutils
 , diffutils
 , fd
@@ -51,69 +51,81 @@ let
     "pkgs/tools/video/replay-sorcery"
   ]);
 in
-writeScript "sync" ''
-  set -eu
-  export PATH=${lib.makeBinPath [
+writeShellApplication {
+  name = "sync";
+  runtimeInputs = [
     coreutils
     diffutils
     fd
     git
     gnused
     nix
-  ]}
+  ];
 
-  nixpkgs_repo="$1"
+  text = ''
+    nixpkgs_repo="$1"
 
-  # Takes a set of paths passed through stdin and filters out paths
-  # that have no difference against target repo.
-  #
-  # NOTE: Paths to directories are never actually "filtered out".
-  # Instead, this will output negative matches for identical files
-  # within the directory (":!<path>").
-  function filter_identical_paths() {
-    target_repo="$1"
-    while IFS='$\n' read -r path; do
-      if [ -d "$path" ]; then
-        echo "$path"
-        while IFS='$\n' read -r file; do
-          exit_code=0
-          cmp --quiet "$file" "$target_repo/$file" || exit_code=$?
-          if [ $exit_code -eq 0 ]; then
-            echo ":!$file"
-          fi
-        done < <(fd --type file --hidden . "$path")
-      else
-        exit_code=0
-        cmp --quiet "$path" "$nixpkgs_repo/$path" || exit_code=$?
-        if [ $exit_code -ne 0 ]; then
+    # Takes a set of paths passed through stdin and filters out paths
+    # that have no difference against target repo.
+    #
+    # NOTE: Paths to directories are never actually "filtered out".
+    # Instead, this will output negative matches for identical files
+    # within the directory (":!<path>").
+    function filter_identical_paths() {
+      repo="$1"
+      while IFS=$'\n' read -r path; do
+        if [ -d "$path" ]; then
           echo "$path"
+          while IFS=$'\n' read -r file; do
+            exit_code=0
+            cmp --quiet "$file" "$repo/$file" || exit_code=$?
+            if [ $exit_code -eq 0 ]; then
+              echo ":!$file"
+            fi
+          done < <(fd --type file --hidden . "$path")
+        else
+          exit_code=0
+          cmp --quiet "$path" "$repo/$path" || exit_code=$?
+          if [ $exit_code -ne 0 ]; then
+            echo "$path"
+          fi
         fi
-      fi
-    done
-  }
+      done
+    }
 
-  # Similar to `git format-patch`, but filters the patches against the
-  # set of paths passed through stdin.
-  function format_filtered_patch() {
-    repo=$1
-    revision_range=$2
-    sed -e '1i --' | git -C "$nixpkgs_repo" log \
-        --stdin \
-        --patch \
-        --pretty=email \
-        --reverse \
-        --no-merges \
-        "$revision_range"
-  }
+    # Similar to `git format-patch`, but filters the patches against the
+    # set of paths passed through stdin.
+    function format_filtered_patch() {
+      repo=$1
+      revision_range=$2
+      sed -e '1i --' | git -C "$repo" log \
+          --stdin \
+          --patch \
+          --pretty=email \
+          --reverse \
+          --no-merges \
+          "$revision_range"
+    }
 
-  # Do we need filter_identical_paths if we set this up so that we
-  # never get out of sync? Let's assume the sync is imperfect for now,
-  # and leave it in as a heuristic for skipping patches that have
-  # already been applied.
-  cat ${syncPaths} \
-    | filter_identical_paths "$nixpkgs_repo" \
-    | format_filtered_patch "$nixpkgs_repo" ${rev}..refs/remotes/origin/nixpkgs-unstable \
-    | git am
+    git pull &
+    git -C "$nixpkgs_repo" pull &
+    wait
 
-  nix flake lock --update-input nixpkgs
-''
+    git switch --quiet --detach '@{u}'
+
+    # Do we need filter_identical_paths if we set this up so that we
+    # never get out of sync? Let's assume the sync is imperfect for now,
+    # and leave it in as a heuristic for skipping patches that have
+    # already been applied.
+    filter_identical_paths "$nixpkgs_repo" < ${syncPaths} \
+      | format_filtered_patch "$nixpkgs_repo" ${rev}..refs/remotes/origin/nixpkgs-unstable \
+      | git am
+
+    nix flake update
+    git add flake.lock
+    git diff-index --quiet HEAD || git commit --message 'flake.lock: update' --untracked-files=no
+    nix flake check
+    git switch --quiet -
+    git rebase 'HEAD@{1}'
+  '';
+}
