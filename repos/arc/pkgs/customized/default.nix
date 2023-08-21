@@ -232,7 +232,6 @@ let
 
     mumble-develop = { fetchFromGitHub, lib, mumble, libpulseaudio, alsa-lib, pipewire, libopus, libjack2, nlohmann_json, microsoft_gsl, ninja, qt5, qtspeechSupport ? false }: let
       drv = mumble.override {
-        grpcSupport = true;
         speechdSupport = true;
         jackSupport = true;
       };
