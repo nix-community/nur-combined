@@ -14,4 +14,7 @@
   };
 
   programs.git.package = lib.mkForce pkgs.emptyDirectory;
+
+  # I use scripts that use the passthrough sequence often on this host
+  my.home.tmux.enablePassthrough = true;
 }
