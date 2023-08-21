@@ -1,4 +1,5 @@
 # where to find good stuff?
+# - podcasts w/ a community: <https://lemmyverse.net/communities?query=podcast>
 # - podcast rec thread: <https://lemmy.ml/post/1565858>
 #
 # candidates:
@@ -132,6 +133,8 @@ let
     (fromDb "sharkbytes.transistor.fm" // tech)
     ## 3/4 German; 1/4 eps are English
     (fromDb "omegataupodcast.net" // tech)
+    ## Lateral with Tom Scott
+    (mkPod "https://audioboom.com/channels/5097784.rss" // tech)
   ];
 
   texts = [

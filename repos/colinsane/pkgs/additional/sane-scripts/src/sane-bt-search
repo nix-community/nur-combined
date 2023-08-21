@@ -67,9 +67,30 @@ def parse_time(t: str) -> datetime:
     return try_parse_time(t).astimezone() or epoch
 
 
+# preference, best to worst
+TRACKER_RANKS = [
+    'bakabt',
+    'nyaa.si',
+    'yts',
+    'internet archive',
+    # haven't sorted these
+    '1337x',
+    'kickasstorrents.to',
+]
+def tracker_rank(tracker: str):
+    if tracker.lower() in TRACKER_RANKS:
+        return TRACKER_RANKS.index(tracker.lower())
+    logger.warn(f"unknown tracker: {tracker!r}")
+    return len(TRACKER_RANKS)
+
 DROP_CATS = { "dvd", "hd", "misc", "other", "sd", "uhd" }
 MANGA_CATS = { "books", "comics", "ebook" }
-KNOWN_CATS = frozenset(list(MANGA_CATS) + ["anime", "audio", "movies", "tv", "xxx"])
+VIDEO_CATS = { "anime", "movies", "tv" }
+KNOWN_CATS = frozenset(
+    list(MANGA_CATS) +
+    list(VIDEO_CATS) +
+    ["audio", "xxx"]
+)
 def clean_cat(c: str) -> str | None:
     if c in DROP_CATS: return None
     return c
@@ -83,6 +104,38 @@ def is_cat(cats: list[str], wanted_cats: list[str], default: bool = False) -> bo
         return default
     else:
         return any(c in wanted_cats for c in cats)
+
+class Filter:
+    def __init__(self, h265: bool=False, manga: bool=False, video: bool=False):
+        self.h265 = h265
+        self.manga = manga
+        self.video = video
+
+    def filter(self, torrents: list['Torrent']) -> list['Torrent']:
+        return [t for t in torrents if self.is_match(t)]
+
+    def is_match(self, t: 'Torrent', default: bool = False) -> bool:
+        valid = True
+        valid = valid and (not self.h265 or self.is_h265(t))
+        valid = valid and (not self.manga or self.is_manga(t, default))
+        valid = valid and (not self.video or self.is_video(t, default))
+        return valid
+
+    @staticmethod
+    def is_h265(t: 'Torrent') -> bool:
+        meta = t.title.lower()
+        return "h265" in meta \
+            or "x265" in meta \
+            or "HEVC" in meta
+
+    @staticmethod
+    def is_manga(t: 'Torrent', default: bool = False) -> bool:
+        return is_cat(t.categories, MANGA_CATS, default)
+
+    @staticmethod
+    def is_video(t: 'Torrent', default: bool = False) -> bool:
+        return is_cat(t.categories, VIDEO_CATS, default)
+
 
 @dataclass(eq=True, order=True, unsafe_hash=True)
 class Torrent:
@@ -152,15 +205,6 @@ class Torrent:
             magnet=self.magnet,
         )
 
-    def is_manga(self, default: bool = False) -> bool:
-        return is_cat(self.categories, MANGA_CATS, default)
-
-    def is_h265(self) -> bool:
-        meta = self.title.lower()
-        return "h265" in meta \
-            or "x265" in meta \
-            or "HEVC" in meta
-
 class Client:
     def __init__(self):
         self.apikey = open("/run/secrets/jackett_apikey").read().strip()
@@ -183,18 +227,23 @@ class Client:
 
         return sorted(torrents, reverse=True)
 
+def sort_results(torrents: list[Torrent], by: str) -> list[Torrent]:
+    if by == 'seeders':
+        return sorted(torrents, key=lambda t: (t.seeders, t), reverse=True)
+    elif by == 'tracker':
+        return sorted(torrents, key=lambda t: (-tracker_rank(t.tracker), t), reverse=True)
+    assert False, f"unknown sort method: {by}"
 
-def filter_results(results: list[Torrent], full: bool, top: int, manga: bool, h265: bool) -> list[Torrent]:
-    """
-    take the complete query and filter further based on CLI options
-    """
-    if manga:
-        results = [t for t in results if t.is_manga(default=True)]
-    if h265:
-        results = [t for t in results if t.is_h265()]
-    if not full:
-        results = results[:top]
-    return results
+def format_results(all_results: list[Torrent], filtered_results: list[Torrent], json: bool):
+    if json:
+        dumpable = [t.to_dict() for t in filtered_results]
+        print(json.dumps(dumpable))
+    else:
+        num_total = len(all_results)
+        num_filtered = len(filtered_results)
+        print(f"found {num_total} result(s) filtered to {num_filtered}")
+        for r in filtered_results:
+            print(r)
 
 def main(args: list[str]):
     logging.basicConfig()
@@ -203,10 +252,12 @@ def main(args: list[str]):
     parser = argparse.ArgumentParser(description='search torrent trackers')
     parser.add_argument('--full', action='store_true', help='show all results')
     parser.add_argument('--top', help='how many results to show (default: 5)')
+    parser.add_argument('--sort-by', default='seeders', help='how to rank matches (seeders, tracker)')
     parser.add_argument('--json', action='store_true', help='output results in json')
     parser.add_argument('--verbose', action='store_true')
-    parser.add_argument('--manga', action='store_true', help='show only manga results')
     parser.add_argument('--h265', action='store_true', help='show only H.265/HEVC results (might cause false negatives)')
+    parser.add_argument('--manga', action='store_true', help='show only manga results')
+    parser.add_argument('--video', action='store_true', help='show only video (tv or film)')
     parser.add_argument("query", help="text to search for in torrent titles/descriptions")
 
     args = parser.parse_args()
@@ -215,18 +266,16 @@ def main(args: list[str]):
         logging.getLogger().setLevel(logging.DEBUG)
 
     client = Client()
-    results = client.query(args.query)
-    num_results = len(results)
+    all_results = client.query(args.query)
 
-    results = filter_results(results, args.full, int(args.top or "5"), args.manga, args.h265)
+    filter = Filter(h265=args.h265, manga=args.manga, video=args.video)
+    filtered_results = filter.filter(all_results)
+    ordered_results = sort_results(filtered_results, args.sort_by)
 
-    if args.json:
-        dumpable = [t.to_dict() for t in results]
-        print(json.dumps(dumpable))
-    else:
-        print(f"found {num_results} result(s)")
-        for r in results:
-            print(r)
+    if not args.full:
+        ordered_results = ordered_results[:int(args.top or "5")]
+
+    format_results(all_results, ordered_results, args.json)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
