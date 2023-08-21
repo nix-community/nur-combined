@@ -3308,10 +3308,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.7.0";
+      version = "3.7.1";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4152370/steam_database-3.7.0.xpi";
-      sha256 = "33babb1c18054e4ad741c61aa46a5fc45654acc1e2af2181b2b331be716c8c59";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4154660/steam_database-3.7.1.xpi";
+      sha256 = "a3db281f0bd7a62c6f62157d97c06d6eed0900ae1878b5f819324bfe2bd9a4f4";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -3322,10 +3322,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.10";
+      version = "2023.11";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4138609/streetpass_for_mastodon-2023.10.xpi";
-      sha256 = "1a3fe89760130b6ee150f05e1817724bb33e5be89cf45ba444cc720cc8c1efe3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4156005/streetpass_for_mastodon-2023.11.xpi";
+      sha256 = "a7f13d8a0bee4635db5a60c705aa1ac38a07ed0d07203b10090081132fcee9fb";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
