@@ -40,6 +40,7 @@ lib.makeScope newScope (
     podman-desktop-bin = callPackage ./darwin/podman-desktop/bin.nix { };
     qtcreator-bin = callPackage ./darwin/qtcreator/bin.nix { };
     qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
+    sequel-ace-bin = callPackage ./darwin/sequel-ace { };
     sloth-bin = callPackage ./darwin/sloth { };
 
     ### DATA
