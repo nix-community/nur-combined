@@ -21,6 +21,7 @@
     pkgs.callPackage ./pkgs/tencent-qq-electron-bwrap { };
 
   chengla-electron = pkgs.callPackage ./pkgs/chengla-electron { };
+  daoniu-electron = pkgs.callPackage ./pkgs/daoniu-electron { };
 
   zulu = pkgs.callPackage ./pkgs/zulu { };
   zulu19 = pkgs.callPackage ./pkgs/zulu/19.nix { };
