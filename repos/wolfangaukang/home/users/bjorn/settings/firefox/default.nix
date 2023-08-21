@@ -67,7 +67,7 @@ in rec {
       id = 1;
       name = "Personal";
       extensions = baseExtensions ++ (with firefox-addons; [
-        anonaddy
+        addy_io
         darkreader
         multi-account-containers
         privacy-redirect
