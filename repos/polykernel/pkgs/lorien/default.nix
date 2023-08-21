@@ -3,8 +3,8 @@
   lib,
   fetchFromGitHub,
   pkg-config,
-  godot-headless,
-  godot-export-templates,
+  godot3-headless,
+  godot3-export-templates,
   libX11,
   libXcursor,
   libXinerama,
@@ -14,16 +14,16 @@
 
 stdenv.mkDerivation rec {
   pname = "Lorien";
-  version = "0.5.0";
+  version = "main";
 
   src = fetchFromGitHub {
     owner = "mbrlabs";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-x81Obana2BEGrYSoJHDdCkL6UaULfQGQ94tlrH5+kdY=";
+    rev = "30e37524ca3fe5998db0c22037384217a81b2e95";
+    sha256 = "sha256-SpeOhayRGyQHJ7JAAh5Z5d6lMmjEapUDROWmjNVAa8s=";
   };
 
-  nativeBuildInputs = [ godot-headless godot-export-templates ];
+  nativeBuildInputs = [ godot3-headless godot3-export-templates ];
 
   buildInputs = [
     libX11
@@ -41,14 +41,14 @@ stdenv.mkDerivation rec {
     export BUILDDIR=$PWD/build
     mkdir -p "$HOME/.local/share/godot/templates"
     mkdir -p build
-    ln -s "${godot-export-templates}/share/godot/templates/${godot-export-templates.version}.stable" "$HOME/.local/share/godot/templates/${godot-export-templates.version}.stable"
+    ln -s "${godot3-export-templates}/share/godot/templates/${godot3-export-templates.version}.stable" "$HOME/.local/share/godot/templates/${godot3-export-templates.version}.stable"
     runHook postConfigure
   '';
 
   buildPhase = ''
     runHook preBuild
     cd lorien
-    godot-headless --verbose --export "Linux/X11" $BUILDDIR/Lorien
+    godot3-headless --verbose --export "Linux/X11" $BUILDDIR/Lorien
     runHook postBuild
   '';
 
