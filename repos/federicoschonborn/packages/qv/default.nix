@@ -2,11 +2,11 @@
 , stdenv
 , fetchzip
 , cmake
-, libtgd
 , ninja
+, wrapQtAppsHook
+, libtgd
 , qtbase
 , qtwayland
-, wrapQtAppsHook
 }:
 
 stdenv.mkDerivation (finalAttrs: {

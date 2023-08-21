@@ -3,12 +3,12 @@
 , fetchFromGitLab
 , fetchzip
 , cmake
+, ninja
 , curl
 , darwin
 , game-music-emu
 , libopenmpt
 , libpng
-, ninja
 , SDL2
 , SDL2_mixer
 , zlib

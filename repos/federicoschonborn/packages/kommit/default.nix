@@ -3,6 +3,8 @@
 , fetchFromGitLab
 , cmake
 , extra-cmake-modules
+, ninja
+, wrapQtAppsHook
 , kconfigwidgets
 , kcoreaddons
 , kcrash
@@ -13,9 +15,7 @@
 , ktexteditor
 , ktextwidgets
 , kxmlgui
-, ninja
 , syntax-highlighting
-, wrapQtAppsHook
 }:
 
 stdenv.mkDerivation (finalAttrs: {

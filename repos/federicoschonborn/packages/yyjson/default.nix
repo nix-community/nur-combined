@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+, ninja
 }:
 
 stdenv.mkDerivation rec {
@@ -17,6 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    ninja
   ];
 
   meta = with lib; {

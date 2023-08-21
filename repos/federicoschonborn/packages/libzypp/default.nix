@@ -4,6 +4,7 @@
 , asciidoctor
 , boost
 , cmake
+, ninja
 , curl
 , doxygen
 , fcgi
@@ -15,7 +16,6 @@
 , libsolv
 , libxml2
 , nginx
-, ninja
 , pcre2
 , pkg-config
 , protobuf

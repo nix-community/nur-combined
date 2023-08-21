@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+, ninja
 , libzypp
 }:
 
@@ -18,6 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    ninja
   ];
 
   buildInputs = [

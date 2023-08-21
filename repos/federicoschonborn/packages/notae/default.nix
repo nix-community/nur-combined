@@ -3,15 +3,16 @@
 , fetchFromGitLab
 , cmake
 , extra-cmake-modules
+, ninja
+, wrapQtAppsHook
+, kconfig
+, kcoreaddons
+, kdbusaddons
+, ki18n
+, kirigami-addons
+, kirigami2
 , qtbase
 , qtquickcontrols2
-, wrapQtAppsHook
-, kirigami2
-, kirigami-addons
-, kcoreaddons
-, kconfig
-, ki18n
-, kdbusaddons
 , syntax-highlighting
 , unstableGitUpdater
 }:
@@ -31,18 +32,19 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     extra-cmake-modules
+    ninja
     wrapQtAppsHook
   ];
 
   buildInputs = [
+    kconfig
+    kcoreaddons
+    kdbusaddons
+    ki18n
+    kirigami-addons
+    kirigami2
     qtbase
     qtquickcontrols2
-    kirigami2
-    kirigami-addons
-    kcoreaddons
-    kconfig
-    ki18n
-    kdbusaddons
     syntax-highlighting
   ];
 

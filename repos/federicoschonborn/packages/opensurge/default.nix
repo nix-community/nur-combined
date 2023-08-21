@@ -1,9 +1,9 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, allegro5
 , cmake
 , ninja
+, allegro5
 , surgescript
 }:
 

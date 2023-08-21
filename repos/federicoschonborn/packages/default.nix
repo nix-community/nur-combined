@@ -37,6 +37,7 @@
   opensurge = pkgs.callPackage ./opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./qv { inherit libtgd; };
   rollit = pkgs.callPackage ./rollit { };
+  rpcsx = pkgs.callPackage ./rpcsx { };
   share-preview = pkgs.callPackage ./share-preview { };
   srb2p = pkgs.callPackage ./srb2p { };
   surgescript = pkgs.callPackage ./surgescript { };
@@ -45,7 +46,9 @@
   textsnatcher = pkgs.callPackage ./textsnatcher { };
   thunderbird-gnome-theme = pkgs.callPackage ./thunderbird-gnome-theme { };
   upkg = pkgs.callPackage ./upkg { };
+  vita3k = pkgs.callPackage ./vita3k { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
+  xenia = pkgs.callPackage ./xenia { };
   yyjson = pkgs.callPackage ./yyjson { };
   zypper = pkgs.callPackage ./zypper { inherit libzypp; };
 

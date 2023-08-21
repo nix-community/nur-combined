@@ -4,6 +4,8 @@
 , bluez-qt
 , cmake
 , extra-cmake-modules
+, ninja
+, wrapQtAppsHook
 , karchive
 , kcmutils
 , kconfig
@@ -20,10 +22,8 @@
 , kwidgetsaddons
 , kwindowsystem
 , networkmanager-qt
-, ninja
 , qtx11extras
 , solid
-, wrapQtAppsHook
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -47,7 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     bluez-qt
-    extra-cmake-modules
     karchive
     kcmutils
     kconfig

@@ -2,8 +2,8 @@
 , stdenv
 , fetchzip
 , cmake
-, muparser
 , ninja
+, muparser
 , readline
 }:
 

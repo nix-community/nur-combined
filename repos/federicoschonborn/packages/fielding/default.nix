@@ -3,14 +3,15 @@
 , fetchFromGitLab
 , cmake
 , extra-cmake-modules
-, qtbase
+, ninja
 , wrapQtAppsHook
-, qtquickcontrols2
-, kirigami2
-, kcoreaddons
 , kconfig
-, ki18n
+, kcoreaddons
 , kdbusaddons
+, ki18n
+, kirigami2
+, qtbase
+, qtquickcontrols2
 , unstableGitUpdater
 }:
 
@@ -29,17 +30,18 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     extra-cmake-modules
+    ninja
     wrapQtAppsHook
   ];
 
   buildInputs = [
+    kconfig
+    kcoreaddons
+    kdbusaddons
+    ki18n
+    kirigami2
     qtbase
     qtquickcontrols2
-    kirigami2
-    kcoreaddons
-    kconfig
-    ki18n
-    kdbusaddons
   ];
 
   passthru = {

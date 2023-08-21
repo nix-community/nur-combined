@@ -2,6 +2,7 @@
 , stdenv
 , fetchzip
 , cmake
+, ninja
 
 , withCfitsio ? false
 , cfitsio
@@ -48,6 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     cmake
+    ninja
   ];
 
   buildInputs = [ ]
