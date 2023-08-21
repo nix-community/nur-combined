@@ -20,11 +20,11 @@ let
   # - orange-pi is listed as the "main integration branch".
   #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` tags are "formal" releases
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
-  rev = "orange-pi-6.4-20230619-0323";
-  hash = "sha256-il32UQM/8Fc7VHft3+M4TLMxk5+h28C9Suu1kRdZj2M=";
-  base = "6.4.0";
+  rev = "orange-pi-6.4-20230731-1920";
+  hash = "sha256-XHYxFvosa1FMOFuyb3OwRc/orcD98fSi9NKf1f+riCA=";
+  base = "6.4.7";
   # set to empty if not a release candidate, else `-rc<N>`
-  rc = "-rc7";
+  rc = "";
 
   # pinephone uses the linux dtb at arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
   # - this includes sun50i-a64.dtsi
