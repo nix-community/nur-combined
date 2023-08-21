@@ -41,6 +41,20 @@
         platforms = platforms.all;
         };
       };
+    "addy_io" = buildFirefoxXpiAddon {
+      pname = "addy_io";
+      version = "2.2.0";
+      addonId = "browser-extension@anonaddy";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4150817/anonaddy-2.2.0.xpi";
+      sha256 = "2c2025b18f8c1f0ccb58468ccebf7a766099a4c520989a47ce73d0f20872eac5";
+      meta = with lib;
+      {
+        homepage = "https://addy.io";
+        description = "Open-source Anonymous Email Forwarding. \n\nQuickly and easily view, search, manage and create new aliases in just a few clicks using the <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/25034f1cb8a69fd234852ad09c1c4bebfe6f518442f19fc7c4e4b25c62f0014e/http%3A//addy.io\" rel=\"nofollow\">addy.io</a> browser extension.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
       version = "3.17.0";
@@ -136,20 +150,6 @@
         homepage = "https://github.com/isaackd/AnnotationsRestored";
         description = "Brings annotation support back to YouTube™!";
         license = licenses.gpl3;
-        platforms = platforms.all;
-        };
-      };
-    "anonaddy" = buildFirefoxXpiAddon {
-      pname = "anonaddy";
-      version = "2.1.7";
-      addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4109231/anonaddy-2.1.7.xpi";
-      sha256 = "3bc353115560e2739b206d630c3ef6e30bdbde917519381b9195ca503aa2b983";
-      meta = with lib;
-      {
-        homepage = "https://anonaddy.com";
-        description = "Open-source Anonymous Email Forwarding. \n\nQuickly and easily view, search, manage and create new aliases in just a few clicks using the AnonAddy browser extension.";
-        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -838,10 +838,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.8.2";
+      version = "2023.8.16.1";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147390/duckduckgo_for_firefox-2023.8.2.xpi";
-      sha256 = "4c9d7cc8a977629f74dba1f9d04caceee57ae2ee380c25be1b75acdacddbc962";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4154328/duckduckgo_for_firefox-2023.8.16.1.xpi";
+      sha256 = "653baa6106d5473271b22be90cb41a3e66dfe5288c0cdd5a080a06c09aae28ee";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
