@@ -79,10 +79,6 @@
 ;; Fennel
 (tset vim.g :fennel_nvim_auto_init false)
 
-;; lsp_signature
-(local lsp_signature (require :lsp_signature))
-(lsp_signature.setup { :bind true })
-
 ;; nvim-web-devicons
 ((. (require :nvim-web-devicons) :setup) {
   :default true
@@ -185,41 +181,6 @@
   (fn [] (when (ls.choice_active) (ls.change_choice 1)))
   {:silent true})
 
-;; Luasnip
-(let [
-    ;; :help luasnip
-    ls (require :luasnip)
-    types (require :luasnip.util.types)
-
-    s ls.snippet
-    sn ls.snippet_node
-    isn ls.indent_snippet_node
-    t ls.text_node
-    i ls.insert_node
-    f ls.function_node
-    c ls.choice_node
-    d ls.dynamic_node
-    r ls.restore_node
-  ]
-  (do
-    (ls.add_snippets :all [
-      (s ":demo:" [ (i 1 "It works") ])
-    ])
-
-    (ls.config.set_config {
-      :history true
-      :updateevents "TextChanged,TextChangedI"
-      :enable_autosnippets true
-      :ext_ops {
-        types.choiceNode {
-          :active {
-            :virt_text [["<-" "Error"]]
-          }
-        }
-      }
-    })
-
-))
 
 ; Theming
 (tset vim.g :nixcfg_is_dark true)

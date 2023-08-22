@@ -67,8 +67,6 @@ in wrapNeovim pkgs.neovim-unwrapped {
       echodoc
       emmet-vim
       fennel-nvim
-      lsp_signature-nvim
-      luasnip
       nvim-lspconfig
       vim-commentary
       vim-fetch # support for stacktrace paths
@@ -97,7 +95,6 @@ in wrapNeovim pkgs.neovim-unwrapped {
       vim-paper
       preto
 
-      indentLine
       nvim-web-devicons
     ]
     ++ (lib.optional (colors != null) (buildVimPlugin {

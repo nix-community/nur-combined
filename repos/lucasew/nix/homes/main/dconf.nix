@@ -8,6 +8,9 @@ in {
       primary-color = "#ffffff";
       secondary-color = "#000000";
     };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
     "org/gnome/desktop/input-sources" = {
       current = "uint32 0";
       sources = [(mkTuple ["xkb" "br"]) (mkTuple ["xkb" "us"])];
