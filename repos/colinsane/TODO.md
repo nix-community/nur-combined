@@ -44,6 +44,12 @@
   - integrate `nix check` into Gitea actions?
 
 ### user experience
+- moby: tune GPS
+  - run only geoclue, and not gpsd, to save power?
+  - tune QGPS setting in eg25-control, for less jitter?
+  - direct mepo to prefer gpsd, with fallback to geoclue, for better accuracy?
+  - configure geoclue to do some smoothing?
+  - manually do smoothing, as some layer between mepo and geoclue/gpsd?
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
 - Helix: make copy-to-system clipboard be the default
 - firefox/librewolf: persist history

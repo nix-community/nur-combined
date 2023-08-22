@@ -24,6 +24,7 @@
 #
 # EXPECTATIONS/TIPS:
 # - with the right environment, you may get a GPS fix in < 30s.
+#   - the fix is likely to have a *lot* of jitter, like 10+ meters.
 # - indoors, you shouldn't expect to *ever* get a cold-start GPS fix.
 #   - maybe you'll track 1 satellite if lucky: enough to receive GPS time but not for a GPS fix.
 #   - get a fix outdoors, then walk indoors: GPS is smart enough to maintain a spotty fix.
@@ -369,6 +370,7 @@ class Sequencer:
         self._at_autogps(AutoGps.disable)  #< don't start GPS on modem boot
         # configure so GPS output is readable via /dev/ttyUSB1
         # self._mmcli(["--location-enable-gps-unmanaged"])
+        # TODO: tune/document these QGPS values; a smarter setting here might reduce jitter?
         self._at_structured_cmd("QGPS", value="1,255,1000,0,1")
 
     @log_scope("configuring powersave...", "powersave configured")

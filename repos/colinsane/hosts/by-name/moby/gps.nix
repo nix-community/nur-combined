@@ -15,10 +15,28 @@
 #
 # geoclue somehow fits in here as a geospatial provider that leverages GPS and also other sources like radio towers
 
-{ ... }:
+{ lib, ... }:
 {
+  # test gpsd with `gpspipe -w -n 10 2> /dev/null | grep -m 1 TPV | jq '.lat, .lon' | tr '\n' ' '`
+  # ^ should return <lat> <long>
   services.gpsd.enable = true;
   services.gpsd.devices = [ "/dev/ttyUSB1" ];
+
+  # test geoclue2 by building `geoclue2-with-demo-agent`
+  # and running "${geoclue2-with-demo-agent}/libexec/geoclue-2/demos/where-am-i"
+  services.geoclue2.enable = true;
+  services.geoclue2.appConfig.where-am-i = {
+    # this is the default "agent", shipped by geoclue package: allow it to use location
+    isAllowed = true;
+    isSystem = false;
+    # XXX: setting users != [] might be causing `where-am-i` to time out
+    # users = [
+    #   # restrict to only one set of users. empty array (default) means "allow any user to access geolocation".
+    #   (builtins.toString config.users.users.colin.uid)
+    # ];
+  };
+  systemd.services.geoclue.after = lib.mkForce [];  #< defaults to network-online, but not all my sources require network
+
 
   sane.services.eg25-control.enable = true;
 }
