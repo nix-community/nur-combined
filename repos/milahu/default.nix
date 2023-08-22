@@ -255,11 +255,17 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       git-filter-repo = callPackage ./pkgs/development/python-modules/git-filter-repo/git-filter-repo.nix { };
 
+      some = callPackage ./pkgs/python3/pkgs/some/some.nix { };
+
+      chromium-depot-tools = callPackage ./pkgs/build-support/chromium-depot-tools/chromium-depot-tools.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
 
   }))); # python3Packages
+
+  chromium-depot-tools = python3Packages.chromium-depot-tools;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
@@ -515,6 +521,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   # https://github.com/NixOS/nixpkgs/commits/master/pkgs/tools/security/tor/torsocks.nix
   torsocks = callPackage ./pkgs/tools/security/tor/torsocks.nix { };
+
+  gclient2nix = callPackage ./pkgs/build-support/gclient2nix/gclient2nix.nix { };
+
+  gclient = callPackage ./pkgs/build-support/gclient/gclient.nix { };
 
 }
 
