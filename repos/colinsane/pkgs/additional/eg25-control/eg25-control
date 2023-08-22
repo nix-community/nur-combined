@@ -1,16 +1,22 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python -p "python3.withPackages (ps: [  ])"
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p curl -p modemmanager
 
 # this script should run after ModemManager.service is started.
+# typical invocation is `eg25_gps_init.py --enable-power --enable-gps`.
 # after running, the user may `cat /dev/ttyUSB1` to view NMEA-encoded GPS information.
 # the script attempts to be idempotent, such that it may be run multiple times per boot.
 #
 # this script downloads assisted GPS (AGPS) data via the system's default gateway (i.e. WiFi)
 # and shares that with the modem. this quickens the process of acquiring a GPS fix.
 #
+# the script may also configure other parts of the modem as `eg25-manager` does.
+# these options are less tested: see `--help` for more.
+#
 # PREREQUISITES/DEPENDENCIES:
 # this script expects to run on megi's kernel, with `CONFIG_MODEM_POWER=y`.
-# ModemManager, and by extension this script, REQUIRE A SIM CARD IN YOUR PHONE.
+# ModemManager must be launched with the `--debug` flag, so that `mmcli --command=...` works.
+#
+# ModemManager, and by extension this script, REQUIRES A SIM CARD IN YOUR PHONE.
 # the sim doesn't need to be "activated". you can buy a $1 SIM and never purchase
 # service and that works; it's just needed for ModemManager to boot the modem.
 # this isn't a fundamental requirement; if one did everything via serial instead of
@@ -203,14 +209,15 @@ class AutoGps:
     enable = "1"
 
 class Sequencer:
-    POWER_ENDPOINT = POWER_ENDPOINT
     AGPS_DATA_URI_BASE = AGPS_DATA_URI_BASE
-    def __init__(self, executor: Executor):
+    def __init__(self, executor: Executor, modem: str, power_endpoint: str):
         self.executor = executor
+        self.modem = modem
+        self.power_endpoint = power_endpoint
 
     def _mmcli(self, args: list[str], check: bool = True) -> str:
         return self.executor.exec(
-            ["mmcli", "--modem", "any"] + args,
+            ["mmcli", "--modem", self.modem] + args,
             check=check
         ).decode('utf-8')
 
@@ -260,13 +267,17 @@ class Sequencer:
     def _at_autogps(self, enable: AutoGps) -> str:
         return self._at_structured_cmd("QGPSCFG", "autogps", enable)
 
-    def _get_assistance_data(self, variant: AgpsDataVariant) -> str:
-        self.executor.exec(["curl", f"{self.AGPS_DATA_URI_BASE}/{variant}", "-o", variant])
-        return variant
+    def _get_assistance_data(self, variant: AgpsDataVariant) -> str | None:
+        try:
+            self.executor.exec(["curl", f"{self.AGPS_DATA_URI_BASE}/{variant}", "-o", variant])
+            return variant
+        except subprocess.CalledProcessError as e:
+            logger.warning(f"AGPS data download failed: {e}")
+            return None  # TODO: could be smarter: return cached AGPS data?
 
     @log_scope("powering modem...", "modem powered")
     def power_on(self) -> None:
-        self.executor.write_file(self.POWER_ENDPOINT, b'1')
+        self.executor.write_file(self.power_endpoint, b'1')
         while self._try_mmcli([]) is None:
             logger.info("modem hasn't appeared: sleeping for 1s")
             time.sleep(1)  # wait for modem to appear
@@ -298,7 +309,7 @@ class Sequencer:
         self._at_structured_cmd('QGPSCFG', 'agpsposmode')
 
     @log_scope("configuring audio...", "audio configured")
-    def config_audio(self) -> None:
+    def enable_audio(self) -> None:
         # cribbed from eg25-manager; i don't understand these
         # QDAI call shouldn't be necessary if using Megi's FW:
         # - <https://xnux.eu/devices/feature/modem-pp.html>
@@ -311,7 +322,7 @@ class Sequencer:
         self._at_structured_cmd("QCFG", "apready", "1,0,500")
 
     @log_scope("configuring urc...", "urc configured")
-    def config_urc(self) -> None:
+    def enable_urc(self) -> None:
         # cribbed from eg25-manager; i don't even know what URC is
         # URC configuration for PP 1.2 (APREADY pin connected):
         #   * RING URC: normal pulse length
@@ -329,7 +340,7 @@ class Sequencer:
         self._at_structured_cmd("QURCCFG", "urcport", "\"all\"")
 
     @log_scope("configuring gps...", "gps configured")
-    def config_gps(self) -> None:
+    def enable_gps(self) -> None:
         # set modem to use UTC time instead of local time.
         # modemmanager sends CTZU=3 during init and that causes `AT+CCLK?` to return a timestamp that's off by 600+ days
         # see: <https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/issues/360>
@@ -345,7 +356,9 @@ class Sequencer:
         # now = datetime.datetime.now().strftime('%Y/%m/%d,%H:%M:%S')  # UTC
         # self._at_structured_cmd("QGPSXTRATIME", value=f"0,\"{now}\"")
         locdata = self._get_assistance_data(AgpsDataVariant.gps_glonass_beidou)
-        self._mmcli([f"--location-inject-assistance-data={locdata}"])
+        if locdata:
+            self._mmcli([f"--location-inject-assistance-data={locdata}"])
+
         self._at_gnssconfig(GNSSConfig.gps_glonass_beidou_galileo)
         self._at_odpcontrol(ODPControl.disable)
         self._at_dpoenable(DPOEnable.disable)  # N.B.: eg25-manager uses `DPOEnable.enable`
@@ -359,7 +372,7 @@ class Sequencer:
         self._at_structured_cmd("QGPS", value="1,255,1000,0,1")
 
     @log_scope("configuring powersave...", "powersave configured")
-    def config_powersave(self) -> None:
+    def enable_powersave(self) -> None:
         # Allow sleeping for power saving
         self._at_structured_cmd("QSCLK", value="1")
         # Disable fast poweroff for stability
@@ -377,8 +390,17 @@ def main():
     logging.getLogger().setLevel(logging.INFO)
 
     parser = argparse.ArgumentParser(description="initialize the eg25 Pinephone modem for GPS tracking")
+    parser.add_argument('--modem', default='any', help='name of modem to configure (see mmcli --list-modems)')
+    parser.add_argument('--power-endpoint', default='/sys/class/modem-power/modem-power/device/powered', help='sysfs endpoint that can turn the modem on/off')
+
     parser.add_argument("--dry-run", action='store_true', help="print commands instead of executing them")
     parser.add_argument("--verbose", action='store_true', help="log each command before executing")
+
+    parser.add_argument('--power-on', action='store_true', help="enable power to the modem")
+    parser.add_argument('--enable-audio', action='store_true', help="configure audio for calling (?)")
+    parser.add_argument('--enable-urc', action='store_true', help="enable support for Unsolicited Return Codes (?)")
+    parser.add_argument('--enable-gps', action='store_true', help="enable the GPS and acquire tracking until asked to stop")
+    parser.add_argument('--enable-powersave', action='store_true', help="configure modem to sleep when possible")
     parser.add_argument('--dump-debug-info', action='store_true', help="don't initialize anything, just dump debugging data")
 
     args = parser.parse_args()
@@ -386,17 +408,19 @@ def main():
         logging.getLogger().setLevel(logging.DEBUG)
 
     executor = Executor(args.dry_run)
-    sequencer = Sequencer(executor)
+    sequencer = Sequencer(executor, modem=args.modem, power_endpoint=args.power_endpoint)
 
-    if not args.dump_debug_info:
+    if args.power_on:
         sequencer.power_on()
-        sequencer.at_check()
-        # sequencer.config_audio()
-        # sequencer.config_urc()
-        sequencer.config_gps()
-        # sequencer.config_powersave()
-
-    if args.verbose or args.dump_debug_info:
+    if args.enable_audio:
+        sequencer.enable_audio()
+    if args.enable_urc:
+        sequencer.enable_urc()
+    if args.enable_gps:
+        sequencer.enable_gps()
+    if args.enable_powersave:
+        sequencer.enable_powersave()
+    if args.dump_debug_info:
         sequencer.dump_debug_info()
 
 if __name__ == '__main__':

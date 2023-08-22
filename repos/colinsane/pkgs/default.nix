@@ -27,6 +27,7 @@ let
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     chatty-latest = callPackage ./additional/chatty-latest { };
+    eg25-control = callPackage ./additional/eg25-control { };
     eg25-manager = callPackage ./additional/eg25-manager { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
     lemoa = callPackage ./additional/lemoa { };

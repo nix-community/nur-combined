@@ -12,7 +12,7 @@
 
 ### roles
 - allow any host to take the role of `uninsane.org`
-    - will make it easier to test new services?
+  - will make it easier to test new services?
 
 ### upstreaming
 - split out a sxmo module usable by NUR consumers
@@ -28,20 +28,20 @@
 ### security/resilience
 - validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
-    - best to do this after i know for sure i have good backups
+  - best to do this after i know for sure i have good backups
 - have `sane.programs` be wrapped such that they run in a cgroup?
-    - at least, only give them access to the portion of the fs they *need*.
-    - Android takes approach of giving each app its own user: could hack that in here.
-    - **systemd-run** takes a command and runs it in a temporary scope (cgroup)
-      - presumably uses the same options as systemd services
-      - see e.g. <https://github.com/NixOS/nixpkgs/issues/113903#issuecomment-857296349>
-    - flatpak does this, somehow
-    - apparmor?  SElinux?  (desktop) "portals"?
-    - see Spectrum OS; Alyssa Ross; etc
-    - bubblewrap-based sandboxing: <https://github.com/nixpak/nixpak>
+  - at least, only give them access to the portion of the fs they *need*.
+  - Android takes approach of giving each app its own user: could hack that in here.
+  - **systemd-run** takes a command and runs it in a temporary scope (cgroup)
+    - presumably uses the same options as systemd services
+    - see e.g. <https://github.com/NixOS/nixpkgs/issues/113903#issuecomment-857296349>
+  - flatpak does this, somehow
+  - apparmor?  SElinux?  (desktop) "portals"?
+  - see Spectrum OS; Alyssa Ross; etc
+  - bubblewrap-based sandboxing: <https://github.com/nixpak/nixpak>
 - canaries for important services
-    - e.g. daily email checks; daily backup checks
-    - integrate `nix check` into Gitea actions?
+  - e.g. daily email checks; daily backup checks
+  - integrate `nix check` into Gitea actions?
 
 ### user experience
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
@@ -53,9 +53,9 @@
   - especially, make the menubar collapsible
   - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
 - package Nix/NixOS docs for Zeal
-    - install [doc-browser](https://github.com/qwfy/doc-browser)
-    - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)
-    - install [devhelp](https://wiki.gnome.org/Apps/Devhelp)  (gnome)
+  - install [doc-browser](https://github.com/qwfy/doc-browser)
+  - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)
+  - install [devhelp](https://wiki.gnome.org/Apps/Devhelp)  (gnome)
 - have xdg-open parse `<repo:...> URIs (or adjust them so that it _can_ parse)
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
 - uninsane.org: make URLs relative to allow local use (and as offline homepage)
@@ -65,17 +65,19 @@
 
 ### perf
 - add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled
-    - every package here can be auto-generated, and marked with some env var so that it doesn't pollute the pure package set
-    - would be super handy for package prototyping!
+  - every package here can be auto-generated, and marked with some env var so that it doesn't pollute the pure package set
+  - would be super handy for package prototyping!
 - why does nixos-rebuild switch take 5 minutes when net is flakey?
-    - trying to auto-mount servo?
-    - something to do with systemd services restarting/stalling
-    - maybe wireguard & its refresh operation, specifically?
+  - trying to auto-mount servo?
+  - something to do with systemd services restarting/stalling
+  - maybe wireguard & its refresh operation, specifically?
 - get moby to build without binfmt emulation (i.e. make all emulation explicit)
   - then i can distribute builds across servo + desko, and also allow servo to pull packages from desko w/o worrying about purity
 
 
 ## NEW FEATURES:
 - migrate MAME cabinet to nix
-    - boot it from PXE from servo?
+  - boot it from PXE from servo?
+- deploy to new server, and use it as a remote builder
 - enable IPv6
+- package lemonade lemmy app: <https://linuxphoneapps.org/apps/ml.mdwalters.lemonade/>

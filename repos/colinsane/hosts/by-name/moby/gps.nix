@@ -20,5 +20,5 @@
   services.gpsd.enable = true;
   services.gpsd.devices = [ "/dev/ttyUSB1" ];
 
-  # TODO: enable eg25-manager, and bring online both the modem and GPS on boot
+  sane.services.eg25-control.enable = true;
 }
