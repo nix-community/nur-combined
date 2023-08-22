@@ -8,7 +8,13 @@
 # this script downloads assisted GPS (AGPS) data via the system's default gateway (i.e. WiFi)
 # and shares that with the modem. this quickens the process of acquiring a GPS fix.
 #
+# PREREQUISITES/DEPENDENCIES:
 # this script expects to run on megi's kernel, with `CONFIG_MODEM_POWER=y`.
+# ModemManager, and by extension this script, REQUIRE A SIM CARD IN YOUR PHONE.
+# the sim doesn't need to be "activated". you can buy a $1 SIM and never purchase
+# service and that works; it's just needed for ModemManager to boot the modem.
+# this isn't a fundamental requirement; if one did everything via serial instead of
+# ModemManager the SIM would not be necessary for GPS.
 #
 # EXPECTATIONS/TIPS:
 # - with the right environment, you may get a GPS fix in < 30s.
