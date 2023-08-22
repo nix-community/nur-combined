@@ -9,6 +9,7 @@
   cargo-aoc = pkgs.callPackage ./cargo-aoc { };
   casaos = pkgs.callPackage ./casaos { };
   chess-clock = pkgs.callPackage ./chess-clock { };
+  codelite = pkgs.callPackage ./codelite { };
   devtoolbox = pkgs.callPackage ./devtoolbox { };
   eloquens = pkgs.libsForQt5.callPackage ./eloquens { };
   fastfetch = pkgs.callPackage ./fastfetch { inherit yyjson; };
