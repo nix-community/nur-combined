@@ -2,6 +2,10 @@
 , fetchFromGitHub
 , lib
 
+, makeWrapper
+, stdenv
+, Foundation
+
 , withFile ? true
 , file
 , withJq ? true
@@ -21,75 +25,42 @@
 , withZoxide ? true
 , zoxide
 
-, stdenv
-, Foundation
-
 , nix-update-script
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "yazi";
-  version = "unstable-2023-08-20";
+  version = "unstable-2023-08-22";
 
   src = fetchFromGitHub {
     owner = "sxyazi";
     repo = pname;
-    rev = "c051df3f605108a45b8cd69be8f1d7910442fe7b";
-    hash = "sha256-wDME9ftQYetIAIZAFmvweQmH6OHbrADQGlVGt5jaWRs=";
+    rev = "5b85b47a630be20f40861e02c31942a6fa0024b1";
+    hash = "sha256-x/YGwrRZOznnrid6AtQxTg46tVt2mVADMv54o/X3bGc=";
   };
 
-  postPatch =
-    lib.optionalString withFile
-      ''
-        substituteInPlace core/src/external/file.rs \
-          --replace '"file"' '"${file}/bin/file"'
-      ''
-    + lib.optionalString withJq
-      ''
-        substituteInPlace core/src/external/jq.rs \
-          --replace '"jq"' '"${jq}/bin/jq"'
-      ''
-    + lib.optionalString withPoppler
-      ''
-        substituteInPlace core/src/external/pdftoppm.rs \
-          --replace '"pdftoppm"' '"${poppler_utils}/bin/pdftoppm"'
-      ''
-    + lib.optionalString withUnar
-      ''
-        substituteInPlace core/src/external/lsar.rs \
-          --replace '"lsar"' '"${unar}/bin/lsar"'
-        substituteInPlace core/src/external/unar.rs \
-          --replace '"unar"' '"${unar}/bin/unar"'
-      ''
-    + lib.optionalString withFfmpegthumbnailer
-      ''
-        substituteInPlace core/src/external/ffmpegthumbnailer.rs \
-          --replace '"ffmpegthumbnailer"' '"${ffmpegthumbnailer}/bin/ffmpegthumbnailer"'
-      ''
-    + lib.optionalString withFd
-      ''
-        substituteInPlace core/src/external/fd.rs \
-          --replace '"fd"' '"${fd}/bin/fd"'
-      ''
-    + lib.optionalString withRipgrep
-      ''
-        substituteInPlace core/src/external/rg.rs \
-          --replace '"rg"' '"${ripgrep}/bin/rg"'
-      ''
-    + lib.optionalString withFzf
-      ''
-        substituteInPlace core/src/external/fzf.rs \
-          --replace '"fzf"' '"${fzf}/bin/fzf"'
-      ''
-    + lib.optionalString withZoxide
-      ''
-        substituteInPlace core/src/external/zoxide.rs \
-          --replace '"zoxide"' '"${zoxide}/bin/zoxide"'
-      '';
+  cargoHash = "sha256-yHxznZw1qijsFEmVfjpUCivPUn2qwkpJXjuva0Ne638=";
 
-  cargoHash = "sha256-ezigEMc4zC33brkxtJkwuWzUGjg7hc5+zeu7D/lJJUU=";
-
+  nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
+
+  postInstall = with lib;
+    let
+      runtimePaths = [ ]
+        ++ optional withFile file
+        ++ optional withJq jq
+        ++ optional withPoppler poppler_utils
+        ++ optional withUnar unar
+        ++ optional withFfmpegthumbnailer ffmpegthumbnailer
+        ++ optional withFd fd
+        ++ optional withRipgrep ripgrep
+        ++ optional withFzf fzf
+        ++ optional withZoxide zoxide;
+    in
+    ''
+      wrapProgram $out/bin/yazi \
+         --prefix PATH : "${makeBinPath runtimePaths}"
+    '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version" "branch" ]; };
 
