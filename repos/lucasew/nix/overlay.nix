@@ -59,6 +59,7 @@ in
   pytorrentsearch = cp bumpkin.unpacked.pytorrentsearch;
   redial_proxy = cp bumpkin.unpacked.redial_proxy;
   send2kindle = cp bumpkin.unpacked.send2kindle;
+  nixgram = cp bumpkin.unpacked.nixgram;
   wrapVSCode = args: import bumpkin.unpacked.nix-vscode (args // { pkgs = prev; });
   wrapEmacs = args: import bumpkin.unpacked.nix-emacs (args // { pkgs = prev; });
 

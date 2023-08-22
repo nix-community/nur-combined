@@ -14,7 +14,6 @@ in {
     ./helix.nix
     ./espanso.nix
     ./dconf.nix
-    ./nixgram.nix
     ./borderless-browser.nix
     ./theme
 

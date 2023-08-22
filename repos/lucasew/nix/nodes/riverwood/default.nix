@@ -21,6 +21,13 @@ in
     ]
   ;
 
+  services.nixgram = {
+    enable = true;
+    customCommands = {
+      ping = "echo pong";
+    };
+  };
+
   services.nginx.enable = true;
 
   services.xserver.windowManager.i3.enable = true;
