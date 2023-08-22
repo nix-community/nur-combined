@@ -1,5 +1,23 @@
 {
   "nodes": {
+    "betterdiscord-addons": {
+      "flake": false,
+      "locked": {
+        "dir": "Plugins",
+        "lastModified": 1692496496,
+        "narHash": "sha256-mcj7bbtnL3efp/v+e+f2E+HsiZ3bWV0GdyxhW9KIhPw=",
+        "owner": "mwittrien",
+        "repo": "BetterDiscordAddons",
+        "rev": "8f0e0f077c02ba84bde2eb2f1c4b9f2a0740d477",
+        "type": "github"
+      },
+      "original": {
+        "dir": "Plugins",
+        "owner": "mwittrien",
+        "repo": "BetterDiscordAddons",
+        "type": "github"
+      }
+    },
     "bumpkin": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -211,6 +229,7 @@
     },
     "root": {
       "inputs": {
+        "betterdiscord-addons": "betterdiscord-addons",
         "bumpkin": "bumpkin",
         "home-manager": "home-manager",
         "impermanence": "impermanence",

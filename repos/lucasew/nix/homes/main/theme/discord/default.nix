@@ -1,11 +1,12 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, self, ... }:
 let
-  pluginRepo = pkgs.fetchFromGitHub {
-    owner = "mwittrien";
-    repo = "BetterDiscordAddons";
-    rev = "e3c39ba99c836f6a8517a23817ae12af6df6dc17"; # 29-07-2023
-    hash = "sha256-AYTAhym71wgkvCtL2GRT/FXrtfQEDM264sT6+OQfHrw=";
-  };
+  pluginRepo = builtins.filterSource (path: type: type == "directory" || ((builtins.match ''.*\.plugin.js'' path) != null)) self.inputs.betterdiscord-addons.outPath;
+  # pluginRepo = pkgs.fetchFromGitHub {
+  #   owner = "mwittrien";
+  #   repo = "BetterDiscordAddons";
+  #   rev = "e3c39ba99c836f6a8517a23817ae12af6df6dc17"; # 29-07-2023
+  #   hash = "sha256-AYTAhym71wgkvCtL2GRT/FXrtfQEDM264sT6+OQfHrw=";
+  # };
   betterdiscordPlugins = [
     "BetterFriendList"
     # "CallTimeCounter"

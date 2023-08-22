@@ -20,6 +20,9 @@
 
     home-manager.url = "home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    betterdiscord-addons.url = "github:mwittrien/BetterDiscordAddons?dir=Plugins";
+    betterdiscord-addons.flake = false;
   };
 
   outputs = {
@@ -32,6 +35,7 @@
     , nbr
     , nur
     , nixos-hardware
+    , ...
   }:
   let
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs length;
