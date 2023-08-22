@@ -1,10 +1,9 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mkOption mkEnableOption length head tail types mapAttrs attrValues;
-  cfg = config.services.jellyfin-container;
+  inherit (lib) mkIf mkOption mkEnableOption length head tail types mapAttrs attrValues mkDefault;
+  cfg = config.services.jellyfin;
 in {
-  options.services.jellyfin-container = {
-    enable = mkEnableOption "jellyfin";
+  options.services.jellyfin = {
     mediaDirs = mkOption {
       description = "Media folders";
       type = types.attrsOf types.path;
@@ -12,11 +11,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-    virtualisation.oci-containers.containers.jellyfin = {
-      image = "jellyfin/jellyfin:latest";
-      volumes = [ "/var/lib/jellyfin:/config" "/var/cache/jellyfin:/cache" ]
-      ++ (attrValues (mapAttrs (k: v: "${v}:/media/${k}:ro") cfg.mediaDirs));
-      extraOptions = [ "--network=host" ];
+    systemd.tmpfiles.rules = [
+      "d /var/lib/jellyfin/media 700 ${cfg.user} ${cfg.group}"
+    ]
+      ++ (lib.pipe cfg.mediaDirs [
+        (mapAttrs (k: v: "L+ /var/lib/jellyfin/media/${k} - - - - ${v}"))
+        (attrValues)
+      ]);
+
+    systemd.services.jellyfin.serviceConfig = {
+      ProtectSystem = "strict";
+      ReadOnlyDirectories = attrValues cfg.mediaDirs;
     };
 
     services.nginx.virtualHosts."jellyfin.${config.networking.hostName}.${config.networking.domain}" = {
@@ -25,7 +30,7 @@ in {
         proxyWebsockets = true;
       };
     };
-    networking.firewall.allowedUDPPorts = [ 1900 7359 ];
+    services.jellyfin.openFirewall = mkDefault true;
 
   };
 }

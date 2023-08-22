@@ -77,7 +77,7 @@ in {
 
   services.magnetico.enable = true;
 
-  services.jellyfin-container = {
+  services.jellyfin = {
     enable = true;
     mediaDirs = {
       transmission = "/var/lib/transmission/Downloads";
