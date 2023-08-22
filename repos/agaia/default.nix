@@ -21,4 +21,9 @@
   lsd-git = pkgs.callPackage ./pkgs/lsd-git { };
   specsheet = pkgs.callPackage ./pkgs/specsheet { };
   ind = pkgs.callPackage ./pkgs/ind { };
+  cbtr = pkgs.callPackage ./pkgs/cbtr { };
+  git-track-repos = pkgs.callPackage ./pkgs/git-track-repos { };
+  new-stow = pkgs.callPackage ./pkgs/new-stow { };
+  shim = pkgs.callPackage ./pkgs/shim { };
+  ide = pkgs.callPackage ./pkgs/ide { };
 }
