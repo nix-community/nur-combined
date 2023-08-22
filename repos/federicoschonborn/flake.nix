@@ -9,9 +9,15 @@
     ,
     }:
     let
-      inherit (nixpkgs.lib) genAttrs systems;
+      inherit (nixpkgs.lib) genAttrs getName systems;
 
-      forAllSystems = f: genAttrs systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
+      forAllSystems = f: genAttrs systems.flakeExposed (system: f (import nixpkgs {
+        inherit system;
+        config.allowUnfreePredicate = p: builtins.elem (getName p) [
+            "sonic-2013"
+            "sonic-cd"
+          ];
+      }));
     in
     {
       legacyPackages = forAllSystems (pkgs: import ./. { inherit pkgs; });
