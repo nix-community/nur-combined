@@ -18,7 +18,7 @@ nixpkgs.config.packageOverrides = pkgs: {
 2. Specify the packages you want to install from my repository in your `/etc/nixos/configuration.nix`
 ```nix
 environment.systemPackages = with pkgs; [
-   nur.repos.nltch.spotify-adblock.spotify-adblocked #for installing spotify-adblock
+   nur.repos.nltch.spotify-adblock    #for installing spotify-adblock
    nur.repos.nltch.ciscoPacketTracer8 #for installing packettracer8 
 ]
 ```
