@@ -1,13 +1,14 @@
 { lib
-, stdenv
+, llvmPackages
 , fetchFromGitHub
 , pkg-config
 , python3
 , gtk3
+, lz4
 , SDL2
 }:
 
-stdenv.mkDerivation {
+llvmPackages.stdenv.mkDerivation {
   pname = "xenia";
   version = "unstable-2023-07-27";
 
@@ -26,6 +27,7 @@ stdenv.mkDerivation {
 
   buildInputs = [
     gtk3
+    lz4
     SDL2
   ];
 
@@ -36,17 +38,19 @@ stdenv.mkDerivation {
   buildPhase = ''
     runHook preBuild
 
-    ./xenia-build build
+    ./xenia-build build --config=release
 
     runHook postBuild
   '';
+
+  env.NIX_CFLAGS_COMPILE = "-O2 -Wno-error";
 
   meta = with lib; {
     description = "Xbox 360 Emulator Research Project";
     homepage = "https://github.com/xenia-project/xenia";
     license = licenses.bsd3;
     maintainers = with maintainers; [ federicoschonborn ];
-    # #warning _FORTIFY_SOURCE requires compiling with optimization (-O) [-Werror=cpp]
+    # bin/Linux/Release/libfmt.a: error adding symbols: archive has no index; run ranlib to add one
     broken = true;
   };
 }
