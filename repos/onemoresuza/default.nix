@@ -17,4 +17,5 @@
   pass-extension-tail = pkgs.callPackage ./pkgs/pass-extension-tail {};
   pass-sxatm = pkgs.callPackage ./pkgs/pass-sxatm {};
   junest = pkgs.callPackage ./pkgs/junest {};
+  pdpmake = pkgs.callPackage ./pkgs/pdpmake {};
 }
