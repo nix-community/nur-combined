@@ -56,6 +56,7 @@ in
         Group = cfg.group;
         EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
       };
+      wantedBy = [ "multi-user.target" ];
     };
   };
 }

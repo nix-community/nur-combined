@@ -105,13 +105,13 @@
         (vim.keymap.set :n :gi vim.lsp.buf.implementation bufopts)
         (vim.keymap.set :n :<C-k> vim.lsp.buf.signature_help bufopts)
         (vim.keymap.set :n :<space>wa vim.lsp.buf.add_workspace_folder bufopts)
-        (vim.keymap.set :<space>wr vim.lsp.buf.remove_workspace_folder bufopts)
-        (vim.keymap.set :<space>wl (fn [] (print (vim.inspect (vim.lsp.buf.list_workspace_folders)))) bufopts)
-        (vim.keymap.set :<space>D vim.lsp.buf.type_definition bufopts)
-        (vim.keymap.set :<space>rn vim.lsp.buf.rename bufopts)
-        (vim.keymap.set :<space>ca vim.lsp.buf.code_action bufopts)
-        (vim.keymap.set :gr vim.lsp.buf.references bufopts)
-        (vim.keymap.set :<space>f vim.lsp.buf.formatting bufopts)
+        (vim.keymap.set :n :<space>wr vim.lsp.buf.remove_workspace_folder bufopts)
+        (vim.keymap.set :n :<space>wl (fn [] (print (vim.inspect (vim.lsp.buf.list_workspace_folders)))) bufopts)
+        (vim.keymap.set :n :<space>D vim.lsp.buf.type_definition bufopts)
+        (vim.keymap.set :n :<space>rn vim.lsp.buf.rename bufopts)
+        (vim.keymap.set :n :<space>ca vim.lsp.buf.code_action bufopts)
+        (vim.keymap.set :n :gr vim.lsp.buf.references bufopts)
+        (vim.keymap.set :n :<space>f vim.lsp.buf.formatting bufopts)
         (print "LSP kicked in")
     ))
     (local coqed (coq.lsp_ensure_capabilities opts))
@@ -145,7 +145,7 @@
     :cmd [:java_language_server]
   })
   (lsp :pylsp) ;; Python
-  (lsp :rnix) ;; Nix
+  (lsp :nixd) ;; Nix
   (lsp :rust_analyzer) ;; Rust
   (lsp :terraformls) ;; Terraform
   (lsp :texlab) ;; LaTeX
