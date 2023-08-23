@@ -73,7 +73,7 @@ in {
     pavucontrol # controle de volume
     pytorrentsearch
     # LSPs
-    nixd
+    nil
     python3Packages.python-lsp-server
   ] ;
 

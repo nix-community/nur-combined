@@ -145,7 +145,7 @@
     :cmd [:java_language_server]
   })
   (lsp :pylsp) ;; Python
-  (lsp :nixd) ;; Nix
+  (lsp :nil_ls) ;; Nix
   (lsp :rust_analyzer) ;; Rust
   (lsp :terraformls) ;; Terraform
   (lsp :texlab) ;; LaTeX
