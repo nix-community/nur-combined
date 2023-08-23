@@ -47,4 +47,7 @@ ${color1}${shadecolor}${font Sxmo:size=22:style=Bold}${alignc}${exec @bat@ }${fo
 
 ${color2}${shadecolor a4d7d0}${font Sxmo:size=16}${alignc}⇅ ${downspeedf wlan0}K/s${font}
 ${font Sxmo:size=16}${alignc}☵ $memperc%  $cpu%${font}
+
+
+${color1}${shadecolor}${font Sxmo:size=22:style=Bold}${alignc}${exec @weather@ }${font}
 ]]

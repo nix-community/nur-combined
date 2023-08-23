@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+# to get GWeather logging, run with
+# `G_MESSAGES_DEBUG=GWeather`
+import argparse
+import code
+import gi
+import logging
+
+gi.require_version('GWeather', '4.0')
+
+from gi.repository import GLib
+from gi.repository import GWeather
+
+logger = logging.getLogger(__name__)
+
+class WeatherSource:
+    def __init__(self):
+        self.info = GWeather.Info()
+        self.info.set_application_id('org.uninsane.sane-weather')
+        self.info.set_contact_info('contact@uninsane.org')
+        self.world = GWeather.Location.get_world()
+
+    def query_loc(self, loc: GWeather.Location) -> None:
+        logger.debug(f"querying: {loc.get_coords()}")
+        self.info.set_location(loc)
+        self.info.update()
+
+    def try_get_celcius(self) -> float | None:
+        valid, temp = self.info.get_value_temp(GWeather.TemperatureUnit.CENTIGRADE)
+        logger.debug(f"try_get_celcius: valid={valid}, temp={temp}")
+        if not valid: temp = None
+
+        return temp
+
+class QueryOp:
+    def __init__(self, loc: GWeather.Location):
+        self.loc = loc
+
+class PrintTempOp:
+    pass
+
+class DiagnosticsOp:
+    pass
+
+class ExitOp:
+    pass
+
+class TopLevel:
+    def __init__(self):
+        self._loop = GLib.MainLoop()
+        self.source = WeatherSource()
+        self.work_queue = []
+
+    def enqueue(self, op) -> None:
+        self.work_queue.append(op)
+
+    def run(self) -> None:
+        self.enqueue(ExitOp())
+        GLib.idle_add(self.poll)
+        self._loop.run()
+
+    def poll(self) -> bool:
+        work = self.work_queue[0]
+        if isinstance(work, QueryOp):
+            del self.work_queue[0]
+            self.source.query_loc(work.loc)
+        elif isinstance(work, PrintTempOp):
+            temp = self.source.try_get_celcius()
+            if temp is not None:
+                del self.work_queue[0]
+                print(f"{int(temp)} C")
+        elif isinstance(work, DiagnosticsOp):
+            del self.work_queue[0]
+            # GWeather does transparent caching so that we don't usually hit the web
+            last_update = self.source.info.get_update()
+            logger.debug(f"last update: {last_update}")
+        elif isinstance(work, ExitOp):
+            logger.debug("quitting GLib MainLoop")
+            self.source.info.store_cache()
+            self._loop.quit()
+        else:
+            assert False, f"unknown work: {work}"
+
+        return True  # re-queue this idle fn
+
+
+def main():
+    logging.basicConfig()
+
+    parser = argparse.ArgumentParser(description="acquire weather information for user display")
+    parser.add_argument('--break-before', action='store_true', help='drop into a REPL before do anything (for debugging)')
+    parser.add_argument('--break-after', action='store_true', help='drop into a REPL after completing the work (for debugging)')
+    parser.add_argument('--verbose', action='store_true', help='enable verbose logging')
+
+    args = parser.parse_args()
+
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+        GLib.log_set_debug_enabled(True)
+
+    toplevel = TopLevel()
+    # for now, hardcoded; four-letter station code is that from METAR:
+    # - <https://aviationweather.gov/metar>
+    here = GWeather.Location.find_by_station_code(toplevel.source.world, 'KSEA')
+
+    if args.break_before:
+        code.interact(local=dict(**globals(), **locals()))
+
+    toplevel.enqueue(QueryOp(here))
+    toplevel.enqueue(PrintTempOp())
+    toplevel.enqueue(DiagnosticsOp())
+    toplevel.run()
+
+    if args.break_after:
+        code.interact(local=dict(**globals(), **locals()))
+
+
+if __name__ == '__main__':
+    main()

@@ -279,6 +279,7 @@ in
         in pkgs.substituteAll {
           src = ./conky-config;
           bat = "${battery_estimate}/bin/battery_estimate";
+          weather = "${pkgs.sane-weather}/bin/sane-weather";
         };
       }
 
