@@ -39,20 +39,20 @@
     "idea-community": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIC-{version}.tar.gz",
-      "version": "2023.2",
-      "sha256": "b1a5c267ca86850764b0541bee0c27af7d2082e55516e95a0c8d30539571735c",
-      "url": "https://download.jetbrains.com/idea/ideaIC-2023.2.tar.gz",
+      "version": "2023.2.1",
+      "sha256": "2a11cd6d8f245e4afb99286255e50b7b84a55dbbfaba3bdb7c0f7027803a0e8d",
+      "url": "https://download.jetbrains.com/idea/ideaIC-2023.2.1.tar.gz",
       "version-major-minor": "2022.3",
-      "build_number": "232.8660.185"
+      "build_number": "232.9559.62"
     },
     "idea-ultimate": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIU-{version}.tar.gz",
-      "version": "2023.2",
-      "sha256": "d398599557cc732fd1f58f38104d7cda35e326e4cd394245a8358e02fb8878b3",
-      "url": "https://download.jetbrains.com/idea/ideaIU-2023.2.tar.gz",
+      "version": "2023.2.1",
+      "sha256": "8ac0a30e2a063f606e0fcfcd49ab59f9c851c3daed942134c81886bca35212d9",
+      "url": "https://download.jetbrains.com/idea/ideaIU-2023.2.1.tar.gz",
       "version-major-minor": "2022.2",
-      "build_number": "232.8660.185"
+      "build_number": "232.9559.62"
     },
     "mps": {
       "update-channel": "MPS RELEASE",
