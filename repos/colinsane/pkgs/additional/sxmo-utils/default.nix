@@ -7,6 +7,7 @@
 , busybox
 , conky
 , coreutils
+, curl
 , dbus
 , fetchgit
 , fetchpatch
@@ -19,6 +20,7 @@
 , jq
 , lib
 , libnotify
+, libxml2
 , lisgd
 , makeBinaryWrapper
 , mako
@@ -47,6 +49,7 @@ let
     bemenu
     bonsai
     conky
+    curl
     dbus
     # dmenu  # or dmenu-wayland? only used on x11?
     gnugrep  # also in busybox
@@ -56,6 +59,7 @@ let
     j4-dmenu-desktop
     jq
     libnotify
+    libxml2.bin  # for xmllint; sxmo_weather.sh, sxmo_surf_linkset.sh
     lisgd
     mako
     mepo  # mepo_ui_central_menu.sh

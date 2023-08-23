@@ -47,12 +47,17 @@ titlebar_border_thickness 1
 titlebar_padding 12 1
 title_align center
 
+# tabbed windows by default
+workspace_layout tabbed
+
 ### tab colors (#border #background #text [#indicator #childBorder])
-# fucused & unfocused are the main interest
+# focused & unfocused are the main interest
+# urgent is used when an inactive window wants attention (e.g. terminal rings a bell)
+# colors are synchronized with waybar and mpv
 client.focused          #1f5e54 #418379 #ffffff
 client.focused_inactive #1f5e54 #5f676a #ffffff
 client.unfocused        #1f5e54 #1f554c #b4b4b4
-client.urgent           #e64291 #e64291 #ffffff
+client.urgent           #ff8080 #ff8080 #ffffff
 
 ### Key bindings
 #
