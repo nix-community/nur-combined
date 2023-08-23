@@ -24,9 +24,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-ZWvxi000wxjCzAe8PnzLb3z7smBc95gky0WyrkzVmEc=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoHash = "sha256-ohovhwm/lIcNRorHtiluBVVVLIsaft/godDmte2hl9M=";
 
   outputs = [ "out" ] ++ lib.optional (!isCross) "man";
 
