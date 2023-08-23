@@ -173,6 +173,8 @@ in rec {
   micronaut-cli-2_2_2 = micronautCliPkgs.micronaut-cli-2_2_2;
   micronaut-cli-2_4_2 = micronautCliPkgs.micronaut-cli-2_4_2;
 
+  mcsleepingserverstarter-1_6_0 = pkgs.callPackage ./pkgs/mcsleepingserverstarter { };
+
   spring-boot-cli-2_2_6 = springBootCliPkgs.spring-boot-cli-2_2_6;
   spring-boot-cli-2_2_7 = springBootCliPkgs.spring-boot-cli-2_2_7;
   spring-boot-cli-2_4_1 = springBootCliPkgs.spring-boot-cli-2_4_1;
