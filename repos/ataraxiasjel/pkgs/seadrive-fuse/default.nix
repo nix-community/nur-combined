@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     owner = "haiwen";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-EQtJFQ4b9enmawjV/GM6GQ/GwmRc6P8wh2AI3A1Q5so=";
+    hash = "sha256-t8gxZVge6rzp/N5s4F6cQhbnvsxtlvlWZwFETIBCEn0=";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
