@@ -74,7 +74,7 @@ in {
     pytorrentsearch
     # LSPs
     nixd
-    python-lsp-server
+    python3Packages.python-lsp-server
   ] ;
 
   # programs.hello-world.enable = true;
