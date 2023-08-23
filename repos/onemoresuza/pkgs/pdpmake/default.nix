@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A Public domain POSIX make ";
+    description = "A Public domain POSIX make";
     homepage = "https://github.com/rmyorston/pdpmake";
     license = licenses.unlicense;
     platforms = platforms.unix;

@@ -23,10 +23,12 @@ trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWo
     1. [appendURL][appendURL]: *Appends url from clipboard to the playlist*.
 - [IRust][irust]: *Cross Platform Rust Repl*.
 - [Junest][junest]: *A lightweight Arch Linux based distro*.
-  **NOTE**: currently not working on NixOS; see [pull request 282][pull-request-282].
+    **NOTE**: currently not working on NixOS; see [pull request 282][pull-request-282].
+- [pdpmake][pdpmake]: *A public domain POSIX make*
 
 [ttf-literation]: <https://www.nerdfonts.com/> "A ttf Nerd Font based on ttf-liberation"
 [appendURL]: <https://github.com/jonniek/mpv-scripts/> "Appends url from clipboard to the playlist"
 [irust]: <https://github.com/sigmaSd/IRust/> "Cross Platform Rust Repl"
 [junest]: <https://github.com/fsquillace/junest> "A lightweight Arch Linux based distro"
 [pull-request-282]: <https://github.com/fsquillace/junest/pull/282>
+[pdpmake]: <https://github.com/rmyorston/pdpmake> "A public domain POSIX make"
