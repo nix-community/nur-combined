@@ -92,34 +92,35 @@
 (let [
   lspconfig (require :lspconfig)
 
+  bufopts { :noremap true :silent true }
+
   lsp (fn [name options]
     (local opts (or options {}))
     (tset opts :on_attach (fn [client bufnr]
         (when (and options (. options :on_attach))
           ((. options :on_attach) client bufnr))
-        ;; LSP mappings
-        (local bufopts { :noremap true :silent true :buffer bufnr })
-        (vim.keymap.set :n :gD vim.lsp.buf.declaration  bufopts)
-        (vim.keymap.set :n :gd vim.lsp.buf.definition bufopts)
-        (vim.keymap.set :n :K vim.lsp.buf.hover bufopts)
-        (vim.keymap.set :n :gi vim.lsp.buf.implementation bufopts)
-        (vim.keymap.set :n :<C-k> vim.lsp.buf.signature_help bufopts)
-        (vim.keymap.set :n :<space>wa vim.lsp.buf.add_workspace_folder bufopts)
-        (vim.keymap.set :n :<space>wr vim.lsp.buf.remove_workspace_folder bufopts)
-        (vim.keymap.set :n :<space>wl (fn [] (print (vim.inspect (vim.lsp.buf.list_workspace_folders)))) bufopts)
-        (vim.keymap.set :n :<space>D vim.lsp.buf.type_definition bufopts)
-        (vim.keymap.set :n :<space>rn vim.lsp.buf.rename bufopts)
-        (vim.keymap.set :n :<space>ca vim.lsp.buf.code_action bufopts)
-        (vim.keymap.set :n :gr vim.lsp.buf.references bufopts)
-        (vim.keymap.set :n :<space>f vim.lsp.buf.formatting bufopts)
         (print "LSP kicked in")
     ))
     (local coqed (coq.lsp_ensure_capabilities opts))
     (assert (. lspconfig name) (.. "The server " name " is not defined on lspconfig"))
-    ((. (. lspconfig name) :setup) coqed)
-  )
+    ((. (. lspconfig name) :setup) coqed))
 
+  normal-map (fn [key handler]
+      (when handler (vim.keymap.set :n key handler bufopts)))
 ] (do
+  (normal-map :K vim.lsp.buf.hover)
+  (normal-map :gD vim.lsp.buf.declaration)
+  (normal-map :gd vim.lsp.buf.definition)
+  (normal-map :gi vim.lsp.buf.implementation)
+  (normal-map :<C-k> vim.lsp.buf.signature_help)
+  (normal-map :<leader>wa vim.lsp.buf.add_workspace_folder)
+  (normal-map :<leader>wr vim.lsp.buf.remove_workspace_folder)
+  (normal-map :<leader>wl (fn [] (print (vim.inspect (vim.lsp.buf.list_workspace_folders)))))
+  (normal-map :<leader>D vim.lsp.buf.type_definition)
+  (normal-map :<leader>rn vim.lsp.buf.rename)
+  (normal-map :<leader>ca vim.lsp.buf.code_action)
+  (normal-map :gr vim.lsp.buf.references)
+  (normal-map :<leader>f vim.lsp.buf.formatting)
 
   ;; LSP
   (lsp :ansiblels) ;; Ansible
