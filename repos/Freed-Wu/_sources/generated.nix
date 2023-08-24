@@ -36,6 +36,14 @@
       sha256 = "sha256-V/oY7VnulJUqI0EVPq40/JACDLTrsmzopzJDNBGc+Bo=";
     };
   };
+  make-language-server = {
+    pname = "make-language-server";
+    version = "0.0.3";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/m/make-language-server/make-language-server-0.0.3.tar.gz";
+      sha256 = "sha256-ahynXFjQtVNOewNkcRvVw28l6DGmYEsigDJgVVmKGXM=";
+    };
+  };
   manpager = {
     pname = "manpager";
     version = "0.0.1";

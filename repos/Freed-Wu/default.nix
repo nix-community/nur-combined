@@ -35,6 +35,7 @@ let
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
     autoconf-language-server = callPackage ./pkgs/development/python-modules/autoconf-language-server { };
     bitbake-language-server = callPackage ./pkgs/development/python-modules/bitbake-language-server { };
+    make-language-server = callPackage ./pkgs/development/python-modules/make-language-server { };
     pkgbuild-language-server = callPackage ./pkgs/development/python-modules/pkgbuild-language-server { };
     portage-language-server = callPackage ./pkgs/development/python-modules/portage-language-server { };
     requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
