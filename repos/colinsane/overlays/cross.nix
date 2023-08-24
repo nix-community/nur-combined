@@ -940,6 +940,25 @@ in {
   #   # fixes "Run-time dependency vapigen found: NO (tried pkgconfig)"
   #   buildInputs = upstream.buildInputs ++ [ final.vala ];
   # });
+  libgweather = (prev.libgweather.override {
+    # we need introspection for bindings, used by e.g.
+    # - gnome.gnome-weather (javascript)
+    # - sane-weather (python)
+    #
+    # enabling introspection on cross is tricky because `gen_locations_variant.py`
+    # outputs binary files (Locations.bin) which use the endianness of the build machine
+    # OTOH, aarch64 and x86_64 have same endianness: why not just ignore the issue, then?
+    # upstream issue (loosely related): <https://gitlab.gnome.org/GNOME/libgweather/-/issues/154>
+    withIntrospection = true;
+  }).overrideAttrs (upstream: {
+    # TODO: the `is_cross_build` change to meson.build is in nixpkgs, but specifies the wrong filepath
+    #   (libgweather/meson.build instead of meson.build)
+    postPatch = (upstream.postPatch or "") + ''
+      sed -i '2i import os; os.environ["GI_TYPELIB_PATH"] = ""' build-aux/meson/gen_locations_variant.py
+      substituteInPlace meson.build \
+        --replace "g_ir_scanner.found() and not meson.is_cross_build()" "g_ir_scanner.found()"
+    '';
+  });
 
   # libsForQt5 = prev.libsForQt5.overrideScope' (self: super: {
   #   qgpgme = super.qgpgme.overrideAttrs (orig: {
@@ -1669,33 +1688,6 @@ in {
   #     exec ${lib.getBin final.stdenv.cc}/bin/${final.stdenv.cc.targetPrefix}cc -E $@;
   #   '';
   # });
-
-  sane-weather = prev.sane-weather.override {
-    # we need introspection to be able to call libgweather from python,
-    # but introspection's only built for non-cross.
-    # enabling introspection on cross is tricky because `gen_locations_variant.py`
-    # outputs binary files (Locations.bin) which use the endianness of the build machine
-    # OTOH, aarch64 and x86_64 have same endianness: why not just ignore the issue, then?
-    # upstream issue (loosely related): <https://gitlab.gnome.org/GNOME/libgweather/-/issues/154>
-    # libgweather = buildInQemu (final.libgweather.override {
-    #   gobject-introspection = final.gobject-introspection.override {
-    #     buildPackages = final;
-    #   };
-    #   python3.pythonForBuild = final.python3;
-    #   # withIntrospection = false;
-    # });
-    libgweather = (final.libgweather.override {
-      withIntrospection = true;
-    }).overrideAttrs (upstream: {
-      # TODO: the `is_cross_build` change to meson.build is in nixpkgs, but specifies the wrong filepath
-      #   (libgweather/meson.build instead of meson.build)
-      postPatch = (upstream.postPatch or "") + ''
-        sed -i '2i import os; os.environ["GI_TYPELIB_PATH"] = ""' build-aux/meson/gen_locations_variant.py
-        substituteInPlace meson.build \
-          --replace "g_ir_scanner.found() and not meson.is_cross_build()" "g_ir_scanner.found()"
-      '';
-    });
-  };
 
   # sequoia = prev.sequoia.override {
   #   # fails to fix original error

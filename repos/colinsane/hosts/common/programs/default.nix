@@ -19,6 +19,7 @@
     ./git.nix
     ./gnome-feeds.nix
     ./gnome-keyring.nix
+    ./gnome-weather.nix
     ./gpodder.nix
     ./gthumb.nix
     ./helix.nix

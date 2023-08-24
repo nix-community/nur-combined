@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 # to get GWeather logging, run with
 # `G_MESSAGES_DEBUG=GWeather`
+
+# queries weather from public (gov) sources and renders it to stdout.
+# primary consumer is conky.
+# very limited; libgweather is a little iffy and doesn't expose everything the raw APIs do
+#   e.g. no precise precipitation predictions.
+#
+# future work:
+# - consider using python-native pynws: <https://github.com/MatthewFlamm/pynws>
+#   - it's well-factored, exposing a nice interface but letting me dig as deep as i want wherever that's incomplete.
+# - render a graph with rain + temperature forecast
+#   - conky supports graphs with [execgraph](https://conky.cc/variables#execgraph)
+
 import argparse
 import code
 import gi
@@ -31,8 +43,10 @@ class WeatherSource:
             # - MET_NO
             # - NWS    # api.weather.gov; provides hourly temperature, dewpoint, humidity, sky cover, wind, precipitation, snow; daily min/max temp,
             # - OWM
-            GWeather.Provider.METAR |
-            GWeather.Provider.NWS
+            # METAR, if you only want immediate conditions
+            GWeather.Provider.METAR
+            # METAR + NWS, if you want a forecast
+            # GWeather.Provider.METAR | GWeather.Provider.NWS
         )
         self.world = GWeather.Location.get_world()
 
@@ -95,7 +109,7 @@ class TopLevel:
             temp = self.source.try_get_celcius()
             if temp is not None:
                 del self.work_queue[0]
-                print(f"{int(temp)} C")
+                print(f"{int(temp)}°C")
         elif isinstance(work, DiagnosticsOp):
             del self.work_queue[0]
             # GWeather does transparent caching so that we don't usually hit the web

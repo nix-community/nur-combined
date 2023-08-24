@@ -34,7 +34,7 @@
       # "gnome-podcasts"
       # "gnome.gnome-system-monitor"
       # "gnome.gnome-terminal"  # works on phosh
-      # "gnome.gnome-weather"
+      "gnome.gnome-weather"
       "gpodder"
       "gthumb"
       "komikku"
