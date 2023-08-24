@@ -1,5 +1,6 @@
 { writeShellScriptBin
 , weechat-matrix
+, curl
 , openMode ? "xdg-open"
 }: let
   opener = {
@@ -11,18 +12,22 @@ in writeShellScriptBin "emxc" ''
   set -eu
 
   if [[ $# -gt 0 ]]; then
-    EXMC="$1"
+    URL="$1"
   else
     echo no args specified >&2
     exit 1
   fi
 
   if [[ $# -gt 1 ]]; then
-    OUT=$(mktemp --tmpdir "emxc.$2.XXXXXXXXXX")
+    OUT=$(mktemp --tmpdir --suffix=".$2" emxc.XXXXXXXXXX)
   else
     OUT=$(mktemp --tmpdir emxc.XXXXXXXXXX)
   fi
 
-  ${weechat-matrix}/bin/matrix_decrypt "$EXMC" "$OUT"
+  if [[ $URL = emxc://* ]]; then
+    ${weechat-matrix}/bin/matrix_decrypt "$URL" "$OUT"
+  else
+    ${curl}/bin/curl -LsSfo "$OUT" "$URL"
+  fi
   ${opener} "$OUT"
 ''
