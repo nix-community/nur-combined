@@ -19,26 +19,26 @@
 
     amdgpu-dkms = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms_6.0.5.50503-1620033.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms_6.2.4.50700-1637781.22.04_all.deb";
       name = "amdgpu-dkms";
       sha256 =
-        "f5e641366369ba334ab422af9e3d21852aeea5b5b01a1182d0ab6c6c4252de60";
+        "f714f28c190754ed0564d8f4eae34a3c8e26299e7b0eeae2dc7b8adaa78299f9";
     });
 
     amdgpu-dkms-firmware = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_6.0.5.50503-1620033.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_6.2.4.50700-1637781.22.04_all.deb";
       name = "amdgpu-dkms-firmware";
       sha256 =
-        "4092ec684ffd840e5b68a340bb77bcede9c7f6b7e20ca9d2c8e8d6cbd7a2b962";
+        "3a0f5564a86f92c5e2d53bfc4aab275945b611fc87e766092ef37bcc503dd6a1";
     });
 
     amdgpu-dkms-headers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-headers_6.0.5.50503-1620033.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-headers_6.2.4.50700-1637781.22.04_all.deb";
       name = "amdgpu-dkms-headers";
       sha256 =
-        "b6a4cb41977f3ca404412bc858f9c44daff159ecc57cd27ce4d714fc55e68fc0";
+        "b5ac391a2654f66432465ad5e9414e002d93c9a2626d9edfe2fecddf568c4fc6";
     });
 
     amdgpu-doc = (fetchurl {
@@ -91,10 +91,10 @@
 
     libdrm-amdgpu-common = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.50503-1630490.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.50503-1636786.22.04_all.deb";
       name = "libdrm-amdgpu-common";
       sha256 =
-        "142f664971682d0bb49f84577003aa70561498605bb689cfda821563051d53c4";
+        "c2a40bf306e28b362af9edda3b8bf78f404b8ad9a277623ccc7eea3ec8631be4";
     });
 
     libdrm-amdgpu-dev = (fetchurl {
@@ -555,26 +555,26 @@
 
     amdgpu-dkms = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms_6.0.5.50503-1620033.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms_6.2.4.50700-1637781.22.04_all.deb";
       name = "amdgpu-dkms";
       sha256 =
-        "f5e641366369ba334ab422af9e3d21852aeea5b5b01a1182d0ab6c6c4252de60";
+        "f714f28c190754ed0564d8f4eae34a3c8e26299e7b0eeae2dc7b8adaa78299f9";
     });
 
     amdgpu-dkms-firmware = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_6.0.5.50503-1620033.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_6.2.4.50700-1637781.22.04_all.deb";
       name = "amdgpu-dkms-firmware";
       sha256 =
-        "4092ec684ffd840e5b68a340bb77bcede9c7f6b7e20ca9d2c8e8d6cbd7a2b962";
+        "3a0f5564a86f92c5e2d53bfc4aab275945b611fc87e766092ef37bcc503dd6a1";
     });
 
     amdgpu-dkms-headers = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-headers_6.0.5.50503-1620033.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-headers_6.2.4.50700-1637781.22.04_all.deb";
       name = "amdgpu-dkms-headers";
       sha256 =
-        "b6a4cb41977f3ca404412bc858f9c44daff159ecc57cd27ce4d714fc55e68fc0";
+        "b5ac391a2654f66432465ad5e9414e002d93c9a2626d9edfe2fecddf568c4fc6";
     });
 
     amdgpu-doc = (fetchurl {
@@ -603,10 +603,10 @@
 
     libdrm-amdgpu-common = (fetchurl {
       url =
-        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.50503-1630490.22.04_all.deb";
+        "https://repo.radeon.com/amdgpu/5.5.3/ubuntu/pool/main/libd/libdrm-amdgpu-common/libdrm-amdgpu-common_1.0.0.50503-1636786.22.04_all.deb";
       name = "libdrm-amdgpu-common";
       sha256 =
-        "142f664971682d0bb49f84577003aa70561498605bb689cfda821563051d53c4";
+        "c2a40bf306e28b362af9edda3b8bf78f404b8ad9a277623ccc7eea3ec8631be4";
     });
 
     libdrm-amdgpu-dev = (fetchurl {
