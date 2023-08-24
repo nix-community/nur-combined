@@ -5,6 +5,7 @@ import argparse
 import code
 import gi
 import logging
+import time
 
 gi.require_version('GWeather', '4.0')
 
@@ -14,13 +15,32 @@ from gi.repository import GWeather
 logger = logging.getLogger(__name__)
 
 class WeatherSource:
+    '''
+    this class abstracts operations which would query a remote weather server
+    '''
     def __init__(self):
         self.info = GWeather.Info()
         self.info.set_application_id('org.uninsane.sane-weather')
         self.info.set_contact_info('contact@uninsane.org')
+
+        self.info.set_enabled_providers(
+            # defaults to METAR | IWIN.
+            # options are:
+            # - IWIN   # graphical.weather.gov; provides daily min/max temp, precipitation
+            # - METAR  # aviationweather.gov; provides current time, wind, visibility, conditions, clouds, temperature, pressure
+            # - MET_NO
+            # - NWS    # api.weather.gov; provides hourly temperature, dewpoint, humidity, sky cover, wind, precipitation, snow; daily min/max temp,
+            # - OWM
+            GWeather.Provider.METAR |
+            GWeather.Provider.NWS
+        )
         self.world = GWeather.Location.get_world()
 
     def query_loc(self, loc: GWeather.Location) -> None:
+        '''
+        query the weather for some location, asynchronously.
+        after calling, poll the `try_...` methods to check for results.
+        '''
         logger.debug(f"querying: {loc.get_coords()}")
         self.info.set_location(loc)
         self.info.update()
@@ -32,20 +52,27 @@ class WeatherSource:
 
         return temp
 
-class QueryOp:
-    def __init__(self, loc: GWeather.Location):
-        self.loc = loc
+    # potentially interesting methods on GWeather.Info:
+    # - get_conditions              # returns '-'
+    # - get_forecast_list           # forecast as a list of GWeather.Info instances (daily if IWIN; hourly if NWS)
+    # - get_sky                     # like 'Clear sky'
+    # - get_sunrise, get_sunset     # like '13∶10', '03∶04' (utc time)
+    # - get_symbolic_icon_name      # like 'weather-clear-night-symbolic'
+    # - get_temp_min, get_temp_max  # returns '-'
+    # - get_temp_summary()          # same as get_temp()
+    # - get_update()                # like 'Thu, Aug 24 / 13∶00'
+    # - get_wind()                  # like 'North / 13.0 km/h'
+    # - get_visibility()            # like '16093m'
+    # - get_weather_summary()       # like 'Seattle-Tacoma International Airport: Clear sky'
 
-class PrintTempOp:
-    pass
-
-class DiagnosticsOp:
-    pass
-
-class ExitOp:
-    pass
 
 class TopLevel:
+    """
+    this class acts as the "event loop" which glib apps expect.
+    caller sets up a "work queue" of everything they want to do, then calls `run`.
+    glib calls `poll` in a loop, and each time we try to work through another item in the work_queue.
+    when the work_queue is empty, exit glib's main loop & return to the caller (from `run`).
+    """
     def __init__(self):
         self._loop = GLib.MainLoop()
         self.source = WeatherSource()
@@ -78,16 +105,49 @@ class TopLevel:
             logger.debug("quitting GLib MainLoop")
             self.source.info.store_cache()
             self._loop.quit()
+        elif isinstance(work, IdleOp):
+            del self.work_queue[0]
+            logger.debug("micro sleep")
+            time.sleep(0.1)
         else:
             assert False, f"unknown work: {work}"
 
-        return True  # re-queue this idle fn
+        # micro sleep so we don't peg CPU
+        # TODO: i'm sure there's a better way than all of this
+        time.sleep(0.05)
+        # re-queue this idle fn
+        return True
+
+# operations:
+# think of these as public methods on the `TopLevel` class,
+# except abstracted as values for the sake of glib's event loop.
+class QueryOp:
+    def __init__(self, loc: GWeather.Location):
+        self.loc = loc
+
+class PrintTempOp:
+    pass
+
+class DiagnosticsOp:
+    pass
+
+class IdleOp:
+    pass
+
+class ExitOp:
+    pass
 
 
 def main():
     logging.basicConfig()
 
     parser = argparse.ArgumentParser(description="acquire weather information for user display")
+    parser.add_argument(
+        '--station-code',
+        default='KSEA',
+        help='4-letter METAR weather station code for where we want to know weather\n '
+             'to find your station see here: <https://aviationweather.gov/metar>'
+    )
     parser.add_argument('--break-before', action='store_true', help='drop into a REPL before do anything (for debugging)')
     parser.add_argument('--break-after', action='store_true', help='drop into a REPL after completing the work (for debugging)')
     parser.add_argument('--verbose', action='store_true', help='enable verbose logging')
@@ -99,9 +159,7 @@ def main():
         GLib.log_set_debug_enabled(True)
 
     toplevel = TopLevel()
-    # for now, hardcoded; four-letter station code is that from METAR:
-    # - <https://aviationweather.gov/metar>
-    here = GWeather.Location.find_by_station_code(toplevel.source.world, 'KSEA')
+    here = GWeather.Location.find_by_station_code(toplevel.source.world, args.station_code)
 
     if args.break_before:
         code.interact(local=dict(**globals(), **locals()))
@@ -109,6 +167,10 @@ def main():
     toplevel.enqueue(QueryOp(here))
     toplevel.enqueue(PrintTempOp())
     toplevel.enqueue(DiagnosticsOp())
+
+    # for _ in range(300):  # for debugging...
+    #     toplevel.enqueue(IdleOp())
+
     toplevel.run()
 
     if args.break_after:

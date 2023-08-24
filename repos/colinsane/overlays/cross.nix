@@ -912,6 +912,16 @@ in {
       buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
     });
   };
+  libavif = prev.libavif.overrideAttrs (upstream: {
+    # unique build failure encountered only when cross compiling WITH binfmt enabled.
+    # without binfmt it compiles fine.
+    postInstall = let
+      gdkPixbufModuleFile = "${placeholder "out"}/${final.gdk-pixbuf.binaryDir}/avif-loaders.cache";
+    in ''
+      GDK_PIXBUF_MODULE_FILE=${gdkPixbufModuleFile} \
+        gdk-pixbuf-query-loaders --update-cache
+    '';
+  });
   # libgweather = rmNativeInputs [ final.glib ] (prev.libgweather.override {
   #   # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
   #   #   but presumably that's just a different way to emulate it.
@@ -1334,89 +1344,95 @@ in {
   #   inherit (emulated) stdenv;
   # };
 
-  # pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-  #   (py-final: py-prev: {
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (py-final: py-prev: {
 
-  #     # aiohttp = py-prev.aiohttp.overridePythonAttrs (orig: {
-  #     #   # fixes "ModuleNotFoundError: No module named 'setuptools'"
-  #     #   propagatedBuildInputs = orig.propagatedBuildInputs ++ [
-  #     #     py-final.setuptools
-  #     #   ];
-  #     # });
+      # aiohttp = py-prev.aiohttp.overridePythonAttrs (orig: {
+      #   # fixes "ModuleNotFoundError: No module named 'setuptools'"
+      #   propagatedBuildInputs = orig.propagatedBuildInputs ++ [
+      #     py-final.setuptools
+      #   ];
+      # });
 
-  #     # 2023/08/03: fix is in staging:
-  #     # - <https://github.com/NixOS/nixpkgs/pull/244135>
-  #     # cryptography = py-prev.cryptography.override {
-  #     #   inherit (emulated) cargo rustc rustPlatform;  # "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
-  #     # };
+      # 2023/08/03: fix is in staging:
+      # - <https://github.com/NixOS/nixpkgs/pull/244135>
+      # cryptography = py-prev.cryptography.override {
+      #   inherit (emulated) cargo rustc rustPlatform;  # "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
+      # };
 
-  #     # defcon = py-prev.defcon.overridePythonAttrs (orig: {
-  #     #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.nativeCheckInputs;
-  #     # });
-  #     # executing = py-prev.executing.overridePythonAttrs (orig: {
-  #     #   # test has an assertion that < 1s of CPU time elapsed => flakey
-  #     #   disabledTestPaths = orig.disabledTestPaths or [] ++ [
-  #     #     # "tests/test_main.py::TestStuff::test_many_source_for_filename_calls"
-  #     #     "tests/test_main.py"
-  #     #   ];
-  #     # });
-  #     # h5py = py-prev.h5py.overridePythonAttrs (orig: {
-  #     #   # XXX: can't upstream until its dependency, hdf5, is fixed. that looks TRICKY.
-  #     #   # - the `setup_configure.py` in h5py tries to dlopen (and call into) the hdf5 lib to query the version and detect features like MPI
-  #     #   # - it could be patched with ~10 LoC in the HDF5LibWrapper class.
-  #     #   #
-  #     #   # expose numpy and hdf5 as available at build time
-  #     #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs ++ orig.buildInputs;
-  #     #   buildInputs = [];
-  #     #   # HDF5_DIR = "${hdf5}";
-  #     # });
-  #     # ipython = py-prev.ipython.overridePythonAttrs (orig: {
-  #     #   # fixes "FAILED IPython/terminal/tests/test_debug_magic.py::test_debug_magic_passes_through_generators - pexpect.exceptions.TIMEOUT: Timeout exceeded."
-  #     #   disabledTests = orig.disabledTests ++ [ "test_debug_magic_passes_through_generator" ];
-  #     # });
-  #     # mutatormath = py-prev.mutatormath.overridePythonAttrs (orig: {
-  #     #   nativeBuildInputs = orig.nativeBuildInputs or [] ++ orig.nativeCheckInputs;
-  #     # });
-  #     # pandas = py-prev.pandas.overridePythonAttrs (orig: {
-  #     #   # XXX: we only actually need numpy when building in ~/nixpkgs repo: not sure why we need all the propagatedBuildInputs here.
-  #     #   # nativeBuildInputs = orig.nativeBuildInputs ++ [ py-final.numpy ];
-  #     #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs;
-  #     # });
-  #     # psycopg2 = py-prev.psycopg2.overridePythonAttrs (orig: {
-  #     #   # TODO: upstream  (see tracking issue)
-  #     #   #
-  #     #   # psycopg2 *links* against libpg, so we need the host postgres available at build time!
-  #     #   # present-day nixpkgs only includes it in nativeBuildInputs
-  #     #   buildInputs = orig.buildInputs ++ [ final.postgresql ];
-  #     # });
-  #     # s3transfer = py-prev.s3transfer.overridePythonAttrs (orig: {
-  #     #   # tests explicitly expect host CPU == build CPU
-  #     #   # Bail out! ERROR:../plugins/core.c:221:qemu_plugin_vcpu_init_hook: assertion failed: (success)
-  #     #   # Bail out! ERROR:../accel/tcg/cpu-exec.c:954:cpu_exec: assertion failed: (cpu == current_cpu)
-  #     #   disabledTestPaths = orig.disabledTestPaths ++ [
-  #     #     # "tests/functional/test_processpool.py::TestProcessPoolDownloader::test_cleans_up_tempfile_on_failure"
-  #     #     "tests/functional/test_processpool.py"
-  #     #     # "tests/unit/test_compat.py::TestBaseManager::test_can_provide_signal_handler_initializers_to_start"
-  #     #     "tests/unit/test_compat.py"
-  #     #   ];
-  #     # });
-  #     # scipy = py-prev.scipy.override {
-  #     #   inherit (emulated) stdenv;
-  #     # };
-  #     # scipy = py-prev.scipy.overridePythonAttrs (orig: {
-  #     #   # "/nix/store/yhz6yy9bp52x9fvcda4lr6kgsngxnv2l-python3.10-numpy-1.24.2/lib/python3.10/site-packages/numpy/core/include/../lib/libnpymath.a: error adding symbols: file in wrong format"
-  #     #   # mesonFlags = orig.mesonFlags or [] ++ [ "-Duse-pythran=false" ];
-  #     #   # don't know how to plumb meson falgs through python apps
-  #     #   # postPatch = orig.postPatch or "" + ''
-  #     #   #   sed -i "s/option('use-pythran', type: 'boolean', value: true,/option('use-pythran', type: 'boolean', value: false,/" meson_options.txt
-  #     #   # '';
-  #     #   SCIPY_USE_PYTHRAN = false;
-  #     #   nativeBuildInputs = lib.remove py-final.pythran orig.nativeBuildInputs;
-  #     # });
-  #     # skia-pathops = ?
-  #     #   it tries to call `cc` during the build, but can't find it.
-  #   })
-  # ];
+      # defcon = py-prev.defcon.overridePythonAttrs (orig: {
+      #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.nativeCheckInputs;
+      # });
+      # executing = py-prev.executing.overridePythonAttrs (orig: {
+      #   # test has an assertion that < 1s of CPU time elapsed => flakey
+      #   disabledTestPaths = orig.disabledTestPaths or [] ++ [
+      #     # "tests/test_main.py::TestStuff::test_many_source_for_filename_calls"
+      #     "tests/test_main.py"
+      #   ];
+      # });
+
+      eyeD3 = py-prev.eyeD3.overrideAttrs (orig: {
+        # weird double-wrapping of the output executable, but somehow with the build python ends up on PYTHONPATH
+        postInstall = "";
+      });
+
+      # h5py = py-prev.h5py.overridePythonAttrs (orig: {
+      #   # XXX: can't upstream until its dependency, hdf5, is fixed. that looks TRICKY.
+      #   # - the `setup_configure.py` in h5py tries to dlopen (and call into) the hdf5 lib to query the version and detect features like MPI
+      #   # - it could be patched with ~10 LoC in the HDF5LibWrapper class.
+      #   #
+      #   # expose numpy and hdf5 as available at build time
+      #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs ++ orig.buildInputs;
+      #   buildInputs = [];
+      #   # HDF5_DIR = "${hdf5}";
+      # });
+      # ipython = py-prev.ipython.overridePythonAttrs (orig: {
+      #   # fixes "FAILED IPython/terminal/tests/test_debug_magic.py::test_debug_magic_passes_through_generators - pexpect.exceptions.TIMEOUT: Timeout exceeded."
+      #   disabledTests = orig.disabledTests ++ [ "test_debug_magic_passes_through_generator" ];
+      # });
+      # mutatormath = py-prev.mutatormath.overridePythonAttrs (orig: {
+      #   nativeBuildInputs = orig.nativeBuildInputs or [] ++ orig.nativeCheckInputs;
+      # });
+      # pandas = py-prev.pandas.overridePythonAttrs (orig: {
+      #   # XXX: we only actually need numpy when building in ~/nixpkgs repo: not sure why we need all the propagatedBuildInputs here.
+      #   # nativeBuildInputs = orig.nativeBuildInputs ++ [ py-final.numpy ];
+      #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs;
+      # });
+      # psycopg2 = py-prev.psycopg2.overridePythonAttrs (orig: {
+      #   # TODO: upstream  (see tracking issue)
+      #   #
+      #   # psycopg2 *links* against libpg, so we need the host postgres available at build time!
+      #   # present-day nixpkgs only includes it in nativeBuildInputs
+      #   buildInputs = orig.buildInputs ++ [ final.postgresql ];
+      # });
+      # s3transfer = py-prev.s3transfer.overridePythonAttrs (orig: {
+      #   # tests explicitly expect host CPU == build CPU
+      #   # Bail out! ERROR:../plugins/core.c:221:qemu_plugin_vcpu_init_hook: assertion failed: (success)
+      #   # Bail out! ERROR:../accel/tcg/cpu-exec.c:954:cpu_exec: assertion failed: (cpu == current_cpu)
+      #   disabledTestPaths = orig.disabledTestPaths ++ [
+      #     # "tests/functional/test_processpool.py::TestProcessPoolDownloader::test_cleans_up_tempfile_on_failure"
+      #     "tests/functional/test_processpool.py"
+      #     # "tests/unit/test_compat.py::TestBaseManager::test_can_provide_signal_handler_initializers_to_start"
+      #     "tests/unit/test_compat.py"
+      #   ];
+      # });
+      # scipy = py-prev.scipy.override {
+      #   inherit (emulated) stdenv;
+      # };
+      # scipy = py-prev.scipy.overridePythonAttrs (orig: {
+      #   # "/nix/store/yhz6yy9bp52x9fvcda4lr6kgsngxnv2l-python3.10-numpy-1.24.2/lib/python3.10/site-packages/numpy/core/include/../lib/libnpymath.a: error adding symbols: file in wrong format"
+      #   # mesonFlags = orig.mesonFlags or [] ++ [ "-Duse-pythran=false" ];
+      #   # don't know how to plumb meson falgs through python apps
+      #   # postPatch = orig.postPatch or "" + ''
+      #   #   sed -i "s/option('use-pythran', type: 'boolean', value: true,/option('use-pythran', type: 'boolean', value: false,/" meson_options.txt
+      #   # '';
+      #   SCIPY_USE_PYTHRAN = false;
+      #   nativeBuildInputs = lib.remove py-final.pythran orig.nativeBuildInputs;
+      # });
+      # skia-pathops = ?
+      #   it tries to call `cc` during the build, but can't find it.
+    })
+  ];
 
   qt5 = let
     emulatedQt5 = prev.qt5.override {
@@ -1907,6 +1923,7 @@ in {
   waybar = (prev.waybar.override {
     runTests = false;
     cavaSupport = false;  # doesn't cross compile
+    hyprlandSupport = false;  # doesn't cross compile
     # hopefully fixes: "/nix/store/sc1pz0zaqwpai24zh7xx0brjinflmc6v-aarch64-unknown-linux-gnu-binutils-2.40/bin/aarch64-unknown-linux-gnu-ld: /nix/store/ghxl1zrfnvh69dmv7xa1swcbyx06va4y-wayland-1.22.0/lib/libwayland-client.so: error adding symbols: file in wrong format"
     wrapGAppsHook = final.wrapGAppsHook.override {
       isGraphical = false;

@@ -1,0 +1,49 @@
+commit 29b80763f81688f789c907f7ecba4c8063745ac2 (HEAD -> sane-dev)
+Author: Colin <colin@uninsane.org>
+Date:   2023-08-24 08:03:47 +0000
+
+    nws: fix null string comparison for visibility forecast
+
+    The API returns a json entry like `"unitCode": "wmoUnit:km"` for the
+    visibility property. All the other fields are observed to still be
+    "uom".
+
+diff --git a/libgweather/weather-nws.c b/libgweather/weather-nws.c
+index 2a7238b9..501c3523 100644
+--- a/libgweather/weather-nws.c
++++ b/libgweather/weather-nws.c
+@@ -381,6 +381,9 @@ read_interval_values (GSList *forecast_list,
+     uom = NULL;
+     if (json_object_has_member (prop, "uom")) {
+         uom = json_object_get_string_member (prop, "uom");
++    } else if (json_object_has_member (prop, "unitCode")) {
++        // The "visibility" property in forecasts uses this unique key for the unit
++        uom = json_object_get_string_member (prop, "unitCode");
+     }
+
+     read_value = (*select_read_value) (uom);
+@@ -776,6 +779,12 @@ read_visibility_m (GWeatherInfo *info, JsonNode *node)
+     info->visibility = json_node_get_double (node) / VISIBILITY_SM_TO_M (1.);
+ }
+
++static void
++read_visibility_km (GWeatherInfo *info, JsonNode *node)
++{
++    info->visibility = json_node_get_double (node) / VISIBILITY_SM_TO_KM (1.);
++}
++
+ static void
+ read_visibility_sm (GWeatherInfo *info, JsonNode *node)
+ {
+@@ -785,8 +794,10 @@ read_visibility_sm (GWeatherInfo *info, JsonNode *node)
+ static ValueReader
+ select_read_visibility (const gchar *uom)
+ {
+-    if (strcmp (uom, "wmoUnit:m") == 0) {
++    if (uom != NULL && strcmp (uom, "wmoUnit:m") == 0) {
+         return read_visibility_m;
++    } else if (uom != NULL && strcmp (uom, "wmoUnit:km") == 0) {
++        return read_visibility_km;
+     }
+     return read_visibility_sm;
+ }

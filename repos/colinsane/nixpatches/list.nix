@@ -280,12 +280,6 @@ in [
   #   hash = "sha256-Nb2LphSyv8Dayqfwqfua0eKtNzsnaf7PC/KYUhIvnT8=";
   # })
   (fetchpatch' {
-    title = "gupnp: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/246931";
-    saneCommit = "3af24c9e517689d048bb62511c6e8acf9bc55684";
-    hash = "sha256-I/+ArctOngrxacaMk82GODaodwSzmy+rh6q0J6KjMwA=";
-  })
-  (fetchpatch' {
     title = "blueman: support cross compilation";
     saneCommit = "e070195bdf213dffb0164574397b6a7417f81c9e";
     hash = "sha256-6JnIJCVBbV4tmFinX7Qv2wO2AThrgxrnyb9T4Ov6p5w=";
