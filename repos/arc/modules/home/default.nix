@@ -5,7 +5,6 @@
   devops = ./devops.nix;
   sshd = ./sshd.nix;
   ssh = ./ssh.nix;
-  gmail = ./gmail.nix;
   konawall = ./konawall.nix;
   task = ./task.nix;
   page = ./page.nix;
@@ -43,7 +42,6 @@
     imports = with self; [
       git github bitbucket devops
       sshd ssh
-      gmail
       konawall
       task
       page
