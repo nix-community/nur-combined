@@ -1,8 +1,8 @@
-self: super:
-(super.__MkPythonOverlay "scapy" (old: {
+final: prev:
+(prev.__MkPythonOverlay "scapy" (old: {
   postPatch = (old.postPatch or "") + ''
     substituteInPlace scapy/data.py \
-      --replace '"/etc/services"'  '"${super.iana-etc}/etc/services"' \
-      --replace '"/etc/protocols"' '"${super.iana-etc}/etc/protocols"'
+      --replace '"/etc/services"'  '"${prev.iana-etc}/etc/services"' \
+      --replace '"/etc/protocols"' '"${prev.iana-etc}/etc/protocols"'
   '';
-})) self super
+})) final prev

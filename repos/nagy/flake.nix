@@ -5,18 +5,11 @@
     let
       pkgs = nixpkgs.legacyPackages."x86_64-linux";
       selfImported = import self { inherit pkgs; };
-    in {
+    in
+    {
       inherit (selfImported) lib;
       overlays.default = selfImported.overlay;
-      nixosModules.default = {
-        imports = pkgs.lib.attrValues
-          (builtins.removeAttrs self.nixosModules [ "default" ]);
-      };
-      nixosModules.ssh-known-keys = {
-        services.openssh.knownHosts =
-          self.lib.mapAttrs (_: publicKey: { inherit publicKey; })
-          self.lib.sshKnownPublicKeys;
-      };
+      nixosModules = selfImported.lib.modules;
     } // (flake-utils.lib.eachDefaultSystem (system: {
       packages = flake-utils.lib.flattenTree
         (import self { pkgs = nixpkgs.legacyPackages.${system}; });

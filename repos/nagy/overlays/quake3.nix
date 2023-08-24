@@ -1,10 +1,10 @@
-self: super: {
-  quake3_pak0 = super.stdenvNoCC.mkDerivation {
+final: prev: {
+  quake3_pak0 = prev.stdenvNoCC.mkDerivation {
     name = "quake3-arena-pak0-file";
     # TODO replace with linkfarm
     # :b linkFarm "myexample" [ { name = "baseq3/pak0.pk3"; path = self.quake3_pak0; } ]
     # name = "pak0.pk3";
-    pak0 = super.requireFile {
+    pak0 = prev.requireFile {
       # nix-store --add-fixed sha256 pak0.pk3
       message = "You need to add pak0.pk3 to the nix store";
       name = "pak0.pk3";
@@ -17,8 +17,8 @@ self: super: {
     '';
   };
 
-  quake3 = super.quake3wrapper {
+  quake3 = prev.quake3wrapper {
     name = "quake3-arena";
-    paks = [ super.quake3pointrelease self.quake3_pak0 ];
+    paks = [ prev.quake3pointrelease final.quake3_pak0 ];
   };
 }

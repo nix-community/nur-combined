@@ -1,3 +1,3 @@
-self: super: {
-  inherit (super.nur.repos) nagy;
+final: prev: {
+  inherit (prev.nur.repos) nagy;
 }

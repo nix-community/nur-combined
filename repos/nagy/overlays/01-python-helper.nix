@@ -1,4 +1,4 @@
-self: super:
+final: prev:
 
 {
   __MkPythonOverlay = name: arg: newself: newsuper: {

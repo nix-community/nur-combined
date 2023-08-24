@@ -4,7 +4,7 @@ let thisLib = import ./lib { inherit pkgs lib callPackage; };
 in lib.makeScope pkgs.newScope (self:
   (thisLib.callNixFiles self.callPackage ./pkgs) // {
 
-    lib = lib.extend (self: super:
+    lib = lib.extend (final: prev:
       # this extra callPackage call is needed to give
       # the result an `override` ability.
       (callPackage ./lib { }));
