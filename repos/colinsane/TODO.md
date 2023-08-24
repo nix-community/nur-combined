@@ -58,6 +58,10 @@
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - especially, make the menubar collapsible
   - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
+- moby: try phog greeter instead of lightdm-mobile-greeter:
+  - <https://gitlab.com/mobian1/phog/>
+  - greet integration, so unlocks keyrings & such. better maintained than lightdm-mobile-greeter
+  - not in nixpkgs (2023/08/24)
 - package Nix/NixOS docs for Zeal
   - install [doc-browser](https://github.com/qwfy/doc-browser)
   - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)
