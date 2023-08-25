@@ -32,6 +32,9 @@
         "ProducerMatt": {
             "url": "https://github.com/ProducerMatt/my-nur-pkgs"
         },
+        "SuperKenVery": {
+            "url": "https://github.com/SuperKenVery/nix-user-packages/"
+        },
         "YisuiMilena": {
             "url": "https://github.com/YisuiDenghua/nur-apps"
         },
