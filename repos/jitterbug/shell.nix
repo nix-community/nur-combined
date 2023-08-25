@@ -17,6 +17,7 @@
       nixpkgs-fmt
       cachix
       patchelf
+      nurl
     ];
   };
 }
