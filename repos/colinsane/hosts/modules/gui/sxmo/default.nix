@@ -65,11 +65,13 @@ in
       type = types.bool;
     };
     sane.gui.sxmo.greeter = mkOption {
-      type = types.enum [ "lightdm-mobile" "sway" ];
+      type = types.enum [ "lightdm-mobile" "phog" "sway" ];
       default = "lightdm-mobile";
+      # default = "phog";
       description = ''
         which greeter to use.
         "lightdm-mobile" => keypad style greeter. can only enter digits 0-9 as password.
+        "phog" => phosh-based greeter. keypad (0-9) with option to open an on-screen keyboard.
         "sway" => layered sway greeter. behaves as if you booted to swaylock.
       '';
     };
@@ -340,6 +342,13 @@ in
         sane.fs."/var/log/sway" = {
           dir.acl.mode = "0777";
           wantedBeforeBy = [ "greetd.service" "display-manager.service" ];
+        };
+      })
+
+      (lib.mkIf (cfg.greeter == "phog") {
+        services.greetd = {
+          enable = true;
+          settings.default_session.command = "${pkgs.phog}/bin/phog";
         };
       })
 

@@ -25,6 +25,12 @@ in [
     hash = "sha256-CjVAFRcnTjA9DpOdwFwifgriQ9QFFGzchMB0tIVlAQM=";
   })
 
+  (fetchpatch' {
+    title = "phog: init at 0.1.3";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/251249";
+    hash = "sha256-e38Z7sO7xDQHzE9UOfbptc6vJuONE5eP9JFp2Nzx53E=";
+  })
+
   # (fetchpatch' {
   #   # TODO: check back in on this around 2023-10-01
   #   title = "libkiwix: 12.0.0 -> 12.1.0";

@@ -117,8 +117,6 @@ let
 
     # modemmanager = callPackage ./patched/modemmanager { inherit (unpatched) modemmanager; };
 
-    phoc = callPackage ./patched/phoc { inherit (unpatched) phoc; };
-
 
     ### PYTHON PACKAGES
     pythonPackagesExtensions = (unpatched.pythonPackagesExtensions or []) ++ [
