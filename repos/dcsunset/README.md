@@ -9,6 +9,9 @@
 
 ## Usage
 
+You can follow the [NUR guide](https://github.com/nix-community/NUR#how-to-use) to import the whole namespace
+and use the repo as `nur.repos.dcsunset`.
+
 To use this repo directly without the whole NUR namespace,
 add the following to your `flake.nix` config:
 

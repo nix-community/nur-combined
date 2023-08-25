@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, emacsWithPackages }:
+{ lib, stdenv, fetchFromGitHub, emacsWithPackages }:
 
 stdenv.mkDerivation rec {
   name = "modaled";
@@ -23,4 +23,10 @@ stdenv.mkDerivation rec {
     install -d $LISPDIR
     install *.el *.elc $LISPDIR
   '';
+
+  meta = with lib; {
+    description = "Build your own minor modes for modal editing in Emacs";
+    homepage = "https://github.com/DCsunset/modaled";
+    license = licenses.agpl3;
+  };
 }
