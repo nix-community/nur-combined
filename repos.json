@@ -516,6 +516,7 @@
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
+            "submodules": true,
             "url": "https://github.com/milahu/nur-packages"
         },
         "minion3665": {
