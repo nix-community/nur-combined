@@ -1,10 +1,31 @@
 { lib, pythonPackages, weechat-matrix, fetchFromGitHub, enableOlm ? true }:
 
-with pythonPackages;
+with pythonPackages; let
 
-buildPythonPackage rec {
+  matrix-nio-0_21 = (pythonPackages.matrix-nio.override {
+    logbook = null;
+  }).overridePythonAttrs (old: rec {
+    version = "0.21.2";
+    src = fetchFromGitHub {
+      owner = "poljar";
+      repo = "matrix-nio";
+      rev = version;
+      sha256 = "sha256-eK5DPmPZ/hv3i3lzoIuS9sJXKpUNhmBv4+Nw2u/RZi0=";
+    };
+  });
+  matrix-nio = if lib.versionOlder pythonPackages.matrix-nio.version "0.21"
+    then matrix-nio-0_21
+    else pythonPackages.matrix-nio;
+
+in buildPythonPackage rec {
   pname = "weechat-matrix";
-  inherit (weechat-matrix) version src;
+  version = "2023.07.23";
+  src = fetchFromGitHub {
+    owner = "poljar";
+    repo = pname;
+    rev = "feae9fda26ea9de98da9cd6733980a203115537e";
+    sha256 = "sha256-flv1XF0tZgu3qoMFfJZ2MzeHYI++t12nkq3jJkRiCQ0=";
+  };
 
   propagatedBuildInputs = [
     pyopenssl
@@ -15,15 +36,7 @@ buildPythonPackage rec {
     pygments
     requests
     python_magic
-    (matrix-nio.overridePythonAttrs (old: {
-      version = "2022-09-13";
-      src = fetchFromGitHub {
-        owner = "poljar";
-        repo = "matrix-nio";
-        rev = "9acf5edd7b11a69d03e5dbf36cbda0f19ad25636";
-        sha256 = "sha256-QL4mvvoYG1M01sPRJZCaCDIVVHUKCFDGXW79N4HiL88=";
-      };
-    }))
+    matrix-nio
   ] ++ lib.optional (pythonOlder "3.5") typing
   ++ lib.optional (pythonOlder "3.2") future
   ++ lib.optional (pythonAtLeast "3.5") aiohttp
