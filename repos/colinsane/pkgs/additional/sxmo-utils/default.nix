@@ -3,6 +3,7 @@
 , bc
 , bemenu
 , bonsai
+, brightnessctl
 , buildPackages
 , busybox
 , conky
@@ -48,6 +49,7 @@ let
     bc  # also in busybox
     bemenu
     bonsai
+    brightnessctl
     conky
     curl
     dbus

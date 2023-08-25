@@ -369,6 +369,14 @@ in {
   # bonsai = prev.bonsai.override {
   #   inherit (emulated) stdenv hare;
   # };
+
+  brightnessctl = prev.brightnessctl.overrideAttrs (upstream: {
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace Makefile \
+        --replace 'pkg-config' "$PKG_CONFIG"
+    '';
+  });
+
   # brltty = prev.brltty.override {
   #   # configure: error: no acceptable C compiler found in $PATH
   #   inherit (emulated) stdenv;
@@ -639,9 +647,11 @@ in {
     # 2023/08/01: upstreaming is blocked on nautilus, gnome-user-share (apache-httpd, webp-pixbuf-loader)
     # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
     file-roller = mvToNativeInputs [ final.glib ] super.file-roller;
+
     # 2023/08/01: upstreaming is unblocked
     # fixes: "meson.build:75:6: ERROR: Program 'gtk-update-icon-cache' not found or not executable"
-    # gnome-clocks = addNativeInputs [ final.gtk4 ] super.gnome-clocks;
+    gnome-clocks = wrapGAppsHook4Fix super.gnome-clocks;
+
     # 2023/07/31: upstreaming is blocked on argyllcms, libavif
     # fixes: "src/meson.build:3:0: ERROR: Program 'glib-compile-resources' not found or not executable"
     # gnome-color-manager = mvToNativeInputs [ final.glib ] super.gnome-color-manager;
@@ -673,31 +683,12 @@ in {
     #   #   "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
     #   # ];
     # });
-    # gnome-shell = super.gnome-shell.overrideAttrs (upstream: {
-    #   # 2023/08/01: upstreaming is blocked on argyllcms, gnome-keyring, gnome-clocks, ibus, libavif, webp-pixbuf-loader
-    #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
-    #     final.gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
-    #     final.buildPackages.gobject-introspection  # fixes "shew| Build-time dependency gobject-introspection-1.0 found: NO"
-    #   ];
-    #   buildInputs = lib.remove final.gobject-introspection upstream.buildInputs;
-    #   # try to reduce gobject-introspection/shew dependencies
-    #   # TODO: these likely aren't all necessary
-    #   mesonFlags = [
-    #     "-Dextensions_app=false"
-    #     "-Dextensions_tool=false"
-    #     "-Dman=false"
-    #     "-Dgtk_doc=false"
-    #     # fixes "src/st/meson.build:198:2: ERROR: Dependency "libmutter-test-12" not found, tried pkgconfig"
-    #     "-Dtests=false"
-    #   ];
-    #   outputs = [ "out" "dev" ];
-    #   postPatch = upstream.postPatch or "" + ''
-    #     # disable introspection for the gvc (libgnome-volume-control) subproject
-    #     # to remove its dependency on gobject-introspection
-    #     sed -i s/introspection=true/introspection=false/ meson.build
-    #     sed -i 's/libgvc_gir/# libgvc_gir/' meson.build src/meson.build
-    #   '';
-    # });
+    gnome-shell = super.gnome-shell.overrideAttrs (upstream: {
+      # 2023/08/01: upstreaming is blocked on argyllcms, gnome-keyring, gnome-clocks, ibus, libavif, webp-pixbuf-loader
+      nativeBuildInputs = upstream.nativeBuildInputs ++ [
+        final.gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
+      ];
+    });
     gnome-settings-daemon = super.gnome-settings-daemon.overrideAttrs (orig: {
       # 2023/07/31: upstreaming is blocked on argyllcms, libavif
       # glib solves: "Program 'glib-mkenums mkenums' not found or not executable"
@@ -824,6 +815,10 @@ in {
   #     final.vala  # fixes: "Package `ibus-1.0' not found in specified Vala API directories or GObject-Introspection GIR directories"
   #   ];
   # });
+  # ibus = buildInQemu (prev.ibus.override {
+  #   # not enough: still tries to execute build machine perl
+  #   buildPackages.gtk-doc = final.gtk-doc;
+  # });
 
   # fixes: "make: gcc: No such file or directory"
   # java-service-wrapper = useEmulatedStdenv prev.java-service-wrapper;
@@ -949,6 +944,8 @@ in {
       sed -i '2i import os; os.environ["GI_TYPELIB_PATH"] = ""' build-aux/meson/gen_locations_variant.py
       substituteInPlace meson.build \
         --replace "g_ir_scanner.found() and not meson.is_cross_build()" "g_ir_scanner.found()"
+      substituteInPlace libgweather/meson.build \
+        --replace "dependency('vapigen'," "dependency('vapigen', native:true,"
     '';
   });
 
@@ -1324,7 +1321,7 @@ in {
       nativeBuildInputs = [
         final.glib
         final.wayland-scanner
-        final.makeBinaryWrapper  # not makeWrapper only because nix complains
+        final.wrapGAppsHook
       ];
       # buildInputs = (upstream.buildInputs or []) ++ [
       #   # see `data/phog.in`
@@ -1343,8 +1340,11 @@ in {
     postPatch = (upstream.postPatch or "") + ''
       sed -i /phog_plugins_dir/d build-aux/post_install.py
     '';
-    postInstall = (upstream.postInstall or "") + ''
-      wrapProgram $out/bin/phog --prefix PATH : ${lib.makeBinPath [ final.bash final.squeekboard ]}
+    preFixup = (upstream.preFixup or "") + ''
+      gappsWrapperArgs+=(
+        --prefix PATH : ${lib.makeBinPath [ final.bash final.squeekboard ]}
+        --prefix XDG_DATA_DIRS : "${final.gnome.gnome-shell}/share/gsettings-schemas/${final.gnome.gnome-shell.name}"
+      )
     '';
   });
   phosh = prev.phosh.overrideAttrs (upstream: {
@@ -1753,10 +1753,10 @@ in {
     # cargoDeps = null;
     # cargoVendorDir = "vendor";
 
-    depsBuildBuild = upstream.depsBuildBuild or [] ++ [
-      final.pkg-config
-    ];
-    # this looks to be identical to upstream: probably not needed?
+    # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
+    #   final.pkg-config
+    # ];
+    # this is identical to upstream, but somehow build fails if i remove it??
     nativeBuildInputs = with final; [
       meson
       ninja
