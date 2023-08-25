@@ -259,6 +259,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       chromium-depot-tools = callPackage ./pkgs/build-support/chromium-depot-tools/chromium-depot-tools.nix { };
 
+      pypdfium2 = callPackage ./pkgs/python3/pkgs/pypdfium2/pypdfium2.nix {
+        # TODO remove
+        pdfium = pdfium-bin;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3
