@@ -66,8 +66,8 @@ in
     };
     sane.gui.sxmo.greeter = mkOption {
       type = types.enum [ "lightdm-mobile" "phog" "sway" ];
-      default = "lightdm-mobile";
-      # default = "phog";
+      # default = "lightdm-mobile";
+      default = "phog";
       description = ''
         which greeter to use.
         "lightdm-mobile" => keypad style greeter. can only enter digits 0-9 as password.
@@ -349,7 +349,16 @@ in
         services.greetd = {
           enable = true;
           settings.default_session.command = "${pkgs.phog}/bin/phog";
+          # this would be nice for debugging, but greetd swallows the logs:
+          # settings.default_session.command =
+          # let
+          #   launch-phog = pkgs.writeShellScriptBin "launch-phog" ''
+          #     echo "launching phog..."
+          #     G_MESSAGES_DEBUG=all ${pkgs.phog}/bin/phog
+          #   '';
+          # in "${launch-phog}/bin/launch-phog" ;
         };
+        environment.pathsToLink = [ "/share/wayland-sessions" ];
       })
 
       # old, greeterless options:

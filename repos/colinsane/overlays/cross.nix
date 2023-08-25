@@ -1339,6 +1339,9 @@ in {
     # '';
     postPatch = (upstream.postPatch or "") + ''
       sed -i /phog_plugins_dir/d build-aux/post_install.py
+      substituteInPlace src/greetd.c \
+        --replace '/usr/share/wayland-sessions' '/run/current-system/sw/share/wayland-sessions/' \
+        --replace '/usr/share/xsessions' '/run/current-system/sw/share/xsessions'
     '';
     preFixup = (upstream.preFixup or "") + ''
       gappsWrapperArgs+=(
