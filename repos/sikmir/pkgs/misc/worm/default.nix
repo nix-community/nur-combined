@@ -18,11 +18,7 @@ nimPackages.buildNimPackage rec {
     pixie
     regex
     unicodedb
-    (fetchNimble {
-      pname = "x11";
-      version = "1.1";
-      hash = "sha256-2XRyXiBxAc9Zx/w0zRBHRZ240qww0FJvIvOKZ8YH50A=";
-    })
+    x11
   ] ++ (with xorg; [ libX11 libXft libXinerama ]);
 
   postInstall = ''
@@ -36,5 +32,6 @@ nimPackages.buildNimPackage rec {
     platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
+    broken = true;
   };
 }
