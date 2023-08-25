@@ -522,6 +522,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # https://github.com/NixOS/nixpkgs/commits/master/pkgs/tools/security/tor/torsocks.nix
   torsocks = callPackage ./pkgs/tools/security/tor/torsocks.nix { };
 
+  pdfium = callPackage ./pkgs/development/libraries/pdfium/pdfium.nix { };
+
   pdfium-bin = callPackage ./pkgs/development/libraries/pdfium-bin/pdfium-bin.nix { };
 
   pdfium-reader = callPackage ./pkgs/applications/office/pdfium-reader/pdfium-reader.nix {
