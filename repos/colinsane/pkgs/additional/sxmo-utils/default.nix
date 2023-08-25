@@ -112,8 +112,15 @@ stdenv.mkDerivation rec {
       # i only care about patch no. 2
       # [1/2] suspend toggle: silence rm failure noise
       # [2/2] config: fix keyboard files location
+      name = "multipatch: 42880";
       url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42880/mbox";
       hash = "sha256-tAMPBb6vwzj1dFMTEaqrcCJU6FbQirwZgB0+tqW3rQA=";
+    })
+    (fetchpatch {
+      # merged post 1.14.2
+      name = "Switch from light to brightnessctl";
+      url = "https://git.sr.ht/~mil/sxmo-utils/commit/d0384a7caed036d25228fa3279c36c0230795e4a.patch";
+      hash = "sha256-/UlcuEI5cJnsqRuZ1zWWzR4dyJw/zYeB1rtJWFeSGEE=";
     })
     # wanted to fix/silence some non-fatal errors
     ./0005-system-audio.patch
@@ -122,7 +129,7 @@ stdenv.mkDerivation rec {
     # personal (but upstreamable) preferences:
     (fetchpatch {
       # merged post 1.14.2
-      # sxmo_hook_lock: allow configuration of auto-screenoff timeout v1
+      name = "sxmo_hook_lock: allow configuration of auto-screenoff timeout v1";
       url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42443/mbox";
       hash = "sha256-c4VySbVJgsbh2h+CnCgwWWe5WkAregpYFqL8n3WRXwY=";
     })
@@ -134,7 +141,7 @@ stdenv.mkDerivation rec {
     #   hash = "sha256-4uR2u6pa62y6SaRHYRn15YGDPILAs7py0mPbAjsgwM4=";
     # })
     (fetchpatch {
-      # Make config gesture toggle persistent
+      name = "Make config gesture toggle persistent";
       url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42876/mbox";
       hash = "sha256-Oa0MI0Kt9Xgl5L1KarHI6Yn4+vpRxUSujB1iY4hlK9c=";
     })
