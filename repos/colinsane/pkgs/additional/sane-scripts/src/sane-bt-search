@@ -23,6 +23,9 @@ options:
 #   - Torznab: <https://torznab.github.io/spec-1.3-draft/index.html>
 #   - TorrentPotato: <https://github.com/RuudBurger/CouchPotatoServer/wiki/Couchpotato-torrent-provider>
 #   - its own JSON-based API
+#
+# about torrent jargon:
+# - <https://en.wikipedia.org/wiki/Pirated_movie_release_types>
 
 from dataclasses import dataclass
 from datetime import datetime
