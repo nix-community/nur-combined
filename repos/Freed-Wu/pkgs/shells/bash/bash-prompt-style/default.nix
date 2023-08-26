@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Freed-Wu";
     repo = name;
-    rev = "ce2af9091d4dabbb501e984599d367bf43c59122";
-    hash = "sha256-EewJoYTkqB130MZ1IH7gi/ErE8BRj5p5c0hokxZqrC8=";
+    rev = "ad2ff4730809a203bfd8f62cc766f5ae825bc9e7";
+    hash = "sha256-Dvm7nJ6UIflOmi2asD5P1P91Qbmgh2sYfQJpkkFk2qQ=";
   };
 
   buildInputs = [ zsh-powerlevel10k ];
