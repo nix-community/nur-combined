@@ -78,13 +78,13 @@ in
         "lightdm-mobile"
         "sway-gtkgreet"
       ];
-      default = "lightdm-mobile";
-      # default = "greetd-phog";  # phog/greetd seems to significantly worsen graphics & perf. like it breaks GL acceleration? TODO: try phog via lightdm
+      # default = "lightdm-mobile";
+      default = "greetd-sway-phog";
       description = ''
         which greeter to use.
         "greetd-phog"      => phosh-based greeter. keypad (0-9) with option to open an on-screen keyboard.
         "greetd-sway-phog" => phog, but uses sway as the compositor instead of phoc.
-                              currently broken: phog-wayland-ERROR : Wayland compositor lacks needed globals   (zphoc_layer_shell_effects_v1)
+                              requires a patched phog, since sway doesn't provide the Wayland global "zphoc_layer_shell_effects_v1".
         "greetd-sxmo"      => launch sxmo directly from greetd, no auth.
                               this means no keychain unlocked or encrypted home mounted.
         "lightdm-mobile"   => keypad style greeter. can only enter digits 0-9 as password.
@@ -194,6 +194,8 @@ in
 
         hardware.bluetooth.enable = true;
         services.blueman.enable = true;
+
+        hardware.opengl.enable = true;
 
         # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
         fonts.packages = [ pkgs.nerdfonts ];
