@@ -1313,43 +1313,8 @@ in {
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
   # 2023/07/27: upstreaming is blocked on p11-kit, argyllcms, libavif cross compilation
   phoc = mvToNativeInputs [ final.wayland-scanner final.glib ] prev.phoc;
-  phog = (addInputs
-    {
-      depsBuildBuild = [
-        final.pkg-config  # needed by build-aux/post_install.py
-      ];
-      nativeBuildInputs = [
-        final.glib
-        final.wayland-scanner
-        final.wrapGAppsHook
-      ];
-      # buildInputs = (upstream.buildInputs or []) ++ [
-      #   # see `data/phog.in`
-      #   # final.squeekboard
-      #   final.bash
-      # ];
-    }
-    prev.phog
-  ).overrideAttrs (upstream: {
-    DESTDIR = null;
-    # squeekboard takes 20min to compile because of emulation, so disable it.
-    # postPatch = (upstream.postPatch or "") + ''
-    #   substituteInPlace data/phog.in \
-    #     --replace " & squeekboard" ""
-    # '';
-    postPatch = (upstream.postPatch or "") + ''
-      sed -i /phog_plugins_dir/d build-aux/post_install.py
-      substituteInPlace src/greetd.c \
-        --replace '/usr/share/wayland-sessions' '/run/current-system/sw/share/wayland-sessions/' \
-        --replace '/usr/share/xsessions' '/run/current-system/sw/share/xsessions'
-    '';
-    preFixup = (upstream.preFixup or "") + ''
-      gappsWrapperArgs+=(
-        --prefix PATH : ${lib.makeBinPath [ final.bash final.squeekboard ]}
-        --prefix XDG_DATA_DIRS : "${final.gnome.gnome-shell}/share/gsettings-schemas/${final.gnome.gnome-shell.name}"
-      )
-    '';
-  });
+  # disable squeekboard because it takes 20 minutes to compile when emulated
+  phog = prev.phog.override { squeekboard = null; };
   phosh = prev.phosh.overrideAttrs (upstream: {
     buildInputs = upstream.buildInputs ++ [
       final.libadwaita  # "plugins/meson.build:41:2: ERROR: Dependency "libadwaita-1" not found, tried pkgconfig"

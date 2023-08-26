@@ -37,7 +37,7 @@
 #   - live in ~/.local/state/sxmo.log
 #   - ~/.local/state/superd.log
 #   - ~/.local/state/superd/logs/<daemon>.log
-#   - `journalctl --user --boot`  (lightm redirects the sxmo session stdout => systemd)
+#   - `journalctl --user --boot`  (lightdm redirects the sxmo session stdout => systemd)
 #
 # - default components:
 #   - DE:                  sway (if wayland), dwm (if X)
@@ -57,6 +57,12 @@ let
   knownTerminals = {
     vte = "vte-2.91";
   };
+
+  systemd-cat = "${pkgs.systemd}/bin/systemd-cat";
+  runWithLogger = identifier: cmd: pkgs.writeShellScript identifier ''
+    echo "launching ${identifier}..." | ${systemd-cat} --identifier=${identifier}
+    ${cmd} 2>&1 | ${systemd-cat} --identifier=${identifier}
+  '';
 in
 {
   options = with lib; {
@@ -65,14 +71,26 @@ in
       type = types.bool;
     };
     sane.gui.sxmo.greeter = mkOption {
-      type = types.enum [ "lightdm-mobile" "phog" "sway" ];
+      type = types.enum [
+        "greetd-phog"
+        "greetd-sway-phog"
+        "greetd-sxmo"
+        "lightdm-mobile"
+        "sway-gtkgreet"
+      ];
       default = "lightdm-mobile";
-      # default = "phog";  # phog/greetd seems to significantly worsen graphics & perf. like it breaks GL acceleration? TODO: try phog via lightdm
+      # default = "greetd-phog";  # phog/greetd seems to significantly worsen graphics & perf. like it breaks GL acceleration? TODO: try phog via lightdm
       description = ''
         which greeter to use.
-        "lightdm-mobile" => keypad style greeter. can only enter digits 0-9 as password.
-        "phog" => phosh-based greeter. keypad (0-9) with option to open an on-screen keyboard.
-        "sway" => layered sway greeter. behaves as if you booted to swaylock.
+        "greetd-phog"      => phosh-based greeter. keypad (0-9) with option to open an on-screen keyboard.
+        "greetd-sway-phog" => phog, but uses sway as the compositor instead of phoc.
+                              currently broken: phog-wayland-ERROR : Wayland compositor lacks needed globals   (zphoc_layer_shell_effects_v1)
+        "greetd-sxmo"      => launch sxmo directly from greetd, no auth.
+                              this means no keychain unlocked or encrypted home mounted.
+        "lightdm-mobile"   => keypad style greeter. can only enter digits 0-9 as password.
+        "sway-gtkgreet"    => layered sway greeter. behaves as if you booted to swaylock.
+                              this isn't practically usable on mobile because of keyboard input.
+                              also, it takes literally 6 minutes to appear
       '';
     };
     sane.gui.sxmo.package = mkOption {
@@ -316,7 +334,7 @@ in
         };
       })
 
-      (lib.mkIf (cfg.greeter == "sway") {
+      (lib.mkIf (cfg.greeter == "sway-gtkgreet") {
         services.greetd = {
           enable = true;
           # borrowed from gui/sway
@@ -345,20 +363,58 @@ in
         };
       })
 
-      (lib.mkIf (cfg.greeter == "phog") {
+      (lib.mkIf (cfg.greeter == "greetd-sway-phog") {
         services.greetd = {
           enable = true;
-          settings.default_session.command = "${pkgs.phog}/bin/phog";
-          # this would be nice for debugging, but greetd swallows the logs:
-          # settings.default_session.command =
-          # let
-          #   launch-phog = pkgs.writeShellScriptBin "launch-phog" ''
-          #     echo "launching phog..."
-          #     G_MESSAGES_DEBUG=all ${pkgs.phog}/bin/phog
-          #   '';
-          # in "${launch-phog}/bin/launch-phog" ;
+          # borrowed from gui/sway
+          settings.default_session.command =
+          let
+            # start sway and have it construct the greeter
+            sway-as-greeter = pkgs.writeShellScriptBin "sway-as-greeter" ''
+              ${pkgs.sway}/bin/sway --debug --config ${sway-config-into-phog} > /var/log/sway/sway-as-greeter.log 2>&1
+            '';
+            # (config file for the above)
+            sway-config-into-phog = pkgs.writeText "greetd-sway-config" ''
+              exec "${pkgs.phog}/libexec/phog"
+            '';
+          in "${sway-as-greeter}/bin/sway-as-greeter";
+        };
+        # phog locates sxmo_winit.sh via <env>/share/wayland-sessions
+        environment.pathsToLink = [ "/share/wayland-sessions" ];
+
+        sane.fs."/var/log/sway" = {
+          dir.acl.mode = "0777";
+          wantedBeforeBy = [ "greetd.service" "display-manager.service" ];
+        };
+      })
+
+      (lib.mkIf (cfg.greeter == "greetd-phog") {
+        services.greetd = {
+          enable = true;
+
+          # launch directly: but stdout/stderr gets dropped
+          # settings.default_session.command = "${pkgs.phog}/bin/phog";
+
+          # wrapper to launch phog and redirect logs to system journal.
+          settings.default_session.command = let
+            launch-phog = runWithLogger "phog" "${pkgs.phog}/bin/phog";
+          in "${launch-phog}" ;
         };
         environment.pathsToLink = [ "/share/wayland-sessions" ];
+      })
+
+      (lib.mkIf (cfg.greeter == "greetd-sxmo") {
+        services.greetd = {
+          enable = true;
+          settings = {
+            default_session = {
+              command = let
+                launch-sxmo = runWithLogger "sxmo" "${cfg.package}/bin/sxmo_winit.sh";
+              in "${launch-sxmo}";
+              user = "colin";
+            };
+          };
+        };
       })
 
       # old, greeterless options:
@@ -371,16 +427,6 @@ in
       #   '';
       # }];
       # services.xserver.enable = true;
-
-      # services.greetd = {
-      #   enable = true;
-      #   settings = {
-      #     default_session = {
-      #       command = "${cfg.package}/bin/sxmo_winit.sh";
-      #       user = "colin";
-      #     };
-      #   };
-      # };
     ]))
   ];
 }

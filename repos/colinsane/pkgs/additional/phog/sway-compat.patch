@@ -1,0 +1,31 @@
+commit 86593b754405a194e749e424e27710aa08533853
+Author: Colin <colin@uninsane.org>
+Date:   2023-08-26 12:26:36 +0000
+
+    make phoc-specific wayland interface optional: zphoc_layer_shell_effects_v1
+
+diff --git a/src/drag-surface.c b/src/drag-surface.c
+index 0e1a371f..56f7a307 100644
+--- a/src/drag-surface.c
++++ b/src/drag-surface.c
+@@ -204,6 +204,7 @@ phog_drag_surface_configured (PhogLayerSurface *layer_surface)
+     return;
+ 
+   /* Configure drag surface if not done yet */
++  g_return_if_fail(priv->layer_shell_effects);
+   priv->drag_surface = zphoc_layer_shell_effects_v1_get_draggable_layer_surface (priv->layer_shell_effects,
+                                                                                  wl_layer_surface);
+   zphoc_draggable_layer_surface_v1_add_listener (priv->drag_surface, &drag_surface_listener, self);
+diff --git a/src/phog-wayland.c b/src/phog-wayland.c
+index 99933116..7c2d76ad 100644
+--- a/src/phog-wayland.c
++++ b/src/phog-wayland.c
+@@ -274,7 +274,7 @@ phog_wayland_constructed (GObject *object)
+       !self->input_inhibit_manager || !self->xdg_wm_base ||
+       !self->zxdg_output_manager_v1 ||
+       !self->zphoc_layer_shell_effects_v1) {
+-    g_error ("Wayland compositor lacks needed globals\n"
++    g_warning ("Wayland compositor lacks needed globals\n"
+              "outputs: %d, layer_shell: %p, idle_manager: %p, "
+              "inhibit: %p, xdg_wm: %p, "
+              "xdg_output: %p, wlr_output_manager: %p, "

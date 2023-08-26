@@ -49,6 +49,7 @@ let
     mcg = callPackage ./additional/mcg { };
     mpv-uosc-latest = callPackage ./additional/mpv-uosc-latest { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
+    phog = callPackage ./additional/phog { };
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
     sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
     sane-weather = callPackage ./additional/sane-weather { };
