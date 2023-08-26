@@ -66,8 +66,8 @@ in
     };
     sane.gui.sxmo.greeter = mkOption {
       type = types.enum [ "lightdm-mobile" "phog" "sway" ];
-      # default = "lightdm-mobile";
-      default = "phog";
+      default = "lightdm-mobile";
+      # default = "phog";  # phog/greetd seems to significantly worsen graphics & perf. like it breaks GL acceleration? TODO: try phog via lightdm
       description = ''
         which greeter to use.
         "lightdm-mobile" => keypad style greeter. can only enter digits 0-9 as password.

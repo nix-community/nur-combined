@@ -41,6 +41,7 @@
 , wvkbd
 , xdg-user-dirs
 , xdotool
+, xrdb
 }:
 
 let
@@ -77,6 +78,7 @@ let
     wob
     wvkbd
     xdg-user-dirs
+    xrdb  # for sxmo_xinit AND sxmo_winit
 
     # X11 only?
     xdotool
