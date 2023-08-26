@@ -9,20 +9,63 @@
 
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
+    nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
+
     impermanence.url = "github:nix-community/impermanence";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nbr.url = "github:nixosbrasil/nixpkgs-brasil";
     nbr.inputs.nixpkgs.follows = "nixpkgs";
+    nbr.inputs.flake-utils.follows = "flake-utils";
 
     nur.url = "github:nix-community/nur";
+
+    nix-on-droid.url = "github:t184256/nix-on-droid";
+    nix-on-droid.inputs.home-manager.follows = "home-manager";
+    nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     betterdiscord-addons.url = "github:mwittrien/BetterDiscordAddons?dir=Plugins";
     betterdiscord-addons.flake = false;
+
+    nix-requirefile.url = "github:lucasew/nix-requirefile";
+    nix-requirefile.flake = false;
+
+    borderless-browser.url = "github:lucasew/borderless-browser.nix";
+    borderless-browser.flake = false;
+
+    nix-colors.url = "github:Misterio77/nix-colors";
+    nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.flake-utils.follows = "flake-utils";
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    cf-torrent.url = "github:lucasew/cf-torrent";
+    cf-torrent.flake = false;
+
+    nixgram.url = "github:lucasew/nixgram";
+    nixgram.flake = false;
+
+    simple-dashboard.url = "github:lucasew/simple-dashboard";
+    simple-dashboard.flake = false;
+
+    telegram-sendmail.url = "github:lucasew/telegram-sendmail";
+    telegram-sendmail.flake = false;
+
+    redial-proxy.url = "github:lucasew/redial_proxy";
+    redial-proxy.flake = false;
+
+    climod.url = "github:nixosbrasil/climod";
+    climod.flake = false;
+
   };
 
   outputs = {
@@ -36,9 +79,9 @@
     , nur
     , nixos-hardware
     , ...
-  }:
+  }@inputs:
   let
-    inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs length;
+    inherit (builtins) concatStringsSep;
 
     system = builtins.currentSystem or "x86_64-linux";
 
@@ -54,17 +97,7 @@
 
     pkgs = mkPkgs { inherit system; };
 
-    inherit (let
-      bumpkinPkg = bootstrapPkgs.callPackage bumpkin {};
-      bumpkinInputs = bumpkinPkg.loadBumpkin {
-        inputFile = ./bumpkin.json;
-        outputFile = ./bumpkin.json.lock;
-      };
-      bumpkinUnpackedInputs = (bootstrapPkgs.callPackage ./nix/lib/unpackRecursive.nix {}) bumpkinInputs;
-    in {inherit bumpkinInputs bumpkinUnpackedInputs;}) bumpkinInputs bumpkinUnpackedInputs;
-
     mapAttrValues = pkgs.callPackage ./nix/lib/mapAttrValues.nix {};
-
 
     mkPkgs = {
       nixpkgs ? defaultNixpkgs
@@ -121,27 +154,22 @@
       inherit self;
       inherit global;
       cfg = throw "your past self made a trap for non compliant code after a migration you did, now follow the stacktrace and go fix it";
-      bumpkin = {
-        inputs = bumpkinInputs;
-        unpacked = bumpkinUnpackedInputs;
-      };
     };
 
     overlays = {
-      nix-requirefile = import "${extraArgs.bumpkin.unpacked.nix-requirefile.lib}/overlay.nix";
-      borderless-browser = import "${extraArgs.bumpkin.unpacked.borderless-browser}/overlay.nix";
-      rust-overlay = import "${extraArgs.bumpkin.unpacked.rust-overlay}/rust-overlay.nix";
+      nix-requirefile = import "${inputs.nix-requirefile}/overlay.nix";
+      borderless-browser = import "${inputs.borderless-browser}/overlay.nix";
+      rust-overlay = import "${inputs.rust-overlay}/rust-overlay.nix";
       zzzthis = import ./nix/overlay.nix self;
     };
-    nix-colors = import "${extraArgs.bumpkin.unpacked.nix-colors}" { inherit (extraArgs.bumpkin.unpacked) base16-schemes nixpkgs-lib; };
   in {
-    inherit (extraArgs) bumpkin;
+    # inherit (extraArgs) bumpkin;
     inherit global;
     inherit overlays;
     inherit pkgs;
     inherit self;
 
-    colors = nix-colors.colorSchemes."classic-dark";
+    colors = inputs.nix-colors.colorschemes."classic-dark";
 
     homeConfigurations = let
         hmConf = {
@@ -179,7 +207,7 @@
 
     nixOnDroidConfigurations = let
       nixOnDroidConf = mainModule:
-      import "${bumpkinUnpackedInputs.nix-on-droid}/modules" {
+      import "${inputs.nix-on-droid}/modules" {
         config = {
           _module.args = extraArgs;
           home-manager.config._module.args = extraArgs;
@@ -188,9 +216,9 @@
           ];
         };
         pkgs = mkPkgs {
-          overlays = (import "${bumpkinUnpackedInputs.nix-on-droid}/overlays");
+          overlays = (import "${inputs.nix-on-droid}/overlays");
         };
-        home-manager = import bumpkinUnpackedInputs.home-manager {};
+        home-manager = import inputs.home-manager {};
         isFlake = true;
       };
     in mapAttrValues nixOnDroidConf {
@@ -247,13 +275,13 @@
         ++ (with self.devShells.${system}; [
           (pkgs.writeShellScriptBin "s" "echo ${default.outPath}")
         ])
-        ++ (let
-          flattenItems = items: if pkgs.lib.isDerivation items
-            then items
-            else if pkgs.lib.isAttrs items then pkgs.lib.flatten ((map (flattenItems) (builtins.attrValues items)))
-            else []
-        ;
-        in map (item: (pkgs.writeShellScriptBin "source" "echo ${item}")) (flattenItems bumpkinInputs))
+        # ++ (let
+        #   flattenItems = items: if pkgs.lib.isDerivation items
+        #     then items
+        #     else if pkgs.lib.isAttrs items then pkgs.lib.flatten ((map (flattenItems) (builtins.attrValues items)))
+        #     else []
+        # ;
+        # in map (item: (pkgs.writeShellScriptBin "source" "echo ${item}")) (flattenItems bumpkinInputs))
       ;
       installPhase = ''
         echo $version > $out

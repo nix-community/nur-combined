@@ -1,4 +1,4 @@
-{ pkgs, lib, config, bumpkin, ... }:
+{ pkgs, self, lib, config, ... }:
 let
   cfg = config.services.cf-torrent;
   inherit (lib) mkEnableOption mkOption types mkIf mkDefault;
@@ -7,7 +7,7 @@ in {
     enable = mkEnableOption "cf-torrent";
     package = mkOption {
       description = "Which cf-torrent package to use";
-      default = pkgs.callPackage bumpkin.unpacked.cf-torrent {};
+      default = pkgs.callPackage self.inputs.cf-torrent {};
       type = types.package;
     };
     port = mkOption {

@@ -1,9 +1,9 @@
-{ lib, pkgs, config, self, bumpkin, ... }:
+{ lib, self, pkgs, config, ... }:
 let
   inherit (lib) mkIf;
 in
 {
-  imports = [ "${bumpkin.unpacked.telegram-sendmail}/nixos-module.nix" ];
+  imports = [ "${self.inputs.telegram-sendmail}/nixos-module.nix" ];
 
   config = mkIf config.services.telegram-sendmail.enable {
     services.telegram-sendmail.credentialFile = "/var/run/secrets/telegram-sendmail";

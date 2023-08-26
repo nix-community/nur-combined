@@ -1,4 +1,4 @@
-{pkgs, lib, global, self, config, bumpkin, ...}:
+{pkgs, lib, global, self, config, ...}:
 let
   inherit (pkgs) dotenv;
   inherit (global) username rootPath;

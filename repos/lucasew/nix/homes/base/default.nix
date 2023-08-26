@@ -6,9 +6,9 @@ let
 in
 {
   imports = [
-    "${bumpkin.unpacked.nixgram}/hmModule.nix"
-    "${bumpkin.unpacked.redial_proxy}/hmModule.nix"
-    "${bumpkin.unpacked.borderless-browser}/home-manager.nix"
+    "${self.inputs.nixgram}/hmModule.nix"
+    "${self.inputs.redial-proxy}/hmModule.nix"
+    "${self.inputs.borderless-browser}/home-manager.nix"
   ];
 
   home.packages = with pkgs; [

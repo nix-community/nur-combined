@@ -1,6 +1,6 @@
 flake: final: prev:
 let
-  inherit (flake.outputs) global bumpkin;
+  inherit (flake.outputs) global;
   inherit (global) rootPath;
   inherit (prev) lib callPackage writeShellScript;
   inherit (lib) recursiveUpdate;
@@ -11,14 +11,21 @@ let
 in
 {
   inherit flake;
-  inherit bumpkin;
+  bumpkin = rec {
+      bumpkin = cp flake.inputs.bumpkin;
+      inputs = bumpkin.loadBumpkin {
+        inputFile = ../bumpkin.json;
+        outputFile = ../bumpkin.json.lock;
+      };
+      unpacked = (cp ./lib/unpackRecursive.nix) inputs;
+    };
 
   nbr = import "${flake.inputs.nbr}" { pkgs = final; };
 
   lib = prev.lib.extend (final: prev: {
     jpg2png = cp ./lib/jpg2png.nix;
     buildDockerEnv = cp ./lib/buildDockerEnv.nix;
-    climod = cp bumpkin.unpacked.climod;
+    climod = cp flake.inputs.climod;
   });
 
   bin = builtins.mapAttrs (k: v: final.stdenvNoCC.mkDerivation {
@@ -37,7 +44,7 @@ in
   }) (builtins.readDir ../bin);
 
   devenv = final.writeShellScriptBin "devenv" ''
-    nix run ${bumpkin.unpacked.devenv}# -- "$@"
+    nix run ${final.bumpkin.unpacked.devenv}# -- "$@"
   '';
 
   ctl = cp ./pkgs/ctl;
@@ -47,25 +54,25 @@ in
   comby = cp ./pkgs/comby.nix;
   pkg = cp ./pkgs/pkg.nix;
   wrapWine = cp ./pkgs/wrapWine.nix;
-  home-manager = cp "${bumpkin.unpacked.home-manager}/home-manager";
+  home-manager = cp "${final.bumpkin.unpacked.home-manager}/home-manager";
 
   prev = prev;
-  requireFileSources = [ bumpkin.unpacked.nix-requirefile.data.main ];
+  requireFileSources = [ final.bumpkin.unpacked.nix-requirefile.data.main ];
 
   appimage-wrap = final.nbr.appimage-wrap;
 
-  dotenv = cp bumpkin.unpacked.dotenv;
-  p2k = cp bumpkin.unpacked.pocket2kindle;
-  pytorrentsearch = cp bumpkin.unpacked.pytorrentsearch;
-  redial_proxy = cp bumpkin.unpacked.redial_proxy;
-  send2kindle = cp bumpkin.unpacked.send2kindle;
-  nixgram = cp bumpkin.unpacked.nixgram;
-  wrapVSCode = args: import bumpkin.unpacked.nix-vscode (args // { pkgs = prev; });
-  wrapEmacs = args: import bumpkin.unpacked.nix-emacs (args // { pkgs = prev; });
+  dotenv = cp final.bumpkin.unpacked.dotenv;
+  p2k = cp final.bumpkin.unpacked.pocket2kindle;
+  pytorrentsearch = cp final.bumpkin.unpacked.pytorrentsearch;
+  redial_proxy = cp final.bumpkin.unpacked.redial_proxy;
+  send2kindle = cp final.bumpkin.unpacked.send2kindle;
+  nixgram = cp final.bumpkin.unpacked.nixgram;
+  wrapVSCode = args: import final.bumpkin.unpacked.nix-vscode (args // { pkgs = prev; });
+  wrapEmacs = args: import final.bumpkin.unpacked.nix-emacs (args // { pkgs = prev; });
 
   instantngp = cp ./pkgs/instantngp.nix;
 
-  nix-option = callPackage "${bumpkin.unpacked.nix-option}" {
+  nix-option = callPackage "${final.bumpkin.unpacked.nix-option}" {
     nixos-option = (callPackage "${flake.inputs.nixpkgs}/nixos/modules/installer/tools/nixos-option" { }).overrideAttrs (attrs: attrs // {
       meta = attrs.meta // {
         platforms = lib.platforms.all;
@@ -108,7 +115,7 @@ in
     retroarch = cp ./pkgs/custom/retroarch.nix;
     loader = cp ./pkgs/custom/loader/default.nix;
     polybar = cp ./pkgs/custom/polybar.nix;
-    colors-lib-contrib = import "${bumpkin.unpacked.nix-colors}/lib/contrib" { pkgs = prev; };
+    colors-lib-contrib = import "${final.bumpkin.unpacked.nix-colors}/lib/contrib" { pkgs = prev; };
     # wallpaper = ./wall.jpg;
     wallpaper = colors-lib-contrib.nixWallpaperFromScheme {
       scheme = colors;

@@ -1,4 +1,4 @@
-{self, pkgs, lib, bumpkin, ...}:
+{self, pkgs, lib, ...}:
 let
   inherit (self) inputs;
   inherit (lib) mkDefault;
@@ -8,7 +8,7 @@ in
     ../bootstrap
     ./cachix.nix
     ./hold-gc.nix
-    "${bumpkin.unpacked.simple-dashboard}/nixos-module.nix"
+    "${inputs.simple-dashboard}/nixos-module.nix"
 
     ./ansible-python.nix
     ./bash

@@ -1,7 +1,7 @@
-{ config, self, bumpkin, ... }:
+{ config, self, ... }:
 {
   imports = [
-    (import "${bumpkin.unpacked.sops-nix}/modules/sops")
+    self.inputs.sops-nix.nixosModules.sops
   ];
 
   sops.secrets.ssh-alias = {
