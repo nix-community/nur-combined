@@ -2,17 +2,17 @@
 
 buildNpmPackage rec {
   pname = "task-json-cli";
-  version = "8.2.4";
+  version = "8.3.0";
 
   src = fetchFromGitHub {
     owner = "task-json";
     repo = "task.json-cli";
     rev = "v${version}";
-    hash = "sha256-eae6zIj1nYqYyINvMBqfr5zkL5wPkBEcR2Wzousrwkc=";
+    hash = "sha256-lW6aSTT2T753PFXQZab9HPkyIIHJhTAUSii1nX5YLJs=";
   };
 
   # run prefetch-npm-deps package-lock.json to generate the hash
-  npmDepsHash = "sha256-iBZqKY1ZlkTKSk1v1goi6C7b4i/XUMFBHoynVsw7OU0=";
+  npmDepsHash = "sha256-c2saQ+dRwubAlk37Jc6RqQXD5ZEVMMjy6VEZrHe3170=";
 
   nativeBuildInputs = [ installShellFiles ];
 
