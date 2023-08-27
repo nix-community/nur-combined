@@ -12,6 +12,9 @@ in
   overlays = import ./overlays;
 }
   //
-pkgs'.callPackage ./pkgs {
-  inherit selfLib;
-}
+lib.attrsets.removeAttrs
+  (pkgs'.callPackage ./pkgs {
+    inherit selfLib;
+  }) [
+  "devPackages"
+]
