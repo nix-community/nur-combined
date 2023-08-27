@@ -29,4 +29,5 @@ rec {
   adblock = ./adblock.nix;
   gamescope = ./gamescope.nix;
   vscodium = ./vscodium.nix;
+  udisks = ./udisks.nix;
 }
