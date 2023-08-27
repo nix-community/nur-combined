@@ -163,6 +163,7 @@
   kwrite-standalone = pkgs.kate.overrideAttrs (oldAttrs: {
     pname = "kwrite-standalone";
     cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
+      "-DBUILD_addons=false"
       "-DBUILD_kate=false"
     ];
     meta = oldAttrs.meta // {
