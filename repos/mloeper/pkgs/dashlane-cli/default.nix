@@ -1,4 +1,11 @@
-{ lib, stdenv, pkgs, fetchFromGitHub, system ? builtins.currentSystem, ... }:
+{ lib
+, stdenv
+, pkgs
+, fetchFromGitHub
+, system ? builtins.currentSystem
+, withMasterPasswordStoreDisabled ? false
+, ...
+}:
 
 # TODO: add generate script for node2nix like e.g.: https://github.com/NixOS/nixpkgs/blob/f8d3c2dabdab26f53fe95079d7725da777019ff2/pkgs/development/web/netlify-cli/generate.sh
 let
@@ -30,7 +37,7 @@ stdenv.mkDerivation
     cp -r ${nodeDependencies}/lib/node_modules $out/node_modules
 
     # create binary using wrapper script
-    makeWrapper ${pkgs.nodejs}/bin/node $out/bin/dcli --add-flags "$out/index.js" --inherit-argv0
+    makeWrapper ${pkgs.nodejs}/bin/node $out/bin/dcli --add-flags "$out/index.js" --inherit-argv0 ${if withMasterPasswordStoreDisabled then "--run \"${pkgs.nodejs}/bin/node $out/index.js configure save-master-password false\"" else ""}
   '';
 
   meta = with lib; {
