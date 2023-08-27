@@ -20,19 +20,19 @@
 
 stdenv.mkDerivation rec {
   pname = "game-of-life";
-  version = "0.4.0-1";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "sixpounder";
     repo = "game-of-life";
     rev = "v${version}";
-    hash = "sha256-R4hp/ZQzQ5o1jKYjrOy4HxZosYSYOnUS/QT9QjHu768=";
+    hash = "sha256-vKZAFyM805EE4IEXa15hvXLGTa0P09V5stvvzOt/svU=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-GVi0f6nzi7IfzNBbfPv4ystoXy6XstyjJDPw4+/7amw=";
+    hash = "sha256-vQsLqT9PGHPyUjsTQnXTrXohulKTo3bC5Eqtm3jMajE=";
   };
 
   nativeBuildInputs = [
