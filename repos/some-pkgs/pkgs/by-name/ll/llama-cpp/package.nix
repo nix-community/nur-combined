@@ -63,6 +63,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
   ] ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.Accelerate
+    darwin.apple_sdk.frameworks.CoreGraphics
   ];
 
   cmakeFlags = [
