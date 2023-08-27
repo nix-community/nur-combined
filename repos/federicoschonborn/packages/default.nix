@@ -150,6 +150,26 @@
     withTeem = true;
   };
 
+  kate-standalone = pkgs.kate.overrideAttrs (oldAttrs: {
+    pname = "kate-standalone";
+    cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
+      "-DBUILD_kwrite=false"
+    ];
+    meta = oldAttrs.meta // {
+      description = "${oldAttrs.meta.description} (without KWrite)";
+    };
+  });
+
+  kwrite-standalone = pkgs.kate.overrideAttrs (oldAttrs: {
+    pname = "kwrite-standalone";
+    cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
+      "-DBUILD_kate=false"
+    ];
+    meta = oldAttrs.meta // {
+      description = "${oldAttrs.meta.description} (without Kate)";
+    };
+  });
+
   libsolv-libzypp = pkgs.libsolv.overrideAttrs (oldAttrs: {
     pname = "libsolv-libzypp";
     cmakeFlags = oldAttrs.cmakeFlags ++ [
