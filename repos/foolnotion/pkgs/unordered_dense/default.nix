@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "unordered_dense";
-  version = "4.0.4";
+  version = "4.1.1";
 
   src = fetchFromGitHub {
     owner = "martinus";
     repo = "unordered_dense";
     rev = "v${version}";
-    sha256 = "sha256-jCDdot9b2NYoC/0twzKx8D/lM9LvES3lW0+wyRIDylc=";
+    hash = "sha256-TDpzvB9w5zi/NVILQPqY59mbPmt3quA3YCvw/PmWxkk=";
   };
 
   nativeBuildInputs = [ cmake ];
