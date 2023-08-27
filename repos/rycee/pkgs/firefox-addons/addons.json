@@ -182,9 +182,6 @@
     "slug": "decentraleyes"
   },
   {
-    "slug": "demodal"
-  },
-  {
     "slug": "df-youtube"
   },
   {
@@ -721,16 +718,6 @@
     "slug": "passff"
   },
   {
-    "slug": "pay-by-privacy-com",
-    "license": {
-      "tag": "custom",
-      "shortName": "pay-by-privacy.com",
-      "fullName": "Custom License for Pay by Privacy.com",
-      "url": "https://addons.mozilla.org/en-US/firefox/addon/pay-by-privacy-com/license/",
-      "free": false
-    }
-  },
-  {
     "slug": "peertubeify"
   },
   {
@@ -1061,6 +1048,9 @@
     "slug": "ublock-origin"
   },
   {
+    "slug": "ublock-origin-lite"
+  },
+  {
     "slug": "ubo-scope"
   },
   {
@@ -1081,9 +1071,6 @@
   },
   {
     "slug": "user-agent-string-switcher"
-  },
-  {
-    "slug": "vencord-web"
   },
   {
     "slug": "video-downloadhelper",
@@ -1139,7 +1126,14 @@
     "slug": "wallabagger"
   },
   {
-    "slug": "wappalyzer"
+    "slug": "wappalyzer",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "wayback-machine_new",

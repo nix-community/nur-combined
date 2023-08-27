@@ -27,10 +27,10 @@
       };
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
-      version = "2.0.0";
+      version = "2.0.1";
       addonId = "a11y.css@ffoodd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132650/a11ycss-2.0.0.xpi";
-      sha256 = "b42f351fec4d69b65f3d6e0ea23de01bbe0e903ca790db8356cb970eba06fd9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4156875/a11ycss-2.0.1.xpi";
+      sha256 = "49d52c589266604c232c29a915b3d06df231267b2dca7d7694284a25059b5c51";
       meta = with lib;
       {
         homepage = "https://ffoodd.github.io/a11y.css/";
@@ -56,10 +56,10 @@
       };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
-      version = "2.2.0";
+      version = "2.2.4";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4150817/anonaddy-2.2.0.xpi";
-      sha256 = "2c2025b18f8c1f0ccb58468ccebf7a766099a4c520989a47ce73d0f20872eac5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157868/addy_io-2.2.4.xpi";
+      sha256 = "bc9507d532bfab78c222501201d3303cb4b33dafbda994081a8d3c0d36e9647d";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -1253,10 +1253,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.15.0";
+      version = "3.15.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4152958/control_panel_for_twitter-3.15.0.xpi";
-      sha256 = "0cb93af96cb8e21d2b25945d7f92248b5edd1734364b70e57ce4318ba3320b6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157430/control_panel_for_twitter-3.15.3.xpi";
+      sha256 = "a961eaf5fdc12621d709d2af46e55f44257f5d0e5682f0a37eda4904e64b9ea3";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1424,10 +1424,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.10";
+      version = "1.2.12";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4154837/dearrow-1.2.10.xpi";
-      sha256 = "1c8e9961a02afe6f3154a09590932269033a790d81577c79d77805ead8b7385d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158999/dearrow-1.2.12.xpi";
+      sha256 = "5c79fe7fbf38d982f79c9bb8588f6a34624f706ca4d2804b9dac7719cb67cd32";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1468,21 +1468,6 @@
           "webRequest"
           "webRequestBlocking"
           ];
-        platforms = platforms.all;
-        };
-      };
-    "demodal" = buildFirefoxXpiAddon {
-      pname = "demodal";
-      version = "1.0.4";
-      addonId = "{a8445bf1-5494-49bf-9af5-a830e5bf3309}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3984366/demodal-1.0.4.xpi";
-      sha256 = "ed19e0a79cd44feb2a0c9287f66039745819e5a62a75425881a491826f24b437";
-      meta = with lib;
-      {
-        homepage = "https://www.demodal.com";
-        description = "Demodal automatically removes content blocking modals including paywalls, discount offers, promts to sign up or enter your email address and more.";
-        license = licenses.mit;
-        mozPermissions = [ "storage" "activeTab" "https://*/*" "http://*/*" ];
         platforms = platforms.all;
         };
       };
@@ -1788,10 +1773,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.119.2";
+      version = "2.0.121";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4150710/enhancer_for_youtube-2.0.119.2.xpi";
-      sha256 = "196ef1c75b712ccf5a40ddf99d7073efbed62cb1d93ba557d1b6200ee4962688";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157491/enhancer_for_youtube-2.0.121.xpi";
+      sha256 = "baaba2f8eef7166c1bee8975be63fc2c28d65f0ee48c8a0d1c1744b66db8a2ad";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -2210,10 +2195,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "117.0.20230821.145345";
+      version = "117.0.20230824.132758";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4156587/francais_language_pack-117.0.20230821.145345.xpi";
-      sha256 = "fc54585af206700050fdb0f1ad38546120a2ffd74df451c4f08a043ed6b707f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158154/francais_language_pack-117.0.20230824.132758.xpi";
+      sha256 = "40f5462988632acea854698bccef42369c864aae54bb25c3a2c58d83f10948ca";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2533,10 +2518,10 @@
       };
     "github-file-icons" = buildFirefoxXpiAddon {
       pname = "github-file-icons";
-      version = "1.5.0";
+      version = "1.5.1";
       addonId = "{85860b32-02a8-431a-b2b1-40fbd64c9c69}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4086645/github_file_icons-1.5.0.xpi";
-      sha256 = "d3b2008bbf303dbe2cac06dc114897d8abaa802e60deafebd56892a39962ac71";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4156831/github_file_icons-1.5.1.xpi";
+      sha256 = "f8315da0ed692718154f558742559f8b3b6bf161f27b8e7391e7d9634d4d25be";
       meta = with lib;
       {
         homepage = "https://github.com/xxhomey19/github-file-icon";
@@ -2973,10 +2958,10 @@
       };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.209";
+      version = "1.0.210";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4151261/hover_zoom_plus-1.0.209.xpi";
-      sha256 = "57b5b3bc447b237980a6fa76b8ec69adb700951879e55046ec15e1d07fe27c7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4159025/hover_zoom_plus-1.0.210.xpi";
+      sha256 = "01c1d3cfe0512513b060867a28d592428420edf069fead2bfeeb9f2b4dce15ec";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -3904,6 +3889,13 @@
           "*://*.letterboxd.com/*"
           "*://*.figma.com/files/*"
           "*://*.kleinanzeigen.de/*"
+          "*://*.trakt.tv/*"
+          "*://*.vsco.co/*"
+          "*://*.woot.com/*"
+          "*://*.vero.co/*"
+          "*://*.anichart.net/*"
+          "*://*.anilist.co/*"
+          "*://*.freeimage.host/*"
           ];
         platforms = platforms.all;
         };
@@ -4765,10 +4757,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.8.10";
+      version = "2.11.2";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128042/momentumdash-2.8.10.xpi";
-      sha256 = "c815b77a64d590821ad4e4251fc6c65b02c050835f135844c38ecc481a90bdcd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157662/momentumdash-2.11.2.xpi";
+      sha256 = "997b26b179b52410e1dc66cb6924b7d83216441730da0702b282b2e7e24391f7";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -5267,10 +5259,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.13.0";
+      version = "2.14.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141204/1password_x_password_manager-2.13.0.xpi";
-      sha256 = "19c39051689dbc9c10abc556df1e89b62a9ee20cd5edfbc375d2c5dd12650eeb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157040/1password_x_password_manager-2.14.1.xpi";
+      sha256 = "0166ae58fb0ba0807124f7ec49977243922218e4022e113c19a8e59ec26db307";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -5309,8 +5301,6 @@
           "https://*.b5test.com/*"
           "https://*.b5test.eu/*"
           "https://*.b5rev.com/*"
-          "https://*.future.1password.com/*"
-          "https://*.future.b5dev.com/*"
           ];
         platforms = platforms.all;
         };
@@ -5424,26 +5414,6 @@
           "webRequest"
           "webRequestBlocking"
           ];
-        platforms = platforms.all;
-        };
-      };
-    "pay-by-privacy-com" = buildFirefoxXpiAddon {
-      pname = "pay-by-privacy-com";
-      version = "1.6.3";
-      addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3596835/pay_by_privacy_com-1.6.3.xpi";
-      sha256 = "d04c7bf29b7905534687ccf4ca1050b6daa2a7aef65a138987380252e7ef714d";
-      meta = with lib;
-      {
-        homepage = "https://privacy.com";
-        description = "<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/adc81a532e2c6239668fcd0691327d16fe545090b6e7073ccfdbaa2a69eda0c2/http%3A//Privacy.com\" rel=\"nofollow\">Privacy.com</a>'s Firefox add-on allows you to generate a new virtual card number with 1-click on any checkout page. Keep your payment info safe from data breaches, shady merchants, and sneaky subscription billing.";
-        license = {
-          shortName = "pay-by-privacy.com";
-          fullName = "Custom License for Pay by Privacy.com";
-          url = "https://addons.mozilla.org/en-US/firefox/addon/pay-by-privacy-com/license/";
-          free = false;
-          };
-        mozPermissions = [ "tabs" "*://*/*" "storage" ];
         platforms = platforms.all;
         };
       };
@@ -6186,10 +6156,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.5.2";
+      version = "1.5.4";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4153167/proton_pass-1.5.2.xpi";
-      sha256 = "512745eae92ceae7c727976dcd93531247b42a212b3dd562b92ab16fd4a8424e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4156117/proton_pass-1.5.4.xpi";
+      sha256 = "01b6629363a5db86213286dc7a9f0e46d207732f58284032c66fceb6ff55d4ac";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -6493,10 +6463,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.8.3";
+      version = "23.8.24";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4148042/refined_github-23.8.3.xpi";
-      sha256 = "3b0f9547fe388ba6e0366a111b25fb1db2492182747ac80949838d662ce3d295";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157985/refined_github-23.8.24.xpi";
+      sha256 = "2adc00ac580bb9b883627890a02db1e1f0bcb565f5b16f88f84ede5683b8bfcd";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -6755,10 +6725,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.56";
+      version = "1.21.62";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4150494/single_file-1.21.56.xpi";
-      sha256 = "a56aff440f862b96417b76b1b46ec65572d36248f0e8712aef292f21ff248155";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157556/single_file-1.21.62.xpi";
+      sha256 = "219c21fcf03889cba81c4ce7295f2856cc9f41e260c14d2026b0161611a481e6";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -6899,10 +6869,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.15";
+      version = "5.4.16";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4151024/sponsorblock-5.4.15.xpi";
-      sha256 = "d4eb5ed41611ac75328d1d5f6fbe9e07d81ec00cf7a2836129e51e650c9269ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157357/sponsorblock-5.4.16.xpi";
+      sha256 = "ec774c3c86e74c3a4b08728d6a85f94be1e846a90982f6b4850f0dffaf3c0f00";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -6911,6 +6881,7 @@
         mozPermissions = [
           "storage"
           "https://sponsor.ajay.app/*"
+          "scripting"
           "https://*.youtube.com/*"
           "https://www.youtube-nocookie.com/embed/*"
           ];
@@ -7534,10 +7505,10 @@
       };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.34";
+      version = "0.2.35";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4068173/torrent_control-0.2.34.xpi";
-      sha256 = "5c8f08440d6a16080cad2b78a4933ab3917b561f9f0c775dfd06a559b562788e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158889/torrent_control-0.2.35.xpi";
+      sha256 = "914cfb399bf696ab8e2e976bc4af5c783fb46f65f8e268df6a7eeb59d5b344ef";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
@@ -7557,10 +7528,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.1.3";
+      version = "3.2.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139969/tournesol_extension-3.1.3.xpi";
-      sha256 = "15a4ecce5dc541c3f9cf4d19d624d140b09adce0944b6a6fbc2e0d88543e0bdb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157972/tournesol_extension-3.2.0.xpi";
+      sha256 = "51add4032a064f44450cc6de7b11475d8eed69e9842269b83ff4ce378760ffa9";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -7989,6 +7960,26 @@
         platforms = platforms.all;
         };
       };
+    "ublock-origin-lite" = buildFirefoxXpiAddon {
+      pname = "ublock-origin-lite";
+      version = "2023.8.25.959";
+      addonId = "uBOLite@raymondhill.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158603/ublock_origin_lite-2023.8.25.959.xpi";
+      sha256 = "7d8ba024d025fa55f4a8bbc9c1acf3522cea5dd87be54aac2da0baac53d64f0b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/uBlockOrigin/uBOL-home";
+        description = "A permission-less content blocker. Blocks ads, trackers, miners, and more immediately upon installation.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "activeTab"
+          "declarativeNetRequest"
+          "scripting"
+          "storage"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "ubo-scope" = buildFirefoxXpiAddon {
       pname = "ubo-scope";
       version = "0.1.12";
@@ -8105,32 +8096,12 @@
         platforms = platforms.all;
         };
       };
-    "vencord-web" = buildFirefoxXpiAddon {
-      pname = "vencord-web";
-      version = "1.4.2";
-      addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4148648/vencord_web-1.4.2.xpi";
-      sha256 = "f408948a63ef30a01b016b0e6cb3c9b3427e030896067f79dea17c54a60ef917";
-      meta = with lib;
-      {
-        homepage = "https://vencord.dev";
-        description = "The Vencord Client Mod for Discord Web";
-        license = licenses.gpl3;
-        mozPermissions = [
-          "webRequest"
-          "webRequestBlocking"
-          "*://*.discord.com/*"
-          "https://raw.githubusercontent.com/*"
-          ];
-        platforms = platforms.all;
-        };
-      };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "8.0.0.0";
+      version = "8.0.0.6";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4135495/video_downloadhelper-8.0.0.0.xpi";
-      sha256 = "33b1a059d197e74944006e3a5b4ec838fa2f3e0b817913016e1535258d5dfa29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4157053/video_downloadhelper-8.0.0.6.xpi";
+      sha256 = "e7536528339175af3765c9bc875ea317f02666057a9ea0cabc508d7b44d95626";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -8145,16 +8116,14 @@
           "tabs"
           "contextMenus"
           "nativeMessaging"
-          "alarms"
           "webRequest"
           "downloads"
-          "clipboardWrite"
           "webNavigation"
           "notifications"
           "scripting"
-          "storage"
           "<all_urls>"
           "menus"
+          "storage"
           "*://*.downloadhelper.net/*"
           ];
         platforms = platforms.all;
@@ -8477,7 +8446,7 @@
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
-        description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\" rel=\"nofollow\">https://github.com/violentmonkey/violentmonkey</a>";
+        description = "Userscript support for browsers, open source.";
         license = licenses.mit;
         mozPermissions = [
           "tabs"
@@ -8565,7 +8534,12 @@
       {
         homepage = "https://www.wappalyzer.com";
         description = "Identify technologies on websites";
-        license = licenses.gpl3;
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+          };
         mozPermissions = [
           "cookies"
           "storage"
