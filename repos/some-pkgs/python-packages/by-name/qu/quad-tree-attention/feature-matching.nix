@@ -86,6 +86,8 @@ buildPythonPackage {
   ];
 
   meta = with lib; {
+    description = "LoFTR-style feature matching classes based on QuadTree Attention";
+    homepage = "https://github.com/Tangshitao/QuadtreeAttention";
     maintainers = [ maintainers.SomeoneSerge ];
     platforms = platforms.unix;
   };

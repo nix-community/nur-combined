@@ -89,9 +89,11 @@ let
     };
 
     meta = with lib; {
+      broken = !pytorch.cudaSupport;
+      description = "QuadTree Attention for Vision Transformers (ICLR2022)";
+      homepage = "https://github.com/Tangshitao/QuadtreeAttention";
       maintainers = [ maintainers.SomeoneSerge ];
       platforms = platforms.linux;
-      broken = !pytorch.cudaSupport;
     };
   };
 in
