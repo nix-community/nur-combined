@@ -39,5 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/WayfireWM/wf-osk";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
+    mainProgram = "wf-osk";
   };
 }

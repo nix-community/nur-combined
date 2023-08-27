@@ -69,7 +69,7 @@ in
   some-pkgs =
     (autocallByName final.some-pkgs ./pkgs/by-name) //
     {
-      inherit (final.python3Packages) some-pkgs-py;
+      some-pkgs-py = prev.recurseIntoAttrs final.python3Packages.some-pkgs-py;
       callPackage = final.lib.callPackageWith (final // final.some-pkgs);
 
       faiss = final.callPackage ./pkgs/by-name/fa/faiss {

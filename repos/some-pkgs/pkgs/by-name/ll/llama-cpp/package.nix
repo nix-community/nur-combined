@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , cmake
 , callPackage
+, darwin
 }:
 
 stdenv.mkDerivation rec {
@@ -59,6 +60,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
   ];
+  buildInputs = [
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Accelerate
+  ];
+
   cmakeFlags = [
     "-DLLAMA_BUILD_EXAMPLES=ON"
   ];

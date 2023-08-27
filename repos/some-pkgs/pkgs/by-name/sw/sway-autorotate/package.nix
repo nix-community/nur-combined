@@ -49,5 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/emiljonsrud/sway_autorotate/";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
+    mainProgram = "sway-autorotate";
   };
 }

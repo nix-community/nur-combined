@@ -44,6 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
+    broken = stdenv.isDarwin; # <ranges> and concepts with older llvm...
     description = "Maximilian Reininghaus's fork of cnpy";
     homepage = "https://gitlab.iap.kit.edu/mreininghaus/cnpypp";
     license = licenses.mit;
