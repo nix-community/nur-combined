@@ -1,6 +1,12 @@
-name: "Build and populate cache"
+name: "nix-build"
 on:
-  pull_request:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - 'master'
   push:
     branches:
       - main
@@ -12,7 +18,7 @@ on:
     - cron:  '50 5 * * *'
   workflow_dispatch:
 jobs:
-  tests:
+  nix-build:
     strategy:
       fail-fast: false
       matrix:
@@ -35,24 +41,16 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - pkgs
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
         os: [ ubuntu-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    - name: Install nix
-      uses: cachix/install-nix-action@v20
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@v4
       with:
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-        install_url: https://releases.nixos.org/nix/nix-2.9.1/install
-        nix_path: "${{ matrix.nixPath }}"
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: DeterminateSystems/magic-nix-cache-action@v2
     - name: Setup cachix
       # Don't replace <YOUR_CACHIX_NAME> here!
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
@@ -60,40 +58,11 @@ jobs:
       with:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         name: ${{ matrix.cachixName }}
-    - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Build nix packages
-      run: nix shell -f 'https://github.com/Mic92/nix-build-uncached/archive/refs/tags/v1.1.1.tar.gz' -c nix-build-uncached -build-flags -L ci.nix -A cacheOutputs
+      run: nix shell -f 'https://github.com/Mic92/nix-build-uncached/archive/refs/tags/v1.1.2.tar.gz' -c nix-build-uncached -build-flags -L ci.nix -A cacheOutputs --keep-going
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
-  build-faiss:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Install nix
-      uses: cachix/install-nix-action@v20
-      with:
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-        install_url: https://releases.nixos.org/nix/nix-2.9.1/install
-        nix_path: "nixpkgs=channel:nixpkgs-unstable"
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v12
-      with:
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-        name: pkgs
-    - name: nix-build
-      run: nix-build -A faiss
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

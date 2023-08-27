@@ -1,4 +1,4 @@
-name: "Rebase the unfree branch on master"
+name: "unfree: git rebase master"
 on:
   push:
     branches:

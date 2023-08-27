@@ -3,8 +3,9 @@
 - Based on [NUR](https://github.com/nix-community/NUR)
 - A template repo: https://github.com/nix-community/nur-packages-template
 
-<!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/SomeoneSerge/pkgs/workflows/Build%20and%20populate%20cache/badge.svg)
+[![nix-build](https://github.com/SomeoneSerge/pkgs/actions/workflows/build.yml/badge.svg)](https://github.com/SomeoneSerge/pkgs/actions/workflows/build.yml)
+[![nix-update](https://github.com/SomeoneSerge/pkgs/actions/workflows/update.yml/badge.svg)](https://github.com/SomeoneSerge/pkgs/actions/workflows/update.yml)
+[![nix flake update](https://github.com/SomeoneSerge/pkgs/actions/workflows/nix-flake-update.yml/badge.svg)](https://github.com/SomeoneSerge/pkgs/actions/workflows/nix-flake-update.yml)
 
 <!--
 Uncomment this if you use travis:

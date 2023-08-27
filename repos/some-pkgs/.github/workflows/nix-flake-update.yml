@@ -1,0 +1,20 @@
+name: "nix flake update"
+on:
+  schedule:
+    - cron: '0 0 * * 0' # runs weekly on Sunday at 00:00
+  workflow_dispatch:
+jobs:
+  nix-flake-update:
+    runs-on: ubuntu-latest
+    environment: GH_PAT
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v4
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v19
+        with:
+          token: ${{ secrets.GH_PAT }}
