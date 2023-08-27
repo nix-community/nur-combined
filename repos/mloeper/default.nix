@@ -14,6 +14,6 @@ rec {
   # For some reason NUR needs to be passed git-credential-manager explicitly to support self-referencing in passthru.tests
   git-credential-manager = pkgs.callPackage ./pkgs/git-credential-manager { git-credential-manager = git-credential-manager; };
   usbguard-applet-qt = pkgs.callPackage ./pkgs/usbguard-applet-qt { };
-  #dashlane-cli = pkgs.callPackage ./pkgs/dashlane-cli { };
+  dashlane-cli = pkgs.callPackage ./pkgs/dashlane-cli { };
   devcontainer-cli-unofficial = pkgs.callPackage ./pkgs/devcontainer-cli-unofficial { };
 }
