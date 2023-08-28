@@ -21,6 +21,7 @@
   gradebook = pkgs.callPackage ./gradebook { };
   gtatool = pkgs.callPackage ./gtatool { inherit libgta teem; };
   kommit = pkgs.libsForQt5.callPackage ./kommit { };
+  kuroko = pkgs.callPackage ./kuroko { };
   licentia = pkgs.libsForQt5.callPackage ./licentia { kirigami-addons = kirigami-addons_0_10; };
   libgta = pkgs.callPackage ./libgta { };
   libtgd = pkgs.callPackage ./libtgd { inherit libgta; };
@@ -152,7 +153,7 @@
 
   kate-standalone = pkgs.kate.overrideAttrs (oldAttrs: {
     pname = "kate-standalone";
-    cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
+    cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
       "-DBUILD_kwrite=false"
     ];
     meta = oldAttrs.meta // {
@@ -162,7 +163,7 @@
 
   kwrite-standalone = pkgs.kate.overrideAttrs (oldAttrs: {
     pname = "kwrite-standalone";
-    cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
+    cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
       "-DBUILD_addons=false"
       "-DBUILD_kate=false"
     ];

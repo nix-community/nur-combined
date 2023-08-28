@@ -14,9 +14,9 @@
       forAllSystems = f: genAttrs systems.flakeExposed (system: f (import nixpkgs {
         inherit system;
         config.allowUnfreePredicate = p: builtins.elem (getName p) [
-            "sonic-2013"
-            "sonic-cd"
-          ];
+          "sonic-2013"
+          "sonic-cd"
+        ];
       }));
     in
     {
