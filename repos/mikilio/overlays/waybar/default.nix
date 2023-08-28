@@ -1,7 +1,7 @@
 (
   final: prev: {
     waybar = prev.waybar.overrideAttrs (o: {
-      postInstall = o.postInstall + ''
+      postInstall = ''
         mkdir -p $out/share/dbus-1/services
         cat <<END > $out/share/dbus-1/services/org.kde.StatusNotifierWatcher.service
         [D-BUS Service]
