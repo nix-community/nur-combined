@@ -930,7 +930,7 @@ in {
   #   buildInputs = upstream.buildInputs ++ [ final.vala ];
   # });
 
-  # TODO(2023/08/27): send out for PR: <https://github.com/NixOS/nixpkgs/compare/master...uninsane:nixpkgs:pr-cross-libgweather>
+  # 2023/08/27: out for PR: <https://github.com/NixOS/nixpkgs/compare/master...uninsane:nixpkgs:pr-cross-libgweather>
   # libgweather = (prev.libgweather.override {
   #   # we need introspection for bindings, used by e.g.
   #   # - gnome.gnome-weather (javascript)
@@ -1831,11 +1831,12 @@ in {
   #   # fixes "meson.build:183:0: ERROR: Can not run test applications in this cross environment."
   #   addNativeInputs [ final.mesonEmulatorHook ] prev.tracker-miners
   # );
-  tuba = (wrapGAppsHook4Fix prev.tuba).overrideAttrs (upstream: {
-    # 2023/07/27: upstreaming is blocked on p11-kit cross compilation
-    # error: Package `{libadwaita-1,gtksourceview-5,libsecret-1,gee-0.8}' not found in specified Vala API directories or GObject-Introspection GIR directories
-    buildInputs = upstream.buildInputs ++ [ final.vala ];
-  });
+  # 2023/08/27: out for PR: <https://github.com/uninsane/nixpkgs/pull/new/pr-cross-tuba>
+  # tuba = (wrapGAppsHook4Fix prev.tuba).overrideAttrs (upstream: {
+  #   # 2023/07/27: upstreaming is blocked on p11-kit cross compilation
+  #   # error: Package `{libadwaita-1,gtksourceview-5,libsecret-1,gee-0.8}' not found in specified Vala API directories or GObject-Introspection GIR directories
+  #   buildInputs = upstream.buildInputs ++ [ final.vala ];
+  # });
   # twitter-color-emoji = prev.twitter-color-emoji.override {
   #   # fails to fix original error
   #   inherit (emulated) stdenv;
