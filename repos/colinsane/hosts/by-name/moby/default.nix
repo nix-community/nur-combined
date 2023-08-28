@@ -44,6 +44,7 @@
   sane.programs.tuiApps.enableFor.user.colin = false;  # visidata, others, don't compile well
   # disabled for faster deploys
   sane.programs.soundconverter.enableFor.user.colin = false;
+  sane.programs.eg25-control.enableFor.user.colin = true;
 
   # sane.programs.firefox.mime.priority = 300;  # prefer other browsers when possible
   # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`
@@ -115,8 +116,12 @@
 
 
     # TODO: move elsewhere...
-    # N.B.: the extra "" in ExecStart serves to force upstream ExecStart to be ignored
-    services.ModemManager.serviceConfig.ExecStart = [ "" "${pkgs.modemmanager}/bin/ModemManager --debug" ];
+    services.ModemManager.serviceConfig = {
+      # N.B.: the extra "" in ExecStart serves to force upstream ExecStart to be ignored
+      ExecStart = [ "" "${pkgs.modemmanager}/bin/ModemManager --debug" ];
+      # --debug sets DEBUG level logging: so reset
+      ExecStartPost = [ "${pkgs.modemmanager}/bin/mmcli --set-logging=INFO" ];
+    };
   };
 
   services.udev.extraRules = let

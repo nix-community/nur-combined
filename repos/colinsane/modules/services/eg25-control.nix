@@ -12,7 +12,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.eg25-control-defaults = {
+    systemd.services.eg25-control = {
       serviceConfig = {
         Type = "simple";
         ExecStart = "${cfg.package}/bin/eg25-control --power-on --enable-gps --dump-debug-info --verbose";
