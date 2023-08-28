@@ -13,5 +13,5 @@
   */
   vimPlugins = pkgs.callPackage ./vimPlugins {};
   thunar = import ./thunar;
-  waybar = import ./warbar;
+  waybar = import ./waybar;
 }
