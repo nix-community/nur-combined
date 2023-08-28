@@ -75,6 +75,7 @@ let
           ls -d $PWD/bin/lldb/linux/lib/python3.8/lib-dynload/* |
           xargs patchelf \
             --replace-needed libssl.so.10 libssl.so \
+            --replace-needed libz.so.1 libz.so \
             --replace-needed libcrypto.so.10 libcrypto.so
 
           autoPatchelf $PWD/bin
