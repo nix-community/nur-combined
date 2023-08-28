@@ -59,6 +59,7 @@ let
         stdenv.cc.cc
         libdbusmenu
         openssl.out
+        zlib.out
         expat
       ];
       dontAutoPatchelf = true;
