@@ -1,7 +1,7 @@
 { lib,
   fetchFromGitHub,
   stdenv,
-#  linuxOnly ? true,
+#  linuxOnly ? true, # broken on nix builds
   buildMode ? "rel",
   limitOutputs ? false # defaults to all
 }:
@@ -20,8 +20,8 @@
 let
   commonMeta = rec {
     name = "cosmopolitan";
-    version = "2023-08-14";
-    rev = "b494d565499c6eb49fd2f48ce036623d2baf63b4";
+    version = "2023-08-27";
+    rev = "4021cd0c1e898970dc82c19733500cad9edf0142";
     changelog = "https://github.com/jart/cosmopolitan/commits/${rev}";
   };
 
@@ -124,12 +124,12 @@ let
         };
     };
 
-    #make = "make";
-    make = "./build/bootstrap/make.com";
+    make = "make";
+    #make = "./build/bootstrap/make.com"; # broken on nix builds
     platformFlag =
       "";
     #   if linuxOnly
-    #     then "CPPFLAGS=-DSUPPORT_VECTOR=1"
+    #     then "CPPFLAGS=-DSUPPORT_VECTOR=1" # broken on nix builds
     #     else "";
     # # NOTE(ProducerMatt): since Nix builds will all be on Linux,
     # # might as well target Linux exclusively.
@@ -138,7 +138,7 @@ let
     owner = "jart";
     repo = "cosmopolitan";
     rev = commonMeta.rev;
-    hash = "sha256-9LcxbQGxS+WanA3hOqa+OrWh69PUEA1VUTYJCHKCbqM=";
+    hash = "sha256-9/MsBSyQpbSlMMdXS2oXs8grY71kt2H2liOLpP/eyBY=";
   };
   wantedOutputs =
     # make attrs of all outputs to build. If given a bad name in
@@ -198,10 +198,7 @@ stdenv.mkDerivation {
 
     src = cosmoSrc;
     buildPhase = ''
-      sh ./build/bootstrap/compile.com --assimilate
-      sh ./build/bootstrap/cocmd.com --assimilate
-      sh ./build/bootstrap/echo.com --assimilate
-      sh ./build/bootstrap/rm.com --assimilate
+      find ./build/bootstrap/ -name '*.com' -execdir '{}' --assimilate \;
       '' + buildStuff + ''
       echo "" # workaround for nix's "malformed json" errors
     '';
