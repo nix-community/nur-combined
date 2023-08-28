@@ -4,6 +4,7 @@
 - why i need to manually restart `wireguard-wg-ovpns` on servo periodically
   - else DNS fails
 - fix epiphany URL bar input on moby
+- sxmo: wvkbd: missing font for icons on the 3rd page
 
 ## REFACTORING:
 
@@ -24,6 +25,10 @@
 - port zecwallet-lite to a from-source build
 - REVIEW/integrate jellyfin dataDir config: <https://github.com/NixOS/nixpkgs/pull/233617>
 - remove `libsForQt5.callPackage` broadly: <https://github.com/NixOS/nixpkgs/issues/180841>
+
+#### upstreaming to non-nixpkgs repos
+- gtk: build schemas even on cross compilation: <https://github.com/NixOS/nixpkgs/pull/247844>
+- sxmo: add new app entries
 
 
 ## IMPROVEMENTS:
@@ -60,10 +65,6 @@
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - especially, make the menubar collapsible
   - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
-- moby: try phog greeter instead of lightdm-mobile-greeter:
-  - <https://gitlab.com/mobian1/phog/>
-  - greet integration, so unlocks keyrings & such. better maintained than lightdm-mobile-greeter
-  - not in nixpkgs (2023/08/24)
 - package Nix/NixOS docs for Zeal
   - install [doc-browser](https://github.com/qwfy/doc-browser)
   - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)

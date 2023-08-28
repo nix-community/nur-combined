@@ -370,12 +370,13 @@ in {
   #   inherit (emulated) stdenv hare;
   # };
 
-  brightnessctl = prev.brightnessctl.overrideAttrs (upstream: {
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace Makefile \
-        --replace 'pkg-config' "$PKG_CONFIG"
-    '';
-  });
+  # 2023/08/27: out for review: <https://github.com/NixOS/nixpkgs/pull/251947>
+  # brightnessctl = prev.brightnessctl.overrideAttrs (upstream: {
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     substituteInPlace Makefile \
+  #       --replace 'pkg-config' "$PKG_CONFIG"
+  #   '';
+  # });
 
   # brltty = prev.brltty.override {
   #   # configure: error: no acceptable C compiler found in $PATH
@@ -869,17 +870,18 @@ in {
   #   inherit (emulated) stdenv;
   # };
 
-  kitty = prev.kitty.overrideAttrs (upstream: {
-    # fixes: "FileNotFoundError: [Errno 2] No such file or directory: 'pkg-config'"
-    PKGCONFIG_EXE = "${final.buildPackages.pkg-config}/bin/${final.buildPackages.pkg-config.targetPrefix}pkg-config";
+  # kitty = prev.kitty.overrideAttrs (upstream: {
+  #   # fixes: "FileNotFoundError: [Errno 2] No such file or directory: 'pkg-config'"
+  #   PKGCONFIG_EXE = "${final.buildPackages.pkg-config}/bin/${final.buildPackages.pkg-config.targetPrefix}pkg-config";
 
-    # when building docs, kitty's setup.py invokes `sphinx`, which tries to load a .so for the host.
-    # on cross compilation, that fails
-    KITTY_NO_DOCS = true;
-    patches = upstream.patches ++ [
-      ./kitty-no-docs.patch
-    ];
-  });
+  #   # when building docs, kitty's setup.py invokes `sphinx`, which tries to load a .so for the host.
+  #   # on cross compilation, that fails
+  #   KITTY_NO_DOCS = true;
+  #   patches = upstream.patches ++ [
+  #     ./kitty-no-docs.patch
+  #   ];
+  # });
+
   komikku = wrapGAppsHook4Fix prev.komikku;
   koreader = (prev.koreader.override {
     # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
@@ -927,27 +929,29 @@ in {
   #   # fixes "Run-time dependency vapigen found: NO (tried pkgconfig)"
   #   buildInputs = upstream.buildInputs ++ [ final.vala ];
   # });
-  libgweather = (prev.libgweather.override {
-    # we need introspection for bindings, used by e.g.
-    # - gnome.gnome-weather (javascript)
-    # - sane-weather (python)
-    #
-    # enabling introspection on cross is tricky because `gen_locations_variant.py`
-    # outputs binary files (Locations.bin) which use the endianness of the build machine
-    # OTOH, aarch64 and x86_64 have same endianness: why not just ignore the issue, then?
-    # upstream issue (loosely related): <https://gitlab.gnome.org/GNOME/libgweather/-/issues/154>
-    withIntrospection = true;
-  }).overrideAttrs (upstream: {
-    # TODO: the `is_cross_build` change to meson.build is in nixpkgs, but specifies the wrong filepath
-    #   (libgweather/meson.build instead of meson.build)
-    postPatch = (upstream.postPatch or "") + ''
-      sed -i '2i import os; os.environ["GI_TYPELIB_PATH"] = ""' build-aux/meson/gen_locations_variant.py
-      substituteInPlace meson.build \
-        --replace "g_ir_scanner.found() and not meson.is_cross_build()" "g_ir_scanner.found()"
-      substituteInPlace libgweather/meson.build \
-        --replace "dependency('vapigen'," "dependency('vapigen', native:true,"
-    '';
-  });
+
+  # TODO(2023/08/27): send out for PR: <https://github.com/NixOS/nixpkgs/compare/master...uninsane:nixpkgs:pr-cross-libgweather>
+  # libgweather = (prev.libgweather.override {
+  #   # we need introspection for bindings, used by e.g.
+  #   # - gnome.gnome-weather (javascript)
+  #   # - sane-weather (python)
+  #   #
+  #   # enabling introspection on cross is tricky because `gen_locations_variant.py`
+  #   # outputs binary files (Locations.bin) which use the endianness of the build machine
+  #   # OTOH, aarch64 and x86_64 have same endianness: why not just ignore the issue, then?
+  #   # upstream issue (loosely related): <https://gitlab.gnome.org/GNOME/libgweather/-/issues/154>
+  #   withIntrospection = true;
+  # }).overrideAttrs (upstream: {
+  #   # TODO: the `is_cross_build` change to meson.build is in nixpkgs, but specifies the wrong filepath
+  #   #   (libgweather/meson.build instead of meson.build)
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     sed -i '2i import os; os.environ["GI_TYPELIB_PATH"] = ""' build-aux/meson/gen_locations_variant.py
+  #     substituteInPlace meson.build \
+  #       --replace "g_ir_scanner.found() and not meson.is_cross_build()" "g_ir_scanner.found()"
+  #     substituteInPlace libgweather/meson.build \
+  #       --replace "dependency('vapigen'," "dependency('vapigen', native:true,"
+  #   '';
+  # });
 
   # libsForQt5 = prev.libsForQt5.overrideScope' (self: super: {
   #   qgpgme = super.qgpgme.overrideAttrs (orig: {
@@ -1313,8 +1317,6 @@ in {
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
   # 2023/07/27: upstreaming is blocked on p11-kit, argyllcms, libavif cross compilation
   phoc = mvToNativeInputs [ final.wayland-scanner final.glib ] prev.phoc;
-  # disable squeekboard because it takes 20 minutes to compile when emulated
-  phog = prev.phog.override { squeekboard = null; };
   phosh = prev.phosh.overrideAttrs (upstream: {
     buildInputs = upstream.buildInputs ++ [
       final.libadwaita  # "plugins/meson.build:41:2: ERROR: Dependency "libadwaita-1" not found, tried pkgconfig"

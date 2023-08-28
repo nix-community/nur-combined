@@ -351,6 +351,17 @@ in [
     saneCommit = "67df31a8984ab3067af5b65446d2808b0aedadc6";
     hash = "sha256-qY0bjMoFneC5VJ467TeiuOycLYNaVO7Xo/0fCauDZAM=";
   })
+  (fetchpatch' {
+    title = "brightnessctl: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/251947";
+    saneCommit = "c7dce3df8c74ffcb8de3bf242b73712e5adc0227";
+    hash = "sha256-AheGnNL2BU+Wac/ohYbMHpbjgjY3e2iYZDAUFOwU3Sw=";
+  })
+  (fetchpatch' {
+    title = "libgweather: enable introspection on cross builds";
+    saneCommit = "7a2d0a90cc558ea71dfc78356e61b0675b995634";
+    hash = "sha256-5uOYxC4+ZMjIbO1oSA/8ffuftgHSbrGuKjw3EnCHakU=";
+  })
 
   # (fetchpatch' {
   #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped

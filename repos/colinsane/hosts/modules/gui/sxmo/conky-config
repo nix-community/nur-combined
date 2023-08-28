@@ -1,5 +1,3 @@
--- configversion: 737cb1de0389cee32a04785691a446a2
-
 -- docs: <https://conky.cc/variables>
 -- color names are X11 colors: <https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart>
 -- - can also use #rrggbb syntax

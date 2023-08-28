@@ -201,8 +201,6 @@ in
 
     # INDIVIDUAL PACKAGE DEFINITIONS
 
-    dino.persist.private = [ ".local/share/dino" ];
-
     # creds, but also 200 MB of node modules, etc
     discord.persist.private = [ ".config/discord" ];
 

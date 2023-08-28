@@ -167,7 +167,7 @@ in
       WVKBD_LANDSCAPE_LAYERS = "landscape,special,emoji";
       WVKBD_LAYERS = "full,special,emoji";
     };
-    package = pkgs.sxmo-utils.overrideAttrs (base: {
+    package = pkgs.sxmo-utils-latest.overrideAttrs (base: {
       postPatch = (base.postPatch or "") + ''
         cat <<EOF >> ./configs/default_hooks/sxmo_hook_start.sh
         # rotate UI based on physical display angle by default

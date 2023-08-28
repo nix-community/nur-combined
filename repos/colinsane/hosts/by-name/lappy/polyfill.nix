@@ -28,7 +28,7 @@
       # see <repo:mil/sxmo-utils:scripts/deviceprofiles>
       # SXMO_DEVICE_NAME = "pine64,pinephone-1.2";
     };
-    package = pkgs.sxmo-utils.overrideAttrs (base: {
+    package = pkgs.sxmo-utils-latest.overrideAttrs (base: {
       postPatch = (base.postPatch or "") + ''
         # after volume-button navigation mode, restore full keyboard functionality
         cp ${./xkb_mobile_normal_buttons} ./configs/xkb/xkb_mobile_normal_buttons

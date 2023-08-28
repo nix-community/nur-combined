@@ -8,6 +8,7 @@
     ./cantata.nix
     ./chatty.nix
     ./cozy.nix
+    ./dino.nix
     ./element-desktop.nix
     ./epiphany.nix
     ./evince.nix

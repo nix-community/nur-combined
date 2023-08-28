@@ -38,7 +38,7 @@ in
     suggestedPrograms = [ "gnome-keyring" ];
     persist.private = [
       ".local/share/chatty"  # matrix avatars and files
-      # ".purple"  # XMPP stuff
+      ".purple/chatty"  # not just XMPP; without this Chatty will regenerate its device-id every boot
     ];
   };
 }

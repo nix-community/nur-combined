@@ -5,11 +5,15 @@ https://nixos.org/manual/nix/stable/language/builtins.html
 https://github.com/nixos/nixpkgs/pulls?q=
 https://nur.nix-community.org/
 https://nix-community.github.io/home-manager/options.html
+https://lists.sr.ht/~mil/sxmo-devel
 https://w.uninsane.org/viewer#search?books.name=wikipedia_en_all_maxi_2022-05&pattern=
 https://jackett.uninsane.org/UI/Dashboard#search=
+https://lemmy.uninsane.org
 https://fed.uninsane.org
+https://jelly.uninsane.org
 https://bt.uninsane.org
 https://sci-hub.se
 https://archive.is
 https://news.ycombinator.com
-http://10.78.79.1  # Router/Firewall
+http://10.78.79.1  # router/firewall
+https://jochen-hoenicke.de/queue  # johoe's mempool (bitcoin/ethereum)
