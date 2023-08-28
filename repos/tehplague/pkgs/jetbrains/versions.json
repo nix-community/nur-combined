@@ -3,11 +3,10 @@
     "clion": {
       "update-channel": "CLion RELEASE",
       "url-template": "https://download.jetbrains.com/cpp/CLion-{version}.tar.gz",
-      "version": "2023.2.1",
-      "sha256": "3dad580f2d4b40815c64da602e37d874bef03bdf50bd70ce63efb4005006cf19",
-      "url": "https://download.jetbrains.com/cpp/CLion-2023.2.1.tar.gz",
-      "version-major-minor": "2022.3",
-      "build_number": "232.9559.58"
+      "version": "2023.2",
+      "sha256": "45671bb8cf7b18bd6da2b519b950f28d315ad49d230494a08785e78219e43819",
+      "url": "https://download.jetbrains.com/cpp/CLion-2023.2.tar.gz",
+      "build_number": "232.8660.186"
     },
     "datagrip": {
       "update-channel": "DataGrip RELEASE",
