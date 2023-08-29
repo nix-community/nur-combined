@@ -34,10 +34,6 @@ fetch.pypi = "autotools-language-server"
 src.pypi = "bitbake-language-server"
 fetch.pypi = "bitbake-language-server"
 
-[make-language-server]
-src.pypi = "make-language-server"
-fetch.pypi = "make-language-server"
-
 [pkgbuild-language-server]
 src.pypi = "pkgbuild-language-server"
 fetch.pypi = "pkgbuild-language-server"
