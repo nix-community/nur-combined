@@ -17,6 +17,10 @@ in
     inherit (vifino) artsy;
 
     opensoundmeter = pkgs.libsForQt5.callPackage ./opensoundmeter.nix {};
+
+
+    libuev = callPackage ./troglobit/libuev.nix {};
+    uftpd = callPackage ./troglobit/uftpd.nix { inherit libuev; };
   }
   // optionalAttrs (!hasSuffix "-darwin" system) rec {
     # Packages that won't run on Darwin.
