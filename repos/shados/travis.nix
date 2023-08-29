@@ -38,6 +38,9 @@ let
      (listToAttrs (map (n: nameValuePair n fixedNixpkgs.${n}) fixedPkgNames));
 in rec {
   # TODO build the overlayed lua & python packages?
+  # Should probably add an ordering/priority value to the overlays so I can
+  # consistently build a sorted list of them, then I just need need to pull the
+  # attribute names from within each overlay and attempt to build those?
   buildPkgs = filter isBuildable (nurPkgs ++ fixedPkgs);
   cachePkgs = filter isCacheable buildPkgs;
 

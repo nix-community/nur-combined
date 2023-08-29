@@ -188,6 +188,32 @@
         "url": "https://github.com/mobile-shell/mosh/archive/e023e81c08897c95271b4f4f0726ec165bb6e1bd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "naersk": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Build rust crates in Nix. No configuration, no code generation, no IFD. Sandbox friendly. [maintainer: @Patryk27]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "naersk",
+        "rev": "275010712ce41dff66634f9910bc1f085239b370",
+        "sha256": "0bhph43pn50brcn2dcm2g7m9wl8q886cacbf4rfbivnvnmiz05mw",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/naersk/archive/275010712ce41dff66634f9910bc1f085239b370.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "steamguard-cli": {
+        "branch": "master",
+        "builtin": false,
+        "description": "A linux utility for generating 2FA codes for Steam and managing Steam trade confirmations. ",
+        "homepage": "",
+        "owner": "dyc3",
+        "repo": "steamguard-cli",
+        "rev": "84f488a7bdbc184ac0615700c1b0f7a64e7b77a7",
+        "sha256": "1xqr145xsc6cfdm7pr3rrcm4qbznfj7c9423wafyjah3gfrpkhkd",
+        "type": "tarball",
+        "url": "https://github.com/dyc3/steamguard-cli/archive/84f488a7bdbc184ac0615700c1b0f7a64e7b77a7.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "switch-dbibackend": {
         "branch": "main",
         "builtin": false,
@@ -221,10 +247,10 @@
         "homepage": null,
         "owner": "regnarg",
         "repo": "urxvt-config-reload",
-        "rev": "0448564caedc636bc90bac4c126e3bf75497a621",
-        "sha256": "1xacjh0nvr7kiiqsnliaxw137psll4hr9n4j1562nhbgrzghwxbj",
+        "rev": "29ad467c4e72bb8655c0431bf960f382f2b0fc4a",
+        "sha256": "0crymw5q5s73h0a459zsxq670im0w8h4rpw47lclgrlvl7djvm5y",
         "type": "tarball",
-        "url": "https://github.com/regnarg/urxvt-config-reload/archive/0448564caedc636bc90bac4c126e3bf75497a621.tar.gz",
+        "url": "https://github.com/regnarg/urxvt-config-reload/archive/29ad467c4e72bb8655c0431bf960f382f2b0fc4a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "urxvtconfig": {

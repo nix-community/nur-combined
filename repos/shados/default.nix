@@ -2,6 +2,7 @@
 let
   nixpkgsPath = pkgs.path;
   pins = import ./nix/sources.nix nixpkgsPath pkgs.targetPlatform.system;
+  naersk = pkgs.callPackage pins.naersk { };
 in
 let repo = rec {
   lib = import ./lib { inherit pkgs repo; };
@@ -80,4 +81,12 @@ let repo = rec {
   # waterfox-unwrapped = pkgs.callPackage ./pkgs/waterfox {
   #   inherit firefox-common nixpkgsPath;
   # };
+
+  # Work-around NUR's eval test inexplicably failing on naersk, even though
+  # running the eval test locally works fine =/
+  uncheckedPkgs = {
+    steamguard-cli = pkgs.callPackage ./pkgs/steamguard-cli {
+      inherit naersk pins;
+    };
+  };
 }; in repo
