@@ -227,7 +227,10 @@ in
             # TODO: only need the share/sxmo directly linked
             "${cfg.package}/share"
           ];
-        };
+        } // (lib.filterAttrs  # certain settings are read before the `profile` is sourced
+          (k: v: k == "SXMO_DISABLE_CONFIGVERSION_CHECK")
+          cfg.settings
+        );
 
         systemd.services."sxmo-set-permissions" = {
           description = "configure specific /sys and /dev nodes to be writable by sxmo scripts";

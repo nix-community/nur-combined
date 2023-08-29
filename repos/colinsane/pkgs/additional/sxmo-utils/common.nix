@@ -127,17 +127,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ bash ];  # needed here so stdenv's `patchShebangsAuto` hook sets the right interpreter
 
-  installPhase = ''
-    runHook preInstall
-
+  # TODO: DESTDIR/PREFIX here are wrong, and it breaks share/sxmo/appscripts/{sxmo_screenshot.sh,...}
+  makeFlags = [ "OPENRC=0" "DESTDIR=${placeholder "out"}" "PREFIX=" ];
+  preInstall = ''
     # busybox is used by setup_config_version.sh, but placing it in nativeBuildInputs breaks the nix builder
-    PATH="$PATH:${buildPackages.busybox}/bin" make OPENRC=0 DESTDIR=$out PREFIX= install
-
-    runHook postInstall
+    PATH="$PATH:${buildPackages.busybox}/bin"
   '';
 
   # we don't wrap sxmo_common.sh or sxmo_init.sh
-  # which is unfortunate, for non-sxmo-utils files that might source though.
+  # which is unfortunate, for non-sxmo-utils files that might source those.
   # if that's a problem, could inject a PATH=... line into them with sed.
   postInstall = ''
     for f in \

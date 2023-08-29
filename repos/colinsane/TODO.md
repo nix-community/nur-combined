@@ -75,6 +75,12 @@
 - email: fix so that local mail doesn't go to junk
   - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
+- sxmo: don't put all deps on PATH
+  - maybe: use resholve to hard-code them
+    - this is the most "correct", but least patchable
+  - maybe: express each invocation as a function in sxmo_common.sh
+    - this will require some patching to handle `exec <foo>` style
+  - maybe: save original PATH and reset it before invoking user files
 
 ### perf
 - add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled

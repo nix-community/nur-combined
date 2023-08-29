@@ -17,73 +17,82 @@
 { config, lib, pkgs, ... }:
 
 # XXX: avatar support works in MUCs but not DMs
-# lib.mkIf false
+let
+  # TODO: this range could be larger, but right now that's costly because each element is its own UPnP forward
+  turnPortLow = 49152;
+  turnPortHigh = 49168;
+  turnPortRange = lib.range turnPortLow turnPortHigh;
+in
 {
   sane.persist.sys.plaintext = [
     { user = "ejabberd"; group = "ejabberd"; path = "/var/lib/ejabberd"; }
   ];
-  sane.ports.ports."3478" = {
-    protocol = [ "tcp" "udp" ];
-    visibleTo.lan = true;
-    visibleTo.wan = true;
-    description = "colin-xmpp-stun-turn";
-  };
-  sane.ports.ports."5222" = {
-    protocol = [ "tcp" ];
-    visibleTo.lan = true;
-    visibleTo.wan = true;
-    description = "colin-xmpp-client-to-server";
-  };
-  sane.ports.ports."5223" = {
-    protocol = [ "tcp" ];
-    visibleTo.lan = true;
-    visibleTo.wan = true;
-    description = "colin-xmpps-client-to-server";  # XMPP over TLS
-  };
-  sane.ports.ports."5269" = {
-    protocol = [ "tcp" ];
-    visibleTo.wan = true;
-    description = "colin-xmpp-server-to-server";
-  };
-  sane.ports.ports."5270" = {
-    protocol = [ "tcp" ];
-    visibleTo.wan = true;
-    description = "colin-xmpps-server-to-server";  # XMPP over TLS
-  };
-  sane.ports.ports."5280" = {
-    protocol = [ "tcp" ];
-    visibleTo.lan = true;
-    visibleTo.wan = true;
-    description = "colin-xmpp-bosh";
-  };
-  sane.ports.ports."5281" = {
-    protocol = [ "tcp" ];
-    visibleTo.lan = true;
-    visibleTo.wan = true;
-    description = "colin-xmpp-bosh-https";
-  };
-  sane.ports.ports."5349" = {
-    protocol = [ "tcp" ];
-    visibleTo.lan = true;
-    visibleTo.wan = true;
-    description = "colin-xmpp-stun-turn-over-tls";
-  };
-  sane.ports.ports."5443" = {
-    protocol = [ "tcp" ];
-    visibleTo.lan = true;
-    visibleTo.wan = true;
-    description = "colin-xmpp-web-services";  # file uploads, websockets, admin
-  };
-
-  # TODO: forward these TURN ports!
-  networking.firewall.allowedTCPPortRanges = [{
-    from = 49152;  # TURN
-    to = 49408;
-  }];
-  networking.firewall.allowedUDPPortRanges = [{
-    from = 49152;  # TURN
-    to = 49408;
-  }];
+  sane.ports.ports = lib.mkMerge ([
+    {
+      "3478" = {
+        protocol = [ "tcp" "udp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        description = "colin-xmpp-stun-turn";
+      };
+      "5222" = {
+        protocol = [ "tcp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        description = "colin-xmpp-client-to-server";
+      };
+      "5223" = {
+        protocol = [ "tcp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        description = "colin-xmpps-client-to-server";  # XMPP over TLS
+      };
+      "5269" = {
+        protocol = [ "tcp" ];
+        visibleTo.wan = true;
+        description = "colin-xmpp-server-to-server";
+      };
+      "5270" = {
+        protocol = [ "tcp" ];
+        visibleTo.wan = true;
+        description = "colin-xmpps-server-to-server";  # XMPP over TLS
+      };
+      "5280" = {
+        protocol = [ "tcp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        description = "colin-xmpp-bosh";
+      };
+      "5281" = {
+        protocol = [ "tcp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        description = "colin-xmpp-bosh-https";
+      };
+      "5349" = {
+        protocol = [ "tcp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        description = "colin-xmpp-stun-turn-over-tls";
+      };
+      "5443" = {
+        protocol = [ "tcp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        description = "colin-xmpp-web-services";  # file uploads, websockets, admin
+      };
+    }
+  ] ++ (builtins.map
+    (port: {
+      "${builtins.toString port}" = {
+        protocol = [ "tcp" "udp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        description = "colin-xmpp-turn";
+      };
+    })
+    turnPortRange
+  ));
 
   # provide access to certs
   # TODO: this should just be `acme`. then we also add nginx to the `acme` group.
@@ -272,8 +281,8 @@
             module: ejabberd_stun
             transport: tcp
             use_turn: true
-            turn_min_port: 49152
-            turn_max_port: 65535
+            turn_min_port: ${builtins.toString turnPortLow}
+            turn_max_port: ${builtins.toString turnPortHigh}
             turn_ipv4_address: %ANATIVE%
           -
             # STUN+TURN UDP
@@ -281,8 +290,8 @@
             module: ejabberd_stun
             transport: udp
             use_turn: true
-            turn_min_port: 49152
-            turn_max_port: 65535
+            turn_min_port: ${builtins.toString turnPortLow}
+            turn_max_port: ${builtins.toString turnPortHigh}
             turn_ipv4_address: %ANATIVE%
           -
             # STUN+TURN TLS over TCP
@@ -292,8 +301,8 @@
             tls: true
             certfile: /var/lib/acme/uninsane.org/full.pem
             use_turn: true
-            turn_min_port: 49152
-            turn_max_port: 65535
+            turn_min_port: ${builtins.toString turnPortLow}
+            turn_max_port: ${builtins.toString turnPortHigh}
             turn_ipv4_address: %ANATIVE%
 
         # TODO: enable mod_fail2ban
