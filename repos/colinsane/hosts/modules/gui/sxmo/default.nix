@@ -136,6 +136,7 @@ in
             };
           in {
             SXMO_BAR_SHOW_BAT_PER = mkSettingsOpt "1" "show battery percentage in statusbar";
+            SXMO_DISABLE_CONFIGVERSION_CHECK = mkSettingsOpt "1" "allow omitting the configversion line from user-provided sxmo dotfiles";
             SXMO_UNLOCK_IDLE_TIME = mkSettingsOpt "300" "how many seconds of inactivity before locking the screen";  # lock -> screenoff happens 8s later, not configurable
           };
       };

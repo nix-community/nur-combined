@@ -4,9 +4,19 @@
 #   - xdg-utils is blocked on perl5.36.0-Module-Build
 #     - needed for File-BaseDir, used by File-MimeInfo
 #     - File-BaseDir can be updated to v0.09, which cross compiles with ease
-# - libgudev builds on servo branch
+#
 # - blueman builds on servo branch
+# - libgudev builds on servo branch
+#
+# - argyllcms needs investigation on servo
 # - directfb needs investigation on servo
+# - evolution-data-server needs investigation on servo
+# - gnome-clocks needs investigation on servo
+# - ibus needs investigation on servo
+# - luajit needs investigation on servo
+# - rpm needs investigation on servo
+# - waybar needs investigation on servo
+# - webkitgtk build fails at the nix layer (OOM?)
 #
 # non-binfmt build status:
 # - webkitgtk fails 90% through build:
