@@ -25,8 +25,9 @@ let
     # https://github.com/NixOS/nixpkgs/pull/243032
     g3kb-switch = callPackage ./pkgs/tools/misc/g3kb-switch { };
 
+    gdb-prompt = callPackage ./pkgs/development/libraries/gdb-prompt { };
     tcl-prompt = callPackage ./pkgs/development/libraries/tcl-prompt { };
-    bash-prompt-style = callPackage ./pkgs/shells/bash/bash-prompt-style { };
+    bash-prompt = callPackage ./pkgs/shells/bash/bash-prompt { };
     undollar = callPackage ./pkgs/tools/misc/undollar { };
     manpager = callPackage ./pkgs/tools/misc/manpager { };
     help2man = callPackage ./pkgs/development/python-modules/help2man { };
@@ -35,9 +36,8 @@ let
     repl-python-codestats = callPackage ./pkgs/development/python-modules/repl-python-codestats { };
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
-    autoconf-language-server = callPackage ./pkgs/development/python-modules/autoconf-language-server { };
+    autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
     bitbake-language-server = callPackage ./pkgs/development/python-modules/bitbake-language-server { };
-    make-language-server = callPackage ./pkgs/development/python-modules/make-language-server { };
     pkgbuild-language-server = callPackage ./pkgs/development/python-modules/pkgbuild-language-server { };
     portage-language-server = callPackage ./pkgs/development/python-modules/portage-language-server { };
     requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };

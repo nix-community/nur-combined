@@ -26,9 +26,9 @@ fetch.pypi = "repl-python-codestats"
 src.pypi = "translate-shell"
 fetch.pypi = "translate-shell"
 
-[autoconf-language-server]
-src.pypi = "autoconf-language-server"
-fetch.pypi = "autoconf-language-server"
+[autotools-language-server]
+src.pypi = "autotools-language-server"
+fetch.pypi = "autotools-language-server"
 
 [bitbake-language-server]
 src.pypi = "bitbake-language-server"
