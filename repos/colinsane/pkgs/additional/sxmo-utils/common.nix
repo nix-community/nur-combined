@@ -34,10 +34,13 @@
 , rsync
 , scdoc
 , sfeed
+, slurp
 , superd
 , sway
 , swayidle
 , wob
+, wl-clipboard
+, wtype
 , wvkbd
 , xdg-user-dirs
 , xdotool
@@ -77,10 +80,13 @@ let
     procps  # pgrep
     pulseaudio  # pactl
     sfeed
+    slurp  # for sxmo_screenshot.sh
     superd
     sway
     swayidle
+    wl-clipboard  # for wl-copy; sxmo_screenshot.sh
     wob
+    wtype  # for sxmo_type
     wvkbd
     xdg-user-dirs
     xrdb  # for sxmo_xinit AND sxmo_winit
@@ -127,8 +133,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ bash ];  # needed here so stdenv's `patchShebangsAuto` hook sets the right interpreter
 
-  # TODO: DESTDIR/PREFIX here are wrong, and it breaks share/sxmo/appscripts/{sxmo_screenshot.sh,...}
-  makeFlags = [ "OPENRC=0" "DESTDIR=${placeholder "out"}" "PREFIX=" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "SYSCONFDIR=${placeholder "out"}/etc"
+    "DESTDIR="
+    "OPENRC=0"
+  ];
   preInstall = ''
     # busybox is used by setup_config_version.sh, but placing it in nativeBuildInputs breaks the nix builder
     PATH="$PATH:${buildPackages.busybox}/bin"

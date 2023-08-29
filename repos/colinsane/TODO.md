@@ -51,6 +51,7 @@
   - integrate `nix check` into Gitea actions?
 
 ### user experience
+- moby: sxmo: fix youtube scripts (package youtube-cli)
 - moby: tune GPS
   - run only geoclue, and not gpsd, to save power?
   - tune QGPS setting in eg25-control, for less jitter?

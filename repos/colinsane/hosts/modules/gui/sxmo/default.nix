@@ -341,9 +341,7 @@ in
           settings.default_session.command =
           let
             # start sway and have it construct the gtkgreeter
-            sway-as-greeter = pkgs.writeShellScriptBin "sway-as-greeter" ''
-              ${pkgs.sway}/bin/sway --debug --config ${sway-config-into-gtkgreet} > /var/log/sway/sway-as-greeter.log 2>&1
-            '';
+            sway-as-greeter = runWithLogger "sway-as-greeter" "${pkgs.sway}/bin/sway --debug --config ${sway-config-into-gtkgreet}";
             # (config file for the above)
             sway-config-into-gtkgreet = pkgs.writeText "greetd-sway-config" ''
               exec "${gtkgreet-launcher}"
@@ -354,12 +352,7 @@ in
               # so that command must exist on the specific user's path who is logging in. it doesn't need to exist system-wide.
               ${pkgs.greetd.gtkgreet}/bin/gtkgreet --layer-shell --command sxmo_winit.sh
             '';
-          in "${sway-as-greeter}/bin/sway-as-greeter";
-        };
-
-        sane.fs."/var/log/sway" = {
-          dir.acl.mode = "0777";
-          wantedBeforeBy = [ "greetd.service" "display-manager.service" ];
+          in "${sway-as-greeter}";
         };
       })
 
@@ -370,22 +363,23 @@ in
           settings.default_session.command =
           let
             # start sway and have it construct the greeter
-            sway-as-greeter = pkgs.writeShellScriptBin "sway-as-greeter" ''
-              ${pkgs.sway}/bin/sway --debug --config ${sway-config-into-phog} > /var/log/sway/sway-as-greeter.log 2>&1
-            '';
+            sway-as-greeter = runWithLogger "sway-as-greeter" "${pkgs.sway}/bin/sway --debug --config ${sway-config-into-phog}";
             # (config file for the above)
             sway-config-into-phog = pkgs.writeText "greetd-sway-config" ''
               exec "${pkgs.phog}/libexec/phog"
             '';
-          in "${sway-as-greeter}/bin/sway-as-greeter";
+          in "${sway-as-greeter}";
         };
         # phog locates sxmo_winit.sh via <env>/share/wayland-sessions
         environment.pathsToLink = [ "/share/wayland-sessions" ];
 
-        sane.fs."/var/log/sway" = {
-          dir.acl.mode = "0777";
-          wantedBeforeBy = [ "greetd.service" "display-manager.service" ];
-        };
+        # persisting fontconfig & mesa_shader_cache improves start time from like 6 minutes to 1 minute
+        # TODO: this should apply to any greetd implementation
+        users.users.greeter.home = "/var/lib/greeter";
+        sane.persist.sys.plaintext = [
+          { user = "greeter"; group = "greeter"; path = "/var/lib/greeter/.cache/fontconfig"; }
+          { user = "greeter"; group = "greeter"; path = "/var/lib/greeter/.cache/mesa_shader_cache"; }
+        ];
       })
 
       (lib.mkIf (cfg.greeter == "greetd-phog") {
@@ -398,7 +392,7 @@ in
           # wrapper to launch phog and redirect logs to system journal.
           settings.default_session.command = let
             launch-phog = runWithLogger "phog" "${pkgs.phog}/bin/phog";
-          in "${launch-phog}" ;
+          in "${launch-phog}";
         };
         environment.pathsToLink = [ "/share/wayland-sessions" ];
       })
@@ -406,13 +400,11 @@ in
       (lib.mkIf (cfg.greeter == "greetd-sxmo") {
         services.greetd = {
           enable = true;
-          settings = {
-            default_session = {
-              command = let
-                launch-sxmo = runWithLogger "sxmo" "${cfg.package}/bin/sxmo_winit.sh";
-              in "${launch-sxmo}";
-              user = "colin";
-            };
+          settings.default_session = {
+            command = let
+              launch-sxmo = runWithLogger "sxmo" "${cfg.package}/bin/sxmo_winit.sh";
+            in "${launch-sxmo}";
+            user = "colin";
           };
         };
       })
