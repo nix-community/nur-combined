@@ -30,11 +30,11 @@
     "goland": {
       "update-channel": "GoLand RELEASE",
       "url-template": "https://download.jetbrains.com/go/goland-{version}.tar.gz",
-      "version": "2023.2",
-      "sha256": "17f1bbd9a46061fdd013d49a99859c1ca3ece1a3cc51cdcf2b46eae0432f2481",
-      "url": "https://download.jetbrains.com/go/goland-2023.2.tar.gz",
+      "version": "2023.2.1",
+      "sha256": "7d5c83cb43286d57b045d1d837185633be13673a5e0e443773778e0d4936647a",
+      "url": "https://download.jetbrains.com/go/goland-2023.2.1.tar.gz",
       "version-major-minor": "2022.3",
-      "build_number": "232.8660.185"
+      "build_number": "232.9559.64"
     },
     "idea-community": {
       "update-channel": "IntelliJ IDEA RELEASE",
@@ -66,11 +66,11 @@
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webide/PhpStorm-{version}.tar.gz",
-      "version": "2023.2",
-      "sha256": "81345b7bf6f9bd844804a6d72f617dd9ced606508e5d34eba8cd83a8b115f556",
-      "url": "https://download.jetbrains.com/webide/PhpStorm-2023.2.tar.gz",
+      "version": "2023.2.1",
+      "sha256": "bcb506fa27078f78da44a38f4fbab0a2000cea26385f51800c931d0cbd1b47c4",
+      "url": "https://download.jetbrains.com/webide/PhpStorm-2023.2.1.tar.gz",
       "version-major-minor": "2022.3",
-      "build_number": "232.8660.205"
+      "build_number": "232.9559.64"
     },
     "pycharm-community": {
       "update-channel": "PyCharm RELEASE",
