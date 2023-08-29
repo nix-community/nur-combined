@@ -21,6 +21,5 @@ with pkgs; rec {
   github-copilot-cli = callPackage ./pkgs/github-copilot-cli { };
   libkazv = callPackage ./pkgs/libkazv { };
   kazv = libsForQt5.callPackage ./pkgs/kazv { inherit libkazv; };
-  yazi = callPackage ./pkgs/yazi { inherit (darwin.apple_sdk.frameworks) Foundation; };
   yazi-unstable = callPackage ./pkgs/yazi/unstable.nix { inherit (darwin.apple_sdk.frameworks) Foundation; };
 }

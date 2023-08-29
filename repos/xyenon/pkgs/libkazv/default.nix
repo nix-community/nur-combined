@@ -98,14 +98,14 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "libkazv";
-  version = "unstable-2023-07-28";
+  version = "unstable-2023-08-27";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = pname;
-    rev = "30c36a46926d210711a5ce2606f776aec14a4d5f";
-    hash = "sha256-V5OX9lLVg9ujtcbzF0THcWnGqNh9WzwCd3+1oqDjHoM=";
+    rev = "0528168231cedc0f43f773a7287a32860fe7a045";
+    hash = "sha256-2262d1h/dLsO7eVctNT0uZ1cKwDuNDgcvm35gZqpK5w=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
