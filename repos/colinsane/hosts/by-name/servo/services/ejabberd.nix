@@ -19,8 +19,9 @@
 # XXX: avatar support works in MUCs but not DMs
 let
   # TODO: this range could be larger, but right now that's costly because each element is its own UPnP forward
+  # TURN port range (inclusive)
   turnPortLow = 49152;
-  turnPortHigh = 49168;
+  turnPortHigh = 49167;
   turnPortRange = lib.range turnPortLow turnPortHigh;
 in
 {
@@ -84,11 +85,14 @@ in
     }
   ] ++ (builtins.map
     (port: {
-      "${builtins.toString port}" = {
+      "${builtins.toString port}" = let
+        count = port - turnPortLow + 1;
+        numPorts = turnPortHigh - turnPortLow + 1;
+      in {
         protocol = [ "tcp" "udp" ];
         visibleTo.lan = true;
         visibleTo.wan = true;
-        description = "colin-xmpp-turn";
+        description = "colin-xmpp-turn-${builtins.toString count}-of-${builtins.toString numPorts}";
       };
     })
     turnPortRange
