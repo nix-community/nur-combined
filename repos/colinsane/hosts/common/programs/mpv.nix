@@ -14,6 +14,29 @@
         # uosc
         pkgs.mpv-uosc-latest
       ];
+      extraMakeWrapperArgs = [
+        # 2023/08/29: fixes an error where mpv on moby launches with the message
+        #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
+        #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
+        # this is likely a regression for mpv 0.36.0.
+        # the actual error message *appears* to come from the mesa library, but it's tough to trace.
+        # run with `--vo=help` to see a list of all output options.
+        # non-exhaustive (F=fails, W=works)
+        # ? libmpv           render API for libmpv
+        # ? gpu              Shader-based GPU Renderer
+        # ? gpu-next         Video output based on libplacebo
+        # ? vdpau            VDPAU with X11
+        # ? wlshm            Wayland SHM video output (software scaling)
+        # ? xv               X11/Xv
+        # W sdl              SDL 2.0 Renderer
+        # F dmabuf-wayland   Wayland dmabuf video output
+        # ? vaapi            VA API with X11
+        # ? x11              X11 (software scaling)
+        # ? null             Null video output
+        # ? caca             libcaca
+        # F drm              Direct Rendering Manager (software scaling)
+        "--add-flags" "--vo=sdl"
+      ];
     };
     persist.plaintext = [ ".config/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = ''

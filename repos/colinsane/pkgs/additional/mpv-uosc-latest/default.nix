@@ -4,7 +4,7 @@
 , mpvScripts
 }:
 mpvScripts.uosc.overrideAttrs (upstream: {
-  version = "unstable-2023-07-26";
+  version = "unstable-2023-08-29";
   # src = fetchFromGitHub {
   #   owner = "tomasklaen";
   #   repo = "uosc";
@@ -15,8 +15,8 @@ mpvScripts.uosc.overrideAttrs (upstream: {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "uosc";
-    rev = "dev/sane";
-    hash = "sha256-XOhryppod3zozYrPQlGBw298u+0/eS1MaDepV4p88cM=";
+    rev = "sane-0.2";
+    hash = "sha256-j5hX+lAf7mHx4vqI0shOekmOh4aZsOiRb3rPs8vQ4qo=";
     # for version > 4.7.0, we can use nixpkgs src and set `patches` to a fetch of my one custom commit
   };
   passthru = upstream.passthru // {
