@@ -1,5 +1,8 @@
 # Read `man 5 sway` for a complete reference.
 
+# TODO: use stock sxmo config & override via /etc/sway/config.d/*
+# especially, this will let me avoid issues around `configversion`
+
 ### Variables
 #
 # Mod4 = Logo key
@@ -58,14 +61,17 @@ client.urgent           #ff8080 #ff8080 #ffffff
 #
 # Basics:
 #
+    input * xkb_options compose:ralt
+
     # Start a terminal
     bindsym $mod+Return exec $term
 
     # Launch appmenu
     bindsym $mod+p exec sxmo_appmenu.sh
+    bindsym $mod+Shift+p exec sxmo_appmenu.sh sys
 
-    # Launch scripts menu
-    bindsym $mod+i exec sxmo_appmenu.sh scripts
+    # Wm menu switcher
+    bindsym $mod+i exec sxmo_wmmenu.sh windowswitcher
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -157,7 +163,7 @@ client.urgent           #ff8080 #ff8080 #ffffff
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
-    # bindsym $mod+f fullscreen
+    bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
@@ -167,6 +173,12 @@ client.urgent           #ff8080 #ff8080 #ffffff
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
+    # Manual locker
+    bindsym $mod+g exec sxmo_hook_locker.sh
+
+    # Shutdown
+    bindsym $mod+t exec sxmo_appmenu.sh power
 #
 # Scratchpad:
 #
@@ -187,16 +199,16 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+    bindsym $left resize shrink width 30px
+    bindsym $down resize grow height 30px
+    bindsym $up resize shrink height 30px
+    bindsym $right resize grow width 30px
 
     # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+    bindsym Left resize shrink width 30px
+    bindsym Down resize grow height 30px
+    bindsym Up resize shrink height 30px
+    bindsym Right resize grow width 30px
 
     # Return to default mode
     bindsym Return mode "default"
@@ -222,12 +234,30 @@ bar {
         statusline #ffffff
         background #323232
         inactive_workspace #32323200 #32323200 #5c5c5c
-        font "Sxmo"
+        font "Sxmo 10"
     }
 }
 
+for_window [app_id="pinentry-.*"] floating true
 for_window [app_id="foot" title=".*sxmo/modem/.*/draft.txt.*"] resize set height 25
 for_window [title="megapixels"] inhibit_idle open
+
+# Need playerctl installed and running
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86MonBrightnessUp exec sxmo_brightness.sh up
+bindsym XF86MonBrightnessDown exec sxmo_brightness.sh down
+
+bindsym Print exec sxmo_screenshot.sh
+
+bindsym button2 kill
+
+bindswitch lid:on exec sxmo_wm.sh dpms on
+bindswitch lid:off exec sxmo_wm.sh dpms off
+
 
 include /etc/sway/config.d/*
 
