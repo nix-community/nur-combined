@@ -15,6 +15,6 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v19
+        uses: DeterminateSystems/update-flake-lock@v20
         with:
           token: ${{ secrets.GH_PAT }}
