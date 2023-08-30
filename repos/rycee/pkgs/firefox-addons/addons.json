@@ -616,6 +616,9 @@
     "slug": "news-feed-eradicator"
   },
   {
+    "slug": "newtab-adapter"
+  },
+  {
     "slug": "ng-inspect"
   },
   {
@@ -847,6 +850,9 @@
   },
   {
     "slug": "side-view"
+  },
+  {
+    "slug": "sidebartabs"
   },
   {
     "slug": "sidebery"

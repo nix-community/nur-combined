@@ -56,10 +56,10 @@
       };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
-      version = "2.2.4";
+      version = "2.2.5";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4157868/addy_io-2.2.4.xpi";
-      sha256 = "bc9507d532bfab78c222501201d3303cb4b33dafbda994081a8d3c0d36e9647d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160512/addy_io-2.2.5.xpi";
+      sha256 = "950b47654a1d74a2098ec5fe7cc2a65b3387a779bbc0b23fba2f357e8237491f";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -4927,6 +4927,21 @@
         platforms = platforms.all;
         };
       };
+    "newtab-adapter" = buildFirefoxXpiAddon {
+      pname = "newtab-adapter";
+      version = "1.3.0";
+      addonId = "newtab-adapter@gdh1995.cn";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3632463/newtab_adapter-1.3.0.xpi";
+      sha256 = "43cee7feffb204155961be4a0f1ef441abc5e19b340c348c28c97b5cbddd86ca";
+      meta = with lib;
+      {
+        homepage = "https://github.com/gdh1995/vimium-c-helpers/tree/master/newtab";
+        description = "Take over browser's new tab settings and open another configurable URL";
+        license = licenses.mit;
+        mozPermissions = [];
+        platforms = platforms.all;
+        };
+      };
     "ng-inspect" = buildFirefoxXpiAddon {
       pname = "ng-inspect";
       version = "1.0";
@@ -6642,6 +6657,34 @@
           "webRequestBlocking"
           "bookmarks"
           "management"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "sidebartabs" = buildFirefoxXpiAddon {
+      pname = "sidebartabs";
+      version = "11.1.3";
+      addonId = "sidebarTabs@asamuzak.jp";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4153508/sidebartabs-11.1.3.xpi";
+      sha256 = "706fd05bb57c92d768c4242b39cd494a5f41be163ca2e59977a60d1a0cddce85";
+      meta = with lib;
+      {
+        homepage = "https://github.com/asamuzaK/sidebarTabs";
+        description = "Emulate tabs in sidebar and display tabs vertically. In addition, group tabs and collapse / expand them.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "bookmarks"
+          "contextualIdentities"
+          "cookies"
+          "management"
+          "menus"
+          "menus.overrideContext"
+          "search"
+          "sessions"
+          "storage"
+          "tabs"
+          "theme"
           ];
         platforms = platforms.all;
         };
