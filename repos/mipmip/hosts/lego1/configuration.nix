@@ -81,6 +81,8 @@
   boot.kernelPackages = unstable.linuxPackages_latest;
   networking.hostName = "lego1";
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # Setup keyfile
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
