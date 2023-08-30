@@ -13,13 +13,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "lemoa";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "lemmy-gtk";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-LT+UkjDkKbi327SE4VT+BdrpE6hQywajIZ7xpJPvvCc=";
+    hash = "sha256-0xMdshQ12mV93r5UwxRLgYsIj97GgxmDDMEisam29HI=";
   };
 
   cargoLock = {
