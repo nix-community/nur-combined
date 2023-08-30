@@ -50,6 +50,14 @@ let
         url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42876/mbox";
         hash = "sha256-Oa0MI0Kt9Xgl5L1KarHI6Yn4+vpRxUSujB1iY4hlK9c=";
       })
+      (fetchpatch {
+        # merged ~2023/08/29
+        # [1/2] Makefile: obey PREFIX when installing udev rules
+        # [2/2] Makefile: use SYSCONFDIR instead of hardcoding /etc
+        name = "44110-multipatch-makefile-nixos";
+        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44110/mbox";
+        hash = "sha256-jXtwgOVGSjwWj7a36F6P+e63lKvk4OmFIzxTkf9yZMs=";
+      })
     ];
     unmerged = [
       # (fetchpatch {
@@ -61,23 +69,9 @@ let
       # })
 
       (fetchpatch {
-        # [1/2] Makefile: obey PREFIX when installing udev rules
-        # [2/2] Makefile: use SYSCONFDIR instead of hardcoding /etc
-        name = "44110-multipatch-makefile-nixos";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44110/mbox";
-        hash = "sha256-jXtwgOVGSjwWj7a36F6P+e63lKvk4OmFIzxTkf9yZMs=";
-      })
-
-      ## TODO: send these upstream
-      (fetchpatch {
-        name = "sxmo_hook_apps: add a few";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/d39f0956859e41f408ccbdc0bff0b986bc483cdd.patch";
-        hash = "sha256-AVdvfzGmV/RydafBnrQsRJP42eU9VsFRc2/wgPUWocs=";
-      })
-      (fetchpatch {
         name = "sxmo_migrate: add option to disable configversion checks";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/8949c64451973212a8aa50375396ec375c676d1e.patch";
-        hash = "sha256-Okjjwa2FBJOrDVZGrfaUEPGQY749+V4w0gALIBp50hQ=";
+        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44155/mbox";
+        hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
       })
 
       ## these might or might not be upstream-worthy
@@ -88,6 +82,15 @@ let
       # let NixOS manage the audio daemons (pulseaudio/pipewire)
       ./0005-system-audio.patch
     ];
+    # these don't apply cleanly to the stable release; only to latest
+    unmerged-tip-only = [
+      # TODO: send these upstream
+      (fetchpatch {
+        name = "sxmo_hook_apps: add a few";
+        url = "https://git.uninsane.org/colin/sxmo-utils/commit/d6c17a89e1b7bc74d0ba34629fd5db393e5f560b.patch";
+        hash = "sha256-b12p7RTnAqTVfHpYLkNTwuo12KDznYCYJUEJAIES/1I=";
+      })
+    ];
   };
 in {
   stable = callPackage ./common.nix {
@@ -96,9 +99,9 @@ in {
     patches = patches.merged ++ patches.unmerged;
   };
   latest = callPackage ./common.nix {
-    version = "unstable-2023-08-22";
-    rev = "a69fbb2222f8f3f53dde00045d413d96e508e88b";
-    hash = "sha256-87VBfZP86ofiZtSegg4AxpvZHruaiMZMl0vaL2PeyuQ=";
-    patches = patches.unmerged;
+    version = "unstable-2023-08-29";
+    rev = "871caa7394d2deda6aaff89af0fea9f6de773c2e";
+    hash = "sha256-TnRit0W/Racm92AwoEuSIJiOtu2XBUd3IsQoPrtshvk=";
+    patches = patches.unmerged ++ patches.unmerged-tip-only;
   };
 }
