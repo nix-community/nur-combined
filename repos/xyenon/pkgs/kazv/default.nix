@@ -20,15 +20,15 @@
 
 stdenv.mkDerivation rec {
   pname = "kazv";
-  version = "unstable-2023-08-27";
+  version = "unstable-2023-08-28";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = pname;
     fetchSubmodules = true;
-    rev = "a785bf1951656ac33a12a20193fe95f287922bf4";
-    hash = "sha256-Jx8YDsMqcQqzmOx7prMYRo0wCJDU2gMouGlPwYhB0Xs=";
+    rev = "f580623237e7fcfb62a816f3574a5d724e780cd6";
+    hash = "sha256-vGVt165CFvnAG6Y+JrbjZ3LaQ5ucXC1cklLIEP8p4uc=";
   };
 
   nativeBuildInputs = [ wrapQtAppsHook cmake pkg-config ];
