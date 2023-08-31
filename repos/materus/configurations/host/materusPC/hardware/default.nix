@@ -16,7 +16,7 @@ in
   hardware.firmware = with pkgs; [
     materusPkgs.amdgpu-pro-libs.firmware.vcn
     materusPkgs.amdgpu-pro-libs.firmware
-    pkg.linux-firmware
+    linux-firmware
     alsa-firmware
     sof-firmware
   ];

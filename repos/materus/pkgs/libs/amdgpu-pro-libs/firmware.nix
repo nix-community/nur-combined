@@ -5,20 +5,15 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "amdgpu-firmware";
-  version = "5.4.6";
+  version = sources.version;
 
-  src = fetchurl {
-    url ="https://repo.radeon.com/amdgpu/5.4.6/ubuntu/pool/main/a/amdgpu-dkms/amdgpu-dkms-firmware_5.18.13.50406-1580598.22.04_all.deb";
-    name = "amdgpu-firmware";
-    sha256 ="7701fbb95900c2502aba03f4d3d29f1caaa935191bf21012ecff7ffa0f631696";
-  };
-
+  src = sources.bit64.amdgpu-dkms-firmware;
 
   passthru = {
     vcn = stdenv.mkDerivation rec {
       pname = "amdgpu-firmware-vcn";
-      version = sources.version;
-      src = sources.bit64.amdgpu-dkms-firmware;
+      inherit src;
+      inherit version;
       inherit meta;
       inherit unpackPhase;
       inherit dontBuild;
@@ -50,8 +45,8 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out
-    mv usr/src/amdgpu-5.18.13-1580598.22.04 $out/lib
+    mkdir -p $out/lib/firmware/
+    mv lib/firmware/updates/amdgpu $out/lib/firmware/amdgpu
   '';
 
   meta = with lib; {

@@ -21,6 +21,8 @@ rec {
 
   vpk_fuse = callPackage ./apps/vpk_fuse.nix {};
 
+  fbset = callPackage ./apps/fbset.nix {};
+
   swiftshader = callPackage ./libs/swiftshader.nix {};
 
 

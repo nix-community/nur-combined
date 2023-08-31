@@ -1,4 +1,4 @@
-{ config, pkgs, lib, materusFlake, materusPkgs, ... }:
+{ config, pkgs, lib, materusFlake, materusPkgs, options, ... }:
 let
   p10kcfg = "${zshcfg}/p10kcfg";
   zshcfg = "${materusFlake.path}/extraFiles/config/zsh";
@@ -22,7 +22,7 @@ in
     programs.zsh = {
       enable = true;
       enableAutosuggestions = true;
-      syntaxHighlighting.enable = true;
+      enableSyntaxHighlighting = true;
       enableVteIntegration = true;
       historySubstringSearch.enable = true;
       historySubstringSearch.searchUpKey = ";5A";

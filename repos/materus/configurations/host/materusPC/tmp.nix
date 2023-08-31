@@ -1,8 +1,8 @@
 { config, pkgs, lib, inputs, materusFlake, materusPkgs, ... }:
 {
-  virtualisation.lxc.enable = true;
-  virtualisation.lxc.lxcfs.enable = true;
-  virtualisation.lxd.enable = true;
+  virtualisation.lxc.enable = false;
+  virtualisation.lxc.lxcfs.enable = false;
+  virtualisation.lxd.enable = false;
   #virtualisation.lxd.recommendedSysctlSettings = true;
 
   programs.corectrl.enable = true;
@@ -83,7 +83,7 @@
 
   services.xserver.libinput.enable = true;
 
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = false;
   virtualisation.podman = {
     enable = true;
     #enableNvidia = true;
@@ -220,7 +220,7 @@
     aspellDicts.pl
     aspellDicts.en
     aspellDicts.en-computers
-
+    steamtinkerlaunch
     distrobox
 
     p7zip
@@ -302,10 +302,7 @@
 
 
 
-  system.activationScripts.libvirt-hooks.text =
-    ''
-      ln -Tfs /etc/libvirt/hooks /var/lib/libvirt/hooks
-    '';
+
 
 
 

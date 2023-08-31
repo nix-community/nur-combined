@@ -27,8 +27,12 @@ let
       pkgs.xorg.xcbutilerrors
       pkgs.xorg.xcbutilrenderutil
       pkgs.xorg.xcbutil
+      pkgs.xorg.xwininfo
+      pkgs.yad
+      pkgs.xdotool
       pkgs.libinput
       pkgs.openvdb
+      pkgs.openssl
       pkgs.tbb_2021_8
       pkgs.gtk4
       pkgs.gtk3
@@ -42,7 +46,7 @@ let
       pkgs.tdb
       pkgs.jbig2enc
       pkgs.jbig2dec
-      pkgs.brave
+      pkgs.vivaldi
 
     ] ++ config.materus.profile.packages.list.fonts;
 
