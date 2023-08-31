@@ -1,10 +1,6 @@
-{ global, pkgs, config, lib, self, ... }:
+{ global, pkgs, lib, self, ... }:
 let
-  inherit (global) username email rootPath;
-  inherit (builtins) fetchurl;
-  inherit (self) inputs outputs;
-  inherit (pkgs) writeShellScript espeak wrapDotenv p2k;
-  inherit (lib.hm.gvariant) mkTuple; environmentShell = outputs.environmentShell.x86_64-linux;
+  inherit (lib.hm.gvariant) mkTuple;
   inherit (pkgs.custom) colors;
 in {
 
@@ -19,6 +15,7 @@ in {
 
   ];
 
+  services.espanso.enable = true;
   programs.man.enable = true;
 
 

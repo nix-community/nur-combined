@@ -1,113 +1,97 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 let
   inherit (pkgs) writeShellScript;
+  inherit (lib) mkOption types;
 in {
-  services.espanso = {
-    # broken build, might fix later
-    enable = false;
-    matches.default =
-      let
-        justReplace = from: to: {
-          trigger = from;
-          replace = "${to} ";
+  options.services.espanso.custom.replace = {
+    date = mkOption { type = types.attrsOf types.str; };
+    sequence = mkOption { type = types.attrsOf types.str; };
+    word = mkOption { type = types.attrsOf types.str; };
+    command = mkOption { type = types.attrsOf types.str; };
+  };
+  config = {
+    systemd.user.services.espanso.Service.Environment = [
+      "PATH=${config.home.homeDirectory}/.nix-profile/bin"
+    ];
+    services.espanso = {
+      matches.default.matches = [
+      ]
+        ++ (lib.pipe config.services.espanso.custom.replace.date [
+          (builtins.mapAttrs (k: v: {
+            trigger = k;
+            replace = "{{date}}";
+            vars = [{
+              name = "date";
+              type = "date";
+              params = { format = v; };
+            }];
+          }))
+          (builtins.attrValues)
+        ])
+        ++ (lib.pipe config.services.espanso.custom.replace.sequence [
+          (builtins.mapAttrs (k: v: {
+            trigger = k;
+            replace = v;
+          }))
+          (builtins.attrValues)
+        ])
+        ++ (lib.pipe config.services.espanso.custom.replace.word [
+          (builtins.mapAttrs (k: v: {
+            trigger = k;
+            replace = v;
+            word = true;
+            propagate_case = true;
+          }))
+          (builtins.attrValues)
+        ])
+        ++ (lib.pipe config.services.espanso.custom.replace.command [
+          (builtins.mapAttrs (k: v: {
+            trigger = k;
+            replace = "{{output}}";
+            vars = [{
+              name = "output";
+              type = "shell";
+              params = {
+                cmd = writeShellScript "espanso-script" ''
+                    export PATH=$PATH:/run/current-system/sw/bin:~/.nix-profile/bin
+                    ${v}
+                '';
+              };
+            }];
+          }))
+          (builtins.attrValues)
+        ]);
+      custom.replace = {
+        sequence = {
+          ":email:" = "lucas59356@gmail.com";
+          ":shrug:" = "¯\\_(ツ)_/¯";
+          ":lenny:" = "( ͡° ͜ʖ ͡°)";
+          ":fino:" = "🗿🍷";
+          # "°" = "\\"; # Alt+E, Alt+Q outputs /
         };
-        replaceSequence = from: to: {
-          trigger = from;
-          replace = to;
+        date = {
+          ":hoje:" = "%d/%m/%Y";
         };
-        replaceWord = from: to: {
-          trigger = from;
-          replace = to;
-          word = true;
-          propagate_case = true;
+        command = {
+          ":blaunch:" = "webapp > /dev/null"; # borderless browser
+          ":globalip:" = "curl ifconfig.me";
+          ":lero:" = "lero"; # https://github.com/lucasew/lerolero.sh
+          ":lockscreen:" = "loginctl lock-session 2>&1";
+          ":nixinfo:" = "nix-shell -p nix-info --run 'nix-info -m'";
         };
-        replaceDate = from: format: {
-          trigger = from;
-          replace = "{{date}} ";
-          vars = [{
-            name = "date";
-            type = "date";
-            params = {
-              inherit format;
-            };
-          }];
+        word = {
+          lenght = "length";
+          ther = "there";
+          automacao = "automação";
+          its = "it's";
+          dont = "don't";
+          didnt = "didn't";
+          cant = "can't";
+          shouldnt = "shouldn't";
+          arent = "aren't";
+          youre = "you're";
         };
-        replaceRun = from: command: {
-          trigger = from;
-          replace = "{{output}} ";
-          vars = [{
-            name = "output";
-            type = "shell";
-            params = {
-              cmd = writeShellScript "espanso-script" command;
-            };
-          }];
-        };
-      in [
-        # macros
-        (justReplace ":email:" "lucas59356@gmail.com")
-        (justReplace ":shrug:" "¯\\_(ツ)_/¯")
-        (justReplace ":lenny:" "( ͡° ͜ʖ ͡°)")
-        (justReplace ":fino:" "🗿🍷")
-        (replaceDate ":hoje:" "%d/%m/%Y")
-        (replaceSequence "°" "\\") # Alt+E, Alt+Q outputs /
-        (justReplace ":#!/usr/bin/env bash" ''
-          #!/usr/bin/env bash
-          set -eu -o pipefail
-          # set -f # if glob patterns are undesirable
-
-          function bold {
-              echo -e "$(tput bold)$@$(tput sgr0)"
-          }
-          function red {
-              echo -e "\033[0;31m$@\033[0m"
-          }
-          function error {
-            echo -e "$(red error): $*"
-            exit 1
-          }
-
-          function usage {
-            echo "$(bold "$0"): lucasew's default script template
-            - $(bold "command"): do something"
-          }
-
-          if [ $# == 0 ]; then
-            usage
-            error "no command specified"
-          fi
-
-          COMMAND="$1"; shift
-
-          case "$COMMAND" in
-            command)
-              echo "Doing something..."
-              error "nothing specified"
-            ;;
-            *)
-              error "command $COMMAND not specified"
-            ;;
-          esac
-        '')
-
-        # atalhos
-        (replaceRun ":blaunch:" "/run/current-system/sw/bin/webapp > /dev/null") # borderless browser
-        (replaceRun ":globalip:" "/run/current-system/sw/bin/curl ifconfig.me ")
-        (replaceRun ":lero:" "/run/current-system/sw/bin/lero") # https://github.com/lucasew/lerolero.sh
-        (replaceRun ":lockscreen:" "/run/current-system/sw/bin/loginctl lock-session 2>&1")
-        (replaceRun ":nixinfo:" "/run/current-system/sw/bin/nix-shell -p nix-info --run 'nix-info -m'")
-
-        # typos
-        (replaceWord "lenght" "length")
-        (replaceWord "ther" "there")
-        (replaceWord "automacao" "automação")
-        (replaceWord "its" "it's")
-        (replaceWord "dont" "don't")
-        (replaceWord "didnt" "didn't")
-        (replaceWord "cant" "can't")
-        (replaceWord "shouldnt" "shouldn't")
-        (replaceWord "arent" "aren't")
-        (replaceWord "youre" "you're")
-      ];
+      };
+    };
   };
 }

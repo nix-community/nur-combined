@@ -22,11 +22,14 @@ in {
     ./zfs.nix
     ./container-inet-rdp.nix
     ./container-nat.nix
+    ./openrgb.nix
   ];
 
   services.nginx.enable = true;
 
   services.xserver.windowManager.i3.enable = true;
+
+  services.hardware.openrgb.enable = true;
 
   services.transmission.enable = true;
   systemd.services.transmission.serviceConfig.BindPaths = [
