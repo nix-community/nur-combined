@@ -1,14 +1,14 @@
-{ lib, stdenv, fetchurl, openssl, python3 }:
+{ lib, stdenvNoCC, fetchurl, openssl, python3 }:
 
 let
   db = ./db.txt;
-in stdenv.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "wireless-regdb";
-  version = "2021.08.28";
+  version = "2023.05.03";
 
   src = fetchurl {
     url = "https://www.kernel.org/pub/software/network/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-z/NwxBDR5tMWrgp/qKxieP3x78pdPWZKynz9Kq+lREY=";
+    sha256 = "sha256-8lTQirN2WuriuFYiLhGpXUSu9RmmZjh3xx72j65MjBI=";
   };
 
   nativeBuildInputs = [ openssl (python3.withPackages (p: with p; [ m2crypto ])) ];
