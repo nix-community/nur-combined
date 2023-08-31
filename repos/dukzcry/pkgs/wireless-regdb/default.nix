@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchurl, openssl, python3 }:
+{ lib, stdenvNoCC, fetchurl, openssl, python3, xxd }:
 
 let
   db = ./db.txt;
@@ -11,7 +11,7 @@ in stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-8lTQirN2WuriuFYiLhGpXUSu9RmmZjh3xx72j65MjBI=";
   };
 
-  nativeBuildInputs = [ openssl (python3.withPackages (p: with p; [ m2crypto ])) ];
+  nativeBuildInputs = [ openssl (python3.withPackages (p: with p; [ m2crypto ])) xxd ];
 
   preBuild = ''
     rm db.txt
@@ -25,6 +25,10 @@ in stdenvNoCC.mkDerivation rec {
     "DESTDIR=${placeholder "out"}"
     "PREFIX="
   ];
+
+  postInstall = ''
+    openssl x509 -in ./custom-user.x509.pem -inform PEM -outform DER | xxd -i -c 8 > $out/lib/crda/pubkeys/custom-user.hex
+  '';
 
   meta = with lib; {
     description = "Wireless regulatory database for CRDA";
