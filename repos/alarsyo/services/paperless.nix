@@ -65,6 +65,9 @@ in {
         PAPERLESS_TIME_ZONE = config.time.timeZone;
 
         PAPERLESS_ADMIN_USER = "alarsyo";
+
+        PAPERLESS_TASK_WORKERS = 3;
+        PAPERLESS_THREADS_PER_WORKER = 4;
       };
     };
 
