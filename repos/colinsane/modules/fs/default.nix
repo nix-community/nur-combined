@@ -9,6 +9,10 @@ let
     pname = "ensure-dir";
     src = ./.;
   };
+  ensure-file = pkgs.static-nix-shell.mkBash {
+    pname = "ensure-file";
+    src = ./.;
+  };
   ensure-symlink = pkgs.static-nix-shell.mkBash {
     pname = "ensure-symlink";
     src = ./.;
@@ -31,6 +35,10 @@ let
     options = {
       dir = mkOption {
         type = types.nullOr dirEntry;
+        default = null;
+      };
+      file = mkOption {
+        type = types.nullOr (fileEntryFor name);
         default = null;
       };
       symlink = mkOption {
@@ -81,6 +89,8 @@ let
         default-acl
         (lib.mkIf (config.dir != null)
           (sane-lib.filterNonNull config.dir.acl))
+        (lib.mkIf (config.file != null)
+          (sane-lib.filterNonNull config.file.acl))
         (lib.mkIf (config.symlink != null)
           (sane-lib.filterNonNull config.symlink.acl))
       ];
@@ -88,6 +98,7 @@ let
       # actually generate the item
       generated.command = lib.mkMerge [
         (lib.mkIf (config.dir != null) [ "${ensure-dir}/bin/ensure-dir" name ])
+        (lib.mkIf (config.file != null) [ "${ensure-file}/bin/ensure-file" name config.file.copyFrom ])
         (lib.mkIf (config.symlink != null) [ "${ensure-symlink}/bin/ensure-symlink" name config.symlink.target ])
       ];
 
@@ -124,7 +135,27 @@ let
   # takes no special options
   dirEntry = types.submodule propagatedGenerateMod;
 
-  symlinkEntryFor = path: types.submodule ({ config, ...}: {
+  fileEntryFor = path: types.submodule ({ config, ... }: {
+    options = {
+      inherit (propagatedGenerateMod.options) acl;
+      text = mkOption {
+        type = types.nullOr types.lines;
+        default = null;
+        description = "create a file with this text, overwriting anything that was there before.";
+      };
+      copyFrom = mkOption {
+        type = types.coercedTo types.package toString types.str;
+        description = "populate the file based on the content at this provided path";
+      };
+    };
+    config = {
+      copyFrom = lib.mkIf (config.text != null) (
+        pkgs.writeText (path-lib.leaf path) config.text
+      );
+    };
+  });
+
+  symlinkEntryFor = path: types.submodule ({ config, ... }: {
     options = {
       inherit (propagatedGenerateMod.options) acl;
       target = mkOption {

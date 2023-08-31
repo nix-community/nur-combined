@@ -1,0 +1,16 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash
+
+set -e
+
+cpto="$1"
+cpfrom="$2"
+
+# -f flag in case the destination perms were set to 000
+# --no-dereference in case the destination already exists as a symlink
+# however, "no-dereference" has the edge case of copying `cpfrom` to `cpto`
+#   when `cpto` already exists as a symlink to `cpfom`:
+#   "cp: <cpto> and <cpfrom> are the same file"
+# use `--remove-destination` for that
+cp --no-dereference -f "$cpfrom" "$cpto" \
+  || cp --no-dereference --remove-destination "$cpfrom" "$cpto"

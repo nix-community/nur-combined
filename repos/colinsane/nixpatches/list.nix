@@ -19,11 +19,13 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
-  (fetchpatch' {
-    title = "phog: init at 0.1.3";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/251249";
-    hash = "sha256-e38Z7sO7xDQHzE9UOfbptc6vJuONE5eP9JFp2Nzx53E=";
-  })
+  # (fetchpatch' {
+  #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.
+  #   # the latter is an alias, which breaks nix-index
+  #   title = "phog: init at 0.1.3";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/251249";
+  #   hash = "sha256-e38Z7sO7xDQHzE9UOfbptc6vJuONE5eP9JFp2Nzx53E=";
+  # })
 
   (fetchpatch' {
     title = "nixos/update-users-groups: fix cross compilation";

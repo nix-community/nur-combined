@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash
+#!nix-shell -i bash -p coreutils
 # vim: set filetype=bash :
 #
 # available environment variables:
@@ -12,44 +12,12 @@
 # - SFTPGO_AUTHD_KEYBOARD_INTERACTIVE
 # - SFTPGO_AUTHD_TLS_CERT
 #
-# user permissions:
-# - see <repo:drakkan/sftpgo:internal/dataprovider/user.go>
-# - "*" = grant all permissions
-# - read-only perms:
-#   - "list" = list files and directories
-#   - "download"
-# - rw perms:
-#   - "upload"
-#   - "overwrite" = allow uploads to replace existing files
-#   - "delete" = delete files and directories
-#     - "delete_files"
-#     - "delete_dirs"
-#   - "rename" = rename files and directories
-#     - "rename_files"
-#     - "rename_dirs"
-#   - "create_dirs"
-#   - "create_symlinks"
-#   - "chmod"
-#   - "chown"
-#   - "chtimes" = change atime/mtime (access and modification times)
 #
-# home_dir:
-# - it seems (empirically) that a user can't cd above their home directory.
-#   though i don't have a reference for that in the docs.
-# TODO: don't reuse /var/nfs/export here. formalize this some other way.
+# call with <script_name> /path/to/fail/response.json /path/to/success/response.json
 
 
 if [ "$SFTPGO_AUTHD_USERNAME" = "anonymous" ]; then
-  echo '{'
-  echo '  "status":1,'
-  echo '  "username":"anonymous","expiration_date":0,'
-  echo '  "home_dir":"/var/nfs/export","uid":65534,"gid":65534,"max_sessions":0,"quota_size":0,"quota_files":100000,'
-  echo '  "permissions":{'
-  echo '    "/":["list", "download"]'
-  echo '  },'
-  echo '  "upload_bandwidth":0,"download_bandwidth":0,'
-  echo '  "filters":{"allowed_ip":[],"denied_ip":[]},"public_keys":[]'
-  echo '}'
+  cat "$2"
 else
-  echo '{"username":""}'
+  cat "$1"
 fi
