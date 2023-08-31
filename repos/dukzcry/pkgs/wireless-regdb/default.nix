@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchurl, openssl, python3, xxd }:
+{ lib, stdenvNoCC, fetchurl, openssl, python3 }:
 
 let
   db = ./db.txt;
@@ -11,7 +11,7 @@ in stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-8lTQirN2WuriuFYiLhGpXUSu9RmmZjh3xx72j65MjBI=";
   };
 
-  nativeBuildInputs = [ openssl (python3.withPackages (p: with p; [ m2crypto ])) xxd ];
+  nativeBuildInputs = [ openssl (python3.withPackages (p: with p; [ m2crypto ])) ];
 
   preBuild = ''
     rm db.txt
@@ -27,8 +27,7 @@ in stdenvNoCC.mkDerivation rec {
   ];
 
   postInstall = ''
-    mkdir -p $out/net/wireless/certs
-    openssl x509 -in ./custom-user.x509.pem -inform PEM -outform DER | xxd -i -c 8 > $out/net/wireless/certs/custom-user.hex
+    openssl x509 -in ./custom-user.x509.pem -outform DER -out $out/lib/crda/pubkeys/custom-user.x509
   '';
 
   meta = with lib; {
