@@ -392,6 +392,10 @@ in {
   #   # configure: error: no acceptable C compiler found in $PATH
   #   inherit (emulated) stdenv;
   # };
+
+  # fixes: "error: Package <foo> not found in specified Vala API directories or GObject-Introspection GIR directories"
+  calls = addNativeInputs [ final.gobject-introspection] prev.calls;
+
   # cantarell-fonts = prev.cantarell-fonts.override {
   #   # close this after upstreaming: <https://github.com/NixOS/nixpkgs/issues/50855>
   #   # fixes error where python3.10-skia-pathops dependency isn't available for the build platform

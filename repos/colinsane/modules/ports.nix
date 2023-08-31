@@ -46,15 +46,13 @@ let
   upnpServiceForPort = port: portCfg:
     lib.mkIf portCfg.visibleTo.wan {
       "upnp-forward-${port}" = {
-        description = "forward port ${port} from upstream gateway to this host";
+        description = "forward port ${port} (${portCfg.description}) from upstream gateway to this host";
         restartTriggers = [(builtins.toJSON portCfg)];
 
-        serviceConfig.Type = "oneshot";
-        serviceConfig.TimeoutSec = "6min";
-
-        after = [ "network.target" ];
-        wantedBy = [ "upnp-forwards.target" ];
-        script =
+        serviceConfig = {
+          Type = "oneshot";
+          TimeoutSec = "6min";
+          ExecStart =
           let
             portFwd = "${pkgs.sane-scripts.ip-port-forward}/bin/sane-ip-port-forward";
             forwards = lib.flatten [
@@ -65,6 +63,10 @@ let
             ${portFwd} -v -d ${builtins.toString cfg.upnpLeaseDuration} \
               ${lib.escapeShellArgs forwards}
           '';
+        };
+
+        after = [ "network.target" ];
+        wantedBy = [ "upnp-forwards.target" ];
       };
     };
 in
