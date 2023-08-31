@@ -60,7 +60,8 @@ in {
         PAPERLESS_CORS_ALLOWED_HOSTS = "https://${paperlessDomain}";
 
         PAPERLESS_OCR_LANGUAGE = "fra+eng";
-        PAPERLESS_OCR_MODE = "skip_noarchive";
+        PAPERLESS_OCR_MODE = "skip";
+        PAPERLESS_OCR_SKIP_ARCHIVE_FILE = "with_text";
 
         PAPERLESS_TIME_ZONE = config.time.timeZone;
 
