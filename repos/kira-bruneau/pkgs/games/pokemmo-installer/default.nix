@@ -13,6 +13,7 @@
 , xprop
 , zenity
 , libpulseaudio
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -53,6 +54,8 @@ stdenv.mkDerivation (finalAttrs: {
         libpulseaudio
       ]}
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Installer and Launcher for the PokeMMO emulator";
