@@ -11,6 +11,7 @@ with pkgs; with lib; {
   ceserver = callPackage ./ceserver { };
   gruvbox-plus-icons = callPackage ./gruvbox-plus-icons { };
   hoyolab-daily-bot = callPackage ./hoyolab-daily-bot { };
+  koboldcpp-rocm = callPackage ./koboldcpp-rocm { };
   mpris-ctl = callPackage ./mpris-ctl { };
   proton-ge = callPackage ./proton-ge { };
   protonhax = callPackage ./protonhax { };
