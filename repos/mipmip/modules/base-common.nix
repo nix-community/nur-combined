@@ -8,6 +8,7 @@
     bind.dnsutils
     whois
     nfs-utils
+    mosh
 
     #SYSTEM
     htop
