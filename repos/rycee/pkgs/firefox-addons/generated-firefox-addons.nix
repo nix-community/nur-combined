@@ -1424,10 +1424,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.12";
+      version = "1.2.14";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4158999/dearrow-1.2.12.xpi";
-      sha256 = "5c79fe7fbf38d982f79c9bb8588f6a34624f706ca4d2804b9dac7719cb67cd32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160835/dearrow-1.2.14.xpi";
+      sha256 = "793c4e9e6f638c726c28bd9ebad8a1579e40b73d8396e186c27848a1d670006a";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1449,10 +1449,10 @@
       };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
-      version = "2.0.17";
+      version = "2.0.18";
       addonId = "jid1-BoFifL9Vbdl2zQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902154/decentraleyes-2.0.17.xpi";
-      sha256 = "e7f16ddc458eb2bc5bea75832305895553fca53c2565b6f1d07d5d9620edaff1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158232/decentraleyes-2.0.18.xpi";
+      sha256 = "f8f031ef91c02a1cb1a6552acd02b8f488693400656b4047d68f03ba0a1078d9";
       meta = with lib;
       {
         homepage = "https://decentraleyes.org";
@@ -6768,10 +6768,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.62";
+      version = "1.21.63";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4157556/single_file-1.21.62.xpi";
-      sha256 = "219c21fcf03889cba81c4ce7295f2856cc9f41e260c14d2026b0161611a481e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158864/single_file-1.21.63.xpi";
+      sha256 = "1af240763da1d9ae62c27737d0228d19b8e94e224537aa2eed0873768be0662c";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -6912,10 +6912,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.16";
+      version = "5.4.17";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4157357/sponsorblock-5.4.16.xpi";
-      sha256 = "ec774c3c86e74c3a4b08728d6a85f94be1e846a90982f6b4850f0dffaf3c0f00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158655/sponsorblock-5.4.17.xpi";
+      sha256 = "ac0fc3b4f15b8e8ae7807d92d3eccbee13f2845f7d03db92b1a1bb56c1b280c5";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
