@@ -77,6 +77,9 @@
   networking.firewall.extraCommands = ''
     iptables -A nixos-fw -p tcp --source 192.168.13.0/24 --dport 21:21 -j nixos-fw-accept
   '';
+  networking.firewall.enable = false;
+
+  virtualisation.waydroid.enable = true;
 
   services.vsftpd = {
     enable = true;

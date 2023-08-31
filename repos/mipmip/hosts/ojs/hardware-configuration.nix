@@ -13,6 +13,7 @@
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [
     config.boot.kernelPackages.broadcom_sta
+    config.boot.kernelPackages.rtl88x2bu
   ];
 
 
