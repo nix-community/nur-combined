@@ -27,7 +27,8 @@ in stdenvNoCC.mkDerivation rec {
   ];
 
   postInstall = ''
-    openssl x509 -in ./custom-user.x509.pem -inform PEM -outform DER | xxd -i -c 8 > $out/lib/crda/pubkeys/custom-user.hex
+    mkdir -p $out/net/wireless/certs
+    openssl x509 -in ./custom-user.x509.pem -inform PEM -outform DER | xxd -i -c 8 > $out/net/wireless/certs/custom-user.hex
   '';
 
   meta = with lib; {
