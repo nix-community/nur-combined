@@ -1,20 +1,15 @@
-{ lib
+{ stdenv
+, lib
 , python3Packages
 , fetchFromGitHub
 , substituteAll
 , lzip
-, sqlite
 , util-linux
 , nix-update-script
-# inquirerpy
-, callPackage
-}: let
-  pfzy = callPackage ./pfzy.nix { };
-  inquirerpy = callPackage ./inquirerpy.nix { inherit pfzy; };
-in python3Packages.buildPythonApplication rec {
+}:
+let
   pname = "waydroid-script";
   version = "unstable-2023-08-25";
-
   src = fetchFromGitHub {
     repo = "waydroid_script";
     owner = "casualsnek";
@@ -22,28 +17,41 @@ in python3Packages.buildPythonApplication rec {
     hash = "sha256-FstkA6SKqrX0bD4NfyFbPQCLyfHfvWakmiRPmTGo78g=";
   };
 
+  resetprop = stdenv.mkDerivation {
+    pname = "resetprop";
+    inherit version src;
+    dontBuild = true;
+    installPhase = ''
+      mkdir -p $out/share
+      cp -r bin/* $out/share/
+    '';
+  };
+in python3Packages.buildPythonApplication rec {
+  inherit pname version src;
+
   propagatedBuildInputs = with python3Packages; [
     inquirerpy
-    lzip
     requests
-    sqlite
     tqdm
+
+    lzip
     util-linux
   ];
 
-  postPatch =
-    let
-      setup = substituteAll {
-        src = ./setup.py;
-        inherit pname;
-        desc = meta.description;
-        version = builtins.replaceStrings [ "-" ] [ "." ]
-          (lib.strings.removePrefix "unstable-" version);
-      };
-    in
-    ''
-      ln -s ${setup} setup.py
-    '';
+  postPatch = let
+    setup = substituteAll {
+      src = ./setup.py;
+      inherit pname;
+      desc = meta.description;
+      version = builtins.replaceStrings [ "-" ] [ "." ]
+        (lib.strings.removePrefix "unstable-" version);
+    };
+  in ''
+    ln -s ${setup} setup.py
+
+    substituteInPlace stuff/general.py \
+      --replace "os.path.dirname(__file__), \"..\", \"bin\"," "\"${resetprop}/share\","
+  '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version=branch" ];

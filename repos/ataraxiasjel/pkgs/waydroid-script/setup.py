@@ -6,7 +6,7 @@ setup(
     description='@desc@',
     packages=["main", "stuff", "tools"],
     python_requires='>=3.8',
-    install_requires = ['tqdm', 'requests'],
+    install_requires = ['tqdm', 'requests', 'InquirerPy'],
     package_dir = {
         'main': '.',
     },
