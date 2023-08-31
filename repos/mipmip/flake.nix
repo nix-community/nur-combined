@@ -59,6 +59,20 @@
     */
 
     homeConfigurations = {
+      "pim.snel@adevintamac" = home-manager.lib.homeManagerConfiguration {
+        modules = [ (import ./home-manager/home-machine-adevinta.nix) ];
+        pkgs = pkgsForSystem "x86_64-darwin";
+        extraSpecialArgs = {
+          withLinny = true;
+          isDesktop = true;
+          tmuxPrefix = "a";
+          unstable = unstableForSystem "x86_64-darwin";
+          inherit localOverlay;
+        };
+      };
+
+
+
       "pim@lego1" = home-manager.lib.homeManagerConfiguration {
         modules = [ (import ./home-manager/home-machine-lego1.nix) ];
         pkgs = pkgsForSystem "x86_64-linux";
