@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, homedir, ... }:
 
 {
   programs.home-manager.enable = true;
-  home.username = "pim";
-  home.homeDirectory = "/home/pim";
+  home.username = username;
+  home.homeDirectory = homedir;
   home.stateVersion = "22.05";
 
   imports = [

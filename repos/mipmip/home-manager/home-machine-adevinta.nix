@@ -12,6 +12,4 @@
     /Users/pim.snel/nixos/private/adevinta/home-manager/files-main
   ];
 
-  home.username = "pim.snel";
-  home.homeDirectory = "/Users/pim.snel";
 }

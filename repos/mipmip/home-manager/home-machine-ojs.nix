@@ -12,7 +12,6 @@ in
 
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
-      #mru-sources = [ (mkTuple [ "xkb" "us" ]) ];
       per-window = false;
       sources = [ (mkTuple [ "xkb" "us" ]) ];
       xkb-options = [

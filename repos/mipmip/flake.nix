@@ -59,10 +59,12 @@
     */
 
     homeConfigurations = {
-      "pim.snel@adevintamac" = home-manager.lib.homeManagerConfiguration {
+      "pim@adevintamac" = home-manager.lib.homeManagerConfiguration {
         modules = [ (import ./home-manager/home-machine-adevinta.nix) ];
         pkgs = pkgsForSystem "x86_64-darwin";
         extraSpecialArgs = {
+          username = "pim.snel";
+          homedir = "/Users/pim.snel";
           withLinny = true;
           isDesktop = true;
           tmuxPrefix = "a";
@@ -77,6 +79,8 @@
         modules = [ (import ./home-manager/home-machine-lego1.nix) ];
         pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {
+          username = "pim";
+          homedir = "/home/pim";
           withLinny = true;
           isDesktop = true;
           tmuxPrefix = "a";
@@ -90,6 +94,8 @@
 
         pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {
+          username = "pim";
+          homedir = "/home/pim";
           withLinny = true;
           isDesktop = true;
           tmuxPrefix = "a";
@@ -104,6 +110,8 @@
 
         pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {
+          username = "pim";
+          homedir = "/home/pim";
           withLinny = false;
           isDesktop = false;
           tmuxPrefix = "b";
