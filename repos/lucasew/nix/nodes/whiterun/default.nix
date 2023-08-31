@@ -22,7 +22,6 @@ in {
     ./zfs.nix
     ./container-inet-rdp.nix
     ./container-nat.nix
-    ./openrgb.nix
   ];
 
   services.nginx.enable = true;
