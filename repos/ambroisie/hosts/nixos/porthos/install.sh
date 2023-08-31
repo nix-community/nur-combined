@@ -30,6 +30,7 @@ swapon /dev/sda2
 
 apt install sudo
 useradd -m -G sudo setupuser
+# shellcheck disable=2117
 su setupuser
 
 cat << EOF
@@ -37,7 +38,7 @@ cat << EOF
 curl -L https://nixos.org/nix/install | sh
 . $HOME/.nix-profile/etc/profile.d/nix.sh
 nix-channel --add https://nixos.org/channels/nixos-20.09 nixpkgs
-sudo `which nixos-generate-config` --root /mnt
+sudo "$(which nixos-generate-config)" --root /mnt
 
 # Change uuids to labels
 vim /mnt/etc/nixos/hardware-configuration.nix

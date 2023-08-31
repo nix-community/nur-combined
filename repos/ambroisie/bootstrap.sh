@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -i bash -p bitwarden-cli git gnupg jq nix
+# shellcheck shell=bash
 
 # Command failure is script failure
 set -e
@@ -10,7 +11,6 @@ BOLD_GREEN="\e[0;1;32m"
 
 RESET="\e[0m"
 
-DEST="$HOME/.config/nixpkgs"
 BW_SESSION=""
 
 warn() {

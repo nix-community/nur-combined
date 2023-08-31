@@ -1,4 +1,4 @@
-# shellcheck disable=2154
+# shellcheck shell=bash
 
 # Fix Ctrl+u killing from the cursor instead of the whole line
 bindkey '^u' backward-kill-line

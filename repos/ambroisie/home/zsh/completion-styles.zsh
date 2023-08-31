@@ -1,4 +1,7 @@
+# shellcheck shell=bash
+
 # Style the completion a bit
+# shellcheck disable=2086,2296
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # Show a prompt on selection
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
@@ -21,6 +24,7 @@ zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' '*?.old'
 
 # command for process lists, the local web server details and host completion
 # on processes completion complete all user processes
+# shellcheck disable=2016
 zstyle ':completion:*:processes' command 'ps -au$USER'
 
 # Completion formatting and messages

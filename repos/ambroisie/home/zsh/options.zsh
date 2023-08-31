@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Show an error when a globbing expansion doesn't find any match
 setopt nomatch
 # List on ambiguous completion and Insert first match immediately
