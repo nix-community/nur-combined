@@ -20,8 +20,8 @@
 let
   commonMeta = rec {
     name = "cosmopolitan";
-    version = "2023-08-27";
-    rev = "4021cd0c1e898970dc82c19733500cad9edf0142";
+    version = "2023-08-31";
+    rev = "e2b3c3618e7a7903f6ddc47acfea087d430fcc3f";
     changelog = "https://github.com/jart/cosmopolitan/commits/${rev}";
   };
 
@@ -138,7 +138,7 @@ let
     owner = "jart";
     repo = "cosmopolitan";
     rev = commonMeta.rev;
-    hash = "sha256-9/MsBSyQpbSlMMdXS2oXs8grY71kt2H2liOLpP/eyBY=";
+    hash = "sha256-POEVyuKZ/pdEYXHxVOLb5OSbzWuJ+5LWeokjUe4BHcY=";
   };
   wantedOutputs =
     # make attrs of all outputs to build. If given a bad name in
