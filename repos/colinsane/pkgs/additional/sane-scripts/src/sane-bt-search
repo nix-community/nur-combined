@@ -76,6 +76,7 @@ TRACKER_RANKS = [
     'nyaa.si',
     'yts',
     'internet archive',
+    'the pirate bay',
     # haven't sorted these
     '1337x',
     'kickasstorrents.to',
