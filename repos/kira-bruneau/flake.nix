@@ -61,9 +61,11 @@
         };
 
         nurPkgs = import ./pkgs (pkgs // nurPkgs) pkgs;
+
+        flatNurPkgs = flake-utils.lib.flattenTree nurPkgs;
       in
       rec {
-        packages = flake-utils.lib.filterPackages system (flake-utils.lib.flattenTree nurPkgs);
+        packages = flake-utils.lib.filterPackages system flatNurPkgs;
 
         checks = packages;
 
@@ -71,7 +73,26 @@
           sync = {
             type = "app";
             program = nixpkgs.lib.getExe (nurPkgs.callPackage ./maintainers/scripts/sync.nix {
-              rev = nixpkgs.rev;
+              inherit nixpkgs;
+            });
+          };
+
+          update = {
+            type = "app";
+            program = toString (nurPkgs.callPackage ./maintainers/scripts/update.nix {
+              packages = builtins.concatMap
+                (name:
+                  let
+                    package = flatNurPkgs.${name};
+                    attrPath = builtins.replaceStrings [ "/" ] [ "." ] name;
+                  in
+                  if package ? updateScript
+                  then [{ inherit package attrPath; }]
+                  else [ ]
+                )
+                (builtins.attrNames flatNurPkgs);
+
+              inherit nixpkgs;
             });
           };
 

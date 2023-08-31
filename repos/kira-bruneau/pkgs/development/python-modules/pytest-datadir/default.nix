@@ -4,6 +4,7 @@
 , fetchFromGitHub
 , setuptools-scm
 , pytestCheckHook
+, nix-update-script
 }:
 
 buildPythonPackage rec {
@@ -21,9 +22,16 @@ buildPythonPackage rec {
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
+
   nativeBuildInputs = [ setuptools-scm ];
+
   nativeCheckInputs = [ pytestCheckHook ];
+
   pythonImportsCheck = [ "pytest_datadir" ];
+
+  # The default python updater doesn't work because pytest-datadir
+  # doesn't use GitHub releases, only tags
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Pytest plugin for manipulating test data directories and files";

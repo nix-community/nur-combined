@@ -9,6 +9,7 @@
 , spirv-headers
 , vulkan-headers
 , vkbasalt32
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -40,6 +41,8 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace "$out/share/vulkan/implicit_layer.d/vkBasalt.json" \
       --replace "VK_LAYER_VKBASALT_post_processing" "VK_LAYER_VKBASALT_post_processing_${toString stdenv.hostPlatform.parsed.cpu.bits}"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A Vulkan post processing layer for Linux";

@@ -4,7 +4,7 @@
 # last point where the paths were identical and by cherry picking the set
 # patches after that point (a path-specific git-merge-base?).
 
-{ rev
+{ nixpkgs
 , lib
 , writeText
 , writeShellApplication
@@ -118,7 +118,7 @@ writeShellApplication {
     # and leave it in as a heuristic for skipping patches that have
     # already been applied.
     filter_identical_paths "$nixpkgs_repo" < ${syncPaths} \
-      | format_filtered_patch "$nixpkgs_repo" ${rev}..refs/remotes/origin/nixpkgs-unstable \
+      | format_filtered_patch "$nixpkgs_repo" ${nixpkgs.rev}..refs/remotes/origin/nixpkgs-unstable \
       | git am
 
     nix flake update

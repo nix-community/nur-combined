@@ -8,6 +8,7 @@
 , pdm-pep517
 , pytest-datadir
 , pytestCheckHook
+, nix-update-script
 }:
 
 buildPythonApplication rec {
@@ -50,6 +51,8 @@ buildPythonApplication rec {
   pythonImportsCheck = [
     "cmake_language_server"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "CMake LSP Implementation";

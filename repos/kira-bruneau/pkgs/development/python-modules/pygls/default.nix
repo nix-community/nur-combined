@@ -10,6 +10,7 @@
 , mock
 , pytest-asyncio
 , pytestCheckHook
+, nix-update-script
 }:
 
 buildPythonPackage rec {
@@ -52,6 +53,10 @@ buildPythonPackage rec {
   '';
 
   pythonImportsCheck = [ "pygls" ];
+
+  # The default python updater doesn't work because pygls doesn't use
+  # GitHub releases, only tags
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     changelog = "https://github.com/openlawlibrary/pygls/blob/${src.rev}/CHANGELOG.md";

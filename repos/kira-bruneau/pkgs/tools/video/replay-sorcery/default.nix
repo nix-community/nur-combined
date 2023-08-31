@@ -9,6 +9,7 @@
 , drmSupport ? true, libdrm
 , notifySupport ? true, libnotify
 , pulseaudioSupport ? true, libpulseaudio
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -51,6 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
     # module if you want hardware accelerated video capture.
     "-DRS_SETID=OFF"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "An open-source, instant-replay solution for Linux";
