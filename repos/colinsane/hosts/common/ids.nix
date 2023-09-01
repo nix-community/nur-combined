@@ -44,6 +44,7 @@
   sane.ids.sftpgo.gid = 2410;
   sane.ids.trust-dns.uid = 2411;
   sane.ids.trust-dns.gid = 2411;
+  sane.ids.export.gid = 2412;
 
   sane.ids.colin.uid = 1000;
   sane.ids.guest.uid = 1100;

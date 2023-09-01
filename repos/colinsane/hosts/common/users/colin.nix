@@ -16,6 +16,7 @@
     group = "users";
     extraGroups = [
       "dialout"  # required for modem access (moby)
+      "export"  # to read filesystem exports (servo)
       "feedbackd"
       "input"  # for /dev/input/<xyz>: sxmo
       "networkmanager"

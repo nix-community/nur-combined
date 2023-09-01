@@ -52,6 +52,8 @@ let
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = "6min";
+          Restart = "on-failure";
+          RestartSec = "3min";
           ExecStart =
           let
             portFwd = "${pkgs.sane-scripts.ip-port-forward}/bin/sane-ip-port-forward";

@@ -9,12 +9,9 @@
 #
 # TODO: change umask so sftpgo-created files default to 644.
 # - it does indeed appear that the 600 is not something sftpgo is explicitly doing.
-#
-# TODO: enforce a "quota" by placing /playground on a btrfs subvolume
-# - sane.persist API could expose a `subvolume` option to make this feel natural
 
 
-{ lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, sane-lib, ... }:
 let
   # user permissions:
   # - see <repo:drakkan/sftpgo:internal/dataprovider/user.go>
@@ -44,7 +41,7 @@ let
     status = 1;
     username = "anonymous";
     expiration_date = 0;
-    home_dir = "/var/lib/sftpgo/export";
+    home_dir = "/var/export";
     # uid/gid 0 means to inherit sftpgo uid.
     # - i.e. users can't read files which Linux user `sftpgo` can't read
     # - uploaded files belong to Linux user `sftpgo`
@@ -126,6 +123,7 @@ in
 
   services.sftpgo = {
     enable = true;
+    group = "export";
     settings = {
       ftpd = {
         bindings = [
@@ -172,29 +170,10 @@ in
     };
   };
 
-  fileSystems."/var/lib/sftpgo/export/media" = {
-    # everything in here could be considered publicly readable (based on the viewer's legal jurisdiction)
-    device = "/var/lib/uninsane/media";
-    options = [ "rbind" ];
-  };
-  sane.persist.sys.plaintext = [
-    { user = "sftpgo"; group = "sftpgo"; path = "/var/lib/sftpgo/export/playground"; }
-  ];
-  sane.fs."/var/lib/sftpgo/export/playground/README.md" = {
-    wantedBy = [ "sftpgo.service" ];
-    file.text = ''
-      this directory is intentionally read+write by anyone.
-      there are no rules, except a server-level quota:
-      - share files
-      - write poetry
-      - be a friendly troll
-    '';
-  };
-  sane.fs."/var/lib/sftpgo/export/README.md" = {
-    wantedBy = [ "sftpgo.service" ];
-    file.text = ''
-      - media/         read-only:  Videos, Music, Books, etc
-      - playground/    read-write: use it to share files with other users of this server
-    '';
+  users.users.sftpgo.extraGroups = [ "export" ];
+
+  systemd.services.sftpgo.serviceConfig = {
+    ReadOnlyPaths = [ "/var/export" ];
+    ReadWritePaths = [ "/var/export/playground" ];
   };
 }

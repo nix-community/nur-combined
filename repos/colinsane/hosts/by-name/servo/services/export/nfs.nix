@@ -54,14 +54,9 @@
   # - fsid:  must be zero for the root export
   # - mountpoint[=/path]:  only export the directory if it's a mountpoint. used to avoid exporting failed mounts.
   #
-  # 10.0.0.0/8 to export (readonly) both to LAN (unencrypted) and wg vpn (encrypted)
+  # 10.0.0.0/8 to export both to LAN (readonly, unencrypted) and wg vpn (read-write, encrypted)
   services.nfs.server.exports = ''
-    /var/nfs/export 10.78.79.0/22(ro,crossmnt,fsid=0,subtree_check) 10.0.10.0/24(rw,no_root_squash,crossmnt,fsid=0,subtree_check)
+    /var/export 10.78.79.0/22(ro,crossmnt,fsid=0,subtree_check) 10.0.10.0/24(rw,no_root_squash,crossmnt,fsid=0,subtree_check)
   '';
-
-  fileSystems."/var/nfs/export/media" = {
-    # everything in here could be considered publicly readable (based on the viewer's legal jurisdiction)
-    device = "/var/lib/uninsane/media";
-    options = [ "rbind" ];
-  };
+  # TODO: export playground as read-write to LAN, with forced UID/GID mapping to nfsguest/export
 }
