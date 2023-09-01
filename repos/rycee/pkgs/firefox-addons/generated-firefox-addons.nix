@@ -853,10 +853,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "17.1.0";
+      version = "18.0.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4154200/censor_tracker-17.1.0.xpi";
-      sha256 = "dfd80773c89b40575b12d422072fa929904a6b0f9e4a0cfb330fc57772266585";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4161132/censor_tracker-18.0.0.xpi";
+      sha256 = "87790bda0dbcb77418e2cc504ef31ad85afcfc6f9d59cb87ccba27f0e68b2060";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
@@ -1424,10 +1424,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.14";
+      version = "1.2.15";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160835/dearrow-1.2.14.xpi";
-      sha256 = "793c4e9e6f638c726c28bd9ebad8a1579e40b73d8396e186c27848a1d670006a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4161088/dearrow-1.2.15.xpi";
+      sha256 = "450fea2315ac31d0cb7eb0ef794665e24beda67a0941a6bf10ea5b05023781de";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2195,10 +2195,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "118.0.20230829.180158";
+      version = "118.0.20230831.180026";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160251/francais_language_pack-118.0.20230829.180158.xpi";
-      sha256 = "2658c995bc2a1ca4d1387cd5368900ba0255d1819aa11a6b2cc86cdcee9ee814";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4161305/francais_language_pack-118.0.20230831.180026.xpi";
+      sha256 = "6aef3a5d305172ccf57b8c6e59f178b0c70c904be533905d30a6a70ae9b92523";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4757,10 +4757,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.11.2";
+      version = "2.11.8";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4157662/momentumdash-2.11.2.xpi";
-      sha256 = "997b26b179b52410e1dc66cb6924b7d83216441730da0702b282b2e7e24391f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160472/momentumdash-2.11.8.xpi";
+      sha256 = "cce0e6388bad4a8063670998896a5374da50f6a7b669943308592127e0dcd1a7";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
