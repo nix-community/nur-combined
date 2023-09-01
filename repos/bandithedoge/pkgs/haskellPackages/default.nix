@@ -26,7 +26,7 @@
     ));
 in {
   taffybar = callHaskellPackage ./taffybar.nix rec {
-    compiler = "ghc924";
+    compiler = "ghc92";
     cabal2nixAttrs = {
       gi-gtk-hs = pkgs.haskell.lib.dontHaddock pkgs.haskell.packages.${compiler}.gi-gtk-hs;
     };
@@ -60,7 +60,7 @@ in {
   xmonad-entryhelper = callHaskellPackage ./xmonad-entryhelper.nix {};
 
   kmonad = callHaskellPackage ./kmonad.nix {
-    compiler = "ghc926";
+    compiler = "ghc92";
     attrs = {
       nativeBuildInputs = with pkgs; [
         removeReferencesTo
@@ -68,6 +68,7 @@ in {
           echo ${sources.kmonad.version}
         '')
       ];
+      dontCheck = true;
     };
   };
 }

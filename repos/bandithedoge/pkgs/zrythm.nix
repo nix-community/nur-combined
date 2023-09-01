@@ -3,45 +3,25 @@
   sources,
 }: let
   # remove when 2.6.0 gets added to nixpkgs
-  carla = pkgs.stdenv.mkDerivation {
-    inherit (sources.carla) pname version src;
+  carla = pkgs.carla.overrideAttrs (_: {
+    inherit (sources.carla-git) version src;
+  });
 
-    nativeBuildInputs = with pkgs; [
-      pkg-config
-    ];
+  zix = pkgs.zix.overrideAttrs (_: {
+    inherit (sources.zix-git) src version;
+  });
 
-    buildInputs = with pkgs; [
-      file
-      fluidsynth
-      freetype
-      gtk2
-      gtk3
-      liblo
-      libsForQt5.qt5.qtbase
-      xorg.libXcursor
-      xorg.libXext
-    ];
+  # remove when 4.13 gets added to nixpkgs
+  gtk4 = pkgs.gtk4.overrideAttrs (oldAttrs: {
+    inherit (sources.gtk-4_13_0) version src;
 
-    enableParallelBuilding = true;
-
-    dontWrapQtApps = true;
-
-    installFlags = ["PREFIX=$(out)"];
-  };
-
-  zix = pkgs.stdenv.mkDerivation {
-    inherit (sources.zix) pname src version;
-
-    nativeBuildInputs = with pkgs; [
-      pkg-config
-      meson
-      ninja
-    ];
-
-    buildInputs = with pkgs; [glib];
-
-    mesonFlags = ["-Ddocs=disabled"];
-  };
+    postPatch =
+      oldAttrs.postPatch
+      + ''
+        chmod +x build-aux/meson/gen-visibility-macros.py
+        patchShebangs build-aux/meson/gen-visibility-macros.py
+      '';
+  });
 in
   pkgs.stdenv.mkDerivation rec {
     inherit (sources.zrythm) pname version src;
@@ -52,6 +32,7 @@ in
       help2man
       jq
       libaudec
+      libsForQt5.wrapQtAppsHook
       libxml2
       meson
       ninja
@@ -109,6 +90,7 @@ in
       SDL2
       serd
       sord
+      soxr
       sratom
       vamp-plugin-sdk
       xdg-utils
@@ -118,8 +100,6 @@ in
     ];
 
     dontUseCmakeConfigure = true;
-
-    dontWrapQtApps = true;
 
     mesonFlags = [
       "-Db_lto=false"

@@ -8,11 +8,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-WqAkKT3+WyiYFItY04r8O77ruvZsioeQwLuChqvQXCg=",
+      "sha256": "sha256-HuV9QLARxt+r+xdoLal9Cn9mB/4CJkMY/WWthSZjo3w=",
       "type": "url",
-      "url": "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-07-11/BasiliskII-x86_64.AppImage"
+      "url": "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-08-11/BasiliskII-x86_64.AppImage"
     },
-    "version": "2023-07-11"
+    "version": "2023-08-11"
   },
   "bling": {
     "cargoLocks": null,
@@ -36,7 +36,7 @@
   },
   "cardinal": {
     "cargoLocks": null,
-    "date": "2023-07-30",
+    "date": "2023-08-28",
     "extract": null,
     "name": "cardinal",
     "passthru": null,
@@ -48,17 +48,17 @@
       "name": null,
       "owner": "DISTRHO",
       "repo": "Cardinal",
-      "rev": "41cc57c2f6a8fb92d4095a0b92fe57f663169d59",
-      "sha256": "sha256-8xCSqXL3Vm6CEUFFH0wOxhEuHayFsbKYAzzL5AqB/tY=",
+      "rev": "3ede7c2b05c1a044e52a03fb5a2eb05d5fb211ad",
+      "sha256": "sha256-0o5VoSUfLjtHzqQ4C6quWa/wob3V+Lkpy9qFioVUTrg=",
       "type": "github"
     },
-    "version": "41cc57c2f6a8fb92d4095a0b92fe57f663169d59"
+    "version": "3ede7c2b05c1a044e52a03fb5a2eb05d5fb211ad"
   },
-  "carla": {
+  "carla-git": {
     "cargoLocks": null,
-    "date": "2023-08-04",
+    "date": "2023-08-31",
     "extract": null,
-    "name": "carla",
+    "name": "carla-git",
     "passthru": null,
     "pinned": false,
     "src": {
@@ -68,11 +68,11 @@
       "name": null,
       "owner": "falkTX",
       "repo": "Carla",
-      "rev": "b4f5eaac40bdeed064335c02fa4d16ce7fc4a67d",
-      "sha256": "sha256-cvuP6vEdlojKEUiSJZP2q45ZqlDAmU0Eu+qaDxA6iek=",
+      "rev": "d5a0063559434df1e884b0989c9fd7c92aca463d",
+      "sha256": "sha256-0dG0ZfEXxnMe9HsVN1azweD0mSr8vzCoRRHRPKhqrss=",
       "type": "github"
     },
-    "version": "b4f5eaac40bdeed064335c02fa4d16ce7fc4a67d"
+    "version": "d5a0063559434df1e884b0989c9fd7c92aca463d"
   },
   "dmenu-flexipatch": {
     "cargoLocks": null,
@@ -116,7 +116,7 @@
   },
   "dwm-flexipatch": {
     "cargoLocks": null,
-    "date": "2023-06-27",
+    "date": "2023-08-24",
     "extract": null,
     "name": "dwm-flexipatch",
     "passthru": null,
@@ -128,11 +128,11 @@
       "name": null,
       "owner": "bakkeby",
       "repo": "dwm-flexipatch",
-      "rev": "74abea7c706420e644f71e4f99aab78b1057e133",
-      "sha256": "sha256-whQX5KA5oxBjLdIg1m58ykZwfw7TWde20hbTjgZXPnw=",
+      "rev": "7849eaa08b71d359c939b946598716539b4ba1d7",
+      "sha256": "sha256-gTXK5smGdF9oRHPetpwnKL4KWgtjNUCY8LKb0U7x3Z8=",
       "type": "github"
     },
-    "version": "74abea7c706420e644f71e4f99aab78b1057e133"
+    "version": "7849eaa08b71d359c939b946598716539b4ba1d7"
   },
   "fennel-language-server": {
     "cargoLocks": {
@@ -159,9 +159,29 @@
     },
     "version": "59005549ca1191bf2aa364391e6bf2371889b4f8"
   },
+  "gtk-4_13_0": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "gtk-4_13_0",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "GNOME",
+      "repo": "gtk",
+      "rev": "4.13.0",
+      "sha256": "sha256-SiL+/wfpeIUF2sQpGN1nWVn/mna+m3UxfORAFq/8fl0=",
+      "type": "github"
+    },
+    "version": "4.13.0"
+  },
   "ildaeil": {
     "cargoLocks": null,
-    "date": "2023-07-15",
+    "date": "2023-08-27",
     "extract": null,
     "name": "ildaeil",
     "passthru": null,
@@ -173,15 +193,15 @@
       "name": null,
       "owner": "DISTRHO",
       "repo": "Ildaeil",
-      "rev": "81e2093bdf238d68bb9d4555cb6882b020d8abc6",
-      "sha256": "sha256-Jm886EWWv0/BOC2f0S+U7wurpaBunThcUk3YdPa+k/4=",
+      "rev": "2b4999c0c4dd8720e09abc9db6df93d605aee524",
+      "sha256": "sha256-EJSO+xB4HyEk2rg49bG6ZQHyX2UxEMu8n30jY7zJB98=",
       "type": "github"
     },
-    "version": "81e2093bdf238d68bb9d4555cb6882b020d8abc6"
+    "version": "2b4999c0c4dd8720e09abc9db6df93d605aee524"
   },
   "keepmenu": {
     "cargoLocks": null,
-    "date": null,
+    "date": "2023-08-14",
     "extract": null,
     "name": "keepmenu",
     "passthru": null,
@@ -193,11 +213,11 @@
       "name": null,
       "owner": "firecat53",
       "repo": "keepmenu",
-      "rev": "1.3.1",
-      "sha256": "sha256-1s+vl5j0oPERUvJCKFTvLubCF8Nhx7OtkPjpWmpEG/o=",
+      "rev": "8bb3659ad89592f955fe1d7dbf06c41d4acc1f0e",
+      "sha256": "sha256-95gNUAYFOQUPN2dxjVSebQh3Dr+gBcumKff+f5f7Sic=",
       "type": "github"
     },
-    "version": "1.3.1"
+    "version": "8bb3659ad89592f955fe1d7dbf06c41d4acc1f0e"
   },
   "kiwmi": {
     "cargoLocks": null,
@@ -221,7 +241,7 @@
   },
   "kmonad": {
     "cargoLocks": null,
-    "date": "2023-08-06",
+    "date": "2023-08-12",
     "extract": null,
     "name": "kmonad",
     "passthru": null,
@@ -233,11 +253,11 @@
       "name": null,
       "owner": "kmonad",
       "repo": "kmonad",
-      "rev": "ad69e1be793e61dce2d586481c0f6dda7d978c25",
-      "sha256": "sha256-mak2sOtyT4LOcn6zPPMdaWH92tm9qC7Hta7+IaMmTGk=",
+      "rev": "a05e93c62ca2c25cc81d76d9cf36880fe0bf183a",
+      "sha256": "sha256-aLAMpvbQPLkpjJDUWYTYRmEclAQTo+IVzqPQYOfmxfw=",
       "type": "github"
     },
-    "version": "ad69e1be793e61dce2d586481c0f6dda7d978c25"
+    "version": "a05e93c62ca2c25cc81d76d9cf36880fe0bf183a"
   },
   "lua-dbus": {
     "cargoLocks": null,
@@ -321,7 +341,7 @@
   },
   "macemu": {
     "cargoLocks": null,
-    "date": "2023-07-09",
+    "date": "2023-08-23",
     "extract": null,
     "name": "macemu",
     "passthru": null,
@@ -333,11 +353,11 @@
       "name": null,
       "owner": "kanjitalk755",
       "repo": "macemu",
-      "rev": "6f94fdd7b07d42b53a4cbe19e560bf98c16eb8e6",
-      "sha256": "sha256-EOCqp30NzwwNRhiJbpiClFkb4TyB0Xxv6x088vLSbl4=",
+      "rev": "d2c2647e3a43ce5c49bec131e8e0e5487a954c8f",
+      "sha256": "sha256-z2rCksk7TsJDvEah4tQ3dpMiF98F/e+v+SKOZa0Gcd0=",
       "type": "github"
     },
-    "version": "6f94fdd7b07d42b53a4cbe19e560bf98c16eb8e6"
+    "version": "d2c2647e3a43ce5c49bec131e8e0e5487a954c8f"
   },
   "raze": {
     "cargoLocks": null,
@@ -368,11 +388,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-LqPnU7a2gkNJs46lyL17pprQlTlOy6FYyumX+NHqaXE=",
+      "sha256": "sha256-qn8T2GHcDEj5MBy/0DLTBX7agZD/7oMnFvoWrRegb74=",
       "type": "url",
-      "url": "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-07-11/SheepShaver-x86_64.AppImage"
+      "url": "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-08-11/SheepShaver-x86_64.AppImage"
     },
-    "version": "2023-07-11"
+    "version": "2023-08-11"
   },
   "slock-flexipatch": {
     "cargoLocks": null,
@@ -436,7 +456,7 @@
   },
   "tailwindcss-intellisense": {
     "cargoLocks": null,
-    "date": "2023-07-19",
+    "date": "2023-08-31",
     "extract": null,
     "name": "tailwindcss-intellisense",
     "passthru": null,
@@ -448,11 +468,11 @@
       "name": null,
       "owner": "tailwindlabs",
       "repo": "tailwindcss-intellisense",
-      "rev": "f3f396bf1d3a8def0fb1ab67d96116a4025c4fe2",
-      "sha256": "sha256-OnkOsaHNoj5FeniB6bap4+URFX3S4ALL1s+1DWs2H18=",
+      "rev": "1cc8e62da32895c892624a9f631cd7d16973aa81",
+      "sha256": "sha256-fNdeGrZGugiBCFk3aoEAII+KiDBJQWk9ZI8OWo+A2Uc=",
       "type": "github"
     },
-    "version": "f3f396bf1d3a8def0fb1ab67d96116a4025c4fe2"
+    "version": "1cc8e62da32895c892624a9f631cd7d16973aa81"
   },
   "xmonad-entryhelper": {
     "cargoLocks": null,
@@ -474,11 +494,11 @@
     },
     "version": "ee2d0c14f9258503d7bd62907aa731dd64fa34d0"
   },
-  "zix": {
+  "zix-git": {
     "cargoLocks": null,
-    "date": "2023-05-29",
+    "date": "2023-08-23",
     "extract": null,
-    "name": "zix",
+    "name": "zix-git",
     "passthru": null,
     "pinned": false,
     "src": {
@@ -488,11 +508,11 @@
       "name": null,
       "owner": "drobilla",
       "repo": "zix",
-      "rev": "a5c18d52a5351430d370084f25aaf7d166f7afd5",
-      "sha256": "sha256-WUhq8oQGGYTwXB8gCW0M15UprA7Yhq159Qf/BhUHwwo=",
+      "rev": "3d880e00f3a0d7129b642002c3fb51ddbb56ac96",
+      "sha256": "sha256-sINwShGUA/OsXl+/polRjIMo6+Es6+0/Cp3OwZzItVY=",
       "type": "github"
     },
-    "version": "a5c18d52a5351430d370084f25aaf7d166f7afd5"
+    "version": "3d880e00f3a0d7129b642002c3fb51ddbb56ac96"
   },
   "zmusic": {
     "cargoLocks": null,
@@ -516,7 +536,7 @@
   },
   "zrythm": {
     "cargoLocks": null,
-    "date": "2023-08-07",
+    "date": "2023-09-01",
     "extract": null,
     "name": "zrythm",
     "passthru": null,
@@ -526,11 +546,11 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "9da47c31ff82dd6c3472f245942aeb52b250eb54",
-      "sha256": "sha256-8q9jY0KDT28HufljI6h9U6KnvaBgV+lR1vqM0KEQBVo=",
+      "rev": "0a116fa253c3f05fb8427614455c6a5355e1ff3d",
+      "sha256": "sha256-pEQdBEbGIdYnwHs4AbrFIYv+fbo66RZtvPVtpFYfGEg=",
       "type": "git",
       "url": "https://git.sr.ht/~alextee/zrythm"
     },
-    "version": "9da47c31ff82dd6c3472f245942aeb52b250eb54"
+    "version": "0a116fa253c3f05fb8427614455c6a5355e1ff3d"
   }
 }

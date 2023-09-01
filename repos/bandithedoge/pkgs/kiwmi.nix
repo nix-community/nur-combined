@@ -20,7 +20,7 @@ pkgs.stdenv.mkDerivation rec {
     udev
     wayland
     wayland-protocols
-    wlroots
+    wlroots_0_15
   ];
 
   mesonBuildType = "release";

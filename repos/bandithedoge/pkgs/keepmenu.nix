@@ -2,15 +2,20 @@
   pkgs,
   sources,
 }:
-pkgs.python310Packages.buildPythonApplication {
-  inherit (sources.keepmenu) pname version src;
+pkgs.python3Packages.buildPythonApplication {
+  inherit (sources.keepmenu) pname src;
+  version = sources.keepmenu.date;
+
+  format = "pyproject";
+
+  propagatedBuildInputs = with pkgs.python3Packages; [
+    hatch-vcs
+    hatchling
+    pykeepass
+    pynput
+  ];
 
   doCheck = false;
-
-  propagatedBuildInputs = with pkgs.python310Packages; [
-    pynput
-    pykeepass
-  ];
 
   meta = with pkgs.lib; {
     description = "Dmenu/Rofi frontend for Keepass databases";
