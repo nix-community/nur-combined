@@ -126,15 +126,15 @@
   };
   keepmenu = {
     pname = "keepmenu";
-    version = "8bb3659ad89592f955fe1d7dbf06c41d4acc1f0e";
+    version = "66aa5d74334058ac0be80075a8ed53b8b9c6d4bf";
     src = fetchFromGitHub {
       owner = "firecat53";
       repo = "keepmenu";
-      rev = "8bb3659ad89592f955fe1d7dbf06c41d4acc1f0e";
+      rev = "66aa5d74334058ac0be80075a8ed53b8b9c6d4bf";
       fetchSubmodules = false;
-      sha256 = "sha256-95gNUAYFOQUPN2dxjVSebQh3Dr+gBcumKff+f5f7Sic=";
+      sha256 = "sha256-5dgYQnuh1Xxu6TxpHk6D4zch0MpllITpn2ZoFVILLvY=";
     };
-    date = "2023-08-14";
+    date = "2023-08-31";
   };
   kiwmi = {
     pname = "kiwmi";

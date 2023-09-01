@@ -201,7 +201,7 @@
   },
   "keepmenu": {
     "cargoLocks": null,
-    "date": "2023-08-14",
+    "date": "2023-08-31",
     "extract": null,
     "name": "keepmenu",
     "passthru": null,
@@ -213,11 +213,11 @@
       "name": null,
       "owner": "firecat53",
       "repo": "keepmenu",
-      "rev": "8bb3659ad89592f955fe1d7dbf06c41d4acc1f0e",
-      "sha256": "sha256-95gNUAYFOQUPN2dxjVSebQh3Dr+gBcumKff+f5f7Sic=",
+      "rev": "66aa5d74334058ac0be80075a8ed53b8b9c6d4bf",
+      "sha256": "sha256-5dgYQnuh1Xxu6TxpHk6D4zch0MpllITpn2ZoFVILLvY=",
       "type": "github"
     },
-    "version": "8bb3659ad89592f955fe1d7dbf06c41d4acc1f0e"
+    "version": "66aa5d74334058ac0be80075a8ed53b8b9c6d4bf"
   },
   "kiwmi": {
     "cargoLocks": null,

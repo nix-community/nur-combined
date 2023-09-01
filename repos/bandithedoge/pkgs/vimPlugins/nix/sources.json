@@ -521,10 +521,10 @@
     "homepage": null,
     "owner": "ibhagwan",
     "repo": "fzf-lua",
-    "rev": "a6d524cc1107caf7655ff6dc0aa9a51792d27965",
-    "sha256": "1qvqjfwzs8zkhxlska7l9c2ds6gbdqiv8shp38r25jlf5599izfh",
+    "rev": "2632033492cadfbda3a8678d3c3e65d9397e521d",
+    "sha256": "1kn4g74vaz23i9g5m4p39cfifsayvmhfxajvbgfk5x30q3mqfpfw",
     "type": "tarball",
-    "url": "https://github.com/ibhagwan/fzf-lua/archive/a6d524cc1107caf7655ff6dc0aa9a51792d27965.tar.gz",
+    "url": "https://github.com/ibhagwan/fzf-lua/archive/2632033492cadfbda3a8678d3c3e65d9397e521d.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "galaxyline.nvim": {
@@ -803,10 +803,10 @@
     "homepage": "",
     "owner": "glepnir",
     "repo": "lspsaga.nvim",
-    "rev": "34fd54bd4fff12ce748c9f3644ebb5052fdbe17d",
-    "sha256": "0cpghg6kzzq7ygj518n2izavckhkhmxzfdhr4q6i434hd7g6ih0a",
+    "rev": "c2fcb9672d33a616d2b0e659a3ae8f628a9df8e1",
+    "sha256": "0q2bvymg1fhx0gifqjdpjf4d87b68fvhx2cm6nwiym17gkpil005",
     "type": "tarball",
-    "url": "https://github.com/glepnir/lspsaga.nvim/archive/34fd54bd4fff12ce748c9f3644ebb5052fdbe17d.tar.gz",
+    "url": "https://github.com/glepnir/lspsaga.nvim/archive/c2fcb9672d33a616d2b0e659a3ae8f628a9df8e1.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "lua-dev.nvim": {
@@ -911,10 +911,10 @@
     "homepage": "",
     "owner": "zbirenbaum",
     "repo": "neodim",
-    "rev": "36fcfe7793da6135bdcc20889dc84e051e08644b",
-    "sha256": "0a4gj31dhcgak1wrwjwlx9b5mxp9y2sd2lf1gb9f4lij6rax2bfz",
+    "rev": "80d1c7728b22a1008313c3416406785f94dfd4d4",
+    "sha256": "13qm10692v249kh9s2ff8l31jby0sgrra7q0s20q17bhgl89dn2m",
     "type": "tarball",
-    "url": "https://github.com/zbirenbaum/neodim/archive/36fcfe7793da6135bdcc20889dc84e051e08644b.tar.gz",
+    "url": "https://github.com/zbirenbaum/neodim/archive/80d1c7728b22a1008313c3416406785f94dfd4d4.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "neogen": {
