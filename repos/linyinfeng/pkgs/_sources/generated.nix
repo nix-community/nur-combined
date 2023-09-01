@@ -144,16 +144,16 @@
   };
   mstickereditor = {
     pname = "mstickereditor";
-    version = "v0.3.1";
+    version = "v0.3.2";
     src = fetchFromGitHub {
       owner = "LuckyTurtleDev";
       repo = "mstickereditor";
-      rev = "v0.3.1";
+      rev = "v0.3.2";
       fetchSubmodules = false;
-      sha256 = "sha256-pcdyfltDnU6I6cIGc1Gw6Y9b7oyAN/GLgtBbPq1pRfE=";
+      sha256 = "sha256-Spd4ISUsVAjT1ph9zAiHx4wg+DV8JQ/opLBu89n36kE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./mstickereditor-v0.3.1/Cargo.lock;
+      lockFile = ./mstickereditor-v0.3.2/Cargo.lock;
       outputHashes = { };
     };
   };
@@ -300,16 +300,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "f535fd31cb8ff0f6f40fe68eca7c1416923f12f5";
+    version = "6a1c50649f5d3c86118ef5d0e254f1df01d04c5e";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "f535fd31cb8ff0f6f40fe68eca7c1416923f12f5";
+      rev = "6a1c50649f5d3c86118ef5d0e254f1df01d04c5e";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-0o3PsL1LY+ni2HU5chcvdW0HEfljFfdGM9iWTaCgRAw=";
+      sha256 = "sha256-lyYZqwOT5KBSzMghFDtavNC5TGsy/KXENybk7ylnOqY=";
     };
-    date = "2023-08-30";
+    date = "2023-08-31";
   };
   rime-loengfan = {
     pname = "rime-loengfan";

@@ -1,7 +1,6 @@
-{ sources, rustPlatform, lib, pkg-config, rlottie, clang }:
+{ sources, rustPlatform, lib, pkg-config, rlottie, ffmpeg, clang }:
 
-rustPlatform.buildRustPackage
-rec {
+rustPlatform.buildRustPackage {
   inherit (sources.mstickereditor) pname version src;
   cargoLock = sources.mstickereditor.cargoLock."Cargo.lock";
 
@@ -16,6 +15,7 @@ rec {
   ];
   buildInputs = [
     rlottie
+    ffmpeg
   ];
 
   meta = with lib; {
