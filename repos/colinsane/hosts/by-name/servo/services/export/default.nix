@@ -44,8 +44,7 @@
   sane.fs."/var/export/playground/README.md" = {
     wantedBy = [ "nfs.service" "sftpgo.service" ];
     file.text = ''
-      this directory is intentionally read+write by anyone.
-      there are no rules, except a shared quota:
+      this directory is intentionally read+write by anyone with access (i.e. on the LAN).
       - share files
       - write poetry
       - be a friendly troll

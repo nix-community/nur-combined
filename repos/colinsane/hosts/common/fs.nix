@@ -111,6 +111,12 @@ lib.mkMerge [
       fsType = "nfs";
       options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
     };
+    fileSystems."/mnt/servo-nfs/playground" = {
+      device = "servo-hn:/playground";
+      noCheck = true;
+      fsType = "nfs";
+      options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
+    };
     # fileSystems."/mnt/servo-media-nfs" = {
     #   device = "servo-hn:/media";
     #   noCheck = true;
