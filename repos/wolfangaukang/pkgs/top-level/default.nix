@@ -24,6 +24,7 @@ in rec {
   };
   pacu = callPythonPackage ../tools/security/pacu { inherit dsnap; };
   pocket-casts = callPackage ../applications/audio/pocket-casts { electron = electron_22; };
+  pricehist = callPythonPackage ../applications/misc/pricehist { inherit (python3Packages) curlify; };
   prowler = callPythonPackage ../tools/security/prowler { inherit (python3Packages) alive-progress; };
   prowler_2 = callPackage ../tools/security/prowler/2.nix { };
   sherlock = callPackage ../tools/security/sherlock { };

@@ -144,6 +144,9 @@ in
 
         # Nix
         nil
+
+        # YAML
+        nodePackages.yaml-language-server
       ];
     })
     (mkIf cfg.editors.neovim.enable {
