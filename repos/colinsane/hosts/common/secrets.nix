@@ -28,21 +28,26 @@
 { config, lib, sane-lib, ... }:
 
 let
-  inherit (lib.strings) hasSuffix removeSuffix;
   secretsForHost = host: let
     extraAttrsForPath = path: lib.optionalAttrs (sane-lib.path.isChild "guest" path && builtins.hasAttr "guest" config.users.users) {
       owner = "guest";
     };
+    secretsInSrc = (
+      if builtins.pathExists ../../secrets/${host} then
+        sane-lib.enumerateFilePaths ../../secrets/${host}
+      else
+        []
+    );
   in sane-lib.joinAttrsets (
     map
-      (path: lib.optionalAttrs (hasSuffix ".bin" path) (sane-lib.nameValueToAttrs {
-        name = removeSuffix ".bin" path;
+      (path: lib.optionalAttrs (lib.hasSuffix ".bin" path) (sane-lib.nameValueToAttrs {
+        name = lib.removeSuffix ".bin" path;
         value = {
           sopsFile = ../../secrets/${host}/${path};
           format = "binary";
         } // (extraAttrsForPath path);
       }))
-      (sane-lib.enumerateFilePaths ../../secrets/${host})
+      secretsInSrc
   );
 in
 {

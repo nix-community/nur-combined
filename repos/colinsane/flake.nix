@@ -333,6 +333,19 @@
                 -I ../../
             '');
           };
+
+          check-host-configs = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript
+              "check-host-configs"
+              (builtins.concatStringsSep "\n" (builtins.map
+                (host: "nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} -j1 $@ &")
+                [ "desko" "lappy" "servo" "moby" "rescue" ]
+                # not part of the `map`. wait for all builds to complete
+                ++ [ "wait" ]
+              ))
+            );
+          };
         };
 
       templates = {

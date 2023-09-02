@@ -17,6 +17,7 @@
     ./fractal.nix
     ./fwupd.nix
     ./g4music.nix
+    ./gajim.nix
     ./git.nix
     ./gnome-feeds.nix
     ./gnome-keyring.nix

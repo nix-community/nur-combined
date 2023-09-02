@@ -17,19 +17,19 @@ in
       type = types.bool;
     };
     sane.gui.greetd.session.command = mkOption {
-      type = types.string;
+      type = types.str;
       description = ''
         name to use for the default session in syslog.
       '';
     };
     sane.gui.greetd.session.name = mkOption {
       default = "greetd-session";
-      type = types.string;
+      type = types.str;
       description = "name of session to use in logger";
     };
     sane.gui.greetd.session.user = mkOption {
       default = null;
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
     };
 
     # helpers for common things to layer on top of greetd
@@ -41,7 +41,7 @@ in
       '';
     };
     sane.gui.greetd.sway.greeterCmd = mkOption {
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
       default = null;
       description = ''
         command for sway to `exec` that provides the actual graphical greeter.
@@ -55,20 +55,20 @@ in
       '';
     };
     sane.gui.greetd.sway.gtkgreet.session.command = mkOption {
-      type = types.string;
+      type = types.str;
       description = ''
         command for gtkgreet to execute on successful authentication.
       '';
     };
     sane.gui.greetd.sway.gtkgreet.session.name = mkOption {
-      type = types.string;
+      type = types.str;
       description = ''
         name to use for the default session in syslog and in the gtkgreet menu.
         note that this `sessionName` will become a binary on the user's PATH.
       '';
     };
     sane.gui.greetd.sway.gtkgreet.session.user = mkOption {
-      type = types.string;
+      type = types.str;
       default = "colin";
       description = ''
         name of user which one expects to login as.
