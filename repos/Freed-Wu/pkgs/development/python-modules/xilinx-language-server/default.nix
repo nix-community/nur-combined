@@ -16,6 +16,7 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
     "xilinx_language_server"

@@ -1,5 +1,6 @@
 { mySources
 , python3
+, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -13,7 +14,8 @@ buildPythonPackage rec {
     ipython
   ];
   nativeBuildInputs = [
-    setuptools
+    setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
     "repl_python_wakatime"

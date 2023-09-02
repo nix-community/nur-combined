@@ -17,6 +17,7 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
     "sublime_syntax_language_server"

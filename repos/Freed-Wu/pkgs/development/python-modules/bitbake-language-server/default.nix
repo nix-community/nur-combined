@@ -17,6 +17,7 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
     "bitbake_language_server"

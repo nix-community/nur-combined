@@ -20,6 +20,7 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
     "portage_language_server"

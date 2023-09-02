@@ -1,6 +1,7 @@
 { mySources
 , python3
 , repl-python-wakatime
+, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -13,7 +14,8 @@ buildPythonPackage rec {
     repl-python-wakatime
   ];
   nativeBuildInputs = [
-    setuptools
+    setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
     "repl_python_codestats"

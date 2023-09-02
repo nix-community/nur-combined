@@ -1,21 +1,13 @@
 { mySources
 , python3
 , wrapGAppsHook
-, fetchFromGitHub
-  # , setuptools-generate
+, setuptools-generate
 }:
 
 with python3.pkgs;
 
 buildPythonPackage rec {
-  inherit (mySources.mulimgviewer) pname version;
-  # version is old
-  src = fetchFromGitHub {
-    owner = "nachifur";
-    repo = "MulimgViewer";
-    rev = "04f0fca44f372ff5a7e3b92d4e8bac8e85697da6";
-    sha256 = "sha256-QsBP1AeUYBUWP43ROQqCNn0S4PNf7+ug2KM8z7p/4A8=";
-  };
+  inherit (mySources.mulimgviewer) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
@@ -27,9 +19,12 @@ buildPythonPackage rec {
     requests
   ];
   nativeBuildInputs = [
-    # setuptools-generate
-    setuptools
+    setuptools-scm
   ];
+  patchPhase = ''
+    sed -i 's/, "setuptools-generate"//' pyproject.toml
+    sed -i 's/wx.MenuItem( \(self.m_menu[0-9]\+\),/\1.Append( /g' src/mulimgviewer/gui/*.py
+  '';
   # wait new version release to remove the following code
   postInstall = ''
     install -Dm644 assets/desktop/mulimgviewer.desktop -t $out/share/applications

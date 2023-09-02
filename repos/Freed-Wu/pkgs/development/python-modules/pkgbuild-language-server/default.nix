@@ -22,6 +22,7 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
     "pkgbuild_language_server"

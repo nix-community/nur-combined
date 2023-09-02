@@ -17,6 +17,9 @@ buildPythonPackage rec {
     shtab
     tomli
   ];
+  nativeBuildInputs = [
+    setuptools-scm
+  ];
   pythonImportsCheck = [
     "setuptools_generate"
   ];

@@ -19,7 +19,8 @@ buildPythonPackage rec {
     pip-tools
   ];
   nativeBuildInputs = [
-    setuptools
+    setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
     "requirements_language_server"
