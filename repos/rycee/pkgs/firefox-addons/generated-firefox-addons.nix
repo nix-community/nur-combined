@@ -1351,6 +1351,29 @@
         platforms = platforms.all;
         };
       };
+    "copy-selected-tabs-to-clipboard" = buildFirefoxXpiAddon {
+      pname = "copy-selected-tabs-to-clipboard";
+      version = "1.5.1";
+      addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4014815/copy_selected_tabs_to_clipboar-1.5.1.xpi";
+      sha256 = "d84357632b90cfb6a8989804f49def13f9b8e1999a6a6fa0bd8d30e91bbbcaf7";
+      meta = with lib;
+      {
+        description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "clipboardWrite"
+          "contextualIdentities"
+          "cookies"
+          "menus"
+          "notifications"
+          "storage"
+          "tabs"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "copy-selection-as-markdown" = buildFirefoxXpiAddon {
       pname = "copy-selection-as-markdown";
       version = "0.21.0";
