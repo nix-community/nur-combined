@@ -69,6 +69,7 @@ python3Packages.buildPythonApplication rec {
 
       nativeBuildInputs = [
         setuptools
+        setuptools-git
         wheel
       ];
 

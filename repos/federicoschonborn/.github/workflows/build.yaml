@@ -34,7 +34,9 @@ jobs:
           - x86_64-linux
         channel:
           - nixos-23.05
+          - nixos-23.05-small
           - nixos-unstable
+          - nixos-unstable-small
           - nixpkgs-unstable
         include:
           - runs-on: macos-latest
