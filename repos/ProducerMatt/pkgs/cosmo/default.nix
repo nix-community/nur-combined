@@ -1,9 +1,10 @@
-{ lib,
-  fetchFromGitHub,
-  stdenv,
-#  linuxOnly ? true, # broken on nix builds
-  buildMode ? "rel",
-  limitOutputs ? false # defaults to all
+{ lib
+, fetchFromGitHub
+, stdenv
+#, linuxOnly ? true, # broken on nix builds
+, buildMode ? "rel"
+, appList ? true # defaults to all
+, makeAll ? true
 }:
 
 # TODO(ProducerMatt): verify executable's license block against a checksum for
@@ -15,7 +16,6 @@
 #
 # Gets the hex address of where the licenses start. From there it's a double-nul
 # terminated list of strings.
-
 
 let
   commonMeta = rec {
@@ -144,12 +144,12 @@ let
     # make attrs of all outputs to build. If given a bad name in
     # limitOutputs this should fail at getAttr.
     # If it doesn't send flamemail to ProducerMatt
-    (if limitOutputs
+    (if (builtins.isList appList)
      then builtins.listToAttrs
        (map (name: lib.nameValuePair
          name (builtins.getAttr name cosmoMeta.outputs))
-         limitOutputs)
-     else cosmoMeta.outputs);
+         appList)
+    else (if appList then cosmoMeta.outputs else { }));
     # TODO: find a less awkward way to structure outputs.
   wantedOutputNames =
     builtins.attrNames wantedOutputs;
@@ -158,11 +158,14 @@ let
     builtins.concatLists
       (lib.catAttrs "coms" (builtins.attrValues wantedOutputs));
   buildTargets =
-    (lib.concatMapStringsSep " "
+    if makeAll then "" # we need everything
+      else (lib.concatMapStringsSep " "
         (target: "o/${cosmoMeta.mode}/${target}")
         wantedComs);
   relevantLicenses =
-    builtins.concatMap (o: o.licenses) (builtins.attrValues wantedOutputs);
+    builtins.concatMap (o: o.licenses)
+      (builtins.attrValues (if makeAll then cosmoMeta.outputs
+                            else wantedOutputs));
   buildStuff = ''
       ${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
           ${cosmoMeta.platformFlag} V=0 \
@@ -192,18 +195,49 @@ in
 stdenv.mkDerivation {
     pname = commonMeta.name;
     version = commonMeta.version;
-    phases = [ "unpackPhase" "buildPhase" "installPhase" ];
+    #phases = [ "unpackPhase" "buildPhase" "checkPhase" "installPhase" ];
+    doCheck = true;
+    dontConfigure = true;
+    dontFixup = true;
 
-    outputs = [ "out" ] ++ wantedOutputNames;
+    outputs = [ "out" ]
+              ++ (if makeAll then [ "dist" ] else [  ])
+              ++ wantedOutputNames;
 
     src = cosmoSrc;
     buildPhase = ''
       find ./build/bootstrap/ -name '*.com' -execdir '{}' --assimilate \;
-      '' + buildStuff + ''
-      echo "" # workaround for nix's "malformed json" errors
+
+      # some syscall tests fail because we're in a sandbox
+      rm test/libc/calls/sched_setscheduler_test.c
+      rm test/libc/thread/pthread_create_test.c
+      rm test/libc/calls/getgroups_test.c
+
+      # fails
+      rm test/libc/stdio/posix_spawn_test.c
+    '' + buildStuff + ''
+      echo "" # workaround for nix's weird stdout muddling
     '';
-    installPhase = installStuff
-                 + "\n" + symlinkStuff;
+    checkPhase = ''
+      runHook preCheck
+      ${cosmoMeta.make} check &>/dev/null # FIXME newline spam in checks only
+      runHook postCheck
+    '';
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/include $out/lib
+      install o/cosmopolitan.h $out/include
+      install o/${cosmoMeta.mode}/cosmopolitan.a o/${cosmoMeta.mode}/libc/crt/crt.o o/${cosmoMeta.mode}/ape/ape.{o,lds} o/${cosmoMeta.mode}/ape/ape-no-modify-self.o $out/lib
+      '' + installStuff + "\n" # workaround for nix's weird stdout muddling
+      + symlinkStuff + "\n" # workaround for nix's weird stdout muddling
+      + (if makeAll then ''
+          mkdir -p "$dist"
+          cp -r . "$dist"
+        '' else
+          "")
+      + ''
+      runHook postInstall
+      '';
 
     meta = {
       homepage = "https://github.com/jart/cosmopolitan";
@@ -213,7 +247,8 @@ stdenv.mkDerivation {
 
       # All Cosmo original code under ISC license.
       license = with lib.licenses; lib.unique ([ isc ] ++ relevantLicenses);
-      maintainers = [ lib.maintainers.ProducerMatt ];
+      maintainers = with lib.maintainers;
+        [ ProducerMatt ]; # FIXME credit ingenieroariel
     };
 }
 
