@@ -14,9 +14,25 @@
 #
 # compliance tests:
 # - <https://compliance.conversations.im/server/uninsane.org/#xep0352>
+#
+# administration:
+# - `sudo -u ejabberd ejabberdctl help`
+#
+# federation/support matrix:
+# - avatars
+#   - nixnet.services + dino: works in MUCs but not DMs  (as of 2023 H1)
+#   - movim.eu + dino: works in DMs, MUCs untested  (as of 2023/08/29)
+# - calls
+#   - local + dino: audio, video, works in DMs  (as of 2023/08/29)
+#   - movim.eu + dino: audio, video, works in DMs, no matter which side initiates  (as of 2023/08/30)
+#   - +native-cell-number@cheogram.com + dino: audio works in DMs, no matter which side initiates  (as of 2023/09/01)
+#     - can receive calls even if sender isn't in my roster
+#     - this is presumably using JMP.chat's SIP servers, which then convert it to XMPP call
+#
+# bugs:
+# - 2023/09/01: will randomly stop federating. `systemctl restart ejabberd` fixes, but takes 10 minutes.
 { config, lib, pkgs, ... }:
 
-# XXX: avatar support works in MUCs but not DMs
 let
   # TODO: this range could be larger, but right now that's costly because each element is its own UPnP forward
   # TURN port range (inclusive)
