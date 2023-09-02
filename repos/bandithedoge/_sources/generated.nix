@@ -7,10 +7,10 @@
 }: {
   basiliskii-bin = {
     pname = "basiliskii-bin";
-    version = "2023-08-11";
+    version = "2023-09-01";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-08-11/BasiliskII-x86_64.AppImage";
-      sha256 = "sha256-HuV9QLARxt+r+xdoLal9Cn9mB/4CJkMY/WWthSZjo3w=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-09-01/BasiliskII-x86_64.AppImage";
+      sha256 = "sha256-tQutNQJ1qiDho4AIL8J8jLKE8k7B6t7h1rc0DP6cN5w=";
     };
   };
   bling = {
@@ -232,10 +232,10 @@
   };
   sheepshaver-bin = {
     pname = "sheepshaver-bin";
-    version = "2023-08-11";
+    version = "2023-09-01";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-08-11/SheepShaver-x86_64.AppImage";
-      sha256 = "sha256-qn8T2GHcDEj5MBy/0DLTBX7agZD/7oMnFvoWrRegb74=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-09-01/SheepShaver-x86_64.AppImage";
+      sha256 = "sha256-rVZYygwRz3u3H5pireiCdTE6fJn2RgM9fsGsO0XWsz4=";
     };
   };
   slock-flexipatch = {
@@ -264,15 +264,15 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "175f0ee5c8c599cb72332c42516ef59ed6189e66";
+    version = "f0ae7af7ee412c22e3c9e0745e51f98bbd1a2d10";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "175f0ee5c8c599cb72332c42516ef59ed6189e66";
+      rev = "f0ae7af7ee412c22e3c9e0745e51f98bbd1a2d10";
       fetchSubmodules = false;
-      sha256 = "sha256-BlSP4JJ1pYvGtiuvYh7royLWoyC9xts6WS28c4KeIgQ=";
+      sha256 = "sha256-RPlS6bLWBXWo3fO/p4rT0qfVY+ZTXF1j9TRIzGo7rSE=";
     };
-    date = "2023-07-29";
+    date = "2023-09-01";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
@@ -323,15 +323,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "0a116fa253c3f05fb8427614455c6a5355e1ff3d";
+    version = "9ee5bcb45409d2e26e715a196c6ee3bbfbdf5df1";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "0a116fa253c3f05fb8427614455c6a5355e1ff3d";
+      rev = "9ee5bcb45409d2e26e715a196c6ee3bbfbdf5df1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-pEQdBEbGIdYnwHs4AbrFIYv+fbo66RZtvPVtpFYfGEg=";
+      sha256 = "sha256-iJNKejJ9u3qSnp9eXb2/7TE9Nx194jzavJ/upXsW3gQ=";
     };
-    date = "2023-09-01";
+    date = "2023-09-02";
   };
 }
