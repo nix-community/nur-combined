@@ -1,6 +1,8 @@
 {
   description = "My personal NUR repository";
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
   outputs = { self, nixpkgs }:
     let
       systems = [
@@ -12,8 +14,11 @@
         "armv7l-linux"
       ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      modules = import ./modules;
     in
     {
+      inherit (modules) nixosModules;
+
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });

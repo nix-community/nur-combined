@@ -11,12 +11,11 @@
 with pkgs;
 
 let
-  nurPkgs = pkgs.callPackage ./pkgs { }; # nixpkgs packages
+  nurPkgs = pkgs.callPackage ./pkgs { };
 
 in
 {
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  lib = import ./lib { inherit pkgs; };
+  overlays = import ./overlays;
+
 } // nurPkgs
