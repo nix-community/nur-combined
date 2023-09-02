@@ -1,44 +1,11 @@
 { config, lib, pkgs, ... }:
- 
+
 # docs: https://nixos.wiki/wiki/Sway
-with lib;
 let
   cfg = config.sane.gui.sway;
-
-  # bare sway launcher
-  sway-launcher = pkgs.writeShellScriptBin "sway-launcher" ''
-    ${pkgs.sway}/bin/sway --debug > /var/log/sway/sway.log 2>&1
-  '';
-  # start sway and have it construct the gtkgreeter
-  sway-as-greeter = pkgs.writeShellScriptBin "sway-as-greeter" ''
-    ${pkgs.sway}/bin/sway --debug --config ${sway-config-into-gtkgreet} > /var/log/sway/sway-as-greeter.log 2>&1
-  '';
-  # (config file for the above)
-  sway-config-into-gtkgreet = pkgs.writeText "greetd-sway-config" ''
-    exec "${gtkgreet-launcher}"
-  '';
-  # gtkgreet which launches a layered sway instance
-  gtkgreet-launcher = pkgs.writeShellScript "gtkgreet-launcher" ''
-    # NB: the "command" field here is run in the user's shell.
-    # so that command must exist on the specific user's path who is logging in. it doesn't need to exist system-wide.
-    ${pkgs.greetd.gtkgreet}/bin/gtkgreet --layer-shell --command sway-launcher
-  '';
-  greeter-session = {
-    # greeter session config
-    command = "${sway-as-greeter}/bin/sway-as-greeter";
-    # alternatives:
-    # - TTY: `command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${pkgs.sway}/bin/sway";`
-    # - autologin: `command = "${pkgs.sway}/bin/sway"; user = "colin";`
-    # - Dumb Login (doesn't work)": `command = "${pkgs.greetd.dlm}/bin/dlm";`
-  };
-  greeterless-session = {
-    # no greeter
-    command = "${sway-launcher}/bin/sway-launcher";
-    user = "colin";
-  };
 in
 {
-  options = {
+  options = with lib; {
     sane.gui.sway.enable = mkOption {
       default = false;
       type = types.bool;
@@ -52,7 +19,8 @@ in
       type = types.bool;
     };
   };
-  config = mkMerge [
+
+  config = lib.mkMerge [
     {
       sane.programs.swayApps = {
         package = null;
@@ -75,11 +43,9 @@ in
       };
     }
 
-    (mkIf cfg.enable {
+    (lib.mkIf cfg.enable {
       sane.programs.fontconfig.enableFor.system = true;
       sane.programs.swayApps.enableFor.user.colin = true;
-      # we need the greeter's command to be on our PATH
-      users.users.colin.packages = [ sway-launcher ];
 
       sane.gui.gtk.enable = lib.mkDefault true;
       # sane.gui.gtk.gtk-theme = lib.mkDefault "Fluent-Light-compact";
@@ -88,13 +54,12 @@ in
       # swap in these lines to use SDDM instead of `services.greetd`.
       # services.xserver.displayManager.sddm.enable = true;
       # services.xserver.enable = true;
-      services.greetd = {
-        # greetd source/docs:
-        # - <https://git.sr.ht/~kennylevinsen/greetd>
+      sane.gui.greetd.enable = true;
+      sane.gui.greetd.sway.enable = true;  # have greetd launch a sway compositor in which we host a greeter
+      sane.gui.greetd.sway.gtkgreet = lib.mkIf cfg.useGreeter {
         enable = true;
-        settings = {
-          default_session = if cfg.useGreeter then greeter-session else greeterless-session;
-        };
+        session.name = "sway-on-gtkgreet";
+        session.command = "${pkgs.sway}/bin/sway --debug";
       };
 
       # unlike other DEs, sway configures no audio stack
@@ -123,11 +88,6 @@ in
       # bluez can't connect to audio devices unless pipewire is running.
       # a system service can't depend on a user service, so just launch it at graphical-session
       systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];
-
-      sane.fs."/var/log/sway" = {
-        dir.acl.mode = "0777";
-        wantedBeforeBy = [ "greetd.service" "display-manager.service" ];
-      };
 
       programs.sway = {
         # provides xdg-desktop-portal-wlr, which exposes on dbus:

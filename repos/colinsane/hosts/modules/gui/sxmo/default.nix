@@ -90,7 +90,6 @@ in
         "lightdm-mobile"   => keypad style greeter. can only enter digits 0-9 as password.
         "sway-gtkgreet"    => layered sway greeter. behaves as if you booted to swaylock.
                               this isn't practically usable on mobile because of keyboard input.
-                              also, it takes literally 6 minutes to appear
       '';
     };
     sane.gui.sxmo.package = mkOption {
@@ -335,77 +334,41 @@ in
       })
 
       (lib.mkIf (cfg.greeter == "sway-gtkgreet") {
-        services.greetd = {
+        sane.gui.greetd = {
           enable = true;
-          # borrowed from gui/sway
-          settings.default_session.command =
-          let
-            # start sway and have it construct the gtkgreeter
-            sway-as-greeter = runWithLogger "sway-as-greeter" "${pkgs.sway}/bin/sway --debug --config ${sway-config-into-gtkgreet}";
-            # (config file for the above)
-            sway-config-into-gtkgreet = pkgs.writeText "greetd-sway-config" ''
-              exec "${gtkgreet-launcher}"
-            '';
-            # gtkgreet which launches a layered sway instance
-            gtkgreet-launcher = pkgs.writeShellScript "gtkgreet-launcher" ''
-              # NB: the "command" field here is run in the user's shell.
-              # so that command must exist on the specific user's path who is logging in. it doesn't need to exist system-wide.
-              ${pkgs.greetd.gtkgreet}/bin/gtkgreet --layer-shell --command sxmo_winit.sh
-            '';
-          in "${sway-as-greeter}";
+          sway.enable = true;
+          sway.gtkgreet.enable = true;
+          sway.gtkgreet.session.name = "sxmo-on-gtkgreet";
+          sway.gtkgreet.session.command = "${cfg.package}/bin/sxmo_winit.sh";
         };
       })
 
       (lib.mkIf (cfg.greeter == "greetd-sway-phog") {
-        services.greetd = {
+        sane.gui.greetd = {
           enable = true;
-          # borrowed from gui/sway
-          settings.default_session.command =
-          let
-            # start sway and have it construct the greeter
-            sway-as-greeter = runWithLogger "sway-as-greeter" "${pkgs.sway}/bin/sway --debug --config ${sway-config-into-phog}";
-            # (config file for the above)
-            sway-config-into-phog = pkgs.writeText "greetd-sway-config" ''
-              exec "${pkgs.phog}/libexec/phog"
-            '';
-          in "${sway-as-greeter}";
+          sway.enable = true;
+          sway.greeterCmd = "${pkgs.phog}/libexec/phog";
         };
         # phog locates sxmo_winit.sh via <env>/share/wayland-sessions
         environment.pathsToLink = [ "/share/wayland-sessions" ];
-
-        # persisting fontconfig & mesa_shader_cache improves start time from like 6 minutes to 1 minute
-        # TODO: this should apply to any greetd implementation
-        users.users.greeter.home = "/var/lib/greeter";
-        sane.persist.sys.plaintext = [
-          { user = "greeter"; group = "greeter"; path = "/var/lib/greeter/.cache/fontconfig"; }
-          { user = "greeter"; group = "greeter"; path = "/var/lib/greeter/.cache/mesa_shader_cache"; }
-        ];
       })
 
       (lib.mkIf (cfg.greeter == "greetd-phog") {
-        services.greetd = {
+        sane.gui.greetd = {
           enable = true;
-
-          # launch directly: but stdout/stderr gets dropped
-          # settings.default_session.command = "${pkgs.phog}/bin/phog";
-
-          # wrapper to launch phog and redirect logs to system journal.
-          settings.default_session.command = let
-            launch-phog = runWithLogger "phog" "${pkgs.phog}/bin/phog";
-          in "${launch-phog}";
+          session.name = "phog";
+          session.command = "${pkgs.phog}/bin/phog";
         };
+        # phog locates sxmo_winit.sh via <env>/share/wayland-sessions
         environment.pathsToLink = [ "/share/wayland-sessions" ];
       })
 
       (lib.mkIf (cfg.greeter == "greetd-sxmo") {
-        services.greetd = {
+        sane.gui.greetd = {
           enable = true;
-          settings.default_session = {
-            command = let
-              launch-sxmo = runWithLogger "sxmo" "${cfg.package}/bin/sxmo_winit.sh";
-            in "${launch-sxmo}";
-            user = "colin";
-          };
+          session.name = "sxmo";
+          session.command = "${cfg.package}/bin/sxmo_winit.sh";
+          session.user = "colin";
         };
       })
 

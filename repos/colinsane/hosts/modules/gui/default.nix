@@ -2,6 +2,7 @@
 {
   imports = [
     ./gnome.nix
+    ./greetd.nix
     ./gtk.nix
     ./phosh.nix
     ./sway
