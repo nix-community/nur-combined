@@ -24,6 +24,8 @@ let
   # mod = "Mod1";  # Alt
   mod = "Mod4";  # Super
 in ''
+  # xwayland disable
+
   ### default font
   font pango:monospace 8
 
@@ -32,13 +34,12 @@ in ''
   default_floating_border pixel 2
   hide_edge_borders smart
 
-  ### defaults
+  #### focus_wrapping: behavior when trying to focus past the edge of a container
+  ####   no  => preserve last focus. helpful mostly when `focus_follows_mouse yes`
   focus_wrapping no
   focus_follows_mouse yes
-  focus_on_window_activation smart
-  mouse_warping output
+  #### workspace_layout default  => workspaces use splits by default (as opposed to e.g. tabbed)
   workspace_layout default
-  workspace_auto_back_and_forth no
 
   ### default colors (#border #background #text #indicator #childBorder)
   client.focused #4c7899 #285577 #ffffff #2e9ef4 #285577
