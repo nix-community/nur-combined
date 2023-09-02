@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.14.1";
+      version = "1.15.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119678/10ten_ja_reader-1.14.1.xpi";
-      sha256 = "1074ea7d55794b54484f8239e3ba8e676ea41b1718803be6656196016b365989";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160486/10ten_ja_reader-1.15.0.xpi";
+      sha256 = "ae94ceb16f029e8feacb7b63c303497324dfb5799d1cf8935382e9b5ce618dde";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -7074,10 +7074,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.33";
+      version = "1.5.35";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4114817/styl_us-1.5.33.xpi";
-      sha256 = "d6b8cc1f4d0986ffa117999065eb5bb8b5596136aa60cb9ff746073656704822";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160414/styl_us-1.5.35.xpi";
+      sha256 = "d415ee11fa4a4313096a268e54fd80fa93143345be16f417eb1300a6ebe26ba1";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
