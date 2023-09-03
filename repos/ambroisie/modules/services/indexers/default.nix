@@ -60,6 +60,22 @@ in
           port = prowlarrPort;
         }
       ];
+
+      services.fail2ban.jails = {
+        prowlarr = ''
+          enabled = true
+          filter = prowlarr
+          action = iptables-allports
+        '';
+      };
+
+      environment.etc = {
+        "fail2ban/filter.d/prowlarr.conf".text = ''
+          [Definition]
+          failregex = ^.*\|Warn\|Auth\|Auth-Failure ip <HOST> username .*$
+          journalmatch = _SYSTEMD_UNIT=prowlarr.service
+        '';
+      };
     })
   ];
 }

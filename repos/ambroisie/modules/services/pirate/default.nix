@@ -13,26 +13,65 @@ let
     sonarr = 8989;
   };
 
-  managers = with lib.attrsets;
-    (mapAttrs
-      (_: _: {
-        enable = true;
-        group = "media";
-      })
-      ports);
+  mkService = service: {
+    services.${service} = {
+      enable = true;
+      group = "media";
+    };
+  };
 
-  redirections = lib.flip lib.mapAttrsToList ports
-    (subdomain: port: { inherit subdomain port; });
+  mkRedirection = service: {
+    my.services.nginx.virtualHosts = [
+      {
+        subdomain = service;
+        port = ports.${service};
+      }
+    ];
+  };
+
+  mkFail2Ban = service: {
+    services.fail2ban.jails = {
+      ${service} = ''
+        enabled = true
+        filter = ${service}
+        action = iptables-allports
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/${service}.conf".text = ''
+        [Definition]
+        failregex = ^.*\|Warn\|Auth\|Auth-Failure ip <HOST> username .*$
+        journalmatch = _SYSTEMD_UNIT=${service}.service
+      '';
+    };
+  };
+
+  mkFullConfig = service: lib.mkMerge [
+    (mkService service)
+    (mkRedirection service)
+  ];
 in
 {
   options.my.services.pirate = {
     enable = lib.mkEnableOption "Media automation";
   };
 
-  config = lib.mkIf cfg.enable {
-    services = managers;
-    my.services.nginx.virtualHosts = redirections;
-    # Set-up media group
-    users.groups.media = { };
-  };
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      # Set-up media group
+      users.groups.media = { };
+    }
+    # Bazarr does not log authentication failures...
+    (mkFullConfig "bazarr")
+    # Lidarr for music
+    (mkFullConfig "lidarr")
+    (mkFail2Ban "lidarr")
+    # Radarr for movies
+    (mkFullConfig "radarr")
+    (mkFail2Ban "radarr")
+    # Sonarr for shows
+    (mkFullConfig "sonarr")
+    (mkFail2Ban "sonarr")
+  ]);
 }
