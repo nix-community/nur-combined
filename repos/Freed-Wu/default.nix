@@ -38,6 +38,7 @@ let
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
     autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
     bitbake-language-server = callPackage ./pkgs/development/python-modules/bitbake-language-server { };
+    mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
     pkgbuild-language-server = callPackage ./pkgs/development/python-modules/pkgbuild-language-server { };
     portage-language-server = callPackage ./pkgs/development/python-modules/portage-language-server { };
     requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };

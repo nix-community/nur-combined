@@ -55,6 +55,14 @@
       sha256 = "sha256-srBgon7/yrbvV6m0Em67iiA1KLo6b2QTJjN786bZIck=";
     };
   };
+  mutt-language-server = {
+    pname = "mutt-language-server";
+    version = "0.0.1";
+    src = fetchurl {
+      url = "https://pypi.io/packages/source/m/mutt-language-server/mutt-language-server-0.0.1.tar.gz";
+      sha256 = "sha256-IV9b9e5SUsQSG2mpy64s41DsxpWXK3ZdcpbAswmOYGY=";
+    };
+  };
   pkgbuild-language-server = {
     pname = "pkgbuild-language-server";
     version = "0.0.6";
@@ -121,10 +129,10 @@
   };
   translate-shell = {
     pname = "translate-shell";
-    version = "0.0.35";
+    version = "0.0.36";
     src = fetchurl {
-      url = "https://pypi.io/packages/source/t/translate-shell/translate-shell-0.0.35.tar.gz";
-      sha256 = "sha256-c9CqtryHracX8qdZrHFosPeyyEHCFcZQn0RC0z0Lw8k=";
+      url = "https://pypi.io/packages/source/t/translate-shell/translate-shell-0.0.36.tar.gz";
+      sha256 = "sha256-15GrS4cqOoXnKyB8y+0WX6tfWOYB34AWd172hUhi1eM=";
     };
   };
   undollar = {
