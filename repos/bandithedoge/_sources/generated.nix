@@ -15,15 +15,15 @@
   };
   bling = {
     pname = "bling";
-    version = "01944af235e3f9ac72990cf9f4e545f344c28c4e";
+    version = "1f6bd0d5ef150a1801d20c69437ceff61d65fac5";
     src = fetchFromGitHub {
       owner = "blingcorp";
       repo = "bling";
-      rev = "01944af235e3f9ac72990cf9f4e545f344c28c4e";
+      rev = "1f6bd0d5ef150a1801d20c69437ceff61d65fac5";
       fetchSubmodules = false;
-      sha256 = "sha256-/5FGZIgznn5ssxe9/M7NxEevDDo7gdY7V6QgN3u11LQ=";
+      sha256 = "sha256-0D2ck1qiA1ydLax45utJw1RhZZwhqg4KRoqgDFz4Gsg=";
     };
-    date = "2023-08-08";
+    date = "2023-09-03";
   };
   cardinal = {
     pname = "cardinal";
@@ -39,15 +39,15 @@
   };
   carla-git = {
     pname = "carla-git";
-    version = "d5a0063559434df1e884b0989c9fd7c92aca463d";
+    version = "a627caf17f141009602a76e99cbfc93f5b7d1455";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "d5a0063559434df1e884b0989c9fd7c92aca463d";
+      rev = "a627caf17f141009602a76e99cbfc93f5b7d1455";
       fetchSubmodules = false;
-      sha256 = "sha256-0dG0ZfEXxnMe9HsVN1azweD0mSr8vzCoRRHRPKhqrss=";
+      sha256 = "sha256-ly2Xu55rx69wZ/V7czY7V3aep8og7+a3zZohdaGy58M=";
     };
-    date = "2023-08-31";
+    date = "2023-09-03";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -159,6 +159,17 @@
       sha256 = "sha256-aLAMpvbQPLkpjJDUWYTYRmEclAQTo+IVzqPQYOfmxfw=";
     };
     date = "2023-08-12";
+  };
+  libadwaita-1_4 = {
+    pname = "libadwaita-1_4";
+    version = "1.4.rc";
+    src = fetchFromGitHub {
+      owner = "GNOME";
+      repo = "libadwaita";
+      rev = "1.4.rc";
+      fetchSubmodules = false;
+      sha256 = "sha256-VJV5kLoDXTPXb3gXz0iANmrfo+wiR4a59Z2tcjL5+/8=";
+    };
   };
   lua-dbus = {
     pname = "lua-dbus";
@@ -323,14 +334,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "9ee5bcb45409d2e26e715a196c6ee3bbfbdf5df1";
+    version = "228c7ad526b354c9ba01bed71028b9cb422f73f0";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "9ee5bcb45409d2e26e715a196c6ee3bbfbdf5df1";
+      rev = "228c7ad526b354c9ba01bed71028b9cb422f73f0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-iJNKejJ9u3qSnp9eXb2/7TE9Nx194jzavJ/upXsW3gQ=";
+      sha256 = "sha256-G7U9GI5B3o2MuS6saZk+yeu1YBdY2iY1QGbksoDpY58=";
     };
     date = "2023-09-02";
   };

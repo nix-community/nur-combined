@@ -22,6 +22,15 @@
         patchShebangs build-aux/meson/gen-visibility-macros.py
       '';
   });
+
+  # remove when 1.4 gets added to nixpkgs
+  libadwaita = pkgs.libadwaita.overrideAttrs (oldAttrs: {
+    inherit (sources.libadwaita-1_4) version src;
+
+    buildInputs = oldAttrs.buildInputs ++ [gtk4 pkgs.appstream];
+
+    dontCheck = true;
+  });
 in
   pkgs.stdenv.mkDerivation rec {
     inherit (sources.zrythm) pname version src;

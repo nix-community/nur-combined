@@ -30,8 +30,11 @@ fetch.github = "falkTX/Carla"
 
 [gtk-4_13_0]
 src.manual = "4.13.0"
-# gitlab.gnome.org gives 503
 fetch.github = "GNOME/gtk"
+
+[libadwaita-1_4]
+src.manual = "1.4.rc"
+fetch.github = "GNOME/libadwaita"
 
 # programs
 

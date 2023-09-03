@@ -16,7 +16,7 @@
   },
   "bling": {
     "cargoLocks": null,
-    "date": "2023-08-08",
+    "date": "2023-09-03",
     "extract": null,
     "name": "bling",
     "passthru": null,
@@ -28,11 +28,11 @@
       "name": null,
       "owner": "blingcorp",
       "repo": "bling",
-      "rev": "01944af235e3f9ac72990cf9f4e545f344c28c4e",
-      "sha256": "sha256-/5FGZIgznn5ssxe9/M7NxEevDDo7gdY7V6QgN3u11LQ=",
+      "rev": "1f6bd0d5ef150a1801d20c69437ceff61d65fac5",
+      "sha256": "sha256-0D2ck1qiA1ydLax45utJw1RhZZwhqg4KRoqgDFz4Gsg=",
       "type": "github"
     },
-    "version": "01944af235e3f9ac72990cf9f4e545f344c28c4e"
+    "version": "1f6bd0d5ef150a1801d20c69437ceff61d65fac5"
   },
   "cardinal": {
     "cargoLocks": null,
@@ -56,7 +56,7 @@
   },
   "carla-git": {
     "cargoLocks": null,
-    "date": "2023-08-31",
+    "date": "2023-09-03",
     "extract": null,
     "name": "carla-git",
     "passthru": null,
@@ -68,11 +68,11 @@
       "name": null,
       "owner": "falkTX",
       "repo": "Carla",
-      "rev": "d5a0063559434df1e884b0989c9fd7c92aca463d",
-      "sha256": "sha256-0dG0ZfEXxnMe9HsVN1azweD0mSr8vzCoRRHRPKhqrss=",
+      "rev": "a627caf17f141009602a76e99cbfc93f5b7d1455",
+      "sha256": "sha256-ly2Xu55rx69wZ/V7czY7V3aep8og7+a3zZohdaGy58M=",
       "type": "github"
     },
-    "version": "d5a0063559434df1e884b0989c9fd7c92aca463d"
+    "version": "a627caf17f141009602a76e99cbfc93f5b7d1455"
   },
   "dmenu-flexipatch": {
     "cargoLocks": null,
@@ -258,6 +258,26 @@
       "type": "github"
     },
     "version": "a05e93c62ca2c25cc81d76d9cf36880fe0bf183a"
+  },
+  "libadwaita-1_4": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "libadwaita-1_4",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "GNOME",
+      "repo": "libadwaita",
+      "rev": "1.4.rc",
+      "sha256": "sha256-VJV5kLoDXTPXb3gXz0iANmrfo+wiR4a59Z2tcjL5+/8=",
+      "type": "github"
+    },
+    "version": "1.4.rc"
   },
   "lua-dbus": {
     "cargoLocks": null,
@@ -546,11 +566,11 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "9ee5bcb45409d2e26e715a196c6ee3bbfbdf5df1",
-      "sha256": "sha256-iJNKejJ9u3qSnp9eXb2/7TE9Nx194jzavJ/upXsW3gQ=",
+      "rev": "228c7ad526b354c9ba01bed71028b9cb422f73f0",
+      "sha256": "sha256-G7U9GI5B3o2MuS6saZk+yeu1YBdY2iY1QGbksoDpY58=",
       "type": "git",
       "url": "https://git.sr.ht/~alextee/zrythm"
     },
-    "version": "9ee5bcb45409d2e26e715a196c6ee3bbfbdf5df1"
+    "version": "228c7ad526b354c9ba01bed71028b9cb422f73f0"
   }
 }
