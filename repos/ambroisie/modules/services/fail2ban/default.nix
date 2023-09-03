@@ -1,4 +1,4 @@
-# A minimalist, opinionated feed reader
+# Filter and ban unauthorized access
 { config, lib, ... }:
 let
   cfg = config.my.services.fail2ban;
