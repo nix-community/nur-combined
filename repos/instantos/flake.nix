@@ -15,25 +15,28 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
 
-  outputs = {
-    self,
-    nixpkgs,
-  }: let
-    inherit (nixpkgs) lib;
-    systems = lib.platforms.linux;
-    forAllSystems = lib.genAttrs systems;
-    # forAllSystems = f: lib.genAttrs systems (system: f system);
-    # lib.filterAttrs (n: v: lib.isDerivation v);
-    # lib.filterAttrs (n: lib.isDerivation);
-  in {
-    packages = forAllSystems (system: {
-      default =
-        (import ./default.nix {
-          pkgs = nixpkgs.legacyPackages.${system} or (import nixpkgs {inherit system;});
-        })
-        .instantnix;
-    });
+  outputs =
+    { self
+    , nixpkgs
+    }:
+    let
+      inherit (nixpkgs) lib;
+      systems = lib.platforms.linux;
+      forAllSystems = lib.genAttrs systems;
+      # forAllSystems = f: lib.genAttrs systems (system: f system);
+      # lib.filterAttrs (n: v: lib.isDerivation v);
+      # lib.filterAttrs (n: lib.isDerivation);
+    in
+    {
+      packages = forAllSystems (system:
+        lib.filterAttrs (n: v: lib.isDerivation v)
+          (import ./default.nix {
+            pkgs = nixpkgs.legacyPackages.${system} or (import nixpkgs { inherit system; });
+          }) // {
+          default = self.packages.${system}.instantnix;
+        }
+      );
 
-    nixosModules = (import ./modules).modules;
-  };
+      nixosModules = (import ./modules).modules;
+    };
 }

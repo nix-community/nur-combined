@@ -5,4 +5,3 @@ result*
 pkgs/*/sources/
 .venv/
 *.orig
-/flake.lock
