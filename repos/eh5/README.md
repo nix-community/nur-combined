@@ -20,7 +20,7 @@ or add to NixOS config
 ### Build/Run package
 
 ```
-$ nix run   github:EHfive/flakes#netease-cloud-music
+$ nix run   github:EHfive/flakes#nix-gfx-mesa
 $ nix build github:EHfive/flakes#packages.aarch64-linux.ubootNanopiR2s
 ```
 
@@ -54,9 +54,9 @@ $ nix build github:EHfive/flakes#packages.aarch64-linux.ubootNanopiR2s
           ];
 
           environment.systemPackages = [
-            pkgs.netease-cloud-music # via overlay
+            pkgs.nix-gfx-mesa # via overlay
             # or specify the package directly
-            #eh5.packages.${system}.netease-cloud-music
+            #eh5.packages.${system}.nix-gfx-mesa
           ];
         }
       ];
@@ -85,7 +85,6 @@ $ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.netease-c
 | fake-hwclock          | Fake hardware clock                                        | \*            |
 | mosdns                | A DNS proxy                                                | \*            |
 | nix-gfx-mesa          | [nixGL](https://github.com/guibou/nixGL) but for Mesa only | \*            |
-| netease-cloud-music   | (no bundled libs, fixes FLAC playback and IME input)       | x86_64-linux  |
 | qcef                  | Qt5 binding of CEF                                         | x86_64-linux  |
 | stalwart-cli          | Stalwart JMAP server CLI                                   | \*            |
 | stalwart-imap         | Stalwart IMAP server (imap-to-jmap proxy)                  | \*            |
