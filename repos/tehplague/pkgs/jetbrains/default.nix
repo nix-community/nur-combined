@@ -349,8 +349,7 @@ in
     wmClass = "jetbrains-gateway";
     update-channel = products.gateway.update-channel;
   };
-  /* TODO patchelf fails for some reason with 2022.3
-    goland = buildGoland rec {
+  goland = buildGoland rec {
     pname = "goland";
     version = products.goland.version;
     description = "Up and Coming Go IDE";
@@ -361,8 +360,7 @@ in
     };
     wmClass = "jetbrains-goland";
     update-channel = products.goland.update-channel;
-    };
-  */
+  };
   idea-community = buildIdea rec {
     pname = "idea-community";
     product = "IntelliJ IDEA CE";
