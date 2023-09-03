@@ -54,8 +54,8 @@ let
     options = {
       package = mkOption {
         internal = true;
-        type = types.nullOr types.package;
-        default = null;
+        type = types.listOf types.package;
+        default = [];
       };
       name = mkOption {
         internal = true;
@@ -65,7 +65,7 @@ let
   };
 
   optionalPackage = opt:
-    optional (opt != null && opt.package != null) opt.package;
+    optionals (opt != null && opt.package != null) opt.package;
 in
 {
   options = {
@@ -157,7 +157,7 @@ in
         toGtk3File { Settings = settings; };
 
       # TODO: support Wayland/XSettings
-      # once https://github.com/NixOS/nixpkgs/issues/54150 is fixed
+      # with next release https://github.com/NixOS/nixpkgs/pull/234615
     })
 
     (mkIf cfg.gtk3noCsd {
