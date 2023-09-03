@@ -1,5 +1,5 @@
 { modules, ... }:
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   modules-enable = with modules; [
     avahi
@@ -16,6 +16,11 @@ let
 in
 {
   imports = map (x: x.default or { }) modules-enable;
+
+  environment.systemPackages = with pkgs; [
+    legendary-gl
+    tmux
+  ];
 
   nix.settings = {
     substituters = [
