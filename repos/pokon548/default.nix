@@ -16,6 +16,8 @@
 
   todoist-electron = pkgs.callPackage ./pkgs/todoist-electron { };
   v2raya = pkgs.callPackage ./pkgs/v2raya { };
+  nekoray-bin = pkgs.callPackage ./pkgs/nekoray-bin { };
+
   tencent-qq-electron = pkgs.callPackage ./pkgs/tencent-qq-electron { };
   tencent-qq-electron-bwrap =
     pkgs.callPackage ./pkgs/tencent-qq-electron-bwrap { };
