@@ -1,3 +1,6 @@
+**Currently, instantNIX is [not actively maintained](https://github.com/instantOS/instantNIX/issues/32) and based on an outdated version of [nixpkgs](https://github.com/NixOS/nixpkgs).
+Pull-requests, however, are welcome and likely to be reviewed.**
+
 <div align="center">
     <h1>instantNIX</h1>
     <p>instantOS port to Nix</p>
@@ -21,16 +24,18 @@ InstantNIX is **not** part of [Nixpkgs](https://github.com/nixos/nixpkgs) (yet).
 
 Please note, that our parent project instantOS is still in beta phase,
 and we are even more so.
+We also struggle to keep things anywhere near up to date.
 Not everything will work out of the box and some extra setup might be required.
 That being said, we've never had a change that broke startup and basic functionality.
 Knock on wood!
 
 Nix itself is not for the faint of heart or people adverse to tinkering and learning
 or those who are hard-pressed for time.
+Do not expect a polished, well-kept end-product.
 
 We will strive to get InstantNIX into [Nixpkgs](https://github.com/nixos/nixpkgs),
 the official Nix package repository, soon after instantOS releases its version 1.0.
-Then NUR-acrobatics will no longer be required.
+Then, NUR-acrobatics will no longer be required.
 
 # Usage
 
