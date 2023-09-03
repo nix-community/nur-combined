@@ -16,14 +16,14 @@ in {
 
       package = lib.mkPackageOptionMD pkgs "gns3-gui" {};
 
-      extraPackages = mkOption {
-        type = with types; listOf package;
+      extraPackages = lib.mkOption {
+        type = with lib.types; listOf package;
         default = with pkgs; [
           inetutils
           tigervnc
           wireshark
         ];
-        defaultText = literalExpression ''
+        defaultText = lib.literalExpression ''
           with pkgs; [ inetutils tigervnc wireshark ];
         '';
       };
@@ -31,9 +31,9 @@ in {
   };
 
   config =
-    mkIf cfg.enable (mkMerge [
+    lib.mkIf cfg.enable (lib.mkMerge [
       {
-        environment.systemPackages = optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
+        environment.systemPackages = lib.optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
       }
     ]);
 }
