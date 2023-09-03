@@ -3,8 +3,9 @@
 , stdenv
 #, linuxOnly ? true, # broken on nix builds
 , buildMode ? "rel"
-, appList ? true # defaults to all
+, appList ? true # true = share all
 , distRepo ? true
+, ghActions ? true # disables a couple checks, workaround for GH Actions sandbox issues
 }:
 
 #######################################################################################
@@ -12,6 +13,8 @@
 # - Cosmo's basic header and .a/.o files in $out                                      #
 # - The complete monorepo in $dist                                                    #
 # - Individual apps, specified in appList, to make available in $out/bin for the user #
+#   (also in per-app outputs matching their name. So cosmo.pledge contains            #
+#    pledge.com/unveil.com)
 #######################################################################################
 
 # TODO(ProducerMatt): verify executable's license block against a checksum for
@@ -161,24 +164,30 @@ let
   wantedOutputNames =
     builtins.attrNames wantedOutputs;
   wantedComs =
-    # wanted outputs but just a list of com files.
+    # wanted outputs reduced to a list of com files.
     builtins.concatLists
       (lib.catAttrs "coms" (builtins.attrValues wantedOutputs));
   buildTargets =
+    # return string of all wanted com files for make to target
     if distRepo then "" # we need everything, make defaults to all
       else (lib.concatMapStringsSep " "
         (target: "o/${cosmoMeta.mode}/${target}")
         wantedComs);
   relevantLicenses =
+    # return list of relevant licenses from wanted outputs
     builtins.concatMap (o: o.licenses)
       (builtins.attrValues (if distRepo then cosmoMeta.outputs
                             else wantedOutputs));
-  buildStuff = ''
+  buildStuff =
+    # return string for make command, with targets appended
+    ''
       ${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
           ${cosmoMeta.platformFlag} V=0 \
-      ''
+    ''
     + buildTargets + "\n";
   installStuff =
+    # returns string with script for placing compiled binaries in per-app
+    # outputs.
     (lib.concatStringsSep "\n"
       (lib.flatten [
         (map (name: "mkdir -p ${"$" + name}/bin")
@@ -193,7 +202,9 @@ let
           wantedOutputs)
         "mkdir -p $out/bin \n"
       ]));
-  symlinkStuff = lib.concatMapStringsSep "\n"
+  symlinkStuff =
+    # symlink per-app outputs to global $out directory, for easy adding to path.
+    lib.concatMapStringsSep "\n"
     (name: "ls -1N --zero ${"$" + name}/bin | xargs -0 -I'{}' realpath -sez ${"$" + name}/bin/'{}' | xargs -0 -I'{}' ln -s '{}' $out/bin/")
     wantedOutputNames;
     #spot the mistake!
@@ -202,37 +213,36 @@ in
 stdenv.mkDerivation {
     pname = commonMeta.name;
     version = commonMeta.version;
-    #phases = [ "unpackPhase" "buildPhase" "checkPhase" "installPhase" ];
     doCheck = true;
     dontConfigure = true;
     dontFixup = true;
 
-    outputs = [ "out" ]
-              ++ (lib.optional distRepo "dist")
-              ++ wantedOutputNames;
+    outputs = [ "out" ] # shared output
+              ++ (lib.optional distRepo "dist") # entire monorepo
+              ++ wantedOutputNames; # per-app outputs
 
     src = cosmoSrc;
     buildPhase = ''
+      # dodge execution errors
       find ./build/bootstrap/ -name '*.com' -execdir '{}' --assimilate \;
 
-      # some syscall tests fail because we're in a sandbox
+      # FAIL: Nix's build sandbox
       rm test/libc/calls/sched_setscheduler_test.c
       rm test/libc/thread/pthread_create_test.c
       rm test/libc/calls/getgroups_test.c
-
-      # FAIL on GitHub actions
+    '' + lib.optionalString ghActions ''
+      # FAIL: GitHub actions
       rm test/libc/calls/ioctl_test.c
       rm test/libc/calls/sched_getaffinity_test.c
       rm test/libc/sock/socket_test.c
       rm test/libc/calls/execve_test.c
-      # fails
+    '' + ''
+      # FAIL: other
       rm test/libc/stdio/posix_spawn_test.c
-    '' + buildStuff + ''
-      echo "" # workaround for nix's weird stdout muddling
-    '';
+    '' + buildStuff + "\n"; # workaround for nix's weird stdout muddling
     checkPhase = ''
       runHook preCheck
-      ${cosmoMeta.make} check &>/dev/null # FIXME newline spam in checks only
+      ${cosmoMeta.make} check &>/dev/null # FIXME newline spam, happens in checks only
       runHook postCheck
     '';
     installPhase = ''
