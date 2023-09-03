@@ -4437,10 +4437,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.7.1";
+      version = "2.8.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4144580/libredirect-2.7.1.xpi";
-      sha256 = "564e56e1ccccf2f445b6cb9485c602609589a23052d2a53ab491cbce51c6b42f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162020/libredirect-2.8.0.xpi";
+      sha256 = "ae8f1143fcd8c3fa926bc9c95e50ab04d1c847b8bd57c1a893db291c089510a3";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
