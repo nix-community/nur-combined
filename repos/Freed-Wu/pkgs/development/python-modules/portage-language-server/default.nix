@@ -13,10 +13,6 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     pygls
     platformdirs
-    pypandoc
-    beautifulsoup4
-    # https://github.com/NixOS/nixpkgs/issues/238970
-    # portage
   ];
   nativeBuildInputs = [
     setuptools-generate

@@ -13,8 +13,6 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     pygls
     platformdirs
-    pypandoc
-    markdown-it-py
   ];
   nativeBuildInputs = [
     setuptools-generate

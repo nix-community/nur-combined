@@ -13,12 +13,6 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     pygls
     platformdirs
-    pypandoc
-    markdown-it-py
-    # https://github.com/NixOS/nixpkgs/issues/241910
-    # pyalpm
-    # https://github.com/NixOS/nixpkgs/issues/241911
-    # namcap
   ];
   nativeBuildInputs = [
     setuptools-generate

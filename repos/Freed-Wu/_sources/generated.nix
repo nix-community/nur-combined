@@ -127,6 +127,14 @@
       sha256 = "sha256-6KI9nV2tLb0VNyZCe4SeQXUYmO4mSZgtg98l0m7RX1E=";
     };
   };
+  tmux-language-server = {
+    pname = "tmux-language-server";
+    version = "0.0.1";
+    src = fetchurl {
+      url = "https://pypi.io/packages/source/t/tmux-language-server/tmux-language-server-0.0.1.tar.gz";
+      sha256 = "sha256-G5ZU4eL3GTLxo+/84mWxD6ajxeCIIHH3hjAQy8pUK2c=";
+    };
+  };
   translate-shell = {
     pname = "translate-shell";
     version = "0.0.36";

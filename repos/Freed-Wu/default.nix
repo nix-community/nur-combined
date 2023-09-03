@@ -44,6 +44,7 @@ let
     requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
     sublime-syntax-language-server = callPackage ./pkgs/development/python-modules/sublime-syntax-language-server { };
     termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
+    tmux-language-server = callPackage ./pkgs/development/python-modules/tmux-language-server { };
     xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
   };
 in

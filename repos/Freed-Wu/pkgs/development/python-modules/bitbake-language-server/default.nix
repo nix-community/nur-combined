@@ -13,7 +13,6 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     pygls
     platformdirs
-    beautifulsoup4
   ];
   nativeBuildInputs = [
     setuptools-generate
