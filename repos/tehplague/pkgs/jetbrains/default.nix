@@ -136,6 +136,19 @@ let
         maintainers = [ ];
       };
     }).overrideAttrs (attrs: {
+      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ optionals (stdenv.isLinux) [
+        autoPatchelfHook
+        patchelf
+      ];
+      buildInputs = (attrs.buildInputs or [ ]) ++ optionals (stdenv.isLinux) [
+        python3
+        stdenv.cc.cc
+        libdbusmenu
+        openssl.out
+        libxcrypt-legacy
+        zlib
+        expat
+      ];
       postFixup = (attrs.postFixup or "") + lib.optionalString stdenv.isLinux ''
         interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
         patchelf --set-interpreter $interp $out/goland*/plugins/go/lib/dlv/linux/dlv
