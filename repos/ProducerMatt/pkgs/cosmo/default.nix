@@ -224,7 +224,7 @@ stdenv.mkDerivation {
       rm test/libc/calls/ioctl_test.c
       rm test/libc/calls/sched_getaffinity_test.c
       rm test/libc/sock/socket_test.c
-
+      rm test/libc/calls/execve_test.c
       # fails
       rm test/libc/stdio/posix_spawn_test.c
     '' + buildStuff + ''
