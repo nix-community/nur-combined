@@ -23,6 +23,8 @@
   chengla-electron = pkgs.callPackage ./pkgs/chengla-electron { };
   daoniu-electron = pkgs.callPackage ./pkgs/daoniu-electron { };
 
+  rustdesk-bin = pkgs.callPackage ./pkgs/rustdesk-bin { };
+
   zulu = pkgs.callPackage ./pkgs/zulu { };
   zulu19 = pkgs.callPackage ./pkgs/zulu/19.nix { };
   zulu17 = pkgs.callPackage ./pkgs/zulu/17.nix { };
