@@ -45,6 +45,10 @@
 #   - gestures:            lisgd
 #   - on-screen keyboard:  wvkbd (if wayland), svkbd (if X)
 #
+# TODO:
+# - don't duplicate so much of hosts/modules/gui/sway
+#   - might help if i bring more under my control, and launch sxmo via sway instead of the opposite
+# - theme `mako` notifications
 { config, lib, pkgs, ... }:
 
 let
@@ -159,8 +163,11 @@ in
         package = null;
         suggestedPrograms = [
           "guiApps"
-          "sfeed"  # want this here so that the user's ~/.sfeed/sfeedrc gets created
-          "superd"  # make superctl (used by sxmo) be on PATH
+          "mako"       # notification daemon
+          "sfeed"      # want this here so that the user's ~/.sfeed/sfeedrc gets created
+          "superd"     # make superctl (used by sxmo) be on PATH
+          "sway-contrib.grimshot"
+          "wdisplays"  # like xrandr
         ];
 
         persist.cryptClearOnBoot = [
@@ -214,6 +221,39 @@ in
           pulse.enable = true;
         };
         systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];
+
+        programs.sway = {
+          # provides xdg-desktop-portal-wlr, which exposes on dbus:
+          # - org.freedesktop.impl.portal.ScreenCast
+          # - org.freedesktop.impl.portal.Screenshot
+          enable = true;
+          extraPackages = [];  # nixos adds swaylock, swayidle, foot, dmenu by default
+          # "wrapGAppsHook wrapper to execute sway with required environment variables for GTK applications."
+          wrapperFeatures.gtk = true;
+        };
+        # provide portals for:
+        # - org.freedesktop.impl.portal.Access
+        # - org.freedesktop.impl.portal.Account
+        # - org.freedesktop.impl.portal.DynamicLauncher
+        # - org.freedesktop.impl.portal.Email
+        # - org.freedesktop.impl.portal.FileChooser
+        # - org.freedesktop.impl.portal.Inhibit
+        # - org.freedesktop.impl.portal.Notification
+        # - org.freedesktop.impl.portal.Print
+        # and conditionally (i.e. unless buildPortalsInGnome = false) for:
+        # - org.freedesktop.impl.portal.AppChooser (@appchooser_iface@)
+        # - org.freedesktop.impl.portal.Background (@background_iface@)
+        # - org.freedesktop.impl.portal.Lockdown (@lockdown_iface@)
+        # - org.freedesktop.impl.portal.RemoteDesktop (@remotedesktop_iface@)
+        # - org.freedesktop.impl.portal.ScreenCast (@screencast_iface@)
+        # - org.freedesktop.impl.portal.Screenshot (@screenshot_iface@)
+        # - org.freedesktop.impl.portal.Settings (@settings_iface@)
+        # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
+        xdg.portal.extraPortals = [
+          (pkgs.xdg-desktop-portal-gtk.override {
+            buildPortalsInGnome = false;
+          })
+        ];
 
         # TODO: could use `displayManager.sessionPackages`?
         environment.systemPackages = [
