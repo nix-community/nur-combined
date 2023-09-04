@@ -57,10 +57,10 @@
   };
   mutt-language-server = {
     pname = "mutt-language-server";
-    version = "0.0.1";
+    version = "0.0.2";
     src = fetchurl {
-      url = "https://pypi.io/packages/source/m/mutt-language-server/mutt-language-server-0.0.1.tar.gz";
-      sha256 = "sha256-IV9b9e5SUsQSG2mpy64s41DsxpWXK3ZdcpbAswmOYGY=";
+      url = "https://pypi.io/packages/source/m/mutt-language-server/mutt-language-server-0.0.2.tar.gz";
+      sha256 = "sha256-xfEzhHAnpsbKXTOf9xrgGqtQLDbe7UwNeaCSHAPdH3c=";
     };
   };
   pkgbuild-language-server = {
