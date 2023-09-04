@@ -543,6 +543,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # based on nixpkgs/pkgs/build-support/fetchipfs/default.nix
   fetchipfs = callPackage ./pkgs/build-support/fetchipfs/fetchipfs.nix { };
 
+  # FIXME error: undefined variable 'pyqt5'
+  #krop = callPackage ./pkgs/applications/graphics/krop/krop.nix { };
+  krop = pkgs.callPackage ./pkgs/applications/graphics/krop/krop.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
