@@ -1,39 +1,57 @@
-{ appimageTools, lib, fetchurl, electron, makeWrapper, libsecret }:
+{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron_25, libsecret }:
 
-let
+stdenv.mkDerivation rec {
   pname = "todoist-electron";
-  version = "8.4.3";
-  name = "Todoist-${version}";
+  version = "8.6.0";
 
   src = lib.warn
-    "${name} from pokon548's NUR is deprecated and will be removed from NUR repo soon. Migrate by changing nur.repos.pokon548.todoist-electron to pkgs.todoist-electron"
+    "nur.repos.pokon548.todoist-electron will be deprecated as soon as nixpkgs merge latest commits. See https://github.com/NixOS/nixpkgs/pull/250120"
     fetchurl {
       url =
         "https://electron-dl.todoist.com/linux/Todoist-linux-x86_64-${version}.AppImage";
-      sha256 = "sha256-TYZUaIH1bedPgZOa5FHG+pBbUOCQ2Hyj/Tm0BKSAvlc=";
+      hash = "sha256-LjztKgpPm4RN1Pn5gIiPg8UCO095kzTQ9BTEG5Rlv10=";
     };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extractType2 {
+    name = "${pname}-${version}";
+    inherit src;
+  };
 
-in appimageTools.wrapType2 {
-  inherit version name src;
+  dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
 
-  extraInstallCommands = ''
-    mv $out/bin/${name} $out/bin/${pname}
-    install -m 444 -D ${appimageContents}/todoist.desktop -t $out/share/applications
-    substituteInPlace $out/share/applications/todoist.desktop \
+  nativeBuildInputs = [ makeWrapper ];
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/512x512
+
+    cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
+    cp -a ${appimageContents}/todoist.desktop $out/share/applications/${pname}.desktop
+    cp -a ${appimageContents}/usr/share/icons/hicolor/512x512/apps $out/share/icons/hicolor/512x512
+
+    substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
-    cp -r ${appimageContents}/usr/share/icons $out/share
+
+    runHook postInstall
   '';
 
-  passthru.version = version;
-
-  extraPkgs = pkgs: with pkgs; [ libsecret libappindicator-gtk3 ];
+  postFixup = ''
+    makeWrapper ${electron_25}/bin/electron $out/bin/todoist-electron \
+      --add-flags $out/share/${pname}/resources/app.asar \
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [ stdenv.cc.cc libsecret ]
+      }" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+  '';
 
   meta = with lib; {
     homepage = "https://todoist.com";
     description = "The official Todoist electron app";
     platforms = [ "x86_64-linux" ];
     license = licenses.unfree;
+    maintainers = with maintainers; [ i077 kylesferrazza ];
   };
 }

@@ -5,7 +5,9 @@ let
   version = "1.2.2";
   name = "Rustdesk-${version}";
 
-  src = fetchurl {
+  src = lib.warn
+    "nur.repos.pokon548.rustdesk-bin will be deprecated as soon as nixpkgs merge latest commits. See https://github.com/NixOS/nixpkgs/pull/242484"
+    fetchurl {
       url =
         "https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.AppImage";
       sha256 = "sha256-i55J1RsCZw7p/Ibd4lLLQq/DpFQHPeukwsvBC8AYPok=";
@@ -28,7 +30,8 @@ in appimageTools.wrapType2 {
 
   meta = with lib; {
     homepage = "https://rustdesk.com";
-    description = "An open-source remote desktop, and alternative to TeamViewer.";
+    description =
+      "An open-source remote desktop, and alternative to TeamViewer.";
     platforms = [ "x86_64-linux" ];
     license = licenses.agpl3;
   };
