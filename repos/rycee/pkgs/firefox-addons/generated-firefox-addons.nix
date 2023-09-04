@@ -2218,10 +2218,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "118.0.20230831.180026";
+      version = "118.0.20230903.180219";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4161305/francais_language_pack-118.0.20230831.180026.xpi";
-      sha256 = "6aef3a5d305172ccf57b8c6e59f178b0c70c904be533905d30a6a70ae9b92523";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162398/francais_language_pack-118.0.20230903.180219.xpi";
+      sha256 = "abdf23d6878a9dd661bf8cd6d24ac298aee06abf88849e36391b418695f0f947";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6646,10 +6646,10 @@
       };
     "search-engines-helper" = buildFirefoxXpiAddon {
       pname = "search-engines-helper";
-      version = "3.4.0";
+      version = "3.5.0";
       addonId = "{65a2d764-7358-455b-930d-5afa86fb5ed0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4123632/search_engines_helper-3.4.0.xpi";
-      sha256 = "50a4f6be4a134ebed2d8a3d2352ab4956288595c6e6355848e882faf1ff3014f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162613/search_engines_helper-3.5.0.xpi";
+      sha256 = "f03822b7589cc2fbf6124e2dc1f48c52ec3674189936111e5336ed9e0b0622c8";
       meta = with lib;
       {
         homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
@@ -7758,10 +7758,10 @@
       };
     "tubearchivist-companion" = buildFirefoxXpiAddon {
       pname = "tubearchivist-companion";
-      version = "0.1.4";
+      version = "0.2.0";
       addonId = "{08f0f80f-2b26-4809-9267-287a5bdda2da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4110386/tubearchivist_companion-0.1.4.xpi";
-      sha256 = "defac08a71da1b2471ce8d1aadc31aaba26667b07f767d9fdad6947272eeaae9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162156/tubearchivist_companion-0.2.0.xpi";
+      sha256 = "d9c70a6e05af3fe63fb8d096891ac2756bad272aa38d3fe7548de9b07e9f1fdd";
       meta = with lib;
       {
         homepage = "https://github.com/tubearchivist/browser-extension";
