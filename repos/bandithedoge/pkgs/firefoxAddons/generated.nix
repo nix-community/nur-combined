@@ -1010,10 +1010,10 @@
   };
   "privacy-pass" = buildFirefoxXpiAddon {
     pname = "privacy-pass";
-    version = "3.0.5";
+    version = "3.0.6";
     addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4068311/privacy_pass-3.0.5.xpi";
-    sha256 = "a8f1d496986af78fd91b9e44c782b80afc45d0cb39013d5cfb54da1611e21273";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4160723/privacy_pass-3.0.6.xpi";
+    sha256 = "5966bfb190a575b54bd657f6e1b8735a9fd6b9a3ee008520468da37d7838122f";
     meta = with lib; {
       homepage = "https://privacypass.github.io";
       description = "Client-side of the Privacy Pass protocol providing unlinkable cryptographic tokens.";

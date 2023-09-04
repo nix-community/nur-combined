@@ -477,13 +477,13 @@
         sha512 = "vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==";
       };
     };
-    "mlly-1.4.1" = {
+    "mlly-1.4.2" = {
       name = "mlly";
       packageName = "mlly";
-      version = "1.4.1";
+      version = "1.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/mlly/-/mlly-1.4.1.tgz";
-        sha512 = "SCDs78Q2o09jiZiE2WziwVBEqXQ02XkGdUy45cbJf+BpYRIjArXRJ1Wbowxkb+NaM9DWvS3UC9GiO/6eqvQ/pg==";
+        url = "https://registry.npmjs.org/mlly/-/mlly-1.4.2.tgz";
+        sha512 = "i/Ykufi2t1EZ6NaPLdfnZk2AX8cs0d+mTzVKuPfqPKPatxLApaBoxJQ9x1/uckXtrS/U5oisPMDkNs0yQTaBRg==";
       };
     };
     "mri-1.2.0" = {
@@ -947,7 +947,7 @@ in {
           ];
         })
       sources."mkdirp-1.0.4"
-      sources."mlly-1.4.1"
+      sources."mlly-1.4.2"
       sources."mri-1.2.0"
       sources."ms-2.1.2"
       sources."node-fetch-native-1.4.0"
