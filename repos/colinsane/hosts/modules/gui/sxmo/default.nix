@@ -77,23 +77,22 @@ in
     sane.gui.sxmo.greeter = mkOption {
       type = types.enum [
         "greetd-phog"
+        "greetd-sway-gtkgreet"
         "greetd-sway-phog"
         "greetd-sxmo"
         "lightdm-mobile"
-        "sway-gtkgreet"
       ];
       # default = "lightdm-mobile";
       default = "greetd-sway-phog";
       description = ''
         which greeter to use.
-        "greetd-phog"      => phosh-based greeter. keypad (0-9) with option to open an on-screen keyboard.
-        "greetd-sway-phog" => phog, but uses sway as the compositor instead of phoc.
+        "greetd-phog"          => phosh-based greeter. keypad (0-9) with option to open an on-screen keyboard.
+        "greetd-sway-phog"     => phog, but uses sway as the compositor instead of phoc.
                               requires a patched phog, since sway doesn't provide the Wayland global "zphoc_layer_shell_effects_v1".
-        "greetd-sxmo"      => launch sxmo directly from greetd, no auth.
-                              this means no keychain unlocked or encrypted home mounted.
-        "lightdm-mobile"   => keypad style greeter. can only enter digits 0-9 as password.
-        "sway-gtkgreet"    => layered sway greeter. behaves as if you booted to swaylock.
-                              this isn't practically usable on mobile because of keyboard input.
+        "greetd-sxmo"          => launch sxmo directly from greetd, no auth.
+                                  this means no keychain unlocked or encrypted home mounted.
+        "lightdm-mobile"       => keypad style greeter. can only enter digits 0-9 as password.
+        "greetd-sway-gtkgreet" => layered sway greeter. keyboard-only user/pass input; impractical on mobile.
       '';
     };
     sane.gui.sxmo.package = mkOption {
@@ -141,6 +140,7 @@ in
             SXMO_BAR_SHOW_BAT_PER = mkSettingsOpt "1" "show battery percentage in statusbar";
             SXMO_DISABLE_CONFIGVERSION_CHECK = mkSettingsOpt "1" "allow omitting the configversion line from user-provided sxmo dotfiles";
             SXMO_UNLOCK_IDLE_TIME = mkSettingsOpt "300" "how many seconds of inactivity before locking the screen";  # lock -> screenoff happens 8s later, not configurable
+            # SXMO_WM = mkSettingsOpt "sway" "sway or dwm. ordinarily initialized by sxmo_{x,w}init.sh";
           };
       };
       default = {};
@@ -187,20 +187,18 @@ in
 
     (lib.mkIf cfg.enable (lib.mkMerge [
       {
+        sane.gui.sway = {
+          enable = true;
+          # we manage these ourselves  (TODO: merge these into sway config as well)
+          useGreeter = false;
+          installConfigs = false;
+        };
+
         sane.programs.sxmoApps.enableFor.user.colin = true;
-        sane.gui.gtk.enable = lib.mkDefault true;
 
         # sxmo internally uses doas instead of sudo
         security.doas.enable = true;
         security.doas.wheelNeedsPassword = false;
-
-        # TODO: move this further to the host-specific config?
-        networking.useDHCP = false;
-        networking.networkmanager.enable = true;
-        networking.wireless.enable = lib.mkForce false;
-
-        hardware.bluetooth.enable = true;
-        services.blueman.enable = true;
 
         hardware.opengl.enable = true;
 
@@ -210,54 +208,11 @@ in
         # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
         services.gnome.at-spi2-core.enable = true;
 
-        # sxmo has first-class support only for pulseaudio and alsa -- not pipewire.
-        # however, pipewire can emulate pulseaudio support via `services.pipewire.pulse.enable = true`
-        #   after which the stock pulseaudio binaries magically work
-        # administer with pw-cli, pw-mon, pw-top commands
-        services.pipewire = {
-          enable = true;
-          alsa.enable = true;
-          alsa.support32Bit = true;  # ??
-          pulse.enable = true;
-        };
-        systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];
-
-        programs.sway = {
-          # provides xdg-desktop-portal-wlr, which exposes on dbus:
-          # - org.freedesktop.impl.portal.ScreenCast
-          # - org.freedesktop.impl.portal.Screenshot
-          enable = true;
-          extraPackages = [];  # nixos adds swaylock, swayidle, foot, dmenu by default
-          # "wrapGAppsHook wrapper to execute sway with required environment variables for GTK applications."
-          wrapperFeatures.gtk = true;
-        };
-        # provide portals for:
-        # - org.freedesktop.impl.portal.Access
-        # - org.freedesktop.impl.portal.Account
-        # - org.freedesktop.impl.portal.DynamicLauncher
-        # - org.freedesktop.impl.portal.Email
-        # - org.freedesktop.impl.portal.FileChooser
-        # - org.freedesktop.impl.portal.Inhibit
-        # - org.freedesktop.impl.portal.Notification
-        # - org.freedesktop.impl.portal.Print
-        # and conditionally (i.e. unless buildPortalsInGnome = false) for:
-        # - org.freedesktop.impl.portal.AppChooser (@appchooser_iface@)
-        # - org.freedesktop.impl.portal.Background (@background_iface@)
-        # - org.freedesktop.impl.portal.Lockdown (@lockdown_iface@)
-        # - org.freedesktop.impl.portal.RemoteDesktop (@remotedesktop_iface@)
-        # - org.freedesktop.impl.portal.ScreenCast (@screencast_iface@)
-        # - org.freedesktop.impl.portal.Screenshot (@screenshot_iface@)
-        # - org.freedesktop.impl.portal.Settings (@settings_iface@)
-        # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
-        xdg.portal.extraPortals = [
-          (pkgs.xdg-desktop-portal-gtk.override {
-            buildPortalsInGnome = false;
-          })
-        ];
 
         # TODO: could use `displayManager.sessionPackages`?
         environment.systemPackages = [
           cfg.package
+          pkgs.bonsai  # sway (not sxmo) needs to exec `bonsaictl` by name (sxmo_swayinitconf.sh)
         ] ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
           ++ lib.optionals (cfg.keyboard != null) [ pkgs."${cfg.keyboard}" ];
 
@@ -271,13 +226,20 @@ in
           cfg.settings
         );
 
+        # sxmo puts in /share/sxmo:
+        # - profile.d/sxmo_init.sh
+        # - appcfg/
+        # - default_hooks/
+        # - and more
+        # environment.pathsToLink = [ "/share/sxmo" ];
+
         systemd.services."sxmo-set-permissions" = {
           description = "configure specific /sys and /dev nodes to be writable by sxmo scripts";
           serviceConfig = {
             Type = "oneshot";
             ExecStart = "${cfg.package}/bin/sxmo_setpermissions.sh";
           };
-          wantedBy = [ "display-manager.service" ];
+          wantedBy = [ "multi-user.service" ];
         };
 
         # if superd fails to start a service within 100ms, it'll try to start again
@@ -316,9 +278,41 @@ in
         in
           lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;
 
-        sane.user.fs.".config/sxmo/sway".symlink.target = pkgs.substituteAll {
+        sane.user.fs.".config/sway/config".symlink.target = pkgs.substituteAll {
           src = ./sway-config;
           waybar = "${pkgs.waybar}/bin/waybar";
+          bemenu_run = "${pkgs.bemenu}/bin/bemenu-run";
+          term = "${pkgs.xdg-terminal-exec}/bin/xdg-terminal-exec";
+          sxmo_init = pkgs.writeShellScript "sxmo_init.sh" ''
+            # perform the same behavior as sxmo_{x,w}init.sh -- but without actually launching wayland/X11
+            # this amounts to:
+            # - setting env vars (e.g. getting the hooks onto PATH)
+            # - placing default configs in ~ for sxmo-launched services (sxmo_migrate.sh)
+            # - binding vol/power buttons (sxmo_swayinitconf.sh)
+            # - launching sxmo_hook_start.sh
+            source ${cfg.package}/etc/profile.d/sxmo_init.sh
+            # XXX: upstream sources `profile` later (after sxmo_migrate)
+            #      but _sxmo_load_environments uses `SXMO_DEVICE_NAME`,
+            #      and i ship that via the profile, so order it such
+            source "$XDG_CONFIG_HOME/sxmo/profile"
+            _sxmo_load_environments
+            _sxmo_prepare_dirs
+            sxmo_migrate.sh sync
+
+            # kill anything leftover from the previous sxmo run. this way we can (try to) be reentrant
+            echo "sxmo_init: killing stale daemons (if active)"
+            sxmo_daemons.sh stop all
+            pkill bemenu
+            pkill wvkbd
+            pkill superd
+
+            # configure vol/power-button input mapping (upstream SXMO has this in sway config)
+            sxmo_swayinitconf.sh
+
+            echo "sxmo_init: invoking sxmo_hook_start.sh with:"
+            echo "PATH: $PATH"
+            sxmo_hook_start.sh
+          '';
         };
 
         sane.user.fs.".config/waybar/config".symlink.target =
@@ -373,13 +367,14 @@ in
         };
       })
 
-      (lib.mkIf (cfg.greeter == "sway-gtkgreet") {
+      (lib.mkIf (cfg.greeter == "greetd-sway-gtkgreet") {
         sane.gui.greetd = {
           enable = true;
           sway.enable = true;
           sway.gtkgreet.enable = true;
           sway.gtkgreet.session.name = "sxmo-on-gtkgreet";
-          sway.gtkgreet.session.command = "${cfg.package}/bin/sxmo_winit.sh";
+          # sway.gtkgreet.session.command = "${cfg.package}/bin/sxmo_winit.sh";
+          sway.gtkgreet.session.command = "${pkgs.sway}/bin/sway --debug";
         };
       })
 
@@ -407,7 +402,8 @@ in
         sane.gui.greetd = {
           enable = true;
           session.name = "sxmo";
-          session.command = "${cfg.package}/bin/sxmo_winit.sh";
+          # session.command = "${cfg.package}/bin/sxmo_winit.sh";
+          session.command = "${pkgs.sway}/bin/sway --debug";
           session.user = "colin";
         };
       })

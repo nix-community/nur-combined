@@ -14,11 +14,13 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term sxmo_terminal.sh
+# set $term sxmo_terminal.sh
+set $term @term@
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run
+# N.B. bemenu-run relies on BEMENU_OPTS being set: without this it won't even be visible.
+set $menu @bemenu_run@
 
 # xwayland enable|disable|force
 # - enable: lazily launch xwayland on first client connection
@@ -29,7 +31,9 @@ xwayland disable
 
 font "Sxmo 10"
 
-exec_always sxmo_swayinitconf.sh
+# configure vol/power-button input maps
+# XXX: this references env vars like SXMO_VOLUME_BUTTON => needs to happen after sourcing profile
+# exec_always sxmo_swayinitconf.sh
 
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
@@ -263,4 +267,4 @@ include /etc/sway/config.d/*
 
 exec 'printf %s "$SWAYSOCK" > "$XDG_RUNTIME_DIR"/sxmo.swaysock'
 
-exec sxmo_hook_start.sh
+exec_always @sxmo_init@

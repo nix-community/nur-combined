@@ -19,6 +19,13 @@ in
       default = true;
       type = types.bool;
     };
+    sane.gui.sway.installConfigs = mkOption {
+      default = true;
+      type = types.bool;
+      description = ''
+        populate ~/.config/sway/config & co with defaults provided by this module.
+      '';
+    };
   };
 
   config = lib.mkMerge [
@@ -69,6 +76,7 @@ in
         enable = true;
         alsa.enable = true;
         alsa.support32Bit = true;  # ??
+        # emulate pulseaudio for legacy apps (e.g. sxmo-utils)
         pulse.enable = true;
       };
 
@@ -123,17 +131,19 @@ in
         })
       ];
 
-      sane.user.fs.".config/sway/config".symlink.text =
-        import ./sway-config.nix { inherit pkgs; };
+      sane.user.fs = lib.mkIf cfg.installConfigs {
+        ".config/sway/config".symlink.text =
+          import ./sway-config.nix { inherit pkgs; };
 
-      sane.user.fs.".config/waybar/config".symlink.target =
-        let
-          waybar-config = import ./waybar-config.nix { inherit pkgs; };
-        in
-          (pkgs.formats.json {}).generate "waybar-config.json" waybar-config;
+        ".config/waybar/config".symlink.target =
+          let
+            waybar-config = import ./waybar-config.nix { inherit pkgs; };
+          in
+            (pkgs.formats.json {}).generate "waybar-config.json" waybar-config;
 
-      sane.user.fs.".config/waybar/style.css".symlink.text =
-        builtins.readFile ./waybar-style.css;
+        ".config/waybar/style.css".symlink.text =
+          builtins.readFile ./waybar-style.css;
+      };
     })
   ];
 }
