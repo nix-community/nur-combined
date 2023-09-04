@@ -138,13 +138,12 @@ in
       home.packages = with pkgs; [
         # Bash
         nodePackages.bash-language-server
-
         # Markdown
         marksman
-
         # Nix
         nil
-
+        # TOML
+        taplo
         # YAML
         nodePackages.yaml-language-server
       ];
