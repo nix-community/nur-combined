@@ -540,6 +540,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gclient = callPackage ./pkgs/build-support/gclient/gclient.nix { };
 
+  # based on nixpkgs/pkgs/build-support/fetchipfs/default.nix
+  fetchipfs = callPackage ./pkgs/build-support/fetchipfs/fetchipfs.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

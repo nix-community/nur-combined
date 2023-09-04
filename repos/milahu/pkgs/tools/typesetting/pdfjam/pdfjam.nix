@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pdfjam";
-  version = "3.06";
+  version = "3.07";
 
   src = fetchFromGitHub {
     owner = "rrthomas";
     repo = "pdfjam";
     rev = "v${version}";
-    hash = "sha256-rVBoyNV8dRhVM/5mJt/3qHSrDH8DFAiFb2s8ai88cUc=";
+    hash = "sha256-nxFObYFLxzHZMhpc+hpSNod5gnHT9yHsIrftVaC0stA=";
   };
 
   buildInputs = [

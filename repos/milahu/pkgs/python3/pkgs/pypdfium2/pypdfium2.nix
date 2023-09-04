@@ -53,6 +53,8 @@ buildPythonApplication rec {
   ];
 
   propagatedBuildInputs = [
+    # optional dependency for bin/pypdfium2
+    # https://github.com/pypdfium2-team/pypdfium2/pull/249
     pillow
   ];
 
