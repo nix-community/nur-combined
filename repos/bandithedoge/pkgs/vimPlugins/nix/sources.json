@@ -931,14 +931,14 @@
     },
     "neodev.nvim": {
         "branch": "main",
-        "description": "💻  Dev setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.",
+        "description": "💻  Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.",
         "homepage": "",
         "owner": "folke",
-        "repo": "lua-dev.nvim",
-        "rev": "183f5a7357397260b631d6cccceccc3621b50f78",
-        "sha256": "1mlvpmhllj2if82bir04bfx3nfzzcxng3rp5mzryqlzvpi6a50yd",
+        "repo": "neodev.nvim",
+        "rev": "c845cfdbb32806cce66e3ce661fc4966018cdd9f",
+        "sha256": "0i182vam41fxnjnd073yms7k1nbb4np3rzjcvl1ck2sipdf0ppy9",
         "type": "tarball",
-        "url": "https://github.com/folke/lua-dev.nvim/archive/183f5a7357397260b631d6cccceccc3621b50f78.tar.gz",
+        "url": "https://github.com/folke/neodev.nvim/archive/c845cfdbb32806cce66e3ce661fc4966018cdd9f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "neodim": {
