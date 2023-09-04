@@ -34,6 +34,10 @@ fetch.pypi = "autotools-language-server"
 src.pypi = "bitbake-language-server"
 fetch.pypi = "bitbake-language-server"
 
+[expect-language-server]
+src.pypi = "expect-language-server"
+fetch.pypi = "expect-language-server"
+
 [mutt-language-server]
 src.pypi = "mutt-language-server"
 fetch.pypi = "mutt-language-server"
@@ -65,6 +69,10 @@ fetch.pypi = "tmux-language-server"
 [xilinx-language-server]
 src.pypi = "xilinx-language-server"
 fetch.pypi = "xilinx-language-server"
+
+[zathura-language-server]
+src.pypi = "zathura-language-server"
+fetch.pypi = "zathura-language-server"
 
 [mulimgviewer]
 src.pypi = "mulimgviewer"

@@ -17,6 +17,14 @@
       sha256 = "sha256-ZJaaGUNsLAcDyN/aBlXcYocFGO/EmkOotJ+iJMO2x2I=";
     };
   };
+  expect-language-server = {
+    pname = "expect-language-server";
+    version = "0.0.1";
+    src = fetchurl {
+      url = "https://pypi.io/packages/source/e/expect-language-server/expect-language-server-0.0.1.tar.gz";
+      sha256 = "sha256-7L2h91ZpB+VhUlP5kOa4lpKzr8LnkjXcP8I45M9Lrgk=";
+    };
+  };
   g3kb-switch = {
     pname = "g3kb-switch";
     version = "1.3";
@@ -160,6 +168,14 @@
     src = fetchurl {
       url = "https://pypi.io/packages/source/x/xilinx-language-server/xilinx-language-server-0.0.4.tar.gz";
       sha256 = "sha256-Qs2/RO4i0WHm4dmZh6iHmCLGkgTPLIBErc1n8YRvuk8=";
+    };
+  };
+  zathura-language-server = {
+    pname = "zathura-language-server";
+    version = "0.0.1";
+    src = fetchurl {
+      url = "https://pypi.io/packages/source/z/zathura-language-server/zathura-language-server-0.0.1.tar.gz";
+      sha256 = "sha256-Kzl0XvEhmtN3zy55lqapWddVuaRS+gc5CGZsJk35L40=";
     };
   };
 }

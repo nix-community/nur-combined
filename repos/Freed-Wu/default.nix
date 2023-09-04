@@ -38,6 +38,7 @@ let
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
     autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
     bitbake-language-server = callPackage ./pkgs/development/python-modules/bitbake-language-server { };
+    expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
     mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
     pkgbuild-language-server = callPackage ./pkgs/development/python-modules/pkgbuild-language-server { };
     portage-language-server = callPackage ./pkgs/development/python-modules/portage-language-server { };
@@ -46,6 +47,7 @@ let
     termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
     tmux-language-server = callPackage ./pkgs/development/python-modules/tmux-language-server { };
     xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
+    zathura-language-server = callPackage ./pkgs/development/python-modules/zathura-language-server { };
   };
 in
 myPkgs
