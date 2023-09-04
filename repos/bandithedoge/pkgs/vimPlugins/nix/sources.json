@@ -641,10 +641,10 @@
     "homepage": "",
     "owner": "MrcJkb",
     "repo": "haskell-tools.nvim",
-    "rev": "6619003c0d663ed4d14109f32536bffbbfcaee2e",
-    "sha256": "12q3b03cdx70mcvxhf208pgjv4hs84njdnpx62lw9ivm7kmhnybr",
+    "rev": "298955b06f25132ea8d3bb92f5364d38ce936b47",
+    "sha256": "0vjzqmzdd2zw4ki1z6frql4pa6jpg1kqb7xxkwx878hbw8bvaf6f",
     "type": "tarball",
-    "url": "https://github.com/MrcJkb/haskell-tools.nvim/archive/6619003c0d663ed4d14109f32536bffbbfcaee2e.tar.gz",
+    "url": "https://github.com/MrcJkb/haskell-tools.nvim/archive/298955b06f25132ea8d3bb92f5364d38ce936b47.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "heirline.nvim": {
@@ -1793,10 +1793,10 @@
     "homepage": "",
     "owner": "nvim-telescope",
     "repo": "telescope.nvim",
-    "rev": "dc7f25c81025981ea20fa9ffa2697ef8459123a1",
-    "sha256": "0bk9967gnn2frzkpzksjfa2i7z890rngcwsy5b8n6lsrnaxd5xld",
+    "rev": "6b79d7a6a45adc1508a7afee5bc973173ec22f59",
+    "sha256": "15lr5b7922w6wrzky0gy5sgscmw5axvhyajkfdqgrlpl98acqfgp",
     "type": "tarball",
-    "url": "https://github.com/nvim-telescope/telescope.nvim/archive/dc7f25c81025981ea20fa9ffa2697ef8459123a1.tar.gz",
+    "url": "https://github.com/nvim-telescope/telescope.nvim/archive/6b79d7a6a45adc1508a7afee5bc973173ec22f59.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "todo-comments.nvim": {
