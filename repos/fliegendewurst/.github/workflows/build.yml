@@ -41,7 +41,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Install nix
-      uses: cachix/install-nix-action@v21
+      uses: DeterminateSystems/nix-installer-action@main
       with:
         nix_path: "${{ matrix.nixPath }}"
         # nix 2.6 breaks restrict-eval, when using the NIX_PATH
@@ -49,6 +49,7 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - uses: DeterminateSystems/magic-nix-cache-action@main
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     #- name: Setup cachix
