@@ -48,14 +48,14 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v2.2.0
         if: matrix.runs-on == 'ubuntu-latest' && matrix.system != 'x86_64-linux'
 
       - name: Install nix
-        uses: cachix/install-nix-action@v22
+        uses: cachix/install-nix-action@v23
         with:
           nix_path: nixpkgs=channel:${{ matrix.channel }}
           extra_nix_config: |
