@@ -23,4 +23,6 @@
         '';
       });
   });
+
+  lua-dev-nvim = final.lib.warn "lua-dev.nvim has been renamed to neodev.nvim" prev.neodev-nvim;
 }
