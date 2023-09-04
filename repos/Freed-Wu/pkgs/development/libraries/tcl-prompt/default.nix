@@ -1,18 +1,19 @@
-{ lib, fetchFromGitHub, tcl, tcllib, tclreadline }:
+{ lib, fetchFromGitHub, tcl, tcllib, tclreadline, expect }:
 
 tcl.mkTclDerivation rec {
   name = "tcl-prompt";
   src = fetchFromGitHub {
     owner = "Freed-Wu";
     repo = name;
-    rev = "597ae396c3cac9db7cd7d5e35a49436cc5942086";
-    hash = "sha256-bL5vbVctYkcT5gPZ23hp7rjf2oMm3GjKjtSDGaNj7FA=";
+    rev = "63166f2c3c181205292435bb439c52cc1fa84776";
+    hash = "sha256-Z5l7RsgYh3maGgfKLEIhsel5g5KDa/TjmaORLXn8jUc=";
   };
 
-  buildInputs = [ tclreadline tcllib ];
+  buildInputs = [ tclreadline tcllib expect ];
   installPhase = ''
     install -d $out/lib
     cp -r modules $out/lib/tcl-prompt
+    cp -r bin $out
   '';
 
   meta = with lib; {
