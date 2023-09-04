@@ -35,7 +35,7 @@ in packages // {
   in buildFirefoxXpiAddon {
     pname = "bypass-paywalls-clean";
     inherit version;
-    addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
+    addonId = "magnolia@12.34";
     url =
       "https://gitlab.com/magnolia1234/bpc-uploads/-/raw/master/bypass_paywalls_clean-${version}.xpi";
     sha256 = "sha256-oISKqz6daxMyxrfTxEiNLy2CTncfqHgc0mL7hQ5LVws=";
