@@ -18,21 +18,26 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-ln912blkn0mlXHHSJ2QENZXCpmV0WZWEiWpuelYnuco=";
   };
 
+  doBuild = false;
+
   installPhase = ''
+    runHook preInstall
+
     install -d "$out/"{opt/junest,bin}
-    cp -R lib/ bin/ "$out/opt/junest"
+    cp -r lib/ bin/ "$out/opt/junest"
     ln -s "../opt/junest/bin/junest" "$out/bin/junest"
     ln -s "../opt/junest/bin/sudoj" "$out/bin/sudoj"
+
+    runHook postInstall
   '';
 
-  wrapperPath = with lib;
-    makeBinPath [
-      wget
-      bash
-      coreutils
-      bubblewrap
-      proot
-    ];
+  wrapperPath = lib.makeBinPath [
+    wget
+    bash
+    coreutils
+    bubblewrap
+    proot
+  ];
 
   postFixUp = ''
     wrapProgram "$out/bin/junest" \
@@ -49,11 +54,5 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/fsquillace/junest/";
     license = licenses.gpl3;
     mainProgram = "junest";
-    #
-    # See: https://github.com/fsquillace/junest/pull/282
-    #
-    # Altough it works on nix on non NixOS systems
-    #
-    broken = true;
   };
 }
