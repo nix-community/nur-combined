@@ -132,7 +132,7 @@ in
       ];
 
       sane.user.fs = lib.mkIf cfg.installConfigs {
-        ".config/sway/config".symlink.text =
+        ".config/sway/config".symlink.target =
           import ./sway-config.nix { inherit pkgs; };
 
         ".config/waybar/config".symlink.target =

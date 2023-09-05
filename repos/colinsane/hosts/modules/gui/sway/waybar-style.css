@@ -1,117 +1,5 @@
 /* style docs: https://github.com/Alexays/Waybar/wiki/Styling */
-
-* {
-  font-family: monospace;
-}
-
-/* defaults below: https://github.com/Alexays/Waybar/blob/master/resources/style.css */
-window#waybar {
-  background-color: rgba(43, 48, 59, 0.5);
-  border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-  color: #ffffff;
-  transition-property: background-color;
-  transition-duration: .5s;
-}
-
-window#waybar.hidden {
-  opacity: 0.2;
-}
-
-/*
-window#waybar.empty {
-  background-color: transparent;
-}
-window#waybar.solo {
-  background-color: #FFFFFF;
-}
-*/
-
-window#waybar.termite {
-  background-color: #3F3F3F;
-}
-
-window#waybar.chromium {
-  background-color: #000000;
-  border: none;
-}
-
-#workspaces button {
-  padding: 0 5px;
-  background-color: transparent;
-  color: #ffffff;
-  /* Use box-shadow instead of border so the text isn't offset */
-  box-shadow: inset 0 -3px transparent;
-  /* Avoid rounded borders under each workspace name */
-  border: none;
-  border-radius: 0;
-}
-
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-#workspaces button:hover {
-  background: rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 -3px #ffffff;
-}
-
-#workspaces button.focused {
-  background-color: #64727D;
-  box-shadow: inset 0 -3px #ffffff;
-}
-
-#workspaces button.urgent {
-  background-color: #eb4d4b;
-}
-
-#mode {
-  background-color: #64727D;
-  border-bottom: 3px solid #ffffff;
-}
-
-#clock,
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#custom-media,
-#tray,
-#mode,
-#idle_inhibitor,
-#mpd {
-  padding: 0 10px;
-  color: #ffffff;
-}
-
-#window,
-#workspaces {
-  margin: 0 4px;
-}
-
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-  margin-left: 0;
-}
-
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-  margin-right: 0;
-}
-
-#clock {
-  background-color: #64727D;
-}
-
-#battery {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-#battery.charging, #battery.plugged {
-  color: #ffffff;
-  background-color: #26A65B;
-}
+/* defaults: https://github.com/Alexays/Waybar/blob/master/resources/style.css */
 
 @keyframes blink {
   to {
@@ -120,8 +8,70 @@ window#waybar.chromium {
   }
 }
 
+window#waybar {
+  background-color: #418379;
+  border-bottom: 0px solid #1f5e54;
+  color: #ffffff;
+  transition-property: background-color;
+  transition-duration: .2s;
+}
+
+.modules-right {
+  /* workspace buttons (LHS) get padding between it and the screen edge */
+  /* replicate that same padding for whatever's on the RHS (i.e. the clock) */
+  margin-right: 5px;
+}
+#workspaces button {
+  padding: 0 5px;
+  background-color: #418379;
+  color: #ffffff;
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 0px #1f5e54;
+  /* Avoid rounded borders under each workspace name */
+  border: none;
+  border-radius: 0;
+}
+
+#workspaces button:hover {
+  /* i don't want hover effects, so reset this styling to be the same as default button */
+  /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+  background: inherit;
+  box-shadow: inherit;
+  text-shadow: inherit;
+}
+
+#workspaces button.focused {
+  background-color: #63a89c;
+  box-shadow: inset 0 0px #2c8274;
+}
+
+#workspaces button.urgent {
+  background-color: #e64291;
+}
+
+#backlight,
+#battery,
+#clock,
+#cpu,
+#custom-media,
+#disk,
+#idle_inhibitor,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#temperature,
+#tray,
+#mpd {
+  /* without padding the text/icons are unreadable */
+  padding: 0 10px;
+  /* need fixed-width for cpu/net/mem meaurements which change frequently */
+  font-family: monospace;
+  border-left: 1px solid #1f5e54;
+}
+
 #battery.critical:not(.charging) {
-  background-color: #f53c3c;
+  background-color: #e64291;
   color: #ffffff;
   animation-name: blink;
   animation-duration: 0.5s;
@@ -130,69 +80,8 @@ window#waybar.chromium {
   animation-direction: alternate;
 }
 
-label:focus {
-  background-color: #000000;
-}
-
-#cpu {
-  background-color: #2ecc71;
-  color: #000000;
-}
-
-#memory {
-  background-color: #9b59b6;
-}
-
-#disk {
-  background-color: #964B00;
-}
-
-#backlight {
-  background-color: #90b1b1;
-}
-
-#network {
-  background-color: #2980b9;
-}
-
-#network.disconnected {
-  background-color: #f53c3c;
-}
-
-#pulseaudio {
-  background-color: #f1c40f;
-  color: #000000;
-}
-
-#pulseaudio.muted {
-  background-color: #90b1b1;
-  color: #2a5c45;
-}
-
-#custom-media {
-  background-color: #66cc99;
-  color: #2a5c45;
-  min-width: 100px;
-}
-
-#custom-media.custom-spotify {
-  background-color: #66cc99;
-}
-
-#custom-media.custom-vlc {
-  background-color: #ffa000;
-}
-
-#temperature {
-  background-color: #f0932b;
-}
-
-#temperature.critical {
-  background-color: #eb4d4b;
-}
-
 #tray {
-  background-color: #2980b9;
+  background-color: #418379;
 }
 
 #tray > .passive {
@@ -201,56 +90,5 @@ label:focus {
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-  background-color: #eb4d4b;
+  background-color: #e64291;
 }
-
-#idle_inhibitor {
-  background-color: #2d3436;
-}
-
-#idle_inhibitor.activated {
-  background-color: #ecf0f1;
-  color: #2d3436;
-}
-
-#mpd {
-  background-color: #66cc99;
-  color: #2a5c45;
-}
-
-#mpd.disconnected {
-  background-color: #f53c3c;
-}
-
-#mpd.stopped {
-  background-color: #90b1b1;
-}
-
-#mpd.paused {
-  background-color: #51a37a;
-}
-
-#language {
-  background: #00b093;
-  color: #740864;
-  padding: 0 5px;
-  margin: 0 5px;
-  min-width: 16px;
-}
-
-#keyboard-state {
-  background: #97e1ad;
-  color: #000000;
-  padding: 0 0px;
-  margin: 0 5px;
-  min-width: 16px;
-}
-
-#keyboard-state > label {
-  padding: 0 5px;
-}
-
-#keyboard-state > label.locked {
-  background: rgba(0, 0, 0, 0.2);
-}
-

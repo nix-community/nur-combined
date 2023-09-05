@@ -1,0 +1,168 @@
+# xwayland enable|disable|force
+# - enable: lazily launch xwayland on first client connection
+# - disable: never launch xwayland
+# - force: launch xwayland immediately on boot
+# XWayland exposes a X11 server that translates the protocol to a wayland backend, allowing legacy x11-only GUI apps.
+# XWayland uses about 35MB RSS even when idle
+xwayland @xwayland@
+
+set $mod @mod@
+set $term @terminal_cmd@
+set $menu @launcher_cmd@
+set $emoji_picker @emoji_cmd@
+set $locker @lock_cmd@
+set $snippets_picker @snip_cmd@
+set $screenshot @screenshot_cmd@
+set $brightness_up @brightness_up_cmd@
+set $brightness_down @brightness_down_cmd@
+set $volume_up @vol_up_cmd@
+set $volume_down @vol_down_cmd@
+set $mute @mute_cmd@
+
+### default font (for e.g. window titles)
+font pango:monospace 11
+
+### tab colors (#border #background #text [#indicator #childBorder])
+# focused & unfocused are the main interest
+# urgent is used when an inactive window wants attention (e.g. terminal rings a bell)
+# colors are synchronized with waybar and mpv
+client.focused          #1f5e54 #418379 #ffffff
+client.focused_inactive #1f5e54 #5f676a #ffffff
+client.unfocused        #1f5e54 #1f554c #b4b4b4
+client.urgent           #ff8080 #ff8080 #ffffff
+
+### pixel boundary between windows
+hide_edge_borders smart
+default_border pixel 1
+titlebar_border_thickness 1
+# XX YY distance from edge of window title to edge of text
+# the YY distance here determines the heigh of the overall title
+titlebar_padding 12 1
+title_align center
+
+### focus_wrapping: behavior when trying to focus past the edge of a container
+####   no  => preserve last focus. helpful mostly when `focus_follows_mouse yes`
+focus_wrapping no
+focus_follows_mouse yes
+### workspace_layout default  => workspaces use splits by default (as opposed to e.g. tabbed)
+workspace_layout default
+
+### key bindings
+floating_modifier $mod
+## media keys
+bindsym XF86AudioRaiseVolume exec $volume_up
+bindsym XF86AudioLowerVolume exec $volume_down
+bindsym $mod+Page_Up exec $volume_up
+bindsym $mod+Page_Down exec $volume_down
+bindsym XF86AudioMute exec $mute
+bindsym XF86MonBrightnessUp exec $brightness_up
+bindsym XF86MonBrightnessDown exec $brightness_down
+## special functions
+bindsym $mod+Print exec $screenshot
+bindsym $mod+l exec $locker
+bindsym $mod+s exec $snippets_picker
+bindsym $mod+slash exec $emoji_picker
+bindsym $mod+d exec $menu
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+c reload
+## layout
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+f fullscreen toggle
+bindsym $mod+a focus parent
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+r mode resize
+## movement
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+## workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+## "scratchpad" = ??
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+### defaults
+mode "resize" {
+  bindsym Down resize grow height 10 px
+  bindsym Escape mode default
+  bindsym Left resize shrink width 10 px
+  bindsym Return mode default
+  bindsym Right resize grow width 10 px
+  bindsym Up resize shrink height 10 px
+  bindsym h resize shrink width 10 px
+  bindsym j resize grow height 10 px
+  bindsym k resize shrink height 10 px
+  bindsym l resize grow width 10 px
+}
+
+### lightly modified bars
+bar {
+  mode dock
+  hidden_state hide
+  position top
+  status_command @status@
+  swaybar_command @waybar@
+  workspace_buttons yes
+  strip_workspace_numbers no
+  tray_output primary
+}
+
+### displays
+## DESKTOP
+output "Samsung Electric Company S22C300 0x00007F35" {
+  pos 0,0
+  res 1920x1080
+}
+output "Goldstar Company Ltd LG ULTRAWIDE 0x00004E94" {
+  pos 1920,0
+  res 3440x1440
+}
+
+## LAPTOP
+# sh/en TV
+output "Pioneer Electronic Corporation VSX-524 0x00000101" {
+  pos 0,0
+  res 1920x1080
+}
+# internal display
+output "Unknown 0x0637 0x00000000" {
+  pos 1920,0
+  res 1920x1080
+}
+
+# XXX: needed for xdg-desktop-portal-* to work.
+# this is how we expose these env vars to user dbus services:
+# - DISPLAY
+# - WAYLAND_DISPLAY
+# - SWAYSOCK
+# - XDG_CURRENT_DESKTOP
+# for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
+include /etc/sway/config.d/*
