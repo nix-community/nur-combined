@@ -675,13 +675,13 @@
         sha512 = "aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==";
       };
     };
-    "tar-6.1.15" = {
+    "tar-6.2.0" = {
       name = "tar";
       packageName = "tar";
-      version = "6.1.15";
+      version = "6.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tar/-/tar-6.1.15.tgz";
-        sha512 = "/zKt9UyngnxIT/EAGYuxaMYgOIJiP81ab9ZfkILq4oNLPFX50qyYmu7jRj9qeXoxmJHjGlbH0+cm2uy1WCs10A==";
+        url = "https://registry.npmjs.org/tar/-/tar-6.2.0.tgz";
+        sha512 = "/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==";
       };
     };
     "to-regex-range-5.0.1" = {
@@ -974,7 +974,7 @@ in {
       sources."shebang-regex-3.0.0"
       sources."sisteransi-1.0.5"
       sources."string-argv-0.3.2"
-      sources."tar-6.1.15"
+      sources."tar-6.2.0"
       sources."to-regex-range-5.0.1"
       sources."type-detect-4.0.8"
       sources."ufo-1.3.0"
