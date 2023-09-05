@@ -7,6 +7,7 @@
     ./assorted.nix
     ./cantata.nix
     ./chatty.nix
+    ./conky
     ./cozy.nix
     ./dino.nix
     ./element-desktop.nix

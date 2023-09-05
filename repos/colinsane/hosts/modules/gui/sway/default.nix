@@ -117,6 +117,7 @@ in
         package = null;
         suggestedPrograms = [
           "guiApps"
+          "conky"  # for a nice background
           "splatmoji"  # used by us, but 'enabling' it gets us persistence & cfg
           "swaylock"
           "swayidle"

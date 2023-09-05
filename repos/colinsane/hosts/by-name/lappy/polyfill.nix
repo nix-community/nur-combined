@@ -10,6 +10,7 @@
       # these identifiers are from `swaymsg -t get_inputs`
       SXMO_VOLUME_BUTTON = "1:1:AT_Translated_Set_2_keyboard";
       # SXMO_VOLUME_BUTTON = "none";
+      # N.B.: thinkpad's power button requires a full second press to do anything
       SXMO_POWER_BUTTON = "0:1:Power_Button";
       # SXMO_POWER_BUTTON = "none";
       SXMO_DISABLE_LEDS = "1";

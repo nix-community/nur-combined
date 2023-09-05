@@ -67,6 +67,14 @@ let
     echo "launching ${identifier}..." | ${systemd-cat} --identifier=${identifier}
     ${cmd} 2>&1 | ${systemd-cat} --identifier=${identifier}
   '';
+
+  package = cfg.package.overrideAttrs (base: {
+    postPatch = (base.postPatch or "") + ''
+      # don't start conky via superd: i manage it myself
+      substituteInPlace ./configs/default_hooks/sxmo_hook_start.sh \
+        --replace 'superctl start sxmo_conky' ""
+    '';
+  });
 in
 {
   options = with lib; {
@@ -217,7 +225,7 @@ in
                   # - placing default configs in ~ for sxmo-launched services (sxmo_migrate.sh)
                   # - binding vol/power buttons (sxmo_swayinitconf.sh)
                   # - launching sxmo_hook_start.sh
-                  source ${cfg.package}/etc/profile.d/sxmo_init.sh
+                  source ${package}/etc/profile.d/sxmo_init.sh
                   # XXX: upstream sources `profile` later (after sxmo_migrate)
                   #      but _sxmo_load_environments uses `SXMO_DEVICE_NAME`,
                   #      and i ship that via the profile, so order it such
@@ -234,6 +242,9 @@ in
                   pkill superd
 
                   # configure vol/power-button input mapping (upstream SXMO has this in sway config)
+                  echo "sxmo_init: configuring sway bindings with:"
+                  echo "SXMO_POWER_BUTTON: $SXMO_POWER_BUTTON"
+                  echo "SXMO_VOLUME_BUTTON: $SXMO_VOLUME_BUTTON"
                   sxmo_swayinitconf.sh
 
                   echo "sxmo_init: invoking sxmo_hook_start.sh with:"
@@ -272,7 +283,7 @@ in
 
         # TODO: could use `displayManager.sessionPackages`?
         environment.systemPackages = [
-          cfg.package
+          package
           pkgs.bonsai  # sway (not sxmo) needs to exec `bonsaictl` by name (sxmo_swayinitconf.sh)
         ] ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
           ++ lib.optionals (cfg.keyboard != null) [ pkgs."${cfg.keyboard}" ];
@@ -280,7 +291,7 @@ in
         environment.sessionVariables = {
           XDG_DATA_DIRS = [
             # TODO: only need the share/sxmo directly linked
-            "${cfg.package}/share"
+            "${package}/share"
           ];
         } // (lib.filterAttrs  # certain settings are read before the `profile` is sourced
           (k: v: k == "SXMO_DISABLE_CONFIGVERSION_CHECK")
@@ -298,7 +309,7 @@ in
           description = "configure specific /sys and /dev nodes to be writable by sxmo scripts";
           serviceConfig = {
             Type = "oneshot";
-            ExecStart = "${cfg.package}/bin/sxmo_setpermissions.sh";
+            ExecStart = "${package}/bin/sxmo_setpermissions.sh";
           };
           wantedBy = [ "multi-user.service" ];
         };
@@ -338,17 +349,6 @@ in
           mkKeyValue = key: value: ''export ${key}="${value}"'';
         in
           lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;
-
-        sane.user.fs.".config/sxmo/conky.conf".symlink.target = let
-          battery_estimate = pkgs.static-nix-shell.mkBash {
-            pname = "battery_estimate";
-            src = ./.;
-          };
-        in pkgs.substituteAll {
-          src = ./conky-config;
-          bat = "${battery_estimate}/bin/battery_estimate";
-          weather = "timeout 20 ${pkgs.sane-weather}/bin/sane-weather";
-        };
       }
 
       (lib.mkIf (cfg.greeter == "lightdm-mobile") {
@@ -368,7 +368,7 @@ in
           '';
 
           displayManager.sessionPackages = with pkgs; [
-            cfg.package  # this gets share/wayland-sessions/swmo.desktop linked
+            package  # this gets share/wayland-sessions/swmo.desktop linked
           ];
 
           # taken from gui/phosh:
@@ -388,7 +388,7 @@ in
           sway.enable = true;
           sway.gtkgreet.enable = true;
           sway.gtkgreet.session.name = "sxmo-on-gtkgreet";
-          # sway.gtkgreet.session.command = "${cfg.package}/bin/sxmo_winit.sh";
+          # sway.gtkgreet.session.command = "${package}/bin/sxmo_winit.sh";
           sway.gtkgreet.session.command = "${pkgs.sway}/bin/sway --debug";
         };
       })
@@ -417,7 +417,7 @@ in
         sane.gui.greetd = {
           enable = true;
           session.name = "sxmo";
-          # session.command = "${cfg.package}/bin/sxmo_winit.sh";
+          # session.command = "${package}/bin/sxmo_winit.sh";
           session.command = "${pkgs.sway}/bin/sway --debug";
           session.user = "colin";
         };
@@ -428,7 +428,7 @@ in
       #   name = "sxmo";
       #   desktopNames = [ "sxmo" ];
       #   start = ''
-      #     ${cfg.package}/bin/sxmo_xinit.sh &
+      #     ${package}/bin/sxmo_xinit.sh &
       #     waitPID=$!
       #   '';
       # }];
