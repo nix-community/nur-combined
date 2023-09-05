@@ -1253,10 +1253,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.15.3";
+      version = "3.15.4";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4157430/control_panel_for_twitter-3.15.3.xpi";
-      sha256 = "a961eaf5fdc12621d709d2af46e55f44257f5d0e5682f0a37eda4904e64b9ea3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160813/control_panel_for_twitter-3.15.4.xpi";
+      sha256 = "7fb32b9fd320c3dc56a01b594b73be1f465864d02ca33cee058ec897b942ec4a";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1675,10 +1675,10 @@
       };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
-      version = "5.30.0";
+      version = "5.32.0";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4144173/ebates-5.30.0.xpi";
-      sha256 = "b8ca552a2bd47fc3f0455d8171588d483ea3769c0def97ec5e562ba2dabce81b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160713/ebates-5.32.0.xpi";
+      sha256 = "70b9f51105dd40e88ead25afec66fcd1875d1c268e5ab2a04647bb0baf0b3784";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -2007,10 +2007,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.65";
+      version = "6.1.66";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4145861/flagfox-6.1.65.xpi";
-      sha256 = "a35011fc1b47ab050f28f89373ae2d7ac20694601bcc21cacc79ec3fc61116cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160646/flagfox-6.1.66.xpi";
+      sha256 = "ab52e7ec3c5551b02060279e16d06d2ad78e00a0fc3bb071f2f03a8d9c51355d";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -3985,10 +3985,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.28";
+      version = "4.323";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4149760/youtube_addon-4.28.xpi";
-      sha256 = "318a7c8555b173246dc985f6ae931f2ece7490e8505d31f8910b48158e303d46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162662/youtube_addon-4.323.xpi";
+      sha256 = "16a61cfcf45fde8873cd4e8ba6cb4c2f333e8606913d256908f377688e1a1181";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -5996,10 +5996,10 @@
       };
     "privacy-pass" = buildFirefoxXpiAddon {
       pname = "privacy-pass";
-      version = "3.0.5";
+      version = "3.0.6";
       addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4068311/privacy_pass-3.0.5.xpi";
-      sha256 = "a8f1d496986af78fd91b9e44c782b80afc45d0cb39013d5cfb54da1611e21273";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160723/privacy_pass-3.0.6.xpi";
+      sha256 = "5966bfb190a575b54bd657f6e1b8735a9fd6b9a3ee008520468da37d7838122f";
       meta = with lib;
       {
         homepage = "https://privacypass.github.io";
