@@ -189,9 +189,70 @@ in
       {
         sane.gui.sway = {
           enable = true;
-          # we manage these ourselves  (TODO: merge these into sway config as well)
+          # we manage the greeter ourselves  (TODO: merge this into sway config as well)
           useGreeter = false;
-          installConfigs = false;
+          waybar.top = import ./waybar-top.nix;
+          config = {
+            # N.B. missing from upstream sxmo config here is:
+            # - `bindsym $mod+g exec sxmo_hook_locker.sh`
+            # - `bindsym $mod+t exec sxmo_appmenu.sh power`
+            # - `bindsym $mod+i exec sxmo_wmmenu.sh windowswitcher`
+            # - `bindsym $mod+p exec sxmo_appmenu.sh`
+            # - `bindsym $mod+Shift+p exec sxmo_appmenu.sh sys`
+            # - `input * xkb_options compose:ralt`
+            # these could be added, but i don't see much benefit.
+            mod = "Mod1";  # prefer Alt
+            font = "Sxmo 10";
+            workspace_layout = "tabbed";
+            brightness_down_cmd = "sxmo_brightness.sh down";
+            brightness_up_cmd = "sxmo_brightness.sh up";
+            screenshot_cmd = "sxmo_screenshot.sh";
+            status_cmd = "sxmo_status_watch.sh -o pango";
+            extra_lines =
+              let
+                sxmo_init = pkgs.writeShellScript "sxmo_init.sh" ''
+                  # perform the same behavior as sxmo_{x,w}init.sh -- but without actually launching wayland/X11
+                  # this amounts to:
+                  # - setting env vars (e.g. getting the hooks onto PATH)
+                  # - placing default configs in ~ for sxmo-launched services (sxmo_migrate.sh)
+                  # - binding vol/power buttons (sxmo_swayinitconf.sh)
+                  # - launching sxmo_hook_start.sh
+                  source ${cfg.package}/etc/profile.d/sxmo_init.sh
+                  # XXX: upstream sources `profile` later (after sxmo_migrate)
+                  #      but _sxmo_load_environments uses `SXMO_DEVICE_NAME`,
+                  #      and i ship that via the profile, so order it such
+                  source "$XDG_CONFIG_HOME/sxmo/profile"
+                  _sxmo_load_environments
+                  _sxmo_prepare_dirs
+                  sxmo_migrate.sh sync
+
+                  # kill anything leftover from the previous sxmo run. this way we can (try to) be reentrant
+                  echo "sxmo_init: killing stale daemons (if active)"
+                  sxmo_daemons.sh stop all
+                  pkill bemenu
+                  pkill wvkbd
+                  pkill superd
+
+                  # configure vol/power-button input mapping (upstream SXMO has this in sway config)
+                  sxmo_swayinitconf.sh
+
+                  echo "sxmo_init: invoking sxmo_hook_start.sh with:"
+                  echo "PATH: $PATH"
+                  sxmo_hook_start.sh
+                '';
+              in ''
+                # TODO: some of this is probably unnecessary
+                mode "menu" {
+                  # just a placeholder for "menu" mode
+                  bindsym --input-device=1:1:1c21800.lradc XF86AudioMute exec nothing
+                }
+                bindsym button2 kill
+                bindswitch lid:on exec sxmo_wm.sh dpms on
+                bindswitch lid:off exec sxmo_wm.sh dpms off
+                exec 'printf %s "$SWAYSOCK" > "$XDG_RUNTIME_DIR"/sxmo.swaysock'
+                exec_always ${sxmo_init}
+              '';
+          };
         };
 
         sane.programs.sxmoApps.enableFor.user.colin = true;
@@ -277,52 +338,6 @@ in
           mkKeyValue = key: value: ''export ${key}="${value}"'';
         in
           lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;
-
-        sane.user.fs.".config/sway/config".symlink.target = pkgs.substituteAll {
-          src = ./sway-config;
-          waybar = "${pkgs.waybar}/bin/waybar";
-          bemenu_run = "${pkgs.bemenu}/bin/bemenu-run";
-          term = "${pkgs.xdg-terminal-exec}/bin/xdg-terminal-exec";
-          sxmo_init = pkgs.writeShellScript "sxmo_init.sh" ''
-            # perform the same behavior as sxmo_{x,w}init.sh -- but without actually launching wayland/X11
-            # this amounts to:
-            # - setting env vars (e.g. getting the hooks onto PATH)
-            # - placing default configs in ~ for sxmo-launched services (sxmo_migrate.sh)
-            # - binding vol/power buttons (sxmo_swayinitconf.sh)
-            # - launching sxmo_hook_start.sh
-            source ${cfg.package}/etc/profile.d/sxmo_init.sh
-            # XXX: upstream sources `profile` later (after sxmo_migrate)
-            #      but _sxmo_load_environments uses `SXMO_DEVICE_NAME`,
-            #      and i ship that via the profile, so order it such
-            source "$XDG_CONFIG_HOME/sxmo/profile"
-            _sxmo_load_environments
-            _sxmo_prepare_dirs
-            sxmo_migrate.sh sync
-
-            # kill anything leftover from the previous sxmo run. this way we can (try to) be reentrant
-            echo "sxmo_init: killing stale daemons (if active)"
-            sxmo_daemons.sh stop all
-            pkill bemenu
-            pkill wvkbd
-            pkill superd
-
-            # configure vol/power-button input mapping (upstream SXMO has this in sway config)
-            sxmo_swayinitconf.sh
-
-            echo "sxmo_init: invoking sxmo_hook_start.sh with:"
-            echo "PATH: $PATH"
-            sxmo_hook_start.sh
-          '';
-        };
-
-        sane.user.fs.".config/waybar/config".symlink.target =
-          let
-            waybar-config = import ./waybar-config.nix { inherit pkgs; };
-          in
-            (pkgs.formats.json {}).generate "waybar-config.json" waybar-config;
-
-        sane.user.fs.".config/waybar/style.css".symlink.text =
-          builtins.readFile ./waybar-style.css;
 
         sane.user.fs.".config/sxmo/conky.conf".symlink.target = let
           battery_estimate = pkgs.static-nix-shell.mkBash {

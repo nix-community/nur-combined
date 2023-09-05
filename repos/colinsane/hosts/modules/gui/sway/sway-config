@@ -18,9 +18,10 @@ set $brightness_down @brightness_down_cmd@
 set $volume_up @vol_up_cmd@
 set $volume_down @vol_down_cmd@
 set $mute @mute_cmd@
+set $default_workspace_layout @workspace_layout@
 
 ### default font (for e.g. window titles)
-font pango:monospace 11
+font @font@
 
 ### tab colors (#border #background #text [#indicator #childBorder])
 # focused & unfocused are the main interest
@@ -44,20 +45,23 @@ title_align center
 ####   no  => preserve last focus. helpful mostly when `focus_follows_mouse yes`
 focus_wrapping no
 focus_follows_mouse yes
-### workspace_layout default  => workspaces use splits by default (as opposed to e.g. tabbed)
-workspace_layout default
+workspace_layout $default_workspace_layout
 
 ### key bindings
 floating_modifier $mod
-## media keys
-bindsym XF86AudioRaiseVolume exec $volume_up
-bindsym XF86AudioLowerVolume exec $volume_down
+#### media keys
 bindsym $mod+Page_Up exec $volume_up
 bindsym $mod+Page_Down exec $volume_down
-bindsym XF86AudioMute exec $mute
-bindsym XF86MonBrightnessUp exec $brightness_up
-bindsym XF86MonBrightnessDown exec $brightness_down
-## special functions
+# --locked means to keep the binding active even when display is locked/off
+bindsym --locked XF86AudioMute exec $mute
+bindsym --locked XF86AudioPlay exec @playerctl@ play-pause
+bindsym --locked XF86AudioStop exec @playerctl@ stop
+bindsym --locked XF86AudioNext exec @playerctl@ next
+bindsym --locked XF86AudioPrev exec @playerctl@ previous
+bindsym --locked XF86MonBrightnessUp exec $brightness_up
+bindsym --locked XF86MonBrightnessDown exec $brightness_down
+
+#### special functions
 bindsym $mod+Print exec $screenshot
 bindsym $mod+l exec $locker
 bindsym $mod+s exec $snippets_picker
@@ -67,7 +71,8 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Shift+c reload
-## layout
+
+#### layout
 bindsym $mod+b splith
 bindsym $mod+v splitv
 bindsym $mod+f fullscreen toggle
@@ -77,7 +82,8 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+r mode resize
-## movement
+
+#### movement
 bindsym $mod+Up focus up
 bindsym $mod+Down focus down
 bindsym $mod+Left focus left
@@ -86,7 +92,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Right move right
-## workspaces
+
+#### workspaces
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -105,35 +112,43 @@ bindsym $mod+Shift+6 move container to workspace number 6
 bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
-## "scratchpad" = ??
+
+#### "scratchpad" = ??
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-### defaults
 mode "resize" {
-  bindsym Down resize grow height 10 px
+  bindsym Down resize grow height 30 px
   bindsym Escape mode default
-  bindsym Left resize shrink width 10 px
+  bindsym Left resize shrink width 30 px
   bindsym Return mode default
-  bindsym Right resize grow width 10 px
-  bindsym Up resize shrink height 10 px
-  bindsym h resize shrink width 10 px
-  bindsym j resize grow height 10 px
-  bindsym k resize shrink height 10 px
-  bindsym l resize grow width 10 px
+  bindsym Right resize grow width 30 px
+  bindsym Up resize shrink height 30 px
+  bindsym h resize shrink width 30 px
+  bindsym j resize grow height 30 px
+  bindsym k resize shrink height 30 px
+  bindsym l resize grow width 30 px
 }
 
 ### lightly modified bars
 bar {
-  mode dock
-  hidden_state hide
   position top
   status_command @status@
   swaybar_command @waybar@
+  # XXX Colin: *probably* necessary for sxmo
+  pango_markup enabled
+  # XXX Colin: not sure if all of these are necessary
+  mode dock
+  hidden_state hide
   workspace_buttons yes
   strip_workspace_numbers no
   tray_output primary
 }
+
+### application-specific settings
+for_window [app_id="pinentry-.*"] floating true
+for_window [app_id="foot" title=".*sxmo/modem/.*/draft.txt.*"] resize set height 25
+for_window [title="megapixels"] inhibit_idle open
 
 ### displays
 ## DESKTOP
@@ -166,3 +181,5 @@ output "Unknown 0x0637 0x00000000" {
 # - XDG_CURRENT_DESKTOP
 # for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
 include /etc/sway/config.d/*
+
+@extra_lines@
