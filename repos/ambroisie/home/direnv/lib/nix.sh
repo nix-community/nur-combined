@@ -9,12 +9,44 @@ use_pkgs() {
 
     # Use user-provided default value, or fallback to nixpkgs
     local DEFAULT_FLAKE="${DIRENV_DEFAULT_FLAKE:-nixpkgs}"
+    # Additional args that should be forwarded to `nix`
+    local args=()
 
     # Allow changing the default flake through a command line switch
-    if [ "$1" = "-f" ] || [ "$1" = "--flake" ]; then
-        DEFAULT_FLAKE="$2"
-        shift 2
-    fi
+    while true; do
+        case "$1" in
+            -b|--broken)
+                args+=(--impure)
+                export NIXPKGS_ALLOW_BROKEN=1
+                shift
+                ;;
+            -f|--flake)
+                DEFAULT_FLAKE="$2"
+                shift 2
+                ;;
+            -i|--impure)
+                args+=(--impure)
+                shift
+                ;;
+            -s|--insecure)
+                args+=(--impure)
+                export NIXPKGS_ALLOW_INSECURE=1
+                shift
+                ;;
+            -u|--unfree)
+                args+=(--impure)
+                export NIXPKGS_ALLOW_UNFREE=1
+                shift
+                ;;
+            --)
+                shift
+                break
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
 
 
     # Allow specifying a full installable, or just a package name and use the default flake
@@ -28,5 +60,10 @@ use_pkgs() {
     done
 
     # shellcheck disable=2154
-    direnv_load nix shell "${packages[@]}" --command "$direnv" dump
+    direnv_load nix shell "${args[@]}" "${packages[@]}" --command "$direnv" dump
+
+    # Clean-up after ourselves (assumes the user does not set them before us)
+    unset NIXPKGS_ALLOW_BROKEN
+    unset NIXPKGS_ALLOW_INSECURE
+    unset NIXPKGS_ALLOW_UNFREE
 }
