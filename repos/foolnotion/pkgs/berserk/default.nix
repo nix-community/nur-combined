@@ -1,21 +1,22 @@
 { lib, stdenv, fetchurl, fetchFromGitHub }:
 
 let
-  nnueFile = "berserk-c982d9682d4e.nn";
+  version = "11.1";
+  nnueFile = "berserk-e3f526b26f50.nn";
   nnue = fetchurl {
     name = nnueFile;
-    url = "https://github.com/jhonnold/berserk/releases/download/10/${nnueFile}";
-    sha256 = "sha256-yYLZaC1OsGIGDymESqqigDlqXL900o1+JfRh6u6L+bc=";
+    url = "https://github.com/jhonnold/berserk/releases/download/${version}/${nnueFile}";
+    hash = "sha256-4/Umsm9QNQOsOHDo1reVKPx6dst8HHCMF0nfpPMGVn0=";
   };
 in stdenv.mkDerivation rec {
   pname = "berserk";
-  version = "10";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "jhonnold";
     repo = "berserk";
-    rev = "f0d32c78654610f4adb0a732cefb0a7419f391a4";
-    sha256 = "sha256-PTsp3tPil0Z8Yb2AQ6IwDBNYUVYvXXmdVKPcoprt1Zc=";
+    rev = "463f5a5f2a3a5c562d253efe0115a5bcf11b4b50";
+    hash = "sha256-/+q6VkWA+zPOHqUl1daazgA4mo//7t4tO+rkEHEqq0s=";
   };
 
   preConfigure = ''
