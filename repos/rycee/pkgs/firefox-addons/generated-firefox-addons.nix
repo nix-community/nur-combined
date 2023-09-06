@@ -1447,10 +1447,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.15";
+      version = "1.2.17";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4161088/dearrow-1.2.15.xpi";
-      sha256 = "450fea2315ac31d0cb7eb0ef794665e24beda67a0941a6bf10ea5b05023781de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4163352/dearrow-1.2.17.xpi";
+      sha256 = "f4d6411d5d12daf09bfe1b84cd1a765876b6f69a4c031080875299f6d7a9c873";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2218,10 +2218,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "118.0.20230903.180219";
+      version = "118.0.20230905.175953";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162398/francais_language_pack-118.0.20230903.180219.xpi";
-      sha256 = "abdf23d6878a9dd661bf8cd6d24ac298aee06abf88849e36391b418695f0f947";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4163501/francais_language_pack-118.0.20230905.175953.xpi";
+      sha256 = "4199d93eb3ea619a8d2383fff5319c33f3eb6494b3b6a953af516141056080ad";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4731,10 +4731,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.4.0";
+      version = "4.4.1";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147448/modheader_firefox-4.4.0.xpi";
-      sha256 = "c5b1183734009a04f204cd7e6f2ddbea7ef925d726aa038c3437c68dd3059973";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4161194/modheader_firefox-4.4.1.xpi";
+      sha256 = "b93fba69083bbcb530b9d2bcbbf7aec675eb6f36eec874266f9989d276234586";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -7601,7 +7601,7 @@
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
-        description = "The extension facilitates using and contributing to the Tournesol project (https://tournesol.app).";
+        description = "See Tournesol recommendation on YouTube, and easily contribute to the project (https://tournesol.app).";
         license = licenses.lgpl3;
         mozPermissions = [
           "https://tournesol.app/"
