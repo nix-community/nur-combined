@@ -60,6 +60,15 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.etc."cloud-savegame-settings.ini".source = 
+      let
+        atom = val: if ((builtins.typeOf val) == "list") then
+          (builtins.concatStringsSep (cfg.settings.general.divider or ",") (map (toString) val))
+        else if ((builtins.typeOf val) == "set") then
+          (builtins.mapAttrs (k: v: atom v) val)
+        else (toString val);
+      in ini.generate "cloud-savegame-settings.ini" (atom cfg.settings);
+
     systemd.user = {
       timers.cloud-savegame = {
         description = "Cloud savegame timer";
@@ -70,6 +79,7 @@ in {
           Unit = "cloud-savegame.service";
         };
       };
+
       services.cloud-savegame = {
         enable = true;
         path = []
@@ -77,14 +87,7 @@ in {
         ++ (optional cfg.enableGit pkgs.openssh);
         environment = {
           OUTPUT_DIR = cfg.outputDir;
-
-          CONFIG_FILE = let
-            atom = val: if ((builtins.typeOf val) == "list") then
-              (builtins.concatStringsSep (cfg.settings.general.divider or ",") (map (toString) val))
-            else if ((builtins.typeOf val) == "set") then
-              (builtins.mapAttrs (k: v: atom v) val)
-            else (toString val);
-          in ini.generate "cloud-savegame-settings.ini" (atom cfg.settings);
+          CONFIG_FILE = "/etc/cloud-savegame-settings.ini";
         };
         description = "Cloud savegame service";
         script = ''
