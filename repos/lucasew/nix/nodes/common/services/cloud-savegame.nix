@@ -48,6 +48,14 @@ in {
 
       type = ini.type;
 
+      apply = value: let
+        atom = val: if ((builtins.typeOf val) == "list") then
+          (builtins.concatStringsSep (cfg.settings.general.divider or ",") (map (toString) val))
+        else if ((builtins.typeOf val) == "set") then
+          (builtins.mapAttrs (k: v: atom v) val)
+        else (toString val);
+      in ini.generate "cloud-savegame-settings.ini" (atom value);
+
       example = builtins.fromTOML "${self.inputs.cloud-savegame}/demo.cfg";
 
       default = {
@@ -60,14 +68,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.etc."cloud-savegame-settings.ini".source = 
-      let
-        atom = val: if ((builtins.typeOf val) == "list") then
-          (builtins.concatStringsSep (cfg.settings.general.divider or ",") (map (toString) val))
-        else if ((builtins.typeOf val) == "set") then
-          (builtins.mapAttrs (k: v: atom v) val)
-        else (toString val);
-      in ini.generate "cloud-savegame-settings.ini" (atom cfg.settings);
+    services.cloud-savegame.settings = {
+      general.divider = ",";
+      search.paths="~";
+      flatout-2.installdir= ["~/.local/share/Steam/steamapps/common/FlatOut2" ];
+    };
+
+    environment.etc."cloud-savegame-settings.ini".source =  cfg.settings;
 
     systemd.user = {
       timers.cloud-savegame = {

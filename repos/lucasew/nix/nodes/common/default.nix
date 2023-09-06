@@ -37,8 +37,21 @@ in
     enableGit = true;
     settings = {
       search = {
-        paths = [ "~" ];
-        extra_homes = [ "/run/media/lucasew/Dados/DADOS/Lucas" ];
+        paths = [
+          "~"
+          "~/.steam"
+          "~/.config"
+          "~/.nix-wine"
+          "~/.wine"
+        ];
+        ignore = [
+          "/home/lucasew/WORKSPACE"
+          "/home/lucasew/TMP2"
+          "/run/media"
+        ];
+        extra_homes = [
+          "/run/media/lucasew/Dados/DADOS/Lucas"
+        ];
       };
 
       flatout-2 = {

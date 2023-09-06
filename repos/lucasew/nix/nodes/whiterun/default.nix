@@ -67,7 +67,9 @@ in {
     calendar = "00:00:01";
     settings = {
       search = {
-        paths = [ "/storage/games/steam/compatdata" ];
+        paths = [
+          "/storage/games/steam/compatdata"
+        ];
       };
       flatout-2 = {
         installdir = [ "/storage/games/steam/steamapps/common/FlatOut2" ];
