@@ -48,7 +48,6 @@ packageSet = do
   icalinguaPlusPlus
   mstickereditor
   swayOsd
-  wemeet
   yacd
   zeronsd
 
@@ -160,16 +159,6 @@ tgSend =
       `hasCargoLocks` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/tg-send.git"
-
-wemeet :: PackageSet ()
-wemeet =
-  define $
-    package "wemeet"
-      `sourceAur` "wemeet-bin"
-      `fetchUrl` url
-  where
-    md5 = "174f137e819ba174c7be6949bb03e665" -- TODO auto update md5
-    url (Version v) = "https://updatecdn.meeting.qq.com/cos/" <> md5 <> "/TencentMeeting_0300000000_" <> v <> "_x86_64_default.publish.deb"
 
 yacd :: PackageSet ()
 yacd =

@@ -16,7 +16,6 @@
 }:
 
 let
-  nix = nixVersions.unstable;
   updateScripts = selfLib.getUpdateScripts selfPackages;
   escapedUpdateScripts = builtins.map lib.escapeShellArgs updateScripts;
 
