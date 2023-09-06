@@ -39,15 +39,15 @@ in
           bindsym --locked XF86AudioLowerVolume exec $volume_down
         '';
       };
+      background = mkOption {
+        type = types.path;
+      };
       font = mkOption {
         type = types.string;
         default = "pango:monospace 11";
         description = ''
           default font (for e.g. window titles)
         '';
-      };
-      background = mkOption {
-        type = types.path;
       };
       mod = mkOption {
         type = types.string;
@@ -68,6 +68,14 @@ in
           - etc
         '';
       };
+      xwayland = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          whether or not to enable xwayland (allows running X11 apps on sway).
+          some electron apps (e.g. element-desktop) require xwayland.
+        '';
+      };
 
       # TODO: split these into their own option scope
       brightness_down_cmd = mkOption {
@@ -85,18 +93,13 @@ in
         default = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
         description = "command to run when user wants to take a screenshot";
       };
-      status_cmd = mkOption {
-        type = types.string;
-        default = "${pkgs.i3status}/bin/i3status";
-        description = "command to run that populates the status section of the topbar";
-      };
     };
     sane.gui.sway.waybar.extra_style = mkOption {
       type = types.lines;
       default = ''
         /* default font-size is about 14px, which is good for moby, but not quite for larger displays */
         window#waybar {
-          font-size: 16 px;
+          font-size: 16px;
         }
       '';
       description = ''

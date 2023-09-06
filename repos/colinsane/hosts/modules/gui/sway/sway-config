@@ -132,15 +132,8 @@ mode "resize" {
   bindsym l resize grow width 30 px
 }
 
-### lightly modified bars
 bar {
   swaybar_command @waybar@
-  # XXX Colin: it seems like *everything* in the bar section below this is unnecessary.
-  # i.e. `swaybar_command` obsoletes all else
-  position top
-  status_command @status_cmd@
-  # XXX Colin: pango_markup came from sxmo, but seems to work w/o it
-  pango_markup enabled
 }
 
 ### application-specific settings

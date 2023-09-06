@@ -20,8 +20,6 @@ let
   '';
   # TODO: splatmoji release > 1.2.0 should allow `-s none` to disable skin tones
   emoji_cmd = "${pkgs.splatmoji}/bin/splatmoji -s medium-light type";
-
-  xwayland = "disable";
 in pkgs.substituteAll {
   src = ./sway-config;
   inherit
@@ -33,7 +31,6 @@ in pkgs.substituteAll {
     terminal_cmd
     vol_down_cmd
     vol_up_cmd
-    xwayland
   ;
   inherit (config)
     background
@@ -41,11 +38,11 @@ in pkgs.substituteAll {
     brightness_up_cmd
     extra_lines
     screenshot_cmd
-    status_cmd
     font
     mod
     workspace_layout
   ;
+  xwayland = if config.xwayland then "enable" else "disable";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   waybar = "${pkgs.waybar}/bin/waybar";
 }
