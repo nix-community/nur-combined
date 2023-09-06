@@ -103,6 +103,22 @@
         "type": "github"
       }
     },
+    "cloud-savegame": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1694011005,
+        "narHash": "sha256-kryk+rlWc4/2CPrg9uPdtoCJoXRV9415zRw5j+qyM6s=",
+        "owner": "lucasew",
+        "repo": "cloud-savegame",
+        "rev": "c4a86cf3ba438b000b022f00f88953aaabba23fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "cloud-savegame",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -530,6 +546,7 @@
         "bumpkin": "bumpkin",
         "cf-torrent": "cf-torrent",
         "climod": "climod",
+        "cloud-savegame": "cloud-savegame",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "impermanence": "impermanence",

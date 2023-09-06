@@ -1,0 +1,16 @@
+diff --git a/chrome/browser/ui/browser.cc b/chrome/browser/ui/browser.cc
+index fdb96dee05067..0ba71527ae1c8 100644
+--- a/chrome/browser/ui/browser.cc
++++ b/chrome/browser/ui/browser.cc
+@@ -2970,6 +2970,11 @@ void Browser::UpdateWindowForLoadingStateChanged(content::WebContents* source,
+ bool Browser::NormalBrowserSupportsWindowFeature(WindowFeature feature,
+                                                  bool check_can_support) const {
+   bool fullscreen = ShouldHideUIForFullscreen();
++  if (true /* TODO: implement the chrome://flags */) {
++      if (feature == FEATURE_TABSTRIP) {
++          return false;
++      }
++  }
+   switch (feature) {
+     case FEATURE_BOOKMARKBAR:
+       return true;

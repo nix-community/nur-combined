@@ -5,6 +5,9 @@
     bumpkin.url = "github:lucasew/bumpkin";
     bumpkin.inputs.nixpkgs.follows = "nixpkgs";
 
+    cloud-savegame.url = "github:lucasew/cloud-savegame";
+    cloud-savegame.flake = false;
+
     nix-index-database.url = "github:Mic92/nix-index-database";
 
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
@@ -171,58 +174,29 @@
 
     colors = inputs.nix-colors.colorschemes."classic-dark";
 
-    homeConfigurations = let
-        hmConf = {
-          modules ? []
-        , pkgs
-        , extraSpecialArgs ? {}
-      }: import "${home-manager}/modules" {
-        inherit pkgs;
-        extraSpecialArgs = extraArgs // extraSpecialArgs // { inherit pkgs; };
-        configuration = {...}: {
-          imports = modules;
-        };
+    homeConfigurations = pkgs.callPackage ./nix/homes {
+      inherit extraArgs;
+      nodes = {
+        main = { modules = [ ./nix/homes/main ]; inherit pkgs; };
       };
-    in mapAttrValues hmConf {
-      main = { modules = [ ./nix/homes/main ]; inherit pkgs; };
     };
 
-    nixosConfigurations = let
-      nixosConf = {
-          modules ? []
-        , extraSpecialArgs ? {}
-        , pkgs
-        , system ? pkgs.system
-      }: import "${pkgs.path}/nixos/lib/eval-config.nix" {
-        specialArgs = extraSpecialArgs // extraArgs;
-        inherit system pkgs modules;
+    nixosConfigurations = pkgs.callPackage ./nix/nodes {
+      inherit extraArgs;
+      nodes = {
+        ravenrock = { modules = [ ./nix/nodes/ravenrock ]; inherit pkgs; };
+        riverwood = { modules = [ ./nix/nodes/riverwood ]; inherit pkgs; };
+        whiterun  = { modules = [ ./nix/nodes/whiterun  ]; inherit pkgs; };
+        recovery  = { modules = [ ./nix/nodes/recovery  ]; inherit pkgs; };
+        demo      = { modules = [ ./nix/nodes/demo      ]; inherit pkgs; };
       };
-    in mapAttrValues nixosConf {
-      ravenrock = { modules = [ ./nix/nodes/ravenrock ]; inherit pkgs; };
-      riverwood = { modules = [ ./nix/nodes/riverwood ]; inherit pkgs; };
-      whiterun  = { modules = [ ./nix/nodes/whiterun  ]; inherit pkgs; };
-      recovery  = { modules = [ ./nix/nodes/recovery  ]; inherit pkgs; };
-      demo      = { modules = [ ./nix/nodes/demo      ]; inherit pkgs; };
     };
 
-    nixOnDroidConfigurations = let
-      nixOnDroidConf = mainModule:
-      import "${inputs.nix-on-droid}/modules" {
-        config = {
-          _module.args = extraArgs;
-          home-manager.config._module.args = extraArgs;
-          imports = [
-            mainModule
-          ];
-        };
-        pkgs = mkPkgs {
-          overlays = (import "${inputs.nix-on-droid}/overlays");
-        };
-        home-manager = import inputs.home-manager {};
-        isFlake = true;
+    nixOnDroidConfigurations = pkgs.callPackage ./nix/nixOnDroidConfigurations {
+      inherit extraArgs mkPkgs;
+      nodes = {
+        default = { modules = [ ./nix/nixOnDroid/default ]; system = "aarch64-linux"; };
       };
-    in mapAttrValues nixOnDroidConf {
-      xiaomi = ./nix/nodes/xiaomi/default.nix;
     };
 
     devShells.${system}.default = pkgs.mkShell {

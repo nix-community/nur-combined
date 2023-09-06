@@ -4,7 +4,7 @@ let
   ini = pkgs.formats.ini {
     listToValue = value: builtins.concatStringsSep config.options.services.cloud-savegame.settings.general.divider;
   };
-  cloud-savegame = pkgs.callPackage "${pkgs.bumpkin.unpacked.cloud-savegame}/package.nix" {};
+  cloud-savegame = pkgs.callPackage "${self.inputs.cloud-savegame}/package.nix" {};
   cfg = config.services.cloud-savegame;
 in {
   options.services.cloud-savegame = {

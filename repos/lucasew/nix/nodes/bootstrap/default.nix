@@ -6,6 +6,7 @@ in {
   imports = [
     ./bash-extra.nix
     ./colors.nix
+    ./ccache.nix
     ./motd.nix
     ./netns.nix
     ./nix-binary-caches.nix

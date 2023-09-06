@@ -26,6 +26,8 @@ in {
 
   services.nginx.enable = true;
 
+  programs.ccache.enable = true;
+
   services.xserver.windowManager.i3.enable = true;
 
   services.hardware.openrgb.enable = true;
