@@ -51,6 +51,7 @@
     ./splatmoji.nix
     ./steam.nix
     ./sublime-music.nix
+    ./swaynotificationcenter.nix
     ./tangram.nix
     ./tuba.nix
     ./vlc.nix

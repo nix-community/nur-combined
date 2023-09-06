@@ -3,9 +3,18 @@
 { lib, pkgs }:
 {
   height = lib.mkDefault 40;
-  modules-left = lib.mkDefault ["sway/workspaces"];
-  modules-center = lib.mkDefault ["sway/window"];
-  modules-right = lib.mkDefault ["custom/media" "clock" "battery" "memory" "cpu" "network"];
+  modules-left = lib.mkDefault [ "sway/workspaces" ];
+  modules-center = lib.mkDefault [ "sway/window" ];
+  modules-right = lib.mkDefault [
+    "custom/media"
+    "custom/swaync"
+    "clock"
+    "battery"
+    "memory"
+    "cpu"
+    "network"
+  ];
+
   "sway/window" = {
     max-length = 50;
   };
@@ -27,6 +36,27 @@
     on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
     on-scroll-up = "${pkgs.playerctl}/bin/playerctl next";
     on-scroll-down = "${pkgs.playerctl}/bin/playerctl previous";
+  };
+  "custom/swaync" = {
+    # source: <https://github.com/ErikReider/SwayNotificationCenter#waybar-example>
+    tooltip = false;
+    format = "{icon}";  # or "{icon} {}" to inclde notif count
+    format-icons = {
+      notification = "<span foreground='red'><sup></sup></span>";
+      none = "";
+      dnd-notification = "<span foreground='red'><sup></sup></span>";
+      dnd-none = "";
+      inhibited-notification = "<span foreground='red'><sup></sup></span>";
+      inhibited-none = "";
+      dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+      dnd-inhibited-none = "";
+    };
+    return-type = "json";
+    exec-if = "which swaync-client";
+    exec = "swaync-client -swb";
+    on-click = "swaync-client -t -sw";
+    on-click-right = "swaync-client -d -sw";
+    escape = true;
   };
   network = {
     # docs: <https://github.com/Alexays/Waybar/blob/master/man/waybar-network.5.scd>

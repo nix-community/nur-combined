@@ -171,11 +171,8 @@ in
         package = null;
         suggestedPrograms = [
           "guiApps"
-          "mako"       # notification daemon
           "sfeed"      # want this here so that the user's ~/.sfeed/sfeedrc gets created
           "superd"     # make superctl (used by sxmo) be on PATH
-          "sway-contrib.grimshot"
-          "wdisplays"  # like xrandr
         ];
 
         persist.cryptClearOnBoot = [
