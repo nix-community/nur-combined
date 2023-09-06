@@ -1,6 +1,4 @@
 ## BUGS
-- mpv UI is sometimes blank for audio/podcasts?
-  - i think it's when the audio file has no thumbnail?
 - why i need to manually restart `wireguard-wg-ovpns` on servo periodically
   - else DNS fails
 - fix epiphany URL bar input on moby

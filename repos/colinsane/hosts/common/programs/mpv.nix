@@ -40,8 +40,10 @@
     };
     persist.plaintext = [ ".config/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = ''
-      # let volume keys be interpreted by the system.
+      # let volume/power keys be interpreted by the system.
       # this is important for sxmo.
+      # mpv defaults is POWER = close, VOLUME_{UP,DOWN} = adjust application-level volume
+      POWER ignore
       VOLUME_UP ignore
       VOLUME_DOWN ignore
     '';
