@@ -789,7 +789,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2023-09-05",
+        "date": "2023-09-01",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -799,12 +799,27 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "80de22a15993d6ece7fbfa62858792a8c3fa207f",
-            "sha256": "sha256-tSHwFDABJ2GM0+wuY7ELkrTKVK4+k3J9ndZ+TLhZ99A=",
+            "rev": "8eb614f69edffb52ba57b381d99dce1f587235ec",
+            "sha256": "sha256-wKS+J+Zus19QaMEcfp3O4munp0dslFHWicQWz3ZqFp0=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "80de22a15993d6ece7fbfa62858792a8c3fa207f"
+        "version": "8eb614f69edffb52ba57b381d99dce1f587235ec"
+    },
+    "wemeet": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "wemeet",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-mAUXh/C4Vv4cCpiVszbonVVsQjKSXioQsFuEcS3QXFI=",
+            "type": "url",
+            "url": "https://updatecdn.meeting.qq.com/cos/174f137e819ba174c7be6949bb03e665/TencentMeeting_0300000000_3.15.1.400_x86_64_default.publish.deb"
+        },
+        "version": "3.15.1.400"
     },
     "yacd": {
         "cargoLocks": null,

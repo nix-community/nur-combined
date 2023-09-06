@@ -510,16 +510,24 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "80de22a15993d6ece7fbfa62858792a8c3fa207f";
+    version = "8eb614f69edffb52ba57b381d99dce1f587235ec";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "80de22a15993d6ece7fbfa62858792a8c3fa207f";
+      rev = "8eb614f69edffb52ba57b381d99dce1f587235ec";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-tSHwFDABJ2GM0+wuY7ELkrTKVK4+k3J9ndZ+TLhZ99A=";
+      sha256 = "sha256-wKS+J+Zus19QaMEcfp3O4munp0dslFHWicQWz3ZqFp0=";
     };
-    date = "2023-09-05";
+    date = "2023-09-01";
+  };
+  wemeet = {
+    pname = "wemeet";
+    version = "3.15.1.400";
+    src = fetchurl {
+      url = "https://updatecdn.meeting.qq.com/cos/174f137e819ba174c7be6949bb03e665/TencentMeeting_0300000000_3.15.1.400_x86_64_default.publish.deb";
+      sha256 = "sha256-mAUXh/C4Vv4cCpiVszbonVVsQjKSXioQsFuEcS3QXFI=";
+    };
   };
   yacd = {
     pname = "yacd";
