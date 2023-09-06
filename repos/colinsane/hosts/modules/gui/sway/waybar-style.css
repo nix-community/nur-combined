@@ -30,6 +30,10 @@ window#waybar {
   /* Avoid rounded borders under each workspace name */
   border: none;
   border-radius: 0;
+  /* keep min-width set here even if it has no apparent effect */
+  /* many gtk themes override it to something large, which doesn't seem appropriate for this context */
+  /* the default adwaita theme uses min-width: 16px */
+  min-width: 16px;
 }
 
 #workspaces button:hover {

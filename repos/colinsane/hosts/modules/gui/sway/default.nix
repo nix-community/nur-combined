@@ -91,6 +91,18 @@ in
         description = "command to run that populates the status section of the topbar";
       };
     };
+    sane.gui.sway.waybar.extra_style = mkOption {
+      type = types.lines;
+      default = ''
+        /* default font-size is about 14px, which is good for moby, but not quite for larger displays */
+        window#waybar {
+          font-size: 16 px;
+        }
+      '';
+      description = ''
+        extra CSS rules to append to ~/.config/waybar/style.css
+      '';
+    };
     sane.gui.sway.waybar.top = mkOption {
       type = types.submodule {
         # `attrsOf types.anything` (v.s. plain `attrs`) causes merging of the toplevel items.
@@ -228,7 +240,7 @@ in
           ];
 
         ".config/waybar/style.css".symlink.text =
-          builtins.readFile ./waybar-style.css;
+          (builtins.readFile ./waybar-style.css) + cfg.waybar.extra_style;
 
         ".config/sway/config" = lib.mkIf cfg.installConfigs {
           symlink.target = import ./sway-config.nix {

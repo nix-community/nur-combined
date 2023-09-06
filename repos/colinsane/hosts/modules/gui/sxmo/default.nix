@@ -200,6 +200,8 @@ in
           # we manage the greeter ourselves  (TODO: merge this into sway config as well)
           useGreeter = false;
           waybar.top = import ./waybar-top.nix;
+          # reset extra waybar style
+          waybar.extra_style = "";
           config = {
             # N.B. missing from upstream sxmo config here is:
             # - `bindsym $mod+g exec sxmo_hook_locker.sh`

@@ -1,6 +1,6 @@
 # config docs:
 # - `man 5 mako`
-{ ... }:
+{ lib, config, pkgs, ... }:
 {
   sane.programs.mako = {
     fs.".config/mako/config".symlink.text = ''
@@ -11,6 +11,11 @@
       on-button-middle=dismiss-group
 
       max-visible=3
+      # layer:
+      # - overlay: shows notifs above all else, even full-screen windows
+      # - top: shows notifs above windows, but not if they're full-screen
+      # - bottom; background
+      layer=overlay
       # notifications can be grouped by:
       # - app-name
       # - app-icon
@@ -27,7 +32,6 @@
       background-color=#ffffff
       text-color=#000000
       border-color=#000000
-      layer=overlay
       # group-by=app-name
 
       [urgency=low]
@@ -41,5 +45,25 @@
       text-color=#ffffff
       background-color=#ff0000
     '';
+  };
+
+  # mako supports activation via dbus (i.e. the daemon will be started on-demand when a
+  # dbus client tries to talk to it): that works out-of-the-box just by putting mako
+  # on environment.packages, but then logs are blackholed.
+  # TODO: give `sane.programs` native support for defining services
+  systemd.user.services.mako = lib.mkIf config.sane.programs.mako.enabled {
+    description = "mako desktop notification daemon";
+    wantedBy = [ "default.target" ];
+    # XXX: should be part of graphical-session.target, but whatever mix of greetd/sway
+    # i'm using means that target's never reached...
+    # TODO: might want `ConditionUser=!@system`
+
+    serviceConfig.ExecStart = "${pkgs.mako}/bin/mako";
+    serviceConfig.Type = "simple";
+    serviceConfig.Restart = "on-failure";
+    serviceConfig.RestartSec = "10s";
+
+    # don't start mako until after sway
+    preStart = ''test -n "$SWAYSOCK"'';
   };
 }

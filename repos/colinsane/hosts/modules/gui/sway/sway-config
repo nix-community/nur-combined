@@ -139,14 +139,8 @@ bar {
   # i.e. `swaybar_command` obsoletes all else
   position top
   status_command @status_cmd@
-  # XXX Colin: *probably* necessary for sxmo
+  # XXX Colin: pango_markup came from sxmo, but seems to work w/o it
   pango_markup enabled
-  # XXX Colin: not sure if all of these are necessary
-  mode dock
-  hidden_state hide
-  workspace_buttons yes
-  strip_workspace_numbers no
-  tray_output primary
 }
 
 ### application-specific settings
