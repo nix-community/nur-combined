@@ -1,22 +1,16 @@
-{ lib
-, python3
-, fetchPypi
-, buildPythonApplication
-}:
+{ lib, python3, fetchPypi, buildPythonApplication }:
 
 buildPythonApplication rec {
   pname = "pipe21";
-  version = "1.16.0";
+  version = "1.20.0";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-d/gferB3/pYdCoNmZItriwffE3qmAJFj6jHfJ3We1L8=";
+    hash = "sha256-ySwFK720X2nCijeXL4BJLCOz6w1FmCmp4Il4w92CmMM=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.setuptools
-  ];
+  nativeBuildInputs = [ python3.pkgs.setuptools ];
 
   passthru.optional-dependencies = with python3.pkgs; {
     dev = [
@@ -35,10 +29,9 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "pipe21" ];
 
-  meta = with lib; {
+  meta = {
     description = "Simple functional pipes";
     homepage = "https://pypi.org/project/pipe21/";
-    license = with licenses; [ ];
-    maintainers = with maintainers; [ nagy ];
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }
