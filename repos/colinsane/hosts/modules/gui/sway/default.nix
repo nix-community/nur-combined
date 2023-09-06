@@ -46,6 +46,9 @@ in
           default font (for e.g. window titles)
         '';
       };
+      background = mkOption {
+        type = types.path;
+      };
       mod = mkOption {
         type = types.string;
         default = "Mod4";

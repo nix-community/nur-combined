@@ -4,6 +4,7 @@
 {
   sane.gui.sxmo = {
     greeter = "greetd-sway-gtkgreet";
+    noidle = true;  #< power button requires 1s hold, which makes it impractical to be dealing with.
     settings = {
       # XXX: make sure the user is part of the `input` group!
       SXMO_LISGD_INPUT_DEVICE = "/dev/input/by-id/usb-Wacom_Co._Ltd._Pen_and_multitouch_sensor-event-if00";

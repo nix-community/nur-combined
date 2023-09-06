@@ -7,6 +7,7 @@
     ./phosh.nix
     ./sway
     ./sxmo
+    ./theme
   ];
 
   sane.programs.guiApps = {

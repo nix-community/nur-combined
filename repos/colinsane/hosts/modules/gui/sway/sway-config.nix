@@ -36,10 +36,12 @@ in pkgs.substituteAll {
     xwayland
   ;
   inherit (config)
+    background
     brightness_down_cmd
     brightness_up_cmd
     extra_lines
     screenshot_cmd
+    status_cmd
     font
     mod
     workspace_layout

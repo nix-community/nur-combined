@@ -46,13 +46,12 @@
 #   - on-screen keyboard:  wvkbd (if wayland), svkbd (if X)
 #
 # TODO:
-# - don't duplicate so much of hosts/modules/gui/sway
-#   - might help if i bring more under my control, and launch sxmo via sway instead of the opposite
 # - theme `mako` notifications
 { config, lib, pkgs, ... }:
 
 let
   cfg = config.sane.gui.sxmo;
+  package = cfg.package;
   knownKeyboards = {
     # map keyboard package name -> name of binary to invoke
     wvkbd = "wvkbd-mobintl";
@@ -67,14 +66,6 @@ let
     echo "launching ${identifier}..." | ${systemd-cat} --identifier=${identifier}
     ${cmd} 2>&1 | ${systemd-cat} --identifier=${identifier}
   '';
-
-  package = cfg.package.overrideAttrs (base: {
-    postPatch = (base.postPatch or "") + ''
-      # don't start conky via superd: i manage it myself
-      substituteInPlace ./configs/default_hooks/sxmo_hook_start.sh \
-        --replace 'superctl start sxmo_conky' ""
-    '';
-  });
 in
 {
   options = with lib; {
@@ -110,6 +101,15 @@ in
         sxmo base scripts and hooks collection.
         consider overriding the outputs under /share/sxmo/default_hooks
         to insert your own user scripts.
+      '';
+    };
+    sane.gui.sxmo.hooks = mkOption {
+      type = types.attrsOf types.path;
+      default = {
+        "sxmo_hook_start.sh" = ./hooks/sxmo_hook_start.sh;
+      };
+      description = ''
+        extra hooks to add with higher priority than the builtins
       '';
     };
     sane.gui.sxmo.terminal = mkOption {
@@ -232,6 +232,15 @@ in
                   source "$XDG_CONFIG_HOME/sxmo/profile"
                   _sxmo_load_environments
                   _sxmo_prepare_dirs
+                  # migrate tells sxmo to provide the following default files:
+                  # - ~/.config/sxmo/profile
+                  # - ~/.config/fontconfig/conf.d/50-sxmo.conf
+                  # - ~/.config/sxmo/sway
+                  # - ~/.config/foot/foot.ini
+                  # - ~/.config/mako/config
+                  # - ~/.config/sxmo/bonsai_tree.json
+                  # - ~/.config/wob/wob.ini
+                  # - ~/.config/sxmo/conky.conf
                   sxmo_migrate.sh sync
 
                   # kill anything leftover from the previous sxmo run. this way we can (try to) be reentrant
@@ -339,16 +348,27 @@ in
           };
         };
 
-        sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle {
-          symlink.text = "";
-        };
-        sane.user.fs.".cache/sxmo/sxmo.nogesture" = lib.mkIf cfg.nogesture {
-          symlink.text = "";
-        };
-        sane.user.fs.".config/sxmo/profile".symlink.text = let
-          mkKeyValue = key: value: ''export ${key}="${value}"'';
-        in
-          lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;
+        sane.user.fs = lib.mkMerge [
+          {
+            ".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle {
+              symlink.text = "";
+            };
+            ".cache/sxmo/sxmo.nogesture" = lib.mkIf cfg.nogesture {
+              symlink.text = "";
+            };
+            ".config/sxmo/profile".symlink.text = let
+              mkKeyValue = key: value: ''export ${key}="${value}"'';
+            in
+              lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;
+          }
+          (lib.mapAttrs' (name: value: {
+            # sxmo's `_sxmo_load_environments` adds to PATH:
+            # - ~/.config/sxmo/hooks/$SXMO_DEVICE_NAME
+            # - ~/.config/sxmo/hooks
+            name = ".config/sxmo/hooks/${name}";
+            value.symlink.target = value;
+          }) cfg.hooks)
+        ];
       }
 
       (lib.mkIf (cfg.greeter == "lightdm-mobile") {
