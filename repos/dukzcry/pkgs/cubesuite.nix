@@ -1,19 +1,19 @@
-{ stdenvNoCC, lib, wrapWine, makeDesktopItem, fetchFromGitHub, unzip, ... }:
+{ stdenvNoCC, lib, wrapWine, makeDesktopItem, fetchurl, unzip }:
 
 let
-  version = "2.7.8";
-  src = fetchFromGitHub {
-    owner = "repos-holder";
-    repo = "binaries";
-    rev = "a52e76e19e596cb9fbe226515fc8130a7fed3ba4";
-    sha256 = "sha256-WivF8GC9Lx/Y57eObyvi9PYhEmaf7A/0Wn6LbPqK1bI=";
+  version = "2.8.0";
+  src = fetchurl {
+    url = "https://archive.org/download/cuvave-cubesuite/CubeSuite+V${version}+for+Windows+OS.zip";
+    sha256 = "sha256-/piT+Mu3KeQEVjCJRr9tdLgsZ9B9v0BnRaUvrD6I7IM=";
   };
   bin = wrapWine {
     name = "cubesuite";
     executable = "$WINEPREFIX/drive_c/CubeSuite/CubeSuite.exe";
     firstrunScript = ''
       pushd "$WINEPREFIX/drive_c"
-        ${unzip}/bin/unzip ${src}/CubeSuite+V${version}+for+Windows+OS.zip
+        ${unzip}/bin/unzip ${src}
+        # fix config import and export
+        mkdir users/$USER/Desktop
       popd
     '';
   };

@@ -23,15 +23,14 @@
 , xdg-utils
 , xorg
 , zlib
-, fetchFromGitHub
+, requireFile
 }:
 
 let
-  jar = fetchFromGitHub {
-    owner = "repos-holder";
-    repo = "binaries";
-    rev = "8bf2410f069d011c45f8995bb3634ed5ea5022a3";
-    sha256 = "sha256-bj/LQx+6/liOXN9eYXBnAbyMUkAU+5dZScF6telb84k=";
+  crack = requireFile {
+    name = "bitwig.jar";
+    url = "https://rutracker.org/forum/viewtopic.php?t=6392574";
+    sha256 = "7365156e9197c95b8dcc5390581bc3fe0efe687094f08eb464042613f3fc0c8f";
   };
 in stdenv.mkDerivation rec {
   pname = "bitwig-studio";
@@ -90,7 +89,7 @@ in stdenv.mkDerivation rec {
       $out/share/applications/com.bitwig.BitwigStudio.desktop \
       --replace /usr/bin/bitwig-studio $out/bin/bitwig-studio
 
-    cat ${jar}/bitwig.jar.gz | gzip -d > $out/libexec/bin/bitwig.jar
+    cp ${crack} $out/libexec/bin/bitwig.jar
 
     runHook postInstall
   '';
