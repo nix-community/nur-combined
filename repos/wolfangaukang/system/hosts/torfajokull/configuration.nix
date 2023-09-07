@@ -9,7 +9,7 @@
     "${inputs.self}/system/profiles/sets/workstation.nix"
   ];
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_3;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
 
   profile = {
     nix = {

@@ -104,10 +104,17 @@ in
       };
     })
     (mkIf cfg.shell.enableFish {
-      programs.fish = {
-        enable = true;
-        shellAliases = shellAliases;
+      programs = {
+        fish = {
+          enable = true;
+          shellAliases = shellAliases;
+        };
+        nix-index = {
+          enable = true;
+          enableFishIntegration = true;
+        };
       };
+
     })
     (mkIf cfg.enableTmux {
        programs.tmux =
@@ -145,7 +152,7 @@ in
         # TOML
         taplo
         # YAML
-        nodePackages.yaml-language-server
+        yaml-language-server
       ];
     })
     (mkIf cfg.editors.neovim.enable {
