@@ -64,7 +64,7 @@
     # i'm using means that target's never reached...
     # TODO: might want `ConditionUser=!@system`
 
-    serviceConfig.ExecStart = "${pkgs.mako}/bin/mako";
+    serviceConfig.ExecStart = "${config.sane.programs.mako.package}/bin/mako";
     serviceConfig.Type = "simple";
     # mako will predictably fail if launched before the wayland server is fully initialized
     serviceConfig.Restart = "on-failure";
