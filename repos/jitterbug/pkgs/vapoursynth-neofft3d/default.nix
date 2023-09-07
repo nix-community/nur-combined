@@ -9,15 +9,15 @@
 , fftwFloat
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "vapoursynth-neofft3d";
-  version = "11";
+  version = "unstable-2021-10-22";
 
   src = fetchFromGitHub {
-    owner = "HomeOfVapourSynthEvolution";
+    owner = "HomeOfAviSynthPlusEvolution";
     repo = "neo_FFT3d";
-    rev = "r${version}";
-    sha256 = "sha256-m+Gu2ufwL3GelEQgPCGAaqP9At/D3Mi40bFYWE1YoDc=";
+    rev = "23522f55a259c5b564fa9ffc721a95ac4e38fede";
+    hash = "sha256-m+Gu2ufwL3GelEQgPCGAaqP9At/D3Mi40bFYWE1YoDc=";
   };
 
   NIX_LDFLAGS = "-rpath ${lib.makeLibraryPath [ fftwFloat ]}";
