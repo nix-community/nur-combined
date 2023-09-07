@@ -200,7 +200,7 @@ let
             "cp o/${cosmoMeta.mode}/${target} ${"$" + name}/bin/")
             value.coms))
           wantedOutputs)
-        "mkdir -p $out/bin \n"
+        ("mkdir -p $out/bin" + "\n") # workaround for nix's weird stdout muddling
       ]));
   symlinkStuff =
     # symlink per-app outputs to global $out directory, for easy adding to path.
@@ -247,6 +247,7 @@ stdenv.mkDerivation {
     '';
     installPhase = ''
       runHook preInstall
+      '' + lib.optionalString distRepo ''
       mkdir -p $out/include $out/lib
       install o/cosmopolitan.h $out/include
       install o/${cosmoMeta.mode}/cosmopolitan.a o/${cosmoMeta.mode}/libc/crt/crt.o o/${cosmoMeta.mode}/ape/ape.{o,lds} o/${cosmoMeta.mode}/ape/ape-no-modify-self.o $out/lib
