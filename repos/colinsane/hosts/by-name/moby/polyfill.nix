@@ -20,6 +20,9 @@
     # sidebery UX doesn't make sense on small screen
     addons.sidebery.enable = false;
   };
+  sane.programs.swaynotificationcenter.config = {
+    backlight = "backlight";  # /sys/class/backlight/*backlight*/brightness
+  };
 
   sane.gui.sxmo = {
     nogesture = true;

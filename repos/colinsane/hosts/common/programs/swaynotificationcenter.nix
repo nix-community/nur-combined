@@ -16,6 +16,20 @@
 { config, lib, ... }:
 {
   sane.programs.swaynotificationcenter = {
+    configOption = with lib; mkOption {
+      type = types.submodule {
+        options = {
+          backlight = mkOption {
+            type = types.str;
+            default = "intel_backlight";
+            description = ''
+              name of entry in /sys/class/backlight which indicates the primary backlight.
+            '';
+          };
+        };
+      };
+      default = {};
+    };
     fs.".config/swaync/style.css".symlink.text = ''
       /* avoid black-on-black text that the default style ships */
       window {
@@ -105,6 +119,7 @@
       widget-config = {
         backlight = {
           label = "󰃝 ";
+          device = config.sane.programs.swaynotificationcenter.config.backlight;
         };
         dnd = {
           text = "Do Not Disturb";
