@@ -71,10 +71,13 @@ Enable `exportVersionVariable`to have the environment variable `__CXADC_VERSION`
 The reference LTFS implementation.
 
 # vapoursynth-bwdif
-This is a vapoursynth dependency for QTGMC.
+Dependency for QTGMC.
+
+# vapoursynth-neofft3d
+Fork of fft3dfilter.
 
 # amcdx-video-patcher-cli
-This is a tool for editing ProRes MOV files.
+Tool for editing ProRes MOV files.
 
 # pyhht
-This is a dependency of vhs-decode.
+Dependency for vhs-decode.
