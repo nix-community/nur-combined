@@ -5061,10 +5061,10 @@
       };
     "nos2x-fox" = buildFirefoxXpiAddon {
       pname = "nos2x-fox";
-      version = "1.11.0";
+      version = "1.12.0";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079573/nos2x_fox-1.11.0.xpi";
-      sha256 = "2692cdcebb628a90b34c69563ce2ddc8e386757e1f1bac17ebfb7c422624177d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164120/nos2x_fox-1.12.0.xpi";
+      sha256 = "aa3d45b049be85017952d55be836ab5bfc13c0866e9e5140ee4bd71a3bc46475";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
