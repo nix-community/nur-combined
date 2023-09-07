@@ -91,6 +91,10 @@ in
     env.EDITOR = "vim";
     # git claims it should use EDITOR, but it doesn't!
     env.GIT_EDITOR = "vim";
+    mime.priority = 200;  # default=100 => yield to other, more specialized applications
+    mime.associations."application/schema+json" = "nvim.desktop";
+    mime.associations."plain/text" = "nvim.desktop";
+    mime.associations."text/markdown" = "nvim.desktop";
   };
 
   programs.neovim = mkIf config.sane.programs.neovim.enabled {

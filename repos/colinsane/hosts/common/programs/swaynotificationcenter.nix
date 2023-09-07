@@ -7,8 +7,12 @@
 # - `G_MESSAGES_DEBUG=all swaync`
 # - reveal notification center: `swaync-client -t -sw`
 #
-# configuration defaults can be found in:
-# - /run/current-system/etc/profiles/per-user/colin/etc/xdg/swaync/
+# configuration:
+# - defaults: /run/current-system/etc/profiles/per-user/colin/etc/xdg/swaync/
+# - `man 5 swaync`
+# - examples:
+#   - thread: <https://github.com/ErikReider/SwayNotificationCenter/discussions/183>
+#   - buttons-grid and menubar: <https://gist.github.com/JannisPetschenka/fb00eec3efea9c7fff8c38a01ce5d507>
 { ... }:
 {
   sane.programs.swaynotificationcenter = {
@@ -20,7 +24,7 @@
       layer = "overlay";
       control-center-layer = "top";
       layer-shell = true;
-      cssPriority = "application";
+      cssPriority = "user";  # "application"|"user". "user" in order to override the system gtk theme.
       control-center-margin-top = 0;
       control-center-margin-bottom = 0;
       control-center-margin-right = 0;
@@ -33,14 +37,14 @@
       timeout = 30;
       timeout-low = 5;
       timeout-critical = 0;
-      fit-to-screen = true;
-      control-center-width = 500;
+      fit-to-screen = true;  #< have notification center take full vertical screen space
+      control-center-width = 400;
       control-center-height = 600;
       notification-window-width = 400;
       keyboard-shortcuts = true;
       image-visibility = "when-available";
       transition-time = 100;
-      hide-on-clear = false;
+      hide-on-clear = true;  #< hide control center when clicking "clear all"
       hide-on-action = true;
       script-fail-notify = true;
       scripts = {
@@ -55,39 +59,67 @@
         # };
       };
       notification-visibility = {
-        # example-name = {
-        #   state = "muted";
-        #   urgency = "Low";
-        #   app-name = "Spotify";
-        # };
+        # match incoming notifications and decide if they should be visible.
+        # map of rule-name => { criteria and effect };
+        # keys:
+        # - `state`: "ignored"|"muted"|"transient"|"enabled"
+        #   => which visibility to apply to matched notifications
+        #   => "ignored" behaves as if the notification was never sent.
+        #   => "muted" adds it to the sidebar & sets the notif indicator but doesn't display it on main display
+        # - `override-urgency`: "unset"|"low"|"normal"|"critical"
+        #   => which urgency to apply to matched notifs
+        # critera: each key is optional, value is regex; rule applies if *all* specified are matched
+        # - `app-name`: string
+        # - `desktop-entry`: string
+        # - `summary`: string
+        # - `body`: string
+        # - `urgency`: "Low"|"Normal"|"Critical"
+        # - `category`: string
+        #
+        # test rules by using `notify-send` (libnotify)
+        sxmo-extraneous = {
+          state = "ignored";
+          summary = "(sxmo_hook_lisgd|Autorotate) (Stopped|Started)";
+        };
       };
       widgets = [
-        "inhibitors"
+        # what to show in the notification center (and in which order).
+        # these are configurable further via `widget-config`.
+        # besides these listed, there are general-purpose UI tools:
+        # - label (show some text)
+        # - buttons-grid (labels which trigger actions when clicked)
+        # - menubar (tree of labels/actions)
         "title"
         "dnd"
+        "inhibitors"
+        "backlight"
+        "volume"
+        "mpris"
         "notifications"
       ];
       widget-config = {
+        backlight = {
+          label = "󰃝 ";
+        };
+        dnd = {
+          text = "Do Not Disturb";
+        };
         inhibitors = {
           text = "Inhibitors";
           button-text = "Clear All";
           clear-all-button = true;
+        };
+        mpris = {
+          image-size = 64;
+          image-radius = 8;
         };
         title = {
           text = "Notifications";
           clear-all-button = true;
           button-text = "Clear All";
         };
-        dnd = {
-          text = "Do Not Disturb";
-        };
-        label = {
-          max-lines = 5;
-          text = "Label Text";
-        };
-        mpris = {
-          image-size = 96;
-          image-radius = 12;
+        volume = {
+          label = " ";
         };
       };
     };

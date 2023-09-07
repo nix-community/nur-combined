@@ -6,7 +6,7 @@
 
   modules-left = [ "sway/workspaces" ];
   modules-center = [ ];
-  modules-right = [ "custom/sxmo" ];
+  modules-right = [ "custom/swaync" "custom/sxmo" ];
 
   "sway/workspaces" = {
     all-outputs = true;
