@@ -19,6 +19,7 @@
       "export"  # to read filesystem exports (servo)
       "feedbackd"
       "input"  # for /dev/input/<xyz>: sxmo
+      "media"  # servo, for /var/lib/uninsane/media
       "networkmanager"
       "nixbuild"
       "transmission"  # servo, to admin /var/lib/uninsane/media

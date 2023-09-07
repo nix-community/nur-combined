@@ -1,12 +1,27 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   sane.persist.sys.plaintext = [
     # TODO: mode? we need this specifically for the stats tracking in .config/
-    { user = "transmission"; group = "transmission"; path = "/var/lib/transmission"; }
+    { user = "transmission"; group = config.users.users.transmission.group; path = "/var/lib/transmission"; }
   ];
+  users.users.transmission.extraGroups = [ "media" ];
+
   services.transmission.enable = true;
+  services.transmission.package = pkgs.transmission_4;  #< 2023/09/06: nixpkgs `transmission` defaults to old 3.00
+  #v setting `group` this way doesn't tell transmission to `chown` the files it creates
+  #  it's a nixpkgs setting which just runs the transmission daemon as this group
+  services.transmission.group = "media";
+
+  # transmission will by default not allow the world to read its files.
+  services.transmission.downloadDirPermissions = "775";
+  services.transmission.extraFlags = [
+    "--log-level=debug"
+  ];
+
   services.transmission.settings = {
+    # message-level = 3;  #< enable for debug logging. 0-3, default is 2.
+    # 0.0.0.0 => allow rpc from any host: we gate it via firewall and auth requirement
     rpc-bind-address = "0.0.0.0";
     #rpc-host-whitelist = "bt.uninsane.org";
     #rpc-whitelist = "*.*.*.*";
@@ -17,9 +32,8 @@
     rpc-password = "{503fc8928344f495efb8e1f955111ca5c862ce0656SzQnQ5";
     rpc-whitelist-enabled = false;
 
-    # download-dir = "/opt/uninsane/media/";
     # hopefully, make the downloads world-readable
-    umask = 0;
+    # umask = 0;  #< default is 2: i.e. deny writes from world
 
     # force peer connections to be encrypted
     encryption = 2;
@@ -35,17 +49,18 @@
 
     download-dir = "/var/lib/uninsane/media";
     incomplete-dir = "/var/lib/uninsane/media/incomplete";
-
+    # transmission regularly fails to move stuff from the incomplete dir to the main one, so disable:
+    # TODO: uncomment this line!
+    incomplete-dir-enabled = false;
   };
-  # transmission will by default not allow the world to read its files.
-  services.transmission.downloadDirPermissions = "775";
 
   systemd.services.transmission.after = [ "wireguard-wg-ovpns.service" ];
   systemd.services.transmission.partOf = [ "wireguard-wg-ovpns.service" ];
   systemd.services.transmission.serviceConfig = {
     # run this behind the OVPN static VPN
     NetworkNamespacePath = "/run/netns/ovpns";
-    LogLevelMax = "warning";
+    Restart = "on-failure";
+    RestartSec = "30s";
   };
 
   # service to automatically backup torrents i add to transmission

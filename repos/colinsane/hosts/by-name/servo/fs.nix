@@ -40,6 +40,34 @@
     # TODO: this is overly broad; only need media and share directories to be persisted
     { user = "colin"; group = "users"; path = "/var/lib/uninsane"; }
   ];
+  # force some problematic directories to always get correct permissions:
+  sane.fs."/var/lib/uninsane/media".dir.acl = {
+    user = "colin"; group = "media"; mode = "0775";
+  };
+  sane.fs."/var/lib/uninsane/media/archive".dir = {};
+  sane.fs."/var/lib/uninsane/media/archive/README.md".file.text = ''
+    this directory is for media i wish to remove from my library,
+    but keep for a short time in case i reverse my decision.
+    treat it like a system trash can.
+  '';
+  sane.fs."/var/lib/uninsane/media/Books".dir = {};
+  sane.fs."/var/lib/uninsane/media/Books/Audiobooks".dir = {};
+  sane.fs."/var/lib/uninsane/media/Books/Books".dir = {};
+  sane.fs."/var/lib/uninsane/media/Books/Visual".dir = {};
+  sane.fs."/var/lib/uninsane/media/collections".dir = {};
+  sane.fs."/var/lib/uninsane/media/datasets".dir = {};
+  sane.fs."/var/lib/uninsane/media/freeleech".dir = {};
+  sane.fs."/var/lib/uninsane/media/Music".dir = {};
+  sane.fs."/var/lib/uninsane/media/Pictures".dir = {};
+  sane.fs."/var/lib/uninsane/media/Videos".dir = {};
+  sane.fs."/var/lib/uninsane/media/Videos/Film".dir = {};
+  sane.fs."/var/lib/uninsane/media/Videos/Shows".dir = {};
+  sane.fs."/var/lib/uninsane/media/Videos/Talks".dir = {};
+  sane.fs."/var/lib/uninsane/datasets/README.md".file.text = ''
+    this directory may seem redundant with ../media/datasets. it isn't.
+    this directory exists on SSD, allowing for speedy access to specific datasets when necessary.
+    the contents should be a subset of what's in ../media/datasets.
+  '';
   # make sure large media is stored to the HDD
   sane.persist.sys.ext = [
     {

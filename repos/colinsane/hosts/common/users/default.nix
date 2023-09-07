@@ -7,6 +7,8 @@
     ./root.nix
   ];
 
+  users.groups.media = {};
+
   # Users are exactly these specified here;
   # old ones will be deleted (from /etc/passwd, etc) upon upgrade.
   users.mutableUsers = false;
