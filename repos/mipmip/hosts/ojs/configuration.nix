@@ -29,6 +29,7 @@
     ../../modules/desktop-virtualbox.nix
     ../../modules/desktop-security.nix
 
+    ../../modules/dev-jsonyaml.nix
     ../../modules/dev-core.nix
     ../../modules/dev-crystal.nix
     ../../modules/dev-go.nix
