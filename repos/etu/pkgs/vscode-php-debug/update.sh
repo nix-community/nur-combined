@@ -4,7 +4,7 @@
 set -euo pipefail
 
 latestVersion="$(curl -s "https://api.github.com/repos/xdebug/vscode-php-debug/releases?per_page=1" | jq -r ".[0].tag_name" | sed 's/^v//')"
-currentVersion=$(nix-instantiate --eval -E "with import ./. {}; vscode-php-debug.version" | tr -d '"')
+currentVersion=$(jq -r '.version' pin.json)
 
 if [[ "$currentVersion" == "$latestVersion" ]]; then
     echo "vscode-php-debug is up-to-date: $currentVersion"
@@ -21,11 +21,11 @@ rm yarn.nix yarn.lock package.json package-lock.json
 curl https://raw.githubusercontent.com/xdebug/vscode-php-debug/v$latestVersion/package.json --output package.json
 curl https://raw.githubusercontent.com/xdebug/vscode-php-debug/v$latestVersion/package-lock.json --output package-lock.json
 
-# Convert the package.json and pcakage-lock.json to a yarn lock file.
+# Convert the package.json and package-lock.json to a yarn lock file.
 yarn import
 
 # Get needed hashes for locking
-srcHash=$(nix-prefetch-github xdebug vscode-php-debug --rev v${latestVersion} | jq -r .sha256)
+srcHash=$(nix-prefetch-github xdebug vscode-php-debug --rev v${latestVersion} | jq -r .hash)
 
 # Remove the temporary node_modules directory.
 rm -rf node_modules

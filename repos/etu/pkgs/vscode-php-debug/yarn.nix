@@ -6162,11 +6162,11 @@
       };
     }
     {
-      name = "word_wrap___word_wrap_1.2.3.tgz";
+      name = "word_wrap___word_wrap_1.2.4.tgz";
       path = fetchurl {
-        name = "word_wrap___word_wrap_1.2.3.tgz";
-        url  = "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz";
-        sha512 = "Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==";
+        name = "word_wrap___word_wrap_1.2.4.tgz";
+        url  = "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.4.tgz";
+        sha512 = "2V81OA4ugVo5pRo46hAoD2ivUJx8jXmWXfUkY4KFNw0hEptvN0QfH3K4nHiwzGeKl5rFKedV48QVoqYavy4YpA==";
       };
     }
     {
