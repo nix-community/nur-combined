@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.15.0";
+      version = "1.15.1";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160486/10ten_ja_reader-1.15.0.xpi";
-      sha256 = "ae94ceb16f029e8feacb7b63c303497324dfb5799d1cf8935382e9b5ce618dde";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162143/10ten_ja_reader-1.15.1.xpi";
+      sha256 = "cf638be78da479ccd54fe6ace7990a5ba7757562ec48b2a177e24c86d2ee235c";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -56,10 +56,10 @@
       };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
-      version = "2.2.5";
+      version = "2.2.6";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160512/addy_io-2.2.5.xpi";
-      sha256 = "950b47654a1d74a2098ec5fe7cc2a65b3387a779bbc0b23fba2f357e8237491f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164328/addy_io-2.2.6.xpi";
+      sha256 = "357ad00aca68bc9f93028b0f3e849f2a25de0a101d2ac3fe72621d4e3ca9eac8";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -2218,10 +2218,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "118.0.20230905.175953";
+      version = "118.0.20230907.180212";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4163501/francais_language_pack-118.0.20230905.175953.xpi";
-      sha256 = "4199d93eb3ea619a8d2383fff5319c33f3eb6494b3b6a953af516141056080ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164541/francais_language_pack-118.0.20230907.180212.xpi";
+      sha256 = "2a0c66f0de55138393719bd25710b3b90d70d9024ce641541b78c20c34da27c3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2255,10 +2255,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.2.7";
+      version = "3.2.8";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016417/gesturefy-3.2.7.xpi";
-      sha256 = "24eeac920b89d6760e6134471ecf14916a1d2fb470aea6ab9ba52cb2330db83b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4161945/gesturefy-3.2.8.xpi";
+      sha256 = "a618b3f1bee03b7e1940c2c174ed6db5fdb8c1cf85f007bd332b79517967dce6";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -2694,10 +2694,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.906.0";
+      version = "8.907.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4105601/grammarly_1-8.906.0.xpi";
-      sha256 = "a2e604838343e7b9739cb4a58f30fc71472a8ef21f65d293edd8b2304477bc01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4160833/grammarly_1-8.907.0.xpi";
+      sha256 = "b795a1c1fdef917465055c423e76f3735217006891705027a5994afd72d3c7dd";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -2805,6 +2805,7 @@
           "*://outlook.office.com/*"
           "*://*.outlook.office.com/*"
           "*://docs.google.com/document/*"
+          "https://*.overleaf.com/*"
           ];
         platforms = platforms.all;
         };
@@ -4573,10 +4574,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.54";
+      version = "2.6.55";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4150072/localcdn_fork_of_decentraleyes-2.6.54.xpi";
-      sha256 = "33b837b85b07d93e12b5d612f3133f096a44c4a21359cfc6d5bb0a4fb1be57fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162189/localcdn_fork_of_decentraleyes-2.6.55.xpi";
+      sha256 = "aebd7587422b508e762fc66c3dbfcad7b90f8777a2f2a119a76ef3ce2ddf484a";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -6501,10 +6502,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.8.24";
+      version = "23.9.7";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4157985/refined_github-23.8.24.xpi";
-      sha256 = "2adc00ac580bb9b883627890a02db1e1f0bcb565f5b16f88f84ede5683b8bfcd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164242/refined_github-23.9.7.xpi";
+      sha256 = "198ccf175a4c9c242753ccc920394fd7f970a2e7fd8bdfbb5f22880eb3da68b2";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -6791,10 +6792,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.63";
+      version = "1.21.64";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4158864/single_file-1.21.63.xpi";
-      sha256 = "1af240763da1d9ae62c27737d0228d19b8e94e224537aa2eed0873768be0662c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162382/single_file-1.21.64.xpi";
+      sha256 = "e0b47d8d6d12906dd4680059640a74109532b86e47deb80ea2086055136a5afd";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -7025,10 +7026,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.7.1";
+      version = "3.7.2";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4154660/steam_database-3.7.1.xpi";
-      sha256 = "a3db281f0bd7a62c6f62157d97c06d6eed0900ae1878b5f819324bfe2bd9a4f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4163150/steam_database-3.7.2.xpi";
+      sha256 = "d53ebbb78cab59de0111ededc3a66ff98a8ecf5580d09608579a3692d34682eb";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -7621,10 +7622,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.8.2.0";
+      version = "9.9.0.20";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146578/traduzir_paginas_web-9.8.2.0.xpi";
-      sha256 = "7025e4631b73971fbc670a07e80f911dbc33b72680f2138a29d65c5ea8dbe168";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162381/traduzir_paginas_web-9.9.0.20.xpi";
+      sha256 = "84cdf7420144dab153b98d413db11eca6630595b55f6236eb283db6b400110f8";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
@@ -7778,10 +7779,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.3.2.1";
+      version = "8.3.3";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4148811/ublacklist-8.3.2.1.xpi";
-      sha256 = "b9a450e2e771b1ce01e866eef7f6ccda11198f2b48004c4affa25915042b7fbf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162158/ublacklist-8.3.3.xpi";
+      sha256 = "e6979a52043bbe4cf4cab5c0f90a973d630b7121045b9fd6f1991eeb26996e0a";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -8212,10 +8213,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "4.1.0";
+      version = "4.1.1";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4144160/view_image-4.1.0.xpi";
-      sha256 = "efcf73bf394d6b2bb04cac1b9b590e1cd3458c40182a62cd76fc002f84b57ea9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4161910/view_image-4.1.1.xpi";
+      sha256 = "c59c885cb752fd9cac2244ad612fb39841cf2f28b258dab8ceb46e5a23362f03";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
@@ -8678,10 +8679,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.0.15";
+      version = "3.1.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132663/web_scrobbler-3.0.15.xpi";
-      sha256 = "db56419d26299c3ec84b23a3da29a4513dd6f6e044804584780829b4eee6136d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162944/web_scrobbler-3.1.0.xpi";
+      sha256 = "328c6db3d16769252337f9af940a10a65f11af7a0f82c285ca67425c32821edc";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
