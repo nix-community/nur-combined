@@ -39,7 +39,7 @@ in
       search = {
         paths = [
           "~"
-          "~/.steam"
+          "~/.steam/steam/steamapps/compatdata/"
           "~/.config"
           "~/.nix-wine"
           "~/.wine"
