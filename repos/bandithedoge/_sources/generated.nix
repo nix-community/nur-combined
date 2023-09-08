@@ -27,27 +27,27 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "d5b23d49ba30e9cfbabc50759f9083fe3628b3ba";
+    version = "ef3801f3b906614135f2effe2a8f2e1f3813adfb";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "d5b23d49ba30e9cfbabc50759f9083fe3628b3ba";
+      rev = "ef3801f3b906614135f2effe2a8f2e1f3813adfb";
       fetchSubmodules = true;
-      sha256 = "sha256-vIzO+IfK4EJhDXDBltZwAgcwf54cU0PhHU8dBMFKmOo=";
+      sha256 = "sha256-WddVjcdIXvZoWz7y0DH8vebidDfJ+dtgwqGAMihfyew=";
     };
-    date = "2023-09-05";
+    date = "2023-09-07";
   };
   carla-git = {
     pname = "carla-git";
-    version = "a627caf17f141009602a76e99cbfc93f5b7d1455";
+    version = "dd092c74aa28f626108f6d3a52c565cb9047d32d";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "a627caf17f141009602a76e99cbfc93f5b7d1455";
+      rev = "dd092c74aa28f626108f6d3a52c565cb9047d32d";
       fetchSubmodules = false;
-      sha256 = "sha256-ly2Xu55rx69wZ/V7czY7V3aep8og7+a3zZohdaGy58M=";
+      sha256 = "sha256-liir1UiDJbRw/yYkB01yg1RoeTCNqTVYHOzsuovPwGI=";
     };
-    date = "2023-09-03";
+    date = "2023-09-07";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";

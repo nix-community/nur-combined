@@ -401,10 +401,10 @@
   };
   "gesturefy" = buildFirefoxXpiAddon {
     pname = "gesturefy";
-    version = "3.2.7";
+    version = "3.2.8";
     addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4016417/gesturefy-3.2.7.xpi";
-    sha256 = "24eeac920b89d6760e6134471ecf14916a1d2fb470aea6ab9ba52cb2330db83b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4161945/gesturefy-3.2.8.xpi";
+    sha256 = "a618b3f1bee03b7e1940c2c174ed6db5fdb8c1cf85f007bd332b79517967dce6";
     meta = with lib; {
       homepage = "https://github.com/Robbendebiene/Gesturefy";
       description = "Navigate, operate, and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
@@ -1074,10 +1074,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.8.24";
+    version = "23.9.7";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4157985/refined_github-23.8.24.xpi";
-    sha256 = "2adc00ac580bb9b883627890a02db1e1f0bcb565f5b16f88f84ede5683b8bfcd";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4164242/refined_github-23.9.7.xpi";
+    sha256 = "198ccf175a4c9c242753ccc920394fd7f970a2e7fd8bdfbb5f22880eb3da68b2";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1159,10 +1159,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "3.7.1";
+    version = "3.7.2";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4154660/steam_database-3.7.1.xpi";
-    sha256 = "a3db281f0bd7a62c6f62157d97c06d6eed0900ae1878b5f819324bfe2bd9a4f4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4163150/steam_database-3.7.2.xpi";
+    sha256 = "d53ebbb78cab59de0111ededc3a66ff98a8ecf5580d09608579a3692d34682eb";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";

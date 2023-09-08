@@ -378,13 +378,13 @@
         sha512 = "RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==";
       };
     };
-    "jiti-1.19.3" = {
+    "jiti-1.20.0" = {
       name = "jiti";
       packageName = "jiti";
-      version = "1.19.3";
+      version = "1.20.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jiti/-/jiti-1.19.3.tgz";
-        sha512 = "5eEbBDQT/jF1xg6l36P+mWGGoH9Spuy0PCdSr2dtWRDGC6ph/w9ZCL4lmESW8f8F7MwT3XKescfP0wnZWAKL9w==";
+        url = "https://registry.npmjs.org/jiti/-/jiti-1.20.0.tgz";
+        sha512 = "3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==";
       };
     };
     "jsonc-parser-2.3.1" = {
@@ -933,7 +933,7 @@ in {
       sources."is-glob-4.0.3"
       sources."is-number-7.0.0"
       sources."isexe-2.0.0"
-      sources."jiti-1.19.3"
+      sources."jiti-1.20.0"
       sources."jsonc-parser-2.3.1"
       sources."kleur-3.0.3"
       sources."lru-cache-6.0.0"
