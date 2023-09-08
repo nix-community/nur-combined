@@ -9,12 +9,7 @@
       # efi_pstore evivars
     ];
 
-    powerManagement.cpuFreqGovernor = "powersave";
     hardware.cpu.amd.updateMicrocode = true;    # desktop
     hardware.cpu.intel.updateMicrocode = true;  # laptop
-
-    hardware.opengl.driSupport = true;
-    # For 32 bit applications
-    hardware.opengl.driSupport32Bit = true;
   };
 }

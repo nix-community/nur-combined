@@ -19,13 +19,6 @@ in
       default = true;
       type = types.bool;
     };
-    sane.gui.sway.installConfigs = mkOption {
-      default = true;
-      type = types.bool;
-      description = ''
-        populate ~/.config/sway/config & co with defaults provided by this module.
-      '';
-    };
     sane.gui.sway.config = {
       extra_lines = mkOption {
         type = types.lines;
@@ -168,12 +161,14 @@ in
       # swap in these lines to use SDDM instead of `services.greetd`.
       # services.xserver.displayManager.sddm.enable = true;
       # services.xserver.enable = true;
-      sane.gui.greetd.enable = true;
-      sane.gui.greetd.sway.enable = true;  # have greetd launch a sway compositor in which we host a greeter
-      sane.gui.greetd.sway.gtkgreet = lib.mkIf cfg.useGreeter {
+      sane.gui.greetd = lib.mkIf cfg.useGreeter {
         enable = true;
-        session.name = "sway-on-gtkgreet";
-        session.command = "${pkgs.sway}/bin/sway --debug";
+        sway.enable = true;  # have greetd launch a sway compositor in which we host a greeter
+        sway.gtkgreet = {
+          enable = true;
+          session.name = "sway-on-gtkgreet";
+          session.command = "${pkgs.sway}/bin/sway --debug";
+        };
       };
 
       # unlike other DEs, sway configures no audio stack
@@ -246,11 +241,9 @@ in
         ".config/waybar/style.css".symlink.text =
           (builtins.readFile ./waybar-style.css) + cfg.waybar.extra_style;
 
-        ".config/sway/config" = lib.mkIf cfg.installConfigs {
-          symlink.target = import ./sway-config.nix {
+        ".config/sway/config".symlink.target = import ./sway-config.nix {
             inherit pkgs;
             inherit (cfg) config;
-          };
         };
       };
     })

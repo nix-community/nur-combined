@@ -3,7 +3,7 @@
   imports = [
     ./feeds.nix
     ./fs.nix
-    ./hardware.nix
+    ./hardware
     ./home
     ./ids.nix
     ./machine-id.nix

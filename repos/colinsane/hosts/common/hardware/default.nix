@@ -1,6 +1,10 @@
 { lib, pkgs, ... }:
 
 {
+  imports = [
+    ./x86_64.nix
+  ];
+
   boot.initrd.supportedFilesystems = [ "ext4" "btrfs" "ext2" "ext3" "vfat" ];
   # useful emergency utils
   boot.initrd.extraUtilsCommands = ''
@@ -26,6 +30,7 @@
 
   # powertop will default to putting USB devices -- including HID -- to sleep after TWO SECONDS
   powerManagement.powertop.enable = false;
+  powerManagement.cpuFreqGovernor = "powersave";
 
   services.logind.extraConfig = ''
     # don’t shutdown when power button is short-pressed

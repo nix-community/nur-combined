@@ -10,6 +10,7 @@
 # configuration:
 # - defaults: /run/current-system/etc/profiles/per-user/colin/etc/xdg/swaync/
 # - `man 5 swaync`
+# - view document tree: `GTK_DEBUG=interactive swaync`  (`systemctl stop --user swaync` first)
 # - examples:
 #   - thread: <https://github.com/ErikReider/SwayNotificationCenter/discussions/183>
 #   - buttons-grid and menubar: <https://gist.github.com/JannisPetschenka/fb00eec3efea9c7fff8c38a01ce5d507>

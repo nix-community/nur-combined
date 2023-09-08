@@ -281,8 +281,6 @@ in
         security.doas.enable = true;
         security.doas.wheelNeedsPassword = false;
 
-        hardware.opengl.enable = true;
-
         # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
         fonts.packages = [ pkgs.nerdfonts ];
 

@@ -136,6 +136,4 @@
     # make Pinephone front LEDs writable by user.
     SUBSYSTEM=="leds", DEVPATH=="*/*:indicator", RUN+="${chmod} g+w /sys%p/brightness", RUN+="${chown} :video /sys%p/brightness"
   '';
-
-  hardware.opengl.driSupport = true;
 }
