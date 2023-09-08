@@ -41,6 +41,7 @@ in {
           epkgs.trivialBuild {
             pname = "base16-hm-theme";
             src = themeFile;
+            version = "0.1.0";
             packageRequires = [ epkgs.base16-theme ];
           };
         earlyInit = ''

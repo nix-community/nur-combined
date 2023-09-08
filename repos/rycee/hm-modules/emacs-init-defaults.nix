@@ -22,6 +22,7 @@
               "https://raw.githubusercontent.com/russell/cue-mode/9c803ee8fa4a6e99c7dc9ae373c6178569583b7a/cue-mode.el";
             sha256 = "0swhpknkg1vwbchblzrwynixf5grg95jy1bkc8w92yfpb1jch7m7";
           };
+          version = "0.1.0";
           preferLocalBuild = true;
           allowSubstitutes = true;
         };
