@@ -91,6 +91,7 @@ in {
     } // builder))
     (mkIf (cfg.enable && desktop) {
       nix.settings.cores = 8;
+      boot.loader.systemd-boot.configurationLimit = 70;
       hardware.bluetooth.enable = true;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
       services.xserver.displayManager.sessionCommands = ''
