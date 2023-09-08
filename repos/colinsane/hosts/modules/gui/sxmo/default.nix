@@ -406,7 +406,6 @@ in
           sway.enable = true;
           sway.gtkgreet.enable = true;
           sway.gtkgreet.session.name = "sxmo-on-gtkgreet";
-          # sway.gtkgreet.session.command = "${package}/bin/sxmo_winit.sh";
           sway.gtkgreet.session.command = "${pkgs.sway}/bin/sway --debug";
         };
       })
@@ -417,7 +416,7 @@ in
           sway.enable = true;
           sway.greeterCmd = "${pkgs.phog}/libexec/phog";
         };
-        # phog locates sxmo_winit.sh via <env>/share/wayland-sessions
+        # phog locates sxmo_winit.sh (or sway.desktop) via <env>/share/wayland-sessions
         environment.pathsToLink = [ "/share/wayland-sessions" ];
       })
 
@@ -427,7 +426,7 @@ in
           session.name = "phog";
           session.command = "${pkgs.phog}/bin/phog";
         };
-        # phog locates sxmo_winit.sh via <env>/share/wayland-sessions
+        # phog locates sxmo_winit.sh (or sway.desktop) via <env>/share/wayland-sessions
         environment.pathsToLink = [ "/share/wayland-sessions" ];
       })
 

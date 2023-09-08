@@ -4,12 +4,49 @@
 # sway-config docs: `man 5 sway`
 let
   cfg = config.sane.gui.sway;
+  defaultPackage = let
+    # `defaultPackage` exists to create a `sway.desktop` file
+    # which will launch sway with our desired debugging facilities.
+    # i.e. redirect output to syslog.
+    scfg = config.programs.sway;
+    systemd-cat = "${pkgs.systemd}/bin/systemd-cat";
+    swayWithLogger = pkgs.writeShellScriptBin "sway-session" ''
+      echo "launching sway-session (sway.desktop)..." | ${systemd-cat} --identifier=sway-session
+      sway 2>&1 | ${systemd-cat} --identifier=sway-session
+    '';
+    origSway = (pkgs.sway.override {
+      # this override is what `programs.nixos` would do internally if we left `package` unset.
+      extraSessionCommands = scfg.extraSessionCommands;
+      extraOptions = scfg.extraOptions;
+      withBaseWrapper = scfg.wrapperFeatures.base;
+      withGtkWrapper = scfg.wrapperFeatures.gtk;
+      isNixOS = true;
+      # TODO: `enableXWayland = ...`?
+    });
+    desktop-file = pkgs.runCommand "sway-desktop-wrapper" {} ''
+      mkdir -p $out/share/wayland-sessions
+      substitute ${origSway}/share/wayland-sessions/sway.desktop $out/share/wayland-sessions/sway.desktop \
+        --replace 'Exec=sway' 'Exec=${swayWithLogger}/bin/sway-session'
+    '';
+  in pkgs.symlinkJoin {
+    inherit (origSway) name meta;
+    # the order of these `paths` is suchs that the desktop-file should claim share/wayland-sessions/sway.deskop,
+    # overriding whatever the origSway provides
+    paths = [ desktop-file origSway ];
+    passthru = {
+      inherit (origSway.passthru) providedSessions;
+    };
+  };
 in
 {
   options = with lib; {
     sane.gui.sway.enable = mkOption {
       default = false;
       type = types.bool;
+    };
+    sane.gui.sway.package = mkOption {
+      default = defaultPackage;
+      type = types.package;
     };
     sane.gui.sway.useGreeter = mkOption {
       description = ''
@@ -167,7 +204,7 @@ in
         sway.gtkgreet = {
           enable = true;
           session.name = "sway-on-gtkgreet";
-          session.command = "${pkgs.sway}/bin/sway --debug";
+          session.command = "${cfg.package}/bin/sway";
         };
       };
 
@@ -205,9 +242,12 @@ in
         # - org.freedesktop.impl.portal.Screenshot
         enable = true;
         extraPackages = [];  # nixos adds swaylock, swayidle, foot, dmenu by default
+        extraOptions = [ "--debug" ];
         # "wrapGAppsHook wrapper to execute sway with required environment variables for GTK applications."
         wrapperFeatures.gtk = true;
+        package = cfg.package;
       };
+      programs.xwayland.enable = cfg.config.xwayland;
       # provide portals for:
       # - org.freedesktop.impl.portal.Access
       # - org.freedesktop.impl.portal.Account
