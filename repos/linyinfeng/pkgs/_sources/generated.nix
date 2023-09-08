@@ -27,10 +27,10 @@
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.20.33";
+    version = "0.20.34";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.33/Clash.for.Windows-0.20.33-x64-linux.tar.gz";
-      sha256 = "sha256-fW640i8rdK+wA5SwDQVU7gkS48Auyn4DxtG9Rp/zlAA=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.34/Clash.for.Windows-0.20.34-x64-linux.tar.gz";
+      sha256 = "sha256-f84us0n1ni+lO4DQEVvbMb0ViNo3ZhuE735pVER7CSE=";
     };
   };
   clash-premium-aarch64-linux = {
@@ -510,16 +510,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "80de22a15993d6ece7fbfa62858792a8c3fa207f";
+    version = "38ef38b72faebb403f91014888d1dec85fe4d19c";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "80de22a15993d6ece7fbfa62858792a8c3fa207f";
+      rev = "38ef38b72faebb403f91014888d1dec85fe4d19c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-tSHwFDABJ2GM0+wuY7ELkrTKVK4+k3J9ndZ+TLhZ99A=";
+      sha256 = "sha256-L9IRzJoh3R6cyzAeL7sOI3i109sfhArOyPyW8oc0LbA=";
     };
-    date = "2023-09-05";
+    date = "2023-09-07";
   };
   yacd = {
     pname = "yacd";
