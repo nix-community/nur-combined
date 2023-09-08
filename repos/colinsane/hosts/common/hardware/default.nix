@@ -30,7 +30,14 @@
 
   # powertop will default to putting USB devices -- including HID -- to sleep after TWO SECONDS
   powerManagement.powertop.enable = false;
-  powerManagement.cpuFreqGovernor = "powersave";
+  # linux CPU governor: <https://www.kernel.org/doc/Documentation/cpu-freq/governors.txt>
+  # - "powersave" => force CPU to always run at lowest supported frequency
+  # - "performance" => force CPU to always run at highest frequency
+  # - "ondemand" => adjust frequency based on load
+  # - "conservative"  (ondemand but slower to adjust)
+  # - "schedutil"
+  # - "userspace"
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   services.logind.extraConfig = ''
     # don’t shutdown when power button is short-pressed
