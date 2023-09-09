@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-  # hardware.deviceTree.name = "rockchip/rk3328-nanopi-r2s.dtb";
+  hardware.deviceTree.name = "rockchip/rk3328-nanopi-r2s.dtb";
   # hardware.deviceTree.filter = "*rk3328-nanopi-r2s.dtb";
   # hardware.deviceTree.overlays = [{
   #   name = "sysled";
