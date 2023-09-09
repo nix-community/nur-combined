@@ -18,7 +18,7 @@
     ];
     etc."clash/Country.mmdb".source = "${pkgs.clash-geoip}/etc/clash/Country.mmdb";
     etc."clash/yacd".source = config.nur.repos.linyinfeng.yacd;
-    etc."clash/config.yaml".source = if config.networking.proxy.httpsProxy == null then ./office.yaml else ./home.yaml;
+    etc."clash/config.yaml".source = ./home.yaml;
   };
 
   systemd.services.clash = {
