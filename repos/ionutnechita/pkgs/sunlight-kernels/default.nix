@@ -1,12 +1,12 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.1.36-sunlight1";
+  modDirVersion = "6.5.2-sunlight1";
   parts = lib.splitString "-" modDirVersion;
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
-  extraVer = "";
-  hash = "sha256-HwfYN5H7Q6OCqY2dJK2Gu/jgIRayLPu/AGh6eGTccRY=";
+  extraVer = "-lowlatency";
+  hash = "sha256-Jp6C6hll1xc8UOFZ/vYdwj8Y3Osiryd7t8RZUV8IqsM=";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
@@ -30,10 +30,6 @@ buildLinux (args // rec {
       X86_AMD_PSTATE = lib.mkOverride 60 yes;
       X86_AMD_PSTATE_UT = no;
 
-      # Google's BBRv2 TCP congestion Control.
-      TCP_CONG_BBR2 = yes;
-      DEFAULT_BBR2 = yes;
-
       # FQ-PIE Packet Scheduling.
       NET_SCH_DEFAULT = yes;
       DEFAULT_FQ_PIE = yes;
@@ -42,10 +38,7 @@ buildLinux (args // rec {
       FUTEX = yes;
       FUTEX_PI = yes;
 
-      # WineSync driver for fast kernel-backed Wine.
-      WINESYNC = module;
-
-      # Preemptive Full Tickless Kernel at 833Hz.
+      # Preemptive Full Tickless Kernel at 858Hz.
       LATENCYTOP = yes;
 
       PREEMPT = lib.mkOverride 60 yes;
@@ -66,8 +59,8 @@ buildLinux (args // rec {
     extraMeta = {
       inherit branch;
       maintainers = with lib.maintainers; [ ];
-      description = "Sunlight Kernel. Built with custom settings and new features built to provide a stable, responsive and smooth desktop experience";
+      description = "Sunlight Kernel. Built with custom settings and new features
+                     built to provide a stable, responsive and smooth desktop experience";
       broken = stdenv.isAarch64;
     };
 } // (args.argsOverride or { }))
-

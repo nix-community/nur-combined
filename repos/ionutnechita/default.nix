@@ -21,10 +21,4 @@
       pkgs.kernelPatches.request_key_helper
     ];
   };
-  linux_sunlight_mainline = pkgs.callPackage ./pkgs/sunlight-kernels-mainline {
-    kernelPatches = [
-      pkgs.kernelPatches.bridge_stp_helper
-      pkgs.kernelPatches.request_key_helper
-    ];
-  };
 }
