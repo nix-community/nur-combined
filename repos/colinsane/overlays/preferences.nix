@@ -85,6 +85,8 @@
       #   - <https://github.com/ErikReider/SwayNotificationCenter/issues/71>
       #   - mako notification daemon supports activation, can use as a reference
       #     - all of ~30 LoC, looks straight-forward
+      #     - however, it's not clear that gtk4 (or dino) actually support this mode of activation.
+      #     - i.e. my experience with dino is the same using mako as with SwayNC
       postPatch = (upstream.postPatch or "") + ''
         substituteInPlace types/wlr_xdg_activation_v1.c \
           --replace 'if (token->seat != NULL)' 'if (false && token->seat != NULL)'
