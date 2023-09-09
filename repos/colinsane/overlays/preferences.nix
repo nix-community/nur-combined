@@ -64,4 +64,31 @@
     # should be safe to remove after next staging -> master merge
     jackSupport = false;
   };
+
+  sway-unwrapped = super.sway-unwrapped.override {
+    wlroots = wlroots.overrideAttrs (upstream: {
+      # 2023/09/08: fix so clicking a notification can activate the corresponding window.
+      # - test: run dino, receive a message while tabbed away, click the desktop notification.
+      #   - if sway activates the dino window (i.e. colors the workspace and tab), then all good
+      #   - do all of this with only a touchscreen (e.g. on mobile phone) -- NOT a mouse/pointer
+      ## what this patch does:
+      # - allows any wayland window to request activation, at any time.
+      # - traditionally, wayland only allows windows to request activation if
+      #   the client requesting to transfer control has some connection to a recent user interaction.
+      #   - e.g. the active window may transfer control to any window
+      #   - a window which was very recently active may transfer control to itself
+      ## alternative (longer-term) solutions:
+      # - fix this class of bug in gtk:
+      #   - <https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5782>
+      #   - N.B.: this linked PR doesn't actually fix it
+      # - add xdg_activation_v1 support to SwayNC (my notification daemon):
+      #   - <https://github.com/ErikReider/SwayNotificationCenter/issues/71>
+      #   - mako notification daemon supports activation, can use as a reference
+      #     - all of ~30 LoC, looks straight-forward
+      postPatch = (upstream.postPatch or "") + ''
+        substituteInPlace types/wlr_xdg_activation_v1.c \
+          --replace 'if (token->seat != NULL)' 'if (false && token->seat != NULL)'
+      '';
+    });
+  };
 })

@@ -282,6 +282,9 @@ in
         security.doas.wheelNeedsPassword = false;
 
         # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
+        # sxmo needs nerdfonts for:
+        # - waybar icons
+        # - dmenu/bemenu icons
         fonts.packages = [ pkgs.nerdfonts ];
 
         # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
