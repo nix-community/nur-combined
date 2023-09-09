@@ -13,12 +13,12 @@
 , ...
 }:
 let
-  version = "f4f9d68951ac4a1d436f4cdaef896d2ded5dd6e8";
+  version = "7c458e8315ff603468bf3b16bb431bb18199a90e";
 
   src = fetchFromGitHub {
     owner = "oyvindln";
     repo = "vhs-decode";
-    sha256 = "sha256-llWAnARKETWkmIb2nZDTM4uXdTxU4JkVUmGnAIi6fVc=";
+    sha256 = "sha256-YVAQ1ap+2OqnS7zB6itsYvRawKdCWLc2dHIvhFujVrk=";
     rev = version;
   };
 
