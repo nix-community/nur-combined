@@ -242,7 +242,7 @@ stdenv.mkDerivation {
     '' + buildStuff + "\n"; # workaround for nix's weird stdout muddling
     checkPhase = ''
       runHook preCheck
-      ${cosmoMeta.make} check &>/dev/null # FIXME newline spam, happens in checks only
+      ${cosmoMeta.make} -j$NIX_BUILD_CORES check &>/dev/null # FIXME newline spam, happens in checks only
       runHook postCheck
     '';
     installPhase = ''

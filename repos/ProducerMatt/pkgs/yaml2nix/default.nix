@@ -18,5 +18,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/euank/yaml2nix";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ProducerMatt ];
+    broken = true; #FIXME
   };
 }
