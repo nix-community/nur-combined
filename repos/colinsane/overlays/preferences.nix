@@ -22,6 +22,19 @@
   phog = super.phog.override {
     # disable squeekboard because it takes 20 minutes to compile when emulated
     squeekboard = null;
+    gnome.gnome-shell = gnome.gnome-shell.override {
+      evolution-data-server-gtk4 = evolution-data-server-gtk4.override {
+        gnome-online-accounts = gnome-online-accounts.override {
+          # disables the upstream "goabackend" feature -- presumably "Gnome Online Accounts Backend"
+          # frees us from webkit_4_1, in turn.
+          enableBackend = false;
+          gvfs = gvfs.override {
+            # saves 20 minutes of build time and cross issues, for unused feature
+            samba = null;
+          };
+        };
+      };
+    };
   };
 
   pipewire = super.pipewire.override {
@@ -44,4 +57,11 @@
       });
     })
   ];
+
+  qemu = super.qemu.override {
+    # 2023/09/07: see <https://github.com/NixOS/nixpkgs/pull/252874>
+    # fixes an eval-time recursion error
+    # should be safe to remove after next staging -> master merge
+    jackSupport = false;
+  };
 })

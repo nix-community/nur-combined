@@ -24,7 +24,7 @@ let
         # frees us from webkit_4_1, in turn.
         enableBackend = false;
         gvfs = pkgs.gvfs.override {
-          # saves 20 minutes of build time, for unused feature
+          # saves 20 minutes of build time and cross issues, for unused feature
           samba = null;
         };
       };

@@ -27,11 +27,28 @@ in [
   #   hash = "sha256-e38Z7sO7xDQHzE9UOfbptc6vJuONE5eP9JFp2Nzx53E=";
   # })
 
-  (fetchpatch' {
-    title = "nixos/update-users-groups: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/251850";
-    hash = "sha256-uqx9sJ1zkwys9Ur35iXY3gZKVb52wlnBGkhBB5sc6WQ=";
-  })
+  # (fetchpatch' {
+  #   # merged 2023/09/07, but into staging
+  #   title = "waf: fix cross-compilation";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/252874";
+  #   hash = "sha256-DjwhbH9o6uoj1Ahb8eE6cEnlIKtQCL61P0v22H9fOiQ=";
+  # })
+
+  # (fetchpatch' {
+  #   # needed for subsequent "disable pipewireSupport in qemu-user" patch
+  #   # merged 2023/09/07
+  #   title = "qemu: add pipewire support (8.1 feature)";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/253660";
+  #   hash = "sha256-sABTNJHBQEF8YuXit4+zG/lyK4eRJz6MkRDpaeKe+z8=";
+  # })
+
+  # (fetchpatch' {
+  #   # fixes infinite recursion in cross qemu compile.
+  #   # merged 2023/09/07
+  #   title = "lib/systems: disable pipewireSupport in qemu-user";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/253913";
+  #   hash = "sha256-D2fnB4eOvbew0tea7Y1LH7GQJF3Pch/9DLEChf/ZNxs=";
+  # })
 
   # (fetchpatch' {
   #   # TODO: check back in on this around 2023-10-01
@@ -254,8 +271,8 @@ in [
   (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/240602";
-    saneCommit = "50767d5746fd80657e997b43fc5d82ba0c2c2447";
-    hash = "sha256-lXuLHdSPhWol9X5QX4cxnZqoVGUWEQTCZLmosvLX+WY=";
+    saneCommit = "e83130f2770c314b2a482e1792b010da66cdd5de";
+    hash = "sha256-aQjjm4uP3RaAkKykTNFmnrf2fyY2FcwKerRprlO2cnQ=";
   })
 
   (fetchpatch' {

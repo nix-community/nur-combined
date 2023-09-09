@@ -163,7 +163,7 @@ class Torrent:
         return "\n".join(rows)
 
     @property
-    def dl_uri(self) -> str:
+    def dl_uri(self) -> str | None:
         return self.magnet or self.http_dl_uri
 
     @property
@@ -193,6 +193,10 @@ class Torrent:
         if magnet and not magnet.startswith("magnet:"):
             logger.info(f"invalid magnet: {magnet}")
             magnet = None
+
+        if http_dl_uri:
+            # quirk: bakabt's post-login redirection fails if the slashes aren't just right
+            http_dl_uri = http_dl_uri.replace('https://bakabt.me//', 'https://bakabt.me/')
 
         if seeders is not None and pub_date is not None and title is not None and (magnet is not None or http_dl_uri is not None):
             pub_date = parse_time(pub_date)
