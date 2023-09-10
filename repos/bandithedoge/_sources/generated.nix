@@ -126,15 +126,15 @@
   };
   keepmenu = {
     pname = "keepmenu";
-    version = "438e89fecc960c4e0aeeb24cfeffc0cfde1c868c";
+    version = "3524c763dbd211a790a0b90d6c86d3e316191ce7";
     src = fetchFromGitHub {
       owner = "firecat53";
       repo = "keepmenu";
-      rev = "438e89fecc960c4e0aeeb24cfeffc0cfde1c868c";
+      rev = "3524c763dbd211a790a0b90d6c86d3e316191ce7";
       fetchSubmodules = false;
-      sha256 = "sha256-KEkt17oXMdHg+5e3z3QyTvMf/vntrgmPWTU6E1IPlPk=";
+      sha256 = "sha256-OsUPff34d1OIb6cY+Ma4Nbh1w63RLA3mgqjrlQdFJw0=";
     };
-    date = "2023-09-01";
+    date = "2023-09-09";
   };
   kiwmi = {
     pname = "kiwmi";
@@ -220,15 +220,15 @@
   };
   macemu = {
     pname = "macemu";
-    version = "d2c2647e3a43ce5c49bec131e8e0e5487a954c8f";
+    version = "0942bdcbf911e7750b179397e933a15a77e56733";
     src = fetchFromGitHub {
       owner = "kanjitalk755";
       repo = "macemu";
-      rev = "d2c2647e3a43ce5c49bec131e8e0e5487a954c8f";
+      rev = "0942bdcbf911e7750b179397e933a15a77e56733";
       fetchSubmodules = false;
-      sha256 = "sha256-z2rCksk7TsJDvEah4tQ3dpMiF98F/e+v+SKOZa0Gcd0=";
+      sha256 = "sha256-tNt+5o4KtKFQc+HOpVeSUpf/akM9w2VIldjOXdFxIgY=";
     };
-    date = "2023-08-23";
+    date = "2023-08-25";
   };
   raze = {
     pname = "raze";
