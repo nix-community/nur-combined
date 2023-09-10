@@ -17,6 +17,7 @@ buildPythonPackage rec {
     # https://github.com/NixOS/nixpkgs/issues/241691
     # pip-cache
     pip-tools
+    # tree-sitter-requirements
   ];
   nativeBuildInputs = [
     setuptools-generate

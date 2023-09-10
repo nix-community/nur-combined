@@ -27,12 +27,12 @@ src.pypi = "translate-shell"
 fetch.pypi = "translate-shell"
 
 [autotools-language-server]
-src.pypi = "autotools-language-server"
-fetch.pypi = "autotools-language-server"
+src.pypi = "autotools_language_server"
+fetch.pypi = "autotools_language_server"
 
 [bitbake-language-server]
-src.pypi = "bitbake-language-server"
-fetch.pypi = "bitbake-language-server"
+src.pypi = "bitbake_language_server"
+fetch.pypi = "bitbake_language_server"
 
 [expect-language-server]
 src.pypi = "expect-language-server"

@@ -13,6 +13,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     pygls
     platformdirs
+    tree-sitter
   ];
   nativeBuildInputs = [
     setuptools-generate

@@ -3,18 +3,18 @@
 {
   autotools-language-server = {
     pname = "autotools-language-server";
-    version = "0.0.8";
+    version = "0.0.9";
     src = fetchurl {
-      url = "https://pypi.io/packages/source/a/autotools-language-server/autotools-language-server-0.0.8.tar.gz";
-      sha256 = "sha256-XuCZpr2BpCl/P1KdCTk6Y2CeFVn2FOIeMaI7/3sH+Go=";
+      url = "https://pypi.io/packages/source/a/autotools_language_server/autotools_language_server-0.0.9.tar.gz";
+      sha256 = "sha256-lTfUj95QlMvzPb6k9Yot6idMx+IFBZ5pR4YfBMr30hw=";
     };
   };
   bitbake-language-server = {
     pname = "bitbake-language-server";
-    version = "0.0.4";
+    version = "0.0.5";
     src = fetchurl {
-      url = "https://pypi.io/packages/source/b/bitbake-language-server/bitbake-language-server-0.0.4.tar.gz";
-      sha256 = "sha256-ZJaaGUNsLAcDyN/aBlXcYocFGO/EmkOotJ+iJMO2x2I=";
+      url = "https://pypi.io/packages/source/b/bitbake_language_server/bitbake_language_server-0.0.5.tar.gz";
+      sha256 = "sha256-moXCxjg/gLP+1r5VvGJaeN9RVE5dDA6Q+1RDzNkUG1c=";
     };
   };
   expect-language-server = {
@@ -105,10 +105,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.0.4";
+    version = "0.0.5";
     src = fetchurl {
-      url = "https://pypi.io/packages/source/r/requirements-language-server/requirements-language-server-0.0.4.tar.gz";
-      sha256 = "sha256-Xr57hhbZ+oxfC6afOMGuyd6Ov2rNMzQf1UI2RpwltAs=";
+      url = "https://pypi.io/packages/source/r/requirements-language-server/requirements-language-server-0.0.5.tar.gz";
+      sha256 = "sha256-4UEkx3SSluvIXNXOGjW8kHw0W93xXCuVQsLgSZCZ3zw=";
     };
   };
   setuptools-generate = {
@@ -121,10 +121,10 @@
   };
   sublime-syntax-language-server = {
     pname = "sublime-syntax-language-server";
-    version = "0.0.3";
+    version = "0.0.4";
     src = fetchurl {
-      url = "https://pypi.io/packages/source/s/sublime-syntax-language-server/sublime-syntax-language-server-0.0.3.tar.gz";
-      sha256 = "sha256-4nZoq0IwI4e1OaS6J23aUdzE8Cy9LQ/quTEA2TYyYvU=";
+      url = "https://pypi.io/packages/source/s/sublime-syntax-language-server/sublime-syntax-language-server-0.0.4.tar.gz";
+      sha256 = "sha256-bC3gVsjJMccA5vxdwV6/DNTn81+RCAprjLgBMQAjyzs=";
     };
   };
   termux-language-server = {
@@ -145,10 +145,10 @@
   };
   translate-shell = {
     pname = "translate-shell";
-    version = "0.0.36";
+    version = "0.0.37";
     src = fetchurl {
-      url = "https://pypi.io/packages/source/t/translate-shell/translate-shell-0.0.36.tar.gz";
-      sha256 = "sha256-15GrS4cqOoXnKyB8y+0WX6tfWOYB34AWd172hUhi1eM=";
+      url = "https://pypi.io/packages/source/t/translate-shell/translate-shell-0.0.37.tar.gz";
+      sha256 = "sha256-4EpqVFTqAWh/kXFlgLF/zcDFf2upAvsIeNDOmMyWWPw=";
     };
   };
   undollar = {
