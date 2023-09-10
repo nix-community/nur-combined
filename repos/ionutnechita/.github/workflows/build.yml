@@ -21,17 +21,21 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-22.11
+          - nixpkgs=channel:nixos-23.05
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    - name: free disk space
+    - name: Free disk space
       run: |
+        df -h
         sudo swapoff -a
         sudo rm -f /swapfile
-        sudo apt clean
-        docker rmi $(docker image ls -aq)
+        sudo apt-get autoremove -y >/dev/null 2>&1
+        sudo apt-get autoclean -y >/dev/null 2>&1
+        sudo apt-get clean -y >/dev/null 2>&1
+        sudo rm -rf /usr/local/lib/android >/dev/null 2>&1
+        docker rmi $(docker image ls -aq) >/dev/null 2>&1
         df -h
     - name: Install nix
       uses: cachix/install-nix-action@v22
