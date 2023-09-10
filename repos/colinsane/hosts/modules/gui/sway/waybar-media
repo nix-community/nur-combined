@@ -1,0 +1,17 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p jq -p playerctl
+status=$(playerctl status 2> /dev/null | tr 'A-Z' 'a-z')
+if [ -z "$status" ]; then
+  status="inactive"
+fi
+
+artist=$(playerctl metadata artist 2> /dev/null)
+title=$(playerctl metadata title 2> /dev/null)
+
+text=
+if [ -n "$title" ]; then
+  text="$artist - $title"
+fi
+# waybar requires output to be on a single line.
+# `alt` key determines the icon
+jq --null-input --compact-output --arg status "$status" --arg text "$text" '{ "text": $text, "alt": $status }'

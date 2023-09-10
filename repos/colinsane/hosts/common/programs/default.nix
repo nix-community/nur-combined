@@ -45,6 +45,7 @@
     ./nix-index.nix
     ./obsidian.nix
     ./offlineimap.nix
+    ./playerctl.nix
     ./rhythmbox.nix
     ./ripgrep.nix
     ./sfeed.nix

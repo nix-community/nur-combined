@@ -171,6 +171,7 @@ in
           "swayidle"
           "wl-clipboard"
           "blueberry"  # GUI bluetooth manager
+          "playerctl"  # for waybar & particularly to have playerctld running
           # "mako"  # notification daemon
           "swaynotificationcenter"  # notification daemon
           # # "pavucontrol"

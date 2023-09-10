@@ -1,6 +1,14 @@
 # docs: <https://github.com/Alexays/Waybar/wiki/Configuration>
-# format specifiers: <https://fmt.dev/latest/syntax.html#syntax>
+# - custom modules: <https://github.com/Alexays/Waybar/wiki/Module:-Custom>
+# - format specifiers: <https://fmt.dev/latest/syntax.html#syntax>
 { lib, pkgs }:
+let
+  waybar-media = pkgs.static-nix-shell.mkBash {
+    pname = "waybar-media";
+    src = ./.;
+    pkgs = [ "jq" "playerctl" ];
+  };
+in
 {
   height = lib.mkDefault 40;
   modules-left = lib.mkDefault [ "sway/workspaces" ];
@@ -19,28 +27,36 @@
     max-length = 50;
   };
 
-  # include song artist/title.
-  # source: <https://www.reddit.com/r/swaywm/comments/ni0vso/waybar_spotify_tracktitle/>
   "custom/media" = {
-    exec = pkgs.writeShellScript "waybar-mediaplayer" ''
-      player_status=$(${pkgs.playerctl}/bin/playerctl status 2> /dev/null)
-      if [ "$player_status" = "Playing" ]; then
-        echo " $(${pkgs.playerctl}/bin/playerctl metadata artist) - $(${pkgs.playerctl}/bin/playerctl metadata title)"
-      elif [ "$player_status" = "Paused" ]; then
-        echo " $(${pkgs.playerctl}/bin/playerctl metadata artist) - $(${pkgs.playerctl}/bin/playerctl metadata title)"
-      fi
-    '';
+    # this module shows the actively playing song
+    # - source: <https://www.reddit.com/r/swaywm/comments/ni0vso/waybar_spotify_tracktitle/>
+    # - alternative: <https://github.com/Alexays/Waybar/wiki/Module:-MPRIS>
+    # - alternative: <https://github.com/Alexays/Waybar/wiki/Module:-Custom#mpris-controller>
+    #
+    # N.B.: for this to behave well with multiple MPRIS clients,
+    # `playerctld` must be enabled. see: <https://github.com/altdesktop/playerctl/issues/161>
+    exec = "${waybar-media}/bin/waybar-media";
+    return-type = "json";
     interval = 2;
-    format = "{}";
-    # return-type = "json";
-    on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
-    on-scroll-up = "${pkgs.playerctl}/bin/playerctl next";
-    on-scroll-down = "${pkgs.playerctl}/bin/playerctl previous";
+    format = "{icon}{}";
+    max-length = 50;
+    format-icons = {
+      playing = " ";
+      paused = " ";
+      inactive = "";
+    };
+    tooltip = false;
+    on-click = "playerctl play-pause";
+    on-scroll-up = "playerctl next";
+    on-scroll-down = "playerctl previous";
   };
   "custom/swaync" = {
     # source: <https://github.com/ErikReider/SwayNotificationCenter#waybar-example>
-    tooltip = false;
-    format = "{icon}";  # or "{icon} {}" to inclde notif count
+    exec-if = "which swaync-client";
+    exec = "swaync-client -swb";
+    return-type = "json";
+    escape = true;
+    format = "{icon}";  # or "{icon} {}" to include notif count
     format-icons = {
       notification = "<span foreground='red'><sup></sup></span>";
       none = "";
@@ -51,12 +67,9 @@
       dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
       dnd-inhibited-none = "";
     };
-    return-type = "json";
-    exec-if = "which swaync-client";
-    exec = "swaync-client -swb";
+    tooltip = false;
     on-click = "swaync-client -t -sw";
     on-click-right = "swaync-client -d -sw";
-    escape = true;
   };
   network = {
     # docs: <https://github.com/Alexays/Waybar/blob/master/man/waybar-network.5.scd>
