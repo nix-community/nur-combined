@@ -73,6 +73,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       telescope-nvim
       yescapsquit-vim
       trouble-nvim
+      vim-better-whitespace
 
       # language specific
       dart-vim-plugin

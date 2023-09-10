@@ -23,6 +23,9 @@
 (tset vim.o :expandtab true) ;; Tab vira espaços
 (tset vim.o :list true) ;; Mostra indentação
 
+;; Criar uma marca na coluna 78
+(tset vim.o :colorcolumn 78)
+
 ;; Especificidade
 (tset vim.o :backup false) ;; Mostra indentação
 (tset vim.o :compatible false) ;; Compatibilidade com vi
