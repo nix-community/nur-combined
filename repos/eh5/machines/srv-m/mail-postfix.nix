@@ -75,6 +75,9 @@ in
       "ldap:${secrets.vaccountLdap.path}"
     ];
 
+    smtp_bind_address = "45.76.111.223";
+    smtp_bind_address6 = "2001:19f0:7001:3edf:5400:4ff:fe32:f2e0";
+
     # allow relay on port 25 for authed user
     smtpd_sasl_type = "dovecot";
     smtpd_sasl_path = "/run/dovecot2/postfix-auth";
