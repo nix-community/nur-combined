@@ -6,7 +6,7 @@ let
   name = "Rustdesk-${version}";
 
   src = lib.warn
-    "nur.repos.pokon548.rustdesk-bin will be deprecated as soon as nixpkgs merge latest commits. See https://github.com/NixOS/nixpkgs/pull/242484"
+    "${pname} from pokon548's NUR is deprecated and will be removed from NUR repo soon. Migrate by changing nur.repos.pokon548.rustdesk-bin to pkgs.rustdesk"
     fetchurl {
       url =
         "https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.AppImage";

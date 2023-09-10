@@ -25,6 +25,8 @@
   chengla-electron = pkgs.callPackage ./pkgs/chengla-electron { };
   daoniu-electron = pkgs.callPackage ./pkgs/daoniu-electron { };
 
+  fcitx5-pinyin-custompinyindict = pkgs.callPackage ./pkgs/fcitx5-pinyin-custompinyindict { };
+
   rustdesk-bin = pkgs.callPackage ./pkgs/rustdesk-bin { };
 
   zulu = pkgs.callPackage ./pkgs/zulu { };
