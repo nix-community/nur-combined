@@ -65,6 +65,8 @@ in {
     terraform
     vlc # media
     stremio
+    sunshine
+    moonlight-qt
     nbr.wine-apps._7zip
     xxd
     pavucontrol # controle de volume
@@ -75,7 +77,6 @@ in {
   ] ;
 
   # programs.hello-world.enable = true;
-  
 
   services.redial_proxy.enable = true;
 
