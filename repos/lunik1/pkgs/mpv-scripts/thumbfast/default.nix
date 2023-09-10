@@ -7,13 +7,13 @@
 stdenvNoCC.mkDerivation rec
 {
   pname = "thumbfast";
-  version = "unstable-2022-11-16";
+  version = "unstable-2023-09-08";
 
   src = fetchFromGitHub {
-    owner = "po5";
+    owner = "l-jared";
     repo = "thumbfast";
-    rev = "08d81035bb5020f4caa326e642341f2e8af00ffe";
-    hash = "sha256-T+9RxkKWX6vwDNi8i3Yq9QXSJQNwsHD2mXOllaFuSyQ=";
+    rev = "03f0dddf4c784a0fc6f127b305258a398dd3f8b8";
+    hash = "sha256-Ozli4XBZxzsrxJw3EPKYCCFIGcS94vU9ZWp2UNPVFNA=";
   };
 
   dontBuild = true;
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec
   meta = with lib; {
     description = "High-performance on-the-fly thumbnailer for mpv";
     homepage = "https://github.com/po5/thumbfast";
-    license = licenses.unfree;
+    license = licenses.mpl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ lunik1 ];
   };
