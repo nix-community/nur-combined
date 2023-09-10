@@ -31,6 +31,18 @@ in {
 
     enableGit = mkEnableOption "Enable git interactions for Cloud savegame";
 
+    enableBacklink = mkEnableOption "Enable creation of backlinks to the repo";
+
+    maxDepth = mkOption {
+      type = types.int;
+      default = 10;
+      description = lib.mdDoc ''
+        Max depth when looking for home directories.
+
+        Lower numbers finish faster but may not detect all of the home folders that are actually there.
+      '';
+    };
+
     outputDir = mkOption {
       type = types.str;
       default = "~/SavedGames";
@@ -63,7 +75,6 @@ in {
         search.paths="~";
         flatout-2.installdir= ["~/.local/share/Steam/steamapps/common/FlatOut2" ];
       };
-      # TODO: Convert all lists to strings divided by the divider using 'builtins.concatStringsSep cfg.settings.general.divider'
     };
   };
 
@@ -102,7 +113,7 @@ in {
           tilde=~
           OUTPUT_DIR="$(echo "$OUTPUT_DIR" | sed "s;~;$tilde;")"
           if [ -d "$OUTPUT_DIR" ]; then
-            ${cfg.package}/bin/cloud-savegame -o "$OUTPUT_DIR" -c "$CONFIG_FILE" ${optionalString cfg.enableGit "-g"} ${optionalString cfg.enableVerbose "-v"}
+            ${cfg.package}/bin/cloud-savegame -o "$OUTPUT_DIR" -c "$CONFIG_FILE" ${optionalString cfg.enableGit "-g"} ${optionalString cfg.enableVerbose "-v"} ${optionalString cfg.enableBacklink "-b"} --max-depth ${toString cfg.maxDepth}
           else
             echo "Output dir '$OUTPUT_DIR' doesn't exist"
           fi

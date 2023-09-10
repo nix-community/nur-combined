@@ -35,6 +35,7 @@ in
   services.cloud-savegame = {
     enableVerbose = true;
     enableGit = true;
+    enableBacklink = true;
     settings = {
       search = {
         paths = [
