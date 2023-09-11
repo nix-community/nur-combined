@@ -36,7 +36,7 @@
   },
   "cardinal": {
     "cargoLocks": null,
-    "date": "2023-09-07",
+    "date": "2023-09-10",
     "extract": null,
     "name": "cardinal",
     "passthru": null,
@@ -48,11 +48,11 @@
       "name": null,
       "owner": "DISTRHO",
       "repo": "Cardinal",
-      "rev": "ef3801f3b906614135f2effe2a8f2e1f3813adfb",
-      "sha256": "sha256-WddVjcdIXvZoWz7y0DH8vebidDfJ+dtgwqGAMihfyew=",
+      "rev": "6b59449e5edd770fa037c6ad6a3e440ecea95eab",
+      "sha256": "sha256-o/F3IEgSHNtEB9MbQ9MsBxcIzaJCqUSdCHgBRV4I7IA=",
       "type": "github"
     },
-    "version": "ef3801f3b906614135f2effe2a8f2e1f3813adfb"
+    "version": "6b59449e5edd770fa037c6ad6a3e440ecea95eab"
   },
   "carla-git": {
     "cargoLocks": null,
