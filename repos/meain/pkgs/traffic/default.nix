@@ -12,7 +12,6 @@ python39Packages.buildPythonPackage rec {
     sha256 = "sha256-gHy1lD16U3ngsoHQeBmzvDOAYzD7a/t9s4shcJXSskI=";
   };
 
-  # nativeBuildInputs = [ python38Packages.psutil ];
   propagatedBuildInputs = with python39Packages;[ setuptools psutil ];
 
   meta = with lib; {
