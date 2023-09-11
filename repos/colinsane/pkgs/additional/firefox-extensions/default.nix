@@ -92,8 +92,8 @@ in lib.makeScope newScope (self: with self; {
     ether-metamask = fetchAddon "ether-metamask" "webextension@metamask.io" "sha256-UI83wUUc33OlQYX+olgujeppoo2D2PAUJ+Wma5mH2O0=";
     i2p-in-private-browsing = fetchAddon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io" "sha256-dJcJ3jxeAeAkRvhODeIVrCflvX+S4E0wT/PyYzQBQWs=";
     sidebery = fetchAddon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}" "sha256-YONfK/rIjlsrTgRHIt3km07Q7KnpIW89Z9r92ZSCc6w=";
-    sponsorblock = fetchAddon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-kIVx/Yl2IZ0/0RqLMf4+HJojoDA7oOUYwZfFvMt/2XE=";
-    ublacklist = fetchAddon "ublacklist" "@ublacklist" "sha256-NZ2FmgJiYnH7j2Lkn0wOembxaEphmUuUk0Ytmb0rNWo=";
+    sponsorblock = fetchAddon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-laP2rXUToeK1GvMT7OSl4t1oXYph43kpHEboOe4Fn3A=";
+    ublacklist = fetchAddon "ublacklist" "@ublacklist" "sha256-5peaUgQ7vkz0yrXA+QqXPWMLcSEEW5/W8Zke6yaZbgo=";
     ublock-origin = fetchAddon "ublock-origin" "uBlock0@raymondhill.net" "sha256-i3NGi8IzoR3SiVIZRmOBeD0ZEjhX3Qtv0WoBgg/KSDQ=";
 
     # TODO: build bypass-paywalls from source? it's mysteriously disappeared from the Mozilla store.
@@ -110,11 +110,14 @@ in lib.makeScope newScope (self: with self; {
   sponsorblock = (wrapAddon unwrapped.sponsorblock {})
     .withPostPatch ''
       # patch sponsorblock to not show the help tab on first launch.
+      #
       # XXX: i tried to build sponsorblock from source and patch this *before* it gets webpack'd,
       # but web shit is absolutely cursed and building from source requires a fucking PhD
       # (if you have one, feel free to share your nix package)
+      #
+      # NB: in source this is `if (!userID)...`, but the build process mangles the names
       substituteInPlace js/background.js \
-        --replace 'default.config.userId)' 'default.config.userID && false)'
+        --replace 'default.config.userID)' 'default.config.userID && false)'
     '';
 
   ublacklist = wrapAddon unwrapped.ublacklist {};

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   declPackageSet = pkgs: {
@@ -155,6 +155,7 @@ in
       "sudo"
       # "tageditor"  # music tagging
       # "unar"
+      "unzip"
       "wireguard-tools"
       "xdg-terminal-exec"
       "xdg-utils"  # for xdg-open
@@ -250,5 +251,9 @@ in
 
     # zcash coins. safe to delete, just slow to regenerate (10-60 minutes)
     zecwallet-lite.persist.private = [ ".zcash" ];
+  };
+
+  programs.feedbackd = lib.mkIf config.sane.programs.feedbackd.enabled {
+    enable = true;
   };
 }
