@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# run command in the context of the repo
+
+__ETC_BASHRC_SOURCED=0
+
+nix develop "$(sd d root)" -c "$@"

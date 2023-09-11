@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# quick git status
+
+set -euo pipefail
+
+git status -s -b

@@ -7,6 +7,7 @@ in {
     ./bash-extra.nix
     ./colors.nix
     ./ccache.nix
+    ./dotfiles-dir.nix
     ./motd.nix
     ./netns.nix
     ./nix-binary-caches.nix

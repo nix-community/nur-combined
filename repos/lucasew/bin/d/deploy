@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# deploy machines with pyinfra
+
+hosts=""
+
+sd d run pyinfra --use-sudo-password "$hosts" pyinfra/nixos.py pyinfra/home-manager.py

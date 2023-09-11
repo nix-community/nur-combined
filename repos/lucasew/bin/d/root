@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# get root of the dotfiles folder
+
+if [ -d ~/.dotfiles ]; then
+    echo ~/.dotfiles
+elif [ -d /home/lucasew/.dotfiles ]; then
+    echo /home/lucasew/.dotfiles
+else
+    if [ -d /etc/.dotfiles ]; then
+        echo /etc/.dotfiles
+    else
+        echo "can't find dotfiles folder" >&2
+        exit 1
+    fi
+fi
