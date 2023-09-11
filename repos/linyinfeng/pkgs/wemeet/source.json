@@ -5,7 +5,7 @@
     "sha512": "fcb8a162685186e526cb5a5211e16f02e67aa132c4f6a91a1b9ff7138f7c1aac2915c813df18e00311f0a52fb5baad984734436de08f2035a0b2fcd67d75f20f"
   },
   "aarch64-linux": {
-    "version": "3.15.1.401",
+    "version": "3.15.1.402",
     "url": "https://updatecdn.meeting.qq.com/cos/87439695193afbf8b1faa23202ce7306/TencentMeeting_0300000000_3.15.1.402_arm64_default.publish.deb",
     "sha512": "a45519a7a8e7964f553831695887223b0ee1d2df635b1e1d2b499bd966cebc9a15221802c94cadc7e13af4f2c42483f4d4b7c1faf5e7b6efc8819df9eae67030"
   }

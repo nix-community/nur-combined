@@ -1,8 +1,6 @@
 { lib
 , selfLib
 , writeShellScriptBin
-, nixVersions
-, nix-update
 , nvfetcher-self
 , nvfetcher-changes-commit
 , path
@@ -41,6 +39,9 @@ let
     ## update scripts
     echo "run update scripts"
     function handle_update_script {
+      if [ -f "${updateScriptCommitMessageFile}" ]; then
+        rm "${updateScriptCommitMessageFile}"
+      fi
       "$@" --write-commit-message "${updateScriptCommitMessageFile}"
       if [ -f "${updateScriptCommitMessageFile}" ]; then
         nix fmt
