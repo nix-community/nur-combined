@@ -60,6 +60,7 @@ in
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
       "cryptsetup"
       "dig"
+      "dtc"  # device tree [de]compiler
       "efibootmgr"
       "fatresize"
       "fd"

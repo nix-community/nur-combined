@@ -141,9 +141,10 @@ let
   # given a package that's defined for build == host,
   # build it from the native build machine by emulating the builder.
   emulateBuilderQemu = pkg: let
-    vmTools = final.vmTools.override {
-      kernel = final.linux-megous or final.linux;  #< HACK: guess at whatever deployed linux we're using, to avoid building two kernels
-    };
+    inherit (final) vmTools;
+    # vmTools = final.vmTools.override {
+    #   kernel = final.linux-megous or final.linux;  #< HACK: guess at whatever deployed linux we're using, to avoid building two kernels
+    # };
     # fix up the nixpkgs command that runs a Linux OS inside QEMU:
     # qemu_kvm doesn't support x86_64 -> aarch64; but full qemu package does.
     qemuCommandLinux = lib.replaceStrings

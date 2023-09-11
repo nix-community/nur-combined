@@ -232,6 +232,8 @@ class Sequencer:
         # this returns the mmcli output, which looks like:
         # response: 'blah'
         # i.e., quoted, and with a `response: ` prefix
+        #
+        # if you don't have mmcli, for some reason, an alternative would be `atinout`
         return self._mmcli([f"--command=+{cmd}"], check=check)
 
     def _at_structured_cmd(self, cmd: str, subcmd: str | None = None, value: str | None = None, check: bool = True) -> str:

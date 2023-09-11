@@ -73,7 +73,9 @@ def parse_time(t: str) -> datetime:
 # preference, best to worst
 TRACKER_RANKS = [
     'bakabt',
+    'subsplease'
     'nyaa.si',
+    'miobt'
     'yts',
     'internet archive',
     'the pirate bay',

@@ -73,14 +73,14 @@ in
         type = types.path;
       };
       font = mkOption {
-        type = types.string;
+        type = types.str;
         default = "pango:monospace 11";
         description = ''
           default font (for e.g. window titles)
         '';
       };
       mod = mkOption {
-        type = types.string;
+        type = types.str;
         default = "Mod4";
         description = ''
           Super key (for non-application shortcuts).
@@ -89,7 +89,7 @@ in
         '';
       };
       workspace_layout = mkOption {
-        type = types.string;
+        type = types.str;
         default = "default";
         description = ''
           how to arrange windows within new workspaces, by default:
@@ -109,17 +109,17 @@ in
 
       # TODO: split these into their own option scope
       brightness_down_cmd = mkOption {
-        type = types.string;
+        type = types.str;
         default = "${pkgs.brightnessctl}/bin/brightnessctl set -2%";
         description = "command to run when use wants to decrease screen brightness";
       };
       brightness_up_cmd = mkOption {
-        type = types.string;
+        type = types.str;
         default = "${pkgs.brightnessctl}/bin/brightnessctl set +2%";
         description = "command to run when use wants to increase screen brightness";
       };
       screenshot_cmd = mkOption {
-        type = types.string;
+        type = types.str;
         default = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
         description = "command to run when user wants to take a screenshot";
       };

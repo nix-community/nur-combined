@@ -370,12 +370,6 @@ in [
   # })
 
   (fetchpatch' {
-    title = "playerctl: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/249512";
-    saneCommit = "67df31a8984ab3067af5b65446d2808b0aedadc6";
-    hash = "sha256-qY0bjMoFneC5VJ467TeiuOycLYNaVO7Xo/0fCauDZAM=";
-  })
-  (fetchpatch' {
     title = "libgweather: enable introspection on cross builds";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/251956";
     saneCommit = "7a2d0a90cc558ea71dfc78356e61b0675b995634";

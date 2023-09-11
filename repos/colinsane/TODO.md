@@ -49,21 +49,38 @@
   - integrate `nix check` into Gitea actions?
 
 ### user experience
-- moby: sxmo: fix youtube scripts (package youtube-cli)
+#### moby
+- eg25-control:
+  - add a `poweroff` command
+  - toggle via SwayNC
+- SwayNC:
+  - don't show MPRIS if no players detected
+    - this is a problem of playerctld, i guess
+  - add option to change audio output
+  - add option to toggle GPS on/off
 - moby: tune GPS
   - run only geoclue, and not gpsd, to save power?
   - tune QGPS setting in eg25-control, for less jitter?
   - direct mepo to prefer gpsd, with fallback to geoclue, for better accuracy?
   - configure geoclue to do some smoothing?
   - manually do smoothing, as some layer between mepo and geoclue/gpsd?
+- moby: improve gPodder launch time
+- sxmo: fix youtube scripts (package youtube-cli)
+- sxmo: don't put all deps on PATH
+  - maybe: use resholve to hard-code them
+    - this is the most "correct", but least patchable
+  - maybe: express each invocation as a function in sxmo_common.sh
+    - this will require some patching to handle `exec <foo>` style
+  - maybe: save original PATH and reset it before invoking user files
+- moby: theme GTK apps (i.e. non-adwaita styles)
+  - especially, make the menubar collapsible
+  - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
+
+#### non-moby
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
 - Helix: make copy-to-system clipboard be the default
 - firefox/librewolf: persist history
   - just not cookies or tabs
-- moby: improve gPodder launch time
-- moby: theme GTK apps (i.e. non-adwaita styles)
-  - especially, make the menubar collapsible
-  - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
 - package Nix/NixOS docs for Zeal
   - install [doc-browser](https://github.com/qwfy/doc-browser)
   - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)
@@ -74,12 +91,6 @@
 - email: fix so that local mail doesn't go to junk
   - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
-- sxmo: don't put all deps on PATH
-  - maybe: use resholve to hard-code them
-    - this is the most "correct", but least patchable
-  - maybe: express each invocation as a function in sxmo_common.sh
-    - this will require some patching to handle `exec <foo>` style
-  - maybe: save original PATH and reset it before invoking user files
 
 ### perf
 - add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled

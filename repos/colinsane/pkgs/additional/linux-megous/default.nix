@@ -1,7 +1,7 @@
 { lib
 , buildLinux
 , fetchpatch
-, fetchFromGitHub
+, fetchFromGitea
 , pkgs
 # modem_power is incompatible with eg25-manager: <https://gitlab.com/mobian1/eg25-manager/-/issues/38>
 , withModemPower ? true
@@ -13,6 +13,11 @@ with lib;
 
 let
   # HOW TO UPDATE:
+  # - `wget https://xff.cz/kernels/git/orange-pi-active.bundle`
+  # - `git fetch torvalds`
+  # - `git bundle unbundle orange-pi-active.bundle`
+  # - there should be some new tag, like `refs/tags/orange-pi-6.4-20230907-1427`
+  # OLD METHOD (pre-2023/09):
   # - `git fetch` from megous' repo (https://github.com/megous/linux.git).
   # - there should be some new tag, like `orange-pi-6.1-blah`. use that.
   # - grab VERSION/PATCHLEVEL/SUBLEVEL/EXTRAVERSION from Makefile.
@@ -20,9 +25,9 @@ let
   # - orange-pi is listed as the "main integration branch".
   #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` tags are "formal" releases
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
-  rev = "orange-pi-6.4-20230731-1920";
-  hash = "sha256-XHYxFvosa1FMOFuyb3OwRc/orcD98fSi9NKf1f+riCA=";
-  base = "6.4.7";
+  rev = "orange-pi-6.4-20230907-1427";
+  hash = "sha256-QOF6f5u4IC3OnTaCE91w7ZXmE2b2CVkVtSD1aOM8Arg=";
+  base = "6.4.15";
   # set to empty if not a release candidate, else `-rc<N>`
   rc = "";
 
@@ -44,6 +49,13 @@ let
     # SUNRPC_DEBUG = lib.mkForce no;  # i use NFS though
 
     MODEM_POWER = lib.mkIf (!withModemPower) no;
+    # normally a module; try inline? for vibration/haptics
+    INPUT_GPIO_VIBRA = yes;
+    INPUT_PWM_VIBRA = yes;
+    PWM_SUN4I = yes;
+    # DRM_SUN4I = yes;
+    # DRM_SUN8I_MIXER = yes;
+    # DRM_SUN6I_DSI = yes;
 
     # taken from mobile-nixos config?? or upstream megous config??
     RTL8723CS = module;
@@ -144,8 +156,9 @@ in buildLinux (args // {
   # branchVersion needs to be x.y
   extraMeta.branch = versions.majorMinor base;
 
-  src = fetchFromGitHub {
-    owner = "megous";
+  src = fetchFromGitea {
+    domain = "git.uninsane.org";
+    owner = "colin";
     repo = "linux";
     inherit rev hash;
   };
