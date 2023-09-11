@@ -4,7 +4,7 @@
     function dotfilesDir {
       if [ -d ~/.dotfiles ]; then
         echo ~/.dotfiles
-      else if [ -d /home/lucasew/.dotfiles ]; then
+      elif [ -d /home/lucasew/.dotfiles ]; then
         echo /home/lucasew/.dotfiles
       else
         echo ${self}
