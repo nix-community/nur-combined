@@ -1,6 +1,7 @@
 { mySources
 , python3
 , lib
+, git
 }:
 
 with python3.pkgs;
@@ -16,6 +17,9 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     scikit-build-core
+    cmake
+    ninja
+    git
   ];
   pythonImportsCheck = [
     "autotools_language_server"

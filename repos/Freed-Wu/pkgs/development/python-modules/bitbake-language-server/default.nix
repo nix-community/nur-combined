@@ -17,6 +17,8 @@ buildPythonPackage rec {
   ];
   nativeBuildInputs = [
     scikit-build-core
+    cmake
+    ninja
   ];
   pythonImportsCheck = [
     "bitbake_language_server"
