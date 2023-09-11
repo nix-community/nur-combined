@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+# guess what lol
 xset -display :0.0 dpms force off

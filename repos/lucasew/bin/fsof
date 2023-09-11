@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# which mountpoint a file belongs?
 
 if [[ $# -eq 0 ]]; then
     exit 1

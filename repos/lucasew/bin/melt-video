@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -i bash -p libsForQt5.mlt
+# render a MELT (kdenlive) project
 # vim:ft=bash
 
 set -eu

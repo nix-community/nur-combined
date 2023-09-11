@@ -1,4 +1,6 @@
 #! /usr/bin/env bash
+# faster way to start a repl in dotfile context
+
 # vim:ft=bash
 
 REPL_SCRIPT=~/.dotfiles/repl.nix

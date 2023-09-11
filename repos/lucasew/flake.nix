@@ -150,6 +150,9 @@
         ]}"
         export LUA_INIT="pcall(require, 'adapter.fennel')"
         export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/nix/compat/overlay.nix:home-manager=${home-manager}:nur=${nur}
+        export SD_ROOT=$NIXCFG_ROOT_PATH/bin
+        export SD_EDITOR=$EDITOR
+        export SD_CAT=cat
       '';
     };
 
@@ -204,7 +207,7 @@
       buildInputs = with pkgs; [
         ctl
         pyinfra
-        ansible
+        script-directory
         bumpkin.packages.${system}.default
         (writeShellScriptBin "bumpkin-bump" ''
           if [ -v NIXCFG_ROOT_PATH ]; then

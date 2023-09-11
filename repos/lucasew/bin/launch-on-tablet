@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# use kdeconnect to lauch a website on a device
 
 TABLET_ID="5d4ff2e96ea80ec1"
 

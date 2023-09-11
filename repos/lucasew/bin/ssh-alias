@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# connects to a machine by name, that gets translated to user, host and port
 
 EXPR="$(cat /run/secrets/ssh-alias | grep -e "^$1" | awk 'NR=1 { print $2 }')"
 IP="$( echo "$EXPR" | sed 's;\([^\:]*\)[^$]*;\1;g' )"

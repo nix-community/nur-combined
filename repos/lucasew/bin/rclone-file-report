@@ -1,5 +1,8 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -p rclone python3 -i python
+
+# gets the amount files grouped by time blocks in a rclone folder
+
 # vim:ft=python
 
 from datetime import datetime

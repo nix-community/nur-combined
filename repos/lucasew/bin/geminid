@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# gemini server in stdlib python3
 
 from pathlib import Path
 from argparse import ArgumentParser

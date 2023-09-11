@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# backend of my workaround to get network usage in i3bar
 
 from pathlib import Path
 import asyncio

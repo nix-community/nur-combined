@@ -15,6 +15,7 @@ in {
     ./port-alloc.nix
     ./rev.nix
     ./screenkey.nix
+    ./script-directory.nix
     ./ssh.nix
     ./systemd-portd.nix
     ./tailscale.nix

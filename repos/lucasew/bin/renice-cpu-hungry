@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# lowers the priority of the most cpu hungry process
+
 PID=$(ps -eo pid,cmd,nice,%mem,%cpu --sort=-%cpu | head -n2 |tail -n 1 | awk '{print $1}')
 renice 7 $PID
 ps $PID

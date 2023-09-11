@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p tigervnc
+# spawns an unauthenticated VNC server
 # vim:ft=bash
 
 # I don't care about password in this case because 5900 will only be achievable inside my Tailscale network

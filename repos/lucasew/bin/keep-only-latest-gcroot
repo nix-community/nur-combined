@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# remove all but the last nix profile, useful before full GCs
+
 set -eu
 
 REMOVE_ROOTS=0

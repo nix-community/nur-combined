@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cleans gcroots in common locations like result and tmp ones
 
 set -eu -o pipefail
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# use the nix store to deduplicate common static files such as wineprefix DLLs using the nix-store
 
 set -eu -o pipefail
 

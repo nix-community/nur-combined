@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# annoying beep each second if laptop stops charging, my charger trolls me sometimes
 while true; do
     sleep 1
     [ "$(cat /sys/class/power_supply/BAT1/status)" == "Discharging" ] && echo -e '\a'

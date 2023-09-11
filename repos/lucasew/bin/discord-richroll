@@ -1,5 +1,7 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i python -p python3Packages.pypresence
+# rickroll as discord rich presence
+
 # vim:ft=python
 
 from pypresence import Presence

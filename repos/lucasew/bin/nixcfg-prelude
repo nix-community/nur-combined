@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# utility functions
+
 # vim:ft=sh
 
 function bold {

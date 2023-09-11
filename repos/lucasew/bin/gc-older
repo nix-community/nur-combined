@@ -1,5 +1,8 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -i python3 -p python3Packages.tqdm
+
+# [EXPERIMENT] delete garbage paths from oldest to newest
+
 # vim:ft=python
 import os
 from sys import stderr

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# move a item to the nix store, replace it with a symlink then show the nix store path
 
 set -eu -o pipefail
 

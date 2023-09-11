@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# how much space one restic snapshot would release if deleted?
 # vim:ft=bash
 
 set -eu

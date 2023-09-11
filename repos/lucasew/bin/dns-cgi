@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# [EXPERIMENT] generate hosts file from context
 
 set -eu
 PREFIX=.local

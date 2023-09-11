@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# my custom way of setting a second monitor on my laptop with one keystroke
 
 function handler {
     mode=$1

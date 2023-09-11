@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# auto add nix-shell shebang in scripts
 # vim:ft=bash
 
 function show_help() {
