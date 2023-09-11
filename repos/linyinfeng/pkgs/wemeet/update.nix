@@ -56,7 +56,9 @@ writeShellScript "update-wemeet" ''
     }' > source.json
 
     if [[ -n "$commit_message_file" ]]; then
-      > "$commit_message_file" # clear the file
+      if [[ -f "$commit_message_file" ]]; then
+        rm "$commit_message_file"
+      fi
 
       if [[ "$version_x86_64" != "$version_old_x86_64" ]]; then
         echo "wemeet (x86_64-linux): $version_old_x86_64 -> $version_x86_64" >> "$commit_message_file"
