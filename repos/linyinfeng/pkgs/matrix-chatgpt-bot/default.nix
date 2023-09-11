@@ -1,12 +1,13 @@
 { callPackage, fetchFromGitHub, lib, mkYarnPackage, nodejs, makeWrapper, matrix-sdk-crypto-nodejs }:
 
-mkYarnPackage rec {
+mkYarnPackage {
   pname = "matrix-chatgpt-bot";
-  version = "3.1.1";
+  version = "v3.1.1";
   src = fetchFromGitHub ({
     owner = "matrixgpt";
     repo = "matrix-chatgpt-bot";
-    rev = "v${version}";
+    rev = "v3.1.1";
+    fetchSubmodules = false;
     sha256 = "sha256-FxM8hO26qR1B3ph+6elAyNABqVW+dLFNiiUBdzOH2/w=";
   });
 
