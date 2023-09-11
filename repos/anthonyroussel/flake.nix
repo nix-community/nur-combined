@@ -17,7 +17,7 @@
       modules = import ./modules;
     in
     {
-      inherit (modules) homeManagerModules nixosModules;
+      inherit (modules) hmModules nixosModules;
 
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };

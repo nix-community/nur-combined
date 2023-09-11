@@ -1,4 +1,4 @@
 {
-  homeManagerModules = import ./home-manager;
+  hmModules = import ./home-manager;
   nixosModules = import ./nixos;
 }
