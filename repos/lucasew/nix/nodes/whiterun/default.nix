@@ -68,7 +68,7 @@ in {
     settings = {
       search = {
         paths = [
-          "/storage/games/steam/compatdata"
+          "/storage/games/steam/steamapps/compatdata"
         ];
       };
       flatout-2 = {
