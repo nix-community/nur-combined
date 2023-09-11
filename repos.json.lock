@@ -740,8 +740,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "14322422804ca1375f58a7c4cb145fb612979698",
-            "sha256": "1zrjzwjm9k0d3f8wb982ph3l4hrqljlmhsgzvjvq7wadmm7hpg3z",
+            "rev": "1d056c05bb8e61732e1ddcc2be63d98ae314c0cd",
+            "sha256": "175arvpvv64hi6n41839q79469p3rn2ya5bwjah72s4mkmd07ial",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
@@ -755,8 +755,8 @@
             "url": "https://github.com/lourkeur/nur-expressions"
         },
         "lschuermann": {
-            "rev": "086368573cda69d5671473827e5c3f2020d91ae4",
-            "sha256": "045z8pkqh7cz5qcirbw45j2lajl97phz5bcffzy88v48m9nx0gkp",
+            "rev": "d1b317c3db148a671f69e6dee086cfa311b1578d",
+            "sha256": "054vzw616xgprlx6kkw3jh9n61i3qh9yvgp09yimpl163ss7iykz",
             "url": "https://github.com/lschuermann/nur-packages"
         },
         "lucasew": {
