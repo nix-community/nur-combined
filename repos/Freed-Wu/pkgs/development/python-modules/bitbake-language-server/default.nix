@@ -16,8 +16,7 @@ buildPythonPackage rec {
     tree-sitter
   ];
   nativeBuildInputs = [
-    setuptools-generate
-    setuptools-scm
+    scikit-build-core
   ];
   pythonImportsCheck = [
     "bitbake_language_server"

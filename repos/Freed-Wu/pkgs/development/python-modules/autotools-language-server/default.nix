@@ -1,7 +1,6 @@
 { mySources
 , python3
 , lib
-, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -16,8 +15,7 @@ buildPythonPackage rec {
     tree-sitter
   ];
   nativeBuildInputs = [
-    setuptools-generate
-    setuptools-scm
+    scikit-build-core
   ];
   pythonImportsCheck = [
     "autotools_language_server"
