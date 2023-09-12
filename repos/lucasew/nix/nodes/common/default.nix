@@ -17,7 +17,6 @@ in
     ./hosts.nix
     ./kvm.nix
     ./lvm.nix
-    ./netusage.nix
     ./nginx-root-domain.nix
     ./nginx.nix
     ./nix-index-database.nix

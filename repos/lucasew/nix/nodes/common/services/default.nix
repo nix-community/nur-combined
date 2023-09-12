@@ -13,5 +13,6 @@
     ./telegram_sendmail.nix
     ./p2k.nix
     ./nixgram.nix
+    ./netusage
   ];
 }
