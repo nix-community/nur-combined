@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# rebase interactive to the parent branch
+git rebase --interactive $(sd g bb)

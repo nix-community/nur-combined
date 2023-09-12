@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# get which branch the branch is based
+
+current_branch=`git name-rev --name-only HEAD`
+
+i=0
+while true; do
+    i=$((i+1))
+    resolved_rev=`git name-rev --name-only HEAD~$i`
+
+    IFS="~" read b rest <  <(echo $resolved_rev)
+
+    if [ "$b" != "$current_branch" ]; then
+        parent=$(git rev-parse HEAD~$i)
+        echo parent_branch: $resolved_rev $parent >&2
+        exit 0
+    fi
+done
