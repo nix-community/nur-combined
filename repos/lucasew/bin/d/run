@@ -6,4 +6,5 @@ set -euo pipefail
 
 __ETC_BASHRC_SOURCED=0
 
+cd "$(sd d root)"
 nix develop "$(sd d root)" -c "$@"

@@ -127,6 +127,16 @@ in
     inherit (flake.outputs) colors;
   };
 
+  script-directory = prev.script-directory.overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      installShellCompletion --bash ${prev.fetchurl {
+        name = "sd";
+        url = "https://raw.githubusercontent.com/lucasew/sd/6cf0193f9539f6b857b478b3d87c013cf38c7e09/_sd.bash";
+        hash = "sha256-dcrWwpRASH0PQwJPfl1Dk2CjdAdIWyIZ1klPsQoFpz4=";
+      }}
+    '';
+  });
+
   ccacheWrapper = prev.ccacheWrapper.override {
     extraConfig = ''
       export CCACHE_COMPRESS=1
