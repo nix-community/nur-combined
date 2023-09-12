@@ -186,6 +186,9 @@
         "crtified": {
             "url": "https://github.com/CRTified/nur-packages"
         },
+        "cryolitia": {
+            "url": "https://github.com/Cryolitia/nur-packages"
+        },
         "cwyc": {
             "submodules": true,
             "url": "https://github.com/cwyc/nur-packages"
