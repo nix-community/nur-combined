@@ -13,13 +13,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "swayaudioidleinhibit";
-  version = "0.1.1";
+  version = "unstable-2023-08-09";
 
   src = fetchFromGitHub {
     owner = "ErikReider";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "1c55vbar97n17hzl9gla43bd26n4yc7vrf87ly0b2fwpwr8i8iax";
+    rev = "c850bc4812216d03e05083c69aa05326a7fab9c7";
+    hash = "sha256-MKzyF5xY0uJ/UWewr8VFrK0y7ekvcWpMv/u9CHG14gs=";
   };
 
   nativeBuildInputs = [meson pkg-config cmake ninja wayland-scanner];
