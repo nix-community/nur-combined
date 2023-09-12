@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -eu
+
+# get ssh params from the host list
+#
+# $this var_prefix node
+var_prefix="$1"; shift
+node="$1"; shift
+
+item=`cat /run/secrets/ssh-alias | grep -e "^$node" | sed 's;[^ ]*[ ]*\([^$]*\);\1;' | head -n 1`
+
+# printf "'%s'\n" $item >&2
+
+if [ -z "$item" ]; then
+    # echo item empty >&2
+    item="$node"
+fi
+
+IFS='@' read -r user rest < <(printf "%s\n" "$item")
+
+if [ "$user" == "$item" ]; then
+    rest="$item"
+    user=`whoami`
+fi
+
+IFS=':' read -r host port < <(printf "%s\n" "$rest")
+
+if [ -z "$port" ]; then
+    port=22
+fi
+
+cat <<EOF
+${var_prefix}_USER="$user"
+${var_prefix}_PORT="$port"
+${var_prefix}_HOST="$host"
+EOF

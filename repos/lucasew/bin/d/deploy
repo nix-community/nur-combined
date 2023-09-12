@@ -5,5 +5,18 @@ set -euo pipefail
 # deploy machines with pyinfra
 
 hosts=""
+for item in $@; do
+    if [ ! -z "$hosts" ]; then
+        hosts="$hosts,$item"
+    else
+        hosts="$item"
+    fi
+done
+
+if [ -z "$hosts" ]; then
+    echo "no hosts specified" >&2
+    exit 1
+fi
+
 
 sd d run pyinfra --use-sudo-password "$hosts" pyinfra/nixos.py pyinfra/home-manager.py

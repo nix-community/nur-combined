@@ -5,3 +5,4 @@ out.nar
 .direnv
 *.fd
 __pycache__
+pyinfra-debug.log

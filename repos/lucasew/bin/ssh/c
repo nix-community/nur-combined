@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# open terminal ssh session
+
+host="$1"; shift
+
+# sd ssh _meta SSH "$host"
+
+eval "$(sd ssh _meta SSH "$host")"
+
+ssh -t -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "$@"
