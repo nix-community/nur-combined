@@ -248,16 +248,16 @@
   };
   rime-cantonese = {
     pname = "rime-cantonese";
-    version = "cbddb3114da5ea1b43fd25f7523659bc90f38aee";
+    version = "e3c6b17e638ac8a9aeab4d5852e5909b049c5ab3";
     src = fetchgit {
       url = "https://github.com/rime/rime-cantonese.git";
-      rev = "cbddb3114da5ea1b43fd25f7523659bc90f38aee";
+      rev = "e3c6b17e638ac8a9aeab4d5852e5909b049c5ab3";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-C1nlpsGo++hwm8UZMjEWMcH18+ItGQLQcS9JgcwEm3Y=";
+      sha256 = "sha256-uJAiSY5gmVLQzMOvDSxr+78tLgNfwBifjmb5EygxKpw=";
     };
-    date = "2023-07-30";
+    date = "2023-09-12";
   };
   rime-double-pinyin = {
     pname = "rime-double-pinyin";
