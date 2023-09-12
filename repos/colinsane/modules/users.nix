@@ -9,6 +9,8 @@ let
   userOptions = {
     options = {
       fs = mkOption {
+        # map to listOf attrs so that we can allow multiple assigners to the same path
+        # w/o worrying about merging at this layer, and defer merging to modules/fs instead.
         type = types.attrsOf (types.coercedTo types.attrs (a: [ a ]) (types.listOf types.attrs));
         default = {};
         description = ''

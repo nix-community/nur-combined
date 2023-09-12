@@ -108,6 +108,7 @@ let
         '';
       };
       fs = mkOption {
+        # funny type to allow deferring the option merging down to the layer below
         type = types.attrsOf (types.coercedTo types.attrs (a: [ a ]) (types.listOf types.attrs));
         default = {};
         description = "files to populate when this program is enabled";
@@ -128,22 +129,16 @@ let
       services = mkOption {
         # see: <repo:nixos/nixpkgs:nixos/lib/utils.nix>
         # type = utils.systemdUtils.types.services;
-        # defined not as the actual type so that we can avoid defaulting things here
-        # and mostly just forward them on. supports:
-        # - <name>  ->  <section (e.g. "serviceConfig")>  ->  <option>
-        # - <name>  ->  <toplevel attr (e.g. "description")>
-        # alternatively i could do some `coerceTo` list, and then mkMerge them when i forward?
-        type = let
-          primitive = types.oneOf [ types.bool types.int types.str types.path ];
-          terminal = types.either primitive (types.listOf primitive);
-          subSection = types.attrsOf terminal;
-          toplevel = types.attrsOf (types.either subSection terminal);
-        in
-          types.attrsOf toplevel;
+        # map to listOf attrs so that we can allow multiple assigners to the same service
+        # w/o worrying about merging at this layer, and defer merging to modules/users instead.
+        type = types.attrsOf (types.coercedTo types.attrs (a: [ a ]) (types.listOf types.attrs));
         default = {};
         description = ''
           systemd services to define if this package is enabled.
           currently only defines USER services -- acts as noop for root-enabled packages.
+
+          conventions are similar to `systemd.services` or `sane.users.<user>.services`.
+          the type at this level is obscured only to as to allow passthrough to `sane.users` w/ proper option merging
         '';
       };
       configOption = mkOption {
@@ -186,7 +181,8 @@ let
 
     # conditionally persist relevant user dirs and create files
     sane.users = lib.mapAttrs (user: en: lib.optionalAttrs en {
-      inherit (p) persist services;
+      inherit (p) persist;
+      services = lib.mapAttrs (_: lib.mkMerge) p.services;
       environment = p.env;
       fs = lib.mkMerge [
         p.fs
