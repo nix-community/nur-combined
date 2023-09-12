@@ -17,4 +17,5 @@ rec {
   dashlane-cli = pkgs.callPackage ./pkgs/dashlane-cli { };
   devcontainer-cli-unofficial = pkgs.callPackage ./pkgs/devcontainer-cli-unofficial { };
   glib = pkgs.callPackage ./pkgs/glib { };
+  mingo = pkgs.callPackage ./pkgs/mingo { };
 }
