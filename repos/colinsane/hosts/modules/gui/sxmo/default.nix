@@ -184,7 +184,8 @@ in
 
     {
       # TODO: lift to option declaration
-      sane.gui.sxmo.settings.TERMCMD = lib.mkIf (cfg.terminal != null)
+      # N.B.: TERMCMD was renamed SXMO_TERMINAL on 2023/08/29
+      sane.gui.sxmo.settings.SXMO_TERMINAL = lib.mkIf (cfg.terminal != null)
         (lib.mkDefault (knownTerminals."${cfg.terminal}" or cfg.terminal));
       sane.gui.sxmo.settings.KEYBOARD = lib.mkIf (cfg.keyboard != null)
         (lib.mkDefault (knownKeyboards."${cfg.keyboard}" or cfg.keyboard));

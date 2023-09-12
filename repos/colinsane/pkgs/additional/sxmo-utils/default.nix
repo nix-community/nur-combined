@@ -87,8 +87,8 @@ let
       # TODO: send these upstream
       (fetchpatch {
         name = "sxmo_hook_apps: add a few";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/d6c17a89e1b7bc74d0ba34629fd5db393e5f560b.patch";
-        hash = "sha256-b12p7RTnAqTVfHpYLkNTwuo12KDznYCYJUEJAIES/1I=";
+        url = "https://git.uninsane.org/colin/sxmo-utils/commit/dd17fd707871961906ed4577b8c89f6128c5f121.patch";
+        hash = "sha256-Giek1MbyOtlPccmT8XQkLZWhX+EeJdzWVZtNgcLuTsI=";
       })
     ];
   };
@@ -99,9 +99,9 @@ in {
     patches = patches.merged ++ patches.unmerged;
   };
   latest = callPackage ./common.nix {
-    version = "unstable-2023-08-29";
-    rev = "871caa7394d2deda6aaff89af0fea9f6de773c2e";
-    hash = "sha256-TnRit0W/Racm92AwoEuSIJiOtu2XBUd3IsQoPrtshvk=";
+    version = "unstable-2023-09-09";
+    rev = "c95f3d9e7b6b4314dec776a538dbb6b598a40b58";
+    hash = "sha256-ilt0I228zdzwsVrk1k/HOPpO53bdqtIN9EQJFZEGl8k=";
     patches = patches.unmerged ++ patches.unmerged-tip-only;
   };
 }
