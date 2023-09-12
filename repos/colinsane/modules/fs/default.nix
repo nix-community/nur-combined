@@ -169,10 +169,19 @@ let
         default = null;
         description = "create a file in the /nix/store with the provided text and use that as the target";
       };
+      targetName = mkOption {
+        type = types.str;
+        default = path-lib.leaf path;
+        description = "name of file to create if generated from text";
+      };
     };
     config = {
       target = lib.mkIf (config.text != null) (
-        pkgs.writeText (path-lib.leaf path) config.text
+        (pkgs.writeTextFile {
+          name = path-lib.leaf path;
+          text = config.text;
+          destination = "/${config.targetName}";
+        }) + "/${config.targetName}"
       );
     };
   });

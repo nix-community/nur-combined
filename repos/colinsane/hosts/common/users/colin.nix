@@ -22,6 +22,7 @@
       "media"  # servo, for /var/lib/uninsane/media
       "networkmanager"
       "nixbuild"
+      "systemd-journal"  # allows to view other user's journals (esp system users)
       "transmission"  # servo, to admin /var/lib/uninsane/media
       "video"  # mobile; for LEDs & maybe for camera?
       "wheel"

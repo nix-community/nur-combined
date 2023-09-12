@@ -1,7 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 {
-  # TODO: give `sane.programs` native support for defining services
-  systemd.user.services.playerctld = lib.mkIf config.sane.programs.playerctl.enabled {
+  sane.programs.playerctl.services.playerctld = {
     description = "playerctl daemon to keep track of which MPRIS players were recently active";
     documentation = [ "https://github.com/altdesktop/playerctl/issues/161" ];
     wantedBy = [ "default.target" ];

@@ -60,6 +60,10 @@ let
     sxmo-utils-latest = sxmo-utils'.latest;
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
     tree-sitter-nix-shell = callPackage ./additional/tree-sitter-nix-shell { };
+    trivial-builders = lib.recurseIntoAttrs (callPackage ./additional/trivial-builders { });
+    inherit (trivial-builders)
+      rmDbusServices
+    ;
     unftp = callPackage ./additional/unftp { };
     xdg-terminal-exec = callPackage ./additional/xdg-terminal-exec { };
     zecwallet-light-cli = callPackage ./additional/zecwallet-light-cli { };

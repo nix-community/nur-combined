@@ -47,6 +47,9 @@ lib.mkIf config.sane.persist.enable
       passfile="$2"
       # clear the backing store
       # TODO: we should verify that it's not mounted anywhere...
+      # - specifically, there's a bug here right now where if the `sane.fs`
+      #   details change, a deploy onto a live system will restart this service,
+      #   corrupting all of this store.
       rm -rf "''${backing:?}"/*
       ${pkgs.gocryptfs}/bin/gocryptfs -quiet -passfile "$passfile" -init "$backing"
     '';

@@ -1,4 +1,4 @@
-{ config, lib, options, pkgs, sane-lib, ... }:
+{ config, lib, options, pkgs, sane-lib, utils, ... }:
 let
   cfg = config.sane.programs;
 
@@ -125,6 +125,27 @@ let
         default = {};
         description = "environment variables to set when this program is enabled";
       };
+      services = mkOption {
+        # see: <repo:nixos/nixpkgs:nixos/lib/utils.nix>
+        # type = utils.systemdUtils.types.services;
+        # defined not as the actual type so that we can avoid defaulting things here
+        # and mostly just forward them on. supports:
+        # - <name>  ->  <section (e.g. "serviceConfig")>  ->  <option>
+        # - <name>  ->  <toplevel attr (e.g. "description")>
+        # alternatively i could do some `coerceTo` list, and then mkMerge them when i forward?
+        type = let
+          primitive = types.oneOf [ types.bool types.int types.str types.path ];
+          terminal = types.either primitive (types.listOf primitive);
+          subSection = types.attrsOf terminal;
+          toplevel = types.attrsOf (types.either subSection terminal);
+        in
+          types.attrsOf toplevel;
+        default = {};
+        description = ''
+          systemd services to define if this package is enabled.
+          currently only defines USER services -- acts as noop for root-enabled packages.
+        '';
+      };
       configOption = mkOption {
         type = types.raw;
         default = mkOption {
@@ -165,7 +186,7 @@ let
 
     # conditionally persist relevant user dirs and create files
     sane.users = lib.mapAttrs (user: en: lib.optionalAttrs en {
-      inherit (p) persist;
+      inherit (p) persist services;
       environment = p.env;
       fs = lib.mkMerge [
         p.fs

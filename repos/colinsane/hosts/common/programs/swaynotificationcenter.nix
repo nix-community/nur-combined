@@ -14,7 +14,7 @@
 # - examples:
 #   - thread: <https://github.com/ErikReider/SwayNotificationCenter/discussions/183>
 #   - buttons-grid and menubar: <https://gist.github.com/JannisPetschenka/fb00eec3efea9c7fff8c38a01ce5d507>
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   sane.programs.swaynotificationcenter = {
     configOption = with lib; mkOption {
@@ -31,6 +31,8 @@
       };
       default = {};
     };
+    # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
+    package = pkgs.rmDbusServices pkgs.swaynotificationcenter;
     fs.".config/swaync/style.css".symlink.text = ''
       /* avoid black-on-black text that the default style ships */
       window {
@@ -144,19 +146,17 @@
         };
       };
     };
-  };
-
-  # TODO: give `sane.programs` native support for defining services
-  systemd.user.services.swaync = lib.mkIf config.sane.programs.swaynotificationcenter.enabled {
-    # swaync ships its own service, but i want to add `environment` variables and flags for easier debugging.
-    # seems that's not possible without defining an entire nix-native service (i.e. this).
-    description = "Swaync desktop notification daemon";
-    wantedBy = [ "default.target" ];
-    serviceConfig.ExecStart = "${config.sane.programs.swaynotificationcenter.package}/bin/swaync";
-    serviceConfig.Type = "dbus";
-    serviceConfig.BusName = "org.freedesktop.Notifications";
-    serviceConfig.Restart = "on-failure";
-    serviceConfig.RestartSec = "10s";
-    environment.G_MESSAGES_DEBUG = "all";
+    services.swaync = {
+      # swaync ships its own service, but i want to add `environment` variables and flags for easier debugging.
+      # seems that's not possible without defining an entire nix-native service (i.e. this).
+      description = "Swaync desktop notification daemon";
+      wantedBy = [ "default.target" ];
+      serviceConfig.ExecStart = "${config.sane.programs.swaynotificationcenter.package}/bin/swaync";
+      serviceConfig.Type = "simple";
+      # serviceConfig.BusName = "org.freedesktop.Notifications";
+      serviceConfig.Restart = "on-failure";
+      serviceConfig.RestartSec = "10s";
+      environment.G_MESSAGES_DEBUG = "all";
+    };
   };
 }

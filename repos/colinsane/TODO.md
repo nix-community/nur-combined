@@ -64,6 +64,7 @@
   - direct mepo to prefer gpsd, with fallback to geoclue, for better accuracy?
   - configure geoclue to do some smoothing?
   - manually do smoothing, as some layer between mepo and geoclue/gpsd?
+- moby: show battery state on ssh login
 - moby: improve gPodder launch time
 - sxmo: fix youtube scripts (package youtube-cli)
 - sxmo: don't put all deps on PATH

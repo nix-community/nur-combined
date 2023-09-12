@@ -1,4 +1,4 @@
-{ config, lib, options, sane-lib, ... }:
+{ config, lib, options, sane-lib, utils, ... }:
 
 let
   inherit (builtins) attrValues;
@@ -42,6 +42,16 @@ let
           these end up in ~/.profile
         '';
       };
+
+      services = mkOption {
+        # see: <repo:nixos/nixpkgs:nixos/lib/utils.nix>
+        type = utils.systemdUtils.types.services;
+        default = {};
+        description = ''
+          systemd user-services to define for this user.
+          populates files in ~/.config/systemd.
+        '';
+      };
     };
   };
   userModule = let nixConfig = config; in types.submodule ({ name, config, ... }: {
@@ -80,6 +90,37 @@ let
             ;
           in
             lib.concatStringsSep "\n" env;
+      }
+      {
+        fs = lib.mkMerge (mapAttrsToList (name: value:
+          let
+            # see: <repo:nixos/nixpkgs:nixos/lib/utils.nix>
+            # see: <repo:nix-community/home-manager:modules/systemd.nix>
+            cleanName = utils.systemdUtils.lib.mkPathSafeName name;
+            generatedUnit = utils.systemdUtils.lib.serviceToUnit name value;
+            #^ generatedUnit contains keys:
+            # - text
+            # - aliases  (IGNORED)
+            # - wantedBy
+            # - requiredBy
+            # - enabled  (IGNORED)
+            # - overrideStrategy  (IGNORED)
+            # TODO: error if one of the above ignored fields are set
+            symlinkData = {
+              text = generatedUnit.text;
+              targetName = "${cleanName}.service";  # systemd derives unit name from symlink target
+            };
+            serviceEntry = {
+              ".config/systemd/user/${name}.service".symlink = symlinkData;
+            };
+            wants = builtins.map (wantedBy: {
+              ".config/systemd/user/${wantedBy}.wants/${name}.service".symlink = symlinkData;
+            }) generatedUnit.wantedBy;
+            requires = builtins.map (requiredBy: {
+              ".config/systemd/user/${requiredBy}.requires/${name}.service".symlink = symlinkData;
+            }) generatedUnit.requiredBy;
+          in lib.mkMerge ([ serviceEntry ] ++ wants ++ requires)
+        ) config.services);
       }
     ];
   });

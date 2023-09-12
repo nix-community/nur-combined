@@ -1,14 +1,10 @@
 # config docs:
 # - `man 5 mako`
-{ lib, config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   sane.programs.mako = {
-    package = pkgs.mako.overrideAttrs (upstream: {
-      postInstall = (upstream.postInstall or "") + ''
-        # we control mako as a systemd service, so have dbus not automatically activate it.
-        rm $out/share/dbus-1/services/fr.emersion.mako.service
-      '';
-    });
+    # we control mako as a systemd service, so have dbus not automatically activate it.
+    package = pkgs.rmDbusServices pkgs.mako;
     fs.".config/mako/config".symlink.text = ''
       # notification interaction mapping
       # "on-touch" defaults to "dismiss", which isn't nice for touchscreens.
@@ -51,23 +47,21 @@
       text-color=#ffffff
       background-color=#ff0000
     '';
-  };
 
-  # mako supports activation via dbus (i.e. the daemon will be started on-demand when a
-  # dbus client tries to talk to it): that works out-of-the-box just by putting mako
-  # on environment.packages, but then logs are blackholed.
-  # TODO: give `sane.programs` native support for defining services
-  systemd.user.services.mako = lib.mkIf config.sane.programs.mako.enabled {
-    description = "mako desktop notification daemon";
-    wantedBy = [ "default.target" ];
-    # XXX: should be part of graphical-session.target, but whatever mix of greetd/sway
-    # i'm using means that target's never reached...
-    # TODO: might want `ConditionUser=!@system`
+    # mako supports activation via dbus (i.e. the daemon will be started on-demand when a
+    # dbus client tries to talk to it): that works out-of-the-box just by putting mako
+    # on environment.packages, but then logs are blackholed.
+    services.mako = {
+      description = "mako desktop notification daemon";
+      wantedBy = [ "default.target" ];
+      # XXX: should be part of graphical-session.target, but whatever mix of greetd/sway
+      # i'm using means that target's never reached...
 
-    serviceConfig.ExecStart = "${config.sane.programs.mako.package}/bin/mako";
-    serviceConfig.Type = "simple";
-    # mako will predictably fail if launched before the wayland server is fully initialized
-    serviceConfig.Restart = "on-failure";
-    serviceConfig.RestartSec = "10s";
+      serviceConfig.ExecStart = "${config.sane.programs.mako.package}/bin/mako";
+      serviceConfig.Type = "simple";
+      # mako will predictably fail if launched before the wayland server is fully initialized
+      serviceConfig.Restart = "on-failure";
+      serviceConfig.RestartSec = "10s";
+    };
   };
 }
