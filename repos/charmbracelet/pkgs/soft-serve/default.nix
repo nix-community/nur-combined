@@ -9,26 +9,26 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "18ffr0s3442c5mhgnirpx16ddznsc57rwzlnzsil2z8mvx3j07ac";
-    x86_64-linux = "0721w8rp1r9qxwja5q5a7gxfpyw0da0rygqdpm1p7qxr54zq3c8r";
-    armv7l-linux = "1zgh3z4gnfxpmpz1b543w1qpy01zvgiwv14h6lj2j35b88z8mxg5";
-    aarch64-linux = "0rg6zl6f3iw45qiapqvmq9pnx0g91kzq148f440d27rskmbzj3rd";
-    x86_64-darwin = "0rkjl6sfcg5jbchxsp9r2bcabr4q98nnx23l8g0rbirx8bbib1lg";
-    aarch64-darwin = "0lkdvsam68rmp04njx00jjwmpmzka6g1pdv7vvyv0l3wkaf73v2g";
+    i686-linux = "13k07dhs79s6x94fm3kqc7pbkfs58sla66dd2x9y6nprxk3w42lm";
+    x86_64-linux = "0jmhyz6dswn3mi8i6cdcmy0bxrhdcgnv1bmavah13xg9255inn6h";
+    armv7l-linux = "0xzr3f8h1d49vmqwcnc37cp839cink71ngkny0nv5jxlkly581bb";
+    aarch64-linux = "0g4830zmm7m4cw2zwkaq1l5iwqavgsi07776allkx1ca2y864rfw";
+    x86_64-darwin = "0h006im09w4nihnyj6mlz94kijkmg9ank5fa3kkwk17gxgyypixh";
+    aarch64-darwin = "00dbp7n3aim7ia0q8a4clgcxdws8fld7lv4r1k2vsb2iczr89jg5";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.0/soft-serve_0.6.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.0/soft-serve_0.6.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.0/soft-serve_0.6.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.0/soft-serve_0.6.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.0/soft-serve_0.6.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.0/soft-serve_0.6.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.1/soft-serve_0.6.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.1/soft-serve_0.6.1_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.1/soft-serve_0.6.1_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.1/soft-serve_0.6.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.1/soft-serve_0.6.1_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.6.1/soft-serve_0.6.1_Darwin_arm64.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "soft-serve";
-  version = "0.6.0";
+  version = "0.6.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
