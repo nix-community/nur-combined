@@ -21,6 +21,17 @@ in
           PAGER = "cat";
         };
 
+        path = with pkgs; [
+          woodpecker-plugin-git
+          bash
+          coreutils
+          git
+          git-lfs
+          gnutar
+          gzip
+          nix
+        ];
+
         environmentFile = [ cfg.sharedSecretFile ];
       };
     };
@@ -29,17 +40,6 @@ in
     systemd.services.woodpecker-agent-exec = {
       # Might break deployment
       restartIfChanged = false;
-
-      path = with pkgs; [
-        woodpecker-plugin-git
-        bash
-        coreutils
-        git
-        git-lfs
-        gnutar
-        gzip
-        nix
-      ];
 
       serviceConfig = {
         # Same option as upstream, without @setuid
