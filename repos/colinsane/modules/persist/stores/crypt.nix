@@ -21,7 +21,7 @@ lib.mkIf config.sane.persist.enable
     device = underlying;
     fsType = "fuse.gocryptfs";
     options = [
-      "nodev"
+      # "nodev"   # "Unknown parameter 'nodev'". gocryptfs requires this be passed as `-ko nodev`
       # "nosuid"  # "Unknown parameter 'nosuid'". gocryptfs requires this be passed as `-ko nosuid` (also, nosuid is default)
       "allow_other"  # root ends up being the user that mounts this, so need to make it visible to other users.
       "passfile=${key}"

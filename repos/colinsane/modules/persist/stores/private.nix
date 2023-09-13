@@ -31,7 +31,7 @@ lib.mkIf config.sane.persist.enable
     options = [
       "noauto"  # don't try to mount, until the user logs in!
       "nofail"
-      "nodev"
+      # "nodev"   # "Unknown parameter 'nodev'". gocryptfs requires this be passed as `-ko nodev`
       # "noexec"  # handful of scripts in ~/private/knowledge that are executable
       # "nosuid"  # "Unknown parameter 'nosuid'". gocryptfs requires this be passed as `-ko nosuid` (also nosuid is default)
       "allow_other"  # root ends up being the user that mounts this, so need to make it visible to other users.

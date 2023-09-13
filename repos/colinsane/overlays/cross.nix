@@ -1720,6 +1720,19 @@ in {
     ];
   });
 
+  spdlog = prev.spdlog.overrideAttrs (upstream: {
+    # oops: <https://github.com/NixOS/nixpkgs/pull/250435/files#diff-ba4902b7396cd55a6e49ae0a0f5ad80f194e8b642e7016a825c90cef372df7f4R35>
+    # nativeCheckInputs = (upstream.nativeCheckInputs or []) ++ [ final.catch2_3 ];
+    # # checkInputs = (upstream.checkInputs or []) ++ [ final.systemd ];
+    # # pkgsBuildBuild = (upstream.pkgsBuildBuild or []) ++ [ final.pkg-config ];
+    # postPatch = (upstream.postPatch or "") + ''
+    #   substituteInPlace tests/CMakeLists.txt \
+    #     --replace 'Catch2 3 QUIET' 'Catch2 3'
+    # '';
+    doCheck = false;
+    cmakeFlags = lib.remove "-DSPDLOG_BUILD_TESTS=ON" upstream.cmakeFlags;
+  });
+
   squeekboard = prev.squeekboard.overrideAttrs (upstream: {
     # fixes: "meson.build:1:0: ERROR: 'rust' compiler binary not defined in cross or native file"
     # new error: "meson.build:1:0: ERROR: Rust compiler rustc --target aarch64-unknown-linux-gnu -C linker=aarch64-unknown-linux-gnu-gcc can not compile programs."
