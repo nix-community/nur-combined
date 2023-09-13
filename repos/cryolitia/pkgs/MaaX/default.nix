@@ -8,6 +8,7 @@
 , android-tools
 , makeWrapper
 , makeDesktopItem
+, copyDesktopItems
 , }:
 
 let
@@ -24,6 +25,7 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
       makeWrapper
+      copyDesktopItems
     ];
 
   buildInputs = [
@@ -41,8 +43,11 @@ in stdenv.mkDerivation rec {
       --add-flags "$out/share/${pname}/dist/main/index.cjs" \
       --set LD_LIBRARY_PATH "$LD_LIBRARY_PATH:${stdenv.cc.cc.lib}/lib/"
 
+    sed -i '1a rm -rfv ~/.config/Electron/platform-tools\
+    ln -s ${android-tools}/bin ~/.config/Electron/platform-tools' $out/bin/MaaX
+
     mkdir -p $out/share/icons
-    ln -s $out/share/${pname}/dist/assets/icon.png $out/share/icons/MaaX.png
+    ln -s $out/share/${pname}/dist/renderer/assets/icon.png $out/share/icons/MaaX.png
 
     runHook postInstall
   '';
