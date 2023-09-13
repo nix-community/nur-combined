@@ -7,12 +7,12 @@ let
 in
 
 stdenv.mkDerivation rec {
-  version = "3.7-04";
+  version = "3.9-03";
   pname = "imager";
 
   src = fetchurl {
-    url = "https://nuage.oasu.u-bordeaux.fr/index.php/s/PoxdxMTTYXqNwKF/download?path=%2F&files=imager-march23.tar.gz";
-    sha256 = "sha256-iTGgbKiWae05iANbZcmBFRU4v2+4VrtOoh9R3CoKPts=";
+    url = "https://nuage.oasu.u-bordeaux.fr/index.php/s/PoxdxMTTYXqNwKF/download?path=%2F&files=imager-sep23.tar.gz";
+    sha256 = "sha256-4KPeF/EW4M6G20yvh4rAQZs6Wdzk/EqtlQAlY4lQxMA=";
   };
 
   nativeBuildInputs = [ pkg-config groff perl getopt gfortran which ];
@@ -27,7 +27,6 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks");
 
   configurePhase=''
-    touch VERSION
     substituteInPlace admin/wrapper.sh --replace '%%OUT%%' $out
     substituteInPlace admin/wrapper.sh --replace '%%PYTHONHOME%%' ${python3Env}
     substituteInPlace utilities/main/gag-makedepend.pl --replace '/usr/bin/perl' ${perl}/bin/perl
