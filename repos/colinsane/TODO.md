@@ -58,6 +58,7 @@
     - this is a problem of playerctld, i guess
   - add option to change audio output
   - add option to toggle GPS on/off
+  - fix colors (red alert) to match overall theme
 - moby: tune GPS
   - run only geoclue, and not gpsd, to save power?
   - tune QGPS setting in eg25-control, for less jitter?

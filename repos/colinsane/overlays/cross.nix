@@ -1791,33 +1791,14 @@ in {
   # };
 
   swaynotificationcenter = prev.swaynotificationcenter.overrideAttrs (upstream: {
-    # pkg-config needed to find scdoc
-    # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [ final.pkg-config ];
     mesonFlags = (upstream.mesonFlags or []) ++ [
       # fixes "[can't find scdoc]"
+      # could instead add pkg-config to depsBuildBuild, but then the build tries to link against native deps and fails elsewhere
       "-Dman-pages=false"
-      # for "error: Package `libpulse' not found in specified Vala API directories or GObject-Introspection GIR directories"
-      # XXX: pulse-audio meson_option not available in v0.9.0
-      "-Dpulse-audio=false"
     ];
-    patches = (upstream.patches or []) ++ [
-      # patches merged after v0.9.0, needed for `-Dpulse-audio=false`
-      (final.fetchpatch2 {
-        name = "Added volume and backlight widgets to MAN 5 page";
-        url = "https://github.com/ErikReider/SwayNotificationCenter/commit/ee456bab382246f4e35616dd1acb147e65369b66.patch";
-        hash = "sha256-9O6z69UsduRxe4+hzYWQC+xQrIX+CKHd1Tc3Tc8GxBk=";
-      })
-      (final.fetchpatch2 {
-        name = ''Added "relative-timestamps" config to switch between "25 minutes ago" and "2023-06-25T20:05:27-07" (#286)'';
-        url = "https://github.com/ErikReider/SwayNotificationCenter/commit/9bac0d09af4a914f22755f31798f2f88e3e8f833.patch";
-        hash = "sha256-8PZQgINTYgp3oriZh6F+Nz8x4bAQ/BKHZXkqKKwRFdw=";
-      })
-      (final.fetchpatch2 {
-        name = "Add meson_option to build without PulseAudio Widget (#297)";
-        url = "https://github.com/ErikReider/SwayNotificationCenter/commit/90cde83bde93bf5d2c14d26345ffbb75963da70c.patch";
-        hash = "sha256-O86iMWMS28fxEodm3Yw24sMGc1wwnegg2+ZUhIlqCAc=";
-      })
-    ];
+    # for "error: Package `libpulse' not found in specified Vala API directories or GObject-Introspection GIR directories"
+    # apparently vala setuphook incorrectly uses hostOffset, instead of targetOffset?
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [ final.libpulseaudio ];
   });
 
   # sysprof = (
