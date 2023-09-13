@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=@version@
+Name=Mingo
+Exec=@exec@
+StartupNotify=true
+Terminal=false
+Icon=@icon@
+Type=Application
