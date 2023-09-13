@@ -21,4 +21,14 @@ rec {
     inherit maintainers;
   };
 
+  MaaAssistantArknights-beta = MaaAssistantArknights.override { 
+    maaVersion = "4.24.0-beta.2";
+    maaSourceHash = "sha256-fKio12L0MpcfmHPOyXQItGWAqq/EFwEgmk4O4PF+OS8=";
+  };
+
+
+  MaaX = pkgs.callPackage ./pkgs/MaaX { 
+    inherit maintainers;
+  };
+
 }
