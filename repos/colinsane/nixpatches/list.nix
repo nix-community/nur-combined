@@ -19,6 +19,12 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
+  (fetchpatch' {
+    title = "trust-dns: 0.22.1 -> 0.23.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/254827";
+    hash = "sha256-0EPLiv+Ha943C5/l24pyY+VEUOEJ6UG9rr+EHTzFR0Q=";
+  })
+
   # (fetchpatch' {
   #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.
   #   # the latter is an alias, which breaks nix-index
@@ -272,7 +278,7 @@ in [
     title = "gthumb: make the webservices feature be optional";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/240602";
     saneCommit = "e83130f2770c314b2a482e1792b010da66cdd5de";
-    hash = "sha256-aQjjm4uP3RaAkKykTNFmnrf2fyY2FcwKerRprlO2cnQ=";
+    hash = "sha256-GlYWpOVZvr0oFAs4RdSUf7LJD3FmGsCaTm32GPhbBfc=";
   })
 
   (fetchpatch' {

@@ -70,7 +70,7 @@
       zone-wan = "${zone-dir}/wan/uninsane.org.zone";
       zone-lan = "${zone-dir}/lan/uninsane.org.zone";
       zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.dns.zones."uninsane.org".rendered;
-    in pkgs.writeShellScriptBin "named" ''
+    in pkgs.writeShellScriptBin "trust-dns" ''
       # compute wan/lan values
       mkdir -p ${zone-dir}/{ovpn,wan,lan}
       wan=$(cat '${config.sane.services.dyn-dns.ipPath}')
@@ -87,9 +87,9 @@
         > ${zone-lan}
 
       # launch the different interfaces, separately
-      ${pkgs.trust-dns}/bin/named --port 53 --zonedir ${zone-dir}/wan/ $@ &
+      ${pkgs.trust-dns}/bin/trust-dns --port 53 --zonedir ${zone-dir}/wan/ $@ &
       WANPID=$!
-      ${pkgs.trust-dns}/bin/named --port 1053 --zonedir ${zone-dir}/lan/ $@ &
+      ${pkgs.trust-dns}/bin/trust-dns --port 1053 --zonedir ${zone-dir}/lan/ $@ &
       LANPID=$!
 
       # wait until any of the processes exits, then kill them all and exit error
