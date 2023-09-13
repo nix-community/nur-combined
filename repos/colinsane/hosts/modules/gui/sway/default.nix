@@ -218,6 +218,24 @@ in
         # emulate pulseaudio for legacy apps (e.g. sxmo-utils)
         pulse.enable = true;
       };
+      # persist per-device volume levels
+      sane.user.persist.plaintext = [ ".local/state/wireplumber" ];
+
+      # persist per-device volume settings across power cycles.
+      # pipewire sits atop the kernel ALSA API, so alsa-utils knows about device volumes.
+      # but wireplumber also tries to do some of this
+      # systemd.services.alsa-store = {
+      #   # based on <repo:nixos/nixpkgs:nixos/modules/services/audio/alsa.nix>
+      #   description = "Store Sound Card State";
+      #   wantedBy = [ "multi-user.target" ];
+      #   serviceConfig = {
+      #     Type = "oneshot";
+      #     RemainAfterExit = true;
+      #     ExecStart = "${pkgs.alsa-utils}/sbin/alsactl restore";
+      #     ExecStop = "${pkgs.alsa-utils}/sbin/alsactl store --ignore";
+      #   };
+      # };
+      # sane.persist.sys.plaintext = [ "/var/lib/alsa" ];
 
       networking.useDHCP = false;
       networking.networkmanager.enable = true;
