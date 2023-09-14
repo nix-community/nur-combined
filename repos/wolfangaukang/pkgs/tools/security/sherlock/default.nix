@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, python3, makeWrapper }:
+{ lib
+, fetchFromGitHub
+, makeWrapper
+, python3
+}:
 
-let
-  pythonEnv = python3.withPackages (pkg: with pkg; [
+python3.pkgs.buildPythonApplication {
+  pname = "sherlock";
+  version = "unstable-2023-08-29";
+  format = "other";
+
+  src = fetchFromGitHub {
+    owner = "sherlock-project";
+    repo = "sherlock";
+    rev = "cf171c7b7292adebb2f14cc3e8fde447f424c499";
+    sha256 = "sha256-m6lhD0p5JZV+Bcx7dbe+VzNzs6U0Nxd+GydGxoPeg4g=";
+  };
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  pythonPath = with python3.pkgs; [
     certifi
     colorama
     pandas
@@ -10,38 +27,32 @@ let
     requests-futures
     stem
     torrequest
-  ]);
-
-in stdenv.mkDerivation {
-  pname = "sherlock";
-  version = "unstable-2023-03-17";
-
-  src = fetchFromGitHub {
-    owner = "sherlock-project";
-    repo = "sherlock";
-    rev = "7b97c3e59f96b7bb3b7301a31002b5157a51a947";
-    sha256 = "sha256-PWIywBhbZg6GODzN98fYH4p7CmxVKWKd7Vt9KkHJlgw=";
-  };
-
-  nativeBuildInputs = [ makeWrapper ];
-
-  buildInputs = [ pythonEnv ];
+  ];
 
   installPhase = ''
-    mkdir -p $out/opt/
-    cp -r sherlock $out/opt/
-    makeWrapper ${pythonEnv}/bin/python3 $out/bin/sherlock \
-      --add-flags "$out/opt/sherlock/sherlock.py"
+    runHook preInstall
+
+    mkdir -p $out/bin $out/opt/sherlock
+    cp -R . $out/opt/sherlock
+
+    runHook postInstall
+  '';
+
+  postFixup = ''
+    makeWrapper ${python3.interpreter} $out/bin/sherlock \
+      --add-flags $out/opt/sherlock/sherlock/sherlock.py \
+      --prefix PYTHONPATH : "$PYTHONPATH"
   '';
 
   # All tests require access to the net
+  doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Hunt down social media accounts by username across social networks";
     homepage = "https://github.com/sherlock-project/sherlock";
-    maintainers = with maintainers; [ wolfangaukang ];
-    platforms = platforms.unix;
-    licenses = licenses.mit;
+    maintainers = with lib.maintainers; [ wolfangaukang ];
+    platforms = lib.platforms.unix;
+    licenses = lib.licenses.mit;
     mainProgram = "sherlock";
   };
 }
