@@ -1,6 +1,6 @@
 { lib
 , fetchFromGitHub
-, stdenv
+, stdenvNoCC
 #, linuxOnly ? true, # broken on nix builds
 , buildMode ? "rel"
 , appList ? true # true = share all
@@ -30,8 +30,8 @@
 let
   commonMeta = rec {
     name = "cosmopolitan";
-    version = "2023-08-31";
-    rev = "e2b3c3618e7a7903f6ddc47acfea087d430fcc3f";
+    version = "2023-09-12";
+    rev = "81f391dd2298daad8e583e7cb1dbcd536459fec2";
     changelog = "https://github.com/jart/cosmopolitan/commits/${rev}";
   };
 
@@ -148,7 +148,7 @@ let
     owner = "jart";
     repo = "cosmopolitan";
     rev = commonMeta.rev;
-    hash = "sha256-POEVyuKZ/pdEYXHxVOLb5OSbzWuJ+5LWeokjUe4BHcY=";
+    hash = "sha256-4tzzIyBh3gXP7nZjhCRLjDzYAuCHQp7rak1mYlGr28g=";
   };
   wantedOutputs =
     # make attrs of all outputs to build. If given a bad name in
@@ -210,7 +210,7 @@ let
     #spot the mistake!
     #(name: "ls -1N --zero ${"$" + name}/bin | xargs -0 -I'{}' realpath -smz '{}' | xargs -0 -I'{}' ln -s '{}' $out/bin/")
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
     pname = commonMeta.name;
     version = commonMeta.version;
     doCheck = true;
