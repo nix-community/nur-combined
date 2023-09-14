@@ -1270,10 +1270,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "3.9.16";
+    version = "3.9.17";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4141929/tree_style_tab-3.9.16.xpi";
-    sha256 = "703c0a1d8d62329aa93ccf3a637911661dd752d0c0d714736521df7aeecc52e9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4164980/tree_style_tab-3.9.17.xpi";
+    sha256 = "4dcf70f56436465749c4c787a0bba90fe2a39bf4c0cf91fa7f7cd2a2f8a806f5";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";
@@ -1333,10 +1333,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.51.0";
+    version = "1.52.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4141256/ublock_origin-1.51.0.xpi";
-    sha256 = "8b73468bc233a11dd2895219466381783d19123857dd0b6fd16a01820fca4834";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4164949/ublock_origin-1.52.0.xpi";
+    sha256 = "3932506ce4df306e4da7527d93d60fe0421cf15045c2f4ea73589d9a0902266b";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
