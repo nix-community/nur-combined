@@ -40,7 +40,7 @@ let
   };
 
   hosts = {
-    "ambroisie@ambroisie" = "x86_64-linux"; # Unfortunate naming here...
+    "ambroisie@mousqueton" = "x86_64-linux";
   };
 in
 {
