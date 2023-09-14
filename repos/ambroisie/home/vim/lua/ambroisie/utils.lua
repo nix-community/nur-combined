@@ -1,29 +1,29 @@
 local M = {}
 
--- pretty print lua object
--- @param obj any object to pretty print
+--- pretty print lua object
+--- @param obj any object to pretty print
 M.dump = function(obj)
     print(vim.inspect(obj))
 end
 
 --- checks if a given command is executable
----@param cmd string? command to check
----@return boolean executable
+--- @param cmd string? command to check
+--- @return boolean executable
 M.is_executable = function(cmd)
     return cmd and vim.fn.executable(cmd) == 1
 end
 
 --- return a function that checks if a given command is executable
----@param cmd string? command to check
----@return fun(cmd: string): boolean executable
+--- @param cmd string? command to check
+--- @return fun(cmd: string): boolean executable
 M.is_executable_condition = function(cmd)
     return function()
         return M.is_executable(cmd)
     end
 end
 
--- whether or not we are currently in an SSH connection
--- @return boolean ssh connection
+--- whether or not we are currently in an SSH connection
+--- @return boolean ssh connection
 M.is_ssh = function()
     local variables = {
         "SSH_CONNECTION",
@@ -40,9 +40,9 @@ M.is_ssh = function()
     return false
 end
 
--- list all active LSP clients for current buffer
--- @param bufnr int? buffer number
--- @return table all active LSP client names
+--- list all active LSP clients for current buffer
+--- @param bufnr int? buffer number
+--- @return table all active LSP client names
 M.list_lsp_clients = function(bufnr)
     local clients = vim.lsp.buf_get_clients(bufnr)
     local names = {}
