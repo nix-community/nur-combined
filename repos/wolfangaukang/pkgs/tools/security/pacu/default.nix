@@ -1,51 +1,61 @@
 { lib
-, buildPythonApplication
-, fetchFromGitHub
-, poetry-core
+, python3
 , awscli
-, boto3
 , dsnap
-, requests
-, sqlalchemy
-, sqlalchemy-utils
-, typing-extensions
-, pythonRelaxDepsHook
-, pytestCheckHook
+, fetchPypi
+, fetchFromGitHub
 }:
 
-buildPythonApplication rec {
+let
+  python = python3.override {
+    packageOverrides = prev: final: {
+      sqlalchemy = final.sqlalchemy.overridePythonAttrs (old: rec {
+        version = "1.3.24";
+
+        src = fetchPypi {
+          inherit version;
+          pname = "SQLAlchemy";
+          hash = "sha256-67t3fL+TEjWbiXv4G6ANrg9ctp+6KhgmXcwYpvXvdRk=";
+        };
+
+        # Too lazy to check this...
+        doCheck = false;
+      });
+    };
+    self = python;
+  };
+
+in
+python.pkgs.buildPythonApplication rec {
   pname = "pacu";
-  version = "1.0.3";
+  version = "1.3.1";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "RhinoSecurityLabs";
     repo = "pacu";
     rev = "v${version}";
-    sha256 = "sha256-tt6Jkfxs+UVmu8eIC2M7lmnePgYVt9jkF2l1moQLl4A=";
+    sha256 = "sha256-zq/VTw0jTlmuBl55BQLY+0iADQTfrMGxc8LBBBpXe1k=";
   };
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python.pkgs; [
     poetry-core
-    awscli
     boto3
-    dsnap
+    botocore
+    chalice
+    jq
+    policyuniverse
     requests
     sqlalchemy
     sqlalchemy-utils
     typing-extensions
-    pythonRelaxDepsHook
-  ];
+    urllib3
+  ] ++ [ awscli dsnap ];
 
-  pythonRelaxDeps = [
-    "dsnap"
-    "SQLAlchemy"
-    "SQLAlchemy-Utils"
-    "typing-extensions"
-  ];
-
-  checkInputs = [
+  checkInputs = with python.pkgs; [
     pytestCheckHook
+    freezegun
+    moto
   ];
 
   preCheck = ''
