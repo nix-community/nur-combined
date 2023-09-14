@@ -3,6 +3,10 @@ let
   nixpkgsPath = pkgs.path;
   pins = import ./nix/sources.nix nixpkgsPath pkgs.targetPlatform.system;
   naersk = pkgs.callPackage pins.naersk { };
+  napalm = import pins.napalm.outPath {
+    inherit pkgs;
+    lib = pkgs.lib;
+  };
 in
 let repo = rec {
   lib = import ./lib { inherit pkgs repo; };
@@ -17,6 +21,10 @@ let repo = rec {
 
   arcconf = pkgs.callPackage ./pkgs/arcconf {
     inherit pins;
+  };
+
+  broadcast-box = pkgs.callPackage ./pkgs/broadcast-box {
+    inherit pins napalm;
   };
 
   chromium-launcher = pkgs.callPackage ./pkgs/chromium-launcher {

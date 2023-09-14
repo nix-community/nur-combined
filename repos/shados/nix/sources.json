@@ -19,6 +19,19 @@
         "url": "https://github.com/jakemoroni/audio_async_loopback/archive/5b8c7bfa0534074146e24ada6f492201ed9b4542.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "broadcast-box": {
+        "branch": "main",
+        "builtin": false,
+        "description": "A broadcast, in a box. ",
+        "homepage": null,
+        "owner": "Glimesh",
+        "repo": "broadcast-box",
+        "rev": "6f7db7da2e4f19d79a558eda36fb8f5f2da779ed",
+        "sha256": "145xxcs6b7gwr18hzm8dp67yfcak0zhx97fincfgw1k3fxz7g0yg",
+        "type": "tarball",
+        "url": "https://github.com/Glimesh/broadcast-box/archive/6f7db7da2e4f19d79a558eda36fb8f5f2da779ed.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "chromium-launcher": {
         "branch": "master",
         "builtin": false,
@@ -199,6 +212,19 @@
         "sha256": "0bhph43pn50brcn2dcm2g7m9wl8q886cacbf4rfbivnvnmiz05mw",
         "type": "tarball",
         "url": "https://github.com/nix-community/naersk/archive/275010712ce41dff66634f9910bc1f085239b370.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "napalm": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Support for building npm packages in Nix and lightweight npm registry [maintainer @jtojnar]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "napalm",
+        "rev": "a8215ccf1c80070f51a92771f3bc637dd9b9f7ee",
+        "sha256": "04vf4mk2q55gpnvxw3qb735lkdyml77qq3lfzfwis619g9izs7c3",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/napalm/archive/a8215ccf1c80070f51a92771f3bc637dd9b9f7ee.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "steamguard-cli": {
