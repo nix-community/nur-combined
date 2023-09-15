@@ -13,6 +13,7 @@
     ./element-desktop.nix
     ./epiphany.nix
     ./evince.nix
+    ./feedbackd.nix
     ./firefox.nix
     ./fontconfig.nix
     ./fractal.nix

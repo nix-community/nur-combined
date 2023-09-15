@@ -15,6 +15,30 @@
 #   - thread: <https://github.com/ErikReider/SwayNotificationCenter/discussions/183>
 #   - buttons-grid and menubar: <https://gist.github.com/JannisPetschenka/fb00eec3efea9c7fff8c38a01ce5d507>
 { config, lib, pkgs, ... }:
+let
+  cfg = config.sane.programs.swaynotificationcenter;
+  fbcli-wrapper = pkgs.writeShellApplication {
+    name = "swaync-fbcli";
+    runtimeInputs = [
+      config.sane.programs.feedbackd.package
+      cfg.package
+    ];
+    text = ''
+      # if in Do Not Disturb, don't do any feedback
+      # TODO: better solution is to actually make use of feedbackd profiles.
+      #       i.e. set profile to `quiet` when in DnD mode
+      if [ "$(swaync-client --get-dnd)" = "true" ]; then
+        exit
+      fi
+
+      # feedbackd stops playback when the caller exits
+      # and fbcli will exit immediately if it has no stdin.
+      # so spoof a stdin:
+      true | fbcli "$@"
+    '';
+  };
+  fbcli = "${fbcli-wrapper}/bin/swaync-fbcli";
+in
 {
   sane.programs.swaynotificationcenter = {
     configOption = with lib; mkOption {
@@ -33,6 +57,7 @@
     };
     # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
     package = pkgs.rmDbusServices pkgs.swaynotificationcenter;
+    suggestedPrograms = [ "feedbackd" ];
     fs.".config/swaync/style.css".symlink.text = ''
       /* avoid black-on-black text that the default style ships */
       window {
@@ -70,15 +95,12 @@
       hide-on-action = true;
       script-fail-notify = true;
       scripts = {
-        # example-script = {
-        #   exec = "echo 'Do something...'";
-        #   urgency = "Normal";
-        # };
-        # example-action-script": {
-        #   exec = "echo 'Do something actionable!'";
-        #   urgency = "Normal";
-        #   run-on = "action";
-        # };
+        sound-im = {
+          # trigger notification sound on behalf of these IM clients.
+          # TODO: dispatch calls separately!
+          exec = "${fbcli} --event proxied-message-new-instant";
+          app-name = "(Element|discord|Dino)";
+        };
       };
       notification-visibility = {
         # match incoming notifications and decide if they should be visible.
@@ -122,7 +144,7 @@
       widget-config = {
         backlight = {
           label = "󰃝 ";
-          device = config.sane.programs.swaynotificationcenter.config.backlight;
+          device = cfg.config.backlight;
         };
         dnd = {
           text = "Do Not Disturb";
@@ -151,12 +173,17 @@
       # seems that's not possible without defining an entire nix-native service (i.e. this).
       description = "Swaync desktop notification daemon";
       wantedBy = [ "default.target" ];
-      serviceConfig.ExecStart = "${config.sane.programs.swaynotificationcenter.package}/bin/swaync";
+      serviceConfig.ExecStart = "${cfg.package}/bin/swaync";
       serviceConfig.Type = "simple";
       # serviceConfig.BusName = "org.freedesktop.Notifications";
       serviceConfig.Restart = "on-failure";
       serviceConfig.RestartSec = "10s";
       environment.G_MESSAGES_DEBUG = "all";
     };
+  };
+
+  sane.programs.feedbackd.config = lib.mkIf cfg.enabled {
+    # claim control over feedbackd: we'll proxy the sounds we want on behalf of notifying programs
+    proxied = true;
   };
 }

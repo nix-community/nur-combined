@@ -69,23 +69,24 @@ in
     systemd.services.eg25-control-freshen-agps = {
       description = "keep assisted-GPS data fresh";
       serviceConfig = {
-        Type = "oneshot";
+        # XXX: this can have a race condition with eg25-control-gps
+        # - eg25-control-gps initiates DL of new/<agps>
+        # - eg25-control-gps tests new/<agps>: it works
+        # - eg25-control-freshen-agps initiates DL of new/<agps>
+        # - eg25-control-gps: moves new/<agps> into cache/
+        #   - but it moved the result (possibly incomplete) of eg25-control-freshen-agps, incorrectly
+        # in practice, i don't expect much issue from this.
         ExecStart = "${cfg.package}/bin/eg25-control --ensure-agps-cache --verbose";
+        Restart = "no";
 
         User = "eg25-control";
         WorkingDirectory = "/var/lib/eg25-control";
         StateDirectory = "eg25-control";
       };
+      startAt = "hourly";  # this is a bit more than necessary, but idk systemd calendar syntax
       after = [ "network-online.target" "nss-lookup.target" ];
       requires = [ "network-online.target" ];
-    };
-
-    systemd.timers.eg25-control-freshen-agps = {
-      wantedBy = [ "multi-user.target" ];
-      timerConfig = {
-        OnCalender = "hourly";  # this is a bit more than necessary, but idk systemd calendar syntax
-        OnStartupSec = "3min";
-      };
+      # wantedBy = [ "network-online.target" ]; # auto-start immediately after boot
     };
   };
 }

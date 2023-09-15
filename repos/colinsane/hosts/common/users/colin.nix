@@ -17,7 +17,7 @@
     extraGroups = [
       "dialout"  # required for modem access (moby)
       "export"  # to read filesystem exports (servo)
-      "feedbackd"
+      "feedbackd"  # moby, so `fbcli` can control vibrator and LEDs
       "input"  # for /dev/input/<xyz>: sxmo
       "media"  # servo, for /var/lib/uninsane/media
       "networkmanager"
