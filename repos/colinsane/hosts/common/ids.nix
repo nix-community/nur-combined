@@ -84,4 +84,8 @@
   sane.ids.rtkit.gid = 2307;
   # phosh
   sane.ids.feedbackd.gid = 2308;
+
+  # new moby users
+  sane.ids.eg25-control.uid = 2309;
+  sane.ids.eg25-control.gid = 2309;
 }

@@ -52,6 +52,7 @@
 import argparse
 import datetime
 import logging
+import os
 import subprocess
 import sys
 import time
@@ -61,6 +62,9 @@ POWER_ENDPOINT = "/sys/class/modem-power/modem-power/device/powered"
 # also at xtrapath5 and xtrapath6 subdomains.
 # the AGPS data here is an almanac good for 7 days.
 AGPS_DATA_URI_BASE = "https://xtrapath4.izatcloud.net"
+ON_DISK_TIME_FMT = '%Y/%m/%d,%H:%M:%S'
+AGPS_CACHE_REFRESH_AFTER = datetime.timedelta(days=1)
+DEFAULT_AGPS_DATA_VARIANT = lambda: AgpsDataVariant.gps_glonass_beidou
 
 class AgpsDataVariant:
     # GNSS-AP-Note 1.4:
@@ -104,11 +108,34 @@ class Executor:
     def __init__(self, dry_run: bool = False):
         self.dry_run = dry_run
 
+    def read_file(self, path: str, default: bytes) -> bytes:
+        try:
+            with open(path, 'rb') as f:
+                return f.read()
+        except FileNotFoundError as e:
+            logger.debug(f"failed to read {path}: {e}")
+            return default
+
     @destructive
     def write_file(self, path: str, data: bytes) -> None:
         logger.debug(f"echo {data!r} > {path}")
         with open(path, 'wb') as f:
             f.write(data)
+
+    @destructive
+    def mkdir(self, path: str) -> None:
+        logger.debug(f"mkdir {path}")
+        os.makedirs(path, exist_ok=True)
+
+    @destructive
+    def mv(self, from_: str, to: str) -> None:
+        logger.debug(f"mv {from_} -> {to}")
+        os.rename(from_, to)
+
+    @destructive
+    def rm(self, p: str) -> None:
+        logger.debug(f"rm {p}")
+        os.remove(p)
 
     @destructive(return_=b'')
     def exec(self, cmd: list[str], check: bool = True) -> bytes:
@@ -270,13 +297,74 @@ class Sequencer:
     def _at_autogps(self, enable: AutoGps) -> str:
         return self._at_structured_cmd("QGPSCFG", "autogps", enable)
 
-    def _get_assistance_data(self, variant: AgpsDataVariant) -> str | None:
+    def _download_assistance_data(self, variant: AgpsDataVariant) -> str | None:
+        self.executor.mkdir("new")
+        out_path = f"new/{variant}"
         try:
-            self.executor.exec(["curl", f"{self.AGPS_DATA_URI_BASE}/{variant}", "-o", variant])
-            return variant
+            self.executor.exec(["curl", f"{self.AGPS_DATA_URI_BASE}/{variant}", "-o", out_path])
+            return out_path
         except subprocess.CalledProcessError as e:
             logger.warning(f"AGPS data download failed: {e}")
-            return None  # TODO: could be smarter: return cached AGPS data?
+            return None
+
+    def _mark_assistance_data(self, locdata_path: str, good: bool) -> None:
+        '''
+        call after attempted upload to indicate if locdata is good/bad.
+        locdata_path might be a cached locdata or a new locdata.
+        '''
+        variant = os.path.basename(locdata_path)
+
+        if good:
+            # N.B.: if locdata_path is something that exists in cache/,
+            # then this rename is a safe no-op.
+            self.executor.mkdir("cache")
+            self.executor.mv(locdata_path, f"cache/{variant}")
+        else:
+            self.executor.rm(locdata_path)
+
+
+    def _get_cached_assistance_data(self, variant: AgpsDataVariant, cache_dir: str = "cache") -> tuple[bool, str | None]:
+        '''
+        returns:
+        - whether cached data is fresh (i.e. won't benefit from an update)
+        - a path to the cached AGPS data, or None if no valid cached entry
+        '''
+
+        locdata_path = f"{cache_dir}/{variant}"
+
+        try:
+            last_cache_date = datetime.datetime.fromtimestamp(os.stat(locdata_path).st_ctime)
+        except FileNotFoundError as e:
+            return False, None
+
+        is_fresh = datetime.datetime.now() - last_cache_date < AGPS_CACHE_REFRESH_AFTER
+        return is_fresh, locdata_path
+
+    def _get_any_assistance_data(self, variant: AgpsDataVariant) -> tuple[bool, list[str]]:
+        '''
+        checks if we have fresh cached data.
+        - if not, tries to download fresh AGPS data
+        returns a list of location data paths to try, in order
+        - because new data might not necessarily be valid (download error).
+        - and stale data might still have *some* use.
+        '''
+        is_fresh_untested, untested_path = self._get_cached_assistance_data(variant, cache_dir="new")
+        is_fresh_cached, cached_path = self._get_cached_assistance_data(variant)
+
+        paths_to_try = []
+        if not (is_fresh_untested or is_fresh_cached):
+            better_data = self._download_assistance_data(variant)
+            if better_data:
+                untested_path = better_data
+                is_fresh_untested = True
+
+        if untested_path:
+            paths_to_try.append(untested_path)
+        if cached_path:
+            paths_to_try.append(cached_path)
+
+        return is_fresh_untested or is_fresh_cached, paths_to_try
+
 
     @log_scope("powering modem...", "modem powered")
     def power_on(self) -> None:
@@ -284,6 +372,11 @@ class Sequencer:
         while self._try_mmcli([]) is None:
             logger.info("modem hasn't appeared: sleeping for 1s")
             time.sleep(1)  # wait for modem to appear
+
+        # set modem to use UTC time instead of local time.
+        # modemmanager sends CTZU=3 during init and that causes `AT+CCLK?` to return a timestamp that's off by 600+ days
+        # see: <https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/issues/360>
+        self._at_structured_cmd("CTZU", value="1")
 
     @log_scope("halting modem...", "modem halted")
     def power_off(self) -> None:
@@ -349,13 +442,13 @@ class Sequencer:
         self._at_structured_cmd("QCFG", "urc/ri/pin", "uart_ri")
         self._at_structured_cmd("QURCCFG", "urcport", "\"all\"")
 
+    @log_scope("ensuring on-disk AGPS...", "AGPS is available on-disk")
+    def ensure_agps_cache(self) -> None:
+        is_fresh, path = self._get_any_assistance_data(DEFAULT_AGPS_DATA_VARIANT())
+        assert is_fresh, "failed to ensure on-disk AGPS data"
+
     @log_scope("configuring gps...", "gps configured")
     def enable_gps(self) -> None:
-        # set modem to use UTC time instead of local time.
-        # modemmanager sends CTZU=3 during init and that causes `AT+CCLK?` to return a timestamp that's off by 600+ days
-        # see: <https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/issues/360>
-        self._at_structured_cmd("CTZU", value="1")
-
         # disable GNSS, because it's only configurable while offline
         self._at_structured_cmd("QGPSEND", check=False)
         # self._at_structured_cmd("QGPS", value="0")
@@ -365,9 +458,13 @@ class Sequencer:
 
         # now = datetime.datetime.now().strftime('%Y/%m/%d,%H:%M:%S')  # UTC
         # self._at_structured_cmd("QGPSXTRATIME", value=f"0,\"{now}\"")
-        locdata = self._get_assistance_data(AgpsDataVariant.gps_glonass_beidou)
-        if locdata:
-            self._mmcli([f"--location-inject-assistance-data={locdata}"])
+        is_fresh, locdatas = self._get_any_assistance_data(DEFAULT_AGPS_DATA_VARIANT())
+        for locdata in locdatas:
+            ret = self._try_mmcli([f"--location-inject-assistance-data={locdata}"])
+            is_success = ret is not None
+            self._mark_assistance_data(locdata, is_success)
+            if is_success:
+                break  # no need to try any more locdatas
 
         self._at_gnssconfig(GNSSConfig.gps_glonass_beidou_galileo)
         self._at_odpcontrol(ODPControl.disable)
@@ -414,6 +511,7 @@ def main():
     parser.add_argument('--power-on', action='store_true', help="enable power to the modem")
     parser.add_argument('--enable-audio', action='store_true', help="configure audio for calling (?)")
     parser.add_argument('--enable-urc', action='store_true', help="enable support for Unsolicited Return Codes (?)")
+    parser.add_argument('--ensure-agps-cache', action='store_true', help="ensure we have fresh assisted-GPS data available")
     parser.add_argument('--enable-gps', action='store_true', help="enable the GPS and acquire tracking until asked to stop")
     parser.add_argument('--enable-powersave', action='store_true', help="configure modem to sleep when possible")
     parser.add_argument('--disable-gps', action='store_true', help="disable the GPS and stop any tracking")
@@ -433,6 +531,8 @@ def main():
         sequencer.enable_audio()
     if args.enable_urc:
         sequencer.enable_urc()
+    if args.ensure_agps_cache:
+        sequencer.ensure_agps_cache()  # N.B.: this will raise on failure, to get non-zero exit code
     if args.enable_gps:
         sequencer.enable_gps()
     if args.enable_powersave:
