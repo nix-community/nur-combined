@@ -285,6 +285,13 @@ class Sequencer:
             logger.info("modem hasn't appeared: sleeping for 1s")
             time.sleep(1)  # wait for modem to appear
 
+    @log_scope("halting modem...", "modem halted")
+    def power_off(self) -> None:
+        self.executor.write_file(self.power_endpoint, b'0')
+        while self._try_mmcli([]):
+            logger.info("modem still powered: sleeping for 1s")
+            time.sleep(1)  # wait for modem to disappear
+
     def at_check(self) -> None:
         """ sanity check that the modem is listening for AT commands and responding reasonably """
         hw = self._at_cmd("QGMR")
@@ -375,6 +382,10 @@ class Sequencer:
         # TODO: tune/document these QGPS values; a smarter setting here might reduce jitter?
         self._at_structured_cmd("QGPS", value="1,255,1000,0,1")
 
+    @log_scope("halting gps...", "gps halted")
+    def disable_gps(self) -> None:
+        self._at_structured_cmd("QGPSEND", check=False)
+
     @log_scope("configuring powersave...", "powersave configured")
     def enable_powersave(self) -> None:
         # Allow sleeping for power saving
@@ -405,6 +416,8 @@ def main():
     parser.add_argument('--enable-urc', action='store_true', help="enable support for Unsolicited Return Codes (?)")
     parser.add_argument('--enable-gps', action='store_true', help="enable the GPS and acquire tracking until asked to stop")
     parser.add_argument('--enable-powersave', action='store_true', help="configure modem to sleep when possible")
+    parser.add_argument('--disable-gps', action='store_true', help="disable the GPS and stop any tracking")
+    parser.add_argument('--power-off', action='store_true', help="disable power to the modem")
     parser.add_argument('--dump-debug-info', action='store_true', help="don't initialize anything, just dump debugging data")
 
     args = parser.parse_args()
@@ -424,6 +437,12 @@ def main():
         sequencer.enable_gps()
     if args.enable_powersave:
         sequencer.enable_powersave()
+
+    if args.disable_gps:
+        sequencer.disable_gps()
+    if args.power_off:
+        sequencer.power_off()
+
     if args.dump_debug_info:
         sequencer.dump_debug_info()
 
