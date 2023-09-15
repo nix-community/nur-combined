@@ -1,5 +1,3 @@
-# imitate https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=maa-assistant-arknights
-
 { maintainers
 , stdenv
 , lib
@@ -15,7 +13,7 @@ let
 
 in stdenv.mkDerivation rec {
 
-  pname = "MaaX";
+  pname = "maax";
   version = "2.0.0-beta.14";
 
   src = fetchzip {
@@ -29,9 +27,9 @@ in stdenv.mkDerivation rec {
     ];
 
   buildInputs = [
-     android-tools
-     electron
-   ];
+    android-tools
+    electron
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -43,7 +41,8 @@ in stdenv.mkDerivation rec {
       --add-flags "$out/share/${pname}/dist/main/index.cjs" \
       --set LD_LIBRARY_PATH "$LD_LIBRARY_PATH:${stdenv.cc.cc.lib}/lib/"
 
-    sed -i '1a rm -rfv ~/.config/Electron/platform-tools\
+    sed -i '1a mkdir -p ~/.config/Electron\
+    rm -rfv ~/.config/Electron/platform-tools\
     ln -s ${android-tools}/bin ~/.config/Electron/platform-tools' $out/bin/MaaX
 
     mkdir -p $out/share/icons
@@ -63,13 +62,13 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-
   meta = with lib; {
     description = "MaaAssistantArknights GUI with Electron & Vue3";
     homepage = "MaaAssistantArknights";
     license = licenses.agpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ Cryolitia ];
+    mainProgram = "MaaX";
   };
-  
+
 }

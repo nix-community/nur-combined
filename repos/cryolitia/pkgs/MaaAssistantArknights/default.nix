@@ -47,7 +47,7 @@ let
       "-DCMAKE_BUILD_TYPE=None"
       "-DBUILD_SHARED_LIBS=ON"
     ];
-  
+
   };
 
   maa-cli = rustPlatform.buildRustPackage rec {
@@ -68,7 +68,7 @@ let
 
 in stdenv.mkDerivation rec {
 
-  pname = "MaaAssistantArknights";
+  pname = "maaassistantarknights";
   version = maaVersion;
 
   src = fetchFromGitHub {
@@ -134,6 +134,7 @@ in stdenv.mkDerivation rec {
     license = licenses.agpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ Cryolitia ];
+    mainProgram = "maa";
   };
-  
+
 }
