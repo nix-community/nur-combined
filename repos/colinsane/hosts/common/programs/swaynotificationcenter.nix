@@ -99,7 +99,7 @@ in
           # trigger notification sound on behalf of these IM clients.
           # TODO: dispatch calls separately!
           exec = "${fbcli} --event proxied-message-new-instant";
-          app-name = "(Element|discord|Dino)";
+          app-name = "(Chats|Dino|discord|Element)";
         };
       };
       notification-visibility = {

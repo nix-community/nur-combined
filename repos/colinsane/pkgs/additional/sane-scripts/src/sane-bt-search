@@ -73,9 +73,9 @@ def parse_time(t: str) -> datetime:
 # preference, best to worst
 TRACKER_RANKS = [
     'bakabt',
-    'subsplease'
+    'subsplease',
     'nyaa.si',
-    'miobt'
+    'miobt',
     'yts',
     'internet archive',
     'the pirate bay',
@@ -84,9 +84,10 @@ TRACKER_RANKS = [
     'kickasstorrents.to',
 ]
 def tracker_rank(tracker: str):
-    if tracker.lower() in TRACKER_RANKS:
-        return TRACKER_RANKS.index(tracker.lower())
-    logger.warn(f"unknown tracker: {tracker!r}")
+    tracker_ = tracker.lower()
+    if tracker_ in TRACKER_RANKS:
+        return TRACKER_RANKS.index(tracker_)
+    logger.warn(f"unknown tracker: {tracker_!r}")
     return len(TRACKER_RANKS)
 
 DROP_CATS = { "dvd", "hd", "misc", "other", "sd", "uhd" }
@@ -196,9 +197,9 @@ class Torrent:
             logger.info(f"invalid magnet: {magnet}")
             magnet = None
 
-        if http_dl_uri:
+        if tracker_uri:
             # quirk: bakabt's post-login redirection fails if the slashes aren't just right
-            http_dl_uri = http_dl_uri.replace('https://bakabt.me//', 'https://bakabt.me/')
+            tracker_uri = tracker_uri.replace('https://bakabt.me//', 'https://bakabt.me/')
 
         if seeders is not None and pub_date is not None and title is not None and (magnet is not None or http_dl_uri is not None):
             pub_date = parse_time(pub_date)

@@ -21,6 +21,8 @@ in
       default = {};
     };
 
+    # N.B.: feedbackd will load ~/.config/feedbackd/themes/default.json by default
+    # - but using that would forbid `parent-theme = "default"`
     fs.".config/feedbackd/themes/proxied.json".symlink.text = builtins.toJSON {
       name = "proxied";
       parent-theme = "default";
