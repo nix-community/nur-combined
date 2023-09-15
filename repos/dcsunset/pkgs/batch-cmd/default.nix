@@ -2,17 +2,17 @@
 
 buildNpmPackage rec {
   pname = "batch-cmd";
-  version = "0.1.2";
+  version = "0.1.4";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "batch-cmd";
     rev = "v${version}";
-    hash = "sha256-6RUlnXQtxlBTnn2Ept1qJj7KdOpDlX2ZOEdHXuvfLnU=";
+    hash = "sha256-7hbIH4DTxq5DzhBiI4k7sfsCnqGOJ/fujGy84tOMpx0=";
   };
 
   # run prefetch-npm-deps package-lock.json to generate the hash
-  npmDepsHash = "sha256-HTngCf8CvyMR/6WoiD/L7Y7kU2FZG02QbAxyjRipHYQ=";
+  npmDepsHash = "sha256-LZK5+2pfpCYn8D+5yU4CDQk1cYfoSKf+UU47NFWTRHU=";
 
   nativeBuildInputs = [ pandoc ];
 
