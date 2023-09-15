@@ -38,6 +38,20 @@ let
     '';
   };
   fbcli = "${fbcli-wrapper}/bin/swaync-fbcli";
+
+  systemctl-toggle = pkgs.writeShellApplication {
+    name = "systemctl-toggle";
+    runtimeInputs = [
+      pkgs.systemd
+    ];
+    text = ''
+      if systemctl is-active "$@"; then
+        systemctl stop "$@"
+      else
+        systemctl start "$@"
+      fi
+    '';
+  };
 in
 {
   sane.programs.swaynotificationcenter = {
@@ -56,12 +70,34 @@ in
       default = {};
     };
     # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
-    package = pkgs.rmDbusServices pkgs.swaynotificationcenter;
+    package = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
+      # allow toggle buttons:
+      patches = (upstream.patches or []) ++ [
+        (pkgs.fetchpatch {
+          url = "https://github.com/ErikReider/SwayNotificationCenter/pull/304.patch";
+          name = "Add toggle button";
+          hash = "sha256-bove2EXc5FZ5nN1X1FYOn3czCgHG03ibIAupJNoctiM=";
+        })
+        (pkgs.fetchpatch {
+          url = "https://git.uninsane.org/colin/SwayNotificationCenter/commit/f5d9405e040fc42ea98dc4d37202c85728d0d4fd.patch";
+          name = "toggleButton: change active field to be a command";
+          hash = "sha256-Y8fiZbAP9yGOVU3rOkZKO8TnPPlrGpINWYGaqeeNzF0=";
+        })
+      ];
+    }));
     suggestedPrograms = [ "feedbackd" ];
     fs.".config/swaync/style.css".symlink.text = ''
       /* avoid black-on-black text that the default style ships */
       window {
         color: rgb(255, 255, 255);
+      }
+
+      button {
+        color: rgb(128, 128, 128);
+      }
+      button.active {
+        color: rgb(255, 255, 255);
+        background-color: rgb(0, 110, 190);
       }
     '';
     fs.".config/swaync/config.json".symlink.text = builtins.toJSON {
@@ -136,6 +172,7 @@ in
         "title"
         "dnd"
         "inhibitors"
+        "buttons-grid"
         "backlight"
         "volume"
         "mpris"
@@ -145,6 +182,22 @@ in
         backlight = {
           label = "󰃝 ";
           device = cfg.config.backlight;
+        };
+        buttons-grid = {
+          actions = [
+            # {
+            #   type = "toggle";
+            #   label = "feedbackd";
+            #   command = "${systemctl-toggle}/bin/systemctl-toggle --user feedbackd";
+            #   active = "${pkgs.systemd}/bin/systemctl is-active --user feedbackd.service";
+            # }
+            {
+              type = "toggle";
+              label = "gps";
+              command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-gps";
+              active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-gps.service";
+            }
+          ];
         };
         dnd = {
           text = "Do Not Disturb";

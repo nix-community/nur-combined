@@ -63,7 +63,7 @@ in
       };
       after = [ "eg25-control-powered.service" ];
       requires = [ "eg25-control-powered.service" ];
-      wantedBy = [ "multi-user.target" ];
+      # wantedBy = [ "multi-user.target" ];
     };
 
     systemd.services.eg25-control-freshen-agps = {
