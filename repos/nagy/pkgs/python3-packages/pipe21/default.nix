@@ -2,12 +2,12 @@
 
 buildPythonApplication rec {
   pname = "pipe21";
-  version = "1.20.0";
+  version = "1.20.1";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-ySwFK720X2nCijeXL4BJLCOz6w1FmCmp4Il4w92CmMM=";
+    hash = "sha256-1JhpYKHsBHRIz3Dtg1BBVeC0q1y8ibws95N303jWyiY=";
   };
 
   nativeBuildInputs = [ python3.pkgs.setuptools ];
