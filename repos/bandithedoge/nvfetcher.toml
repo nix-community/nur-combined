@@ -117,9 +117,13 @@ fetch.github = "kanjitalk755/macemu"
 [basiliskii-bin]
 src.github_tag = "Korkman/macemu-appimage-builder"
 fetch.url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/$ver/BasiliskII-x86_64.AppImage"
-# fetch.force = true
 
 [sheepshaver-bin]
 src.github_tag = "Korkman/macemu-appimage-builder"
 fetch.url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/$ver/SheepShaver-x86_64.AppImage"
-# fetch.force = true
+
+# tree-sitter
+
+[tree-sitter-hypr]
+src.git = "https://github.com/luckasRanarison/tree-sitter-hypr"
+fetch.github = "luckasRanarison/tree-sitter-hypr"

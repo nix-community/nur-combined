@@ -9,6 +9,7 @@ in {
   haskellPackages = pkgs.lib.recurseIntoAttrs (callPackage' ./haskellPackages);
   luaPackages = pkgs.lib.recurseIntoAttrs (callPackage' ./luaPackages);
   nodePackages = pkgs.lib.recurseIntoAttrs (callPackage' ./nodePackages);
+  treeSitterGrammars = pkgs.lib.recurseIntoAttrs (callPackage' ./treeSitterGrammars);
 
   dmenu-flexipatch = callPackage' ./flexipatch/dmenu.nix;
   dwm-flexipatch = callPackage' ./flexipatch/dwm.nix;

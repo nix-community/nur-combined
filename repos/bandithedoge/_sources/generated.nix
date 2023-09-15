@@ -297,6 +297,18 @@
     };
     date = "2023-09-04";
   };
+  tree-sitter-hypr = {
+    pname = "tree-sitter-hypr";
+    version = "0e19dd13a3751d2e00285917c5620eb79f470ac5";
+    src = fetchFromGitHub {
+      owner = "luckasRanarison";
+      repo = "tree-sitter-hypr";
+      rev = "0e19dd13a3751d2e00285917c5620eb79f470ac5";
+      fetchSubmodules = false;
+      sha256 = "sha256-Xb4U64d3ey+iUsefHXjG5PX2pfXjBnyIvC0tvXFx6js=";
+    };
+    date = "2023-09-02";
+  };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
     version = "ee2d0c14f9258503d7bd62907aa731dd64fa34d0";
