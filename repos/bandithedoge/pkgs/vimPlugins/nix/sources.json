@@ -935,10 +935,10 @@
     "homepage": "",
     "owner": "folke",
     "repo": "neodev.nvim",
-    "rev": "3ed1daafa0a6b64bf28ae083f1dedfd2f6fc0dcc",
-    "sha256": "1s35qjgw4q37rlvmi38krgkvwm9lci38ck3kxk44d5xr5civy2qm",
+    "rev": "471324e6c746284dbbdc1d357799d1911bb7e120",
+    "sha256": "156lr9mrvwg0b5p933617yhdzdygsgcrayw94sq1zxhqpwc9zbjz",
     "type": "tarball",
-    "url": "https://github.com/folke/neodev.nvim/archive/3ed1daafa0a6b64bf28ae083f1dedfd2f6fc0dcc.tar.gz",
+    "url": "https://github.com/folke/neodev.nvim/archive/471324e6c746284dbbdc1d357799d1911bb7e120.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "neodim": {
@@ -1307,10 +1307,10 @@
     "homepage": "",
     "owner": "nvim-treesitter",
     "repo": "nvim-treesitter",
-    "rev": "5ec42175676bc4e6248b8ca9603acbc86497c68e",
-    "sha256": "03f14876ismba6r72pxmwr213di73rabzrh8fdf3f7fs1c3z035h",
+    "rev": "48b237fd3f482aef2f5896b8b7a6ece71c19ad99",
+    "sha256": "1vwrz7w2bwd9m0mj2w9w1gpxjqx6z0rg5zs2ciglghfqjgnwvdhg",
     "type": "tarball",
-    "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/5ec42175676bc4e6248b8ca9603acbc86497c68e.tar.gz",
+    "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/48b237fd3f482aef2f5896b8b7a6ece71c19ad99.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-treesitter-textsubjects": {
@@ -1367,10 +1367,10 @@
     "homepage": null,
     "owner": "kyazdani42",
     "repo": "nvim-web-devicons",
-    "rev": "925e2aa30dc9fe9332060199c19f132ec0f3d493",
-    "sha256": "0i2ixmmapld2j681z606g00ws17vwzmpb0cxvbzsx9bqhap3qgzr",
+    "rev": "973ab742f143a796a779af4d786ec409116a0d87",
+    "sha256": "1fmvym6ryxmff5559s6aw6nv4h5cgz2lnkjnhzbwws4iryvc90zl",
     "type": "tarball",
-    "url": "https://github.com/kyazdani42/nvim-web-devicons/archive/925e2aa30dc9fe9332060199c19f132ec0f3d493.tar.gz",
+    "url": "https://github.com/kyazdani42/nvim-web-devicons/archive/973ab742f143a796a779af4d786ec409116a0d87.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-yati": {
@@ -1821,6 +1821,18 @@
     "sha256": "1wxrwl530kxm8k8ymgk3w77av770ndr1hhzfk315jgl2p5hqmqm0",
     "type": "tarball",
     "url": "https://github.com/akinsho/toggleterm.nvim/archive/0427b908ebefcb3701c7f2cfbdafa37d11afe71a.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  },
+  "tree-sitter-hypr": {
+    "branch": "master",
+    "description": "hyprland configuration files grammar for treesitter ",
+    "homepage": "",
+    "owner": "luckasRanarison",
+    "repo": "tree-sitter-hypr",
+    "rev": "0e19dd13a3751d2e00285917c5620eb79f470ac5",
+    "sha256": "0fzaf5qvsb9dpj47q1p3ynjzdxg4qrw1v7y7aai2yyvphzmi9gjx",
+    "type": "tarball",
+    "url": "https://github.com/luckasRanarison/tree-sitter-hypr/archive/0e19dd13a3751d2e00285917c5620eb79f470ac5.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "trouble.nvim": {
