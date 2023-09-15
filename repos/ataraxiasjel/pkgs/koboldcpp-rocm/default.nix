@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , fetchPypi
 , python3
-, pkgconfig
+, pkg-config
 , hip
 , hipblas
 , rocblas
@@ -24,7 +24,7 @@ let
     pname = "${pname}-libs";
     inherit version src;
 
-    nativeBuildInputs = [ pkgconfig ];
+    nativeBuildInputs = [ pkg-config ];
     buildInputs = [ hip hipblas rocblas ];
 
     postPatch = ''

@@ -1,7 +1,7 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, pkgconfig
+, pkg-config
 , autoreconfHook
 , curl
 , fuse
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-t8gxZVge6rzp/N5s4F6cQhbnvsxtlvlWZwFETIBCEn0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [
     curl
     fuse
