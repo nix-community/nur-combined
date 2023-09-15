@@ -637,10 +637,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.7.1";
+      version = "2023.8.3";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4140393/bitwarden_password_manager-2023.7.1.xpi";
-      sha256 = "a33971d80f552279f96579786938ae8e88c4b95c29f8339c42f5de47f15200ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164440/bitwarden_password_manager-2023.8.3.xpi";
+      sha256 = "d43d7603ed04a24cd37b209a22d58b940cd71503d654d6305d6c37317fd5889c";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1253,10 +1253,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.15.4";
+      version = "3.15.5";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160813/control_panel_for_twitter-3.15.4.xpi";
-      sha256 = "7fb32b9fd320c3dc56a01b594b73be1f465864d02ca33cee058ec897b942ec4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4163852/control_panel_for_twitter-3.15.5.xpi";
+      sha256 = "98cbc0ab420cd75e4dc4f843a47f7000fd4a18b9fa9ba2bdcbc48eb9b805719c";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1353,10 +1353,10 @@
       };
     "copy-selected-tabs-to-clipboard" = buildFirefoxXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
-      version = "1.5.1";
+      version = "1.5.2";
       addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4014815/copy_selected_tabs_to_clipboar-1.5.1.xpi";
-      sha256 = "d84357632b90cfb6a8989804f49def13f9b8e1999a6a6fa0bd8d30e91bbbcaf7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165015/copy_selected_tabs_to_clipboar-1.5.2.xpi";
+      sha256 = "5b2a803e1a075fecf91c377c4770e1480eb3652f120915a3145cac748d09f1ea";
       meta = with lib;
       {
         description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
@@ -1649,10 +1649,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.8.16.1";
+      version = "2023.9.1";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4154328/duckduckgo_for_firefox-2023.8.16.1.xpi";
-      sha256 = "653baa6106d5473271b22be90cb41a3e66dfe5288c0cdd5a080a06c09aae28ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4162900/duckduckgo_for_firefox-2023.9.1.xpi";
+      sha256 = "51e8c506067a178990ace03fd2d5ac76f88b89ee51f33fb6e19fdfb765032a49";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2218,10 +2218,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "118.0.20230907.180212";
+      version = "118.0.20230914.180032";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164541/francais_language_pack-118.0.20230907.180212.xpi";
-      sha256 = "2a0c66f0de55138393719bd25710b3b90d70d9024ce641541b78c20c34da27c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4168192/francais_language_pack-118.0.20230914.180032.xpi";
+      sha256 = "674b5133dddb33656e8b2d4318ce0bf160c45cd6e2a9c7dbfd9883460608ad6a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3986,10 +3986,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.323";
+      version = "4.339";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162662/youtube_addon-4.323.xpi";
-      sha256 = "16a61cfcf45fde8873cd4e8ba6cb4c2f333e8606913d256908f377688e1a1181";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4166938/youtube_addon-4.339.xpi";
+      sha256 = "fb3038d70f3e1542620427e451662ef4f79d73d02477e468463a268a096deba1";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4058,10 +4058,10 @@
       };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.13";
+      version = "2.14";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4155127/ipvfoo_pmarks-2.13.xpi";
-      sha256 = "704047eb5b8076c07324f48e853de2f8af76ae6110fc58d22ab0d7e2f383c488";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4166256/ipvfoo_pmarks-2.14.xpi";
+      sha256 = "fe4fc92bdcf8fcf9d0f3b23365b0dec00a4d7a4376b9426f1f107828793f8adc";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -4487,10 +4487,10 @@
       };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.2.11";
+      version = "2.2.12";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4088074/lingq_importer2-2.2.11.xpi";
-      sha256 = "74f9788686643b807f1a54c849db585afb2aac85b22f01683fe68e07d4b9c1ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4167046/lingq_importer2-2.2.12.xpi";
+      sha256 = "e739822eab9de0784e0c393dc36b2ad4445d22ae4f160d8c9409d69c0a072ea0";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -4702,10 +4702,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.34.0";
+      version = "10.35.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141042/ether_metamask-10.34.0.xpi";
-      sha256 = "cc74bd00e9c7c07f518e50e3e86ff7e26e8494df7a7abe7da66dcbb3702db9eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4163327/ether_metamask-10.35.1.xpi";
+      sha256 = "e855bd308ec8206c90fb8801a7d4476d4930768b655aaa046677b36ab0d85e29";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -5077,10 +5077,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.26";
+      version = "11.4.27";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141345/noscript-11.4.26.xpi";
-      sha256 = "283db0eaebbd2888c1a852f5acabaa8e0225ff1eb1a97a25bceaedfd14d9f44c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164985/noscript-11.4.27.xpi";
+      sha256 = "6b57d9afce663f801177b7492fe7f00967ee3e66b6351b2cf3ff2a6c3ca99637";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -6936,10 +6936,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.17";
+      version = "5.4.19";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4158655/sponsorblock-5.4.17.xpi";
-      sha256 = "ac0fc3b4f15b8e8ae7807d92d3eccbee13f2845f7d03db92b1a1bb56c1b280c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4163966/sponsorblock-5.4.19.xpi";
+      sha256 = "95a3f6ad7513a1e2b51af313ece4a5e2dd685d8a61e379291c46e839ee059f70";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -7083,10 +7083,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.11";
+      version = "2023.12";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4156005/streetpass_for_mastodon-2023.11.xpi";
-      sha256 = "a7f13d8a0bee4635db5a60c705aa1ac38a07ed0d07203b10090081132fcee9fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4166435/streetpass_for_mastodon-2023.12.xpi";
+      sha256 = "8b780b487385661a2ebe35f9f3d4c84d98d143c21602236c9658ad30e1db4db5";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
@@ -7253,10 +7253,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.12.1";
+      version = "6.12.2";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002882/tab_session_manager-6.12.1.xpi";
-      sha256 = "a3128a187fa42d45f7beca2480ebd3117a40bc591e6df726336932e081860747";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165190/tab_session_manager-6.12.2.xpi";
+      sha256 = "79b280f0a45b5117f6327e5bcc8275b13dec855375af29f0a935bd2e800f587a";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -7275,14 +7275,14 @@
       };
     "tab-stash" = buildFirefoxXpiAddon {
       pname = "tab-stash";
-      version = "2.12.1";
+      version = "3.0";
       addonId = "tab-stash@condordes.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4106539/tab_stash-2.12.1.xpi";
-      sha256 = "b583ee10ab1a4168732cb29e5bb806c12289b837d014362e2dc631c68b718f02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165318/tab_stash-3.0.xpi";
+      sha256 = "592d7cf51085b60095ade9128d8d948bc549c1dfe52b92cd980f6452a3339ff2";
       meta = with lib;
       {
         homepage = "https://josh-berry.github.io/tab-stash/";
-        description = "A no-fuss way to save and organize batches of tabs as bookmarks. Clear your tabs, clear your mind.";
+        description = "Easily save and organize batches of tabs as bookmarks. Clear your tabs, clear your mind. Only for Firefox.";
         license = licenses.mpl20;
         mozPermissions = [
           "sessions"
@@ -7595,10 +7595,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.2.0";
+      version = "3.3.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4157972/tournesol_extension-3.2.0.xpi";
-      sha256 = "51add4032a064f44450cc6de7b11475d8eed69e9842269b83ff4ce378760ffa9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4167979/tournesol_extension-3.3.0.xpi";
+      sha256 = "eb81f67434181e7518861ef7461d2ad105691d3696df56b5808e9b82f33f7614";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -7657,10 +7657,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.16";
+      version = "3.9.17";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141929/tree_style_tab-3.9.16.xpi";
-      sha256 = "703c0a1d8d62329aa93ccf3a637911661dd752d0c0d714736521df7aeecc52e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164980/tree_style_tab-3.9.17.xpi";
+      sha256 = "4dcf70f56436465749c4c787a0bba90fe2a39bf4c0cf91fa7f7cd2a2f8a806f5";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -7993,10 +7993,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.51.0";
+      version = "1.52.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141256/ublock_origin-1.51.0.xpi";
-      sha256 = "8b73468bc233a11dd2895219466381783d19123857dd0b6fd16a01820fca4834";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164949/ublock_origin-1.52.0.xpi";
+      sha256 = "3932506ce4df306e4da7527d93d60fe0421cf15045c2f4ea73589d9a0902266b";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -8029,10 +8029,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.8.25.959";
+      version = "2023.9.10.1131";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4158603/ublock_origin_lite-2023.8.25.959.xpi";
-      sha256 = "7d8ba024d025fa55f4a8bbc9c1acf3522cea5dd87be54aac2da0baac53d64f0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165616/ublock_origin_lite-2023.9.10.1131.xpi";
+      sha256 = "c7802ecf3c0f3bcb0bb264cd73bd6fd411ed23dd70ded8b203d75845713f3c79";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -8679,10 +8679,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162944/web_scrobbler-3.1.0.xpi";
-      sha256 = "328c6db3d16769252337f9af940a10a65f11af7a0f82c285ca67425c32821edc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165270/web_scrobbler-3.2.0.xpi";
+      sha256 = "0994b3bfd1af756347019234e39761b1996e456b01cba5d93d4b24705f6dcf18";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
