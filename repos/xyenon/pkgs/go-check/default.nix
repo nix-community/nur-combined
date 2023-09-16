@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "go-check";
-  version = "unstable-2023-08-27";
+  version = "unstable-2023-09-14";
 
   src = fetchFromGitHub {
     owner = "Dreamacro";
     repo = pname;
-    rev = "cf9c2d12ef91fdd13d8b997095b3d242a2e003b8";
-    hash = "sha256-x5YMzFh6wqDzotjr4Lbwh2nXrtH3ZB+Pk77F+NZ/uS4=";
+    rev = "93eb9e3cfda06610764fa4f602fa047874b48b0c";
+    hash = "sha256-SqGe6Q0VdYQCTez5kdMbcEeoNTzE68ICI5FhvNtxfZU=";
   };
 
-  vendorHash = "sha256-c70a60qlJNjjBNSXwUp2QSvib/20oWILM4sMEt/PSvc=";
+  vendorHash = "sha256-CbYqXZ81o0rsdridMCXEBNdU02KLRtaV1ZMNOa1WKfk=";
 
   subPackages = [ "." ];
 

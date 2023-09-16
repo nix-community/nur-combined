@@ -16,7 +16,6 @@ with pkgs; rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   go-check = callPackage ./pkgs/go-check { };
-  lux = callPackage ./pkgs/lux { };
   catp = callPackage ./pkgs/catp { };
   github-copilot-cli = callPackage ./pkgs/github-copilot-cli { };
   libkazv = callPackage ./pkgs/libkazv { };
