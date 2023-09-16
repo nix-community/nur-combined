@@ -82,6 +82,24 @@ _:
     enableGraphical = true;
   };
 
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      amdvlk
+      rocm-opencl-icd
+      rocm-opencl-runtime
+    ];
+    extraPackages32 = with pkgs; [
+      driversi686Linux.amdvlk
+    ];
+  };
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+  ];
+
   hardware.fancontrol =
     let
       gpu = "/sys/devices/pci0000:00/0000:00:03.1/0000:07:00.0/hwmon/hwmon[[:print:]]*";

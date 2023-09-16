@@ -73,6 +73,7 @@ in
     librespeed-cli
     meld
     motrix
+    mpv
     nali
     neovim
     nix-tree
@@ -90,7 +91,6 @@ in
     unrar
     unzip
     usbutils
-    vlc
     wget
     xdg-utils
     yt-dlp
