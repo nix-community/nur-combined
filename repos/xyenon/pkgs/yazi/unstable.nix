@@ -30,16 +30,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "yazi";
-  version = "unstable-2023-09-14";
+  version = "unstable-2023-09-16";
 
   src = fetchFromGitHub {
     owner = "sxyazi";
     repo = pname;
-    rev = "902c0942244f2e1753899ed0aa1d4faf5b01c7eb";
-    hash = "sha256-qX7FM63Y4XONG97QNu2uzq3ZvT5Pihbq6z7msWvQ2xA=";
+    rev = "8e72ae90c1ef56e50191cfa1a8db30beb68065f6";
+    hash = "sha256-fexlX+Sq24rMXtFzxr+fkNFjadgGYdAAYCUsZwyYE8k=";
   };
 
-  cargoHash = "sha256-8F7Ok/bAdQg90HXhkYMDVhZLIMfVvdhX8oQiqXs19sc=";
+  cargoHash = "sha256-iAYc/aiEuVOXhnSPF7mYBylYhqEfz9rKdz8O93elch4=";
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
