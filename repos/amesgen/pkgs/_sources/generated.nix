@@ -17,6 +17,14 @@
       sha256 = "sha256-tyVrIqUx6XrCAqXGLeOfsbdny5ue8tY30vyGrArdl7w=";
     };
   };
+  cabal-plan = {
+    pname = "cabal-plan";
+    version = "0.7.3.0";
+    src = fetchurl {
+      url = "https://github.com/haskell-hvr/cabal-plan/releases/download/v0.7.3.0/cabal-plan-0.7.3.0-x86_64-linux.xz";
+      sha256 = "sha256-9izLKXFWel9jjyAFrTFz26FGk6RRVMFQhkXFIolxTLI=";
+    };
+  };
   hellsmack = {
     pname = "hellsmack";
     version = "0.1.2.6";

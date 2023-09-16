@@ -33,6 +33,7 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         description = "A formatter for Haskell source code";
         homepage = "https://github.com/tweag/ormolu";
         license = lib.licenses.bsd3;
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
         platforms = [ "x86_64-linux" ];
       };
     };
@@ -79,6 +80,7 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         description = "Minecraft stuff";
         homepage = "https://github.com/amesgen/hellsmack";
         license = lib.licenses.cc0;
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
         platforms = [ "x86_64-linux" ];
       };
     };
@@ -105,6 +107,7 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         description = "Another doctest for Haskell";
         homepage = "https://github.com/phadej/cabal-extras/blob/master/cabal-docspec/MANUAL.md";
         license = lib.licenses.gpl2Plus;
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
         platforms = [ "x86_64-linux" ];
       };
     };
@@ -129,6 +132,32 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         description = "Source code suggestions";
         homepage = "https://github.com/ndmitchell/hlint";
         license = lib.licenses.bsd3;
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        platforms = [ "x86_64-linux" ];
+      };
+    };
+
+  cabal-plan =
+    { lib
+    , stdenv
+    , installShellFiles
+    }: stdenv.mkDerivation rec {
+      inherit (nv.cabal-plan) pname version src;
+      dontUnpack = true;
+      nativeBuildInputs = [ installShellFiles ];
+      installPhase = ''
+        mkdir -p $out/bin
+        BIN=$out/bin/${pname}
+        unxz -c $src > ${pname}
+        install -m755 -D ${pname} $BIN
+        ${optparseApplicativeCompletions pname}
+      '';
+
+      meta = {
+        description = "Library and utility for processing cabal's plan.json file";
+        homepage = "https://github.com/haskell-hvr/cabal-plan";
+        licenses = [ lib.licenses.gpl2Only lib.licenses.gpl3Only ];
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
         platforms = [ "x86_64-linux" ];
       };
     };

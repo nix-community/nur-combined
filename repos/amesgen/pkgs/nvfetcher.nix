@@ -38,4 +38,9 @@ flatten {
     slug = "tweag/ormolu";
     restUrl = "$ver/ormolu-Linux.zip";
   };
+  cabal-plan = github {
+    slug = "haskell-hvr/cabal-plan";
+    restUrl = "v$ver/cabal-plan-$ver-x86_64-linux.xz";
+    src.prefix = "v";
+  };
 }

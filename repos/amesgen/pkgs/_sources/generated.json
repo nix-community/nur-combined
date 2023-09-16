@@ -27,6 +27,20 @@
         },
         "version": "0.0.0.20230517"
     },
+    "cabal-plan": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "cabal-plan",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-9izLKXFWel9jjyAFrTFz26FGk6RRVMFQhkXFIolxTLI=",
+            "type": "url",
+            "url": "https://github.com/haskell-hvr/cabal-plan/releases/download/v0.7.3.0/cabal-plan-0.7.3.0-x86_64-linux.xz"
+        },
+        "version": "0.7.3.0"
+    },
     "hellsmack": {
         "cargoLocks": null,
         "extract": null,
