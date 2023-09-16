@@ -81,3 +81,6 @@ Tool for editing ProRes MOV files.
 
 # pyhht
 Dependency for vhs-decode.
+
+# tbc-video-export
+Script for exporting TBC files to video.

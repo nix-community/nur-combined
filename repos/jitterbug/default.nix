@@ -9,4 +9,5 @@ rec {
   vapoursynth-neofft3d = pkgs.callPackage ./pkgs/vapoursynth-neofft3d { };
   pyhht = pkgs.python3.pkgs.callPackage ./pkgs/pyhht { };
   vhs-decode = pkgs.callPackage ./pkgs/vhs-decode { inherit pyhht; };
+  tbc-video-export = pkgs.python3.pkgs.callPackage ./pkgs/tbc-video-export { };
 }

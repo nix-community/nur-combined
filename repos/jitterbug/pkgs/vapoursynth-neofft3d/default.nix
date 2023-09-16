@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , vapoursynth
 , cmake
-, pkgconfig
+, pkg-config
 , tbb
 , git
 , fftwFloat
@@ -26,7 +26,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     cmake
-    pkgconfig
+    pkg-config
   ];
 
   buildInputs = [
