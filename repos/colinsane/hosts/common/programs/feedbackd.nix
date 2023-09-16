@@ -23,6 +23,32 @@ in
 
     # N.B.: feedbackd will load ~/.config/feedbackd/themes/default.json by default
     # - but using that would forbid `parent-theme = "default"`
+    # the default theme ships support for these events:
+    # - alarm-clock-elapsed
+    # - alarm-clock-elapsed
+    # - battery-caution
+    # - bell-terminal
+    # - button-pressed
+    # - button-released
+    # - camera-focus
+    # - camera-shutter
+    # - message-missed-email
+    # - message-missed-instant
+    # - message-missed-notification
+    # - message-missed-sms
+    # - message-new-email
+    # - message-new-instant
+    # - message-new-sms
+    # - message-sent-instant
+    # - phone-failure
+    # - phone-hangup
+    # - phone-incoming-call
+    # - phone-missed-call
+    # - phone-outgoing-busy
+    # - screen-capture
+    # - theme-demo
+    # - timeout-completed
+    # - window-close
     fs.".config/feedbackd/themes/proxied.json".symlink.text = builtins.toJSON {
       name = "proxied";
       parent-theme = "default";
@@ -40,6 +66,12 @@ in
               type = "Sound";
               effect = "message-new-instant";
             }
+            {
+              # i guess we aren't actually inheriting from the default theme?
+              event-name = "phone-incoming-call";
+              type = "Sound";
+              effect = "phone-incoming-call";
+            }
           ];
         }
       ];
@@ -54,9 +86,11 @@ in
         Restart = "on-failure";
         RestartSec = "10s";
       };
-      environment = lib.mkIf cfg.config.proxied {
+      environment = {
+        G_MESSAGES_DEBUG = "all";
+      } // (lib.optionalAttrs cfg.config.proxied {
         FEEDBACK_THEME = "/home/colin/.config/feedbackd/themes/proxied.json";
-      };
+      });
     };
   };
 

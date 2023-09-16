@@ -21,23 +21,48 @@ let
     name = "swaync-fbcli";
     runtimeInputs = [
       config.sane.programs.feedbackd.package
+      pkgs.procps  # for pkill
       cfg.package
     ];
     text = ''
       # if in Do Not Disturb, don't do any feedback
       # TODO: better solution is to actually make use of feedbackd profiles.
       #       i.e. set profile to `quiet` when in DnD mode
-      if [ "$(swaync-client --get-dnd)" = "true" ]; then
+      if [ "$SWAYNC_URGENCY" != "Critical" ] && [ "$(swaync-client --get-dnd)" = "true" ]; then
         exit
       fi
+
+      # kill children if killed, to allow that killing this parent process will end the real fbcli call
+      cleanup() {
+        echo "aborting fbcli notification (PID $child)"
+        pkill -P "$child"
+        exit 0  # exit cleanly to avoid swaync alerting a script failure
+      }
+      trap cleanup SIGINT SIGQUIT SIGTERM
 
       # feedbackd stops playback when the caller exits
       # and fbcli will exit immediately if it has no stdin.
       # so spoof a stdin:
-      true | fbcli "$@"
+      /bin/sh -c "true | fbcli $*" &
+      child=$!
+      wait
     '';
   };
   fbcli = "${fbcli-wrapper}/bin/swaync-fbcli";
+
+  # we do this because swaync's exec naively splits the command on space to produce its argv, rather than parsing the shell.
+  # [ "pkill" "-f" "fbcli" "--event" ... ]  -> breaks pkill
+  # [ "pkill" "-f" "fbcli --event ..." ]    -> is what we want
+  fbcli-stop-wrapper = pkgs.writeShellApplication {
+    name = "fbcli-stop";
+    runtimeInputs = [
+      pkgs.procps  # for pkill
+    ];
+    text = ''
+      pkill -e -f "${fbcli} $*"
+    '';
+  };
+  fbcli-stop = "${fbcli-stop-wrapper}/bin/fbcli-stop";
 
   systemctl-toggle = pkgs.writeShellApplication {
     name = "systemctl-toggle";
@@ -131,11 +156,42 @@ in
       hide-on-action = true;
       script-fail-notify = true;
       scripts = {
+        # a script can match regex on these fields. only fired if all listed fields match:
+        # - app-name
+        # - desktop-entry
+        # - summary
+        # - body
+        # - urgency (Low/Normal/Critical)
+        # - category
+        # additionally, the script can be run either on receipt or action:
+        # - run-on = "receive" or "action"
+        # when script is run, these env vars are available:
+        # - SWAYNC_BODY
+        # - SWAYNC_DESKTOP_ENTRY
+        # - SWAYNC_URGENCY
+        # - SWAYNC_TIME
+        # - SWAYNC_APP_NAME
+        # - SWAYNC_CATEGORY
+        # - SWAYNC_REPLACES_ID
+        # - SWAYNC_ID
+        # - SWAYNC_SUMMARY
         sound-im = {
           # trigger notification sound on behalf of these IM clients.
-          # TODO: dispatch calls separately!
           exec = "${fbcli} --event proxied-message-new-instant";
           app-name = "(Chats|Dino|discord|Element)";
+          body = "^(?!Incoming call).*$";  #< don't match Dino Incoming calls
+        };
+        sound-call = {
+          exec = "${fbcli} --event phone-incoming-call -t 20";
+          app-name = "Dino";
+          body = "^Incoming call$";
+        };
+        sound-call-end = {
+          # pkill will kill all processes matching -- not just the first
+          exec = "${fbcli-stop} --event phone-incoming-call -t 20";
+          app-name = "Dino";
+          body = "^Incoming call$";
+          run-on = "action";
         };
       };
       notification-visibility = {
