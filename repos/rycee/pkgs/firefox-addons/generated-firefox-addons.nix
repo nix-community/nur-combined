@@ -253,10 +253,10 @@
       };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
-      version = "2.5.0";
+      version = "2.6.0";
       addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4135651/augmented_steam-2.5.0.xpi";
-      sha256 = "f470a28abde4e4179a6bc3f8bab9fdb167a745c9a93a192c4dc9638f68beabde";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4167723/augmented_steam-2.6.0.xpi";
+      sha256 = "949f9f8c8a932cbaee3fea6ccbb25a34fa1d260c61df78e5c384bdf7d4118c59";
       meta = with lib;
       {
         homepage = "https://augmentedsteam.com/";
@@ -292,6 +292,10 @@
           "*://*.steampowered.com/account?*"
           "*://*.steampowered.com/account/"
           "*://*.steampowered.com/account/?*"
+          "*://store.steampowered.com/account/licenses"
+          "*://store.steampowered.com/account/licenses?*"
+          "*://store.steampowered.com/account/licenses/"
+          "*://store.steampowered.com/account/licenses/?*"
           "*://*.steampowered.com/account/registerkey"
           "*://*.steampowered.com/account/registerkey?*"
           "*://*.steampowered.com/account/registerkey/"
@@ -579,10 +583,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.6";
+      version = "7.5.7";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4145249/betterttv-7.5.6.xpi";
-      sha256 = "cf16c62d58e959691da3cc37cb5d68d167afaa3f2568767c2fbbf9c9c809906e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4167416/betterttv-7.5.7.xpi";
+      sha256 = "ba9ed004c328f3dacb78537eceed9fc206d4e3a136bb80a1ed786dc9fb57b9d7";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1253,10 +1257,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.15.5";
+      version = "3.16.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4163852/control_panel_for_twitter-3.15.5.xpi";
-      sha256 = "98cbc0ab420cd75e4dc4f843a47f7000fd4a18b9fa9ba2bdcbc48eb9b805719c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4167378/control_panel_for_twitter-3.16.0.xpi";
+      sha256 = "9309e801e1269470a58c57f02b618bf6677325ef676f0a4bd5be25674324f358";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -4702,10 +4706,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.35.1";
+      version = "11.0.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4163327/ether_metamask-10.35.1.xpi";
-      sha256 = "e855bd308ec8206c90fb8801a7d4476d4930768b655aaa046677b36ab0d85e29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4167015/ether_metamask-11.0.0.xpi";
+      sha256 = "3056faf1c3ccfed437f9bde6c7676831a5d7dc588088c3adb47bbcccbffd05b6";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -5583,16 +5587,17 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2023.6.23";
+      version = "2023.9.12";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4129240/privacy_badger17-2023.6.23.xpi";
-      sha256 = "ce79513710b2aed96bf03ec63d8be2e8274329e8d90911f5b8962c777e006e96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4167070/privacy_badger17-2023.9.12.xpi";
+      sha256 = "eae97d9d3df3350476901ca412505cb4a43d0e7fa79bd9516584935158f82095";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
         description = "Automatically learns to block invisible trackers.";
         license = licenses.gpl3;
         mozPermissions = [
+          "alarms"
           "tabs"
           "http://*/*"
           "https://*/*"
@@ -5606,6 +5611,10 @@
           "https://*.messenger.com/*"
           "http://*.messenger.com/*"
           "*://*.facebookcorewwwi.onion/*"
+          "https://docs.google.com/*"
+          "http://docs.google.com/*"
+          "https://mail.google.com/*"
+          "http://mail.google.com/*"
           "https://www.google.com/*"
           "http://www.google.com/*"
           "https://www.google.ad/*"
@@ -5986,10 +5995,6 @@
           "http://www.google.co.zw/*"
           "https://www.google.cat/*"
           "http://www.google.cat/*"
-          "https://hangouts.google.com/*"
-          "http://hangouts.google.com/*"
-          "https://docs.google.com/*"
-          "http://docs.google.com/*"
           "<all_urls>"
           ];
         platforms = platforms.all;
@@ -7595,10 +7600,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.3.0";
+      version = "3.3.1";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4167979/tournesol_extension-3.3.0.xpi";
-      sha256 = "eb81f67434181e7518861ef7461d2ad105691d3696df56b5808e9b82f33f7614";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4168467/tournesol_extension-3.3.1.xpi";
+      sha256 = "4acda7513103941c3d6bbf9711adcac0910ff44e4050f6095ee6dc2b386f160a";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
