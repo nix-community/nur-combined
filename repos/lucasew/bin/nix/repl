@@ -3,9 +3,4 @@
 
 # vim:ft=bash
 
-REPL_SCRIPT=~/.dotfiles/repl.nix
-if [[ -v NIXCFG_ROOT_PATH ]]; then
-    REPL_SCRIPT="$NIXCFG_ROOT_PATH/repl.nix"
-fi
-
-nix repl $REPL_SCRIPT
+sd d run nix repl repl.nix

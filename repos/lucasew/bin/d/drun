@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# run command in the context of the repo
+
+sd d run nix develop . -c "$@"

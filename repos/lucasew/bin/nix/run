@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+package="$1"; shift
+
+nix run "$(sd d root)#pkgs.$package" -- "$@"

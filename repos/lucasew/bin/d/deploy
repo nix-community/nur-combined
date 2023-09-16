@@ -19,4 +19,4 @@ if [ -z "$hosts" ]; then
 fi
 
 
-sd d run pyinfra --use-sudo-password "$hosts" pyinfra/nixos.py pyinfra/home-manager.py
+sd d drun pyinfra --use-sudo-password "$hosts" pyinfra/nixos.py pyinfra/home-manager.py

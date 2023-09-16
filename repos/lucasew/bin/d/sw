@@ -26,4 +26,4 @@ done
 echo packages: ${packages_part[@]}
 echo args: ${args_part[@]}
 
-sd d run nix-shell -p ${packages_part[@]} --command ${args_part[@]}
+sd d drun nix-shell -p ${packages_part[@]} --command ${args_part[@]}

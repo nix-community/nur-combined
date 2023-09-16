@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-# run command in the context of the repo
-
-__ETC_BASHRC_SOURCED=0
+# chdir to the repo then run command
 
 cd "$(sd d root)"
-nix develop "$(sd d root)" -c "$@"
+
+"$@"
