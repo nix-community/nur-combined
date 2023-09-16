@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtsvg, qtmultimedia }:
+{ lib, stdenv, fetchFromGitHub, qmake, libxcb, qtbase, qtsvg, qtmultimedia, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "q5go";
@@ -11,11 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MQ/FqAsBnQVaP9VDbFfEbg5ymteb/NSX4nS8YG49HXU=";
   };
 
-  buildInputs = [ qtsvg qtmultimedia ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
-  nativeBuildInputs = [ qmake ];
-
-  dontWrapQtApps = true;
+  buildInputs = [ qtbase qtsvg qtmultimedia libxcb ];
 
   configurePhase = ''
     qmake ./src/q5go.pro PREFIX=$out
