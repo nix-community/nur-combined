@@ -41,7 +41,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = false;
-  networking.nameservers = [ "127.0.0.1" ];
+  networking.nameservers = [ "9.9.9.9" "1.1.1.1" "8.8.8.8" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

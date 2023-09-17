@@ -12,13 +12,22 @@
     enableTerminal = lib.mkDefault true;
     enableTerminalExtra = lib.mkDefault true;
     enableNixDevel = lib.mkDefault true;
+    editor.code.fhs.enable = true;
+    editor.code.fhs.packages = (ps: with ps;[
+      llvmPackages_16.clang
+      llvmPackages_16.llvm
+      llvmPackages_16.bintools
+      llvmPackages_16.lld
+      llvmPackages_16.lldb
+      llvmPackages_16.libllvm
+    ]);
 
   };
 
   home.packages = [
     pkgs.papirus-icon-theme
     materusPkgs.ffmpeg6-amf-full
-    (materusPkgs.polymc.wrap { extraJDKs = [ pkgs.graalvm17-ce ]; })
+    (materusPkgs.polymc.wrap { extraJDKs = [ pkgs.graalvm17-ce ]; extraLibs = [ ]; })
   ];
 
   programs.obs-studio = {

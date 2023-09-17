@@ -31,7 +31,7 @@ with materusPkgs.lib;
     tdesktop
     mpv
     ani-cli
-    (pkgs.obsidian.override {electron = pkgs.electron;})
+    (pkgs.obsidian)
     spotify
     thunderbird
     keepassxc

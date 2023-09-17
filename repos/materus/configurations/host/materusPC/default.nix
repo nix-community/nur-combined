@@ -9,6 +9,8 @@
       ./scripts.nix
       ./tmp.nix
       ./network.nix
+
+      ./kde.nix
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

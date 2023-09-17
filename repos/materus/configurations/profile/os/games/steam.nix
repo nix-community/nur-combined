@@ -1,10 +1,30 @@
 { config, pkgs, lib, materusPkgs, inputs, ... }:
 let
+  optHip = pkgs.stdenv.mkDerivation rec {
+  pname = "optHip";
+  version = pkgs.hip.version;
+
+
+  dontFixup = true;
+  dontBuild = true;
+  dontPatchELF = true;
+  dontUnpack = true;
+  sourceRoot = ".";
+
+  buildInputs = [
+    pkgs.hip
+  ];
+
+  installPhase = ''
+    mkdir -p $out/opt/rocm
+    ln -s ${pkgs.hip} $out/opt/rocm/hip
+  '';
+  };
 
   steamPkg = pkgs.steam.override {
     extraPkgs = pkgs: [
       config.materus.profile.packages.firefox
-      
+      optHip #for blender
       pkgs.steamcmd
       pkgs.nss_latest
       pkgs.libstrangle

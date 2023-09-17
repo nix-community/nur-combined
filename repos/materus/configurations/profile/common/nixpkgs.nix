@@ -16,7 +16,7 @@ in
   config.nixpkgs.config = lib.mkIf cfg.enable{
     allowUnfree = lib.mkDefault true;
     joypixels.acceptLicense = lib.mkDefault true;
-    firefox.enablePlasmaBrowserIntegration = lib.mkDefault true;
+    firefox.enablePlasmaBrowserIntegration = lib.mkDefault config.services.xserver.desktopManager.plasma5.enable;
   };
   config.nixpkgs.overlays = lib.mkIf cfg.enableOverlays [inputs.emacs-overlay.overlay];
 }
