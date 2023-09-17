@@ -1,17 +1,19 @@
 { config, pkgs, lib, inputs, materusFlake, ... }:
 let
-  startHook = ''
+  startHook = /*''
 
 
     # Debugging
-    #  exec 19>/home/materus/startlogfile
-    #  BASH_XTRACEFD=19
-    #  set -x
+      exec 19>/home/materus/startlogfile
+      BASH_XTRACEFD=19
+      set -x
 
-    #  exec 3>&1 4>&2
-    #  trap 'exec 2>&4 1>&3' 0 1 2 3
-    #  exec 1>/home/materus/startlogfile.out 2>&1
-
+      exec 3>&1 4>&2
+      trap 'exec 2>&4 1>&3' 0 1 2 3
+      exec 1>/home/materus/startlogfile.out 2>&1
+    ''
+    +*/
+    ''
     # Make sure nothing renders on gpu to prevent "sysfs: cannot create duplicate filename" after rebinding to amdgpu
     chmod 0 /dev/dri/renderD128 
     fuser -k /dev/dri/renderD128
@@ -27,8 +29,8 @@ let
 
     sleep 1s
 
-    echo "8" > "/sys/bus/pci/devices/''${VIRSH_GPU_VIDEO}/resource0_resize"
-    echo "1" > "/sys/bus/pci/devices/''${VIRSH_GPU_VIDEO}/resource2_resize"
+    echo "10" > "/sys/bus/pci/devices/''${VIRSH_GPU_VIDEO}/resource0_resize"
+    echo "8" > "/sys/bus/pci/devices/''${VIRSH_GPU_VIDEO}/resource2_resize"
 
 
     systemctl set-property --runtime -- user.slice AllowedCPUs=12-15,28-31
@@ -108,7 +110,7 @@ in
 
   systemd.services.mountWin10Share = {
     wantedBy = [ "multi-user.target" ];
-    path = [ config.virtualisation.libvirtd.qemu.package pkgs.util-linux pkgs.kmod pkgs.coreutils pkgs.psmisc ];
+    path = [ config.virtualisation.libvirtd.qemu.package pkgs.util-linux pkgs.kmod pkgs.coreutils ];
     serviceConfig.Type = "oneshot";
     serviceConfig.RemainAfterExit = true;
     script = ''

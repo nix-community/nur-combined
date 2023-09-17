@@ -46,6 +46,7 @@
             util-linux
             bindfs
             qemu-utils
+            psmisc
           ];
         };
       in
