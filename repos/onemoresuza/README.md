@@ -26,6 +26,8 @@ trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWo
 - [Junest][junest]: *A lightweight Arch Linux based distro*.
 - [pdpmake][pdpmake]: *A public domain POSIX make*.
 
+**NOTE**: these packages are built only against the `unstable` channels.
+
 [appendURL]: <https://github.com/jonniek/mpv-scripts/> "Appends url from clipboard to the playlist"
 [chawan]: <https://sr.ht/~bptato/chawan/> "A text-mode web browser"
 [irust]: <https://github.com/sigmaSd/IRust/> "Cross Platform Rust Repl"

@@ -12,16 +12,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "IRust";
-  version = "1.70.0";
+  version = "1.71.2";
 
   src = fetchFromGitHub {
     owner = "sigmaSd";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-chZKesbmvGHXwhnJRZbXyX7B8OwJL9dJh0O1Axz/n2E=";
+    hash = "sha256-6qxkz7Pf8XGORo6O4eIwTcqBt+8WBp2INY81YUCxJts=";
   };
 
-  cargoSha256 = "sha256-uS4+s3r1ufjA5bz/Oskuq5S25IMieooEeS+Tqgn/6cA=";
+  cargoSha256 = "sha256-VZXxz3E8I/8T2H7KHa2IADjqsG2XHBNhwq/OBsq3vHs=";
 
   buildInputs = [makeWrapper];
 

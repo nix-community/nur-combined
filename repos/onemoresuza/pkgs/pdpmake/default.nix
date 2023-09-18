@@ -30,5 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rmyorston/pdpmake";
     license = licenses.unlicense;
     platforms = platforms.unix;
+    mainProgram = "pdpmake";
   };
 }

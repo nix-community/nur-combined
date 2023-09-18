@@ -17,15 +17,19 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  postPatch = ''
-    substituteInPlace ${pname}.lua \
-        --replace "'xclip'" "'${xclip}/bin/xclip'" \
-        --replace "local platform = nil" "local platform = 'linux'"
-  '';
-
   installPhase = ''
     mkdir -p $out/share/mpv/scripts
     cp ${pname}.lua $out/share/mpv/scripts/
+  '';
+
+  fixupPhase = ''
+    runHook preFixup
+
+    substituteInPlace $out/share/mpv/scripts/${pname}.lua \
+        --replace "'xclip'" "'${lib.getExe xclip}'" \
+        --replace "local platform = nil" "local platform = 'linux'"
+
+    runHook posFixup
   '';
 
   passthru.scriptName = "${pname}.lua";
