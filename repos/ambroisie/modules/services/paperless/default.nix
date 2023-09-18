@@ -73,6 +73,10 @@ in
           # OCR settings
           PAPERLESS_OCR_LANGUAGE = "fra+eng";
 
+          # Workers
+          PAPERLESS_TASK_WORKERS = 3;
+          PAPERLESS_THREADS_PER_WORKER = 4;
+
           # Misc
           PAPERLESS_TIME_ZONE = config.time.timeZone;
           PAPERLESS_ADMIN_USER = cfg.username;
