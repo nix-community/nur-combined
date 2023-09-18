@@ -1451,10 +1451,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.17";
+      version = "1.2.18";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4163352/dearrow-1.2.17.xpi";
-      sha256 = "f4d6411d5d12daf09bfe1b84cd1a765876b6f69a4c031080875299f6d7a9c873";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169283/dearrow-1.2.18.xpi";
+      sha256 = "58c176b03c53dd12f954c51dd849c45916cba7a3655c1cfea736fc0a08e3e745";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -6507,10 +6507,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.9.7";
+      version = "23.9.17";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164242/refined_github-23.9.7.xpi";
-      sha256 = "198ccf175a4c9c242753ccc920394fd7f970a2e7fd8bdfbb5f22880eb3da68b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169063/refined_github-23.9.17.xpi";
+      sha256 = "1672acbf62a6da51b777f6ead1aa49d046f056d08cc59e9f65d12ebae1675503";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
