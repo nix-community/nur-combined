@@ -253,6 +253,12 @@ in
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-gps";
               active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-gps.service";
             }
+            {
+              type = "toggle";
+              label = "vpn:servo";
+              command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle wg-quick-vpn-servo";
+              active = "${pkgs.systemd}/bin/systemctl is-active wg-quick-vpn-servo.service";
+            }
           ];
         };
         dnd = {
