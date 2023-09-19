@@ -6,6 +6,8 @@
         echo ~/.dotfiles
       elif [ -d /home/lucasew/.dotfiles ]; then
         echo /home/lucasew/.dotfiles
+      elif [ -d /etc/.dotfiles ]; then
+        echo /etc/.dotfiles
       else
         echo ${self}
       fi
