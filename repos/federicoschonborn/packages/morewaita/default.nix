@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "morewaita";
-  version = "44.1";
+  version = "44.2";
 
   src = fetchFromGitHub {
     owner = "somepaulo";

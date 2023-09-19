@@ -5,7 +5,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "firefox-gnome-theme";
-  version = "116";
+  version = "117";
 
   src = fetchFromGitHub {
     owner = "rafaelmardojai";

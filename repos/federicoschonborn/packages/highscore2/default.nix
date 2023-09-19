@@ -49,6 +49,7 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.gnome.org/alicem/highscore2";
     mainProgram = "highscore";
     license = licenses.gpl3Only;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 }

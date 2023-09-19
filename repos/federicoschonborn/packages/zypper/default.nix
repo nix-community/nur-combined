@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "zypper";
-  version = "1.14.63";
+  version = "1.14.64";
 
   src = fetchFromGitHub {
     owner = "opensuse";

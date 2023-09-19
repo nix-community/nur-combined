@@ -12,7 +12,7 @@
   codelite = pkgs.callPackage ./codelite { };
   devtoolbox = pkgs.callPackage ./devtoolbox { };
   eloquens = pkgs.libsForQt5.callPackage ./eloquens { };
-  fastfetch = pkgs.callPackage ./fastfetch { inherit yyjson; };
+  fastfetch = pkgs.callPackage ./fastfetch { };
   fielding = pkgs.libsForQt5.callPackage ./fielding { };
   firefox-gnome-theme = pkgs.callPackage ./firefox-gnome-theme { };
   flyaway = pkgs.callPackage ./flyaway { wlroots = wlroots_0_16; };
@@ -59,7 +59,6 @@
   vita3k = pkgs.callPackage ./vita3k { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   xenia = pkgs.callPackage ./xenia { };
-  yyjson = pkgs.callPackage ./yyjson { };
   zypper = pkgs.callPackage ./zypper { inherit libzypp; };
 
   apx_v2 = pkgs.apx.overrideAttrs (oldAttrs: {
