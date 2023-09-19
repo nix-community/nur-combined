@@ -1,5 +1,5 @@
-"let g:scimCommand = 'sc-im'
-let g:scimCommand = '/home/pim/cForks/sc-im/src/sc-im'
+let g:scimCommand = 'sc-im'
+"let g:scimCommand = '/home/pim/cForks/sc-im/src/sc-im'
 
 let g:rooter_silent_chdir = 1
 

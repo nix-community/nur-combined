@@ -28,6 +28,7 @@
     ../../modules/desktop-audio.nix
     ../../modules/desktop-virtualbox.nix
     ../../modules/desktop-security.nix
+    ../../modules/desktop-protonmail.nix
 
     ../../modules/dev-jsonyaml.nix
     ../../modules/dev-core.nix

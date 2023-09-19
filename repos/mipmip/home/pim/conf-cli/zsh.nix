@@ -45,7 +45,7 @@
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins=["git kubectl"];
+      plugins=["git kubectl terraform aws"];
     };
 
     initExtra = ''

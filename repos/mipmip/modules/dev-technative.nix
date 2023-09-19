@@ -23,6 +23,7 @@
     dhall
 
     # AWS
+    cw # cloudwatch in the terminal
     aws-mfa
     awsweeper
     #unstable.cloud-nuke

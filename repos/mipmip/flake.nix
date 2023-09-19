@@ -60,7 +60,7 @@
 
     homeConfigurations = {
       "pim@adevintamac" = home-manager.lib.homeManagerConfiguration {
-        modules = [ (import ./home-manager/home-machine-adevinta.nix) ];
+        modules = [ (import ./home/pim/home-machine-adevinta.nix) ];
         pkgs = pkgsForSystem "x86_64-darwin";
         extraSpecialArgs = {
           username = "pim.snel";
@@ -76,7 +76,7 @@
 
 
       "pim@lego1" = home-manager.lib.homeManagerConfiguration {
-        modules = [ (import ./home-manager/home-machine-lego1.nix) ];
+        modules = [ (import ./home/pim/home-machine-lego1.nix) ];
         pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {
           username = "pim";
@@ -90,7 +90,7 @@
       };
 
       "pim@ojs" = home-manager.lib.homeManagerConfiguration {
-        modules = [ (import ./home-manager/home-machine-ojs.nix) ];
+        modules = [ (import ./home/pim/home-machine-ojs.nix) ];
 
         pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {
@@ -106,7 +106,7 @@
       };
 
       "pim@rodin" = home-manager.lib.homeManagerConfiguration {
-        modules = [ (import ./home-manager/home-machine-rodin.nix) ];
+        modules = [ (import ./home/pim/home-machine-rodin.nix) ];
 
         pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {

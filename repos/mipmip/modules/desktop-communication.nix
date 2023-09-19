@@ -14,7 +14,6 @@
 
 
     whatsapp-for-linux
-    protonmail-bridge
     zoom-us
     tdesktop
     teams

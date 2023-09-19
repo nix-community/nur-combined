@@ -27,7 +27,6 @@
     (pkgs.callPackage ../pkgs/drivers/hl4150cdn/default.nix {})
   ];
 
-  users.users.pim.initialPassword = "hallo";
 
   # Enable sound.
   sound.enable = true;

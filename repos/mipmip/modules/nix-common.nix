@@ -35,12 +35,18 @@
   environment.shells = with pkgs; [ zsh ];
 
   users.users.pim = {
+    initialPassword = "hallo";
     shell = pkgs.zsh;
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "networkmanager" "disk"];
   };
 
   users.users.tim = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "docker" "networkmanager" "disk"];
+  };
+
+  users.users.annemarie = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "networkmanager" "disk"];
   };

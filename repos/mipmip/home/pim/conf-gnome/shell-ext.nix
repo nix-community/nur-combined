@@ -4,7 +4,7 @@
 
 with lib;
 let
-  mipmip_pkg = import (../../pkgs){};
+  mipmip_pkg = import (../../../pkgs){};
 
   gnomeExtensionsWithOutConf = [
     mipmip_pkg.gnomeExtensions.custom-menu-panel
@@ -42,7 +42,7 @@ let
   };
 
   dconfExtConfs = builtins.listToAttrs (builtins.catAttrs "dconf" gnomeExtensions);
-  recursiveMerge = import ../../lib/recursive-merge.nix {lib = lib;};
+  recursiveMerge = import ../../../lib/recursive-merge.nix {lib = lib;};
 
 in
   {
