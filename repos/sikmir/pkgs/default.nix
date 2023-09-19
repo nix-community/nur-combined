@@ -243,6 +243,7 @@ lib.makeScope newScope (
     tdh = callPackage ./geospatial/tdh { };
     terracotta = callPackage ./geospatial/terracotta { };
     tile-stitch = callPackage ./geospatial/tile-stitch { };
+    tilekiln = callPackage ./geospatial/tilekiln { };
     tilesets-cli = callPackage ./geospatial/tilesets-cli { };
     tpkutils = callPackage ./geospatial/tpkutils { };
     vt2geojson = callPackage ./geospatial/vt2geojson { };
@@ -439,6 +440,7 @@ lib.makeScope newScope (
     ### OSM
 
     cykhash = callPackage ./osm/cykhash { };
+    gcgn-converter = callPackage ./osm/gcgn-converter { };
     imposm = callPackage ./osm/imposm { };
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
