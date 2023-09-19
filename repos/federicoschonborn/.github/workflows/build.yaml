@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup QEMU
-        uses: docker/setup-qemu-action@v2.2.0
+        uses: docker/setup-qemu-action@v3.0.0
         if: matrix.runs-on == 'ubuntu-latest' && matrix.system != 'x86_64-linux'
 
       - name: Install nix
