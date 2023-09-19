@@ -2222,10 +2222,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "118.0.20230914.180032";
+      version = "118.0.20230918.143747";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4168192/francais_language_pack-118.0.20230914.180032.xpi";
-      sha256 = "674b5133dddb33656e8b2d4318ce0bf160c45cd6e2a9c7dbfd9883460608ad6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169684/francais_language_pack-118.0.20230918.143747.xpi";
+      sha256 = "6984efb83db5563eb38fcdfb12e742111848d9a1730b226d6fba64a547b915c0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6200,10 +6200,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.5.4";
+      version = "1.6.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4156117/proton_pass-1.5.4.xpi";
-      sha256 = "01b6629363a5db86213286dc7a9f0e46d207732f58284032c66fceb6ff55d4ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4168520/proton_pass-1.6.1.xpi";
+      sha256 = "994f180cf0792a82f39a0f61f198f8b21103d917f6a489c8c358c08fa594e846";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -6797,10 +6797,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.64";
+      version = "1.21.65";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162382/single_file-1.21.64.xpi";
-      sha256 = "e0b47d8d6d12906dd4680059640a74109532b86e47deb80ea2086055136a5afd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4167691/single_file-1.21.65.xpi";
+      sha256 = "3a8bdc27decf003bed4156d468bb54c8cea3b39fa567f18f32ee9ba1e5b8314a";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
