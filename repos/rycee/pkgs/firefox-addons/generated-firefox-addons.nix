@@ -1257,10 +1257,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.16.0";
+      version = "3.17.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4167378/control_panel_for_twitter-3.16.0.xpi";
-      sha256 = "9309e801e1269470a58c57f02b618bf6677325ef676f0a4bd5be25674324f358";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4168613/control_panel_for_twitter-3.17.0.xpi";
+      sha256 = "43681626d68d0fa45e1d782d8956c22b965f7af2803da0e648bf8f237895fb04";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1424,6 +1424,21 @@
         description = "Makes the scrollbars on TweetDeck and other sites dark in Firefox. This should be done by the site itself, not by an addon :(\n\nImage based on Scroll by Juan Pablo Bravo, CL <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/f9c83bffbd0bf3bfa6ea46deecfa4fa4e9d5a69f49f323c020877e0bf283efac/https%3A//thenounproject.com/term/scroll/18607/\" rel=\"nofollow\">https://thenounproject.com/term/scroll/18607/</a>";
         license = licenses.lgpl3;
         mozPermissions = [ "activeTab" "<all_urls>" ];
+        platforms = platforms.all;
+        };
+      };
+    "darkcloud" = buildFirefoxXpiAddon {
+      pname = "darkcloud";
+      version = "1.6.3";
+      addonId = "{534c6d6e-de02-417d-a38e-4007d33914b6}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3950183/darkcloud-1.6.3.xpi";
+      sha256 = "0095b505091bac528a63933eeb2a5f67027214615591f4c896d8c754176e7345";
+      meta = with lib;
+      {
+        homepage = "http://acroma.rf.gd/darkcloud";
+        description = "Changes <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/f541ff9b58fe8ef09cbadbdd7a6c017f9c859ce781a6840fb9818a092dc29d6f/http%3A//soundcloud.com\">soundcloud.com</a> to a dark theme.";
+        license = licenses.mpl20;
+        mozPermissions = [ "*://*.soundcloud.com/*" ];
         platforms = platforms.all;
         };
       };
@@ -8034,10 +8049,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.9.10.1131";
+      version = "2023.9.19.787";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165616/ublock_origin_lite-2023.9.10.1131.xpi";
-      sha256 = "c7802ecf3c0f3bcb0bb264cd73bd6fd411ed23dd70ded8b203d75845713f3c79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170132/ublock_origin_lite-2023.9.19.787.xpi";
+      sha256 = "90103a8790a45e99d14a311c72519d371d590b4744d58132545e2b9e3ecdcb37";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
