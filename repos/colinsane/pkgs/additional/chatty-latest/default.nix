@@ -30,15 +30,15 @@
 , libadwaita
 , wrapGAppsHook4
 }:
-chatty.overrideAttrs (upstream: {
+chatty.overrideAttrs (upstream: rec {
   pname = "chatty-latest";
-  version = "unstable-2023-08-01";
+  version = "v0.8.0_rc0";  # 2023-07-31
   src = fetchFromGitLab {
     domain = "source.puri.sm";
     owner = "Librem5";
     repo = "chatty";
-    rev = "ca556b7df539b37e08ed2c73e2beb2b6cc7b91f3";
-    hash = "sha256-Tzdai2VU9wh/HW52uB+9uzpQymZmTqwiGqB6N20IvxE=";
+    rev = version;
+    hash = "sha256-dR6f9ZTAj1sXyoMmVyNog6XZthdZt9XrGFSi1KCRTcM=";
     fetchSubmodules = true;
   };
 

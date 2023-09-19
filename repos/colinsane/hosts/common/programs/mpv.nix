@@ -8,7 +8,6 @@
 {
   sane.programs.mpv = {
     package = pkgs.wrapMpv pkgs.mpv-unwrapped {
-      youtubeSupport = false;  #< XXX(2023/08/03): doesn't cross compile until next staging -> master merge
       scripts = with pkgs.mpvScripts; [
         mpris
         # uosc
@@ -98,7 +97,8 @@
       ui_scale=1.0
     '';
 
-    mime.priority = 200;  # default = 100; 200 means to yield to other apps
+    # mime.priority = 200;  # default = 100; 200 means to yield to other apps
+    mime.priority = 50;  # default = 100; 50 in order to take precedence over vlc.
     mime.associations."audio/flac" = "mpv.desktop";
     mime.associations."audio/mpeg" = "mpv.desktop";
     mime.associations."audio/x-vorbis+ogg" = "mpv.desktop";

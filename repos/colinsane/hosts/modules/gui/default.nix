@@ -19,6 +19,7 @@
       "tuiApps"
     ] ++ [
       "alacritty"  # terminal emulator
+      "calls"  # gnome calls (dialer/handler)
       # "celluloid"  # mpv frontend
       "chatty"  # matrix/xmpp/irc client
       "cozy"  # audiobook player
@@ -47,7 +48,7 @@
       "mate.engrampa"  # archive manager
       "mepo"  # maps viewer
       "mpv"
-      # "networkmanagerapplet"
+      "networkmanagerapplet"  # for nm-connection-editor: it's better than not having any gui!
       # "newsflash"
       "pavucontrol"
       # "picard"  # music tagging
@@ -73,7 +74,7 @@
       # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
       "electrum"
       "element-desktop"
-      # "font-manager"  #< depends on webkitgtk4_0 (expensive to build)
+      "font-manager"
       "gajim"  # XMPP client. cross build tries to import host gobject-introspection types (2023/09/01)
       "gimp"  # broken on phosh
       "gnome.dconf-editor"

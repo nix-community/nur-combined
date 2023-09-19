@@ -107,7 +107,7 @@
         "--center --margin 45"
         "--no-spacing"
         # XXX: font size doesn't seem to take effect (would prefer larger)
-        "--fn 'Sxmo 14' --line-height 22 --border 3"
+        "--fn 'monospace 14' --line-height 22 --border 3"
         "--bdr '${accent0}'"                     # border
         "--scf '${accent2}' --scb '${accent0}'"  # scrollbar
         "--tb '${accent0}' --tf '${fg0}'"        # title

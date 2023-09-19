@@ -50,14 +50,15 @@
 
 ### user experience
 #### moby
-- eg25-control:
-  - add a `poweroff` command
-  - toggle via SwayNC
+- fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>
+- install apps:
+  - display QR codes for WiFi endpoints: <https://linuxphoneapps.org/apps/noappid.wisperwind.wifi2qr/>
+  - shopping list: <https://linuxphoneapps.org/apps/ro.hume.cosmin.shoppinglist/>
+  - offline Wikipedia
 - SwayNC:
   - don't show MPRIS if no players detected
     - this is a problem of playerctld, i guess
   - add option to change audio output
-  - add option to toggle GPS on/off
   - fix colors (red alert) to match overall theme
 - moby: tune GPS
   - run only geoclue, and not gpsd, to save power?
@@ -77,6 +78,7 @@
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - especially, make the menubar collapsible
   - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
+- phog: remove the gnome-shell runtime dependency to save hella closure size
 
 #### non-moby
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
@@ -89,6 +91,7 @@
   - install [devhelp](https://wiki.gnome.org/Apps/Devhelp)  (gnome)
 - have xdg-open parse `<repo:...> URIs (or adjust them so that it _can_ parse)
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
+  - maybe just color these "keywords" in all search results?
 - uninsane.org: make URLs relative to allow local use (and as offline homepage)
 - email: fix so that local mail doesn't go to junk
   - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk

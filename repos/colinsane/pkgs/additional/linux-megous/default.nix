@@ -17,6 +17,7 @@ let
   # - `git fetch torvalds`
   # - `git bundle unbundle orange-pi-active.bundle`
   # - there should be some new tag, like `refs/tags/orange-pi-6.4-20230907-1427`
+  # - see: <https://xnux.eu/log/094.html>
   # OLD METHOD (pre-2023/09):
   # - `git fetch` from megous' repo (https://github.com/megous/linux.git).
   # - there should be some new tag, like `orange-pi-6.1-blah`. use that.
@@ -124,6 +125,26 @@ let
     pkgs.kernelPatches.bridge_stp_helper
     pkgs.kernelPatches.request_key_helper
     # (patchDefconfig kernelConfig)
+    {
+      # enable CONFIG_WOWLAN=y within the rtl8723 bluetooth/WiFi driver
+      #   (not an ordinary Kconfig option).
+      # also configures the pinephone device tree to `keep-power-in-suspend` for the WiFi peripherals
+      # together, this allows the WiFi chip to wake the application processor when it receives packets of interest.
+      # in particular this allows WiFi calls to be received while the phone is otherwise sleeping.
+      # additional userspace configuration is necessary to enable this.
+      # see: <https://gist.github.com/Peetz0r/bf8fd93a60962b4afcf2daeb4305da40>
+      # see: <https://xnux.eu/log/031.html>
+      # see: <https://irclog.whitequark.org/linux-sunxi/2021-02-19>
+      name = "enable-wowlan-in-rtl8723cs";
+      # patch = fetchpatch {
+      #   url = "https://gist.githubusercontent.com/Peetz0r/bf8fd93a60962b4afcf2daeb4305da40/raw/7697bc9c36d75cc1a44dc164b60412a34a8bf2c4/enable-wowlan-in-rtl8723cs.patch";
+      #   hash = "sha256-jXe3dHBHggdGKN8cHH4zqY9HLtZ2axXcgYO//6j9qIY=";
+      # };
+      patch = fetchpatch {
+        url = "https://git.uninsane.org/colin/linux/commit/afd6514fd3098047000b3f1f198c2256478dce46.patch";
+        hash = "sha256-8OtGXpCPJbk3c3Z4DcurS0F+Ogqx+xahEv+256+4dcY=";
+      };
+    }
   ] ++ lib.optionals (!withModemPower) [
     {
       # Drop modem-power from DT to allow eg25-manager to have full control.

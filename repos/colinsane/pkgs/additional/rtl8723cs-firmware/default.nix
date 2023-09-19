@@ -27,6 +27,9 @@ stdenv.mkDerivation {
     # other sources:
     # - <https://megous.com/git/linux-firmware>
     # - <https://github.com/armbian/firmware>
+    #
+    # mobile-nixos used this source until switching to megi's on 2021/07/26:
+    # - <https://github.com/NixOS/mobile-nixos/pull/391/files>
     homepage = "https://github.com/anarsoul/rtl8723bt-firmware";
     license = licenses.unfreeRedistributableFirmware;
     maintainers = with maintainers; [ colinsane ];

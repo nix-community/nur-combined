@@ -74,12 +74,16 @@
   # `cat /proc/meminfo` to see CmaTotal/CmaFree if interested in tuning this.
   boot.kernelParams = [ "cma=512M" ];
 
+  # hardware.firmware makes the referenced files visible to the kernel, for whenever a driver explicitly asks for them.
+  # these files are visible from userspace by following `/sys/module/firmware_class/parameters/path`
+  #
   # mobile-nixos' /lib/firmware includes:
   #   rtl_bt          (bluetooth)
-  #   anx7688-fw.bin  (USB-C -> HDMI bridge)
+  #   anx7688-fw.bin  (USB-C chip: power negotiation, HDMI/dock)
   #   ov5640_af.bin   (camera module)
   # hardware.firmware = [ config.mobile.device.firmware ];
-  hardware.firmware = [ pkgs.rtl8723cs-firmware ];
+  # hardware.firmware = [ pkgs.rtl8723cs-firmware ];
+  hardware.firmware = [ pkgs.linux-firmware-megous ];
 
   system.stateVersion = "21.11";
 

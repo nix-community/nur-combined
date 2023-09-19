@@ -24,7 +24,6 @@ let
 in
 {
   imports = [
-    ./p10k.nix
     ./starship.nix
   ];
   options = {
@@ -33,11 +32,6 @@ in
         type = types.bool;
         default = true;
         description = "show upcoming deadlines (from my PKM) upon shell init";
-      };
-      p10k = mkOption {
-        type = types.bool;
-        default = false;
-        description = "enable powerlevel10k prompt and prezto";
       };
       starship = mkOption {
         type = types.bool;
@@ -54,10 +48,6 @@ in
           # we don't need to full zsh dir -- just the history file --
           # but zsh will sometimes backup the history file and symlinking just the file messes things up
           ".local/share/zsh"
-        ];
-        persist.plaintext = [
-          # cache gitstatus otherwise p10k fetches it from the net EVERY BOOT
-          ".cache/gitstatus"
         ];
 
         fs.".config/zsh/.zshrc".symlink.text = ''

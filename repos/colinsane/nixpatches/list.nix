@@ -19,11 +19,6 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
-  (fetchpatch' {
-    title = "trust-dns: 0.22.1 -> 0.23.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/254827";
-    hash = "sha256-0EPLiv+Ha943C5/l24pyY+VEUOEJ6UG9rr+EHTzFR0Q=";
-  })
 
   # (fetchpatch' {
   #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.
@@ -111,6 +106,20 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
     saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
     hash = "sha256-jDXYLlXaEBKMrZ2dgxc6ucrcX/5dtqoIIKw+Ay19vlc=";
+  })
+
+  (fetchpatch' {
+    title = "g4music: 3.2 -> 3.3";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/255440";
+    saneCommit = "1af1d8b85525228638631b0b553f1275ce0eac22";
+    hash = "sha256-tzqimuhVI88sM59kCQz1kNkv33Mko/9ls978dsEx3uM=";
+  })
+
+  (fetchpatch' {
+    title = "font-manager: allow building without webkit";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/255466";
+    saneCommit = "54931faf9a276818bc4a9d88562b0010da534577";
+    hash = "sha256-EpGJ708Zrr8fU8Je5elxHTmrsXbEsKGz5xEsC0tgoyE=";
   })
 
   # (fetchpatch {

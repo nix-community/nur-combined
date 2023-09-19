@@ -1,14 +1,15 @@
+# wireguard VPN which allows my devices to talk to eachother even when on physically different LANs
+# for wireguard docs, see:
+# - <https://nixos.wiki/wiki/WireGuard>
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) filter map;
-  inherit (lib) concatMap mapAttrsToList mkIf mkMerge mkOption optionalAttrs types;
   cfg = config.sane.services.wg-home;
   server-cfg = config.sane.hosts.by-name."servo".wg-home;
   mkPeer = { ips, pubkey, endpoint }: {
     publicKey = pubkey;
-    allowedIPs = map (k: "${k}/32") ips;
-  } // (optionalAttrs (endpoint != null) {
+    allowedIPs = builtins.map (k: "${k}/32") ips;
+  } // (lib.optionalAttrs (endpoint != null) {
     inherit endpoint;
     # send keepalives every 25 seconds to keep NAT routes live.
     # only need to do this from client -> server though, i think.
@@ -17,33 +18,49 @@ let
     dynamicEndpointRefreshSeconds = 600;
   });
   # make separate peers to route each given host
-  mkClientPeers = hosts: map (p: mkPeer {
+  mkClientPeers = hosts: builtins.map (p: mkPeer {
     inherit (p) pubkey endpoint;
     ips = [ p.ip ];
   }) hosts;
   # make a single peer which routes all the given hosts
   mkServerPeer = hosts: mkPeer {
     inherit (server-cfg) pubkey endpoint;
-    ips = map (h: h.ip) hosts;
+    ips = builtins.map (h: h.ip) hosts;
   };
 in
 {
-  options = {
+  options = with lib; {
     sane.services.wg-home.enable = mkOption {
       type = types.bool;
       default = false;
     };
-    sane.services.wg-home.enableWan = mkOption {
+    sane.services.wg-home.visibleToWan = mkOption {
       type = types.bool;
       default = false;
       description = "whether to make this port visible on the WAN";
+    };
+    sane.services.wg-home.forwardToWan = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        whether to forward packets from wireguard clients to the WAN,
+        i.e. whether to act as a VPN exit node.
+      '';
+    };
+    sane.services.wg-home.routeThroughServo = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        whether to contact peers by routing through a stationary server.
+        should be true for all "clients", and false for that stationary server.
+      '';
     };
     sane.services.wg-home.ip = mkOption {
       type = types.str;
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     # generate a (deterministic) wireguard private key
     sane.derived-secrets."/run/wg-home.priv" = {
       len = 32;
@@ -58,33 +75,45 @@ in
     sane.ports.ports."51820" = {
       protocol = [ "udp" ];
       visibleTo.lan = true;
-      visibleTo.wan = cfg.enableWan;
+      visibleTo.wan = cfg.visibleToWan;
       description = "colin-wireguard";
     };
-    networking.wireguard.interfaces.wg-home = {
-      listenPort = 51820;
-      privateKeyFile = "/run/wg-home.priv";
-      preSetup =
-        let
-          gen-key = config.sane.fs."/run/wg-home.priv".unit;
-        in
-          "${pkgs.systemd}/bin/systemctl start '${gen-key}'";
+    networking.wireguard.interfaces.wg-home = lib.mkMerge [
+      {
+        listenPort = 51820;
+        privateKeyFile = "/run/wg-home.priv";
+        preSetup =
+          let
+            gen-key = config.sane.fs."/run/wg-home.priv".unit;
+          in
+            "${pkgs.systemd}/bin/systemctl start '${gen-key}'";
 
-      ips = [
-        "${cfg.ip}/24"
-      ];
+        ips = [
+          "${cfg.ip}/24"
+        ];
 
-      peers =
-        let
-          all-peers = mapAttrsToList (_: hostcfg: hostcfg.wg-home) config.sane.hosts.by-name;
-          peer-list = filter (p: p.ip != null && p.ip != cfg.ip && p.pubkey != null) all-peers;
-        in
-          if cfg.ip == server-cfg.ip then
-            # if we're the server, then we maintain the entire client list
-            mkClientPeers peer-list
-          else
-            # but if we're a client, we maintain a single peer -- the server -- which does the actual routing
-            [ (mkServerPeer peer-list) ];
-    };
+        peers =
+          let
+            all-peers = lib.mapAttrsToList (_: hostcfg: hostcfg.wg-home) config.sane.hosts.by-name;
+            peer-list = builtins.filter (p: p.ip != null && p.ip != cfg.ip && p.pubkey != null) all-peers;
+          in
+            if cfg.routeThroughServo then
+              # if acting as a client, then maintain a single peer -- the server -- which does the actual routing
+              [ (mkServerPeer peer-list) ]
+            else
+              # if acting as a server, route to each peer individually
+              mkClientPeers peer-list
+        ;
+      }
+      (lib.mkIf cfg.forwardToWan {
+        # documented here: <https://nixos.wiki/wiki/WireGuard#Server_setup_2>
+        postSetup = ''
+          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${cfg.ip}/24 -o eth0 -j MASQUERADE
+        '';
+        postShutdown = ''
+          ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${cfg.ip}/24 -o eth0 -j MASQUERADE
+        '';
+      })
+    ];
   };
 }

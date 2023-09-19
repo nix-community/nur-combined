@@ -209,7 +209,7 @@ in
             # - `bindsym $mod+Shift+p exec sxmo_appmenu.sh sys`
             # - `input * xkb_options compose:ralt`
             # these could be added, but i don't see much benefit.
-            font = "Sxmo 10";
+            font = "pango:monospace 10";
             mod = "Mod1";  # prefer Alt
             xwayland = false;  # disable to reduce RAM usage.
             workspace_layout = "tabbed";
@@ -282,12 +282,6 @@ in
         security.doas.enable = true;
         security.doas.wheelNeedsPassword = false;
 
-        # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
-        # sxmo needs nerdfonts for:
-        # - waybar icons
-        # - dmenu/bemenu icons
-        fonts.packages = [ pkgs.nerdfonts ];
-
         # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
         services.gnome.at-spi2-core.enable = true;
 
@@ -317,12 +311,13 @@ in
         # environment.pathsToLink = [ "/share/sxmo" ];
 
         systemd.services."sxmo-set-permissions" = {
+          # TODO: some of these could be modified to be udev rules
           description = "configure specific /sys and /dev nodes to be writable by sxmo scripts";
           serviceConfig = {
             Type = "oneshot";
             ExecStart = "${package}/bin/sxmo_setpermissions.sh";
           };
-          wantedBy = [ "multi-user.service" ];
+          wantedBy = [ "multi-user.target" ];
         };
 
         # if superd fails to start a service within 100ms, it'll try to start again

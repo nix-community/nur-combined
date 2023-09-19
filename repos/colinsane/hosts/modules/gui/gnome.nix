@@ -47,7 +47,6 @@ in
   #       favorite-apps = [
   #         "org.gnome.Nautilus.desktop"
   #         "firefox.desktop"
-  #         "kitty.desktop"
   #         # "org.gnome.Terminal.desktop"
   #       ];
   #     };

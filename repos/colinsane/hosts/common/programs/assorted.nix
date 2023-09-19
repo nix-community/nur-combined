@@ -62,6 +62,7 @@ in
       "dig"
       "dtc"  # device tree [de]compiler
       "efibootmgr"
+      "ethtool"
       "fatresize"
       "fd"
       "file"
@@ -75,6 +76,7 @@ in
       "inetutils"  # for telnet
       "iotop"
       "iptables"
+      "iw"
       "jq"
       "killall"
       "lsof"
@@ -128,7 +130,6 @@ in
       # "gopass"
       # "gopass-jsonapi"
       "helix"  # text editor
-      # "kitty"  # XXX needs to be in consolueUtils because `ssh servo` from kitty sets `TERM=xterm-kitty` in the remote and breaks things
       "libsecret"  # for managing user keyrings. TODO: what needs this? lift into the consumer
       "lm_sensors"  # for sensors-detect. TODO: what needs this? lift into the consumer
       "lshw"
@@ -212,6 +213,11 @@ in
     emote.persist.plaintext = [ ".local/share/Emote" ];
 
     fluffychat-moby.persist.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
+
+    font-manager.package = pkgs.font-manager.override {
+      # build without the "Google Fonts" integration feature, to save closure / avoid webkitgtk_4_0
+      withWebkit = false;
+    };
 
     # MS GitHub stores auth token in .config
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines

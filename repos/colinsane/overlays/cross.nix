@@ -41,7 +41,6 @@
 #   - nixos manually builds loader.cache in postInstall (via emulator).
 #   - even though we have loader.cache, ordering means that thumbnailer still can't be built.
 #   - solution is probably to integrate meson's cross_file stuff, and pushing all this emulation upstream.
-# - kitty doesn't cross compile
 
 final: prev:
 let
@@ -563,6 +562,14 @@ in {
   #     in
   #       lib.optionals (final.stdenv.hostPlatform != final.stdenv.buildPlatform) [ "--cross-file=${crossFile}" ]
   #     );
+  #   # 2023/09/15: fails with:
+  #   # - error: linking with `/nix/store/75slks1wr3b3sxr5advswjzg9lvbv9jc-gcc-wrapper-12.3.0/bin/cc` failed: exit status: 1
+  #   # - error: could not compile `gst-plugin-gtk4` (lib) due to previous error
+  #   # seems it's trying to link something for the build platform instead of the host platform
+  #   # fractal-next 5.beta2 is using gst-plugin-gtk4 0.11.
+  #   # - gst-plugin-gtk4 tip is at 0.12.0-alpha1, but that's not published to Crates.io
+  #   # - <https://lib.rs/crates/gst-plugin-gtk4>
+  #   # - no obvious PRs that merged after 0.11 release relevant to cross compilation
   # });
 
   # 2023/07/31: upstreaming is unblocked -- if i can rework to not use emulation
@@ -884,18 +891,6 @@ in {
   #   # in node-dependencies-jellyfin-web: "node: command not found"
   #   inherit (emulated) stdenv;
   # };
-
-  # kitty = prev.kitty.overrideAttrs (upstream: {
-  #   # fixes: "FileNotFoundError: [Errno 2] No such file or directory: 'pkg-config'"
-  #   PKGCONFIG_EXE = "${final.buildPackages.pkg-config}/bin/${final.buildPackages.pkg-config.targetPrefix}pkg-config";
-
-  #   # when building docs, kitty's setup.py invokes `sphinx`, which tries to load a .so for the host.
-  #   # on cross compilation, that fails
-  #   KITTY_NO_DOCS = true;
-  #   patches = upstream.patches ++ [
-  #     ./kitty-no-docs.patch
-  #   ];
-  # });
 
   komikku = wrapGAppsHook4Fix prev.komikku;
   koreader = (prev.koreader.override {
