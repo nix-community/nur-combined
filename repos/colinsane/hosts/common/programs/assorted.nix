@@ -44,8 +44,7 @@ in
       "sane-scripts.ssl-dump"
       "sane-scripts.sudo-redirect"
       "sane-scripts.sync-from-servo"
-      "sane-scripts.vpn-down"
-      "sane-scripts.vpn-up"
+      "sane-scripts.vpn"
       "sane-scripts.which"
       "sane-scripts.wipe-browser"
     ];

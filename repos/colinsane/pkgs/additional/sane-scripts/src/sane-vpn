@@ -1,0 +1,34 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p coreutils-full -p gnugrep -p gnused -p sane-scripts.ip-check -p systemd
+
+oper="$1"
+region="$2"
+# region should be e.g. `us` or `ukr`
+
+vpns=$(systemctl list-unit-files | grep wg-quick- | cut -f 1 -d ' ' | sed s'/^wg-quick-\([a-zA-Z-]*\)\.service$/\1/g')
+
+if [ $(echo "$vpns" | grep "^$region$") ]; then
+  iface="$region"
+elif [ $(echo "$vpns" | grep "^vpn-$region$") ]; then
+  iface="vpn-$region"
+elif [ $(echo "$vpns" | grep "^ovpnd-$region$") ]; then
+  iface="ovpnd-$region"
+else
+  echo "invalid vpn name '$region'"
+  echo "choices:"
+  echo "$vpns"
+  exit 1
+fi
+
+service="wg-quick-$iface.service"
+
+echo before: $(sane-ip-check --no-upnp)
+if [ "$oper" == up ]; then
+  sudo systemctl start "$service"
+elif [ "$oper" == down ]; then
+  sudo systemctl stop "$service"
+else
+  echo "invalid operation '$oper'"
+  exit 1
+fi
+echo after:  $(sane-ip-check --no-upnp)

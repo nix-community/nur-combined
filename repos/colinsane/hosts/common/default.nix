@@ -5,6 +5,7 @@
     ./fs.nix
     ./hardware
     ./home
+    ./hosts.nix
     ./ids.nix
     ./machine-id.nix
     ./net.nix

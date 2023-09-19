@@ -197,13 +197,8 @@ let
       pkgs = [ "ffmpeg" "sox" ];
       pyPkgs = [ "unidecode" ];
     };
-    vpn-down = static-nix-shell.mkBash {
-      pname = "sane-vpn-down";
-      src = ./src;
-      pkgs = [ "coreutils-full" "gnugrep" "gnused" "sane-scripts.ip-check" "systemd" ];
-    };
-    vpn-up = static-nix-shell.mkBash {
-      pname = "sane-vpn-up";
+    vpn = static-nix-shell.mkBash {
+      pname = "sane-vpn";
       src = ./src;
       pkgs = [ "coreutils-full" "gnugrep" "gnused" "sane-scripts.ip-check" "systemd" ];
     };
