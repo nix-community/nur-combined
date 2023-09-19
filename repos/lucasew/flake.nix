@@ -8,6 +8,27 @@
     cloud-savegame.url = "github:lucasew/cloud-savegame";
     cloud-savegame.flake = false;
 
+    dotenv.url = "github:lucasew/dotenv";
+    dotenv.flake = false;
+
+    devenv.url = "github:cachix/devenv";
+    devenv.flake = false;
+
+    pocket2kindle.url = "github:lucasew/pocket2kindle";
+    pocket2kindle.flake = false;
+
+    send2kindle.url = "github:lucasew/send2kindle";
+    send2kindle.flake = false;
+
+    nix-emacs.url = "github:nixosbrasil/nix-emacs";
+    nix-emacs.flake = false;
+
+    nix-option.url = "github:lucasew/nix-option";
+    nix-option.flake = false;
+
+    pytorrentsearch.url = "github:lucasew/pytorrentsearch";
+    pytorrentsearch.flake = false;
+
     nix-index-database.url = "github:Mic92/nix-index-database";
 
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
@@ -16,7 +37,7 @@
 
     impermanence.url = "github:nix-community/impermanence";
 
-    nixos-hardware.url = "github:lucasew/nixos-hardware/openrgb-defaults";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nbr.url = "github:nixosbrasil/nixpkgs-brasil";
     nbr.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +48,9 @@
     nix-on-droid.url = "github:t184256/nix-on-droid";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-vscode.url = "github:nixosbrasil/nix-vscode";
+    nix-vscode.flake = false;
 
     home-manager.url = "home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -118,6 +142,7 @@
             "electron-21.4.0"
             "openssl-1.1.1u"
             "openssl-1.1.1v"
+            "openssl-1.1.1w"
         ];
       };
       overlays = if disableOverlays then [] else (overlays ++ (builtins.attrValues self.outputs.overlays));

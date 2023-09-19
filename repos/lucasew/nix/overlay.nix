@@ -44,7 +44,7 @@ in
   }) (builtins.readDir ../bin);
 
   devenv = final.writeShellScriptBin "devenv" ''
-    nix run ${final.bumpkin.unpacked.devenv}# -- "$@"
+    nix run ${flake.inputs.devenv}# -- "$@"
   '';
 
   ctl = cp ./pkgs/ctl;
@@ -54,25 +54,25 @@ in
   comby = cp ./pkgs/comby.nix;
   pkg = cp ./pkgs/pkg.nix;
   wrapWine = cp ./pkgs/wrapWine.nix;
-  home-manager = cp "${final.bumpkin.unpacked.home-manager}/home-manager";
+  home-manager = cp "${flake.inputs.home-manager}/home-manager";
 
   prev = prev;
-  requireFileSources = [ final.bumpkin.unpacked.nix-requirefile.data.main ];
+  requireFileSources = [ flake.inputs.nix-requirefile.data.main ];
 
   appimage-wrap = final.nbr.appimage-wrap;
 
-  dotenv = cp final.bumpkin.unpacked.dotenv;
-  p2k = cp final.bumpkin.unpacked.pocket2kindle;
-  pytorrentsearch = cp final.bumpkin.unpacked.pytorrentsearch;
-  redial_proxy = cp final.bumpkin.unpacked.redial_proxy;
-  send2kindle = cp final.bumpkin.unpacked.send2kindle;
-  nixgram = cp final.bumpkin.unpacked.nixgram;
-  wrapVSCode = args: import final.bumpkin.unpacked.nix-vscode (args // { pkgs = prev; });
-  wrapEmacs = args: import final.bumpkin.unpacked.nix-emacs (args // { pkgs = prev; });
+  dotenv = cp flake.inputs.dotenv;
+  p2k = cp flake.inputs.pocket2kindle;
+  pytorrentsearch = cp flake.inputs.pytorrentsearch;
+  redial_proxy = cp flake.inputs.redial_proxy;
+  send2kindle = cp flake.inputs.send2kindle;
+  nixgram = cp flake.inputs.nixgram;
+  wrapVSCode = args: import flake.inputs.nix-vscode (args // { pkgs = prev; });
+  wrapEmacs = args: import flake.inputs.nix-emacs (args // { pkgs = prev; });
 
   instantngp = cp ./pkgs/instantngp.nix;
 
-  nix-option = callPackage "${final.bumpkin.unpacked.nix-option}" {
+  nix-option = callPackage "${flake.inputs.nix-option}" {
     nixos-option = (callPackage "${flake.inputs.nixpkgs}/nixos/modules/installer/tools/nixos-option" { }).overrideAttrs (attrs: attrs // {
       meta = attrs.meta // {
         platforms = lib.platforms.all;
@@ -116,7 +116,7 @@ in
     retroarch = cp ./pkgs/custom/retroarch.nix;
     loader = cp ./pkgs/custom/loader/default.nix;
     polybar = cp ./pkgs/custom/polybar.nix;
-    colors-lib-contrib = import "${final.bumpkin.unpacked.nix-colors}/lib/contrib" { pkgs = prev; };
+    colors-lib-contrib = import "${flake.inputs.nix-colors}/lib/contrib" { pkgs = prev; };
     # wallpaper = ./wall.jpg;
     wallpaper = colors-lib-contrib.nixWallpaperFromScheme {
       scheme = colors;
