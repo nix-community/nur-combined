@@ -33,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  buildInputs = [ ]
-    ++ lib.optional withZlib zlib
-    ++ lib.optional withPng libpng
-    ++ lib.optional withBzip2 bzip2
-    ++ lib.optional withLevmar levmar
-    ++ lib.optional withFftw3 fftw
+  buildInputs =
+    lib.optional withZlib zlib ++
+    lib.optional withPng libpng ++
+    lib.optional withBzip2 bzip2 ++
+    lib.optional withLevmar levmar ++
+    lib.optional withFftw3 fftw
   ;
 
   cmakeFlags = [

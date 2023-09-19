@@ -52,23 +52,23 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  buildInputs = [ ]
-    ++ lib.optional withCfitsio cfitsio
-    ++ lib.optional withDmctk dcmtk
-    ++ lib.optional withExiv2 exiv2
-    ++ lib.optional withFfmpeg ffmpeg
-    ++ lib.optional withGdal gdal
-    ++ lib.optional withGta libgta
-    ++ lib.optional withHdf5 hdf5-cpp
-    ++ lib.optional withJpeg libjpeg
-    ++ lib.optional withMagick imagemagick
-    ++ lib.optional withMatio matio
-    ++ lib.optional withMuparser muparser
-    ++ lib.optional withOpenexr openexr_3
-    ++ lib.optional withPfs pfstools
-    ++ lib.optional withPng libpng
-    ++ lib.optional withPoppler poppler
-    ++ lib.optional withTiff libtiff;
+  buildInputs =
+    lib.optional withCfitsio cfitsio ++
+    lib.optional withDmctk dcmtk ++
+    lib.optional withExiv2 exiv2 ++
+    lib.optional withFfmpeg ffmpeg ++
+    lib.optional withGdal gdal ++
+    lib.optional withGta libgta ++
+    lib.optional withHdf5 hdf5-cpp ++
+    lib.optional withJpeg libjpeg ++
+    lib.optional withMagick imagemagick ++
+    lib.optional withMatio matio ++
+    lib.optional withMuparser muparser ++
+    lib.optional withOpenexr openexr_3 ++
+    lib.optional withPfs pfstools ++
+    lib.optional withPng libpng ++
+    lib.optional withPoppler poppler ++
+    lib.optional withTiff libtiff;
 
   meta = with lib; {
     description = "A library to make working with multidimensional arrays in C++ easy";

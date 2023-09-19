@@ -12,7 +12,7 @@
   codelite = pkgs.callPackage ./codelite { };
   devtoolbox = pkgs.callPackage ./devtoolbox { };
   eloquens = pkgs.libsForQt5.callPackage ./eloquens { };
-  fastfetch = pkgs.callPackage ./fastfetch { };
+  fastfetch = pkgs.callPackage ./fastfetch { inherit yyjson; };
   fielding = pkgs.libsForQt5.callPackage ./fielding { };
   firefox-gnome-theme = pkgs.callPackage ./firefox-gnome-theme { };
   flyaway = pkgs.callPackage ./flyaway { wlroots = wlroots_0_16; };
@@ -20,14 +20,8 @@
   game-of-life = pkgs.callPackage ./game-of-life { };
   gradebook = pkgs.callPackage ./gradebook { };
   gtatool = pkgs.callPackage ./gtatool { inherit libgta teem; };
-  highscore2 = pkgs.callPackage ./highscore2 {
-    inherit libhighscore;
-    wrapGAppsHook4 = wrapGAppsHook4_12;
-    libadwaita = libadwaita1_4;
-  };
   kommit = pkgs.libsForQt5.callPackage ./kommit { };
   kuroko = pkgs.callPackage ./kuroko { };
-  libhighscore = pkgs.callPackage ./libhighscore { };
   licentia = pkgs.libsForQt5.callPackage ./licentia { kirigami-addons = kirigami-addons_0_10; };
   libgta = pkgs.callPackage ./libgta { };
   libtgd = pkgs.callPackage ./libtgd { inherit libgta; };
@@ -59,6 +53,7 @@
   vita3k = pkgs.callPackage ./vita3k { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   xenia = pkgs.callPackage ./xenia { };
+  yyjson = pkgs.yyjson or (pkgs.callPackage ./yyjson { });
   zypper = pkgs.callPackage ./zypper { inherit libzypp; };
 
   apx_v2 = pkgs.apx.overrideAttrs (oldAttrs: {
@@ -176,51 +171,6 @@
       description = "${oldAttrs.meta.description} (without Kate)";
     };
   });
-
-  gtk4_12 = pkgs.gtk4.overrideAttrs (oldAttrs: {
-    version = "4.12.1";
-    src = pkgs.fetchFromGitLab {
-      domain = "gitlab.gnome.org";
-      owner = "GNOME";
-      repo = "gtk";
-      rev = "4.12.1";
-      hash = "sha256-QVMuGI3psId+Bu0P1II33rB2T4e+J7owHSWo4CA6qE0=";
-    };
-    postPatch = ''
-      files=(
-        build-aux/meson/gen-demo-header.py
-        build-aux/meson/gen-visibility-macros.py # added
-        demos/gtk-demo/geninclude.py
-        gdk/broadway/gen-c-array.py
-        gdk/gen-gdk-gresources-xml.py
-        gtk/gen-gtk-gresources-xml.py
-        gtk/gentypefuncs.py
-      )
-
-      chmod +x ''${files[@]}
-      patchShebangs ''${files[@]}
-    '';
-  });
-
-  wrapGAppsHook4_12 = pkgs.wrapGAppsHook4.override{
-    gtk3 = gtk4_12;
-  };
-
-  libadwaita1_4 = (pkgs.libadwaita.overrideAttrs (oldAttrs: {
-    version = "1.4.rc";
-    src = pkgs.fetchFromGitLab {
-      domain = "gitlab.gnome.org";
-      owner = "GNOME";
-      repo = "libadwaita";
-      rev = "1.4.rc";
-      hash = "sha256-VJV5kLoDXTPXb3gXz0iANmrfo+wiR4a59Z2tcjL5+/8=";
-    };
-    buildInputs = oldAttrs.buildInputs ++ [
-      pkgs.appstream
-    ];
-  })).override {
-    gtk4 = gtk4_12;
-  };
 
   libsolv-libzypp = pkgs.libsolv.overrideAttrs (oldAttrs: {
     pname = "libsolv-libzypp";
