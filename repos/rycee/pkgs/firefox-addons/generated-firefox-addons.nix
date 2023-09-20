@@ -7642,10 +7642,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.9.0.20";
+      version = "9.9.0.30";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162381/traduzir_paginas_web-9.9.0.20.xpi";
-      sha256 = "84cdf7420144dab153b98d413db11eca6630595b55f6236eb283db6b400110f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165403/traduzir_paginas_web-9.9.0.30.xpi";
+      sha256 = "8d584260e2b57ddfb9bc24d4023dc457fcd8b27841863ca8819fa10bcc9964fe";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
