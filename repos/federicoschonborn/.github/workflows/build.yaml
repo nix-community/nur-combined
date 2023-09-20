@@ -18,7 +18,7 @@ env:
 
 jobs:
   build:
-    name: Build (${{ inputs.system }} - ${{ inputs.channel }})
+    name: Build
     runs-on: ${{ inputs.runs-on }}
     steps:
       - name: Checkout repository

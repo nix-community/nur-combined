@@ -15,7 +15,7 @@ env:
 
 jobs:
   build:
-    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
+    name: Build
     strategy:
       fail-fast: false
       matrix:
@@ -42,8 +42,8 @@ jobs:
         run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
 
   build-small:
-    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
-    needs: build
+    name: Build (Small)
+    needs: deploy
     strategy:
       fail-fast: false
       matrix:
@@ -61,8 +61,8 @@ jobs:
       channel: ${{ matrix.channel }}
 
   build-darwin:
-    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
-    needs: build
+    name: Build (Darwin)
+    needs: deploy
     strategy:
       fail-fast: false
       matrix:
@@ -80,8 +80,8 @@ jobs:
       channel: ${{ matrix.channel }}
 
   build-aarch64:
-    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
-    needs: build
+    name: Build (AArch64)
+    needs: deploy
     strategy:
       fail-fast: false
       matrix:
@@ -100,7 +100,7 @@ jobs:
       channel: ${{ matrix.channel }}
 
   build-aarch64-small:
-    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
+    name: Build (Small AArch64)
     needs: build-aarch64
     strategy:
       fail-fast: false
