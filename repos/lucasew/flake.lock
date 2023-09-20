@@ -367,11 +367,11 @@
     "nix-requirefile": {
       "flake": false,
       "locked": {
-        "lastModified": 1688134391,
-        "narHash": "sha256-WjKZkCX6TSFQfJ/u1uN0y+9p2krxwxpSV+MXKA/fJ30=",
+        "lastModified": 1695217489,
+        "narHash": "sha256-XA4TB5eUp499p6q1hcvoa92lzBDEzMMlOyUb9dNTyvA=",
         "owner": "lucasew",
         "repo": "nix-requirefile",
-        "rev": "f3d7af97ddecb8d61c9a54125b046bae588354ba",
+        "rev": "ff58f071f103a11e20f54cba5d9de9d3a0258317",
         "type": "github"
       },
       "original": {
