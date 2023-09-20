@@ -163,7 +163,7 @@
       environmentShell = with pkgs; ''
         export NIXPKGS_ALLOW_UNFREE=1
         if [[ ! -v NIXCFG_ROOT_PATH ]]; then
-          export NIXCFG_ROOT_PATH=~/.dotfiles
+          export NIXCFG_ROOT_PATH=$(${./bin/d/root})
         fi
         export LUA_PATH="${concatStringsSep ";" [
           ''$(realpath ${fennel}/share/lua/*)/?.lua''

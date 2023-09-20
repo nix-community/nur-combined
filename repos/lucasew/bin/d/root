@@ -6,13 +6,18 @@ set -euo pipefail
 
 if [ -d ~/.dotfiles ]; then
     echo ~/.dotfiles
-elif [ -d /home/lucasew/.dotfiles ]; then
-    echo /home/lucasew/.dotfiles
-else
-    if [ -d /etc/.dotfiles ]; then
-        echo /etc/.dotfiles
-    else
-        echo "can't find dotfiles folder" >&2
-        exit 1
-    fi
+    exit 0
 fi
+
+if [ -d /home/lucasew/.dotfiles ]; then
+    echo /home/lucasew/.dotfiles
+    exit 0
+fi
+
+if [ -d /etc/.dotfiles ]; then
+    echo /etc/.dotfiles
+    exit 0
+fi
+
+echo "can't find dotfiles folder" >&2
+exit 1
