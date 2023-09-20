@@ -1,7 +1,6 @@
 # wireguard VPN which allows my devices to talk to eachother even when on physically different LANs
 # for wireguard docs, see:
 # - <https://nixos.wiki/wiki/WireGuard>
-# - <https://wiki.archlinux.org/title/WireGuard>
 { config, lib, pkgs, ... }:
 
 let
