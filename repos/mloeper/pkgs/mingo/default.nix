@@ -5,7 +5,7 @@ let
   version = "1.13.3";
   appImage = appimageTools.wrapType2 {
     inherit version;
-    pname = pname-base;
+    pname = "${pname-base}-wrapped";
 
     src = fetchurl {
       url = "https://github.com/mingo-app/mingo/releases/download/v1.13.3/Mingo-1.13.3.AppImage";
@@ -15,14 +15,6 @@ let
     extraPkgs = pkgs: with pkgs; [
       libsecret
     ];
-
-    meta = with lib; {
-      homepage = "https://mingo.io/";
-      description = "The best MongoDB GUI Admin. Intuitive • Fast • Secure";
-      license = licenses.unfree;
-      platforms = [ "x86_64-linux" ];
-      mainProgram = "Mingo";
-    };
   };
   desktopFile = pkgs.substituteAll {
     inherit version;
@@ -46,6 +38,14 @@ let
 in
 pkgs.symlinkJoin
 {
-  name = "${pname-base}-wrapper";
+  name = pname-base;
   paths = [ appImageWrapper xdgDirectory ];
+
+  meta = with lib; {
+    homepage = "https://mingo.io/";
+    description = "The best MongoDB GUI Admin. Intuitive • Fast • Secure";
+    license = licenses.unfree;
+    platforms = [ "x86_64-linux" ];
+    mainProgram = "Mingo";
+  };
 }
