@@ -51,12 +51,11 @@ in [
   #   hash = "sha256-D2fnB4eOvbew0tea7Y1LH7GQJF3Pch/9DLEChf/ZNxs=";
   # })
 
-  # (fetchpatch' {
-  #   # TODO: check back in on this around 2023-10-01
-  #   title = "libkiwix: 12.0.0 -> 12.1.0";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/246700";
-  #   hash = "sha256-LyTkWNgG1mynCdckKm3Hj9ifzLemyrhJ9BFVaPppwgw=";
-  # })
+  (fetchpatch' {
+    title = "libkiwix: 12.0.0 -> 12.1.1";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246700";
+    hash = "sha256-hhPF0EXS3Ilj6gBJYAAA4JU3qZmE2VZhcLssBF5jpFQ=";
+  })
 
   # (fetchpatch' {
   #   # XXX: doesn't cleanly apply; fetch `firefox-pmos-mobile` branch from my git instead
