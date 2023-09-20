@@ -66,11 +66,11 @@
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webide/PhpStorm-{version}.tar.gz",
-      "version": "2023.2.1",
-      "sha256": "bcb506fa27078f78da44a38f4fbab0a2000cea26385f51800c931d0cbd1b47c4",
-      "url": "https://download.jetbrains.com/webide/PhpStorm-2023.2.1.tar.gz",
+      "version": "2023.2.2",
+      "sha256": "5e3dd021b82dcad0f51bded677aa87680dcc3f5d843951c48848a9191141bf1d",
+      "url": "https://download.jetbrains.com/webide/PhpStorm-2023.2.2.tar.gz",
       "version-major-minor": "2022.3",
-      "build_number": "232.9559.64"
+      "build_number": "232.9921.55"
     },
     "pycharm-community": {
       "update-channel": "PyCharm RELEASE",
