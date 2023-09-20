@@ -50,6 +50,12 @@ rec {
       });
     };
   });
+  vpn-slice = super.vpn-slice.overrideAttrs (oldAttrs: optionalAttrs (config.services.job.server or false) {
+    preConfigure = ''
+      substituteInPlace vpn_slice/posix.py \
+        --replace /etc/hosts /var/lib/dnsmasq/hosts/hosts
+    '';
+  });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {

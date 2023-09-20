@@ -3,12 +3,6 @@
 with lib;
 let
   cfg = config.services.job;
-  vpn-slice = pkgs.vpn-slice.overrideAttrs (oldAttrs: rec {
-    preConfigure = ''
-      substituteInPlace vpn_slice/posix.py \
-        --replace /etc/hosts /var/lib/dnsmasq/hosts/hosts
-    '';
-  });
 in {
   options.services.job = {
     client = mkEnableOption ''
@@ -30,21 +24,6 @@ in {
       programs.evolution.plugins = [ pkgs.evolution-ews ];
     })
     (mkIf cfg.server {
-      environment.systemPackages = [(
-        pkgs.writeShellScriptBin "openconnect" ''
-           ${pkgs.openconnect}/bin/openconnect \
-              --background \
-              --script "${vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com --prevent-idle-timeout --no-short-names" \
-              --interface job \
-              --user "ALukyanov" \
-              --authgroup "xFA" \
-              --useragent "Cisco AnyConnect VPN Agent for Windows 4.8.03036" \
-              --version-string "4.8.03036" \
-              --local-hostname "DESKTOP-DS0VFGI" \
-              --os=win \
-              vpn.renins.ru
-        ''
-      )];
       networking.firewall.extraCommands = ''
         iptables -t nat -A POSTROUTING -o job -j MASQUERADE
       '';
