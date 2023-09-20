@@ -18,4 +18,6 @@ rec {
   devcontainer-cli-unofficial = pkgs.callPackage ./pkgs/devcontainer-cli-unofficial { };
   glib = pkgs.callPackage ./pkgs/glib { };
   mingo = pkgs.callPackage ./pkgs/mingo { };
+  mkusb-nox = pkgs.callPackage ./pkgs/mkusb-nox { };
+  mkusb-plug = pkgs.callPackage ./pkgs/mkusb-plug { };
 }
