@@ -1,66 +1,40 @@
-name: Build and Populate Cache
+name: Build
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  workflow_dispatch:
-  schedule:
-    # Everyday at 03:55
-    - cron: 55 3 * * *
+  workflow_call:
+    inputs:
+      runs-on:
+        type: string
+        required: true
+      system:
+        type: string
+        required: true
+      channel:
+        type: string
+        required: true
 
 env:
-  NUR_REPO: federicoschonborn
   CACHIX_NAME: federicoschonborn
 
 jobs:
   build:
-    name: Build (${{ matrix.system }} · ${{ matrix.channel }})
-    strategy:
-      fail-fast: false
-      matrix:
-        runs-on:
-          - ubuntu-latest
-        system:
-          - aarch64-linux
-          # - armv5tel-linux
-          # - armv6l-linux
-          # - armv7l-linux
-          # - i686-linux
-          # - mipsel-linux
-          # - powerpc64le-linux
-          # - riscv64-linux
-          - x86_64-linux
-        channel:
-          - nixos-23.05
-          - nixos-23.05-small
-          - nixos-unstable
-          - nixos-unstable-small
-          - nixpkgs-unstable
-        include:
-          - runs-on: macos-latest
-            system: x86_64-darwin
-            channel: nixpkgs-23.05-darwin
-          - runs-on: macos-latest
-            system: x86_64-darwin
-            channel: nixpkgs-unstable
-    runs-on: ${{ matrix.runs-on }}
+    name: Build (${{ inputs.system }} - ${{ inputs.channel }})
+    runs-on: ${{ inputs.runs-on }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3.0.0
-        if: matrix.runs-on == 'ubuntu-latest' && matrix.system != 'x86_64-linux'
+        if: inputs.runs-on == 'ubuntu-latest' && inputs.system != 'x86_64-linux'
 
       - name: Install nix
         uses: cachix/install-nix-action@v23
         with:
-          nix_path: nixpkgs=channel:${{ matrix.channel }}
+          nix_path: nixpkgs=channel:${{ inputs.channel }}
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            system = ${{ matrix.system }}
+            system = ${{ inputs.system }}
 
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E "(import <nixpkgs> {}).lib.version"
@@ -83,11 +57,3 @@ jobs:
 
       - name: Build nix packages
         run: nix shell -f "<nixpkgs>" nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs -build-flags "-L"
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Trigger NUR update
-        run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
