@@ -116,6 +116,9 @@ in
   };
   environment.etc."rootdomain/nix-logo.png".source = "${pkgs.nixos-icons}/share/icons/hicolor/1024x1024/apps/nix-snowflake.png";
 
+  services.nginx.virtualHosts."${config.networking.hostName}" = {
+    locations."/".root = "/etc/rootdomain";
+  };
   services.nginx.virtualHosts."${config.networking.hostName}.${config.networking.domain}" = {
     locations."/".root = "/etc/rootdomain";
   };

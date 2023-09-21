@@ -14,7 +14,13 @@ lib.mkIf config.services.cockpit.enable {
     # inherit (config.networking.ports.cockpit) port;
     settings = {
       WebService = {
-        Origins = "http://cockpit.${config.networking.hostName}.${config.networking.domain}";
+        Origins = builtins.concatStringsSep " " [
+          "http://cockpit.${config.networking.hostName}.${config.networking.domain}"
+          "http://${config.networking.hostName}:${toString config.services.cockpit.port}"
+          "https://${config.networking.hostName}:${toString config.services.cockpit.port}"
+          "http://${config.networking.hostName}:${toString config.services.cockpit.port}"
+          "https://${config.networking.hostName}:${toString config.services.cockpit.port}"
+        ];
       };
     };
   };
