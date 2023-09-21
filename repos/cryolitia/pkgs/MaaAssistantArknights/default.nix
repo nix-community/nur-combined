@@ -15,6 +15,8 @@
 , android-tools
 , rustPlatform
 , makeWrapper
+, darwin
+, range-v3
 , maaVersion ? "4.23.3"
 , maaSourceHash ? "sha256-A41kk1Xg9c/QZHOhyakcBULzsNTrsfnGYZ0df+MKWfc="
 , }:
@@ -62,6 +64,10 @@ let
       sha256 = "sha256-2LsMGvGsJJmZ3EuiHAhr0NU2VKoNqGB6PhXCOHTWsqM=";
     };
 
+    buildInputs = lib.optional stdenv.isDarwin [
+      darwin.Security
+    ];
+
     cargoSha256 = "sha256-hnFyUdSREqr0Qvzug1V59frVlxsWxrymh899jqCknew=";
 
   };
@@ -103,7 +109,7 @@ in stdenv.mkDerivation rec {
     libcpr
     python3
     android-tools
-  ];
+  ] ++ lib.optional stdenv.isDarwin [ range-v3 ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=None"
