@@ -15,16 +15,7 @@
           pkgs = import nixpkgs { inherit system; };
         in
         {
-          # nixos/rfcs#140
-          # Only produces the package set of the proposed functionality.
-          # Unstable names are variables.
-          packages =
-            let
-              legacyPackages = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
-              unitPackages = import ./callUnitRoot.nix { inherit pkgs; };
-              onlyAvailable = lib.filterAttrs (_: drv: builtins.elem system (drv.meta.platforms or [ ]));
-            in
-            onlyAvailable (legacyPackages // unitPackages);
+          packages = import ./pkgs/top-level { localSystem = system; inherit pkgs; };
 
           checks = {
             nixpkgs-fmt = pkgs.writeShellScriptBin "nixpkgs-fmt-check" ''

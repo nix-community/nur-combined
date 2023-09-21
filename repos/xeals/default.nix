@@ -8,10 +8,10 @@
 
 { pkgs ? import <nixpkgs> { } }:
 let
-  legacy = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
-  units = import ./callUnitRoot.nix { inherit pkgs; root = ./pkgs/unit; };
+  system = pkgs.stdenv.hostPlatform.system;
+  packages = import ./pkgs/top-level { localSystem = system; inherit pkgs; };
 in
-legacy // units // {
+packages // {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
