@@ -132,7 +132,7 @@ in stdenv.mkDerivation rec {
     description = "An Arknights assistant";
     homepage = "https://github.com/MaaAssistantArknights/MaaAssistantArknights";
     license = licenses.agpl3;
-    platforms = platforms.linux;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ Cryolitia ];
     mainProgram = "maa";
   };
