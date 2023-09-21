@@ -4,7 +4,7 @@
 
   outputs = { self, nixpkgs }:
     let
-      inherit (nixpkgs) lib;
+      lib = import ./lib/extend-lib.nix nixpkgs.lib;
       systems = builtins.filter (name: builtins.hasAttr name nixpkgs.legacyPackages) [
         "x86_64-linux"
         "i686-linux"
@@ -58,7 +58,7 @@
       supportedPkgs = lib.mapAttrs filterUnsupported newAttrs;
 
       outputs = {
-        inherit overlay;
+        inherit overlay lib;
 
         packages = supportedPkgs;
         legacyPackages = newAttrs // (forAllSystems (system: {
