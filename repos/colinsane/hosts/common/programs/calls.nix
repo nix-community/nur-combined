@@ -20,6 +20,16 @@ let
 in
 {
   sane.programs.calls = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.autostart = mkOption {
+          type = types.bool;
+          default = false;
+        };
+      };
+    };
+
     persist.private = [
       # ".cache/folks"      # contact avatars?
       # ".config/calls"
@@ -32,13 +42,14 @@ in
     ];
 
     services.gnome-calls = {
+      # TODO: prevent gnome-calls from daemonizing when started manually
       description = "gnome-calls daemon to monitor incoming SIP calls";
-      wantedBy = [ "default.target" ];
+      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
       serviceConfig = {
         # add --verbose for more debugging
         ExecStart = "${cfg.package}/bin/gnome-calls --daemon";
         Type = "simple";
-        Restart = "on-failure";
+        Restart = "always";
         RestartSec = "10s";
       };
       environment.G_MESSAGES_DEBUG = "all";

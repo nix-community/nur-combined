@@ -47,6 +47,9 @@
   sane.programs.soundconverter.enableFor.user.colin = false;
   sane.programs.eg25-control.enableFor.user.colin = true;
 
+  sane.programs.dino.config.autostart = true;
+  # sane.programs.calls.config.autostart = true;
+
   # sane.programs.firefox.mime.priority = 300;  # prefer other browsers when possible
   # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`
   # sane.programs.firefox.env = lib.mkForce {};

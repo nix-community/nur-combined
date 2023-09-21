@@ -9,7 +9,37 @@
 #   - ensure the other party is in your roster
 #   - open a DM with the party
 #   - click the phone icon at top (only visible if other party is in your roster)
-{ ... }:
+#
+# dino can be autostarted on login -- useful to ensure that i always receive calls and notifications --
+# but at present it has no "start in tray" type of option: it must render a window.
+{ config, lib, ... }:
+let
+  cfg = config.sane.programs.dino;
+in
 {
-  sane.programs.dino.persist.private = [ ".local/share/dino" ];
+  sane.programs.dino = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.autostart = mkOption {
+          type = types.bool;
+          default = false;
+        };
+      };
+    };
+
+    persist.private = [ ".local/share/dino" ];
+
+    services.dino = {
+      description = "auto-start and maintain dino XMPP connection";
+      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/dino";
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "20s";
+      };
+      environment.G_MESSAGES_DEBUG = "all";
+    };
+  };
 }

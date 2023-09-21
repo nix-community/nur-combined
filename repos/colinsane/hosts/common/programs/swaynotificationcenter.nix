@@ -213,9 +213,14 @@ in
         # - `category`: string
         #
         # test rules by using `notify-send` (libnotify)
-        sxmo-extraneous = {
+        sxmo-extraneous-daemons = {
           state = "ignored";
           summary = "(sxmo_hook_lisgd|Autorotate) (Stopped|Started)";
+        };
+        sxmo-extraneous-warnings = {
+          state = "ignored";
+          # "Modem crashed! 30s recovery.": happens on sxmo_hook_postwake.sh (i.e. unlock)
+          summary = "^Modem crashed.*$";
         };
       };
       widgets = [
@@ -258,6 +263,20 @@ in
               label = "vpn:servo";
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle wg-quick-vpn-servo";
               active = "${pkgs.systemd}/bin/systemctl is-active wg-quick-vpn-servo.service";
+            }
+          ] ++ lib.optionals config.sane.programs.calls.config.autostart [
+            {
+              type = "toggle";
+              label = "SIP";
+              command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle --user gnome-calls";
+              active = "${pkgs.systemd}/bin/systemctl is-active --user gnome-calls";
+            }
+          ] ++ lib.optionals config.sane.programs.dino.config.autostart [
+            {
+              type = "toggle";
+              label = "jingle";  # XMPP calls
+              command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle --user dino";
+              active = "${pkgs.systemd}/bin/systemctl is-active --user dino";
             }
           ];
         };
