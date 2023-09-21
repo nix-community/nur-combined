@@ -4157,10 +4157,10 @@
       };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.3.6";
+      version = "0.3.7";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147453/kagi_search_for_firefox-0.3.6.xpi";
-      sha256 = "3fc443be32f05be37cf3063b33eff4cd7da0d4def6ecdc0a643aed7a3cdc09cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170728/kagi_search_for_firefox-0.3.7.xpi";
+      sha256 = "6273efad7abd2072dd0e28595f2054ffdb6c9802ad655b0e4a2fa9d95c1993d3";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -4419,10 +4419,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5.7";
+      version = "1.5.8";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132931/leechblock_ng-1.5.7.xpi";
-      sha256 = "1bac17f5e868aff9fa8a6a820bd6c3fce09105570b60f639458700eade96977e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169254/leechblock_ng-1.5.8.xpi";
+      sha256 = "4c158cc6ff4b0a1b56117a0693ede4a788a70517f0dbf159ed092fb4243245fd";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -4548,16 +4548,16 @@
       };
     "link-gopher" = buildFirefoxXpiAddon {
       pname = "link-gopher";
-      version = "2.4.4";
+      version = "2.4.6";
       addonId = "linkgopher@oooninja.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3834730/link_gopher-2.4.4.xpi";
-      sha256 = "3eff3aa755bdfd31b3d26e570d88ce05f0341465e568a03222571b691395c54e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169932/link_gopher-2.4.6.xpi";
+      sha256 = "fa53963360694b4089706dfd1e4891284f9081af61ee72196afbc37d201ce970";
       meta = with lib;
       {
         homepage = "http://sites.google.com/site/linkgopher/";
         description = "Extracts all links from web page, sorts them, removes duplicates, and displays them in a new tab for inspection or copy and paste into other systems.";
         license = licenses.gpl3;
-        mozPermissions = [ "tabs" "<all_urls>" ];
+        mozPermissions = [ "scripting" ];
         platforms = platforms.all;
         };
       };
@@ -6497,10 +6497,10 @@
       };
     "reduxdevtools" = buildFirefoxXpiAddon {
       pname = "reduxdevtools";
-      version = "3.0.19";
+      version = "3.1.3";
       addonId = "extension@redux.devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079806/reduxdevtools-3.0.19.xpi";
-      sha256 = "f4da621d3d226cd3dcd817230e4214ddbc2423221dc3ef4428341fd393d1f66f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4168659/reduxdevtools-3.1.3.xpi";
+      sha256 = "c69faa457c84e32ae58ab4873a8ee9f6a0615615cb5fe242c2ffe55feb407c1d";
       meta = with lib;
       {
         homepage = "https://github.com/reduxjs/redux-devtools";
@@ -6522,10 +6522,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.9.17";
+      version = "23.9.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169063/refined_github-23.9.17.xpi";
-      sha256 = "1672acbf62a6da51b777f6ead1aa49d046f056d08cc59e9f65d12ebae1675503";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170731/refined_github-23.9.21.xpi";
+      sha256 = "047da88fd06f63710e27661257be2922c0e0144f20def84b40a5577e6911caee";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -6956,10 +6956,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.19";
+      version = "5.4.20";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4163966/sponsorblock-5.4.19.xpi";
-      sha256 = "95a3f6ad7513a1e2b51af313ece4a5e2dd685d8a61e379291c46e839ee059f70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169272/sponsorblock-5.4.20.xpi";
+      sha256 = "007c3fbd5007e41c24e2c999be714e6d8c8efc3455965d6ccd500aed8849d9fb";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
