@@ -1,12 +1,12 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.5.2-sunlight1";
+  modDirVersion = "6.5.4-sunlight1";
   parts = lib.splitString "-" modDirVersion;
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
   extraVer = "-lowlatency";
-  hash = "sha256-iuS/XIAdUzIU1Ua8/TJJ+ExLStli8Ai408uDF5+s4VY=";
+  hash = "sha256-gbWQoaV0+btSUflm6zh8+QgDPnoaSVqja8lWeb7t+dE=";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
@@ -18,7 +18,7 @@ buildLinux (args // rec {
     src = fetchFromGitHub {
       owner = "sunlightlinux";
       repo = "linux-sunlight";
-      inherit rev; 
+      rev = "385f487adb3d2add006fbacbe5fc35eab3926ac9"; 
       inherit hash;
     };
 
@@ -44,6 +44,9 @@ buildLinux (args // rec {
       PREEMPT = lib.mkOverride 60 yes;
       PREEMPT_VOLUNTARY = lib.mkForce no;
       PREEMPT_NONE = lib.mkForce no;
+
+      # WineSync driver for fast kernel-backed Wine.
+      WINESYNC = module;
 
       # 858 Hz is alternative to 1000 Hz.
       # Selected value for a balance between latency, performance and low power consumption.
