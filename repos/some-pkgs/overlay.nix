@@ -1,7 +1,7 @@
 final: prev:
 let
   lib' = prev.lib;
-  lib = import ./lib/extend-lib.nix prev.lib;
+  inherit (import ./lib/extend-lib.nix prev.lib) lib;
 
   inherit (lib) readByName autocallByName;
 
@@ -46,7 +46,7 @@ in
   # Some things we want to expose even outside some-pkgs namespace:
   inherit (final.some-pkgs) faiss;
 
-  some-lib = import ./lib/extend-lib.nix prev.lib;
+  some-util = final.callPackage ./some-util { };
 
   some-pkgs =
     (autocallByName final.some-pkgs ./pkgs/by-name) //

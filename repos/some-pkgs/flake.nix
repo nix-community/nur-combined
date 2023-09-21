@@ -4,7 +4,7 @@
 
   outputs = { self, nixpkgs }:
     let
-      lib = import ./lib/extend-lib.nix nixpkgs.lib;
+      inherit (import ./lib/extend-lib.nix nixpkgs.lib) lib;
       systems = builtins.filter (name: builtins.hasAttr name nixpkgs.legacyPackages) [
         "x86_64-linux"
         "i686-linux"

@@ -1,28 +1,30 @@
-lib:
+oldLib:
 let
-  lib' = lib.recursiveUpdate lib {
-    maintainers.SomeoneSerge = {
-      email = "sergei.kozlukov@aalto.fi";
-      matrix = "@ss:someonex.net";
-      github = "SomeoneSerge";
-      githubId = 9720532;
-      name = "Sergei K";
+  diff =
+    {
+      maintainers.SomeoneSerge = {
+        email = "sergei.kozlukov@aalto.fi";
+        matrix = "@ss:someonex.net";
+        github = "SomeoneSerge";
+        githubId = 9720532;
+        name = "Sergei K";
+      };
+
+      readByName = import ../read-by-name.nix { lib = oldLib; };
+
+      autocallByName = ps: baseDirectory:
+        let
+          files = lib.readByName baseDirectory;
+          packages = oldLib.mapAttrs
+            (name: file:
+              ps.callPackage file { }
+            )
+            files;
+        in
+        packages;
     };
-
-    types = import ./types.nix { lib = lib'; };
-
-    readByName = import ../read-by-name.nix { lib = lib'; };
-
-    autocallByName = ps: baseDirectory:
-      let
-        files = lib'.readByName baseDirectory;
-        packages = lib.mapAttrs
-          (name: file:
-            ps.callPackage file { }
-          )
-          files;
-      in
-      packages;
-  };
+  lib = oldLib.recursiveUpdate oldLib diff;
 in
-lib'
+{
+  inherit diff lib;
+}
