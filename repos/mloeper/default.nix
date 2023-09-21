@@ -20,4 +20,5 @@ rec {
   mingo = pkgs.callPackage ./pkgs/mingo { };
   mkusb-nox = pkgs.callPackage ./pkgs/mkusb-nox { };
   mkusb-plug = pkgs.callPackage ./pkgs/mkusb-plug { };
+  xorriso = pkgs.callPackage ./pkgs/xorriso { };
 }
