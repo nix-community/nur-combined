@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   #
-  # Must instruct nix's checkPhase, since `check` is valid target.
+  # Must instruct nix's checkPhase, since `check` is a valid target.
   #
   checkPhase = ''
     make test
@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A Public domain POSIX make";
-    homepage = "https://github.com/rmyorston/pdpmake";
+    homepage = "https://frippery.org/make/";
+    changelog = "https://frippery.org/make/release-notes/current.html";
     license = licenses.unlicense;
     platforms = platforms.unix;
     mainProgram = "pdpmake";
