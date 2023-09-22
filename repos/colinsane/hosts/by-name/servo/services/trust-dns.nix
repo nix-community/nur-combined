@@ -1,7 +1,9 @@
 { config, lib, pkgs, ... }:
 
 let
-  bindForOvpn = "10.0.1.5";
+  bindLan = config.sane.hosts.by-name."servo".lan-ip;
+  bindHn = config.sane.hosts.by-name."servo".wg-home.ip;
+  bindOvpn = "10.0.1.5";
 in
 {
   services.trust-dns.enable = true;
@@ -75,13 +77,37 @@ in
       zone-lan = "${zone-dir}/lan/uninsane.org.zone";
       zone-hn = "${zone-dir}/hn/uninsane.org.zone";
       zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.dns.zones."uninsane.org".rendered;
-      extra-config-hn = pkgs.writeText "hn-config.toml" ''
+      hn-resolver-config = pkgs.writeText "hn-resolver-config.toml" ''
+        # i host a resolver in the wireguard VPN so that clients can resolve DNS through the VPN.
+        # (that's what this file achieves).
+        #
+        # one would expect this resolver could host the authoritative zone for `uninsane.org`, and then forward everything else to the system resolver...
+        # and while that works for `dig`, it breaks for `nslookup` (and so `ssh`, etc).
+        #
+        # DNS responses include a flag for if the responding server is the authority of the zone queried.
+        # it seems that default Linux stub resolvers either:
+        # - expect DNSSEC when the response includes that bit, or
+        # - expect A records to be in the `answer` section instead of `additional` section.
+        # or perhaps something more nuanced. but for `nslookup` to be reliable, it has to talk to an
+        # instance of trust-dns which is strictly a resolver, with no authority.
+        # hence, this config: a resolver which forwards to the actual authority.
+
+        listen_addrs_ipv4 = ["${bindHn}"]
+        listen_addrs_ipv6 = []
+
+        [[zones]]
+        zone = "uninsane.org"
+        zone_type = "Forward"
+        stores = { type = "forward", name_servers = [{ socket_addr = "${bindHn}:1053", protocol = "udp", trust_nx_responses = true }] }
+
         [[zones]]
         # forward the root zone to the local DNS resolver
         zone = "."
         zone_type = "Forward"
         stores = { type = "forward", name_servers = [{ socket_addr = "127.0.0.53:53", protocol = "udp", trust_nx_responses = true }] }
       '';
+
+      # TODO: rework this shell script to be independent systemd services per trust-dns instance.
     in pkgs.writeShellScriptBin "trust-dns" ''
       # intercept args meant for the real trust-dns, so i can modify them
       _arg__config="$1" # --config
@@ -92,9 +118,9 @@ in
       # compute IP address of self for each interface
       mkdir -p ${zone-dir}/{wan,lan,hn}
       wan=$(cat '${config.sane.services.dyn-dns.ipPath}')
-      lan=${config.sane.hosts.by-name."servo".lan-ip}
-      hn=${config.sane.hosts.by-name."servo".wg-home.ip}
-      lanAndOvpn='${config.sane.hosts.by-name."servo".lan-ip}", "${bindForOvpn}'
+      lan=${bindLan}
+      hn=${bindHn}
+      lanAndOvpn='${bindLan}", "${bindOvpn}'
 
       # create specializations that resolve native.uninsane.org to different CNAMEs
       ${sed} \
@@ -110,6 +136,7 @@ in
         -e s/%CNAMENATIVE%/servo.lan/ \
         -e s/%ANATIVE%/$lan/ \
         ${zone-template} > ${zone-lan}
+      # to service LAN, listen only on the LAN
       sed s/%LISTEN%/$lan/ $orig_config > ${zone-dir}/lan-config.toml
 
       ${sed} \
@@ -117,8 +144,8 @@ in
         -e s/%CNAMENATIVE%/servo.hn/ \
         -e s/%ANATIVE%/$hn/ \
        ${zone-template} > ${zone-hn}
-      cat "$orig_config" "${extra-config-hn}" \
-        | ${sed} s/%LISTEN%/$hn/ > "${zone-dir}/hn-config.toml"
+      # to service wireguard, listen only on hn
+      sed s/%LISTEN%/$hn/ $orig_config > ${zone-dir}/hn-config.toml
 
       # launch the different interfaces, separately
       ${pkgs.trust-dns}/bin/trust-dns \
@@ -131,16 +158,22 @@ in
         "$@" &
       LANPID=$!
 
+      ln -sf ${hn-resolver-config} ${zone-dir}/hn-resolver-config.toml
       ${pkgs.trust-dns}/bin/trust-dns \
+        --config "${zone-dir}/hn-resolver-config.toml" \
+        "$@" &
+      HNRESOLVERPID=$!
+
+      ${pkgs.trust-dns}/bin/trust-dns --port 1053 \
         --zonedir "${zone-dir}/hn/" --config "${zone-dir}/hn-config.toml" \
         "$@" &
       HNPID=$!
 
       # wait until any of the processes exits, then kill them all and exit error
-      while kill -0 $WANPID $LANPID $HNPID; do
+      while kill -0 $WANPID $LANPID $HNRESOLVERPID $HNPID; do
         sleep 5
       done
-      kill $WANPID $LANPID $HNPID
+      kill $WANPID $LANPID $HNRESOLVERPID $HNPID
       exit 1
     '';
 
