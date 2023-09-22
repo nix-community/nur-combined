@@ -1,14 +1,16 @@
 { config, lib, pkgs, ... }:
 
+let
+  bindForOvpn = "10.0.1.5";
+in
 {
   services.trust-dns.enable = true;
 
   services.trust-dns.settings.listen_addrs_ipv4 = [
     # specify each address explicitly, instead of using "*".
     # this ensures responses are sent from the address at which the request was received.
-    config.sane.hosts.by-name."servo".lan-ip
-    config.sane.hosts.by-name."servo".wg-home.ip
-    "10.0.1.5"  # field DNS requests from OVPN
+    # it also allows to respond with different data based on the source of the traffic
+    "%LISTEN%"
   ];
   # don't bind to IPv6 until i explicitly test that stack
   services.trust-dns.settings.listen_addrs_ipv6 = [];
@@ -81,7 +83,7 @@
         stores = { type = "forward", name_servers = [{ socket_addr = "127.0.0.53:53", protocol = "udp", trust_nx_responses = true }] }
       '';
     in pkgs.writeShellScriptBin "trust-dns" ''
-      # parse args meant for trust-dns
+      # intercept args meant for the real trust-dns, so i can modify them
       _arg__config="$1" # --config
       shift
       orig_config="$1"  # /path/to/config.toml
@@ -92,28 +94,34 @@
       wan=$(cat '${config.sane.services.dyn-dns.ipPath}')
       lan=${config.sane.hosts.by-name."servo".lan-ip}
       hn=${config.sane.hosts.by-name."servo".wg-home.ip}
+      lanAndOvpn='${config.sane.hosts.by-name."servo".lan-ip}", "${bindForOvpn}'
 
       # create specializations that resolve native.uninsane.org to different CNAMEs
-      ${sed} s/%AWAN%/$wan/ ${zone-template} \
-        | ${sed} s/%CNAMENATIVE%/wan/ \
-        | ${sed} s/%ANATIVE%/$wan/ \
-        > ${zone-wan}
-      ln -sf "$orig_config" "${zone-dir}/wan-config.toml"
+      ${sed} \
+        -e s/%AWAN%/$wan/ \
+        -e s/%CNAMENATIVE%/wan/ \
+        -e s/%ANATIVE%/$wan/ \
+        ${zone-template} > ${zone-wan}
+      # to service WAN, listen both on LAN interface and the OVPN interface
+      sed "s/%LISTEN%/$lanAndOvpn/" $orig_config > ${zone-dir}/wan-config.toml
 
-      ${sed} s/%AWAN%/$wan/ ${zone-template} \
-        | ${sed} s/%CNAMENATIVE%/servo.lan/ \
-        | ${sed} s/%ANATIVE%/$lan/ \
-        > ${zone-lan}
-      ln -sf "$orig_config" "${zone-dir}/lan-config.toml"
+      ${sed} \
+        -e s/%AWAN%/$wan/ \
+        -e s/%CNAMENATIVE%/servo.lan/ \
+        -e s/%ANATIVE%/$lan/ \
+        ${zone-template} > ${zone-lan}
+      sed s/%LISTEN%/$lan/ $orig_config > ${zone-dir}/lan-config.toml
 
-      ${sed} s/%AWAN%/$wan/ ${zone-template} \
-        | ${sed} s/%CNAMENATIVE%/servo.hn/ \
-        | ${sed} s/%ANATIVE%/$hn/ \
-        > ${zone-hn}
-      cat "$orig_config" "${extra-config-hn}" > "${zone-dir}/hn-config.toml"
+      ${sed} \
+        -e s/%AWAN%/$wan/ \
+        -e s/%CNAMENATIVE%/servo.hn/ \
+        -e s/%ANATIVE%/$hn/ \
+       ${zone-template} > ${zone-hn}
+      cat "$orig_config" "${extra-config-hn}" \
+        | ${sed} s/%LISTEN%/$hn/ > "${zone-dir}/hn-config.toml"
 
       # launch the different interfaces, separately
-      ${pkgs.trust-dns}/bin/trust-dns --port 53 \
+      ${pkgs.trust-dns}/bin/trust-dns \
         --zonedir "${zone-dir}/wan/" --config "${zone-dir}/wan-config.toml" \
         "$@" &
       WANPID=$!
@@ -123,7 +131,7 @@
         "$@" &
       LANPID=$!
 
-      ${pkgs.trust-dns}/bin/trust-dns --port 2053 \
+      ${pkgs.trust-dns}/bin/trust-dns \
         --zonedir "${zone-dir}/hn/" --config "${zone-dir}/hn-config.toml" \
         "$@" &
       HNPID=$!
@@ -162,26 +170,15 @@
     iptables -t nat -A nixos-nat-pre -p tcp --dport 53 \
       -m iprange --src-range 10.78.76.0-10.78.79.255 \
       -j DNAT --to-destination :1053
-
-    # redirect requests from wireguard in the same manner
-    iptables -t nat -A nixos-nat-pre -p udp --dport 53 \
-      -m iprange --src-range 10.0.10.0-10.0.10.255 \
-      -j DNAT --to-destination :2053
-    iptables -t nat -A nixos-nat-pre -p tcp --dport 53 \
-      -m iprange --src-range 10.0.10.0-10.0.10.255 \
-      -j DNAT --to-destination :2053
   '';
-
   sane.ports.ports."1053" = {
     # because the NAT above redirects in nixos-nat-pre, LAN requests behave as though they arrived on the external interface at the redirected port.
     # TODO: try nixos-nat-post instead?
+    # TODO: or, don't NAT from port 53 -> port 1053, but rather nat from LAN addr to a loopback addr.
+    # - this is complicated in that loopback is a different interface than eth0, so rewriting the destination address would cause the packets to just be dropped by the interface
     protocol = [ "udp" "tcp" ];
     visibleTo.lan = true;
     description = "colin-redirected-dns-for-lan-namespace";
   };
-  sane.ports.ports."2053" = {
-    protocol = [ "udp" "tcp" ];
-    visibleTo.lan = true;
-    description = "colin-redirected-dns-for-wg-home-namespace";
-  };
+
 }
