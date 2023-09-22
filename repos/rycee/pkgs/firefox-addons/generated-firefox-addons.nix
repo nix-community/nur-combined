@@ -1257,10 +1257,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.17.0";
+      version = "3.18.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4168613/control_panel_for_twitter-3.17.0.xpi";
-      sha256 = "43681626d68d0fa45e1d782d8956c22b965f7af2803da0e648bf8f237895fb04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170133/control_panel_for_twitter-3.18.0.xpi";
+      sha256 = "26b331b5a06d70da35b1040468902e53b8c4d8895c93bb72713dd599ac80a796";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -4049,17 +4049,16 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.22.1";
+      version = "3.0.1";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4074701/ipfs_companion-2.22.1.xpi";
-      sha256 = "7f0f191bc7525cd487e2c58476574a2ff4231795c9d1ea3388ff068ec6d871f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171118/ipfs_companion-3.0.1.xpi";
+      sha256 = "6059838347a99606caca80033937b549c64f8474598a5c1b61bab9bf0fa6acc1";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
         description = "Harness the power of IPFS in your browser";
         license = licenses.cc0;
         mozPermissions = [
-          "<all_urls>"
           "idle"
           "tabs"
           "notifications"
@@ -5317,10 +5316,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.14.1";
+      version = "2.15.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4157040/1password_x_password_manager-2.14.1.xpi";
-      sha256 = "0166ae58fb0ba0807124f7ec49977243922218e4022e113c19a8e59ec26db307";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4168788/1password_x_password_manager-2.15.1.xpi";
+      sha256 = "2210a7a79456bf59e445e7b751de676a29f610de14c6ea3b04cb2c7763a54b2a";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -6790,10 +6789,10 @@
       };
     "simplelogin" = buildFirefoxXpiAddon {
       pname = "simplelogin";
-      version = "2.10.0";
+      version = "2.10.2";
       addonId = "addon@simplelogin";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4135577/simplelogin-2.10.0.xpi";
-      sha256 = "7fd004c598d628ee0f04e8cb16cd1179ae2bb95f11906c560611d9ad0bc93b43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169486/simplelogin-2.10.2.xpi";
+      sha256 = "989ddc4f2c40995dde1a7343a2f9f10e858d9616b7ac11162772f84c2b3ba88b";
       meta = with lib;
       {
         homepage = "https://simplelogin.io";
@@ -6812,10 +6811,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.65";
+      version = "1.21.66";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4167691/single_file-1.21.65.xpi";
-      sha256 = "3a8bdc27decf003bed4156d468bb54c8cea3b39fa567f18f32ee9ba1e5b8314a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169857/single_file-1.21.66.xpi";
+      sha256 = "0b4e9720ff38167d10849cf22c96fe4c5467ce20374668b1bc2437da2325fb02";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -7779,10 +7778,10 @@
       };
     "tubearchivist-companion" = buildFirefoxXpiAddon {
       pname = "tubearchivist-companion";
-      version = "0.2.0";
+      version = "0.2.1";
       addonId = "{08f0f80f-2b26-4809-9267-287a5bdda2da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162156/tubearchivist_companion-0.2.0.xpi";
-      sha256 = "d9c70a6e05af3fe63fb8d096891ac2756bad272aa38d3fe7548de9b07e9f1fdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170892/tubearchivist_companion-0.2.1.xpi";
+      sha256 = "4a80d376b26ffd0c7643d772f04b86321c18804f5e9f31adab2ff3c7a8b1b07a";
       meta = with lib;
       {
         homepage = "https://github.com/tubearchivist/browser-extension";
@@ -7799,10 +7798,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.3.3";
+      version = "8.3.4";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162158/ublacklist-8.3.3.xpi";
-      sha256 = "e6979a52043bbe4cf4cab5c0f90a973d630b7121045b9fd6f1991eeb26996e0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169526/ublacklist-8.3.4.xpi";
+      sha256 = "7622a4c317b50b7e70b06350774c8787d05e9cf4529868919827669d6f2c4c3e";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
