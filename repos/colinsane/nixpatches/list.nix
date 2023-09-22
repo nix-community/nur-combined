@@ -19,6 +19,13 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
+  # (fetchpatch' {
+  #   # fixes /mnt/servo-nfs mount failures
+  #   # 2023/09/21: doesn't apply
+  #   title = "linux_6_1,linux_6_5: backport patch from 6.6 for NFS fix";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/256526";
+  #   hash = "sha256-vOQ4lgnccHxEs7bTrgkzGqh49h/Gr6BQr+H4rxa5zfQ=";
+  # })
 
   # (fetchpatch' {
   #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.

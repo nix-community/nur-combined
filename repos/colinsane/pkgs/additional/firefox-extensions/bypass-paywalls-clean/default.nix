@@ -1,17 +1,18 @@
 { lib
 , fetchFromGitLab
+, gitUpdater
 , stdenv
 , zip
 }:
 
 stdenv.mkDerivation rec {
   pname = "bypass-paywalls-clean";
-  version = "3.2.5.0";
+  version = "3.3.4.0";
   src = fetchFromGitLab {
     owner = "magnolia1234";
     repo = "bypass-paywalls-firefox-clean";
     rev = "v${version}";
-    hash = "sha256-FkAqzJisPdBiElX9ceQS3zfg8zwrsozOquHDagiRKiE=";
+    hash = "sha256-tgtdtTRLFgkJ7KuwLbLqrrImujKeeSWGEXc274G/YN0=";
   };
 
   patches = [
@@ -28,6 +29,9 @@ stdenv.mkDerivation rec {
 
   passthru = {
     extid = "magnolia@12.34";
+    updateScript = gitUpdater {
+      rev-prefix = "v";
+    };
   };
 
   meta = {

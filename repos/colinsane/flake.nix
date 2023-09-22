@@ -276,6 +276,21 @@
             program = "${pkgs.feeds.updateScript}";
           };
 
+          update-bpc = {
+            # proof-of-concept updater like in nixpkgs
+            # TODO: extend this to update all my packages
+            type = "app";
+            program = let
+              pkg = pkgs.firefox-extensions.unwrapped.bypass-paywalls-clean;
+            in builtins.toString (pkgs.writeShellScript "update-bpc" ''
+              export UPDATE_NIX_NAME=${pkg.name}
+              export UPDATE_NIX_PNAME=${pkg.pname}
+              export UPDATE_NIX_OLD_VERSION=${pkg.version}
+              export UPDATE_NIX_ATTR_PATH=firefox-extensions.unwrapped.bypass-paywalls-clean
+              ${pkgs.lib.escapeShellArgs pkg.updateScript.command}
+            '');
+          };
+
           init-feed = {
             type = "app";
             program = "${pkgs.feeds.initFeedScript}";

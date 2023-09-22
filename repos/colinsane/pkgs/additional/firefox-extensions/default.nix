@@ -89,12 +89,18 @@ in lib.makeScope newScope (self: with self; {
     # TODO: give these updateScript's
     browserpass-extension = callPackage ./browserpass-extension { };
     bypass-paywalls-clean = callPackage ./bypass-paywalls-clean { };
-    ether-metamask = fetchAddon "ether-metamask" "webextension@metamask.io" "sha256-UI83wUUc33OlQYX+olgujeppoo2D2PAUJ+Wma5mH2O0=";
-    i2p-in-private-browsing = fetchAddon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io" "sha256-dJcJ3jxeAeAkRvhODeIVrCflvX+S4E0wT/PyYzQBQWs=";
-    sidebery = fetchAddon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}" "sha256-YONfK/rIjlsrTgRHIt3km07Q7KnpIW89Z9r92ZSCc6w=";
-    sponsorblock = fetchAddon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-laP2rXUToeK1GvMT7OSl4t1oXYph43kpHEboOe4Fn3A=";
-    ublacklist = fetchAddon "ublacklist" "@ublacklist" "sha256-5peaUgQ7vkz0yrXA+QqXPWMLcSEEW5/W8Zke6yaZbgo=";
-    ublock-origin = fetchAddon "ublock-origin" "uBlock0@raymondhill.net" "sha256-i3NGi8IzoR3SiVIZRmOBeD0ZEjhX3Qtv0WoBgg/KSDQ=";
+    ether-metamask = fetchAddon "ether-metamask" "webextension@metamask.io"
+      "sha256-MFb68cPM/tQ3+b3mx2doMaXX3FiAiMOttHu8zL/9BbY=";
+    i2p-in-private-browsing = fetchAddon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io"
+      "sha256-aS8Alj/UNgcTp/TDWPN69wSn0GxDsQx44dtxrybdPXo=";
+    sidebery = fetchAddon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}"
+      "sha256-9ZJCehxo0+Ua7iCNBViPOXAklpV3cf2Et2qT42QTi/U=";
+    sponsorblock = fetchAddon "sponsorblock" "sponsorBlocker@ajay.app"
+      "sha256-AHw/vVAH5Bwk4smZvnFObYyO/DRVll1szVAK7YhJ2fs=";
+    ublacklist = fetchAddon "ublacklist" "@ublacklist"
+      "sha256-diKkwxe1C35wsGNQd0yHh9BenPRSmGiRmCdmnW8sTD4=";
+    ublock-origin = fetchAddon "ublock-origin" "uBlock0@raymondhill.net"
+      "sha256-OTJQbOTfMG5Np1J9k9YP4EIc8VBFwvTqc1idmgkCJms=";
 
     # TODO: build bypass-paywalls from source? it's mysteriously disappeared from the Mozilla store.
     # bypass-paywalls-clean = fetchAddon "bypass-paywalls-clean" "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}" "sha256-oUwdqdAwV3DezaTtOMx7A/s4lzIws+t2f08mwk+324k=";

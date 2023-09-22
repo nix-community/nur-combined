@@ -16,6 +16,17 @@
   #   "systemd.log_level=debug"
   #   "systemd.log_target=console"
 
+  # TODO: remove once it no longer applies
+  # this fixes /mnt/servo-nfs mount failures
+  # <https://github.com/NixOS/nixpkgs/issues/255803>
+  boot.kernelPatches = [{
+    name = "nfs4-patch";
+    patch = pkgs.fetchpatch {
+      url = "https://patchwork.kernel.org/project/selinux/patch/20230911142358.883728-1-omosnace@redhat.com/raw/";
+      hash = "sha256-m947t39xr4VqJBZ2mYTFq9Up/NWlwueH8aXFZRQwA7c=";
+    };
+  }];
+
   # hack in the `boot.shell_on_fail` arg since that doesn't always seem to work.
   boot.initrd.preFailCommands = "allowShell=1";
 
