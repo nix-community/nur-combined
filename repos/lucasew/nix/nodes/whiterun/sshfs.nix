@@ -1,5 +1,7 @@
 { lib, pkgs, ... }:
 {
+  environment.systemPackages = [ pkgs.sshfs ];
+
   systemd.user.services = {
     "sshfs-TMP2" = {
       path = with pkgs; [ sshfs ];
@@ -8,6 +10,7 @@
       '';
       restartIfChanged = true;
     };
+
     "sshfs-WORKSPACE" = {
       path = with pkgs; [ sshfs ];
       script = ''
