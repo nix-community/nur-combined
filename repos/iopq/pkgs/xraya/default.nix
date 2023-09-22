@@ -10,13 +10,13 @@
 }:
 let
   pname = "xrayA";
-  version = "3.0.1";
+  version = "3.1.1";
 
   src = fetchFromGitHub {
     owner = "iopq";
     repo = "xraya";
-    rev = "54a3cb996ab9f4ae5cfaff9f2475f0db5bf95225";
-    sha256 = "gdT0VFcNkSd0TH1VJPnbErdoCBp077rcNWOJkaxfhi4=";
+    rev = "v3.1.1";
+    sha256 = "sha256-jCKTFJqTCR8QJ1xvv/x+jyIhG8CB2k2OH8h9x1UmRlY=";
   };
 
   web = mkYarnPackage {
