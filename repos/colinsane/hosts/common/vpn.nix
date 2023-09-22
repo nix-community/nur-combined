@@ -38,7 +38,9 @@ let
     endpoint = config.sane.hosts.by-name."servo".wg-home.endpoint;
     publicKey = config.sane.hosts.by-name."servo".wg-home.pubkey;
     address = [ config.sane.services.wg-home.ip ];
-    dns = [ "10.78.79.1" ];
+    dns = [
+      config.sane.hosts.by-name."servo".wg-home.ip
+    ];
     privateKeyFile = config.networking.wireguard.interfaces.wg-home.privateKeyFile;
     extraOptions = {
       # wg-home and vpn-servo interfaces interfere with the result that when connected to both,

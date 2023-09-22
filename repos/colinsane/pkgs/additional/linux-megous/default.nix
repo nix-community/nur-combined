@@ -184,7 +184,13 @@ in buildLinux (args // {
     inherit rev hash;
   };
 
-  kernelPatches = (args.kernelPatches or []) ++ extraKernelPatches;
+  kernelPatches = extraKernelPatches ++ (
+    # this patch only applies to nixpkgs kernel (and is probably not necessary on megi's).
+    # TODO: remove the patch and this logic here once fixed in nixpkgs: <https://github.com/NixOS/nixpkgs/issues/255803>
+    lib.filter
+      (p: p.name != "backport-nfs4-selinux-fix")
+      (args.kernelPatches or [])
+  );
 
   structuredExtraConfig = (args.structuredExtraConfig or {}) // kernelConfig;
 })

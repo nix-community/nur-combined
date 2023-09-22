@@ -83,6 +83,7 @@ in
       {
         listenPort = 51820;
         privateKeyFile = "/run/wg-home.priv";
+        # TODO: this make this `wants` and `after`, instead of manually starting it
         preSetup =
           let
             gen-key = config.sane.fs."/run/wg-home.priv".unit;

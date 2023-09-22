@@ -20,7 +20,7 @@
   # this fixes /mnt/servo-nfs mount failures
   # <https://github.com/NixOS/nixpkgs/issues/255803>
   boot.kernelPatches = [{
-    name = "nfs4-patch";
+    name = "backport-nfs4-selinux-fix";
     patch = pkgs.fetchpatch {
       url = "https://patchwork.kernel.org/project/selinux/patch/20230911142358.883728-1-omosnace@redhat.com/raw/";
       hash = "sha256-m947t39xr4VqJBZ2mYTFq9Up/NWlwueH8aXFZRQwA7c=";
