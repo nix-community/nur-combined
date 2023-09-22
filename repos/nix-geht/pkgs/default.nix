@@ -19,8 +19,9 @@ in
     opensoundmeter = pkgs.libsForQt5.callPackage ./opensoundmeter.nix {};
 
 
-    libuev = callPackage ./troglobit/libuev.nix {};
-    uftpd = callPackage ./troglobit/uftpd.nix { inherit libuev; };
+    # Troglobit's software
+    netcalc = callPackage ./troglobit/netcalc.nix {};
+    watchdogd = callPackage ./troglobit/watchdogd.nix {};
   }
   // optionalAttrs (!hasSuffix "-darwin" system) rec {
     # Packages that won't run on Darwin.
