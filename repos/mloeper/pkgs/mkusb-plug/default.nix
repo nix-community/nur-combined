@@ -50,7 +50,7 @@ stdenv.mkDerivation
 
   meta = with lib; {
     homepage = "https://help.ubuntu.com/community/mkusb/plug";
-    description = "Create USB devices with ISO images and persistence";
+    description = "Graphical user interface around xorriso-dd-target and mkusb-sedd";
     license = licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
     mainProgram = "mkusb-plug";

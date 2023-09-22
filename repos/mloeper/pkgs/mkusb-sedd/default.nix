@@ -40,5 +40,13 @@ stdenv.mkDerivation {
           pkgs.util-linux
         ]}
     '';
+
+    meta = with lib; {
+      homepage = "https://help.ubuntu.com/community/mkusb/";
+      description = "Create standard cloned live and installer drives and also persistent live drives";
+      license = licenses.gpl3Only;
+      platforms = [ "x86_64-linux" ];
+      mainProgram = "mkusb-sedd";
+    };
   }
 
