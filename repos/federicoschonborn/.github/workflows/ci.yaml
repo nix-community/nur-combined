@@ -14,68 +14,73 @@ env:
   NUR_REPO: federicoschonborn
 
 jobs:
-  build:
-    name: Build
+  build-unstable:
+    name: Build (Unstable)
     strategy:
-      fail-fast: false
       matrix:
-        runs-on:
-          - ubuntu-latest
-        system:
-          - x86_64-linux
         channel:
-          - nixos-23.05
           - nixos-unstable
           - nixpkgs-unstable
     uses: ./.github/workflows/build.yaml
     with:
-      runs-on: ${{ matrix.runs-on }}
-      system: ${{ matrix.system }}
+      runs-on: ubuntu-latest
+      system: x86_64-linux
       channel: ${{ matrix.channel }}
+
+  build-stable:
+    name: Build (Stable)
+    needs: build-unstable
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: x86_64-linux
+      channel: nixos-23.05
 
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-stable
     steps:
       - name: Trigger NUR update
         run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
 
-  build-darwin:
-    name: Build (Darwin)
-    needs: deploy
-    strategy:
-      fail-fast: false
-      matrix:
-        runs-on:
-          - macos-latest
-        system:
-          - x86_64-darwin
-        channel:
-          - nixpkgs-23.05-darwin
-          - nixpkgs-unstable
+  build-darwin-unstable:
+    name: Build (Darwin; Unstable)
+    needs: build-unstable
     uses: ./.github/workflows/build.yaml
     with:
-      runs-on: ${{ matrix.runs-on }}
-      system: ${{ matrix.system }}
-      channel: ${{ matrix.channel }}
+      runs-on: macos-latest
+      system: x86_64-darwin
+      channel: nixpkgs-unstable
 
-  build-aarch64:
-    name: Build (AArch64)
-    needs: deploy
+  build-darwin-stable:
+    name: Build (Darwin; Stable)
+    needs: build-darwin-unstable
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: macos-latest
+      system: x86_64-darwin
+      channel: nixpkgs-23.05-darwin
+
+  build-aarch64-unstable:
+    name: Build (AArch64; Unstable)
+    needs: build-unstable
     strategy:
-      fail-fast: false
       matrix:
-        runs-on:
-          - ubuntu-latest
-        system:
-          - aarch64-linux
         channel:
-          - nixos-23.05
           - nixos-unstable
           - nixpkgs-unstable
     uses: ./.github/workflows/build.yaml
     with:
-      runs-on: ${{ matrix.runs-on }}
-      system: ${{ matrix.system }}
+      runs-on: ubuntu-latest
+      system: aarch64-linux
       channel: ${{ matrix.channel }}
+
+  build-aarch64-stable:
+    name: Build (AArch64; Stable)
+    needs: build-aarch64-unstable
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: aarch64-linux
+      channel: nixos-23.05
