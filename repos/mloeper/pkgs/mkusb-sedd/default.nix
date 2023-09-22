@@ -27,7 +27,8 @@ stdenv.mkDerivation {
     postInstall = ''
       substituteInPlace "$out/bin/.mkusb-sedd-wrapped" \
         --replace "/bin/echo" "echo" \
-        --replace "/usr/bin/" ""
+        --replace "/usr/bin/" "" \
+        --replace "exitnr=\$?" "exitnr=0"
 
       makeWrapper "$out/bin/.mkusb-sedd-wrapped" "$out/bin/mkusb-sedd" \
         --inherit-argv0 \
