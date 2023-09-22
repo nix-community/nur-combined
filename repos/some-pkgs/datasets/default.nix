@@ -6,7 +6,7 @@ lib.evalModules {
     ./modules/models.nix
     ./modules/datasets.nix
     {
-      config.models.flownet2 = import ../python-packages/by-name/co/co-tracker/data_config.nix;
+      config.models.co-tracker = import ../python-packages/by-name/co/co-tracker/data_config.nix;
     }
   ] ++ map (x: "${./configs}/${x}") (builtins.attrNames (builtins.readDir ./configs));
 }
