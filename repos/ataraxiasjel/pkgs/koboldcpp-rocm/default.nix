@@ -11,13 +11,13 @@
 }:
 let
   pname = "koboldcpp-rocm";
-  version = "unstable-2023-09-20";
+  version = "unstable-2023-09-21";
 
   src = fetchFromGitHub {
     owner = "YellowRoseCx";
     repo = pname;
-    rev = "0623f597f33d2fcfc55bc7134294b443e63bde76";
-    hash = "sha256-LGVFdnUHW3Yk2bX8Iq+qFy75QIq/PzCmS1FeA46Sbrs=";
+    rev = "a45ed4f9920c23503a60f0e0d66366138b8206bd";
+    hash = "sha256-HCLMwmN8VXFLx1Lk22wp2SD8How117XH3WpG5jUy7bc=";
   };
 
   koboldcpp-rocm-libs = stdenv.mkDerivation {
