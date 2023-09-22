@@ -7,7 +7,8 @@
     # specify each address explicitly, instead of using "*".
     # this ensures responses are sent from the address at which the request was received.
     config.sane.hosts.by-name."servo".lan-ip
-    "10.0.1.5"
+    config.sane.hosts.by-name."servo".wg-home.ip
+    "10.0.1.5"  # field DNS requests from OVPN
   ];
   # don't bind to IPv6 until i explicitly test that stack
   services.trust-dns.settings.listen_addrs_ipv6 = [];
@@ -34,18 +35,19 @@
   sane.dns.zones."uninsane.org".inet = {
     SOA."@" = ''
       ns1.uninsane.org. admin-dns.uninsane.org. (
-                                      2022122101 ; Serial
+                                      2023092101 ; Serial
                                       4h         ; Refresh
                                       30m        ; Retry
                                       7d         ; Expire
                                       5m)        ; Negative response TTL
     '';
-    TXT."rev" = "2023052901";
+    TXT."rev" = "2023092101";
 
     CNAME."native" = "%CNAMENATIVE%";
     A."@" =      "%ANATIVE%";
     A."wan" = "%AWAN%";
     A."servo.lan" = config.sane.hosts.by-name."servo".lan-ip;
+    A."servo.hn" = config.sane.hosts.by-name."servo".wg-home.ip;
 
     # XXX NS records must also not be CNAME
     # it's best that we keep this identical, or a superset of, what org. lists as our NS.
@@ -69,34 +71,68 @@
       zone-dir = "/var/lib/trust-dns";
       zone-wan = "${zone-dir}/wan/uninsane.org.zone";
       zone-lan = "${zone-dir}/lan/uninsane.org.zone";
+      zone-hn = "${zone-dir}/hn/uninsane.org.zone";
       zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.dns.zones."uninsane.org".rendered;
+      extra-config-hn = pkgs.writeText "hn-config.toml" ''
+        [[zones]]
+        # forward the root zone to the local DNS resolver
+        zone = "."
+        zone_type = "Forward"
+        stores = { type = "forward", name_servers = [{ socket_addr = "127.0.0.53:53", protocol = "udp", trust_nx_responses = true }] }
+      '';
     in pkgs.writeShellScriptBin "trust-dns" ''
-      # compute wan/lan values
-      mkdir -p ${zone-dir}/{ovpn,wan,lan}
+      # parse args meant for trust-dns
+      _arg__config="$1" # --config
+      shift
+      orig_config="$1"  # /path/to/config.toml
+      shift
+
+      # compute IP address of self for each interface
+      mkdir -p ${zone-dir}/{wan,lan,hn}
       wan=$(cat '${config.sane.services.dyn-dns.ipPath}')
       lan=${config.sane.hosts.by-name."servo".lan-ip}
+      hn=${config.sane.hosts.by-name."servo".wg-home.ip}
 
       # create specializations that resolve native.uninsane.org to different CNAMEs
       ${sed} s/%AWAN%/$wan/ ${zone-template} \
         | ${sed} s/%CNAMENATIVE%/wan/ \
         | ${sed} s/%ANATIVE%/$wan/ \
         > ${zone-wan}
+      ln -sf "$orig_config" "${zone-dir}/wan-config.toml"
+
       ${sed} s/%AWAN%/$wan/ ${zone-template} \
         | ${sed} s/%CNAMENATIVE%/servo.lan/ \
         | ${sed} s/%ANATIVE%/$lan/ \
         > ${zone-lan}
+      ln -sf "$orig_config" "${zone-dir}/lan-config.toml"
+
+      ${sed} s/%AWAN%/$wan/ ${zone-template} \
+        | ${sed} s/%CNAMENATIVE%/servo.hn/ \
+        | ${sed} s/%ANATIVE%/$hn/ \
+        > ${zone-hn}
+      cat "$orig_config" "${extra-config-hn}" > "${zone-dir}/hn-config.toml"
 
       # launch the different interfaces, separately
-      ${pkgs.trust-dns}/bin/trust-dns --port 53 --zonedir ${zone-dir}/wan/ $@ &
+      ${pkgs.trust-dns}/bin/trust-dns --port 53 \
+        --zonedir "${zone-dir}/wan/" --config "${zone-dir}/wan-config.toml" \
+        "$@" &
       WANPID=$!
-      ${pkgs.trust-dns}/bin/trust-dns --port 1053 --zonedir ${zone-dir}/lan/ $@ &
+
+      ${pkgs.trust-dns}/bin/trust-dns --port 1053 \
+        --zonedir "${zone-dir}/lan/" --config "${zone-dir}/lan-config.toml" \
+        "$@" &
       LANPID=$!
 
+      ${pkgs.trust-dns}/bin/trust-dns --port 2053 \
+        --zonedir "${zone-dir}/hn/" --config "${zone-dir}/hn-config.toml" \
+        "$@" &
+      HNPID=$!
+
       # wait until any of the processes exits, then kill them all and exit error
-      while kill -0 $WANPID $LANPID ; do
+      while kill -0 $WANPID $LANPID $HNPID; do
         sleep 5
       done
-      kill $WANPID $LANPID
+      kill $WANPID $LANPID $HNPID
       exit 1
     '';
 
@@ -126,6 +162,14 @@
     iptables -t nat -A nixos-nat-pre -p tcp --dport 53 \
       -m iprange --src-range 10.78.76.0-10.78.79.255 \
       -j DNAT --to-destination :1053
+
+    # redirect requests from wireguard in the same manner
+    iptables -t nat -A nixos-nat-pre -p udp --dport 53 \
+      -m iprange --src-range 10.0.10.0-10.0.10.255 \
+      -j DNAT --to-destination :2053
+    iptables -t nat -A nixos-nat-pre -p tcp --dport 53 \
+      -m iprange --src-range 10.0.10.0-10.0.10.255 \
+      -j DNAT --to-destination :2053
   '';
 
   sane.ports.ports."1053" = {
@@ -134,5 +178,10 @@
     protocol = [ "udp" "tcp" ];
     visibleTo.lan = true;
     description = "colin-redirected-dns-for-lan-namespace";
+  };
+  sane.ports.ports."2053" = {
+    protocol = [ "udp" "tcp" ];
+    visibleTo.lan = true;
+    description = "colin-redirected-dns-for-wg-home-namespace";
   };
 }
