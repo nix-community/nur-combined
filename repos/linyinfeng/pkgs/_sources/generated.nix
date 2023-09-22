@@ -27,10 +27,10 @@
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.20.35";
+    version = "0.20.36";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.35/Clash.for.Windows-0.20.35-x64-linux.tar.gz";
-      sha256 = "sha256-NTLdPchcrnON/z47EMwdzyykK0ENU7xahudtyE1ZhLk=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.36/Clash.for.Windows-0.20.36-x64-linux.tar.gz";
+      sha256 = "sha256-6snyI3SKTQGbOnVdoWxM5QN4zPyKnO524oCE4mhfO58=";
     };
   };
   clash-premium-aarch64-linux = {
@@ -300,16 +300,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "72881fdc1893f5f0ff68a7edc84d92fed8d2f37f";
+    version = "34fbc4043e780049de7ddf62e1aeb57fa369204b";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "72881fdc1893f5f0ff68a7edc84d92fed8d2f37f";
+      rev = "34fbc4043e780049de7ddf62e1aeb57fa369204b";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Q+qdQ+3RMFb+QmA/CKGFbvBvdOIh+3UN3C/l1kzl13w=";
+      sha256 = "sha256-jkknQv58AhB0dcX7b/qvzbZsE3UToCHBi6bpj79oxqE=";
     };
-    date = "2023-09-15";
+    date = "2023-09-22";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
