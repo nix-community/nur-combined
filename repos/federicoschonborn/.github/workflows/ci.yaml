@@ -41,25 +41,6 @@ jobs:
       - name: Trigger NUR update
         run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
 
-  build-small:
-    name: Build (Small)
-    needs: deploy
-    strategy:
-      fail-fast: false
-      matrix:
-        runs-on:
-          - ubuntu-latest
-        system:
-          - x86_64-linux
-        channel:
-          - nixos-23.05-small
-          - nixos-unstable-small
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ${{ matrix.runs-on }}
-      system: ${{ matrix.system }}
-      channel: ${{ matrix.channel }}
-
   build-darwin:
     name: Build (Darwin)
     needs: deploy
@@ -93,25 +74,6 @@ jobs:
           - nixos-23.05
           - nixos-unstable
           - nixpkgs-unstable
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ${{ matrix.runs-on }}
-      system: ${{ matrix.system }}
-      channel: ${{ matrix.channel }}
-
-  build-aarch64-small:
-    name: Build (Small AArch64)
-    needs: build-aarch64
-    strategy:
-      fail-fast: false
-      matrix:
-        runs-on:
-          - ubuntu-latest
-        system:
-          - aarch64-linux
-        channel:
-          - nixos-23.05-small
-          - nixos-unstable-small
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ${{ matrix.runs-on }}

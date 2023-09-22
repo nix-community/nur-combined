@@ -41,8 +41,6 @@
   rollit = pkgs.callPackage ./rollit { };
   rpcsx = pkgs.callPackage ./rpcsx { };
   share-preview = pkgs.callPackage ./share-preview { };
-  #sonic-2013 = pkgs.callPackage ./sonic-2013 { };
-  #sonic-cd = pkgs.callPackage ./sonic-cd { };
   srb2p = pkgs.callPackage ./srb2p { };
   surgescript = pkgs.callPackage ./surgescript { };
   teem = pkgs.callPackage ./teem { };

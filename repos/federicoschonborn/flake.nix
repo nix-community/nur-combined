@@ -1,27 +1,20 @@
 {
   description = "My personal NUR repository";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    systems.url = "github:nix-systems/default";
+  };
 
-  outputs =
-    { self
-    , nixpkgs
-    ,
-    }:
+  outputs = { self, nixpkgs, systems, ... }:
     let
-      inherit (nixpkgs.lib) genAttrs getName systems;
+      inherit (nixpkgs) lib;
 
-      forAllSystems = f: genAttrs systems.flakeExposed (system: f (import nixpkgs {
-        inherit system;
-        config.allowUnfreePredicate = p: builtins.elem (getName p) [
-          "sonic-2013"
-          "sonic-cd"
-        ];
-      }));
+      eachSystem = f: lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
     in
     {
-      legacyPackages = forAllSystems (pkgs: import ./. { inherit pkgs; });
-      packages = forAllSystems (pkgs: nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) self.legacyPackages.${pkgs.system});
-      formatter = forAllSystems (pkgs: pkgs.nixpkgs-fmt);
+      legacyPackages = eachSystem (pkgs: import ./. { inherit pkgs; });
+      packages = eachSystem (pkgs: lib.filterAttrs (_: lib.isDerivation) self.legacyPackages.${pkgs.system});
+      formatter = eachSystem (pkgs: pkgs.nixpkgs-fmt);
     };
 }
