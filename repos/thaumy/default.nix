@@ -21,4 +21,5 @@
   dup-img-finder = pkgs.callPackage ./pkgs/dup-img-finder { };
   idbuilder = pkgs.callPackage ./pkgs/idbuilder { };
   microsoft-todo-electron = pkgs.callPackage ./pkgs/microsoft-todo-electron { };
+  sh-history-filter = pkgs.callPackage ./pkgs/sh-history-filter { };
 }
