@@ -1,4 +1,4 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env -S sd nix bang
 #!nix-shell -i python -p python3Packages.pypresence
 # rickroll as discord rich presence
 

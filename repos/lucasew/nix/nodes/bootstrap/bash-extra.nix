@@ -4,5 +4,6 @@
     function loadDotfilesEnv {
       ${global.environmentShell}
     }
+    export -f loadDotfilesEnv
   '';
 }

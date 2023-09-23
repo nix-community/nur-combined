@@ -1,4 +1,4 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env -S sd nix bang
 #!nix-shell -i bash -p appimage-wrap
 
 # launch an appimage

@@ -1,9 +1,9 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env -S sd nix bang
 #! nix-shell -p python3Packages.flask python3Packages.flask-jwt-extended python3Packages.unidecode -i python
+#! vim:ft=python
 
 # simple jarvis like bot with custom statements and using the phone voice recognition using Llhamalab Automate
 
-# vim:ft=python
 from flask import Flask, jsonify, request
 from flask_jwt_extended import jwt_required, JWTManager
 from json import loads

@@ -48,7 +48,6 @@ in
   '';
 
   ctl = cp ./pkgs/ctl;
-  c4me = cp ./pkgs/c4me;
   personal-utils = cp ./pkgs/personal-utils.nix;
   fhsctl = cp ./pkgs/fhsctl.nix;
   comby = cp ./pkgs/comby.nix;

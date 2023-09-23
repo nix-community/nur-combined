@@ -1,5 +1,6 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env -S sd nix lang
 #!nix-shell -p sanoid -i bash
+#! vim:ft=bash
 
 # backup some zfs datasets to the storage zpool
 

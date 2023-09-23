@@ -1,9 +1,9 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env -S sd nix bang
 #! nix-shell -p rclone python3 -i python
+#! vim:ft=python
 
 # gets the amount files grouped by time blocks in a rclone folder
 
-# vim:ft=python
 
 from datetime import datetime
 from argparse import ArgumentParser

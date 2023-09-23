@@ -1,14 +1,17 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -p python3 -i python
-from os import sys
-from pathlib import Path
+#! vim:ft=python
+
+# utility functions to calculate stuff
+
+import os
+import sys
 
 def reverse_txt(value):
     return value[::-1]
 
 def eprint(*args, **kwargs):
-    from sys import stderr
-    print(*args, file=stderr, **kwargs)
+    print(*args, file=sys.stderr, **kwargs)
 
 def b64d(data):
     from base64 import b64decode
@@ -64,7 +67,7 @@ def simplex(num_vars, obj_type, obj, *restrictions):
 
             objective_function: should be a tuple with first element
             either 'min' or 'max', and second element be the equation
-            eg 
+            eg
             ('min', '2x_1 + 4x_3 + 5x_2')
 
             For solution finding algorithm uses two-phase simplex method
@@ -516,31 +519,44 @@ def get_args():
     from sys import argv
     return argv[1:]
 
-def eval_passed_stmt():
-    args = get_args()
-    if len(args) == 0:
-        print("c4me [python expression]")
-        exit(1)
-        return
-    elif args[0] == "stdin":
-        return
-    elif args[0] == "repl":
-        repl()
-    elif is_match(r"^[-0-9]", args[0]):
-        eval_print(" ".join(args))
-    elif is_match(r"^.*\(", args[0]):
-        eval_print(" ".join(args))
-    elif not is_match(r"^.*\(", args[0]):
-        [fn, *args] = args
-        eval_print("%s(*args)" %(fn), globals(), locals())
-    elif len(args) == 1:
-        eval_print(args[0])
+SUBCOMMANDS = {}
 
-def repl():
+def _define_subcommand(name: str):
+    def _register(func):
+        SUBCOMMANDS[name] = func
+        return func
+    return _register
+
+@_define_subcommand("-")
+def _cmd_from_stdin(*args):
+    code = sys.stdin.read()
+    _cmd_eval_all(code)
+
+@_define_subcommand("eval_all")
+def _cmd_eval_all(*args):
+    code = " ".join(args)
+    print(eval(code))
+
+@_define_subcommand("eval")
+def _cmd_eval(*args):
+    for arg in args:
+        print(eval(arg))
+
+@_define_subcommand("repl")
+def _cmd_repl(*args):
+    for arg in args:
+        exec(arg)
     import readline, rlcompleter
     from code import InteractiveConsole
     readline.parse_and_bind("tab: complete")
     InteractiveConsole(globals()).interact()
 
-def main():
-    eval_passed_stmt()
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        eprint("missing args")
+        eprint("subcommands: " + " ".join(SUBCOMMANDS.keys()))
+        exit(1)
+    args = sys.argv[2:]
+    command = SUBCOMMANDS[sys.argv[1]](*args)
+
+

@@ -1,4 +1,4 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env -S sd nix bang
 #!nix-shell -i python -p python3Packages.pyautogui libnotify
 # simulate typing one key each few seconds
 

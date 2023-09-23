@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+NIXCFG_ROOT_PATH=$(sd d root)
+eval "$(cat /etc/bashrc | grep NIX_PATH)"
+
+set -euo pipefail
+
+exec nix-shell "$@"

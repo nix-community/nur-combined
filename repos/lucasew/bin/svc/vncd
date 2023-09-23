@@ -1,7 +1,8 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env -S sd nix bang
 #!nix-shell -i bash -p tigervnc
+#! vim:ft=bash
+
 # spawns an unauthenticated VNC server
-# vim:ft=bash
 
 # I don't care about password in this case because 5900 will only be achievable inside my Tailscale network
 # If you are exposing to your local net or the Internet please don't do this -SecurityTypes None thing

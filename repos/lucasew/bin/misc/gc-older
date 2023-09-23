@@ -1,9 +1,9 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env -S sd nix bang
 #! nix-shell -i python3 -p python3Packages.tqdm
+#! vim:ft=python
 
 # [EXPERIMENT] delete garbage paths from oldest to newest
 
-# vim:ft=python
 import os
 from sys import stderr
 from subprocess import run, CalledProcessError, DEVNULL
