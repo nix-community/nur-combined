@@ -107,6 +107,8 @@ in
       type = types.attrsOf types.path;
       default = {
         "sxmo_hook_start.sh" = ./hooks/sxmo_hook_start.sh;
+        "sxmo_hook_inputhandler.sh" = ./hooks/sxmo_hook_inputhandler.sh;
+        "sxmo_hook_postwake.sh" = ./hooks/sxmo_hook_postwake.sh;
       };
       description = ''
         extra hooks to add with higher priority than the builtins
@@ -226,12 +228,15 @@ in
                   # - placing default configs in ~ for sxmo-launched services (sxmo_migrate.sh)
                   # - binding vol/power buttons (sxmo_swayinitconf.sh)
                   # - launching sxmo_hook_start.sh
-                  source ${package}/etc/profile.d/sxmo_init.sh
-                  # XXX: upstream sources `profile` later (after sxmo_migrate)
-                  #      but _sxmo_load_environments uses `SXMO_DEVICE_NAME`,
-                  #      and i ship that via the profile, so order it such
+                  #
+                  # the commands here are similar to upstream sxmo_winit.sh, but not identical and the ordering may be different
+
+                  # profile may contain SXMO_DEVICE_NAME which is used by _sxmo_load_environment so load it early
                   source "$XDG_CONFIG_HOME/sxmo/profile"
-                  _sxmo_load_environments
+                  # sourcing upstream sxmo_init.sh triggers _sxmo_load_environment
+                  # which ensures SXMO_* environment variables are set
+                  source ${package}/etc/profile.d/sxmo_init.sh
+                  # _sxmo_prepare_dirs ensures ~/.cache/sxmo & other XDG dirs exist with correct perms & owner
                   _sxmo_prepare_dirs
                   # migrate tells sxmo to provide the following default files:
                   # - ~/.config/sxmo/profile
@@ -243,6 +248,14 @@ in
                   # - ~/.config/wob/wob.ini
                   # - ~/.config/sxmo/conky.conf
                   sxmo_migrate.sh sync
+                  # various things may have happened above that require me to re-load the profile here:
+                  # - _sxmo_load_environment sources a deviceprofile.sh file, which may override my profile settings.
+                  #   very obvious if you set a non-default SXMO_SWAY_SCALE.
+                  # - sxmo_migrate.sh may have provided a default profile, if i failed to
+                  source "$XDG_CONFIG_HOME/sxmo/profile"
+                  # place my non-specialized hooks at higher precedence than the default device-hooks
+                  # alternative would be to move my hooks to ~/.config/sxmo/hooks/<device-name>.
+                  export PATH="$XDG_CONFIG_HOME/sxmo/hooks:$PATH"
 
                   # kill anything leftover from the previous sxmo run. this way we can (try to) be reentrant
                   echo "sxmo_init: killing stale daemons (if active)"
@@ -252,9 +265,10 @@ in
                   pkill superd
 
                   # configure vol/power-button input mapping (upstream SXMO has this in sway config)
-                  echo "sxmo_init: configuring sway bindings with:"
+                  echo "sxmo_init: configuring sway bindings/displays with:"
                   echo "SXMO_POWER_BUTTON: $SXMO_POWER_BUTTON"
                   echo "SXMO_VOLUME_BUTTON: $SXMO_VOLUME_BUTTON"
+                  echo "SXMO_SWAY_SCALE: $SXMO_SWAY_SCALE"
                   sxmo_swayinitconf.sh
 
                   echo "sxmo_init: invoking sxmo_hook_start.sh with:"

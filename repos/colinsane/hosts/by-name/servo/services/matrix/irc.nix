@@ -141,6 +141,7 @@ in
           sasl = false;
           # notable channels:
           # - #hare
+          # - #mnt-reform
         };
         "irc.myanonamouse.net" = ircServer {
           name = "MyAnonamouse";
