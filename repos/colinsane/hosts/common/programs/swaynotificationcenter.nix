@@ -260,7 +260,7 @@ in
             }
             {
               type = "toggle";
-              label = "vpn:servo";
+              label = "vpn::hn";
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle wg-quick-vpn-servo";
               active = "${pkgs.systemd}/bin/systemctl is-active wg-quick-vpn-servo.service";
             }
@@ -268,14 +268,14 @@ in
             {
               type = "toggle";
               label = "SIP";
-              command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle --user gnome-calls";
+              command = "${systemctl-toggle}/bin/systemctl-toggle --user gnome-calls";
               active = "${pkgs.systemd}/bin/systemctl is-active --user gnome-calls";
             }
           ] ++ lib.optionals config.sane.programs.dino.config.autostart [
             {
               type = "toggle";
               label = "jingle";  # XMPP calls
-              command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle --user dino";
+              command = "${systemctl-toggle}/bin/systemctl-toggle --user dino";
               active = "${pkgs.systemd}/bin/systemctl is-active --user dino";
             }
           ];
