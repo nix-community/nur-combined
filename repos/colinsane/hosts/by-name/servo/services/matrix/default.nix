@@ -14,39 +14,47 @@
     { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/matrix-synapse"; }
   ];
   services.matrix-synapse.enable = true;
-  # this changes the default log level from INFO to WARN.
-  # maybe there's an easier way?
-  services.matrix-synapse.settings.log_config = ./synapse-log_level.yaml;
-  services.matrix-synapse.settings.server_name = "uninsane.org";
+  services.matrix-synapse.settings = {
+    # this changes the default log level from INFO to WARN.
+    # maybe there's an easier way?
+    log_config = ./synapse-log_level.yaml;
+    server_name = "uninsane.org";
 
-  # services.matrix-synapse.enable_registration_captcha = true;
-  # services.matrix-synapse.enable_registration_without_verification = true;
-  services.matrix-synapse.settings.enable_registration = true;
-  # services.matrix-synapse.registration_shared_secret = "<shared key goes here>";
+    # services.matrix-synapse.enable_registration_captcha = true;
+    # services.matrix-synapse.enable_registration_without_verification = true;
+    enable_registration = true;
+    # services.matrix-synapse.registration_shared_secret = "<shared key goes here>";
 
-  # default for listeners is port = 8448, tls = true, x_forwarded = false.
-  # we change this because the server is situated behind nginx.
-  services.matrix-synapse.settings.listeners = [
-    {
-      port = 8008;
-      bind_addresses = [ "127.0.0.1" ];
-      type = "http";
-      tls = false;
-      x_forwarded = true;
-      resources = [
-        {
-          names = [ "client" "federation" ];
-          compress = false;
-        }
-      ];
-    }
-  ];
+    # default for listeners is port = 8448, tls = true, x_forwarded = false.
+    # we change this because the server is situated behind nginx.
+    listeners = [
+      {
+        port = 8008;
+        bind_addresses = [ "127.0.0.1" ];
+        type = "http";
+        tls = false;
+        x_forwarded = true;
+        resources = [
+          {
+            names = [ "client" "federation" ];
+            compress = false;
+          }
+        ];
+      }
+    ];
 
-  services.matrix-synapse.settings.x_forwarded = true;  # because we proxy matrix behind nginx
-  services.matrix-synapse.settings.max_upload_size = "100M";  # default is "50M"
+    ip_range_whitelist = [
+      # to communicate with ntfy.uninsane.org push notifs.
+      # TODO: move this to some non-shared loopback device: we don't want Matrix spouting http requests to *anything* on this machine
+      "10.78.79.51"
+    ];
 
-  services.matrix-synapse.settings.admin_contact = "admin.matrix@uninsane.org";
-  services.matrix-synapse.settings.registrations_require_3pid = [ "email" ];
+    x_forwarded = true;  # because we proxy matrix behind nginx
+    max_upload_size = "100M";  # default is "50M"
+
+    admin_contact = "admin.matrix@uninsane.org";
+    registrations_require_3pid = [ "email" ];
+  };
 
   services.matrix-synapse.extraConfigFiles = [
     config.sops.secrets."matrix_synapse_secrets.yaml".path

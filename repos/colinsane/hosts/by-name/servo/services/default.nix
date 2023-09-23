@@ -18,8 +18,9 @@
     ./lemmy.nix
     ./matrix
     ./navidrome.nix
-    ./nixserve.nix
     ./nginx.nix
+    ./nixserve.nix
+    ./ntfy.nix
     ./pict-rs.nix
     ./pleroma.nix
     ./postgres.nix

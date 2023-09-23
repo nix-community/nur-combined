@@ -47,6 +47,8 @@
   sane.ids.export.gid = 2412;
   sane.ids.nfsuser.uid = 2413;
   sane.ids.media.gid = 2414;
+  sane.ids.ntfy-sh.uid = 2415;
+  sane.ids.ntfy-sh.gid = 2415;
 
   sane.ids.colin.uid = 1000;
   sane.ids.guest.uid = 1100;
