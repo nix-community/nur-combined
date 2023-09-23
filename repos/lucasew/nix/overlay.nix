@@ -131,8 +131,8 @@ in
     postInstall = (old.postInstall or "") + ''
       installShellCompletion --bash ${prev.fetchurl {
         name = "sd";
-        url = "https://raw.githubusercontent.com/lucasew/sd/6cf0193f9539f6b857b478b3d87c013cf38c7e09/_sd.bash";
-        hash = "sha256-dcrWwpRASH0PQwJPfl1Dk2CjdAdIWyIZ1klPsQoFpz4=";
+        url = "https://raw.githubusercontent.com/lucasew/sd/7ae91cca81a69eae8a37b001b4b07b088e2c49fa/_sd.bash";
+        hash = "sha256-BVFpec814CmbjFvZ++U4RR+6gTv9x4ojFgAYzJp0rQs=";
       }}
     '';
   });
