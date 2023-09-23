@@ -20,8 +20,10 @@ in
 
 
     # Troglobit's software
+    libuev = callPackage ./troglobit/libuev.nix {};
+    uftpd = callPackage ./troglobit/uftpd.nix { inherit libuev; };
     netcalc = callPackage ./troglobit/netcalc.nix {};
-    watchdogd = callPackage ./troglobit/watchdogd.nix {};
+    watchdogd = callPackage ./troglobit/watchdogd.nix { inherit libuev; };
   }
   // optionalAttrs (!hasSuffix "-darwin" system) rec {
     # Packages that won't run on Darwin.
