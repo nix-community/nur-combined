@@ -1,4 +1,4 @@
-#!/usr/bin/env -S sd nix bang
+#!/usr/bin/env -S sd nix shell
 #! nix-shell -p rclone python3 -i python
 #! vim:ft=python
 

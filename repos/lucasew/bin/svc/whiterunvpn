@@ -1,4 +1,4 @@
-#!/usr/bin/env -S sd nix bang
+#!/usr/bin/env -S sd nix shell
 #!nix-shell -i bash -p sshuttle
 #! vim:ft=bash
 

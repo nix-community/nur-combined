@@ -1,4 +1,4 @@
-#!/usr/bin/env -S sd nix bang
+#!/usr/bin/env -S sd nix shell
 #! nix-shell -p python3Packages.flask python3Packages.flask-jwt-extended python3Packages.unidecode -i python
 #! vim:ft=python
 
