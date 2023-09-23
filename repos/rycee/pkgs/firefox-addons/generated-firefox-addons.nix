@@ -1537,10 +1537,10 @@
       };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "3.3.1";
+      version = "4.0.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4105272/dictionaries-3.3.1.xpi";
-      sha256 = "cc5caabb957b7688ed1312d6e652e8296ef2a780cfc582272d17c1ee356f5ef5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171492/dictionaries-4.0.0.xpi";
+      sha256 = "59126487b28dd2dac24a86b6896edc34c0bbdc096ff1a1dd534d423348ed4b14";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -4055,7 +4055,7 @@
       sha256 = "6059838347a99606caca80033937b549c64f8474598a5c1b61bab9bf0fa6acc1";
       meta = with lib;
       {
-        homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
+        homepage = "https://github.com/ipfs/ipfs-companion";
         description = "Harness the power of IPFS in your browser";
         license = licenses.cc0;
         mozPermissions = [
@@ -4799,10 +4799,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.11.8";
+      version = "2.11.10";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160472/momentumdash-2.11.8.xpi";
-      sha256 = "cce0e6388bad4a8063670998896a5374da50f6a7b669943308592127e0dcd1a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170220/momentumdash-2.11.10.xpi";
+      sha256 = "86245504fddca554a0e5565f1757ae39a9ee4b2e8d4d4c9c4fe39ba6a98c61d2";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -6214,10 +6214,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.6.1";
+      version = "1.6.2";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4168520/proton_pass-1.6.1.xpi";
-      sha256 = "994f180cf0792a82f39a0f61f198f8b21103d917f6a489c8c358c08fa594e846";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170145/proton_pass-1.6.2.xpi";
+      sha256 = "7e236948a49cde79920c9857f57e4ed42a33b8fc9d1e6bd7925d0f1eee331919";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -6734,25 +6734,27 @@
       };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
-      version = "4.10.2";
+      version = "5.0.0";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3994928/sidebery-4.10.2.xpi";
-      sha256 = "60e35f2bfac88e5b2b4e044722dde49b4ed0eca9e9216f3d67dafdd9948273ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170134/sidebery-5.0.0.xpi";
+      sha256 = "f592427a1c68d3e51aee208d05588f39702496957771fd84b76a93e364138bf5";
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
         description = "Tabs tree and bookmarks in sidebar with advanced containers configuration.";
         license = licenses.mit;
         mozPermissions = [
+          "activeTab"
           "tabs"
           "contextualIdentities"
           "cookies"
           "storage"
-          "bookmarks"
+          "unlimitedStorage"
           "sessions"
           "menus"
           "menus.overrideContext"
           "search"
+          "theme"
           ];
         platforms = platforms.all;
         };
