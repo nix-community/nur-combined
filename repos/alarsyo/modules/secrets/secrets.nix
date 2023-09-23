@@ -4,10 +4,11 @@ let
 
   boreal = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAagal1aqZh52wEmgsw7fkCzO41o4Cx+nV4wJGZuX1RP root@boreal";
   hades = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMxw8CtKUPAiPdKDEnuS7UyRrZN5BkUwsy5UPVF8V+lt root@hades";
+  hephaestus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA7Cp+n5+huof68QlAoJV8bVf5h5p9kEZFAVpltWopdL root@hephaestus";
   poseidon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKYhZYMbWQG9TSQ2qze8GgFo2XrZzgu/GuSOGwenByJo root@poseidon";
   zephyrus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILU4JfIADH9MXUnVe+3ezYK9WXsqy/jJcm1zFkmL4aSU root@zephyrus";
 
-  machines = [boreal hades poseidon zephyrus];
+  machines = [boreal hades hephaestus poseidon zephyrus];
 
   all = users ++ machines;
 in {

@@ -52,7 +52,6 @@ in {
       inherit
         (pkgs)
         chrysalis
-        element-desktop
         evince
         feh
         firefox
@@ -62,8 +61,6 @@ in {
         mpv
         obs-studio
         pavucontrol
-        signal-desktop
-        slack
         spotify
         tdesktop
         teams
