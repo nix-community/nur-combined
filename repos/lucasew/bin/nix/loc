@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{
+cat <<EOF
+let
+    inherit (builtins) length isAttrs tail head trace unsafeGetAttrPos concatStringsSep;
+
+    getAttrset = parts: obj: if length parts > 1 then
+        if (isAttrs obj) then (getAttrset (builtins.tail parts) (builtins.getAttr (head parts) obj))
+        else throw "invalid data"
+    else unsafeGetAttrPos (head parts) obj;
+
+    printPosition = parts: obj: (
+        let
+            pos = getAttrset parts obj;
+        in concatStringsSep ":" (map toString (with pos; [file line column]))
+    );
+    rootScope = {
+        inherit pkgs;
+        inherit (pkgs) lib;
+        inherit nixosConfigurations;
+        # inherit lib pkgs builtins nixosConfigurations homeConfigurations;
+    };
+in builtins.toFile "loc.txt" (concatStringsSep "\n" [
+EOF
+
+for item in $@; do
+    echo "(printPosition ["
+    echo "$item" | sed 's;\.;\n;g' | while read line; do printf '"%s"\n' "$line"; done
+    echo "] rootScope)"
+done
+echo '""'
+echo "])"
+} | sd nix repl --really 2>/dev/null | grep loc | sed 's;[^"]*"\([^"]*\)"[^$]*;\1;' | while read line; do cat "$line"; done

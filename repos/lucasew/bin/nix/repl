@@ -3,4 +3,4 @@
 
 # vim:ft=bash
 
-sd d run nix repl repl.nix
+sd d run nix repl repl.nix --really "$@"
