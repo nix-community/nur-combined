@@ -1,7 +1,7 @@
 {
   imageName = "ghcr.io/slaier/openfortivpn";
-  imageDigest = "sha256:12f9347274251cafa080a93d98e8645382b0fee36e2d55f97dd012e877e14dac";
-  sha256 = "sha256-m+XsPBinsOI864hwZWqW0uBvVkgjZIhlPpyMXYQqP4U=";
-  os = "linux";
-  arch = "arm64";
+  imageDigest = "sha256:3e242c43b0ef1beb5bf911c627451726b11063d79d7ab7f28df8d922e4dbba81";
+  sha256 = "1a13dkj4ffkmfgmgz2hiizsrb4z5fzqzmirk81qzd419y9n9gczm";
+  finalImageName = "ghcr.io/slaier/openfortivpn";
+  finalImageTag = "latest";
 }
