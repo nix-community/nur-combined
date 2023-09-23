@@ -22,8 +22,8 @@ rec {
   };
 
   MaaAssistantArknights-beta = MaaAssistantArknights.override { 
-    maaVersion = "4.24.0-beta.4";
-    maaSourceHash = "sha256-6khSX26CMeqfd2BmiVMYfFXiFPjwRhqusXCLttdfRN4=";
+    maaVersion = "4.24.0-beta.5";
+    maaSourceHash = "sha256-nwsDTDsqaTs6B7OQSFmSHKqO2UXFKgQF/aW6t/dK4m4=";
   };
 
 

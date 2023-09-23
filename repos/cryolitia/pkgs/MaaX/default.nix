@@ -53,8 +53,8 @@ in stdenv.mkDerivation rec {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
-      desktopName = pname;
+      name = "MaaX";
+      desktopName = "Maax";
       exec = "MaaX";
       icon = "MaaX";
       categories = [ "Game" "StrategyGame" ];
@@ -64,7 +64,7 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "MaaAssistantArknights GUI with Electron & Vue3";
-    homepage = "MaaAssistantArknights";
+    homepage = "https://github.com/MaaAssistantArknights/MaaX";
     license = licenses.agpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ Cryolitia ];
