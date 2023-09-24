@@ -1,17 +1,23 @@
 { lib, fetchFromGitHub, rustPlatform, pkg-config, sqlite }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "raspi-oled";
-  version = "unstable-infdev-2";
+  version = "unstable-infdev-3";
 
   src = fetchFromGitHub {
     owner = "FliegendeWurst";
     repo = "raspi-oled";
-    rev = "1a5272b7ba987df5b84eef1f92764d335762748e";
-    sha256 = "sha256-VPEKGNckXIDSzA2rwtUGYNyTSEzcseDOwVnG9xEb0nw=";
+    rev = "c17424a686fe2dc4f8928052c68deda57794a44d";
+    sha256 = "sha256-C9Q/2NCrhxGIgzAU5eBWD21+5l/YtTiwjbpvnRorrOY=";
   };
 
-  cargoSha256 = "sha256-JUR96YDgZz7GUMWZr4bG+iHvMVSxkaUMvVf7hLpI5KI=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "ssd1351-0.3.0" = "sha256-K6QCU9qPEuU7Ur8W6fTdi4JWk8NsVz3mLfV0afpfdBA=";
+	  # "gpio-am2302-rs-1.1.0" = "sha256-tyA/R80LtWIXoVEoxHhkmzy0IsMdMH1Oi3FTQ56XjyQ=";
+    };
+  };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ sqlite ];

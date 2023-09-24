@@ -20,10 +20,8 @@
   q = pkgs.callPackage ./pkgs/q { };
   # TODO: fix dependency specification
   #raspi-oled = pkgs.callPackage ./pkgs/raspi-oled { };
-  #raspi-oled-cross = pkgs.pkgsCross.muslpi.callPackage ./pkgs/raspi-oled { };
+  raspi-oled-cross = pkgs.pkgsCross.muslpi.callPackage ./pkgs/raspi-oled { };
   ripgrep-all = pkgs.callPackage ./pkgs/ripgrep-all {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
