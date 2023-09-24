@@ -21,11 +21,11 @@
     "gateway": {
       "update-channel": "Gateway EAP",
       "url-template": "https://download.jetbrains.com/idea/gateway/JetBrainsGateway-{version}.tar.gz",
-      "version": "2023.2 EAP",
-      "sha256": "8362ba86244ff4fa38c40589632fffcfc26f1f1bb16898f94324a4e4d6711806",
-      "url": "https://download.jetbrains.com/idea/gateway/JetBrainsGateway-232.8660.48.tar.gz",
+      "version": "2023.3 EAP",
+      "sha256": "5200bcc2cd8226655957133866f5ef24aa8f2b83e21106aab6d868415278fd01",
+      "url": "https://download.jetbrains.com/idea/gateway/JetBrainsGateway-233.6745.303.tar.gz",
       "version-major-minor": "2022.3",
-      "build_number": "232.8660.48"
+      "build_number": "233.6745.303"
     },
     "goland": {
       "update-channel": "GoLand RELEASE",

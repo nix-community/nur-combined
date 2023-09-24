@@ -99,8 +99,8 @@
         "phpstorm"
       ],
       "builds": {
-        "232.9921.47": "https://plugins.jetbrains.com/files/7219/389222/Symfony_Plugin-2022.1.256.zip",
-        "232.9921.55": "https://plugins.jetbrains.com/files/7219/389222/Symfony_Plugin-2022.1.256.zip"
+        "232.9921.47": "https://plugins.jetbrains.com/files/7219/401047/Symfony_Plugin-2022.1.257.zip",
+        "232.9921.55": "https://plugins.jetbrains.com/files/7219/401047/Symfony_Plugin-2022.1.257.zip"
       },
       "name": "symfony-support"
     },
@@ -125,8 +125,8 @@
       "builds": {
         "232.9559.28": "https://plugins.jetbrains.com/files/7322/381781/python-ce-232.9559.62.zip",
         "232.9559.61": "https://plugins.jetbrains.com/files/7322/381781/python-ce-232.9559.62.zip",
-        "232.9921.47": "https://plugins.jetbrains.com/files/7322/395441/python-ce-232.9921.47.zip",
-        "232.9921.53": "https://plugins.jetbrains.com/files/7322/395441/python-ce-232.9921.47.zip"
+        "232.9921.47": "https://plugins.jetbrains.com/files/7322/401058/python-ce-232.9921.77.zip",
+        "232.9921.53": "https://plugins.jetbrains.com/files/7322/401058/python-ce-232.9921.77.zip"
       },
       "name": "python-community-edition"
     },
@@ -457,10 +457,10 @@
     "https://plugins.jetbrains.com/files/6954/381727/kotlin-plugin-223-1.9.10-release-459-IJ8836.35.zip": "sha256-gHkNQyWh6jtY1986aI7Qo6ZNrniPy+Yq4XLLA0pKJkA=",
     "https://plugins.jetbrains.com/files/6981/383851/ini-232.9559.64.zip": "sha256-XJoRZ3ExKHkUZljuuMjMzMCcFw0A+vOyJAwtf+soHU4=",
     "https://plugins.jetbrains.com/files/6981/398535/ini-232.9921.55.zip": "sha256-Jntjg8pXb2HfE8yojDcECM/Lbv4k7J2AoxQ2yD2R23s=",
-    "https://plugins.jetbrains.com/files/7219/389222/Symfony_Plugin-2022.1.256.zip": "sha256-PeaqtFldh89x6wMGSM1RUR2PLSnXa7mKSojOkrFM2R8=",
+    "https://plugins.jetbrains.com/files/7219/401047/Symfony_Plugin-2022.1.257.zip": "sha256-H5ZfeMT93sGUrDh/7ba9zsW/eQz37Rl/iShY6ryNM3E=",
     "https://plugins.jetbrains.com/files/7320/346181/PHP_Annotations-9.4.0.zip": "sha256-hT5K4w4lhvNwDzDMDSvsIDGj9lyaRqglfOhlbNdqpWs=",
     "https://plugins.jetbrains.com/files/7322/381781/python-ce-232.9559.62.zip": "sha256-wyqNQO4fFU9fJVbHbde/NWtY/RVOF/71o+TgWfS7VuM=",
-    "https://plugins.jetbrains.com/files/7322/395441/python-ce-232.9921.47.zip": "sha256-2oRXtVv9ima8W6vywkDX4IeUGwfVNEo4rsqYBmmWhKc=",
+    "https://plugins.jetbrains.com/files/7322/401058/python-ce-232.9921.77.zip": "sha256-cr4LxSz8xVzC+Zm+6LnWGLbF6aGBVLW56crCIQOawhc=",
     "https://plugins.jetbrains.com/files/8182/329558/intellij-rust-0.4.194.5382-223.zip": "sha256-AgaKH4ZaxLhumk1P9BVJGpvluKnpYIulCDIRQpaWlKA=",
     "https://plugins.jetbrains.com/files/8182/372556/intellij-rust-0.4.200.5420-232-beta.zip": "sha256-ZlSfPvhPixEz5JxU9qyG0nL3jiSjr4gKaf/xYcQI1vQ=",
     "https://plugins.jetbrains.com/files/8182/395553/intellij-rust-0.4.201.5424-232.zip": "sha256-pVwBEyUCx/DJET9uIm8vxFeChE8FskWyfLjDpfg2mAE=",
