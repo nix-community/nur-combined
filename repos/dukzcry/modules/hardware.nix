@@ -19,6 +19,8 @@ let
       builders-use-substitutes = true
     '';
     nix.distributedBuilds = true;
+    nix.settings.substituters = [ "http://powerhorse:5000" "https://cache.nixos.org/" ];
+    nix.settings.trusted-public-keys = [ "powerhorse-1:d6cps6qy6UuAaTquP0RwSePLhrmzz9xFjk+rVlmP2sY=" ];
   };
 in {
   inherit imports;
@@ -90,6 +92,7 @@ in {
       services.hardware.remminaLegacy = true;
     } // builder))
     (mkIf (cfg.enable && desktop) {
+      services.nix-serve.enable = true;
       nix.settings.cores = 8;
       boot.loader.systemd-boot.configurationLimit = 70;
       hardware.bluetooth.enable = true;
