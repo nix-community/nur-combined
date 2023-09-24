@@ -1,10 +1,12 @@
 { lib
 , stdenv
 , fetchFromGitLab
+, fetchpatch
 , meson
 , ninja
 , pkg-config
 , gcr
+, gitUpdater
 , glib
 , gnome-desktop
 , gtk3
@@ -29,16 +31,28 @@
 
 stdenv.mkDerivation rec {
   pname = "phog";
-  version = "0.1.3";
+  version = "0.1.4";
 
   src = fetchFromGitLab {
     owner = "mobian1";
     repo = "phog";
     rev = version;
-    hash = "sha256-zny1FUYKwVXVSBGTh8AFVtMBS7dWZHTKO2gkPNPSL2M=";
+    hash = "sha256-Uy3u2xnfbO1G/xMLmgIbZZmhQR9vW51vmHoR/ykw8vc=";
   };
 
   patches = [
+    # (fetchpatch {
+    #   # merged post 0.1.4
+    #   # https://gitlab.com/mobian1/phog/-/merge_requests/4
+    #   # fixes "json_node_unref: assertion 'JSON_NODE_IS_VALID (node)' failed"
+    #   name = "greetd: Don't free reply_root";
+    #   url = "https://gitlab.com/mobian1/phog/-/commit/ad1a2b876a1205f0927c7c02e0471364d557e3fe.patch";
+    #   hash = "sha256-gYQLDCKNIc4xPtgKRMzH4fmayx5w2oED2FjkD7fKswA=";
+    # })
+    # somehow ignoring session_info's w/o DesktopNames causes a segfault...
+    # this patch reverts part of the following change: <https://gitlab.com/mobian1/phog/-/merge_requests/3>
+    # TODO: probably i can fix up my sessions to include DesktopNames, and then remove this patch
+    ./dont-skip-sessions-without-DesktopNames.patch
     ./sway-compat.patch
   ];
 
@@ -92,6 +106,8 @@ stdenv.mkDerivation rec {
     wayland-scanner
     wrapGAppsHook
   ];
+
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Greetd-compatible greeter for mobile phones";

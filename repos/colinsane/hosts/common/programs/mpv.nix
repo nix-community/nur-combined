@@ -37,7 +37,7 @@
         "--add-flags" "--vo=sdl"
       ];
     };
-    persist.plaintext = [ ".config/mpv/watch_later" ];
+    persist.plaintext = [ ".local/state/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = ''
       # let volume/power keys be interpreted by the system.
       # this is important for sxmo.

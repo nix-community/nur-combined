@@ -1,0 +1,16 @@
+diff --git a/src/greetd.c b/src/greetd.c
+index 71d0b68c..831a68a2 100644
+--- a/src/greetd.c
++++ b/src/greetd.c
+@@ -146,11 +146,6 @@ greetd_list_sessions_in_folder (PhogGreetd *self, const gchar *path, const gchar
+                                          g_app_info_get_commandline (G_APP_INFO (session_info)));
+ 
+         desktop_names = g_desktop_app_info_get_string (session_info, "DesktopNames");
+-        if (!desktop_names) {
+-          g_warning ("No DesktopNames in %s - ignoring", session_id);
+-          continue;
+-        }
+-
+         if (g_str_has_suffix (desktop_names, ";")) {
+             desktop_names[strlen (desktop_names) - 1] = '\0';
+         }

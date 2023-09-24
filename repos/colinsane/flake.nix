@@ -79,16 +79,33 @@
   }@inputs:
     let
       inherit (builtins) attrNames elem listToAttrs map mapAttrs;
+      # redefine some nixpkgs `lib` functions to avoid the infinite recursion
+      # of if we tried to use patched `nixpkgs.lib` as part of the patching process.
       mapAttrs' = f: set:
         listToAttrs (map (attr: f attr set.${attr}) (attrNames set));
+      optionalAttrs = cond: attrs: if cond then attrs else {};
       # mapAttrs but without the `name` argument
       mapAttrValues = f: mapAttrs (_: f);
+
       # rather than apply our nixpkgs patches as a flake input, do that here instead.
       # this (temporarily?) resolves the bad UX wherein a subflake residing in the same git
       # repo as the main flake causes the main flake to have an unstable hash.
       nixpkgs = (import ./nixpatches/flake.nix).outputs {
         self = nixpkgs;
         nixpkgs = nixpkgs-unpatched;
+      } // {
+        # provide values that nixpkgs ordinarily sources from the flake.lock file,
+        # inaccessible to it here because of the import-from-derivation.
+        # rev and shortRev seem to not always exist (e.g. if the working tree is dirty),
+        # so those are made conditional.
+        #
+        # these values impact the name of a produced nixos system. having date/rev in the
+        # `readlink /run/current-system` store path helps debuggability.
+        inherit (self) lastModifiedDate lastModified;
+      } // optionalAttrs (self ? rev) {
+        inherit (self) rev;
+      } // optionalAttrs (self ? shortRev) {
+        inherit (self) shortRev;
       };
 
       nixpkgsCompiledBy = system: nixpkgs.legacyPackages."${system}";

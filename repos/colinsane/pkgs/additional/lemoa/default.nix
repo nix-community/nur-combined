@@ -1,6 +1,7 @@
 { lib
 , fetchFromGitHub
 , gdk-pixbuf
+, gitUpdater
 , glib
 , graphene
 , gtk4
@@ -32,6 +33,10 @@ rustPlatform.buildRustPackage rec {
     libadwaita
     openssl
   ];
+
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "v";
+  };
 
   meta = with lib; {
     description = "Native Gtk client for Lemmy";
