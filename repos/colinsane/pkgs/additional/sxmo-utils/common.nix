@@ -10,6 +10,7 @@
 , coreutils
 , curl
 , dbus
+, dmenu
 , fetchgit
 , fetchpatch
 , gitUpdater
@@ -25,7 +26,6 @@
 , lisgd
 , makeBinaryWrapper
 , mako
-, mepo
 , modemmanager
 , nettools
 , playerctl
@@ -33,6 +33,7 @@
 , pulseaudio
 , rsync
 , scdoc
+, scrot
 , sfeed
 , slurp
 , superd
@@ -50,22 +51,21 @@
 , rev ? version
 , hash ? ""
 , patches ? []
+, supportSway ? true
+, supportDwm ? false
 }:
 
 let
   # anything which any sxmo script or default hook in this package might invoke
   runtimeDeps = [
     bc  # also in busybox
-    bemenu
     bonsai
     brightnessctl
     conky
     curl
     dbus
-    # dmenu  # or dmenu-wayland? only used on x11?
     gnugrep  # also in busybox
     gojq
-    grim
     inotify-tools
     j4-dmenu-desktop
     jq
@@ -73,25 +73,28 @@ let
     libxml2.bin  # for xmllint; sxmo_weather.sh, sxmo_surf_linkset.sh
     lisgd
     mako
-    mepo  # mepo_ui_central_menu.sh
     modemmanager  # mmcli
     nettools  # netstat
     playerctl
     procps  # pgrep
     pulseaudio  # pactl
     sfeed
-    slurp  # for sxmo_screenshot.sh
     superd
+    wob
+    xdg-user-dirs  # used by sxmo_hook_start.sh
+    xrdb  # for sxmo_xinit AND sxmo_winit
+  ] ++ lib.optionals supportSway [
+    bemenu
+    grim
+    slurp  # for sxmo_screenshot.sh
     sway
     swayidle
     wl-clipboard  # for wl-copy; sxmo_screenshot.sh
-    wob
     wtype  # for sxmo_type
-    wvkbd
-    xdg-user-dirs  # used by sxmo_hook_start.sh
-    xrdb  # for sxmo_xinit AND sxmo_winit
-
-    # X11 only?
+    wvkbd  # sxmo_winit.sh
+  ] ++ lib.optionals supportDwm [
+    dmenu
+    scrot  # sxmo_screenshot.sh
     xdotool
   ];
 in
@@ -157,7 +160,7 @@ stdenv.mkDerivation rec {
     ; do
       case $(basename $f) in
         (sxmo_common.sh|sxmo_deviceprofile_*.sh|sxmo_hook_icons.sh|sxmo_init.sh)
-          # these are sourced by other scripts: don't wrap them else the `exec` in the wrapper breaks the outer script
+          # these are sourced by other scripts: don't wrap them else the `exec` in the nix wrapper breaks the outer script
         ;;
         (*)
           wrapProgram "$f" \
@@ -168,7 +171,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    providedSessions = [ "sxmo" "swmo" ];
+    providedSessions = (lib.optional supportSway "swmo") ++ (lib.optional supportDwm "sxmo");
     updateScript = gitUpdater { };
   };
 
