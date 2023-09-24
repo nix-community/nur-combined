@@ -1,15 +1,18 @@
 { gpodder
 , fetchFromGitHub
+, gitUpdater
 , libhandy
 }:
-gpodder.overridePythonAttrs (upstream: rec {
+
+let
+self = gpodder.overridePythonAttrs (upstream: rec {
   pname = "gpodder-adaptive";
-  version = "3.11.1+1";
+  version = "3.11.2+1";
   src = fetchFromGitHub {
     owner = "gpodder";
     repo = "gpodder";
     rev = "adaptive/${version}";
-    hash = "sha256-pn5sh8CLV2Civ26PL3rrkkUdoobu7SIHXmWKCZucBhw=";
+    hash = "sha256-DJ5/9PFRc0uVREy4JmFVweiSGtXZ8wyb+XaNmjI5/k4=";
   };
 
   # nixpkgs `gpodder` uses the `format = "other"` Makefile build flow.
@@ -30,4 +33,19 @@ gpodder.overridePythonAttrs (upstream: rec {
   buildInputs = upstream.buildInputs ++ [
     libhandy
   ];
-})
+
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "adaptive/";
+  };
+});
+in self // {
+  meta = self.meta // {
+    # ensure nix thinks the canonical position of this derivation is inside my own repo,
+    # not upstream nixpkgs repo. this ensures that the updateScript can patch the version/hash
+    # of the right file. meta.position gets overwritten if set in overrideAttrs, hence this
+    # manual `//` hack
+    position = let
+      pos = builtins.unsafeGetAttrPos "updateScript" self.passthru;
+    in "${pos.file}:${builtins.toString pos.line}";
+  };
+}

@@ -19,6 +19,13 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
+  (fetchpatch' {
+    # merged 2023/09/21
+    title = "resholve: fix oildev";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/256612";
+    hash = "sha256-LmDReZTOQ8nvjmDNlWa8mzD6Ycnq4/Zlr08Kd+xSpzg=";
+  })
+
   # (fetchpatch' {
   #   # fixes /mnt/servo-nfs mount failures
   #   # 2023/09/21: doesn't apply
@@ -57,12 +64,6 @@ in [
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/253913";
   #   hash = "sha256-D2fnB4eOvbew0tea7Y1LH7GQJF3Pch/9DLEChf/ZNxs=";
   # })
-
-  (fetchpatch' {
-    title = "libkiwix: 12.0.0 -> 12.1.1";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/246700";
-    hash = "sha256-hhPF0EXS3Ilj6gBJYAAA4JU3qZmE2VZhcLssBF5jpFQ=";
-  })
 
   # (fetchpatch' {
   #   # XXX: doesn't cleanly apply; fetch `firefox-pmos-mobile` branch from my git instead

@@ -4,6 +4,8 @@
 #   - this is marginally the case with schemes like `github:nixos/nixpkgs`.
 #   - given the *existing* `git+https://` scheme, i propose expressing github URLs similarly:
 #     - `github+https://github.com/nixos/nixpkgs/tree/nixos-22.11`
+#     - this would allow for the same optimizations as today's `github:nixos/nixpkgs`, but without obscuring the source.
+#       a code reader could view the source being referenced simply by clicking the https:// portion of that URI.
 # - need some way to apply local patches to inputs.
 #
 #
@@ -244,6 +246,7 @@
       apps."x86_64-linux" =
         let
           pkgs = self.legacyPackages."x86_64-linux";
+          sanePkgs = import ./pkgs { inherit pkgs; };
           deployScript = host: addr: action: pkgs.writeShellScript "deploy-${host}" ''
             nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} $@
             sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result-${host})
@@ -253,6 +256,28 @@
             # let the user handle that edge case by re-running this whole command
             nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${addr} --use-remote-sudo $@
           '';
+          mkUpdater = attrPath: {
+            type = "app";
+            program = let
+              pkg = pkgs.lib.getAttrFromPath attrPath sanePkgs;
+              strAttrPath = pkgs.lib.concatStringsSep "." attrPath;
+            in builtins.toString (pkgs.writeShellScript "update-${pkg.name}" ''
+              export UPDATE_NIX_NAME=${pkg.name}
+              export UPDATE_NIX_PNAME=${pkg.pname}
+              export UPDATE_NIX_OLD_VERSION=${pkg.version}
+              export UPDATE_NIX_ATTR_PATH=${strAttrPath}
+              ${pkgs.lib.escapeShellArgs pkg.updateScript.command}
+            '');
+          };
+          mkUpdaters = basePath: pkgs.lib.concatMapAttrs
+            (name: pkg:
+              if pkg.recurseForDerivations or false then {
+                "${name}" = mkUpdaters (basePath ++ [ name ]);
+              } else if pkg.updateScript or null != null then {
+                "${name}" = mkUpdater (basePath ++ [ name ]);
+              } else {}
+            )
+            (pkgs.lib.getAttrFromPath basePath sanePkgs);
         in {
           help = {
             type = "app";
@@ -261,8 +286,10 @@
                 commands:
                 - `nix run '.#help'`
                   - show this message
-                - `nix run '.#update-feeds'`
+                - `nix run '.#update.feeds'`
                   - updates metadata for all feeds
+                - `nix run '.#update.pkgs.firefox-extensions.unwrapped.bypass-paywalls-clean'`
+                  - runs the `updateScript` for the corresponding pkg, if it has one
                 - `nix run '.#init-feed' <url>`
                 - `nix run '.#deploy-{lappy,moby,moby-test,servo}' [nixos-rebuild args ...]`
                 - `nix run '.#check-nur'`
@@ -271,25 +298,12 @@
               cat ${helpMsg}
             '');
           };
-          update-feeds = {
+          update.feeds = {
             type = "app";
             program = "${pkgs.feeds.updateScript}";
           };
 
-          update-bpc = {
-            # proof-of-concept updater like in nixpkgs
-            # TODO: extend this to update all my packages
-            type = "app";
-            program = let
-              pkg = pkgs.firefox-extensions.unwrapped.bypass-paywalls-clean;
-            in builtins.toString (pkgs.writeShellScript "update-bpc" ''
-              export UPDATE_NIX_NAME=${pkg.name}
-              export UPDATE_NIX_PNAME=${pkg.pname}
-              export UPDATE_NIX_OLD_VERSION=${pkg.version}
-              export UPDATE_NIX_ATTR_PATH=firefox-extensions.unwrapped.bypass-paywalls-clean
-              ${pkgs.lib.escapeShellArgs pkg.updateScript.command}
-            '');
-          };
+          update.pkgs = mkUpdaters [];
 
           init-feed = {
             type = "app";
