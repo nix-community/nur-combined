@@ -124,8 +124,8 @@ in
       type = types.attrsOf types.path;
       default = {
         "sxmo_hook_start.sh" = "${hookPkgs.start}/bin/sxmo_hook_start.sh";
-        "sxmo_hook_inputhandler.sh" = "${hookPkgs.inputhandler}/sxmo_hook_inputhandler.sh";
-        "sxmo_hook_postwake.sh" = "${hookPkgs.postwake}/sxmo_hook_postwake.sh";
+        "sxmo_hook_inputhandler.sh" = "${hookPkgs.inputhandler}/bin/sxmo_hook_inputhandler.sh";
+        "sxmo_hook_postwake.sh" = "${hookPkgs.postwake}/bin/sxmo_hook_postwake.sh";
       };
       description = ''
         extra hooks to add with higher priority than the builtins
