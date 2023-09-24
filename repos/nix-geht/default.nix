@@ -1,12 +1,12 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> {inherit system;}
+  pkgs ? import <nixpkgs> {inherit system;},
 }: let
   overlays = import ./overlays;
 
   metaOverlay = self: super:
     with super.lib;
-    foldl' (flip extends) (_: super) (builtins.attrValues overlays) self;
+      foldl' (flip extends) (_: super) (builtins.attrValues overlays) self;
 
   newpkgs = pkgs.extend metaOverlay;
 

@@ -1,17 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, libuev, libite }:
-
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  libuev,
+  libite,
+}:
 stdenv.mkDerivation rec {
   pname = "uftpd";
   version = "2.15";
-  src = fetchFromGitHub ({
+
+  src = fetchFromGitHub {
     owner = "troglobit";
     repo = pname;
     rev = "v${version}";
     hash = "sha256-+y1eRPUgYf5laRFIDD1XOEfonPP8QMJNCSkmHlXIjdY=";
-  });
+  };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ libuev libite ];
+  nativeBuildInputs = [pkg-config autoreconfHook];
+  buildInputs = [libuev libite];
 
   meta = with lib; {
     description = "FTP/TFTP server for Linux that just works™";

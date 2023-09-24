@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, libite, libuev, libconfuse }:
-
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  libite,
+  libuev,
+  libconfuse,
+}:
 stdenv.mkDerivation rec {
   pname = "watchdogd";
   version = "3.5";
@@ -11,8 +19,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-DnXIOGZQK16jn20ASwrKIih/61zUuTTgeq7Gv9WLxxU=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ libite libuev libconfuse ];
+  nativeBuildInputs = [pkg-config autoreconfHook];
+  buildInputs = [libite libuev libconfuse];
 
   meta = with lib; {
     description = "Advanced system & process supervisor for Linux";

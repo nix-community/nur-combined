@@ -1,5 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook }:
-
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+}:
 stdenv.mkDerivation rec {
   pname = "netcalc";
   version = "2.1.6";
@@ -11,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-PpAMsulXg67Wjttp0gInjychxouJ99he0Pc/pKbg3XY=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [pkg-config autoreconfHook];
 
   meta = with lib; {
     description = "netcalc is a clone of sipcalc using the output format of ipcalc";
