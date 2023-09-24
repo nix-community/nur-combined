@@ -27,6 +27,8 @@ let
       mkdir -p $out/share/wayland-sessions
       substitute ${origSway}/share/wayland-sessions/sway.desktop $out/share/wayland-sessions/sway.desktop \
         --replace 'Exec=sway' 'Exec=${swayWithLogger}/bin/sway-session'
+      # XXX(2023/09/24) phog greeter (mobile greeter) will crash if DesktopNames is not set
+      echo "DesktopNames=Sway" >> $out/share/wayland-sessions/sway.desktop
     '';
   in pkgs.symlinkJoin {
     inherit (origSway) name meta;

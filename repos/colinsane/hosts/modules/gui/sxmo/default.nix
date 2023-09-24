@@ -66,6 +66,23 @@ let
     echo "launching ${identifier}..." | ${systemd-cat} --identifier=${identifier}
     ${cmd} 2>&1 | ${systemd-cat} --identifier=${identifier}
   '';
+
+  hookPkgs = {
+    inputhandler = pkgs.static-nix-shell.mkBash {
+      pname = "sxmo_hook_inputhandler.sh";
+      src = ./hooks;
+      pkgs = [ "coreutils" ];
+    };
+    start = pkgs.static-nix-shell.mkBash {
+      pname = "sxmo_hook_start.sh";
+      src = ./hooks;
+      pkgs = [ "superd" "xdg-user-dirs" ];
+    };
+    postwake = pkgs.static-nix-shell.mkBash {
+      pname = "sxmo_hook_postwake.sh";
+      src = ./hooks;
+    };
+  };
 in
 {
   options = with lib; {
@@ -106,9 +123,9 @@ in
     sane.gui.sxmo.hooks = mkOption {
       type = types.attrsOf types.path;
       default = {
-        "sxmo_hook_start.sh" = ./hooks/sxmo_hook_start.sh;
-        "sxmo_hook_inputhandler.sh" = ./hooks/sxmo_hook_inputhandler.sh;
-        "sxmo_hook_postwake.sh" = ./hooks/sxmo_hook_postwake.sh;
+        "sxmo_hook_start.sh" = "${hookPkgs.start}/bin/sxmo_hook_start.sh";
+        "sxmo_hook_inputhandler.sh" = "${hookPkgs.inputhandler}/sxmo_hook_inputhandler.sh";
+        "sxmo_hook_postwake.sh" = "${hookPkgs.postwake}/sxmo_hook_postwake.sh";
       };
       description = ''
         extra hooks to add with higher priority than the builtins

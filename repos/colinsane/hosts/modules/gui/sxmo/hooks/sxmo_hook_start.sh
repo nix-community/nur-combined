@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p superd -p xdg-user-dirs
 # this is based on upstream sxmo-utils sxmo_hook_start.sh
 # but modified for nixos integration and specialize a bit to my needs
 . sxmo_common.sh

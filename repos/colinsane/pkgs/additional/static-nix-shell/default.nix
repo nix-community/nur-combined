@@ -50,6 +50,7 @@ in rec {
     # allow any package to be a list of packages, to support things like
     # -p python3Packages.foo.propagatedBuildInputs
     pkgsEnv' = lib.flatten pkgsEnv;
+    doWrap = pkgsEnv' != [];
   in
     stdenv.mkDerivation ({
       version = "0.1.0";  # default version
@@ -69,9 +70,11 @@ in rec {
         # ensure that all nix-shell references were substituted
         (! grep nix-shell $out/bin/${srcPath}) || exit 1
 
+      '' + lib.optionalString doWrap ''
         # add runtime dependencies to PATH
         wrapProgram $out/bin/${srcPath} \
           --suffix PATH : ${lib.makeBinPath pkgsEnv' }
+      '' + ''
 
         runHook postInstall
       '';

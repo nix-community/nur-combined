@@ -88,7 +88,7 @@ let
     wob
     wtype  # for sxmo_type
     wvkbd
-    xdg-user-dirs
+    xdg-user-dirs  # used by sxmo_hook_start.sh
     xrdb  # for sxmo_xinit AND sxmo_winit
 
     # X11 only?

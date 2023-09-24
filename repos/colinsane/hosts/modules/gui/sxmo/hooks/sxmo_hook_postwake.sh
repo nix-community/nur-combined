@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash
 
 # the default sxmo_postwake handler checks if the modem is offline
 # and if so installs a wakelock to block suspend for 30s.

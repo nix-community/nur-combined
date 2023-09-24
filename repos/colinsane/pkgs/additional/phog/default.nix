@@ -49,10 +49,6 @@ stdenv.mkDerivation rec {
     #   url = "https://gitlab.com/mobian1/phog/-/commit/ad1a2b876a1205f0927c7c02e0471364d557e3fe.patch";
     #   hash = "sha256-gYQLDCKNIc4xPtgKRMzH4fmayx5w2oED2FjkD7fKswA=";
     # })
-    # somehow ignoring session_info's w/o DesktopNames causes a segfault...
-    # this patch reverts part of the following change: <https://gitlab.com/mobian1/phog/-/merge_requests/3>
-    # TODO: probably i can fix up my sessions to include DesktopNames, and then remove this patch
-    ./dont-skip-sessions-without-DesktopNames.patch
     ./sway-compat.patch
   ];
 

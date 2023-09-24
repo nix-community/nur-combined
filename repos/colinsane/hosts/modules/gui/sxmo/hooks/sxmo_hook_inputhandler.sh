@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p coreutils
 
 # increments to use for volume adjustment
 VOL_INCR_1=5
