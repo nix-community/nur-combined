@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mpris-ctl";
-  version = "0.8.6";
+  version = "0.9";
 
   src = fetchFromGitHub {
     owner = "mariusor";
     repo = "mpris-ctl";
     rev = "v${version}";
-    hash = "sha256-aOhAr/1Go29u/db+vtDpLclJg2+O4rAhFMRB8AQTWko=";
+    hash = "sha256-miAwVTJYq6yWFTPmNpaMRI22JInmNVE1vyAeuarADag=";
   };
 
   nativeBuildInputs = [ pkg-config scdoc installShellFiles ];
