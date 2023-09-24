@@ -69,7 +69,7 @@ let
     deadlines = static-nix-shell.mkBash {
       pname = "sane-deadlines";
       src = ./src;
-      pkgs = [ "coreutils-full" ];
+      pkgs = [ "coreutils-full" "gnused" ];
     };
     dev-cargo-loop = static-nix-shell.mkBash {
       pname = "sane-dev-cargo-loop";
