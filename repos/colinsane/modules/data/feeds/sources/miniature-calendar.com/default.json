@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 1990,
+  "content_length": 1866,
   "content_type": "application/atom+xml; charset=utf-8",
   "description": "\u65e5\u7528\u54c1\u3092\u5225\u306e\u3082\u306e\u306b\u898b\u7acb\u3066\u305f\u3001\u30df\u30cb\u30c1\u30e5\u30a2\u30a2\u30fc\u30c8\u3092\u6bce\u65e5\u66f4\u65b0\u4e2d",
   "favicon": "https://www.miniature-calendar.com/images/favicon.ico",
@@ -9,7 +9,7 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 1,
-  "last_updated": "2023-01-25T22:00:38+00:00",
+  "last_updated": "2023-09-23T22:00:59+00:00",
   "score": 20,
   "self_url": "https://miniature-calendar.com/feed/atom/",
   "site_name": "MINIATURE CALENDAR",

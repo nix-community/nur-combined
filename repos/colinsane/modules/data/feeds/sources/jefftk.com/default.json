@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 226798,
+  "content_length": 177414,
   "content_type": "application/rss+xml; charset=ascii",
   "description": "Jeff Kaufman's Writing",
   "favicon": "https://www.jefftk.com/favicon.ico",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 30,
-  "last_updated": "2023-01-25T08:00:00+00:00",
+  "last_updated": "2023-09-24T08:00:00+00:00",
   "score": 18,
   "self_url": "https://www.jefftk.com/news.rss",
   "site_name": "\n      Jeff Kaufman\n    ",
   "site_url": "https://www.jefftk.com",
   "title": "Jeff Kaufman's Writing",
   "url": "https://www.jefftk.com/news.rss",
-  "velocity": 0.757,
+  "velocity": 0.446,
   "version": "rss20"
 }

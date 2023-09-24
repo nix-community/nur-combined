@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 213052,
+  "content_length": 328802,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "",
   "favicon": "https://images.squarespace-cdn.com/content/v1/50363cf324ac8e905e7df861/ebdb4645-db93-4967-881d-db698ee59c2c/favicon.ico?format=100w",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 20,
-  "last_updated": "2022-12-14T09:43:49+00:00",
+  "last_updated": "2023-08-27T13:29:00+00:00",
   "score": 8,
   "self_url": "",
   "site_name": "Benedict Evans",
   "site_url": "https://www.ben-evans.com",
   "title": "Essays - Benedict Evans",
   "url": "https://www.ben-evans.com/benedictevans?format=rss",
-  "velocity": 0.033,
+  "velocity": 0.027,
   "version": "rss20"
 }

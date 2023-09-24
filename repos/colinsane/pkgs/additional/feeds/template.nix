@@ -1,12 +1,11 @@
 { lib
 , stdenv
-, callPackage
 , fetchurl
-# feed-specific args
-, feedName
-, jsonPath
-, url
+, update-feed
 }:
+
+# feed-specific args
+{ feedName, jsonPath, url }:
 
 stdenv.mkDerivation {
   pname = feedName;
@@ -14,7 +13,10 @@ stdenv.mkDerivation {
   src = fetchurl {
     inherit url;
   };
-  passthru.updateScript = [ ./update.py url jsonPath ];
+  passthru.updateScript = {
+    name = "feed-update-script";
+    command = [ "${update-feed}/bin/update.py" url jsonPath ];
+  };
   meta = {
     description = "metadata about any feeds available at ${feedName}";
     homepage = feedName;

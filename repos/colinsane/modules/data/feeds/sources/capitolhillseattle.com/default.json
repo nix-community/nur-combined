@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 83424,
+  "content_length": 9276,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "Community News For All of Seattle's Capitol Hill",
   "favicon": "https://www.capitolhillseattle.com/favicon.ico",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 5,
-  "last_updated": "2023-04-02T02:03:11+00:00",
-  "score": 13,
+  "last_updated": "2023-09-22T15:12:34+00:00",
+  "score": 17,
   "self_url": "https://www.capitolhillseattle.com/feed/",
   "site_name": "CHS Capitol Hill Seattle News",
   "site_url": "https://www.capitolhillseattle.com",
   "title": "CHS Capitol Hill Seattle News",
   "url": "https://www.capitolhillseattle.com/feed/",
-  "velocity": 1.6,
+  "velocity": 5.393,
   "version": "rss20"
 }

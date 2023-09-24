@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 1913,
+  "content_length": 2965,
   "content_type": "text/xml; charset=utf-8",
   "description": "xkcd.com: A webcomic of romance and math humor.",
   "favicon": "https://xkcd.com/s/919f27.ico",
@@ -9,7 +9,7 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 4,
-  "last_updated": "2023-01-25T05:00:00+00:00",
+  "last_updated": "2023-09-22T04:00:00+00:00",
   "score": 24,
   "self_url": "",
   "site_name": "xkcd",

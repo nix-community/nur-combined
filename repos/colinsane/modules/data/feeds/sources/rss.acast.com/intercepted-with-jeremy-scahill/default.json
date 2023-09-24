@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 1131706,
+  "content_length": 1193088,
   "content_type": "application/xml; charset=utf-8",
   "description": "The people behind The Intercept\u2019s fearless reporting and incisive commentary discuss the crucial issues of our time.",
   "favicon": "",
@@ -8,14 +8,14 @@
   "hubs": [],
   "is_podcast": true,
   "is_push": false,
-  "item_count": 261,
-  "last_updated": "2023-06-07T09:30:43+00:00",
+  "item_count": 270,
+  "last_updated": "2023-09-22T09:30:07+00:00",
   "score": 10,
   "self_url": "https://feeds.acast.com/public/shows/f5b64019-68c3-57d4-b70b-043e63e5cbf6",
   "site_name": "",
   "site_url": "",
   "title": "Intercepted",
   "url": "https://feeds.acast.com/public/shows/f5b64019-68c3-57d4-b70b-043e63e5cbf6",
-  "velocity": 0.111,
+  "velocity": 0.11,
   "version": "rss20"
 }

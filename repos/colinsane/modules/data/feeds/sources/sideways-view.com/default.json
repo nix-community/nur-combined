@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 133568,
+  "content_length": 142319,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "Looking askance at reality",
   "favicon": "https://s1.wp.com/i/favicon.ico",
@@ -11,13 +11,13 @@
   "is_podcast": false,
   "is_push": true,
   "item_count": 10,
-  "last_updated": "2022-12-24T17:38:23+00:00",
+  "last_updated": "2023-07-29T18:00:06+00:00",
   "score": 22,
   "self_url": "https://sideways-view.com/feed/",
   "site_name": "The sideways view",
   "site_url": "https://sideways-view.com",
   "title": "The sideways view",
   "url": "https://sideways-view.com/feed/",
-  "velocity": 0.008,
+  "velocity": 0.009,
   "version": "rss20"
 }

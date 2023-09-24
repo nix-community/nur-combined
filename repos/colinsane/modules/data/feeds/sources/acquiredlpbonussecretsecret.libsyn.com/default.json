@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 567579,
+  "content_length": 479140,
   "content_type": "text/xml; charset=utf-8",
   "description": "ACQ2 is Ben and David's conversations with expert founders and investors.",
   "favicon": "",
@@ -10,14 +10,14 @@
   ],
   "is_podcast": true,
   "is_push": true,
-  "item_count": 91,
-  "last_updated": "2023-05-09T06:51:48+00:00",
+  "item_count": 95,
+  "last_updated": "2023-09-18T05:11:04+00:00",
   "score": 24,
   "self_url": "https://feeds.transistor.fm/acq2",
-  "site_name": "ACQ2: The Acquired Interviews",
+  "site_name": "",
   "site_url": "https://feeds.transistor.fm",
-  "title": "ACQ2: The Acquired Interviews",
+  "title": "ACQ2 by Acquired",
   "url": "https://feeds.transistor.fm/acq2",
-  "velocity": 0.054,
+  "velocity": 0.052,
   "version": "rss20"
 }

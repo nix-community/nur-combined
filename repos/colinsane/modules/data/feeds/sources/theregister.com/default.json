@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 48380,
+  "content_length": 49161,
   "content_type": "application/atom+xml; charset=utf-8",
   "description": "Biting the hand that feeds IT \u2014 Enterprise Technology News and Analysis",
   "favicon": "https://www.theregister.com/design_picker/13249a2e80709c7ff2e57dd3d49801cd534f2094/graphics/favicons/favicon.ico",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 50,
-  "last_updated": "2023-05-09T22:05:33+00:00",
-  "score": 34,
+  "last_updated": "2023-09-23T11:15:07+00:00",
+  "score": 50,
   "self_url": "https://www.theregister.com/headlines.atom",
   "site_name": "Enterprise Technology News and Analysis",
   "site_url": "https://www.theregister.com",
   "title": "The Register",
   "url": "https://www.theregister.com/headlines.atom",
-  "velocity": 14.96,
+  "velocity": 30.582,
   "version": "atom10"
 }

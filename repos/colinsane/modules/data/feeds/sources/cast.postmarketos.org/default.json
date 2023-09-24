@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 264781,
+  "content_length": 269068,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "News/interviews/anecdotes around postmarketOS, straight from the source.",
   "favicon": "https://postmarketos.org/static/img/favicon.ico",
@@ -8,14 +8,14 @@
   "hubs": [],
   "is_podcast": true,
   "is_push": false,
-  "item_count": 33,
-  "last_updated": "2023-06-24T00:00:00+00:00",
+  "item_count": 34,
+  "last_updated": "2023-08-02T00:00:00+00:00",
   "score": 22,
   "self_url": "https://cast.postmarketos.org/feed-legacy.rss",
   "site_name": "postmarketOS Podcast",
   "site_url": "https://postmarketos.org",
   "title": "postmarketOS Podcast",
   "url": "https://cast.postmarketos.org/feed-legacy.rss",
-  "velocity": 0.034,
+  "velocity": 0.033,
   "version": "rss20"
 }

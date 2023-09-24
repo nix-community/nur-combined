@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 918085,
+  "content_length": 1030056,
   "content_type": "application/xml; charset=utf-8",
   "description": "A show that cuts through all the political drivel and media misinformation to give you a straight take on one big news story of the week.",
   "favicon": "",
@@ -8,14 +8,14 @@
   "hubs": [],
   "is_podcast": true,
   "is_push": false,
-  "item_count": 238,
-  "last_updated": "2023-06-06T16:03:38+00:00",
+  "item_count": 256,
+  "last_updated": "2023-09-22T09:30:56+00:00",
   "score": 10,
   "self_url": "https://feeds.acast.com/public/shows/1d1223a2-9d05-473b-9e79-c2b65b71d676",
   "site_name": "",
   "site_url": "",
   "title": "Deconstructed",
   "url": "https://feeds.acast.com/public/shows/1d1223a2-9d05-473b-9e79-c2b65b71d676",
-  "velocity": 0.123,
+  "velocity": 0.126,
   "version": "rss20"
 }

@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 419093,
+  "content_length": 395757,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "IEEE Spectrum",
   "favicon": "https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yNjU5NjY0OS9vcmlnaW4ucG5nIiwiZXhwaXJlc19hdCI6MTcyMjY3NDUwNn0.E9lMSNv23A_GyW60aP_Rh5AzMMAKAHMpGrotgTDO5_Q/img.png?width=32&height=32",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 30,
-  "last_updated": "2023-01-25T16:00:04+00:00",
+  "last_updated": "2023-09-23T15:00:03+00:00",
   "score": 20,
   "self_url": "https://spectrum.ieee.org/feeds/feed.rss",
   "site_name": "IEEE Spectrum",
   "site_url": "https://spectrum.ieee.org",
   "title": "IEEE Spectrum",
   "url": "https://spectrum.ieee.org/feeds/feed.rss",
-  "velocity": 0.082,
+  "velocity": 0.049,
   "version": "rss20"
 }

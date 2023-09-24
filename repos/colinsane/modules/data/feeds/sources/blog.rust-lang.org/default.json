@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 76362,
+  "content_length": 66707,
   "content_type": "application/xml; charset=utf-8",
   "description": "Empowering everyone to build reliable and efficient software.",
   "favicon": "https://blog.rust-lang.org/images/favicon-16x16.png",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2023-03-09T00:00:00+00:00",
+  "last_updated": "2023-09-22T00:00:00+00:00",
   "score": 20,
   "self_url": "https://blog.rust-lang.org/feed.xml",
   "site_name": "The Rust Programming Language Blog",
   "site_url": "https://blog.rust-lang.org",
   "title": "Rust Blog",
   "url": "https://blog.rust-lang.org/feed.xml",
-  "velocity": 0.096,
+  "velocity": 0.114,
   "version": "atom10"
 }

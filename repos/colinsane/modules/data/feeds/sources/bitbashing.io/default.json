@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 339384,
+  "content_length": 264830,
   "content_type": "application/xml; charset=utf-8",
   "description": "Yet another programming blog. Thoughts on software and related misadventures.",
   "favicon": "https://bitbashing.io/favicon.ico",
@@ -9,7 +9,7 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2022-11-22T00:00:00+00:00",
+  "last_updated": "2023-09-08T00:00:00+00:00",
   "score": 20,
   "self_url": "https://bitbashing.io/feed.xml",
   "site_name": "Bit Bashing",

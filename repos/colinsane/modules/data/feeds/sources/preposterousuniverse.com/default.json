@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 997224,
+  "content_length": 1331446,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "Preposterous Universe",
   "favicon": "https://www.preposterousuniverse.com/wp-content/uploads/cropped-prepu-32x32.png",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2023-01-23T12:26:31+00:00",
+  "last_updated": "2023-09-18T11:52:01+00:00",
   "score": 12,
   "self_url": "https://www.preposterousuniverse.com/feed/",
   "site_name": "Sean Carroll \u2013 Preposterous Universe",
   "site_url": "https://www.preposterousuniverse.com",
   "title": "Sean Carroll",
   "url": "https://www.preposterousuniverse.com/feed/",
-  "velocity": 0.129,
+  "velocity": 0.143,
   "version": "rss20"
 }

@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 139581,
+  "content_length": 75809,
   "content_type": "text/xml; charset=utf-8",
   "description": "The Journal of \u30de\u30ea\u30a6\u30b9",
   "favicon": "https://xn--gckvb8fzb.com/favicons/favicon.292307c322c04a224b325fd2064cf86ddbe28ba500b1dee1f9398f0ef7574f19.ico",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 8,
-  "last_updated": "2023-01-21T18:21:53+00:00",
+  "last_updated": "2023-09-07T17:02:27+00:00",
   "score": 46,
   "self_url": "https://xn--gckvb8fzb.com/index.xml",
   "site_name": "\u30de\u30ea\u30a6\u30b9",
   "site_url": "https://xn--gckvb8fzb.com",
   "title": "\u30de\u30ea\u30a6\u30b9",
   "url": "https://xn--gckvb8fzb.com/index.xml",
-  "velocity": 0.184,
+  "velocity": 0.029,
   "version": "rss20"
 }

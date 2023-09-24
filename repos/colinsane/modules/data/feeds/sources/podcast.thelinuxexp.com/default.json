@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 169964,
+  "content_length": 254109,
   "content_type": "application/xml; charset=utf-8",
   "description": "<p>Weekly roundup of everything new in the Linux and Open Source world! May contain gaming and privacy related topics.</p>\n<p>This is a longer counterpart to the Linux and Open Source news videos available on The Linux Experiment Youtube Channel.</p>",
   "favicon": "https://podcast.thelinuxexp.com/media/site/favicon.cdd46691.ico",
@@ -13,14 +13,14 @@
   ],
   "is_podcast": true,
   "is_push": true,
-  "item_count": 25,
-  "last_updated": "2023-06-25T15:33:23+00:00",
+  "item_count": 38,
+  "last_updated": "2023-09-17T16:03:28+00:00",
   "score": 28,
   "self_url": "https://podcast.thelinuxexp.com/@tlenewspodcast/feed.xml",
   "site_name": "The Linux Experiment Podcasts",
   "site_url": "https://podcast.thelinuxexp.com",
   "title": "Linux + Open Source News, by TLE",
   "url": "https://podcast.thelinuxexp.com/@tlenewspodcast/feed.xml",
-  "velocity": 0.142,
+  "velocity": 0.146,
   "version": "rss20"
 }

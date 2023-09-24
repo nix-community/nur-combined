@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 14271,
+  "content_length": 16909,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "systems | complexity | second-order effects",
   "favicon": "https://cdn-dlcpd.nitrocdn.com/AXTCkwJcRLSJOItDRESOskxEnohxciAV/assets/images/optimized/wp-content/uploads/2018/04/Unintended-Consequences-1-100x100.png",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2022-09-27T19:12:34+00:00",
+  "last_updated": "2023-03-30T22:34:18+00:00",
   "score": 12,
   "self_url": "https://unintendedconsequenc.es/feed/",
-  "site_name": "Unintended Consequences",
+  "site_name": "Unintended Consequences - systems | complexity | second-order effects",
   "site_url": "https://unintendedconsequenc.es",
   "title": "Unintended Consequences",
   "url": "https://unintendedconsequenc.es/feed/",
-  "velocity": 0.019,
+  "velocity": 0.014,
   "version": "rss20"
 }

@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 1579416,
+  "content_length": 1612057,
   "content_type": "text/xml; charset=utf-8",
   "description": "Every company has a story.",
   "favicon": "",
@@ -10,14 +10,14 @@
   ],
   "is_podcast": true,
   "is_push": true,
-  "item_count": 178,
-  "last_updated": "2023-05-30T05:02:40+00:00",
+  "item_count": 183,
+  "last_updated": "2023-09-06T06:47:30+00:00",
   "score": 24,
   "self_url": "https://feeds.transistor.fm/acquired",
   "site_name": "",
   "site_url": "https://feeds.transistor.fm",
   "title": "Acquired",
   "url": "https://feeds.transistor.fm/acquired",
-  "velocity": 0.064,
+  "velocity": 0.063,
   "version": "rss20"
 }

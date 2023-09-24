@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 26554,
+  "content_length": 32593,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "Welcome to the SharkBytes Podcast. We will discuss all things Wireshark, as well as topics from the world of Packet Analysis and SharkFest, our packet analysis and developer conference. We'll be hanging out with interesting people from diverse backgrounds in the industry and we'll also learn why the truth is always in the packets. Support this podcast: <a href=\"https://podcasters.spotify.com/pod/show/sharkbytes/support\" rel=\"payment\">https://podcasters.spotify.com/pod/show/sharkbytes/support</a>",
   "favicon": "",
@@ -10,14 +10,14 @@
   ],
   "is_podcast": true,
   "is_push": true,
-  "item_count": 8,
-  "last_updated": "2023-06-29T15:00:00+00:00",
-  "score": 2,
+  "item_count": 10,
+  "last_updated": "2023-09-05T15:57:45+00:00",
+  "score": 22,
   "self_url": "https://anchor.fm/s/d4b7d750/podcast/rss",
   "site_name": "",
   "site_url": "",
   "title": "SharkBytes Podcast",
   "url": "https://anchor.fm/s/d4b7d750/podcast/rss",
-  "velocity": 0.025,
+  "velocity": 0.026,
   "version": "rss20"
 }

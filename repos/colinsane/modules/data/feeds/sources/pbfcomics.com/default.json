@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 12220,
+  "content_length": 12229,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "Offbeat comic strip by Nicholas Gurewitch. Includes archives, information about the author, and purchases.",
   "favicon": "https://pbfcomics.com/wp-content/themes/PBF/images/favicon.png",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2022-12-09T19:55:38+00:00",
+  "last_updated": "2023-09-16T04:44:13+00:00",
   "score": 12,
   "self_url": "https://pbfcomics.com/feed/",
   "site_name": "The Perry Bible Fellowship",
   "site_url": "https://pbfcomics.com",
   "title": "The Perry Bible Fellowship",
   "url": "https://pbfcomics.com/feed/",
-  "velocity": 0.027,
+  "velocity": 0.031,
   "version": "rss20"
 }

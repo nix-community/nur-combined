@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 3673943,
+  "content_length": 3799234,
   "content_type": "application/xml; charset=utf-8",
   "description": "*** Named a best podcast of 2021 by Time, Vulture, Esquire and The Atlantic. ***\nEach Tuesday and Friday, Ezra Klein invites you into a conversation on something that matters. How do we address climate change if the political system fails to act? Has the logic of markets infiltrated too many aspects of our lives? What is the future of the Republican Party? What do psychedelics teach us about consciousness? What does sci-fi understand about our present that we miss? Can our food system be just to humans and animals alike?\n\nListen to this podcast in New York Times Audio, our new iOS app for news subscribers. Download now at nytimes.com/audioapp",
   "favicon": "",
@@ -10,14 +10,14 @@
   ],
   "is_podcast": true,
   "is_push": true,
-  "item_count": 255,
-  "last_updated": "2023-07-25T09:00:00+00:00",
+  "item_count": 263,
+  "last_updated": "2023-09-19T09:00:00+00:00",
   "score": 24,
   "self_url": "https://feeds.simplecast.com/82FI35Px",
   "site_name": "",
   "site_url": "",
   "title": "The Ezra Klein Show",
   "url": "https://feeds.simplecast.com/82FI35Px",
-  "velocity": 0.275,
+  "velocity": 0.268,
   "version": "rss20"
 }

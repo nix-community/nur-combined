@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 13524,
+  "content_length": 13374,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "A Comic",
   "favicon": "http://www.poorlydrawnlines.com/wp-content/themes/PoorlyDrawnLines/images/favicon.ico",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2023-03-22T17:51:01+00:00",
+  "last_updated": "2023-09-22T17:26:18+00:00",
   "score": 12,
   "self_url": "https://poorlydrawnlines.com/feed/",
   "site_name": "Poorly Drawn Lines",
   "site_url": "https://poorlydrawnlines.com",
   "title": "Poorly Drawn Lines",
   "url": "https://poorlydrawnlines.com/feed/",
-  "velocity": 0.272,
+  "velocity": 0.196,
   "version": "rss20"
 }

@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 11426,
+  "content_length": 11256,
   "content_type": "application/rss+xml; charset=utf-8",
   "description": "Awesome hacking blog",
   "favicon": "",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2023-01-01T22:57:33+00:00",
+  "last_updated": "2022-12-22T10:51:58+00:00",
   "score": 12,
-  "self_url": "https://blog.project-insanity.org/feed/",
+  "self_url": "https://project-insanity.org/feed/",
   "site_name": "project-insanity.org",
-  "site_url": "https://blog.project-insanity.org",
+  "site_url": "https://project-insanity.org",
   "title": "project-insanity.org",
-  "url": "https://blog.project-insanity.org/feed/",
-  "velocity": 0.026,
+  "url": "https://project-insanity.org/feed/",
+  "velocity": 0.027,
   "version": "rss20"
 }

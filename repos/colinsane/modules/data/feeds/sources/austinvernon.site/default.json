@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 19245,
+  "content_length": 24700,
   "content_type": "text/xml; charset=utf-8",
   "description": "Austin Vernon's Blog",
   "favicon": "",
@@ -8,14 +8,14 @@
   "hubs": [],
   "is_podcast": false,
   "is_push": false,
-  "item_count": 42,
-  "last_updated": "2023-01-05T00:00:00+00:00",
+  "item_count": 54,
+  "last_updated": "2023-09-08T00:00:00+00:00",
   "score": 24,
   "self_url": "",
   "site_name": "Austin Vernon - Austin Vernon's Blog",
   "site_url": "https://austinvernon.site",
   "title": "Austin Vernon",
   "url": "https://austinvernon.site/rss.xml",
-  "velocity": 0.063,
+  "velocity": 0.059,
   "version": "rss20"
 }

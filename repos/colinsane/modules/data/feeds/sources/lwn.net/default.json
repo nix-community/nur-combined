@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 14068,
+  "content_length": 15472,
   "content_type": "application/xml; charset=utf-8",
   "description": "LWN.net is a comprehensive source of news and opinions from\n        and about the Linux community.  This is the main LWN.net feed,\n        listing all articles which are posted to the site front page.",
   "favicon": "https://static.lwn.net/images/favicon.png",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 15,
-  "last_updated": "2023-01-22T15:53:01+00:00",
+  "last_updated": "2023-09-23T11:10:50+00:00",
   "score": 18,
   "self_url": "",
   "site_name": "Welcome to LWN.net [LWN.net]",
   "site_url": "https://lwn.net",
   "title": "LWN.net",
   "url": "https://lwn.net/headlines/newrss",
-  "velocity": 2.78,
+  "velocity": 2.897,
   "version": "rss10"
 }

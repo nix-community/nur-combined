@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 359714,
+  "content_length": 452436,
   "content_type": "text/xml; charset=utf-8",
   "description": "Ian Henry's blog.",
   "favicon": "https://ianthehenry.com/favicon.ico",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2022-07-11T00:00:00+00:00",
+  "last_updated": "2023-07-30T00:00:00+00:00",
   "score": 20,
   "self_url": "https://ianthehenry.com/feed.xml",
   "site_name": "Ian Henry",
   "site_url": "https://ianthehenry.com",
   "title": "Ian Henry",
   "url": "https://ianthehenry.com/feed.xml",
-  "velocity": 0.027,
+  "velocity": 0.016,
   "version": "rss20"
 }

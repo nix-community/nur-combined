@@ -1,6 +1,6 @@
 {
   "bozo": 0,
-  "content_length": 119652,
+  "content_length": 89825,
   "content_type": "application/xml; charset=utf-8",
   "description": "A new philosophy of progress for the 21st century",
   "favicon": "https://rootsofprogress.org/favicon-32x32.png",
@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 10,
-  "last_updated": "2023-01-25T08:00:00+00:00",
+  "last_updated": "2023-09-13T07:35:00+00:00",
   "score": 20,
   "self_url": "https://rootsofprogress.org/feed.xml",
   "site_name": "The Roots of Progress",
   "site_url": "https://rootsofprogress.org",
   "title": "The Roots of Progress",
   "url": "https://rootsofprogress.org/feed.xml",
-  "velocity": 0.338,
+  "velocity": 0.261,
   "version": "atom10"
 }

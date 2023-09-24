@@ -9,13 +9,13 @@
   "is_podcast": false,
   "is_push": false,
   "item_count": 20,
-  "last_updated": "2022-12-20T01:23:44.546000+00:00",
+  "last_updated": "2023-08-02T08:22:33.539000+00:00",
   "score": 26,
   "self_url": "https://applieddivinitystudies.com/atom.xml",
   "site_name": "Applied Divinity Studies",
   "site_url": "https://applieddivinitystudies.com",
   "title": "Applied Divinity Studies",
-  "url": "https://applieddivinitystudies.com/atom.xml",
-  "velocity": 0.079,
+  "url": "https://www.applieddivinitystudies.com/atom.xml",
+  "velocity": 0.054,
   "version": "atom10"
 }

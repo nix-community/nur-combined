@@ -1,27 +1,22 @@
 { lib
-, callPackage
+, newScope
 , python3
 , sane-data
 , static-nix-shell
 , writeShellScript
 }:
 
-let
-  # TODO: dependency-inject this.
-  template = callPackage ./template.nix;
-  feed-pkgs' = lib.mapAttrs
-    (name: feed-details: template {
+lib.makeScope newScope (self: with self; {
+  mkFeed = callPackage ./template.nix {};
+  feed-pkgs = lib.recurseIntoAttrs (lib.mapAttrs
+    (name: feed-details: mkFeed {
       feedName = name;
       jsonPath = "modules/data/feeds/sources/${name}/default.json";
       inherit (feed-details) url;
     })
-    sane-data.feeds;
-  update-scripts = lib.mapAttrsToList
-    (name: feed: builtins.concatStringsSep " " feed.passthru.updateScript)
-    feed-pkgs';
-in rec {  # TODO: make this a scope
-  feed-pkgs = lib.recurseIntoAttrs feed-pkgs';
-  update = static-nix-shell.mkPython3Bin {
+    sane-data.feeds
+  );
+  update-feed = static-nix-shell.mkPython3Bin {
     pname = "update";
     src = ./.;
     pyPkgs = [ "feedsearch-crawler" ];
@@ -46,12 +41,7 @@ in rec {  # TODO: make this a scope
       # but in a way where the least could go wrong.
       pushd "$sources_dir"; mkdir -p "$name"; popd
 
-      ${update}/bin/update.py "$name" "$json_path"
+      ${update-feed}/bin/update.py "$name" "$json_path"
       cat "$json_path"
     '';
-
-  updateScript = writeShellScript
-    "feeds-update"
-    (builtins.concatStringsSep "\n" update-scripts);
-  initFeedScript = init-feed;
-}
+})
