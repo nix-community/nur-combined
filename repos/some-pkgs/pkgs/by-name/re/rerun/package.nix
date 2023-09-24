@@ -1,59 +1,83 @@
 { lib
 , arrow-cpp
-, stdenv
+, binaryen
 , cargo
+, cargo-binutils
 , catch2_3
 , cmake
+, darwin
 , fetchFromGitHub
 , libxkbcommon
+, lld
 , loguru
 , pkg-config
 , protobuf
-, rustc
-, rustPlatform
+, rustc-wasm32
+, rustPackages_1_72
+, rustPackages ? rustPackages_1_72
+, rustPlatform ? rustPackages.rustPlatform
+, stdenv
 , vulkan-loader
-, zstd
-, darwin
 , wayland
 }:
 
-stdenv.mkDerivation rec {
+rustPlatform.buildRustPackage rec {
   pname = "rerun";
-  version = "0.8.2";
+  version = "unstable-2023-09-24";
 
   src = fetchFromGitHub {
     owner = "rerun-io";
     repo = "rerun";
-    rev = version;
-    hash = "sha256-KSXA3NzxeRZ1NXqJvqpSzRLLpYT+xB5QdJRZFetmRC8=";
+    rev = "8909fcd69d3d8a41057f2197ed45d0b0df83cbd2";
+    hash = "sha256-ft11i1CbAbW94YmCQEU2eXx6ixnJkK1n44svG9RVf0M=";
   };
   postPatch = ''
     sed -i \
       -e '/GIT_TAG/a FIND_PACKAGE_ARGS REQUIRED NAMES loguru COMPONENTS loguru' \
-      -e 's/cmake_minimum_required.*$/cmake_minimum_required(VERSION 3.24)/' \
-      rerun_cpp/CMakeLists.txt
+      CMakeLists.txt
+    sed -i \
+      -e '/GIT_TAG/a FIND_PACKAGE_ARGS' \
+      rerun_cpp/tests/CMakeLists.txt
   '';
 
-  cargoDeps = rustPlatform.importCargoLock {
+  cargoLock = {
     lockFile = ./Cargo.lock;
+    outputHashes = {
+      "ecolor-0.22.0" = "sha256-RJRmbRhpyEbu2mBWEV+8R5+v8+UF1D8ooZ0CpYfgeV4=";
+      "egui_commonmark-0.7.4" = "sha256-jD4xeDjmoD5BoCyXyIJh2p98qz95qk2L904tnfNSx0c=";
+      "egui_tiles-0.2.0" = "sha256-DdaXhi0oQwMPO+hbHesJ+MzNlZA9pTnjMNyx3a63iuM=";
+    };
   };
 
+  cargoBuildFeatures = [
+    "analytics"
+    "glam"
+    "image"
+    "sdk"
+    "server"
+  ];
+
+  cargoBuildFlags = [
+    "-p"
+    "rerun"
+  ];
+
   nativeBuildInputs = [
-    cargo
+    binaryen
+    cargo-binutils # rust-lld
     cmake
     pkg-config
     protobuf
-    rustPlatform.cargoSetupHook
-    rustc
+    # rustc-wasm32
+    # rustc-wasm32.llvmPackages.lld
   ];
 
   buildInputs = [
     arrow-cpp
     catch2_3
-    loguru
     libxkbcommon
+    loguru
     vulkan-loader
-    zstd
   ] ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.AppKit
     darwin.apple_sdk.frameworks.CoreFoundation
@@ -68,12 +92,7 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  env = {
-    ZSTD_SYS_USE_PKG_CONFIG = true;
-  };
-
   meta = with lib; {
-    broken = true;
     description = "Log images, point clouds, etc, and visualize them effortlessly. Built in Rust using egui";
     homepage = "https://github.com/rerun-io/rerun";
     changelog = "https://github.com/rerun-io/rerun/blob/${src.rev}/CHANGELOG.md";

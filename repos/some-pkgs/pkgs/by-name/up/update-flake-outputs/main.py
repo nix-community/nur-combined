@@ -6,8 +6,10 @@ import os
 import pprint
 import subprocess
 import tempfile
+import textwrap
 from contextlib import contextmanager
 from pathlib import Path
+from sys import stderr
 from typing import Optional
 
 parser = argparse.ArgumentParser("update-flake-outputs")
@@ -149,11 +151,20 @@ def gh_pr_create(title, remote_branch=None):
     ]
     if remote_branch is not None:
         args.extend(["--head", remote_branch])
-    return subprocess.run(
+    p = subprocess.run(
         args,
-        check=True,
+        check=False,
         shell=False,
-    ).stdout.decode("utf8")
+        capture_output=True,
+    )
+
+    if p.returncode != 0:
+        print(f"{args} has failed:")
+        print(textwrap.indent(p.stdout.decode("utf8"), prefix=" " * 4), file=stderr)
+        print(textwrap.indent(p.stderr.decode("utf8"), prefix=" " * 4), file=stderr)
+
+    p.check_returncode()
+    return p.stdout.decode("utf8")
 
 
 def get_short_msg(commit_id="HEAD"):
