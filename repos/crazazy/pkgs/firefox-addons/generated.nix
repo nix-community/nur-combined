@@ -2,10 +2,10 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "2023.7.1";
+      version = "2023.8.3";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4140393/bitwarden_password_manager-2023.7.1.xpi";
-      sha256 = "a33971d80f552279f96579786938ae8e88c4b95c29f8339c42f5de47f15200ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164440/bitwarden_password_manager-2023.8.3.xpi";
+      sha256 = "d43d7603ed04a24cd37b209a22d58b940cd71503d654d6305d6c37317fd5889c";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -43,10 +43,10 @@
       };
     "soundcloud-mp3-downloader" = buildFirefoxXpiAddon {
       pname = "soundcloud-mp3-downloader";
-      version = "0.3.0";
+      version = "0.3.1";
       addonId = "jid1-hnmMaq1milpehc6uI@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046120/soundcloud_mp3_downloader-0.3.0.xpi";
-      sha256 = "6df36330361bc8cadaaffe16a83a7407b24d7ccfa9a47d75d55d2f8302f2bbb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169360/soundcloud_mp3_downloader-0.3.1.xpi";
+      sha256 = "d0a51693459e8e80bb890f47043caa71b99bcd7c554af1f913d30aec890af6a3";
       meta = with lib;
       {
         description = "Add download link to all SoundClould tracks";
@@ -70,10 +70,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.51.0";
+      version = "1.52.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141256/ublock_origin-1.51.0.xpi";
-      sha256 = "8b73468bc233a11dd2895219466381783d19123857dd0b6fd16a01820fca4834";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4164949/ublock_origin-1.52.0.xpi";
+      sha256 = "3932506ce4df306e4da7527d93d60fe0421cf15045c2f4ea73589d9a0902266b";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
