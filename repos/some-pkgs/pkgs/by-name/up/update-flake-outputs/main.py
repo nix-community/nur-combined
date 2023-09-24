@@ -67,16 +67,19 @@ def cwd(new_cwd: Optional[str | Path]):
 
 
 @contextmanager
-def git_worktree(worktree_path, new_branch):
+def git_worktree(worktree_path, new_branch, head_rev=None):
+    args = [
+        "git",
+        "worktree",
+        "add",
+        "-B",
+        new_branch,
+        worktree_path,
+    ]
+    if head_rev is not None:
+        args.append(head_rev)
     p = subprocess.run(
-        [
-            "git",
-            "worktree",
-            "add",
-            "-B",
-            new_branch,
-            worktree_path,
-        ],
+        args,
         check=True,
     )
     try:
@@ -114,15 +117,17 @@ def git_commit_if_any(message):
 
 
 def git_push_force_set_default(remote, remote_branch):
+    args = [
+        "git",
+        "push",
+        "--force",
+        "-u",
+        remote,
+        f"HEAD:{remote_branch}",
+    ]
+    print(f"Executing {args}", file=stderr)
     subprocess.run(
-        [
-            "git",
-            "push",
-            "--force",
-            "-u",
-            remote,
-            f"HEAD:{remote_branch}",
-        ],
+        args,
         check=True,
     )
 
@@ -197,7 +202,7 @@ if __name__ == "__main__":
             new_checkout = Path(td, name)
 
             branch_name = f"update-flake-outputs/{name}"
-            with git_worktree(new_checkout, branch_name):
+            with git_worktree(new_checkout, branch_name, "HEAD"):
                 try:
                     old = get_head()
                     nix_update(name)
@@ -218,9 +223,17 @@ if __name__ == "__main__":
 
                     if remote_changed:
                         git_push_force_set_default(args.remote, branch_name)
+                    else:
+                        print(
+                            "Branch {branch_name} already at {new}. Not pushing",
+                            file=stderr,
+                        )
+                        continue
 
                     if msg in open_prs:
                         continue
-                    gh_pr_create(msg)
+
+                    gh_pr_create(msg, remote_branch=branch_name)
+
                 except Exception as e:
                     print(f"Failed to update {name}: {e}")
