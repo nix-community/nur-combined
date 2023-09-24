@@ -7104,10 +7104,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.12";
+      version = "2023.13";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4166435/streetpass_for_mastodon-2023.12.xpi";
-      sha256 = "8b780b487385661a2ebe35f9f3d4c84d98d143c21602236c9658ad30e1db4db5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171812/streetpass_for_mastodon-2023.13.xpi";
+      sha256 = "8241709a2909c908a345fdc8997332546d8069bb324dfc70af0a2d382d2d90c6";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
