@@ -14,26 +14,56 @@ env:
   NUR_REPO: federicoschonborn
 
 jobs:
-  build-unstable:
+  build-nixpkgs-unstable:
     name: Build (Unstable)
-    strategy:
-      matrix:
-        channel:
-          - nixos-unstable
-          - nixpkgs-unstable
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
-      channel: ${{ matrix.channel }}
+      channel: nixpkgs-unstable
+
+  build-nixpkgs-unstable-aarch64:
+    name: Build (Unstable aarch64)
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: aarch64-linux
+      channel: nixpkgs-unstable
+
+  build-nixos-unstable:
+    name: Build (NixOS Unstable)
+    needs: build-nixpkgs-unstable
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: x86_64-linux
+      channel: nixos-unstable
+
+  build-nixos-unstable-aarch64:
+    name: Build (NixOS Unstable aarch64)
+    needs: build-nixpkgs-unstable-aarch64
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: aarch64-linux
+      channel: nixos-unstable
 
   build-stable:
     name: Build (Stable)
-    needs: build-unstable
+    needs: build-nixos-unstable
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
+      channel: nixos-23.05
+
+  build-stable-aarch64:
+    name: Build (Stable aarch64)
+    needs: build-nixos-unstable-aarch64
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: aarch64-linux
       channel: nixos-23.05
 
   deploy:
@@ -43,44 +73,3 @@ jobs:
     steps:
       - name: Trigger NUR update
         run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
-
-  build-darwin-unstable:
-    name: Build (Darwin; Unstable)
-    needs: build-unstable
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: macos-latest
-      system: x86_64-darwin
-      channel: nixpkgs-unstable
-
-  build-darwin-stable:
-    name: Build (Darwin; Stable)
-    needs: build-darwin-unstable
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: macos-latest
-      system: x86_64-darwin
-      channel: nixpkgs-23.05-darwin
-
-  build-aarch64-unstable:
-    name: Build (AArch64; Unstable)
-    needs: build-unstable
-    strategy:
-      matrix:
-        channel:
-          - nixos-unstable
-          - nixpkgs-unstable
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: aarch64-linux
-      channel: ${{ matrix.channel }}
-
-  build-aarch64-stable:
-    name: Build (AArch64; Stable)
-    needs: build-aarch64-unstable
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: aarch64-linux
-      channel: nixos-23.05
