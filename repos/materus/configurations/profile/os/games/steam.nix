@@ -67,6 +67,7 @@ let
       pkgs.jbig2enc
       pkgs.jbig2dec
       pkgs.vivaldi
+      pkgs.steamtinkerlaunch
 
     ] ++ config.materus.profile.packages.list.fonts;
 

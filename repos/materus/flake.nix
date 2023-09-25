@@ -27,6 +27,9 @@
       owner = "nix-community";
       repo = "emacs-overlay";
       ref = "master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     private = {

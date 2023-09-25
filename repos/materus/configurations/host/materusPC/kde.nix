@@ -46,7 +46,12 @@ in
   environment.plasma5.excludePackages = with pkgs; [ libsForQt5.kwallet libsForQt5.kwalletmanager libsForQt5.kwallet-pam ];
   
   environment.variables = {
+    # Old fix for black cursor on amdgpu, seems to work fine now
     #KWIN_DRM_NO_AMS = "1";
+
+    #Fix fo amdgpu crashes
+    KWIN_DRM_USE_MODIFIERS="0";
+    KWIN_DRM_NO_DIRECT_SCANOUT="1";
   };
   environment.systemPackages = with pkgs; [
 
