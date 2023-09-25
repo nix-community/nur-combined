@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# nix-shell wrapper that loads the NIX_PATH from dotfiles first, good for shebangs without loadDotfilesEnv
+
+echo "nix-shell kicked in!" >&2
+
 NIXCFG_ROOT_PATH=$(sd d root)
 eval "$(cat /etc/bashrc | grep NIX_PATH)"
 
