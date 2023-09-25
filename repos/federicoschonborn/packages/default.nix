@@ -34,6 +34,7 @@
   morewaita = pkgs.callPackage ./morewaita { };
   moss = pkgs.callPackage ./moss { inherit libmoss; };
   moss-container = pkgs.callPackage ./moss-container { inherit libmoss; };
+  moss-rs = pkgs.callPackage ./moss-rs { };
   mucalc = pkgs.callPackage ./mucalc { };
   notae = pkgs.libsForQt5.callPackage ./notae { };
   opensurge = pkgs.callPackage ./opensurge { inherit surgescript; };
