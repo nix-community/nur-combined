@@ -51,6 +51,7 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = [
     "analytics"
+    "demo"
     "glam"
     "image"
     "sdk"
@@ -59,10 +60,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoBuildFlags = [
     "-p"
+    "re_viewer"
+    "-p"
     "rerun"
   ];
 
-  cargoTestFlags = cargoBuildFlags;
+  cargoTestFlags = [
+    "--all-features"
+  ];
 
   nativeBuildInputs = [
     binaryen
