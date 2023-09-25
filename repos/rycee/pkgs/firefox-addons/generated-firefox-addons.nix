@@ -4562,10 +4562,10 @@
       };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.7";
+      version = "1.7.1";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4116913/linkding_extension-1.7.xpi";
-      sha256 = "7784f443d86e577799d4858e23eee6c19571470528c05d83ba8fbe835bbedb8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171907/linkding_extension-1.7.1.xpi";
+      sha256 = "763080b6b6a1acc15b2a9e67872740857f60b4641d9a0c604ada4a8b2c9ea963";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
