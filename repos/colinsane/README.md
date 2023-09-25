@@ -4,16 +4,34 @@ this is the top-level repo from which i configure/deploy all my NixOS machines:
 - desktop
 - laptop
 - server
-- mobile phone
+- mobile phone (Pinephone)
 
-i enjoy a monorepo approach. this repo references [nixpkgs][nixpkgs], a couple 3rd party
-nix modules like [sops][sops], the sources for [uninsane.org][uninsane-org], and that's
-about it. custom derivations and modules (some of which i try to upstream) live
-directly here; even the sources for those packages is often kept here too.
+everything outside of <./hosts/> and <./secrets/> is intended for export, to be importable for use by 3rd parties.
+the only hard dependency for my exported pkgs/modules should be [nixpkgs][nixpkgs].
+building <./hosts/> will require [sops][sops].
+
+you might specifically be interested in these files (elaborated further in #key-points-of-interest):
+- [`sxmo-utils-latest`](./pkgs/additional/sxmo-utils/default.nix)
+  - [example SXMO deployment](./hosts/modules/gui/sxmo/default.nix)
+- [my implementation of impermanence](./modules/persist/default.nix)
+- my way of deploying dotfiles/configuring programs per-user:
+  - <./modules/fs/default.nix>
+  - <./modules/programs.nix>
+  - <./modules/users.nix>
 
 [nixpkgs]: https://github.com/NixOS/nixpkgs
 [sops]: https://github.com/Mic92/sops-nix
 [uninsane-org]: https://uninsane.org
+
+## Using This Repo In Your Own Config
+
+this should be a pretty "standard" flake. just reference it, and import either
+- `nixosModules.sane` (for the modules)
+- `overlays.pkgs` (for the packages)
+
+or follow the instructions [here][NUR] to use it via the Nix User Repositories.
+
+[NUR]: https://nur.nix-community.org/
 
 ## Layout
 - `doc/`
@@ -89,12 +107,6 @@ some things in here could easily find broader use. if you would find benefit in
 them being factored out of my config, message me and we could work to make that happen.
 
 [home-manager]: https://github.com/nix-community/home-manager
-
-## Using This Repo In Your Own Config
-
-this should be a pretty "standard" flake. just reference it, and import either
-- `nixosModules.sane` (for the modules)
-- `overlays.pkgs` (for the packages)
 
 ## Mirrors
 

@@ -48,16 +48,19 @@
 
     mobile-nixos = {
       # <https://github.com/nixos/mobile-nixos>
+      # only used for building disk images, not relevant after deployment
       url = "github:nixos/mobile-nixos";
       flake = false;
     };
     sops-nix = {
       # <https://github.com/Mic92/sops-nix>
+      # used to distribute secrets to my hosts
       url = "github:Mic92/sops-nix";
       # inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs-unpatched";
     };
     uninsane-dot-org = {
+      # provides the package to deploy <https://uninsane.org>, used only when building the servo host
       url = "git+https://git.uninsane.org/colin/uninsane";
       # inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs-unpatched";
@@ -339,7 +342,8 @@
                   - updates metadata for all feeds
                 - `nix run '.#init-feed' <url>`
                 - `nix run '.#deploy-{lappy,moby,moby-test,servo}' [nixos-rebuild args ...]`
-                - `nix run '.#check-nur'`
+                - `nix run '.#check'`
+                  - make sure all systems build; NUR evaluates
               '';
             in builtins.toString (pkgs.writeShellScript "nixos-config-help" ''
               cat ${helpMsg}
@@ -390,7 +394,20 @@
             '');
           };
 
-          check-nur = {
+          check = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "check-all" ''
+              nix run '.#check.nur'
+              RC0=$?
+              nix run '.#check.host-configs'
+              RC1=$?
+              echo "nur: $RC0"
+              echo "host-configs: $RC1"
+              exit $(($RC0 | $RC1))
+            '');
+          };
+
+          check.nur = {
             # `nix run '.#check-nur'`
             # validates that my repo can be included in the Nix User Repository
             type = "app";
@@ -402,20 +419,33 @@
                 --option allow-import-from-derivation true \
                 --drv-path --show-trace \
                 -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-                -I ../../
+                -I ../../ \
+                | tee  # tee to prevent interactive mode
             '');
           };
 
-          check-host-configs = {
+          check.host-configs = {
             type = "app";
-            program = builtins.toString (pkgs.writeShellScript
+            program = let
+              checkHost = host: ''
+                nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} -j2 $@
+                RC_${host}=$?
+              '';
+            in builtins.toString (pkgs.writeShellScript
               "check-host-configs"
-              (builtins.concatStringsSep "\n" (builtins.map
-                (host: "nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} -j1 $@ &")
-                [ "desko" "lappy" "servo" "moby" "rescue" ]
-                # not part of the `map`. wait for all builds to complete
-                ++ [ "wait" ]
-              ))
+              ''
+                ${checkHost "desko"}
+                ${checkHost "lappy"}
+                ${checkHost "servo"}
+                ${checkHost "moby"}
+                ${checkHost "rescue"}
+                echo "desko: $RC_desko"
+                echo "lappy: $RC_lappy"
+                echo "servo: $RC_servo"
+                echo "moby: $RC_moby"
+                echo "rescue: $RC_rescue"
+                exit $(($RC_desko | $RC_lappy | $RC_servo | $RC_moby | $RC_rescue))
+              ''
             );
           };
         };

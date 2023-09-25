@@ -150,7 +150,7 @@ let
     (mkText "https://linuxphoneapps.org/blog/atom.xml" // tech // infrequent)
     (fromDb "tuxphones.com" // tech)
     (fromDb "spectrum.ieee.org" // tech)
-    (fromDb "theregister.com" // tech)
+    # (fromDb "theregister.com" // tech)
     (fromDb "thisweek.gnome.org" // tech)
     # more nixos stuff here, but unclear how to subscribe: <https://nixos.org/blog/categories.html>
     (mkText "https://nixos.org/blog/announcements-rss.xml" // tech // infrequent)
@@ -166,6 +166,7 @@ let
     (fromDb "uninsane.org" // tech)
     (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
     (fromDb "xn--gckvb8fzb.com" // tech)
+    (fromDb "amosbbatto.wordpress.com" // tech)
     (fromDb "mg.lol" // tech)
     # (fromDb "drewdevault.com" // tech)
     ## Ken Shirriff
