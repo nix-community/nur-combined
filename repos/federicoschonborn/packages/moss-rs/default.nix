@@ -6,7 +6,7 @@
 , zstd
 }:
 
-rustPlatform.buildRustPackage  {
+rustPlatform.buildRustPackage {
   pname = "moss-rs";
   version = "unstable-2023-09-25";
 

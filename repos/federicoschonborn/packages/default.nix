@@ -50,6 +50,7 @@
   thunderbird-gnome-theme = pkgs.callPackage ./thunderbird-gnome-theme { };
   upkg = pkgs.callPackage ./upkg { };
   vita3k = pkgs.callPackage ./vita3k { };
+  waycheck = pkgs.qt6.callPackage ./waycheck { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   xenia = pkgs.callPackage ./xenia { };
   yyjson = pkgs.yyjson or (pkgs.callPackage ./yyjson { });
