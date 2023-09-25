@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  cargoBuildFeatures = [
+  buildFeatures = [
     "analytics"
     "glam"
     "image"
@@ -61,6 +61,8 @@ rustPlatform.buildRustPackage rec {
     "-p"
     "rerun"
   ];
+
+  cargoTestFlags = cargoBuildFlags;
 
   nativeBuildInputs = [
     binaryen
