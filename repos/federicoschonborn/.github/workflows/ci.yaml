@@ -22,14 +22,6 @@ jobs:
       system: x86_64-linux
       channel: nixpkgs-unstable
 
-  build-nixpkgs-unstable-aarch64:
-    name: Build (Unstable aarch64)
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: aarch64-linux
-      channel: nixpkgs-unstable
-
   build-nixos-unstable:
     name: Build (NixOS Unstable)
     needs: build-nixpkgs-unstable
@@ -37,15 +29,6 @@ jobs:
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
-      channel: nixos-unstable
-
-  build-nixos-unstable-aarch64:
-    name: Build (NixOS Unstable aarch64)
-    needs: build-nixpkgs-unstable-aarch64
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: aarch64-linux
       channel: nixos-unstable
 
   build-stable:
@@ -57,9 +40,27 @@ jobs:
       system: x86_64-linux
       channel: nixos-23.05
 
+  build-nixpkgs-unstable-aarch64:
+    name: Build (Unstable aarch64)
+    needs: build-nixpkgs-unstable
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: aarch64-linux
+      channel: nixpkgs-unstable
+
+  build-nixos-unstable-aarch64:
+    name: Build (NixOS Unstable aarch64)
+    needs: [build-nixos-unstable, build-nixpkgs-unstable-aarch64]
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: aarch64-linux
+      channel: nixos-unstable
+
   build-stable-aarch64:
     name: Build (Stable aarch64)
-    needs: build-nixos-unstable-aarch64
+    needs: [build-stable, build-nixos-unstable-aarch64]
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
