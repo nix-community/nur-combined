@@ -71,7 +71,7 @@
     settings.General.Experimental = true;
   };
 
-    # Select internationalisation properties.
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -95,4 +95,6 @@
 
   # Configure console keymap
   console.keyMap = "us";
+
+  programs.light.enable = true;
 }
