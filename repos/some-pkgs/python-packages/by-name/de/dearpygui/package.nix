@@ -12,13 +12,13 @@
 }:
 buildPythonPackage rec {
   pname = "dearpygui";
-  version = "1.9.1";
+  version = "1.10.0";
   src = fetchFromGitHub {
     owner = "hoffstadt";
     repo = "DearPyGui";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-Af1jhQYT0CYNFMWihAtP6jRNYKm3XKEu3brFOPSGCnk=";
+    hash = "sha256-36GAGfvHZyNZe/Z7o3VrCCwApkZpJ+r2E8+1Hy32G5Q=";
   };
   cmakeFlags = [ "-DMVDIST_ONLY=True" ];
   postConfigure = ''
