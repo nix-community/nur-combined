@@ -15,4 +15,7 @@
   coredns-enum = pkgs.callPackage ./pkgs/coredns-enum {};
   penelope = pkgs.python3Packages.callPackage ./pkgs/penelope {};
   kubectl-execws = pkgs.callPackage ./pkgs/kubectl-execws {};
+  blueutil = pkgs.callPackage ./pkgs/blueutil {
+    inherit (pkgs.darwin.apple_sdk_11_0.frameworks) Foundation IOBluetooth;
+  };
 }
