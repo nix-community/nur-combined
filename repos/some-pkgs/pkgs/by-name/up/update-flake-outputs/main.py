@@ -225,7 +225,7 @@ if __name__ == "__main__":
                         continue
 
                     try:
-                        remote_changed = new != git_rev_parse(branch_name)
+                        remote_changed = new != git_rev_parse(f"{args.remote}/{branch_name}")
                     except subprocess.CalledProcessError:
                         remote_changed = True
 
