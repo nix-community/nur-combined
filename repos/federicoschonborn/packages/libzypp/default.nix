@@ -27,13 +27,13 @@
 
 stdenv.mkDerivation rec {
   pname = "libzypp";
-  version = "17.31.20";
+  version = "17.31.21";
 
   src = fetchFromGitHub {
     owner = "openSUSE";
     repo = "libzypp";
     rev = version;
-    hash = "sha256-xbIUp41cFL6QVwSjREm8RarV2UPxCFvhepbbGZT2Nxg=";
+    hash = "sha256-2RBaSCYceVZnQNaZ5vUgo5hiqTVTDf26+eeCHtlAC0s=";
   };
 
   nativeBuildInputs = [

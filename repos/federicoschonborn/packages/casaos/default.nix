@@ -5,17 +5,17 @@
 
 buildGoModule rec {
   pname = "casaos";
-  version = "0.4.4-1";
+  version = "0.4.4-2";
 
   src = fetchFromGitHub {
     owner = "IceWhaleTech";
     repo = "CasaOS";
     rev = "v${version}";
-    hash = "sha256-GOS8PRE73ogGfa5AtYNqCV9JtF302K+HtXmH1KxxwO0=";
+    hash = "sha256-5I9zeXJ68xYD2BOIhmflIzoirAs+tRT6rWS/1KfvUpo=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-qd9nessQ4mVYlI9RjQqtVcARot2j2cAbiKqTPaW496U=";
+  vendorHash = "sha256-UJiYSLu8KLuG3i8xueOWAc9cO/7BEI/wsuUymdoP0Os=";
 
   postPatch = ''
     # Disable tests that require network access.

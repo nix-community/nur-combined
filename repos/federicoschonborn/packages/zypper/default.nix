@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "zypper";
-  version = "1.14.64";
+  version = "1.14.65";
 
   src = fetchFromGitHub {
     owner = "opensuse";
     repo = "zypper";
     rev = version;
-    hash = "sha256-WI1sG0xe7Vd7ufRtT9NU5I418JUfJNO56mFOM6MCynM=";
+    hash = "sha256-QvGorgRMsy1AtH61VkqlNzg2d8/ECs+1TaqiFHHzLTo=";
   };
 
   nativeBuildInputs = [
