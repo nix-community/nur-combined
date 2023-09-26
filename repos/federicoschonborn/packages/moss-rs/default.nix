@@ -37,6 +37,6 @@ rustPlatform.buildRustPackage {
     platforms = platforms.linux;
     license = licenses.mpl20;
     maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder version "23.05";
+    broken = versionOlder version "23.11";
   };
 }
