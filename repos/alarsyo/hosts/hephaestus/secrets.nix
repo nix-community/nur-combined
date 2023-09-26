@@ -13,6 +13,9 @@
         // attrs;
     in
       lib.mapAttrs toSecret {
+        "restic-backup/hephaestus-credentials" = {};
+        "restic-backup/hephaestus-password" = {};
+
         "users/alarsyo-hashed-password" = {};
         "users/root-hashed-password" = {};
       };

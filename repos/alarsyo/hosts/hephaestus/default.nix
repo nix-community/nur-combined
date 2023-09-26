@@ -45,6 +45,49 @@
   my.services = {
     tailscale.enable = true;
     pipewire.enable = true;
+
+    restic-backup = {
+      enable = true;
+      repo = "b2:hephaestus-backup";
+      passwordFile = config.age.secrets."restic-backup/hephaestus-password".path;
+      environmentFile = config.age.secrets."restic-backup/hephaestus-credentials".path;
+
+      timerConfig = {
+        OnCalendar = "*-*-* 13:00:00"; # laptop only gets used during the day
+      };
+
+      paths = [
+        "/home/alarsyo"
+      ];
+      exclude = [
+        "/home/alarsyo/Downloads"
+
+        # Rust builds using half my storage capacity
+        "/home/alarsyo/**/target"
+        "/home/alarsyo/work/rust/build"
+
+        # don't backup nixpkgs
+        "/home/alarsyo/work/nixpkgs"
+
+        "/home/alarsyo/go"
+
+        # C build crap
+        "*.a"
+        "*.o"
+        "*.so"
+
+        ".direnv"
+
+        # test vms
+        "*.qcow2"
+
+        # secrets stay offline
+        "/home/alarsyo/**/secrets"
+
+        # ignore all dotfiles as .config and .cache can become quite big
+        "/home/alarsyo/.*"
+      ];
+    };
   };
 
   virtualisation.docker.enable = true;

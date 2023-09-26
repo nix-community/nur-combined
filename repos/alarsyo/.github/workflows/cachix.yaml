@@ -77,8 +77,8 @@ jobs:
         name:
         - boreal
         - hades
+        - hephaestus
         - poseidon
-        - zephyrus
 
     steps:
     - uses: actions/checkout@v3
