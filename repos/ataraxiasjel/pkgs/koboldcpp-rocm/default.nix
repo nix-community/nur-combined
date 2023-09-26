@@ -16,8 +16,8 @@ let
   src = fetchFromGitHub {
     owner = "YellowRoseCx";
     repo = pname;
-    rev = "b067ef7c8ccba2f3d16c3ed01b9973d475d5c8b1";
-    hash = "sha256-d+zXtChwnr/l5Hiens6uA82YM9afDGnm5VM5Db+WP2I=";
+    rev = "6823315f5ee53e55dc3062ee1671e03ca6e1f745";
+    hash = "sha256-8SzFgyARCKvndyHXRj/AFZsTGfuQCYDVj99Uzp273HU=";
   };
 
   koboldcpp-rocm-libs = stdenv.mkDerivation {
