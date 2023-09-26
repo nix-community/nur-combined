@@ -1,4 +1,4 @@
-{ stdenv, lib, python3, fetchFromGitHub, nodejs, git, which, zip }:
+{ stdenv, lib, python3, fetchFromGitHub, nodejs, git, zip }:
 
 stdenv.mkDerivation rec {
   pname = "ueforth";
@@ -11,18 +11,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-N+7aHMAHbLE8R6qAr5Tiz7AY7+T9Fcx/onz0adt6tbA=";
   };
 
-  makeFlags = [ "esp32" "REVISION:=${src.rev}" ];
+  makeFlags = [ "esp32" "NODEJS:=${lib.getExe nodejs}" "REVISION:=${src.rev}" ];
 
   postPatch = ''
-    substituteInPlace Makefile \
-      --replace /usr/bin/nodejs "$(which node)"
     substituteInPlace {web,tools}/*.js \
-      --replace "/usr/bin/env nodejs" "$(which node)"
-    patchShebangs tools/memuse.py
+      --replace "/usr/bin/env nodejs" "/usr/bin/env node"
+    patchShebangs {web,tools}/*.js tools/memuse.py
   '';
 
   nativeBuildInputs =
-    [ (python3.withPackages (p: [ p.pyserial ])) nodejs git which zip ];
+    [ (python3.withPackages (p: [ p.pyserial ])) nodejs git zip ];
 
   installPhase = ''
     runHook preInstall
