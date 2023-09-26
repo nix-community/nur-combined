@@ -2220,6 +2220,30 @@
         platforms = platforms.all;
         };
       };
+    "frame-extension" = buildFirefoxXpiAddon {
+      pname = "frame-extension";
+      version = "0.10.3";
+      addonId = "{77691beb-4c53-48de-ab20-6589a537717a}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4146194/frame_extension-0.10.3.xpi";
+      sha256 = "e28b844e3b452ecd53d9cc6ab70c34c2e26383ceef54c8a8e88cd4e6ff23ddaa";
+      meta = with lib;
+      {
+        homepage = "https://github.com/floating/frame";
+        description = "This extension connects web apps to Frame. Frame is an Ethereum wallet that runs as a native desktop application. It manages all of your accounts, tokens and items and allows to seamlessly and securely connect them any app.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "activeTab"
+          "https://*/*"
+          "http://*/*"
+          "tabs"
+          "idle"
+          "file://*/*"
+          "http://twitter.com/*"
+          "https://twitter.com/*"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "french-dictionary" = buildFirefoxXpiAddon {
       pname = "french-dictionary";
       version = "7.0b";
