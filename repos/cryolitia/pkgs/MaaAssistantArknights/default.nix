@@ -17,8 +17,8 @@
 , makeWrapper
 , darwin
 , range-v3
-, maaVersion ? "4.23.3"
-, maaSourceHash ? "sha256-A41kk1Xg9c/QZHOhyakcBULzsNTrsfnGYZ0df+MKWfc="
+, maaVersion ? "4.24.0"
+, maaSourceHash ? "sha256-I1HKYO+ywLVUKNl1FH66efAUd4je2d1ynnDEelHZfK8="
 , }:
 
 let
