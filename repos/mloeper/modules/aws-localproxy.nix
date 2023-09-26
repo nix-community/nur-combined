@@ -12,6 +12,7 @@ in
       aws-iot-securetunneling-localproxy
     ];
 
+    # note: this might not be necessary as Amazon Root CA 1 is included in cacert
     security.pki.certificateFiles = [ "${pkgs.aws-iot-securetunneling-localproxy}/share/certs/AmazonRootCA1.pem" ];
   };
 }
