@@ -15,62 +15,104 @@ env:
 
 jobs:
   build-nixpkgs-unstable:
-    name: Build (Unstable)
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixpkgs-unstable
+
+  build-nixos-unstable-small:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: x86_64-linux
+      channel: nixos-unstable-small
+    needs: build-nixpkgs-unstable
 
   build-nixos-unstable:
-    name: Build (NixOS Unstable)
-    needs: build-nixpkgs-unstable
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-unstable
+    needs: build-nixos-unstable-small
 
-  build-stable:
-    name: Build (Stable)
+  build-nixos-stable-small:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: x86_64-linux
+      channel: nixos-23.05-small
     needs: build-nixos-unstable
+
+  build-nixos-stable:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-23.05
+    needs: build-nixos-stable-small
 
   build-nixpkgs-unstable-aarch64:
-    name: Build (Unstable aarch64)
-    needs: build-nixpkgs-unstable
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
       channel: nixpkgs-unstable
+    needs: build-nixpkgs-unstable
 
-  build-nixos-unstable-aarch64:
-    name: Build (NixOS Unstable aarch64)
-    needs: [build-nixos-unstable, build-nixpkgs-unstable-aarch64]
+  build-nixos-unstable-small-aarch64:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
       channel: nixos-unstable
+    needs: [build-nixos-unstable-small, build-nixpkgs-unstable-aarch64]
 
-  build-stable-aarch64:
-    name: Build (Stable aarch64)
-    needs: [build-stable, build-nixos-unstable-aarch64]
+  build-nixos-unstable-aarch64:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: aarch64-linux
+      channel: nixos-unstable
+    needs: [build-nixos-unstable, build-nixos-unstable-small-aarch64]
+
+  build-nixos-stable-small-aarch64:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
       channel: nixos-23.05
+    needs: [build-nixos-stable-small, build-nixos-unstable-aarch64]
+
+  build-nixos-stable-aarch64:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: aarch64-linux
+      channel: nixos-23.05
+    needs: [build-nixos-stable, build-nixos-stable-small-aarch64]
+
+  build-nixpkgs-unstable-darwin:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: macos-latest
+      system: aarch64-linux
+      channel: nixpkgs-unstable
+    needs: build-nixpkgs-unstable
+
+  build-nixos-stable-darwin:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: macos-latest
+      system: aarch64-linux
+      channel: nixpkgs-23.05-darwin
+    needs: [build-nixos-stable, build-nixpkgs-unstable-darwin]
 
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    needs: build-stable
     steps:
       - name: Trigger NUR update
         run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
+    needs: build-nixos-stable
