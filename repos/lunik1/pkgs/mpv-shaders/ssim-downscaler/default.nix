@@ -5,11 +5,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "ssim-downscaler";
-  version = "unstable-2022-05-15";
+  version = "unstable-2023-09-26";
 
   src = fetchurl {
-    url = "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/6998ff663a135376dbaeb6f038e944d806a9b9d9/SSimDownscaler.glsl";
-    sha256 = "sha256-FF3rw4DzwgWLHSkziQXSvIBgAxVtZ0skdFJ03S1QmQY=";
+    url = "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/a408bcf3c34a43f29ea4cdc4fa282ce956be5363/SSimDownscaler.glsl";
+    sha256 = "sha256-AEq2wv/Nxo9g6Y5e4I9aIin0plTcMqBG43FuOxbnR1w=";
   };
 
   dontUnpack = true;
