@@ -1,7 +1,6 @@
 { lib
 , stdenvNoCC
 , fetchFromGitHub
-, unstableGitUpdater
 }:
 
 stdenvNoCC.mkDerivation {
@@ -23,10 +22,6 @@ stdenvNoCC.mkDerivation {
 
     runHook postInstall
   '';
-
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
 
   meta = with lib; {
     description = "Proposal for XDG terminal execution utility";

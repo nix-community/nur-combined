@@ -5,7 +5,6 @@
 , ldc
 , meson
 , ninja
-, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
@@ -32,10 +31,6 @@ stdenv.mkDerivation {
     meson
     ninja
   ];
-
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
 
   meta = with lib; {
     description = "Manage lightweight containers";

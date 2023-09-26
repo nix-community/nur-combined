@@ -11,7 +11,7 @@
 
 gcc13Stdenv.mkDerivation {
   pname = "waycheck";
-  version = "unstable-2023-09-24";
+  version = "0.1.3";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";

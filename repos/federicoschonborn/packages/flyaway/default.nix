@@ -13,7 +13,6 @@
 , wayland-protocols
 , wlroots
 , xorg
-, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
@@ -45,10 +44,6 @@ stdenv.mkDerivation {
     xorg.libxcb
     xorg.xcbutilwm
   ];
-
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
 
   meta = with lib; {
     description = "A test compositor to gain familiarity with Wayland and wlroots";

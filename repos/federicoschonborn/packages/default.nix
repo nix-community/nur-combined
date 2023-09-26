@@ -79,9 +79,6 @@
 
       wrapProgram $out/bin/apx --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.docker pkgs.distrobox ]}
     '';
-    passthru = {
-      updateScript = pkgs.unstableGitUpdater { };
-    };
     meta = oldAttrs.meta // {
       platforms = pkgs.lib.platforms.linux;
     };

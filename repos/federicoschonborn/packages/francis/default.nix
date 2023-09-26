@@ -14,7 +14,6 @@
 , knotifications
 , qtbase
 , qtquickcontrols2
-, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
@@ -47,10 +46,6 @@ stdenv.mkDerivation {
     qtbase
     qtquickcontrols2
   ];
-
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
 
   meta = with lib; {
     description = "Track your time";

@@ -10,7 +10,6 @@
 , kpackage
 , qtbase
 , qtquickcontrols2
-, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
@@ -39,10 +38,6 @@ stdenv.mkDerivation {
     qtbase
     qtquickcontrols2
   ];
-
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
 
   meta = with lib; {
     description = "Collection of Arcade games developed in Kirigami";

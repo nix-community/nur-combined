@@ -14,7 +14,6 @@
 , qtbase
 , qtquickcontrols2
 , syntax-highlighting
-, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
@@ -47,10 +46,6 @@ stdenv.mkDerivation {
     qtquickcontrols2
     syntax-highlighting
   ];
-
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
 
   meta = with lib; {
     description = "A simple note taking application that automatically saves your work";
