@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 usage() {
-    printf '%s\n' "Usage: bw-pass [directory name] <account name>" >&2
+    printf '%s\n' "Usage: rbw-pass [directory name] <account name>" >&2
 }
 
 error_out() {
