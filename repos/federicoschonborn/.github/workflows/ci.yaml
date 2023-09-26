@@ -20,6 +20,7 @@ jobs:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixpkgs-unstable
+    secrets: inherit
 
   build-nixos-unstable-small:
     uses: ./.github/workflows/build.yaml
@@ -27,6 +28,7 @@ jobs:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-unstable-small
+    secrets: inherit
     needs: build-nixpkgs-unstable
 
   build-nixos-unstable:
@@ -35,6 +37,7 @@ jobs:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-unstable
+    secrets: inherit
     needs: build-nixos-unstable-small
 
   build-nixos-stable-small:
@@ -43,6 +46,7 @@ jobs:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-23.05-small
+    secrets: inherit
     needs: build-nixos-unstable
 
   build-nixos-stable:
@@ -51,6 +55,7 @@ jobs:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-23.05
+    secrets: inherit
     needs: build-nixos-stable-small
 
   build-nixpkgs-unstable-aarch64:
@@ -59,6 +64,7 @@ jobs:
       runs-on: ubuntu-latest
       system: aarch64-linux
       channel: nixpkgs-unstable
+    secrets: inherit
     needs: build-nixpkgs-unstable
 
   build-nixos-unstable-small-aarch64:
@@ -67,6 +73,7 @@ jobs:
       runs-on: ubuntu-latest
       system: aarch64-linux
       channel: nixos-unstable
+    secrets: inherit
     needs: [build-nixos-unstable-small, build-nixpkgs-unstable-aarch64]
 
   build-nixos-unstable-aarch64:
@@ -75,6 +82,7 @@ jobs:
       runs-on: ubuntu-latest
       system: aarch64-linux
       channel: nixos-unstable
+    secrets: inherit
     needs: [build-nixos-unstable, build-nixos-unstable-small-aarch64]
 
   build-nixos-stable-small-aarch64:
@@ -83,6 +91,7 @@ jobs:
       runs-on: ubuntu-latest
       system: aarch64-linux
       channel: nixos-23.05
+    secrets: inherit
     needs: [build-nixos-stable-small, build-nixos-unstable-aarch64]
 
   build-nixos-stable-aarch64:
@@ -91,6 +100,7 @@ jobs:
       runs-on: ubuntu-latest
       system: aarch64-linux
       channel: nixos-23.05
+    secrets: inherit
     needs: [build-nixos-stable, build-nixos-stable-small-aarch64]
 
   build-nixpkgs-unstable-darwin:
@@ -99,6 +109,7 @@ jobs:
       runs-on: macos-latest
       system: x86_64-darwin
       channel: nixpkgs-unstable
+    secrets: inherit
     needs: build-nixpkgs-unstable
 
   build-nixos-stable-darwin:
@@ -107,6 +118,7 @@ jobs:
       runs-on: macos-latest
       system: x86_64-darwin
       channel: nixpkgs-23.05-darwin
+    secrets: inherit
     needs: [build-nixos-stable, build-nixpkgs-unstable-darwin]
 
   deploy:
