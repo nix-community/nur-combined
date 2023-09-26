@@ -24,6 +24,11 @@
 #     where the token is grabbed from Element's help&about page when logged in
 #   - to remove, send this `curl` with `"kind": null`
 { config, lib, pkgs, ... }:
+let
+  # subscribers need a non-443 public port to listen on as a way to easily differentiate this traffic
+  # at the IP layer, to enable e.g. wake-on-lan.
+  altPort = 2587;
+in
 {
   sane.persist.sys.plaintext = [
     # not 100% necessary to persist this, but ntfy does keep a 12hr (by default) cache
@@ -63,10 +68,14 @@
   };
 
 
-
   services.nginx.virtualHosts."ntfy.uninsane.org" = {
     forceSSL = true;
     enableACME = true;
+    listen = [
+      { addr = "0.0.0.0"; port = altPort; ssl = true; }
+      { addr = "0.0.0.0"; port = 443;  ssl = true; }
+      { addr = "0.0.0.0"; port = 80;   ssl = false; }
+    ];
     locations."/" = {
       proxyPass = "http://127.0.0.1:2586";
       recommendedProxySettings = true; #< adds headers so ntfy logs include the real IP
@@ -74,4 +83,11 @@
     };
   };
   sane.dns.zones."uninsane.org".inet.CNAME."ntfy" = "native";
+
+  sane.ports.ports."${builtins.toString altPort}" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-ntfy.uninsane.org";
+  };
 }
