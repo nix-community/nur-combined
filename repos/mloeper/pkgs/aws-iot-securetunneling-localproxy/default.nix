@@ -38,8 +38,8 @@ stdenv.mkDerivation {
   ];
 
   installPhase = ''
-    install -d $out
-    cp ./bin/localproxy $out/
+    install -d $out/bin
+    cp ./bin/localproxy $out/bin/
 
     install -d $out/share/certs
     cp ./../../AmazonRootCA1.pem $out/share/certs/
