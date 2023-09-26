@@ -111,8 +111,8 @@
             "url": "https://github.com/ambroisie/nix-config"
         },
         "amesgen": {
-            "rev": "ef4ec67f370958637a128ad7382227027c914852",
-            "sha256": "14xjd3i1kmvri4b53w0qrsi04bfhdik5jwnzpxagqg5fxg7adxdg",
+            "rev": "1b0929b35efc89a4be045cd1ba2523c8912745a4",
+            "sha256": "1mdf62hvzgv4s9ny5jw0w1z3rrgw5n5f2dmm8z6s8arc5ch2q4sb",
             "url": "https://github.com/amesgen/nur-packages"
         },
         "andersontorres": {
@@ -745,8 +745,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "39d9e47658eb337333e3a84bb612a6588f8f7f0f",
-            "sha256": "00rk9h833jm9676dj091v1s9ipi1ghn0ds3iiryrhidpzl8ab0hk",
+            "rev": "df76f2e400d460b0f267dccc8af23b8a696a0b17",
+            "sha256": "1bcdsfh5m3dd6sfnidh0waagbfwrahabhc7dis0v7b709gylrsfp",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
