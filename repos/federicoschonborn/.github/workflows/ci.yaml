@@ -15,14 +15,14 @@ env:
 
 jobs:
   build-nixpkgs-unstable:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixpkgs-unstable
 
   build-nixos-unstable-small:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
@@ -30,7 +30,7 @@ jobs:
     needs: build-nixpkgs-unstable
 
   build-nixos-unstable:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
@@ -38,7 +38,7 @@ jobs:
     needs: build-nixos-unstable-small
 
   build-nixos-stable-small:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
@@ -46,7 +46,7 @@ jobs:
     needs: build-nixos-unstable
 
   build-nixos-stable:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
@@ -54,7 +54,7 @@ jobs:
     needs: build-nixos-stable-small
 
   build-nixpkgs-unstable-aarch64:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
@@ -62,7 +62,7 @@ jobs:
     needs: build-nixpkgs-unstable
 
   build-nixos-unstable-small-aarch64:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
@@ -70,7 +70,7 @@ jobs:
     needs: [build-nixos-unstable-small, build-nixpkgs-unstable-aarch64]
 
   build-nixos-unstable-aarch64:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
@@ -78,7 +78,7 @@ jobs:
     needs: [build-nixos-unstable, build-nixos-unstable-small-aarch64]
 
   build-nixos-stable-small-aarch64:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
@@ -86,7 +86,7 @@ jobs:
     needs: [build-nixos-stable-small, build-nixos-unstable-aarch64]
 
   build-nixos-stable-aarch64:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
@@ -94,7 +94,7 @@ jobs:
     needs: [build-nixos-stable, build-nixos-stable-small-aarch64]
 
   build-nixpkgs-unstable-darwin:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: macos-latest
       system: x86_64-darwin
@@ -102,7 +102,7 @@ jobs:
     needs: build-nixpkgs-unstable
 
   build-nixos-stable-darwin:
-    uses: .github/workflows/build.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       runs-on: macos-latest
       system: x86_64-darwin
