@@ -17,7 +17,7 @@
       modules = import ./modules;
     in
     {
-      inherit (modules) hmModules nixosModules;
+      inherit (modules) hmModules nixosModules nixosTests;
 
       legacyPackages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
