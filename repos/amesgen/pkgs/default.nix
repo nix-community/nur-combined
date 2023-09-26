@@ -161,4 +161,32 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         platforms = [ "x86_64-linux" ];
       };
     };
+
+  fourmolu =
+    { lib
+    , stdenv
+    , autoPatchelfHook
+    , installShellFiles
+    , gmp
+    }:
+    stdenv.mkDerivation rec {
+      inherit (nv.fourmolu) pname version src;
+      dontUnpack = true;
+      nativeBuildInputs = [ autoPatchelfHook installShellFiles ];
+      buildInputs = [ gmp ];
+      installPhase = ''
+        mkdir -p $out/bin
+        BIN=$out/bin/${pname}
+        install -m755 -D $src $BIN
+        ${optparseApplicativeCompletions pname}
+      '';
+
+      meta = {
+        description = "A configurable formatter for Haskell source code";
+        homepage = "https://github.com/fourmolu/fourmolu";
+        license = lib.licenses.bsd3;
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        platforms = [ "x86_64-linux" ];
+      };
+    };
 }

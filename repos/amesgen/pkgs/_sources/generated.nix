@@ -25,6 +25,14 @@
       sha256 = "sha256-9izLKXFWel9jjyAFrTFz26FGk6RRVMFQhkXFIolxTLI=";
     };
   };
+  fourmolu = {
+    pname = "fourmolu";
+    version = "0.14.0.0";
+    src = fetchurl {
+      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.14.0.0/fourmolu-0.14.0.0-linux-x86_64";
+      sha256 = "sha256-/iBsu+8yNJmO6nibXmG5lsLNI81dla8xKSS/uttsq0U=";
+    };
+  };
   hellsmack = {
     pname = "hellsmack";
     version = "0.1.2.6";

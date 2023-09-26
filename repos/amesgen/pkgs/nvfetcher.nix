@@ -43,4 +43,9 @@ flatten {
     restUrl = "v$ver/cabal-plan-$ver-x86_64-linux.xz";
     src.prefix = "v";
   };
+  fourmolu = github {
+    slug = "fourmolu/fourmolu";
+    restUrl = "v$ver/fourmolu-$ver-linux-x86_64";
+    src.prefix = "v";
+  };
 }

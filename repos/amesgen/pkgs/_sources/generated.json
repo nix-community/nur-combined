@@ -41,6 +41,20 @@
         },
         "version": "0.7.3.0"
     },
+    "fourmolu": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "fourmolu",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-/iBsu+8yNJmO6nibXmG5lsLNI81dla8xKSS/uttsq0U=",
+            "type": "url",
+            "url": "https://github.com/fourmolu/fourmolu/releases/download/v0.14.0.0/fourmolu-0.14.0.0-linux-x86_64"
+        },
+        "version": "0.14.0.0"
+    },
     "hellsmack": {
         "cargoLocks": null,
         "extract": null,
