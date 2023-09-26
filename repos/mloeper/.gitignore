@@ -3,3 +3,5 @@ result-*
 
 source/
 outputs/
+src/
+AmazonRootCA1.pem

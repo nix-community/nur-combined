@@ -1,3 +1,4 @@
 {
-  cachix     = ./cachix.nix;
+  cachix = ./cachix.nix;
+  aws-localproxy = ./aws-localproxy.nix;
 }
