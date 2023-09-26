@@ -583,10 +583,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.7";
+      version = "7.5.8";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4167416/betterttv-7.5.7.xpi";
-      sha256 = "ba9ed004c328f3dacb78537eceed9fc206d4e3a136bb80a1ed786dc9fb57b9d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170525/betterttv-7.5.8.xpi";
+      sha256 = "7e73f24a9b82e5f774070df31f42f6abda42987f81260608453a859da519f001";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1668,10 +1668,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.9.1";
+      version = "2023.9.20";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162900/duckduckgo_for_firefox-2023.9.1.xpi";
-      sha256 = "51e8c506067a178990ace03fd2d5ac76f88b89ee51f33fb6e19fdfb765032a49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170434/duckduckgo_for_firefox-2023.9.20.xpi";
+      sha256 = "eb2914fa45047925088f08e19b750774d5a2ad4b74070d14fb6a45b2e4a3451e";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2237,10 +2237,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "118.0.20230918.143747";
+      version = "119.0.20230925.132400";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169684/francais_language_pack-118.0.20230918.143747.xpi";
-      sha256 = "6984efb83db5563eb38fcdfb12e742111848d9a1730b226d6fba64a547b915c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4172482/francais_language_pack-119.0.20230925.132400.xpi";
+      sha256 = "02d1e2644e1b3abb09ffdc706c7c0c341a94e4c61e7df9a4384021f280314ca9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4049,10 +4049,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "3.0.1";
+      version = "3.1.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4171118/ipfs_companion-3.0.1.xpi";
-      sha256 = "6059838347a99606caca80033937b549c64f8474598a5c1b61bab9bf0fa6acc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4172699/ipfs_companion-3.1.0.xpi";
+      sha256 = "784f6d1e0497d86f1e42cfe7de8548b5cc28fabe80e50771d90f59ddf1b9d3c1";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs/ipfs-companion";
@@ -4233,10 +4233,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.7";
+      version = "1.8.8";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134768/keepassxc_browser-1.8.7.xpi";
-      sha256 = "deb1c3c29fabe90dd811536d434d64c200caab9a9f7febc3428aa170eefec5f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170768/keepassxc_browser-1.8.8.xpi";
+      sha256 = "8260f6840f9b2e30c8da96fe6bce661a7626fb1ad96e7af4c67382c103bd9612";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -6320,14 +6320,14 @@
       };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
-      version = "2.1.5.7";
+      version = "2.1.6.4";
       addonId = "jid1-7eplFgLu6atoog@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4107564/rabattcorner-2.1.5.7.xpi";
-      sha256 = "2a0802a2e945e41966c6244f88603869e1e3893f3ea7adc45236717484e3e555";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4172250/rabattcorner-2.1.6.4.xpi";
+      sha256 = "a6b670359aa2013d8b616e5c3dad4b5cc4f1450784d8568c3bd93eb8bbf43e67";
       meta = with lib;
       {
         homepage = "https://www.rabattcorner.ch";
-        description = "Jetzt bei jedem Online-Einkauf bis zu 25% Cashback erhalten. <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/be8bb3eaeaba31de0d5f89ccc266fa9cf18fda0fabad24266491f7c9342df151/http%3A//Rabattcorner.ch\" rel=\"nofollow\">Rabattcorner.ch</a> zahlt dir nach jedem Einkauf in einem der über 700 angeschlossenen Online Shops einen Teil deines Einkaufsbetrags zurück.";
+        description = "Mit der Rabattcorner Cashback-Erinnerung kannst du beim Online-Shoppen bei über 790 Partnern Geld zurück bekommen.";
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
@@ -6335,6 +6335,7 @@
           "alarms"
           "http://*/*"
           "https://*/*"
+          "browser_action"
           "https://*.rabattcorner.ch/visit/*"
           "https://*.rabattcorner.ch/special_offer/visit/*"
           "https://*.rabattcorner.ch/*"
@@ -8014,10 +8015,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.52.0";
+      version = "1.52.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164949/ublock_origin-1.52.0.xpi";
-      sha256 = "3932506ce4df306e4da7527d93d60fe0421cf15045c2f4ea73589d9a0902266b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171020/ublock_origin-1.52.2.xpi";
+      sha256 = "e8ee3f9d597a6d42db9d73fe87c1d521de340755fd8bfdd69e41623edfe096d6";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
