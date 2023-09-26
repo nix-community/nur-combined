@@ -44,6 +44,7 @@
     ./newsflash.nix
     ./nheko.nix
     ./nix-index.nix
+    ./ntfy-sh.nix
     ./obsidian.nix
     ./offlineimap.nix
     ./playerctl.nix

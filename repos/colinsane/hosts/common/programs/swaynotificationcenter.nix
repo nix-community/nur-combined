@@ -64,6 +64,24 @@ let
   };
   fbcli-stop = "${fbcli-stop-wrapper}/bin/fbcli-stop";
 
+  kill-singleton_ = pkgs.writeShellApplication {
+    name = "kill-singleton";
+    runtimeInputs = [
+      pkgs.procps  # for pgrep
+      pkgs.gnugrep
+    ];
+    text = ''
+      pids=$(pgrep --full "$*" | tr '\n' ' ') || true
+      # only act if there's exactly one pid
+      if echo "$pids" | grep -Eq '^[0-9]+ ?$'; then
+        kill "$pids"
+      else
+        echo "kill-singleton: skipping because multiple pids match: $pids"
+      fi
+    '';
+  };
+  kill-singleton = "${kill-singleton_}/bin/kill-singleton";
+
   systemctl-toggle = pkgs.writeShellApplication {
     name = "systemctl-toggle";
     runtimeInputs = [
@@ -175,23 +193,45 @@ in
         # - SWAYNC_REPLACES_ID
         # - SWAYNC_ID
         # - SWAYNC_SUMMARY
-        sound-im = {
+        incoming-im = {
           # trigger notification sound on behalf of these IM clients.
-          exec = "${fbcli} --event proxied-message-new-instant";
           app-name = "(Chats|Dino|discord|Element)";
           body = "^(?!Incoming call).*$";  #< don't match Dino Incoming calls
+          exec = "${fbcli} --event proxied-message-new-instant";
         };
-        sound-call = {
-          exec = "${fbcli} --event phone-incoming-call -t 20";
+        incoming-call = {
           app-name = "Dino";
           body = "^Incoming call$";
+          exec = "${fbcli} --event phone-incoming-call -t 20";
         };
-        sound-call-end = {
-          # pkill will kill all processes matching -- not just the first
-          exec = "${fbcli-stop} --event phone-incoming-call -t 20";
+        incoming-call-acted-on = {
+          # when the notification is clicked, stop sounding the ringer
           app-name = "Dino";
           body = "^Incoming call$";
           run-on = "action";
+          exec = "${fbcli-stop} --event phone-incoming-call -t 20";
+        };
+        timer-done = {
+          # sxmo_timer.sh fires off notifications like "Done with 10m" when a 10minute timer completes.
+          # it sends such a notification every second until dismissed
+          app-name = "notify-send";
+          summary = "^Done with .*$";
+          # XXX: could use alarm-clock-elapsed, but that's got a duration > 1s
+          # which isn't great for sxmo's 1s repeat.
+          # TODO: maybe better to have sxmo only notify once, and handle this like with Dino's incoming call
+          exec = "${fbcli} --event timeout-completed";
+        };
+        timer-done-acted-on = {
+          # when the notification is clicked, kill whichever sxmo process is sending it
+          app-name = "notify-send";
+          summary = "^Done with .*$";
+          run-on = "action";
+          # process tree looks like:
+          # - foot -T <...> /nix/store/.../sh /nix/store/.../.sxmo_timer.sh-wrapped timerrun <duration>
+          #   - /nix/store/.../sh /nix/store/.../.sxmo_timer.sh-wrapped timerrun duration
+          # we want to match exactly one of those, reliably.
+          # foot might not be foot, but alacritty, kitty, or any other terminal.
+          exec = "${kill-singleton} ^[^ ]* ?[^ ]*sxmo_timer.sh(-wrapped)? timerrun";
         };
       };
       notification-visibility = {
@@ -214,13 +254,21 @@ in
         #
         # test rules by using `notify-send` (libnotify)
         sxmo-extraneous-daemons = {
-          state = "ignored";
+          app-name = "notify-send";
           summary = "(sxmo_hook_lisgd|Autorotate) (Stopped|Started)";
+          state = "ignored";
         };
         sxmo-extraneous-warnings = {
-          state = "ignored";
+          app-name = "notify-send";
           # "Modem crashed! 30s recovery.": happens on sxmo_hook_postwake.sh (i.e. unlock)
           summary = "^Modem crashed.*$";
+          state = "ignored";
+        };
+        sxmo-timer = {
+          # force timer announcements to bypass DND
+          app-name = "notify-send";
+          summary = "^Done with .*$";
+          override-urgency = "critical";
         };
       };
       widgets = [

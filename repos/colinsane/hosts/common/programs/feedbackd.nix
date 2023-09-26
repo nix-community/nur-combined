@@ -25,7 +25,6 @@ in
     # - but using that would forbid `parent-theme = "default"`
     # the default theme ships support for these events:
     # - alarm-clock-elapsed
-    # - alarm-clock-elapsed
     # - battery-caution
     # - bell-terminal
     # - button-pressed
@@ -66,11 +65,22 @@ in
               type = "Sound";
               effect = "message-new-instant";
             }
+            # re-define sounds from the default theme which we'd like to pass through w/o proxying.
+            # i guess this means i'm not inheriting the default theme :|
             {
-              # i guess we aren't actually inheriting from the default theme?
               event-name = "phone-incoming-call";
               type = "Sound";
               effect = "phone-incoming-call";
+            }
+            {
+              event-name = "alarm-clock-elapsed";
+              type = "Sound";
+              effect = "alarm-clock-elapsed";
+            }
+            {
+              event-name = "timeout-completed";
+              type = "Sound";
+              effect = "complete";
             }
           ];
         }

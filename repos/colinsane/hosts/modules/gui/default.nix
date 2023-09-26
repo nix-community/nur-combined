@@ -49,6 +49,7 @@
       "mepo"  # maps viewer
       "mpv"
       "networkmanagerapplet"  # for nm-connection-editor: it's better than not having any gui!
+      "ntfy-sh"  # notification service
       # "newsflash"
       "pavucontrol"
       # "picard"  # music tagging

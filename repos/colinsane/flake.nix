@@ -65,10 +65,6 @@
       # inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs-unpatched";
     };
-    nix-serve = {
-      # <https://github.com/edolstra/nix-serve>
-      url = "github:edolstra/nix-serve";
-    };
   };
 
   outputs = {
@@ -77,7 +73,6 @@
     mobile-nixos,
     sops-nix,
     uninsane-dot-org,
-    nix-serve,
     ...
   }@inputs:
     let
@@ -206,17 +201,9 @@
           let
             mobile = (import "${mobile-nixos}/overlay/overlay.nix");
             uninsane = uninsane-dot-org.overlay;
-            # nix-serve' = nix-serve.overlay;
-            nix-serve' = next: prev: {
-              # XXX(2023/03/02): upstream isn't compatible with modern `nix`. probably the perl bindings.
-              # - we use the package built against `nixpkgs` specified in its flake rather than use its overlay,
-              #   to get around this.
-              inherit (nix-serve.packages."${next.system}") nix-serve;
-            };
           in
             (mobile final prev)
             // (uninsane final prev)
-            // (nix-serve' final prev)
           ;
       };
 

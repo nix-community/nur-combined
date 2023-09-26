@@ -90,6 +90,21 @@ let
         url = "https://git.uninsane.org/colin/sxmo-utils/commit/dd17fd707871961906ed4577b8c89f6128c5f121.patch";
         hash = "sha256-Giek1MbyOtlPccmT8XQkLZWhX+EeJdzWVZtNgcLuTsI=";
       })
+      (fetchpatch {
+        # experimental patch to launch apps via `swaymsg exec -- `
+        # this allows them to detach from sxmo_appmenu.sh (so, `pstree` looks cleaner)
+        # and more importantly they don't inherit the environment of sxmo internals (i.e. PATH).
+        # suggested by Aren in #sxmo.
+        #
+        # old pstree look:
+        # - sxmo_hook_inputhandler.sh volup_one
+        #   - sxmo_appmenu.sh
+        #     - sxmo_appmenu.sh applications
+        #       - <application, e.g. chatty>
+        name = "sxmo_hook_apps: launch apps via the window manager";
+        url = "https://git.uninsane.org/colin/sxmo-utils/commit/45782db02f6f54f9921db09cb1e3f7108b46d5f8.patch";
+        hash = "sha256-FlbiF9B3GcUsozssXSaUoQpRPNj9DOTkcBnQaue+Ve4=";
+      })
     ];
   };
 in {

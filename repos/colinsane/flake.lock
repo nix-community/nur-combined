@@ -34,39 +34,6 @@
         "type": "github"
       }
     },
-    "nix-serve": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1687251388,
-        "narHash": "sha256-E9cVlgeCvzPbA/G3mCDCzz8TdRwXyGYzIjmwcvIfghg=",
-        "owner": "edolstra",
-        "repo": "nix-serve",
-        "rev": "d6df5bd8584f37e22cff627db2fc4058a4aab5ee",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "nix-serve",
-        "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1606086654,
-        "narHash": "sha256-VFl+3eGIMqNp7cyOMJ6TjM/+UcsLKtodKoYexrlTJMI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "19db3e5ea2777daa874563b5986288151f502e27",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-20.09",
-        "type": "indirect"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1694908564,
@@ -102,7 +69,6 @@
     "root": {
       "inputs": {
         "mobile-nixos": "mobile-nixos",
-        "nix-serve": "nix-serve",
         "nixpkgs-unpatched": "nixpkgs-unpatched",
         "sops-nix": "sops-nix",
         "uninsane-dot-org": "uninsane-dot-org"

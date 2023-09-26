@@ -252,6 +252,7 @@ let
   images = [
     (fromDb "smbc-comics.com" // img // humor)
     (fromDb "xkcd.com" // img // humor)
+    (fromDb "turnoff.us" // img // humor)
     (fromDb "pbfcomics.com" // img // humor)
     # (mkImg "http://dilbert.com/feed" // humor // daily)
     (fromDb "poorlydrawnlines.com/feed" // img // humor)

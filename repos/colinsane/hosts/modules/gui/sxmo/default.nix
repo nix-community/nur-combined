@@ -329,8 +329,10 @@ in
             # TODO: only need the share/sxmo directly linked
             "${package}/share"
           ];
-        } // (lib.filterAttrs  # certain settings are read before the `profile` is sourced
-          (k: v: k == "SXMO_DISABLE_CONFIGVERSION_CHECK")
+        } // (lib.filterAttrs (k: v:
+            k == "SXMO_DISABLE_CONFIGVERSION_CHECK"  # read before `profile` is sourced
+            || k == "SXMO_TERMINAL"  # for apps launched via `swaymsg exec -- sxmo_terminal.sh ...`
+          )
           cfg.settings
         );
 
