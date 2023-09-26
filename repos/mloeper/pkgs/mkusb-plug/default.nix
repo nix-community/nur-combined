@@ -8,8 +8,8 @@ let
       rev = "93b43c208e902d0f8064b3b0abf461765b273a53";
       sha256 = "sha256-FcI/GKLjhIN0YxXNxE6bagGyQ7o9SwtHfIonrXc4EkE=";
     };
-  xorriso = (callPackage ./../xorriso {});
-  mkusb-sedd = (callPackage ./../mkusb-sedd {});
+  xorriso = (callPackage ./../xorriso { });
+  mkusb-sedd = (callPackage ./../mkusb-sedd { });
 in
 stdenv.mkDerivation
 {
