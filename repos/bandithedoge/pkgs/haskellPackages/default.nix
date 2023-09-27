@@ -31,7 +31,7 @@ in {
       gi-gtk-hs = pkgs.haskell.lib.dontHaddock pkgs.haskell.packages.${compiler}.gi-gtk-hs;
     };
     attrs = {
-      dontHaddock = true;
+      doHaddock = false;
       nativeBuildInputs = with pkgs; [
         gcc
         pkg-config
