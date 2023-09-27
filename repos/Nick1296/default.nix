@@ -14,10 +14,12 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  vivado-2017-4 = pkgs.callPackage ./pkgs/vivado-2017-4 { };
+  vivado-2017-4-1 = pkgs.callPackage ./pkgs/vivado-2017-4-1 { };
   sweet-theme = pkgs.callPackage ./pkgs/sweet-theme { };
-  utterly-round-plasma-style = pkgs.callPackage ./pkgs/utterly-round-plasma-style { };
-  utterly-sweet-plasma-theme = pkgs.callPackage ./pkgs/utterly-sweet-plasma-theme { };
+  utterly-round-plasma-style =
+    pkgs.callPackage ./pkgs/utterly-round-plasma-style { };
+  utterly-sweet-plasma-theme =
+    pkgs.callPackage ./pkgs/utterly-sweet-plasma-theme { };
   #example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
