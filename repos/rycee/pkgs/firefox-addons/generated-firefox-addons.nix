@@ -3984,10 +3984,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.8";
+      version = "3.4.9";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4150668/i_dont_care_about_cookies-3.4.8.xpi";
-      sha256 = "9af77f1f8c4baadc7ccdd75865e22fbe2575cb8e4f10ed85ae33a0fc3119ae32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4172206/i_dont_care_about_cookies-3.4.9.xpi";
+      sha256 = "f88b659b2ffb27816d29330fb0f14ebad222a56a8f8c02db450cbaa4bc9af1c3";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -4616,10 +4616,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.55";
+      version = "2.6.56";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162189/localcdn_fork_of_decentraleyes-2.6.55.xpi";
-      sha256 = "aebd7587422b508e762fc66c3dbfcad7b90f8777a2f2a119a76ef3ce2ddf484a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171609/localcdn_fork_of_decentraleyes-2.6.56.xpi";
+      sha256 = "8e667e704aad9d92fb4611505b4a5bb008ee17faef1a859c5266f90f47213977";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
