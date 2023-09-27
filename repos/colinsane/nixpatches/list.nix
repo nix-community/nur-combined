@@ -19,13 +19,6 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
-  (fetchpatch' {
-    # merged 2023/09/21
-    title = "resholve: fix oildev";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/256612";
-    hash = "sha256-LmDReZTOQ8nvjmDNlWa8mzD6Ycnq4/Zlr08Kd+xSpzg=";
-  })
-
   # (fetchpatch' {
   #   # fixes /mnt/servo-nfs mount failures
   #   # 2023/09/21: doesn't apply

@@ -46,7 +46,7 @@ let
     bt-add = static-nix-shell.mkPython3Bin {
       pname = "sane-bt-add";
       src = ./src;
-      pyPkgs = [ "sane-lib.bt" ];
+      pyPkgs = [ "requests" "sane-lib.bt" ];
       pkgs = [ "sane-scripts.lib.bt.propagatedBuildInputs" ];
     };
     bt-rm = static-nix-shell.mkPython3Bin {

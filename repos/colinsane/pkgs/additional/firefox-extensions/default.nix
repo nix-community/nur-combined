@@ -5,6 +5,7 @@
 , jq
 , lib
 , newScope
+, nix-update-script
 , strip-nondeterminism
 , unzip
 , writeScript
@@ -95,15 +96,27 @@ in lib.makeScope newScope (self: with self; {
       "sha256-aS8Alj/UNgcTp/TDWPN69wSn0GxDsQx44dtxrybdPXo=";
     sidebery = fetchAddon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}"
       "sha256-9ZJCehxo0+Ua7iCNBViPOXAklpV3cf2Et2qT42QTi/U=";
-    sponsorblock = fetchAddon "sponsorblock" "sponsorBlocker@ajay.app"
-      "sha256-AHw/vVAH5Bwk4smZvnFObYyO/DRVll1szVAK7YhJ2fs=";
     ublacklist = fetchAddon "ublacklist" "@ublacklist"
       "sha256-diKkwxe1C35wsGNQd0yHh9BenPRSmGiRmCdmnW8sTD4=";
     ublock-origin = fetchAddon "ublock-origin" "uBlock0@raymondhill.net"
       "sha256-OTJQbOTfMG5Np1J9k9YP4EIc8VBFwvTqc1idmgkCJms=";
 
-    # TODO: build bypass-paywalls from source? it's mysteriously disappeared from the Mozilla store.
-    # bypass-paywalls-clean = fetchAddon "bypass-paywalls-clean" "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}" "sha256-oUwdqdAwV3DezaTtOMx7A/s4lzIws+t2f08mwk+324k=";
+    sponsorblock = stdenv.mkDerivation rec {
+      pname = "sponsorblock";
+      version = "5.4.21";
+      src = fetchurl {
+        url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
+        hash = "sha256-mfCHD46FgmCQ8ugg58ML19zIllBQEJthfheTrEObs7M=";
+      };
+
+      dontUnpack = true;
+      installPhase = ''
+        cp $src $out
+      '';
+
+      passthru.updateScript = nix-update-script { };
+      passthru.extid = "sponsorBlocker@ajay.app";
+    };
   };
 
   browserpass-extension = (wrapAddon unwrapped.browserpass-extension {})

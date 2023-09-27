@@ -197,6 +197,11 @@ class Torrent:
             logger.info(f"invalid magnet: {magnet}")
             magnet = None
 
+        if http_dl_uri:
+            # quirk: jackett responds with port number even if it's a default port number
+            # it still works, just adds noise to the output
+            http_dl_uri = http_dl_uri.replace('https://jackett.uninsane.org:443/', 'https://jackett.uninsane.org/')
+
         if tracker_uri:
             # quirk: bakabt's post-login redirection fails if the slashes aren't just right
             tracker_uri = tracker_uri.replace('https://bakabt.me//', 'https://bakabt.me/')

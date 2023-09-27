@@ -271,7 +271,8 @@
             program = let
               pkg = pkgs.lib.getAttrFromPath attrPath sanePkgs;
               strAttrPath = pkgs.lib.concatStringsSep "." attrPath;
-              command = pkgs.lib.escapeShellArgs pkg.updateScript.command;
+              commandArgv = pkg.updateScript.command or pkg.updateScript;
+              command = pkgs.lib.escapeShellArgs commandArgv;
             in builtins.toString (pkgs.writeShellScript "update-${strAttrPath}" ''
               export UPDATE_NIX_NAME=${pkg.name}
               export UPDATE_NIX_PNAME=${pkg.pname}
@@ -334,6 +335,9 @@
               '';
             in builtins.toString (pkgs.writeShellScript "nixos-config-help" ''
               cat ${helpMsg}
+              echo ""
+              echo "complete flake structure:"
+              nix flake show --option allow-import-from-derivation true
             '');
           };
           update.pkgs = mkUpdaters { ignore = [ ["feeds"] ]; } [];
