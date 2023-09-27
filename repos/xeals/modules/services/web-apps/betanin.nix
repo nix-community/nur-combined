@@ -1,21 +1,36 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkOption optionalAttrs types;
+  inherit (lib) mkIf mkOption optionalAttrs optionalString types;
   cfg = config.services.betanin;
 
   defaultUser = "betanin";
   defaultGroup = "betanin";
+  defaultSettings = {
+    notifications = {
+      services = { };
+      strings = {
+        title = "[betanin] torrent `$name` $status";
+        body = "@ $time. view/use the console at http://127.0.0.1:${toString cfg.port}/$console_path";
+      };
+    };
+  };
 
   finalSettings =
     let
-      base = lib.filterAttrsRecursive (n: _: lib.hasSuffix "_file" n) cfg.settings;
+      base = lib.filterAttrsRecursive (n: _: !(lib.hasSuffix "_file" n)) cfg.settings;
       clean = {
-        frontend.password = cfg.settings.frontend.password or "@password@";
-        clients.api_key = cfg.settings.clients.api_key or "@api_key@";
+        frontend.password =
+          if cfg.settings.frontend.password_file != null
+          then "@password@"
+          else cfg.settings.frontend.password;
+        clients.api_key =
+          if cfg.settings.clients.api_key_file != null
+          then "@api_key@"
+          else cfg.settings.clients.api_key;
       };
     in
-    lib.recursiveUpdate base clean;
+    lib.foldl' lib.recursiveUpdate defaultSettings [ base clean ];
 
   settingsFormat = pkgs.formats.toml { };
   settingsFile = settingsFormat.generate "betanin.toml" finalSettings;
@@ -24,7 +39,9 @@ let
   beetsFile =
     if (cfg.beetsFile != null)
     then cfg.beetsFile
-    else beetsFormat.generate "betanin-beets.yaml" cfg.beetsConfig;
+    else if (cfg.beetsConfig != { })
+    then beetsFormat.generate "betanin-beets.yaml" cfg.beetsConfig
+    else null;
 in
 {
   options = {
@@ -71,13 +88,13 @@ in
         type = types.submodule {
           freeformType = settingsFormat.type;
 
-          frontend.username = mkOption {
+          options.frontend.username = mkOption {
             type = types.str;
             default = "";
             description = "Username used to log into the frontend. Must be set.";
           };
 
-          frontend.password = mkOption {
+          options.frontend.password = mkOption {
             type = types.str;
             default = "";
             description = ''
@@ -86,7 +103,7 @@ in
             '';
           };
 
-          frontend.password_file = mkOption {
+          options.frontend.password_file = mkOption {
             type = with types; nullOr (either str path);
             default = null;
             description = ''
@@ -99,7 +116,7 @@ in
             '';
           };
 
-          clients.api_key = mkOption {
+          options.clients.api_key = mkOption {
             type = types.nullOr types.str;
             default = "";
             description = ''
@@ -107,7 +124,7 @@ in
             '';
           };
 
-          clients.api_key_file = mkOption {
+          options.clients.api_key_file = mkOption {
             type = with types; nullOr (either str path);
             default = null;
             description = ''
@@ -119,20 +136,9 @@ in
               the API key is still stored in plain text in the service data
               directory.
             '';
-
-            notifications.strings.title = mkOption {
-              type = types.str;
-              default = "[betanin] torrent `$name` $status";
-              description = "Notification title.";
-            };
-
-            notifications.strings.body = mkOption {
-              type = types.str;
-              default = "@ $time. view/use the console at http://127.0.0.1:${cfg.port}/$console_path";
-              description = "Notification body.";
-            };
           };
         };
+        default = defaultSettings;
         example = lib.literalExpression ''
           {
             frontend = {
@@ -166,68 +172,70 @@ in
 
   config = mkIf cfg.enable {
     assertions = [
-
       {
         assertion = cfg.settings.frontend.username != "";
         message = "services.betanin.settings.frontend.username is required";
       }
       {
-        assertion = (cfg.settings.frontend.password == "") != (cfg.settings.frontend.password_file);
+        assertion = (cfg.settings.frontend.password == "") != (cfg.settings.frontend.password_file == null);
         message = "services.betanin.settings.frontend.password or services.betanin.settings.frontend.password_file is required";
       }
       {
-        assertion = (cfg.settings.clients.api_key == "") != (cfg.settings.clients.api_key_file);
+        assertion = (cfg.settings.clients.api_key == "") != (cfg.settings.clients.api_key_file == null);
         message = "services.betanin.settings.clients.api_key or services.betanin.settings.clients.api_key_file is required";
-      }
-      {
-        assertion = (cfg.beetsConfig == { }) != (cfg.beetsFile == null);
-        message = "either services.betanin.beetsConfig or services.betanin.beetsFile is required";
       }
     ];
 
-    networking.firwall = mkIf cfg.openFirewall {
+    networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [ cfg.port ];
     };
 
-    systemd.services.betanin = {
-      description = "Betanin service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
-      environment = {
-        HOME = cfg.dataDir;
+    systemd.services.betanin =
+      let
+        replaceSecret = secretFile: placeholder: targetFile:
+          optionalString (secretFile != null) ''
+            ${pkgs.replace-secret}/bin/replace-secret ${placeholder} ${secretFile} ${targetFile}
+          '';
+        replaceConfigSecret = secretFile: placeholder:
+          replaceSecret secretFile placeholder "${cfg.dataDir}/.config/betanin/config.toml";
+      in
+      {
+        description = "Betanin service";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "networking.target" ];
+        environment = {
+          HOME = cfg.dataDir;
+        };
+        path = [ pkgs.replace-secret ];
+
+        script = ''
+          mkdir -p ${cfg.dataDir}/.config/betanin \
+            ${cfg.dataDir}/.config/beets \
+            ${cfg.dataDir}/.local/share/betanin
+          cat ${settingsFile} > ${cfg.dataDir}/.config/betanin/config.toml
+
+          ${optionalString (beetsFile != null) ''
+            ln -sf ${beetsFile} ${cfg.dataDir}/.config/betanin/config.toml
+          ''}
+          ${replaceConfigSecret cfg.settings.frontend.password_file "@password@"}
+          ${replaceConfigSecret cfg.settings.clients.api_key_file "@api_key@"}
+
+          ${cfg.package}/bin/betanin --port ${toString cfg.port}
+        '';
+
+        serviceConfig = lib.mkMerge [
+          {
+            User = cfg.user;
+            Group = cfg.group;
+            PrivateTmp = true;
+            Restart = "always";
+            WorkingDirectory = cfg.dataDir;
+          }
+          (mkIf (cfg.dataDir == "/var/lib/betanin") {
+            StateDirectory = "betanin";
+          })
+        ];
       };
-
-      script = ''
-        #!/bin/sh
-        mkdir -p ${cfg.dataDir}/.config/betanin
-        mkdir -p ${cfg.dataDir}/.config/beets
-        mkdir -p ${cfg.dataDir}/.local/share/betanin
-        cat ${settingsFile} > ${cfg.dataDir}/.config/betanin/config.toml
-        ln -sf ${beetsFile} ${cfg.dataDir}/.config/betanin/config.toml
-      '' ++ lib.optionalString (cfg.settings.frontend.password_file != null) ''
-        sed -i "s/@password@/$(cat ${cfg.settings.frontend.password_file})/" \
-          ${cfg.dataDir}/.config/betanin/config.toml
-      '' ++ lib.optionalString (cfg.settings.frontend.api_key_file != null) ''
-        sed -i "s/@api_key@/$(cat ${cfg.settings.frontend.api_key_file})/" \
-          ${cfg.dataDir}/.config/betanin/config.toml
-      '' ++ ''
-        chmod -w ${cfg.dataDir}/.config/betanin/config.toml
-        ${cfg.package}/bin/betanin --port ${cfg.port}
-      '';
-
-      serviceConfig = lib.mkMerge [
-        {
-          User = cfg.user;
-          Group = cfg.group;
-          PrivateTmp = true;
-          Restart = "always";
-          WorkingDirectory = cfg.dataDir;
-        }
-        (mkIf (cfg.dataDir == "/var/lib/betanin") {
-          StateDirectory = "betanin";
-        })
-      ];
-    };
 
     users.users = optionalAttrs (cfg.user == defaultUser) {
       ${cfg.user} = {
