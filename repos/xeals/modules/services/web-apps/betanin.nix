@@ -134,7 +134,7 @@ in
             ${cfg.dataDir}/.local/share/betanin \
             ${cfg.dataDir}/.config/beets
 
-          ln -sf ${beetsFile} ${cfg.dataDir}/.config/betanin/config.toml
+          ln -sf ${beetsFile} ${cfg.dataDir}/.config/beets/config.yaml
           cat ${settingsFile} > ${cfg.dataDir}/.config/betanin/config.toml
           ${secretReplacements}
 
