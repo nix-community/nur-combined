@@ -35,7 +35,8 @@ client.urgent           #ff8080 #ff8080 #ffffff
 output '*' bg "@background@" fill
 
 ### pixel boundary between windows
-hide_edge_borders smart
+# hide_edge_borders --i3 means that single-window workspaces never show window bar
+hide_edge_borders --i3 smart
 default_border pixel 1
 titlebar_border_thickness 1
 # XX YY distance from edge of window title to edge of text

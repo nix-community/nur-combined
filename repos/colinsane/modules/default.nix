@@ -14,6 +14,7 @@
     ./sops.nix
     ./ssh.nix
     ./users.nix
+    ./wowlan.nix
   ];
 
   _module.args =  rec {

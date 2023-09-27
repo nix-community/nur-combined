@@ -96,6 +96,9 @@ in
           # common typos
           "cd.." = "cd ..";
           "cd../" = "cd ../";
+          # overcome poor defaults
+          "lsof" = "lsof -P";  #< lsof: use port *numbers*, not names
+          "tcpdump" = "tcpdump -n";  #< tcpdump: use port *numbers*, not names
         };
         setOptions = [
           # docs: `man zshoptions`
