@@ -2,18 +2,20 @@
 
 buildGoModule rec {
   pname = "chatgpt-cli";
-  version = "1.0.5";
+  version = "1.3.2";
 
   src = fetchFromGitHub {
     owner = "kardolus";
     repo = "chatgpt-cli";
     rev = "v${version}";
-    hash = "sha256-rFtYdD6U4irbJ8Dj/1mfEWs8x8uJasyotFowV/ku3sc=";
+    hash = "sha256-6FN4bQdjM+dBHskcwe9Q8sc8xE1YtVcxoX+bFUVtQmA=";
   };
 
   vendorHash = null;
 
   ldflags = [ "-s" "-w" "-X main.GitCommit=${src.rev}" "-X main.GitVersion=${version}" ];
+
+  checkPhase = false; # tests need network
 
   meta = with lib; {
     description = "A versatile command-line interface for interacting with OpenAI's ChatGPT, featuring streaming support, query mode, and conversation history tracking";
