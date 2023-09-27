@@ -1,0 +1,24 @@
+--- a/betanin/paths.py
++++ b/betanin/paths.py
+@@ -19,11 +19,3 @@
+ BEETS_DIR = xdg.BaseDirectory.save_config_path("beets")
+-CLIENT_DIST_DIR = _first_existing(
+-    os.path.join(os.getcwd(), "betanin_client", "dist"),
+-    os.path.join(site.getusersitepackages(), "betanin_client", "dist"),
+-    os.path.join(site.getsitepackages()[0], "betanin_client", "dist"),
+-)
+-MIGRATIONS_DIR = _first_existing(
+-    os.path.join(os.getcwd(), "betanin_migrations"),
+-    os.path.join(site.getusersitepackages(), "betanin_migrations"),
+-    os.path.join(site.getsitepackages()[0], "betanin_migrations"),
+-)
++CLIENT_DIST_DIR = "@clientDistDir@"
++MIGRATIONS_DIR = "@out@/lib/@libPrefix@/site-packages/betanin_migrations"
+@@ -38,6 +38,2 @@
+ CONFIG_PATH = os.path.join(CONFIG_DIR, "config.toml")
+-VERSION_PATH = _first_existing(
+-    os.path.join(os.getcwd(), "betanin/version.txt"),
+-    os.path.join(site.getusersitepackages(), "betanin", "version.txt"),
+-    os.path.join(site.getsitepackages()[0], "betanin", "version.txt"),
+-)
++VERSION_PATH = "@out@/lib/@libPrefix@/site-packages/betanin/version.txt"
