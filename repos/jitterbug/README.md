@@ -70,6 +70,9 @@ Enable `exportVersionVariable`to have the environment variable `__CXADC_VERSION`
 # ltfs
 The reference LTFS implementation.
 
+# stfs
+Simple Tape File System (STFS), a file system for tapes and tar files.
+
 # vapoursynth-bwdif
 Dependency for QTGMC.
 
