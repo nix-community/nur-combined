@@ -493,6 +493,7 @@ lib.makeScope newScope (
     chibicc = callPackage ./suckless/chibicc { };
     cproc = callPackage ./suckless/cproc { };
     dragon = callPackage ./suckless/dragon { };
+    edit = callPackage ./suckless/edit { };
     farbfeld-utils = callPackage ./suckless/farbfeld-utils { };
     ff-tools = callPackage ./suckless/ff-tools { };
     ffshot = callPackage ./suckless/ffshot { };
