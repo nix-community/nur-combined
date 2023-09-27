@@ -73,14 +73,19 @@ let
       src = ./hooks;
       pkgs = [ "coreutils" ];
     };
+    postwake = pkgs.static-nix-shell.mkBash {
+      pname = "sxmo_hook_postwake.sh";
+      src = ./hooks;
+    };
+    rotate = pkgs.static-nix-shell.mkBash {
+      pname = "sxmo_hook_rotate.sh";
+      src = ./hooks;
+      pkgs = [ "sway" ];
+    };
     start = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_start.sh";
       src = ./hooks;
       pkgs = [ "superd" "xdg-user-dirs" ];
-    };
-    postwake = pkgs.static-nix-shell.mkBash {
-      pname = "sxmo_hook_postwake.sh";
-      src = ./hooks;
     };
   };
 in
@@ -123,9 +128,10 @@ in
     sane.gui.sxmo.hooks = mkOption {
       type = types.attrsOf types.path;
       default = {
-        "sxmo_hook_start.sh" = "${hookPkgs.start}/bin/sxmo_hook_start.sh";
         "sxmo_hook_inputhandler.sh" = "${hookPkgs.inputhandler}/bin/sxmo_hook_inputhandler.sh";
         "sxmo_hook_postwake.sh" = "${hookPkgs.postwake}/bin/sxmo_hook_postwake.sh";
+        "sxmo_hook_rotate.sh" = "${hookPkgs.rotate}/bin/sxmo_hook_rotate.sh";
+        "sxmo_hook_start.sh" = "${hookPkgs.start}/bin/sxmo_hook_start.sh";
       };
       description = ''
         extra hooks to add with higher priority than the builtins

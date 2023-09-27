@@ -75,47 +75,83 @@ let
     };
   });
 
-  fetchAddon = name: extid: hash: fetchurl {
-    inherit name hash;
-    url = "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi";
-    # extid can be found by unar'ing the above xpi, and copying browser_specific_settings.gecko.id field
-    passthru = { inherit extid; };
+  # fetchAddon: fetch an addon directly from the mozilla store.
+  #             prefer NOT to use this, because moz store doesn't offer versioned release access
+  #             which breaks caching/reproducibility and such.
+  #             (maybe the `latest.xpi` URL redirects to a versioned URI visible if i used curl?)
+  # fetchAddon = name: extid: hash: fetchurl {
+  #   inherit name hash;
+  #   url = "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi";
+  #   # extid can be found by unar'ing the above xpi, and copying browser_specific_settings.gecko.id field
+  #   passthru = { inherit extid; };
+  # };
+
+  fetchVersionedAddon = { extid, version, url, hash ? "", pname ? extid }: stdenv.mkDerivation {
+    inherit pname version;
+    src = fetchurl {
+      inherit url hash;
+    };
+    dontUnpack = true;
+    installPhase = ''
+      cp $src $out
+    '';
+
+    passthru.updateScript = nix-update-script { };
+    passthru.extid = extid;
   };
+
 in lib.makeScope newScope (self: with self; {
   unwrapped = lib.recurseIntoAttrs {
     # get names from:
     # - ~/ref/nix-community/nur-combined/repos/rycee/pkgs/firefox-addons/generated-firefox-addons.nix
     # `wget ...xpi`; `unar ...xpi`; `cat */manifest.json | jq '.browser_specific_settings.gecko.id'`
-    #
-    # TODO: give these updateScript's
     browserpass-extension = callPackage ./browserpass-extension { };
     bypass-paywalls-clean = callPackage ./bypass-paywalls-clean { };
-    ether-metamask = fetchAddon "ether-metamask" "webextension@metamask.io"
-      "sha256-MFb68cPM/tQ3+b3mx2doMaXX3FiAiMOttHu8zL/9BbY=";
-    i2p-in-private-browsing = fetchAddon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io"
-      "sha256-aS8Alj/UNgcTp/TDWPN69wSn0GxDsQx44dtxrybdPXo=";
-    sidebery = fetchAddon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}"
-      "sha256-9ZJCehxo0+Ua7iCNBViPOXAklpV3cf2Et2qT42QTi/U=";
-    ublacklist = fetchAddon "ublacklist" "@ublacklist"
-      "sha256-diKkwxe1C35wsGNQd0yHh9BenPRSmGiRmCdmnW8sTD4=";
-    ublock-origin = fetchAddon "ublock-origin" "uBlock0@raymondhill.net"
-      "sha256-OTJQbOTfMG5Np1J9k9YP4EIc8VBFwvTqc1idmgkCJms=";
 
-    sponsorblock = stdenv.mkDerivation rec {
+    ether-metamask = fetchVersionedAddon rec {
+      extid = "webextension@metamask.io";
+      pname = "ether-metamask";
+      url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
+      version = "11.1.0";
+      hash = "sha256-Rcm5lC2yKs4ghxF05WYNhSdVQ+VX0uog7h2lLYJeai8=";
+    };
+    i2p-in-private-browsing = fetchVersionedAddon rec {
+      extid = "i2ppb@eyedeekay.github.io";
+      pname = "i2p-in-private-browsing";
+      url = "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/${version}/i2ppb@eyedeekay.github.io.xpi";
+      version = "1.47";
+      hash = "sha256-LnR5z3fqNJywlr/khFdV4qloKGQhbxNZQvWCEgz97DU=";
+    };
+    sidebery = fetchVersionedAddon rec {
+      extid = "{3c078156-979c-498b-8990-85f7987dd929}";
+      pname = "sidebery";
+      # N.B.: unsure if this URL format is stable
+      url = "https://github.com/mbnuqw/sidebery/releases/download/v${version}/sidebery-${version}-unsigned.zip";
+      version = "5.0.0";
+      hash = "sha256-tHTU/l8ct+tY1/H+nZf3VlMlwoYn68+0pgeuFzm91XY=";
+    };
+    sponsorblock = fetchVersionedAddon rec {
+      extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
+      url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
       version = "5.4.21";
-      src = fetchurl {
-        url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-        hash = "sha256-mfCHD46FgmCQ8ugg58ML19zIllBQEJthfheTrEObs7M=";
-      };
-
-      dontUnpack = true;
-      installPhase = ''
-        cp $src $out
-      '';
-
-      passthru.updateScript = nix-update-script { };
-      passthru.extid = "sponsorBlocker@ajay.app";
+      hash = "sha256-mfCHD46FgmCQ8ugg58ML19zIllBQEJthfheTrEObs7M=";
+    };
+    ublacklist = fetchVersionedAddon rec {
+      extid = "@ublacklist";
+      pname = "ublacklist";
+      url = "https://github.com/iorate/ublacklist/releases/download/v${version}/ublacklist-v${version}-firefox.zip";
+      version = "8.3.5";
+      hash = "sha256-NAUkRXzFgwnIyP+uPAccQZUuHHxYFZakxrfMvp2yftg=";
+    };
+    ublock-origin = fetchVersionedAddon rec {
+      extid = "uBlock0@raymondhill.net";
+      pname = "ublock-origin";
+      # N.B.: a handful of versions are released unsigned
+      # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
+      url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
+      version = "1.52.3b0";
+      hash = "sha256-6idJQXOguCPXgs1RP6mKUjZK3lzSAkjvpDPVcWUfacI=";
     };
   };
 
