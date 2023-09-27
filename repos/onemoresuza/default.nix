@@ -19,4 +19,5 @@
   junest = pkgs.callPackage ./pkgs/junest {};
   pdpmake = pkgs.callPackage ./pkgs/pdpmake {};
   chawan = pkgs.callPackage ./pkgs/chawan {};
+  aercbook = pkgs.callPackage ./pkgs/aercbook {};
 }
