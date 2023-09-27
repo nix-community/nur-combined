@@ -1,7 +1,7 @@
 { stdenv, lib, bash, coreutils, writeScript, gnutar, gzip, requireFile, patchelf
 , procps, makeWrapper, ncurses, zlib, libX11, libXrender, libxcb, libXext
 , libXtst, libXi, libxcrypt, glib, freetype, gtk2, buildFHSUserEnv, gcc
-, ncurses5, glibc, gperftools, fontconfig, liberation_ttf }:
+, ncurses5, glibc, gperftools, fontconfig, liberation_ttf, writeTextFile }:
 
 let
   extractedSource = stdenv.mkDerivation rec {

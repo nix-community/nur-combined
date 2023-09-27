@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   vivado-2017-4-1 = pkgs.callPackage ./pkgs/vivado-2017-4-1 { };
+  vivado-2017-4 = pkgs.callPackage ./pkgs/vivado-2017-4 { };
   sweet-theme = pkgs.callPackage ./pkgs/sweet-theme { };
   utterly-round-plasma-style =
     pkgs.callPackage ./pkgs/utterly-round-plasma-style { };
