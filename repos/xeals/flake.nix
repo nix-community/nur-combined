@@ -18,12 +18,13 @@
           packages = import ./pkgs/top-level { localSystem = system; inherit pkgs; };
 
           checks = {
-            nixpkgs-fmt = pkgs.writeShellScriptBin "nixpkgs-fmt-check" ''
-              ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check .
-            '';
-            deadnix = pkgs.writeShellScriptBin "deadnix-check" ''
-              ${pkgs.deadnix}/bin/deadnix --fail .
-            '';
+            # FIXME: Disabled until I can work out what to do with generated code.
+            # nixpkgs-fmt = pkgs.writeShellScriptBin "nixpkgs-fmt-check" ''
+            #   ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check .
+            # '';
+            # deadnix = pkgs.writeShellScriptBin "deadnix-check" ''
+            #   ${pkgs.deadnix}/bin/deadnix --fail .
+            # '';
             # Ensures that the NUR bot can evaluate and find all our packages.
             # Normally we'd also run with `--option restrict-eval true`, but
             # this is incompatible with flakes because reasons.

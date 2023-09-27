@@ -1,47 +1,16 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkOption optionalAttrs optionalString types;
+  inherit (builtins) hashString;
+  inherit (lib) mkIf mkOption optionalAttrs types;
+
   cfg = config.services.betanin;
 
   defaultUser = "betanin";
   defaultGroup = "betanin";
-  defaultSettings = {
-    notifications = {
-      services = { };
-      strings = {
-        title = "[betanin] torrent `$name` $status";
-        body = "@ $time. view/use the console at http://127.0.0.1:${toString cfg.port}/$console_path";
-      };
-    };
-  };
-
-  finalSettings =
-    let
-      base = lib.filterAttrsRecursive (n: _: !(lib.hasSuffix "_file" n)) cfg.settings;
-      clean = {
-        frontend.password =
-          if cfg.settings.frontend.password_file != null
-          then "@password@"
-          else cfg.settings.frontend.password;
-        clients.api_key =
-          if cfg.settings.clients.api_key_file != null
-          then "@api_key@"
-          else cfg.settings.clients.api_key;
-      };
-    in
-    lib.foldl' lib.recursiveUpdate defaultSettings [ base clean ];
 
   settingsFormat = pkgs.formats.toml { };
-  settingsFile = settingsFormat.generate "betanin.toml" finalSettings;
-
   beetsFormat = pkgs.formats.yaml { };
-  beetsFile =
-    if (cfg.beetsFile != null)
-    then cfg.beetsFile
-    else if (cfg.beetsConfig != { })
-    then beetsFormat.generate "betanin-beets.yaml" cfg.beetsConfig
-    else null;
 in
 {
   options = {
@@ -85,106 +54,50 @@ in
       };
 
       settings = mkOption {
-        type = types.submodule {
-          freeformType = settingsFormat.type;
-
-          options.frontend.username = mkOption {
-            type = types.str;
-            default = "";
-            description = "Username used to log into the frontend. Must be set.";
-          };
-
-          options.frontend.password = mkOption {
-            type = types.str;
-            default = "";
-            description = ''
-              Password used to log into the frontend. Either password or
-              password_file must be set.
-            '';
-          };
-
-          options.frontend.password_file = mkOption {
-            type = with types; nullOr (either str path);
-            default = null;
-            description = ''
-              File containing the password used to log into the frontend. The
-              file must be readable by the betanin user/group.
-
-              Using a password file keeps the password out of the Nix store, but
-              the password is still stored in plain text in the service data
-              directory.
-            '';
-          };
-
-          options.clients.api_key = mkOption {
-            type = types.nullOr types.str;
-            default = "";
-            description = ''
-              API key used to access Betanin (e.g., from other services).
-            '';
-          };
-
-          options.clients.api_key_file = mkOption {
-            type = with types; nullOr (either str path);
-            default = null;
-            description = ''
-              File containing the API key used to access Betanin (e.g., from
-              other services). The file must be readable by the betanin
-              user/group.
-
-              Using a API key file keeps the API key out of the Nix store, but
-              the API key is still stored in plain text in the service data
-              directory.
-            '';
-          };
-        };
-        default = defaultSettings;
+        type = settingsFormat.type;
+        default = { };
         example = lib.literalExpression ''
           {
             frontend = {
               username = "foo";
-              password_file = "/run/secrets/betaninPasswordFile";
+              password { _secret = "/run/secrets/betaninPasswordFile"; };
             };
             clients = {
-              api_key_file = "/run/secrets/betaninApiKeyFile";
+              api_key = { _secret = "/run/secrets/betaninApiKeyFile"; };
             };
             server = {
               num_parallel_jobs = 1;
             };
           }
         '';
-        description = "Configuration for betanin.";
+        description = lib.mdDoc ''
+          Configuration for betanin.
+
+          Options containing secret data should be set to an attribute set
+          containing the attribute `_secret` - a string pointing to a file
+          containing the value the option should be set to.
+        '';
       };
 
-      beetsConfig = mkOption {
-        description = "beets configuration.";
+      beets.settings = mkOption {
         type = beetsFormat.type;
         default = { };
-      };
-
-      beetsFile = mkOption {
-        description = "beets configuration file.";
-        type = with types; nullOr (either str path);
-        default = null;
+        description = lib.mdDoc "Configuration for beets used by betanin.";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.settings.frontend.username != "";
-        message = "services.betanin.settings.frontend.username is required";
-      }
-      {
-        assertion = (cfg.settings.frontend.password == "") != (cfg.settings.frontend.password_file == null);
-        message = "services.betanin.settings.frontend.password or services.betanin.settings.frontend.password_file is required";
-      }
-      {
-        assertion = (cfg.settings.clients.api_key == "") != (cfg.settings.clients.api_key_file == null);
-        message = "services.betanin.settings.clients.api_key or services.betanin.settings.clients.api_key_file is required";
-      }
-    ];
+    services.betanin.settings = {
+      notifications = {
+        # Required to exist.
+        services = { };
+        strings = {
+          title = lib.mkDefault "[betanin] torrent `$name` $status";
+          body = lib.mkDefault "@ $time. view/use the console at http://127.0.0.1:${toString cfg.port}/$console_path";
+        };
+      };
+    };
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [ cfg.port ];
@@ -192,12 +105,20 @@ in
 
     systemd.services.betanin =
       let
-        replaceSecret = secretFile: placeholder: targetFile:
-          optionalString (secretFile != null) ''
-            ${pkgs.replace-secret}/bin/replace-secret ${placeholder} ${secretFile} ${targetFile}
-          '';
-        replaceConfigSecret = secretFile: placeholder:
-          replaceSecret secretFile placeholder "${cfg.dataDir}/.config/betanin/config.toml";
+        isSecret = v: lib.isAttrs v && v ? _secret && lib.isString v._secret;
+        sanitisedConfig = lib.mapAttrsRecursiveCond
+          (as: !isSecret as)
+          (_: v: if isSecret v then hashString "sha256" v._secret else v)
+          cfg.settings;
+        settingsFile = settingsFormat.generate "betanin.toml" sanitisedConfig;
+
+        secretPaths = lib.catAttrs "_secret" (lib.collect isSecret cfg.settings);
+        mkSecretReplacement = file: ''
+          replace-secret ${hashString "sha256" file} ${file} "${cfg.dataDir}/.config/betanin/config.toml"
+        '';
+        secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
+
+        beetsFile = beetsFormat.generate "betanin-beets.yaml" cfg.beets.settings;
       in
       {
         description = "Betanin service";
@@ -210,15 +131,12 @@ in
 
         script = ''
           mkdir -p ${cfg.dataDir}/.config/betanin \
-            ${cfg.dataDir}/.config/beets \
-            ${cfg.dataDir}/.local/share/betanin
-          cat ${settingsFile} > ${cfg.dataDir}/.config/betanin/config.toml
+            ${cfg.dataDir}/.local/share/betanin \
+            ${cfg.dataDir}/.config/beets
 
-          ${optionalString (beetsFile != null) ''
-            ln -sf ${beetsFile} ${cfg.dataDir}/.config/betanin/config.toml
-          ''}
-          ${replaceConfigSecret cfg.settings.frontend.password_file "@password@"}
-          ${replaceConfigSecret cfg.settings.clients.api_key_file "@api_key@"}
+          ln -sf ${beetsFile} ${cfg.dataDir}/.config/betanin/config.toml
+          cat ${settingsFile} > ${cfg.dataDir}/.config/betanin/config.toml
+          ${secretReplacements}
 
           ${cfg.package}/bin/betanin --port ${toString cfg.port}
         '';
