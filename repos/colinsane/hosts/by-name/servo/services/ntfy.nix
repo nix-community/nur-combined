@@ -78,8 +78,13 @@ in
     ];
     locations."/" = {
       proxyPass = "http://127.0.0.1:2586";
-      recommendedProxySettings = true; #< adds headers so ntfy logs include the real IP
       proxyWebsockets = true;  #< support websocket upgrades. without that, `ntfy sub` hangs silently
+      recommendedProxySettings = true; #< adds headers so ntfy logs include the real IP
+      extraConfig = ''
+        # absurdly long timeout (86400s=24h) so that we never hang up on clients.
+        # make sure the client is smart enough to detect a broken proxy though!
+        proxy_read_timeout 86400s;
+      '';
     };
   };
   sane.dns.zones."uninsane.org".inet.CNAME."ntfy" = "native";
