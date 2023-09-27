@@ -21,13 +21,15 @@ trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWo
     1. [ttf-literation][ttf-literation]: *A ttf Nerd Font based on ttf-liberation*.
 - **Mpv scripts**:
     1. [appendURL][appendURL]: *Appends url from clipboard to the playlist*.
-- [chawan][chawan]: *A text-mode web browser*.
 - [IRust][irust]: *Cross Platform Rust Repl*.
 - [Junest][junest]: *A lightweight Arch Linux based distro*.
+- [aercbook][aercbook]: *A minimalistic address book for the aerc e-mail client*.
+- [chawan][chawan]: *A text-mode web browser*.
 - [pdpmake][pdpmake]: *A public domain POSIX make*.
 
 **NOTE**: these packages are built only against the `unstable` channels.
 
+[aercbook]: <https://sr.ht/~renerocksai/aercbook/> "A minimalistic address book for the aerc e-mail client"
 [appendURL]: <https://github.com/jonniek/mpv-scripts/> "Appends url from clipboard to the playlist"
 [chawan]: <https://sr.ht/~bptato/chawan/> "A text-mode web browser"
 [irust]: <https://github.com/sigmaSd/IRust/> "Cross Platform Rust Repl"
