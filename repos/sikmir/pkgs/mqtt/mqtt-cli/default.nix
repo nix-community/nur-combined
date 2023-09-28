@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mqtt-cli";
-  version = "4.19.0";
+  version = "4.20.0";
 
   src = fetchfromgh {
     owner = "hivemq";
     repo = "mqtt-cli";
     name = "mqtt-cli-${finalAttrs.version}.jar";
-    hash = "sha256-fC0OeZhxGjh5U+drXbfG+wQzmuh8bRGEfltzL+LquHA=";
+    hash = "sha256-5jSGsIJzMF8yotKRUnbFrJoxChFJEJOFljE6HfhSS1I=";
     version = "v${finalAttrs.version}";
   };
 
