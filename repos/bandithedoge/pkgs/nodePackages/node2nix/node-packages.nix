@@ -774,13 +774,13 @@
         sha512 = "924/h0AqsMtA5yK22GgMtCYiMdCOtWTSGgUOkgEDX+wk2b0x4sAfLiO4NxBxqbiVtz7K7/1/RgVrVI0NClZwqA==";
       };
     };
-    "vscode-languageserver-textdocument-1.0.10" = {
+    "vscode-languageserver-textdocument-1.0.11" = {
       name = "vscode-languageserver-textdocument";
       packageName = "vscode-languageserver-textdocument";
-      version = "1.0.10";
+      version = "1.0.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.10.tgz";
-        sha512 = "dPA6WqtAQJ/Iopm0Hrj11VvaKxsEcm62jpqyaYbY0xuvUffeWAn77f3VKr2SCsJphSyEw4Fjkjqm2gQ24KQfrA==";
+        url = "https://registry.npmjs.org/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.11.tgz";
+        sha512 = "X+8T3GoiwTVlJbicx/sIAF+yuJAqz8VvwJyoMVhwEMoEKE/fkDmrqUgDMyBECcM2A2frVZIUj5HI/ErRXCfOeA==";
       };
     };
     "vscode-languageserver-types-3.16.0" = {
@@ -799,6 +799,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/vscode-languageserver-types/-/vscode-languageserver-types-3.17.3.tgz";
         sha512 = "SYU4z1dL0PyIMd4Vj8YOqFvHu7Hz/enbWtpfnVbJHU4Nd1YNYx8u0ennumc6h48GQNeOLxmwySmnADouT/AuZA==";
+      };
+    };
+    "vscode-languageserver-types-3.17.5" = {
+      name = "vscode-languageserver-types";
+      packageName = "vscode-languageserver-types";
+      version = "3.17.5";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/vscode-languageserver-types/-/vscode-languageserver-types-3.17.5.tgz";
+        sha512 = "Ld1VelNuX9pdF39h2Hgaeb5hEZM2Z3jUrrMgWQAu82jMtZp7p3vJT3BzToKtZI7NgQssZje5o0zryOrhQvzQAg==";
       };
     };
     "vscode-uri-2.1.2" = {
@@ -866,7 +875,7 @@ in {
       sources."vscode-jsonrpc-6.0.0"
       sources."vscode-languageserver-7.0.0"
       sources."vscode-languageserver-protocol-3.16.0"
-      sources."vscode-languageserver-textdocument-1.0.10"
+      sources."vscode-languageserver-textdocument-1.0.11"
       sources."vscode-languageserver-types-3.16.0"
     ];
     buildInputs = globalBuildInputs;
@@ -882,10 +891,10 @@ in {
   "@olrtg/emmet-language-server" = nodeEnv.buildNodePackage {
     name = "_at_olrtg_slash_emmet-language-server";
     packageName = "@olrtg/emmet-language-server";
-    version = "2.1.0";
+    version = "2.3.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@olrtg/emmet-language-server/-/emmet-language-server-2.1.0.tgz";
-      sha512 = "zex6Z1wqhf6/b8iPHVJKXULY/80Nv9XEOPCUIkP8c27GIkvxKZ471g0ahJZlitvf4a5WmDENcNjamtO1X8os9A==";
+      url = "https://registry.npmjs.org/@olrtg/emmet-language-server/-/emmet-language-server-2.3.0.tgz";
+      sha512 = "B9A5gZwOEske7YNvZhWx4DA/nrLvqgjUGB/dEcT2t4l5exSgzjaKiozjGbrwsMuZ+0T7oYzdYWJNB3tRc/fsPg==";
     };
     dependencies = [
       sources."@emmetio/abbreviation-2.3.3"
@@ -980,9 +989,14 @@ in {
       sources."ufo-1.3.0"
       sources."vscode-jsonrpc-8.1.0"
       sources."vscode-languageserver-8.1.0"
-      sources."vscode-languageserver-protocol-3.17.3"
-      sources."vscode-languageserver-textdocument-1.0.10"
-      sources."vscode-languageserver-types-3.17.3"
+      (sources."vscode-languageserver-protocol-3.17.3"
+        // {
+          dependencies = [
+            sources."vscode-languageserver-types-3.17.3"
+          ];
+        })
+      sources."vscode-languageserver-textdocument-1.0.11"
+      sources."vscode-languageserver-types-3.17.5"
       sources."vscode-uri-2.1.2"
       sources."which-2.0.2"
       sources."yallist-4.0.0"

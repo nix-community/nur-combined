@@ -6,10 +6,10 @@
 }: {
   "augmented-steam" = buildFirefoxXpiAddon {
     pname = "augmented-steam";
-    version = "2.5.0";
+    version = "2.6.0";
     addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4135651/augmented_steam-2.5.0.xpi";
-    sha256 = "f470a28abde4e4179a6bc3f8bab9fdb167a745c9a93a192c4dc9638f68beabde";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4167723/augmented_steam-2.6.0.xpi";
+    sha256 = "949f9f8c8a932cbaee3fea6ccbb25a34fa1d260c61df78e5c384bdf7d4118c59";
     meta = with lib; {
       homepage = "https://augmentedsteam.com/";
       description = "Augments your Steam Experience";
@@ -44,6 +44,10 @@
         "*://*.steampowered.com/account?*"
         "*://*.steampowered.com/account/"
         "*://*.steampowered.com/account/?*"
+        "*://store.steampowered.com/account/licenses"
+        "*://store.steampowered.com/account/licenses?*"
+        "*://store.steampowered.com/account/licenses/"
+        "*://store.steampowered.com/account/licenses/?*"
         "*://*.steampowered.com/account/registerkey"
         "*://*.steampowered.com/account/registerkey?*"
         "*://*.steampowered.com/account/registerkey/"
@@ -597,15 +601,16 @@
   };
   "privacy-badger" = buildFirefoxXpiAddon {
     pname = "privacy-badger";
-    version = "2023.6.23";
+    version = "2023.9.12";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4129240/privacy_badger17-2023.6.23.xpi";
-    sha256 = "ce79513710b2aed96bf03ec63d8be2e8274329e8d90911f5b8962c777e006e96";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4167070/privacy_badger17-2023.9.12.xpi";
+    sha256 = "eae97d9d3df3350476901ca412505cb4a43d0e7fa79bd9516584935158f82095";
     meta = with lib; {
       homepage = "https://privacybadger.org/";
       description = "Automatically learns to block invisible trackers.";
       license = licenses.gpl3;
       mozPermissions = [
+        "alarms"
         "tabs"
         "http://*/*"
         "https://*/*"
@@ -619,6 +624,10 @@
         "https://*.messenger.com/*"
         "http://*.messenger.com/*"
         "*://*.facebookcorewwwi.onion/*"
+        "https://docs.google.com/*"
+        "http://docs.google.com/*"
+        "https://mail.google.com/*"
+        "http://mail.google.com/*"
         "https://www.google.com/*"
         "http://www.google.com/*"
         "https://www.google.ad/*"
@@ -999,10 +1008,6 @@
         "http://www.google.co.zw/*"
         "https://www.google.cat/*"
         "http://www.google.cat/*"
-        "https://hangouts.google.com/*"
-        "http://hangouts.google.com/*"
-        "https://docs.google.com/*"
-        "http://docs.google.com/*"
         "<all_urls>"
       ];
       platforms = platforms.all;
@@ -1074,10 +1079,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.9.7";
+    version = "23.9.21";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4164242/refined_github-23.9.7.xpi";
-    sha256 = "198ccf175a4c9c242753ccc920394fd7f970a2e7fd8bdfbb5f22880eb3da68b2";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4170731/refined_github-23.9.21.xpi";
+    sha256 = "047da88fd06f63710e27661257be2922c0e0144f20def84b40a5577e6911caee";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1096,24 +1101,26 @@
   };
   "sidebery" = buildFirefoxXpiAddon {
     pname = "sidebery";
-    version = "4.10.2";
+    version = "5.0.0";
     addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3994928/sidebery-4.10.2.xpi";
-    sha256 = "60e35f2bfac88e5b2b4e044722dde49b4ed0eca9e9216f3d67dafdd9948273ac";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4170134/sidebery-5.0.0.xpi";
+    sha256 = "f592427a1c68d3e51aee208d05588f39702496957771fd84b76a93e364138bf5";
     meta = with lib; {
       homepage = "https://github.com/mbnuqw/sidebery";
       description = "Tabs tree and bookmarks in sidebar with advanced containers configuration.";
       license = licenses.mit;
       mozPermissions = [
+        "activeTab"
         "tabs"
         "contextualIdentities"
         "cookies"
         "storage"
-        "bookmarks"
+        "unlimitedStorage"
         "sessions"
         "menus"
         "menus.overrideContext"
         "search"
+        "theme"
       ];
       platforms = platforms.all;
     };
@@ -1139,10 +1146,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.4.19";
+    version = "5.4.21";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4163966/sponsorblock-5.4.19.xpi";
-    sha256 = "95a3f6ad7513a1e2b51af313ece4a5e2dd685d8a61e379291c46e839ee059f70";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4171739/sponsorblock-5.4.21.xpi";
+    sha256 = "c7f4202f32014699235fe30deb5ed14145400799baeb63273c93404d6fd0b371";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -1333,10 +1340,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.52.0";
+    version = "1.52.2";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4164949/ublock_origin-1.52.0.xpi";
-    sha256 = "3932506ce4df306e4da7527d93d60fe0421cf15045c2f4ea73589d9a0902266b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4171020/ublock_origin-1.52.2.xpi";
+    sha256 = "e8ee3f9d597a6d42db9d73fe87c1d521de340755fd8bfdd69e41623edfe096d6";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
