@@ -12,60 +12,82 @@
 # rutherther.overlays.firefoxpwa
 # rutherther.overlays.firefox-native-messaging
 
-pkgs.rustPlatform.buildRustPackage rec {
-    pname = "firefoxpwa";
+let
+  firefoxpwa-unwrapped = pkgs.callPackage ./unwrapped.nix;
+in pkgs.buildFHSEnv {
+    name = "firefoxpwa";
     version = "2.7.3";
 
-    src = pkgs.fetchFromGitHub {
-      owner = "filips123";
-      repo = "PWAsForFirefox";
-      rev = "v${version}";
-      hash = "sha256-G1szjwQwlidtUaJZb1KdlkSXfgTIM26ZVj4Fn5VEZgQ=";
-    } + "/native";
+    targetPkgs = pkgs: (with pkgs; [
+      firefoxpwa-unwrapped
 
-    patchPhase = ''
-      sed -i "s|/usr|$out/usr|" manifests/linux.json
-      sed -i "s|/usr|$out/usr|" src/directories.rs
+      xorg.libX11
+      xorg.libXrender
+      xorg.libXrandr
+      xorg.libXcomposite
+      xorg.libXext
+      xorg.libxcb
+      xorg.libXtst
+      xorg.libXi
+      glib
+      freetype
+      gtk3
+      gtk2
+      openssl
+      libxcrypt
+      libxcrypt-legacy
+      zlib
+      stdenv.cc.cc.lib
 
-      patch < ${./Cargo.toml.patch}
-      patch < ${./Cargo.lock.patch}
-    '';
+      fontconfig
+      freetype
+      gcc
+      unzip
+      nettools
 
-    cargoPatches = [
-      ./Cargo.lock.patch
-      ./Cargo.toml.patch
+      glib
+      bzip2
+      dbus
+      dbus-glib
+      file
+      gnum4
+      icu
+      icu72
+      libGL
+      libGLU
+      libevent
+      libffi
+      libjpeg
+      libpng
+      libvpx
+      libwebp
+      nasm
+      nspr
+      zip
+      zlib
+      nss_latest
+      pango
+      atk
+      cairo
+      gdk-pixbuf
+    ]);
+    multiPkgs = pkgs: with pkgs; [
+      gdk-pixbuf
+      cairo
+      atk
+      gtk3
+      nss_latest
+      pango
+      alsa-lib
+      libjack2
+      libkrb5
+      jemalloc
+      libxcrypt
+      coreutils
+      ncurses5
+      zlib
+      glibc.dev
     ];
 
-    installPhase = ''
-      mkdir -p $out/usr/bin $out/bin
-      cp target/x86_64-unknown-linux-gnu/release/firefoxpwa $out/bin/
-
-      ln -s $out/bin $out/usr/bin
-
-      mkdir -p $out/usr/libexec
-      cp target/x86_64-unknown-linux-gnu/release/firefoxpwa-connector $out/usr/libexec/
-
-      mkdir -p $out/lib/mozilla/native-messaging-hosts
-      cp manifests/linux.json $out/lib/mozilla/native-messaging-hosts/firefoxpwa.json
-
-      mkdir -p $out/usr/local/share/firefoxpwa/userchrome
-      cp -r userchrome/* $out/usr/local/share/firefoxpwa/userchrome
-
-      mkdir -p $out/usr
-      ln -s $out/usr/local/share $out/usr/share
-    '';
-
-    cargoLock = let
-      fixupLockFile = path: (builtins.readFile path);
-    in {
-      lockFile = ./Cargo.lock;
-      outputHashes = {
-        "data-url-0.3.0" = "sha256-SDOOwwvZrX4i04NElBJe5NRS9MXCgRVhBz7L4G8B4m8=";
-        "mime-0.4.0-a.0" = "sha256-LjM7LH6rL3moCKxVsA+RUL9lfnvY31IrqHa9pDIAZNE=";
-        "web_app_manifest-0.0.0" = "sha256-G+kRN8AEmAY1TxykhLmgoX8TG8y2lrv7SCRJlNy0QzA=";
-      };
-    };
-
-    nativeBuildInputs = [ pkgs.pkg-config ];
-    buildInputs = [ pkgs.bzip2 pkgs.openssl ];
+    runScript = "${firefoxpwa-unwrapped}/bin/firefoxpwa";
 }

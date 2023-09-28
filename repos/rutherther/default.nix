@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {} }:
 
 {
   lib = import ./lib { inherit pkgs; }; # functions
@@ -14,4 +14,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   firefoxpwa = pkgs.callPackage ./pkgs/firefoxpwa { };
+  firefoxpwa-unwrapped = pkgs.callPackage ./pkgs/firefoxpwa/unwrapped.nix { };
 }
