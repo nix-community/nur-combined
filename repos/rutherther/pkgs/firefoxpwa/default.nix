@@ -31,6 +31,7 @@ in pkgs.buildFHSEnv {
       xorg.libxcb
       xorg.libXtst
       xorg.libXi
+
       glib
       freetype
       gtk3
@@ -89,8 +90,6 @@ in pkgs.buildFHSEnv {
       zlib
       glibc.dev
     ];
-
-    extraOutputsToInstall = [ "usr" ];
 
     runScript = "${firefoxpwa-unwrapped}/bin/firefoxpwa";
 }
