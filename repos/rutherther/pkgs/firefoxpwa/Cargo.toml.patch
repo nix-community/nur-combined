@@ -1,0 +1,13 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 30360ef..64faba7 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -13,7 +13,7 @@ edition = "2018"
+ publish = false
+ 
+ # Version will be set by CI from the Git tag when building and releasing
+-version = "0.0.0"
++version = "2.7.3"
+ 
+ [profile.release]
+ codegen-units = 1

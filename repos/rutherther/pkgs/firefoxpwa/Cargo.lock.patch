@@ -1,0 +1,15 @@
+diff --git a/Cargo.lock b/Cargo.lock
+old mode 100755
+new mode 100644
+index d680f9f..a8029a2
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -649,7 +649,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "firefoxpwa"
+-version = "0.0.0"
++version = "2.7.3"
+ dependencies = [
+  "ab_glyph",
+  "anyhow",
