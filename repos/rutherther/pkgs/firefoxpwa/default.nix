@@ -13,10 +13,9 @@
 # rutherther.overlays.firefox-native-messaging
 
 let
-  firefoxpwa-unwrapped = pkgs.callPackage ./unwrapped.nix;
+  firefoxpwa-unwrapped = pkgs.callPackage ./unwrapped.nix {};
 in pkgs.buildFHSEnv {
     name = "firefoxpwa";
-    version = "2.7.3";
 
     targetPkgs = pkgs: (with pkgs; [
       firefoxpwa-unwrapped
