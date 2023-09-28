@@ -1,31 +1,31 @@
 {
   "prod": {
-    "version": "8.0.10159",
+    "version": "8.0.10164",
     "files": [
       {
-        "url": "ShadowPC-8.0.10159.AppImage",
-        "sha512": "K0pkKL1Kd15ECHmL8ReN8gC4mNid6t68y4ehX16vIulpzFs2PnqYEXMoovNyDpOmqdoqJ09hwtfyI5yejEIfKg==",
-        "size": 177816457,
-        "blockMapSize": 185245
+        "url": "ShadowPC-8.0.10164.AppImage",
+        "sha512": "eiFdhDKIyNeGQ9mjODhfIdRrjC5DRO5ffO0NL6/cxKk7/UxmgplsFL3lqx1IgSNSAWReDb0Qc0/JbINHJAwZrA==",
+        "size": 178288434,
+        "blockMapSize": 186182
       }
     ],
-    "path": "ShadowPC-8.0.10159.AppImage",
-    "sha512": "K0pkKL1Kd15ECHmL8ReN8gC4mNid6t68y4ehX16vIulpzFs2PnqYEXMoovNyDpOmqdoqJ09hwtfyI5yejEIfKg==",
-    "releaseDate": "2023-09-18T13:26:19.055Z"
+    "path": "ShadowPC-8.0.10164.AppImage",
+    "sha512": "eiFdhDKIyNeGQ9mjODhfIdRrjC5DRO5ffO0NL6/cxKk7/UxmgplsFL3lqx1IgSNSAWReDb0Qc0/JbINHJAwZrA==",
+    "releaseDate": "2023-09-27T17:51:54.763Z"
   },
   "preprod": {
-    "version": "8.0.10162",
+    "version": "8.0.10163",
     "files": [
       {
-        "url": "ShadowPCBeta-8.0.10162.AppImage",
-        "sha512": "5QHMaN5yWtFiJ0zXemDxOb0WfvKR4EbgTyjLRBtTxWKEnfdtrW/Ig7Er5R0wZpQh9+nqIMrtOZMtbKCuaZDU1g==",
-        "size": 177480074,
-        "blockMapSize": 184734
+        "url": "ShadowPCBeta-8.0.10163.AppImage",
+        "sha512": "tWNBG0O7Q89EMalO9B3UfZGTa+1+/gVyxSheBqoWmgq1Pxb+vpWG8x4k/U3RED5h/g6z4S2IAqhk6RsMeSWS+A==",
+        "size": 177480188,
+        "blockMapSize": 184848
       }
     ],
-    "path": "ShadowPCBeta-8.0.10162.AppImage",
-    "sha512": "5QHMaN5yWtFiJ0zXemDxOb0WfvKR4EbgTyjLRBtTxWKEnfdtrW/Ig7Er5R0wZpQh9+nqIMrtOZMtbKCuaZDU1g==",
-    "releaseDate": "2023-09-21T07:44:02.865Z"
+    "path": "ShadowPCBeta-8.0.10163.AppImage",
+    "sha512": "tWNBG0O7Q89EMalO9B3UfZGTa+1+/gVyxSheBqoWmgq1Pxb+vpWG8x4k/U3RED5h/g6z4S2IAqhk6RsMeSWS+A==",
+    "releaseDate": "2023-09-27T17:05:20.328Z"
   },
   "testing": {
     "version": "8.0.10160",
