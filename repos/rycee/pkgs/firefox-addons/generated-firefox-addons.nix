@@ -1444,10 +1444,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.65";
+      version = "4.9.66";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4151368/darkreader-4.9.65.xpi";
-      sha256 = "964d7fdeec1dc90b5238a82db699de7a2bbf54e3e2bf18569befff451f35f89a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4172671/darkreader-4.9.66.xpi";
+      sha256 = "20b53356c36b0c76df614e2cb84e7ff3e1ab75b4fe2fd2bbca039026d018813f";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1466,10 +1466,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.18";
+      version = "1.2.19";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169283/dearrow-1.2.18.xpi";
-      sha256 = "58c176b03c53dd12f954c51dd849c45916cba7a3655c1cfea736fc0a08e3e745";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4174055/dearrow-1.2.19.xpi";
+      sha256 = "126155fa712485e11a00265150c3a9107b2a42ac2c261c92709e3e4e3634a5c3";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2261,10 +2261,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "119.0.20230925.132400";
+      version = "118.0.20230927.232528";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4172482/francais_language_pack-119.0.20230925.132400.xpi";
-      sha256 = "02d1e2644e1b3abb09ffdc706c7c0c341a94e4c61e7df9a4384021f280314ca9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4173910/francais_language_pack-118.0.20230927.232528.xpi";
+      sha256 = "92ddaa43b03ab3cd43a35b565d94843f7db6795487d3bec1ad53a614608dcb64";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2626,10 +2626,10 @@
       };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "1.19";
+      version = "2.0.0";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146259/gitpod-1.19.xpi";
-      sha256 = "1baf0452938bd496764b9d62b77795d8ca891d26de43042ea092cc41fb681802";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4173372/gitpod-2.0.0.xpi";
+      sha256 = "2c681bbdf3ded283ee1d94ae64ef4856211a5a1cef29d6199d5791c30f9a96a1";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -2640,15 +2640,7 @@
           url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
           free = false;
           };
-        mozPermissions = [
-          "activeTab"
-          "storage"
-          "*://*.github.com/*"
-          "*://*.gitlab.com/*"
-          "*://*.bitbucket.org/*"
-          "*://*.gitlab.cn/*"
-          "*://*.gitpod.io/*"
-          ];
+        mozPermissions = [ "storage" "https://*/*" "<all_urls>" ];
         platforms = platforms.all;
         };
       };
@@ -4180,10 +4172,10 @@
       };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.3.7";
+      version = "0.3.8";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170728/kagi_search_for_firefox-0.3.7.xpi";
-      sha256 = "6273efad7abd2072dd0e28595f2054ffdb6c9802ad655b0e4a2fa9d95c1993d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4173642/kagi_search_for_firefox-0.3.8.xpi";
+      sha256 = "97df6e38d7f9531efff5360c744d3f32386d7289975ed5eb818491fbdcecf20b";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -6150,10 +6142,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.7.3";
+      version = "2.7.4";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4153224/private_relay-2.7.3.xpi";
-      sha256 = "0aa656a9cce59ce5c1be1261b9a55ff48d45a21ab732f14d29326c9a2ca2ea0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4172769/private_relay-2.7.4.xpi";
+      sha256 = "504c55f5b8bcdcb4c36a4fa99c876c1799c70f9eac787bced874b88f05c9a23f";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -6982,10 +6974,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.20";
+      version = "5.4.21";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169272/sponsorblock-5.4.20.xpi";
-      sha256 = "007c3fbd5007e41c24e2c999be714e6d8c8efc3455965d6ccd500aed8849d9fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171739/sponsorblock-5.4.21.xpi";
+      sha256 = "c7f4202f32014699235fe30deb5ed14145400799baeb63273c93404d6fd0b371";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -7825,10 +7817,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.3.4";
+      version = "8.3.5";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169526/ublacklist-8.3.4.xpi";
-      sha256 = "7622a4c317b50b7e70b06350774c8787d05e9cf4529868919827669d6f2c4c3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171974/ublacklist-8.3.5.xpi";
+      sha256 = "3b34a8910e0eae5add5487afd455e2184e2cd09c833fe323a3b796a1c656e205";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
