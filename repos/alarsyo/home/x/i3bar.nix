@@ -106,7 +106,7 @@ in {
             ++ [
               {
                 block = "net";
-                format = " $icon $ip {SSID: $ssid|}";
+                format = " $icon {$ip SSID: $ssid|}";
                 theme_overrides = {
                   idle_bg = {link = "good_bg";};
                   idle_fg = {link = "good_fg";};
