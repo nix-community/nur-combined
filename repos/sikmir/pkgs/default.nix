@@ -275,6 +275,7 @@ lib.makeScope newScope (
     gpxlib = callPackage ./gpx/gpxlib { };
     gpxtools = callPackage ./gpx/gpxtools { };
     gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
+    routeconverter = callPackage ./gpx/routeconverter { jre = pkgs.jdk11; };
     trackanimation = callPackage ./gpx/trackanimation { };
 
     ### IMAGES
