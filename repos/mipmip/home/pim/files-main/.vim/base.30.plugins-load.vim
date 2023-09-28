@@ -24,6 +24,8 @@ if filereadable($HOME."/.i-am-second-brain")
   " clean focus on mappings
   Plug 'SidOfc/mkdx'
 
+  Plug 'https://git.sr.ht/~soywod/himalaya-vim'
+
   " ----------------off
 
   " MARKDOWN/YAML/ETC

@@ -1,6 +1,8 @@
 let g:scimCommand = 'sc-im'
 "let g:scimCommand = '/home/pim/cForks/sc-im/src/sc-im'
 
+let g:jsonnet_fmt_on_save = 0
+
 let g:rooter_silent_chdir = 1
 
 "-----------------------------------------------

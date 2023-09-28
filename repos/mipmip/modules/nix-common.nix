@@ -26,7 +26,6 @@
 
   services.cron.enable = true;
 
-
   services.lorri.enable = true;
   services.journald.extraConfig = "SystemMaxUse=100M";
 
