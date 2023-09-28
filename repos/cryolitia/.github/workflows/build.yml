@@ -50,6 +50,12 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v12
+      with:
+        name: cryolitia
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
@@ -66,6 +72,4 @@ jobs:
       if: ${{ matrix.arch == 'aarch64' }}
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix --arg crossSystem '(import <nixpkgs.lib>).systems.examples.aarch64-multiplatform' -A cacheOutputs
     - name: Trigger NUR update
-      # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=Cryolitia"
