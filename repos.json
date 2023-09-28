@@ -726,6 +726,9 @@
         "rummik": {
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
+        "rutherther": {
+            "url": "https://github.com/Rutherther/nur-pkgs"
+        },
         "ryan4yin": {
             "url": "https://github.com/ryan4yin/nur-packages"
         },
