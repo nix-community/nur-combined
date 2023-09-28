@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 # Don't forget to add firefoxpwa
 # to extraNativePackagesMessagingHosts in firefox
@@ -90,6 +90,11 @@ in pkgs.buildFHSEnv {
       zlib
       glibc.dev
     ];
+
+    # Firefox detaches from parent,
+    # if true, it would kill firefox
+    # right away.
+    dieWithParent = false;
 
     runScript = "${firefoxpwa-unwrapped}/bin/firefoxpwa";
 }
