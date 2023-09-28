@@ -22,6 +22,9 @@ in pkgs.buildFHSEnv {
 
       xorg.libX11
       xorg.libXrender
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXfixes
       xorg.libXrandr
       xorg.libXcomposite
       xorg.libXext
@@ -75,7 +78,6 @@ in pkgs.buildFHSEnv {
       cairo
       atk
       gtk3
-      nss_latest
       pango
       alsa-lib
       libjack2
@@ -87,6 +89,8 @@ in pkgs.buildFHSEnv {
       zlib
       glibc.dev
     ];
+
+    extraOutputsToInstall = [ "usr" ];
 
     runScript = "${firefoxpwa-unwrapped}/bin/firefoxpwa";
 }
