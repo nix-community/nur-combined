@@ -2,6 +2,7 @@
   lib,
   clangStdenv,
   fetchFromGitHub,
+  fetchpatch,
   Foundation,
   IOBluetooth,
 }:
@@ -15,6 +16,13 @@ clangStdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-dxsgMwgBImMxMMD+atgGakX3J9YMO2g3Yjl5zOJ8PW0=";
   };
+  patches = [
+    (fetchpatch {
+      name = "fix-inquiry.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/toy/blueutil/pull/66.patch";
+      sha256 = "sha256-oGxqJpnepM9C3YOKLOMbhq7cReUQ8Vlk+SxPRRmTQvU=";
+    })
+  ];
 
   buildInputs = [Foundation IOBluetooth];
 
