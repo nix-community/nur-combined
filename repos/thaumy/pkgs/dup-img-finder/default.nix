@@ -23,8 +23,8 @@ let
   src = fetchFromGitHub {
     owner = "Thaumy";
     repo = "dup-img-finder";
-    rev = "77c4b6e27e7494d7eadf63b5cd19774bed988e7e";
-    sha256 = "Ixy7iGgDhOVmfp1avdeLWHpMx9dZEqY42gbbfGc3ddc=";
+    rev = "6175dc76b1afbda2baed97cecf5df4321d2cb112";
+    sha256 = "VuDIu0cX4G/o9vEiczOJX5+LjKmr5Q/anQjOhJ7vE/I=";
   };
 
   buildTimeDeps = with extended-pkgs; [
