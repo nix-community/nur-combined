@@ -6723,10 +6723,10 @@
       };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "11.1.3";
+      version = "11.1.4";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4153508/sidebartabs-11.1.3.xpi";
-      sha256 = "706fd05bb57c92d768c4242b39cd494a5f41be163ca2e59977a60d1a0cddce85";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4174467/sidebartabs-11.1.4.xpi";
+      sha256 = "0083aff26e53ad5f400a368a40402a72e37f5be3af7c99c54679763f43eb1e60";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -8067,10 +8067,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.9.19.787";
+      version = "2023.9.28.935";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170132/ublock_origin_lite-2023.9.19.787.xpi";
-      sha256 = "90103a8790a45e99d14a311c72519d371d590b4744d58132545e2b9e3ecdcb37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4174324/ublock_origin_lite-2023.9.28.935.xpi";
+      sha256 = "23f9dd0fdbe81280f05bf33e7d3e545dc4cd88f8f71114b85983ff2e21bbfeb5";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
