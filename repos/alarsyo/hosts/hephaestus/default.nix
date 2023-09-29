@@ -14,6 +14,8 @@
     ./secrets.nix
   ];
 
+  hardware.amdgpu.opencl = false;
+
   boot.kernelPackages = pkgs.linuxPackages;
 
   # Use the systemd-boot EFI boot loader.
