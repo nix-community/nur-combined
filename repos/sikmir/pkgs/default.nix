@@ -457,6 +457,7 @@ lib.makeScope newScope (
     osmium-surplus = callPackage ./osm/osmium-surplus { };
     osmosis = callPackage ./osm/osmosis { };
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };
+    overpassforge = callPackage ./osm/overpassforge { };
     phyghtmap = callPackage ./osm/phyghtmap { };
     planetiler = callPackage ./osm/planetiler { };
     polytiles = callPackage ./osm/polytiles { };
