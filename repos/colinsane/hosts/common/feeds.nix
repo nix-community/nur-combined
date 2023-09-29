@@ -116,7 +116,7 @@ let
     (fromDb "cast.postmarketos.org" // tech)
     (fromDb "podcast.thelinuxexp.com" // tech)
     ## Michael Malice - Your Welcome -- also available here: <https://origin.podcastone.com/podcast?categoryID2=2232>
-    (fromDb "rss.art19.com/your-welcome" // pol)
+    # (fromDb "rss.art19.com/your-welcome" // pol)
     (fromDb "seattlenice.buzzsprout.com" // pol)
     ## Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)
@@ -167,6 +167,7 @@ let
     (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
     (fromDb "xn--gckvb8fzb.com" // tech)
     (fromDb "amosbbatto.wordpress.com" // tech)
+    (fromDb "fasterthanli.me" // tech)
     (fromDb "mg.lol" // tech)
     # (fromDb "drewdevault.com" // tech)
     ## Ken Shirriff

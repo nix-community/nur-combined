@@ -1,5 +1,6 @@
 { fractal-next
 , fetchFromGitLab
+, git
 , rustPlatform
 , unstableGitUpdater
 }:
@@ -16,7 +17,7 @@ let
   #     hash = "sha256-LXrlTca50ALo+Nm55fwXNb4k3haLqHNnzLPc08VhA5s=";
   #   };
   # });
-  self = fractal-next.overrideAttrs (prev: rec {
+  self = fractal-next.overrideAttrs (upstream: rec {
     pname = "fractal-latest";
     # XXX(2023/09/27): beyond this commit, dependencies are higher than what nixpkgs provides:
     # - gtk4 >= 4.11.3
@@ -29,8 +30,6 @@ let
       rev = "350a65cb0a221c70fc3e4746898036a345ab9ed8";
       hash = "sha256-z6uURqMG5pT8rXZCv5IzTjXxtt/f4KUeCDSgk90aWdo=";
     };
-
-    passthru.updateScript = unstableGitUpdater {};
 
     cargoDeps = rustPlatform.importCargoLock {
       lockFile = ./Cargo.lock;
@@ -47,6 +46,37 @@ let
         "vodozemac-0.4.0" = "sha256-TCbWJ9bj/FV3ILWUTcksazel8ESTNTiDGL7kGlEGvow=";
       };
     };
+
+    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      git  # only necessary when profile is development or hack
+    ];
+
+    mesonFlags = (upstream.mesonFlags or []) ++ [
+      # profile: default, beta, development, hack.
+      # - default causes a 2hr+ build, 98% of that being `rustc fractal` using a single core
+      # - development has the same problem
+      # - hack brings the build down to ~5 minutes, possibly because it doesn't pass --release to cargo
+      #   - it still has rustc using ~4 cores typical
+      # development and hack both require `git`
+      "-Dprofile=hack"
+    ];
+
+    # codegen settings, see: <https://doc.rust-lang.org/rustc/codegen-options/index.html>
+    # trying to speed up compilation. see deep dive: <https://fasterthanli.me/articles/why-is-my-rust-build-so-slow>
+    # - `RUSTC_BOOTSTRAP=1` allows using nightly rustc options
+    # postPatch = (upstream.postPatch or "") + ''
+    #   # sed -i "s/^codegen-units = .*$/codegen-units = $NIX_BUILD_CORES/" Cargo.toml
+    #   sed -i 's/^codegen-units = .*$/codegen-units = 256/' Cargo.toml
+    #   sed -i 's/^lto = .*$/lto = "off"/' Cargo.toml
+    #   sed -i 's/debug = true/debug = false/' Cargo.toml
+    #   sed -i "s/cargo_options,/cargo_options + [ '-j$NIX_BUILD_CORES', '--verbose', '--timings' ],/" src/meson.build
+    # '';
+    # preConfigure = (upstream.preConfigure or "") + ''
+    #   export CARGO_BUILD_JOBS=$NIX_BUILD_CORES
+    #   export RUSTFLAGS="-C codegen-units=256"
+    # '';
+
+    passthru.updateScript = unstableGitUpdater {};
   });
 in self // {
   meta = self.meta // {
