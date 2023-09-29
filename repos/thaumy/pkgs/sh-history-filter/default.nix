@@ -23,8 +23,8 @@ let
   src = fetchFromGitHub {
     owner = "Thaumy";
     repo = "sh-history-filter";
-    rev = "39e74d7f235e8ed4df3b6f860135a26f7fe49e4d";
-    sha256 = "eEulSUXuCHckiXVLBrTFoC+eYL9svpDWmbRQNbvu2NY=";
+    rev = "e570e36d4e7de6e582f3a769fa1d49c379ebc96f";
+    sha256 = "ZnEAi8O3GG14oetSOmK0pEUFBYhJifz48h04pA3y8GY=";
   };
 
   buildTimeDeps = with extended-pkgs; [
