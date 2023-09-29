@@ -22,6 +22,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
+  pythonImportsCheck = [ "beetsplug.yearfixer" ];
+
   meta = {
     description = "The beets-yearfixer plugin finds the original_year for each of your songs by querying the MusicBrainz database and finding the first release date that is associated with it.";
     homepage = "https://github.com/adamjakab/BeetsPluginYearFixer";
