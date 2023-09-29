@@ -14,8 +14,8 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  datasette-leaflet = pkgs.python3Packages.callPackage ./pkgs/datasette-leaflet { };
-  datasette-cluster-map = pkgs.python3Packages.callPackage ./pkgs/datasette-cluster-map { inherit datasette-leaflet; };
+  datasette-leaflet = pkgs.callPackage ./pkgs/datasette-leaflet { };
+  datasette-cluster-map = pkgs.callPackage ./pkgs/datasette-cluster-map { inherit datasette-leaflet; };
 
-  beets-yearfixer = pkgs.python3Packages.callPackage ./pkgs/beets-yearfixer { };
+  beets-yearfixer = pkgs.callPackage ./pkgs/beets-yearfixer { };
 }
