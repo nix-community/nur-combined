@@ -20,6 +20,7 @@ let
     neovim
     nix
     nix-serve
+    openfortivpn
     podman
     smartdns
     sops
@@ -28,6 +29,7 @@ let
     users
     vscode
     waybar
+    inputs.nix-index-database.hmModules.nix-index
   ];
 in
 {

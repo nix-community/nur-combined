@@ -6,12 +6,9 @@ local goal="switch":
 n1 goal="switch":
   #!/usr/bin/env bash
   set -euxo pipefail
+  nixos-rebuild {{goal}} --no-build-nix --target-host root@n1.local --flake .#n1
   if [ "{{goal}}" = "boot" ]; then
-    nixos-rebuild {{goal}} --no-build-nix --target-host root@n1.local --flake .#n1
     ssh root@n1.local reboot
-  else
-    ssh root@n1.local systemctl stop podman-qinglong.service
-    nixos-rebuild {{goal}} --no-build-nix --target-host root@n1.local --flake .#n1
   fi
 
 apply goal="switch": (local goal) (n1 goal)
