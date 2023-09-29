@@ -123,7 +123,7 @@ writeShellApplication {
 
     nix flake update
     git add flake.lock
-    git diff-index --quiet HEAD || git commit --message 'flake.lock: update' --untracked-files=no
+    git commit --message 'flake.lock: update' --quiet || :
     nix flake check
     git switch --quiet -
     git rebase 'HEAD@{1}'
