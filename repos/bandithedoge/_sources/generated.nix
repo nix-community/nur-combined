@@ -287,13 +287,13 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "d5dbede4f8cfb66a2913884ab3eb6e0714efa584";
+    version = "909d097c30a2729cff3ec74a89799113d9c3f570";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "d5dbede4f8cfb66a2913884ab3eb6e0714efa584";
+      rev = "909d097c30a2729cff3ec74a89799113d9c3f570";
       fetchSubmodules = false;
-      sha256 = "sha256-ucFhV/WomCKqcBN59HkHfGF4bekIhc/ET+RN31VytSw=";
+      sha256 = "sha256-/vrGBls0uZ5cU+SWq2Byw8Z+xIozIHj18EF6G0P2EuQ=";
     };
     date = "2023-09-28";
   };
