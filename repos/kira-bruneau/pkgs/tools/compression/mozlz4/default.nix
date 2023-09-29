@@ -12,10 +12,10 @@ rustPlatform.buildRustPackage rec {
     owner = "jusw85";
     repo = "mozlz4";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-faoFvDvqCr0EPsqlQvHZpd74b5pzYhtkJ6gXebwEm/w=";
+    hash = "sha256-faoFvDvqCr0EPsqlQvHZpd74b5pzYhtkJ6gXebwEm/w=";
   };
 
-  cargoSha256 = "sha256-/R4UQky0gAwh465HjlePoxUTcYWbgS5n+sJ+kkWzDw0=";
+  cargoHash = "sha256-/R4UQky0gAwh465HjlePoxUTcYWbgS5n+sJ+kkWzDw0=";
 
   passthru.updateScript = nix-update-script { };
 

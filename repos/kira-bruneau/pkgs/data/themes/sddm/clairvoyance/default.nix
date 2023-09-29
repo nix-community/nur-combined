@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation {
     owner = "eayus";
     repo = "sddm-theme-clairvoyance";
     rev = "dfc5984ff8f4a0049190da8c6173ba5667904487";
-    sha256 = "sha256-AcVQpG6wPkMtAudqyu/iwZ4N6a2bCdfumCmdqE1E548=";
+    hash = "sha256-AcVQpG6wPkMtAudqyu/iwZ4N6a2bCdfumCmdqE1E548=";
   };
 
   installPhase = ''

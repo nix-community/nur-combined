@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "coringao";
     repo = "pokemmo-installer";
     rev = "refs/tags/${finalAttrs.version}";
-    sha256 = "sha256-uSbnXBpkeGM9X6DU7AikT7hG/emu67PXuGdm6xfB8To=";
+    hash = "sha256-uSbnXBpkeGM9X6DU7AikT7hG/emu67PXuGdm6xfB8To=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
