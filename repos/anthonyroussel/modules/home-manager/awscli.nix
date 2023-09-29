@@ -47,13 +47,19 @@ in {
       type = lib.types.submodule { freeformType = iniFormat.type; };
       default = { };
       description = ''
-        A credentials to define in the aws credentials file.
+        Configuration written to {file}`$HOME/.aws/credentials`.
+
+        For security reasons, never store cleartext passwords here.
+        We recommend that you use `credential_process` option to retrieve
+        the IAM credentials from your favorite password manager during runtime,
+        or use AWS IAM Identity Center to get short-term credentials.
+
         See https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-authentication.html
       '';
       example = lib.literalExpression ''
         {
           "default" = {
-            "credential_process" = "${pkgs.gopass}/bin/gopass show -u -n aws";
+            "credential_process" = "${pkgs.pass}/bin/pass show aws";
           };
         };
       '';
