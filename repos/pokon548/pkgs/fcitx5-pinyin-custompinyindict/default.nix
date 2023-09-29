@@ -4,11 +4,11 @@
 }:
 stdenv.mkDerivation {
   pname = "fcitx5-pinyin-custompinyindict";
-  version = "20230906";
+  version = "20230928";
 
   src = fetchurl {
-    url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20230906.tar.gz";
-    sha256 = "sha256-ZlLc+r7vBOXyXByVTq/lOFURrJDzApWJW7ql4+9whn4=";
+    url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20230928.tar.gz";
+    sha256 = "sha256-aKGMwC8yhpQwHziDDykqQIpqAkJ6m8w5oNBPIlBGrFc=";
   };
 
   unpackPhase = ''
