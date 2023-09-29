@@ -1,6 +1,6 @@
 { python3Packages
 , fetchFromGitHub
-, beets-unstable
+, beets
 , lib
 }:
 
@@ -16,12 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-KpYazPkj1beAPppcgO3NhN08RF97NL1WwZu523x1qo8=";
   };
 
-  propagatedBuildInputs = [
-    beets-unstable
-    requests
-  ];
+  nativeBuildInputs = [ beets ];
 
-  doCheck = false;
+  propagatedBuildInputs = [ requests ];
+
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = {
     description = "The beets-yearfixer plugin finds the original_year for each of your songs by querying the MusicBrainz database and finding the first release date that is associated with it.";
