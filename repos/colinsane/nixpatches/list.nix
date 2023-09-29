@@ -19,6 +19,12 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
+  (fetchpatch' {
+    # merged 2023/09/28. fixes lemmy build
+    title = "lemmy-ui: add missed build dependency";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/257769";
+    hash = "sha256-Z0fHlsycsSUoniXYoD1H+Kti1Vk5TFBC38TbtUR+ZPg=";
+  })
   # (fetchpatch' {
   #   # fixes /mnt/servo-nfs mount failures
   #   # 2023/09/21: doesn't apply
@@ -215,22 +221,6 @@ in [
   })
 
   # (fetchpatch' {
-  #   title = "gtk3: compile schemas even when cross compiling";
-  #   saneCommit = "5ee69670071f583bdffe2718dc46763fa1698f92";
-  #   hash = "sha256-ZX3lY63qUW2XuwCoxffbLYoFxckDImKy+S8mqlYJcvk=";
-  # })
-  # (fetchpatch' {
-  #   title = "gtk4: compile schemas even when cross compiling";
-  #   saneCommit = "7a1c5e3a5d1ff82c8afa659c7f903d5309d5de6a";
-  #   hash = "sha256-Tz8NBcIqGE9rCqbOrixgbvApYDEAHWCg4lZbklL/xXc=";
-  # })
-  (fetchpatch' {
-    title = "gtk{3,4}: compile schemas even when cross compiling";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/247844";
-    hash = "sha256-1CsjLgMvX0Lx500UDzal5HZi78hb7zBcb+AlNPF6NvA=";
-  })
-
-  # (fetchpatch' {
   #   title = "hare-json: init at unstable-2023-02-25";
   #   saneCommit = "6c88c2b087755e8f60c9f61c6361dec2f7a38155";
   #   hash = "sha256-9TTlhwLDZESaFC02k4+YER+NvoNVPz9wFYV79+Dmuxs=";
@@ -289,32 +279,6 @@ in [
     hash = "sha256-rD0es4uUbaLMrI9ZB2HzPmRLyu/ixNBLAFyDJtFHNko=";
   })
 
-  # (fetchpatch' {
-  #   title = "perlPackages.FileBaseDir: 0.08 -> 0.09";
-  #   saneCommit = "acc990b04bbe8c99587eadccc65f100c326ec204";
-  #   hash = "sha256-8s789GGARJH1i088OGBjGGnL2l5m8Q+iBPS213QsS6A=";
-  # })
-  # (fetchpatch' {
-  #   title = "perlPackages.TestFile: 1.443 -> 1.993";
-  #   saneCommit = "6cf080fb51d034f9c2ddd60cef7dee7d041afd3e";
-  #   hash = "sha256-fAZpduh3JZeFixJ4yX0wkh/GRp0gYKsTT+XkNdpK7CU=";
-  # })
-  (fetchpatch' {
-    # TODO: split this apart for easier reviewing:
-    # - perlPackages.TestFile 1.443 -> 1.993
-    # - perlPackages.FileBaseDir 0.08 -> 0.09
-    title = "xdg-utils: enable cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/246954";
-    saneCommit = "b7aa5e0c1ec06723cf1594de192703a65be21497";
-    hash = "sha256-5iYzyjVlye7mhwhlZOHucVod/aPT3OrXolC9jAnB544=";
-  })
-  # (fetchpatch' {
-  #   # N.B.: duplicates outstanding, merged PR: <https://github.com/NixOS/nixpkgs/pull/246362>
-  #   # - also a stale, approved PR: <https://github.com/NixOS/nixpkgs/pull/245761>
-  #   title = "libgudev: support cross compilation";
-  #   saneCommit = "4dc30718fe01e9dbed4ffc2ff375148da218e86b";
-  #   hash = "sha256-Nb2LphSyv8Dayqfwqfua0eKtNzsnaf7PC/KYUhIvnT8=";
-  # })
   (fetchpatch' {
     title = "blueman: support cross compilation";
     saneCommit = "e070195bdf213dffb0164574397b6a7417f81c9e";

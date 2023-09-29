@@ -100,7 +100,7 @@ let
     passthru.extid = extid;
   };
 
-in lib.makeScope newScope (self: with self; {
+in (lib.makeScope newScope (self: with self; {
   unwrapped = lib.recurseIntoAttrs {
     # get names from:
     # - ~/ref/nix-community/nur-combined/repos/rycee/pkgs/firefox-addons/generated-firefox-addons.nix
@@ -154,16 +154,12 @@ in lib.makeScope newScope (self: with self; {
       hash = "sha256-6idJQXOguCPXgs1RP6mKUjZK3lzSAkjvpDPVcWUfacI=";
     };
   };
-
-  browserpass-extension = (wrapAddon unwrapped.browserpass-extension {})
-    .withoutPermission "notifications";
-
-  bypass-paywalls-clean = wrapAddon unwrapped.bypass-paywalls-clean {};
-  ether-metamask = wrapAddon unwrapped.ether-metamask {};
-  i2p-in-private-browsing = wrapAddon unwrapped.i2p-in-private-browsing {};
-  sidebery = wrapAddon unwrapped.sidebery {};
-  sponsorblock = (wrapAddon unwrapped.sponsorblock {})
-    .withPostPatch ''
+})).overrideScope (self: super:
+  let
+    wrapped = lib.mapAttrs (name: _value: wrapAddon self.unwrapped."${name}" {}) super.unwrapped;
+  in wrapped // {
+    browserpass-extension = wrapped.browserpass-extension.withoutPermission "notifications";
+    sponsorblock = wrapped.sponsorblock.withPostPatch ''
       # patch sponsorblock to not show the help tab on first launch.
       #
       # XXX: i tried to build sponsorblock from source and patch this *before* it gets webpack'd,
@@ -174,7 +170,5 @@ in lib.makeScope newScope (self: with self; {
       substituteInPlace js/background.js \
         --replace 'default.config.userID)' 'default.config.userID && false)'
     '';
-
-  ublacklist = wrapAddon unwrapped.ublacklist {};
-  ublock-origin = wrapAddon unwrapped.ublock-origin {};
-})
+  }
+)

@@ -11,6 +11,6 @@
 # - most of my FS use is in landscape mode
 # - when i toggle apps or desktops i always do so in portrait mode
 # - therefore when i rotate landscape -> portrait mode, i almost never want fullscreen anymore.
-if "$1" == "normal" || "$1" == "invert"; then
+if [ "$1" = "normal" ] || [ "$1" = "invert" ]; then
   swaymsg fullscreen disable
 fi

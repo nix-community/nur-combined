@@ -2,7 +2,6 @@
 - why i need to manually restart `wireguard-wg-ovpns` on servo periodically
   - else DNS fails
 - fix epiphany URL bar input on moby
-- sxmo: wvkbd: missing font for icons on the 3rd page
 
 ## REFACTORING:
 
@@ -68,6 +67,8 @@
   - manually do smoothing, as some layer between mepo and geoclue/gpsd?
 - moby: show battery state on ssh login
 - moby: improve gPodder launch time
+- sxmo: port to swaybar like i use on desktop
+  - users in #sxmo claim it's way better perf
 - sxmo: fix youtube scripts (package youtube-cli)
 - sxmo: don't put all deps on PATH
   - maybe: use resholve to hard-code them

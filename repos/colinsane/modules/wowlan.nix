@@ -25,7 +25,7 @@ let
   cfg = config.sane.wowlan;
   patternOpts = with lib; types.submodule {
     options = {
-      destPort = mkOption {
+      ipv4.destPort = mkOption {
         type = types.nullOr types.port;
         default = null;
         description = ''
@@ -34,13 +34,21 @@ let
           (e.g. this machine made a long-running HTTP request, and the other side finally has data for us).
         '';
       };
-      srcPort = mkOption {
+      ipv4.srcPort = mkOption {
         type = types.nullOr types.port;
         default = null;
         description = ''
           IP port on which the packet was *received*.
           use this if you want to wake on inbound connections
           (e.g. sshing *into* this machine).
+        '';
+      };
+      arp.queryIp = mkOption {
+        type = types.nullOr (types.listOf types.int);
+        default = null;
+        description = ''
+          IP address being queried.
+          e.g. `[ 192 168 0 100 ]`
         '';
       };
     };
@@ -59,12 +67,50 @@ let
     "0" + (lib.toHexString b)
   else
     lib.toHexString b;
-  # formatPattern: patternOpts -> String
+
+  etherTypes.ipv4 = [ 08 00 ];  # 0x0800 = IPv4
+  etherTypes.arp = [ 08 06 ];  # 0x0806 = ARP
+  formatEthernetFrame = ethertype: dataBytes: let
+    bytes = [
+      # ethernet frame: <https://en.wikipedia.org/wiki/Ethernet_frame#Structure>
+      ## dest MAC address (this should be the device's MAC, but i think that's implied?)
+      null null null null null null
+      ## src MAC address
+      null null null null null null
+      ## ethertype: <https://en.wikipedia.org/wiki/EtherType#Values>
+    ] ++ etherTypes."${ethertype}"
+      ++ dataBytes;
+  in bytesToStr bytes;
+
+  formatArpPattern = pat:
+    formatEthernetFrame "arp" ([
+      # ARP frame: <https://en.wikipedia.org/wiki/Address_Resolution_Protocol#Packet_structure>
+      ## hardware type
+      null null
+      ## protocol type. same coding as EtherType
+      08 00  # 0x0800 = IPv4
+      ## hardware address length (i.e. MAC)
+      06
+      ## protocol address length (i.e. IP address)
+      04
+      ## operation
+      00 01  # 0x0001 = request
+      ## sender hardware address
+      null null null null null null
+      ## sender protocol address
+      null null null null
+      ## target hardware address
+      ## this is left as "Don't Care" because the packets we want to match
+      ## are those mapping protocol addr -> hw addr.
+      ## sometimes clients do include this field if they've seen the address before though
+      null null null null null null
+      ## target protocol address
+    ] ++ pat.queryIp);
+
+  # formatIpv4Pattern: patternOpts.ipv4 -> String
   # produces a string like this (example matches source port=0x0a1b):
   # "-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:0a:1b:-:-"
-  #
-  # N.B.: the produced patterns match ONLY IPv4 -- not IPv6!
-  formatPattern = pat: let
+  formatIpv4Pattern = pat: let
     destPortBytes = if pat.destPort != null then {
       high = pat.destPort / 256;
       low = lib.mod pat.destPort 256;
@@ -77,16 +123,8 @@ let
     } else {
       high = null; low = null;
     };
-
-    bytes = [
-      # ethernet frame: <https://en.wikipedia.org/wiki/Ethernet_frame#Structure>
-      ## dest MAC address (this should be the device's MAC, but i think that's implied?)
-      null null null null null null
-      ## src MAC address
-      null null null null null null
-      ## ethertype: <https://en.wikipedia.org/wiki/EtherType#Values>
-      08 00  # 0x0800 = IPv4
-
+  in
+    formatEthernetFrame "ipv4" [
       # IP frame: <https://en.wikipedia.org/wiki/Internet_Protocol_version_4#Header>
       ## Version, Internet Header Length. 0x45 = 69 decimal
       null  # should be 69 (0x45), but fails to wake if i include this
@@ -114,7 +152,6 @@ let
       destPortBytes.high destPortBytes.low
       ## rest is Don't Care
     ];
-  in bytesToStr bytes;
 in
 {
   options = with lib; {
@@ -138,17 +175,22 @@ in
       description = "configure the WiFi chip to wake the system on specific activity";
       path = [ pkgs.iw pkgs.wirelesstools ];
       script = let
-        writePattern = pat: ''
-          iwpriv wlan0 wow_set_pattern pattern=${formatPattern pat}
+        extractPatterns = pat: lib.flatten [
+          (lib.optional (pat.ipv4 != { destPort = null; srcPort = null; }) (formatIpv4Pattern pat.ipv4))
+          (lib.optional (pat.arp != { queryIp = null; }) (formatArpPattern pat.arp))
+        ];
+        allPatterns = lib.flatten (builtins.map extractPatterns cfg.patterns);
+        encodePattern = pat: ''
+          iwpriv wlan0 wow_set_pattern pattern=${pat}
         '';
-        writePatterns = lib.concatStringsSep
+        encodedPatterns = lib.concatStringsSep
           "\n"
-          (builtins.map writePattern cfg.patterns);
+          (builtins.map encodePattern allPatterns);
       in ''
         set -x
         iw phy0 wowlan enable any
         iwpriv wlan0 wow_set_pattern clean
-        ${writePatterns}
+        ${encodedPatterns}
       '';
       serviceConfig = {
         # TODO: re-run this periodically, just to be sure?

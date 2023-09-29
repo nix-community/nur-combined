@@ -71,14 +71,14 @@
       "audacity"
       "blanket"  # ambient noise generator
       "brave"  # for the integrated wallet -- as a backup
-      "cantata"  # music player (mpd frontend)
+      # "cantata"  # music player (mpd frontend)
       # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
       "electrum"
       "element-desktop"
       "font-manager"
-      "gajim"  # XMPP client. cross build tries to import host gobject-introspection types (2023/09/01)
+      # "gajim"  # XMPP client. cross build tries to import host gobject-introspection types (2023/09/01)
       "gimp"  # broken on phosh
-      "gnome.dconf-editor"
+      # "gnome.dconf-editor"
       # "gnome.file-roller"
       "gnome.gnome-disk-utility"
       "gnome.nautilus"  # file browser
@@ -93,8 +93,8 @@
       "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
       "mumble"
       "nheko"
-      "obsidian"
-      "rhythmbox"  # local music player
+      # "obsidian"
+      # "rhythmbox"  # local music player
       "slic3r"
       "steam"
       "vlc"
