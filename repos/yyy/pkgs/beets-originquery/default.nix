@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-vNROKZgCoWtoou9B8hpJwl4Yf6TzQU0TbKJUd94v7vk=";
   };
 
-  nativeBuildInputs = [ beets ];
+  nativeBuildInputs = [
+    beets
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [ jsonpath_rw ];
 

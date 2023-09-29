@@ -20,6 +20,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [
     beets
     setuptools
+    setuptools-scm
   ];
 
   nativeCheckInputs = [ pytestCheckHook ];
