@@ -17,14 +17,14 @@ in {
       description = "Package providing {command}`aws`.";
     };
 
-    enableBashIntegration = mkOption {
-      type = types.bool;
+    enableBashIntegration = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to enable AWS CLI's Bash integration.";
     };
 
-    enableZshIntegration = mkOption {
-      type = types.bool;
+    enableZshIntegration = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to enable AWS CLI's Zsh integration.";
     };
@@ -70,11 +70,11 @@ in {
       iniFormat.generate "aws-credentials-${config.home.username}"
       cfg.credentials;
 
-    programs.bash.initExtra = mkIf cfg.enableBashIntegration ''
+    programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration ''
       source ${cfg.package}/share/bash-completion/completions/aws
     '';
 
-    programs.zsh.initExtra = mkIf cfg.enableZshIntegration ''
+    programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration ''
       source ${cfg.package}/share/zsh/site-functions/aws_zsh_completer.sh
     '';
   };
