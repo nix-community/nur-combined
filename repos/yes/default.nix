@@ -7,7 +7,7 @@ with pkgs;
 
 let
   mkElectronAppImage = callPackage ./electronAppImage {
-    electron = electron_22;
+    electron = electron_25;
   };
 in
 
