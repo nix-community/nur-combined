@@ -494,6 +494,7 @@ lib.makeScope newScope (
     chibicc = callPackage ./suckless/chibicc { };
     cproc = callPackage ./suckless/cproc { };
     dragon = callPackage ./suckless/dragon { };
+    dtree = callPackage ./suckless/dtree { };
     edit = callPackage ./suckless/edit { };
     farbfeld-utils = callPackage ./suckless/farbfeld-utils { };
     ff-tools = callPackage ./suckless/ff-tools { };
@@ -520,7 +521,9 @@ lib.makeScope newScope (
     scroll = callPackage ./suckless/scroll { };
     se = callPackage ./suckless/se { };
     sled = callPackage ./suckless/sled { };
+    ste = callPackage ./suckless/ste { };
     sthkd = callPackage ./suckless/sthkd { };
     svtm = callPackage ./suckless/svtm { };
+    table = callPackage ./suckless/table { };
   }
 )
