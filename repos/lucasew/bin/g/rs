@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# git restore --staged alias
+
+git restore --staged "$@"
