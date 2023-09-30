@@ -83,7 +83,7 @@ in
         { name = "Dns Lookup"; url = "https://dnslookup.online/"; }
       ];
       extraConfig = ''
-        ${fileContents pkgs.arkenfox-userjs}
+        ${fileContents "${nixosConfig.nur.repos.ataraxiasjel.arkenfox-userjs}/share/user.js/user.js"}
         ${fileContents ./overlay.js}
         user_pref("browser.uiCustomization.state", '${fileContents ./ui.json}');
       '';

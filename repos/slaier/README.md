@@ -54,7 +54,6 @@ Here is an overview of the folders' structure:
 │   ├── lib
 │   ├── neovim
 │   ├── nix
-│   ├── nix-nss-mdns
 │   ├── nix-serve
 │   ├── openfortivpn
 │   ├── pipewire
@@ -98,24 +97,25 @@ You can have a look at the available flake outputs before getting started.
 
 ```console
 $ nix flake show github:slaier/nixos-config
-github:slaier/nixos-config/e2b0f58d7a9bdbe737d5503071e01065b1ef5c58
-├───colmena: unknown
 ├───devShells
 │   ├───aarch64-linux
-│   │   └───default: development environment 'nix-shell'
+│   │   ├───ci: development environment 'nix-shell'
+│   │   ├───default: development environment 'nix-shell'
+│   │   └───update: development environment 'nix-shell'
 │   └───x86_64-linux
-│       └───default: development environment 'nix-shell'
+│       ├───ci: development environment 'nix-shell'
+│       ├───default: development environment 'nix-shell'
+│       └───update: development environment 'nix-shell'
 ├───formatter
 │   ├───aarch64-linux: package 'nixpkgs-fmt-1.3.0'
 │   └───x86_64-linux: package 'nixpkgs-fmt-1.3.0'
 ├───lib: unknown
+├───nixosConfigurations
+│   ├───local: NixOS configuration
+│   ├───n1: NixOS configuration
+│   └───sd-image-aarch64-installer: NixOS configuration
 ├───overlay: Nixpkgs overlay
 ├───overlays
-│   ├───arkenfox-userjs: Nixpkgs overlay
-│   ├───nix-nss-mdns: Nixpkgs overlay
-│   ├───podman: Nixpkgs overlay
-│   ├───safeeyes: Nixpkgs overlay
-│   ├───smartdns: Nixpkgs overlay
 │   ├───spotify: Nixpkgs overlay
 │   ├───sway: Nixpkgs overlay
 │   ├───uboot-phicomm-n1: Nixpkgs overlay
@@ -124,17 +124,13 @@ github:slaier/nixos-config/e2b0f58d7a9bdbe737d5503071e01065b1ef5c58
 │   └───wrapper: Nixpkgs overlay
 └───packages
     ├───aarch64-linux
-    │   ├───arkenfox-userjs: package 'arkenfox-userjs-112.0'
-    │   ├───nix-nss-mdns: package 'nix-2.11.1'
     │   ├───uboot-phicomm-n1: package 'uboot-phicomm-n1-unstable-2023-04-29'
-    │   ├───vscode-extensions-ms-vscode-remote-remote-containers: package 'vscode-extension-ms-vscode-remote-remote-containers-0.269.0'
-    │   └───wavefox: package 'wavefox-1.6.113'
+    │   ├───vscode-extensions-ms-vscode-remote-remote-containers: package 'vscode-extension-ms-vscode-remote-remote-containers-0.294.0'
+    │   └───wavefox: package 'wavefox-1.6.118'
     └───x86_64-linux
-        ├───arkenfox-userjs: package 'arkenfox-userjs-112.0'
-        ├───nix-nss-mdns: package 'nix-2.11.1'
         ├───uboot-phicomm-n1: package 'uboot-phicomm-n1-unstable-2023-04-29'
-        ├───vscode-extensions-ms-vscode-remote-remote-containers: package 'vscode-extension-ms-vscode-remote-remote-containers-0.269.0'
-        └───wavefox: package 'wavefox-1.6.113'
+        ├───vscode-extensions-ms-vscode-remote-remote-containers: package 'vscode-extension-ms-vscode-remote-remote-containers-0.294.0'
+        └───wavefox: package 'wavefox-1.6.118'
 ```
 
 As well as all the declared flake inputs.

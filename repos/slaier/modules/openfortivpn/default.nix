@@ -13,7 +13,6 @@ in
       "https://github.com/adrienverge/openfortivpn#readme"
       "https://github.com/adrienverge/openfortivpn/wiki"
     ];
-    unitConfig.ConditionPathExists = [ conf ];
     # [Service]
     serviceConfig = {
       Type = "notify";
