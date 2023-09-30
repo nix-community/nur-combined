@@ -210,6 +210,11 @@
       };
     };
 
+    packages.x86_64-linux.default = pkgs.writeShellScriptBin "default" ''
+      ${global.environmentShell}
+      "$@"
+    '';
+
     nixosConfigurations = pkgs.callPackage ./nix/nodes {
       inherit extraArgs;
       nodes = {
