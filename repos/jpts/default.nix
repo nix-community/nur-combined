@@ -19,4 +19,7 @@
   blueutil = pkgs.callPackage ./pkgs/blueutil {
     inherit (pkgs.darwin.apple_sdk_11_0.frameworks) Foundation IOBluetooth;
   };
+  sleepwatcher = pkgs.callPackage ./pkgs/sleepwatcher {
+    inherit (pkgs.darwin.apple_sdk_11_0.frameworks) Foundation IOKit;
+  };
 }
