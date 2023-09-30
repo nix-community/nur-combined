@@ -1,4 +1,9 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools, anyio, typing-extensions
+{ lib
+, fetchPypi
+, buildPythonApplication
+, setuptools
+, anyio
+, typing-extensions
 }:
 
 buildPythonApplication rec {

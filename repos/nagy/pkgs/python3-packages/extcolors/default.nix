@@ -1,5 +1,11 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools-scm, installShellFiles
-, pillow, convcolors }:
+{ lib
+, fetchPypi
+, buildPythonApplication
+, setuptools-scm
+, installShellFiles
+, pillow
+, convcolors
+}:
 
 buildPythonApplication rec {
   pname = "extcolors";

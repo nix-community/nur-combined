@@ -83,41 +83,48 @@ let
       '';
     };
   };
-in rec {
+in
+rec {
   convert = { src, output, ... }@args:
     let
       fileExtension = last (splitString "." (src.name or (toString src)));
       fileBase = removeSuffix ".${fileExtension}"
         (builtins.baseNameOf (src.name or (toString src)));
-      entry = (conversions.${fileExtension}.${output} or (throw
-        "No conversion from ${fileExtension} to ${output} found.")) {
-          inherit convert src wrap;
-        };
+      entry = (
+        conversions.${fileExtension}.${output} or (throw
+          "No conversion from ${fileExtension} to ${output} found.")
+      ) {
+        inherit convert src wrap;
+      };
       convertSelf = o:
         convert {
           src = self;
           output = o;
         };
-      self = if isDerivation entry then
-        entry
-      else
-        pkgs.runCommandLocal "${fileBase}.${output}" (entry // {
-          passthru = (src.passthru or { }) // (entry.passthru or { }) // {
-            base = src;
-            # these should be limited to what is available in converters
-            directory = convertSelf "directory";
-            evaldir = convertSelf "evaldir";
-            tex = convertSelf "tex";
-            pdf = convertSelf "pdf";
-            json = convertSelf "json";
-          };
-          meta = foldr recursiveUpdate { } [
-            (src.meta or { })
-            (entry.meta or { })
-            (args.meta or { })
-          ];
-        }) entry.__cmd;
-    in self;
+      self =
+        if isDerivation entry then
+          entry
+        else
+          pkgs.runCommandLocal "${fileBase}.${output}"
+            (entry // {
+              passthru = (src.passthru or { }) // (entry.passthru or { }) // {
+                base = src;
+                # these should be limited to what is available in converters
+                directory = convertSelf "directory";
+                evaldir = convertSelf "evaldir";
+                tex = convertSelf "tex";
+                pdf = convertSelf "pdf";
+                json = convertSelf "json";
+              };
+              meta = foldr recursiveUpdate { } [
+                (src.meta or { })
+                (entry.meta or { })
+                (args.meta or { })
+              ];
+            })
+            entry.__cmd;
+    in
+    self;
   wrap = src:
     pkgs.stdenvNoCC.mkDerivation {
       name = src.name or builtins.baseNameOf src;
@@ -125,11 +132,11 @@ in rec {
       # these should be limited to what is available in converters
       passthru = listToAttrs ((map
         (output: nameValuePair output (convert { inherit src output; }))) [
-          "directory"
-          "evaldir"
-          "tex"
-          "pdf"
-          "json"
-        ]);
+        "directory"
+        "evaldir"
+        "tex"
+        "pdf"
+        "json"
+      ]);
     };
 }

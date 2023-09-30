@@ -1,5 +1,11 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools, setuptools-scm, fire
-, installShellFiles }:
+{ lib
+, fetchPypi
+, buildPythonApplication
+, setuptools
+, setuptools-scm
+, fire
+, installShellFiles
+}:
 
 buildPythonApplication rec {
   pname = "colorpedia";

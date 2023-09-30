@@ -2,9 +2,10 @@
 
 rec {
 
-  cargoEmptyHome = pkgs.runCommandLocal "cargo-home" {
-    nativeBuildInputs = [ pkgs.rustc pkgs.cargo pkgs.cacert ];
-  } ''
+  cargoEmptyHome = pkgs.runCommandLocal "cargo-home"
+    {
+      nativeBuildInputs = [ pkgs.rustc pkgs.cargo pkgs.cacert ];
+    } ''
     CARGO_HOME=$out
     cargo search --limit 0
   '';
@@ -33,10 +34,11 @@ rec {
   };
 
   mkCargoLock = { file }:
-    pkgs.runCommandLocal "Cargo.lock" {
-      inherit file;
-      nativeBuildInputs = [ pkgs.cargo ];
-    } ''
+    pkgs.runCommandLocal "Cargo.lock"
+      {
+        inherit file;
+        nativeBuildInputs = [ pkgs.cargo ];
+      } ''
       mkdir src .cargo
       ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml .cargo/
       ln -s $file Cargo.toml
@@ -46,11 +48,12 @@ rec {
     '';
 
   mkRustScriptDir = { file, pname ? "main" }:
-    pkgs.runCommandLocal "rust-script" {
-      inherit file pname;
-      nativeBuildInputs = [ pkgs.rust-script pkgs.cargo ];
-      CARGO_HOME = "/tmp/cargo";
-    } ''
+    pkgs.runCommandLocal "rust-script"
+      {
+        inherit file pname;
+        nativeBuildInputs = [ pkgs.rust-script pkgs.cargo ];
+        CARGO_HOME = "/tmp/cargo";
+      } ''
       mkdir /tmp/cargo $out
       ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml /tmp/cargo/
       cp -v -- $file $pname.rs

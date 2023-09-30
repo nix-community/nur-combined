@@ -1,6 +1,18 @@
-{ lib, fetchPypi, buildPythonPackage, requests, click, pillow, python-dotenv
-, pyperclip, testers, images-upload-cli, poetry-core, poetry-dynamic-versioning
-, httpx, pythonRelaxDepsHook }:
+{ lib
+, fetchPypi
+, buildPythonPackage
+, requests
+, click
+, pillow
+, python-dotenv
+, pyperclip
+, testers
+, images-upload-cli
+, poetry-core
+, poetry-dynamic-versioning
+, httpx
+, pythonRelaxDepsHook
+}:
 
 buildPythonPackage rec {
   pname = "images-upload-cli";

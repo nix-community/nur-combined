@@ -1,5 +1,12 @@
-{ pkgs, expect, fetchurl, fetchFromGitHub, recurseIntoAttrs, qemu-utils, qemu
-, runCommand }:
+{ pkgs
+, expect
+, fetchurl
+, fetchFromGitHub
+, recurseIntoAttrs
+, qemu-utils
+, qemu
+, runCommand
+}:
 
 # more info here
 # https://raspberrypi.stackexchange.com/questions/89196/emulate-raspberry-pi-zero-w-with-qemu-failed-due-to-missing-dtb
@@ -19,9 +26,10 @@ recurseIntoAttrs rec {
       sha256 = "sha256-fgqiWLT8zNTHEQ7Ky+Gf6X0hBFQ0ira4bh7szQrEV48=";
     };
     makeCompressedQcow2 = img:
-      runCommand (pkgs.lib.replaceStrings [ ".img.xz" ] [ ".qcow2" ] img.name) {
-        nativeBuildInputs = [ qemu-utils ];
-      } ''
+      runCommand (pkgs.lib.replaceStrings [ ".img.xz" ] [ ".qcow2" ] img.name)
+        {
+          nativeBuildInputs = [ qemu-utils ];
+        } ''
         xzcat ${img} > image
         qemu-img convert -O qcow2 -c -o compression_type=zstd image $out
       '';
@@ -85,10 +93,12 @@ recurseIntoAttrs rec {
     };
     buster-lite-qcow2 = lib.makeCompressedQcow2 buster-lite;
     buster-lite-script = lib.makeExpectScript buster-lite-qcow2;
-    buster-lite-newimage = runCommand "newimage.qcow2" {
-      QEMU_USER = "pi";
-      QEMU_PASSWORD = "raspberry";
-      QEMU_IMAGE = placeholder "out";
-    } (pkgs.lib.getExe buster-lite-script);
+    buster-lite-newimage = runCommand "newimage.qcow2"
+      {
+        QEMU_USER = "pi";
+        QEMU_PASSWORD = "raspberry";
+        QEMU_IMAGE = placeholder "out";
+      }
+      (pkgs.lib.getExe buster-lite-script);
   };
 }

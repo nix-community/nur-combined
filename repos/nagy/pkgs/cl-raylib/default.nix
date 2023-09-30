@@ -14,9 +14,5 @@ sbcl.buildASDFSystem {
   lisp = sbcl;
   nativeLibs = [ raylib ];
 
-  lispLibs = with sbclPackages; [
-    cffi-libffi
-    _3d-vectors
-    _3d-matrices
-  ];
+  lispLibs = with sbclPackages; [ cffi-libffi _3d-vectors _3d-matrices ];
 }

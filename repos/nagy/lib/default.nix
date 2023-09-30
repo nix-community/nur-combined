@@ -5,4 +5,5 @@ let
   files = lib.attrNames (filterFiles (builtins.readDir ./.));
   fileMap = file: import (./. + "/${file}") { inherit pkgs lib callPackage; };
   mappedFiles = map fileMap files;
-in lib.foldr lib.recursiveUpdate { } mappedFiles
+in
+lib.foldr lib.recursiveUpdate { } mappedFiles

@@ -1,5 +1,13 @@
-{ lib, buildPythonApplication, fetchFromGitHub, setuptools, html5lib, validators
-, markdown, pypdf3, wheel }:
+{ lib
+, buildPythonApplication
+, fetchFromGitHub
+, setuptools
+, html5lib
+, validators
+, markdown
+, pypdf3
+, wheel
+}:
 
 buildPythonApplication rec {
   pname = "pystitcher";

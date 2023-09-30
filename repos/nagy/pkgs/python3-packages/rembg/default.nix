@@ -1,15 +1,39 @@
-{ pkgs, lib, fetchurl, fetchFromGitHub, buildPythonPackage, setuptools-scm
-, pymatting, filetype, scikitimage, installShellFiles, pillow, tqdm, fastapi
-, numpy, uvicorn, asyncer, onnxruntime, opencv4, runCommandLocal, rembg, pooch
-, watchdog, symlinkJoin, imagehash, testers }:
+{ pkgs
+, lib
+, fetchurl
+, fetchFromGitHub
+, buildPythonPackage
+, setuptools-scm
+, pymatting
+, filetype
+, scikitimage
+, installShellFiles
+, pillow
+, tqdm
+, fastapi
+, numpy
+, uvicorn
+, asyncer
+, onnxruntime
+, opencv4
+, runCommandLocal
+, rembg
+, pooch
+, watchdog
+, symlinkJoin
+, imagehash
+, testers
+}:
 
 let
-  models = lib.mapAttrsToList (name: hash:
-    fetchurl {
-      inherit name hash;
-      url =
-        "https://github.com/danielgatis/rembg/releases/download/v0.0.0/${name}.onnx";
-    }) {
+  models = lib.mapAttrsToList
+    (name: hash:
+      fetchurl {
+        inherit name hash;
+        url =
+          "https://github.com/danielgatis/rembg/releases/download/v0.0.0/${name}.onnx";
+      })
+    {
       u2net = "sha256-jRDS87t1rjttUnx3lE/F59zZSymAnUenOaenKKkStJE=";
       u2netp = "sha256-MJyEaSWN2nQnk9zg6+qObdOTF0+Jk0cz7MixTHb03dg=";
       u2net_human_seg = "sha256-AetqKaXE2O2zC1atrZuzoqBTUzjkgHJKIT4Kz9LRxzw=";
@@ -19,11 +43,14 @@ let
     };
   U2NET_HOME = symlinkJoin {
     name = "u2net-home";
-    paths = map (x:
-      runCommandLocal "u2net_home" { }
-      "mkdir $out && ln -s ${x} $out/${x.name}.onnx ") models;
+    paths = map
+      (x:
+        runCommandLocal "u2net_home" { }
+          "mkdir $out && ln -s ${x} $out/${x.name}.onnx ")
+      models;
   };
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "rembg";
   version = "2.0.32";
 
