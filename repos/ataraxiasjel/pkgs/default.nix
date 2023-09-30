@@ -18,6 +18,7 @@ with pkgs; with lib; {
   reshade-shaders = callPackage ./reshade-shaders { };
   rpcs3 = qt6Packages.callPackage ./rpcs3 { };
   seadrive-fuse = callPackage ./seadrive-fuse { };
+  sing-box = callPackage ./sing-box { };
   waydroid-script = callPackage ./waydroid-script { };
   wine-ge = callPackage ./wine-ge { };
 
