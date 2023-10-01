@@ -4,7 +4,10 @@ let
   by-name-overlay = pkgs.path + "/pkgs/top-level/by-name-overlay.nix";
   pkgs-overlay = import by-name-overlay ./pkgs/by-name;
   # this line allows packages to call themselves
-  pkgsWithNur = import pkgs.path { overlays = [ pkgs-overlay ]; };
+  pkgsWithNur = import pkgs.path {
+    inherit (pkgs) system;
+    overlays = [ pkgs-overlay ];
+  };
   applied-overlay = pkgs-overlay pkgsWithNur pkgs;
 in
 lib.makeScope pkgs.newScope (self:
