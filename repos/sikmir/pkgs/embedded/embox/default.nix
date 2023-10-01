@@ -99,5 +99,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
     skip.ci = true;
+    mainProgram = "embox";
   };
 })
