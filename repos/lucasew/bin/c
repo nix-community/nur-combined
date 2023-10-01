@@ -1,4 +1,4 @@
-#! /usr/bin/env sd nix shell
+#! /usr/bin/env -S sd nix shell
 #! nix-shell -p python3 -i python
 #! vim:ft=python
 
