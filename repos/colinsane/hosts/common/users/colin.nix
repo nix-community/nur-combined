@@ -80,6 +80,8 @@
       # ".rustup"
     ];
 
+    # fs.".cargo".symlink.target = "/tmp/colin-cargo";
+
     # convenience
     fs."knowledge".symlink.target = "private/knowledge";
     fs."nixos".symlink.target = "dev/nixos";

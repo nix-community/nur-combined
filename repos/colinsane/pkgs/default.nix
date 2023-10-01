@@ -72,6 +72,7 @@ let
     # packages i haven't used for a while, may or may not still work
     # fluffychat-moby = callPackage ./additional/fluffychat-moby { };
     fractal-latest = callPackage ./additional/fractal-latest { };
+    fractal-nixified = callPackage ./additional/fractal-nixified { };
     # kaiteki = callPackage ./additional/kaiteki { };
 
     # old rpi packages that may or may not still work

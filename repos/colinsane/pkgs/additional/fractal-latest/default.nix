@@ -40,6 +40,7 @@ let
         # 3. add "<crate_thats_missing_hash>" = "";
         # 4. repeat until no more crates are missing hashes
         # 5. build, and nix will let you know what the actual hashes should be
+        # TODO: alternative is to set `allowBuiltinFetchGit = true;`
         "curve25519-dalek-4.0.0" = "sha256-sxEFR6lsX7t4u/fhWd6wFMYETI2egPUbjMeBWkB289E=";
         "matrix-sdk-0.6.2" = "sha256-A1oKNbEx2A6WwvYcNSW53Fd6QWwr0QFJtrsJXO2KInE=";
         "ruma-0.8.2" = "sha256-kCGS7ACFGgmtTUElLJQMYfjwJ3glF7bRPZYJIFcuPtc=";

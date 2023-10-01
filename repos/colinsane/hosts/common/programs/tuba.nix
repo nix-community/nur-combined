@@ -14,6 +14,12 @@
           --prefix GDK_DEBUG , no-portals
         )
       '';
+      # alternative to disabling portals is to remove the filters on FileDialogs.
+      # done like so (but would want to apply to the other dialogs too)
+      # postPatch = (upstream.postPatch or "") + ''
+      #   substituteInPlace src/Dialogs/ProfileEdit.vala \
+      #     --replace "default_filter = filter" ""
+      # '';
     });
     suggestedPrograms = [ "gnome-keyring" ];
   };

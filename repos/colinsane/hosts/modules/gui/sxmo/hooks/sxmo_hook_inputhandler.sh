@@ -1,6 +1,35 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p coreutils
 
+# input map considerations
+# - using compound actions causes delays.
+#   e.g. if volup->volup is a distinct action from volup, then single-volup action is forced to wait the maximum button delay.
+# - actions which are to be responsive should therefore have a dedicated key.
+# - a dedicated "kill" combo is important for unresponsive fullscreen apps, because appmenu doesn't show in those
+#   - although better may be to force appmenu to show over FS apps
+# - bonsai mappings are static, so buttons can't benefit from non-compounding unless they're mapped accordingly for all lock states
+#   - this limitation could be removed, but with work
+#
+# proposed future design:
+# - when unlocked:
+#   - volup1   -> app menu
+#   - voldown1 -> toggle keyboard
+#   - pow1 -> volup1 -> volume up
+#   - pow1 -> voldown1 -> volume down
+#   - pow2 -> screen off
+#   - pow3 -> kill app
+# - when locked:
+#   - volup1 -> volume up
+#   - voldown1 -> volume down
+#   - pow1 -> screen on
+#   - pow2 -> toggle player
+# benefits
+# - volup and voldown are able to be far more responsive
+#   - which means faster vkbd, menus, volume adjustment (when locked)
+# limitations
+# - terminal is unmapped. that could be mapped to pow1?
+# - wm menu is unmapped. but i never used that much anyway
+
 # increments to use for volume adjustment
 VOL_INCR_1=5
 VOL_INCR_2=10

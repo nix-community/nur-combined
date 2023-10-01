@@ -196,13 +196,17 @@ in
     ];
 
     devPkgs = declPackageSet [
+      "cargo"
       "clang"
       "nodejs"
+      "rustc"
       "tree-sitter"
     ];
 
 
     # INDIVIDUAL PACKAGE DEFINITIONS
+
+    cargo.persist.plaintext = [ ".cargo" ];
 
     # creds, but also 200 MB of node modules, etc
     discord.persist.private = [ ".config/discord" ];

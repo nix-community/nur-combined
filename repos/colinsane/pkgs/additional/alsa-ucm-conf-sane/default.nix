@@ -1,4 +1,7 @@
-{ alsa-ucm-conf }:
+{ alsa-ucm-conf
+, lib
+, preferEarpiece ? false
+}:
 alsa-ucm-conf.overrideAttrs (upstream: {
   # upstream alsa ships with PinePhone audio configs, but they don't actually produce sound.
   # see: <https://github.com/alsa-project/alsa-ucm-conf/pull/134>
@@ -15,19 +18,18 @@ alsa-ucm-conf.overrideAttrs (upstream: {
   # - "internal earpiece" works.
   # - "internal speaker" doesn't work (but that's probably because i broke the ribbon cable)
   # - "analog output" doesn't work.
-  postPatch = upstream.postPatch or "" + ''
+  postPatch = (upstream.postPatch or "") + ''
     cp ${./ucm2/PinePhone}/* ucm2/Allwinner/A64/PinePhone/
 
     # fix the self-contained ucm files i source from to have correct path within the alsa-ucm-conf source tree
     substituteInPlace ucm2/Allwinner/A64/PinePhone/PinePhone.conf \
       --replace 'HiFi.conf' '/Allwinner/A64/PinePhone/HiFi.conf'
     substituteInPlace ucm2/Allwinner/A64/PinePhone/PinePhone.conf \
-      --replace 'VoiceCall.conf' '/Allwinner/A64/PinePhone/VoiceCall.conf'
-
-    # 2023/09/12: HARDWARE PATCH
-    # - the internal speaker on my device is broken
-    # - until i fix it, just make it a lower priority than the other devices
-    #   so that it's never activated by default
+    --replace 'VoiceCall.conf' '/Allwinner/A64/PinePhone/VoiceCall.conf'
+  '' + lib.optionalString preferEarpiece ''
+    # decrease the priority of the internal speaker so that sounds are routed
+    # to the earpiece by default.
+    # this is just personal preference.
     substituteInPlace ucm2/Allwinner/A64/PinePhone/* \
       --replace 'PlaybackPriority 300' 'PlaybackPriority 100'
   '';

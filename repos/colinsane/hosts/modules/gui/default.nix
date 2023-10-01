@@ -29,7 +29,7 @@
       "evince"  # works on phosh
       "firefox"
       # "foliate"  # e-book reader
-      # "fractal"  # matrix client
+      "fractal"  # matrix client
       "g4music"  # local music player
       # "gnome.cheese"
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
