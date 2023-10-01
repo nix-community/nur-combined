@@ -1466,10 +1466,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.19";
+      version = "1.2.20";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4174055/dearrow-1.2.19.xpi";
-      sha256 = "126155fa712485e11a00265150c3a9107b2a42ac2c261c92709e3e4e3634a5c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4174985/dearrow-1.2.20.xpi";
+      sha256 = "14ad7d252122625f2a9cad01ee209c740eedd8277879e2e62def3395bcf7da4c";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
