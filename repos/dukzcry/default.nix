@@ -38,5 +38,4 @@ rec {
   dsdt = callPackage ./pkgs/dsdt.nix;
   ath10k-firmware = callPackage ./pkgs/ath10k-firmware.nix {};
   cubesuite = callPackage ./pkgs/cubesuite.nix { wrapWine = pkgs.nur.repos.lucasew.packages.wrapWine or null; };
-  emulationstation = callPackage ./pkgs/emulationstation {};
 }
