@@ -83,7 +83,7 @@ in
 
   # placeholder for home-manager config
   options.homeconfig = lib.mkOption {
-    type = lib.types.submodule { freeformType = lib.types.attrs; };
+    type = lib.types.submodule { freeformType = lib.types.anything; };
   };
 
   meta.maintainers = with lib.maintainers; [ nagy ];
