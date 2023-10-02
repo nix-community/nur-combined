@@ -227,6 +227,9 @@ in
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
     gh.persist.private = [ ".config/gh" ];
 
+    "gnome.gnome-maps".persist.plaintext = [ ".cache/shumate" ];
+    "gnome.gnome-maps".persist.private = [ ".local/share/maps-places.json" ];
+
     # actual monero blockchain (not wallet/etc; safe to delete, just slow to regenerate)
     # XXX: is it really safe to persist this? it doesn't have info that could de-anonymize if captured?
     monero-gui.persist.plaintext = [ ".bitmonero" ];

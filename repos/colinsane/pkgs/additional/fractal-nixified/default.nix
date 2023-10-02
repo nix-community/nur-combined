@@ -34,9 +34,14 @@
 , xdg-desktop-portal
 }:
 let
+  # opt-level=0: builds in 1min, 105M binary
+  # opt-level=1: builds in 2.25hr, 75M binary
+  # opt-level=2: builds in 2.25hr
+  # opt-level=3: builds in 2.25hr, 68-70M binary
+  optFlags = "-C opt-level=0";
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
-    release = false;  #< TODO: find a way for release build to not take 2.5 hours (uses a single core)
+    # release = false;
     rootFeatures = [ ];  #< avoids --cfg feature="default", simplifying the rustc CLI so that i can pass it around easier
     defaultCrateOverrides = pkgs.defaultCrateOverrides // {
       fractal = attrs: attrs // {
@@ -83,7 +88,9 @@ let
           rust = [ 'rustc', '--target', '${rust.toRustTargetSpec stdenv.hostPlatform}' ]
         '';
         in
-          lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "--cross-file=${crossFile}" ];
+          lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+            "--cross-file=${crossFile}"
+          ];
 
         postPatch = ''
           substituteInPlace src/meson.build \
@@ -126,6 +133,7 @@ let
             crate_name_=fractal
             main_file=../src/main.rs
             fix_link="-C linker=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
+            EXTRA_RUSTC_FLAGS="$EXTRA_RUSTC_FLAGS ${optFlags}"
             cat >> crate2nix_cmd.sh <<EOF
               set -x
               rmdir target/bin

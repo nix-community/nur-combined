@@ -57,11 +57,11 @@
   sane.programs.dino.config.autostart = true;
   # sane.programs.calls.config.autostart = true;
 
-  # sane.programs.firefox.mime.priority = 300;  # prefer other browsers when possible
+  sane.programs.firefox.mime.priority = 300;  # prefer other browsers when possible
   # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`
-  # sane.programs.firefox.env = lib.mkForce {};
-  # sane.programs.epiphany.env.BROWSER = "epiphany";
-  # sane.programs.firefox.enableFor.user.colin = false;  # use epiphany instead
+  sane.programs.firefox.env = lib.mkForce {};
+  sane.programs.epiphany.env.BROWSER = "epiphany";
+  sane.programs.firefox.enableFor.user.colin = false;  # use epiphany instead
 
   # sane.programs.mpv.enableFor.user.colin = true;
 

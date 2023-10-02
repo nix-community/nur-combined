@@ -34,7 +34,7 @@
       # "gnome.cheese"
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
       # "gnome.file-roller"
-      # "gnome.gnome-maps"  # works on phosh
+      "gnome.gnome-maps"
       # "gnome-podcasts"
       # "gnome.gnome-system-monitor"
       # "gnome.gnome-terminal"  # works on phosh

@@ -74,6 +74,12 @@ let
         hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
       })
 
+      (fetchpatch {
+        name = ''sxmo_wmmenu.sh: add "Kill window" option'';
+        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45263/mbox";
+        hash = "sha256-qDvlLecAjxcKXP7tvhMnySkWPkj6oV0Z0Qm3kudazdk=";
+      })
+
       ## these might or might not be upstream-worthy
       ./0104-full-auto-rotate.patch
       # ./0106-no-restart-lisgd.patch
@@ -102,8 +108,8 @@ let
         #     - sxmo_appmenu.sh applications
         #       - <application, e.g. chatty>
         name = "sxmo_hook_apps: launch apps via the window manager";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/45782db02f6f54f9921db09cb1e3f7108b46d5f8.patch";
-        hash = "sha256-FlbiF9B3GcUsozssXSaUoQpRPNj9DOTkcBnQaue+Ve4=";
+        url = "https://git.uninsane.org/colin/sxmo-utils/commit/0087acfecedf9d1663c8b526ed32e1e2c3fc97f9.patch";
+        hash = "sha256-YwlGM/vx3ZrBShXJJYuUa7FTPQ4CFP/tYffJzUxC7tI=";
       })
     ];
   };

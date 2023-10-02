@@ -195,7 +195,7 @@ in
         # - SWAYNC_SUMMARY
         incoming-im = {
           # trigger notification sound on behalf of these IM clients.
-          app-name = "(Chats|Dino|discord|Element)";
+          app-name = "(Chats|Dino|discord|Element|Fractal)";
           body = "^(?!Incoming call).*$";  #< don't match Dino Incoming calls
           exec = "${fbcli} --event proxied-message-new-instant";
         };
@@ -322,9 +322,16 @@ in
           ] ++ lib.optionals config.sane.programs.dino.config.autostart [
             {
               type = "toggle";
-              label = "jingle";  # XMPP calls
+              label = "XMPP";  # XMPP calls (jingle)
               command = "${systemctl-toggle}/bin/systemctl-toggle --user dino";
               active = "${pkgs.systemd}/bin/systemctl is-active --user dino";
+            }
+          ] ++ lib.optionals config.sane.programs.fractal.config.autostart [
+            {
+              type = "toggle";
+              label = "Matrix";  # Matrix messages
+              command = "${systemctl-toggle}/bin/systemctl-toggle --user fractal";
+              active = "${pkgs.systemd}/bin/systemctl is-active --user fractal";
             }
           ];
         };

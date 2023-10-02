@@ -273,29 +273,29 @@ class Sequencer:
         else:
             return self._at_cmd(f"{cmd}=\"{subcmd}\",{value}", check=check)
 
-    def _at_gnssconfig(self, cfg: GNSSConfig) -> str:
-        return self._at_structured_cmd("QGPSCFG", "gnssconfig", cfg)
+    def _at_gnssconfig(self, cfg: GNSSConfig, **kwargs) -> str:
+        return self._at_structured_cmd("QGPSCFG", "gnssconfig", cfg, **kwargs)
 
-    def _at_odpcontrol(self, control: ODPControl) -> str:
-        return self._at_structured_cmd("QGPSCFG", "odpcontrol", control)
+    def _at_odpcontrol(self, control: ODPControl, **kwargs) -> str:
+        return self._at_structured_cmd("QGPSCFG", "odpcontrol", control, **kwargs)
 
-    def _at_dpoenable(self, enable: DPOEnable) -> str:
-        return self._at_structured_cmd("QGPSCFG", "dpoenable", enable)
+    def _at_dpoenable(self, enable: DPOEnable, **kwargs) -> str:
+        return self._at_structured_cmd("QGPSCFG", "dpoenable", enable, **kwargs)
 
-    def _at_gpsnmeatype(self, ty: GPSNMEAType) -> str:
-        return self._at_structured_cmd("QGPSCFG", "gpsnmeatype", str(ty))
+    def _at_gpsnmeatype(self, ty: GPSNMEAType, **kwargs) -> str:
+        return self._at_structured_cmd("QGPSCFG", "gpsnmeatype", str(ty), **kwargs)
 
-    def _at_glonassnmeatype(self, ty: GlonassNmeaType) -> str:
-        return self._at_structured_cmd("QGPSCFG", "glonassnmeatype", str(ty))
+    def _at_glonassnmeatype(self, ty: GlonassNmeaType, **kwargs) -> str:
+        return self._at_structured_cmd("QGPSCFG", "glonassnmeatype", str(ty), **kwargs)
 
-    def _at_galileonmeatype(self, ty: GalileoNmeaType) -> str:
-        return self._at_structured_cmd("QGPSCFG", "galileonmeatype", str(ty))
+    def _at_galileonmeatype(self, ty: GalileoNmeaType, **kwargs) -> str:
+        return self._at_structured_cmd("QGPSCFG", "galileonmeatype", str(ty), **kwargs)
 
-    def _at_beidounmeatype(self, ty: BeiDouNmeaType) -> str:
-        self._at_structured_cmd("QGPSCFG", "beidounmeatype", str(ty))
+    def _at_beidounmeatype(self, ty: BeiDouNmeaType, **kwargs) -> str:
+        return self._at_structured_cmd("QGPSCFG", "beidounmeatype", str(ty), **kwargs)
 
-    def _at_autogps(self, enable: AutoGps) -> str:
-        return self._at_structured_cmd("QGPSCFG", "autogps", enable)
+    def _at_autogps(self, enable: AutoGps, **kwargs) -> str:
+        return self._at_structured_cmd("QGPSCFG", "autogps", enable, **kwargs)
 
     def _download_assistance_data(self, variant: AgpsDataVariant) -> str | None:
         self.executor.mkdir("new")
@@ -467,13 +467,13 @@ class Sequencer:
                 break  # no need to try any more locdatas
 
         self._at_gnssconfig(GNSSConfig.gps_glonass_beidou_galileo)
-        self._at_odpcontrol(ODPControl.disable)
-        self._at_dpoenable(DPOEnable.disable)  # N.B.: eg25-manager uses `DPOEnable.enable`
+        self._at_odpcontrol(ODPControl.disable, check=False)
+        self._at_dpoenable(DPOEnable.disable, check=False)  # N.B.: eg25-manager uses `DPOEnable.enable`
         self._at_gpsnmeatype(GPSNMEAType.all)
         self._at_glonassnmeatype(GlonassNmeaType.all)
         self._at_galileonmeatype(GalileoNmeaType.all)
         self._at_beidounmeatype(BeiDouNmeaType.all)
-        self._at_autogps(AutoGps.disable)  #< don't start GPS on modem boot
+        self._at_autogps(AutoGps.disable, check=False)  #< don't start GPS on modem boot
         # configure so GPS output is readable via /dev/ttyUSB1
         # self._mmcli(["--location-enable-gps-unmanaged"])
         # TODO: tune/document these QGPS values; a smarter setting here might reduce jitter?
