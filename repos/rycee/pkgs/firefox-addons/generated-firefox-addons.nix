@@ -1234,10 +1234,10 @@
       };
     "container-tabs-sidebar" = buildFirefoxXpiAddon {
       pname = "container-tabs-sidebar";
-      version = "1.0.0";
+      version = "1.1.0";
       addonId = "containertabssidebar@maciekmm.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958291/container_tabs_sidebar-1.0.0.xpi";
-      sha256 = "8cd29eb55b0a8ecfb92815047414f2ee136b51bba916f07c761653d3467e8181";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4175360/container_tabs_sidebar-1.1.0.xpi";
+      sha256 = "185035dc43b7cd2e82a0f9814e780f343ff325c411cb3aa0788a2eb53338fe3a";
       meta = with lib;
       {
         homepage = "https://github.com/maciekmm/container-tabs-sidebar";
