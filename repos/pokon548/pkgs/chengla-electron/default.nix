@@ -1,14 +1,14 @@
-{ stdenv, lib, fetchurl, appimageTools, makeWrapper, electron_25 }:
+{ stdenv, lib, fetchurl, appimageTools, makeWrapper, electron_26 }:
 
-let electron = electron_25;
+let electron = electron_26;
 in stdenv.mkDerivation rec {
   pname = "chengla-electron";
-  version = "1.0.4";
+  version = "1.0.6";
 
   src = fetchurl {
     url =
-      "https://github.com/pokon548/chengla-for-linux/releases/download/v${version}/chengla-linux-unofficial-${version}.AppImage";
-    sha256 = "sha256-l0pM22buwGTKoAvW4oF7sn/NvbCFKdIK5Pztbi/kxI4=";
+      "https://github.com/pokon548/chengla-for-linux/releases/download/v${version}/chengla-${version}.AppImage";
+    sha256 = "sha256-bs+HlXNBRQn2egEHQgT1EIVTuGn+D1akGrtf1L96EUI=";
     name = "${pname}-${version}.AppImage";
   };
 
@@ -26,11 +26,11 @@ in stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/512x512
+    mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/0x0
 
     cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
     cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/${pname}.desktop
-    cp -a ${appimageContents}/usr/share/icons/hicolor/512x512/apps $out/share/icons/hicolor/512x512
+    cp -a ${appimageContents}/usr/share/icons/hicolor/0x0/apps $out/share/icons/hicolor/0x0
 
     substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
