@@ -5,13 +5,13 @@
 
 buildGoModule rec {
   pname = "casaos";
-  version = "0.4.4-2";
+  version = "0.4.4-3";
 
   src = fetchFromGitHub {
     owner = "IceWhaleTech";
     repo = "CasaOS";
     rev = "v${version}";
-    hash = "sha256-5I9zeXJ68xYD2BOIhmflIzoirAs+tRT6rWS/1KfvUpo=";
+    hash = "sha256-476JkGHoyaCkoSIU98PRGE2qW1HWc6fK8hSw5uwuihg=";
     fetchSubmodules = true;
   };
 
