@@ -1,6 +1,8 @@
 { lib
 , gcc13Stdenv
 , fetchFromGitLab
+, desktop-file-utils
+, gtk3
 , meson
 , ninja
 , pkg-config
@@ -9,19 +11,21 @@
 , wayland
 }:
 
-gcc13Stdenv.mkDerivation {
+gcc13Stdenv.mkDerivation (finalAttrs: {
   pname = "waycheck";
-  version = "0.1.3";
+  version = "0.2.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "serebit";
     repo = "waycheck";
-    rev = "bc601b4c44ce6e5c51fe82c5541c199cd7aad65d";
-    hash = "sha256-WjDoL/pOse5hf5AaJCpkfDTPCq6QY0bOLo3/jlHJnFU=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-J1Jv/JroA81K4mExNmRQVpih2xh0so8fI/skhcAE/uE=";
   };
 
   nativeBuildInputs = [
+  desktop-file-utils
+  gtk3 # for gtk-update-icon-cache
     meson
     ninja
     pkg-config
@@ -40,4 +44,4 @@ gcc13Stdenv.mkDerivation {
     license = licenses.asl20;
     maintainers = with maintainers; [ federicoschonborn ];
   };
-}
+})
