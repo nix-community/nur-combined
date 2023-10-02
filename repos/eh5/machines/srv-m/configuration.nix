@@ -12,7 +12,7 @@ in
     defaultSopsFile = ./secrets/secrets.yaml;
     secrets = {
       acmeEnv = { };
-      postScript = { mode = "0500"; };
+      postScript = { mode = "0500"; owner = "acme"; };
       trustedNetworks = { };
       bindDnPw = { };
       passdbLdap.owner = dovecotUser;

@@ -21,7 +21,7 @@ in
         "*.sokka.cn"
       ];
       postRun = ''
-        export PATH="$PATH:${pkgs.openssh}/bin:${pkgs.sshpass}/bin"
+        export PATH="$PATH:${pkgs.bash}/bin/:${pkgs.openssh}/bin:${pkgs.sshpass}/bin"
         bash ${secrets.postScript.path}
       '';
       reloadServices = [
