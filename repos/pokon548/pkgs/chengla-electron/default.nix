@@ -29,10 +29,10 @@ in stdenv.mkDerivation rec {
     mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/0x0
 
     cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
-    cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/${pname}.desktop
+    cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/chengla-linux-unofficial.desktop
     cp -a ${appimageContents}/usr/share/icons/hicolor/0x0/apps $out/share/icons/hicolor/0x0
 
-    substituteInPlace $out/share/applications/${pname}.desktop \
+    substituteInPlace $out/share/applications/chengla-linux-unofficial.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
 
     runHook postInstall
