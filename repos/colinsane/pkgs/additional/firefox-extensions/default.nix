@@ -112,8 +112,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.1.0";
-      hash = "sha256-Rcm5lC2yKs4ghxF05WYNhSdVQ+VX0uog7h2lLYJeai8=";
+      version = "11.1.1";
+      hash = "sha256-anyCzENZT3WHcjWCJxZHlUakAPjW0akVe5SbfxQv9wU=";
     };
     i2p-in-private-browsing = fetchVersionedAddon rec {
       extid = "i2ppb@eyedeekay.github.io";
@@ -134,8 +134,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
       url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-      version = "5.4.21";
-      hash = "sha256-mfCHD46FgmCQ8ugg58ML19zIllBQEJthfheTrEObs7M=";
+      version = "5.4.22";
+      hash = "sha256-/zigrc5gljJ2h4vZLUKn/QZaibD/GwBCFuEcJ9rAMKY=";
     };
     ublacklist = fetchVersionedAddon rec {
       extid = "@ublacklist";
@@ -150,8 +150,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.52.3b0";
-      hash = "sha256-6idJQXOguCPXgs1RP6mKUjZK3lzSAkjvpDPVcWUfacI=";
+      version = "1.52.3b2";
+      hash = "sha256-nN6zTlngkUeRbhMXPOb5tb8v2n4PJCc8rGSsXi8+JCY=";
     };
   };
 })).overrideScope (self: super:

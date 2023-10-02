@@ -19,20 +19,6 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
-  (fetchpatch' {
-    # merged 2023/09/28. fixes lemmy build
-    title = "lemmy-ui: add missed build dependency";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/257769";
-    hash = "sha256-Z0fHlsycsSUoniXYoD1H+Kti1Vk5TFBC38TbtUR+ZPg=";
-  })
-  # (fetchpatch' {
-  #   # fixes /mnt/servo-nfs mount failures
-  #   # 2023/09/21: doesn't apply
-  #   title = "linux_6_1,linux_6_5: backport patch from 6.6 for NFS fix";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/256526";
-  #   hash = "sha256-vOQ4lgnccHxEs7bTrgkzGqh49h/Gr6BQr+H4rxa5zfQ=";
-  # })
-
   # (fetchpatch' {
   #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.
   #   # the latter is an alias, which breaks nix-index
@@ -112,13 +98,6 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
     saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
     hash = "sha256-jDXYLlXaEBKMrZ2dgxc6ucrcX/5dtqoIIKw+Ay19vlc=";
-  })
-
-  (fetchpatch' {
-    title = "g4music: 3.2 -> 3.3";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/255440";
-    saneCommit = "1af1d8b85525228638631b0b553f1275ce0eac22";
-    hash = "sha256-tzqimuhVI88sM59kCQz1kNkv33Mko/9ls978dsEx3uM=";
   })
 
   # (fetchpatch {
