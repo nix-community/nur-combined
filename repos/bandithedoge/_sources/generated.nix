@@ -74,15 +74,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "3e97a1d25cb985150aa2667822cbda066f5b3cba";
+    version = "ddb2e833a47b5c82eb87cbaf8db2f356a1a6723a";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "3e97a1d25cb985150aa2667822cbda066f5b3cba";
+      rev = "ddb2e833a47b5c82eb87cbaf8db2f356a1a6723a";
       fetchSubmodules = false;
-      sha256 = "sha256-Yrb6Zs0CZg7tRp1FRzyJPCjZqZs2+thayA8o7dXaWYQ=";
+      sha256 = "sha256-Pg955WjoOpS2NyjlfjWZSc0Td0rQFMZaqVUSEbsU84I=";
     };
-    date = "2023-09-22";
+    date = "2023-10-01";
   };
   fennel-language-server = {
     pname = "fennel-language-server";
@@ -299,15 +299,15 @@
   };
   tree-sitter-hypr = {
     pname = "tree-sitter-hypr";
-    version = "0e19dd13a3751d2e00285917c5620eb79f470ac5";
+    version = "90b3ddf8a85b5ea3d9dc4920fddb16182a192e14";
     src = fetchFromGitHub {
       owner = "luckasRanarison";
       repo = "tree-sitter-hypr";
-      rev = "0e19dd13a3751d2e00285917c5620eb79f470ac5";
+      rev = "90b3ddf8a85b5ea3d9dc4920fddb16182a192e14";
       fetchSubmodules = false;
-      sha256 = "sha256-Xb4U64d3ey+iUsefHXjG5PX2pfXjBnyIvC0tvXFx6js=";
+      sha256 = "sha256-ErFs2eCC0eZEyDldrTUj4JJ0Eu+exDHNQx4g8WXh/UQ=";
     };
-    date = "2023-09-02";
+    date = "2023-10-01";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
