@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchurl, appimageTools, makeWrapper, electron_26 }:
+{ stdenv, lib, fetchurl, appimageTools, makeWrapper, electron_26-bin }:
 
-let electron = electron_26;
+let electron = electron_26-bin;
 in stdenv.mkDerivation rec {
   pname = "chengla-electron";
   version = "1.0.6";
@@ -29,10 +29,10 @@ in stdenv.mkDerivation rec {
     mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/0x0
 
     cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
-    cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/chengla-linux-unofficial.desktop
-    cp -a ${appimageContents}/usr/share/icons/hicolor/0x0/apps $out/share/icons/hicolor/0x0
+    cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/${pname}.desktop
+    cp -a ${appimageContents}/usr/share/icons/hicolor/0x0/apps/chengla-linux-unofficial.png $out/share/icons/hicolor/0x0/${pname}.png
 
-    substituteInPlace $out/share/applications/chengla-linux-unofficial.desktop \
+    substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
 
     runHook postInstall
