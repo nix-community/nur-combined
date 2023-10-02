@@ -1,0 +1,208 @@
+diff --git a/src/greeter.c b/src/greeter.c
+index 7eebdb0..c342f7a 100644
+--- a/src/greeter.c
++++ b/src/greeter.c
+@@ -196,22 +196,12 @@ message_received_cb(WebKitUserContentManager *manager,
+ 					WebKitJavascriptResult *message,
+ 					gpointer user_data) {
+ 
+-	gchar *message_str;
+-	JSGlobalContextRef context;
+-	JSValueRef message_val;
+-	JSStringRef js_str_val;
+-	gsize message_str_length;
+-
+-	context = webkit_javascript_result_get_global_context(message);
+-	message_val = webkit_javascript_result_get_value(message);
+-
+-	if (JSValueIsString(context, message_val)) {
+-		js_str_val = JSValueToStringCopy(context, message_val, NULL);
+-		message_str_length = JSStringGetMaximumUTF8CStringSize(js_str_val);
+-		message_str = (gchar *)g_malloc (message_str_length);
+-		JSStringGetUTF8CString(js_str_val, message_str, message_str_length);
+-		JSStringRelease(js_str_val);
++	char *message_str;
++	JSCValue *message_val;
+ 
++	message_val = webkit_javascript_result_get_js_value(message);
++	if (jsc_value_is_string(message_val)) {
++		message_str = jsc_value_to_string(message_val);
+ 	} else {
+ 		message_str = "";
+ 		printf("Error running javascript: unexpected return value");
+@@ -226,8 +216,6 @@ message_received_cb(WebKitUserContentManager *manager,
+ 	} else {
+ 		printf("UI PROCESS - message_received_cb(): no match!");
+ 	}
+-
+-	g_free(message_str);
+ }
+ 
+ 
+@@ -289,8 +277,7 @@ theme_function_exists_cb(GObject *object,
+ 
+ 	WebKitJavascriptResult *js_result;
+ 	GError                 *error = NULL;
+-	JSValueRef              value;
+-	JSGlobalContextRef      context;
++	JSCValue               *value;
+ 	gboolean                result_as_bool;
+ 
+ 	js_result = webkit_web_view_run_javascript_finish(WEBKIT_WEB_VIEW(object), result, &error);
+@@ -299,14 +286,11 @@ theme_function_exists_cb(GObject *object,
+ 		g_warning ("Error running javascript: %s", error->message);
+ 		g_error_free(error);
+ 		return;
+-
+-	} else {
+-		context = webkit_javascript_result_get_global_context(js_result);
+-		value = webkit_javascript_result_get_value(js_result);
+-
+-		result_as_bool = JSValueToBoolean(context, value);
+ 	}
+ 
++	value = webkit_javascript_result_get_js_value(js_result);
++	result_as_bool = jsc_value_to_boolean(value);
++
+ 	if (FALSE == result_as_bool) {
+ 		show_theme_recovery_modal();
+ 	}
+diff --git a/src/webkit2-extension.c b/src/webkit2-extension.c
+index 24c8ae9..4dd924e 100644
+--- a/src/webkit2-extension.c
++++ b/src/webkit2-extension.c
+@@ -1693,9 +1693,8 @@ show_prompt_cb(LightDMGreeter *greeter,
+ 
+ 	WebKitWebPage *web_page;
+ 	WebKitFrame *web_frame;
+-	JSGlobalContextRef jsContext;
+-	JSStringRef command;
+-	gchar *string;
++	JSCContext *jsContext;
++	gchar *command;
+ 	gchar *etext;
+ 	const gchar *ct = "";
+ 
+@@ -1703,7 +1702,7 @@ show_prompt_cb(LightDMGreeter *greeter,
+ 
+ 	if (web_page != NULL) {
+ 		web_frame = webkit_web_page_get_main_frame(web_page);
+-		jsContext = webkit_frame_get_javascript_global_context(web_frame);
++		jsContext = webkit_frame_get_js_context(web_frame);
+ 
+ 		switch (type) {
+ 			case LIGHTDM_PROMPT_TYPE_QUESTION:
+@@ -1715,13 +1714,11 @@ show_prompt_cb(LightDMGreeter *greeter,
+ 		}
+ 
+ 		etext = escape(text);
+-		string = g_strdup_printf("show_prompt('%s', '%s')", etext, ct);
+-		command = JSStringCreateWithUTF8CString(string);
+-
+-		JSEvaluateScript(jsContext, command, NULL, NULL, 0, NULL);
+-
+-		g_free(string);
++		command = g_strdup_printf("show_prompt('%s', '%s')", etext, ct);
++		g_object_unref(jsc_context_evaluate(jsContext, command, -1));
++		g_free(command);
+ 		g_free(etext);
++		g_object_unref(jsContext);
+ 	}
+ }
+ 
+@@ -1734,17 +1731,16 @@ show_message_cb(LightDMGreeter *greeter,
+ 
+ 	WebKitWebPage *web_page;
+ 	WebKitFrame *web_frame;
+-	JSGlobalContextRef jsContext;
+-	JSStringRef command;
++	JSCContext *jsContext;
+ 	gchar *etext;
+-	gchar *string;
++	gchar *command;
+ 	const gchar *mt = "";
+ 
+ 	web_page = webkit_web_extension_get_page(extension, page_id);
+ 
+ 	if (web_page != NULL) {
+ 		web_frame = webkit_web_page_get_main_frame(web_page);
+-		jsContext = webkit_frame_get_javascript_global_context(web_frame);
++		jsContext = webkit_frame_get_js_context(web_frame);
+ 
+ 		switch (type) {
+ 			case LIGHTDM_MESSAGE_TYPE_ERROR:
+@@ -1756,13 +1752,11 @@ show_message_cb(LightDMGreeter *greeter,
+ 		}
+ 
+ 		etext = escape(text);
+-		string = g_strdup_printf("show_prompt('%s', '%s')", etext, mt);
+-		command = JSStringCreateWithUTF8CString(string);
+-
+-		JSEvaluateScript(jsContext, command, NULL, NULL, 0, NULL);
+-
+-		g_free(string);
++		command = g_strdup_printf("show_prompt('%s', '%s')", etext, mt);
++		g_object_unref(jsc_context_evaluate(jsContext, command, -1));
++		g_free(command);
+ 		g_free(etext);
++		g_object_unref(jsContext);
+ 	}
+ }
+ 
+@@ -1772,17 +1766,15 @@ authentication_complete_cb(LightDMGreeter *greeter, WebKitWebExtension *extensio
+ 
+ 	WebKitWebPage *web_page;
+ 	WebKitFrame *web_frame;
+-	JSGlobalContextRef jsContext;
+-	JSStringRef command;
++	JSCContext *jsContext;
+ 
+ 	web_page = webkit_web_extension_get_page(extension, page_id);
+ 
+ 	if (web_page != NULL) {
+ 		web_frame = webkit_web_page_get_main_frame(web_page);
+-		jsContext = webkit_frame_get_javascript_global_context(web_frame);
+-		command = JSStringCreateWithUTF8CString("authentication_complete()");
+-
+-		JSEvaluateScript(jsContext, command, NULL, NULL, 0, NULL);
++		jsContext = webkit_frame_get_js_context(web_frame);
++		g_object_unref(jsc_context_evaluate(jsContext, "authentication_complete()", -1));
++		g_object_unref(jsContext);
+ 	}
+ }
+ 
+@@ -1792,17 +1784,15 @@ autologin_timer_expired_cb(LightDMGreeter *greeter, WebKitWebExtension *extensio
+ 
+ 	WebKitWebPage *web_page;
+ 	WebKitFrame *web_frame;
+-	JSGlobalContextRef jsContext;
+-	JSStringRef command;
++	JSCContext *jsContext;
+ 
+ 	web_page = webkit_web_extension_get_page(extension, page_id);
+ 
+ 	if (web_page != NULL) {
+ 		web_frame = webkit_web_page_get_main_frame(web_page);
+-		jsContext = webkit_frame_get_javascript_global_context(web_frame);
+-		command = JSStringCreateWithUTF8CString("autologin_timer_expired()");
+-
+-		JSEvaluateScript(jsContext, command, NULL, NULL, 0, NULL);
++		jsContext = webkit_frame_get_js_context(web_frame);
++		g_object_unref(jsc_context_evaluate(jsContext, "autologin_timer_expired()", -1));
++		g_object_unref(jsContext);
+ 	}
+ }
+ 
+@@ -2064,11 +2054,7 @@ webkit_web_extension_initialize(WebKitWebExtension *extension) {
+ 		extension
+ 	);
+ 
+-	/* TODO: This function was deprecated in lightdm 1.11.x.
+-	 * New function is lightdm_greeter_connect_to_daemon_sync
+-	 * Wait until it makes it into Debian Stable before making the change.
+-	 */
+-	lightdm_greeter_connect_sync(greeter, NULL);
++	lightdm_greeter_connect_to_daemon_sync(greeter, NULL);
+ }
+ 
+ /* vim: set ts=4 sw=4 tw=0 noet : */

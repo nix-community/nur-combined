@@ -1,4 +1,4 @@
-{ lib, stdenv, pkgs, fetchFromGitHub, fetchurl, ... }:
+{ lib, stdenv, pkgs, fetchFromGitHub, fetchurl, protobuf3_19, ... }:
 
 stdenv.mkDerivation {
   pname = "aws-iot-securetunneling-localproxy";

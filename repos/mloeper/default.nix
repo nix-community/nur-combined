@@ -22,6 +22,10 @@ rec {
   mkusb-plug = pkgs.callPackage ./pkgs/mkusb-plug { };
   mkusb-sedd = pkgs.callPackage ./pkgs/mkusb-sedd { };
   xorriso = pkgs.callPackage ./pkgs/xorriso { };
-  aws-iot-securetunneling-localproxy = pkgs.callPackage ./pkgs/aws-iot-securetunneling-localproxy { };
+  aws-iot-securetunneling-localproxy = pkgs.callPackage ./pkgs/aws-iot-securetunneling-localproxy { protobuf3_19 = protobuf3_19; };
   elster-authenticator = pkgs.callPackage ./pkgs/elster-authenticator { };
+  lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/lightdm-webkit2-greeter { lightdm-webkit2-greeter = lightdm-webkit2-greeter; };
+  protobuf3_19 = pkgs.callPackage ./pkgs/protobuf3_19/default.nix {
+    abseil-cpp = pkgs.abseil-cpp_202103;
+  };
 }
