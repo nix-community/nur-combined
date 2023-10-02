@@ -51,15 +51,15 @@
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
-    version = "76549d014ef6abdecb1d676e5d4de160f86ba2d9";
+    version = "6bd3860e4b84c7e2701ca3ab86d9c11355c47ebc";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dmenu-flexipatch";
-      rev = "76549d014ef6abdecb1d676e5d4de160f86ba2d9";
+      rev = "6bd3860e4b84c7e2701ca3ab86d9c11355c47ebc";
       fetchSubmodules = false;
-      sha256 = "sha256-bZbMGA5w3gLMf/kOzy+ji8GNkGZ3Srt6TfKwK6BLc4A=";
+      sha256 = "sha256-ZNe3RNxj/riRQw0mQ0OcWRKq4TzyumIUWT6uZxCOJI8=";
     };
-    date = "2023-09-22";
+    date = "2023-10-02";
   };
   dpf-plugins = {
     pname = "dpf-plugins";
