@@ -71,10 +71,10 @@
       };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.17.0";
+      version = "3.18.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4122213/adnauseam-3.17.0.xpi";
-      sha256 = "ed4d2f3498b3eb379053970e24150d31d4f19ff5987907fc98f870697dffb7c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4174127/adnauseam-3.18.0.xpi";
+      sha256 = "7a68641d944803100ef7a54abc7e9fabf5d9e12a826155b303bfd62aae746dd4";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -641,10 +641,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.8.3";
+      version = "2023.9.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164440/bitwarden_password_manager-2023.8.3.xpi";
-      sha256 = "d43d7603ed04a24cd37b209a22d58b940cd71503d654d6305d6c37317fd5889c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4170561/bitwarden_password_manager-2023.9.1.xpi";
+      sha256 = "46d4fe10ea3a1757a6a4c0d728f3f765d93883f742a3ebb73f36aeb80eec55a9";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2261,10 +2261,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "119.0.20230929.91427";
+      version = "119.0.20231002.91755";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4174683/francais_language_pack-119.0.20230929.91427.xpi";
-      sha256 = "62bda7725993165e87a6aba8b2c084f27a614d648480e01a58b159480818e0e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4175620/francais_language_pack-119.0.20231002.91755.xpi";
+      sha256 = "64e3760654c65c863478f5e66f9ed5a8cdaef7e901f596f15606a3dbe0180b36";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4563,10 +4563,10 @@
       };
     "link-gopher" = buildFirefoxXpiAddon {
       pname = "link-gopher";
-      version = "2.4.6";
+      version = "2.5.0";
       addonId = "linkgopher@oooninja.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169932/link_gopher-2.4.6.xpi";
-      sha256 = "fa53963360694b4089706dfd1e4891284f9081af61ee72196afbc37d201ce970";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4173947/link_gopher-2.5.0.xpi";
+      sha256 = "4cfd8907758e749a9f7afb68c65a2373a3dc018228c55c8d1cb5b2200d2aa8a4";
       meta = with lib;
       {
         homepage = "http://sites.google.com/site/linkgopher/";
@@ -4815,10 +4815,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.11.10";
+      version = "2.12.0";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170220/momentumdash-2.11.10.xpi";
-      sha256 = "86245504fddca554a0e5565f1757ae39a9ee4b2e8d4d4c9c4fe39ba6a98c61d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4173775/momentumdash-2.12.0.xpi";
+      sha256 = "6e2fbfa3fd30eb9359819b0890f0ef3a763416245db8c8a771a4dc0dd4faba8c";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -6230,10 +6230,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.6.2";
+      version = "1.7.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170145/proton_pass-1.6.2.xpi";
-      sha256 = "7e236948a49cde79920c9857f57e4ed42a33b8fc9d1e6bd7925d0f1eee331919";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4173714/proton_pass-1.7.1.xpi";
+      sha256 = "1bc3ebaceb23165e8e948b7a70c16bcc58b52354b8e419d3015e39837326de4c";
       meta = with lib;
       {
         homepage = "https://proton.me";
