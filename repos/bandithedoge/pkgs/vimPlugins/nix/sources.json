@@ -617,10 +617,10 @@
     "homepage": "",
     "owner": "ray-x",
     "repo": "go.nvim",
-    "rev": "2f573a297bea3a483a3607ae7c607a8a08d27993",
-    "sha256": "0knxirf1kimjck9f8mx26m8s9v2vbjmacnr29rm9la96fs5bg2n4",
+    "rev": "54387e506e597ab65a89baa1681429728f66ed71",
+    "sha256": "0mpdk5drvx0rlfyk9vmp1f0nk2dmqbjgkkhwf89ywjbayddyapmk",
     "type": "tarball",
-    "url": "https://github.com/ray-x/go.nvim/archive/2f573a297bea3a483a3607ae7c607a8a08d27993.tar.gz",
+    "url": "https://github.com/ray-x/go.nvim/archive/54387e506e597ab65a89baa1681429728f66ed71.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "guess-indent.nvim": {
@@ -749,10 +749,10 @@
     "homepage": "",
     "owner": "lukas-reineke",
     "repo": "indent-blankline.nvim",
-    "rev": "ce2e8e410bc8b46a6938bfa3520bc6b85ca8a743",
-    "sha256": "0sb1cfp8hx3qq3lr89afc60q0qs20yka7jcimdjh81qnqz2ws6i4",
+    "rev": "906ba1e843063d29467663d53a86014f0ece1bb9",
+    "sha256": "1pwrl4pgn4wsaabmd80vhlp0xq9l0qsd1x5x8bc83arlklxccjz0",
     "type": "tarball",
-    "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/ce2e8e410bc8b46a6938bfa3520bc6b85ca8a743.tar.gz",
+    "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/906ba1e843063d29467663d53a86014f0ece1bb9.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "lazily-nvim": {
