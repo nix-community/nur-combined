@@ -17,6 +17,7 @@
   diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
   freqtop = pkgs.callPackage ./pkgs/freqtop { };
   map = pkgs.callPackage ./pkgs/map { };
+  openscad-snapshot = pkgs.callPackage ./pkgs/openscad-snapshot { };
   q = pkgs.callPackage ./pkgs/q { };
   # TODO: fix dependency specification
   #raspi-oled = pkgs.callPackage ./pkgs/raspi-oled { };
