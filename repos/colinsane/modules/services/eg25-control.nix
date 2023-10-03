@@ -18,6 +18,7 @@ in
       isSystemUser = true;
       home = "/var/lib/eg25-control";
       extraGroups = [
+        "dialout"  # required to read /dev/ttyUSB1
         "networkmanager"  # required to authenticate with mmcli
       ];
     };

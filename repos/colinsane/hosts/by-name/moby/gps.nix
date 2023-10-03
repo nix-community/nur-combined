@@ -36,7 +36,9 @@
     # ];
   };
   systemd.services.geoclue.after = lib.mkForce [];  #< defaults to network-online, but not all my sources require network
-
+  users.users.geoclue.extraGroups = [
+    "dialout"  # TODO: figure out if dialout is required. that's for /dev/ttyUSB1, but geoclue probably doesn't read that?
+  ];
 
   sane.services.eg25-control.enable = true;
 }

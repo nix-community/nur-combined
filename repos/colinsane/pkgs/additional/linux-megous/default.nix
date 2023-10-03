@@ -13,22 +13,24 @@ with lib;
 
 let
   # HOW TO UPDATE:
+  # - see: <https://xnux.eu/log/094.html>
   # - `wget https://xff.cz/kernels/git/orange-pi-active.bundle`
   # - `git fetch torvalds`
   # - `git bundle unbundle orange-pi-active.bundle`
   # - there should be some new tag, like `refs/tags/orange-pi-6.4-20230907-1427`
-  # - see: <https://xnux.eu/log/094.html>
-  # OLD METHOD (pre-2023/09):
-  # - `git fetch` from megous' repo (https://github.com/megous/linux.git).
-  # - there should be some new tag, like `orange-pi-6.1-blah`. use that.
+  # checkout the revision associated with the tag, then:
+  # - manually retag it, because `git bundle` doesn't actually import the tag
+  # - `git push origin <tag>`
   # - grab VERSION/PATCHLEVEL/SUBLEVEL/EXTRAVERSION from Makefile.
+  #
   # - megi publishes release notes as the most recent commit on any release tag, so just `git show` or `git log`
   # - orange-pi is listed as the "main integration branch".
   #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` tags are "formal" releases
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
-  rev = "orange-pi-6.4-20230907-1427";
-  hash = "sha256-QOF6f5u4IC3OnTaCE91w7ZXmE2b2CVkVtSD1aOM8Arg=";
-  base = "6.4.15";
+  # rev = "orange-pi-6.4-20230914-1603";
+  rev = "orange-pi-6.5-20230914-1327";
+  hash = "sha256-X4fDgQEyXgVAdaWzrsEOM+BCkv4rAaCaQSo2w4aRmbQ=";
+  base = "6.5.3";
   # set to empty if not a release candidate, else `-rc<N>`
   rc = "";
 

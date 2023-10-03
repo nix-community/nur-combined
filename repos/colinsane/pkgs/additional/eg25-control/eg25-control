@@ -58,6 +58,7 @@ import sys
 import time
 
 POWER_ENDPOINT = "/sys/class/modem-power/modem-power/device/powered"
+GPS_STREAM_ENDPOINT = "/dev/ttyUSB1"
 # GNSS-AP-Note 1.4:
 # also at xtrapath5 and xtrapath6 subdomains.
 # the AGPS data here is an almanac good for 7 days.
@@ -108,7 +109,7 @@ class Executor:
     def __init__(self, dry_run: bool = False):
         self.dry_run = dry_run
 
-    def read_file(self, path: str, default: bytes) -> bytes:
+    def read_file(self, path: str, default: bytes = b'') -> bytes:
         try:
             with open(path, 'rb') as f:
                 return f.read()
@@ -237,7 +238,6 @@ class AutoGps:
     enable = "1"
 
 class Sequencer:
-    AGPS_DATA_URI_BASE = AGPS_DATA_URI_BASE
     def __init__(self, executor: Executor, modem: str, power_endpoint: str):
         self.executor = executor
         self.modem = modem
@@ -301,7 +301,7 @@ class Sequencer:
         self.executor.mkdir("new")
         out_path = f"new/{variant}"
         try:
-            self.executor.exec(["curl", f"{self.AGPS_DATA_URI_BASE}/{variant}", "-o", out_path])
+            self.executor.exec(["curl", f"{AGPS_DATA_URI_BASE}/{variant}", "-o", out_path])
             return out_path
         except subprocess.CalledProcessError as e:
             logger.warning(f"AGPS data download failed: {e}")
@@ -410,6 +410,12 @@ class Sequencer:
         self._at_structured_cmd('QGPSLOC', value='0', check=False)
         logger.debug('dumping AGPS positioning mode bitfield')
         self._at_structured_cmd('QGPSCFG', 'agpsposmode')
+
+        # N.B.: /dev/ttyUSB1 can block indefinitely on reads (particularly when competing with another consumer)
+        # logger.debug('dumping last modem GPS output, if available')
+        # gpsout = self.executor.read_file(GPS_STREAM_ENDPOINT)
+        # gpslines = gpsout.decode('utf-8').split('\n')[-12:]
+        # logger.debug('\n'.join(gpslines))
 
     @log_scope("configuring audio...", "audio configured")
     def enable_audio(self) -> None:
