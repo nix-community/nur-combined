@@ -32,6 +32,7 @@
       ../../modules/desktop-video.nix
 #      ../../modules/desktop-virtualbox.nix
       ../../modules/desktop-security.nix
+      ../../modules/desktop-minecraft.nix
 
       ../../modules/dev-android.nix
       ../../modules/dev-core.nix
