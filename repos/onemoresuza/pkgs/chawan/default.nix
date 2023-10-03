@@ -9,15 +9,17 @@
 }:
 stdenv.mkDerivation rec {
   pname = "chawan";
-  version = "unstable-2023-09-17";
+  version = "unstable-2023-10-02";
   src = fetchFromSourcehut {
     owner = "~bptato";
     repo = pname;
-    rev = "ba2d0b1d8dae67b6f8d3e815a61d26c7c0b1ce2f";
-    hash = "sha256-J7EL58kAAMlJl7i7xq9yVNjk/ySH77/E7PzIm4fdo4w=";
+    rev = "3235507b98f178f58657a86370e57e0a8b130684";
+    hash = "sha256-6ahaLolDeSdcpnoOgnOnhstrJBwSFKXCG22ZzH2+epU=";
     domain = "sr.ht";
     fetchSubmodules = true;
   };
+
+  enableParallelBuilding = true;
 
   nativeBuildInputs = [
     pkg-config
@@ -27,11 +29,14 @@ stdenv.mkDerivation rec {
   buildInputs = [zlib] ++ (with curl; [out dev]);
 
   buildPhase = ''
-    make release
+    runHook preBuild
+    make -j"''${NIX_BUILD_CORES}" release
+    runHook postBuild
   '';
 
   installFlags = [
     "prefix=${placeholder "out"}"
+    "manprefix=${placeholder "out"}/share/man"
   ];
 
   meta = with lib; {
