@@ -10,5 +10,5 @@ in
 '').overrideAttrs (_: {
   inherit pname;
   name = "${pname}-nonblock";
-  passthru.original = sops-install-secrets;
+  passthru.unwrapped = sops-install-secrets;
 })

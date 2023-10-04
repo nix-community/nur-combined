@@ -92,6 +92,7 @@ in
     allowReboot = true;
   };
   nix.gc.automatic = true;
+  nix.gc.options = "-d";
   nix.optimise.automatic = true;
 
   users.users.root = {

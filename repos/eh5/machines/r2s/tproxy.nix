@@ -36,37 +36,44 @@ in
   services.v2ray-rules-dat.reloadServices = [ "v2ray-next.service" ];
   sops.secrets.v2rayConfig.restartUnits = [ "v2ray-next.service" ];
 
-  services.hev-socks5-tproxy = {
-    enable = true;
-    config = {
-      socks5 = {
-        address = "127.0.0.1";
-        port = 1088;
-        udp = "udp";
-      };
-      tcp = {
-        address = "127.0.0.1";
-        port = 1081;
-      };
-      udp = {
-        address = "127.0.0.1";
-        port = 1081;
-      };
-      limit-nofile = 65535;
-    };
-  };
-  systemd.services.hev-socks5-tproxy = {
-    bindsTo = [ "v2ray-next.service" ];
-    after = [ "v2ray-next.service" ];
-    serviceConfig = {
-      SupplementaryGroups = [ config.users.groups.direct-net.name ];
-    };
-  };
+  # services.hev-socks5-tproxy = {
+  #   enable = true;
+  #   config = {
+  #     socks5 = {
+  #       address = "127.0.0.1";
+  #       port = 1088;
+  #       udp = "udp";
+  #     };
+  #     tcp = {
+  #       address = "127.0.0.1";
+  #       port = 1081;
+  #     };
+  #     udp = {
+  #       address = "127.0.0.1";
+  #       port = 1081;
+  #     };
+  #     limit-nofile = 65535;
+  #   };
+  # };
+  # systemd.services.hev-socks5-tproxy = {
+  #   bindsTo = [ "v2ray-next.service" ];
+  #   after = [ "v2ray-next.service" ];
+  #   serviceConfig = {
+  #     SupplementaryGroups = [ config.users.groups.direct-net.name ];
+  #   };
+  # };
 
   systemd.services.setup-tproxy = {
-    bindsTo = [ "hev-socks5-tproxy.service" "nftables.service" ];
+    bindsTo = [
+      # "hev-socks5-tproxy.service"
+      "nftables.service"
+    ];
     wants = [ "systemd-time-wait-sync.service" ];
-    after = [ "hev-socks5-tproxy.service" "systemd-time-wait-sync.service" "nftables.service" ];
+    after = [
+      # "hev-socks5-tproxy.service"
+      "systemd-time-wait-sync.service"
+      "nftables.service"
+    ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";

@@ -12,7 +12,7 @@ let
     fake-hwclock = callPackage ./fake-hwclock { };
     hev-socks5-tproxy = callPackage ./hev-socks5-tproxy { };
     libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
-    mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo119Module; };
+    mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo121Module; };
     # end of service
     # netease-cloud-music = callPackage ./netease-cloud-music { };
     nft-fullcone = callPackage ./nft-fullcone { };

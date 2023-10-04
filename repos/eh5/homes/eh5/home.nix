@@ -1,14 +1,14 @@
 { config, lib, pkgs, ... }:
-let
-  clang15-tools =
-    let
-      inherit (pkgs.llvmPackages_15) clang-unwrapped clang;
-    in
-    pkgs.clang-tools.overrideAttrs (_: {
-      version = lib.getVersion clang-unwrapped;
-      inherit clang;
-    });
-in
+# let
+#   clang-tools =
+#     let
+#       inherit (pkgs.llvmPackages_16) clang-unwrapped clang;
+#     in
+#     pkgs.clang-tools.overrideAttrs (_: {
+#       version = lib.getVersion clang-unwrapped;
+#       inherit clang;
+#     });
+# in
 {
   nix = {
     package = pkgs.nixVersions.stable;
@@ -42,6 +42,7 @@ in
     nix-gfx-mesa
     nixpkgs-fmt
     nix-prefetch
+    nix-update
     ssh-to-age
   ];
 }

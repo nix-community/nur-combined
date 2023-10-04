@@ -21,15 +21,15 @@ let
 
   core = buildGoModule rec {
     pname = "v2ray";
-    version = "v5.4.1";
+    version = "5.7.0";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "v2ray-core";
-      rev = version;
+      rev = "v${version}";
       fetchSubmodules = false;
-      sha256 = "sha256-LrsLkuLoiZb3Y5BUkg9lB+qd0HHbgRNrixm5BdQMKck=";
+      sha256 = "sha256-gdDV5Cd/DjEqSiOF7j5a8QLtdJiFeNCnHoA4XD+yiGA=";
     });
-    vendorSha256 = "sha256-0uc+oncdOdIhIygr2ktT7f1qHIeyoVEnjyhzsUMjMBY=";
+    vendorSha256 = "sha256-uq0v14cRGmstJabrERsa+vFRX6Bg8+5CU6iV8swrL/I=";
 
     doCheck = false;
 
@@ -51,10 +51,12 @@ let
     };
   };
 in
-runCommand core.name
+runCommand
+  core.name
 {
   inherit (core) version meta;
   nativeBuildInputs = [ makeWrapper ];
+  passthru.unwrapped = core;
 } ''
   for file in ${core}/bin/*; do
     makeWrapper "$file" "$out/bin/$(basename "$file")" \
