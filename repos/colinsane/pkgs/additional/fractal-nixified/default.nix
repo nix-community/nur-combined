@@ -32,13 +32,14 @@
 , wrapGAppsHook4
 , writeText
 , xdg-desktop-portal
+, optimize ? true
 }:
 let
   # opt-level=0: builds in 1min, 105M binary
   # opt-level=1: builds in 2.25hr, 75M binary
   # opt-level=2: builds in 2.25hr
   # opt-level=3: builds in 2.25hr, 68-70M binary
-  optFlags = "-C opt-level=0";
+  optFlags = if optimize then "-C opt-level=3" else "-C opt-level=0";
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
     # release = false;

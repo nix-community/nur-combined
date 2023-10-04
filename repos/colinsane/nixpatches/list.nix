@@ -19,6 +19,13 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
+  (fetchpatch' {
+    # PR opened 2023/10/02
+    title = "komikku: 1.23.0 -> 1.24.2";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/258683";
+    hash = "sha256-pZFZAe0OFozOLog1ZT3iRqSfmkoOq3IysobaCd6UJes=";
+  })
+
   # (fetchpatch' {
   #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.
   #   # the latter is an alias, which breaks nix-index

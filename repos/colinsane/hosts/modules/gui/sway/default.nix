@@ -197,6 +197,16 @@ in
       sane.gui.gtk.enable = lib.mkDefault true;
       # sane.gui.gtk.gtk-theme = lib.mkDefault "Fluent-Light-compact";
       sane.gui.gtk.gtk-theme = lib.mkDefault "Tokyonight-Light-B";
+      sane.gui.gtk.icon-theme = lib.mkDefault "HighContrast";  # 4/5 coverage on moby
+      # sane.gui.gtk.icon-theme = lib.mkDefault "WhiteSur";  # 3.5/5 coverage on moby, but it provides a bunch for Fractal/Dino
+      # sane.gui.gtk.icon-theme = lib.mkDefault "Humanity";  # 3.5/5 coverage on moby, but it provides the bookmark icon
+      # sane.gui.gtk.icon-theme = lib.mkDefault "Paper";  # 3.5/5 coverage on moby, but it provides the bookmark icon
+      # sane.gui.gtk.icon-theme = lib.mkDefault "Nordzy";  # 3/5 coverage on moby
+      # sane.gui.gtk.icon-theme = lib.mkDefault "Fluent";  # 3/5 coverage on moby
+      # sane.gui.gtk.icon-theme = lib.mkDefault "Colloid";  # 3/5 coverage on moby
+      # sane.gui.gtk.icon-theme = lib.mkDefault "Qogir";  # 2.5/5 coverage on moby
+      # sane.gui.gtk.icon-theme = lib.mkDefault "rose-pine-dawn";  # 2.5/5 coverage on moby
+      # sane.gui.gtk.icon-theme = lib.mkDefault "Flat-Remix-Grey-Light";  # requires qtbase
 
       # swap in these lines to use SDDM instead of `services.greetd`.
       # services.xserver.displayManager.sddm.enable = true;

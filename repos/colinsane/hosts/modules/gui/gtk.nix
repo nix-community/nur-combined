@@ -180,8 +180,100 @@ let
       # other Tokyonight-* omitted
     };
     icon-theme = {
+      # find icon themes via `nix-locate share/icons/Adwaita`
+      # then determine the name here by building and `ls result/share/icons`
+      # this misses quite a few icon themes that aren't Adwaita-based.
+      # for those, try `nix-locate share/icons`?
+      #
+      # note that adwaita apps expect exactly the icon set provided by adwaita-icon-theme:
+      # - most icon themes are supplementary to adwaita, rather than a full replacement.
+      # - i.e. most themes, unless adwaita is also installed, will cause some missing icons inside apps.
+      # - that's probably why so many themes here also symlink Adwaita
+      # my accounting of "adwaita coverage" seems to be overoptimistic somehow
+      # maybe some apps bundle adwaita themselves
       Adwaita = gnome.adwaita-icon-theme;
-      HighContrast = gnome.gnome-themes-extra;  # gtk-3.0
+      Arc = arc-icon-theme;  # 4.5/5, meh icon for "vertical ellipsis". 3/5 adwaita coverage
+      elementary-xfce = elementary-xfce-icon-theme;  # does not cross compile (2023/10/03)
+      elementary-xfce-dark = elementary-xfce-icon-theme;
+      elementary-xfce-darker = elementary-xfce-icon-theme;
+      elementary-xfce-darkest = elementary-xfce-icon-theme;
+      HighContrast = gnome.gnome-themes-extra;  # 5/5. 5/5 adwaita coverage (4/5 cross)
+      Humanity = humanity-icon-theme;  # 5/5. 5/5 adwaita coverage (3.5/5 cross, unique in which icons work)
+      Humanity-Dark = humanity-icon-theme;
+      kora = kora-icon-theme;
+      kora-light = kora-icon-theme;
+      kora-light-panel = kora-icon-theme;
+      kora-pgrey = kora-icon-theme;
+      Numix = numix-icon-theme;  # 4/5, meh icon for "back".
+      Numix-Light = numix-icon-theme;
+      Paper = paper-icon-theme;  # 4/5, weird icon for "info". 5/5 adwaita coverage (3.5 cross, highly unique in which icons work)
+      Paper-Mono-Dark = paper-icon-theme;
+      Pop = pop-icon-theme;  # 5/5. 2/5 adwaita coverage
+      Tela-circle = tela-circle-icon-theme;
+      Tela-circle-dark = tela-circle-icon-theme;
+      Tela-circle-light = tela-circle-icon-theme;
+
+      # themes which don't symlink Adwaita
+      BeautyLine = beauty-line-icon-theme;  # 3.5/5. 4/5 adwaita coverage
+      breeze = breeze-icons;
+      breeze-dark = breeze-icons;
+      Mint-X = cinnamon.mint-x-icons;
+      # 10-ish other Mint-X variants omitted
+      # cinnamon.mint-l-icons;
+      # cinnamon.mint-y-icons;
+      Colloid = colloid-icon-theme;  # 4.5/5, thin. 5/5 adwaita coverage (3/5 cross)
+      Colloid-dark = colloid-icon-theme;
+      Colloid-light = colloid-icon-theme;
+      bloom = deepin.deepin-icon-theme;
+      # 4 other deepin editions omitted
+      Dracula = dracula-icon-theme;  # 4.5/5, a little thin. 4.5/5 adwaita coverage
+      Faba = faba-icon-theme;  # 4/5. 4/5 adwaita coverage
+      Faba-Mono = faba-mono-icons;
+      Faba-Mono-Dark = faba-mono-icons;
+      Flat-Remix-Grey-Light = flat-remix-icon-theme;  # 5/5. 5/5 adwaita coverage. builds on breeze, elementary
+      # 20-ish other flat-remix editions omitted
+      Fluent = fluent-icon-theme;  # 5/5, though thin. 5/5 adwaita coverage (3/5 cross)
+      Fluent-dark = fluent-icon-theme;
+      gnome = gnome-icon-theme;  # 3/5, icons are colored. 3/5 adwaita coverage
+      hicolor = hicolor-icon-theme;  # 2/5 adwaita coverage; using this forces application builtin icons
+      la-capitaine-icon-theme = la-capitaine-icon-theme;  # 4.5/5. 4.5/5 adwaita coverage. builds upon elementary
+      Luna = luna-icons;
+      # 5 other Luna variants omitted
+      maia = maia-icon-theme;  # 3/5, icons are colored. 2/5 adwaita coverage
+      maia-dark = maia-icon-theme;
+      # mate.mate-icon-theme-faenza
+      mate = mate.mate-icon-theme;  # 4.5/5. 4/5 adwaita coverage
+      menta = mate.mate-icon-theme;
+      Moka = moka-icon-theme;  # 3/5, icons are colored. 3/5 adwaita coverage
+      # nixos-icons;
+      Nordzy = nordzy-icon-theme;  # 5/5, thin. 5/5 adwaita coverage (3/5 cross)
+      # 10-ish Nordzy editions omitted
+      # numix-icon-theme-circle
+      # numix-icon-theme-square
+      oomox-gruvbox-dark = gruvbox-dark-icons-gtk;
+      Oranchelo = oranchelo-icon-theme;
+      # 3 other oranchelo editions omitted
+      elementary = pantheon.elementary-icon-theme;  # 4.5/5. 4.5/5 adwaita coverage
+      Papirus = papirus-icon-theme;  # 5/5. 5/5 adwaita coverage
+      # 4 other Papirus editions omitted
+      # papirus-maia-icon-theme
+      Qogir = qogir-icon-theme;  # 5/5, thin. 5/5 adwaita coverage (2.5/5 cross)
+      # 5 other Qogir variants omitted
+      rose-pine = rose-pine-icon-theme;
+      rose-pine-dawn = rose-pine-icon-theme;  # 5/5. 5/5 adwaita coverage (2.5 cross). looks a lot like Flat Remix...
+      rose-pine-moon = rose-pine-icon-theme;
+      SuperTinyIcons = super-tiny-icons;  # 4/5. 2/5 adwaita coverage
+      Tango = tango-icon-theme;  # 2/5. 3/5 adwaita coverage -- mostly just forwards to gnome-icon-theme
+      Tela = tela-icon-theme;  # 5/5. 5/5 adwaita coverage
+      # 30-ish other Tela editions omitted
+      Vimix = vimix-icon-theme;
+      # 15-ish other Vimix editions omitted
+      WhiteSur = whitesur-icon-theme;  # 4.5/5, thin & like iOS. 5/5 adwaita coverage (3.5/5 cross)
+      WhiteSur-dark = whitesur-icon-theme;
+      Rodent = xfce.xfce4-icon-theme;
+      Zafiro-icons-Dark = zafiro-icons;
+      Zafiro-icons-Light = zafiro-icons;  # 5/5. 5/5 adwaita coverage
+
     };
   };
 in

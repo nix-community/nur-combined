@@ -77,6 +77,8 @@
     - this will require some patching to handle `exec <foo>` style
   - maybe: save original PATH and reset it before invoking user files
 - moby: theme GTK apps (i.e. non-adwaita styles)
+  - combine multiple icon themes to get one which has the full icon set?
+  - get adwaita-icon-theme to ship everything even when cross-compiled?
   - especially, make the menubar collapsible
   - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
 - phog: remove the gnome-shell runtime dependency to save hella closure size
