@@ -1257,10 +1257,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.18.0";
+      version = "3.19.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170133/control_panel_for_twitter-3.18.0.xpi";
-      sha256 = "26b331b5a06d70da35b1040468902e53b8c4d8895c93bb72713dd599ac80a796";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4174886/control_panel_for_twitter-3.19.0.xpi";
+      sha256 = "43f9d79119ad8f864932bd81c5215ed9251c8b833b5d94056908ab236a63a006";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1444,10 +1444,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.66";
+      version = "4.9.67";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4172671/darkreader-4.9.66.xpi";
-      sha256 = "20b53356c36b0c76df614e2cb84e7ff3e1ab75b4fe2fd2bbca039026d018813f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4175386/darkreader-4.9.67.xpi";
+      sha256 = "128a151f04af774463448fe1cdb944f6c5095fb17991f82d9aec3c8c4513308e";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1694,10 +1694,10 @@
       };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
-      version = "5.32.0";
+      version = "5.33.0";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160713/ebates-5.32.0.xpi";
-      sha256 = "70b9f51105dd40e88ead25afec66fcd1875d1c268e5ab2a04647bb0baf0b3784";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4174443/ebates-5.33.0.xpi";
+      sha256 = "b52e10f622f8ba5f444728bff09e78e29fdc554a2bc09f20f853f7f6c39986b0";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -2026,10 +2026,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.66";
+      version = "6.1.67";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160646/flagfox-6.1.66.xpi";
-      sha256 = "ab52e7ec3c5551b02060279e16d06d2ad78e00a0fc3bb071f2f03a8d9c51355d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4175020/flagfox-6.1.67.xpi";
+      sha256 = "2a399ee1258bb5569ed2288a940013675d5c625f9389478682a39b551f3c1718";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4021,10 +4021,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.339";
+      version = "4.350";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4166938/youtube_addon-4.339.xpi";
-      sha256 = "fb3038d70f3e1542620427e451662ef4f79d73d02477e468463a268a096deba1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4174866/youtube_addon-4.350.xpi";
+      sha256 = "adc858919160423c3f33ece712ae0e891b2b7fe0a1149af53f256250a8870247";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4578,10 +4578,10 @@
       };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.7.1";
+      version = "1.8.0";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4171907/linkding_extension-1.7.1.xpi";
-      sha256 = "763080b6b6a1acc15b2a9e67872740857f60b4641d9a0c604ada4a8b2c9ea963";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4176160/linkding_extension-1.8.0.xpi";
+      sha256 = "1a8bbbaee7b69c1d5b36556dc2690eb7902c907e1cb49bc05cca9f60d8b2c318";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
@@ -5096,10 +5096,10 @@
       };
     "nos2x-fox" = buildFirefoxXpiAddon {
       pname = "nos2x-fox";
-      version = "1.12.0";
+      version = "1.12.1";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164120/nos2x_fox-1.12.0.xpi";
-      sha256 = "aa3d45b049be85017952d55be836ab5bfc13c0866e9e5140ee4bd71a3bc46475";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4176174/nos2x_fox-1.12.1.xpi";
+      sha256 = "314d430743856babe71209cd7f2d84d98c694b29ce41fecbae5f8f6cf9adfd81";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
@@ -5380,10 +5380,10 @@
       };
     "onetab" = buildFirefoxXpiAddon {
       pname = "onetab";
-      version = "1.77";
+      version = "1.83";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141225/onetab-1.77.xpi";
-      sha256 = "826a3cb359031b187d33c7fb4abf2a7e5b1bf117c973e6e59dd644b212a696a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4175239/onetab-1.83.xpi";
+      sha256 = "e8f6a0dc442cda9309a5cbb5980207affd95ec98ba1f1dd390cecebfb07d0379";
       meta = with lib;
       {
         homepage = "http://www.one-tab.com";
@@ -7121,10 +7121,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.13";
+      version = "2023.14";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4171812/streetpass_for_mastodon-2023.13.xpi";
-      sha256 = "8241709a2909c908a345fdc8997332546d8069bb324dfc70af0a2d382d2d90c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4176256/streetpass_for_mastodon-2023.14.xpi";
+      sha256 = "ee172f549726446d1042d4eb7780ca8c981df91f5f3cd94b09a19eb5602f80d4";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
@@ -8067,10 +8067,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.9.28.935";
+      version = "2023.10.3.896";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4174324/ublock_origin_lite-2023.9.28.935.xpi";
-      sha256 = "23f9dd0fdbe81280f05bf33e7d3e545dc4cd88f8f71114b85983ff2e21bbfeb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4176225/ublock_origin_lite-2023.10.3.896.xpi";
+      sha256 = "297224f8bf5a8d042ef294f9e4446e44ba92af2dc32b7656ea968bad86ab9567";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
