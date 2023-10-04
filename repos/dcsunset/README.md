@@ -1,6 +1,6 @@
 # nur-packages
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
+**My personal [NUR repository](https://nur.nix-community.org/repos/dcsunset/)**
 
 <!-- Remove this if you don't use github actions -->
 ![Build and populate cache](https://github.com/DCsunset/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
@@ -9,10 +9,11 @@
 
 ## Usage
 
-You can follow the [NUR guide](https://github.com/nix-community/NUR#how-to-use) to import the whole namespace
+You can follow the [NUR guide](https://github.com/nix-community/NUR#how-to-use) to import the whole NUR namespace
 and use the repo as `nur.repos.dcsunset`.
+This will use the official build of this NUR repo.
 
-To use this repo directly without the whole NUR namespace,
+To use this repo directly (latest) without the whole NUR namespace,
 add the following to your `flake.nix` config:
 
 ```nix
