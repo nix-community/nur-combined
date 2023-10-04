@@ -23,6 +23,8 @@ in
     uftpd = callPackage ./troglobit/uftpd.nix {inherit libuev;};
     netcalc = callPackage ./troglobit/netcalc.nix {};
     watchdogd = callPackage ./troglobit/watchdogd.nix {inherit libuev;};
+
+    open-vmdk = callPackage ./open-vmdk.nix {};
   }
   // optionalAttrs (!hasSuffix "-darwin" system) rec {
     # Packages that won't run on Darwin.
