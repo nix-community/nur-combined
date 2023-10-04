@@ -728,6 +728,9 @@
     "slug": "overbitewx"
   },
   {
+    "slug": "overview"
+  },
+  {
     "slug": "passff"
   },
   {
@@ -843,10 +846,16 @@
     "slug": "return-youtube-dislikes"
   },
   {
+    "slug": "rsf-censorship-detector"
+  },
+  {
     "slug": "rsshub-radar"
   },
   {
     "slug": "rust-search-extension"
+  },
+  {
+    "slug": "saka-key"
   },
   {
     "slug": "save-page-we"
@@ -912,6 +921,9 @@
   },
   {
     "slug": "startpage-private-search"
+  },
+  {
+    "slug": "startup-tabs"
   },
   {
     "slug": "statshunters"
@@ -1005,6 +1017,9 @@
   },
   {
     "slug": "tomato-clock"
+  },
+  {
+    "slug": "toolkit-for-ynab"
   },
   {
     "slug": "torproject-snowflake",

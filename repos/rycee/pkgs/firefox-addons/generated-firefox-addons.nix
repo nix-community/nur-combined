@@ -2261,10 +2261,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "119.0.20231002.91755";
+      version = "119.0.20231004.91611";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4175620/francais_language_pack-119.0.20231002.91755.xpi";
-      sha256 = "64e3760654c65c863478f5e66f9ed5a8cdaef7e901f596f15606a3dbe0180b36";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4176690/francais_language_pack-119.0.20231004.91611.xpi";
+      sha256 = "454c18701e63dee6ff2d5ab83fd25aa6bfc762ecbcbe1c0447c0f2a4d78ca9f9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4249,10 +4249,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.8";
+      version = "1.8.8.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170768/keepassxc_browser-1.8.8.xpi";
-      sha256 = "8260f6840f9b2e30c8da96fe6bce661a7626fb1ad96e7af4c67382c103bd9612";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4176138/keepassxc_browser-1.8.8.1.xpi";
+      sha256 = "4971e36c27eeafb803921597bac1eb0fc7cc855e87ec4ed31b38c47030cfb3e3";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -5466,6 +5466,21 @@
         platforms = platforms.all;
         };
       };
+    "overview" = buildFirefoxXpiAddon {
+      pname = "overview";
+      version = "0.5.0";
+      addonId = "{2df83d0b-1ccb-47bb-81c4-1c29f5485776}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/744295/overview-0.5.0.xpi";
+      sha256 = "7c39b7d3d10104ea61d5ea6cd5e525592d7d358525902a92e36661aab29df8e9";
+      meta = with lib;
+      {
+        homepage = "https://gitlab.petton.fr/DamienCassou/overview";
+        description = "Give an overview of a page's headings in a sidebar. The sidebar has links towards each heading in the current page, making it easy to understand the structure and navigate inside the page.";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "<all_urls>" ];
+        platforms = platforms.all;
+        };
+      };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
       version = "1.15";
@@ -6578,6 +6593,21 @@
         platforms = platforms.all;
         };
       };
+    "rsf-censorship-detector" = buildFirefoxXpiAddon {
+      pname = "rsf-censorship-detector";
+      version = "2.0.0";
+      addonId = "collateral-freedom@rsf.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4148074/rsf_censorship_detector-2.0.0.xpi";
+      sha256 = "d0b8acc119ad9a7540442535324c9ef6aed7f85a6511149058c504e6e0000135";
+      meta = with lib;
+      {
+        homepage = "https://github.com/RSF-RWB/collateralfreedom";
+        description = "Find access to blocked websites";
+        license = licenses.gpl3;
+        mozPermissions = [ "storage" "tabs" ];
+        platforms = platforms.all;
+        };
+      };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
       version = "1.10.1";
@@ -6621,6 +6651,31 @@
           "*://doc.rust-lang.org/*"
           "*://doc.rust-lang.org/nightly/nightly-rustc/*"
           "*://rust.extension.sh/update"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "saka-key" = buildFirefoxXpiAddon {
+      pname = "saka-key";
+      version = "1.26.3";
+      addonId = "{46104586-98c3-407e-a349-290c9ff3594d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3582006/saka_key-1.26.3.xpi";
+      sha256 = "9ea95fcd919100928ad5ca0dccad3700d627c28be2f2132f2e247e14009a4696";
+      meta = with lib;
+      {
+        homepage = "https://github.com/lusakasa/saka-key";
+        description = "A keyboard interface to the web";
+        license = licenses.mit;
+        mozPermissions = [
+          "tabs"
+          "activeTab"
+          "sessions"
+          "storage"
+          "unlimitedStorage"
+          "<all_urls>"
+          "clipboardRead"
+          "downloads"
+          "cookies"
           ];
         platforms = platforms.all;
         };
@@ -6974,10 +7029,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.21";
+      version = "5.4.22";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4171739/sponsorblock-5.4.21.xpi";
-      sha256 = "c7f4202f32014699235fe30deb5ed14145400799baeb63273c93404d6fd0b371";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4175367/sponsorblock-5.4.22.xpi";
+      sha256 = "428c2d91f40d63935ee1a8cdf8a435c6751f217b3e299e11be3cbc58ff6e31ae";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -7010,6 +7065,20 @@
           "webRequestBlocking"
           "https://*.startpage.com/*"
           ];
+        platforms = platforms.all;
+        };
+      };
+    "startup-tabs" = buildFirefoxXpiAddon {
+      pname = "startup-tabs";
+      version = "1.7.11";
+      addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4106130/startup_tabs-1.7.11.xpi";
+      sha256 = "131509a89473a4e5917b5c859aba8f9ea77c4c9fc8cdc183333c2b0f1b2c64ee";
+      meta = with lib;
+      {
+        description = "Open a set of bookmarks as tabs on browser startup by simply selecting a bookmark folder which contains them.";
+        license = licenses.bsd2;
+        mozPermissions = [ "tabs" "bookmarks" "storage" ];
         platforms = platforms.all;
         };
       };
@@ -7605,6 +7674,27 @@
         description = "Tomato Clock is a simple browser extension that helps with online time management.";
         license = licenses.gpl3;
         mozPermissions = [ "notifications" "storage" ];
+        platforms = platforms.all;
+        };
+      };
+    "toolkit-for-ynab" = buildFirefoxXpiAddon {
+      pname = "toolkit-for-ynab";
+      version = "3.8.1";
+      addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4168935/toolkit_for_ynab-3.8.1.xpi";
+      sha256 = "24e1fb804e1a9eecb678e38ee5a65b1bffe7450926d085fd162dc4991faad574";
+      meta = with lib;
+      {
+        homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
+        description = "UI customizations and tweaks for the web version of YNAB.";
+        license = licenses.mit;
+        mozPermissions = [
+          "http://*.youneedabudget.com/*"
+          "https://*.youneedabudget.com/*"
+          "https://*.ynab.com/*"
+          "http://*.ynab.com/*"
+          "storage"
+          ];
         platforms = platforms.all;
         };
       };
