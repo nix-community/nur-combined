@@ -18,7 +18,6 @@
   sf-pro = pkgs.callPackage ./pkgs/sf-pro { };
   clarity-city = pkgs.callPackage ./pkgs/clarity-city { };
   sunsama = pkgs.callPackage ./pkgs/sunsama { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 
   inherit (pkgs.callPackages ./pkgs/node-packages { }) emmet-ls decktape reveal-md;
