@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
   postPatch = ''
     sed -i '/open-vmdk.conf/d' ova/Makefile
     substituteInPlace ova/mkova.sh \
-      --replace 'PREFIX=/usr' "PREFIX=$out" 
+    --replace 'PREFIX=/usr' "PREFIX=$out" \
+    --replace 'vmdk-convert' "$out/bin/vmdk-convert"
   '';
 
   postFixup = ''
