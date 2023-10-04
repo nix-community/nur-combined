@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    unstable.prismlauncher
     unstable.minecraft
     unstable.minecraft-server
   ];
