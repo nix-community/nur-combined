@@ -23,7 +23,8 @@
   services.gpsd.devices = [ "/dev/ttyUSB1" ];
 
   # test geoclue2 by building `geoclue2-with-demo-agent`
-  # and running "${geoclue2-with-demo-agent}/libexec/geoclue-2/demos/where-am-i"
+  # and running "${geoclue2-with-demo-agent}/libexec/geoclue-2.0/demos/where-am-i"
+  # note that geoclue is dbus-activated, and auto-stops after 60s with no caller
   services.geoclue2.enable = true;
   services.geoclue2.appConfig.where-am-i = {
     # this is the default "agent", shipped by geoclue package: allow it to use location
