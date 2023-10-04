@@ -99,14 +99,14 @@ in packages // {
     };
   };
 
-  trilium-web-clipper = let version = "0.3.1";
+  trilium-web-clipper = let version = "1.0.1";
   in buildFirefoxXpiAddon {
     pname = "trilium-web-clipper";
     inherit version;
     addonId = "{1410742d-b377-40e7-a9db-63dc9c6ec99c}";
     url =
-      "https://github.com/zadam/trilium-web-clipper/releases/download/v${version}/trilium_web_clipper-${version}-an+fx.xpi";
-    sha256 = "sha256-P9ZBUWISJ3MqVpLUWSmiuHhrX4yPCVRnw8WQ7C4SaVs=";
+      "https://github.com/zadam/trilium-web-clipper/releases/download/v${version}/trilium_web_clipper-${version}.xpi";
+    sha256 = "sha256-VLDky7KQz8SBKowwEAWdEs1f1OZvEa+SRfWSjDrc5Cg=";
     meta = with lib; {
       homepage = "https://github.com/zadam/trilium-web-clipper";
       description = "Save web clippings to Trilium Notes";
