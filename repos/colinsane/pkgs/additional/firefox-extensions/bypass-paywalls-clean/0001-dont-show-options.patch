@@ -8,15 +8,7 @@ diff --git a/background.js b/background.js
 index e0c38e6..5d4acf4 100644
 --- a/background.js
 +++ b/background.js
-@@ -148,7 +148,6 @@ function setDefaultOptions() {
-       return [key, val.domain]
-     })
-   }, function () {
--    ext_api.runtime.openOptionsPage();
-   });
- }
- 
-@@ -1453,18 +1452,6 @@ ext_api.runtime.onMessage.addListener(function (message, sender) {
+@@ -1486,18 +1485,6 @@ ext_api.runtime.onMessage.addListener(function (message, sender) {
    }
  });
  
@@ -35,3 +27,19 @@ index e0c38e6..5d4acf4 100644
  
  function filterObject(obj, filterFn, mapFn = function (val, key) {
    return [key, val];
+diff --git a/manifest.json b/manifest.json
+index 5af8d8f..3fb7be7 100644
+--- a/manifest.json
++++ b/manifest.json
+@@ -30,11 +30,6 @@
+   "manifest_version": 2,
+   "name": "Bypass Paywalls Clean",
+   "short_name": "Bypass Paywall",
+-  "options_ui": {
+-    "browser_style": true,
+-    "open_in_tab": true,
+-    "page": "options/options.html"
+-  },
+   "optional_permissions": [
+     "<all_urls>"
+   ],

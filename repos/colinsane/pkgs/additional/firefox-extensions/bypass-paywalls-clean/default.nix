@@ -17,9 +17,18 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./0001-dont-show-options.patch
-    ./0002-disable-auto-update.patch
+    # ./0002-disable-auto-update.patch
     ./0003-disable-metrics.patch
   ];
+  # N.B.: disabling all `fetch` breaks the manual "check for updates" button,
+  # but that's not necessary because `nix run '.#update.pkgs.firefox-extensions'` is so trivial.
+  # still, re-enable the 'disable-auto-update' patch above for a higher-maintenance solution
+  # which avoids breaking manual updates
+  postPatch = ''
+    substituteAllInPlace background.js \
+    --replace 'ext_api.runtime.openOptionsPage()' 'true' \
+    --replace ' fetch(' ' false && fetch('
+  '';
 
   nativeBuildInputs = [ zip ];
 
