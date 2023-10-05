@@ -31,7 +31,6 @@
 , alsa-lib
 , pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
 , libpulseaudio
-, libcef
 , pciutils
 , pipewireSupport ? stdenv.isLinux
 , pipewire
@@ -48,7 +47,9 @@
 , amf-headers 
 , libGL
 , vulkan-loader
-, swiftshader
+#, decklinkSupport ? false
+#, blackmagic-desktop-video
+, libcef
 }:
 
 let
@@ -109,7 +110,6 @@ stdenv.mkDerivation rec {
     libva
     srt
     qtwayland
-    swiftshader
   ]
   ++ optionals scriptingSupport [ luajit python3 ]
   ++ optional alsaSupport alsa-lib
@@ -118,22 +118,13 @@ stdenv.mkDerivation rec {
 
   # Copied from the obs-linuxbrowser
   postUnpack = ''
-    mkdir -p cef/Release cef/Resources cef/libcef_dll_wrapper/
-    for i in ${libcef}/share/cef/*; do
-      ln -s $i cef/Release/
-      ln -s $i cef/Resources/
-    done
-    ln -s ${swiftshader}/lib/libvk_swiftshader.so cef/Release/
-    ln -s ${libcef}/lib/libcef.so cef/Release/
-    ln -s ${libcef}/lib/libcef_dll_wrapper.a cef/libcef_dll_wrapper/
-    ln -s ${libcef}/include cef/
+    cp -rs ${libcef}/share/cef cef
   '';
 
   # obs attempts to dlopen libobs-opengl, it fails unless we make sure
   # DL_OPENGL is an explicit path. Not sure if there's a better way
   # to handle this.
   cmakeFlags = [
-    #"-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\\\"$(out)/lib/libobs-opengl.so\\\""
     "-DOBS_VERSION_OVERRIDE=${version}"
     "-Wno-dev" # kill dev warnings that are useless for packaging
     # Add support for browser source
@@ -144,14 +135,22 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  preFixup = ''
-    rm  $out/lib/obs-plugins/libcef.so
-    rm  $out/lib/obs-plugins/libvk_swiftshader.so
-
+  preFixup =  let
+    wrapperLibraries = [
+      xorg.libX11
+      libvlc
+    ]; /*++ optionals decklinkSupport [
+      blackmagic-desktop-video
+    ];*/
+  in
+  ''
+    #Remove libs from libcef, they are symlinks and can't be patchelfed
+    rm $out/lib/obs-plugins/libcef.so $out/lib/obs-plugins/libEGL.so $out/lib/obs-plugins/libGLESv2.so $out/lib/obs-plugins/libvk_swiftshader.so
+    
+    #Suffix on libgl and vulkan-loader so it can be overriden by helper scripts from amdgpu-pro
     qtWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xorg.libX11 libvlc ]}"
+      --prefix LD_LIBRARY_PATH : "$out/lib:${lib.makeLibraryPath wrapperLibraries}"
       --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL vulkan-loader ]}"
-      --prefix LD_LIBRARY_PATH : "$out/lib"
       ''${gappsWrapperArgs[@]}
     )
   '';
@@ -159,9 +158,16 @@ stdenv.mkDerivation rec {
   postFixup = lib.optionalString stdenv.isLinux ''
     addOpenGLRunpath $out/lib/lib*.so
     addOpenGLRunpath $out/lib/obs-plugins/*.so
+    
+    ##Symlink libcef related things after patchelfing
+    ln -s ${libcef}/share/cef/Release/libcef.so $out/lib/obs-plugins/libcef.so
 
-    ln -s ${swiftshader}/lib/libvk_swiftshader.so $out/lib/obs-plugins/libvk_swiftshader.so
-    ln -s ${libcef}/lib/libcef.so $out/lib/obs-plugins/libcef.so
+    #OBS seems to need those to be from libcef for hardware acceleration (at least on AMD card)
+    ln -s ${libcef}/share/cef/Release/libEGL.so $out/lib/obs-plugins/libEGL.so 
+    ln -s ${libcef}/share/cef/Release/libGLESv2.so  $out/lib/obs-plugins/libGLESv2.so 
+
+    #Doesn't seem needed but added anyway
+    ln -s ${libcef}/share/cef/Release/libvk_swiftshader.so $out/lib/obs-plugins/libvk_swiftshader.so
   '';
 
   meta = with lib; {

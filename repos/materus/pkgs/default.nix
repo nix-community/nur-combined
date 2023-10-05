@@ -15,7 +15,7 @@ rec {
       VideoDecodeAcceleration VideoToolbox;
   };
 
-  obs-amf = pkgs.qt6Packages.callPackage ./apps/obs { ffmpeg = ffmpeg6-amf-full; inherit swiftshader;};
+  obs-amf = pkgs.qt6Packages.callPackage ./apps/obs { ffmpeg = ffmpeg6-amf-full; inherit libcef;};
 
   polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc {};
 
@@ -23,7 +23,7 @@ rec {
 
   fbset = callPackage ./apps/fbset.nix {};
 
-  swiftshader = callPackage ./libs/swiftshader.nix {};
+  libcef = callPackage ./libs/libcef.nix {};
 
 
 }
