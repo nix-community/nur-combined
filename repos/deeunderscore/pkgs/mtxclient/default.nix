@@ -15,13 +15,13 @@
 }:
 stdenv.mkDerivation {
   pname = "mtxclient";
-  version = "unstable-2023-08-09";
+  version = "unstable-2023-09-15";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "mtxclient";
-    rev = "928ac33a0d0359464ac37716559a687fdc39f0de";
-    hash = "sha256-6CXWt5H7AFdR2IN76Fp5d6JCG7++3/jbS9MixlzVLWI=";
+    rev = "8936559c00542528a7776d774fccb7ff674c9c7f";
+    hash = "sha256-HOyztfn/khWFmWJFpt69qL3zttTyO+Qj/6tjP9xmjdA=";
   };
 
   cmakeFlags = [
@@ -56,7 +56,6 @@ stdenv.mkDerivation {
     description = "Client API library for Matrix, built on top of Boost.Asio";
     homepage = "https://github.com/Nheko-Reborn/mtxclient";
     license = licenses.mit;
-    maintainers = with maintainers; [ fpletz pstn ];
     platforms = platforms.all;
     # Should be fixable if a higher clang version is used, see:
     # https://github.com/NixOS/nixpkgs/pull/85922#issuecomment-619287177
