@@ -4,12 +4,11 @@
 , fetchFromGitHub
 , setuptools-scm
 , pytestCheckHook
-, nix-update-script
 }:
 
 buildPythonPackage rec {
   pname = "pytest-datadir";
-  version = "1.4.1";
+  version = "1.5.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -17,8 +16,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "gabrielcnr";
     repo = "pytest-datadir";
-    rev = "refs/tags/${version}";
-    hash = "sha256-HyJ0rU1nHqRv8SHFS8m3GZ5409+JZIkoDgIVjy4ol54=";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-sRLqL+8Jf5Kz+qscuG3hClUuPA+33PQa+ob1ht/7CJE=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -28,10 +27,6 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "pytest_datadir" ];
-
-  # The default python updater doesn't work because pytest-datadir
-  # doesn't use GitHub releases, only tags
-  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Pytest plugin for manipulating test data directories and files";

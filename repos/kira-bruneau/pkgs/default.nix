@@ -79,6 +79,8 @@ in
 
   mozlz4 = callPackage ./tools/compression/mozlz4 { };
 
+  mozlz4a = callPackage ./tools/compression/mozlz4a { };
+
   newsflash = callPackage ./applications/networking/feedreaders/newsflash {
     webkitgtk = webkitgtk_6_0;
   };
@@ -97,6 +99,11 @@ in
   python3Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages);
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
+
+  rocfft = callPackage ./development/libraries/rocfft {
+    inherit (llvmPackages_rocm) openmp;
+    stdenv = rocmClangStdenv;
+  };
 
   texlab = callPackage ./development/tools/misc/texlab {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
