@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "map-machine";
-  version = "0.1.8";
+  version = "0.1.9";
   disabled = python3Packages.pythonOlder "3.9";
 
   src = fetchFromGitHub {
     owner = "enzet";
     repo = "map-machine";
     rev = "v${version}";
-    hash = "sha256-UaJyLsf3lsXIMGbJ3n1lYUHJzsKMciM2rdlU7mKmYeE=";
+    hash = "sha256-aOfvVyTgDxh7T2oAc+S1eU9b/JjXAhfc3WfR27ECXcY=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -36,5 +36,6 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "map-machine";
   };
 }
