@@ -15,7 +15,7 @@
 
   home.packages = [
     pkgs.papirus-icon-theme
-    (materusPkgs.polymc.wrap { extraJDKs = [ pkgs.graalvm17-ce ]; })
+    (materusPkgs.polymc.wrap { extraJDKs = [ pkgs.graalvm-ce ]; })
   ];
 
 }

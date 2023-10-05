@@ -3,12 +3,12 @@
 
 stdenv.mkDerivation rec {
   pname = "swiftshader";
-  version = "20072023";
+  version = "03102023";
   src = fetchFromGitHub {
     owner = "google";
     repo = "SwiftShader";
-    rev = "4a260c12b8c155103435a7b2b99b5227f6ce7594";
-    sha256 = "sha256-WcA1EazeuRlFhIaAKgJHp+rUkCR2vqcINkTMYOgrbNI=";
+    rev = "400ac3a175a658d8157f8a363271ae7ab013c2ee";
+    sha256 = "sha256-t3XjGPY6CutpyIKolUjvprOkJjKCEfDmU7+x1Hmzpfg=";
     fetchSubmodules = true;
   };
 
@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/lib
-    mv libvk_swiftshader.so $out/lib
+    mkdir -p $out/share/vulkan/icd.d
+    install -Dm755 libvk_swiftshader.so $out/lib
+    install -Dm644 Linux/vk_swiftshader_icd.json  $out/share/vulkan/icd.d
+
+    sed -i "s#./libvk_swiftshader.so#$out/lib/libvk_swiftshader.so#" $out/share/vulkan/icd.d/vk_swiftshader_icd.json
   '';
 
 

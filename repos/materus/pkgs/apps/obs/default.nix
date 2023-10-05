@@ -120,13 +120,13 @@ stdenv.mkDerivation rec {
   postUnpack = ''
     mkdir -p cef/Release cef/Resources cef/libcef_dll_wrapper/
     for i in ${libcef}/share/cef/*; do
-      cp -r $i cef/Release/
-      cp -r $i cef/Resources/
+      ln -s $i cef/Release/
+      ln -s $i cef/Resources/
     done
-    cp -r ${swiftshader}/lib/libvk_swiftshader.so cef/Release/
-    cp -r ${libcef}/lib/libcef.so cef/Release/
-    cp -r ${libcef}/lib/libcef_dll_wrapper.a cef/libcef_dll_wrapper/
-    cp -r ${libcef}/include cef/
+    ln -s ${swiftshader}/lib/libvk_swiftshader.so cef/Release/
+    ln -s ${libcef}/lib/libcef.so cef/Release/
+    ln -s ${libcef}/lib/libcef_dll_wrapper.a cef/libcef_dll_wrapper/
+    ln -s ${libcef}/include cef/
   '';
 
   # obs attempts to dlopen libobs-opengl, it fails unless we make sure
@@ -143,7 +143,11 @@ stdenv.mkDerivation rec {
   ];
 
   dontWrapGApps = true;
+
   preFixup = ''
+    rm  $out/lib/obs-plugins/libcef.so
+    rm  $out/lib/obs-plugins/libvk_swiftshader.so
+
     qtWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xorg.libX11 libvlc ]}"
       --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL vulkan-loader ]}"
@@ -155,6 +159,9 @@ stdenv.mkDerivation rec {
   postFixup = lib.optionalString stdenv.isLinux ''
     addOpenGLRunpath $out/lib/lib*.so
     addOpenGLRunpath $out/lib/obs-plugins/*.so
+
+    ln -s ${swiftshader}/lib/libvk_swiftshader.so $out/lib/obs-plugins/libvk_swiftshader.so
+    ln -s ${libcef}/lib/libcef.so $out/lib/obs-plugins/libcef.so
   '';
 
   meta = with lib; {

@@ -117,6 +117,8 @@
     XDG_BIN_HOME = "\${HOME}/.local/bin";
     XDG_DATA_HOME = "\${HOME}/.local/share";
 
+    SDL_AUDIODRIVER = "pipewire";
+
     #SSH_ASKPASS_REQUIRE = "prefer";
 
     MOZ_USE_XINPUT2 = "1";
@@ -171,7 +173,7 @@
       '';
     };
     java.enable = true;
-    java.package = pkgs.graalvm17-ce;
+    java.package = pkgs.graalvm-ce;
     java.binfmt = true;
     command-not-found.enable = false;
     dconf.enable = true;

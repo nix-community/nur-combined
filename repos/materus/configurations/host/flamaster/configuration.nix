@@ -26,7 +26,7 @@
   };
   programs.java = {
     enable = true;
-    package = pkgs.graalvm17-ce;
+    package = pkgs.graalvm-ce;
     binfmt = true;
   };
   # Bootloader.

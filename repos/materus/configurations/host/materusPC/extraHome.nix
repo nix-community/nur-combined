@@ -27,7 +27,7 @@
   home.packages = [
     pkgs.papirus-icon-theme
     materusPkgs.ffmpeg6-amf-full
-    (materusPkgs.polymc.wrap { extraJDKs = [ pkgs.graalvm17-ce ]; extraLibs = [ ]; })
+    (materusPkgs.polymc.wrap { extraJDKs = [ pkgs.graalvm-ce ]; extraLibs = [ ]; })
   ];
 
   programs.obs-studio = {

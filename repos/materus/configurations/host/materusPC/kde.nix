@@ -10,7 +10,7 @@ let
       keymap_layout=pl
 
       [output]
-      name=DP-1
+      name=DP-3
       mode=1920x1080@240
 
       [output]
@@ -19,7 +19,7 @@ let
 
       [output]
       name=HDMI-A-3
-      mode=1920x1080@144
+      mode=off
     ''
   ;
 in
@@ -29,13 +29,15 @@ in
   services.xserver.displayManager.sddm.settings = {
     General = {
       DisplayServer = "wayland";
+      InputMethod="";
     };
     Theme = {
       CursorTheme = "breeze_cursors";
       CursorSize = "24";
     };
     Wayland = {
-      #CompositorCommand = "${pkgs.weston}/bin/weston  -c ${westonSddm}";
+      CompositorCommand = "${pkgs.weston}/bin/weston  -c ${westonSddm}";
+      
     };
   };
   services.xserver.desktopManager.plasma5.enable = true;

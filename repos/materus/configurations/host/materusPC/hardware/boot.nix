@@ -2,10 +2,11 @@
 let 
 video = [
   
-  #"video=DP-3:1920x1080@144"
   "video=HDMI-A-3:1920x1080@144"
+  "video=DP-3:1920x1080@240"
+  
 
-  "video=DP-1:1920x1080@240"
+  #"video=DP-1:1920x1080@240"
   #"video=DP-2:1920x1080@240"
   #"video=HDMI-A-1:1920x1080@240"
   #"video=HDMI-A-2:1920x1080@240"
@@ -22,7 +23,10 @@ in
   options kvm_amd nested=1 avic=1 npt=1
   options vfio_iommu_type1 allow_unsafe_interrupts=1
   '';
-  boot.kernel.sysctl = {"vm.max_map_count" = 1000000;};
+  boot.kernel.sysctl = {
+                        "vm.max_map_count" = 1000000;
+                        "vm.swappiness" = 10;
+                       };
   
   
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];

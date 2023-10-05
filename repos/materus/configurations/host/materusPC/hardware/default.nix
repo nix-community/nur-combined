@@ -1,11 +1,4 @@
 { config, pkgs, lib, inputs, materusFlake, materusPkgs, ... }:
-let 
-pkg = import  (builtins.fetchTarball {
-  name = "nixos-23.05";
-  url = "https://github.com/nixos/nixpkgs/archive/4ecab3273592f27479a583fb6d975d4aba3486fe.tar.gz";
-  sha256 = "sha256:10wn0l08j9lgqcw8177nh2ljrnxdrpri7bp0g7nvrsn9rkawvlbf";
-}) {system = pkgs.system;};
-in
 {
   imports =
     [
@@ -45,7 +38,6 @@ in
     materusPkgs.i686Linux.amdgpu-pro-libs.vulkan
     libvdpau-va-gl
   ];
-  users.groups.gpurun = {};
   services.udev.extraRules = ''
 
     #GPU bar size
