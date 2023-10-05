@@ -14,6 +14,11 @@
 # meanwhile, services like eg25-manager can speed this up by uploading assisted GPS data to the modem.
 #
 # geoclue somehow fits in here as a geospatial provider that leverages GPS and also other sources like radio towers
+#
+# support:
+# - geoclue, gnome-maps
+#   - irc: #gnome-maps on irc.gimp.org
+#   - Matrix: #gnome-maps:gnome.org  (unclear if bridged to IRC)
 
 { lib, ... }:
 {
