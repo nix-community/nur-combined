@@ -30,6 +30,7 @@
   rustdesk-bin = pkgs.callPackage ./pkgs/rustdesk-bin { };
 
   geogebra = pkgs.callPackage ./pkgs/geogebra { };
+  zhixi = pkgs.callPackage ./pkgs/zhixi { };
 
   zulu = pkgs.callPackage ./pkgs/zulu { };
   zulu19 = pkgs.callPackage ./pkgs/zulu/19.nix { };
