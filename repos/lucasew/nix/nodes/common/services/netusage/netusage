@@ -21,21 +21,25 @@ def normalize_unit(val):
     return f"{val} {UNITS[unit_idx]}"
 
 async def handle_iteration(iface):
-    stats_dir = SYS_FOLDER / iface / "statistics"
-    rx = int((stats_dir / "rx_bytes").read_text().strip())
-    tx = int((stats_dir / "tx_bytes").read_text().strip())
-    timestamp = time()
-    if last_item.get(iface) is None:
-        last_item[iface]=dict(timestamp=int(timestamp),rx=rx,tx=tx)
+    try:
+        stats_dir = SYS_FOLDER / iface / "statistics"
+        rx = int((stats_dir / "rx_bytes").read_text().strip())
+        tx = int((stats_dir / "tx_bytes").read_text().strip())
+        timestamp = time()
+        if last_item.get(iface) is None:
+            last_item[iface]=dict(timestamp=int(timestamp),rx=rx,tx=tx)
+            return ""
+        prev = last_item[iface]
+        time_delta = timestamp - prev['timestamp']
+        rx_speed = (rx - prev['rx']) // time_delta
+        tx_speed = (tx - prev['tx']) // time_delta
+        last_item[iface]=dict(timestamp=timestamp,rx=rx,tx=tx)
+        if (rx_speed + tx_speed) > 1024:
+            return f"{iface} {normalize_unit(rx_speed)} {normalize_unit(tx_speed)} "
         return ""
-    prev = last_item[iface]
-    time_delta = timestamp - prev['timestamp']
-    rx_speed = (rx - prev['rx']) // time_delta
-    tx_speed = (tx - prev['tx']) // time_delta
-    last_item[iface]=dict(timestamp=timestamp,rx=rx,tx=tx)
-    if (rx_speed + tx_speed) > 1024:
-        return f"{iface} {normalize_unit(rx_speed)} {normalize_unit(tx_speed)} "
-    return ""
+    except Exception as e:
+        print(e)
+        return ""
 
 
 async def main():
