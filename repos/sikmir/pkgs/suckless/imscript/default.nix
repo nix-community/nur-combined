@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
-  version = "2023-07-17";
+  version = "2023-09-08";
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = "imscript";
-    rev = "a45d5956ae714beff132eb170a36e707792755b0";
-    hash = "sha256-9SN3Vc70lFdJuODfA+lDLRurOhxcX5UcVlpo0oPDSuo=";
+    rev = "2cdd4b19cbe9073afbedd98be52241c588087a5a";
+    hash = "sha256-jYc3V5nFeX9zjGSO7nalRcTiHaBEPFOMXHTtf/iOmNw=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "A collection of small and standalone utilities for image processing";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "http://gabarro.org/ccn/itut/i.html";
     license = licenses.agpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
