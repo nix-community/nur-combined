@@ -33,5 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
+    mainProgram = "ste";
   };
 })

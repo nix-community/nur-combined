@@ -15,7 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ libacars libsndfile paho-mqtt-c rtl-sdr ];
 
-  cmakeFlags = [ "-Drtl=ON" "-Dairspy=OFF" "-Dsdrplay=OFF" ];
+  cmakeFlags = [
+    (lib.cmakeBool "rtl" true)
+    (lib.cmakeBool "airspy" false)
+    (lib.cmakeBool "sdrplay" false)
+  ];
 
   meta = with lib; {
     description = "ACARS SDR decoder";

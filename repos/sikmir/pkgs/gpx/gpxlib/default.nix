@@ -16,8 +16,8 @@ stdenv.mkDerivation {
   buildInputs = [ expat ];
 
   cmakeFlags = [
-    "-DBUILD_EXAMPLES=OFF"
-    "-DBUILD_TESTS=OFF"
+    (lib.cmakeBool "BUILD_EXAMPLES" false)
+    (lib.cmakeBool "BUILD_TESTS" false)
   ];
 
   doCheck = false;

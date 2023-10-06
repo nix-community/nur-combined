@@ -19,7 +19,9 @@ stdenv.mkDerivation (finalAttrs: {
     bzip2 expat libosmium lua protozero zlib
   ];
 
-  cmakeFlags = [ "-DBUILD_TESTS=ON" ];
+  cmakeFlags = [
+    (lib.cmakeBool "BUILD_TESTS" true)
+  ];
 
   doCheck = true;
 

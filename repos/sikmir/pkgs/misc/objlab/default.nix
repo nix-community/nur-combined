@@ -27,7 +27,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
 
-  cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=GLVND" ];
+  cmakeFlags = [
+    (lib.cmakeFeature "OpenGL_GL_PREFERENCE" "GLVND")
+  ];
 
   installPhase = ''
     install -Dm755 objlab -t $out/bin

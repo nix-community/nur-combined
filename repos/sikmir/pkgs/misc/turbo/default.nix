@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
     tvision
   ];
 
-  cmakeFlags = [ "-DTURBO_USE_SYSTEM_TVISION=ON" ];
+  cmakeFlags = [
+    (lib.cmakeBool "TURBO_USE_SYSTEM_TVISION" true)
+  ];
 
   meta = with lib; {
     description = "An experimental text editor based on Scintilla and Turbo Vision";

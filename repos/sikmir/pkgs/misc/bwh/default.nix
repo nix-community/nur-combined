@@ -16,7 +16,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ SDL2 the-foundation ] ++ lib.optional stdenv.isDarwin AppKit;
 
-  #cmakeFlags = [ "-Dthe_Foundation_DIR=${the-foundation}/lib/cmake/the_Foundation" ];
+  #cmakeFlags = [
+  #  (lib.cmakeFeature "the_Foundation_DIR" "${the-foundation}/lib/cmake/the_Foundation")
+  #];
 
   meta = with lib; {
     description = "Bitwise Harmony - simple synth tracker";

@@ -17,7 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ fftwFloat lame libconfig libshout pulseaudio rtl-sdr soapysdr ];
 
-  cmakeFlags = [ "-DNFM=ON" ];
+  cmakeFlags = [
+    (lib.cmakeBool "NFM" true)
+  ];
 
   meta = with lib; {
     description = "Multichannel AM/NFM demodulator";

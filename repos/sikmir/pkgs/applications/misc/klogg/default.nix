@@ -39,10 +39,10 @@ mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=missing-braces";
 
-  cmakeFlags = lib.mapAttrsToList (k: v: "-D${k}=${if v then "ON" else "OFF"}") {
-    KLOGG_USE_SENTRY = useSentry;
-    KLOGG_USE_HYPERSCAN = useHyperscan;
-  };
+  cmakeFlags = [
+    (lib.cmakeBool "KLOGG_USE_SENTRY" useSentry)
+    (lib.cmakeBool "KLOGG_USE_HYPERSCAN" useHyperscan)
+  ];
 
   meta = with lib; {
     description = "A fast, advanced log explorer based on glogg project";

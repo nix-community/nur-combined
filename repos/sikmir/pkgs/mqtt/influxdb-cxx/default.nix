@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals finalAttrs.doCheck [ catch2 trompeloeil ];
 
   cmakeFlags = [
-    "-DINFLUXCXX_TESTING=${if finalAttrs.doCheck then "ON" else "OFF"}"
+    (lib.cmakeBool "INFLUXCXX_TESTING" finalAttrs.doCheck)
   ];
 
   doCheck = false;

@@ -16,8 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [ geos jsoncpp libgeotiff libjpeg libtiff ];
 
   cmakeFlags = [
-    "-DBUILD_OSSIM_APPS=OFF"
-    "-DBUILD_OSSIM_TESTS=OFF"
+    (lib.cmakeBool "BUILD_OSSIM_APPS" false)
+    (lib.cmakeBool "BUILD_OSSIM_TESTS" false)
   ];
 
   meta = with lib; {

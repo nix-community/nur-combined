@@ -15,7 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ boost ];
 
-  cmakeFlags = [ "-DSSL_SUPPORT_MBEDTLS=OFF" ];
+  cmakeFlags = [
+    (lib.cmakeBool "SSL_SUPPORT_MBEDTLS" false)
+  ];
 
   meta = with lib; {
     description = "Open Source C++ OPC-UA Server and Client Library";

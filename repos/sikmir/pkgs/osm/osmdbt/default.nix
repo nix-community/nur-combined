@@ -37,7 +37,9 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  cmakeFlags = [ "-DBUILD_PLUGIN=OFF" ];
+  cmakeFlags = [
+    (lib.cmakeBool "BUILD_PLUGIN" false)
+  ];
 
   meta = with lib; {
     description = "OSM Database Replication Tools";

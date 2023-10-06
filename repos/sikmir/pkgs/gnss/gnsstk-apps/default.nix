@@ -15,7 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ gnsstk ];
 
-  cmakeFlags = [ "-DBUILD_EXT=ON" ];
+  cmakeFlags = [
+    (lib.cmakeBool "BUILD_EXT" true)
+  ];
 
   meta = with lib; {
     description = "GNSSTk applications suite";

@@ -13,7 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DBUILD_EXT=ON" ];
+  cmakeFlags = [
+    (lib.cmakeBool "BUILD_EXT" true)
+  ];
 
   meta = with lib; {
     description = "GNSSTk libraries";

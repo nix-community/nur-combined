@@ -15,7 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ libxml2 zlib ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_INSTALL_LIBDIR" "lib")
+  ];
 
   meta = with lib; {
     description = "A library for decoding various ACARS message payloads";

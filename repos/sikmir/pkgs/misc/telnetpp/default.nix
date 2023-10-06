@@ -15,7 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ boost gsl-lite gtest zlib ];
 
-  cmakeFlags = [ "-DTELNETPP_WITH_ZLIB=True" ];
+  cmakeFlags = [
+    (lib.cmakeBool "TELNETPP_WITH_ZLIB" true)
+  ];
 
   meta = with lib; {
     description = "A C++ library for interacting with Telnet streams";
