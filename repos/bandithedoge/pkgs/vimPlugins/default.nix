@@ -12,7 +12,7 @@ pkgs.lib.makeExtensible (_:
     in
       pkgs.lib.attrsets.nameValuePair
       sanitizedName
-      (pkgs.vimUtils.buildVimPluginFrom2Nix {
+      (pkgs.vimUtils.buildVimPlugin {
         pname = sanitizedName;
         version = src.rev;
         inherit src;

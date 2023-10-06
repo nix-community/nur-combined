@@ -25,4 +25,6 @@
   });
 
   lua-dev-nvim = pkgs.lib.warn "lua-dev.nvim has been renamed to neodev.nvim" final.neodev-nvim;
+
+  null-ls-nvim = pkgs.lib.warn "null-ls.nvim has been discontinued, consider switching to none-ls.nvim" prev.null-ls-nvim;
 }
