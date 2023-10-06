@@ -16,6 +16,7 @@
 
   charm = pkgs.callPackage ./pkgs/charm { };
   gum = pkgs.callPackage ./pkgs/gum { };
+  melt = pkgs.callPackage ./pkgs/melt { };
   mods = pkgs.callPackage ./pkgs/mods { };
   pop = pkgs.callPackage ./pkgs/pop { };
   soft-serve = pkgs.callPackage ./pkgs/soft-serve { };
