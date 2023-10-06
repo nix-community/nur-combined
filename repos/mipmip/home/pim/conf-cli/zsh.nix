@@ -24,9 +24,12 @@
       crb_umount = "sudo umount /mnt/cryptobox";
       crb_diff = "diff -qr ~/.aws /mnt/cryptobox/encrypim/.aws; diff -qr ~/.ssh /mnt/cryptobox/encrypim/.ssh";
 
-      # adevinta firefox
+      # adevinta
       ffadevinta = "MOZ_ENABLE_WAYLAND=0 proxychains4 firefox -P adevinta --class ffextra --no-remote";
-
+      adeff = "MOZ_ENABLE_WAYLAND=0 proxychains4 firefox -P adevinta --class ffextra --no-remote";
+      adedsocksamf = "ssh -D 9050 pim.snel@192.168.0.139";
+      adedsockshur = "ssh -D 9050 pim.snel@192.168.13.26";
+      adedmoshamf = "mosh pim.snel@192.168.0.139 --server=/usr/local/bin/mosh-server";
     };
 
     plugins = [

@@ -22,6 +22,7 @@
       ../../modules/desktop-openai.nix
 
       ../../modules/desktop-chrome.nix
+      ../../modules/desktop-hyprland.nix
       ../../modules/desktop-communication.nix
       ../../modules/desktop-dtp.nix
       ../../modules/desktop-firefox.nix
