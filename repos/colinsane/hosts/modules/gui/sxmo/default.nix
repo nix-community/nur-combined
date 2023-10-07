@@ -128,6 +128,50 @@ in
     sane.gui.sxmo.hooks = mkOption {
       type = types.attrsOf types.path;
       default = {
+        # default upstream hooks
+        # additional hooks are in subdirectories like three_button_touchscreen/
+        # - sxmo_hook_inputhandler.sh
+        # - sxmo_hook_lock.sh
+        # - sxmo_hook_postwake.sh
+        # - sxmo_hook_screenoff.sh
+        # - sxmo_hook_unlock.sh
+        # by including hooks here, updating the sxmo package also updates the hooks
+        # without requiring any reboot
+        "sxmo_hook_apps.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_apps.sh";
+        "sxmo_hook_block_suspend.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_block_suspend.sh";
+        "sxmo_hook_call_audio.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_call_audio.sh";
+        "sxmo_hook_contextmenu_fallback.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_contextmenu_fallback.sh";
+        "sxmo_hook_contextmenu.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_contextmenu.sh";
+        "sxmo_hook_desktop_widget.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_desktop_widget.sh";
+        "sxmo_hook_discard.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_discard.sh";
+        "sxmo_hook_hangup.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_hangup.sh";
+        "sxmo_hook_icons.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_icons.sh";
+        "sxmo_hook_lisgdstart.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_lisgdstart.sh";
+        "sxmo_hook_logout.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_logout.sh";
+        "sxmo_hook_missed_call.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_missed_call.sh";
+        "sxmo_hook_mnc.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_mnc.sh";
+        "sxmo_hook_modem.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_modem.sh";
+        "sxmo_hook_mute_ring.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_mute_ring.sh";
+        "sxmo_hook_network_down.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_network_down.sh";
+        "sxmo_hook_network_pre_down.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_network_pre_down.sh";
+        "sxmo_hook_network_pre_up.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_network_pre_up.sh";
+        "sxmo_hook_network_up.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_network_up.sh";
+        "sxmo_hook_notification.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_notification.sh";
+        "sxmo_hook_notifications.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_notifications.sh";
+        "sxmo_hook_pickup.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_pickup.sh";
+        "sxmo_hook_restart_modem_daemons.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_restart_modem_daemons.sh";
+        "sxmo_hook_ring.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_ring.sh";
+        "sxmo_hook_rotate.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_rotate.sh";
+        "sxmo_hook_scripts.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_scripts.sh";
+        "sxmo_hook_sendsms.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_sendsms.sh";
+        "sxmo_hook_smslog.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_smslog.sh";
+        "sxmo_hook_sms.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_sms.sh";
+        "sxmo_hook_start.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_start.sh";
+        "sxmo_hook_statusbar.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_statusbar.sh";
+        "sxmo_hook_stop.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_stop.sh";
+        "sxmo_hook_tailtextlog.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_tailtextlog.sh";
+      } // {
+        # default hooks for this nix module, not upstreamable
         "sxmo_hook_inputhandler.sh" = "${hookPkgs.inputhandler}/bin/sxmo_hook_inputhandler.sh";
         "sxmo_hook_postwake.sh" = "${hookPkgs.postwake}/bin/sxmo_hook_postwake.sh";
         "sxmo_hook_rotate.sh" = "${hookPkgs.rotate}/bin/sxmo_hook_rotate.sh";

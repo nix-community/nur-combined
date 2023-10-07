@@ -19,6 +19,17 @@
 # - geoclue, gnome-maps
 #   - irc: #gnome-maps on irc.gimp.org
 #   - Matrix: #gnome-maps:gnome.org  (unclear if bridged to IRC)
+#
+# programs to pair this with:
+# - `satellite-gtk`: <https://codeberg.org/tpikonen/satellite>
+#   - shows/tracks which satellites the GPS is connected to; useful to understand fix characteristics
+# - `gnome-maps`: uses geoclue, has route planning
+# - `mepo`: uses gpsd, minimalist, flaky, and buttons are kinda hard to activate on mobile
+# - puremaps?
+# - osmin?
+#
+# future work:
+# - integrate with [wigle](https://www.wigle.net/) for offline equivalent to Mozilla Location Services
 
 { lib, ... }:
 {

@@ -12,6 +12,14 @@
 #
 # dino can be autostarted on login -- useful to ensure that i always receive calls and notifications --
 # but at present it has no "start in tray" type of option: it must render a window.
+#
+# outstanding bugs:
+# - mic is sometimes disabled at call start despite presenting as enabled
+#   - fix is to toggle it off -> on in the Dino UI
+# - once per 1-2 minutes dino will temporarily drop mic input:
+#   - `rtp-WRNING: plugin.vala:148: Warning in pipeline: Can't record audio fast enough
+#   - this was *partially* fixed by bumping the pipewire mic buffer to 2048 samples (from ~512)
+#   - that fix can't extend to Dino itself except by patching its code (perhaps)
 { config, lib, ... }:
 let
   cfg = config.sane.programs.dino;
@@ -39,7 +47,8 @@ in
         Restart = "always";
         RestartSec = "20s";
       };
-      environment.G_MESSAGES_DEBUG = "all";
+      # note that debug logging during calls produces so much journal spam that it pegs the CPU and causes dropped audio
+      # environment.G_MESSAGES_DEBUG = "all";
     };
   };
 }

@@ -58,6 +58,12 @@ let
         url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44110/mbox";
         hash = "sha256-jXtwgOVGSjwWj7a36F6P+e63lKvk4OmFIzxTkf9yZMs=";
       })
+      (fetchpatch {
+        # merged ~2023/10/04
+        name = ''sxmo_wmmenu.sh: add "Kill window" option'';
+        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45263/mbox";
+        hash = "sha256-qDvlLecAjxcKXP7tvhMnySkWPkj6oV0Z0Qm3kudazdk=";
+      })
     ];
     unmerged = [
       # (fetchpatch {
@@ -72,12 +78,6 @@ let
         name = "sxmo_migrate: add option to disable configversion checks";
         url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44155/mbox";
         hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
-      })
-
-      (fetchpatch {
-        name = ''sxmo_wmmenu.sh: add "Kill window" option'';
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45263/mbox";
-        hash = "sha256-qDvlLecAjxcKXP7tvhMnySkWPkj6oV0Z0Qm3kudazdk=";
       })
 
       ## these might or might not be upstream-worthy
@@ -110,6 +110,11 @@ let
         name = "sxmo_hook_apps: launch apps via the window manager";
         url = "https://git.uninsane.org/colin/sxmo-utils/commit/0087acfecedf9d1663c8b526ed32e1e2c3fc97f9.patch";
         hash = "sha256-YwlGM/vx3ZrBShXJJYuUa7FTPQ4CFP/tYffJzUxC7tI=";
+      })
+      (fetchpatch {
+        name = "suspend: block if Dino is in a call";
+        url = "https://git.uninsane.org/colin/sxmo-utils/commit/50c1a63f9858dcfcd7717960f1adbc90535af295.patch";
+        hash = "sha256-E3I34yWptA+KhdwUFgy2OQjnIgnsp1jw8qRH/XIErdA=";
       })
     ];
   };
