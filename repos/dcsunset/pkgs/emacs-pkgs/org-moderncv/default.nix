@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "org-moderncv";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "org-moderncv";
     rev = "v${version}";
-    hash = "sha256-ta7cH8LTYwj9S7DWBJ2+YjVNnLdp/xb9C2XYX7pV/tw=";
+    hash = "sha256-wIeA71YX2fOZh6xErhmor3Rf8WzfXZm5uw8B5m08LOQ=";
   };
   buildInputs = [
     (emacsWithPackages (epkgs: []))
