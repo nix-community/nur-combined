@@ -2,7 +2,7 @@
 #!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p curl -p modemmanager
 
 # this script should run after ModemManager.service is started.
-# typical invocation is `eg25_gps_init.py --enable-power --enable-gps`.
+# typical invocation is `eg25-control --power-on --enable-gps`.
 # after running, the user may `cat /dev/ttyUSB1` to view NMEA-encoded GPS information.
 # the script attempts to be idempotent, such that it may be run multiple times per boot.
 #

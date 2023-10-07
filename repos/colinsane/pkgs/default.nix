@@ -66,6 +66,7 @@ let
       rmDbusServices
     ;
     unftp = callPackage ./additional/unftp { };
+    where-am-i = callPackage ./additional/where-am-i { };
     xdg-terminal-exec = callPackage ./additional/xdg-terminal-exec { };
     zecwallet-light-cli = callPackage ./additional/zecwallet-light-cli { };
 

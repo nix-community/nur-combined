@@ -35,6 +35,7 @@ in
         ExecStop = "${cfg.package}/bin/eg25-control --power-off --verbose";
         Restart = "on-failure";
         RestartSec = "60s";
+        TimeoutSec = "60s";
 
         # XXX /sys/class/modem-power/modem-power/device/powered is writable only by root
         # User = "eg25-control";

@@ -293,19 +293,21 @@ in
           device = cfg.config.backlight;
         };
         buttons-grid = {
-          actions = [
+          actions =
             # {
             #   type = "toggle";
             #   label = "feedbackd";
             #   command = "${systemctl-toggle}/bin/systemctl-toggle --user feedbackd";
             #   active = "${pkgs.systemd}/bin/systemctl is-active --user feedbackd.service";
             # }
+          lib.optionals config.sane.programs.eg25-control.enabled [
             {
               type = "toggle";
               label = "gps";
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-gps";
               active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-gps.service";
             }
+          ] ++ [
             {
               type = "toggle";
               label = "vpn::hn";
@@ -319,14 +321,14 @@ in
               command = "${systemctl-toggle}/bin/systemctl-toggle --user gnome-calls";
               active = "${pkgs.systemd}/bin/systemctl is-active --user gnome-calls";
             }
-          ] ++ lib.optionals config.sane.programs.dino.config.autostart [
+          ] ++ lib.optionals config.sane.programs.dino.enabled [
             {
               type = "toggle";
               label = "XMPP";  # XMPP calls (jingle)
               command = "${systemctl-toggle}/bin/systemctl-toggle --user dino";
               active = "${pkgs.systemd}/bin/systemctl is-active --user dino";
             }
-          ] ++ lib.optionals config.sane.programs.fractal.config.autostart [
+          ] ++ lib.optionals config.sane.programs.fractal.enabled [
             {
               type = "toggle";
               label = "Matrix";  # Matrix messages
