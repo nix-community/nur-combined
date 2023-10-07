@@ -56,10 +56,10 @@
       };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
-      version = "2.2.6";
+      version = "2.2.8";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164328/addy_io-2.2.6.xpi";
-      sha256 = "357ad00aca68bc9f93028b0f3e849f2a25de0a101d2ac3fe72621d4e3ca9eac8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4177552/addy_io-2.2.8.xpi";
+      sha256 = "5fda51900275254e752f206d5d4630417e00b1c07427321aa4921440ce380c06";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -2261,10 +2261,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "119.0.20231004.91611";
+      version = "119.0.20231006.91509";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4176690/francais_language_pack-119.0.20231004.91611.xpi";
-      sha256 = "454c18701e63dee6ff2d5ab83fd25aa6bfc762ecbcbe1c0447c0f2a4d78ca9f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4177608/francais_language_pack-119.0.20231006.91509.xpi";
+      sha256 = "47c7c226051727509a46dbd53ec4b5a890b4ff3eac24eda831fed7cf7cdbada5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6885,10 +6885,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.66";
+      version = "1.22.3";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169857/single_file-1.21.66.xpi";
-      sha256 = "0b4e9720ff38167d10849cf22c96fe4c5467ce20374668b1bc2437da2325fb02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4177184/single_file-1.22.3.xpi";
+      sha256 = "b66ce9fdb22033dc0510a009ce15182fba41f6b9e20907dad326fcd214e28e7e";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
