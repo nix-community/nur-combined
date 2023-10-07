@@ -37,11 +37,6 @@
 
   sops.secrets.colin-passwd.neededForUsers = true;
 
-  sane.user.persist.plaintext = [
-    # TODO: make this just generally conditional upon pulse being enabled?
-    ".config/pulse"  # persist pulseaudio volume
-  ];
-
   sane.gui.sxmo.enable = true;
   sane.programs.guiApps.suggestedPrograms = [ "handheldGuiApps" ];
   # sane.programs.consoleUtils.enableFor.user.colin = false;
@@ -139,14 +134,10 @@
   environment.variables.ALSA_CONFIG_UCM2 = "/run/current-system/sw/share/alsa/ucm2";
   environment.pathsToLink = [ "/share/alsa/ucm2" ];
   environment.systemPackages = [ pkgs.alsa-ucm-conf-sane ];
-  systemd =
-    let ucm-env = config.environment.variables.ALSA_CONFIG_UCM2;
-    in {
+  systemd = let
+    ucm-env = config.environment.variables.ALSA_CONFIG_UCM2;
+  in {
     # cribbed from <repo:nixos/mobile-nixos:modules/quirks/audio.nix>
-
-    # pulseaudio
-    user.services.pulseaudio.environment.ALSA_CONFIG_UCM2 = ucm-env;
-    services.pulseaudio.environment.ALSA_CONFIG_UCM2      = ucm-env;
 
     # pipewire
     user.services.pipewire.environment.ALSA_CONFIG_UCM2       = ucm-env;
@@ -155,6 +146,10 @@
     services.pipewire.environment.ALSA_CONFIG_UCM2            = ucm-env;
     services.pipewire-pulse.environment.ALSA_CONFIG_UCM2      = ucm-env;
     services.wireplumber.environment.ALSA_CONFIG_UCM2         = ucm-env;
+
+    # pulseaudio
+    # user.services.pulseaudio.environment.ALSA_CONFIG_UCM2 = ucm-env;
+    # services.pulseaudio.environment.ALSA_CONFIG_UCM2      = ucm-env;
 
 
     # TODO: move elsewhere...

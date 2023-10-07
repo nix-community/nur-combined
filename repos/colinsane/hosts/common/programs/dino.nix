@@ -20,6 +20,10 @@
 #   - `rtp-WRNING: plugin.vala:148: Warning in pipeline: Can't record audio fast enough
 #   - this was *partially* fixed by bumping the pipewire mic buffer to 2048 samples (from ~512)
 #   - that fix can't extend to Dino itself except by patching its code (perhaps)
+#   - patching every `info.rate / 100` -> `info.rate / 50` in Dino to double the buffer size *seems* to have no effect
+#   - possible the 10ms buffer constant is inside `webrtc` itself
+#   - it's using gstreamer, so maybe other ways to introspect that/fix it
+#
 { config, lib, ... }:
 let
   cfg = config.sane.programs.dino;
