@@ -53,6 +53,7 @@
     ./sfeed.nix
     ./splatmoji.nix
     ./steam.nix
+    ./stepmania.nix
     ./sublime-music.nix
     ./swaynotificationcenter.nix
     ./tangram.nix
