@@ -69,6 +69,9 @@ let
       darwin.Security
     ];
 
+    # disable self update: https://github.com/MaaAssistantArknights/maa-cli/pull/44/files
+    buildNoDefaultFeatures = true;
+
     cargoSha256 = "sha256-WcBKWVnpBgYZZdWnWsXDTutyo34KQIcRmwYwc+fENJA=";
 
   };
