@@ -27,6 +27,8 @@ in
     ./user.nix
   ];
 
+  boot.supportedFilesystems = [ "nfs" ];
+
   services.lvm.enable = mkDefault false;
 
   programs.fuse.userAllowOther = true;
