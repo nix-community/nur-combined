@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = iosevka.meta // {
     maintainers = with lib.maintainers; [
-      cstrahan
+      suhr
     ];
   };
 }
