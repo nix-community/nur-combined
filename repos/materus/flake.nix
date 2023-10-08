@@ -1,5 +1,5 @@
 {
-  description = "Nixerus - NUR Repo, Inputs for system config";
+  description = "Nixerus - NUR Repo";
   inputs = {
     nixpkgs = {
       type = "github";
@@ -15,21 +15,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
-    };
-    emacs-overlay = {
-      type = "github";
-      owner = "nix-community";
-      repo = "emacs-overlay";
-      ref = "master";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    nur = {
-      type = "github";
-      owner = "nix-community";
-      repo = "NUR";
-      ref = "master";
     };
   };
 
