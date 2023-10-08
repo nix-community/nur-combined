@@ -69,7 +69,7 @@
     # - `systemctl --user restart pipewire`
     # - pipewire users will likely stop outputting audio until they are also restarted
     #
-    # there's seemingly two buffers for the mic:
+    # there's seemingly two buffers for the mic (see: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/FAQ#pipewire-buffering-explained>)
     # 1. Pipewire buffering out of the driver and into its own member.
     # 2. Pipewire buffering into Dino.
     # the latter is fixed at 10ms by Dino, difficult to override via runtime config.

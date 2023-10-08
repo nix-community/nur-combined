@@ -7,12 +7,12 @@
 let
 self = gpodder.overridePythonAttrs (upstream: rec {
   pname = "gpodder-adaptive";
-  version = "3.11.2+1";
+  version = "3.11.3+1";
   src = fetchFromGitHub {
     owner = "gpodder";
     repo = "gpodder";
     rev = "adaptive/${version}";
-    hash = "sha256-DJ5/9PFRc0uVREy4JmFVweiSGtXZ8wyb+XaNmjI5/k4=";
+    hash = "sha256-e8LDm6rt1Z02QyvzfIcyJ3rx0hjyPzKRpg3d6rauW4w=";
   };
 
   # nixpkgs `gpodder` uses the `format = "other"` Makefile build flow.

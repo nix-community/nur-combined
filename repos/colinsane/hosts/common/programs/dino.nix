@@ -16,13 +16,16 @@
 # outstanding bugs:
 # - mic is sometimes disabled at call start despite presenting as enabled
 #   - fix is to toggle it off -> on in the Dino UI
+# - default mic gain is WAY TOO MUCH (heavily distorted)
+# - TODO: dino should have more optimal niceness/priority to ensure it can process its buffers
+#
+# probably fixed:
 # - once per 1-2 minutes dino will temporarily drop mic input:
 #   - `rtp-WRNING: plugin.vala:148: Warning in pipeline: Can't record audio fast enough
 #   - this was *partially* fixed by bumping the pipewire mic buffer to 2048 samples (from ~512)
-#   - that fix can't extend to Dino itself except by patching its code (perhaps)
-#   - patching every `info.rate / 100` -> `info.rate / 50` in Dino to double the buffer size *seems* to have no effect
-#   - possible the 10ms buffer constant is inside `webrtc` itself
-#   - it's using gstreamer, so maybe other ways to introspect that/fix it
+#   - this was further fixed by setting PULSE_LATENCY_MSEC=20.
+#   - possibly Dino should be updated internally: `info.rate / 100` -> `info.rate / 50`.
+#     - i think that affects the batching for echo cancellation, adaptive gain control, etc.
 #
 { config, lib, ... }:
 let
@@ -51,6 +54,14 @@ in
         Restart = "always";
         RestartSec = "20s";
       };
+
+      # audio buffering; see: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/FAQ#pipewire-buffering-explained>
+      # dino defaults to 10ms mic buffer, which causes underruns, which Dino handles *very* poorly
+      # as in, the other end of the call will just not receive sound from us for a couple seconds.
+      # pipewire uses power-of-two buffering for the mic itself. that would put us at 21.33 ms, but this env var supports only whole numbers (21ms ends up not power-of-two).
+      # also, Dino's likely still doing things in 10ms batches internally anyway.
+      environment.PULSE_LATENCY_MSEC = "20";
+
       # note that debug logging during calls produces so much journal spam that it pegs the CPU and causes dropped audio
       # environment.G_MESSAGES_DEBUG = "all";
     };

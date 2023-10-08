@@ -125,9 +125,9 @@ in {
     patches = patches.merged ++ patches.unmerged;
   };
   latest = callPackage ./common.nix {
-    version = "unstable-2023-09-22";
-    rev = "7a7188bddcc8ac45eeea7748bc342b390b48f0f5";
-    hash = "sha256-E4L9pH7wivz51XScUERpYwk6b0gUsu+s0fPpKmje+8Y=";
+    version = "unstable-2023-10-05";
+    rev = "05fd5112d5f2b49051cbb2f0bbb25202363bf83e";
+    hash = "sha256-YmVe9P0w2KSqj6G/az499r7+z3Crfm3TbBIawjVKP1M=";
     patches = patches.unmerged ++ patches.unmerged-tip-only;
   };
 }

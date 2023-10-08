@@ -1,6 +1,9 @@
 # wake on wireless LAN
 # developed for the PinePhone (rtl8723cs), but may work on other systems.
 # key info was found from this chat between Peetz0r and megi: <https://irclog.whitequark.org/linux-sunxi/2021-02-19>
+# additionally in the Realtek "Quick Guide For Wake on WLAN": <https://gist.github.com/Peetz0r/bf8fd93a60962b4afcf2daeb4305da40#file-quick_start_guide_for_wow-pdf>
+# megi's devlog which enabled WOWLAN: <https://xnux.eu/log/031.html>
+# driver lives in Megi's kernel tree, at drivers/staging/rtl8723cs/Makefile
 #
 # wowlan configuration can be inspected with:
 # - `iw phy0 wowlan`
@@ -15,10 +18,40 @@
 # - can take 15s or more from when the packet is broadcast to when an application services it.
 # - WiFi doesn't respond to arp queries, so the sender might not actually know how to route
 #   the packet to WiFi device at all.
-#   run `arp -s <ip-addr> <mac-addr>` on the sender to hardcode an arp association.
+#   - run `arp -s <ip-addr> <mac-addr>` on the sender to hardcode an arp association.
+#   - driver Makefile mentions ARP support though:
+#     - #bit3: ARP enable, bit2: deauth, bit1: unicast, bit0: magic pkt.
+#     - CONFIG_WAKEUP_TYPE = 0xf
+#     - CONFIG_IP_R_MONITOR = n #arp VOQ and high rate
+#     - #bit0: disBBRF off, #bit1: Wireless remote controller (WRC)
+#     - CONFIG_SUSPEND_TYPE = 0  (i think this is correct)
+#     - CONFIG_LPS_MODE = 1  (setting to 0 would disable LPS)
+#   - maybe ARP gets disabled as part of the power saving features (iw phy ... power-save; CONFIG_POWER_SAVING=y)?
 # - packet matching happens below the OS, so it's not generic over virtual network devices like tunnels.
 #   Wake On Lan with a VPN effectively requires that you wake on *every* packet routed via that VPN
 #   since the meaning within any packet isn't obvious to the chipset.
+#
+# known problems:
+# - may fail to wake on LAN, with the following signature after power-button wake:
+#   ```
+#   wpa_supplicant: wlan0: CTRL-EVENT-DISCONNECTED bssid=xx:xx:xx:xx:xx:xx reason=6
+#   wpa_supplicant: wlan0: Trying to associate with xx:xx:xx:xx:xx:xx (SSID='xx' freq=2437 MHz)
+#   wpa_supplicant: wlan0: CTRL-EVENT-REGDOM-CHANGE init=CORE type=WORLD
+#   wpa_supplicant: wlan0: CTRL-EVENT-STARTED-CHANNEL-SWITCH freq=2437 ht_enabled=1 ch_offset=0 ch_width=20 MHz cf1=2437 cf2=0
+#   wpa_supplicant: wlan0: Associated with xx:xx:xx:xx:xx:xx
+#   wpa_supplicant: wlan0: CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+#   wpa_supplicant: wlan0: WPA: Key negotiation completed with xx:xx:xx:xx:xx:xx [PTK=CCMP GTK=CCMP]
+#   wpa_supplicant: wlan0: CTRL-EVENT-CONNECTED - Connection to xx:xx:xx:xx:xx:xx completed [id=0 id_str=]
+#   ```
+#   - observed after a suspension of 67 minutes.
+#   - WiFi chip *should* have a way to wake on connection state change, i just need to enable it?
+#     - `iw phy phy0 wowlan enable disconnect` => Invalid argument (-22)
+#     - `iw phy0 wowlan enable net-detect ...` (from man example) => Operation not supported (-95)
+#     - Realtek Quick Start guide claims "CONFIG_WAKEUP_TYPE = 0x7" enables deauth wake up (bit 2), unicast wake up (bit 1), magic packet (bit 0)
+#     - driver Makefile:
+#       - #bit0: ROAM_ON_EXPIRED, #bit1: ROAM_ON_RESUME, #bit2: ROAM_ACTIVE
+#       - CONFIG_ROAMING_FLAG = 0x3
+
 
 { config, lib, pkgs, ... }:
 let

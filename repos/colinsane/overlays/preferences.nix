@@ -58,13 +58,6 @@
     })
   ];
 
-  qemu = super.qemu.override {
-    # 2023/09/07: see <https://github.com/NixOS/nixpkgs/pull/252874>
-    # fixes an eval-time recursion error
-    # should be safe to remove after next staging -> master merge
-    jackSupport = false;
-  };
-
   sway-unwrapped = super.sway-unwrapped.override {
     wlroots = wlroots.overrideAttrs (upstream: {
       # 2023/09/08: fix so clicking a notification can activate the corresponding window.
