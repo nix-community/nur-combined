@@ -1,5 +1,5 @@
 {
-  description = "Nixerus - System config and repo";
+  description = "Nixerus - NUR Repo, Inputs for system config";
   inputs = {
     nixpkgs = {
       type = "github";
@@ -16,12 +16,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    nur = {
-      type = "github";
-      owner = "nix-community";
-      repo = "NUR";
-      ref = "master";
-    };
     emacs-overlay = {
       type = "github";
       owner = "nix-community";
@@ -31,12 +25,11 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-
-    private = {
+    nur = {
       type = "github";
-      owner = "materusPL";
-      repo = "Nixerus";
-      ref = "mock";
+      owner = "nix-community";
+      repo = "NUR";
+      ref = "master";
     };
   };
 
@@ -51,15 +44,11 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     rec {
-
+      inherit inputs;
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
-
-      nixosConfigurations = import ./configurations/host { inherit inputs; materusFlake = self; };
-      homeConfigurations = import ./configurations/home { inherit inputs; materusFlake = self; };
-
-      path = ./.;
+      selfPath = ./.;
 
     };
 }
