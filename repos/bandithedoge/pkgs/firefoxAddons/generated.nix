@@ -535,10 +535,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.8.6";
+    version = "1.8.7";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4160468/material_icons_for_github-1.8.6.xpi";
-    sha256 = "5c2a8005a0656b42c4cb2db3d66c6d2be56aeea4be662b9d6f4e55f5cad73b60";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4177950/material_icons_for_github-1.8.7.xpi";
+    sha256 = "4100db974b95e179dad763fed895038ec4be2ad8245845fca09c80c97f183f8b";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
@@ -1079,10 +1079,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.9.21";
+    version = "23.10.5";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4170731/refined_github-23.9.21.xpi";
-    sha256 = "047da88fd06f63710e27661257be2922c0e0144f20def84b40a5577e6911caee";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4177037/refined_github-23.10.5.xpi";
+    sha256 = "22c0ab41009ff7daf249755504a5fb63f6bbaa732ba4acf677bfa79122c498c1";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1146,10 +1146,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.4.21";
+    version = "5.4.22";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4171739/sponsorblock-5.4.21.xpi";
-    sha256 = "c7f4202f32014699235fe30deb5ed14145400799baeb63273c93404d6fd0b371";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4175367/sponsorblock-5.4.22.xpi";
+    sha256 = "428c2d91f40d63935ee1a8cdf8a435c6751f217b3e299e11be3cbc58ff6e31ae";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";

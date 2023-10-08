@@ -27,27 +27,27 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "a10b766fc990ca52ba8ac178505ab0c7ee352b47";
+    version = "8dfdb8e14ade3108502c034d7cf5fa4bdffab2df";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "a10b766fc990ca52ba8ac178505ab0c7ee352b47";
+      rev = "8dfdb8e14ade3108502c034d7cf5fa4bdffab2df";
       fetchSubmodules = true;
-      sha256 = "sha256-whcVe+2SR0jLb91Tk6p+EAOgezMlklkFtc3YV016Dz8=";
+      sha256 = "sha256-NRKtp8aD9XPDjC7U/J6JQVOsOGapKjjhWc7h5AA8SkY=";
     };
-    date = "2023-09-16";
+    date = "2023-10-07";
   };
   carla-git = {
     pname = "carla-git";
-    version = "9753cb4ebbd4d7ee12b4cb8c5d3c48b940d3d556";
+    version = "3a7d78c165ce3c7485a93e1901d45d5c5be4b6e1";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "9753cb4ebbd4d7ee12b4cb8c5d3c48b940d3d556";
+      rev = "3a7d78c165ce3c7485a93e1901d45d5c5be4b6e1";
       fetchSubmodules = false;
-      sha256 = "sha256-m2i7heKVc7pm/bMlQjdV7nfQttE1rNbMyC1gL1s/yho=";
+      sha256 = "sha256-7p8uWkxg6kGdImptvYlUlMDPuzlrZlhPqofP+mxNGO4=";
     };
-    date = "2023-09-30";
+    date = "2023-10-07";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -74,15 +74,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "ddb2e833a47b5c82eb87cbaf8db2f356a1a6723a";
+    version = "d807d3da3e1bfed2e79fee5938a10e934be9b4b2";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "ddb2e833a47b5c82eb87cbaf8db2f356a1a6723a";
+      rev = "d807d3da3e1bfed2e79fee5938a10e934be9b4b2";
       fetchSubmodules = false;
-      sha256 = "sha256-Pg955WjoOpS2NyjlfjWZSc0Td0rQFMZaqVUSEbsU84I=";
+      sha256 = "sha256-EAikXATMCBYQj8GLABhgj2b7v/1dXwje+3kxjeyce2I=";
     };
-    date = "2023-10-01";
+    date = "2023-10-03";
   };
   fennel-language-server = {
     pname = "fennel-language-server";
@@ -114,15 +114,15 @@
   };
   ildaeil = {
     pname = "ildaeil";
-    version = "bffb0a5aa155b8015265603af33a67549fb4fecd";
+    version = "0044a9cca7435953d746ccbfaad27aa98e590d96";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Ildaeil";
-      rev = "bffb0a5aa155b8015265603af33a67549fb4fecd";
+      rev = "0044a9cca7435953d746ccbfaad27aa98e590d96";
       fetchSubmodules = true;
-      sha256 = "sha256-amPRYm90wjEcYxqOqQjjmUD7dzfqIUm+XvpptkhIJmg=";
+      sha256 = "sha256-A+2qLqGST/ZSll6Y5GTIj7dLNGQ4/966/5kiNJyi9uY=";
     };
-    date = "2023-09-19";
+    date = "2023-10-07";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -150,15 +150,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "22da3354e6f629f9294c830d8558875d77b5cffc";
+    version = "8440eafdb516a379b4350f3c29a0e919f88cee24";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "22da3354e6f629f9294c830d8558875d77b5cffc";
+      rev = "8440eafdb516a379b4350f3c29a0e919f88cee24";
       fetchSubmodules = false;
-      sha256 = "sha256-EcChzeEOh2oAZNgvR+kWCBpWomMopK2Zs+0+dvDUJh0=";
+      sha256 = "sha256-hpqcq42oFtQvDst5Rup9U/ejZgTnAJum0+nSgsBQ8Gs=";
     };
-    date = "2023-09-20";
+    date = "2023-10-07";
   };
   libadwaita-1_4 = {
     pname = "libadwaita-1_4";
@@ -251,15 +251,15 @@
   };
   slock-flexipatch = {
     pname = "slock-flexipatch";
-    version = "780a7887a3b976a48786f991d55fc8a474e76a25";
+    version = "316de8856f9f25685f6f1c4e94dbf76e4f64c06b";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "slock-flexipatch";
-      rev = "780a7887a3b976a48786f991d55fc8a474e76a25";
+      rev = "316de8856f9f25685f6f1c4e94dbf76e4f64c06b";
       fetchSubmodules = false;
-      sha256 = "sha256-3jzEXIaH6qZkbvumlYqPSW1kDjg8obDMVoj6y3Vhe4I=";
+      sha256 = "sha256-jsAfkd2Xtzp4zKwY0bExPhVtcs+OeBdGJA29SPC04jk=";
     };
-    date = "2022-10-06";
+    date = "2023-10-06";
   };
   st-flexipatch = {
     pname = "st-flexipatch";
@@ -275,27 +275,27 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "067e0bff51e470ebffc4e9fc749656745461ce73";
+    version = "46eba89c2a4d4ffefe42c3ee4506d1b74c8e61fd";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "067e0bff51e470ebffc4e9fc749656745461ce73";
+      rev = "46eba89c2a4d4ffefe42c3ee4506d1b74c8e61fd";
       fetchSubmodules = false;
-      sha256 = "sha256-m73WjXb6o0r4iPhBUUPrRUpToe9giRJZe4Xu3yfWfwQ=";
+      sha256 = "sha256-Q19F91yVQviqxgY+FkvEwtX2vcw414eVtK8erim0NrU=";
     };
-    date = "2023-09-08";
+    date = "2023-10-06";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "909d097c30a2729cff3ec74a89799113d9c3f570";
+    version = "6ecb0011cfb7ac1e5e234acfd49459fb6ca2783e";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "909d097c30a2729cff3ec74a89799113d9c3f570";
+      rev = "6ecb0011cfb7ac1e5e234acfd49459fb6ca2783e";
       fetchSubmodules = false;
-      sha256 = "sha256-/vrGBls0uZ5cU+SWq2Byw8Z+xIozIHj18EF6G0P2EuQ=";
+      sha256 = "sha256-5JV6eKihQ90uLO9wuaGynuojdhmpyZ3/FwTeozCC4Bo=";
     };
-    date = "2023-09-28";
+    date = "2023-10-06";
   };
   tree-sitter-hypr = {
     pname = "tree-sitter-hypr";

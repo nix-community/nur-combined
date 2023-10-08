@@ -99,13 +99,13 @@
         sha512 = "F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==";
       };
     };
-    "agent-base-6.0.2" = {
+    "agent-base-7.1.0" = {
       name = "agent-base";
       packageName = "agent-base";
-      version = "6.0.2";
+      version = "7.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz";
-        sha512 = "RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==";
+        url = "https://registry.npmjs.org/agent-base/-/agent-base-7.1.0.tgz";
+        sha512 = "o/zjMZRhJxny7OyEF+Op8X+efiELC7k7yOjMzgfzVqOzXqkBkWI79YoTdOtsuWd5BWhAGAuOY/Xa6xpiaWXiNg==";
       };
     };
     "anymatch-3.1.3" = {
@@ -306,13 +306,13 @@
         sha512 = "5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==";
       };
     };
-    "giget-1.1.2" = {
+    "giget-1.1.3" = {
       name = "giget";
       packageName = "giget";
-      version = "1.1.2";
+      version = "1.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/giget/-/giget-1.1.2.tgz";
-        sha512 = "HsLoS07HiQ5oqvObOI+Qb2tyZH4Gj5nYGfF9qQcZNrPw+uEFhdXtgJr01aO2pWadGHucajYDLxxbtQkm97ON2A==";
+        url = "https://registry.npmjs.org/giget/-/giget-1.1.3.tgz";
+        sha512 = "zHuCeqtfgqgDwvXlR84UNgnJDuUHQcNI5OqWqFxxuk2BshuKbYhJWdxBsEo4PvKqoGh23lUAIvBNpChMLv7/9Q==";
       };
     };
     "glob-parent-5.1.2" = {
@@ -324,13 +324,13 @@
         sha512 = "AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==";
       };
     };
-    "https-proxy-agent-5.0.1" = {
+    "https-proxy-agent-7.0.2" = {
       name = "https-proxy-agent";
       packageName = "https-proxy-agent";
-      version = "5.0.1";
+      version = "7.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-5.0.1.tgz";
-        sha512 = "dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==";
+        url = "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.2.tgz";
+        sha512 = "NmLNjm6ucYwtcUmL7JQC1ZQ57LmHP4lT15FQ8D61nak1rO6DH+fz5qNK2Ap5UN4ZapYICE3/0KodcLYSPsPbaA==";
       };
     };
     "is-binary-path-2.1.0" = {
@@ -906,7 +906,7 @@ in {
       sources."@nodelib/fs.walk-1.2.8"
       sources."@vscode/emmet-helper-2.9.2"
       sources."acorn-8.10.0"
-      sources."agent-base-6.0.2"
+      sources."agent-base-7.1.0"
       sources."anymatch-3.1.3"
       sources."binary-extensions-2.2.0"
       sources."braces-3.0.2"
@@ -934,9 +934,9 @@ in {
           ];
         })
       sources."fsevents-2.3.3"
-      sources."giget-1.1.2"
+      sources."giget-1.1.3"
       sources."glob-parent-5.1.2"
-      sources."https-proxy-agent-5.0.1"
+      sources."https-proxy-agent-7.0.2"
       sources."is-binary-path-2.1.0"
       sources."is-extglob-2.1.1"
       sources."is-glob-4.0.3"
