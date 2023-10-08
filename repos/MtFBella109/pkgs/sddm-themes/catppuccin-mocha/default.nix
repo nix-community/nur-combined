@@ -5,7 +5,7 @@
     dontBuild = true;
     installPhase = ''
       mkdir -p $out/share/sddm/themes
-      cp -aR $src/src/catppuccin-mocha $out/share/sddm/themes/catpuccin-mocha
+      cp -aR $src/src/catppuccin-mocha $out/share/sddm/themes/catppuccin-mocha
     '';
     src = fetchFromGitHub {
       owner = "catppuccin";
