@@ -22,6 +22,7 @@
     ];
     fs.".stepmania-5.1/Courses".symlink.target = "/mnt/servo-media/games/stepmania/Courses";
     fs.".stepmania-5.1/Songs".symlink.target = "/mnt/servo-media/games/stepmania/Songs";
+    fs.".stepmania-5.1/stepmania.nix".symlink.target = "../nixos/hosts/common/programs/stepmania.nix";
     # TODO: setup ~/.stepmania-5.1/Themes
   };
 }
