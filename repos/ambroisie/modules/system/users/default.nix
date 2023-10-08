@@ -17,11 +17,11 @@ in
 
       users = {
         root = {
-          passwordFile = secrets."users/root/hashed-password".path;
+          hashedPasswordFile = secrets."users/root/hashed-password".path;
         };
 
         ${config.my.user.name} = {
-          passwordFile = secrets."users/ambroisie/hashed-password".path;
+          hashedPasswordFile = secrets."users/ambroisie/hashed-password".path;
           description = "Bruno BELANYI";
           isNormalUser = true;
           shell = pkgs.zsh;
