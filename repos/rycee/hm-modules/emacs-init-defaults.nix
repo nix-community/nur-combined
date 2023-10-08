@@ -11,7 +11,14 @@
       ''"CMakeLists.txt\\'"''
     ];
 
+    cmake-ts-mode.mode = [
+      ''"\\.cmake\\'"'' # \
+      ''"CMakeLists.txt\\'"''
+    ];
+
     csharp-mode.mode = [ ''"\\.cs\\'"'' ];
+
+    csharp-ts-mode.mode = [ ''"\\.cs\\'"'' ];
 
     cue-mode = {
       package = epkgs:
@@ -47,6 +54,8 @@
 
     dockerfile-mode.mode = [ ''"Dockerfile\\'"'' ];
 
+    dockerfile-ts-mode.mode = [ ''"Dockerfile\\'"'' ];
+
     elm-mode.mode = [ ''"\\.elm\\'"'' ];
 
     emacsql-sqlite3 = {
@@ -68,6 +77,8 @@
         (setq idris-interpreter-path "${pkgs.idris}/bin/idris")
       '';
     };
+
+    json-ts-mode.mode = [ ''"\\.json\\'"'' ];
 
     kotlin-mode = {
       mode = [ ''"\\.kts?\\'"'' ];
