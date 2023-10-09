@@ -8,7 +8,7 @@ with python3Packages;
 buildPythonPackage rec {
   pname = "beets-originquery";
   version = "unstable-2022-03-11";
-  pyproject = true;
+  # pyproject = true;
 
   src = fetchFromGitHub {
     owner = "x1ppy";
