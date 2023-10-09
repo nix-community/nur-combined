@@ -85,6 +85,9 @@
         "anthonyroussel": {
             "url": "https://github.com/anthonyroussel/nur-packages"
         },
+        "aprilthepink": {
+            "url": "https://github.com/CutestNekoAqua/nur-repo"
+        },
         "arc": {
             "file": "nur.nix",
             "url": "https://github.com/arcnmx/nixexprs"
