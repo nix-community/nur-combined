@@ -64,6 +64,12 @@ let
         url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45263/mbox";
         hash = "sha256-qDvlLecAjxcKXP7tvhMnySkWPkj6oV0Z0Qm3kudazdk=";
       })
+      (fetchpatch {
+        # merged ~2023/10/08
+        name = "suspend: block if Dino is in a call";
+        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45470/mbox";
+        hash = "sha256-ev+NLR4g68MWB4RENh7mCth02lTaXxCIAL/af5l8Mrw=";
+      })
     ];
     unmerged = [
       # (fetchpatch {
@@ -90,14 +96,17 @@ let
     ];
     # these don't apply cleanly to the stable release; only to latest
     unmerged-tip-only = [
-      (fetchpatch {
-        name = "suspend: block if Dino is in a call";
-        # url = "https://git.uninsane.org/colin/sxmo-utils/commit/50c1a63f9858dcfcd7717960f1adbc90535af295.patch";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45470/mbox";
-        hash = "sha256-ev+NLR4g68MWB4RENh7mCth02lTaXxCIAL/af5l8Mrw=";
-      })
-
       # TODO: send these upstream
+      (fetchpatch {
+        name = "manpage: fix typo to sxmo_hook_network_pre_{up,down}.sh";
+        url = "https://git.uninsane.org/colin/sxmo-utils/commit/9954df10f4885c6dad7396829d97a39e20d285dd.patch";
+        hash = "sha256-+76kia1kEb7Rj8KgP1ty9VlboB4OlWpZS/U0ANLYE5E=";
+      })
+      (fetchpatch {
+        name = "add defaults for hooks referenced in sxmo_power.sh";
+        url = "https://git.uninsane.org/colin/sxmo-utils/commit/3f432023b766db4146aaaa830c68f31494ebe90b.patch";
+        hash = "sha256-jkdh6gJg0kQVPf5UnTqSv+4aImN0syuQx96NLctKUPE=";
+      })
       (fetchpatch {
         name = "sxmo_hook_apps: add a few";
         url = "https://git.uninsane.org/colin/sxmo-utils/commit/dd17fd707871961906ed4577b8c89f6128c5f121.patch";

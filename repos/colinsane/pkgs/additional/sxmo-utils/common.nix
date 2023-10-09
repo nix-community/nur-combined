@@ -133,6 +133,8 @@ stdenv.mkDerivation rec {
       --replace "/bin/chgrp" "${coreutils}/bin/chgrp" \
       --replace "/bin/chmod" "${coreutils}/bin/chmod"
   '' + lib.optionalString preferSystemd ''
+    shopt -s globstar
+    sed -i 's/superctl status "$1" | grep -q started/systemctl --user is-active --quiet "$1"/g' **/*.sh
     sed -i 's/superctl/systemctl --user/g' **/*.sh
   '';
 
