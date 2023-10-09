@@ -105,8 +105,6 @@
 
   pyoperon = pkgs.python3Packages.callPackage ./pkgs/pyoperon { };
 
-  qt6ct = pkgs.qt6Packages.callPackage ./pkgs/qt6ct { };
-
   qpdfview-qt5 = pkgs.libsForQt5.callPackage ./pkgs/qpdfview { };
   qpdfview-qt6 = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
