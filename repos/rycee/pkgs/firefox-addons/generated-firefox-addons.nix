@@ -2111,10 +2111,10 @@
       };
     "form-history-control" = buildFirefoxXpiAddon {
       pname = "form-history-control";
-      version = "2.5.6.1";
+      version = "2.5.7.0";
       addonId = "formhistory@yahoo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3758560/form_history_control-2.5.6.1.xpi";
-      sha256 = "3ce088e3d569363312f55ca945cacbdcb7f2c4268aae1b3dea45307e2c47e18b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178354/form_history_control-2.5.7.0.xpi";
+      sha256 = "4e3a14c18193c3ae97d9dcc31f1ec59bb340cd021d8351b672616b165ae9ab96";
       meta = with lib;
       {
         homepage = "https://stephanmahieu.github.io/fhc-home/";
@@ -4092,10 +4092,10 @@
       };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.15";
+      version = "2.16";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4177315/ipvfoo_pmarks-2.15.xpi";
-      sha256 = "c0e3b7208e890c17719578612746d93ef3d78e596c152ac5d84d7694c4457717";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178440/ipvfoo_pmarks-2.16.xpi";
+      sha256 = "09a0f818fd8e8ad7630af8077db9c5e711ad8d843f56b1da911d0c0a7da60124";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -4472,10 +4472,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.8.0";
+      version = "2.8.1";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162020/libredirect-2.8.0.xpi";
-      sha256 = "ae8f1143fcd8c3fa926bc9c95e50ab04d1c847b8bd57c1a893db291c089510a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178347/libredirect-2.8.1.xpi";
+      sha256 = "c91f19377b07b119eec4d53c28c45cdb5d0755287a79b715328654adb5c7ddfa";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -7190,10 +7190,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.14";
+      version = "2023.16";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4176256/streetpass_for_mastodon-2023.14.xpi";
-      sha256 = "ee172f549726446d1042d4eb7780ca8c981df91f5f3cd94b09a19eb5602f80d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178488/streetpass_for_mastodon-2023.16.xpi";
+      sha256 = "614636d3e7de1b983afee0546d7c10d850778052dbb706b9c229c420baa00f92";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
