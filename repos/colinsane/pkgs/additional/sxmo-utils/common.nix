@@ -28,6 +28,7 @@
 , mako
 , modemmanager
 , nettools
+, networkmanager
 , playerctl
 , procps
 , pulseaudio
@@ -39,6 +40,7 @@
 , superd
 , sway
 , swayidle
+, systemd
 , wob
 , wl-clipboard
 , wtype
@@ -53,6 +55,7 @@
 , patches ? []
 , supportSway ? true
 , supportDwm ? false
+, preferSystemd ? false
 }:
 
 let
@@ -75,15 +78,17 @@ let
     mako
     modemmanager  # mmcli
     nettools  # netstat
+    networkmanager  # nmcli
     playerctl
     procps  # pgrep
     pulseaudio  # pactl
     sfeed
-    superd
     wob
     xdg-user-dirs  # used by sxmo_hook_start.sh
     xrdb  # for sxmo_xinit AND sxmo_winit
-  ] ++ lib.optionals supportSway [
+  ] ++ (
+    if preferSystemd then [ systemd ] else [ superd ]
+  ) ++ lib.optionals supportSway [
     bemenu
     grim
     slurp  # for sxmo_screenshot.sh
@@ -127,6 +132,8 @@ stdenv.mkDerivation rec {
     substituteInPlace configs/udev/90-sxmo.rules \
       --replace "/bin/chgrp" "${coreutils}/bin/chgrp" \
       --replace "/bin/chmod" "${coreutils}/bin/chmod"
+  '' + lib.optionalString preferSystemd ''
+    sed -i 's/superctl/systemctl --user/g' **/*.sh
   '';
 
   nativeBuildInputs = [
@@ -164,13 +171,14 @@ stdenv.mkDerivation rec {
         ;;
         (*)
           wrapProgram "$f" \
-            --prefix PATH : "${lib.makeBinPath runtimeDeps}"
+            --suffix PATH : "${lib.makeBinPath runtimeDeps}"
         ;;
       esac
     done
   '';
 
   passthru = {
+    inherit runtimeDeps;
     providedSessions = (lib.optional supportSway "swmo") ++ (lib.optional supportDwm "sxmo");
     updateScript = gitUpdater { };
   };

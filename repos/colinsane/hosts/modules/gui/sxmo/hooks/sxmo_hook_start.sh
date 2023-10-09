@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p superd -p xdg-user-dirs
+#!nix-shell -i bash -p systemd -p xdg-user-dirs
 # this is based on upstream sxmo-utils sxmo_hook_start.sh
 # but modified for nixos integration and specialize a bit to my needs
 . sxmo_common.sh
@@ -7,23 +7,19 @@
 # Create xdg user directories, such as ~/Pictures
 xdg-user-dirs-update
 
-sxmo_daemons.sh start daemon_manager superd
-
-# let time to superd to start correctly
-while ! superctl status > /dev/null 2>&1; do
-	sleep 0.5
-done
+sxmo_daemons.sh start daemon_manager
 
 # Periodically update some status bar components
 sxmo_hook_statusbar.sh all
 sxmo_daemons.sh start statusbar_periodics sxmo_run_aligned.sh 60 \
 	sxmo_hook_statusbar.sh periodics
 
-# don't: mako can be started lazily (via dbus activation, i think)
+# TODO: start these externally, via `wantedBy` in nix
+# don't: mako is managed externally
 #   superctl start mako
-superctl start sxmo_wob
-superctl start sxmo_menumode_toggler
-superctl start bonsaid
+systemctl --user start sxmo_wob
+systemctl --user start sxmo_menumode_toggler
+systemctl --user start bonsaid
 # don't: sway background is managed externally
 #   swaymsg output '*' bg "$SXMO_BG_IMG" fill
 
@@ -32,17 +28,17 @@ sxmo_state_switch.sh set unlock
 
 # Turn on auto-suspend
 if [ -w "/sys/power/wakeup_count" ] && [ -f "/sys/power/wake_lock" ]; then
-	superctl start sxmo_autosuspend
+	systemctl --user start sxmo_autosuspend
 fi
 
 # Turn on lisgd
 if [ ! -e "$XDG_CACHE_HOME"/sxmo/sxmo.nogesture ]; then
-	superctl start sxmo_hook_lisgd
+	systemctl --user start sxmo_hook_lisgd
 fi
 
 if [ "$(command -v ModemManager)" ]; then
 	# Turn on the dbus-monitors for modem-related tasks
-	superctl start sxmo_modemmonitor
+	systemctl --user start sxmo_modemmonitor
 
 	# place a wakelock for 120s to allow the modem to fully warm up (eg25 +
 	# elogind/systemd would do this for us, but we don't use those.)
@@ -53,16 +49,16 @@ fi
 #   superctl start sxmo_conky
 
 # Monitor the battery
-superctl start sxmo_battery_monitor
+systemctl --user start sxmo_battery_monitor
 
 # It watch network changes and update the status bar icon by example
-superctl start sxmo_networkmonitor
+systemctl --user start sxmo_networkmonitor
 
 # The daemon that display notifications popup messages
-superctl start sxmo_notificationmonitor
+systemctl --user start sxmo_notificationmonitor
 
 # monitor for headphone for statusbar
-superctl start sxmo_soundmonitor
+systemctl --user start sxmo_soundmonitor
 
 # rotate UI based on physical display angle by default
 if [ -n "$SXMO_AUTOROTATE" ]; then
@@ -75,11 +71,11 @@ fi
 
 # mmsd and vvmd
 if [ -f "${SXMO_MMS_BASE_DIR:-"$HOME"/.mms/modemmanager}/mms" ]; then
-	superctl start mmsd-tng
+	systemctl --user start mmsd-tng
 fi
 
 if [ -f "${SXMO_VVM_BASE_DIR:-"$HOME"/.vvm/modemmanager}/vvm" ]; then
-	superctl start vvmd
+	systemctl --user start vvmd
 fi
 
 # add some warnings if things are not setup correctly

@@ -127,26 +127,33 @@ let
     pkgs.kernelPatches.bridge_stp_helper
     pkgs.kernelPatches.request_key_helper
     # (patchDefconfig kernelConfig)
+    # wake on wireless lan (WOWLAN) patches:
+    # see: <https://gist.github.com/Peetz0r/bf8fd93a60962b4afcf2daeb4305da40>
+    # see: <https://xnux.eu/log/031.html>
+    # see: <https://irclog.whitequark.org/linux-sunxi/2021-02-19>
+    # most of the relevant bits here (e.g. CONFIG_WOWLAN=y) have been merged
     {
-      # enable CONFIG_WOWLAN=y within the rtl8723 bluetooth/WiFi driver
-      #   (not an ordinary Kconfig option).
-      # also configures the pinephone device tree to `keep-power-in-suspend` for the WiFi peripherals
-      # together, this allows the WiFi chip to wake the application processor when it receives packets of interest.
-      # in particular this allows WiFi calls to be received while the phone is otherwise sleeping.
-      # additional userspace configuration is necessary to enable this.
-      # see: <https://gist.github.com/Peetz0r/bf8fd93a60962b4afcf2daeb4305da40>
-      # see: <https://xnux.eu/log/031.html>
-      # see: <https://irclog.whitequark.org/linux-sunxi/2021-02-19>
-      name = "enable-wowlan-in-rtl8723cs";
-      # patch = fetchpatch {
-      #   url = "https://gist.githubusercontent.com/Peetz0r/bf8fd93a60962b4afcf2daeb4305da40/raw/7697bc9c36d75cc1a44dc164b60412a34a8bf2c4/enable-wowlan-in-rtl8723cs.patch";
-      #   hash = "sha256-jXe3dHBHggdGKN8cHH4zqY9HLtZ2axXcgYO//6j9qIY=";
-      # };
+      # the pinephone device tree to `keep-power-in-suspend` for the WiFi peripherals
+      # unclear if this is truly needed: a *different* piece of the device tree was set for keep-power-in-suspend
+      # when megi merged Peetz0r's patch.
+      # there appears to be support for WOWLAN even with this patch dropped.
+      # it seems to be flaky without this patch though.
+      # but i have so few samples, and it's flaky to begin with, so... ?
+      name = "pinephone-dt-keep-power-in-suspend";
       patch = fetchpatch {
         url = "https://git.uninsane.org/colin/linux/commit/afd6514fd3098047000b3f1f198c2256478dce46.patch";
         hash = "sha256-8OtGXpCPJbk3c3Z4DcurS0F+Ogqx+xahEv+256+4dcY=";
       };
     }
+    # {
+    #   # experimental: set CONFIG_LPS_MODE = 0
+    #   # uncertain what this does, LPS = "Leisure Power Savings"
+    #   name = "disable-rtl8723cs-lps";
+    #   patch = fetchpatch {
+    #     url = "https://git.uninsane.org/colin/linux/commit/8bee908739b3b3aa505b22e558397d2d59060951.patch";
+    #     hash = "sha256-DnLDseL1Ar5gE31CQUTrGNxxNu88jGCzj8ko99Z8vUA=";
+    #   };
+    # }
   ] ++ lib.optionals (!withModemPower) [
     {
       # Drop modem-power from DT to allow eg25-manager to have full control.

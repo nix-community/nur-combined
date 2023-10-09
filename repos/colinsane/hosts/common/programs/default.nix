@@ -5,6 +5,7 @@
     ./aerc.nix
     ./alacritty.nix
     ./assorted.nix
+    ./bemenu.nix
     ./calls.nix
     ./cantata.nix
     ./chatty.nix

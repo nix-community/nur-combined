@@ -51,6 +51,8 @@
 #     - driver Makefile:
 #       - #bit0: ROAM_ON_EXPIRED, #bit1: ROAM_ON_RESUME, #bit2: ROAM_ACTIVE
 #       - CONFIG_ROAMING_FLAG = 0x3
+# - may fail to wake on LAN, even without any signature like the above
+#   - observed after a suspension of 10 minutes, trying to contact from laptop (laptop would have previously not contacted moby)
 
 
 { config, lib, pkgs, ... }:

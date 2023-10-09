@@ -41,6 +41,14 @@
   # does the builder use some content-addressed db to efficiently dedupe?
   nix.settings.auto-optimise-store = true;
 
+  services.journald.extraConfig = ''
+    # docs: `man journald.conf`
+    # merged journald config is deployed to /etc/systemd/journald.conf
+    [Journal]
+    # disable journal compression because the underlying fs is compressed
+    Compress=no
+  '';
+
   systemd.services.nix-daemon.serviceConfig = {
     # the nix-daemon manages nix builders
     # kill nix-daemon subprocesses when systemd-oomd detects an out-of-memory condition

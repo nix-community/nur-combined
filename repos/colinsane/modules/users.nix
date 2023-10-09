@@ -56,6 +56,18 @@ let
       };
     };
   };
+  defaultUserOptions = {
+    options = userOptions.options // {
+      services = mkOption {
+        # type = utils.systemdUtils.types.services;
+        # map to listOf attrs so that we can pass through
+        # w/o worrying about merging at this layer
+        type = types.attrsOf (types.coercedTo types.attrs (a: [ a ]) (types.listOf types.attrs));
+        default = {};
+        inherit (userOptions.options.services) description;
+      };
+    };
+  };
   userModule = let nixConfig = config; in types.submodule ({ name, config, ... }: {
     options = userOptions.options // {
       default = mkOption {
@@ -77,7 +89,10 @@ let
 
     config = lib.mkMerge [
     # if we're the default user, inherit whatever settings were routed to the default user
-      (mkIf config.default sane-user-cfg)
+      (mkIf config.default {
+        inherit (sane-user-cfg) fs persist environment;
+        services = lib.mapAttrs (_: lib.mkMerge) sane-user-cfg.services;
+      })
       {
         fs."/".dir.acl = {
           user = name;
@@ -158,7 +173,7 @@ in
     };
 
     sane.user = mkOption {
-      type = types.nullOr (types.submodule userOptions);
+      type = types.nullOr (types.submodule defaultUserOptions);
       default = null;
       description = ''
         options to pass down to the default user

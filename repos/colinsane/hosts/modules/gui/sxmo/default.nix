@@ -20,7 +20,8 @@
 #
 # sxmo technical overview:
 # - inputs
-#   - dwm: handles vol/power buttons; hardcoded in config.h
+#   - bonsaid: handles vol/power buttons
+#     - it receives those buttons from dwm (if x11) harcoded in config.h or sway (if wayland)
 #   - lisgd: handles gestures
 # - startup
 #   - daemon based (lisgsd, idle_locker, statusbar_periodics)
@@ -44,9 +45,6 @@
 #   - menus:               bemenu (if wayland), dmenu (if X)
 #   - gestures:            lisgd
 #   - on-screen keyboard:  wvkbd (if wayland), svkbd (if X)
-#
-# TODO:
-# - theme `mako` notifications
 { config, lib, pkgs, ... }:
 
 let
@@ -85,7 +83,12 @@ let
     start = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_start.sh";
       src = ./hooks;
-      pkgs = [ "superd" "xdg-user-dirs" ];
+      pkgs = [ "systemd" "xdg-user-dirs" ];
+    };
+    suspend = pkgs.static-nix-shell.mkBash {
+      pname = "sxmo_suspend.sh";
+      src = ./hooks;
+      pkgs = [ "coreutils" "util-linux" ];
     };
   };
 in
@@ -118,7 +121,7 @@ in
     };
     sane.gui.sxmo.package = mkOption {
       type = types.package;
-      default = pkgs.sxmo-utils-latest;
+      default = pkgs.sxmo-utils-latest.override { preferSystemd = true; };
       description = ''
         sxmo base scripts and hooks collection.
         consider overriding the outputs under /share/sxmo/default_hooks
@@ -176,6 +179,7 @@ in
         "sxmo_hook_postwake.sh" = "${hookPkgs.postwake}/bin/sxmo_hook_postwake.sh";
         "sxmo_hook_rotate.sh" = "${hookPkgs.rotate}/bin/sxmo_hook_rotate.sh";
         "sxmo_hook_start.sh" = "${hookPkgs.start}/bin/sxmo_hook_start.sh";
+        "sxmo_suspend.sh" = "${hookPkgs.suspend}/bin/sxmo_suspend.sh";
       };
       description = ''
         extra hooks to add with higher priority than the builtins
@@ -240,13 +244,14 @@ in
         package = null;
         suggestedPrograms = [
           "guiApps"
+          "bemenu"  # specifically to import its theming
           "sfeed"      # want this here so that the user's ~/.sfeed/sfeedrc gets created
-          "superd"     # make superctl (used by sxmo) be on PATH
+          # "superd"     # make superctl (used by sxmo) be on PATH
         ];
 
         persist.cryptClearOnBoot = [
           # builds to be 10's of MB per day
-          ".local/state/superd/logs"
+          # ".local/state/superd/logs"
         ];
       };
     }
@@ -408,28 +413,55 @@ in
         # start the service many times.
         # see <repo:craftyguy/superd:internal/cmd/cmd.go>
         # TODO: better fix may be to patch `sxmo_hook_lisgdstart.sh` and force it to behave as a singleton
-        systemd.services."dedupe-sxmo-lisgd" = {
-          description = "kill duplicate lisgd processes started by superd";
-          serviceConfig = {
-            Type = "oneshot";
-          };
-          script = ''
-            if [ "$(${pkgs.procps}/bin/pgrep -c lisgd)" -gt 1 ]; then
-              echo 'killing duplicated lisgd daemons'
-              ${pkgs.psmisc}/bin/killall lisgd  # let superd restart it
-            fi
-          '';
-          wantedBy = [ "multi-user.target" ];
-        };
-        systemd.timers."dedupe-sxmo-lisgd" = {
-          wantedBy = [ "dedupe-sxmo-lisgd.service" ];
-          timerConfig = {
-            OnUnitActiveSec = "2min";
-          };
-        };
+        # systemd.services."dedupe-sxmo-lisgd" = {
+        #   description = "kill duplicate lisgd processes started by superd";
+        #   serviceConfig = {
+        #     Type = "oneshot";
+        #   };
+        #   script = ''
+        #     if [ "$(${pkgs.procps}/bin/pgrep -c lisgd)" -gt 1 ]; then
+        #       echo 'killing duplicated lisgd daemons'
+        #       ${pkgs.psmisc}/bin/killall lisgd  # let superd restart it
+        #     fi
+        #   '';
+        #   wantedBy = [ "multi-user.target" ];
+        # };
+        # systemd.timers."dedupe-sxmo-lisgd" = {
+        #   wantedBy = [ "dedupe-sxmo-lisgd.service" ];
+        #   timerConfig = {
+        #     OnUnitActiveSec = "2min";
+        #   };
+        # };
 
         sane.user.fs = lib.mkMerge [
           {
+            # link the superd services into a place where systemd can find them.
+            # the unit files should be compatible, except maybe for PATH handling
+            # ".config/systemd/user/autocutsel-primary.service".symlink.target = "${package}/share/superd/services/autocutsel-primary.service";
+            # ".config/systemd/user/autocutsel.service".symlink.target = "${package}/share/superd/services/autocutsel.service";
+            # ".config/systemd/user/bonsaid.service".symlink.target = "${package}/share/superd/services/bonsaid.service";
+            # # ".config/systemd/user/dunst.service".symlink.target = "${package}/share/superd/services/dunst.service";
+            # # ".config/systemd/user/mako.service".symlink.target = "${package}/share/superd/services/mako.service";
+            # ".config/systemd/user/mmsd-tng.service".symlink.target = "${package}/share/superd/services/mmsd-tng.service";
+            # ".config/systemd/user/sxmo_autosuspend.service".symlink.target = "${package}/share/superd/services/sxmo_autosuspend.service";
+            # ".config/systemd/user/sxmo_battery_monitor.service".symlink.target = "${package}/share/superd/services/sxmo_battery_monitor.service";
+            # ".config/systemd/user/sxmo_conky.service".symlink.target = "${package}/share/superd/services/sxmo_conky.service";
+            # ".config/systemd/user/sxmo_desktop_widget.service".symlink.target = "${package}/share/superd/services/sxmo_desktop_widget.service";
+            # ".config/systemd/user/sxmo_hook_lisgd.service".symlink.target = "${package}/share/superd/services/sxmo_hook_lisgd.service";
+            # ".config/systemd/user/sxmo_menumode_toggler.service".symlink.target = "${package}/share/superd/services/sxmo_menumode_toggler.service";
+            # ".config/systemd/user/sxmo_modemmonitor.service".symlink.target = "${package}/share/superd/services/sxmo_modemmonitor.service";
+            # ".config/systemd/user/sxmo_networkmonitor.service".symlink.target = "${package}/share/superd/services/sxmo_networkmonitor.service";
+            # ".config/systemd/user/sxmo_notificationmonitor.service".symlink.target = "${package}/share/superd/services/sxmo_notificationmonitor.service";
+            # ".config/systemd/user/sxmo_soundmonitor.service".symlink.target = "${package}/share/superd/services/sxmo_soundmonitor.service";
+            # ".config/systemd/user/sxmo_wob.service".symlink.target = "${package}/share/superd/services/sxmo_wob.service";
+            # ".config/systemd/user/sxmo-x11-status.service".symlink.target = "${package}/share/superd/services/sxmo-x11-status.service";
+            # ".config/systemd/user/unclutter.service".symlink.target = "${package}/share/superd/services/unclutter.service";
+            # ".config/systemd/user/unclutter-xfixes.service".symlink.target = "${package}/share/superd/services/unclutter-xfixes.service";
+            # ".config/systemd/user/vvmd.service".symlink.target = "${package}/share/superd/services/vvmd.service";
+
+            # service code further below tells systemd to put ~/.config/sxmo/hooks on PATH, but it puts hooks/bin on PATH instead, so symlink that
+            ".config/sxmo/hooks/bin".symlink.target = ".";
+
             ".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle {
               symlink.text = "";
             };
@@ -449,6 +481,60 @@ in
             value.symlink.target = value;
           }) cfg.hooks)
         ];
+
+        sane.user.services = let
+          sxmoPath = [
+            "/etc/profiles/per-user/colin"  # so as to launch user-enabled applications (like g4music, etc)
+            "/run/wrappers"  # for doas, and anything else suid
+            "/run/current-system/sw"  # for things installed system-wide, especially flock
+          ] ++ [ package ] ++ package.runtimeDeps;
+          sxmoEnvSetup = ''
+            # mimic my sxmo_init.sh a bit. refer to the actual sxmo_init.sh above for details.
+            # the specific ordering, and the duplicated profile sourcing, matters.
+            export HOME="''${HOME:-/home/colin}"
+            export XDG_CONFIG_HOME="''${XDG_CONFIG_HOME:-$HOME/.config}"
+            source "$XDG_CONFIG_HOME/sxmo/profile"
+            source ${package}/etc/profile.d/sxmo_init.sh
+            source "$XDG_CONFIG_HOME/sxmo/profile"
+            export PATH="$XDG_CONFIG_HOME/sxmo/hooks:$PATH"
+          '';
+          sxmoService = name: {
+            description = "sxmo ${name}";
+            path = sxmoPath;
+            script = ''
+              ${sxmoEnvSetup}
+              exec sxmo_${name}.sh
+            '';
+            serviceConfig.Type = "simple";
+            serviceConfig.Restart = "always";
+            serviceConfig.RestartSec = "20s";
+          };
+        in {
+          sxmo_autosuspend = sxmoService "autosuspend";
+          sxmo_battery_monitor = sxmoService "battery_monitor";
+          sxmo_desktop_widget = sxmoService "hook_desktop_widget";
+          sxmo_hook_lisgd = sxmoService "hook_lisgdstart";
+          sxmo_menumode_toggler = sxmoService "menumode_toggler";
+          sxmo_modemmonitor = sxmoService "modemmonitor";
+          sxmo_networkmonitor = sxmoService "networkmonitor";
+          sxmo_notificationmonitor = sxmoService "notificationmonitor";
+          sxmo_soundmonitor = sxmoService "soundmonitor";
+          sxmo_wob = sxmoService "wob";
+          sxmo-x11-status = sxmoService "status_xsetroot";
+
+          bonsaid = {
+            description = "programmable input dispatcher";
+            path = sxmoPath;
+            script = ''
+              ${sxmoEnvSetup}
+              ${pkgs.coreutils}/bin/rm -f $XDG_RUNTIME_DIR/bonsai
+              exec ${pkgs.bonsai}/bin/bonsaid -t $XDG_CONFIG_HOME/sxmo/bonsai_tree.json
+            '';
+            serviceConfig.Type = "simple";
+            serviceConfig.Restart = "always";
+            serviceConfig.RestartSec = "5s";
+          };
+        };
       }
 
       (lib.mkIf (cfg.greeter == "lightdm-mobile") {
