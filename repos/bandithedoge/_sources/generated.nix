@@ -220,15 +220,15 @@
   };
   macemu = {
     pname = "macemu";
-    version = "9a7751f1a2b2db75fbebbeef850832921e7d2a7a";
+    version = "2533f7ac05912bbde159b61083715c293e3b1f41";
     src = fetchFromGitHub {
       owner = "kanjitalk755";
       repo = "macemu";
-      rev = "9a7751f1a2b2db75fbebbeef850832921e7d2a7a";
+      rev = "2533f7ac05912bbde159b61083715c293e3b1f41";
       fetchSubmodules = false;
-      sha256 = "sha256-zDHZ5B9PUQMXQIe560CChqi1sD6E6wMHzEScYoY3DNQ=";
+      sha256 = "sha256-po12noGD8OuMbh+Y8PdHIfYu7HGhjcK/jGOc0HjdGxo=";
     };
-    date = "2023-09-13";
+    date = "2023-10-08";
   };
   raze = {
     pname = "raze";
@@ -263,15 +263,15 @@
   };
   st-flexipatch = {
     pname = "st-flexipatch";
-    version = "1c03f10db9d52c3b9417eeff2e81d0a370280834";
+    version = "1af2184c87b929a84828eab2f1f0c4f810ef17dc";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "st-flexipatch";
-      rev = "1c03f10db9d52c3b9417eeff2e81d0a370280834";
+      rev = "1af2184c87b929a84828eab2f1f0c4f810ef17dc";
       fetchSubmodules = false;
-      sha256 = "sha256-W1kHL7FsA9V+EYz7NgFpnGucEQ31CgM4hChzcVxSA2o=";
+      sha256 = "sha256-2j/ISaaw5VNQxOo/dZfy7U5YLsZAEyI609ufyOb4ZZA=";
     };
-    date = "2023-09-12";
+    date = "2023-10-08";
   };
   taffybar = {
     pname = "taffybar";
