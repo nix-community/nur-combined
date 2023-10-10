@@ -1,58 +1,40 @@
 { lib
-, stdenv
+, rustPlatform
 , fetchFromGitHub
-, libmoss
-, curl
-, ldc
-, lmdb
-, meson
-, ninja
 , pkg-config
-, xxHash
+, sqlite
 , zstd
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+rustPlatform.buildRustPackage {
   pname = "moss";
-  version = "1.0.1";
+  version = "unstable-2023-10-09";
 
-  srcs = [
-    (fetchFromGitHub {
-      name = "moss";
-      owner = "serpent-os";
-      repo = "moss";
-      rev = "v${finalAttrs.version}";
-      hash = "sha256-56qqO/DDNXH2skpi2u1wl7kmfx9RYD9sTZH6micn59c=";
-    })
+  src = fetchFromGitHub {
+    owner = "serpent-os";
+    repo = "moss-rs";
+    rev = "997985fccb433682f008bb710d9fffb8c4b893cf";
+    hash = "sha256-1gd7UfJ5dQlpWiOB041Oa4M/VyBoRzeNQNaKUgOaXjc=";
+  };
 
-    libmoss
-  ];
-
-  sourceRoot = "moss";
+  cargoHash = "sha256-ohNoh6Crx2Q2GyxTSrnwxX5I44LntiKddaFBj1eMBBA=";
 
   nativeBuildInputs = [
-    ldc
-    meson
-    ninja
     pkg-config
   ];
 
   buildInputs = [
-    curl
-    lmdb
-    xxHash
+    sqlite
     zstd
   ];
 
+  env.ZSTD_SYS_USE_PKG_CONFIG = true;
+
   meta = with lib; {
-    description = "The advanced system management tool from Serpent OS";
-    homepage = "https://github.com/serpent-os/moss";
-    license = with licenses; [
-      zlib
-      # libmoss
-      boost
-    ];
+    description = "The safe, fast and sane package manager for Linux";
+    homepage = "https://github.com/serpent-os/moss-rs";
     platforms = platforms.linux;
+    license = licenses.mpl20;
     maintainers = with maintainers; [ federicoschonborn ];
   };
-})
+}

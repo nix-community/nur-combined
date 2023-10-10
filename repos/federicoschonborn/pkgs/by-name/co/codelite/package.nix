@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/eranif/codelite";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ federicoschonborn ];
+    # FAILED: bin/codelite-ctags
     # ld: cannot find -lc: No such file or directory
-    #broken = true;
+    broken = true;
   };
 }

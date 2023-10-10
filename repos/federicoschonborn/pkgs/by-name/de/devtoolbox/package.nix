@@ -142,6 +142,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder blueprint-compiler.version "0.8.0";
+    broken = versionOlder blueprint-compiler.version "0.8";
   };
 }

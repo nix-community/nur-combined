@@ -3,7 +3,6 @@
   atoms = pkgs.callPackage ./by-name/at/atoms/package.nix { inherit atoms-core; };
   atoms-core = pkgs.python3Packages.callPackage ./by-name/at/atoms-core/package.nix { };
   blurble = pkgs.callPackage ./by-name/bl/blurble/package.nix { };
-  boulder = pkgs.callPackage ./by-name/bo/boulder/package.nix { inherit libmoss; };
   brisk-menu = pkgs.callPackage ./by-name/br/brisk-menu/package.nix { };
   bsdutils = pkgs.callPackage ./by-name/bs/bsdutils/package.nix { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./by-name/ca/cargo-aoc/package.nix { };
@@ -33,9 +32,7 @@
   metronome = pkgs.callPackage ./by-name/me/metronome/package.nix { };
   minesector = pkgs.callPackage ./by-name/mi/minesector/package.nix { };
   morewaita = pkgs.callPackage ./by-name/mo/morewaita/package.nix { };
-  moss = pkgs.callPackage ./by-name/mo/moss/package.nix { inherit libmoss; };
-  moss-container = pkgs.callPackage ./by-name/mo/moss-container/package.nix { inherit libmoss; };
-  moss-rs = pkgs.callPackage ./by-name/mo/moss-rs/package.nix { };
+  moss = pkgs.callPackage ./by-name/mo/moss/package.nix { };
   mucalc = pkgs.callPackage ./by-name/mu/mucalc/package.nix { };
   notae = pkgs.libsForQt5.callPackage ./by-name/no/notae/package.nix { };
   opensurge = pkgs.callPackage ./by-name/op/opensurge/package.nix { inherit surgescript; };
@@ -50,6 +47,7 @@
   textsnatcher = pkgs.callPackage ./by-name/te/textsnatcher/package.nix { };
   thunderbird-gnome-theme = pkgs.callPackage ./by-name/th/thunderbird-gnome-theme/package.nix { };
   upkg = pkgs.callPackage ./by-name/up/upkg/package.nix { };
+  usysconf = pkgs.callPackage ./by-name/us/usysconf/package.nix { };
   vita3k = pkgs.callPackage ./by-name/vi/vita3k/package.nix { };
   waycheck = pkgs.qt6.callPackage ./by-name/wa/waycheck/package.nix { };
   xdg-terminal-exec = pkgs.callPackage ./by-name/xd/xdg-terminal-exec/package.nix { };
@@ -235,14 +233,6 @@
     withFftw3 = true;
     withExperimentalLibs = true;
     withExperimentalApps = true;
-  };
-
-  libmoss = pkgs.fetchFromGitHub {
-    name = "libmoss";
-    owner = "FedericoSchonborn";
-    repo = "libmoss";
-    rev = "fc143087d0d7b124a3dfd7c5e635223d9b12064a";
-    hash = "sha256-oOm2luvqIr41ehDbfQUEGrJ4LdrngIo0RJ1OqGHD3d4=";
   };
 
   wlroots_0_16 = pkgs.wlroots.overrideAttrs (prev: rec {
