@@ -25,6 +25,7 @@ in
 	# ...
 	llama-cpp-python_310 = p_310.callPackage pkgs/llama-cpp-python {python-ver = 310;};
 	llama-cpp-python_311 = p_311.callPackage pkgs/llama-cpp-python {python-ver = 311;};
+	vpuppr-gd3 = pkgs.callPackage pkgs/vpuppr-gd3 {};
 
 
 }
