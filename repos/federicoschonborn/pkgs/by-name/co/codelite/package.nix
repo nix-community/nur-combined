@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ federicoschonborn ];
     # ld: cannot find -lc: No such file or directory
-    broken = true;
+    #broken = true;
   };
 }

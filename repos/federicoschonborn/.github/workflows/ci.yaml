@@ -14,7 +14,7 @@ env:
   NUR_REPO: federicoschonborn
 
 jobs:
-  build-nixpkgs-unstable:
+  build-nixpkgs-unstable-x86_64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
@@ -22,144 +22,120 @@ jobs:
       channel: nixpkgs-unstable
     secrets: inherit
 
-  build-nixos-unstable-small:
+  build-nixos-unstable-small-x86_64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-unstable-small
     secrets: inherit
-    needs: build-nixpkgs-unstable
+    needs:
+      - build-nixpkgs-unstable-x86_64-linux
 
-  build-nixos-unstable:
+  build-nixos-unstable-x86_64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-unstable
     secrets: inherit
-    needs: build-nixos-unstable-small
+    needs:
+      - build-nixos-unstable-small-x86_64-linux
 
-  build-nixos-stable-small:
+  build-nixos-stable-small-x86_64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-23.05-small
     secrets: inherit
-    needs: build-nixos-unstable
+    needs:
+      - build-nixos-unstable-x86_64-linux
 
-  build-nixos-stable:
+  build-nixos-stable-x86_64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
       channel: nixos-23.05
     secrets: inherit
-    needs: build-nixos-stable-small
+    needs:
+      - build-nixos-stable-small-x86_64-linux
 
-  build-nixpkgs-unstable-cross:
-    strategy:
-      matrix:
-        system:
-          - i686-linux
-          - aarch64-linux
-          - armv7l-linux
-          - armv6l-linux
-          - mipsel-linux
+  build-nixpkgs-unstable-aarch64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: ${{ matrix.system }}
+      system: aarch64-linux
       channel: nixpkgs-unstable
     secrets: inherit
-    needs: build-nixpkgs-unstable
+    needs:
+      - build-nixpkgs-unstable-x86_64-linux
 
-  build-nixos-unstable-small-cross:
-    strategy:
-      matrix:
-        system:
-          - i686-linux
-          - aarch64-linux
-          - armv7l-linux
-          - armv6l-linux
-          - mipsel-linux
+  build-nixos-unstable-small-aarch64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: ${{ matrix.system }}
+      system: aarch64-linux
       channel: nixos-unstable
     secrets: inherit
-    needs: [build-nixos-unstable-small, build-nixpkgs-unstable-cross]
+    needs:
+      - build-nixos-unstable-small-x86_64-linux
+      - build-nixpkgs-unstable-aarch64-linux
 
-  build-nixos-unstable-cross:
-    strategy:
-      matrix:
-        system:
-          - i686-linux
-          - aarch64-linux
-          - armv7l-linux
-          - armv6l-linux
-          - mipsel-linux
+  build-nixos-unstable-aarch64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: ${{ matrix.system }}
+      system: aarch64-linux
       channel: nixos-unstable
     secrets: inherit
-    needs: [build-nixos-unstable, build-nixos-unstable-small-cross]
+    needs:
+      - build-nixos-unstable-x86_64-linux
+      - build-nixos-unstable-small-aarch64-linux
 
-  build-nixos-stable-small-cross:
-    strategy:
-      matrix:
-        system:
-          - i686-linux
-          - aarch64-linux
-          - armv7l-linux
-          - armv6l-linux
-          - mipsel-linux
+  build-nixos-stable-small-aarch64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: ${{ matrix.system }}
+      system: aarch64-linux
       channel: nixos-23.05
     secrets: inherit
-    needs: [build-nixos-stable-small, build-nixos-unstable-cross]
+    needs:
+      - build-nixos-stable-small-x86_64-linux
+      - build-nixos-unstable-aarch64-linux
 
-  build-nixos-stable-cross:
-    strategy:
-      matrix:
-        system:
-          - i686-linux
-          - aarch64-linux
-          - armv7l-linux
-          - armv6l-linux
-          - mipsel-linux
+  build-nixos-stable-aarch64-linux:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: ${{ matrix.system }}
+      system: aarch64-linux
       channel: nixos-23.05
     secrets: inherit
-    needs: [build-nixos-stable, build-nixos-stable-small-cross]
+    needs:
+      - build-nixos-stable-x86_64-linux
+      - build-nixos-stable-small-aarch64-linux
 
-  build-nixpkgs-unstable-darwin:
+  build-nixpkgs-unstable-x86_64-darwin:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: macos-latest
       system: x86_64-darwin
       channel: nixpkgs-unstable
     secrets: inherit
-    needs: build-nixpkgs-unstable
+    needs:
+      - build-nixpkgs-unstable-x86_64-linux
 
-  build-nixos-stable-darwin:
+  build-nixpkgs-stable-x86_64-darwin:
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: macos-latest
       system: x86_64-darwin
       channel: nixpkgs-23.05-darwin
     secrets: inherit
-    needs: [build-nixos-stable, build-nixpkgs-unstable-darwin]
+    needs:
+      - build-nixos-stable-x86_64-linux
+      - build-nixpkgs-unstable-x86_64-darwin
 
   deploy:
     name: Deploy
@@ -167,4 +143,5 @@ jobs:
     steps:
       - name: Trigger NUR update
         run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
-    needs: build-nixos-stable
+    needs:
+      - build-nixos-stable-x86_64-linux
