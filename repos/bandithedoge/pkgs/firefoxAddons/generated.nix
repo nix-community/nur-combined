@@ -405,10 +405,10 @@
   };
   "gesturefy" = buildFirefoxXpiAddon {
     pname = "gesturefy";
-    version = "3.2.8";
+    version = "3.2.9";
     addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4161945/gesturefy-3.2.8.xpi";
-    sha256 = "a618b3f1bee03b7e1940c2c174ed6db5fdb8c1cf85f007bd332b79517967dce6";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4177077/gesturefy-3.2.9.xpi";
+    sha256 = "e639eb9666c7658db403e9408d33e01fd6b47db65362d246808087e329e78a57";
     meta = with lib; {
       homepage = "https://github.com/Robbendebiene/Gesturefy";
       description = "Navigate, operate, and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
@@ -1127,10 +1127,10 @@
   };
   "sourcegraph" = buildFirefoxXpiAddon {
     pname = "sourcegraph";
-    version = "23.4.14.1343";
+    version = "23.10.9.2250";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4097469/sourcegraph_for_firefox-23.4.14.1343.xpi";
-    sha256 = "fa02236d75a82a7c47dabd0272b77dd9a74e8069563415a7b8b2b9d37c36d20b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4179147/sourcegraph_for_firefox-23.10.9.2250.xpi";
+    sha256 = "a784bd2450ea7c268fddbc716258b5467fcf1ff73ad137a7c4e988a860c6a71a";
     meta = with lib; {
       description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
       mozPermissions = [
