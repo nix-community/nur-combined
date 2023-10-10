@@ -12,7 +12,12 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3Packages; [
-    requests prettytable pytz tzlocal pyyaml pathvalidate
+    requests
+    prettytable
+    pytz
+    tzlocal
+    pyyaml
+    pathvalidate
   ];
 
   nativeCheckInputs = with python3Packages; [ mock pytestCheckHook ];

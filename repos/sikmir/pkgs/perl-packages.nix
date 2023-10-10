@@ -141,7 +141,7 @@ rec {
       url = "mirror://cpan/authors/id/A/AN/ANDYA/${pname}-${version}.tar.gz";
       hash = "sha256-FNQGuR2pbWUh0NGoLSKjBidHZSJrhrClbn/93Plq578=";
     };
-    propagatedBuildInputs = [  ];
+    propagatedBuildInputs = [ ];
     meta = with lib; {
       homepage = "https://metacpan.org/pod/IPC::ShareLite";
       description = "IPC::ShareLite - Lightweight interface to shared memory";

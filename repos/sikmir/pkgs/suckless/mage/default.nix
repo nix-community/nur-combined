@@ -11,8 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7lCuwVB2MS9PkLRQc9XcunQGkOab46PYiSVQvJGMSng=";
   };
 
-  configFile = lib.optionalString (conf!=null) (builtins.toFile "config.h" conf);
-  preBuild = lib.optionalString (conf!=null) "cp ${finalAttrs.configFile} config.h";
+  configFile = lib.optionalString (conf != null) (builtins.toFile "config.h" conf);
+  preBuild = lib.optionalString (conf != null) "cp ${finalAttrs.configFile} config.h";
 
   buildInputs = [ fontconfig imlib2 libXft ];
 

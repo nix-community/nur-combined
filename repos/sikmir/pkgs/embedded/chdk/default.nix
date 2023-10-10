@@ -1,6 +1,12 @@
-{ lib, stdenv, fetchzip, gcc-arm-embedded, zip
-, platform ? null, platformsub ? null
-, fi2key ? null, fi2iv ? null
+{ lib
+, stdenv
+, fetchzip
+, gcc-arm-embedded
+, zip
+, platform ? null
+, platformsub ? null
+, fi2key ? null
+, fi2iv ? null
 }:
 
 let

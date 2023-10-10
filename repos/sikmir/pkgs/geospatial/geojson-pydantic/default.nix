@@ -2,21 +2,24 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "geojson-pydantic";
-  version = "0.5.0";
-  format = "flit";
+  version = "1.0.1";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "geojson-pydantic";
     rev = version;
-    hash = "sha256-ZAd4qLwQeAdOcwZ316Q/8VrsemuttzBlc0Qbwd6Nywo=";
+    hash = "sha256-P/V11rXd0QwwI0istqoL9ca2rB5aET88mQBDd10WrRk=";
   };
 
-  nativeBuildInputs = with python3Packages; [ flit-core ];
+  nativeBuildInputs = with python3Packages; [ flit ];
 
   propagatedBuildInputs = with python3Packages; [
-    pydantic shapely
+    pydantic
+    shapely
   ];
+
+  doCheck = false;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

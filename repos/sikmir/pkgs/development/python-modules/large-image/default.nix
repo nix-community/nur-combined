@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "large-image";
-  version = "1.14.3";
+  version = "1.25.0";
 
   src = fetchFromGitHub {
     owner = "girder";
     repo = "large_image";
     rev = "v${version}";
-    hash = "sha256-8vixBAWwg2QzzWlhbXNAKk9rmla/LLZSdORRKm/IVBk=";
+    hash = "sha256-JJKQ5Dt4T5I4iy2ghUo7URtCNzZKncAih9KSo/6nzbQ=";
   };
 
   nativeBuildInputs = with python3Packages; [ setuptools-scm ];

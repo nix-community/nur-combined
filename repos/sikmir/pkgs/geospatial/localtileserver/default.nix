@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "localtileserver";
-  version = "0.5.8";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "banesullivan";
     repo = "localtileserver";
     rev = version;
-    hash = "sha256-wkS2RKTP2idgrD/ohg2Cd4F/trLJ8hmQk8WKSNqFSYY=";
+    hash = "sha256-sSP9Cl+PJZZ8R8BcOko1yFDBpSLPKj6OpS0ZLLFP4GI=";
   };
 
   postPatch = ''

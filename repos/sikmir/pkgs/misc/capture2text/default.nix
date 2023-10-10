@@ -43,14 +43,15 @@ stdenv.mkDerivation rec {
     "INCLUDEPATH+=${tesseract4}/include/tesseract"
   ];
 
-  installPhase = if stdenv.isDarwin then ''
-    mkdir -p $out/Applications $out/bin
-    mv Capture2Text_CLI.app $out/Applications
-    ln -s $out/Applications/Capture2Text_CLI.app/Contents/MacOS/Capture2Text_CLI $out/bin/capture2text
-  '' else ''
-    install -Dm755 Capture2Text_CLI -t $out/bin
-    ln -s $out/bin/Capture2Text_CLI $out/bin/capture2text
-  '';
+  installPhase =
+    if stdenv.isDarwin then ''
+      mkdir -p $out/Applications $out/bin
+      mv Capture2Text_CLI.app $out/Applications
+      ln -s $out/Applications/Capture2Text_CLI.app/Contents/MacOS/Capture2Text_CLI $out/bin/capture2text
+    '' else ''
+      install -Dm755 Capture2Text_CLI -t $out/bin
+      ln -s $out/bin/Capture2Text_CLI $out/bin/capture2text
+    '';
 
   meta = with lib; {
     description = "Capture2Text enables users to quickly OCR a portion of the screen using a keyboard shortcut";

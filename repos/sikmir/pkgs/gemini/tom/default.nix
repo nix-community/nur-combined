@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, makeWrapper
-, lua5_3, memstreamHook, zlib
+{ lib
+, stdenv
+, fetchFromGitHub
+, pkg-config
+, makeWrapper
+, lua5_3
+, memstreamHook
+, zlib
 }:
 
 stdenv.mkDerivation (finalAttrs: {

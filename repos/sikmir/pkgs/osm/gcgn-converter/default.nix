@@ -18,7 +18,11 @@ python3Packages.buildPythonApplication rec {
   installPhase =
     let
       pythonEnv = python3Packages.python.withPackages (p: with p; [
-        camelot pypdf geojson beautifulsoup4 tqdm
+        camelot
+        pypdf
+        geojson
+        beautifulsoup4
+        tqdm
       ]);
     in
     ''

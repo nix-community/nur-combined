@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake
-, bzip2, expat, libosmium, lua, protozero, zlib
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, bzip2
+, expat
+, libosmium
+, lua
+, protozero
+, zlib
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -16,7 +24,12 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [
-    bzip2 expat libosmium lua protozero zlib
+    bzip2
+    expat
+    libosmium
+    lua
+    protozero
+    zlib
   ];
 
   cmakeFlags = [

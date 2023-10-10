@@ -189,6 +189,7 @@ lib.makeScope newScope (
     apispec-webframeworks = callPackage ./geospatial/apispec-webframeworks { };
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
     c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
+    cogdumper = callPackage ./geospatial/cogdumper { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
     color-operations = callPackage ./geospatial/color-operations { };
     datamaps = callPackage ./geospatial/datamaps { };
@@ -307,7 +308,6 @@ lib.makeScope newScope (
     mikatools = callPackage ./linguistics/mikatools { };
     odict = callPackage ./linguistics/odict { };
     pytorchtext = callPackage ./linguistics/pytorchtext { };
-    redict = libsForQt5.callPackage ./linguistics/redict { };
     revtok = callPackage ./linguistics/revtok { };
     stardict-tools = callPackage ./linguistics/stardict-tools { };
     tatoebatools = callPackage ./linguistics/tatoebatools { };
@@ -380,7 +380,6 @@ lib.makeScope newScope (
     serial-studio-bin = callPackage ./misc/serial-studio/bin.nix { };
     serverpp = callPackage ./misc/serverpp { };
     subprocess = callPackage ./misc/subprocess { };
-    taskcoach = callPackage ./misc/taskcoach { };
     tcvt = callPackage ./misc/tcvt { };
     telegabber = callPackage ./misc/telegabber { };
     telegram-send = callPackage ./misc/telegram-send { };
@@ -520,6 +519,7 @@ lib.makeScope newScope (
     sbase = callPackage ./suckless/sbase { };
     scc = callPackage ./suckless/scc { };
     scroll = callPackage ./suckless/scroll { };
+    sdhcp = callPackage ./suckless/sdhcp { };
     se = callPackage ./suckless/se { };
     sled = callPackage ./suckless/sled { };
     ste = callPackage ./suckless/ste { };

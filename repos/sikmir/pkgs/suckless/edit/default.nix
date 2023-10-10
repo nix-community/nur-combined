@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "LDFLAGS" "#LDFLAGS"
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  makeFlags = [ "CC:=$(CC)" "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "A suckless, simple, featured text editor";

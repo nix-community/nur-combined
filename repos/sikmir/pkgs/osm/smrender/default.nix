@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, cairo, librsvg
-, Foundation, memstreamHook
+{ lib
+, stdenv
+, fetchFromGitHub
+, autoreconfHook
+, pkg-config
+, cairo
+, librsvg
+, Foundation
+, memstreamHook
 , testers
 }:
 

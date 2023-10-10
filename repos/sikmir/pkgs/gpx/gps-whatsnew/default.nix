@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-     sed -i '1 i #include <iostream>' gps_analyze.cpp
+    sed -i '1 i #include <iostream>' gps_analyze.cpp
   '';
 
   nativeBuildInputs = [ qt5.qmake ];

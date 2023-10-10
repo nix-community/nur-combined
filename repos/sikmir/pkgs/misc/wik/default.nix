@@ -3,7 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "wik";
   version = "2023-03-12";
-  format = "flit";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "yashsinghcodes";
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-aJnBY33JB4xsH8AIcQGVli8OuIqbTulB26t7uj2GzVk=";
   };
 
-  nativeBuildInputs = with python3Packages; [ flit-core ];
+  nativeBuildInputs = with python3Packages; [ flit ];
 
   propagatedBuildInputs = with python3Packages; [ beautifulsoup4 requests ];
 

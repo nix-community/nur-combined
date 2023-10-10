@@ -6,7 +6,7 @@ in
 fetchurl {
   name = "${pname}-${version}";
   url = "http://download.freizeitkarte-osm.de/garmin/latest/${country}_${lang}_gmapsupp.img.zip";
-  sha256 = "09g28v8vrw98kskpf8w8cgdzz7lp6bp6zb6xyz7r9b4ndiyzbip7";
+  hash = "sha256-PKcO9m163R8a+rgFS2guh62iX2xHjyfL5uNODbURTCE=";
   downloadToTemp = true;
   recursiveHash = true;
   preferLocalBuild = true;

@@ -6,7 +6,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "mirror://sourceforge/ascii-dash/ASCII-DASH-${finalAttrs.version}.zip";
-    hash = "sha256-uXkSiEyW7R13mRqV9MyJ7XVsk60sVSZ93UQ/L5Z0uC0=";
+    hash = "sha256-38wBq067aIq9wr34WIP6Kg9LLnc8/2xV9Q+LkmflB5U=";
   };
 
   postPatch = ''
@@ -40,5 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     platforms = platforms.unix;
     broken = stdenv.isDarwin; # mesa is broken
+    mainProgram = "ascii-dash";
   };
 })

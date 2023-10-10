@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-, fftwFloat, lame, libconfig, libshout, pulseaudio, rtl-sdr, soapysdr
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, pkg-config
+, fftwFloat
+, lame
+, libconfig
+, libshout
+, pulseaudio
+, rtl-sdr
+, soapysdr
 }:
 
 stdenv.mkDerivation (finalAttrs: {

@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub, poetry }:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "pnoise";

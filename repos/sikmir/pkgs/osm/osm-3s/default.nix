@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osm-3s";
-  version = "0.7.61.5";
+  version = "0.7.61.8";
 
   src = fetchurl {
     url = "http://dev.overpass-api.de/releases/osm-3s_v${finalAttrs.version}.tar.gz";
-    hash = "sha256-oV/XLi+ALMHEeSO1+Jo8xkSmx2AspHggBsbY3zDnhSo=";
+    hash = "sha256-s18L/1tlkVa2CqmRLDKqu3zmtj9aruUW8F7BqiMzdT0=";
   };
 
   buildInputs = [ expat lz4 zlib ];

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, perl, pkg-config, wget
-, db, libmicrohttpd, jansson, tcl
+{ lib
+, stdenv
+, fetchFromGitHub
+, perl
+, pkg-config
+, wget
+, db
+, libmicrohttpd
+, jansson
+, tcl
 }:
 
 stdenv.mkDerivation (finalAttrs: {

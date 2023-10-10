@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "hecate";
-  version = "0.82.2";
+  version = "0.87.0";
 
   src = fetchFromGitHub {
-    owner = "Mapbox";
+    owner = "Hecate";
     repo = "Hecate";
     rev = "v${version}";
-    hash = "sha256-ffDBcrrg7iC8XkA1HO+qiRzZfNS6bF4mEXXqdM8w3uA=";
+    hash = "sha256-X+49Mnls5xK6ag1QcvEm0GvLPmvcRBwNn/1vnC9GJO8=";
   };
 
-  cargoHash = "sha256-OwKQiDRgYVSIIDnmjWyXSvFc3/L/dgcOjuXf/lE4N68=";
+  cargoHash = "sha256-ROx90hWk9q5E/Yfy9luHbB1XyyLqw2KEl92niBNapBI=";
 
   nativeBuildInputs = [ pkg-config ];
 

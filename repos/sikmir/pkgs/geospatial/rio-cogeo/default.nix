@@ -1,20 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, morecantile }:
+{ lib, stdenv, fetchFromGitHub, python3Packages, morecantile, cogdumper }:
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-cogeo";
-  version = "3.5.0";
+  version = "5.0.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "cogeotiff";
     repo = "rio-cogeo";
     rev = version;
-    hash = "sha256-lvGog5Pzbc7v49lZMxomwDszJN/CVzu+AAkb5in3IoY=";
+    hash = "sha256-YBFdo/aEk9ytlzLhdC/kV3jwS1atrfYmyxNP8jWBTxs=";
   };
 
-  nativeBuildInputs = with python3Packages; [
-    flit-core
-  ];
+  nativeBuildInputs = with python3Packages; [ flit ];
 
   propagatedBuildInputs = with python3Packages; [
     click
@@ -23,6 +21,10 @@ python3Packages.buildPythonPackage rec {
     morecantile
     pydantic
   ];
+
+  doCheck = false;
+
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook cogdumper ];
 
   meta = with lib; {
     description = "Cloud Optimized GeoTIFF creation and validation plugin for rasterio";

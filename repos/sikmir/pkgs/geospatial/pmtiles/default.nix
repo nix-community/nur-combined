@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "pmtiles";
-  version = "0.0.1-alpha";
+  version = "3.3";
 
   src = fetchFromGitHub {
     owner = "protomaps";
     repo = "PMTiles";
-    rev = "v${version}";
-    hash = "sha256-RxAEnQge/2xaIMH0dIQiTYP6kOPTM0QtfSNwE9hpkao=";
+    rev = "4bd801305cf264463ff96726a71bec8619c8af2b";
+    hash = "sha256-VKI09aEdZdGJosDBe9PGQEDdIaDk8xq6EToiUc1XmOQ=";
   };
 
   sourceRoot = "${src.name}/python";

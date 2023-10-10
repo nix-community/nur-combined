@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, desktopToDarwinBundle, wrapQtAppsHook
-, qtsvg, qtwebsockets, qtx11extras, mosquitto, libdwarf, protobuf, zeromq, zstd }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, desktopToDarwinBundle
+, wrapQtAppsHook
+, qtsvg
+, qtwebsockets
+, qtx11extras
+, mosquitto
+, libdwarf
+, protobuf
+, zeromq
+, zstd
+}:
 
 stdenv.mkDerivation rec {
   pname = "plotjuggler";

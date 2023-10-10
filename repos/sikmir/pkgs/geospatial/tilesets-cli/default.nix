@@ -1,5 +1,10 @@
-{ lib, fetchFromGitHub, python3Packages, jsonseq, supermercado
-, testers, tilesets-cli
+{ lib
+, fetchFromGitHub
+, python3Packages
+, jsonseq
+, supermercado
+, testers
+, tilesets-cli
 }:
 
 python3Packages.buildPythonApplication rec {

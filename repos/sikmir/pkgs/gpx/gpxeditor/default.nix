@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://sourceforge.net/projects/gpxeditor/";
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    platforms = wine.meta.platforms;
     skip.ci = true;
   };
 })

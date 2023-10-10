@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gtk-doc, pkg-config
-, cairo, expat, glib
+{ lib
+, stdenv
+, fetchFromGitHub
+, autoreconfHook
+, gtk-doc
+, pkg-config
+, cairo
+, expat
+, glib
 }:
 
 stdenv.mkDerivation (finalAttrs: {

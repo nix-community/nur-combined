@@ -1,8 +1,8 @@
 { lib, stdenv, fetchurl, unzip, wine, makeWrapper, withExLexer ? true }:
 let
-  plugins = fetchurl {
-    url = "http://uvviewsoft.com/synwrite/files/SynWrite_saved_plugins.zip";
-    hash = "sha256-bWc3/fvc++nSVExC1iO1g+DjlXEal5CZQkc4gZB0xU0=";
+  exlexer = fetchurl {
+    url = "mirror://sourceforge/synwrite-addons/PyPlugins/plugin.Alexey.ExLexer.zip";
+    hash = "sha256-O9wOglJp4XExWV8ODoVra3VyaqRmhB51/tupRmqDdqY=";
   };
 in
 stdenv.mkDerivation rec {
@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
       --run "[ -d \$HOME/.synwrite ] || { cp -r $out/opt/synwrite \$HOME/.synwrite && chmod -R +w \$HOME/.synwrite; }" \
       --add-flags "\$HOME/.synwrite/Syn.exe"
   '' + lib.optionalString withExLexer ''
-    unzip -j ${plugins} SynWrite_saved_plugins/PyPlugins/plugin.Alexey.ExLexer.zip
-    unzip plugin.Alexey.ExLexer.zip -d $out/opt/synwrite/Py/syn_exlexer
+    unzip ${exlexer} -d $out/opt/synwrite/Py/syn_exlexer
   '';
 
   preferLocalBuild = true;
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "http://uvviewsoft.com/synwrite/";
     license = licenses.mpl11;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    platforms = wine.meta.platforms;
     skip.ci = true;
   };
 }

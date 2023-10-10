@@ -7,16 +7,23 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }: {
-      overlays.default = final: prev: import ./pkgs { pkgs = prev; };
-      nixosModules = import ./modules;
-    } // flake-utils.lib.eachDefaultSystem (system: {
+    overlays.default = final: prev: import ./pkgs { pkgs = prev; };
+    nixosModules = import ./modules;
+  } // flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = nixpkgs.legacyPackages.${system};
+      inherit (pkgs) lib;
       packages = flake-utils.lib.filterPackages system (import ./default.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
+        inherit pkgs;
       });
+    in
+    {
+      inherit packages;
       legacyPackages = import nixpkgs {
         inherit system;
         overlays = [ self.overlays.default ];
         crossOverlays = [ self.overlays.default ];
       };
+      formatter = pkgs.nixpkgs-fmt;
     });
 }

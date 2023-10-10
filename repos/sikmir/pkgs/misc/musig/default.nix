@@ -1,5 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, pkg-config, portaudio
-, testers, musig
+{ stdenv
+, lib
+, fetchFromGitHub
+, buildGoModule
+, pkg-config
+, portaudio
+, testers
+, musig
 }:
 
 buildGoModule rec {

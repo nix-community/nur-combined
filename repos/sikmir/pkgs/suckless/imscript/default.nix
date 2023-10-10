@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromSourcehut, installShellFiles
-, libpng, libjpeg, libtiff, libwebp, fftwFloat, libX11, gsl }:
+{ lib
+, stdenv
+, fetchFromSourcehut
+, installShellFiles
+, libpng
+, libjpeg
+, libtiff
+, libwebp
+, fftwFloat
+, libX11
+, gsl
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
