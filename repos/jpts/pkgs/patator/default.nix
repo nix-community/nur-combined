@@ -1,23 +1,23 @@
-{
-  lib,
-  ajpy,
-  buildPythonPackage,
-  dnspython,
-  fetchPypi,
-  impacket,
-  ipy,
-  mysqlclient,
-  paramiko,
-  psycopg2,
-  pyasn1,
-  pycrypto,
-  pycurl,
-  pyopenssl,
-  pysnmp,
-  pysqlcipher3,
-  pythonOlder,
-  enableUnfree ? false,
-  cx_oracle,
+{ lib
+, ajpy
+, buildPythonPackage
+, pythonRelaxDepsHook
+, dnspython
+, fetchPypi
+, impacket
+, ipy
+, mysqlclient
+, paramiko
+, psycopg2
+, pyasn1
+, pycrypto
+, pycurl
+, pyopenssl
+, pysnmp
+, pysqlcipher3
+, pythonOlder
+, enableUnfree ? false
+, cx_oracle
 }:
 buildPythonPackage rec {
   pname = "patator";
@@ -31,21 +31,15 @@ buildPythonPackage rec {
     hash = "sha256-VQ7JPyQOY9X/7LVAvTwftoOegt4KyfERgu38HfmsYDM=";
   };
 
-  postPatch =
-    ''
-      substituteInPlace requirements.txt \
-        --replace psycopg2-binary psycopg2 \
-        --replace pysnmp==4.4.12 pysnmp \
-        --replace pyasn1==0.4.8 pyasn1
-    ''
-    + lib.optionalString (!enableUnfree)
-    ''
-      substituteInPlace requirements.txt \
-        --replace cx_Oracle ""
-    '';
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  pythonRelaxDeps = true;
+  pythonRemoveDeps = [
+    "psycopg2-binary"
+  ] ++ lib.optional (!enableUnfree) [
+    "cx-Oracle"
+  ];
 
-  propagatedBuildInputs =
-    [
+  propagatedBuildInputs = [
       ajpy
       dnspython
       impacket
@@ -59,8 +53,7 @@ buildPythonPackage rec {
       pyopenssl
       pysnmp
       pysqlcipher3
-    ]
-    ++ lib.optional enableUnfree [
+    ] ++ lib.optional enableUnfree [
       cx_oracle
     ];
 
@@ -75,6 +68,6 @@ buildPythonPackage rec {
     description = "Multi-purpose brute-forcer";
     homepage = "https://github.com/lanjelot/patator";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
   };
 }
