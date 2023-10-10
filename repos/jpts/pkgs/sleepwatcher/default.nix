@@ -13,6 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0kjrf9lriciw9wf9qk5p33gnj5zj715vkvnaqzv5pld2r3akhj4i";
   };
 
+  preferLocalBuild = true;
   dontConfigure = true;
 
   buildInputs = [IOKit Foundation];

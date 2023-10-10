@@ -16,6 +16,7 @@ stdenvNoCC.mkDerivation rec {
 
   sourceRoot = ".";
 
+  preferLocalBuild = true;
   nativeBuildInputs = [undmg];
 
   installPhase = ''

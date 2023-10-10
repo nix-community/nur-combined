@@ -24,6 +24,8 @@ clangStdenv.mkDerivation rec {
     })
   ];
 
+  preferLocalBuild = true;
+
   buildInputs = [Foundation IOBluetooth];
 
   env.NIX_CFLAGS_COMPILE = toString [
