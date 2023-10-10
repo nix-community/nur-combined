@@ -4,7 +4,6 @@
 , cairo
 , cargo
 , curl
-, darwin
 , desktop-file-utils
 , gdk-pixbuf
 , glib

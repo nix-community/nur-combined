@@ -1,6 +1,7 @@
 { lib
 , rustPlatform
 , fetchFromGitHub
+, rustc
 }:
 
 rustPlatform.buildRustPackage {
@@ -22,5 +23,6 @@ rustPlatform.buildRustPackage {
     license = licenses.mpl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
+    broken = versionOlder rustc.version "1.70";
   };
 }
