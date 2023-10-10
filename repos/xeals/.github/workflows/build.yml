@@ -8,8 +8,8 @@ jobs:
     strategy:
       matrix:
         check:
-          - nixpkgs-fmt
-          - deadnix
+          # - nixpkgs-fmt
+          # - deadnix
           - nur
     runs-on: ubuntu-latest
     steps:

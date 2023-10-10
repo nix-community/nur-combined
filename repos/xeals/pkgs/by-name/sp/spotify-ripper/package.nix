@@ -14,7 +14,7 @@
 , mp4Support ? false
 , fdk-aac-encoder
 , oggSupport ? false
-, vorbisTools
+, vorbis-tools
 , opusSupport ? false
 , opusTools
 }:
@@ -23,7 +23,7 @@ assert aacSupport -> faac.meta.available;
 assert alacSupport -> libav.meta.available;
 assert flacSupport -> flac.meta.available;
 assert m4aSupport || mp4Support -> fdk-aac-encoder.meta.available;
-assert oggSupport -> vorbisTools.meta.available;
+assert oggSupport -> vorbis-tools.meta.available;
 assert opusSupport -> opusTools.meta.available;
 
 python3Packages.buildPythonApplication rec {
@@ -51,7 +51,7 @@ python3Packages.buildPythonApplication rec {
     (if alacSupport then libav else null)
     (if aacSupport then faac else null)
     (if (m4aSupport || mp4Support) then fdk-aac-encoder else null)
-    (if oggSupport then vorbisTools else null)
+    (if oggSupport then vorbis-tools else null)
     (if opusSupport then opusTools else null)
   ];
 
