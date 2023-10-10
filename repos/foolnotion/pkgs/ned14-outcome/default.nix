@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ned14-outcome";
-  version = "2.2.7";
+  version = "2.2.8";
 
   src = fetchFromGitHub {
     owner = "ned14";
     repo = "outcome";
-    rev = "018620768577911c9b259275a5957525d55ad09a";
-    hash = "sha256-Fh/REl8WEbIoRfUkw+pqJEAj05ceSJ6YGPthw0YckOM=";
+    rev = "1f972ef2c8365afd9dfb92f0bbb953fb06b61abe";
+    hash = "sha256-6qV9VHWuDIGjd+p8MrItgGAGm2JV83iettMYBxr3hWo=";
   };
 
   nativeBuildInputs = [ cmake git quickcpplib status-code ];
