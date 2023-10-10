@@ -51,5 +51,6 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
     license = licenses.asl20;
     maintainers = with maintainers; [ federicoschonborn ];
+    broken = versionOlder wlroots.version "0.16";
   };
 }
