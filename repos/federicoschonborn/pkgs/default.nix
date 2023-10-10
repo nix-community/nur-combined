@@ -9,6 +9,7 @@
   cargo-aoc = pkgs.callPackage ./by-name/ca/cargo-aoc/package.nix { };
   casaos = pkgs.callPackage ./by-name/ca/casaos/package.nix { };
   chess-clock = pkgs.callPackage ./by-name/ch/chess-clock/package.nix { };
+  chess-clock0_6 = pkgs.callPackage ./by-name/ch/chess-clock0_6/package.nix { };
   codelite = pkgs.callPackage ./by-name/co/codelite/package.nix { };
   devtoolbox = pkgs.callPackage ./by-name/de/devtoolbox/package.nix { };
   eloquens = pkgs.libsForQt5.callPackage ./by-name/el/eloquens/package.nix { };

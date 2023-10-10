@@ -60,5 +60,6 @@ stdenv.mkDerivation {
     ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
+    broken = versionOlder kirigami-addons.version "0.10";
   };
 }

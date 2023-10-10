@@ -8,12 +8,13 @@
 , ninja
 , pkg-config
 , wrapGAppsHook4
+, gsound
 , libadwaita
 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "chess-clock";
-  version = "0.5.0";
+  version = "0.6.0";
 
   format = "other";
 
@@ -22,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     owner = "World";
     repo = "chess-clock";
     rev = "v${version}";
-    hash = "sha256-mmGJZ/TIa/5PfyDwg9gSamLpKUfw6+IvaPUmyIXcZII=";
+    hash = "sha256-wwNOop2V84vZO3JV0+VZ+52cKPx8xJg2rLkjfgc/+n4=";
   };
 
   nativeBuildInputs = [
@@ -36,6 +37,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   buildInputs = [
+    gsound
     libadwaita
   ];
 
@@ -43,16 +45,11 @@ python3.pkgs.buildPythonApplication rec {
     pygobject3
   ];
 
-  dontWrapGApps = true;
-
-  preFixup = ''
-    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '';
-
   meta = with lib; {
     description = "Time games of over-the-board chess";
     homepage = "https://gitlab.gnome.org/World/chess-clock";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ federicoschonborn ];
+    broken = versionOlder libadwaita.version "1.4";
   };
 }
