@@ -22,4 +22,5 @@
   sleepwatcher = pkgs.callPackage ./pkgs/sleepwatcher {
     inherit (pkgs.darwin.apple_sdk_11_0.frameworks) Foundation IOKit;
   };
+  patator = pkgs.python3Packages.callPackage ./pkgs/patator {};
 }
