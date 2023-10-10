@@ -282,6 +282,9 @@
         "extends": {
             "url": "https://github.com/ImExtends/nur-packages-template"
         },
+        "falconprogrammer": {
+            "url": "https://github.com/JonBoyleCoding/falconprogrammer-nur"
+        },
         "federicoschonborn": {
             "url": "https://github.com/FedericoSchonborn/nur-packages"
         },
