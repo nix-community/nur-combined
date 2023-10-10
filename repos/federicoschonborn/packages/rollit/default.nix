@@ -19,19 +19,19 @@
 
 stdenv.mkDerivation rec {
   pname = "rollit";
-  version = "3.2.0";
+  version = "3.3.0";
 
   src = fetchFromGitLab {
     owner = "zelikos";
     repo = "rollit";
     rev = version;
-    hash = "sha256-K8m+BbpRk+/UkiecPf6+qOFspiZJ3GmCxnbheTOkoTY=";
+    hash = "sha256-v8G/XJGq1uOLBBVsnCW3alFy06xQVDWZxOj1hjYgR10=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-KJwCz1pGe8NN1PZ3jASJgnjQPBT7wNqTOAcwKx3Tpdo=";
+    hash = "sha256-rUnDSifW8ZCys91wk0WTg3x+APjwhANtuVTloUfzl+k=";
   };
 
   nativeBuildInputs = [
@@ -60,5 +60,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
+    broken = versionOlder version "23.11";
   };
 }

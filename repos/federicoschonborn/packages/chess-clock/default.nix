@@ -11,7 +11,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "chess-clock";
-  version = "0.5.0";
+  version = "0.6.0";
 
   format = "other";
 
@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     owner = "World";
     repo = "chess-clock";
     rev = "v${version}";
-    hash = "sha256-mmGJZ/TIa/5PfyDwg9gSamLpKUfw6+IvaPUmyIXcZII=";
+    hash = "sha256-wwNOop2V84vZO3JV0+VZ+52cKPx8xJg2rLkjfgc/+n4=";
   };
 
   nativeBuildInputs = [
@@ -44,5 +44,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://gitlab.gnome.org/World/chess-clock";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ federicoschonborn ];
+    broken = versionOlder version "23.11";
   };
 }

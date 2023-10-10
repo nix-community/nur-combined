@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "codelite";
-  version = "17.6.0";
+  version = "17.7.0";
 
   src = fetchFromGitHub {
     owner = "eranif";
     repo = "codelite";
     rev = version;
-    hash = "sha256-hXOQe80fiiuV8uxu9/NNtOz3GiUEv84xb67+n/qBwqI=";
+    hash = "sha256-kSiyB51YVFF2Ldbaiyqm/cEbeMZ9NFG/1Zbb6/PLxm8=";
     fetchSubmodules = true;
   };
 
