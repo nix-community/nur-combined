@@ -37,6 +37,7 @@ jobs:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
           - nixpkgs=channel:nixos-23.05
+      fail-fast: false
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
