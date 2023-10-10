@@ -58,50 +58,90 @@ jobs:
     secrets: inherit
     needs: build-nixos-stable-small
 
-  build-nixpkgs-unstable-aarch64:
+  build-nixpkgs-unstable-cross:
+    strategy:
+      matrix:
+        system:
+          - i686-linux
+          - aarch64-linux
+          - armv7l-linux
+          - armv6l-linux
+          - mipsel-linux
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: aarch64-linux
+      system: ${{ matrix.system }}
       channel: nixpkgs-unstable
     secrets: inherit
     needs: build-nixpkgs-unstable
 
-  build-nixos-unstable-small-aarch64:
+  build-nixos-unstable-small-cross:
+    strategy:
+      matrix:
+        system:
+          - i686-linux
+          - aarch64-linux
+          - armv7l-linux
+          - armv6l-linux
+          - mipsel-linux
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: aarch64-linux
+      system: ${{ matrix.system }}
       channel: nixos-unstable
     secrets: inherit
-    needs: [build-nixos-unstable-small, build-nixpkgs-unstable-aarch64]
+    needs: [build-nixos-unstable-small, build-nixpkgs-unstable-cross]
 
-  build-nixos-unstable-aarch64:
+  build-nixos-unstable-cross:
+    strategy:
+      matrix:
+        system:
+          - i686-linux
+          - aarch64-linux
+          - armv7l-linux
+          - armv6l-linux
+          - mipsel-linux
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: aarch64-linux
+      system: ${{ matrix.system }}
       channel: nixos-unstable
     secrets: inherit
-    needs: [build-nixos-unstable, build-nixos-unstable-small-aarch64]
+    needs: [build-nixos-unstable, build-nixos-unstable-small-cross]
 
-  build-nixos-stable-small-aarch64:
+  build-nixos-stable-small-cross:
+    strategy:
+      matrix:
+        system:
+          - i686-linux
+          - aarch64-linux
+          - armv7l-linux
+          - armv6l-linux
+          - mipsel-linux
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: aarch64-linux
+      system: ${{ matrix.system }}
       channel: nixos-23.05
     secrets: inherit
-    needs: [build-nixos-stable-small, build-nixos-unstable-aarch64]
+    needs: [build-nixos-stable-small, build-nixos-unstable-cross]
 
-  build-nixos-stable-aarch64:
+  build-nixos-stable-cross:
+    strategy:
+      matrix:
+        system:
+          - i686-linux
+          - aarch64-linux
+          - armv7l-linux
+          - armv6l-linux
+          - mipsel-linux
     uses: ./.github/workflows/build.yaml
     with:
       runs-on: ubuntu-latest
-      system: aarch64-linux
+      system: ${{ matrix.system }}
       channel: nixos-23.05
     secrets: inherit
-    needs: [build-nixos-stable, build-nixos-stable-small-aarch64]
+    needs: [build-nixos-stable, build-nixos-stable-small-cross]
 
   build-nixpkgs-unstable-darwin:
     uses: ./.github/workflows/build.yaml

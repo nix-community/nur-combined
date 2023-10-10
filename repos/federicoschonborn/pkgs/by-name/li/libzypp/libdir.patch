@@ -1,0 +1,17 @@
+diff --git a/cmake/modules/ZyppCommon.cmake b/cmake/modules/ZyppCommon.cmake
+index 846e393..4e3589f 100644
+--- a/cmake/modules/ZyppCommon.cmake
++++ b/cmake/modules/ZyppCommon.cmake
+@@ -1,11 +1,7 @@
+ include(GNUInstallDirs)
+ 
+ # Library
+-IF ( DEFINED LIB )
+-  SET ( LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/${LIB}" )
+-ELSE ( DEFINED  LIB )
+-  SET ( LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}" )
+-ENDIF ( DEFINED  LIB )
++SET ( LIB_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}" )
+ MESSAGE(STATUS "Libraries will be installed in ${LIB_INSTALL_DIR}" )
+ # Headers
+ IF (DEFINED INCLUDE)
