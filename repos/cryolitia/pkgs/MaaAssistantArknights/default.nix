@@ -2,79 +2,29 @@
 
 { maintainers
 , stdenv
+, pkgs
 , lib
 , fetchFromGitHub
 , cmake
 , opencv
-, onnxruntime
-, eigen
 , zlib
 , asio
 , libcpr
 , python3
 , android-tools
-, rustPlatform
 , makeWrapper
-, darwin
 , range-v3
-, maaVersion ? "4.24.0"
-, maaSourceHash ? "sha256-I1HKYO+ywLVUKNl1FH66efAUd4je2d1ynnDEelHZfK8="
-,
+, maaVersion ? "4.25.0"
+, maaSourceHash ? "sha256-NcfrpLgduemiEJ8jeLY14lZgs67ocZX+7SSIxSC2otk="
 }:
 
 let
 
-  fastdeploy = stdenv.mkDerivation rec {
+  onnxruntime = pkgs.callPackage ./onnxruntime-cuda.nix { };
 
-    pname = "fastdeploy";
-    version = "1.0.0";
+  fastdeploy_ppocr = pkgs.callPackage ./fastdeploy_ppocr.nix { };
 
-    src = fetchFromGitHub {
-      owner = "MaaAssistantArknights";
-      repo = "FastDeploy";
-      rev = "070424e06436524d817131d68c411066fa6069a6";
-      sha256 = "sha256-+W9StKABaX/3rHGD8jBCTLFw1kPoHFXjcn96wxXCuDY=";
-    };
-
-    nativeBuildInputs = [
-      cmake
-      eigen
-    ];
-
-    buildInputs = [
-      opencv
-      onnxruntime
-    ];
-
-    cmakeFlags = [
-      "-DCMAKE_BUILD_TYPE=None"
-      "-DBUILD_SHARED_LIBS=ON"
-    ];
-
-  };
-
-  maa-cli = rustPlatform.buildRustPackage rec {
-
-    pname = "maa-cli";
-    version = "0.3.10";
-
-    src = fetchFromGitHub {
-      owner = "MaaAssistantArknights";
-      repo = "maa-cli";
-      rev = "v${version}";
-      sha256 = "sha256-L+/o1aGZCU3KSdHNqXt1zmevhI+Vh+JjtJLw4pwDQgo=";
-    };
-
-    buildInputs = lib.optional stdenv.isDarwin [
-      darwin.Security
-    ];
-
-    # disable self update: https://github.com/MaaAssistantArknights/maa-cli/pull/44/files
-    buildNoDefaultFeatures = true;
-
-    cargoSha256 = "sha256-WcBKWVnpBgYZZdWnWsXDTutyo34KQIcRmwYwc+fENJA=";
-
-  };
+  maa-cli = pkgs.callPackage ./maa-cli.nix { inherit maintainers; };
 
   name = "maaassistantarknights";
 
@@ -108,7 +58,7 @@ let
       buildInputs = [
         opencv
         onnxruntime
-        fastdeploy
+        fastdeploy_ppocr
         zlib
         asio
         libcpr

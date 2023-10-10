@@ -22,13 +22,16 @@ rec {
   };
 
   MaaAssistantArknights-beta = MaaAssistantArknights.override { 
-    maaVersion = "4.24.0";
-    maaSourceHash = "sha256-I1HKYO+ywLVUKNl1FH66efAUd4je2d1ynnDEelHZfK8=";
+    maaVersion = "4.25.0";
+    maaSourceHash = "sha256-NcfrpLgduemiEJ8jeLY14lZgs67ocZX+7SSIxSC2otk=";
   };
 
+  fastdeploy_ppocr = pkgs.callPackage ./pkgs/MaaAssistantArknights/fastdeploy_ppocr.nix { };
 
   MaaX = pkgs.callPackage ./pkgs/MaaX { 
     inherit maintainers;
   };
+
+  onnxruntime-cuda = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda.nix {  };
 
 }
