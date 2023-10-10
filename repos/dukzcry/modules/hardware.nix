@@ -4,7 +4,7 @@ with lib;
 let
   cfg = config.services.hardware;
   any' = l: any (x: x == config.networking.hostName) l;
-  laptop = any' [ "li-si-tsin" ];
+  laptop = any' [ "suitecase" ];
   server = any' [ "robocat" ];
   desktop = any' [ "powerhorse" ];
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
@@ -60,23 +60,17 @@ in {
         percentageAction = 5;
         criticalPowerAction = "Hibernate";
       };
-      boot.blacklistedKernelModules = [ "uvcvideo" ];
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       boot.kernelParams = [ "mitigations=off" ];
-      boot.extraModprobeConfig = ''
-        options snd-hda-intel model=dell-headset-multi
-      '';
       services.tlp = {
         enable = true;
         settings = {
           CPU_SCALING_GOVERNOR_ON_AC = "powersave";
           CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-          RUNTIME_PM_BLACKLIST = "00:14.0";
         };
       };
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
-      services.nvidia.enable = true;
       services.picom = {
         enable = true;
         vSync = true;
