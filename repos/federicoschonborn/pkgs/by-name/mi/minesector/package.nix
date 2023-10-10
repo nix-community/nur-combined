@@ -9,14 +9,14 @@
 , SDL2_mixer
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "minesector";
   version = "1.1.5";
 
   src = fetchFromGitHub {
     owner = "grassdne";
     repo = "minesector";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-VMTXZ4CIk9RpE4R9shHPl0R/T7mJUKY2b8Zi0DPW0/Q=";
   };
 
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ federicoschonborn ];
     broken = stdenv.isDarwin;
   };
-}
+})

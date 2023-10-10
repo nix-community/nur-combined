@@ -13,14 +13,14 @@
 , rpm
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "zypper";
   version = "1.14.65";
 
   src = fetchFromGitHub {
     owner = "opensuse";
     repo = "zypper";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-QvGorgRMsy1AtH61VkqlNzg2d8/ECs+1TaqiFHHzLTo=";
   };
 
@@ -51,4 +51,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
   };
-}
+})

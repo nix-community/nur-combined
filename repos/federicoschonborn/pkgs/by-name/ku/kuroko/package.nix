@@ -3,14 +3,14 @@
 , fetchFromGitHub
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kuroko";
   version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "kuroko-lang";
     repo = "kuroko";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-+hzgRX0T0LhAcHHBdOp8Tlo2hO2gxt6wkHjulDHdZ1Q=";
   };
 
@@ -24,4 +24,4 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ federicoschonborn ];
   };
-}
+})

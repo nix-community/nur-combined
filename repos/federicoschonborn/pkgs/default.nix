@@ -38,7 +38,9 @@
   opensurge = pkgs.callPackage ./by-name/op/opensurge/package.nix { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./by-name/qv/qv/package.nix { inherit libtgd; };
   rollit = pkgs.callPackage ./by-name/ro/rollit/package.nix { };
+  rollit3_3 = pkgs.callPackage ./by-name/ro/rollit3_3/package.nix { };
   share-preview = pkgs.callPackage ./by-name/sh/share-preview/package.nix { };
+  share-preview0_4 = pkgs.callPackage ./by-name/sh/share-preview0_4/package.nix { };
   srb2p = pkgs.callPackage ./by-name/sr/srb2p/package.nix { };
   surgescript = pkgs.callPackage ./by-name/su/surgescript/package.nix { };
   teem = pkgs.callPackage ./by-name/te/teem/package.nix { };

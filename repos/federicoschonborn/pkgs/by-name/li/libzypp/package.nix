@@ -25,14 +25,14 @@
 , yaml-cpp
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libzypp";
   version = "17.31.21";
 
   src = fetchFromGitHub {
     owner = "openSUSE";
     repo = "libzypp";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-2RBaSCYceVZnQNaZ5vUgo5hiqTVTDf26+eeCHtlAC0s=";
   };
 
@@ -79,4 +79,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
   };
-}
+})

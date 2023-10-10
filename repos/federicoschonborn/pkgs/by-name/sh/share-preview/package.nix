@@ -22,19 +22,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "share-preview";
-  version = "0.4.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "rafaelmardojai";
     repo = "share-preview";
     rev = finalAttrs.version;
-    hash = "sha256-epN2YOaDrvdQwaUnIarnRTcHk5dhp6Ea29/37cliBes=";
+    hash = "sha256-CsnWQxE2r+uWwuEzHpY/lpWS5i8OXvhRKvy2HzqnQ5U=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit (finalAttrs) src;
     name = "${finalAttrs.pname}-${finalAttrs.version}";
-    hash = "sha256-tMb6zs5jJJyECDuAbzoOrB2H2/wPL8MEQOOWZ9rF66E=";
+    hash = "sha256-H0IDKf5dz+zPnh/zHYP7kCYWHLeP33zHip6K+KCq4is=";
   };
 
   nativeBuildInputs = [
@@ -66,6 +66,5 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder libadwaita.version "1.4";
   };
 })

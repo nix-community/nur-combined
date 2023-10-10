@@ -13,14 +13,14 @@
 , wxGTK32
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "codelite";
   version = "17.7.0";
 
   src = fetchFromGitHub {
     owner = "eranif";
     repo = "codelite";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-kSiyB51YVFF2Ldbaiyqm/cEbeMZ9NFG/1Zbb6/PLxm8=";
     fetchSubmodules = true;
   };
@@ -57,4 +57,4 @@ stdenv.mkDerivation rec {
     # ld: cannot find -lc: No such file or directory
     broken = true;
   };
-}
+})
