@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/RajSolai/TextSnatcher";
     changelog = "https://github.com/RajSolai/TextSnatcher/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    broken = stdenv.isDarwin;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 })

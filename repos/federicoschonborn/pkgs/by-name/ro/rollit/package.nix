@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder version "23.11";
+    broken = versionOlder libadwaita.version "1.4";
   };
 }

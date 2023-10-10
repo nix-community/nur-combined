@@ -4,6 +4,7 @@
 , pkg-config
 , sqlite
 , zstd
+, rustc
 }:
 
 rustPlatform.buildRustPackage {
@@ -33,8 +34,9 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "The safe, fast and sane package manager for Linux";
     homepage = "https://github.com/serpent-os/moss-rs";
-    platforms = platforms.linux;
     license = licenses.mpl20;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
+    broken = versionOlder rustc.version "1.70";
   };
 }

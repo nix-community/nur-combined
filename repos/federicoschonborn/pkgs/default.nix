@@ -26,7 +26,7 @@
   libgta = pkgs.callPackage ./by-name/li/libgta/package.nix { };
   libtgd = pkgs.callPackage ./by-name/li/libtgd/package.nix { inherit libgta; };
   libxo = pkgs.callPackage ./by-name/li/libxo/package.nix { };
-  libzypp = pkgs.callPackage ./by-name/li/libzypp/package.nix { };
+  libzypp = pkgs.callPackage ./by-name/li/libzypp/package.nix { libsolv = libsolv-libzypp; };
   liquidshell = pkgs.libsForQt5.callPackage ./by-name/li/liquidshell/package.nix { };
   marknote = pkgs.libsForQt5.callPackage ./by-name/ma/marknote/package.nix { };
   metronome = pkgs.callPackage ./by-name/me/metronome/package.nix { };
@@ -38,7 +38,6 @@
   opensurge = pkgs.callPackage ./by-name/op/opensurge/package.nix { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./by-name/qv/qv/package.nix { inherit libtgd; };
   rollit = pkgs.callPackage ./by-name/ro/rollit/package.nix { };
-  rpcsx = pkgs.callPackage ./by-name/rp/rpcsx/package.nix { };
   share-preview = pkgs.callPackage ./by-name/sh/share-preview/package.nix { };
   srb2p = pkgs.callPackage ./by-name/sr/srb2p/package.nix { };
   surgescript = pkgs.callPackage ./by-name/su/surgescript/package.nix { };
@@ -48,10 +47,8 @@
   thunderbird-gnome-theme = pkgs.callPackage ./by-name/th/thunderbird-gnome-theme/package.nix { };
   upkg = pkgs.callPackage ./by-name/up/upkg/package.nix { };
   usysconf = pkgs.callPackage ./by-name/us/usysconf/package.nix { };
-  vita3k = pkgs.callPackage ./by-name/vi/vita3k/package.nix { };
   waycheck = pkgs.qt6.callPackage ./by-name/wa/waycheck/package.nix { };
   xdg-terminal-exec = pkgs.callPackage ./by-name/xd/xdg-terminal-exec/package.nix { };
-  xenia = pkgs.callPackage ./by-name/xe/xenia/package.nix { };
   yyjson = pkgs.yyjson or (pkgs.callPackage ./by-name/yy/yyjson/package.nix { });
   zypper = pkgs.callPackage ./by-name/zy/zypper/package.nix { inherit libzypp; };
 
@@ -175,4 +172,14 @@
     withExperimentalLibs = true;
     withExperimentalApps = true;
   };
+
+  libsolv-libzypp = pkgs.libsolv.overrideAttrs (oldAttrs: {
+    pname = "libsolv-libzypp";
+    cmakeFlags = oldAttrs.cmakeFlags ++ [
+      "-DENABLE_HELIXREPO=true"
+    ];
+    meta = oldAttrs.meta // {
+      description = oldAttrs.meta.description + " (for LibZYpp)";
+    };
+  });
 }

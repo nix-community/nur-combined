@@ -25,13 +25,6 @@
 , yaml-cpp
 }:
 
-let
-  libsolvHelix = libsolv.overrideAttrs (oldAttrs: {
-    cmakeFlags = oldAttrs.cmakeFlags ++ [
-      "-DENABLE_HELIXREPO=true"
-    ];
-  });
-in
 stdenv.mkDerivation rec {
   pname = "libzypp";
   version = "17.31.21";
@@ -65,7 +58,7 @@ stdenv.mkDerivation rec {
     gpgme
     libproxy
     libsigcxx
-    libsolvHelix
+    libsolv
     libxml2
     pcre2
     protobuf
@@ -76,7 +69,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_MODULE_PATH=${libsolvHelix}/share/cmake/Modules"
+    "-DCMAKE_MODULE_PATH=${libsolv}/share/cmake/Modules"
   ];
 
   meta = with lib; {

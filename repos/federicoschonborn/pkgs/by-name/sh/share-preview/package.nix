@@ -59,15 +59,14 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
     pango
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Foundation
   ];
 
   meta = with lib; {
     description = "Test social media cards locally";
     homepage = "https://github.com/rafaelmardojai/share-preview";
     license = licenses.gpl3Only;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder version "23.11";
+    broken = versionOlder libadwaita.version "1.4";
   };
 })
