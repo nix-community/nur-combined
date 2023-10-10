@@ -47,6 +47,7 @@ in
     LESSHISTFILE = "${dataHome}/less/history";
     LESSKEY = "${configHome}/less/lesskey";
     PSQL_HISTORY = "${dataHome}/psql_history";
+    REPO_CONFIG_DIR = "${configHome}/repo";
     REDISCLI_HISTFILE = "${dataHome}/redis/rediscli_history";
     XCOMPOSECACHE = "${dataHome}/X11/xcompose";
   };
