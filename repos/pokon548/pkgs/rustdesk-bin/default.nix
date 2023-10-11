@@ -5,17 +5,16 @@ let
   version = "1.2.3";
   name = "Rustdesk-${version}";
 
-  src = lib.warn
-    "${pname} from pokon548's NUR is deprecated and will be removed from NUR repo soon. Migrate by changing nur.repos.pokon548.rustdesk-bin to pkgs.rustdesk"
-    fetchurl {
-      url =
-        "https://github.com/rustdesk/rustdesk/releases/download/nightly/rustdesk-${version}-x86_64.AppImage";
-      sha256 = "sha256-FYNzbCu9s6A79zPxM45hjPjjIm9leisNrjV3oUo4iz4=";
-    };
+  src = fetchurl {
+    url =
+      "https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.AppImage";
+    sha256 = "sha256-2i2H9mi8LGMtYtx1LdGIBGSdogYitC1ZnP4ANhKGEbs=";
+  };
 
   appimageContents = appimageTools.extract { inherit name src; };
 
-in appimageTools.wrapType2 {
+in
+appimageTools.wrapType2 {
   inherit version name src;
 
   extraInstallCommands = ''
