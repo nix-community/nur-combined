@@ -3,7 +3,7 @@
 let
   custom_rofi = pkgs.custom.rofi.override { inherit (pkgs.custom) colors; };
   inherit (pkgs) writeShellScript makeDesktopItem;
-  mod = "Mod4";
+  mod = "Mod1";
   modn = writeShellScript "modn" ''
     goto_ws=$(i3-msg i3-msg -t get_workspaces | jq '.[] | select(.focused == true) | "i3-msg workspace number " + .name' | sed s/\"//g)
 
