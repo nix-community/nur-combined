@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 # fetch one image from NASA and apply as wallpaper
+set -eu
 
-feh --bg-fill $(curl -L "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=1" | jq .[0].hdurl -r)
+OUT_FILE=/tmp/wall.jpg
+curl "$(curl -L "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=1" | jq .[0].hdurl -r)" --output $OUT_FILE
+sd wall change $OUT_FILE
