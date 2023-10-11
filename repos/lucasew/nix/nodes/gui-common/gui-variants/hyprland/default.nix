@@ -17,6 +17,10 @@
       script = "blueberry-tray; while true; do sleep 3600; done";
     };
 
+    xdg.portal.extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+    ];
+
     environment.systemPackages = with pkgs; [
       custom.rofi
       swaylock
@@ -25,6 +29,7 @@
       xfce.thunar
       playerctl
       brightnessctl
+      gscreenshot
     ];
   };
 }
