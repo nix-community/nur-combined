@@ -9,6 +9,8 @@
 , fetchzip
 }:
 
+assert stdenv.hostPlatform.system == "x86_64-linux";
+
 let
 
   ver = "1.15.1";
@@ -69,7 +71,7 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/microsoft/onnxruntime";
     changelog = "https://github.com/microsoft/onnxruntime/releases/tag/v${version}";
     platforms = [ "x86_64-linux" ];
-    broken = !stdenv.isx86_64;
+    broken = stdenv.hostPlatform.system != "x86_64-linux";
     license = licenses.mit;
   };
 
