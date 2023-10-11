@@ -1146,10 +1146,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.4.22";
+    version = "5.4.23";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4175367/sponsorblock-5.4.22.xpi";
-    sha256 = "428c2d91f40d63935ee1a8cdf8a435c6751f217b3e299e11be3cbc58ff6e31ae";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4178444/sponsorblock-5.4.23.xpi";
+    sha256 = "b924ab6fbcd2f102ac63aa737dee3c90860d0f1afea743c6b0fbb697aa089832";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
