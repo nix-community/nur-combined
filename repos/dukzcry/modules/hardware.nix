@@ -58,7 +58,6 @@ in {
         percentageLow = 7;
         percentageCritical = 6;
         percentageAction = 5;
-        criticalPowerAction = "Hibernate";
       };
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
@@ -83,7 +82,6 @@ in {
       services.logind.extraConfig = ''
         HandlePowerKey=hibernate
       '';
-      services.hardware.remminaLegacy = true;
     } // builder))
     (mkIf (cfg.enable && desktop) {
       services.nix-serve = {
