@@ -1,20 +1,23 @@
 # imitate https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=maa-assistant-arknights
 
 { stdenv
+, config
 , pkgs
 , lib
 , fetchFromGitHub
 , cmake
 , opencv
 , eigen
-, cudaPackages
+, cudaSupport ? config.cudaSupport
+, cudaPackages ? { }
 }:
 
 let
 
-  onnxruntime = pkgs.callPackage ./onnxruntime-cuda.nix { };
+  onnxruntime = if cudaSupport then pkgs.callPackage ./onnxruntime-cuda.nix { } else pkgs.onnxruntime;
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
 
   pname = "fastdeploy_ppocr";
   version = "20231009-unstable";
@@ -34,15 +37,24 @@ in stdenv.mkDerivation rec {
   buildInputs = [
     opencv
     onnxruntime
-    cudaPackages.cudatoolkit
-  ];
+  ] ++ lib.optionals cudaSupport (with cudaPackages; [
+    cudatoolkit
+  ]);
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=None"
     "-DBUILD_SHARED_LIBS=ON"
-    "-DWITH_GPU=ON"
     "-DPRINT_LOG=ON"
+  ] ++ lib.optional cudaSupport [
+    "-DWITH_GPU=ON"
     "-DCUDA_DIRECTORY=${cudaPackages.cudatoolkit}"
   ];
+
+  meta = with lib; {
+    description = "MAAAssistantArknights stripped-down version of FastDeploy";
+    homepage = "https://github.com/MaaAssistantArknights/FastDeploy/";
+    platforms = platforms.linux ++ platforms.darwin;
+    license = licenses.apsl20;
+  };
 
 }

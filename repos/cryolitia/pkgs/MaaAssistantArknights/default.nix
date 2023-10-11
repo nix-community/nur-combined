@@ -4,6 +4,7 @@
 , stdenv
 , pkgs
 , lib
+, config
 , fetchFromGitHub
 , cmake
 , opencv
@@ -16,13 +17,17 @@
 , range-v3
 , maaVersion ? "4.25.0"
 , maaSourceHash ? "sha256-NcfrpLgduemiEJ8jeLY14lZgs67ocZX+7SSIxSC2otk="
+, cudaSupport ? config.cudaSupport
+, cudaPackages ? { }
 }:
 
 let
 
-  onnxruntime = pkgs.callPackage ./onnxruntime-cuda.nix { };
+  onnxruntime = if cudaSupport then pkgs.callPackage ./onnxruntime-cuda.nix { } else pkgs.onnxruntime;
 
-  fastdeploy_ppocr = pkgs.callPackage ./fastdeploy_ppocr.nix { };
+  fastdeploy_ppocr = pkgs.callPackage ./fastdeploy_ppocr.nix {
+    inherit cudaSupport;
+  };
 
   maa-cli = pkgs.callPackage ./maa-cli.nix { inherit maintainers; };
 
@@ -106,7 +111,9 @@ stdenv.mkDerivation rec {
 
     mkdir -pv $out/bin
     cp -v ${maa-cli}/bin/* $out/share/${name}
-    makeWrapper $out/share/${name}/maa $out/bin/maa
+    makeWrapper $out/share/${name}/maa $out/bin/maa'' + lib.optionalString cudaSupport '' \
+      --set LD_LIBRARY_PATH ${onnxruntime}/lib:$LD_LIBRARY_PATH
+    '' + ''
   '';
 
   meta = with lib; {

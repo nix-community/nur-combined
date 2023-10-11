@@ -21,9 +21,17 @@ rec {
     inherit maintainers;
   };
 
+  MaaAssistantArknights-cuda = MaaAssistantArknights.override { 
+    cudaSupport = true;
+  };
+
   MaaAssistantArknights-beta = MaaAssistantArknights.override { 
     maaVersion = "4.25.0";
     maaSourceHash = "sha256-NcfrpLgduemiEJ8jeLY14lZgs67ocZX+7SSIxSC2otk=";
+  };
+
+  MaaAssistantArknights-beta-cuda = MaaAssistantArknights-beta.override { 
+    cudaSupport = true;
   };
 
   fastdeploy_ppocr = pkgs.callPackage ./pkgs/MaaAssistantArknights/fastdeploy_ppocr.nix { };
