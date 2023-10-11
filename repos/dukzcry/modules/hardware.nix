@@ -62,13 +62,7 @@ in {
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       boot.kernelParams = [ "mitigations=off" ];
-      services.tlp = {
-        enable = true;
-        settings = {
-          CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-          CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        };
-      };
+      services.tlp.enable = true;
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
       services.picom = {
         enable = true;
