@@ -15,12 +15,12 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   clone-org = pkgs.callPackage ./pkgs/clone-org { };
-  discord-applemusic-rich-presence =
-    pkgs.callPackage ./pkgs/discord-applemusic-rich-presence { };
+  discord-applemusic-rich-presence = pkgs.callPackage ./pkgs/discord-applemusic-rich-presence { };
   fork-cleaner = pkgs.callPackage ./pkgs/fork-cleaner { };
   gocovsh = pkgs.callPackage ./pkgs/gocovsh { };
   jsonfmt = pkgs.callPackage ./pkgs/jsonfmt { };
   org-stats = pkgs.callPackage ./pkgs/org-stats { };
   svu = pkgs.callPackage ./pkgs/svu { };
+  timer = pkgs.callPackage ./pkgs/timer { };
   xdg-open-svc = pkgs.callPackage ./pkgs/xdg-open-svc { };
 }
