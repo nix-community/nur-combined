@@ -1,7 +1,8 @@
 { writeShellScriptBin
 , symlinkJoin
 , rofi
-, colors ? null
+, custom
+, colors ? custom.colors
 , lib
 }:
 let

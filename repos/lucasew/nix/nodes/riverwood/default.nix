@@ -21,6 +21,9 @@ in
     ]
   ;
 
+  # services.xserver.windowManager.i3.enable = true;
+  programs.hyprland.enable = true;
+
   services.nixgram = {
     enable = true;
     customCommands = {
@@ -49,8 +52,6 @@ in
   };
 
   services.nginx.enable = true;
-
-  services.xserver.windowManager.i3.enable = true;
 
   boot.plymouth.enable = true;
 
