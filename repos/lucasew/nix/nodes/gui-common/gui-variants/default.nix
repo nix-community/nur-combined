@@ -5,5 +5,6 @@
     ./gnome.nix
     ./i3
     ./hyprland
+    ./common
   ];
 }

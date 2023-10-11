@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+  ];
   config = lib.mkIf config.programs.hyprland.enable {
+    services.dunst.enable = true;
     programs.regreet.enable = true;
     programs.waybar.enable = true;
     programs.kdeconnect.enable = true;
