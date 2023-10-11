@@ -69,6 +69,7 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/microsoft/onnxruntime";
     changelog = "https://github.com/microsoft/onnxruntime/releases/tag/v${version}";
     platforms = [ "x86_64-linux" ];
+    broken = !stdenv.isx86_64;
     license = licenses.mit;
   };
 
