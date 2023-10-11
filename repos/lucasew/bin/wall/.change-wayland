@@ -1,0 +1,9 @@
+#!/usr/bin/env -S sd nix shell
+#! nix-shell -i bash -p swaybg
+#! vim:ft=bash
+
+set -eu
+
+IMAGE="$1";shift
+
+systemd-run --user -u wallpaper-change swaybg -i "$IMAGE"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 if [ -v WAYLAND_DISPLAY ]; then
-    sd screenshot full-wayland "$@"
+    sd screenshot .full-wayland "$@"
 fi

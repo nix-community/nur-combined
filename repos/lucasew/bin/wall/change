@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-set -eu -o pipefail
+# change the wallpaper of the system to a image
 
-IMAGE="$1";shift
+set -eu -o pipefail
 
 systemctl --user stop wallpaper-change || true
 systemctl --user reset-failed wallpaper-change || true
 
 if [ -v WAYLAND_DISPLAY ]; then
-    systemd-run --user -u wallpaper-change swaybg -i "$IMAGE"
+    sd wall .change-wayland "$@"
 else
-    systemd-run --user -u wallpaper-change feh --bg-fill "$IMAGE"
+    sd wall .change-xorg "$@"
 fi
