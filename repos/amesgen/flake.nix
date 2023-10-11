@@ -19,10 +19,7 @@
             nvfetcherCfg = (pkgs.formats.toml { }).generate "nvfetcher.toml"
               (import ./pkgs/nvfetcher.nix pkgs);
             nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''
-              ${pkgs.nvfetcher}/bin/nvfetcher \
-                -o pkgs/_sources \
-                -c <(sed -e 's/"\(.*\)" =/\1 =/g' ${nvfetcherCfg}) \
-                "$@"
+              ${pkgs.nvfetcher}/bin/nvfetcher -o pkgs/_sources -c ${nvfetcherCfg} "$@"
             '';
           in
           pkgs.mkShell {

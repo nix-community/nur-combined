@@ -1,6 +1,7 @@
 {
     "cabal-docspec": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "cabal-docspec",
         "passthru": null,
@@ -15,6 +16,7 @@
     },
     "cabal-docspec-man": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "cabal-docspec-man",
         "passthru": null,
@@ -29,6 +31,7 @@
     },
     "cabal-plan": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "cabal-plan",
         "passthru": null,
@@ -43,6 +46,7 @@
     },
     "fourmolu": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "fourmolu",
         "passthru": null,
@@ -57,6 +61,7 @@
     },
     "hellsmack": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "hellsmack",
         "passthru": null,
@@ -71,6 +76,7 @@
     },
     "hlint": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "hlint",
         "passthru": null,
@@ -85,6 +91,7 @@
     },
     "ormolu": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "ormolu",
         "passthru": null,

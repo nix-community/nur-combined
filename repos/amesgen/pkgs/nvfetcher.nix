@@ -1,9 +1,6 @@
 { lib, stdenv, ... }:
 
 let
-  flatten = lib.mapAttrs (_: p: lib.listToAttrs (lib.flatten (lib.mapAttrsToList
-    (n1: lib.mapAttrsToList (n2: v: { name = "${n1}.${n2}"; value = v; }))
-    p)));
   github = { slug, useTag ? false, restUrl, src ? { } }: {
     fetch.url = "https://github.com/${slug}/releases/download/${restUrl}";
     src = lib.recursiveUpdate
@@ -19,7 +16,7 @@ let
     src.prefix = "cabal-docspec-";
   };
 in
-flatten {
+{
   inherit cabal-docspec;
   cabal-docspec-man = cabal-docspec // {
     fetch.url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-$ver/cabal-docspec/cabal-docspec.1";
