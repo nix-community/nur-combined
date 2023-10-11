@@ -4564,10 +4564,10 @@
       };
     "link-gopher" = buildFirefoxXpiAddon {
       pname = "link-gopher";
-      version = "2.5.0";
+      version = "2.6.1";
       addonId = "linkgopher@oooninja.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4173947/link_gopher-2.5.0.xpi";
-      sha256 = "4cfd8907758e749a9f7afb68c65a2373a3dc018228c55c8d1cb5b2200d2aa8a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178083/link_gopher-2.6.1.xpi";
+      sha256 = "26c7323ab77222502fb253aaac7b3e813faaae5f8da2db207e084e15c3fb5802";
       meta = with lib;
       {
         homepage = "http://sites.google.com/site/linkgopher/";
@@ -5112,10 +5112,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.27";
+      version = "11.4.28";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164985/noscript-11.4.27.xpi";
-      sha256 = "6b57d9afce663f801177b7492fe7f00967ee3e66b6351b2cf3ff2a6c3ca99637";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178438/noscript-11.4.28.xpi";
+      sha256 = "54d076b3226d454216117547f6441d2f95af3057d20f726e55d94b0f22573c14";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -6886,10 +6886,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.3";
+      version = "1.22.5";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4177184/single_file-1.22.3.xpi";
-      sha256 = "b66ce9fdb22033dc0510a009ce15182fba41f6b9e20907dad326fcd214e28e7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4179345/single_file-1.22.5.xpi";
+      sha256 = "ba227568a02f5169d48d8fa6d14ae3ceac1e63833a04177a8806be5d606316f7";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -7030,10 +7030,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.22";
+      version = "5.4.23";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4175367/sponsorblock-5.4.22.xpi";
-      sha256 = "428c2d91f40d63935ee1a8cdf8a435c6751f217b3e299e11be3cbc58ff6e31ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178444/sponsorblock-5.4.23.xpi";
+      sha256 = "b924ab6fbcd2f102ac63aa737dee3c90860d0f1afea743c6b0fbb697aa089832";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -7701,10 +7701,10 @@
       };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.35";
+      version = "0.2.36";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4158889/torrent_control-0.2.35.xpi";
-      sha256 = "914cfb399bf696ab8e2e976bc4af5c783fb46f65f8e268df6a7eeb59d5b344ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4179419/torrent_control-0.2.36.xpi";
+      sha256 = "61db97752cb8ee2cc6d708b5ebb547ee966f9b3a98a6153de1a86bba0081a8c0";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
