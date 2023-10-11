@@ -136,6 +136,11 @@ in
     '';
   });
 
+  script-directory-wrapper = final.writeShellScriptBin "sdw" ''
+    export SD_ROOT="$(SD_ROOT=${../bin} sd d root)/bin"
+    sd "$@"
+  '';
+
   ccacheWrapper = prev.ccacheWrapper.override {
     extraConfig = ''
       export CCACHE_COMPRESS=1

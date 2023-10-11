@@ -1,0 +1,5 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p grim wl-clipboard
+#! vim:ft=bash
+
+grim - | wl-copy

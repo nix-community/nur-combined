@@ -12,9 +12,3 @@ function title() {
     TITLE="\[\e]2;$*\a\]"
     PS1=${ORIG}${TITLE}
 }
-# add scripts from bin folder in dotfiles to PATH
-if [[ -v NIXCFG_ROOT_PATH ]]; then
-    PATH=$PATH:$NIXCFG_ROOT_PATH/bin
-else
-    PATH=$PATH:~/.dotfiles/bin
-fi

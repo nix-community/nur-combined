@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if [ -v WAYLAND_DISPLAY ]; then
+    sd screenshot select-wayland "$@"
+fi

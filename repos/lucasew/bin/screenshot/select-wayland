@@ -1,0 +1,6 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p grim slurp wl-clipboard
+#! vim:ft=bash
+# ask for a viewport and screenshot to clipboard
+
+grim -g "$(slurp)" - | wl-copy

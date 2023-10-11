@@ -1,6 +1,6 @@
 {global, pkgs, lib, self, config, ...}:
 let
-  inherit (pkgs) vim gitMinimal tmux xclip writeShellScriptBin killall;
+  inherit (pkgs) vim gitMinimal tmux xclip killall script-directory-wrapper;
   inherit (global) username;
 in {
   imports = [
@@ -40,6 +40,7 @@ in {
     tmux
     xclip
     killall
+    script-directory-wrapper
   ];
   environment.variables = {
     EDITOR = "nvim";
