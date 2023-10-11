@@ -1,6 +1,6 @@
 { lib, stdenv
 , fetchpatch
-, cmake, pkgconfig, pins
+, cmake, pkg-config, pins
 , ffmpeg, libebur128, taglib, zlib
 }:
 stdenv.mkDerivation rec {
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    cmake pkgconfig
+    cmake pkg-config
   ];
 
   buildInputs = [

@@ -1,5 +1,5 @@
 { lib, stdenv, pins
-, pkgconfig
+, pkg-config
 , dbus, hidapi
 }:
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    pkgconfig
+    pkg-config
   ];
 
   buildInputs = [
