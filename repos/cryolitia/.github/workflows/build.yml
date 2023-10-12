@@ -71,6 +71,6 @@ jobs:
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Build aarch64 nix packages
       if: ${{ matrix.arch == 'aarch64' }}
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix --arg crossSystem '(import <nixpkgs.lib>).systems.examples.aarch64-multiplatform' -A cacheOutputs
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached --arg crossSystem '(import <nixpkgs.lib>).systems.examples.aarch64-multiplatform' ci.nix -A cacheOutputs
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=Cryolitia"
