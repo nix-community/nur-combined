@@ -5,11 +5,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "krig-bilateral";
-  version = "unstable-2023-09-26";
+  version = "unstable-2023-10-12";
 
   src = fetchurl {
-    url = "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/bc10b47c6a4deef7cdca140830d6886e866663fb/KrigBilateral.glsl";
-    sha256 = "sha256-oh4DOds2KUid4e4nqQhS3GMQyi743+HsGEdK3x8bfzA=";
+    url = "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/e4d34ee29a5438add873710a1d5c3f9f00a96ec0/KrigBilateral.glsl";
+    sha256 = "sha256-jHhE8MulnoChX2Hr0osWi6kZ+T4JLD/buF7DAwvq5Ag=";
   };
 
   dontUnpack = true;
