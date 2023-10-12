@@ -63,7 +63,6 @@ in {
         pavucontrol
         spotify
         tdesktop
-        teams
         thunderbird
         virt-manager
         xcolor
