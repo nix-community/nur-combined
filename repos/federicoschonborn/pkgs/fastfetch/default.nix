@@ -101,38 +101,45 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optional enablePulse pulseaudio
   ++ lib.optional enableDdcutil ddcutil
   ++ lib.optional enableDirectxHeaders directx-headers
+  # Apparently we need these even if the features are disabled.
+  ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreGraphics OpenCL ])
   ;
 
-  cmakeFlags = [
-    "-DTARGET_DIR_ROOT=${placeholder "out"}"
-    "-DENABLE_SYSTEM_YYJSON=ON"
+  cmakeFlags =
+    let
+      # For compatability with old Nixpkgs
+      cmakeBool = lib.cmakeBool or (name: value: "-D${name}:BOOL=${if value then "ON" else "OFF"}");
+    in
+    [
+      "-DTARGET_DIR_ROOT=${placeholder "out"}"
+      "-DENABLE_SYSTEM_YYJSON=ON"
 
-    (lib.cmakeBool "ENABLE_LIBPCI" enableLibpci)
-    (lib.cmakeBool "ENABLE_VULKAN" enableVulkan)
-    (lib.cmakeBool "ENABLE_WAYLAND" enableWayland)
-    (lib.cmakeBool "ENABLE_XCB" enableXcb)
-    (lib.cmakeBool "ENABLE_XCB_RANDR" enableXcbRandr)
-    (lib.cmakeBool "ENABLE_XRANDR" enableXrandr)
-    (lib.cmakeBool "ENABLE_X11" enableX11)
-    (lib.cmakeBool "ENABLE_GIO" enableGio)
-    (lib.cmakeBool "ENABLE_DCONF" enableDconf)
-    (lib.cmakeBool "ENABLE_DBUS" enableDbus)
-    (lib.cmakeBool "ENABLE_XFCONF" enableXfconf)
-    (lib.cmakeBool "ENABLE_SQLITE3" enableSqlite3)
-    (lib.cmakeBool "ENABLE_RPM" enableRpm)
-    (lib.cmakeBool "ENABLE_IMAGEMAGICK7" enableImagemagick7)
-    (lib.cmakeBool "ENABLE_CHAFA" enableChafa)
-    (lib.cmakeBool "ENABLE_ZLIB" enableZlib)
-    (lib.cmakeBool "ENABLE_EGL" enableEgl)
-    (lib.cmakeBool "ENABLE_GLX" enableGlx)
-    (lib.cmakeBool "ENABLE_OSMESA" enableOsmesa)
-    (lib.cmakeBool "ENABLE_OPENCL" enableOpencl)
-    (lib.cmakeBool "ENABLE_LIBNM" enableLibnm)
-    (lib.cmakeBool "ENABLE_FREETYPE" enableFreetype)
-    (lib.cmakeBool "ENABLE_PULSE" enablePulse)
-    (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
-    (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
-  ];
+      (cmakeBool "ENABLE_LIBPCI" enableLibpci)
+      (cmakeBool "ENABLE_VULKAN" enableVulkan)
+      (cmakeBool "ENABLE_WAYLAND" enableWayland)
+      (cmakeBool "ENABLE_XCB" enableXcb)
+      (cmakeBool "ENABLE_XCB_RANDR" enableXcbRandr)
+      (cmakeBool "ENABLE_XRANDR" enableXrandr)
+      (cmakeBool "ENABLE_X11" enableX11)
+      (cmakeBool "ENABLE_GIO" enableGio)
+      (cmakeBool "ENABLE_DCONF" enableDconf)
+      (cmakeBool "ENABLE_DBUS" enableDbus)
+      (cmakeBool "ENABLE_XFCONF" enableXfconf)
+      (cmakeBool "ENABLE_SQLITE3" enableSqlite3)
+      (cmakeBool "ENABLE_RPM" enableRpm)
+      (cmakeBool "ENABLE_IMAGEMAGICK7" enableImagemagick7)
+      (cmakeBool "ENABLE_CHAFA" enableChafa)
+      (cmakeBool "ENABLE_ZLIB" enableZlib)
+      (cmakeBool "ENABLE_EGL" enableEgl)
+      (cmakeBool "ENABLE_GLX" enableGlx)
+      (cmakeBool "ENABLE_OSMESA" enableOsmesa)
+      (cmakeBool "ENABLE_OPENCL" enableOpencl)
+      (cmakeBool "ENABLE_LIBNM" enableLibnm)
+      (cmakeBool "ENABLE_FREETYPE" enableFreetype)
+      (cmakeBool "ENABLE_PULSE" enablePulse)
+      (cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
+      (cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
+    ];
 
   meta = with lib; {
     description = "Like neofetch, but much faster because written in C";
