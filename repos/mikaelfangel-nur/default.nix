@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   clx = pkgs.callPackage ./pkgs/cl/clx { };
+  spacedrive = pkgs.callPackage ./pkgs/sp/spacedrive { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
