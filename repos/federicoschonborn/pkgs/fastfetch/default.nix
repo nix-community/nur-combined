@@ -108,6 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Apparently we need these even if the features are disabled.
     with darwin.apple_sdk.frameworks; [
       CoreGraphics
+      CoreVideo
       Foundation
       OpenCL
     ]
