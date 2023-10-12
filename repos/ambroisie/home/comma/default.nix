@@ -23,7 +23,7 @@ in
     ];
 
     home.sessionVariables = {
-      COMMA_PKGS_FLAKE = cfg.pkgsFlake;
+      COMMA_NIXPKGS_FLAKE = cfg.pkgsFlake;
     };
   };
 }
