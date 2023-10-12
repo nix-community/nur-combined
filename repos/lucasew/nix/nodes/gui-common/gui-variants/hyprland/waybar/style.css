@@ -1,19 +1,19 @@
-@define-color base00 #181818;
-@define-color base01 #2b2e37;
-@define-color base02 #3b3e47;
-@define-color base03 #585858;
-@define-color base04 #b8b8b8;
-@define-color base05 #d8d8d8;
-@define-color base06 #e8e8e8;
-@define-color base07 #f8f8f8;
-@define-color base08 #ab4642;
-@define-color base09 #dc9656;
-@define-color base0A #f7ca88;
-@define-color base0B #a1b56c;
-@define-color base0C #86c1b9;
-@define-color base0D #7cafc2;
-@define-color base0E #ba8baf;
-@define-color base0F #a16946;
+@define-color base00 #%base00%;
+@define-color base01 #%base01%;
+@define-color base02 #%base02%;
+@define-color base03 #%base03%;
+@define-color base04 #%base04%;
+@define-color base05 #%base05%;
+@define-color base06 #%base06%;
+@define-color base07 #%base07%;
+@define-color base08 #%base08%;
+@define-color base09 #%base09%;
+@define-color base0A #%base0A%;
+@define-color base0B #%base0B%;
+@define-color base0C #%base0C%;
+@define-color base0D #%base0D%;
+@define-color base0E #%base0E%;
+@define-color base0F #%base0F%;
 
 * {
   transition: none;

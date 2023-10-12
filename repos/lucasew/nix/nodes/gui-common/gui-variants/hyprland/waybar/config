@@ -97,8 +97,8 @@
     "network": {
         // "interface": "*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} 🛜",
-        "format-ethernet": "{ipaddr}/{cidr} 🔗",
-        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-ethernet": "🔗",
+        "tooltip-format": "{ifname} via {gwaddr} {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "Desconectado 🦖",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
