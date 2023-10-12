@@ -6,13 +6,14 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
-
-{
+{ pkgs ? import <unstable> {} }: {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   firefoxpwa = pkgs.callPackage ./pkgs/firefoxpwa { };
   firefoxpwa-unwrapped = pkgs.callPackage ./pkgs/firefoxpwa/unwrapped.nix { };
+
+  rutherther-sequence-detector = pkgs.callPackage ./pkgs/rutherther/sequence-detector.nix { };
+  rutherther-mpris-ctl = pkgs.callPackage ./pkgs/rutherther/mpris-ctl.nix { };
 }
