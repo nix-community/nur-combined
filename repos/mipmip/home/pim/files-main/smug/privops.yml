@@ -1,0 +1,15 @@
+session: privops
+root: "~/cPrivateOps"
+
+windows:
+  - name: amy
+    commands:
+      - ssh pim@amy.node.snel.city
+  - name: tf-wasnel
+    commands:
+      - ls
+    root: "~/cPrivateOps/wasnel-awsaccount-104144963194-main"
+  - name: tf-wasnel-ec2nix
+    commands:
+      - ls
+    root: "~/cPrivateOps/wasnel-awsaccount-104144963194-ec2nix"

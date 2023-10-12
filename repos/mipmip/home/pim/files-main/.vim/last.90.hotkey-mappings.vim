@@ -4,7 +4,7 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
-xnoremap <leader>X :<C-U> call ChatGPTTranslateSelect(visualmode())<Cr>
+"xnoremap <leader>X :<C-U> call ChatGPTTranslateSelect(visualmode())<Cr>
 function! ChatGPTTranslateSelect(mode)
     " call with visualmode() as the argument
     let [line_start, column_start] = getpos("'<")[1:2]
@@ -29,7 +29,7 @@ function! ChatGPTTranslateSelect(mode)
     endif
 
     call writefile(lines, "/tmp/modstext.txt")
-    let trans = execute(':! cat /tmp/modstext.txt | mods "translate to english" > /tmp/trans.txt')
+    let trans = execute(':! export $(cat /tmp/openaiapikey | xargs) && cat /tmp/modstext.txt | mods "translate to english" > /tmp/trans.txt')
     call cursor(line_end, 1)
     call execute(":r /tmp/trans.txt")
     call execute(":redraw!")

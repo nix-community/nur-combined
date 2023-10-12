@@ -11,9 +11,11 @@
     home-manager.url = "github:nix-community/home-manager/release-22.11";
     #home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = { self, home-manager, nixpkgs, unstable, utils }:
+  outputs = { self, home-manager, nixpkgs, unstable, utils, agenix }:
 
   let
     localOverlay = prev: final: {
@@ -27,16 +29,6 @@
       inherit system;
       config.allowUnfree = true;
     };
-
-#    old2211ForSystem = system: import nixpkgs-22-11 {
-#      overlays = [
-#        localOverlay
-#      ];
-#
-#      inherit system;
-#      config.allowUnfree = true;
-#    };
-
 
     unstableForSystem = system: import unstable {
       overlays = [
@@ -149,12 +141,15 @@
 
       modules =
         let
+          system = "x86_64-linux";
           defaults = { pkgs, ... }: {
             _module.args.unstable = unstableForSystem "x86_64-linux";
           };
         in [
           defaults
           ./hosts/lego1/configuration.nix
+          { environment.systemPackages = [ agenix.packages."${system}".default ]; }
+          agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -166,12 +161,15 @@
 
       modules =
         let
+          system = "x86_64-linux";
           defaults = { pkgs, ... }: {
             _module.args.unstable = unstableForSystem "x86_64-linux";
           };
         in [
           defaults
           ./hosts/ojs/configuration.nix
+          { environment.systemPackages = [ agenix.packages."${system}".default ]; }
+          agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

@@ -37,7 +37,6 @@
     ../../modules/hardware-krd_disable-caps.nix
     ../../modules/hardware-printers.nix
     ../../modules/network-wireguard-tracklib.nix
-    ../../modules/nix-comma.nix
     ../../modules/nix-common.nix
     ../../modules/nix-desktop.nix
     ../../modules/nix-home-manager-global.nix
