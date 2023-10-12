@@ -8,7 +8,7 @@
   cargo-aoc = pkgs.callPackage ./by-name/ca/cargo-aoc/package.nix { };
   casaos = pkgs.callPackage ./by-name/ca/casaos/package.nix { };
   chess-clock = pkgs.callPackage ./by-name/ch/chess-clock/package.nix { };
-  chess-clock0_6 = pkgs.callPackage ./by-name/ch/chess-clock0_6/package.nix { };
+  chess-clock0_5 = pkgs.callPackage ./by-name/ch/chess-clock/0.5.0.nix { };
   codelite = pkgs.callPackage ./by-name/co/codelite/package.nix { };
   devtoolbox = pkgs.callPackage ./by-name/de/devtoolbox/package.nix { };
   eloquens = pkgs.libsForQt5.callPackage ./by-name/el/eloquens/package.nix { };
@@ -38,9 +38,9 @@
   opensurge = pkgs.callPackage ./by-name/op/opensurge/package.nix { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./by-name/qv/qv/package.nix { inherit libtgd; };
   rollit = pkgs.callPackage ./by-name/ro/rollit/package.nix { };
-  rollit3_3 = pkgs.callPackage ./by-name/ro/rollit3_3/package.nix { };
+  rollit3_2 = pkgs.callPackage ./by-name/ro/rollit/3.2.0.nix { };
   share-preview = pkgs.callPackage ./by-name/sh/share-preview/package.nix { };
-  share-preview0_4 = pkgs.callPackage ./by-name/sh/share-preview0_4/package.nix { };
+  share-preview0_3 = pkgs.callPackage ./by-name/sh/share-preview/0.3.0.nix { };
   srb2p = pkgs.callPackage ./by-name/sr/srb2p/package.nix { };
   surgescript = pkgs.callPackage ./by-name/su/surgescript/package.nix { };
   teem = pkgs.callPackage ./by-name/te/teem/package.nix { };
