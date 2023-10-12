@@ -7,10 +7,10 @@
 }: {
   basiliskii-bin = {
     pname = "basiliskii-bin";
-    version = "2023-09-11";
+    version = "2023-10-11";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-09-11/BasiliskII-x86_64.AppImage";
-      sha256 = "sha256-kdr7y/2Xvmm52Cfbfg/2KqCXPENDQC+Cf/Sc1iUNI+w=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-10-11/BasiliskII-x86_64.AppImage";
+      sha256 = "sha256-c1zXphmzsvc6OzpKfbbwQvQjr+ICYV/f+w7bJvZQazY=";
     };
   };
   bling = {
@@ -39,15 +39,15 @@
   };
   carla-git = {
     pname = "carla-git";
-    version = "3a7d78c165ce3c7485a93e1901d45d5c5be4b6e1";
+    version = "adee4e119afe05020df61505d9a2fd1fa31ea9d9";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "3a7d78c165ce3c7485a93e1901d45d5c5be4b6e1";
+      rev = "adee4e119afe05020df61505d9a2fd1fa31ea9d9";
       fetchSubmodules = false;
-      sha256 = "sha256-7p8uWkxg6kGdImptvYlUlMDPuzlrZlhPqofP+mxNGO4=";
+      sha256 = "sha256-DPZxJuaD4ztZBr85iyqGOUWWmFqcNZXDNU+CXBEBJf4=";
     };
-    date = "2023-10-07";
+    date = "2023-10-11";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -243,10 +243,10 @@
   };
   sheepshaver-bin = {
     pname = "sheepshaver-bin";
-    version = "2023-09-11";
+    version = "2023-10-11";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-09-11/SheepShaver-x86_64.AppImage";
-      sha256 = "sha256-EUrjT+vWXTip/pmCSm0fyG5bP7o2pEgUEkYTdWRm9OY=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-10-11/SheepShaver-x86_64.AppImage";
+      sha256 = "sha256-DpezDr9h0NBZrr3I2Htqov1oWYu7PWkfwR8kO56uqf0=";
     };
   };
   slock-flexipatch = {
@@ -287,15 +287,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "6ecb0011cfb7ac1e5e234acfd49459fb6ca2783e";
+    version = "83cd162a16b729bea3a5089e2c398a05ed0b7ee6";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "6ecb0011cfb7ac1e5e234acfd49459fb6ca2783e";
+      rev = "83cd162a16b729bea3a5089e2c398a05ed0b7ee6";
       fetchSubmodules = false;
-      sha256 = "sha256-5JV6eKihQ90uLO9wuaGynuojdhmpyZ3/FwTeozCC4Bo=";
+      sha256 = "sha256-p8LTLhyrUF1jnkcN8dYESyewYLrbkvwUb7r4LYtqnhM=";
     };
-    date = "2023-10-06";
+    date = "2023-10-11";
   };
   tree-sitter-hypr = {
     pname = "tree-sitter-hypr";
