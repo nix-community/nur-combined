@@ -1,4 +1,4 @@
-{ buildNpmPackage, fetchzip, lib }:
+{ buildNpmPackage, fetchzip, installShellFiles, lib }:
 
 let
   pname = "github-copilot-cli";
@@ -20,7 +20,15 @@ buildNpmPackage {
 
   npmDepsHash = "sha256-fry4q/oClTlrwpKGFEvu+mUncaw37azPNlsJxMPLW6w=";
 
+  nativeBuildInputs = [ installShellFiles ];
+
   dontNpmBuild = true;
+
+  postInstall = ''
+    installShellCompletion --cmd github-copilot-cli \
+      --bash <($out/bin/github-copilot-cli alias -- bash) \
+      --zsh <($out/bin/github-copilot-cli alias -- zsh)
+  '';
 
   passthru.updateScript = [ ./updater.sh baseUrl pname version ];
 
