@@ -69,8 +69,6 @@ jobs:
       system: aarch64-linux
       channel: nixpkgs-unstable
     secrets: inherit
-    needs:
-      - build-nixpkgs-unstable-x86_64-linux
 
   build-nixos-unstable-small-aarch64-linux:
     uses: ./.github/workflows/build.yaml
@@ -80,7 +78,6 @@ jobs:
       channel: nixos-unstable
     secrets: inherit
     needs:
-      - build-nixos-unstable-small-x86_64-linux
       - build-nixpkgs-unstable-aarch64-linux
 
   build-nixos-unstable-aarch64-linux:
@@ -91,7 +88,6 @@ jobs:
       channel: nixos-unstable
     secrets: inherit
     needs:
-      - build-nixos-unstable-x86_64-linux
       - build-nixos-unstable-small-aarch64-linux
 
   build-nixos-stable-small-aarch64-linux:
@@ -102,7 +98,6 @@ jobs:
       channel: nixos-23.05
     secrets: inherit
     needs:
-      - build-nixos-stable-small-x86_64-linux
       - build-nixos-unstable-aarch64-linux
 
   build-nixos-stable-aarch64-linux:
@@ -113,7 +108,6 @@ jobs:
       channel: nixos-23.05
     secrets: inherit
     needs:
-      - build-nixos-stable-x86_64-linux
       - build-nixos-stable-small-aarch64-linux
 
   build-nixpkgs-unstable-x86_64-darwin:
@@ -123,8 +117,6 @@ jobs:
       system: x86_64-darwin
       channel: nixpkgs-unstable
     secrets: inherit
-    needs:
-      - build-nixpkgs-unstable-x86_64-linux
 
   build-nixpkgs-stable-x86_64-darwin:
     uses: ./.github/workflows/build.yaml
@@ -134,7 +126,6 @@ jobs:
       channel: nixpkgs-23.05-darwin
     secrets: inherit
     needs:
-      - build-nixos-stable-x86_64-linux
       - build-nixpkgs-unstable-x86_64-darwin
 
   deploy:
@@ -145,3 +136,5 @@ jobs:
         run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
     needs:
       - build-nixos-stable-x86_64-linux
+      - build-nixos-stable-aarch64-linux
+      - build-nixpkgs-stable-x86_64-darwin

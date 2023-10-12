@@ -7,57 +7,54 @@
 , pkg-config
 , yyjson
 
-, enableChafa ? false
-, chafa
-, enableDbus ? false
-, dbus
-, enableDconf ? false
-, dconf
-, enableDdcutil ? false
-, ddcutil
-, enableEgl ? false
-, libGL
-, enableFreetype ? false
-, freetype
-, enableGio ? false
-, glib
-, libselinux
-, libsepol
-, pcre16
-, pcre2
-, utillinux
-, enableGlx ? false
-, libglvnd
-, enableImagemagick ? false
-, imagemagick
-, enableLibnm ? false
-, networkmanager
-, enableLibpci ? false
+, enableLibpci ? stdenv.isLinux || stdenv.isBSD
 , pciutils
-, enableMesa ? false
+, enableVulkan ? stdenv.isLinux || stdenv.isDarwin || stdenv.isBSD || stdenv.isCygwin
+, vulkan-loader
+, enableWayland ? stdenv.isLinux || stdenv.isBSD
+, wayland
+, enableXcb ? stdenv.isLinux || stdenv.isBSD
+, enableXcbRandr ? stdenv.isLinux || stdenv.isBSD
+, enableXrandr ? stdenv.isLinux || stdenv.isBSD
+, enableX11 ? stdenv.isLinux || stdenv.isBSD
+, xorg
+, enableGio ? stdenv.isLinux || stdenv.isBSD
+, glib
+, enableDconf ? stdenv.isLinux || stdenv.isBSD
+, dconf
+, enableDbus ? stdenv.isLinux || stdenv.isBSD
+, dbus
+, enableXfconf ? stdenv.isLinux || stdenv.isBSD
+, xfce
+, enableSqlite3 ? stdenv.isLinux || stdenv.isBSD || stdenv.isDarwin
+, sqlite
+, enableRpm ? stdenv.isLinux
+, rpm
+, enableImagemagick7 ? stdenv.isLinux || stdenv.isDarwin || stdenv.isBSD || stdenv.isCygwin
+, imagemagick
+, enableChafa ? enableImagemagick7
+, chafa
+, enableZlib ? enableImagemagick7
+, zlib
+, enableEgl ? stdenv.isLinux || stdenv.isBSD
+, libGL
+, enableGlx ? stdenv.isLinux || stdenv.isBSD
+, libglvnd
+, enableOsmesa ? stdenv.isLinux || stdenv.isBSD
 , mesa_drivers
-, enableOpencl ? false
+, enableOpencl ? stdenv.isLinux || stdenv.isBSD
 , ocl-icd
 , opencl-headers
-, enablePulse ? false
+, enableLibnm ? stdenv.isLinux
+, networkmanager
+, enableFreetype ? stdenv.isLinux # Android
+, freetype
+, enablePulse ? stdenv.isLinux || stdenv.isBSD
 , pulseaudio
-, enableRpm ? false
-, rpm
-, enableSqlite3 ? false
-, sqlite
-, enableVulkan ? false
-, vulkan-loader
-, enableWayland ? false
-, libffi
-, wayland
-, enableX11 ? false
-, xorg
-, enableXcb ? false
-, enableXfconf ? false
-, xfce
-, enableXrandr ? false
-, enableZlib ? false
-, zlib
+, enableDdcutil ? stdenv.isLinux
+, ddcutil
+, enableDirectxHeaders ? stdenv.isLinux
+, directx-headers
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -80,37 +77,61 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     yyjson
   ]
-  ++ lib.optionals enableChafa [ chafa ]
-  ++ lib.optionals enableImagemagick [ imagemagick ]
-  ++ lib.optionals enableSqlite3 [ sqlite ]
-  ++ lib.optionals enableVulkan ([ vulkan-loader ] ++ lib.optionals stdenv.isDarwin [ darwin.moltenvk ])
-  ++ lib.optionals enableZlib [ zlib ]
-  ++ (
-    lib.optionals (!stdenv.isDarwin) [ ]
-      ++ lib.optionals enableDbus [ dbus ]
-      ++ lib.optionals enableDconf [ dconf ]
-      ++ lib.optionals enableDdcutil [ ddcutil ]
-      ++ lib.optionals enableEgl [ libGL ]
-      ++ lib.optionals enableFreetype [ freetype ]
-      # glib depends on pcre2 and libselinux depends on pcre16
-      ++ lib.optionals enableGio [ glib libselinux libsepol pcre16 pcre2 utillinux ]
-      ++ lib.optionals enableGlx [ libglvnd ]
-      ++ lib.optionals enableLibnm [ networkmanager ]
-      ++ lib.optionals enableLibpci [ pciutils ]
-      ++ lib.optionals enableMesa [ mesa_drivers.dev ]
-      ++ lib.optionals enableOpencl [ ocl-icd opencl-headers ]
-      ++ lib.optionals enablePulse [ pulseaudio ]
-      ++ lib.optionals enableRpm [ rpm ]
-      ++ lib.optionals enableWayland [ libffi wayland ]
-      ++ lib.optionals enableX11 [ xorg.libX11 ]
-      ++ lib.optionals enableXcb [ xorg.libXau xorg.libXdmcp xorg.libxcb ]
-      ++ lib.optionals enableXfconf [ xfce.xfconf ]
-      ++ lib.optionals enableXrandr [ xorg.libXext xorg.libXrandr ]
-  );
+  ++ lib.optional enableLibpci pciutils
+  ++ lib.optionals enableVulkan ([ vulkan-loader ] ++ lib.optional stdenv.isDarwin darwin.moltenvk)
+  ++ lib.optional enableWayland wayland
+  ++ lib.optional (enableXcb || enableXcbRandr) xorg.libxcb
+  ++ lib.optional enableXrandr xorg.libXrandr
+  ++ lib.optional enableX11 xorg.libX11
+  ++ lib.optional enableGio glib
+  ++ lib.optional enableDconf dconf
+  ++ lib.optional enableDbus dbus
+  ++ lib.optional enableXfconf xfce.xfconf
+  ++ lib.optional enableSqlite3 sqlite
+  ++ lib.optional enableRpm rpm
+  ++ lib.optional enableImagemagick7 imagemagick
+  ++ lib.optional enableChafa chafa
+  ++ lib.optional enableZlib zlib
+  ++ lib.optional enableEgl libGL
+  ++ lib.optional enableGlx libglvnd
+  ++ lib.optional enableOsmesa mesa_drivers.dev
+  ++ lib.optionals enableOpencl [ ocl-icd opencl-headers ]
+  ++ lib.optional enableLibnm networkmanager
+  ++ lib.optional enableFreetype freetype
+  ++ lib.optional enablePulse pulseaudio
+  ++ lib.optional enableDdcutil ddcutil
+  ++ lib.optional enableDirectxHeaders directx-headers
+  ;
 
   cmakeFlags = [
     "-DTARGET_DIR_ROOT=${placeholder "out"}"
-    "-DENABLE_SYSTEM_YYJSON=YES"
+    "-DENABLE_SYSTEM_YYJSON=ON"
+
+    (lib.cmakeBool "ENABLE_LIBPCI" enableLibpci)
+    (lib.cmakeBool "ENABLE_VULKAN" enableVulkan)
+    (lib.cmakeBool "ENABLE_WAYLAND" enableWayland)
+    (lib.cmakeBool "ENABLE_XCB" enableXcb)
+    (lib.cmakeBool "ENABLE_XCB_RANDR" enableXcbRandr)
+    (lib.cmakeBool "ENABLE_XRANDR" enableXrandr)
+    (lib.cmakeBool "ENABLE_X11" enableX11)
+    (lib.cmakeBool "ENABLE_GIO" enableGio)
+    (lib.cmakeBool "ENABLE_DCONF" enableDconf)
+    (lib.cmakeBool "ENABLE_DBUS" enableDbus)
+    (lib.cmakeBool "ENABLE_XFCONF" enableXfconf)
+    (lib.cmakeBool "ENABLE_SQLITE3" enableSqlite3)
+    (lib.cmakeBool "ENABLE_RPM" enableRpm)
+    (lib.cmakeBool "ENABLE_IMAGEMAGICK7" enableImagemagick7)
+    (lib.cmakeBool "ENABLE_CHAFA" enableChafa)
+    (lib.cmakeBool "ENABLE_ZLIB" enableZlib)
+    (lib.cmakeBool "ENABLE_EGL" enableEgl)
+    (lib.cmakeBool "ENABLE_GLX" enableGlx)
+    (lib.cmakeBool "ENABLE_OSMESA" enableOsmesa)
+    (lib.cmakeBool "ENABLE_OPENCL" enableOpencl)
+    (lib.cmakeBool "ENABLE_LIBNM" enableLibnm)
+    (lib.cmakeBool "ENABLE_FREETYPE" enableFreetype)
+    (lib.cmakeBool "ENABLE_PULSE" enablePulse)
+    (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
+    (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
   ];
 
   meta = with lib; {
@@ -118,8 +139,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/LinusDierheimer/fastfetch";
     changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    # buildInputs grabs mesa and libselinux somehow.
-    broken = stdenv.isDarwin;
     maintainers = with maintainers; [ federicoschonborn ];
   };
 })

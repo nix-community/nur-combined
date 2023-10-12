@@ -12,7 +12,7 @@
   codelite = pkgs.callPackage ./codelite { };
   devtoolbox = pkgs.callPackage ./devtoolbox { };
   eloquens = pkgs.libsForQt5.callPackage ./eloquens { };
-  fastfetch = pkgs.callPackage ./fastfetch {  };
+  fastfetch = pkgs.callPackage ./fastfetch { inherit yyjson; };
   fielding = pkgs.libsForQt5.callPackage ./fielding { };
   firefox-gnome-theme = pkgs.callPackage ./firefox-gnome-theme { };
   flyaway = pkgs.callPackage ./flyaway { };
@@ -51,37 +51,43 @@
   usysconf = pkgs.callPackage ./usysconf { };
   waycheck = pkgs.qt6.callPackage ./waycheck { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
+  yyjson = pkgs.callPackage ./yyjson { };
   zypper = pkgs.callPackage ./zypper { inherit libzypp; };
 
-  fastfetchFull = (fastfetch.overrideAttrs (oldAttrs: {
-    pname = "${oldAttrs.pname}-full";
+  fastfetchFull = pkgs.lib.warn "fastfetchFull has been replaced by fastfetch, which will conditionally enable features based on platform support" fastfetch;
+
+  fastfetchMinimal = (fastfetch.overrideAttrs (oldAttrs: {
+    pname = "${oldAttrs.pname}-minimal";
     meta = oldAttrs.meta // {
-      description = "${oldAttrs.meta.description} (with all features enabled)";
+      description = "${oldAttrs.meta.description} (with all features disabled)";
+      mainProgram = "fastfetch";
     };
   })).override {
-    enableChafa = true;
-    enableDbus = true;
-    enableDconf = true;
-    enableDdcutil = true;
-    enableEgl = true;
-    enableFreetype = true;
-    enableGio = true;
-    enableGlx = true;
-    enableImagemagick = true;
-    enableLibnm = true;
-    enableLibpci = true;
-    enableMesa = true;
-    enableOpencl = true;
-    enablePulse = true;
-    enableRpm = true;
-    enableSqlite3 = true;
-    enableVulkan = true;
-    enableWayland = true;
-    enableX11 = true;
-    enableXcb = true;
-    enableXfconf = true;
-    enableXrandr = true;
-    enableZlib = true;
+    enableLibpci = false;
+    enableVulkan = false;
+    enableWayland = false;
+    enableXcb = false;
+    enableXcbRandr = false;
+    enableXrandr = false;
+    enableX11 = false;
+    enableGio = false;
+    enableDconf = false;
+    enableDbus = false;
+    enableXfconf = false;
+    enableSqlite3 = false;
+    enableRpm = false;
+    enableImagemagick7 = false;
+    enableChafa = false;
+    enableZlib = false;
+    enableEgl = false;
+    enableGlx = false;
+    enableOsmesa = false;
+    enableOpencl = false;
+    enableLibnm = false;
+    enableFreetype = false;
+    enablePulse = false;
+    enableDdcutil = false;
+    enableDirectxHeaders = false;
   };
 
   gtatoolFull = (gtatool.overrideAttrs (oldAttrs: {
