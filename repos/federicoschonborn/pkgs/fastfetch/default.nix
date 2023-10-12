@@ -101,10 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optional enablePulse pulseaudio
   ++ lib.optional enableDdcutil ddcutil
   ++ lib.optional enableDirectxHeaders directx-headers
-  ++ lib.optionals stdenv.isDarwin (with darwin; [
-    objc4
-    xnu
-  ] ++ (
+  ++ lib.optionals stdenv.isDarwin (with darwin; [ objc4 ] ++ (
     # Apparently we need these even if the features are disabled.
     with darwin.apple_sdk.frameworks; [
       CoreGraphics
@@ -156,5 +153,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ federicoschonborn ];
+    # /tmp/nix-build-fastfetch-minimal-2.1.0.drv-0/source/src/detection/disk/disk_bsd.c:37:27: error: use of undeclared identifier 'MNT_REMOVABLE'
+    broken = stdenv.isDarwin;
   };
 })
