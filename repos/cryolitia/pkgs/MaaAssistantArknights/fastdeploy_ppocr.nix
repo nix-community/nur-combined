@@ -55,6 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/MaaAssistantArknights/FastDeploy/";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.apsl20;
+    broken = cudaSupport && stdenv.hostPlatform.system != "x86_64-linux";
   };
 
 }

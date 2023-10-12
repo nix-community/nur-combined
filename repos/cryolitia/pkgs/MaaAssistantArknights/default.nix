@@ -123,6 +123,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ Cryolitia ];
     mainProgram = "maa";
+    broken = cudaSupport && stdenv.hostPlatform.system != "x86_64-linux";
   };
 
 }
