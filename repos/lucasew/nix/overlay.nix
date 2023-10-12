@@ -101,7 +101,7 @@ in
     skyrim = cp ./pkgs/wineApps/skyrim.nix;
   };
   custom = rec {
-    colorpipe = cp ./pkgs/colorpipe.nix;
+    colorpipe = cp ./pkgs/colorpipe;
     chromium = cp ./pkgs/custom/chromium;
     ncdu = cp ./pkgs/custom/ncdu.nix;
     neovim = cp ./pkgs/custom/neovim;
@@ -137,6 +137,7 @@ in
   });
 
   script-directory-wrapper = final.writeShellScriptBin "sdw" ''
+    PATH=$PATH:${final.script-directory}/bin:${final.bash}/bin
     export SD_ROOT="$(SD_ROOT=${../bin} sd d root)/bin"
     sd "$@"
   '';
