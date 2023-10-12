@@ -16,8 +16,17 @@
       script = "nm-applet";
     };
     systemd.user.services.blueberry-tray = {
-      path = with pkgs; [ blueberry ];
+      path = with pkgs; [
+          (blueberry.overrideAttrs (old: {
+            patches = (old.patches or []) ++ [ ./blueberry-tray-fix.patch ];
+            buildInputs = old.buildInputs ++ [ pkgs.libappindicator-gtk3 ];
+          }))
+      ];
       script = "blueberry-tray; while true; do sleep 3600; done";
+    };
+
+    systemd.user.services.polkit-agent = {
+      script = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
     };
 
     xdg.portal.extraPortals = with pkgs; [
