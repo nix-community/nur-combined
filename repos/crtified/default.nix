@@ -19,6 +19,7 @@
   mfbot = pkgs.callPackage ./pkgs/mfbot { };
 
   mfc_l2710dn = pkgs.callPackage ./pkgs/mfc_l2710dn { };
+  phaser_3020 = pkgs.callPackage ./pkgs/phaser_3020 { };
 
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-pkgs { });
