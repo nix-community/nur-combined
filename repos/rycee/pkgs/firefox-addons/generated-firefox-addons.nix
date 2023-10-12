@@ -1257,10 +1257,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.20.0";
+      version = "3.21.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4177129/control_panel_for_twitter-3.20.0.xpi";
-      sha256 = "b8427c01e7e2611bb8ee4b49001f3c11281ef08148ddd863f52275bf8d2f98ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180045/control_panel_for_twitter-3.21.1.xpi";
+      sha256 = "b62641d4df188ed2d347c515daf97bbbe002bedcf8d8cbc5cc1e1293dca1f6b6";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2261,10 +2261,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "118.0.20231009.140911";
+      version = "119.0.20231011.91528";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4179026/francais_language_pack-118.0.20231009.140911.xpi";
-      sha256 = "25b41ea2c1f79a34ee874781bdd802154da69f411a836dfeea97b4f5ee12430f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4179731/francais_language_pack-119.0.20231011.91528.xpi";
+      sha256 = "4d0234b18cfe45d6b64ab3291917e9bab9b8f24b73459879943d7bcf88e987f6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4564,10 +4564,10 @@
       };
     "link-gopher" = buildFirefoxXpiAddon {
       pname = "link-gopher";
-      version = "2.6.1";
+      version = "2.5.0";
       addonId = "linkgopher@oooninja.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178083/link_gopher-2.6.1.xpi";
-      sha256 = "26c7323ab77222502fb253aaac7b3e813faaae5f8da2db207e084e15c3fb5802";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4173947/link_gopher-2.5.0.xpi";
+      sha256 = "4cfd8907758e749a9f7afb68c65a2373a3dc018228c55c8d1cb5b2200d2aa8a4";
       meta = with lib;
       {
         homepage = "http://sites.google.com/site/linkgopher/";
@@ -6709,10 +6709,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "5.7.0";
+      version = "5.8.1";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132819/search_by_image-5.7.0.xpi";
-      sha256 = "9149335f16762c6d4f33ce39f036db763b8c4a3250f5e04e915b827da22a0eb1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4179298/search_by_image-5.8.1.xpi";
+      sha256 = "ce8b510ba1df4bb941a5a82001ec85e92b6a265701ae141a7e9c63df0155e7db";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
