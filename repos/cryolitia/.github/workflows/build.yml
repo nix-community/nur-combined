@@ -62,8 +62,8 @@ jobs:
       if: ${{ matrix.arch == 'aarch64' }}
       uses: cachix/cachix-action@v12
       with:
+        name: cryolitia
         extraPullNames:
-          cryolitia
           nix-community
           cuda-maintainers
     - name: Setup Github Caches
