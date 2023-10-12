@@ -11,13 +11,15 @@ My personal [NUR](https://github.com/nix-community/NUR) repository.
 This repository uses GitHub Actions to build and push all packages to a cache
 provided by Cachix and is currently available for the following platforms:
 
-| System          | Branch                 |
-|-----------------|------------------------|
-| `x86_64-linux`  | `nixos-23.05`          |
-| `aarch64-linux` | `nixos-23.05`          |
-| `x86_64-linux`  | `nixos-unstable`       |
-| `aarch64-linux` | `nixos-unstable`       |
-| `x86_64-linux`  | `nixpkgs-unstable`     |
-| `aarch64-linux` | `nixpkgs-unstable`     |
-| `x86_64-darwin` | `nixpkgs-23.05-darwin` |
-| `x86_64-darwin` | `nixpkgs-unstable`     |
+```mermaid
+flowchart
+    subgraph "Linux (x86_64 and AArch64)"
+        direction LR
+        nixpkgs-unstable-linux("Nixpkgs Unstable") --> nixos-unstable-small-linux("NixOS Unstable (Small)") --> nixos-unstable-linux("NixOS Unstable") --> nixos-stable-small-linux("NixOS 23.05 (Small)") --> nixos-stable-linux("NixOS 23.05")
+    end
+
+    subgraph "Darwin (x86_64)"
+        direction LR
+        nixpkgs-unstable-darwin("Nixpkgs Unstable") --> nixpkgs-stable-darwin("Nixpkgs 23.05")
+    end
+```

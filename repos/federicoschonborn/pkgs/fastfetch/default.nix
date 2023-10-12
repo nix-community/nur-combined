@@ -101,9 +101,17 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optional enablePulse pulseaudio
   ++ lib.optional enableDdcutil ddcutil
   ++ lib.optional enableDirectxHeaders directx-headers
-  # Apparently we need these even if the features are disabled.
-  ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreGraphics OpenCL ])
-  ;
+  ++ lib.optionals stdenv.isDarwin (with darwin; [
+    objc4
+    xnu
+  ] ++ (
+    # Apparently we need these even if the features are disabled.
+    with darwin.apple_sdk.frameworks; [
+      CoreGraphics
+      Foundation
+      OpenCL
+    ]
+  ));
 
   cmakeFlags =
     let
