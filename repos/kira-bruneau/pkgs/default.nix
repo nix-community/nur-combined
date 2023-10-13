@@ -5,6 +5,9 @@ with final;
 let
   callPackage = prev.newScope final;
 
+  rocmPackgesOverlay =
+    import ./development/rocm-modules/5/default.nix final;
+
   emacsPackagesOverlay =
     import ./applications/editors/emacs/elisp-packages/manual-packages final;
 
@@ -105,10 +108,7 @@ in
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
 
-  rocfft = callPackage ./development/libraries/rocfft {
-    inherit (llvmPackages_rocm) openmp;
-    stdenv = rocmClangStdenv;
-  };
+  rocmPackages = recurseIntoAttrs (rocmPackgesOverlay (prev.rocmPackages // rocmPackages) prev.rocmPackages);
 
   texlab = callPackage ./development/tools/misc/texlab {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
