@@ -5,6 +5,9 @@ with final;
 let
   callPackage = prev.newScope final;
 
+  emacsPackagesOverlay =
+    import ./applications/editors/emacs/elisp-packages/manual-packages final;
+
   linuxModulesOverlay =
     if stdenv.isLinux
     then import ./os-specific/linux/modules.nix final
@@ -47,6 +50,8 @@ in
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server {
     inherit cmake cmake-format;
   };
+
+  emacsPackages = recurseIntoAttrs (emacsPackagesOverlay (prev.emacsPackages // emacsPackages) prev.emacsPackages);
 
   gamemode = callPackage ./tools/games/gamemode rec {
     libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode {
