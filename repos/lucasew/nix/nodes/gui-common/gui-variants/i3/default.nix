@@ -3,9 +3,10 @@
 {
   imports = [
     ./i3.nix
-    ./flatpak.nix
     ./lockscreen.nix
-    ./kdeconnect.nix
+    ../optional/flatpak-wayland.nix
+    ../optional/kdeconnect-indicator.nix
+    ../optional/dunst.nix
   ];
 
   config = lib.mkIf config.services.xserver.windowManager.i3.enable {

@@ -2,7 +2,11 @@
 
 {
   imports = [
+    ../optional/flatpak-wayland.nix
+    ../optional/kdeconnect-indicator.nix
+    ../optional/dunst.nix
   ];
+
   config = lib.mkIf config.programs.hyprland.enable {
     services.dunst.enable = true;
     programs.regreet.enable = true;
@@ -25,6 +29,23 @@
       script = "blueberry-tray; while true; do sleep 3600; done";
     };
 
+    systemd.user.services.swayidle = {
+      path = with pkgs; [
+        swayidle
+        config.programs.hyprland.package
+        playerctl
+      ];
+      script = ''
+        swayidle -w \
+          timeout 600 'swaylock -f'
+          timeout 605 'hyprctl dispatch dpms off' \
+          resume 'hyprctl dispatch dpms on'
+          before-sleep 'playerctl pause'
+      '';
+    };
+
+    security.pam.services.swaylock = {};
+
     systemd.user.services.dotfile-waybar = {
       path = with pkgs; [
         script-directory-wrapper
@@ -35,7 +56,7 @@
         cat $(sdw d root)/nix/nodes/gui-common/gui-variants/hyprland/waybar/style.css | colorpipe > ~/.config/waybar/style.css
         cat $(sdw d root)/nix/nodes/gui-common/gui-variants/hyprland/waybar/config | colorpipe > ~/.config/waybar/config
       '';
-      restartTriggers = [ ./waybar/style.css ./waybar/config ];
+      restartTriggers = [ "${./waybar/style.css}" "${./waybar/config}" ];
       wantedBy = [ "default.target" ];
     };
 
@@ -48,7 +69,7 @@
         mkdir ~/.config/hypr -p
         cat $(sdw d root)/nix/nodes/gui-common/gui-variants/hyprland/hypr/hyprland.conf | colorpipe > ~/.config/hypr/hyprland.conf
       '';
-      restartTriggers = [ ./hypr/hyprland.conf ];
+      restartTriggers = [ "${./hypr/hyprland.conf}" ];
       wantedBy = [ "default.target" ];
     };
 
