@@ -18,7 +18,7 @@
 }:
 let
   inherit (stdenv) isDarwin;
-  osSpecific = with darwin.apple_sdk.frameworks; if isDarwin then [ Accelerate CoreGraphics CoreVideo ] else [ ];
+  osSpecific = with darwin.apple_sdk.frameworks; if isDarwin then [ Accelerate CoreGraphics CoreVideo MetalKit ] else [ ];
   llama-cpp-pin = fetchFromGitHub {
     owner = "ggerganov";
     repo = "llama.cpp";
@@ -47,6 +47,10 @@ buildPythonPackage rec {
     rev = "refs/tags/v${version}";
     hash = "sha256-tZN771XhUq+P6REG0n2hd+9CyK3KG+lC26OdavJNWnk=";
   };
+
+  patches = [
+    ./lcpp-warnings.patch
+  ];
 
   preConfigure = ''
     cp -r ${llama-cpp-pin}/. ./vendor/llama.cpp
