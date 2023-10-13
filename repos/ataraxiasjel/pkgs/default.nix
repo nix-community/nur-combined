@@ -11,7 +11,8 @@ with pkgs; with lib; {
   ceserver = callPackage ./ceserver { };
   gruvbox-plus-icons = callPackage ./gruvbox-plus-icons { };
   hoyolab-daily-bot = callPackage ./hoyolab-daily-bot { };
-  koboldcpp-rocm = callPackage ./koboldcpp-rocm { };
+  #FIXME: 'hip' has been removed in favor of 'rocmPackages.clr' on unstable channel
+  # koboldcpp-rocm = callPackage ./koboldcpp-rocm { };
   mpris-ctl = callPackage ./mpris-ctl { };
   proton-ge = callPackage ./proton-ge { };
   protonhax = callPackage ./protonhax { };
@@ -25,35 +26,4 @@ with pkgs; with lib; {
   inherit (callPackage ./rosepine-gtk {}) rosepine-gtk-theme rosepine-gtk-icons;
   inherit (callPackage ./tokyonight-gtk {}) tokyonight-gtk-theme tokyonight-gtk-icons;
   roundcubePlugins = dontRecurseIntoAttrs (callPackage ./roundcube-plugins { });
-
-  spotify-spotx = let
-    spotify-ver = "1.2.13.661.ga588f749";
-    spotx = stdenv.mkDerivation {
-      pname = "spotx-bash";
-      version = "unstable-2023-10-09";
-      src = fetchFromGitHub {
-        owner = "SpotX-Official";
-        repo = "SpotX-Bash";
-        rev = "62bafc47f7d07ac486e3d0f98e194beee50a0f02";
-        hash = "sha256-fQGezRuOnIYMO2WYD4H+c26aQuL831rXWEpB+KRnyeM=";
-      };
-      dontBuild = true;
-      nativeBuildInputs = [ makeBinaryWrapper ];
-      installPhase = ''
-        install -Dm 755 spotx.sh $out/bin/spotx
-        substituteInPlace $out/bin/spotx --replace \
-          'clientVer=$("''${appBinary}" --version | cut -d " " -f3- | rev | cut -d. -f2- | rev)' \
-          'clientVer=$(echo "${spotify-ver}" | rev | cut -d. -f2- | rev)'
-        sed -i 's/sxbLive=.\+/sxbLive=$buildVer/' $out/bin/spotx
-        patchShebangs $out/bin/spotx
-        wrapProgram $out/bin/spotx --prefix PATH : ${with pkgs; lib.makeBinPath [ perl unzip zip util-linux ]}
-      '';
-    };
-  in pkgs.spotify.overrideAttrs (oa: {
-    version = spotify-ver;
-    postInstall = ''
-      ${spotx}/bin/spotx -h -P "$out/share/spotify"
-      rm -f "$out/share/spotify/Apps/xpui.bak" "$out/share/spotify/spotify.bak"
-    '';
-  });
 }
