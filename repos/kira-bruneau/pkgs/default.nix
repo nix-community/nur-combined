@@ -75,9 +75,9 @@ in
   mangohud = callPackage ./tools/graphics/mangohud rec {
     libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
     mangohud32 = pkgsi686Linux.callPackage ./tools/graphics/mangohud {
-      libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
+      libXNVCtrl = pkgsi686Linux.linuxPackages.nvidia_x11.settings.libXNVCtrl;
       inherit mangohud32;
-      inherit (prev.python3Packages) mako;
+      inherit (pkgsi686Linux.python3Packages) mako;
     };
     inherit (prev.python3Packages) mako;
   };
