@@ -6246,10 +6246,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.7.1";
+      version = "1.8.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4173714/proton_pass-1.7.1.xpi";
-      sha256 = "1bc3ebaceb23165e8e948b7a70c16bcc58b52354b8e419d3015e39837326de4c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178908/proton_pass-1.8.0.xpi";
+      sha256 = "0d820bc141106bf41fc3e3e2db99073e862877052c34556f4b60e9f1d8c77e22";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -7724,10 +7724,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.3.1";
+      version = "3.3.4";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4168467/tournesol_extension-3.3.1.xpi";
-      sha256 = "4acda7513103941c3d6bbf9711adcac0910ff44e4050f6095ee6dc2b386f160a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180342/tournesol_extension-3.3.4.xpi";
+      sha256 = "c8ebf222aacd572c3bb6ab8ed5396f0b9b781de82767d2a5daf93c8e2bbf3504";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -8158,10 +8158,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.10.3.896";
+      version = "2023.10.12.904";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4176225/ublock_origin_lite-2023.10.3.896.xpi";
-      sha256 = "297224f8bf5a8d042ef294f9e4446e44ba92af2dc32b7656ea968bad86ab9567";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180441/ublock_origin_lite-2023.10.12.904.xpi";
+      sha256 = "d7e954d34c28dabc35e9054a454df864ab57715e95766017009ba8b59776276d";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
