@@ -4,6 +4,8 @@
 , makeWrapper
 , acpi
 , feh
+, xorg
+, coreutils
 }:
 
 stdenv.mkDerivation rec {
@@ -20,6 +22,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ feh acpi xorg.xrandr ];
 
   installPhase = ''
     mkdir -p $out/usr/share/battery-wallpaper/
@@ -30,10 +33,11 @@ stdenv.mkDerivation rec {
   
   postFixup = ''
     substituteInPlace $out/bin/bwall \
-      --replace "/usr/share/battery-wallpaper/images" "$out/usr/share/battery-wallpaper/images"
+      --replace "/usr/share/battery-wallpaper/images" "$out/usr/share/battery-wallpaper/images" \
 
     wrapProgram "$out/bin/bwall" \
-      --prefix PATH : ${lib.makeBinPath [ acpi feh ]};
+      --prefix PATH : "$out/bin" \
+      --prefix PATH : ${lib.makeBinPath buildInputs };
   '';
   
   meta = {
