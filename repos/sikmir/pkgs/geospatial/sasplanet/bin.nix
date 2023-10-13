@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "http://www.sasgis.org/mantis/changelog_page.php";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
-    platforms = wine.meta.platforms;
+    platforms = platforms.all;
     skip.ci = true;
   };
 })

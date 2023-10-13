@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchfromgh, unzip }:
+{ lib, stdenv, fetchfromgh, unzip, makeWrapper }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "serial-studio-bin";
@@ -14,11 +14,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [ unzip makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/Applications
-    cp -r *.app $out/Applications
+    mv *.app $out/Applications
+    makeWrapper $out/{Applications/Serial\ Studio.app/Contents/MacOS/SerialStudio,bin/serial-studio}
+    runHook postInstall
   '';
 
   meta = with lib; {

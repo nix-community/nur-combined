@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchfromgh, unzip }:
+{ lib, stdenv, fetchfromgh, unzip, makeWrapper }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "macsvg-bin";
@@ -14,11 +14,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [ unzip makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/Applications
-    cp -r macSVG_v${lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor finalAttrs.version)}/*.app $out/Applications
+    mv macSVG_v${lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor finalAttrs.version)}/*.app $out/Applications
+    makeWrapper $out/{Applications/macSVG.app/Contents/MacOS/macSVG,bin/macsvg}
+    runHook postInstall
   '';
 
   meta = with lib; {
@@ -27,6 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "aarch64-darwin" "x86_64-darwin" ];
+    mainProgram = "macsvg";
     skip.ci = true;
   };
 })

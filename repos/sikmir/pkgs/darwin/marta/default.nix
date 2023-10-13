@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchurl, undmg }:
+{ lib, stdenvNoCC, fetchurl, undmg, makeWrapper }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "marta-bin";
@@ -9,13 +9,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-DbNkvLCy6q0CN8b4+8oheM4EaaLAQvH3O5zWVYxEyh8=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [ undmg makeWrapper ];
 
   sourceRoot = ".";
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/Applications
-    cp -r *.app $out/Applications
+    mv *.app $out/Applications
+    makeWrapper $out/{Applications/Marta.app/Contents/MacOS/Marta,bin/marta}
+    runHook postInstall
   '';
 
   meta = with lib; {
@@ -24,6 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
+    mainProgram = "marta";
     skip.ci = true;
   };
 })

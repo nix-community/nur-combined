@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, undmg, cudatext }:
+{ lib, stdenv, fetchurl, undmg, makeWrapper, cudatext }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     };
   }.${stdenv.hostPlatform.system};
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [ undmg makeWrapper ];
 
   sourceRoot = ".";
 
@@ -23,7 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/Applications
-    cp -R *.app $out/Applications
+    mv *.app $out/Applications
+    makeWrapper $out/{Applications/CudaText.app/Contents/MacOS,bin}/cudatext
 
     runHook postInstall
   '';

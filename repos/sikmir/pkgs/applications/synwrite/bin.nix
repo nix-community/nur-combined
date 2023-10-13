@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "http://uvviewsoft.com/synwrite/";
     license = licenses.mpl11;
     maintainers = [ maintainers.sikmir ];
-    platforms = wine.meta.platforms;
+    platforms = platforms.all;
     skip.ci = true;
   };
 }

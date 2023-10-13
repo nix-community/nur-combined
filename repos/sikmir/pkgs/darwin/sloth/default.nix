@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchfromgh, unzip }:
+{ lib, stdenvNoCC, fetchfromgh, unzip, makeWrapper }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sloth-bin";
@@ -14,11 +14,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [ unzip makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/Applications
-    cp -r *.app $out/Applications
+    mv *.app $out/Applications
+    makeWrapper $out/{Applications/Sloth.app/Contents/MacOS/Sloth,bin/sloth}
+    runHook postInstall
   '';
 
   meta = with lib; {
@@ -27,6 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
+    mainProgram = "sloth";
     skip.ci = true;
   };
 })

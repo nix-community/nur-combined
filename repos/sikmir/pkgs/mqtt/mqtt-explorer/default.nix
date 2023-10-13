@@ -1,4 +1,4 @@
-{ lib, stdenv, appimageTools, fetchurl, undmg }:
+{ lib, stdenv, appimageTools, fetchurl, undmg, makeWrapper }:
 
 let
   pname = "mqtt-explorer";
@@ -35,13 +35,16 @@ let
   darwin = stdenv.mkDerivation {
     inherit pname version src meta;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [ undmg makeWrapper ];
 
     sourceRoot = ".";
 
     installPhase = ''
+      runHook preInstall
       mkdir -p $out/Applications
-      cp -r *.app $out/Applications
+      mv *.app $out/Applications
+      makeWrapper $out/{Applications/MQTT\ Explorer.app/Contents/MacOS/MQTT\ Explorer,bin/mqtt-explorer}
+      runHook postInstall
     '';
   };
 
@@ -52,6 +55,7 @@ let
     license = licenses.cc-by-40;
     maintainers = with maintainers; [ sikmir ];
     platforms = builtins.attrNames srcs;
+    mainProgram = "mqtt-explorer";
   };
 in
 if stdenv.isDarwin
