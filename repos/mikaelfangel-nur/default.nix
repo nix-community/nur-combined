@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  battery-wallpaper = pkgs.callPackage ./pkgs/ba/battery-wallpaper { };
   clx = pkgs.callPackage ./pkgs/cl/clx { };
   spacedrive = pkgs.callPackage ./pkgs/sp/spacedrive { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
