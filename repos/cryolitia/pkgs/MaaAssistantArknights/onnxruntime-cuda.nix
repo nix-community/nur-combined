@@ -2,12 +2,20 @@
 , onnxruntime
 , lib
 , fetchpatch
+, fetchFromGitHub
 , cudaPackages
 , pythonSupport ? false
 }:
 
-let 
-  _CUDA_ARCHITECTURES="52-real;53-real;60-real;61-real;62-real;70-real;72-real;75-real;80-real;86-real;87-real;89-real;90-real;90-virtual";
+let
+
+  cutlass = fetchFromGitHub {
+    owner = "NVIDIA";
+    repo = "cutlass";
+    rev = "v3.0.0";
+    sha256 = "sha256-YPD5Sy6SvByjIcGtgeGH80TEKg2BtqJWSg46RvnJChY=";
+  };
+
 in (onnxruntime.override {
 
   inherit pythonSupport;
@@ -23,12 +31,13 @@ in (onnxruntime.override {
   requiredSystemFeatures = [ "big-parallel" ];
 
   cmakeFlags = oldAttrs.cmakeFlags ++ [
-    "-DCMAKE_CUDA_ARCHITECTURES=${_CUDA_ARCHITECTURES}"
+    "-DCMAKE_CUDA_ARCHITECTURES=${with cudaPackages.cudaFlags; builtins.concatStringsSep ";" (map dropDot cudaCapabilities)}"
     "-DCMAKE_CUDA_STANDARD_REQUIRED=ON"
     "-DCMAKE_CXX_STANDARD_REQUIRED=ON"
     "-Donnxruntime_USE_CUDA=ON"
     "-Donnxruntime_CUDA_HOME=${cudaPackages.cudatoolkit}"
     "-Donnxruntime_CUDNN_HOME=${cudaPackages.cudnn}"
+    "-DFETCHCONTENT_SOURCE_DIR_CUTLASS=${cutlass}"
     "-Donnxruntime_USE_NCCL=ON"
     "-DBUILD_TESTING=OFF"
     "-Donnxruntime_BUILD_UNIT_TESTS=OFF"

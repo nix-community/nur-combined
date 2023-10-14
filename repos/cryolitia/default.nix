@@ -40,6 +40,6 @@ rec {
     inherit maintainers;
   };
 
-  onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda.nix {  };
+  onnxruntime-cuda = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda.nix {  };
 
 }
