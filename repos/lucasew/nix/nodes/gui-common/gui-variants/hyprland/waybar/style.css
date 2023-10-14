@@ -49,6 +49,13 @@
   padding: 4px;
 }
 
+#window.empty {
+    background-color: transparent;
+    border-radius: 0;
+    min-width: 0;
+    padding: 0;
+}
+
 #clock {
   margin-left: 0px;
   margin-right: 4px;
@@ -65,8 +72,3 @@
   color: @base0F;
 }
 
-#window {
-  font-size: 0.9em;
-  font-weight: 400;
-  font-family: sans-serif;
-}
