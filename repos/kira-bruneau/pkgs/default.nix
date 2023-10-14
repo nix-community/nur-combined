@@ -5,8 +5,11 @@ with final;
 let
   callPackage = prev.newScope final;
 
-  rocmPackgesOverlay =
-    import ./development/rocm-modules/5/default.nix final;
+  rocmPackgesOverlay = rfinal: rprev:
+    builtins.mapAttrs
+      # rocmUpdateScript isn't publicly exposed
+      (name: drv: if drv ? updateScript then removeAttrs drv [ "updateScript" ] else drv)
+      (import ./development/rocm-modules/5/default.nix final rfinal rprev);
 
   emacsPackagesOverlay =
     import ./applications/editors/emacs/elisp-packages/manual-packages final;
