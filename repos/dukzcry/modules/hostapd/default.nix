@@ -222,6 +222,11 @@ in
         type = types.lines;
       };
 
+      postStart = mkOption {
+        default = "";
+        type = types.lines;
+      };
+
       bss = mkOption {
         default = null;
         type = with types; nullOr attrs;
@@ -251,6 +256,7 @@ in
         bindsTo = [ "sys-subsystem-net-devices-${escapedInterface value}.device" ];
         requiredBy = [ "network-link-${value.interface}.service" ];
         wantedBy = optional value.enable "multi-user.target";
+        inherit (value) postStart;
 
         serviceConfig =
           { ExecStart = "${pkgs.hostapd}/bin/hostapd ${configFile value}";
