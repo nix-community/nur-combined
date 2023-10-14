@@ -16,59 +16,65 @@
 @define-color base0F #%base0F%;
 
 * {
-  transition: none;
-  box-shadow: none;
+    transition: none;
+    box-shadow: none;
 }
 
 #waybar {
-	/* font-family: 'Source Code Pro', sans-serif; */
-	/* font-family: 'Apple Color Emoji', sans-serif; */
-	font-family: sans-serif;
-	font-size: 1em;
-	font-weight: 400;
-  color: @base04;
-  background: transparent;
+    /* font-family: 'Source Code Pro', sans-serif; */
+    /* font-family: 'Apple Color Emoji', sans-serif; */
+    font-family: sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    color: @base04;
+    background: transparent;
 }
 
 #workspaces button.visible {
 }
 
+#workspaces button {
+    background-color: @base02;
+    opacity: 0.6;
+}
+
 #workspaces button.active {
-  background-color: @base02;
+    opacity: 1;
 }
 
 #workspaces button.urgent {
-  color: @base08;
+    background-color: @base08;
 }
 
 #tray, #mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-updates, #custom-weather, #custom-mail, #clock, #temperature, #window {
-  background-color: @base02;
-  border-radius: 4px;
-  min-width: 20px;
-  margin: 2px;
-  padding: 4px;
+    background-color: @base02;
+    border-radius: 4px;
+    min-width: 20px;
+    margin: 2px;
+    padding: 4px;
 }
 
 #window.empty {
-    background-color: transparent;
+    /* background-color: transparent; */
+    opacity: 0.4;
     border-radius: 0;
     min-width: 0;
     padding: 0;
 }
 
 #clock {
-  margin-left: 0px;
-  margin-right: 4px;
+    margin-left: 0px;
+    margin-right: 4px;
 }
 
 #pulseaudio.muted {
-  color: @base0F;
+    color: @base0F;
 }
 
 #pulseaudio.bluetooth {
-  color: @base0C;
+    color: @base0C;
 }
 #temperature.critical {
-  color: @base0F;
+    color: @base0F;
 }
 
