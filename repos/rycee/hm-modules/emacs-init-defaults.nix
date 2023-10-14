@@ -11,14 +11,32 @@
       ''"CMakeLists.txt\\'"''
     ];
 
-    cmake-ts-mode.mode = [
-      ''"\\.cmake\\'"'' # \
-      ''"CMakeLists.txt\\'"''
-    ];
+    cmake-ts-mode = {
+      mode = [
+        ''"\\.cmake\\'"'' # \
+        ''"CMakeLists.txt\\'"''
+      ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(cmake-mode . cmake-ts-mode))
+      '';
+    };
+
+    c-ts-mode = {
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
+        (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
+        (add-to-list 'major-mode-remap-alist '(c-or-c++-mode . c-or-c++-ts-mode))
+      '';
+    };
 
     csharp-mode.mode = [ ''"\\.cs\\'"'' ];
 
-    csharp-ts-mode.mode = [ ''"\\.cs\\'"'' ];
+    csharp-ts-mode = {
+      mode = [ ''"\\.cs\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(csharp-mode . csharp-ts-mode))
+      '';
+    };
 
     cue-mode = {
       package = epkgs:
@@ -75,6 +93,13 @@
       mode = [ ''"\\.idr\\'"'' ];
       config = ''
         (setq idris-interpreter-path "${pkgs.idris}/bin/idris")
+      '';
+    };
+
+    java-ts-mode = {
+      mode = [ ''"\\.java\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(java-mode . java-ts-mode))
       '';
     };
 
@@ -162,6 +187,13 @@
 
     purescript-mode.mode = [ ''"\\.purs\\'"'' ];
 
+    python-ts-mode = {
+      mode = [ ''"\\.py\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
+      '';
+    };
+
     ripgrep = {
       config = ''
         (setq ripgrep-executable "${pkgs.ripgrep}/bin/rg")
@@ -170,8 +202,29 @@
 
     rust-mode.mode = [ ''"\\.rs\\'"'' ];
 
+    rust-ts-mode = {
+      mode = [ ''"\\.rs\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(rust-mode . rust-ts-mode))
+      '';
+    };
+
     terraform-mode.mode = [ ''"\\.tf\\'"'' ];
 
+    toml-ts-mode = {
+      mode = [ ''"\\.toml\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(conf-toml-mode . toml-ts-mode))
+      '';
+    };
+
     yaml-mode.mode = [ ''"\\.\\(e?ya?\\|ra\\)ml\\'"'' ];
+
+    yaml-ts-mode = {
+      mode = [ ''"\\.\\(e?ya?\\|ra\\)ml\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
+      '';
+    };
   };
 }

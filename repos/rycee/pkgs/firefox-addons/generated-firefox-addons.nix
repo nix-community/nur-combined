@@ -7680,10 +7680,10 @@
       };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.8.1";
+      version = "3.9.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4168935/toolkit_for_ynab-3.8.1.xpi";
-      sha256 = "24e1fb804e1a9eecb678e38ee5a65b1bffe7450926d085fd162dc4991faad574";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4181371/toolkit_for_ynab-3.9.0.xpi";
+      sha256 = "9f54257d1556e86de74c0aebc0754bc81ba5e7fa98843ea1f67c99988ad21771";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
@@ -9164,6 +9164,25 @@
           "storage"
           "tabs"
           "unlimitedStorage"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "youronlinechoices" = buildFirefoxXpiAddon {
+      pname = "youronlinechoices";
+      version = "0.1.1";
+      addonId = "yoc@edaa.eu";
+      url = "https://addons.mozilla.org/firefox/downloads/file/992434/youronlinechoices_plugin-0.1.1.xpi";
+      sha256 = "26e6743bb6a9a831c77540a031b4c22652595fb0a64a567da7732a3e02a9dd1e";
+      meta = with lib;
+      {
+        description = "Helps preserve your choices for online behavioural advertising from companies participating in the European OBA Self-Regulatory Programme.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "cookies"
+          "http://*/*"
+          "unlimitedStorage"
+          "storage"
           ];
         platforms = platforms.all;
         };

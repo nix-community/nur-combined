@@ -1200,6 +1200,10 @@
     "pname": "xbrowsersync"
   },
   {
+    "slug": "youronlinechoices-plugin",
+    "pname": "youronlinechoices"
+  },
+  {
     "slug": "youtube-addon",
     "pname": "improved-tube",
     "license": {
