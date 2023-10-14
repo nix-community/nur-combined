@@ -1466,10 +1466,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.21";
+      version = "1.2.22";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178537/dearrow-1.2.21.xpi";
-      sha256 = "f962647de68890285702c2cc967da7f4fba607c002483be020bbfc49f9800a71";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180823/dearrow-1.2.22.xpi";
+      sha256 = "32ae65afaa248183984c616b3691ca81049c5f1504157424b7e9cd3e52962cc5";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2261,10 +2261,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "119.0.20231011.91528";
+      version = "119.0.20231013.91412";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4179731/francais_language_pack-119.0.20231011.91528.xpi";
-      sha256 = "4d0234b18cfe45d6b64ab3291917e9bab9b8f24b73459879943d7bcf88e987f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180886/francais_language_pack-119.0.20231013.91412.xpi";
+      sha256 = "f5a017f8105137b0a16b9b79c853b4034f5d57b8744245d239ec928a93096bdb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6886,10 +6886,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.5";
+      version = "1.22.8";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4179345/single_file-1.22.5.xpi";
-      sha256 = "ba227568a02f5169d48d8fa6d14ae3ceac1e63833a04177a8806be5d606316f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180542/single_file-1.22.8.xpi";
+      sha256 = "354c8226f253bef0b88b0390f486a4b1b0b5111e2e101f27b4e7797edc0fd20e";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
