@@ -6,11 +6,7 @@
 , pythonSupport ? false
 }:
 
-let
-
-  _CUDA_ARCHITECTURES="52-real;53-real;60-real;61-real;62-real;70-real;72-real;75-real;80-real;86-real;87-real;89-real;90-real;90-virtual";
-
-in (onnxruntime.override {
+(onnxruntime.override {
 
   inherit pythonSupport;
 
@@ -22,8 +18,10 @@ in (onnxruntime.override {
     nccl
   ]);
 
+  requiredSystemFeatures = [ "big-parallel" ];
+
   cmakeFlags = oldAttrs.cmakeFlags ++ [
-    "-DCMAKE_CUDA_ARCHITECTURES=${_CUDA_ARCHITECTURES}"
+    "-DCMAKE_CUDA_ARCHITECTURES=${with cudaPackages.cudaFlags; builtins.concatStringsSep ";" (map dropDot cudaCapabilities)}"
     "-DCMAKE_CUDA_STANDARD_REQUIRED=ON"
     "-DCMAKE_CXX_STANDARD_REQUIRED=ON"
     "-Donnxruntime_USE_CUDA=ON"
