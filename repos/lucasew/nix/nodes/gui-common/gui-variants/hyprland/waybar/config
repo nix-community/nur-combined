@@ -5,9 +5,9 @@
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["hyprland/workspaces", "idle_inhibitor", "pulseaudio", "backlight", "network", "custom/updates"],
+    "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["cpu", "memory", "temperature", "battery", "tray", "clock"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "backlight", "network", "custom/updates", "cpu", "memory", "temperature", "battery", "tray", "clock"],
     // Modules configuration
      "hyprland/workspaces": {
          "disable-scroll": false,
@@ -50,7 +50,7 @@
     },
     "tray": {
         // "icon-size": 21,
-        "spacing": 0
+        "spacing": 5
     },
     "clock": {
         // "timezone": "America/New_York",
