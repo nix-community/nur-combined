@@ -36,7 +36,7 @@
   },
   "cardinal": {
     "cargoLocks": null,
-    "date": "2023-10-07",
+    "date": "2023-10-13",
     "extract": null,
     "name": "cardinal",
     "passthru": null,
@@ -48,11 +48,11 @@
       "name": null,
       "owner": "DISTRHO",
       "repo": "Cardinal",
-      "rev": "8dfdb8e14ade3108502c034d7cf5fa4bdffab2df",
-      "sha256": "sha256-NRKtp8aD9XPDjC7U/J6JQVOsOGapKjjhWc7h5AA8SkY=",
+      "rev": "89f2afc1913aa85976d498102d536432e9065e60",
+      "sha256": "sha256-2cTvi8F2tadNZibhISvAyVlNnlmFok8buEd5qJMCqfg=",
       "type": "github"
     },
-    "version": "8dfdb8e14ade3108502c034d7cf5fa4bdffab2df"
+    "version": "89f2afc1913aa85976d498102d536432e9065e60"
   },
   "carla-git": {
     "cargoLocks": null,
@@ -476,7 +476,7 @@
   },
   "tailwindcss-intellisense": {
     "cargoLocks": null,
-    "date": "2023-10-11",
+    "date": "2023-10-13",
     "extract": null,
     "name": "tailwindcss-intellisense",
     "passthru": null,
@@ -488,11 +488,11 @@
       "name": null,
       "owner": "tailwindlabs",
       "repo": "tailwindcss-intellisense",
-      "rev": "83cd162a16b729bea3a5089e2c398a05ed0b7ee6",
-      "sha256": "sha256-p8LTLhyrUF1jnkcN8dYESyewYLrbkvwUb7r4LYtqnhM=",
+      "rev": "9b9a98f9771c5c44991ca829b3fb98871f130682",
+      "sha256": "sha256-3hWJNRw39QuBVu61demV3uWuINxuvpPdux4EFsfg9bs=",
       "type": "github"
     },
-    "version": "83cd162a16b729bea3a5089e2c398a05ed0b7ee6"
+    "version": "9b9a98f9771c5c44991ca829b3fb98871f130682"
   },
   "tree-sitter-hypr": {
     "cargoLocks": null,
