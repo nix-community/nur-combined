@@ -1,4 +1,4 @@
-{ stdenv, lib, python3, fetchFromGitHub, nodejs, git, zip }:
+{ stdenv, lib, python3, fetchFromGitHub, nodejs, git, zip, imagemagick }:
 
 stdenv.mkDerivation rec {
   pname = "ueforth";
@@ -13,8 +13,13 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "TARGETS:=esp32_target"
+    "TESTS:="
     "NODEJS:=${lib.getExe nodejs}"
     "REVISION:=${src.rev}"
+    "esp32_target"
+    "web"
+    "posix_target"
+    "out/deploy/app.yaml"
   ];
 
   postPatch = ''
@@ -24,7 +29,13 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ (python3.withPackages (p: [ p.pyserial ])) nodejs git zip ];
+    [
+      imagemagick
+      (python3.withPackages (p: [ p.pyserial ]))
+      nodejs
+      git
+      zip
+    ];
 
   checkTarget = "tests";
 
@@ -34,6 +45,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/
     mv out/esp32 $out/share/ueforth
     rm $out/share/ueforth/ESP32forth.zip
+    mv out/deploy/ $out/share/html
+    install -Dm755 out/posix/ueforth $out/bin/ueforth
 
     runHook postInstall
   '';
@@ -44,5 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://esp32forth.appspot.com/ESP32forth.html";
     license = licenses.asl20;
     maintainers = with maintainers; [ nagy ];
+    mainProgram = "ueforth";
   };
 }
