@@ -1,0 +1,79 @@
+diff --git a/Makefile b/Makefile
+index 434efc2..4715966 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2608,7 +2608,6 @@ $(B)/$(BASEGAME)/vm/cgame.sp.qvm: $(Q3CGVMOBJ) $(CGDIR)/cg_syscalls.asm $(Q3ASM)
+ 
+ Q3GOBJ_ = \
+   $(B)/$(BASEGAME)/game/steam.o \
+-  $(B)/$(BASEGAME)/game/steamshim_child.o \
+   $(B)/$(BASEGAME)/game/g_main.o \
+   $(B)/$(BASEGAME)/game/ai_cast.o \
+   $(B)/$(BASEGAME)/game/ai_cast_characters.o \
+diff --git a/code/game/g_main.c b/code/game/g_main.c
+index ee7f12b..a9f5059 100644
+--- a/code/game/g_main.c
++++ b/code/game/g_main.c
+@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
+ 
+ 
+ #include "g_local.h"
+-#include "../../steam/steam.h"
++#include "../steam/steam.h"
+ 
+ level_locals_t level;
+ 
+diff --git a/code/steam/steam.c b/code/steam/steam.c
+index c28af8d..5435e0d 100644
+--- a/code/steam/steam.c
++++ b/code/steam/steam.c
+@@ -1,47 +1,32 @@
+ #include "steam.h"
+ 
+-#include "../steamshim/steamshim_child.h"
+-
+ #include <stdint.h>
+ 
+ #ifdef STEAM
+ 
+ void steamRun(void)
+ {
+-	STEAMSHIM_pump();
+-	
+ 	return;
+ }
+ 
+ int steamInit(void)
+ {
+-	if (!STEAMSHIM_init())
+-	{
+-		return 0;
+-	}
+-
+-	STEAMSHIM_requestStats();
+-
+ 	return 1;
+ }
+ 
+ void steamSetAchievement(const char* id)
+ {
+-	STEAMSHIM_setAchievement(id, 1);
+-
+-	STEAMSHIM_storeStats();
+-
+ 	return;
+ }
+ 
+ int steamAlive()
+ {
+-	return STEAMSHIM_alive();
++	return 1;
+ }
+ 
+ void steamSetRichPresence(const char* key, const char* value)
+ {
+-	STEAMSHIM_setRichPresence(key, value);
++	return;
+ }
+ 
+ #else

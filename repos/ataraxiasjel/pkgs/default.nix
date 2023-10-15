@@ -16,6 +16,7 @@ with pkgs; with lib; {
   mpris-ctl = callPackage ./mpris-ctl { };
   proton-ge = callPackage ./proton-ge { };
   protonhax = callPackage ./protonhax { };
+  realrtcw = callPackage ./realrtcw { };
   reshade-shaders = callPackage ./reshade-shaders { };
   rpcs3 = qt6Packages.callPackage ./rpcs3 { };
   seadrive-fuse = callPackage ./seadrive-fuse { };
