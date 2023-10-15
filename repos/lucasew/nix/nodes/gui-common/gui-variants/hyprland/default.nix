@@ -37,11 +37,49 @@
         config.programs.hyprland.package
         playerctl
       ];
-      script = ''
+      script = with pkgs.custom.colors.colors; let
+        swaylock-dict-args = {
+          color = base00; # background
+
+          text-color = base05;
+          text-clear-color = base05;
+          text-caps-lock-color = base05;
+          text-ver-color = base05;
+          text-wrong-color = base05;
+          layout-text-color = base05;
+
+          ring-color = base01;
+          ring-clear-color = base0D;
+          ring-caps-lock-color = base0C;
+          ring-ver-color = base0A;
+          ring-wrong-color = base08;
+
+          key-hl-color = base06;
+          bs-hl-color = base08;
+
+          inside-color = "00000000";
+          inside-clear-color = "00000000";
+          inside-caps-lock-color = "00000000";
+          inside-ver-color = "00000000";
+          inside-wrong-color = "00000000";
+          line-color = "00000000";
+          line-clear-color = "00000000";
+          line-caps-lock-color = "00000000";
+          line-ver-color = "00000000";
+          line-wrong-color = "00000000";
+          layout-bg-color = "00000000";
+          layout-border-color = "00000000";
+
+        };
+        swaylock-list-args = lib.pipe swaylock-dict-args [
+          (builtins.mapAttrs (k: v: "--${k} ${v}"))
+          (builtins.attrValues)
+        ];
+      in ''
         swayidle -w -d \
           idlehint 600 \
           timeout 605 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' \
-          lock 'swaylock -f -c ${pkgs.custom.colors.colors.base00}' \
+          lock 'swaylock -f ${lib.concatStringsSep " " swaylock-list-args}' \
           unlock 'hyprctl dispatch dpms on' \
           before-sleep 'playerctl pause'
       '';
