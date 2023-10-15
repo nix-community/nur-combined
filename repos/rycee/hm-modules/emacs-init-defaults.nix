@@ -38,6 +38,13 @@
       '';
     };
 
+    css-ts-mode = {
+      mode = [ ''"\\.css\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(css-mode . css-ts-mode))
+      '';
+    };
+
     cue-mode = {
       package = epkgs:
         epkgs.trivialBuild {
@@ -103,7 +110,21 @@
       '';
     };
 
-    json-ts-mode.mode = [ ''"\\.json\\'"'' ];
+    js-ts-mode = {
+      mode = [ ''"\\.js\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(js2-mode . js-ts-mode))
+        (add-to-list 'major-mode-remap-alist '(js-mode . js-ts-mode))
+        (add-to-list 'major-mode-remap-alist '(javascript-mode . js-ts-mode))
+      '';
+    };
+
+    json-ts-mode = {
+      mode = [ ''"\\.json\\'"'' ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(js-json-mode . json-ts-mode))
+      '';
+    };
 
     kotlin-mode = {
       mode = [ ''"\\.kts?\\'"'' ];
@@ -215,6 +236,13 @@
       mode = [ ''"\\.toml\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(conf-toml-mode . toml-ts-mode))
+      '';
+    };
+
+    tsx-ts-mode = {
+      mode = [ ''"\\.[jt]sx\\'"''  ];
+      init = ''
+        (add-to-list 'major-mode-remap-alist '(js-jsx-mode . tsx-ts-mode))
       '';
     };
 
