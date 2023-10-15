@@ -30,16 +30,19 @@
     };
 
     systemd.user.services.swayidle = {
+      partOf = [ "graphical-session.target" ];
       path = with pkgs; [
         swayidle
+        swaylock
         config.programs.hyprland.package
         playerctl
       ];
       script = ''
-        swayidle -w \
-          timeout 600 'swaylock -f'
-          timeout 605 'hyprctl dispatch dpms off' \
-          resume 'hyprctl dispatch dpms on'
+        swayidle -w -d \
+          idlehint 600 \
+          timeout 605 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' \
+          lock 'swaylock -f -c ${pkgs.custom.colors.colors.base00}' \
+          unlock 'hyprctl dispatch dpms on' \
           before-sleep 'playerctl pause'
       '';
     };
