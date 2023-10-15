@@ -39,11 +39,11 @@ stdenv.mkDerivation {
     qtquickcontrols2
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Collection of Arcade games developed in Kirigami";
     homepage = "https://invent.kde.org/games/arkade";
-    license = with licenses; [ bsd2 gpl3Plus ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = with lib.licenses; [ bsd2 gpl3Plus ];
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

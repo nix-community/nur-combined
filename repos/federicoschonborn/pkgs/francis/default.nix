@@ -47,10 +47,10 @@ stdenv.mkDerivation {
     qtquickcontrols2
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Track your time";
     homepage = "https://invent.kde.org/utilities/francis";
-    license = with licenses; [
+    license = with lib.licenses; [
       bsd2
       bsd3
       cc0
@@ -58,8 +58,8 @@ stdenv.mkDerivation {
       lgpl2Plus
       lgpl21Plus
     ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder kirigami-addons.version "0.10";
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder kirigami-addons.version "0.10";
   };
 }

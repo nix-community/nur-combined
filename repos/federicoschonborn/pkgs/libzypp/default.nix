@@ -72,11 +72,11 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_MODULE_PATH=${libsolv}/share/cmake/Modules"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "ZYpp Package Management library";
     homepage = "https://github.com/openSUSE/libzypp";
-    license = with licenses; [ gpl2Plus ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl2Plus;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

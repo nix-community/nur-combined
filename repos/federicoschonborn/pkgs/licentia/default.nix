@@ -47,10 +47,10 @@ stdenv.mkDerivation {
     qtquickcontrols2
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Choose a license for your project";
     homepage = "https://invent.kde.org/sdk/licentia";
-    license = with licenses; [
+    license = with lib.licenses; [
       bsd2
       cc-by-30
       cc0
@@ -58,8 +58,8 @@ stdenv.mkDerivation {
       lgpl2Plus
       lgpl21Plus
     ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder kirigami-addons.version "0.9";
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder kirigami-addons.version "0.9";
   };
 }

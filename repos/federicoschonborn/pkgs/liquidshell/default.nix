@@ -67,14 +67,14 @@ stdenv.mkDerivation (finalAttrs: {
     solid
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Basic desktop shell using QtWidgets";
     longDescription = ''
       liquidshell is a basic Desktop Shell implemented using QtWidgets.
     '';
     homepage = "https://apps.kde.org/liquidshell/";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

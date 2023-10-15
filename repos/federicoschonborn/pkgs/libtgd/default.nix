@@ -70,12 +70,12 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optional withPoppler poppler ++
     lib.optional withTiff libtiff;
 
-  meta = with lib; {
+  meta = {
     description = "A library to make working with multidimensional arrays in C++ easy";
     homepage = "https://marlam.de/tgd/";
     downloadPage = "https://marlam.de/tgd/download/";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

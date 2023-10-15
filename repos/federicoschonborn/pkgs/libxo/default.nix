@@ -28,10 +28,10 @@ stdenv.mkDerivation (finalAttrs: {
     "LIBTOOL=${libtool}/bin/libtool"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Library for emitting text, XML, JSON, or HTML output";
     homepage = "https://github.com/Juniper/libxo";
-    license = licenses.bsd2;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.bsd2;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

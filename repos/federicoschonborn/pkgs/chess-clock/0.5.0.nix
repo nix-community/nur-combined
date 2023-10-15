@@ -49,10 +49,10 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Time games of over-the-board chess";
     homepage = "https://gitlab.gnome.org/World/chess-clock";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

@@ -21,11 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A library that reads and writes GTA files, with interfaces in C and C++";
     homepage = "https://marlam.de/gta/";
     downloadPage = "https://marlam.de/gta/download/";
-    license = licenses.mit;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

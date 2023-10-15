@@ -136,12 +136,12 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Development tools at your fingertips";
     homepage = "https://github.com/aleiepure/devtoolbox";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder blueprint-compiler.version "0.8";
+    license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder blueprint-compiler.version "0.8";
   };
 }

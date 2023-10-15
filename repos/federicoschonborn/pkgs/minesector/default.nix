@@ -32,11 +32,11 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2_mixer
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Snazzy Minesweeper-based game built with SDL2";
     homepage = "https://github.com/grassdne/minesector";
-    license = licenses.mit;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
     broken = stdenv.isDarwin;
   };
 })

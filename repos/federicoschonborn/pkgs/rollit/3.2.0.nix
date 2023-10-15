@@ -54,11 +54,11 @@ stdenv.mkDerivation (finalAttrs: {
     pango
   ];
 
-  meta = with lib; {
+  meta = {
     description = "";
     homepage = "https://gitlab.com/zelikos/rollit";
-    license = licenses.gpl3Only;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

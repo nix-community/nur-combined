@@ -45,13 +45,13 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Perform OCR operations in seconds on the Linux desktop";
     mainProgram = "com.github.rajsolai.textsnatcher";
     homepage = "https://github.com/RajSolai/TextSnatcher";
     changelog = "https://github.com/RajSolai/TextSnatcher/blob/${finalAttrs.src.rev}/CHANGELOG.md";
-    license = licenses.gpl3Only;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

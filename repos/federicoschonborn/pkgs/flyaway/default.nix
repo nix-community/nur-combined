@@ -45,12 +45,12 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A test compositor to gain familiarity with Wayland and wlroots";
     homepage = "https://gitlab.com/serebit/flyaway";
-    platforms = platforms.linux;
-    license = licenses.asl20;
-    maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder wlroots.version "0.16";
+    platforms = lib.platforms.linux;
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder wlroots.version "0.16";
   };
 }

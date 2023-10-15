@@ -26,12 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
     readline
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A convenient calculator for the command line";
     homepage = "https://marlam.de/mucalc/";
     downloadPage = "https://marlam.de/mucalc/download/";
-    license = licenses.gpl3Plus;
+    license = lib.licenses.gpl3Plus;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     zstd # unpackPhase
   ];
 
-  meta = with lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
   };
 })

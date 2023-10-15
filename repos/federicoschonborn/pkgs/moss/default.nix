@@ -31,12 +31,12 @@ rustPlatform.buildRustPackage {
 
   env.ZSTD_SYS_USE_PKG_CONFIG = true;
 
-  meta = with lib; {
+  meta = {
     description = "The safe, fast and sane package manager for Linux";
     homepage = "https://github.com/serpent-os/moss-rs";
-    license = licenses.mpl20;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder rustc.version "1.70";
+    license = lib.licenses.mpl20;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder rustc.version "1.70";
   };
 }

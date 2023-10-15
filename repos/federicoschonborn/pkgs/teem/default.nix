@@ -46,8 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-DENABLE_EXPERIMENTAL_APPS=${lib.boolToString withExperimentalApps}"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";
-    maintainers = with maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

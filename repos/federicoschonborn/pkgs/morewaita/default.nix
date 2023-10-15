@@ -26,11 +26,11 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r * $out/share/icons/MoreWaita
   '';
 
-  meta = with lib; {
+  meta = {
     description = "An Adwaita style extra icons theme for Gnome Shell";
     homepage = "https://github.com/somepaulo/MoreWaita";
-    license = licenses.gpl3Only;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     darwin.apple_sdk.frameworks.CoreServices
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Cargo Advent of Code Helper";
     longDescription = ''
       cargo-aoc is a simple CLI tool that aims to be a helper for the Advent of Code.
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
       Implement your solution. Let us handle the rest.
     '';
     homepage = "https://github.com/gobanos/cargo-aoc";
-    license = with licenses; [ asl20 mit ];
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = with lib.licenses; [ asl20 mit ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

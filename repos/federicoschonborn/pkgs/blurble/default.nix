@@ -39,11 +39,11 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Word guessing game";
     homepage = "https://gitlab.gnome.org/World/Blurble";
-    license = licenses.gpl3Only;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

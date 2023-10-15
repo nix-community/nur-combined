@@ -147,12 +147,12 @@ stdenv.mkDerivation (finalAttrs: {
       (cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
     ];
 
-  meta = with lib; {
+  meta = {
     description = "Like neofetch, but much faster because written in C";
     homepage = "https://github.com/LinusDierheimer/fastfetch";
     changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
-    license = licenses.mit;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
     # /tmp/nix-build-fastfetch-minimal-2.1.0.drv-0/source/src/detection/disk/disk_bsd.c:37:27: error: use of undeclared identifier 'MNT_REMOVABLE'
     broken = stdenv.isDarwin;
   };

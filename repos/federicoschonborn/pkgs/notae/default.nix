@@ -47,10 +47,10 @@ stdenv.mkDerivation {
     syntax-highlighting
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A simple note taking application that automatically saves your work";
     homepage = "https://invent.kde.org/utilities/notae";
-    license = with licenses; [
+    license = with lib.licenses; [
       bsd2
       bsd3
       cc0
@@ -58,7 +58,7 @@ stdenv.mkDerivation {
       lgpl2Plus
       lgpl21Plus
     ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

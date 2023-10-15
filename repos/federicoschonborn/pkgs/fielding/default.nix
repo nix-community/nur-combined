@@ -43,17 +43,17 @@ stdenv.mkDerivation {
     qtquickcontrols2
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A simple REST API testing tool";
     homepage = "https://invent.kde.org/utilities/fielding";
-    license = with licenses; [
+    license = with lib.licenses; [
       bsd2
       cc0
       gpl3Plus
       lgpl2Plus
       lgpl21Plus
     ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

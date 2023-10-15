@@ -18,10 +18,10 @@ stdenv.mkDerivation (finalAttrs: {
     "prefix=${placeholder "out"}"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Dialect of Python with explicit variable declaration and block scoping, with a lightweight and easy-to-embed bytecode compiler and interpreter";
     homepage = "https://github.com/kuroko-lang/kuroko";
-    license = licenses.mit;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

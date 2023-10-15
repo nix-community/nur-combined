@@ -37,11 +37,11 @@ gcc13Stdenv.mkDerivation (finalAttrs: {
     wayland
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Simple GUI that displays the protocols implemented by a Wayland compositor";
     homepage = "https://gitlab.freedesktop.org/serebit/waycheck";
-    platforms = platforms.linux;
-    license = licenses.asl20;
-    maintainers = with maintainers; [ federicoschonborn ];
+    platforms = lib.platforms.linux;
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

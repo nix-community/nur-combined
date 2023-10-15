@@ -42,10 +42,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontUseCmakeConfigure = true;
 
-  meta = with lib; {
+  meta = {
     description = "Alternative to GNU coreutils using software from FreeBSD";
     homepage = "https://github.com/dcantrell/bsdutils";
-    license = with licenses; [
+    license = with lib.licenses; [
       # LICENSE
       bsd3
       # COPYRIGHT
@@ -54,6 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     # Missing <features.h>
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

@@ -62,10 +62,10 @@ stdenv.mkDerivation (finalAttrs: {
     darwin.apple_sdk.frameworks.Foundation
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Keep the tempo";
     homepage = "https://gitlab.gnome.org/World/Metronome";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

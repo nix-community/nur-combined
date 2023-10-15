@@ -44,11 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_MODULE_PATH=${libzypp}/share/cmake/Modules"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "World's most powerful command line package manager";
     homepage = "https://github.com/opensuse/zypper";
-    license = with licenses; [ gpl2Plus ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl2Plus;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

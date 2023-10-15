@@ -53,10 +53,10 @@ python3Packages.buildPythonApplication rec {
     )
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Easily manage Linux Chroot(s) and Containers with Atoms";
     homepage = "https://github.com/AtomsDevs/Atoms";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

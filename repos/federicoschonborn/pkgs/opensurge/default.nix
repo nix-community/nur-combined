@@ -34,12 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
     "-DDESKTOP_ENTRY_PATH=${placeholder "out"}/share/applications"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A fun 2D retro platformer inspired by Sonic games and a game creation system";
     homepage = "https://github.com/alemart/opensurge";
     changelog = "https://github.com/alemart/opensurge/blob/${finalAttrs.src.rev}/CHANGES.md";
-    license = licenses.gpl3Only;
+    license = lib.licenses.gpl3Only;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

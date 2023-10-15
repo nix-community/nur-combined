@@ -17,12 +17,12 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-5txMmrHWfssv4qvGI323dY5/H1A59GnDMz9F2Iy/CIo=";
 
-  meta = with lib; {
+  meta = {
     description = "Usysconf - now with extra rust";
     homepage = "https://github.com/serpent-os/usysconf-rs";
-    license = licenses.mpl20;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder rustc.version "1.70";
+    license = lib.licenses.mpl20;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder rustc.version "1.70";
   };
 }

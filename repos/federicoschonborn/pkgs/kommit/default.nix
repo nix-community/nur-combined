@@ -51,11 +51,11 @@ stdenv.mkDerivation (finalAttrs: {
     syntax-highlighting
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Graphical Git client for KDE";
     homepage = "https://apps.kde.org/kommit/";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

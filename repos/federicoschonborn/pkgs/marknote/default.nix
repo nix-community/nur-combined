@@ -41,10 +41,10 @@ stdenv.mkDerivation {
     qtquickcontrols2
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A simple markdown note management app";
     homepage = "https://invent.kde.org/office/marknote";
-    license = with licenses; [
+    license = with lib.licenses; [
       bsd3
       cc-by-sa-40
       cc0
@@ -55,7 +55,7 @@ stdenv.mkDerivation {
       lgpl2Plus
       lgpl3Only
     ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

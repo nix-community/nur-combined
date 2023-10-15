@@ -23,10 +23,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A GNOME theme for Firefox";
     homepage = "https://github.com/rafaelmardojai/firefox-gnome-theme";
-    license = licenses.unlicense;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.unlicense;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

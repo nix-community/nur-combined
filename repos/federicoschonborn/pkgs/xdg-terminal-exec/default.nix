@@ -23,10 +23,10 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Proposal for XDG terminal execution utility";
     homepage = "https://github.com/Vladimir-csp/xdg-terminal-exec";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

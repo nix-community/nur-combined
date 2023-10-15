@@ -34,11 +34,11 @@ stdenv.mkDerivation (finalAttrs: {
     mate.mate-menus
   ];
 
-  meta = with lib; {
+  meta = {
     description = "An efficient menu for the MATE Desktop";
     homepage = "https://github.com/getsolus/brisk-menu";
-    license = with licenses; [ gpl2Only cc-by-sa-40 ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = with lib.licenses; [ gpl2Only cc-by-sa-40 ];
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

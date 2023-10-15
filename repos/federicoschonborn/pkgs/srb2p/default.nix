@@ -81,13 +81,13 @@ stdenv.mkDerivation (finalAttrs: {
     mv $out/*.{pk3,wad} $out/share/games/SRB2P
   '';
 
-  meta = with lib; {
+  meta = {
     description = "SRB2P is a recreation of Persona's general gameplay into Sonic Robo Blast 2";
     mainProgram = "lsdlsrb2";
     homepage = "https://git.do.srb2.org/SinnamonLat/SRB2";
-    license = licenses.gpl2Only;
+    license = lib.licenses.gpl2Only;
     # TODO: Fix Darwin build
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ federicoschonborn ];
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

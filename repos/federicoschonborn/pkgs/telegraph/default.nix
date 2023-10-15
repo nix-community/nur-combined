@@ -45,10 +45,10 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Write and decode morse";
     homepage = "https://github.com/fkinoshita/Telegraph";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

@@ -45,11 +45,11 @@ python3.pkgs.buildPythonApplication rec {
     pygobject3
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Time games of over-the-board chess";
     homepage = "https://gitlab.gnome.org/World/chess-clock";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ federicoschonborn ];
-    broken = versionOlder libadwaita.version "1.4";
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder libadwaita.version "1.4";
   };
 }

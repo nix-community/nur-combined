@@ -23,10 +23,10 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A GNOME theme for Thunderbird";
     homepage = "https://github.com/rafaelmardojai/thunderbird-gnome-theme";
-    license = licenses.unlicense;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.unlicense;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

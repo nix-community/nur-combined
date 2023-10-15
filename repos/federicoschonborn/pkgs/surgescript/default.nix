@@ -21,11 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  meta = with lib; {
+  meta = {
     description = "SurgeScript: a scripting language for games";
     homepage = "https://github.com/alemart/surgescript";
     changelog = "https://github.com/alemart/surgescript/blob/${finalAttrs.src.rev}/CHANGES.md";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

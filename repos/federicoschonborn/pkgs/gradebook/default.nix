@@ -36,11 +36,11 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Grades tracker for pupils and students";
     homepage = "https://github.com/leolost2605/Gradebook";
     mainProgram = "io.github.leolost2605.gradebook";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

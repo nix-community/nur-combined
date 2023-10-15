@@ -24,10 +24,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "atoms_core" ];
 
-  meta = with lib; {
+  meta = {
     description = "Atoms Core allows you to create and manage your own chroots and podman containers";
     homepage = "https://github.com/AtomsDevs/atoms-core";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

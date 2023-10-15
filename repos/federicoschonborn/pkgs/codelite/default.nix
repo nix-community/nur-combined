@@ -48,11 +48,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-I${harfbuzz.dev}/include/harfbuzz";
 
-  meta = with lib; {
+  meta = {
     description = "A multi purpose IDE specialized in C/C++/Rust/Python/PHP and Node.js. Written in C";
     homepage = "https://github.com/eranif/codelite";
-    license = licenses.gpl2Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl2Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
     # FAILED: bin/codelite-ctags
     # ld: cannot find -lc: No such file or directory
     broken = true;
