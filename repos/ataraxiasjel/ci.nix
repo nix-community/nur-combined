@@ -17,6 +17,7 @@ let
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);
+  isUpdatable = p: !(isReserved p) && p ? updateScript;
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
   nameValuePair = n: v: { name = n; value = v; };
@@ -38,6 +39,8 @@ let
 
   pkgsAttrNames = (filter (n: !isReserved n) (attrNames nurAttrs));
 
+  updatablePkgs = pkgs.lib.filterAttrs (n: v: isUpdatable v) nurAttrs;
+
   nurPkgs =
     flattenPkgs
       (listToAttrs
@@ -45,9 +48,8 @@ let
 
 in
 rec {
-  # TODO: recurse into roundcubePlugins
-  allPkgs = (filter (n: n != "roundcubePlugins") pkgsAttrNames);
-  
+  updatablePkgsNames = attrNames updatablePkgs;
+
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
 

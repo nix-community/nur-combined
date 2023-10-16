@@ -46,7 +46,7 @@ jobs:
         export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
         export TMPDIR=$(pwd)/tmp
         mkdir -p $TMPDIR
-        nix eval --json --impure --expr '(import ./ci.nix {}).allPkgs' | jq -rc '.[]' | while read i; do ./update.py -P $i; done
+        nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' | jq -rc '.[]' | while read i; do ./update.py -P $i; done
     - name: Check evaluation
       run: |
         nix-env -f ./pkgs/default.nix -qa \* --meta --xml \
