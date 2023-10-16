@@ -28,6 +28,7 @@
   libxo = pkgs.callPackage ./libxo { };
   libzypp = pkgs.callPackage ./libzypp { libsolv = libsolv-libzypp; };
   liquidshell = pkgs.libsForQt5.callPackage ./liquidshell { };
+  magpie_v1 = pkgs.callPackage ./magpie_v1 { };
   marknote = pkgs.libsForQt5.callPackage ./marknote { };
   metronome = pkgs.callPackage ./metronome { };
   minesector = pkgs.callPackage ./minesector { };
