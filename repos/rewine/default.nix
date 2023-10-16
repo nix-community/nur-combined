@@ -23,4 +23,5 @@ with pkgs; rec {
   mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {  };
   nowide = pkgs.callPackage ./pkgs/nowide {  };
   kylin-virtual-keyboard = libsForQt5.callPackage ./pkgs/kylin-virtual-keyboard { };
+  #kylin-wayland-compositor = pkgs.callPackage ./pkgs/kylin-wayland-compositor { };
 }
