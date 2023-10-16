@@ -1,5 +1,5 @@
 { lib
-, gcc13Stdenv
+, stdenv
 , fetchFromGitLab
 , desktop-file-utils
 , gtk3
@@ -11,16 +11,16 @@
 , wayland
 }:
 
-gcc13Stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "waycheck";
-  version = "0.2.0";
+  version = "1.0.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "serebit";
     repo = "waycheck";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-J1Jv/JroA81K4mExNmRQVpih2xh0so8fI/skhcAE/uE=";
+    hash = "sha256-oGpiFwbPBQHF0wRHliltU8B+QmClcoFfbjpAYzOFPqs=";
   };
 
   nativeBuildInputs = [
