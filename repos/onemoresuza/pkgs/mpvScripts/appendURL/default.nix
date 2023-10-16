@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "appendURL";
-  version = "unstable-2023-05-06";
+  version = "unstable-2019-10-04";
 
   src = fetchFromGitHub {
     owner = "jonniek";
