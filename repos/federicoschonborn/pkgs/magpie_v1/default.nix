@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  meta =  {
+  meta = {
     mainProgram = "magpie-wm";
     description = "wlroots-based Wayland compositor designed for the Budgie Desktop";
     homepage = "https://github.com/BuddiesOfBudgie/magpie/tree/v1";

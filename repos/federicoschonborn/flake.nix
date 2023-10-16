@@ -3,20 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    systems.url = "github:nix-systems/default";
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.url = "github:nix-systems/default";
+    };
   };
 
-  outputs = { self, nixpkgs, systems, ... }:
+  outputs = { self, nixpkgs, flake-utils, ... }: flake-utils.lib.eachDefaultSystem (system:
     let
-      inherit (nixpkgs) lib;
-
-      eachSystem = f: lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      legacyPackages = eachSystem (pkgs: import ./. { inherit pkgs; });
-      packages = eachSystem (pkgs: lib.filterAttrs (_: lib.isDerivation) self.legacyPackages.${pkgs.system});
-      formatter = eachSystem (pkgs: pkgs.nixpkgs-fmt);
-    };
+      legacyPackages = import ./. { inherit pkgs; };
+      packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) self.legacyPackages.${system};
+      formatter = pkgs.nixpkgs-fmt;
+    });
 
   nixConfig = {
     extra-substituters = [
