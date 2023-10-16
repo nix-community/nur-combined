@@ -1,4 +1,5 @@
-{ stdenv, lib, autoPatchelfHook, cups, libusb-compat-0_1, libxml2 }:
+{ stdenv, lib, autoPatchelfHook, cups, libusb-compat-0_1, libxml2,
+  arch ? stdenv.hostPlatform.system}:
 stdenv.mkDerivation {
   pname = "xerox-phaser-3020";
   version = "1.0";
@@ -13,10 +14,10 @@ stdenv.mkDerivation {
     [ autoPatchelfHook stdenv.cc.cc.lib cups libusb-compat-0_1 libxml2 ];
 
   installPhase =
-    let arch = lib.removeSuffix "-linux" stdenv.hostPlatform.system;
+    let archdir = lib.removeSuffix "-linux" arch;
     in ''
       mkdir -p $out/lib/cups/filter/
-      cp -v $src/${lib.escapeShellArg arch}/* $out/lib/cups/filter/
+      cp -v $src/${lib.escapeShellArg archdir}/* $out/lib/cups/filter/
 
       mkdir -p $out/share/cups/model/
       cp -v $src/noarch/share/ppd/Xerox_Phaser_3020.ppd $out/share/cups/model
@@ -26,6 +27,6 @@ stdenv.mkDerivation {
     description = "Proprietary Xerox Phaser 3020 CUPS driver";
     homepage = "https://www.xerox.com/";
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [ "x86_64-linux" "i686-linux" arch ];
   };
 }
