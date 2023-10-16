@@ -641,10 +641,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.9.1";
+      version = "2023.9.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170561/bitwarden_password_manager-2023.9.1.xpi";
-      sha256 = "46d4fe10ea3a1757a6a4c0d728f3f765d93883f742a3ebb73f36aeb80eec55a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180072/bitwarden_password_manager-2023.9.2.xpi";
+      sha256 = "e76cc68f7f194b52f615ec9df80f82308cd55e6234afff5fb41ee7de9f7a27f2";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1668,10 +1668,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.9.20";
+      version = "2023.10.12";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170434/duckduckgo_for_firefox-2023.9.20.xpi";
-      sha256 = "eb2914fa45047925088f08e19b750774d5a2ad4b74070d14fb6a45b2e4a3451e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180357/duckduckgo_for_firefox-2023.10.12.xpi";
+      sha256 = "8f3720dafdc0ba23f81af9251c08f2389036644501fadcaa01438224f29d03f3";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -4172,10 +4172,10 @@
       };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.4.0";
+      version = "0.4.1";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4179129/kagi_search_for_firefox-0.4.0.xpi";
-      sha256 = "1fcc1662f94ac183f9cf335260e93da4f60e53d76a91e2cd367947abf5d1b43d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4182021/kagi_search_for_firefox-0.4.1.xpi";
+      sha256 = "ec1b92cbc29e024f6d313ca26f7469fa154e261016e6618cd156a6f982f4d033";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -4609,10 +4609,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.56";
+      version = "2.6.57";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4171609/localcdn_fork_of_decentraleyes-2.6.56.xpi";
-      sha256 = "8e667e704aad9d92fb4611505b4a5bb008ee17faef1a859c5266f90f47213977";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180482/localcdn_fork_of_decentraleyes-2.6.57.xpi";
+      sha256 = "18ade69193c64ec021aba973f1763f0f3a0cb4f2a542c7e6f59fdc6a74752e76";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -4816,10 +4816,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.12.1";
+      version = "2.12.3";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4176998/momentumdash-2.12.1.xpi";
-      sha256 = "e55b4758db13b91112dd294af2ee5d9a4f0bdc9f195382cd2b85fa783a023bd8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180081/momentumdash-2.12.3.xpi";
+      sha256 = "6ddd19e01a0ea089c3af1614da32c00137980573e56e49fe1de65ffe5454aed5";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -5312,6 +5312,27 @@
           "history"
           "search"
           "<all_urls>"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "omnivore" = buildFirefoxXpiAddon {
+      pname = "omnivore";
+      version = "2.6.2";
+      addonId = "save-extension@omnivore.app";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4175636/omnivore-2.6.2.xpi";
+      sha256 = "f39fabcb28e5dc495c305a6f13f36ca1cab95eff0fc929d9d525a534f46fbdb0";
+      meta = with lib;
+      {
+        homepage = "https://omnivore.app/";
+        description = "Omnivore is the read-it-later app for serious readers. Distraction free. Privacy focused. Open source.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "contextMenus"
+          "https://*/**"
+          "http://*/**"
           ];
         platforms = platforms.all;
         };
@@ -6577,10 +6598,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.10";
+      version = "3.0.0.11";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4147411/return_youtube_dislikes-3.0.0.10.xpi";
-      sha256 = "bcf4a5d271341a3dab3337bd6d5328f762c8b6b3447562316c166f902be3ad84";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180538/return_youtube_dislikes-3.0.0.11.xpi";
+      sha256 = "6d5d3d501a412a994a4b5e667cfb5db98581aee8bf8784c31121867a44895505";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -8660,10 +8681,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.5.0";
+      version = "6.5.1";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4059290/vue_js_devtools-6.5.0.xpi";
-      sha256 = "eb45cf5cf3044de7d9da45c7827547146c6ffc7a48f771bf1c413419f4de6ee8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4179289/vue_js_devtools-6.5.1.xpi";
+      sha256 = "678c89e3e30d9d47fcee3d77e86f9d3c29edb2ff1a670faefcab7568b5993223";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
