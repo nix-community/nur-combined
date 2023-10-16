@@ -133,6 +133,18 @@
 
     latex.mode = [ ''("\\.tex\\'" . latex-mode)'' ];
 
+    lsp-clangd = {
+      config = ''
+        (setq lsp-clangd-binary-path "${pkgs.clang-tools}/bin/clangd")
+      '';
+    };
+
+    lsp-cmake = {
+      config = ''
+        (setq lsp-cmake-server-command "${lib.getExe pkgs.cmake-language-server}")
+      '';
+    };
+
     lsp-elm = {
       config = ''
         (setq lsp-elm-elm-language-server-path
@@ -230,7 +242,7 @@
       '';
     };
 
-    terraform-mode.mode = [ ''"\\.tf\\'"'' ];
+    terraform-mode.mode = [ ''"\\.tf\\(vars\\)?\\'"'' ];
 
     toml-ts-mode = {
       mode = [ ''"\\.toml\\'"'' ];
@@ -240,7 +252,7 @@
     };
 
     tsx-ts-mode = {
-      mode = [ ''"\\.[jt]sx\\'"''  ];
+      mode = [ ''"\\.[jt]sx\\'"'' ];
       init = ''
         (add-to-list 'major-mode-remap-alist '(js-jsx-mode . tsx-ts-mode))
       '';
