@@ -17,7 +17,9 @@
   battery-wallpaper = pkgs.callPackage ./pkgs/ba/battery-wallpaper { };
   clx = pkgs.callPackage ./pkgs/cl/clx { };
   fsautocomplete = pkgs.callPackage ./pkgs/fs/fsautocomplete { };
+  gitpolite = pkgs.callPackage ./pkgs/gi/gitpolite { };
   quite = pkgs.callPackage ./pkgs/qu/quiet { };
+  rmosxf = pkgs.callPackage ./pkgs/rm/rmosxf { };
   spacedrive = pkgs.callPackage ./pkgs/sp/spacedrive { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
