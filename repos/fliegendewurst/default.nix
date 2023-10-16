@@ -17,6 +17,9 @@
   diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
   freqtop = pkgs.callPackage ./pkgs/freqtop { };
   map = pkgs.callPackage ./pkgs/map { };
+  microsoft-ergonomic-keyboard = pkgs.callPackage ./pkgs/microsoft-ergonomic-keyboard {
+    kernel = pkgs.linuxPackages.kernel;
+  };
   openscad-snapshot = pkgs.callPackage ./pkgs/openscad-snapshot { };
   q = pkgs.callPackage ./pkgs/q { };
   # TODO: fix dependency specification
