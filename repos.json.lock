@@ -473,8 +473,8 @@
             "url": "https://github.com/Fius/nur-packages"
         },
         "fliegendewurst": {
-            "rev": "6ed248882031a83b96ac1845364b78215b06e87a",
-            "sha256": "0zl8ykv5vrxpjn7n081a6p7gzvgpsjvkpg9b7f22ndhzxbh21bzi",
+            "rev": "a0afc2a463a39699995aa3e8dc9cbaa304aa73af",
+            "sha256": "0bcdgk80craqn898b98n13wlf7r37wdfl32mqi2g7nk7zffzvkgn",
             "url": "https://github.com/FliegendeWurst/nur-packages/"
         },
         "foolnotion": {
