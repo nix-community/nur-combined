@@ -3,7 +3,7 @@
 
   # nixpkgs functions
 , buildGoModule
-, buildVimPluginFrom2Nix
+, buildVimPlugin
 , fetchFromGitHub
 , fetchFromSourcehut
 , fetchpatch
