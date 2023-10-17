@@ -17,7 +17,7 @@ rec {
 
   obs-amf = pkgs.qt6Packages.callPackage ./apps/obs { ffmpeg = ffmpeg6-amf-full; inherit libcef;};
 
-  polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc {};
+  polymc = pkgs.libsForQt5.callPackage ./apps/games/polymc {};
 
   vpk_fuse = callPackage ./apps/vpk_fuse.nix {};
 
