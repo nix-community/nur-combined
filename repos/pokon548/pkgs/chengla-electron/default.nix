@@ -31,7 +31,6 @@ in stdenv.mkDerivation rec {
 
     cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
     cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/${pname}.desktop
-    cp -a ${appimageContents}/usr/share/icons/hicolor/0x0/apps/chengla-linux-unofficial.png $out/share/icons/hicolor/0x0/${pname}.png
 
     substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
