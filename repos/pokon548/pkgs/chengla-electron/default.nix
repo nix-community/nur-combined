@@ -9,7 +9,7 @@ in stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       "https://github.com/pokon548/chengla-for-linux/releases/download/v${version}/chengla-${version}.AppImage";
-    sha256 = "sha256-3J7+XsoY7jVpSe7k2SZoh6os0tGNBynr3uaaPVnwYfY=";
+    sha256 = "sha256-vEcwf4+bIsh5aKqitq+2kr1vEHUccIIKlLI80YZdetE=";
     name = "${pname}-${version}.AppImage";
   };
 
