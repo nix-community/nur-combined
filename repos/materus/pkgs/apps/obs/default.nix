@@ -47,11 +47,11 @@
 , amf-headers 
 , libGL
 , vulkan-loader
-#, decklinkSupport ? false
-#, blackmagic-desktop-video
+, decklinkSupport ? false
+, blackmagic-desktop-video ? null
 , libcef
 }:
-
+assert (!decklinkSupport || blackmagic-desktop-video!=null) || builtins.throw "decklinkSupport enabled but blackmagic-desktop-video is null";
 let
   inherit (lib) optional optionals;
 in
@@ -134,14 +134,13 @@ stdenv.mkDerivation rec {
   ];
 
   dontWrapGApps = true;
-
   preFixup =  let
     wrapperLibraries = [
       xorg.libX11
       libvlc
-    ]; /*++ optionals decklinkSupport [
+    ] ++ optionals decklinkSupport [
       blackmagic-desktop-video
-    ];*/
+    ];
   in
   ''
     #Remove libs from libcef, they are symlinks and can't be patchelfed
