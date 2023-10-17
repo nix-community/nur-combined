@@ -24,6 +24,8 @@ in
   # services.xserver.windowManager.i3.enable = true;
   programs.hyprland.enable = true;
 
+  virtualisation.waydroid.enable = true;
+
   services.nixgram = {
     enable = true;
     customCommands = {
