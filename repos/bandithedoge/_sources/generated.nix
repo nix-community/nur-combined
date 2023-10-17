@@ -150,15 +150,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "8440eafdb516a379b4350f3c29a0e919f88cee24";
+    version = "159e33d76ec2a15adc5011d96d3fc0f4a3787724";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "8440eafdb516a379b4350f3c29a0e919f88cee24";
+      rev = "159e33d76ec2a15adc5011d96d3fc0f4a3787724";
       fetchSubmodules = false;
-      sha256 = "sha256-hpqcq42oFtQvDst5Rup9U/ejZgTnAJum0+nSgsBQ8Gs=";
+      sha256 = "sha256-LYrBY0ze0T6NybmYh+GnGs2vBl1glgy695PMhTuZ5EA=";
     };
-    date = "2023-10-07";
+    date = "2023-10-16";
   };
   libadwaita-1_4 = {
     pname = "libadwaita-1_4";
