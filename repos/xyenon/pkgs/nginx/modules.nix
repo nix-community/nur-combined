@@ -1,7 +1,7 @@
 { lib, config, fetchFromGitHub }:
 
 {
-  http_proxy_connect_module = version:
+  http_proxy_connect = version:
     let
       patch = with lib; findFirst
         (p: versionAtLeast version p.versionAtLeast && versionOlder version p.versionOlder)
@@ -14,6 +14,7 @@
     rec {
       name = "http_proxy_connect";
       src = fetchFromGitHub {
+        inherit name;
         owner = "chobits";
         repo = "ngx_http_proxy_connect_module";
         rev = "v0.0.5";
