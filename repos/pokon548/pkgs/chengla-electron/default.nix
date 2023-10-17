@@ -27,10 +27,11 @@ in stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/0x0
+    mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/
 
     cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
     cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/${pname}.desktop
+    cp -aR ${appimageContents}/usr/share/icons/hicolor/* $out/share/icons/hicolor/
 
     substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
