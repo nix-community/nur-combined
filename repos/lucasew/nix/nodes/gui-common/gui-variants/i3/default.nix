@@ -10,6 +10,9 @@
   ];
 
   config = lib.mkIf config.services.xserver.windowManager.i3.enable {
+    # Redshift
+    services.redshift.enable = true;
+
     services.dunst.enable = true;
     programs.xss-lock.enable = true;
     programs.kdeconnect.enable = true;

@@ -26,8 +26,6 @@
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
 
-  # Redshift
-  services.redshift.enable = true;
   location = {
     latitude = -24.0;
     longitude = -54.0;

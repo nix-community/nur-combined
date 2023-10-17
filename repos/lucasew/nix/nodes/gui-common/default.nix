@@ -10,6 +10,7 @@ in {
     ./networking.nix
     ./steam.nix
     ./git.nix
+    ./gammastep.nix
     ./adb.nix
     ./vbox.nix
     ./tuning.nix

@@ -9,6 +9,7 @@
 
   config = lib.mkIf config.programs.hyprland.enable {
     services.dunst.enable = true;
+    services.gammastep.enable = true;
     programs.regreet.enable = true;
     programs.waybar.enable = true;
     programs.kdeconnect.enable = true;
