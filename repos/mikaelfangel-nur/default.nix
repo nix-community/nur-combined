@@ -16,7 +16,6 @@
 
   battery-wallpaper = pkgs.callPackage ./pkgs/ba/battery-wallpaper { };
   clx = pkgs.callPackage ./pkgs/cl/clx { };
-  fsautocomplete = pkgs.callPackage ./pkgs/fs/fsautocomplete { };
   gitpolite = pkgs.callPackage ./pkgs/gi/gitpolite { };
   quiet = pkgs.callPackage ./pkgs/qu/quiet { };
   rmosxf = pkgs.callPackage ./pkgs/rm/rmosxf { };
