@@ -31,6 +31,7 @@ def download_channels():
     return {
         channel["@name"]: channel
         for product in products
+        if "channel" in product
         for channel in one_or_more(product["channel"])
     }
 
@@ -127,4 +128,3 @@ subprocess.run(['git', 'commit', f'-m{commitMessage}', '--', f'{versions_file_pa
 logging.info("#### Updating plugins ####")
 plugin_script = current_path.joinpath("plugins/update_plugins.py").resolve()
 subprocess.call(plugin_script)
-
