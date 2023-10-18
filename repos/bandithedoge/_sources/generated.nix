@@ -150,15 +150,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "159e33d76ec2a15adc5011d96d3fc0f4a3787724";
+    version = "a1aea16c7a3239c0a3d7522b09edb1d6988bae02";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "159e33d76ec2a15adc5011d96d3fc0f4a3787724";
+      rev = "a1aea16c7a3239c0a3d7522b09edb1d6988bae02";
       fetchSubmodules = false;
-      sha256 = "sha256-LYrBY0ze0T6NybmYh+GnGs2vBl1glgy695PMhTuZ5EA=";
+      sha256 = "sha256-hh5a82fbujCOitFjbzClCMZ/XZQeFsdOHxZWCXXv1i4=";
     };
-    date = "2023-10-16";
+    date = "2023-10-17";
   };
   libadwaita-1_4 = {
     pname = "libadwaita-1_4";
@@ -220,15 +220,15 @@
   };
   macemu = {
     pname = "macemu";
-    version = "2533f7ac05912bbde159b61083715c293e3b1f41";
+    version = "19308135c3c60afebbb478184036e734e646a918";
     src = fetchFromGitHub {
       owner = "kanjitalk755";
       repo = "macemu";
-      rev = "2533f7ac05912bbde159b61083715c293e3b1f41";
+      rev = "19308135c3c60afebbb478184036e734e646a918";
       fetchSubmodules = false;
-      sha256 = "sha256-po12noGD8OuMbh+Y8PdHIfYu7HGhjcK/jGOc0HjdGxo=";
+      sha256 = "sha256-6dHXDgMVDrmlkArOQ2tRlhgWIOM95WvB9iUTcJ5rzpM=";
     };
-    date = "2023-10-08";
+    date = "2023-10-18";
   };
   raze = {
     pname = "raze";
@@ -287,15 +287,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "9b9a98f9771c5c44991ca829b3fb98871f130682";
+    version = "a4ca64076908ae0bf1f12c182b9bedcdc286d216";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "9b9a98f9771c5c44991ca829b3fb98871f130682";
+      rev = "a4ca64076908ae0bf1f12c182b9bedcdc286d216";
       fetchSubmodules = false;
-      sha256 = "sha256-3hWJNRw39QuBVu61demV3uWuINxuvpPdux4EFsfg9bs=";
+      sha256 = "sha256-EfF0cxEDFxZGxN5PQba3bPMfohxqkXbCS+f+OIeh8Gk=";
     };
-    date = "2023-10-13";
+    date = "2023-10-17";
   };
   tree-sitter-hypr = {
     pname = "tree-sitter-hypr";

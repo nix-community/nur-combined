@@ -241,7 +241,7 @@
   },
   "kmonad": {
     "cargoLocks": null,
-    "date": "2023-10-16",
+    "date": "2023-10-17",
     "extract": null,
     "name": "kmonad",
     "passthru": null,
@@ -253,11 +253,11 @@
       "name": null,
       "owner": "kmonad",
       "repo": "kmonad",
-      "rev": "159e33d76ec2a15adc5011d96d3fc0f4a3787724",
-      "sha256": "sha256-LYrBY0ze0T6NybmYh+GnGs2vBl1glgy695PMhTuZ5EA=",
+      "rev": "a1aea16c7a3239c0a3d7522b09edb1d6988bae02",
+      "sha256": "sha256-hh5a82fbujCOitFjbzClCMZ/XZQeFsdOHxZWCXXv1i4=",
       "type": "github"
     },
-    "version": "159e33d76ec2a15adc5011d96d3fc0f4a3787724"
+    "version": "a1aea16c7a3239c0a3d7522b09edb1d6988bae02"
   },
   "libadwaita-1_4": {
     "cargoLocks": null,
@@ -361,7 +361,7 @@
   },
   "macemu": {
     "cargoLocks": null,
-    "date": "2023-10-08",
+    "date": "2023-10-18",
     "extract": null,
     "name": "macemu",
     "passthru": null,
@@ -373,11 +373,11 @@
       "name": null,
       "owner": "kanjitalk755",
       "repo": "macemu",
-      "rev": "2533f7ac05912bbde159b61083715c293e3b1f41",
-      "sha256": "sha256-po12noGD8OuMbh+Y8PdHIfYu7HGhjcK/jGOc0HjdGxo=",
+      "rev": "19308135c3c60afebbb478184036e734e646a918",
+      "sha256": "sha256-6dHXDgMVDrmlkArOQ2tRlhgWIOM95WvB9iUTcJ5rzpM=",
       "type": "github"
     },
-    "version": "2533f7ac05912bbde159b61083715c293e3b1f41"
+    "version": "19308135c3c60afebbb478184036e734e646a918"
   },
   "raze": {
     "cargoLocks": null,
@@ -476,7 +476,7 @@
   },
   "tailwindcss-intellisense": {
     "cargoLocks": null,
-    "date": "2023-10-13",
+    "date": "2023-10-17",
     "extract": null,
     "name": "tailwindcss-intellisense",
     "passthru": null,
@@ -488,11 +488,11 @@
       "name": null,
       "owner": "tailwindlabs",
       "repo": "tailwindcss-intellisense",
-      "rev": "9b9a98f9771c5c44991ca829b3fb98871f130682",
-      "sha256": "sha256-3hWJNRw39QuBVu61demV3uWuINxuvpPdux4EFsfg9bs=",
+      "rev": "a4ca64076908ae0bf1f12c182b9bedcdc286d216",
+      "sha256": "sha256-EfF0cxEDFxZGxN5PQba3bPMfohxqkXbCS+f+OIeh8Gk=",
       "type": "github"
     },
-    "version": "9b9a98f9771c5c44991ca829b3fb98871f130682"
+    "version": "a4ca64076908ae0bf1f12c182b9bedcdc286d216"
   },
   "tree-sitter-hypr": {
     "cargoLocks": null,
