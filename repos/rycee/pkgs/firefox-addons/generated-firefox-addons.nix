@@ -4650,10 +4650,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "5.1.0";
+      version = "5.1.1";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4137207/mailvelope-5.1.0.xpi";
-      sha256 = "f1be9d226480b4b73a98051b4df71cd157ea6b460c500dc95b8ba994d024ef30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180802/mailvelope-5.1.1.xpi";
+      sha256 = "5eb8320d46dda12e857747ba9e239878c5c71c5a05ec5f24063e4431bb4902d0";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
