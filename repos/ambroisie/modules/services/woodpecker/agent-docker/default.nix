@@ -27,9 +27,6 @@ in
     # Make sure it is activated in that case
     my.system.docker.enable = true;
 
-    # FIXME: figure out the issue
-    services.unbound.resolveLocalQueries = false;
-
     # Adjust runner service for nix usage
     systemd.services.woodpecker-agent-docker = {
       after = [ "docker.socket" ]; # Needs the socket to be available

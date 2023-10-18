@@ -116,7 +116,13 @@ in
       secretKeyFile = secrets."paperless/secret-key".path;
     };
     # The whole *arr software suite
-    pirate.enable = true;
+    pirate = {
+      enable = true;
+      # ... But not Lidarr because I don't care for music that much
+      lidarr = {
+        enable = false;
+      };
+    };
     # Podcast automatic downloader
     podgrab = {
       enable = true;

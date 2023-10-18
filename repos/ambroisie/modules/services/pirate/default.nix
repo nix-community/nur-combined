@@ -29,7 +29,7 @@ let
     ];
   };
 
-  mkFail2Ban = service: {
+  mkFail2Ban = service: lib.mkIf cfg.${service}.enable {
     services.fail2ban.jails = {
       ${service} = ''
         enabled = true
@@ -47,14 +47,30 @@ let
     };
   };
 
-  mkFullConfig = service: lib.mkMerge [
+  mkFullConfig = service: lib.mkIf cfg.${service}.enable (lib.mkMerge [
     (mkService service)
     (mkRedirection service)
-  ];
+  ]);
 in
 {
   options.my.services.pirate = {
     enable = lib.mkEnableOption "Media automation";
+
+    bazarr = {
+      enable = lib.my.mkDisableOption "Bazarr";
+    };
+
+    lidarr = {
+      enable = lib.my.mkDisableOption "Lidarr";
+    };
+
+    radarr = {
+      enable = lib.my.mkDisableOption "Radarr";
+    };
+
+    sonarr = {
+      enable = lib.my.mkDisableOption "Sonarr";
+    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [

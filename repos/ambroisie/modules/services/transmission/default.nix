@@ -3,7 +3,7 @@
 # Inspired by [1]
 #
 # [1]: https://github.com/delroth/infra.delroth.net/blob/master/roles/seedbox.nix
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.my.services.transmission;
 in
@@ -45,6 +45,7 @@ in
   config = lib.mkIf cfg.enable {
     services.transmission = {
       enable = true;
+      package = pkgs.transmission_4;
       group = "media";
 
       downloadDirPermissions = "775";
