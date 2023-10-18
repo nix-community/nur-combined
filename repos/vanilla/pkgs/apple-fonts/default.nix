@@ -8,7 +8,7 @@
   SF-Compact = (pkgs.callPackage ./common.nix {
     name = "SF-Compact";
     fontName = "SF Compact Fonts";
-    sha256 = "sha256-7mk4i36CWPy08RdNTuFyahL3gb6HL7wwjWS9Zs1LH6s=";
+    sha256 = "sha256-+Q4HInJBl3FLb29/x9utf7A55uh5r79eh/7hdQDdbSI=";
   });
   SF-Mono = (pkgs.callPackage ./common.nix {
     name = "SF-Mono";
