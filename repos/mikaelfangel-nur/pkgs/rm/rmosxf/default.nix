@@ -1,10 +1,4 @@
-{ bash
-, fetchFromGitHub
-, lib
-, resholve
-, findutils
-, coreutils
-}:
+{ bash, fetchFromGitHub, lib, resholve, findutils, coreutils }:
 
 resholve.mkDerivation rec {
   pname = "rmosxf";
@@ -26,18 +20,15 @@ resholve.mkDerivation rec {
   solutions.default = {
     scripts = [ "bin/rmosxf" ];
     interpreter = "${bash}/bin/sh";
-    inputs = [
-      findutils
-      coreutils
-    ];
+    inputs = [ findutils coreutils ];
     fix.aliases = true;
   };
 
   meta = with lib; {
     description = "A tool to remove osx file from the system";
     homepage = "https://github.com/MikaelFangel/AwesomeScripts";
-    maintainers = with lib.maintainers; [ mikaelfangel ];
+    maintainers = with maintainers; [ mikaelfangel ];
     license = licenses.mit;
+    mainProgram = "rmosxf";
   };
 }
-

@@ -1,6 +1,6 @@
 { lib, appimageTools, fetchurl, pkgs }:
 
-appimageTools.wrapType2 rec { # or wrapType1
+appimageTools.wrapType2 rec {
   name = "spacedrive";
   version = "0.1.1";
   src = fetchurl {
@@ -10,11 +10,12 @@ appimageTools.wrapType2 rec { # or wrapType1
 
   extraPkgs = pkgs: with pkgs; [ libthai ];
 
-  meta = {
+  meta = with lib; {
     description = "An open source file manager, powered by a virtual distributed filesystem (VDFS) written in Rust";
     homepage = "https://www.spacedrive.com/";
-    mainProgram = name;
     platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [ mikaelfangel ];
+    mainProgram = "spacedrive";
   };
 }

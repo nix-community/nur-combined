@@ -1,13 +1,4 @@
-{ bash
-, fetchFromGitHub
-, lib
-, resholve
-, coreutils
-, git
-, gum
-, gnused
-, gnugrep
-}:
+{ bash, fetchFromGitHub, lib, resholve, coreutils, git, gum, gnused, gnugrep }:
 
 resholve.mkDerivation rec {
   pname = "git-polite";
@@ -29,25 +20,16 @@ resholve.mkDerivation rec {
   solutions.default = {
     scripts = [ "bin/git-polite" ];
     interpreter = "${bash}/bin/bash";
-    inputs = [
-      coreutils
-      git
-      gnused
-      gnugrep
-      gum
-    ];
+    inputs = [ coreutils git gnused gnugrep gum ];
     fix.aliases = true;
-    execer = [
-      "cannot:${git}/bin/git"
-      "cannot:${gum}/bin/gum"
-    ];
+    execer = [ "cannot:${git}/bin/git" "cannot:${gum}/bin/gum" ];
   };
 
   meta = with lib; {
     description = "A tool to create github co-author messages.";
     homepage = "https://github.com/MikaelFangel/AwesomeScripts";
-    maintainers = with lib.maintainers; [ mikaelfangel ];
+    maintainers = with maintainers; [ mikaelfangel ];
     license = licenses.mit;
+    mainProgram = "git-polite";
   };
 }
-
