@@ -10,5 +10,4 @@ rec {
   wlopm = pkgs.callPackage ./wlopm {};
   lswt = pkgs.callPackage ./lswt {};
   kile = pkgs.callPackage ./kile {};
-  aw-watcher-window-wayland = pkgs.callPackage ./aw-watcher-window-wayland {};
 }
