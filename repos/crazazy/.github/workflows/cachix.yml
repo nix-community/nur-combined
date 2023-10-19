@@ -25,13 +25,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Remove some excess files
       run: sudo rm -rf /opt /usr/local || true
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v21
+      uses: cachix/install-nix-action@v23
       with:
         nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |

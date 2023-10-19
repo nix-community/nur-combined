@@ -49,13 +49,13 @@ let
         sha512 = "HxjQ8Qn+4SI3/AFv6sOrDB+g6PpUTDwSJiQqOrnneEk8L71161srI9gjzzZvYVbzHiVg/BvcH95+cK/zfIt4pg==";
       };
     };
-    "@humanwhocodes/config-array-0.11.11" = {
+    "@humanwhocodes/config-array-0.11.12" = {
       name = "_at_humanwhocodes_slash_config-array";
       packageName = "@humanwhocodes/config-array";
-      version = "0.11.11";
+      version = "0.11.12";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.11.tgz";
-        sha512 = "N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA==";
+        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.12.tgz";
+        sha512 = "NlGesA1usRNn6ctHCZ21M4/dKPgW9Nn1FypRdIKKgZOKzkVV4T1FlK5mBiLhHBCDmEbdQG0idrcXlbZfksJ+RA==";
       };
     };
     "@humanwhocodes/module-importer-1.0.1" = {
@@ -67,13 +67,13 @@ let
         sha512 = "bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==";
       };
     };
-    "@humanwhocodes/object-schema-1.2.1" = {
+    "@humanwhocodes/object-schema-2.0.0" = {
       name = "_at_humanwhocodes_slash_object-schema";
       packageName = "@humanwhocodes/object-schema";
-      version = "1.2.1";
+      version = "2.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz";
-        sha512 = "ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==";
+        url = "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-2.0.0.tgz";
+        sha512 = "9S9QrXY2K0L4AGDcSgTi9vgiCcG8VcBv4Mp7/1hDPYoswIy6Z6KO5blYto82BT8M0MZNRWmCFLpCs3HlpYGGdw==";
       };
     };
     "@nodelib/fs.scandir-2.1.5" = {
@@ -898,9 +898,9 @@ let
       sources."@eslint-community/regexpp-4.9.1"
       sources."@eslint/eslintrc-2.1.2"
       sources."@eslint/js-8.51.0"
-      sources."@humanwhocodes/config-array-0.11.11"
+      sources."@humanwhocodes/config-array-0.11.12"
       sources."@humanwhocodes/module-importer-1.0.1"
-      sources."@humanwhocodes/object-schema-1.2.1"
+      sources."@humanwhocodes/object-schema-2.0.0"
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"

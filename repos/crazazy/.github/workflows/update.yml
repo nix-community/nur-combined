@@ -20,7 +20,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
       - name: Update submodules
@@ -43,13 +43,13 @@ jobs:
           API_GITHUB_TOKEN: ${{secrets.API_GITHUB_TOKEN}}
         
       - name: Push to master
-        uses: ad-m/github-push-action@v0.6.0
+        uses: ad-m/github-push-action@v0.8.0
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         
       - name: Compile monorepo
         run: |
