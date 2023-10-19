@@ -22,13 +22,13 @@ let
         sha512 = "1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==";
       };
     };
-    "@eslint-community/regexpp-4.6.2" = {
+    "@eslint-community/regexpp-4.9.1" = {
       name = "_at_eslint-community_slash_regexpp";
       packageName = "@eslint-community/regexpp";
-      version = "4.6.2";
+      version = "4.9.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint-community/regexpp/-/regexpp-4.6.2.tgz";
-        sha512 = "pPTNuaAG3QMH+buKyBIGJs3g/S5y0caxw0ygM3YyE6yJFySwiGGSzA+mM3KJ8QQvzeLh3blwgSonkFjgQdxzMw==";
+        url = "https://registry.npmjs.org/@eslint-community/regexpp/-/regexpp-4.9.1.tgz";
+        sha512 = "Y27x+MBLjXa+0JWDhykM3+JE+il3kHKAEqabfEWq3SDhZjLYb6/BHL/JKFnH3fe207JaXkyDo685Oc2Glt6ifA==";
       };
     };
     "@eslint/eslintrc-2.1.2" = {
@@ -40,22 +40,22 @@ let
         sha512 = "+wvgpDsrB1YqAMdEUCcnTlpfVBH7Vqn6A/NT3D8WVXFIaKMlErPIZT3oCIAVCOtarRpMtelZLqJeU3t7WY6X6g==";
       };
     };
-    "@eslint/js-8.47.0" = {
+    "@eslint/js-8.51.0" = {
       name = "_at_eslint_slash_js";
       packageName = "@eslint/js";
-      version = "8.47.0";
+      version = "8.51.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/js/-/js-8.47.0.tgz";
-        sha512 = "P6omY1zv5MItm93kLM8s2vr1HICJH8v0dvddDhysbIuZ+vcjOHg5Zbkf1mTkcmi2JA9oBG2anOkRnW8WJTS8Og==";
+        url = "https://registry.npmjs.org/@eslint/js/-/js-8.51.0.tgz";
+        sha512 = "HxjQ8Qn+4SI3/AFv6sOrDB+g6PpUTDwSJiQqOrnneEk8L71161srI9gjzzZvYVbzHiVg/BvcH95+cK/zfIt4pg==";
       };
     };
-    "@humanwhocodes/config-array-0.11.10" = {
+    "@humanwhocodes/config-array-0.11.11" = {
       name = "_at_humanwhocodes_slash_config-array";
       packageName = "@humanwhocodes/config-array";
-      version = "0.11.10";
+      version = "0.11.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.10.tgz";
-        sha512 = "KVVjQmNUepDVGXNuoRRdmmEjruj0KfiGSbS8LVc12LMsWDQzRXJ0qdhN8L8uUigKpfEHRhlaQFY0ib1tnUbNeQ==";
+        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.11.tgz";
+        sha512 = "N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA==";
       };
     };
     "@humanwhocodes/module-importer-1.0.1" = {
@@ -265,6 +265,15 @@ let
         sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
       };
     };
+    "eslint-8.51.0" = {
+      name = "eslint";
+      packageName = "eslint";
+      version = "8.51.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/eslint/-/eslint-8.51.0.tgz";
+        sha512 = "2WuxRZBrlwnXi+/vFSJyjMqrNjtJqiasMzehF0shoLaW7DzS3/9Yvrmq5JiT66+pNjiX4UBnLDiKHcWAr/OInA==";
+      };
+    };
     "eslint-scope-7.2.2" = {
       name = "eslint-scope";
       packageName = "eslint-scope";
@@ -382,22 +391,22 @@ let
         sha512 = "78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==";
       };
     };
-    "flat-cache-3.0.4" = {
+    "flat-cache-3.1.1" = {
       name = "flat-cache";
       packageName = "flat-cache";
-      version = "3.0.4";
+      version = "3.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/flat-cache/-/flat-cache-3.0.4.tgz";
-        sha512 = "dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==";
+        url = "https://registry.npmjs.org/flat-cache/-/flat-cache-3.1.1.tgz";
+        sha512 = "/qM2b3LUIaIgviBQovTLvijfyOQXPtSRnRK26ksj2J7rzPIecePUIpJsZ4T02Qg+xiAEKIs5K8dsHEd+VaKa/Q==";
       };
     };
-    "flatted-3.2.7" = {
+    "flatted-3.2.9" = {
       name = "flatted";
       packageName = "flatted";
-      version = "3.2.7";
+      version = "3.2.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz";
-        sha512 = "5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==";
+        url = "https://registry.npmjs.org/flatted/-/flatted-3.2.9.tgz";
+        sha512 = "36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==";
       };
     };
     "fs.realpath-1.0.0" = {
@@ -427,13 +436,13 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "globals-13.21.0" = {
+    "globals-13.23.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.21.0";
+      version = "13.23.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.21.0.tgz";
-        sha512 = "ybyme3s4yy/t/3s35bewwXKOf7cvzfreG2lH0lZl0JB7I4GxRP2ghxOK/Nb9EkRXdbBXZLfq/p/0W2JUONB/Gg==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.23.0.tgz";
+        sha512 = "XAmF0RjlrjY23MA51q3HltdlGxUpXPvg0GioKiD9X6HD28iMjo2dKC8Vqwm7lne4GNr78+RHTfliktR6ZH09wA==";
       };
     };
     "graphemer-1.4.0" = {
@@ -544,6 +553,15 @@ let
         sha512 = "wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==";
       };
     };
+    "json-buffer-3.0.1" = {
+      name = "json-buffer";
+      packageName = "json-buffer";
+      version = "3.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/json-buffer/-/json-buffer-3.0.1.tgz";
+        sha512 = "4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==";
+      };
+    };
     "json-schema-traverse-0.4.1" = {
       name = "json-schema-traverse";
       packageName = "json-schema-traverse";
@@ -560,6 +578,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz";
         sha512 = "Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==";
+      };
+    };
+    "keyv-4.5.4" = {
+      name = "keyv";
+      packageName = "keyv";
+      version = "4.5.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz";
+        sha512 = "oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==";
       };
     };
     "levn-0.4.1" = {
@@ -863,15 +890,15 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.47.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.47.0.tgz"; sha1 = "c95f9b935463fb4fad7005e626c7621052e90806"; };
+    version = "8.51.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.51.0.tgz"; sha1 = "4a82dae60d209ac89a5cff1604fea978ba4950f3"; };
     dependencies = [
       sources."@aashutoshrathi/word-wrap-1.2.6"
       sources."@eslint-community/eslint-utils-4.4.0"
-      sources."@eslint-community/regexpp-4.6.2"
+      sources."@eslint-community/regexpp-4.9.1"
       sources."@eslint/eslintrc-2.1.2"
-      sources."@eslint/js-8.47.0"
-      sources."@humanwhocodes/config-array-0.11.10"
+      sources."@eslint/js-8.51.0"
+      sources."@humanwhocodes/config-array-0.11.11"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."@nodelib/fs.scandir-2.1.5"
@@ -895,6 +922,7 @@ let
       sources."deep-is-0.1.4"
       sources."doctrine-3.0.0"
       sources."escape-string-regexp-4.0.0"
+      sources."eslint-8.51.0"
       sources."eslint-scope-7.2.2"
       sources."eslint-visitor-keys-3.4.3"
       sources."espree-9.6.1"
@@ -908,12 +936,12 @@ let
       sources."fastq-1.15.0"
       sources."file-entry-cache-6.0.1"
       sources."find-up-5.0.0"
-      sources."flat-cache-3.0.4"
-      sources."flatted-3.2.7"
+      sources."flat-cache-3.1.1"
+      sources."flatted-3.2.9"
       sources."fs.realpath-1.0.0"
       sources."glob-7.2.3"
       sources."glob-parent-6.0.2"
-      sources."globals-13.21.0"
+      sources."globals-13.23.0"
       sources."graphemer-1.4.0"
       sources."has-flag-4.0.0"
       sources."ignore-5.2.4"
@@ -926,8 +954,10 @@ let
       sources."is-path-inside-3.0.3"
       sources."isexe-2.0.0"
       sources."js-yaml-4.1.0"
+      sources."json-buffer-3.0.1"
       sources."json-schema-traverse-0.4.1"
       sources."json-stable-stringify-without-jsonify-1.0.1"
+      sources."keyv-4.5.4"
       sources."levn-0.4.1"
       sources."locate-path-6.0.0"
       sources."lodash.merge-4.6.2"

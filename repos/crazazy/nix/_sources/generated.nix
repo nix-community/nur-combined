@@ -3,10 +3,10 @@
 {
   cakeml = {
     pname = "cakeml";
-    version = "v2157";
+    version = "v2184";
     src = fetchzip {
-      url = "https://github.com/CakeML/cakeml/releases/download/v2157/cake-x64-64.tar.gz";
-      sha256 = "sha256-1NxxU/L/LRKwZWMMT0F4/4jcxsBtkmr36vmOHF6VcDQ=";
+      url = "https://github.com/CakeML/cakeml/releases/download/v2184/cake-x64-64.tar.gz";
+      sha256 = "sha256-f01R0In/7tDMx53Ee2zJq0AquLPoICf6BTFXEP3p1Yo=";
     };
   };
   guile-config = {
@@ -27,26 +27,26 @@
   };
   seamonkey = {
     pname = "seamonkey";
-    version = "2.53.17";
+    version = "2.53.17.1";
     src = fetchzip {
-      url = "https://archive.mozilla.org/pub/seamonkey/releases/2.53.17/linux-x86_64/en-US/seamonkey-2.53.17.en-US.linux-x86_64.tar.bz2";
-      sha256 = "sha256-KaE9Vt5E4ZgStriNHYDZ/RjUw4h9Fa1/GDyEEIXhdkw=";
+      url = "https://archive.mozilla.org/pub/seamonkey/releases/2.53.17.1/linux-x86_64/en-US/seamonkey-2.53.17.1.en-US.linux-x86_64.tar.bz2";
+      sha256 = "sha256-LaZx+MmzG0cLKE+Y/B809/oMmbI99DNEh83TAB9kf0w=";
     };
   };
   trufflesqueak = {
     pname = "trufflesqueak";
-    version = "22.3.0";
+    version = "23.0.1";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/22.3.0/trufflesqueak-installable-java17-darwin-amd64-22.3.0.jar";
-      sha256 = "sha256-D12bJ8ULDEWhayrDQNvEjX0pmvmDZZ6VI4WKLPvyUVc=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/23.0.1/trufflesqueak-installable-java17-linux-amd64-23.0.1.jar";
+      sha256 = "sha256-wLqstA2gbdFW+SGw5zQ+pZx1yVgqwy6j5b/eURpoEvs=";
     };
   };
   trufflesqueak-image = {
     pname = "trufflesqueak-image";
-    version = "22.3.0";
+    version = "23.1.0";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/22.3.0/TruffleSqueakImage-22.3.0.zip";
-      sha256 = "sha256-aCn67rA1j8RqDDeaX064XqyIwPMhiq6q6Q4sxU++dEM=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/23.1.0/TruffleSqueakImage-23.1.0.zip";
+      sha256 = "sha256-/9rbH9hEHSgaOUbSHpDCdmCX4m+myxVIgG6Nf5r85Zg=";
     };
   };
 }

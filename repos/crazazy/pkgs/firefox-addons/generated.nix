@@ -2,10 +2,10 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "2023.8.3";
+      version = "2023.9.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164440/bitwarden_password_manager-2023.8.3.xpi";
-      sha256 = "d43d7603ed04a24cd37b209a22d58b940cd71503d654d6305d6c37317fd5889c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4180072/bitwarden_password_manager-2023.9.2.xpi";
+      sha256 = "e76cc68f7f194b52f615ec9df80f82308cd55e6234afff5fb41ee7de9f7a27f2";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -27,17 +27,17 @@
         platforms = platforms.all;
         };
       };
-    "old-reddit-redirect" = buildFirefoxXpiAddon {
-      pname = "old-reddit-redirect";
-      version = "1.7.3";
-      addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4152567/old_reddit_redirect-1.7.3.xpi";
-      sha256 = "0635622093c91a0893849182a92c8c7356427d6a4dee5b61a8e985edda9e0e39";
+    "libredirect" = buildFirefoxXpiAddon {
+      pname = "libredirect";
+      version = "2.8.1";
+      addonId = "7esoorv3@alefvanoon.anonaddy.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4178347/libredirect-2.8.1.xpi";
+      sha256 = "c91f19377b07b119eec4d53c28c45cdb5d0755287a79b715328654adb5c7ddfa";
       meta = with lib;
       {
-        homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
-        description = "Ensure Reddit always loads the old design";
-        license = licenses.mit;
+        homepage = "https://libredirect.github.io";
+        description = "Redirects YouTube, Twitter, TikTok... requests to alternative privacy friendly frontends.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
@@ -70,10 +70,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.52.0";
+      version = "1.52.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4164949/ublock_origin-1.52.0.xpi";
-      sha256 = "3932506ce4df306e4da7527d93d60fe0421cf15045c2f4ea73589d9a0902266b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4171020/ublock_origin-1.52.2.xpi";
+      sha256 = "e8ee3f9d597a6d42db9d73fe87c1d521de340755fd8bfdd69e41623edfe096d6";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";

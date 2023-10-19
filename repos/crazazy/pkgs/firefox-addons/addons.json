@@ -1,5 +1,8 @@
 [
   {
+    "slug": "libredirect"
+  },
+  {
     "slug": "ublock-origin"
   },
   {
@@ -7,9 +10,6 @@
   },
   {
     "slug": "youtube_downloader_webx"
-  },
-  {
-    "slug": "old-reddit-redirect"
   },
   {
     "slug": "soundcloud-mp3-downloader"

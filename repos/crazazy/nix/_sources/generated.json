@@ -7,11 +7,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-1NxxU/L/LRKwZWMMT0F4/4jcxsBtkmr36vmOHF6VcDQ=",
+            "sha256": "sha256-f01R0In/7tDMx53Ee2zJq0AquLPoICf6BTFXEP3p1Yo=",
             "type": "tarball",
-            "url": "https://github.com/CakeML/cakeml/releases/download/v2157/cake-x64-64.tar.gz"
+            "url": "https://github.com/CakeML/cakeml/releases/download/v2184/cake-x64-64.tar.gz"
         },
-        "version": "v2157"
+        "version": "v2184"
     },
     "guile-config": {
         "cargoLocks": null,
@@ -49,11 +49,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-KaE9Vt5E4ZgStriNHYDZ/RjUw4h9Fa1/GDyEEIXhdkw=",
+            "sha256": "sha256-LaZx+MmzG0cLKE+Y/B809/oMmbI99DNEh83TAB9kf0w=",
             "type": "tarball",
-            "url": "https://archive.mozilla.org/pub/seamonkey/releases/2.53.17/linux-x86_64/en-US/seamonkey-2.53.17.en-US.linux-x86_64.tar.bz2"
+            "url": "https://archive.mozilla.org/pub/seamonkey/releases/2.53.17.1/linux-x86_64/en-US/seamonkey-2.53.17.1.en-US.linux-x86_64.tar.bz2"
         },
-        "version": "2.53.17"
+        "version": "2.53.17.1"
     },
     "trufflesqueak": {
         "cargoLocks": null,
@@ -64,11 +64,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-D12bJ8ULDEWhayrDQNvEjX0pmvmDZZ6VI4WKLPvyUVc=",
+            "sha256": "sha256-wLqstA2gbdFW+SGw5zQ+pZx1yVgqwy6j5b/eURpoEvs=",
             "type": "url",
-            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/22.3.0/trufflesqueak-installable-java17-darwin-amd64-22.3.0.jar"
+            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/23.0.1/trufflesqueak-installable-java17-linux-amd64-23.0.1.jar"
         },
-        "version": "22.3.0"
+        "version": "23.0.1"
     },
     "trufflesqueak-image": {
         "cargoLocks": null,
@@ -79,10 +79,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aCn67rA1j8RqDDeaX064XqyIwPMhiq6q6Q4sxU++dEM=",
+            "sha256": "sha256-/9rbH9hEHSgaOUbSHpDCdmCX4m+myxVIgG6Nf5r85Zg=",
             "type": "url",
-            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/22.3.0/TruffleSqueakImage-22.3.0.zip"
+            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/23.1.0/TruffleSqueakImage-23.1.0.zip"
         },
-        "version": "22.3.0"
+        "version": "23.1.0"
     }
 }

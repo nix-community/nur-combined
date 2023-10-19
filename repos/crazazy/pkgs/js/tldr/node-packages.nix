@@ -148,13 +148,13 @@ let
         sha512 = "I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==";
       };
     };
-    "cli-spinners-2.9.0" = {
+    "cli-spinners-2.9.1" = {
       name = "cli-spinners";
       packageName = "cli-spinners";
-      version = "2.9.0";
+      version = "2.9.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.9.0.tgz";
-        sha512 = "4/aL9X3Wh0yiMQlE+eeRhWP6vclO3QRtw1JHKIT0FFUs5FjpFmESqtMvYZ0+lbzBw900b95mS0hohy+qn2VK/g==";
+        url = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.9.1.tgz";
+        sha512 = "jHgecW0pxkonBJdrKsqxgRX9AcG+u/5k0Q7WPDfi8AogLAdwxEkyYYNWwZ5GvVFoFx2uiY1eNcSK00fh+1+FyQ==";
       };
     };
     "clone-1.0.4" = {
@@ -220,13 +220,13 @@ let
         sha512 = "eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==";
       };
     };
-    "follow-redirects-1.15.2" = {
+    "follow-redirects-1.15.3" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.15.2";
+      version = "1.15.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz";
-        sha512 = "VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.3.tgz";
+        sha512 = "1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==";
       };
     };
     "fs-extra-9.1.0" = {
@@ -725,7 +725,7 @@ let
       sources."chainsaw-0.1.0"
       sources."chalk-4.1.2"
       sources."cli-cursor-3.1.0"
-      sources."cli-spinners-2.9.0"
+      sources."cli-spinners-2.9.1"
       sources."clone-1.0.4"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
@@ -733,7 +733,7 @@ let
       sources."concat-map-0.0.1"
       sources."core-util-is-1.0.3"
       sources."defaults-1.0.4"
-      sources."follow-redirects-1.15.2"
+      sources."follow-redirects-1.15.3"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
