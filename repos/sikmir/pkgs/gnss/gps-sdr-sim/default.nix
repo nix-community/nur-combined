@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gps-sdr-sim";
-  version = "2022-01-14";
+  version = "2023-09-02";
 
   src = fetchFromGitHub {
     owner = "osqzss";
     repo = "gps-sdr-sim";
-    rev = "becf3a33e9d1ffa445e5341137bdf31006072650";
-    hash = "sha256-Z+fGsqQUzTCKgbbH8B4qttHFnEfgUulxuttINHJT6IA=";
+    rev = "e7b948ff496917ade58ab7f59d448b7ee6e55f43";
+    hash = "sha256-jPku4QjCDGZvuhkYSI4I6HMlnjLHa245rjzAQ1DkLb4=";
   };
 
   makeFlags = [ "CC:=$(CC)" ];
