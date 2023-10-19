@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   copyq = pkgs.callPackage ./pkgs/copyq { };
-  dssp = pkgs.callPackage ./pkgs/dssp { };
   doq = pkgs.python3Packages.callPackage ./pkgs/doq { };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
   mmseqs2 = pkgs.callPackage ./pkgs/mmseqs2 {
