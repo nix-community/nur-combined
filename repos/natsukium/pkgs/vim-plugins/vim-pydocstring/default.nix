@@ -5,26 +5,22 @@
   fetchFromGitHub,
 }: let
   doq = pkgs.python3Packages.callPackage ../../doq { };
-  prev = ''
-    let g:pydocstring_doq_path = get(
-      \ g:,
-      \ 'pydocstring_doq_path',
-      \ printf('%s/lib/doq', expand('<sfile>:p:h:h'))
-      \ )'';
 in
-  buildVimPlugin {
-    name = "vim-pydocstring";
+  buildVimPlugin rec {
+    pname = "vim-pydocstring";
+    version = "2.5.0";
+
     src = fetchFromGitHub {
       owner = "heavenshell";
       repo = "vim-pydocstring";
-      rev = "2.5.0";
+      rev = "refs/tags/v${version}";
       hash = "sha256-z8mIRjXfkM/r21FoLuIUaMkHiDs6kjjtNcztMijKl4E=";
     };
 
     buildInputs = [doq];
     postPatch = ''
-      substituteInPlace autoload/pydocstring.vim --replace "${prev}" \
-        "let g:pydocstring_doq_path = get(g:, 'pydocstring_doq_path', '${doq}/bin/doq')"
+      substituteInPlace autoload/pydocstring.vim \
+        --replace "printf('%s/lib/doq', expand('<sfile>:p:h:h'))" "'${doq}/bin/doq'"
     '';
     dontBuild = true;
 
