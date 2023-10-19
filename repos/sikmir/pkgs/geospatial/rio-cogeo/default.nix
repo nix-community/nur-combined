@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "rio-cogeo";
   version = "5.0.0";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cogeotiff";

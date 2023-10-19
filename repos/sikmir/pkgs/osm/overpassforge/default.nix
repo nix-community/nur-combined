@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "overpassforge";
   version = "0.4.3";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Krafpy";

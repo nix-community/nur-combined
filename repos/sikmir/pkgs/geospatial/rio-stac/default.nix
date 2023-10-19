@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "rio-stac";
   version = "0.8.1";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";

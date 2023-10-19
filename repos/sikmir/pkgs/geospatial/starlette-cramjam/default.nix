@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "starlette-cramjam";
   version = "0.3.2";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";

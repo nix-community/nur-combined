@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "c2cwsgiutils";
   version = "5.1.5";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "camptocamp";

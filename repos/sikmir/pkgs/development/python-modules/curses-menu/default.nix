@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "curses-menu";
   version = "2021-11-26";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pmbarrett314";

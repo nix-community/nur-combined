@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "geotiler";
   version = "0.15.0";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "wrobell";

@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "rio-tiler";
   version = "4.1.6";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cogeotiff";

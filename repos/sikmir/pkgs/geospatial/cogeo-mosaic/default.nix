@@ -3,7 +3,7 @@
 python3Packages.buildPythonPackage rec {
   pname = "cogeo-mosaic";
   version = "5.1.0";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";

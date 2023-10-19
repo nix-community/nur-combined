@@ -3,7 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "tpkutils";
   version = "0.8.2";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "consbio";

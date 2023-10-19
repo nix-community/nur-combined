@@ -3,7 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "wik";
   version = "2023-03-12";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "yashsinghcodes";

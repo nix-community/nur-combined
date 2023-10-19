@@ -3,7 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "arcgis2geojson";
   version = "3.0.1";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "chris48s";

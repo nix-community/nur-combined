@@ -30,7 +30,7 @@ let
     inherit version src meta;
     pname = "${pname}.core";
     sourceRoot = "${src.name}/src/titiler/core";
-    format = "pyproject";
+    pyproject = true;
 
     nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     propagatedBuildInputs = with python3Packages; [
@@ -47,7 +47,7 @@ let
     inherit version src meta;
     pname = "${pname}.extensions";
     sourceRoot = "${src.name}/src/titiler/extensions";
-    format = "pyproject";
+    pyproject = true;
 
     nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     propagatedBuildInputs = with python3Packages; [
@@ -64,7 +64,7 @@ let
     inherit version src meta;
     pname = "${pname}.mosaic";
     sourceRoot = "${src.name}/src/titiler/mosaic";
-    format = "pyproject";
+    pyproject = true;
 
     nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     propagatedBuildInputs = with python3Packages; [
@@ -78,7 +78,7 @@ in
 python3Packages.buildPythonPackage {
   inherit pname version src meta;
   sourceRoot = "${src.name}/src/titiler/application";
-  format = "pyproject";
+  pyproject = true;
 
   nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
   propagatedBuildInputs = with python3Packages; [
