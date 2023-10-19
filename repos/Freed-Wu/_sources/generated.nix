@@ -105,10 +105,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.0.6";
+    version = "0.0.8";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.6.tar.gz";
-      sha256 = "sha256-ciihzE0MOLGjcrslxEkRzNATvHXBZvHbk0OHMvwE7XY=";
+      url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.8.tar.gz";
+      sha256 = "sha256-jOgvrmvJnqIuf2959MYf7wEuwEzvJhj+65eiHFqpvec=";
     };
   };
   setuptools-generate = {
