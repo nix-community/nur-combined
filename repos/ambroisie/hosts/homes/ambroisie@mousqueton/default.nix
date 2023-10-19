@@ -15,6 +15,8 @@
 
   programs.git.package = lib.mkForce pkgs.emptyDirectory;
 
+  services.gpg-agent.enable = lib.mkForce false;
+
   # I use scripts that use the passthrough sequence often on this host
   my.home.tmux.enablePassthrough = true;
 }
