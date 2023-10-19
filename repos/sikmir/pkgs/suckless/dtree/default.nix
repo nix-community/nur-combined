@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtree";
-  version = "0.1.2";
+  version = "0.1.3";
 
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "dtree";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-6pkROKCwdF0Wm6AlnJtKwAmdOTTjtq5qmfrSmTBDGzI=";
+    hash = "sha256-bvMJVPGYhNaWMAUyOlK4dci5/I/wYXIv2tXR+0Mz534=";
   };
 
   nativeBuildInputs = [ redo-apenwarr ];
