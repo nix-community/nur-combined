@@ -2111,10 +2111,10 @@
       };
     "form-history-control" = buildFirefoxXpiAddon {
       pname = "form-history-control";
-      version = "2.5.7.0";
+      version = "2.5.7.1";
       addonId = "formhistory@yahoo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178354/form_history_control-2.5.7.0.xpi";
-      sha256 = "4e3a14c18193c3ae97d9dcc31f1ec59bb340cd021d8351b672616b165ae9ab96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183002/form_history_control-2.5.7.1.xpi";
+      sha256 = "c2e402af4e16bd340686dbea259528a7786ae3eb820714a8bef7cfcea02b5b61";
       meta = with lib;
       {
         homepage = "https://stephanmahieu.github.io/fhc-home/";
@@ -2626,10 +2626,10 @@
       };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.0.0";
+      version = "2.1.2";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4173372/gitpod-2.0.0.xpi";
-      sha256 = "2c681bbdf3ded283ee1d94ae64ef4856211a5a1cef29d6199d5791c30f9a96a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183101/gitpod-2.1.2.xpi";
+      sha256 = "9344a8d4eea73bf4bdc3feb621c81d2f7de2520916a423063129a86e1d3418e2";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -2640,7 +2640,17 @@
           url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
           free = false;
           };
-        mozPermissions = [ "storage" "https://*/*" "<all_urls>" ];
+        mozPermissions = [
+          "storage"
+          "https://github.com/*"
+          "contextMenus"
+          "activeTab"
+          "https://gitpod.io/*"
+          "https://*.gitpod.cloud/*"
+          "https://*.gitpod.dev/*"
+          "https://gitlab.com/*"
+          "https://bitbucket.org/*"
+          ];
         platforms = platforms.all;
         };
       };
@@ -4021,10 +4031,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.350";
+      version = "4.355";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4174866/youtube_addon-4.350.xpi";
-      sha256 = "adc858919160423c3f33ece712ae0e891b2b7fe0a1149af53f256250a8870247";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4182523/youtube_addon-4.355.xpi";
+      sha256 = "13bdb4123c3286a7c9e25d49a452a4e9d8d4fecf3b92dc271c05cf681eff727c";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4250,10 +4260,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.8.1";
+      version = "1.8.9";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4176138/keepassxc_browser-1.8.8.1.xpi";
-      sha256 = "4971e36c27eeafb803921597bac1eb0fc7cc855e87ec4ed31b38c47030cfb3e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4182106/keepassxc_browser-1.8.9.xpi";
+      sha256 = "b57313c8f68bb55610b79a761e42aa7a3235bcc542f105a7e362625aa021a197";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -5269,10 +5279,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.7.4";
+      version = "1.8.1";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4177822/old_reddit_redirect-1.7.4.xpi";
-      sha256 = "f98247ff7d17a0df473d06036f1868c5544391bd078bec9b83270a9b739bd230";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4182157/old_reddit_redirect-1.8.1.xpi";
+      sha256 = "bd411715bb36bd535a0211a47bd69c73abefac6153164f7e00f5b57971397700";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -6907,10 +6917,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.8";
+      version = "1.22.10";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180542/single_file-1.22.8.xpi";
-      sha256 = "354c8226f253bef0b88b0390f486a4b1b0b5111e2e101f27b4e7797edc0fd20e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4182192/single_file-1.22.10.xpi";
+      sha256 = "28f94520f7e91703de324b7672ad1a2f27b830b487b3b40df84ccb39601b23f0";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -7051,10 +7061,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.23";
+      version = "5.4.24";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178444/sponsorblock-5.4.23.xpi";
-      sha256 = "b924ab6fbcd2f102ac63aa737dee3c90860d0f1afea743c6b0fbb697aa089832";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4181516/sponsorblock-5.4.24.xpi";
+      sha256 = "3624120b2d8d64ab9b0aa535784fa38e1914b6a0dc043d391fd5c4a96eec4f54";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
