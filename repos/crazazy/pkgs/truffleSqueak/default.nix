@@ -1,6 +1,6 @@
-{ lib, nvsrcs, graalvmCEPackages, runCommand, unzip, zip, fetchzip, SDL2, autoPatchelfHook, graalvm17-ce }:
+{ nvsrcs, graalvmCEPackages, runCommand, unzip, zip, fetchzip, SDL2, autoPatchelfHook }:
 let
-  inherit (graalvmCEPackages) buildGraalvmProduct;
+  inherit (graalvmCEPackages) buildGraalvmProduct graalvm17-ce-full;
   inherit (nvsrcs.trufflesqueak) version;
   image = nvsrcs.trufflesqueak-image.src;
   jar = nvsrcs.trufflesqueak.src;
@@ -23,6 +23,6 @@ ${zip}/bin/zip $out . -r
     autoPatchelfIgnoreMissingDeps = true;
   };
 in
-graalvm17-ce.override {
-  products = [truffleSqueak] ++ (with builtins; filter (lib.isDerivation) (attrValues graalvmCEProducts));
+graalvm17-ce-full.override {
+  products = [truffleSqueak] ++ graalvm17-ce-full.products;
 }

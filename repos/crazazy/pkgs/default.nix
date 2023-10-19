@@ -26,7 +26,7 @@ in
   guile-hall = callPackage ./guile-hall { };
   # TODO: get trufflesqueak up to snuff
   cakeml = callPackage ./cakeml { };
-  truffleSqueak = callPackage ./truffleSqueak { };
+  # truffleSqueak = callPackage ./truffleSqueak { };
 
   # impure packages. These packages cannot get evaluated by NUR because they
   # contain some techniques that make the import -> eval -> build flow not possible without trying

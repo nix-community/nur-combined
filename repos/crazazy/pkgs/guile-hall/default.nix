@@ -1,4 +1,4 @@
-{ automake, autoreconfHook, nvsrcs, guile, git, lib, makeWrapper, pkgconfig, stdenv, texinfo }:
+{ automake, autoreconfHook, nvsrcs, guile, git, lib, makeWrapper, pkg-config, stdenv, texinfo }:
 let
   mkGuile = { name, src, version, extraInputs ? [], extras ? {}}:
   stdenv.mkDerivation ({
@@ -6,7 +6,7 @@ let
     name = "guile-${name}";
     pname = "guile-${name}";
     buildInputs = [ guile git ] ++ extraInputs;
-    nativeBuildInputs = [ automake autoreconfHook pkgconfig texinfo ];
+    nativeBuildInputs = [ automake autoreconfHook pkg-config texinfo ];
     GUILE_AUTO_COMPILE=0;
     # configurePhase = ''
     #    autoreconf -vif && ./configure --prefix=$out
