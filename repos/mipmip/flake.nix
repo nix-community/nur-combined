@@ -12,10 +12,12 @@
     #home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixpkgsinkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
+
     agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = { self, home-manager, nixpkgs, unstable, utils, agenix }:
+  outputs = { self, home-manager, nixpkgs, unstable, nixpkgsinkscape13, utils, agenix }:
 
   let
     localOverlay = prev: final: {
@@ -30,6 +32,14 @@
       config.allowUnfree = true;
     };
 
+    nixpkgsinkscape13ForSystem = system: import nixpkgsinkscape13 {
+      overlays = [
+        localOverlay
+      ];
+
+      inherit system;
+      config.allowUnfree = true;
+    };
     unstableForSystem = system: import unstable {
       overlays = [
         localOverlay
@@ -164,6 +174,7 @@
           system = "x86_64-linux";
           defaults = { pkgs, ... }: {
             _module.args.unstable = unstableForSystem "x86_64-linux";
+            _module.args.nixpkgsinkscape13 = nixpkgsinkscape13ForSystem "x86_64-linux";
           };
         in [
           defaults

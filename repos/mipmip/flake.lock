@@ -117,11 +117,28 @@
         "type": "github"
       }
     },
+    "nixpkgsinkscape13": {
+      "locked": {
+        "lastModified": 1694637208,
+        "narHash": "sha256-lhquzFVhbvTLIkxVdrhzipWjWjCrhmwg3MfxyUrZi6M=",
+        "owner": "leiserfg",
+        "repo": "nixpkgs",
+        "rev": "eae1b1258ef4e809fb88db1a4e36cc1051678b4f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leiserfg",
+        "ref": "staging",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
         "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgsinkscape13": "nixpkgsinkscape13",
         "unstable": "unstable",
         "utils": "utils_2"
       }
