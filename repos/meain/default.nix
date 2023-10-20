@@ -37,7 +37,7 @@
   prosemd-lsp = pkgs.callPackage ./pkgs/prosemd-lsp { };
   gcalendar = pkgs.python3.pkgs.callPackage ./pkgs/gcalendar { };
   spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
-  dbui = pkgs.callPackage ./pkgs/dbui { };
+  # dbui = pkgs.callPackage ./pkgs/dbui { };
   dotool = pkgs.callPackage ./pkgs/dotool { };
   pulseaudio-virtualmic = pkgs.callPackage ./pkgs/pulseaudio-virtualmic { };
   chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
