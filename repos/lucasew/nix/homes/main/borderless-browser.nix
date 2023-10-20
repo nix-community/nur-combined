@@ -11,6 +11,18 @@ in {
       desktopName = "Remote control";
       url = "https://reemo.io";
     };
+    discord-pessoal = {
+      desktopName = "Discord (pessoal)";
+      url = "https://discord.com";
+      profile = "discord-pessoal";
+      icon = "discord";
+    };
+    discord-profissional = {
+      desktopName = "Discord (profissional)";
+      url = "https://discord.com";
+      profile = "discord-profissional";
+      icon = "discord";
+    };
     whatsapp = {
       desktopName = "WhatsApp";
       url = "web.whatsapp.com";
