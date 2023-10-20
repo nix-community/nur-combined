@@ -37,11 +37,11 @@
     "borderless-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1697768986,
-        "narHash": "sha256-Ohpd7MOE1dT0XRwh3eOImyRfnNC9V7rYW/PjhFoTdb4=",
+        "lastModified": 1697770762,
+        "narHash": "sha256-BKT8Ap5RtMD6pV1emmqQExvyjB8Lw5pX+xd3cjg6Vm4=",
         "owner": "lucasew",
         "repo": "borderless-browser.nix",
-        "rev": "322a0d6c806f973679f52af3fdf3d049a5e0cec9",
+        "rev": "00ad57d3aa21cdedf0281592e035ec68486c46bb",
         "type": "github"
       },
       "original": {
