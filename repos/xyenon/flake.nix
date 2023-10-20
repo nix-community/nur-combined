@@ -14,6 +14,10 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
+      formatter = forAllSystems (system:
+        let pkgs = import nixpkgs { inherit system; }; in
+        pkgs.nixpkgs-fmt
+      );
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });

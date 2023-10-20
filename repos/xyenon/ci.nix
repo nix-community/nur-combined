@@ -13,7 +13,7 @@
 
 with builtins;
 let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules" || n == "hm-modules";
+  isReserved = n: n == "lib" || n == "overlays" || n == "modules" || n == "hmModules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);

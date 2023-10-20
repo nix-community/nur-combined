@@ -8,8 +8,9 @@ let
   shellIntegration = ''
     eval "$(github-copilot-cli alias -- "$0")"
   '';
-in {
-  meta.maintainers = [ maintainers.xyenon ];
+in
+{
+  meta.maintainers = with maintainers; [ xyenon ];
 
   options.programs.github-copilot-cli = {
     enable = mkEnableOption "github-copilot-cli";

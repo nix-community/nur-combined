@@ -21,16 +21,17 @@ with pkgs; rec {
   libkazv = callPackage ./pkgs/libkazv { };
   kazv = libsForQt5.callPackage ./pkgs/kazv { inherit libkazv; };
   yazi-unstable = callPackage ./pkgs/yazi/unstable.nix { inherit (darwin.apple_sdk.frameworks) Foundation; };
-  nginxModules' = recurseIntoAttrs (callPackage ./pkgs/nginx/modules.nix { });
+  nginxModules = recurseIntoAttrs (callPackage ./pkgs/nginx/modules.nix { });
   nginxStable = let nginxStable' = pkgs.nginxStable; in nginxStable'.override {
-    modules = nginxStable'.modules ++ (with nginxModules'; [
+    modules = nginxStable'.modules ++ (with nginxModules; [
       (http_proxy_connect nginxStable'.version)
     ]);
   };
   nginxMainline = let nginxMainline' = pkgs.nginxMainline; in nginxMainline'.override {
-    modules = nginxMainline'.modules ++ (with nginxModules'; [
+    modules = nginxMainline'.modules ++ (with nginxModules; [
       (http_proxy_connect nginxMainline'.version)
     ]);
   };
   nginx = nginxStable;
+  mpvScripts = import ./pkgs/mpv/scripts { inherit lib callPackage config; };
 }
