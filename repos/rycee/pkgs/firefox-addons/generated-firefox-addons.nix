@@ -2261,10 +2261,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "119.0.20231016.204538";
+      version = "119.0.20231019.122658";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4182270/francais_language_pack-119.0.20231016.204538.xpi";
-      sha256 = "43df9b132d95a4e2ceb88dff07ba0490f1a0d97e9b1e3982a3398ec32d51a87f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183590/francais_language_pack-119.0.20231019.122658.xpi";
+      sha256 = "f734507e1f721a50abf7235d7fca5046c432decc0c68335b4dbb2c7d34c46c20";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6443,10 +6443,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.27.8";
+      version = "4.28.4";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4113335/react_devtools-4.27.8.xpi";
-      sha256 = "fae1c35e731984e4375300df0c4d8ee233ec10cdabe4cafe5cfaca080e063446";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4176229/react_devtools-4.28.4.xpi";
+      sha256 = "5ecd4a07924b860724f4f10a3f1be728f07f3a9f89947640c4d4c81d746569f5";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -6457,6 +6457,7 @@
           "http://*/*"
           "https://*/*"
           "clipboardWrite"
+          "scripting"
           "devtools"
           "<all_urls>"
           ];
