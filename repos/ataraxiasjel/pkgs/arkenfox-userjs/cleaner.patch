@@ -1,72 +1,40 @@
 diff --git a/prefsCleaner.sh b/prefsCleaner.sh
-index f36732c..f6dfa8b 100755
+index 6586609..bc2b27e 100755
 --- a/prefsCleaner.sh
 +++ b/prefsCleaner.sh
-@@ -19,7 +19,7 @@ you will need to change ownership of the following files to your user:\n'
- 	exit 1
- fi
+@@ -8,7 +8,7 @@
+ 
+ ## DON'T GO HIGHER THAN VERSION x.9 !! ( because of ASCII comparison in update_prefsCleaner() )
  
 -readonly CURRDIR=$(pwd)
 +readonly CURRDIR=${1:-$PWD}
  
  ## get the full path of this script (readlink for Linux, greadlink for Mac with coreutils installed)
  SCRIPT_FILE=$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || greadlink -f "${BASH_SOURCE[0]}" 2>/dev/null)
-@@ -28,7 +28,7 @@ SCRIPT_FILE=$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || greadlink -f "${BAS
- [ -z "$SCRIPT_FILE" ] && SCRIPT_FILE=${BASH_SOURCE[0]}
- 
- 
--AUTOUPDATE=true
-+AUTOUPDATE=false
- QUICKSTART=false
- 
- ## download method priority: curl -> wget
-@@ -43,20 +43,10 @@ else
- fi
+@@ -33,7 +33,7 @@ fi
  
  fQuit() {
--	## change directory back to the original working directory
+ 	## change directory back to the original working directory
 -	cd "${CURRDIR}"
++	# cd "${CURRDIR}"
  	[ "$1" -eq 0 ] && echo -e "\n$2" || echo -e "\n$2" >&2
  	exit $1
  }
+@@ -130,7 +130,7 @@ while getopts "sd" opt; do
+ done
  
--fUsage() {
--	echo -e "\nUsage: $0 [-ds]"
--	echo -e "
--Optional Arguments:
--    -s           Start immediately
--    -d           Don't auto-update prefsCleaner.sh"
--}
--
- download_file() { # expects URL as argument ($1)
-   declare -r tf=$(mktemp)
- 
-@@ -129,20 +119,6 @@ fStart() {
- }
- 
- 
--while getopts "sd" opt; do
--	case $opt in
--		s)
--			QUICKSTART=true
--			;;
--		d)
--			AUTOUPDATE=false
--			;;
--	esac
--done
--
--## change directory to the Firefox profile directory
+ ## change directory to the Firefox profile directory
 -cd "$(dirname "${SCRIPT_FILE}")"
--
- [ "$AUTOUPDATE" = true ] && update_prefsCleaner "$@"
++# cd "$(dirname "${SCRIPT_FILE}")"
+ 
+ # Check if running as root and if any files have the owner/group as root/wheel.
+ if [ "${EUID:-"$(id -u)"}" -eq 0 ]; then
+@@ -142,7 +142,7 @@ you will need to change ownership of the following files to your user:\n'
+ 	fQuit 1
+ fi
+ 
+-[ "$AUTOUPDATE" = true ] && update_prefsCleaner "$@"
++# [ "$AUTOUPDATE" = true ] && update_prefsCleaner "$@"
  
  echo -e "\n\n"
-@@ -166,7 +142,6 @@ select option in Start Help Exit; do
- 			fStart
- 			;;
- 		Help)
--			fUsage
- 			echo -e "\nThis script creates a backup of your prefs.js file before doing anything."
- 			echo -e "It should be safe, but you can follow these steps if something goes wrong:\n"
- 			echo "1. Make sure Firefox is closed."
+ echo "                   ╔══════════════════════════╗"
