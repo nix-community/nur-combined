@@ -141,7 +141,9 @@
 
     lsp-cmake = {
       config = ''
-        (setq lsp-cmake-server-command "${lib.getExe pkgs.cmake-language-server}")
+        (setq lsp-cmake-server-command "${
+          lib.getExe pkgs.cmake-language-server
+        }")
       '';
     };
 

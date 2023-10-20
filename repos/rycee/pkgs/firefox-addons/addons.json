@@ -329,6 +329,16 @@
     "pname": "french-language-pack"
   },
   {
+    "slug": "freedom-website-blocker",
+    "license": {
+      "tag": "custom",
+      "shortName": "freedom.to",
+      "fullName": "freedom.to Terms of Service",
+      "url": "https://freedom.to/terms",
+      "free": false
+    }
+  },
+  {
     "slug": "furiganaize"
   },
   {
@@ -435,6 +445,9 @@
       "tag": "predefined",
       "shortName": "mpl11"
     }
+  },
+  {
+    "slug": "impulse-blocker"
   },
   {
     "slug": "inkah",
@@ -1229,6 +1242,9 @@
       "url": "https://addons.mozilla.org/en-US/firefox/addon/youtube-recommended-videos/eula/},",
       "free": false
     }
+  },
+  {
+    "slug": "youtube-screenshot-button"
   },
   {
     "slug": "youtube-shorts-block"

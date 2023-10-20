@@ -2244,6 +2244,32 @@
         platforms = platforms.all;
         };
       };
+    "freedom-website-blocker" = buildFirefoxXpiAddon {
+      pname = "freedom-website-blocker";
+      version = "17.0.12";
+      addonId = "{37cf1a46-0300-4893-a483-248807035bbf}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3765143/freedom_website_blocker-17.0.12.xpi";
+      sha256 = "658e6b08d76e57fff7093ab50b692eacafd73e3c93d86e950b6aca6f8db8c76f";
+      meta = with lib;
+      {
+        homepage = "https://freedom.to/";
+        description = "The Freedom website blocker gives you control over distracting websites, so you can focus on what matters most.";
+        license = {
+          shortName = "freedom.to";
+          fullName = "freedom.to Terms of Service";
+          url = "https://freedom.to/terms";
+          free = false;
+          };
+        mozPermissions = [
+          "webRequest"
+          "webRequestBlocking"
+          "*://*/*"
+          "storage"
+          "notifications"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "french-dictionary" = buildFirefoxXpiAddon {
       pname = "french-dictionary";
       version = "7.0b";
@@ -4049,6 +4075,27 @@
           "contextMenus"
           "storage"
           "https://www.youtube.com/*"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "impulse-blocker" = buildFirefoxXpiAddon {
+      pname = "impulse-blocker";
+      version = "1.2.0";
+      addonId = "{3a7ab27c-6a20-4d24-9fda-5e38f8992556}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3710342/impulse_blocker-1.2.0.xpi";
+      sha256 = "b6be12a475fdc57197ed753a75cdde9143d3e0f6ddbca07a02cc8ed87decd27a";
+      meta = with lib;
+      {
+        homepage = "https://github.com/raicem/impulse-blocker";
+        description = "Block distracting websites. Just list the sites you want Impulse Blocker to pause or completely avoid.";
+        license = licenses.mit;
+        mozPermissions = [
+          "<all_urls>"
+          "webRequest"
+          "webRequestBlocking"
+          "storage"
+          "tabs"
           ];
         platforms = platforms.all;
         };
@@ -7117,10 +7164,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.2.1";
+      version = "1.2.2";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146721/statshunters-1.2.1.xpi";
-      sha256 = "f287878c9786a3df427630a6ac92bb7cc492ff6851cafa9c707c36bfc1533aa7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183848/statshunters-1.2.2.xpi";
+      sha256 = "a01b18ff2ad76d7adbbf29bbd48be42059aaa4aa0b50943d58f7bc08c58c87a1";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -9258,6 +9305,26 @@
           "webRequest"
           "https://www.youtube.com/*"
           "https://m.youtube.com/*"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "youtube-screenshot-button" = buildFirefoxXpiAddon {
+      pname = "youtube-screenshot-button";
+      version = "4.0.0";
+      addonId = "{d8b32864-153d-47fb-93ea-c273c4d1ef17}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132310/youtube_screenshot_button-4.0.0.xpi";
+      sha256 = "47dbcd4e27e32b75a38ea10260dbe386b5bd573dac8ca85c948156bb75df22a1";
+      meta = with lib;
+      {
+        homepage = "https://github.com/gurumukhi/youtube-screenshot";
+        description = "Take screenshots from YouTube Videos &amp; YouTube Shorts. The addon adds screenshot button &amp; also enables Shift+A shortcut.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "storage"
+          "clipboardWrite"
+          "notifications"
+          "*://*.youtube.com/*"
           ];
         platforms = platforms.all;
         };
