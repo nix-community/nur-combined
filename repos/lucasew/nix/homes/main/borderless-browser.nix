@@ -11,6 +11,16 @@ in {
       desktopName = "Remote control";
       url = "https://reemo.io";
     };
+    facebook = {
+      desktopName = "Facebook"; # no need for web containers lol
+      url = "https://facebook.com";
+      profile = "facebook";
+    };
+    twitter = {
+      desktopName = "Twitter"; # no need for web containers lol
+      url = "https://twitter.com";
+      profile = "twitter";
+    };
     discord-pessoal = {
       desktopName = "Discord (pessoal)";
       url = "https://discord.com";
@@ -26,6 +36,7 @@ in {
     whatsapp = {
       desktopName = "WhatsApp";
       url = "web.whatsapp.com";
+      profile = "zap";
       icon = (fetchurl {
         url = "https://raw.githubusercontent.com/jiahaog/nativefier-icons/gh-pages/files/whatsapp.png";
         sha256 = "1f5bwficjkqxjzanw89yj0rz66zz10k7zhrirq349x9qy9yp3bmc";
@@ -34,6 +45,7 @@ in {
     notion = {
       desktopName = "Notion";
       url = "notion.so";
+      profile = "notion";
       icon = (fetchurl {
         url = "https://logos-download.com/wp-content/uploads/2019/06/Notion_App_Logo.png";
         sha256 = "16vw52kca3pglykn9q184qgzshys3d2knzy631rp2slkbr301zxf";
@@ -50,6 +62,7 @@ in {
     youtube-music =  {
       desktopName = "Youtube Music";
       url = "music.youtube.com";
+      profile = "youtubemusic";
       # icon = (fetchurl {
       #  url = "https://vancedapp.com/static/media/logo.866a4e0b.svg";
       #  sha256 = "sha256-ctMsRKAITCRWDewvv4biPWNyJFyPKIrpOaHYaNTd3d8=";
