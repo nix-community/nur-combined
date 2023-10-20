@@ -1,8 +1,8 @@
 {
   "x86_64-linux": {
-    "version": "3.15.1.401",
-    "url": "https://updatecdn.meeting.qq.com/cos/a05d53f96ab7331d2b2d245981f055d0/TencentMeeting_0300000000_3.15.1.401_x86_64_default.publish.deb",
-    "sha512": "fcb8a162685186e526cb5a5211e16f02e67aa132c4f6a91a1b9ff7138f7c1aac2915c813df18e00311f0a52fb5baad984734436de08f2035a0b2fcd67d75f20f"
+    "version": "3.15.1.403",
+    "url": "https://updatecdn.meeting.qq.com/cos/da1c30b1a927cd691e4ee60aba829c88/TencentMeeting_0300000000_3.15.1.403_x86_64_default.publish.deb",
+    "sha512": "e215e89b9a28e55b10d4c9c2afcbc7f973b7178e9f2fd14635c9330485a6252823536b7032bd3f783e46fd92e47533f4486aeac2e359249d4c88fb8f57d14e90"
   },
   "aarch64-linux": {
     "version": "3.15.1.402",
