@@ -64,6 +64,9 @@ in
       mailConfigFile = secrets."matrix/mail".path;
       # Only necessary when doing the initial registration
       secretFile = secrets."matrix/secret".path;
+      slidingSync = {
+        secretFile = secrets."matrix/sliding-sync-secret".path;
+      };
     };
     miniflux = {
       enable = true;

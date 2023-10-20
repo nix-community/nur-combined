@@ -35,6 +35,9 @@ in
     owner = "matrix-synapse";
     publicKeys = all;
   };
+  "matrix/sliding-sync-secret.age" = {
+    publicKeys = all;
+  };
 
   "miniflux/credentials.age".publicKeys = all;
 

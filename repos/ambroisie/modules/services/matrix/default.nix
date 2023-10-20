@@ -13,6 +13,7 @@ let
   federationPort = { public = 8448; private = 11338; };
   clientPort = { public = 443; private = 11339; };
   domain = config.networking.domain;
+  matrixDomain = "matrix.${domain}";
 in
 {
   options.my.services.matrix = with lib; {
@@ -23,6 +24,21 @@ in
       default = null;
       example = "/var/lib/matrix/shared-secret-config.yaml";
       description = "Shared secret to register users";
+    };
+
+    slidingSync = {
+      port = mkOption {
+        type = types.port;
+        default = 8009;
+        example = 8084;
+        description = "Port used by sliding sync server";
+      };
+
+      secretFile = mkOption {
+        type = types.str;
+        example = "/var/lib/matrix/sliding-sync-secret-file.env";
+        description = "Secret file which contains SYNCV3_SECRET definition";
+      };
     };
 
     mailConfigFile = mkOption {
@@ -52,7 +68,7 @@ in
 
       settings = {
         server_name = domain;
-        public_baseurl = "https://matrix.${domain}";
+        public_baseurl = "https://${matrixDomain}";
 
         enable_registration = false;
 
@@ -88,6 +104,17 @@ in
       extraConfigFiles = [
         cfg.mailConfigFile
       ] ++ lib.optional (cfg.secretFile != null) cfg.secretFile;
+
+      sliding-sync = {
+        enable = true;
+
+        settings = {
+          SYNCV3_SERVER = "https://${matrixDomain}";
+          SYNCV3_BINDADDR = "127.0.0.1:${toString cfg.slidingSync.port}";
+        };
+
+        environmentFile = cfg.slidingSync.secretFile;
+      };
     };
 
     my.services.nginx.virtualHosts = [
@@ -98,11 +125,14 @@ in
           conf = {
             default_server_config = {
               "m.homeserver" = {
-                "base_url" = "https://matrix.${domain}";
+                "base_url" = "https://${matrixDomain}";
                 "server_name" = domain;
               };
               "m.identity_server" = {
                 "base_url" = "https://vector.im";
+              };
+              "org.matrix.msc3575.proxy" = {
+                "url" = "https://matrix-sync.${domain}";
               };
             };
             showLabsSettings = true;
@@ -116,11 +146,25 @@ in
           };
         };
       }
+      # Dummy VHosts for port collision detection
+      {
+        subdomain = "matrix-federation";
+        port = federationPort.private;
+      }
+      {
+        subdomain = "matrix-client";
+        port = clientPort.private;
+      }
+      # Sliding sync
+      {
+        subdomain = "matrix-sync";
+        inherit (cfg.slidingSync) port;
+      }
     ];
 
     # Those are too complicated to use my wrapper...
     services.nginx.virtualHosts = {
-      "matrix.${domain}" = {
+      ${matrixDomain} = {
         onlySSL = true;
         useACMEHost = domain;
 
@@ -138,6 +182,11 @@ in
 
             "/_matrix" = proxyToClientPort;
             "/_synapse/client" = proxyToClientPort;
+
+            # Sliding sync
+            "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
+              proxyPass = "http://${config.services.matrix-synapse.sliding-sync.settings.SYNCV3_BINDADDR}";
+            };
           };
 
         listen = [
@@ -148,9 +197,9 @@ in
       };
 
       # same as above, but listening on the federation port
-      "matrix.${domain}_federation" = {
+      "${matrixDomain}_federation" = {
         onlySSL = true;
-        serverName = "matrix.${domain}";
+        serverName = matrixDomain;
         useACMEHost = domain;
 
         locations."/".return = "404";
@@ -171,7 +220,7 @@ in
 
         locations."= /.well-known/matrix/server".extraConfig =
           let
-            server = { "m.server" = "matrix.${domain}:${toString federationPort.public}"; };
+            server = { "m.server" = "${matrixDomain}:${toString federationPort.public}"; };
           in
           ''
             add_header Content-Type application/json;
@@ -181,8 +230,9 @@ in
         locations."= /.well-known/matrix/client".extraConfig =
           let
             client = {
-              "m.homeserver" = { "base_url" = "https://matrix.${domain}"; };
+              "m.homeserver" = { "base_url" = "https://${matrixDomain}"; };
               "m.identity_server" = { "base_url" = "https://vector.im"; };
+              "org.matrix.msc3575.proxy" = { "url" = "https://matrix-sync.${domain}"; };
             };
             # ACAO required to allow element-web on any URL to request this json file
           in
