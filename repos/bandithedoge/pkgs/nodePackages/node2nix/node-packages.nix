@@ -144,13 +144,13 @@
         sha512 = "pgp7y3jp33QTaXFVDrE0IKuZF5Y8EsIz+ywZXFALW2nD+ZD+4crxJe/GypBQBoJuZrr5dc6TGrR3wl7fk3+C6w==";
       };
     };
-    "c12-1.4.2" = {
+    "c12-1.5.1" = {
       name = "c12";
       packageName = "c12";
-      version = "1.4.2";
+      version = "1.5.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/c12/-/c12-1.4.2.tgz";
-        sha512 = "3IP/MuamSVRVw8W8+CHWAz9gKN4gd+voF2zm/Ln6D25C2RhytEZ1ABbC8MjKr4BR9rhoV1JQ7jJA158LDiTkLg==";
+        url = "https://registry.npmjs.org/c12/-/c12-1.5.1.tgz";
+        sha512 = "BWZRJgDEveT8uI+cliCwvYSSSSvb4xKoiiu5S0jaDbKBopQLQF7E+bq9xKk1pTcG+mUa3yXuFO7bD9d8Lr9Xxg==";
       };
     };
     "cac-6.7.14" = {
@@ -911,7 +911,7 @@ in {
       sources."binary-extensions-2.2.0"
       sources."braces-3.0.2"
       sources."bumpp-9.2.0"
-      sources."c12-1.4.2"
+      sources."c12-1.5.1"
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"
       sources."chokidar-3.5.3"
