@@ -36,6 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "minesector";
     description = "Snazzy Minesweeper-based game built with SDL2";
     homepage = "https://github.com/grassdne/minesector";
     license = lib.licenses.mit;

@@ -22,6 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "kuroko";
     description = "Dialect of Python with explicit variable declaration and block scoping, with a lightweight and easy-to-embed bytecode compiler and interpreter";
     homepage = "https://github.com/kuroko-lang/kuroko";
     license = lib.licenses.mit;

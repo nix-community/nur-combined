@@ -140,6 +140,7 @@ python3Packages.buildPythonApplication rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "devtoolbox";
     description = "Development tools at your fingertips";
     homepage = "https://github.com/aleiepure/devtoolbox";
     license = lib.licenses.gpl3Plus;

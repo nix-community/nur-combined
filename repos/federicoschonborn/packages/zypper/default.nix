@@ -48,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "zypper";
     description = "World's most powerful command line package manager";
     homepage = "https://github.com/opensuse/zypper";
     license = lib.licenses.gpl2Plus;

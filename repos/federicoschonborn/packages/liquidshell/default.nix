@@ -68,6 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
+    mainProgram = "liquidshell";
     description = "Basic desktop shell using QtWidgets";
     longDescription = ''
       liquidshell is a basic Desktop Shell implemented using QtWidgets.

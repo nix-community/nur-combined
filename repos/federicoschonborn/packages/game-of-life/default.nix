@@ -60,6 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "game-of-life";
     description = "A Conway's Game Of Life application for the gnome desktop";
     homepage = "https://github.com/sixpounder/game-of-life";
     license = lib.licenses.gpl3Only;

@@ -71,9 +71,9 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optional withTiff libtiff;
 
   meta = {
+    mainProgram = "tgd";
     description = "A library to make working with multidimensional arrays in C++ easy";
     homepage = "https://marlam.de/tgd/";
-    downloadPage = "https://marlam.de/tgd/download/";
     license = lib.licenses.mit;
     broken = stdenv.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];

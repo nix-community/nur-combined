@@ -57,9 +57,11 @@ python3Packages.buildPythonApplication rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "atoms";
     description = "Easily manage Linux Chroot(s) and Containers with Atoms";
     homepage = "https://github.com/AtomsDevs/Atoms";
     license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

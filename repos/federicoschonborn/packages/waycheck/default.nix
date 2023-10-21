@@ -41,10 +41,11 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "waycheck";
     description = "Simple GUI that displays the protocols implemented by a Wayland compositor";
     homepage = "https://gitlab.freedesktop.org/serebit/waycheck";
-    platforms = lib.platforms.linux;
     license = lib.licenses.asl20;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

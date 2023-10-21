@@ -51,6 +51,7 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "notae";
     description = "A simple note taking application that automatically saves your work";
     homepage = "https://invent.kde.org/utilities/notae";
     license = with lib.licenses; [

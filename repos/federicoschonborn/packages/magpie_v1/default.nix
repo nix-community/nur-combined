@@ -47,7 +47,8 @@ stdenv.mkDerivation {
   meta = {
     mainProgram = "magpie-wm";
     description = "wlroots-based Wayland compositor designed for the Budgie Desktop";
-    homepage = "https://github.com/BuddiesOfBudgie/magpie/tree/v1";
+    homepage = "https://github.com/BuddiesOfBudgie/magpie";
+    branch = "v1";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];

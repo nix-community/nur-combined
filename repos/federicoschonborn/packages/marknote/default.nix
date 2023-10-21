@@ -45,6 +45,7 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "marknote";
     description = "A simple markdown note management app";
     homepage = "https://invent.kde.org/office/marknote";
     license = with lib.licenses; [

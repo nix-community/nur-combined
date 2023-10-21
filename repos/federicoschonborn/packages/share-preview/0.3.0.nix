@@ -61,6 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
+    mainProgram = "share-preview";
     description = "Test social media cards locally";
     homepage = "https://github.com/rafaelmardojai/share-preview";
     license = lib.licenses.gpl3Only;

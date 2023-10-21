@@ -30,12 +30,12 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ lib.optionals (!stdenv.isDarwin) [ qtwayland ];
 
   meta = {
+    mainProgram = "qv";
     description = "A a viewer for 2D data such as images, sensor data, simulations, renderings and videos";
     homepage = "https://marlam.de/qv/";
-    downloadPage = "https://marlam.de/qv/download/";
     license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
     # Broken by libtgd
     broken = stdenv.isDarwin;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

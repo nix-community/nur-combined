@@ -27,6 +27,7 @@ stdenvNoCC.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "xdg-terminal-exec";
     description = "Proposal for XDG terminal execution utility";
     homepage = "https://github.com/Vladimir-csp/xdg-terminal-exec";
     license = lib.licenses.gpl3Only;

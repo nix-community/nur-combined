@@ -32,6 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "xo";
     description = "Library for emitting text, XML, JSON, or HTML output";
     homepage = "https://github.com/Juniper/libxo";
     license = lib.licenses.bsd2;

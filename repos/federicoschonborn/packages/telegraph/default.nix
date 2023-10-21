@@ -49,6 +49,7 @@ python3Packages.buildPythonApplication rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "telegraph";
     description = "Write and decode morse";
     homepage = "https://github.com/fkinoshita/Telegraph";
     license = lib.licenses.gpl3Only;

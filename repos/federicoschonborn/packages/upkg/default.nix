@@ -22,6 +22,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
+    mainProgram = "upkg";
+    description = "A complete automated source building system";
+    homepage = "https://www.paldo.org/";
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

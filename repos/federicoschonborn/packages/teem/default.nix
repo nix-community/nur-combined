@@ -48,6 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";
+    homepage = "https://teem.sourceforge.net/";
+    license = lib.licenses.lgpl21Plus;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

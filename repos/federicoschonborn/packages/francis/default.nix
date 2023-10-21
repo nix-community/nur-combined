@@ -51,6 +51,7 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "francis";
     description = "Track your time";
     homepage = "https://invent.kde.org/utilities/francis";
     license = with lib.licenses; [

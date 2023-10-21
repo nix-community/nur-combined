@@ -49,10 +49,11 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "flyaway";
     description = "A test compositor to gain familiarity with Wayland and wlroots";
     homepage = "https://gitlab.com/serebit/flyaway";
-    platforms = lib.platforms.linux;
     license = lib.licenses.asl20;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
     broken = lib.versionOlder wlroots.version "0.16";
   };

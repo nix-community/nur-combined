@@ -56,6 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
+    mainProgram = "kommit";
     description = "Graphical Git client for KDE";
     homepage = "https://apps.kde.org/kommit/";
     license = lib.licenses.gpl3Plus;

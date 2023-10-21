@@ -49,8 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Perform OCR operations in seconds on the Linux desktop";
     mainProgram = "com.github.rajsolai.textsnatcher";
+    description = "Perform OCR operations in seconds on the Linux desktop";
     homepage = "https://github.com/RajSolai/TextSnatcher";
     changelog = "https://github.com/RajSolai/TextSnatcher/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;

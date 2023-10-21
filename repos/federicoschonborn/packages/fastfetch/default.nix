@@ -151,6 +151,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "fastfetch";
     description = "Like neofetch, but much faster because written in C";
     homepage = "https://github.com/LinusDierheimer/fastfetch";
     changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";

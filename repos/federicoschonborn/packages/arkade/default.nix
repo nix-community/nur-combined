@@ -43,6 +43,7 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "arkade";
     description = "Collection of Arcade games developed in Kirigami";
     homepage = "https://invent.kde.org/games/arkade";
     license = with lib.licenses; [ bsd2 gpl3Plus ];

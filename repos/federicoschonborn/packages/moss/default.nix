@@ -35,6 +35,7 @@ rustPlatform.buildRustPackage {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "moss";
     description = "The safe, fast and sane package manager for Linux";
     homepage = "https://github.com/serpent-os/moss-rs";
     license = lib.licenses.mpl20;

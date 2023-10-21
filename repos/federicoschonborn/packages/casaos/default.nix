@@ -35,10 +35,10 @@ buildGoModule rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "CasaOS";
     description = "CasaOS - A simple, easy-to-use, elegant open-source Personal Cloud system";
     homepage = "https://github.com/IceWhaleTech/CasaOS";
     changelog = "https://github.com/IceWhaleTech/CasaOS/blob/${src.rev}/CHANGELOG.md";
-    mainProgram = "CasaOS";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];

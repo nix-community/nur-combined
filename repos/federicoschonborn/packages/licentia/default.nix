@@ -51,6 +51,7 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "licentia";
     description = "Choose a license for your project";
     homepage = "https://invent.kde.org/sdk/licentia";
     license = with lib.licenses; [

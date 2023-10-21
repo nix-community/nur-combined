@@ -50,6 +50,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = {
+    mainProgram = "chess-clock";
     description = "Time games of over-the-board chess";
     homepage = "https://gitlab.gnome.org/World/chess-clock";
     license = lib.licenses.gpl3Only;

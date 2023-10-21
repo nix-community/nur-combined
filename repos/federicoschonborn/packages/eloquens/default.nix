@@ -47,6 +47,7 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "eloquens";
     description = "Generate the lorem ipsum text";
     homepage = "https://invent.kde.org/sdk/eloquens";
     license = with lib.licenses; [

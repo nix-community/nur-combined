@@ -66,6 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "metronome";
     description = "Keep the tempo";
     homepage = "https://gitlab.gnome.org/World/Metronome";
     license = lib.licenses.gpl3Only;

@@ -45,6 +45,7 @@ stdenv.mkDerivation {
   ];
 
   meta = {
+    mainProgram = "fielding";
     description = "A simple REST API testing tool";
     homepage = "https://invent.kde.org/utilities/fielding";
     license = with lib.licenses; [

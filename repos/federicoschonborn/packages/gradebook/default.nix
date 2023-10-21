@@ -40,9 +40,9 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "io.github.leolost2605.gradebook";
     description = "Grades tracker for pupils and students";
     homepage = "https://github.com/leolost2605/Gradebook";
-    mainProgram = "io.github.leolost2605.gradebook";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };

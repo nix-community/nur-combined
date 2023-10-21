@@ -34,6 +34,7 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "cargo-aoc";
     description = "Cargo Advent of Code Helper";
     longDescription = ''
       cargo-aoc is a simple CLI tool that aims to be a helper for the Advent of Code.

@@ -55,7 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    description = "";
+    mainProgram = "rollit";
+    description = "Roll a six-sided die by default, or roll a custom die of up to one-hundred sides";
     homepage = "https://gitlab.com/zelikos/rollit";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;

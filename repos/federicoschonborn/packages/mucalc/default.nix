@@ -27,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
+    mainProgram = "mucalc";
     description = "A convenient calculator for the command line";
     homepage = "https://marlam.de/mucalc/";
-    downloadPage = "https://marlam.de/mucalc/download/";
     license = lib.licenses.gpl3Plus;
-    broken = stdenv.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = stdenv.isDarwin;
   };
 })

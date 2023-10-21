@@ -43,6 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
+    mainProgram = "blurble";
     description = "Word guessing game";
     homepage = "https://gitlab.gnome.org/World/Blurble";
     license = lib.licenses.gpl3Only;

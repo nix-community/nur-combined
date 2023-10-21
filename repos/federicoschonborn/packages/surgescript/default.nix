@@ -25,7 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "SurgeScript: a scripting language for games";
+    mainProgram = "surgescript";
+    description = "A scripting language for games";
     homepage = "https://github.com/alemart/surgescript";
     changelog = "https://github.com/alemart/surgescript/blob/${finalAttrs.src.rev}/CHANGES.md";
     license = lib.licenses.asl20;

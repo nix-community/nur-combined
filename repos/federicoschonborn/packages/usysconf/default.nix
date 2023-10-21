@@ -21,6 +21,7 @@ rustPlatform.buildRustPackage {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
+    mainProgram = "usysconf";
     description = "Usysconf - now with extra rust";
     homepage = "https://github.com/serpent-os/usysconf-rs";
     license = lib.licenses.mpl20;
