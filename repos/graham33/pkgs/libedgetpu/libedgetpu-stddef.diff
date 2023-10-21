@@ -1,0 +1,12 @@
+diff --git a/api/allocated_buffer.h b/api/allocated_buffer.h
+index 97740f0..7bc0547 100644
+--- a/api/allocated_buffer.h
++++ b/api/allocated_buffer.h
+@@ -16,6 +16,7 @@
+ #define DARWINN_API_ALLOCATED_BUFFER_H_
+ 
+ #include <functional>
++#include <cstddef>
+ 
+ namespace platforms {
+ namespace darwinn {

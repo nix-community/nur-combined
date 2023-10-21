@@ -58,6 +58,8 @@ let
       simplisafe-python = null;
     };
 
+    libedgetpu = callPackage ./pkgs/libedgetpu { };
+
     miele-custom-component = callPackage ./pkgs/miele-custom-component { };
 
     octopus-energy = callPackage ./pkgs/octopus-energy { };
@@ -94,6 +96,7 @@ in rec {
     home-assistant
     home-assistant-miele
     homeAssistantPackageOverrides
+    libedgetpu
     miele-custom-component
     octopus-energy
     solis-sensor
