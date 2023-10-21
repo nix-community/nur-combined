@@ -12,7 +12,6 @@
 , kirigami2
 , qtbase
 , qtquickcontrols2
-, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
@@ -23,8 +22,9 @@ stdenv.mkDerivation {
     domain = "invent.kde.org";
     owner = "utilities";
     repo = "fielding";
-    rev = "2a9bc98c03bb527244d328daa798a30f99b7ecfc";
-    hash = "sha256-t1rD/s1+QTld+hVsAZY6wyL+87MD8jHYZE327me7yFA=";
+    # Last Qt5/KF5 version.
+    rev = "113403d81c922c0c5e2b2f7e1d2022424ae0690d";
+    hash = "sha256-1h3xMFbfxE6QOmpe9VILnI9jJRNboY9EYj7qVOmGc4k=";
   };
 
   nativeBuildInputs = [
@@ -43,8 +43,6 @@ stdenv.mkDerivation {
     qtbase
     qtquickcontrols2
   ];
-
-  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "A simple REST API testing tool";
