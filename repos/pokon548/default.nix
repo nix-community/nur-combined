@@ -15,30 +15,16 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   todoist-electron = pkgs.callPackage ./pkgs/todoist-electron { };
-  v2raya = pkgs.callPackage ./pkgs/v2raya { };
   nekoray-bin = pkgs.callPackage ./pkgs/nekoray-bin { };
 
-  tencent-qq-electron = pkgs.callPackage ./pkgs/tencent-qq-electron { };
-  tencent-qq-electron-bwrap =
-    pkgs.callPackage ./pkgs/tencent-qq-electron-bwrap { };
-
   chengla-electron = pkgs.callPackage ./pkgs/chengla-electron { };
-  daoniu-electron = pkgs.callPackage ./pkgs/daoniu-electron { };
 
   fcitx5-pinyin-custompinyindict = pkgs.callPackage ./pkgs/fcitx5-pinyin-custompinyindict { };
-
   rustdesk-bin = pkgs.callPackage ./pkgs/rustdesk-bin { };
-
   geogebra = pkgs.callPackage ./pkgs/geogebra { };
   zhixi = pkgs.callPackage ./pkgs/zhixi { };
 
-  zulu = pkgs.callPackage ./pkgs/zulu { };
-  zulu19 = pkgs.callPackage ./pkgs/zulu/19.nix { };
-  zulu17 = pkgs.callPackage ./pkgs/zulu/17.nix { };
-  zulu15 = pkgs.callPackage ./pkgs/zulu/15.nix { };
-  zulu13 = pkgs.callPackage ./pkgs/zulu/13.nix { };
-  zulu11 = pkgs.callPackage ./pkgs/zulu/11.nix { };
-  zulu8 = pkgs.callPackage ./pkgs/zulu/8.nix { };
+  vaults = pkgs.callPackage ./pkgs/vaults { };
 
   plasma5-wallpapers-dynamic =
     pkgs.libsForQt5.callPackage ./pkgs/plasma5-wallpapers-dynamic { };
