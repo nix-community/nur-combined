@@ -67,6 +67,7 @@ jobs:
       uses: DeterminateSystems/magic-nix-cache-action@v2
     - name: Check evaluation
       run: |
+        nix flake update
         nix-env -f . -qa \* --meta --xml \
           --allowed-uris https://static.rust-lang.org \
           --option restrict-eval true \
