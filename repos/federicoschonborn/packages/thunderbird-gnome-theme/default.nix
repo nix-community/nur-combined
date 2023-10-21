@@ -1,17 +1,18 @@
 { lib
 , stdenvNoCC
 , fetchFromGitHub
+, unstableGitUpdater
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "thunderbird-gnome-theme";
-  version = "unstable-2023-08-02";
+  version = "unstable-2023-09-23";
 
   src = fetchFromGitHub {
     owner = "rafaelmardojai";
     repo = "thunderbird-gnome-theme";
-    rev = "e38a25e37276778fb10337bc95cef764da91c8fc";
-    hash = "sha256-oAhsFGnYaq9B7uQYqNmWupEmF3+dakcnZWhV7NJp/WE=";
+    rev = "99620f1353689c9ac0a3fc389306faf2b9137fa8";
+    hash = "sha256-lfQ4M4Jm/bxig3koPRAoSaS4bZScqkvtS+2vKDScNeg=";
   };
 
   installPhase = ''
@@ -22,6 +23,8 @@ stdenvNoCC.mkDerivation {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "A GNOME theme for Thunderbird";

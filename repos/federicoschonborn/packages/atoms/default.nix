@@ -11,6 +11,7 @@
 , pkg-config
 , vte-gtk4
 , wrapGAppsHook4
+, nix-update-script
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -52,6 +53,8 @@ python3Packages.buildPythonApplication rec {
       --prefix GI_TYPELIB_PATH : "${lib.makeSearchPath "lib/girepository-1.0" [vte-gtk4]}"
     )
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Easily manage Linux Chroot(s) and Containers with Atoms";

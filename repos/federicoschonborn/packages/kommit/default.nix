@@ -5,6 +5,8 @@
 , extra-cmake-modules
 , ninja
 , wrapQtAppsHook
+, dolphin
+, libgit2
 , kconfigwidgets
 , kcoreaddons
 , kcrash
@@ -20,14 +22,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kommit";
-  version = "1.0.2";
+  version = "1.3.0";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "kommit";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-hEn6G6CWtvhdtG5mnhuyiq2O9bmjdctQkJN2OQuFnGA=";
+    hash = "sha256-P+c+iqzyUbdU4U+zE9sFS1vDgZbuNug+j+rbuLTrap4=";
   };
 
   nativeBuildInputs = [
@@ -38,6 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
+    dolphin
+    libgit2
     kconfigwidgets
     kcoreaddons
     kcrash

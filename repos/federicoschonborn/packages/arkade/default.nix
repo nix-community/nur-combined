@@ -10,18 +10,19 @@
 , kpackage
 , qtbase
 , qtquickcontrols2
+, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
   pname = "arkade";
-  version = "unstable-2023-07-31";
+  version = "unstable-2023-09-23";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "games";
     repo = "arkade";
-    rev = "a99558062dc5c4542671ae412752605b01f4ce0d";
-    hash = "sha256-bACFeHmd10zM6E4wANVRf/IVo0ElbgExjy23yqOV9Kk=";
+    rev = "8acb6572e4d9dd4483f2a792ff19f2b00abce5e8";
+    hash = "sha256-MK4IDntze471MEGDxRXWv1+nKUNEnatMJRAJCmqJF00=";
   };
 
   nativeBuildInputs = [
@@ -38,6 +39,8 @@ stdenv.mkDerivation {
     qtbase
     qtquickcontrols2
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Collection of Arcade games developed in Kirigami";

@@ -10,6 +10,7 @@
 , pkg-config
 , vala
 , wrapGAppsHook4
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -38,6 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libadwaita
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Word guessing game";

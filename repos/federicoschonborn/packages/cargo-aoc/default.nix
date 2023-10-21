@@ -5,6 +5,7 @@
 , darwin
 , openssl
 , pkg-config
+, nix-update-script
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -29,6 +30,8 @@ rustPlatform.buildRustPackage rec {
   ] ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.CoreServices
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Cargo Advent of Code Helper";

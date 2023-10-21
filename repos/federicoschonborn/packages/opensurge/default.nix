@@ -5,6 +5,7 @@
 , ninja
 , allegro5
 , surgescript
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -33,6 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-DDESKTOP_METAINFO_PATH=${placeholder "out"}/share/metainfo"
     "-DDESKTOP_ENTRY_PATH=${placeholder "out"}/share/applications"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A fun 2D retro platformer inspired by Sonic games and a game creation system";

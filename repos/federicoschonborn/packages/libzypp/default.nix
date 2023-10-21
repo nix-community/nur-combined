@@ -23,6 +23,7 @@
 , rpm
 , systemd
 , yaml-cpp
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -71,6 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     "-DCMAKE_MODULE_PATH=${libsolv}/share/cmake/Modules"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "ZYpp Package Management library";

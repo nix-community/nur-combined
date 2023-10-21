@@ -11,11 +11,12 @@
 , wayland-protocols
 , wlroots
 , xorg
+, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
   pname = "magpie_v1";
-  version = "unstable-2023-10-16";
+  version = "unstable-2023-10-15";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
@@ -40,6 +41,8 @@ stdenv.mkDerivation {
     xorg.libxcb
     xorg.xcbutilwm
   ];
+
+  passthru.updateScript = unstableGitUpdater { branch = "v1"; };
 
   meta = {
     mainProgram = "magpie-wm";

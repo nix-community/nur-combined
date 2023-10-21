@@ -9,6 +9,7 @@
 , wrapQtAppsHook
 , qtwayland
 , wayland
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -36,6 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
     qtwayland
     wayland
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Simple GUI that displays the protocols implemented by a Wayland compositor";

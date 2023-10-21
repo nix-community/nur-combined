@@ -1,6 +1,7 @@
 { lib
 , buildGoModule
 , fetchFromGitHub
+, nix-update-script
 }:
 
 buildGoModule rec {
@@ -30,6 +31,8 @@ buildGoModule rec {
     "-extldflags"
     "-static"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "CasaOS - A simple, easy-to-use, elegant open-source Personal Cloud system";

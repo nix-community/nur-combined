@@ -11,6 +11,7 @@
 , libssh
 , sqlite
 , wxGTK32
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -47,6 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   env.NIX_CFLAGS_COMPILE = "-I${harfbuzz.dev}/include/harfbuzz";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A multi purpose IDE specialized in C/C++/Rust/Python/PHP and Node.js. Written in C";

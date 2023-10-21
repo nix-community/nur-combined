@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,6 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [
     "prefix=${placeholder "out"}"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Dialect of Python with explicit variable declaration and block scoping, with a lightweight and easy-to-embed bytecode compiler and interpreter";

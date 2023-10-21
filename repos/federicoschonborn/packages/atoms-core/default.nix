@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , orjson
 , requests
+, nix-update-script
 }:
 
 buildPythonPackage rec {
@@ -23,6 +24,8 @@ buildPythonPackage rec {
   ];
 
   pythonImportsCheck = [ "atoms_core" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Atoms Core allows you to create and manage your own chroots and podman containers";

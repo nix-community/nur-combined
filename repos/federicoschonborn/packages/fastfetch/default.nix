@@ -6,6 +6,7 @@
 , ninja
 , pkg-config
 , yyjson
+, nix-update-script
 
 , enableLibpci ? stdenv.isLinux || stdenv.isBSD
 , pciutils
@@ -146,6 +147,8 @@ stdenv.mkDerivation (finalAttrs: {
       (cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
       (cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
     ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Like neofetch, but much faster because written in C";

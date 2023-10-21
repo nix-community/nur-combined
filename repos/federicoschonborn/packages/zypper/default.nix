@@ -11,6 +11,7 @@
 , libzypp
 , readline
 , rpm
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -43,6 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     "-DCMAKE_MODULE_PATH=${libzypp}/share/cmake/Modules"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "World's most powerful command line package manager";

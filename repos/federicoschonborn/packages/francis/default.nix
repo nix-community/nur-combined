@@ -14,18 +14,19 @@
 , knotifications
 , qtbase
 , qtquickcontrols2
+, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
   pname = "francis";
-  version = "unstable-2023-08-02";
+  version = "unstable-2023-10-15";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "utilities";
     repo = "francis";
-    rev = "53ca525aa03f994a48f3fe69d065e0e4ec6b8519";
-    hash = "sha256-TdqjEP4JOP/lpuah7dFqcwvfc3RkPsWwASTdabcjn20=";
+    rev = "68157689dae7d49ddc792199f561f4105a70ba57";
+    hash = "sha256-LujCX8gmxjmElogt+ymU+7qeA8jNGI2DHY+AY2W+VS8=";
   };
 
   nativeBuildInputs = [
@@ -46,6 +47,8 @@ stdenv.mkDerivation {
     qtbase
     qtquickcontrols2
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Track your time";

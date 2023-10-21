@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , cmake
 , ninja
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -20,6 +21,8 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     ninja
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "SurgeScript: a scripting language for games";

@@ -11,6 +11,7 @@
 , tesseract
 , vala
 , wrapGAppsHook
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -44,6 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix PATH : ${lib.makeBinPath [ tesseract ]}
     )
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Perform OCR operations in seconds on the Linux desktop";

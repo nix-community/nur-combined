@@ -14,18 +14,19 @@
 , kitemmodels
 , qtbase
 , qtquickcontrols2
+, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
   pname = "licentia";
-  version = "unstable-2023-08-02";
+  version = "unstable-2023-10-14";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "licentia";
-    rev = "189fcc53051536b0150cfb0a177aa1b4021afac7";
-    hash = "sha256-qeGnusTngzDr7YGa58Duwu9pGpCqfLzaeQJIYoTqXPI=";
+    rev = "23499d671adf39494a35cfa084086503b47adf4c";
+    hash = "sha256-Ix7UNmloZw9u8NOXdU01xV/dhNmjGNFEyS61HoXssQY=";
   };
 
   nativeBuildInputs = [
@@ -46,6 +47,8 @@ stdenv.mkDerivation {
     qtbase
     qtquickcontrols2
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Choose a license for your project";

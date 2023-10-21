@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , gnome
 , hicolor-icon-theme
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -25,6 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/share/icons/MoreWaita
     cp -r * $out/share/icons/MoreWaita
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "An Adwaita style extra icons theme for Gnome Shell";

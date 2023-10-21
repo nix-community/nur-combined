@@ -2,6 +2,7 @@
 , rustPlatform
 , fetchFromGitHub
 , rustc
+, unstableGitUpdater
 }:
 
 rustPlatform.buildRustPackage {
@@ -16,6 +17,8 @@ rustPlatform.buildRustPackage {
   };
 
   cargoHash = "sha256-5txMmrHWfssv4qvGI323dY5/H1A59GnDMz9F2Iy/CIo=";
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Usysconf - now with extra rust";

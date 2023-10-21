@@ -9,6 +9,7 @@
 , pkg-config
 , vala
 , wrapGAppsHook4
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -35,6 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
     json-glib
     libadwaita
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Grades tracker for pupils and students";

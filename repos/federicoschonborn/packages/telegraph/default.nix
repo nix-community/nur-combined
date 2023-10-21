@@ -8,6 +8,7 @@
 , ninja
 , pkg-config
 , wrapGAppsHook4
+, nix-update-script
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -44,6 +45,8 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Write and decode morse";

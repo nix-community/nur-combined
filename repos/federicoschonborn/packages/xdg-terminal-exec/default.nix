@@ -1,17 +1,18 @@
 { lib
 , stdenvNoCC
 , fetchFromGitHub
+, unstableGitUpdater
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "xdg-terminal-exec";
-  version = "unstable-2023-07-31";
+  version = "unstable-2023-10-14";
 
   src = fetchFromGitHub {
     owner = "Vladimir-csp";
     repo = "xdg-terminal-exec";
-    rev = "6426085370a3adafea933d53c123d813d7c7ab44";
-    hash = "sha256-WEgmuEjcHrWUEHJn4Jl+g3GKajJWE2xWkBfI6MMsvXI=";
+    rev = "b6d2874f062f40c94cf665277ccdd62d7b8beff4";
+    hash = "sha256-0bV7wfSDfh/o1HrivQYt1d4GwrVpS5oQX+ZJ7nkNCgs=";
   };
 
   installPhase = ''
@@ -22,6 +23,8 @@ stdenvNoCC.mkDerivation {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Proposal for XDG terminal execution utility";

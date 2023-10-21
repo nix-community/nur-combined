@@ -18,6 +18,7 @@
 , rustPlatform
 , wrapGAppsHook4
 , zlib
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -59,6 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
     pango
     zlib
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Test social media cards locally";

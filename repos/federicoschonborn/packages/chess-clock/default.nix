@@ -10,6 +10,7 @@
 , wrapGAppsHook4
 , gsound
 , libadwaita
+, nix-update-script
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -44,6 +45,8 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Time games of over-the-board chess";

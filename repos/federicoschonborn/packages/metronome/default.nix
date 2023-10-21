@@ -17,6 +17,7 @@
 , rustc
 , rustPlatform
 , wrapGAppsHook4
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -61,6 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.Foundation
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Keep the tempo";

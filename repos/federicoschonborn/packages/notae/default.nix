@@ -14,18 +14,19 @@
 , qtbase
 , qtquickcontrols2
 , syntax-highlighting
+, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
   pname = "notae";
-  version = "unstable-2023-04-09";
+  version = "unstable-2023-08-11";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "utilities";
     repo = "notae";
-    rev = "b8738b16e03fe6812389bf30ce704131b61730d6";
-    hash = "sha256-FVSbUIlKhYGMOpTXfLwKlt9z8Y71CqQjm+uxhRPkKUc=";
+    rev = "511474ec6e8ccdee079d91720d1b6602861e121d";
+    hash = "sha256-y4YjISMRBRSgHeX8RfXR8La29lPZAR6b9OD7kzmBMuU=";
   };
 
   nativeBuildInputs = [
@@ -46,6 +47,8 @@ stdenv.mkDerivation {
     qtquickcontrols2
     syntax-highlighting
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "A simple note taking application that automatically saves your work";

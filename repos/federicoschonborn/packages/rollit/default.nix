@@ -15,6 +15,7 @@
 , gtk4
 , libadwaita
 , pango
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -53,6 +54,8 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
     pango
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "";

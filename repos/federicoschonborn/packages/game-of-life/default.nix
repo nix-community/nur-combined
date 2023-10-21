@@ -16,6 +16,7 @@
 , libadwaita
 , libxml2
 , pango
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -55,6 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
     pango
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A Conway's Game Of Life application for the gnome desktop";

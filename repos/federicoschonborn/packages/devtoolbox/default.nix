@@ -12,6 +12,7 @@
 , gtksourceview5
 , libadwaita
 , webkitgtk_6_0
+, nix-update-script
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -135,6 +136,8 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Development tools at your fingertips";

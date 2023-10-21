@@ -17,6 +17,20 @@
     {
       legacyPackages = import ./. { inherit pkgs; };
       packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) self.legacyPackages.${system};
+      apps.update = flake-utils.lib.mkApp {
+        name = "update";
+        drv = pkgs.writeShellApplication {
+          name = "update";
+          text = ''
+            nix-shell "$(nix-instantiate --eval --expr '<nixpkgs>')/maintainers/scripts/update.nix" \
+              --arg include-overlays "[(_: prev: import ./packages {pkgs = prev;})]" \
+              --arg predicate '(
+                let prefix = builtins.toPath ./packages; prefixLen = builtins.stringLength prefix;
+                in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
+              )'
+          '';
+        };
+      };
       formatter = pkgs.nixpkgs-fmt;
     });
 

@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , autoreconfHook
 , libtool
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -27,6 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [
     "LIBTOOL=${libtool}/bin/libtool"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Library for emitting text, XML, JSON, or HTML output";

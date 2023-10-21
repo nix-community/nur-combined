@@ -4,18 +4,19 @@
 , pkg-config
 , sqlite
 , zstd
+, unstableGitUpdater
 , rustc
 }:
 
 rustPlatform.buildRustPackage {
   pname = "moss";
-  version = "unstable-2023-10-14";
+  version = "unstable-2023-10-19";
 
   src = fetchFromGitHub {
     owner = "serpent-os";
     repo = "moss-rs";
-    rev = "034445f065cdd47ee6d8b337e8a6f3d4bcc29bf4";
-    hash = "sha256-W4WSl9Xbl0EkoQsgNRCDM3i1bKw71ZRr8pQFTdZbZg0=";
+    rev = "c4825190fd4677f71b5b3af4c79fce248d71852f";
+    hash = "sha256-/85y+KsBw+KpJ2dVnzcQtuC6w7Hg90AwhUjgGrnJj10=";
   };
 
   cargoHash = "sha256-y1v72fTw5hBT8I4xwulwCE0zORBAfcm71gNtyqK/kRI=";
@@ -30,6 +31,8 @@ rustPlatform.buildRustPackage {
   ];
 
   env.ZSTD_SYS_USE_PKG_CONFIG = true;
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "The safe, fast and sane package manager for Linux";

@@ -7,6 +7,7 @@
 , SDL2_image
 , SDL2_ttf
 , SDL2_mixer
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -31,6 +32,8 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2_ttf
     SDL2_mixer
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Snazzy Minesweeper-based game built with SDL2";

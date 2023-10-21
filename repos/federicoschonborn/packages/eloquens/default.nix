@@ -12,18 +12,19 @@
 , kirigami2
 , qtbase
 , qtquickcontrols2
+, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
   pname = "eloquens";
-  version = "unstable-2023-07-31";
+  version = "unstable-2023-10-14";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "eloquens";
-    rev = "925ee64e9153d877bb5a8e14db1c98e2bb3d4d63";
-    hash = "sha256-k9saOlyWmSXNBMqBR8joWqSvfUTS9+bTK/noLs3Olek=";
+    rev = "cdd388a8cec012a1ee2a27fa37c1f38a84ff19a8";
+    hash = "sha256-4ycxmngQNaDPQTSkMAj8Kswip1qH+iLd4oo/khi5xq8=";
   };
 
   nativeBuildInputs = [
@@ -42,6 +43,8 @@ stdenv.mkDerivation {
     qtbase
     qtquickcontrols2
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Generate the lorem ipsum text";

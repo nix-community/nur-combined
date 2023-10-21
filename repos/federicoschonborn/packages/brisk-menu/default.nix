@@ -7,6 +7,7 @@
 , gtk3
 , libnotify
 , mate
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -33,6 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
     mate.mate-panel
     mate.mate-menus
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "An efficient menu for the MATE Desktop";

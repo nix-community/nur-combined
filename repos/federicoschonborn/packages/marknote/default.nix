@@ -11,18 +11,19 @@
 , kirigami2
 , qtbase
 , qtquickcontrols2
+, unstableGitUpdater
 }:
 
 stdenv.mkDerivation {
   pname = "marknote";
-  version = "unstable-2023-08-02";
+  version = "unstable-2023-10-11";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "office";
     repo = "marknote";
-    rev = "eca72aa5e8ba2572e611c338575b9ac4083878b5";
-    hash = "sha256-5VO/HLOELSbSg1WdXmFPX53SC+lWKwO87m3DpLMAzNs=";
+    rev = "5d1a3d5ff4bf5f978c4d05908a1412911afc2412";
+    hash = "sha256-GJlpgAxpGyPYzwS4GygYegw1vqrPsSQ8KAytHOjMTLM=";
   };
 
   nativeBuildInputs = [
@@ -40,6 +41,8 @@ stdenv.mkDerivation {
     qtbase
     qtquickcontrols2
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "A simple markdown note management app";

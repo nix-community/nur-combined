@@ -11,6 +11,7 @@
 , libxo
 , ncurses6
 , openssl
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -41,6 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   dontUseCmakeConfigure = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Alternative to GNU coreutils using software from FreeBSD";
