@@ -22,8 +22,8 @@
         drv = pkgs.writeShellApplication {
           name = "update";
           text = ''
-            nix-shell "$(nix-instantiate --eval --expr '<nixpkgs>')/maintainers/scripts/update.nix" \
-              --arg include-overlays "[(_: prev: import ./packages {pkgs = prev;})]" \
+            nix-shell "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
+              --arg include-overlays "[(import ./overlay.nix)]" \
               --arg predicate '(
                 let prefix = builtins.toPath ./packages; prefixLen = builtins.stringLength prefix;
                 in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
