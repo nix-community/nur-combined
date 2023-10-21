@@ -2974,13 +2974,13 @@ let
         sha512 = "Oj3cAGPCqOZX7Rz64Uny2GYAZNliQSqfbePrgAQ1wKAihYmCUnraBtJtKcGR4xz7wF+LoJC+ssFZvv5BgF9Igg==";
       };
     };
-    "call-bind-1.0.4" = {
+    "call-bind-1.0.5" = {
       name = "call-bind";
       packageName = "call-bind";
-      version = "1.0.4";
+      version = "1.0.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/call-bind/-/call-bind-1.0.4.tgz";
-        sha512 = "e68w37XfAb5fL5M3NTxqKLcXRUkL2/kFlQjQjE/8jvPMBKmO5ZDycRkS/DrZRXjegOzwWzEwW88m+8r+D0PUUA==";
+        url = "https://registry.npmjs.org/call-bind/-/call-bind-1.0.5.tgz";
+        sha512 = "C3nQxfFZxFRVoJoGKKI8y3MOEo129NQ+FgQ08iye+Mk4zNZZGdjfs06bVTr+DBSlA66Q2VEcMki/cUCP4SercQ==";
       };
     };
     "caller-callsite-2.0.0" = {
@@ -3631,13 +3631,13 @@ let
         sha512 = "MXyPCjdPVx5iiWyl40Va3JGh27bKzOTNY3NjUTrosD2q7dR/cLD0013uqJ3BpFbUjyONINjb6qI7nDIJujrMbA==";
       };
     };
-    "core-js-compat-3.33.0" = {
+    "core-js-compat-3.33.1" = {
       name = "core-js-compat";
       packageName = "core-js-compat";
-      version = "3.33.0";
+      version = "3.33.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.33.0.tgz";
-        sha512 = "0w4LcLXsVEuNkIqwjjf9rjCoPhK8uqA4tMRh4Ge26vfLtUutshn+aRJU21I9LCJlh2QQHfisNToLjw1XEJLTWw==";
+        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.33.1.tgz";
+        sha512 = "6pYKNOgD/j/bkC5xS5IIg6bncid3rfrI42oBH1SQJbsmYPKF7rhzcFzYCcxYMmNQQ0rCEB8WqpW7QHndOggaeQ==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -4477,13 +4477,13 @@ let
         sha512 = "iirFqlP3tiFoedNZ7dQcjvechunl054VbW6Ki38T/pabgXMAncduSE0ZXLeVGn1NbmcUJF9Z5TC0EvQ4RIpP9Q==";
       };
     };
-    "electron-to-chromium-1.4.561" = {
+    "electron-to-chromium-1.4.563" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.561";
+      version = "1.4.563";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.561.tgz";
-        sha512 = "eS5t4ulWOBfVHdq9SW2dxEaFarj1lPjvJ8PaYMOjY0DecBaj/t4ARziL2IPpDr4atyWwjLFGQ2vo/VCgQFezVQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.563.tgz";
+        sha512 = "dg5gj5qOgfZNkPNeyKBZQAQitIQ/xwfIDmEQJHCbXaD9ebTZxwJXUsDYcBlAvZGZLi+/354l35J1wkmP6CqYaw==";
       };
     };
     "elliptic-6.5.4" = {
@@ -10390,13 +10390,13 @@ let
         sha512 = "KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==";
       };
     };
-    "set-function-length-1.1.0" = {
+    "set-function-length-1.1.1" = {
       name = "set-function-length";
       packageName = "set-function-length";
-      version = "1.1.0";
+      version = "1.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/set-function-length/-/set-function-length-1.1.0.tgz";
-        sha512 = "hgkUy8z3HKKNm3TXf9bqmqgokEeHW/ZvKA9AgNRHVOkbpDmikYotztW74QkoOdiQROLrYEjwDvuPydsBs6fDXQ==";
+        url = "https://registry.npmjs.org/set-function-length/-/set-function-length-1.1.1.tgz";
+        sha512 = "VoaqjbBJKiWtg4yRcKBQ7g7wnGnLV3M8oLvVWwOk2PdYY6PEFegR1vezXR0tw6fZGF9csVakIRjrJiy2veSBFQ==";
       };
     };
     "set-function-name-2.0.1" = {
@@ -12289,13 +12289,13 @@ let
         sha512 = "bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==";
       };
     };
-    "which-typed-array-1.1.11" = {
+    "which-typed-array-1.1.13" = {
       name = "which-typed-array";
       packageName = "which-typed-array";
-      version = "1.1.11";
+      version = "1.1.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/which-typed-array/-/which-typed-array-1.1.11.tgz";
-        sha512 = "qe9UWWpkeG5yzZ0tNYxDmd7vo58HDBc39mZ0xWWpolAGADdFOzkfamWLDxkOWcvHQKVmdTyQdLD4NOfjLWTKew==";
+        url = "https://registry.npmjs.org/which-typed-array/-/which-typed-array-1.1.13.tgz";
+        sha512 = "P5Nra0qjSncduVPEAr7xhoF5guty49ArDTwzJ/yNuPIbZppyRxFQsRCWrocxIY+CnMVG+qfbU2FmDKyvSGClow==";
       };
     };
     "wide-align-1.1.5" = {
@@ -13089,7 +13089,7 @@ let
           sources."normalize-url-4.5.1"
         ];
       })
-      sources."call-bind-1.0.4"
+      sources."call-bind-1.0.5"
       (sources."caller-callsite-2.0.0" // {
         dependencies = [
           sources."callsites-2.0.0"
@@ -13211,7 +13211,7 @@ let
           sources."schema-utils-3.3.0"
         ];
       })
-      sources."core-js-compat-3.33.0"
+      sources."core-js-compat-3.33.1"
       sources."core-util-is-1.0.2"
       sources."cosmiconfig-7.1.0"
       (sources."create-ecdh-4.0.4" // {
@@ -13377,7 +13377,7 @@ let
       sources."ee-first-1.1.1"
       sources."ejs-3.1.9"
       sources."ejs-loader-0.5.0"
-      sources."electron-to-chromium-1.4.561"
+      sources."electron-to-chromium-1.4.563"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -14611,7 +14611,7 @@ let
       })
       sources."serve-static-1.15.0"
       sources."set-blocking-2.0.0"
-      sources."set-function-length-1.1.0"
+      sources."set-function-length-1.1.1"
       sources."set-function-name-2.0.1"
       (sources."set-value-2.0.1" // {
         dependencies = [
@@ -15083,7 +15083,7 @@ let
       sources."whatwg-url-7.1.0"
       sources."which-2.0.2"
       sources."which-boxed-primitive-1.0.2"
-      sources."which-typed-array-1.1.11"
+      sources."which-typed-array-1.1.13"
       sources."wide-align-1.1.5"
       sources."widest-line-3.1.0"
       sources."wildcard-2.0.1"

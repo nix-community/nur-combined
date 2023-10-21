@@ -1750,13 +1750,13 @@ let
         sha512 = "AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==";
       };
     };
-    "call-bind-1.0.4" = {
+    "call-bind-1.0.5" = {
       name = "call-bind";
       packageName = "call-bind";
-      version = "1.0.4";
+      version = "1.0.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/call-bind/-/call-bind-1.0.4.tgz";
-        sha512 = "e68w37XfAb5fL5M3NTxqKLcXRUkL2/kFlQjQjE/8jvPMBKmO5ZDycRkS/DrZRXjegOzwWzEwW88m+8r+D0PUUA==";
+        url = "https://registry.npmjs.org/call-bind/-/call-bind-1.0.5.tgz";
+        sha512 = "C3nQxfFZxFRVoJoGKKI8y3MOEo129NQ+FgQ08iye+Mk4zNZZGdjfs06bVTr+DBSlA66Q2VEcMki/cUCP4SercQ==";
       };
     };
     "call-me-maybe-1.0.2" = {
@@ -2074,13 +2074,13 @@ let
         sha512 = "Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==";
       };
     };
-    "core-js-compat-3.33.0" = {
+    "core-js-compat-3.33.1" = {
       name = "core-js-compat";
       packageName = "core-js-compat";
-      version = "3.33.0";
+      version = "3.33.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.33.0.tgz";
-        sha512 = "0w4LcLXsVEuNkIqwjjf9rjCoPhK8uqA4tMRh4Ge26vfLtUutshn+aRJU21I9LCJlh2QQHfisNToLjw1XEJLTWw==";
+        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.33.1.tgz";
+        sha512 = "6pYKNOgD/j/bkC5xS5IIg6bncid3rfrI42oBH1SQJbsmYPKF7rhzcFzYCcxYMmNQQ0rCEB8WqpW7QHndOggaeQ==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -2632,13 +2632,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.4.561" = {
+    "electron-to-chromium-1.4.563" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.561";
+      version = "1.4.563";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.561.tgz";
-        sha512 = "eS5t4ulWOBfVHdq9SW2dxEaFarj1lPjvJ8PaYMOjY0DecBaj/t4ARziL2IPpDr4atyWwjLFGQ2vo/VCgQFezVQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.563.tgz";
+        sha512 = "dg5gj5qOgfZNkPNeyKBZQAQitIQ/xwfIDmEQJHCbXaD9ebTZxwJXUsDYcBlAvZGZLi+/354l35J1wkmP6CqYaw==";
       };
     };
     "elliptic-6.5.4" = {
@@ -5764,13 +5764,13 @@ let
         sha512 = "XGuRDNjXUijsUL0vl6nSD7cwURuzEgglbOaFuZM9g3kwDXOWVTck0jLzjPzGD+TazWbboZYu52/9/XPdUgne9g==";
       };
     };
-    "set-function-length-1.1.0" = {
+    "set-function-length-1.1.1" = {
       name = "set-function-length";
       packageName = "set-function-length";
-      version = "1.1.0";
+      version = "1.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/set-function-length/-/set-function-length-1.1.0.tgz";
-        sha512 = "hgkUy8z3HKKNm3TXf9bqmqgokEeHW/ZvKA9AgNRHVOkbpDmikYotztW74QkoOdiQROLrYEjwDvuPydsBs6fDXQ==";
+        url = "https://registry.npmjs.org/set-function-length/-/set-function-length-1.1.1.tgz";
+        sha512 = "VoaqjbBJKiWtg4yRcKBQ7g7wnGnLV3M8oLvVWwOk2PdYY6PEFegR1vezXR0tw6fZGF9csVakIRjrJiy2veSBFQ==";
       };
     };
     "set-function-name-2.0.1" = {
@@ -6727,13 +6727,13 @@ let
         sha512 = "bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==";
       };
     };
-    "which-typed-array-1.1.11" = {
+    "which-typed-array-1.1.13" = {
       name = "which-typed-array";
       packageName = "which-typed-array";
-      version = "1.1.11";
+      version = "1.1.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/which-typed-array/-/which-typed-array-1.1.11.tgz";
-        sha512 = "qe9UWWpkeG5yzZ0tNYxDmd7vo58HDBc39mZ0xWWpolAGADdFOzkfamWLDxkOWcvHQKVmdTyQdLD4NOfjLWTKew==";
+        url = "https://registry.npmjs.org/which-typed-array/-/which-typed-array-1.1.13.tgz";
+        sha512 = "P5Nra0qjSncduVPEAr7xhoF5guty49ArDTwzJ/yNuPIbZppyRxFQsRCWrocxIY+CnMVG+qfbU2FmDKyvSGClow==";
       };
     };
     "word-wrap-1.2.5" = {
@@ -7071,7 +7071,7 @@ let
       sources."buffer-xor-1.0.3"
       sources."builtin-status-codes-3.0.0"
       sources."cache-base-1.0.1"
-      sources."call-bind-1.0.4"
+      sources."call-bind-1.0.5"
       sources."call-me-maybe-1.0.2"
       sources."caller-callsite-2.0.0"
       sources."caller-path-2.0.0"
@@ -7103,7 +7103,7 @@ let
       sources."convert-source-map-2.0.0"
       sources."copy-descriptor-0.1.1"
       sources."core-js-2.6.12"
-      sources."core-js-compat-3.33.0"
+      sources."core-js-compat-3.33.1"
       sources."core-util-is-1.0.3"
       sources."cosmiconfig-5.2.1"
       (sources."create-ecdh-4.0.4" // {
@@ -7211,7 +7211,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.4.561"
+      sources."electron-to-chromium-1.4.563"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -7686,7 +7686,7 @@ let
       })
       sources."serialize-to-js-3.1.2"
       sources."serve-static-1.15.0"
-      sources."set-function-length-1.1.0"
+      sources."set-function-length-1.1.1"
       sources."set-function-name-2.0.1"
       sources."set-value-2.0.1"
       sources."setimmediate-1.0.5"
@@ -7855,7 +7855,7 @@ let
       sources."whatwg-url-7.1.0"
       sources."which-1.3.1"
       sources."which-boxed-primitive-1.0.2"
-      sources."which-typed-array-1.1.11"
+      sources."which-typed-array-1.1.13"
       sources."word-wrap-1.2.5"
       sources."wrappy-1.0.2"
       sources."ws-5.2.3"
