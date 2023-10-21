@@ -1,0 +1,15 @@
+diff --git a/C/ssd1306_i2c.c b/C/ssd1306_i2c.c
+index 65e4f29..15c8e1a 100644
+--- a/C/ssd1306_i2c.c
++++ b/C/ssd1306_i2c.c
+@@ -437,8 +437,8 @@ char* GetIpAddress(void)
+       fd = socket(AF_INET, SOCK_DGRAM, 0);
+       /* I want to get an IPv4 IP address */
+       ifr.ifr_addr.sa_family = AF_INET;
+-      /* I want IP address attached to "eth0" */
+-      strncpy(ifr.ifr_name, "eth0", IFNAMSIZ-1);
++      /* I want IP address attached to "end0" */
++      strncpy(ifr.ifr_name, "end0", IFNAMSIZ-1);
+       symbol=ioctl(fd, SIOCGIFADDR, &ifr);
+       close(fd);
+       if(symbol==0)

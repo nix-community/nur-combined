@@ -1,0 +1,14 @@
+diff --git a/C/ssd1306_i2c.h b/C/ssd1306_i2c.h
+index 64a3880..a845701 100644
+--- a/C/ssd1306_i2c.h
++++ b/C/ssd1306_i2c.h
+@@ -10,7 +10,7 @@ extern int i2cd;
+ /**********Select display temperature type**************/
+ #define CELSIUS       0
+ #define FAHRENHEIT    1
+-#define TEMPERATURE_TYPE  FAHRENHEIT
++#define TEMPERATURE_TYPE  CELSIUS
+ /**********Select display temperature type**************/
+ 
+ /**********Select display network IP type**************/
+
