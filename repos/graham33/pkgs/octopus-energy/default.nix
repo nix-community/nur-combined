@@ -5,14 +5,14 @@
 
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "octopus-energy";
-  version = "7.0.0";
+  version = "8.4.4";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "BottlecapDave";
     repo = "HomeAssistant-OctopusEnergy";
     rev = "v${version}";
-    sha256 = "sha256-7Mkqqrqyu7xdDiHuV/a59zRGJpB1vLxH+ZZF/a0UQwQ=";
+    sha256 = "sha256-UeNhwQ5YuJCdRbgZKmorfFRDiJH5GdYznnSfGhHkbgU=";
   };
 
   propagatedBuildInputs = [
@@ -25,8 +25,11 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
 
   checkInputs = [
     home-assistant
+    fnv-hash-fast
     mock
+    psutil-home-assistant
     pytest
+    sqlalchemy
   ];
 
   checkPhase = ''
