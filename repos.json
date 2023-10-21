@@ -711,6 +711,9 @@
         "qwbarch": {
             "url": "https://github.com/qwbarch/nur-packages"
         },
+        "rconan": {
+            "url": "https://gitlab.com/rconan/nix-packages"
+        },
         "reedrw": {
             "url": "https://github.com/reedrw/nur-packages"
         },
