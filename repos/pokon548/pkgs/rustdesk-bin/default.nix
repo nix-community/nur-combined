@@ -8,7 +8,7 @@ let
   src = fetchurl {
     url =
       "https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.AppImage";
-    sha256 = "sha256-2i2H9mi8LGMtYtx1LdGIBGSdogYitC1ZnP4ANhKGEbs=";
+    sha256 = "sha256-MJqb50K8Y3mAZOcS0OuHRZh9VfdvMqjZniCJ26eweV4=";
   };
 
   appimageContents = appimageTools.extract { inherit name src; };
