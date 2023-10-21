@@ -8,10 +8,10 @@
 
 let
   # Keep these separate so the update script can regex them
-  rpcs3GitVersion = "15693-b3864f2d1";
-  rpcs3Version = "0.0.29-15693-b3864f2d1";
-  rpcs3Revision = "b3864f2d10cfeee2bd775fb577b149a0930fa465";
-  rpcs3Sha256 = "1dqwsmpnsw8zp7h8wj4v6bp4rb0f92l4mnc67bb21p435n93igb3";
+  rpcs3GitVersion = "15694-23cb67e0a";
+  rpcs3Version = "0.0.29-15694-23cb67e0a";
+  rpcs3Revision = "23cb67e0a10f7d7ecf39122fa697af8dcc30690e";
+  rpcs3Sha256 = "1y0vl32a8y0am78xq8xjfzla9hbcwffxrjfxlljnksyi37lsrif4";
 
   ittapi = fetchFromGitHub {
     owner = "intel";

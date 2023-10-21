@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname = "reshade-shaders";
-  version = "unstable-2023-09-14";
+  version = "unstable-2023-10-20";
 
   src = fetchFromGitHub {
     owner = "crosire";
     repo = "reshade-shaders";
-    rev = "384465d0287999caa6190b5ebea506200b4f4a0a";
-    hash = "sha256-OYcpEKo3E5DV2Q9gNMMz7wRjHvcte/vtnaoUc8aG8Qw=";
+    rev = "3b5c595cf0338f02d74b2e72b9a036c211937dc3";
+    hash = "sha256-+kh9dlZ+sEwdvPjlNlueqFWDMJa+lJKtv5U4rCoAJ70=";
   };
 
   dontBuild = true;
