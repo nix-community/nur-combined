@@ -52,8 +52,8 @@ in stdenv.mkDerivation rec {
   TFROOT = "${fetchFromGitHub {
     owner = "tensorflow";
     repo = "tensorflow";
-    rev = "v2.7.0";
-    sha256 = "sha256-n7jRDPeXsyq4pEWSWmOCas4c8VsArIKlCuwvSU/Ro/c=";
+    rev = "v2.7.4";
+    sha256 = "sha256-liDbUAdaVllB0b74aBeqNxkYNu/zPy7k3CevzRF5dk0=";
   }}";
 
   enableParallelBuilding = false;
