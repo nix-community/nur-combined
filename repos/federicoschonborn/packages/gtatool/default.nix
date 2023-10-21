@@ -1,8 +1,11 @@
 { lib
 , stdenv
-, fetchzip
+, fetchFromGitHub
+, autoreconfHook
 , pkg-config
+, texinfo
 , libgta
+, nix-update-script
 
 , withCsv ? true
 , withDatraw ? true
@@ -51,17 +54,23 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gtatool";
   version = "2.4.0";
 
-  src = fetchzip {
-    url = "https://marlam.de/gta/releases/gtatool-${finalAttrs.version}.tar.xz";
-    hash = "sha256-la592sskqg89wAvQ0OMNJguvr68AKNX8jdSpTxwbzbw=";
+  src = fetchFromGitHub {
+    owner = "marlam";
+    repo = "gta-mirror";
+    rev = "gtatool-${finalAttrs.version}";
+    hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
   };
+
+  sourceRoot = "source/gtatool";
 
   patches = [
     ./gcc11.patch
   ];
 
   nativeBuildInputs = [
+    autoreconfHook
     pkg-config
+    texinfo # makeinfo
   ];
 
   buildInputs = [
@@ -94,12 +103,14 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.withFeature withRaw "raw")
   ];
 
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "gtatool-(.*)" ]; };
+
   meta = {
     mainProgram = "gta";
     description = "A set of commands that manipulate GTAs on various levels";
     homepage = "https://marlam.de/gta/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [federicoschonborn];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
     broken = stdenv.isDarwin;
   };
 })

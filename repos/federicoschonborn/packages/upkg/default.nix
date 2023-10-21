@@ -27,6 +27,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.paldo.org/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [federicoschonborn];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

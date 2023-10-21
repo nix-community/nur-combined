@@ -1,8 +1,9 @@
 { lib
 , stdenv
-, fetchzip
+, fetchFromGitHub
 , cmake
 , ninja
+, nix-update-script
 
 , withCfitsio ? false
 , cfitsio
@@ -42,8 +43,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "libtgd";
   version = "4.2";
 
-  src = fetchzip {
-    url = "https://marlam.de/tgd/releases/tgd-${finalAttrs.version}.tar.gz";
+  src = fetchFromGitHub {
+    owner = "marlam";
+    repo = "tgd-mirror";
+    rev = "tgd-${finalAttrs.version}";
     hash = "sha256-raVdV54pemMD3J+uyKmICZFcRCdl/tjIOysTtZPOF4E=";
   };
 
@@ -69,6 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optional withPng libpng ++
     lib.optional withPoppler poppler ++
     lib.optional withTiff libtiff;
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "tgd-(.*)" ]; };
 
   meta = {
     mainProgram = "tgd";

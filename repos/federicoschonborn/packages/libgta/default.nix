@@ -1,25 +1,37 @@
 { lib
 , stdenv
-, fetchzip
-, cmake
-, doxygen
-, ninja
+, fetchFromGitHub
+, autoreconfHook
+, bzip2
+, xz
+, zlib
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgta";
   version = "1.2.1";
 
-  src = fetchzip {
-    url = "https://marlam.de/gta/releases/libgta-${finalAttrs.version}.tar.xz";
-    hash = "sha256-Agf2KU4MqmbLwJiP9W+8pFGM3xgnn8p/b1vT1Ua9LXw=";
+  src = fetchFromGitHub {
+    owner = "marlam";
+    repo = "gta-mirror";
+    rev = "libgta-${finalAttrs.version}";
+    hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
   };
 
+  sourceRoot = "source/libgta";
+
   nativeBuildInputs = [
-    cmake
-    doxygen
-    ninja
+    autoreconfHook
   ];
+
+  buildInputs = [
+    bzip2
+    xz
+    zlib
+  ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "libgta-(.*)" ]; };
 
   meta = {
     description = "A library that reads and writes GTA files, with interfaces in C and C++";

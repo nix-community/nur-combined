@@ -1,18 +1,21 @@
 { lib
 , stdenv
-, fetchzip
+, fetchFromGitHub
 , cmake
 , ninja
 , muparser
 , readline
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mucalc";
   version = "2.1";
 
-  src = fetchzip {
-    url = "https://marlam.de/mucalc/releases/mucalc-${finalAttrs.version}.tar.gz";
+  src = fetchFromGitHub {
+    owner = "marlam";
+    repo = "mucalc-mirror";
+    rev = "mucalc-${finalAttrs.version}";
     hash = "sha256-qXqe9U7y3YrzSeJKgW53vkdNpPcAmxysxzT7SIlSzMo=";
   };
 
@@ -25,6 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
     muparser
     readline
   ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "mucalc-(.*)" ]; };
 
   meta = {
     mainProgram = "mucalc";

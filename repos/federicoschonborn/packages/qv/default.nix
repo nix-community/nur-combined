@@ -1,20 +1,23 @@
 { lib
 , stdenv
-, fetchzip
+, fetchFromGitHub
 , cmake
 , ninja
 , wrapQtAppsHook
 , libtgd
 , qtbase
 , qtwayland
+, nix-update-script
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qv";
   version = "5.1";
 
-  src = fetchzip {
-    url = "https://marlam.de/qv/releases/qv-${finalAttrs.version}.tar.gz";
+  src = fetchFromGitHub {
+    owner = "marlam";
+    repo = "qv-mirror";
+    rev = "qv-${finalAttrs.version}";
     hash = "sha256-zrpbpifk0cPbdaXfX7I75BFOuTLaoj59lx0aXKOoU8g=";
   };
 
@@ -28,6 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
     libtgd
     qtbase
   ] ++ lib.optionals (!stdenv.isDarwin) [ qtwayland ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "qv-(.*)" ]; };
 
   meta = {
     mainProgram = "qv";
