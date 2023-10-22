@@ -17,6 +17,8 @@ appimageTools.wrapType2 {
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
     install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+    substituteInPlace $out/share/applications/quiet.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 
