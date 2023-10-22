@@ -5,11 +5,21 @@ set -euo pipefail
 # deploy machines with pyinfra
 
 hosts=""
+args=()
+parseArgs=0
 for item in $@; do
-    if [ ! -z "$hosts" ]; then
-        hosts="$hosts,$item"
+    if [ "$item" == "--" ]; then
+        parseArgs=1
     else
-        hosts="$item"
+        if [ "$parseArgs" == 1 ]; then
+            args+=("$item")
+        else
+            if [ ! -z "$hosts" ]; then
+                hosts="$hosts,$item"
+            else
+                hosts="$item"
+            fi
+        fi
     fi
 done
 
@@ -19,4 +29,4 @@ if [ -z "$hosts" ]; then
 fi
 
 
-sd d drun pyinfra --use-sudo-password "$hosts" pyinfra/nixos.py pyinfra/home-manager.py
+sd d drun pyinfra --use-sudo-password "$hosts" pyinfra/nixos.py pyinfra/home-manager.py "${args[@]}"

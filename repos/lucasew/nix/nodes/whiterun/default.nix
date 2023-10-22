@@ -17,7 +17,6 @@ in {
     ./dlna.nix
     ./nextcloud.nix
     ./postgresql.nix
-    ./rocm-gambiarra.nix
     ./sshfs.nix
     ./zfs.nix
     ./container-inet-rdp.nix
@@ -83,15 +82,6 @@ in {
 
   services.magnetico.enable = true;
 
-  services.jellyfin = {
-    enable = true;
-    mediaDirs = {
-      transmission = "/var/lib/transmission/Downloads";
-      storage_movies = "/storage/downloads/filmes";
-      storage_series = "/storage/downloads/series";
-    };
-  };
-
   boot = {
     supportedFilesystems = [ "ntfs" ];
     loader = {
@@ -105,7 +95,7 @@ in {
   };
   hardware.opengl.driSupport = true;
   hardware.opengl.extraPackages = with pkgs; [
-     rocm-runtime
+     rocmPackages.rocm-runtime
      rocm-opencl-icd
      rocm-opencl-runtime
   ];

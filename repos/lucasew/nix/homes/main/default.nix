@@ -12,6 +12,7 @@ in {
     ./dconf.nix
     ./borderless-browser.nix
     ./theme
+    ./discord
 
   ];
 
@@ -36,7 +37,6 @@ in {
     custom.vscode.programming
     devenv
     dotenv
-    discord
     jless # json viewer
     rustdesk # remote desktop for many systems
     gscan2pdf

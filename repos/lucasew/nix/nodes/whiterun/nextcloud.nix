@@ -3,7 +3,7 @@ let
   inherit (lib) mkIf;
 in {
   config = mkIf config.services.nextcloud.enable {
-    services.nextcloud.package = pkgs.nextcloud25;
+    services.nextcloud.package = pkgs.nextcloud26;
     users.users.nextcloud.extraGroups = [ "admin-password" ];
     services.nextcloud = {
       hostName = "nextcloud.${config.networking.hostName}.${config.networking.domain}";

@@ -21,12 +21,6 @@ in {
     ./extra-fonts.nix
     ./gui-variants
   ];
-  nixpkgs = {
-    config = {
-      android_sdk.accept_license = true;
-    };
-  };
-
 
   systemd.extraConfig = ''
   DefaultTimeoutStartSec=10s

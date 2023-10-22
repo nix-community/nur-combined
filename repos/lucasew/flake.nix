@@ -137,6 +137,7 @@
       config = config // {
         allowUnfree = true;
         nvidia.acceptLicense = true;
+        android_sdk.accept_license = true;
         permittedInsecurePackages = [
             "python-2.7.18.6"
             "electron-18.1.0"

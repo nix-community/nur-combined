@@ -5,7 +5,6 @@
     ./cloud-savegame.nix
     ./cockpit-extra.nix
     ./invidious.nix
-    ./jellyfin.nix
     ./magnetico.nix
     ./libreddit.nix
     ./transmission.nix
