@@ -12,7 +12,7 @@ in {
     ./dconf.nix
     ./borderless-browser.nix
     ./theme
-    ./discord
+    ./discord.nix
 
   ];
 

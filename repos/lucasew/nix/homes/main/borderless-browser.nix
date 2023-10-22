@@ -23,13 +23,13 @@ in {
     };
     discord-pessoal = {
       desktopName = "Discord (pessoal)";
-      url = "https://discord.com";
+      url = "https://discord.com/channels/me";
       profile = "discord-pessoal";
       icon = "discord";
     };
     discord-profissional = {
       desktopName = "Discord (profissional)";
-      url = "https://discord.com";
+      url = "https://discord.com/channels/me";
       profile = "discord-profissional";
       icon = "discord";
     };
