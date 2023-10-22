@@ -27,7 +27,11 @@
         mkShellNoCC {
           name = "nur-packages";
 
-          packages = [statix alejandra];
+          packages = [
+            statix
+            alejandra
+            nix-update
+          ];
         };
     });
   };

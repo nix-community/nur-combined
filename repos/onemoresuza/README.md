@@ -23,12 +23,14 @@ trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWo
     1. [appendURL][appendURL]: *Appends url from clipboard to the playlist*.
 - [IRust][irust]: *Cross Platform Rust Repl*.
 - [Junest][junest]: *A lightweight Arch Linux based distro*.
+- [aba][aba]: *An address book for aerc*.
 - [aercbook][aercbook]: *A minimalistic address book for the aerc e-mail client*.
 - [chawan][chawan]: *A text-mode web browser*.
 - [pdpmake][pdpmake]: *A public domain POSIX make*.
 
 **NOTE**: these packages are built only against the `unstable` channels.
 
+[aba]: <https://git.sr.ht/~onemoresuza/aba> "An address book for aerc"
 [aercbook]: <https://sr.ht/~renerocksai/aercbook/> "A minimalistic address book for the aerc e-mail client"
 [appendURL]: <https://github.com/jonniek/mpv-scripts/> "Appends url from clipboard to the playlist"
 [chawan]: <https://sr.ht/~bptato/chawan/> "A text-mode web browser"
