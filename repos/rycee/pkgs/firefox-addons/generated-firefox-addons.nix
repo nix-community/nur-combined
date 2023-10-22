@@ -8237,10 +8237,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.10.12.904";
+      version = "2023.10.21.720";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180441/ublock_origin_lite-2023.10.12.904.xpi";
-      sha256 = "d7e954d34c28dabc35e9054a454df864ab57715e95766017009ba8b59776276d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4184113/ublock_origin_lite-2023.10.21.720.xpi";
+      sha256 = "590fc59d80809fa2da39ee647a484a92c8f6ceb3b06f28e254c072bd534599f2";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
