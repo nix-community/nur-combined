@@ -19,14 +19,14 @@
 
 stdenv.mkDerivation {
   pname = "francis";
-  version = "unstable-2023-10-15";
+  version = "unstable-2023-10-22";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "utilities";
     repo = "francis";
-    rev = "68157689dae7d49ddc792199f561f4105a70ba57";
-    hash = "sha256-LujCX8gmxjmElogt+ymU+7qeA8jNGI2DHY+AY2W+VS8=";
+    rev = "f6418123235248a4f6a133ac15dfd457abf06a35";
+    hash = "sha256-H3NwZJEJCT/SOl1fEvmBLIoefMYKNyyOY6rykg0yzLA=";
   };
 
   nativeBuildInputs = [

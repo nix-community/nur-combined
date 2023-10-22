@@ -16,14 +16,14 @@
 
 stdenv.mkDerivation {
   pname = "marknote";
-  version = "unstable-2023-10-11";
+  version = "unstable-2023-10-22";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "office";
     repo = "marknote";
-    rev = "5d1a3d5ff4bf5f978c4d05908a1412911afc2412";
-    hash = "sha256-GJlpgAxpGyPYzwS4GygYegw1vqrPsSQ8KAytHOjMTLM=";
+    rev = "65f65612211b4ab3fabf37534b0dc213473b660d";
+    hash = "sha256-eMbF+GYadAaSHgKFpk9GWWi1Z0oodjt8uucFXhDlbb4=";
   };
 
   nativeBuildInputs = [
