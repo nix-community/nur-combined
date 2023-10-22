@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , substituteAll
 , copyDesktopItems
 , desktopToDarwinBundle
@@ -30,13 +29,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
-  version = "2.2";
+  version = "2.3";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
     rev = "${finalAttrs.version}-alt1";
-    hash = "sha256-++v9rlBmH/65XwI7uz6Vdk8NAPOq5jwwqiKpzxD76A8=";
+    hash = "sha256-rhxz98NIrdC36yITmHiGQ1Ae1JrzQFn4HTB8VTVGvGY=";
     fetchSubmodules = true;
   };
 
@@ -45,31 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
       src = ./0002-fix-build.patch;
       db = db.dev;
       inherit giflib;
-    })
-    # conv_geo: update test for libproj-9.2.0
-    (fetchpatch {
-      url = "https://github.com/slazav/mapsoft2-libs/commit/9300f93e171769bbf8710d9dfa5f2724b7b6142d.patch";
-      hash = "sha256-2rzjCwJ+BKJB7YFfZFprPjLn/MZO7sSoHcDKNTjhbT8=";
-    })
-    # filename: fix for macOS build
-    (fetchpatch {
-      url = "https://github.com/slazav/mapsoft2-libs/commit/0cda5141d29dd1a8f0e0a1f38211faac2fc7b297.patch";
-      hash = "sha256-ESnPAWKv4qtWHuqRt4XABret85BUMuAkcahEQPdkGfI=";
-    })
-    # tmpdir: include unistd.h for macOS build
-    (fetchpatch {
-      url = "https://github.com/slazav/mapsoft2-libs/commit/7805967a44498c430daa577615878218d14ae4a7.patch";
-      hash = "sha256-P8JRMhRkaRZZHxojhpfJTJ6vCC6TfXnOdB2KHzZy3eE=";
-    })
-    # geom: attempt to fix MacOS build
-    (fetchpatch {
-      url = "https://github.com/slazav/mapsoft2-libs/commit/256e16816e13e0f88a7442ef4e4e9a5533d5481b.patch";
-      hash = "sha256-gJrv3aTNe/lwuZ4mzcdEJzGWPFKEYPqIqKNKEKddNJ4=";
-    })
-    # iconv: try to fix MacOS build
-    (fetchpatch {
-      url = "https://github.com/slazav/mapsoft2-libs/commit/0f399a86dac9ff1a2d57a107264d749179bb2d05.patch";
-      hash = "sha256-lzYBBbCgTuWm1g2gGrbyn6PisHk/yBSIXOmknwTHosU=";
     })
   ];
   patchFlags = [ "-p1" "-d modules" ];
