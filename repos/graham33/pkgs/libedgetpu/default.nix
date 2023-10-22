@@ -62,5 +62,7 @@ in stdenv.mkDerivation rec {
     mkdir -p $out/lib
     cp out/direct/k8/libedgetpu.so.1.0 $out/lib
     ln -s $out/lib/libedgetpu.so.1.0 $out/lib/libedgetpu.so.1
+    mkdir -p $out/lib/udev/rules.d
+    cp debian/edgetpu-accelerator.rules $out/lib/udev/rules.d/99-edgetpu-accelerator.rules
   '';
 }
