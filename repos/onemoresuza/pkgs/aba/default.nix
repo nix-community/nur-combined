@@ -5,7 +5,7 @@
   rustPlatform,
   scdoc,
 }: let
-  version = "0.5.0";
+  version = "0.5.1";
 in
   rustPlatform.buildRustPackage {
     pname = "aba";
@@ -15,11 +15,11 @@ in
       owner = "~onemoresuza";
       repo = "aba";
       rev = version;
-      hash = "sha256-C9AQS5rs6MuOaL28WFWMSacV6Fk/s3X/UpibGRrbNDk=";
+      hash = "sha256-63FdS/ouU52NdpS1+Mx0of+emXI9UodZnxEiXhSckcE=";
       domain = "sr.ht";
     };
 
-    cargoSha256 = "sha256-WsenvOSjO0LdiXxFxltkfdJj7Yg7dIKXTdrQkCp6mYo=";
+    cargoSha256 = "sha256-4a1LXsz8jnHoCoPYaLD9hHLyzDoD4DdGeRQbv1mwnyA=";
 
     nativeBuildInputs = [
       just
