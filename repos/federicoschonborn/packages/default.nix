@@ -25,6 +25,7 @@
   licentia = pkgs.libsForQt5.callPackage ./licentia { };
   libgta = pkgs.callPackage ./libgta { };
   libtgd = pkgs.callPackage ./libtgd { inherit libgta; };
+  libxfce4windowing = pkgs.callPackage ./libxfce4windowing { };
   libxo = pkgs.callPackage ./libxo { };
   libzypp = pkgs.callPackage ./libzypp { libsolv = libsolv-libzypp; };
   liquidshell = pkgs.libsForQt5.callPackage ./liquidshell { };
