@@ -3,28 +3,22 @@
 , lib
 , fetchFromGitHub
 }:
-let
 
-  version' = "0.2.1";
+stdenvNoCC.mkDerivation rec {
 
-  src' = fetchFromGitHub {
+  pname = "fcitx5-material-color";
+  version = "0.2.1";
+
+  src = fetchFromGitHub {
     owner = "hosxy";
     repo = "Fcitx5-Material-Color";
-    rev = "${version'}";
+    rev = "${version}";
     sha256 = "sha256-i9JHIJ+cHLTBZUNzj9Ujl3LIdkCllTWpO1Ta4OT1LTc=";
   };
 
-in stdenvNoCC.mkDerivation rec {
-
-  pname = "fcitx5-material-color";
-  version = version';
-
-  dontUnpack = true;
-
   installPhase = ''
-    mkdir Material-Color
-    cp -rv ${src'}/* Material-Color/
-    install -dDm644 Material-Color $out/share/fcitx5/themes/
+    mkdir -pv $out/share/fcitx5/themes/Material-Color/
+    cp -rv ${src}/* $out/share/fcitx5/themes/Material-Color/
   '';
 
   meta = with lib; {

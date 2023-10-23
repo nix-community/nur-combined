@@ -16,7 +16,8 @@ stdenvNoCC.mkDerivation rec {
   };
 
   installPhase = ''
-    install -dDm644 Nord* $out/share/fcitx5/themes/
+    mkdir -pv $out/share/fcitx5/themes/
+    cp -rv Nord* $out/share/fcitx5/themes/
   '';
 
   meta = with lib; {
