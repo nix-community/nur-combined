@@ -8,7 +8,7 @@
 , ninja
 , pkg-config
 , wrapGAppsHook4
-, gtk4
+, gcr_4
 , gtksourceview5
 , libadwaita
 , webkitgtk_6_0
@@ -39,22 +39,33 @@ python3Packages.buildPythonApplication rec {
   ];
 
   buildInputs = [
-    gtk4
+    gcr_4
     gtksourceview5
     libadwaita
     webkitgtk_6_0
   ];
 
   propagatedBuildInputs = with python3Packages; [
+    asn1crypto
     croniter
+    cssbeautifier
     humanize
+    jsbeautifier
+    jsonschema
     lxml
     markdown2
     pygobject3
-    python-crontab
+    (python-crontab.overrideAttrs (oldAttrs: {
+      disabledTests = oldAttrs.disabledTests ++ [
+        "test_19_frequency_at_month"
+      ];
+    }))
     python-jwt
+    pytz
+    qrcode
     ruamel-yaml
     sqlparse
+    tzlocal
   ] ++ [
     (buildPythonPackage rec {
       pname = "daltonlens";
@@ -70,7 +81,6 @@ python3Packages.buildPythonApplication rec {
       nativeBuildInputs = [
         setuptools
         setuptools-git
-        wheel
       ];
 
       propagatedBuildInputs = [
@@ -83,13 +93,13 @@ python3Packages.buildPythonApplication rec {
 
     (buildPythonPackage rec {
       pname = "python-lorem";
-      version = "1.3.0";
+      version = "1.3.0.post1";
 
       format = "setuptools";
 
       src = fetchPypi {
         inherit pname version;
-        hash = "sha256-ghzvDJRV+XSoTqu88/B3TXGITUM1K9PP5d9EYHoQrNI=";
+        hash = "sha256-aokLCuQq6iHpC90MLCcIQxeEArPyx1o6RU1224xZdxY=";
       };
 
       pythonImportsCheck = [ "lorem" ];
@@ -108,7 +118,6 @@ python3Packages.buildPythonApplication rec {
 
       propagatedBuildInputs = [
         pyphen
-        setuptools
       ];
 
       pythonImportsCheck = [ "textstat" ];
@@ -118,13 +127,13 @@ python3Packages.buildPythonApplication rec {
 
     (buildPythonPackage rec {
       pname = "uuid6";
-      version = "2022.10.25";
+      version = "2023.5.2";
 
       format = "setuptools";
 
       src = fetchPypi {
         inherit pname version;
-        hash = "sha256-ClaTXenBzo3YVZIluEVUnZSRfZ4krUscwjKO6lvgAQw=";
+        hash = "sha256-A8uX8lynsKxL6is6IF9mv+f1jTsXm7D3bh15RkRrYTM=";
       };
 
       pythonImportsCheck = [ "uuid6" ];

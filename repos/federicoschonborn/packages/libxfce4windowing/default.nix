@@ -6,7 +6,7 @@ xfce.mkXfceDerivation {
   version = "4.19.2";
   sha256 = "sha256-mXxxyfwZB/AJFVVGFAAXLqC5p7pZAeqmhljQym55hyM=";
 
-  meta =  {
+  meta = {
     description = "Windowing concept abstraction library for X11 and Wayland";
     license = lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ federicoschonborn ];
