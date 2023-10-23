@@ -4,7 +4,7 @@
     "hash": "sha256-1YSFL5MYzb5VnarSUxAgmbiaUPzPu4XzI1Ga0d6oULg="
   },
   "cjson": {
-    "url": "mirror://sourceforge/cjson/cJSONFiles.zip",
-    "hash": "sha256-DWI67XuLdgpv+u26Isvrgs6HAvn0yknTyPKdTLDTDac="
+    "url": "https://github.com/DaveGamble/cJSON/archive/refs/tags/v1.7.16.tar.gz",
+    "hash": "sha256-RRExqSxV78VFcnaAf8DEwsJwfJ7pbvkMR9aIUtU4TGw="
   }
 }

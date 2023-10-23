@@ -22,13 +22,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "embox-${arch}-qemu";
-  version = "0.5.10";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "embox";
     repo = "embox";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-aybfgvAQtx5Qix1OtzVNpyJ0pTKumIXI1FjFQU8BdP4=";
+    hash = "sha256-fPYgtnyVt9zLRr0h4jMgTAY36x9iRqOoiGHL2qbmDmA=";
   };
 
   patches = [ ./0001-fix-build.patch ];
@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
   preBuild = ''
     patchShebangs ./mk
     mkdir -p ./download
-    ln -s ${third-party.cjson} ./download/cjson.zip
+    ln -s ${third-party.cjson} ./download/cjson-v1.7.16.tar.gz
     ln -s ${third-party.acpica-unix} ./download/acpica-unix-20210331.tar.gz
   '';
 
