@@ -3,23 +3,27 @@
 , fetchgit
 , qmake
 , qttools
+, pkg-config
 , wrapQtAppsHook
+, wrapGAppsHook
 , qtwayland
+, gsettings-qt
 , kwindowsystem
 , fcitx5-qt
 , qtquickcontrols2
 , qtdeclarative
 , qtgraphicaleffects
+, glib
 }:
 
 stdenv.mkDerivation rec {
   pname = "kylin-virtual-keyboard";
-  version = "2.0.1.0-0ok5";
+  version = "2.0.4.0-0ok5";
 
   src = fetchgit {
     url = "https://gitee.com/openkylin/kylin-virtual-keyboard";
-    rev = "5a4ee6f77a02726c9d46ac3ee99237542cbe6a39";
-    hash = "sha256-euaJX+Ab3hoaM85tpCn2SMqrSMi3cpPG4ruFi2N0src=";
+    rev = "build/2.0.4.0-ok5";
+    hash = "sha256-KtXsa6ZC5GlxpjjQQB6OoHgZn7SEhybD5gRDtw5MbSY=";
   };
 
   postPatch = ''
@@ -32,11 +36,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     qmake
     qttools
+    pkg-config
     wrapQtAppsHook
+    wrapGAppsHook
+    glib # for gsettings-schemas
   ];
+
+  dontWrapGApps = true;
 
   buildInputs = [
     qtwayland
+    gsettings-qt
     kwindowsystem
     fcitx5-qt
     qtquickcontrols2
@@ -50,10 +60,15 @@ stdenv.mkDerivation rec {
     install -D debian/kylin-virtual-keyboard-xwayland -t $out/bin/
   '';
 
-  meta = with lib; {
-    description = "";
+  preFixup = ''
+    qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    glib-compile-schemas ${glib.makeSchemaPath "$out" "${pname}-${version}"}
+  '';
+
+  meta = {
+    description = "Virtual keyboard based on fcitx5 InputMethod Framework.";
     homepage = "https://gitee.com/openkylin/kylin-virtual-keyboard";
-    #license = with licenses; [ ];
-    maintainers = with maintainers; [ rewine ];
+    license = lib.licenses.lgpl3Only;
+    maintainers = with lib.maintainers; [ rewine ];
   };
 }
