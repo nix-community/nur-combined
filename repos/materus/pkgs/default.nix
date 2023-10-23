@@ -19,6 +19,8 @@ rec {
 
   polymc = pkgs.libsForQt5.callPackage ./apps/games/polymc {};
 
+  alvr = pkgs.callPackage ./apps/games/alvr {};
+
   vpk_fuse = callPackage ./apps/vpk_fuse.nix {};
 
   fbset = callPackage ./apps/fbset.nix {};
