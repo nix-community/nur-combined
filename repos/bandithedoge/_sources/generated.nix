@@ -27,15 +27,15 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "3a88af1112f1bcf8e6b8a038e6e53f00e136c077";
+    version = "65cf557a6b023ffc9d43dd97e59bb0b410f23889";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "3a88af1112f1bcf8e6b8a038e6e53f00e136c077";
+      rev = "65cf557a6b023ffc9d43dd97e59bb0b410f23889";
       fetchSubmodules = true;
-      sha256 = "sha256-0gp1aJuOE5Vy+1+WE1Ivc2ULP/rPxn0e29Vg7x1Kn7s=";
+      sha256 = "sha256-A+esIjmcpaCTQv8baGaxcrkU8CXz0H59cFtAsemQt1c=";
     };
-    date = "2023-10-21";
+    date = "2023-10-22";
   };
   carla-git = {
     pname = "carla-git";
@@ -323,15 +323,15 @@
   };
   zix-git = {
     pname = "zix-git";
-    version = "76191313416a1170f89d8cbd6a652e98796dd9d2";
+    version = "b6243fb916e645d403d5efd0a189ebff5a8250c8";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "76191313416a1170f89d8cbd6a652e98796dd9d2";
+      rev = "b6243fb916e645d403d5efd0a189ebff5a8250c8";
       fetchSubmodules = false;
-      sha256 = "sha256-TGjcbKjWBWHrHqNTF9U18kLOwa37fjWhvo3IrKLklBs=";
+      sha256 = "sha256-nMm3Mdqc4ncCae8SoyGxZYURzmXLNcp1GjsSExfB6x4=";
     };
-    date = "2023-09-23";
+    date = "2023-10-22";
   };
   zmusic = {
     pname = "zmusic";

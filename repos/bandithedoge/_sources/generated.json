@@ -36,7 +36,7 @@
   },
   "cardinal": {
     "cargoLocks": null,
-    "date": "2023-10-21",
+    "date": "2023-10-22",
     "extract": null,
     "name": "cardinal",
     "passthru": null,
@@ -48,11 +48,11 @@
       "name": null,
       "owner": "DISTRHO",
       "repo": "Cardinal",
-      "rev": "3a88af1112f1bcf8e6b8a038e6e53f00e136c077",
-      "sha256": "sha256-0gp1aJuOE5Vy+1+WE1Ivc2ULP/rPxn0e29Vg7x1Kn7s=",
+      "rev": "65cf557a6b023ffc9d43dd97e59bb0b410f23889",
+      "sha256": "sha256-A+esIjmcpaCTQv8baGaxcrkU8CXz0H59cFtAsemQt1c=",
       "type": "github"
     },
-    "version": "3a88af1112f1bcf8e6b8a038e6e53f00e136c077"
+    "version": "65cf557a6b023ffc9d43dd97e59bb0b410f23889"
   },
   "carla-git": {
     "cargoLocks": null,
@@ -536,7 +536,7 @@
   },
   "zix-git": {
     "cargoLocks": null,
-    "date": "2023-09-23",
+    "date": "2023-10-22",
     "extract": null,
     "name": "zix-git",
     "passthru": null,
@@ -548,11 +548,11 @@
       "name": null,
       "owner": "drobilla",
       "repo": "zix",
-      "rev": "76191313416a1170f89d8cbd6a652e98796dd9d2",
-      "sha256": "sha256-TGjcbKjWBWHrHqNTF9U18kLOwa37fjWhvo3IrKLklBs=",
+      "rev": "b6243fb916e645d403d5efd0a189ebff5a8250c8",
+      "sha256": "sha256-nMm3Mdqc4ncCae8SoyGxZYURzmXLNcp1GjsSExfB6x4=",
       "type": "github"
     },
-    "version": "76191313416a1170f89d8cbd6a652e98796dd9d2"
+    "version": "b6243fb916e645d403d5efd0a189ebff5a8250c8"
   },
   "zmusic": {
     "cargoLocks": null,
