@@ -18,15 +18,16 @@
 , maaVersion ? "4.25.0"
 , maaSourceHash ? "sha256-NcfrpLgduemiEJ8jeLY14lZgs67ocZX+7SSIxSC2otk="
 , cudaSupport ? config.cudaSupport
-, cudaPackages ? { }
+, onnxruntime-cuda ? pkgs.callPackage ./onnxruntime-cuda.nix { }
 }:
 
 let
 
-  onnxruntime = if cudaSupport then pkgs.callPackage ./onnxruntime-cuda.nix { } else pkgs.onnxruntime;
+  onnxruntime = if cudaSupport then onnxruntime-cuda else pkgs.onnxruntime;
 
   fastdeploy_ppocr = pkgs.callPackage ./fastdeploy_ppocr.nix {
     inherit cudaSupport;
+    inherit onnxruntime-cuda;
   };
 
   maa-cli = pkgs.callPackage ./maa-cli.nix { inherit maintainers; };

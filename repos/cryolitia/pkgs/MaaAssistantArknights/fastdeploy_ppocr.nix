@@ -10,11 +10,15 @@
 , eigen
 , cudaSupport ? config.cudaSupport
 , cudaPackages ? { }
+, symlinkJoin
+, onnxruntime-cuda ? pkgs.callPackage ./onnxruntime-cuda.nix { }
 }:
 
 let
 
-  onnxruntime = if cudaSupport then pkgs.callPackage ./onnxruntime-cuda.nix { } else pkgs.onnxruntime;
+  onnxruntime = if cudaSupport then onnxruntime-cuda else pkgs.onnxruntime;
+
+  cuda = import ../common/cuda.nix { inherit cudaPackages; inherit symlinkJoin; };
 
 in
 stdenv.mkDerivation rec {
@@ -32,14 +36,16 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     eigen
+  ] ++ lib.optionals cudaSupport [
+    cuda.cuda-native-redist
   ];
 
   buildInputs = [
     opencv
     onnxruntime
-  ] ++ lib.optionals cudaSupport (with cudaPackages; [
-    cudatoolkit
-  ]);
+  ] ++ lib.optionals cudaSupport [
+    cuda.cuda-redist
+  ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=None"
@@ -47,7 +53,7 @@ stdenv.mkDerivation rec {
     "-DPRINT_LOG=ON"
   ] ++ lib.optional cudaSupport [
     "-DWITH_GPU=ON"
-    "-DCUDA_DIRECTORY=${cudaPackages.cudatoolkit}"
+    "-DCUDA_DIRECTORY=${cuda.cuda-redist}"
   ];
 
   meta = with lib; {

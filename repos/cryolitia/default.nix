@@ -16,30 +16,42 @@ rec {
   maintainers = import ./maintainers.nix;
 
   #example-package = pkgs.callPackage ./pkgs/example-package { };
-  
-  MaaAssistantArknights = pkgs.callPackage ./pkgs/MaaAssistantArknights { 
+
+  MaaAssistantArknights = pkgs.callPackage ./pkgs/MaaAssistantArknights {
     inherit maintainers;
   };
 
-  MaaAssistantArknights-cuda = MaaAssistantArknights.override { 
+  MaaAssistantArknights-cuda = MaaAssistantArknights.override {
     cudaSupport = true;
   };
 
-  MaaAssistantArknights-beta = MaaAssistantArknights.override { 
+  MaaAssistantArknights-cuda-bin = MaaAssistantArknights-cuda.override {
+    onnxruntime-cuda = onnxruntime-cuda-bin;
+  };
+
+  MaaAssistantArknights-beta = MaaAssistantArknights.override {
     maaVersion = "4.26.0-beta.1";
     maaSourceHash = "sha256-2LiSyHPDp+RuBUxiW8YngnKt5xpKC5knmHz82b/4VlU=";
   };
 
-  MaaAssistantArknights-beta-cuda = MaaAssistantArknights-beta.override { 
+  MaaAssistantArknights-beta-cuda = MaaAssistantArknights-beta.override {
     cudaSupport = true;
+  };
+
+  MaaAssistantArknights-beta-cuda-bin = MaaAssistantArknights-beta-cuda.override {
+    onnxruntime-cuda = onnxruntime-cuda-bin;
   };
 
   fastdeploy_ppocr = pkgs.callPackage ./pkgs/MaaAssistantArknights/fastdeploy_ppocr.nix { };
 
-  MaaX = pkgs.callPackage ./pkgs/MaaX { 
+  MaaX = pkgs.callPackage ./pkgs/MaaX {
     inherit maintainers;
   };
 
-  onnxruntime-cuda = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda.nix {  };
+  onnxruntime-cuda = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda.nix { };
+
+  onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda-bin.nix { };
+
+  maa-cli = pkgs.callPackage ./pkgs/MaaAssistantArknights/maa-cli.nix { inherit maintainers; };
 
 }
