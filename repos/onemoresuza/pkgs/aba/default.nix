@@ -26,15 +26,12 @@ in
       scdoc
     ];
 
-    postPatch = ''
-      substituteInPlace justfile  \
-        --replace "prefix := \"/usr/local\"" "prefix := \"$out\"" \
-    '';
+    dontUseJustBuild = true;
+    dontUseJustCheck = true;
+    dontUseJustInstall = true;
 
-    buildPhase = ''
-      runHook preBuild
-      just build
-      runHook postBuild
+    postInstall = ''
+      just --set prefix $out install-doc
     '';
 
     meta = {
