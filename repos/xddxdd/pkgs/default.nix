@@ -181,17 +181,8 @@ in
     vs-rife = pkg ./uncategorized/vs-rife {};
     wechat-uos = pkg ./uncategorized/wechat-uos {};
     wechat-uos-bin = pkg ./uncategorized/wechat-uos/official-bin.nix {};
-
-    # In case of wechat update, use:
-    # (wine-wechat.override {
-    #   version = "1.2.3";
-    #   setupSrc = fetchurl {
-    #     url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
-    #     sha256 = "xxx";
-    #   };
-    # })
     wine-wechat = lib.makeOverridable pkg ./uncategorized/wine-wechat {};
-
+    wine-wechat-x86 = lib.makeOverridable pkg ./uncategorized/wine-wechat/x86.nix {};
     xstatic-asciinema-player = pkg ./uncategorized/xstatic-asciinema-player {};
     xstatic-font-awesome = pkg ./uncategorized/xstatic-font-awesome {};
   })

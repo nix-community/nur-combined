@@ -1746,20 +1746,35 @@
         },
         "version": "2.1.5"
     },
-    "wine-wechat": {
+    "wine-wechat-x64": {
         "cargoLocks": null,
         "date": null,
         "extract": null,
-        "name": "wine-wechat",
+        "name": "wine-wechat-x64",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-esiCE8KzxfHzjnhzUKc+1UWMF/Fhz6mxuono0H/6GHI=",
+            "sha256": "sha256-vx8KeQE7HyU+9HpgbiCrY2yugKiqQsOrTwHwtAiTpdA=",
             "type": "url",
-            "url": "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe?v=3.9.7"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.7.29/WeChatSetup-3.9.7.29.exe"
         },
-        "version": "3.9.7"
+        "version": "3.9.7.29"
+    },
+    "wine-wechat-x86": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "wine-wechat-x86",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-syVZC3/7m4oJz0w5kZuCPAg9CDS+HuJyp+n/lbCskXc=",
+            "type": "url",
+            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.7.28/WeChatSetupX86-3.9.7.28.exe"
+        },
+        "version": "3.9.7.28"
     },
     "xstatic-asciinema-player": {
         "cargoLocks": null,

@@ -4,7 +4,7 @@
   fetchurl,
   lib,
   p7zip,
-  wine64,
+  wine,
   winetricks,
   writeShellScript,
   ...
@@ -21,8 +21,8 @@ let
     pname = "wine-gecko";
     version = "2.47.4";
     src = fetchurl {
-      url = "http://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.tar.xz";
-      sha256 = "0518m084f9bdl836gs3d8qm8jx65j2y1w35zi9x8s1bxadzgr27x";
+      url = "http://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.tar.xz";
+      sha256 = "1dmg221nxmgyhz7clwlnvwrx1wi630z62y4azwgf40l6jif8vz1c";
     };
     dontUnpack = true;
     installPhase = ''
@@ -31,7 +31,7 @@ let
     '';
   };
 
-  wechatWine = wine64.overrideAttrs (old: {
+  wechatWine = wine.overrideAttrs (old: {
     patches =
       (old.patches or [])
       ++ [
@@ -48,7 +48,7 @@ let
 
   wechatFiles = stdenv.mkDerivation {
     pname = "wechat";
-    inherit (sources.wine-wechat-x64) version src;
+    inherit (sources.wine-wechat-x86) version src;
 
     nativeBuildInputs = [p7zip];
 
@@ -65,9 +65,8 @@ let
   };
 
   startWechat = writeShellScript "wine-wechat" ''
-    export WINE="${wechatWine}/bin/wine64"
-    export WINEARCH="win64"
-    export WINEPREFIX="$HOME/.local/share/wine-wechat"
+    export WINEARCH="win32"
+    export WINEPREFIX="$HOME/.local/share/wine-wechat-x86"
     export WINEDLLOVERRIDES="winemenubuilder.exe=d"
     export PATH="${wechatWine}/bin:$PATH"
     export LANG="zh_CN.UTF-8"
@@ -80,15 +79,14 @@ let
     winetricks msls31
     winetricks riched20
 
-    ${wechatWine}/bin/wine64 regedit.exe ${./fonts.reg}
-    ${wechatWine}/bin/wine64 ${wechatFiles}/WeChat.exe
+    ${wechatWine}/bin/wine regedit.exe ${./fonts.reg}
+    ${wechatWine}/bin/wine ${wechatFiles}/WeChat.exe
     ${wechatWine}/bin/wineserver -k
   '';
 
   startWinecfg = writeShellScript "wine-wechat-cfg" ''
-    export WINE="${wechatWine}/bin/wine64"
-    export WINEARCH="win64"
-    export WINEPREFIX="$HOME/.local/share/wine-wechat"
+    export WINEARCH="win32"
+    export WINEPREFIX="$HOME/.local/share/wine-wechat-x86"
     export WINEDLLOVERRIDES="winemenubuilder.exe=d"
     export PATH="${wechatWine}/bin:$PATH"
     export LANG="zh_CN.UTF-8"
@@ -101,24 +99,24 @@ let
     winetricks msls31
     winetricks riched20
 
-    ${wechatWine}/bin/wine64 regedit.exe ${./fonts.reg}
-    ${wechatWine}/bin/wine64 winecfg.exe
+    ${wechatWine}/bin/wine regedit.exe ${./fonts.reg}
+    ${wechatWine}/bin/wine winecfg.exe
     ${wechatWine}/bin/wineserver -k
   '';
 in
   stdenv.mkDerivation {
-    pname = "wine-wechat";
-    inherit (sources.wine-wechat-x64) version;
+    pname = "wine-wechat-x86";
+    inherit (sources.wine-wechat-x86) version;
     phases = ["installPhase"];
     installPhase = ''
       mkdir -p $out/bin
-      cp -r ${startWechat} $out/bin/wine-wechat
-      cp -r ${startWinecfg} $out/bin/wine-wechat-cfg
-      cp -r ${./share} $out/share
+      ln -s ${startWechat} $out/bin/wine-wechat
+      ln -s ${startWinecfg} $out/bin/wine-wechat-cfg
+      ln -s ${./share} $out/share
     '';
 
     meta = with lib; {
-      description = "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)";
+      description = "Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)";
       homepage = "https://weixin.qq.com/";
       platforms = ["x86_64-linux"];
       license = licenses.unfreeRedistributable;

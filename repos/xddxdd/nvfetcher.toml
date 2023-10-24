@@ -403,10 +403,17 @@ src.from_pattern = "(.+):(.+)-(.+)"
 src.to_pattern = "\\2"
 fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_$ver_amd64.deb"
 
-[wine-wechat]
-src.webpage = "https://pc.weixin.qq.com"
-src.regex = "<span class=\"download-version\">([^\"]+)</span>"
-fetch.url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe?v=$ver"
+[wine-wechat-x86]
+src.github = "tom-snow/wechat-windows-versions-x86"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v$ver/WeChatSetupX86-$ver.exe"
+
+[wine-wechat-x64]
+src.github = "tom-snow/wechat-windows-versions"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v$ver/WeChatSetup-$ver.exe"
 
 [xstatic-asciinema-player]
 src.pypi = "XStatic-asciinema-player"
