@@ -1257,10 +1257,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.21.1";
+      version = "3.21.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180045/control_panel_for_twitter-3.21.1.xpi";
-      sha256 = "b62641d4df188ed2d347c515daf97bbbe002bedcf8d8cbc5cc1e1293dca1f6b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183641/control_panel_for_twitter-3.21.2.xpi";
+      sha256 = "17634be4fbea75810be734dde9677d6c93e2969559f8d806a9c84b905ce23aa9";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1466,10 +1466,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.22";
+      version = "1.2.23";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180823/dearrow-1.2.22.xpi";
-      sha256 = "32ae65afaa248183984c616b3691ca81049c5f1504157424b7e9cd3e52962cc5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4185105/dearrow-1.2.23.xpi";
+      sha256 = "df0c45e318eb2f7ad3cebe7653258bbcc64f7bdc913f9419a0d6ddaf3dbf3f43";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2287,10 +2287,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "119.0.20231019.122658";
+      version = "120.0.20231023.135443";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4183590/francais_language_pack-119.0.20231019.122658.xpi";
-      sha256 = "f734507e1f721a50abf7235d7fca5046c432decc0c68335b4dbb2c7d34c46c20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4184906/francais_language_pack-120.0.20231023.135443.xpi";
+      sha256 = "27dcdb1944e1e38a8f524ee59cc488d221858a34ed8cc3b4d04c64a3d1992fbc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2765,10 +2765,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.907.0";
+      version = "8.908.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160833/grammarly_1-8.907.0.xpi";
-      sha256 = "b795a1c1fdef917465055c423e76f3735217006891705027a5994afd72d3c7dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4182847/grammarly_1-8.908.0.xpi";
+      sha256 = "dc9633932e2c6a8624f0df5c1780954d5f4d54500230cca7368ca0bc0c67145b";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -4794,10 +4794,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.0.0";
+      version = "11.2.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4167015/ether_metamask-11.0.0.xpi";
-      sha256 = "3056faf1c3ccfed437f9bde6c7676831a5d7dc588088c3adb47bbcccbffd05b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183057/ether_metamask-11.2.0.xpi";
+      sha256 = "985d5824dbb12e2536e4738f4db6965d8161e830f57714ec81c41ca0a41876a7";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -6656,10 +6656,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.11";
+      version = "3.0.0.12";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180538/return_youtube_dislikes-3.0.0.11.xpi";
-      sha256 = "6d5d3d501a412a994a4b5e667cfb5db98581aee8bf8784c31121867a44895505";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4182960/return_youtube_dislikes-3.0.0.12.xpi";
+      sha256 = "90a3e492f38f6990109af2496f4e08cd28ca5dcb88f386a01c03b680ff4032f1";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
