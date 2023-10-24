@@ -102,7 +102,6 @@
           isDesktop = true;
           tmuxPrefix = "a";
           unstable = unstableForSystem "x86_64-linux";
-          #old2211 = old2211ForSystem "x86_64-linux";
           inherit localOverlay;
         };
       };
@@ -114,9 +113,9 @@
         extraSpecialArgs = {
           username = "pim";
           homedir = "/home/pim";
-          withLinny = false;
-          isDesktop = false;
-          tmuxPrefix = "b";
+          withLinny = true;
+          isDesktop = true;
+          tmuxPrefix = "a";
           unstable = unstableForSystem "x86_64-linux";
           inherit localOverlay;
         };
@@ -134,12 +133,16 @@
 
       modules =
         let
+          system = "x86_64-linux";
           defaults = { pkgs, ... }: {
             _module.args.unstable = unstableForSystem "x86_64-linux";
+            _module.args.nixpkgsinkscape13 = nixpkgsinkscape13ForSystem "x86_64-linux";
           };
         in [
           defaults
           ./hosts/rodin/configuration.nix
+          { environment.systemPackages = [ agenix.packages."${system}".default ]; }
+          agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -154,6 +157,7 @@
           system = "x86_64-linux";
           defaults = { pkgs, ... }: {
             _module.args.unstable = unstableForSystem "x86_64-linux";
+            _module.args.nixpkgsinkscape13 = nixpkgsinkscape13ForSystem "x86_64-linux";
           };
         in [
           defaults
