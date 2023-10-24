@@ -6,7 +6,7 @@
 
 let
   appBinName = "sh-history-filter";
-  appVersion = "0.0.2";
+  appVersion = "0.0.4";
   appComment = "Filter your shell history";
 
   # rust-overlay = import (fetchFromGitHub {
@@ -23,8 +23,8 @@ let
   src = fetchFromGitHub {
     owner = "Thaumy";
     repo = "sh-history-filter";
-    rev = "e570e36d4e7de6e582f3a769fa1d49c379ebc96f";
-    sha256 = "ZnEAi8O3GG14oetSOmK0pEUFBYhJifz48h04pA3y8GY=";
+    rev = "8200dea3d43801eb1ec2b62227eab9e535515d68";
+    sha256 = "sha256-hueHjhY1e6he6p2Lah8/eMb8JO5I58t69HZFBPnjWW4=";
   };
 
   buildTimeDeps = with extended-pkgs; [

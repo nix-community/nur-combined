@@ -327,7 +327,7 @@ dependencies = [
 
 [[package]]
 name = "sh-history-filter"
-version = "0.0.2"
+version = "0.0.4"
 dependencies = [
  "anyhow",
  "clap",
