@@ -5,29 +5,32 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{
+# mode:
+# - null: Default mode
+# - "ci": from Garnix CI
+# - "nur": from NUR bot
+mode: {
   pkgs ? import <nixpkgs> {},
   inputs ? null,
-  ci ? false,
-  nvidia_x11 ? pkgs.linuxPackages_latest.nvidia_x11,
   ...
 }: let
   inherit (pkgs) lib;
 
   ifNotCI = p:
-    if ci
+    if mode == "ci"
     then null
     else p;
-  ifFlakes = p:
-    if inputs != null
-    then p
-    else null;
+
+  ifNotNUR = p:
+    if mode == "nur"
+    then null
+    else p;
 
   mkScope = f:
     builtins.removeAttrs
     (lib.makeScope pkgs.newScope (self: let
       pkg = self.newScope {
-        inherit mkScope nvidia_x11;
+        inherit mkScope;
         sources = self.callPackage ../_sources/generated.nix {};
       };
     in
@@ -40,9 +43,14 @@
       "packages"
     ];
 in
-  mkScope (self: pkg: rec {
+  mkScope (self: pkg: let
+    # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
+    mergePkgs = self.callPackage ../helpers/merge-pkgs.nix {
+      enableWrapper = mode != "nur";
+    };
+  in {
     # Binary cache information
-    _meta = pkgs.recurseIntoAttrs {
+    _meta = mergePkgs {
       url = "https://xddxdd.cachix.org";
       publicKey = "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=";
 
@@ -51,12 +59,14 @@ in
     };
 
     # Package groups
-    asteriskDigiumCodecs = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs {});
+    asteriskDigiumCodecs = mergePkgs (pkg ./asterisk-digium-codecs {});
 
-    lantianCustomized = ifNotCI (pkgs.recurseIntoAttrs {
+    lantianCustomized = ifNotCI (mergePkgs {
       # Packages with significant customization by Lan Tian
       asterisk = pkg ./lantian-customized/asterisk {};
+      attic-telnyx-compatible = ifNotNUR (pkg ./lantian-customized/attic-telnyx-compatible {});
       coredns = pkg ./lantian-customized/coredns {};
+      librime-with-plugins = pkg ./lantian-customized/librime-with-plugins {};
 
       linux-xanmod-lantian = self.lantianLinuxXanmod.generic;
       linux-xanmod-lantian-lto = self.lantianLinuxXanmod.generic-lto;
@@ -71,17 +81,19 @@ in
       transmission-with-webui = pkg ./lantian-customized/transmission-with-webui {};
     });
 
-    lantianLinuxXanmod = ifNotCI (pkgs.recurseIntoAttrs (pkg ./lantian-linux-xanmod {}));
+    lantianLinuxXanmod = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod {}));
+    lantianLinuxXanmodPackages = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod/packages.nix {}));
 
-    lantianPersonal = ifNotCI (pkgs.recurseIntoAttrs {
+    lantianPersonal = ifNotCI (mergePkgs {
       # Personal packages with no intention to be used by others
       libltnginx = pkg ./lantian-personal/libltnginx {};
     });
 
-    openj9-ibm-semeru = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru {}));
-    openjdk-adoptium = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openjdk-adoptium {}));
-    plangothic-fonts = pkgs.recurseIntoAttrs (pkg ./plangothic-fonts {});
-    th-fonts = pkgs.recurseIntoAttrs (pkg ./th-fonts {});
+    nvidia-grid = ifNotCI (mergePkgs (pkg ./nvidia-grid {}));
+    openj9-ibm-semeru = ifNotCI (mergePkgs (pkg ./openj9-ibm-semeru {}));
+    openjdk-adoptium = ifNotCI (mergePkgs (pkg ./openjdk-adoptium {}));
+    plangothic-fonts = mergePkgs (pkg ./plangothic-fonts {});
+    th-fonts = mergePkgs (pkg ./th-fonts {});
 
     # Other packages
     amule-dlp = pkg ./uncategorized/amule-dlp {};
@@ -89,7 +101,7 @@ in
     baidupcs-go = pkg ./uncategorized/baidupcs-go {};
     bepasty = pkg ./uncategorized/bepasty {};
     bilibili = pkg ./uncategorized/bilibili {};
-    bird-babel-rtt = pkg ./uncategorized/bird-babel-rtt {};
+    bird-babel-rtt = throw "Babel RTT extension support is in official BIRD 2.14";
     bird-lg-go = pkg ./uncategorized/bird-lg-go {};
     bird-lgproxy-go = pkg ./uncategorized/bird-lgproxy-go {};
     boringssl-oqs = pkg ./uncategorized/boringssl-oqs {};
@@ -97,13 +109,16 @@ in
     chmlib-utils = pkg ./uncategorized/chmlib-utils {};
     chromium-oqs-bin = pkg ./uncategorized/chromium-oqs-bin {};
     cloudpan189-go = pkg ./uncategorized/cloudpan189-go {};
-    deepspeech-gpu = ifNotCI (pkg ./uncategorized/deepspeech-gpu {});
+    cockpy = pkg ./uncategorized/cockpy {};
+    deepspeech-gpu = pkg ./uncategorized/deepspeech-gpu {};
     deepspeech-wrappers = ifNotCI (pkg ./uncategorized/deepspeech-gpu/wrappers.nix {});
     dingtalk = pkg ./uncategorized/dingtalk {};
     dn42-pingfinder = pkg ./uncategorized/dn42-pingfinder {};
     douban-openapi-server = pkg ./uncategorized/douban-openapi-server {};
+    drone-file-secret = pkg ./uncategorized/drone-file-secret {};
     drone-vault = pkg ./uncategorized/drone-vault {};
     etherguard = pkg ./uncategorized/etherguard {};
+    fastapi-dls = pkg ./uncategorized/fastapi-dls {};
     fcitx5-breeze = pkg ./uncategorized/fcitx5-breeze {};
     flaresolverr = pkg ./uncategorized/flaresolverr {};
     flasgger = pkg ./uncategorized/flasgger {};
@@ -133,6 +148,7 @@ in
     noise-suppression-for-voice = pkg ./uncategorized/noise-suppression-for-voice {};
     nullfs = pkg ./uncategorized/nullfs {};
     nvlax = pkg ./uncategorized/nvlax {};
+    nvlax-530 = pkg ./uncategorized/nvlax/nvidia-530.nix {};
     oci-arm-host-capacity = pkg ./uncategorized/oci-arm-host-capacity {};
     onepush = pkg ./uncategorized/onepush {};
     openssl-oqs = pkg ./uncategorized/openssl-oqs {cryptodev = pkgs.linuxPackages.cryptodev;};
@@ -141,6 +157,7 @@ in
     payload-dumper-go = pkg ./uncategorized/payload-dumper-go {};
     phpmyadmin = pkg ./uncategorized/phpmyadmin {};
     phppgadmin = pkg ./uncategorized/phppgadmin {};
+    pterodactyl-wings = pkg ./uncategorized/pterodactyl-wings {};
     qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition {};
     qbittorrent-enhanced-edition-nox = pkg ./uncategorized/qbittorrent-enhanced-edition/nox.nix {};
     qemu-user-static = pkg ./uncategorized/qemu-user-static {};
@@ -148,11 +165,13 @@ in
     qqmusic = pkg ./uncategorized/qqmusic {};
     rime-aurora-pinyin = pkg ./uncategorized/rime-aurora-pinyin {};
     rime-dict = pkg ./uncategorized/rime-dict {};
+    rime-ice = pkg ./uncategorized/rime-ice {};
     rime-moegirl = pkg ./uncategorized/rime-moegirl {};
     rime-zhwiki = pkg ./uncategorized/rime-zhwiki {};
     route-chain = pkg ./uncategorized/route-chain {};
     smartrent_py = pkg ./uncategorized/smartrent_py {};
     sgx-software-enable = pkg ./uncategorized/sgx-software-enable {};
+    soggy = pkg ./uncategorized/soggy {};
     space-cadet-pinball-full-tilt = pkg ./uncategorized/space-cadet-pinball-full-tilt {};
     svp = pkg ./uncategorized/svp {};
     tachidesk-server = pkg ./uncategorized/tachidesk-server {};

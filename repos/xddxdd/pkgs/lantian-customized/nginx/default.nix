@@ -12,6 +12,8 @@
   brotli,
   gd,
   libxcrypt,
+  libxml2,
+  libxslt,
   openssl_3_0,
   pcre,
   perl,
@@ -40,10 +42,10 @@ in
   stdenv.mkDerivation rec {
     pname = "nginx-lantian";
     nginxVersion = "1.21.4";
-    version = "${nginxVersion}.1";
+    version = "${nginxVersion}.2";
     src = fetchzip {
       url = "https://openresty.org/download/openresty-${version}.tar.gz";
-      sha256 = "sha256-ZnNePXzcbNv1ZE2lD4Gcy7mBe54LjJFb3iEKojR6Whs=";
+      sha256 = "sha256-wAlEFa43CTeF2/Nmaa+iuEmxwhbubcGj8vwPq8/hqCI=";
     };
 
     enableParallelBuilding = true;
@@ -57,6 +59,8 @@ in
       brotli
       gd
       libxcrypt
+      libxml2
+      libxslt
       openssl_3_0
       pcre
       perl
@@ -69,7 +73,7 @@ in
         "nginx-module-stream-sts"
         "nginx-module-sts"
         "nginx-module-vts"
-        # "nginx-njs"
+        "nginx-njs"
         "ngx_brotli"
         "stream-echo-nginx-module"
         "zstd-nginx-module"
@@ -89,6 +93,7 @@ in
       ${patch ./patches/nginx-plain-proxy.patch}
       ${patch patchNixEtag}
       ${patch ./patches/nix-skip-check-logs-path.patch}
+      sed -i 's#"/usr/include/libxml2"#"${libxml2.dev}/include/libxml2"#g' auto/lib/libxslt/conf
       popd
 
       pushd bundle/ngx_brotli
@@ -118,6 +123,7 @@ in
       "--with-http_sub_module"
       "--with-http_v2_module"
       "--with-http_v2_hpack_enc"
+      "--with-http_xslt_module"
       "--with-stream"
       "--with-stream_realip_module"
       "--with-stream_ssl_module"
@@ -126,7 +132,7 @@ in
       "--add-module=bundle/nginx-module-stream-sts"
       "--add-module=bundle/nginx-module-sts"
       "--add-module=bundle/nginx-module-vts"
-      # "--add-module=bundle/nginx-njs/nginx"
+      "--add-module=bundle/nginx-njs/nginx"
       "--add-module=bundle/ngx_brotli"
       "--add-module=bundle/stream-echo-nginx-module"
       "--add-module=bundle/zstd-nginx-module"

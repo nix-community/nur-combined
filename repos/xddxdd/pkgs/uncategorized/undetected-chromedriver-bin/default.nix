@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   sources,
   python3,
@@ -13,20 +14,32 @@
       websockets
       undetected-chromedriver
     ]);
+
+  specSystem =
+    if pkgs.system == "x86_64-linux"
+    then "linux64"
+    else if pkgs.system == "x86_64-darwin"
+    then "mac-x64"
+    else if pkgs.system == "aarch64-darwin"
+    then "mac-arm64"
+    else throw "Unsupported system";
 in
   chromedriver.overrideAttrs (old: {
     pname = "undetected-chromedriver-bin";
 
     postPatch = ''
       export HOME=$(pwd)
+      export CHROMEDRIVER=$(pwd)/chromedriver-${specSystem}/chromedriver
+
+      ls -alh
 
       ${py}/bin/python <<EOF
       from undetected_chromedriver.patcher import Patcher
-      exit(not Patcher(executable_path="chromedriver").patch())
+      exit(not Patcher(executable_path="''${CHROMEDRIVER}").patch())
       EOF
 
       # Make sure chromedriver is properly patched
-      grep "undetected chromedriver" chromedriver
+      grep "undetected chromedriver" "''${CHROMEDRIVER}"
     '';
 
     installPhase =

@@ -4,7 +4,9 @@
   fetchFromGitHub,
   fetchurl,
   cmake,
+  ninja,
   lief,
+  enableNvidia530Patch ? false,
   ...
 }: let
   zycoreOld = stdenv.mkDerivation rec {
@@ -43,7 +45,8 @@
     '';
   };
 
-  liefOld = lief.overrideAttrs (old: {
+  liefOld = stdenv.mkDerivation {
+    pname = "lief";
     version = "b65e7cca03ec4cd91f1d7125e717d01635ea81ba";
     src = fetchFromGitHub {
       owner = "lief-project";
@@ -52,15 +55,27 @@
       sha256 = "sha256-kYTiSyvcOXywHVstGkKz/Adeztj0z+fLHYIp4Qk83i4=";
     };
 
+    nativeBuildInputs = [cmake ninja];
+
+    cmakeFlags = [
+      "-DLIEF_PYTHON_API=OFF"
+      "-DLIEF_EXAMPLES=OFF"
+    ];
+
     # https://github.com/lief-project/LIEF/issues/770
-    patches = [./nvlax-lief-setuptools.patch];
-  });
+    patches = [./lief.patch];
+  };
 
   ppkAssertOld = fetchFromGitHub {
     owner = "gpakosz";
     repo = "PPK_ASSERT";
     rev = "833b8b7ea49aea540a49f07ad08bf0bae1faac32";
     sha256 = "sha256-gGhqhdPMweFjhGPMGza5MwEOo5cJKrb5YrskjCvWX3w=";
+  };
+
+  nvidia530Patch = fetchurl {
+    url = "https://aur.archlinux.org/cgit/aur.git/plain/530-NVENC.patch?h=nvlax-git";
+    sha256 = "0r1p423x3n12xz0nvdvnyjmf1v6w8908nd0fkg6r00yj29fgzx50";
   };
 in
   stdenv.mkDerivation {
@@ -73,15 +88,20 @@ in
       sha256 = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
     };
 
-    patches = [./nvlax-cpm.patch];
+    patches =
+      [./nvlax-cpm.patch]
+      ++ lib.optionals enableNvidia530Patch [nvidia530Patch];
 
     nativeBuildInputs = [cmake];
     buildInputs = [zycoreOld zydisOld liefOld];
     cmakeFlags = ["-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}"];
 
     meta = with lib; {
-      description = "Future-proof NvENC & NvFBC patcher";
+      description =
+        "Future-proof NvENC & NvFBC patcher"
+        + lib.optionalString enableNvidia530Patch " (for NVIDIA driver >= 530)";
       homepage = "https://github.com/illnyang/nvlax";
       license = with licenses; [gpl3Only];
+      # broken = true;
     };
   }

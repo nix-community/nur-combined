@@ -39,37 +39,42 @@ def nix_prefetch_url(url: str):
         raise RuntimeError('nix-prefetch-url exited with error {}'.format(result.returncode))
     return result.stdout.decode('utf-8').strip()
 
-def get_versions(name: str):
+def add_versions(name: str, result: dict):
     sources = get_selector(name)
-    result = {}
 
     for k in sources['versions']:
+        major = k.split('.')[0]
+        if major not in result:
+            result[major] = {}
+        if name not in result[major]:
+            result[major][name] = {}
+
         v = sources['versions'][k]
-        result[k.split('.')[0]] = {}
         for bits in sources['bits']:
-            url = '{download_base}/{directory}/x86-{bits}/codec_{name}-{file_version}_{version}-x86_{bits}.tar.gz'.format(
-                download_base = sources['download_base'],
-                name = name,
-                directory = v['directory'],
-                bits = bits,
-                file_version = v['file_version'],
-                version = sources['version'],
-            )
-            result[k.split('.')[0]][bits] = {
-                'url': url,
-                'version': sources['version'],
-                'hash': nix_prefetch_url(url),
-            }
+            if bits not in result[major][name]:
+                url = '{download_base}/{directory}/x86-{bits}/codec_{name}-{file_version}_{version}-x86_{bits}.tar.gz'.format(
+                    download_base = sources['download_base'],
+                    name = name,
+                    directory = v['directory'],
+                    bits = bits,
+                    file_version = v['file_version'],
+                    version = sources['version'],
+                )
+                result[major][name][bits] = {
+                    'url': url,
+                    'version': sources['version'],
+                    'hash': nix_prefetch_url(url),
+                }
 
-    return result
+# Load existing records
+try:
+    with open(get_script_path() + '/sources.json') as f:
+        result = json.load(f)
+except Exception:
+    result = {}
 
-result = {}
 for library in ['opus', 'silk', 'siren7', 'siren14']:
-    library_result = get_versions(library)
-    for k in library_result:
-        if k not in result:
-            result[k] = {}
-        result[k][library] = library_result[k]
+    add_versions(library, result)
 
 # Write as json
 with open(get_script_path() + '/sources.json', 'w') as f:

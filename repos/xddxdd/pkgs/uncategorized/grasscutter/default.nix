@@ -4,6 +4,7 @@
   sources,
   fetchurl,
   jre_headless,
+  procps,
   makeWrapper,
   writeScript,
   ...
@@ -19,7 +20,7 @@ in
 
     dontUnpack = true;
 
-    nativeBuildInputs = [makeWrapper];
+    nativeBuildInputs = [makeWrapper procps];
 
     installPhase = ''
       mkdir -p $out/bin $out/opt
@@ -30,7 +31,10 @@ in
 
       pushd $out/opt/
       # Without MongoDB, Grasscutter is expected to fail
-      ${jre_headless}/bin/java -jar $out/grasscutter.jar || true
+      (${jre_headless}/bin/java -jar $out/grasscutter.jar || true) | while read line; do
+        [[ "''${line}" == *"Loading Grasscutter"* ]] && echo "Aborting loading" && pkill -9 java
+        echo ''${line}
+      done
       mv config.json config.example.json
       rm -rf logs
       popd

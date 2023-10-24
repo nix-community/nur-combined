@@ -17,6 +17,9 @@
       "packages"
     ];
 
+  isIndependentDerivation = p: lib.isDerivation p && p.name != "merged-packages";
+  isHiddenName = n: lib.hasPrefix "_" n || n == "stdenv";
+
   shouldRecurseForDerivations = p: lib.isAttrs p && p.recurseForDerivations or false;
 
   packageTraverse = prefix: packageSet:
@@ -27,14 +30,16 @@
         then "${prefix}.${n}"
         else n;
     in
-      if lib.hasPrefix "_" n
+      if isHiddenName n
+      then []
+      else if !(builtins.tryEval v).success
       then []
       else if shouldRecurseForDerivations v
       then packageTraverse path v
-      else if lib.isDerivation v
+      else if isIndependentDerivation v
       then {
         inherit path;
-        pname = v.pname or n;
+        pname = v.pname or v.name or n;
         version = v.version or "";
         description = v.meta.description or "";
         broken = v.meta.broken or false;
@@ -44,7 +49,13 @@
       else [])
     packageSet;
 
-  packageSets = lib.filterAttrs (n: v: !(lib.hasPrefix "_" n) && (shouldRecurseForDerivations v)) nurPackages;
+  packageSets =
+    lib.filterAttrs
+    (n: v:
+      (builtins.tryEval v).success
+      && !(isHiddenName n)
+      && (shouldRecurseForDerivations v))
+    nurPackages;
 
   packageList = prefix: ps:
     builtins.map
@@ -73,7 +84,13 @@
     </details>
   '';
 
-  uncategorizedOutput = packageSetOutput "(Uncategorized)" "" (lib.filterAttrs (n: lib.isDerivation) nurPackages);
+  uncategorizedOutput =
+    packageSetOutput
+    "(Uncategorized)"
+    ""
+    (lib.filterAttrs
+      (n: v: (builtins.tryEval v).success && isIndependentDerivation v)
+      nurPackages);
 
   packageSetsOutput = builtins.concatStringsSep "\n" (lib.mapAttrsToList (n: v: packageSetOutput n n v) packageSets);
 in
@@ -85,6 +102,8 @@ in
       ![Build and populate cache](https://github.com/xddxdd/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
       [![Cachix Cache](https://img.shields.io/badge/cachix-xddxdd-blue.svg)](https://xddxdd.cachix.org)
+
+      [![built with garnix](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fxddxdd%2Fnur-packages)](https://garnix.io)
 
       ## Warning
 

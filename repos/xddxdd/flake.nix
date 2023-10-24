@@ -7,6 +7,12 @@
       url = "github:gytis-ivaskevicius/flake-utils-plus";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = {
     self,
@@ -22,7 +28,11 @@
       channels.nixpkgs = {
         config = {
           allowUnfree = true;
-          # contentAddressedByDefault = true;
+          permittedInsecurePackages = [
+            "electron-19.1.9"
+            "openssl-1.1.1w"
+            "python-2.7.18.7"
+          ];
         };
         input = inputs.nixpkgs;
       };
@@ -32,6 +42,8 @@
         inherit (pkgs) system;
 
         isDerivation = p: lib.isAttrs p && p ? type && p.type == "derivation";
+        isIndependentDerivation = p: isDerivation p && p.name != "merged-packages";
+        isHiddenName = n: lib.hasPrefix "_" n || n == "stdenv";
         isTargetPlatform = p: lib.elem system (p.meta.platforms or [system]);
         isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
         shouldRecurseForDerivations = p: lib.isAttrs p && p.recurseForDerivations or false;
@@ -49,11 +61,13 @@
                   then "${prefix}-${n}"
                   else n;
               in
-                if lib.hasPrefix "_" n
+                if isHiddenName n
+                then []
+                else if !(builtins.tryEval p).success
                 then []
                 else if shouldRecurseForDerivations p
                 then flattenPkgs path p
-                else if isDerivation p && isTargetPlatform p && isBuildable p
+                else if isIndependentDerivation p && isTargetPlatform p && isBuildable p
                 then [
                   {
                     name = path;
@@ -64,18 +78,17 @@
               s));
 
         outputsOf = p: map (o: p.${o}) p.outputs;
-
-        NurCiPackages = import ./pkgs {
-          inherit inputs pkgs;
-          ci = true;
-        };
       in rec {
-        packages = import ./pkgs {
+        packages = import ./pkgs null {
           inherit inputs pkgs;
-          ci = false;
         };
 
-        ciPackages = builtins.listToAttrs (flattenPkgs "" NurCiPackages);
+        ciPackages =
+          builtins.listToAttrs
+          (flattenPkgs ""
+            (import ./pkgs "ci" {
+              inherit inputs pkgs;
+            }));
 
         ciExports = lib.mapAttrsToList (_: outputsOf) ciPackages;
 
@@ -89,6 +102,7 @@
             })
           rec {
             ci = ''
+              set -euo pipefail
               if [ "$1" == "" ]; then
                 echo "Usage: ci <system>";
                 exit 1;
@@ -103,22 +117,40 @@
             '';
 
             nvfetcher = ''
+              set -euo pipefail
               [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="-k $HOME/Secrets/nvfetcher.toml" || KEY_FLAG=""
-              nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+              export PATH=${pkgs.nix-prefetch-scripts}/bin:$PATH
+              ${inputs.nvfetcher.packages."${system}".default}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
               ${readme}
             '';
 
+            nur-check = ''
+              set -euo pipefail
+              TMPDIR=$(mktemp -d)
+              FLAKEDIR=$(pwd)
+
+              git clone --depth=1 https://github.com/nix-community/NUR.git "$TMPDIR"
+              cd "$TMPDIR"
+              bin/nur eval "$FLAKEDIR"
+              cd "$FLAKEDIR"
+              rm -rf "$TMPDIR"
+            '';
+
             readme = ''
+              set -euo pipefail
               nix build .#_meta.readme
               cat result > README.md
             '';
 
-            update = ''
+            update = let
+              py = pkgs.python3.withPackages (p: with p; [requests]);
+            in ''
+              set -euo pipefail
               nix flake update
               ${nvfetcher}
-              ${pkgs.python3}/bin/python3 pkgs/asterisk-digium-codecs/update.py
-              ${pkgs.python3}/bin/python3 pkgs/openj9-ibm-semeru/update.py
-              ${pkgs.python3}/bin/python3 pkgs/openjdk-adoptium/update.py
+              ${py}/bin/python3 pkgs/asterisk-digium-codecs/update.py
+              ${py}/bin/python3 pkgs/openj9-ibm-semeru/update.py
+              ${py}/bin/python3 pkgs/openjdk-adoptium/update.py
               ${readme}
             '';
           };
@@ -127,26 +159,21 @@
       overlay = self.overlays.default;
       overlays = {
         default = final: prev:
-          import ./pkgs {
+          import ./pkgs null {
             pkgs = prev;
             inherit inputs;
-          };
-        custom = nvidia_x11: final: prev:
-          import ./pkgs {
-            pkgs = prev;
-            inherit inputs nvidia_x11;
           };
       };
 
       nixosModules = {
         setupOverlay = {config, ...}: {
           nixpkgs.overlays = [
-            (self.overlays.custom
-              config.boot.kernelPackages.nvidia_x11)
+            self.overlays.default
           ];
         };
-        qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix;
         kata-containers = import ./modules/kata-containers.nix;
+        openssl-oqs-provider = import ./modules/openssl-oqs-provider.nix;
+        qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix;
       };
     };
 }

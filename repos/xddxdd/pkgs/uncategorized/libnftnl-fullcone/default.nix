@@ -11,7 +11,7 @@ libnftnl.overrideAttrs (old: {
     ++ [
       (fetchurl {
         url = "https://raw.githubusercontent.com/wongsyrone/lede-1/master/package/libs/libnftnl/patches/999-01-libnftnl-add-fullcone-expression-support.patch";
-        sha256 = "0n4b4kv19m2l1ppz8qpksihphbdkv0d17rz4wsnsnznp08cd87rj";
+        sha256 = "sha256-il0TS51eQfzUfU6LzG9mmuFZvv5UpRF0YPY21jlsNQE=";
       })
     ];
 })

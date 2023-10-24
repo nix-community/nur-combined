@@ -1,3 +1,22 @@
+diff --git a/examples/c/CMakeLists.txt b/examples/c/CMakeLists.txt
+index e438810b..b73d8d4f 100644
+--- a/examples/c/CMakeLists.txt
++++ b/examples/c/CMakeLists.txt
+@@ -38,13 +38,7 @@ foreach(example ${LIEF_C_EXAMPLES})
+     target_compile_options("${output_target}" PUBLIC ${LIEF_CRT})
+   endif()
+ 
+-  set(LIEF_EXAMPLES_C_FLAGS)
+-  CHECK_C_COMPILER_FLAG("-ansi" HAS_ANSI)
+-  if (HAS_ANSI)
+-    set(LIEF_EXAMPLES_C_FLAGS ${LIEF_EXAMPLES_C_FLAGS} -ansi)
+-  endif()
+-
+-  set_property(TARGET "${output_target}" PROPERTY C_STANDARD          99)
++  set_property(TARGET "${output_target}" PROPERTY C_STANDARD          11)
+   set_property(TARGET "${output_target}" PROPERTY C_STANDARD_REQUIRED ON)
+ 
+   target_compile_options("${output_target}" PRIVATE ${LIEF_EXAMPLES_C_FLAGS})
 diff --git a/setup.py b/setup.py
 index c63b92d8..f2b425ec 100644
 --- a/setup.py

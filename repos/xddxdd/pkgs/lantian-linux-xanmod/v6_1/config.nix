@@ -21,10 +21,6 @@ with lib.kernel; {
   KEXEC_FILE = lib.mkForce no;
   PROVIDE_OHCI1394_DMA_INIT = no;
   SECURITY_SELINUX = no;
-  X86_SGX = lib.mkForce no;
-
-  # Disable unused features - clear errors
-  X86_SGX_KVM = lib.mkForce (option no);
 
   # Fonts
   FONTS = yes;
@@ -34,9 +30,15 @@ with lib.kernel; {
   FTRACE = yes;
   FTRACE_SYSCALLS = yes;
 
+  # HP WMI
+  X86_PLATFORM_DRIVERS_HP = yes;
+
   # i915 PXP (for i915-sriov-dkms)
   DRM_I915_PXP = yes;
   PMIC_OPREGION = yes;
+
+  # Intel SGX
+  X86_SGX = yes;
 
   # IPv6 6RD
   IPV6_SIT_6RD = yes;

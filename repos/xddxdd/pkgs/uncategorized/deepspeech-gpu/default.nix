@@ -3,7 +3,6 @@
   lib,
   python39Packages,
   cudaPackages_10_1,
-  nvidia_x11,
   fetchurl,
   autoPatchelfHook,
   stdenv,
@@ -12,12 +11,13 @@
 with python39Packages; let
   pythonVersion = "39";
   version = "0.9.3";
-  cudaLibPaths = lib.makeLibraryPath [
-    cudaPackages_10_1.cudatoolkit.lib
-    cudaPackages_10_1.cudatoolkit.out
-    cudaPackages_10_1.cudnn_7_6_5
-    nvidia_x11
-  ];
+  cudaLibPaths =
+    (lib.makeLibraryPath [
+      cudaPackages_10_1.cudatoolkit.lib
+      cudaPackages_10_1.cudatoolkit.out
+      cudaPackages_10_1.cudnn_7_6
+    ])
+    + ":/run/opengl-driver/lib";
 in
   buildPythonPackage rec {
     pname = "deepspeech-gpu";

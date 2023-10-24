@@ -3,10 +3,9 @@
   stdenv,
   fetchurl,
   makeWrapper,
-  nvidia_x11,
   ...
 }: let
-  deepspeech = callPackage ./default.nix {inherit nvidia_x11;};
+  deepspeech = callPackage ./default.nix {};
   version = deepspeech.version;
 
   model-en = fetchurl {

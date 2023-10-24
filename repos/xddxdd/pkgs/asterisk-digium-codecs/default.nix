@@ -1,13 +1,15 @@
 {
   stdenv,
   lib,
-  recurseIntoAttrs,
   fetchurl,
   autoPatchelfHook,
+  callPackage,
   asterisk,
   curl,
   ...
 } @ args: let
+  mergePkgs = callPackage ../../helpers/merge-pkgs.nix {};
+
   mkLibrary = asterisk_version: name: bits: value:
     stdenv.mkDerivation rec {
       pname = "asterisk-${asterisk_version}-codec-${name}";
@@ -38,7 +40,7 @@
     };
 
   mkAsteriskVersion = asterisk_version: v:
-    recurseIntoAttrs (lib.mapAttrs
+    mergePkgs (lib.mapAttrs
       (name: value:
         if stdenv.isx86_64
         then mkLibrary asterisk_version name "64" value."64"

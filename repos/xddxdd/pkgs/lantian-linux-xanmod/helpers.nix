@@ -70,6 +70,7 @@
 
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
   mkKernel = {
+    name,
     version,
     src,
     configFile,
@@ -78,7 +79,7 @@
     x86_64-march ? "v1",
     ...
   }:
-    buildLinux {
+    lib.nameValuePair name (buildLinux {
       inherit lib;
       stdenv =
         if lto
@@ -118,9 +119,9 @@
           pkgs.kernelPatches.request_key_helper
         ]
         ++ (builtins.map
-          (name: {
-            inherit name;
-            patch = patchDir + "/${name}";
+          (n: {
+            inherit n;
+            patch = patchDir + "/${n}";
           })
           (builtins.attrNames (builtins.readDir patchDir)));
 
@@ -128,5 +129,5 @@
         description = "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
         broken = !stdenv.isx86_64;
       };
-    };
+    });
 }

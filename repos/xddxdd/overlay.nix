@@ -6,7 +6,7 @@ self: super: let
     name = n;
     value = v;
   };
-  nurAttrs = import ./default.nix {pkgs = super;};
+  nurAttrs = import ./default.nix null {pkgs = super;};
 in
   builtins.listToAttrs
   (map (n: nameValuePair n nurAttrs.${n})

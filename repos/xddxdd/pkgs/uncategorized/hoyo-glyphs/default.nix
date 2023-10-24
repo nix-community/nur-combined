@@ -11,6 +11,8 @@ stdenvNoCC.mkDerivation rec {
   srcs = [
     sources.hoyo-glyphs.src
     sources.hoyo-glyphs-star-rail-neue.src
+    sources.hoyo-glyphs-teyvat-black.src
+    sources.hoyo-glyphs-xianzhou-seal.src
   ];
 
   sourceRoot = ".";

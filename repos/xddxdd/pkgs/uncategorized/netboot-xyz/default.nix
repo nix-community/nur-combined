@@ -6,7 +6,7 @@
 } @ args:
 assert (sources.netboot-xyz-lkrn.version == sources.netboot-xyz-lkrn.version);
   stdenvNoCC.mkDerivation rec {
-    name = "netboot.xyz";
+    pname = "netboot-xyz";
     inherit (sources.netboot-xyz-lkrn) version;
 
     phases = ["installPhase"];

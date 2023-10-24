@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    # (python3.withPackages (p: with p; [ jinja2 pyyaml tabulate ]))
+    (python3.withPackages (p: with p; [ jinja2 pyyaml tabulate ]))
   ];
 
   buildInputs = [
@@ -32,6 +32,10 @@ stdenv.mkDerivation rec {
 
     sed -i "s|GIT_REPOSITORY .*|SOURCE_DIR $(pwd)/qsc-key-encoder|g" oqsprov/CMakeLists.txt
     sed -i "/GIT_TAG .*/d" oqsprov/CMakeLists.txt
+
+    export LIBOQS_SRC_DIR=${sources.liboqs.src}
+    sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml
+    python3 oqs-template/generate.py
   '';
 
   installPhase = ''

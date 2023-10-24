@@ -5,11 +5,15 @@
 }:
 buildGoModule rec {
   inherit (sources.glauth) pname version src;
-  vendorSha256 = "sha256-8xjnNjkHI5QrfgJmAgRb2izMkgATdGzSesnWGOvmomY=";
+  vendorSha256 = "sha256-EalZdQbGs7YHZfuqxsrxP1592OJtGUYvzkFiBYKHEBA=";
   modRoot = "v2";
 
   preBuild = ''
+    export GOWORK=off
     export subPackages="."
+
+    mv vendored/toml ../toml
+    sed -i "s#vendored/toml#../toml#g" go.mod
   '';
 
   doCheck = false;

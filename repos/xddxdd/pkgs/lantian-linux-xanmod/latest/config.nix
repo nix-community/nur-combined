@@ -72,7 +72,6 @@ with lib.kernel; {
   # Reduce log buffer size
   LOG_BUF_SHIFT = freeform "12";
   LOG_CPU_MAX_BUF_SHIFT = freeform "12";
-  PRINTK_SAFE_LOG_BUF_SHIFT = freeform "10";
 
   # Various tunings
   ACPI_APEI = yes;

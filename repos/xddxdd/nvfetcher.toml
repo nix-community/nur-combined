@@ -22,6 +22,10 @@ fetch.github = "arkadijs/asterisk-g72x"
 src.git = "https://github.com/traud/asterisk-gsm-efr.git"
 fetch.github = "traud/asterisk-gsm-efr"
 
+[attic]
+src.git = "https://github.com/zhaofengli/attic.git"
+fetch.github = "zhaofengli/attic"
+
 [baidupcs-go]
 src.github = "qjfoidnh/BaiduPCS-Go"
 fetch.github = "qjfoidnh/BaiduPCS-Go"
@@ -36,16 +40,12 @@ src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
 fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/v$ver/io.github.msojocs.bilibili_$ver_amd64.deb"
 
-[bird-babel-rtt]
-src.git = "https://github.com/NickCao/bird.git"
-fetch.github = "NickCao/bird"
-
 [bird-lg-go]
 src.git = "https://github.com/xddxdd/bird-lg-go.git"
 fetch.github = "xddxdd/bird-lg-go"
 
 [boringssl-oqs]
-src.github = "open-quantum-safe/boringssl"
+src.git = "https://github.com/open-quantum-safe/boringssl.git"
 fetch.github = "open-quantum-safe/boringssl"
 
 [calibre-cops]
@@ -53,12 +53,22 @@ src.github = "seblucas/cops"
 fetch.url = "https://github.com/seblucas/cops/releases/download/$ver/cops-$ver.zip"
 
 [chromium-oqs-bin]
-src.github = "open-quantum-safe/oqs-demos"
+# src.github = "open-quantum-safe/oqs-demos"
+src.manual = "0.7.2"
 fetch.url = "https://github.com/open-quantum-safe/oqs-demos/releases/download/$ver/chromium-ubuntu-$ver.tgz"
 
 [cloudpan189-go]
 src.github = "tickstep/cloudpan189-go"
 fetch.github = "tickstep/cloudpan189-go"
+
+[cockpy]
+src.git = "https://github.com/Hiro420/CockPY.git"
+fetch.github = "Hiro420/CockPY"
+
+[cockpy-pyenet]
+src.git = "https://github.com/lilmayofuksu/pyenet.git"
+fetch.github = "lilmayofuksu/pyenet"
+git.fetchSubmodules = true
 
 [coredns-lantian]
 src.git = "https://github.com/xddxdd/coredns.git"
@@ -72,6 +82,10 @@ fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/
 src.git = "https://github.com/caryyu/douban-openapi-server.git"
 fetch.github = "caryyu/douban-openapi-server"
 
+[drone-file-secret]
+src.git = "https://github.com/xddxdd/drone-file-secret.git"
+fetch.github = "xddxdd/drone-file-secret"
+
 [drone-vault]
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
@@ -79,6 +93,10 @@ fetch.github = "drone/drone-vault"
 [etherguard]
 src.git = "https://github.com/KusakabeShi/EtherGuard-VPN.git"
 fetch.github = "KusakabeShi/EtherGuard-VPN"
+
+[fastapi-dls]
+src.git = "https://gitea.publichub.eu/oscar.krause/fastapi-dls.git"
+fetch.git = "https://gitea.publichub.eu/oscar.krause/fastapi-dls.git"
 
 [fcitx5-breeze]
 src.github = "scratch-er/fcitx5-breeze"
@@ -125,8 +143,16 @@ src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
 fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"
 
 [hoyo-glyphs-star-rail-neue]
+src.manual = "1.100"
+fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/star-rail-neue-1.100/Star-Rail-Neue-1.100.zip"
+
+[hoyo-glyphs-teyvat-black]
+src.manual = "1.003"
+fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/teyvat-black-1.003/Teyvat-Black-1.003.zip"
+
+[hoyo-glyphs-xianzhou-seal]
 src.manual = "1.000"
-fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/star-rail-$ver/StarRailNeue-$ver-otf.zip"
+fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip"
 
 [kata-containers]
 src.github = "kata-containers/kata-containers"
@@ -134,7 +160,7 @@ fetch.github = "kata-containers/kata-containers"
 
 [kata-image]
 src.github = "kata-containers/kata-containers"
-fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-x86_64.tar.xz"
+fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-amd64.tar.xz"
 
 [konnect]
 src.github_tag = "Kopano-dev/konnect"
@@ -151,6 +177,22 @@ fetch.github = "xddxdd/libltnginx"
 [liboqs]
 src.git = "https://github.com/open-quantum-safe/liboqs.git"
 fetch.github = "open-quantum-safe/liboqs"
+
+[librime-charcode]
+src.git = "https://github.com/rime/librime-charcode.git"
+fetch.github = "rime/librime-charcode"
+
+[librime-lua]
+src.git = "https://github.com/hchunhui/librime-lua.git"
+fetch.github = "hchunhui/librime-lua"
+
+[librime-octagram]
+src.git = "https://github.com/lotem/librime-octagram.git"
+fetch.github = "lotem/librime-octagram"
+
+[librime-proto]
+src.git = "https://github.com/lotem/librime-proto.git"
+fetch.github = "lotem/librime-proto"
 
 [linux-xanmod]
 src.github_tag = "xanmod/linux"
@@ -200,8 +242,11 @@ src.github_tag = "nginx/njs"
 fetch.github = "nginx/njs"
 
 [ngx_brotli]
-src.git = "https://github.com/google/ngx_brotli.git"
-fetch.github = "google/ngx_brotli"
+# src.git = "https://github.com/google/ngx_brotli.git"
+# fetch.github = "google/ngx_brotli"
+src.git = "https://github.com/u5surf/ngx_brotli.git"
+src.branch = "fix_build_failed"
+fetch.github = "u5surf/ngx_brotli"
 
 [noise-suppression-for-voice]
 src.github = "werman/noise-suppression-for-voice"
@@ -250,6 +295,10 @@ fetch.github = "ReimuHakurei/phppgadmin"
 [plangothic-fonts]
 src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
+
+[pterodactyl-wings]
+src.github = "pterodactyl/wings"
+fetch.github = "pterodactyl/wings"
 
 [qbittorrent-enhanced-edition]
 src.github = "c0re100/qBittorrent-Enhanced-Edition"
@@ -301,6 +350,10 @@ fetch.github = "hosxy/rime-aurora-pinyin"
 src.git = "https://github.com/Iorest/rime-dict.git"
 fetch.github = "Iorest/rime-dict"
 
+[rime-ice]
+src.git = "https://github.com/iDvel/rime-ice.git"
+fetch.github = "iDvel/rime-ice"
+
 [rime-moegirl]
 src.github = "outloudvi/mw2fcitx"
 fetch.url = "https://github.com/outloudvi/mw2fcitx/releases/download/$ver/moegirl.dict.yaml"
@@ -322,6 +375,10 @@ fetch.github = "intel/sgx-software-enable"
 # src.pypi = "smartrent.py"
 src.manual = "0.4.0"
 fetch.pypi = "smartrent.py"
+
+[soggy]
+src.git = "https://github.com/LDAsuku/soggy.git"
+fetch.github = "LDAsuku/soggy"
 
 [stream-echo-nginx-module]
 src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
@@ -356,7 +413,8 @@ src.pypi = "XStatic-asciinema-player"
 fetch.pypi = "XStatic-asciinema-player"
 
 [xstatic-font-awesome]
-src.pypi = "XStatic-Font-Awesome"
+# src.pypi = "XStatic-Font-Awesome"
+src.manual = "4.7.0.0"
 fetch.pypi = "XStatic-Font-Awesome"
 
 [zstd-nginx-module]

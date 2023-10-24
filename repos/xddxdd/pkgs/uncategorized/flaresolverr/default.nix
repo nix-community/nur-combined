@@ -15,6 +15,7 @@
       waitress
       selenium
       func-timeout
+      prometheus-client
       requests
       websockets
       xvfbwrapper
