@@ -3,13 +3,10 @@
   lib,
   fetchurl,
   autoPatchelfHook,
-  callPackage,
-  asterisk,
   curl,
+  mergePkgs,
   ...
 } @ args: let
-  mergePkgs = callPackage ../../helpers/merge-pkgs.nix {};
-
   mkLibrary = asterisk_version: name: bits: value:
     stdenv.mkDerivation rec {
       pname = "asterisk-${asterisk_version}-codec-${name}";

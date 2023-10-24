@@ -2,9 +2,9 @@
   lib,
   callPackage,
   linux,
+  mergePkgs,
   ...
 } @ args: let
-  mergePkgs = callPackage ../../helpers/merge-pkgs.nix {};
   inherit (callPackage lib/extract.nix {}) extractGridDriver extractVgpuDriver;
   sources = lib.importJSON ./sources.json;
 

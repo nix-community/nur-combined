@@ -47,7 +47,7 @@ let
   });
 
   wechatFiles = stdenv.mkDerivation {
-    pname = "wechat";
+    pname = "wechat-x86";
     inherit (sources.wine-wechat-x86) version src;
 
     nativeBuildInputs = [p7zip];
@@ -64,7 +64,7 @@ let
     '';
   };
 
-  startWechat = writeShellScript "wine-wechat" ''
+  startWechat = writeShellScript "wine-wechat-x86" ''
     export WINEARCH="win32"
     export WINEPREFIX="$HOME/.local/share/wine-wechat-x86"
     export WINEDLLOVERRIDES="winemenubuilder.exe=d"
@@ -84,7 +84,7 @@ let
     ${wechatWine}/bin/wineserver -k
   '';
 
-  startWinecfg = writeShellScript "wine-wechat-cfg" ''
+  startWinecfg = writeShellScript "wine-wechat-x86-cfg" ''
     export WINEARCH="win32"
     export WINEPREFIX="$HOME/.local/share/wine-wechat-x86"
     export WINEDLLOVERRIDES="winemenubuilder.exe=d"
@@ -110,8 +110,8 @@ in
     phases = ["installPhase"];
     installPhase = ''
       mkdir -p $out/bin
-      ln -s ${startWechat} $out/bin/wine-wechat
-      ln -s ${startWinecfg} $out/bin/wine-wechat-cfg
+      ln -s ${startWechat} $out/bin/wine-wechat-x86
+      ln -s ${startWinecfg} $out/bin/wine-wechat-x86-cfg
       ln -s ${./share} $out/share
     '';
 

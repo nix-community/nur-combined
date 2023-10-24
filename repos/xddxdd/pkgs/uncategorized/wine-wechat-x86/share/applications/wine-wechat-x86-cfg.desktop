@@ -1,0 +1,11 @@
+[Desktop Entry]
+Exec=wine-wechat-x86-cfg
+Icon=wechat-x86
+Name=Wine WeChat config (x86)
+Name[zh_CN]=Wine 微信配置（x86）
+Comment=Run winecfg for Wine WeChat (x86)
+Comment[zh_CN]=为 Wine 微信运行 winecfg（x86）
+StartupNotify=true
+Type=Application
+Categories=Settings;
+Keywords=wx;wechat;weixin

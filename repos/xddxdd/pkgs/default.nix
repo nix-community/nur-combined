@@ -59,7 +59,7 @@ in
     };
 
     # Package groups
-    asteriskDigiumCodecs = mergePkgs (pkg ./asterisk-digium-codecs {});
+    asteriskDigiumCodecs = mergePkgs (pkg ./asterisk-digium-codecs {inherit mergePkgs;});
 
     lantianCustomized = ifNotCI (mergePkgs {
       # Packages with significant customization by Lan Tian
@@ -89,7 +89,7 @@ in
       libltnginx = pkg ./lantian-personal/libltnginx {};
     });
 
-    nvidia-grid = ifNotCI (mergePkgs (pkg ./nvidia-grid {}));
+    nvidia-grid = ifNotCI (mergePkgs (pkg ./nvidia-grid {inherit mergePkgs;}));
     openj9-ibm-semeru = ifNotCI (mergePkgs (pkg ./openj9-ibm-semeru {}));
     openjdk-adoptium = ifNotCI (mergePkgs (pkg ./openjdk-adoptium {}));
     plangothic-fonts = mergePkgs (pkg ./plangothic-fonts {});
@@ -182,7 +182,7 @@ in
     wechat-uos = pkg ./uncategorized/wechat-uos {};
     wechat-uos-bin = pkg ./uncategorized/wechat-uos/official-bin.nix {};
     wine-wechat = lib.makeOverridable pkg ./uncategorized/wine-wechat {};
-    wine-wechat-x86 = lib.makeOverridable pkg ./uncategorized/wine-wechat/x86.nix {};
+    wine-wechat-x86 = lib.makeOverridable pkg ./uncategorized/wine-wechat-x86 {};
     xstatic-asciinema-player = pkg ./uncategorized/xstatic-asciinema-player {};
     xstatic-font-awesome = pkg ./uncategorized/xstatic-font-awesome {};
   })

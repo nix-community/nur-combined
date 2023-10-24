@@ -95,7 +95,7 @@
   packageSetsOutput = builtins.concatStringsSep "\n" (lib.mapAttrsToList (n: v: packageSetOutput n n v) packageSets);
 in
   writeTextFile {
-    name = "";
+    name = "README.md";
     text = ''
       # Lan Tian's NUR Packages
 

@@ -1,7 +1,7 @@
 {
   stdenv,
   lib,
-  enableWrapper ? true,
+  enableWrapper,
   ...
 }: packages:
 # Utility to build all derivations in `packages`.
