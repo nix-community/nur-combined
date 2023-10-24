@@ -2,6 +2,8 @@
 let
   inherit (pkgs) fetchurl;
 in {
+  # TODO: automate installation of extensions
+  # CHROME_DONT_BORDERLESS=1 runs them borderfull
   borderless-browser.apps = {
     teste = {
       desktopName = "Teste";
@@ -17,6 +19,7 @@ in {
       profile = "facebook";
     };
     twitter = {
+      # https://chrome.google.com/webstore/detail/control-panel-for-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj
       desktopName = "Twitter"; # no need for web containers lol
       url = "https://twitter.com";
       profile = "twitter";
@@ -32,6 +35,12 @@ in {
       url = "https://discord.com/channels/me";
       profile = "discord-profissional";
       icon = "discord";
+    };
+    youtube-tv = {
+      # https://chrome.google.com/webstore/detail/youtube-for-tv/gmmbpchnelmlmndfnckechknbohhjpge/related
+      desktopName = "YouTube (UI para TV)";
+      url = "https://youtube.com/tv";
+      profile = "youtube-tv";
     };
     whatsapp = {
       desktopName = "WhatsApp";
