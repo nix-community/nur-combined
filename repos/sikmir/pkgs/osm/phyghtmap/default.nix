@@ -24,6 +24,5 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://katze.tfiu.de/projects/phyghtmap";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.sikmir ];
-    broken = stdenv.isDarwin; # xyzservices
   };
 }

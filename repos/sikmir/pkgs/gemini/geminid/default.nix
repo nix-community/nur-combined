@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "geminid";
-  version = "2021-04-11";
+  version = "2022-04-15";
 
   src = fetchFromGitHub {
     owner = "jovoro";
     repo = "geminid";
-    rev = "bf6148baf91847e8dc011c3a101bee547142f4b5";
-    hash = "sha256-yiD3GMrYi9KhKgCWAs+tdenP/0Q1E16FdhatdbTkYK4=";
+    rev = "eec25221eadfa47b09de5bd0dc15e90b1263d43a";
+    hash = "sha256-d9zs0fqH9YqhNfcPY66Ynoq2xo6n/h+sgRcD80ZBCNU=";
   };
 
   nativeBuildInputs = [ flex ];

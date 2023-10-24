@@ -23,6 +23,7 @@ stdenv.mkDerivation {
     license = licenses.cc-by-sa-30;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "i686-linux" "x86_64-linux" ];
+    mainProgram = "gmt";
     skip.ci = true;
   };
 }
