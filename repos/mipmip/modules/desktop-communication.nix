@@ -14,7 +14,7 @@
 
     msmtp
 
-    whatsapp-for-linux
+    unstable.whatsapp-for-linux
     zoom-us
     tdesktop
     teams
