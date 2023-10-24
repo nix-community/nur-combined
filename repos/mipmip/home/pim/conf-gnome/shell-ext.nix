@@ -22,14 +22,14 @@ let
     (import ./shell-ext-focus-changer.nix { pkgs = pkgs; })
     (import ./shell-ext-favorites-menu.nix { unstable = unstable; })
     (import ./shell-ext-dash-to-panel.nix { pkgs = pkgs; })
-    (import ./shell-ext-gs-git.nix { mipmip_pkg = mipmip_pkg; })
+    #(import ./shell-ext-gs-git.nix { mipmip_pkg = mipmip_pkg; })
     (import ./shell-ext-useless-gaps.nix { unstable = unstable; })
     #(import ./shell-ext-hotkeys-popup.nix { unstable = unstable; })
     (import ./shell-ext-highlight-focus.nix { mipmip_pkg = mipmip_pkg; })
     (import ./shell-ext-search-light.nix { lib = lib; mipmip_pkg = mipmip_pkg; })
 
     # TODO Soup.URI is not a constructor bug
-    (import ./shell-ext-github-notifications.nix { mipmip_pkg = mipmip_pkg; })
+    #(import ./shell-ext-github-notifications.nix { mipmip_pkg = mipmip_pkg; })
 
   ];
 

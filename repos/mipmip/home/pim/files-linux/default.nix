@@ -1,9 +1,7 @@
 {
-
-
   home.file = {
-    ".config/git-monitor.json" = {
-      source = ./.config/git-monitor.json;
+    ".config/dirty-git.json" = {
+      source = ./.config/dirty-git.json;
     };
   };
 

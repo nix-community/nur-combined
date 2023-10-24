@@ -41,9 +41,9 @@ gnome:
     - source: mipmip/gnome-shell-extensions-highlight-focus
     - source: mipmip/gnome-shell-extensions-hotkeys-popup
     - source: mipmip/gnome-shell-extensions-useless-gaps
-    - source: mipmip/gs-git
     - source: mipmip/gnome-shell-extensions-dirty-git-indicator
     - source: mipmip/hotkeys
+    - source: mipmip/gnome-plugin.custom-menu-panel
 
 linden:
   base_dir: ~/cLinden
