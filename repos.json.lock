@@ -867,8 +867,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mipmip": {
-            "rev": "24c4c0c558eb750b38e6545d7738b0017a5bd5e7",
-            "sha256": "1lbhavqh8zmqdqb4wfmwazrvlya9a3g9lqbcw7w27wd6whbild34",
+            "rev": "ec63efbed63f57716b2b72834c1165d6bc96ab8f",
+            "sha256": "0i51hwanp2qg8mgri49jdgsx63v2l28w04q8p6rgydigl979sks6",
             "url": "https://github.com/mipmip/nixos"
         },
         "misterio": {
@@ -1028,8 +1028,8 @@
             "url": "https://github.com/ondt/nur-packages"
         },
         "onemoresuza": {
-            "rev": "671bd56b8c0631bfaa47801a257cdc4d208ad4f2",
-            "sha256": "1n9l673ird1p652ss4axqmxv3c5kfqgcrlqrqvlbvday815mzihm",
+            "rev": "4352281b5d5ba1798db8c0b1aed7ecf9d18f3c33",
+            "sha256": "1qg9x5qnvlz8lb8454lz7k3md1w421a87rwr1c8b6vll4l4x1g9b",
             "url": "https://github.com/onemoresuza/nur-packages"
         },
         "onny": {
