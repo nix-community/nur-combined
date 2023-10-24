@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, lib, alsa-lib, gtk3, libunwind, x264, vulkan-loader, xorg, libva, libdrm, libvdpau, libbsd, libmd, xz }:
+{ stdenv, fetchzip, fetchurl, lib, alsa-lib, gtk3, libunwind, x264, vulkan-loader, xorg, libva, libdrm, libvdpau, libbsd, libmd, xz }:
 stdenv.mkDerivation rec {
   pname = "alvr";
   version = "v20.4.3";
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     };
 
   sourceRoot = ".";
-  outputs = [ "out" "driver" ];
+
   rpath = lib.makeLibraryPath [
     stdenv.cc.cc.lib
     alsa-lib
@@ -29,32 +29,35 @@ stdenv.mkDerivation rec {
     libmd
     xz
   ];
+
   preferLocalBuild = true;
+  dontBuild = true;
   installPhase = ''
-    mkdir -p $out/bin $out/share/alvr
-    mkdir -p $driver/share/vulkan/explicit_layer.d
-    mv ${src.name}/* $out/share/alvr
+    runHook preInstall
 
-    ln -s $out/share/alvr/bin/alvr_dashboard $out/bin 
-   
-    # Driver
-    ln -s $out/share/alvr/share/vulkan/explicit_layer.d/alvr_x86_64.json $driver/share/vulkan/explicit_layer.d/alvr_x86_64.json
-    ln -s $out/share/alvr/lib64 $driver/lib
+    mkdir -p $out/bin $out/opt/ALVR $out/share/vulkan/explicit_layer.d $out/share/applications/ $out/share/icons/hicolor/256x256/apps/
+    mv ${src.name}/* $out/opt/ALVR
 
-    
-    ls -la $out/share/alvr
+    cp ${./alvr.png} $out/share/icons/hicolor/256x256/apps/alvr.png
+    cp ${./alvr.desktop} $out/share/applications/alvr.desktop
 
+    ln -s $out/opt/ALVR/bin/alvr_dashboard $out/bin 
+    ln -s $out/opt/ALVR/share/vulkan/explicit_layer.d/alvr_x86_64.json $out/share/vulkan/explicit_layer.d
+
+    runHook postInstall
   '';
   fixupPhase = ''
-    patchelf --set-rpath "${rpath}" --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/share/alvr/bin/alvr_dashboard
-    patchelf --set-rpath "${rpath}" --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/share/alvr/libexec/alvr/vrcompositor-wrapper
-    patchelf --set-rpath "${rpath}" $out/share/alvr/libexec/alvr/alvr_drm_lease_shim.so
-    patchelf --set-rpath "${rpath}" $out/share/alvr/lib64/libalvr_vulkan_layer.so
-    patchelf --set-rpath "${rpath}" $out/share/alvr/lib64/alvr/bin/linux64/driver_alvr_server.so
+    runHook preFixup
 
+    patchelf --set-rpath "${rpath}" --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/opt/ALVR/bin/alvr_dashboard
+    patchelf --set-rpath "${rpath}" --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/opt/ALVR/libexec/alvr/vrcompositor-wrapper
+    patchelf --set-rpath "${rpath}" $out/opt/ALVR/libexec/alvr/alvr_drm_lease_shim.so
+    patchelf --set-rpath "${rpath}" $out/opt/ALVR/lib64/libalvr_vulkan_layer.so
+    patchelf --set-rpath "${rpath}" $out/opt/ALVR/lib64/alvr/bin/linux64/driver_alvr_server.so
+
+    sed -i "s#../../../lib64/libalvr_vulkan_layer.so#$out/opt/ALVR/lib64/libalvr_vulkan_layer.so#" $out/opt/ALVR/share/vulkan/explicit_layer.d/alvr_x86_64.json
     
-    sed -i "s#../../../lib64/libalvr_vulkan_layer.so#$out/share/alvr/lib64/libalvr_vulkan_layer.so#" $out/share/alvr/share/vulkan/explicit_layer.d/alvr_x86_64.json
-
+    runHook postFixup
   '';
 
   meta = with lib; {
