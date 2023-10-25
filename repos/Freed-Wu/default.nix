@@ -40,11 +40,9 @@ let
     # bitbake-language-server = callPackage ./pkgs/development/python-modules/bitbake-language-server { };
     expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
     mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
-    pkgbuild-language-server = callPackage ./pkgs/development/python-modules/pkgbuild-language-server { };
-    portage-language-server = callPackage ./pkgs/development/python-modules/portage-language-server { };
     # requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
     sublime-syntax-language-server = callPackage ./pkgs/development/python-modules/sublime-syntax-language-server { };
-    termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
+    # termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
     tmux-language-server = callPackage ./pkgs/development/python-modules/tmux-language-server { };
     xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
     zathura-language-server = callPackage ./pkgs/development/python-modules/zathura-language-server { };

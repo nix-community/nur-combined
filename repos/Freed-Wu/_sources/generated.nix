@@ -129,10 +129,10 @@
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.0.2";
+    version = "0.0.4";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux-language-server/termux-language-server-0.0.2.tar.gz";
-      sha256 = "sha256-6KI9nV2tLb0VNyZCe4SeQXUYmO4mSZgtg98l0m7RX1E=";
+      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.0.4.tar.gz";
+      sha256 = "sha256-e3iuRAtRbL26cg/FYw/l5f9IglJLI+akDffVN7ZPjVs=";
     };
   };
   tmux-language-server = {
@@ -145,10 +145,10 @@
   };
   translate-shell = {
     pname = "translate-shell";
-    version = "0.0.39";
+    version = "0.0.42";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.39.tar.gz";
-      sha256 = "sha256-QSijgIfQ/5UjbADIrQjJZM3QXUw3QHe+io14LmaPmZs=";
+      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.42.tar.gz";
+      sha256 = "sha256-rko3r1m6z0lgos1yNpfIC4+Z5WCG+ZjL+FurRSXqPSc=";
     };
   };
   undollar = {

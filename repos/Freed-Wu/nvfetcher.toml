@@ -60,7 +60,7 @@ fetch.pypi = "sublime-syntax-language-server"
 
 [termux-language-server]
 src.pypi = "termux-language-server"
-fetch.pypi = "termux-language-server"
+fetch.pypi = "termux_language_server"
 
 [tmux-language-server]
 src.pypi = "tmux-language-server"
