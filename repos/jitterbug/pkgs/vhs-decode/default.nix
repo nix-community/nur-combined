@@ -13,51 +13,63 @@
 , ...
 }:
 let
-  version = "de9f0d2d28bf2c2e792bb3b17c4cac3352f5b88f";
+  # we need a valid version for SETUPTOOLS_SCM
+  version = "0.2.2-dev";
+  rev = "54da7f8576f9d01dec85011da5a5dd595cd86e5c";
 
   src = fetchFromGitHub {
+    inherit rev;
     owner = "oyvindln";
     repo = "vhs-decode";
-    sha256 = "sha256-ZwMC1L3NGlk5ZnUbwEyBvNCizl7dCTmfKSq1g+zZor0=";
-    rev = version;
+    sha256 = "sha256-/5RckJVHFAqDIo1RX1+j5TBWbkJCiL8IAHnJIYVseQU=";
   };
 
-  py-vhs-decode = python3Packages.buildPythonApplication
-    {
-      pname = "py-vhs-decode";
-      inherit src version;
+  py-vhs-decode = python3Packages.buildPythonApplication {
+    inherit src version;
+    pname = "py-vhs-decode";
+    format = "setuptools";
+    doCheck = false;
 
-      buildInputs = [
-        ffmpeg
-      ];
+    # workaround for no .git
+    SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-      propagatedBuildInputs = with python3Packages; [
-        cython
-        numpy
-        jupyter
-        numba
-        pandas
-        scipy
-        matplotlib
-        soundfile
-        pyhht
-        samplerate
-      ];
+    buildInputs = [
+      ffmpeg
+    ];
 
-      prePatch = ''
-        substituteInPlace "pyproject.toml" \
-          --replace ", \"static-ffmpeg\"" ""
+    nativeBuildInputs = with python3Packages; [
+      setuptools_scm
+    ];
 
-        substituteInPlace "pyproject.toml" \
-          --replace "numba>=0.48" "numba"
-      '';
+    propagatedBuildInputs = with python3Packages; [
+      cython
+      numpy
+      jupyter
+      numba
+      pandas
+      scipy
+      matplotlib
+      soundfile
+      pyhht
+      samplerate
+    ];
 
-      doCheck = false;
-    };
+    prePatch = ''
+      # causes FileExistsError as pyproject.toml also defines projects.scripts
+      substituteInPlace "setup.py" \
+        --replace "scripts=[" "__disabled_scrips=["
+
+      substituteInPlace "pyproject.toml" \
+        --replace ", \"static-ffmpeg\"" ""
+
+      substituteInPlace "pyproject.toml" \
+        --replace "numba>=0.48" "numba"
+    '';
+  };
 
   vhs-decode-tools = stdenv.mkDerivation {
-    pname = "vhs-decode-tools";
     inherit src version;
+    pname = "vhs-decode-tools";
 
     nativeBuildInputs = [
       cmake
@@ -80,8 +92,8 @@ let
   };
 in
 symlinkJoin {
-  inherit version;
   name = "vhs-decode";
+  version = rev;
 
   paths = [
     py-vhs-decode

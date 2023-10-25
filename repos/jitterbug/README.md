@@ -5,7 +5,7 @@ This repo contains packages for vhs-decoding on NixOS.
 [![Cachix Cache](https://img.shields.io/badge/cachix-jitterbug-blue.svg)](https://jitterbug.cachix.org)
 
 
-# vhs-decode
+# [vhs-decode](https://github.com/oyvindln/vhs-decode)
 vhs-decode consists of a package and module.
 
 The package must be in your in your `nixpkgs` via `packageOverrides` for the module to work.
@@ -26,7 +26,7 @@ Enable `exportVersionVariable` to have the environment variable `__VHS_DECODE_VE
 }
 ```
 
-# cxadc
+# [cxadc](https://github.com/happycube/cxadc-linux3)
 cxadc consists of a package (a kernel driver) and a module.
 
 You can set device parameters using `cxadc.parameters.*.parameter`. This uses udev and may require `udevadm trigger` to reload.
@@ -67,23 +67,26 @@ Enable `exportVersionVariable`to have the environment variable `__CXADC_VERSION`
 }
 ```
 
-# ltfs
+# [ltfs](https://github.com/LinearTapeFileSystem/ltfs)
 The reference LTFS implementation.
 
-# stfs
+# [stfs](https://github.com/pojntfx/stfs)
 Simple Tape File System (STFS), a file system for tapes and tar files.
 
-# vapoursynth-bwdif
+# [vapoursynth-bwdif](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-Bwdif)
 Dependency for QTGMC.
 
-# vapoursynth-neofft3d
+# [vapoursynth-neofft3d](https://github.com/HomeOfAviSynthPlusEvolution/neo_FFT3D)
 Fork of fft3dfilter.
 
-# amcdx-video-patcher-cli
+# [amcdx-video-patcher-cli](https://mogurenko.com)
 Tool for editing ProRes MOV files.
 
-# pyhht
+# [pyhht](https://github.com/jaidevd/pyhht)
 Dependency for vhs-decode.
 
-# tbc-video-export
+# [tbc-video-export](https://github.com/JuniorIsAJitterbug/tbc-video-export)
 Script for exporting TBC files to video.
+
+# [tzpfms](https://git.sr.ht/~nabijaczleweli/tzpfms)
+TPM-based encryption keys for ZFS datasets.
