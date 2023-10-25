@@ -683,6 +683,7 @@
         "send2kindle": "send2kindle",
         "simple-dashboard": "simple-dashboard",
         "sops-nix": "sops-nix",
+        "src-python-std2": "src-python-std2",
         "telegram-sendmail": "telegram-sendmail"
       }
     },
@@ -757,6 +758,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "src-python-std2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696705193,
+        "narHash": "sha256-huN7P/Ws6anrFXDG7L5xxMenS25BHquV9cMi1s7WFJ4=",
+        "owner": "ms-jpq",
+        "repo": "std2",
+        "rev": "6332e559ee51c3a7c956804afdd7e1cc6ad47965",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ms-jpq",
+        "repo": "std2",
         "type": "github"
       }
     },

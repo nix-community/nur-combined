@@ -166,6 +166,12 @@ in
     '';
   };
 
+  python3Packages = prev.python3Packages.overrideScope (self: super: {
+    std2 = super.std2.overrideAttrs (_: {
+      src = flake.inputs.src-python-std2;
+    });
+  });
+
   opencv4Full = prev.python3Packages.opencv4.override {
     pythonPackages = prev.python3Packages;
     enablePython = true;
