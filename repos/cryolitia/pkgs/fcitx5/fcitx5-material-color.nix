@@ -17,14 +17,14 @@ stdenvNoCC.mkDerivation rec {
   };
 
   installPhase = ''
-    install -Dm644 arrow.png radio.png -t $out/usr/share/${pname}/
+    install -Dm644 arrow.png radio.png -t $out/share/${pname}/
     for _variant in black blue brown deepPurple indigo orange pink red sakuraPink teal; do
       _variant_name=Material-Color-$_variant
-      install -dm755 $_variant_name $out/usr/share/fcitx5/themes/$_variant_name
-      ln -sv ../../../$pname/arrow.png $out/usr/share/fcitx5/themes/$_variant_name/
-      ln -sv ../../../$pname/radio.png $out/usr/share/fcitx5/themes/$_variant_name/
-      install -Dm644 theme-$_variant.conf $out/usr/share/fcitx5/themes/$_variant_name/theme.conf
-      sed -i "s/^Name=.*/Name=$_variant_name/" $out/usr/share/fcitx5/themes/$_variant_name/theme.conf
+      install -dm755 $_variant_name $out/share/fcitx5/themes/$_variant_name
+      ln -sv ../../../$pname/arrow.png $out/share/fcitx5/themes/$_variant_name/
+      ln -sv ../../../$pname/radio.png $out/share/fcitx5/themes/$_variant_name/
+      install -Dm644 theme-$_variant.conf $out/share/fcitx5/themes/$_variant_name/theme.conf
+      sed -i "s/^Name=.*/Name=$_variant_name/" $out/share/fcitx5/themes/$_variant_name/theme.conf
     done
   '';
 
