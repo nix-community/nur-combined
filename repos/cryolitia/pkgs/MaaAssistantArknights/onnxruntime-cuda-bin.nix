@@ -36,7 +36,6 @@ in stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    cuda.cuda-redist
     cuda.cuda-native-redist
     openmpi
     nsync

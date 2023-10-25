@@ -36,22 +36,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     eigen
-  ] ++ lib.optionals cudaSupport [
-    cuda.cuda-native-redist
-  ];
+  ] ++ lib.optionals cudaSupport cuda.cuda-native-redist;
 
   buildInputs = [
     opencv
     onnxruntime
-  ] ++ lib.optionals cudaSupport [
-    cuda.cuda-redist
-  ];
+  ] ++ lib.optionals cudaSupport cuda.cuda-common-redist;
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=None"
     "-DBUILD_SHARED_LIBS=ON"
     "-DPRINT_LOG=ON"
-  ] ++ lib.optional cudaSupport [
+  ] ++ lib.optionals cudaSupport [
     "-DWITH_GPU=ON"
     "-DCUDA_DIRECTORY=${cuda.cuda-redist}"
   ];

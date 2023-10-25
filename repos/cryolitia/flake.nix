@@ -6,7 +6,7 @@
       substituters = [
         "https://mirrors.cernet.edu.cn/nix-channels/store"
         # "https://mirrors.bfsu.edu.cn/nix-channels/store"
-        "https://cache.nixos.org/"
+        # "https://cache.nixos.org/"
       ];
       extra-substituters = [
         "https://nix-community.cachix.org"
