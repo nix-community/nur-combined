@@ -6,15 +6,16 @@
   pkg-config,
   stdenv,
   zlib,
+  writeScript,
 }:
 stdenv.mkDerivation {
   pname = "chawan";
-  version = "unstable-2023-10-15";
+  version = "unstable-2023-10-25";
   src = fetchFromSourcehut {
     owner = "~bptato";
     repo = "chawan";
-    rev = "ab6dad2bcc77450e3ded9f5b303662aae978c4e4";
-    hash = "sha256-L1L4eHqSwQFoM+Md1Qi8e/fzfEIqg1O6cSLDJPxzHIc=";
+    rev = "e3485c011873797297177cf2ff49b9d791c9187e";
+    hash = "sha256-ojMwbp9FXfH3mH2l/+WXjlwzoFvOHBgA86M0fN2L4Wk=";
     domain = "sr.ht";
     fetchSubmodules = true;
   };
@@ -30,7 +31,7 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     runHook preBuild
-    make -j"''${NIX_BUILD_CORES}" release
+    make -j"$NIX_BUILD_CORES" release
     runHook postBuild
   '';
 
@@ -38,6 +39,23 @@ stdenv.mkDerivation {
     "prefix=${placeholder "out"}"
     "manprefix=${placeholder "out"}/share/man"
   ];
+
+  passthru.updateScript = writeScript "update-chawan" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p nix-prefetch-git jq common-updater-scripts coreutils
+
+    set -euo pipefail
+
+    info="$(
+    	nix-prefetch-git --fetch-submodules --no-deepClone --branch-name master https://git.sr.ht/~bptato/chawan |
+    		jq -r '(."date" | split("T"))[0], ."hash", ."rev"' |
+    		tr '\n' ' '
+    )"
+
+    read -r date hash rev <<<$info
+
+    update-source-version chawan "unstable-$date" "$hash" --rev="$rev"
+  '';
 
   meta = with lib; {
     description = "A text-mode web browser";
