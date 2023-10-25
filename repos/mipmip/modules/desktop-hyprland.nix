@@ -2,8 +2,6 @@
 
 {
 
-
-
   #fonts.enableDefaultFonts = mkDefault true;
   hardware.opengl.enable = true;
 

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixpkgsinkscape13, ... }:
+{ config, lib, pkgs, nixpkgs-inkscape13, ... }:
 
 {
 
@@ -11,8 +11,8 @@
     paperwork # could replace papermerge
 
     gimp
-    nixpkgsinkscape13.inkscape-with-extensions
-    #nixpkgsinkscape13.inkscape
+    nixpkgs-inkscape13.inkscape-with-extensions
+    #nixpkgs-inkscape13.inkscape
     feh
     swappy
 

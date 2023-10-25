@@ -6,14 +6,11 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
 
       ../../modules/base-common.nix
-      ../../modules/base-docker.nix
       ../../modules/base-git.nix
-      ../../modules/base-modern-unix.nix
-      ../../modules/base-tmux.nix
       ../../modules/base-vim.nix
 
       ../../modules/desktop-firefox.nix
@@ -25,6 +22,8 @@
       ../../modules/nix-home-manager-global.nix
       ../../modules/nix-utils.nix
       ../../modules/nur-my-pkgs.nix
+
+      ../../modules/nix-vm-test.nix
     ];
 
   nix = {
@@ -39,18 +38,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.kernelPackages = unstable.linuxPackages_latest;
-  networking.hostName = "lego1";
-
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
-  # Enable swap on luks
-  boot.initrd.luks.devices."luks-57e3184e-15a9-4b84-9de7-ccf0fdb877eb".device = "/dev/disk/by-uuid/57e3184e-15a9-4b84-9de7-ccf0fdb877eb";
-  boot.initrd.luks.devices."luks-57e3184e-15a9-4b84-9de7-ccf0fdb877eb".keyFile = "/crypto_keyfile.bin";
+  networking.hostName = "grannyos";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -58,5 +46,12 @@
   networking.firewall.enable = false;
 
   system.stateVersion = "22.11"; # Did you read the comment?
+
+  virtualisation.vmVariant = {
+    virtualisation = {
+      memorySize =  2048; # Use 2048MiB memory.
+      cores = 3;
+    };
+  };
 
 }

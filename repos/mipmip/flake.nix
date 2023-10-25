@@ -1,23 +1,39 @@
 {
   inputs = {
 
-    utils.url = "github:numtide/flake-utils";
-
-    #nixpkgs-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
+    ## MAIN NIXPKGS
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    #nixpkgs-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nixpkgs-gnome-45.url = "github:NixOS/nixpkgs?ref=gnome";
+
+    nixpkgs-inkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
+
+    ## HOME MANAGER
     home-manager.url = "github:nix-community/home-manager/release-22.11";
-    #home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixpkgsinkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
+    #home-manager-main.url = "github:nix-community/home-manager";
 
+    ## OTHER
     agenix.url = "github:ryantm/agenix";
+    utils.url = "github:numtide/flake-utils";
+
+    nixified-ai = { url = "github:nixified-ai/flake"; };
+
   };
 
-  outputs = { self, home-manager, nixpkgs, unstable, nixpkgsinkscape13, utils, agenix }:
+  outputs = {
+    self,
+    home-manager,
+    nixpkgs,
+    unstable,
+    nixpkgs-inkscape13,
+    nixpkgs-gnome-45,
+    utils,
+    agenix,
+    nixified-ai
+  }:
 
   let
     localOverlay = prev: final: {
@@ -32,7 +48,7 @@
       config.allowUnfree = true;
     };
 
-    nixpkgsinkscape13ForSystem = system: import nixpkgsinkscape13 {
+    nixpkgs-inkscape13ForSystem = system: import nixpkgs-inkscape13 {
       overlays = [
         localOverlay
       ];
@@ -47,6 +63,16 @@
 
       inherit system;
       config.allowUnfree = true;
+    };
+    gnome45ForSystem = system: import nixpkgs-gnome-45 {
+      overlays = [
+        localOverlay
+      ];
+
+      inherit system;
+      config.allowUnfree = true;
+      config.allowUnsupportedSystem = true;
+      config.allowBroken = true;
     };
 
   in utils.lib.eachSystem [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ] (system: rec {
@@ -136,7 +162,7 @@
           system = "x86_64-linux";
           defaults = { pkgs, ... }: {
             _module.args.unstable = unstableForSystem "x86_64-linux";
-            _module.args.nixpkgsinkscape13 = nixpkgsinkscape13ForSystem "x86_64-linux";
+            _module.args.nixpkgs-inkscape13 = nixpkgs-inkscape13ForSystem "x86_64-linux";
           };
         in [
           defaults
@@ -147,6 +173,26 @@
           {
             home-manager.useGlobalPkgs = true;
           }
+
+#          {
+#              imports = [
+#                nixified-ai.nixosModules.invokeai
+#              ];
+#
+#              environment.systemPackages = [
+#                nixified-ai.packages.${system}.invokeai-nvidia
+#              ];
+#
+#  #            services.invokeai = {
+#  #              enable = false;
+#  #              host = "0.0.0.0";
+#  #              nsfwChecker = false;
+#  #              package = nixified-ai.packages.${system}.invokeai-nvidia;
+#  #            };
+#
+#            }
+
+
       ];
     };
 
@@ -157,13 +203,14 @@
           system = "x86_64-linux";
           defaults = { pkgs, ... }: {
             _module.args.unstable = unstableForSystem "x86_64-linux";
-            _module.args.nixpkgsinkscape13 = nixpkgsinkscape13ForSystem "x86_64-linux";
+            _module.args.nixpkgs-inkscape13 = nixpkgs-inkscape13ForSystem "x86_64-linux";
           };
         in [
           defaults
           ./hosts/lego1/configuration.nix
           { environment.systemPackages = [ agenix.packages."${system}".default ]; }
           agenix.nixosModules.default
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -178,17 +225,58 @@
           system = "x86_64-linux";
           defaults = { pkgs, ... }: {
             _module.args.unstable = unstableForSystem "x86_64-linux";
-            _module.args.nixpkgsinkscape13 = nixpkgsinkscape13ForSystem "x86_64-linux";
+            _module.args.nixpkgs-inkscape13 = nixpkgs-inkscape13ForSystem "x86_64-linux";
           };
         in [
           defaults
           ./hosts/ojs/configuration.nix
+
           { environment.systemPackages = [ agenix.packages."${system}".default ]; }
           agenix.nixosModules.default
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
           }
+      ];
+    };
+
+    nixosConfigurations.grannyos = nixpkgs.lib.nixosSystem {
+
+      modules =
+        let
+          system = "x86_64-linux";
+          defaults = { pkgs, ... }: {
+            _module.args.unstable = unstableForSystem "x86_64-linux";
+          };
+        in [
+          defaults
+          ./hosts/grannyos/configuration.nix
+
+          { environment.systemPackages = [ agenix.packages."${system}".default ]; }
+          agenix.nixosModules.default
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+          }
+      ];
+    };
+
+    nixosConfigurations.gnome-45 = nixpkgs-gnome-45.lib.nixosSystem {
+
+      pkgs = gnome45ForSystem "x86_64-linux";
+      modules =
+        let
+          system = "x86_64-linux";
+          defaults = { gnome45ForSystem, ... }: {
+            _module.args.unstable = unstableForSystem "x86_64-linux";
+          };
+        in [
+          defaults
+          ./hosts/gnome-45/configuration.nix
+
+
       ];
     };
 
