@@ -90,3 +90,5 @@ Script for exporting TBC files to video.
 
 # [tzpfms](https://git.sr.ht/~nabijaczleweli/tzpfms)
 TPM-based encryption keys for ZFS datasets.
+
+(currently disabled until zfs 2.2 supported)
