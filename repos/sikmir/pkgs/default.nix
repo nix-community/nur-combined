@@ -324,8 +324,8 @@ lib.makeScope newScope (
     ascii-dash = callPackage ./misc/ascii-dash { };
     bash-completor = callPackage ./misc/bash-completor { };
     btpd = callPackage ./misc/btpd { };
-    bwh = callPackage ./misc/bwh {
-      inherit (darwin.apple_sdk.frameworks) AppKit;
+    bwh = darwin.apple_sdk_11_0.callPackage ./misc/bwh {
+      inherit (darwin.apple_sdk_11_0.frameworks) AppKit;
     };
     cadzinho = callPackage ./misc/cadzinho {
       lua = pkgs.lua5_4;

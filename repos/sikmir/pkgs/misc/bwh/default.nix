@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitea, cmake, pkg-config, SDL2, the-foundation, AppKit }:
+{ lib, stdenv, fetchFromGitea, cmake, pkg-config, makeWrapper, SDL2, the-foundation, AppKit }:
 
 stdenv.mkDerivation rec {
   pname = "bwh";
@@ -12,13 +12,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-POKjvUGFS3urc1aqOvfCAApUnRxoZhU725eYRAS4Z2w=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
 
   buildInputs = [ SDL2 the-foundation ] ++ lib.optional stdenv.isDarwin AppKit;
 
-  #cmakeFlags = [
-  #  (lib.cmakeFeature "the_Foundation_DIR" "${the-foundation}/lib/cmake/the_Foundation")
-  #];
+  installPhase = lib.optionalString stdenv.isDarwin ''
+    mkdir -p $out/{Applications,bin}
+    mv *.app $out/Applications
+    makeWrapper $out/{Applications/Bitwise\ Harmony.app/Contents/MacOS/Bitwise\ Harmony,bin/bitwise-harmony}
+  '';
 
   meta = with lib; {
     description = "Bitwise Harmony - simple synth tracker";
@@ -26,6 +28,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # AppKit 10.15 required
+    mainProgram = "bitwise-harmony";
   };
 }
