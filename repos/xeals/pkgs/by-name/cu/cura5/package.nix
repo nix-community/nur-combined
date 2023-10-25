@@ -9,14 +9,14 @@
 
 let
   pname = "cura5";
-  version = "5.4.0";
+  version = "5.5.0";
   name = "${pname}-${version}";
 
   cura5 = appimageTools.wrapType2 {
     inherit pname version;
     src = fetchurl {
-      url = "https://github.com/Ultimaker/Cura/releases/download/${version}/Ultimaker-Cura-${version}-linux-modern.AppImage";
-      hash = "sha256-QVv7Wkfo082PH6n6rpsB79st2xK2+Np9ivBg/PYZd74=";
+      url = "https://github.com/Ultimaker/Cura/releases/download/${version}/Ultimaker-Cura-${version}-linux-X64.AppImage";
+      hash = "sha256-EG5LMiDFUSXFbtRhd15egPkbp12kEp2TdUdLssSy7Jg=";
     };
     extraPkgs = _: [ ];
   };

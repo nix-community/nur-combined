@@ -50,8 +50,6 @@
 
           apps = {
             alacritty = mkApp { drv = pkgs.alacritty-ligatures; exePath = "/bin/alacritty"; };
-            protonmail-bridge = mkApp { drv = pkgs.protonmail-bridge; };
-            protonmail-bridge-headless = mkApp { drv = pkgs.protonmail-bridge; };
             psst-cli = mkApp { drv = pkgs.psst; exePath = "/bin/psst-cli"; };
             psst-gui = mkApp { drv = pkgs.psst; exePath = "/bin/psst-gui"; };
             samrewritten = mkApp { drv = pkgs.samrewritten; };
