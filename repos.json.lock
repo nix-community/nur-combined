@@ -271,6 +271,11 @@
             "sha256": "1mjq6mgskzsqza0x1y0jf4d310f78h5kgyp3dv9s8gnr2lp1blsd",
             "url": "https://github.com/clefru/nur-packages"
         },
+        "colinsane": {
+            "rev": "8f5f3933c17b60b56e306c3ebad3a973b1f55654",
+            "sha256": "1n7jm4d8k6v0liwjwj56xpry1ajh4fwl0w7kkwjg7349cfmmnl00",
+            "url": "https://git.uninsane.org/colin/nix-files"
+        },
         "congee": {
             "rev": "c08b457d3cbb3518a3ddb71316b5a4b9096315ef",
             "sha256": "14ang5icgs1pnq69d83n8ascqa4czdz1dqa52f34cpldpqnxqffi",
@@ -643,8 +648,8 @@
             "url": "https://github.com/jbarthelmes/nur-packages"
         },
         "jitterbug": {
-            "rev": "c9ecc384b2ccbd0eab9b46be51f8a094e9930634",
-            "sha256": "1n5dp7zriyipgijw98bn1r1xi59dsh4m6s9dkm5mak87lix977n3",
+            "rev": "daadbcea9a18ea29ca1b20695727fb1689a815ba",
+            "sha256": "1mr6bnkspgz8kyc79m67z9vbjijlbxv83cbwnmykpgvb475afcb9",
             "url": "https://github.com/JuniorIsAJitterbug/nur-packages"
         },
         "jj": {
