@@ -216,22 +216,22 @@
         sha512 = "PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==";
       };
     };
-    "defu-6.1.2" = {
+    "defu-6.1.3" = {
       name = "defu";
       packageName = "defu";
-      version = "6.1.2";
+      version = "6.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/defu/-/defu-6.1.2.tgz";
-        sha512 = "+uO4+qr7msjNNWKYPHqN/3+Dx3NFkmIzayk2L1MyZQlvgZb/J1A0fo410dpKrN2SnqFjt8n4JL8fDJE0wIgjFQ==";
+        url = "https://registry.npmjs.org/defu/-/defu-6.1.3.tgz";
+        sha512 = "Vy2wmG3NTkmHNg/kzpuvHhkqeIx3ODWqasgCRbKtbXEN0G+HpEEv9BtJLp7ZG1CZloFaC41Ah3ZFbq7aqCqMeQ==";
       };
     };
-    "destr-2.0.1" = {
+    "destr-2.0.2" = {
       name = "destr";
       packageName = "destr";
-      version = "2.0.1";
+      version = "2.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/destr/-/destr-2.0.1.tgz";
-        sha512 = "M1Ob1zPSIvlARiJUkKqvAZ3VAqQY6Jcuth/pBKQ2b1dX/Qx0OnJ8Vux6J2H5PTMQeRzWrrbTu70VxBfv/OPDJA==";
+        url = "https://registry.npmjs.org/destr/-/destr-2.0.2.tgz";
+        sha512 = "65AlobnZMiCET00KaFFjUefxDX0khFA/E4myqZ7a6Sq1yZtR8+FVIvilVX66vF2uobSumxooYZChiRPCKNqhmg==";
       };
     };
     "dotenv-16.3.1" = {
@@ -919,8 +919,8 @@ in {
       sources."colorette-2.0.20"
       sources."cross-spawn-7.0.3"
       sources."debug-4.3.4"
-      sources."defu-6.1.2"
-      sources."destr-2.0.1"
+      sources."defu-6.1.3"
+      sources."destr-2.0.2"
       sources."dotenv-16.3.1"
       sources."emmet-2.4.6"
       sources."fast-glob-3.3.1"
