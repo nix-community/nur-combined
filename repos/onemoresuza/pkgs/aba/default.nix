@@ -38,7 +38,7 @@ in
       description = "An address book for aerc";
       homepage = "https://sr.ht/~onemoresuza/aba/";
       changelog = "https://git.sr.ht/~onemoresuza/aba/tree/main/item/CHANGELOG.md";
-      license = lib.licenses.mit;
+      license = lib.licenses.isc;
       platform = lib.platforms.unix;
       mainProgram = "aba";
     };
