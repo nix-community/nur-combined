@@ -41,56 +41,22 @@
         pkgs = channels.nixpkgs;
         inherit (pkgs) system;
 
-        isDerivation = p: lib.isAttrs p && p ? type && p.type == "derivation";
-        isIndependentDerivation = p: isDerivation p && p.name != "merged-packages";
-        isHiddenName = n: lib.hasPrefix "_" n || n == "stdenv";
-        isTargetPlatform = p: lib.elem system (p.meta.platforms or [system]);
+        flattenPkgs = pkgs.callPackage ./helpers/flatten-pkgs.nix {};
         isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
-        shouldRecurseForDerivations = p: lib.isAttrs p && p.recurseForDerivations or false;
-
-        flattenPkgs = prefix: s:
-          builtins.filter ({
-            name ? null,
-            value ? null,
-          }:
-            name != null && value != null) (lib.flatten
-            (lib.mapAttrsToList
-              (n: p: let
-                path =
-                  if prefix != ""
-                  then "${prefix}-${n}"
-                  else n;
-              in
-                if isHiddenName n
-                then []
-                else if !(builtins.tryEval p).success
-                then []
-                else if shouldRecurseForDerivations p
-                then flattenPkgs path p
-                else if isIndependentDerivation p && isTargetPlatform p && isBuildable p
-                then [
-                  {
-                    name = path;
-                    value = p;
-                  }
-                ]
-                else [])
-              s));
-
         outputsOf = p: map (o: p.${o}) p.outputs;
       in rec {
         packages = import ./pkgs null {
           inherit inputs pkgs;
         };
+        packageNames = lib.mapAttrsToList (k: v: k) (flattenPkgs packages);
 
         ciPackages =
-          builtins.listToAttrs
-          (flattenPkgs ""
-            (import ./pkgs "ci" {
-              inherit inputs pkgs;
-            }));
-
-        ciExports = lib.mapAttrsToList (_: outputsOf) ciPackages;
+          flattenPkgs
+          (import ./pkgs "ci" {
+            inherit inputs pkgs;
+          });
+        ciPackageNames = lib.mapAttrsToList (k: v: k) ciPackages;
+        ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackages);
 
         formatter = pkgs.alejandra;
 
