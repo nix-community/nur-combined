@@ -1466,10 +1466,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.2.23";
+      version = "1.2.24";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4185105/dearrow-1.2.23.xpi";
-      sha256 = "df0c45e318eb2f7ad3cebe7653258bbcc64f7bdc913f9419a0d6ddaf3dbf3f43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4185613/dearrow-1.2.24.xpi";
+      sha256 = "4db660b0244d0701c151c39482c8403a7da158362bc3ab59cb884739e5c6f3df";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -4057,10 +4057,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.355";
+      version = "4.400";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4182523/youtube_addon-4.355.xpi";
-      sha256 = "13bdb4123c3286a7c9e25d49a452a4e9d8d4fecf3b92dc271c05cf681eff727c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4184096/youtube_addon-4.400.xpi";
+      sha256 = "fe30bd0494a0074a6aebb83a588216f336e23eb888e580585fb3bea97cb48e69";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4621,10 +4621,10 @@
       };
     "link-gopher" = buildFirefoxXpiAddon {
       pname = "link-gopher";
-      version = "2.5.0";
+      version = "2.6.2";
       addonId = "linkgopher@oooninja.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4173947/link_gopher-2.5.0.xpi";
-      sha256 = "4cfd8907758e749a9f7afb68c65a2373a3dc018228c55c8d1cb5b2200d2aa8a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183832/link_gopher-2.6.2.xpi";
+      sha256 = "66f9bb417854da5bc1d0174aa3bb81ecff61c11b043f54af17ad99e8d40ab969";
       meta = with lib;
       {
         homepage = "http://sites.google.com/site/linkgopher/";
@@ -6324,10 +6324,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.8.0";
+      version = "1.8.3";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178908/proton_pass-1.8.0.xpi";
-      sha256 = "0d820bc141106bf41fc3e3e2db99073e862877052c34556f4b60e9f1d8c77e22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4185399/proton_pass-1.8.3.xpi";
+      sha256 = "21a25343f0ac7afa2de563057fd2430afa92779d7b9fa521baa13646097141b1";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -6965,10 +6965,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.10";
+      version = "1.22.11";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4182192/single_file-1.22.10.xpi";
-      sha256 = "28f94520f7e91703de324b7672ad1a2f27b830b487b3b40df84ccb39601b23f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183414/single_file-1.22.11.xpi";
+      sha256 = "3db6481e1e2ffa01a1857f28a253f4f80bc45078e86bc2f4c327af22b963505b";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
