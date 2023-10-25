@@ -40,8 +40,8 @@
       outputsBuilder = channels: let
         pkgs = channels.nixpkgs;
         inherit (pkgs) system;
+        inherit (pkgs.callPackage ./helpers/flatten-pkgs.nix {}) flattenPkgs;
 
-        flattenPkgs = pkgs.callPackage ./helpers/flatten-pkgs.nix {};
         isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
         outputsOf = p: map (o: p.${o}) p.outputs;
       in rec {

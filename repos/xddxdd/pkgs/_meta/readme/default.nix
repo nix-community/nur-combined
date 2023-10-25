@@ -1,5 +1,6 @@
 {
   writeTextFile,
+  callPackage,
   lib,
   _meta,
   newScope,
@@ -17,37 +18,13 @@
       "packages"
     ];
 
-  isIndependentDerivation = p: lib.isDerivation p && p.name != "merged-packages";
-  isHiddenName = n: lib.hasPrefix "_" n || n == "stdenv";
-
-  shouldRecurseForDerivations = p: lib.isAttrs p && p.recurseForDerivations or false;
-
-  packageTraverse = prefix: packageSet:
-    lib.mapAttrsToList
-    (n: v: let
-      path =
-        if prefix != ""
-        then "${prefix}.${n}"
-        else n;
-    in
-      if isHiddenName n
-      then []
-      else if !(builtins.tryEval v).success
-      then []
-      else if shouldRecurseForDerivations v
-      then packageTraverse path v
-      else if isIndependentDerivation v
-      then {
-        inherit path;
-        pname = v.pname or v.name or n;
-        version = v.version or "";
-        description = v.meta.description or "";
-        broken = v.meta.broken or false;
-        platforms = v.meta.platforms or [];
-        url = v.meta.homepage or null;
-      }
-      else [])
-    packageSet;
+  inherit
+    (callPackage ../../../helpers/flatten-pkgs.nix {})
+    isIndependentDerivation
+    isHiddenName
+    shouldRecurseForDerivations
+    flattenPkgs'
+    ;
 
   packageSets =
     lib.filterAttrs
@@ -70,7 +47,15 @@
       then "[${v.pname}](${v.url})"
       else v.pname
     } | ${v.version} | ${v.description} |")
-    (lib.flatten (packageTraverse prefix ps));
+    (lib.mapAttrsToList (n: v: {
+      path = n;
+      pname = v.pname or v.name or n;
+      version = v.version or "";
+      description = v.meta.description or "";
+      broken = v.meta.broken or false;
+      platforms = v.meta.platforms or [];
+      url = v.meta.homepage or null;
+    }) (flattenPkgs' prefix "." ps));
 
   packageSetOutput = name: path: v: let
     list = packageList path v;
