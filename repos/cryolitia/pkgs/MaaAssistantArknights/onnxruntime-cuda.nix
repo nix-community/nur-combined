@@ -44,7 +44,6 @@ in (onnxruntime.override {
     "-Donnxruntime_USE_NCCL=ON"
     "-DBUILD_TESTING=OFF"
     "-Donnxruntime_BUILD_UNIT_TESTS=OFF"
-    "-DBUILD_SHARED_LIBS=ON"
   ];
 
   patches = [
