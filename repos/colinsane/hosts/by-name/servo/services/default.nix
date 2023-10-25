@@ -2,6 +2,7 @@
 {
   imports = [
     ./calibre.nix
+    ./coturn.nix
     ./ddns-afraid.nix
     ./ddns-he.nix
     ./email
@@ -20,11 +21,11 @@
     ./navidrome.nix
     ./nginx.nix
     ./nixserve.nix
-    ./ntfy.nix
+    ./ntfy
     ./pict-rs.nix
     ./pleroma.nix
     ./postgres.nix
-    ./prosody.nix
+    ./prosody
     ./transmission.nix
     ./trust-dns.nix
     ./wikipedia.nix

@@ -17,13 +17,6 @@ let
         type = types.bool;
         default = false;
       };
-      visibleTo.ovpn = mkOption {
-        type = types.bool;
-        default = false;
-        # XXX: behaves more or less the same as `lan` visibility.
-        # OVPN passes everything by default.
-        # TODO: have *this* drive what we forward from wireguard namespace to main namespace
-      };
       description = mkOption {
         type = types.str;
         default = "colin-${config.net.hostName}";
@@ -38,7 +31,7 @@ let
   # gives networking.firewall value for a given "${port}" = portCfg.
   firewallConfigForPort = port: portCfg:
     # any form of visibility means we need to open the firewall
-    lib.mkIf (portCfg.visibleTo.lan || portCfg.visibleTo.wan || portCfg.visibleTo.ovpn) {
+    lib.mkIf (lib.foldlAttrs (acc: _: vis: acc || vis) false portCfg.visibleTo) {
       allowedTCPPorts = lib.optional (lib.elem "tcp" portCfg.protocol) (lib.toInt port);
       allowedUDPPorts = lib.optional (lib.elem "udp" portCfg.protocol) (lib.toInt port);
     };
@@ -57,10 +50,7 @@ let
           ExecStart =
           let
             portFwd = "${pkgs.sane-scripts.ip-port-forward}/bin/sane-ip-port-forward";
-            forwards = lib.flatten [
-              (lib.optional (lib.elem "udp" portCfg.protocol) "udp:${port}:${portCfg.description}")
-              (lib.optional (lib.elem "tcp" portCfg.protocol) "tcp:${port}:${portCfg.description}")
-            ];
+            forwards = builtins.map (proto: "${proto}:${port}:${portCfg.description}") portCfg.protocol;
           in ''
             ${portFwd} -v -d ${builtins.toString cfg.upnpLeaseDuration} \
               ${lib.escapeShellArgs forwards}

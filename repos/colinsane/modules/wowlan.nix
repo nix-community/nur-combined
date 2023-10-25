@@ -27,6 +27,8 @@
 #     - CONFIG_SUSPEND_TYPE = 0  (i think this is correct)
 #     - CONFIG_LPS_MODE = 1  (setting to 0 would disable LPS)
 #   - maybe ARP gets disabled as part of the power saving features (iw phy ... power-save; CONFIG_POWER_SAVING=y)?
+#   - driver code hints that some things like wake on arp are conditional on the state of AP association at the `wowlan enable` call.
+#     so maybe it's proper to call `iw wowlan enable` immediately before *every* suspend instead of just once at boot
 # - packet matching happens below the OS, so it's not generic over virtual network devices like tunnels.
 #   Wake On Lan with a VPN effectively requires that you wake on *every* packet routed via that VPN
 #   since the meaning within any packet isn't obvious to the chipset.
@@ -44,6 +46,7 @@
 #   wpa_supplicant: wlan0: CTRL-EVENT-CONNECTED - Connection to xx:xx:xx:xx:xx:xx completed [id=0 id_str=]
 #   ```
 #   - observed after a suspension of 67 minutes.
+#   - but also observed after a suspension of just 5 minutes.
 #   - WiFi chip *should* have a way to wake on connection state change, i just need to enable it?
 #     - `iw phy phy0 wowlan enable disconnect` => Invalid argument (-22)
 #     - `iw phy0 wowlan enable net-detect ...` (from man example) => Operation not supported (-95)
@@ -53,6 +56,29 @@
 #       - CONFIG_ROAMING_FLAG = 0x3
 # - may fail to wake on LAN, even without any signature like the above
 #   - observed after a suspension of 10 minutes, trying to contact from laptop (laptop would have previously not contacted moby)
+#   - in many cases the wake reason is still 0x23, even as it sleeps for the whole alloted 300s.
+#     - then it's likely a race condition with the WiFi chip raising the wake signal *as* the CPU is falling asleep, and the CPU misses it.
+#     - this is testable: phone would wake 100% if all networked services are disabled (so it's not receiving packets near the time it enters sleep)
+#     - TODO: change the wake event from edge-triggered to level-triggered.
+# - may disassociate from WiFi and *refuse to reassociate even via nmtui, restarting NetworkManager/wpa_supplicant/polkit*
+#   - solution is `modprobe -r 8723cs && modprobe 8723cs`, then way a couple minutes.
+#   - possible this only happens when the driver is compiled with CONFIG_GTK_OL (or CONFIG_ARP_KEEP_ALIVE).
+#   - signature:
+#     - `Oct 10 14:42:40 moby sxmo_autosuspend-start[1312366]: DEBUG:__main__:invoking: iwpriv wlan0 wow_set_pattern pattern=-:-:-:-:-:-:-:-:-:-:-:-:08:00:-:-:-:-:-:-:-:-:-:06:-:-:-:-:-:-:-:-:-:-:-:-:00:16`
+#     - `Oct 10 14:42:40 moby kernel: [Warning] Error C2H ID=128, len=126`
+#     - `Oct 10 14:42:55 moby NetworkManager[2750]: <warn>  [1696948975.4162] device (wlan0): link timed out.`
+#     - `Oct 10 14:42:55 moby NetworkManager[2750]: <warn>  [1696948975.4749] device (wlan0): Activation: failed for connection 'xx'`
+#     - `Oct 10 14:42:59 moby wpa_supplicant[2845]: wlan0: CTRL-EVENT-STARTED-CHANNEL-SWITCH freq=2437 ht_enabled=1 ch_offset=0 ch_width=20 MHz cf1=2437 cf2=0`
+#     - `Oct 10 14:43:00 moby wpa_supplicant[2845]: wlan0: CTRL-EVENT-ASSOC-REJECT status_code=1`
+#     - `Oct 10 14:43:00 moby wpa_supplicant[2845]: wlan0: CTRL-EVENT-SSID-TEMP-DISABLED id=0 ssid="xx" auth_failures=1 duration=10 reason=CONN_FAILED`
+#     - `Oct 10 14:43:00 moby wpa_supplicant[2845]: wlan0: CTRL-EVENT-REGDOM-CHANGE init=CORE type=WORLD`
+#     - (then wpa_supplicant tries again)
+#     - `Oct 10 14:43:24 moby NetworkManager[2750]: <warn>  [1696949004.4165] device (wlan0): Activation: (wifi) association took too long`
+#     - `Oct 10 14:43:24 moby NetworkManager[2750]: <warn>  [1696949004.4201] device (wlan0): Activation: (wifi) asking for new secrets`
+#     - (above wpa_supplicant entries and these last two NM entries then repeat multiple times per minute, until driver reprobe)
+#
+# TODO: remove this file
+# it's been obsoleted by hosts/modules/gui/sxmo/hooks/sxmo_suspend.sh
 
 
 { config, lib, pkgs, ... }:
@@ -60,7 +86,7 @@ let
   cfg = config.sane.wowlan;
   patternOpts = with lib; types.submodule {
     options = {
-      ipv4.destPort = mkOption {
+      tcp.destPort = mkOption {
         type = types.nullOr types.port;
         default = null;
         description = ''
@@ -69,7 +95,7 @@ let
           (e.g. this machine made a long-running HTTP request, and the other side finally has data for us).
         '';
       };
-      ipv4.srcPort = mkOption {
+      tcp.sourcePort = mkOption {
         type = types.nullOr types.port;
         default = null;
         description = ''
@@ -78,115 +104,16 @@ let
           (e.g. sshing *into* this machine).
         '';
       };
-      arp.queryIp = mkOption {
-        type = types.nullOr (types.listOf types.int);
+      arp.destIp = mkOption {
+        type = types.nullOr types.str;
         default = null;
         description = ''
           IP address being queried.
-          e.g. `[ 192 168 0 100 ]`
+          e.g. `"192.168.0.100"`
         '';
       };
     };
   };
-  # bytesToStr: [ u8|null ] -> String
-  #             format an array of octets into a pattern recognizable by iwpriv.
-  #             a null byte means "don't care" at its position.
-  bytesToStr = bytes: lib.concatStringsSep ":" (
-    builtins.map
-      (b: if b == null then "-" else hexByte b)
-      bytes
-  );
-  # format a byte as hex, with leading zero to force a width of two characters.
-  # the wlan driver doesn't parse single-character hex bytes.
-  hexByte = b: if b < 16 then
-    "0" + (lib.toHexString b)
-  else
-    lib.toHexString b;
-
-  etherTypes.ipv4 = [ 08 00 ];  # 0x0800 = IPv4
-  etherTypes.arp = [ 08 06 ];  # 0x0806 = ARP
-  formatEthernetFrame = ethertype: dataBytes: let
-    bytes = [
-      # ethernet frame: <https://en.wikipedia.org/wiki/Ethernet_frame#Structure>
-      ## dest MAC address (this should be the device's MAC, but i think that's implied?)
-      null null null null null null
-      ## src MAC address
-      null null null null null null
-      ## ethertype: <https://en.wikipedia.org/wiki/EtherType#Values>
-    ] ++ etherTypes."${ethertype}"
-      ++ dataBytes;
-  in bytesToStr bytes;
-
-  formatArpPattern = pat:
-    formatEthernetFrame "arp" ([
-      # ARP frame: <https://en.wikipedia.org/wiki/Address_Resolution_Protocol#Packet_structure>
-      ## hardware type
-      null null
-      ## protocol type. same coding as EtherType
-      08 00  # 0x0800 = IPv4
-      ## hardware address length (i.e. MAC)
-      06
-      ## protocol address length (i.e. IP address)
-      04
-      ## operation
-      00 01  # 0x0001 = request
-      ## sender hardware address
-      null null null null null null
-      ## sender protocol address
-      null null null null
-      ## target hardware address
-      ## this is left as "Don't Care" because the packets we want to match
-      ## are those mapping protocol addr -> hw addr.
-      ## sometimes clients do include this field if they've seen the address before though
-      null null null null null null
-      ## target protocol address
-    ] ++ pat.queryIp);
-
-  # formatIpv4Pattern: patternOpts.ipv4 -> String
-  # produces a string like this (example matches source port=0x0a1b):
-  # "-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:-:0a:1b:-:-"
-  formatIpv4Pattern = pat: let
-    destPortBytes = if pat.destPort != null then {
-      high = pat.destPort / 256;
-      low = lib.mod pat.destPort 256;
-    } else {
-      high = null; low = null;
-    };
-    srcPortBytes = if pat.srcPort != null then {
-      high = pat.srcPort / 256;
-      low = lib.mod pat.srcPort 256;
-    } else {
-      high = null; low = null;
-    };
-  in
-    formatEthernetFrame "ipv4" [
-      # IP frame: <https://en.wikipedia.org/wiki/Internet_Protocol_version_4#Header>
-      ## Version, Internet Header Length. 0x45 = 69 decimal
-      null  # should be 69 (0x45), but fails to wake if i include this
-      ## Differentiated Services Code Point (DSCP), Explicit Congestion Notification (ECN)
-      null
-      ## total length
-      null null
-      ## identification
-      null null
-      ## flags, fragment offset
-      null null
-      ## Time-to-live
-      null
-      ## protocol: <https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers>
-      6  # 6 = TCP
-      ## header checksum
-      null null
-      ## source IP addr
-      null null null null
-      ## dest IP addr
-      null null null null
-
-      # TCP frame: <https://en.wikipedia.org/wiki/Transmission_Control_Protocol#TCP_segment_structure>
-      srcPortBytes.high srcPortBytes.low
-      destPortBytes.high destPortBytes.low
-      ## rest is Don't Care
-    ];
 in
 {
   options = with lib; {
@@ -208,24 +135,33 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.wowlan = {
       description = "configure the WiFi chip to wake the system on specific activity";
-      path = [ pkgs.iw pkgs.wirelesstools ];
+      path = [ pkgs.rtl8723cs-wowlan ];
       script = let
-        extractPatterns = pat: lib.flatten [
-          (lib.optional (pat.ipv4 != { destPort = null; srcPort = null; }) (formatIpv4Pattern pat.ipv4))
-          (lib.optional (pat.arp != { queryIp = null; }) (formatArpPattern pat.arp))
-        ];
-        allPatterns = lib.flatten (builtins.map extractPatterns cfg.patterns);
-        encodePattern = pat: ''
-          iwpriv wlan0 wow_set_pattern pattern=${pat}
-        '';
-        encodedPatterns = lib.concatStringsSep
-          "\n"
-          (builtins.map encodePattern allPatterns);
+        tcpArgs = { destPort, sourcePort }:
+          [ "tcp" ]
+          ++ lib.optionals (destPort != null) [ "--dest-port" (builtins.toString destPort) ]
+          ++ lib.optionals (sourcePort != null) [ "--source-port" (builtins.toString sourcePort) ]
+        ;
+        arpArgs = { destIp }:
+          [ "arp" ]
+          ++ lib.optionals (destIp != null) [ "--dest-ip" (builtins.toString destIp) ]
+        ;
+        maybeCallHelper = maybe: args:
+          lib.optionalString
+            maybe
+            ((lib.escapeShellArgs ([ "rtl8723cs-wowlan" ] ++ args)) + "\n")
+        ;
+        applyPattern = pat:
+          (maybeCallHelper (pat.tcp != { destPort = null; sourcePort = null; }) (tcpArgs pat.tcp))
+          +
+          (maybeCallHelper (pat.arp != { destIp = null; }) (arpArgs pat.arp))
+        ;
+        appliedPatterns = lib.concatStringsSep
+          ""
+          (builtins.map applyPattern cfg.patterns);
       in ''
-        set -x
-        iw phy0 wowlan enable any
-        iwpriv wlan0 wow_set_pattern clean
-        ${encodedPatterns}
+        rtl8723cs-wowlan enable-clean
+        ${appliedPatterns}
       '';
       serviceConfig = {
         # TODO: re-run this periodically, just to be sure?

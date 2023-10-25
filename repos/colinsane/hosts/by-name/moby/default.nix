@@ -23,12 +23,6 @@
   sane.zsh.showDeadlines = false;  # unlikely to act on them when in shell
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."moby".wg-home.ip;
-  sane.wowlan.enable = true;
-  sane.wowlan.patterns = [
-    { ipv4.destPort = 22; }  # wake on SSH
-    { ipv4.srcPort = 2587; }  # wake on `ntfy-sh` push from servo
-    { arp.queryIp = [ 10 78 79 54 ]; }  # wake when somebody is doing an ARP query against us
-  ];
 
   # XXX colin: phosh doesn't work well with passwordless login,
   # so set this more reliable default password should anything go wrong
@@ -42,15 +36,20 @@
   # sane.programs.consoleUtils.enableFor.user.colin = false;
   # sane.programs.guiApps.enableFor.user.colin = false;
   sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile!
+  sane.programs.mercurial.enableFor.user.colin = false;  # does not cross compile
   sane.programs.sequoia.enableFor.user.colin = false;
   sane.programs.tuiApps.enableFor.user.colin = false;  # visidata, others, don't compile well
   # disabled for faster deploys
   sane.programs.soundconverter.enableFor.user.colin = false;
-  sane.programs.eg25-control.enableFor.user.colin = true;
 
-  sane.programs.ntfy-sh.config.autostart = true;
+  # enabled for easier debugging
+  sane.programs.eg25-control.enableFor.user.colin = true;
+  sane.programs.rtl8723cs-wowlan.enableFor.user.colin = true;
+
+  # sane.programs.ntfy-sh.config.autostart = true;
   sane.programs.dino.config.autostart = true;
   # sane.programs.calls.config.autostart = true;
+  sane.programs.mpv.config.vo = "wlshm";  #< see hosts/common/programs/mpv.nix for details
 
   sane.programs.firefox.mime.priority = 300;  # prefer other browsers when possible
   # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`
@@ -85,8 +84,6 @@
     }
   '';
 
-  # sane.programs.mpv.enableFor.user.colin = true;
-
   boot.loader.efi.canTouchEfiVariables = false;
   # /boot space is at a premium. default was 20.
   # even 10 can be too much
@@ -95,16 +92,6 @@
   # mobile.boot.stage-1.enable = false;
   # boot.initrd.systemd.enable = false;
   # boot.initrd.services.swraid.enable = false;  # attempt to fix dm_mod stuff
-  # disable proximity sensor.
-  # the filtering/calibration is bad that it causes the screen to go fully dark at times.
-  boot.blacklistedKernelModules = [ "stk3310" ];
-
-  # without this some GUI apps fail: `DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory`
-  # this is because they can't allocate enough video ram.
-  # the default CMA seems to be 32M.
-  # i was running fine with 256MB from 2022/07-ish through 2022/12-ish, but then the phone quit reliably coming back from sleep: maybe a memory leak?
-  # `cat /proc/meminfo` to see CmaTotal/CmaFree if interested in tuning this.
-  boot.kernelParams = [ "cma=512M" ];
 
   # hardware.firmware makes the referenced files visible to the kernel, for whenever a driver explicitly asks for them.
   # these files are visible from userspace by following `/sys/module/firmware_class/parameters/path`
@@ -115,7 +102,14 @@
   #   ov5640_af.bin   (camera module)
   # hardware.firmware = [ config.mobile.device.firmware ];
   # hardware.firmware = [ pkgs.rtl8723cs-firmware ];
-  hardware.firmware = [ pkgs.linux-firmware-megous ];
+  hardware.firmware = [
+    (pkgs.linux-firmware-megous.override {
+      # rtl_bt = false probably means no bluetooth connectivity.
+      # N.B.: DON'T RE-ENABLE without first confirming that wake-on-lan works during suspend (rtcwake).
+      # it seems the rtl_bt stuff ("bluetooth coexist") might make wake-on-LAN radically more flaky.
+      rtl_bt = false;
+    })
+  ];
 
   system.stateVersion = "21.11";
 
@@ -133,7 +127,12 @@
   # see pkgs/patched/alsa-ucm-conf for more info.
   environment.variables.ALSA_CONFIG_UCM2 = "/run/current-system/sw/share/alsa/ucm2";
   environment.pathsToLink = [ "/share/alsa/ucm2" ];
-  environment.systemPackages = [ pkgs.alsa-ucm-conf-sane ];
+  environment.systemPackages = [
+    (pkgs.alsa-ucm-conf-sane.override {
+      # internal speaker has a tendency to break :(
+      preferEarpiece = true;
+    })
+  ];
   systemd = let
     ucm-env = config.environment.variables.ALSA_CONFIG_UCM2;
   in {

@@ -1,3 +1,18 @@
+# to update:
+# - inside `koreader-base` repo:
+#   - note the git rev as `old-rev`
+#   - `git pull` in koreader-base
+#   - `git diff old-rev.. thirdparty`
+# - update `source.rev` everywhere here that changed upstream
+#   - zero the hashes here and correct them based on build errors
+# - tweak ./vendor-external-projects.patch until it applies
+#   - usually just upstream changed a URL or something minor
+#
+# a full rebuild takes approximately 10 minutes on a mid-range desktop
+#
+# the following build output may look like an error, but is safe to ignore:
+# - "awk: fatal: cannot open file `3.9' for reading: No such file or directory"
+#   - this number comes from the luarocks version
 {
   thirdparty = {
     curl = {
@@ -17,13 +32,13 @@
     };
     fbink = {
       source.url = "https://github.com/NiLuJe/FBInk.git";
-      source.rev = "f562bc15a606524694a6d885bed5d83d03c7eb23";
-      source.hash = "sha256-JlanCl4XQBFnrpRIEsowSeUI7wSa9RoQc5h3pkMHXA8=";
+      source.rev = "ae9dd275de369b1b34e1b566bca29573f06f38a2";
+      source.hash = "sha256-wkyl9xtw9ocjGGArvfGa1qjamwgywPktnZJNfdychB0=";
     };
     freetype2 = {
       source.url = "https://gitlab.com/koreader/freetype2.git";
-      source.rev = "VER-2-13-1";
-      source.hash = "sha256-rQN+hRzrs+KGgp8+n1VJzOOwtKUcRuSE/s/r8/xOUdI=";
+      source.rev = "VER-2-13-2";
+      source.hash = "sha256-yylSmVM3D5xnbFx9qEEHFIP/K0x/WDXZr0MA4C7ng7k=";
     };
     fribidi = {
       source.url = "https://github.com/fribidi/fribidi.git";
@@ -42,13 +57,13 @@
     };
     harfbuzz = {
       source.url = "https://github.com/harfbuzz/harfbuzz.git";
-      source.rev = "8.0.1";
-      source.hash = "sha256-qh04AsZlymNcUtZ3fytA9+Jk5PjPYm8UH75kBqZNsw4=";
+      source.rev = "8.2.1";
+      source.hash = "sha256-1JgOXpObptt/IOkYj3Q9K170Yd5DIoBa20eoqY/iY6M=";
     };
     kobo-usbms = {
       source.url = "https://github.com/koreader/KoboUSBMS.git";
-      source.rev = "tags/v1.3.8";
-      source.hash = "sha256-HZNcjLqkZk2YSnt0ynbUN9grJlBnF0zEwiN7fajNdrg=";
+      source.rev = "3daab316d3aff2b43ced9c0b18e6ecdeec953e4a";
+      source.hash = "sha256-iBbbKCpi0/velkX91Qju0oXLZtRYGesbra1huKnGQFE=";
     };
     leptonica = {
       source.url = "https://github.com/DanBloomberg/leptonica.git";
@@ -77,8 +92,8 @@
     };
     libwebp = {
       source.url = "https://github.com/webmproject/libwebp.git";
-      source.rev = "v1.3.1";
-      source.hash = "sha256-ddDL/nnBikbm6YznlyCcBgmq2Qzo0MjIwMzN4/kzWqk=";
+      source.rev = "v1.3.2";
+      source.hash = "sha256-gfwUlJ44biO1lB/3SKfMkM/YBiYcz6RqeMOw+0o6Z/Q=";
     };
     libzmq = {
       source.url = "https://github.com/zeromq/libzmq";
@@ -103,8 +118,8 @@
     };
     luajit = {
       source.url = "https://github.com/LuaJIT/LuaJIT";
-      source.rev = "8635cbabf3094c4d8bd00578c7d812bea87bb2d3";
-      source.hash = "sha256-pfMNQFulW6AEwAVPxn9wUdbRg3ViHbGVCCke5NSIgTo=";
+      source.rev = "656ecbcf8f669feb94e0d0ec4b4f59190bcd2e48";
+      source.hash = "sha256-KPZ1jaU9qu7CUg2eHxBNu2mrHD54+lNOCQB4sb1DPok=";
     };
     lua-rapidjson = {
       source.url = "https://github.com/xpol/lua-rapidjson";
@@ -170,8 +185,9 @@
     # sdcv = {
     #   # upstream is (temporarily?) acquiring this via `download_project` machinery
     #   source.url = "https://github.com/Dushistov/sdcv.git";
-    #   source.rev = "6e36e7730caf07b6cd0bfa265cdf9b5e31e7acad";
-    #   source.hash = "sha256-pPaT9tB39dd+VyE21KSjMpON99KjOxQ8Hi8+ZgFsuUY=";
+    #   source.rev = "v0.5.5"
+    #   # source.rev = "6e36e7730caf07b6cd0bfa265cdf9b5e31e7acad";
+    #   # source.hash = "sha256-pPaT9tB39dd+VyE21KSjMpON99KjOxQ8Hi8+ZgFsuUY=";
     # };
     tesseract = {
       source.url = "https://github.com/tesseract-ocr/tesseract.git";
@@ -224,23 +240,23 @@
     sdcv = {
       # TODO: if this form of substitution works, i could optionally patch in *all* deps
       # using the `file://@foo@` ExternalProject_Add syntax
-      url = "https://github.com/Dushistov/sdcv/archive/6e36e7730caf07b6cd0bfa265cdf9b5e31e7acad.tar.gz";
-      hash = "sha256-bzCpzassIDY/g7NO71PoWNayLAyEaz1haY9vMFk4hqU=";
+      url = "https://github.com/Dushistov/sdcv/archive/v0.5.5.tar.gz";
+      hash = "sha256-TSUZ6PhHm5MB3JHpzaPh7v7xmXDs4OjAXwx7et5dyUs=";
     };
     sdl2 = {
       url = "https://github.com/libsdl-org/SDL/releases/download/release-2.28.1/SDL2-2.28.1.tar.gz";
       hash = "sha256-SXfOulwAVNvmwvEUZBrO1DzjvytB6mS2o3LWuhKcsV0=";
     };
     sqlite = {
-      url = "https://www.sqlite.org/2023/sqlite-autoconf-3420000.tar.gz";
-      hash = "sha256-erz9FhxuJ0LKXGwIldH4U8lA8gMwSgtJ2k4eyl0IjKY=";
+      url = "https://www.sqlite.org/2023/sqlite-autoconf-3430200.tar.gz";
+      hash = "sha256-bUIrb2LE3iyoDWGGDjo/tpNVTS91uxqsp0PMxNb2CfA=";
     };
     tar = {
       url = "http://ftpmirror.gnu.org/tar/tar-1.34.tar.gz";
       hash = "sha256-A9kIz1doz+a3rViMkhxu0hrKv7K3m3iNEzBFNQdkeu0=";
     };
     zlib = {
-      url = "http://gentoo.osuosl.org/distfiles/zlib-1.2.13.tar.xz";
+      url = "https://github.com/madler/zlib/releases/download/v1.2.13/zlib-1.2.13.tar.xz";
       hash = "sha256-0Uw44xOvw1qah2Da3yYEL1HqD10VSwYwox2gVAEH+5g=";
     };
   };

@@ -56,9 +56,22 @@
       # SXMO_ROTATION_GRAVITY = "12500";    # kinda uncomfortable when walking
       SXMO_ROTATION_GRAVITY = "12000";
       SXMO_SCREENSHOT_DIR = "/home/colin/Pictures";  # default: "$HOME"
-      # test new scales by running `swaymsg -- output DSI-1 scale x.y`
+
+      # sway/wayland scaling:
+      # - conflicting info out there on how scaling actually works
+      #   at the least, for things where it matters (mpv), it seems like scale settings have 0 effect on perf
+      # ways to enforce scaling:
+      # - <https://wiki.archlinux.org/title/HiDPI>
+      # - `swaymsg -- output DSI-1 scale 2.0`  (scales everything)
+      # - `dconf write /org/gnome/desktop/interface/text-scaling-factor 2.0`  (scales ONLY TEXT)
+      # - `GDK_DPI_SCALE=2.0`  (scales ONLY TEXT)
+      #
+      # application notes:
+      # - cozy: in landscape, playback position is not visible unless scale <= 1.7
+      #   - if in a tab, then scale 1.6 is the max
       # SXMO_SWAY_SCALE = "1.5";  # hard to press gPodder icons
-      SXMO_SWAY_SCALE = "1.8";
+      SXMO_SWAY_SCALE = "1.6";
+      # SXMO_SWAY_SCALE = "1.8";
       # SXMO_SWAY_SCALE = "2";
       SXMO_WORKSPACE_WRAPPING = "5";  # how many workspaces. default: 4
 

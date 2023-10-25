@@ -175,5 +175,7 @@ in
   systemd.services.sftpgo.serviceConfig = {
     ReadOnlyPaths = [ "/var/export" ];
     ReadWritePaths = [ "/var/export/playground" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
   };
 }

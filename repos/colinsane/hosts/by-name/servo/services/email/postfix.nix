@@ -28,21 +28,25 @@ in
     # "/var/lib/dovecot"
   ];
 
-  sane.ports.ports."25" = {
-    protocol = [ "tcp" ];
-    visibleTo.ovpn = true;
-    description = "colin-smtp-mx.uninsane.org";
-  };
-  sane.ports.ports."465" = {
-    protocol = [ "tcp" ];
-    visibleTo.ovpn = true;
-    description = "colin-smtps-mx.uninsane.org";
-  };
-  sane.ports.ports."587" = {
-    protocol = [ "tcp" ];
-    visibleTo.ovpn = true;
-    description = "colin-smtps-submission-mx.uninsane.org";
-  };
+  # XXX(2023/10/20): opening these ports in the firewall has the OPPOSITE effect as intended.
+  # these ports are only routable so long as they AREN'T opened.
+  # probably some cursed interaction with network namespaces introduced after 2023/10/10.
+  # sane.ports.ports."25" = {
+  #   protocol = [ "tcp" ];
+  #   # XXX visibleTo.lan effectively means "open firewall, but don't configure any NAT/forwarding"
+  #   visibleTo.lan = true;
+  #   description = "colin-smtp-mx.uninsane.org";
+  # };
+  # sane.ports.ports."465" = {
+  #   protocol = [ "tcp" ];
+  #   visibleTo.lan = true;
+  #   description = "colin-smtps-mx.uninsane.org";
+  # };
+  # sane.ports.ports."587" = {
+  #   protocol = [ "tcp" ];
+  #   visibleTo.lan = true;
+  #   description = "colin-smtps-submission-mx.uninsane.org";
+  # };
 
   # exists only to manage certs for Postfix
   services.nginx.virtualHosts."mx.uninsane.org" = {

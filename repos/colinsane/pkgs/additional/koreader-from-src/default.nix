@@ -52,17 +52,16 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "koreader-from-src";
-  version = "2023.06";
+  version = "unstable-2023-10-18";
   srcs = [
     (fetchFromGitHub {
       owner = "koreader";
       repo = "koreader";
+      name = "koreader";  # needed because `srcs = ` in the outer derivation is a list
       fetchSubmodules = true;
-      rev = "d350418367ddf39d752d05e0587e562d7d4af2c4";  # master
-      hash = "sha256-ri5ckf21xDKf/X0p2c9wePTa6jh5u0BoUwpVdgpYpZw=";
       # rev = "v${version}";
-      # hash = "sha256-gdf7AUTpIJ6T4H915YqRG1WzxYHrGmzX6X4dMriWzRA=";
-      name = "koreader";
+      rev = "f3520effd679eb24a352e7dec600c5b378c3d376";  # master
+      hash = "sha256-cPftNXKL9khQKH/DKXyl9YZAEa27T/n3ATErPZy8irY=";
     })
   ] ++ (lib.mapAttrsToList
     (name: src: fetchgit (

@@ -40,6 +40,7 @@ in rec {
     pkgsEnv,
     pkgExprs,
     srcPath ? pname,
+    extraMakeWrapperArgs ? [],
     ...
   }@attrs:
   let
@@ -52,7 +53,7 @@ in rec {
     pkgsEnv' = lib.flatten pkgsEnv;
     doWrap = pkgsEnv' != [];
   in
-    stdenv.mkDerivation ({
+    stdenv.mkDerivation (final: {
       version = "0.1.0";  # default version
       patchPhase = ''
         substituteInPlace ${srcPath} \
@@ -62,6 +63,9 @@ in rec {
             '# nix deps evaluated statically'
       '';
       nativeBuildInputs = [ makeWrapper ];
+      makeWrapperArgs = [
+        "--suffix" "PATH" ":" (lib.makeBinPath pkgsEnv')
+      ] ++ extraMakeWrapperArgs;
       installPhase = ''
         runHook preInstall
         mkdir -p $out/bin
@@ -73,12 +77,12 @@ in rec {
       '' + lib.optionalString doWrap ''
         # add runtime dependencies to PATH
         wrapProgram $out/bin/${srcPath} \
-          --suffix PATH : ${lib.makeBinPath pkgsEnv' }
+          ${lib.escapeShellArgs final.makeWrapperArgs}
       '' + ''
 
         runHook postInstall
       '';
-    } // (removeAttrs attrs [ "interpreter" "interpreterName" "pkgsEnv" "pkgExprs" "srcPath" ])
+    } // (removeAttrs attrs [ "extraMakeWrapperArgs" "interpreter" "interpreterName" "pkgsEnv" "pkgExprs" "srcPath" ])
   );
 
   # `mkShell` specialization for `nix-shell -i bash` scripts.

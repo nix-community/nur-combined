@@ -6,15 +6,6 @@ usage: sane-bt-search [options] <query_string>
 
 searches Jackett for torrent files matching the title.
 returns select results and magnet links.
-
-options:
-  --full     display all results
-  --help     show this help message and exit
-  --manga    show only manga results
-  --h265     show only H.265 video (HEVC)
-  --json     output one json document instead of a human-readable table
-  --top=<n>  show the <n> top rated torrents (default: 5)
-  --verbose  show more information, useful for debugging/development
 """
 
 # about Jackett
@@ -42,6 +33,8 @@ ENDPOINTS = dict(
     results="api/v2.0/indexers/all/results"
     # results_torznab="api/v2.0/indexers/all/results/torznab"
 )
+
+DEFAULT_RESULT_COUNT = 12
 
 epoch = datetime(1970, 1, 1)
 
@@ -91,12 +84,14 @@ def tracker_rank(tracker: str):
     return len(TRACKER_RANKS)
 
 DROP_CATS = { "dvd", "hd", "misc", "other", "sd", "uhd" }
+BOOK_CATS = { "audio", "books", "ebook" }
 MANGA_CATS = { "books", "comics", "ebook" }
 VIDEO_CATS = { "anime", "movies", "tv" }
 KNOWN_CATS = frozenset(
+    list(BOOK_CATS) +
     list(MANGA_CATS) +
     list(VIDEO_CATS) +
-    ["audio", "xxx"]
+    ["xxx"]
 )
 def clean_cat(c: str) -> str | None:
     if c in DROP_CATS: return None
@@ -113,7 +108,8 @@ def is_cat(cats: list[str], wanted_cats: list[str], default: bool = False) -> bo
         return any(c in wanted_cats for c in cats)
 
 class Filter:
-    def __init__(self, h265: bool=False, manga: bool=False, video: bool=False):
+    def __init__(self, book: bool=False, h265: bool=False, manga: bool=False, video: bool=False):
+        self.book = book
         self.h265 = h265
         self.manga = manga
         self.video = video
@@ -123,6 +119,7 @@ class Filter:
 
     def is_match(self, t: 'Torrent', default: bool = False) -> bool:
         valid = True
+        valid = valid and (not self.book or self.is_book(t, default))
         valid = valid and (not self.h265 or self.is_h265(t))
         valid = valid and (not self.manga or self.is_manga(t, default))
         valid = valid and (not self.video or self.is_video(t, default))
@@ -134,6 +131,10 @@ class Filter:
         return "h265" in meta \
             or "x265" in meta \
             or "HEVC" in meta
+
+    @staticmethod
+    def is_book(t: 'Torrent', default: bool = False) -> bool:
+        return is_cat(t.categories, BOOK_CATS, default)
 
     @staticmethod
     def is_manga(t: 'Torrent', default: bool = False) -> bool:
@@ -267,10 +268,11 @@ def main(args: list[str]):
 
     parser = argparse.ArgumentParser(description='search torrent trackers')
     parser.add_argument('--full', action='store_true', help='show all results')
-    parser.add_argument('--top', help='how many results to show (default: 5)')
+    parser.add_argument('--top', help=f'how many results to show (default: {DEFAULT_RESULT_COUNT})')
     parser.add_argument('--sort-by', default='seeders', help='how to rank matches (seeders, tracker)')
     parser.add_argument('--json', action='store_true', help='output results in json')
     parser.add_argument('--verbose', action='store_true')
+    parser.add_argument('--book', action='store_true', help='show only book (ebook or audiobook) results')
     parser.add_argument('--h265', action='store_true', help='show only H.265/HEVC results (might cause false negatives)')
     parser.add_argument('--manga', action='store_true', help='show only manga results')
     parser.add_argument('--video', action='store_true', help='show only video (tv or film)')
@@ -284,12 +286,12 @@ def main(args: list[str]):
     client = Client()
     all_results = client.query(args.query)
 
-    filter = Filter(h265=args.h265, manga=args.manga, video=args.video)
+    filter = Filter(book=args.book, h265=args.h265, manga=args.manga, video=args.video)
     filtered_results = filter.filter(all_results)
     ordered_results = sort_results(filtered_results, args.sort_by)
 
     if not args.full:
-        ordered_results = ordered_results[:int(args.top or "5")]
+        ordered_results = ordered_results[:int(args.top or str(DEFAULT_RESULT_COUNT))]
 
     format_results(all_results, ordered_results, args.json)
 

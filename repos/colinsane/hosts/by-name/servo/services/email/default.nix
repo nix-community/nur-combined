@@ -22,6 +22,13 @@
 #     - but postfix delegates authorization of that outgoing mail to dovecot, on the server side
 #
 # - local clients (i.e. sendmail) interact only with postfix
+#
+# debugging: general connectivity issues
+# - test that inbound port 25 is unblocked:
+#   - `curl https://canyouseeme.org/ --data 'port=25&IP=185.157.162.178' | grep 'see your service'`
+#     - and retry with port 465, 587
+#     - i think this API requires the queried IP match the source IP
+#   - if necessary, `systemctl stop postfix` and `sudo nc -l 185.157.162.178 25`, then try https://canyouseeme.org
 
 { ... }:
 {

@@ -6,6 +6,7 @@
     ./alacritty.nix
     ./assorted.nix
     ./bemenu.nix
+    ./brave.nix
     ./calls.nix
     ./cantata.nix
     ./chatty.nix
@@ -22,6 +23,7 @@
     ./fwupd.nix
     ./g4music.nix
     ./gajim.nix
+    ./geary.nix
     ./git.nix
     ./gnome-feeds.nix
     ./gnome-keyring.nix
@@ -53,11 +55,13 @@
     ./ripgrep.nix
     ./sfeed.nix
     ./splatmoji.nix
+    ./spotify.nix
     ./steam.nix
     ./stepmania.nix
     ./sublime-music.nix
     ./swaynotificationcenter.nix
     ./tangram.nix
+    ./tor-browser-bundle-bin.nix
     ./tuba.nix
     ./vlc.nix
     ./wireshark.nix

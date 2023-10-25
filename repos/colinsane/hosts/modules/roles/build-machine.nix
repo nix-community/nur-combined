@@ -24,7 +24,7 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       # enable opt-in emulation of any package at runtime.
-      # i.e. `nix build '.#host-pkgs.moby.bash' ; qemu-aarch64 ./result/bin/bash`.
+      # i.e. `nix build '.#hostPkgs.moby.bash' ; qemu-aarch64 ./result/bin/bash`.
       sane.programs.qemu.enableFor.user.colin = true;
       # serve packages to other machines that ask for them
       sane.services.nixserve.enable = true;

@@ -45,7 +45,7 @@ in
     # - `nix build ... --substituters http://desko:5000`
     nix.settings.substituters = mkIf cfg.enable (lib.flatten [
       (lib.optional cfg.substituters.servo  "https://nixcache.uninsane.org")
-      (lib.optional cfg.substituters.desko  "http://desko:5000")
+      (lib.optional cfg.substituters.desko  "http://desko:${builtins.toString config.sane.services.nixserve.port}")
       (lib.optional cfg.substituters.nixos  "https://cache.nixos.org/")
       (lib.optional cfg.substituters.cachix "https://nix-community.cachix.org")
     ]);

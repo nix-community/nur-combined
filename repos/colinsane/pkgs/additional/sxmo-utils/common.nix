@@ -123,7 +123,9 @@ stdenv.mkDerivation rec {
 
     # let superd find sxmo service binaries at runtime via PATH
     # TODO: replace with fully-qualified paths
-    sed -i 's:ExecStart=/usr/bin/:ExecStart=/usr/bin/env :' configs/superd/services/*.service
+    sed -i 's:ExecStart=/usr/bin/:ExecStart=/usr/bin/env :' \
+      configs/services/*.service \
+      configs/superd/services/*.service
 
     # install udev rules to where nix expects
     substituteInPlace Makefile \
@@ -150,6 +152,7 @@ stdenv.mkDerivation rec {
     "SYSCONFDIR=${placeholder "out"}/etc"
     "DESTDIR="
     "OPENRC=0"
+    # TODO: use SERVICEDIR and EXTERNAL_SERVICES=0 to integrate superd/systemd better
   ];
   preInstall = ''
     # busybox is used by setup_config_version.sh, but placing it in nativeBuildInputs breaks the nix builder

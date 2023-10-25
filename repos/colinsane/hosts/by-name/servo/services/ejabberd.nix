@@ -40,6 +40,9 @@ let
   turnPortHigh = 49167;
   turnPortRange = lib.range turnPortLow turnPortHigh;
 in
+# XXX(2023/10/15): disabled in favor of Prosody.
+# everything configured below was fine: used ejabberd for several months.
+lib.mkIf false
 {
   sane.persist.sys.plaintext = [
     { user = "ejabberd"; group = "ejabberd"; path = "/var/lib/ejabberd"; }
@@ -113,6 +116,9 @@ in
     })
     turnPortRange
   ));
+
+  # this ejabberd config uses builtin STUN/TURN server, so hack to ensure no other implementation fights for ports
+  services.coturn.enable = false;
 
   # provide access to certs
   # TODO: this should just be `acme`. then we also add nginx to the `acme` group.

@@ -10,7 +10,13 @@
   boot.initrd.extraUtilsCommands = ''
     copy_bin_and_libs ${pkgs.btrfs-progs}/bin/btrfstune
   '';
-  boot.kernelParams = [ "boot.shell_on_fail" ];
+  boot.kernelParams = [
+    "boot.shell_on_fail"
+    #v experimental full pre-emption for hopefully better call/audio latency on moby.
+    # also toggleable at runtime via /sys/kernel/debug/sched/preempt
+    # defaults to preempt=voluntary
+    # "preempt=full"
+  ];
   # other kernelParams:
   #   "boot.trace"
   #   "systemd.log_level=debug"

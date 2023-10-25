@@ -102,6 +102,10 @@ if [ "$STATE" = "screenoff" ]; then
       # power twice => toggle media player
       handle_with playerctl play-pause
       ;;
+    "powerbutton_three")
+      # power once during deep sleep often gets misread as power three, so treat these same
+      handle_with sxmo_state_switch.sh set unlock
+      ;;
   esac
 fi
 

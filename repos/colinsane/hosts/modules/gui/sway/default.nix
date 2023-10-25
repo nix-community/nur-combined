@@ -230,6 +230,11 @@ in
         # emulate pulseaudio for legacy apps (e.g. sxmo-utils)
         pulse.enable = true;
       };
+      # rtkit/RealtimeKit: allow applications which want realtime audio (e.g. Dino? Pulseaudio server?) to request it.
+      # this might require more configuration (e.g. polkit-related) to work exactly as desired.
+      # - readme outlines requirements: <https://github.com/heftig/rtkit>
+      # XXX(2023/10/12): rtkit does not play well on moby. any application sending audio out dies after 10s.
+      # security.rtkit.enable = true;
       # persist per-device volume levels
       sane.user.persist.plaintext = [ ".local/state/wireplumber" ];
 
@@ -275,7 +280,13 @@ in
         extraPackages = [];  # nixos adds swaylock, swayidle, foot, dmenu by default
         # extraOptions = [ "--debug" ];
         # "wrapGAppsHook wrapper to execute sway with required environment variables for GTK applications."
-        wrapperFeatures.gtk = true;
+        # this literally just sets XDG_DATA_DIRS to the gtk3 gsettings-schemas before launching sway.
+        # notably, this pulls in the *build* gtk3 -- probably not in an incompatible way
+        # but still as a mistake, and wasteful for cross compilation
+        wrapperFeatures.gtk = false;
+        # this sets XDG_CURRENT_DESKTOP=sway
+        # and makes sure that sway is launched dbus-run-session.
+        wrapperFeatures.base = true;
         package = cfg.package;
       };
       programs.xwayland.enable = cfg.config.xwayland;

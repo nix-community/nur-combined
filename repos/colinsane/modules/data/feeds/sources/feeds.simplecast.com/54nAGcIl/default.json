@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 9557252,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "This is what the news should sound like. The biggest stories of our time, told by the best journalists in the world. Hosted by Michael Barbaro and Sabrina Tavernise. Twenty minutes a day, five days a week, ready by 6 a.m.\n\nListen to this podcast in New York Times Audio, our new iOS app for news subscribers. Download now at nytimes.com/audioapp",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [
+    "https://simplecast.superfeedr.com/"
+  ],
+  "is_podcast": true,
+  "is_push": true,
+  "item_count": 1967,
+  "last_updated": "2023-10-18T09:50:00+00:00",
+  "score": 24,
+  "self_url": "https://feeds.simplecast.com/54nAGcIl",
+  "site_name": "",
+  "site_url": "",
+  "title": "The Daily",
+  "url": "https://feeds.simplecast.com/54nAGcIl",
+  "velocity": 0.798,
+  "version": "rss20"
+}

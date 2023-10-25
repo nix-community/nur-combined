@@ -1,9 +1,20 @@
+# outstanding issues:
+# - 2023/10/10: build python3 is pulled in by many things
+#   - nix why-depends --all /nix/store/8g3kd2jxifq10726p6317kh8srkdalf5-nixos-system-moby-23.11.20231011.dirty /nix/store/pzf6dnxg8gf04xazzjdwarm7s03cbrgz-python3-3.10.12/bin/python3.10
+#   - blueman
+#   - gstreamer-vaapi -> gstreamer-dev -> glib-dev
+#   - phog -> gnome-shell
+#   - portfolio -> {glib,cairo,pygobject}-dev
+#   - komikku -> python3.10-brotlicffi -> python3.10-cffi
+#   - many others. python3.10-cffi seems to be the offender which infects 70% of consumers though
+# - 2023/10/11: build ruby is pulled in by `neovim`:
+#   - nix why-depends --all /nix/store/rhli8vhscv93ikb43639c2ysy3a6dmzp-nixos-system-moby-23.11.20231011.30c7fd8 /nix/store/5xbwwbyjmc1xvjzhghk6r89rn4ylidv8-ruby-3.1.4
+#
+# partially fixed:
+# - 2023/10/11: build coreutils pulled in by rpm 4.18.1, but NOT by 4.19.0
+#   - nix why-depends --all /nix/store/gjwd2x507x7gjycl5q0nydd39d3nkwc5-dtrx-8.5.3-aarch64-unknown-linux-gnu /nix/store/y9gr7abwxvzcpg5g73vhnx1fpssr5frr-coreutils-9.3
+#
 # upstreaming status:
-# - playerctl is out for review
-# - xdg-utils is out for review
-#   - xdg-utils is blocked on perl5.36.0-Module-Build
-#     - needed for File-BaseDir, used by File-MimeInfo
-#     - File-BaseDir can be updated to v0.09, which cross compiles with ease
 #
 # - blueman builds on servo branch
 # - libgudev builds on servo branch
@@ -363,6 +374,15 @@ in {
   #     });
   #   };
 
+  # binutils = prev.binutils.override {
+  #   # fix that resulting binary files would specify build #!sh as their interpreter.
+  #   # dtrx is the primary beneficiary of this.
+  #   # this doesn't actually cause mass rebuilding.
+  #   # note that this isn't enough to remove all build references:
+  #   # - expand-response-params still references build stuff.
+  #   shell = final.runtimeShell;
+  # };
+
   # 2023/08/03: upstreaming is unblocked,implemented on servo, but has x86 in the runtime closure
   # blueman = prev.blueman.overrideAttrs (orig: {
   #   # configure: error: ifconfig or ip not found, install net-tools or iproute2
@@ -380,19 +400,12 @@ in {
   #   inherit (emulated) stdenv hare;
   # };
 
-  # 2023/08/27: out for review: <https://github.com/NixOS/nixpkgs/pull/251947>
-  # brightnessctl = prev.brightnessctl.overrideAttrs (upstream: {
-  #   postPatch = (upstream.postPatch or "") + ''
-  #     substituteInPlace Makefile \
-  #       --replace 'pkg-config' "$PKG_CONFIG"
-  #   '';
-  # });
-
   # brltty = prev.brltty.override {
   #   # configure: error: no acceptable C compiler found in $PATH
   #   inherit (emulated) stdenv;
   # };
 
+  # 2023/10/23: upstreaming blocked by gvfs, webkitgtk 4.1 (OOMs)
   # fixes: "error: Package <foo> not found in specified Vala API directories or GObject-Introspection GIR directories"
   calls = addNativeInputs [ final.gobject-introspection] prev.calls;
 
@@ -470,6 +483,13 @@ in {
     buildInputs = upstream.buildInputs ++ [ final.vala ];
     mesonFlags = lib.remove "-Dvapi=false" upstream.mesonFlags;
   });
+
+  dtrx = prev.dtrx.override {
+    # `binutils` is the nix wrapper, which reads nix-related env vars
+    # before passing on to e.g. `ld`.
+    # dtrx probably only needs `ar` at runtime, not even `ld`.
+    binutils = final.binutils-unwrapped;
+  };
 
   # emacs = prev.emacs.override {
   #   # fixes "configure: error: cannot run test program while cross compiling"
@@ -612,11 +632,21 @@ in {
     outputs = lib.remove "devdoc" upstream.outputs;
   });
 
-  # 2023/07/31: upstreaming is unblocked,implemented on servo
-  # gcr_4 = (
-  #   # fixes (meson): "ERROR: Program 'gpg2 gpg' not found or not executable"
-  #   mvToNativeInputs [ final.gnupg final.openssh ] prev.gcr_4
-  # );
+  # 2023/07/31: upstreaming is blocked on qttranslations (via pipewire)
+  # N.B.: should be able to remove gnupg/ssh from {native}buildInputs when upstreaming
+  gcr_4 = prev.gcr_4.overrideAttrs (upstream: {
+    # fixes (meson): "ERROR: Program 'gpg2 gpg' not found or not executable"
+    mesonFlags = (upstream.mesonFlags or []) ++ [
+      "-Dgpg_path=${final.gnupg}/bin/gpg"
+    ];
+  });
+  # 2023/10/23: upstreaming: <https://github.com/NixOS/nixpkgs/pull/263158>
+  # gcr = prev.gcr.overrideAttrs (upstream: {
+  #   # removes build platform's gnupg from runtime closure
+  #   mesonFlags = (upstream.mesonFlags or []) ++ [
+  #     "-Dgpg_path=${final.gnupg}/bin/gpg"
+  #   ];
+  # });
   # gnustep = prev.gnustep.overrideScope' (self: super: {
   #   # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
   #   # base = emulated.gnustep.base;
@@ -678,6 +708,14 @@ in {
     # 2023/08/01: upstreaming is blocked on nautilus, gnome-user-share (apache-httpd, webp-pixbuf-loader)
     # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
     file-roller = mvToNativeInputs [ final.glib ] super.file-roller;
+
+    geary = super.geary.overrideAttrs (upstream: {
+      buildInputs = upstream.buildInputs ++ [
+        # final.glib
+        final.appstream-glib
+        final.libxml2
+      ];
+    });
 
     # 2023/08/01: upstreaming is unblocked
     # fixes: "meson.build:75:6: ERROR: Program 'gtk-update-icon-cache' not found or not executable"
@@ -824,19 +862,48 @@ in {
     strictDeps = true;
   });
 
-  # 2023/07/27: upstreaming is blocked on p11-kit, libavif cross compilation
-  gvfs = prev.gvfs.overrideAttrs (upstream: {
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      final.openssh
-      final.glib  # fixes "gdbus-codegen: command not found"
-    ];
-    # fixes "meson.build:312:2: ERROR: Assert failed: http required but libxml-2.0 not found"
-    buildInputs = upstream.buildInputs ++ [ final.libxml2 ];
-  });
+  # 2023/10/23: out for review: <https://github.com/NixOS/nixpkgs/pull/263107>
+  # gsound = prev.gsound.overrideAttrs (upstream: {
+  #   # remove logic which was removing introspection/vala on cross compilation
+  #   mesonFlags = [];
+  # });
+  # 2023/10/23: out for review: <https://github.com/NixOS/nixpkgs/pull/263135>
+  # gspell = prev.gspell.overrideAttrs (upstream: {
+  #   depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
+  #     # without this, vapi files ($dev/share/vapi/vala/gspell-1.vapi) aren't generated.
+  #     # that breaks consumers like `gnome.geary`
+  #     final.pkg-config
+  #   ];
+  #   configureFlags = upstream.configureFlags ++ [
+  #     # not necessary, but enforces that we really do produce vapi files
+  #     "--enable-vala"
+  #   ];
+  # });
+
+  # 2023/10/23: out for review: <https://github.com/NixOS/nixpkgs/pull/263175>
+  # gvfs = prev.gvfs.overrideAttrs (upstream: {
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #     # XXX: this ends up on the runtime closure
+  #     final.openssh
+  #     final.glib  # fixes "gdbus-codegen: command not found"
+  #   ];
+  #   # fixes "meson.build:312:2: ERROR: Assert failed: http required but libxml-2.0 not found"
+  #   buildInputs = upstream.buildInputs ++ [ final.libxml2 ];
+  # });
 
   # hdf5 = prev.hdf5.override {
   #   inherit (emulated) stdenv;
   # };
+
+  # out for PR: <https://github.com/NixOS/nixpkgs/pull/263182>
+  # hspell = prev.hspell.overrideAttrs (upstream: {
+  #   # build perl is needed by the Makefile,
+  #   # but $out/bin/multispell (which is simply copied from src) should use host perl
+  #   buildInputs = (upstream.buildInputs or []) ++ [ final.perl ];
+  #   postInstall = ''
+  #     patchShebangs --update $out/bin/multispell
+  #   '';
+  # });
 
   # "setup: line 1595: ant: command not found"
   # i2p = mvToNativeInputs [ final.ant final.gettext ] prev.i2p;
@@ -860,6 +927,15 @@ in {
   #   # not enough: still tries to execute build machine perl
   #   buildPackages.gtk-doc = final.gtk-doc;
   # });
+
+  # 2023/10/23: upstreaming blocked on argyllcms
+  graphicsmagick = prev.graphicsmagick.overrideAttrs (upstream: {
+    # by default the build holds onto a reference to build `mv`
+    # N.B.: `imagemagick` package has this identical issue
+    configureFlags = upstream.configureFlags ++ [
+      "MVDelegate=${final.coreutils}/bin/mv"
+    ];
+  });
 
   # fixes: "make: gcc: No such file or directory"
   # java-service-wrapper = useEmulatedStdenv prev.java-service-wrapper;
@@ -929,16 +1005,6 @@ in {
       buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
     });
   };
-  libavif = prev.libavif.overrideAttrs (upstream: {
-    # unique build failure encountered only when cross compiling WITH binfmt enabled.
-    # without binfmt it compiles fine.
-    postInstall = let
-      gdkPixbufModuleFile = "${placeholder "out"}/${final.gdk-pixbuf.binaryDir}/avif-loaders.cache";
-    in ''
-      GDK_PIXBUF_MODULE_FILE=${gdkPixbufModuleFile} \
-        gdk-pixbuf-query-loaders --update-cache
-    '';
-  });
   # libgweather = rmNativeInputs [ final.glib ] (prev.libgweather.override {
   #   # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
   #   #   but presumably that's just a different way to emulate it.
@@ -958,7 +1024,7 @@ in {
   #   buildInputs = upstream.buildInputs ++ [ final.vala ];
   # });
 
-  # 2023/08/27: out for PR: <https://github.com/NixOS/nixpkgs/compare/master...uninsane:nixpkgs:pr-cross-libgweather>
+  # 2023/08/27: out for PR: <https://github.com/NixOS/nixpkgs/pull/251956>
   # libgweather = (prev.libgweather.override {
   #   # we need introspection for bindings, used by e.g.
   #   # - gnome.gnome-weather (javascript)
@@ -1201,6 +1267,20 @@ in {
   #   # '';
   # });
 
+  mpv-unwrapped = prev.mpv-unwrapped.overrideAttrs (upstream: {
+    # 2023/10/10: upstreaming is easiest to do after the next staging -> master merge
+    #   otherwise the result will still have a transient dep on python.
+    #   - <https://github.com/NixOS/nixpkgs/pull/259109>
+    # nativeBuildInputs = lib.remove final.python3 upstream.nativeBuildInputs;
+    # umpv gets the build python, somehow -- even with python3 removed from nativeBuildInputs.
+    # and mpv_identify.sh gets the build bash.
+    # patch these both to use the host files
+    buildInputs = (upstream.buildInputs or []) ++ [ final.bash final.python3 ];
+    postFixup = (upstream.postFixup or "") + ''
+      patchShebangs --update --host $out/bin/umpv $out/bin/mpv_identify.sh
+    '';
+  });
+
   # mpvScripts = prev.mpvScripts // {
   #   # "line 1: pkg-config: command not found"
   #   #   "mpris.c:1:10: fatal error: gio/gio.h: No such file or directory"
@@ -1212,7 +1292,7 @@ in {
   # 2023/07/27: upstreaming is unblocked by deps; but turns out to not be this simple
   ncftp = addNativeInputs [ final.bintools ] prev.ncftp;
   # fixes "gdbus-codegen: command not found"
-  # 2023/07/31: upstreaming is blocked on p11-kit, openfortivpn cross compilation
+  # 2023/07/31: upstreaming is blocked on p11-kit, openfortivpn, qttranslations (qtbase) cross compilation
   networkmanager-fortisslvpn = mvToNativeInputs [ final.glib ] prev.networkmanager-fortisslvpn;
   # networkmanager-iodine = prev.networkmanager-iodine.overrideAttrs (orig: {
   #   # fails to fix "configure.ac:58: error: possibly undefined macro: AM_GLIB_GNU_GETTEXT"
@@ -1402,12 +1482,6 @@ in {
       #     py-final.setuptools
       #   ];
       # });
-
-      # 2023/08/03: fix is in staging:
-      # - <https://github.com/NixOS/nixpkgs/pull/244135>
-      # cryptography = py-prev.cryptography.override {
-      #   inherit (emulated) cargo rustc rustPlatform;  # "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
-      # };
 
       # defcon = py-prev.defcon.overridePythonAttrs (orig: {
       #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.nativeCheckInputs;
@@ -1704,7 +1778,9 @@ in {
   # implemented (broken) on servo cross-staging-2023-07-30 branch
   rpm = prev.rpm.overrideAttrs (upstream: {
     # fixes "python too old". might also be specifiable as a configure flag?
-    env = upstream.env // {
+    env = upstream.env // lib.optionalAttrs (upstream.version == "4.18.1") {
+      # 4.19.0 upgrade should fix cross compilation.
+      # see: <https://github.com/NixOS/nixpkgs/pull/260558>
       PYTHON = final.python3.interpreter;
     };
   });
@@ -1724,6 +1800,17 @@ in {
   #   inherit (emulated) stdenv;
   # };
 
+  # 2023/10/23: upstreaming: <https://github.com/NixOS/nixpkgs/pull/263187>
+  # snapper = prev.snapper.overrideAttrs (upstream: {
+  #   # replace references to build diff/rm to runtime diff/rm
+  #   # also reduces closure 305628736 -> 262698112
+  #   configureFlags = (upstream.configureFlags or []) ++ [
+  #     "DIFFBIN=${final.diffutils}/bin/diff"
+  #     "RMBIN=${final.coreutils}/bin/rm"
+  #   ];
+  #   # strictDeps = true;  #< doesn't actually prevent original symptom
+  # });
+
   spandsp = prev.spandsp.overrideAttrs (upstream: {
     configureFlags = upstream.configureFlags or [] ++ [
       # fixes runtime error: "undefined symbol: rpl_realloc"
@@ -1731,19 +1818,6 @@ in {
       "ac_cv_func_malloc_0_nonnull=yes"
       "ac_cv_func_realloc_0_nonnull=yes"
     ];
-  });
-
-  spdlog = prev.spdlog.overrideAttrs (upstream: {
-    # oops: <https://github.com/NixOS/nixpkgs/pull/250435/files#diff-ba4902b7396cd55a6e49ae0a0f5ad80f194e8b642e7016a825c90cef372df7f4R35>
-    # nativeCheckInputs = (upstream.nativeCheckInputs or []) ++ [ final.catch2_3 ];
-    # # checkInputs = (upstream.checkInputs or []) ++ [ final.systemd ];
-    # # pkgsBuildBuild = (upstream.pkgsBuildBuild or []) ++ [ final.pkg-config ];
-    # postPatch = (upstream.postPatch or "") + ''
-    #   substituteInPlace tests/CMakeLists.txt \
-    #     --replace 'Catch2 3 QUIET' 'Catch2 3'
-    # '';
-    doCheck = false;
-    cmakeFlags = lib.remove "-DSPDLOG_BUILD_TESTS=ON" upstream.cmakeFlags;
   });
 
   squeekboard = prev.squeekboard.overrideAttrs (upstream: {
@@ -1892,12 +1966,6 @@ in {
   #   # fixes "meson.build:183:0: ERROR: Can not run test applications in this cross environment."
   #   addNativeInputs [ final.mesonEmulatorHook ] prev.tracker-miners
   # );
-  # 2023/08/27: out for PR: <https://github.com/uninsane/nixpkgs/pull/new/pr-cross-tuba>
-  # tuba = (wrapGAppsHook4Fix prev.tuba).overrideAttrs (upstream: {
-  #   # 2023/07/27: upstreaming is blocked on p11-kit cross compilation
-  #   # error: Package `{libadwaita-1,gtksourceview-5,libsecret-1,gee-0.8}' not found in specified Vala API directories or GObject-Introspection GIR directories
-  #   buildInputs = upstream.buildInputs ++ [ final.vala ];
-  # });
   # twitter-color-emoji = prev.twitter-color-emoji.override {
   #   # fails to fix original error
   #   inherit (emulated) stdenv;

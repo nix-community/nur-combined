@@ -18,6 +18,8 @@
 #   - fix is to toggle it off -> on in the Dino UI
 # - default mic gain is WAY TOO MUCH (heavily distorted)
 # - TODO: dino should have more optimal niceness/priority to ensure it can process its buffers
+#   - possibly this is solved by enabling RealtimeKit (rtkit)
+# - TODO: see if Dino calls work better with `echo full > /sys/kernel/debug/sched/preempt`
 #
 # probably fixed:
 # - once per 1-2 minutes dino will temporarily drop mic input:

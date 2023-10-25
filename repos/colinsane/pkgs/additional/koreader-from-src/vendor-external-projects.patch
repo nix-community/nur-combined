@@ -103,7 +103,7 @@ index 0353b145..9de56105 100644
      DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
 -    URL https://www.sqlite.org/2023/sqlite-autoconf-${SQLITE_VER}.tar.gz
 +    URL file://@sqlite@
-     URL_MD5 0c5a92bc51cf07cae45b4a1e94653dea
+     URL_MD5 94fb06bfebc437762e489c355ae63716
      BUILD_IN_SOURCE 1
      CONFIGURE_COMMAND ${CFG_CMD}
 diff --git a/base/thirdparty/tar/CMakeLists.txt b/base/thirdparty/tar/CMakeLists.txt
@@ -127,7 +127,7 @@ index 2350186d..0ea1394d 100644
  ExternalProject_Add(
      ${PROJECT_NAME}
      DOWNLOAD_DIR ${KO_DOWNLOAD_DIR}
--    URL http://gentoo.osuosl.org/distfiles/zlib-${ZLIB_VER}.tar.xz
+-    URL https://github.com/madler/zlib/releases/download/v${ZLIB_VER}/zlib-${ZLIB_VER}.tar.xz
 +    URL file://@zlib@
      URL_MD5 ${ZLIB_MD5}
      BUILD_IN_SOURCE 1

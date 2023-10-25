@@ -61,12 +61,6 @@ in
     ${pkgs.ntfy-sh}/bin/ntfy access everyone "$topic" read-write
   '';
 
-  sops.secrets."ntfy-sh-topic" = {
-    mode = "0440";
-    owner = config.users.users.ntfy-sh.name;
-    group = config.users.users.ntfy-sh.name;
-  };
-
 
   services.nginx.virtualHosts."ntfy.uninsane.org" = {
     forceSSL = true;

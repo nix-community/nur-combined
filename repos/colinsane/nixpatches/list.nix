@@ -19,6 +19,75 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
+  (fetchpatch' {
+    title = "gsound: enable introspection/vala when cross compiled";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/263107";
+    saneCommit = "beb33584013f49d198152ad8ae8797bb6fa0266f";
+    # hash = "sha256-tKeumQ1R/UWTL2J9RaGs8p9QHxGxP2a1DevHnX/ElRU=";
+    hash = "sha256-W9IS3JNPk5LkJeuZ+EL8NIv8+v7wEZo8Gt+ofq3RrrY=";
+  })
+  (fetchpatch' {
+    title = "gspell: enable vala for cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/263135";
+    saneCommit = "293bfdc031a1eaa5cc571000977df14b6d8237c8";
+    # hash = "sha256-n6xatVeqMweuy/bm68cxWUkgUoS+H1xNRjT0JDFXeEs=";
+    hash = "sha256-PXatkvLjEgQJ4rRIjEOadKscM0WYWTozIFt2vzWOMKY=";
+  })
+  (fetchpatch' {
+    title = "gcr: remove build gnupg from runtime closure";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/263158";
+    saneCommit = "8c71ab22c6df4e5ce290e131a7769688b0c5a017";
+    # hash = "sha256-9PNKzNlJ62WAq6H+tqlt0spFZ1DPP1hHmpx0YPuieFE=";
+    hash = "sha256-6hUdsExHSMHy6FMY1+OLtVmKpRwysGIVkcDpYv7RRBk=";
+  })
+  (fetchpatch' {
+    title = "gvfs: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/263175";
+    saneCommit = "0c6dd31f3394ac339d5351400350223af3fc1284";
+    hash = "sha256-Ywxx2BkvVp3+Za3PPhVwa7sovjkVJrhFx3vj63IB6JQ=";
+  })
+  (fetchpatch' {
+    title = "hspell: remove build perl from runtime closure";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/263182";
+    hash = "sha256-Wau+PB+EUQDvWX8Kycw1sNrM3GkPVjKSS4niIDI0sjM=";
+  })
+  (fetchpatch' {
+    title = "snapper: remove runtime references to build packages";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/263187";
+    hash = "sha256-+NJtox6BsoQwpO6DxehrA4l/eWf/vgGN7EopCt4ZIFk=";
+  })
+  (fetchpatch' {
+    title = "trust-dns: 0.23.0 -> 0.24.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/263054";
+    saneCommit = "cb13904421c1870df1059bfe5988a24107983a5f";
+    hash = "sha256-iZ8ox5GdY6s+fyyUFPboIalYadAnsjxk6jNOdkQcZjI=";
+  })
+  # (fetchpatch' {
+  #   title = "trust-dns: 0.23.0 -> 0.24.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/262466";
+  #   hash = "sha256-s8ra/tbD/xAfU3HI3wv+aQ0dip1kKQcVrJvLG6DNctY=";
+  # })
+  # (fetchpatch' {
+  #   title = "trust-dns: rebrand as hickory-dns";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/262268";
+  #   hash = "sha256-TxQiR+OS4YriLNViTg4H78Z3f3IjBVodiFAkOUCeNic=";
+  # })
+  (fetchpatch' {
+    # merged *into staging* 2023/10/05
+    title = "mesa: don't depend on build python";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/259109";
+    hash = "sha256-uSTWxAFPasx7MwNimqypUln9lowh+W3dMb5b+gM9kd0=";
+  })
+  (fetchpatch' {
+    title = "rpm: 4.18.1 -> 4.19.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/260558";
+    hash = "sha256-FDY/OLh7bNRixEuPlrIeyW/kJYNPnelLsplfKCsjHKQ=";
+  })
+  # (fetchpatch' {
+  #   title = "graphicsmagick: 1.3.39 -> 1.3.42";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/218163";
+  #   hash = "sha256-E1Xfi7BRpAvqAzfChjWRG1Ar5dsFMm/yu7NXnDc95PM=";
+  # })
   # (fetchpatch' {
   #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.
   #   # the latter is an alias, which breaks nix-index
@@ -273,26 +342,28 @@ in [
     saneCommit = "8a171b49aca406f8220f016e56964b3fae53a3df";
     hash = "sha256-R11IYatGhSXxZnJxJid519Oc9Kh56D9NT2/cxf2CLuM=";
   })
-  (fetchpatch' {
-    title = "gcr_4: support cross compilation";
-    saneCommit = "a8c3d69236fa67382a8c18cc1ef0f34610fd3275";
-    hash = "sha256-UnLqkkpXxBKaqlsoD1jUIigZkxgLtNpjmMHOx10HpfE=";
-  })
-  (fetchpatch' {
-    title = "networkmanager-openvpn: support cross compilation";
-    saneCommit = "6f53c267fbeb2ff543f075032a7e73af2d4bcb9e";
-    hash = "sha256-gq9AyKH7/k2ZVSZ3jpPJPt3uAM+CllXQnaiC1tE1r/8=";
-  })
-  (fetchpatch' {
-    title = "WIP: networkmanager-sstp: support cross compilation";
-    saneCommit = "6de63fe320406ec9a509db721c52b3894a93bda2";
-    hash = "sha256-EY3bQuv/80JbpquUJhc89CcYAgN9A9KkpsSitw/684I=";
-  })
-  (fetchpatch' {
-    title = "WIP: networkmanager-l2tp: support cross compilation";
-    saneCommit = "7a4191c570b0e5a1ab257222c26a4a2ecb945037";
-    hash = "sha256-FiPJhHGqZ8MFwLY+1t6HgbK6ndomFSYUKvApvrikRHE=";
-  })
+  # (fetchpatch' {
+  #   # not correct: build time dependencies end up in runtime closure
+  #   title = "gcr_4: support cross compilation";
+  #   saneCommit = "a8c3d69236fa67382a8c18cc1ef0f34610fd3275";
+  #   hash = "sha256-UnLqkkpXxBKaqlsoD1jUIigZkxgLtNpjmMHOx10HpfE=";
+  # })
+  # these probably work, but i don't use them
+  # (fetchpatch' {
+  #   title = "networkmanager-openvpn: support cross compilation";
+  #   saneCommit = "6f53c267fbeb2ff543f075032a7e73af2d4bcb9e";
+  #   hash = "sha256-gq9AyKH7/k2ZVSZ3jpPJPt3uAM+CllXQnaiC1tE1r/8=";
+  # })
+  # (fetchpatch' {
+  #   title = "WIP: networkmanager-sstp: support cross compilation";
+  #   saneCommit = "6de63fe320406ec9a509db721c52b3894a93bda2";
+  #   hash = "sha256-EY3bQuv/80JbpquUJhc89CcYAgN9A9KkpsSitw/684I=";
+  # })
+  # (fetchpatch' {
+  #   title = "WIP: networkmanager-l2tp: support cross compilation";
+  #   saneCommit = "7a4191c570b0e5a1ab257222c26a4a2ecb945037";
+  #   hash = "sha256-FiPJhHGqZ8MFwLY+1t6HgbK6ndomFSYUKvApvrikRHE=";
+  # })
   (fetchpatch' {
     title = "gtkspell2: support cross compilation";
     saneCommit = "56348833b4411e9fe2016c24c7fc4af1e3c1d28a";
@@ -306,7 +377,7 @@ in [
     hash = "sha256-cGhJSby0K+e1hKPdPZjLFRKvwjGaTbq/kb6Fxj2v8g8=";
   })
   (fetchpatch' {
-    # TODO: send for review once thie libgnt patch above is merged
+    # TODO: send for review once the libgnt patch above is merged
     title = "pidgin: support cross compilation";
     saneCommit = "caacbcc54e217f5ee9281422777a7f712765f71a";
     hash = "sha256-PDCp4GOm6hWcRob4kz7qXZfxAF6YbYrESx9idoS3e/s=";

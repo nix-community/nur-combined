@@ -17,6 +17,7 @@ in lib.mkMerge [
     protocol = [ "udp" "tcp" ];
     visibleTo.lan = true;
     visibleTo.wan = true;
+    visibleTo.ovpn = true;
     description = "colin-dns-hosting";
   };
 
@@ -145,11 +146,12 @@ in lib.mkMerge [
             -e s/%CNAMENATIVE%/servo.${flavor}/ \
             -e s/%ANATIVE%/${anative}/ \
             -e s/%AWAN%/$wan/ \
+            -e s/%AOVPNS%/185.157.162.178/ \
             ${zoneTemplate} > ${zoneFor flavor}
         '';
         serviceConfig = config.systemd.services.trust-dns.serviceConfig // {
           ExecStart = ''
-            ${pkgs.trust-dns}/bin/trust-dns \
+            ${pkgs.trust-dns}/bin/${pkgs.trust-dns.meta.mainProgram} \
             --port ${builtins.toString port} \
             --zonedir ${zoneDirFor flavor}/ \
             --config ${configFile} ${flagsStr}

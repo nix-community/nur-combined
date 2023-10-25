@@ -3,38 +3,54 @@
 # - <https://github.com/mpv-player/mpv/wiki>
 # curated mpv mods/scripts/users:
 # - <https://github.com/stax76/awesome-mpv>
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  cfg = config.sane.programs.mpv;
+in
 {
   sane.programs.mpv = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.vo = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = "--vo=FOO flag to pass to mpv";
+        };
+      };
+    };
     package = pkgs.wrapMpv pkgs.mpv-unwrapped {
       scripts = with pkgs.mpvScripts; [
         mpris
         # uosc
         pkgs.mpv-uosc-latest
       ];
-      extraMakeWrapperArgs = [
+      extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
         # 2023/08/29: fixes an error where mpv on moby launches with the message
         #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
         #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
         # this is likely a regression for mpv 0.36.0.
         # the actual error message *appears* to come from the mesa library, but it's tough to trace.
+        #
+        # backend compatibility (2023/10/22):
         # run with `--vo=help` to see a list of all output options.
-        # non-exhaustive (F=fails, W=works)
-        # ? libmpv           render API for libmpv
-        # ? gpu              Shader-based GPU Renderer
-        # ? gpu-next         Video output based on libplacebo
-        # ? vdpau            VDPAU with X11
-        # ? wlshm            Wayland SHM video output (software scaling)
-        # ? xv               X11/Xv
-        # W sdl              SDL 2.0 Renderer
-        # F dmabuf-wayland   Wayland dmabuf video output
-        # ? vaapi            VA API with X11
-        # ? x11              X11 (software scaling)
+        # non-exhaustive (W=works, F=fails, A=audio-only, U=audio+ui only (no video))
         # ? null             Null video output
-        # ? caca             libcaca
+        # A (default)
+        # A dmabuf-wayland   Wayland dmabuf video output
+        # A libmpv           render API for libmpv  (mpv plays the audio, but doesn't even render a window)
+        # A vdpau            VDPAU with X11
         # F drm              Direct Rendering Manager (software scaling)
-        "--add-flags" "--vo=sdl"
+        # F gpu-next         Video output based on libplacebo
+        # F vaapi            VA API with X11
+        # F x11              X11 (software scaling)
+        # F xv               X11/Xv
+        # U gpu              Shader-based GPU Renderer
+        # W caca             libcaca  (terminal rendering)
+        # W sdl              SDL 2.0 Renderer
+        # W wlshm            Wayland SHM video output (software scaling)
+        "--add-flags" "--vo=${cfg.config.vo}"
       ];
     };
     persist.plaintext = [ ".local/state/mpv/watch_later" ];

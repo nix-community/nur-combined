@@ -48,7 +48,7 @@ let
     DEBUG_KERNEL = lib.mkForce no;  # option group which seems to just gate the other DEBUG_ opts?
     DEBUG_INFO = lib.mkForce no;  # for gdb debugging
     DEBUG_INFO_BTF = lib.mkForce no;  # BPF debug symbols. rec by <https://nixos.wiki/wiki/Linux_kernel#Too_high_ram_usage>
-    SCHED_DEBUG = lib.mkForce no;  # determines /sys/kernel/debug/sched
+    # SCHED_DEBUG = lib.mkForce no;  # determines /sys/kernel/debug/sched
     # SUNRPC_DEBUG = lib.mkForce no;  # i use NFS though
 
     MODEM_POWER = lib.mkIf (!withModemPower) no;
@@ -132,19 +132,17 @@ let
     # see: <https://xnux.eu/log/031.html>
     # see: <https://irclog.whitequark.org/linux-sunxi/2021-02-19>
     # most of the relevant bits here (e.g. CONFIG_WOWLAN=y) have been merged
-    {
-      # the pinephone device tree to `keep-power-in-suspend` for the WiFi peripherals
-      # unclear if this is truly needed: a *different* piece of the device tree was set for keep-power-in-suspend
-      # when megi merged Peetz0r's patch.
-      # there appears to be support for WOWLAN even with this patch dropped.
-      # it seems to be flaky without this patch though.
-      # but i have so few samples, and it's flaky to begin with, so... ?
-      name = "pinephone-dt-keep-power-in-suspend";
-      patch = fetchpatch {
-        url = "https://git.uninsane.org/colin/linux/commit/afd6514fd3098047000b3f1f198c2256478dce46.patch";
-        hash = "sha256-8OtGXpCPJbk3c3Z4DcurS0F+Ogqx+xahEv+256+4dcY=";
-      };
-    }
+    # {
+    #   # the pinephone device tree to `keep-power-in-suspend` for the WiFi peripherals
+    #   # unclear if this is truly needed: a *different* piece of the device tree was set for keep-power-in-suspend
+    #   # when megi merged Peetz0r's patch.
+    #   # there appears to be support for WOWLAN even with this patch dropped.
+    #   name = "pinephone-dt-keep-power-in-suspend";
+    #   patch = fetchpatch {
+    #     url = "https://git.uninsane.org/colin/linux/commit/afd6514fd3098047000b3f1f198c2256478dce46.patch";
+    #     hash = "sha256-8OtGXpCPJbk3c3Z4DcurS0F+Ogqx+xahEv+256+4dcY=";
+    #   };
+    # }
     # {
     #   # experimental: set CONFIG_LPS_MODE = 0
     #   # uncertain what this does, LPS = "Leisure Power Savings"
@@ -152,6 +150,55 @@ let
     #   patch = fetchpatch {
     #     url = "https://git.uninsane.org/colin/linux/commit/8bee908739b3b3aa505b22e558397d2d59060951.patch";
     #     hash = "sha256-DnLDseL1Ar5gE31CQUTrGNxxNu88jGCzj8ko99Z8vUA=";
+    #   };
+    # }
+    # {
+    #   # experimental: set CONFIG_ARP_KEEP_ALIVE and CONFIG_GTK_OL if CONFIG_WOWLAN=y
+    #   # this patch just uncomments some commented-out #defines.
+    #   # they were commented out from the first time megi imported this driver, never touched.
+    #   # this may be problematic, occasionally requiring a driver re-probe. see other notes on wowlan/8723cs.
+    #   # if continued errors, try removing the CONFIG_GTK_OL and keeping just CONFIG_ARP_KEEP_ALIVE.
+    #   # seems to infrequently disrupt waking on ARP packets, as well.
+    #   name = "enable-wowlan-offloads";
+    #   patch = fetchpatch {
+    #     url = "https://git.uninsane.org/colin/linux/commit/c4d2d12e31ae70bb43c6190eccc49e42ad645090.patch";
+    #     hash = "sha256-B1rxeVu6y5hP/iMLSbl3ExwrEIXL7WShWsMFh6ko6yk=";
+    #   };
+    # }
+    {
+      name = "pinephone: wowlan: disable unicast";
+      patch = fetchpatch {
+        url = "https://git.uninsane.org/colin/linux/commit/3b3328cfb35b6cea3480c6358faf4d4175146372.patch";
+        hash = "sha256-aBa63UHaU+KSWNzeXEamcMhJr2bRkJGZPTM7nBNu9wk=";
+      };
+    }
+    # {
+    #   name = "pinephone: wowlan: disable unicast/deauth/magic packet/arp";
+    #   patch = fetchpatch {
+    #     url = "https://git.uninsane.org/colin/linux/commit/624315afd2ebd44fc6d0056c206b502e50d92775.patch";
+    #     hash = "sha256-KlgIJigK7G89obT7qWGdHqQ+eavYrCkuwo2d0wdUrpE=";
+    #   };
+    # }
+    {
+      # enables /proc/net/rtl8723cs/wlan0/gpio_info and gpio_set_direction, gpio_set_output_value.
+      # `cat gpio_info` -> `get_gpio 0:0`
+      # writing to gpio_set_output_value does change the value of gpio_info, but not of
+      # /sys/kernel/debug/gpio
+      name = "pinephone: rtl8723cs: enable CONFIG_GPIO_API";
+      patch = fetchpatch {
+        url = "https://git.uninsane.org/colin/linux/commit/51dea574a4559bd30fda2b0f852e42cad6cb6757.patch";
+        hash = "sha256-pAmif5vMdZzgmyzkLmvdOltoXdeXeBeOhvGbpHWzIkc=";
+      };
+    }
+    # {
+    #   # this changes the IRQ definition in the devicetree, and at runtime the decompiled
+    #   # fdt shows this change, but /proc/interrupts still shows as an edge interrupt.
+    #   # no IRQs or GPIOs were changed at all, actually.
+    #   # likely something else is configuring the IRQ at runtime.
+    #   name = "pinephone: rtl8723cs: IRQ on LEVEL_LOW instead of EDGE_FALLING";
+    #   patch = fetchpatch {
+    #     url = "https://git.uninsane.org/colin/linux/commit/223046eac02c5b1ca6203f68df495d35ce191280.patch";
+    #     hash = "sha256-Quhvz7hiM3TbpZ2pKuHVXrO8OLn3r7WNYYIjQc1CWcQ=";
     #   };
     # }
   ] ++ lib.optionals (!withModemPower) [

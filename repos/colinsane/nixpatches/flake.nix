@@ -7,6 +7,7 @@
     let
       patchedPkgsFor = system: nixpkgs.legacyPackages.${system}.applyPatches {
         name = "nixpkgs-patched-uninsane";
+        version = self.lastModifiedDate;
         src = nixpkgs;
         patches = import ./list.nix {
           inherit (nixpkgs.legacyPackages.${system}) fetchpatch2 fetchurl;

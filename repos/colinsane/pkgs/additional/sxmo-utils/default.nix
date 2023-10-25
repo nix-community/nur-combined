@@ -70,6 +70,12 @@ let
         url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45470/mbox";
         hash = "sha256-ev+NLR4g68MWB4RENh7mCth02lTaXxCIAL/af5l8Mrw=";
       })
+      (fetchpatch {
+        # merged ~2023/10/11
+        name = "autorotate: allow all four orientations";
+        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45541/mbox";
+        hash = "sha256-7oT5Y4JynyDvrojgdcpASvZ1sYo7U+1jBpPswuBkEX8=";
+      })
     ];
     unmerged = [
       # (fetchpatch {
@@ -86,27 +92,17 @@ let
         hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
       })
 
-      ## these might or might not be upstream-worthy
-      ./0104-full-auto-rotate.patch
-      # ./0106-no-restart-lisgd.patch
-
       ## not upstreamable
-      # let NixOS manage the audio daemons (pulseaudio/pipewire)
-      ./0005-system-audio.patch
+      (fetchpatch {
+        # let NixOS manage the audio daemons (pulseaudio/pipewire)
+        name = "sxmo_hook_start: don't start audio daemons";
+        url = "https://git.uninsane.org/colin/sxmo-utils/commit/124f8fed85c3ff89ab45f1c21569bcc034d07693.patch";
+        hash = "sha256-GteXFZCuRpIXuYrEdEraIhzCm1b4vNJgh3Lmg+Qjeqk=";
+      })
     ];
     # these don't apply cleanly to the stable release; only to latest
     unmerged-tip-only = [
       # TODO: send these upstream
-      (fetchpatch {
-        name = "manpage: fix typo to sxmo_hook_network_pre_{up,down}.sh";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/9954df10f4885c6dad7396829d97a39e20d285dd.patch";
-        hash = "sha256-+76kia1kEb7Rj8KgP1ty9VlboB4OlWpZS/U0ANLYE5E=";
-      })
-      (fetchpatch {
-        name = "add defaults for hooks referenced in sxmo_power.sh";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/3f432023b766db4146aaaa830c68f31494ebe90b.patch";
-        hash = "sha256-jkdh6gJg0kQVPf5UnTqSv+4aImN0syuQx96NLctKUPE=";
-      })
       (fetchpatch {
         name = "sxmo_hook_apps: add a few";
         url = "https://git.uninsane.org/colin/sxmo-utils/commit/dd17fd707871961906ed4577b8c89f6128c5f121.patch";
@@ -141,9 +137,9 @@ in {
     patches = patches.merged ++ patches.unmerged;
   };
   latest = callPackage ./common.nix {
-    version = "unstable-2023-10-05";
-    rev = "05fd5112d5f2b49051cbb2f0bbb25202363bf83e";
-    hash = "sha256-YmVe9P0w2KSqj6G/az499r7+z3Crfm3TbBIawjVKP1M=";
+    version = "unstable-2023-10-10";
+    rev = "c33408abb560dac52de52d878840945c12a75a32";
+    hash = "sha256-VYUYN5S6qmsNpxMq7xFfgsGcbjIjqvuj36AG+NeMHTM=";
     patches = patches.unmerged ++ patches.unmerged-tip-only;
   };
 }

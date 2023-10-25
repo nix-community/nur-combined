@@ -32,6 +32,7 @@ in
   # repeat imports are deduplicated by url, even when offline.
   postBuild = ''
     wrapProgram $out/bin/gpodder \
+      $extraMakeWrapperArgs \
       --run "$out/bin/gpodder-remove-extra ~/.config/gpodderFeeds.opml || true" \
       --run "$out/bin/gpo import ~/.config/gpodderFeeds.opml || true" \
 

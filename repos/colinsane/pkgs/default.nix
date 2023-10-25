@@ -45,13 +45,15 @@ let
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
     linux-firmware-megous = callPackage ./additional/linux-firmware-megous { };
-    linux-manjaro = callPackage ./additional/linux-manjaro { };
+    # XXX: eval error: need to port past linux_6_4
+    # linux-manjaro = callPackage ./additional/linux-manjaro { };
     linux-megous = callPackage ./additional/linux-megous { };
     mcg = callPackage ./additional/mcg { };
     mpv-uosc-latest = callPackage ./additional/mpv-uosc-latest { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
     phog = callPackage ./additional/phog { };
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
+    rtl8723cs-wowlan = callPackage ./additional/rtl8723cs-wowlan { };
     sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
     sane-weather = callPackage ./additional/sane-weather { };
     static-nix-shell = callPackage ./additional/static-nix-shell { };

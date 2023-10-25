@@ -12,9 +12,18 @@ let
     options = {
       len = mkOption {
         type = types.int;
+        description = ''
+          how many bytes of entropy to use; not necessarily the encoded length of the secret.
+          e.g. if using base16, the length of the encoded secret will be twice this value.
+        '';
+        default = 32;  # 256b security
       };
       encoding = mkOption {
         type = types.enum [ "base64" ];
+      };
+      acl.mode = mkOption {
+        type = types.str;
+        default = "0600";
       };
     };
   };
@@ -41,7 +50,7 @@ in
         c.encoding
         (builtins.toString (c.len * 2))
       ];
-      generated.acl.mode = "0600";
+      generated.acl.mode = c.acl.mode;
     }) cfg;
   };
 }

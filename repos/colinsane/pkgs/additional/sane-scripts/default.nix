@@ -211,6 +211,11 @@ let
       pname = "sane-wipe-browser";
       src = ./src;
     };
+    wipe-fractal = static-nix-shell.mkBash {
+      pname = "sane-wipe-fractal";
+      src = ./src;
+      pkgs = [ "libsecret" "systemd" ];
+    };
   };
 in sane-bin // {
   lib = sane-lib;

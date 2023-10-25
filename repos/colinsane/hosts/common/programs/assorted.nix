@@ -47,6 +47,7 @@ in
       "sane-scripts.vpn"
       "sane-scripts.which"
       "sane-scripts.wipe-browser"
+      "sane-scripts.wipe-fractal"
     ];
     "sane-scripts.sys-utils" = declPackageSet [
       "sane-scripts.ip-port-forward"
@@ -67,6 +68,7 @@ in
       "file"
       # "fwupd"
       "gawk"
+      "gdb"  # to debug segfaults
       "git"
       "gptfdisk"
       "hdparm"
@@ -117,12 +119,13 @@ in
     #   - debugging?
     consoleUtils = declPackageSet [
       "alsaUtils"  # for aplay, speaker-test
-      "binutils"  # for strings; though this brings 80MB of unrelated baggage too
+      "binutils-unwrapped"  # for strings; though this brings 80MB of unrelated baggage too
       # "cdrtools"
       "clinfo"
       "dmidecode"
       "dtrx"  # `unar` alternative, "Do The Right eXtraction"
       "efivar"
+      "eza"  # a better 'ls'
       # "flashrom"
       "git"  # needed as a user package, for config.
       # "gnupg"
@@ -134,6 +137,7 @@ in
       "lm_sensors"  # for sensors-detect. TODO: what needs this? lift into the consumer
       "lshw"
       # "memtester"
+      "mercurial"  # hg
       "neovim"  # needed as a user package, for swap persistence
       # "nettools"
       # "networkmanager"
@@ -198,6 +202,7 @@ in
     devPkgs = declPackageSet [
       "cargo"
       "clang"
+      "lua"
       "nodejs"
       "rustc"
       "tree-sitter"
@@ -245,18 +250,9 @@ in
     # printer/filament settings
     slic3r.persist.plaintext = [ ".Slic3r" ];
 
-    # creds, widevine .so download. TODO: could easily manage these statically.
-    spotify.persist.plaintext = [ ".config/spotify" ];
-
     tdesktop.persist.private = [ ".local/share/TelegramDesktop" ];
 
     tokodon.persist.private = [ ".cache/KDE/tokodon" ];
-
-    # hardenedMalloc solves an "unable to connect to Tor" error when pressing the "connect" button
-    # - still required as of 2023/07/14
-    tor-browser-bundle-bin.package = pkgs.tor-browser-bundle-bin.override {
-      useHardenedMalloc = false;
-    };
 
     whalebird.persist.private = [ ".config/Whalebird" ];
 

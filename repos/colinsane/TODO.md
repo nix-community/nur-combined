@@ -1,7 +1,7 @@
 ## BUGS
 - why i need to manually restart `wireguard-wg-ovpns` on servo periodically
   - else DNS fails
-- fix epiphany URL bar input on moby
+- ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
 
 ## REFACTORING:
 
@@ -30,6 +30,8 @@
 
 ## IMPROVEMENTS:
 ### security/resilience
+- matrix/ntfy: automatically add the ntfy.uninsane.org push URL as part of synapse launch
+- ntfy: use a more secure topic
 - validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
@@ -104,10 +106,6 @@
 - add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled
   - every package here can be auto-generated, and marked with some env var so that it doesn't pollute the pure package set
   - would be super handy for package prototyping!
-- why does nixos-rebuild switch take 5 minutes when net is flakey?
-  - trying to auto-mount servo?
-  - something to do with systemd services restarting/stalling
-  - maybe wireguard & its refresh operation, specifically?
 - get moby to build without binfmt emulation (i.e. make all emulation explicit)
   - then i can distribute builds across servo + desko, and also allow servo to pull packages from desko w/o worrying about purity
 

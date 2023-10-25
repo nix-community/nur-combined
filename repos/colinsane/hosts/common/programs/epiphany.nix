@@ -8,7 +8,7 @@
 { pkgs, ... }:
 {
   sane.programs.epiphany = {
-    # XXX(2023/07/08): running on moby without this hack fails, with:
+    # XXX(2023/07/08): running on moby without `WEBKIT_DISABLE_SANDBOX...` fails, with:
     # - `bwrap: Can't make symlink at /var/run: File exists`
     # this could be due to:
     # - epiphany is somewhere following a symlink into /var/run instead of /run
@@ -19,6 +19,9 @@
     # - <https://gitlab.gnome.org/GNOME/gnome-builder/-/issues/1164>
     # - <https://github.com/flatpak/flatpak/issues/3477>
     # - <https://github.com/NixOS/nixpkgs/issues/197085>
+    #
+    # TODO: consider `WEBKIT_USE_SINGLE_WEB_PROCESS=1` for better perf
+    # - this runs all tabs in 1 process. which is fine, if i'm not a heavy multi-tabber
     package = pkgs.epiphany.overrideAttrs (upstream: {
       preFixup = ''
         gappsWrapperArgs+=(
