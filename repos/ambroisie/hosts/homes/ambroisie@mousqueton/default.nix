@@ -19,4 +19,9 @@
 
   # I use scripts that use the passthrough sequence often on this host
   my.home.tmux.enablePassthrough = true;
+
+  programs.tmux.extraConfig = ''
+    # Setup 24-bit color explicitly, as the default terminfo entry does not
+    set-option -sa terminal-overrides ",xterm-256color:Tc"
+  '';
 }
