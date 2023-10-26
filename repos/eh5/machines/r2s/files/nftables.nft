@@ -36,17 +36,17 @@ table ip filter {
 
   flowtable f {
     hook ingress priority 0;
-    devices = { intern0, extern0 };
+    devices = { intern0, extern0, tun0 };
   }
 
   # allow packets from LAN to WAN, and WAN to LAN if LAN initiated the connection
   chain forward {
     type filter hook forward priority 0; policy drop;
-    ip protocol {tcp, udp} flow offload @f
+    ip protocol tcp flow add @f
 
-    iifname intern0 oifname extern0 accept
-    iifname extern0 oifname intern0 ct state { related, established } accept
-    iifname extern0 oifname intern0 udp dport $open_udp_ports ct state new accept
+    iifname { lo, intern0 } accept
+    oifname intern0 ct state { related, established } accept
+    oifname intern0 udp dport $open_udp_ports ct state new accept
   }
 }
 

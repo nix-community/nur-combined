@@ -30,47 +30,18 @@ in
   };
   systemd.services.v2ray-next = {
     serviceConfig = {
+      TimeoutSec = 5;
       SupplementaryGroups = [ config.users.groups.direct-net.name ];
     };
   };
   services.v2ray-rules-dat.reloadServices = [ "v2ray-next.service" ];
   sops.secrets.v2rayConfig.restartUnits = [ "v2ray-next.service" ];
 
-  # services.hev-socks5-tproxy = {
-  #   enable = true;
-  #   config = {
-  #     socks5 = {
-  #       address = "127.0.0.1";
-  #       port = 1088;
-  #       udp = "udp";
-  #     };
-  #     tcp = {
-  #       address = "127.0.0.1";
-  #       port = 1081;
-  #     };
-  #     udp = {
-  #       address = "127.0.0.1";
-  #       port = 1081;
-  #     };
-  #     limit-nofile = 65535;
-  #   };
-  # };
-  # systemd.services.hev-socks5-tproxy = {
-  #   bindsTo = [ "v2ray-next.service" ];
-  #   after = [ "v2ray-next.service" ];
-  #   serviceConfig = {
-  #     SupplementaryGroups = [ config.users.groups.direct-net.name ];
-  #   };
-  # };
-
   systemd.services.setup-tproxy = {
-    bindsTo = [
-      # "hev-socks5-tproxy.service"
-      "nftables.service"
-    ];
+    unitConfig.ReloadPropagatedFrom = [ "nftables.service" ];
+    bindsTo = [ "nftables.service" ];
     wants = [ "systemd-time-wait-sync.service" ];
     after = [
-      # "hev-socks5-tproxy.service"
       "systemd-time-wait-sync.service"
       "nftables.service"
     ];
@@ -120,6 +91,37 @@ in
       routingPolicyRuleConfig = {
         FirewallMark = 9;
         Table = 100;
+      };
+    }];
+  };
+
+  systemd.network.netdevs."tun0" = {
+    netdevConfig = {
+      Name = "tun0";
+      Kind = "tun";
+    };
+    tunConfig = { };
+    extraConfig = ''
+      [TUN]
+      KeepCarrier = yes;
+    '';
+  };
+  systemd.network.networks."tun0" = {
+    matchConfig.Name = "tun0";
+    networkConfig = {
+      Address = "198.18.0.1/15";
+      ConfigureWithoutCarrier = true;
+    };
+    routes = [{
+      routeConfig = {
+        Destination = "0.0.0.0/0";
+        Table = 200;
+      };
+    }];
+    routingPolicyRules = [{
+      routingPolicyRuleConfig = {
+        FirewallMark = 10;
+        Table = 200;
       };
     }];
   };

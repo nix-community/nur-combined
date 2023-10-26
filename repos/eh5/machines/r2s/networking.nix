@@ -31,7 +31,11 @@
     "net.ipv4.udp_rmem_min" = 8192;
     "net.ipv4.udp_wmem_min" = 8192;
 
-    "net.ipv4.conf.intern0.route_localnet" = true;
+    "net.ipv4.conf.all.rp_filter" = false;
+    "net.ipv4.conf.default.rp_filter" = false;
+    "net.ipv4.conf.intern0.rp_filter" = false;
+    "net.ipv4.conf.extern0.rp_filter" = false;
+    "net.ipv4.conf.tun0.rp_filter" = false;
   };
 
   networking.useNetworkd = false;
