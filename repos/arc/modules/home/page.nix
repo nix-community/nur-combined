@@ -9,6 +9,8 @@
       if [[ $arg = --language=* ]]; then
         LANG=$(cut -d= -f2 <<<"$arg")
         ARGS+=("--file-name=stdin.$LANG")
+      elif [[ $arg = --plain ]]; then
+        ARGS+=("--style=plain")
       else
         ARGS+=("$arg")
       fi
