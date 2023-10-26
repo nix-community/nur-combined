@@ -404,16 +404,16 @@
   };
   rime-wubi = {
     pname = "rime-wubi";
-    version = "f1876f08f1d4a9696395be0070c0e8e4353c44cb";
+    version = "152a0d3f3efe40cae216d1e3b338242446848d07";
     src = fetchgit {
       url = "https://github.com/rime/rime-wubi.git";
-      rev = "f1876f08f1d4a9696395be0070c0e8e4353c44cb";
+      rev = "152a0d3f3efe40cae216d1e3b338242446848d07";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-c/dv0vY5GdFDNSJ9U93kYmP9mUmKQtCSipkprXFOPrU=";
+      sha256 = "sha256-IetRNGZkyAzZ8tqqpa45oit0nQw1qx5BdwRhQDibUdw=";
     };
-    date = "2020-09-08";
+    date = "2023-10-25";
   };
   rime-wugniu = {
     pname = "rime-wugniu";
@@ -510,16 +510,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "a459d8a9b39b7b1f37621d246c41ee3676748799";
+    version = "efab1daa7edae14e9dc93f0cae5927e2a43c41f5";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "a459d8a9b39b7b1f37621d246c41ee3676748799";
+      rev = "efab1daa7edae14e9dc93f0cae5927e2a43c41f5";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-SJt9t+xNWXH8HtLxA9SBt2L7Z8R5owoWo1uqL/p9TPo=";
+      sha256 = "sha256-SOtv+j0LIy/Co6olgasFT+eaWzNWNfOxQE8/rw9c/9M=";
     };
-    date = "2023-10-24";
+    date = "2023-10-25";
   };
   yacd = {
     pname = "yacd";

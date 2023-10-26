@@ -624,7 +624,7 @@
     },
     "rime-wubi": {
         "cargoLocks": null,
-        "date": "2020-09-08",
+        "date": "2023-10-25",
         "extract": null,
         "name": "rime-wubi",
         "passthru": null,
@@ -634,12 +634,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f1876f08f1d4a9696395be0070c0e8e4353c44cb",
-            "sha256": "sha256-c/dv0vY5GdFDNSJ9U93kYmP9mUmKQtCSipkprXFOPrU=",
+            "rev": "152a0d3f3efe40cae216d1e3b338242446848d07",
+            "sha256": "sha256-IetRNGZkyAzZ8tqqpa45oit0nQw1qx5BdwRhQDibUdw=",
             "type": "git",
             "url": "https://github.com/rime/rime-wubi.git"
         },
-        "version": "f1876f08f1d4a9696395be0070c0e8e4353c44cb"
+        "version": "152a0d3f3efe40cae216d1e3b338242446848d07"
     },
     "rime-wugniu": {
         "cargoLocks": null,
@@ -789,7 +789,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2023-10-24",
+        "date": "2023-10-25",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -799,12 +799,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a459d8a9b39b7b1f37621d246c41ee3676748799",
-            "sha256": "sha256-SJt9t+xNWXH8HtLxA9SBt2L7Z8R5owoWo1uqL/p9TPo=",
+            "rev": "efab1daa7edae14e9dc93f0cae5927e2a43c41f5",
+            "sha256": "sha256-SOtv+j0LIy/Co6olgasFT+eaWzNWNfOxQE8/rw9c/9M=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "a459d8a9b39b7b1f37621d246c41ee3676748799"
+        "version": "efab1daa7edae14e9dc93f0cae5927e2a43c41f5"
     },
     "yacd": {
         "cargoLocks": null,
