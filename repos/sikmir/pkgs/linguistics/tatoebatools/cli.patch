@@ -11,7 +11,7 @@ index 10ad3c2..4cf6338 100644
          "requests>=2.23.0",
          "SQLAlchemy==1.4.23",
          "tqdm>=4.46.0",
-+        "xdg",
++        "xdg-base-dirs",
      ],
 +    entry_points={"console_scripts": "parallel_corpus=tatoebatools.cli:parallel_corpus"},
  )
@@ -22,10 +22,10 @@ index 0000000..f128aec
 +++ i/tatoebatools/cli.py
 @@ -0,0 +1,13 @@
 +import click
-+from xdg import XDG_DATA_HOME
++from xdg_base_dirs import xdg_data_home
 +from tatoebatools import ParallelCorpus, tatoeba
 +
-+tatoeba.dir = XDG_DATA_HOME / "tatoebatools"
++tatoeba.dir = xdg_data_home() / "tatoebatools"
 +
 +@click.command(short_help="Parallel corpus")
 +@click.argument('source_language')

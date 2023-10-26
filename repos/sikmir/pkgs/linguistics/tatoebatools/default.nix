@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
   postPatch = "sed -i 's/==.*\"/\"/;s/>=.*\"/\"/' setup.py";
 
   propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests sqlalchemy setuptools tqdm ]
-    ++ lib.optionals withCli [ click xdg ];
+    ++ lib.optionals withCli [ click xdg-base-dirs ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
