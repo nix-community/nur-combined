@@ -1,0 +1,28 @@
+From 416b3c9c5e783d173ac0fd5310a76c1b144b92c1 Mon Sep 17 00:00:00 2001
+From: eeeXun <sdes96303@gmail.com>
+Date: Thu, 19 Oct 2023 02:34:12 +0800
+Subject: feat: make invert_diff configurable
+
+---
+ README.md       | 3 ++-
+ lua/gruvbox.lua | 7 ++++---
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/lua/gruvbox.lua b/lua/gruvbox.lua
+index ceba0735..a319fc6a 100644
+--- a/lua/gruvbox.lua
++++ b/lua/gruvbox.lua
+@@ -360,9 +361,9 @@ local function get_groups()
+     PmenuSel = { fg = colors.bg2, bg = colors.blue, bold = config.bold },
+     PmenuSbar = { bg = colors.bg2 },
+     PmenuThumb = { bg = colors.bg4 },
+-    DiffDelete = { bg = colors.dark_red },
+-    DiffAdd = { bg = colors.dark_green },
+-    DiffChange = { bg = colors.dark_aqua },
+-    DiffText = { bg = colors.yellow, fg = colors.bg0 },
++    DiffDelete = { fg = colors.bg0, bg = colors.red, reverse = config.inverse },
++    DiffAdd = { fg = colors.bg0, bg = colors.green, reverse = config.inverse },
++    DiffChange = { fg = colors.bg0, bg = colors.aqua, reverse = config.inverse },
++    DiffText = { bg = colors.yellow, fg = colors.bg0, reverse = config.inverse },
+     SpellCap = { link = "GruvboxBlueUnderline" },
+     SpellBad = { link = "GruvboxRedUnderline" },
