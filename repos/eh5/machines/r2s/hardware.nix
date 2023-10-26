@@ -42,7 +42,7 @@
       grub.enable = false;
       generic-extlinux-compatible = {
         enable = true;
-        configurationLimit = 3;
+        configurationLimit = 5;
       };
     };
     kernelPackages = pkgs.linuxPackages;

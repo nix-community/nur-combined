@@ -83,7 +83,7 @@
     linkConfig.ActivationPolicy = "always-up";
   };
 
-  systemd.targets.network-pre =
+  systemd.services.nftables =
     let
       ifNames = [ "intern0" "extern0" ];
       afterNetDevices = (builtins.map
@@ -92,7 +92,6 @@
       );
     in
     {
-      wants = afterNetDevices;
       after = afterNetDevices;
     };
 }

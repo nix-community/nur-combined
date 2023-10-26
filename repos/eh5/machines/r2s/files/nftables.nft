@@ -36,7 +36,7 @@ table ip filter {
 
   flowtable f {
     hook ingress priority 0;
-    devices = { intern0, extern0, tun0 };
+    devices = { intern0, extern0 };
   }
 
   # allow packets from LAN to WAN, and WAN to LAN if LAN initiated the connection
