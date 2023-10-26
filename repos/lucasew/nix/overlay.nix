@@ -2,7 +2,8 @@ flake: final: prev:
 let
   inherit (flake.outputs) global;
   inherit (global) rootPath;
-  inherit (prev) lib callPackage writeShellScript;
+  inherit (final) callPackage;
+  inherit (prev) lib writeShellScript;
   inherit (lib) recursiveUpdate;
   inherit (builtins) toString length head tail;
 in
@@ -21,6 +22,17 @@ in
     };
 
   nbr = import "${flake.inputs.nbr}" { pkgs = final; };
+
+  pythonPackagesExtensions = [
+    (final: prev: {
+      std2 = prev.std2.overrideAttrs (old: {
+        src = flake.inputs.src-python-std2;
+      });
+      pynvim_pp = prev.pynvim_pp.overrideAttrs (old: {
+        src = flake.inputs.src-python-pynvim_pp;
+      });
+    })
+  ];
 
   lib = prev.lib.extend (final: prev: {
     jpg2png = cp ./lib/jpg2png.nix;
@@ -165,12 +177,6 @@ in
       fi
     '';
   };
-
-  python3Packages = prev.python3Packages.overrideScope (self: super: {
-    std2 = super.std2.overrideAttrs (_: {
-      src = flake.inputs.src-python-std2;
-    });
-  });
 
   opencv4Full = prev.python3Packages.opencv4.override {
     pythonPackages = prev.python3Packages;

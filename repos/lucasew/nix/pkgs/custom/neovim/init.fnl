@@ -2,9 +2,9 @@
 (vim.api.nvim_create_user_command :Dosify (fn [opts]
   (tset vim.b :ff :dos)) {})
 
-(vim.cmd "map gy \"+y")
-(vim.cmd "map gp \"+p")
-(vim.cmd "map gd \"+d")
+; (vim.cmd "map gy \"+y")
+; (vim.cmd "map gp \"+p")
+; (vim.cmd "map gd \"+d")
 (vim.cmd "noremap <C-n> :nohl<CR>")
 
 (tset vim.o :encoding :utf-8) ;; Sempre usar utf-8 ao salvar
@@ -42,6 +42,10 @@
 (tset vim.o :wildmode "list:longest,full")
 
 (tset vim.o :wildignore "*.pyc,*.o,*.class")
+
+
+;; Clipboard
+(tset vim.o :clipboard :unnamedplus)
 
 ;; Imports
 (local coq (require :coq))

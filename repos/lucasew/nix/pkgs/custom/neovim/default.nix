@@ -1,6 +1,7 @@
 { pkgs
 , flake
 , lib
+, python3
 , colors ? null
 , ...
 }:
@@ -18,7 +19,6 @@ let
     callPackage
     fetchzip
   ;
-  wrapNeovim = pkgs.neovimUtils.legacyWrapper;
   inherit (pkgs.vimUtils)
     buildVimPlugin
     buildVimPluginFrom2Nix
@@ -57,8 +57,9 @@ let
       sha256 = "sha256-KpkLmd9GkpVtXS6xo9YEoeomoklp2DGC+X3PRAWVgGw=";
     };
   };
-in wrapNeovim pkgs.neovim-unwrapped {
+in pkgs.neovim.override {
   withPython3 = true;
+  withRuby = false;
   configure = {
     packages.plugins.start = with vimPlugins; [
       # utils

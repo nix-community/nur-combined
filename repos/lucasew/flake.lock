@@ -683,6 +683,7 @@
         "send2kindle": "send2kindle",
         "simple-dashboard": "simple-dashboard",
         "sops-nix": "sops-nix",
+        "src-python-pynvim_pp": "src-python-pynvim_pp",
         "src-python-std2": "src-python-std2",
         "telegram-sendmail": "telegram-sendmail"
       }
@@ -761,6 +762,23 @@
         "type": "github"
       }
     },
+    "src-python-pynvim_pp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1692682093,
+        "narHash": "sha256-T9b21Ap+B4Es5OVMM+iopwvY6Upnp6sWG/y6Eu5ayak=",
+        "owner": "ms-jpq",
+        "repo": "pynvim_pp",
+        "rev": "9b73bf01f18a1959ed9b91438b49ea6a197f417e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ms-jpq",
+        "ref": "pp",
+        "repo": "pynvim_pp",
+        "type": "github"
+      }
+    },
     "src-python-std2": {
       "flake": false,
       "locked": {
@@ -773,6 +791,7 @@
       },
       "original": {
         "owner": "ms-jpq",
+        "ref": "std",
         "repo": "std2",
         "type": "github"
       }
