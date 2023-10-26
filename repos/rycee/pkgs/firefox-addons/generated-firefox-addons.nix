@@ -2287,10 +2287,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "120.0.20231023.135443";
+      version = "120.0.20231025.91756";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4184906/francais_language_pack-120.0.20231023.135443.xpi";
-      sha256 = "27dcdb1944e1e38a8f524ee59cc488d221858a34ed8cc3b4d04c64a3d1992fbc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4185894/francais_language_pack-120.0.20231025.91756.xpi";
+      sha256 = "e866f170ab1245a223ae5343fabf6bf9ab63bb2ec70a4d58a208221fed13d8c3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5490,10 +5490,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.9.5";
+      version = "7.10.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4154049/octotree-7.9.5.xpi";
-      sha256 = "5ca104e132335c9d1c6a2cd911e4162199c4d03a662b775327f747a7cc31c704";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4184612/octotree-7.10.0.xpi";
+      sha256 = "92aebff1f0f8604c84375691dd2e2f255940ce55d965a30cf4eb35d1434cf826";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
