@@ -1,7 +1,7 @@
 From 416b3c9c5e783d173ac0fd5310a76c1b144b92c1 Mon Sep 17 00:00:00 2001
 From: eeeXun <sdes96303@gmail.com>
 Date: Thu, 19 Oct 2023 02:34:12 +0800
-Subject: feat: make invert_diff configurable
+Subject: Use better diff colours
 
 ---
  README.md       | 3 ++-
@@ -20,9 +20,9 @@ index ceba0735..a319fc6a 100644
 -    DiffAdd = { bg = colors.dark_green },
 -    DiffChange = { bg = colors.dark_aqua },
 -    DiffText = { bg = colors.yellow, fg = colors.bg0 },
-+    DiffDelete = { fg = colors.bg0, bg = colors.red, reverse = config.inverse },
-+    DiffAdd = { fg = colors.bg0, bg = colors.green, reverse = config.inverse },
-+    DiffChange = { fg = colors.bg0, bg = colors.aqua, reverse = config.inverse },
-+    DiffText = { bg = colors.yellow, fg = colors.bg0, reverse = config.inverse },
++    DiffDelete = { fg = colors.red },
++    DiffAdd = { fg = colors.green },
++    DiffChange = { fg = colors.aqua },
++    DiffText = { fg = colors.yellow, bg = colors.bg0 },
      SpellCap = { link = "GruvboxBlueUnderline" },
      SpellBad = { link = "GruvboxRedUnderline" },

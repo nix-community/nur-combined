@@ -14,7 +14,7 @@ _final: _prev: {
 
     patches = [
       # Inspired by https://github.com/ellisonleao/gruvbox.nvim/pull/291
-      ./old-colours.patch
+      ./colours.patch
     ];
 
     meta = {
