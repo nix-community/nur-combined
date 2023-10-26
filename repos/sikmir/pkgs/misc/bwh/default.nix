@@ -17,9 +17,11 @@ stdenv.mkDerivation rec {
   buildInputs = [ SDL2 the-foundation ] ++ lib.optional stdenv.isDarwin AppKit;
 
   installPhase = lib.optionalString stdenv.isDarwin ''
-    mkdir -p $out/{Applications,bin}
+    runHook preInstall
+    mkdir -p $out/Applications
     mv *.app $out/Applications
     makeWrapper $out/{Applications/Bitwise\ Harmony.app/Contents/MacOS/Bitwise\ Harmony,bin/bitwise-harmony}
+    runHook postInstall
   '';
 
   meta = with lib; {

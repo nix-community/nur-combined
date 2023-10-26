@@ -1,10 +1,10 @@
 { lib, fetchwebarchive, unzip }:
 
 fetchwebarchive {
-  name = "qmapshack-onlinemaps-2021-05-21";
+  name = "qmapshack-onlinemaps-2022-09-02";
   url = "http://www.mtb-touring.net/wp-content/uploads/Onlinemaps.zip";
-  timestamp = "20210731232714";
-  hash = "sha256-E0YCofyxECtXqzBG++85L2vCQy059MMH129PpL/e/wk=";
+  timestamp = "20231026090331";
+  hash = "sha256-5xXyaWhUwOZPGb+unYh4A0Hzznk2nRPHtIxdiiQHlHY=";
   downloadToTemp = true;
   recursiveHash = true;
   postFetch = ''

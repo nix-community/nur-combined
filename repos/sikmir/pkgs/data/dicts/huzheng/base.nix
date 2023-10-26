@@ -1,10 +1,11 @@
-{ lib, srcOnly, fetchurl, pname, version, filename, hash, description }:
+{ lib, srcOnly, fetchwebarchive, pname, version, filename, hash, description }:
 
 srcOnly {
   inherit pname version;
 
-  src = fetchurl {
+  src = fetchwebarchive {
     url = "http://download.huzheng.org/${filename}";
+    timestamp = "20230718140437";
     inherit hash;
   };
 

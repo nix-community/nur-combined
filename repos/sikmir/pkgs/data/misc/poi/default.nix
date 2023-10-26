@@ -2,10 +2,10 @@
 
 {
   geocachingSu = fetchwebarchive {
-    name = "geocaching_su-2022-01-31";
+    name = "geocaching_su-2023-10-26";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    timestamp = "20220131071819";
-    hash = "sha256-aN9uX74SISK8UTUYhEhmYKEa9LRtt36t7DQepWFwMIA=";
+    timestamp = "20231026111612";
+    hash = "sha256-gZv5Ygd5XRrt45k3LLbts9B64tEhOWETm8iHld/NlxA=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -60,10 +60,10 @@
   };
 
   westra = fetchwebarchive {
-    name = "westra-2020-12-30";
+    name = "westra-2023-10-26";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
-    timestamp = "20201230113603";
-    hash = "sha256-yW3gAc2izsLkjWrz8TgU1F/kYNYJrixEZyIKyv0vGuU=";
+    timestamp = "20231026111946";
+    hash = "sha256-3GMpVeXHjMenLnUwl/VIyAxoznJ3wcY1DAxGe2aD6w0=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''

@@ -158,6 +158,7 @@ lib.makeScope newScope (
     eva = callPackage ./gemini/eva {
       inherit (darwin.apple_sdk.frameworks) Security;
     };
+    gelim = callPackage ./gemini/gelim { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
     gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };

@@ -26,13 +26,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "gpxsee-maps";
-  version = "2022-06-08";
+  version = "2023-07-20";
 
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "GPXSee-maps";
-    rev = "87ae3ae6e2ee74066cee7ba8f78968b77191fc51";
-    hash = "sha256-JT9/sNFP8jGBBxRZZgjlJ4OFvP9HxjFp7ehj2HVVrGs=";
+    rev = "1097cd829f8fdd1f17304c4342f2d1258d2ac9e3";
+    hash = "sha256-kucb7FJkM45GIIfBmcEBoR2fT4GCx9Ht0urxZfjlGiw=";
   };
 
   postPatch =

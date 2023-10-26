@@ -8,7 +8,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "qt-creator";
     repo = "qt-creator";
     name = "qtcreator-macos-universal-${finalAttrs.version}.7z";
-    hash = "sha256-qW187/8xJiPSxYY7b7XdLRyV6wkAIFP0QFoNAaLej04=";
+    hash = "sha256-ZuBJs4dX48RHEsHSGeyHITVWlCo7wRcT6VG7d9wzSa8=";
     version = "v${finalAttrs.version}";
   };
 
