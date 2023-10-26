@@ -33,13 +33,10 @@ in
     enable = true;
 
     package = pkgs.firefox.override {
-      cfg = {
-        enableTridactylNative = cfg.tridactyl.enable;
-      };
-
-      extraNativeMessagingHosts = with pkgs; ([ ]
+      nativeMessagingHosts = ([ ]
+        ++ lib.optional cfg.tridactyl.enable pkgs.tridactyl-native
         # Watch videos using mpv
-        ++ lib.optional cfg.ff2mpv.enable ambroisie.ff2mpv-go
+        ++ lib.optional cfg.ff2mpv.enable pkgs.ambroisie.ff2mpv-go
       );
     };
 

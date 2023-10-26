@@ -35,7 +35,6 @@ in
       hostName = "nextcloud.${config.networking.domain}";
       home = "/var/lib/nextcloud";
       maxUploadSize = cfg.maxSize;
-      enableBrokenCiphersForSSE = false;
       configureRedis = true;
       config = {
         adminuser = cfg.admin;
