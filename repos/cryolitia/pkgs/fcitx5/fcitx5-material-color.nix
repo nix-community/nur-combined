@@ -17,10 +17,15 @@ stdenvNoCC.mkDerivation rec {
   };
 
   installPhase = ''
-    runHook preInstall
-    find . -type f -name 'theme-*.conf' -exec install -m444 -Dt $out/share/fcitx5/themes/Material-Color/ {} \;
-    find . -type f -name '*.png' -exec install -m444 -Dt $out/share/fcitx5/themes/Material-Color/ {} \;
-    runHook postInstall
+    install -Dm644 arrow.png radio.png -t $out/share/${pname}/
+    for _variant in black blue brown deepPurple indigo orange pink red sakuraPink teal; do
+      _variant_name=Material-Color-$_variant
+      install -dm755 $_variant_name $out/share/fcitx5/themes/$_variant_name
+      ln -sv ../../../$pname/arrow.png $out/share/fcitx5/themes/$_variant_name/
+      ln -sv ../../../$pname/radio.png $out/share/fcitx5/themes/$_variant_name/
+      install -Dm644 theme-$_variant.conf $out/share/fcitx5/themes/$_variant_name/theme.conf
+      sed -i "s/^Name=.*/Name=$_variant_name/" $out/share/fcitx5/themes/$_variant_name/theme.conf
+    done
   '';
 
   meta = with lib; {
