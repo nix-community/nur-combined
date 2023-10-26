@@ -73,18 +73,18 @@
   };
   pkgbuild-language-server = {
     pname = "pkgbuild-language-server";
-    version = "0.0.6";
+    version = "0.0.7";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/p/pkgbuild-language-server/pkgbuild-language-server-0.0.6.tar.gz";
-      sha256 = "sha256-k0XrdeKTOwxAvAkxjwVBmRv+SVv1toTyvnW4vXcwrWQ=";
+      url = "https://pypi.org/packages/source/p/pkgbuild-language-server/pkgbuild-language-server-0.0.7.tar.gz";
+      sha256 = "sha256-ELLCNoOXh/tjuKHmO6bhbqG3w31MguP7IHYXSIsfF1Q=";
     };
   };
   portage-language-server = {
     pname = "portage-language-server";
-    version = "0.0.2";
+    version = "0.0.3";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/p/portage-language-server/portage-language-server-0.0.2.tar.gz";
-      sha256 = "sha256-CkshjHfjJFSJJT1lbRB1kqBz2VKMErae1Plz4Q69XVg=";
+      url = "https://pypi.org/packages/source/p/portage-language-server/portage-language-server-0.0.3.tar.gz";
+      sha256 = "sha256-z1jGq7rXBJLJ0ko5bwXVQDSkw/q/jGXD8NVCPIWmNrE=";
     };
   };
   repl-python-codestats = {
@@ -129,10 +129,10 @@
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.0.4";
+    version = "0.0.6";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.0.4.tar.gz";
-      sha256 = "sha256-e3iuRAtRbL26cg/FYw/l5f9IglJLI+akDffVN7ZPjVs=";
+      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.0.6.tar.gz";
+      sha256 = "sha256-RwtreL7LfA5Fft18vdtDp8qNlryYpZuoqEp3RtV/+mQ=";
     };
   };
   tmux-language-server = {
