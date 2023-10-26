@@ -75,7 +75,9 @@
     PollIntervalMaxSec=180
     ConnectionRetrySec=3
   '';
-  systemd.additionalUpstreamSystemUnits = [ "systemd-time-wait-sync.service" ];
+  systemd.additionalUpstreamSystemUnits = [
+    "systemd-time-wait-sync.service"
+  ];
   services.fake-hwclock.enable = true;
   networking.timeServers = [
     "ntp.aliyun.com"
@@ -87,6 +89,14 @@
     "ntp6.aliyun.com"
     "ntp7.aliyun.com"
   ];
+
+  systemd.services."wait-system-running" = {
+    description = "Wait system running";
+    serviceConfig = { Type = "simple"; };
+    script = ''
+      systemctl is-system-running --wait
+    '';
+  };
 
   systemd.services."setup-net-leds" = {
     description = "Setup network LEDs";
@@ -107,7 +117,8 @@
   };
   systemd.services."setup-sys-led" = {
     description = "Setup booted LED";
-    serviceConfig = { Type = "idle"; };
+    requires = [ "wait-system-running.service" ];
+    after = [ "wait-system-running.service" ];
     wantedBy = [ "multi-user.target" ];
     script = ''
       echo default-on > /sys/class/leds/nanopi-r2s:red:sys/trigger
