@@ -15,21 +15,14 @@
 
 stdenv.mkDerivation {
   pname = "osmium-surplus";
-  version = "2022-08-28";
+  version = "2023-08-27";
 
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osmium-surplus";
-    rev = "e977028727ed9c836cefad3a271040dbe5b2bf7d";
-    hash = "sha256-Cl7Umi/hn+Kbd5YDV89EmpsL6vm+n5Snt3ceiH4clUY=";
+    rev = "0500e8583da3634a2304513dc33cba27f080c7af";
+    hash = "sha256-NFOui9wWUSHSsyKh5UxOXQMUNgfVln1hSXJo9yb4cnY=";
   };
-
-  postPatch = lib.optionalString stdenv.isDarwin ''
-    # broken on darwin
-    substituteInPlace src/CMakeLists.txt \
-      --replace "exec(osp-find-multipolygon-problems" "#" \
-      --replace "exec(osp-find-relation-problems" "#"
-  '';
 
   nativeBuildInputs = [ cmake ];
 

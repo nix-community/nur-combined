@@ -1,8 +1,11 @@
 { lib, stdenvNoCC, fetchurl, dict, jq, moreutils, stardict-tools, tatoebatools }:
 let
   langs = [
+    "bel eng"
+    "bel rus"
     "deu eng"
     "deu rus"
+    "eng bel"
     "eng deu"
     "eng epo"
     "eng fin"
@@ -16,6 +19,7 @@ let
     "fin rus"
     "hye eng"
     "hye rus"
+    "rus bel"
     "rus deu"
     "rus eng"
     "rus epo"
