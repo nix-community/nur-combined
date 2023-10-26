@@ -37,11 +37,11 @@
     };
     patches = [
       (let
-        rev = "6630f04bbd0d92e6a78cb0a438f4b561a35d50a3";
+        rev = "6982d93e90ec493454981f36f4641507e3a3df90";
       in fetchpatch {
         name = "notmuch-vim.patch";
         url = "https://github.com/mashedcode/notmuch-vim/compare/master...arcnmx:${rev}.patch";
-        sha256 = "sha256-zR3vNkdE7SZlGL0U7fbH8QWlp2ovqGNj/KDmcpDniIQ=";
+        sha256 = "sha256-pdD4PUODUkuKIgC+7KSrk5QjoLNmPgTCUzhIY4sp3QE=";
       })
     ];
     gemEnv = buildEnv {

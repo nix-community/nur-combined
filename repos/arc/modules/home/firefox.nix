@@ -94,7 +94,7 @@ in {
       description = "Extra arguments to pass to the firefox wrapper.";
       example = literalExample ''
         {
-          extraNativeMessagingHosts = [
+          nativeMessagingHosts = [
             pkgs.tridactyl-native
           ];
         }
