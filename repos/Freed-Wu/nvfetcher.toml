@@ -26,13 +26,13 @@ fetch.pypi = "repl-python-codestats"
 src.pypi = "translate-shell"
 fetch.pypi = "translate-shell"
 
-[autotools-language-server]
-src.pypi = "autotools_language_server"
-fetch.pypi = "autotools_language_server"
-
-[bitbake-language-server]
-src.pypi = "bitbake_language_server"
-fetch.pypi = "bitbake_language_server"
+# [autotools-language-server]
+# src.pypi = "autotools-language-server"
+# fetch.pypi = "autotools-language-server"
+#
+# [bitbake-language-server]
+# src.pypi = "bitbake-language-server"
+# fetch.pypi = "bitbake-language-server"
 
 [expect-language-server]
 src.pypi = "expect-language-server"
@@ -41,14 +41,6 @@ fetch.pypi = "expect-language-server"
 [mutt-language-server]
 src.pypi = "mutt-language-server"
 fetch.pypi = "mutt-language-server"
-
-[pkgbuild-language-server]
-src.pypi = "pkgbuild-language-server"
-fetch.pypi = "pkgbuild-language-server"
-
-[portage-language-server]
-src.pypi = "portage-language-server"
-fetch.pypi = "portage-language-server"
 
 [requirements-language-server]
 src.pypi = "requirements-language-server"
@@ -60,7 +52,7 @@ fetch.pypi = "sublime-syntax-language-server"
 
 [termux-language-server]
 src.pypi = "termux-language-server"
-fetch.pypi = "termux_language_server"
+fetch.pypi = "termux-language-server"
 
 [tmux-language-server]
 src.pypi = "tmux-language-server"
