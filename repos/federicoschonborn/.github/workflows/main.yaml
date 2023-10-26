@@ -25,16 +25,6 @@ jobs:
       channel: nixpkgs-unstable
     secrets: inherit
 
-  build-nixos-unstable-small-x86_64-linux:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: x86_64-linux
-      channel: nixos-unstable-small
-    secrets: inherit
-    needs:
-      - build-nixpkgs-unstable-x86_64-linux
-
   build-nixos-unstable-x86_64-linux:
     uses: ./.github/workflows/build.yaml
     with:
@@ -43,17 +33,7 @@ jobs:
       channel: nixos-unstable
     secrets: inherit
     needs:
-      - build-nixos-unstable-small-x86_64-linux
-
-  build-nixos-stable-small-x86_64-linux:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: x86_64-linux
-      channel: nixos-23.05-small
-    secrets: inherit
-    needs:
-      - build-nixos-unstable-x86_64-linux
+      - build-nixpkgs-unstable-x86_64-linux
 
   build-nixos-stable-x86_64-linux:
     uses: ./.github/workflows/build.yaml
@@ -63,7 +43,7 @@ jobs:
       channel: nixos-23.05
     secrets: inherit
     needs:
-      - build-nixos-stable-small-x86_64-linux
+      - build-nixos-unstable-x86_64-linux
 
   deploy:
     name: Deploy
@@ -87,17 +67,6 @@ jobs:
     needs:
       - build-nixpkgs-unstable-x86_64-linux
 
-  build-nixos-unstable-small-aarch64-linux:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: aarch64-linux
-      channel: nixos-unstable
-    secrets: inherit
-    needs:
-      - build-nixos-unstable-small-x86_64-linux
-      - build-nixpkgs-unstable-aarch64-linux
-
   build-nixos-unstable-aarch64-linux:
     uses: ./.github/workflows/build.yaml
     with:
@@ -107,18 +76,7 @@ jobs:
     secrets: inherit
     needs:
       - build-nixos-unstable-x86_64-linux
-      - build-nixos-unstable-small-aarch64-linux
-
-  build-nixos-stable-small-aarch64-linux:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: aarch64-linux
-      channel: nixos-23.05
-    secrets: inherit
-    needs:
-      - build-nixos-stable-small-x86_64-linux
-      - build-nixos-unstable-aarch64-linux
+      - build-nixpkgs-unstable-aarch64-linux
 
   build-nixos-stable-aarch64-linux:
     uses: ./.github/workflows/build.yaml
@@ -129,7 +87,7 @@ jobs:
     secrets: inherit
     needs:
       - build-nixos-stable-x86_64-linux
-      - build-nixos-stable-small-aarch64-linux
+      - build-nixos-unstable-aarch64-linux
 
   build-nixpkgs-unstable-x86_64-darwin:
     uses: ./.github/workflows/build.yaml
