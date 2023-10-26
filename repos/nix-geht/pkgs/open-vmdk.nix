@@ -1,19 +1,18 @@
-{
-lib,
-stdenv,
-fetchFromGitHub,
-python3,
-zlib,
+{ lib
+, stdenv
+, fetchFromGitHub
+, python3
+, zlib
 }:
 stdenv.mkDerivation rec {
   pname = "open-vmdk";
-  version = "0.3.3";
+  version = "0.3.4";
 
   src = fetchFromGitHub {
     owner = "vmware";
     repo = "open-vmdk";
     rev = "v${version}";
-    hash = "sha256-IFuDjKipM+/73ZEjU8tHV2C016G5uGMUc2EzXi+Q/IU=";
+    hash = "sha256-ZcIB5+BdAA7IY3n6O1eF0yi4Zzx/oEJv0PfCZ47lkRk=";
   };
 
   installFlags = ["PREFIX=$(out)"];
@@ -41,10 +40,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Open VMDK is an assistant tool for creating Open Virtual Appliance (OVA)";
+    description = "Assistant tool for creating Open Virtual Appliance (OVA)";
     homepage = "https://github.com/vmware/open-vmdk";
     license = licenses.apsl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [vifino];
+    maintainers = with maintainers; [ vifino ];
   };
 }
