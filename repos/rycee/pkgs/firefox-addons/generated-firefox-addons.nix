@@ -2111,10 +2111,10 @@
       };
     "form-history-control" = buildFirefoxXpiAddon {
       pname = "form-history-control";
-      version = "2.5.7.1";
+      version = "2.5.8.0";
       addonId = "formhistory@yahoo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4183002/form_history_control-2.5.7.1.xpi";
-      sha256 = "c2e402af4e16bd340686dbea259528a7786ae3eb820714a8bef7cfcea02b5b61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4186388/form_history_control-2.5.8.0.xpi";
+      sha256 = "2b15b8468c1e9507c5fcb84ab03ad6b1c174682bd464730e1aa5e9dbd593c5ce";
       meta = with lib;
       {
         homepage = "https://stephanmahieu.github.io/fhc-home/";
@@ -5123,10 +5123,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.1.2";
+      version = "8.1.3";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4058426/multi_account_containers-8.1.2.xpi";
-      sha256 = "0ab8f0222853fb68bc05fcf96401110910dfeb507aaea2cf88c5cd7084d167fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4186050/multi_account_containers-8.1.3.xpi";
+      sha256 = "33edd98d0fc7d47fa310f214f897ce4dfe268b0f868c9d7f32b4ca50573df85c";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -7195,10 +7195,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.11";
+      version = "1.22.14";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4183414/single_file-1.22.11.xpi";
-      sha256 = "3db6481e1e2ffa01a1857f28a253f4f80bc45078e86bc2f4c327af22b963505b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4186316/single_file-1.22.14.xpi";
+      sha256 = "550f2166afe27e3f63e7354a27b1dd5356ab2320a476beb5d54d97771d49be60";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -7339,10 +7339,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.24";
+      version = "5.4.25";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4181516/sponsorblock-5.4.24.xpi";
-      sha256 = "3624120b2d8d64ab9b0aa535784fa38e1914b6a0dc043d391fd5c4a96eec4f54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4185110/sponsorblock-5.4.25.xpi";
+      sha256 = "7bb6d42b76acca487be8e11af23db9c3df916b40e3665446d6335d3e1c7a16f4";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -7443,10 +7443,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.7.2";
+      version = "3.7.3";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4163150/steam_database-3.7.2.xpi";
-      sha256 = "d53ebbb78cab59de0111ededc3a66ff98a8ecf5580d09608579a3692d34682eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4185700/steam_database-3.7.3.xpi";
+      sha256 = "8f30be33fc633489e9b2e2e0b225ab83cd497603b9d6de01582190e15b58ccf9";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -8890,10 +8890,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.67.7";
+      version = "2.0.4";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4137983/vimium_ff-1.67.7.xpi";
-      sha256 = "a164a4f62aa152dd6439cd96aebadbfc655fc56285854d198e7dcee2aca4eb97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4185227/vimium_ff-2.0.4.xpi";
+      sha256 = "8156d26b03c41bec0ccb32e15077cb5543c1befd2a4e99d098cdaa83c258595a";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
@@ -8906,10 +8906,11 @@
           "storage"
           "sessions"
           "notifications"
+          "scripting"
           "webNavigation"
-          "<all_urls>"
           "clipboardRead"
           "clipboardWrite"
+          "<all_urls>"
           "file:///"
           "file:///*/"
           ];
