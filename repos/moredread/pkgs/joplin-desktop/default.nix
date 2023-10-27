@@ -22,7 +22,7 @@ in appimageTools.wrapType2 rec {
     export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
   '';
 
-  multiPkgs = null; # no 32bit needed
+  #multiPkgs = null; # no 32bit needed
   extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
   extraInstallCommands = ''
     mkdir -p $out/share/applications
