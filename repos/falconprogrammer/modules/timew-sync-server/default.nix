@@ -20,10 +20,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    environment.systemPackages = [ pkgs.timew-sync-server ];
+
     users.users.timew-sync-server = {
       description = "User for the timew-sync-server service";
       isSystemUser = true;
       group = "timew-sync-server";
+    };
+
+    users.groups.timew-sync-server = {
+      description = "Group for the timew-sync-server service";
+      isSystemGroup = true;
     };
 
     systemd.services.timew-sync-server = {
@@ -41,7 +49,7 @@ in
         Group = "timew-sync-server";
         Restart = "on-failure";
 
-        ExecStart = "${pkgs.timew-sync-server}/bin/timew-sync-server --port ${toString cfg.port} --keys-location ${cfg.dataDir}/authorized_keys --sqlite-db ${cfg.dataDir}/db.sqlite";
+        ExecStart = "${pkgs.timew-sync-server}/bin/timew-sync-server start --port ${toString cfg.port} --keys-location ${cfg.dataDir}/authorized_keys --sqlite-db ${cfg.dataDir}/db.sqlite";
         Type = "simple";
       };
     };
