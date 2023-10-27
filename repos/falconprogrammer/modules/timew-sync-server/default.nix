@@ -4,10 +4,16 @@ let
 in
 {
   options.services.timew-sync-server = {
-    enable = mkEnableOption "timew-sync-server";
+    enable = lib.mkEnableOption "timew-sync-server";
 
-    port = mkOption {
-      type = types.int;
+    dataDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/timew-sync-server";
+      description = "The directory where the timew-sync-server stores its data.";
+    };
+
+    port = lib.mkOption {
+      type = lib.types.int;
       default = 8080;
       description = "The port on which the timew-sync-server listens.";
     };
@@ -25,13 +31,17 @@ in
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
 
+      preStart = ''
+        mkdir -p 0770 ${cfg.dataDir}/authorized_keys
+        chown -R timew-sync-server:timew-sync-server ${cfg.dataDir}
+      '';
+
       serviceConfig = {
         User = "timew-sync-server";
         Group = "timew-sync-server";
         Restart = "on-failure";
-        StateDirectory = "timew-sync-server";
 
-        ExecStart = "${pkgs.timew-sync-server}/bin/timew-sync-server --port ${toString cfg.port} --keys-location ${lib.mkPath "$STATE_DIRECTORY/authorized_keys"} --sqlite-db $STATE_DIRECTORY/db.sqlite";
+        ExecStart = "${pkgs.timew-sync-server}/bin/timew-sync-server --port ${toString cfg.port} --keys-location ${cfg.dataDir}/authorized_keys --sqlite-db ${cfg.dataDir}/db.sqlite";
         Type = "simple";
       };
     };
