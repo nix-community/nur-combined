@@ -1,6 +1,13 @@
 {
 
   home.file = {
+    ".ohmyzsh-pim" = {
+      source = ./.ohmyzsh-pim;
+      recursive = true;
+    };
+  };
+
+  home.file = {
     ".pandoc" = {
       source = ./.pandoc;
       recursive = true;

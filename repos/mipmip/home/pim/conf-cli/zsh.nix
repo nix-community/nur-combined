@@ -47,7 +47,8 @@
 
     oh-my-zsh = {
       enable = true;
-      theme = "robbyrussell";
+      theme = "pim";
+      custom = "$HOME/.ohmyzsh-pim";
       plugins=["git kubectl terraform aws"];
     };
 

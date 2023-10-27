@@ -174,23 +174,23 @@
             home-manager.useGlobalPkgs = true;
           }
 
-#          {
-#              imports = [
-#                nixified-ai.nixosModules.invokeai
-#              ];
-#
-#              environment.systemPackages = [
-#                nixified-ai.packages.${system}.invokeai-nvidia
-#              ];
-#
-#  #            services.invokeai = {
-#  #              enable = false;
-#  #              host = "0.0.0.0";
-#  #              nsfwChecker = false;
-#  #              package = nixified-ai.packages.${system}.invokeai-nvidia;
-#  #            };
-#
-#            }
+          {
+              imports = [
+                nixified-ai.nixosModules.invokeai
+              ];
+
+              environment.systemPackages = [
+                nixified-ai.packages.${system}.invokeai-nvidia
+              ];
+
+  #            services.invokeai = {
+  #              enable = false;
+  #              host = "0.0.0.0";
+  #              nsfwChecker = false;
+  #              package = nixified-ai.packages.${system}.invokeai-nvidia;
+  #            };
+
+            }
 
 
       ];
