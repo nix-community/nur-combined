@@ -31,15 +31,30 @@ in
 
     users.groups.timew-sync-server = { };
 
-    systemd.services.timew-sync-server = {
-      description = "timew-sync-server";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+    systemd.services.timew-sync-server-init = {
+      before = [ "timew-sync-server.service" ];
+      wantedBy = [ "timew-sync-server.service" ];
 
       preStart = ''
         mkdir -p 0770 ${cfg.dataDir}/authorized_keys
         chown -R timew-sync-server:timew-sync-server ${cfg.dataDir}
       '';
+
+      script = ''
+        touch ${cfg.dataDir}/.is_initialized
+      '';
+
+      unitConfig.ConditionPathExists = "!${cfg.dataDir}/.is_initialized";
+
+      serviceConfig = {
+        Type = "oneshot";
+      };
+    };
+
+    systemd.services.timew-sync-server = {
+      description = "timew-sync-server";
+      after = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         User = "timew-sync-server";
