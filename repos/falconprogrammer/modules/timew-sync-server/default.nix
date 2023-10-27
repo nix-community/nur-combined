@@ -29,10 +29,7 @@ in
       group = "timew-sync-server";
     };
 
-    users.groups.timew-sync-server = {
-      description = "Group for the timew-sync-server service";
-      isSystemGroup = true;
-    };
+    users.groups.timew-sync-server = { };
 
     systemd.services.timew-sync-server = {
       description = "timew-sync-server";
