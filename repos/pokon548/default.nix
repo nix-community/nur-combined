@@ -24,6 +24,8 @@
   geogebra = pkgs.callPackage ./pkgs/geogebra { };
   zhixi = pkgs.callPackage ./pkgs/zhixi { };
 
+  sticky = pkgs.callPackage ./pkgs/sticky { };
+
   vaults = pkgs.callPackage ./pkgs/vaults { };
 
   plasma5-wallpapers-dynamic =
