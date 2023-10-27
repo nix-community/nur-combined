@@ -211,7 +211,7 @@
     },
     "boringssl-oqs": {
         "cargoLocks": null,
-        "date": "2023-07-04",
+        "date": "2023-10-26",
         "extract": null,
         "name": "boringssl-oqs",
         "passthru": null,
@@ -223,11 +223,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "boringssl",
-            "rev": "1ca41b49e9198f510991fb4f350b4a5fd4c1d5ff",
-            "sha256": "sha256-hXxamoRftHyU5ATPNsQpQhDDa6ghBypEwQbZpeMPyZk=",
+            "rev": "e95537cc2460b143830ed94a2b7a4d382435ecb7",
+            "sha256": "sha256-42sAoV7Q3BQbguekgDNLvIS2jsZBq1hCfIhCYMylFzk=",
             "type": "github"
         },
-        "version": "1ca41b49e9198f510991fb4f350b4a5fd4c1d5ff"
+        "version": "e95537cc2460b143830ed94a2b7a4d382435ecb7"
     },
     "calibre-cops": {
         "cargoLocks": null,

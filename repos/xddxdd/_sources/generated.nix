@@ -126,15 +126,15 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "1ca41b49e9198f510991fb4f350b4a5fd4c1d5ff";
+    version = "e95537cc2460b143830ed94a2b7a4d382435ecb7";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "1ca41b49e9198f510991fb4f350b4a5fd4c1d5ff";
+      rev = "e95537cc2460b143830ed94a2b7a4d382435ecb7";
       fetchSubmodules = false;
-      sha256 = "sha256-hXxamoRftHyU5ATPNsQpQhDDa6ghBypEwQbZpeMPyZk=";
+      sha256 = "sha256-42sAoV7Q3BQbguekgDNLvIS2jsZBq1hCfIhCYMylFzk=";
     };
-    date = "2023-07-04";
+    date = "2023-10-26";
   };
   calibre-cops = {
     pname = "calibre-cops";
