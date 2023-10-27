@@ -1,5 +1,5 @@
 # Nixerus
-My NixOS configs and [NUR](https://github.com/nix-community/NUR) repository
+My [NUR](https://github.com/nix-community/NUR) repository
 
 
 ![Build and populate cache](https://github.com/materusPL/Nixerus/workflows/Build%20and%20populate%20cache/badge.svg)
