@@ -24,4 +24,10 @@ in
   #   (any -> value)
   #   [ any ]
   mapFilter = pred: f: attrs: filter pred (map f attrs);
+
+  # Transform a nullable value into a list of zero/one element.
+  #
+  # nullableToList ::
+  #   (nullable a) -> [ a ]
+  nullableToList = x: if x != null then [ x ] else [ ];
 }

@@ -11,6 +11,19 @@ in
     enable = my.mkDisableOption "tmux terminal multiplexer";
 
     enablePassthrough = mkEnableOption "tmux DCS passthrough sequence";
+
+    trueColorTerminals = mkOption {
+      type = with types; listOf str;
+      default = lib.my.nullableToList config.my.home.terminal.program;
+      defaultText = ''
+        `[ config.my.home.terminal.program ]` if it is non-null, otherwise an
+        empty list.
+      '';
+      example = [ "xterm-256color" ];
+      description = ''
+        $TERM values which should be considered to always support 24-bit color.
+      '';
+    };
   };
 
   config.programs.tmux = lib.mkIf cfg.enable {
@@ -74,6 +87,14 @@ in
           # Allow any application to use the tmux DCS for passthrough
           set -g allow-passthrough on
         ''
+      }
+
+      # Force 24-bit color for each relevant $TERM
+      ${
+        let
+          mkTcFlag = term: ''set -as terminal-features ",${term}:RGB"'';
+        in
+        lib.concatMapStringsSep "\n" mkTcFlag cfg.trueColorTerminals
       }
     '';
   };
