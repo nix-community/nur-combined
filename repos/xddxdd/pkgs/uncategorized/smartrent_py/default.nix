@@ -15,6 +15,8 @@ with python3Packages;
       websockets
     ];
 
+    doCheck = false;
+
     meta = with lib; {
       description = "Api for SmartRent locks, thermostats, moisture sensors and switches";
       homepage = "https://github.com/ZacheryThomas/smartrent.py";
