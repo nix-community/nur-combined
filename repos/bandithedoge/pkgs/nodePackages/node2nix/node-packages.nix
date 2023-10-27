@@ -90,13 +90,13 @@
         sha512 = "MaGuyW+fa13q3aYsluKqclmh62Hgp0BpKIqS66fCxfOaBcVQ1OnMQxRRgQUYnCkxFISAQlkJ0qWWPyXjro1Qrg==";
       };
     };
-    "acorn-8.10.0" = {
+    "acorn-8.11.1" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.10.0";
+      version = "8.11.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.10.0.tgz";
-        sha512 = "F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.11.1.tgz";
+        sha512 = "IJTNCJMRHfRfb8un89z1QtS0x890C2QUrUxFMK8zy+RizcId6mfnqOf68Bu9YkDgpLYuvCm6aYbwDatXVZPjMQ==";
       };
     };
     "agent-base-7.1.0" = {
@@ -504,13 +504,13 @@
         sha512 = "sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==";
       };
     };
-    "node-fetch-native-1.4.0" = {
+    "node-fetch-native-1.4.1" = {
       name = "node-fetch-native";
       packageName = "node-fetch-native";
-      version = "1.4.0";
+      version = "1.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-fetch-native/-/node-fetch-native-1.4.0.tgz";
-        sha512 = "F5kfEj95kX8tkDhUCYdV8dg3/8Olx/94zB8+ZNthFs6Bz31UpUi8Xh40TN3thLwXgrwXry1pEg9lJ++tLWTcqA==";
+        url = "https://registry.npmjs.org/node-fetch-native/-/node-fetch-native-1.4.1.tgz";
+        sha512 = "NsXBU0UgBxo2rQLOeWNZqS3fvflWePMECr8CoSWoSTqCqGbVVsvl9vZu1HfQicYN0g5piV9Gh8RTEvo/uP752w==";
       };
     };
     "normalize-path-3.0.0" = {
@@ -905,7 +905,7 @@ in {
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
       sources."@vscode/emmet-helper-2.9.2"
-      sources."acorn-8.10.0"
+      sources."acorn-8.11.1"
       sources."agent-base-7.1.0"
       sources."anymatch-3.1.3"
       sources."binary-extensions-2.2.0"
@@ -959,7 +959,7 @@ in {
       sources."mlly-1.4.2"
       sources."mri-1.2.0"
       sources."ms-2.1.2"
-      sources."node-fetch-native-1.4.0"
+      sources."node-fetch-native-1.4.1"
       sources."normalize-path-3.0.0"
       sources."ohash-1.1.3"
       sources."path-key-3.1.1"
