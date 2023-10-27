@@ -1513,6 +1513,20 @@
         platforms = platforms.all;
         };
       };
+    "deutsch-de-language-pack" = buildFirefoxXpiAddon {
+      pname = "deutsch-de-language-pack";
+      version = "120.0.20231027.91901";
+      addonId = "langpack-de@firefox.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4186853/deutsch_de_language_pack-120.0.20231027.91901.xpi";
+      sha256 = "59ae3d9fc22688c7fb52ad983b1e4201f42177de2f2361ca465149739fa72270";
+      meta = with lib;
+      {
+        description = "Firefox Language Pack for Deutsch (de) – German";
+        license = licenses.mpl20;
+        mozPermissions = [];
+        platforms = platforms.all;
+        };
+      };
     "df-youtube" = buildFirefoxXpiAddon {
       pname = "df-youtube";
       version = "1.13.504";
@@ -2287,10 +2301,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "120.0.20231025.91756";
+      version = "120.0.20231027.91901";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4185894/francais_language_pack-120.0.20231025.91756.xpi";
-      sha256 = "e866f170ab1245a223ae5343fabf6bf9ab63bb2ec70a4d58a208221fed13d8c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4186764/francais_language_pack-120.0.20231027.91901.xpi";
+      sha256 = "f4433dc68eb60ed4e9d4ffa2372432a2bbc9eda782a4a7ffb795e5adc2007d4b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -8945,10 +8959,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.15.0";
+      version = "2.16.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4142251/violentmonkey-2.15.0.xpi";
-      sha256 = "894e54cbe9dcd235deaef054b9268a955fed9afee156ebd42249c2b161c55352";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4185752/violentmonkey-2.16.0.xpi";
+      sha256 = "cd1529f42c4ee591e86d55ea382c8be523236b866ad2c06088152450f682da9c";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -8963,6 +8977,7 @@
           "storage"
           "unlimitedStorage"
           "clipboardWrite"
+          "contextMenus"
           "cookies"
           ];
         platforms = platforms.all;
