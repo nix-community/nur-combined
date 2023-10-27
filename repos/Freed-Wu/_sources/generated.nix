@@ -73,10 +73,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.0.8";
+    version = "0.0.9";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.8.tar.gz";
-      sha256 = "sha256-jOgvrmvJnqIuf2959MYf7wEuwEzvJhj+65eiHFqpvec=";
+      url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.9.tar.gz";
+      sha256 = "sha256-3gE1w5rwn5qXDDrNlZnX07FnukwKbu2E89Y+uKVTnqg=";
     };
   };
   setuptools-generate = {
@@ -97,10 +97,10 @@
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.0.9";
+    version = "0.0.12";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux-language-server/termux-language-server-0.0.9.tar.gz";
-      sha256 = "sha256-Jj0CphaFG0+it2fXA0c9QGjKxKqCNXdoULfji/U2+lY=";
+      url = "https://pypi.org/packages/source/t/termux-language-server/termux-language-server-0.0.12.tar.gz";
+      sha256 = "sha256-PKoa+IvCWYLKEjuaWFMZ7w+3+ZURZ4EC47dl6vxVlBE=";
     };
   };
   tmux-language-server = {
