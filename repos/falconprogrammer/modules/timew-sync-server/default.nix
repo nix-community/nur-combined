@@ -13,7 +13,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.users.timew-sync-server = {
       description = "User for the timew-sync-server service";
       isSystemUser = true;
