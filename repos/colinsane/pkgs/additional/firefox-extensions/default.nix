@@ -112,8 +112,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.3.0";
-      hash = "sha256-8uCdaQEvHKYYH1xJFe88fwyjOx34GVHsGdVnx68lWlQ=";
+      version = "11.4.0";
+      hash = "sha256-r9nYfTSEppb9qWAnTyLKghdIFug0704lzRwd3nSKo0c=";
     };
     i2p-in-private-browsing = fetchVersionedAddon rec {
       extid = "i2ppb@eyedeekay.github.io";
@@ -134,8 +134,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
       url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-      version = "5.4.24";
-      hash = "sha256-XQ69BTvYqF1wOm1d5OarIBbHznfLTR9STsaWGH49lX4=";
+      version = "5.4.25";
+      hash = "sha256-GpAKyZXzwYyw/MjCOg2LX68sFInetf1UP59E5Uv5uVg=";
     };
     ublacklist = fetchVersionedAddon rec {
       extid = "@ublacklist";
