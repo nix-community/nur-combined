@@ -407,10 +407,13 @@ lib.makeScope newScope (
     janus-mqtt-proxy = callPackage ./mqtt/janus-mqtt-proxy { };
     mongoose = callPackage ./mqtt/mongoose { };
     mproxy = callPackage ./mqtt/mproxy { };
+    mqcontrol = callPackage ./mqtt/mqcontrol { };
     mqtt-benchmark = callPackage ./mqtt/mqtt-benchmark { };
     mqtt-cli = callPackage ./mqtt/mqtt-cli { };
     mqtt-explorer = callPackage ./mqtt/mqtt-explorer { };
+    mqtt-launcher = callPackage ./mqtt/mqtt-launcher { };
     mqtt-proxy = callPackage ./mqtt/mqtt-proxy { };
+    mqtt-shell = callPackage ./mqtt/mqtt-shell { };
     mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
     nanosdk = callPackage ./mqtt/nanosdk { };
