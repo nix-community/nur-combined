@@ -1,0 +1,17 @@
+diff --git a/plugins/newsdownloader.koplugin/epubdownloadbackend.lua b/plugins/newsdownloader.koplugin/epubdownloadbackend.lua
+index b8f36397b..82b418be1 100644
+--- a/plugins/newsdownloader.koplugin/epubdownloadbackend.lua
++++ b/plugins/newsdownloader.koplugin/epubdownloadbackend.lua
+@@ -487,12 +487,6 @@ function EpubDownloadBackend:createEpub(epub_path, html, url, include_images, me
+                 end
+                 epub:add("OEBPS/"..img.imgpath, content, no_compression)
+                 logger.dbg("Adding OEBPS/"..img.imgpath)
+-            else
+-                go_on = UI:confirm(T(_("Downloading image %1 failed. Continue anyway?"), inum), _("Stop"), _("Continue"))
+-                if not go_on then
+-                    cancelled = true
+-                    break
+-                end
+             end
+         end
+     end

@@ -157,10 +157,39 @@ let
     # };
     # fix up the nixpkgs command that runs a Linux OS inside QEMU:
     # qemu_kvm doesn't support x86_64 -> aarch64; but full qemu package does.
-    qemuCommandLinux = lib.replaceStrings
-      [ "${final.buildPackages.qemu_kvm}" ]
-      [ "${final.buildPackages.qemu}" ]
-      vmTools.qemuCommandLinux;
+    qemu = final.buildPackages.qemu.override {
+      # disable a bunch of unneeded features, particularly graphics.
+      # this avoids a mesa build failure (2023/10/26).
+      smartcardSupport = false;
+      spiceSupport = false;
+      openGLSupport = false;
+      virglSupport = false;
+      vncSupport = false;
+      gtkSupport = false;
+      sdlSupport = false;
+      pulseSupport = false;
+      pipewireSupport = false;
+      smbdSupport = false;
+      seccompSupport = false;
+      enableDocs = false;
+    };
+    # qemuCommandLinux = lib.replaceStrings
+    #   [ "${final.buildPackages.qemu_kvm}" ]
+    #   [ "${qemu}" ]
+    #   vmTools.qemuCommandLinux;
+    # this qemuCommandLinux is effectively an inline substitution of the above, to avoid taking an unnecessary dep on `buildPackages.qemu_kvm`
+    qemuCommandLinux = ''
+      ${vmTools.qemu-common.qemuBinary qemu} \
+        -nographic -no-reboot \
+        -device virtio-rng-pci \
+        -virtfs local,path=${builtins.storeDir},security_model=none,mount_tag=store \
+        -virtfs local,path=$TMPDIR/xchg,security_model=none,mount_tag=xchg \
+        ''${diskImage:+-drive file=$diskImage,if=virtio,cache=unsafe,werror=report} \
+        -kernel ${final.linux}/${final.stdenv.hostPlatform.linux-kernel.target} \
+        -initrd ${vmTools.initrd}/initrd \
+        -append "console=${vmTools.qemu-common.qemuSerialDevice} panic=1 command=${vmTools.stage2Init} out=$out mountDisk=$mountDisk loglevel=4" \
+        $QEMU_OPTS
+    '';
     vmRunCommand = final.buildPackages.vmTools.vmRunCommand qemuCommandLinux;
   in
     # without binfmt emulation, leverage the `vmTools.runInLinuxVM` infrastructure:
@@ -794,14 +823,13 @@ in {
     # gnome-user-share = addNativeInputs [ final.glib ] super.gnome-user-share;
     mutter = (super.mutter.overrideAttrs (orig: {
       # 2023/07/31: upstreaming is blocked on argyllcms, libavif
-      nativeBuildInputs = orig.nativeBuildInputs ++ [
-        final.glib  # fixes "clutter/clutter/meson.build:281:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
-        final.buildPackages.gobject-introspection  # allows to build without forcing `introspection=false` (which would break gnome-shell)
-        final.wayland-scanner
-      ];
+      # N.B.: not all of this suitable to upstreaming, as-is.
+      # mesa and xorgserver are removed here because they *themselves* don't build for `buildPackages` (temporarily: 2023/10/26)
+      nativeBuildInputs = lib.subtractLists [ final.mesa final.xorg.xorgserver ] orig.nativeBuildInputs;
       buildInputs = orig.buildInputs ++ [
         final.mesa  # fixes "meson.build:237:2: ERROR: Dependency "gbm" not found, tried pkgconfig"
       ];
+      # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
       mesonFlags = lib.remove "-Ddocs=true" orig.mesonFlags;
       outputs = lib.remove "devdoc" orig.outputs;
     }));
@@ -998,13 +1026,13 @@ in {
       final.autoPatchelfHook
     ];
   });
-  koreader-from-src = prev.koreader-from-src.override {
-    # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
-    # inherit (emulated) luajit;
-    luajit = buildInQemu (final.luajit.override {
-      buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
-    });
-  };
+  # koreader-from-src = prev.koreader-from-src.override {
+  #   # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
+  #   # inherit (emulated) luajit;
+  #   luajit = buildInQemu (final.luajit.override {
+  #     buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
+  #   });
+  # };
   # libgweather = rmNativeInputs [ final.glib ] (prev.libgweather.override {
   #   # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
   #   #   but presumably that's just a different way to emulate it.

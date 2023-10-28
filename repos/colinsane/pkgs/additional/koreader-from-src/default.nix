@@ -1,29 +1,50 @@
-{ lib, stdenv
+{ lib
+, autoPatchelfHook
 , autoconf
 , automake
-, autoPatchelfHook
 , buildPackages
 , cmake
-, git
-, libtool
-, makeWrapper
+, dpkg
 , fetchFromGitHub
 , fetchgit
 , fetchurl
-, dpkg
 , gettext
+, git
+, libtool
 , luajit
+, makeWrapper
 , perl
 , pkg-config
+, pkgs
 , python3
 , ragel
 , SDL2
+, stdenv
 , substituteAll
 , which
 }:
 let
   sources = import ./sources.nix;
-  luajit52 = luajit.override { enable52Compat = true; self = luajit52; };
+  src = fetchFromGitHub {
+    owner = "koreader";
+    repo = "koreader";
+    name = "koreader";  # needed because `srcs = ` in the outer derivation is a list
+    fetchSubmodules = true;
+    # rev = "v${version}";
+    rev = "f3520effd679eb24a352e7dec600c5b378c3d376";  # master
+    hash = "sha256-cPftNXKL9khQKH/DKXyl9YZAEa27T/n3ATErPZy8irY=";
+  };
+  # XXX: for some inscrutable reason, `enable52Compat` is *partially* broken, only when cross compiling.
+  # `table.unpack` is non-nil, but `table.pack` is nil.
+  # the normal path is for `enable52Compat` to set `env.NIX_CFLAGS_COMPILE = "-DLUAJIT_ENABLE_LUA52COMPAT";`
+  # which in turn sets `#define LJ_52 1`, and gates functions like `table.pack`, `table.unpack`.
+  # instead, koreader just removes the `#if LJ_52` gates. doing the same in nixpkgs seems to work.
+  # luajit52 = luajit.override { enable52Compat = true; self = luajit52; };
+  luajit52 = (luajit.override { self = luajit52; }).overrideAttrs (super: {
+    patches = (super.patches or []) ++ [
+      "${src}/base/thirdparty/luajit/koreader-luajit-enable-table_pack.patch"
+    ];
+  });
   luaEnv = luajit52.withPackages (ps: with ps; [
     (buildLuarocksPackage {
       pname = "luajson";
@@ -53,17 +74,7 @@ in
 stdenv.mkDerivation rec {
   pname = "koreader-from-src";
   version = "unstable-2023-10-18";
-  srcs = [
-    (fetchFromGitHub {
-      owner = "koreader";
-      repo = "koreader";
-      name = "koreader";  # needed because `srcs = ` in the outer derivation is a list
-      fetchSubmodules = true;
-      # rev = "v${version}";
-      rev = "f3520effd679eb24a352e7dec600c5b378c3d376";  # master
-      hash = "sha256-cPftNXKL9khQKH/DKXyl9YZAEa27T/n3ATErPZy8irY=";
-    })
-  ] ++ (lib.mapAttrsToList
+  srcs = [ src ] ++ (lib.mapAttrsToList
     (name: src: fetchgit (
       {
         inherit name;
@@ -88,6 +99,7 @@ stdenv.mkDerivation rec {
         sources.externalProjects
       )
     ))
+    ./rss-no-interrupt-on-image-failure.patch  # just a preference
   ];
 
   sourceRoot = "koreader";
@@ -223,7 +235,8 @@ stdenv.mkDerivation rec {
   # XXX: nixpkgs adds glib and gtk3-x11 to LD_LIBRARY_PATH as well
 
   passthru = {
-    inherit luaEnv;
+    # exposed for debugging
+    inherit luajit52 luaEnv;
   };
 
   meta = with lib; {

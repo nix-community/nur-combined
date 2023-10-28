@@ -43,7 +43,7 @@ def main():
     args = parser.parse_args()
     meta = MediaMeta.from_arguments(args)
     bt_api = TransmissionApi.from_arguments(args)
-    torrent = args.torrent
+    torrent = args.torrent.strip()
 
     torrent = resolve_torrent(torrent)
     bt_api.add_or_move_torrent(meta, torrent)

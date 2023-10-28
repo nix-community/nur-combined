@@ -2,6 +2,10 @@
 # prefer to encode these in `sane.programs`
 # resort to this method for e.g. system dependencies, or things which are referenced from too many places.
 (self: super: with self; {
+  electrum = super.electrum.overrideAttrs (upstream: {
+    # 2023/10/26: workaround broken ledger-bitcoin build (since that's only needed if we want to talk to a Ledger wallet)
+    propagatedBuildInputs = lib.remove self.python3.pkgs.ledger-bitcoin upstream.propagatedBuildInputs;
+  });
   gnome = super.gnome.overrideScope' (gself: gsuper: with gself; {
     evolution-data-server = gsuper.evolution-data-server.override {
       # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation

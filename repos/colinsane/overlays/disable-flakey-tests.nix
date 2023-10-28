@@ -6,10 +6,11 @@
 #
 (next: prev:
 let
-  dontCheck = p: p.overrideAttrs (_: {
+  dontCheckFn = _: {
     doCheck = false;
     doInstallCheck = false;
-  });
+  };
+  dontCheck = p: p.overrideAttrs dontCheckFn;
   aarch64Only = f: p: p.overrideAttrs (upstream:
     next.lib.optionalAttrs
       (p.stdenv.targetPlatform.system == "aarch64-linux")
@@ -20,18 +21,13 @@ let
       (p.stdenv.targetPlatform.system == "aarch64-linux" && p.stdenv.buildPlatform.system == "aarch64-linux")
       (f upstream)
   );
-  dontCheckAarch64 = aarch64Only (_: {
-    # only `dontCheck` if the package is being built for aarch64
-    doCheck = false;
-    doInstallCheck = false;
-  });
-  dontCheckEmulated = emulatedOnly (_: {
-    doCheck = false;
-  });
+  # only `dontCheck` if the package is being built for aarch64
+  dontCheckAarch64 = aarch64Only dontCheckFn;
+  dontCheckEmulated = emulatedOnly dontCheckFn;
 in {
   # 2023/07/27
   # 4 tests fail when building `hostPkgs.moby.emulated.elfutils`
-  elfutils = dontCheckAarch64 prev.elfutils;
+  elfutils = dontCheckEmulated prev.elfutils;
 
   # 2023/07/31
   # tests just hang after mini-record-2
@@ -55,35 +51,16 @@ in {
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (py-next: py-prev: {
-      pyarrow = py-prev.pyarrow.overridePythonAttrs (upstream: {
-        # 2023/04/02
-        # disabledTests = upstream.disabledTests ++ [ "test_generic_options" ];
-        disabledTestPaths = (upstream.disabledTestPaths or []) ++ [
-          "pyarrow/tests/test_flight.py"
-        ];
-      });
-
-      # 2023/08/09: unclear why it fails; probably can remove after next nixpkgs update
-      pillow = py-prev.pillow.overridePythonAttrs (_upstream: {
-        format = "setuptools";
-      });
-
-      seaborn = py-prev.seaborn.overridePythonAttrs (upstream: {
-        # 2023/08/09
-        disabledTestPaths = (upstream.disabledTestPaths or []) ++ [
-          "tests/test_categorical.py"
-          "tests/test_core.py"
-        ];
-      });
+      # 2023/10/26: tests are i think not at all compatible with python3.11
+      prawcore = dontCheck py-prev.prawcore;
+      praw = dontCheck py-prev.praw;
     })
   ];
-
-  # 2023/02/22
-  # "27/37 tracker:core / service                          TIMEOUT         60.37s   killed by signal 15 SIGTERM"
-  tracker = dontCheck prev.tracker;
 
   # 2023/07/31
   # fails a test (didn't see which one)
   # only for binfmt-emulated aarch64 -> aarch64 build
   umockdev = dontCheckEmulated prev.umockdev;
+  # 2023/10/26: should be removable when praw* dontChecks are removed?
+  visidata = dontCheck prev.visidata;
 })

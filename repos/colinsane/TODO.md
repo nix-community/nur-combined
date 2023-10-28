@@ -61,6 +61,7 @@
     - this is a problem of playerctld, i guess
   - add option to change audio output
   - fix colors (red alert) to match overall theme
+  - extend width to 100% of portrait mode
 - moby: tune GPS
   - run only geoclue, and not gpsd, to save power?
   - tune QGPS setting in eg25-control, for less jitter?
@@ -72,12 +73,6 @@
 - sxmo: port to swaybar like i use on desktop
   - users in #sxmo claim it's way better perf
 - sxmo: fix youtube scripts (package youtube-cli)
-- sxmo: don't put all deps on PATH
-  - maybe: use resholve to hard-code them
-    - this is the most "correct", but least patchable
-  - maybe: express each invocation as a function in sxmo_common.sh
-    - this will require some patching to handle `exec <foo>` style
-  - maybe: save original PATH and reset it before invoking user files
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - combine multiple icon themes to get one which has the full icon set?
   - get adwaita-icon-theme to ship everything even when cross-compiled?
