@@ -21,5 +21,6 @@ mkElectronAppImage rec {
     homepage = "https://lxmusic.toside.cn";
     license = lib.licenses.asl20;
     platforms = [ "x86_64-linux" ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }

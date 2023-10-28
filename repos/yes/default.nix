@@ -11,7 +11,11 @@ let
   };
 in
 
-{  
+{
+  ludii = callPackage ./ludii {
+    inherit rp;
+  };
+  
   lx-music-desktop = callPackage ./lx-music-desktop {
     inherit mkElectronAppImage rp;
   };
