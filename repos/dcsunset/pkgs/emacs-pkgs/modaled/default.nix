@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, emacsWithPackages }:
 
 stdenv.mkDerivation rec {
-  name = "modaled";
+  pname = "modaled";
   version = "0.8.1";
 
   src = fetchFromGitHub {

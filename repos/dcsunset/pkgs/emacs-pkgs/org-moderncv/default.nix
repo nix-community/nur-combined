@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, emacsWithPackages }:
 
 stdenv.mkDerivation rec {
-  name = "org-moderncv";
+  pname = "org-moderncv";
   version = "0.2.0";
 
   src = fetchFromGitHub {
