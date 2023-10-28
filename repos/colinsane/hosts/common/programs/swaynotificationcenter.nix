@@ -130,13 +130,24 @@ in
     }));
     suggestedPrograms = [ "feedbackd" ];
     fs.".config/swaync/style.css".symlink.text = ''
+      /* these color definitions are used by the built-in style */
+      /* noti-bg defaults `rgb(48, 48, 48)` and is the default button/slider/grid background */
+      @define-color noti-bg rgb(36, 36, 36);
+      @define-color noti-bg-darker rgb(24, 24, 24);
+
       /* avoid black-on-black text that the default style ships */
       window {
         color: rgb(255, 255, 255);
       }
 
+      /* window behind entire control center. defaults to 25% opacity. */
+      .blank-window {
+        background: rgba(0, 0, 0, 0.5);
+      }
+
       button {
-        color: rgb(128, 128, 128);
+        /* text color for inactive buttons, and "Clear All" button.*/
+        color: rgb(172, 172, 172);
       }
       button.active {
         color: rgb(255, 255, 255);
@@ -164,7 +175,11 @@ in
       timeout-low = 5;
       timeout-critical = 0;
       fit-to-screen = true;  #< have notification center take full vertical screen space
-      control-center-width = 400;
+      # control-center-width:
+      # - for SXMO_SWAY_SCALE=1.8 => 400
+      # - for SXMO_SWAY_SCALE=1.6 => 450
+      # if it's set to something wider than the screen, then it overflows and items aren't visible.
+      control-center-width = 450;
       control-center-height = 600;
       notification-window-width = 400;
       keyboard-shortcuts = true;
@@ -307,6 +322,14 @@ in
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-gps";
               active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-gps.service";
             }
+            {
+              type = "toggle";
+              label = "5g";
+              # modem and NetworkManager auto-establishes a connection when powered.
+              # though some things like `wg-home` VPN tunnel will remain routed over the old interface.
+              command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-powered";
+              active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-powered.service";
+            }
           ] ++ [
             {
               type = "toggle";
@@ -331,7 +354,7 @@ in
           ] ++ lib.optionals config.sane.programs.fractal.enabled [
             {
               type = "toggle";
-              label = "Matrix";  # Matrix messages
+              label = "[m]";  # Matrix messages
               command = "${systemctl-toggle}/bin/systemctl-toggle --user fractal";
               active = "${pkgs.systemd}/bin/systemctl is-active --user fractal";
             }

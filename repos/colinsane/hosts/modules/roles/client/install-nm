@@ -10,16 +10,36 @@ from dataclasses import dataclass
 @dataclass
 class Connection:
     comment: str | None
-    ssid: str
+    ssid: str  # also used as "id", more generally
     passphrase: str | None
+    # LTE connections:
+    uuid: str | None
+    gsm_apn: str | None
+    gsm_number: str | None
+
+    @property
+    def type_(self) -> str:
+        if self.gsm_apn is not None or self.gsm_number is not None:
+            return "gsm"
+        return "wifi"
 
 def parse_manifest(manifest_path: str) -> list[Connection]:
     for entry in json.load(open(manifest_path)):
         comment = entry.get("comment")
         ssid = entry["ssid"]
         passphrase = entry.get("passphrase")
+        uuid = entry.get("uuid")
+        gsm_apn = entry.get("gsm_apn")
+        gsm_number = entry.get("gsm_number")
         if ssid != "<EOF>":
-            yield Connection(comment=comment, ssid=ssid, passphrase=passphrase)
+            yield Connection(
+                comment=comment,
+                ssid=ssid,
+                passphrase=passphrase,
+                uuid=uuid,
+                gsm_apn=gsm_apn,
+                gsm_number=gsm_number,
+            )
 
 def write_iwd(fh: "file", con: Connection) -> None:
     fh.write("[Security]\n")
@@ -29,19 +49,31 @@ def write_iwd(fh: "file", con: Connection) -> None:
 def write_nm(fh: "file", con: Connection) -> None:
     fh.write("[connection]\n")
     fh.write(f"id={con.ssid}\n")
-    fh.write("type=wifi\n")  #< TODO: needed?
+    if con.uuid is not None:
+        fh.write(f"uuid={con.uuid}\n")
+    fh.write(f"type={con.type_}\n")
 
-    fh.write("\n")
-    fh.write("[wifi]\n")
-    fh.write("mode=infrastructure\n")
-    fh.write(f"ssid={con.ssid}\n")
+    if con.type_ == "wifi":
+        fh.write("\n")
+        fh.write("[wifi]\n")
+        fh.write("mode=infrastructure\n")
+        fh.write(f"ssid={con.ssid}\n")
 
-    fh.write("\n")
-    fh.write("[wifi-security]\n")
-    fh.write("auth-alg=open\n")
-    fh.write("key-mgmt=wpa-psk\n")
-    if con.passphrase is not None:
-        fh.write(f"psk={con.passphrase}\n")
+        fh.write("\n")
+        fh.write("[wifi-security]\n")
+        fh.write("auth-alg=open\n")
+        fh.write("key-mgmt=wpa-psk\n")
+        if con.passphrase is not None:
+            fh.write(f"psk={con.passphrase}\n")
+    elif con.type_ == "gsm":
+        fh.write("\n")
+        fh.write("[gsm]\n")
+        if con.gsm_apn is not None:
+            fh.write(f"apn={con.gsm_apn}\n")
+        if con.gsm_number is not None:
+            fh.write(f"number={con.gsm_number}\n")
+        fh.write("\n")
+        fh.write("[ppp]\n")
 
     fh.write("\n")
     fh.write("[ipv4]\n")
@@ -51,6 +83,9 @@ def write_nm(fh: "file", con: Connection) -> None:
     fh.write("[ipv6]\n")
     fh.write("addr-gen-mode=default\n")
     fh.write("method=auto\n")
+
+    # fh.write("\n")
+    # fh.write("[proxy]\n")
 
 def install_all(manifest: list[Connection], destination: str, flavor: str) -> None:
     ext, writer = dict(

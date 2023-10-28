@@ -1,7 +1,9 @@
 ## to add a new network
 - connect to it
   - iwd: `iwctl`
-  - networkmanager:`nmtui`
+  - networkmanager:
+    - `nmtui` (WiFi)
+    - `nm-connection-editor` (for LTE, may need `swaymsg -- output '*' scale 1` for mobile)
 - find it under:
   - iwd: `/var/lib/iwd`
   - networkmanager: `/var/lib/NetworkManager/system-connections`
