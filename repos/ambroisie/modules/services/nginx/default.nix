@@ -22,7 +22,6 @@ let
         example = 8080;
         description = ''
           Which port to proxy to, through 127.0.0.1, for this virtual host.
-          This option is incompatible with `root`.
         '';
       };
 
@@ -40,8 +39,7 @@ let
         default = null;
         example = "/var/www/blog";
         description = ''
-          The root folder for this virtual host.  This option is incompatible
-          with `port`.
+          The root folder for this virtual host.
         '';
       };
 
@@ -50,8 +48,7 @@ let
         default = null;
         example = "FIXME";
         description = ''
-          The UNIX socket for this virtual host. This option is incompatible
-          with `port`.
+          The UNIX socket for this virtual host.
         '';
       };
 
