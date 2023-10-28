@@ -43,7 +43,7 @@ jobs:
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
+          --option allowed-uris "https://github.com https://static.rust-lang.org https://api.flakehub.com https://api.github.com" \
           --option restrict-eval true \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \

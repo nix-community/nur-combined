@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }
+, ...
+}:
 
 rec {
   modules = import ./modules;
@@ -22,6 +24,7 @@ rec {
   mkusb-plug = pkgs.callPackage ./pkgs/mkusb-plug { };
   mkusb-sedd = pkgs.callPackage ./pkgs/mkusb-sedd { };
   xorriso = pkgs.callPackage ./pkgs/xorriso { };
+  dynobase = pkgs.callPackage ./pkgs/dynobase { };
   aws-iot-securetunneling-localproxy = pkgs.callPackage ./pkgs/aws-iot-securetunneling-localproxy { protobuf3_19 = protobuf3_19; };
   elster-authenticator = pkgs.callPackage ./pkgs/elster-authenticator { };
   lightdm-webkit2-greeter = pkgs.callPackage ./pkgs/lightdm-webkit2-greeter { lightdm-webkit2-greeter = lightdm-webkit2-greeter; };

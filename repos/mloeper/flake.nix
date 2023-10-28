@@ -1,6 +1,7 @@
 {
   description = "Personal NUR repository by mloeper";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
   outputs = { self, nixpkgs }:
     let
       systems = [
@@ -15,7 +16,7 @@
     in
     {
       legacyPackages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { 
+        pkgs = import nixpkgs {
           inherit system;
         };
       });
