@@ -55,7 +55,9 @@ jobs:
           -I $PWD
 
     - name: Build nix packages
-      run: nix shell --impure -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      env:
+        NIXPKGS_ALLOW_UNFREE: 1
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
 
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
