@@ -45,12 +45,6 @@ in [
     hash = "sha256-JdWl+tYn9Dwa4d59a8TURJvZdf02tmsnqcZD1WkkgqQ=";
   })
   (fetchpatch' {
-    # merged 2023/10/24
-    title = "mkdocs-minify: disable tests to fix build";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/263084";
-    hash = "sha256-m/ipSH7MSWOKWjFwdMmWUUJEQs1H/zhWvzsEEm3oofo=";
-  })
-  (fetchpatch' {
     title = "gsound: enable introspection/vala when cross compiled";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263107";
     saneCommit = "beb33584013f49d198152ad8ae8797bb6fa0266f";
@@ -81,11 +75,6 @@ in [
     title = "hspell: remove build perl from runtime closure";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263182";
     hash = "sha256-Wau+PB+EUQDvWX8Kycw1sNrM3GkPVjKSS4niIDI0sjM=";
-  })
-  (fetchpatch' {
-    title = "snapper: remove runtime references to build packages";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/263187";
-    hash = "sha256-+NJtox6BsoQwpO6DxehrA4l/eWf/vgGN7EopCt4ZIFk=";
   })
   (fetchpatch' {
     title = "trust-dns: 0.23.0 -> 0.24.0";

@@ -37,6 +37,8 @@ in {
         ${lib.concatStringsSep ",\n  " koreaderRssEntries}
       }--do NOT change this line
     '';
+    # easier to navigate via filebrowser than finding the news menu entry
+    fs."Books/rss-koreader".symlink.target = "../.config/koreader/news";
 
     # koreader on aarch64 errors if there's no fonts directory (sandboxing thing, i guess)
     fs.".local/share/fonts".dir = {};
