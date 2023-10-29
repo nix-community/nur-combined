@@ -51,13 +51,6 @@ in
   cmangos_tbc = callPackage ./pkgs/servers/games/cmangos/tbc.nix { };
   cmangos_wotlk = callPackage ./pkgs/servers/games/cmangos/wotlk.nix { };
 
-
-  trinitycore_335 = callPackage ./pkgs/servers/games/trinitycore/335.nix { };
-  trinitycore_434 = callPackage ./pkgs/servers/games/trinitycore/434.nix { };
-  trinitycore_927 = callPackage ./pkgs/servers/games/trinitycore/927.nix { };
-  trinitycore = callPackage ./pkgs/servers/games/trinitycore/rolling.nix { };
-
-
   vmangos = callPackage ./pkgs/servers/games/vmangos {};
   vmangos-worlddb = callPackage ./pkgs/servers/games/vmangos/worlddb.nix {};
 }
