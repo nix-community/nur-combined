@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "oscam";
-  rev = "11693";
+  rev = "11725";
   version = "1.20-svn${rev}";
 
   src = fetchsvn {
     url = "https://svn.streamboard.tv/oscam/trunk/";
     inherit rev;
-    sha256 = "05fxwywykw40k9jhab7m0qjfmpzakg2pgaafp6bf8yjhzf12nlgs";
+    hash = "sha256-fH4Ysiv462dU6ikAMNllxvrJ21SgzvTYtv/Dw63FNAM=";
   };
 
   nativeBuildInputs = [ subversion ];
