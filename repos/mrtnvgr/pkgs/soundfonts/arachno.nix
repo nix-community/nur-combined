@@ -1,7 +1,7 @@
 { lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "arachno";
+  pname = "soundfont-arachno";
   version = "1.0";
 
   src = fetchzip {
@@ -22,6 +22,5 @@ stdenvNoCC.mkDerivation rec {
     homepage = "http://www.arachnosoft.com/main/soundfont.php";
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mrtnvgr ];
   };
 }

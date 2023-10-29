@@ -15,6 +15,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   soundfont-arachno = pkgs.callPackage ./pkgs/soundfonts/arachno.nix { };
+  soundfont-touhou = pkgs.callPackage ./pkgs/soundfonts/touhou.nix { };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
