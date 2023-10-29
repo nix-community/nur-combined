@@ -31,6 +31,5 @@ buildGoModule rec {
     homepage = "https://git.nytpu.com/comitium/about/";
     license = licenses.agpl3;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

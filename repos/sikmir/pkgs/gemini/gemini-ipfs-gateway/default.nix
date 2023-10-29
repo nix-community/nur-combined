@@ -18,7 +18,6 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     license = licenses.agpl3Only;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
     broken = true;
   };
 }

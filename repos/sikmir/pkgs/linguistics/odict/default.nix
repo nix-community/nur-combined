@@ -22,6 +22,5 @@ buildGoModule rec {
     homepage = "https://odict.org/";
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

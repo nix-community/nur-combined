@@ -28,6 +28,5 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     license = licenses.apsl20;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

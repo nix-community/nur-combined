@@ -29,6 +29,5 @@ buildGoModule rec {
     homepage = "https://emitter.io/";
     license = licenses.agpl3Plus;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

@@ -312,6 +312,9 @@ lib.makeScope newScope (
     revtok = callPackage ./linguistics/revtok { };
     stardict-tools = callPackage ./linguistics/stardict-tools { };
     tatoebatools = callPackage ./linguistics/tatoebatools { };
+    ttb = callPackage ./linguistics/ttb {
+      inherit (darwin.apple_sdk.frameworks) SystemConfiguration;
+    };
     wikitextprocessor = callPackage ./linguistics/wikitextprocessor { };
     wiktextract = callPackage ./linguistics/wiktextract { };
     wiktfinnish = callPackage ./linguistics/wiktfinnish { };

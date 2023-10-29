@@ -22,6 +22,5 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     #license = licenses.cc-by-nc-nd-40;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }
