@@ -18,4 +18,8 @@
   sddm-lain-wired-theme = pkgs.callPackage ./pkgs/sddm-lain-wired-theme { };
   sddm-sugar-candy = pkgs.callPackage ./pkgs/sddm-sugar-candy { };
   klassy = pkgs.libsForQt5.callPackage ./pkgs/klassy { };
+  # Iosevka Builds
+  iosevka-minoko = pkgs.callPackage ./pkgs/iosevka-minoko { };
+  iosevka-aile-minoko = pkgs.callPackage ./pkgs/iosevka-aile-minoko { };
+  iosevka-minoko-e = pkgs.callPackage ./pkgs/iosevka-minoko-e { };
 }
