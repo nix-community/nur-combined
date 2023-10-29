@@ -84,12 +84,14 @@ quiqr:
     - source: mipmip/github-action-markdown-link-extract-to-json
     - source: quiqr/mipmip/intergram
 
-cQuiqrKillerberg:
-  base_dir: ~/cQuiqrKillerberg
+privops:
+  base_dir: ~/cPrivateOps
   repos:
     - source: snel-city/wasnel-awsaccount-104144963194-main
-    #- source: mipmip/killerberg-awsaccount-104144963194-main
-    #- source: mipmip/poppygo-awsaccount-162604489705
+    - source: snel-city/wasnel-awsaccount-104144963194-ec2nix-net-db-storage
+    - source: snel-city/wasnel-awsaccount-104144963194-ec2nix-dockers1
+#    - source: snel-city-infra
+#    - source: status_snel_city
 
 technative:
   base_dir: ~/tcTechNative
@@ -177,9 +179,4 @@ cTextUtils:
 #toolbox-research
 #waardenburg-toolbox
 
-#cOperations:
-#  base_dir: ~/cOperations
-#  #  repos:
-#  #    - source: snel-city-infra
-#  #    - source: status_snel_city
 
