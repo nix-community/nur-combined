@@ -45,6 +45,7 @@ stdenv.mkDerivation rec {
     ] ++ lib.lists.optionals stdenv.isLinux [
       libX11
       libXext
+      libXtst
       libXcursor
       libXrandr
       libXxf86vm
