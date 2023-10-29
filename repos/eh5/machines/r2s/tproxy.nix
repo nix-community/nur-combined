@@ -100,11 +100,6 @@ in
       Name = "tun0";
       Kind = "tun";
     };
-    tunConfig = { };
-    extraConfig = ''
-      [TUN]
-      KeepCarrier = yes;
-    '';
   };
   systemd.network.networks."tun0" = {
     matchConfig.Name = "tun0";
@@ -115,6 +110,7 @@ in
     routes = [{
       routeConfig = {
         Destination = "0.0.0.0/0";
+        Metric = 1;
         Table = 200;
       };
     }];

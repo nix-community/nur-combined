@@ -4,6 +4,11 @@
     checkRuleset = false;
     rulesetFile = ./files/nftables.nft;
   };
+  systemd.services.nftables = {
+    wants = lib.mkForce [ "network-online.target" ];
+    before = lib.mkForce [ ];
+    after = [ "network-online.target" ];
+  };
   networking.enableNftablesFullcone = true;
 
   services.resolved.enable = false;

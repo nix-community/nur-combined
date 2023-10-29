@@ -1,5 +1,6 @@
 { lib
 , fetchFromGitHub
+, fetchurl
 , symlinkJoin
 , buildGoModule
 , runCommand
@@ -21,15 +22,26 @@ let
 
   core = buildGoModule rec {
     pname = "v2ray";
-    version = "5.9.0";
+    version = "5.10.1";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "v2ray-core";
       rev = "v${version}";
       fetchSubmodules = false;
-      sha256 = "sha256-E/pnFCqOAZMOciGHmY8rsHws3oA8Jivpmk+izxslwiU=";
+      sha256 = "sha256-+uERBvjpEXSSbDruL7He3+uqR8bqAIHgHtx0+Ys5gg0=";
     });
-    vendorSha256 = "sha256-uNurlM9IH3fJQOeznhGiZPhrTp/MJ1/V8/x6yIf4Poo=";
+    vendorSha256 = "sha256-OArJs63htKqpBdLfwgnJt+XJcT+6C/YJzetMh9kBY0Y=";
+
+    patches = [
+      (fetchurl {
+        url = "https://github.com/v2fly/v2ray-core/pull/2732.diff";
+        sha256 = "sha256-xagCqUO8Zf/ag+3wSaggCygvj6q0+KfchbVNvhI52ls=";
+      })
+      (fetchurl {
+        url = "https://github.com/v2fly/v2ray-core/pull/2733.diff";
+        sha256 = "sha256-T03rJ0f0v2z5lPW0P0Z0cMOkmwIyZaYUymxai8Cc/Dg=";
+      })
+    ];
 
     doCheck = false;
 

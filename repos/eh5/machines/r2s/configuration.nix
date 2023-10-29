@@ -74,6 +74,7 @@
     lm_sensors
     lsof
     screen
+    tcpdump
     usbutils
   ] ++ (with config.boot.kernelPackages; [
     cpupower
