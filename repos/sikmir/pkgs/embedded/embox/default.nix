@@ -57,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs ./mk
     mkdir -p ./download
     ln -s ${third-party.cjson} ./download/cjson-v1.7.16.tar.gz
-    ln -s ${third-party.acpica-unix} ./download/acpica-unix-20210331.tar.gz
+    ln -s ${third-party.acpica-unix} ./download/acpica-R06_28_23.tar.gz
   '';
 
   installPhase =
