@@ -991,13 +991,13 @@
   };
   vs-rife = {
     pname = "vs-rife";
-    version = "v4.0.0";
+    version = "v4.1.0";
     src = fetchFromGitHub {
       owner = "HolyWu";
       repo = "vs-rife";
-      rev = "v4.0.0";
+      rev = "v4.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-POwmpYeZLFFqtDuxB8R1F/6I8ZLP8+AOdhCou+9G+5E=";
+      sha256 = "sha256-XNm2FUcZtL9ZFcjzwSWj9iZiwqR6GS+aByDfmzlzawc=";
     };
   };
   wechat-uos = {

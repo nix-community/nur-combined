@@ -153,7 +153,7 @@ Or, use variables from this repository in case I change them:
 |  | `undetected-chromedriver` | [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) | cea80717c5a3d95ccf5c40e6e38081d5454ec7a5 | Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM) |
 |  | `undetected-chromedriver-bin` | [undetected-chromedriver-bin](https://chromedriver.chromium.org/) | 118.0.5993.70 | Chromedriver with undetected-chromedriver patch |
 |  | `vivado-2022_2` | [vivado](https://www.xilinx.com/products/design-tools/vivado.html) | 2022.2 | Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix) |
-| `Broken` | `vs-rife` | [vs-rife](https://github.com/HolyWu/vs-rife) | v4.0.0 | Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth |
+| `Broken` | `vs-rife` | [vs-rife](https://github.com/HolyWu/vs-rife) | v4.1.0 | Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth |
 |  | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 2.1.5 | WeChat desktop (System Electron) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos) |
 |  | `wechat-uos-bin` | [wechat-uos-bin](https://weixin.qq.com/) | 2.1.5 | WeChat desktop (Official binary) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos) |
 |  | `wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.7.29 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |

@@ -1725,11 +1725,11 @@
             "name": null,
             "owner": "HolyWu",
             "repo": "vs-rife",
-            "rev": "v4.0.0",
-            "sha256": "sha256-POwmpYeZLFFqtDuxB8R1F/6I8ZLP8+AOdhCou+9G+5E=",
+            "rev": "v4.1.0",
+            "sha256": "sha256-XNm2FUcZtL9ZFcjzwSWj9iZiwqR6GS+aByDfmzlzawc=",
             "type": "github"
         },
-        "version": "v4.0.0"
+        "version": "v4.1.0"
     },
     "wechat-uos": {
         "cargoLocks": null,
