@@ -19,8 +19,8 @@ in rec {
   soundfont-arachno = p ./pkgs/soundfonts/arachno.nix { };
   soundfont-touhou = p ./pkgs/soundfonts/touhou.nix { };
 
-  # Games
-  celeste-classic = p ./pkgs/games/celeste-classic.nix { };
+  # Games (Native)
+  celeste-classic = p ./pkgs/games/native/celeste-classic.nix { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
