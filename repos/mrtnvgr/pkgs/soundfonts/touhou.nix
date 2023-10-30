@@ -22,6 +22,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://musical-artifacts.com/artifacts/433";
     license = licenses.cc-by-40;
     platforms = platforms.all;
-    binary = true;
   };
+
+  preferLocalBuild = true;
 }
