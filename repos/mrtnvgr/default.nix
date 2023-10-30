@@ -8,15 +8,19 @@
 
 { pkgs ? import <nixpkgs> { } }:
 let
-  p = path: pkgs.callPackage path { };
-in {
+  p = pkgs.callPackage;
+in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  soundfont-arachno = p ./pkgs/soundfonts/arachno.nix;
-  soundfont-touhou = p ./pkgs/soundfonts/touhou.nix;
+  # Soundfonts
+  soundfont-arachno = p ./pkgs/soundfonts/arachno.nix { };
+  soundfont-touhou = p ./pkgs/soundfonts/touhou.nix { };
+
+  # Games
+  celeste-classic = p ./pkgs/games/celeste-classic.nix { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
