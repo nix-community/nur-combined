@@ -25,6 +25,7 @@
   zhixi = pkgs.callPackage ./pkgs/zhixi { };
 
   sticky = pkgs.callPackage ./pkgs/sticky { };
+  flowtime = pkgs.callPackage ./pkgs/flowtime { };
 
   vaults = pkgs.callPackage ./pkgs/vaults { };
 
