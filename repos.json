@@ -702,6 +702,9 @@
         "polykernel": {
             "url": "https://github.com/polykernel/nur-packages"
         },
+        "presto8": {
+            "url": "https://github.com/presto8/nur-packages"
+        },
         "priegger": {
             "file": "nur.nix",
             "url": "https://git.sr.ht/~priegger/nur-packages"
