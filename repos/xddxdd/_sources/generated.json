@@ -778,7 +778,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2023-10-18",
+        "date": "2023-10-30",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -790,11 +790,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "bac716cc91c53529e3fad88e92ff9dfd19c04577",
-            "sha256": "sha256-ZLI6/83pXxLzqQ3yLnk5c9AOG+mgQxL4PyuG2gkyRto=",
+            "rev": "bd943ce5ee6aa121cc33a6a59b40b5b88980f1f7",
+            "sha256": "sha256-qVUtIOCZGiDNUuutxdVxJetQxi2tEF8nauXFsr6TfKw=",
             "type": "github"
         },
-        "version": "bac716cc91c53529e3fad88e92ff9dfd19c04577"
+        "version": "bd943ce5ee6aa121cc33a6a59b40b5b88980f1f7"
     },
     "librime-charcode": {
         "cargoLocks": null,
@@ -818,7 +818,7 @@
     },
     "librime-lua": {
         "cargoLocks": null,
-        "date": "2023-10-23",
+        "date": "2023-10-29",
         "extract": null,
         "name": "librime-lua",
         "passthru": null,
@@ -830,11 +830,11 @@
             "name": null,
             "owner": "hchunhui",
             "repo": "librime-lua",
-            "rev": "1e3ab105947299b36b4e6879522299677f99ea8a",
-            "sha256": "sha256-AP18uO34wMhv06mlFOTIRYNa1HzcakElBSpJa8LgHIc=",
+            "rev": "7c297e4d2e08fcdd3e9b2dcae2a42317b9a217ff",
+            "sha256": "sha256-GVfr2fzaQYyfNnjN20YcNfBVB144gZKVEunbX10Mgeg=",
             "type": "github"
         },
-        "version": "1e3ab105947299b36b4e6879522299677f99ea8a"
+        "version": "7c297e4d2e08fcdd3e9b2dcae2a42317b9a217ff"
     },
     "librime-octagram": {
         "cargoLocks": null,
