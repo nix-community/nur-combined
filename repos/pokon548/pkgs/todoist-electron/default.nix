@@ -2,15 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "todoist-electron";
-  version = "8.6.0";
+  version = "8.9.3";
 
-  src = lib.warn
-    "nur.repos.pokon548.todoist-electron will be deprecated as soon as nixpkgs merge latest commits. See https://github.com/NixOS/nixpkgs/pull/250120"
-    fetchurl {
-      url =
-        "https://electron-dl.todoist.com/linux/Todoist-linux-x86_64-${version}.AppImage";
-      hash = "sha256-LjztKgpPm4RN1Pn5gIiPg8UCO095kzTQ9BTEG5Rlv10=";
-    };
+  src = fetchurl {
+    url = "https://electron-dl.todoist.com/linux/Todoist-linux-x86_64-${version}.AppImage";
+    hash = "sha256-L1uH5bnJ66QxAXs7yywG4H/FaunwTX1l+tVtRe2nxdc=";
+  };
 
   appimageContents = appimageTools.extractType2 {
     name = "${pname}-${version}";
@@ -41,9 +38,7 @@ stdenv.mkDerivation rec {
   postFixup = ''
     makeWrapper ${electron_25}/bin/electron $out/bin/todoist-electron \
       --add-flags $out/share/${pname}/resources/app.asar \
-      --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ stdenv.cc.cc libsecret ]
-      }" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc libsecret ]}" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
   '';
 

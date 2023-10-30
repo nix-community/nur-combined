@@ -1,7 +1,6 @@
-{ stdenv, lib, fetchurl, appimageTools, makeWrapper, electron_26-bin }:
+{ stdenv, lib, fetchurl, appimageTools, makeWrapper, electron_27 }:
 
-# FIXME: NixOS did not roll out electron_27-bin for unstable yet :( We need to wait
-let electron = electron_26-bin;
+let electron = electron_27;
 in stdenv.mkDerivation rec {
   pname = "chengla-electron";
   version = "1.0.8";
