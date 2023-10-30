@@ -724,10 +724,10 @@
       };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
-      version = "3.7.2";
+      version = "3.8.0";
       addonId = "browserpass@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3711209/browserpass_ce-3.7.2.xpi";
-      sha256 = "b1781405b46f3274697885b53139264dca2ab56ffc4435c093102ad5ebc59297";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4187654/browserpass_ce-3.8.0.xpi";
+      sha256 = "5291d94443be41a80919605b0939c16cc62f9100a8b27df713b735856140a9a7";
       meta = with lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
@@ -7534,10 +7534,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.18";
+      version = "2023.20";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4181783/streetpass_for_mastodon-2023.18.xpi";
-      sha256 = "635a8bd4cb7a6289960fd731674e842f22b0988b25141439f9e48347b0ccfb16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4187666/streetpass_for_mastodon-2023.20.xpi";
+      sha256 = "ed4d5497fdd8fd0fe12c8ae8c7c9dba9c10ad13b584e0edfda271a9a731d7d7d";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
@@ -9577,10 +9577,10 @@
       };
     "youtube-screenshot-button" = buildFirefoxXpiAddon {
       pname = "youtube-screenshot-button";
-      version = "4.0.0";
+      version = "4.1.0";
       addonId = "{d8b32864-153d-47fb-93ea-c273c4d1ef17}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132310/youtube_screenshot_button-4.0.0.xpi";
-      sha256 = "47dbcd4e27e32b75a38ea10260dbe386b5bd573dac8ca85c948156bb75df22a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4187570/youtube_screenshot_button-4.1.0.xpi";
+      sha256 = "effc73a07251daf8c93e34961d19514b5a61a1b4fa6a8c3a8c2b77c7020fc524";
       meta = with lib;
       {
         homepage = "https://github.com/gurumukhi/youtube-screenshot";
