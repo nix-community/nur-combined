@@ -756,6 +756,16 @@
     "slug": "passff"
   },
   {
+    "slug": "pay-by-privacy",
+    "license": {
+      "tag": "custom",
+      "shortName": "pay-by-privacy",
+      "fullName": "Custom License for Privacy | Protect Your Payments",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/pay-by-privacy/license/",
+      "free": false
+    }
+  },
+  {
     "slug": "peertubeify"
   },
   {

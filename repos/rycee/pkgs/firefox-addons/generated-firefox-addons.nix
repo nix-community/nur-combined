@@ -5828,6 +5828,26 @@
         platforms = platforms.all;
         };
       };
+    "pay-by-privacy" = buildFirefoxXpiAddon {
+      pname = "pay-by-privacy";
+      version = "2.1.3";
+      addonId = "privacy@privacy.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4183477/pay_by_privacy-2.1.3.xpi";
+      sha256 = "9de4a46b33a28cc6625546461b09a2ea190551b16d788c8be073afedbb4bd891";
+      meta = with lib;
+      {
+        homepage = "https://privacy.com";
+        description = "Privacy's Firefox add-on allows you to generate a new virtual card number with 1-click on any checkout page. Keep your payment info safe from data breaches, shady merchants, and sneaky subscription billing.";
+        license = {
+          shortName = "pay-by-privacy";
+          fullName = "Custom License for Privacy | Protect Your Payments";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/pay-by-privacy/license/";
+          free = false;
+          };
+        mozPermissions = [ "storage" "tabs" "activeTab" "<all_urls>" ];
+        platforms = platforms.all;
+        };
+      };
     "peertubeify" = buildFirefoxXpiAddon {
       pname = "peertubeify";
       version = "0.6.0";
