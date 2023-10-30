@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchzip {
     # Linked on http://www.arachnosoft.com/main/download.php?id=soundfont-sf2:
     url = "https://www.dropbox.com/s/2rnpya9ecb9m4jh/arachno-soundfont-${builtins.replaceStrings ["."] [""] version}-sf2.zip";
-    sha256 = "sha256-Z5ETe0AKPCi4KlM2xOlNcyQn1xvCuor3S/tcrF+AwNQ=";
+    hash = "sha256-Z5ETe0AKPCi4KlM2xOlNcyQn1xvCuor3S/tcrF+AwNQ=";
     stripRoot = false;
   };
 
@@ -18,9 +18,10 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "General MIDI-compliant bank, aimed at enhancing the realism of your MIDI files and arrangements.";
+    description = "General MIDI-compliant bank, aimed at enhancing the realism of your MIDI files and arrangements";
     homepage = "http://www.arachnosoft.com/main/soundfont.php";
     license = licenses.unfree;
     platforms = platforms.all;
+    binary = true;
   };
 }

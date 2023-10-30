@@ -7,15 +7,16 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
-
-{
+let
+  p = path: pkgs.callPackage path { };
+in {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  soundfont-arachno = pkgs.callPackage ./pkgs/soundfonts/arachno.nix { };
-  soundfont-touhou = pkgs.callPackage ./pkgs/soundfonts/touhou.nix { };
+  soundfont-arachno = p ./pkgs/soundfonts/arachno.nix;
+  soundfont-touhou = p ./pkgs/soundfonts/touhou.nix;
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

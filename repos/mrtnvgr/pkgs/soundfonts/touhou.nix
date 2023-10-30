@@ -6,7 +6,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url = "https://musical-artifacts.com/artifacts/433/Touhou.sf2";
-    sha256 = "sha256-wFNy92FkqskW+ZE1UPq50w1lDPIF8ADaJ1E6uYBUtBk=";
+    hash = "sha256-wFNy92FkqskW+ZE1UPq50w1lDPIF8ADaJ1E6uYBUtBk=";
   };
 
   phases = [ "installPhase" ];
@@ -18,9 +18,10 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Excellent General MIDI compatible soundfont from the Touhou series of games.";
+    description = "Excellent General MIDI compatible soundfont from the Touhou series of games";
     homepage = "https://musical-artifacts.com/artifacts/433";
     license = licenses.cc-by-40;
     platforms = platforms.all;
+    binary = true;
   };
 }
