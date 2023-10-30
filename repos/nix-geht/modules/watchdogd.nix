@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
+{ config, lib, pkgs, ... }:
+with lib;
+let
   cfg = config.services.watchdogd;
 
   mkPluginOpts = plugin: {
@@ -38,11 +34,9 @@ with lib; let
     };
   };
 
-  mkPluginConf = plugin: let
-    pcfg = cfg.${plugin};
-  in
-    optionalString pcfg.enable ''
-
+  mkPluginConf = plugin:
+    let pcfg = cfg.${plugin};
+    in optionalString pcfg.enable ''
       ${plugin} {
         enabled  = true
         interval = ${toString pcfg.interval}
@@ -103,14 +97,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [cfg.package];
+    environment.systemPackages = [ cfg.package ];
 
     # Create the service.
     systemd.services.watchdogd = {
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       description = "Advanced system & process supervisor";
-      path = [cfg.package];
-      restartTriggers = [config.environment.etc."watchdogd.conf".source];
+      path = [ cfg.package ];
+      restartTriggers = [ config.environment.etc."watchdogd.conf".source ];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${cfg.package}/bin/watchdogd -n -f /etc/watchdogd.conf";
@@ -119,17 +113,15 @@ in {
 
     # Write the config.
     environment.etc."watchdogd.conf" = {
-      enable = true;
       mode = "0644";
-      text =
-        ''
-          timeout = ${toString cfg.timeout}
-          interval = ${toString cfg.interval}
-          safe-exit = ${boolToString cfg.safeExit}
-        ''
-        + mkPluginConf "filenr"
-        + mkPluginConf "loadavg"
-        + mkPluginConf "meminfo";
+      text = ''
+        timeout = ${toString cfg.timeout}
+        interval = ${toString cfg.interval}
+        safe-exit = ${boolToString cfg.safeExit}
+        ${mkPluginConf "filenr"}
+        ${mkPluginConf "loadavg"}
+        ${mkPluginConf "meminfo"}
+      '';
     };
   };
 }
