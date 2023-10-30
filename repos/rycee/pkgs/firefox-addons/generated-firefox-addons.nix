@@ -1827,6 +1827,26 @@
         platforms = platforms.all;
         };
       };
+    "enhanced-h264ify" = buildFirefoxXpiAddon {
+      pname = "enhanced-h264ify";
+      version = "2.1.0";
+      addonId = "{9a41dee2-b924-4161-a971-7fb35c053a4a}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3009842/enhanced_h264ify-2.1.0.xpi";
+      sha256 = "2436c530c74616cf7e0d3e4c5ebbb1cca6fa2bffcfe491df245b0380abb3d4a6";
+      meta = with lib;
+      {
+        homepage = "https://github.com/alextrv/enhanced-h264ify";
+        description = "Choose what video codec YouTube should play for you";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "*://*.youtube.com/*"
+          "*://*.youtube-nocookie.com/*"
+          "*://*.youtu.be/*"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
       version = "2.0.121";
@@ -7092,6 +7112,20 @@
         description = "Add a custom search engine and export/import all the search urls and icon urls for all search engines added to Firefox.";
         license = licenses.mit;
         mozPermissions = [ "contextMenus" "activeTab" "notifications" ];
+        platforms = platforms.all;
+        };
+      };
+    "shaarli" = buildFirefoxXpiAddon {
+      pname = "shaarli";
+      version = "2.0.0";
+      addonId = "shaarli@imirhil.fr";
+      url = "https://addons.mozilla.org/firefox/downloads/file/815126/shaarli-2.0.0.xpi";
+      sha256 = "5bf3a9bce7cc72589b3fa2de1b9ef7fc394cb34a7c7c5d1e7f277e8bc4ae7608";
+      meta = with lib;
+      {
+        description = "Cette extension remplace le bookmarklet officiel et intègre un bouton « Shaarli » dans la barre des modules.";
+        license = licenses.gpl3;
+        mozPermissions = [ "tabs" "storage" ];
         platforms = platforms.all;
         };
       };

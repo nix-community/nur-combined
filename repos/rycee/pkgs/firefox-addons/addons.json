@@ -252,6 +252,9 @@
     "slug": "enhanced-github"
   },
   {
+    "slug": "enhanced-h264ify"
+  },
+  {
     "slug": "enhancer-for-youtube",
     "license": {
       "tag": "custom",
@@ -898,6 +901,9 @@
   {
     "slug": "search_by_image",
     "pname": "search-by-image"
+  },
+  {
+    "slug": "shaarli"
   },
   {
     "slug": "side-view"
