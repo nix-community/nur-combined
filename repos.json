@@ -747,6 +747,9 @@
         "rummik": {
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
+        "running-grass": {
+            "url": "https://github.com/running-grass/nur-packages"
+        },
         "rutherther": {
             "url": "https://github.com/Rutherther/nur-pkgs"
         },
