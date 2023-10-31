@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchgit
-, writeScriptBin
 , coreutils
 , gawk
 , gnused

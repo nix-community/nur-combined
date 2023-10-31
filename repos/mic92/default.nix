@@ -7,8 +7,6 @@ rec {
 
   conky-symbols = pkgs.callPackage ./pkgs/conky-symbols { };
 
-  clearsans = pkgs.callPackage ./pkgs/clearsans { };
-
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
   bing-image-creator = pkgs.callPackage ./pkgs/bing-image-creator { };
@@ -32,17 +30,15 @@ rec {
 
   ircsink = pkgs.callPackage ./pkgs/ircsink { };
 
-  kvmtool = pkgs.callPackage ./pkgs/kvmtool { };
-
   lualdap = pkgs.callPackage ./pkgs/lualdap { };
 
-  mastodon-hnbot = pkgs.python39Packages.callPackage ./pkgs/mastodon-hnbot {};
+  mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {};
 
   inherit (pkgs.callPackages ./pkgs/nix-build-uncached { }) nix-build-uncached;
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
 
-  patool = pkgs.python39.pkgs.callPackage ./pkgs/patool {
+  patool = pkgs.python3.pkgs.callPackage ./pkgs/patool {
     inherit (pkgs) libarchive;
   };
 
@@ -56,11 +52,7 @@ rec {
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
   );
 
-  rspamd-learn-spam-ham = pkgs.python39.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
-
-  signald = pkgs.callPackage ./pkgs/signald { };
-
-  weechat-signal = pkgs.callPackage ./pkgs/weechat-signal { };
+  rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
 
   inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md renovate;
 

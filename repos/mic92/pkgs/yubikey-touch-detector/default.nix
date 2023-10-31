@@ -1,4 +1,4 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub
+{ lib, buildGoModule, fetchFromGitHub
 , pkg-config, libnotify
 }:
 

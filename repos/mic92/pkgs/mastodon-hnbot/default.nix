@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonApplication, feedparser, mastodon-py }:
+{ lib, fetchFromGitHub, buildPythonApplication, feedparser, mastodon-py }:
 
 buildPythonApplication rec {
   pname = "mastodon-hnbot";

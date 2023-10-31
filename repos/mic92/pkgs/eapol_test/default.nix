@@ -1,4 +1,4 @@
-{ stdenv, wpa_supplicant }:
+{ wpa_supplicant }:
 
 wpa_supplicant.overrideAttrs (
   old: {
