@@ -7,6 +7,12 @@
 
 ## Packages
 
-- **Soundfonts**: [arachno](http://www.arachnosoft.com/main/soundfont.php), [touhou](https://musical-artifacts.com/artifacts/433)
+### Soundfonts
 
-- **Games**: [celeste-classic](https://celesteclassic.github.io/)
+- [arachno](http://www.arachnosoft.com/main/soundfont.php)
+- [touhou](https://musical-artifacts.com/artifacts/433)
+
+### Games
+
+- [celeste-classic](https://celesteclassic.github.io/)
+- [celeste-classic-2](https://mattmakesgames.itch.io/celeste-classic-2)
