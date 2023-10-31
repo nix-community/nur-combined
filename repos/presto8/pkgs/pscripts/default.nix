@@ -18,7 +18,7 @@ stdenv.mkDerivation(finalAttrs: {
     runHook preInstall
 
     for exe in pnix pdrives; do
-      install -D -m 755 "exe"/"exe" $out/bin/"$exe"
+      install -D -m 755 "$exe"/"$exe" $out/bin/"$exe"
     done
 
     runHook postInstall
