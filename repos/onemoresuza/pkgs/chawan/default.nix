@@ -10,12 +10,12 @@
 }:
 stdenv.mkDerivation {
   pname = "chawan";
-  version = "unstable-2023-10-25";
+  version = "unstable-2023-10-29";
   src = fetchFromSourcehut {
     owner = "~bptato";
     repo = "chawan";
-    rev = "e3485c011873797297177cf2ff49b9d791c9187e";
-    hash = "sha256-ojMwbp9FXfH3mH2l/+WXjlwzoFvOHBgA86M0fN2L4Wk=";
+    rev = "31bd1c9e12f28ab301d0799f12ac9519d415b7f3";
+    hash = "sha256-Mk9ilmmxHCVqGgtzo5cRm7HCwBv7ncMHc1yEf5Uei/A=";
     domain = "sr.ht";
     fetchSubmodules = true;
   };
