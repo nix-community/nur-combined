@@ -1,21 +1,117 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.mail;
+  secrets = config.sops.secrets;
+  certName = "eh5.me";
+  acmeCert = config.security.acme.certs.${certName};
 in
 {
-  services.stalwart-jmap.enable = true;
-  services.stalwart-jmap.config = {
-    log-level = "debug";
-    jmap-bind-addr = "127.0.0.1";
-    jmap-port = 18080;
-    jmap-url = "https://mail.eh5.me/jmap";
-    worker-pool-size = 2;
-    lmtp-bind-addr = "127.0.0.1";
-    lmtp-port = 11200;
-    smtp-relay-host = "127.0.0.1";
-    smtp-relay-port = 25;
-    smtp-relay-tls = false;
-    use-forwarded-header = true;
+  users.users.stalwart-mail = {
+    isSystemUser = true;
+    home = "/var/lib/stalwart-mail";
+    group = acmeCert.group;
+  };
+
+  services.stalwart-mail.enable = true;
+  services.stalwart-mail.settings = {
+    include.files = [ secrets."stalwart.toml".path ];
+    server = {
+      hostname = cfg.fqdn;
+      tls = {
+        certificate = "default";
+        ignore-client-order = true;
+      };
+    };
+    server.listener = {
+      lmtp = {
+        protocol = "lmtp";
+        bind = "127.0.0.1:11200";
+        tls.enable = false;
+      };
+      jmap = {
+        protocol = "jmap";
+        bind = "127.0.0.1:18080";
+        url = "https://mail.eh5.me/jmap";
+      };
+      imaps = {
+        protocol = "imap";
+        bind = "[::]:1993";
+        tls.enable = true;
+        tls.implicit = true;
+      };
+    };
+
+    session = {
+      rcpt = {
+        directory = "default";
+      };
+      relay = false;
+    };
+
+    queue = {
+      next-hop = [
+        { "if" = "rcpt-domain"; in-list = "default/domains"; "then" = "local"; }
+        { "else" = "relay"; }
+      ];
+    };
+
+    remote.relay = {
+      protocol = "smtp";
+      address = "127.0.0.1";
+      port = 25;
+    };
+
+    jmap = {
+      directory = "default";
+      http.headers = [
+        "Access-Control-Allow-Origin: *"
+        "Access-Control-Allow-Methods: POST, GET, HEAD, OPTIONS"
+        "Access-Control-Allow-Headers: *"
+      ];
+    };
+
+    management.directory = "default";
+
+    directory.default = {
+      type = "ldap";
+      address = "ldap://127.0.0.1:389";
+      base-dn = "ou=domains,dc=eh5,dc=me";
+      bind = {
+        dn = "cn=admin,dc=eh5,dc=me";
+      };
+      filter = {
+        name = "(&(objectClass=PostfixBookMailAccount)(mail=?))";
+        email = "(&(objectClass=PostfixBookMailAccount)(|(mail=?)(mailAlias=?)(mailGroupMember=?)))";
+        verify = "(&(objectClass=PostfixBookMailAccount)(|(mail=*?*)(mailAlias=*?*)))";
+        expand = "(&(objectClass=PostfixBookMailAccount)(mailGroupMember=?))";
+        domains = "(&(objectClass=PostfixBookMailAccount)(|(mail=*@?)(mailAlias=*@?)))";
+      };
+      object-classes = {
+        user = "PostfixBookMailAccount";
+        group = "PostfixBookMailAccount";
+      };
+      attributes = {
+        name = "mail";
+        description = [ "givenName" "sn" ];
+        secret = "userPassword";
+        groups = "mailGroupMember";
+        email = "mail";
+        email-alias = "mailAlias";
+        quota = "mailQuota";
+      };
+      options.superuser-group = "admin@eh5.me";
+    };
+
+    certificate.default = {
+      cert = "file://${cfg.certFile}";
+      private-key = "file://${cfg.keyFile}";
+    };
+  };
+
+  systemd.services.stalwart-mail = {
+    serviceConfig = {
+      SupplementaryGroups = [ acmeCert.group ];
+    };
   };
 
   services.caddy.virtualHosts = {
@@ -26,6 +122,4 @@ in
       }
     '';
   };
-
-  environment.systemPackages = [ pkgs.stalwart-cli ];
 }
