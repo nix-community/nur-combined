@@ -21,6 +21,7 @@ in rec {
 
   # Games (Native)
   celeste-classic = p ./pkgs/games/native/celeste-classic.nix { };
+  celeste-classic-pm = celeste-classic.override { practiceMod = true; };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
