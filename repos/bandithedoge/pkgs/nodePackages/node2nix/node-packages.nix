@@ -90,13 +90,13 @@
         sha512 = "MaGuyW+fa13q3aYsluKqclmh62Hgp0BpKIqS66fCxfOaBcVQ1OnMQxRRgQUYnCkxFISAQlkJ0qWWPyXjro1Qrg==";
       };
     };
-    "acorn-8.11.1" = {
+    "acorn-8.10.0" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.11.1";
+      version = "8.10.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.11.1.tgz";
-        sha512 = "IJTNCJMRHfRfb8un89z1QtS0x890C2QUrUxFMK8zy+RizcId6mfnqOf68Bu9YkDgpLYuvCm6aYbwDatXVZPjMQ==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.10.0.tgz";
+        sha512 = "F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==";
       };
     };
     "agent-base-7.1.0" = {
@@ -216,22 +216,22 @@
         sha512 = "PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==";
       };
     };
-    "defu-6.1.3" = {
+    "defu-6.1.2" = {
       name = "defu";
       packageName = "defu";
-      version = "6.1.3";
+      version = "6.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/defu/-/defu-6.1.3.tgz";
-        sha512 = "Vy2wmG3NTkmHNg/kzpuvHhkqeIx3ODWqasgCRbKtbXEN0G+HpEEv9BtJLp7ZG1CZloFaC41Ah3ZFbq7aqCqMeQ==";
+        url = "https://registry.npmjs.org/defu/-/defu-6.1.2.tgz";
+        sha512 = "+uO4+qr7msjNNWKYPHqN/3+Dx3NFkmIzayk2L1MyZQlvgZb/J1A0fo410dpKrN2SnqFjt8n4JL8fDJE0wIgjFQ==";
       };
     };
-    "destr-2.0.2" = {
+    "destr-2.0.1" = {
       name = "destr";
       packageName = "destr";
-      version = "2.0.2";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/destr/-/destr-2.0.2.tgz";
-        sha512 = "65AlobnZMiCET00KaFFjUefxDX0khFA/E4myqZ7a6Sq1yZtR8+FVIvilVX66vF2uobSumxooYZChiRPCKNqhmg==";
+        url = "https://registry.npmjs.org/destr/-/destr-2.0.1.tgz";
+        sha512 = "M1Ob1zPSIvlARiJUkKqvAZ3VAqQY6Jcuth/pBKQ2b1dX/Qx0OnJ8Vux6J2H5PTMQeRzWrrbTu70VxBfv/OPDJA==";
       };
     };
     "dotenv-16.3.1" = {
@@ -504,13 +504,13 @@
         sha512 = "sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==";
       };
     };
-    "node-fetch-native-1.4.1" = {
+    "node-fetch-native-1.4.0" = {
       name = "node-fetch-native";
       packageName = "node-fetch-native";
-      version = "1.4.1";
+      version = "1.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-fetch-native/-/node-fetch-native-1.4.1.tgz";
-        sha512 = "NsXBU0UgBxo2rQLOeWNZqS3fvflWePMECr8CoSWoSTqCqGbVVsvl9vZu1HfQicYN0g5piV9Gh8RTEvo/uP752w==";
+        url = "https://registry.npmjs.org/node-fetch-native/-/node-fetch-native-1.4.0.tgz";
+        sha512 = "F5kfEj95kX8tkDhUCYdV8dg3/8Olx/94zB8+ZNthFs6Bz31UpUi8Xh40TN3thLwXgrwXry1pEg9lJ++tLWTcqA==";
       };
     };
     "normalize-path-3.0.0" = {
@@ -905,7 +905,7 @@ in {
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
       sources."@vscode/emmet-helper-2.9.2"
-      sources."acorn-8.11.1"
+      sources."acorn-8.10.0"
       sources."agent-base-7.1.0"
       sources."anymatch-3.1.3"
       sources."binary-extensions-2.2.0"
@@ -919,8 +919,8 @@ in {
       sources."colorette-2.0.20"
       sources."cross-spawn-7.0.3"
       sources."debug-4.3.4"
-      sources."defu-6.1.3"
-      sources."destr-2.0.2"
+      sources."defu-6.1.2"
+      sources."destr-2.0.1"
       sources."dotenv-16.3.1"
       sources."emmet-2.4.6"
       sources."fast-glob-3.3.1"
@@ -959,7 +959,7 @@ in {
       sources."mlly-1.4.2"
       sources."mri-1.2.0"
       sources."ms-2.1.2"
-      sources."node-fetch-native-1.4.1"
+      sources."node-fetch-native-1.4.0"
       sources."normalize-path-3.0.0"
       sources."ohash-1.1.3"
       sources."path-key-3.1.1"

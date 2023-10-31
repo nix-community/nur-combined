@@ -27,15 +27,15 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "388fc8ddb202f8b87f86a0327b563f67ffaf5c2f";
+    version = "da276ee93811c98571663b2e63309eba4eec6915";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "388fc8ddb202f8b87f86a0327b563f67ffaf5c2f";
+      rev = "da276ee93811c98571663b2e63309eba4eec6915";
       fetchSubmodules = true;
-      sha256 = "sha256-WnF1eEwc6/vk0PgbZHBQRhJdKp45uAkHyRwnhPh9n8w=";
+      sha256 = "sha256-xLNC8xp5Vw3OKO9DIrTia5YRnZGWvx+VzOOstSGSQiQ=";
     };
-    date = "2023-10-24";
+    date = "2023-10-23";
   };
   carla-git = {
     pname = "carla-git";
@@ -150,15 +150,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "1b2ec006259ddbe6cda30db8eb783e8177a9f12b";
+    version = "a1aea16c7a3239c0a3d7522b09edb1d6988bae02";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "1b2ec006259ddbe6cda30db8eb783e8177a9f12b";
+      rev = "a1aea16c7a3239c0a3d7522b09edb1d6988bae02";
       fetchSubmodules = false;
-      sha256 = "sha256-RPfi08g5DHvq5oEX57sJ1al2smBk0d9d8gAzL7jRnNQ=";
+      sha256 = "sha256-hh5a82fbujCOitFjbzClCMZ/XZQeFsdOHxZWCXXv1i4=";
     };
-    date = "2023-10-25";
+    date = "2023-10-17";
   };
   libadwaita-1_4 = {
     pname = "libadwaita-1_4";
