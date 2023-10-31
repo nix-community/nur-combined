@@ -25,6 +25,12 @@ in
 	# ...
 	llama-cpp-python_310 = p_310.callPackage pkgs/llama-cpp-python {python-ver = 310;};
 	llama-cpp-python_311 = p_311.callPackage pkgs/llama-cpp-python {python-ver = 311;};
+	python-jwt_39 = p_39.callPackage pkgs/python-jwt {python-ver = 39;};
+	python-jwt_310 = p_310.callPackage pkgs/python-jwt {python-ver = 310;};
+	python-jwt_311 = p_311.callPackage pkgs/python-jwt {python-ver = 311;};
+	timew-sync-client_39 = p_39.callPackage pkgs/timew-sync-client {python-ver = 39;};
+	timew-sync-client_310 = p_310.callPackage pkgs/timew-sync-client {python-ver = 310;};
+	timew-sync-client_311 = p_311.callPackage pkgs/timew-sync-client {python-ver = 311;};
 	vpuppr-gd3 = pkgs.callPackage pkgs/vpuppr-gd3 {};
 
 

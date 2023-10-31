@@ -56,7 +56,7 @@ def main():
 		with open(pkg_dir / "default.nix") as f:
 			while True:
 				line = f.readline()
-				if "buildPythonPackage" in line:
+				if "buildPythonPackage" in line or "buildPythonApplication" in line:
 					python_package = True
 					break
 				if "}" in line:
