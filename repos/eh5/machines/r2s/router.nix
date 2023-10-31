@@ -39,7 +39,7 @@
 
   services.mosdns = {
     enable = true;
-    configFile = config.sops.secrets.mosdnsConfig.path;
+    configFile = config.sops.secrets."mosdns.yaml".path;
   };
   systemd.services.mosdns = {
     preStart = ''
@@ -47,6 +47,6 @@
     '';
   };
 
-  sops.secrets.mosdnsConfig.restartUnits = [ "mosdns.service" ];
+  sops.secrets."mosdns.yaml".restartUnits = [ "mosdns.service" ];
   services.v2ray-rules-dat.reloadServices = [ "mosdns.service" ];
 }

@@ -5,7 +5,7 @@ let
     #!${nftBin} -f
     table ip my_tproxy {}
     flush table ip my_tproxy
-    include "${config.sops.secrets.tproxyRule.path}"
+    include "${config.sops.secrets."tproxy.nft".path}"
   '';
   stopScript = pkgs.writeScript "setup-tproxy-stop" ''
     #!${nftBin} -f
@@ -16,26 +16,62 @@ let
     export PATH="$PATH''${PATH:+:}${pkgs.curl}/bin:${pkgs.gnused}/bin"
     ${builtins.readFile ./files/build-chnroutes-set.sh}
   '';
+  inherit (config.sops) secrets;
 in
 {
   users.groups.direct-net = { };
 
   services.v2ray-next = {
-    enable = true;
+    enable = false;
     package = pkgs.v2ray-next.override {
       assetsDir = config.services.v2ray-rules-dat.dataDir;
     };
     useV5Format = true;
-    configFile = config.sops.secrets.v2rayConfig.path;
+    configFile = secrets.v2rayConfig.path;
   };
-  systemd.services.v2ray-next = {
-    serviceConfig = {
-      TimeoutSec = 5;
-      SupplementaryGroups = [ config.users.groups.direct-net.name ];
+  # systemd.services.v2ray-next = {
+  #   serviceConfig = {
+  #     TimeoutSec = 5;
+  #     SupplementaryGroups = [ config.users.groups.direct-net.name ];
+  #   };
+  # };
+  # services.v2ray-rules-dat.reloadServices = [ "v2ray-next.service" ];
+  # sops.secrets.v2rayConfig.restartUnits = [ "v2ray-next.service" ];
+
+  services.sing-box = {
+    enable = true;
+    settings = {
+      log.level = "warn";
+      dns = {
+        servers = [{
+          address = "udp://127.0.0.1:5333";
+          detour = "direct";
+        }];
+        strategy = "ipv4_only";
+      };
+      route = {
+        geoip.path = "/var/lib/sing-box/geoip.db";
+        geosite.path = "/var/lib/sing-box/geosite.db";
+        default_interface = "extern0";
+        default_mark = 255;
+      };
+      inbounds = [
+        {
+          tag = "tun-in";
+          type = "tun";
+          interface_name = "tun0";
+          inet4_address = "198.18.0.1/15";
+          auto_route = false;
+          stack = "gvisor";
+          endpoint_independent_nat = true;
+          sniff = true;
+        }
+      ];
     };
   };
-  services.v2ray-rules-dat.reloadServices = [ "v2ray-next.service" ];
-  sops.secrets.v2rayConfig.restartUnits = [ "v2ray-next.service" ];
+  environment.etc."sing-box/other.json".source = secrets."sb-config.json".path;
+  sops.secrets."sb-config.json".restartUnits = [ "sing-box.service" ];
+  services.v2ray-rules-dat.reloadServices = [ "sing-box.service" ];
 
   systemd.services.setup-tproxy = {
     unitConfig.ReloadPropagatedFrom = [ "nftables.service" ];
@@ -55,7 +91,7 @@ in
     };
     reloadIfChanged = true;
   };
-  sops.secrets.tproxyRule.reloadUnits = [ "setup-tproxy.service" ];
+  sops.secrets."tproxy.nft".reloadUnits = [ "setup-tproxy.service" ];
 
   systemd.services.update-chnroutes = {
     serviceConfig.Type = "oneshot";
@@ -77,48 +113,4 @@ in
   system.activationScripts.update-chnroutes.text = ''
     ${buildChnroutesSetScript} -a
   '';
-
-  systemd.network.networks."11-lo" = {
-    name = "lo";
-    routes = [{
-      routeConfig = {
-        Destination = "0.0.0.0/0";
-        Table = 100;
-        Type = "local";
-      };
-    }];
-    routingPolicyRules = [{
-      routingPolicyRuleConfig = {
-        FirewallMark = 9;
-        Table = 100;
-      };
-    }];
-  };
-
-  systemd.network.netdevs."tun0" = {
-    netdevConfig = {
-      Name = "tun0";
-      Kind = "tun";
-    };
-  };
-  systemd.network.networks."tun0" = {
-    matchConfig.Name = "tun0";
-    networkConfig = {
-      Address = "198.18.0.1/15";
-      ConfigureWithoutCarrier = true;
-    };
-    routes = [{
-      routeConfig = {
-        Destination = "0.0.0.0/0";
-        Metric = 1;
-        Table = 200;
-      };
-    }];
-    routingPolicyRules = [{
-      routingPolicyRuleConfig = {
-        FirewallMark = 10;
-        Table = 200;
-      };
-    }];
-  };
 }

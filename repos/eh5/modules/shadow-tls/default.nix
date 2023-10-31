@@ -1,17 +1,21 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.services.hev-socks5-tproxy;
-  configFormat = pkgs.formats.yaml { };
+  cfg = config.services.shadow-tls;
+  configFormat = pkgs.formats.json { };
   configFile =
     if cfg.configFile != null
     then cfg.configFile
-    else configFormat.generate "hev-socks5-tproxy.yml" cfg.config;
+    else
+      pkgs.writeTextFile {
+        name = "v2ray.json";
+        text = builtins.toJSON cfg.config;
+      };
 in
 {
-  options.services.hev-socks5-tproxy = {
-    enable = mkEnableOption "hev-socks5-tproxy service";
-    package = mkPackageOption pkgs "hev-socks5-tproxy" { default = [ "hev-socks5-tproxy" ]; };
+  options.services.shadow-tls = {
+    enable = mkEnableOption "shadow-tls service";
+    package = mkPackageOption pkgs "shadow-tls" { default = [ "shadow-tls" ]; };
     configFile = mkOption {
       type = types.nullOr types.path;
       default = null;
@@ -27,16 +31,16 @@ in
   config = mkIf cfg.enable {
     assertions = [{
       assertion = (cfg.configFile != null) -> (cfg.config == { });
-      message = "Either but not both `configFile` and `config` should be specified for hev-socks5-tproxy.";
+      message = "Either but not both `configFile` and `config` should be specified for shadow-tls.";
     }];
 
-    systemd.services.hev-socks5-tproxy = {
-      description = "hev-socks5-tproxy Daemon";
+    systemd.services.shadow-tls = {
+      description = "shadow-tls Daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ configFile ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/hev-socks5-tproxy ${configFile}";
+        ExecStart = "${cfg.package}/bin/shadow-tls config --config ${configFile}";
       };
     };
 

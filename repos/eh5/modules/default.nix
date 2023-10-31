@@ -1,9 +1,9 @@
 let
   modules = {
     fake-hwclock = import ./fake-hwclock;
-    hev-socks5-tproxy = import ./hev-socks5-tproxy;
     mosdns = import ./mosdns;
     nftables-fullcone = import ./nftables-fullcone;
+    shadow-tls = import ./shadow-tls;
     stalwart-jmap = import ./stalwart-jmap;
     system-tarball-extlinux = import ./system-tarball-extlinux;
     v2ray-next = import ./v2ray-next;

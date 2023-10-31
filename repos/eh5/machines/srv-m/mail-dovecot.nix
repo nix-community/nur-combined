@@ -119,8 +119,8 @@ in
 
       listescape_char = "\\"
 
-      mail_crypt_global_private_key = <${secrets.mailCryptPrivKey.path}
-      mail_crypt_global_public_key = <${secrets.mailCryptPubKey.path}
+      mail_crypt_global_private_key = <${secrets."ecprivkey.pem".path}
+      mail_crypt_global_public_key = <${secrets."ecpubkey.pem".path}
       mail_crypt_save_version = 2
 
       zlib_save = lz4

@@ -9,7 +9,7 @@ in
 {
   sops = {
     defaultSopsFormat = "yaml";
-    defaultSopsFile = ./secrets/secrets.yaml;
+    defaultSopsFile = ./secrets/secrets.sops.yaml;
     secrets = {
       acmeEnv = { };
       postScript = { mode = "0500"; owner = "acme"; };
@@ -23,24 +23,10 @@ in
       "sokka.cn.dkim.key".owner = rspamdUser;
       "chika.xin.dkim.key".owner = rspamdUser;
       webConfig.owner = caddyUser;
-      v2rayConfig = {
-        name = "v2ray.json";
-        format = "binary";
-        sopsFile = ./secrets/v2ray.v5.json.sops;
-      };
-      mailCryptPrivKey = {
-        name = "ecprivkey.pem";
-        format = "binary";
-        sopsFile = ./secrets/ecprivkey.pem.sops;
-      };
-      mailCryptPubKey = {
-        name = "ecpubkey.pem";
-        format = "binary";
-        sopsFile = ./secrets/ecpubkey.pem.sops;
-      };
+      "v2ray.v5.json" = { };
+      "ecprivkey.pem" = { };
+      "ecpubkey.pem" = { };
       "dc_eh5_dc_me.ldif" = {
-        format = "binary";
-        sopsFile = ./secrets/dc_eh5_dc_me.ldif.sops;
         owner = config.services.openldap.user;
         restartUnits = [ "openldap.service" ];
       };

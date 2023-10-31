@@ -10,7 +10,6 @@ let
   self_base = {
     dovecot-fts-flatcurve = callPackage ./dovecot-fts-flatcurve { };
     fake-hwclock = callPackage ./fake-hwclock { };
-    hev-socks5-tproxy = callPackage ./hev-socks5-tproxy { };
     libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
     mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo121Module; };
     # end of service
@@ -26,7 +25,10 @@ let
     v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo120Module; };
     vlmcsd = callPackage ./vlmcsd { };
   };
-  self_extra = lib.optionalAttrs
+
+  self_extra = sops-nix_pkgs;
+
+  sops-nix_pkgs = lib.optionalAttrs
     (lib.hasAttrByPath [ system "sops-install-secrets" ] inputs.sops-nix.packages)
     {
       sops-install-secrets-nonblock = callPackage ./sops-install-secrets-nonblock {

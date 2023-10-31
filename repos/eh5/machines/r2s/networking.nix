@@ -80,4 +80,50 @@
     };
     linkConfig.ActivationPolicy = "always-up";
   };
+
+  systemd.network.networks."11-lo" = {
+    name = "lo";
+    routes = [{
+      routeConfig = {
+        Destination = "0.0.0.0/0";
+        Table = 100;
+        Type = "local";
+      };
+    }];
+    routingPolicyRules = [{
+      routingPolicyRuleConfig = {
+        FirewallMark = 9;
+        Table = 100;
+      };
+    }];
+  };
+
+  ## Uncoment after https://github.com/SagerNet/sing-tun/pull/16 being merged
+  #
+  # systemd.network.netdevs."tun0" = {
+  #   netdevConfig = {
+  #     Name = "tun0";
+  #     Kind = "tun";
+  #   };
+  # };
+  systemd.network.networks."tun0" = {
+    matchConfig.Name = "tun0";
+    networkConfig = {
+      Address = "198.18.0.1/15";
+      ConfigureWithoutCarrier = true;
+    };
+    routes = [{
+      routeConfig = {
+        Destination = "0.0.0.0/0";
+        Metric = 1;
+        Table = 200;
+      };
+    }];
+    routingPolicyRules = [{
+      routingPolicyRuleConfig = {
+        FirewallMark = 10;
+        Table = 200;
+      };
+    }];
+  };
 }

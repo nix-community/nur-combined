@@ -25,7 +25,7 @@ in
         bash ${secrets.postScript.path}
       '';
       reloadServices = [
-        "v2ray-next.service"
+        # "v2ray-next.service"
       ];
     };
   };
@@ -33,11 +33,25 @@ in
 
   # V2Ray
   services.v2ray-next = {
-    enable = true;
+    enable = false;
     useV5Format = true;
-    configFile = config.sops.secrets.v2rayConfig.path;
+    configFile = secrets."v2ray.v5.json".path;
   };
-  systemd.services.v2ray-next.requires = [ "acme-finished-${certName}.target" ];
+  # systemd.services.v2ray-next.requires = [ "acme-finished-${certName}.target" ];
+
+  # sing-box
+  services.sing-box = {
+    enable = true;
+    settings = {
+      log.level = "warn";
+      route = {
+        geoip.path = "/var/lib/sing-box/geoip.db";
+        geosite.path = "/var/lib/sing-box/geosite.db";
+      };
+    };
+  };
+  environment.etc."sing-box/other.json".source = secrets."sb-config.json".path;
+  sops.secrets."sb-config.json".restartUnits = [ "sing-box.service" ];
 
   # Caddy
   users.users.${caddyCfg.user}.extraGroups = [ acmeCert.group ];

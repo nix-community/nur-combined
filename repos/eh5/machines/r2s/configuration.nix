@@ -1,14 +1,14 @@
 { config, pkgs, lib, ... }:
 {
-  sops.defaultSopsFormat = "binary";
-  sops.secrets.mosdnsConfig = {
-    name = "mosdns.yaml";
-    sopsFile = ./secrets/mosdns.yaml.sops;
-  };
-  sops.secrets.tproxyRule.sopsFile = ./secrets/tproxy.nft.sops;
-  sops.secrets.v2rayConfig = {
-    name = "v2ray.json";
-    sopsFile = ./secrets/v2ray.v5.json.sops;
+  sops = {
+    defaultSopsFormat = "yaml";
+    defaultSopsFile = ./secrets/secrets.sops.yaml;
+    secrets = {
+      "sb-config.json" = {};
+      "mosdns.yaml" = {};
+      "tproxy.nft" = {};
+      "v2ray.v5.json" = {};
+    };
   };
 
   nix = {
@@ -76,6 +76,7 @@
     screen
     tcpdump
     usbutils
+    sing-box
   ] ++ (with config.boot.kernelPackages; [
     cpupower
   ]);
