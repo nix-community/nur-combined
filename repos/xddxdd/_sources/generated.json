@@ -183,11 +183,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jsaZvWlzK70VzqhZQoFwdyC/5ymKdrgn1/l72o/RrJc=",
+            "sha256": "sha256-F2y5daIdNJZGNjOctN9iA6kHSRVSMWK8s80X+kXxzb4=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.1-3/io.github.msojocs.bilibili_1.12.1-3_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.3-1/io.github.msojocs.bilibili_1.12.3-1_amd64.deb"
         },
-        "version": "1.12.1-3"
+        "version": "1.12.3-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -790,11 +790,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "bd943ce5ee6aa121cc33a6a59b40b5b88980f1f7",
-            "sha256": "sha256-qVUtIOCZGiDNUuutxdVxJetQxi2tEF8nauXFsr6TfKw=",
+            "rev": "02da5677ea070c50d3907b8e6bff31a32e3cce14",
+            "sha256": "sha256-XCruYv79da5nWsf3dzgm+Zp0zbRF1o28+0SUO8X43PA=",
             "type": "github"
         },
-        "version": "bd943ce5ee6aa121cc33a6a59b40b5b88980f1f7"
+        "version": "02da5677ea070c50d3907b8e6bff31a32e3cce14"
     },
     "librime-charcode": {
         "cargoLocks": null,
@@ -890,11 +890,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.5.9-xanmod1",
-            "sha256": "sha256-5SFPBsDTmq7tA6pyM7rbIjBPAtPbqhUl6VfA2z5baPA=",
+            "rev": "6.6.0-xanmod1",
+            "sha256": "sha256-3YdOKJik2cyiqryQAA0TC1hHfjpU21tCctXLaSv5yfU=",
             "type": "github"
         },
-        "version": "6.5.9-xanmod1"
+        "version": "6.6.0-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1355,11 +1355,11 @@
             "name": null,
             "owner": "c0re100",
             "repo": "qBittorrent-Enhanced-Edition",
-            "rev": "release-4.5.5.10",
-            "sha256": "sha256-wGEH83zX7u1KnHxKuMbVIhZ/AbNUkSme1leh5lHPLAk=",
+            "rev": "release-4.6.0.10",
+            "sha256": "sha256-13gbBLuu6O6Xf/7Jwoo68rKFr0o2zf8bUvtaG6DsOpA=",
             "type": "github"
         },
-        "version": "release-4.5.5.10"
+        "version": "release-4.6.0.10"
     },
     "qemu-user-static-amd64": {
         "cargoLocks": null,
@@ -1528,7 +1528,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-10-22",
+        "date": "2023-10-30",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1540,11 +1540,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "0e843f998f659e6329e38192ceaa60165412abd8",
-            "sha256": "sha256-ZdirhWKq0ZHECyiruooH39od+yoHq/5LZoNSHuu8WPk=",
+            "rev": "fa12fa4a023347da0f17128af5616e81c6fd6e10",
+            "sha256": "sha256-f+0qUjertVmz06G8ZlhRjRqH4+DzosnUTiVWGtauueg=",
             "type": "github"
         },
-        "version": "0e843f998f659e6329e38192ceaa60165412abd8"
+        "version": "fa12fa4a023347da0f17128af5616e81c6fd6e10"
     },
     "rime-moegirl": {
         "cargoLocks": null,

@@ -106,10 +106,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.12.1-3";
+    version = "1.12.3-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.1-3/io.github.msojocs.bilibili_1.12.1-3_amd64.deb";
-      sha256 = "sha256-jsaZvWlzK70VzqhZQoFwdyC/5ymKdrgn1/l72o/RrJc=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.3-1/io.github.msojocs.bilibili_1.12.3-1_amd64.deb";
+      sha256 = "sha256-F2y5daIdNJZGNjOctN9iA6kHSRVSMWK8s80X+kXxzb4=";
     };
   };
   bird-lg-go = {
@@ -454,13 +454,13 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "bd943ce5ee6aa121cc33a6a59b40b5b88980f1f7";
+    version = "02da5677ea070c50d3907b8e6bff31a32e3cce14";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "bd943ce5ee6aa121cc33a6a59b40b5b88980f1f7";
+      rev = "02da5677ea070c50d3907b8e6bff31a32e3cce14";
       fetchSubmodules = false;
-      sha256 = "sha256-qVUtIOCZGiDNUuutxdVxJetQxi2tEF8nauXFsr6TfKw=";
+      sha256 = "sha256-XCruYv79da5nWsf3dzgm+Zp0zbRF1o28+0SUO8X43PA=";
     };
     date = "2023-10-30";
   };
@@ -514,13 +514,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.5.9-xanmod1";
+    version = "6.6.0-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.5.9-xanmod1";
+      rev = "6.6.0-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-5SFPBsDTmq7tA6pyM7rbIjBPAtPbqhUl6VfA2z5baPA=";
+      sha256 = "sha256-3YdOKJik2cyiqryQAA0TC1hHfjpU21tCctXLaSv5yfU=";
     };
   };
   linux-xanmod-6_0 = {
@@ -780,13 +780,13 @@
   };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
-    version = "release-4.5.5.10";
+    version = "release-4.6.0.10";
     src = fetchFromGitHub {
       owner = "c0re100";
       repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.5.5.10";
+      rev = "release-4.6.0.10";
       fetchSubmodules = false;
-      sha256 = "sha256-wGEH83zX7u1KnHxKuMbVIhZ/AbNUkSme1leh5lHPLAk=";
+      sha256 = "sha256-13gbBLuu6O6Xf/7Jwoo68rKFr0o2zf8bUvtaG6DsOpA=";
     };
   };
   qemu-user-static-amd64 = {
@@ -883,15 +883,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0e843f998f659e6329e38192ceaa60165412abd8";
+    version = "fa12fa4a023347da0f17128af5616e81c6fd6e10";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "0e843f998f659e6329e38192ceaa60165412abd8";
+      rev = "fa12fa4a023347da0f17128af5616e81c6fd6e10";
       fetchSubmodules = false;
-      sha256 = "sha256-ZdirhWKq0ZHECyiruooH39od+yoHq/5LZoNSHuu8WPk=";
+      sha256 = "sha256-f+0qUjertVmz06G8ZlhRjRqH4+DzosnUTiVWGtauueg=";
     };
-    date = "2023-10-22";
+    date = "2023-10-30";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
