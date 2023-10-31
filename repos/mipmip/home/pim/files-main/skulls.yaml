@@ -93,6 +93,17 @@ privops:
 #    - source: snel-city-infra
 #    - source: status_snel_city
 
+wearetechnative:
+  base_dir: ~/tcWeAreTechNative
+  repos:
+    - source: wearetechnative/terraform-aws-network
+    - source: wearetechnative/terraform-aws-kms
+    - source: wearetechnative/terraform-aws-ecs
+    - source: wearetechnative/terraform-aws-sqs-dlq
+    - source: wearetechnative/terraform-aws-ec2-asg
+    - source: wearetechnative/terraform-aws-iam-role
+    - source: wearetechnative/terraform-null-url-parser
+
 technative:
   base_dir: ~/tcTechNative
   repos:
