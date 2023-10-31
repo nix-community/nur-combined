@@ -8,13 +8,13 @@
 }:
 python3Packages.buildPythonApplication rec {
   pname = "a2ln";
-  version = "1.1.12";
+  version = "1.1.13";
 
   src = fetchFromGitHub {
     repo = "a2ln-server";
     owner = "patri9ck";
     rev = version;
-    hash = "sha256-w7BaVZ4bPniN7L4fb2KhSVf/0/MMrUOQqldh/IWwWMg=";
+    hash = "sha256-EiGlzYZF2zrb+Pg9szApxDhgT7McRMSKsTFjdz/PIbU=";
   };
 
   format = "pyproject";
