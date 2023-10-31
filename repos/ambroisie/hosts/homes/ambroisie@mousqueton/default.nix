@@ -17,9 +17,13 @@
 
   services.gpg-agent.enable = lib.mkForce false;
 
-  # I use scripts that use the passthrough sequence often on this host
-  my.home.tmux.enablePassthrough = true;
+  my.home = {
+    tmux = {
+      # I use scripts that use the passthrough sequence often on this host
+      enablePassthrough = true;
 
-  # HTerm uses `xterm-256color` as its `$TERM`, so use that here
-  my.home.tmux.trueColorTerminals = [ "xterm-256color" ];
+      # HTerm uses `xterm-256color` as its `$TERM`, so use that here
+      trueColorTerminals = [ "xterm-256color" ];
+    };
+  };
 }
