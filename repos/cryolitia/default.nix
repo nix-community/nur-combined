@@ -30,8 +30,8 @@ rec {
   };
 
   MaaAssistantArknights-beta = MaaAssistantArknights.override {
-    maaVersion = "4.26.0-beta.2";
-    maaSourceHash = "sha256-mWgIrPHtFxeZ1gXtrulcvAFnWS/3rB5M7EgrWfU5riI=";
+    maaVersion = "4.26.0";
+    maaSourceHash = "sha256-1+Z7kGKQ33e7Ma1RpPAv+AYbjl6w6DUxNTtXAviXG2c=";
   };
 
   MaaAssistantArknights-beta-cuda = MaaAssistantArknights-beta.override {
@@ -55,8 +55,4 @@ rec {
   maa-cli = pkgs.callPackage ./pkgs/MaaAssistantArknights/maa-cli.nix { inherit maintainers; };
 
   rime-latex = pkgs.callPackage ./pkgs/rimePackages/rime-latex.nix { inherit maintainers; };
-
-  fcitx5-material-color = pkgs.callPackage ./pkgs/fcitx5/fcitx5-material-color.nix { inherit maintainers; };
-  
-  fcitx5-nord = pkgs.callPackage ./pkgs/fcitx5/fcitx5-nord.nix { inherit maintainers; };
 }
