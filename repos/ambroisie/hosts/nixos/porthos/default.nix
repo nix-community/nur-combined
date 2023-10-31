@@ -9,6 +9,7 @@
     ./networking.nix
     ./secrets
     ./services.nix
+    ./system.nix
     ./users.nix
   ];
 
