@@ -13,10 +13,11 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = outbin;
-  version = "1.0";
+  version = "unstable-2020-12-08";
 
+  # From https://www.speedrun.com/celestep8/resources
   src = fetchzip {
-    url = "https://www.speedrun.com/static/resource/174ye.zip";
+    url = "https://www.speedrun.com/static/resource/174ye.zip?v=f3dc98f";
     hash = "sha256-GANHqKB0N905QJOLaePKWkUuPl9UlL1iqvkMMvw/CC8=";
   };
 
@@ -36,7 +37,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A PICO-8 platformer about climbing a mountain, made in four days${if practiceMod then " (Practice Mod)" else ""}";
+    description = "A PICO-8 platformer about climbing a mountain, made in four days${lib.optionalString practiceMod " (Practice Mod)"}";
     homepage = "https://celesteclassic.github.io/";
     license = licenses.unfree;
     platforms = platforms.linux;
