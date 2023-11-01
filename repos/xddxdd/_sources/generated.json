@@ -591,11 +591,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HyYu+SOtmTqGvN29VoVsLALMIT1XpLr9HupQG+QbnT8=",
+            "sha256": "sha256-7jYudX6fF/6ADgkmPpk9HfLJ0eu5FXbR4+AV6EWl06o=",
             "type": "url",
-            "url": "https://github.com/Grasscutters/Grasscutter/releases/download/v1.7.2/grasscutter-1.7.2.jar"
+            "url": "https://github.com/Grasscutters/Grasscutter/releases/download/v1.7.3/grasscutter-1.7.3.jar"
         },
-        "version": "1.7.2"
+        "version": "1.7.3"
     },
     "grasscutter-resources": {
         "cargoLocks": null,

@@ -106,7 +106,7 @@ Or, use variables from this repository in case I change them:
 |  | `glauth` | [glauth](https://github.com/glauth/glauth) | v2.3.0 | A lightweight LDAP server for development, home use, or CI |
 |  | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.9345 | A world sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.1 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace. |
-|  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.2 | A server software reimplementation for a certain anime game. |
+|  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.3 | A server software reimplementation for a certain anime game. |
 |  | `hath` | [hath](https://e-hentai.org/) | 1.6.1 | Hentai@Home |
 |  | `hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
 |  | `hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 9914343c51384e45496522074c6cc6b15394543c | Constructed scripts by Hoyoverse 米哈游的架空文字  |

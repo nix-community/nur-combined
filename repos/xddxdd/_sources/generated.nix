@@ -343,10 +343,10 @@
   };
   grasscutter = {
     pname = "grasscutter";
-    version = "1.7.2";
+    version = "1.7.3";
     src = fetchurl {
-      url = "https://github.com/Grasscutters/Grasscutter/releases/download/v1.7.2/grasscutter-1.7.2.jar";
-      sha256 = "sha256-HyYu+SOtmTqGvN29VoVsLALMIT1XpLr9HupQG+QbnT8=";
+      url = "https://github.com/Grasscutters/Grasscutter/releases/download/v1.7.3/grasscutter-1.7.3.jar";
+      sha256 = "sha256-7jYudX6fF/6ADgkmPpk9HfLJ0eu5FXbR4+AV6EWl06o=";
     };
   };
   grasscutter-resources = {
