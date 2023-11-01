@@ -10,14 +10,14 @@ stdenv.mkDerivation(finalAttrs: {
   src = fetchFromGitHub {
     owner = "presto8";
     repo = "pscripts";
-    rev = "d5a4ad119c16cddd6c21e65f0c91c79211bd2337";
-    hash = "sha256-XrUayIYp/GSr2GnlF4cadXZCCIrSXN2defzQxsCmIn8=";
+    rev = "dd2fb825a243535b5827e0412604d75bcd485770";
+    hash = "sha256-ggFrd+tDQ6DL4CEnWDDSBEzWwkmlwwtpa84DbsNyQYc=";
   };
 
   installPhase = ''
     runHook preInstall
 
-    for exe in pnix pdrives; do
+    for exe in pnix pdrives pmove; do
       install -D -m 755 "$exe"/"$exe" $out/bin/"$exe"
     done
 
