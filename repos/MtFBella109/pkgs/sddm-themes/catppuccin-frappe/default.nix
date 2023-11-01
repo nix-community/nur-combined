@@ -10,7 +10,7 @@
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "sddm";
-      rev = "master";
+      rev = "a13cf43fe05a6c463a7651eb2d96691a36637913";
       sha256 = "sha256-tyuwHt48cYqG5Pn9VHa4IB4xlybHOxPmhdN9eae36yo=";
     };
 }
