@@ -40,9 +40,10 @@
     cachix
     nil
     nix-gfx-mesa
-    nixpkgs-fmt
     nix-prefetch
     nix-update
+    nixd
+    nixpkgs-fmt
     ssh-to-age
   ];
 }
