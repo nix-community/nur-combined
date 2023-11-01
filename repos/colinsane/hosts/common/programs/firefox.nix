@@ -225,6 +225,12 @@ in
           // treat it as unrevoked.
           // see: <https://librewolf.net/docs/faq/#im-getting-sec_error_ocsp_server_error-what-can-i-do>
           defaultPref("security.OCSP.require", false);
+
+          // scrollbar configuration, see: <https://artemis.sh/2023/10/12/scrollbars.html>
+          // style=4 gives rectangular scrollbars
+          // could also enable "always show scrollbars" in about:preferences -- not sure what the actual pref name for that is
+          defaultPref("widget.non-native-theme.scrollbar.size.override", 50);
+          defaultPref("widget.non-native-theme.scrollbar.style", 4);
         '';
         fs."${cfg.browser.dotDir}/default".dir = {};
         # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).

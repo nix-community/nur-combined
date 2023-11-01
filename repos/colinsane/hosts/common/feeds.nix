@@ -150,6 +150,7 @@ let
     (fromDb "vitalik.ca" // tech)
     ## ian (Sanctuary)
     (fromDb "sagacioussuricata.com" // tech)
+    (fromDb "artemis.sh" // tech)
     ## Bunnie Juang
     (fromDb "bunniestudios.com" // tech)
     (fromDb "blog.danieljanus.pl" // tech)
