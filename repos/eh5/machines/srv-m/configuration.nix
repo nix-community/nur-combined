@@ -101,6 +101,7 @@ in
     libarchive
     lm_sensors
     lsof
+    nftables
     screen
     v2ray-next
   ] ++ (with config.boot.kernelPackages; [

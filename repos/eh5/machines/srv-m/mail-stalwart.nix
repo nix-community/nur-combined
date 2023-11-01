@@ -15,6 +15,10 @@ in
   services.stalwart-mail.enable = true;
   services.stalwart-mail.settings = {
     include.files = [ secrets."stalwart.toml".path ];
+    global.tracing.level = "trace";
+    resolver.public-suffix = [
+      "https://publicsuffix.org/list/public_suffix_list.dat"
+    ];
     server = {
       hostname = cfg.fqdn;
       tls = {
@@ -26,7 +30,6 @@ in
       lmtp = {
         protocol = "lmtp";
         bind = "127.0.0.1:11200";
-        tls.enable = false;
       };
       jmap = {
         protocol = "jmap";
@@ -39,20 +42,30 @@ in
         tls.enable = true;
         tls.implicit = true;
       };
+      management = {
+        protocol = "http";
+        bind = "127.0.0.1:18081";
+      };
     };
 
     session = {
       rcpt = {
         directory = "default";
+        relay = false;
       };
-      relay = false;
     };
 
     queue = {
-      next-hop = [
-        { "if" = "rcpt-domain"; in-list = "default/domains"; "then" = "local"; }
-        { "else" = "relay"; }
-      ];
+      outbound = {
+        next-hop = [
+          { "if" = "rcpt-domain"; in-list = "default/domains"; "then" = "local"; }
+          { "else" = "relay"; }
+        ];
+        tls = {
+          mta-sts = "disable";
+          dane = "disable";
+        };
+      };
     };
 
     remote.relay = {
@@ -81,9 +94,9 @@ in
       };
       filter = {
         name = "(&(objectClass=PostfixBookMailAccount)(mail=?))";
-        email = "(&(objectClass=PostfixBookMailAccount)(|(mail=?)(mailAlias=?)(mailGroupMember=?)))";
+        email = "(&(objectClass=PostfixBookMailAccount)(|(mail=?)(mailAlias=?)(mailList=?)))";
         verify = "(&(objectClass=PostfixBookMailAccount)(|(mail=*?*)(mailAlias=*?*)))";
-        expand = "(&(objectClass=PostfixBookMailAccount)(mailGroupMember=?))";
+        expand = "(&(objectClass=PostfixBookMailAccount)(mailList=?))";
         domains = "(&(objectClass=PostfixBookMailAccount)(|(mail=*@?)(mailAlias=*@?)))";
       };
       object-classes = {
@@ -94,7 +107,7 @@ in
         name = "mail";
         description = [ "givenName" "sn" ];
         secret = "userPassword";
-        groups = "mailGroupMember";
+        # groups = "mailGroupMember";
         email = "mail";
         email-alias = "mailAlias";
         quota = "mailQuota";
@@ -110,6 +123,8 @@ in
 
   systemd.services.stalwart-mail = {
     serviceConfig = {
+      StandardOutput = lib.mkForce "journal";
+      StandardError = lib.mkForce "journal";
       SupplementaryGroups = [ acmeCert.group ];
     };
   };
