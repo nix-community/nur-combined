@@ -2,12 +2,12 @@
 
 mkYarnPackage rec {
   pname = "matrix-chatgpt-bot";
-  version = "3.1.3";
+  version = "3.1.4";
   src = fetchFromGitHub ({
     owner = "matrixgpt";
     repo = "matrix-chatgpt-bot";
     rev = "v${version}";
-    sha256 = "sha256-lE87xbTDERGZSQJ+vxsOQX1OYLKa9dh6iowRtu4/Plw=";
+    sha256 = "sha256-8GJGdRkxNmE59ut0BsTCyAzdtQ4qpedTO8OEVB7wj78=";
   });
 
   packageJSON = ./package.json;
