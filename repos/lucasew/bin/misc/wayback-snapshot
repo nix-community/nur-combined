@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# create a snapshot of a site in wayback machine
+
+result_html="$(mktemp)"
+
+curl --fail-with-body "https://web.archive.org/save/$*" > $result_html
+
+echo "HTML result saved in '$result_html'" >&2
+
+resolvedURL="$(cat $result_html | grep href | sed 's;.*href="\([^"]*\)[^$]*;\1;')"
+echo "Resolved https://web.archive.org$resolvedURL"
