@@ -5,7 +5,7 @@
 , SDL2
 }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
   pname = "celeste-classic-2";
   version = "1.0";
 
@@ -23,8 +23,10 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -Dsm755 celeste2 $out/bin/celeste-classic-2
-    install -Dm444 data.pod $out/bin/data.pod
+    install -Dsm755 celeste2 $out/lib/${pname}/${pname}
+    install -Dm444 data.pod $out/lib/${pname}/data.pod
+    mkdir -p $out/bin
+    ln -s $out/lib/${pname}/${pname} $out/bin/
     runHook postInstall
   '';
 

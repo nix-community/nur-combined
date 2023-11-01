@@ -28,8 +28,10 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -Dsm755 ${directory}/${srcbin} $out/bin/${outbin}
-    install -Dm444 ${directory}/data.pod $out/bin/data.pod
+    install -Dsm755 ${directory}/${srcbin} $out/lib/${outbin}/${outbin}
+    install -Dm444 ${directory}/data.pod $out/lib/${outbin}/data.pod
+    mkdir -p $out/bin
+    ln -s $out/lib/${outbin}/${outbin} $out/bin/
     runHook postInstall
   '';
 
