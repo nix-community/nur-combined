@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@v1.3.0
+        uses: jlumbroso/free-disk-space@v1.3.1
         with:
           tool-cache: true
           # https://github.com/jlumbroso/free-disk-space/issues/4
