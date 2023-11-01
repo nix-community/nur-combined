@@ -15,15 +15,21 @@ in
   services.stalwart-mail.enable = true;
   services.stalwart-mail.settings = {
     include.files = [ secrets."stalwart.toml".path ];
+
     global.tracing.level = "trace";
     resolver.public-suffix = [
       "https://publicsuffix.org/list/public_suffix_list.dat"
     ];
+
     server = {
       hostname = cfg.fqdn;
       tls = {
         certificate = "default";
         ignore-client-order = true;
+      };
+      socket = {
+        nodelay = true;
+        reuse-addr = true;
       };
     };
     server.listener = {
@@ -42,16 +48,15 @@ in
         tls.enable = true;
         tls.implicit = true;
       };
-      management = {
-        protocol = "http";
-        bind = "127.0.0.1:18081";
-      };
     };
 
     session = {
       rcpt = {
         directory = "default";
-        relay = false;
+        relay = [
+          { "if" = "authenticated-as"; ne = ""; "then" = true; }
+          { "else" = false; }
+        ];
       };
     };
 
@@ -107,12 +112,11 @@ in
         name = "mail";
         description = [ "givenName" "sn" ];
         secret = "userPassword";
-        # groups = "mailGroupMember";
+        groups = "mailGroupMember";
         email = "mail";
         email-alias = "mailAlias";
         quota = "mailQuota";
       };
-      options.superuser-group = "admin@eh5.me";
     };
 
     certificate.default = {

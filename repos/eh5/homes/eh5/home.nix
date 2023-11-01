@@ -40,6 +40,7 @@
     cachix
     nil
     nix-gfx-mesa
+    nix-output-monitor
     nix-prefetch
     nix-update
     nixd

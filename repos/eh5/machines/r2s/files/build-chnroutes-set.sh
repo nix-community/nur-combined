@@ -33,7 +33,7 @@ fi
 
 ruleUrls=(
     "https://cdn.jsdelivr.net/gh/misakaio/chnroutes2/chnroutes.txt"
-    "https://cdn.jsdelivr.net/gh/felixonmars/chnroutes-alike/chnroutes-alike.txt"
+    # "https://cdn.jsdelivr.net/gh/felixonmars/chnroutes-alike/chnroutes-alike.txt"
 )
 
 input=$(mktemp)

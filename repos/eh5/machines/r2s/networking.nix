@@ -81,23 +81,6 @@
     linkConfig.ActivationPolicy = "always-up";
   };
 
-  systemd.network.networks."11-lo" = {
-    name = "lo";
-    routes = [{
-      routeConfig = {
-        Destination = "0.0.0.0/0";
-        Table = 100;
-        Type = "local";
-      };
-    }];
-    routingPolicyRules = [{
-      routingPolicyRuleConfig = {
-        FirewallMark = 9;
-        Table = 100;
-      };
-    }];
-  };
-
   ## Uncoment after https://github.com/SagerNet/sing-tun/pull/16 being merged
   #
   # systemd.network.netdevs."tun0" = {
