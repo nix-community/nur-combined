@@ -1,16 +1,10 @@
-= presto's NUR packages
+= presto8's NUR packages
 
 My personal https://github.com/nix-community/NUR[NUR] repository
 
-== pscripts
-
-pscripts is a collection of helpful scripts.
 
 [cols="1,1"]
 |===
-|https://github.com/presto8/pscripts/tree/main/pdrives[pdrives]
-|Helps manage storage devices
-
-|https://github.com/presto8/pscripts/tree/main/pnix[pnix]
-|Wrapper script for NixOS operations.
+|https://github.com/presto8/pscripts[pdrives]
+|A collection of helpful scripts for system tasks.
 |===
