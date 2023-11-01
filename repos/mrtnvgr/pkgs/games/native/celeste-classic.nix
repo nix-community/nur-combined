@@ -19,6 +19,7 @@ stdenvNoCC.mkDerivation {
   src = fetchzip {
     url = "https://www.speedrun.com/static/resource/174ye.zip?v=f3dc98f";
     hash = "sha256-GANHqKB0N905QJOLaePKWkUuPl9UlL1iqvkMMvw/CC8=";
+    extension = "zip";
   };
 
   nativeBuildInputs = [
