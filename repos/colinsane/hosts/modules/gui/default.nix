@@ -28,6 +28,7 @@
       "epiphany"  # gnome's web browser
       "evince"  # works on phosh
       "firefox"
+      # "flare-signal"  # gtk4 signal client
       # "foliate"  # e-book reader
       "fractal"  # matrix client
       "g4music"  # local music player

@@ -211,6 +211,11 @@ let
       pname = "sane-wipe-browser";
       src = ./src;
     };
+    wipe-flare = static-nix-shell.mkBash {
+      pname = "sane-wipe-flare";
+      src = ./src;
+      pkgs = [ "dconf" "libsecret" ];
+    };
     wipe-fractal = static-nix-shell.mkBash {
       pname = "sane-wipe-fractal";
       src = ./src;

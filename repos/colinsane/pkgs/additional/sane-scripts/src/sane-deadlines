@@ -37,8 +37,9 @@ sort "$deadlines" | while read line; do
         birthtime=$(date -d "$deadline_field - $threshold" +%s)
 
         # show the event iff it's near
+        # 86400 = 24*60*60 = # of seconds in a day
         if test "$now" -ge "$birthtime"; then
-                days_until=$(( ($deadline - $now) / (24*60*60) ))
+                days_until=$(( ($deadline - $now + 86399) / 86400 ))
                 echo "in $days_until day(s): $description_field"
         fi
 done

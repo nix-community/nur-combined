@@ -23,27 +23,6 @@ let
       // (if title != null then { name = title; } else {})
     );
 in [
-  # (fetchpatch' {
-  #   # nope: something else broke mesa
-  #   title = "mesa: 23.1.8 -> 23.1.9";
-  #   nixpkgsCommit = "58fdb93d6f5fd794406ea5152a8641e7247b8242";
-  #   revert = true;
-  #   hash = "sha256-1Q31YZbQVC4KIRM7lYhEj50uBDpGM0SlWVCrIB5gGzQ=";
-  # })
-  # (fetchpatch' {
-  #   # nope: something else broke prawcore
-  #   title = "python311Packages.prawcore: 2.3.0 -> 2.4.0";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/258535";
-  #   revert = true;
-  #   hash = "sha256-PdV6435gBoAifZplz4kZ/AsVsPk7RFhULZLHxU9Wgow=";
-  # })
-
-  (fetchpatch' {
-    # merged 2023/10/26; fixes servo build
-    title = "iproute2: stateless configuration";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/262767";
-    hash = "sha256-JdWl+tYn9Dwa4d59a8TURJvZdf02tmsnqcZD1WkkgqQ=";
-  })
   (fetchpatch' {
     title = "gsound: enable introspection/vala when cross compiled";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263107";

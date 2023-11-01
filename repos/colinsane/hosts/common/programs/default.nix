@@ -18,6 +18,7 @@
     ./evince.nix
     ./feedbackd.nix
     ./firefox.nix
+    ./flare-signal.nix
     ./fontconfig.nix
     ./fractal.nix
     ./fwupd.nix

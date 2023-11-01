@@ -26,9 +26,8 @@ in {
     package = pkgs.koreader-from-src;
     # koreader applies these lua "patches" at boot:
     # - <https://github.com/koreader/koreader/wiki/User-patches>
-    # - TODO: upstream this patch to koreader
-    # fs.".config/koreader/patches".symlink.target = "${./.}";
-    fs.".config/koreader/patches/2-colin-NetworkManager-isConnected.lua".symlink.target = "${./2-colin-NetworkManager-isConnected.lua}";
+    # - 2023/10/29: koreader code hasn't changed, but somehow FTP browser seems usable even without the isConnected patch now.
+    # fs.".config/koreader/patches/2-colin-NetworkManager-isConnected.lua".symlink.target = "${./2-colin-NetworkManager-isConnected.lua}";
 
     # koreader news plugin, enabled by default. file format described here:
     # - <repo:koreader/koreader:plugins/newsdownloader.koplugin/feed_config.lua>

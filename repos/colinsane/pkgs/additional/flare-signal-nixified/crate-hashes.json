@@ -1,0 +1,13 @@
+{
+  "blurhash 0.1.1 (git+https://github.com/marc0x1/blurhash-rs?branch=pixbuf-patch#c07c0cbcd29b2277e8c1d0f6ae07b2e0fad1ed52)": "082jv82hsyjpng4idwn120hd7hcyln92n47m056fl2pn6b6nrfj8",
+  "curve25519-dalek 3.2.1 (git+https://github.com/Schmiddiii/curve25519-dalek?rev=1b9f81352bb659999a46af961f069d635ca432d3#1b9f81352bb659999a46af961f069d635ca432d3)": "0bdwcgski8gv1qig2qqpfcq572qdg8lk96cflv0x5lkngy3524fj",
+  "libsignal-protocol 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m",
+  "libsignal-service 0.1.0 (git+https://github.com/whisperfish/libsignal-service-rs?rev=8789920#87899201123b8095cd0f30317620a6d5b7fd652b)": "0cc1wz9j39faqz92brdydi4lv7dhds4j5fn0nrv1c6mgyhhg9rnn",
+  "libsignal-service-hyper 0.1.0 (git+https://github.com/whisperfish/libsignal-service-rs?rev=8789920#87899201123b8095cd0f30317620a6d5b7fd652b)": "0cc1wz9j39faqz92brdydi4lv7dhds4j5fn0nrv1c6mgyhhg9rnn",
+  "poksho 0.7.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m",
+  "presage 0.6.0-dev (git+https://github.com/MarcusGrass/presage?rev=d6d8fff#d6d8fff5f5e6429e6fe9d3c6d388323d094fdab6)": "029n526y3i7vz3nlwwcycrkdxyrb1csha6y6c807mj7qgw30laz2",
+  "presage-store-sled 0.6.0-dev (git+https://github.com/MarcusGrass/presage?rev=d6d8fff#d6d8fff5f5e6429e6fe9d3c6d388323d094fdab6)": "029n526y3i7vz3nlwwcycrkdxyrb1csha6y6c807mj7qgw30laz2",
+  "signal-crypto 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m",
+  "zkcredential 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m",
+  "zkgroup 0.9.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m"
+}

@@ -47,6 +47,7 @@ in
       "sane-scripts.vpn"
       "sane-scripts.which"
       "sane-scripts.wipe-browser"
+      "sane-scripts.wipe-flare"
       "sane-scripts.wipe-fractal"
     ];
     "sane-scripts.sys-utils" = declPackageSet [

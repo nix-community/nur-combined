@@ -29,6 +29,9 @@ in {
   # 4 tests fail when building `hostPkgs.moby.emulated.elfutils`
   elfutils = dontCheckEmulated prev.elfutils;
 
+  # 2023/10/30: 71/71 gjs:Scripts / CommandLine            TIMEOUT        30.58s   killed by signal 15 SIGTERM
+  gjs = dontCheckEmulated prev.gjs;
+
   # 2023/07/31
   # tests just hang after mini-record-2
   # only for binfmt-emulated aarch64 -> aarch64 build
@@ -56,6 +59,10 @@ in {
       praw = dontCheck py-prev.praw;
     })
   ];
+
+  # 2023/02/22; 2023/10/30
+  # "27/38 tracker:core / service                          TIMEOUT         60.37s   killed by signal 15 SIGTERM"
+  tracker = dontCheckEmulated prev.tracker;
 
   # 2023/07/31
   # fails a test (didn't see which one)
