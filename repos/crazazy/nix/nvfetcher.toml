@@ -4,8 +4,8 @@ src.regex = "SeaMonkey ([0-9\\.]+) [^B]"
 fetch.tarball = "https://archive.mozilla.org/pub/seamonkey/releases/$ver/linux-x86_64/en-US/seamonkey-$ver.en-US.linux-x86_64.tar.bz2"
 
 [trufflesqueak]
-src.manual = "23.0.1"
-fetch.url = "https://github.com/hpi-swa/trufflesqueak/releases/download/$ver/trufflesqueak-installable-java17-linux-amd64-$ver.jar"
+src.github = "hpi-swa/trufflesqueak"
+fetch.url = "https://github.com/hpi-swa/trufflesqueak/releases/download/$ver/trufflesqueak-$ver-linux-amd64.tar.gz"
 
 [trufflesqueak-image]
 src.github = "hpi-swa/trufflesqueak"

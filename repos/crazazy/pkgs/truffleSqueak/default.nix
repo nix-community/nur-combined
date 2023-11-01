@@ -17,12 +17,13 @@ ${zip}/bin/zip $out . -r
   truffleSqueak = buildGraalvmProduct rec {
     name = product;
     product = "truffleSqueak";
-    javaVersion = "17";
-    src = jar; # this will be defunctional but it's the only way to make stuff compile
+    inherit (nvsrcs.trufflesqueak) version src;
     extraBuildInputs = [ SDL2 autoPatchelfHook ];
     autoPatchelfIgnoreMissingDeps = true;
   };
-in
+in truffleSqueak
+/*
 graalvm17-ce-full.override {
   products = [truffleSqueak] ++ graalvm17-ce-full.products;
 }
+*/

@@ -139,13 +139,13 @@ let
         sha512 = "+AWBwjGadtksxjOQSFDhPNQbed7icNXApT4+2BNpsXzcCBiInq2H9XW0O8sfHFaPmnQRs7cg/P0fAr2IWQSW0g==";
       };
     };
-    "envinfo-7.10.0" = {
+    "envinfo-7.11.0" = {
       name = "envinfo";
       packageName = "envinfo";
-      version = "7.10.0";
+      version = "7.11.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.10.0.tgz";
-        sha512 = "ZtUjZO6l5mwTHvc1L9+1q5p/R3wTopcfqMW8r5t8SJSKqeVI/LtajORwRFEKpEFuekjD0VBjwu1HMxL4UalIRw==";
+        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.11.0.tgz";
+        sha512 = "G9/6xF1FPbIw0TtalAMaVPpiq2aDEuKLXM314jPVAO9r2fo2a4BLqMNkmRS7O/xPPZ+COAhGIz3ETvHEV3eUcg==";
       };
     };
     "fs-extra-10.1.0" = {
@@ -535,13 +535,13 @@ let
         sha512 = "c461FXIljswCuscZn67xq9PpszkPT6RjheWFQTgCyabJrTUozElanb0YEqv2UGgk247YpcJkFBuSGNvBlpXM9w==";
       };
     };
-    "universalify-2.0.0" = {
+    "universalify-2.0.1" = {
       name = "universalify";
       packageName = "universalify";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/universalify/-/universalify-2.0.0.tgz";
-        sha512 = "hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==";
+        url = "https://registry.npmjs.org/universalify/-/universalify-2.0.1.tgz";
+        sha512 = "gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==";
       };
     };
     "util-deprecate-1.0.2" = {
@@ -620,7 +620,7 @@ let
       sources."cross-spawn-7.0.3"
       sources."debug-2.6.9"
       sources."duplexer2-0.0.2"
-      sources."envinfo-7.10.0"
+      sources."envinfo-7.11.0"
       sources."fs-extra-10.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
@@ -673,7 +673,7 @@ let
         ];
       })
       sources."uid-number-0.0.6"
-      sources."universalify-2.0.0"
+      sources."universalify-2.0.1"
       sources."util-deprecate-1.0.2"
       sources."validate-npm-package-name-3.0.0"
       sources."which-2.0.2"

@@ -35,10 +35,10 @@
   };
   trufflesqueak = {
     pname = "trufflesqueak";
-    version = "23.0.1";
+    version = "23.1.0";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/23.0.1/trufflesqueak-installable-java17-linux-amd64-23.0.1.jar";
-      sha256 = "sha256-wLqstA2gbdFW+SGw5zQ+pZx1yVgqwy6j5b/eURpoEvs=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/23.1.0/trufflesqueak-23.1.0-linux-amd64.tar.gz";
+      sha256 = "sha256-wdFfNHgcRYKMOVbfjo2j8IRu5+izMNQK1tUXX1vFwtA=";
     };
   };
   trufflesqueak-image = {

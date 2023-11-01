@@ -697,13 +697,13 @@ let
         sha512 = "Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==";
       };
     };
-    "@types/node-18.18.7" = {
+    "@types/node-18.18.8" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.18.7";
+      version = "18.18.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.18.7.tgz";
-        sha512 = "bw+lEsxis6eqJYW8Ql6+yTqkE6RuFtsQPSe5JxXbqYRFQEER5aJA9a5UH9igqDWm3X4iLHIKOHlnAXLM4mi7uQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.18.8.tgz";
+        sha512 = "OLGBaaK5V3VRBS1bAkMVP2/W9B+H8meUfl866OrMNQqt7wDgdpWPp5o6gmIc9pB+lIQHSq4ZL8ypeH1vPxcPaQ==";
       };
     };
     "abort-controller-3.0.0" = {
@@ -913,13 +913,13 @@ let
         sha512 = "gxGWBrTT1JuMx6R+o5PTXMmUnhnVzLQ9SNutD4YqKtI6ap897t3tKECYla6gCWEkplXnlNybEkZg9GEGxKFCgw==";
       };
     };
-    "caniuse-lite-1.0.30001555" = {
+    "caniuse-lite-1.0.30001559" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001555";
+      version = "1.0.30001559";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001555.tgz";
-        sha512 = "NzbUFKUnJ3DTcq6YyZB6+qqhfD112uR3uoEnkmfzm2wVzUNsFkU7AwBjKQ654Sp5cau0JxhFyRSn/tQZ+XfygA==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001559.tgz";
+        sha512 = "cPiMKZgqgkg5LY3/ntGeLFUpi6tzddBNS58A4tnTgQw1zON7u2sZMU7SzOeVH4tj20++9ggL+V6FDOFMTaFFYA==";
       };
     };
     "capital-case-1.0.4" = {
@@ -1111,13 +1111,13 @@ let
         sha512 = "M9qw6oUILGVrcENMSRRefE1MbHPIz0h79EKIeJWK9v563aT9Qkh8aEHPO1H5vi970wPirNY+jO9OpFoLiMsMGA==";
       };
     };
-    "electron-to-chromium-1.4.569" = {
+    "electron-to-chromium-1.4.573" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.569";
+      version = "1.4.573";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.569.tgz";
-        sha512 = "LsrJjZ0IbVy12ApW3gpYpcmHS3iRxH4bkKOW98y1/D+3cvDUWGcbzbsFinfUS8knpcZk/PG/2p/RnkMCYN7PVg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.573.tgz";
+        sha512 = "tzxxvKDTO3V5vzN2F+3v9jrK9gEbCdf1YYJUx/zVq1cyzyh+x1ddeYNNWh0ZS2ETNCVK3+Pns1LHIBq4w20X2Q==";
       };
     };
     "encoding-0.1.13" = {
@@ -2778,7 +2778,7 @@ let
       sources."@protobufjs/utf8-1.1.0"
       sources."@tootallnate/once-1.1.2"
       sources."@types/minimatch-3.0.5"
-      sources."@types/node-18.18.7"
+      sources."@types/node-18.18.8"
       sources."abort-controller-3.0.0"
       sources."abortable-iterator-5.0.1"
       sources."agent-base-6.0.2"
@@ -2806,7 +2806,7 @@ let
         ];
       })
       sources."camel-case-4.1.2"
-      sources."caniuse-lite-1.0.30001555"
+      sources."caniuse-lite-1.0.30001559"
       sources."capital-case-1.0.4"
       sources."cborg-1.10.2"
       sources."chalk-2.4.2"
@@ -2827,7 +2827,7 @@ let
       sources."dns-over-http-resolver-2.1.3"
       sources."dot-case-3.0.4"
       sources."electron-fetch-1.9.1"
-      sources."electron-to-chromium-1.4.569"
+      sources."electron-to-chromium-1.4.573"
       sources."encoding-0.1.13"
       sources."err-code-3.0.1"
       sources."es-module-lexer-1.3.1"
