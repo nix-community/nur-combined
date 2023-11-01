@@ -1,4 +1,9 @@
-{ stdenvNoCC, fetchzip, autoPatchelfHook, pkgs, lib }:
+{ lib
+, stdenvNoCC
+, fetchzip
+, autoPatchelfHook
+, SDL2
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "celeste-classic-2";
@@ -14,7 +19,7 @@ stdenvNoCC.mkDerivation {
     autoPatchelfHook
   ];
 
-  buildInputs = with pkgs; [ SDL2 ];
+  buildInputs = [ SDL2 ];
 
   installPhase = ''
     runHook preInstall
@@ -26,6 +31,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "A PICO-8 platformer about hiking around a mountain, made in three days for Celeste's third anniversary";
     homepage = "https://mattmakesgames.itch.io/celeste-classic-2";
+    mainProgram = pname;
     license = licenses.unfree;
     platforms = platforms.linux;
   };
