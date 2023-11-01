@@ -5,7 +5,7 @@ let
   srcbin = if practiceMod then "celeste_practice_mod" else "celeste";
   outbin = if practiceMod then "celeste-classic-pm" else "celeste-classic";
 in stdenvNoCC.mkDerivation {
-  pname = "celeste-classic";
+  pname = outbin;
   version = "1.0";
 
   src = fetchzip {
