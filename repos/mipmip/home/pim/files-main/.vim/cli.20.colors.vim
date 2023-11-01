@@ -17,10 +17,16 @@
 set t_Co=265
 let g:solarized_termcolors = 256
 
-
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set background=light
 colorscheme solarized8
+
+" DARK/LIGHT MODE
+let g:theme = system("[[ `gsettings get org.gnome.desktop.interface color-scheme` =~ 'dark' ]] && echo dark || echo light")
+if g:theme == "dark\n"
+    set background=dark
+else
+    set background=light
+endif
 

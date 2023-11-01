@@ -6,6 +6,13 @@
   };
 
   home.file = {
+    ".bin" = {
+      source = ./.bin;
+      recursive = true;
+    };
+  };
+
+  home.file = {
     ".local/share/icons" = {
       source = ./local-share-icons;
       recursive = true;
