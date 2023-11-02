@@ -454,15 +454,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "02da5677ea070c50d3907b8e6bff31a32e3cce14";
+    version = "1bb9887e8a04d1c4ac308c87954127079ab23b6d";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "02da5677ea070c50d3907b8e6bff31a32e3cce14";
+      rev = "1bb9887e8a04d1c4ac308c87954127079ab23b6d";
       fetchSubmodules = false;
-      sha256 = "sha256-XCruYv79da5nWsf3dzgm+Zp0zbRF1o28+0SUO8X43PA=";
+      sha256 = "sha256-7Vz09CjVJQ6FefoxGz61eFqsrXeGCwPTYgqPPjkDGVw=";
     };
-    date = "2023-10-30";
+    date = "2023-11-01";
   };
   librime-charcode = {
     pname = "librime-charcode";

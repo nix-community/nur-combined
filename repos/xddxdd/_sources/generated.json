@@ -778,7 +778,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2023-10-30",
+        "date": "2023-11-01",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -790,11 +790,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "02da5677ea070c50d3907b8e6bff31a32e3cce14",
-            "sha256": "sha256-XCruYv79da5nWsf3dzgm+Zp0zbRF1o28+0SUO8X43PA=",
+            "rev": "1bb9887e8a04d1c4ac308c87954127079ab23b6d",
+            "sha256": "sha256-7Vz09CjVJQ6FefoxGz61eFqsrXeGCwPTYgqPPjkDGVw=",
             "type": "github"
         },
-        "version": "02da5677ea070c50d3907b8e6bff31a32e3cce14"
+        "version": "1bb9887e8a04d1c4ac308c87954127079ab23b6d"
     },
     "librime-charcode": {
         "cargoLocks": null,
