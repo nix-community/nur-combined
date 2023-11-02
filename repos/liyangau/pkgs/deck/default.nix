@@ -1,15 +1,15 @@
 { buildGoModule, lib, installShellFiles, fetchFromGitHub }:
 let
-  short_hash = "48e236c";
+  short_hash = "62defae";
 in buildGoModule rec {
   pname = "deck";
-  version = "1.28.0";
+  version = "1.28.1";
 
   src = fetchFromGitHub {
     owner = "Kong";
     repo = "deck";
     rev = "v${version}";
-    sha256 = "00r45vs6425c1daqh3i1ysdq6n91lm9bi43qkgiccmrcl9srjl42";
+    sha256 = "1x5ns1il2ipwyrawvhdzxxh130f6wz481clvn2dfzq571m7xahdi";
   };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -21,7 +21,7 @@ in buildGoModule rec {
     "-X github.com/kong/deck/cmd.COMMIT=${short_hash}"
   ];
 
-  vendorHash = "sha256-uxnFbuEhWwi3YO7662c17zhYL4KB5NbBUqQ+p5tqHUY=";
+  vendorHash = "sha256-kVc0ElVGyyei5PMfZN+GPHeQYfSmmPRAFrW21MTi8Mk=";
 
   passthru.updateScript = ./update.sh;
 
