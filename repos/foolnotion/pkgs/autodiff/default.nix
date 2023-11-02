@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "autodiff";
-  version = "v0.6.12";
+  version = "v1.0.3";
 
   src = fetchFromGitHub {
     owner = "autodiff";
     repo = "autodiff";
     rev = "${version}";
-    sha256 = "sha256-pSZtfVvS1B/uRKuV2aHKd3YwFU6zq1hr/99PbQRzJOU=";
+    sha256 = "sha256-hdIbEIZrxA5EA3XY4MIazRv3DazUjpuDJRCgq8+kJQg=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -25,7 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://autodiff.github.io/";
     license = licenses.mit;
     platforms = platforms.all;
-    broken = true; # marked broken because it requires a cmake version that is not available on 21.11
     #maintainers = with maintainers; [ foolnotion ];
   };
 }

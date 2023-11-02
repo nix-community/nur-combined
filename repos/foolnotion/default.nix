@@ -46,8 +46,6 @@
 
   gch-small-vector = pkgs.callPackage ./pkgs/gch-small-vector { };
 
-  keyd = pkgs.callPackage ./pkgs/keyd { };
-
   koivisto = pkgs.callPackage ./pkgs/koivisto { };
 
   lexy = pkgs.callPackage ./pkgs/lexy { };
@@ -116,6 +114,4 @@
   };
 
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
-
-  upscayl = pkgs.callPackage ./pkgs/upscayl { };
 }

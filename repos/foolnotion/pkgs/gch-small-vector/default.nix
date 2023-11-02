@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "small_vector";
-  version = "0.9.1";
+  version = "0.9.2";
 
   src = fetchFromGitHub {
     owner = "gharveymn";
     repo = "small_vector";
-    rev = "8c7dfde9edd65f2822799a1d2d1841a9c8a411f4";
-    sha256 = "sha256-9gpX5x+EeRgsK1g+MqPfURZPpJxlTWxqbRM+TmeFWsk=";
+    rev = "d98388b21b73be55e8c36ee18809e19a6fa82d34";
+    sha256 = "sha256-iotI9Ql+D6hNMBGPSbqJs5qJGSLCn/NVMRWQX8F++wk=";
   };
 
   nativeBuildInputs = [ cmake ];

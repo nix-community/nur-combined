@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "PEGTL";
-  version = "3.2.5";
+  version = "3.2.7";
 
   src = fetchFromGitHub {
     owner = "taocpp";
     repo = "PEGTL";
     rev = "${version}";
-    sha256 = "sha256-6BfWN8IsfAJxlhkFs8yCK0o2OfLI/acGXY+349MY9CY=";
+    sha256 = "sha256-IV5YNGE4EWVrmg2Sia/rcU8jCuiBynQGJM6n3DCWTQU=";
   };
 
   nativeBuildInputs = [ cmake ];
