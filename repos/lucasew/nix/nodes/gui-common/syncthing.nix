@@ -22,7 +22,6 @@ in
     };
 
     networking.ports.syncthing-gui.enable = true;
-    networking.ports.syncthing-gui.port = 49151;
 
     systemd.mounts = pipe config.services.syncthing.folder-targets [
       (mapAttrs (k: v: {

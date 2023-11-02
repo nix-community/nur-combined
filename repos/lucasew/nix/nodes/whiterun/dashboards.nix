@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }: {
 
   networking.ports.grafana-web.enable = true;
-  networking.ports.grafana-web.port = lib.mkDefault 49150;
+  # networking.ports.grafana-web.port = lib.mkDefault 49150;
   services.grafana = {
     enable = true;
     settings.server = {
@@ -29,9 +29,9 @@
   services.nginx.statusPage = true;
 
   networking.ports.prometheus.enable = true;
-  networking.ports.prometheus.port = lib.mkDefault 49145;
+  # networking.ports.prometheus.port = lib.mkDefault 49145;
   networking.ports.prometheus-node_exporter.enable = true;
-  networking.ports.prometheus-node_exporter.port = lib.mkDefault 49144;
+  # networking.ports.prometheus-node_exporter.port = lib.mkDefault 49144;
   services.prometheus = {
     enable = true;
     inherit (config.networking.ports.prometheus) port;

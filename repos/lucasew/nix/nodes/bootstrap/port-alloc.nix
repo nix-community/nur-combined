@@ -1,158 +1,87 @@
 { config, lib, ... }:
 
 let
-  inherit (builtins) removeAttrs;
-  inherit (lib) mkOption types submodule literalExpression mdDoc mkDefault attrNames foldl' mapAttrs mkEnableOption attrValues isString length head warn optional concatStringsSep filter;
+  inherit (lib) mkOption mkEnableOption types;
 
-  mkAllocModule = {
-    description ? null,
-    enableDescription ? "Enable allocation of * undefined item *",
-    valueKey ? "value",
-    valueType ? null,
-    valueApply ? null,
-    valueLiteral ? value: ''"${keyFunc value}"'',
-    valueDescription ? "Allocated value for * undefined item *",
-    firstValue ? 0, # first item will get this value allocated
-    keyFunc ? toString, # how to generate a conflict checking key from value
-    succFunc, # how to get the next item from a item, like next port
-    validateFunc ? valueType.check or (value: true), # how to validate one value
-    cfg,
-    keyPath ? "", # like "networking.ports"
+  MIN_RANGE = 1024;
+  MAX_RANGE = 49151;
 
-    example ? null,
-    internal ? null,
-    relatedPackages ? null,
-    visible ? null,
-    dontThrow ? false,
-  }: mkOption {
-    inherit
-      description
-      example
-      internal
-      relatedPackages
-      visible
-    ;
-    default = {};
-    apply = _items: let
-      items = removeAttrs _items (filter (item: !_items.${item}.enable) (attrNames _items));
-      itemKeys = attrNames items;
-      isItemDefined = itemKey: items.${itemKey}.${valueKey} != null;
-      definedItems = lib.filter isItemDefined itemKeys;
-      undefinedItems = lib.filter (x: !isItemDefined x) itemKeys;
+  isPortValid = port: if lib.isInt port then (port > MIN_RANGE) && (port < MAX_RANGE) else false;
 
-      conflictDict = foldl' (x: y: x // (let
-        thisItem = items.${y}.${valueKey};
-        thisConflictKey = keyFunc thisItem;
-        conflictKey = x.${thisConflictKey} or null;
-        isConflict = conflictKey != null;
-        isValid = validateFunc thisItem;
-        hasProblem = isConflict || !isValid;
-      in {
-        "${thisConflictKey}" = y;
-        _conflict = if (x._conflict or null) != null then x._conflict else (if isConflict then {from = conflictKey; to = y; } else null);
-        _invalid = (x._invalid or []) ++ (optional (!isValid) y);
-      })) {} definedItems;
 
-      getFullKey = key: concatStringsSep "." ((optional (keyPath != "") keyPath) ++ [ key ]);
+  portFromKey = key:
+  let
+    hashed = builtins.hashString "md5" key;
+    getPort = partial:
+    let
+      parsed = builtins.fromTOML "v=0x${lib.substring 0 4 partial}";
+      port = parsed.v;
+      recursiveStep = getPort (lib.substring 4 (lib.stringLength partial) partial);
+    in if (isPortValid port) then port else recursiveStep;
 
-      isValueConflicts = value: (conflictDict.${keyFunc value} or null) != null;
-      suggestValue = prevValue: if (isValueConflicts prevValue) || (!(validateFunc prevValue)) then suggestValue (succFunc prevValue) else prevValue;
+  in getPort hashed;
 
-      suggestedValue = suggestValue firstValue;
-      suggestedValueLiteral = valueLiteral suggestedValue;
-
-      handleCondition = isThrow: condition: message: _passthru:
-        let
-          handler = if isThrow then lib.throwIfNot else lib.warnIfNot;
-          handledValue = handler condition message _passthru;
-
-          dontThrowValue = _passthru // {
-            _message = (_passthru._message or []) ++ (optional (!condition) message);
-            _conflictDict = conflictDict;
-            _steps = builtins.mapAttrs (k: v: v items) { inherit handleMissingKeyPath handleMissingValues handleConflicts handleInvalidValues; };
-          };
-          handledValueDontThrow = if condition then _passthru else dontThrowValue;
-        in if dontThrow then handledValueDontThrow else handledValue;
-
-      handleConditionThrow = handleCondition true;
-      handleConditionWarn = handleCondition false;
-
-      handleMissingKeyPath = handleConditionWarn (keyPath != "")
-        "mkAllocModule: keyPath missing. Error messages will be less useful";
-      handleMissingValues = handleConditionThrow (length undefinedItems == 0)
-        "Key ${getFullKey (head undefinedItems)} is missing a value. Suggestion: set the value to: `${suggestedValueLiteral}`";
-      handleConflicts = handleConditionThrow (conflictDict._conflict == null)
-        "Key ${getFullKey conflictDict._conflict.from} and ${getFullKey conflictDict._conflict.to} have the same values. Suggestion: change the value of one of them to: `${suggestedValueLiteral}`";
-      handleInvalidValues = handleConditionThrow (length conflictDict._invalid == 0)
-        "The following keys have invalid values: ${concatStringsSep ", " (map (getFullKey) conflictDict._invalid)}. Suggestion: change the value of the first key to: `${suggestedValueLiteral}`";
-
-    in lib.pipe items [
-      handleMissingKeyPath
-      handleMissingValues
-      handleConflicts
-      handleInvalidValues
-    ];
-
-    type = types.attrsOf (types.submodule ({ name, config, options, ... }: {
-      options = {
-        enable = mkEnableOption (if isString enableDescription then enableDescription else enableDescription name);
-
-        "${valueKey}" = mkOption {
-          default = null;
-
-          description = mkEnableOption (if isString valueDescription then valueDescription else valueDescription name);
-          type = types.nullOr valueType;
-        };
-      };
-    }));
-  };
+  cfg = config.networking.ports;
 
 in {
-  options.networking.ports = mkAllocModule {
-    # dontThrow = true;
-    keyPath = "networking.ports";
+  options = {
+    networking.ports = mkOption {
+      default = {};
+      type = types.attrsOf (types.submodule ({name, config, options, ...}: {
+        options = {
+          enable = mkEnableOption "port";
+          key = mkOption {
+            description = lib.mdDoc "Key hashed to derivate the port";
+            type = types.str;
+            default = name;
+          };
+          port = mkOption {
+            description = lib.mdDoc "Port allocated";
+            type = types.port;
+            default = portFromKey config.key;
+          };
+        };
+      }));
+    };
 
-    valueKey = "port";
-    valueType = types.port;
-    cfg = config.networking.ports;
-    description = "Build time port allocations for services that are only used internally";
-    enableDescription = name: "Enable automatic port allocation for service ${name}";
-    valueDescription = name: "Allocated port for service ${name}";
-
-    firstValue = 49151;
-    succFunc = x: x - 1;
-    valueLiteral = toString;
-    validateFunc = x: (types.port.check x) && (x > 1024);
-    example = literalExpression ''{
-      app = {
-        enable = true;
-        port = 42069; # guided
-      };
-    }'';
+    debug = mkOption {
+      type = types.attrsOf types.anything;
+      default = {};
+    };
   };
 
-  config.environment.etc = lib.pipe config.networking.ports [
-    (attrNames)
-    (foldl' (x: y: x // {
-      "ports/${y}" = {
-        inherit (config.networking.ports.${y}) enable;
-        text = toString config.networking.ports.${y}.port;
-      };
-    }) {})
-  ];
-  config.networking.ports = {
-    eoq = {
-      enable = false;
-      port = 22;
-    };
-    # teste.enable = true;
-    # teste2 = {
-    #   enable = true;
-    #   port = 49139;
-    # };
-    trabson = {
-      enable = true;
-      port = 49139;
-    };
+  config = {
+    # networking.ports.a.port = 69;
+    # networking.ports.x.port = 2048;
+    # networking.ports.y.port = 2048;
+
+    assertions = let
+        portNames = lib.attrNames cfg;
+        # sort by port number
+        cmp = a: b: cfg.${a}.port < cfg.${b}.port;
+        sorted = lib.sort cmp portNames;
+
+        pairs = lst:
+        let
+          ltail = lib.tail lst;
+          a = lib.head lst;
+          b = lib.head ltail;
+          len = lib.length lst;
+        in if len < 2 then []
+        else [{inherit a b;}] ++ (pairs ltail);
+
+        pairsSorted = pairs sorted;
+
+        assertsValid = map (item: {
+          assertion = isPortValid cfg.${item}.port;
+          message = "The port for '${item}' (${toString cfg.${item}.port}) is invalid. If this port is derived from another to reserve a port range please change the key of the first port. If it's explicitly set then make sure it's between the range of ${toString MIN_RANGE} and ${toString MAX_RANGE}";
+        }) sorted;
+
+        assertsConflict = map (pair: {
+          assertion = cfg.${pair.a}.port != cfg.${pair.b}.port;
+          message = "The ports for '${pair.a}' and '${pair.b}' are the same (${toString cfg.${pair.a}.port}). This may happen because either one or both of them are explicitly set to a value or a hash collision from the key value.";
+        }) pairsSorted;
+
+      in assertsConflict ++ assertsValid;
   };
 }

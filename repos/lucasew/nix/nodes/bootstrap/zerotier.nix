@@ -1,7 +1,7 @@
 {config, lib, ...}:
 {
   networking.ports.zerotierone.enable = true;
-  networking.ports.zerotierone.port = lib.mkDefault 49143;
+  # networking.ports.zerotierone.port = lib.mkDefault 49143;
 
   services.zerotierone = {
     enable = true;

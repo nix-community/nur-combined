@@ -2,11 +2,11 @@
 
 lib.mkIf config.services.kubo.enable {
   networking.ports.ipfs-gateway.enable = true;
-  networking.ports.ipfs-gateway.port = lib.mkDefault 49148;
+  # networking.ports.ipfs-gateway.port = lib.mkDefault 49148;
   networking.ports.ipfs-api.enable = true;
-  networking.ports.ipfs-api.port = lib.mkDefault 49142;
+  # networking.ports.ipfs-api.port = lib.mkDefault 49142;
   networking.ports.ipfs-swarm.enable = true;
-  networking.ports.ipfs-swarm.port = lib.mkDefault 49141;
+  # networking.ports.ipfs-swarm.port = lib.mkDefault 49141;
 
   services.nginx.virtualHosts."ipfs.${config.networking.hostName}.${config.networking.domain}" = {
     locations."/" = {

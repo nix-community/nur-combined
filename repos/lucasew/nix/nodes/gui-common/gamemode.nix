@@ -4,6 +4,8 @@
     # let's vulkanize it all until something breaks
     environment.variables.MESA_LOADER_DRIVER_OVERRIDE = "zink";
 
+    programs.gamescope.enable = true;
+
     programs.gamemode = {
       enableRenice = true;
       settings = {
