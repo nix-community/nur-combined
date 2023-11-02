@@ -7,16 +7,21 @@
 
 rustPlatform.buildRustPackage {
   pname = "usysconf";
-  version = "unstable-2023-09-27";
+  version = "unstable-2023-11-01";
 
   src = fetchFromGitHub {
     owner = "serpent-os";
     repo = "usysconf-rs";
-    rev = "5e33d474ed04813ccba9a8082e95fd5983a73b45";
-    hash = "sha256-4AqMPcsaqS5vulNJzi8hEP41qBl/3/fDkvNpD68yzFI=";
+    rev = "22150ddac0165a31f8096155386e64da632f9c16";
+    hash = "sha256-+AQVNNdhzFPRB5UjsntDazRr1mV4qsINptKEMYIfvd4=";
   };
 
-  cargoHash = "sha256-5txMmrHWfssv4qvGI323dY5/H1A59GnDMz9F2Iy/CIo=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "dag-0.1.0" = "sha256-FIdBYIXBEMkMfW7znRClXwExzPtgaomJqTqlH+HG1RI=";
+    };
+  };
 
   passthru.updateScript = unstableGitUpdater { };
 

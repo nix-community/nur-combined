@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "xdg-terminal-exec";
-  version = "unstable-2023-10-14";
+  version = "unstable-2023-10-30";
 
   src = fetchFromGitHub {
     owner = "Vladimir-csp";
     repo = "xdg-terminal-exec";
-    rev = "b6d2874f062f40c94cf665277ccdd62d7b8beff4";
-    hash = "sha256-0bV7wfSDfh/o1HrivQYt1d4GwrVpS5oQX+ZJ7nkNCgs=";
+    rev = "7b4ab959170476d33c46f1604aa07be355eac8e0";
+    hash = "sha256-oNqx0MphXl2U3BHVEa/M/DWZvKV38gc3K98ds2RSBu4=";
   };
 
   installPhase = ''
