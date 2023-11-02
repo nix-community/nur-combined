@@ -128,10 +128,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.10.7";
+    version = "v2.10.8";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.10.7/app-x86_64.asar";
-      sha256 = "sha256-lrqq6USQhPah9IMdT6wEDT8rUMmMuEN9rUEF2mVdFiA=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.10.8/app-x86_64.asar";
+      sha256 = "sha256-DhAaHYm1ECPnYuBxAMo+JaWBSszKY/iFNkaQBkKhdsg=";
     };
   };
   mstickereditor = {
@@ -502,14 +502,14 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "7dfc72003f1352a6cf5632a80874566027d5783e";
+    version = "c6a9b63189c1617606ba726f3fd7af5a80df97d6";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "7dfc72003f1352a6cf5632a80874566027d5783e";
+      rev = "c6a9b63189c1617606ba726f3fd7af5a80df97d6";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-J9bSAqd2axraS0AZD7CSbx6N29lxH7Uk8K+20t96GGw=";
+      sha256 = "sha256-1wh9KaQ79QHB/SPJ3wmNwM49K+2Os9V14S7dRNoOWaM=";
     };
     date = "2023-11-02";
   };
