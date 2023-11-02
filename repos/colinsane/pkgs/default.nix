@@ -57,6 +57,7 @@ let
     rtl8723cs-wowlan = callPackage ./additional/rtl8723cs-wowlan { };
     sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
     sane-weather = callPackage ./additional/sane-weather { };
+    signal-desktop-from-src = callPackage ./additional/signal-desktop-from-src { };
     static-nix-shell = callPackage ./additional/static-nix-shell { };
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
     sxmo-utils' = lib.recurseIntoAttrs (callPackage ./additional/sxmo-utils { });
