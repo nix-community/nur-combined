@@ -25,14 +25,6 @@
       sha256 = "sha256-e+HPBVHiZGMCpwz8iPQlIGRuDFydG83rpw1jFf1uavc=";
     };
   };
-  clash-for-windows = {
-    pname = "clash-for-windows";
-    version = "0.19.25";
-    src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.25/Clash.for.Windows-0.19.25-x64-linux.tar.gz";
-      sha256 = "sha256-RxoRmH422kaEXqAXu4V2LNjPGMU6mj9BVSCPaNisIMQ=";
-    };
-  };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
     version = "2023.08.17";

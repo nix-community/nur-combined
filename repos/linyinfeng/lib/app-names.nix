@@ -24,7 +24,6 @@ let
     }
     (empty "canokey-udev-rules")
     (trivial "cf-terraforming")
-    { "clash-for-windows" = { "clash-for-windows" = "cfw"; }; }
     (trivial "clash-premium")
     (trivial "commit-notifier")
     (trivial "cowrie")

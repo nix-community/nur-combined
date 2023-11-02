@@ -44,7 +44,6 @@ packageSet = do
   commitNotifier
   tgSend
   dotTar
-  clashForWindows
   icalinguaPlusPlus
   mstickereditor
   swayOsd
@@ -114,15 +113,6 @@ clashPremiumSystems =
     ("x86_64-darwin", "darwin-amd64"),
     ("x86_64-linux", "linux-amd64")
   ]
-
-clashForWindows :: PackageSet ()
-clashForWindows =
-  define $
-    package "clash-for-windows"
-      `sourceGitHub` ("Fndroid", "clash_for_windows_pkg")
-      `fetchUrl` url
-  where
-    url (Version v) = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/" <> v <> "/Clash.for.Windows-" <> v <> "-x64-linux.tar.gz"
 
 icalinguaPlusPlus :: PackageSet ()
 icalinguaPlusPlus =
