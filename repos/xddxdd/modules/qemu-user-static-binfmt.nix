@@ -219,13 +219,21 @@
 
   enabled = pkgs.stdenv.isx86_64 || pkgs.stdenv.isAarch64;
 in {
-  environment.etc."binfmt.d/xddxdd-qemu-user-static.conf".text =
-    lib.optionalString enabled
-    (lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine qemu-user-static));
-  systemd.additionalUpstreamSystemUnits = lib.optionals enabled [
-    "proc-sys-fs-binfmt_misc.automount"
-    "proc-sys-fs-binfmt_misc.mount"
-    "systemd-binfmt.service"
-  ];
-  nix.settings.extra-platforms = lib.optionals enabled lib.platforms.linux;
+  options.lantian.qemu-user-static-binfmt.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Enable cross-architecture binfmt handling with qemu-user-static.";
+  };
+
+  config = lib.mkIf config.lantian.qemu-user-static-binfmt.enable {
+    environment.etc."binfmt.d/xddxdd-qemu-user-static.conf".text =
+      lib.optionalString enabled
+      (lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine qemu-user-static));
+    systemd.additionalUpstreamSystemUnits = lib.optionals enabled [
+      "proc-sys-fs-binfmt_misc.automount"
+      "proc-sys-fs-binfmt_misc.mount"
+      "systemd-binfmt.service"
+    ];
+    nix.settings.extra-platforms = lib.optionals enabled lib.platforms.linux;
+  };
 }
