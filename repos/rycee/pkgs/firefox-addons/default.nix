@@ -48,6 +48,36 @@ in packages // {
     };
   };
 
+  enhancer-for-youtube = buildFirefoxXpiAddon {
+    pname = "enhancer-for-youtube";
+    version = "2.0.121";
+    addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
+    url =
+      "https://web.archive.org/web/20231025064948id_/https://addons.mozilla.org/firefox/downloads/file/4157491/enhancer_for_youtube-2.0.121.xpi";
+    sha256 = "baaba2f8eef7166c1bee8975be63fc2c28d65f0ee48c8a0d1c1744b66db8a2ad";
+    meta = with lib; {
+      homepage = "https://www.mrfdev.com/enhancer-for-youtube";
+      description = "Take control of YouTube and boost your user experience!";
+      license = {
+        shortName = "enhancer-for-youtube";
+        fullName = "Custom License for Enhancer for YouTube™";
+        url =
+          "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/";
+        free = false;
+      };
+      mozPermissions = [
+        "cookies"
+        "storage"
+        "*://www.youtube.com/*"
+        "*://www.youtube.com/embed/*"
+        "*://www.youtube.com/live_chat*"
+        "*://www.youtube.com/pop-up-player/*"
+        "*://www.youtube.com/shorts/*"
+      ];
+      platforms = platforms.all;
+    };
+  };
+
   gaoptout = buildFirefoxXpiAddon {
     pname = "gaoptout";
     version = "1.0.8";

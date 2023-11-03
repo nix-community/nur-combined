@@ -255,16 +255,6 @@
     "slug": "enhanced-h264ify"
   },
   {
-    "slug": "enhancer-for-youtube",
-    "license": {
-      "tag": "custom",
-      "shortName": "enhancer-for-youtube",
-      "fullName": "Custom License for Enhancer for YouTube™",
-      "url": "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/",
-      "free": false
-    }
-  },
-  {
     "slug": "ether-metamask",
     "pname": "metamask"
   },
@@ -949,6 +939,9 @@
       "url": "https://en.wikipedia.org/wiki/All_rights_reserved",
       "free": false
     }
+  },
+  {
+    "slug": "solarized_fox"
   },
   {
     "slug": "sourcegraph-for-firefox",
