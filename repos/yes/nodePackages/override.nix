@@ -18,7 +18,7 @@ in {
     '';
   };
   shadowsocks-ws = prev."shadowsocks-ws-git+https://github.com/totravel/shadowsocks-ws.git".override {
-    nativeBuildInputs = with pkgs; [ makeWrapper nodePackages.rollup ];
+    nativeBuildInputs = [ pkgs.makeWrapper prev."rollup-<4" ];
     postInstall = ''
       DEST=$out/lib/node_modules/shadowsocks-ws
       cd $DEST

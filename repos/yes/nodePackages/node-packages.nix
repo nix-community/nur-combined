@@ -1129,6 +1129,15 @@ let
         sha512 = "OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==";
       };
     };
+    "fsevents-2.3.3" = {
+      name = "fsevents";
+      packageName = "fsevents";
+      version = "2.3.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz";
+        sha512 = "5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==";
+      };
+    };
     "function-bind-1.1.2" = {
       name = "function-bind";
       packageName = "function-bind";
@@ -3284,6 +3293,27 @@ in
     meta = {
       description = "Generate minified bundle";
       homepage = "https://github.com/rollup/plugins/tree/master/packages/terser#readme";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  "rollup-<4" = nodeEnv.buildNodePackage {
+    name = "rollup";
+    packageName = "rollup";
+    version = "3.29.4";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/rollup/-/rollup-3.29.4.tgz";
+      sha512 = "oWzmBZwvYrU0iJHtDmhsm662rC15FRXmcjCk1xD771dFDx5jJ02ufAQQTn0etB2emNk4J9EZg/yWKpsn9BWGRw==";
+    };
+    dependencies = [
+      sources."fsevents-2.3.3"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Next-generation ES module bundler";
+      homepage = "https://rollupjs.org/";
       license = "MIT";
     };
     production = true;
