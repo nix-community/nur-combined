@@ -5,6 +5,6 @@ My personal https://github.com/nix-community/NUR[NUR] repository
 
 [cols="1,1"]
 |===
-|https://github.com/presto8/pscripts[pdrives]
+|https://github.com/presto8/pscripts[pscripts]
 |A collection of helpful scripts for system tasks.
 |===
