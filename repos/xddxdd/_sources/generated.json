@@ -778,7 +778,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2023-11-01",
+        "date": "2023-11-02",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -790,11 +790,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "1bb9887e8a04d1c4ac308c87954127079ab23b6d",
-            "sha256": "sha256-7Vz09CjVJQ6FefoxGz61eFqsrXeGCwPTYgqPPjkDGVw=",
+            "rev": "b94ee464e9f85f1958238bebfc963a2bdfa67695",
+            "sha256": "sha256-ASSaDFPTNd1lc/RG0HK/gaekBNGXquTDDFyMTpELa8Y=",
             "type": "github"
         },
-        "version": "1bb9887e8a04d1c4ac308c87954127079ab23b6d"
+        "version": "b94ee464e9f85f1958238bebfc963a2bdfa67695"
     },
     "librime-charcode": {
         "cargoLocks": null,
@@ -930,11 +930,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.1.60-xanmod1",
-            "sha256": "sha256-KYCeONJxyFPee4pvBLRw/MBTzPU7D2oZCrAVr3t/yPM=",
+            "rev": "6.1.61-xanmod1",
+            "sha256": "sha256-15dAzCcFUekBlkBfcHWiZ3gourimLp6GlUKeWAddDqo=",
             "type": "github"
         },
-        "version": "6.1.60-xanmod1"
+        "version": "6.1.61-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,

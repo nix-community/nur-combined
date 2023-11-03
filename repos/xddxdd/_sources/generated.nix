@@ -454,15 +454,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "1bb9887e8a04d1c4ac308c87954127079ab23b6d";
+    version = "b94ee464e9f85f1958238bebfc963a2bdfa67695";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "1bb9887e8a04d1c4ac308c87954127079ab23b6d";
+      rev = "b94ee464e9f85f1958238bebfc963a2bdfa67695";
       fetchSubmodules = false;
-      sha256 = "sha256-7Vz09CjVJQ6FefoxGz61eFqsrXeGCwPTYgqPPjkDGVw=";
+      sha256 = "sha256-ASSaDFPTNd1lc/RG0HK/gaekBNGXquTDDFyMTpELa8Y=";
     };
-    date = "2023-11-01";
+    date = "2023-11-02";
   };
   librime-charcode = {
     pname = "librime-charcode";
@@ -536,13 +536,13 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.60-xanmod1";
+    version = "6.1.61-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.60-xanmod1";
+      rev = "6.1.61-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-KYCeONJxyFPee4pvBLRw/MBTzPU7D2oZCrAVr3t/yPM=";
+      sha256 = "sha256-15dAzCcFUekBlkBfcHWiZ3gourimLp6GlUKeWAddDqo=";
     };
   };
   nbfc-linux-lantian = {
