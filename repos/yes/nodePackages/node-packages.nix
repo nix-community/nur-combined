@@ -112,13 +112,13 @@ let
         sha512 = "zBUSRqkfZ59OcwXon4HVxhx5oWCJmc0OtBTK05M+p0dYjgN6iTwIL2T/WbsQZrEsdnwaF9cWQ+azOnpPvIqY3Q==";
       };
     };
-    "@types/estree-1.0.3" = {
+    "@types/estree-1.0.4" = {
       name = "_at_types_slash_estree";
       packageName = "@types/estree";
-      version = "1.0.3";
+      version = "1.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/estree/-/estree-1.0.3.tgz";
-        sha512 = "CS2rOaoQ/eAgAfcTfq6amKG7bsN+EMcgGY4FAFQdvSj2y1ixvOZTUA9mOtCai7E1SYu283XNw7urKK30nP3wkQ==";
+        url = "https://registry.npmjs.org/@types/estree/-/estree-1.0.4.tgz";
+        sha512 = "2JwWnHK9H+wUZNorf2Zr6ves96WHoWDJIftkcxPKsS7Djta6Zu519LarhRNljPXkpsZR2ZMwNCPeW7omW07BJw==";
       };
     };
     "@types/express-4.17.20" = {
@@ -166,13 +166,13 @@ let
         sha512 = "1Gjee59G25MrQGk8bsNvC6fxNiRgUlGn2wlhGf95a59DrprnnHk80FIMMFG9XHMdrfsuA119ht06QPDXA1Z7tw==";
       };
     };
-    "@types/node-20.8.9" = {
+    "@types/node-20.8.10" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.8.9";
+      version = "20.8.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.8.9.tgz";
-        sha512 = "UzykFsT3FhHb1h7yD4CA4YhBHq545JC0YnEz41xkipN88eKQtL6rSgocL5tbAP6Ola9Izm/Aw4Ora8He4x0BHg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.8.10.tgz";
+        sha512 = "TlgT8JntpcbmKUFzjhsyhGfP2fsiz1Mv56im6enJ905xG1DAYesxJaeSbGqQmAw8OWPdhyJGhGSQGKRNJ45u9w==";
       };
     };
     "@types/qs-6.9.9" = {
@@ -2128,13 +2128,13 @@ let
         sha512 = "ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==";
       };
     };
-    "rollup-4.1.4" = {
+    "rollup-4.2.0" = {
       name = "rollup";
       packageName = "rollup";
-      version = "4.1.4";
+      version = "4.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-4.1.4.tgz";
-        sha512 = "U8Yk1lQRKqCkDBip/pMYT+IKaN7b7UesK3fLSTuHBoBJacCE+oBqo/dfG/gkUdQNNB2OBmRP98cn2C2bkYZkyw==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-4.2.0.tgz";
+        sha512 = "deaMa9Z+jPVeBD2dKXv+h7EbdKte9++V2potc/ADqvVgEr6DEJ3ia9u0joarjC2lX/ubaCRYz3QVx0TzuVqAJA==";
       };
     };
     "safe-buffer-5.1.2" = {
@@ -2425,13 +2425,13 @@ let
         sha512 = "YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==";
       };
     };
-    "terser-5.22.0" = {
+    "terser-5.24.0" = {
       name = "terser";
       packageName = "terser";
-      version = "5.22.0";
+      version = "5.24.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.22.0.tgz";
-        sha512 = "hHZVLgRA2z4NWcN6aS5rQDc+7Dcy58HOf2zbYwmFcQ+ua3h6eEFf5lIDKTzbWwlazPyOZsFQO8V80/IjVNExEw==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.24.0.tgz";
+        sha512 = "ZpGR4Hy3+wBEzVEnHvstMvqpD/nABNelQn/z2r0fjVWGQsN3bpOLzQlqDxmb4CDZnXq5lpjnQ+mHQLAOpfM5iw==";
       };
     };
     "through-2.3.8" = {
@@ -3124,7 +3124,7 @@ in
       sources."@types/http-errors-2.0.3"
       sources."@types/http-proxy-1.17.13"
       sources."@types/mime-1.3.4"
-      sources."@types/node-20.8.9"
+      sources."@types/node-20.8.10"
       sources."@types/qs-6.9.9"
       sources."@types/range-parser-1.2.6"
       sources."@types/send-0.17.3"
@@ -3164,7 +3164,7 @@ in
     };
     dependencies = [
       sources."@rollup/pluginutils-5.0.5"
-      sources."@types/estree-1.0.3"
+      sources."@types/estree-1.0.4"
       sources."@types/resolve-1.20.2"
       sources."builtin-modules-3.3.0"
       sources."deepmerge-4.3.1"
@@ -3177,7 +3177,7 @@ in
       sources."path-parse-1.0.7"
       sources."picomatch-2.3.1"
       sources."resolve-1.22.8"
-      sources."rollup-4.1.4"
+      sources."rollup-4.2.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
     ];
     buildInputs = globalBuildInputs;
@@ -3201,7 +3201,7 @@ in
     dependencies = [
       sources."@jridgewell/sourcemap-codec-1.4.15"
       sources."@rollup/pluginutils-5.0.5"
-      sources."@types/estree-1.0.3"
+      sources."@types/estree-1.0.4"
       sources."balanced-match-1.0.2"
       sources."brace-expansion-2.0.1"
       sources."commondir-1.0.1"
@@ -3215,7 +3215,7 @@ in
       sources."minimatch-5.1.6"
       sources."once-1.4.0"
       sources."picomatch-2.3.1"
-      sources."rollup-4.1.4"
+      sources."rollup-4.2.0"
       sources."wrappy-1.0.2"
     ];
     buildInputs = globalBuildInputs;
@@ -3238,10 +3238,10 @@ in
     };
     dependencies = [
       sources."@rollup/pluginutils-5.0.5"
-      sources."@types/estree-1.0.3"
+      sources."@types/estree-1.0.4"
       sources."estree-walker-2.0.2"
       sources."picomatch-2.3.1"
-      sources."rollup-4.1.4"
+      sources."rollup-4.2.0"
     ];
     buildInputs = globalBuildInputs;
     meta = {
@@ -3272,13 +3272,13 @@ in
       sources."buffer-from-1.1.2"
       sources."commander-2.20.3"
       sources."randombytes-2.1.0"
-      sources."rollup-4.1.4"
+      sources."rollup-4.2.0"
       sources."safe-buffer-5.2.1"
       sources."serialize-javascript-6.0.1"
       sources."smob-1.4.1"
       sources."source-map-0.6.1"
       sources."source-map-support-0.5.21"
-      sources."terser-5.22.0"
+      sources."terser-5.24.0"
     ];
     buildInputs = globalBuildInputs;
     meta = {
