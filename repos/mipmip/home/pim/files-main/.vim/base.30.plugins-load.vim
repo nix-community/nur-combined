@@ -73,6 +73,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/argtextobj.vim'
 
 " SYNTAX FILES
+Plug 'smerrill/vcl-vim-plugin'
 Plug 'fatih/vim-go'
 Plug 'LnL7/vim-nix'
 Plug 'hashivim/vim-terraform'

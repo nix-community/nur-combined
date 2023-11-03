@@ -13,6 +13,7 @@
     vimHugeX
     mipmip_pkg.mip-rust
 
+    actionlint
 
 
     hugo # needed for linny
