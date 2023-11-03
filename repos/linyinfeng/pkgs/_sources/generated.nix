@@ -25,38 +25,6 @@
       sha256 = "sha256-e+HPBVHiZGMCpwz8iPQlIGRuDFydG83rpw1jFf1uavc=";
     };
   };
-  clash-premium-aarch64-linux = {
-    pname = "clash-premium-aarch64-linux";
-    version = "2023.08.17";
-    src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.08.17.gz";
-      sha256 = "sha256-xFs5uyQeJwrl9EmOKvdc7MDwPJ2zwNteVcjEkZ8Br90=";
-    };
-  };
-  clash-premium-i686-linux = {
-    pname = "clash-premium-i686-linux";
-    version = "2023.08.17";
-    src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.08.17.gz";
-      sha256 = "sha256-JUEl76cxrePBv3z9g64JqCThNhWSzNfAzM0qJm3LkrU=";
-    };
-  };
-  clash-premium-x86_64-darwin = {
-    pname = "clash-premium-x86_64-darwin";
-    version = "2023.08.17";
-    src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.08.17.gz";
-      sha256 = "sha256-kdod9fgU+7erGKvuIpefUTQgObxVoHFh9iPwYYDCGow=";
-    };
-  };
-  clash-premium-x86_64-linux = {
-    pname = "clash-premium-x86_64-linux";
-    version = "2023.08.17";
-    src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.08.17.gz";
-      sha256 = "sha256-kjgPBT8IPjeUwWgVg74BOlexYCktHZ4QVuf6HC2Uh0c=";
-    };
-  };
   commit-notifier = {
     pname = "commit-notifier";
     version = "73cf28cd7d848570b76d7be5554f9dec14caa5be";
@@ -502,16 +470,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "c6a9b63189c1617606ba726f3fd7af5a80df97d6";
+    version = "48ec834ec9c7cdf146169c8b0f669ce1e9a8849e";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "c6a9b63189c1617606ba726f3fd7af5a80df97d6";
+      rev = "48ec834ec9c7cdf146169c8b0f669ce1e9a8849e";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-1wh9KaQ79QHB/SPJ3wmNwM49K+2Os9V14S7dRNoOWaM=";
+      sha256 = "sha256-oMQMHawNKRUdMHywsQa3Nuh+FqHJZp6bCuw7qsQKgJU=";
     };
-    date = "2023-11-02";
+    date = "2023-11-03";
   };
   yacd = {
     pname = "yacd";

@@ -11,7 +11,6 @@ main = runNvFetcher packageSet
 
 packageSet :: PackageSet ()
 packageSet = do
-  traverse_ (uncurry clashPremium) clashPremiumSystems
   ghPkg "cowrie" "cowrie"
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "matrix-org" "synapse-s3-storage-provider"
@@ -96,23 +95,6 @@ dotTar =
       `hasCargoLocks` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/dot-tar.git"
-
-clashPremium :: Text -> Text -> PackageSet ()
-clashPremium sys goSys =
-  define $
-    package ("clash-premium-" <> sys)
-      `sourceWebpage` ("https://api.github.com/repos/Dreamacro/clash/releases/tags/premium", "clash-linux-amd64-([a-z0-9\\-\\.]+).gz", id)
-      `fetchUrl` url
-  where
-    url (Version v) = "https://github.com/Dreamacro/clash/releases/download/premium/clash-" <> goSys <> "-" <> v <> ".gz"
-
-clashPremiumSystems :: [(Text, Text)]
-clashPremiumSystems =
-  [ ("aarch64-linux", "linux-arm64"),
-    ("i686-linux", "linux-386"),
-    ("x86_64-darwin", "darwin-amd64"),
-    ("x86_64-linux", "linux-amd64")
-  ]
 
 icalinguaPlusPlus :: PackageSet ()
 icalinguaPlusPlus =
