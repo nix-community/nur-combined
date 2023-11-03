@@ -177,5 +177,8 @@ in
     ReadWritePaths = [ "/var/export/playground" ];
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
+
+    Restart = "always";
+    RestartSec = "20s";
   };
 }
