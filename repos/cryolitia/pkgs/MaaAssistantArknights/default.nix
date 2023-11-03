@@ -1,7 +1,6 @@
 # imitate https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=maa-assistant-arknights
 
-{ maintainers
-, stdenv
+{ stdenv
 , pkgs
 , lib
 , config
@@ -15,8 +14,8 @@
 , android-tools
 , makeWrapper
 , range-v3
-, maaVersion ? "4.26.0"
-, maaSourceHash ? "sha256-1+Z7kGKQ33e7Ma1RpPAv+AYbjl6w6DUxNTtXAviXG2c="
+, maaVersion ? "4.26.1"
+, maaSourceHash ? "sha256-35pl5eeDbumadMSHKCrGgQGsdZm4HQT9CXg9/BnkJBU="
 , cudaSupport ? config.cudaSupport
 , onnxruntime-cuda ? pkgs.callPackage ./onnxruntime-cuda.nix { }
 }:
@@ -30,7 +29,7 @@ let
     inherit onnxruntime-cuda;
   };
 
-  maa-cli = pkgs.callPackage ./maa-cli.nix { inherit maintainers; };
+  maa-cli = pkgs.callPackage ./maa-cli.nix { };
 
   name = "maaassistantarknights";
 

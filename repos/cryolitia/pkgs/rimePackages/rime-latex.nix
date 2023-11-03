@@ -1,5 +1,4 @@
-{ maintainers
-, stdenvNoCC
+{ stdenvNoCC
 , lib
 , fetchFromGitHub
 }:

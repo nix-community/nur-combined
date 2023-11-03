@@ -8,18 +8,17 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」"
+
 rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-  maintainers = import ./maintainers.nix;
 
   #example-package = pkgs.callPackage ./pkgs/example-package { };
 
-  MaaAssistantArknights = pkgs.callPackage ./pkgs/MaaAssistantArknights {
-    inherit maintainers;
-  };
+  MaaAssistantArknights = pkgs.callPackage ./pkgs/MaaAssistantArknights { };
 
   MaaAssistantArknights-cuda = MaaAssistantArknights.override {
     cudaSupport = true;
@@ -30,8 +29,8 @@ rec {
   };
 
   MaaAssistantArknights-beta = MaaAssistantArknights.override {
-    maaVersion = "4.26.0";
-    maaSourceHash = "sha256-1+Z7kGKQ33e7Ma1RpPAv+AYbjl6w6DUxNTtXAviXG2c=";
+    maaVersion = "4.26.1";
+    maaSourceHash = "sha256-35pl5eeDbumadMSHKCrGgQGsdZm4HQT9CXg9/BnkJBU=";
   };
 
   MaaAssistantArknights-beta-cuda = MaaAssistantArknights-beta.override {
@@ -44,15 +43,13 @@ rec {
 
   fastdeploy_ppocr = pkgs.callPackage ./pkgs/MaaAssistantArknights/fastdeploy_ppocr.nix { };
 
-  MaaX = pkgs.callPackage ./pkgs/MaaX {
-    inherit maintainers;
-  };
+  MaaX = pkgs.callPackage ./pkgs/MaaX { };
 
   onnxruntime-cuda = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda.nix { };
 
   onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda-bin.nix { };
 
-  maa-cli = pkgs.callPackage ./pkgs/MaaAssistantArknights/maa-cli.nix { inherit maintainers; };
+  maa-cli = pkgs.callPackage ./pkgs/MaaAssistantArknights/maa-cli.nix { };
 
-  rime-latex = pkgs.callPackage ./pkgs/rimePackages/rime-latex.nix { inherit maintainers; };
+  rime-latex = pkgs.callPackage ./pkgs/rimePackages/rime-latex.nix { };
 }

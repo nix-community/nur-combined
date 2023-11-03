@@ -1,5 +1,4 @@
-{ maintainers
-, stdenv
+{ stdenv
 , lib
 , fetchzip
 , electron
