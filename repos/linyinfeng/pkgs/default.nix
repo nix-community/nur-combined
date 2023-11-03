@@ -22,6 +22,7 @@ lib.makeScope newScope (
     bird-babel-rtt = callPackage ./bird-babel-rtt { };
     canokey-udev-rules = callPackage ./canokey-udev-rules { };
     cf-terraforming = callPackage ./cf-terraforming { };
+    clash-premium = callPackage ./clash-premium { };
     commit-notifier = callPackage ./commit-notifier { };
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
