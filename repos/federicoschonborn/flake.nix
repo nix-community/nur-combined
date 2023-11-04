@@ -17,6 +17,12 @@
     {
       legacyPackages = import ./. { inherit pkgs; };
       packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) self.legacyPackages.${system};
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [
+          just
+          nix-output-monitor
+        ];
+      };
       apps.update = flake-utils.lib.mkApp {
         name = "update";
         drv = pkgs.writeShellApplication {

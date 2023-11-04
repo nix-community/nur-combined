@@ -1,0 +1,15 @@
+currentSystem := `nix eval --impure --raw --expr "builtins.currentSystem"`
+just := just_executable()
+nix := "nom"
+
+[private]
+@default:
+    {{ just }} --list
+
+# Build all packages.
+build-all:
+    nix flake show --json 2>/dev/null | jq -r '.packages."{{ currentSystem }}" | keys[]' | xargs -I {} just build {}
+
+# Build a package.
+build PACKAGE:
+    {{ nix }} build -L .#{{ PACKAGE }}
