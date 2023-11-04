@@ -454,13 +454,13 @@ let
         sha512 = "/N4nGdqt1oogwpPNqgVTDADzDDcFto/3rwvyW5oEIAK2ILfxaKpStwvIymlm/3uD2Slzj5Qaqo7wjGuUiUKrHg==";
       };
     };
-    "@libp2p/interface-0.1.4" = {
+    "@libp2p/interface-0.1.5" = {
       name = "_at_libp2p_slash_interface";
       packageName = "@libp2p/interface";
-      version = "0.1.4";
+      version = "0.1.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@libp2p/interface/-/interface-0.1.4.tgz";
-        sha512 = "Pk8mzit/w7PbTh28n77RDLTU1CQBBzLygiNC07MvcEjaIwqXdNPN3Vuzr/5qiF6aDsbM9fA1W5dWoCif9xBdxg==";
+        url = "https://registry.npmjs.org/@libp2p/interface/-/interface-0.1.5.tgz";
+        sha512 = "1sPZ0iZifINtw8RAZ6flML7InRXNkZJF/MpKmAwIFXhEFDtRvbwMSs/kihPxLgsvbBCfJiTqUuy2ki8a4p06Vg==";
       };
     };
     "@libp2p/interface-connection-4.0.0" = {
@@ -1111,13 +1111,13 @@ let
         sha512 = "M9qw6oUILGVrcENMSRRefE1MbHPIz0h79EKIeJWK9v563aT9Qkh8aEHPO1H5vi970wPirNY+jO9OpFoLiMsMGA==";
       };
     };
-    "electron-to-chromium-1.4.573" = {
+    "electron-to-chromium-1.4.576" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.573";
+      version = "1.4.576";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.573.tgz";
-        sha512 = "tzxxvKDTO3V5vzN2F+3v9jrK9gEbCdf1YYJUx/zVq1cyzyh+x1ddeYNNWh0ZS2ETNCVK3+Pns1LHIBq4w20X2Q==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.576.tgz";
+        sha512 = "yXsZyXJfAqzWk1WKryr0Wl0MN2D47xodPvEEwlVePBnhU5E7raevLQR+E6b9JAD3GfL/7MbAL9ZtWQQPcLx7wA==";
       };
     };
     "encoding-0.1.13" = {
@@ -2470,13 +2470,13 @@ let
         sha512 = "4ZesjQhqOU2Ip6GPReIwN60wRxIupavL8T0Iy36BBHr2qyMrNxsPJvr7vpS4eFt8F8kSguWUPad6ZM9izs/vyw==";
       };
     };
-    "undici-5.27.0" = {
+    "undici-5.27.2" = {
       name = "undici";
       packageName = "undici";
-      version = "5.27.0";
+      version = "5.27.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/undici/-/undici-5.27.0.tgz";
-        sha512 = "l3ydWhlhOJzMVOYkymLykcRRXqbUaQriERtR70B9LzNkZ4bX52Fc8wbTDneMiwo8T+AemZXvXaTx+9o5ROxrXg==";
+        url = "https://registry.npmjs.org/undici/-/undici-5.27.2.tgz";
+        sha512 = "iS857PdOEy/y3wlM3yRp+6SNQQ6xU0mmZcwRSriqk+et/cwWAtwmIGf6WkoDN2EK/AMdCO/dfXzIwi+rFMrjjQ==";
       };
     };
     "undici-types-5.26.5" = {
@@ -2701,7 +2701,7 @@ let
       sources."@jridgewell/trace-mapping-0.3.20"
       sources."@jspm/generator-1.1.12"
       sources."@jspm/import-map-1.0.7"
-      (sources."@libp2p/interface-0.1.4" // {
+      (sources."@libp2p/interface-0.1.5" // {
         dependencies = [
           sources."@multiformats/multiaddr-12.1.8"
           sources."multiformats-12.1.3"
@@ -2827,7 +2827,7 @@ let
       sources."dns-over-http-resolver-2.1.3"
       sources."dot-case-3.0.4"
       sources."electron-fetch-1.9.1"
-      sources."electron-to-chromium-1.4.573"
+      sources."electron-to-chromium-1.4.576"
       sources."encoding-0.1.13"
       sources."err-code-3.0.1"
       sources."es-module-lexer-1.3.1"
@@ -3034,7 +3034,7 @@ let
           sources."multiformats-12.1.3"
         ];
       })
-      sources."undici-5.27.0"
+      sources."undici-5.27.2"
       sources."undici-types-5.26.5"
       sources."unique-filename-1.1.1"
       sources."unique-slug-2.0.2"

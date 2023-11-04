@@ -1381,13 +1381,13 @@ let
         sha512 = "myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==";
       };
     };
-    "@swc/wasm-1.3.95" = {
+    "@swc/wasm-1.3.96" = {
       name = "_at_swc_slash_wasm";
       packageName = "@swc/wasm";
-      version = "1.3.95";
+      version = "1.3.96";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@swc/wasm/-/wasm-1.3.95.tgz";
-        sha512 = "cOE6Cu8bKR/69qyJKhLOQnUTZu3lUKHqI6XDhfLuG/zg/7LCwfECXhetkYBnzhB4pHre/8ZrRKaXCjcY9XJ+rQ==";
+        url = "https://registry.npmjs.org/@swc/wasm/-/wasm-1.3.96.tgz";
+        sha512 = "uNysgxU/QB5ModOaTA+a2gfwDXluWgvmFIYXaB2uE5VbPf/HWifOXX508tS9xqzmgqTMEkwhDyUh5+O7ISuDKA==";
       };
     };
     "@szmarczak/http-timer-1.1.2" = {
@@ -2398,13 +2398,13 @@ let
         sha512 = "Q+JC7Whu8HhmTdBph/Tq59IoRtoy6KAm5zzPv00WdujX82lbAL8K7WVjne7vdCsAmbF4AYaDOPyO3k0kl8qIrw==";
       };
     };
-    "async-3.2.4" = {
+    "async-3.2.5" = {
       name = "async";
       packageName = "async";
-      version = "3.2.4";
+      version = "3.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/async/-/async-3.2.4.tgz";
-        sha512 = "iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==";
+        url = "https://registry.npmjs.org/async/-/async-3.2.5.tgz";
+        sha512 = "baNZyqaaLhyLVKm/DlvdW051MSgO6b8eVfIezl9E5PqWxFgzLm/wQntEW4zOytVburDEr0JlALEpdOFwvErLsg==";
       };
     };
     "async-each-1.0.6" = {
@@ -4486,13 +4486,13 @@ let
         sha512 = "iirFqlP3tiFoedNZ7dQcjvechunl054VbW6Ki38T/pabgXMAncduSE0ZXLeVGn1NbmcUJF9Z5TC0EvQ4RIpP9Q==";
       };
     };
-    "electron-to-chromium-1.4.573" = {
+    "electron-to-chromium-1.4.576" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.573";
+      version = "1.4.576";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.573.tgz";
-        sha512 = "tzxxvKDTO3V5vzN2F+3v9jrK9gEbCdf1YYJUx/zVq1cyzyh+x1ddeYNNWh0ZS2ETNCVK3+Pns1LHIBq4w20X2Q==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.576.tgz";
+        sha512 = "yXsZyXJfAqzWk1WKryr0Wl0MN2D47xodPvEEwlVePBnhU5E7raevLQR+E6b9JAD3GfL/7MbAL9ZtWQQPcLx7wA==";
       };
     };
     "elliptic-6.5.4" = {
@@ -9319,13 +9319,13 @@ let
         sha512 = "1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==";
       };
     };
-    "preact-10.18.1" = {
+    "preact-10.18.2" = {
       name = "preact";
       packageName = "preact";
-      version = "10.18.1";
+      version = "10.18.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/preact/-/preact-10.18.1.tgz";
-        sha512 = "mKUD7RRkQQM6s7Rkmi7IFkoEHjuFqRQUaXamO61E6Nn7vqF/bo7EZCmSyrUnp2UWHw0O7XjZ2eeXis+m7tf4lg==";
+        url = "https://registry.npmjs.org/preact/-/preact-10.18.2.tgz";
+        sha512 = "X/K43vocUHDg0XhWVmTTMbec4LT/iBMh+csCEqJk+pJqegaXsvjdqN80ZZ3L+93azWCnWCZ+WGwYb8SplxeNjA==";
       };
     };
     "preact-render-to-string-6.2.2" = {
@@ -12857,7 +12857,7 @@ let
       sources."@swc/counter-0.1.2"
       sources."@swc/helpers-0.5.3"
       sources."@swc/types-0.1.5"
-      sources."@swc/wasm-1.3.95"
+      sources."@swc/wasm-1.3.96"
       sources."@szmarczak/http-timer-1.1.2"
       sources."@tootallnate/once-2.0.0"
       sources."@trysound/sax-0.2.0"
@@ -12983,7 +12983,7 @@ let
       })
       sources."assert-plus-1.0.0"
       sources."assign-symbols-1.0.0"
-      sources."async-3.2.4"
+      sources."async-3.2.5"
       sources."async-each-1.0.6"
       sources."async-foreach-0.1.3"
       sources."async-limiter-1.0.1"
@@ -13358,7 +13358,7 @@ let
       sources."ee-first-1.1.1"
       sources."ejs-3.1.9"
       sources."ejs-loader-0.5.0"
-      sources."electron-to-chromium-1.4.573"
+      sources."electron-to-chromium-1.4.576"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -14372,7 +14372,7 @@ let
         ];
       })
       sources."postcss-value-parser-4.2.0"
-      sources."preact-10.18.1"
+      sources."preact-10.18.2"
       sources."preact-render-to-string-6.2.2"
       sources."prelude-ls-1.1.2"
       sources."prepend-http-2.0.0"
