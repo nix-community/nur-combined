@@ -35,7 +35,8 @@ appimageTools.wrapType2 {
   '';
 
   meta = with lib; {
-    inherit (openscad.meta);
+    inherit (openscad.meta) description longDescription homepage license;
+    platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ fliegendewurst ];
   };
 }
