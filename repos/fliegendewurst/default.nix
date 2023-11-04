@@ -27,6 +27,7 @@ rec {
   ripgrep-all = pkgs.callPackage ./pkgs/ripgrep-all {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
+  sddm-theme-utah = pkgs.callPackage ./pkgs/sddm-theme-utah { };
   thumbs = pkgs.callPackage ./pkgs/thumbs { };
   tmux-thumbs = pkgs.callPackage ./pkgs/tmux-thumbs {
     inherit (pkgs.tmuxPlugins) mkTmuxPlugin;
