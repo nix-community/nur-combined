@@ -7,7 +7,7 @@ in {
   imports = [
     ../base/default.nix
     ./dlna.nix
-    ./helix.nix
+    ./helix
     ./espanso.nix
     ./dconf.nix
     ./borderless-browser.nix
@@ -16,6 +16,7 @@ in {
 
   ];
 
+  programs.helix.enable = true;
   services.espanso.enable = true;
   programs.man.enable = true;
 
