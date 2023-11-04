@@ -382,27 +382,6 @@
       platforms = platforms.all;
     };
   };
-  "enhancer-for-youtube" = buildFirefoxXpiAddon {
-    pname = "enhancer-for-youtube";
-    version = "2.0.121";
-    addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4157491/enhancer_for_youtube-2.0.121.xpi";
-    sha256 = "baaba2f8eef7166c1bee8975be63fc2c28d65f0ee48c8a0d1c1744b66db8a2ad";
-    meta = with lib; {
-      homepage = "https://www.mrfdev.com/enhancer-for-youtube";
-      description = "Take control of YouTube and boost your user experience!";
-      mozPermissions = [
-        "cookies"
-        "storage"
-        "*://www.youtube.com/*"
-        "*://www.youtube.com/embed/*"
-        "*://www.youtube.com/live_chat*"
-        "*://www.youtube.com/pop-up-player/*"
-        "*://www.youtube.com/shorts/*"
-      ];
-      platforms = platforms.all;
-    };
-  };
   "gesturefy" = buildFirefoxXpiAddon {
     pname = "gesturefy";
     version = "3.2.9";
@@ -460,19 +439,14 @@
   };
   "github-isometric-contributions" = buildFirefoxXpiAddon {
     pname = "github-isometric-contributions";
-    version = "1.1.26";
+    version = "1.1.27";
     addonId = "isometric-contributions@jasonlong.me";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4098896/github_isometric_contributions-1.1.26.xpi";
-    sha256 = "1c4eb3e4ecbd1381189319e49cc0c16d68dffefd1064a15678a8f50762147a50";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4190088/github_isometric_contributions-1.1.27.xpi";
+    sha256 = "1af1666a046a5d43a6dc1607e289b066fdb7cd7a3cdfe6a1b67f2a5850153437";
     meta = with lib; {
       description = "Renders an isometric pixel view of GitHub contribution graphs.";
       license = licenses.mit;
-      mozPermissions = [
-        "storage"
-        "contextMenus"
-        "activeTab"
-        "https://github.com/*"
-      ];
+      mozPermissions = ["storage" "https://github.com/*"];
       platforms = platforms.all;
     };
   };
@@ -601,10 +575,10 @@
   };
   "privacy-badger" = buildFirefoxXpiAddon {
     pname = "privacy-badger";
-    version = "2023.9.12";
+    version = "2023.10.31";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4167070/privacy_badger17-2023.9.12.xpi";
-    sha256 = "eae97d9d3df3350476901ca412505cb4a43d0e7fa79bd9516584935158f82095";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4188670/privacy_badger17-2023.10.31.xpi";
+    sha256 = "37e96cbd257b73d7350605ed20494a82b578f25a2cefc3de2dab019e5ff6ced1";
     meta = with lib; {
       homepage = "https://privacybadger.org/";
       description = "Automatically learns to block invisible trackers.";
@@ -1079,10 +1053,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.10.5";
+    version = "23.11.3";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4177037/refined_github-23.10.5.xpi";
-    sha256 = "22c0ab41009ff7daf249755504a5fb63f6bbaa732ba4acf677bfa79122c498c1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4189811/refined_github-23.11.3.xpi";
+    sha256 = "e5fbe86a979ea53b524eef6837f9257cf29d4d9337472f35974e54bc99ce4b2e";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1127,10 +1101,10 @@
   };
   "sourcegraph" = buildFirefoxXpiAddon {
     pname = "sourcegraph";
-    version = "23.10.9.2250";
+    version = "23.4.14.1343";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4179147/sourcegraph_for_firefox-23.10.9.2250.xpi";
-    sha256 = "a784bd2450ea7c268fddbc716258b5467fcf1ff73ad137a7c4e988a860c6a71a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4097469/sourcegraph_for_firefox-23.4.14.1343.xpi";
+    sha256 = "fa02236d75a82a7c47dabd0272b77dd9a74e8069563415a7b8b2b9d37c36d20b";
     meta = with lib; {
       description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
       mozPermissions = [
@@ -1146,10 +1120,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.4.24";
+    version = "5.4.25";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4181516/sponsorblock-5.4.24.xpi";
-    sha256 = "3624120b2d8d64ab9b0aa535784fa38e1914b6a0dc043d391fd5c4a96eec4f54";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4185110/sponsorblock-5.4.25.xpi";
+    sha256 = "7bb6d42b76acca487be8e11af23db9c3df916b40e3665446d6335d3e1c7a16f4";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -1166,10 +1140,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "3.7.2";
+    version = "3.7.4";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4163150/steam_database-3.7.2.xpi";
-    sha256 = "d53ebbb78cab59de0111ededc3a66ff98a8ecf5580d09608579a3692d34682eb";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4186682/steam_database-3.7.4.xpi";
+    sha256 = "4f0abc16ea290fcf90020d6c8c40549855c5394531367bec45229314827a880b";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
@@ -1340,10 +1314,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.52.2";
+    version = "1.53.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4171020/ublock_origin-1.52.2.xpi";
-    sha256 = "e8ee3f9d597a6d42db9d73fe87c1d521de340755fd8bfdd69e41623edfe096d6";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4188488/ublock_origin-1.53.0.xpi";
+    sha256 = "5403474101f753b5d38c09135e40d82a115afcd01310d78133a4af363462194b";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
@@ -1369,16 +1343,19 @@
         "https://github.com/*"
         "https://*.github.io/*"
         "https://*.letsblock.it/*"
+        "https://github.com/uBlockOrigin/*"
+        "https://ublockorigin.github.io/*"
+        "https://*.reddit.com/r/uBlockOrigin/*"
       ];
       platforms = platforms.all;
     };
   };
   "violentmonkey" = buildFirefoxXpiAddon {
     pname = "violentmonkey";
-    version = "2.15.0";
+    version = "2.16.0";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4142251/violentmonkey-2.15.0.xpi";
-    sha256 = "894e54cbe9dcd235deaef054b9268a955fed9afee156ebd42249c2b161c55352";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4185752/violentmonkey-2.16.0.xpi";
+    sha256 = "cd1529f42c4ee591e86d55ea382c8be523236b866ad2c06088152450f682da9c";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Userscript support for browsers, open source.";
@@ -1392,6 +1369,7 @@
         "storage"
         "unlimitedStorage"
         "clipboardWrite"
+        "contextMenus"
         "cookies"
       ];
       platforms = platforms.all;

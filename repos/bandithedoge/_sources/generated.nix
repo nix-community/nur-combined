@@ -27,15 +27,15 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "da276ee93811c98571663b2e63309eba4eec6915";
+    version = "388fc8ddb202f8b87f86a0327b563f67ffaf5c2f";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "da276ee93811c98571663b2e63309eba4eec6915";
+      rev = "388fc8ddb202f8b87f86a0327b563f67ffaf5c2f";
       fetchSubmodules = true;
-      sha256 = "sha256-xLNC8xp5Vw3OKO9DIrTia5YRnZGWvx+VzOOstSGSQiQ=";
+      sha256 = "sha256-WnF1eEwc6/vk0PgbZHBQRhJdKp45uAkHyRwnhPh9n8w=";
     };
-    date = "2023-10-23";
+    date = "2023-10-24";
   };
   carla-git = {
     pname = "carla-git";
@@ -150,15 +150,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "a1aea16c7a3239c0a3d7522b09edb1d6988bae02";
+    version = "1b2ec006259ddbe6cda30db8eb783e8177a9f12b";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "a1aea16c7a3239c0a3d7522b09edb1d6988bae02";
+      rev = "1b2ec006259ddbe6cda30db8eb783e8177a9f12b";
       fetchSubmodules = false;
-      sha256 = "sha256-hh5a82fbujCOitFjbzClCMZ/XZQeFsdOHxZWCXXv1i4=";
+      sha256 = "sha256-RPfi08g5DHvq5oEX57sJ1al2smBk0d9d8gAzL7jRnNQ=";
     };
-    date = "2023-10-17";
+    date = "2023-10-25";
   };
   libadwaita-1_4 = {
     pname = "libadwaita-1_4";
@@ -287,15 +287,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "3cd88c8abdf99bb77296265251bf938295481c9b";
+    version = "0b83e8d5fb81fe2d75835f38dfe8836e4e332c95";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "3cd88c8abdf99bb77296265251bf938295481c9b";
+      rev = "0b83e8d5fb81fe2d75835f38dfe8836e4e332c95";
       fetchSubmodules = false;
-      sha256 = "sha256-8nJtbQJDjlZHVWWIsgkJA91UXAaTNnlhMoMqwXWjJ2Y=";
+      sha256 = "sha256-L2fO3AgXKBPFVvEuNbabGpGDVvg3Vzd5s9Bg3owrxEs=";
     };
-    date = "2023-10-20";
+    date = "2023-11-02";
   };
   tree-sitter-hypr = {
     pname = "tree-sitter-hypr";
