@@ -183,11 +183,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-F2y5daIdNJZGNjOctN9iA6kHSRVSMWK8s80X+kXxzb4=",
+            "sha256": "sha256-oQrP2tK2eYVEdfCk+ixlXNahrPZkJcXoxZafPq5OhbU=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.3-1/io.github.msojocs.bilibili_1.12.3-1_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.5-1/io.github.msojocs.bilibili_1.12.5-1_amd64.deb"
         },
-        "version": "1.12.3-1"
+        "version": "1.12.5-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,

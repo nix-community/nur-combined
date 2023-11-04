@@ -79,7 +79,7 @@ Or, use variables from this repository in case I change them:
 |  | `asterisk-g72x` | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 3855cec2ef2667f3e9224006dbaf179575752218 | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | v3.9.5 | iikira/BaiduPCS-Go 原版基础上集成了分享链接/秒传链接转存功能 |
 |  | `bepasty` | [bepasty](https://bepasty-server.readthedocs.org/) | 1.2.0 | universal pastebin server |
-|  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.12.3-1 | Bilibili desktop client |
+|  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.12.5-1 | Bilibili desktop client |
 |  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 026498ba2f86bd813fe9e31629f139d6b4ca5f8e | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 026498ba2f86bd813fe9e31629f139d6b4ca5f8e | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | e95537cc2460b143830ed94a2b7a4d382435ecb7 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |

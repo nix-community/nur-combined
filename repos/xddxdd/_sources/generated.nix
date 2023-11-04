@@ -106,10 +106,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.12.3-1";
+    version = "1.12.5-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.3-1/io.github.msojocs.bilibili_1.12.3-1_amd64.deb";
-      sha256 = "sha256-F2y5daIdNJZGNjOctN9iA6kHSRVSMWK8s80X+kXxzb4=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.5-1/io.github.msojocs.bilibili_1.12.5-1_amd64.deb";
+      sha256 = "sha256-oQrP2tK2eYVEdfCk+ixlXNahrPZkJcXoxZafPq5OhbU=";
     };
   };
   bird-lg-go = {
