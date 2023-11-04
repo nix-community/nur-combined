@@ -60,13 +60,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.1.2";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "LinusDierheimer";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-v/dFynTESqRWAxu5Wz0/EroXuwmNj3EEPJxzpfTGKtk=";
+    hash = "sha256-7g2p33j97hu26xwBLrakc7/bIpYHNTC5jqCj/Fs4fKo=";
   };
 
   nativeBuildInputs = [
@@ -111,6 +111,8 @@ stdenv.mkDerivation (finalAttrs: {
       OpenCL
     ]
   ));
+
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=uninitialized";
 
   cmakeFlags =
     let
