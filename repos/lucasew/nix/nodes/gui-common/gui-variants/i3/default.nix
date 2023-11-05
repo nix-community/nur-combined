@@ -40,7 +40,7 @@
     environment.systemPackages = with pkgs; [
       gnome.eog # eye of gnome
       xfce.ristretto
-      xfce.thunar
+      mate.caja
       doublecmd
     ];
   };

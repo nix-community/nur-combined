@@ -128,7 +128,7 @@
       swaylock
       gnome.eog # eye of gnome
       xfce.ristretto
-      xfce.thunar
+      mate.caja
       playerctl
       brightnessctl
       gscreenshot

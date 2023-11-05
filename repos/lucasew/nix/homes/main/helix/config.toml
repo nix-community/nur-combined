@@ -1,1 +1,8 @@
 theme = "base16"
+
+[editor.cursor-shape]
+insert = "bar"
+
+[editor.lsp]
+display-messages = true
+
