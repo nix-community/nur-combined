@@ -19,6 +19,7 @@
   francis = pkgs.libsForQt5.callPackage ./francis { };
   game-of-life = pkgs.callPackage ./game-of-life { };
   gradebook = pkgs.callPackage ./gradebook { };
+  gruvbox-plasma = pkgs.callPackage ./gruvbox-plasma { };
   gtatool = pkgs.callPackage ./gtatool { inherit libgta teem; };
   kommit = pkgs.libsForQt5.callPackage ./kommit { };
   kuroko = pkgs.callPackage ./kuroko { };

@@ -23,8 +23,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/icons/MoreWaita
     cp -r * $out/share/icons/MoreWaita
+
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script { };
