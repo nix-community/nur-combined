@@ -148,7 +148,7 @@ in
       # "oathToolkit"  # for oathtool
       # "ponymix"
       "pulsemixer"
-      "python3"
+      "python3-repl"
       # "python3Packages.eyeD3"  # music tagging
       "ripgrep"  # needed as a user package so that its user-level config file can be installed
       "rsync"
@@ -205,6 +205,7 @@ in
       "clang"
       "lua"
       "nodejs"
+      "patchelf"
       "rustc"
       "tree-sitter"
     ];
@@ -244,6 +245,10 @@ in
 
     # settings (electron app)
     obsidian.persist.plaintext = [ ".config/obsidian" ];
+
+    python3-repl.package = pkgs.python3.withPackages (ps: with ps; [
+      requests
+    ]);
 
     # creds, media
     signal-desktop.persist.private = [ ".config/Signal" ];

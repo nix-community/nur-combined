@@ -11,6 +11,19 @@ from sane_bt import MediaMeta, TransmissionApi
 
 logger = logging.getLogger(__name__)
 
+# TODO: handle 'InvalidSchema's when kat.ph redirects directly to the magnet:
+# 
+# class MagnetAdapter:
+#     def send(self, req, **kwargs):
+#         resp = requests.Response()
+#         resp.history = [req.url]
+#         return resp
+# s = requests.session()
+# s.mount('magnet:', MagnetAdapter())
+# resp = s.request('GET', uri)
+# resp.history[-1]  # contains the magnet: URI, if everything's proper
+# except i think history gets overwritten, so may need to assign a different field
+
 def resolve_torrent(uri: str) -> str:
     """
     given a URI, coerce it into something native to transmission
