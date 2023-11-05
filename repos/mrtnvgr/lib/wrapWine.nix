@@ -14,15 +14,13 @@ in
 , chdir ? null
 , name
 , tricks ? [ ]
-, silent ? false
+, silent ? true
 , preScript ? ""
 , postScript ? ""
 , firstrunScript ? ""
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
-  wineboot = "${wine}/bin/wineboot";
-  wineserver = "${wine}/bin/wineserver";
 
   requiredPackages = [ wine cabextract ];
 
@@ -31,10 +29,6 @@ let
       let
         tricksStr = concatStringsSep " " tricks;
         tricksCmd = ''
-          # https://github.com/Winetricks/winetricks/issues/1953
-          export WINE=${wineBin}
-          export WINESERVER=${wineserver}
-
           pushd $(mktemp -d)
             wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
             chmod +x winetricks
@@ -47,18 +41,18 @@ let
 
   script = writeShellScriptBin name ''
     export WINEARCH=win${if is64bits then "64" else "32"}
-    export PATH=$PATH:${makeBinPath requiredPackages}
+    export PATH=${makeBinPath requiredPackages}:$PATH
 
     export WINE_NIX="$HOME/.wine-nix"
     export WINEPREFIX="$WINE_NIX/${name}"
     mkdir -p "$WINE_NIX"
 
     if [ ! -d "$WINEPREFIX" ]; then
-      ${wineboot} --init
-      ${wineserver} -w
+      wineboot --init
+      wineserver -w
 
       ${tricksHook}
-      ${wineserver} -w
+      wineserver -w
 
       ${firstrunScript}
     fi
@@ -75,7 +69,7 @@ let
     ${preScript}
 
     ${wineBin} ${wineFlags} "${executable}" "$@"
-    ${wineserver} -w
+    wineserver -w
 
     ${postScript}
   '';
