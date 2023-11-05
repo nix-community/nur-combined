@@ -914,5 +914,24 @@
             "settings_version": "535.104.05",
             "settings_hash": "sha256-pS9W5LMenX0Rrwmpg1cszmpAYPt0Mx+apVQmOmLWTog="
         }
+    },
+    "16.2": {
+        "urls": {
+            "https://github.com/justin-himself/NVIDIA-VGPU-Driver-Archive/releases/download/16.2/NVIDIA-GRID-Linux-KVM-535.129.03-537.70.zip": "0fkw2cym28wqvgrzfrsccacf5cln43bgp3l9pij988ajnrzh6n5l"
+        },
+        "host": {
+            "version": "535.129.03",
+            "persistenced_version": "535.129.03",
+            "persistenced_hash": "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=",
+            "settings_version": "535.129.03",
+            "settings_hash": "sha256-QKN/gLGlT+/hAdYKlkIjZTgvubzQTt4/ki5Y+2Zj3pk="
+        },
+        "guest": {
+            "version": "535.129.03",
+            "persistenced_version": "535.129.03",
+            "persistenced_hash": "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=",
+            "settings_version": "535.129.03",
+            "settings_hash": "sha256-QKN/gLGlT+/hAdYKlkIjZTgvubzQTt4/ki5Y+2Zj3pk="
+        }
     }
 }
