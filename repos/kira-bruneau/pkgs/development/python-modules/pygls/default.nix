@@ -3,20 +3,17 @@
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
-, setuptools-scm
+, poetry-core
 , lsprotocol
-, toml
 , typeguard
-, mock
 , pytest-asyncio
 , pytestCheckHook
-, nix-update-script
 }:
 
 buildPythonPackage rec {
   pname = "pygls";
-  version = "1.0.2";
-  format = "setuptools";
+  version = "1.1.1";
+  format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
@@ -24,13 +21,11 @@ buildPythonPackage rec {
     owner = "openlawlibrary";
     repo = "pygls";
     rev = "refs/tags/v${version}";
-    hash = "sha256-z673NRlnudFyDjKoM+xCbMRTFwh+tjUf4BaNtjwvKx8=";
+    hash = "sha256-FOuBS/UJpkYbuIu193vkSpN/77gf+UWiS5f/t8BpAk4=";
   };
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
   nativeBuildInputs = [
-    setuptools-scm
-    toml
+    poetry-core
   ];
 
   propagatedBuildInputs = [
@@ -39,7 +34,6 @@ buildPythonPackage rec {
   ];
 
   nativeCheckInputs = [
-    mock
     pytest-asyncio
     pytestCheckHook
   ];
@@ -53,10 +47,6 @@ buildPythonPackage rec {
   '';
 
   pythonImportsCheck = [ "pygls" ];
-
-  # The default python updater doesn't work because pygls doesn't use
-  # GitHub releases, only tags
-  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     changelog = "https://github.com/openlawlibrary/pygls/blob/${src.rev}/CHANGELOG.md";
