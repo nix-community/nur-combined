@@ -22,7 +22,11 @@ in rec {
   # Games (Native)
   celeste-classic = p ./pkgs/games/native/celeste-classic.nix { };
   celeste-classic-pm = celeste-classic.override { practiceMod = true; };
+
   celeste-classic-2 = p ./pkgs/games/native/celeste-classic-2.nix { };
+
+  # Games (Wine)
+  celeste = p ./pkgs/games/wine/celeste.nix { inherit (lib) wrapWine; };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

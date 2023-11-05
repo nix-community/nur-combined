@@ -8,82 +8,76 @@ let
   inherit (lib) makeBinPath;
 in
 { is64bits ? false
-, wine ? if is64bits then pkgs.wineWowPackages.staging else pkgs.wine
+, wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
 , wineFlags ? ""
 , executable
 , chdir ? null
 , name
 , tricks ? [ ]
-, setupScript ? ""
+, silent ? false
+, preScript ? ""
+, postScript ? ""
 , firstrunScript ? ""
-, home ? ""
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
-  requiredPackages = [
-    wine
-    cabextract
-  ];
-  WINENIX_PROFILES = "$HOME/WINENIX_PROFILES";
-  PATH = makeBinPath requiredPackages;
-  NAME = name;
-  HOME =
-    if home == ""
-    then "${WINENIX_PROFILES}/${name}"
-    else home;
-  WINEARCH =
-    if is64bits
-    then "win64"
-    else "win32";
-  setupHook = ''
-    ${wine}/bin/wineboot
-  '';
+  wineboot = "${wine}/bin/wineboot";
+  wineserver = "${wine}/bin/wineserver";
+
+  requiredPackages = [ wine cabextract ];
+
   tricksHook =
     if (length tricks) > 0 then
       let
         tricksStr = concatStringsSep " " tricks;
         tricksCmd = ''
+          # https://github.com/Winetricks/winetricks/issues/1953
+          export WINE=${wineBin}
+          export WINESERVER=${wineserver}
+
           pushd $(mktemp -d)
             wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
             chmod +x winetricks
-            ./winetricks ${tricksStr}
+            ./winetricks ${if silent then "-q" else ""} ${tricksStr}
           popd
         '';
       in
       tricksCmd
     else "";
+
   script = writeShellScriptBin name ''
-    export APP_NAME="${NAME}"
-    export WINEARCH=${WINEARCH}
+    export WINEARCH=win${if is64bits then "64" else "32"}
+    export PATH=$PATH:${makeBinPath requiredPackages}
+
     export WINE_NIX="$HOME/.wine-nix"
-    export WINE_NIX_PROFILES="${WINENIX_PROFILES}"
-    export PATH=$PATH:${PATH}
-    export HOME="${HOME}"
-    mkdir -p "$HOME"
     export WINEPREFIX="$WINE_NIX/${name}"
-    export EXECUTABLE="${executable}"
-    mkdir -p "$WINE_NIX" "$WINE_NIX_PROFILES"
-    ${setupScript}
-    if [ ! -d "$WINEPREFIX" ] # if the prefix does not exist
-    then
-      ${setupHook}
-      wineserver -w
+    mkdir -p "$WINE_NIX"
+
+    if [ ! -d "$WINEPREFIX" ]; then
+      ${wineboot} --init
+      ${wineserver} -w
+
       ${tricksHook}
-      rm "$WINEPREFIX/drive_c/users/$USER" -rf
-      ln -s "$HOME" "$WINEPREFIX/drive_c/users/$USER"
+      ${wineserver} -w
+
       ${firstrunScript}
     fi
+
     ${if chdir != null 
       then ''cd "${chdir}"'' 
       else ""}
-    if [ ! "$REPL" == "" ]; # if $REPL is setup then start a shell in the context
-    then
-      bash
-      exit 0
+
+    # if $REPL is setup then start a shell in the context
+    if [ ! "$REPL" == "" ]; then
+      bash; exit 0
     fi
 
-    ${wineBin} ${wineFlags} "$EXECUTABLE" "$@"
-    wineserver -w
+    ${preScript}
+
+    ${wineBin} ${wineFlags} "${executable}" "$@"
+    ${wineserver} -w
+
+    ${postScript}
   '';
 in
 script
