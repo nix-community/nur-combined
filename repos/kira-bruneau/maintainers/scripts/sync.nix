@@ -114,7 +114,9 @@ writeShellApplication {
 
     git pull &
     git -C "$nixpkgs_repo" pull &
-    wait
+    for p in $(jobs -p); do
+       wait "$p"
+    done
 
     git switch --quiet --detach '@{u}'
 
