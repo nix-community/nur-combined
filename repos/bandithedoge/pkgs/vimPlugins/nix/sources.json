@@ -641,10 +641,10 @@
     "homepage": "",
     "owner": "MrcJkb",
     "repo": "haskell-tools.nvim",
-    "rev": "1d2f10665927e93eb65913f65860285371d41af5",
-    "sha256": "1hz26hcf5cg90ymax82d23207cyyc32p6s0w2yjn3mj27pg8qiw2",
+    "rev": "326d19ead964c764d5601517e81943467877bf8e",
+    "sha256": "0g6n3rqjj789xcxh3rhrfyyi07lii3fim3rnz6i41996cmvjxcsg",
     "type": "tarball",
-    "url": "https://github.com/MrcJkb/haskell-tools.nvim/archive/1d2f10665927e93eb65913f65860285371d41af5.tar.gz",
+    "url": "https://github.com/MrcJkb/haskell-tools.nvim/archive/326d19ead964c764d5601517e81943467877bf8e.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "heirline.nvim": {
@@ -1211,10 +1211,10 @@
     "homepage": "",
     "owner": "mfussenegger",
     "repo": "nvim-lint",
-    "rev": "8d2bd9a2d1f0b41c96dfa0c998cc22ba152935ed",
-    "sha256": "124ckf0n3fjlw1f9rf1c8mv6jn1qxja5nfpb7l8p2zms8xssaksd",
+    "rev": "7746f952827dabfb70194518c99c93d5651b8f19",
+    "sha256": "02703pgyjhjckkkiiyi5c82raiwhahv8wlan6hr563f6xry99brc",
     "type": "tarball",
-    "url": "https://github.com/mfussenegger/nvim-lint/archive/8d2bd9a2d1f0b41c96dfa0c998cc22ba152935ed.tar.gz",
+    "url": "https://github.com/mfussenegger/nvim-lint/archive/7746f952827dabfb70194518c99c93d5651b8f19.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-lspconfig": {
