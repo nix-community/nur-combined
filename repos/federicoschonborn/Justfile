@@ -10,6 +10,8 @@ nix := "nom"
 build-all:
     nix flake show --json 2>/dev/null | jq -r '.packages."{{ currentSystem }}" | keys[]' | xargs -I {} just build {}
 
-# Build a package.
-build PACKAGE:
-    {{ nix }} build -L .#{{ PACKAGE }}
+# Build one or more packages.
+build +PACKAGES:
+    for package in {{ PACKAGES }}; do \
+        {{ nix }} build -L ".#${package}"; \
+    done

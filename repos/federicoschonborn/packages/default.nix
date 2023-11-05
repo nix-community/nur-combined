@@ -23,12 +23,12 @@
   gtatool = pkgs.callPackage ./gtatool { inherit libgta teem; };
   kommit = pkgs.libsForQt5.callPackage ./kommit { };
   kuroko = pkgs.callPackage ./kuroko { };
-  licentia = pkgs.libsForQt5.callPackage ./licentia { };
   libgta = pkgs.callPackage ./libgta { };
   libtgd = pkgs.callPackage ./libtgd { inherit libgta; };
   libxfce4windowing = pkgs.callPackage ./libxfce4windowing { };
   libxo = pkgs.callPackage ./libxo { };
   libzypp = pkgs.callPackage ./libzypp { libsolv = libsolv-libzypp; };
+  licentia = pkgs.libsForQt5.callPackage ./licentia { };
   liquidshell = pkgs.libsForQt5.callPackage ./liquidshell { };
   magpie_v1 = pkgs.callPackage ./magpie_v1 { };
   marknote = pkgs.libsForQt5.callPackage ./marknote { };
@@ -52,6 +52,7 @@
   thunderbird-gnome-theme = pkgs.callPackage ./thunderbird-gnome-theme { };
   upkg = pkgs.callPackage ./upkg { };
   usysconf = pkgs.callPackage ./usysconf { };
+  vita3k = pkgs.callPackage ./vita3k { };
   waycheck = pkgs.qt6.callPackage ./waycheck { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   yyjson = pkgs.callPackage ./yyjson { };
