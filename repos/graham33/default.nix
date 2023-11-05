@@ -11,6 +11,8 @@
 let
   myPackages = pkgs.lib.makeScope pkgs.newScope (self: with self; {
 
+    frigate-hass-integration = callPackage ./pkgs/frigate-hass-integration { };
+
     ha-dyson = callPackage ./pkgs/ha-dyson { };
     ha-dyson-cloud = callPackage ./pkgs/ha-dyson-cloud { };
     ha-hildebrandglow-dcc = callPackage ./pkgs/ha-hildebrandglow-dcc { };
@@ -87,6 +89,7 @@ in rec {
   inherit (pkgs) nix-build-uncached;
 
   inherit (myPackages)
+    frigate-hass-integration
     ha-dyson
     ha-dyson-cloud
     ha-hildebrandglow-dcc
