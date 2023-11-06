@@ -17,14 +17,14 @@ trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWo
 
 ## Featured Packages
 
-- **Fonts**:
-    1. [ttf-literation][ttf-literation]: *A ttf Nerd Font based on ttf-liberation*.
 - **Mpv scripts**:
     1. [appendURL][appendURL]: *Appends url from clipboard to the playlist*.
 - [IRust][irust]: *Cross Platform Rust Repl*.
 - [Junest][junest]: *A lightweight Arch Linux based distro*.
 - [aercbook][aercbook]: *A minimalistic address book for the aerc e-mail client*.
 - [chawan][chawan]: *A text-mode web browser*.
+- [pass-extension-tail][pass-extension-tail]: *A pass extension to avoid printing the password to the console*.
+- [pass-sxatm][pass-sxatm]: *A simple X autofill tool with menu for pass*.
 - [pdpmake][pdpmake]: *A public domain POSIX make*.
 
 **NOTE**: these packages are built only against the `unstable` channels.
@@ -34,5 +34,7 @@ trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWo
 [chawan]: <https://sr.ht/~bptato/chawan/> "A text-mode web browser"
 [irust]: <https://github.com/sigmaSd/IRust/> "Cross Platform Rust Repl"
 [junest]: <https://github.com/fsquillace/junest> "A lightweight Arch Linux based distro"
+[pass-extension-tail]: <https://github.com/palortoff/pass-extension-tail> "A pass extension to avoid printing the password to the console"
+[pass-sxatm]: <https://sr.ht/~onemoresuza/pass-sxatm/> "A simple X autofill tool with menu for pass"
 [pdpmake]: <https://github.com/rmyorston/pdpmake> "A public domain POSIX make"
 [ttf-literation]: <https://www.nerdfonts.com/> "A ttf Nerd Font based on ttf-liberation"
