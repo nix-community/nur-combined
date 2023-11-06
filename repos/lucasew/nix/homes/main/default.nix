@@ -76,6 +76,12 @@ in {
     # LSPs
     nil
     python3Packages.python-lsp-server
+    (pkgs.writeShellScriptBin "e" ''
+      if [ ! -v EDITOR ]; then
+        export EDITOR=hx
+      fi
+      "$EDITOR" "$@"
+    '')
   ] ;
 
   # programs.hello-world.enable = true;

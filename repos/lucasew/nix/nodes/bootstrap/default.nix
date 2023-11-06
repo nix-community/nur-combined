@@ -43,7 +43,7 @@ in {
     script-directory-wrapper
   ];
   environment.variables = {
-    EDITOR = "nvim";
+    EDITOR = "hx";
     PATH = "$PATH";
   };
   programs.bash = {
