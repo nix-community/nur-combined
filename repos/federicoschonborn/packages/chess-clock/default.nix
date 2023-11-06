@@ -1,5 +1,5 @@
 { lib
-, python3
+, python3Packages
 , fetchFromGitLab
 , desktop-file-utils
 , gettext
@@ -13,7 +13,7 @@
 , nix-update-script
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "chess-clock";
   version = "0.6.0";
 
@@ -42,7 +42,7 @@ python3.pkgs.buildPythonApplication rec {
     libadwaita
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = with python3Packages; [
     pygobject3
   ];
 

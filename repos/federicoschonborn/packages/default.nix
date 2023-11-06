@@ -10,7 +10,12 @@
   chess-clock = pkgs.callPackage ./chess-clock { };
   chess-clock0_5 = pkgs.callPackage ./chess-clock/0.5.0.nix { };
   codelite = pkgs.callPackage ./codelite { };
-  devtoolbox = pkgs.callPackage ./devtoolbox { };
+  devtoolbox = pkgs.callPackage ./devtoolbox {
+    inherit python-daltonlens
+      python-lorem
+      python-textstat
+      python-uuid6;
+  };
   eloquens = pkgs.libsForQt5.callPackage ./eloquens { };
   fastfetch = pkgs.callPackage ./fastfetch { inherit yyjson; };
   fielding = pkgs.libsForQt5.callPackage ./fielding { };
@@ -57,6 +62,11 @@
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   yyjson = pkgs.callPackage ./yyjson { };
   zypper = pkgs.callPackage ./zypper { inherit libzypp; };
+
+  python-daltonlens = pkgs.python3Packages.callPackage ./python-daltonlens { };
+  python-lorem = pkgs.python3Packages.callPackage ./python-lorem { };
+  python-textstat = pkgs.python3Packages.callPackage ./python-textstat { };
+  python-uuid6 = pkgs.python3Packages.callPackage ./python-uuid6 { };
 
   fastfetchFull = pkgs.lib.warn "fastfetchFull has been replaced by fastfetch, which will conditionally enable features based on platform support" fastfetch;
 

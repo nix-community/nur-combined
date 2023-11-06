@@ -1,5 +1,9 @@
 { lib
 , python3Packages
+, python-daltonlens
+, python-lorem
+, python-textstat
+, python-uuid6
 , fetchFromGitHub
 , blueprint-compiler
 , desktop-file-utils
@@ -45,7 +49,12 @@ python3Packages.buildPythonApplication rec {
     webkitgtk_6_0
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
+    python-daltonlens
+    python-lorem
+    python-textstat
+    python-uuid6
+  ] ++ (with python3Packages; [
     asn1crypto
     croniter
     cssbeautifier
@@ -66,79 +75,7 @@ python3Packages.buildPythonApplication rec {
     ruamel-yaml
     sqlparse
     tzlocal
-  ] ++ [
-    (buildPythonPackage rec {
-      pname = "daltonlens";
-      version = "0.1.5";
-
-      format = "pyproject";
-
-      src = fetchPypi {
-        inherit pname version;
-        hash = "sha256-T7fXlRdFtcVw5WURPqZhCmulUi1ZnCfCXgcLtTHeNas=";
-      };
-
-      nativeBuildInputs = [
-        setuptools
-        setuptools-git
-      ];
-
-      propagatedBuildInputs = [
-        numpy
-        pillow
-      ];
-
-      pythonImportsCheck = [ "daltonlens" ];
-    })
-
-    (buildPythonPackage rec {
-      pname = "python-lorem";
-      version = "1.3.0.post1";
-
-      format = "setuptools";
-
-      src = fetchPypi {
-        inherit pname version;
-        hash = "sha256-aokLCuQq6iHpC90MLCcIQxeEArPyx1o6RU1224xZdxY=";
-      };
-
-      pythonImportsCheck = [ "lorem" ];
-    })
-
-    (buildPythonPackage rec {
-      pname = "textstat";
-      version = "0.7.3";
-
-      format = "setuptools";
-
-      src = fetchPypi {
-        inherit pname version;
-        hash = "sha256-YLY8+JSfRbuztCBeRBG7wc1m30wIrvElRYEcfm4k8BE=";
-      };
-
-      propagatedBuildInputs = [
-        pyphen
-      ];
-
-      pythonImportsCheck = [ "textstat" ];
-
-      doCheck = false;
-    })
-
-    (buildPythonPackage rec {
-      pname = "uuid6";
-      version = "2023.5.2";
-
-      format = "setuptools";
-
-      src = fetchPypi {
-        inherit pname version;
-        hash = "sha256-A8uX8lynsKxL6is6IF9mv+f1jTsXm7D3bh15RkRrYTM=";
-      };
-
-      pythonImportsCheck = [ "uuid6" ];
-    })
-  ];
+  ]);
 
   dontWrapGApps = true;
 
