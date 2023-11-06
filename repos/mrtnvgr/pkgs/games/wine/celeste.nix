@@ -13,7 +13,7 @@ let
     chdir = "$WINEPREFIX/drive_c/celeste";
     executable = "./Celeste.exe";
 
-    firstrunScript = ''
+    setupScript = ''
       pushd "$WINEPREFIX/drive_c"
         mkdir celeste
         cd celeste

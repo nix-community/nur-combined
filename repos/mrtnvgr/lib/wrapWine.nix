@@ -4,7 +4,7 @@
 { pkgs }:
 let
   inherit (builtins) length concatStringsSep;
-  inherit (pkgs) lib cabextract writeShellScriptBin;
+  inherit (pkgs) lib cabextract winetricks writeShellScriptBin;
   inherit (lib) makeBinPath;
 in
 { is64bits ? false
@@ -17,7 +17,7 @@ in
 , silent ? true
 , preScript ? ""
 , postScript ? ""
-, firstrunScript ? ""
+, setupScript ? ""
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
@@ -30,9 +30,7 @@ let
         tricksStr = concatStringsSep " " tricks;
         tricksCmd = ''
           pushd $(mktemp -d)
-            wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
-            chmod +x winetricks
-            ./winetricks ${if silent then "-q" else ""} ${tricksStr}
+            ${winetricks} ${if silent then "-q" else ""} ${tricksStr}
           popd
         '';
       in
@@ -54,7 +52,7 @@ let
       ${tricksHook}
       wineserver -w
 
-      ${firstrunScript}
+      ${setupScript}
     fi
 
     ${if chdir != null 
