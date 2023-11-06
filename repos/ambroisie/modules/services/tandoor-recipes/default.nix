@@ -50,6 +50,7 @@ in
     systemd.services = {
       tandoor-recipes = {
         after = [ "postgresql.service" ];
+        requires = [ "postgresql.service" ];
 
         serviceConfig = {
           EnvironmentFile = cfg.secretKeyFile;

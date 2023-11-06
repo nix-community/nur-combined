@@ -7,6 +7,7 @@ in
     systemd.services.drone-server = {
       wantedBy = [ "multi-user.target" ];
       after = [ "postgresql.service" ];
+      requires = [ "postgresql.service" ];
       serviceConfig = {
         EnvironmentFile = [
           cfg.secretFile
