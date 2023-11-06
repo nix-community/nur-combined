@@ -63,8 +63,6 @@ clang16Stdenv.mkDerivation {
       cp -r bin/* $out/share/vita3k
     popd
 
-    cp data/image/icon.png $out/share/icons/hicolor/128x128/apps/vita3k.png
-
     runHook postInstall
   '';
 
