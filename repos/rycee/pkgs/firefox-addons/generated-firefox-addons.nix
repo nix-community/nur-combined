@@ -8058,10 +8058,10 @@
       };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.9.0";
+      version = "3.10.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4181371/toolkit_for_ynab-3.9.0.xpi";
-      sha256 = "9f54257d1556e86de74c0aebc0754bc81ba5e7fa98843ea1f67c99988ad21771";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190708/toolkit_for_ynab-3.10.0.xpi";
+      sha256 = "009326589d03a0843bfd3fed507bd8669602b2c8a9bc7a73c0c7e8f21da0b883";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
