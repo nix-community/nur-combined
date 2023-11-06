@@ -20,7 +20,6 @@ with pkgs; rec {
   github-copilot-cli = callPackage ./pkgs/github-copilot-cli { };
   libkazv = callPackage ./pkgs/libkazv { };
   kazv = libsForQt5.callPackage ./pkgs/kazv { inherit libkazv; };
-  yazi-unstable = callPackage ./pkgs/yazi/unstable.nix { inherit (darwin.apple_sdk.frameworks) Foundation; };
   nginxModules = recurseIntoAttrs (callPackage ./pkgs/nginx/modules.nix { });
   nginxStable = let nginxStable' = pkgs.nginxStable; in nginxStable'.override {
     modules = nginxStable'.modules ++ (with nginxModules; [
