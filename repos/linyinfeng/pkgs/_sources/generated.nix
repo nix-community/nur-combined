@@ -470,16 +470,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "e24adbc3c2bad7d3fd1f00abb7a82b0d2bdb42e1";
+    version = "48ec834ec9c7cdf146169c8b0f669ce1e9a8849e";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "e24adbc3c2bad7d3fd1f00abb7a82b0d2bdb42e1";
+      rev = "48ec834ec9c7cdf146169c8b0f669ce1e9a8849e";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-TDBO7xDNdKUmCn1zcoS/VY3cNfuSlSwVl5uYWhAnMyg=";
+      sha256 = "sha256-oMQMHawNKRUdMHywsQa3Nuh+FqHJZp6bCuw7qsQKgJU=";
     };
-    date = "2023-11-06";
+    date = "2023-11-03";
   };
   yacd = {
     pname = "yacd";
