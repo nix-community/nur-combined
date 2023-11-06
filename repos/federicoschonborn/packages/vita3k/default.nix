@@ -43,12 +43,17 @@ clang16Stdenv.mkDerivation {
 
   dontFixCmake = true;
 
-  cmakeFlags = [
-    "--preset linux-ninja-clang"
-    (lib.cmakeBool "VITA3K_FORCE_SYSTEM_BOOST" forceSystemBoost)
-    (lib.cmakeBool "USE_DISCORD_RICH_PRESENCE" false)
-    (lib.cmakeBool "USE_VITA3K_UPDATE" false)
-  ];
+  cmakeFlags =
+    let
+      # For compatability with old Nixpkgs
+      cmakeBool = lib.cmakeBool or (name: value: "-D${name}:BOOL=${if value then "ON" else "OFF"}");
+    in
+    [
+      "--preset linux-ninja-clang"
+      (cmakeBool "VITA3K_FORCE_SYSTEM_BOOST" forceSystemBoost)
+      (cmakeBool "USE_DISCORD_RICH_PRESENCE" false)
+      (cmakeBool "USE_VITA3K_UPDATE" false)
+    ];
 
   ninjaFlags = [
     "-C linux-ninja-clang"
@@ -68,11 +73,12 @@ clang16Stdenv.mkDerivation {
 
   passthru.updateScript = unstableGitUpdater { };
 
-  meta = with lib; {
+  meta = {
     mainProgram = "Vita3K";
     description = "Experimental PlayStation Vita emulator";
     homepage = "https://vita3k.org/";
-    license = licenses.gpl2Only;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.gpl2Only;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = clang16Stdenv.isDarwin;
   };
 }
