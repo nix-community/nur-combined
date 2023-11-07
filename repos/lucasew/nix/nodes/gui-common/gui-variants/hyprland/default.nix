@@ -8,13 +8,14 @@
   ];
 
   config = lib.mkIf config.programs.hyprland.enable {
+    programs.hyprland.xwayland.enable = true;
+    services.xserver.displayManager.lightdm.enable = true;
+    services.xserver.enable = true;
+
     services.dunst.enable = true;
     services.gammastep.enable = true;
-    programs.regreet.enable = true;
     programs.waybar.enable = true;
     programs.kdeconnect.enable = true;
-    programs.xss-lock.lockerCommand = "swaylock -f";
-    programs.xss-lock.enable = true;
 
     systemd.user.services.nm-applet = {
       path = with pkgs; [ networkmanagerapplet ];

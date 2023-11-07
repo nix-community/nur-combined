@@ -2,7 +2,7 @@
 {
   config = lib.mkIf config.programs.gamemode.enable {
     # let's vulkanize it all until something breaks
-    environment.variables.MESA_LOADER_DRIVER_OVERRIDE = "zink";
+    # environment.variables.MESA_LOADER_DRIVER_OVERRIDE = "zink";
 
     programs.gamescope.enable = true;
 

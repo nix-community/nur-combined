@@ -17,7 +17,7 @@ in {
   ];
 
   programs.helix.enable = true;
-  services.espanso.enable = true;
+  # services.espanso.enable = true;
   programs.man.enable = true;
 
 

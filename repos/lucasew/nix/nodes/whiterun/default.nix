@@ -27,7 +27,8 @@ in {
 
   programs.ccache.enable = true;
 
-  services.xserver.windowManager.i3.enable = true;
+  # services.xserver.windowManager.i3.enable = true;
+  programs.hyprland.enable = true;
 
   services.hardware.openrgb.enable = true;
 
