@@ -19,7 +19,7 @@ in {
     ./postgresql.nix
     ./sshfs.nix
     ./zfs.nix
-    ./container-inet-rdp.nix
+    # ./container-inet-rdp.nix
     ./container-nat.nix
   ];
 
@@ -81,7 +81,7 @@ in {
 
   services.cockpit.enable = true;
 
-  services.magnetico.enable = true;
+  # services.magnetico.enable = true;
 
   boot = {
     supportedFilesystems = [ "ntfs" ];

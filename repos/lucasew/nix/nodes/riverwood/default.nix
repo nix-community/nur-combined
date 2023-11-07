@@ -73,11 +73,6 @@ in
     calendar = "01:00:01";
   };
 
-  environment.systemPackages = with pkgs; [
-    kubectl
-    terraform
-  ];
-
   programs.steam.enable = true;
 
   services.xserver.xkbModel = "acer_laptop";
@@ -111,16 +106,16 @@ in
 
   gc-hold.paths = with pkgs; [
     go gopls
-    zig zls
-    terraform
-    ansible vagrant
+    # zig zls
+    # terraform
+    # ansible vagrant
     gnumake cmake
     clang gdb ccls
-    python3Packages.pylsp-mypy
-    nodejs yarn
-    openjdk11 maven ant
+    # python3Packages.pylsp-mypy
+    # nodejs yarn
+    # openjdk11 maven ant
     docker-compose
-    jre
+    # jre
   ];
 
   networking.hostName = hostname; # Define your hostname.

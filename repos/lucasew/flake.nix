@@ -55,8 +55,8 @@
     home-manager.url = "home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    betterdiscord-addons.url = "github:mwittrien/BetterDiscordAddons?dir=Plugins";
-    betterdiscord-addons.flake = false;
+    # betterdiscord-addons.url = "github:mwittrien/BetterDiscordAddons?dir=Plugins";
+    # betterdiscord-addons.flake = false;
 
     nix-requirefile.url = "github:lucasew/nix-requirefile";
     nix-requirefile.flake = false;
@@ -144,12 +144,12 @@
         nvidia.acceptLicense = true;
         android_sdk.accept_license = true;
         permittedInsecurePackages = [
-            "python-2.7.18.6"
-            "electron-18.1.0"
-            "electron-21.4.0"
-            "openssl-1.1.1u"
-            "openssl-1.1.1v"
-            "openssl-1.1.1w"
+            # "python-2.7.18.6"
+            # "electron-18.1.0"
+            # "electron-21.4.0"
+            # "openssl-1.1.1u"
+            # "openssl-1.1.1v"
+            # "openssl-1.1.1w"
         ];
       };
       overlays = if disableOverlays then [] else (overlays ++ (builtins.attrValues self.outputs.overlays));
@@ -275,9 +275,9 @@
 
       dontUnpack = true;
       buildInputs = []
-        ++ (with pkgs.custom; [ neovim ])
+        # ++ (with pkgs.custom; [ neovim ])
         # ++ (with pkgs.custom; [ firefox tixati emacs ])
-        ++ (with pkgs.custom.vscode; [ common programming ])
+        # ++ (with pkgs.custom.vscode; [ common programming ])
         ++ (with self.nixosConfigurations; [
           riverwood.config.system.build.toplevel
           whiterun.config.system.build.toplevel
@@ -286,9 +286,9 @@
         ++ (with self.homeConfigurations; [
           main.activationPackage
         ])
-        ++ (with self.devShells.${system}; [
-          (pkgs.writeShellScriptBin "s" "echo ${default.outPath}")
-        ])
+        # ++ (with self.devShells.${system}; [
+        #   (pkgs.writeShellScriptBin "s" "echo ${default.outPath}")
+        # ])
         # ++ (let
         #   flattenItems = items: if pkgs.lib.isDerivation items
         #     then items
