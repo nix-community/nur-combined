@@ -1515,10 +1515,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "120.0.20231103.91743";
+      version = "119.0.20231106.151204";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4189908/deutsch_de_language_pack-120.0.20231103.91743.xpi";
-      sha256 = "f3c40dde241982869e2d2595659dd5238bd954503487e5cb1361d23b8a667ada";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191328/deutsch_de_language_pack-119.0.20231106.151204.xpi";
+      sha256 = "4cf6847d28eae22b123f1817120cfcf38464395d6f1186fcc86469e84e0a2536";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2293,10 +2293,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "120.0.20231103.91743";
+      version = "119.0.20231106.151204";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4189941/francais_language_pack-120.0.20231103.91743.xpi";
-      sha256 = "3212ac90f3e94f02314014a5e5c8e930e83a3dcc3eb4dccce11586773c028ad0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191398/francais_language_pack-119.0.20231106.151204.xpi";
+      sha256 = "0ab7bbbd861d5d7562a2555b87e8cf63d1286802cf4338a185da7448992e68d0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4380,10 +4380,10 @@
       };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.16";
+      version = "2.17";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178440/ipvfoo_pmarks-2.16.xpi";
-      sha256 = "09a0f818fd8e8ad7630af8077db9c5e711ad8d843f56b1da911d0c0a7da60124";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191427/ipvfoo_pmarks-2.17.xpi";
+      sha256 = "4523772f67d05731d35c8f8fd7b87fa8191436c7d0ae0b575375c8ca6fd8b3c1";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -6961,16 +6961,17 @@
       };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "1.10.1";
+      version = "1.6.0";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4056771/rsshub_radar-1.10.1.xpi";
-      sha256 = "6dc3c41ea1dd6079e9e26906803542180dbad4ff43a587afc91bc51b272dd736";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3577068/rsshub_radar-1.6.0.xpi";
+      sha256 = "512078e0d7bdb82cda5aa3e4c269aa4a7316de7c9faac3e4c52f6ba487ceb43d";
       meta = with lib;
       {
         homepage = "https://docs.rsshub.app";
         description = "RSSHub Radar is a spin-off of RSSHub that helps you quickly discover and subscribe to RSS and RSSHub for your current site.";
         license = licenses.mit;
         mozPermissions = [
+          "activeTab"
           "tabs"
           "storage"
           "notifications"
@@ -8969,7 +8970,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
-        description = "The Hacker's Browser. Vimium provides keyboard shortcuts for navigation and control in the spirit of Vim.This is a port of the popular Chrome extension to Firefox.Most stuff works, but the port to Firefox remains a work in progress.";
+        description = "The Hacker's Browser. Vimium provides keyboard shortcuts for navigation and control in the spirit of Vim.";
         license = licenses.mit;
         mozPermissions = [
           "tabs"
