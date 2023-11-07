@@ -60,6 +60,7 @@ in
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
       "cryptsetup"
+      "ddrescue"
       "dig"
       "dtc"  # device tree [de]compiler
       "efibootmgr"
