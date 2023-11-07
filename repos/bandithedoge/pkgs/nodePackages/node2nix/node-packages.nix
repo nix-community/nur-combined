@@ -252,13 +252,13 @@
         sha512 = "dJfbdY/hfeTyf/Ef7Y7ubLYzkBvPQ912wPaeVYpAxvFxkEBf/+hJu4H6vhAvFN6HlxqedlfVn2x1S44FfQ97pg==";
       };
     };
-    "fast-glob-3.3.1" = {
+    "fast-glob-3.3.2" = {
       name = "fast-glob";
       packageName = "fast-glob";
-      version = "3.3.1";
+      version = "3.3.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.1.tgz";
-        sha512 = "kNFPyjhh5cKjrUltxs+wFx+ZkbRaxxmZ+X0ZU31SOsxCEtP9VPgtq2teZw1DebupL5GmDaNQ6yKMMVcM41iqDg==";
+        url = "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.2.tgz";
+        sha512 = "oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==";
       };
     };
     "fastq-1.15.0" = {
@@ -923,7 +923,7 @@ in {
       sources."destr-2.0.2"
       sources."dotenv-16.3.1"
       sources."emmet-2.4.6"
-      sources."fast-glob-3.3.1"
+      sources."fast-glob-3.3.2"
       sources."fastq-1.15.0"
       sources."fill-range-7.0.1"
       sources."flat-5.0.2"
