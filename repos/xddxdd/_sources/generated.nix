@@ -106,23 +106,23 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.12.5-1";
+    version = "1.12.5-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.5-1/io.github.msojocs.bilibili_1.12.5-1_amd64.deb";
-      sha256 = "sha256-oQrP2tK2eYVEdfCk+ixlXNahrPZkJcXoxZafPq5OhbU=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.5-2/io.github.msojocs.bilibili_1.12.5-2_amd64.deb";
+      sha256 = "sha256-oaQvJQVHXm7I+3rjt0DPMwGOXLhwgJP6wWu2bhaA1s4=";
     };
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "026498ba2f86bd813fe9e31629f139d6b4ca5f8e";
+    version = "19aa8c77c5c548f393a02525a93e03aeea66b043";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "026498ba2f86bd813fe9e31629f139d6b4ca5f8e";
+      rev = "19aa8c77c5c548f393a02525a93e03aeea66b043";
       fetchSubmodules = false;
-      sha256 = "sha256-DA3AV4D5eoGC3Hyz9JGvHqK8So9rZW7BQDJB54T4dhE=";
+      sha256 = "sha256-yxSzf0jG0mW1F+mhM/4pvlA5dgaO3JOB3YhRG9tmWBU=";
     };
-    date = "2023-10-24";
+    date = "2023-11-06";
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
@@ -201,10 +201,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.1.0.31017";
+    version = "7.1.0.31101";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.1.0.31017_amd64.deb";
-      sha256 = "sha256-wlu1h3YB5yO6BlDVmc9FTDQ9iIC8A97HenK4y/bhupA=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.1.0.31101_amd64.deb";
+      sha256 = "sha256-ZvX/l2l4M1x+xoZd2mSjwdwfAKkXMoVn2vHdS4MOxyk=";
     };
   };
   douban-openapi-server = {
@@ -277,13 +277,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.6";
+    version = "v3.3.7";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.6";
+      rev = "v3.3.7";
       fetchSubmodules = false;
-      sha256 = "sha256-lSOw63yjFdi32N44r3A8Ggvexpov9CnaEP7fD7EBdKc=";
+      sha256 = "sha256-Vv5idg/x+cEzLylsJaWFXdFlcewD0Za3vdGhZCCNqog=";
     };
   };
   flasgger = {
@@ -454,15 +454,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "b94ee464e9f85f1958238bebfc963a2bdfa67695";
+    version = "aeac3a441dd3d95821b04a26baae6f73013538d8";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "b94ee464e9f85f1958238bebfc963a2bdfa67695";
+      rev = "aeac3a441dd3d95821b04a26baae6f73013538d8";
       fetchSubmodules = false;
-      sha256 = "sha256-ASSaDFPTNd1lc/RG0HK/gaekBNGXquTDDFyMTpELa8Y=";
+      sha256 = "sha256-+nYEI2z1nltWKidiPOg2W76YV1Klskij4PQwYBtfOQc=";
     };
-    date = "2023-11-02";
+    date = "2023-11-06";
   };
   librime-charcode = {
     pname = "librime-charcode";
@@ -883,15 +883,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fa12fa4a023347da0f17128af5616e81c6fd6e10";
+    version = "77d4d8c4270889ca39b4423f9bf9fc8a35f79fa2";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "fa12fa4a023347da0f17128af5616e81c6fd6e10";
+      rev = "77d4d8c4270889ca39b4423f9bf9fc8a35f79fa2";
       fetchSubmodules = false;
-      sha256 = "sha256-f+0qUjertVmz06G8ZlhRjRqH4+DzosnUTiVWGtauueg=";
+      sha256 = "sha256-wh6heVtMSMkzuL4D5Szghm3IyopeNEYzPM/q1Ulsch4=";
     };
-    date = "2023-10-30";
+    date = "2023-11-06";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
