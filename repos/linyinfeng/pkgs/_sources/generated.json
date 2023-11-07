@@ -41,11 +41,11 @@
     "commit-notifier": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./commit-notifier-73cf28cd7d848570b76d7be5554f9dec14caa5be/Cargo.lock",
+                "./commit-notifier-d38b2a425cff863398ce471275208ffe2646d555/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-03-25",
+        "date": "2023-11-07",
         "extract": null,
         "name": "commit-notifier",
         "passthru": null,
@@ -55,12 +55,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "73cf28cd7d848570b76d7be5554f9dec14caa5be",
-            "sha256": "sha256-4fyyxPT+NiBIwLzbc9S0BWEsTPjOKCVB4764QIK1kb0=",
+            "rev": "d38b2a425cff863398ce471275208ffe2646d555",
+            "sha256": "sha256-mNrlI07KvSdommd95px6rthZuhZl2nWYucjb6813DBE=",
             "type": "git",
             "url": "https://github.com/linyinfeng/commit-notifier.git"
         },
-        "version": "73cf28cd7d848570b76d7be5554f9dec14caa5be"
+        "version": "d38b2a425cff863398ce471275208ffe2646d555"
     },
     "cowrie": {
         "cargoLocks": null,
