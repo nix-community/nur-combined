@@ -145,16 +145,16 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "641b8722948bde5863cc3a049c2fde394158122d";
+    version = "c2b38f53f0b04bc67f9a0fa3d583bafb3f558718";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "641b8722948bde5863cc3a049c2fde394158122d";
+      rev = "c2b38f53f0b04bc67f9a0fa3d583bafb3f558718";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-pZY9gslSXbBhgrSCUAc+2jLSS674Db8jEH2iz/O2nVU=";
+      sha256 = "sha256-efKPbsXxjHm1wVWPJCV8teG4DgZN5dshEzX8PWuhKo4=";
     };
-    date = "2023-07-28";
+    date = "2023-11-07";
   };
   pyim-greatdict = {
     pname = "pyim-greatdict";
