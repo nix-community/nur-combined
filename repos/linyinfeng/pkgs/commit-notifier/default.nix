@@ -23,5 +23,7 @@ rec {
     description = "A simple telegram bot monitoring commit status";
     license = licenses.mit;
     maintainers = with maintainers; [ yinfeng ];
+    # requires rustc 1.70 or newer
+    broken = !(versionAtLeast (versions.majorMinor trivial.version) "23.11");
   };
 }
