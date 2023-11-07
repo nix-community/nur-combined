@@ -27,20 +27,20 @@
   };
   commit-notifier = {
     pname = "commit-notifier";
-    version = "d38b2a425cff863398ce471275208ffe2646d555";
+    version = "af418b42944e1b1806e3a7cabbac2dbfd616de12";
     src = fetchgit {
       url = "https://github.com/linyinfeng/commit-notifier.git";
-      rev = "d38b2a425cff863398ce471275208ffe2646d555";
+      rev = "af418b42944e1b1806e3a7cabbac2dbfd616de12";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-mNrlI07KvSdommd95px6rthZuhZl2nWYucjb6813DBE=";
+      sha256 = "sha256-O4Kqi6xc96drz16jtwWm9Q/9JlMVFeOSc+EzPYyYMv8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./commit-notifier-d38b2a425cff863398ce471275208ffe2646d555/Cargo.lock;
+      lockFile = ./commit-notifier-af418b42944e1b1806e3a7cabbac2dbfd616de12/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-11-07";
+    date = "2023-11-08";
   };
   cowrie = {
     pname = "cowrie";
