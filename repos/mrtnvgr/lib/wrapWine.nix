@@ -30,7 +30,7 @@ let
         tricksStr = concatStringsSep " " tricks;
         tricksCmd = ''
           pushd $(mktemp -d)
-            ${winetricks} ${if silent then "-q" else ""} ${tricksStr}
+            ${winetricks}/bin/winetricks ${if silent then "-q" else ""} ${tricksStr}
           popd
         '';
       in
