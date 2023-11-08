@@ -128,35 +128,28 @@ let
     }
   ];
 
-  # this submodule creates one attr per store, so that the user can specify something like:
-  #   <option>.private.".cache/vim" = { mode = "0700"; };
-  # to place ".cache/vim" into the private store and create with the appropriate mode
+  # this submodule converts store-based access to path-based access so that the user can specify e.g.:
+  #   <top>.byStore.private = [ ".cache/vim" ];
+  #   <top>.byStore.private = [ { path=".cache/vim"; mode = "0700"; } ];
+  # to place ".cache/vim" into the private store and/or create with the appropriate mode
   entrySubmodule = types.submodule ({ config, ... }: {
-    # TODO: this should be a plain-old `attrsOf (convertInlineAcl entryInStoreOrShorthand)` with downstream checks,
-    #   rather than being filled in based on *other* settings.
-    #   otherwise, it behaves poorly when `sane.persist.enable = false`
-    options = lib.attrsets.unionOfDisjoint
-      # create one option per store:
-      (mapAttrs (store: store-cfg: mkOption {
-        default = [];
-        type = types.listOf (convertInlineAcl entryInStoreOrShorthand);
-        description = let
-          suffix = if store-cfg.storeDescription != null then
-            ": ${store-cfg.storeDescription}"
-          else "";
-        in "directories/files to persist in ${store}${suffix}";
-      }) cfg.stores)
-      # or allow direct access by path
-      {
-        byPath = mkOption {
-          type = types.attrsOf (convertInlineAcl entryAtPath);
-          default = {};
-          description = ''
-            map of <path> => <path config> for all paths to be persisted.
-            this is computed from the other options, but users can also set it explicitly (useful for overriding)
-          '';
-        };
+    options = {
+      byStore = mkOption {
+        type = types.attrsOf (types.listOf (convertInlineAcl entryInStoreOrShorthand));
+        default = {};
+        description = ''
+          directories/files to persist within a specific store (e.g. "plaintext" or "private").
+        '';
       };
+      byPath = mkOption {
+        type = types.attrsOf (convertInlineAcl entryAtPath);
+        default = {};
+        description = ''
+          map of <path> => <path config> for all paths to be persisted.
+          this is computed from the other options, but users can also set it explicitly (useful for overriding)
+        '';
+      };
+    };
     config = let
       # set the `store` attribute on one dir attrset
       annotateWithStore = store: dir: {
@@ -168,13 +161,16 @@ let
       };
       store-names = attrNames cfg.stores;
       # :: (store -> entry -> AttrSet) -> [AttrSet]
+      # applyToAllStores = f: lib.concatMap
+      #   (store: map (f store) config.byStore."${store}")
+      #   store-names;
       applyToAllStores = f: lib.concatMap
-        (store: map (f store) config."${store}")
-        store-names;
+        (store: map (f store) config.byStore."${store}")
+        (builtins.attrNames config.byStore);
     in {
       byPath = lib.mkMerge (concatLists [
         # convert the list-style per-store entries into attrsOf entries
-        (applyToAllStores (store: dirToAttrs))
+        (applyToAllStores (_store: dirToAttrs))
         # add the `store` attr to everything we ingested
         (applyToAllStores annotateWithStore)
       ]);

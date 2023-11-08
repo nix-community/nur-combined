@@ -6,7 +6,7 @@
 { ... }:
 {
   sane.programs."gnome.geary" = {
-    persist.private = [
+    persist.byStore.private = [
       # attachments, and email -- contained in a sqlite db
       ".local/share/geary"
       # also `.cache/geary/web-resources`, which tends to stay << 1 MiB

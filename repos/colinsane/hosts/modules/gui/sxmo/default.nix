@@ -261,7 +261,7 @@ in
           # "superd"     # make superctl (used by sxmo) be on PATH
         ];
 
-        persist.cryptClearOnBoot = [
+        persist.byStore.cryptClearOnBoot = [
           # builds to be 10's of MB per day
           # ".local/state/superd/logs"
         ];
@@ -550,7 +550,7 @@ in
       }
 
       (lib.mkIf (cfg.greeter == "lightdm-mobile") {
-        sane.persist.sys.plaintext = [
+        sane.persist.sys.byStore.plaintext = [
           # this takes up 4-5 MB of fontconfig and mesa shader caches.
           # it could optionally be cleared on boot.
           { path = "/var/lib/lightdm"; user = "lightdm"; group = "lightdm"; mode = "0770"; }

@@ -87,7 +87,7 @@ in
 {
   # private because there could be sensitive things in the swap
   sane.programs.neovim = {
-    persist.private = [ ".cache/vim-swap" ];
+    persist.byStore.private = [ ".cache/vim-swap" ];
     env.EDITOR = "vim";
     # git claims it should use EDITOR, but it doesn't!
     env.GIT_EDITOR = "vim";

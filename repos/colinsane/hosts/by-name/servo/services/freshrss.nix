@@ -15,7 +15,7 @@
     owner = config.users.users.freshrss.name;
     mode = "0400";
   };
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { user = "freshrss"; group = "freshrss"; path = "/var/lib/freshrss"; }
   ];
 

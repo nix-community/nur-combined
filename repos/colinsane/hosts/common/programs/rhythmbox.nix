@@ -1,7 +1,7 @@
 { ... }:
 {
   sane.programs.rhythmbox = {
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       # playlists; index
       ".local/share/rhythmbox"
       # album art

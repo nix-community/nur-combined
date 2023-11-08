@@ -10,7 +10,7 @@ in
 {
   config = lib.mkIf config.sane.roles.client {
     # persist external pairings by default
-    sane.persist.sys.plaintext = [ "/var/lib/bluetooth" ];
+    sane.persist.sys.byStore.plaintext = [ "/var/lib/bluetooth" ];
 
     sane.fs."/var/lib/bluetooth".generated.acl.mode = "0700";
     sane.fs."/var/lib/bluetooth/.secrets.stamp" = {

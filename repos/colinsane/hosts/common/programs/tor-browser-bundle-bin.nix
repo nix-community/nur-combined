@@ -6,7 +6,7 @@
       # - still required as of 2023/07/14
       useHardenedMalloc = false;
     };
-    persist.cryptClearOnBoot = [
+    persist.byStore.cryptClearOnBoot = [
       ".local/share/tor-browser"
     ];
   };

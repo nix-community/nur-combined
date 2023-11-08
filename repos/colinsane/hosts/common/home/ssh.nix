@@ -13,7 +13,7 @@ let
 in
 {
   # ssh key is stored in private storage
-  sane.user.persist.private = [
+  sane.user.persist.byStore.private = [
     { type = "file"; path = ".ssh/id_ed25519"; }
   ];
   sane.user.fs.".ssh/id_ed25519.pub" = lib.mkIf (user-pubkey != null) {

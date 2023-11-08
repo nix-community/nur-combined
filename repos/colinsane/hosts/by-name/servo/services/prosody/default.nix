@@ -56,7 +56,7 @@ let
   enableDebug = false;
 in
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { user = "prosody"; group = "prosody"; path = "/var/lib/prosody"; }
   ];
   sane.ports.ports."5000" = {

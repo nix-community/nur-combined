@@ -101,7 +101,7 @@ in
     })
   ];
 
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     # TODO: mode?
     { user = "matrix-appservice-irc"; group = "matrix-appservice-irc"; path = "/var/lib/matrix-appservice-irc"; }
   ];

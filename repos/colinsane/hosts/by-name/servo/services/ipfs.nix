@@ -10,7 +10,7 @@
 
 lib.mkIf false # i don't actively use ipfs anymore
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     # TODO: mode? could be more granular
     { user = "261"; group = "261"; path = "/var/lib/ipfs"; }
   ];

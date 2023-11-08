@@ -8,7 +8,7 @@
 { ... }:
 {
   sane.programs.g4music = {
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       # index?
       ".cache/com.github.neithern.g4music"
     ];

@@ -18,7 +18,7 @@ let
   };
 in
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     # TODO: mode? could be more granular
     { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; }
     { user = "root"; group = "root"; path = "/var/lib/postfix"; }

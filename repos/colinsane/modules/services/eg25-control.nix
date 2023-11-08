@@ -22,7 +22,7 @@ in
         "networkmanager"  # required to authenticate with mmcli
       ];
     };
-    sane.persist.sys.plaintext = [
+    sane.persist.sys.byStore.plaintext = [
       { user = "eg25-control"; group = "eg25-control"; path = "/var/lib/eg25-control"; }
     ];
 

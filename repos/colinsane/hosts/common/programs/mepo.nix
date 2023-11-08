@@ -4,9 +4,9 @@
 
 {
   sane.programs.mepo = {
-    persist.plaintext = [ ".cache/mepo/tiles" ];
+    persist.byStore.plaintext = [ ".cache/mepo/tiles" ];
     # ~/.cache/mepo/savestate has precise coordinates and pins: keep those private
-    persist.private = [
+    persist.byStore.private = [
       { type = "file"; path = ".cache/mepo/savestate"; }
     ];
 

@@ -16,7 +16,7 @@
 { ... }:
 {
   sane.programs.stepmania = {
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       ".stepmania-5.1/Cache"  #< otherwise gotta index all the songs every launch
       ".stepmania-5.1/Save"
     ];

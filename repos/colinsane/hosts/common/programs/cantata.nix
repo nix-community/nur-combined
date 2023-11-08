@@ -4,7 +4,7 @@
 { ... }:
 {
   sane.programs.cantata = {
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       ".cache/cantata"  # album art
       ".local/share/cantata/library"  # library index (?)
     ];

@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { user = "navidrome"; group = "navidrome"; path = "/var/lib/navidrome"; }
   ];
   services.navidrome.enable = true;

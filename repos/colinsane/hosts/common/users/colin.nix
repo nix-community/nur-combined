@@ -42,8 +42,9 @@
     # - <https://github.com/lourkeur/distro/blob/11173454c6bb50f7ccab28cc2c757dca21446d1d/nixos/profiles/users/louis-full.nix>
     # - <https://github.com/dnr/sample-nix-code/blob/03494480c1fae550c033aa54fd96aeb3827761c5/nixos/laptop.nix>
     pamMount = let
+      hasPrivate = config.fileSystems ? "/home/colin/private";
       priv = config.fileSystems."/home/colin/private";
-    in {
+    in lib.mkIf hasPrivate {
       fstype = priv.fsType;
       path = priv.device;
       mountpoint = priv.mountPoint;
@@ -56,7 +57,7 @@
   sane.users.colin = {
     default = true;
 
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       "archive"
       "dev"
       # TODO: records should be private

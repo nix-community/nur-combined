@@ -34,7 +34,7 @@
   sane.programs.flare-signal = {
     package = pkgs.flare-signal-nixified;
     # package = pkgs.flare-signal;
-    persist.private = [
+    persist.byStore.private = [
       # everything: conf, state, files, all opaque
       ".local/share/flare"
       # also persists a secret in ~/.local/share/keyrings. reset with:

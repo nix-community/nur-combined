@@ -45,7 +45,7 @@ in
       };
     };
 
-    persist.private = [ ".local/share/dino" ];
+    persist.byStore.private = [ ".local/share/dino" ];
 
     services.dino = {
       description = "auto-start and maintain dino XMPP connection";

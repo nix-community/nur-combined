@@ -7,7 +7,7 @@
     # it doesn't obey a conventional ~/Music/{Artist}/{Album}/{Track} notation, so no symlinking
     # config (e.g. server connection details) is persisted in ~/.config/sublime-music/config.json
     #   possible to pass config as a CLI arg (sublime-music -c config.json)
-    persist.plaintext = [ ".local/share/sublime-music" ];
+    persist.byStore.plaintext = [ ".local/share/sublime-music" ];
 
     secrets.".config/sublime-music/config.json" = ../../../secrets/common/sublime_music_config.json.bin;
   };

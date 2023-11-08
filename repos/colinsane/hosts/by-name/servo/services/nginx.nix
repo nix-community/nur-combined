@@ -134,7 +134,7 @@ in
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "admin.acme@uninsane.org";
 
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     # TODO: mode?
     { user = "acme"; group = "acme"; path = "/var/lib/acme"; }
     { user = "colin"; group = "users"; path = "/var/www/sites"; }

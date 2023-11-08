@@ -7,7 +7,7 @@ let
   };
 in
 {
-  sane.user.persist.private = [ ".local/share/keyrings" ];
+  sane.user.persist.byStore.private = [ ".local/share/keyrings" ];
 
   sane.user.fs."private/.local/share/keyrings/default" = {
     generated.command = [ "${init-keyring}/bin/init-keyring" ];

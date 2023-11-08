@@ -236,7 +236,7 @@ in
       # XXX(2023/10/12): rtkit does not play well on moby. any application sending audio out dies after 10s.
       # security.rtkit.enable = true;
       # persist per-device volume levels
-      sane.user.persist.plaintext = [ ".local/state/wireplumber" ];
+      sane.user.persist.byStore.plaintext = [ ".local/state/wireplumber" ];
 
       # persist per-device volume settings across power cycles.
       # pipewire sits atop the kernel ALSA API, so alsa-utils knows about device volumes.
@@ -252,7 +252,7 @@ in
       #     ExecStop = "${pkgs.alsa-utils}/sbin/alsactl store --ignore";
       #   };
       # };
-      # sane.persist.sys.plaintext = [ "/var/lib/alsa" ];
+      # sane.persist.sys.byStore.plaintext = [ "/var/lib/alsa" ];
 
       networking.useDHCP = false;
       networking.networkmanager.enable = true;

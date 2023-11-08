@@ -15,7 +15,7 @@ in
 
   config = mkIf cfg.enable {
     # we need this mostly because of the size of duplicity's cache
-    sane.persist.sys.cryptClearOnBoot = [{
+    sane.persist.sys.byStore.cryptClearOnBoot = [{
       path = "/var/lib/duplicity";
       user = "root";
       group = "root";

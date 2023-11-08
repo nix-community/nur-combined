@@ -4,7 +4,7 @@ let
   inherit (svc-cfg) user group port stateDir;
 in
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { inherit user group; mode = "0700"; path = stateDir; }
   ];
 

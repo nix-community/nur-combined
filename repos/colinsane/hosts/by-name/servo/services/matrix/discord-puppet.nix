@@ -5,7 +5,7 @@
 # - recommended to use mautrix-discord: <https://github.com/NixOS/nixpkgs/pull/200462>
 lib.mkIf false
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/mx-puppet-discord"; }
   ];
 

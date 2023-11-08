@@ -5,7 +5,7 @@ let
   cfg = config.services.pict-rs;
 in
 {
-  sane.persist.sys.plaintext = lib.mkIf cfg.enable [
+  sane.persist.sys.byStore.plaintext = lib.mkIf cfg.enable [
     { user = "pict-rs"; group = "pict-rs"; path = cfg.dataDir; }
   ];
 

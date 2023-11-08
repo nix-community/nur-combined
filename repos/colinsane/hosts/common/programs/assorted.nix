@@ -216,17 +216,17 @@ in
 
     # INDIVIDUAL PACKAGE DEFINITIONS
 
-    cargo.persist.plaintext = [ ".cargo" ];
+    cargo.persist.byStore.plaintext = [ ".cargo" ];
 
     # creds, but also 200 MB of node modules, etc
-    discord.persist.private = [ ".config/discord" ];
+    discord.persist.byStore.private = [ ".config/discord" ];
 
     # `emote` will show a first-run dialog based on what's in this directory.
     # mostly, it just keeps a LRU of previously-used emotes to optimize display order.
     # TODO: package [smile](https://github.com/mijorus/smile) for probably a better mobile experience.
-    emote.persist.plaintext = [ ".local/share/Emote" ];
+    emote.persist.byStore.plaintext = [ ".local/share/Emote" ];
 
-    fluffychat-moby.persist.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
+    fluffychat-moby.persist.byStore.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
     font-manager.package = pkgs.font-manager.override {
       # build without the "Google Fonts" integration feature, to save closure / avoid webkitgtk_4_0
@@ -235,40 +235,40 @@ in
 
     # MS GitHub stores auth token in .config
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
-    gh.persist.private = [ ".config/gh" ];
+    gh.persist.byStore.private = [ ".config/gh" ];
 
-    "gnome.gnome-maps".persist.plaintext = [ ".cache/shumate" ];
-    "gnome.gnome-maps".persist.private = [ ".local/share/maps-places.json" ];
+    "gnome.gnome-maps".persist.byStore.plaintext = [ ".cache/shumate" ];
+    "gnome.gnome-maps".persist.byStore.private = [ ".local/share/maps-places.json" ];
 
     # actual monero blockchain (not wallet/etc; safe to delete, just slow to regenerate)
     # XXX: is it really safe to persist this? it doesn't have info that could de-anonymize if captured?
-    monero-gui.persist.plaintext = [ ".bitmonero" ];
+    monero-gui.persist.byStore.plaintext = [ ".bitmonero" ];
 
-    mumble.persist.private = [ ".local/share/Mumble" ];
+    mumble.persist.byStore.private = [ ".local/share/Mumble" ];
 
     # settings (electron app)
-    obsidian.persist.plaintext = [ ".config/obsidian" ];
+    obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
 
     python3-repl.package = pkgs.python3.withPackages (ps: with ps; [
       requests
     ]);
 
     # creds, media
-    signal-desktop.persist.private = [ ".config/Signal" ];
+    signal-desktop.persist.byStore.private = [ ".config/Signal" ];
 
     # printer/filament settings
-    slic3r.persist.plaintext = [ ".Slic3r" ];
+    slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
 
-    tdesktop.persist.private = [ ".local/share/TelegramDesktop" ];
+    tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
 
-    tokodon.persist.private = [ ".cache/KDE/tokodon" ];
+    tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
 
-    whalebird.persist.private = [ ".config/Whalebird" ];
+    whalebird.persist.byStore.private = [ ".config/Whalebird" ];
 
-    yarn.persist.plaintext = [ ".cache/yarn" ];
+    yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
 
     # zcash coins. safe to delete, just slow to regenerate (10-60 minutes)
-    zecwallet-lite.persist.private = [ ".zcash" ];
+    zecwallet-lite.persist.byStore.private = [ ".zcash" ];
   };
 
   programs.feedbackd = lib.mkIf config.sane.programs.feedbackd.enabled {

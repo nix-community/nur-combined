@@ -25,7 +25,7 @@ in
 
     sane.users.guest.fs.".ssh/authorized_keys".symlink.target = config.sops.secrets."guest/authorized_keys".path or "/dev/null";
 
-    sane.persist.sys.plaintext = lib.mkIf cfg.enable [
+    sane.persist.sys.byStore.plaintext = lib.mkIf cfg.enable [
       # intentionally allow other users to write to the guest folder
       { path = "/home/guest"; user = "guest"; group = "users"; mode = "0775"; }
     ];

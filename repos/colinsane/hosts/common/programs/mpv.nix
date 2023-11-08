@@ -53,7 +53,7 @@ in
         "--add-flags" "--vo=${cfg.config.vo}"
       ];
     };
-    persist.plaintext = [ ".local/state/mpv/watch_later" ];
+    persist.byStore.plaintext = [ ".local/state/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = ''
       # let volume/power keys be interpreted by the system.
       # this is important for sxmo.

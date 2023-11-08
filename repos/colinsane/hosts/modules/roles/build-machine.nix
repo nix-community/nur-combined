@@ -73,7 +73,7 @@ in
       # TODO: configure without compression (leverage fs-level compression), and enable file-clone (i.e. hardlinks)
       programs.ccache.enable = true;
       nix.settings.extra-sandbox-paths = [ cacheDir ];
-      sane.persist.sys.plaintext = [
+      sane.persist.sys.byStore.plaintext = [
         { group = "nixbld"; mode = "0775"; path = config.programs.ccache.cacheDir; }
       ];
       sane.fs."${cacheDir}/ccache.conf" = sane-lib.fs.wantedText ''

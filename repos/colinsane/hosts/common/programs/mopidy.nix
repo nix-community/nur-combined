@@ -42,10 +42,10 @@ in
       # mopidy-moped: <https://github.com/martijnboland/moped>
       # mopidy-muse: <https://github.com/cristianpb/muse>
     ]);
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       ".local/share/mopidy/local"  # thumbs, library db
     ];
-    persist.private = [
+    persist.byStore.private = [
       ".local/share/mopidy/http"  # cookie
     ];
     secrets.".config/mopidy/mopidy.conf" = ../../../secrets/common/mopidy.conf.bin;

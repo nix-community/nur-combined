@@ -20,7 +20,7 @@
     ./signal.nix
   ];
 
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/matrix-synapse"; }
   ];
   services.matrix-synapse.enable = true;

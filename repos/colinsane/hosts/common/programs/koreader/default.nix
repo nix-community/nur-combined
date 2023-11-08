@@ -44,6 +44,6 @@ in {
 
     # history, cache, dictionaries...
     # could be more explicit if i symlinked the history.lua file to somewhere it can persist better.
-    persist.plaintext = [ ".config/koreader" ];
+    persist.byStore.plaintext = [ ".config/koreader" ];
   };
 }

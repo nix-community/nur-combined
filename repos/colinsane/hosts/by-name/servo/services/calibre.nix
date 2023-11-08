@@ -12,7 +12,7 @@ in
 # > AttributeError: 'NoneType' object has no attribute 'query'
 lib.mkIf false
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { inherit user group; mode = "0700"; path = svc-dir; }
   ];
 

@@ -36,7 +36,7 @@
   };
   sane.fs."/mnt/persist/ext".mount = {};
 
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     # TODO: this is overly broad; only need media and share directories to be persisted
     { user = "colin"; group = "users"; path = "/var/lib/uninsane"; }
   ];

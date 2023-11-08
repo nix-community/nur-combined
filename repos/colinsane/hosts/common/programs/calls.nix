@@ -30,7 +30,7 @@ in
       };
     };
 
-    persist.private = [
+    persist.byStore.private = [
       # ".cache/folks"      # contact avatars?
       # ".config/calls"
       ".local/share/calls"  # call "records"

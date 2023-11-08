@@ -1,7 +1,7 @@
 { config, lib, ...}:
 {
   sane.programs.steam = {
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       ".steam"
       ".local/share/Steam"
     ];

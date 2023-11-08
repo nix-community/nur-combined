@@ -1,11 +1,11 @@
 { ... }:
 {
   sane.programs.spotify = {
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       # probably just songs and such (haven't checked)
       ".cache/spotify"
     ];
-    persist.private = [
+    persist.byStore.private = [
       # creds, widevine .so download. TODO: could easily manage these statically.
       ".config/spotify"
     ];

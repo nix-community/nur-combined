@@ -1,7 +1,7 @@
 { ... }:
 {
   sane.programs.gajim = {
-    persist.private = [
+    persist.byStore.private = [
       # avatars, thumbnails...
       ".cache/gajim"
       # sqlite database labeled "settings". definitely includes UI theming

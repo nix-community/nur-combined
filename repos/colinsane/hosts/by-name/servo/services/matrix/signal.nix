@@ -2,7 +2,7 @@
 # - <https://github.com/mautrix/signal/blob/master/mautrix_signal/example-config.yaml>
 { config, pkgs, ... }:
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { user = "mautrix-signal"; group = "mautrix-signal"; path = "/var/lib/mautrix-signal"; }
     { user = "signald"; group = "signald"; path = "/var/lib/signald"; }
   ];

@@ -119,7 +119,7 @@ in
 
       # persisting fontconfig & mesa_shader_cache improves start time by ~5x
       users.users.greeter.home = "/var/lib/greeter";
-      sane.persist.sys.plaintext = [
+      sane.persist.sys.byStore.plaintext = [
         { user = "greeter"; group = "greeter"; path = "/var/lib/greeter/.cache/fontconfig"; }
         { user = "greeter"; group = "greeter"; path = "/var/lib/greeter/.cache/mesa_shader_cache"; }
       ];

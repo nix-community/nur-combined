@@ -23,6 +23,6 @@ in {
     '';
 
     # this is where the parsed feed items go
-    persist.plaintext = [ ".sfeed/feeds" ];
+    persist.byStore.plaintext = [ ".sfeed/feeds" ];
   };
 }

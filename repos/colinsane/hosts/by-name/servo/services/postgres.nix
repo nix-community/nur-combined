@@ -6,7 +6,7 @@ let
   KiB = n: 1024*n;
 in
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     # TODO: mode?
     { user = "postgres"; group = "postgres"; path = "/var/lib/postgresql"; }
   ];

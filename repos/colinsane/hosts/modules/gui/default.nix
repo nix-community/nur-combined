@@ -132,7 +132,7 @@
     ];
   };
 
-  sane.persist.sys.plaintext = lib.mkIf config.sane.programs.guiApps.enabled [
+  sane.persist.sys.byStore.plaintext = lib.mkIf config.sane.programs.guiApps.enabled [
     "/var/lib/alsa"                # preserve output levels, default devices
     "/var/lib/colord"              # preserve color calibrations (?)
     "/var/lib/systemd/backlight"   # backlight brightness

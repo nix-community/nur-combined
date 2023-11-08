@@ -3,7 +3,7 @@
 { ... }:
 {
   sane.programs.gnome-weather = {
-    persist.plaintext = [
+    persist.byStore.plaintext = [
       ".cache/libgweather"
     ];
   };

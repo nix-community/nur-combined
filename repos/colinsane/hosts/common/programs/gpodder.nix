@@ -24,6 +24,6 @@ in {
 
     # XXX: we preserve the whole thing because if we only preserve gPodder/Downloads
     #   then startup is SLOW during feed import, and we might end up with zombie eps in the dl dir.
-    persist.plaintext = [ ".local/share/gPodder" ];
+    persist.byStore.plaintext = [ ".local/share/gPodder" ];
   };
 }

@@ -40,7 +40,7 @@
     description = "colin-jellyfin-https-lan";
   };
 
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin"; }
   ];
   sane.fs."/var/lib/jellyfin/config/logging.json" = {

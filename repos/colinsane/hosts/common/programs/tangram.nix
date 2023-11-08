@@ -27,7 +27,7 @@ in
       '' + (upstream.preFixup or "");
     });
 
-    persist.private = [
+    persist.byStore.private = [
       ".cache/Tangram"
       ".local/share/Tangram"
       # dconf achieves atomic writes via `mv`, so a symlink doesn't work

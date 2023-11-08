@@ -37,7 +37,7 @@ in
       };
     };
 
-    persist.private = [
+    persist.byStore.private = [
       # XXX by default fractal stores its state in ~/.local/share/<build-profile>/<UUID>.
       ".local/share/hack"    # for debug-like builds
       ".local/share/stable"  # for normal releases

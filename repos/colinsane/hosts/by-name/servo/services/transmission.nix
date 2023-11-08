@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     # TODO: mode? we need this specifically for the stats tracking in .config/
     { user = "transmission"; group = config.users.users.transmission.group; path = "/var/lib/transmission"; }
   ];

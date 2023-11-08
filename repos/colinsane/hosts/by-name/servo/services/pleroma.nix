@@ -14,7 +14,7 @@ let
   # logLevel = "debug";
 in
 {
-  sane.persist.sys.plaintext = [
+  sane.persist.sys.byStore.plaintext = [
     { user = "pleroma"; group = "pleroma"; path = "/var/lib/pleroma"; }
   ];
   services.pleroma.enable = true;

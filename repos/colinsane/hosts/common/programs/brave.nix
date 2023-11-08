@@ -1,7 +1,7 @@
 { ... }:
 {
   sane.programs.brave = {
-    persist.cryptClearOnBoot = [
+    persist.byStore.cryptClearOnBoot = [
       ".cache/BraveSoftware"
       ".config/BraveSoftware"
     ];
