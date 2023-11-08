@@ -121,7 +121,7 @@ in
 
     # also expose a wg-quick interface, so that one may `sane-vpn up servo` to route all traffic through servo
     networking.wg-quick.interfaces.vpn-servo = {
-      address = cfg.ip;
+      address = [ cfg.ip ];
       dns = [
         config.sane.hosts.by-name."servo".wg-home.ip
       ];
