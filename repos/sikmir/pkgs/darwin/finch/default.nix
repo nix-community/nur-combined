@@ -5,39 +5,39 @@ let
   # Check LIMA_URL in Makefile
   lima = {
     "x86_64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1679936560.tar.gz";
-      hash = "sha256-WpDR71QwMVi5ztJ0t+2lv3nPdpsrrAZunBNgSUtHags=";
+      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1695247723.tar.gz";
+      hash = "sha256-AuyO6Egz5MMFqSE31hNM0VgLXMUBLifpDz4BwclD5LM=";
     };
     "aarch64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1679936560.tar.gz";
-      hash = "sha256-WpDR71QwMVi5ztJ0t+2lv3nPdpsrrAZunBNgSUtHags=";
+      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1695247723.tar.gz";
+      hash = "sha256-VetbhEPBUiMVdHN6ypS9SJMhHIShVjuurnffPtukzjE=";
     };
   }.${stdenv.hostPlatform.system};
   # Check FINCH_OS_BASENAME in Makefile
   os = {
     "x86_64-darwin" = fetchurl {
-      url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/${arch}/images/Fedora-Cloud-Base-37-1.7.${arch}.qcow2";
-      hash = "sha256-tbm+yR7uZUiaV0X27mIFc7IzN8ux60UBziALFXoB86A=";
+      url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/${arch}/images/Fedora-Cloud-Base-38-1.6.${arch}.qcow2";
+      hash = "sha256-0zRnBAH/PVtBKfzGYs9k9ablaCKK9ZB2zESaSUUxhII=";
     };
     "aarch64-darwin" = fetchurl {
-      url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/${arch}/images/Fedora-Cloud-Base-37-1.7.${arch}.qcow2";
-      hash = "sha256-zIsPSbxgh1oW7vZa0T4OhrpQK6NYXMURRvEfQYKmKMA=";
+      url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/${arch}/images/Fedora-Cloud-Base-38-1.6.${arch}.qcow2";
+      hash = "sha256-0zRnBAH/PVtBKfzGYs9k9ablaCKK9ZB2zESaSUUxhII=";
     };
   }.${stdenv.hostPlatform.system};
 in
 buildGoModule rec {
   pname = "finch";
-  version = "0.6.2";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "runfinch";
     repo = "finch";
     rev = "v${version}";
-    hash = "sha256-hffcBp67SdUaXjhFUYkhAWBJavzhC+pVspW0bPx/3RY=";
+    hash = "sha256-vCucOIbePR7WkQR7xr71wyvYgLQgAinH2YxK+YzP/8c=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-/hLXY2UYr0N6wiu2UP0Cr6B9sd2JrAS1AVNA/RHy4t8=";
+  vendorHash = "sha256-GjTsS0VSjWTlopLQa8LfL+P5z1qrliWXKXn2i2c2UHo=";
 
   subPackages = [ "cmd/finch" ];
 
