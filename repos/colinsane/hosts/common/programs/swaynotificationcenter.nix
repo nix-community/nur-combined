@@ -116,8 +116,15 @@ in
     package = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
       # allow toggle buttons:
       patches = (upstream.patches or []) ++ [
+        # (pkgs.fetchpatch {
+        #   url = "https://github.com/ErikReider/SwayNotificationCenter/pull/304.patch";
+        #   name = "Add toggle button";
+        #   hash = "sha256-bove2EXc5FZ5nN1X1FYOn3czCgHG03ibIAupJNoctiM=";
+        # })
         (pkgs.fetchpatch {
-          url = "https://github.com/ErikReider/SwayNotificationCenter/pull/304.patch";
+          # import of <https://github.com/ErikReider/SwayNotificationCenter/pull/304>
+          # as of 2023/11/08 the upstream patch has merge conflicts AND runtime issues (see wip-swaync-update nixos branch)
+          url = "https://git.uninsane.org/colin/SwayNotificationCenter/commit/d9a0d938b88cbee65cfaef887af77a5a23d5fe89.patch";
           name = "Add toggle button";
           hash = "sha256-bove2EXc5FZ5nN1X1FYOn3czCgHG03ibIAupJNoctiM=";
         })
@@ -145,11 +152,11 @@ in
         background: rgba(0, 0, 0, 0.5);
       }
 
-      button {
+      .widget-buttons-grid>flowbox>flowboxchild>button.toggle {
         /* text color for inactive buttons, and "Clear All" button.*/
         color: rgb(172, 172, 172);
       }
-      button.active {
+      .widget-buttons-grid>flowbox>flowboxchild>button.toggle.active {
         color: rgb(255, 255, 255);
         background-color: rgb(0, 110, 190);
       }
