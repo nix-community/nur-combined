@@ -1,6 +1,6 @@
-{ lib, less, ncurses, buildGo121Module, fetchFromGitHub, makeWrapper }:
+{ lib, less, ncurses, buildGoModule, fetchFromGitHub, makeWrapper }:
 
-buildGo121Module rec {
+buildGoModule rec {
   pname = "circumflex";
   version = "3.5";
 
