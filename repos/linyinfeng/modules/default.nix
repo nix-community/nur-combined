@@ -1,5 +1,4 @@
 {
-  commit-notifier = ./services/commit-notifier.nix;
   dot-tar = ./services/dot-tar.nix;
   matrix-media-repo = ./services/matrix-media-repo.nix;
   vlmcsd = ./services/vlmcsd.nix;

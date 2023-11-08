@@ -40,7 +40,6 @@ packageSet = do
   gitPkgBranch "mutter-mobile-shell" "https://gitlab.gnome.org/verdre/mutter.git" "mobile-shell"
   fishPlugins
   birdBabelRtt
-  commitNotifier
   tgSend
   dotTar
   icalinguaPlusPlus
@@ -75,16 +74,6 @@ birdBabelRtt =
                         "bird",
                         includeRegex ?~ ".*-babel-rtt"
                       )
-
-commitNotifier :: PackageSet ()
-commitNotifier =
-  define $
-    package "commit-notifier"
-      `sourceGit` url
-      `fetchGit` url
-      `hasCargoLocks` ["Cargo.lock"]
-  where
-    url = "https://github.com/linyinfeng/commit-notifier.git"
 
 dotTar :: PackageSet ()
 dotTar =

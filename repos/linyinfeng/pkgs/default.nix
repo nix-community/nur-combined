@@ -22,7 +22,6 @@ lib.makeScope newScope (
     bird-babel-rtt = callPackage ./bird-babel-rtt { };
     canokey-udev-rules = callPackage ./canokey-udev-rules { };
     cf-terraforming = callPackage ./cf-terraforming { };
-    commit-notifier = callPackage ./commit-notifier { };
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
     emacsPackages = lib.recurseIntoAttrs (callPackage ./emacs-packages {

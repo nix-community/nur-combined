@@ -38,30 +38,6 @@
         },
         "version": "v2.13-babel-rtt"
     },
-    "commit-notifier": {
-        "cargoLocks": {
-            "Cargo.lock": [
-                "./commit-notifier-af418b42944e1b1806e3a7cabbac2dbfd616de12/Cargo.lock",
-                {}
-            ]
-        },
-        "date": "2023-11-08",
-        "extract": null,
-        "name": "commit-notifier",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "af418b42944e1b1806e3a7cabbac2dbfd616de12",
-            "sha256": "sha256-O4Kqi6xc96drz16jtwWm9Q/9JlMVFeOSc+EzPYyYMv8=",
-            "type": "git",
-            "url": "https://github.com/linyinfeng/commit-notifier.git"
-        },
-        "version": "af418b42944e1b1806e3a7cabbac2dbfd616de12"
-    },
     "cowrie": {
         "cargoLocks": null,
         "date": null,

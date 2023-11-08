@@ -25,23 +25,6 @@
       sha256 = "sha256-e+HPBVHiZGMCpwz8iPQlIGRuDFydG83rpw1jFf1uavc=";
     };
   };
-  commit-notifier = {
-    pname = "commit-notifier";
-    version = "af418b42944e1b1806e3a7cabbac2dbfd616de12";
-    src = fetchgit {
-      url = "https://github.com/linyinfeng/commit-notifier.git";
-      rev = "af418b42944e1b1806e3a7cabbac2dbfd616de12";
-      fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-O4Kqi6xc96drz16jtwWm9Q/9JlMVFeOSc+EzPYyYMv8=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./commit-notifier-af418b42944e1b1806e3a7cabbac2dbfd616de12/Cargo.lock;
-      outputHashes = { };
-    };
-    date = "2023-11-08";
-  };
   cowrie = {
     pname = "cowrie";
     version = "v2.5.0";

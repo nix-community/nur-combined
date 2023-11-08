@@ -24,7 +24,6 @@ let
     }
     (empty "canokey-udev-rules")
     (trivial "cf-terraforming")
-    (trivial "commit-notifier")
     (trivial "cowrie")
     (trivial "devPackages/nvfetcher-self")
     (trivial "devPackages/update")
