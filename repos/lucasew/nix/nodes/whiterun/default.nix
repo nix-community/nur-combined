@@ -33,6 +33,9 @@ in {
   services.hardware.openrgb.enable = true;
 
   services.transmission.enable = true;
+
+  services.miniflux.enable = true;
+
   systemd.services.transmission.serviceConfig.BindPaths = [
     "/storage/downloads"
   ];

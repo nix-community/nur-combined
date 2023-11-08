@@ -6,6 +6,7 @@
     ./cockpit-extra.nix
     ./invidious.nix
     ./magnetico.nix
+    ./miniflux.nix
     ./libreddit.nix
     ./transmission.nix
     ./tt-rss.nix
