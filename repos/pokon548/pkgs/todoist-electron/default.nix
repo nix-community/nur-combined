@@ -1,14 +1,11 @@
 { lib, appimageTools, fetchurl, asar }: let
   pname = "todoist-electron";
-  version = "8.6.0";
+  version = "8.9.5";
 
-  src = lib.warn
-    "nur.repos.pokon548.todoist-electron will be deprecated as soon as nixpkgs merge latest commits. See https://github.com/NixOS/nixpkgs/pull/250120"
-    fetchurl {
-      url =
-        "https://electron-dl.todoist.com/linux/Todoist-linux-x86_64-${version}.AppImage";
-      hash = "sha256-LjztKgpPm4RN1Pn5gIiPg8UCO095kzTQ9BTEG5Rlv10=";
-    };
+  src = fetchurl {
+    url = "https://electron-dl.todoist.com/linux/Todoist-linux-x86_64-${version}.AppImage";
+    hash = "sha256-fGyrz0hguuDfdcEeIJhrq7SXSo3TBXuXNJNpvNjqO3A=";
+  };
 
   appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (oA: {
     buildCommand = ''
@@ -43,6 +40,6 @@ in appimageTools.wrapAppImage {
     description = "The official Todoist electron app";
     platforms = [ "x86_64-linux" ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ i077 kylesferrazza pokon548 ];
+    maintainers = with maintainers; [ kylesferrazza pokon548 ];
   };
 }
