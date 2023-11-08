@@ -36,7 +36,7 @@
   },
   "cardinal": {
     "cargoLocks": null,
-    "date": "2023-11-05",
+    "date": "2023-11-07",
     "extract": null,
     "name": "cardinal",
     "passthru": null,
@@ -48,11 +48,11 @@
       "name": null,
       "owner": "DISTRHO",
       "repo": "Cardinal",
-      "rev": "9e567c96ea478ed8fc7a74751f6c318d43aee604",
-      "sha256": "sha256-HXPJAQBJTbJmzLLwHNpYc6PChewKbbnSl1AhuhjoPII=",
+      "rev": "f47d336e5ab8639418d774429dde54be302e9ee7",
+      "sha256": "sha256-yJMRtKUhqv6bCK8vrrPH1DhR8c85cnWj3bH+cIqENpY=",
       "type": "github"
     },
-    "version": "9e567c96ea478ed8fc7a74751f6c318d43aee604"
+    "version": "f47d336e5ab8639418d774429dde54be302e9ee7"
   },
   "carla-git": {
     "cargoLocks": null,
@@ -116,7 +116,7 @@
   },
   "dwm-flexipatch": {
     "cargoLocks": null,
-    "date": "2023-11-05",
+    "date": "2023-11-07",
     "extract": null,
     "name": "dwm-flexipatch",
     "passthru": null,
@@ -128,11 +128,11 @@
       "name": null,
       "owner": "bakkeby",
       "repo": "dwm-flexipatch",
-      "rev": "4a22fd046cdeb53899eb23f81607287244dcdfdb",
-      "sha256": "sha256-sqLJW1V6z3C9DOHweuvbT5cY+0kTZuGxbznca+45heQ=",
+      "rev": "332c90049d5fd08a35b4e2e73312d9d5536e3e62",
+      "sha256": "sha256-xBiHk6CcKXoyZBCxUAdiK298q+IJMvL+EHwRI7uhZ9g=",
       "type": "github"
     },
-    "version": "4a22fd046cdeb53899eb23f81607287244dcdfdb"
+    "version": "332c90049d5fd08a35b4e2e73312d9d5536e3e62"
   },
   "fennel-language-server": {
     "cargoLocks": {

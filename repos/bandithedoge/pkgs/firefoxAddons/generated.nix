@@ -1120,10 +1120,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.4.25";
+    version = "5.4.26";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4185110/sponsorblock-5.4.25.xpi";
-    sha256 = "7bb6d42b76acca487be8e11af23db9c3df916b40e3665446d6335d3e1c7a16f4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4189581/sponsorblock-5.4.26.xpi";
+    sha256 = "457c8a2fdf90aee4fb33891056c114bba717fbbf6c5166d30c6dcbc7e40c9567";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -1140,10 +1140,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "3.7.4";
+    version = "3.7.5";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4186682/steam_database-3.7.4.xpi";
-    sha256 = "4f0abc16ea290fcf90020d6c8c40549855c5394531367bec45229314827a880b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4190119/steam_database-3.7.5.xpi";
+    sha256 = "f382947ef9e83c018f48399adb79a2c00e913823b992cf28d0d59e8bf4c4b608";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
