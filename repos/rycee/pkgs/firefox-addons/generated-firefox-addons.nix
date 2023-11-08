@@ -187,10 +187,10 @@
       };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.7";
+      version = "1.0.8";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4072031/angular_devtools-1.0.7.xpi";
-      sha256 = "85359059376fd3ecbddce5cfd0ff6f811c72ad097944e6274fe2906990f4f6cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191894/angular_devtools-1.0.8.xpi";
+      sha256 = "9f1d3f1331bc70ca96afe4bcb906792483c696eb5cc42d84b6675ccb11769468";
       meta = with lib;
       {
         homepage = "https://angular.io/devtools";
@@ -641,10 +641,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.9.2";
+      version = "2023.10.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180072/bitwarden_password_manager-2023.9.2.xpi";
-      sha256 = "e76cc68f7f194b52f615ec9df80f82308cd55e6234afff5fb41ee7de9f7a27f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4189661/bitwarden_password_manager-2023.10.1.xpi";
+      sha256 = "0cf5f8b21ddf9b0f37f3bf1839978b89063114166c8a75c69fada2cc0eb98758";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1682,10 +1682,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.10.24";
+      version = "2023.11.2";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4185749/duckduckgo_for_firefox-2023.10.24.xpi";
-      sha256 = "71614adaece9702ae13f1494306a62d2f3b05dea93b40260509086b70b7df74b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4189794/duckduckgo_for_firefox-2023.11.2.xpi";
+      sha256 = "73ec345a77bf945c6eeafc341fc8f3ab9d16687fe870f2f2bfad89109f87b0f8";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -6595,10 +6595,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.8.3";
+      version = "1.8.4";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4185399/proton_pass-1.8.3.xpi";
-      sha256 = "21a25343f0ac7afa2de563057fd2430afa92779d7b9fa521baa13646097141b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4188487/proton_pass-1.8.4.xpi";
+      sha256 = "268615d5204f5e64bccf1d60671a6763955267903b2eae999a385aaa50a80bc3";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -6635,10 +6635,10 @@
       };
     "protondb-for-steam" = buildFirefoxXpiAddon {
       pname = "protondb-for-steam";
-      version = "1.8.1";
+      version = "2.0.0";
       addonId = "{30280527-c46c-4e03-bb16-2e3ed94fa57c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3736312/protondb_for_steam-1.8.1.xpi";
-      sha256 = "879a5d1a2b757d54089d07a325340656ba2968f57408fe53259dc31d72a687a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190776/protondb_for_steam-2.0.0.xpi";
+      sha256 = "932ee87ba2d3663e927b3158a18ca18c9e5372ec76f3210679689a8391e25877";
       meta = with lib;
       {
         homepage = "https://github.com/tryton-vanmeer/ProtonDB-for-Steam#protondb-for-steam";
@@ -6646,7 +6646,6 @@
         license = licenses.lgpl3;
         mozPermissions = [
           "https://www.protondb.com/*"
-          "storage"
           "https://store.steampowered.com/app/*"
           "https://store.steampowered.com/wishlist/*"
           ];
@@ -6726,10 +6725,10 @@
       };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
-      version = "6.6.13";
+      version = "6.6.17";
       addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139890/raindropio-6.6.13.xpi";
-      sha256 = "f4e38405c6b2d62b13dfd74cbc3c6432005c4341d3057975004fdb76b79946d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4189809/raindropio-6.6.17.xpi";
+      sha256 = "31c0dc6920e67cd06b9d6a85fac1d5f3f57367cbdf7bdae4e1f847308f87be90";
       meta = with lib;
       {
         homepage = "https://raindrop.io";
@@ -7060,10 +7059,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "5.8.1";
+      version = "6.1.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4179298/search_by_image-5.8.1.xpi";
-      sha256 = "ce8b510ba1df4bb941a5a82001ec85e92b6a265701ae141a7e9c63df0155e7db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4189577/search_by_image-6.1.0.xpi";
+      sha256 = "1de51c7522b8bf3aca5c2bc4fbd94f5fb092d4418ea8fe4583c8dff2b71b4209";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -7071,7 +7070,6 @@
         license = licenses.gpl3;
         mozPermissions = [
           "alarms"
-          "clipboardRead"
           "contextMenus"
           "storage"
           "unlimitedStorage"
@@ -7409,10 +7407,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.25";
+      version = "5.4.26";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4185110/sponsorblock-5.4.25.xpi";
-      sha256 = "7bb6d42b76acca487be8e11af23db9c3df916b40e3665446d6335d3e1c7a16f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4189581/sponsorblock-5.4.26.xpi";
+      sha256 = "457c8a2fdf90aee4fb33891056c114bba717fbbf6c5166d30c6dcbc7e40c9567";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -7513,10 +7511,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.7.4";
+      version = "3.7.5";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4186682/steam_database-3.7.4.xpi";
-      sha256 = "4f0abc16ea290fcf90020d6c8c40549855c5394531367bec45229314827a880b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190119/steam_database-3.7.5.xpi";
+      sha256 = "f382947ef9e83c018f48399adb79a2c00e913823b992cf28d0d59e8bf4c4b608";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -9106,10 +9104,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.65";
+      version = "6.10.67";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4150627/wappalyzer-6.10.65.xpi";
-      sha256 = "2f157f2c5b03a84168e2c2b0afddde38e753508d4d350953322522845686d411";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4189626/wappalyzer-6.10.67.xpi";
+      sha256 = "a4fcb78f9a4c776ce5e97cee9e3ef6d57b504cf40dbe8195cbfeaf09004b9cee";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -9125,7 +9123,6 @@
           "storage"
           "tabs"
           "webRequest"
-          "webNavigation"
           "http://*/*"
           "https://*/*"
           ];
