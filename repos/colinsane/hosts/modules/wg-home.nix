@@ -79,6 +79,7 @@ in
       visibleTo.wan = cfg.visibleToWan;
       description = "colin-wireguard";
     };
+
     networking.wireguard.interfaces.wg-home = lib.mkMerge [
       {
         listenPort = 51820;
@@ -117,5 +118,33 @@ in
         '';
       })
     ];
+
+    # also expose a wg-quick interface, so that one may `sane-vpn up servo` to route all traffic through servo
+    networking.wg-quick.interfaces.vpn-servo = {
+      address = cfg.ip;
+      dns = [
+        config.sane.hosts.by-name."servo".wg-home.ip
+      ];
+      privateKeyFile = "/run/wg-home.priv";
+
+      peers = [
+        {
+          endpoint = config.sane.hosts.by-name."servo".wg-home.endpoint;
+          publicKey = config.sane.hosts.by-name."servo".wg-home.pubkey;
+          allowedIPs = [
+            "0.0.0.0/0"
+            "::/0"
+          ];
+        }
+      ];
+      # to start: `systemctl start wg-quick-${name}`
+      autostart = false;
+
+      # wg-home and vpn-servo interfaces interfere with the result that when connected to both,
+      # other wg-home users (lappy-hn, ...) aren't visible. disabling wg-home while the full
+      # vpn-servo is active allows wg-home users to be reachable again
+      preUp = "${pkgs.iproute2}/bin/ip link set wg-home down";
+      postDown = "${pkgs.iproute2}/bin/ip link set wg-home up";
+    };
   };
 }

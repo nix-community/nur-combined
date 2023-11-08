@@ -27,6 +27,7 @@ in
     ./starship.nix
   ];
   options = {
+    # TODO: port to sane.programs options
     sane.zsh = {
       showDeadlines = mkOption {
         type = types.bool;
@@ -37,6 +38,14 @@ in
         type = types.bool;
         default = true;
         description = "enable starship prompt";
+      };
+      guiIntegrations = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          integrate with things like VTE, so that windowing systems can show the PWD in the title.
+          drags in gtk+3.
+        '';
       };
     };
   };
@@ -145,7 +154,7 @@ in
         '';
 
         syntaxHighlighting.enable = true;
-        vteIntegration = true;
+        vteIntegration = cfg.guiIntegrations;
       };
 
       # enable a command-not-found hook to show nix packages that might provide the binary typed.

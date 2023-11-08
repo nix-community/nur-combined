@@ -59,7 +59,7 @@ in [
     title = "trust-dns: 0.23.0 -> 0.24.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263054";
     saneCommit = "cb13904421c1870df1059bfe5988a24107983a5f";
-    hash = "sha256-iZ8ox5GdY6s+fyyUFPboIalYadAnsjxk6jNOdkQcZjI=";
+    hash = "sha256-tXU1XXEQbZ3IMPncZB42XQPvx3IZMr5ez5bCfGRGVsk=";
   })
   # (fetchpatch' {
   #   title = "trust-dns: 0.23.0 -> 0.24.0";
@@ -165,7 +165,7 @@ in [
     title = "splatmoji: init at 1.2.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
     saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
-    hash = "sha256-jDXYLlXaEBKMrZ2dgxc6ucrcX/5dtqoIIKw+Ay19vlc=";
+    hash = "sha256-abLakAWaRfc8tgu4IwUdR/w8GAuSl+OhQkYozlprD0c=";
   })
 
   # (fetchpatch {
@@ -193,7 +193,7 @@ in [
   (fetchpatch' {
     title = "bambu-studio: init at 01.06.02.04";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/206495";
-    hash = "sha256-Z+IOzd+bnxjg6neF1YcrRDTzz9GhJfbbj0Wa8yTXsa4=";
+    hash = "sha256-s1KrjjTsGK0+aimFHzPCvkFG0fN/l6Tqlt5l9rmh8iY=";
   })
 
   # (fetchpatch' {
@@ -286,7 +286,7 @@ in [
     # includes hare-json and hare-ev as pre-reqs
     title = "bonsai: init at 1.0.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
-    hash = "sha256-HaTr7GBCfK1I2e7K4k2dUGZ6hZf4PwtEFobLaSz262M=";
+    hash = "sha256-EIv0hx0pXQUDz4V3PRj1SpdgNuL068Yh3zBYS9Ioh+w=";
   })
 
   # pin to a pre-0.17.3 release
@@ -373,7 +373,7 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/246937";
     saneCommit = "ecd423195d72036a209912868ad02742cb4b6fcd";
     # hash = "sha256-u4V/UHNtd2c3+FppuJ5LeLNSV8ZaLe8cqj8HmcW2a/0=";
-    hash = "sha256-cGhJSby0K+e1hKPdPZjLFRKvwjGaTbq/kb6Fxj2v8g8=";
+    hash = "sha256-Tymh8r75pcoEzsqkU0wzm+vK137P2pEEilgNIyM8udQ=";
   })
   (fetchpatch' {
     # TODO: send for review once the libgnt patch above is merged
@@ -394,7 +394,7 @@ in [
     title = "libgweather: enable introspection on cross builds";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/251956";
     saneCommit = "7a2d0a90cc558ea71dfc78356e61b0675b995634";
-    hash = "sha256-tjO19dXVUrD+V+YpD7z3iWSgNyOirG70HuQ+c+0fZYA=";
+    hash = "sha256-4x1yJgrgmyqYiF+u3A9BrcbNQPQ270c+/jFBYsJoFfI=";
   })
 
   # (fetchpatch' {

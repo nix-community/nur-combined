@@ -32,26 +32,7 @@ let
       "192.165.9.158"
     ];
   };
-
-  # TODO: this should live in the same file as hosts/modules/wg-home.nix...
-  def-servo = def-wg-vpn "vpn-servo" {
-    endpoint = config.sane.hosts.by-name."servo".wg-home.endpoint;
-    publicKey = config.sane.hosts.by-name."servo".wg-home.pubkey;
-    address = [ config.sane.services.wg-home.ip ];
-    dns = [
-      config.sane.hosts.by-name."servo".wg-home.ip
-    ];
-    privateKeyFile = config.networking.wireguard.interfaces.wg-home.privateKeyFile;
-    extraOptions = {
-      # wg-home and vpn-servo interfaces interfere with the result that when connected to both,
-      # other wg-home users (lappy-hn, ...) aren't visible. disabling wg-home while the full
-      # vpn-servo is active allows wg-home users to be reachable again
-      preUp = "${pkgs.iproute2}/bin/ip link set wg-home down";
-      postDown = "${pkgs.iproute2}/bin/ip link set wg-home up";
-    };
-  };
 in lib.mkMerge [
-  (def-servo)
   (def-ovpn "us" {
     endpoint = "vpn31.prd.losangeles.ovpn.com:9929";
     publicKey = "VW6bEWMOlOneta1bf6YFE25N/oMGh1E1UFBCfyggd0k=";

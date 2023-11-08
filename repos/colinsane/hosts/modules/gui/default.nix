@@ -63,6 +63,7 @@
       # "tokodon"
       "tuba"  # mastodon/pleroma client (stores pw in keyring)
       # "whalebird"  # pleroma client (Electron). input is broken on phosh.
+      "xdg-terminal-exec"
       "xterm"  # broken on phosh
     ];
   };

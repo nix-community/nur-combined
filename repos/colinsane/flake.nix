@@ -332,6 +332,9 @@
                 - `nix run '.#deploy-{lappy,moby,moby-test,servo}' [nixos-rebuild args ...]`
                 - `nix run '.#check'`
                   - make sure all systems build; NUR evaluates
+
+                specific build targets of interest:
+                - `nix build '.#imgs.rescue'`
               '';
             in builtins.toString (pkgs.writeShellScript "nixos-config-help" ''
               cat ${helpMsg}
@@ -392,9 +395,12 @@
               RC0=$?
               nix run '.#check.host-configs'
               RC1=$?
+              nix run '.#check.rescue'
+              RC2=$?
               echo "nur: $RC0"
               echo "host-configs: $RC1"
-              exit $(($RC0 | $RC1))
+              echo "rescue: $RC2"
+              exit $(($RC0 | $RC1 | $RC2))
             '');
           };
 
@@ -438,6 +444,13 @@
                 exit $(($RC_desko | $RC_lappy | $RC_servo | $RC_moby | $RC_rescue))
               ''
             );
+          };
+
+          check.rescue = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "check-rescue" ''
+              nix build -v '.#imgs.rescue' --out-link ./result-rescue-img -j2
+            '');
           };
         };
 

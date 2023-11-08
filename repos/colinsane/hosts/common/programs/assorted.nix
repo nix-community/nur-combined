@@ -164,7 +164,6 @@ in
       # "unar"
       "unzip"
       "wireguard-tools"
-      "xdg-terminal-exec"
       "xdg-utils"  # for xdg-open
       # "yarn"
       "zsh"

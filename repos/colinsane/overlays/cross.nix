@@ -2097,7 +2097,11 @@ in {
 
   webkitgtk = prev.webkitgtk.overrideAttrs (upstream: {
     # fixes "wayland-scanner: line 5: syntax error: unterminated quoted string"
-    # if this works i can maybe remove `wayland` from nativeBuildInputs altogether?
+    # also: `/nix/store/nnnn-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner: line 0: syntax error: unexpected word (expecting ")")`
+    # with this i can maybe remove `wayland` from nativeBuildInputs, too?
+    # note that `webkitgtk` != `webkitgtk_6_0`, so this patch here might be totally unnecessary.
+    # 2023/11/06: hostPkgs.moby.webkitgtk_6_0 builds fine on servo; stock pkgsCross.aarch64-multiplatform.webkitgtk_6_0 does not.
+    # 2023/11/06: out for PR: <https://github.com/NixOS/nixpkgs/pull/265968>
     cmakeFlags = upstream.cmakeFlags ++ [
       "-DWAYLAND_SCANNER=${final.buildPackages.wayland-scanner}/bin/wayland-scanner"
     ];

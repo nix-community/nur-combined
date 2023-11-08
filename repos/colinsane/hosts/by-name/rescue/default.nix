@@ -9,6 +9,7 @@
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
   # sane.persist.enable = false;  # TODO: disable (but run `nix flake check` to ensure it works!)
   sane.nixcache.enable = false;  # don't want to be calling out to dead machines that we're *trying* to rescue
+  sane.zsh.guiIntegrations = false;  # save on unused dependencies
 
   # docs: https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
   system.stateVersion = "21.05";
