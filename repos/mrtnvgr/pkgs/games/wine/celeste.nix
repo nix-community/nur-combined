@@ -1,4 +1,4 @@
-{ lib, fetchtorrent, wrapWine, unzip, stdenvNoCC, ... }:
+{ lib, fetchtorrent, fetchzip, wrapWine, unzip, stdenvNoCC, everestSupport ? false, everestMods ? [ ], ... }:
 let 
   name = "celeste";
 
@@ -6,6 +6,20 @@ let
     url = "magnet:?xt=urn:btih:4A9EBBC92B836D331DE38EB3E62FDD4384E35C16&tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet&dn=Celeste%20%5BL%5D%20%5BRUS%20%2B%20ENG%20%2B%207%5D%20(2019)%20(1.4.0.0)%20%5BEGS-Rip%5D";
     hash = "sha256-MMPcilJW8HCFg/X7OJpZzN/F8R8NxZssK9flC2sJGH4=";
   };
+
+  everestSrc = fetchzip {
+    url = "https://github.com/EverestAPI/Everest/releases/download/stable-1.4351.0/main.zip";
+    hash = "sha256-Zfz1NXg4BYJ82vLg7E/EOFOGvJBeQBu3TpiL572CB1Y=";
+  };
+
+  everestSetup = if everestMods != [ ] || everestSupport then ''
+    cp -r ${everestSrc}/* .
+    chmod -R +w .
+    wine MiniInstaller.exe
+    wineserver -w
+
+    ${lib.concatMapStringsSep "\n" (mod: "cp -r ${mod} Mods/") everestMods}
+  '' else "";
 
   pkg = wrapWine {
     inherit name;
@@ -18,7 +32,9 @@ let
         mkdir celeste
         cd celeste
 
-        ln -s ${src}/* .
+        cp -r ${src}/* .
+
+        ${everestSetup}
       popd
     '';
 
