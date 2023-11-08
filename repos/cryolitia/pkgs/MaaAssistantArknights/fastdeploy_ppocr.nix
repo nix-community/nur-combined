@@ -21,7 +21,7 @@ let
   cuda = import ../common/cuda.nix { inherit cudaPackages; inherit symlinkJoin; };
 
 in
-stdenv.mkDerivation rec {
+cudaPackages.backendStdenv.mkDerivation rec {
 
   pname = "fastdeploy_ppocr";
   version = "20231009-unstable";
@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     owner = "Cryolitia";
     repo = "FastDeploy";
     # follows https://github.com/MaaAssistantArknights/MaaDeps/blob/master/vcpkg-overlay/ports/maa-fastdeploy/portfile.cmake#L4
-    rev = "cb09da245b416cd2b101548b1aa3c3bddf5b12a0";
-    sha256 = "sha256-6WRW8ZqOtnM3Y4xw2PeV9OXuVcfF5+blYNuV6hegCik=";
+    rev = "cf34b7e2a7cda95275d81132c580fcdf00a521b8";
+    sha256 = "sha256-10fBWijZwWnDVr+rUZk6ZYpsrFZk9DafuAC1IUmKCXg=";
   };
 
   nativeBuildInputs = [
