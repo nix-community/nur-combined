@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "combobulate";
-  version = "c7e4670a3047c0b58dff3746577a5c8e5832cfba";
+  version = "unstable-2023-09-25";
 
   src = fetchFromGitHub {
     owner = "mickeynp";
     repo = "combobulate";
-    rev = "${version}";
+    rev = "c7e4670a3047c0b58dff3746577a5c8e5832cfba";
     hash = "sha256-oLxJfHN50GWlXZYmZP7ZGqyvwEG3h0HreLAfBqoWfBg=";
   };
   # byte compile not working now
