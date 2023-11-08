@@ -51,6 +51,17 @@ in
       default = 512 * 1024 * 1024;
       type = types.int;
     };
+    sane.image.sectorSize = mkOption {
+      default = 512;
+      type = types.int;
+      description = ''
+        disk sector size. MUST match what the disk firmware believes it to be.
+        for nvme drives it may be better to use a large sector size like 4096.
+        see: <https://wiki.archlinux.org/title/Advanced_Format#Changing_sector_size>.
+
+        N.B.: setting this to something other than 512B is not well tested.
+      '';
+    };
   };
   config = let
     # return true if super starts with sub
@@ -99,6 +110,8 @@ in
           partitionLabel = "EFI System";
           partitionUUID = "44444444-4444-4444-4444-4444${vfatUuidFromFs bootFs}";
           size = cfg.bootPartSize;
+          inherit (cfg) sectorSize;
+          blockSize = cfg.sectorSize;  # has to be a multiple of sectorSize
 
           populateCommands = let
             extras = builtins.toString (builtins.map (d: "cp -R ${d}/* ./") cfg.extraBootFiles);
@@ -117,12 +130,12 @@ in
           # partition properties
           partitionLabel = "Linux filesystem";
           partitionUUID = uuidFromFs nixFs;
-          populateCommands =
-          let
+          # inherit (cfg) sectorSize;  # imageBuilder only supports sectorSize for vfat. btrfs defaults to a 4096B sector size, somehow it abstracts over the drive's sector size?
+
+          populateCommands = let
             closureInfo = buildPackages.closureInfo { rootPaths = config.system.build.toplevel; };
             extraRelPaths = builtins.toString (builtins.map (p: "./" + builtins.toString(relPath nixFs.mountPoint p)) cfg.extraDirectories);
-          in
-          ''
+          in ''
             mkdir -p ./${storeRelPath} ${extraRelPaths}
             echo "Copying system closure..."
             while IFS= read -r path; do
