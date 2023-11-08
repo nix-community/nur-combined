@@ -6,16 +6,17 @@
   pkg-config,
   stdenv,
   zlib,
+  pandoc,
   writeScript,
 }:
 stdenv.mkDerivation {
   pname = "chawan";
-  version = "unstable-2023-10-29";
+  version = "unstable-2023-11-01";
   src = fetchFromSourcehut {
     owner = "~bptato";
     repo = "chawan";
-    rev = "31bd1c9e12f28ab301d0799f12ac9519d415b7f3";
-    hash = "sha256-Mk9ilmmxHCVqGgtzo5cRm7HCwBv7ncMHc1yEf5Uei/A=";
+    rev = "cc02a6c30af164f087e07f546f4177d0b9cf3bcb";
+    hash = "sha256-QxlPnNOlaQcgLpyFOQW5WC2v4Lxn7nT8xTiFmaS5vmU=";
     domain = "sr.ht";
     fetchSubmodules = true;
   };
@@ -25,6 +26,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     pkg-config
     nim2
+    pandoc
   ];
 
   buildInputs = [zlib] ++ (with curl; [out dev]);
@@ -35,9 +37,13 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
-  installFlags = [
-    "prefix=${placeholder "out"}"
-    "manprefix=${placeholder "out"}/share/man"
+  preInstall = ''
+    make manpage
+  '';
+
+  makeFlags = [
+    "prefix=${builtins.placeholder "out"}"
+    "manprefix=${builtins.placeholder "out"}/share/man"
   ];
 
   passthru.updateScript = writeScript "update-chawan" ''
