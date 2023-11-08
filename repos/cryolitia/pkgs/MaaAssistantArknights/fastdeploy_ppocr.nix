@@ -30,8 +30,8 @@ cudaPackages.backendStdenv.mkDerivation rec {
     owner = "Cryolitia";
     repo = "FastDeploy";
     # follows https://github.com/MaaAssistantArknights/MaaDeps/blob/master/vcpkg-overlay/ports/maa-fastdeploy/portfile.cmake#L4
-    rev = "cf34b7e2a7cda95275d81132c580fcdf00a521b8";
-    sha256 = "sha256-10fBWijZwWnDVr+rUZk6ZYpsrFZk9DafuAC1IUmKCXg=";
+    rev = "2e68908141f6950bc5d22ba84f514e893cc238ea";
+    sha256 = "";
   };
 
   nativeBuildInputs = [
