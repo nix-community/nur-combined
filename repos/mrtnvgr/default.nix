@@ -16,17 +16,17 @@ in rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   # Soundfonts
-  soundfont-arachno = p ./pkgs/soundfonts/arachno.nix { };
-  soundfont-touhou = p ./pkgs/soundfonts/touhou.nix { };
+  soundfont-arachno = p ./pkgs/soundfonts/arachno { };
+  soundfont-touhou = p ./pkgs/soundfonts/touhou { };
 
   # Games (Native)
-  celeste-classic = p ./pkgs/games/native/celeste-classic.nix { };
+  celeste-classic = p ./pkgs/games/native/celeste-classic { };
   celeste-classic-pm = celeste-classic.override { practiceMod = true; };
 
-  celeste-classic-2 = p ./pkgs/games/native/celeste-classic-2.nix { };
+  celeste-classic-2 = p ./pkgs/games/native/celeste-classic-2 { };
 
   # Games (Wine)
-  celeste = p ./pkgs/games/wine/celeste.nix { inherit (lib) wrapWine; };
+  celeste = p ./pkgs/games/wine/celeste { inherit (lib) wrapWine; };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
