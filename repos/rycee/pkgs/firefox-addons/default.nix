@@ -78,6 +78,22 @@ in packages // {
     };
   };
 
+  fx_cast = let version = "0.3.1";
+  in buildFirefoxXpiAddon {
+    pname = "fx_cast";
+    inherit version;
+    addonId = "fx_cast@matt.tf";
+    url =
+      "https://github.com/hensm/fx_cast/releases/download/v${version}/fx_cast-${version}.xpi";
+    sha256 = "sha256-zaYnUJpJkRAPSCpM3S20PjMS4aeBtQGhXB2wgdlFkSQ=";
+    meta = with lib; {
+      homepage = "https://hensm.github.io/fx_cast/";
+      description = "Chromecast Web Sender SDK implementation for Firefox";
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+
   gaoptout = buildFirefoxXpiAddon {
     pname = "gaoptout";
     version = "1.0.8";
