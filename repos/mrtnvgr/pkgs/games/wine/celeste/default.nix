@@ -39,8 +39,6 @@ let
     '';
 
     tricks = [ "dotnet48" "dxvk" "d3dcompiler_47" ];
-
-    is64bits = true;
   };
 in stdenvNoCC.mkDerivation {
   inherit name;
