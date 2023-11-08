@@ -49,7 +49,10 @@
     mobile-nixos = {
       # <https://github.com/nixos/mobile-nixos>
       # only used for building disk images, not relevant after deployment
-      url = "github:nixos/mobile-nixos";
+      # TODO: replace with something else. commit `0f3ac0bef1aea70254a3bae35e3cc2561623f4c1`
+      # replaces the imageBuilder with a "new implementation from celun" and wildly breaks my use.
+      # pinning to d25d3b... is equivalent to holding at 2023-09-15
+      url = "github:nixos/mobile-nixos?ref=d25d3b87e7f300d8066e31d792337d9cd7ecd23b";
       flake = false;
     };
     sops-nix = {
