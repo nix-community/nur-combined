@@ -63,6 +63,7 @@ in
       "ddrescue"
       "dig"
       "dtc"  # device tree [de]compiler
+      "e2fsprogs"  # resize2fs
       "efibootmgr"
       "ethtool"
       "fatresize"
@@ -72,7 +73,7 @@ in
       "gawk"
       "gdb"  # to debug segfaults
       "git"
-      "gptfdisk"
+      "gptfdisk"  # gdisk
       "hdparm"
       "htop"
       "iftop"
@@ -90,6 +91,7 @@ in
       "netcat"
       "nethogs"
       "nmap"
+      "nvme-cli"  # nvme
       "openssl"
       "parted"
       "pciutils"
@@ -97,13 +99,14 @@ in
       "pstree"
       "ripgrep"
       "screen"
-      "smartmontools"
+      "smartmontools"  # smartctl
       "socat"
       "strace"
       "subversion"
       "tcpdump"
       "tree"
       "usbutils"
+      "util-linux"  # lsblk, lscpu, etc
       "wget"
       "wirelesstools"  # iwlist
     ];
