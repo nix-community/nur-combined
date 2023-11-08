@@ -722,6 +722,21 @@
         platforms = platforms.all;
         };
       };
+    "brotab" = buildFirefoxXpiAddon {
+      pname = "brotab";
+      version = "1.4.0";
+      addonId = "brotab_mediator@example.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3955334/brotab-1.4.0.xpi";
+      sha256 = "1966f39933fadcc0d8b4a2344111d241874dc6ffec4fe8c261e3703be1d32e17";
+      meta = with lib;
+      {
+        homepage = "https://github.com/balta2ar/brotab/";
+        description = "Control your Firefox's tabs from command line";
+        license = licenses.mit;
+        mozPermissions = [ "nativeMessaging" "tabs" "activeTab" "<all_urls>" ];
+        platforms = platforms.all;
+        };
+      };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
       version = "3.8.0";
@@ -1515,10 +1530,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "119.0.20231106.151204";
+      version = "120.0.20231108.91943";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4191328/deutsch_de_language_pack-119.0.20231106.151204.xpi";
-      sha256 = "4cf6847d28eae22b123f1817120cfcf38464395d6f1186fcc86469e84e0a2536";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4192187/deutsch_de_language_pack-120.0.20231108.91943.xpi";
+      sha256 = "35db30d9e095a50693238e1007792a40ef2ca6c3541babb2e62a1575978b4632";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2293,10 +2308,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "119.0.20231106.151204";
+      version = "120.0.20231108.91943";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4191398/francais_language_pack-119.0.20231106.151204.xpi";
-      sha256 = "0ab7bbbd861d5d7562a2555b87e8cf63d1286802cf4338a185da7448992e68d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4192168/francais_language_pack-120.0.20231108.91943.xpi";
+      sha256 = "ff19a971666898591347a6b544fe8e36d3d23dbafdc968d881ee45a659468b6d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3008,6 +3023,28 @@
         description = "Deletes browsing history older than a specified number of days.";
         license = licenses.mit;
         mozPermissions = [ "history" "storage" "idle" ];
+        platforms = platforms.all;
+        };
+      };
+    "hls-stream-detector" = buildFirefoxXpiAddon {
+      pname = "hls-stream-detector";
+      version = "2.11.7";
+      addonId = "@m3u8link";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4136128/hls_stream_detector-2.11.7.xpi";
+      sha256 = "6d7163dc6cd0eb82d951c551cffc2c796023117b071c20eee8e20c4e11155c49";
+      meta = with lib;
+      {
+        description = "This addon provides an easy way to keep track of manifests and subtitles used by various streaming protocols. Also allows for detecting custom file types and downloading media files.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "<all_urls>"
+          "clipboardWrite"
+          "downloads"
+          "notifications"
+          "storage"
+          "tabs"
+          "webRequest"
+          ];
         platforms = platforms.all;
         };
       };
@@ -4103,10 +4140,10 @@
       };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "2.5.2";
+      version = "3.0.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4172183/indie_wiki_buddy-2.5.2.xpi";
-      sha256 = "bc31f6685c3428cbc775fa38f44ead98a5dbe281f8b888fccf04997e78e59c3c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190860/indie_wiki_buddy-3.0.0.xpi";
+      sha256 = "a281e0e41ab604ba0882a3d052f4757844510a1cf9de7ca45a1866504f754a10";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -4418,6 +4455,30 @@
           "webRequest"
           "webRequestBlocking"
           "webNavigation"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "jabref" = buildFirefoxXpiAddon {
+      pname = "jabref";
+      version = "2.5";
+      addonId = "@jabfox";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898690/jabref-2.5.xpi";
+      sha256 = "959f38cdf9fcc516261105947bbbf0356693b05a5e8024f2e9fd044566b120a1";
+      meta = with lib;
+      {
+        homepage = "http://www.jabref.org/";
+        description = "Browser extension for users of the bibliographic reference manager JabRef.\nIt automatically identifies and extracts bibliographic information on websites and sends them to JabRef with one click.";
+        license = licenses.agpl3Plus;
+        mozPermissions = [
+          "<all_urls>"
+          "activeTab"
+          "tabs"
+          "webNavigation"
+          "storage"
+          "nativeMessaging"
+          "http://*/*"
+          "https://*/*"
           ];
         platforms = platforms.all;
         };
@@ -5045,10 +5106,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.2.0";
+      version = "11.4.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4183057/ether_metamask-11.2.0.xpi";
-      sha256 = "985d5824dbb12e2536e4738f4db6965d8161e830f57714ec81c41ca0a41876a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190228/ether_metamask-11.4.1.xpi";
+      sha256 = "681db1e707b3806ad8c8c17ac4f9b38f2a28a9817165820536f8869c921f8818";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -7249,10 +7310,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.17";
+      version = "1.22.19";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4188797/single_file-1.22.17.xpi";
-      sha256 = "54c8ab0bcbe3f0a628918b97a5247121c198203b931651f39a5376155d828394";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191752/single_file-1.22.19.xpi";
+      sha256 = "cc672c3a1f66ec7df4c24b29d8a287a5355b2077ce20c92102c6cb9eb8ad3fa0";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";

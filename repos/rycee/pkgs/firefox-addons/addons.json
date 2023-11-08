@@ -94,6 +94,9 @@
     "slug": "brandon1024-find"
   },
   {
+    "slug": "brotab"
+  },
+  {
     "slug": "browserpass-ce",
     "pname": "browserpass"
   },
@@ -414,6 +417,9 @@
     "slug": "history-cleaner"
   },
   {
+    "slug": "hls-stream-detector"
+  },
+  {
     "slug": "honey",
     "license": {
       "tag": "custom",
@@ -471,6 +477,13 @@
   },
   {
     "slug": "istilldontcareaboutcookies"
+  },
+  {
+    "slug": "jabref",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Plus"
+    }
   },
   {
     "slug": "joplin-web-clipper"
