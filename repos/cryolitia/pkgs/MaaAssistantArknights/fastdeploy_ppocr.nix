@@ -29,6 +29,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Cryolitia";
     repo = "FastDeploy";
+    # follows https://github.com/MaaAssistantArknights/MaaDeps/blob/master/vcpkg-overlay/ports/maa-fastdeploy/portfile.cmake#L4
     rev = "cb09da245b416cd2b101548b1aa3c3bddf5b12a0";
     sha256 = "sha256-6WRW8ZqOtnM3Y4xw2PeV9OXuVcfF5+blYNuV6hegCik=";
   };

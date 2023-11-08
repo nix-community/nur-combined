@@ -113,6 +113,7 @@ stdenv.mkDerivation rec {
     cp -v ${maa-cli}/bin/* $out/share/${name}
     makeWrapper $out/share/${name}/maa $out/bin/maa'' + lib.optionalString cudaSupport '' \
       --set LD_LIBRARY_PATH ${onnxruntime}/lib:$LD_LIBRARY_PATH
+      --set PATH ${android-tools}/bin:$PATH
     '' + ''
   '';
 
