@@ -1,6 +1,6 @@
 { lib, libsForQt5 }: libsForQt5.callPackage ({ mkDerivation, qmake, fetchFromGitLab }: let
   pname = "EDFbrowser";
-  version = "1.71";
+  version = "2.05";
 in mkDerivation {
   inherit pname version;
 
@@ -8,7 +8,7 @@ in mkDerivation {
     owner = "Teuniz";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0vis7an1hkmmil4sdsaiyva6af79qgvnq836chnai1kcprwd00aa";
+    sha256 = "sha256-ISJAWqsBYm65fiv9ju0TD2idUkmwpq21M50rNhOk5ys=";
   };
 
   patches = [
@@ -21,5 +21,6 @@ in mkDerivation {
 
   meta = {
     platforms = lib.platforms.linux;
+    mainProgram = "edfbrowser";
   };
 }) { }
