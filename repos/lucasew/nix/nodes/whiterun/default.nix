@@ -35,7 +35,6 @@ in {
   services.transmission.enable = true;
 
   services.miniflux.enable = true;
-  services.wallabag.enable = true;
 
   systemd.services.transmission.serviceConfig.BindPaths = [
     "/storage/downloads"

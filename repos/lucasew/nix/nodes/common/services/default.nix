@@ -14,6 +14,5 @@
     ./p2k.nix
     ./nixgram.nix
     ./netusage
-    ./wallabag.nix
   ];
 }
