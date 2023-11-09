@@ -74,15 +74,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "332c90049d5fd08a35b4e2e73312d9d5536e3e62";
+    version = "d86ea2de25d7ba54b57f208feb6f05071077820b";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "332c90049d5fd08a35b4e2e73312d9d5536e3e62";
+      rev = "d86ea2de25d7ba54b57f208feb6f05071077820b";
       fetchSubmodules = false;
-      sha256 = "sha256-xBiHk6CcKXoyZBCxUAdiK298q+IJMvL+EHwRI7uhZ9g=";
+      sha256 = "sha256-+F3H+HmIrgYxDIouoY0qU7IgUek91JlhqDlbYHPjDmY=";
     };
-    date = "2023-11-07";
+    date = "2023-11-08";
   };
   fennel-language-server = {
     pname = "fennel-language-server";
