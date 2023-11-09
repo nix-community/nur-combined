@@ -139,19 +139,6 @@ in {
       source = lib.getExe cfg.ubridge.package;
     };
 
-    users.users.gns3 = {
-      name = "gns3";
-      group = "gns3";
-      description = "GNS3 user";
-      isSystemUser = true;
-      home = "/var/lib/gns3";
-      extraGroups = lib.optional flags.enableDocker "docker"
-        ++ lib.optional flags.enableLibvirtd "libvirtd"
-        ++ lib.optional cfg.ubridge.enable "ubridge";
-    };
-
-    users.groups.gns3 = { };
-
     services.gns3-server.settings = lib.mkMerge [
       {
         Server = {
@@ -204,7 +191,7 @@ in {
       preStart = ''
         install -m660 ${configFile} /etc/gns3/gns3_server.conf
 
-        ${lib.optionalString (cfg.auth.passwordFile != null) ''
+        ${lib.optionalString cfg.auth.enable ''
           ${pkgs.replace-secret}/bin/replace-secret \
             '@AUTH_PASSWORD@' \
             "''${CREDENTIALS_DIRECTORY}/AUTH_PASSWORD" \
@@ -224,7 +211,7 @@ in {
         ExecStart = "${cfg.package}/bin/gns3server ${commandArgs}";
         Group = "gns3";
         LimitNOFILE = 16384;
-        LoadCredential = [ "AUTH_PASSWORD:${cfg.passwordFile}" ];
+        LoadCredential = lib.mkIf cfg.auth.enable [ "AUTH_PASSWORD:${cfg.auth.passwordFile}" ];
         LogsDirectory = "gns3";
         LogsDirectoryMode = "0750";
         PIDFile = "/run/gns3/server.pid";
@@ -233,6 +220,9 @@ in {
         RuntimeDirectory = "gns3";
         StateDirectory = "gns3";
         StateDirectoryMode = "0750";
+        SupplementaryGroups = lib.optional flags.enableDocker "docker"
+          ++ lib.optional flags.enableLibvirtd "libvirtd"
+          ++ lib.optional cfg.ubridge.enable "ubridge";
         User = "gns3";
         WorkingDirectory = "/var/lib/gns3";
 
