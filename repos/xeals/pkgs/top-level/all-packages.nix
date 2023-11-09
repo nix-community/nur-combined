@@ -21,6 +21,15 @@ rec {
     ideaUltimateWithPlugins = ideaUltimatePlugins.jetbrainsWithPlugins;
   };
 
+  monaspace-fonts = pkgs.callPackage ../data/fonts/monaspace/default.nix { };
+  inherit (monaspace-fonts)
+    monaspace
+    monaspace-argon
+    monaspace-krypton
+    monaspace-neon
+    monaspace-radon
+    monaspace-xenon;
+
   mopidy-subidy = pkgs.callPackage ../applications/audio/mopidy/subidy.nix {
     python3Packages = pkgs.python3Packages // python3Packages;
   };
