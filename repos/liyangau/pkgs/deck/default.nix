@@ -1,15 +1,15 @@
 { buildGoModule, lib, installShellFiles, fetchFromGitHub }:
 let
-  short_hash = "62defae";
+  short_hash = "77682ca";
 in buildGoModule rec {
   pname = "deck";
-  version = "1.28.1";
+  version = "1.29.2";
 
   src = fetchFromGitHub {
     owner = "Kong";
     repo = "deck";
     rev = "v${version}";
-    sha256 = "1x5ns1il2ipwyrawvhdzxxh130f6wz481clvn2dfzq571m7xahdi";
+    sha256 = "08pqawrijkx2p8bklapdv03cffdlvzj4br3wvffq45kqalp0s22i";
   };
 
   nativeBuildInputs = [ installShellFiles ];
