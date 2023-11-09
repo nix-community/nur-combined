@@ -182,7 +182,7 @@ in {
 
     systemd.services.gns3-server = let
       commandArgs = lib.cli.toGNUCommandLineShell { } {
-        config = "/run/gns3/gns3_server.conf";
+        config = "/etc/gns3/gns3_server.conf";
         pid = "/run/gns3/server.pid";
         log = cfg.log.file;
         ssl = cfg.ssl.enable;
@@ -198,14 +198,17 @@ in {
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
 
+      # configFile cannot be stored in RuntimeDirectory, because GNS3
+      # uses the configuration base path to stores supplementary configuration files.
+      #
       preStart = ''
-        install -m660 ${configFile} /run/gns3/gns3_server.conf
+        install -m660 ${configFile} /etc/gns3/gns3_server.conf
 
         ${lib.optionalString (cfg.auth.passwordFile != null) ''
           ${pkgs.replace-secret}/bin/replace-secret \
             '@AUTH_PASSWORD@' \
             ${cfg.auth.passwordFile} \
-            /run/gns3/gns3_server.conf
+            /etc/gns3/gns3_server.conf
         ''}
       '';
 
@@ -214,6 +217,8 @@ in {
       reloadTriggers = [ configFile ];
 
       serviceConfig = {
+        ConfigurationDirectory = "gns3";
+        ConfigurationDirectoryMode = "0750";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStart = "${cfg.package}/bin/gns3server ${commandArgs}";
         Group = "gns3";
