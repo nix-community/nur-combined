@@ -21,6 +21,7 @@
   sane.nixcache.enable-trusted-keys = true;
   sane.nixcache.enable = lib.mkDefault true;
   sane.persist.enable = lib.mkDefault true;
+  sane.root-on-tmpfs = lib.mkDefault true;
   sane.programs.sysadminUtils.enableFor.system = lib.mkDefault true;
   sane.programs.consoleUtils.enableFor.user.colin = lib.mkDefault true;
 

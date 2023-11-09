@@ -1,7 +1,6 @@
 { ... }:
 
 {
-  sane.persist.root-on-tmpfs = true;
   # increase /tmp space (defaults to 50% of RAM) for building large nix things.
   # even the stock `nixpkgs.linux` consumes > 16 GB of tmp
   fileSystems."/tmp".options = [ "size=32G" ];

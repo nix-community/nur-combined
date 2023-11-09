@@ -10,6 +10,7 @@
     ./image.nix
     ./persist
     ./ports.nix
+    ./root-on-tmpfs.nix
     ./services
     ./sops.nix
     ./ssh.nix

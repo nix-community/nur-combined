@@ -1,7 +1,6 @@
 { ... }:
 
 {
-  sane.persist.root-on-tmpfs = true;
   # increase /tmp space (defaults to 50% of RAM) for building large nix things.
   # a cross-compiled kernel, particularly, will easily use 30+GB of tmp
   fileSystems."/tmp".options = [ "size=64G" ];

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, sane-lib, ... }:
 
 {
   # allow `nix-shell` (and probably nix-index?) to locate our patched and custom packages
@@ -10,4 +10,8 @@
     # to avoid switching so much during development
     "nixpkgs-overlays=/home/colin/dev/nixos/hosts/common/nix-path/overlay"
   ];
+
+  # ensure new deployments have a source of this repo with which they can bootstrap.
+  # could get away with only shipping this on the `imgs.FOO` or `nixosSystems.rescue` targets, if we *really* want to save space/deploys.
+  sane.fs."/etc/nix/source" = sane-lib.fs.wantedSymlinkTo ../../..;
 }

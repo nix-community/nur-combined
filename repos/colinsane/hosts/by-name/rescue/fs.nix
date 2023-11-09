@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  fileSystems."/" = {
+  fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/44445555-6666-7777-8888-999900001111";
     fsType = "ext4";
   };

@@ -183,11 +183,6 @@ in
       default = false;
       type = types.bool;
     };
-    sane.persist.root-on-tmpfs = mkOption {
-      default = false;
-      type = types.bool;
-      description = "define / fs root to be a tmpfs. make sure to mount some other device to /nix";
-    };
     sane.persist.sys = mkOption {
       description = "directories (or files) to persist to disk, relative to the fs root /";
       default = {};
@@ -203,7 +198,6 @@ in
   };
 
   imports = [
-    ./root-on-tmpfs.nix
     ./stores
   ];
 
