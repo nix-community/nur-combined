@@ -14,5 +14,6 @@
     ./p2k.nix
     ./nixgram.nix
     ./netusage
+    ./nitter.nix
   ];
 }
