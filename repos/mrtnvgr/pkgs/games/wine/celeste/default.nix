@@ -40,7 +40,8 @@ let
 
     preScript = if isEverestEnabled then ''
       # Checks if mods directory either doesn't exist or is empty
-      if [ -z "$(ls -A "$WINEPREFIX/drive_c/celeste/Mods")" ]; then
+      if [ -z "$(ls -A Mods)" ]; then
+        mkdir Mods
         ${lib.concatMapStringsSep "\n" (mod: "cp -r ${mod} Mods/") everestMods}
       fi
     '' else "";
