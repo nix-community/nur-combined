@@ -215,7 +215,7 @@ in {
 
       serviceConfig = {
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        ExecStart = "${lib.getExe cfg.package} ${commandArgs}";
+        ExecStart = "${cfg.package}/bin/gns3server ${commandArgs}";
         Group = "gns3";
         LimitNOFILE = 16384;
         LogsDirectory = "gns3";
