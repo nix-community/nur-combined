@@ -12,13 +12,13 @@ let
     hash = "sha256-Zfz1NXg4BYJ82vLg7E/EOFOGvJBeQBu3TpiL572CB1Y=";
   };
 
-  everestSetup = if everestMods != [ ] || everestSupport then ''
+  isEverestEnabled = if everestMods != [ ] then true else everestSupport;
+
+  everestSetup = if isEverestEnabled then ''
     cp -r ${everestSrc}/* .
     chmod -R +w .
     wine MiniInstaller.exe
     wineserver -w
-
-    ${lib.concatMapStringsSep "\n" (mod: "cp -r ${mod} Mods/") everestMods}
   '' else "";
 
   pkg = wrapWine {
@@ -37,6 +37,13 @@ let
         ${everestSetup}
       popd
     '';
+
+    preScript = if isEverestEnabled then ''
+      # Checks if mods directory either doesn't exist or is empty
+      if [ -z "$(ls -A "$WINEPREFIX/drive_c/celeste/Mods")" ]; then
+        ${lib.concatMapStringsSep "\n" (mod: "cp -r ${mod} Mods/") everestMods}
+      fi
+    '' else "";
 
     tricks = [ "dotnet48" "dxvk" "d3dcompiler_47" ];
   };
