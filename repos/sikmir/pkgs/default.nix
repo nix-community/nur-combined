@@ -365,6 +365,7 @@ lib.makeScope newScope (
     modbus_sim_cli = callPackage ./misc/modbus_sim_cli { };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
+    mysql-to-sqlite3 = callPackage ./misc/mysql-to-sqlite3 { };
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
