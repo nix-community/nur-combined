@@ -102,11 +102,11 @@
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
       "url-template": "https://download.jetbrains.com/ruby/RubyMine-{version}.tar.gz",
-      "version": "2023.2.4",
-      "sha256": "c03bb85558b57e10e018525ecf7afcbb1079aea8f406d187d6646c85de6d20be",
-      "url": "https://download.jetbrains.com/ruby/RubyMine-2023.2.4.tar.gz",
+      "version": "2023.2.5",
+      "sha256": "121c18c56935d6b442d0dd8e0d609cacde2f0efd8e1079612ce6e87d515d9203",
+      "url": "https://download.jetbrains.com/ruby/RubyMine-2023.2.5.tar.gz",
       "version-major-minor": "2022.3",
-      "build_number": "232.10203.15"
+      "build_number": "232.10227.6"
     },
     "webstorm": {
       "update-channel": "WebStorm RELEASE",
