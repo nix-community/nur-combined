@@ -199,7 +199,7 @@ in {
       wants = [ "network-online.target" ];
 
       # configFile cannot be stored in RuntimeDirectory, because GNS3
-      # uses the configuration base path to stores supplementary configuration files.
+      # uses the `--config` base path to stores supplementary configuration files at runtime.
       #
       preStart = ''
         install -m660 ${configFile} /etc/gns3/gns3_server.conf
@@ -207,7 +207,7 @@ in {
         ${lib.optionalString (cfg.auth.passwordFile != null) ''
           ${pkgs.replace-secret}/bin/replace-secret \
             '@AUTH_PASSWORD@' \
-            ${cfg.auth.passwordFile} \
+            "''${CREDENTIALS_DIRECTORY}/AUTH_PASSWORD" \
             /etc/gns3/gns3_server.conf
         ''}
       '';
@@ -219,10 +219,12 @@ in {
       serviceConfig = {
         ConfigurationDirectory = "gns3";
         ConfigurationDirectoryMode = "0750";
+        DynamicUser = true;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStart = "${cfg.package}/bin/gns3server ${commandArgs}";
         Group = "gns3";
         LimitNOFILE = 16384;
+        LoadCredential = [ "AUTH_PASSWORD:${cfg.passwordFile}" ];
         LogsDirectory = "gns3";
         LogsDirectoryMode = "0750";
         PIDFile = "/run/gns3/server.pid";
