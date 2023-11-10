@@ -130,11 +130,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-DhAaHYm1ECPnYuBxAMo+JaWBSszKY/iFNkaQBkKhdsg=",
+            "sha256": "sha256-3Ek5MrpXigIFZD+1C+XWwIe9XSKZ7bT3UcV9BxnyoYk=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.10.8/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.10.9/app-x86_64.asar"
         },
-        "version": "v2.10.8"
+        "version": "v2.10.9"
     },
     "mstickereditor": {
         "cargoLocks": {
