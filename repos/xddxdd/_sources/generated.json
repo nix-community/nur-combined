@@ -1755,11 +1755,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vx8KeQE7HyU+9HpgbiCrY2yugKiqQsOrTwHwtAiTpdA=",
+            "sha256": "sha256-dJdT13QYZm9PdqEH+/OM+8j3350Z/w5SGLA6AqYSJYM=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.7.29/WeChatSetup-3.9.7.29.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.8.15/WeChatSetup-3.9.8.15.exe"
         },
-        "version": "3.9.7.29"
+        "version": "3.9.8.15"
     },
     "wine-wechat-x86": {
         "cargoLocks": null,
@@ -1770,11 +1770,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-syVZC3/7m4oJz0w5kZuCPAg9CDS+HuJyp+n/lbCskXc=",
+            "sha256": "sha256-ywA2d0706eF+YAXCGV+snIB6tItVm4P1hR3RtkzgHa0=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.7.28/WeChatSetupX86-3.9.7.28.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.8.12/WeChatSetupX86-3.9.8.12.exe"
         },
-        "version": "3.9.7.28"
+        "version": "3.9.8.12"
     },
     "xstatic-asciinema-player": {
         "cargoLocks": null,
