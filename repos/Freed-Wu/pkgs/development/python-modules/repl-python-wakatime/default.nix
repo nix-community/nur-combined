@@ -1,6 +1,5 @@
 { mySources
 , python3
-, setuptools-generate
 }:
 
 with python3.pkgs;

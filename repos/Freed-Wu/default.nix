@@ -20,7 +20,7 @@ let
 
     mySources = callPackage ./_sources/generated.nix { };
 
-    # https://github.com/NixOS-CN/flakes/pull/51
+    # https://github.com/NixOS/nixpkgs/pull/243429
     netease-cloud-music = callPackage ./pkgs/applications/audio/netease-cloud-music { };
     # https://github.com/NixOS/nixpkgs/pull/243032
     g3kb-switch = callPackage ./pkgs/tools/misc/g3kb-switch { };
@@ -30,8 +30,7 @@ let
     bash-prompt = callPackage ./pkgs/shells/bash/bash-prompt { };
     undollar = callPackage ./pkgs/tools/misc/undollar { };
     manpager = callPackage ./pkgs/tools/misc/manpager { };
-    help2man = callPackage ./pkgs/development/python-modules/help2man { };
-    setuptools-generate = callPackage ./pkgs/development/python-modules/setuptools-generate { };
+    # https://github.com/NixOS/nixpkgs/issues/261342
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };
     repl-python-codestats = callPackage ./pkgs/development/python-modules/repl-python-codestats { };
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };

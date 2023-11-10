@@ -1,26 +1,29 @@
 { mySources
 , python3
+, lib
 }:
 
 with python3.pkgs;
 
 buildPythonPackage rec {
-  inherit (mySources.help2man) pname version src;
+  inherit (mySources.pkgbuild-language-server) pname version src;
+  format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    jinja2
+    pygls
+    platformdirs
   ];
   nativeBuildInputs = [
-    setuptools
-    shtab
+    setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
-    "help2man"
+    "pkgbuild_language_server"
   ];
 
   meta = with lib; {
-    homepage = "https://help2man.readthedocs.io";
-    description = "Convert --help and --version to man page";
+    homepage = "https://pkgbuild-language-server.readthedocs.io";
+    description = "PKGBUILD language server";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;

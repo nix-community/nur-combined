@@ -1,7 +1,6 @@
 { mySources
 , python3
 , repl-python-wakatime
-, setuptools-generate
 }:
 
 with python3.pkgs;

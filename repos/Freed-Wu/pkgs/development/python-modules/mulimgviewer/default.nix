@@ -1,7 +1,6 @@
 { mySources
 , python3
 , wrapGAppsHook
-, setuptools-generate
 }:
 
 with python3.pkgs;

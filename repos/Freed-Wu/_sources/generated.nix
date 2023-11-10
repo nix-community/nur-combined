@@ -20,14 +20,6 @@
       sha256 = "sha256-90ELWRVHkdLLQoUIQuE1yc2F1Rj9UOMcxmKTmK1S8yY=";
     };
   };
-  help2man = {
-    pname = "help2man";
-    version = "0.0.9";
-    src = fetchurl {
-      url = "https://pypi.org/packages/source/h/help2man/help2man-0.0.9.tar.gz";
-      sha256 = "sha256-V/oY7VnulJUqI0EVPq40/JACDLTrsmzopzJDNBGc+Bo=";
-    };
-  };
   manpager = {
     pname = "manpager";
     version = "0.0.2";
@@ -77,14 +69,6 @@
     src = fetchurl {
       url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.9.tar.gz";
       sha256 = "sha256-3gE1w5rwn5qXDDrNlZnX07FnukwKbu2E89Y+uKVTnqg=";
-    };
-  };
-  setuptools-generate = {
-    pname = "setuptools-generate";
-    version = "0.0.6";
-    src = fetchurl {
-      url = "https://pypi.org/packages/source/s/setuptools-generate/setuptools-generate-0.0.6.tar.gz";
-      sha256 = "sha256-biMkHZ7P39355QpJXzCStgvjym9KXhFsjD5/K2RrpyU=";
     };
   };
   sublime-syntax-language-server = {

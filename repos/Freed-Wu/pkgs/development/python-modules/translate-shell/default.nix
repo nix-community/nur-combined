@@ -1,7 +1,6 @@
 { mySources
 , python3
 , lib
-, setuptools-generate
 , repl-python-wakatime
 }:
 

@@ -1,32 +1,29 @@
 { mySources
 , python3
-, help2man
+, lib
 }:
 
 with python3.pkgs;
 
 buildPythonPackage rec {
-  inherit (mySources.setuptools-generate) pname version src;
+  inherit (mySources.portage-language-server) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    setuptools
-    click
-    help2man
-    markdown-it-py
-    shtab
-    tomli
+    pygls
+    platformdirs
   ];
   nativeBuildInputs = [
+    setuptools-generate
     setuptools-scm
   ];
   pythonImportsCheck = [
-    "setuptools_generate"
+    "portage_language_server"
   ];
 
   meta = with lib; {
-    homepage = "https://setuptools-generate.readthedocs.io";
-    description = "Generate shell completions and man page when building a python package";
+    homepage = "https://portage-language-server.readthedocs.io";
+    description = "portage language server";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
