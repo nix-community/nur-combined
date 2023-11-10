@@ -287,15 +287,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "0b83e8d5fb81fe2d75835f38dfe8836e4e332c95";
+    version = "9fabf474e6bdaa50951bc1655081e81867cde0f0";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "0b83e8d5fb81fe2d75835f38dfe8836e4e332c95";
+      rev = "9fabf474e6bdaa50951bc1655081e81867cde0f0";
       fetchSubmodules = false;
-      sha256 = "sha256-L2fO3AgXKBPFVvEuNbabGpGDVvg3Vzd5s9Bg3owrxEs=";
+      sha256 = "sha256-ikmLBChuF6GksvwapNEWq7+EjB5H+RGg+QkCHp2t8G4=";
     };
-    date = "2023-11-02";
+    date = "2023-11-09";
   };
   tree-sitter-hypr = {
     pname = "tree-sitter-hypr";
