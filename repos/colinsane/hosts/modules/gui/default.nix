@@ -23,6 +23,7 @@
       # "celluloid"  # mpv frontend
       "chatty"  # matrix/xmpp/irc client
       "cozy"  # audiobook player
+      "dialect"  # language translation
       "dino"  # XMPP client
       # "emote"
       "epiphany"  # gnome's web browser
@@ -57,12 +58,14 @@
       # "picard"  # music tagging
       # "libsForQt5.plasmatube"  # Youtube player
       "soundconverter"
+      "spot"  # Gnome Spotfy client
       # "sublime-music"
       "tangram"  # web browser
       # "tdesktop"  # broken on phosh
       # "tokodon"
       "tuba"  # mastodon/pleroma client (stores pw in keyring)
       # "whalebird"  # pleroma client (Electron). input is broken on phosh.
+      "wike"  # Wikipedia Reader
       "xdg-terminal-exec"
       "xterm"  # broken on phosh
     ];

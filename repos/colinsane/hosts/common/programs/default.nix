@@ -12,6 +12,7 @@
     ./chatty.nix
     ./conky
     ./cozy.nix
+    ./dialect.nix
     ./dino.nix
     ./element-desktop.nix
     ./epiphany.nix
@@ -56,6 +57,7 @@
     ./ripgrep.nix
     ./sfeed.nix
     ./splatmoji.nix
+    ./spot.nix
     ./spotify.nix
     ./steam.nix
     ./stepmania.nix
@@ -65,6 +67,7 @@
     ./tor-browser-bundle-bin.nix
     ./tuba.nix
     ./vlc.nix
+    ./wike.nix
     ./wireshark.nix
     ./xarchiver.nix
     ./zeal.nix

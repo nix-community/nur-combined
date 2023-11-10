@@ -2,6 +2,7 @@
 - why i need to manually restart `wireguard-wg-ovpns` on servo periodically
   - else DNS fails
 - ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
+- Fractal opens links with non-preferred web browser
 
 ## REFACTORING:
 
@@ -21,7 +22,6 @@
 - fix lightdm-mobile-greeter for newer libhandy
 - port zecwallet-lite to a from-source build
 - REVIEW/integrate jellyfin dataDir config: <https://github.com/NixOS/nixpkgs/pull/233617>
-- remove `libsForQt5.callPackage` broadly: <https://github.com/NixOS/nixpkgs/issues/180841>
 
 #### upstreaming to non-nixpkgs repos
 - gtk: build schemas even on cross compilation: <https://github.com/NixOS/nixpkgs/pull/247844>

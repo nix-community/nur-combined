@@ -109,6 +109,7 @@ in
       "util-linux"  # lsblk, lscpu, etc
       "wget"
       "wirelesstools"  # iwlist
+      "xq"  # jq for XML
     ];
     sysadminExtraUtils = declPackageSet [
       "backblaze-b2"
