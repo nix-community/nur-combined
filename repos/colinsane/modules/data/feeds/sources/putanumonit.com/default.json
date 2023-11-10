@@ -1,23 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 35750,
-  "content_type": "application/rss+xml; charset=utf-8",
   "description": "rationality in love",
-  "favicon": "https://putanumonit.files.wordpress.com/2023/03/puta-square-comets-picfont.png?w=32",
-  "favicon_data_uri": "data:image/png;base64,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",
-  "hubs": [
-    "https://putanumonit.com/?pushpress=hub"
-  ],
   "is_podcast": false,
-  "is_push": true,
-  "item_count": 20,
-  "last_updated": "2023-08-19T19:58:41+00:00",
-  "score": 22,
-  "self_url": "https://putanumonit.com/feed/",
   "site_name": "PUTANUMONIT",
   "site_url": "https://putanumonit.com",
   "title": "PUTANUMONIT",
   "url": "https://putanumonit.com/feed/",
-  "velocity": 0.025,
-  "version": "rss20"
+  "velocity": 0.025
 }

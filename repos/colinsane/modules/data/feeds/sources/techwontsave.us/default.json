@@ -1,23 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 1178350,
-  "content_type": "text/xml; charset=utf-8",
   "description": "Silicon Valley wants to shape our future, but why should we let it? Every Thursday, Paris Marx is joined by a new guest to critically examine the tech industry, its big promises, and the people behind them. Tech Won\u2019t Save Us challenges the notion that tech alone can drive our world forward by showing that separating tech from politics has consequences for us all, especially the most vulnerable. It\u2019s not your usual tech podcast.",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [
-    "https://pubsubhubbub.appspot.com/"
-  ],
   "is_podcast": true,
-  "is_push": true,
-  "item_count": 193,
-  "last_updated": "2023-10-12T07:00:00+00:00",
-  "score": 12,
-  "self_url": "https://feeds.buzzsprout.com/1004689.rss",
   "site_name": "",
   "site_url": "",
   "title": "Tech Won't Save Us",
   "url": "https://feeds.buzzsprout.com/1004689.rss",
-  "velocity": 0.15,
-  "version": "rss20"
+  "velocity": 0.15
 }

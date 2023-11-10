@@ -1,23 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 3495178,
-  "content_type": "application/rss+xml; charset=utf-8",
   "description": "Conversations about AI, science, technology, history, philosophy and the nature of intelligence, consciousness, love, and power.",
-  "favicon": "https://lexfridman.com/wordpress/wp-content/uploads/2017/06/cropped-lex-favicon-4-1-32x32.png",
-  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEOElEQVRYhc2Xz2skRRTHP9XdTubnusmOMQkSksFER2KIOQjiJYc9xxyElYBI8KjX/AWeo3dvKwsSlEiQgEgO3kQWFFED0TU6wWySyc4iOibT09NdHl7VzGSmJ5uoCT4oeqarur7f96veK8XF5DrwNDAK5IG0eV8FysAucM/8P5eoc6zxgBngJvACMABkgYSZA2gANQP8ALgLbAJbQPRvCDwHvG4IDCEWsOCOGRiQBlAHjoGHwH3gK+AO8OtFCXjAq8AtoICY+xotrZ0e31kiNeAPxC33gNvAZ8RYw43ZJAm8DbwGPAOMIJonAVcpdZbVlNmzz6zPAo8DE4b8d50kOgkkgLeAV5BgexJIKaXcXC7H+Pg4hUKBTCaD7/sEQXAGF1yzXwrIGEVc4FtA9yJwy4xJ4IbRQuVyOebm5lheXmZpaYnp6WkqlQr7+/uPImEtYokMIm75OW7xFPAJ8AtwYlhqpZQuFot6fX1dR1GktdY6DEO9urqqJyYmtF33iBECfwHbwIfAUxbUBpMHvIEE3IBhLCooxcjICDMzM1j3O47D7OwsQ0NDnB0STXEQaw4irl202JbAi8C0WZBue49SikwmQyqVOrVjOp0mnU6fl4DFSiPp/DLi5ibQTTORpXW4NEUp1QUU9+4ckkDSeQSYswQGgeeRVEv0+jKOwD+UJOLml4Ckg5hiADFPl/aXIJ7BygNjDlJY2o/XyxYbkNeAUeuCJFejvRXPYOYdWoF3Fdq3iwNkrxo0lkUVqWBn1u1LkAioesjZXDMkzi1KKRKJBH19fURRi7vWmiiKCMMQrXWvz23JfuAhbVQVaSYiesRC52b9/f0sLCwwPDzcJKC1JggCyuUy29vb7O3t4ft+nOa2X9gFyYKPgBLg01FIXNfV8/Pz+ujoSHdKGIb65OREHx8fN0e1WtWlUkmvrKzoyclJ7ThOZ2HykWp4G3MQlZFG4XdjhS7Nfd+nXu+awnEckskkqVSqOTKZDKOjoywuLjI1NYXndWV3DWnZvgRq1tybwAGtgDxF4PDwkJ2dnbN82iWu6+I4Xd6sI6a/D3wBrYZkH6kHQ0j38hht/WIQBPi+z9jYGNlsFoAoimJHo9GgUqmwtrbGxsYG5XLZEo+MgrtIf/gpoNsryhTwDq0OOGknHMchn89TLBYpFApks9k47UTFep2DgwO2trYolUrUajULXgN+A74Gls3vrq54EXgTeBYpUMn2Sdd18TyvJziIy8IwpNFotGteQ+4LW8B7wOd2fWeEfGy092i1480iFYYhYRj2BI+RdvAfkWzbPKVUxwch8A1SqW6Yec88L3ps1xGfHyK94CrwgcHoSQAkC+4a5k8gbtK03KXofaGJgABpQB8ifv4BeB+xbpf54gjYjb5Hzoe0AaybzUNDMmh7+siV7E8DvAf8hJj7XaNQbA7/7y+nnfKfX8//Boe1oDbmGfo5AAAAAElFTkSuQmCC",
-  "hubs": [
-    "https://pubsubhubbub.appspot.com/"
-  ],
   "is_podcast": true,
-  "is_push": true,
-  "item_count": 397,
-  "last_updated": "2023-09-18T01:07:29+00:00",
-  "score": 20,
-  "self_url": "https://lexfridman.com/feed/podcast/",
   "site_name": "Lex Fridman",
   "site_url": "https://lexfridman.com",
   "title": "Lex Fridman Podcast",
   "url": "https://lexfridman.com/feed/podcast/",
-  "velocity": 0.214,
-  "version": "rss20"
+  "velocity": 0.21
 }

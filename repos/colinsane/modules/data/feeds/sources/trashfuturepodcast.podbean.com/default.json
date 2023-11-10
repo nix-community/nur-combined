@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 4171029,
-  "content_type": "text/xml; charset=utf-8",
   "description": "A Buyer\u2019s Guide to Our Late Capitalist Dystopia",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": true,
-  "is_push": false,
-  "item_count": 716,
-  "last_updated": "2023-10-18T08:54:21+00:00",
-  "score": -2,
-  "self_url": "https://feed.podbean.com/trashfuturepodcast/feed.xml",
   "site_name": "",
-  "site_url": "",
+  "site_url": "https://feed.podbean.com",
   "title": "TRASHFUTURE",
   "url": "https://feed.podbean.com/trashfuturepodcast/feed.xml",
-  "velocity": 0.313,
-  "version": "rss20"
+  "velocity": 0.314
 }

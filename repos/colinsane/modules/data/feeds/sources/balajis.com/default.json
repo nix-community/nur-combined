@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 592815,
-  "content_type": "application/xml; charset=utf-8",
   "description": "A free newsletter by Balaji.",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": true,
-  "is_push": false,
-  "item_count": 20,
-  "last_updated": "2023-07-04T11:31:07+00:00",
-  "score": 14,
-  "self_url": "https://balajis.com/feed",
   "site_name": "balajis.com | Substack",
   "site_url": "https://balajis.com",
   "title": "balajis.com",
   "url": "https://balajis.com/feed",
-  "velocity": 0.022,
-  "version": "rss20"
+  "velocity": 0.027
 }

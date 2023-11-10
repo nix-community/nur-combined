@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 79320,
-  "content_type": "application/xml; charset=utf-8",
   "description": "Useful Idiots is an informative and irreverent politics podcast.",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": true,
-  "is_push": false,
-  "item_count": 20,
-  "last_updated": "2023-09-22T14:50:13+00:00",
-  "score": 14,
-  "self_url": "https://www.usefulidiotspodcast.com/feed",
   "site_name": "Useful Idiots  | Substack",
   "site_url": "https://www.usefulidiotspodcast.com",
   "title": "Useful Idiots",
   "url": "https://www.usefulidiotspodcast.com/feed",
-  "velocity": 0.68,
-  "version": "rss20"
+  "velocity": 0.606
 }

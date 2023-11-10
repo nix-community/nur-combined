@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 1423488,
-  "content_type": "application/rss+xml; charset=utf-8",
   "description": "Industry veterans, degenerate gamblers & besties Chamath Palihapitiya, Jason Calacanis, David Sacks & David Friedberg cover all things economic, tech, political, social & poker.",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": true,
-  "is_push": false,
-  "item_count": 160,
-  "last_updated": "2023-09-22T22:51:00+00:00",
-  "score": 18,
-  "self_url": "https://allinchamathjason.libsyn.com/rss",
   "site_name": "All-In with Chamath, Jason, Sacks & Friedberg",
   "site_url": "https://allinchamathjason.libsyn.com",
   "title": "All-In with Chamath, Jason, Sacks & Friedberg",
   "url": "https://allinchamathjason.libsyn.com/rss",
-  "velocity": 0.124,
-  "version": "rss20"
+  "velocity": 0.124
 }

@@ -1,21 +1,9 @@
 {
-  "bozo": 1,
-  "content_length": 32536,
-  "content_type": "text/xml; charset=utf-8",
   "description": "Vitalik Buterin's website",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": false,
-  "is_push": false,
-  "item_count": 113,
-  "last_updated": "2023-08-16T00:00:00+00:00",
-  "score": 0,
-  "self_url": "",
   "site_name": " Vitalik Buterin's website ",
   "site_url": "https://vitalik.ca",
   "title": "Vitalik Buterin's website",
   "url": "https://vitalik.ca/feed.xml",
-  "velocity": 0.012,
-  "version": "rss20"
+  "velocity": 0.012
 }

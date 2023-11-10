@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 15207,
-  "content_type": "application/atom+xml; charset=utf-8",
   "description": "Latest posts",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": false,
-  "is_push": false,
-  "item_count": 25,
-  "last_updated": "2023-10-03T16:25:00+00:00",
-  "score": 18,
-  "self_url": "https://www.harihareswara.net/atom/",
   "site_name": "Cogito, Ergo Sumana",
   "site_url": "https://www.harihareswara.net",
   "title": "Cogito, Ergo Sumana",
   "url": "https://www.harihareswara.net/atom/",
-  "velocity": 0.104,
-  "version": "atom10"
+  "velocity": 0.097
 }

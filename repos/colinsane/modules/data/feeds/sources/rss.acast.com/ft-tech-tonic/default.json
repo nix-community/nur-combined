@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 677073,
-  "content_type": "application/xml; charset=utf-8",
   "description": "The show that looks at the way technology is changing our economies, societies and daily lives.",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": true,
-  "is_push": false,
-  "item_count": 181,
-  "last_updated": "2023-09-19T04:00:31+00:00",
-  "score": 10,
-  "self_url": "https://feeds.acast.com/public/shows/125ef5a6-6c61-4024-b70e-3487a971a26c",
   "site_name": "",
   "site_url": "",
   "title": "FT Tech Tonic",
   "url": "https://feeds.acast.com/public/shows/125ef5a6-6c61-4024-b70e-3487a971a26c",
-  "velocity": 0.071,
-  "version": "rss20"
+  "velocity": 0.071
 }

@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 1030429,
-  "content_type": "application/rss+xml; charset=utf-8",
   "description": "Politics minus bile plus jokes. Comedian and avowed independent Andrew Heaton interviews authors and thought leaders about policy and big thinky stuff.",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": true,
-  "is_push": false,
-  "item_count": 457,
-  "last_updated": "2023-09-21T07:00:35+00:00",
-  "score": 20,
-  "self_url": "https://feeds.libsyn.com/196289/rss",
   "site_name": "test220119a",
   "site_url": "https://feeds.libsyn.com",
   "title": "The Political Orphanage",
   "url": "https://feeds.libsyn.com/196289/rss",
-  "velocity": 0.257,
-  "version": "rss20"
+  "velocity": 0.254
 }

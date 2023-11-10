@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 78844,
-  "content_type": "application/atom+xml; charset=utf-8",
   "description": "rebel with rather too many causes",
-  "favicon": "https://mako.cc/favicon.ico",
-  "favicon_data_uri": "data:image/png;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAASgAAAKcAAADkAAAA+wAAAPsAAADkAAAApwAAAEoAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAAAAkgICAu0eHh7/TU1N/2pqav9qamr/TU1N/x4eHv8CAgLtAAAAkgAAABoAAAAAAAAAAAAAAAAAAAAaAAAAsBISEv54eHj/2NjY//n5+f/7+/v/+/v7//n5+f/Y2Nj/eHh4/xISEv4AAACwAAAAGgAAAAAAAAAHAAAAkhUVFf+jo6P/+/v7/9PT0/+AgID/UlJS/1JSUv+Dg4P/2NjY//v7+/+jo6P/FRUV/wAAAJIAAAAHAAAASgMDA+uEhIT/+/v7/6ampv8hISH/HBwc/0JCQv88PDz/ERER/yYmJv+0tLT//f39/4SEhP8DAwPrAAAASgAAAKYrKyv/4+Pj/9XV1f81NTX/U1NT/9HR0f/29vb/8vLy/7u7u/8vLy//JiYm/9fX1//k5OT/Kysr/wAAAKYAAADjY2Nj//39/f/v7+//1dXV/+3t7f//////////////////////tLS0/w0NDf+BgYH//v7+/2RkZP8AAADjAAAA+4KCgv///////v7+/////////////v7+//7+/v/+/v7//////+np6f8rKyv/UVFR//39/f+Dg4P/AAAA+wAAAPuCgoL///////7+/v////////////7+/v/+/v7//v7+///////n5+f/KCgo/1RUVP/9/f3/g4OD/wAAAPsAAADjY2Nj//39/f/19fX/5OTk//Hx8f//////////////////////pqam/woKCv+Hh4f//////2RkZP8AAADjAAAApisrK//j4+P/2NjY/0BAQP9JSUn/vb29/+vr6//m5ub/paWl/yIiIv8rKyv/29vb/+Pj4/8rKyv/AAAApgAAAEoDAwPrhISE//r6+v+hoaH/Hh4e/w8PD/8sLCz/Jycn/wkJCf8rKyv/ubm5//39/f+EhIT/AwMD6wAAAEoAAAAHAAAAkhUVFf+jo6P/+/v7/9PT0/+AgID/UlJS/1VVVf+JiYn/3Nzc//z8/P+ioqL/FRUV/wAAAJIAAAAHAAAAAAAAABoAAACwEhIS/nh4eP/Y2Nj/+fn5//v7+//7+/v/+fn5/9jY2P94eHj/EhIS/gAAALAAAAAaAAAAAAAAAAAAAAAAAAAAGgAAAJICAgLtHh4e/01NTf9qamr/aWlp/0tLS/8eHh7/AgIC7QAAAJIAAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAASgAAAKYAAADkAAAA+wAAAPsAAADkAAAApwAAAEoAAAAIAAAAAAAAAAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==",
-  "hubs": [],
   "is_podcast": false,
-  "is_push": false,
-  "item_count": 11,
-  "last_updated": "2022-12-03T21:40:32+00:00",
-  "score": 20,
-  "self_url": "https://mako.cc/copyrighteous/feed/atom",
   "site_name": "Benjamin Mako Hill",
   "site_url": "https://mako.cc",
   "title": "copyrighteous",
   "url": "https://mako.cc/copyrighteous/feed/atom",
-  "velocity": 0.012,
-  "version": "atom10"
+  "velocity": 0.012
 }

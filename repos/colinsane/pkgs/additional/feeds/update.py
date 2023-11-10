@@ -19,10 +19,33 @@ def try_scheme(url: str, scheme: str):
     items = search(url, total_timeout=180, request_timeout=90, max_content_length=100*1024*1024)
     return sort_urls(items)
 
+def clean_item(item: dict) -> dict:
+    ''' remove keys/values i don't care to keep in git '''
+    return {
+        k:v for k,v in item.items() if k in [
+            # "content_type",
+            "description",  # not used
+            # "favicon",
+            # "favicon_data_uri",  # embedded favicon
+            # "hubs",  # PubSub hubs
+            "is_podcast",   # used by <hosts/common/feeds.nix>
+            # "is_push",
+            # "last_updated",
+            # "self_url",
+            "site_name",    # not used
+            "site_url",     # not used
+            "title",        # used by <hosts/common/feeds.nix> (and others)
+            "url",          # used by <hosts/common/feeds.nix> (and many others)
+            "velocity",     # used by <hosts/common/feeds.nix>
+            # "version",
+        ]
+    }
+
 items = try_scheme(url, "https") or try_scheme(url, "http")
 
 # print all results
 serialized = [item.serialize() for item in items]
+serialized = [clean_item(s) for s in serialized]
 for item in serialized:
         print(json.dumps(item, sort_keys=True, indent=2))
 

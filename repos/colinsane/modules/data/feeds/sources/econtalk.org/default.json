@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 26199,
-  "content_type": "application/rss+xml; charset=utf-8",
   "description": "The Library of Economics and Liberty",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": false,
-  "is_push": false,
-  "item_count": 10,
-  "last_updated": "2023-09-18T10:30:43+00:00",
-  "score": 14,
-  "self_url": "https://www.econtalk.org/feed/",
   "site_name": "",
   "site_url": "",
-  "title": "EconTalk Podcast \u2013 Econlib",
+  "title": "EconTalk Podcast Archive - Econlib",
   "url": "https://www.econtalk.org/feed",
-  "velocity": 0.143,
-  "version": "rss20"
+  "velocity": 0.143
 }

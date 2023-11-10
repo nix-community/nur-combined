@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 133561,
-  "content_type": "text/xml; charset=utf-8",
   "description": "to the heavens",
-  "favicon": "https://mindingourway.com/favicon.png",
-  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAAnAAAAJwEqCZFPAAAE2klEQVR42u2dSasUVxxHW4zGiFmbrxHliU8NKMaF+AWcn34IcQIFA4pK4rAJZKcrNyKIOOCnUBwS5wnUlaIicbaXVYfC/7td1dXV3nPh7N6rvsNp+NH3f2/1et95m5iYmAJfAjYW6dkUwKYANgWwjcuCzwS3QCTAv6D0PGdYAWwKYFMAW2cF2AS4wDfBf4B/v6GIM6wANgWwKYCtMwv+A2CI++YPPdMQxlCoAAqgAAqgAArQTQE2Ay4gQ97MAEOhAiiAAiiAAijAeIS+aLMnqcDDUKgACqAACqAACtBZAaIiz9ugJMw0nm8oVAAFUAAFUAAF6MaCpxZ5lkJcA5+fWmBiKFQABVAABVAABWhGABZwtLoAAwhoKFQABVAABVCAsRCg38lFRTrQn1kgqcizhf5FBSidDoX9PkwWUQAFUAAFUICsBfgADoGfirTQwS2AE8wQ1uoEdz0Ucr36HAYfiyiAAiiAAihA1gJ8BFGBxW9FhjChUQFGo5s9DfR/pEWk/WcsBgyh7E/pC68ACqAACqAAWQvAdgXwAZ/AUTC3SAObPd883NkBAVIFTj2oMgcwpEdf4Gug1BRAARRAARQgXwEqPpCHL7eD/wE/8AH4HfD5dwCft65Ir+ON/a0YD8fL+VgB7gE+7x3geiUdjFEABVAABVCAfAWYxgB/Bamh8TIYq9A3hFB4AUSh7jpot6BHARRAARRAAbIVoGLAs8E+8B5EL23aW6Q35q0/hl0gGj8FOAhKPwx1YYAKoAAKoAAKkKcAQ5gAhsYjIGmzqYXx/QgOABbdRuPfXaSX4TdAARRAARRAAcZTgIofQqLNnnMgCo08iLGsSAvjY2PBRRTqLoLv6zJqBVAABVAABchZgFpFnn0WgNTNplqhsSLU7QdRqOPBDB7cGGoRqQIogAIogAIoQIsLnlrkubbIAM9vukh1ObgLUoswS5dcTWN8tYpIFUABFEABFEABRihAdEHCE9DoACpC41UQhcYo1PGHmfJFi/X7z4sxn4Juh0IFUAAFUAAFyEaAAX7IIPfBHjC/yAD9mwRvQdQ/bkatKjJAf34BewFDatS/0W4WKYACKIACKEDOAkQvTHgEUgVhKDsLVoM/QBTq2J/U0PgXWAPY39SiUC7wYzDaUKgACqAACqAA2QhQsRkTvSBhPZgBVoIzIHXCIk4BvlCBh1v/AXU/n+PheDkfnK+RXkatAAqgAAqgAFkLMAXYgc+AFxqwAGMe4AL8DeouAEPceUBBUi+0iDgJKODPgPPFy6E538MNhQqgAAqgAAqQjQAVoY8vjWo6FD0D0f+fACyqfAXq9vc1WAtShX0BKGjd/tYLhQqgAAqgAAqQswDRy5tvAG7OHAPR5cepMASlhjZurjwEqQUjUSirG1qPA853s4dLFUABFEABFCAbAeoe7qwowoxeXhwN+EvLNL2AqZdBR3/PBV4K6m0WKYACKIACKEDOAmwFfAB/CPoTNB3yJO0LwyLV6KBJORQqgAIogAIoQM4CRJcijTqkRbwBl8BOsAQsArz0iS925ObQuAlUCoUKoAAKoAAKkLUAo+7QS8AXSOwAXMCkixmHcFCGP4SxvxwPxzvS+VcABVAABVAABajBc3AabAO82HG8XorU/CVbCwHni/PJ+VYABVAABVAABRiEr4mwVmPpPyoAAAAAAElFTkSuQmCC",
-  "hubs": [],
   "is_podcast": false,
-  "is_push": false,
-  "item_count": 15,
-  "last_updated": "2019-12-21T19:28:00+00:00",
-  "score": 16,
-  "self_url": "https://mindingourway.com/rss/",
   "site_name": "Minding our way",
   "site_url": "https://mindingourway.com",
   "title": "Minding our way",
   "url": "https://mindingourway.com/rss/",
-  "velocity": 0.01,
-  "version": "rss20"
+  "velocity": 0.01
 }

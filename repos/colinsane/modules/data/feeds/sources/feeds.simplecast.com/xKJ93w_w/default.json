@@ -1,23 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 1509975,
-  "content_type": "application/xml; charset=utf-8",
   "description": "An audio guide to the world\u2019s strange, incredible, and wondrous places. Co-founder Dylan Thuras and a neighborhood of Atlas Obscura reporters explore a new wonder every day, Monday through Thursday. In under 15 minutes, they\u2019ll take you to an incredible place, and along the way, you\u2019ll meet some fascinating people and hear their stories. Our theme and end credit music is composed by Sam Tyndall.",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [
-    "https://simplecast.superfeedr.com/"
-  ],
   "is_podcast": true,
-  "is_push": true,
-  "item_count": 612,
-  "last_updated": "2023-09-22T04:05:00+00:00",
-  "score": 24,
-  "self_url": "https://feeds.simplecast.com/xKJ93w_w",
   "site_name": "",
   "site_url": "",
   "title": "The Atlas Obscura Podcast",
   "url": "https://feeds.simplecast.com/xKJ93w_w",
-  "velocity": 0.652,
-  "version": "rss20"
+  "velocity": 0.655
 }

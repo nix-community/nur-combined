@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 310176,
-  "content_type": "application/atom+xml; charset=utf-8",
   "description": "In love with the moment. Scared shitless of the future.",
-  "favicon": "",
-  "favicon_data_uri": "",
-  "hubs": [],
   "is_podcast": false,
-  "is_push": false,
-  "item_count": 20,
-  "last_updated": "2023-09-07T15:59:10+00:00",
-  "score": 22,
-  "self_url": "https://www.rifters.com/crawl/?feed=atom",
   "site_name": "Echopraxia",
   "site_url": "https://www.rifters.com",
   "title": "No Moods, Ads or Cutesy Fucking Icons",
   "url": "https://www.rifters.com/crawl/?feed=atom",
-  "velocity": 0.053,
-  "version": "atom10"
+  "velocity": 0.054
 }

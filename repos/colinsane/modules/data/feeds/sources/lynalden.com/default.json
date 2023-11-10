@@ -1,21 +1,9 @@
 {
-  "bozo": 0,
-  "content_length": 10682,
-  "content_type": "application/rss+xml; charset=utf-8",
   "description": "Investment Strategy",
-  "favicon": "https://www.lynalden.com/wp-content/plugins/genesis-favicon-uploader/favicons/favicon.ico",
-  "favicon_data_uri": "data:image/png;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA6KIAAFc9AAAfFgAAHRQHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQRERERETAABBERERERMAAEEREREREwAAQRESIiIgAABBERAAAAAAAEEREAAAAAAAQREQAAAAAABBERAAAAAAAEEREAAAAAAAQREQAAAAAABBERAAAAAAAEEREAAAAAAAQREQAAAAAABBERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-  "hubs": [],
   "is_podcast": false,
-  "is_push": false,
-  "item_count": 10,
-  "last_updated": "2023-08-23T15:39:30+00:00",
-  "score": 12,
-  "self_url": "https://www.lynalden.com/feed/",
   "site_name": "Lyn Alden",
   "site_url": "https://www.lynalden.com",
   "title": "Lyn Alden",
   "url": "https://www.lynalden.com/feed/",
-  "velocity": 0.021,
-  "version": "rss20"
+  "velocity": 0.02
 }
