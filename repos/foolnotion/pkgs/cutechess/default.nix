@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qmake, qtsvg, qt5compat, qtbase }:
+{ lib, stdenv, fetchFromGitHub, cmake, qmake, qtsvg, qt5compat, qtwayland, qtbase }:
 
 stdenv.mkDerivation rec {
   pname = "cutechess";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-P44Twbw2MGz+oTzPwMFCe73zPxAex6uYjSTtaUypfHw=";
   };
 
-  buildInputs = [ qtbase qtsvg qt5compat ];
+  buildInputs = [ qtbase qtsvg qt5compat qtwayland ];
 
   nativeBuildInputs = [ cmake qmake ];
 
