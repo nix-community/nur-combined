@@ -351,16 +351,16 @@
   };
   grasscutter-resources = {
     pname = "grasscutter-resources";
-    version = "c1e9481457f10cf48cdf60e493d4c2477d0e2e0d";
+    version = "317b6ca37aed6a49cf92f4acfca0bb7f1ba470f7";
     src = fetchgit {
       url = "https://gitlab.com/YuukiPS/GC-Resources.git";
-      rev = "c1e9481457f10cf48cdf60e493d4c2477d0e2e0d";
+      rev = "317b6ca37aed6a49cf92f4acfca0bb7f1ba470f7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-NhGSX4PILIa8IABVMO3ZnrvdWyJMPCa10kYNKAg2UAg=";
+      sha256 = "sha256-+tHifBnJskJRTtwPmnfcaQroNZMetbI5wa4LVacYcJI=";
     };
-    date = "2023-09-28";
+    date = "2023-11-11";
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
@@ -823,18 +823,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "4cb54015/linuxqq_3.2.1-17816";
+    version = "fd2e886e/linuxqq_3.2.2-18394";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4cb54015/linuxqq_3.2.1-17816_amd64.deb";
-      sha256 = "sha256-Cca1tXarfmEtXU0Njo9Uu3rjpGnPN/hH1ZnnUop5FCQ=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/fd2e886e/linuxqq_3.2.2-18394_amd64.deb";
+      sha256 = "sha256-L1M8O0FzVKLXNNYGGMPf1Nbh/DFxLHBlbzapr7uz5Sk=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "4cb54015/linuxqq_3.2.1-17816";
+    version = "fd2e886e/linuxqq_3.2.2-18394";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4cb54015/linuxqq_3.2.1-17816_arm64.deb";
-      sha256 = "sha256-UyJaDulWUSKZ5NQp9PChSKk/Kuj7es5f1dR/2dy/X/4=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/fd2e886e/linuxqq_3.2.2-18394_arm64.deb";
+      sha256 = "sha256-6E3h7Z4936YKZb+G0FoMb90T3EzH8z07mmGMnL4SDFk=";
     };
   };
   qqmusic = {

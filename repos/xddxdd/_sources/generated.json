@@ -599,7 +599,7 @@
     },
     "grasscutter-resources": {
         "cargoLocks": null,
-        "date": "2023-09-28",
+        "date": "2023-11-11",
         "extract": null,
         "name": "grasscutter-resources",
         "passthru": null,
@@ -609,12 +609,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c1e9481457f10cf48cdf60e493d4c2477d0e2e0d",
-            "sha256": "sha256-NhGSX4PILIa8IABVMO3ZnrvdWyJMPCa10kYNKAg2UAg=",
+            "rev": "317b6ca37aed6a49cf92f4acfca0bb7f1ba470f7",
+            "sha256": "sha256-+tHifBnJskJRTtwPmnfcaQroNZMetbI5wa4LVacYcJI=",
             "type": "git",
             "url": "https://gitlab.com/YuukiPS/GC-Resources.git"
         },
-        "version": "c1e9481457f10cf48cdf60e493d4c2477d0e2e0d"
+        "version": "317b6ca37aed6a49cf92f4acfca0bb7f1ba470f7"
     },
     "hoyo-glyphs": {
         "cargoLocks": null,
@@ -1430,11 +1430,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Cca1tXarfmEtXU0Njo9Uu3rjpGnPN/hH1ZnnUop5FCQ=",
+            "sha256": "sha256-L1M8O0FzVKLXNNYGGMPf1Nbh/DFxLHBlbzapr7uz5Sk=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/4cb54015/linuxqq_3.2.1-17816_amd64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/fd2e886e/linuxqq_3.2.2-18394_amd64.deb"
         },
-        "version": "4cb54015/linuxqq_3.2.1-17816"
+        "version": "fd2e886e/linuxqq_3.2.2-18394"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1445,11 +1445,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-UyJaDulWUSKZ5NQp9PChSKk/Kuj7es5f1dR/2dy/X/4=",
+            "sha256": "sha256-6E3h7Z4936YKZb+G0FoMb90T3EzH8z07mmGMnL4SDFk=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/4cb54015/linuxqq_3.2.1-17816_arm64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/fd2e886e/linuxqq_3.2.2-18394_arm64.deb"
         },
-        "version": "4cb54015/linuxqq_3.2.1-17816"
+        "version": "fd2e886e/linuxqq_3.2.2-18394"
     },
     "qqmusic": {
         "cargoLocks": null,
