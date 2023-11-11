@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }: with lib; let
+  homeConfig = config;
   cfg = config.programs.firefox;
   wrapperConfig = cfg.wrapperConfig;
   wrapped = cfg.wrapper cfg.packageUnwrapped cfg.wrapperConfig;
@@ -9,60 +10,54 @@
   firefoxConfigPath = if pkgs.hostPlatform.isDarwin then "Library/Application Support/Firefox" else ".mozilla/firefox";
   profilesPath = firefoxConfigPath + optionalString pkgs.hostPlatform.isDarwin "/Profiles";
   profileType = { config, ... }: {
-    options = {
+    options = with types; {
       containers = mkOption {
-        default = { };
-        description = "Firefox multi-account container definitions";
-        type = types.submodule ({ ... }: {
-          options = {
-            identities = mkOption {
-              description = "Ordered container identity list";
-              default = [ ];
-              example = [
-                { id = 5; name = "Shopping"; icon = "gift"; color = "turquoise"; }
-              ];
-              type = types.listOf (types.submodule ({ ... }: {
-                options = {
-                  id = mkOption {
-                    description = "User Context ID";
-                    type = types.ints.unsigned;
-                  };
-                  name = mkOption {
-                    description = "Container name";
-                    type = types.str;
-                  };
-                  icon = mkOption {
-                    description = "Icon";
-                    type = types.enum [
-                      "" "fingerprint" "briefcase" "dollar" "cart" "circle" "gift"
-                      "vacation" "food" "fruit" "pet" "tree" "chill" "fence"
-                    ];
-                    default = "circle";
-                  };
-                  color = mkOption {
-                    description = "Color";
-                    type = types.enum [
-                      "" "toolbar" # what kind of name for black is this???
-                      "blue" "turquoise" "green" "yellow" "red" "pink" "purple" "orange"
-                    ];
-                    default = "toolbar";
-                  };
-                  public = mkOption {
-                    description = "Whether the container is visible or not";
-                    type = types.bool;
-                    default = true;
-                  };
-                };
-              }));
+        type = types.attrsOf (types.submodule ({ config, name, ... }: {
+          options = with types; {
+            order = mkOption {
+              description = "Container sort order";
+              type = unspecified;
+              default = name;
+            };
+            icon = mkOption {
+              type = enum [ "" ];
+            };
+            color = mkOption {
+              type = enum [ "" ];
+            };
+
+            public = mkOption {
+              description = "Whether the container is visible or not";
+              type = bool;
+              default = true;
+            };
+
+            identityJson = mkOption {
+              description = "containers.json";
+              type = attrsOf (oneOf [ str bool int ]);
             };
           };
-        });
+          config = {
+            identityJson = mapAttrs (_: mkOptionDefault) {
+              userContextId = config.id;
+              inherit (config) name icon color public;
+            };
+          };
+        }));
+      };
+      containersIdentities = mkOption {
+        type = listOf (attrsOf (oneOf [ str bool int ]));
+        default = [ ];
+      };
+      importBukuBookmarks = mkOption {
+        type = bool;
+        default = false;
       };
     };
 
     config = {
       settings = mkMerge [
-        (mkIf (config.containers.identities != [ ]) {
+        (mkIf (config.containersIdentities != [ ]) {
           "privacy.userContext.enabled" = mkOptionDefault true;
           "privacy.userContext.ui.enabled" = mkOptionDefault true;
         })
@@ -70,6 +65,41 @@
           "toolkit.legacyUserProfileCustomizations.stylesheets" = mkOptionDefault true;
         })
       ];
+      containersIdentities = let
+        containers = sort (a: b: a.order < b.order) (attrValues config.containers);
+        identities = map ({ identityJson, ... }: identityJson) containers;
+        webextStorage = {
+          userContextId = 4294967295;
+          name = "userContextIdInternal.webextStorageLocal";
+          icon = "";
+          color = "";
+          public = false;
+          accessKey = "";
+        };
+      in mkIf (config.containers != { }) (mkMerge [
+        identities
+        (mkAfter [ webextStorage ])
+      ]);
+      bookmarks = let
+        inherit (homeConfig.programs) buku;
+        bukuFolders = mapAttrs (_: folder: {
+          inherit (folder) tag name;
+          bookmarks = filter (bookmark: elem folder.tag bookmark.tags) (attrValues buku.bookmarks);
+        }) buku.folders;
+        topLevelBookmarks = filter (bookmark: ! any (folder: elem folder.tag bookmark.tags) (attrValues bukuFolders)) (attrValues buku.bookmarks);
+        bukuImport = bookmark: {
+          name = bookmark.title;
+          tags = attrNames (removeAttrs (genAttrs bookmark.tags id) (attrNames bukuFolders));
+          inherit (bookmark) url;
+        };
+        bookmarks = mkMerge [
+          (mapAttrs (folder: { name, bookmarks, ... }: {
+            inherit name;
+            bookmarks = map bukuImport bookmarks;
+          }) bukuFolders)
+          (map bukuImport topLevelBookmarks)
+        ];
+      in mkIf config.importBukuBookmarks bookmarks;
     };
   };
 in {
@@ -115,22 +145,12 @@ in {
       };
     };
     home.file = mkMerge (flip mapAttrsToList cfg.profiles (_: profile: {
-      "${profilesPath}/${profile.path}/containers.json" = mkIf (profile.containers.identities != [ ]) {
-        text = builtins.toJSON {
+      "${profilesPath}/${profile.path}/containers.json" = mkIf (profile.containersIdentities != [ ]) {
+        text = mkOverride 75 (builtins.toJSON {
           version = 4;
-          lastUserContextId = foldl max 0 (map ({ id, ... }: id) profile.containers.identities);
-          identities = map (c: {
-            inherit (c) name icon color public;
-            userContextId = c.id;
-          }) profile.containers.identities ++ [{
-            userContextId = 4294967295;
-            name = "userContextIdInternal.webextStorageLocal";
-            icon = "";
-            color = "";
-            public = false;
-            accessKey = "";
-          }];
-        };
+          lastUserContextId = foldl max 0 (map ({ id, ... }: id) (attrValues profile.containers));
+          identities = profile.containersIdentities;
+        });
       };
     }));
   };
