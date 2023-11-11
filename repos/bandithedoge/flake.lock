@@ -80,11 +80,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1698438538,
-        "narHash": "sha256-AWxaKTDL3MtxaVTVU5lYBvSnlspOS0Fjt8GxBgnU0Do=",
+        "lastModified": 1699656829,
+        "narHash": "sha256-aqz/YOrllfsUF88FG+xhm+ywB+KxSE8FpPWSY6QnDvY=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "5deb8dc125a9f83b65ca86cf0c8167c46593e0b1",
+        "rev": "8b25ad882a6fc9905fa515c2b61d196b42ca79a3",
         "type": "github"
       },
       "original": {
