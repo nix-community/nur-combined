@@ -66,7 +66,6 @@ in {
     nbr.telegram-desktop-bin # communication
     vlc # media
     stremio
-    sunshine
     moonlight-qt
     nbr.wine-apps._7zip
     xxd

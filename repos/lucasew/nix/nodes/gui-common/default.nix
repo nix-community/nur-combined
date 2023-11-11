@@ -18,6 +18,7 @@ in {
     ./gamemode.nix
     ./syncthing.nix
     ./stremio.nix
+    ./sunshine.nix
     ./wallpaper.nix
     ./extra-fonts.nix
     ./gui-variants
