@@ -52,4 +52,6 @@ rec {
   maa-cli = pkgs.callPackage ./pkgs/MaaAssistantArknights/maa-cli.nix { };
 
   rime-latex = pkgs.callPackage ./pkgs/rimePackages/rime-latex.nix { };
+
+  go-musicfox = pkgs.callPackage ./pkgs/common/go-musicfox.nix { };
 }
