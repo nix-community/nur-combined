@@ -1,0 +1,5 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p wayvnc
+#! vim:ft=bash
+
+wayvnc 0.0.0.0

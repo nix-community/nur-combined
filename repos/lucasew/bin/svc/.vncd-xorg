@@ -1,0 +1,7 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p tigervnc
+#! vim:ft=bash
+
+# I don't care about password in this case because 5900 will only be achievable inside my Tailscale network
+# If you are exposing to your local net or the Internet please don't do this -SecurityTypes None thing
+x0vncserver -display=:0 -SecurityTypes None -ImprovedHextile=1 -RawKeyboard=1
