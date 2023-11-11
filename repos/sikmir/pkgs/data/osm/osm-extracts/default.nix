@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "osm-extracts";
-  version = "231025";
+  version = "231110";
 
   src = fetchurl {
     url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-    hash = "sha256-EwBAHo9ZdRB/bt28WjWz8QTxMZtDEbsgdHrDEyguJuQ=";
+    hash = "sha256-iLVGdobu109m1bhHi+idOuguudHTXT9hWRiJhQHywtg=";
   };
 
   dontUnpack = true;
