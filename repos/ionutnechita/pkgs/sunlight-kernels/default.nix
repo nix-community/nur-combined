@@ -1,16 +1,21 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.5.5-sunlight1";
+  modDirVersion = "6.6.0-sunlight1";
+
   parts = lib.splitString "-" modDirVersion;
+
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
-  extraVer = "-lowlatency";
-  hash = "sha256-cXE5GRR/f4Bpp8bd1CMrw/SVYUsBbCQAhtMrojjB6AU=";
+
+  flavour = "lowlatency";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
-  rev = if ((lib.elemAt numbers 2) == "0") then "${branch}-${suffix}${extraVer}" else "${modDirVersion}${extraVer}";
+
+  rev = "${version}-${flavour}-${suffix}";
+
+  hash = "sha256-68GTx9X+Gsg8D0eg8rOrMfxn1zpg5cgP8hGBlGqm5hE=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -18,8 +23,7 @@ buildLinux (args // rec {
     src = fetchFromGitHub {
       owner = "sunlightlinux";
       repo = "linux-sunlight";
-      rev = "adc671fd41ce6b6b32b8521e762b0ad2b83b34a5";
-      inherit hash;
+      inherit rev hash;
     };
 
     structuredExtraConfig = with lib.kernel; {
