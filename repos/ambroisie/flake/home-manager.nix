@@ -2,7 +2,7 @@
 let
   defaultModules = [
     # Include generic settings
-    "${self}/home"
+    "${self}/modules/home"
     {
       # Basic user information defaults
       home.username = lib.mkDefault "ambroisie";

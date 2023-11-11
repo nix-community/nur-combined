@@ -1,29 +1,56 @@
-{ config, inputs, lib, ... }:
-let
-  actualPath = [ "home-manager" "users" config.my.user.name "my" "home" ];
-  aliasPath = [ "my" "home" ];
-
-  cfg = config.my.user.home;
-in
+{ ... }:
 {
   imports = [
-    inputs.home-manager.nixosModules.home-manager # enable home-manager options
-    (lib.mkAliasOptionModule aliasPath actualPath) # simplify setting home options
+    ./aliases
+    ./atuin
+    ./bat
+    ./bitwarden
+    ./bluetooth
+    ./calibre
+    ./comma
+    ./dircolors
+    ./direnv
+    ./discord
+    ./documentation
+    ./feh
+    ./firefox
+    ./flameshot
+    ./fzf
+    ./gammastep
+    ./gdb
+    ./git
+    ./gpg
+    ./gtk
+    ./htop
+    ./jq
+    ./mail
+    ./mpv
+    ./nix
+    ./nix-index
+    ./nixpkgs
+    ./nm-applet
+    ./packages
+    ./pager
+    ./power-alert
+    ./secrets
+    ./ssh
+    ./terminal
+    ./tmux
+    ./udiskie
+    ./vim
+    ./wm
+    ./x
+    ./xdg
+    ./zathura
+    ./zsh
   ];
 
-  config = lib.mkIf cfg.enable {
-    home-manager = {
-      # Not a fan of out-of-directory imports, but this is a good exception
-      users.${config.my.user.name} = import ../../home;
+  # First sane reproducible version
+  home.stateVersion = "20.09";
 
-      # Nix Flakes compatibility
-      useGlobalPkgs = true;
-      useUserPackages = true;
+  # Who am I?
+  home.username = "ambroisie";
 
-      # Forward inputs to home-manager configuration
-      extraSpecialArgs = {
-        inherit inputs;
-      };
-    };
-  };
+  # Start services automatically
+  systemd.user.startServices = "sd-switch";
 }

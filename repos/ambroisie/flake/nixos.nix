@@ -13,9 +13,7 @@ let
       ];
     }
     # Include generic settings
-    "${self}/modules"
-    # Include bundles of settings
-    "${self}/profiles"
+    "${self}/modules/nixos"
   ];
 
   buildHost = name: system: lib.nixosSystem {
