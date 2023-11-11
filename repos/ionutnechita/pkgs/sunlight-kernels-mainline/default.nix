@@ -1,16 +1,21 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.6.0-rc5";
+  modDirVersion = "6.6.0-sunlight1";
+
   parts = lib.splitString "-" modDirVersion;
+
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
-  extraVer = "";
-  hash = "sha256-3R8dD/UiTTgooy7RK9sQsL2puCrvB83nZ/gBRyJAENg=";
+
+  flavour = "lowlatency";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
-  rev = if ((lib.elemAt numbers 2) == "0") then "${branch}-${suffix}${extraVer}" else "${modDirVersion}${extraVer}";
+
+  rev = "${branch}-${flavour}-${suffix}";
+
+  hash = "sha256-68GTx9X+Gsg8D0eg8rOrMfxn1zpg5cgP8hGBlGqm5hE=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -18,8 +23,7 @@ buildLinux (args // rec {
     src = fetchFromGitHub {
       owner = "sunlightlinux";
       repo = "linux-sunlight";
-      rev = "7f640651ba6b6f55907d15ae76ff741dcd75e746";
-      inherit hash;
+      inherit rev hash;
     };
 
     structuredExtraConfig = with lib.kernel; {
@@ -45,9 +49,14 @@ buildLinux (args // rec {
       PREEMPT_VOLUNTARY = lib.mkForce no;
       PREEMPT_NONE = lib.mkForce no;
 
+      # WineSync driver for fast kernel-backed Wine.
+      WINESYNC = module;
+
+      # 858 Hz is alternative to 1000 Hz.
       # Selected value for a balance between latency, performance and low power consumption.
-      HZ = freeform "1000";
-      HZ_1000 = yes;
+      HZ = freeform "858";
+      HZ_858 = yes;
+      HZ_1000 = no;
 
       SCHEDSTATS = lib.mkOverride 60 yes;
       HID = yes;

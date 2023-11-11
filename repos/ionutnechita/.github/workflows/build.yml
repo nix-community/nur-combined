@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Free disk space
       run: |
         df -h
@@ -37,7 +37,7 @@ jobs:
         docker rmi $(docker image ls -aq) >/dev/null 2>&1
         df -h
     - name: Install nix
-      uses: cachix/install-nix-action@v22
+      uses: cachix/install-nix-action@v23
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
