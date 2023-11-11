@@ -10,7 +10,8 @@ in
     ({config, ...}: {
       config = lib.mkIf config.services.invidious.enable {
         services.miniflux.config = {
-            YOUTUBE_EMBED_URL_OVERRIDE = "http://invidious.${config.networking.hostName}.${config.networking.domain}";
+            INVIDIOUS_INSTANCE = "invidious.${config.networking.hostName}.${config.networking.domain}";
+            YOUTUBE_EMBED_URL_OVERRIDE = "http://invidious.${config.networking.hostName}.${config.networking.domain}/embed/";
         };
       };
     })
@@ -21,7 +22,7 @@ in
     services.miniflux = {
       config = {
         LISTEN_ADDR = "localhost:${toString config.networking.ports.miniflux.port}";
-        ROOT_URL = "http://${domain}";
+        BASE_URL = "http://${domain}";
       };
 
       # if you are not allowed you shouldn't even been able to open the homepage lol

@@ -133,6 +133,7 @@
       playerctl
       brightnessctl
       gscreenshot
+      xwaylandvideobridge
     ];
   };
 }
