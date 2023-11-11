@@ -15,6 +15,7 @@
     ./secrets
     ./services.nix
     ./sound.nix
+    ./system.nix
   ];
 
   # Set your time zone.

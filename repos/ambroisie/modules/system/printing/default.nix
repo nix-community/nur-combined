@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.my.profiles.printing;
+  cfg = config.my.system.printing;
 in
 {
-  options.my.profiles.printing = with lib; {
-    enable = mkEnableOption "printing profile";
+  options.my.system.printing = with lib; {
+    enable = mkEnableOption "printing configuration";
 
     papersize = mkOption {
       type = with types; either str (enum [

@@ -6,7 +6,6 @@
     ./devices
     ./gtk
     ./laptop
-    ./printing
     ./wm
     ./x
   ];

@@ -10,6 +10,7 @@
     ./nix
     ./packages
     ./podman
+    ./printing
     ./users
   ];
 }
