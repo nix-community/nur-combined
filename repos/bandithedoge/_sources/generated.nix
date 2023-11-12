@@ -7,10 +7,10 @@
 }: {
   basiliskii-bin = {
     pname = "basiliskii-bin";
-    version = "2023-10-11";
+    version = "2023-11-11";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-10-11/BasiliskII-x86_64.AppImage";
-      sha256 = "sha256-c1zXphmzsvc6OzpKfbbwQvQjr+ICYV/f+w7bJvZQazY=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-11-11/BasiliskII-x86_64.AppImage";
+      sha256 = "sha256-0MzuoBlcSLaOwoGJfQmfeeu14xH0J9mOF9vcpmA5JUI=";
     };
   };
   bling = {
@@ -243,10 +243,10 @@
   };
   sheepshaver-bin = {
     pname = "sheepshaver-bin";
-    version = "2023-10-11";
+    version = "2023-11-11";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-10-11/SheepShaver-x86_64.AppImage";
-      sha256 = "sha256-DpezDr9h0NBZrr3I2Htqov1oWYu7PWkfwR8kO56uqf0=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-11-11/SheepShaver-x86_64.AppImage";
+      sha256 = "sha256-m1Na+NFKijmAiLjK6RXCmG2FtG/7yEiYsTckRS8Y6PQ=";
     };
   };
   slock-flexipatch = {
