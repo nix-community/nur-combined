@@ -67,6 +67,8 @@ in
         '' + ''
 
           HISTFILE="$HOME/.local/share/zsh/history"
+          HISTSIZE=1000000
+          SAVEHIST=1000000
 
           # auto-cd into any of these dirs by typing them and pressing 'enter':
           hash -d 3rd="/home/colin/dev/3rd"
@@ -117,6 +119,7 @@ in
           # nixos defaults:
           "HIST_FCNTL_LOCK"
           "HIST_IGNORE_DUPS"
+          "HIST_EXPIRE_DUPS_FIRST"
           "SHARE_HISTORY"
           # customizations:
           "AUTO_CD"  # type directory name to go there
