@@ -33,4 +33,5 @@ with pkgs; rec {
   };
   nginx = nginxStable;
   mpvScripts = import ./pkgs/mpv/scripts { inherit lib callPackage config; };
+  anime4k = callPackage ./pkgs/anime4k { };
 }
