@@ -16,6 +16,7 @@ let
     export PATH="$PATH''${PATH:+:}${pkgs.curl}/bin:${pkgs.gnused}/bin"
     ${builtins.readFile ./files/build-chnroutes-set.sh}
   '';
+  # clashUi = pkgs.fetchTarball "https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip";
   inherit (config.sops) secrets;
 in
 {

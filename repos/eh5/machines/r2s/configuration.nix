@@ -74,6 +74,7 @@
     lm_sensors
     lsof
     screen
+    sops
     tcpdump
     usbutils
     sing-box
