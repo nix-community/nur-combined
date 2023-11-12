@@ -1315,11 +1315,11 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic",
-            "rev": "V1.8.5746",
-            "sha256": "sha256-PW0P6Ndekmsw6Y1ChCKHSVRxLPtqwYmi4CnrptpfUfE=",
+            "rev": "V1.8.5752",
+            "sha256": "sha256-6Aq8q3jG9Pvn9UZnXdFheReYDtEgIRy7m62nQT2yjuM=",
             "type": "github"
         },
-        "version": "V1.8.5746"
+        "version": "V1.8.5752"
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
