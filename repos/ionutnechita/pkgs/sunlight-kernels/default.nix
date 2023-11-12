@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.6.0-sunlight1";
+  modDirVersion = "6.6.1-sunlight1";
 
   parts = lib.splitString "-" modDirVersion;
 
@@ -15,7 +15,7 @@ let
 
   rev = "${version}-${flavour}-${suffix}";
 
-  hash = "sha256-68GTx9X+Gsg8D0eg8rOrMfxn1zpg5cgP8hGBlGqm5hE=";
+  hash = "sha256-L+3mr2xP8CRWqGBh1radhw7BlCByWiPRt7aIalNb81I=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -34,6 +34,10 @@ buildLinux (args // rec {
       X86_AMD_PSTATE = lib.mkOverride 60 yes;
       X86_AMD_PSTATE_UT = no;
 
+      # Google's BBRv3 TCP congestion Control
+      TCP_CONG_BBR = yes;
+      DEFAULT_BBR = yes;
+
       # FQ-PIE Packet Scheduling.
       NET_SCH_DEFAULT = yes;
       DEFAULT_FQ_PIE = yes;
@@ -51,6 +55,9 @@ buildLinux (args // rec {
 
       # WineSync driver for fast kernel-backed Wine.
       WINESYNC = module;
+
+      # OpenRGB driver.
+      I2C_NCT6775 = module;
 
       # 858 Hz is alternative to 1000 Hz.
       # Selected value for a balance between latency, performance and low power consumption.
