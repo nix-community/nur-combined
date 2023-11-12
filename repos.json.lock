@@ -733,8 +733,8 @@
             "url": "https://github.com/kf5grd/nur-packages"
         },
         "kira-bruneau": {
-            "rev": "8a16416dff03a20ba7733aa5387b1493198f01f2",
-            "sha256": "14gc0ifzhadp827fvskg5m5nlzw8p7vw49dniw4692w8x7nrc22h",
+            "rev": "74175f708685e098d6d33f90a3757d090eed651b",
+            "sha256": "1q7ncljiw1shss04v7cpv54si1llnaz17hl7fs6dl694qxq359dy",
             "url": "https://gitlab.com/kira-bruneau/nur-packages"
         },
         "kolloch": {
