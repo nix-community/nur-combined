@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
 
   meta = with lib; {
     description = "A modern OSC UI replacement for MPV that retains the functionality of the default OSC";
-    homepage = "https://github.com/cyl0/ModernX";
+    homepage = "https://github.com/zydezu/ModernX";
     license = licenses.unlicense;
     maintainers = with maintainers; [ xyenon ];
   };
