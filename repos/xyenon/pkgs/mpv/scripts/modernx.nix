@@ -2,13 +2,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "ModernX";
-  version = "unstable-2023-01-12";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
-    owner = "cyl0";
+    owner = "zydezu";
     repo = pname;
-    rev = "d053ea602d797bdd85d8b2275d7f606be067dc21";
-    hash = "sha256-Gpofl529VbmdN7eOThDAsNfNXNkUDDF82Rd+csXGOQg=";
+    rev = version;
+    hash = "sha256-Ga8jhFf2qwQj0Svqkc6vyOOCS0zmqqTwU4Nz4r5kfXo=";
   };
 
   dontBuild = true;
@@ -20,6 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     cp modernx.lua $out/share/mpv/scripts/
     mkdir -p $out/share/fonts
     cp Material-Design-Iconic-Font.ttf $out/share/fonts/
+    cp Material-Design-Iconic-Round.ttf $out/share/fonts/
 
     runHook postInstall
   '';
