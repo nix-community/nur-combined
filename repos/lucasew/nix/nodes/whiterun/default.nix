@@ -29,9 +29,9 @@ in {
 
   programs.sunshine.enable = true;
 
-  # services.xserver.windowManager.i3.enable = true;
-  programs.hyprland.enable = true;
-  programs.hyprland.enableNvidiaPatches = true;
+  services.xserver.windowManager.i3.enable = true;
+  # programs.hyprland.enable = true;
+  # programs.hyprland.enableNvidiaPatches = true;
 
   services.hardware.openrgb.enable = true;
 
