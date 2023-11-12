@@ -583,10 +583,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.8";
+      version = "7.5.9";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170525/betterttv-7.5.8.xpi";
-      sha256 = "7e73f24a9b82e5f774070df31f42f6abda42987f81260608453a859da519f001";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191288/betterttv-7.5.9.xpi";
+      sha256 = "e261fd00a12aec6a6af640b0dadf43add7c2da64e759f6eeb307bfdc7f1ced29";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -641,10 +641,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.10.1";
+      version = "2023.10.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4189661/bitwarden_password_manager-2023.10.1.xpi";
-      sha256 = "0cf5f8b21ddf9b0f37f3bf1839978b89063114166c8a75c69fada2cc0eb98758";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191732/bitwarden_password_manager-2023.10.2.xpi";
+      sha256 = "3eac55c07a2802a6192e2788da86578d45158fca21ccdeb521e5281137ecc24a";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1372,10 +1372,10 @@
       };
     "copy-selected-tabs-to-clipboard" = buildFirefoxXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
-      version = "1.5.2";
+      version = "1.6.0";
       addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165015/copy_selected_tabs_to_clipboar-1.5.2.xpi";
-      sha256 = "5b2a803e1a075fecf91c377c4770e1480eb3652f120915a3145cac748d09f1ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4192673/copy_selected_tabs_to_clipboar-1.6.0.xpi";
+      sha256 = "cac5dce8529d6485c6bce523e388285b3ddb1fe71d87f2649a74a985b3349b78";
       meta = with lib;
       {
         description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
@@ -1413,6 +1413,21 @@
         platforms = platforms.all;
         };
       };
+    "dark-mode-webextension" = buildFirefoxXpiAddon {
+      pname = "dark-mode-webextension";
+      version = "0.4.5";
+      addonId = "{174b2d58-b983-4501-ab4b-07e71203cb43}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3970612/dark_mode_webextension-0.4.5.xpi";
+      sha256 = "3c270ae9ed6c5dd69bd19b6f634741648ccd51ded24dd4b3592eb55c2cb3fc09";
+      meta = with lib;
+      {
+        homepage = "https://mybrowseraddon.com/dark-mode.html";
+        description = "A global dark theme for the web";
+        license = licenses.mpl20;
+        mozPermissions = [ "storage" "<all_urls>" "contextMenus" ];
+        platforms = platforms.all;
+        };
+      };
     "dark-mode-website-switcher" = buildFirefoxXpiAddon {
       pname = "dark-mode-website-switcher";
       version = "2.0";
@@ -1444,10 +1459,10 @@
       };
     "darkcloud" = buildFirefoxXpiAddon {
       pname = "darkcloud";
-      version = "1.6.3";
+      version = "1.6.4";
       addonId = "{534c6d6e-de02-417d-a38e-4007d33914b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3950183/darkcloud-1.6.3.xpi";
-      sha256 = "0095b505091bac528a63933eeb2a5f67027214615591f4c896d8c754176e7345";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4192631/darkcloud-1.6.4.xpi";
+      sha256 = "451ac92a52b46179ea3e8ca1d5df705e2ee7cfe1dee8abc873deca781b365550";
       meta = with lib;
       {
         homepage = "http://acroma.rf.gd/darkcloud";
@@ -1530,10 +1545,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "120.0.20231108.91943";
+      version = "120.0.20231110.91750";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4192187/deutsch_de_language_pack-120.0.20231108.91943.xpi";
-      sha256 = "35db30d9e095a50693238e1007792a40ef2ca6c3541babb2e62a1575978b4632";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4193233/deutsch_de_language_pack-120.0.20231110.91750.xpi";
+      sha256 = "264b8edae9c07aa17fae5f16c4e92f7a851c7e5372eff184f7a78a33c1f5b8e6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1923,6 +1938,28 @@
         platforms = platforms.all;
         };
       };
+    "fastforwardteam" = buildFirefoxXpiAddon {
+      pname = "fastforwardteam";
+      version = "0.2334";
+      addonId = "addon@fastforward.team";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4177101/fastforwardteam-0.2334.xpi";
+      sha256 = "d790219622469f08316b41c0d01abf2b584a37fa87b45666a74bd30cffb95ed0";
+      meta = with lib;
+      {
+        homepage = "https://fastforward.team";
+        description = "Don't waste time with compliance. Use FastForward to skip annoying URL \"shorteners\".";
+        license = licenses.unlicense;
+        mozPermissions = [
+          "alarms"
+          "storage"
+          "webNavigation"
+          "tabs"
+          "declarativeNetRequestWithHostAccess"
+          "<all_urls>"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "fediact" = buildFirefoxXpiAddon {
       pname = "fediact";
       version = "0.9.8.7";
@@ -2308,10 +2345,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "120.0.20231108.91943";
+      version = "120.0.20231110.91750";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4192168/francais_language_pack-120.0.20231108.91943.xpi";
-      sha256 = "ff19a971666898591347a6b544fe8e36d3d23dbafdc968d881ee45a659468b6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4193245/francais_language_pack-120.0.20231110.91750.xpi";
+      sha256 = "0370ba2ddfa05e506fa2d3ea291f5a456bee242eb23feb7bf7079cfda04aa435";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4095,10 +4132,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.401";
+      version = "4.404";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4187425/youtube_addon-4.401.xpi";
-      sha256 = "14a7e97b9fe0bd59c95cf2d3020d75733b463cdba8e20bd604d8780a60a6255a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191509/youtube_addon-4.404.xpi";
+      sha256 = "3396fbd5e4ba61fc6f9327d57df398359c40ac4f9963ddf7b11cc920e5bc3c70";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4516,6 +4553,20 @@
         homepage = "https://js.extension.sh";
         description = "The ultimate search extension for Javascript!";
         mozPermissions = [ "tabs" ];
+        platforms = platforms.all;
+        };
+      };
+    "jump-cutter" = buildFirefoxXpiAddon {
+      pname = "jump-cutter";
+      version = "1.27.0";
+      addonId = "jump-cutter@example.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132579/jump_cutter-1.27.0.xpi";
+      sha256 = "b3f0c1485d012a61c80a8e5aa6531bd13b191e19da4aefeeed734f782cfcb46c";
+      meta = with lib;
+      {
+        description = "Watch lectures ~1.5x faster by fast-forwarding long pauses between sentences";
+        license = licenses.agpl3Plus;
+        mozPermissions = [ "storage" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
         };
       };
@@ -5185,10 +5236,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.12.3";
+      version = "2.12.5";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180081/momentumdash-2.12.3.xpi";
-      sha256 = "6ddd19e01a0ea089c3af1614da32c00137980573e56e49fe1de65ffe5454aed5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191897/momentumdash-2.12.5.xpi";
+      sha256 = "03f3a1da1693bbb8cbec32549d1dd2e02d26c24cae3511a5249a2f64830d5ca9";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -7256,6 +7307,20 @@
         platforms = platforms.all;
         };
       };
+    "simple-dark-vlasak" = buildFirefoxXpiAddon {
+      pname = "simple-dark-vlasak";
+      version = "3.0";
+      addonId = "{02be1381-a3d9-460c-b209-5b39b42e2b30}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041660/simple_dark_vlasak-3.0.xpi";
+      sha256 = "050b392afd274003cb33d36eb625e98dc63e6a16fdfb9600d56e184d637af753";
+      meta = with lib;
+      {
+        description = "A simple dark high contrast theme with a tone of cyan.";
+        license = licenses.cc-by-30;
+        mozPermissions = [];
+        platforms = platforms.all;
+        };
+      };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
       version = "5.2";
@@ -7990,10 +8055,10 @@
       };
     "tetrio-plus" = buildFirefoxXpiAddon {
       pname = "tetrio-plus";
-      version = "0.25.2";
+      version = "0.25.5";
       addonId = "tetrio-plus@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4048511/tetrio_plus-0.25.2.xpi";
-      sha256 = "9d7e333c69437c6288671bacb969b0f8a7055fd303762d4bdd1cd2781f671dcc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4193590/tetrio_plus-0.25.5.xpi";
+      sha256 = "5a47eb641d991e855f2c14fd9a96aee2c117f6fe57106bcb7277305bbccaf7b3";
       meta = with lib;
       {
         description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d94d4f4d9a39d7847f4259e0053e02794a2d7361e70cf03a773b53993e17363d/http%3A//TETR.IO\" rel=\"nofollow\">TETR.IO</a>.";
@@ -8326,10 +8391,10 @@
       };
     "tubearchivist-companion" = buildFirefoxXpiAddon {
       pname = "tubearchivist-companion";
-      version = "0.2.1";
+      version = "0.2.2";
       addonId = "{08f0f80f-2b26-4809-9267-287a5bdda2da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170892/tubearchivist_companion-0.2.1.xpi";
-      sha256 = "4a80d376b26ffd0c7643d772f04b86321c18804f5e9f31adab2ff3c7a8b1b07a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4193054/tubearchivist_companion-0.2.2.xpi";
+      sha256 = "07b936486ca00d2d74a749819ae304468ba5f163392ad482b22ca931d97e85aa";
       meta = with lib;
       {
         homepage = "https://github.com/tubearchivist/browser-extension";
@@ -8599,10 +8664,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.11.4.95";
+      version = "2023.11.11.1035";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4190276/ublock_origin_lite-2023.11.4.95.xpi";
-      sha256 = "3d9238269139a7e28639851533cf95ceba2728e8cd026435d2f8571968d6e3d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4193794/ublock_origin_lite-2023.11.11.1035.xpi";
+      sha256 = "9303629782b4bb6b5f561301f0ecfdb2b3ce6004f8b4d1a5c7fb69c6f9ec6a60";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -9022,10 +9087,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "2.0.4";
+      version = "2.0.6";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4185227/vimium_ff-2.0.4.xpi";
-      sha256 = "8156d26b03c41bec0ccb32e15077cb5543c1befd2a4e99d098cdaa83c258595a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191523/vimium_ff-2.0.6.xpi";
+      sha256 = "94a2d7e88596b65891747d48837deb5440780d57db7ae330d1d7d43d5fe64922";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
@@ -9221,10 +9286,10 @@
       };
     "web-archives" = buildFirefoxXpiAddon {
       pname = "web-archives";
-      version = "4.1.0";
+      version = "5.0.0";
       addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139299/view_page_archive-4.1.0.xpi";
-      sha256 = "8c5d42c863981044b999b4c10cbb7e87cc86da569e158707d70c4eec946d8edc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191232/view_page_archive-5.0.0.xpi";
+      sha256 = "73df57b7ffe9d3c851518bc29831b82e5c3862a41782923649bdb20a2223ea7f";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
@@ -9552,10 +9617,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.8";
+      version = "3.4.11.1";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046960/windscribe-3.4.8.xpi";
-      sha256 = "6f06485cb24257afe532df29c268bc08c68bf466f105049eeb0902e2e0a7741e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4191851/windscribe-3.4.11.1.xpi";
+      sha256 = "4e64ef6589f02d27798eb5dbc3584e99806023e69d277769f13ef1f4a24efbe4";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
