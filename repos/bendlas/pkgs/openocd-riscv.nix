@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
     owner = "riscv";
     repo = "riscv-openocd";
     fetchSubmodules = true;
+    # deepClone = true;
     rev = "1ea0e9b426560c044cb361ab0a6733a4c470ef31";
+    # sha256 = "sha256-ExRu7q8uaH6vPcgt8O8A52kjBwWvheLmbdeEZdGRuho=";
     sha256 = "sha256-omkGPPeh5Gjd/UqjDpHl4+1h9LgHJXCkOVpahApZpGg=";
   };
 
