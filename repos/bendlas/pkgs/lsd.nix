@@ -1,17 +1,17 @@
 { lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
-  name = "lsd-${version}";
-  version = "0.23.1";
+  pname = "lsd";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "lsd-rs";
     repo = "lsd";
-    rev = "${version}";
-    sha256 = "sha256-FY1odcKBl7zJ+MxfohkmC1e45fPQK3MKB3orQdCRpA4=";
+    rev = "v${version}";
+    sha256 = "sha256-syT+1LNdigUWkfJ/wkbY/kny2uW6qfpl7KmW1FjZKR8=";
   };
 
-  cargoSha256 = "sha256-t7J7hIbLlRq99Yd2/3Zn+PbHhJtaJRdDluDXN0Hp/Jc=";
+  cargoSha256 = "sha256-viLr76Bq9OkPMp+BoprQusMDgx59nbevVi4uxjZ+eZg=";
 
   ## FIXME error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
   doCheck = false;
