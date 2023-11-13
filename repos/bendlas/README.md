@@ -26,12 +26,6 @@
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
 ![Build and populate cache](https://github.com/bendlas/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
-[![Build Status](https://travis-ci.org/bendlas/nur-packages.svg?branch=master)](https://travis-ci.org/bendlas/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-bendlas-blue.svg)](https://bendlas.cachix.org)
 
-<!--
-Uncomment this if you use travis:
-
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
 

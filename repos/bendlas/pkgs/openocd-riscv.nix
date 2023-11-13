@@ -17,14 +17,14 @@
 
 stdenv.mkDerivation rec {
   pname = "openocd-riscv";
-  version = "2023-08-01";
+  version = "2023-11-10";
 
   src = fetchFromGitHub {
     owner = "riscv";
     repo = "riscv-openocd";
     fetchSubmodules = true;
-    rev = "ee5c5c292fd04f62f88fc0ae3a8d69c403aa2803";
-    sha256 = "sha256-H5SrnbvQ2auqoUfGYYB1QaAgZqR/Nyop7Xx7rpf2yYk=";
+    rev = "1ea0e9b426560c044cb361ab0a6733a4c470ef31";
+    sha256 = "sha256-omkGPPeh5Gjd/UqjDpHl4+1h9LgHJXCkOVpahApZpGg=";
   };
 
   nativeBuildInputs = [ pkg-config autoreconfHook ];
