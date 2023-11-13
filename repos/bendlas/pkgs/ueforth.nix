@@ -5,12 +5,12 @@
 stdenv.mkDerivation rec {
   pname = "ueforth";
   ## https://github.com/flagxor/ueforth/commit/8e46c227aca17f4d0d0eb5ab71af6c88298e35cd
-  version = "7.0.7.12";
+  version = "7.0.7.15-pre";
   src = fetchFromGitHub {
     owner = "flagxor";
     repo = "eforth";
-    rev = "8e46c227aca17f4d0d0eb5ab71af6c88298e35cd";
-    sha256 = "sha256-7dnKEPeEVWJghNObj3AIssrTIFQch/0OlZNNrJF3ZZ0=";
+    rev = "fa56ecf59d991a279d4a0987db51a1f56f44415b";
+    sha256 = "sha256-XL+GhjKOwC580AE66NVGbNw1jpiMaOSCWPWJxJ8014I=";
   };
 
   postPatch = ''
