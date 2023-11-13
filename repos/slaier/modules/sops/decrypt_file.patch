@@ -1,14 +1,15 @@
 diff --git a/pkgs/sops-install-secrets/main.go b/pkgs/sops-install-secrets/main.go
-index fc32f69..ef039a9 100644
+index 34756de..cf4bcd0 100644
 --- a/pkgs/sops-install-secrets/main.go
 +++ b/pkgs/sops-install-secrets/main.go
-@@ -264,30 +264,38 @@ func decryptSecret(s *secret, sourceFiles map[string]plainData) error {
+@@ -265,30 +265,38 @@ func decryptSecret(s *secret, sourceFiles map[string]plainData) error {
  			return fmt.Errorf("Failed to decrypt '%s': %w", s.SopsFile, err)
  		}
  
 -		switch s.Format {
 -		case Binary, Dotenv, Ini:
--			sourceFile.binary = plain
++		if s.Key == "" {
+ 			sourceFile.binary = plain
 -		case Yaml:
 -			if err := yaml.Unmarshal(plain, &sourceFile.data); err != nil {
 -				return fmt.Errorf("Cannot parse yaml of '%s': %w", s.SopsFile, err)
@@ -16,8 +17,6 @@ index fc32f69..ef039a9 100644
 -		case Json:
 -			if err := json.Unmarshal(plain, &sourceFile.data); err != nil {
 -				return fmt.Errorf("Cannot parse json of '%s': %w", s.SopsFile, err)
-+		if s.Key == "" {
-+				sourceFile.binary = plain
 +		} else {
 +			switch s.Format {
 +			case Binary, Dotenv, Ini:
@@ -60,12 +59,12 @@ index fc32f69..ef039a9 100644
  	}
  	sourceFiles[s.SopsFile] = sourceFile
  	return nil
-@@ -442,7 +450,7 @@ func (app *appContext) validateSopsFile(s *secret, file *secretFile) error {
+@@ -445,7 +453,7 @@ func (app *appContext) validateSopsFile(s *secret, file *secretFile) error {
  			s.Name, s.SopsFile, s.Format,
  			file.firstSecret.Format, file.firstSecret.Name)
  	}
--	if app.checkMode != Manifest && (!(s.Format == Binary || s.Format == Dotenv || s.Format == Ini )) {
-+	if app.checkMode != Manifest && (!(s.Format == Binary || s.Format == Dotenv || s.Format == Ini ) && s.Key != "") {
+-	if app.checkMode != Manifest && (!(s.Format == Binary || s.Format == Dotenv || s.Format == Ini)) {
++	if app.checkMode != Manifest && (!(s.Format == Binary || s.Format == Dotenv || s.Format == Ini) && s.Key != "") {
  		_, err := recurseSecretKey(file.keys, s.Key)
  		if err != nil {
  			return fmt.Errorf("secret %s in %s is not valid: %w", s.Name, s.SopsFile, err)

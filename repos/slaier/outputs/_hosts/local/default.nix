@@ -53,7 +53,10 @@ in
     };
   };
 
-  nix.settings.cores = 11;
+  nix.settings = {
+    cores = 11;
+    keep-outputs = true;
+  };
   services.earlyoom.enable = true;
 
   programs.adb.enable = true;
@@ -97,7 +100,19 @@ in
     xdg-utils
     yt-dlp
     zip
-    config.nur.repos.xddxdd.qbittorrent-enhanced-edition
+    (config.nur.repos.xddxdd.qbittorrent-enhanced-edition.override {
+      qbittorrent = qbittorrent.override {
+        libtorrent-rasterbar = libtorrent-rasterbar.overrideAttrs (prev: {
+          src = fetchFromGitHub {
+            owner = "arvidn";
+            repo = "libtorrent";
+            rev = "v2.0.9";
+            sha256 = "sha256-kUpeofullQ70uK/YZUD0ikHCquFTGwev7MxBYj0oHeU=";
+            fetchSubmodules = true;
+          };
+        });
+      };
+    })
   ] ++ (map makeNoProxyWrapper [
     ydict
     ungoogled-chromium

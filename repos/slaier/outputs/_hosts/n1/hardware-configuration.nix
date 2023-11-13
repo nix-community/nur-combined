@@ -1,28 +1,15 @@
-_:
+{ root, ... }:
 { lib, pkgs, ... }:
 {
-  boot.initrd.availableKernelModules = [ "usb_storage" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
-  boot.kernelParams = [
-    "iommu.passthrough=1"
+  imports = with root.nixosModules; [
+    phicomm-n1
   ];
 
-  hardware.deviceTree = {
-    enable = true;
-    name = "n1.dtb";
-    kernelPackage = pkgs.uboot-phicomm-n1;
-  };
-
-  # Only enable wireless firmware to save disk space.
-  hardware.firmware = with pkgs; [
-    (runCommand "wireless-firmware-n1" { } ''
-      mkdir -p $out
-      cd ${raspberrypiWirelessFirmware}
-      cp --no-preserve=mode -t $out --parents lib/firmware/brcm/brcmfmac43455-sdio.{bin,clm_blob,txt}
-    '')
-  ];
+  # usb gadget
+  hardware.phicomm-n1.dwc2.enable = true;
+  boot.kernelModules = [ "g_serial" ];
+  systemd.services."serial-getty@".aliases = [ "serial-getty@ttyGS0.service" ];
+  services.getty.extraArgs = [ "-w" ];
 
   fileSystems."/" =
     {
