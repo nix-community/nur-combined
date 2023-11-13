@@ -68,7 +68,7 @@
     the contents should be a subset of what's in ../media/datasets.
   '';
   # make sure large media is stored to the HDD
-  sane.persist.sys.ext = [
+  sane.persist.sys.byStore.ext = [
     {
       user = "colin";
       group = "users";

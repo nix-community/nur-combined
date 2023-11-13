@@ -29,7 +29,7 @@
   # - `sudo btrfs qgroup limit 20G /mnt/persist/ext/persist/var/export/playground`
   # to query the quota/status:
   # - `sudo btrfs qgroup show -re /var/export/playground`
-  sane.persist.sys.ext = [
+  sane.persist.sys.byStore.ext = [
     { user = "root"; group = "export"; mode = "0775"; path = "/var/export/playground"; }
   ];
 
