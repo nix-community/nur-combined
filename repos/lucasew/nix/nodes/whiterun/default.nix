@@ -23,6 +23,35 @@ in {
     ./container-nat.nix
   ];
 
+  fileSystems."/media/downloads" = {
+    device = "/dev/disk/by-label/downloads";
+    options = [ "commit=60" "noatime" ];
+    fsType = "ext4";
+  };
+
+  # fileSystems."/media/storage" = {
+  #   device = "/dev/disk/by-label/storage";
+  #   fsType = "ext4";
+  # };
+
+  fileSystems."/media/ssd240" = {
+    device = "/dev/disk/by-label/ssd240";
+    fsType = "240";
+  };
+
+  fileSystems."/var/lib/transmission/Downloads" = {
+    device = "/media/downloads/TORRENTS";
+    fsType = "none";
+    options = [ "bind" ];
+  };
+
+  fileSystems."/var/lib/transmission/.incomplete" = {
+    device = "/media/downloads/TORRENTS/.incomplete";
+    fsType = "none";
+    options = [ "bind" ];
+  };
+
+
   services.nginx.enable = true;
 
   programs.ccache.enable = true;
@@ -39,10 +68,6 @@ in {
 
   services.miniflux.enable = true;
   services.nitter.enable = true;
-
-  systemd.services.transmission.serviceConfig.BindPaths = [
-    "/storage/downloads"
-  ];
 
   programs.gamemode.enable = true;
   services.cf-torrent.enable = true;
@@ -91,7 +116,7 @@ in {
   # services.magnetico.enable = true;
 
   boot = {
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [ "ntfs" "xfs" ];
     loader = {
       efi.canTouchEfiVariables = true;
       grub = {
