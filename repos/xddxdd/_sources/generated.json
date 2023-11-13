@@ -482,11 +482,11 @@
             "name": null,
             "owner": "FlareSolverr",
             "repo": "FlareSolverr",
-            "rev": "v3.3.7",
-            "sha256": "sha256-Vv5idg/x+cEzLylsJaWFXdFlcewD0Za3vdGhZCCNqog=",
+            "rev": "v3.3.8",
+            "sha256": "sha256-q7yKa7JI2dR5GfTMGylNaxXMuAQO2/E8Wjkeaca29Kk=",
             "type": "github"
         },
-        "version": "v3.3.7"
+        "version": "v3.3.8"
     },
     "flasgger": {
         "cargoLocks": null,
@@ -1168,7 +1168,7 @@
     },
     "onepush": {
         "cargoLocks": null,
-        "date": "2023-05-03",
+        "date": "2023-11-12",
         "extract": null,
         "name": "onepush",
         "passthru": null,
@@ -1180,11 +1180,11 @@
             "name": null,
             "owner": "y1ndan",
             "repo": "onepush",
-            "rev": "3a1d5880e3b8f1c5191ee28acd828def15fe135d",
-            "sha256": "sha256-C6+P55uxG7URiA2ldrVQlOfY4qfjWhX4DYrv6ZmmeXU=",
+            "rev": "f60b4d9912c07c3e8c3c30674c502ce51d3638e5",
+            "sha256": "sha256-D/GxlMJSOtn93zMfGwv/Qr/qVUfDFs3bdfXvTGgPEbU=",
             "type": "github"
         },
-        "version": "3a1d5880e3b8f1c5191ee28acd828def15fe135d"
+        "version": "f60b4d9912c07c3e8c3c30674c502ce51d3638e5"
     },
     "openssl-oqs": {
         "cargoLocks": null,
@@ -1725,11 +1725,11 @@
             "name": null,
             "owner": "HolyWu",
             "repo": "vs-rife",
-            "rev": "v4.1.0",
-            "sha256": "sha256-XNm2FUcZtL9ZFcjzwSWj9iZiwqR6GS+aByDfmzlzawc=",
+            "rev": "v4.2.0",
+            "sha256": "sha256-6mmH3HK9HgnbAHUHQyIhpRzA5rrznqM0WmAovD6VrQg=",
             "type": "github"
         },
-        "version": "v4.1.0"
+        "version": "v4.2.0"
     },
     "wechat-uos": {
         "cargoLocks": null,
