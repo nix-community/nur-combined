@@ -48,12 +48,14 @@
   - integrate `nix check` into Gitea actions?
 
 ### user experience
-#### moby
-- fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>
 - install apps:
   - display QR codes for WiFi endpoints: <https://linuxphoneapps.org/apps/noappid.wisperwind.wifi2qr/>
   - shopping list: <https://linuxphoneapps.org/apps/ro.hume.cosmin.shoppinglist/>
-  - offline Wikipedia
+  - offline Wikipedia (or, add to `wike`)
+  - offline docs viewer (gtk): <https://github.com/workbenchdev/Biblioteca>
+
+#### moby
+- fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>
 - SwayNC:
   - don't show MPRIS if no players detected
     - this is a problem of playerctld, i guess
