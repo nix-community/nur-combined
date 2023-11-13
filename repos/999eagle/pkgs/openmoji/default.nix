@@ -26,12 +26,12 @@
 
   basicFonts = stdenv.mkDerivation rec {
     pname = "openmoji-base";
-    version = "unstable-2023-06-14";
+    version = "unstable-2023-11-08";
     src = fetchFromGitHub {
       owner = "hfg-gmuend";
-      repo = pname;
-      rev = "7fe6c3dbc6b353ea9cbceb5bb0d4641912d520a1";
-      hash = "sha256-NQnti2b7iCRrMk4i3j5CUjVzat8tL3AdaCToIhleCWk=";
+      repo = "openmoji";
+      rev = "c3596a904058f739735c092cdcdaf4535082e849";
+      hash = "sha256-GukmdutPp4HGX6s/lMgNaazB5ahvWwvmEdfjSGseBiQ=";
     };
 
     outputs = ["out" "cache"];
