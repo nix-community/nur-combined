@@ -32,6 +32,12 @@ in
       transmission-rpc.enable = true;
       # transmission-rpc  = { enable = true; port = 49109;};
     };
+    systemd.services.transmission = {
+      serviceConfig = {
+        MemoryHigh = "1G";
+        MemoryMax = "2G";
+      };
+    };
     services.transmission = {
       openFirewall = true;
       openPeerPorts = true;

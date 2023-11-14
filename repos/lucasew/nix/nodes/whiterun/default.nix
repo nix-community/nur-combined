@@ -23,6 +23,10 @@ in {
     ./container-nat.nix
   ];
 
+  services.restic.server.enable = true;
+  services.restic.server.dataDir = "/media/storage/backup/restic";
+
+
   fileSystems."/media/downloads" = {
     device = "/dev/disk/by-label/downloads";
     options = [ "commit=60" "noatime" ];
@@ -36,7 +40,7 @@ in {
 
   fileSystems."/media/ssd240" = {
     device = "/dev/disk/by-label/ssd240";
-    fsType = "240";
+    fsType = "ext4";
   };
 
   fileSystems."/var/lib/transmission/Downloads" = {

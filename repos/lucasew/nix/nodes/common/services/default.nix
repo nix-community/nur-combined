@@ -15,5 +15,6 @@
     ./nixgram.nix
     ./netusage
     ./nitter.nix
+    ./restic-server.nix
   ];
 }
