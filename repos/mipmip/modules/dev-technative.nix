@@ -32,6 +32,8 @@
     ssm-session-manager-plugin
     aws-vault
 
+    git-remote-codecommit
+
 
     # TERRAFORM
     terraform-docs
