@@ -86,6 +86,8 @@
 
   seq = pkgs.callPackage ./pkgs/seq { };
 
+  sleef = pkgs.callPackage ./pkgs/sleef { };
+
   span-lite = pkgs.callPackage ./pkgs/span-lite { };
 
   taskflow = pkgs.callPackage ./pkgs/taskflow { };
