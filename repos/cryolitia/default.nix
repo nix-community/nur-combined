@@ -53,5 +53,7 @@ rec {
 
   rime-latex = pkgs.callPackage ./pkgs/rimePackages/rime-latex.nix { };
 
-  go-musicfox = pkgs.callPackage ./pkgs/common/go-musicfox.nix { };
+  go-musicfox-fastupdate = pkgs.callPackage ./pkgs/common/go-musicfox.nix { };
+
+  rime-project-trans = pkgs.callPackage ./pkgs/rimePackages/rime-project-trans.nix { };
 }
