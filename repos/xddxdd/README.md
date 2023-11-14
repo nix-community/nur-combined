@@ -98,7 +98,7 @@ Or, use variables from this repository in case I change them:
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | a96db9e8cf68da687c5e26696df9778162d42ad2 | Layer2 version of wireguard with Floyd Warshall implement in go |
 |  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 65de4d0534f0da3528588843347a82649d2df8d1 | Minimal Delegated License Service (DLS) |
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 2.0.0 | Fcitx5 theme to match KDE's Breeze style |
-|  | `flaresolverr` | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.3.8 | Proxy server to bypass Cloudflare protection |
+|  | `flaresolverr` | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.3.10 | Proxy server to bypass Cloudflare protection |
 |  | `flasgger` | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | ftp.proxy - FTP Proxy Server |
 |  | `genshin-checkin-helper` | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | b9e36543bfe5b042e015463e5d0398cd234cba90 | More than check-in for Genshin Impact. |
@@ -140,7 +140,7 @@ Or, use variables from this repository in case I change them:
 |  | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.5 | Tencent QQ Music (Packaging script adapted from https://aur.archlinux.org/packages/qqmusic-bin) |
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | 【极光拼音】输入方案 |
 |  | `rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | RIME 词库增强 |
-|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 77d4d8c4270889ca39b4423f9bf9fc8a35f79fa2 | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
+|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | ef8f543af8d08959a284b36410bdd5bec4238843 | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
 |  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20231014 | Releases for dict of zh.moegirl.org.cn |
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20231016 | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197 | A small app to generate a long path in traceroute. |

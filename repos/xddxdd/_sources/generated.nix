@@ -277,13 +277,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.8";
+    version = "v3.3.10";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.8";
+      rev = "v3.3.10";
       fetchSubmodules = false;
-      sha256 = "sha256-q7yKa7JI2dR5GfTMGylNaxXMuAQO2/E8Wjkeaca29Kk=";
+      sha256 = "sha256-GN6CIy0Q0uFYYEyIiz5GcvG95W1oB1DsBGwZK/ZTQ78=";
     };
   };
   flasgger = {
@@ -883,15 +883,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "77d4d8c4270889ca39b4423f9bf9fc8a35f79fa2";
+    version = "ef8f543af8d08959a284b36410bdd5bec4238843";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "77d4d8c4270889ca39b4423f9bf9fc8a35f79fa2";
+      rev = "ef8f543af8d08959a284b36410bdd5bec4238843";
       fetchSubmodules = false;
-      sha256 = "sha256-wh6heVtMSMkzuL4D5Szghm3IyopeNEYzPM/q1Ulsch4=";
+      sha256 = "sha256-JBUmS5+3zdsGQ9oBolQJBgcNjVU0d5oQ6AXWSCnOF0E=";
     };
-    date = "2023-11-06";
+    date = "2023-11-13";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
