@@ -52,6 +52,7 @@ in
       libjpeg
       libsndfile
       libvpx
+      libwebp
       openal
       pcre
       zlib
