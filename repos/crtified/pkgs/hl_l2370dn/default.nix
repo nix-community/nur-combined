@@ -99,6 +99,5 @@ stdenv.mkDerivation rec {
     description = "Brother HLL2370DN printer driver";
     license = licenses.unfree;
     platforms = builtins.map (arch: "${arch}-linux") arches;
-    maintainers = [ maintainers.gador ];
   };
 }
