@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ "$HOSTNAME" != "localhost" ]]; then
+  echo "you probably don't want to do this" >&2
+  exit 1
+fi
+
+function backup {
+  sd backup .run_job moto-g52 "$@"
+}
+
+backup /data/data/com.termux/files/home
+backup /sdcard/DCIM
+backup /sdcard/Pictures
+backup /sdcard/Music
+backup /sdcard/Tachiyomi
+backup /sdcard/RetroArch
+backup /sdcard/AnkiDroid
+backup /sdcard/Android/media/com.whatsapp/WhatsApp
