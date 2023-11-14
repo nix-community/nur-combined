@@ -260,6 +260,8 @@ in
     # printer/filament settings
     slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
 
+    superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
+
     tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
 
     tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];

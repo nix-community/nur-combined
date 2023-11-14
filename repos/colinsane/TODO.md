@@ -50,9 +50,21 @@
 ### user experience
 - install apps:
   - display QR codes for WiFi endpoints: <https://linuxphoneapps.org/apps/noappid.wisperwind.wifi2qr/>
-  - shopping list: <https://linuxphoneapps.org/apps/ro.hume.cosmin.shoppinglist/>
+  - shopping list (not in nixpkgs): <https://linuxphoneapps.org/apps/ro.hume.cosmin.shoppinglist/>
   - offline Wikipedia (or, add to `wike`)
   - offline docs viewer (gtk): <https://github.com/workbenchdev/Biblioteca>
+  - some type of games manager/launcher
+    - Gnome Highscore (retro games)?: <https://gitlab.gnome.org/World/highscore>
+  - better maps for mobile (Osmin (QtQuick)? Pure Maps (Qt/Kirigami)? Gnome Maps is improved in 45)
+  - note-taking app: <https://linuxphoneapps.org/categories/note-taking/>
+  - OSK overlay specifically for mobile gaming
+    - i.e. mock joysticks, for use with SuperTux and SuperTuxKart
+- install mobile-friendly games:
+  - gnome-2048 (nixpkgs `gnome-2048`; doesn't cross-compile)
+  - Shattered Pixel Dungeon (nixpkgs `shattered-pixel-dungeon`; doesn't cross-compile) <https://github.com/ebolalex/shattered-pixel-dungeon>
+  - UnCiv (Civ V clone; nixpkgs `unciv`; doesn't cross-compile):  <https://github.com/yairm210/UnCiv>
+  - Simon Tatham's Puzzle Collection (not in nixpkgs) <https://git.tartarus.org/?p=simon/puzzles.git>
+  - Shootin Stars  (Godot; not in nixpkgs) <https://gitlab.com/greenbeast/shootin-stars>
 
 #### moby
 - fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>

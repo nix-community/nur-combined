@@ -3,9 +3,22 @@
 # - it uses webkitgtk_4_1, which is expensive to build.
 #   could be upgraded to webkitgtk latest if upgraded to gtk4
 #   <https://gitlab.gnome.org/GNOME/geary/-/issues/1212>
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.sane.programs."gnome.geary";
+in
 {
   sane.programs."gnome.geary" = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.autostart = mkOption {
+          type = types.bool;
+          default = false;
+        };
+      };
+    };
+
     persist.byStore.private = [
       # attachments, and email -- contained in a sqlite db
       ".local/share/geary"
@@ -51,5 +64,17 @@
       transport_security=transport
       credentials=use-incoming
     '';
+
+    services.geary = {
+      description = "Geary email client";
+      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/geary";
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "20s";
+      };
+    };
   };
+
 }

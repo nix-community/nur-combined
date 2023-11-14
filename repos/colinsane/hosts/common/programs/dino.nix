@@ -48,7 +48,7 @@ in
     persist.byStore.private = [ ".local/share/dino" ];
 
     services.dino = {
-      description = "auto-start and maintain dino XMPP connection";
+      description = "dino XMPP client";
       wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/dino";

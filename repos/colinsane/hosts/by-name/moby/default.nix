@@ -49,6 +49,7 @@
 
   # sane.programs.ntfy-sh.config.autostart = true;
   sane.programs.dino.config.autostart = true;
+  # sane.programs."gnome.geary".config.autostart = true;
   # sane.programs.calls.config.autostart = true;
   sane.programs.mpv.config.vo = "wlshm";  #< see hosts/common/programs/mpv.nix for details
 

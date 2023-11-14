@@ -62,6 +62,7 @@
     ./steam.nix
     ./stepmania.nix
     ./sublime-music.nix
+    ./supertuxkart.nix
     ./swaynotificationcenter.nix
     ./tangram.nix
     ./tor-browser-bundle-bin.nix

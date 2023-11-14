@@ -37,6 +37,9 @@
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
       # "gnome.file-roller"
       "gnome.geary"  # adaptive e-mail client
+      "gnome.gnome-calculator"
+      "gnome.gnome-calendar"
+      "gnome.gnome-clocks"
       "gnome.gnome-maps"
       # "gnome-podcasts"
       # "gnome.gnome-system-monitor"
@@ -60,6 +63,8 @@
       "soundconverter"
       "spot"  # Gnome Spotfy client
       # "sublime-music"
+      "superTux"  # game: SMB clone
+      "superTuxKart"  # game
       "tangram"  # web browser
       # "tdesktop"  # broken on phosh
       # "tokodon"
