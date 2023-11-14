@@ -613,8 +613,8 @@
             "url": "https://github.com/instantOS/nix"
         },
         "ionutnechita": {
-            "rev": "09db2bd4e1e58daea193de9f5455734c82219d07",
-            "sha256": "0ycc14bn07ssia9p9c441a0qxnyxgs0x1ix43dhmssv514qyr9dg",
+            "rev": "9c683c0ef19a7ad94f5baaacacec8d7a212b50f0",
+            "sha256": "00bkakh736dvk03d1pp23k41pib3jm1vx5ifrbqb9ln13dyjgik4",
             "url": "https://github.com/ionutnechita/ionutnechita-nur-packages"
         },
         "iopq": {
@@ -770,8 +770,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "d52bb9353bf6bfab29612d970a91ba7e49dab993",
-            "sha256": "0p6ywszimjfhgpjg5s8spl8c55ndd8f35zx044h432l1hzcwas38",
+            "rev": "4ec384559c9ca0d39ea937ebffe5a980e0dd389e",
+            "sha256": "150731vxjhlzmph4nlb3ppfamzydrm18cgh11b69py5sxhbgzrpx",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
