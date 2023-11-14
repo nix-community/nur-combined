@@ -11,11 +11,11 @@ function backup {
   sd backup .run_job moto-g52 "$@"
 }
 
-backup /data/data/com.termux/files/home
 backup /sdcard/DCIM
 backup /sdcard/Pictures
+backup /sdcard/Android/media/com.whatsapp/WhatsApp
 backup /sdcard/Music
 backup /sdcard/Tachiyomi
 backup /sdcard/RetroArch
 backup /sdcard/AnkiDroid
-backup /sdcard/Android/media/com.whatsapp/WhatsApp
+backup /data/data/com.termux/files/home

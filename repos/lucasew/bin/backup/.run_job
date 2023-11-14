@@ -8,4 +8,4 @@ DESTINATION=lucasew@whiterun:/media/storage/backup/hosts
 
 FINAL_DESTINATION="$(echo "$DESTINATION/$HOST/$LOCATION" | sed 's;//;/;g')"
 
-rsync --mkpath -avP "$LOCATION" "$FINAL_DESTINATION" "$@"
+rsync --mkpath -avP "$LOCATION/" "$FINAL_DESTINATION" "$@"
