@@ -1251,10 +1251,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "3.9.17";
+    version = "3.9.18";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4164980/tree_style_tab-3.9.17.xpi";
-    sha256 = "4dcf70f56436465749c4c787a0bba90fe2a39bf4c0cf91fa7f7cd2a2f8a806f5";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4193133/tree_style_tab-3.9.18.xpi";
+    sha256 = "f0b235eedc858d327354e43505427581f1902c45158f08958f9fb4a323f2fab0";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";
