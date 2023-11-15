@@ -127,6 +127,12 @@ in {
       enable = true;
       username = "alarsyo";
     };
+
+    vaultwarden = {
+      enable = true;
+      privatePort = 8081;
+      websocketPort = 3012;
+    };
   };
 
   services = {
