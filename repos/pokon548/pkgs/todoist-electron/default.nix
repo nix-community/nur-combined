@@ -20,6 +20,8 @@
 
 in appimageTools.wrapAppImage {
   inherit pname version;
+
+  name = pname;
   src = appimageContents;
 
   extraPkgs = { pkgs, ... }@args: [
