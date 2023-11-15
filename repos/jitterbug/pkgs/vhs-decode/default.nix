@@ -15,13 +15,13 @@
 let
   # we need a valid version for SETUPTOOLS_SCM
   version = "0.2.2-dev";
-  rev = "54da7f8576f9d01dec85011da5a5dd595cd86e5c";
+  rev = "51af187966ca914b5e69bf74085e15c9ba32b61e";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "oyvindln";
     repo = "vhs-decode";
-    sha256 = "sha256-/5RckJVHFAqDIo1RX1+j5TBWbkJCiL8IAHnJIYVseQU=";
+    sha256 = "sha256-8Pe9kHpAU5VCx1hZyuPMJlahuRGgWa/SX+9LFlFBXrk=";
   };
 
   py-vhs-decode = python3Packages.buildPythonApplication {
