@@ -21,6 +21,7 @@ trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWo
     1. [appendURL][appendURL]: *Appends url from clipboard to the playlist*.
 - [IRust][irust]: *Cross Platform Rust Repl*.
 - [Junest][junest]: *A lightweight Arch Linux based distro*.
+- [PJeOffice][pjeoffice]: *CNJ software for digital signatures for the PJe system*.
 - [aercbook][aercbook]: *A minimalistic address book for the aerc e-mail client*.
 - [chawan][chawan]: *A text-mode web browser*.
 - [pass-extension-tail][pass-extension-tail]: *A pass extension to avoid printing the password to the console*.
@@ -37,4 +38,5 @@ trusted-public-keys = nur-onemoresuza.cachix.org-1:V109UI+YvFcaWXbxlPyw+of+7jnWo
 [pass-extension-tail]: <https://github.com/palortoff/pass-extension-tail> "A pass extension to avoid printing the password to the console"
 [pass-sxatm]: <https://sr.ht/~onemoresuza/pass-sxatm/> "A simple X autofill tool with menu for pass"
 [pdpmake]: <https://github.com/rmyorston/pdpmake> "A public domain POSIX make"
+[pjeoffice]: <https://www.pje.jus.br/wiki/index.php/PJeOffice> "CNJ software for digital signatures for the PJe system"
 [ttf-literation]: <https://www.nerdfonts.com/> "A ttf Nerd Font based on ttf-liberation"
