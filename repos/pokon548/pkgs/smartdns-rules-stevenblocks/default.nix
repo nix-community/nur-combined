@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     cat $src | grep -v "^#" | awk '{print "address /"$2"/#"}' > stevenblocks-smartdns.conf
-    install -Dm644 stevenblocks-smartdns.conf $out/etc/smartdns/stevenblocks-smartdns.conf
+    install -Dm644 stevenblocks-smartdns.conf $out/stevenblocks-smartdns.conf
   '';
 
   meta = with lib; {

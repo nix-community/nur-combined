@@ -16,7 +16,7 @@ stdenv.mkDerivation {
   '';
 
   installPhase = ''
-    install -Dm644 $src $out/etc/smartdns/adrules-smartdns.conf
+    install -Dm644 $src $out/adrules-smartdns.conf
   '';
 
   meta = with lib; {
