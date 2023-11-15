@@ -15,6 +15,8 @@
       lib.mapAttrs toSecret {
         "gandi/api-key" = {};
 
+        "lohr/shared-secret" = {};
+
         "matrix-synapse/secret-config" = {
           owner = "matrix-synapse";
         };

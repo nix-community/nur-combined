@@ -91,11 +91,11 @@
             home-manager.nixosModules.default
             {
               nixpkgs = {
-               overlays = shared_overlays;
-               config.permittedInsecurePackages = [
-                 "zotero-6.0.26"
-               ];
-             };
+                overlays = shared_overlays;
+                config.permittedInsecurePackages = [
+                  "zotero-6.0.26"
+                ];
+              };
             }
           ]
           ++ (nixpkgs.lib.attrValues self.nixosModules);

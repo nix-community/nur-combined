@@ -66,6 +66,11 @@ in {
       enable = true;
     };
 
+    lohr = {
+      enable = true;
+      port = 8083;
+    };
+
     matrix = {
       enable = true;
       secretConfigFile = config.age.secrets."matrix-synapse/secret-config".path;

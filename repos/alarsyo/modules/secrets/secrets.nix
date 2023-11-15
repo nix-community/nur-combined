@@ -14,7 +14,7 @@ let
 in {
   "gandi/api-key.age".publicKeys = [alarsyo hades poseidon];
 
-  "lohr/shared-secret.age".publicKeys = [alarsyo poseidon];
+  "lohr/shared-secret.age".publicKeys = [alarsyo hades];
 
   "matrix-synapse/secret-config.age".publicKeys = [alarsyo hades];
 

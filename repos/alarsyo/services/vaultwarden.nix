@@ -41,6 +41,16 @@ in {
   config = mkIf cfg.enable {
     services.postgresql = {
       enable = true;
+
+      ensureDatabases = ["vaultwarden"];
+      ensureUsers = [
+        {
+          name = "vaultwarden";
+          ensurePermissions = {
+            "DATABASE vaultwarden" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     services.postgresqlBackup = {
