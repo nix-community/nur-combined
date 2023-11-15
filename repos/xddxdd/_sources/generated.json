@@ -348,11 +348,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZvX/l2l4M1x+xoZd2mSjwdwfAKkXMoVn2vHdS4MOxyk=",
+            "sha256": "sha256-W/LgJCMuBMyf2DWbeW0W3be+lOhHg6HPAeacLcQt6g8=",
             "type": "url",
-            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.1.0.31101_amd64.deb"
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.1.0.31113_amd64.deb"
         },
-        "version": "7.1.0.31101"
+        "version": "7.1.0.31113"
     },
     "douban-openapi-server": {
         "cargoLocks": null,
@@ -1528,7 +1528,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-11-13",
+        "date": "2023-11-14",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1540,11 +1540,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "ef8f543af8d08959a284b36410bdd5bec4238843",
-            "sha256": "sha256-JBUmS5+3zdsGQ9oBolQJBgcNjVU0d5oQ6AXWSCnOF0E=",
+            "rev": "db2375b0d9dba21247da4e5dd58c3d36c56c2b5a",
+            "sha256": "sha256-AXUFFa+aJDJm0FsSfsnheJNj2tGMjwNc54BAI0Oojzw=",
             "type": "github"
         },
-        "version": "ef8f543af8d08959a284b36410bdd5bec4238843"
+        "version": "db2375b0d9dba21247da4e5dd58c3d36c56c2b5a"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -1555,11 +1555,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-je1mM1s7j4oUNSM6DjOzSIImNp86l2rcUXv0uHhV8i4=",
+            "sha256": "sha256-yEC1E11n9SkyPhW/JVpWuS5xpi8cLrBcQjdeBmzJXJ0=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20231014/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20231114/moegirl.dict.yaml"
         },
-        "version": "20231014"
+        "version": "20231114"
     },
     "rime-zhwiki": {
         "cargoLocks": null,
