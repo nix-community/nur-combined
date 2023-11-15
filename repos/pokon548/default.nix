@@ -29,6 +29,9 @@
 
   vaults = pkgs.callPackage ./pkgs/vaults { };
 
+  smartdns-rules-adrules = pkgs.callPackage ./pkgs/smartdns-rules-adrules { };
+  smartdns-rules-stevenblocks = pkgs.callPackage ./pkgs/smartdns-rules-stevenblocks { };
+
   plasma5-wallpapers-dynamic =
     pkgs.libsForQt5.callPackage ./pkgs/plasma5-wallpapers-dynamic { };
   plasma5-applets-window-appmenu =

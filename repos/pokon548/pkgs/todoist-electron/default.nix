@@ -1,10 +1,10 @@
 { lib, appimageTools, fetchurl, asar }: let
   pname = "todoist-electron";
-  version = "8.9.5";
+  version = "8.10.1";
 
   src = fetchurl {
     url = "https://electron-dl.todoist.com/linux/Todoist-linux-x86_64-${version}.AppImage";
-    hash = "sha256-fGyrz0hguuDfdcEeIJhrq7SXSo3TBXuXNJNpvNjqO3A=";
+    hash = "sha256-Yp4wfibymHLGlaPDzu2rhSXxanwdXoNpF/d6+S0r+1U=";
   };
 
   appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (oA: {
@@ -20,8 +20,7 @@
 
 in appimageTools.wrapAppImage {
   inherit pname version;
-
-  name = pname;
+  #name = pname;
   src = appimageContents;
 
   extraPkgs = { pkgs, ... }@args: [
