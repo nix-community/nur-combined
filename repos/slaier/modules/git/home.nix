@@ -19,7 +19,7 @@
       pull.rebase = true;
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = ''${pkgs.writeText "allowedSigners.txt"
-          ''${config.programs.git.userEmail} ${nixosConfig.programs.ssh.knownHosts."local.local".publicKey}''}'';
+          ''${config.programs.git.userEmail} ${nixosConfig.programs.ssh.knownHosts."local.lan".publicKey}''}'';
       user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519";
       commit.gpgsign = true;
     };

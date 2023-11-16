@@ -8,9 +8,9 @@ user_pref("layout.css.color-mix.enabled", true);
 user_pref("layout.css.has-selector.enabled", true);
 user_pref("svg.context-properties.content.enabled", true);
 user_pref("userChrome.Tabs.Option7.Enabled", true);
-user_pref("userChrome.TabSeparatorsMediumSaturation-Enabled", true);
-user_pref("userChrome.CompactContextMenu-Enabled", true);
-user_pref("userChrome.RegularMenuIcons-Enabled", true);
+user_pref("userChrome.TabSeparators.Saturation.Medium.Enabled", true);
+user_pref("userChrome.Menu.Size.Compact.Enabled", true);
+user_pref("userChrome.Menu.Icons.Regular.Enabled", true);
 /*** [SECTION 0700]: DNS / DoH / PROXY / SOCKS / IPv6 ***/
 user_pref("network.trr.mode", 5); // explicitly off
 user_pref("network.proxy.no_proxies_on", "localhost,127.0.0.1,192.168.0.0/16");

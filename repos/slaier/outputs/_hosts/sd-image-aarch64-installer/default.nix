@@ -2,7 +2,6 @@
 { pkgs, ... }:
 let
   modules-enable = with modules; [
-    avahi
     common
     nix
     sops
@@ -11,10 +10,4 @@ let
 in
 {
   imports = map (x: x.default or { }) modules-enable;
-
-  nix.settings = {
-    trusted-public-keys = [
-      "local.local-1:rkw0zf/GEln2K7PKAkMH2JtJfaACnMXEl1OGteT1AHE="
-    ];
-  };
 }

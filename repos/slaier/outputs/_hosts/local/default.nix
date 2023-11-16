@@ -2,8 +2,6 @@
 { config, pkgs, lib, ... }:
 let
   modules-enable = with modules; [
-    audio
-    avahi
     bluetooth
     clash
     common
@@ -19,10 +17,8 @@ let
     liferea
     neovim
     nix
-    nix-serve
     openfortivpn
     podman
-    smartdns
     sops
     spotify
     sway
@@ -49,7 +45,7 @@ in
     firewall.enable = false;
     proxy = {
       default = "http://127.0.0.1:7890";
-      noProxy = "127.0.0.1,localhost,.local";
+      noProxy = "127.0.0.1,localhost,.lan";
     };
   };
 

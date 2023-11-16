@@ -24,7 +24,7 @@
   systemd.services.clash = {
     path = with pkgs; [ clash ];
     description = "Clash networking service";
-    after = [ "network.target" "sops-nix.service" "smartdns.service" ];
+    after = [ "network.target" "sops-nix.service" ];
     wantedBy = [ "multi-user.target" ];
     script = "exec clash -d /etc/clash -secret $(cat ${config.sops.secrets.clash_secret.path})";
 

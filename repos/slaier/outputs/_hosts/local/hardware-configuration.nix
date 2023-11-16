@@ -142,5 +142,12 @@ _:
     ''} %S%p/device"''
   ];
 
+  # audio
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+    support32Bit = true;
+  };
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

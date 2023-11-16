@@ -17,5 +17,5 @@ in
   };
 
   users.users.root.openssh.authorizedKeys.keys = [ publicKey ];
-  programs.ssh.knownHosts."local.local".publicKey = publicKey;
+  programs.ssh.knownHosts."local.lan".publicKey = publicKey;
 }

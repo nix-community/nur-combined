@@ -1,5 +1,7 @@
-{ lib, pkgs, config, ... }:
-
+{ lib, ... }:
+let
+  inherit (lib) mkDefault;
+in
 {
   imports = [
     ./dtos.nix
@@ -12,16 +14,16 @@
       "usb_storage"
     ];
 
-    consoleLogLevel = lib.mkDefault 7;
+    consoleLogLevel = mkDefault 7;
 
-    kernelParams = lib.mkDefault [
+    kernelParams = mkDefault [
       "console=ttyAML0,115200n8"
       "console=tty1"
     ];
 
     loader = {
-      grub.enable = lib.mkDefault false;
-      generic-extlinux-compatible.enable = lib.mkDefault true;
+      grub.enable = mkDefault false;
+      generic-extlinux-compatible.enable = mkDefault true;
     };
   };
 }

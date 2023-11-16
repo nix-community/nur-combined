@@ -7,9 +7,9 @@ n1 goal="switch":
   #!/usr/bin/env bash
   set -euxo pipefail
   nix build .#nixosConfigurations.n1.config.system.build.toplevel
-  nixos-rebuild {{goal}} --no-build-nix --target-host root@n1.local --flake .#n1
+  nixos-rebuild {{goal}} --no-build-nix --target-host root@n1.lan --flake .#n1
   if [ "{{goal}}" = "boot" ]; then
-    ssh root@n1.local reboot
+    ssh root@n1.lan reboot
   fi
 
 apply goal="switch": (local goal) (n1 goal)
