@@ -5750,27 +5750,6 @@
         platforms = platforms.all;
         };
       };
-    "omnivore" = buildFirefoxXpiAddon {
-      pname = "omnivore";
-      version = "2.6.2";
-      addonId = "save-extension@omnivore.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4175636/omnivore-2.6.2.xpi";
-      sha256 = "f39fabcb28e5dc495c305a6f13f36ca1cab95eff0fc929d9d525a534f46fbdb0";
-      meta = with lib;
-      {
-        homepage = "https://omnivore.app/";
-        description = "Omnivore is the read-it-later app for serious readers. Distraction free. Privacy focused. Open source.";
-        license = licenses.gpl3;
-        mozPermissions = [
-          "activeTab"
-          "storage"
-          "contextMenus"
-          "https://*/**"
-          "http://*/**"
-          ];
-        platforms = platforms.all;
-        };
-      };
     "one-click-wayback" = buildFirefoxXpiAddon {
       pname = "one-click-wayback";
       version = "0.2";
