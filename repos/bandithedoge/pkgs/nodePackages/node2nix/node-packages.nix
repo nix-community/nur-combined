@@ -711,13 +711,13 @@
         sha512 = "1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==";
       };
     };
-    "ufo-1.3.1" = {
+    "ufo-1.3.2" = {
       name = "ufo";
       packageName = "ufo";
-      version = "1.3.1";
+      version = "1.3.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ufo/-/ufo-1.3.1.tgz";
-        sha512 = "uY/99gMLIOlJPwATcMVYfqDSxUR9//AUcgZMzwfSTJPDKzA1S8mX4VLqa+fiAtveraQUBCz4FFcwVZBGbwBXIw==";
+        url = "https://registry.npmjs.org/ufo/-/ufo-1.3.2.tgz";
+        sha512 = "o+ORpgGwaYQXgqGDwd+hkS4PuZ3QnmqMMxRuajK/a38L6fTpcE5GPIfrf+L/KemFzfUpeUQc1rRS1iDBozvnFA==";
       };
     };
     "vscode-jsonrpc-6.0.0" = {
@@ -986,7 +986,7 @@ in {
       sources."tar-6.2.0"
       sources."to-regex-range-5.0.1"
       sources."type-detect-4.0.8"
-      sources."ufo-1.3.1"
+      sources."ufo-1.3.2"
       sources."vscode-jsonrpc-8.1.0"
       sources."vscode-languageserver-8.1.0"
       (sources."vscode-languageserver-protocol-3.17.3"
