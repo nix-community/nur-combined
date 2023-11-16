@@ -718,6 +718,12 @@ in {
   # 2023/07/27: upstreaming is blocked on p11-kit, libavif cross compilation
   gthumb = mvInputs { nativeBuildInputs = [ final.glib ]; } prev.gthumb;
 
+  gnome-2048 = addNativeInputs [
+    # fix: "error: Package `libgnome-games-support-1' not found in specified Vala API directories or GObject-Introspection GIR directories"
+    final.libgnome-games-support
+    # final.gobject-introspection  # this *should* work, if libgnome-games-support were to ship GIR bindings?
+  ] prev.gnome-2048;
+
   gnome = prev.gnome.overrideScope' (self: super: {
     # dconf-editor = super.dconf-editor.override {
     #   # fails to fix original error
@@ -1059,6 +1065,10 @@ in {
   #     buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
   #   });
   # };
+
+  # merged 2023/11/14: <https://github.com/NixOS/nixpkgs/pull/267373>
+  libgnome-games-support = addNativeInputs [ final.gobject-introspection ] prev.libgnome-games-support;
+
   # libgweather = rmNativeInputs [ final.glib ] (prev.libgweather.override {
   #   # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
   #   #   but presumably that's just a different way to emulate it.

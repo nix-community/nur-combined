@@ -18,6 +18,7 @@
       # package sets
       "tuiApps"
     ] ++ [
+      "animatch"
       "alacritty"  # terminal emulator
       "calls"  # gnome calls (dialer/handler)
       # "celluloid"  # mpv frontend
@@ -33,6 +34,7 @@
       # "foliate"  # e-book reader
       "fractal"  # matrix client
       "g4music"  # local music player
+      "gnome-2048"  # game
       # "gnome.cheese"
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
       # "gnome.file-roller"
@@ -60,6 +62,7 @@
       "pavucontrol"
       # "picard"  # music tagging
       # "libsForQt5.plasmatube"  # Youtube player
+      "signal-desktop"
       "soundconverter"
       "spot"  # Gnome Spotfy client
       # "sublime-music"
@@ -133,7 +136,7 @@
       "losslesscut-bin"
       "makemkv"
       "monero-gui"
-      "signal-desktop"
+      # "signal-desktop"
       "spotify"
       "tor-browser-bundle-bin"
       "zecwallet-lite"

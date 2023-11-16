@@ -56,6 +56,7 @@
     ./rhythmbox.nix
     ./ripgrep.nix
     ./sfeed.nix
+    ./signal-desktop.nix
     ./splatmoji.nix
     ./spot.nix
     ./spotify.nix

@@ -21,6 +21,7 @@ let
 
     ### ADDITIONAL PACKAGES
     alsa-ucm-conf-sane = callPackage ./additional/alsa-ucm-conf-sane { };
+    animatch = callPackage ./additional/animatch { };
     # TODO: move target flags to upstream PR and re-enable this bonsai
     # bonsai = unpatched.bonsai or (callPackage ./additional/bonsai { });
     bonsai = callPackage ./additional/bonsai { };

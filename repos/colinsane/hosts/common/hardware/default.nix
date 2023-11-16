@@ -12,8 +12,9 @@
     copy_bin_and_libs ${pkgs.util-linux}/bin/{cfdisk,lsblk,lscpu}
     copy_bin_and_libs ${pkgs.gptfdisk}/bin/{cgdisk,gdisk}
     copy_bin_and_libs ${pkgs.smartmontools}/bin/smartctl
-    copy_bin_and_libs ${pkgs.nvme-cli}/bin/nvme
     copy_bin_and_libs ${pkgs.e2fsprogs}/bin/resize2fs
+  '' + lib.optionalString pkgs.stdenv.hostPlatform.isx86_64 ''
+    copy_bin_and_libs ${pkgs.nvme-cli}/bin/nvme  # doesn't cross compile
   '';
   boot.kernelParams = [
     "boot.shell_on_fail"

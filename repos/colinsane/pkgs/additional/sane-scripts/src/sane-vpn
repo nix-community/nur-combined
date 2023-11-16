@@ -7,6 +7,30 @@ region="$2"
 
 vpns=$(systemctl list-unit-files | grep wg-quick- | cut -f 1 -d ' ' | sed s'/^wg-quick-\([a-zA-Z-]*\)\.service$/\1/g')
 
+usage() {
+  echo "usage:"
+  echo "sane-vpn up REGION"
+  echo "sane-vpn down REGION"
+  echo "sane-vpn help"
+  echo ""
+  echo "regions:"
+  echo "$vpns"
+}
+
+verb="cat"
+if [ "$oper" == up ]; then
+  verb="start"
+elif [ "$oper" == down ]; then
+  verb="stop"
+elif [ "$oper" == help ] || [ "$oper" == --help ] || [ -z "$oper" ]; then
+  usage
+  exit 0
+else
+  echo "invalid operation '$oper'"
+  usage
+  exit 1
+fi
+
 if [ $(echo "$vpns" | grep "^$region$") ]; then
   iface="$region"
 elif [ $(echo "$vpns" | grep "^vpn-$region$") ]; then
@@ -23,12 +47,5 @@ fi
 service="wg-quick-$iface.service"
 
 echo before: $(sane-ip-check --no-upnp)
-if [ "$oper" == up ]; then
-  sudo systemctl start "$service"
-elif [ "$oper" == down ]; then
-  sudo systemctl stop "$service"
-else
-  echo "invalid operation '$oper'"
-  exit 1
-fi
+sudo systemctl "$verb" "$service"
 echo after:  $(sane-ip-check --no-upnp)

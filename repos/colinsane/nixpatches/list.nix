@@ -24,20 +24,6 @@ let
     );
 in [
   (fetchpatch' {
-    title = "gsound: enable introspection/vala when cross compiled";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/263107";
-    saneCommit = "beb33584013f49d198152ad8ae8797bb6fa0266f";
-    # hash = "sha256-tKeumQ1R/UWTL2J9RaGs8p9QHxGxP2a1DevHnX/ElRU=";
-    hash = "sha256-W9IS3JNPk5LkJeuZ+EL8NIv8+v7wEZo8Gt+ofq3RrrY=";
-  })
-  (fetchpatch' {
-    title = "gspell: enable vala for cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/263135";
-    saneCommit = "293bfdc031a1eaa5cc571000977df14b6d8237c8";
-    # hash = "sha256-n6xatVeqMweuy/bm68cxWUkgUoS+H1xNRjT0JDFXeEs=";
-    hash = "sha256-PXatkvLjEgQJ4rRIjEOadKscM0WYWTozIFt2vzWOMKY=";
-  })
-  (fetchpatch' {
     title = "gcr: remove build gnupg from runtime closure";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263158";
     saneCommit = "8c71ab22c6df4e5ce290e131a7769688b0c5a017";
@@ -45,21 +31,9 @@ in [
     hash = "sha256-6hUdsExHSMHy6FMY1+OLtVmKpRwysGIVkcDpYv7RRBk=";
   })
   (fetchpatch' {
-    title = "gvfs: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/263175";
-    saneCommit = "0c6dd31f3394ac339d5351400350223af3fc1284";
-    hash = "sha256-Ywxx2BkvVp3+Za3PPhVwa7sovjkVJrhFx3vj63IB6JQ=";
-  })
-  (fetchpatch' {
     title = "hspell: remove build perl from runtime closure";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263182";
     hash = "sha256-Wau+PB+EUQDvWX8Kycw1sNrM3GkPVjKSS4niIDI0sjM=";
-  })
-  (fetchpatch' {
-    title = "trust-dns: 0.23.0 -> 0.24.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/263054";
-    saneCommit = "cb13904421c1870df1059bfe5988a24107983a5f";
-    hash = "sha256-tXU1XXEQbZ3IMPncZB42XQPvx3IZMr5ez5bCfGRGVsk=";
   })
   # (fetchpatch' {
   #   title = "trust-dns: 0.23.0 -> 0.24.0";
@@ -81,6 +55,11 @@ in [
     title = "rpm: 4.18.1 -> 4.19.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/260558";
     hash = "sha256-FDY/OLh7bNRixEuPlrIeyW/kJYNPnelLsplfKCsjHKQ=";
+  })
+  (fetchpatch' {
+    title = "zcash: 5.4.2 -> 5.7.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/229810";
+    hash = "sha256-ProoPJ10rUtOZh2PzpegviG6Ip1zSuWC92BpP+ux9ZQ=";
   })
   # (fetchpatch' {
   #   title = "graphicsmagick: 1.3.39 -> 1.3.42";
@@ -300,11 +279,11 @@ in [
   # related: <https://github.com/NixOS/nixpkgs/issues/236890#issuecomment-1585030861>
   # ./2023-06-10-lemmy-downgrade.patch
 
-  (fetchpatch' {
-    title = "koreader: 2023.04 -> 2023.05.1";
-    saneCommit = "a5c471bd263abe93e291239e0078ac4255a94262";
-    hash = "sha256-38sND/UNRj5WAYYKpzdrRBIOK4UAT14RzbIv49KmNNw=";
-  })
+  # (fetchpatch' {
+  #   title = "koreader: 2023.04 -> 2023.05.1";
+  #   saneCommit = "a5c471bd263abe93e291239e0078ac4255a94262";
+  #   hash = "sha256-38sND/UNRj5WAYYKpzdrRBIOK4UAT14RzbIv49KmNNw=";
+  # })
 
   # (fetchpatch' {
   #   title = "mepo: 1.1 -> 1.1.2";
@@ -333,14 +312,16 @@ in [
   })
   (fetchpatch' {
     title = "tracker-miners: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/267609";
     saneCommit = "24b062309ea8baa2d8303c0610c9ec7b8c399e8b";
-    hash = "sha256-Jj+1z2DeCEY+DqI1J4vYjYJwDDMRcA93CqpZSXzG0wE=";
+    hash = "sha256-wsC9hYTD/QLiR8vH/3z2yCVWruTcL5S1VtRsDgA6mrE=";
   })
-  (fetchpatch' {
-    title = "clapper: support cross compilation";
-    saneCommit = "8a171b49aca406f8220f016e56964b3fae53a3df";
-    hash = "sha256-R11IYatGhSXxZnJxJid519Oc9Kh56D9NT2/cxf2CLuM=";
-  })
+  # (fetchpatch' {
+  #   # 2023/11/14: deps don't cross compile (e.g. pipewire; qtsvg)
+  #   title = "clapper: support cross compilation";
+  #   saneCommit = "8a171b49aca406f8220f016e56964b3fae53a3df";
+  #   hash = "sha256-R11IYatGhSXxZnJxJid519Oc9Kh56D9NT2/cxf2CLuM=";
+  # })
   # (fetchpatch' {
   #   # not correct: build time dependencies end up in runtime closure
   #   title = "gcr_4: support cross compilation";
@@ -364,6 +345,8 @@ in [
   #   hash = "sha256-FiPJhHGqZ8MFwLY+1t6HgbK6ndomFSYUKvApvrikRHE=";
   # })
   (fetchpatch' {
+    # TODO: send for review once hspell fix is merged <https://github.com/NixOS/nixpkgs/pull/263182>
+    # this patch works as-is, but hspell keeps a ref to build perl and thereby pollutes this closure as well.
     title = "gtkspell2: support cross compilation";
     saneCommit = "56348833b4411e9fe2016c24c7fc4af1e3c1d28a";
     hash = "sha256-0RMxouOBw7SUmQDLB2qGey714DaM0AOvZlZ5nB+Lkc4=";

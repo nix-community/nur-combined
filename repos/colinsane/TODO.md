@@ -6,6 +6,9 @@
 
 ## REFACTORING:
 
+remove `x86GuiApps`
+- instead mark packages as optional/eager/"only install if supported by target".
+
 ### sops/secrets
 - attach secrets to the thing they're used by (sane.programs)
 - rework secrets to leverage `sane.fs`
@@ -60,8 +63,7 @@
   - OSK overlay specifically for mobile gaming
     - i.e. mock joysticks, for use with SuperTux and SuperTuxKart
 - install mobile-friendly games:
-  - gnome-2048 (nixpkgs `gnome-2048`; doesn't cross-compile)
-  - Shattered Pixel Dungeon (nixpkgs `shattered-pixel-dungeon`; doesn't cross-compile) <https://github.com/ebolalex/shattered-pixel-dungeon>
+  - Shattered Pixel Dungeon (nixpkgs `shattered-pixel-dungeon`; doesn't cross-compile b/c openjdk/libIDL) <https://github.com/ebolalex/shattered-pixel-dungeon>
   - UnCiv (Civ V clone; nixpkgs `unciv`; doesn't cross-compile):  <https://github.com/yairm210/UnCiv>
   - Simon Tatham's Puzzle Collection (not in nixpkgs) <https://git.tartarus.org/?p=simon/puzzles.git>
   - Shootin Stars  (Godot; not in nixpkgs) <https://gitlab.com/greenbeast/shootin-stars>

@@ -297,7 +297,7 @@ in
             # these could be added, but i don't see much benefit.
             font = "pango:monospace 10";
             mod = "Mod1";  # prefer Alt
-            xwayland = false;  # disable to reduce RAM usage.
+            # xwayland = false;  # disable to reduce RAM usage. N.B.: xwayland is needed for electron apps!
             workspace_layout = "tabbed";
 
             brightness_down_cmd = "sxmo_brightness.sh down";

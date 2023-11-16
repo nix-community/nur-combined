@@ -337,10 +337,10 @@ in
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-powered";
               active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-powered.service";
             }
-          ] ++ [
+          ] ++ lib.optionals false [
             {
               type = "toggle";
-              label = "vpn::hn";
+              label = "vpn::hn";  # route all traffic through servo; useful to debug moby's networking
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle wg-quick-vpn-servo";
               active = "${pkgs.systemd}/bin/systemctl is-active wg-quick-vpn-servo.service";
             }

@@ -112,8 +112,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.4.1";
-      hash = "sha256-+4gBHNUC3hun2CoQDzLZvCvEy46ySWCXmNPfzA9mQZM=";
+      version = "11.5.0";
+      hash = "sha256-B15GvPNTPZDkwS1l3K1ET42gCBnc74Vnomt907/4kPo=";
     };
     i2p-in-private-browsing = fetchVersionedAddon rec {
       extid = "i2ppb@eyedeekay.github.io";
@@ -141,8 +141,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "@ublacklist";
       pname = "ublacklist";
       url = "https://github.com/iorate/ublacklist/releases/download/v${version}/ublacklist-v${version}-firefox.zip";
-      version = "8.3.5";
-      hash = "sha256-NAUkRXzFgwnIyP+uPAccQZUuHHxYFZakxrfMvp2yftg=";
+      version = "8.3.6";
+      hash = "sha256-tl6Xdv58zoEfpA4GaeI+by2i8k7aqI6CKbRMUiDGZxc=";
     };
     ublock-origin = fetchVersionedAddon rec {
       extid = "uBlock0@raymondhill.net";
