@@ -42,7 +42,7 @@
         inherit (pkgs) system;
         inherit (pkgs.callPackage ./helpers/flatten-pkgs.nix {}) flattenPkgs;
 
-        isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+        isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or p.meta.license.redistributable or true;
         outputsOf = p: map (o: p.${o}) p.outputs;
       in rec {
         packages = import ./pkgs null {
