@@ -14,7 +14,7 @@
     sha256 = "1q3174fdskhp1d8vbg3jsf41gd69g1k4k0jjvkhy374i5nx4lrnb";
   };
 
-  vendorSha256 = "031dc5mz5j5cyh0h3r8fxfsaimxcvdh8i1gk6934lmbc1ykrvqrs";
+  vendorHash = "sha256:031dc5mz5j5cyh0h3r8fxfsaimxcvdh8i1gk6934lmbc1ykrvqrs";
 
   passthru = {
     importWithPublicKey = pubkey: (calculateYggdrasilAddress pubkey).import;

@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "0g4a3rp7wlihn332x30hyvqb5izpcd7334fmghhvbv0pi4p7x9bf";
   };
 
-  vendorSha256 = "0ljxpscs70w1zi1dhg0lhc31161380pfwwqrr32pyxvxc48mjj25";
+  vendorHash = "sha256:0ljxpscs70w1zi1dhg0lhc31161380pfwwqrr32pyxvxc48mjj25";
 
   nativeBuildInputs = [ go-bindata ];
 

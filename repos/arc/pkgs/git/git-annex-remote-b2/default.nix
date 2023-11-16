@@ -9,7 +9,6 @@
     sha256 = "13mb3y9j1ndnlqwqn4s7x92bapbvb8dc8mg5l61kkhlb6qcrw2j4";
   };
 
-  modSha256 = "0xdmiwfkj84rh81w5wkd8cnvg0vsv5jv748l5ggj038bq0hmvrp2";
-  vendorSha256 = "1wsy55n7jcgk07siwjl7fgq9i63x05clki181rzx44r337hv93g5";
+  vendorHash = "sha256:1wsy55n7jcgk07siwjl7fgq9i63x05clki181rzx44r337hv93g5";
   buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 }

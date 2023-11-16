@@ -13,7 +13,7 @@
     sha256 = "sha256-H/fhIjJ2FV2diTMt1Hf9OTLLmdd5+4y9UC1Q6Fjr2OQ=";
   };
 
-  vendorSha256 = "sha256-DedUQXMA1V2vrLuUWHIABvtIaj2yeC9Uo5Xr6Mc0uvw=";
+  vendorHash = "sha256-DedUQXMA1V2vrLuUWHIABvtIaj2yeC9Uo5Xr6Mc0uvw=";
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optional enableI3 i3 ++ lib.optional enableSway sway;
