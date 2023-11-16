@@ -24,6 +24,11 @@ let
     );
 in [
   (fetchpatch' {
+    title = "animatch: init at 1.0.3";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/267948";
+    hash = "sha256-zWu/n9eiMiwWcMOzly8AdqzGwYLVaFnsWu+XR4XYsD4=";
+  })
+  (fetchpatch' {
     title = "gcr: remove build gnupg from runtime closure";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263158";
     saneCommit = "8c71ab22c6df4e5ce290e131a7769688b0c5a017";
@@ -299,11 +304,11 @@ in [
     hash = "sha256-GlYWpOVZvr0oFAs4RdSUf7LJD3FmGsCaTm32GPhbBfc=";
   })
 
-  (fetchpatch' {
-    title = "gnustep: remove `rec` to support `overrideScope`";
-    saneCommit = "69162cbf727264e50fc9d7222a03789d12644705";
-    hash = "sha256-rD0es4uUbaLMrI9ZB2HzPmRLyu/ixNBLAFyDJtFHNko=";
-  })
+  # (fetchpatch' {
+  #   title = "gnustep: remove `rec` to support `overrideScope`";
+  #   saneCommit = "69162cbf727264e50fc9d7222a03789d12644705";
+  #   hash = "sha256-rD0es4uUbaLMrI9ZB2HzPmRLyu/ixNBLAFyDJtFHNko=";
+  # })
 
   (fetchpatch' {
     title = "blueman: support cross compilation";
