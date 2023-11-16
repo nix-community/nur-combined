@@ -204,6 +204,9 @@
     "slug": "dictionaries"
   },
   {
+    "slug": "dictionary-german"
+  },
+  {
     "slug": "dictionnaire-français1",
     "pname": "french-dictionary"
   },
@@ -478,8 +481,7 @@
     "slug": "ipfs-companion"
   },
   {
-    "slug": "ipvfoo-pmarks",
-    "pname": "ipvfoo",
+    "slug": "ipvfoo",
     "license": {
       "tag": "predefined",
       "shortName": "asl20"
@@ -854,7 +856,8 @@
     "slug": "proton-pass"
   },
   {
-    "slug": "proton-vpn"
+    "slug": "proton-vpn-firefox-extension",
+    "pname": "proton-vpn"
   },
   {
     "slug": "protondb-for-steam"
