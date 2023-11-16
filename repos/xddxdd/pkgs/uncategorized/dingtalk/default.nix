@@ -18,7 +18,7 @@
   glib,
   gnutls,
   graphite2,
-  gtk3,
+  gtk2,
   krb5,
   libdrm,
   libgcrypt,
@@ -35,7 +35,6 @@
   nss,
   openldap,
   pango,
-  qt5,
   rtmpdump,
   udev,
   util-linux,
@@ -60,7 +59,14 @@ let
     glib
     gnutls
     graphite2
-    gtk3
+    (gtk2.override {
+      pango = pango.override {
+        harfbuzz = callPackage ./harfbuzz {
+          ApplicationServices = null;
+          CoreText = null;
+        };
+      };
+    })
     krb5
     libdrm
     libgcrypt
@@ -76,11 +82,6 @@ let
     nspr
     nss
     openldap
-    pango
-    qt5.qtbase
-    qt5.qtmultimedia
-    qt5.qtsvg
-    qt5.qtx11extras
     rtmpdump
     udev
     util-linux
@@ -125,11 +126,9 @@ in
       rm -f release/{*.a,*.la,*.prl}
       rm -f release/dingtalk_updater
       rm -f release/libcurl.so.*
-      rm -f release/libgdk*
-      rm -f release/libgtk*
+      rm -f release/libgtk-x11-2.0.so.*
       rm -f release/libm.so.*
       rm -f release/libstdc++.so.6
-      rm -r release/libQt5*
       rm -f release/libz*
     '';
 
@@ -153,13 +152,10 @@ in
       ln -s ${./dingtalk.png} $out/share/pixmaps/dingtalk.png
     '';
 
-    dontStrip = true;
-
     meta = with lib; {
       description = "钉钉";
       homepage = "https://www.dingtalk.com/";
       platforms = ["x86_64-linux"];
       license = licenses.unfreeRedistributable;
-      broken = true;
     };
   }
