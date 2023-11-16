@@ -15,14 +15,14 @@
 
 stdenv.mkDerivation {
   pname = "arkade";
-  version = "unstable-2023-11-05";
+  version = "unstable-2023-11-07";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "games";
     repo = "arkade";
-    rev = "823318ea507c74a181b68d16310c09c3fdbbf8d6";
-    hash = "sha256-0DSHVFDfLoPzsbY+GP2ZlETuF7fl7tmwkvt3z9FSImg=";
+    rev = "235a5bab7fa7103433803842ece0cd588bc17b2a";
+    hash = "sha256-MK4IDntze471MEGDxRXWv1+nKUNEnatMJRAJCmqJF00=";
   };
 
   nativeBuildInputs = [

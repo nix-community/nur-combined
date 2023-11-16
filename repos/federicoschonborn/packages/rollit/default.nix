@@ -20,19 +20,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rollit";
-  version = "3.3.0";
+  version = "3.4.0";
 
   src = fetchFromGitLab {
     owner = "zelikos";
     repo = "rollit";
     rev = finalAttrs.version;
-    hash = "sha256-v8G/XJGq1uOLBBVsnCW3alFy06xQVDWZxOj1hjYgR10=";
+    hash = "sha256-IVmbxfEalbZqPaDAknvu71OIQWGSGd/HtYeUuDAlclY=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit (finalAttrs) src;
     name = "${finalAttrs.pname}-${finalAttrs.version}";
-    hash = "sha256-rUnDSifW8ZCys91wk0WTg3x+APjwhANtuVTloUfzl+k=";
+    hash = "sha256-cyCo+oYTtXVLUR7/j8fg3KemNh7vEcdjmO2gjtqdEp8=";
   };
 
   nativeBuildInputs = [

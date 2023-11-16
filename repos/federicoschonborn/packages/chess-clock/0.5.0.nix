@@ -14,8 +14,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "chess-clock";
   version = "0.5.0";
-
-  format = "other";
+  pyproject = false;
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";

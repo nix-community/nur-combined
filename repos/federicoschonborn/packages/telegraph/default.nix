@@ -13,9 +13,8 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "telegraph";
-  version = "0.1.7";
-
-  format = "other";
+  version = "0.1.8";
+  pyproject = false;
 
   src = fetchFromGitHub {
     owner = "fkinoshita";
@@ -42,6 +41,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   dontWrapGApps = true;
+
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';

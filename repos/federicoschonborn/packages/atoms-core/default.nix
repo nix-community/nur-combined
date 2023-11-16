@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, setuptools
 , orjson
 , requests
 , nix-update-script
@@ -9,7 +10,7 @@
 buildPythonPackage rec {
   pname = "atoms-core";
   version = "1.1.2";
-  format = "setuptools";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "AtomsDevs";
@@ -18,12 +19,18 @@ buildPythonPackage rec {
     hash = "sha256-Z2jFagCaYDRFzzftKI+LY15lgB2KkLeoNN0w2Zpy+yY=";
   };
 
-  pythonPath = [
+  buildInputs = [
+    setuptools
+  ];
+
+  propagatedBuildInputs = [
     orjson
     requests
   ];
 
-  pythonImportsCheck = [ "atoms_core" ];
+  pythonImportsCheck = [
+    "atoms_core"
+  ];
 
   passthru.updateScript = nix-update-script { };
 

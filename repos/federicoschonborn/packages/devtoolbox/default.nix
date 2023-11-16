@@ -1,6 +1,7 @@
 { lib
 , python3Packages
 , python-daltonlens
+, python-jwt
 , python-lorem
 , python-textstat
 , python-uuid6
@@ -22,8 +23,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "devtoolbox";
   version = "1.1.1";
-
-  format = "other";
+  pyproject = false;
 
   src = fetchFromGitHub {
     owner = "aleiepure";
@@ -51,6 +51,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = [
     python-daltonlens
+    python-jwt
     python-lorem
     python-textstat
     python-uuid6
@@ -69,7 +70,6 @@ python3Packages.buildPythonApplication rec {
         "test_19_frequency_at_month"
       ];
     }))
-    python-jwt
     pytz
     qrcode
     ruamel-yaml

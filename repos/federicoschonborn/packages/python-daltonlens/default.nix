@@ -5,11 +5,12 @@
 , numpy
 , pillow
 , nix-update-script
-}: buildPythonPackage rec {
+}:
+
+buildPythonPackage rec {
   pname = "daltonlens";
   version = "0.1.5";
-
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;

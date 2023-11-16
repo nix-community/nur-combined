@@ -17,8 +17,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "atoms";
   version = "1.1.2";
-
-  format = "other";
+  pyproject = false;
 
   src = fetchFromGitHub {
     owner = "AtomsDevs";
@@ -47,6 +46,7 @@ python3Packages.buildPythonApplication rec {
   ]);
 
   dontWrapGApps = true;
+
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"

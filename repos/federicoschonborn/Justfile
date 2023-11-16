@@ -12,6 +12,4 @@ build-all:
 
 # Build one or more packages.
 build +PACKAGES:
-    for package in {{ PACKAGES }}; do \
-        {{ nix }} build -L ".#${package}"; \
-    done
+    PACKAGES="{{ PACKAGES }}"; {{ nix }} build -L $(echo ".#${PACKAGES// / .#}")
