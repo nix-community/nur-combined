@@ -1,6 +1,6 @@
 final: prev: {
   firefox = prev.firefox.override {
-    extraNativeMessagingHosts = [
+    nativeMessagingHosts = [
       prev.firefoxpwa-unwrapped
     ];
   };
