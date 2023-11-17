@@ -559,18 +559,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.73";
+    version = "2.0.74";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.73/netboot.xyz.efi";
-      sha256 = "sha256-f3IO5Sh/ROuP2ob7AI5UAxa2Tt4tK7oDXrl3/YDRqdU=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.74/netboot.xyz.efi";
+      sha256 = "sha256-AdveXOGZs2GD9OG2NGOppv0+uevlriTClxkl6rLf6NU=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.73";
+    version = "2.0.74";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.73/netboot.xyz.lkrn";
-      sha256 = "sha256-QL9LTU2qbcHud/qn1pbPJGZqlaqbbt32A5x0XBsQTWs=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.74/netboot.xyz.lkrn";
+      sha256 = "sha256-uCXjfAsRi5X8ehdwuV9iIEC3kuhenqw1PfUQgxOuaXM=";
     };
   };
   netns-exec = {
@@ -979,15 +979,15 @@
   };
   undetected-chromedriver = {
     pname = "undetected-chromedriver";
-    version = "cea80717c5a3d95ccf5c40e6e38081d5454ec7a5";
+    version = "783b8393157b578e19e85b04d300fe06efeef653";
     src = fetchFromGitHub {
       owner = "ultrafunkamsterdam";
       repo = "undetected-chromedriver";
-      rev = "cea80717c5a3d95ccf5c40e6e38081d5454ec7a5";
+      rev = "783b8393157b578e19e85b04d300fe06efeef653";
       fetchSubmodules = false;
-      sha256 = "sha256-6+aJrxKnZZ6tkajgw0Qx5ZVkO8T56UhYnIH1d0g2qtE=";
+      sha256 = "sha256-vQ66TAImX0GZCSIaphEfE9O/wMNflGuGB54+29FiUJE=";
     };
-    date = "2023-08-25";
+    date = "2023-11-15";
   };
   vs-rife = {
     pname = "vs-rife";
