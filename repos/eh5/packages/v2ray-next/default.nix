@@ -30,7 +30,7 @@ let
       fetchSubmodules = false;
       sha256 = "sha256-wiAK3dzZ9TGYkt7MmBkYTD+Mi5BEid8sziDM1nI3Z80=";
     });
-    vendorSha256 = "sha256-pC3KXx1KBvQx6eZZG1czaGjCOd0xAB42B5HmKn7p52c=";
+    vendorHash = "sha256-pC3KXx1KBvQx6eZZG1czaGjCOd0xAB42B5HmKn7p52c=";
 
     doCheck = false;
 

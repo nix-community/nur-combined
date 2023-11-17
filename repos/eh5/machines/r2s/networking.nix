@@ -36,6 +36,9 @@
     "net.ipv4.conf.default.rp_filter" = false;
   };
 
+  # required to set hostname, see <https://github.com/systemd/systemd/issues/16656>
+  security.polkit.enable = true;
+
   networking.useNetworkd = false;
   networking.useDHCP = false;
   networking.dhcpcd.enable = false;
@@ -64,6 +67,23 @@
     networkConfig = {
       Address = "192.168.1.1/24";
       ConfigureWithoutCarrier = true;
+      # DHCPServer = true;
+      IPv6SendRA = true;
+      DHCPPrefixDelegation = true;
+    };
+    # dhcpServerConfig = {
+    #   PoolOffset = 2;
+    #   DefaultLeaseTimeSec = "12h";
+    #   MaxLeaseTimeSec = "24h";
+    #   UplinkInterface = "extern0";
+    #   DNS = [ "_server_address" ];
+    # };
+    dhcpPrefixDelegationConfig = {
+      UplinkInterface = "extern0";
+    };
+    ipv6SendRAConfig = {
+      EmitDNS = true;
+      DNS = [ "_link_local" ];
     };
     linkConfig.ActivationPolicy = "always-up";
   };
@@ -72,11 +92,15 @@
     name = "extern0";
     networkConfig = {
       Address = "192.168.4.16/24";
-      DHCP = "ipv4";
       ConfigureWithoutCarrier = true;
+      DHCP = "yes";
     };
     dhcpV4Config = {
       SendHostname = true;
+    };
+    dhcpV6Config = {
+      WithoutRA = "solicit";
+      PrefixDelegationHint = "::/64";
     };
     linkConfig.ActivationPolicy = "always-up";
   };

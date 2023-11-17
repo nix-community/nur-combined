@@ -11,6 +11,7 @@
   };
   networking.enableNftablesFullcone = true;
 
+  networking.resolvconf.useLocalResolver = true;
   services.resolved.enable = false;
   services.dnsmasq = {
     enable = true;
@@ -20,7 +21,9 @@
       local = "/lan/";
       interface = "intern0";
       bind-interfaces = true;
-      expand-hosts = true;
+      address = "/nixos-r2s.lan/192.168.1.1";
+      # TODO: build additional hosts from DHCPv6 leases and LAN interface addresses
+      #addn-hosts=hosts_from_dhcpv6_leases
       domain = "lan";
       dhcp-range = "192.168.1.3,192.168.1.255,255.255.255.0,24h";
       cache-size = 0;

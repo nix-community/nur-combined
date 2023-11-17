@@ -6,14 +6,23 @@ define chn_ns = {
   114.114.114.114
 }
 
-define open_udp_ports = {
-  1024-65535
+define open_tcp_ports = {
+  10000-65535
 }
 
-table ip filter {
+define open_udp_ports = {
+  10000-65535
+}
+
+table inet filter {
   # allow all packets sent by the firewall machine itself
   chain output {
     type filter hook output priority 100; policy accept;
+  }
+
+  chain allow_ping {
+    icmpv6 type echo-request limit rate 5/second accept
+    icmp type echo-request limit rate 5/second accept
   }
 
   # allow LAN to firewall, disallow WAN to firewall
@@ -22,14 +31,18 @@ table ip filter {
 
     iifname { lo, intern0 } accept
     ip daddr 192.168.0.0/16 accept
-    ip protocol icmp accept
+
+    icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+    jump allow_ping
+
+    udp dport dhcpv6-client accept
+    udp dport $open_udp_ports ct state new accept
 
     ct state vmap {
       established: accept,
       related: accept,
       invalid: drop
     }
-    udp dport $open_udp_ports ct state new accept
 
     reject
   }
@@ -42,10 +55,14 @@ table ip filter {
   # allow packets from LAN to WAN, and WAN to LAN if LAN initiated the connection
   chain forward {
     type filter hook forward priority 0; policy drop;
-    ip protocol tcp flow add @f
+    meta l4proto tcp flow add @f
 
     iifname { lo, intern0 } accept
+
+    jump allow_ping
+
     oifname intern0 ct state { related, established } accept
+    oifname intern0 tcp dport $open_tcp_ports ct state new accept
     oifname intern0 udp dport $open_udp_ports ct state new accept
   }
 }
@@ -61,30 +78,5 @@ table ip nat {
   chain postrouting {
     type nat hook postrouting priority 100; policy accept;
     oifname extern0 fullcone
-  }
-}
-
-table ip6 filter {
-  chain output {
-    type filter hook output priority 100; policy accept;
-  }
-
-  chain input {
-    type filter hook input priority 0; policy accept;
-
-    iifname { lo, intern0 } accept
-    ip6 nexthdr icmpv6 accept
-
-    ct state vmap {
-      established: accept,
-      related: accept,
-      invalid: drop
-    }
-
-    reject
-  }
-
-  chain forward {
-    type filter hook forward priority 0; policy drop;
   }
 }

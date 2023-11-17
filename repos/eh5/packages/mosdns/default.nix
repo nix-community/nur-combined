@@ -12,7 +12,7 @@ buildGoModule rec {
     fetchSubmodules = false;
     sha256 = "sha256-QujkDx899GAImEtQE28ru7H0Zym5SYXJbJEfSBkJYjo=";
   });
-  vendorSha256 = "sha256-0J5hXb1W8UruNG0KFaJBOQwHl2XiWg794A6Ktgv+ObM=";
+  vendorHash = "sha256-0J5hXb1W8UruNG0KFaJBOQwHl2XiWg794A6Ktgv+ObM=";
   doCheck = false;
 
   buildPhase = ''
