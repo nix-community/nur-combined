@@ -133,6 +133,9 @@
         "beam": {
             "url": "https://github.com/jechol/nix-beam"
         },
+        "behoof4mind": {
+            "url": "https://github.com/behoof4mind/packages"
+        },
         "bendlas": {
             "url": "https://github.com/bendlas/nur-packages"
         },
