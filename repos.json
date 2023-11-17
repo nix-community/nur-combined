@@ -38,6 +38,9 @@
         "ProducerMatt": {
             "url": "https://github.com/ProducerMatt/my-nur-pkgs"
         },
+        "Samuel-Martineau": {
+            "url": "https://github.com/Samuel-Martineau/nur-packages"
+        },
         "SuperKenVery": {
             "url": "https://github.com/SuperKenVery/nix-user-packages/"
         },
