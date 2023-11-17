@@ -112,7 +112,7 @@ in
       # TODO: split these into their own option scope
       brightness_down_cmd = mkOption {
         type = types.str;
-        default = "${pkgs.brightnessctl}/bin/brightnessctl set -2%";
+        default = "${pkgs.brightnessctl}/bin/brightnessctl set 2%-";
         description = "command to run when use wants to decrease screen brightness";
       };
       brightness_up_cmd = mkOption {
