@@ -10,6 +10,41 @@
     ./theme
   ];
 
+  sane.programs.gameApps = {
+    package = null;
+    suggestedPrograms = [
+      "animatch"
+      "gnome-2048"
+      "superTux"  # keyboard-only controls
+      "superTuxKart"  # poor FPS on pinephone
+    ];
+  };
+  sane.programs.desktopGameApps = {
+    package = null;
+    suggestedPrograms = [
+      # "andyetitmoves" # TODO: fix build!
+      # "armagetronad"  # tron/lightcycles; WAN and LAN multiplayer
+      # "cutemaze"      # meh: trivial maze game; qt6 and keyboard-only
+      # "cuyo"          # trivial puyo-puyo clone
+      "endless-sky"     # space merchantilism/exploration
+      # "factorio"
+      "frozen-bubble"   # WAN + LAN + 1P/2P bubble bobble
+      # "hedgewars"     # WAN + LAN worms game (5~10 people online at any moment; <https://hedgewars.org>)
+      # "libremines"    # meh: trivial minesweeper; qt6
+      # "mario0"        # SMB + portal
+      # "mindustry"
+      # "minesweep-rs"  # CLI minesweeper
+      # "nethack"
+      # "osu-lazer"
+      # "pinball"       # 3d pinball; kb/mouse. old sourceforge project
+      # "powermanga"    # STYLISH space invaders derivative (keyboard-only)
+      "shattered-pixel-dungeon"  # doesn't cross compile
+      "space-cadet-pinball"  # LMB/RMB controls (bindable though. volume buttons?)
+      "tumiki-fighters" # keyboard-only
+      "vvvvvv"  # keyboard-only controls
+    ];
+  };
+
   sane.programs.guiApps = {
     package = null;
     suggestedPrograms = lib.optionals (pkgs.system == "x86_64-linux") [
@@ -17,8 +52,8 @@
     ] ++ [
       # package sets
       "tuiApps"
+      "gameApps"
     ] ++ [
-      "animatch"
       "alacritty"  # terminal emulator
       "calls"  # gnome calls (dialer/handler)
       # "celluloid"  # mpv frontend
@@ -34,7 +69,6 @@
       # "foliate"  # e-book reader
       "fractal"  # matrix client
       "g4music"  # local music player
-      "gnome-2048"  # game
       # "gnome.cheese"
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
       # "gnome.file-roller"
@@ -66,8 +100,6 @@
       "soundconverter"
       "spot"  # Gnome Spotfy client
       # "sublime-music"
-      "superTux"  # game: SMB clone
-      "superTuxKart"  # game
       "tangram"  # web browser
       # "tdesktop"  # broken on phosh
       # "tokodon"
@@ -82,6 +114,9 @@
   sane.programs.desktopGuiApps = {
     package = null;
     suggestedPrograms = [
+      # package sets
+      "desktopGameApps"
+    ] ++ [
       "audacity"
       "blanket"  # ambient noise generator
       "brave"  # for the integrated wallet -- as a backup

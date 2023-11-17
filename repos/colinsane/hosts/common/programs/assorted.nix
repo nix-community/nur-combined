@@ -224,6 +224,8 @@ in
     # creds, but also 200 MB of node modules, etc
     discord.persist.byStore.private = [ ".config/discord" ];
 
+    endless-sky.persist.byStore.plaintext = [ ".local/share/endless-sky" ];
+
     # `emote` will show a first-run dialog based on what's in this directory.
     # mostly, it just keeps a LRU of previously-used emotes to optimize display order.
     # TODO: package [smile](https://github.com/mijorus/smile) for probably a better mobile experience.
@@ -263,11 +265,15 @@ in
     # printer/filament settings
     slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
 
+    space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
+
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
     tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
 
     tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
+
+    vvvvvv.persist.byStore.plaintext = [ ".local/share/VVVVVV" ];
 
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
 
