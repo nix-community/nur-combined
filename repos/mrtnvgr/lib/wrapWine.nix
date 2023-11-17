@@ -7,17 +7,17 @@ let
   inherit (pkgs) lib cabextract winetricks writeShellScriptBin;
   inherit (lib) makeBinPath;
 in
-{ is64bits ? false
-, wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
-, wineFlags ? ""
+{ name
 , executable
 , chdir ? null
-, name
 , tricks ? [ ]
 , silent ? true
 , preScript ? ""
 , postScript ? ""
 , setupScript ? ""
+, wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
+, wineFlags ? ""
+, is64bits ? false
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";

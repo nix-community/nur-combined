@@ -62,6 +62,7 @@ in stdenvNoCC.mkDerivation {
     homepage = "https://www.celestegame.com";
     license = licenses.unfree;
     mainProgram = name;
+    unsafe = true;
   };
 
   preferLocalBuild = true;

@@ -14,7 +14,11 @@
 
 ### Games
 
-- [celeste](https://www.celestegame.com)
+- _[celeste](https://www.celestegame.com)_
 
 - [celeste-classic](https://celesteclassic.github.io/)
 - [celeste-classic-2](https://mattmakesgames.itch.io/celeste-classic-2)
+
+### Fonts
+
+- _[comic-code](https://tosche.net/fonts/comic-code)_
