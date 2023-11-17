@@ -9,26 +9,26 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "0rcw9qfk362pnlrkaahgjf48cx9w9ngr6ivh37xs3d3bwclz228j";
-    x86_64-linux = "1fw35izk4ws0hp75p28di6f89szqyyksyv3gia16k5yh1xn79n77";
-    armv7l-linux = "1xk53rakdw67q588pd6pzsgphqw75mfq02l7z556fx01kkvd32li";
-    aarch64-linux = "1cbszxvds7gya1c0y9lg4blpdyc6h64vqkw46wczsy2d2yj3aqk7";
-    x86_64-darwin = "10ibbfg8r847nwnspcqd616jaddrqywbil99ifg7f4jfqcb9gcb3";
-    aarch64-darwin = "0wclvzcsvn459h65vlg5ybqqqd66s1hg87sjpqc5ywcjq3kxsias";
+    i686-linux = "0gghnbap4h2n7lmvqm8w5xa48jdp2ayw3ayj6a1gfqflmsfk4kix";
+    x86_64-linux = "1rd67k1r20ksyssbqgy3m6zwd5bv8h9jsyri79348g0b9qwlgyji";
+    armv7l-linux = "1sif67gmyjlj5yyn3x1s6j21zii0dglgv0sbdmvjsykdmh7a1fpl";
+    aarch64-linux = "0sww3qwwak4kz0gzxhr8z4akgxzxgkfx45vyiad9kddrbj5dn8lw";
+    x86_64-darwin = "0f861z7yc896yn41i3iayxshlf8i083pwygcv1w4gh07s4lay8pz";
+    aarch64-darwin = "0410b2izsv2jkrqcldi575qfnqzflarbby1aypvipcfy11jrr0wc";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.0/wishlist_0.14.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.0/wishlist_0.14.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.0/wishlist_0.14.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.0/wishlist_0.14.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.0/wishlist_0.14.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.0/wishlist_0.14.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.1/wishlist_0.14.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.1/wishlist_0.14.1_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.1/wishlist_0.14.1_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.1/wishlist_0.14.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.1/wishlist_0.14.1_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/wishlist/releases/download/v0.14.1/wishlist_0.14.1_Darwin_arm64.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "wishlist";
-  version = "0.14.0";
+  version = "0.14.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -51,6 +51,8 @@ pkgs.stdenv.mkDerivation {
     description = "The SSH directory";
     homepage = "https://charm.sh/";
     license = lib.licenses.mit;
+
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
 
     platforms = [
       "aarch64-darwin"

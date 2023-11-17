@@ -9,26 +9,26 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "1m1hi6y98vypq9v21ff1wss391065m8iabm2y252h5l6q68mardw";
-    x86_64-linux = "1p281an5rffkp1b45jryc1kh9n2znjnnrn8qbx2ldvmc1v4k9c4g";
-    armv7l-linux = "0ia4gqhip0z2s1d35zzp2r7696ymg7jczima24psrx3hb8rsgf0z";
-    aarch64-linux = "023j1k2ssh3n93an0dc1abpps7w8xhx57dicf2zv46d8rxx9a1sy";
-    x86_64-darwin = "0g794nds3s2dz60dzdx9jkpxrkan8aj72xp0yk42c2rp7ddkgqkb";
-    aarch64-darwin = "02qrjywnq6zfy2kd7w99rf2qms9kbys63p0jwjgz3zp5ncbfmwm0";
+    i686-linux = "0nks1871jfgll2kk0scmlrh67f1a9m6a1624b2ws4hp4slqn6ras";
+    x86_64-linux = "080l54yki8qx6qzpfx1h2s998s5dwpmc41icpq7gaicn9l9pfmag";
+    armv7l-linux = "15mqb99x0dh4rskqmczyv4bhgkp657pwaqzy0vmz3ibhqyhxvgsg";
+    aarch64-linux = "1vq1mq38iyc29alcrwajmrdp1bvslcs29p14a0spidw2s88i1hp9";
+    x86_64-darwin = "0v3wgxvz3kgjydkaprxw38f31jhwgs01zdc0g2hch0s2i5n2vzqn";
+    aarch64-darwin = "00va5mak2zwn3xkrynyf33x2xnvyxm1lrl6ihzx2rskx7flzfyax";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/mods/releases/download/v1.0.0/mods_1.0.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/mods/releases/download/v1.0.0/mods_1.0.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/mods/releases/download/v1.0.0/mods_1.0.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/mods/releases/download/v1.0.0/mods_1.0.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/mods/releases/download/v1.0.0/mods_1.0.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/mods/releases/download/v1.0.0/mods_1.0.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/mods/releases/download/v1.1.0/mods_1.1.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/mods/releases/download/v1.1.0/mods_1.1.0_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/mods/releases/download/v1.1.0/mods_1.1.0_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/mods/releases/download/v1.1.0/mods_1.1.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/mods/releases/download/v1.1.0/mods_1.1.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/mods/releases/download/v1.1.0/mods_1.1.0_Darwin_arm64.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "mods";
-  version = "1.0.0";
+  version = "1.1.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -47,9 +47,11 @@ pkgs.stdenv.mkDerivation {
   system = system;
 
   meta = {
-    description = "GPT-4 on the command line";
+    description = "AI on the command line";
     homepage = "https://charm.sh/";
     license = lib.licenses.mit;
+
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
 
     platforms = [
       "aarch64-darwin"
