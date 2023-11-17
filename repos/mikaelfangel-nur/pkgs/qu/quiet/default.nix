@@ -2,11 +2,11 @@
 
 let
   pname = "quiet";
-  version = "1.9.5";
+  version = "1.9.7";
   name = "quiet-${version}";
   src = fetchurl {
     url = "https://github.com/TryQuiet/quiet/releases/download/quiet%40${version}/Quiet-${version}.AppImage";
-    hash = "sha256-fYuZMCYHcgryWuzMtsT8m5S6NYg/tYWxsFvKoZfxHQE=";
+    hash = "sha256-TChQbWFKNvzKZKHSJQHAf9e9CFeWdQ5iCXndm3lXhJw=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
