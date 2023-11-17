@@ -142,11 +142,13 @@ bar {
 for_window [app_id="pinentry-.*"] floating true
 for_window [app_id="foot" title=".*sxmo/modem/.*/draft.txt.*"] resize set height 25
 for_window [title="megapixels"] inhibit_idle open
-# Dino (XMPP) is ordinarily started for the purpose of daemonizing (but still visible). keep it on a predictable, out-of-the-way workspace
-# TODO: could be neat to somehow do this in a way that it never steals focus from anything...
+
+# workspace assignments
+# mostly, messengers belong on WS 1
 for_window [app_id="im.dino.Dino"] move container to workspace number 1
 for_window [app_id="org.gnome.Fractal"] move container to workspace number 1
 for_window [app_id="geary"] move container to workspace number 1
+for_window [class="Signal"] move container to workspace number 1
 
 ### displays
 ## DESKTOP

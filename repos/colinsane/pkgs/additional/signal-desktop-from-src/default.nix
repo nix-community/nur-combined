@@ -93,6 +93,7 @@
 , flac
 , fixup_yarn_lock
 , gdk-pixbuf
+, git
 , gnused
 , gtk3
 , icu
@@ -175,8 +176,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
+    leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${version}";
-    hash = "sha256-wKBhiiZhSivw4NYJ7uQDX8tMKxvMUYnu8cfr0IfjMMk=";
+    hash = "sha256-AZOv1SXASTWlktlvhulY/4vr7sVxLXwyTkfckao+MVw=";
   };
 
   # patches = [
@@ -186,6 +188,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     fixup_yarn_lock
+    git  # to calculate build date
     gnused
     makeWrapper
     nodejs'  # possibly i could instead use nodejs-slim (npm-less nodejs)
@@ -221,6 +224,8 @@ stdenv.mkDerivation rec {
     yarnLock = "${src}/yarn.lock";
     hash = "sha256-wSX09S+UOBPE3Ozh6+BieADMGG9MO8XnjaHWrxCqfao=";
   };
+  # env.SIGNAL_ENV = "production";
+  # env.NODE_ENV = "production";
   # env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
   postPatch = ''
@@ -236,6 +241,12 @@ stdenv.mkDerivation rec {
 
   configurePhase = ''
     runHook preConfigure
+
+    # XXX: Signal does not let clients connect if they're running a version that's > 90d old.
+    # to calculate the build date, it uses SOURCE_DATE_EPOCH (if set), else `git log`.
+    # nixpkgs sets SOURCE_DATE_EPOCH to 1980/01/01 by default, so unset it so Signal falls back to git date.
+    # see: Signal-Desktop/ts/scripts/get-expire-time.ts
+    export SOURCE_DATE_EPOCH=
 
     export HOME=$NIX_BUILD_TOP
     yarn config --offline set yarn-offline-mirror $yarnOfflineCache

@@ -28,6 +28,7 @@
   sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" "desktopConsoleUtils" ];
   # sane.programs.devPkgs.enableFor.user.colin = true;
 
+  sane.programs.signal-desktop.config.autostart = true;
   sane.programs."gnome.geary".config.autostart = true;
 
   boot.loader.efi.canTouchEfiVariables = false;

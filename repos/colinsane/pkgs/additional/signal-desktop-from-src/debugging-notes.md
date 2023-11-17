@@ -191,3 +191,87 @@
 # ln -sfv "$(pwd)/include" "$HOME/.node-gyp/${nodejs'.version}"
 # export npm_config_nodedir=${nodejs'}
 ```
+
+
+## client thinks it's outdated
+"This version of Signal Desktop has expired. Please upgrade to the latest version to continue messaging.
+Click to go to signal.org/download"
+- and yes, i can't message (it repeats the first line when i try to send a message)
+- message is identified by `icu:expiredWarning` and `icu:upgrade`
+- instantiated by `DialogExpiredBuild` (ts/components/DialogExpiredBuild.tsx)
+  - called by `renderExpiredBuildDialog` (ts/state/smart/LeftPane.tsx)
+    - conditionally called by `LeftPane` if `hasExpiredDialog` (ts/components/LeftPane.tsx)
+      - `hasExpiredDialog` is set to `hasExpired(state)` (ts/state/smart/LeftPane.tsx)
+        - `hasExpired` defined in ts/state/selectors/expiration.ts
+
+```ts
+export const hasExpired = createSelector(
+  getExpirationTimestamp,
+  getAutoDownloadUpdate,
+  (_: StateType, { now = Date.now() }: HasExpiredOptionsType = {}) => now,
+  (buildExpiration: number, autoDownloadUpdate: boolean, now: number) => {
+    if (getEnvironment() !== Environment.Production && buildExpiration === 0) {
+      return false;
+    }
+
+    if (isInPast(buildExpiration)) {
+      return true;
+    }
+
+    const safeExpirationMs = autoDownloadUpdate
+      ? NINETY_ONE_DAYS
+      : THIRTY_ONE_DAYS;
+
+    const buildExpirationDuration = buildExpiration - now;
+    const tooFarIntoFuture = buildExpirationDuration > safeExpirationMs;
+
+    if (tooFarIntoFuture) {
+      log.error(
+        'Build expiration is set too far into the future',
+        buildExpiration
+      );
+    }
+
+    return tooFarIntoFuture || isInPast(buildExpiration);
+  }
+);
+```
+
+- log: `~/.config/Signal/logs/app.log`:
+  - has `{"level":30,"time":"2023-11-17T01:26:29.259Z","msg":"Build expires (local): 1980-03-31T00:00:00.000Z"}`
+  - suggests that `buildExpiration` is 0.
+- quick fix is to make it so this check fails `getEnvironment() !== Environment.Production`
+  - i.e. change the Environment to Development. dunno the side effects.
+- in `app/main.ts`: `buildExpiration: config.get<number>('buildExpiration')`
+- in `config/default.json`:
+  - "updatesEnabled": false,
+  - "ciMode": false,
+  - "forcePreloadBundle": false,
+  - "openDevTools": false,
+  - "buildCreation": 0,
+  - "buildExpiration": 0,
+- `ts/scripts/get-expire-time.ts`
+  - seems to calculate `buildCreation` (from `git` log) and `buildExpiration`
+  - it writes this to `config/local-production.json`
+- part of `generate` (package.json) is to call `get-expire-time`
+  - i already run that during build
+- alpine does a production build:
+```sh
+# build front
+NODE_ENV=production \
+SIGNAL_ENV=production \
+NODE_OPTIONS=--openssl-legacy-provider \
+yarn build:dev
+
+# purge non-production deps
+yarn install --ignore-scripts --frozen-lockfile --production
+```
+
+- these values made it into the asar:
+  - `{"buildCreation":315532800000,"buildExpiration":323308800000}`
+    - N.B. `315532800000` is 10 years in units of millisecnds
+    - i.e. the buildCreation is 1980/01/01!
+- in the log:
+  - `{"level":30,"time":"2023-11-17T01:26:27.871Z","msg":"environment: production"}`
+  - `{"level":40,"time":"2023-11-17T01:26:28.264Z","msg":"Remote Config: sever clock skew detected. Server time 1700184388000000, local time 1700184387985"}`
+- some weird interplay between `local` and `production` env types?
