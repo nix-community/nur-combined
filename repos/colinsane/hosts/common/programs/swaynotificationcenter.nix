@@ -328,13 +328,13 @@ in
           lib.optionals config.sane.programs.eg25-control.enabled [
             {
               type = "toggle";
-              label = "gps";  # GPS services; other icons: ⌖
+              label = "";  # GPS services; other icons: gps, ⌖, 🛰, 🌎, 
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-gps";
               active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-gps.service";
             }
             {
               type = "toggle";
-              label = "5g";
+              label = "󰺐";  # icons: 5g, 📡, 📱, ᯤ, ⚡, , 🌐, 📶, 🗼, 󰀂, , 󰺐, 󰩯
               # modem and NetworkManager auto-establishes a connection when powered.
               # though some things like `wg-home` VPN tunnel will remain routed over the old interface.
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-powered";
@@ -357,14 +357,21 @@ in
           ] ++ lib.optionals config.sane.programs."gnome.geary".enabled [
             {
               type = "toggle";
-              label = "[E]";  # email (Geary); other icons: ✉, 📧
+              label = "󰇮";  # email (Geary); other icons: ✉, [E], 📧, 󰇮
               command = "${systemctl-toggle}/bin/systemctl-toggle --user geary";
               active = "${pkgs.systemd}/bin/systemctl is-active --user geary";
+            }
+          ] ++ lib.optionals config.sane.programs.gtkcord4.enabled [
+            {
+              type = "toggle";
+              label = "󰊴";  # Discord chat client; icons: 󰊴, 🎮
+              command = "${systemctl-toggle}/bin/systemctl-toggle --user gtkcord4";
+              active = "${pkgs.systemd}/bin/systemctl is-active --user gtkcord4";
             }
           ] ++ lib.optionals config.sane.programs.signal-desktop.enabled [
             {
               type = "toggle";
-              label = "💬";  # Signal messenger
+              label = "💬";  # Signal messenger; other icons: 󰍦
               command = "${systemctl-toggle}/bin/systemctl-toggle --user signal-desktop";
               active = "${pkgs.systemd}/bin/systemctl is-active --user signal-desktop";
             }

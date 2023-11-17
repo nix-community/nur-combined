@@ -73,6 +73,8 @@ remove `x86GuiApps`
 - SwayNC:
   - don't show MPRIS if no players detected
     - this is a problem of playerctld, i guess
+    - also, the album icon when "Not playing" doesn't follow the size we give in the config
+      - that means mpris always takes up excessive space on moby
   - add option to change audio output
   - fix colors (red alert) to match overall theme
 - moby: tune GPS

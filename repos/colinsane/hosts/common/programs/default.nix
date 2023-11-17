@@ -32,6 +32,7 @@
     ./gnome-weather.nix
     ./gpodder.nix
     ./gthumb.nix
+    ./gtkcord4.nix
     ./helix.nix
     ./imagemagick.nix
     ./jellyfin-media-player.nix

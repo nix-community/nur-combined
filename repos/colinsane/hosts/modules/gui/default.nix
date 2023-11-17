@@ -83,6 +83,7 @@
       "gnome.gnome-weather"
       "gpodder"
       "gthumb"
+      "gtkcord4"  # Discord client
       "komikku"
       "koreader"
       "lemoa"  # lemmy app
