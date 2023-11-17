@@ -2,12 +2,12 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "flameshow";
-  version = "0.99.0";
+  version = "1.1.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Xwc3Y0Q7NucWAabD6tjl68Ib5rKiEmbjTJ6Py89Yfwc=";
+    hash = "sha256-lVDJfm4VPwJ360BuF3olBKmt2WUd91dbZPfRrcPE4W8=";
   };
 
   nativeBuildInputs = with python3.pkgs; [ poetry-core ];
@@ -21,6 +21,8 @@ python3.pkgs.buildPythonPackage rec {
   ];
 
   passthru.tests.version = testers.testVersion { package = flameshow; };
+
+  pythonImportsCheck = [ "flameshow" ];
 
   meta = with lib; {
     description = "A terminal Flamegraph viewer";
