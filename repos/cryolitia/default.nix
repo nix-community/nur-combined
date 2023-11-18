@@ -56,4 +56,6 @@ rec {
   go-musicfox-fastupdate = pkgs.callPackage ./pkgs/common/go-musicfox.nix { };
 
   rime-project-trans = pkgs.callPackage ./pkgs/rimePackages/rime-project-trans.nix { };
+
+  hyprshot = pkgs.callPackage ./pkgs/common/hyprshot.nix { };
 }
