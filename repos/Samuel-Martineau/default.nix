@@ -13,6 +13,8 @@
 
   example-package = pkgs.callPackage ./pkgs/example-package {};
 
+  moon-buggy = pkgs.callPackage ./pkgs/moon-buggy {};
+
   buildFirefoxExtension = pkgs.callPackage ./pkgs/build-firefox-extension {};
   firefoxExtensionHooks = pkgs.callPackage ./pkgs/build-firefox-extension/hooks {};
 }
