@@ -220,7 +220,7 @@ in
         # - SWAYNC_SUMMARY
         incoming-im = {
           # trigger notification sound on behalf of these IM clients.
-          app-name = "(Chats|Dino|discord|Element|Fractal)";
+          app-name = "(Chats|Dino|discord|Element|Fractal|gtkcord4)";
           body = "^(?!Incoming call).*$";  #< don't match Dino Incoming calls
           exec = "${fbcli} --event proxied-message-new-instant";
         };
