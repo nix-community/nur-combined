@@ -1,7 +1,7 @@
 labels:
   backend: local
 
-pipeline:
+steps:
 - name: nix flake check
   image: bash
   commands:
