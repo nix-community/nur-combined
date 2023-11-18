@@ -22,4 +22,5 @@
   iosevka-minoko = pkgs.callPackage ./pkgs/iosevka-minoko { };
   iosevka-aile-minoko = pkgs.callPackage ./pkgs/iosevka-aile-minoko { };
   iosevka-minoko-e = pkgs.callPackage ./pkgs/iosevka-minoko-e { };
+  iosevka-minoko-term = pkgs.callPackage ./pkgs/iosevka-minoko-term { };
 }

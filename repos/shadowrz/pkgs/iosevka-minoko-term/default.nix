@@ -1,13 +1,13 @@
 { lib, stdenvNoCC, fetchzip, iosevka }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "iosevka-minoko-e";
+  pname = "iosevka-minoko-term";
   version = "0.1.1";
 
   src = fetchzip {
     url = "https://github.com/ShadowRZ/iosevka-minoko/releases/download/v${version}/ttf-${pname}.zip";
     stripRoot = false;
-    hash = "sha256-4XfsVFUIPqlIR0Da3ihmJ5b7f0X7iUHU7FiHU2P4Wrs=";
+    hash = "sha256-HQ0hg1urhdvvXN20pYaT+lA34XntoZ5NnaiHDx8iyQw=";
   };
 
   installPhase = ''
