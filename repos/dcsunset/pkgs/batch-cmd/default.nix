@@ -2,13 +2,13 @@
 
 buildNpmPackage rec {
   pname = "batch-cmd";
-  version = "0.1.6";
+  version = "0.1.7";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "batch-cmd";
     rev = "v${version}";
-    hash = "sha256-BxvOcTEk1YKUoiVEqXjpcbU3qEOY2onLDRaoCZrun9E=";
+    hash = "sha256-mLNCj/q97WgCnjR0REPQfWh/Dlx2h66tAW/vjCz9DEw=";
   };
 
   # run prefetch-npm-deps package-lock.json to generate the hash
