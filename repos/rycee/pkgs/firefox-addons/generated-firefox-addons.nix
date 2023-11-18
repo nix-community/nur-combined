@@ -2832,10 +2832,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.908.0";
+      version = "8.909.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4182847/grammarly_1-8.908.0.xpi";
-      sha256 = "dc9633932e2c6a8624f0df5c1780954d5f4d54500230cca7368ca0bc0c67145b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4195175/grammarly_1-8.909.0.xpi";
+      sha256 = "2641c197d93f8ea7d9e88c6047eb4f059c5aff45850ba39ac3c96c71917b7bb4";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -7594,10 +7594,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4183848/statshunters-1.2.2.xpi";
-      sha256 = "a01b18ff2ad76d7adbbf29bbd48be42059aaa4aa0b50943d58f7bc08c58c87a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4196342/statshunters-1.2.3.xpi";
+      sha256 = "cabe33c6f63f1b9cdafb2df373be054f70d81a07bf5f1495f4b36fbb3c5fcc65";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
