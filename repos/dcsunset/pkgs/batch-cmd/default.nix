@@ -12,7 +12,7 @@ buildNpmPackage rec {
   };
 
   # run prefetch-npm-deps package-lock.json to generate the hash
-  npmDepsHash = "sha256-xBfYpAgkas8Tc99CY+FJ8Y/JKWe/yUWjS+KMDxDJj0w=";
+  npmDepsHash = "sha256-lLPLPkjixWLz/X0hBHkXhmO7ohp6V/mmMALQccnV+Xk=";
 
   nativeBuildInputs = [ pandoc ];
 
