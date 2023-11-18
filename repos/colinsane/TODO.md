@@ -1,8 +1,9 @@
 ## BUGS
-- why i need to manually restart `wireguard-wg-ovpns` on servo periodically
-  - else DNS fails
 - ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
 - Fractal opens links with non-preferred web browser
+- `nix` operations from lappy hang when `desko` is unreachable
+  - could at least direct the cache to `http://desko-hn:5001`
+- gnome-weather (and conky) don't show weather
 
 ## REFACTORING:
 
