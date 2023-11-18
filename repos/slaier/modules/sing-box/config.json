@@ -1,0 +1,80 @@
+{
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "@yacd@",
+      "store_mode": true,
+      "store_selected": true
+    }
+  },
+  "log": {
+    "disabled": false,
+    "level": "warn",
+    "timestamp": false
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "system",
+        "address": "local",
+        "strategy": "ipv4_only",
+        "detour": "direct_out"
+      }
+    ],
+    "rules": [],
+    "final": "system",
+    "disable_cache": false
+  },
+  "inbounds": [
+    {
+      "type": "http",
+      "tag": "http-in",
+      "listen": "::",
+      "listen_port": 7890,
+      "sniff": true,
+      "sniff_override_destination": true
+    }
+  ],
+  "route": {
+    "geoip": {
+      "path": "@geoip@"
+    },
+    "geosite": {
+      "path": "@geosite@"
+    },
+    "rules": [
+      {
+        "inbound": [
+          "http-in"
+        ],
+        "domain": [
+          "launcher-public-service-prod06.ol.epicgames.com",
+          "epicgames-download1-1251447533.file.myqcloud.com",
+          "download.epicgames.com",
+          "download2.epicgames.com",
+          "download3.epicgames.com",
+          "download4.epicgames.com",
+          "epicgames-download1.akamaized.net",
+          "fastly-download.epicgames.com"
+        ],
+        "domain_suffix": [
+          "pkgs.org",
+          "edu.cn",
+          "zhihu.com",
+          "zhimg.com"
+        ],
+        "geoip": [
+          "private"
+        ],
+        "outbound": "direct_out"
+      }
+    ],
+    "final": "select_out"
+  },
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct_out"
+    }
+  ]
+}

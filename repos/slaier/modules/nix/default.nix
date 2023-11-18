@@ -20,8 +20,9 @@
 
   nix.gc = {
     automatic = true;
-    dates = "daily";
+    dates = "Wed *-*-* 12:00:00";
     options = "--delete-older-than 5d";
+    persistent = false;
   };
 
   nix.extraOptions = ''

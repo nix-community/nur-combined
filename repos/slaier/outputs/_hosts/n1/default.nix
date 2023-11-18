@@ -2,10 +2,10 @@
 { lib, pkgs, ... }:
 let
   modules-enable = with modules; [
-    clash
     common
     extlinux
     nix
+    sing-box
     sops
     users
   ];

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, nixosConfig, ... }: {
+{ pkgs, lib, ... }: {
   home.sessionVariables.EDITOR = "code -w";
   programs.vscode = {
     enable = true;
@@ -7,6 +7,7 @@
       with pkgs.vscode-extensions; [
         eamodio.gitlens
         file-icons.file-icons
+        grafana.vscode-jsonnet
         jnoortheen.nix-ide
         llvm-vs-code-extensions.vscode-clangd
         mkhl.direnv
@@ -88,6 +89,17 @@
       "dev.containers.dockerComposePath" = lib.getExe pkgs.podman-compose;
       "dev.containers.dockerPath" = lib.getExe pkgs.podman;
       "direnv.restart.automatic" = true;
+      "jsonnet.languageServer" = {
+        enableAutoUpdate = false;
+        pathToBinary = lib.getExe (pkgs.jsonnet-language-server.overrideAttrs {
+          patches = [
+            (pkgs.fetchpatch {
+              url = "https://github.com/grafana/jsonnet-language-server/commit/ca2db4607a3b8a75a70f4387166b8b6cc8f3538b.patch";
+              hash = "sha256-X+onwebtZw1F+0ufmzjfxYag8wkNHU0gWOc6U92s3Yc=";
+            })
+          ];
+        });
+      };
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "${lib.getExe pkgs.nil}";
       "nix.serverSettings" = {

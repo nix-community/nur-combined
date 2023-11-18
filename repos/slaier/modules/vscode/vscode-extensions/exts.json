@@ -4,5 +4,11 @@
     "name": "remote-containers",
     "version": "0.294.0",
     "sha256": "sha256-Lnwan4jT5cQ/0ymd3skxS3cAhXZdwvKDRjzheX1Hqf4="
+  },
+  {
+    "publisher": "grafana",
+    "name": "vscode-jsonnet",
+    "version": "0.4.1",
+    "sha256": "5NNONMRL4at7FwUPBRhPrNWExHtzuK3US0HHn+XeeXw="
   }
 ]

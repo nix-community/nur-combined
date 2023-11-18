@@ -79,7 +79,6 @@ in
             { name = "Google Language Codes"; url = "https://sites.google.com/site/tomihasa/google-language-codes"; }
           ];
         }
-        { name = "Clash Wiki"; url = "https://lancellc.gitbook.io/clash"; }
         { name = "Dns Lookup"; url = "https://dnslookup.online/"; }
       ];
       extraConfig = ''
@@ -133,6 +132,12 @@ in
             }];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@hm" ];
+          };
+          "Github" = {
+            urls = [{
+              template = "https://github.com/search?q={searchTerms}&ref=opensearch&type=code";
+            }];
+            definedAliases = [ "@gh" ];
           };
         };
         force = true;

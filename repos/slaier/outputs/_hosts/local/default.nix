@@ -3,7 +3,6 @@
 let
   modules-enable = with modules; [
     bluetooth
-    clash
     common
     croc
     direnv
@@ -19,6 +18,7 @@ let
     nix
     openfortivpn
     podman
+    sing-box
     sops
     spotify
     sway
