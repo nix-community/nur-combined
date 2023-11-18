@@ -150,15 +150,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "1b2ec006259ddbe6cda30db8eb783e8177a9f12b";
+    version = "cec7d4ac3644c96737da23124e473e13ace5156c";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "1b2ec006259ddbe6cda30db8eb783e8177a9f12b";
+      rev = "cec7d4ac3644c96737da23124e473e13ace5156c";
       fetchSubmodules = false;
-      sha256 = "sha256-RPfi08g5DHvq5oEX57sJ1al2smBk0d9d8gAzL7jRnNQ=";
+      sha256 = "sha256-jF6Qb47maZHTwexI+eY4tL0QAnHJX+MVu74DEWeazA0=";
     };
-    date = "2023-10-25";
+    date = "2023-11-17";
   };
   libadwaita-1_4 = {
     pname = "libadwaita-1_4";
@@ -323,15 +323,15 @@
   };
   zix-git = {
     pname = "zix-git";
-    version = "b6243fb916e645d403d5efd0a189ebff5a8250c8";
+    version = "e90109eac8151498fa3b4650abc8f74a8a453c8d";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "b6243fb916e645d403d5efd0a189ebff5a8250c8";
+      rev = "e90109eac8151498fa3b4650abc8f74a8a453c8d";
       fetchSubmodules = false;
-      sha256 = "sha256-nMm3Mdqc4ncCae8SoyGxZYURzmXLNcp1GjsSExfB6x4=";
+      sha256 = "sha256-O1SfepnDju5GSeTtFcUocJGKkW68jRwrnAh6t6usE6A=";
     };
-    date = "2023-10-22";
+    date = "2023-11-17";
   };
   zmusic = {
     pname = "zmusic";
