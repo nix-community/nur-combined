@@ -56,9 +56,10 @@ in buildPythonPackage rec {
   });
 
   meta = with lib; {
+    broken = true;
     homepage = "https://github.com/ZerataX/matrix-registration/";
     description = "a token based matrix registration api";
-    # license = licenses.mit;
-    # maintainers = with maintainers; [ zeratax ];
+    license = licenses.mit;
+    maintainers = with maintainers; [ zeratax ];
   };
 }
