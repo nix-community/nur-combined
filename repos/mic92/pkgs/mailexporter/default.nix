@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-vIQIj4joD32ym3DKio8XOSffql7bgO6G+RL/0oC6+5o=";
   };
 
-  vendorSha256 = "sha256-QOOf00uCdC8fl7V/+Q8X90yQ7xc0Tb6M9dXisdGEisM=";
+  vendorHash = "sha256-QOOf00uCdC8fl7V/+Q8X90yQ7xc0Tb6M9dXisdGEisM=";
 
   meta = with lib; {
     description = "Export Prometheus-style metrics about mail server functionality";

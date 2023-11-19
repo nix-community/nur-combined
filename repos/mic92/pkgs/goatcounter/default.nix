@@ -17,7 +17,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  vendorSha256 = "sha256-nKfqZ5hGGVLBY/hnJJPCrS/9MlGoR2MWFUWDnpwWgyM=";
+  vendorHash = "sha256-nKfqZ5hGGVLBY/hnJJPCrS/9MlGoR2MWFUWDnpwWgyM=";
 
   meta = with lib; {
     description = "Easy web analytics. No tracking of personal data.";

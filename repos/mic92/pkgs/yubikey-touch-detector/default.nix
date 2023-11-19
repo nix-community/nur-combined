@@ -17,7 +17,7 @@ buildGoModule rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libnotify ];
 
-  vendorSha256 = "sha256-dJPfvMaGo1mcRkwQll1DcK+4PaWabfCgy7rV6D4V59Q=";
+  vendorHash = "sha256-dJPfvMaGo1mcRkwQll1DcK+4PaWabfCgy7rV6D4V59Q=";
 
   meta = with lib; {
     description = "Detect when your YubiKey is waiting for a touch";

@@ -34,8 +34,6 @@ rec {
 
   mastodon-hnbot = pkgs.python3Packages.callPackage ./pkgs/mastodon-hnbot {};
 
-  inherit (pkgs.callPackages ./pkgs/nix-build-uncached { }) nix-build-uncached;
-
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
 
   patool = pkgs.python3.pkgs.callPackage ./pkgs/patool {
