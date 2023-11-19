@@ -36,12 +36,12 @@ rustPlatform.buildRustPackage rec {
 
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
+  meta = {
     mainProgram = "inko";
     description = "A language for building concurrent software with confidence";
     homepage = "https://github.com/inko-lang/inko";
     changelog = "https://github.com/inko-lang/inko/blob/${src.rev}/CHANGELOG.md";
-    license = licenses.mpl20;
-    maintainers = with maintainers; [ federicoschonborn ];
+    license = lib.licenses.mpl20;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

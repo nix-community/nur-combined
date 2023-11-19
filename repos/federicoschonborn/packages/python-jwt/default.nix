@@ -27,9 +27,9 @@ buildPythonPackage rec {
     "jwt"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "JSON Web Token library for Python 3";
     homepage = "https://pypi.org/project/jwt/";
-    maintainers = with maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
