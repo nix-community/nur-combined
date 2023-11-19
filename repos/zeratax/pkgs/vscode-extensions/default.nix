@@ -1,10 +1,8 @@
 { callPackage, vscode-utils, lib }:
-let
-  inherit (vscode-utils) buildVscodeMarketplaceExtension;
-in
+let inherit (vscode-utils) buildVscodeMarketplaceExtension;
 
-{
-  b4dm4n.nixpkgs-fmt  = callPackage ./nixpkgs-fmt {};
+in {
+  b4dm4n.nixpkgs-fmt = callPackage ./nixpkgs-fmt { };
 
   hookyqr.beautify = buildVscodeMarketplaceExtension {
     mktplcRef = {

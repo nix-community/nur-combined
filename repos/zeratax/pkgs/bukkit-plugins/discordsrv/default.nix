@@ -2,11 +2,11 @@
 let
   version = "1.24.0";
   jar = fetchurl {
-    url = "https://github.com/DiscordSRV/DiscordSRV/releases/download/v${version}/DiscordSRV-Build-${version}.jar";
+    url =
+      "https://github.com/DiscordSRV/DiscordSRV/releases/download/v${version}/DiscordSRV-Build-${version}.jar";
     sha256 = "0dadiryjx8v761zh1im7piar3dh4aqs0ccsfyglaqn37m078wwrz";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit version;
   pname = "discordsrv";
 
@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://discordsrv.com";
-    description =
-      "Discord bridging plugin for block game.";
+    description = "Discord bridging plugin for block game.";
     license = licenses.gpl3Plus;
     # maintainers = with maintainers; [ zeratax ];
   };

@@ -17,14 +17,7 @@ rec {
   # applications
   matrix-registration = pkgs.callPackage ./pkgs/matrix-registration { };
 
-  mirage-im =
-    pkgs.libsForQt5.callPackage ./pkgs/mirage { python3Packages = myPython3Packages // pkgs.python3Packages; };
-
-  dmnd-bot =
-    pkgs.callPackage ./pkgs/dmnd-bot { };
-
-  # games
-  srb2 = pkgs.callPackage ./pkgs/srb2 { };
+  dmnd-bot = pkgs.callPackage ./pkgs/dmnd-bot { };
 
   # python modules
   myPython3Packages = pkgs.recurseIntoAttrs
@@ -39,8 +32,7 @@ rec {
     pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vscode-extensions { });
 
   # vim-plugins
-  vimPlugins =
-    pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vim-plugins {
-      buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix; 
-    });
+  vimPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vim-plugins {
+    buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
+  });
 }

@@ -1,9 +1,7 @@
-{ stdenv, lib, jq, nixpkgs-fmt, vscode-utils}:
+{ lib, jq, nixpkgs-fmt, vscode-utils }:
 
-let
-  inherit (vscode-utils) buildVscodeMarketplaceExtension;
-in
-buildVscodeMarketplaceExtension {
+let inherit (vscode-utils) buildVscodeMarketplaceExtension;
+in buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "nixpkgs-fmt";
     publisher = "B4dM4n";
@@ -11,9 +9,7 @@ buildVscodeMarketplaceExtension {
     sha256 = "bf3da4537e81d7190b722d90c0ba65fd204485f49696d203275afb4a8ac772bf";
   };
 
-  nativeBuildInputs = [
-    jq
-  ];
+  nativeBuildInputs = [ jq ];
 
   preInstall = ''
     jq '.contributes.configuration.properties."nixpkgs-fmt.path".default = $s' \

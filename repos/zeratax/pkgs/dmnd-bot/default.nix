@@ -1,4 +1,4 @@
-{ pkgs, fetchFromGitHub }:
+{ pkgs, lib, fetchFromGitHub }:
 
 pkgs.crystal.buildCrystalPackage rec {
   pname = "dmnd-bot";
@@ -14,25 +14,28 @@ pkgs.crystal.buildCrystalPackage rec {
 
   shardsFile = ./shards.nix;
 
-  buildInputs = [
-    pkgs.openssl
-  ];
+  buildInputs = [ pkgs.openssl ];
 
-  checkInputs = [
-    pkgs.openssl
-    pkgs.syncplay
-  ];
+  checkInputs = [ pkgs.openssl pkgs.syncplay ];
 
   postPatch = ''
     substituteInPlace spec/syncplay_bot_spec.cr \
         --replace 'syncplay' '${pkgs.syncplay}/bin/syncplay'
   '';
-  
-  preCheck = ''                   
+
+  preCheck = ''
     echo "creating test certs..." 
     pushd spec/test_certs/        
     bash create_certs.sh          
     popd                          
     echo "done!"                  
-  '';                             
+  '';
+
+  meta = with lib; {
+    broken = true;
+    homepage = "https://github.com/ZerataX/dmnd-bot/";
+    description = "dmnd's official discord bot";
+    license = licenses.mit;
+    maintainers = with maintainers; [ zeratax ];
+  };
 }

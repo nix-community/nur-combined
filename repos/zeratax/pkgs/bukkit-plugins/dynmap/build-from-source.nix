@@ -1,8 +1,6 @@
-{ lib, stdenv, callPackage, fetchFromGitHub}:
-let
-  buildGradle = callPackage ./gradle-env.nix {};
-in
-buildGradle rec {
+{ lib, stdenv, callPackage, fetchFromGitHub }:
+let buildGradle = callPackage ./gradle-env.nix { };
+in buildGradle rec {
   envSpec = ./gradle-env.json;
 
   pname = "dynmap";
@@ -25,7 +23,7 @@ buildGradle rec {
   meta = with lib; {
     homepage = "https://github.com/webbukkit/dynmap";
     description =
-    " A set of Minecraft mods that provide a real time web-based map system for various Minecraft server implementations.";
+      " A set of Minecraft mods that provide a real time web-based map system for various Minecraft server implementations.";
     license = licenses.asl20;
     broken = true;
     # maintainers = with maintainers; [ zeratax ];

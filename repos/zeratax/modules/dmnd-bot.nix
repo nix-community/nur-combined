@@ -5,8 +5,7 @@ let
   cfg = config.services.dmnd-bot;
   format = pkgs.formats.yaml { };
 
-  dmnd-bot-config =
-    format.generate "config.yaml" cfg.settings;
+  dmnd-bot-config = format.generate "config.yaml" cfg.settings;
   dmnd-bot-cli-wrapper = pkgs.stdenv.mkDerivation {
     name = "dmnd-bot-cli-wrapper";
     buildInputs = [ pkgs.makeWrapper ];
@@ -17,7 +16,8 @@ let
     '';
   };
 
-  serviceDependencies = optional config.services.syncplay.enable "syncplay.service";
+  serviceDependencies =
+    optional config.services.syncplay.enable "syncplay.service";
 
   instanceOptions = {
     host = mkOption {
@@ -42,8 +42,7 @@ let
       default = "";
     };
   };
-in
-{
+in {
   options.services.dmnd-bot = {
     enable = mkEnableOption "dmnd-bot";
 
@@ -57,20 +56,23 @@ in
           discord = {
             id = mkOption {
               type = types.ints.positive;
-              description = "your discord applications client_id, see https://discord.com/developers/";
+              description =
+                "your discord applications client_id, see https://discord.com/developers/";
               example = 921126401232841096;
             };
             token = mkOption {
               type = types.str;
-              description = "your discord bot token, see https://discord.com/developers/";
-              example = "OTIyNDk1XZYyODI4ODQ3MTI0.YcCS4w.BULT6nKADdWI9rxc5EJjKLJqBvg";
+              description =
+                "your discord bot token, see https://discord.com/developers/";
+              example =
+                "OTIyNDk1XZYyODI4ODQ3MTI0.YcCS4w.BULT6nKADdWI9rxc5EJjKLJqBvg";
             };
           };
           saucenao = {
             enabled = mkOption {
               type = types.bool;
               default = false;
-              description ="enable saucenao plugin";
+              description = "enable saucenao plugin";
             };
             token = mkOption {
               type = types.str;
@@ -82,11 +84,11 @@ in
             enabled = mkOption {
               type = types.bool;
               default = false;
-              description ="enable syncplay plugin";
+              description = "enable syncplay plugin";
             };
             instaces = mkOption {
               type = types.listOf (types.submodule instanceOptions);
-              default = [];
+              default = [ ];
               description = "syncplay bot instances you want to run";
             };
           };
@@ -97,8 +99,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.dmnd-bot = {
-      description =
-        "dmnd-bot, dmnd's official discord bot.";
+      description = "dmnd-bot, dmnd's official discord bot.";
 
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ] ++ serviceDependencies;

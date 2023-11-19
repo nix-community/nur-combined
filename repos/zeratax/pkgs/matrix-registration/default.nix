@@ -9,8 +9,7 @@ let
     # sqlite driver is already shipped with python by default
   ];
 
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "matrix-registration";
   version = "1.0.0.dev7";
   disabled = pythonOlder "3.7";
@@ -43,10 +42,7 @@ buildPythonPackage rec {
     wtforms
   ] ++ dbDrivers;
 
-  checkInputs = [
-    flake8
-    parameterized
-  ];
+  checkInputs = [ flake8 parameterized ];
 
   # `alembic` (a database migration tool) is only needed for the initial setup,
   # and not needed during the actual runtime. However `alembic` requires `matrix-registration`
@@ -55,13 +51,12 @@ buildPythonPackage rec {
   # Hence we need to patch away `alembic` from `matrix-registration` and create an `alembic`
   # which has `matrix-registration` in its environment.
   passthru.alembic = alembic.overrideAttrs (old: {
-    propagatedBuildInputs = old.propagatedBuildInputs ++ dbDrivers ++ [
-      pkgs.matrix-registration
-    ];
+    propagatedBuildInputs = old.propagatedBuildInputs ++ dbDrivers
+      ++ [ pkgs.matrix-registration ];
   });
 
   meta = with lib; {
-    homepage = https://github.com/ZerataX/matrix-registration/;
+    homepage = "https://github.com/ZerataX/matrix-registration/";
     description = "a token based matrix registration api";
     # license = licenses.mit;
     # maintainers = with maintainers; [ zeratax ];

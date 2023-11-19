@@ -6,8 +6,7 @@ let
   cfg = config.services.matrix-registration;
   format = pkgs.formats.yaml { };
 
-  matrix-registration-config =
-    format.generate "config.yaml" cfg.settings;
+  matrix-registration-config = format.generate "config.yaml" cfg.settings;
   matrix-registration-cli-wrapper = pkgs.stdenv.mkDerivation {
     name = "matrix-registration-cli-wrapper";
     buildInputs = [ pkgs.makeWrapper ];
@@ -17,20 +16,14 @@ let
         --add-flags "--config-path='${matrix-registration-config}'"
     '';
   };
-  serviceDependencies = optional config.services.matrix-synapse.enable "matrix-synapse.service";
+  serviceDependencies =
+    optional config.services.matrix-synapse.enable "matrix-synapse.service";
 
-  synapse_port = (lists.findFirst
-    (
-      listener: lists.any
-        (
-          resource: (builtins.elem "client" resource.names)
-        )
-        listener.resources
-    ) 0
-    config.services.matrix-synapse.listeners).port;
+  synapse_port = (lists.findFirst (listener:
+    lists.any (resource: (builtins.elem "client" resource.names))
+    listener.resources) 0 config.services.matrix-synapse.listeners).port;
 
-in
-{
+in {
   options.services.matrix-registration = {
     enable = mkEnableOption "matrix-registration";
 
@@ -157,12 +150,11 @@ in
             validation_regex = mkOption {
               type = types.listOf types.str;
               default = [ ];
-              description =
-                "regex that usernames need to match to register";
+              description = "regex that usernames need to match to register";
             };
             invalidation_regex = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               description =
                 "regex that usernames are not allowed to match to register";
             };
@@ -214,7 +206,8 @@ in
         StateDirectory = baseNameOf dataDir;
         UMask = 27;
 
-        LoadCredential = mkIf (cfg.credentialsFile != null) "secrets:${cfg.credentialsFile}";
+        LoadCredential =
+          mkIf (cfg.credentialsFile != null) "secrets:${cfg.credentialsFile}";
 
         ExecStart = ''
           ${pkgs.matrix-registration}/bin/matrix-registration \
@@ -226,13 +219,11 @@ in
 
     environment.systemPackages = [ matrix-registration-cli-wrapper ];
 
-    assertions = [
-      {
-        assertion = cfg.settings.server_location != "";
-        message = "can't find server location automatically, "
-          + "please set `config.services.matrix-registration.settings.server_location`";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.settings.server_location != "";
+      message = "can't find server location automatically, "
+        + "please set `config.services.matrix-registration.settings.server_location`";
+    }];
   };
 
   # meta.maintainers = with maintainers; [ zeratax ];

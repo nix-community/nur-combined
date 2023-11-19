@@ -11,4 +11,4 @@
       sha256 = "1nagmw05sxxfywvkd8xk30hpifyr08f4yl6g6k0xckg282x90wpv";
     };
   };
-} 
+}
