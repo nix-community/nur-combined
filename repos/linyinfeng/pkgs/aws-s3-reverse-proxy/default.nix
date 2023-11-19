@@ -10,7 +10,7 @@ buildGoModule rec {
     sha256 = "sha256-7wAjisl/KqZwtMWvnFYjFDAXKiH+yagqYX00p3nIg9g=";
   };
 
-  vendorSha256 = "sha256-UXlDbhG2EXFgk0fGFrxdDHopiuFJtY/YH1BF4/tVrCU=";
+  vendorHash = "sha256-UXlDbhG2EXFgk0fGFrxdDHopiuFJtY/YH1BF4/tVrCU=";
 
   passthru = {
     updateScriptEnabled = true;

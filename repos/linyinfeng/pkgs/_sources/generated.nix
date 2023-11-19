@@ -390,13 +390,13 @@
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
-    version = "v1.2.1";
+    version = "v1.3.0";
     src = fetchFromGitHub {
       owner = "matrix-org";
       repo = "synapse-s3-storage-provider";
-      rev = "v1.2.1";
+      rev = "v1.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-92Xkq54jrUE2I9uVOxI72V9imLNU6K4JqDdOZb+4f+Y=";
+      sha256 = "sha256-2mQjhZk3NsbjiGWoa/asGjhaKM3afXsCl633p6ZW0DY=";
     };
   };
   telegram-send = {

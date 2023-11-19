@@ -3,12 +3,12 @@
 python3Packages.buildPythonPackage rec {
   inherit (sources.synapse-s3-storage-provider) pname version src;
 
-  postPatch = ''
-    # use latest pyyaml and humanize (used in media-upload)
-    substituteInPlace setup.py \
-      --replace "PyYAML>=5.4,<6.0" "PyYAML" \
-      --replace "humanize>=0.5.1,<0.6" "humanize"
-  '';
+  # postPatch = ''
+  #   # use latest pyyaml and humanize (used in media-upload)
+  #   substituteInPlace setup.py \
+  #     --replace "PyYAML>=5.4,<6.0" "PyYAML" \
+  #     --replace "humanize>=0.5.1,<0.6" "humanize"
+  # '';
 
   propagatedBuildInputs = with python3Packages; [
     boto3
@@ -27,5 +27,6 @@ python3Packages.buildPythonPackage rec {
     description = "Synapse storage provider to fetch and store media in Amazon S3";
     license = licenses.asl20;
     maintainers = with maintainers; [ yinfeng ];
+    broken = !(versionAtLeast (versions.majorMinor trivial.version) "23.11");
   };
 }
