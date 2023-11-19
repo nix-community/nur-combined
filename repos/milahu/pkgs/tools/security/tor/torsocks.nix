@@ -7,25 +7,32 @@
 
 stdenv.mkDerivation rec {
   pname = "torsocks";
-  version = "2.4.0-unstable-2022-08-09";
+  version = "2.4.0-unstable-2023-09-20";
 
+  # https://gitlab.torproject.org/tpo/core/torsocks
   src = fetchFromGitLab {
     domain = "gitlab.torproject.org";
     owner = "tpo";
     repo = "core/torsocks";
-    # fix: configure.ac has version 2.3.0
     #rev = "v${version}";
-    #hash = "sha256-ocJkoF9LMLC84ukFrm5pzjp/1gaXqDz8lzr9TdG+f88=";
-    rev = "305e42c66d0a6a63f38192a02f31956dcbe5e64f";
-    hash = "sha256-GWrmWSQQlFN7C6lVrqJXqgGLGjvP42NgzzinH3gcu6k=";
+    # fix: configure.ac has version 2.3.0
+    # fix: config-file.c:184:23: warning: implicit declaration of function 'conf_file_set_enable_ipv6'
+    rev = "969d782ad3b560448325ff6e9aa29801d6276a3e";
+    hash = "sha256-zA693iTFmbNwjElX7u2pZtYMmVwKL8LaZOnh1JQhRAg=";
   };
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  # torsocks.c:237:2: error: use of undeclared identifier 'tsocks_libc_accept4'; did you mean 'tsocks_libc_accept'?
-  # https://gitlab.torproject.org/tpo/core/torsocks/-/issues/40005
-  patches = lib.optional stdenv.isDarwin
-    ./0001-Fix-macros-for-accept4-2.patch;
+  patches =
+    # torsocks.c:237:2: error: use of undeclared identifier 'tsocks_libc_accept4'; did you mean 'tsocks_libc_accept'?
+    # https://gitlab.torproject.org/tpo/core/torsocks/-/issues/40005
+    lib.optional stdenv.isDarwin ./0001-Fix-macros-for-accept4-2.patch
+    ++
+    [
+      # fix: config-file.c:332:9: warning: '__builtin_strncpy' output truncated before terminating nul copying as many bytes from a string as its length
+      ./fix-strncpy-warnings.patch
+    ]
+  ;
 
   # https://gitlab.torproject.org/tpo/core/torsocks/-/blob/main/src/bin/torsocks.in
   postPatch = lib.optionalString stdenv.isLinux ''

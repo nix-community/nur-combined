@@ -39,10 +39,10 @@ error: builder for '/nix/store/5nz0s58qvisys5ga197fxz97ql47ny7q-pandoc-3.1.2.drv
 
 stdenv.mkDerivation rec {
   pname = "pandoc-bin";
-  version = "3.1.5";
+  version = "3.1.8";
   src = fetchurl {
     url = "https://github.com/jgm/pandoc/releases/download/${version}/pandoc-${version}-linux-amd64.tar.gz";
-    sha256 = "sha256-J2eAWYWAAACll7r32AtrvUOCp1SahQ4+6Abpn+hWFqc=";
+    sha256 = "sha256-wHkjplMhtCRmWGNe3OUXrmV4q7ZTlr/5FP7vN7xIeEs=";
   };
   installPhase = ''
     cd ..

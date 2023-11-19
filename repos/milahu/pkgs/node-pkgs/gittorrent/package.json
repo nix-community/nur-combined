@@ -1,0 +1,55 @@
+{
+  "name": "gittorrent",
+  "description": "Using BitTorrent to share git repositories",
+  "version": "0.1.9",
+  "author": {
+    "name": "Chris Ball",
+    "email": "chris@printf.net",
+    "url": "http://printf.net/"
+  },
+  "type": "module",
+  "bin": {
+    "git-remote-gittorrent": "./git-remote-gittorrent.js",
+    "gittorrentd": "./gittorrentd.js"
+  },
+  "scripts": {
+    "lint": "standard --fix *.js"
+  },
+  "bugs": {
+    "url": "https://github.com/cjb/gittorrent/issues"
+  },
+  "dependencies": {
+    "bittorrent-dht": "^11.0.4",
+    "bittorrent-protocol": "^4.1.6",
+    "bittorrent-swarm": "^8.0.0",
+    "chalk": "^5.2.0",
+    "elliptic": "^6.5.4",
+    "glob": "^10.2.6",
+    "hat": "^0.0.3",
+    "magnet-uri": "^7.0.3",
+    "prettyjson": "^1.2.5",
+    "rc": "^1.0.3",
+    "ut_gittorrent": "github:dzdidi/ut_gittorrent",
+    "ut_metadata": "^4.0.2",
+    "webtorrent": "^2.0.18",
+    "zero-fill": "^2.2.4"
+  },
+  "devDependencies": {
+    "standard": "^17.0.0"
+  },
+  "homepage": "http://gittorrent.org",
+  "keywords": [
+    "torrent",
+    "bittorrent",
+    "bittorrent client",
+    "git",
+    "gittorrent",
+    "mad science"
+  ],
+  "license": "MIT",
+  "main": "git-remote-gittorrent",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cjb/gittorrent.git"
+  }
+}

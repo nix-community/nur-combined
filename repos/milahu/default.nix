@@ -74,7 +74,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gaupol = python3.pkgs.callPackage ./pkgs/gaupol/gaupol.nix { };
 
-  autosub-by-abhirooptalasila = callPackage ./pkgs/autosub-by-abhirooptalasila/autosub.nix { };
+  autosub-by-abhirooptalasila = python3.pkgs.callPackage ./pkgs/autosub-by-abhirooptalasila/autosub.nix { };
 
   proftpd = callPackage ./pkgs/proftpd/proftpd.nix { };
 
@@ -264,11 +264,37 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pdfium = pdfium-bin;
       };
 
+      stt = callPackage ./pkgs/python3/pkgs/stt/stt.nix { };
+
+      webdataset = callPackage ./pkgs/python3/pkgs/webdataset/webdataset.nix { };
+
+      plasma-disassembler = python3.pkgs.callPackage ./pkgs/development/tools/analysis/plasma-disassembler/plasma-disassembler.nix {
+        capstone-system = pkgs.capstone;
+      };
+
+      argostranslate_2 = callPackage ./pkgs/python3/pkgs/argostranslate/argostranslate_2.nix {
+        ctranslate2-cpp = pkgs.ctranslate2;
+      };
+
+      gnumake-tokenpool = callPackage ./pkgs/python3/pkgs/gnumake-tokenpool { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
 
   }))); # python3Packages
+
+  bazel_2 = callPackage ./pkgs/development/tools/build-managers/bazel/bazel_2/bazel_2.nix {
+    inherit (pkgs.darwin) cctools;
+    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation CoreFoundation CoreServices;
+    buildJdk = pkgs.jdk11_headless;
+    buildJdkName = "java11";
+    runJdk = pkgs.jdk11_headless;
+    stdenv = if pkgs.stdenv.cc.isClang then pkgs.llvmPackages.stdenv else pkgs.gcc10StdenvCompat;
+    bazel_self = bazel_2;
+  };
+
+  plasma-disassembler = python3Packages.plasma-disassembler;
 
   chromium-depot-tools = python3Packages.chromium-depot-tools;
 
@@ -287,8 +313,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   brother-hll6400dw = callPackage ./pkgs/misc/cups/drivers/brother/hll6400dw/hll6400dw.nix { };
 
   brother-hll5100dn = callPackage ./pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix { };
-
-  npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
 
   nix-gitignore = callPackage ./pkgs/build-support/nix-gitignore/nix-gitignore.nix { };
 
@@ -447,7 +471,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # https://github.com/curl/curl/discussions/11125
       (pkgs.fetchurl {
         url = "https://github.com/curl/curl/pull/11236.patch";
-        sha256 = "sha256-Ma5pOVLTAz/bbdmo4s5QH3UFDlpVr7DZ9xSMcUy98B8=";
+        sha256 = "sha256-7UMLiUJEZglACu5oF4A5CTKbFyJptmpulYGJmIgP/Wc=";
       })
     ];
   }));
@@ -509,7 +533,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       };
     };
 
+    gittorrent = callPackage ./pkgs/node-pkgs/gittorrent/gittorrent.nix { };
+
   })));
+
+  inherit (nodePackages)
+    npmlock2nix
+    gittorrent
+  ;
 
   fontforge-dev = pkgs.fontforge.overrideAttrs (oldAttrs: {
     version = oldAttrs.version + "-dev";
@@ -546,6 +577,29 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # FIXME error: undefined variable 'pyqt5'
   #krop = callPackage ./pkgs/applications/graphics/krop/krop.nix { };
   krop = pkgs.callPackage ./pkgs/applications/graphics/krop/krop.nix { };
+
+  sevenzip = sevenzip_23_01;
+
+  sevenzip_23_01 = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip_23_01.nix { };
+
+  sevenzip_22_01 = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip_22_01.nix { };
+
+  nmake2msbuild = callPackage ./pkgs/development/tools/nmake2msbuild/nmake2msbuild.nix { };
+
+  fuse-zip = callPackage ./pkgs/tools/filesystems/fuse-zip/fuse-zip.nix { };
+
+  ffmpeg-full = callPackage ./pkgs/development/libraries/ffmpeg/6.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks)
+      Cocoa CoreServices CoreAudio CoreMedia AVFoundation MediaToolbox
+      VideoDecodeAcceleration VideoToolbox;
+    ffmpegVariant = "full";
+  };
+
+  dtmfdial = callPackage ./pkgs/tools/networking/dtmfdial/dtmfdial.nix { };
+
+  # this packages is called "fdkaac" on github, debian, archlinux, ...
+  # the library is called "fdk_aac", so better rename that to "libfdk_aac"
+  fdkaac = pkgs.fdk-aac-encoder;
 
 }
 

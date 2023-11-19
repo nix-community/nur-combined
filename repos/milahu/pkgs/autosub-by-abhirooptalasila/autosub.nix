@@ -1,94 +1,95 @@
-/*
-nix-build -E 'with import <nixpkgs> { }; callPackage ./default.nix { }'
-./result/bin/srtgen
-*/
-
-{
-  pkgs ? import <nixpkgs> {}
+{ lib
+, buildPythonPackage
+, fetchFromGitHub
+, python3
+, cycler
+, numpy
+, stt
+, joblib
+, kiwisolver
+, pydub
+, pyparsing
+, python-dateutil
+, scikit-learn
+, scipy
+, six
+, tqdm
 }:
-
-let
-  /*
-  pkgs = import (builtins.fetchTarball {
-    name = "nixpkgs-unstable-2022-03-03";
-    url = "https://github.com/nixos/nixpkgs/archive/7a3e6d6604ad99c77e7a98943734bdeea564bff2.tar.gz";
-    sha256 = "1vzrxcgkfaip6jfmgjjahxm3b80sv89608d920rzikcq71wvjiaz";
-  }) {};
-  */
-
-  python = pkgs.python39; # limited by deepspeech which is only available for python 3.9
-  # https://discourse.mozilla.org/t/cp310-binary-release/94269
-
-  buildPythonPackage = python.pkgs.buildPythonPackage;
-  fetchPypi = python.pkgs.fetchPypi;
-  lib = pkgs.lib;
-  fetchFromGitHub = pkgs.fetchFromGitHub;
-
-  #tensorflow = pkgs.tensorflow;
-
-  extraPythonPackages = rec {
-
-    numba_py39 = python.pkgs.callPackage ./nix/numba {};
-    optuna = python.pkgs.callPackage ./nix/optuna { inherit keras; };
-    # optuna is marked as broken https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/python-modules/optuna/default.nix
-    keras = python.pkgs.callPackage ./nix/keras { };
-    tensorflow = (python.pkgs.callPackage ./nix/tensorflow/bin.nix {
-      tensorflow-tensorboard = python.pkgs.callPackage ./nix/tensorflow-tensorboard {};
-      tensorflow-estimator = python.pkgs.callPackage ./nix/tensorflow-estimator {};
-    });
-    SpeechRecognition = python.pkgs.callPackage ./nix/speechrecognition {};
-    pocketsphinx = python.pkgs.callPackage ./nix/pocketsphinx {};
-    stt = python.pkgs.callPackage ./nix/stt {
-      inherit pyogg_0_6_14a1 webdataset optuna;
-      numba = numba_py39;
-    };
-    pyogg_0_6_14a1 = python.pkgs.callPackage ./nix/pyogg {};
-    webdataset = python.pkgs.callPackage ./nix/webdataset {};
-    ds_ctcdecoder = python.pkgs.callPackage ./nix/ds-ctcdecoder {};
-    deepspeech = python.pkgs.callPackage ./nix/deepspeech {
-      inherit tensorflow ds_ctcdecoder;
-      numba = numba_py39;
-    };
-  };
-
-in
 
 buildPythonPackage rec {
   pname = "autosub";
   version = "1.1.0";
+
+  # https://github.com/abhirooptalasila/AutoSub/pull/75
+  # Add support for Python 3.10
+  # remove DeepSpeech
+  # update the getmodels.sh script to easily download Coqui models
+  # https://github.com/KyleMaas/AutoSub/tree/add-support-for-python-3.10
   src = fetchFromGitHub {
-    owner = "milahu";
+    owner = "KyleMaas";
     repo = "AutoSub";
-    rev = "76725b98bf7cae5bb3f5d3d240f944b25ff14903";
-    sha256 = "fTf4x3gFf01UtV7y0mgUJAOzxQqBJMH+ppT36BtmttI=";
+    rev = "8ab99377c23ef28f86d64e69d373e04266081429";
+    sha256 = "sha256-bRwa0YYkWGe45aQjpXauS6Pf1UvGQs2LAGjrW4fcZmM=";
   };
-  /*
-  src = fetchFromGitHub {
-    # https://github.com/abhirooptalasila/AutoSub
-    owner = "abhirooptalasila";
-    repo = "AutoSub";
-    rev = "todo";
-    sha256 = ""; # todo
-  };
-  */
+
+  # https://github.com/milahu/autosub-by-abhirooptalasila
+  # fix: ModuleNotFoundError: No module named 'logger'
+  # fix: ModuleNotFoundError: No module named 'utils'
+  # fix: ModuleNotFoundError: No module named 'writeToFile'
+  # ...
+  # these were fixed by https://github.com/abhirooptalasila/AutoSub/pull/54
+  # but pull/75  causes regression
+  # https://github.com/abhirooptalasila/AutoSub/pull/75/files#r1317124605
+  postPatch = ''
+    sed -i '
+      s/^import logger/from . import logger/;
+      s/^import trainAudio/from . import trainAudio/;
+      s/^import featureExtraction/from . import featureExtraction/;
+      s/^from utils import/from .utils import/;
+      s/^from writeToFile import/from .writeToFile import/;
+      s/^from audioProcessing import/from .audioProcessing import/;
+      s/^from segmentAudio import/from .segmentAudio import/;
+    ' autosub/*.py
+  '';
+
   # relax requirements
+  # fix: ERROR: Package 'autosub' requires a different Python: 3.10.12 not in '<=3.10'
+  # setup.py:    python_requires='<=3.10',
   preBuild = ''
     sed -i 's/==.*$//' requirements.txt
+    sed -i '/python_requires=/d' setup.py
   '';
-  propagatedBuildInputs = with python.pkgs; [
-    pydub
+
+  postInstall = ''
+    patchShebangs getmodels.sh
+    cp getmodels.sh $out/bin/autosub-getmodels
+  '';
+
+  # fix: WARNING: Testing via this command is deprecated and will be removed in a future version.
+  checkPhase = ''
+    runHook preCheck
+    ${python3.interpreter} -m unittest
+    runHook postCheck
+  '';
+
+  propagatedBuildInputs = [
+    cycler
+    numpy
+    stt
+    joblib
     kiwisolver
+    pydub
     pyparsing
+    python-dateutil
     scikit-learn
+    scipy
+    six
     tqdm
-    extraPythonPackages.stt
-    extraPythonPackages.deepspeech
-    extraPythonPackages.SpeechRecognition
-    extraPythonPackages.pocketsphinx
   ];
+
   meta = with lib; {
     homepage = "https://github.com/abhirooptalasila/AutoSub";
-    description = "generate video subtitles with offline speech recognition (DeepSpeech, STT)";
+    description = "generate video subtitles with offline speech recognition, based on Coqui STT";
     license = licenses.mit;
   };
 }

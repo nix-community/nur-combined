@@ -1,9 +1,8 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
 , fetchurl
 , pythonOlder
-, setuptools-scm
 }:
 
 buildPythonPackage rec {
@@ -13,10 +12,29 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5";
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-/hdT4Y8L1tPJtXhoyAEa59BWpuurcGcGOWoV71MScl4=";
+  src = fetchFromGitHub {
+    owner = "newren";
+    repo = "git-filter-repo";
+    rev = "v${version}";
+    hash = "sha256-keRDaMg0BbrqxlSUOS2X1y+FTuCd8AJi8q7VwO8fhKo=";
   };
+
+  postPatch = ''
+    # build in /release/
+    cd release
+
+    # fix: ERROR: Could not find a version that satisfies the requirement setuptools_scm
+    substituteInPlace setup.py \
+      --replace \
+        'use_scm_version=dict(root="..", relative_to=__file__),' \
+        'version="${version}",'
+    substituteInPlace setup.cfg \
+      --replace 'setup_requires = setuptools_scm' ""
+
+    # fix: FileExistsError: File already exists: /bin/git-filter-repo
+    substituteInPlace setup.cfg \
+      --replace "scripts = git-filter-repo" ""
+  '';
 
   # TODO build manpage from source with asciidoc
   # https://github.com/newren/git-filter-repo/issues/495
@@ -42,11 +60,8 @@ buildPythonPackage rec {
     cp ${src-manpage} $out/share/man/man1/git-filter-repo.1
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
-
   # Project has no tests
+  # (tests are in the t folder of src)
   doCheck = false;
 
   pythonImportsCheck = [

@@ -7,14 +7,13 @@
 
 npmlock2nix.build rec {
   pname = "pnpm-install-only";
-  version = "0.0.3-unstable-2023-08-13";
+  version = "0.0.4";
 
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "pnpm-install-only";
-    #rev = version;
-    rev = "a92725b6ddf8650df673d86b0379971c1fb9c61a";
-    hash = "sha256-d81XqLMtWUMzlfCHegEZfnGRY8PEJbaSAmBpui+SXs0=";
+    rev = version;
+    hash = "sha256-DZaLQNcM35wqpeYe2gKlCiAjQAgQEr9yfL/gLhqYDU8=";
   };
 
   # dont run "npm run build"
@@ -48,3 +47,4 @@ npmlock2nix.build rec {
     maintainers = with maintainers; [ ];
   };
 }
+

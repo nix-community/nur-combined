@@ -1,10 +1,18 @@
 # based on https://github.com/NixOS/nixpkgs/commit/c0914a76c40230fb06eb6df8f54995796edef3ef
 # Date:   Sun Mar 21 03:18:15 2021 +0100
 
+# see also
+# https://github.com/NixOS/nixpkgs/pull/242260 # pyload-ng: init at 0.5.0b3.dev72
+# https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/pyload-ng/default.nix
+
 # usage:
 # webinterface http://localhost:8000/
 # user: pyload
 # password: pyload
+
+# to solve captchas, you also need these browser extensions
+# https://github.com/RemiRigal/Yape
+# https://github.com/Tampermonkey/tampermonkey
 
 { lib
 , fetchFromGitHub
@@ -21,13 +29,14 @@ buildPythonApplication rec {
   pname = "pyload";
 
   # versions https://github.com/pyload/pyload/issues/4339
-  version = "0.5.0b3.dev72";
+  # https://pypi.org/project/pyload-ng/#history
+  version = "0.5.0b3.dev74"; # 2023-10-17
 
   src = fetchFromGitHub {
     owner = "pyload";
     repo = "pyload";
-    rev = "af9c80f392b4cf90b1e37f7d4b28ca3705327e81";
-    sha256 = "sha256-0E/curwky6BEbQEJj+99dQRDRS90qOgIkJqxq/vUCh4=";
+    rev = "a65a968696f85c52c1f835d6d5dc22fd52fca12a";
+    sha256 = "sha256-23j2zvcvnIU5kZXhgZIAOGPJFk9JQbK9VLbvPuW53XY=";
   };
 
   # relax versions

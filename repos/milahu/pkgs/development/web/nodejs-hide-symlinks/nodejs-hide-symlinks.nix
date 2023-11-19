@@ -11,16 +11,16 @@ let
 
   libnodejs-hide-symlinks = rustPlatform.buildRustPackage rec {
     pname = "libnodejs-hide-symlinks";
-    version = "unstable-2021-09-29";
+    version = "unstable-2023-09-07";
 
     src = fetchFromGitHub {
       owner = "milahu";
       repo = "nodejs-hide-symlinks";
-      rev = "38b0fe4a908bf05d6e422040a5de651cfbcb7d18";
-      hash = "sha256-jG0xAb86cJAbjsIOZQtbEAPoDUxX+ZSnBS1SisbQ1Z4=";
+      rev = "ad088b00b0bcfb6c6f8444f257b14e7f8551313b";
+      hash = "sha256-y6F2ZrbmFFK06tLPjMmDWUIa6JAAzexV1u8K5B1wUVo=";
     };
 
-    cargoHash = "sha256-80NFS2ZwyvV5kwyRBt9fmvDz3OODaAZ7b6UEbpES64g=";
+    cargoHash = "sha256-6kqOXgFI0Y++PEnGM8jrQzQA5k9PAgV1ORCCH4lLiNw=";
 
     # FIXME: signal: 11, SIGSEGV: invalid memory reference
     doCheck = false;
