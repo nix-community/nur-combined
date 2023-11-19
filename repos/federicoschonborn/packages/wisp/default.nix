@@ -51,5 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.draketo.de/software/wisp";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = !(guile ? siteDir);
   };
 })
