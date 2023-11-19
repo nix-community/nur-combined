@@ -25,6 +25,7 @@ try_path() {
     rate=-$(cat "$1/energy_now")
   fi
 }
+
 try_path "/sys/class/power_supply/axp20x-battery"  # Pinephone
 try_path "/sys/class/power_supply/BAT0"  # Thinkpad
 

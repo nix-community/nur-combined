@@ -37,16 +37,23 @@ class WeatherSource:
 
         self.info.set_enabled_providers(
             # defaults to METAR | IWIN.
+            #
             # options are:
             # - IWIN   # graphical.weather.gov; provides daily min/max temp, precipitation
             # - METAR  # aviationweather.gov; provides current time, wind, visibility, conditions, clouds, temperature, pressure
             # - MET_NO
             # - NWS    # api.weather.gov; provides hourly temperature, dewpoint, humidity, sky cover, wind, precipitation, snow; daily min/max temp,
             # - OWM
+            #
             # METAR, if you only want immediate conditions
-            GWeather.Provider.METAR
+            # GWeather.Provider.METAR
+            #
             # METAR + NWS, if you want a forecast
             # GWeather.Provider.METAR | GWeather.Provider.NWS
+            #
+            # N.B.: using only one provider is risky in case of API change (or simple outage).
+            # - see, e.g.: <https://gitlab.gnome.org/GNOME/libgweather/-/issues/236>
+            GWeather.Provider.METAR | GWeather.Provider.NWS
         )
         self.world = GWeather.Location.get_world()
 
