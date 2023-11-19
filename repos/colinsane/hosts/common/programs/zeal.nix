@@ -15,6 +15,7 @@ in {
   sane.programs.zeal = {
     # package = pkgs.zeal-qt6;  #< TODO: upgrade system to qt6 versions of everything (i.e. jellyfin-media-player, nheko)
     package = pkgs.zeal-qt5;
+    slowToBuild = true;
     persist.byStore.plaintext = [
       ".cache/Zeal"
       ".local/share/Zeal"

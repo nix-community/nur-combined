@@ -20,6 +20,7 @@
   ];
 
   sane.roles.client = true;
+  sane.roles.handheld = true;
   sane.zsh.showDeadlines = false;  # unlikely to act on them when in shell
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."moby".wg-home.ip;
@@ -32,17 +33,12 @@
   sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.gui.sxmo.enable = true;
-  sane.programs.guiApps.suggestedPrograms = [ "handheldGuiApps" ];
   # sane.programs.consoleUtils.enableFor.user.colin = false;
   # sane.programs.guiApps.enableFor.user.colin = false;
   sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile!
   sane.programs.dialect.enableFor.user.colin = false;  # drags in 700MB of x86 dependencies (e.g. gtk4)
   sane.programs.mercurial.enableFor.user.colin = false;  # does not cross compile
   sane.programs.nvme-cli.enableFor.system = false;  # does not cross compile (libhugetlbfs)
-  sane.programs.sequoia.enableFor.user.colin = false;
-  sane.programs.tuiApps.enableFor.user.colin = false;  # visidata, others, don't compile well
-  # disabled for faster deploys
-  sane.programs.soundconverter.enableFor.user.colin = false;
 
   # enabled for easier debugging
   sane.programs.eg25-control.enableFor.user.colin = true;
@@ -59,7 +55,6 @@
   # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`
   sane.programs.firefox.env = lib.mkForce {};
   sane.programs.epiphany.env.BROWSER = "epiphany";
-  sane.programs.firefox.enableFor.user.colin = false;  # use epiphany instead
 
   # note the .conf.d approach: using ~/.config/pipewire/pipewire.conf directly breaks all audio,
   # presumably because that deletes the defaults entirely whereas the .conf.d approach selectively overrides defaults

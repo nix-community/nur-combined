@@ -7,9 +7,6 @@
 
 ## REFACTORING:
 
-remove `x86GuiApps`
-- instead mark packages as optional/eager/"only install if supported by target".
-
 ### sops/secrets
 - attach secrets to the thing they're used by (sane.programs)
 - rework secrets to leverage `sane.fs`

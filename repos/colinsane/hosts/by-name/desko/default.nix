@@ -12,9 +12,9 @@
   sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.roles.build-machine.enable = true;
-  sane.roles.ac = true;
   sane.roles.client = true;
   sane.roles.dev-machine = true;
+  sane.roles.pc = true;
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."desko".wg-home.ip;
   sane.services.duplicity.enable = true;
@@ -24,8 +24,6 @@
   sane.programs.iphoneUtils.enableFor.user.colin = true;
   sane.programs.steam.enableFor.user.colin = true;
 
-  sane.programs.guiApps.suggestedPrograms = [ "desktopGuiApps" ];
-  sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" "desktopConsoleUtils" ];
   # sane.programs.devPkgs.enableFor.user.colin = true;
 
   sane.programs.signal-desktop.config.autostart = true;

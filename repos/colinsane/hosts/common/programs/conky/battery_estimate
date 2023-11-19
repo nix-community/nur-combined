@@ -1,13 +1,32 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash
 
-full=$(cat /sys/class/power_supply/axp20x-battery/charge_full_design)
-rate=$(cat /sys/class/power_supply/axp20x-battery/current_now)
-perc=$(cat /sys/class/power_supply/axp20x-battery/capacity)
-perc_left=$((100 - $perc))
 # these icons come from sxmo; they only render in nerdfonts
 bat_dis="󱊢"
 bat_chg="󱊥"
+
+try_path() {
+  # returns:
+  # - perc, perc_left  (0-100)
+  # - full, rate (pos means charging)
+  if [ -f "$1/capacity" ]; then
+    perc=$(cat "$1/capacity")
+    perc_left=$((100 - $perc))
+  fi
+
+  if [ -f "$1/charge_full_design" ] && [ -f "$1/current_now" ]; then
+    # current is positive when charging
+    full=$(cat "$1/charge_full_design")
+    rate=$(cat "$1/current_now")
+  fi
+  if [ -f "$1/energy_full" ] && [ -f "$1/energy_now" ]; then
+    # energy is positive when discharging
+    full=$(cat "$1/energy_full")
+    rate=-$(cat "$1/energy_now")
+  fi
+}
+try_path "/sys/class/power_supply/axp20x-battery"  # Pinephone
+try_path "/sys/class/power_supply/BAT0"  # Thinkpad
 
 fmt_minutes() {
   # args: <battery symbol> <text if ludicrous estimate> <estimated minutes to full/empty>
@@ -27,6 +46,6 @@ if [[ $rate -lt 0 ]]; then
 elif [[ $rate -gt 0 ]]; then
   # charging
   fmt_minutes "$bat_chg" '100%' "$(($full * 60 * $perc_left / (100 * $rate)))"
-else
+elif [[ "$perc" != "" ]]; then
   echo "$bat_dis $perc%"
 fi

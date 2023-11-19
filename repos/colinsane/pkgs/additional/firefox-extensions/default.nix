@@ -96,7 +96,15 @@ let
       cp $src $out
     '';
 
-    passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {
+      extraArgs = [
+        # uBlock mixes X.YY.ZbN and X.YY.ZrcN style.
+        # default nix-update accepts the former but rejects the later as unstable.
+        # that's problematic because beta releases later get pulled.
+        # ideally i'd reject both, but i don't know how.
+        "--version=unstable"
+      ];
+    };
     passthru.extid = extid;
   };
 
@@ -112,8 +120,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.5.0";
-      hash = "sha256-B15GvPNTPZDkwS1l3K1ET42gCBnc74Vnomt907/4kPo=";
+      version = "11.5.1";
+      hash = "sha256-Xg0Wcsvp8A0s3cdLX+oNo+PjlUyjkeFYomO0fz4xB+o=";
     };
     i2p-in-private-browsing = fetchVersionedAddon rec {
       extid = "i2ppb@eyedeekay.github.io";
@@ -150,8 +158,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.53.1b9";
-      hash = "sha256-MfNwm47VGKmuJATz/bUryyzOIovz2a+1UOuiQZLkXvg=";
+      version = "1.53.5rc11";
+      hash = "sha256-eNj9f2WSA8T4HhNoiiu0jj7zvlgtvQ9Z77CYwTDZjX0=";
     };
   };
 })).overrideScope (self: super:

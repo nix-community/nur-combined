@@ -173,7 +173,7 @@ in
       "zsh"
     ];
 
-    desktopConsoleUtils = declPackageSet [
+    pcConsoleUtils = declPackageSet [
       "gh"  # MS GitHub cli
       "nix-index"
       "nixpkgs-review"
@@ -188,11 +188,11 @@ in
       "yt-dlp"
     ];
 
-    tuiApps = declPackageSet [
+    pcTuiApps = declPackageSet [
       "aerc"  # email client
       "msmtp"  # sendmail
       "offlineimap"  # email mailbox sync
-      "sfeed"  # RSS fetcher
+      # "sfeed"  # RSS fetcher
       "visidata"  # TUI spreadsheet viewer/editor
       "w3m"  # web browser
     ];

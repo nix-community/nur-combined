@@ -229,7 +229,8 @@ in
           // scrollbar configuration, see: <https://artemis.sh/2023/10/12/scrollbars.html>
           // style=4 gives rectangular scrollbars
           // could also enable "always show scrollbars" in about:preferences -- not sure what the actual pref name for that is
-          defaultPref("widget.non-native-theme.scrollbar.size.override", 50);
+          // note that too-large scrollbars (like 50px wide) tend to obscure content (and make buttons unclickable)
+          defaultPref("widget.non-native-theme.scrollbar.size.override", 20);
           defaultPref("widget.non-native-theme.scrollbar.style", 4);
         '';
         fs."${cfg.browser.dotDir}/default".dir = {};

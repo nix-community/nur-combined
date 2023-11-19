@@ -7,6 +7,7 @@
 
   sane.roles.client = true;
   sane.roles.dev-machine = true;
+  sane.roles.pc = true;
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."lappy".wg-home.ip;
 
@@ -15,11 +16,7 @@
   boot.loader.efi.canTouchEfiVariables = false;
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
-  sane.programs.guiApps.suggestedPrograms = [
-    "desktopGuiApps"
-    "stepmania"
-  ];
-  sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" "desktopConsoleUtils" ];
+  sane.programs.stepmania.enableFor.user.colin = true;
 
   sops.secrets.colin-passwd.neededForUsers = true;
 

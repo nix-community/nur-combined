@@ -19,6 +19,7 @@ in
       };
     };
 
+    slowToBuild = true;  # uses webkitgtk 4.1
     persist.byStore.private = [
       # attachments, and email -- contained in a sqlite db
       ".local/share/geary"

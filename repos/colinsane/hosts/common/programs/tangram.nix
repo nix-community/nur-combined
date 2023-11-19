@@ -27,6 +27,8 @@ in
       '' + (upstream.preFixup or "");
     });
 
+    slowToBuild = true;  # only true for cross-compiled tangram
+
     persist.byStore.private = [
       ".cache/Tangram"
       ".local/share/Tangram"

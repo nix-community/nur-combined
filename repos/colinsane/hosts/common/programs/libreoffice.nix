@@ -6,6 +6,8 @@
     # package = pkgs.libreoffice-still;
     package = pkgs.libreoffice-fresh;
 
+    slowToBuild = true;
+
     # disable first-run stuff
     fs.".config/libreoffice/4/user/registrymodifications.xcu".symlink.text = ''
       <?xml version="1.0" encoding="UTF-8"?>

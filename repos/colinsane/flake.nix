@@ -111,7 +111,7 @@
 
       nixpkgsCompiledBy = system: nixpkgs.legacyPackages."${system}";
 
-      evalHost = { name, local, target }: nixpkgs.lib.nixosSystem {
+      evalHost = { name, local, target, light ? false }: nixpkgs.lib.nixosSystem {
         system = target;
         modules = [
           {
@@ -124,6 +124,9 @@
             # nixpkgs.buildPlatform = local;  # set by instantiate.nix instead
             # nixpkgs.config.replaceStdenv = { pkgs }: pkgs.ccacheStdenv;
           }
+          (optionalAttrs light {
+            sane.enableSlowPrograms = false;
+          })
           (import ./hosts/instantiate.nix { hostName = name; })
           self.nixosModules.default
           self.nixosModules.passthru
@@ -139,21 +142,21 @@
       nixosConfigurations =
         let
           hosts = {
-            servo =  { name = "servo"; local = "x86_64-linux"; target = "x86_64-linux"; };
-            desko =  { name = "desko"; local = "x86_64-linux"; target = "x86_64-linux"; };
-            lappy =  { name = "lappy"; local = "x86_64-linux"; target = "x86_64-linux"; };
-            moby  =  { name = "moby";  local = "x86_64-linux"; target = "aarch64-linux"; };
-            rescue = { name = "rescue"; local = "x86_64-linux"; target = "x86_64-linux"; };
+            servo       = { name = "servo";  local = "x86_64-linux"; target = "x86_64-linux";  };
+            desko       = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  };
+            desko-light = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  light = true; };
+            lappy       = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  };
+            lappy-light = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  light = true; };
+            moby        = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; };
+            moby-light  = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; light = true; };
+            rescue      = { name = "rescue"; local = "x86_64-linux"; target = "x86_64-linux";  };
           };
           # cross-compiled builds: instead of emulating the host, build using a cross-compiler.
           # - these are faster to *build* than the emulated variants (useful when tweaking packages),
           # - but fewer of their packages can be found in upstream caches.
           cross = mapAttrValues evalHost hosts;
           emulated = mapAttrValues
-            ({name, local, target}: evalHost {
-              inherit name target;
-              local = null;
-            })
+            (args: evalHost (args // { local = null; }))
             hosts;
           prefixAttrs = prefix: attrs: mapAttrs'
             (name: value: {
@@ -165,9 +168,9 @@
           (prefixAttrs "cross-" cross) //
           (prefixAttrs "emulated-" emulated) // {
             # prefer native builds for these machines:
-            inherit (emulated) servo desko lappy rescue;
+            inherit (emulated) servo desko desko-light lappy lappy-light rescue;
             # prefer cross-compiled builds for these machines:
-            inherit (cross) moby;
+            inherit (cross) moby moby-light;
           };
 
       # unofficial output
@@ -332,7 +335,7 @@
                 - `nix run '.#update.feeds'`
                   - updates metadata for all feeds
                 - `nix run '.#init-feed' <url>`
-                - `nix run '.#deploy-{lappy,moby,moby-test,servo}' [nixos-rebuild args ...]`
+                - `nix run '.#deploy.{desko,lappy,moby,servo}[-light][.test]' [nixos-rebuild args ...]`
                 - `nix run '.#check'`
                   - make sure all systems build; NUR evaluates
 
@@ -354,22 +357,14 @@
             program = "${pkgs.feeds.init-feed}";
           };
 
-          deploy-lappy = {
+          deploy = mapAttrValues (host: {
             type = "app";
-            program = ''${deployScript "lappy" "lappy" "switch"}'';
-          };
-          deploy-moby-test = {
-            type = "app";
-            program = ''${deployScript "moby" "moby-hn" "test"}'';
-          };
-          deploy-moby = {
-            type = "app";
-            program = ''${deployScript "moby" "moby-hn" "switch"}'';
-          };
-          deploy-servo = {
-            type = "app";
-            program = ''${deployScript "servo" "servo" "switch"}'';
-          };
+            program  = ''${deployScript host host "switch"}'';
+            test = {
+              type = "app";
+              program  = ''${deployScript host host "test"}'';
+            };
+          }) self.nixosConfigurations;
 
           sync-moby = {
             # copy music from the current device to moby
@@ -427,18 +422,27 @@
           check.host-configs = {
             type = "app";
             program = let
-              checkHost = host: ''
+              checkHost = host: let
+                shellHost = pkgs.lib.replaceStrings [ "-" ] [ "_" ] host;
+              in ''
                 nix build -v '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} -j2 $@
-                RC_${host}=$?
+                RC_${shellHost}=$?
               '';
             in builtins.toString (pkgs.writeShellScript
               "check-host-configs"
               ''
+                # build minimally-usable hosts first, then their full image.
+                # this gives me a minimal image i can deploy or copy over, early.
+                ${checkHost "desko-light"}
+                ${checkHost "moby-light"}
+                ${checkHost "lappy-light"}
+
                 ${checkHost "desko"}
                 ${checkHost "lappy"}
                 ${checkHost "servo"}
                 ${checkHost "moby"}
                 ${checkHost "rescue"}
+
                 echo "desko: $RC_desko"
                 echo "lappy: $RC_lappy"
                 echo "servo: $RC_servo"

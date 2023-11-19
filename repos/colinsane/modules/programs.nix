@@ -1,5 +1,6 @@
 { config, lib, options, pkgs, sane-lib, utils, ... }:
 let
+  saneCfg = config.sane;
   cfg = config.sane.programs;
 
   # create a map:
@@ -141,6 +142,14 @@ let
           the type at this level is obscured only to as to allow passthrough to `sane.users` w/ proper option merging
         '';
       };
+      slowToBuild = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          whether this package is very slow, or has unique dependencies which are very slow to build.
+          marking packages like this can be used to achieve faster, but limited, rebuilds/deploys (by omitting the package).
+        '';
+      };
       configOption = mkOption {
         type = types.raw;
         default = mkOption {
@@ -156,8 +165,11 @@ let
       config = config.configOption;
     };
 
-    config = {
-      enabled = config.enableFor.system || builtins.any (en: en) (lib.attrValues config.enableFor.user);
+    config = let
+      enabledForUser = builtins.any (en: en) (lib.attrValues config.enableFor.user);
+      passesSlowTest = saneCfg.enableSlowPrograms || !config.slowToBuild;
+    in {
+      enabled = (config.enableFor.system || enabledForUser) && passesSlowTest;
     };
   });
   toPkgSpec = with lib; types.coercedTo types.package (p: { package = p; }) pkgSpec;
@@ -169,18 +181,18 @@ let
     }) p.suggestedPrograms;
 
     # conditionally add to system PATH and env
-    environment = lib.optionalAttrs p.enableFor.system {
+    environment = lib.optionalAttrs (p.enabled && p.enableFor.system) {
       systemPackages = lib.optional (p.package != null) p.package;
       variables = p.env;
     };
 
     # conditionally add to user(s) PATH
     users.users = lib.mapAttrs (user: en: {
-      packages = lib.optional (p.package != null && en) p.package;
+      packages = lib.optional (p.package != null && en && p.enabled) p.package;
     }) p.enableFor.user;
 
     # conditionally persist relevant user dirs and create files
-    sane.users = lib.mapAttrs (user: en: lib.optionalAttrs en {
+    sane.users = lib.mapAttrs (user: en: lib.optionalAttrs (en && p.enabled) {
       inherit (p) persist;
       services = lib.mapAttrs (_: lib.mkMerge) p.services;
       environment = p.env;
@@ -197,7 +209,7 @@ let
 
     # make secrets available for each user
     sops.secrets = lib.concatMapAttrs
-      (user: en: lib.optionalAttrs en (
+      (user: en: lib.optionalAttrs (en && p.enabled) (
         lib.mapAttrs'
           (homePath: src: {
             # TODO: user the user's *actual* home directory, don't guess.
@@ -218,9 +230,17 @@ let
 in
 {
   options = with lib; {
+    # TODO: consolidate these options under one umbrella attrset
     sane.programs = mkOption {
       type = types.attrsOf toPkgSpec;
       default = {};
+    };
+    sane.enableSlowPrograms = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        whether to ship programs which are uniquely slow to build.
+      '';
     };
   };
 
