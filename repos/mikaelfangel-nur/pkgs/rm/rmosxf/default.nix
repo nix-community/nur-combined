@@ -1,6 +1,6 @@
-{ bash, fetchFromGitHub, lib, resholve, findutils, coreutils }:
+{ stdenv, bash, fetchFromGitHub, lib, makeWrapper, findutils, coreutils }:
 
-resholve.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "rmosxf";
   version = "0.1.0";
 
@@ -13,16 +13,21 @@ resholve.mkDerivation rec {
 
   dontBuild = true;
 
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ findutils coreutils ];
+
   installPhase = ''
+    runHook preInstall
+    
     install -Dm 755 rmosxf.sh $out/bin/rmosxf
+
+    runHook postInstall
   '';
 
-  solutions.default = {
-    scripts = [ "bin/rmosxf" ];
-    interpreter = "${bash}/bin/sh";
-    inputs = [ findutils coreutils ];
-    fix.aliases = true;
-  };
+  postFixup = ''
+    wrapProgram "$out/bin/rmosxf" \
+      --prefix PATH : ${lib.makeBinPath buildInputs};
+  '';
 
   meta = with lib; {
     description = "A tool to remove osx file from the system";

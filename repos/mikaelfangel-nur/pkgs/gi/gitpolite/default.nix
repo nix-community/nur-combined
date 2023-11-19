@@ -1,6 +1,6 @@
-{ bash, fetchFromGitHub, lib, resholve, coreutils, git, gum, gnused, gnugrep }:
+{ stdenv, bash, fetchFromGitHub, lib, makeWrapper, coreutils, git, gum, gnused, gnugrep }:
 
-resholve.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "git-polite";
   version = "0.1.0";
 
@@ -13,17 +13,22 @@ resholve.mkDerivation rec {
 
   dontBuild = true;
 
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ coreutils git gnused gnugrep gum ];
+
   installPhase = ''
+    runHook preInstall
+
     install -Dm 755 "git-polite" "$out/bin/git-polite"
+
+    runHook postInstall
   '';
 
-  solutions.default = {
-    scripts = [ "bin/git-polite" ];
-    interpreter = "${bash}/bin/bash";
-    inputs = [ coreutils git gnused gnugrep gum ];
-    fix.aliases = true;
-    execer = [ "cannot:${git}/bin/git" "cannot:${gum}/bin/gum" ];
-  };
+
+  postFixup = ''
+    wrapProgram "$out/bin/git-polite" \
+      --prefix PATH : ${lib.makeBinPath buildInputs };
+  '';
 
   meta = with lib; {
     description = "A tool to create github co-author messages.";
