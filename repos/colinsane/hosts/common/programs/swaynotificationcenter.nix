@@ -218,10 +218,16 @@ in
         # - SWAYNC_REPLACES_ID
         # - SWAYNC_ID
         # - SWAYNC_SUMMARY
-        incoming-im = {
+        incoming-im-known-app-name = {
           # trigger notification sound on behalf of these IM clients.
           app-name = "(Chats|Dino|discord|Element|Fractal|gtkcord4)";
           body = "^(?!Incoming call).*$";  #< don't match Dino Incoming calls
+          exec = "${fbcli} --event proxied-message-new-instant";
+        };
+        incoming-im-known-desktop-entry = {
+          # trigger notification sound on behalf of these IM clients.
+          # these clients don't have an app-name (listed as "<unknown>"), but do have a desktop-entry
+          desktop-entry = "com.github.uowuo.abaddon";
           exec = "${fbcli} --event proxied-message-new-instant";
         };
         incoming-call = {

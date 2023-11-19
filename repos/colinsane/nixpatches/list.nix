@@ -40,6 +40,11 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263182";
     hash = "sha256-Wau+PB+EUQDvWX8Kycw1sNrM3GkPVjKSS4niIDI0sjM=";
   })
+  (fetchpatch' {
+    title = "abaddon: 0.1.12 -> 0.1.13";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/267380";
+    hash = "sha256-lFF2a3DE6A/AUQ0OKIJW4Cke9Y3my6CnmmYhBPxMB+E=";
+  })
   # (fetchpatch' {
   #   title = "trust-dns: 0.23.0 -> 0.24.0";
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/262466";

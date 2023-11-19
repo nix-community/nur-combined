@@ -269,6 +269,10 @@
             # let the user handle that edge case by re-running this whole command
             nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${addr} --use-remote-sudo $@
           '';
+          deployApp = host: addr: action: {
+            type = "app";
+            program = ''${deployScript host addr action}'';
+          };
 
           # pkg updating.
           # a cleaner alternative lives here: <https://discourse.nixos.org/t/how-can-i-run-the-updatescript-of-personal-packages/25274/2>
@@ -357,14 +361,14 @@
             program = "${pkgs.feeds.init-feed}";
           };
 
-          deploy = mapAttrValues (host: {
-            type = "app";
-            program  = ''${deployScript host host "switch"}'';
-            test = {
-              type = "app";
-              program  = ''${deployScript host host "test"}'';
-            };
-          }) self.nixosConfigurations;
+          deploy = {
+            lappy       = deployApp "lappy"       "lappy" "switch";
+            lappy-light = deployApp "lappy-light" "lappy" "switch";
+            moby        = deployApp "moby"        "moby"  "switch";
+            moby-light  = deployApp "moby-light"  "moby"  "switch";
+            moby-test   = deployApp "moby"        "moby"  "test";
+            servo       = deployApp "servo"       "servo" "switch";
+          };
 
           sync-moby = {
             # copy music from the current device to moby

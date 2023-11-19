@@ -53,6 +53,7 @@ in
   ];
 
   sane.programs.guiBaseApps = declPackageSet [
+    "abaddon"  # discord client
     "alacritty"  # terminal emulator
     "dialect"  # language translation
     "dino"  # XMPP client

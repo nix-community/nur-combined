@@ -217,11 +217,6 @@ in
 
     # INDIVIDUAL PACKAGE DEFINITIONS
 
-    abaddon.persist.byStore.private = [
-      ".cache/abaddon"
-      ".config/abaddon"  # empty?
-    ];
-
     animatch.persist.byStore.plaintext = [
       # game progress
       ".config/Holy Pangolin/Animatch"

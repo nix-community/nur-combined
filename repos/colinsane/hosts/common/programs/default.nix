@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./abaddon.nix
     ./aerc.nix
     ./alacritty.nix
     ./assorted.nix
