@@ -1974,6 +1974,31 @@
         platforms = platforms.all;
         };
       };
+    "faststream" = buildFirefoxXpiAddon {
+      pname = "faststream";
+      version = "1.2.1";
+      addonId = "faststream@andrews";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4196978/faststream-1.2.1.xpi";
+      sha256 = "7565d78e76efb3e2dd902ec60b08e846b69f81fa9dc564f3449a0d716d20c674";
+      meta = with lib;
+      {
+        description = "Stream without buffering, a great video player and download accelerator all in one.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+          };
+        mozPermissions = [
+          "storage"
+          "tabs"
+          "webRequest"
+          "declarativeNetRequest"
+          "<all_urls>"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "fediact" = buildFirefoxXpiAddon {
       pname = "fediact";
       version = "0.9.8.7";
@@ -8233,10 +8258,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.3.4";
+      version = "3.4.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180342/tournesol_extension-3.3.4.xpi";
-      sha256 = "c8ebf222aacd572c3bb6ab8ed5396f0b9b781de82767d2a5daf93c8e2bbf3504";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197154/tournesol_extension-3.4.0.xpi";
+      sha256 = "0e1744cd1a6f6b34c4d56a964ef8d5df2a18a8820d50922e79de337d8d9fc7d6";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -8670,10 +8695,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.11.11.1035";
+      version = "2023.11.19.977";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4193794/ublock_origin_lite-2023.11.11.1035.xpi";
-      sha256 = "9303629782b4bb6b5f561301f0ecfdb2b3ce6004f8b4d1a5c7fb69c6f9ec6a60";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197150/ublock_origin_lite-2023.11.19.977.xpi";
+      sha256 = "86d023d44eac330188c33ed4f8bee87f3a777816ebbf1156ff7d95c022a563ce";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
