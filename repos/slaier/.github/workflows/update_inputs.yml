@@ -33,7 +33,7 @@ jobs:
           git commit --amend --no-edit
           git push origin HEAD:wip-update-inputs --force-with-lease
       - name: Trigger Workflow
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.actions.createWorkflowDispatch({
