@@ -57,6 +57,38 @@ jobs:
   #
   # TIER 2
   #
+  build-nixpkgs-unstable-i686-linux:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: i686-linux
+      channel: nixpkgs-unstable
+    secrets: inherit
+    needs:
+      - build-nixpkgs-unstable-x86_64-linux
+
+  build-nixos-unstable-i686-linux:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: i686-linux
+      channel: nixos-unstable
+    secrets: inherit
+    needs:
+      - build-nixos-unstable-x86_64-linux
+      - build-nixpkgs-unstable-i686-linux
+
+  build-nixos-stable-i686-linux:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: ubuntu-latest
+      system: i686-linux
+      channel: nixos-23.05
+    secrets: inherit
+    needs:
+      - build-nixos-stable-x86_64-linux
+      - build-nixos-unstable-i686-linux
+
   build-nixpkgs-unstable-aarch64-linux:
     uses: ./.github/workflows/build.yaml
     with:
