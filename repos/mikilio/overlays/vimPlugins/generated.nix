@@ -3,6 +3,18 @@
 
 final: prev:
 {
+  harpoon = buildVimPlugin {
+    pname = "harpoon";
+    version = "2023-11-20";
+    src = fetchFromGitHub {
+      owner = "Mikilio";
+      repo = "harpoon";
+      rev = "458832b25cb859b8bffad7d8572c9f8da13afd03";
+      sha256 = "01l274gj1hvzclwzlgja618kiibqs5p21wki21v37h66by7fxlx2";
+    };
+    meta.homepage = "https://github.com/Mikilio/harpoon/";
+  };
+
   knap = buildVimPlugin {
     pname = "knap";
     version = "2023-08-03";
