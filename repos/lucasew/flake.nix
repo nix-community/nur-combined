@@ -161,7 +161,7 @@
       nodeIps = {
         riverwood = { ts = "100.107.51.95";   zt = "192.168.69.2"; };
         whiterun =  { ts = "100.85.38.19";    zt = "192.168.69.1"; };
-        phone =     { ts = "100.108.254.101"; zt = "192.168.69.4"; };
+        phone =     { ts = "100.76.88.29";    zt = "192.168.69.4"; };
       };
       selectedDesktopEnvironment = "i3";
       rootPath = "/home/${username}/.dotfiles";

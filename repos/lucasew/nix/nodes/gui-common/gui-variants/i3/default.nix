@@ -13,6 +13,8 @@
     # Redshift
     services.redshift.enable = true;
 
+    services.tumbler.enable = true;
+
     services.dunst.enable = true;
     programs.xss-lock.enable = true;
     programs.kdeconnect.enable = true;
