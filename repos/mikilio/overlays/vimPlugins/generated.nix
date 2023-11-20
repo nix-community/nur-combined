@@ -3,18 +3,6 @@
 
 final: prev:
 {
-  harpoon = buildVimPlugin {
-    pname = "harpoon";
-    version = "2023-08-13";
-    src = fetchFromGitHub {
-      owner = "Mikilio";
-      repo = "harpoon";
-      rev = "7d9f2afcaff69d11ad648bad0c84876911b8279e";
-      sha256 = "0lmqn2zzk91dg1xw1zxb8rcv16a0j8ih50ffvka96kmwdxlldrkd";
-    };
-    meta.homepage = "https://github.com/Mikilio/harpoon/";
-  };
-
   knap = buildVimPlugin {
     pname = "knap";
     version = "2023-08-03";
@@ -29,12 +17,12 @@ final: prev:
 
   lsp-zero-nvim = buildVimPlugin {
     pname = "lsp-zero.nvim";
-    version = "2023-08-12";
+    version = "2023-09-09";
     src = fetchFromGitHub {
       owner = "VonHeikemen";
       repo = "lsp-zero.nvim";
-      rev = "04d2bd53ebc490378e25cb399942a5f48f5befd2";
-      sha256 = "1n922b6gvx5sbqy07g4nim75553rb7sh4qs649p2l1dfm05xv0da";
+      rev = "b768db11b7ff3a142a779a321dee86098c82fe4f";
+      sha256 = "1a5q7ii66rbi929p1lg25d6bfjxw2wli5n54fqwx6qb5h0grcf22";
     };
     meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
   };
