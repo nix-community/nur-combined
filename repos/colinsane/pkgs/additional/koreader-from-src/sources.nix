@@ -1,8 +1,10 @@
 # to update:
+# - first, figure the rev for `koreader-base`:
+#   - inside `koreader` repo:
+#     - `git submodule status base`
+#     - or `git log base`
 # - inside `koreader-base` repo:
-#   - note the git rev as `old-rev`
-#   - `git pull` in koreader-base
-#   - `git diff old-rev.. thirdparty`
+#   - `git diff old-rev..new-rev thirdparty`
 # - update `source.rev` everywhere here that changed upstream
 #   - zero the hashes here and correct them based on build errors
 # - tweak ./vendor-external-projects.patch until it applies
@@ -13,6 +15,11 @@
 # the following build output may look like an error, but is safe to ignore:
 # - "awk: fatal: cannot open file `3.9' for reading: No such file or directory"
 #   - this number comes from the luarocks version
+#
+# how to automate koreader updates?
+# - it may be that koreader-base is more strongly decoupled from `koreader` than first appears:
+#   - most `koreader` commits which update base simply bump its rev and nothing more.
+#   - then, `koreader-base` could be its own package, updated independently from the main koreader.
 {
   thirdparty = {
     curl = {

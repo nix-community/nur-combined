@@ -28,10 +28,10 @@
 # - startup
 #   - daemon based (lisgsd, idle_locker, statusbar_periodics)
 #   - auto-started at login
-#   - managable by `sxmo_daemons.sh`
-#     - list available daemons: `sxmo_daemons.sh list`
-#     - query if a daemon is active: `sxmo_daemons.sh running <my-daemon>`
-#     - start daemon: `sxmo_daemons.sh start <my-daemon>`
+#   - managable by `sxmo_jobs.sh`
+#     - list available daemons: `sxmo_jobs.sh list`
+#     - query if a daemon is active: `sxmo_jobs.sh running <my-daemon>`
+#     - start daemon: `sxmo_jobs.sh start <my-daemon>`
 #   - managable by `superctl`
 #     - `superctl status`
 # - user hooks:
@@ -70,7 +70,7 @@ let
   hookPkgs = {
     inputhandler = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_inputhandler.sh";
-      pkgs = [ "coreutils" ];
+      pkgs = [ "coreutils" "playerctl" "pulseaudio" ];
       src = ./hooks;
     };
     postwake = pkgs.static-nix-shell.mkBash {
@@ -130,7 +130,7 @@ in
     };
     sane.gui.sxmo.package = mkOption {
       type = types.package;
-      default = pkgs.sxmo-utils-latest.override { preferSystemd = true; };
+      default = pkgs.sxmo-utils.override { preferSystemd = true; };
       description = ''
         sxmo base scripts and hooks collection.
         consider overriding the outputs under /share/sxmo/default_hooks
@@ -234,6 +234,8 @@ in
             SXMO_DISABLE_CONFIGVERSION_CHECK = mkSettingsOpt "1" "allow omitting the configversion line from user-provided sxmo dotfiles";
             SXMO_UNLOCK_IDLE_TIME = mkSettingsOpt "300" "how many seconds of inactivity before locking the screen";  # lock -> screenoff happens 8s later, not configurable
             # SXMO_WM = mkSettingsOpt "sway" "sway or dwm. ordinarily initialized by sxmo_{x,w}init.sh";
+            SXMO_NO_AUDIO = mkSettingsOpt "1" "don't start pipewire/pulseaudio in sxmo_hook_start.sh";
+            SXMO_STATES = mkSettingsOpt "unlock screenoff" "list of states the device should support (unlock, lock, screenoff)";
           };
       };
       default = {};
@@ -249,6 +251,10 @@ in
       description = "don't start lisgd gesture daemon by default";
     };
   };
+
+  imports = [
+    ./bonsai.nix
+  ];
 
   config = lib.mkMerge [
     {
@@ -343,7 +349,7 @@ in
 
                   # kill anything leftover from the previous sxmo run. this way we can (try to) be reentrant
                   echo "sxmo_init: killing stale daemons (if active)"
-                  sxmo_daemons.sh stop all
+                  sxmo_jobs.sh stop all
                   pkill bemenu
                   pkill wvkbd
                   pkill superd
@@ -402,6 +408,81 @@ in
           )
           cfg.settings
         );
+
+
+        sane.gui.sxmo.bonsaid.transitions = let
+          doExec = inputName: transitions: {
+            type = "exec";
+            command = [
+              "setsid"
+              "-f"
+              "sxmo_hook_inputhandler.sh"
+              inputName
+            ];
+            inherit transitions;
+          };
+          onDelay = ms: transitions: {
+            type = "delay";
+            delay_duration = ms * 1000000;
+            inherit transitions;
+          };
+          onEvent = eventName: transitions: {
+            type = "event";
+            event_name = eventName;
+            inherit transitions;
+          };
+          friendlyToBonsai = { timeout ? null, trigger ? null, power_pressed ? {}, power_released ? {}, voldown_pressed ? {}, voldown_released ? {}, volup_pressed ? {}, volup_released ? {} }@args:
+          if trigger != null then [
+            (doExec trigger (friendlyToBonsai (builtins.removeAttrs args ["trigger"])))
+          ] else [
+            (lib.mkIf (timeout != null)        (onDelay (timeout.ms or 400) (friendlyToBonsai (builtins.removeAttrs timeout ["ms"]))))
+            (lib.mkIf (power_pressed != {})    (onEvent "power_pressed" (friendlyToBonsai power_pressed)))
+            (lib.mkIf (power_released != {})   (onEvent "power_released" (friendlyToBonsai power_released)))
+            (lib.mkIf (voldown_pressed != {})  (onEvent "voldown_pressed" (friendlyToBonsai voldown_pressed)))
+            (lib.mkIf (voldown_released != {}) (onEvent "voldown_released" (friendlyToBonsai voldown_released)))
+            (lib.mkIf (volup_pressed != {})    (onEvent "volup_pressed" (friendlyToBonsai volup_pressed)))
+            (lib.mkIf (volup_released != {})   (onEvent "volup_released" (friendlyToBonsai volup_released)))
+          ];
+          recurseVolUpDown = ttl: if ttl == 0 then {
+          } else {
+            voldown_pressed = {
+              trigger = "powerhold_voldown";
+              timeout.ms = 1000;
+              power_released = {};
+            } // recurseVolUpDown (ttl - 1);
+
+            volup_pressed = {
+              trigger = "powerhold_volup";
+              timeout.ms = 1000;
+              power_released = {};
+            } // recurseVolUpDown (ttl - 1);
+          };
+        in friendlyToBonsai {
+          # map sequences of "events" to an argument to pass to sxmo_hook_inputhandler.sh
+
+          # tap the power button N times to trigger N different actions
+          power_pressed.timeout.ms = 1200; # press w/o release. this is a long timeout because it's tied to the "kill window" action.
+          power_pressed.timeout.trigger = "powerhold";
+          power_pressed.power_released.timeout.trigger = "powerbutton_one";
+          power_pressed.power_released.timeout.ms = 600;  # long timeout to make `powertoggle_*` easier
+          power_pressed.power_released.power_pressed.trigger = "powerbutton_two";
+
+          # power_pressed.power_released.power_released.timeout.trigger = "powerbutton_two";
+          # power_pressed.power_released.power_released.power_released.trigger = "powerbutton_three";
+
+          # tap power, then tap up/down after releasing it
+          power_pressed.power_released.voldown_pressed.trigger = "powertoggle_voldown";
+          power_pressed.power_released.volup_pressed.trigger = "powertoggle_volup";
+
+          # chording: hold power and then tap vol-up N times to adjust the volume by N increments.
+          # XXX: HOLDING POWER LIKE THIS IS RISKY. but the default hard-power-off is like 10s, so... i guess this works until it becomes a problem...?
+          power_pressed.voldown_pressed = (recurseVolUpDown 5).voldown_pressed;
+          power_pressed.volup_pressed = (recurseVolUpDown 5).volup_pressed;
+
+          # tap just one of the volume buttons.
+          voldown_pressed.trigger = "voldown_one";
+          volup_pressed.trigger = "volup_one";
+        };
 
         # sxmo puts in /share/sxmo:
         # - profile.d/sxmo_init.sh
@@ -534,18 +615,8 @@ in
           sxmo_wob = sxmoService "wob";
           sxmo-x11-status = sxmoService "status_xsetroot";
 
-          bonsaid = {
-            description = "programmable input dispatcher";
-            path = sxmoPath;
-            script = ''
-              ${sxmoEnvSetup}
-              ${pkgs.coreutils}/bin/rm -f $XDG_RUNTIME_DIR/bonsai
-              exec ${pkgs.bonsai}/bin/bonsaid -t $XDG_CONFIG_HOME/sxmo/bonsai_tree.json
-            '';
-            serviceConfig.Type = "simple";
-            serviceConfig.Restart = "always";
-            serviceConfig.RestartSec = "5s";
-          };
+          bonsaid.path = sxmoPath;
+          bonsaid.script = lib.mkBefore sxmoEnvSetup;
         };
       }
 

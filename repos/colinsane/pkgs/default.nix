@@ -21,7 +21,6 @@ let
 
     ### ADDITIONAL PACKAGES
     alsa-ucm-conf-sane = callPackage ./additional/alsa-ucm-conf-sane { };
-    animatch = unpatched.animatch or (callPackage ./additional/animatch { });
     # TODO: move target flags to upstream PR and re-enable this bonsai
     # bonsai = unpatched.bonsai or (callPackage ./additional/bonsai { });
     bonsai = callPackage ./additional/bonsai { };
@@ -61,9 +60,7 @@ let
     signal-desktop-from-src = callPackage ./additional/signal-desktop-from-src { };
     static-nix-shell = callPackage ./additional/static-nix-shell { };
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
-    sxmo-utils' = lib.recurseIntoAttrs (callPackage ./additional/sxmo-utils { });
-    sxmo-utils = sxmo-utils'.stable;
-    sxmo-utils-latest = sxmo-utils'.latest;
+    sxmo-utils = callPackage ./additional/sxmo-utils { };
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
     tree-sitter-nix-shell = callPackage ./additional/tree-sitter-nix-shell { };
     trivial-builders = lib.recurseIntoAttrs (callPackage ./additional/trivial-builders { });

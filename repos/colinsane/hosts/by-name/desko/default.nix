@@ -11,6 +11,8 @@
 
   sops.secrets.colin-passwd.neededForUsers = true;
 
+  sane.ports.openFirewall = true;  # for e.g. nix-serve
+
   sane.roles.build-machine.enable = true;
   sane.roles.client = true;
   sane.roles.dev-machine = true;

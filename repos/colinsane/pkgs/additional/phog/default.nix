@@ -31,13 +31,13 @@
 
 stdenv.mkDerivation rec {
   pname = "phog";
-  version = "0.1.5";
+  version = "0.1.6";
 
   src = fetchFromGitLab {
     owner = "mobian1";
     repo = "phog";
     rev = version;
-    hash = "sha256-KgxJ+nNr0i7RXq4tH3/N02t5IIBEkGHEjbixZf/PKrs=";
+    hash = "sha256-PlVhTFH53nk+h1WPli1r+xUwU5/xObSTzdAfrdZOezs=";
   };
 
   patches = [

@@ -1,145 +1,230 @@
-{ callPackage
+{ stdenv
+, bash
+, bc
+, bemenu
+, bonsai
+, brightnessctl
+, buildPackages
+, busybox
+, conky
+, coreutils
+, curl
+, dbus
+, dmenu
+, fetchFromSourcehut
 , fetchpatch
+, gnugrep
+, gojq
+, grim
+, inotify-tools
+, j4-dmenu-desktop
+, jq
+, lib
+, libnotify
+, libxml2
+, lisgd
+, makeBinaryWrapper
+, mako
+, modemmanager
+, nettools
+, networkmanager
+, playerctl
+, procps
+, pulseaudio
+, rsync
+, scdoc
+, scrot
+, sfeed
+, slurp
+, superd
+, sway
+, swayidle
+, systemd
+, unstableGitUpdater
+, upower
+, wob
+, wl-clipboard
+, wtype
+, wvkbd
+, xdg-user-dirs
+, xdotool
+, xrdb
+, supportSway ? true
+, supportDwm ? false
+, preferSystemd ? false
 }:
+
 let
-  patches = {
-    merged = [
-      (fetchpatch {
-        # merged post 1.14.2
-        # [1/2] sxmo_init: behave well when user's primary group differs from their name
-        # [2/2] sxmo_init: ensure XDG_STATE_HOME exists
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42309/mbox";
-        hash = "sha256-GVWJWTccZeaKsVtsUyZFYl9/qEwJ5U7Bu+DiTDXLjys=";
-      })
-      (fetchpatch {
-        # merged post 1.14.2
-        # sxmo_hook_block_suspend: don't assume there's only one MPRIS player
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42441/mbox";
-        hash = "sha256-YmkJ4JLIG/mHosRlVQqvWzujFMBsuDf5nVT3iOi40zU=";
-      })
-      (fetchpatch {
-        # merged post 1.14.2
-        # i only care about patch no. 2
-        # [1/2] suspend toggle: silence rm failure noise
-        # [2/2] config: fix keyboard files location
-        name = "multipatch: 42880";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42880/mbox";
-        hash = "sha256-tAMPBb6vwzj1dFMTEaqrcCJU6FbQirwZgB0+tqW3rQA=";
-      })
-      (fetchpatch {
-        # merged post 1.14.2
-        name = "Switch from light to brightnessctl";
-        url = "https://git.sr.ht/~mil/sxmo-utils/commit/d0384a7caed036d25228fa3279c36c0230795e4a.patch";
-        hash = "sha256-/UlcuEI5cJnsqRuZ1zWWzR4dyJw/zYeB1rtJWFeSGEE=";
-      })
-      (fetchpatch {
-        # merged post 1.14.2
-        name = "sxmo_hook_lock: allow configuration of auto-screenoff timeout v1";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42443/mbox";
-        hash = "sha256-c4VySbVJgsbh2h+CnCgwWWe5WkAregpYFqL8n3WRXwY=";
-      })
-      (fetchpatch {
-        # merged post 1.14.2
-        name = "sxmo_wmmenu: respect SXMO_WORKSPACE_WRAPPING";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42698/mbox";
-        hash = "sha256-TrTlrthrpYdIMC8/RCMNaB8PcGQgtya/h2/uLNQDeWs=";
-      })
-      (fetchpatch {
-        # merged ~2023/08/22
-        name = "Make config gesture toggle persistent";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42876/mbox";
-        hash = "sha256-Oa0MI0Kt9Xgl5L1KarHI6Yn4+vpRxUSujB1iY4hlK9c=";
-      })
-      (fetchpatch {
-        # merged ~2023/08/29
-        # [1/2] Makefile: obey PREFIX when installing udev rules
-        # [2/2] Makefile: use SYSCONFDIR instead of hardcoding /etc
-        name = "44110-multipatch-makefile-nixos";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44110/mbox";
-        hash = "sha256-jXtwgOVGSjwWj7a36F6P+e63lKvk4OmFIzxTkf9yZMs=";
-      })
-      (fetchpatch {
-        # merged ~2023/10/04
-        name = ''sxmo_wmmenu.sh: add "Kill window" option'';
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45263/mbox";
-        hash = "sha256-qDvlLecAjxcKXP7tvhMnySkWPkj6oV0Z0Qm3kudazdk=";
-      })
-      (fetchpatch {
-        # merged ~2023/10/08
-        name = "suspend: block if Dino is in a call";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45470/mbox";
-        hash = "sha256-ev+NLR4g68MWB4RENh7mCth02lTaXxCIAL/af5l8Mrw=";
-      })
-      (fetchpatch {
-        # merged ~2023/10/11
-        name = "autorotate: allow all four orientations";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/45541/mbox";
-        hash = "sha256-7oT5Y4JynyDvrojgdcpASvZ1sYo7U+1jBpPswuBkEX8=";
-      })
-    ];
-    unmerged = [
-      # (fetchpatch {
-      #   XXX: doesn't apply cleanly to 1.14.2 release
-      #   # Don't wait for led or status bar in state change hooks
-      #   # - significantly decreases the time between power-button state transitions
-      #   url = "https://lists.sr.ht/~mil/sxmo-devel/patches/43109/mbox";
-      #   hash = "sha256-4uR2u6pa62y6SaRHYRn15YGDPILAs7py0mPbAjsgwM4=";
-      # })
+  # anything which any sxmo script or default hook in this package might invoke
+  runtimeDeps = [
+    bc  # also in busybox
+    bonsai
+    brightnessctl
+    conky
+    curl
+    dbus
+    gnugrep  # also in busybox
+    gojq
+    inotify-tools
+    j4-dmenu-desktop
+    jq
+    libnotify
+    libxml2.bin  # for xmllint; sxmo_weather.sh, sxmo_surf_linkset.sh
+    lisgd
+    mako
+    modemmanager  # mmcli
+    nettools  # netstat
+    networkmanager  # nmcli
+    playerctl
+    procps  # pgrep
+    pulseaudio  # pactl
+    sfeed
+    upower  # used by sxmo_battery_monitor.sh, sxmo_hook_battery.sh
+    wob
+    xdg-user-dirs  # used by sxmo_hook_start.sh
+    xrdb  # for sxmo_xinit AND sxmo_winit
+  ] ++ (
+    if preferSystemd then [ systemd ] else [ superd ]
+  ) ++ lib.optionals supportSway [
+    bemenu
+    grim
+    slurp  # for sxmo_screenshot.sh
+    sway
+    swayidle
+    wl-clipboard  # for wl-copy; sxmo_screenshot.sh
+    wtype  # for sxmo_type
+    wvkbd  # sxmo_winit.sh
+  ] ++ lib.optionals supportDwm [
+    dmenu
+    scrot  # sxmo_screenshot.sh
+    xdotool
+  ];
+in
+stdenv.mkDerivation rec {
+  pname = "sxmo-utils";
+  version = "unstable-2023-11-07";
 
-      (fetchpatch {
-        name = "sxmo_migrate: add option to disable configversion checks";
-        url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44155/mbox";
-        hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
-      })
+  src = fetchFromSourcehut {
+    owner = "~mil";
+    repo = "sxmo-utils";
+    rev = "1654cde76dcebd5383b47dbd503565e604c63cca";
+    hash = "sha256-2Tdr1xAxyOJ+DxOQAZw+MVYCmqz6As5XmsnZzVv2M6A=";
+  };
 
-      ## not upstreamable
-      (fetchpatch {
-        # let NixOS manage the audio daemons (pulseaudio/pipewire)
-        name = "sxmo_hook_start: don't start audio daemons";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/124f8fed85c3ff89ab45f1c21569bcc034d07693.patch";
-        hash = "sha256-GteXFZCuRpIXuYrEdEraIhzCm1b4vNJgh3Lmg+Qjeqk=";
-      })
-    ];
-    # these don't apply cleanly to the stable release; only to latest
-    unmerged-tip-only = [
-      # TODO: send these upstream
-      (fetchpatch {
-        name = "sxmo_hook_apps: add a few";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/dd17fd707871961906ed4577b8c89f6128c5f121.patch";
-        hash = "sha256-Giek1MbyOtlPccmT8XQkLZWhX+EeJdzWVZtNgcLuTsI=";
-      })
-      (fetchpatch {
-        # experimental patch to launch apps via `swaymsg exec -- `
-        # this allows them to detach from sxmo_appmenu.sh (so, `pstree` looks cleaner)
-        # and more importantly they don't inherit the environment of sxmo internals (i.e. PATH).
-        # suggested by Aren in #sxmo.
-        #
-        # old pstree look:
-        # - sxmo_hook_inputhandler.sh volup_one
-        #   - sxmo_appmenu.sh
-        #     - sxmo_appmenu.sh applications
-        #       - <application, e.g. chatty>
-        name = "sxmo_hook_apps: launch apps via the window manager";
-        url = "https://git.uninsane.org/colin/sxmo-utils/commit/0087acfecedf9d1663c8b526ed32e1e2c3fc97f9.patch";
-        hash = "sha256-YwlGM/vx3ZrBShXJJYuUa7FTPQ4CFP/tYffJzUxC7tI=";
-      })
-      # (fetchpatch {
-      #   name = "sxmo_log: print to console";
-      #   url = "https://git.uninsane.org/colin/sxmo-utils/commit/030280cb83298ea44656e69db4f2693d0ea35eb9.patch";
-      #   hash = "sha256-dc71eztkXaZyy+hm5teCw9lI9hKS68pPoP53KiBm5Fg=";
-      # })
-    ];
+  patches = [
+    (fetchpatch {
+      name = "sxmo_migrate: add option to disable configversion checks";
+      url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44155/mbox";
+      hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
+    })
+
+    # TODO: send these upstream
+    (fetchpatch {
+      name = "sxmo_hook_apps: add a few";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/dd17fd707871961906ed4577b8c89f6128c5f121.patch";
+      hash = "sha256-Giek1MbyOtlPccmT8XQkLZWhX+EeJdzWVZtNgcLuTsI=";
+    })
+    (fetchpatch {
+      # experimental patch to launch apps via `swaymsg exec -- `
+      # this allows them to detach from sxmo_appmenu.sh (so, `pstree` looks cleaner)
+      # and more importantly they don't inherit the environment of sxmo internals (i.e. PATH).
+      # suggested by Aren in #sxmo.
+      #
+      # old pstree look:
+      # - sxmo_hook_inputhandler.sh volup_one
+      #   - sxmo_appmenu.sh
+      #     - sxmo_appmenu.sh applications
+      #       - <application, e.g. chatty>
+      name = "sxmo_hook_apps: launch apps via the window manager";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/0087acfecedf9d1663c8b526ed32e1e2c3fc97f9.patch";
+      hash = "sha256-YwlGM/vx3ZrBShXJJYuUa7FTPQ4CFP/tYffJzUxC7tI=";
+    })
+    # (fetchpatch {
+    #   name = "sxmo_log: print to console";
+    #   url = "https://git.uninsane.org/colin/sxmo-utils/commit/030280cb83298ea44656e69db4f2693d0ea35eb9.patch";
+    #   hash = "sha256-dc71eztkXaZyy+hm5teCw9lI9hKS68pPoP53KiBm5Fg=";
+    # })
+  ];
+
+  postPatch = ''
+    # allow sxmo to source its init file
+    sed -i "s@/etc/profile\.d/sxmo_init.sh@$out/etc/profile.d/sxmo_init.sh@" scripts/core/*.sh
+    # remove absolute paths
+    substituteInPlace scripts/core/sxmo_version.sh \
+      --replace "/usr/bin/" ""
+
+    # let superd find sxmo service binaries at runtime via PATH
+    # TODO: replace with fully-qualified paths
+    sed -i 's:ExecStart=/usr/bin/:ExecStart=/usr/bin/env :' \
+      configs/services/*.service \
+      configs/superd/services/*.service
+
+    # install udev rules to where nix expects
+    substituteInPlace Makefile \
+      --replace "/usr/lib/udev/rules.d" "/etc/udev/rules.d"
+    # avoid relative paths in udev rules
+    substituteInPlace configs/udev/90-sxmo.rules \
+      --replace "/bin/chgrp" "${coreutils}/bin/chgrp" \
+      --replace "/bin/chmod" "${coreutils}/bin/chmod"
+  '' + lib.optionalString preferSystemd ''
+    shopt -s globstar
+    sed -i 's/superctl status "$1" | grep -q started/systemctl --user is-active --quiet "$1"/g' **/*.sh
+    sed -i 's/superctl/systemctl --user/g' **/*.sh
+  '';
+
+  nativeBuildInputs = [
+    makeBinaryWrapper
+    scdoc
+  ];
+
+  buildInputs = [ bash ];  # needed here so stdenv's `patchShebangsAuto` hook sets the right interpreter
+
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "SYSCONFDIR=${placeholder "out"}/etc"
+    "DESTDIR="
+    "OPENRC=0"
+    # TODO: use SERVICEDIR and EXTERNAL_SERVICES=0 to integrate superd/systemd better
+  ];
+  preInstall = ''
+    # busybox is used by setup_config_version.sh, but placing it in nativeBuildInputs breaks the nix builder
+    PATH="$PATH:${buildPackages.busybox}/bin"
+  '';
+
+  # we don't wrap sxmo_common.sh or sxmo_init.sh
+  # which is unfortunate, for non-sxmo-utils files that might source those.
+  # if that's a problem, could inject a PATH=... line into them with sed.
+  postInstall = ''
+    for f in \
+      $out/bin/*.sh \
+      $out/share/sxmo/default_hooks/desktop/sxmo_hook_*.sh \
+      $out/share/sxmo/default_hooks/one_button_e_reader/sxmo_hook_*.sh \
+      $out/share/sxmo/default_hooks/three_button_touchscreen/sxmo_hook_*.sh \
+      $out/share/sxmo/default_hooks/sxmo_hook_*.sh \
+    ; do
+      case $(basename $f) in
+        (sxmo_common.sh|sxmo_deviceprofile_*.sh|sxmo_hook_icons.sh|sxmo_init.sh)
+          # these are sourced by other scripts: don't wrap them else the `exec` in the nix wrapper breaks the outer script
+        ;;
+        (*)
+          wrapProgram "$f" \
+            --suffix PATH : "${lib.makeBinPath runtimeDeps}"
+        ;;
+      esac
+    done
+  '';
+
+  passthru = {
+    inherit runtimeDeps;
+    providedSessions = (lib.optional supportSway "swmo") ++ (lib.optional supportDwm "sxmo");
+    updateScript = unstableGitUpdater { };
   };
-in {
-  stable = callPackage ./common.nix {
-    version = "1.14.2";
-    hash = "sha256-1bGCUhf/bt9I8BjG/G7sjYBzLh28iZSC20ml647a3J4=";
-    patches = patches.merged ++ patches.unmerged;
-  };
-  latest = callPackage ./common.nix {
-    version = "unstable-2023-10-10";
-    rev = "c33408abb560dac52de52d878840945c12a75a32";
-    hash = "sha256-VYUYN5S6qmsNpxMq7xFfgsGcbjIjqvuj36AG+NeMHTM=";
-    patches = patches.unmerged ++ patches.unmerged-tip-only;
+
+  meta = {
+    homepage = "https://git.sr.ht/~mil/sxmo-utils";
+    description = "Contains the scripts and small C programs that glues the sxmo enviroment together";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux; 
   };
 }

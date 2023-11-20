@@ -136,6 +136,7 @@ let
     # DEVELOPERS
     (fromDb "blog.jmp.chat" // tech)
     (fromDb "uninsane.org" // tech)
+    (fromDb "blog.thalheim.io" // tech)  # Mic92
     (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
     (fromDb "xn--gckvb8fzb.com" // tech)
     (fromDb "amosbbatto.wordpress.com" // tech)

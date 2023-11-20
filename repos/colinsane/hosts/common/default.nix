@@ -31,10 +31,26 @@
   # time.timeZone = "America/Los_Angeles";
   time.timeZone = "Etc/UTC";  # DST is too confusing for me => use a stable timezone
 
-  # allow `nix flake ...` command
-  # TODO: is this still required?
   nix.extraOptions = ''
+    # see: `man nix.conf`
+    # allow `nix flake ...` command
     experimental-features = nix-command flakes
+    # maximum seconds to wait when connecting to binary substituter
+    connect-timeout = 3  # default: 0
+    # download-attempts = 5  # default: 5
+    # whether to build from source when binary substitution fails
+    fallback = true  # default: false
+    # whether to keep building dependencies if any other one fails
+    keep-going = true  # default: false
+    # whether to keep build-only dependencies of GC roots (e.g. C compiler) when doing GC
+    keep-outputs = true  # default: false
+    # how many lines to show from failed build
+    log-lines = 30  # default: 10
+    # narinfo-cache-negative-ttl = 3600  # default: 3600
+    # whether to use ~/.local/state/nix/profile instead of ~/.nix-profile, etc
+    use-xdg-base-directories = true  # default: false
+    # whether to warn if repository has uncommited changes
+    warn-dirty = false  # default: true
   '';
   # hardlinks identical files in the nix store to save 25-35% disk space.
   # unclear _when_ this occurs. it's not a service.

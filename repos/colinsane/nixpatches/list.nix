@@ -24,9 +24,15 @@ let
     );
 in [
   (fetchpatch' {
-    title = "animatch: init at 1.0.3";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/267948";
-    hash = "sha256-zWu/n9eiMiwWcMOzly8AdqzGwYLVaFnsWu+XR4XYsD4=";
+    # build fix: merged 2023/11/17
+    title = "python2/mk-python-derivation: disable catchConflictsHook";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/268027";
+    hash = "sha256-jw12uh6Tfyu2lp37YFMg8XLOoe5D1pez66whYwr6l3I=";
+  })
+  (fetchpatch' {
+    title = "libaom: fix cross";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/266257";
+    hash = "sha256-9VQcM/9gptTz2BCwvSbxrDuHVN69cL77NzHexudqAiM=";
   })
   (fetchpatch' {
     title = "gcr: remove build gnupg from runtime closure";
@@ -56,21 +62,16 @@ in [
   #   hash = "sha256-TxQiR+OS4YriLNViTg4H78Z3f3IjBVodiFAkOUCeNic=";
   # })
   (fetchpatch' {
-    # merged *into staging* 2023/10/05
-    title = "mesa: don't depend on build python";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/259109";
-    hash = "sha256-uSTWxAFPasx7MwNimqypUln9lowh+W3dMb5b+gM9kd0=";
-  })
-  (fetchpatch' {
     title = "rpm: 4.18.1 -> 4.19.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/260558";
     hash = "sha256-FDY/OLh7bNRixEuPlrIeyW/kJYNPnelLsplfKCsjHKQ=";
   })
-  (fetchpatch' {
-    title = "zcash: 5.4.2 -> 5.7.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/229810";
-    hash = "sha256-ProoPJ10rUtOZh2PzpegviG6Ip1zSuWC92BpP+ux9ZQ=";
-  })
+  # (fetchpatch' {
+  #   # doesn't apply cleanly. use build result in <working/zcash>
+  #   title = "zcash: 5.4.2 -> 5.7.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/229810";
+  #   hash = "sha256-ProoPJ10rUtOZh2PzpegviG6Ip1zSuWC92BpP+ux9ZQ=";
+  # })
   # (fetchpatch' {
   #   title = "graphicsmagick: 1.3.39 -> 1.3.42";
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/218163";

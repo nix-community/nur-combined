@@ -11,7 +11,7 @@ swaymsg mode default
 sxmo_wm.sh dpms on
 sxmo_wm.sh inputevent touchscreen off
 
-sxmo_daemons.sh start periodic_blink sxmo_run_periodically.sh "$BLINK_FREQ" sxmo_led.sh blink red blue
+sxmo_jobs.sh start periodic_blink sxmo_run_periodically.sh "$BLINK_FREQ" sxmo_led.sh blink red blue
 
 wait
 

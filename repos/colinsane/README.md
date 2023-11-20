@@ -11,7 +11,7 @@ the only hard dependency for my exported pkgs/modules should be [nixpkgs][nixpkg
 building <./hosts/> will require [sops][sops].
 
 you might specifically be interested in these files (elaborated further in #key-points-of-interest):
-- [`sxmo-utils-latest`](./pkgs/additional/sxmo-utils/default.nix)
+- [`sxmo-utils`](./pkgs/additional/sxmo-utils/default.nix)
   - [example SXMO deployment](./hosts/modules/gui/sxmo/default.nix)
 - [my implementation of impermanence](./modules/persist/default.nix)
 - my way of deploying dotfiles/configuring programs per-user:

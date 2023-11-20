@@ -5,6 +5,7 @@
     ./abaddon.nix
     ./aerc.nix
     ./alacritty.nix
+    ./animatch.nix
     ./assorted.nix
     ./bemenu.nix
     ./brave.nix

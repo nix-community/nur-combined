@@ -190,6 +190,7 @@
       imgs = mapAttrValues (host: host.config.system.build.img) self.nixosConfigurations;
 
       # unofficial output
+      hostConfigs = mapAttrValues (host: host.config) self.nixosConfigurations;
       hostPkgs = mapAttrValues (host: host.config.system.build.pkgs) self.nixosConfigurations;
       hostPrograms = mapAttrValues (host: mapAttrValues (p: p.package) host.config.sane.programs) self.nixosConfigurations;
 

@@ -860,6 +860,7 @@ in {
       nativeBuildInputs = lib.subtractLists [ final.mesa final.xorg.xorgserver ] orig.nativeBuildInputs;
       buildInputs = orig.buildInputs ++ [
         final.mesa  # fixes "meson.build:237:2: ERROR: Dependency "gbm" not found, tried pkgconfig"
+        final.libGL  # fixes "meson.build:184:11: ERROR: Dependency "gl" not found, tried pkgconfig and system"
       ];
       # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
       mesonFlags = lib.remove "-Ddocs=true" orig.mesonFlags;

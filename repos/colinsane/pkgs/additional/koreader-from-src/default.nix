@@ -25,14 +25,14 @@
 }:
 let
   sources = import ./sources.nix;
+  version = "2023.10";
   src = fetchFromGitHub {
     owner = "koreader";
     repo = "koreader";
     name = "koreader";  # needed because `srcs = ` in the outer derivation is a list
     fetchSubmodules = true;
-    # rev = "v${version}";
-    rev = "f3520effd679eb24a352e7dec600c5b378c3d376";  # master
-    hash = "sha256-cPftNXKL9khQKH/DKXyl9YZAEa27T/n3ATErPZy8irY=";
+    rev = "v${version}";
+    hash = "sha256-J8WNSkhPO0Y+m/h246w1GpowOVROOHVbmuDHFAniItk=";
   };
   # XXX: for some inscrutable reason, `enable52Compat` is *partially* broken, only when cross compiling.
   # `table.unpack` is non-nil, but `table.pack` is nil.
@@ -73,7 +73,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "koreader-from-src";
-  version = "unstable-2023-10-18";
+  inherit version;
   srcs = [ src ] ++ (lib.mapAttrsToList
     (name: src: fetchgit (
       {

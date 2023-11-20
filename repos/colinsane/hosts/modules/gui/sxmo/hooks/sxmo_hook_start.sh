@@ -7,11 +7,11 @@
 # Create xdg user directories, such as ~/Pictures
 xdg-user-dirs-update
 
-sxmo_daemons.sh start daemon_manager
+sxmo_jobs.sh start daemon_manager
 
 # Periodically update some status bar components
 sxmo_hook_statusbar.sh all
-sxmo_daemons.sh start statusbar_periodics sxmo_run_aligned.sh 60 \
+sxmo_jobs.sh start statusbar_periodics sxmo_run_aligned.sh 60 \
 	sxmo_hook_statusbar.sh periodics
 
 # TODO: start these externally, via `wantedBy` in nix
@@ -24,7 +24,7 @@ systemctl --user start bonsaid
 #   swaymsg output '*' bg "$SXMO_BG_IMG" fill
 
 # To setup initial lock state
-sxmo_state_switch.sh set unlock
+sxmo_state.sh set unlock
 
 # Turn on auto-suspend
 if [ -w "/sys/power/wakeup_count" ] && [ -f "/sys/power/wake_lock" ]; then
@@ -63,7 +63,7 @@ systemctl --user start sxmo_soundmonitor
 # rotate UI based on physical display angle by default
 if [ -n "$SXMO_AUTOROTATE" ]; then
 	# TODO: this could use ~/.cache/sxmo/sxmo.autorotate like for lisgd above
-	sxmo_daemons.sh start autorotate sxmo_autorotate.sh
+	sxmo_jobs.sh start autorotate sxmo_autorotate.sh
 fi
 
 # Play a funky startup tune if you want (disabled by default)
