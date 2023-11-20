@@ -1,0 +1,54 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index efe6486..d6f5ff8 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -20,9 +20,7 @@ set(FETCHCONTENT_QUIET FALSE)
+ #-------------------------------------------------------------------------------
+ 
+ FetchContent_Declare(json
+-  GIT_REPOSITORY https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent
+-  GIT_TAG v3.9.1
+-  GIT_PROGRESS TRUE
++  SOURCE_DIR @json_src@
+ )
+ 
+ FetchContent_GetProperties(json)
+@@ -34,10 +32,7 @@ endif()
+ #-------------------------------------------------------------------------------
+ 
+ FetchContent_Declare(antlr
+-  GIT_REPOSITORY https://github.com/antlr/antlr4
+-  GIT_TAG 1cb4669f84cea5b59661fd44b0f80509fdacd3f9
+-  GIT_SHALLOW FALSE
+-  GIT_PROGRESS TRUE
++  SOURCE_DIR @antlr_src@
+ )
+ 
+ FetchContent_GetProperties(antlr)
+diff --git i/src/translator/grammar/CMakeLists.txt w/src/translator/grammar/CMakeLists.txt
+index 1af0285..5ab5a80 100644
+--- i/src/translator/grammar/CMakeLists.txt
++++ w/src/translator/grammar/CMakeLists.txt
+@@ -8,8 +8,7 @@ else()
+   include(FetchContent)
+   set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
+   FetchContent_Declare(kgt
+-    GIT_REPOSITORY https://github.com/ArthurSonzogni/kgt
+-    GIT_TAG 56c3f46cf286051096d9295118c048219fe0d776
++    SOURCE_DIR @kgt_src@
+     )
+   FetchContent_GetProperties(kgt)
+   FetchContent_Populate(kgt)
+diff --git i/tools/CMakeLists.txt w/tools/CMakeLists.txt
+index 4724c28..f36960c 100644
+--- i/tools/CMakeLists.txt
++++ w/tools/CMakeLists.txt
+@@ -33,7 +33,7 @@ function(ANTLR source)
+     COMMAND
+     java
+     ARGS
+-    -jar ${CMAKE_BINARY_DIR}/antlr.jar
++    -jar @antlr_jar@
+     -Dlanguage=Cpp
+     -no-listener
+     -no-visitor

@@ -184,6 +184,7 @@ lib.makeScope newScope (
     stagit-gemini-milotier = callPackage ./gemini/stagit-gemini/milotier.nix { };
     stagit-gemini-sloum = callPackage ./gemini/stagit-gemini/sloum.nix { };
     tom = callPackage ./gemini/tom { };
+    tootik = callPackage ./gemini/tootik { };
 
     ### GEOSPATIAL
 
@@ -339,6 +340,7 @@ lib.makeScope newScope (
     complgen = callPackage ./misc/complgen { };
     csv2html = callPackage ./misc/csv2html { };
     csvtools = callPackage ./misc/csvtools { };
+    diagon = callPackage ./misc/diagon { };
     dns-filter = callPackage ./misc/dns-filter { };
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
     docx2csv = callPackage ./misc/docx2csv { };
