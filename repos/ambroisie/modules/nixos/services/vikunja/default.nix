@@ -109,7 +109,7 @@ in
       ensureUsers = [
         {
           name = "vikunja";
-          ensurePermissions = { "DATABASE vikunja" = "ALL PRIVILEGES"; };
+          ensureDBOwnership = true;
         }
       ];
     };

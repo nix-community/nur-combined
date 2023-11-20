@@ -65,6 +65,7 @@ in
         database = {
           type = "postgres"; # Automatic setup
           user = "git"; # User needs to be the same as gitea user
+          name = "git"; # Name must be the same as user for `ensureDBOwnership`
         };
 
         # NixOS module uses `gitea dump` to backup repositories and the database,

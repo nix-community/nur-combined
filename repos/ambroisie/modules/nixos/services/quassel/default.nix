@@ -39,7 +39,7 @@ in
       ensureUsers = [
         {
           name = "quassel";
-          ensurePermissions."DATABASE quassel" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
       ];
       # Insecure, I don't care.

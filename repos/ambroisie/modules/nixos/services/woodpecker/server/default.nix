@@ -48,9 +48,7 @@ in
       ensureDatabases = [ "woodpecker" ];
       ensureUsers = [{
         name = "woodpecker";
-        ensurePermissions = {
-          "DATABASE woodpecker" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }];
     };
 

@@ -65,7 +65,7 @@ in
       ensureUsers = [
         {
           name = "tandoor_recipes";
-          ensurePermissions."DATABASE tandoor_recipes" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
       ];
     };
