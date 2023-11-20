@@ -29,7 +29,15 @@ jobs:
             extra-platforms = i686-linux aarch64-linux arm-linux
       - name: Build nix packages
         run: |
+          echo > secrets.toml <<EOF
+          [keys]
+          github = "${{ secrets.GITHUB_TOKEN }}"
+          EOF
+
           nix run .#update
+
+          rm -f secrets.toml
+
       - name: Commit back to repository
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

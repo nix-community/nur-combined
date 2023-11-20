@@ -42,7 +42,7 @@
         inherit (pkgs) system;
         inherit (pkgs.callPackage ./helpers/flatten-pkgs.nix {}) flattenPkgs;
 
-        isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or p.meta.license.redistributable or true;
+        isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
         outputsOf = p: map (o: p.${o}) p.outputs;
       in rec {
         packages = import ./pkgs null {
@@ -84,7 +84,9 @@
 
             nvfetcher = ''
               set -euo pipefail
-              [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="-k $HOME/Secrets/nvfetcher.toml" || KEY_FLAG=""
+              KEY_FLAG=""
+              [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
+              [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
               export PATH=${pkgs.nix-prefetch-scripts}/bin:$PATH
               ${inputs.nvfetcher.packages."${system}".default}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
               ${readme}
