@@ -8,7 +8,6 @@ let
   serviceConfig = {
     Type = "simple";
     User = "minecraft";
-    WorkingDirectory = cfg.pluginsDir;
   };
 
   bukkitPlugin = import ./bukkit-plugin.nix {
@@ -129,6 +128,9 @@ in {
           # delete all symlinked jars before and after every start
           # to make sure no disabled plugins will be loaded
           RemainAfterExit = true;
+          ExecStartPre = ''
+            ${pkgs.coreutils}/bin/mkdir -p ${cfg.pluginsDir}
+          '';
           ExecStart = "${deletePluginJars}/bin/deletePluginJars";
           ExecStop = "${deletePluginJars}/bin/deletePluginJars";
         } // serviceConfig;

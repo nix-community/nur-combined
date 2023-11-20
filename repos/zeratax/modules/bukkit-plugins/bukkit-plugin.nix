@@ -1,9 +1,9 @@
-{ systemConfig, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 with lib;
 types.submodule ({ config, ... }:
   let settingsFormat = pkgs.formats.yaml { };
   in {
-    options = rec {
+    options = {
       package = mkOption {
         type = types.nullOr types.package;
         example = "pkgs.bukkit-plugins.harbor";
@@ -12,7 +12,7 @@ types.submodule ({ config, ... }:
         '';
       };
 
-      settings = mkOption rec {
+      settings = mkOption {
         type = types.attrsOf settingsFormat.type;
         default = null;
         example = literalExample ''
