@@ -583,10 +583,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.9";
+      version = "7.5.10";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4191288/betterttv-7.5.9.xpi";
-      sha256 = "e261fd00a12aec6a6af640b0dadf43add7c2da64e759f6eeb307bfdc7f1ced29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4195663/betterttv-7.5.10.xpi";
+      sha256 = "00d390c9ad3855ad1ea12ec59afe2ca36286679d28478f20ad4aeb6d7161f376";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1545,10 +1545,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "120.0.20231116.134553";
+      version = "121.0.20231120.154937";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195997/deutsch_de_language_pack-120.0.20231116.134553.xpi";
-      sha256 = "eeb29cd87d20f30bffdce3e908e14c82fc5d676c261aa20665b004e240e7274c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197712/deutsch_de_language_pack-121.0.20231120.154937.xpi";
+      sha256 = "5413d9005b049c158cf7e0733cf6164b5359255f0d8f3b4ca73b9d45cf3e8e68";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1752,10 +1752,10 @@
       };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
-      version = "5.33.0";
+      version = "5.35.0";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4174443/ebates-5.33.0.xpi";
-      sha256 = "b52e10f622f8ba5f444728bff09e78e29fdc554a2bc09f20f853f7f6c39986b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4195482/ebates-5.35.0.xpi";
+      sha256 = "6bc8580b0c79269633a1e8d06d0c2c1ecaf00727762c9946b005d9a3b2db62cc";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -1976,10 +1976,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.1";
+      version = "1.2.2";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4196978/faststream-1.2.1.xpi";
-      sha256 = "7565d78e76efb3e2dd902ec60b08e846b69f81fa9dc564f3449a0d716d20c674";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197929/faststream-1.2.2.xpi";
+      sha256 = "26a7dc17b1fb5c90559cf5edf513fb4d2acb5677ca7e833a5ad75e6736fe87dd";
       meta = with lib;
       {
         description = "Stream without buffering, a great video player and download accelerator all in one.";
@@ -2384,10 +2384,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "120.0.20231116.134553";
+      version = "121.0.20231120.154937";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195952/francais_language_pack-120.0.20231116.134553.xpi";
-      sha256 = "4a86207419c12ee1d66b9dfab3f726518730ec6d4d8c5bc3c47ba6a8c6d7cf99";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197670/francais_language_pack-121.0.20231120.154937.xpi";
+      sha256 = "dcf55ff2571964a3a10da807be1aa113b52e3b81d3117eb6deb2349d000b1d37";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4216,10 +4216,10 @@
       };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.0.0";
+      version = "3.1.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4190860/indie_wiki_buddy-3.0.0.xpi";
-      sha256 = "a281e0e41ab604ba0882a3d052f4757844510a1cf9de7ca45a1866504f754a10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4195880/indie_wiki_buddy-3.1.0.xpi";
+      sha256 = "555359264475342463a8dfbed4597cfed231e55488ac4618ad1c660bab064ac4";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -5275,10 +5275,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.12.8";
+      version = "2.12.9";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4194894/momentumdash-2.12.8.xpi";
-      sha256 = "9d67c81c894f9cda63d17b79750d6cd285a37ece1e2d9308c9f771e08e498cc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4195245/momentumdash-2.12.9.xpi";
+      sha256 = "21a7514c6233e8cc290a41287d0e416483d2f1ae96e0b2495b84121ead57000d";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -6778,10 +6778,10 @@
       };
     "protondb-for-steam" = buildFirefoxXpiAddon {
       pname = "protondb-for-steam";
-      version = "2.0.0";
+      version = "2.1.0";
       addonId = "{30280527-c46c-4e03-bb16-2e3ed94fa57c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4190776/protondb_for_steam-2.0.0.xpi";
-      sha256 = "932ee87ba2d3663e927b3158a18ca18c9e5372ec76f3210679689a8391e25877";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4195217/protondb_for_steam-2.1.0.xpi";
+      sha256 = "3ed7824503a3184450326b09a71d086c2bdfce04d6384ca3b02f0cf800db5852";
       meta = with lib;
       {
         homepage = "https://github.com/tryton-vanmeer/ProtonDB-for-Steam#protondb-for-steam";
@@ -6791,6 +6791,8 @@
           "https://www.protondb.com/*"
           "https://store.steampowered.com/app/*"
           "https://store.steampowered.com/wishlist/*"
+          "https://steamcommunity.com/id/*/games"
+          "https://steamcommunity.com/id/*/games?tab=*"
           ];
         platforms = platforms.all;
         };
@@ -7285,10 +7287,10 @@
       };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "11.1.4";
+      version = "11.1.5";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4174467/sidebartabs-11.1.4.xpi";
-      sha256 = "0083aff26e53ad5f400a368a40402a72e37f5be3af7c99c54679763f43eb1e60";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197896/sidebartabs-11.1.5.xpi";
+      sha256 = "65d8853da174673122860ab676b0456f60ce59842887bb6467319b503e452965";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
