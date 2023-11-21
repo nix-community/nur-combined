@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+fetch() {
+	test -f keyfile.toml && keyfile="-k keyfile.toml"
+	nvfetcher "$keyfile" -c "$1/nvfetcher.toml" -o "$1"/_sources -t
+}
+
+fetch_vim() {
+	cd pkgs/vimPlugins || exit
+	niv update
+	chmod +x update_list.py && ./update_list.py
+	cd ../..
+}
+
+fetch_node() {
+	cd pkgs/nodePackages/_node2nix || exit
+	node2nix -i node-packages.json
+	cd ../../..
+}
+
+fetch_firefox() {
+	mozilla-addons-to-nix pkgs/firefoxAddons/addons.json pkgs/firefoxAddons/_generated.nix
+}
+
+if [ "$#" -eq 0 ]; then
+	pkgs=$(find . -name nvfetcher.toml)
+	for pkg in ${pkgs}; do
+		fetch "$(dirname "$pkg")"
+	done
+	fetch_vim
+	fetch_node
+	fetch_firefox
+else
+	for pkg in "$@"; do
+		case "$pkg" in
+		vim) fetch_vim ;;
+		node) fetch_node ;;
+		firefox) fetch_firefox ;;
+		*) fetch "$pkg" ;;
+		esac
+	done
+fi

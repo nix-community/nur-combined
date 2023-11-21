@@ -1,0 +1,4 @@
+[fennel-language-server]
+src.git = "https://github.com/rydesun/fennel-language-server"
+fetch.github = "rydesun/fennel-language-server"
+cargo_locks = ["Cargo.lock"]

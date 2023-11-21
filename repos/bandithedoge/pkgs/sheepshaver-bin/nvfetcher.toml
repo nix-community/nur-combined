@@ -1,0 +1,3 @@
+[sheepshaver-bin]
+src.github_tag = "Korkman/macemu-appimage-builder"
+fetch.url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/$ver/SheepShaver-x86_64.AppImage"

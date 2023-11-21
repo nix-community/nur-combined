@@ -1,0 +1,22 @@
+{
+  "keepmenu": {
+    "cargoLocks": null,
+    "date": "2023-09-09",
+    "extract": null,
+    "name": "keepmenu",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "firecat53",
+      "repo": "keepmenu",
+      "rev": "3524c763dbd211a790a0b90d6c86d3e316191ce7",
+      "sha256": "sha256-OsUPff34d1OIb6cY+Ma4Nbh1w63RLA3mgqjrlQdFJw0=",
+      "type": "github"
+    },
+    "version": "3524c763dbd211a790a0b90d6c86d3e316191ce7"
+  }
+}

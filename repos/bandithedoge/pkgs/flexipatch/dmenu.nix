@@ -1,6 +1,7 @@
 {
   pkgs,
   sources,
+  ...
 }: let
   source = sources.dmenu-flexipatch;
 in

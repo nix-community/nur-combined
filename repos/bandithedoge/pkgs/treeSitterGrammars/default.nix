@@ -1,6 +1,7 @@
 {
   pkgs,
   sources,
+  ...
 }: let
   buildGrammar = language:
     pkgs.tree-sitter.buildGrammar {

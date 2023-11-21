@@ -1,0 +1,22 @@
+{
+  "dpf-plugins": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "dpf-plugins",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "DISTRHO",
+      "repo": "DPF-Plugins",
+      "rev": "v1.7",
+      "sha256": "sha256-768DlGZrD2vNoHAuVh3SxQHCIT4l44qORGWajo4bTiA=",
+      "type": "github"
+    },
+    "version": "v1.7"
+  }
+}

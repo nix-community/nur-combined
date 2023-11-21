@@ -1,7 +1,8 @@
 {
   pkgs,
   sources,
-}: rec {
+  ...
+}: {
   lua-dbus_proxy = pkgs.luaPackages.buildLuarocksPackage rec {
     inherit (sources.lua-dbus_proxy) src pname version;
 

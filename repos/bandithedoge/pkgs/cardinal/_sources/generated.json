@@ -1,0 +1,22 @@
+{
+  "cardinal": {
+    "cargoLocks": null,
+    "date": "2023-11-07",
+    "extract": null,
+    "name": "cardinal",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "DISTRHO",
+      "repo": "Cardinal",
+      "rev": "f47d336e5ab8639418d774429dde54be302e9ee7",
+      "sha256": "sha256-yJMRtKUhqv6bCK8vrrPH1DhR8c85cnWj3bH+cIqENpY=",
+      "type": "github"
+    },
+    "version": "f47d336e5ab8639418d774429dde54be302e9ee7"
+  }
+}

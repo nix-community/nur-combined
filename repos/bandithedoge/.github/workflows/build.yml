@@ -42,29 +42,13 @@ jobs:
           extraPullNames: berberman
 
       - name: Update sources
-        run: |
-          nix flake update
-          echo -e '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
-          nix run "github:berberman/nvfetcher" -- -k keyfile.toml -l CHANGELOG -t
-          rm keyfile.toml
-
-      - name: Update vim plugins
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd pkgs/vimPlugins/
-          nix run "nixpkgs#niv" -- update
-          chmod +x update_list.py && ./update_list.py
-
-      - name: Update Node packages
-        run: |
-          cd pkgs/nodePackages/node2nix
-          nix run "nixpkgs#node2nix" -- -i node-packages.json
-
-      - name: Update Firefox addons
-        run: |
-          cd pkgs/firefoxAddons
-          nix run "sourcehut:~rycee/mozilla-addons-to-nix" -- addons.json generated.nix
+          nix flake update
+          echo -e '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
+          nix develop -c ./fetch
+          rm keyfile.toml
 
       - name: Format code
         run: nix fmt

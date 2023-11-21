@@ -1,0 +1,3 @@
+[keepmenu]
+src.git = "https://github.com/firecat53/keepmenu"
+fetch.github = "firecat53/keepmenu"

@@ -1,0 +1,7 @@
+[zmusic]
+src.github = "ZDoom/ZMusic"
+fetch.github = "ZDoom/ZMusic"
+
+[raze]
+src.github = "ZDoom/Raze"
+fetch.github = "ZDoom/Raze"

@@ -1,0 +1,82 @@
+{
+  "dmenu-flexipatch": {
+    "cargoLocks": null,
+    "date": "2023-10-02",
+    "extract": null,
+    "name": "dmenu-flexipatch",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "bakkeby",
+      "repo": "dmenu-flexipatch",
+      "rev": "6bd3860e4b84c7e2701ca3ab86d9c11355c47ebc",
+      "sha256": "sha256-ZNe3RNxj/riRQw0mQ0OcWRKq4TzyumIUWT6uZxCOJI8=",
+      "type": "github"
+    },
+    "version": "6bd3860e4b84c7e2701ca3ab86d9c11355c47ebc"
+  },
+  "dwm-flexipatch": {
+    "cargoLocks": null,
+    "date": "2023-11-13",
+    "extract": null,
+    "name": "dwm-flexipatch",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "bakkeby",
+      "repo": "dwm-flexipatch",
+      "rev": "03ede82d5c50da757823f0d33d86de2e86953ece",
+      "sha256": "sha256-scwt+JLETw8TkbxFzIIbKJ0VL8LzFir91OWx0nz3Pp0=",
+      "type": "github"
+    },
+    "version": "03ede82d5c50da757823f0d33d86de2e86953ece"
+  },
+  "slock-flexipatch": {
+    "cargoLocks": null,
+    "date": "2023-10-06",
+    "extract": null,
+    "name": "slock-flexipatch",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "bakkeby",
+      "repo": "slock-flexipatch",
+      "rev": "316de8856f9f25685f6f1c4e94dbf76e4f64c06b",
+      "sha256": "sha256-jsAfkd2Xtzp4zKwY0bExPhVtcs+OeBdGJA29SPC04jk=",
+      "type": "github"
+    },
+    "version": "316de8856f9f25685f6f1c4e94dbf76e4f64c06b"
+  },
+  "st-flexipatch": {
+    "cargoLocks": null,
+    "date": "2023-10-08",
+    "extract": null,
+    "name": "st-flexipatch",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "bakkeby",
+      "repo": "st-flexipatch",
+      "rev": "1af2184c87b929a84828eab2f1f0c4f810ef17dc",
+      "sha256": "sha256-2j/ISaaw5VNQxOo/dZfy7U5YLsZAEyI609ufyOb4ZZA=",
+      "type": "github"
+    },
+    "version": "1af2184c87b929a84828eab2f1f0c4f810ef17dc"
+  }
+}

@@ -1,8 +1,7 @@
-{
-  pkgs ? import <nixpkgs> {},
-  sources ? import ./nix/sources.nix,
-}:
-pkgs.lib.makeExtensible (_:
+{pkgs, ...}: let
+  sources = import ./nix/_sources.nix;
+in
+  (pkgs.lib.makeExtensible (_:
     pkgs.lib.attrsets.mapAttrs'
     (name: src: let
       sanitizedName =
@@ -17,4 +16,5 @@ pkgs.lib.makeExtensible (_:
         version = src.rev;
         inherit src;
       }))
-    sources)
+    sources))
+  .extend (import ./_overrides.nix {inherit pkgs;})

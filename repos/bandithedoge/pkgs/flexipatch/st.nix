@@ -1,6 +1,7 @@
 {
   pkgs,
   sources,
+  ...
 }:
 pkgs.stdenv.mkDerivation rec {
   inherit (sources.st-flexipatch) src pname;

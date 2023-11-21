@@ -1,0 +1,22 @@
+{
+  "kiwmi": {
+    "cargoLocks": null,
+    "date": "2022-07-30",
+    "extract": null,
+    "name": "kiwmi",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "buffet",
+      "repo": "kiwmi",
+      "rev": "17814972abe6a8811a586fa87c99a2b16a86075f",
+      "sha256": "sha256-n9PA6cyEjSlnDcRrqIkO83UaCE/hovbi/oZon1B+nuw=",
+      "type": "github"
+    },
+    "version": "17814972abe6a8811a586fa87c99a2b16a86075f"
+  }
+}

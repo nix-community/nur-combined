@@ -1,0 +1,19 @@
+[zix-git]
+src.git = "https://github.com/drobilla/zix"
+fetch.github = "drobilla/zix"
+
+[carla-git]
+src.git = "https://github.com/falkTX/Carla"
+fetch.github = "falkTX/Carla"
+
+[gtk-4_13_0]
+src.manual = "4.13.0"
+fetch.github = "GNOME/gtk"
+
+[libadwaita-1_4]
+src.manual = "1.4.rc"
+fetch.github = "GNOME/libadwaita"
+
+[zrythm]
+src.git = "https://git.sr.ht/~alextee/zrythm"
+fetch.git = "https://git.sr.ht/~alextee/zrythm"

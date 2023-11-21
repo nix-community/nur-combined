@@ -1,0 +1,4 @@
+[ildaeil]
+src.git = "https://github.com/DISTRHO/Ildaeil"
+fetch.github = "DISTRHO/Ildaeil"
+git.fetchSubmodules = true

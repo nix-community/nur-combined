@@ -1,0 +1,22 @@
+{
+  "luakit": {
+    "cargoLocks": null,
+    "date": "2023-08-03",
+    "extract": null,
+    "name": "luakit",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "luakit",
+      "repo": "luakit",
+      "rev": "b143b383cc80d51825e2b609a03bfd64d0e99a22",
+      "sha256": "sha256-HkDWng+XdyN3LkX3ejSVqJKZJpe9qgabNqTN1d7ryng=",
+      "type": "github"
+    },
+    "version": "b143b383cc80d51825e2b609a03bfd64d0e99a22"
+  }
+}

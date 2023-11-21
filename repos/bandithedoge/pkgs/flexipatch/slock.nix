@@ -1,6 +1,7 @@
 {
   pkgs,
   sources,
+  ...
 }:
 pkgs.stdenv.mkDerivation {
   inherit (sources.slock-flexipatch) pname src;

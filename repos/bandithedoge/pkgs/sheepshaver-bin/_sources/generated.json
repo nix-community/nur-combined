@@ -1,0 +1,17 @@
+{
+  "sheepshaver-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "sheepshaver-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-m1Na+NFKijmAiLjK6RXCmG2FtG/7yEiYsTckRS8Y6PQ=",
+      "type": "url",
+      "url": "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-11-11/SheepShaver-x86_64.AppImage"
+    },
+    "version": "2023-11-11"
+  }
+}

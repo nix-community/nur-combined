@@ -1,0 +1,42 @@
+{
+  "raze": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "raze",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "ZDoom",
+      "repo": "Raze",
+      "rev": "1.8.1",
+      "sha256": "sha256-H87dyfevWmrVA6YlJ/e8aqZPV5bvDRaBz0FCzsmUvns=",
+      "type": "github"
+    },
+    "version": "1.8.1"
+  },
+  "zmusic": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "zmusic",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "ZDoom",
+      "repo": "ZMusic",
+      "rev": "1.1.3",
+      "sha256": "sha256-wrNWfTIbNU/S2qFObUSkb6qyaceh+Y7Loxqudl86+W4=",
+      "type": "github"
+    },
+    "version": "1.1.3"
+  }
+}

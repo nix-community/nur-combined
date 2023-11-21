@@ -1,0 +1,4 @@
+[cardinal]
+src.git = "https://github.com/DISTRHO/Cardinal"
+fetch.github = "DISTRHO/Cardinal"
+git.fetchSubmodules = true

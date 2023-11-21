@@ -31,7 +31,7 @@
       '';
     });
 in
-  import ./generated.nix {
+  import ./_generated.nix {
     inherit buildFirefoxXpiAddon;
     inherit (pkgs) fetchurl lib stdenv;
   }

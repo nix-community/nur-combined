@@ -1,6 +1,7 @@
 {
   pkgs,
   sources,
+  ...
 }:
 pkgs.stdenv.mkDerivation {
   inherit (sources.dwm-flexipatch) src pname;

@@ -1,0 +1,11 @@
+[xmonad-entryhelper]
+src.git = "https://github.com/Javran/xmonad-entryhelper"
+fetch.github = "Javran/xmonad-entryhelper"
+
+[taffybar]
+src.git = "https://github.com/taffybar/taffybar"
+fetch.github = "taffybar/taffybar"
+
+[kmonad]
+src.git = "https://github.com/kmonad/kmonad"
+fetch.github = "kmonad/kmonad"

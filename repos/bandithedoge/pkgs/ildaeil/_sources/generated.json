@@ -1,0 +1,22 @@
+{
+  "ildaeil": {
+    "cargoLocks": null,
+    "date": "2023-10-07",
+    "extract": null,
+    "name": "ildaeil",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "DISTRHO",
+      "repo": "Ildaeil",
+      "rev": "0044a9cca7435953d746ccbfaad27aa98e590d96",
+      "sha256": "sha256-A+2qLqGST/ZSll6Y5GTIj7dLNGQ4/966/5kiNJyi9uY=",
+      "type": "github"
+    },
+    "version": "0044a9cca7435953d746ccbfaad27aa98e590d96"
+  }
+}

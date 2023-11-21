@@ -1,9 +1,7 @@
 {
-  pkgs ? import <nixpkgs> {},
-  sources ?
-    import ../../_sources/generated.nix {
-      inherit (pkgs) fetchurl fetchgit fetchFromGitHub;
-    },
+  pkgs,
+  sources,
+  ...
 }: let
   callHaskellPackage = pkg: {
     compiler ? "ghc902",
@@ -13,7 +11,7 @@
   }:
     (pkgs.haskell.packages.${compiler}.callPackage pkg cabal2nixAttrs).overrideAttrs (oldAttrs: (
       let
-        source = sources.${pkgs.lib.removeSuffix ".nix" (builtins.baseNameOf pkg)};
+        source = sources.${pkgs.lib.removeSuffix ".nix" (pkgs.lib.removePrefix "_" (builtins.baseNameOf pkg))};
       in
         {
           inherit (source) pname src;
@@ -25,7 +23,7 @@
         // attrs
     ));
 in {
-  taffybar = callHaskellPackage ./taffybar.nix rec {
+  taffybar = callHaskellPackage ./_taffybar.nix rec {
     compiler = "ghc92";
     cabal2nixAttrs = {
       gi-gtk-hs = pkgs.haskell.lib.dontHaddock pkgs.haskell.packages.${compiler}.gi-gtk-hs;
@@ -59,9 +57,9 @@ in {
     };
   };
 
-  xmonad-entryhelper = callHaskellPackage ./xmonad-entryhelper.nix {};
+  xmonad-entryhelper = callHaskellPackage ./_xmonad-entryhelper.nix {};
 
-  kmonad = callHaskellPackage ./kmonad.nix {
+  kmonad = callHaskellPackage ./_kmonad.nix {
     compiler = "ghc92";
     attrs = {
       nativeBuildInputs = with pkgs; [

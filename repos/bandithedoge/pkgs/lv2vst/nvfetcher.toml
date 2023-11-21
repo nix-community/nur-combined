@@ -1,0 +1,3 @@
+[lv2vst]
+src.git = "https://github.com/x42/lv2vst"
+fetch.github = "x42/lv2vst"
