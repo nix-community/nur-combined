@@ -30,11 +30,6 @@ in [
     hash = "sha256-jw12uh6Tfyu2lp37YFMg8XLOoe5D1pez66whYwr6l3I=";
   })
   (fetchpatch' {
-    title = "libaom: fix cross";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/266257";
-    hash = "sha256-9VQcM/9gptTz2BCwvSbxrDuHVN69cL77NzHexudqAiM=";
-  })
-  (fetchpatch' {
     title = "gcr: remove build gnupg from runtime closure";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263158";
     saneCommit = "8c71ab22c6df4e5ce290e131a7769688b0c5a017";
@@ -320,12 +315,6 @@ in [
     title = "blueman: support cross compilation";
     saneCommit = "e070195bdf213dffb0164574397b6a7417f81c9e";
     hash = "sha256-6JnIJCVBbV4tmFinX7Qv2wO2AThrgxrnyb9T4Ov6p5w=";
-  })
-  (fetchpatch' {
-    title = "tracker-miners: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/267609";
-    saneCommit = "24b062309ea8baa2d8303c0610c9ec7b8c399e8b";
-    hash = "sha256-wsC9hYTD/QLiR8vH/3z2yCVWruTcL5S1VtRsDgA6mrE=";
   })
   # (fetchpatch' {
   #   # 2023/11/14: deps don't cross compile (e.g. pipewire; qtsvg)

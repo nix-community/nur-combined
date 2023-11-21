@@ -8,6 +8,7 @@
   ];
   services.gitea.enable = true;
   services.gitea.user = "git";  # default is 'gitea'
+  services.gitea.database.createDatabase = false;  #< silence warning which wants db user and name to be equal
   services.gitea.database.type = "postgres";
   services.gitea.database.user = "git";
   services.gitea.appName = "Perfectly Sane Git";
