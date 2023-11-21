@@ -14,13 +14,13 @@ rec {
       { };
 
     type = with lib.types; let
-      plistAtom = nullOr oneOf [
+      plistAtom = nullOr (oneOf [
         bool
         int
         float
         str
         path
-      ];
+      ]);
       valueType =
         (oneOf [
           (attrsOf (oneOf [ plistAtom valueType ]))
