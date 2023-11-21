@@ -11,17 +11,15 @@
 }:
 stdenv.mkDerivation {
   pname = "chawan";
-  version = "unstable-2023-11-01";
+  version = "unstable-2023-11-21";
   src = fetchFromSourcehut {
     owner = "~bptato";
     repo = "chawan";
-    rev = "cc02a6c30af164f087e07f546f4177d0b9cf3bcb";
-    hash = "sha256-QxlPnNOlaQcgLpyFOQW5WC2v4Lxn7nT8xTiFmaS5vmU=";
+    rev = "7762995c3e153a4ddc99c51167df05f57ea7f463";
+    hash = "sha256-Ad2+whCPaCJV2pbeQ4jeCYlYjFRfsk302y6l7SmeQAY=";
     domain = "sr.ht";
     fetchSubmodules = true;
   };
-
-  enableParallelBuilding = true;
 
   nativeBuildInputs = [
     pkg-config
@@ -29,22 +27,22 @@ stdenv.mkDerivation {
     pandoc
   ];
 
-  buildInputs = [zlib] ++ (with curl; [out dev]);
+  buildInputs = [
+    zlib
+    curl
+  ];
 
-  buildPhase = ''
-    runHook preBuild
-    make -j"$NIX_BUILD_CORES" release
-    runHook postBuild
-  '';
-
-  preInstall = ''
-    make manpage
-  '';
+  buildFlags = [
+    "release"
+    "manpage"
+  ];
 
   makeFlags = [
     "prefix=${builtins.placeholder "out"}"
     "manprefix=${builtins.placeholder "out"}/share/man"
   ];
+
+  enableParallelBuilding = true;
 
   passthru.updateScript = writeScript "update-chawan" ''
     #!/usr/bin/env nix-shell
