@@ -17,6 +17,8 @@
   moon-buggy = pkgs.callPackage ./pkgs/moon-buggy { };
   pastebinit = pkgs.callPackage ./pkgs/pastebinit { };
 
+  alfred = pkgs.callPackage ./pkgs/alfred { };
+
   buildFirefoxExtension = pkgs.callPackage ./pkgs/build-firefox-extension { };
   firefoxExtensionHooks = pkgs.callPackage ./pkgs/build-firefox-extension/hooks { };
 }
