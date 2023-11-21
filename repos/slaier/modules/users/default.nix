@@ -3,8 +3,13 @@ let
   publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKAUdxAZHd02htr4UkdmKgZDZqSA15G49rzkTypDNA7P";
 in
 {
+  users.mutableUsers = false;
+  sops.secrets.user_nixos_passwd = {
+    neededForUsers = true;
+  };
   users.users.nixos = {
     isNormalUser = true;
+    passwordFile = config.sops.secrets.user_nixos_passwd.path;
     extraGroups = [
       "adbusers"
       "aria2"

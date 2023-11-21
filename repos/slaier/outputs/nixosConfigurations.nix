@@ -4,6 +4,7 @@ flip mapAttrs super.hosts (hostName: host:
 nixosSystem {
   modules = with inputs; [
     darkmatter-grub-theme.nixosModule
+    disko.nixosModules.disko
     home-manager.nixosModules.home-manager
     impermanence.nixosModules.impermanence
     nur.nixosModules.nur

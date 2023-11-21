@@ -5,6 +5,7 @@ _:
   imports =
     [
       (modulesPath + "/installer/scan/not-detected.nix")
+      ./disko.nix
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
@@ -17,27 +18,8 @@ _:
   boot.kernelParams = [
     "iommu=pt"
     "amdgpu.ppfeaturemask=0xfffd7fff"
+    "zswap.enabled=1"
   ];
-
-  fileSystems."/" =
-    {
-      device = "none";
-      fsType = "tmpfs";
-      options = [ "defaults" "size=4G" "mode=755" ];
-    };
-
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/82A2-5715";
-      fsType = "vfat";
-    };
-
-  fileSystems."/nix" =
-    {
-      device = "/dev/disk/by-uuid/6529aca8-b6ab-48bf-b6d1-6034b01a9830";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
 
   fileSystems."/data" =
     {
@@ -49,11 +31,14 @@ _:
 
   swapDevices = [ ];
 
-  environment.persistence."/nix/persist" = {
+  fileSystems."/persist".neededForBoot = true;
+  environment.persistence."/persist" = {
     directories = [
-      "/etc"
       "/var/lib"
-      "/var/log/journal"
+      "/var/log"
+    ];
+    files = [
+      "/etc/machine-id"
     ];
     users.nixos = {
       directories = [
