@@ -5,11 +5,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "wine-ge-custom";
-  version = "GE-Proton8-23";
+  version = "GE-Proton8-24";
 
   src = fetchurl {
     url = "https://github.com/GloriousEggroll/wine-ge-custom/releases/download/${version}/wine-lutris-${version}-x86_64.tar.xz";
-    hash = "sha256-ba5HDT2QKxc6TaGDyXh0D+sXJg+ZYC62sbZSkVjPxLs=";
+    hash = "sha256-mBPzRbJuH5+Xi0JnT8h1++fNusE4TgmbSQ9SEZRvVNE=";
   };
 
   buildCommand = ''
