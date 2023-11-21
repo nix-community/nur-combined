@@ -20,7 +20,7 @@
 
 in appimageTools.wrapAppImage {
   inherit pname version;
-  #name = pname;
+  name = pname;
   src = appimageContents;
 
   extraPkgs = { pkgs, ... }@args: [
@@ -29,7 +29,6 @@ in appimageTools.wrapAppImage {
 
   extraInstallCommands = ''
     # Add desktop convencience stuff
-    mv $out/bin/{${pname}-*,${pname}}
     install -Dm444 ${appimageContents}/todoist.desktop -t $out/share/applications
     install -Dm444 ${appimageContents}/todoist.png -t $out/share/pixmaps
     substituteInPlace $out/share/applications/todoist.desktop \
