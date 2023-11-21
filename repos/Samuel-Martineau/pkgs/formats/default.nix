@@ -6,7 +6,7 @@ rec {
       ({ runCommand, libplist }: runCommand name
         {
           nativeBuildInputs = [ libplist ];
-          value = builtins.toJSON value;
+          value = (builtins.toJSON value) + "       "; # plistutil requires the input string to be a minimum of 7 characters. See https://github.com/libimobiledevice/libplist/issues/238
           passAsFile = [ "value" ];
         } ''
         plistutil -f ${if binary then "bin" else "xml"} -i "$valuePath" -o "$out"
@@ -21,12 +21,13 @@ rec {
         str
         path
       ];
-      valueType = (oneOf [
-        (attrsOf plistAtom)
-        (listOf plistAtom)
-      ]) // {
-        description = "Property list value";
-      };
+      valueType =
+        (oneOf [
+          (attrsOf (oneOf [ plistAtom valueType ]))
+          (listOf (oneOf [ plistAtom valueType ]))
+        ]) // {
+          description = "Property list value";
+        };
     in
     valueType;
 
