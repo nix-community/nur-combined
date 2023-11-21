@@ -120,9 +120,19 @@ stdenv.mkDerivation rec {
 
     # TODO: send these upstream
     (fetchpatch {
+      # upstreaming: <https://lists.sr.ht/~mil/sxmo-devel/patches/46884>
+      name = "sys menu: include an entry for the WM menu";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/37fb62b9e1b22eb5c401fe383f2244161e23c8ca.patch";
+      hash = "sha256-oG1BuWRnUGGAef5oRLoWMFCFQhjD6VZ1ygrS/2oLEmc=";
+    })
+    (fetchpatch {
+      # upstreaming: <https://lists.sr.ht/~mil/sxmo-devel/patches/46886>
+      # didn't upstream gthumb because it's not mobile friendly.
+      # didn't upstream lemoa because it's immature.
+      # didn't upstream sublime-music/jellyfin because i don't use them.
       name = "sxmo_hook_apps: add a few";
-      url = "https://git.uninsane.org/colin/sxmo-utils/commit/dd17fd707871961906ed4577b8c89f6128c5f121.patch";
-      hash = "sha256-Giek1MbyOtlPccmT8XQkLZWhX+EeJdzWVZtNgcLuTsI=";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/b712e8e0491c0d8c19ac99720bc9a47d54ae134d.patch";
+      hash = "sha256-8AjKiAoQehwxrUOjmVjjfiVJZwDpZtxfsi3sfXR/zlI=";
     })
     (fetchpatch {
       # experimental patch to launch apps via `swaymsg exec -- `
