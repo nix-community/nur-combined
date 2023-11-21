@@ -1,7 +1,38 @@
 # discord gtk3 client
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.sane.programs.abaddon;
+in
 {
   sane.programs.abaddon = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.autostart = mkOption {
+          type = types.bool;
+          default = true;
+        };
+      };
+    };
+
+    package = pkgs.abaddon.overrideAttrs (upstream: {
+      patches = (upstream.patches or []) ++ [
+        (pkgs.fetchpatch {
+          url = "https://git.uninsane.org/colin/abaddon/commit/eb551f188d34679f75adcbc83cb8d5beb4d19fd6.patch";
+          name = ''"view members" default to false'';
+          hash = "sha256-9BX8iO86CU1lNrKS1G2BjDR+3IlV9bmhRNTsLrxChwQ=";
+        })
+        (pkgs.fetchpatch {
+          # this makes it so Abaddon reports its app_name in notifications.
+          # not 100% necessary; just a nice-to-have. maybe don't rely on it until it's merged upstream.
+          # upstream PR: <https://github.com/uowuo/abaddon/pull/247>
+          url = "https://git.uninsane.org/colin/abaddon/commit/18cd863fdbb5e6b1e9aaf9394dbd673d51839f30.patch";
+          name = "set glib application name";
+          hash = "sha256-IFYxf1D8hIsxgZehGd6hL3zJiBkPZfWGm+Faaa5ZFl4=";
+        })
+      ];
+    });
+
     fs.".config/abaddon/abaddon.ini".symlink.text = ''
       # see abaddon README.md for options.
       # at time of writing:
@@ -59,5 +90,16 @@
     persist.byStore.private = [
       ".cache/abaddon"
     ];
+
+    services.abaddon = {
+      description = "unofficial Discord chat client";
+      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/abaddon";
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "20s";
+      };
+    };
   };
 }
