@@ -17,6 +17,11 @@
   moon-buggy = pkgs.callPackage ./pkgs/moon-buggy { };
   pastebinit = pkgs.callPackage ./pkgs/pastebinit { };
 
+  formats = import ./pkgs/formats {
+    inherit pkgs;
+    inherit (pkgs) lib;
+  };
+
   alfred = pkgs.callPackage ./pkgs/alfred { };
 
   buildFirefoxExtension = pkgs.callPackage ./pkgs/build-firefox-extension { };
