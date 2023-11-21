@@ -1,6 +1,6 @@
 { lib, pkgs }:
 rec {
-  plist = {}: {
+  plist = { binary ? false }: {
 
     generate = name: value: pkgs.callPackage
       ({ runCommand, libplist }: runCommand name
@@ -9,12 +9,12 @@ rec {
           value = builtins.toJSON value;
           passAsFile = [ "value" ];
         } ''
-        plistutil -f xml -i "$valuePath" -o "$out"
+        plistutil -f ${if binary then "bin" else "xml"} -i "$valuePath" -o "$out"
       '')
       { };
 
     type = with lib.types; let
-      primitiveType = nullOr oneOf [
+      plistAtom = nullOr oneOf [
         bool
         int
         float
@@ -22,8 +22,8 @@ rec {
         path
       ];
       valueType = (oneOf [
-        (attrsOf primitiveType)
-        (listOf primitiveType)
+        (attrsOf plistAtom)
+        (listOf plistAtom)
       ]) // {
         description = "Property list value";
       };
