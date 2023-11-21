@@ -154,13 +154,18 @@ for_window [app_id="abaddon"] move container to workspace number 1
 
 ### displays
 ## DESKTOP
-output "Samsung Electric Company S22C300 0x00007F35" {
+output "Goldstar Company Ltd LG ULTRAWIDE 0x00004E94" {
   pos 0,0
+  res 3440x1440
+}
+output "Samsung Electric Company S22C300 0x00007F35" {
+  pos 3440,0
   res 1920x1080
 }
-output "Goldstar Company Ltd LG ULTRAWIDE 0x00004E94" {
-  pos 1920,0
-  res 3440x1440
+# projector
+output "MS Telematica TV 0x00000001" {
+  pos 5360,0
+  res 1920x1080
 }
 
 ## LAPTOP

@@ -67,6 +67,7 @@
     ./stepmania.nix
     ./sublime-music.nix
     ./supertuxkart.nix
+    ./sway-autoscaler
     ./swaynotificationcenter.nix
     ./tangram.nix
     ./tor-browser-bundle-bin.nix

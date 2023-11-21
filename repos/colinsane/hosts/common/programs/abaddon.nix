@@ -33,6 +33,8 @@ in
       ];
     });
 
+    suggestedPrograms = [ "gnome-keyring" ];
+
     fs.".config/abaddon/abaddon.ini".symlink.text = ''
       # see abaddon README.md for options.
       # at time of writing:

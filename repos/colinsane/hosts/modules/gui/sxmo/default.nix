@@ -236,6 +236,7 @@ in
             # SXMO_WM = mkSettingsOpt "sway" "sway or dwm. ordinarily initialized by sxmo_{x,w}init.sh";
             SXMO_NO_AUDIO = mkSettingsOpt "1" "don't start pipewire/pulseaudio in sxmo_hook_start.sh";
             SXMO_STATES = mkSettingsOpt "unlock screenoff" "list of states the device should support (unlock, lock, screenoff)";
+            SXMO_SWAY_SCALE = mkSettingsOpt "1" "sway output scale";
           };
       };
       default = {};
@@ -265,6 +266,7 @@ in
           "bemenu"  # specifically to import its theming
           "sfeed"      # want this here so that the user's ~/.sfeed/sfeedrc gets created
           # "superd"     # make superctl (used by sxmo) be on PATH
+          "sway-autoscaler"
         ];
 
         persist.byStore.cryptClearOnBoot = [
@@ -381,6 +383,8 @@ in
         };
 
         sane.programs.sxmoApps.enableFor.user.colin = true;
+
+        sane.programs.sway-autoscaler.config.defaultScale = builtins.fromJSON cfg.settings.SXMO_SWAY_SCALE;
 
         # sxmo internally uses doas instead of sudo
         security.doas.enable = true;

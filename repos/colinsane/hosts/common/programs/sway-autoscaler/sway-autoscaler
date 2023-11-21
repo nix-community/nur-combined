@@ -1,0 +1,87 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p jq -p sway -p util-linux
+
+help() {
+  echo "queries the focused window and apply an appropriate display-wide scale."
+  echo "this should be considered a temporary workaround until more apps support small displays."
+  echo ""
+  echo "args:"
+  echo "  -v | --verbose"
+  echo "  --loop-sec N:  re-compute the scale every N seconds. else, run once and exit."
+  echo ""
+  echo "environment variables:"
+  echo "  SWAY_DEFAULT_SCALE=N:  scale to apply when no known window is selected."
+  # TODO: could use map-style environment variables to allow external per-app config
+  # - SWAY_SCALE_org.gnome.Maps=1  ; ...
+}
+
+options=$(getopt -l h,loop-sec:,verbose -o h,v -- "" "${@}")
+eval "set -- ${options}"
+
+verbose=false
+loop=false
+loop_sec=
+while true; do
+  case "$1" in
+    (-h|--help)
+      shift
+      help
+      exit
+    ;;
+    (--loop-sec)
+      shift
+      loop=true
+      loop_sec="$1"
+      shift
+    ;;
+    (-v|--verbose)
+      shift
+      verbose=true
+    ;;
+    (--)
+      shift
+      if [ $# -eq 1 ]; then
+        break
+      fi
+    ;;
+    (*)
+      echo "invalid arguments: '$1'"
+      echo ""
+      help
+      exit 1
+    ;;
+  esac
+done
+
+autoscale() {
+  focused=$(swaymsg -t get_tree | jq --raw-output '.. | select(.type?) | select(.focused==true) | .app_id')
+  $verbose && echo "focused: '$focused'"
+
+  scale=${SWAY_DEFAULT_SCALE:-1}
+  case "$focused" in
+    (org.gnome.Maps)
+      # scale=1.6:         3 turns visible at once in landscape
+      # scale=1.25: max scale at which no text/menuitems are cutoff in vertical mode
+      #                    5 turns visible at once in landscape
+      # scale=1.2:  max of 6 turns visible at once in landscape
+      # scale=1.1:  max of 7 turns visible at once in landscape
+      # scale=1:    max of 8 turns visible at once in landscape
+      #
+      # as scale is increased past 1.1, vertical mode becomes substantially less usable
+      # as scale is decreased past 1.3, the whole desktop UI becomes less usable (keyboard, workspaces)
+      scale=1.2
+    ;;
+  esac
+
+  $verbose && echo "scaling to $scale"
+  swaymsg -q -- output '*' scale "$scale"
+}
+
+if $loop; then
+  while true; do
+    autoscale
+    sleep "$loop_sec"
+  done
+else
+  autoscale
+fi
