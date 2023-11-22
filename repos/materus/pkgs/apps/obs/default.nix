@@ -50,6 +50,10 @@
 , decklinkSupport ? false
 , blackmagic-desktop-video ? null
 , libcef
+, libdatachannel 
+, pkgs
+, qrcodegencpp ? pkgs.callPackage ./qrcodegencpp.nix {}
+, onevpl ? pkgs.callPackage ./onevpl.nix {}
 }:
 assert (!decklinkSupport || blackmagic-desktop-video!=null) || builtins.throw "decklinkSupport enabled but blackmagic-desktop-video is null";
 let
@@ -57,13 +61,12 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "obs-studio-amf";
-  version = "29.1.3";
-
+  version = "30.0.0";
   src = fetchFromGitHub {
     owner = "obsproject";
     repo = "obs-studio";
     rev = version;
-    sha256 = "sha256-D0DPueMtopwz5rLgM8QcPT7DgTKcJKQHnst69EY9V6Q=";
+    sha256 = "sha256-ce2qYtR+L8afT5qSoItltEbLtuPZQtWyS6PiN+UwATc=";
     fetchSubmodules = true;
   };
 
@@ -110,6 +113,9 @@ stdenv.mkDerivation rec {
     libva
     srt
     qtwayland
+    libdatachannel
+    qrcodegencpp
+    onevpl
   ]
   ++ optionals scriptingSupport [ luajit python3 ]
   ++ optional alsaSupport alsa-lib
@@ -143,7 +149,7 @@ stdenv.mkDerivation rec {
     ];
   in
   ''
-    #Remove libs from libcef, they are symlinks and can't be patchelfed
+    #Remove libs from libcef, they are symlinks and can't be patchelfed 
     rm $out/lib/obs-plugins/libcef.so $out/lib/obs-plugins/libEGL.so $out/lib/obs-plugins/libGLESv2.so $out/lib/obs-plugins/libvk_swiftshader.so
     
     #Suffix on libgl and vulkan-loader so it can be overriden by helper scripts from amdgpu-pro
