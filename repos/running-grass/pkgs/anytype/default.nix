@@ -33,7 +33,7 @@ appimageTools.wrapType2 {
   meta = with lib; {
     description = "P2P note-taking tool";
     homepage = "https://anytype.io/";
-    license = licenses.unfree;
+    # license = licenses.unfree;
     # maintainers = with maintainers; [ running-grass ];
     platforms = [ "x86_64-linux" ];
   };

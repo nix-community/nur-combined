@@ -7,7 +7,7 @@ let
     homepage = "https://www.getpostman.com";
     description = "API Development Environment";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.postman;
+    # license = licenses.postman;
     platforms = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
     maintainers = with maintainers; [ johnrichardrinehart evanjs tricktron Crafter ];
   };
