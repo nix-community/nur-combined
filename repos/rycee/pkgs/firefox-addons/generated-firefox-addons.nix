@@ -1976,10 +1976,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197929/faststream-1.2.2.xpi";
-      sha256 = "26a7dc17b1fb5c90559cf5edf513fb4d2acb5677ca7e833a5ad75e6736fe87dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198298/faststream-1.2.3.xpi";
+      sha256 = "21149a105fddfccdd6cc05b1c461f4fb1450da5df4434e1227a8c75fe79db777";
       meta = with lib;
       {
         description = "Stream without buffering, a great video player and download accelerator all in one.";
@@ -4788,10 +4788,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "7.1.13";
+      version = "8.2.2";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128570/languagetool-7.1.13.xpi";
-      sha256 = "e9002ae915c74ff2fe2f986e86a50b0b1617bcd852443e3d5b8e733e476c5808";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4196281/languagetool-8.2.2.xpi";
+      sha256 = "3a051ac8db56a31095d474179486b29e7df9d13d9023deeebb6398e37644e43b";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -5662,10 +5662,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.10.0";
+      version = "7.10.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4184612/octotree-7.10.0.xpi";
-      sha256 = "92aebff1f0f8604c84375691dd2e2f255940ce55d965a30cf4eb35d1434cf826";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4196301/octotree-7.10.3.xpi";
+      sha256 = "026e308196180b52359556c7a85f20ca1d5a1b10f6adecfa4472b8357f7c667e";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -8322,10 +8322,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.18";
+      version = "3.9.19";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4193133/tree_style_tab-3.9.18.xpi";
-      sha256 = "f0b235eedc858d327354e43505427581f1902c45158f08958f9fb4a323f2fab0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197314/tree_style_tab-3.9.19.xpi";
+      sha256 = "bb67f47a554f8f937f4176bee6144945eb0f240630b93f73d2cff49f0985b55a";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
