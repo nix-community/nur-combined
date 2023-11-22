@@ -39,7 +39,6 @@ packageSet = do
   gitPkgBranch "gnome-shell-mobile-shell" "https://gitlab.gnome.org/verdre/gnome-shell.git" "mobile-shell"
   gitPkgBranch "mutter-mobile-shell" "https://gitlab.gnome.org/verdre/mutter.git" "mobile-shell"
   fishPlugins
-  birdBabelRtt
   tgSend
   dotTar
   icalinguaPlusPlus
@@ -65,15 +64,6 @@ gitPkg name url = define $ package name `sourceGit` url `fetchGit` url
 
 gitPkgBranch :: Text -> Text -> Text -> PackageSet ()
 gitPkgBranch name url branch = define $ package name `sourceGit'` (url, branch) `fetchGit` url
-
-birdBabelRtt :: PackageSet ()
-birdBabelRtt =
-  define $
-    package "bird-babel-rtt"
-      `fromGitHubTag` ( "linyinfeng",
-                        "bird",
-                        includeRegex ?~ ".*-babel-rtt"
-                      )
 
 dotTar :: PackageSet ()
 dotTar =

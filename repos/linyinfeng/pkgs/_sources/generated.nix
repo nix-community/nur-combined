@@ -14,17 +14,6 @@
     };
     date = "2023-08-24";
   };
-  bird-babel-rtt = {
-    pname = "bird-babel-rtt";
-    version = "v2.13-babel-rtt";
-    src = fetchFromGitHub {
-      owner = "linyinfeng";
-      repo = "bird";
-      rev = "v2.13-babel-rtt";
-      fetchSubmodules = false;
-      sha256 = "sha256-e+HPBVHiZGMCpwz8iPQlIGRuDFydG83rpw1jFf1uavc=";
-    };
-  };
   cowrie = {
     pname = "cowrie";
     version = "v2.5.0";

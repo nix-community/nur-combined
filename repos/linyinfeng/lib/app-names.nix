@@ -15,13 +15,6 @@ let
     (trivial "activate-dpt")
     (trivial "aws-s3-reverse-proxy")
     (trivial "aws-sigv4-proxy")
-    {
-      "bird-babel-rtt" = {
-        "bird-babel-rtt" = "bird";
-        "birdc-babel-rtt" = "birdc";
-        "birdcl-babel-rtt" = "birdcl";
-      };
-    }
     (empty "canokey-udev-rules")
     (trivial "cf-terraforming")
     (trivial "cowrie")
