@@ -278,6 +278,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       gnumake-tokenpool = callPackage ./pkgs/python3/pkgs/gnumake-tokenpool { };
 
+      chromecontroller = callPackage ./pkgs/python3/chromecontroller/chromecontroller.nix { };
+
+      browser-debugger-tools = callPackage ./pkgs/python3/browser-debugger-tools/browser-debugger-tools.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -600,6 +604,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # this packages is called "fdkaac" on github, debian, archlinux, ...
   # the library is called "fdk_aac", so better rename that to "libfdk_aac"
   fdkaac = pkgs.fdk-aac-encoder;
+
+  cortile = callPackage ./pkgs/applications/window-managers/cortile/cortile.nix { };
+
+  ragnar = callPackage ./pkgs/applications/window-managers/ragnar/ragnar.nix { };
+
+  #wingo = callPackage ./pkgs/applications/window-managers/wingo/wingo.nix { };
 
 }
 
