@@ -30,7 +30,12 @@
     in
       pkgs.mkShell {
         packages = [
-          pkgs.nixpkgs-fmt
+          pkgs.nix-prefetch-github
+          pkgs.nix-prefetch
+          pkgs.wget
+          pkgs.jq
+          pkgs.pnpm-lock-export
+          pkgs.prefetch-yarn-deps
           pkgs.nur.repos.rycee.mozilla-addons-to-nix
         ];
       });
