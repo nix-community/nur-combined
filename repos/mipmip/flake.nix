@@ -36,39 +36,26 @@
   }:
 
   let
-    localOverlay = prev: final: {
-    };
 
     pkgsForSystem = system: import nixpkgs {
       overlays = [
-        localOverlay
+        (import ./overlays)
       ];
-
       inherit system;
       config.allowUnfree = true;
     };
 
     nixpkgs-inkscape13ForSystem = system: import nixpkgs-inkscape13 {
-      overlays = [
-        localOverlay
-      ];
-
       inherit system;
       config.allowUnfree = true;
     };
+
     unstableForSystem = system: import unstable {
-      overlays = [
-        localOverlay
-      ];
-
       inherit system;
       config.allowUnfree = true;
     };
-    gnome45ForSystem = system: import nixpkgs-gnome-45 {
-      overlays = [
-        localOverlay
-      ];
 
+    gnome45ForSystem = system: import nixpkgs-gnome-45 {
       inherit system;
       config.allowUnfree = true;
       config.allowUnsupportedSystem = true;
@@ -78,9 +65,6 @@
   in utils.lib.eachSystem [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ] (system: rec {
     legacyPackages = pkgsForSystem system;
   }) // {
-
-    overlays = import ./overlays;
-    overlay = localOverlay;
 
     /*
     DOT FILES
@@ -97,7 +81,6 @@
           isDesktop = true;
           tmuxPrefix = "a";
           unstable = unstableForSystem "x86_64-darwin";
-          inherit localOverlay;
         };
       };
 
@@ -113,7 +96,6 @@
           isDesktop = true;
           tmuxPrefix = "a";
           unstable = unstableForSystem "x86_64-linux";
-          inherit localOverlay;
         };
       };
 
@@ -128,7 +110,6 @@
           isDesktop = true;
           tmuxPrefix = "a";
           unstable = unstableForSystem "x86_64-linux";
-          inherit localOverlay;
         };
       };
 
@@ -143,7 +124,6 @@
           isDesktop = true;
           tmuxPrefix = "a";
           unstable = unstableForSystem "x86_64-linux";
-          inherit localOverlay;
         };
       };
     };

@@ -21,6 +21,7 @@
         ../resources/st/st-vertcenter-20180320-6ac8c8a.diff
         ../resources/st/st-blinking_cursor-0.8.4-custom2.diff
         ../resources/st/st-workingdir-20200317-51e19ea.diff
+        #../resources/st/st-suckless-sixel.diff
 
 
 #        (fetchpatch {

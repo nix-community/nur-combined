@@ -1,6 +1,13 @@
 {
 
   home.file = {
+    ".vifm" = {
+      source = ./.vifm;
+      recursive = true;
+    };
+  };
+
+  home.file = {
     ".ohmyzsh-pim" = {
       source = ./.ohmyzsh-pim;
       recursive = true;

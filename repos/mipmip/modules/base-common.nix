@@ -29,7 +29,7 @@
     apg
 
     # Markdown
-    glow
+    #glow
 
     #help
     cheat

@@ -9,6 +9,7 @@
     sessionVariables = {
       BROWSER = "firefox";
       EDITOR = "vim";
+      COLORTERM = "truecolor";
     };
 
     shellAliases = {
@@ -33,6 +34,8 @@
       adedsocksamf = "ssh -D 9050 pim.snel@192.168.0.139";
       adedsockshur = "ssh -D 9050 pim.snel@192.168.13.26";
       adedmoshamf = "mosh pim.snel@192.168.0.139 --server=/usr/local/bin/mosh-server";
+
+      hm_reset_envs = "unset __HM_SESS_VARS_SOURCED __HM_ZSH_SESS_VARS_SOURCED && source ~/.zshenv";
     };
 
     plugins = [

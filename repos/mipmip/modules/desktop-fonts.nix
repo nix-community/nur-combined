@@ -9,6 +9,7 @@ let
     inter
     rubik
     lato
+    nerdfonts
   ];
 in
 {
