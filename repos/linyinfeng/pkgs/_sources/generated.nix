@@ -232,16 +232,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "db2375b0d9dba21247da4e5dd58c3d36c56c2b5a";
+    version = "3775628a7470d1d7141ddea73210ad5c1a0ea485";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "db2375b0d9dba21247da4e5dd58c3d36c56c2b5a";
+      rev = "3775628a7470d1d7141ddea73210ad5c1a0ea485";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-AXUFFa+aJDJm0FsSfsnheJNj2tGMjwNc54BAI0Oojzw=";
+      sha256 = "sha256-3zXuw1KUjwxLEF+bGEbaO+DXkMgRq8Keib2hlPjUNh8=";
     };
-    date = "2023-11-14";
+    date = "2023-11-22";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -362,20 +362,20 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "1c7d2f5b3ee262f25bdd3c899eadf17efb656d26";
+    version = "bb83b26bca8eb67ea55c293929aa21218fc29a4c";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "1c7d2f5b3ee262f25bdd3c899eadf17efb656d26";
+      rev = "bb83b26bca8eb67ea55c293929aa21218fc29a4c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Y22O6Ktya/WIhidnoyxnZu5YvXWNmSS6vecDU8zDD34=";
+      sha256 = "sha256-BRn02QbnQHClGSYm/2b8ymMDkfurUs5FRiRcaT0w+hs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-1c7d2f5b3ee262f25bdd3c899eadf17efb656d26/Cargo.lock;
+      lockFile = ./swayosd-bb83b26bca8eb67ea55c293929aa21218fc29a4c/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-09-26";
+    date = "2023-11-22";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
