@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./7206.patch #AMF Patch from arch aur version
+    ./obs-amf-patch.patch # OBS AMF Patch
     ./Enable-file-access-and-universal-access-for-file-URL.patch
     ./fix-nix-plugin-path.patch
   ];
