@@ -15,6 +15,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   listen1 = pkgs.callPackage ./pkgs/listen1 { };
+  idris2 = pkgs.callPackage ./pkgs/idris2 { };
+  postman = pkgs.callPackage ./pkgs/postman { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
