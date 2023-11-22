@@ -24,11 +24,17 @@ let
     );
 in [
   (fetchpatch' {
-    # build fix: merged 2023/11/17
-    title = "python2/mk-python-derivation: disable catchConflictsHook";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/268027";
-    hash = "sha256-jw12uh6Tfyu2lp37YFMg8XLOoe5D1pez66whYwr6l3I=";
+    title = "vala: look for files in targetOffset";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/267550";
+    hash = "sha256-Dl9ZQazjXjIbw38Q78otQvgVCB/QZAC1IYoFX0Tuyw0=";
   })
+  # (fetchpatch' {
+  #   # N.B.: obsoleted by 267550 PR above
+  #   title = "vala: search for vapi files in targetOffset, not hostOffset";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/269171";
+  #   saneCommit = "6990fa8f3e1cfcd1224d70d110bc1ccc18763585";
+  #   hash = "sha256-QiguGtP5HrB753/V/UaoAKH3+9TINxR83I68rggbkr0=";
+  # })
   (fetchpatch' {
     title = "gcr: remove build gnupg from runtime closure";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263158";
@@ -289,13 +295,6 @@ in [
   #   title = "koreader: 2023.04 -> 2023.05.1";
   #   saneCommit = "a5c471bd263abe93e291239e0078ac4255a94262";
   #   hash = "sha256-38sND/UNRj5WAYYKpzdrRBIOK4UAT14RzbIv49KmNNw=";
-  # })
-
-  # (fetchpatch' {
-  #   title = "mepo: 1.1 -> 1.1.2";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/247866";
-  #   saneCommit = "eee68d7146a6cd985481cdd8bca52ffb204de423";
-  #   hash = "sha256-uNerTwyFzivTU+o9bEKmNMFceOmy2AKONfKJWI5qkzo=";
   # })
 
   (fetchpatch' {

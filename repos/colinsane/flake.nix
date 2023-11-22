@@ -36,13 +36,14 @@
     #   - staging-next merged into master.
     #
     # which branch to source from?
-    # - for everyday development, prefer `nixos-unstable` branch, as it provides good caching.
-    # - if need to test bleeding updates (e.g. if submitting code into staging):
-    #   - use `staging-next` if it's been cut (i.e. if there's an active staging-next -> master PR)
-    #   - use `staging` if no staging-next branch has been cut.
+    # - nixos-unstable: for everyday development; it provides good caching
+    # - master: temporarily if i'm otherwise cherry-picking lots of already-applied patches
+    # - staging-next: if testing stuff that's been PR'd into staging, i.e. base library updates.
+    # - staging: maybe if no staging-next -> master PR has been cut yet?
     #
     # <https://github.com/nixos/nixpkgs/tree/nixos-unstable>
-    nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=master";
     # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=staging-next";
     # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=staging";
 

@@ -18,6 +18,7 @@
 , libgcrypt
 , libhandy
 , libphonenumber
+, libsecret
 , modemmanager
 , olm
 , pidgin
@@ -73,6 +74,7 @@ chatty.overrideAttrs (upstream: rec {
     libgcrypt
     libhandy
     libphonenumber
+    libsecret
     modemmanager
     olm
     pidgin

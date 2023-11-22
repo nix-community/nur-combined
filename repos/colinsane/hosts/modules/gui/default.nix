@@ -76,7 +76,7 @@ in
     # "gnome.gnome-terminal"  # works on phosh
     "gnome.gnome-weather"
     "gthumb"
-    "gtkcord4"  # Discord client
+    # "gtkcord4"  # Discord client. 2023/11/21: disabled because it leaks memory
     "lemoa"  # lemmy app
     # "lollypop"
     "mate.engrampa"  # archive manager

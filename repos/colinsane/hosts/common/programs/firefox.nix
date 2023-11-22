@@ -13,7 +13,14 @@ let
   mobile-prefs = lib.optionals false pkgs.librewolf-pmos-mobile.extraPrefsFiles;
   # allow easy switching between firefox and librewolf with `defaultSettings`, below
   librewolfSettings = {
-    browser = pkgs.librewolf-unwrapped;
+    browser = pkgs.librewolf-unwrapped.overrideAttrs (upstream: {
+      # TEMP(2023/11/21): fix eval bug in wrapFirefox
+      # see: <https://github.com/NixOS/nixpkgs/pull/244591>
+      passthru = upstream.passthru // {
+        requireSigning = false;
+        allowAddonSideload = true;
+      };
+    });
     extraPrefsFiles = pkgs.librewolf-unwrapped.extraPrefsFiles ++ mobile-prefs;
     libName = "librewolf";
     dotDir = ".librewolf";
