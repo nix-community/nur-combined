@@ -80,6 +80,7 @@
     # };
     dhcpPrefixDelegationConfig = {
       UplinkInterface = "extern0";
+      Token = "static:::1";
     };
     ipv6SendRAConfig = {
       EmitDNS = true;
@@ -101,6 +102,8 @@
     dhcpV6Config = {
       WithoutRA = "solicit";
       PrefixDelegationHint = "::/64";
+      # use SLAAC addresses only
+      UseAddress = false;
     };
     linkConfig.ActivationPolicy = "always-up";
   };
