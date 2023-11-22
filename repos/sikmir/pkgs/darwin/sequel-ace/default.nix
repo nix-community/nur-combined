@@ -2,14 +2,14 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sequel-ace-bin";
-  version = "4.0.7";
+  version = "4.0.13-20062";
 
   src = fetchfromgh {
     owner = "Sequel-Ace";
     repo = "Sequel-Ace";
-    name = "Sequel-Ace-${finalAttrs.version}.zip";
-    hash = "sha256-yTaj2HvhGwGKB/YqaBkYWD3B9gpn/KS+joTxo0ytBiM=";
-    version = "production/${finalAttrs.version}-20050";
+    name = "Sequel-Ace-${lib.head (lib.splitString "-" finalAttrs.version)}.zip";
+    hash = "sha256-HsMx3Xhrf6id/F9XUEVZvP9vB52d0w+Lxz+oedmSyh8=";
+    version = "production/${finalAttrs.version}";
   };
 
   sourceRoot = ".";
