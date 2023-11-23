@@ -19,6 +19,7 @@ in {
     ./postgresql.nix
     ./sshfs.nix
     ./zfs.nix
+    ./binary-cache.nix
     # ./container-inet-rdp.nix
     ./container-nat.nix
   ];
