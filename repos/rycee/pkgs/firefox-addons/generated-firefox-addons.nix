@@ -1545,10 +1545,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "121.0.20231120.154937";
+      version = "121.0.20231122.91904";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197712/deutsch_de_language_pack-121.0.20231120.154937.xpi";
-      sha256 = "5413d9005b049c158cf7e0733cf6164b5359255f0d8f3b4ca73b9d45cf3e8e68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198653/deutsch_de_language_pack-121.0.20231122.91904.xpi";
+      sha256 = "28acde3cf30688419d98c65122ee4ca90907f9a2322f742c7cb5cedfd4f2c791";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1726,10 +1726,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.11.2";
+      version = "2023.11.17";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4189794/duckduckgo_for_firefox-2023.11.2.xpi";
-      sha256 = "73ec345a77bf945c6eeafc341fc8f3ab9d16687fe870f2f2bfad89109f87b0f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197393/duckduckgo_for_firefox-2023.11.17.xpi";
+      sha256 = "5f1ea7664f9da66326151aab5ce8a4504f376666bf41fa56b3cb80dd83421d64";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -1976,10 +1976,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.3";
+      version = "1.2.4";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4198298/faststream-1.2.3.xpi";
-      sha256 = "21149a105fddfccdd6cc05b1c461f4fb1450da5df4434e1227a8c75fe79db777";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198857/faststream-1.2.4.xpi";
+      sha256 = "9411fe1c15dd43034f6d5d3b8506187d8bebfbe597dbc3e07a588d6a62b203c4";
       meta = with lib;
       {
         description = "Stream without buffering, a great video player and download accelerator all in one.";
@@ -2384,10 +2384,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "121.0.20231120.154937";
+      version = "121.0.20231122.91904";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197670/francais_language_pack-121.0.20231120.154937.xpi";
-      sha256 = "dcf55ff2571964a3a10da807be1aa113b52e3b81d3117eb6deb2349d000b1d37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198598/francais_language_pack-121.0.20231122.91904.xpi";
+      sha256 = "fd853f63d64262f4d5e78769a49fe43596b5ae3094c369193bf96f45c3c86c62";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5068,10 +5068,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.58";
+      version = "2.6.59";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4187469/localcdn_fork_of_decentraleyes-2.6.58.xpi";
-      sha256 = "693c8d5286fbc5a5e7c06cd11da1ae2d060fde7c2f06a390ccdc621b5b9c67eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197044/localcdn_fork_of_decentraleyes-2.6.59.xpi";
+      sha256 = "0aa14f964d0a851151dd8ac5ad87ae9085eea8e44d0d19e3b6b2849f92422721";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -7105,17 +7105,16 @@
       };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "1.6.0";
+      version = "1.10.3";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3577068/rsshub_radar-1.6.0.xpi";
-      sha256 = "512078e0d7bdb82cda5aa3e4c269aa4a7316de7c9faac3e4c52f6ba487ceb43d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197124/rsshub_radar-1.10.3.xpi";
+      sha256 = "66a2aec4f67e27dd6a4a768ee8e87b3b321bac5385e3241b1664b95aae25077d";
       meta = with lib;
       {
         homepage = "https://docs.rsshub.app";
         description = "RSSHub Radar is a spin-off of RSSHub that helps you quickly discover and subscribe to RSS and RSSHub for your current site.";
         license = licenses.mit;
         mozPermissions = [
-          "activeTab"
           "tabs"
           "storage"
           "notifications"
@@ -7670,10 +7669,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.7.6";
+      version = "3.7.8";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4192028/steam_database-3.7.6.xpi";
-      sha256 = "8a76dc34185f6950b6acffde02aeab288f72bdbd58eaff9dd0d6c493b16b654c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197171/steam_database-3.7.8.xpi";
+      sha256 = "99eba9f082bfc9d7a74d0d40ec5188af7c3b38490565e41b15e5319c849b840a";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -8444,10 +8443,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.3.6";
+      version = "8.3.7";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4194464/ublacklist-8.3.6.xpi";
-      sha256 = "59f8b5b7e0932e5473557a30660b288c67637e656f0667dfb1b761f7ebe5e007";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4197472/ublacklist-8.3.7.xpi";
+      sha256 = "463fe3018a7e5c4e7442a057985ba34ce049e6dc1633bb40598ac161d9ab1420";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
