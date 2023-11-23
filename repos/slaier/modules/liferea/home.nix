@@ -12,4 +12,5 @@
     source = ./feedlist.opml;
     force = true;
   };
+  dconf.settings."org/gnome/liferea".default-view-mode = 0;
 }

@@ -2,6 +2,7 @@
 { config, pkgs, lib, ... }:
 let
   modules-enable = with modules; [
+    aria2
     bluetooth
     common
     croc
@@ -72,8 +73,8 @@ in
     keepassxc
     killall
     librespeed-cli
+    lsof
     meld
-    motrix
     mpv
     nali
     neovim
@@ -96,19 +97,6 @@ in
     xdg-utils
     yt-dlp
     zip
-    (config.nur.repos.xddxdd.qbittorrent-enhanced-edition.override {
-      qbittorrent = qbittorrent.override {
-        libtorrent-rasterbar = libtorrent-rasterbar.overrideAttrs (prev: {
-          src = fetchFromGitHub {
-            owner = "arvidn";
-            repo = "libtorrent";
-            rev = "v2.0.9";
-            sha256 = "sha256-kUpeofullQ70uK/YZUD0ikHCquFTGwev7MxBYj0oHeU=";
-            fetchSubmodules = true;
-          };
-        });
-      };
-    })
   ] ++ (map makeNoProxyWrapper [
     ydict
     ungoogled-chromium
@@ -117,7 +105,6 @@ in
   environment.etc."sway/config.d/misc.conf".text = ''
     exec --no-startup-id XDG_SESSION_TYPE=x11 qbittorrent
     exec --no-startup-id gammastep -l 31:121
-    exec motrix
     exec safeeyes
   '';
 }
