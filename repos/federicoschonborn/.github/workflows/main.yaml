@@ -71,6 +71,7 @@ jobs:
         run: curl -XPOST https://nur-update.herokuapp.com/update?repo=${{ env.NUR_REPO }}
     needs:
       - build-nixos-stable-x86_64-linux
+      - build-nixpkgs-stable-x86_64-darwin
 
   #
   # TIER 2
@@ -82,8 +83,6 @@ jobs:
       system: aarch64-linux
       channel: nixpkgs-unstable
     secrets: inherit
-    needs:
-      - build-nixpkgs-unstable-x86_64-linux
 
   build-nixos-unstable-aarch64-linux:
     uses: ./.github/workflows/build.yaml
@@ -93,7 +92,6 @@ jobs:
       channel: nixos-unstable
     secrets: inherit
     needs:
-      - build-nixos-unstable-x86_64-linux
       - build-nixpkgs-unstable-aarch64-linux
 
   build-nixos-stable-aarch64-linux:
@@ -104,5 +102,4 @@ jobs:
       channel: nixos-23.05
     secrets: inherit
     needs:
-      - build-nixos-stable-x86_64-linux
       - build-nixos-unstable-aarch64-linux

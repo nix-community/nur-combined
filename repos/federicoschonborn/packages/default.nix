@@ -1,14 +1,10 @@
 { pkgs ? import <nixpkgs> { } }: rec {
   arkade = pkgs.libsForQt5.callPackage ./arkade { };
-  atoms = pkgs.callPackage ./atoms { inherit atoms-core; };
-  atoms-core = pkgs.python3Packages.callPackage ./atoms-core { };
   blurble = pkgs.callPackage ./blurble { };
   brisk-menu = pkgs.callPackage ./brisk-menu { };
   bsdutils = pkgs.callPackage ./bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./cargo-aoc { };
   casaos = pkgs.callPackage ./casaos { };
-  chess-clock = pkgs.callPackage ./chess-clock { };
-  chess-clock0_5 = pkgs.callPackage ./chess-clock/0.5.0.nix { };
   eloquens = pkgs.libsForQt5.callPackage ./eloquens { };
   fastfetch = pkgs.callPackage ./fastfetch { inherit yyjson; };
   fielding = pkgs.libsForQt5.callPackage ./fielding { };
@@ -46,7 +42,6 @@
   srb2p = pkgs.callPackage ./srb2p { };
   surgescript = pkgs.callPackage ./surgescript { };
   teem = pkgs.callPackage ./teem { };
-  telegraph = pkgs.callPackage ./telegraph { };
   textsnatcher = pkgs.callPackage ./textsnatcher { };
   thunderbird-gnome-theme = pkgs.callPackage ./thunderbird-gnome-theme { };
   upkg = pkgs.callPackage ./upkg { };
