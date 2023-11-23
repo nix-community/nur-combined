@@ -6645,6 +6645,27 @@
         platforms = platforms.all;
         };
       };
+    "omnivore" = buildFirefoxXpiAddon {
+      pname = "omnivore";
+      version = "2.8.9";
+      addonId = "save-extension@omnivore.app";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198103/omnivore-2.8.9.xpi";
+      sha256 = "9a37cabf6fa9823a8563c016d77046e000f6ac40e4cf348e3463941dbff80db7";
+      meta = with lib;
+      {
+        homepage = "https://omnivore.app/";
+        description = "Omnivore is the read-it-later app for serious readers. Distraction free. Privacy focused. Open source.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "contextMenus"
+          "https://*/**"
+          "http://*/**"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "one-click-wayback" = buildFirefoxXpiAddon {
       pname = "one-click-wayback";
       version = "0.2";
@@ -7918,10 +7939,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.11.15.1433";
+      version = "23.11.23";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195428/refined_github-23.11.15.1433.xpi";
-      sha256 = "247bc427f9afad4220362f12b9b3b153f99bba8d7d85f4e42578a5002f6a1a2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4199107/refined_github-23.11.23.xpi";
+      sha256 = "c9263d5768f07c9de20cc9e0ccca78b01f82a5c9695a69f601dc9bcd95dff2bd";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -8277,10 +8298,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.26";
+      version = "1.22.30";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195063/single_file-1.22.26.xpi";
-      sha256 = "4dd1dd2971e1c6d196861c57c9eb2bcb66339fddf13a9e3c12aeb37b7757f98b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4199006/single_file-1.22.30.xpi";
+      sha256 = "c4da791fffbde0ad98c37553ab98f0fe7877a2009b1bd36dbbb057e30d2c5480";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
