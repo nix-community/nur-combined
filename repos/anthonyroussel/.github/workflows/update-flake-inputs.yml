@@ -15,12 +15,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v23
+      - uses: DeterminateSystems/nix-installer-action@v6
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
 
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v20
