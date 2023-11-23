@@ -1,7 +1,7 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, vala_0_54
+, vala
 , meson
 , ninja
 , wrapGAppsHook4
@@ -14,27 +14,29 @@
 , glib
 , pkg-config
 , libportal-gtk4
+, blueprint-compiler
 }:
 
 stdenv.mkDerivation rec {
   pname = "flowtime";
-  version = "3.0";
+  version = "6.1";
 
   src = fetchFromGitHub {
     owner = "Diego-Ivan";
     repo = "Flowtime";
     rev = "v${version}";
-    hash = "sha256-op643yU7KdkTO9hT0iYTIqBP4oPe0MT1R5I3FAtN0/I=";
+    hash = "sha256-wTqHTkt1O3Da2fzxf6DiQjrqOt65ZEhLOkGK5C6HzIk=";
   };
 
   nativeBuildInputs = [
+    blueprint-compiler
     desktop-file-utils
     glib
     gobject-introspection
     meson
     ninja
     pkg-config
-    vala_0_54
+    vala
     wrapGAppsHook4
   ];
 
@@ -53,6 +55,6 @@ stdenv.mkDerivation rec {
     description = "Get what motivates you done, without losing concentration";
     homepage = "https://github.com/Diego-Ivan/Flowtime";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [ foo-dogsquared pokon548 ];
   };
 }
