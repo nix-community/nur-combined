@@ -31,8 +31,6 @@
   filebin = ./filebin.nix;
   mosh = ./mosh.nix;
   home = ./home.nix;
-  base16 = ./base16.nix;
-  base16-shared = import ../home/base16.nix true;
   doc-warnings = ./doc-warnings.nix;
 
   __functionArgs = { };
@@ -64,7 +62,6 @@
       filebin
       mosh
       home
-      base16 base16-shared
       doc-warnings
     ];
   };

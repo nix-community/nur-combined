@@ -11,7 +11,6 @@
   starship = ./starship.nix;
   kakoune = ./kakoune.nix;
   rustfmt = ./rustfmt.nix;
-  base16 = import ./base16.nix false;
   filebin = ./filebin.nix;
   display = ./display.nix;
   buku = ./buku.nix;
@@ -48,7 +47,6 @@
       starship
       kakoune
       rustfmt
-      base16
       filebin
       display
       buku

@@ -26,7 +26,6 @@
 }
 // (import ./bolin)
 // (import ./droid.nix)
-// (import ./base16)
 // (import ./weechat)
 // (import ./looking-glass)
 // (import ./crates)
