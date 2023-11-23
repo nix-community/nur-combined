@@ -1,0 +1,32 @@
+{
+  "octasine": {
+    "cargoLocks": {
+      "Cargo.lock": [
+        "./octasine-v0.9.0/Cargo.lock",
+        {
+          "baseview-0.1.0": "sha256-CK0+I2NqrDRJdhg4xotleVSp0GTiY8YZK1zBDx80BUs=",
+          "iced_baseview-0.0.3": "sha256-VSuR36LlDLO6uUf/3LfSwTeayerM5OqEeQp/ChKoijs=",
+          "nih_plug_xtask-0.1.0": "sha256-9MXkZESUK/NbZqEpDI/myqhFu+sX72hSBz9685/SACM=",
+          "reflink-0.1.3": "sha256-1o5d/mepjbDLuoZ2/49Bi6sFgVX4WdCuhGJkk8ulhcI="
+        }
+      ]
+    },
+    "date": null,
+    "extract": null,
+    "name": "octasine",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "greatest-ape",
+      "repo": "OctaSine",
+      "rev": "v0.9.0",
+      "sha256": "sha256-Tj9eyq+qLxJJvbqTJIhI4A6FqpDHXA6ceJp1Z4DrBEo=",
+      "type": "github"
+    },
+    "version": "v0.9.0"
+  }
+}

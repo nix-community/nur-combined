@@ -1,0 +1,4 @@
+[octasine]
+src.github = "greatest-ape/OctaSine"
+fetch.github = "greatest-ape/OctaSine"
+cargo_locks = ["Cargo.lock"]

@@ -2,7 +2,7 @@
 
 fetch() {
 	test -f keyfile.toml && keyfile="-k keyfile.toml"
-	nvfetcher "$keyfile" -c "$1/nvfetcher.toml" -o "$1"/_sources -t
+	nvfetcher $keyfile -c "$1/nvfetcher.toml" -o "$1"/_sources -t
 }
 
 fetch_vim() {
