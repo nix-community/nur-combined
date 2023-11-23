@@ -57,6 +57,8 @@
   # does the daemon continually scan the nix store?
   # does the builder use some content-addressed db to efficiently dedupe?
   nix.settings.auto-optimise-store = true;
+  # TODO: see if i can remove this?
+  nix.settings.trusted-users = [ "root" ];
 
   services.journald.extraConfig = ''
     # docs: `man journald.conf`

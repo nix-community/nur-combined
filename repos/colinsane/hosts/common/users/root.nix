@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   sane.persist.sys.byStore.cryptClearOnBoot = [
     # when running commands as root, some things may create ~/.cache entries.

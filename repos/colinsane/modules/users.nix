@@ -95,9 +95,10 @@ let
       })
       {
         fs."/".dir.acl = {
-          user = name;
-          group = nixConfig.users.users."${name}".group;
-          mode = nixConfig.users.users."${name}".homeMode;
+          user = lib.mkDefault name;
+          group = lib.mkDefault nixConfig.users.users."${name}".group;
+          # homeMode defaults to 700; notice: no leading 0
+          mode = "0" + nixConfig.users.users."${name}".homeMode;
         };
         fs.".profile".symlink.text =
           let

@@ -29,6 +29,8 @@
   sane.services.wg-home.ip = config.sane.hosts.by-name."servo".wg-home.ip;
   sane.nixcache.substituters.servo = false;
   sane.nixcache.substituters.desko = false;
+  sane.nixcache.remote-builders.desko = false;
+  sane.nixcache.remote-builders.servo = false;
   # sane.services.duplicity.enable = true;  # TODO: re-enable after HW upgrade
 
   # automatically log in at the virtual consoles.

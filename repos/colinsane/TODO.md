@@ -7,6 +7,9 @@
 
 ## REFACTORING:
 
+- remove modules/data/keys
+- simplify ssh keys (hosts/common/ssh.nix ; modules/ssh.nix)
+
 ### sops/secrets
 - attach secrets to the thing they're used by (sane.programs)
 - rework secrets to leverage `sane.fs`

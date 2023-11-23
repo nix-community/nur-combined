@@ -6,8 +6,6 @@
     # sets group to "users" (?)
     isNormalUser = true;
     home = "/home/colin";
-    createHome = true;
-    homeMode = "0700";
     # i don't get exactly what this is, but nixos defaults to this non-deterministically
     # in /var/lib/nixos/auto-subuid-map and i don't want that.
     subUidRanges = [
