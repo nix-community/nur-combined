@@ -641,10 +641,10 @@
     "homepage": "",
     "owner": "MrcJkb",
     "repo": "haskell-tools.nvim",
-    "rev": "88c3ddac1885f3ee0e9b4664296b10d30a04c731",
-    "sha256": "159rr16jic7cwc6ai539a8gvzjr2klnmhdyyp0c8nr0jl298y3cj",
+    "rev": "ea1ab0d19d10d514dc0740b5255405d9ac1a3a3f",
+    "sha256": "113x7vx7jga8silcyh0xf4ssnplyq83md2y1izzf1wz58y7s2ln0",
     "type": "tarball",
-    "url": "https://github.com/MrcJkb/haskell-tools.nvim/archive/88c3ddac1885f3ee0e9b4664296b10d30a04c731.tar.gz",
+    "url": "https://github.com/MrcJkb/haskell-tools.nvim/archive/ea1ab0d19d10d514dc0740b5255405d9ac1a3a3f.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "heirline.nvim": {

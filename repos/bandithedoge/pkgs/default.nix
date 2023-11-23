@@ -22,6 +22,7 @@ in {
   lv2vst = callPackage' ./lv2vst;
   nodePackages = callPackages ./nodePackages;
   octasine = callPackage' ./octasine;
+  osirus = callPackage' ./osirus;
   raze = callPackage' ./raze;
   sheepshaver-bin = callPackage' ./sheepshaver-bin;
   treeSitterGrammars = callPackages ./treeSitterGrammars;
