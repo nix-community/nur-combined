@@ -116,6 +116,7 @@ technative:
 
     - source: TechNative-B-V/terraform-aws-module-static-website-cognito-auth
     - source: TechNative-B-V/technative-project-proposals
+    - source: TechNative-B-V/technative-project-operational-excellence
 
     - source: TechNative-B-V/technative-docs-managed-services-handbook
     - source: TechNative-B-V/technative-docs-marcom-handbook
