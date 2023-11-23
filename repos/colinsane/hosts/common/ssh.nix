@@ -1,45 +1,25 @@
-{ config, lib, sane-data, sane-lib, ... }:
+{ config, lib,  sane-lib, ... }:
 
 let
-  inherit (builtins) attrValues head map mapAttrs tail;
+  keysForHost = hostName: let
+    hostCfg = config.sane.hosts.by-name."${hostName}";
+  in {
+    "root@${hostName}" = hostCfg.ssh.host_pubkey;
+    "colin@${hostName}" = lib.mkIf hostCfg.ssh.authorized hostCfg.ssh.user_pubkey;
+  };
+  hostKeys = builtins.map keysForHost (builtins.attrNames config.sane.hosts.by-name);
 in
 {
-  sane.ssh.pubkeys =
-  let
-    # path is a DNS-style path like [ "org" "uninsane" "root" ]
-    keyNameForPath = path:
-      let
-        rev = lib.reverseList path;
-        name = head rev;
-        host = lib.concatStringsSep "." (tail rev);
-      in
-      "${name}@${host}";
+  sane.ssh.pubkeys = lib.mkMerge (hostKeys ++ [
+    {
+      "root@uninsane.org" = config.sane.hosts.by-name.servo.ssh.host_pubkey;
+      "root@git.uninsane.org" = config.sane.hosts.by-name.servo.ssh.host_pubkey;
 
-    # [{ path :: [String], value :: String }] for the keys we want to install
-    globalKeys = sane-lib.flattenAttrs sane-data.keys;
-
-    keysForHost = hostCfg: sane-lib.mapToAttrs
-      (name: {
-        inherit name;
-        value = {
-          root = hostCfg.ssh.host_pubkey;
-        } // (lib.optionalAttrs hostCfg.ssh.authorized {
-          colin = hostCfg.ssh.user_pubkey;
-        });
-      })
-      hostCfg.names
-    ;
-    domainKeys = sane-lib.flattenAttrs (
-      sane-lib.joinAttrsets (
-        map keysForHost (builtins.attrValues config.sane.hosts.by-name)
-      )
-    );
-  in lib.mkMerge (map
-    ({ path, value }: {
-      "${keyNameForPath path}" = lib.mkIf (value != null) value;
-    })
-    (globalKeys ++ domainKeys)
-  );
+      # documented here: <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints>
+      # Github actually uses multiple keys -- one per format
+      "root@github.com" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+    }
+  ]);
 
   services.openssh = {
     enable = true;

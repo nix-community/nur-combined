@@ -8,5 +8,4 @@ moduleArgs:
 
 {
   feeds = import ./feeds moduleArgs;
-  keys = import ./keys.nix;
 }

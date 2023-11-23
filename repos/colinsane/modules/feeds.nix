@@ -1,8 +1,7 @@
-{ lib, sane-data, ... }:
+{ lib, ... }:
 
-with lib;
 let
-  feed = types.submodule ({ config, ... }: {
+  feed = with lib; types.submodule ({ config, ... }: {
     options = {
       freq = mkOption {
         type = types.enum [ "hourly" "daily" "weekly" "infrequent" ];
@@ -43,7 +42,7 @@ in
 {
   # we don't explicitly generate anything from the feeds here.
   # instead, config.sane.feeds is used by a variety of services at their definition site.
-  options = {
+  options = with lib; {
     sane.feeds = mkOption {
       type = types.listOf feed;
       default = [];

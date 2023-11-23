@@ -7,8 +7,7 @@
 
 ## REFACTORING:
 
-- remove modules/data/keys
-- simplify ssh keys (hosts/common/ssh.nix ; modules/ssh.nix)
+- fold hosts/common/home/ssh.nix -> hosts/common/users/colin.nix
 
 ### sops/secrets
 - attach secrets to the thing they're used by (sane.programs)
