@@ -1,7 +1,8 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, unstable, ... }:
 
 {
   programs.nnn = {
+    package = unstable.nnn;
     enable = true;
     bookmarks = {
       D = "~/Downloads";
@@ -20,29 +21,9 @@
 #        s = "!zsh -i";
 #        z = "autojump";
       };
-      src = "${pkgs.nnn}/share/plugins";
+      src = "${unstable.nnn}/share/plugins";
     };
-    extraPackages =
-      with pkgs;
-      let
-      in
-      [
-        libarchive # Provides bsdtar and support for more archive formats
-        pmount # For mounting disks
-        udisks # For mounting disks
-        xdragon # Drag and drop utility
-        # preview-tui
-        bat # code syntax highlighting
-        imagemagick # gif previews
-        ffmpegthumbnailer # video thumbnails
-        ffmpeg # audio thumbnails
-        libreoffice # openoffice/opendocument previews
-        poppler_utils # pdf thumbnails
-        #gnome-epub-thumbnailer # epub thumbnails
-        fontpreview # font previews
-        #glow # markdown previews
-        w3m # html preview
-      ];
+    extraPackages = [];
   };
 
   home.sessionVariables =
@@ -96,11 +77,14 @@
       NNN_FIFO = "/tmp/nnn.fifo";
       NNN_BATTHEME = "Solarized";
 
+      NNN_TRASH = 1;
+
       # context colors
       #NNN_COLORS = "#0a1b2c3d";
       NNN_COLORS = "1234";
       NNN_FCOLORS = "123412341111";
 
+      NNN_PREVIEWIMGPROG = "catimg";
       # Supported archive formats
       # Needed because using bsdtar increases supported archive formats
       NNN_ARCHIVE = "\\.(${lib.strings.concatStringsSep "|" archiveFormats})$";
