@@ -780,29 +780,29 @@
   };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
-    version = "release-4.6.0.10";
+    version = "release-4.6.1.10";
     src = fetchFromGitHub {
       owner = "c0re100";
       repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.6.0.10";
+      rev = "release-4.6.1.10";
       fetchSubmodules = false;
-      sha256 = "sha256-13gbBLuu6O6Xf/7Jwoo68rKFr0o2zf8bUvtaG6DsOpA=";
+      sha256 = "sha256-flcvWFWGNcUhgpI5YCKIgJrCbp2Q6cE2WaaluYVNKoA=";
     };
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "8.1.2+ds-1";
+    version = "8.1.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.2+ds-1_amd64.deb";
-      sha256 = "sha256-YkKwJjKfMGtii8q8+88YJ0AVVIDMZPxLQv++U7EiVlw=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.3+ds-1_amd64.deb";
+      sha256 = "sha256-ogO5NXrcGO39KL9J6pVvAhV4F9fiAi2gLQ1Lyg988dQ=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "8.1.2+ds-1";
+    version = "8.1.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.2+ds-1_arm64.deb";
-      sha256 = "sha256-+MmApUx9/Rsc+WG4FugzIFmqpe3nJ4xHFMXnr9wakGk=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.3+ds-1_arm64.deb";
+      sha256 = "sha256-GDmjPgy0sIhDjTTs2bvBejX6QGwUaEHQrf5N+nCIlfg=";
     };
   };
   qemu-user-static-armhf = {
@@ -815,10 +815,10 @@
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.1.2+ds-1";
+    version = "8.1.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.2+ds-1_i386.deb";
-      sha256 = "sha256-cBqFho6cLWBwRiBrrK9QFUJmvd3gmEbEYO3XjuJDMOo=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.3+ds-1_i386.deb";
+      sha256 = "sha256-i0PsznqcxJ6ZCedu1TqXuetC9WiCnPQEI2KplOfAP1w=";
     };
   };
   qq-amd64 = {
@@ -883,15 +883,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "db2375b0d9dba21247da4e5dd58c3d36c56c2b5a";
+    version = "3775628a7470d1d7141ddea73210ad5c1a0ea485";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "db2375b0d9dba21247da4e5dd58c3d36c56c2b5a";
+      rev = "3775628a7470d1d7141ddea73210ad5c1a0ea485";
       fetchSubmodules = false;
-      sha256 = "sha256-AXUFFa+aJDJm0FsSfsnheJNj2tGMjwNc54BAI0Oojzw=";
+      sha256 = "sha256-3zXuw1KUjwxLEF+bGEbaO+DXkMgRq8Keib2hlPjUNh8=";
     };
-    date = "2023-11-14";
+    date = "2023-11-22";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
