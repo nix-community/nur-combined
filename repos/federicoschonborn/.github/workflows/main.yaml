@@ -25,6 +25,14 @@ jobs:
       channel: nixpkgs-unstable
     secrets: inherit
 
+  build-nixpkgs-unstable-x86_64-darwin:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: macos-latest
+      system: x86_64-darwin
+      channel: nixpkgs-unstable
+    secrets: inherit
+
   build-nixos-unstable-x86_64-linux:
     uses: ./.github/workflows/build.yaml
     with:
@@ -45,6 +53,16 @@ jobs:
     needs:
       - build-nixos-unstable-x86_64-linux
 
+  build-nixpkgs-stable-x86_64-darwin:
+    uses: ./.github/workflows/build.yaml
+    with:
+      runs-on: macos-latest
+      system: x86_64-darwin
+      channel: nixpkgs-23.05-darwin
+    secrets: inherit
+    needs:
+      - build-nixpkgs-unstable-x86_64-darwin
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -57,38 +75,6 @@ jobs:
   #
   # TIER 2
   #
-  build-nixpkgs-unstable-i686-linux:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: i686-linux
-      channel: nixpkgs-unstable
-    secrets: inherit
-    needs:
-      - build-nixpkgs-unstable-x86_64-linux
-
-  build-nixos-unstable-i686-linux:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: i686-linux
-      channel: nixos-unstable
-    secrets: inherit
-    needs:
-      - build-nixos-unstable-x86_64-linux
-      - build-nixpkgs-unstable-i686-linux
-
-  build-nixos-stable-i686-linux:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: ubuntu-latest
-      system: i686-linux
-      channel: nixos-23.05
-    secrets: inherit
-    needs:
-      - build-nixos-stable-x86_64-linux
-      - build-nixos-unstable-i686-linux
-
   build-nixpkgs-unstable-aarch64-linux:
     uses: ./.github/workflows/build.yaml
     with:
@@ -120,24 +106,3 @@ jobs:
     needs:
       - build-nixos-stable-x86_64-linux
       - build-nixos-unstable-aarch64-linux
-
-  build-nixpkgs-unstable-x86_64-darwin:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: macos-latest
-      system: x86_64-darwin
-      channel: nixpkgs-unstable
-    secrets: inherit
-    needs:
-      - build-nixpkgs-unstable-x86_64-linux
-
-  build-nixpkgs-stable-x86_64-darwin:
-    uses: ./.github/workflows/build.yaml
-    with:
-      runs-on: macos-latest
-      system: x86_64-darwin
-      channel: nixpkgs-23.05-darwin
-    secrets: inherit
-    needs:
-      - build-nixos-stable-x86_64-linux
-      - build-nixpkgs-unstable-x86_64-darwin

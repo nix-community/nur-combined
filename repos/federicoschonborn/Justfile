@@ -1,6 +1,9 @@
-currentSystem := `nix eval --impure --raw --expr "builtins.currentSystem"`
 just := just_executable()
-nix := "nom"
+nix := "nix run nixpkgs#nix-output-monitor --"
+
+system := env("SYSTEM", arch() + "-" + if os() =~ "macos|ios" { "darwin" } else { os() })
+
+export NIX_BUILD_FLAGS := env("NIX_BUILD_FLAGS", "")
 
 [private]
 @default:
@@ -8,8 +11,16 @@ nix := "nom"
 
 # Build all packages.
 build-all:
-    nix flake show --json 2>/dev/null | jq -r '.packages."{{ currentSystem }}" | keys[]' | xargs -I {} just build {}
+    @{{ just }} build $(nix flake show --json 2>/dev/null | jq -r '.packages."{{ system }}" | keys[]')
+
+# Build all packages against the stable channel.
+build-all-stable:
+    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --override-input nixpkgs github:NixOS/nixpkgs/nixos-23.05" {{ just }} build-all
 
 # Build one or more packages.
 build +PACKAGES:
-    PACKAGES="{{ PACKAGES }}"; {{ nix }} build -L $(echo ".#${PACKAGES// / .#}")
+    PACKAGES="{{ PACKAGES }}"; {{ nix }} build -L ${NIX_BUILD_FLAGS[@]} $(echo ".#${PACKAGES// / .#}")
+
+# Build one or more packages against the stable channel.
+build-stable +PACKAGES:
+    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --override-input nixpkgs github:NixOS/nixpkgs/nixos-23.05" {{ just }} build {{ PACKAGES }}

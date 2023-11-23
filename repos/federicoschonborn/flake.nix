@@ -13,7 +13,6 @@
   outputs = { nixpkgs, flake-parts, ... }@inputs: flake-parts.lib.mkFlake { inherit inputs; } {
     systems = [
       "x86_64-linux"
-      "i686-linux"
       "aarch64-linux"
       "x86_64-darwin"
       "x86_64-darwin"
@@ -24,15 +23,12 @@
       packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) self'.legacyPackages;
 
       devShells.default = pkgs.mkShell {
-        packages = with pkgs; [
-          just
-          nix-output-monitor
-        ];
+        packages = with pkgs; [ just        ];
       };
 
       apps.update = {
         type = "app";
-        program = lib.getExe pkgs.writeShellApplication {
+        program = lib.getExe (pkgs.writeShellApplication {
           name = "update";
           text = ''
             nix-shell "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
@@ -42,7 +38,7 @@
                 in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
               )'
           '';
-        };
+        });
       };
 
       formatter = pkgs.nixpkgs-fmt;

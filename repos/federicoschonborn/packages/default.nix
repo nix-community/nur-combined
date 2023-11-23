@@ -9,14 +9,6 @@
   casaos = pkgs.callPackage ./casaos { };
   chess-clock = pkgs.callPackage ./chess-clock { };
   chess-clock0_5 = pkgs.callPackage ./chess-clock/0.5.0.nix { };
-  codelite = pkgs.callPackage ./codelite { };
-  devtoolbox = pkgs.callPackage ./devtoolbox {
-    inherit python-daltonlens
-      python-jwt
-      python-lorem
-      python-textstat
-      python-uuid6;
-  };
   eloquens = pkgs.libsForQt5.callPackage ./eloquens { };
   fastfetch = pkgs.callPackage ./fastfetch { inherit yyjson; };
   fielding = pkgs.libsForQt5.callPackage ./fielding { };
@@ -37,7 +29,7 @@
   libzypp = pkgs.callPackage ./libzypp { libsolv = libsolv-libzypp; };
   licentia = pkgs.libsForQt5.callPackage ./licentia { };
   liquidshell = pkgs.libsForQt5.callPackage ./liquidshell { };
-  magpie_v1 = pkgs.callPackage ./magpie_v1 { wlroots = wlroots_0_17; };
+  magpie_v1 = pkgs.callPackage ./magpie_v1 { };
   marknote = pkgs.libsForQt5.callPackage ./marknote { };
   metronome = pkgs.callPackage ./metronome { };
   minesector = pkgs.callPackage ./minesector { };
@@ -64,28 +56,6 @@
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   yyjson = pkgs.callPackage ./yyjson { };
   zypper = pkgs.callPackage ./zypper { inherit libzypp; };
-
-  python-daltonlens = pkgs.python3Packages.callPackage ./python-daltonlens { };
-  python-jwt = pkgs.python3Packages.callPackage ./python-jwt { };
-  python-lorem = pkgs.python3Packages.callPackage ./python-lorem { };
-  python-textstat = pkgs.python3Packages.callPackage ./python-textstat { };
-  python-uuid6 = pkgs.python3Packages.callPackage ./python-uuid6 { };
-
-  # Overrides
-  wlroots_0_17 = pkgs.wlroots.overrideAttrs (oldAttrs: {
-    version = "0.17.0-dev";
-    src = pkgs.fetchFromGitLab {
-      domain = "gitlab.freedesktop.org";
-      owner = "wlroots";
-      repo = "wlroots";
-      rev = "b0bd86285f0a74d9fbb32d46113fd93f1740896b";
-      hash = "sha256-45cJ0vJmbR9Li8pyvmWxI/DnQrl4ItEx/nQE2tLUdjg=";
-    };
-    buildInputs = (oldAttrs.buildInputs or [ ]) ++ (with pkgs;[
-      hwdata
-      libdisplay-info
-    ]);
-  });
 
   # Variants
   fastfetchFull = pkgs.lib.warn "fastfetchFull has been replaced by fastfetch, which will conditionally enable features based on platform support" fastfetch;
