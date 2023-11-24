@@ -807,10 +807,10 @@
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.1.2+ds-1";
+    version = "8.1.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.2+ds-1_armhf.deb";
-      sha256 = "sha256-l5jPvfAkCh1qEyV1c4dKVca3rA6Y8rt1YbKRqNC79e4=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.3+ds-1_armhf.deb";
+      sha256 = "sha256-YPIpTQEQb70Rhp0VuNNRGdW9bE8Xn8zHv0l5EXxJ0hI=";
     };
   };
   qemu-user-static-i386 = {
