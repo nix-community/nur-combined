@@ -32,6 +32,8 @@ in
 
     nativeBuildInputs = [makeWrapper];
 
+    patches = [./fix-undetected-chromedriver.patch];
+
     postPatch = ''
       substituteInPlace src/utils.py \
         --replace 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${undetected-chromedriver-bin}/bin/undetected_chromedriver"'
