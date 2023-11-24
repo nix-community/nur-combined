@@ -96,6 +96,8 @@ in
     webkitgtk = webkitgtk_6_0;
   };
 
+  pdfrip = callPackage ./tools/security/pdfrip {};
+
   poke = callPackage ./applications/editors/poke { };
 
   pokemmo-installer = callPackage ./games/pokemmo-installer {
