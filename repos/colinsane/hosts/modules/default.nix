@@ -4,7 +4,6 @@
   imports = [
     ./derived-secrets
     ./gui
-    ./hostnames.nix
     ./hosts.nix
     ./nixcache.nix
     ./roles

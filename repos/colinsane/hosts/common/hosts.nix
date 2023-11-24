@@ -36,4 +36,10 @@
     wg-home.endpoint = "uninsane.org:51820";
     lan-ip = "10.78.79.51";
   };
+
+  sane.hosts.by-name."supercap" = {
+    ssh.authorized = false;
+    ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHf/mqqkX45EWAcquV04MC3SUljTApdclH1gjI19F+PA";
+    lan-ip = "10.78.79.232";
+  };
 }

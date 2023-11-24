@@ -5,7 +5,7 @@ let
     hostCfg = config.sane.hosts.by-name."${hostName}";
   in {
     "root@${hostName}" = hostCfg.ssh.host_pubkey;
-    "colin@${hostName}" = lib.mkIf hostCfg.ssh.authorized hostCfg.ssh.user_pubkey;
+    "colin@${hostName}" = lib.mkIf (hostCfg.ssh.user_pubkey != null && hostCfg.ssh.authorized) hostCfg.ssh.user_pubkey;
   };
   hostKeys = builtins.map keysForHost (builtins.attrNames config.sane.hosts.by-name);
 in

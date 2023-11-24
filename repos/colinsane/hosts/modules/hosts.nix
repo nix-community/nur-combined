@@ -13,7 +13,8 @@ let
         '';
       };
       ssh.user_pubkey = mkOption {
-        type = types.str;
+        type = types.nullOr types.str;
+        default = null;
         description = ''
           ssh pubkey that the primary user of this machine will use when connecting to other machines.
           e.g. "ssh-ed25519 AAAA<base64>".
