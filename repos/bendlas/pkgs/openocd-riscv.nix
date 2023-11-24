@@ -1,6 +1,8 @@
 { stdenv
 , lib
-, fetchFromGitHub
+, runCommand
+, git
+, cacert
 , pkg-config
 , hidapi
 , jimtcl
@@ -17,17 +19,35 @@
 
 stdenv.mkDerivation rec {
   pname = "openocd-riscv";
-  version = "2023-11-10";
+  version = "2023-11-17";
 
-  src = fetchFromGitHub {
-    owner = "riscv";
-    repo = "riscv-openocd";
-    fetchSubmodules = true;
-    # deepClone = true;
-    rev = "1ea0e9b426560c044cb361ab0a6733a4c470ef31";
-    # sha256 = "sha256-ExRu7q8uaH6vPcgt8O8A52kjBwWvheLmbdeEZdGRuho=";
-    sha256 = "sha256-omkGPPeh5Gjd/UqjDpHl4+1h9LgHJXCkOVpahApZpGg=";
-  };
+  # src = fetchFromGitHub {
+  #   owner = "riscv";
+  #   repo = "riscv-openocd";
+  #   fetchSubmodules = true;
+  #   # deepClone = true;
+  #   rev = "1ea0e9b426560c044cb361ab0a6733a4c470ef31";
+  #   # sha256 = "sha256-ExRu7q8uaH6vPcgt8O8A52kjBwWvheLmbdeEZdGRuho=";
+  #   sha256 = "sha256-omkGPPeh5Gjd/UqjDpHl4+1h9LgHJXCkOVpahApZpGg=";
+  # };
+
+  src = runCommand "openocd-riscv-src" {
+    rev = "af786c0eca6a3b845c8e6f2bb41fdc4ecbe83748";
+    outputHash = "sha256-p+oyf0yk7hZvJ7T0WxF4/zjcw8IYFWL1Xf3B76GW/kY=";
+    url = "https://github.com/riscv/riscv-openocd.git";
+    outputHashMode = "recursive";
+    outputHashAlgo = "sha256";
+    nativeBuildInputs = [ git ];
+    GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+  } ''
+    git init $out
+    cd $out
+    git remote add origin $url
+    git fetch --depth=1 origin $rev
+    git checkout FETCH_HEAD
+    git submodule update --recursive --init
+    rm -rf $out/.git
+  '';
 
   nativeBuildInputs = [ pkg-config autoreconfHook ];
 
