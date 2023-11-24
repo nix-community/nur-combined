@@ -3,7 +3,7 @@
 - Fractal opens links with non-preferred web browser
 - `nix` operations from lappy hang when `desko` is unreachable
   - could at least direct the cache to `http://desko-hn:5001`
-- gnome-weather (and conky) don't show weather
+- waybar isn't visible on moby until after `swaymsg reload`
 
 ## REFACTORING:
 
@@ -49,6 +49,9 @@
 - canaries for important services
   - e.g. daily email checks; daily backup checks
   - integrate `nix check` into Gitea actions?
+
+### faster/better deployments
+- remove audacity's dependency on webkitgtk (via wxwidgets)
 
 ### user experience
 - install apps:

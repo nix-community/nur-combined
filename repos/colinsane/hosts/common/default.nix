@@ -34,11 +34,13 @@
 
   nix.extraOptions = ''
     # see: `man nix.conf`
-    # allow `nix flake ...` command
-    experimental-features = nix-command flakes
+    # useful when a remote builder has a faster internet connection than me
+    builders-use-substitutes = true  # default: false
     # maximum seconds to wait when connecting to binary substituter
     connect-timeout = 3  # default: 0
     # download-attempts = 5  # default: 5
+    # allow `nix flake ...` command
+    experimental-features = nix-command flakes
     # whether to build from source when binary substitution fails
     fallback = true  # default: false
     # whether to keep building dependencies if any other one fails
