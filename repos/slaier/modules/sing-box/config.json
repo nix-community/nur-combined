@@ -27,8 +27,8 @@
   },
   "inbounds": [
     {
-      "type": "http",
-      "tag": "http-in",
+      "type": "mixed",
+      "tag": "mixed-in",
       "listen": "::",
       "listen_port": 7890,
       "sniff": true,
@@ -45,7 +45,7 @@
     "rules": [
       {
         "inbound": [
-          "http-in"
+          "mixed-in"
         ],
         "domain": [
           "launcher-public-service-prod06.ol.epicgames.com",

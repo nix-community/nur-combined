@@ -9,7 +9,7 @@
       <outline title="News Minimalist" text="News Minimalist" description="News Minimalist" type="rss" id="hrflxxj" sortColumn="time" xmlUrl="https://rss.beehiiv.com/feeds/4aF2pGVAEN.xml" htmlUrl="https://newsletter.newsminimalist.com/" updateInterval="-1" collapsed="true"/>
     </outline>
     <outline title="forum" text="forum" description="forum" type="folder" id="imxevvf" sortColumn="time" expanded="true">
-      <outline title="V2EX-最热主题" text="V2EX-最热主题" description="V2EX-最热主题" type="rss" id="xxrsxvc" sortColumn="time" xmlUrl="https://rss.shab.fun/v2ex/topics/hot" htmlUrl="https://www.v2ex.com/" updateInterval="-1" collapsed="true"/>
+      <outline title="V2EX-最热主题" text="V2EX-最热主题" description="V2EX-最热主题" type="rss" id="xxrsxvc" sortColumn="time" xmlUrl="https://rsshub.rssforever.com/v2ex/topics/hot" htmlUrl="https://www.v2ex.com/" updateInterval="-1" collapsed="true"/>
     </outline>
     <outline title="changelog" text="changelog" description="changelog" type="folder" id="irnmniv" sortColumn="time" expanded="true">
       <outline title="GitHub Changelog" text="GitHub Changelog" description="GitHub Changelog" type="rss" id="osnbfxi" sortColumn="time" xmlUrl="https://github.blog/changelog/feed/" htmlUrl="https://github.blog/changelog/" updateInterval="-1" collapsed="true"/>
