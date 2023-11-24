@@ -2,10 +2,10 @@
 
 appimageTools.wrapType2 rec {
   name = "spacedrive";
-  version = "0.1.2";
+  version = "0.1.3";
   src = fetchurl {
     url = "https://github.com/spacedriveapp/spacedrive/releases/download/${version}/Spacedrive-linux-x86_64.AppImage";
-    hash = "sha256-OHoOEfMBOD1FAGcJPGqV+APzhbVhVC2kvKYsApRs1VQ=";
+    hash = "sha256-MybtBO8YfQQaWRquTBXQ228Y2Azg8YLmRvDpIqjFXrY=";
   };
 
   extraPkgs = pkgs: with pkgs; [ libthai ];
