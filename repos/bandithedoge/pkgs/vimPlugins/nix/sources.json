@@ -875,10 +875,10 @@
     "homepage": "",
     "owner": "marko-cerovac",
     "repo": "material.nvim",
-    "rev": "a74108b417cff78d15074f6f68a8f997e718f404",
-    "sha256": "1vfndgk09kvrwj3kviff4c8wsi8gd7pym5wg0r17jflmqr7y2y5m",
+    "rev": "d61da5decc7768769314c121a3232b6eadc73f2d",
+    "sha256": "1jsjshi8hwiyazpchhc5smsp2p9n7g54i7px4crc0gdnm3sxk5q0",
     "type": "tarball",
-    "url": "https://github.com/marko-cerovac/material.nvim/archive/a74108b417cff78d15074f6f68a8f997e718f404.tar.gz",
+    "url": "https://github.com/marko-cerovac/material.nvim/archive/d61da5decc7768769314c121a3232b6eadc73f2d.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "mini.nvim": {
@@ -1532,7 +1532,7 @@
   "rainbow-delimiters.nvim": {
     "branch": "master",
     "repo": "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
-    "rev": "7f3cfa07f243261a0428d782bef6496929e9dcd8",
+    "rev": "a2da59bdacb5e3a28873ac7039a16271ac16b224",
     "type": "git"
   },
   "range-highlight.nvim": {
@@ -1757,10 +1757,10 @@
     "homepage": null,
     "owner": "nvim-telescope",
     "repo": "telescope-frecency.nvim",
-    "rev": "daf59744f60e34cbb48a40a092e9e735553b6f21",
-    "sha256": "0mlfnhyz1daxmrfvvqmwpcqpqkl4nd5dqwz4ac539ffaca2mf6zb",
+    "rev": "ca5fa5326fc2b2ebd3269176594c4341ad720ac5",
+    "sha256": "16pqbn4i23j3ynzii5cszfqwrbz54cd8d99hqkqamvsm36q9m5b7",
     "type": "tarball",
-    "url": "https://github.com/nvim-telescope/telescope-frecency.nvim/archive/daf59744f60e34cbb48a40a092e9e735553b6f21.tar.gz",
+    "url": "https://github.com/nvim-telescope/telescope-frecency.nvim/archive/ca5fa5326fc2b2ebd3269176594c4341ad720ac5.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "telescope-fzy-native.nvim": {
