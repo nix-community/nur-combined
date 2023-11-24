@@ -278,9 +278,13 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       gnumake-tokenpool = callPackage ./pkgs/python3/pkgs/gnumake-tokenpool { };
 
-      chromecontroller = callPackage ./pkgs/python3/chromecontroller/chromecontroller.nix { };
+      chromecontroller = callPackage ./pkgs/python3/pkgs/chromecontroller/chromecontroller.nix { };
 
-      browser-debugger-tools = callPackage ./pkgs/python3/browser-debugger-tools/browser-debugger-tools.nix { };
+      browser-debugger-tools = callPackage ./pkgs/python3/pkgs/browser-debugger-tools/browser-debugger-tools.nix { };
+
+      pychrome = callPackage ./pkgs/python3/pkgs/pychrome/pychrome.nix { };
+
+      pychromedevtools = callPackage ./pkgs/python3/pkgs/pychromedevtools/pychromedevtools.nix { };
 
     #}))); # python3.pkgs
 
@@ -610,6 +614,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   ragnar = callPackage ./pkgs/applications/window-managers/ragnar/ragnar.nix { };
 
   #wingo = callPackage ./pkgs/applications/window-managers/wingo/wingo.nix { };
+
+  buster-client = callPackage ./pkgs/tools/X11/buster-client/buster-client.nix { };
+
+  buster-client-setup = callPackage ./pkgs/tools/X11/buster-client/buster-client-setup.nix { };
+
+  buster-client-setup-cli = callPackage ./pkgs/tools/X11/buster-client/buster-client-setup-cli.nix { };
 
 }
 

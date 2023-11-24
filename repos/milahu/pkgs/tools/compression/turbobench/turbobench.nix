@@ -5,13 +5,15 @@
 
 stdenv.mkDerivation rec {
   pname = "turbobench";
-  version = "2023-03";
+  version = "2023.08.14";
 
   src = fetchFromGitHub {
     owner = "powturbo";
     repo = "TurboBench";
-    rev = version;
-    hash = "sha256-k/KMGuCZB74rnhx/lno49SY5omqiSBa0T04CwjSwEkU=";
+    # note: git tags can be delted, so use commit hashes
+    rev = "d68171773d7576c4323bb7966d01b7d4d2491b65";
+    hash = "sha256-aINyF14li8p0FLbBmL2l2zftEORwYBt2wUx2YSJPZKs=";
+    # TODO better. generate a sources.nix file for all git modules
     fetchSubmodules = true;
   };
 
