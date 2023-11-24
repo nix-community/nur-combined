@@ -91,6 +91,10 @@ let
       pkg
     );
 
+  needsBinfmt = pkg: pkg.overrideAttrs (upstream: {
+    requiredSystemFeatures = (upstream.requiredSystemFeatures or []) ++ [ "kvm" ];
+  });
+
   # wrapGAppsHook4Fix = p: rmNativeInputs [ final.wrapGAppsHook4 ] (addNativeInputs [ final.wrapGAppsNoGuiHook final.gtk4 ] p);
 
   emulated = mkEmulated final prev;
@@ -1024,6 +1028,15 @@ in {
   #     buildPackages.stdenv = emulated.stdenv;  # it uses buildPackages.stdenv for HOST_CC
   #   });
   # };
+
+  # failure:
+  # ```
+  # cd /build/koreader/base/thirdparty/lua-htmlparser/build/aarch64-unknown-linux-gnu/lua-htmlparser-prefix/src/lua-htmlparser && luarocks make --tree=/build/koreader/base/build/aarch64-unknown-linux-gnu/rocks rockspecs/htmlparser-scm-0.rockspec ...
+  # bin/.luarocks-wrapped: line 2: package.loaded[luarocks.core.hardcoded]: command not found
+  # bin/.luarocks-wrapped: bin/luarocks: line 3: syntax error near unexpected token `]]'
+  # bin/.luarocks-wrapped: bin/luarocks: line 3: `package.path=[[/nix/store/b7wa76cvxki14k9cmdi0vzd954nx6nww-luarocks-aarch64-unknown-linux-gnu-3.9.1/share/lua/5.1/?.lua;]] .. package.path'
+  # ```
+  koreader-from-src = needsBinfmt prev.koreader-from-src;
 
   # libgweather = rmNativeInputs [ final.glib ] (prev.libgweather.override {
   #   # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
