@@ -5,6 +5,8 @@
 # additionally, sends build jobs to supercap/servo/desko (splits the jobs across all that are enabled).
 # to verify one particular remote builder:
 # - `nix store ping --store ssh://servo`
+# NOTE: if your unix user doesn't have ssh access to the remote builder, do the above as root (not just sudo, actual root).
+# - `sudo su; nix store ping --store ssh://supercap`
 #
 # future improvements:
 # - apply for community arm build box:
@@ -107,6 +109,6 @@ in
         sshKey = config.sops.secrets."nixremote_ssh_key".path;
       })
     ];
-    nix.distributedBuilds = lib.mkIf (cfg.remote-builders.desko || cfg.remote-builders.servo) true;
+    nix.distributedBuilds = lib.mkIf (cfg.remote-builders.desko || cfg.remote-builders.servo || cfg.remote-builders.supercap) true;
   };
 }

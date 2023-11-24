@@ -1,0 +1,21 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p jq -p nix
+
+# use like `eval $(sane-clone tuba)` to clone and cd into a tuba checkout
+
+srcattr="$1.src"
+basedir=/home/colin/ref/repos
+
+repourl="$(nix eval nixpkgs#$srcattr.gitRepoUrl | jq --raw-output)"
+repoowner="$(nix eval nixpkgs#$srcattr.owner | jq --raw-output)"
+reponame="$(nix eval nixpkgs#$srcattr.repo | jq --raw-output)"
+
+ownerdir="$basedir/$repoowner"
+clonedir="$ownerdir/$reponame"
+
+mkdir -p "$ownerdir"
+git clone "$repourl" "$clonedir"
+
+# drop the user into the checkout
+echo "cd $clonedir"
+cd "$clonedir"

@@ -20,6 +20,7 @@ in
       "sane-scripts.bt-show"
     ];
     "sane-scripts.dev" = declPackageSet [
+      "sane-scripts.clone"
       "sane-scripts.dev-cargo-loop"
       "sane-scripts.git-init"
     ];

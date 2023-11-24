@@ -66,6 +66,11 @@ let
       pyPkgs = [ "sane-lib.bt" ];
       pkgs = [ "sane-scripts.lib.bt.propagatedBuildInputs" ];
     };
+    clone = static-nix-shell.mkBash {
+      pname = "sane-clone";
+      src = ./src;
+      pkgs = [ "jq" "nix" ];
+    };
     deadlines = static-nix-shell.mkBash {
       pname = "sane-deadlines";
       src = ./src;

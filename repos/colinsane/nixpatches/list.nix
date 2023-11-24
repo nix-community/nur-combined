@@ -28,6 +28,11 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/267550";
     hash = "sha256-Dl9ZQazjXjIbw38Q78otQvgVCB/QZAC1IYoFX0Tuyw0=";
   })
+  (fetchpatch' {
+    title = "tuba: 0.4.1 -> 0.5.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/269725";
+    hash = "sha256-U2ipKRCFqczxj2kuIDPPRI/qnObJN/yz160Cvd4VFQ4=";
+  })
   # (fetchpatch' {
   #   # N.B.: obsoleted by 267550 PR above
   #   title = "vala: search for vapi files in targetOffset, not hostOffset";
