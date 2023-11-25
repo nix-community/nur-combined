@@ -85,27 +85,13 @@ let
   plugin-config-lua = concatMapStrings (p: optionalString (p.type or "" == "lua") p.config) plugins;
 in
 {
-  # private because there could be sensitive things in the swap
   sane.programs.neovim = {
-    persist.byStore.private = [ ".cache/vim-swap" ];
-    env.EDITOR = "vim";
-    # git claims it should use EDITOR, but it doesn't!
-    env.GIT_EDITOR = "vim";
-    mime.priority = 200;  # default=100 => yield to other, more specialized applications
-    mime.associations."application/schema+json" = "nvim.desktop";
-    mime.associations."plain/text" = "nvim.desktop";
-    mime.associations."text/markdown" = "nvim.desktop";
-  };
-
-  programs.neovim = mkIf config.sane.programs.neovim.enabled {
-    # neovim: https://github.com/neovim/neovim
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    configure = {
-      packages.plugins = {
-        start = plugin-packages;
-      };
+    # package = config.programs.neovim.finalPackage;
+    package = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (pkgs.neovimUtils.makeNeovimConfig {
+      withRuby = false;  #< doesn't cross-compile w/o binfmt
+      viAlias = true;
+      vimAlias = true;
+      plugins = plugin-packages;
       customRC = ''
         " let the terminal handle mouse events, that way i get OS-level ctrl+shift+c/etc
         " this used to be default, until <https://github.com/neovim/neovim/pull/19290>
@@ -147,6 +133,16 @@ in
         ${plugin-config-lua}
         EOF
       '';
-    };
+    });
+
+    # private because there could be sensitive things in the swap
+    persist.byStore.private = [ ".cache/vim-swap" ];
+    env.EDITOR = "vim";
+    # git claims it should use EDITOR, but it doesn't!
+    env.GIT_EDITOR = "vim";
+    mime.priority = 200;  # default=100 => yield to other, more specialized applications
+    mime.associations."application/schema+json" = "nvim.desktop";
+    mime.associations."plain/text" = "nvim.desktop";
+    mime.associations."text/markdown" = "nvim.desktop";
   };
 }

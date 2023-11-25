@@ -92,6 +92,11 @@ let
     );
 
   needsBinfmt = pkg: pkg.overrideAttrs (upstream: {
+    # "kvm" isn't precisely the right feature here.
+    # but the effect is that if you build a `needsBinfmt` package with `-j0`,
+    # then nix will try to find a builder that's been marked with `kvm` feature,
+    # and i don't mark my non-binfmt builders with `kvm`, hence it's guaranteed to
+    # be built on a binfmt-enabled builder (or not built, if no binfmt builders).
     requiredSystemFeatures = (upstream.requiredSystemFeatures or []) ++ [ "kvm" ];
   });
 
@@ -397,6 +402,9 @@ in {
   #     });
   #   };
 
+  # error: "imdi/imdi_make: line 1: ^?ELF^B^A^A^B�^A�@�^W^A@8: not found"
+  argyllcms = needsBinfmt prev.argyllcms;
+
   # binutils = prev.binutils.override {
   #   # fix that resulting binary files would specify build #!sh as their interpreter.
   #   # dtrx is the primary beneficiary of this.
@@ -511,6 +519,11 @@ in {
     '';
   });
 
+  # CMake Error at cmake/SoupVersion.cmake:3 (file):
+  # file Failed to run ldconfig
+
+  dino = needsBinfmt prev.dino;
+
   dtrx = prev.dtrx.override {
     # `binutils` is the nix wrapper, which reads nix-related env vars
     # before passing on to e.g. `ld`.
@@ -578,14 +591,15 @@ in {
   };
 
   # 2023/07/31: upstreaming is blocked on ostree dep
-  flatpak = prev.flatpak.overrideAttrs (upstream: {
+  # needs binfmt: "./configure: line 17437: /nix/store/j2afjl8psjlk5cz23n45w5x8wkks2rkl-bubblewrap-aarch64-unknown-linux-gnu-0.8.0/bin/bwrap: cannot execute binary file: Exec format error"
+  flatpak = needsBinfmt (prev.flatpak.overrideAttrs (upstream: {
     # fixes "No package 'libxml-2.0' found"
     buildInputs = upstream.buildInputs ++ [ final.libxml2 ];
     configureFlags = upstream.configureFlags ++ [
       "--enable-selinux-module=no"  # fixes "checking for /usr/share/selinux/devel/Makefile... configure: error: cannot check for file existence when cross compiling"
       "--disable-gtk-doc"  # fixes "You must have gtk-doc >= 1.20 installed to build documentation for Flatpak"
     ];
-  });
+  }));
 
   # future: use `buildRustPackage`?
   # - find another rust package that uses a `-sys` crate (with a build script)?
@@ -737,8 +751,9 @@ in {
         "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
       ];
     });
-    evolution-data-server = super.evolution-data-server.overrideAttrs (upstream: {
+    evolution-data-server = needsBinfmt (super.evolution-data-server.overrideAttrs (upstream: {
       # 2023/08/01: upstreaming is blocked on libavif
+      # needs binfmt: tries to run the host glib-compile-schemas
       # fixes aborts in "Performing Test _correct_iconv"
       cmakeFlags = upstream.cmakeFlags ++ [
         "-DCMAKE_CROSSCOMPILING_EMULATOR=${final.stdenv.hostPlatform.emulator final.buildPackages}"
@@ -755,7 +770,7 @@ in {
       #   final.pcre2  # fixes: "Package 'libpcre2-8', required by 'glib-2.0', not found"
       #   final.mount  # fails to fix: "Package 'mount', required by 'gio-2.0', not found"
       # ];
-    });
+    }));
 
     # 2023/08/01: upstreaming is blocked on nautilus, gnome-user-share (apache-httpd, webp-pixbuf-loader)
     # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
@@ -950,6 +965,8 @@ in {
   #   # not enough: still tries to execute build machine perl
   #   buildPackages.gtk-doc = final.gtk-doc;
   # });
+  # needs binfmt: "configure: error: no suitable Python interpreter found"
+  ibus = needsBinfmt prev.ibus;
 
   # 2023/10/23: upstreaming blocked on argyllcms
   graphicsmagick = prev.graphicsmagick.overrideAttrs (upstream: {
@@ -987,6 +1004,9 @@ in {
   #     openjdk19 = emulated.javaPackages.compiler.openjdk19;
   #   };
   # };
+
+  # error: "configure: error: cannot run C compiled programs."
+  jbig2dec = needsBinfmt prev.jbig2dec;
 
   # jellyfin-media-player = mvToBuildInputs
   #   [ final.libsForQt5.wrapQtAppsHook ]  # this shouldn't be: but otherwise we get mixed qtbase deps
@@ -1082,7 +1102,8 @@ in {
 
   # 2023/11/21: upstreaming is blocked by qtsvg (via pipewire/ffado)
   # libpanel = mvToNativeInputs [ final.glib ] prev.libpanel;
-  libpanel = prev.libpanel.overrideAttrs (upstream: {
+  # needs binfmt: tries to run the wrong gtk4-update-icon-cache
+  libpanel = needsBinfmt (prev.libpanel.overrideAttrs (upstream: {
     doCheck = false;
     # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
     #   # fixes "Build-time dependency gi-docgen found: NO (tried pkgconfig and cmake)"
@@ -1096,7 +1117,7 @@ in {
       "-Ddocs=disabled"
     ];
     outputs = lib.remove "devdoc" upstream.outputs;
-  });
+  }));
 
   # libsForQt5 = prev.libsForQt5.overrideScope' (self: super: {
   #   qgpgme = super.qgpgme.overrideAttrs (orig: {
@@ -1849,6 +1870,9 @@ in {
   #   inherit (emulated) stdenv;
   # };
 
+  # needs binfmt: "bin/yarn: line 8: syntax error near unexpected token `(': `var majorVer = parseInt(ver.split('.')[0], 10);'"
+  signal-desktop-from-src = needsBinfmt prev.signal-desktop-from-src;
+
   spandsp = prev.spandsp.overrideAttrs (upstream: {
     configureFlags = upstream.configureFlags or [] ++ [
       # fixes runtime error: "undefined symbol: rpl_realloc"
@@ -2109,7 +2133,8 @@ in {
   );
 
   # 2023/11/21: upstreaming is blocked on wlroots
-  waybar = (prev.waybar.override {
+  # needs binfmt: "meson.build:420:8: ERROR: Dependency lookup for scdoc with method 'pkgconfig' failed: Pkg-config binary for machine 0 not found. Giving up."
+  waybar = needsBinfmt ((prev.waybar.override {
     runTests = false;
     cavaSupport = false;  # doesn't cross compile
     hyprlandSupport = false;  # doesn't cross compile
@@ -2119,7 +2144,7 @@ in {
     };
   }).overrideAttrs (upstream: {
     depsBuildBuild = upstream.depsBuildBuild or [] ++ [ final.pkg-config ];
-  });
+  }));
 
   webkitgtk = prev.webkitgtk.overrideAttrs (upstream: {
     # fixes "wayland-scanner: line 5: syntax error: unterminated quoted string"
@@ -2164,6 +2189,8 @@ in {
       });
     };
   };
+
+  wrapNeovimUnstable = neovim: config: needsBinfmt (prev.wrapNeovimUnstable neovim config);
 
   # 2023/07/30: upstreaming is blocked on unar (gnustep), unless i also make that optional
   xarchiver = mvToNativeInputs [ final.libxslt ] prev.xarchiver;
