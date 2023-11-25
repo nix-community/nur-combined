@@ -24,5 +24,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jusw85/mozlz4";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
+    mainProgram = "mozlz4";
   };
 }
