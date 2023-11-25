@@ -1,12 +1,12 @@
 { lib, appimageTools, fetchurl, asar }:
 let
   pname = "ntfy-naive";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchurl {
     url =
       "https://github.com/pokon548/ntfy-naive/releases/download/v${version}/Ntfy.Native-${version}.AppImage";
-    hash = "sha256-Up8a1SpMbIJy7QIGmyGGpKJJyCkIAMLtyY3ifA+lMJ0=";
+    hash = "sha256-+7MU3+cLdIDk2o0ZPkmJmyb9k4KBlSnINspsqe1+kaQ=";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
