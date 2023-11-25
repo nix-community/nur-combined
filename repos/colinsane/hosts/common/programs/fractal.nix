@@ -41,6 +41,7 @@ in
       # XXX by default fractal stores its state in ~/.local/share/<build-profile>/<UUID>.
       ".local/share/hack"    # for debug-like builds
       ".local/share/stable"  # for normal releases
+      ".local/share/fractal" # for version 5+, i think?
     ];
 
     suggestedPrograms = [ "gnome-keyring" ];

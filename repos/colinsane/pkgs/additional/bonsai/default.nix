@@ -48,9 +48,10 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  # NOTE: bonsaid 1.0.2 requires newer hare than exists in nixpkgs as of 2023/11.
+  # passthru.updateScript = gitUpdater {
+  #   rev-prefix = "v";
+  # };
 
   meta = with lib; {
     description = "Bonsai is a Finite State Machine structured as a tree";

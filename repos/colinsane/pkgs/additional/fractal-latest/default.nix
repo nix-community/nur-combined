@@ -22,13 +22,13 @@ let
     # XXX(2023/09/27): beyond this commit, dependencies are higher than what nixpkgs provides:
     # - gtk4 >= 4.11.3
     # - libadwaita >= 1.4.0
-    version = "unstable-2023-09-14";
+    version = "unstable-2023-11-24";
     src = fetchFromGitLab {
       domain = "gitlab.gnome.org";
       owner = "GNOME";
       repo = "fractal";
-      rev = "350a65cb0a221c70fc3e4746898036a345ab9ed8";
-      hash = "sha256-z6uURqMG5pT8rXZCv5IzTjXxtt/f4KUeCDSgk90aWdo=";
+      rev = "a9ac0d482cef3a3c84a50ca0706c2a9ab4d4f468";
+      hash = "sha256-OR+SRS4xs3rLGGHhsWxTatpiN6SMGeyhhr9zO+vxz+E=";
     };
 
     cargoDeps = rustPlatform.importCargoLock {
@@ -41,10 +41,8 @@ let
         # 4. repeat until no more crates are missing hashes
         # 5. build, and nix will let you know what the actual hashes should be
         # TODO: alternative is to set `allowBuiltinFetchGit = true;`
-        "curve25519-dalek-4.0.0" = "sha256-sxEFR6lsX7t4u/fhWd6wFMYETI2egPUbjMeBWkB289E=";
-        "matrix-sdk-0.6.2" = "sha256-A1oKNbEx2A6WwvYcNSW53Fd6QWwr0QFJtrsJXO2KInE=";
-        "ruma-0.8.2" = "sha256-kCGS7ACFGgmtTUElLJQMYfjwJ3glF7bRPZYJIFcuPtc=";
-        "vodozemac-0.4.0" = "sha256-TCbWJ9bj/FV3ILWUTcksazel8ESTNTiDGL7kGlEGvow=";
+        "mas-http-0.5.0-rc.2" = "sha256-XH+I5URcbkSY4NDwfOFhIjb+/swuGz6n9hKufziPgoY=";
+        "matrix-sdk-0.6.2" = "sha256-X+4077rlaE8zjXHXPUfiYwa/+Bg0KTFrcsAg7yCz4ug=";
       };
     };
 

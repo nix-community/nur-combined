@@ -20,6 +20,7 @@ let
   # - there should be some new tag, like `refs/tags/orange-pi-6.4-20230907-1427`
   # checkout the revision associated with the tag, then:
   # - manually retag it, because `git bundle` doesn't actually import the tag
+  #   - `git checkout <commit> ; git tag <tagname>`
   # - `git push origin <tag>`
   # - grab VERSION/PATCHLEVEL/SUBLEVEL/EXTRAVERSION from Makefile.
   #
@@ -28,9 +29,9 @@ let
   #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` tags are "formal" releases
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
   # rev = "orange-pi-6.4-20230914-1603";
-  rev = "orange-pi-6.5-20230914-1327";
-  hash = "sha256-X4fDgQEyXgVAdaWzrsEOM+BCkv4rAaCaQSo2w4aRmbQ=";
-  base = "6.5.3";
+  rev = "orange-pi-6.6-20231103-1422";
+  hash = "sha256-d5xQXfFqMBGOCbKO+HOoAKSUrvdhSmpqPAfqW7AYvAg=";
+  base = "6.6.0";
   # set to empty if not a release candidate, else `-rc<N>`
   rc = "";
 
@@ -81,6 +82,7 @@ let
     # used by the pinephone pro, but fails to compile with:
     # ../drivers/media/i2c/ov8858.c:1834:27: error: implicit declaration of function 'compat_ptr'
     VIDEO_OV8858 = no;
+    BES2600 = no;  # fails to compile
     #
     ### RELEVANT CONFIGS INHERITED FROM NIXOS DEFAULTS (OR ABOVE ADDITIONS):
     #
