@@ -1545,10 +1545,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "121.0.20231122.91904";
+      version = "121.0.20231124.91512";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4198653/deutsch_de_language_pack-121.0.20231122.91904.xpi";
-      sha256 = "28acde3cf30688419d98c65122ee4ca90907f9a2322f742c7cb5cedfd4f2c791";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4199747/deutsch_de_language_pack-121.0.20231124.91512.xpi";
+      sha256 = "46d8d198ad9e3035849b4fb10c98af9786e1724ac2112990db9b9caa75f0ec95";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2384,10 +2384,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "121.0.20231122.91904";
+      version = "121.0.20231124.91512";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4198598/francais_language_pack-121.0.20231122.91904.xpi";
-      sha256 = "fd853f63d64262f4d5e78769a49fe43596b5ae3094c369193bf96f45c3c86c62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4199756/francais_language_pack-121.0.20231124.91512.xpi";
+      sha256 = "4d9fc537ad0fd71e1636af30997d437c1f7d6c3247786e7b08531056e3398fea";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6066,10 +6066,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.4.1";
+      version = "11.5.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4190228/ether_metamask-11.4.1.xpi";
-      sha256 = "681db1e707b3806ad8c8c17ac4f9b38f2a28a9817165820536f8869c921f8818";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198260/ether_metamask-11.5.1.xpi";
+      sha256 = "9b21dba9e3956c30c8a2cf2e22b068d6c2aea5a62142e9969e02ded790d3e97e";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -8632,10 +8632,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.35";
+      version = "1.5.38";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4160414/styl_us-1.5.35.xpi";
-      sha256 = "d415ee11fa4a4313096a268e54fd80fa93143345be16f417eb1300a6ebe26ba1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190287/styl_us-1.5.38.xpi";
+      sha256 = "881b89235e8a33c32334e922abf11a4a857d0e007c4a2ff124b5445cd9994984";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
