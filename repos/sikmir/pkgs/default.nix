@@ -85,6 +85,7 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / LIBRARIES
 
+    libgnunetchat = callPackage ./development/libraries/libgnunetchat { };
     libshell = callPackage ./development/libraries/libshell { };
     microjson = callPackage ./development/libraries/microjson { };
 
@@ -359,6 +360,8 @@ lib.makeScope newScope (
     libmdbx = callPackage ./misc/libmdbx { };
     libnbcompat = callPackage ./misc/libnbcompat { };
     md2html = callPackage ./misc/md2html { };
+    messenger-cli = callPackage ./misc/messenger-cli { };
+    messenger-gtk = callPackage ./misc/messenger-gtk { };
     miband4 = callPackage ./misc/miband4 { };
     mitzasql = callPackage ./misc/mitzasql { };
     modbus-tools = callPackage ./misc/modbus-tools {
