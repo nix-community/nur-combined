@@ -21,6 +21,13 @@ buildHomeAssistantComponent rec {
 
   patches = [ ./poetry.patch ];
 
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace 'teslajsonpy = "3.9.6"' 'teslajsonpy = ">=3.9.6"'
+    substituteInPlace custom_components/tesla_custom/manifest.json \
+      --replace 'teslajsonpy==3.9.6' 'teslajsonpy>=3.9.6'
+  '';
+
   nativeBuildInputs = [
     poetry-core
   ];
