@@ -19,6 +19,8 @@
 
   chengla-electron = pkgs.callPackage ./pkgs/chengla-electron { };
 
+  ntfy-naive = pkgs.callPackage ./pkgs/ntfy-naive { };
+
   fcitx5-pinyin-custompinyindict = pkgs.callPackage ./pkgs/fcitx5-pinyin-custompinyindict { };
   rustdesk-bin = pkgs.callPackage ./pkgs/rustdesk-bin { };
   geogebra = pkgs.callPackage ./pkgs/geogebra { };
