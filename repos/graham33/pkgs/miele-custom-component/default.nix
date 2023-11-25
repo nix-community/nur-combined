@@ -1,19 +1,22 @@
 { lib
 , fetchFromGitHub
+, buildHomeAssistantComponent
 , bump2version
-, home-assistant
+, colorlog
+, flatdict
+, pymiele
 }:
 
-with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
+buildHomeAssistantComponent rec {
   pname = "miele";
-  version = "0.1.14";
+  version = "0.1.17";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "astrandb";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-Ybh8vgCge8SfoGK9qQ1pYRMFqI6Xz9yGsvK2PsyaDgs=";
+    sha256 = "sha256-h9ga7VqHfACTCiy/tCppn3WvMYf4WazLQxYHFb5XUrE=";
   };
 
   nativeBuildInputs = [

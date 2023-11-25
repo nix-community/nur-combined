@@ -1,34 +1,38 @@
 { lib
 , fetchFromGitHub
+, buildHomeAssistantComponent
+, fnv-hash-fast
+, fnvhash
 , home-assistant
+, mock
+, psutil-home-assistant
+, pytest
+, pytest-asyncio
+, pytest-socket
+, sqlalchemy
 }:
 
-with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
+buildHomeAssistantComponent rec {
   pname = "octopus-energy";
-  version = "8.4.4";
+  version = "8.5.2";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "BottlecapDave";
     repo = "HomeAssistant-OctopusEnergy";
     rev = "v${version}";
-    sha256 = "sha256-UeNhwQ5YuJCdRbgZKmorfFRDiJH5GdYznnSfGhHkbgU=";
+    sha256 = "sha256-hjTnmftqP+hpolE1yypL72vyx/ohuvvgVRAxC4dSfPc=";
   };
 
-  propagatedBuildInputs = [
-  ];
-
-  installPhase = ''
-    mkdir -p $out
-    cp -r custom_components $out/
-  '';
-
   checkInputs = [
-    home-assistant
     fnv-hash-fast
+    fnvhash
+    home-assistant
     mock
     psutil-home-assistant
     pytest
+    pytest-socket
+    pytest-asyncio
     sqlalchemy
   ];
 

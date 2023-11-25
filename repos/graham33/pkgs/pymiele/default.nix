@@ -7,18 +7,14 @@
 
 buildPythonPackage rec {
   pname = "pymiele";
-  version = "0.1.6";
+  version = "0.1.7";
 
   src = fetchFromGitHub {
     owner = "astrandb";
     repo = pname;
-    rev = "73585522fdf35e662f19486be82a161bd8a9b8fa";
-    sha256 = "sha256-fu1FhxKk1avHGl5NRDWpgXhyRKfo2PvJFGPLMMW9OyQ=";
+    rev = "v${version}";
+    sha256 = "sha256-qyEuB2vwGiGYWExIm3NNyzDCyY20mFF22TXLTABC2yo=";
   };
-
-  patches = [
-    ./requirements.patch
-  ];
 
   postPatch = ''
     rm Makefile

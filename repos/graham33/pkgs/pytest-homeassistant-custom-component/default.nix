@@ -6,7 +6,7 @@
 , coverage
 , fnvhash
 , freezegun
-, homeassistant
+, home-assistant
 , jsonpickle
 , lru-dict
 , mock-open
@@ -36,14 +36,14 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.13.66";
+  version = "0.13.76";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "1p8mfmgcca88dc8dzj64zyssbxjynsb05h733a54s2755zr0r6nl";
+    sha256 = "1sapp9xi2jglzbs4ngi83zbi818shfgw084dxzwbdyfqg6081d5r";
   };
 
   postPatch = ''
@@ -64,7 +64,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     fnvhash
     freezegun
-    homeassistant
+    home-assistant
     lru-dict
     numpy
     paho-mqtt

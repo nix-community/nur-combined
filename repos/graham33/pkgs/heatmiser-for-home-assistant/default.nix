@@ -1,28 +1,24 @@
 { lib
 , fetchFromGitHub
-, home-assistant
+, buildHomeAssistantComponent
+, neohubapi
 }:
 
-with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
+buildHomeAssistantComponent rec {
   pname = "heatmiser-for-home-assistant";
-  version = "0.0.1-pre434b6eb";
+  version = "0.0.1-pre0d4905c";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "MindrustUK";
     repo = pname;
-    rev = "434b6eb92b0f76dd045bd222b8e4860d0492e6a9";
-    sha256 = "sha256-9fD6rHzSI4IXEXNq/WcD/EXWRf0kE/rhckzOZrJ4xKw=";
+    rev = "0d4905c022fca39c3b8134ece7246e3fabc00a84";
+    sha256 = "sha256-nrpAvPyo4OFJcGdZKshaAxXmk6LvyOnJv99XEejXCh4=";
   };
 
   propagatedBuildInputs = [
     neohubapi
   ];
-
-  installPhase = ''
-    mkdir -p $out
-    cp -r custom_components $out/
-  '';
 
   meta = with lib; {
     homepage = "https://github.com/MindrustUK/heatmiser-for-home-assistant";

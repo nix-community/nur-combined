@@ -1,9 +1,10 @@
 { lib
 , fetchFromGitHub
-, home-assistant
+, buildHomeAssistantComponent
+, pytz
 }:
 
-with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
+buildHomeAssistantComponent rec {
   pname = "frigate-hass-integration";
   version = "4.0.0";
   format = "other"; # has pyproject.toml but no build system defined
@@ -24,9 +25,12 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
     pytz
   ];
 
+  # TODO: default installPhase uses $src, so patches don't take effect
   installPhase = ''
-    mkdir -p $out
-    cp -r custom_components $out/
+    runHook preInstall
+    mkdir $out
+    cp -r custom_components/ $out/
+    runHook postInstall
   '';
 
   meta = with lib; {

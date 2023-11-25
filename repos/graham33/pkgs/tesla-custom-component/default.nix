@@ -1,28 +1,25 @@
 { lib
 , fetchFromGitHub
-, home-assistant
+, buildHomeAssistantComponent
+, python
+, poetry-core
+, setuptools
+, teslajsonpy
 }:
 
-with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
+buildHomeAssistantComponent rec {
   pname = "tesla-custom-component";
-  version = "3.18.0";
+  version = "3.19.2";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "alandtse";
     repo = "tesla";
     rev = "v${version}";
-    sha256 = "sha256-MjY0IILJYu4zZ9Ab0zHocX1F6Q8asfRYzpJEzXJxoWY=";
+    sha256 = "sha256-lcaQr3pnWwzjmHSFSMgzq7oSYBJgeoFHsCjW61j8zsM=";
   };
 
   patches = [ ./poetry.patch ];
-
-  postPatch = ''
-     substituteInPlace pyproject.toml \
-      --replace 'teslajsonpy = "3.9.5"' 'teslajsonpy = ">=3.9.5"'
-     substituteInPlace custom_components/tesla_custom/manifest.json \
-      --replace 'teslajsonpy==3.9.5' 'teslajsonpy>=3.9.5'
- '';
 
   nativeBuildInputs = [
     poetry-core
@@ -33,9 +30,13 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
     teslajsonpy
   ];
 
+  installPhase = ''
+    pypaInstallPhase
+  '';
+
   fixupPhase = ''
     mkdir -p $out/custom_components
-    mv $out/${home-assistant.python.sitePackages}/* $out/custom_components/
+    mv $out/${python.sitePackages}/* $out/custom_components/
     rm -r $out/lib
   '';
 

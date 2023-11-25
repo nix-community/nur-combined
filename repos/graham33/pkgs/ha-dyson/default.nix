@@ -1,9 +1,12 @@
 { lib
 , fetchFromGitHub
-, home-assistant
+, buildHomeAssistantComponent
+, python
+, libdyson
+, setuptools
 }:
 
-with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
+buildHomeAssistantComponent rec {
   pname = "ha-dyson";
   version = "0.16.4-4";
   format = "pyproject";
@@ -19,11 +22,6 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
     libdyson
     setuptools
   ];
-
-  installPhase = ''
-    mkdir -p $out/custom_components
-    cp -r custom_components/dyson_local $out/custom_components/
-  '';
 
   meta = with lib; {
     homepage = "https://github.com/shenxn/ha-dyson";

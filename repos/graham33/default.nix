@@ -11,16 +11,6 @@
 let
   myPackages = pkgs.lib.makeScope pkgs.newScope (self: with self; {
 
-    frigate-hass-integration = callPackage ./pkgs/frigate-hass-integration { };
-
-    ha-dyson = callPackage ./pkgs/ha-dyson { };
-    ha-dyson-cloud = callPackage ./pkgs/ha-dyson-cloud { };
-    ha-hildebrandglow-dcc = callPackage ./pkgs/ha-hildebrandglow-dcc { };
-
-    hass-smartbox = callPackage ./pkgs/hass-smartbox {};
-    hassio-ecoflow = callPackage ./pkgs/hassio-ecoflow { };
-    heatmiser-for-home-assistant = callPackage ./pkgs/heatmiser-for-home-assistant { };
-
     home-assistant = (pkgs.home-assistant.override {
       # TODO: fix upstream
       extraPackages = ps: [ps.ifaddr];
@@ -30,16 +20,12 @@ let
       doInstallCheck = false;
     });
 
-    home-assistant-miele = callPackage ./pkgs/home-assistant-miele { };
-
     homeAssistantPackageOverrides = pySelf: pySuper: rec {
       async-property = pySelf.callPackage ./pkgs/async-property { };
-      buildHomeAssistantCustomComponent = callPackage pkgs/build-support/build-home-assistant-custom-component {};
 
       # authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
       # fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
       garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
-      homeassistant = (pySelf.toPythonModule home-assistant);
       homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
       libdyson = pySelf.callPackage ./pkgs/libdyson { };
       monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
@@ -51,7 +37,6 @@ let
       pytest-picked = pySelf.callPackage ./pkgs/pytest-picked { };
       python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
       python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
-      ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
       smartbox = pySelf.callPackage ./pkgs/smartbox { };
       # typer = pySelf.callPackage ./pkgs/typer { };
 
@@ -62,10 +47,6 @@ let
 
     libedgetpu = callPackage ./pkgs/libedgetpu { };
 
-    miele-custom-component = callPackage ./pkgs/miele-custom-component { };
-
-    octopus-energy = callPackage ./pkgs/octopus-energy { };
-
     python3 = let
       packageOverrides = pySelf: pySuper: rec {
         json_exporter = pySelf.callPackage ./pkgs/json_exporter { };
@@ -74,8 +55,16 @@ let
       pkgs.python3.override { inherit packageOverrides; self = python3; };
     python3Packages = python3.pkgs;
 
-    solis-sensor = callPackage ./pkgs/solis-sensor { };
-    tesla-custom-component = callPackage ./pkgs/tesla-custom-component { };
+    # Home Assistant packages
+    frigate-hass-integration = home-assistant.python.pkgs.callPackage ./pkgs/frigate-hass-integration { };
+    ha-dyson = home-assistant.python.pkgs.callPackage ./pkgs/ha-dyson { };
+    ha-dyson-cloud = home-assistant.python.pkgs.callPackage ./pkgs/ha-dyson-cloud { };
+    hass-smartbox = home-assistant.python.pkgs.callPackage ./pkgs/hass-smartbox {};
+    heatmiser-for-home-assistant = home-assistant.python.pkgs.callPackage ./pkgs/heatmiser-for-home-assistant { };
+    miele-custom-component = home-assistant.python.pkgs.callPackage ./pkgs/miele-custom-component { };
+    octopus-energy = home-assistant.python.pkgs.callPackage ./pkgs/octopus-energy { };
+    solis-sensor = home-assistant.python.pkgs.callPackage ./pkgs/solis-sensor { };
+    tesla-custom-component = home-assistant.python.pkgs.callPackage ./pkgs/tesla-custom-component { };
   });
 
   # pkg_21-11 = pkg: if (builtins.match "^21\.11.*" pkgs.lib.version != null) then pkg else null;
@@ -92,12 +81,9 @@ in rec {
     frigate-hass-integration
     ha-dyson
     ha-dyson-cloud
-    ha-hildebrandglow-dcc
     hass-smartbox
-    hassio-ecoflow
     heatmiser-for-home-assistant
     home-assistant
-    home-assistant-miele
     homeAssistantPackageOverrides
     libedgetpu
     miele-custom-component
@@ -112,7 +98,6 @@ in rec {
 
   inherit (home-assistant.python.pkgs)
     async-property
-    homeassistant
     homeassistant-stubs
     neohubapi
     pylint-per-file-ignores

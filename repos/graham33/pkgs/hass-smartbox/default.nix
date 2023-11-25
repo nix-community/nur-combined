@@ -1,9 +1,21 @@
 { lib
 , fetchFromGitHub
+, buildHomeAssistantComponent
 , home-assistant
+, homeassistant-stubs
+, mypy
+, pytest-aiohttp
+, pytest-asyncio
+, pytest-cov
+, pytest-homeassistant-custom-component
+, pytest-randomly
+, pytest-sugar
+, pytestCheckHook
+, smartbox
+, voluptuous
 }:
 
-with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
+buildHomeAssistantComponent rec {
   pname = "hass-smartbox";
   version = "2.0.0-beta.2";
   format = "other";
@@ -21,7 +33,7 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   ];
 
   checkInputs = [
-    homeassistant
+    home-assistant
     homeassistant-stubs
     mypy
     pytest-aiohttp
