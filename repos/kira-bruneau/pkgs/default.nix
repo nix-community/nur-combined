@@ -47,6 +47,8 @@ in
 {
   inherit callPackage;
 
+  anytype = callPackage ./development/tools/misc/anytype { };
+
   caprine = callPackage ./applications/networking/instant-messengers/caprine { };
 
   ccache = callPackage ./development/tools/misc/ccache { };
