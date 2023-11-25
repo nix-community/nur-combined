@@ -438,7 +438,8 @@ in {
 
   # 2023/10/23: upstreaming blocked by gvfs, webkitgtk 4.1 (OOMs)
   # fixes: "error: Package <foo> not found in specified Vala API directories or GObject-Introspection GIR directories"
-  calls = addNativeInputs [ final.gobject-introspection] prev.calls;
+  # needs binfmt for docs: "scangobj.py:execute_command:1293:WARNING:Running scanner failed: [Errno 8] Exec format error: './calls-scan', command: ./calls-scan"
+  calls = needsBinfmt (addNativeInputs [ final.gobject-introspection] prev.calls);
 
   # fixes "FileNotFoundError: [Errno 2] No such file or directory: 'gtk4-update-icon-cache'"
   # 2023/07/27: upstreaming is blocked on p11-kit cross compilation
@@ -658,6 +659,9 @@ in {
   #   # patching gst-plugin-gtk4 to not build cdylib fixes the issue in the `fractal-nixified` variant of this package
   # });
 
+  # needs binfmt: "error[E0463]: can't find crate for `gettextrs`"
+  fractal-nixified = needsBinfmt prev.fractal-nixified;
+
   # 2023/07/31: upstreaming is unblocked -- if i can rework to not use emulation
   # fwupd-efi = prev.fwupd-efi.override {
   #   # fwupd-efi queries meson host_machine to decide what arch to build for.
@@ -728,6 +732,9 @@ in {
     final.libgnome-games-support
     # final.gobject-introspection  # this *should* work, if libgnome-games-support were to ship GIR bindings?
   ] prev.gnome-2048;
+
+  # needs binfmt: "scangobj.py:execute_command:1293:WARNING:Running scanner failed: [Errno 8] Exec format error: './goa-scan', command: ./goa-scan"
+  gnome-online-accounts = needsBinfmt prev.gnome-online-accounts;
 
   gnome = prev.gnome.overrideScope' (self: super: {
     # dconf-editor = super.dconf-editor.override {
@@ -2010,7 +2017,8 @@ in {
   #     doCheck = false;  # tests time out
   #   };
   # };
-  tangram = (prev.tangram.override {
+  # needs binfmt: "/build/source/src/../troll/gjspack/bin/gjspack: line 3: import: not found"
+  tangram = needsBinfmt ((prev.tangram.override {
     # N.B. blueprint-compiler is in nativeBuildInputs.
     # the trick here is to force the aarch64 versions to be used during build (via emulation).
     # blueprint-compiler override shared with flare-signal-nixified.
@@ -2035,7 +2043,7 @@ in {
     '';
     # buildInputs = upstream.buildInputs ++ [ final.gobject-introspection ];
     # nativeBuildInputs = lib.remove final.gobject-introspection upstream.nativeBuildInputs;
-  });
+  }));
   # tangram = (mvToBuildInputs [ final.blueprint-compiler final.gobject-introspection ] prev.tangram).overrideAttrs (upstream: {
   #   postPatch = (upstream.postPatch or "") + ''
   #     substituteInPlace src/meson.build \
