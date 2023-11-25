@@ -16,21 +16,7 @@
   gtk4 = pkgs.gtk4.overrideAttrs (oldAttrs: {
     inherit (sources.gtk-4_13_0) version src;
 
-    postPatch =
-      oldAttrs.postPatch
-      + ''
-        chmod +x build-aux/meson/gen-visibility-macros.py
-        patchShebangs build-aux/meson/gen-visibility-macros.py
-      '';
-  });
-
-  # remove when 1.4 gets added to nixpkgs
-  libadwaita = pkgs.libadwaita.overrideAttrs (oldAttrs: {
-    inherit (sources.libadwaita-1_4) version src;
-
-    buildInputs = oldAttrs.buildInputs ++ [gtk4 pkgs.appstream];
-
-    dontCheck = true;
+    patches = [];
   });
 in
   pkgs.stdenv.mkDerivation rec {
