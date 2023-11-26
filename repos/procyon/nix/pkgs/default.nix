@@ -11,5 +11,6 @@ lib.makeScope newScope (
   in
   {
     cockpit-podman = callPackage ./cockpit-podman { };
+    cockpit-machines = callPackage ./cockpit-machines { };
   }
 )

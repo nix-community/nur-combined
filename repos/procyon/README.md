@@ -5,7 +5,6 @@
 [![CI][CI badge]][CI link]
 [![FlakeHub][FlakeHub badge]][FlakeHub link]
 [![REUSE][REUSE badge]][REUSE compliance]
-[![garnix][garnix badge]][garnix link]
 
 ## Licenses
 
@@ -21,8 +20,6 @@ _And the usual copies?_ &rarr; [`./LICENSES`][Project licenses].
 [CI link]: https://github.com/UnidealisticRaccoon/SnowyBurrow/actions/workflows/ci.yaml
 [REUSE badge]: https://api.reuse.software/badge/github.com/UnidealisticRaccoon/SnowyBurrow
 [REUSE compliance]: https://api.reuse.software/info/github.com/UnidealisticRaccoon/SnowyBurrow
-[garnix badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2FUnidealisticRaccoon%2FSnowyBurrow%3Fbranch%3Dmain
-[garnix link]: https://garnix.io
 [Project licensing]: https://github.com/UnidealisticRaccoon/SnowyBurrow/blob/main/.reuse/dep5
 [Project licenses]: https://github.com/UnidealisticRaccoon/SnowyBurrow/tree/main/LICENSES
 
