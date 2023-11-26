@@ -509,6 +509,7 @@ in
         # the fallout of this is that during intense lag (e.g. OOM or swapping) it can
         # start the service many times.
         # see <repo:craftyguy/superd:internal/cmd/cmd.go>
+        #   startTimerDuration = 100 * time.Millisecond
         # TODO: better fix may be to patch `sxmo_hook_lisgdstart.sh` and force it to behave as a singleton
         # systemd.services."dedupe-sxmo-lisgd" = {
         #   description = "kill duplicate lisgd processes started by superd";
