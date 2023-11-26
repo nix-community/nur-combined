@@ -167,6 +167,9 @@
         "charmbracelet": {
             "url": "https://github.com/charmbracelet/nur"
         },
+        "chen": {
+            "url": "https://github.com/cu1ch3n/nur-packages"
+        },
         "chisui": {
             "url": "https://github.com/chisui/nur-pkgs"
         },
