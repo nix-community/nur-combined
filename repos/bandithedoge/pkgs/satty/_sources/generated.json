@@ -1,27 +1,27 @@
 {
-    "satty": {
-        "cargoLocks": {
-            "Cargo.lock": [
-                "./satty-e1ad952e51c2f4a0f768d0d89418ae30eeda2cc3/Cargo.lock",
-                {}
-            ]
-        },
-        "date": "2023-11-20",
-        "extract": null,
-        "name": "satty",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "gabm",
-            "repo": "Satty",
-            "rev": "e1ad952e51c2f4a0f768d0d89418ae30eeda2cc3",
-            "sha256": "sha256-rpBOWZOwZcon8/09pAIqhBwU8uD6Nuh4gGjAzGFO0Y0=",
-            "type": "github"
-        },
-        "version": "e1ad952e51c2f4a0f768d0d89418ae30eeda2cc3"
-    }
+  "satty": {
+    "cargoLocks": {
+      "Cargo.lock": [
+        "./satty-e1ad952e51c2f4a0f768d0d89418ae30eeda2cc3/Cargo.lock",
+        {}
+      ]
+    },
+    "date": "2023-11-20",
+    "extract": null,
+    "name": "satty",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "gabm",
+      "repo": "Satty",
+      "rev": "e1ad952e51c2f4a0f768d0d89418ae30eeda2cc3",
+      "sha256": "sha256-rpBOWZOwZcon8/09pAIqhBwU8uD6Nuh4gGjAzGFO0Y0=",
+      "type": "github"
+    },
+    "version": "e1ad952e51c2f4a0f768d0d89418ae30eeda2cc3"
+  }
 }
