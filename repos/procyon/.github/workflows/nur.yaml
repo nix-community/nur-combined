@@ -1,0 +1,46 @@
+name: "NUR"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "28 6 * * *"
+
+jobs:
+  push:
+    strategy:
+      matrix:
+        nurRepo:
+          - procyon
+        cachixName:
+          - procyon
+        nixPath:
+          - nixpkgs=channel:nixos-23.05
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixpkgs-unstable
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v22
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - uses: cachix/cachix-action@v12
+        with:
+          name: ${{ matrix.cachixName }}
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - run: |
+          nix-env -f nix/nur -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+      - run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached nix/nur/ci.nix -A cacheOutputs
+      - run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

@@ -1,0 +1,2 @@
+flake.lock linguist-generated=true
+{infrastructure,secrets}/*.{yaml,json,ini,env,txt} diff=sopsdiffer
