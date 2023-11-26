@@ -24,6 +24,7 @@ in {
   octasine = callPackage' ./octasine;
   osirus = callPackage' ./osirus;
   raze = callPackage' ./raze;
+  satty = callPackage' ./satty;
   sheepshaver-bin = callPackage' ./sheepshaver-bin;
   treeSitterGrammars = callPackages ./treeSitterGrammars;
   vimPlugins = callPackage' ./vimPlugins;
