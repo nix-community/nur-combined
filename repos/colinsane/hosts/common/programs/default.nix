@@ -74,6 +74,7 @@
     ./tuba.nix
     ./vlc.nix
     ./wike.nix
+    ./wine.nix
     ./wireshark.nix
     ./xarchiver.nix
     ./zeal.nix

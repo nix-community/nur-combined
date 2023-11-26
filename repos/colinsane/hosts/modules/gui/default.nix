@@ -19,6 +19,7 @@ in
   sane.programs.gameApps = declPackageSet [
     "animatch"
     "gnome-2048"
+    "gnome.hitori"  # like sudoku
     "superTux"  # keyboard-only controls
     "superTuxKart"  # poor FPS on pinephone
   ];
@@ -44,6 +45,7 @@ in
     "space-cadet-pinball"  # LMB/RMB controls (bindable though. volume buttons?)
     "tumiki-fighters" # keyboard-only
     "vvvvvv"  # keyboard-only controls
+    "wine"
   ];
 
   sane.programs.guiApps = declPackageSet [
