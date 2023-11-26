@@ -7,14 +7,14 @@
 }: {
   tree-sitter-hypr = {
     pname = "tree-sitter-hypr";
-    version = "90b3ddf8a85b5ea3d9dc4920fddb16182a192e14";
+    version = "da3c1d780c8e04446722ece04beadb6a44eb442d";
     src = fetchFromGitHub {
       owner = "luckasRanarison";
       repo = "tree-sitter-hypr";
-      rev = "90b3ddf8a85b5ea3d9dc4920fddb16182a192e14";
+      rev = "da3c1d780c8e04446722ece04beadb6a44eb442d";
       fetchSubmodules = false;
-      sha256 = "sha256-ErFs2eCC0eZEyDldrTUj4JJ0Eu+exDHNQx4g8WXh/UQ=";
+      sha256 = "sha256-P3ZiIurixNdBqKJrsmFibmScnwD0pjhljLo4L8BLtws=";
     };
-    date = "2023-10-01";
+    date = "2023-11-26";
   };
 }

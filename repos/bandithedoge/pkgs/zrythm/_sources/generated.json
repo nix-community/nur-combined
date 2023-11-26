@@ -1,7 +1,7 @@
 {
   "carla-git": {
     "cargoLocks": null,
-    "date": "2023-11-19",
+    "date": "2023-11-26",
     "extract": null,
     "name": "carla-git",
     "passthru": null,
@@ -13,11 +13,11 @@
       "name": null,
       "owner": "falkTX",
       "repo": "Carla",
-      "rev": "454e2e5fb6f7db631dc6e5d9d84202b99625c2bc",
-      "sha256": "sha256-Jj69g3me0yj9dYgHUmZYuQMmV0F8DAHOvoJRT148vAM=",
+      "rev": "f3d8dce5861fcd6024c524c7966d5226aa07e328",
+      "sha256": "sha256-jedRiiEYnh/lRKcqbprSSga93RWLC5NbVSoHwvKs79k=",
       "type": "github"
     },
-    "version": "454e2e5fb6f7db631dc6e5d9d84202b99625c2bc"
+    "version": "f3d8dce5861fcd6024c524c7966d5226aa07e328"
   },
   "gtk-4_13_0": {
     "cargoLocks": null,
