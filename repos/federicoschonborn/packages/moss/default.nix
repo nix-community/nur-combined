@@ -5,7 +5,6 @@
 , sqlite
 , zstd
 , unstableGitUpdater
-, rustc
 }:
 
 rustPlatform.buildRustPackage {
@@ -41,6 +40,5 @@ rustPlatform.buildRustPackage {
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    broken = lib.versionOlder rustc.version "1.70";
   };
 }

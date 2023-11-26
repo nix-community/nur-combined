@@ -19,14 +19,14 @@
 
 stdenv.mkDerivation {
   pname = "francis";
-  version = "unstable-2023-11-22";
+  version = "unstable-2023-11-26";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "utilities";
     repo = "francis";
-    rev = "ef6ba82c9a9a9968c0bfc6647831440cf73e37cb";
-    hash = "sha256-r5oyVZXcCyqcmaiaywimGGu9HpPLAYeEY+mevyOaANw=";
+    rev = "9fabcc5bb2bdd7bc846dd09aefdf1cabdd3f8dc2";
+    hash = "sha256-RpQy011HBLxIdpbcx+Xig5tk34y/e980gBcT10zRvco=";
   };
 
   nativeBuildInputs = [
@@ -64,6 +64,5 @@ stdenv.mkDerivation {
     ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    broken = lib.versionOlder kirigami-addons.version "0.10";
   };
 }

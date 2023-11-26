@@ -10,6 +10,5 @@ xfce.mkXfceDerivation {
     description = "Windowing concept abstraction library for X11 and Wayland";
     license = lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    broken = lib.versionOlder xfce.xfce4-dev-tools.version "4.18.1";
   };
 }

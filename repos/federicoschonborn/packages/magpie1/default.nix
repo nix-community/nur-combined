@@ -15,14 +15,14 @@
 }:
 
 stdenv.mkDerivation {
-  pname = "magpie_v1";
-  version = "unstable-2023-11-19";
+  pname = "magpie1";
+  version = "unstable-2023-11-25";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "magpie";
-    rev = "ab627f2334509b5cca57abadf0e05d2d25a836bc";
-    hash = "sha256-S7FMXaAf7GES6yOkX8IljxL1xmD2FssDZBfAnxw4dIY=";
+    rev = "8bbd05cc75982234ad616bf72b83719d294e7782";
+    hash = "sha256-WkvBjdCAuB2BjPqwXQdY21Q1vK/XHL8a5dfGeekzRvE=";
   };
 
   nativeBuildInputs = [
@@ -52,6 +52,5 @@ stdenv.mkDerivation {
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    broken = lib.versionOlder wlroots.version "0.16";
   };
 }

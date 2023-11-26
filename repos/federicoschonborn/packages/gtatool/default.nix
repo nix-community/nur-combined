@@ -71,7 +71,8 @@ stdenv.mkDerivation (finalAttrs: {
     autoreconfHook
     pkg-config
     texinfo # makeinfo
-  ];
+  ]
+  ++ lib.optional withQt qt5.wrapQtAppsHook;
 
   buildInputs = [
     libgta
@@ -90,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optional withPcl pcl
   ++ lib.optional withPfs pfstools
   ++ lib.optional withPng libpng
-  ++ lib.optionals withQt [ qt5.qtbase qt5.wrapQtAppsHook ]
+  ++ lib.optional withQt qt5.qtbase
   ++ lib.optional withSndfile libsndfile
   ++ lib.optional withTeem teem;
 

@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitLab
+, blueprint-compiler
 , cargo
 , desktop-file-utils
 , meson
@@ -36,6 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
+    blueprint-compiler
     cargo
     desktop-file-utils
     meson
@@ -63,6 +65,5 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    broken = lib.versionOlder libadwaita.version "1.4";
   };
 })

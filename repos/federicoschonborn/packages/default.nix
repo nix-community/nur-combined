@@ -25,7 +25,7 @@
   libzypp = pkgs.callPackage ./libzypp { libsolv = libsolv-libzypp; };
   licentia = pkgs.libsForQt5.callPackage ./licentia { };
   liquidshell = pkgs.libsForQt5.callPackage ./liquidshell { };
-  magpie_v1 = pkgs.callPackage ./magpie_v1 { };
+  magpie1 = pkgs.callPackage ./magpie1 { wlroots = wlroots_0_17; };
   marknote = pkgs.libsForQt5.callPackage ./marknote { };
   metronome = pkgs.callPackage ./metronome { };
   minesector = pkgs.callPackage ./minesector { };
@@ -36,9 +36,7 @@
   opensurge = pkgs.callPackage ./opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./qv { inherit libtgd; };
   rollit = pkgs.callPackage ./rollit { };
-  rollit3_2 = pkgs.callPackage ./rollit/3.2.0.nix { };
   share-preview = pkgs.callPackage ./share-preview { };
-  share-preview0_3 = pkgs.callPackage ./share-preview/0.3.0.nix { };
   srb2p = pkgs.callPackage ./srb2p { };
   surgescript = pkgs.callPackage ./surgescript { };
   teem = pkgs.callPackage ./teem { };
@@ -51,6 +49,21 @@
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   yyjson = pkgs.callPackage ./yyjson { };
   zypper = pkgs.callPackage ./zypper { inherit libzypp; };
+
+  wlroots_0_17 = pkgs.wlroots.overrideAttrs (finalAttrs: prevAttrs: {
+    version = "0.17.0";
+    src = pkgs.fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "wlroots";
+      repo = "wlroots";
+      rev = finalAttrs.version;
+      hash = "sha256-VUrnSG4UAAH0cBy15lG0w8RernwegD6lkOdLvWU3a4c=";
+    };
+    buildInputs = (prevAttrs.buildInputs or [ ]) ++ (with pkgs; [
+      hwdata
+      libdisplay-info
+    ]);
+  });
 
   # Variants
   fastfetchFull = pkgs.lib.warn "fastfetchFull has been replaced by fastfetch, which will conditionally enable features based on platform support" fastfetch;

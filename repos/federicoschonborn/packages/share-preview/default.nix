@@ -69,6 +69,5 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    broken = lib.versionOlder libadwaita.version "1.4";
   };
 })

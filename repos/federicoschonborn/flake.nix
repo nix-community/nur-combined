@@ -23,7 +23,9 @@
       packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) self'.legacyPackages;
 
       devShells.default = pkgs.mkShell {
-        packages = with pkgs; [ just        ];
+        packages = with pkgs; [
+          just
+        ];
       };
 
       apps.update = {

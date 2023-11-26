@@ -17,14 +17,14 @@
 
 stdenv.mkDerivation {
   pname = "eloquens";
-  version = "unstable-2023-11-20";
+  version = "unstable-2023-11-26";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "eloquens";
-    rev = "70513ea6bbda5ad717cf36dfb298c461049f8e36";
-    hash = "sha256-kItlQz2Zl5rrvMZP3RI9V1Wo9pNK9z28sjomuZMV940=";
+    rev = "d7521f161300a00c31c74ae9ea19bda792c89a4a";
+    hash = "sha256-BKi3xIC5SybS4uy5odm70D/HqxFTzBun7+9F/3bPSfA=";
   };
 
   nativeBuildInputs = [
