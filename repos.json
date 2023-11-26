@@ -721,6 +721,10 @@
             "file": "nur.nix",
             "url": "https://git.sr.ht/~priegger/nur-packages"
         },
+        "procyon": {
+            "file": "nix/nur/default.nix",
+            "url": "https://github.com/UnidealisticRaccoon/SnowyBurrow"
+        },
         "pschuprikov": {
             "url": "https://github.com/pschuprikov/nur-packages"
         },
