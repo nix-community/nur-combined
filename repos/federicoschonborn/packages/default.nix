@@ -16,6 +16,7 @@
   gruvbox-plasma = pkgs.callPackage ./gruvbox-plasma { };
   gtatool = pkgs.callPackage ./gtatool { inherit libgta teem; };
   inko = pkgs.callPackage ./inko { };
+  irust = pkgs.callPackage ./irust { };
   kommit = pkgs.libsForQt5.callPackage ./kommit { };
   kuroko = pkgs.callPackage ./kuroko { };
   libgta = pkgs.callPackage ./libgta { };

@@ -3,7 +3,6 @@
 , fetchFromGitLab
 , cairo
 , cargo
-, darwin
 , desktop-file-utils
 , gdk-pixbuf
 , glib
@@ -59,8 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
     gtk4
     libadwaita
     pango
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Foundation
   ];
 
   passthru.updateScript = nix-update-script { };
@@ -70,6 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Keep the tempo";
     homepage = "https://gitlab.gnome.org/World/Metronome";
     license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
