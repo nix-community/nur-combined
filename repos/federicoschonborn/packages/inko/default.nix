@@ -42,6 +42,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/inko-lang/inko";
     changelog = "https://github.com/inko-lang/inko/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mpl20;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
