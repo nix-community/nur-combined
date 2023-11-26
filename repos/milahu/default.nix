@@ -81,6 +81,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   pyload = python3.pkgs.pyload;
   #pyload = python3Packages.pyload;
 
+  speedtest-cli = python3.pkgs.speedtest-cli;
+
   rose = callPackage ./pkgs/rose/rose.nix { };
 
   tg-archive = python3.pkgs.callPackage ./pkgs/tg-archive/tg-archive.nix { };
@@ -285,6 +287,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       pychrome = callPackage ./pkgs/python3/pkgs/pychrome/pychrome.nix { };
 
       pychromedevtools = callPackage ./pkgs/python3/pkgs/pychromedevtools/pychromedevtools.nix { };
+
+      speedtest-cli = callPackage ./pkgs/python3/pkgs/speedtest-cli/speedtest-cli.nix { };
 
     #}))); # python3.pkgs
 
