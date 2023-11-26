@@ -48,7 +48,7 @@ jobs:
     with:
       runs-on: ubuntu-latest
       system: x86_64-linux
-      channel: nixos-23.05
+      channel: nixos-23.11
     secrets: inherit
     needs:
       - build-nixos-unstable-x86_64-linux
@@ -58,7 +58,7 @@ jobs:
     with:
       runs-on: macos-latest
       system: x86_64-darwin
-      channel: nixpkgs-23.05-darwin
+      channel: nixpkgs-23.11-darwin
     secrets: inherit
     needs:
       - build-nixpkgs-unstable-x86_64-darwin
@@ -99,7 +99,7 @@ jobs:
     with:
       runs-on: ubuntu-latest
       system: aarch64-linux
-      channel: nixos-23.05
+      channel: nixos-23.11
     secrets: inherit
     needs:
       - build-nixos-unstable-aarch64-linux
