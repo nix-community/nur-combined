@@ -47,6 +47,7 @@ _:
         ".local"
         ".mozilla"
         ".nali"
+        ".pki"
         ".ssh"
         "repos"
       ];

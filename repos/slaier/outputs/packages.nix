@@ -1,14 +1,14 @@
 { super, modules, lib, ... }:
 with super.lib;
 let
-  inherit (lib) recursiveUpdate last;
+  inherit (lib) last;
 in
-recursiveUpdate
-  (eachDefaultSystems
-    (pkgs: collectYield (v: v ? package)
-      (path: v: { ${last path} = (pkgs.callPackage v.package { }); })
-      modules))
-  (eachDefaultSystems
-    (pkgs: collectYield (v: v ? packages)
-      (path: v: flattenPackageSet (last path) (pkgs.callPackage v.packages { }))
-      modules))
+eachDefaultSystems (pkgs:
+(collectYield (v: v ? package)
+  (path: v: { ${last path} = (pkgs.callPackage v.package { }); })
+  modules) //
+(collectYield (v: v ? packages)
+  (path: v: flattenPackageSet (last path) (pkgs.callPackage v.packages { }))
+  modules) //
+super.installer
+)
