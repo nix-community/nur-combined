@@ -158,8 +158,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.54.1b0";
-      hash = "sha256-rS6x0b29GTLSjZSZ0NfUENI59HeLyonNUhni4mOEcnI=";
+      version = "1.54.1b1";
+      hash = "sha256-uvPJS5QFac+95WO0wSB0gsDJvpt+aDtahqzD0Jgu5Ac=";
     };
   };
 })).overrideScope (self: super:

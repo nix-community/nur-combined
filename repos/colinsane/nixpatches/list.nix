@@ -70,7 +70,7 @@ in [
   (fetchpatch' {
     title = "rpm: 4.18.1 -> 4.19.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/260558";
-    hash = "sha256-FDY/OLh7bNRixEuPlrIeyW/kJYNPnelLsplfKCsjHKQ=";
+    hash = "sha256-kwod+6SbUZechzbmu1D4Hlh6pYiPD18wcqetk0OIOrA=";
   })
   # (fetchpatch' {
   #   # doesn't apply cleanly. use build result in <working/zcash>

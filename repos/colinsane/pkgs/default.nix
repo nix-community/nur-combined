@@ -14,15 +14,13 @@ let
     inherit (py-final) callPackage;
     inherit pkgs;
   };
-  final' = if final != null then final else pkgs.appendOverlays [(_: _: sane)];
-  sane = with final'; {
+  final' = if final != null then final else pkgs.appendOverlays [(_: _: sane-overlay)];
+  sane-additional = with final'; {
     sane-data = import ../modules/data { inherit lib sane-lib; };
     sane-lib = import ../modules/lib final';
 
     ### ADDITIONAL PACKAGES
     alsa-ucm-conf-sane = callPackage ./additional/alsa-ucm-conf-sane { };
-    # TODO: move target flags to upstream PR and re-enable this bonsai
-    # bonsai = unpatched.bonsai or (callPackage ./additional/bonsai { });
     bonsai = callPackage ./additional/bonsai { };
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
@@ -40,8 +38,8 @@ let
       gpodder = final'.gpodder-adaptive;
     };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
-    hare-ev = unpatched.hare-ev or (callPackage ./additional/hare-ev { });
-    hare-json = unpatched.hare-json or (callPackage ./additional/hare-json { });
+    hare-ev = callPackage ./additional/hare-ev { };
+    hare-json = callPackage ./additional/hare-json { };
     koreader-from-src = callPackage ./additional/koreader-from-src { };
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
@@ -87,9 +85,10 @@ let
 
     # provided by nixpkgs patch or upstream PR
     # i still conditionally callPackage these to make them available to external consumers (like NUR)
-    splatmoji = unpatched.splatmoji or (callPackage ./additional/splatmoji { });
+    splatmoji = callPackage ./additional/splatmoji { };
+  };
 
-
+  sane-patched = with final'; {
     ### PATCHED PACKAGES
 
     # XXX: the `inherit`s here are because:
@@ -140,4 +139,19 @@ let
       packageOverrides = pythonPackagesOverlayFor final';
     };
   };
-in sane
+  sane-overlay = {
+    sane = lib.recurseIntoAttrs (sane-additional // sane-patched);
+  }
+    # patched packages always override anything:
+    // (lib.mapAttrs (pname: _pkg: final'.sane."${pname}") sane-patched)
+    # "additional" packages only get added if they've not been upstreamed:
+    // (lib.mapAttrs (pname: _pkg: unpatched."${pname}" or final'.sane."${pname}") sane-additional)
+    // {
+    # temporarily hold these back because the upstream version is broken in some way
+    inherit (final'.sane)
+      bonsai
+      hare-ev
+      hare-json
+    ;
+  };
+in sane-overlay

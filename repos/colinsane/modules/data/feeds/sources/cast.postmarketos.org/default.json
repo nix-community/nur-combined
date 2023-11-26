@@ -4,6 +4,6 @@
   "site_name": "postmarketOS Podcast",
   "site_url": "https://postmarketos.org",
   "title": "postmarketOS Podcast",
-  "url": "https://cast.postmarketos.org/feed-legacy.rss",
+  "url": "https://cast.postmarketos.org/feed.rss",
   "velocity": 0.033
 }

@@ -278,6 +278,7 @@
 
           # pkg updating.
           # a cleaner alternative lives here: <https://discourse.nixos.org/t/how-can-i-run-the-updatescript-of-personal-packages/25274/2>
+          # mkUpdater :: [ String ] -> { type = "app"; program = path; }
           mkUpdater = attrPath: {
             type = "app";
             program = let
@@ -302,7 +303,7 @@
               } else {}
             )
             (pkgs.lib.getAttrFromPath basePath sanePkgs);
-          mkUpdaters = { ignore ? [] }@opts: basePath:
+          mkUpdaters = { ignore ? [], flakePrefix ? [] }@opts: basePath:
             let
               updaters = mkUpdatersNoAliases opts basePath;
               invokeUpdater = name: pkg:
@@ -312,7 +313,7 @@
 
                   # in case `name` has a `.` in it, we have to quote it
                   escapedPath = builtins.map (p: ''"${p}"'') fullPath;
-                  updatePath = builtins.concatStringsSep "." ([ "update" "pkgs" ] ++ escapedPath);
+                  updatePath = builtins.concatStringsSep "." (flakePrefix ++ escapedPath);
                 in pkgs.lib.optionalString doUpdateByDefault (
                   pkgs.lib.escapeShellArgs [
                     "nix" "run" ".#${updatePath}"
@@ -320,8 +321,9 @@
                 );
             in {
               type = "app";
+              # top-level app just invokes the updater of everything one layer below it
               program = builtins.toString (pkgs.writeShellScript
-                (builtins.concatStringsSep "-" (["update"] ++ basePath))
+                (builtins.concatStringsSep "-" (flakePrefix ++ basePath))
                 (builtins.concatStringsSep
                   "\n"
                   (pkgs.lib.mapAttrsToList invokeUpdater updaters)
@@ -355,8 +357,14 @@
               nix flake show --option allow-import-from-derivation true
             '');
           };
-          update.pkgs = mkUpdaters { ignore = [ ["feeds"] ]; } [];
-          update.feeds = mkUpdaters {} [ "feeds" ];
+          # wrangle some names to get package updaters which refer back into the flake, but also conditionally ignore certain paths (e.g. sane.feeds).
+          # TODO: better design
+          update = rec {
+            _impl.pkgs.sane = mkUpdaters { flakePrefix = [ "update" "_impl" "pkgs" ]; ignore = [ [ "sane" "feeds" ] ]; } [ "sane" ];
+            pkgs = _impl.pkgs.sane;
+            _impl.feeds.sane.feeds = mkUpdaters { flakePrefix = [ "update" "_impl" "feeds" ]; } [ "sane" "feeds" ];
+            feeds = _impl.feeds.sane.feeds;
+          };
 
           init-feed = {
             type = "app";

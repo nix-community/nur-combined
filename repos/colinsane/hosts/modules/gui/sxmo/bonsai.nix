@@ -146,7 +146,7 @@ in
       '';
     };
   };
-  config = {
+  config = lib.mkIf config.sane.gui.sxmo.enable {
     sane.user.services.bonsaid = {
       description = "programmable input dispatcher";
       script = ''

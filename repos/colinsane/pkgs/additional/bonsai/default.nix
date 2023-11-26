@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "bonsai";
-  version = "1.0.0";
+  version = "1.0.2";
 
   src = fetchFromSourcehut {
     owner = "~stacyharper";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-jOtFUpl2/Aa7f8JMZf6g63ayFOi+Ci+i7Ac63k63znc=";
+    hash = "sha256-Yosf07KUOQv4O5111tLGgI270g0KVGwzdTPtPOsTcP8=";
   };
 
   postPatch = ''
@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
 
   env.HARE_TARGET_FLAGS =
     if stdenv.hostPlatform.isAarch64 then
-      "-t aarch64"
+      "-a aarch64"
     else if stdenv.hostPlatform.isRiscV64 then
-      "-t riscv64"
+      "-a riscv64"
     else if stdenv.hostPlatform.isx86_64 then
-      "-t x86_64"
+      "-a x86_64"
     else
       "";
 
@@ -48,10 +48,9 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  # NOTE: bonsaid 1.0.2 requires newer hare than exists in nixpkgs as of 2023/11.
-  # passthru.updateScript = gitUpdater {
-  #   rev-prefix = "v";
-  # };
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "v";
+  };
 
   meta = with lib; {
     description = "Bonsai is a Finite State Machine structured as a tree";

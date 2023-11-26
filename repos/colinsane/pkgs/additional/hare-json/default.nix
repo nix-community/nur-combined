@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "hare-json";
-  version = "unstable-2023-01-31";
+  version = "unstable-2023-09-21";
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
     repo = pname;
-    rev = "99ae40eacc19253495949301000372adf8c3f504";
-    hash = "sha256-H5XKExs7e60PHmIS7TgBwG9e46Hj2M4D245vKag0ANA=";
+    rev = "e24e5dceb8628ff569338e6c4fdba35a5017c5e2";
+    hash = "sha256-7QRieokqXarKwLfZynS8Rum9JV9hcxod00BWAUwwliM=";
   };
 
   nativeBuildInputs = [
