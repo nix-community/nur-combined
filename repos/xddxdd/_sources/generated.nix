@@ -114,15 +114,15 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "19aa8c77c5c548f393a02525a93e03aeea66b043";
+    version = "38bf6aba091216da682d3e4a41e0cff4cc8d9751";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "19aa8c77c5c548f393a02525a93e03aeea66b043";
+      rev = "38bf6aba091216da682d3e4a41e0cff4cc8d9751";
       fetchSubmodules = false;
-      sha256 = "sha256-yxSzf0jG0mW1F+mhM/4pvlA5dgaO3JOB3YhRG9tmWBU=";
+      sha256 = "sha256-HtDShTcH3p7avckY65yl1bmjtUqHcD+VpxGQvrnZ2hs=";
     };
-    date = "2023-11-06";
+    date = "2023-11-25";
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
@@ -883,15 +883,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "5b026e43459d49df39291a3d093aa8352d417098";
+    version = "b56953bd884c63d5edf0ef017dec64c4192318ef";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "5b026e43459d49df39291a3d093aa8352d417098";
+      rev = "b56953bd884c63d5edf0ef017dec64c4192318ef";
       fetchSubmodules = false;
-      sha256 = "sha256-q1K7z6DTMT1kDRYgstGsutkWzqajtXkmckkJ3zK1IVY=";
+      sha256 = "sha256-DtmKrwutrJ5WojJu4t8gnnvSZyTietwdTtnCmprFQ1o=";
     };
-    date = "2023-11-24";
+    date = "2023-11-25";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
