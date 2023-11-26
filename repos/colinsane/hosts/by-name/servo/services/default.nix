@@ -18,6 +18,7 @@
     ./komga.nix
     ./lemmy.nix
     ./matrix
+    ./monero.nix
     ./navidrome.nix
     ./nginx.nix
     ./nixserve.nix

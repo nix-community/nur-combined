@@ -49,6 +49,8 @@
   sane.ids.media.gid = 2414;
   sane.ids.ntfy-sh.uid = 2415;
   sane.ids.ntfy-sh.gid = 2415;
+  sane.ids.monero.uid = 2416;
+  sane.ids.monero.gid = 2416;
 
   sane.ids.colin.uid = 1000;
   sane.ids.guest.uid = 1100;
