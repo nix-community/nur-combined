@@ -1976,10 +1976,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.4";
+      version = "1.2.5";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4198857/faststream-1.2.4.xpi";
-      sha256 = "9411fe1c15dd43034f6d5d3b8506187d8bebfbe597dbc3e07a588d6a62b203c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200521/faststream-1.2.5.xpi";
+      sha256 = "4f1d7720ca313f34af9ed06bb45cb773ccc0b2cd588036bc646461f7a4de7ec7";
       meta = with lib;
       {
         description = "Stream without buffering, a great video player and download accelerator all in one.";
@@ -8978,10 +8978,10 @@
       };
     "tetrio-plus" = buildFirefoxXpiAddon {
       pname = "tetrio-plus";
-      version = "0.25.5";
+      version = "0.25.7";
       addonId = "tetrio-plus@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4193590/tetrio_plus-0.25.5.xpi";
-      sha256 = "5a47eb641d991e855f2c14fd9a96aee2c117f6fe57106bcb7277305bbccaf7b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200578/tetrio_plus-0.25.7.xpi";
+      sha256 = "c057ea20c0d1d37199f14c8fc6dab5c0cb01f52e8bc27240ff2e548d9b7cda80";
       meta = with lib;
       {
         description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d94d4f4d9a39d7847f4259e0053e02794a2d7361e70cf03a773b53993e17363d/http%3A//TETR.IO\" rel=\"nofollow\">TETR.IO</a>.";
