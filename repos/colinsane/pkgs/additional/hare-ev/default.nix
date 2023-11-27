@@ -11,21 +11,27 @@ stdenv.mkDerivation rec {
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
-    repo = pname;
+    repo = "hare-ev";
     rev = "9bdbd02401334b7d762131a46e64ca2cd24846dc";
     hash = "sha256-VY8nsy5kLDMScA2ig3Rgbkf6VQlCTnGWjzGvsI9OcaQ=";
   };
 
-  nativeBuildInputs = [
+  nativeCheckInputs = [
     hare
   ];
 
-  installFlags = [ "PREFIX=" "DESTDIR=$(out)" ];
+  preCheck = ''
+    export HARECACHE=$(mktemp -d)
+  '';
+
+  installFlags = [ "PREFIX=$(out)" ];
+
+  doCheck = true;
 
   passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
-    description = "an event loop for Hare programs";
+    description = "Event loop for Hare programs";
     homepage = "https://sr.ht/~sircmpwn/hare-ev";
     license = licenses.mpl20;
     maintainers = with maintainers; [ colinsane ];

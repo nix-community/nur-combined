@@ -16,11 +16,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-7QRieokqXarKwLfZynS8Rum9JV9hcxod00BWAUwwliM=";
   };
 
-  nativeBuildInputs = [
+  nativeCheckInputs = [
     hare
   ];
 
-  installFlags = [ "PREFIX=" "DESTDIR=$(out)" ];
+  preCheck = ''
+    export HARECACHE=$(mktemp -d)
+  '';
+
+  installFlags = [ "PREFIX=$(out)" ];
+
+  doCheck = true;
 
   passthru.updateScript = unstableGitUpdater { };
 

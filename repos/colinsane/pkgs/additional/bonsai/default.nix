@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromSourcehut {
     owner = "~stacyharper";
-    repo = pname;
+    repo = "bonsai";
     rev = "v${version}";
     hash = "sha256-Yosf07KUOQv4O5111tLGgI270g0KVGwzdTPtPOsTcP8=";
   };
@@ -32,28 +32,33 @@ stdenv.mkDerivation rec {
       "-a x86_64"
     else
       "";
+  # TODO: hare setup-hook is supposed to do this for us.
+  # It does it correctly for native compilation, but not cross compilation: wrong offset?
+  env.HAREPATH = "${hare-json}/src/hare/third-party:${hare-ev}/src/hare/third-party";
 
   nativeBuildInputs = [
     hare
+  ];
+
+  buildInputs = [
     hare-ev
     hare-json
   ];
 
   preConfigure = ''
     export HARECACHE=$(mktemp -d)
-    # FIX "ar: invalid option -- '/'" bug in older versions of hare.
-    # should be safe to remove once updated past 2023/05/22-ish.
-    # export ARFLAGS="-csr"
   '';
 
   installFlags = [ "PREFIX=$(out)" ];
+
+  doCheck = true;
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "v";
   };
 
   meta = with lib; {
-    description = "Bonsai is a Finite State Machine structured as a tree";
+    description = "Finite State Machine structured as a tree";
     homepage = "https://git.sr.ht/~stacyharper/bonsai";
     license = licenses.agpl3;
     maintainers = with maintainers; [ colinsane ];
