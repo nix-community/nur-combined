@@ -2,14 +2,17 @@
 #!nix-shell -i bash
 # remove firefox/librewolf/chromium artifacts
 rm -rf \
-  ~/.librewolf/default/* \
-  ~/.cache/librewolf/* \
-  ~/.mozilla/* \
-  ~/.cache/mozilla/firefox/* \
-  ~/.config/chromium \
+  ~/.cache/BraveSoftware/* \
   ~/.cache/chromium \
+  ~/.cache/librewolf/* \
+  ~/.cache/mozilla/firefox/* \
+  ~/.config/BraveSoftware/* \
+  ~/.config/chromium \
+  ~/.librewolf/default/* \
+  ~/.mozilla/* \
   || true  # in case no matches
 
 # browsers like to stick around in the background so they can load faster
-sudo pkill librewolf || true
+sudo pkill brave || true
 sudo pkill firefox || true
+sudo pkill librewolf || true

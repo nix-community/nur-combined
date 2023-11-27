@@ -272,6 +272,8 @@ in
         persist.byStore.cryptClearOnBoot = [
           # builds to be 10's of MB per day
           # ".local/state/superd/logs"
+          ".local/share/sxmo/modem"  # SMS
+          ".local/share/sxmo/notifications" # so i can see new SMS messages. not sure actually if this needs persisting or if it'll re-hydrate from modem.
         ];
       };
     }
