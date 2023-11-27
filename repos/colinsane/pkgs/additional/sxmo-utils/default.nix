@@ -102,13 +102,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "sxmo-utils";
-  version = "unstable-2023-11-07";
+  version = "unstable-2023-11-26";
 
   src = fetchFromSourcehut {
     owner = "~mil";
     repo = "sxmo-utils";
-    rev = "1654cde76dcebd5383b47dbd503565e604c63cca";
-    hash = "sha256-2Tdr1xAxyOJ+DxOQAZw+MVYCmqz6As5XmsnZzVv2M6A=";
+    rev = "21d694822a56308a55e3d27d801c8fca158da66c";
+    hash = "sha256-aBZn0xI0TN4h5RSduzBB3i0RxlRHqJAqga2M4cULgBA=";
   };
 
   patches = [
@@ -118,21 +118,10 @@ stdenv.mkDerivation rec {
       hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
     })
 
-    # TODO: send these upstream
     (fetchpatch {
-      # upstreaming: <https://lists.sr.ht/~mil/sxmo-devel/patches/46884>
-      name = "sys menu: include an entry for the WM menu";
-      url = "https://git.uninsane.org/colin/sxmo-utils/commit/37fb62b9e1b22eb5c401fe383f2244161e23c8ca.patch";
-      hash = "sha256-oG1BuWRnUGGAef5oRLoWMFCFQhjD6VZ1ygrS/2oLEmc=";
-    })
-    (fetchpatch {
-      # upstreaming: <https://lists.sr.ht/~mil/sxmo-devel/patches/46886>
-      # didn't upstream gthumb because it's not mobile friendly.
-      # didn't upstream lemoa because it's immature.
-      # didn't upstream sublime-music/jellyfin because i don't use them.
       name = "sxmo_hook_apps: add a few";
-      url = "https://git.uninsane.org/colin/sxmo-utils/commit/b712e8e0491c0d8c19ac99720bc9a47d54ae134d.patch";
-      hash = "sha256-8AjKiAoQehwxrUOjmVjjfiVJZwDpZtxfsi3sfXR/zlI=";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/1c2e13401e28e3713665de6ce8f591714e65341d.patch";
+      hash = "sha256-6OsHbjv2YZ1WueIlwDIRjgSTAN+UIZFHcvMhMbj6kfc=";
     })
     (fetchpatch {
       # experimental patch to launch apps via `swaymsg exec -- `
