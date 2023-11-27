@@ -69,7 +69,7 @@ let
     clone = static-nix-shell.mkBash {
       pname = "sane-clone";
       src = ./src;
-      pkgs = [ "jq" "nix" ];
+      pkgs = [ "nix" ];
     };
     deadlines = static-nix-shell.mkBash {
       pname = "sane-deadlines";

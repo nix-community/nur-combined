@@ -24,6 +24,11 @@ let
     );
 in [
   (fetchpatch' {
+    title = "fetchFromGitLab: passthru owner and repo";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/270393";
+    hash = "sha256-Kqqfy9Mludc5wr0TSUg9gEOZsfUL65WpF+hy64k33MY=";
+  })
+  (fetchpatch' {
     title = "vala: look for files in targetOffset";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/267550";
     hash = "sha256-Dl9ZQazjXjIbw38Q78otQvgVCB/QZAC1IYoFX0Tuyw0=";

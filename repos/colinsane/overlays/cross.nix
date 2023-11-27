@@ -513,6 +513,7 @@ in {
 
 
   dialect = prev.dialect.overrideAttrs (upstream: {
+    # error: "<dialect> is not allowed to refer to the following paths: <build python>"
     # dialect's meson build script sets host binaries to use build PYTHON
     # disallowedReferences = [];
     postFixup = (upstream.postFixup or "") + ''
@@ -974,6 +975,16 @@ in {
   # });
   # needs binfmt: "configure: error: no suitable Python interpreter found"
   ibus = needsBinfmt prev.ibus;
+
+  iotas = prev.iotas.overrideAttrs (_: {
+    # error: "<iotas> is not allowed to refer to the following paths: <build python>"
+    # disallowedReferences = [];
+    postPatch = ''
+      # @PYTHON@ becomes the build python, but this file isn't executable anyway so shouldn't have a shebang
+      substituteInPlace iotas/const.py.in \
+        --replace '#!@PYTHON@' ""
+    '';
+  });
 
   # 2023/10/23: upstreaming blocked on argyllcms
   graphicsmagick = prev.graphicsmagick.overrideAttrs (upstream: {
@@ -2177,6 +2188,7 @@ in {
   # XXX: aarch64 webp-pixbuf-loader wanted by gdk-pixbuf-loaders.cache.drv, wanted by aarch64 gnome-control-center
 
   wike = prev.wike.overrideAttrs (upstream: {
+    # error: "<wike> is not allowed to refer to the following paths: <build python>"
     # wike's meson build script sets host binaries to use build PYTHON
     # disallowedReferences = [];
     postFixup = (upstream.postFixup or "") + ''
