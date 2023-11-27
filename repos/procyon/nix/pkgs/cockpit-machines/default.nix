@@ -3,16 +3,10 @@
 
 # SPDX-License-Identifier: MIT
 
-{ lib, stdenv, fetchzip, gettext }:
+{ sources, lib, stdenv, gettext }:
 
 stdenv.mkDerivation rec {
-  pname = "cockpit-machines";
-  version = "302";
-
-  src = fetchzip {
-    url = "https://github.com/cockpit-project/cockpit-machines/releases/download/${version}/cockpit-machines-${version}.tar.xz";
-    sha256 = "sha256-3dfB9RzFzN578djOSdANVcb0AZ0vpSq6lIG7uMwzAVU=";
-  };
+  inherit (sources.cockpit-machines) pname version src;
 
   nativeBuildInputs = [
     gettext

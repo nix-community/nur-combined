@@ -11,6 +11,8 @@ lib.makeExtensible (selfLib: rec {
   rakeLeaves = import ./rake-leaves.nix { inherit inputs lib; };
   buildModuleList = import ./build-module-list.nix { inherit selfLib lib; };
   makePackages = import ./make-packages.nix { inherit lib; };
+  appNames = import ./app-names.nix { inherit lib; };
+  makeApps = import ./make-apps.nix { inherit lib; };
 
   specialArgsFor = rec {
     common.flake = { inherit self inputs config lib selfLib; };

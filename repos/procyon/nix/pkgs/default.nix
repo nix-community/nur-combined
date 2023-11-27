@@ -3,14 +3,21 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ lib, newScope, ... }:
+{ lib, newScope, selfLib, ... }:
 lib.makeScope newScope (
   self:
   let
     inherit (self) callPackage;
   in
   {
-    cockpit-podman = callPackage ./cockpit-podman { };
+    sources = callPackage ./_sources/generated.nix { };
+
+    devPackages = lib.recurseIntoAttrs (callPackage ./dev-packages {
+      inherit selfLib;
+      selfPackages = self;
+    });
+
     cockpit-machines = callPackage ./cockpit-machines { };
+    cockpit-podman = callPackage ./cockpit-podman { };
   }
 )

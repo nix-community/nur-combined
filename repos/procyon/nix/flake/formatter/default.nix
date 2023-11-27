@@ -18,7 +18,7 @@
       settings.formatter.prettier = {
         excludes = [
           "secrets/**/*.{yaml,json,ini,env,txt}"
-          "infrastructure/**/terraform.tfstate.json"
+          "nix/pkgs/_sources/generated.{json,nix}"
         ];
       };
 

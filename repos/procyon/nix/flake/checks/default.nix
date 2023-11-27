@@ -16,7 +16,7 @@
       excludes = [
         "flake.lock"
         "secrets/.*/[^/]+\.(yaml|json|env|ini)$"
-        ".*/terraform.tfstate.(yaml|json|env|ini)$"
+        "nix/pkgs/_sources/generated.(json|nix)$"
       ];
 
       hooks = {

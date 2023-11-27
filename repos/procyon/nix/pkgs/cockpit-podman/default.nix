@@ -3,16 +3,10 @@
 
 # SPDX-License-Identifier: MIT
 
-{ lib, stdenv, fetchzip, gettext }:
+{ sources, lib, stdenv, gettext }:
 
 stdenv.mkDerivation rec {
-  pname = "cockpit-podman";
-  version = "81";
-
-  src = fetchzip {
-    url = "https://github.com/cockpit-project/${pname}/releases/download/${version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-7ibC1tUyVmabJ9yLFZQJGC/bBplqWjsBxORKyioQ8bE=";
-  };
+  inherit (sources.cockpit-podman) pname version src;
 
   nativeBuildInputs = [
     gettext
