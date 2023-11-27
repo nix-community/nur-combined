@@ -2,5 +2,9 @@
 result
 result-*
 
+# Update script
+update-git-commits.txt
+*.log
+
 # Direnv
 .direnv
