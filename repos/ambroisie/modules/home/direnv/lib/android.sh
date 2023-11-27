@@ -22,7 +22,7 @@ use_android() {
 
     # Default to the latest version found
     local ndk_version="$(_use_android_find_latest "$ANDROID_HOME/ndk" || return 1)"
-    local build_tools_version="$(_use_android_find_latest "$ANDROID_SDK_HOME/build-tools" || return 1)"
+    local build_tools_version="$(_use_android_find_latest "$ANDROID_HOME/build-tools" || return 1)"
 
     unset -f _use_android_find_latest
 
@@ -54,5 +54,5 @@ use_android() {
     export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
 
     PATH_add "$ANDROID_NDK_HOME"
-    PATH_add "$ANDROID_SDK_HOME/build-tools/$build_tools_version"
+    PATH_add "$ANDROID_HOME/build-tools/$build_tools_version"
 }
