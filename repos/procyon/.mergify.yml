@@ -1,0 +1,7 @@
+pull_request_rules:
+  - name: merge automatically (when CI passes and PR is approved)
+    conditions:
+      - "#approved-reviews-by >= 1"
+    actions:
+      queue:
+        method: rebase
