@@ -5,5 +5,5 @@ let
   inherit (self) callPackage;
 in
 {
-  nvfetcher-self = callPackage ./nvfetcher-self { };
+  self = callPackage ./self { };
 })

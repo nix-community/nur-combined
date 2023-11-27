@@ -17,7 +17,7 @@ let
   empty = p: { "${p}" = { }; };
   merge = lib.fold lib.recursiveUpdate { };
   appNamesDict = merge [
-    (trivial "devPackages/nvfetcher-self")
+    (trivial "nvfetcher/self")
     (empty "cockpit-machines")
     (empty "cockpit-podman")
   ];

@@ -11,6 +11,6 @@ Files: .github/* .envrc .gitattributes .gitignore flake.lock .mergify.yml infras
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: CC0-1.0
 
-Files: nix/pkgs/dev-packages/*
+Files: nix/pkgs/nvfetcher/*
 Copyright: 2023 Lin Yinfeng <lin.yinfeng@outlook.com>
 License: MIT

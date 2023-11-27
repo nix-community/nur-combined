@@ -12,7 +12,7 @@ lib.makeScope newScope (
   {
     sources = callPackage ./_sources/generated.nix { };
 
-    devPackages = lib.recurseIntoAttrs (callPackage ./dev-packages {
+    nvfetcher = lib.recurseIntoAttrs (callPackage ./nvfetcher {
       inherit selfLib;
       selfPackages = self;
     });
