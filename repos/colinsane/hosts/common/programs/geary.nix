@@ -65,6 +65,7 @@ in
       transport_security=transport
       credentials=use-incoming
     '';
+    secrets.".config/geary/account_02/geary.ini" = ../../../secrets/common/geary_account_02.ini.bin;
 
     services.geary = {
       description = "Geary email client";
