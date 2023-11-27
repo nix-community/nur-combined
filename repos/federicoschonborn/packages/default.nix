@@ -36,6 +36,7 @@
   notae = pkgs.libsForQt5.callPackage ./notae { };
   opensurge = pkgs.callPackage ./opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./qv { inherit libtgd; };
+  resources = pkgs.callPackage ./resources { };
   rollit = pkgs.callPackage ./rollit { };
   share-preview = pkgs.callPackage ./share-preview { };
   srb2p = pkgs.callPackage ./srb2p { };

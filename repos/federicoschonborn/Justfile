@@ -1,5 +1,6 @@
 just := just_executable()
 nix := "nix run nixpkgs#nix-output-monitor --"
+nix-tree := "nix run nixpkgs#nix-tree --"
 
 system := env("SYSTEM", arch() + "-" + if os() =~ "macos|ios" { "darwin" } else { os() })
 
@@ -24,3 +25,6 @@ build +PACKAGES:
 # Build one or more packages against the stable channel.
 build-stable +PACKAGES:
     @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --override-input nixpkgs github:NixOS/nixpkgs/nixos-23.11" {{ just }} build {{ PACKAGES }}
+
+tree PACKAGE: (build PACKAGE)
+    {{ nix-tree }} ".#{{ PACKAGE }}"

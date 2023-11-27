@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, gtk4
 , json-glib
 , libadwaita
 , meson
@@ -32,7 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    gtk4
     json-glib
     libadwaita
   ];

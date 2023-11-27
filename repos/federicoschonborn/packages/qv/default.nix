@@ -30,7 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libtgd
     qtbase
-  ] ++ lib.optionals (!stdenv.isDarwin) [ qtwayland ];
+    qtwayland
+    ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "qv-(.*)" ]; };
 
@@ -40,7 +41,5 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/qv/";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    # Broken by libtgd
-    broken = stdenv.isDarwin;
   };
 })

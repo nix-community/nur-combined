@@ -44,7 +44,7 @@ jobs:
           name: ${{ env.CACHIX_NAME }}
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
         # GitHub Actions was a mistake.
-        if: contains(fromJSON('["x86_64-linux", "aarch64-linux", "x86_64-darwin", "aarch64-darwin"]'), inputs.system)
+        if: contains(fromJSON('["x86_64-linux", "aarch64-linux"]'), inputs.system)
 
       - name: Show Nixpkgs version
         run: |

@@ -1,17 +1,12 @@
 { lib
 , stdenv
 , fetchFromGitLab
-, cairo
 , cargo
 , desktop-file-utils
-, gdk-pixbuf
-, glib
 , gst_all_1
-, gtk4
 , libadwaita
 , meson
 , ninja
-, pango
 , pkg-config
 , rustc
 , rustPlatform
@@ -49,15 +44,10 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    cairo
-    gdk-pixbuf
-    glib
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
-    gtk4
     libadwaita
-    pango
   ];
 
   passthru.updateScript = nix-update-script { };

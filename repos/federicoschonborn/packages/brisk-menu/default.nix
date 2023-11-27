@@ -41,7 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "An efficient menu for the MATE Desktop";
     homepage = "https://github.com/getsolus/brisk-menu";
     license = with lib.licenses; [ gpl2Only cc-by-sa-40 ];
-    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

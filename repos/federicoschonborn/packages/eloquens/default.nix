@@ -40,7 +40,6 @@ stdenv.mkDerivation {
     kdbusaddons
     ki18n
     kirigami2
-    qtbase
     qtquickcontrols2
   ];
 
@@ -57,7 +56,6 @@ stdenv.mkDerivation {
       lgpl2Plus
       lgpl21Plus
     ];
-    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

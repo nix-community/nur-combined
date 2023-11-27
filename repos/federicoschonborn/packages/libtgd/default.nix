@@ -80,7 +80,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A library to make working with multidimensional arrays in C++ easy";
     homepage = "https://marlam.de/tgd/";
     license = lib.licenses.mit;
-    broken = stdenv.isDarwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

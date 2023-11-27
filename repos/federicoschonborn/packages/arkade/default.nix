@@ -5,10 +5,8 @@
 , extra-cmake-modules
 , ninja
 , wrapQtAppsHook
-, ki18n
 , kirigami2
 , kpackage
-, qtbase
 , qtquickcontrols2
 , unstableGitUpdater
 }:
@@ -33,10 +31,8 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
-    ki18n
     kirigami2
     kpackage
-    qtbase
     qtquickcontrols2
   ];
 
@@ -47,7 +43,6 @@ stdenv.mkDerivation {
     description = "Collection of Arcade games developed in Kirigami";
     homepage = "https://invent.kde.org/games/arkade";
     license = with lib.licenses; [ bsd2 gpl3Plus ];
-    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

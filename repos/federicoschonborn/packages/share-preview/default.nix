@@ -1,18 +1,13 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, cairo
 , cargo
 , curl
 , desktop-file-utils
-, gdk-pixbuf
-, glib
-, gtk4
 , libadwaita
 , meson
 , ninja
 , openssl
-, pango
 , pkg-config
 , rustc
 , rustPlatform
@@ -50,14 +45,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    cairo
     curl
-    gdk-pixbuf
-    glib
-    gtk4
     libadwaita
     openssl
-    pango
     zlib
   ];
 

@@ -10,12 +10,7 @@
 , rustPlatform
 , rustc
 , wrapGAppsHook4
-, cairo
-, gdk-pixbuf
-, glib
-, gtk4
 , libadwaita
-, pango
 , nix-update-script
 }:
 
@@ -49,12 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    cairo
-    gdk-pixbuf
-    glib
-    gtk4
     libadwaita
-    pango
   ];
 
   passthru.updateScript = nix-update-script { };

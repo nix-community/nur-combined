@@ -60,7 +60,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Graphical Git client for KDE";
     homepage = "https://apps.kde.org/kommit/";
     license = lib.licenses.gpl3Plus;
-    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

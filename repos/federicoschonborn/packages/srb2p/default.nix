@@ -5,7 +5,6 @@
 , cmake
 , ninja
 , curl
-, darwin
 , game-music-emu
 , libopenmpt
 , libpng
@@ -55,8 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2
     SDL2_mixer
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreFoundation
   ];
 
   cmakeFlags = [
@@ -87,7 +84,5 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://git.do.srb2.org/SinnamonLat/SRB2";
     license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    # TODO: Fix Darwin build
-    broken = stdenv.isDarwin;
   };
 })
