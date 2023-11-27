@@ -15,5 +15,5 @@ https://bt.uninsane.org
 https://sci-hub.se
 https://archive.is
 https://news.ycombinator.com
-http://10.78.79.1  # router/firewall
-https://jochen-hoenicke.de/queue  # johoe's mempool (bitcoin/ethereum)
+http://10.78.79.1 # router/firewall
+https://jochen-hoenicke.de/queue # johoe's mempool (bitcoin/ethereum)
