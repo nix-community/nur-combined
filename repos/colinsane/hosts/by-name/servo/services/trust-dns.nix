@@ -11,6 +11,8 @@ in lib.mkMerge [
   # don't bind to IPv6 until i explicitly test that stack
   services.trust-dns.settings.listen_addrs_ipv6 = [];
   services.trust-dns.quiet = true;
+  # FIXME(2023/11/26): services.trust-dns.debug doesn't log requests: use RUST_LOG=debug env for that.
+  # - see: <https://github.com/hickory-dns/hickory-dns/issues/2082>
   # services.trust-dns.debug = true;
 
   sane.ports.ports."53" = {
