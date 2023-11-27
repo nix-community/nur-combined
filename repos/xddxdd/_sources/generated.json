@@ -599,7 +599,7 @@
     },
     "grasscutter-resources": {
         "cargoLocks": null,
-        "date": "2023-11-11",
+        "date": "2023-11-23",
         "extract": null,
         "name": "grasscutter-resources",
         "passthru": null,
@@ -609,12 +609,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "317b6ca37aed6a49cf92f4acfca0bb7f1ba470f7",
-            "sha256": "sha256-+tHifBnJskJRTtwPmnfcaQroNZMetbI5wa4LVacYcJI=",
+            "rev": "b09934e7b9a6e5ce063e5565d33f20d72614e030",
+            "sha256": "sha256-7D5EJYxo4124asGJCYe6gL7pKMkEVr0CuahzKDXchB8=",
             "type": "git",
             "url": "https://gitlab.com/YuukiPS/GC-Resources.git"
         },
-        "version": "317b6ca37aed6a49cf92f4acfca0bb7f1ba470f7"
+        "version": "b09934e7b9a6e5ce063e5565d33f20d72614e030"
     },
     "hoyo-glyphs": {
         "cargoLocks": null,

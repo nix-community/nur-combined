@@ -351,16 +351,16 @@
   };
   grasscutter-resources = {
     pname = "grasscutter-resources";
-    version = "317b6ca37aed6a49cf92f4acfca0bb7f1ba470f7";
+    version = "b09934e7b9a6e5ce063e5565d33f20d72614e030";
     src = fetchgit {
       url = "https://gitlab.com/YuukiPS/GC-Resources.git";
-      rev = "317b6ca37aed6a49cf92f4acfca0bb7f1ba470f7";
+      rev = "b09934e7b9a6e5ce063e5565d33f20d72614e030";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-+tHifBnJskJRTtwPmnfcaQroNZMetbI5wa4LVacYcJI=";
+      sha256 = "sha256-7D5EJYxo4124asGJCYe6gL7pKMkEVr0CuahzKDXchB8=";
     };
-    date = "2023-11-11";
+    date = "2023-11-23";
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
