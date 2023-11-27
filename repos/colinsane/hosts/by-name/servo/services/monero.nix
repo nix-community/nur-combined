@@ -25,4 +25,13 @@
   # tor.client.enable configures a torsocks proxy, accessible *only* to localhost.
   services.tor.enable = true;
   services.tor.client.enable = true;
+
+  # monero ports: <https://monero.stackexchange.com/questions/604/what-ports-does-monero-use-rpc-p2p-etc>
+  # - 18080 = "P2P" monero node <-> monero node connections
+  # - 18081 = "RPC" monero client -> monero node connections
+  sane.ports.ports."18080" = {
+    protocol = [ "tcp" ];
+    visibleTo.wan = true;
+    description = "colin-monero-p2p";
+  };
 }

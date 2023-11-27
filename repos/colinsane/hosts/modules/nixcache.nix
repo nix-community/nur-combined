@@ -51,7 +51,7 @@ in
       type = types.bool;
     };
     sane.nixcache.remote-builders.supercap = mkOption {
-      default = true;
+      default = false;
       type = types.bool;
     };
   };
