@@ -11,11 +11,6 @@ buildGoModule rec {
     hash = "sha256-oLTAWw6JgW8yF+pvAhQtaATvOpA/8tKN+pGZQXYYv6c=";
   };
 
-  postPatch = ''
-    substituteInPlace internal/provider/monitor/statsd_test.go \
-      --replace "TestStatsd_Configure" "SkipStatsd_Configure"
-  '';
-
   vendorHash = "sha256-5BeYdznpopkz4XhdKu5MXZ5qhpHntAe+h17XsKLrGd0=";
 
   preCheck = ''
@@ -23,6 +18,10 @@ buildGoModule rec {
   '';
 
   doCheck = false;
+
+  checkFlags = [
+    "-skip=TestStatsd_Configure"
+  ];
 
   meta = with lib; {
     description = "High performance, distributed and low latency publish-subscribe platform";

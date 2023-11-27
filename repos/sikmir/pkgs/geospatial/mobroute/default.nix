@@ -2,23 +2,22 @@
 
 buildGoModule rec {
   pname = "mobroute";
-  version = "2023-10-05";
+  version = "0.2.0";
 
   src = fetchFromSourcehut {
     owner = "~mil";
     repo = "mobroute";
-    rev = "2b86d414bfb7d56f623436b957b6da2de9fa1659";
-    hash = "sha256-4hzmict+jHwkmw/SMsTytX8zooUPSdeNBpdRq5dVWNs=";
+    rev = "v${version}";
+    hash = "sha256-mYoJnBE8d2UH8vwIrMFcI49q6o+ZLnkWs9QDkDDtRLk=";
   };
 
-  vendorHash = "sha256-KPh3Iuy6pujzRvGBLKXipcXa9sy1/MNTrFvFeXiIMcY=";
+  vendorHash = "sha256-ZIGchgsN1d6MqiY/SE5zS990A1Yyo8RwdbaQkRBXdC0=";
 
-  postPatch = ''
+  checkFlags = [
     # --- FAIL: Test_ExecuteCSA (0.00s)
     #     csa_test.go:104: CSAExecute error: Couldn't determine cheapest arrival destination, consider increasing max_walk_seconds or max_transfer_seconds
-    substituteInPlace src/csa_test/csa_test.go \
-      --replace "Test_ExecuteCSA" "Skip_ExecuteCSA"
-  '';
+    "-skip=Test_ExecuteCSA"
+  ];
 
   postInstall = ''
     mv $out/bin/{src,mobroute}
