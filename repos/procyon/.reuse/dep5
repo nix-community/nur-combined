@@ -7,6 +7,6 @@ Files: flake.nix README.md secrets/*
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: MIT
 
-Files: .github/* .envrc .gitattributes .gitignore flake.lock garnix.yaml infrastructure/terraform/.terraform.lock.hcl nix/flake/ci/GPG.pub
+Files: .github/* .envrc .gitattributes .gitignore flake.lock .mergify.yml infrastructure/terraform/.terraform.lock.hcl nix/flake/ci/GPG.pub
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: CC0-1.0
