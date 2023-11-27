@@ -1,7 +1,9 @@
 pull_request_rules:
   - name: merge automatically (when CI passes and PR is approved)
     conditions:
-      - "#approved-reviews-by >= 1"
+      - or:
+        - "#approved-reviews-by >= 1"
+        - author = dependabot[bot]
     actions:
       queue:
         method: rebase
