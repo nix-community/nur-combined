@@ -20,6 +20,7 @@
   kong-portal-cli = pkgs.callPackage ./pkgs/kong-portal-cli { };
   squoosh-cli = pkgs.callPackage ./pkgs/squoosh-cli { };
   ingress2gateway = pkgs.callPackage ./pkgs/ingress2gateway { };
+  cloudflare-cli = pkgs.callPackage ./pkgs/cloudflare-cli { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
