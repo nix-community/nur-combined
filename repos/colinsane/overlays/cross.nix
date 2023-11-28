@@ -14,37 +14,6 @@
 # - 2023/10/11: build coreutils pulled in by rpm 4.18.1, but NOT by 4.19.0
 #   - nix why-depends --all /nix/store/gjwd2x507x7gjycl5q0nydd39d3nkwc5-dtrx-8.5.3-aarch64-unknown-linux-gnu /nix/store/y9gr7abwxvzcpg5g73vhnx1fpssr5frr-coreutils-9.3
 #
-# upstreaming status:
-#
-# - blueman builds on servo branch
-# - libgudev builds on servo branch
-#
-# - argyllcms needs investigation on servo
-# - directfb needs investigation on servo
-# - evolution-data-server needs investigation on servo
-# - gnome-clocks needs investigation on servo
-# - ibus needs investigation on servo
-# - luajit needs investigation on servo
-# - rpm needs investigation on servo
-# - waybar needs investigation on servo
-# - webkitgtk build fails at the nix layer (OOM?)
-#
-# non-binfmt build status:
-# - webkitgtk fails 90% through build:
-#   - ```
-#     [6376/6819] Generating ../../WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c
-#     FAILED: WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c /build/webkitgtk-2.40.5/build/WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c 
-#     cd /build/webkitgtk-2.40.5/build/Source/WebKit && /nix/store/6xbpap00kkdgrayizbc61mzf19ygsp9j-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner private-code //nix/store/26nypvflsc8ggbdkns0wjvh4mjrj>
-#     /nix/store/6xbpap00kkdgrayizbc61mzf19ygsp9j-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner: line 5: syntax error: unterminated quoted string
-#     ```
-# - x11_ssh_askpass fails with tricky wants-to-run-its-own-compiled-code issue (imake)
-# - tuba fails trying to invoke the aarch64 gettext during build
-# - rpm (wanted by dtrx, but technically optional) fails during configure; can't find python
-# - portfolio fails during meson configure; finds host python, can't execute it
-# - neovim-ruby fails; tries to run host ruby
-# - luajit fails; tries to run the host gcc
-# - cozy fails during install; can't run post_install_desktop_database.py
-#
 # outstanding issues for software i don't have deployed:
 # - gdk-pixbuf doesn't generate `gdk-pixbuf-thumbnailer` on cross
 #   - been this way since 2018: <https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/20>
@@ -1359,18 +1328,6 @@ in {
   #   # '';
   # });
 
-  mpv-unwrapped = prev.mpv-unwrapped.overrideAttrs (upstream: {
-    # 2023/11/21: upstreaming is in PR: <https://github.com/NixOS/nixpkgs/pull/269165>
-    # nativeBuildInputs = lib.remove final.python3 upstream.nativeBuildInputs;
-    # umpv gets the build python, somehow -- even with python3 removed from nativeBuildInputs.
-    # and mpv_identify.sh gets the build bash.
-    # patch these both to use the host files
-    buildInputs = (upstream.buildInputs or []) ++ [ final.bash final.python3 ];
-    postFixup = (upstream.postFixup or "") + ''
-      patchShebangs --update --host $out/bin/umpv $out/bin/mpv_identify.sh
-    '';
-  });
-
   # mpvScripts = prev.mpvScripts // {
   #   # "line 1: pkg-config: command not found"
   #   #   "mpris.c:1:10: fatal error: gio/gio.h: No such file or directory"
@@ -1857,6 +1814,17 @@ in {
   #   });
   # });
 
+  ripgrep = prev.ripgrep.overrideAttrs (upstream: {
+    # 2023/11/27: upstreaming is out for PR: <https://github.com/NixOS/nixpkgs/pull/270521>
+    # ripgrep generates its own manpage.
+    # this is only problematic on a non-binfmt machine
+    preFixup = lib.replaceStrings
+      [ "$out/bin/rg" ]
+      [ "${final.stdenv.hostPlatform.emulator final.buildPackages} $out/bin/rg" ]
+      upstream.preFixup
+    ;
+  });
+
   # rmlint = prev.rmlint.override {
   #   # fixes "Checking whether the C compiler works... no"
   #   # rmlint is scons; it reads the CC environment variable, though, so *may* be cross compilable
@@ -1872,6 +1840,10 @@ in {
       PYTHON = final.python3.interpreter;
     };
   });
+
+  # waf-setup-hook: python3-aarch64-unknown-linux-gnu-3.11.6/bin/python: cannot execute binary file: Exec format error
+  # NOTE: not enough to fix build. better to just ensure we don't need samba
+  # samba = needsBinfmt prev.samba;
 
   # samba = prev.samba.overrideAttrs (_upstream: {
   #   # we get "cannot find C preprocessor: aarch64-unknown-linux-gnu-cpp", but ONLY when building with the ccache stdenv.
@@ -2168,6 +2140,11 @@ in {
   webkitgtk = prev.webkitgtk.overrideAttrs (upstream: {
     # fixes "wayland-scanner: line 5: syntax error: unterminated quoted string"
     # also: `/nix/store/nnnn-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner: line 0: syntax error: unexpected word (expecting ")")`
+    # verbose error:
+    #   [6376/6819] Generating ../../WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c
+    #   FAILED: WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c /build/webkitgtk-2.40.5/build/WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c 
+    #   cd /build/webkitgtk-2.40.5/build/Source/WebKit && /nix/store/6xbpap00kkdgrayizbc61mzf19ygsp9j-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner private-code //nix/store/26nypvflsc8ggbdkns0wjvh4mjrj>
+    #   /nix/store/6xbpap00kkdgrayizbc61mzf19ygsp9j-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner: line 5: syntax error: unterminated quoted string
     # with this i can maybe remove `wayland` from nativeBuildInputs, too?
     # note that `webkitgtk` != `webkitgtk_6_0`, so this patch here might be totally unnecessary.
     # 2023/11/06: hostPkgs.moby.webkitgtk_6_0 builds fine on servo; stock pkgsCross.aarch64-multiplatform.webkitgtk_6_0 does not.

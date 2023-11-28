@@ -92,7 +92,9 @@ in
         protocol = "ssh-ng";
         maxJobs = 3; # constrained by ram, for things like webkitgtk, etc.
         speedFactor = 2;
-        supportedFeatures = [ "big-parallel" ];
+        supportedFeatures = [
+          # "big-parallel"  # it can't reliably build webkitgtk
+        ];
         mandatoryFeatures = [ ];
         sshUser = "nixremote";
         sshKey = config.sops.secrets."nixremote_ssh_key".path;
