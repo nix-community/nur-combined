@@ -26,8 +26,8 @@
   sane.programs.sysadminUtils.enableFor.system = lib.mkDefault true;
   sane.programs.consoleUtils.enableFor.user.colin = lib.mkDefault true;
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;  # NIXPKGS_ALLOW_BROKEN
+  nixpkgs.config.allowUnfree = true;  # NIXPKGS_ALLOW_UNFREE=1
+  nixpkgs.config.allowBroken = true;  # NIXPKGS_ALLOW_BROKEN=1
 
   # time.timeZone = "America/Los_Angeles";
   time.timeZone = "Etc/UTC";  # DST is too confusing for me => use a stable timezone
