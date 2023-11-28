@@ -129,6 +129,7 @@ in
             { class = "^Thunderbird$"; instance = "Mailnews"; window_role = "filterlist"; }
             { class = "^Pavucontrol.*$"; }
             { class = "^Arandr$"; }
+            { class = ".?blueman-manager.*$"; }
           ];
         };
 
