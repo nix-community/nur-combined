@@ -1474,10 +1474,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.68";
+      version = "4.9.70";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4194520/darkreader-4.9.68.xpi";
-      sha256 = "009b35e2b5e3ad787cc5f5cd75cf995119baaddfd45a00bd045c2098a99cff85";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198549/darkreader-4.9.70.xpi";
+      sha256 = "3ccbe247031dd4fcc3d9bd840872ed38e9843729709f92803c234041070588a7";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1545,10 +1545,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "121.0.20231124.91512";
+      version = "121.0.20231127.91758";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4199747/deutsch_de_language_pack-121.0.20231124.91512.xpi";
-      sha256 = "46d8d198ad9e3035849b4fb10c98af9786e1724ac2112990db9b9caa75f0ec95";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200833/deutsch_de_language_pack-121.0.20231127.91758.xpi";
+      sha256 = "bd2c5d126d33c55ebc45b05168f3ee4585800dbe155153d3ed9ad9437fbe877b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1976,10 +1976,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.5";
+      version = "1.2.6";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200521/faststream-1.2.5.xpi";
-      sha256 = "4f1d7720ca313f34af9ed06bb45cb773ccc0b2cd588036bc646461f7a4de7ec7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4201172/faststream-1.2.6.xpi";
+      sha256 = "a3a76cf5b217829d92e13baa8a3f74c4c82b6fd9cd344b6ee662de617dcb180b";
       meta = with lib;
       {
         description = "Stream without buffering, a great video player and download accelerator all in one.";
@@ -2384,10 +2384,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "121.0.20231124.91512";
+      version = "121.0.20231127.91758";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4199756/francais_language_pack-121.0.20231124.91512.xpi";
-      sha256 = "4d9fc537ad0fd71e1636af30997d437c1f7d6c3247786e7b08531056e3398fea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200840/francais_language_pack-121.0.20231127.91758.xpi";
+      sha256 = "06e460d690551d19bd09ae0a186fb978c191cda0456b7e5fbf6bbf141abfc13c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2421,10 +2421,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.2.9";
+      version = "3.2.10";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4177077/gesturefy-3.2.9.xpi";
-      sha256 = "e639eb9666c7658db403e9408d33e01fd6b47db65362d246808087e329e78a57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198500/gesturefy-3.2.10.xpi";
+      sha256 = "9c151ef61203773ca530742f251e2abb56292641f05fed5f3bc6e6192dc6fef3";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -7761,10 +7761,10 @@
       };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
-      version = "6.6.17";
+      version = "6.6.19";
       addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4189809/raindropio-6.6.17.xpi";
-      sha256 = "31c0dc6920e67cd06b9d6a85fac1d5f3f57367cbdf7bdae4e1f847308f87be90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198542/raindropio-6.6.19.xpi";
+      sha256 = "064ccce0e9e9ddfe9e540d29c6cd132d575a57a443982d344ccc01296067a0fc";
       meta = with lib;
       {
         homepage = "https://raindrop.io";
@@ -9548,10 +9548,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.53.0";
+      version = "1.54.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4188488/ublock_origin-1.53.0.xpi";
-      sha256 = "5403474101f753b5d38c09135e40d82a115afcd01310d78133a4af363462194b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4198829/ublock_origin-1.54.0.xpi";
+      sha256 = "9797160908191710ff0858536ba6dc29ecad9923c30b2ad6d3e5e371d759e44d";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -9587,10 +9587,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.11.19.977";
+      version = "2023.11.28.36";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197150/ublock_origin_lite-2023.11.19.977.xpi";
-      sha256 = "86d023d44eac330188c33ed4f8bee87f3a777816ebbf1156ff7d95c022a563ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4201236/ublock_origin_lite-2023.11.28.36.xpi";
+      sha256 = "666eea5bdef9597a59f17af7a4ce016db8a17b4a2f79f0f2354b080d528940bb";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
