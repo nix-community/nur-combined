@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.6.1-sunlight1";
+  modDirVersion = "6.6.2-sunlight1";
 
   parts = lib.splitString "-" modDirVersion;
 
@@ -15,7 +15,7 @@ let
 
   rev = "${version}-${flavour}-${suffix}";
 
-  hash = "sha256-u9erDf5f+bl6n5k3/KNJFQ3AQiNP6H14YbUzsHavA80=";
+  hash = "sha256-K9VTZ3/eU6MHTSLPtwAZHLe6oe9HLh5pd3Qxe0nN0H0=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -45,6 +45,10 @@ buildLinux (args // rec {
       # Futex WAIT_MULTIPLE implementation for Wine / Proton Fsync.
       FUTEX = yes;
       FUTEX_PI = yes;
+
+      # Shiftfs
+      SHIFT_FS = yes;
+      SHIFT_FS_POSIX_ACL = yes;
 
       # Preemptive Full Tickless Kernel at 858Hz.
       LATENCYTOP = yes;
