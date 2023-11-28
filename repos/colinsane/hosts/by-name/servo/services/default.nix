@@ -27,6 +27,7 @@
     ./pleroma.nix
     ./postgres.nix
     ./prosody
+    ./slskd.nix
     ./transmission.nix
     ./trust-dns.nix
     ./wikipedia.nix

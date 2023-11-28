@@ -29,6 +29,11 @@ in [
     hash = "sha256-Kqqfy9Mludc5wr0TSUg9gEOZsfUL65WpF+hy64k33MY=";
   })
   (fetchpatch' {
+    title = "slskd: allow omitting username from yaml config";
+    saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
+    hash = "sha256-xQEj/oIfNcE4td9jxzDzhlnIYpncOOdXZuswkmcLNuk=";
+  })
+  (fetchpatch' {
     title = "vala: look for files in targetOffset";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/267550";
     hash = "sha256-Dl9ZQazjXjIbw38Q78otQvgVCB/QZAC1IYoFX0Tuyw0=";

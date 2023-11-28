@@ -91,5 +91,10 @@
   };
 
   sane.dns.zones."uninsane.org".inet.CNAME."bt" = "native";
+  sane.ports.ports."51413" = {
+    protocol = [ "tcp" "udp" ];
+    visibleTo.ovpn = true;
+    description = "colin-bittorrent";
+  };
 }
 

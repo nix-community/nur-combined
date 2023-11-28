@@ -42,7 +42,6 @@ in
       "sane-scripts.secrets-unlock"
       "sane-scripts.secrets-update-keys"
       "sane-scripts.shutdown"
-      "sane-scripts.ssl-dump"
       "sane-scripts.sudo-redirect"
       "sane-scripts.sync-from-servo"
       "sane-scripts.vpn"
