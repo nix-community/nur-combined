@@ -4,3 +4,4 @@ let
     sha256 = "1a8jr0i6nxzg2wzv7cc5kg0979c5j7xbfjg94r2ljsyfpkzb23dc";
   }) {src = ./.; };
 in builtins.mapAttrs (k: v: v."${builtins.currentSystem}" or v) flake.defaultNix
+
