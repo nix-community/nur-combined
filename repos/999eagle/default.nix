@@ -12,6 +12,7 @@
   openmojiPackage = pkgs.callPackage ./pkgs/openmoji/single.nix {inherit openmoji;};
   pkcs11-provider = pkgs.callPackage ./pkgs/pkcs11-provider.nix {};
   sea-orm-cli = pkgs.callPackage ./pkgs/sea-orm-cli {};
+  subwoofer = pkgs.callPackage ./pkgs/subwoofer {};
   swayaudioidleinhibit = pkgs.callPackage ./pkgs/swayaudioidleinhibit.nix {};
   synapse-find-unreferenced-state-groups = pkgs.callPackage ./pkgs/synapse-find-unreferenced-state-groups.nix {};
   wys = pkgs.callPackage ./pkgs/wys {};
