@@ -384,10 +384,10 @@
   };
   "gesturefy" = buildFirefoxXpiAddon {
     pname = "gesturefy";
-    version = "3.2.9";
+    version = "3.2.10";
     addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4177077/gesturefy-3.2.9.xpi";
-    sha256 = "e639eb9666c7658db403e9408d33e01fd6b47db65362d246808087e329e78a57";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4198500/gesturefy-3.2.10.xpi";
+    sha256 = "9c151ef61203773ca530742f251e2abb56292641f05fed5f3bc6e6192dc6fef3";
     meta = with lib; {
       homepage = "https://github.com/Robbendebiene/Gesturefy";
       description = "Navigate, operate, and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
@@ -1314,10 +1314,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.53.0";
+    version = "1.54.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4188488/ublock_origin-1.53.0.xpi";
-    sha256 = "5403474101f753b5d38c09135e40d82a115afcd01310d78133a4af363462194b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4198829/ublock_origin-1.54.0.xpi";
+    sha256 = "9797160908191710ff0858536ba6dc29ecad9923c30b2ad6d3e5e371d759e44d";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
