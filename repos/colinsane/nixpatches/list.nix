@@ -29,9 +29,16 @@ in [
     hash = "sha256-Kqqfy9Mludc5wr0TSUg9gEOZsfUL65WpF+hy64k33MY=";
   })
   (fetchpatch' {
-    title = "slskd: allow omitting username from yaml config";
+    # out for PR: <https://github.com/NixOS/nixpkgs/pull/270646>
+    title = "nixos/slskd: allow omitting username from yaml config";
     saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
     hash = "sha256-xQEj/oIfNcE4td9jxzDzhlnIYpncOOdXZuswkmcLNuk=";
+  })
+  (fetchpatch' {
+    # out for PR: <https://github.com/NixOS/nixpkgs/pull/270646>
+    title = "nixos/slskd: don't enable nginx unless nginx.enable was set";
+    saneCommit = "ea084e5739a68436cc240aeca5c10b92de1e3138";
+    hash = "sha256-25zB5eM1WBVEigmrq1mY9GXwEkS/jf5v7BCfmN6Wux4=";
   })
   (fetchpatch' {
     title = "vala: look for files in targetOffset";

@@ -24,8 +24,7 @@
 
   sane.dns.zones."uninsane.org".inet.CNAME."soulseek" = "native";
 
-  # slskd unconditionally manages nginx for me.
-  services.nginx.virtualHosts."soulseek.uninsane.org" = lib.mkForce {
+  services.nginx.virtualHosts."soulseek.uninsane.org" = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {
@@ -61,14 +60,6 @@
     debug = true;
     flags.no_logo = true;  # don't show logo at start
     # flags.volatile = true;  # store searches and active transfers in RAM (completed transfers still go to disk). rec for btrfs/zfs
-  };
-
-  services.slskd.nginx = {
-    # NOTE: i override these settings elsewhere.
-    # slskd offers no option to disable nginx integration, for now.
-    # but because of the netns, its default config isn't usable for me.
-    domainName = "soulseek.uninsane.org";
-    contextPath = "/";
   };
 
   systemd.services.slskd = {
