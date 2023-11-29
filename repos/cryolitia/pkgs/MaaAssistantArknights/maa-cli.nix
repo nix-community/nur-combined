@@ -8,13 +8,13 @@
 rustPlatform.buildRustPackage rec {
 
   pname = "maa-cli";
-  version = "0.3.12";
+  version = "0.4.0-beta.1";
 
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "maa-cli";
     rev = "v${version}";
-    sha256 = "sha256-nTtKTHP11vcmBsp4UD6I5nGNGYI0ASKN8e8ZhvzlZyY=";
+    sha256 = "sha256-CPeGFmXfKY+wcfUCz5VX8/ql2vlWNdwp1GkJVcXSvr8=";
   };
 
   buildInputs = lib.optional stdenv.isDarwin [
@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   # disable self update: https://github.com/MaaAssistantArknights/maa-cli/pull/44/files
   buildNoDefaultFeatures = true;
 
-  cargoSha256 = "sha256-/18Fj7A/p4CtHokY45CxAsEnjSOybs8tB8DeZc/0ytE=";
+  cargoSha256 = "sha256-SIYm8cEDizKGr0pNNRT//ViN7HB6BM+vPzqd/25/0I0=";
 
   meta = with lib; {
     description = "A simple CLI for MAA by Rust.";
