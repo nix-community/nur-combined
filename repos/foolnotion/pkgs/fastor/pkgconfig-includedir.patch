@@ -1,0 +1,12 @@
+diff --git a/data/fastor.pc.in b/data/fastor.pc.in
+index 46fe57f..edb7208 100644
+--- a/data/fastor.pc.in
++++ b/data/fastor.pc.in
+@@ -1,6 +1,6 @@
+ prefix=@FASTOR_INSTALL_PREFIX@
+ exec_prefix=${prefix}
+-includedir=${prefix}/@FASTOR_INSTALL_INCLUDE_DIR@
++includedir=@FASTOR_INSTALL_INCLUDE_DIR@
+ 
+ Name: Fastor
+ Description: A light-weight high performance tensor algebra framework for modern C++

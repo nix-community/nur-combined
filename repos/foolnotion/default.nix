@@ -26,6 +26,8 @@
 
   cmaketools = pkgs.python3Packages.callPackage ./pkgs/cmaketools { };
 
+  cpp-flux = pkgs.callPackage ./pkgs/cpp-flux { };
+
   cpp-lazy = pkgs.callPackage ./pkgs/cpp-lazy { };
 
   cpp-sort = pkgs.callPackage ./pkgs/cpp-sort { };
@@ -46,6 +48,8 @@
   expected-lite = pkgs.callPackage ./pkgs/expected-lite { };
 
   fast_float = pkgs.callPackage ./pkgs/fast_float { };
+  
+  fastor = pkgs.callPackage ./pkgs/fastor { };
 
   gch-small-vector = pkgs.callPackage ./pkgs/gch-small-vector { };
 
