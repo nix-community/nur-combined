@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     homepage = "https://getaether.net/";
     downloadPage = "https://getaether.net/download/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ maxhille ];
+    maintainers = with maintainers; [ ];
     # other platforms could be supported by building from source
     platforms = [ "x86_64-linux" ];
   };
