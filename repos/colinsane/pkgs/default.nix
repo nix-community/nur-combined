@@ -28,10 +28,8 @@ let
     eg25-control = callPackage ./additional/eg25-control { };
     eg25-manager = callPackage ./additional/eg25-manager { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
-    flare-signal-nixified = callPackage ./additional/flare-signal-nixified { };
-    lemoa = callPackage ./additional/lemoa { };
-    jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     firefox-extensions = lib.recurseIntoAttrs (callPackage ./additional/firefox-extensions { });
+    flare-signal-nixified = callPackage ./additional/flare-signal-nixified { };
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
     gpodder-adaptive = callPackage ./additional/gpodder-adaptive { };
     gpodder-adaptive-configured = callPackage ./additional/gpodder-configured {
@@ -40,8 +38,10 @@ let
     gpodder-configured = callPackage ./additional/gpodder-configured { };
     hare-ev = callPackage ./additional/hare-ev { };
     hare-json = callPackage ./additional/hare-json { };
+    jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     koreader-from-src = callPackage ./additional/koreader-from-src { };
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
+    lemoa = callPackage ./additional/lemoa { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
     linux-firmware-megous = callPackage ./additional/linux-firmware-megous { };
     # XXX: eval error: need to port past linux_6_4
@@ -51,6 +51,7 @@ let
     mpv-uosc-latest = callPackage ./additional/mpv-uosc-latest { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
     phog = callPackage ./additional/phog { };
+    pipeline = callPackage ./additional/pipeline { };
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
     rtl8723cs-wowlan = callPackage ./additional/rtl8723cs-wowlan { };
     sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
