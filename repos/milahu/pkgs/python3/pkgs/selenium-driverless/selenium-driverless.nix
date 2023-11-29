@@ -3,9 +3,9 @@
 , fetchFromGitHub
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonPackage rec {
   pname = "selenium-driverless";
-  version = "unstable-2023-10-29";
+  version = "1.6.3.3";
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -27,15 +27,23 @@ python3.pkgs.buildPythonApplication rec {
     selenium
     setuptools
     twine
+    matplotlib
+    scipy
   ];
+
+  # disable the license nag message in selenium_driverless/webdriver.py
+  # the "is_first_run" file is checked in selenium_driverless/utils/utils.py
+  # https://github.com/kaliiiiiiiiii/Selenium-Driverless/issues/122
+  postPatch = ''
+    sed -i 's/^is_first_run = .*/is_first_run = False/' src/selenium_driverless/utils/utils.py
+  '';
 
   pythonImportsCheck = [ "selenium_driverless" ];
 
   meta = with lib; {
     description = "Undetected Selenium without usage of chromedriver";
     homepage = "https://github.com/kaliiiiiiiiii/Selenium-Driverless";
-    license = licenses.unfree; # FIXME: nix-init did not found a license
+    license = licenses.cc-by-nc-sa-40;
     maintainers = with maintainers; [ ];
-    mainProgram = "selenium-driverless";
   };
 }

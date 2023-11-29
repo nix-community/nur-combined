@@ -5,7 +5,7 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cdp-socket";
-  version = "unstable-2023-11-27";
+  version = "1.1.2";
   pyproject = true;
 
   src = fetchFromGitHub {
