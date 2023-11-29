@@ -117,6 +117,7 @@ in
     mime.priority = 50;  # default = 100; 50 in order to take precedence over vlc.
     mime.associations."audio/flac" = "mpv.desktop";
     mime.associations."audio/mpeg" = "mpv.desktop";
+    mime.associations."audio/x-opus+ogg" = "mpv.desktop";
     mime.associations."audio/x-vorbis+ogg" = "mpv.desktop";
     mime.associations."video/mp4" = "mpv.desktop";
     mime.associations."video/quicktime" = "mpv.desktop";
