@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Modern C++ library for replacing scanf and std::istream. .";
+    description = "Modern C++ library for replacing scanf and std::istream";
     homepage = "https://scnlib.readthedocs.io/";
     license = licenses.asl20;
     platforms = platforms.all;
