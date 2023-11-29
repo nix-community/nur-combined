@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# runs the backup for the current node
+
+set -eu -o pipefail
+
+rsyncnet_user=de3163@de3163.rsync.net
+
+function backup {
+  from="$1"; shift
+  to="$1"; shift
+  rsync -avP "${from}" "${rsyncnet_user}:${to}"
+}
+
+
+# mirroring of git repos -- new ones using git clone --mirror
+# TODO: is this the right way?
+ssh "$rsyncnet_user" ls git | while read repo; do
+  ssh "$rsyncnet_user" git --git-dir "git/$repo" fetch --all --prune
+done

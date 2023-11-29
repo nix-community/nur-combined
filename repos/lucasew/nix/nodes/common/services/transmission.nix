@@ -30,6 +30,7 @@ in
       # transmission-009 = { enable = true; port = 49111;};
       # transmission-999 = { enable = true; port = 49110;}; # lowest port
       transmission-rpc.enable = true;
+      transmission-rpc.port = 9091; # Nextcloud actually expects a stable port
       # transmission-rpc  = { enable = true; port = 49109;};
     };
     systemd.services.transmission = {
