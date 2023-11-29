@@ -290,6 +290,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       speedtest-cli = callPackage ./pkgs/python3/pkgs/speedtest-cli/speedtest-cli.nix { };
 
+      cdp-socket = callPackage ./pkgs/python3/pkgs/cdp-socket/cdp-socket.nix { };
+
+      selenium-driverless = callPackage ./pkgs/python3/pkgs/selenium-driverless/selenium-driverless.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -628,6 +632,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   wzshiming-bridge = callPackage ./pkgs/tools/networking/wzshiming/wzshiming-bridge.nix { };
 
   wzshiming-socks5 = callPackage ./pkgs/tools/networking/wzshiming/wzshiming-socks5.nix { };
+
+  undetected-chromedriver = callPackage ./pkgs/development/tools/selenium/chromedriver/undetected-chromedriver.nix { };
 
 }
 
