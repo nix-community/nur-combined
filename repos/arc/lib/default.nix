@@ -39,7 +39,7 @@
     else builtins.toFile name contentsOrPath;
 
   # named // operator
-  update = a: b: a // b;
+  update = lib.mergeAttrs or (a: b: a // b);
 
   unlessNull = item: alt:
     if item == null then alt else item;
@@ -143,7 +143,7 @@
   mapListToAttrs = f: l: listToAttrs (map f l);
 
   # merge list of attrsets left to right
-  foldAttrList = foldl update {};
+  foldAttrList = lib.attrsets.mergeAttrsList or (foldl update {});
 
   # recursive attrset merge
   foldAttrListRecursive = foldl recursiveUpdate {};

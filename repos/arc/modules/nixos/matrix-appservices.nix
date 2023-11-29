@@ -59,6 +59,10 @@
         postgresql.uri = mkOption {
           type = types.str;
         };
+        postgresql.ensurePermissions = mkOption {
+          type = types.enum [ null true false "owner" ];
+          default = "owner";
+        };
       };
       name = mkOption {
         type = types.str;
@@ -125,14 +129,33 @@
   };
   appserviceType = types.submodule appserviceModule;
   mapService = cfg: unmerged.mergeAttrs cfg.setSystemdService;
-  mapPostgresql = cfg: {
-    ensureUsers = singleton {
-      name = cfg.database.user;
+  mapPostgresql = cfg: let
+    ensureDb = if cfg.database.user == cfg.database.name then {
+      ensureDBOwnership = true;
+    } else if cfg.database.postgresql.ensurePermissions == true then {
       ensurePermissions = {
         "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
       };
-    };
+    } else { };
+  in {
+    ensureUsers = singleton ({
+      name = cfg.database.user;
+    } // ensureDb);
     ensureDatabases = singleton cfg.database.name;
+  };
+  mapServicePostgresql = cfg: let
+    inherit (cfg.database.postgresql) ensurePermissions;
+    ensureDBOwnership = cfg.database.user == cfg.database.name;
+    postStart = {
+      owner = ''
+        $PSQL -tAc 'ALTER DATABASE "${cfg.database.name}" OWNER TO "${cfg.database.user}"'
+      '';
+      ${toString false} = ''
+        $PSQL -tAc 'GRANT ALL PRIVILEGES ON DATABASE "${cfg.database.name}" TO "${cfg.database.user}"'
+      '';
+    };
+  in mkIf (!ensureDBOwnership && postStart ? ${toString ensurePermissions}) {
+    postgresql.postStart = mkAfter postStart.${toString ensurePermissions};
   };
 in {
   options.services.matrix-appservices = mkOption {
@@ -843,7 +866,12 @@ in {
         };
       };
     };
-    systemd.services = mapAttrs' (_: cfg: nameValuePair cfg.name (mapService cfg)) (filterAttrs (_: cfg: cfg.enable) cfg);
+    systemd.services = mkMerge (
+      singleton (mapAttrs' (_: cfg: nameValuePair cfg.name (mapService cfg)) (filterAttrs (_: cfg: cfg.enable) cfg))
+      ++ (mapAttrsToList (_: cfg: mapServicePostgresql cfg) (
+        filterAttrs (_: cfg: cfg.enable && cfg.database.type == "postgresql") cfg
+      ))
+    );
     users = let
       services = filter (cfg: cfg.enable && cfg.createUser) appservices;
     in {
