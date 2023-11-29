@@ -47,10 +47,9 @@ use_android() {
         esac
     done
 
-    export ANDROID_SDK_HOME="$ANDROID_HOME"
     export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/$ndk_version"
     export ANDROID_ROOT="$ANDROID_HOME"
-    export ANDROID_SDK_ROOT="$ANDROID_SDK_HOME"
+    export ANDROID_SDK_ROOT="$ANDROID_HOME"
     export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
 
     PATH_add "$ANDROID_NDK_HOME"

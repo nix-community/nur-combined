@@ -39,6 +39,7 @@ in
   # I want a tidier home
   config.home.sessionVariables = with config.xdg; lib.mkIf cfg.enable {
     ANDROID_HOME = "${dataHome}/android";
+    ANDROID_USER_HOME = "${configHome}/android";
     CARGO_HOME = "${dataHome}/cargo";
     DOCKER_CONFIG = "${configHome}/docker";
     GDBHISTFILE = "${dataHome}/gdb/gdb_history";
