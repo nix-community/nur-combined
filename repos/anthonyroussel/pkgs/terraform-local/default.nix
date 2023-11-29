@@ -1,19 +1,20 @@
 { lib
-, python3Packages
+, python3
+, fetchPypi
 , terraform
 }:
 
-python3Packages.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication rec {
   pname = "terraform-local";
   version = "0.6";
 
-  src = python3Packages.fetchPypi {
+  src = fetchPypi {
     inherit pname version;
     hash = "sha256-1FaYAXLuxu3tQkm/BIccCql/boSV5g7LwlT//h4wT4k=";
   };
 
   propagatedBuildInputs = [
-    python3Packages.localstack-client
+    python3.pkgs.localstack-client
     terraform
   ];
 
