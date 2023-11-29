@@ -6,6 +6,7 @@
 , brightnessctl
 , buildPackages
 , busybox
+, codemadness-frontends ? null
 , conky
 , coreutils
 , curl
@@ -60,6 +61,7 @@ let
     bc  # also in busybox
     bonsai
     brightnessctl
+    codemadness-frontends  # for sxmo_youtube.sh
     conky
     curl
     dbus
