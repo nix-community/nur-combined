@@ -16,7 +16,7 @@ def main():
 	pkg_list.sort()
 
 	# ignore these packages
-	ignore_list = ["example-package"]
+	ignore_list = ["example-package", "polydock"]
 	pkg_list = [x for x in pkg_list if x.name not in ignore_list]
 
 	######
