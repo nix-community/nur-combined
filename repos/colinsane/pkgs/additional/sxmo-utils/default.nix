@@ -6,7 +6,7 @@
 , brightnessctl
 , buildPackages
 , busybox
-, codemadness-frontends ? null
+, codemadness-frontends_0_6 ? null  # 2023-11-28: alpine is stuck at 0.6, and i think it exposes a different API
 , conky
 , coreutils
 , curl
@@ -61,7 +61,7 @@ let
     bc  # also in busybox
     bonsai
     brightnessctl
-    codemadness-frontends  # for sxmo_youtube.sh
+    codemadness-frontends_0_6  # for sxmo_youtube.sh
     conky
     curl
     dbus

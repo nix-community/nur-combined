@@ -197,6 +197,11 @@ let
       pkgs = [ "ffmpeg" "sox" ];
       pyPkgs = [ "unidecode" ];
     };
+    tag-music = static-nix-shell.mkPython3Bin {
+      pname = "sane-tag-music";
+      src = ./src;
+      pyPkgs = [ "mutagen" ];
+    };
     vpn = static-nix-shell.mkBash {
       pname = "sane-vpn";
       src = ./src;

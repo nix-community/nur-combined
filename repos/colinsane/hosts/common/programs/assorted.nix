@@ -44,6 +44,7 @@ in
       "sane-scripts.shutdown"
       "sane-scripts.sudo-redirect"
       "sane-scripts.sync-from-servo"
+      "sane-scripts.tag-music"
       "sane-scripts.vpn"
       "sane-scripts.which"
       "sane-scripts.wipe-browser"
