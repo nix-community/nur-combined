@@ -4788,10 +4788,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.2.2";
+      version = "8.3.0";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4196281/languagetool-8.2.2.xpi";
-      sha256 = "3a051ac8db56a31095d474179486b29e7df9d13d9023deeebb6398e37644e43b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4199245/languagetool-8.3.0.xpi";
+      sha256 = "e357424e3df9dde4ba10eb9f8f3719ac4830681570557f4d51db15a462cd7667";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -8978,10 +8978,10 @@
       };
     "tetrio-plus" = buildFirefoxXpiAddon {
       pname = "tetrio-plus";
-      version = "0.25.7";
+      version = "0.25.9";
       addonId = "tetrio-plus@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200578/tetrio_plus-0.25.7.xpi";
-      sha256 = "c057ea20c0d1d37199f14c8fc6dab5c0cb01f52e8bc27240ff2e548d9b7cda80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4201664/tetrio_plus-0.25.9.xpi";
+      sha256 = "87ffd121869a302e040b750f6ee5540c7791d3cc7124c5bdb6a19c9d37f07412";
       meta = with lib;
       {
         description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d94d4f4d9a39d7847f4259e0053e02794a2d7361e70cf03a773b53993e17363d/http%3A//TETR.IO\" rel=\"nofollow\">TETR.IO</a>.";
