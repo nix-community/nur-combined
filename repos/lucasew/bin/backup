@@ -9,12 +9,48 @@ rsyncnet_user=de3163@de3163.rsync.net
 function backup {
   from="$1"; shift
   to="$1"; shift
-  rsync -avP "${from}" "${rsyncnet_user}:${to}"
+  rsync -avP "${from}" "${rsyncnet_user}:${to}" "$@"
 }
 
+if sd is_node riverwood; then
+  backup ~/WORKSPACE/CANTGIT/ backup/lucasew/CANTGIT
+fi
+
+if sd is_node phone; then
+  backup /sdcard/DCIM/Camera/ backup/lucasew/camera --exclude=.thumbnails
+  backup /sdcard/Pictures/ backup/lucasew/pictures --exclude=.thumbnails
+  backup /sdcard/Android/media/com.whatsapp/WhatsApp/Media/ backup/lucasew/WhatsApp --exclude=.Links --exclude=.Statuses
+  backup /sdcard/Android/media/com.whatsapp/WhatsApp/Backups/ backup/lucasew/WhatsApp
+  for database in /sdcard/Android/media/com.whatsapp/WhatsApp/Databases/msgstore.db.crypt*; do
+    backup $database  backup/lucasew/WhatsApp
+  done
+
+  mkdir -p ~/.cache/backup
+
+  for appfolder in Tachiyomi RetroArch; do
+    tar -cvf ~/.cache/backup/$appfolder.tar /sdcard/$appfolder
+    backup ~/.cache/backup/$appfolder.tar backup/lucasew
+    rm ~/.cache/backup/$appfolder.tar
+  done
+
+  mkdir -p ~/.cache/backup/termux
+  dpkg-query -f '${binary:Package}\n' -W > ~/.cache/backup/termux/packages.txt
+  for item in .bashrc .bash_history .config .termux workspace; do
+    rsync -avP ~/$item ~/.cache/backup/termux
+    tar -cvf ~/.cache/backup/termux.tar ~/.cache/backup/termux
+    backup ~/.cache/backup/termux.tar backup/lucasew
+    rm ~/.cache/backup/termux* -rf
+  done
+fi
+
+if sd is_node whiterun; then
+  backup /var/backup/postgresql/ backup/lucasew/homelab/postgres
+fi
 
 # mirroring of git repos -- new ones using git clone --mirror
 # TODO: is this the right way?
 ssh "$rsyncnet_user" ls git | while read repo; do
   ssh "$rsyncnet_user" git --git-dir "git/$repo" fetch --all --prune
 done
+
+ssh "$rsyncnet_user" quota
