@@ -127,7 +127,7 @@ Or, use variables from this repository in case I change them:
 |  | `oci-arm-host-capacity` | [oci-arm-host-capacity](https://github.com/hitrov/oci-arm-host-capacity) | 1a655bf6150d64f4f3732f267477ed3e4c6f87d0 | This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain. |
 |  | `onepush` | [onepush](https://gitlab.com/y1ndan/onepush) | 8b09e62330ad74ba3221bfc2b080d1732a1dcc55 | A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk. |
 |  | `openssl-oqs` | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | A cryptographic library that implements the SSL and TLS protocols |
-|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 4dac252a16815b0612e79e63efd5b8aebeacd98a | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | d540c284c42da16b174347783a153b498ada79a4 | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.14 | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
 |  | `payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | An android OTA payload dumper written in Go |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | A web interface for MySQL and MariaDB |

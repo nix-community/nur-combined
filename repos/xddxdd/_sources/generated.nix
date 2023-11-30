@@ -705,15 +705,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "4dac252a16815b0612e79e63efd5b8aebeacd98a";
+    version = "d540c284c42da16b174347783a153b498ada79a4";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "4dac252a16815b0612e79e63efd5b8aebeacd98a";
+      rev = "d540c284c42da16b174347783a153b498ada79a4";
       fetchSubmodules = false;
-      sha256 = "sha256-chAx227+HivWDFJYW77gmSHzGbwwMWo6WYKB2ADJmDE=";
+      sha256 = "sha256-Z86KzX2iFHChzlXZIzEbaE1ijfQkS0e+t0sRs6iDhU8=";
     };
-    date = "2023-10-26";
+    date = "2023-11-29";
   };
   osdlyrics = {
     pname = "osdlyrics";

@@ -1208,7 +1208,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2023-10-26",
+        "date": "2023-11-29",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1220,11 +1220,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "4dac252a16815b0612e79e63efd5b8aebeacd98a",
-            "sha256": "sha256-chAx227+HivWDFJYW77gmSHzGbwwMWo6WYKB2ADJmDE=",
+            "rev": "d540c284c42da16b174347783a153b498ada79a4",
+            "sha256": "sha256-Z86KzX2iFHChzlXZIzEbaE1ijfQkS0e+t0sRs6iDhU8=",
             "type": "github"
         },
-        "version": "4dac252a16815b0612e79e63efd5b8aebeacd98a"
+        "version": "d540c284c42da16b174347783a153b498ada79a4"
     },
     "osdlyrics": {
         "cargoLocks": null,
