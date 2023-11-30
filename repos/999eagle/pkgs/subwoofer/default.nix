@@ -7,7 +7,7 @@
   dbus,
   fontconfig,
   alsa-lib,
-  systemd,
+  udev,
   openssl,
   xorg,
 }:
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     dbus
     fontconfig
     alsa-lib
-    systemd
+    udev
     openssl
   ];
 

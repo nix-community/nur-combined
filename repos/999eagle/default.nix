@@ -6,12 +6,11 @@
 # commands such as:
 #     nix-build -A mypackage
 {pkgs ? import <nixpkgs> {}}: rec {
+  cargo-vibe = pkgs.callPackage ./pkgs/cargo-vibe {};
   github-linguist = pkgs.callPackage ./pkgs/github-linguist {};
-  millipixels = pkgs.callPackage ./pkgs/millipixels {};
   openmoji = pkgs.callPackage ./pkgs/openmoji {};
   openmojiPackage = pkgs.callPackage ./pkgs/openmoji/single.nix {inherit openmoji;};
   pkcs11-provider = pkgs.callPackage ./pkgs/pkcs11-provider.nix {};
-  sea-orm-cli = pkgs.callPackage ./pkgs/sea-orm-cli {};
   subwoofer = pkgs.callPackage ./pkgs/subwoofer {};
   swayaudioidleinhibit = pkgs.callPackage ./pkgs/swayaudioidleinhibit.nix {};
   synapse-find-unreferenced-state-groups = pkgs.callPackage ./pkgs/synapse-find-unreferenced-state-groups.nix {};
