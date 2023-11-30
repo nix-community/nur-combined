@@ -24,6 +24,8 @@ in {
     ./container-nat.nix
   ];
 
+  networking.interfaces.enp5s0.wakeOnLan.enable = true;
+
   services.restic.server.enable = true;
   services.restic.server.dataDir = "/media/storage/backup/restic";
 
