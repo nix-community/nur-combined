@@ -216,10 +216,45 @@
       };
     };
 
-    packages.x86_64-linux.default = pkgs.writeShellScriptBin "default" ''
-      ${global.environmentShell}
-      "$@"
-    '';
+    packages.x86_64-linux = {
+      default = pkgs.writeShellScriptBin "default" ''
+        ${global.environmentShell}
+        "$@"
+      '';
+
+      deploy = let
+        home = self.homeConfigurations.main.activationPackage;
+        riverwood = self.nixosConfigurations.riverwood.config.system.build.toplevel;
+        whiterun = self.nixosConfigurations.whiterun.config.system.build.toplevel;
+      in pkgs.writeShellScriptBin "deploy" ''
+        nix-copy-closure --to riverwood ${riverwood} ${home}
+        nix-copy-closure --to whiterun ${whiterun} ${home}
+        riverwood_cmd=boot
+        whiterun_cmd=boot
+        if [[ "$(realpath ${riverwood}/etc/.nixpkgs-used)" == "$(ssh riverwood realpath /etc/.nixpkgs-used)" ]]; then
+          riverwood_cmd=switch
+        fi
+       if [[ "$(realpath ${whiterun}/etc/.nixpkgs-used)" == "$(ssh whiterun realpath /etc/.nixpkgs-used)" ]]; then
+          whiterun_cmd=switch
+        fi
+
+        ssh -t riverwood ${home}/bin/home-manager-generation 
+        ssh -t whiterun ${home}/bin/home-manager-generation 
+        
+        if [[ "${riverwood}" != "$(ssh riverwood realpath /run/current-system)" ]]; then
+          ssh -t riverwood sudo ${riverwood}/bin/switch-to-configuration $riverwood_cmd
+        else
+          echo "INFO(riverwood): newly built generation results in the same path that is already running"
+        fi
+
+        if [[ "${whiterun}" != "$(ssh whiterun realpath /run/current-system)" ]]; then
+          ssh -t whiterun sudo ${whiterun}/bin/switch-to-configuration $whiterun_cmd
+        else
+          echo "INFO(whiterun): newly built generation results in the same path that is already running"
+        fi
+
+      '';
+    };
 
     nixosConfigurations = pkgs.callPackage ./nix/nodes {
       inherit extraArgs;
