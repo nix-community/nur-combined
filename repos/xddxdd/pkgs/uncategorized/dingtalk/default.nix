@@ -14,6 +14,7 @@
   curl,
   dbus,
   e2fsprogs,
+  freetype,
   gdk-pixbuf,
   glib,
   gnutls,
@@ -55,6 +56,7 @@ let
     curl
     dbus
     e2fsprogs
+    freetype
     gdk-pixbuf
     glib
     gnutls
@@ -126,6 +128,7 @@ in
       rm -f release/{*.a,*.la,*.prl}
       rm -f release/dingtalk_updater
       rm -f release/libcurl.so.*
+      rm -f release/libfreetype*
       rm -f release/libgtk-x11-2.0.so.*
       rm -f release/libm.so.*
       rm -f release/libstdc++.so.6
