@@ -8,10 +8,10 @@
 in {
   users.mutableUsers = false;
   users.users.root = {
-    passwordFile = config.age.secrets."users/root-hashed-password".path;
+    hashedPasswordFile = config.age.secrets."users/root-hashed-password".path;
   };
   users.users.alarsyo = {
-    passwordFile = config.age.secrets."users/alarsyo-hashed-password".path;
+    hashedPasswordFile = config.age.secrets."users/alarsyo-hashed-password".path;
     isNormalUser = true;
     extraGroups = [
       "media"

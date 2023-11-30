@@ -16,7 +16,7 @@
 
   hardware.amdgpu.opencl = false;
 
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
