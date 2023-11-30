@@ -70,9 +70,29 @@ class Tags:
 
     def promote_albumartist(self) -> None:
         """
-        if there's only an album artist, and no track artist, turn the album artist into the track artist.
-        otherise: no-op
+        1. replace shorthands like "V.A." with "Various Artists".
+        2. if there's only an album artist, and no track artist, turn the album artist into the track artist.
+        3. if the artist and album artist are nearly identical, try to merge them.
         """
+
+        if self.artist == ["V.A."]:
+            self.artist = ["Various Artists"]
+        if self.albumartist == ["V.A."]:
+            self.albumartist = ["Various Artists"]
+
+        unomitable = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        if len(self.artist) == len(self.albumartist) == 1:
+            filtered_artist = [i for i in self.artist[0] if i.lower() in unomitable]
+            filtered_albumartist = [i for i in self.albumartist[0] if i.lower() in unomitable]
+            if filtered_artist == filtered_albumartist:
+                # arist & album artist are nearly identical:
+                # probably guessed one of them from filename, which was lacking certain symbols of the actual artist.
+                # recover whichever of these fields had the fewer characters removed (i.e. is longest)
+                if len(self.artist[0]) > len(self.albumartist[0]):
+                    self.artist = self.albumartist = self.artist
+                else:
+                    self.artist = self.albumartist = self.albumartist
+
         if self.artist == []:
             self.artist = self.albumartist
             self.albumartist = []
@@ -80,33 +100,71 @@ class Tags:
     def rewrite_singles(self) -> None:
         """ idiom is for singles to belong to self-titled album. else each artist's singles get merged into one massive album """
         if self.album == ["Singles"]:
-            self.album = self.artist
+            if self.albumartist:
+                self.album = self.albumartist
+            else:
+                self.album = self.artist
 
     @staticmethod
     def from_path(p: str) -> 'Tags':
         """
         path cases:
         - artist/album/track
-        - label/artist - album/track
+        - label/artist - album/track  (in this case "label" is ignored)
         track naming:
         - could have many fields. the title will always be last. trackno could be embedded or not.
-        - artist - album - trackno title
+        - title (handled)
+        - artist - track (handled)
+        - trackno - track (handled)
+        - trackno - artist - track (handled)
+        - artist - album - trackno title (not handled)
+        track numbering:
+        - 01, 02, ...
+        - 1-01, 1-02, ... 2-01, 2-02, ...  (for A-side/B-side)
+        additionally, clean the path before this logic:
+        - ./artist/album/track -> artist/album/track
         """
-        comps = p.split('/')
         tags = Tags()
+        def parse_trackno(trackno: str) -> None:
+            tags.tracknumber = [trackno.lstrip('0')]
+
+        def parse_track(track: str) -> None:
+            track = os.path.splitext(track)[0]
+            track_parts = [p.strip() for p in track.split(' - ')]
+            if len(track_parts) == 1:
+                tags.title = [track]
+            elif len(track_parts) == 2:
+                if tags.albumartist and track_parts[0].lower() == tags.albumartist[0].lower():
+                    tags.title = [track_parts[1]]
+                elif all(l in '0123456789-' for l in track_parts[0]):
+                    parse_trackno(track_parts[0])
+                    tags.title = [track_parts[1]]
+            elif len(track_parts) == 3:
+                if all(l in '0123456789-' for l in track_parts[0]):
+                    parse_trackno(track_parts[0])
+                    tags.artist = [track_parts[1]]  # explicitly not album artist, but track artist
+                    tags.title = [track_parts[2]]
+
+
+        def parse_album(album: str) -> None:
+            album_parts = [p.strip() for p in album.split(' - ')]
+            if len(album_parts) == 1:
+                # artist/album/track
+                tags.album = [album]
+            elif len(album_parts) == 2:
+                # artist/artist-album/track
+                tags.albumartist = [album_parts[0]]
+                tags.album = [album_parts[1]]
+
+        comps = [c for c in p.split('/') if c != '.']
+
         if len(comps) == 3:
             tags.albumartist = [comps[0]]
-            album_part = comps[1].split('-')
-            if len(album_part) == 2:
-                # artist/artist-album/track
-                tags.albumartist, tags.album = [album_part[0].strip()], [album_part[1].strip()]
-            else:
-                # artist/album/track
-                tags.album = [comps[1]]
-            track_part = comps[2].split('-')
-            if len(track_part) == 1:
-                tags.title = [os.path.splitext(comps[2])[0]]
-            # TODO: handle the else case
+            parse_album(comps[1])
+            parse_track(comps[2])
+        elif len(comps) == 2:
+            tags.albumartist = [comps[0]]
+            parse_track(comps[1])
 
         return tags
 
@@ -218,7 +276,7 @@ def main():
     logging.getLogger().setLevel(logging.INFO)
 
     parser = argparse.ArgumentParser(description="augment music tags based on library path")
-    parser.add_argument("path", help="relative path to a file to tag")
+    parser.add_argument("path", nargs="+", help="relative path to a file to tag")
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('--verbose', action='store_true')
 
@@ -228,7 +286,8 @@ def main():
         logging.getLogger().setLevel(logging.DEBUG)
 
     tagger = Tagger(dry_run=args.dry_run)
-    tagger.tag_file_or_tree(args.path)
+    for p in args.path:
+        tagger.tag_file_or_tree(p)
 
 if __name__ == '__main__':
     main()
