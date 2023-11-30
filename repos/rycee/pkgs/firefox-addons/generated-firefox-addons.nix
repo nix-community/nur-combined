@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.15.1";
+      version = "1.16.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162143/10ten_ja_reader-1.15.1.xpi";
-      sha256 = "cf638be78da479ccd54fe6ace7990a5ba7757562ec48b2a177e24c86d2ee235c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200662/10ten_ja_reader-1.16.0.xpi";
+      sha256 = "ac91a5aee5c6a018c397257eb090eaa640feb0a17aa2e0f91248bad7d1a3e6c1";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -71,10 +71,10 @@
       };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.18.0";
+      version = "3.19.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4174127/adnauseam-3.18.0.xpi";
-      sha256 = "7a68641d944803100ef7a54abc7e9fabf5d9e12a826155b303bfd62aae746dd4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200304/adnauseam-3.19.0.xpi";
+      sha256 = "3905de2ab2d5cf519dba1693b426b0ebe33d3193254ff23e2fb2349b59843a64";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -102,6 +102,9 @@
           "https://github.com/*"
           "https://*.github.io/*"
           "https://*.letsblock.it/*"
+          "https://github.com/uBlockOrigin/*"
+          "https://ublockorigin.github.io/*"
+          "https://*.reddit.com/r/uBlockOrigin/*"
           ];
         platforms = platforms.all;
         };
@@ -1545,10 +1548,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "121.0.20231127.91758";
+      version = "120.0.20231129.155202";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200833/deutsch_de_language_pack-121.0.20231127.91758.xpi";
-      sha256 = "bd2c5d126d33c55ebc45b05168f3ee4585800dbe155153d3ed9ad9437fbe877b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202285/deutsch_de_language_pack-120.0.20231129.155202.xpi";
+      sha256 = "b49a9e3268a3654c91c659a7e89e7c8751842fc25d1224e183cba83a40505f73";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2384,10 +2387,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "121.0.20231127.91758";
+      version = "120.0.20231129.155202";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200840/francais_language_pack-121.0.20231127.91758.xpi";
-      sha256 = "06e460d690551d19bd09ae0a186fb978c191cda0456b7e5fbf6bbf141abfc13c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202338/francais_language_pack-120.0.20231129.155202.xpi";
+      sha256 = "0ee383a1976c44439eca109ada976d96f716899a3a2c546db3a9f405a16e1b94";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -8456,10 +8459,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.27";
+      version = "5.4.28";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4192543/sponsorblock-5.4.27.xpi";
-      sha256 = "f5b99a12e5635ab7ae8a8829c62bab363f62b83ef42ff3b146521c59c801559a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200697/sponsorblock-5.4.28.xpi";
+      sha256 = "4ca8f62d8b80cb16cd2822d373c52f7f9fa7ee76ce19aec9ba33997f0bc98c2b";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
