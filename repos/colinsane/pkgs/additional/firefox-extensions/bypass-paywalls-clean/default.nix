@@ -7,12 +7,12 @@
 
 stdenv.mkDerivation rec {
   pname = "bypass-paywalls-clean";
-  version = "3.4.3.0";
+  version = "3.4.4.0";
   src = fetchFromGitLab {
     owner = "magnolia1234";
     repo = "bypass-paywalls-firefox-clean";
     rev = "v${version}";
-    hash = "sha256-YatqRR2KzwqOVWlZuQp6zxFjEssBgjLhluDK1jy5ta4=";
+    hash = "sha256-Qn0/guDnQ4xhcGF3dS8vW+PhYPntivqSxPD3JkZvcnM=";
   };
 
   patches = [

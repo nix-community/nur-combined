@@ -24,31 +24,29 @@ let
     );
 in [
   (fetchpatch' {
-    title = "fetchFromGitLab: passthru owner and repo";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/270393";
-    hash = "sha256-Kqqfy9Mludc5wr0TSUg9gEOZsfUL65WpF+hy64k33MY=";
+    title = "ripgrep: fix shell completions when cross compiling";
+    saneCommit = "8631ddfb99aa8e935276b27d55ef5e10f5ab0367";
+    hash = "sha256-AkxtrCJrf0wpTdty4SOIWBrWwqfG7rBI4ON38BjDi6s=";
   })
+  # (fetchpatch' {
+  #   title = "nixos/slskd: allow omitting username from yaml config";
+  #   saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
+  #   hash = "sha256-xQEj/oIfNcE4td9jxzDzhlnIYpncOOdXZuswkmcLNuk=";
+  # })
+  # (fetchpatch' {
+  #   title = "nixos/slskd: don't enable nginx unless nginx.enable was set";
+  #   saneCommit = "ea084e5739a68436cc240aeca5c10b92de1e3138";
+  #   hash = "sha256-25zB5eM1WBVEigmrq1mY9GXwEkS/jf5v7BCfmN6Wux4=";
+  # })
   (fetchpatch' {
-    # out for PR: <https://github.com/NixOS/nixpkgs/pull/270646>
-    title = "nixos/slskd: allow omitting username from yaml config";
-    saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
-    hash = "sha256-xQEj/oIfNcE4td9jxzDzhlnIYpncOOdXZuswkmcLNuk=";
-  })
-  (fetchpatch' {
-    # out for PR: <https://github.com/NixOS/nixpkgs/pull/270646>
-    title = "nixos/slskd: don't enable nginx unless nginx.enable was set";
-    saneCommit = "ea084e5739a68436cc240aeca5c10b92de1e3138";
-    hash = "sha256-25zB5eM1WBVEigmrq1mY9GXwEkS/jf5v7BCfmN6Wux4=";
+    title = "nixos/slskd: option fixes";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/270646";
+    hash = "sha256-5brmmPfYp7G+5Dr5q2skWSwkrEwsRAe/UetoN0AqGjY=";
   })
   (fetchpatch' {
     title = "vala: look for files in targetOffset";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/267550";
     hash = "sha256-Dl9ZQazjXjIbw38Q78otQvgVCB/QZAC1IYoFX0Tuyw0=";
-  })
-  (fetchpatch' {
-    title = "tuba: 0.4.1 -> 0.5.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/269725";
-    hash = "sha256-U2ipKRCFqczxj2kuIDPPRI/qnObJN/yz160Cvd4VFQ4=";
   })
   # (fetchpatch' {
   #   # N.B.: obsoleted by 267550 PR above

@@ -405,12 +405,12 @@
             program = builtins.toString (pkgs.writeShellScript "check-all" ''
               nix run '.#check.nur'
               RC0=$?
-              nix run '.#check.host-configs'
+              nix run '.#check.hostConfigs'
               RC1=$?
               nix run '.#check.rescue'
               RC2=$?
               echo "nur: $RC0"
-              echo "host-configs: $RC1"
+              echo "hostConfigs: $RC1"
               echo "rescue: $RC2"
               exit $(($RC0 | $RC1 | $RC2))
             '');
@@ -433,7 +433,7 @@
             '');
           };
 
-          check.host-configs = {
+          check.hostConfigs = {
             type = "app";
             program = let
               checkHost = host: let

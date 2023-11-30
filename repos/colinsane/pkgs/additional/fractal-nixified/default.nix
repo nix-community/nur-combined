@@ -24,6 +24,7 @@
 , appstream-glib
 , buildPackages
 , cargo
+, defaultCrateOverrides
 , desktop-file-utils
 , fetchFromGitHub
 , gdk-pixbuf
@@ -328,7 +329,10 @@ let
     };
   };
 
-  defaultCrateOverrides = pkgs.defaultCrateOverrides // extraCrateOverrides;
+  defaultCrateOverrides' = defaultCrateOverrides // (lib.mapAttrs (crate: fn:
+    # map each `extraCrateOverrides` to first pass their attrs through `defaultCrateOverrides`
+    attrs: fn ((defaultCrateOverrides."${crate}" or (a: a)) attrs)
+  ) extraCrateOverrides);
 
   crate2NixOverrides = crates: crates // {
     # crate2nix sometimes "misses" dependencies, or gets them wrong in a way that crateOverrides can't patch.
@@ -355,7 +359,7 @@ let
     inherit pkgs;
     release = false;
     rootFeatures = [ ];  #< avoids --cfg feature="default", simplifying the rustc CLI so that i can pass it around easier
-    inherit defaultCrateOverrides;
+    defaultCrateOverrides = defaultCrateOverrides';
   };
 
   # fractalDefault = cargoNix.workspaceMembers.fractal.build;
@@ -363,7 +367,7 @@ let
     packageId = "fractal";
     features = [];
     buildRustCrateForPkgsFunc = pkgs: crateArgs: (pkgs.buildRustCrate.override {
-      inherit defaultCrateOverrides;
+      defaultCrateOverrides = defaultCrateOverrides';
     }) (crateArgs // {
       # this can be used to force a rebuild of every crate
       # mostly useful to deal with impurities (i.e. binfmt when cross-compiling)

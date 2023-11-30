@@ -70,6 +70,11 @@
 # - nothing named `webrtc` linked from the signal-desktop appimage
 # - it's like 900MB?? https://s3.sakamoto.pl/lnl-aports-snapshots/webrtc-5845h.tar.zst
 # - not in crates.io
+#
+#
+# HOW TO UPDATE
+# - `nix run '.#update.pkgs.signal-desktop-from-src'`
+# - delete `env.yarnOfflineCache.hash` and rebuild it
 
 
 { lib
@@ -94,6 +99,7 @@
 , fixup_yarn_lock
 , gdk-pixbuf
 , git
+, gitUpdater
 , gnused
 , gtk3
 , icu
@@ -172,13 +178,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "signal-desktop-from-src";
-  version = "6.38.0";
+  version = "6.40.0";
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${version}";
-    hash = "sha256-AZOv1SXASTWlktlvhulY/4vr7sVxLXwyTkfckao+MVw=";
+    hash = "sha256-gtbsb78VFZvESOGu6duB8vKsrtWM7UxGf9che0ijK/M=";
   };
 
   # patches = [
@@ -220,9 +226,8 @@ stdenv.mkDerivation rec {
   ];
 
   env.yarnOfflineCache = fetchYarnDeps {
-    # this might be IFD: if `nix run '.#check.nur'` fails then inline the lock: `yarnLock = ./yarn.lock`
     yarnLock = "${src}/yarn.lock";
-    hash = "sha256-wSX09S+UOBPE3Ozh6+BieADMGG9MO8XnjaHWrxCqfao=";
+    hash = "sha256-S2wWk7ug8G3o0Fp7f9JqgksDecE5KL0ZLnA5mYKdfdE=";
   };
   # env.SIGNAL_ENV = "production";
   # env.NODE_ENV = "production";
@@ -355,9 +360,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # passthru = {
-  #   inherit bettersqlitePatch signal-fts5-extension;
-  # };
+  passthru = {
+    # inherit bettersqlitePatch signal-fts5-extension;
+    updateScript = gitUpdater {
+      # TODO: prevent update to betas
+      rev-prefix = "v";
+    };
+  };
 
   meta = {
     description = "Private, simple, and secure messenger";
