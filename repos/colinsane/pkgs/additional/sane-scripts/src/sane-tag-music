@@ -128,22 +128,33 @@ class Tags:
         def parse_trackno(trackno: str) -> None:
             tags.tracknumber = [trackno.lstrip('0')]
 
+        def parse_title(title: str) -> None:
+            new_title = title
+            # maybe the filename has some identifier (e.g. soundcloud): remove it
+            while new_title and new_title[-1] in '0123456789':
+                new_title = new_title[:-1]
+            if new_title and new_title[-1] == '-':
+                new_title = new_title[:-1]
+            if len(title) - len(new_title) < 5:
+                new_title = title
+            tags.title = new_title
+
         def parse_track(track: str) -> None:
             track = os.path.splitext(track)[0]
             track_parts = [p.strip() for p in track.split(' - ')]
             if len(track_parts) == 1:
-                tags.title = [track]
+                parse_title(track)
             elif len(track_parts) == 2:
                 if tags.albumartist and track_parts[0].lower() == tags.albumartist[0].lower():
-                    tags.title = [track_parts[1]]
+                    parse_title(track_parts[1])
                 elif all(l in '0123456789-' for l in track_parts[0]):
                     parse_trackno(track_parts[0])
-                    tags.title = [track_parts[1]]
+                    parse_title(track_parts[1])
             elif len(track_parts) == 3:
                 if all(l in '0123456789-' for l in track_parts[0]):
                     parse_trackno(track_parts[0])
                     tags.artist = [track_parts[1]]  # explicitly not album artist, but track artist
-                    tags.title = [track_parts[2]]
+                    parse_title(track_parts[2])
 
 
         def parse_album(album: str) -> None:
