@@ -23,7 +23,8 @@ in
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
   # vendor broken. Also in nixpkgs already
   # efm-langserver = callPackage ./efm-langserver { };
-  guile-hall = callPackage ./guile-hall { };
+  # In nixpkgs already
+  # guile-hall = callPackage ./guile-hall { };
   # TODO: get trufflesqueak up to snuff
   cakeml = callPackage ./cakeml { };
   truffleSqueak = callPackage ./truffleSqueak { };
