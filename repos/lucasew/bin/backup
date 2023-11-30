@@ -53,4 +53,7 @@ ssh "$rsyncnet_user" ls git | while read repo; do
   ssh "$rsyncnet_user" git --git-dir "git/$repo" fetch --all --prune
 done
 
+# deleting empty files
+ssh "$rsyncnet_user" find backup -size 0 -delete
+
 ssh "$rsyncnet_user" quota

@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+
+from sys import stdin, argv
+from collections import defaultdict
+from os import environ
+
+# usage:
+# pass the result of a command like md5sum as stdin to this script with no parameters
+# any hash is supported as long it's in the format: $hash $filename
+# customize format with the FORMAT environment variable
+class Formats:
+    def default(items):
+        keys = list(items.keys())
+        keys.sort()
+        for key in keys:
+            print(key)
+            item_list = items[key]
+            for item in item_list:
+                print("\t", item)
+    def ln_hardlink(items):
+        from shlex import quote
+        keys = list(items.keys())
+        for key in keys:
+            command = "ln -f "
+            item_list = items[key]
+            first_item, *rest_items = item_list
+            for item in rest_items:
+                print(f'{command} {quote(first_item)} {quote(item)}')
+        
+format_str = environ.get("FORMAT") or "default"
+format = Formats.__dict__.get(format_str)
+if format is None:
+    raise RuntimeError(f"invalid format: {format_str}")
+
+items = defaultdict(lambda: [])
+
+for line in stdin:
+    line = line.strip()
+    parts = line.split(' ')
+    if len(parts) < 2:
+        continue
+    hash, *rest = parts
+    name = " ".join(rest).strip()
+    while parts[1] == '':
+        parts.remove('')
+    items[hash].append(name)
+
+keys = list(items.keys())
+
+for key in keys:
+    item_list = items[key]
+    if len(item_list) <= 1:
+        del items[key]
+
+format(items)
