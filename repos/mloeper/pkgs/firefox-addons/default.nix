@@ -31,5 +31,5 @@ let
         });
 in
 {
-  mousevader = pkgs.callPackage { inherit buildFirefoxXpiAddon; };
+  mousevader = pkgs.callPackage ./mousevader.nix { inherit buildFirefoxXpiAddon; };
 }
