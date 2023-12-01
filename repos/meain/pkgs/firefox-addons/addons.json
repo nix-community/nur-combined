@@ -1,0 +1,35 @@
+[
+    {"slug": "awesome-rss"},
+    {"slug": "aw-watcher-web"},
+    {"slug": "containerise"},
+    {"slug": "ghostpage"},
+    {"slug": "mastodon4-redirect"},
+    {"slug": "nattynote"},
+    {"slug": "netflix-prime-auto-skip"},
+    {"slug": "notifications-preview-github"},
+    {"slug": "smartreader"},
+    {"slug": "unofficial-hypothesis"},
+    {"slug": "watchmarker-for-youtube"},
+    {"slug": "try-another-search-engine"},
+
+    {
+        "slug": "a-n-i-m-a-t-e-d-kitty-cat",
+        "license": {
+            "tag": "custom",
+            "shortName": "allrightsreserved",
+            "fullName": "All Rights Reserved",
+            "url": "https://addons.mozilla.org/en-US/firefox/addon/animated-kitty-cat/",
+            "free": false
+        }
+    },
+    {
+        "slug": "global-speed",
+        "license": {
+            "tag": "custom",
+            "shortName": "allrightsreserved",
+            "fullName": "All Rights Reserved",
+            "url": "https://github.com/polywock/globalSpeed/issues/247",
+            "free": false
+        }
+    }
+]
