@@ -12,11 +12,6 @@
   hmModules = import ./hm-modules;
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-
-  moon-buggy = pkgs.callPackage ./pkgs/moon-buggy { };
-  pastebinit = pkgs.callPackage ./pkgs/pastebinit { };
-
   formats = import ./pkgs/formats {
     inherit pkgs;
     inherit (pkgs) lib;
