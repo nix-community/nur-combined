@@ -4692,10 +4692,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.9";
+      version = "1.8.10";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4182106/keepassxc_browser-1.8.9.xpi";
-      sha256 = "b57313c8f68bb55610b79a761e42aa7a3235bcc542f105a7e362625aa021a197";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200248/keepassxc_browser-1.8.10.xpi";
+      sha256 = "843d1181e8d0b0e9737258575586332fafb25a856e8e18da3527944885c69089";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -9337,10 +9337,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.3.7";
+      version = "8.3.8";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197472/ublacklist-8.3.7.xpi";
-      sha256 = "463fe3018a7e5c4e7442a057985ba34ce049e6dc1633bb40598ac161d9ab1420";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200469/ublacklist-8.3.8.xpi";
+      sha256 = "a3764fffdd68475b110610f4b1e24f2e7b331d16541fc6e190e189af5a42fc3a";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
