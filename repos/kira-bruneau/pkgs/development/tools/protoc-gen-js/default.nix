@@ -2,6 +2,7 @@
 , buildBazelPackage
 , fetchFromGitHub
 , bazel_6
+, nix-update-script
 }:
 
 buildBazelPackage rec {
@@ -19,12 +20,16 @@ buildBazelPackage rec {
 
   bazelTargets = [ "//generator:protoc-gen-js" ];
 
+  removeRulesCC = false;
+
   fetchAttrs.sha256 = "sha256-H0zTMCMFct09WdR/mzcs9FcC2OU/ZhGye7GAkx4tGa8=";
 
   buildAttrs.installPhase = ''
     mkdir -p "$out/bin"
     cp ./bazel-bin/generator/protoc-gen-js "$out/bin"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "JavaScript Protocol Buffers runtime library";
