@@ -77,7 +77,7 @@ let
     (fromDb "feeds.simplecast.com/82FI35Px" // pol)  # Ezra Klein Show
     (fromDb "feeds.simplecast.com/wgl4xEgL" // rat)  # Econ Talk
     (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
-    (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
+    # (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
     (fromDb "feeds.transistor.fm/acquired" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
