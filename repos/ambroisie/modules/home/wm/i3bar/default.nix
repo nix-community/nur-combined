@@ -22,20 +22,6 @@ in
               block = "music";
               # This format seems to remove the block when not playing, somehow
               format = "{ $icon $combo.str(max_w:50,rot_interval:0.5)  $prev  $play  $next |}";
-              click = [
-                {
-                  button = "play";
-                  action = "music_play";
-                }
-                {
-                  button = "prev";
-                  action = "music_prev";
-                }
-                {
-                  button = "next";
-                  action = "music_next";
-                }
-              ];
             }
             (lib.optionalAttrs config.my.home.bluetooth.enable {
               block = "bluetooth";
