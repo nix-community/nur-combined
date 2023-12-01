@@ -1047,6 +1047,15 @@ in {
   # };
 
   # komikku = wrapGAppsHook4Fix prev.komikku;
+  komikku = needsBinfmt (prev.komikku.override {
+    blueprint-compiler = buildInQemu (final.blueprint-compiler.overrideAttrs (_: {
+      # default is to propagate gobject-introspection *as a buildInput*, when it's supposed to be native.
+      propagatedBuildInputs = [];
+      # "Namespace Gtk not available"
+      doCheck = false;
+    }));
+  });
+
   # koreader = (prev.koreader.override {
   #   # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
   #   # inherit (emulated) luajit;

@@ -40,6 +40,12 @@
   # non-free firmware
   hardware.enableRedistributableFirmware = true;
 
+  # default is 252274, which is too low particularly for servo.
+  # manifests as spurious "No space left on device" when trying to install watches,
+  # e.g. in dyn-dns by `systemctl start dyn-dns-watcher.path`.
+  # see: <https://askubuntu.com/questions/828779/failed-to-add-run-systemd-ask-password-to-directory-watch-no-space-left-on-dev>
+  boot.kernel.sysctl."fs.inotify.max_user_watches" = 1048576;
+
   # powertop will default to putting USB devices -- including HID -- to sleep after TWO SECONDS
   powerManagement.powertop.enable = false;
   # linux CPU governor: <https://www.kernel.org/doc/Documentation/cpu-freq/governors.txt>

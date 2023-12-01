@@ -94,7 +94,21 @@
     text = ''
       # show which packages changed versions or are new/removed in this upgrade
       # source: <https://github.com/luishfonseca/dotfiles/blob/32c10e775d9ec7cc55e44592a060c1c9aadf113e/modules/upgrade-diff.nix>
-      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
+      # modified to not error on boot (when /run/current-system doesn't exist)
+      if [ -d /run/current-system ]; then
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
+      fi
+    '';
+  };
+  system.activationScripts.notifyActive = {
+    text = ''
+      # send a notification to any sway users logged in, that the system has been activated/upgraded.
+      # this probably doesn't work if more than one sway session exists on the system.
+      _notifyActiveSwaySock="$(echo /run/user/*/sway-ipc.*.sock)"
+      if [ -e "$_notifyActiveSwaySock" ]; then
+        SWAYSOCK="$_notifyActiveSwaySock" ${pkgs.sway}/bin/swaymsg -- exec \
+          "${pkgs.libnotify}/bin/notify-send 'nixos activated' 'version: $(cat $systemConfig/nixos-version)'"
+      fi
     '';
   };
 

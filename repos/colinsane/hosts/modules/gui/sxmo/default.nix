@@ -293,7 +293,7 @@ in
           enable = true;
           # we manage the greeter ourselves  (TODO: merge this into sway config as well)
           useGreeter = false;
-          waybar.top = import ./waybar-top.nix;
+          waybar.top = import ./waybar-top.nix { inherit pkgs; };
           # reset extra waybar style
           waybar.extra_style = "";
           config = {

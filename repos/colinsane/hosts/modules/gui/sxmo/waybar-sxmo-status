@@ -1,0 +1,122 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p sxmo-utils -p sxmo-utils.runtimeDeps
+#
+# usage:
+# waybar-sxmo-status widget1 [ widget2 [...]]
+#
+# where each widget is one of:
+# - modem-state
+# - modem-tech
+# - modem-signal
+# - wifi-status
+# - volume
+
+# sxmo_hook_statusbar.sh assumes:
+# - mmcli, jq on PATH
+# - sxmo_hook_icons.sh and sxmo_common.sh are sourcable
+#   - from sxmo_common, it only uses sxmobar (and aliases jq=gojq)
+
+# setup environment so that the hooks will be on PATH:
+# - sxmo_hook_statusbar.sh
+# - sxmo_hook_icons.sh
+export HOME="${HOME:-/home/colin}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export PATH="$XDG_CONFIG_HOME/sxmo/hooks:$PATH"
+
+# ensure that sxmo_audio.sh tells us the volume instead of early-returning
+export SXMO_NO_AUDIO=
+
+# clunky interaction between us and sxmo_hook_statusbar.sh:
+# - we export `sxmobar` to it, but within that function cannot modify the environment
+#   of *this* script, because it gets run in a different process.
+# - so, `sxmobar` prints info to stdout, and then this script re-interprets that info.
+# - practically, `sxmobar` prints shell commands, and then this script `eval`s them, to achieve that IPC.
+sxmobar() {
+  action="$1"
+  shift
+  if [ "$action" = "-a" ]; then
+    while [ -n "$*" ]; do
+      arg="$1"
+      case "$arg" in
+        "-f"|"-b"|"-t"|"-e")
+          # foreground/background/text/emphasis: ignore it
+          shift
+          shift
+          ;;
+        *)
+          # begin arguments
+          break
+          ;;
+      esac
+    done
+
+    echo "setitem $@"
+  fi
+}
+export -f sxmobar
+
+setitem() {
+  id="$1"
+  priority="$2"
+  value="$3"
+  case "$id" in
+    modem-state)
+      modem_state="$value"
+      ;;
+    modem-tech)
+      modem_tech="$value"
+      ;;
+    modem-signal)
+      modem_signal="$value"
+      ;;
+    wifi-status)
+      wifi_status="$value"
+      ;;
+    volume)
+      volume="$value"
+      ;;
+  esac
+}
+
+while [ -n "$*" ]; do
+  variable="$1"
+  shift
+  case "$variable" in
+    "--verbose")
+      set -x
+      ;;
+    "modem-state")
+      if [ -z "$modem_state" ]; then
+        eval "$(sxmo_hook_statusbar.sh modem)"
+      fi
+      echo -n "$modem_state"
+      ;;
+    "modem-tech")
+      if [ -z "$modem_tech" ]; then
+        eval "$(sxmo_hook_statusbar.sh modem)"
+      fi
+      echo -n "$modem_tech"
+      ;;
+    "modem-signal")
+      if [ -z "$modem_signal" ]; then
+        eval "$(sxmo_hook_statusbar.sh modem)"
+      fi
+      echo -n "$modem_signal"
+      ;;
+    "wifi-status")
+      if [ -z "$wifi_status" ]; then
+        eval "$(sxmo_hook_statusbar.sh network wifi wlan0)"
+      fi
+      echo -n "$wifi_status"
+      ;;
+    "volume")
+      if [ -z "$volume" ]; then
+        eval "$(sxmo_hook_statusbar.sh volume)"
+      fi
+      echo -n "$volume"
+      ;;
+    *)
+      echo -n "UNK: $variable"
+      ;;
+  esac
+done

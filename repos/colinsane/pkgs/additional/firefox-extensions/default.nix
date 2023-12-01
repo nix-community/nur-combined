@@ -120,8 +120,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.6.2";
-      hash = "sha256-bguEbfgF1OEcKI9zQUyhP/X62Laln9VsEhKVttuHrrw=";
+      version = "11.6.3";
+      hash = "sha256-Shotu6/KesWv67v0f/KxzN36gAXvJKRybxnyTAKke+Q=";
     };
     i2p-in-private-browsing = fetchVersionedAddon rec {
       extid = "i2ppb@eyedeekay.github.io";
