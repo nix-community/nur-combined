@@ -1,0 +1,16 @@
+diff --git a/LaTeXProcessor.m b/LaTeXProcessor.m
+index 6113a85..2bc3290 100644
+--- a/LaTeXProcessor.m
++++ b/LaTeXProcessor.m
+@@ -239,9 +239,9 @@ static LaTeXProcessor* sharedInstance = nil;
+             [allBinsEncountered addObject:path];
+           }//end if (![allBinsEncountered containsObject:path])
+         }//end for each path
+-
+         
+-        self->globalEnvironmentPath  = [[allBinsUniqued componentsJoinedByString:@":"] mutableCopy];
++        
++        self->globalEnvironmentPath  = @"@path@";
+         [self->globalFullEnvironment setObject:self->globalEnvironmentPath forKey:@"PATH"];
+         self->globalExtraEnvironment = [[NSMutableDictionary alloc] init];
+         [self->globalExtraEnvironment setObject:self->globalEnvironmentPath forKey:@"PATH"];

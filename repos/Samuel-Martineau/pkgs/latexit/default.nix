@@ -15,7 +15,7 @@
     hash = "sha256-A2c63bf8v60GtaNfSwuylMp4f4caPpA/AerzJKQVo5c=";
   };
 
-  patches = [ ./ignore-code-signing.patch ./remove-auto-updates.patch ];
+  patches = [ ./ignore-code-signing.patch ./remove-auto-updates.patch ./use-nix-path.patch ];
 
   sourceRoot = "./LaTeXiT-mainline";
 
@@ -26,12 +26,12 @@
     [
       unzip
       xcode
-      makeWrapper
     ];
 
   buildPhase = ''
     runHook preBuild
     export LD=$CXX
+    substituteInPlace LaTeXProcessor.m --subst-var-by path "${lib.makeBinPath [ texlive.combined.scheme-full ]}"
     xcodebuild clean build -project LaTeXiT-10_9+.xcodeproj -scheme LaTeXiT -verbose -configuration Deployment -derivedDataPath DerivedData
     runHook postBuild
   '';
@@ -40,8 +40,6 @@
     runHook preInstall
     mkdir -p $out/Applications
     cp -r DerivedData/Build/Products/Deployment/LaTeXiT.app $out/Applications
-    wrapProgram $out/Applications/LaTeXiT.app/Contents/MacOS/LaTeXiT --prefix PATH : ${lib.makeBinPath [ texlive.combined.scheme-full ]}
-    codesign --force --deep -s - $out/Applications/LaTeXiT.app
     runHook postInstall
   '';
 
