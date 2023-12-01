@@ -14,7 +14,7 @@ buildFirefoxXpiAddon {
     homepage =
       "https://github.com/fadyanwar/MouseVader";
     description = "A privacy tool that misleads trackers by creating noise";
-    #license = licenses.unfree; ??
+    license = licenses.unfree;
     platforms = platforms.all;
   };
 }

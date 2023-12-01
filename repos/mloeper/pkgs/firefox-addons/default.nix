@@ -32,4 +32,5 @@ let
 in
 {
   mousevader = pkgs.callPackage ./mousevader.nix { inherit buildFirefoxXpiAddon; };
+  mousevaderv2 = pkgs.callPackage ./mousevader-v2.nix { inherit buildFirefoxXpiAddon; };
 }
