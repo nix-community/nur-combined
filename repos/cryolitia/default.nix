@@ -56,6 +56,4 @@ rec {
   go-musicfox-fastupdate = pkgs.callPackage ./pkgs/common/go-musicfox.nix { };
 
   rime-project-trans = pkgs.callPackage ./pkgs/rimePackages/rime-project-trans.nix { };
-
-  satty = pkgs.callPackage ./pkgs/common/satty.nix { };
 }
