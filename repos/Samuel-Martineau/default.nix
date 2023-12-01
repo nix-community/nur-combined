@@ -23,6 +23,7 @@
   };
 
   alfred = pkgs.callPackage ./pkgs/alfred { };
+  latexit = pkgs.callPackage ./pkgs/latexit { };
 
   buildFirefoxExtension = pkgs.callPackage ./pkgs/build-firefox-extension { };
   firefoxExtensionHooks = pkgs.callPackage ./pkgs/build-firefox-extension/hooks { };

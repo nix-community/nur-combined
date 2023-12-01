@@ -2,7 +2,6 @@
 , stdenv
 , fetchurl
 , undmg
-, makeBinaryWrapper
 }:
 stdenv.mkDerivation rec {
   pname = "alfred";
@@ -12,7 +11,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     undmg
-    makeBinaryWrapper
   ];
 
   src = fetchurl {
