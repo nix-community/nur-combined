@@ -207,8 +207,9 @@ in {
         ConfigurationDirectory = "gns3";
         ConfigurationDirectoryMode = "0750";
         DynamicUser = true;
+        Environment = "HOME=%S/gns3";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        ExecStart = "${cfg.package}/bin/gns3server ${commandArgs}";
+        ExecStart = "${lib.getExe cfg.package} ${commandArgs}";
         Group = "gns3";
         LimitNOFILE = 16384;
         LoadCredential = lib.mkIf cfg.auth.enable [ "AUTH_PASSWORD:${cfg.auth.passwordFile}" ];
@@ -224,7 +225,7 @@ in {
           ++ lib.optional flags.enableLibvirtd "libvirtd"
           ++ lib.optional cfg.ubridge.enable "ubridge";
         User = "gns3";
-        WorkingDirectory = "/var/lib/gns3";
+        WorkingDirectory = "%S/gns3";
 
         # Hardening
         DeviceAllow = lib.optional flags.enableLibvirtd "/dev/kvm";
