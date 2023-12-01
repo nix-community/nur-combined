@@ -23,6 +23,8 @@ in
       config = {
         LISTEN_ADDR = "localhost:${toString config.networking.ports.miniflux.port}";
         BASE_URL = "http://${domain}";
+        FETCH_ODYSEE_WATCH_TIME=toString 1;
+        FETCH_YOUTUBE_WATCH_TIME=toString 1;
       };
 
       # if you are not allowed you shouldn't even been able to open the homepage lol
