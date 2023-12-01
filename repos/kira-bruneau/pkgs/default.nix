@@ -65,6 +65,8 @@ in
     }).lib;
   };
 
+  ggt = callPackage ./development/tools/ggt { };
+
   git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 
   goverlay = callPackage ./tools/graphics/goverlay {
