@@ -40,6 +40,7 @@
     runHook preInstall
     mkdir -p $out/Applications
     cp -r DerivedData/Build/Products/Deployment/LaTeXiT.app $out/Applications
+    codesign --force --deep -s - $out/Applications/LaTeXiT.app
     runHook postInstall
   '';
 
