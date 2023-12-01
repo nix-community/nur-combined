@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=baidunetdisk
+Name[zh_CN]=百度网盘
+Name[zh_TW]=百度网盘
+Exec=baidunetdisk --no-sandbox %U
+Terminal=false
+Type=Application
+Icon=baidunetdisk
+StartupWMClass=baidunetdisk
+Comment=百度网盘
+Comment[zh_CN]=百度网盘
+Comment[zh_TW]=百度网盘
+MimeType=x-scheme-handler/baiduyunguanjia;
+Categories=Network;

@@ -98,6 +98,7 @@ in
     # Other packages
     amule-dlp = pkg ./uncategorized/amule-dlp {};
     asterisk-g72x = pkg ./uncategorized/asterisk-g72x {};
+    baidunetdisk = pkg ./uncategorized/baidunetdisk {};
     baidupcs-go = pkg ./uncategorized/baidupcs-go {};
     bepasty = pkg ./uncategorized/bepasty {};
     bilibili = pkg ./uncategorized/bilibili {};

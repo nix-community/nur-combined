@@ -139,6 +139,21 @@
         },
         "version": "e9918bc6be268da6fa97af6ced15193d8a0421c0"
     },
+    "baidunetdisk": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "baidunetdisk",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-UOwY8FYmoT9X7wNGMEFtSBaCvBAYU58zOX1ccbxlOz0=",
+            "type": "url",
+            "url": "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/4.17.7/baidunetdisk_4.17.7_amd64.deb"
+        },
+        "version": "4.17.7"
+    },
     "baidupcs-go": {
         "cargoLocks": null,
         "date": null,

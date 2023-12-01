@@ -85,6 +85,14 @@
     };
     date = "2023-10-25";
   };
+  baidunetdisk = {
+    pname = "baidunetdisk";
+    version = "4.17.7";
+    src = fetchurl {
+      url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/4.17.7/baidunetdisk_4.17.7_amd64.deb";
+      sha256 = "sha256-UOwY8FYmoT9X7wNGMEFtSBaCvBAYU58zOX1ccbxlOz0=";
+    };
+  };
   baidupcs-go = {
     pname = "baidupcs-go";
     version = "v3.9.5";

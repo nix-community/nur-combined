@@ -26,6 +26,12 @@ fetch.github = "traud/asterisk-gsm-efr"
 src.git = "https://github.com/zhaofengli/attic.git"
 fetch.github = "zhaofengli/attic"
 
+[baidunetdisk]
+src.aur = "baidunetdisk-electron"
+src.from_pattern = "(.+)-(.+)"
+src.to_pattern = "\\1"
+fetch.url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/$ver/baidunetdisk_$ver_amd64.deb"
+
 [baidupcs-go]
 src.github = "qjfoidnh/BaiduPCS-Go"
 fetch.github = "qjfoidnh/BaiduPCS-Go"
