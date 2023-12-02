@@ -51,6 +51,8 @@
   
   fastor = pkgs.callPackage ./pkgs/fastor { };
 
+  fplus = pkgs.callPackage ./pkgs/fplus { };
+
   gch-small-vector = pkgs.callPackage ./pkgs/gch-small-vector { };
 
   koivisto = pkgs.callPackage ./pkgs/koivisto { };
