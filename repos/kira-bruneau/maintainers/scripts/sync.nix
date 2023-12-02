@@ -31,7 +31,6 @@ let
     "pkgs/applications/networking/cluster/krane"
     "pkgs/applications/networking/feedreaders/newsflash"
     "pkgs/applications/version-management/git-review"
-    "pkgs/development/node-packages/node-env.nix"
     "pkgs/development/python-modules/debugpy"
     "pkgs/development/python-modules/huggingface-hub"
     "pkgs/development/python-modules/pygls"

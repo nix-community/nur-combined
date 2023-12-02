@@ -49,6 +49,8 @@ in
 
   anytype = callPackage ./development/tools/misc/anytype { };
 
+  anytype-heart = callPackage ./development/libraries/anytype-heart { };
+
   ccache = callPackage ./development/tools/misc/ccache { };
 
   clonehero = callPackage ./games/clonehero { };

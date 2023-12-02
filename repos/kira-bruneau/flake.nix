@@ -36,9 +36,6 @@
                 (ignore: !(nixpkgs.lib.hasSuffix ignore path))
                 [
                   "gemset.nix"
-                  "node-composition.nix"
-                  "node-env.nix"
-                  "node-packages.nix"
                 ]))
             (flake-linter-lib.walkFlake ./.));
 
