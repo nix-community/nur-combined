@@ -4,6 +4,7 @@
     enable = true;
     openPorts = true;
     extraArguments = lib.concatStringsSep " " [
+      "--max-concurrent-downloads=50"
       "--max-connection-per-server=8"
       "--min-split-size=1M"
       "--http-accept-gzip=true"
