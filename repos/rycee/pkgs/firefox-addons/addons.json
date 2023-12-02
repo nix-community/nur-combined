@@ -938,6 +938,16 @@
     "slug": "save-page-we"
   },
   {
+    "slug": "scroll_anywhere",
+    "license": {
+      "tag": "custom",
+      "shortName": "scroll-anywhere",
+      "fullName": "Scroll Anywhere License",
+      "url": "https://github.com/fastaddons/ScrollAnywhere/blob/master/LICENSE",
+      "free": false
+    }
+  },
+  {
     "slug": "search-engines-helper"
   },
   {
@@ -961,6 +971,9 @@
   },
   {
     "slug": "simple-tab-groups"
+  },
+  {
+    "slug": "simple-translate"
   },
   {
     "slug": "simplelogin"

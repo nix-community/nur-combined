@@ -8188,6 +8188,26 @@
         platforms = platforms.all;
         };
       };
+    "scroll_anywhere" = buildFirefoxXpiAddon {
+      pname = "scroll_anywhere";
+      version = "9.2";
+      addonId = "juraj.masiar@gmail.com_ScrollAnywhere";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3938344/scroll_anywhere-9.2.xpi";
+      sha256 = "614a7a13baad91a4015347ede83b66ae3e182679932cfc4ccd8fa5604ab38e91";
+      meta = with lib;
+      {
+        homepage = "https://fastaddons.com/";
+        description = "Scroll page without touching scroll-bar! \nPress Middle (Right / Left) mouse button anywhere on the page to scroll just like with scrollbar.\n\nFeatures also:\n- \"grab and drag\" scrolling\n- customizable scrollbars!\n- the Momentum auto-scroll";
+        license = {
+          shortName = "scroll-anywhere";
+          fullName = "Scroll Anywhere License";
+          url = "https://github.com/fastaddons/ScrollAnywhere/blob/master/LICENSE";
+          free = false;
+          };
+        mozPermissions = [ "alarms" "storage" "activeTab" "<all_urls>" ];
+        platforms = platforms.all;
+        };
+      };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
       version = "6.1.0";
@@ -8366,6 +8386,27 @@
           "<all_urls>"
           "storage"
           "unlimitedStorage"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "simple-translate" = buildFirefoxXpiAddon {
+      pname = "simple-translate";
+      version = "2.8.2";
+      addonId = "simple-translate@sienori";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165189/simple_translate-2.8.2.xpi";
+      sha256 = "8e8c3af0ffadfd3ff9928355e7be2292befe6c4f0e483f7c37c2d9a34a54f345";
+      meta = with lib;
+      {
+        homepage = "https://simple-translate.sienori.com";
+        description = "Quickly translate selected or typed text on web pages. Supports Google Translate and DeepL API.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "<all_urls>"
+          "storage"
+          "contextMenus"
+          "http://*/*"
+          "https://*/*"
           ];
         platforms = platforms.all;
         };
