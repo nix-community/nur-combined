@@ -642,6 +642,84 @@
         platforms = platforms.all;
         };
       };
+    "bibbot" = buildFirefoxXpiAddon {
+      pname = "bibbot";
+      version = "0.32.1";
+      addonId = "voebbot@stefanwehrmeyer.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4200728/bibbot-0.32.1.xpi";
+      sha256 = "10be83d1bffe6219b08663f273e2a30e1db058299aa2d08b874574b8f047076c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/stefanw/bibbot";
+        description = "Durch ein Bibliothekskonto mit Pressedatenbankzugriff entfernt dieses Add-On die Paywall bei deutschen Nachrichtenseiten. Ein solches Bibliothekskonto ist Voraussetzung zur Nutzung des Add-On.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "tabs"
+          "storage"
+          "https://*.genios.de/*"
+          "https://www.spiegel.de/*"
+          "https://www.zeit.de/*"
+          "https://www.wiwo.de/*"
+          "https://www.welt.de/*"
+          "https://www.tagesspiegel.de/*"
+          "https://www.sueddeutsche.de/*"
+          "https://sz-magazin.sueddeutsche.de/*"
+          "https://www.handelsblatt.com/*"
+          "https://www.berliner-zeitung.de/*"
+          "https://www.morgenpost.de/*"
+          "https://www.nordkurier.de/*"
+          "https://www.abendblatt.de/*"
+          "https://www.moz.de/*"
+          "https://www.noz.de/*"
+          "https://www.waz.de/*"
+          "https://www.heise.de/*"
+          "https://www.maz-online.de/*"
+          "https://www.lr-online.de/*"
+          "https://www.nachrichten.at/*"
+          "https://ga.de/*"
+          "https://www.ksta.de/*"
+          "https://www.rundschau-online.de/*"
+          "https://rp-online.de/*"
+          "https://www.tagesanzeiger.ch/*"
+          "https://www.falter.at/*"
+          "https://www.stuttgarter-zeitung.de/*"
+          "https://www.stuttgarter-nachrichten.de/*"
+          "https://www.ostsee-zeitung.de/*"
+          "https://www.stimme.de/*"
+          "https://kurier.at/*"
+          "https://freizeit.at/*"
+          "https://www.diepresse.com/*"
+          "https://www.sn.at/*"
+          "https://www.kleinezeitung.at/*"
+          "https://www.vn.at/*"
+          "https://www.thueringer-allgemeine.de/*"
+          "https://www.mopo.de/*"
+          "https://www.saechsische.de/*"
+          "https://www.freiepresse.de/*"
+          "https://www.haz.de/*"
+          "https://www.lvz.de/*"
+          "https://www.dnn.de/*"
+          "https://www.swp.de/*"
+          "https://www.ruhrnachrichten.de/*"
+          "https://www.businessinsider.de/*"
+          "https://www.badische-zeitung.de/*"
+          "https://www.stern.de/*"
+          "https://www.mittelbayerische.de/*"
+          "https://www.tagblatt.de/*"
+          "https://www.mz.de/*"
+          "https://www.capital.de/*"
+          "https://www.iz.de/*"
+          "https://www.shz.de/*"
+          "https://www.aerztezeitung.de/*"
+          "https://www.geo.de/*"
+          "https://www.nzz.ch/*"
+          "https://www.manager-magazin.de/*"
+          "https://www.nwzonline.de/*"
+          "https://www.saarbruecker-zeitung.de/*"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
       version = "2023.10.2";
@@ -1979,10 +2057,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.6";
+      version = "1.2.7.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4201172/faststream-1.2.6.xpi";
-      sha256 = "a3a76cf5b217829d92e13baa8a3f74c4c82b6fd9cd344b6ee662de617dcb180b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4203507/faststream-1.2.7.1.xpi";
+      sha256 = "0092f65e33fd7faca1370e9a5013baf170673a594576ac0fa7119318cb0245fe";
       meta = with lib;
       {
         description = "Stream without buffering, a great video player and download accelerator all in one.";
@@ -4148,6 +4226,21 @@
           "webRequestBlocking"
           "webNavigation"
           ];
+        platforms = platforms.all;
+        };
+      };
+    "iina-open-in-mpv" = buildFirefoxXpiAddon {
+      pname = "iina-open-in-mpv";
+      version = "2.0.1";
+      addonId = "{d66c8515-1e0d-408f-82ee-2682f2362726}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901594/iina_open_in_mpv-2.0.1.xpi";
+      sha256 = "8d13f486f13249c1a74362b91055fe820b6ee81d21f58ddf2716189c8f1c31b7";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Baldomo/open-in-mpv";
+        description = "Open videos and audio files in mpv.";
+        license = licenses.gpl3;
+        mozPermissions = [ "tabs" "activeTab" "contextMenus" "storage" ];
         platforms = platforms.all;
         };
       };

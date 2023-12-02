@@ -81,6 +81,9 @@
     "slug": "beyond-20"
   },
   {
+    "slug": "bibbot"
+  },
+  {
     "slug": "bitwarden-password-manager",
     "pname": "bitwarden"
   },
@@ -463,6 +466,9 @@
   },
   {
     "slug": "i-dont-care-about-cookies"
+  },
+  {
+    "slug": "iina-open-in-mpv"
   },
   {
     "slug": "image-search-options",
