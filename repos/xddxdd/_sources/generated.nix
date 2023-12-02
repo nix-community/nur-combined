@@ -134,15 +134,15 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "e95537cc2460b143830ed94a2b7a4d382435ecb7";
+    version = "ef5bacbac6f4de31407a18e2575f8a3364e259ef";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "e95537cc2460b143830ed94a2b7a4d382435ecb7";
+      rev = "ef5bacbac6f4de31407a18e2575f8a3364e259ef";
       fetchSubmodules = false;
-      sha256 = "sha256-42sAoV7Q3BQbguekgDNLvIS2jsZBq1hCfIhCYMylFzk=";
+      sha256 = "sha256-1P3EJXOids+Py2VvOr6ueO7QaGTFR/GtxOvaCWUBHbs=";
     };
-    date = "2023-10-26";
+    date = "2023-12-01";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -351,10 +351,10 @@
   };
   grasscutter = {
     pname = "grasscutter";
-    version = "1.7.3";
+    version = "1.7.4";
     src = fetchurl {
-      url = "https://github.com/Grasscutters/Grasscutter/releases/download/v1.7.3/grasscutter-1.7.3.jar";
-      sha256 = "sha256-7jYudX6fF/6ADgkmPpk9HfLJ0eu5FXbR4+AV6EWl06o=";
+      url = "https://github.com/Grasscutters/Grasscutter/releases/download/v1.7.4/grasscutter-1.7.4.jar";
+      sha256 = "sha256-tIYnCxtB14M+cGSuIZSZHworIzFEXKowyAgwmJ1jZpU=";
     };
   };
   grasscutter-resources = {
@@ -713,15 +713,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "d540c284c42da16b174347783a153b498ada79a4";
+    version = "91b38467ff3b53cffb54de587cf8a46a9fe371da";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "d540c284c42da16b174347783a153b498ada79a4";
+      rev = "91b38467ff3b53cffb54de587cf8a46a9fe371da";
       fetchSubmodules = false;
-      sha256 = "sha256-Z86KzX2iFHChzlXZIzEbaE1ijfQkS0e+t0sRs6iDhU8=";
+      sha256 = "sha256-uO3XsdnaVfwFNG0cW/fjyRed4zB/CPITwfzjm/FI5UU=";
     };
-    date = "2023-11-29";
+    date = "2023-12-02";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -831,18 +831,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "fd2e886e/linuxqq_3.2.2-18394";
+    version = "06d558c3/linuxqq_3.2.3-19189";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/fd2e886e/linuxqq_3.2.2-18394_amd64.deb";
-      sha256 = "sha256-L1M8O0FzVKLXNNYGGMPf1Nbh/DFxLHBlbzapr7uz5Sk=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/06d558c3/linuxqq_3.2.3-19189_amd64.deb";
+      sha256 = "sha256-37d7F1VB2puEFJC12x57aRj4NIYcCYyPCK06Z/OwNiM=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "fd2e886e/linuxqq_3.2.2-18394";
+    version = "06d558c3/linuxqq_3.2.3-19189";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/fd2e886e/linuxqq_3.2.2-18394_arm64.deb";
-      sha256 = "sha256-6E3h7Z4936YKZb+G0FoMb90T3EzH8z07mmGMnL4SDFk=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/06d558c3/linuxqq_3.2.3-19189_arm64.deb";
+      sha256 = "sha256-qNcw6P985F/JAB9roxaBR5hz2KcLiffUDKu/14nvvgE=";
     };
   };
   qqmusic = {
@@ -891,15 +891,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "86a4605f58b918692123a73bf511d21cfedec0ac";
+    version = "69d46fe8308602a5b4b5061b7dd53777d586164b";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "86a4605f58b918692123a73bf511d21cfedec0ac";
+      rev = "69d46fe8308602a5b4b5061b7dd53777d586164b";
       fetchSubmodules = false;
-      sha256 = "sha256-NV1DLTJnLmX6cZ87fqvvl+Oyoz4hjOhNiHelNaBQ11M=";
+      sha256 = "sha256-XAh1SS/J2vUSBeHCcxILPsKtCrd+L7NEfQRO+PkwZJ8=";
     };
-    date = "2023-11-29";
+    date = "2023-12-02";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
