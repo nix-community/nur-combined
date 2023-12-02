@@ -1,6 +1,39 @@
+# zfs docs:
+# - <https://nixos.wiki/wiki/ZFS>
+# - <repo:nixos/nixpkgs:nixos/modules/tasks/filesystems/zfs.nix>
+#
+# zfs pool creation (requires `boot.supportedFilesystems = [ "zfs" ];`
+# - 1. identify disk IDs: `ls -l /dev/disk/by-id`
+# - 2. pool these disks: `zpool create -f -m legacy pool raidz ata-ST4000VN008-2DR166_WDH0VB45 ata-ST4000VN008-2DR166_WDH17616 ata-ST4000VN008-2DR166_WDH0VC8Q ata-ST4000VN008-2DR166_WDH17680`
+#   - legacy documented: <https://superuser.com/questions/790036/what-is-a-zfs-legacy-mount-point>
+#
+# import pools: `zpool import pool`
+# show zfs datasets: `zfs list` (will be empty if haven't imported)
+# show zfs properties (e.g. compression): `zfs get all pool`
+# set zfs properties: `zfs set compression=on pool`
 { ... }:
 
 {
+  # hostId: not used for anything except zfs guardrail?
+  #   [hex(ord(x)) for x in 'serv']
+  networking.hostId = "73657276";
+  boot.supportedFilesystems = [ "zfs" ];
+  # boot.zfs.enabled = true;
+  boot.zfs.forceImportRoot = false;
+  # scrub all zfs pools weekly:
+  services.zfs.autoScrub.enable = true;
+  # to be able to mount the pool like this, make sure to tell zfs to NOT manage it itself.
+  # otherwise local-fs.target will FAIL and you will be dropped into a rescue shell.
+  # - `zfs set mountpoint=legacy pool`
+  # if done correctly, the pool can be mounted before this `fileSystems` entry is created:
+  # - `sudo mount -t zfs pool /mnt/persist/pool`
+  fileSystems."/mnt/persist/pool" = {
+    device = "pool";
+    fsType = "zfs";
+  };
+  # services.zfs.zed = ... # TODO: zfs can send me emails when disks fail
+
+
   # increase /tmp space (defaults to 50% of RAM) for building large nix things.
   # even the stock `nixpkgs.linux` consumes > 16 GB of tmp
   fileSystems."/tmp".options = [ "size=32G" ];

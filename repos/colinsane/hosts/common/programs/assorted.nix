@@ -111,6 +111,7 @@ in
       "wget"
       "wirelesstools"  # iwlist
       "xq"  # jq for XML
+      "zfs"
     ];
     sysadminExtraUtils = declPackageSet [
       "backblaze-b2"
