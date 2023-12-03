@@ -47,9 +47,7 @@ in
       "sane-scripts.tag-music"
       "sane-scripts.vpn"
       "sane-scripts.which"
-      "sane-scripts.wipe-browser"
-      "sane-scripts.wipe-flare"
-      "sane-scripts.wipe-fractal"
+      "sane-scripts.wipe"
     ];
     "sane-scripts.sys-utils" = declPackageSet [
       "sane-scripts.ip-port-forward"

@@ -8,7 +8,7 @@
 #   - console shows error messages. quite possibly an endianness mismatch somewhere
 # - moby (partially-emulated flare-signal): works! pairs and can send/receive messages, same as desko.
 #
-# error signatures (to reset, run `sane-wipe-fractal`):
+# error signatures (to reset, run `sane-wipe flare`):
 # - upon sending a message, the other side receives it, but Signal desktop gets "A message from Colin could not be delivered" and the local CLI shows:
 #   ```
 #   ERROR libsignal_service::websocket] SignalWebSocket: Websocket error: SignalWebSocket: end of application request stream; socket closing

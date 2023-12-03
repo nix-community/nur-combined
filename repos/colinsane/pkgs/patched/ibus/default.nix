@@ -16,12 +16,12 @@ in
   (removeAttrs attrs [ "ibus" "libdbusmenu-gtk3" "pkgs" ] )
 ).overrideAttrs (upstream: rec {
   # compared to 1.5.28, this version supports better cross compilation
-  version = "1.5.29-rc1";
+  version = "1.5.29";
   src = fetchFromGitHub {
     owner = "ibus";
     repo = "ibus";
     rev = version;
-    hash = "sha256-stUWAGtsQRq+g/68OKuYqHgNxZBGzGC6VgJ+IwuAkx8=";
+    hash = "sha256-d4EUIg0v8rfHdvzG5USc6GLY6QHtQpIJp1PrPaaBxxE=";
   };
   patches = [(builtins.head upstream.patches)] ++ [
     # this patch is in nixpkgs 1.5.28, but doesn't cleanly apply to this current version

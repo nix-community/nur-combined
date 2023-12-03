@@ -1,0 +1,81 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p dconf -p libsecret -p systemd
+
+help() {
+  echo "usage: sane-wipe <resource>"
+  echo "resource:"
+  echo "  browser: kill and remove cache for firefox, chromium, brave, etc"
+  echo "  dino:    remove auth and data for Dino XMPP messenger"
+  echo "  flare:   remove auth and data for flare-signal messenger"
+  echo "  fractal: remove auth and data for fractal matrix messenger"
+  exit 1
+}
+
+
+wipe_browser() {
+  # remove firefox/librewolf/chromium artifacts
+  rm -rf \
+    ~/.cache/BraveSoftware/* \
+    ~/.cache/chromium \
+    ~/.cache/librewolf/* \
+    ~/.cache/mozilla/firefox/* \
+    ~/.config/BraveSoftware/* \
+    ~/.config/chromium \
+    ~/.librewolf/default/* \
+    ~/.mozilla/* \
+    || true  # in case no matches
+
+  # browsers like to stick around in the background so they can load faster
+  sudo pkill brave || true
+  sudo pkill firefox || true
+  sudo pkill librewolf || true
+}
+
+wipe_dino() {
+  rm -rf ~/.local/share/dino/*
+  echo "now re-launch Dino and join some notable channels like:"
+  echo "- discuss@conference.soprani.ca"
+}
+
+wipe_flare() {
+  secret-tool search --all --unlock 'xdg:schema' 'de.schmidhuberj.Flare'
+  secret-tool clear 'xdg:schema' 'de.schmidhuberj.Flare'
+
+  dconf reset -f /de/schmidhuberj/Flare/
+
+  rm -rf ~/.local/share/flare
+
+  echo "you may repair Flare. after doing so, mv ~/.local/share/flare ~/private/.local/share/flare to persist"
+}
+
+wipe_fractal() {
+  systemctl --user stop fractal
+
+  # first, ensure the relevant secrets are unlocked
+  secret-tool search --all --unlock 'xdg:schema' 'org.gnome.Fractal'
+  secret-tool search --all --unlock 'xdg:schema' 'org.gnome.Fractal.Hack'
+
+  # then, delete them
+  secret-tool clear 'xdg:schema' 'org.gnome.Fractal'
+  secret-tool clear 'xdg:schema' 'org.gnome.Fractal.Hack'
+
+  # N.B.: it may be necessary still to delete ~/.local/share/fractal/* (unsure)
+}
+
+
+case "$1" in
+  browser)
+    wipe_browser
+    ;;
+  dino)
+    wipe_dino
+    ;;
+  flare)
+    wipe_flare
+    ;;
+  fractal)
+    wipe_fractal
+    ;;
+  *)
+    help
+esac

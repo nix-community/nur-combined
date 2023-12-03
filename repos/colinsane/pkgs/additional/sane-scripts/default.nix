@@ -212,19 +212,10 @@ let
       src = ./src;
       pkgs = [ "coreutils-full" "file" ];
     };
-    wipe-browser = static-nix-shell.mkBash {
-      pname = "sane-wipe-browser";
+    wipe = static-nix-shell.mkBash {
+      pname = "sane-wipe";
       src = ./src;
-    };
-    wipe-flare = static-nix-shell.mkBash {
-      pname = "sane-wipe-flare";
-      src = ./src;
-      pkgs = [ "dconf" "libsecret" ];
-    };
-    wipe-fractal = static-nix-shell.mkBash {
-      pname = "sane-wipe-fractal";
-      src = ./src;
-      pkgs = [ "libsecret" "systemd" ];
+      pkgs = [ "dconf" "libsecret" "systemd" ];
     };
   };
 in sane-bin // {
