@@ -10,10 +10,6 @@ fetch.github = "Freed-Wu/manpager"
 src.pypi = "repl-python-wakatime"
 fetch.pypi = "repl-python-wakatime"
 
-[repl-python-codestats]
-src.pypi = "repl-python-codestats"
-fetch.pypi = "repl-python-codestats"
-
 [translate-shell]
 src.pypi = "translate-shell"
 fetch.pypi = "translate-shell"

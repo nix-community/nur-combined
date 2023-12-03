@@ -5,7 +5,7 @@ tcl.mkTclDerivation rec {
   src = fetchFromGitHub {
     owner = "Freed-Wu";
     repo = name;
-    rev = "b2d32ff6958377f8ab160c08ea1a5ebfbbee2b53";
+    rev = "fcb80967d04214990dd6115b3b5a41b799a1b8a3";
     hash = "sha256-RR3BafvGpT8+5rnRKPxrMmn6vrpwWNQQAwFzemBWBTc=";
   };
 
@@ -18,7 +18,7 @@ tcl.mkTclDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/Freed-Wu/tcl-prompt";
-    description = "A powerlevel10k-like prompt for tcl";
+    description = "Tcl plugin for powerlevel10k style prompt and WakaTime time tracking";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
