@@ -13,7 +13,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install nix
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v24
         with:
           nix_path: nixpkgs=channel:nixos-23.05
       - name: Login to GitHub Container Registry
