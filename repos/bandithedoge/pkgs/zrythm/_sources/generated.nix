@@ -41,15 +41,15 @@
   };
   zix-git = {
     pname = "zix-git";
-    version = "60236967632849b4d8b0b925758e91cfdff23d38";
+    version = "08954c900820320064d2e33445858e1ef5024a0b";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "60236967632849b4d8b0b925758e91cfdff23d38";
+      rev = "08954c900820320064d2e33445858e1ef5024a0b";
       fetchSubmodules = false;
-      sha256 = "sha256-pi/ndtkF0fDJx/xTafBQK/F+hmHRO33AUM3j24vcazI=";
+      sha256 = "sha256-iMJUgobKNw+h8MRzziDHOD/3BBeuVd2tHvCYrRlF4G4=";
     };
-    date = "2023-11-30";
+    date = "2023-12-02";
   };
   zrythm = {
     pname = "zrythm";
