@@ -61,11 +61,23 @@ jobs:
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+      - name: Set nix daemon tmpdir path
+        run: |
+          sudo mkdir -p /nix/tmpdir
+          sudo chown $(whoami) /nix/tmpdir
+
+          cat > override.conf <<EOF
+          [Service]
+          Environment="TMPDIR=/nix/tmpdir"
+          EOF
+          sudo mkdir /etc/systemd/system/nix-daemon.service.d/
+          sudo mv override.conf /etc/systemd/system/nix-daemon.service.d/override.conf
+          sudo systemctl daemon-reload
+          sudo systemctl restart nix-daemon
+
       - name: Build nix packages
         run: |
           nix flake update
-          sudo mkdir -p /nix/tmpdir
-          sudo chown $(whoami) /nix/tmpdir
           env TMPDIR=/nix/tmpdir nix run .#ci -- ${{ matrix.system }}
 
   test-nur-eval:
