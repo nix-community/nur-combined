@@ -2,7 +2,7 @@
 # nixpkgs/pkgs/development/tools/selenium/chromedriver/default.nix
 # https://github.com/ultrafunkamsterdam/undetected-chromedriver
 
-# note: chromedriver must have the same major version as chrome
+# note: chromedriver must have the same major version as chromium
 
 { lib
 , stdenv
@@ -44,6 +44,8 @@ chromedriver.overrideAttrs (oldAttrs: rec {
   # TODO assert
 
   buildPhase = ''
+    runHook preBuild
+
     echo patching chromedriver
     sed -i.bak -E \
       's/\(function \(\) \{window.cdc_[a-zA-Z0-9]{22}/(function () {return;"undetected chromedriver";/' \
@@ -54,10 +56,13 @@ chromedriver.overrideAttrs (oldAttrs: rec {
     ]]; then
       echo "error: failed to patch chromedriver"
       echo "------------ match --------------"
-      grep -o -m1 -E '\(function \(\) {window.cdc_.{22}.{20}'
+      grep -a -o -m1 -E '\(function \(\) \{window\.cdc_.{22}.{100}' "chromedriver-${spec.system}/chromedriver" ||
+      echo "error: no match"
       echo "---------------------------------"
       exit 1
     fi
     rm "chromedriver-${spec.system}/chromedriver.bak"
+
+    runHook postBuild
   '';
 })
