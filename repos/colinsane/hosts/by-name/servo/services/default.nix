@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./bitcoin.nix
     ./calibre.nix
     ./coturn.nix
     ./ddns-afraid.nix

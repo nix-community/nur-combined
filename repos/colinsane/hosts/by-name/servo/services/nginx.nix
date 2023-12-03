@@ -67,7 +67,13 @@ in
 
     # uninsane.org/share/foo => /var/lib/uninsane/root/share/foo.
     # yes, nginx does not strip the prefix when evaluating against the root.
-    locations."/share".root = "/var/lib/uninsane/root";
+    locations."/share" = {
+      root = "/var/lib/uninsane/root";
+      extraConfig = ''
+        # autoindex => render directory listings
+        autoindex on;
+      '';
+    };
 
     # allow matrix users to discover that @user:uninsane.org is reachable via matrix.uninsane.org
     locations."= /.well-known/matrix/server".extraConfig =
