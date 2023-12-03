@@ -1,7 +1,21 @@
 { lib
-, python3
 , fetchFromGitHub
 , chromium
+#, python3
+# python3.pkgs
+, buildPythonApplication
+# moved from src to separate package
+# rm -rf src/undetected_chromedriver
+, undetected-chromedriver
+#, webtest
+, bottle
+, waitress
+, func-timeout
+, prometheus-client
+# only required for linux
+, xvfbwrapper
+# only required for windows
+#, pefile
 }:
 
 /*
@@ -14,19 +28,19 @@
 */
 
 if (
-  (lib.versions.major python3.pkgs.undetected-chromedriver.bin.version) !=
+  (lib.versions.major undetected-chromedriver.bin.version) !=
   (lib.versions.major chromium.version)
 )
 then throw ''
   chromedriver and chromium must have the same major version.
 
   actual versions:
-    chromedriver: ${python3.pkgs.undetected-chromedriver.bin.version}
+    chromedriver: ${undetected-chromedriver.bin.version}
     chromium    : ${chromium.version}
 ''
 else
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "flaresolverr";
   version = "3.3.10";
 
@@ -52,12 +66,12 @@ python3.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   /*
-  checkInputs = with python3.pkgs; [
+  checkInputs = [
     webtest
   ];
   */
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
     bottle
     waitress
     func-timeout
@@ -88,7 +102,7 @@ python3.pkgs.buildPythonApplication rec {
 
     rm src/build_package.py
 
-    # moved to separate package: python3.pkgs.undetected-chromedriver
+    # moved to separate package: undetected-chromedriver
     rm -rf src/undetected_chromedriver
 
     # add shebang line
@@ -263,17 +277,19 @@ python3.pkgs.buildPythonApplication rec {
     sed_script=""
     sed_script+='/^exec .*/i '
     sed_script+='[ -z "$CHROME_EXE_PATH" ] && export CHROME_EXE_PATH=${chromium}/bin/${chromium.meta.mainProgram}\n'
-    sed_script+='[ -z "$PATCHED_DRIVER_PATH" ] && export PATCHED_DRIVER_PATH=${python3.pkgs.undetected-chromedriver.bin}/bin/chromedriver\n'
+    sed_script+='[ -z "$PATCHED_DRIVER_PATH" ] && export PATCHED_DRIVER_PATH=${undetected-chromedriver.bin}/bin/chromedriver\n'
     sed_script+='[ -z "$PATCHED_DRIVER_IS_PATCHED" ] && export PATCHED_DRIVER_IS_PATCHED=1\n'
     sed -i "$sed_script" $out/bin/flaresolverr
   '';
 
+  /*
   # fix: Testing via this command is deprecated
   checkPhase = ''
     runHook preCheck
     ${python3.interpreter} -m unittest
     runHook postCheck
   '';
+  */
 
   pythonImportsCheck = [ "flaresolverr" ];
 

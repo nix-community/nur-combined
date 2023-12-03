@@ -1,10 +1,17 @@
 { lib
-, python3
 , fetchFromGitHub
 , pkgs-undetected-chromedriver
+# python3.pkgs
+, buildPythonApplication
+, setuptools
+, wheel
+, requests
+, certifi
+, websockets
+, selenium
 }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "undetected-chromedriver";
   # https://pypi.org/project/undetected-chromedriver/
   version = "3.5.4";
@@ -40,11 +47,11 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [
-    python3.pkgs.setuptools
-    python3.pkgs.wheel
+    setuptools
+    wheel
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
     requests
     certifi
     websockets
