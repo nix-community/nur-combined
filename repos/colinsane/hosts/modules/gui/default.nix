@@ -78,7 +78,7 @@ in
     # "gnome.gnome-terminal"  # works on phosh
     "gnome.gnome-weather"
     "gthumb"
-    # "gtkcord4"  # Discord client. 2023/11/21: disabled because it leaks memory
+    "gtkcord4"  # Discord client. 2023/11/21: disabled because v0.0.12 leaks memory
     "lemoa"  # lemmy app
     # "lollypop"
     "mate.engrampa"  # archive manager
@@ -96,6 +96,7 @@ in
     # "tdesktop"  # broken on phosh
     # "tokodon"
     "tuba"  # mastodon/pleroma client (stores pw in keyring)
+    "vulkan-tools"  # vulkaninfo
     # "whalebird"  # pleroma client (Electron). input is broken on phosh.
     "xdg-terminal-exec"
     "xterm"  # broken on phosh

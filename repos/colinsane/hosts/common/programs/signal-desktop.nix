@@ -30,6 +30,8 @@ in
         Restart = "always";
         RestartSec = "20s";
       };
+      # for some reason the --ozone-platform-hint=auto flag fails when signal-desktop is launched from a service
+      environment.NIXOS_OZONE_WL = "1";
     };
   };
 }

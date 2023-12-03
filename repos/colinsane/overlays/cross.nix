@@ -2111,6 +2111,14 @@ in {
   # 2023/07/30: upstreaming is unblocked, but requires alternative fix
   # - i think the build script tries to run the generated binary?
   vpnc = mvToNativeInputs [ final.perl ] prev.vpnc;
+
+  vulkan-tools = prev.vulkan-tools.overrideAttrs (upstream: {
+    PKG_CONFIG_WAYLAND_SCANNER_WAYLAND_SCANNER="${final.buildPackages.wayland-scanner}/bin/wayland-scanner";
+    cmakeFlags = upstream.cmakeFlags ++ [
+      "-DPKG_CONFIG_EXECUTABLE=${final.buildPackages.pkg-config}/bin/${final.buildPackages.pkg-config.targetPrefix}pkg-config"
+    ];
+  });
+
   # wrapGAppsHook = prev.wrapGAppsHook.override {
   #   # prevents build gtk3 from being propagated into places it shouldn't (e.g. waybar)
   #   isGraphical = false;

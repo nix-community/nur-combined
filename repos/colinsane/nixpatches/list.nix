@@ -28,6 +28,11 @@ in [
     saneCommit = "8631ddfb99aa8e935276b27d55ef5e10f5ab0367";
     hash = "sha256-AkxtrCJrf0wpTdty4SOIWBrWwqfG7rBI4ON38BjDi6s=";
   })
+  (fetchpatch' {
+    title = "gtkcord4: 0.0.12 -> 0.0.16-1";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/259394";
+    hash = "sha256-pEkMxAGPbj6RDj+0lMRcs5KVp1J5kfezzVBhvrQjmrk=";
+  })
   # (fetchpatch' {
   #   title = "nixos/slskd: allow omitting username from yaml config";
   #   saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
