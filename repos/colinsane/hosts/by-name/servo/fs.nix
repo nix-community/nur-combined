@@ -32,6 +32,7 @@
     fsType = "zfs";
   };
   # services.zfs.zed = ... # TODO: zfs can send me emails when disks fail
+  sane.programs.sysadminUtils.suggestedPrograms = [ "zfs" ];
 
 
   # increase /tmp space (defaults to 50% of RAM) for building large nix things.

@@ -507,6 +507,7 @@ in {
     // (crateNeedsBinfmt "gstreamer-video-sys")
     // (crateNeedsBinfmt "gtk4")
     // (crateNeedsBinfmt "libadwaita")
+    // (crateNeedsBinfmt "libadwaita-sys")
     // (crateNeedsBinfmt "libshumate")
     // (crateNeedsBinfmt "sourceview5")
   ;
@@ -867,7 +868,7 @@ in {
     # 2023/07/31: upstreaming is blocked on apache-httpd
     # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
     # gnome-user-share = addNativeInputs [ final.glib ] super.gnome-user-share;
-    mutter = (super.mutter.overrideAttrs (orig: {
+    mutter = needsBinfmt (super.mutter.overrideAttrs (orig: {
       # 2023/07/31: upstreaming is blocked on argyllcms, libavif
       # N.B.: not all of this suitable to upstreaming, as-is.
       # mesa and xorgserver are removed here because they *themselves* don't build for `buildPackages` (temporarily: 2023/10/26)

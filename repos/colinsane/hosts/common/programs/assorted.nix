@@ -111,7 +111,7 @@ in
       "wget"
       "wirelesstools"  # iwlist
       "xq"  # jq for XML
-      "zfs"
+      # "zfs"  # doesn't cross-compile (requires samba)
     ];
     sysadminExtraUtils = declPackageSet [
       "backblaze-b2"
