@@ -32,6 +32,8 @@ in
     # - source: <https://www.reddit.com/r/swaywm/comments/ni0vso/waybar_spotify_tracktitle/>
     # - alternative: <https://github.com/Alexays/Waybar/wiki/Module:-MPRIS>
     # - alternative: <https://github.com/Alexays/Waybar/wiki/Module:-Custom#mpris-controller>
+    # - alternative: <https://www.reddit.com/r/swaywm/comments/g6nw46/comment/fob604s/>
+    #   - this one shades the background based on how far through the song you are
     #
     # N.B.: for this to behave well with multiple MPRIS clients,
     # `playerctld` must be enabled. see: <https://github.com/altdesktop/playerctl/issues/161>
