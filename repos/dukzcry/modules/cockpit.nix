@@ -20,6 +20,7 @@ in {
       };
     };
 
-    environment.systemPackages = with pkgs; with cpkgs; [ cockpit-machines libvirt-dbus virtmanager ];
+    environment.systemPackages = with pkgs; with cpkgs; [ cockpit-machines libvirt-dbus ];
+    programs.virt-manager.enable = lib.mkDefault true;
   };
 }

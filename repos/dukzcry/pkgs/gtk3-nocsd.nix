@@ -5,10 +5,10 @@ stdenv.mkDerivation rec {
   version = "2016-07-17";
 
   src = fetchFromGitHub {
-    owner = "PCMan";
+    owner = "fredldotme";
     repo = "gtk3-nocsd";
-    rev = "82ff5a0da54aa6da27232b55eb93e5f4b5de22f2";
-    sha256 = "sha256-RxZgSdaRsknyjYrhK3WZCpoqYuGb4RjqA32N4rglN5g=";
+    rev = "a356bf79d1c8cabbb0f1972f4f0023ae01bd16bc";
+    sha256 = "sha256-zqvCpVlf763gYP6brkwoqMe9t9cHr73XM7Pcyh6FoOw=";
   };
 
   buildInputs = [

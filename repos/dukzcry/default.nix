@@ -24,7 +24,8 @@ rec {
   bitwig-studio5 = callPackage ./pkgs/bitwig-studio5.nix {};
   massdns = callPackage ./pkgs/massdns.nix {};
   wireless-regdb = callPackage ./pkgs/wireless-regdb {};
-  edgevpn = callPackage ./pkgs/edgevpn {};
+  edgevpn = callPackage ./pkgs/edgevpn.nix {};
+  awl = callPackage ./pkgs/awl {};
   prometheus-nut-exporter = callPackage ./pkgs/prometheus-nut-exporter.nix {};
   tun2socks = callPackage ./pkgs/tun2socks.nix {};
   cockpit-machines = callPackage ./pkgs/cockpit/machines.nix {};
@@ -38,4 +39,5 @@ rec {
   dsdt = callPackage ./pkgs/dsdt.nix;
   ath10k-firmware = callPackage ./pkgs/ath10k-firmware.nix {};
   cubesuite = callPackage ./pkgs/cubesuite.nix { wrapWine = pkgs.nur.repos.lucasew.packages.wrapWine or null; };
+  hostapd = callPackage ./pkgs/hostapd {};
 }

@@ -58,24 +58,28 @@ in {
         percentageLow = 7;
         percentageCritical = 6;
         percentageAction = 5;
+        criticalPowerAction = "Hibernate";
+      };
+      services.logind.extraConfig = ''
+        HandlePowerKey=hibernate
+      '';
+      services.autosuspend = {
+        enable = true;
+        settings.idle_time = 0;
+        checks = {
+          XIdleTime.method = "logind";
+          ExternalCommand.command = "[ `cat /sys/class/power_supply/AC/online` == 1 ] && true";
+        };
       };
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       boot.kernelParams = [ "mitigations=off" ];
       services.tlp.enable = true;
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
-      services.picom = {
-        enable = true;
-        vSync = true;
-        backend = "glx";
-      };
       services.xserver.displayManager.sessionCommands = ''
         printf "%s\n" "Xft.dpi: 120" | xrdb -merge
       '';
       services.redshift.enable = true;
-      services.logind.extraConfig = ''
-        HandlePowerKey=hibernate
-      '';
     } // builder))
     (mkIf (cfg.enable && desktop) {
       services.nix-serve = {
@@ -83,7 +87,6 @@ in {
         secretKeyFile = "/var/cache-priv-key.pem";
       };
       nix.settings.cores = 8;
-      boot.loader.systemd-boot.configurationLimit = 70;
       hardware.bluetooth.enable = true;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
       services.xserver.displayManager.sessionCommands = ''

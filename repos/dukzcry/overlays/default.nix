@@ -34,7 +34,7 @@ rec {
   });
   # https://github.com/jellyfin/jellyfin/issues/7642
   jellyfin-ffmpeg = super.jellyfin-ffmpeg.override (optionalAttrs (config.services.jellyfin.enable or false) {
-    ffmpeg_5-full = super.ffmpeg_5-full.override {
+    ffmpeg_6-full = super.ffmpeg_6-full.override {
       libva = let
         mesa = super.mesa.overrideAttrs (oldAttrs: rec {
           postPatch = ''

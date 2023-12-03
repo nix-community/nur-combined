@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-NA9+kFojJ+bjuzzbTQCfANi27St4tDkp1nLUUow3hEQ=";
   };
 
-  vendorSha256 = "sha256-b5E5bZZWIQ9lPCrivQtrLIRlQHZHq5dmTCJ57Ea/1O0=";
+  vendorHash = "sha256-b5E5bZZWIQ9lPCrivQtrLIRlQHZHq5dmTCJ57Ea/1O0=";
 
   preBuild = ''
     substituteInPlace internal/version.go \

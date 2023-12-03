@@ -3,10 +3,10 @@
 
 stdenv.mkDerivation rec {
   pname = "cockpit-client";
-  version = "292";
+  version = "306";
   src = fetchzip {
     url = "https://github.com/cockpit-project/cockpit/releases/download/${version}/cockpit-${version}.tar.xz";
-    sha256 = "sha256-BDcYMwLUCgQxhaPj+tt8IRVwQpG1A6lNzm61WX+6LnY=";
+    sha256 = "sha256-xRMCvsFTUCyPcNuy8/e3Zg2ptc9GbK5pOGcL7g7FJ50=";
   };
   enableParallelBuilding = true;
   configureFlags = [
@@ -18,24 +18,35 @@ stdenv.mkDerivation rec {
     "--with-systemdunitdir=$(out)/lib/systemd/system"
   ];
   nativeBuildInputs = [
-    pkg-config python3 python3Packages.wrapPython wrapGAppsHook gobject-introspection getent
-  ];
+    pkg-config python3 wrapGAppsHook gobject-introspection getent
+  ] ++ (with python3Packages; [
+    wrapPython pip
+  ]);
   buildInputs = [
     glib systemd json-glib gnutls krb5 pam libxcrypt webkitgtk
   ];
   postPatch = ''
     substituteInPlace src/client/cockpit-client \
       --replace "or options.lookup_value('wildly-insecure')" "or True"
-    substituteInPlace src/client/cockpit-client-ssh \
-      --replace "'flatpak-spawn', '--host', '/usr/bin/env'" "'${coreutils}/bin/env'" \
-      --replace "shutil.copy(__file__, askpass, follow_symlinks=False)" "shutil.copy(__file__, askpass, follow_symlinks=False); os.chmod(askpass, 0o755);" \
-      --replace "/usr/bin/ssh" "${openssh}/bin/ssh"
+    substituteInPlace src/cockpit/packages.py \
+      --replace "/usr/local/libexec" "$out/libexec"
+    substituteInPlace src/cockpit/beiboot.py \
+      --replace "python3" "${python3}/bin/python3"
   '';
   preBuild = ''
     patchShebangs tools
   '';
   postInstall = ''
     patchShebangs $out/libexec
+cat << EOF > $out/libexec/cockpit-beiboot
+#!/bin/sh
+export PYTHONPATH=$(echo $out/lib/python*/site-packages)
+export LD_LIBRARY_PATH=${systemd}/lib
+/usr/bin/env python3 -m cockpit.beiboot "\$@"
+EOF
+    chmod +x $out/libexec/cockpit-beiboot
+    substituteInPlace $out/libexec/cockpit-client \
+      --replace "/usr/bin/env python3 -m cockpit.beiboot" "$out/libexec/cockpit-beiboot"
   '';
   dontWrapGApps = true;
   preFixup = ''

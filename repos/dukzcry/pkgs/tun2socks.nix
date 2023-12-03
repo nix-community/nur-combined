@@ -1,6 +1,6 @@
-{ lib, stdenv, buildGo118Module, fetchFromGitHub }:
+{ lib, stdenv, buildGoModule, fetchFromGitHub }:
 
-buildGo118Module rec {
+buildGoModule rec {
   pname = "tun2socks";
   version = "2.4.1";
 
@@ -11,7 +11,7 @@ buildGo118Module rec {
     sha256 = "sha256-FBYRqxS8DJbIc8j8X6WNxl6a1YRcNrPSnNfrq/Y0fMM=";
   };
 
-  vendorSha256 = "sha256-XWzbEtYd8h63QdpAQZTGxyxMAAnpKO9Fp4y8/eeZ7Xw=";
+  vendorHash = "sha256-XWzbEtYd8h63QdpAQZTGxyxMAAnpKO9Fp4y8/eeZ7Xw=";
 
   meta = with lib; {
     description = "tun2socks - powered by gVisor TCP/IP stack";
