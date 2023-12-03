@@ -52,7 +52,6 @@ in {
     })
     (mkIf cfg.remote {
       virtualisation.libvirtd.enable = lib.mkForce false;
-      services.tailscale.enable = true;
     })
   ];
 }
