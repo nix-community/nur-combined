@@ -38,7 +38,7 @@ in {
             ${config.security.wrapperDir}/sunshine
           '';
           RestartSec = 3;
-          Restart = "always";
+          Restart = "on-success";
         };
       };
    })
