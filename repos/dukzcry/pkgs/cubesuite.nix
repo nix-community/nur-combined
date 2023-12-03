@@ -37,7 +37,7 @@ in stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Manage Cuvave MIDI controllers";
     license = licenses.free;
-    homepage = "http://www.cuvave.com/xznr";
+    homepage = "http://www.cuvave.com/appdownload";
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
     broken = wrapWine == null;
