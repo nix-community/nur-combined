@@ -788,13 +788,13 @@
   };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
-    version = "release-4.6.1.10";
+    version = "release-4.6.2.10";
     src = fetchFromGitHub {
       owner = "c0re100";
       repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.6.1.10";
+      rev = "release-4.6.2.10";
       fetchSubmodules = false;
-      sha256 = "sha256-flcvWFWGNcUhgpI5YCKIgJrCbp2Q6cE2WaaluYVNKoA=";
+      sha256 = "sha256-HP0TtNLU5hKnkHgXoxqRjIHWVyq8A8Wx6b1tlyKDA+I=";
     };
   };
   qemu-user-static-amd64 = {
@@ -891,15 +891,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "69d46fe8308602a5b4b5061b7dd53777d586164b";
+    version = "9b1e9301e483ba95a5ebc78b92cd83514e99dd2c";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "69d46fe8308602a5b4b5061b7dd53777d586164b";
+      rev = "9b1e9301e483ba95a5ebc78b92cd83514e99dd2c";
       fetchSubmodules = false;
-      sha256 = "sha256-XAh1SS/J2vUSBeHCcxILPsKtCrd+L7NEfQRO+PkwZJ8=";
+      sha256 = "sha256-WYnOc8Uq3uWuVCCwuAXnvq//tvJsrcjxWF1lChkJiMA=";
     };
-    date = "2023-12-02";
+    date = "2023-12-03";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

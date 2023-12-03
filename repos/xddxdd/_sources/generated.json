@@ -1370,11 +1370,11 @@
             "name": null,
             "owner": "c0re100",
             "repo": "qBittorrent-Enhanced-Edition",
-            "rev": "release-4.6.1.10",
-            "sha256": "sha256-flcvWFWGNcUhgpI5YCKIgJrCbp2Q6cE2WaaluYVNKoA=",
+            "rev": "release-4.6.2.10",
+            "sha256": "sha256-HP0TtNLU5hKnkHgXoxqRjIHWVyq8A8Wx6b1tlyKDA+I=",
             "type": "github"
         },
-        "version": "release-4.6.1.10"
+        "version": "release-4.6.2.10"
     },
     "qemu-user-static-amd64": {
         "cargoLocks": null,
@@ -1543,7 +1543,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-12-02",
+        "date": "2023-12-03",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1555,11 +1555,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "69d46fe8308602a5b4b5061b7dd53777d586164b",
-            "sha256": "sha256-XAh1SS/J2vUSBeHCcxILPsKtCrd+L7NEfQRO+PkwZJ8=",
+            "rev": "9b1e9301e483ba95a5ebc78b92cd83514e99dd2c",
+            "sha256": "sha256-WYnOc8Uq3uWuVCCwuAXnvq//tvJsrcjxWF1lChkJiMA=",
             "type": "github"
         },
-        "version": "69d46fe8308602a5b4b5061b7dd53777d586164b"
+        "version": "9b1e9301e483ba95a5ebc78b92cd83514e99dd2c"
     },
     "rime-moegirl": {
         "cargoLocks": null,
