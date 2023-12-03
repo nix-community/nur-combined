@@ -728,11 +728,11 @@ in {
 
   # 2023/11/21: upstreaming is unblocked
   #             but obsoleted by vala patch: <https://github.com/NixOS/nixpkgs/pull/269171>
-  gnome-2048 = addNativeInputs [
-    # fix: "error: Package `libgnome-games-support-1' not found in specified Vala API directories or GObject-Introspection GIR directories"
-    final.libgnome-games-support
-    # final.gobject-introspection  # this *should* work, if libgnome-games-support were to ship GIR bindings?
-  ] prev.gnome-2048;
+  # gnome-2048 = addNativeInputs [
+  #   # fix: "error: Package `libgnome-games-support-1' not found in specified Vala API directories or GObject-Introspection GIR directories"
+  #   final.libgnome-games-support
+  #   # final.gobject-introspection  # this *should* work, if libgnome-games-support were to ship GIR bindings?
+  # ] prev.gnome-2048;
 
   # needs binfmt: "scangobj.py:execute_command:1293:WARNING:Running scanner failed: [Errno 8] Exec format error: './goa-scan', command: ./goa-scan"
   gnome-online-accounts = needsBinfmt prev.gnome-online-accounts;
@@ -2112,8 +2112,9 @@ in {
   # - i think the build script tries to run the generated binary?
   vpnc = mvToNativeInputs [ final.perl ] prev.vpnc;
 
+  # 2023/12/02: out for PR: <https://github.com/NixOS/nixpkgs/pull/271872>
   vulkan-tools = prev.vulkan-tools.overrideAttrs (upstream: {
-    PKG_CONFIG_WAYLAND_SCANNER_WAYLAND_SCANNER="${final.buildPackages.wayland-scanner}/bin/wayland-scanner";
+    env.PKG_CONFIG_WAYLAND_SCANNER_WAYLAND_SCANNER="${final.buildPackages.wayland-scanner}/bin/wayland-scanner";
     cmakeFlags = upstream.cmakeFlags ++ [
       "-DPKG_CONFIG_EXECUTABLE=${final.buildPackages.pkg-config}/bin/${final.buildPackages.pkg-config.targetPrefix}pkg-config"
     ];
