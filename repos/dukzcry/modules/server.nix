@@ -52,6 +52,7 @@ in {
     })
     (mkIf cfg.remote {
       virtualisation.libvirtd.enable = lib.mkForce false;
+      environment.systemPackages = [ pkgs.nur.repos.dukzcry.awl-tray ];
     })
   ];
 }
