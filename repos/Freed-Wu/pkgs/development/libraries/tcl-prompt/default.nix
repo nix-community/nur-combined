@@ -6,7 +6,7 @@ tcl.mkTclDerivation rec {
     owner = "Freed-Wu";
     repo = name;
     rev = "f11e245093d86967d5dbc10e110f8b0fbbcc4b8f";
-    hash = "";
+    hash = "sha256-R55o6Ezj2N2F8I3XObysJQN7dF+V0iopyU20Nz4Ln8I=";
   };
 
   buildInputs = [ tclreadline tcllib expect ];

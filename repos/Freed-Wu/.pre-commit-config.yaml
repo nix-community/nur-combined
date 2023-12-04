@@ -67,7 +67,7 @@ repos:
           - mdformat-black
           - mdformat-config
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.10.0
+    rev: v0.11.0
     hooks:
       - id: markdownlint-cli2
         additional_dependencies:
