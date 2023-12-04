@@ -47,12 +47,20 @@
       sha256 = "sha256-xfEzhHAnpsbKXTOf9xrgGqtQLDbe7UwNeaCSHAPdH3c=";
     };
   };
+  repl-python-codestats = {
+    pname = "repl-python-codestats";
+    version = "0.0.6";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/r/repl-python-codestats/repl-python-codestats-0.0.6.tar.gz";
+      sha256 = "sha256-WqU654n2hLvajGKTRR447HDvLht5lqolYjDqtqGx13E=";
+    };
+  };
   repl-python-wakatime = {
     pname = "repl-python-wakatime";
-    version = "0.0.8";
+    version = "0.0.6";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/repl-python-wakatime/repl-python-wakatime-0.0.8.tar.gz";
-      sha256 = "sha256-cTpSyxzmKU005yFrHlejfdqw2a04Bkr054WdDxfKYLw=";
+      url = "https://pypi.org/packages/source/r/repl-python-wakatime/repl-python-wakatime-0.0.6.tar.gz";
+      sha256 = "sha256-s2UelniMn4+wWILbVIIKidRCFaOvo/nNNofA7yf2+9c=";
     };
   };
   requirements-language-server = {
@@ -73,10 +81,10 @@
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.0.16";
+    version = "0.0.12";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux-language-server/termux-language-server-0.0.16.tar.gz";
-      sha256 = "sha256-l/cjD9LKSPO6yumMiArn9Norx/b0NFOQdcs7ly2eEpU=";
+      url = "https://pypi.org/packages/source/t/termux-language-server/termux-language-server-0.0.12.tar.gz";
+      sha256 = "sha256-PKoa+IvCWYLKEjuaWFMZ7w+3+ZURZ4EC47dl6vxVlBE=";
     };
   };
   tmux-language-server = {
@@ -89,10 +97,10 @@
   };
   translate-shell = {
     pname = "translate-shell";
-    version = "0.0.43";
+    version = "0.0.42";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.43.tar.gz";
-      sha256 = "sha256-/Il90UOoyJuMa/jtsf92SfcdyKVQsG9ts79/cEgWC60=";
+      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.42.tar.gz";
+      sha256 = "sha256-rko3r1m6z0lgos1yNpfIC4+Z5WCG+ZjL+FurRSXqPSc=";
     };
   };
   undollar = {
