@@ -1,22 +1,22 @@
 {
-    "powertab": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "powertab",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "powertab",
-            "repo": "powertabeditor",
-            "rev": "2.0.0-alpha19",
-            "sha256": "sha256-oZX6fyJ6T27S18iwtxF7VQp1ec7NsXuIrvYUPwN3ebk=",
-            "type": "github"
-        },
-        "version": "2.0.0-alpha19"
-    }
+  "powertab": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "powertab",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "powertab",
+      "repo": "powertabeditor",
+      "rev": "2.0.0-alpha19",
+      "sha256": "sha256-oZX6fyJ6T27S18iwtxF7VQp1ec7NsXuIrvYUPwN3ebk=",
+      "type": "github"
+    },
+    "version": "2.0.0-alpha19"
+  }
 }
