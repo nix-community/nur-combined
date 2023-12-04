@@ -522,13 +522,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.6.3-xanmod1";
+    version = "6.6.4-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.3-xanmod1";
+      rev = "6.6.4-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-DAUJTSWvbGWU93YWclAPzYU0jfPnkK2CplgFI9w5U2s=";
+      sha256 = "sha256-f/McwYD/4849GwtHml+AMSF5/gHuDrrlbz8gYZghaw0=";
     };
   };
   linux-xanmod-6_0 = {
@@ -544,13 +544,13 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.64-xanmod1";
+    version = "6.1.65-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.64-xanmod1";
+      rev = "6.1.65-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-3X26uAa4GsFfA0HYv+PQ8KYq9+3lLcIRRiymRMfm29U=";
+      sha256 = "sha256-/KJCUAti/p48KTIvRdGeD4aXfhiBdjZUIKD45Hu2d1g=";
     };
   };
   nbfc-linux-lantian = {
@@ -567,18 +567,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.74";
+    version = "2.0.75";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.74/netboot.xyz.efi";
-      sha256 = "sha256-AdveXOGZs2GD9OG2NGOppv0+uevlriTClxkl6rLf6NU=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.75/netboot.xyz.efi";
+      sha256 = "sha256-VaTUwX3S5Bj5eUZAspXNaVm8Y51hURL3xBb1tRdj6Zw=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.74";
+    version = "2.0.75";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.74/netboot.xyz.lkrn";
-      sha256 = "sha256-uCXjfAsRi5X8ehdwuV9iIEC3kuhenqw1PfUQgxOuaXM=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.75/netboot.xyz.lkrn";
+      sha256 = "sha256-0Bo6/7bto9LBUMo6bYKaLjsxP28Yf9+bgeSeAr8b/bs=";
     };
   };
   netns-exec = {
@@ -891,13 +891,13 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "9b1e9301e483ba95a5ebc78b92cd83514e99dd2c";
+    version = "8f98f0d1c9176ce005ad76043db7f55096583675";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "9b1e9301e483ba95a5ebc78b92cd83514e99dd2c";
+      rev = "8f98f0d1c9176ce005ad76043db7f55096583675";
       fetchSubmodules = false;
-      sha256 = "sha256-WYnOc8Uq3uWuVCCwuAXnvq//tvJsrcjxWF1lChkJiMA=";
+      sha256 = "sha256-ye4neNSmar42XYMKqZ9vqOR8hZjXYR/eSUkwQ7eScR4=";
     };
     date = "2023-12-03";
   };
