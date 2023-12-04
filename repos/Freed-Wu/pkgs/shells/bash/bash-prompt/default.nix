@@ -2,17 +2,18 @@
 , stdenv
 , zsh-powerlevel10k
 , fetchFromGitHub
+, wakatime
 }:
 stdenv.mkDerivation rec {
   name = "bash-prompt";
   src = fetchFromGitHub {
     owner = "Freed-Wu";
     repo = name;
-    rev = "5efa0f4c283579bb5bd35d568ba338729b764cc8";
-    hash = "sha256-aL3O35Hq8Jr0hMM3da95hxTalPmxIExajbf22LsuUC0=";
+    rev = "d472bce2ca0593a45c99c7362b4d587a016b5d51";
+    hash = "sha256-M+o6N9+KW6hy+0SY5hH3qcJ8Q4Lcw73wrrlpi9FfQ54=";
   };
 
-  buildInputs = [ zsh-powerlevel10k ];
+  buildInputs = [ zsh-powerlevel10k wakatime ];
 
   installPhase = ''
     install -Dm644 prompt.sh -t $out/share/bash-prompt

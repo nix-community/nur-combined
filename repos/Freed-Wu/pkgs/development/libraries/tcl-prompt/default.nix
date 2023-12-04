@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, tcl, tcllib, tclreadline, expect }:
+{ lib
+, fetchFromGitHub
+, tcl
+, tcllib
+, tclreadline
+, wakatime
+, expect
+}:
 
 tcl.mkTclDerivation rec {
   name = "tcl-prompt";
@@ -9,7 +16,7 @@ tcl.mkTclDerivation rec {
     hash = "sha256-R55o6Ezj2N2F8I3XObysJQN7dF+V0iopyU20Nz4Ln8I=";
   };
 
-  buildInputs = [ tclreadline tcllib expect ];
+  buildInputs = [ tclreadline tcllib expect wakatime ];
   installPhase = ''
     install -d $out/lib
     cp -r modules $out/lib/tcl-prompt
