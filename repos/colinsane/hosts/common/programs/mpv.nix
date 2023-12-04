@@ -30,8 +30,11 @@ in
         # 2023/08/29: fixes an error where mpv on moby launches with the message
         #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
         #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
-        # this is likely a regression for mpv 0.36.0.
-        # the actual error message *appears* to come from the mesa library, but it's tough to trace.
+        #
+        #   this is likely a regression for mpv 0.36.0.
+        #   the actual error message *appears* to come from the mesa library, but it's tough to trace.
+        #
+        #   TODO(2023/12/03): remove once mesa 23.3.1 lands: <https://github.com/NixOS/nixpkgs/pull/265740>
         #
         # backend compatibility (2023/10/22):
         # run with `--vo=help` to see a list of all output options.

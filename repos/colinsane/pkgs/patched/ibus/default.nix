@@ -42,7 +42,10 @@ in
 
   configureFlags = upstream.configureFlags ++ [
     "--enable-vala"
+    # fix "python version is too old"
+    "--with-python=${buildPackages.python3.interpreter}"
   ];
+  env.GLIB_COMPILE_RESOURCES="${lib.getDev buildPackages.glib}/bin/glib-compile-resources";
 
   # to debug:
   # makeFlags = upstream.makeFlags ++ [ "V=1" ];

@@ -37,11 +37,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1700905716,
-        "narHash": "sha256-w1vHn2MbGfdC+CrP3xLZ3scsI06N0iQLU7eTHIVEFGw=",
+        "lastModified": 1701568804,
+        "narHash": "sha256-iwr1fjOCvlirVL/xNvOTwY9kg3L/F3TC/7yh/QszaPI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "dfb95385d21475da10b63da74ae96d89ab352431",
+        "rev": "dc01248a9c946953ad4d438b0a626f5c987a93e4",
         "type": "github"
       },
       "original": {
@@ -53,11 +53,11 @@
     },
     "nixpkgs-unpatched": {
       "locked": {
-        "lastModified": 1701562848,
-        "narHash": "sha256-IiaXhzcKWcz9h3BylKS9iboy2o7h7Dj7S+24JRx1gJk=",
+        "lastModified": 1701649435,
+        "narHash": "sha256-ukR6TxhyNm2cLt5Ae4BErgwxtXpKU7kYGlvIWlhEduk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0616776a5e4072e9455e3966d1fce58feefa7a58",
+        "rev": "d90955124ff3af2d469bf10000b09b9d7dfc5240",
         "type": "github"
       },
       "original": {
@@ -83,11 +83,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1701518298,
-        "narHash": "sha256-5t8yqKe0oVusV4xgfA+wW58hQJXFMmq0mmaR1gKES+Y=",
+        "lastModified": 1701572436,
+        "narHash": "sha256-0anfOQqDend6kSuF8CmOSAZsiAS1nwOsin5VQukh6Q4=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "e19071f9958c8da4f4347d3d78790d97e98ba22f",
+        "rev": "8bca48cb9a12bbd8766f359ad00336924e91b7f7",
         "type": "github"
       },
       "original": {
@@ -119,11 +119,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1699515935,
-        "narHash": "sha256-cJIuVrYorhIzG5pRFZb+ZtaKhTFD92ThC42SaxvSe/E=",
+        "lastModified": 1701617166,
+        "narHash": "sha256-ieeb/m492TtuRp5UcgysWXwMG/cS6pmLgSBWZNYW2GI=",
         "ref": "refs/heads/master",
-        "rev": "8a4273489d945f21d7e0ca6aac952460c7d4c391",
-        "revCount": 216,
+        "rev": "f865fdd262e249bb1b829900f99cbb67f21a0365",
+        "revCount": 217,
         "type": "git",
         "url": "https://git.uninsane.org/colin/uninsane"
       },

@@ -74,6 +74,7 @@ in
     # without this some GUI apps fail: `DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory`
     # this is because they can't allocate enough video ram.
     # see related nixpkgs issue: <https://github.com/NixOS/nixpkgs/issues/260222>
+    # TODO(2023/12/03): remove once mesa 23.3.1 lands: <https://github.com/NixOS/nixpkgs/pull/265740>
     #
     # the default CMA seems to be 32M.
     # i was running fine with 256MB from 2022/07-ish through 2022/12-ish, but then the phone quit reliably coming back from sleep (phosh): maybe a memory leak?

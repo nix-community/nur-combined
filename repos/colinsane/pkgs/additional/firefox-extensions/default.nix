@@ -149,8 +149,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "@ublacklist";
       pname = "ublacklist";
       url = "https://github.com/iorate/ublacklist/releases/download/v${version}/ublacklist-v${version}-firefox.zip";
-      version = "8.3.8";
-      hash = "sha256-Q/ZsL92JSMkE0DxEGyDUL/+uAgezpn1BmSiyk4w+188=";
+      version = "8.4.0";
+      hash = "sha256-mZOSx+2Zyjap0EYPzqV8CrNZ4lobP13E8ei7zeHAn/M=";
     };
     ublock-origin = fetchVersionedAddon rec {
       extid = "uBlock0@raymondhill.net";
@@ -158,8 +158,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.54.1b1";
-      hash = "sha256-uvPJS5QFac+95WO0wSB0gsDJvpt+aDtahqzD0Jgu5Ac=";
+      version = "1.54.1b2";
+      hash = "sha256-rreQkUyo4UU+KC/52YTwRahigcuz/+xlRJdfzh7iSF8=";
     };
   };
 })).overrideScope (self: super:
