@@ -5,8 +5,8 @@ tcl.mkTclDerivation rec {
   src = fetchFromGitHub {
     owner = "Freed-Wu";
     repo = name;
-    rev = "d5d8b66f69837b1444b14a60018fd1c93af5a7be";
-    hash = "sha256-YG020qKd1hFou4ypI5tfm6mlQh9RqPqEdFEQ5sp6Bvo=";
+    rev = "bc29b670176c98a1d632cc520ded27eeb685cce4";
+    hash = "sha256-HBAhirOM024tNSLRbB1eXswm3CVNsKyupislXoz9Wpk=";
   };
 
   buildInputs = [ tclreadline tcllib expect ];
