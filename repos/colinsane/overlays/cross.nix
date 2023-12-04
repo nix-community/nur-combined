@@ -796,9 +796,6 @@ in with final; {
   #   # gobject-introspection  # this *should* work, if libgnome-games-support were to ship GIR bindings?
   # ] prev.gnome-2048;
 
-  # needs binfmt: "scangobj.py:execute_command:1293:WARNING:Running scanner failed: [Errno 8] Exec format error: './goa-scan', command: ./goa-scan"
-  gnome-online-accounts = needsBinfmt prev.gnome-online-accounts;
-
   gnome = prev.gnome.overrideScope' (self: super: {
     # dconf-editor = super.dconf-editor.override {
     #   # fails to fix original error
@@ -821,13 +818,25 @@ in with final; {
         "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
       ];
     });
-    evolution-data-server = needsBinfmt (super.evolution-data-server.overrideAttrs (upstream: {
+    evolution-data-server = super.evolution-data-server.overrideAttrs (upstream: {
       # 2023/08/01: upstreaming is blocked on libavif
-      # needs binfmt: tries to run the host glib-compile-schemas
-      # fixes aborts in "Performing Test _correct_iconv"
       cmakeFlags = upstream.cmakeFlags ++ [
         "-DCMAKE_CROSSCOMPILING_EMULATOR=${stdenv.hostPlatform.emulator buildPackages}"
+        "-DENABLE_TESTS=no"
+        "-DGETTEXT_MSGFMT_EXECUTABLE=${lib.getBin buildPackages.gettext}/bin/msgfmt"
+        "-DGETTEXT_MSGMERGE_EXECUTABLE=${lib.getBin buildPackages.gettext}/bin/msgmerge"
+        "-DGETTEXT_XGETTEXT_EXECUTABLE=${lib.getBin buildPackages.gettext}/bin/xgettext"
+        "-DGLIB_COMPILE_RESOURCES=${lib.getDev buildPackages.glib}/bin/glib-compile-resources"
+        "-DGLIB_COMPILE_SCHEMAS=${lib.getDev buildPackages.glib}/bin/glib-compile-schemas"
       ];
+      postPatch = (upstream.postPatch or "") + ''
+        substituteInPlace src/addressbook/libebook-contacts/CMakeLists.txt --replace \
+          'COMMAND ''${CMAKE_CURRENT_BINARY_DIR}/gen-western-table' \
+          'COMMAND ${stdenv.hostPlatform.emulator buildPackages} ''${CMAKE_CURRENT_BINARY_DIR}/gen-western-table' 
+        substituteInPlace src/camel/CMakeLists.txt --replace \
+          'COMMAND ''${CMAKE_CURRENT_BINARY_DIR}/camel-gen-tables' \
+          'COMMAND ${stdenv.hostPlatform.emulator buildPackages} ''${CMAKE_CURRENT_BINARY_DIR}/camel-gen-tables'
+      '';
       # N.B.: the deps are funky even without cross compiling.
       # upstream probably wants to replace pcre with pcre2, and maybe provide perl
       # nativeBuildInputs = upstream.nativeBuildInputs ++ [
@@ -840,7 +849,7 @@ in with final; {
       #   pcre2  # fixes: "Package 'libpcre2-8', required by 'glib-2.0', not found"
       #   mount  # fails to fix: "Package 'mount', required by 'gio-2.0', not found"
       # ];
-    }));
+    });
 
     # 2023/08/01: upstreaming is blocked on nautilus, gnome-user-share (apache-httpd, webp-pixbuf-loader)
     # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
@@ -919,6 +928,7 @@ in with final; {
         sed -i "s/disabled_plugins = \[\]/disabled_plugins = ['power']/" plugins/meson.build
       '';
     });
+
     # 2023/08/01: upstreaming is blocked on argyllcms, gnome-keyring, gnome-clocks, ibus, libavif, webp-pixbuf-loader (gnome-shell)
     # fixes: "gdbus-codegen not found or executable"
     # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
@@ -930,7 +940,8 @@ in with final; {
     # 2023/07/31: upstreaming is blocked on apache-httpd
     # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
     # gnome-user-share = addNativeInputs [ glib ] super.gnome-user-share;
-    mutter = needsBinfmt (super.mutter.overrideAttrs (orig: {
+
+    mutter = super.mutter.overrideAttrs (orig: {
       # 2023/07/31: upstreaming is blocked on argyllcms, libavif
       # N.B.: not all of this suitable to upstreaming, as-is.
       # mesa and xorgserver are removed here because they *themselves* don't build for `buildPackages` (temporarily: 2023/10/26)
@@ -942,7 +953,8 @@ in with final; {
       # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
       mesonFlags = lib.remove "-Ddocs=true" orig.mesonFlags;
       outputs = lib.remove "devdoc" orig.outputs;
-    }));
+      postInstall = lib.replaceStrings [ "${glib.dev}" ] [ "${buildPackages.glib.dev}" ] orig.postInstall;
+    });
     # nautilus = (
     #   # 2023/11/21: upstreaming is blocked on apache-httpd, webp-pixbuf-loader, qtsvg
     #   addInputs {
