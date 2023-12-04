@@ -102,7 +102,6 @@ in
     baidupcs-go = pkg ./uncategorized/baidupcs-go {};
     bepasty = pkg ./uncategorized/bepasty {};
     bilibili = pkg ./uncategorized/bilibili {};
-    bird-babel-rtt = throw "Babel RTT extension support is in official BIRD 2.14";
     bird-lg-go = pkg ./uncategorized/bird-lg-go {};
     bird-lgproxy-go = pkg ./uncategorized/bird-lgproxy-go {};
     boringssl-oqs = pkg ./uncategorized/boringssl-oqs {};
