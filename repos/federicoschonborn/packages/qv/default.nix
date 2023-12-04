@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     libtgd
     qtbase
     qtwayland
-    ];
+  ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "qv-(.*)" ]; };
 

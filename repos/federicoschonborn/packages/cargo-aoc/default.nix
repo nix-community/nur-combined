@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-aoc";
-  version = "0.3.4";
+  version = "0.3.7";
 
   src = fetchFromGitHub {
     owner = "gobanos";
     repo = "cargo-aoc";
     rev = version;
-    hash = "sha256-jKQRgO7vEkZgBdnaOHOXJdIN+UB0B1tbo7NxGjq48qQ=";
+    hash = "sha256-k9Lm91+Bk6EC8+KfEXhSs4ki385prZ6Vbs6W+18aZSI=";
   };
 
-  cargoHash = "sha256-d64WeMkGr+eW4bb+Xin4qe8fz+MlIJ2yigX9KwZMOJk=";
+  cargoHash = "sha256-DKP9YMbVojK7w5pkX/gok4PG6WUjhqUdvTwSir05d0s=";
 
   nativeBuildInputs = [
     pkg-config
