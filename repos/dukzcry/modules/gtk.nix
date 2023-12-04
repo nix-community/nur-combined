@@ -156,8 +156,27 @@ in
       environment.etc."xdg/gtk-3.0/settings.ini".text =
         toGtk3File { Settings = settings; };
 
-      # TODO: support Wayland/XSettings
-      # with next release https://github.com/NixOS/nixpkgs/pull/234615
+      programs.dconf.enable = lib.mkDefault true;
+      programs.dconf.profiles = {
+        user.databases = [
+          {
+            settings = {
+              "org/gnome/desktop/interface" =
+                optionalAttrs (cfg.font != null)
+                  { font-name = cfg.font.name; }
+                //
+                optionalAttrs (cfg.theme != null)
+                  { gtk-theme = cfg.theme.name; }
+                //
+                optionalAttrs (cfg.iconTheme != null)
+                  { icon-theme = cfg.iconTheme.name; }
+                //
+                optionalAttrs (cfg.cursorTheme != null)
+                  { cursor-theme = cfg.cursorTheme.name; };
+            };
+          }
+        ];
+      };
     })
 
     (mkIf cfg.gtk3noCsd {
