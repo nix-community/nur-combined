@@ -23,6 +23,7 @@ in {
   nodePackages = callPackages ./nodePackages;
   octasine = callPackage' ./octasine;
   osirus = callPackage' ./osirus;
+  powertab = callPackage' ./powertab;
   raze = callPackage' ./raze;
   satty = callPackage' ./satty;
   sheepshaver-bin = callPackage' ./sheepshaver-bin;
