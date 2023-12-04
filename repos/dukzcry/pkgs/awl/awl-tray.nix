@@ -1,4 +1,4 @@
-{ lib, stdenv, buildGoModule, callPackage, makeWrapper, gnome3, libappindicator }:
+{ lib, stdenv, buildGoModule, callPackage, makeWrapper, gnome3, xdg-utils }:
 
 let
   common = callPackage ./common.nix {};
@@ -10,16 +10,16 @@ in buildGoModule rec {
   buildInputs = [ makeWrapper ];
 
   preBuild = ''
-    touch embeds/wintun.dll
     cp -r ${common.awl_flutter} static
     cd cmd/awl-tray
   '';
 
   postInstall = ''
     wrapProgram $out/bin/awl-tray \
-      --prefix PATH ":" "${lib.makeBinPath [ gnome3.zenity ]}" \
-      --prefix LD_LIBRARY_PATH ":" "${lib.makeLibraryPath [ libappindicator ]}"
+      --prefix PATH ":" "${lib.makeBinPath [ xdg-utils ]}"
   '';
+
+  propagatedUserEnvPkgs = [ gnome3.zenity ];
 
   ldflags = [
     "-X github.com/anywherelan/awl/config.Version=v${version}"
