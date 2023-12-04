@@ -2320,7 +2320,7 @@
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org";
-        description = "FoxyProxy is an advanced proxy management tool that completely replaces Firefox's limited proxying capabilities. For a simpler tool and less advanced configuration options, please use FoxyProxy Basic.";
+        description = "FoxyProxy is an open-source, advanced proxy management tool that completely replaces Firefox's limited proxying capabilities. No paid accounts are necessary; bring your own proxies or buy from any vendor. The original proxy tool, since 2006.";
         license = licenses.gpl2;
         mozPermissions = [
           "browsingData"
