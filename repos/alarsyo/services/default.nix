@@ -8,6 +8,7 @@
     ./lohr.nix
     ./matrix.nix
     ./media.nix
+    ./microbin.nix
     ./miniflux.nix
     ./monitoring.nix
     ./navidrome.nix

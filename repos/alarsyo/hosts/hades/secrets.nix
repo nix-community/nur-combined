@@ -21,6 +21,8 @@
           owner = "matrix-synapse";
         };
 
+        "microbin/secret-config" = {};
+
         "miniflux/admin-credentials" = {};
 
         "nextcloud/admin-pass" = {

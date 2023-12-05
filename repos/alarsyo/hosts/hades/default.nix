@@ -76,6 +76,12 @@ in {
       secretConfigFile = config.age.secrets."matrix-synapse/secret-config".path;
     };
 
+    microbin = {
+      enable = true;
+      privatePort = 8088;
+      passwordFile = config.age.secrets."microbin/secret-config".path;
+    };
+
     miniflux = {
       enable = true;
       adminCredentialsFile = config.age.secrets."miniflux/admin-credentials".path;
