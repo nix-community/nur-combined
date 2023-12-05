@@ -61,7 +61,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Install Nix
-        uses: cachix/install-nix-action@6a9a9e84a173d90b3ffb42c5ddaf9ea033fad011
+        uses: cachix/install-nix-action@7ac1ec25491415c381d9b62f0657c7a028df52a7
         with:
           install_url: ${{ env.CI_NIX_INSTALL_URL }}
 
@@ -129,7 +129,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Install Nix
-        uses: cachix/install-nix-action@6a9a9e84a173d90b3ffb42c5ddaf9ea033fad011
+        uses: cachix/install-nix-action@7ac1ec25491415c381d9b62f0657c7a028df52a7
         with:
           install_url: ${{ env.CI_NIX_INSTALL_URL }}
 
