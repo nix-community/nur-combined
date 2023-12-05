@@ -17,6 +17,9 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.swaynotificationcenter;
+
+  mprisIconSize = 48;
+
   fbcli-wrapper = pkgs.writeShellApplication {
     name = "swaync-fbcli";
     runtimeInputs = [
@@ -134,6 +137,12 @@ in
           hash = "sha256-Y8fiZbAP9yGOVU3rOkZKO8TnPPlrGpINWYGaqeeNzF0=";
         })
       ];
+      postPatch = (upstream.postPatch or "") + ''
+        # XXX: this might actually be changing the DPI, not the scaling...
+        # in that case, it might be possible to do this in CSS
+        substituteInPlace src/controlCenter/widgets/mpris/mpris_player.ui \
+          --replace '96' '${builtins.toString mprisIconSize}'
+      '';
     }));
     suggestedPrograms = [ "feedbackd" ];
     fs.".config/swaync/style.css".symlink.text = ''
@@ -414,7 +423,7 @@ in
           clear-all-button = true;
         };
         mpris = {
-          image-size = 64;
+          image-size = mprisIconSize;
           image-radius = 8;
         };
         title = {
