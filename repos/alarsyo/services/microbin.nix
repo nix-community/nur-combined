@@ -44,6 +44,10 @@ in {
         MICROBIN_BIND = "127.0.0.1";
         MICROBIN_PUBLIC_PATH = "https://drop.${domain}/";
         MICROBIN_READONLY = true;
+        MICROBIN_ENABLE_BURN_AFTER = true;
+        MICROBIN_ENABLE_READONLY = true;
+        MICROBIN_HIGHLIGHTSYNTAX = true;
+        MICROBIN_PRIVATE = true;
         MICROBIN_THREADS = 2;
         MICROBIN_GC_DAYS = 0; # turn off GC
         MICROBIN_QR = true;
