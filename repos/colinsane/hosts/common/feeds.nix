@@ -93,6 +93,7 @@ let
     (fromDb "rss.art19.com/60-minutes" // pol)
     (fromDb "rss.art19.com/the-portal" // rat)  # Eric Weinstein
     (fromDb "seattlenice.buzzsprout.com" // pol)
+    (fromDb "srslywrong.com" // pol)
     (fromDb "sharkbytes.transistor.fm" // tech)  # Wireshark Podcast o_0
     (fromDb "sscpodcast.libsyn.com" // rat)  # Astral Codex Ten
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)  # Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)

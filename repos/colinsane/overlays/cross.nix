@@ -1124,15 +1124,13 @@ in with final; {
   #   inherit (emulated) stdenv;
   # };
 
-  # komikku = wrapGAppsHook4Fix prev.komikku;
-  # needs binfmt: "/nix/store/j3zw1jyl0zlv7dc2x4kipizv0n888vls-blueprint-compiler-0.10.0/bin/blueprint-compiler: line 22: import: not found"
-  komikku = needsBinfmt (prev.komikku.override {
-    blueprint-compiler = buildInQemu (blueprint-compiler.overrideAttrs (_: {
-      # default is to propagate gobject-introspection *as a buildInput*, when it's supposed to be native.
-      propagatedBuildInputs = [];
-      # "Namespace Gtk not available"
-      doCheck = false;
-    }));
+  komikku = prev.komikku.overrideAttrs (upstream: {
+    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace data/meson.build --replace \
+        "find_program('blueprint-compiler')" \
+        "'env', 'GI_TYPELIB_PATH=${buildPackages.gdk-pixbuf.out}/lib/girepository-1.0:${buildPackages.harfbuzz.out}/lib/girepository-1.0:${buildPackages.gtk4.out}/lib/girepository-1.0:${buildPackages.graphene}/lib/girepository-1.0:${buildPackages.libadwaita}/lib/girepository-1.0:${buildPackages.pango.out}/lib/girepository-1.0', find_program('blueprint-compiler')"
+    '';
   });
 
   # koreader = (prev.koreader.override {
@@ -2071,74 +2069,17 @@ in with final; {
   #   # 2023/07/27: upstreaming is blocked on p11-kit cross compilation
   #   mvToNativeInputs [ glib ] prev.sysprof
   # );
-  # tangram = rmNativeInputs [ gobject-introspection ] (
-  # tangram = mvToBuildInputs [ (dontCheck (useEmulatedStdenv blueprint-compiler)) ] (
-  #   addNativeInputs [ gjs ] (  # new error: "gi._error.GError: g-invoke-error-quark: Could not locate g_option_error_quark" loading glib
-  #     prev.tangram.override {
-  #       blueprint-compiler = dontCheck (useEmulatedStdenv blueprint-compiler);
-  #     }
-  #   )
-  # );
-  # tangram = (prev.tangram.override {
-  #   inherit (emulated) stdenv;
-  # }).overrideAttrs (upstream: {
-  #   nativeBuildInputs = (lib.remove blueprint-compiler upstream.nativeBuildInputs)++ [
-  #     # gjs
-  #   ];
-  #   buildInputs = upstream.buildInputs ++ [
-  #     (dontCheck (useEmulatedStdenv blueprint-compiler))
-  #   ];
-  # });
-  # tangram = prev.tangram.override {
-  #   gjs = emulated.gjs.overrideAttrs {
-  #     doCheck = false;  # tests time out
-  #   };
-  # };
-  # tangram = useEmulatedStdenv prev.tangram;
-  # tangram = addNativeInputs [ gjs ] (prev.tangram.override {
-  #   gjs = emulated.gjs.overrideAttrs {
-  #     doCheck = false;  # tests time out
-  #   };
-  # });
-  # tangram = prev.tangram.override {
-  #   inherit (emulated) stdenv;
-  #   gjs = emulated.gjs.overrideAttrs {
-  #     doCheck = false;  # tests time out
-  #   };
-  # };
-  # needs binfmt: "/build/source/src/../troll/gjspack/bin/gjspack: line 3: import: not found"
-  tangram = needsBinfmtOrQemu ((prev.tangram.override {
-    # N.B. blueprint-compiler is in nativeBuildInputs.
-    # the trick here is to force the aarch64 versions to be used during build (via emulation).
-    # blueprint-compiler override shared with flare-signal-nixified.
-    blueprint-compiler = buildInQemu (blueprint-compiler.overrideAttrs (_: {
-      # default is to propagate gobject-introspection *as a buildInput*, when it's supposed to be native.
-      propagatedBuildInputs = [];
-      # "Namespace Gtk not available"
-      doCheck = false;
-    }));
-    # blueprint-compiler = dontCheck emulated.blueprint-compiler;
-    # gjs = dontCheck emulated.gjs;
-    # gjs = dontCheck (mvToBuildInputs [ gobject-introspection ] (useEmulatedStdenv gjs));
-    # gjs = dontCheck (gjs.override {
-    #   inherit (emulated) stdenv gobject-introspection;
-    # });
-    # inherit (emulated) gobject-introspection;
-    # gobject-introspection = useEmulatedStdenv gobject-introspection;
-  }).overrideAttrs (upstream: {
+
+  tangram = prev.tangram.overrideAttrs (upstream: {
+    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
+    # additionally, gsjpack has a shebang for the host gjs. patchShebangs --build doesn't fix that: just manually specify the build gjs
     postPatch = (upstream.postPatch or "") + ''
       substituteInPlace src/meson.build \
-        --replace "find_program('gjs').full_path()" "'${gjs}/bin/gjs'"
+        --replace "find_program('gjs').full_path()" "'${gjs}/bin/gjs'" \
+        --replace "gjspack," "'env', 'GI_TYPELIB_PATH=${buildPackages.gdk-pixbuf.out}/lib/girepository-1.0:${buildPackages.harfbuzz.out}/lib/girepository-1.0:${buildPackages.gtk4.out}/lib/girepository-1.0:${buildPackages.graphene}/lib/girepository-1.0:${buildPackages.libadwaita}/lib/girepository-1.0:${buildPackages.pango.out}/lib/girepository-1.0', '${buildPackages.gjs}/bin/gjs', '-m', gjspack,"
+
     '';
-    # buildInputs = upstream.buildInputs ++ [ gobject-introspection ];
-    # nativeBuildInputs = lib.remove gobject-introspection upstream.nativeBuildInputs;
-  }));
-  # tangram = (mvToBuildInputs [ blueprint-compiler gobject-introspection ] prev.tangram).overrideAttrs (upstream: {
-  #   postPatch = (upstream.postPatch or "") + ''
-  #     substituteInPlace src/meson.build \
-  #       --replace "find_program('gjs').full_path()" "'${gjs}/bin/gjs'"
-  #   '';
-  # });
+  });
 
   # fixes "meson.build:425:23: ERROR: Program 'glib-compile-schemas' not found or not executable"
   # 2023/07/31: upstreaming is unblocked,implemented on servo
