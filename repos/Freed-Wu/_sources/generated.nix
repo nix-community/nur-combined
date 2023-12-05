@@ -49,10 +49,10 @@
   };
   repl-python-wakatime = {
     pname = "repl-python-wakatime";
-    version = "0.0.8";
+    version = "0.0.10";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/repl-python-wakatime/repl-python-wakatime-0.0.8.tar.gz";
-      sha256 = "sha256-cTpSyxzmKU005yFrHlejfdqw2a04Bkr054WdDxfKYLw=";
+      url = "https://pypi.org/packages/source/r/repl-python-wakatime/repl-python-wakatime-0.0.10.tar.gz";
+      sha256 = "sha256-bNJ6ZN3JWuwQ7CYRgEPtFG59GFiYJJ9Sb3QlxyhB/FE=";
     };
   };
   requirements-language-server = {
