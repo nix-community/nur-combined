@@ -1,28 +1,15 @@
 {
   lib,
-  buildPackages,
   fetchFromGitHub,
   buildGoModule,
   mkYarnPackage,
   fetchYarnDeps,
+  esbuild,
 }: let
   version = "1.33.0";
   srcHash = "sha256-kjiDAeYqPMjX197qK47Ond8TeqVeEX3D/9EQbX1Wvas=";
   yarnHash = "sha256-M+mrQhmwL1ufMzFduyXwcZTjMoK5hEU2I5YSTd16/MI=";
   rev = "v${version}";
-
-  esbuild_0_18_20 = buildPackages.esbuild.overrideAttrs (_: rec {
-    version = "0.18.20";
-
-    src = fetchFromGitHub {
-      owner = "evanw";
-      repo = "esbuild";
-      rev = "v${version}";
-      hash = "sha256-mED3h+mY+4H465m02ewFK/BgA1i/PQ+ksUNxBlgpUoI=";
-    };
-
-    vendorHash = "";
-  });
 
   common = {
     inherit version yarnHash;
@@ -47,7 +34,20 @@
       hash = common.yarnHash;
     };
 
-    ESBUILD_BINARY_PATH = lib.getExe esbuild_0_18_20;
+    ESBUILD_BINARY_PATH = "${lib.getExe (esbuild.override {
+      buildGoModule = args:
+        buildGoModule (args
+          // rec {
+            version = "1.33.0";
+            src = fetchFromGitHub {
+              owner = "evanw";
+              repo = "esbuild";
+              rev = "v${version}";
+              hash = "sha256-mED3h+mY+4H465m02ewFK/BgA1i/PQ+ksUNxBlgpUoI=";
+            };
+            vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+          });
+    })}";
 
     buildPhase = ''
       runHook preBuild
@@ -65,7 +65,7 @@
       runHook postInstall
     '';
 
-    # Do not attempt generating a tarball for woodpecker-frontend again.
+    # Do not attempt generating a tarball for autobrr-frontend again.
     doDist = false;
   };
 in

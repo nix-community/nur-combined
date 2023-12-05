@@ -16,8 +16,9 @@ jobs:
         cachixName:
           - pborzenkov
         nixPath:
-          - nixpkgs=channel:nixos-unstable-small
+          - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-23.11
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -32,7 +33,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v13
       with:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
