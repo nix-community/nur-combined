@@ -87,6 +87,7 @@ in {
         user = giteaUser;
         # FIXME: change database name to match 23.11 postgres changes around ensureDatabase
         createDatabase = false;
+        socket = "/run/postgresql";
       };
     };
 
