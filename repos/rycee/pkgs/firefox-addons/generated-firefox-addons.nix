@@ -1626,10 +1626,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "121.0.20231201.91738";
+      version = "121.0.20231204.92159";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4203102/deutsch_de_language_pack-121.0.20231201.91738.xpi";
-      sha256 = "000ef254b72ccfd2aec58ceb90b42dee533dca9316d11c157d00640146ac6bc6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204246/deutsch_de_language_pack-121.0.20231204.92159.xpi";
+      sha256 = "320600e746ae56c92544d48d95808f6dbaf0d08fc663a638452eddf46713db96";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2465,10 +2465,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "121.0.20231201.91738";
+      version = "121.0.20231204.92159";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4203103/francais_language_pack-121.0.20231201.91738.xpi";
-      sha256 = "750ed4b8bdc47609bb1d92fc54afc251128a0800a31469adcfbe83f4f79ef2d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204285/francais_language_pack-121.0.20231204.92159.xpi";
+      sha256 = "5566aa795827adca0bda44a3de8833a04ce2136ac6282d24f23386f0220040fe";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4267,10 +4267,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.408";
+      version = "4.443";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4193594/youtube_addon-4.408.xpi";
-      sha256 = "4f576920dd53caca002b5353f944ef3c3aecc3ce4a794693192ad9836936d246";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4201289/youtube_addon-4.443.xpi";
+      sha256 = "57d06c52c91808601fd3e12a9f9f9569fe2514ca9e341845d2fe836829ac2476";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -6098,10 +6098,10 @@
       };
     "markdownload" = buildFirefoxXpiAddon {
       pname = "markdownload";
-      version = "3.2.1";
+      version = "3.3.0";
       addonId = "{1c5e4c6f-5530-49a3-b216-31ce7d744db0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007848/markdownload-3.2.1.xpi";
-      sha256 = "9cb65bf5c48a38d43ca3b2c47b5f424c2d27eaca66f1d7d2473eddd9ea73f63f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204610/markdownload-3.3.0.xpi";
+      sha256 = "5b798144ede5534ffc46b9c8874970f064b224a635680c2d352b5364722d8214";
       meta = with lib;
       {
         homepage = "https://github.com/deathau/markdown-clipper";
@@ -8435,10 +8435,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.30";
+      version = "1.22.36";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4199006/single_file-1.22.30.xpi";
-      sha256 = "c4da791fffbde0ad98c37553ab98f0fe7877a2009b1bd36dbbb057e30d2c5480";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202975/single_file-1.22.36.xpi";
+      sha256 = "f6440ad7f86be09f80995ac41a2633fd13ab01b9af01fd6cc5aad4ad84299136";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -8614,10 +8614,10 @@
       };
     "startpage-private-search" = buildFirefoxXpiAddon {
       pname = "startpage-private-search";
-      version = "1.3.0";
+      version = "2.0.0";
       addonId = "{20fc2e06-e3e4-4b2b-812b-ab431220cada}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3421533/startpage_private_search-1.3.0.xpi";
-      sha256 = "e7b5500da81cd360336780bbc7c8e92c6044ede40b4bfbcbdb401ecf38e9b439";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4201157/startpage_private_search-2.0.0.xpi";
+      sha256 = "538f2d009651ab851c81902af875bcd82bd9505645c812d85da566beb8d4e3ed";
       meta = with lib;
       {
         description = "This extension protects users from being tracked while allowing them to search the web in complete private mode.";
@@ -9724,10 +9724,10 @@
       };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2023.11.28.36";
+      version = "2023.12.4.1333";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4201236/ublock_origin_lite-2023.11.28.36.xpi";
-      sha256 = "666eea5bdef9597a59f17af7a4ce016db8a17b4a2f79f0f2354b080d528940bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204523/ublock_origin_lite-2023.12.4.1333.xpi";
+      sha256 = "c94e127ae5a8388239f749abdadc19995f878bdd802d46b81413088a919a87e3";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
