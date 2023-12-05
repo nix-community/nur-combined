@@ -85,6 +85,8 @@ in {
         type = "postgres";
         # user needs to be the same as gitea user
         user = giteaUser;
+        # FIXME: change database name to match 23.11 postgres changes around ensureDatabase
+        createDatabase = false;
       };
     };
 
@@ -102,7 +104,7 @@ in {
     # NOTE: no need to use postgresql.ensureDatabases because the gitea module
     # takes care of this automatically
     services.postgresqlBackup = {
-      databases = ["gitea"];
+      databases = [config.services.gitea.database.name];
     };
 
     services.nginx = {
