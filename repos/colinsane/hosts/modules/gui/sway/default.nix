@@ -277,6 +277,7 @@ in
         # - org.freedesktop.impl.portal.ScreenCast
         # - org.freedesktop.impl.portal.Screenshot
         enable = true;
+        package = cfg.package;
         extraPackages = [];  # nixos adds swaylock, swayidle, foot, dmenu by default
         # extraOptions = [ "--debug" ];
         # "wrapGAppsHook wrapper to execute sway with required environment variables for GTK applications."
@@ -287,7 +288,6 @@ in
         # this sets XDG_CURRENT_DESKTOP=sway
         # and makes sure that sway is launched dbus-run-session.
         wrapperFeatures.base = true;
-        package = cfg.package;
       };
       programs.xwayland.enable = cfg.config.xwayland;
       # provide portals for:

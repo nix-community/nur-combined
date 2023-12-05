@@ -383,7 +383,12 @@ in
                 bindsym button2 kill
                 bindswitch lid:on exec sxmo_wm.sh dpms on
                 bindswitch lid:off exec sxmo_wm.sh dpms off
+
                 exec 'printf %s "$SWAYSOCK" > "$XDG_RUNTIME_DIR"/sxmo.swaysock'
+
+                # XXX(2023/12/04): this shouldn't be necessary, but without this Komikku fails to launch because XDG_SESSION_TYPE is unset
+
+                exec dbus-update-activation-environment --systemd XDG_SESSION_TYPE
                 exec_always ${sxmo_init}
               '';
           };
