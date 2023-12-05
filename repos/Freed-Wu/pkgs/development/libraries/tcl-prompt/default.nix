@@ -24,7 +24,7 @@ tcl.mkTclDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/Freed-Wu/tcl-prompt";
+    homepage = "https://github.com/wakatime/tcl-prompt";
     description = "Tcl plugin for powerlevel10k style prompt and WakaTime time tracking";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];

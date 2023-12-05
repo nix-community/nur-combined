@@ -5,18 +5,19 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Freed-Wu";
     repo = name;
-    rev = "db4e8965a1a9624a142d84e6c81e13a0057433a8";
-    hash = "sha256-gcxNV2OP2byas3EGaPpCPBgQPuy1Cp8eZW4rct+DxWc=";
+    rev = "b837d39b40c5f9cf4bacff547d2c9e35ddfcc80e";
+    hash = "sha256-ojqOXtCkhjko6tBaGAPB4XTIyFaVYFljCUJSdmLfkSY=";
   };
 
   buildInputs = [ gdb ];
   installPhase = ''
     install -D gdb-prompt -t $out/bin
+    install -Dm644 gdb-hook.py -t $out/share/gdb
   '';
 
   meta = with lib; {
     homepage = "https://github.com/Freed-Wu/gdb-prompt";
-    description = "A powerlevel10k-like prompt for gdb";
+    description = "GDB plugin for powerlevel10k style prompt and WakaTime time tracking";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
