@@ -37,9 +37,13 @@ in {
     # This user service makes sure the rbw-agent is started when the user
     # session launches.
     systemd.user.services.rbw = {
-      Unit.Description = "rbw agent autostart";
+      Unit = {
+        Description = "rbw agent autostart";
+        After = "graphical-session.target";
+        PartOf = "graphical-session.target";
+      };
 
-      Install.WantedBy = ["default.target"];
+      Install.WantedBy = ["graphical-session.target"];
 
       Service = {
         ExecStart = "${pkgs.rbw}/bin/rbw-agent";
