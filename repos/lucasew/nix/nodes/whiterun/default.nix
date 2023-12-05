@@ -113,11 +113,11 @@ in {
     settings = {
       search = {
         paths = [
-          "/storage/games/steam/steamapps/compatdata"
+          "/media/downloads/steam/steamapps/compatdata"
         ];
       };
       flatout-2 = {
-        installdir = [ "/storage/games/steam/steamapps/common/FlatOut2" ];
+        installdir = [ "/media/downloads/steam/steamapps/common/FlatOut2" ];
       };
     };
   };
