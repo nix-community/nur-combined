@@ -15,12 +15,13 @@ let
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       maxJobs = 4;
     }];
-    nix.extraOptions = ''
-      builders-use-substitutes = true
-    '';
     nix.distributedBuilds = true;
     nix.settings.substituters = [ "http://powerhorse:5000" ];
     nix.settings.trusted-public-keys = [ "powerhorse-1:d6cps6qy6UuAaTquP0RwSePLhrmzz9xFjk+rVlmP2sY=" ];
+    nix.extraOptions = ''
+      builders-use-substitutes = true
+      fallback = true
+    '';
   };
 in {
   inherit imports;
@@ -61,16 +62,9 @@ in {
         criticalPowerAction = "Hibernate";
       };
       services.logind.extraConfig = ''
-        HandlePowerKey=hibernate
+        HandlePowerKey=suspend
       '';
-      services.autosuspend = {
-        enable = true;
-        settings.idle_time = 0;
-        checks = {
-          XIdleTime.method = "logind";
-          ExternalCommand.command = "[ `cat /sys/class/power_supply/AC/online` == 1 ] && true";
-        };
-      };
+      programs.xss-lock.enable = true;
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       boot.kernelParams = [ "mitigations=off" ];
