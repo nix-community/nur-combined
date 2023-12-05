@@ -447,57 +447,76 @@ in
             event_name = eventName;
             inherit transitions;
           };
-          friendlyToBonsai = { timeout ? null, trigger ? null, power_pressed ? {}, power_released ? {}, voldown_pressed ? {}, voldown_released ? {}, volup_pressed ? {}, volup_released ? {} }@args:
+          friendlyToBonsai = { trigger ? null, terminal ? false, timeout ? {}, power_pressed ? {}, power_released ? {}, voldown_pressed ? {}, voldown_released ? {}, volup_pressed ? {}, volup_released ? {} }@args:
           if trigger != null then [
             (doExec trigger (friendlyToBonsai (builtins.removeAttrs args ["trigger"])))
-          ] else [
-            (lib.mkIf (timeout != null)        (onDelay (timeout.ms or 400) (friendlyToBonsai (builtins.removeAttrs timeout ["ms"]))))
-            (lib.mkIf (power_pressed != {})    (onEvent "power_pressed" (friendlyToBonsai power_pressed)))
-            (lib.mkIf (power_released != {})   (onEvent "power_released" (friendlyToBonsai power_released)))
-            (lib.mkIf (voldown_pressed != {})  (onEvent "voldown_pressed" (friendlyToBonsai voldown_pressed)))
-            (lib.mkIf (voldown_released != {}) (onEvent "voldown_released" (friendlyToBonsai voldown_released)))
-            (lib.mkIf (volup_pressed != {})    (onEvent "volup_pressed" (friendlyToBonsai volup_pressed)))
-            (lib.mkIf (volup_released != {})   (onEvent "volup_released" (friendlyToBonsai volup_released)))
-          ];
-          recurseVolUpDown = ttl: if ttl == 0 then {
-          } else {
-            voldown_pressed = {
-              trigger = "powerhold_voldown";
-              timeout.ms = 1000;
-              power_released = {};
-            } // recurseVolUpDown (ttl - 1);
+          ] else let
+            events = [ ]
+              ++ (lib.optional (timeout != {})          (onDelay (timeout.ms or 400) (friendlyToBonsai (builtins.removeAttrs timeout ["ms"]))))
+              ++ (lib.optional (power_pressed != {})    (onEvent "power_pressed" (friendlyToBonsai power_pressed)))
+              ++ (lib.optional (power_released != {})   (onEvent "power_released" (friendlyToBonsai power_released)))
+              ++ (lib.optional (voldown_pressed != {})  (onEvent "voldown_pressed" (friendlyToBonsai voldown_pressed)))
+              ++ (lib.optional (voldown_released != {}) (onEvent "voldown_released" (friendlyToBonsai voldown_released)))
+              ++ (lib.optional (volup_pressed != {})    (onEvent "volup_pressed" (friendlyToBonsai volup_pressed)))
+              ++ (lib.optional (volup_released != {})   (onEvent "volup_released" (friendlyToBonsai volup_released)))
+            ;
+            in assert terminal -> events == []; events;
 
-            volup_pressed = {
-              trigger = "powerhold_volup";
-              timeout.ms = 1000;
-              power_released = {};
-            } // recurseVolUpDown (ttl - 1);
+          # trigger ${button}_hold_N every `holdTime` ms until ${button} is released
+          recurseHold = button: { count ? 1, maxHolds ? 5, prefix ? "", holdTime ? 400, ... }@opts: lib.optionalAttrs (count <= maxHolds) {
+            "${button}_released".terminal = true;  # end the hold -> back to root state
+            timeout = {
+              ms = holdTime;
+              trigger = "${prefix}${button}_hold_${builtins.toString count}";
+            } // (recurseHold button (opts // { count = count+1; }));
+          };
+
+          # trigger volup_tap_N or voldown_tap_N on every tap.
+          # if a volume button is held, then switch into `recurseHold`'s handling instead
+          volumeActions = { count ? 1, maxTaps ? 5, prefix ? "", timeout ? 600, ... }@opts: lib.optionalAttrs (count != maxTaps) {
+            volup_pressed = (recurseHold "volup" opts) // {
+              volup_released = {
+                trigger = "${prefix}volup_tap_${builtins.toString count}";
+                timeout.ms = timeout;
+              } // (volumeActions (opts // { count = count+1; }));
+            };
+            voldown_pressed = (recurseHold "voldown" opts) // {
+              voldown_released = {
+                trigger = "${prefix}voldown_tap_${builtins.toString count}";
+                timeout.ms = timeout;
+              } // (volumeActions (opts // { count = count+1; }));
+            };
           };
         in friendlyToBonsai {
           # map sequences of "events" to an argument to pass to sxmo_hook_inputhandler.sh
 
-          # tap the power button N times to trigger N different actions
-          power_pressed.timeout.ms = 1200; # press w/o release. this is a long timeout because it's tied to the "kill window" action.
+          # map: power (short), power (short) x2, power (long)
+          power_pressed.timeout.ms = 1000; # press w/o release. this is a long timeout because it's tied to the "kill window" action.
           power_pressed.timeout.trigger = "powerhold";
           power_pressed.power_released.timeout.trigger = "powerbutton_one";
-          power_pressed.power_released.timeout.ms = 600;  # long timeout to make `powertoggle_*` easier
+          power_pressed.power_released.timeout.ms = 300;
           power_pressed.power_released.power_pressed.trigger = "powerbutton_two";
 
-          # power_pressed.power_released.power_released.timeout.trigger = "powerbutton_two";
-          # power_pressed.power_released.power_released.power_released.trigger = "powerbutton_three";
-
-          # tap power, then tap up/down after releasing it
-          power_pressed.power_released.voldown_pressed.trigger = "powertoggle_voldown";
-          power_pressed.power_released.volup_pressed.trigger = "powertoggle_volup";
-
-          # chording: hold power and then tap vol-up N times to adjust the volume by N increments.
-          # XXX: HOLDING POWER LIKE THIS IS RISKY. but the default hard-power-off is like 10s, so... i guess this works until it becomes a problem...?
-          power_pressed.voldown_pressed = (recurseVolUpDown 5).voldown_pressed;
-          power_pressed.volup_pressed = (recurseVolUpDown 5).volup_pressed;
-
-          # tap just one of the volume buttons.
-          voldown_pressed.trigger = "voldown_one";
-          volup_pressed.trigger = "volup_one";
+          # map: volume taps and holds
+          volup_pressed = (recurseHold "volup" {}) // {
+            # this either becomes volup_hold_* (via recurseHold, above) or:
+            # - a short volup_tap_1 followed by:
+            #   - a *finalized* volup_1 (i.e. end of action)
+            #   - more taps/holds, in which case we prefix it with `modal_<action>`
+            #     to denote that we very explicitly entered this state.
+            #
+            # it's clunky: i do it this way so that voldown can map to keyboard/terminal in unlock mode
+            #   but trigger media controls in screenoff
+            #   in a way which *still* allows media controls if explicitly entered into via a tap on volup first
+            volup_released = (volumeActions { prefix = "modal_"; }) // {
+              trigger = "volup_tap_1";
+              timeout.ms = 300;
+              timeout.trigger = "volup_1";
+            };
+          };
+          voldown_pressed = (volumeActions {}).voldown_pressed // {
+            trigger = "voldown_start";
+          };
         };
 
         # sxmo puts in /share/sxmo:

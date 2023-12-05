@@ -10,40 +10,41 @@
 # - bonsai mappings are static, so buttons can't benefit from non-compounding unless they're mapped accordingly for all lock states
 #   - this limitation could be removed, but with work
 #
-# proposed future design:
+# example of a design which considers these things:
 # - when unlocked:
-#   - volup-release   -> app menu
-#     - volup-hold    -> WM menu
-#   - voldown-release -> toggle keyboard
-#     - voldown-hold  -> terminal
-#   - pow-volup xN    -> volume up
-#   - pow-voldown xN  -> volume down
-#   - pow-x2          -> screen off
-#   - pow-hold -> kill app
-# - when screenoff:
-#   - volup    -> volume up
-#   - voldown  -> volume down
-#   - pow-x1   -> screen on
-#   - pow-x2   -> toggle player
-#   - pow-volup -> seek +30s
-#   - pow-voldown -> seek -10s
-# benefits:
-# - volup and voldown are able to be far more responsive
-#   - which means faster vkbd, menus, volume adjustment (when locked)
-# - less mental load than the chording-based approach (where i hold power to adjust volume)
-# - less risk due to not chording the power button
-# drawbacks:
-# - volup/down actions are triggered by the release instead of the press; slight additional latency for pulling open the keyboard
-#   - moving the WM menu into the top-level menu could allow keeping voldown free of complication
+#   - volup toggle  -> app menu
+#   - voldown press -> keyboard
+#   - voldown hold  -> terminal
+#   - power x2      -> screenoff
+#   - hold power    -> kill app
+# - when locked:
+#   - volup tap     -> volume up
+#   - volup hold    -> media seek forward
+#   - voldown tap   -> volume down
+#   - voldown hold  -> media seek backward
+#   - power x1      -> screen on
+#   - power x2      -> play/pause media
+# some trickiness allows for media controls in unlocked mode:
+#   - volup tap     -> enter media mode
+#     - i.e. in this state, vol tap/hold is mapped to volume/seek
+#     - if, after entering media mode, no more taps occur, then we trigger the default app-menu action
+# limitations/downsides:
+# - power mappings means phone is artificially slow to unlock.
+# - media controls when unlocked have quirks:
+#   - mashing voldown to decrease the volume will leave you with a toggled keyboard.
+#   - seeking backward isn't possible except by first tapping volup.
+
 
 # increments to use for volume adjustment
-VOL_INCR_1=5
-VOL_INCR_2=10
+VOL_INCR=5
 
 # replicating the naming from upstream sxmo_hook_inputhandler.sh...
 ACTION="$1"
 STATE=$(cat "$SXMO_STATE")
 
+noop() {
+  true
+}
 
 handle_with() {
   echo "sxmo_hook_inputhandler.sh: STATE=$STATE ACTION=$ACTION: handle_with: $@"
@@ -51,18 +52,6 @@ handle_with() {
   exit 0
 }
 
-# handle_with_state_toggle() {
-#   # - unlock,lock => screenoff
-#   # - screenoff => unlock
-#   #
-#   # probably not handling proximity* correctly here
-#   case "$STATE" in
-#     *lock)
-#       respond_with sxmo_state.sh set screenoff
-#     *)
-#       respond_with sxmo_state.sh set unlock
-#   esac
-# }
 
 # state is one of:
 # - "unlock" => normal operation; display on and touchscreen on
@@ -79,23 +68,32 @@ if [ "$STATE" = "unlock" ]; then
       handle_with sxmo_killwindow.sh
       ;;
 
-    "volup_one")
+    "volup_tap_1")
+      # swallow: this could be the start to a media control (multi taps / holds),
+      # or it could be just a single tap -> release, handled next/below
+      handle_with noop
+      ;;
+    "volup_1")
       # volume up once: app-specific menu w/ fallback to SXMO system menu
       handle_with sxmo_appmenu.sh
       ;;
 
-    "voldown_one")
+    "voldown_start")
       # volume down once: toggle keyboard
       handle_with sxmo_keyboard.sh toggle
       ;;
-
-    "powertoggle_volup")
-      # power -> volume up: DE menu
-      handle_with sxmo_wmmenu.sh
-      ;;
-    "powertoggle_voldown")
-      # power -> volume down: launch terminal
+    "voldown_hold_1")
+      # hold voldown to launch terminal
+      # note we already triggered the keyboard; that's fine: usually keyboard + terminal go together :)
       handle_with sxmo_terminal.sh
+      ;;
+    "voldown_tap_1")
+      # swallow, to prevent keyboard from also triggering media controls
+      handle_with noop
+      ;;
+    voldown_hold_*)
+      # swallow, to prevent terminal from also triggering media controls
+      handle_with noop
       ;;
   esac
 fi
@@ -109,14 +107,6 @@ if [ "$STATE" = "screenoff" ]; then
     "powerhold")
       # power toggle during deep sleep often gets misread as power hold, so treat same
       handle_with sxmo_state.sh set unlock
-      ;;
-    "powertoggle_volup"|"powerhold_volup")
-      # power -> volume up: seek forward
-      handle_with playerctl position 30+
-      ;;
-    "powertoggle_voldown"|"powerhold_voldown")
-      # power -> volume down: seek backward
-      handle_with playerctl position 10-
       ;;
   esac
 fi
@@ -133,21 +123,20 @@ case "$ACTION" in
     ;;
   # powerbutton_three: intentional no-op because overloading the kill-window handler is risky
 
-  "volup_one")
-    handle_with pactl set-sink-volume @DEFAULT_SINK@ +"$VOL_INCR_1%"
+  volup_tap*|modal_volup_tap*)
+    handle_with pactl set-sink-volume @DEFAULT_SINK@ +"$VOL_INCR%"
     ;;
-  "voldown_one")
-    handle_with pactl set-sink-volume @DEFAULT_SINK@ -"$VOL_INCR_1%"
+  voldown_tap*|modal_voldown_tap*)
+    handle_with pactl set-sink-volume @DEFAULT_SINK@ -"$VOL_INCR%"
     ;;
 
-  # HOLD power button and tap volup/down to adjust volume
-  "powerhold_volup")
-    handle_with pactl set-sink-volume @DEFAULT_SINK@ +"$VOL_INCR_1%"
+  volup_hold*|modal_volup_hold*)
+    handle_with playerctl position 30+
     ;;
-  "powerhold_voldown")
-    handle_with pactl set-sink-volume @DEFAULT_SINK@ -"$VOL_INCR_1%"
+  voldown_hold*|modal_voldown_hold*)
+    handle_with playerctl position 10-
     ;;
 esac
 
 
-handle_with echo "no-op"
+handle_with noop
