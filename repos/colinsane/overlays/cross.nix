@@ -683,7 +683,7 @@ in with final; {
   #     inherit (emulated) cargo meson rustc rustPlatform stdenv;
   #   };
   # };
-  # fractal-next = prev.fractal-next.overrideAttrs (upstream: {
+  # fractal = prev.fractal.overrideAttrs (upstream: {
   #   env = let
   #     inherit buildPackages stdenv rust;
   #     ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
@@ -696,6 +696,7 @@ in with final; {
   #   in {
   #     # taken from <pkgs/build-support/rust/hooks/default.nix>
   #     # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
+  #     # XXX: these aren't necessarily valid environment variables: the referenced nix file is more clever to get them to work.
   #     "CC_${rustBuildPlatform}" = "${ccForBuild}";
   #     "CXX_${rustBuildPlatform}" = "${cxxForBuild}";
   #     "CC_${rustTargetPlatform}" = "${ccForHost}";
@@ -722,7 +723,8 @@ in with final; {
   #   # patching gst-plugin-gtk4 to not build cdylib fixes the issue in the `fractal-nixified` variant of this package
   # });
 
-  # needs binfmt: "error[E0463]: can't find crate for `gettextrs`"
+  # needs binfmt: "error[E0463]: can't find crate for `gtk4`" (and others)
+  # maybe this needs binfmt only because its deps need binfmt?
   fractal-nixified = needsBinfmt prev.fractal-nixified;
 
   # 2023/07/31: upstreaming is unblocked -- if i can rework to not use emulation
