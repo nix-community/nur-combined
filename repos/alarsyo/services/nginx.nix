@@ -9,12 +9,19 @@
 }: let
   inherit
     (lib)
+    mkEnableOption
     mkIf
     ;
+
+  cfg = config.my.services.nginx;
 in {
+  options.my.services.nginx = {
+    enable = mkEnableOption "Nginx reverse proxy";
+  };
+
   # Whenever something defines an nginx vhost, ensure that nginx defaults are
   # properly set.
-  config = mkIf ((builtins.attrNames config.services.nginx.virtualHosts) != ["localhost"]) {
+  config = mkIf (cfg.enable) {
     services.nginx = {
       enable = true;
       statusPage = true; # For monitoring scraping.

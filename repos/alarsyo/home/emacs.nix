@@ -38,12 +38,13 @@ in {
       enable = true;
       # generate emacsclient desktop file
       client.enable = true;
+      socketActivation.enable = true;
     };
 
     programs.emacs = {
       enable = true;
       package = pkgs.emacsNativeComp;
-      extraPackages = epkgs: [epkgs.vterm epkgs.pdf-tools pkgs.lilypond];
+      extraPackages = epkgs: [epkgs.vterm epkgs.pdf-tools pkgs.lilypond epkgs.mu4e];
     };
   };
 }

@@ -92,6 +92,8 @@ in {
       adminpassFile = config.age.secrets."nextcloud/admin-pass".path;
     };
 
+    nginx.enable = true;
+
     paperless = {
       enable = true;
       port = 8085;
