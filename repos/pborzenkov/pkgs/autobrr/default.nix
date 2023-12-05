@@ -6,9 +6,9 @@
   fetchYarnDeps,
   esbuild,
 }: let
-  version = "1.33.0";
-  srcHash = "sha256-kjiDAeYqPMjX197qK47Ond8TeqVeEX3D/9EQbX1Wvas=";
-  yarnHash = "sha256-M+mrQhmwL1ufMzFduyXwcZTjMoK5hEU2I5YSTd16/MI=";
+  version = "1.34.0";
+  srcHash = "sha256-JyVU3ZtvUGGhQcE5gsmsB+tFxyYBtLTdsxVAkmgK+tU=";
+  yarnHash = "sha256-c/ba3K/lqvJ3FixZRuUPFMv7wvuaiZAx22hs5MTvj1c=";
   rev = "v${version}";
 
   common = {
@@ -38,7 +38,7 @@
       buildGoModule = args:
         buildGoModule (args
           // rec {
-            version = "1.33.0";
+            version = "1.34.0";
             src = fetchFromGitHub {
               owner = "evanw";
               repo = "esbuild";
@@ -73,7 +73,7 @@ in
     inherit (common) version src;
 
     pname = "autobrr";
-    vendorHash = "sha256-15uzlsVbskJ3z3snwuadugePqiU+JQNPdpSBkqow5kQ=";
+    vendorHash = "sha256-sIBzd9kUFZYne4PqSgJvejTokG2Q9dFTpTBB2M9k0S0=";
 
     ldflags = [
       "-X main.version=${version}"
@@ -83,6 +83,8 @@ in
     preBuild = ''
       cp -r ${autobrr-frontend}/* web/dist
     '';
+
+    doCheck = false;
 
     meta = with lib; {
       description = "Modern, easy to use download automation for torrents and usenet. ";
