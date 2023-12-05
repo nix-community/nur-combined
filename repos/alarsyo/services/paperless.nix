@@ -92,7 +92,7 @@ in {
       ensureUsers = [
         {
           name = "paperless";
-          ensurePermissions."DATABASE paperless" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
       ];
     };

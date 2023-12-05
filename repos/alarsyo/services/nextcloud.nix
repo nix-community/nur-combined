@@ -42,9 +42,7 @@ in {
       ensureUsers = [
         {
           name = "nextcloud";
-          ensurePermissions = {
-            "DATABASE ${dbName}" = "ALL PRIVILEGES";
-          };
+          ensureDBOwnership = true;
         }
       ];
     };
