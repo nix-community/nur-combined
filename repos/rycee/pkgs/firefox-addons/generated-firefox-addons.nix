@@ -2204,10 +2204,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.68";
+      version = "6.1.69";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4188371/flagfox-6.1.68.xpi";
-      sha256 = "47dcb6394a38a909dd1c8596ed8e8a4ddff745bebdbc2c5f78e5403b74bb38ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202613/flagfox-6.1.69.xpi";
+      sha256 = "76110aa0ffa225c3530013f372d7d2be6310f0783afa1e467a451571e207147b";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -2825,10 +2825,10 @@
       };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.1.2";
+      version = "2.1.3";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4183101/gitpod-2.1.2.xpi";
-      sha256 = "9344a8d4eea73bf4bdc3feb621c81d2f7de2520916a423063129a86e1d3418e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204829/gitpod-2.1.3.xpi";
+      sha256 = "0a41e94dcd05d879fa3dd7f54b3b8e73434dc508ce6b6d410c7d5418bb15804e";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -2841,12 +2841,13 @@
           };
         mozPermissions = [
           "storage"
-          "https://github.com/*"
+          "scripting"
           "contextMenus"
           "activeTab"
           "https://gitpod.io/*"
           "https://*.gitpod.cloud/*"
           "https://*.gitpod.dev/*"
+          "https://github.com/*"
           "https://gitlab.com/*"
           "https://bitbucket.org/*"
           ];
@@ -8697,10 +8698,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.7.8";
+      version = "3.7.9";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197171/steam_database-3.7.8.xpi";
-      sha256 = "99eba9f082bfc9d7a74d0d40ec5188af7c3b38490565e41b15e5319c849b840a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202136/steam_database-3.7.9.xpi";
+      sha256 = "87f93bee3c42c469da72d7fce76db7cecbe843875ea8f098ecafad06940a973b";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
