@@ -98,8 +98,7 @@ in
         --set QCEF_INSTALL_PATH "${libqcef}/lib/qcef" \
         --set QT_QPA_PLATFORM xcb \
         --set XDG_SESSION_TYPE x11 \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}" \
-        --add-flags "--ignore-certificate-errors"
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
     '';
 
     meta = {
