@@ -44,7 +44,7 @@ jobs:
     - name: support ape bins
       run: sudo sh -c "echo ':APE:M::MZqFpD::/bin/sh:' >/proc/sys/fs/binfmt_misc/register"
     - name: Install nix
-      uses: cachix/install-nix-action@v23
+      uses: cachix/install-nix-action@v24
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
@@ -53,7 +53,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v13
       # Don't replace <YOUR_CACHIX_NAME> here!
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
