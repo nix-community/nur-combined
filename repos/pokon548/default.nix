@@ -30,6 +30,7 @@
   flowtime = pkgs.callPackage ./pkgs/flowtime { };
 
   vaults = pkgs.callPackage ./pkgs/vaults { };
+  favagtk = pkgs.callPackage ./pkgs/favagtk { };
 
   smartdns-rules-adrules = pkgs.callPackage ./pkgs/smartdns-rules-adrules { };
   smartdns-rules-stevenblocks = pkgs.callPackage ./pkgs/smartdns-rules-stevenblocks { };
