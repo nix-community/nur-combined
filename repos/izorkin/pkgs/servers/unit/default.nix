@@ -13,9 +13,9 @@
 , withPerl534 ? false, perl534
 , withPerl536 ? true, perl536
 , withPerldevel ? false, perldevel
-, withRuby_3_0 ? true, ruby_3_0
 , withRuby_3_1 ? true, ruby_3_1
 , withRuby_3_2 ? false, ruby_3_2
+, withRuby_3_3 ? false, ruby_3_3
 , withSSL ? true, openssl ? null
 , withIPv6 ? true
 , withDebug ? false
@@ -25,13 +25,13 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "unit";
-  version = "1.30.0";
+  version = "1.31.1";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = pname;
     rev = "${version}";
-    hash = "sha256-QLTzlW1OsU+gwaPKozLcBKfuTXbYg1ONqTVZpGX6mrQ=";
+    hash = "sha256-6hecOCEC2MeJJieOOamEf8ytpEVAGs5mB0H16lJDciU=";
   };
 
   nativeBuildInputs = [ which ];
@@ -50,9 +50,9 @@ stdenv.mkDerivation rec {
     ++ optional withPerl534 perl534
     ++ optional withPerl536 perl536
     ++ optional withPerldevel perldevel
-    ++ optional withRuby_3_0 ruby_3_0
     ++ optional withRuby_3_1 ruby_3_1
     ++ optional withRuby_3_2 ruby_3_2
+    ++ optional withRuby_3_3 ruby_3_3
     ++ optional withSSL openssl;
 
   configureFlags = [
@@ -78,9 +78,9 @@ stdenv.mkDerivation rec {
     ${optionalString withPerl534    "./configure perl   --module=perl534  --perl=${perl534}/bin/perl"}
     ${optionalString withPerl536    "./configure perl   --module=perl536  --perl=${perl536}/bin/perl"}
     ${optionalString withPerldevel  "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}
-    ${optionalString withRuby_3_0   "./configure ruby   --module=ruby30   --ruby=${ruby_3_0}/bin/ruby"}
     ${optionalString withRuby_3_1   "./configure ruby   --module=ruby31   --ruby=${ruby_3_1}/bin/ruby"}
     ${optionalString withRuby_3_2   "./configure ruby   --module=ruby32   --ruby=${ruby_3_2}/bin/ruby"}
+    ${optionalString withRuby_3_3   "./configure ruby   --module=ruby33   --ruby=${ruby_3_3}/bin/ruby"}
   '';
 
   postInstall = ''

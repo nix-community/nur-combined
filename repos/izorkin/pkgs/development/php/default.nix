@@ -490,17 +490,17 @@ in {
   };
 
   php80 = generic {
-    version = "8.0.29";
-    sha256 = "sha256-k8I43fSJLsIppsjXzJoxmjUSWbwGJX3hkxxKyagz3ME=";
+    version = "8.0.30";
+    sha256 = "sha256-6urlbcYRG423jZt1+M6cQT1eFatgKQWBaQgwBKz1afY=";
   };
 
   php81 = generic {
-    version = "8.1.21";
-    sha256 = "sha256-L01cSJm6afyNkZ3rF4BceasSRhlRAKlADlIXasEZPb0=";
+    version = "8.1.25";
+    sha256 = "sha256-LaCaRUt7bZuEhAZp39vLS5sLSYyv3UkYO0haJ9ZP3H0=";
   };
 
   php82 = generic {
-    version = "8.2.8";
-    sha256 = "sha256-hpgt6pYJz0nGod3bWSarTzE32QubADWtQUloxbozwRQ=";
+    version = "8.2.13";
+    sha256 = "sha256-e4lU2yXdwOdv1gv7mdIXVtPpNsaL8QJ9pbVakinjTVk=";
   };
 }
