@@ -14,8 +14,27 @@ python3.pkgs.buildPythonApplication rec {
     repo = "ffsubsync";
     #rev = version;
     #hash = "sha256-Tlnw098ndO32GsRq3SQ0GpNdZl9WEPBsDOHZYl1BI8E=";
+
+    # FIXME how can the hash change with the same rev
+    /*
+      is the github archive endpoint non-deterministic?
+      did a hardware-defect cause some data-corruption?
+      this silent error would be no surprise
+      because the github archive endpoint is lossy
+      because it does not provide the raw commit object
+      so we cannot verify data by commit hash
+      see also
+      Nix sha256 is bug not feature. solution: a global /cas filesystem
+      https://discourse.nixos.org/t/nix-sha256-is-bug-not-feature-solution-a-global-cas-filesystem/15791
+    */
+    /*
+      error: hash mismatch in fixed-output derivation '/nix/store/p1ibf131ay7v673hjzlffarf50d6cjsk-source.drv':
+               specified: sha256-NWkxLyqvgct0v8xWxoaI3WTZLBqXC835zFBzWFqqlls=
+                  got:    sha256-3phxNKp3EpXzU8Fw9lCO8sWL949P41WtzYu9+Ty7ISc=
+    */
     rev = "7fd1885b00ff68eceef2f557c334bebdd30f7ae5";
-    hash = "sha256-NWkxLyqvgct0v8xWxoaI3WTZLBqXC835zFBzWFqqlls=";
+    #hash = "sha256-NWkxLyqvgct0v8xWxoaI3WTZLBqXC835zFBzWFqqlls=";
+    hash = "sha256-3phxNKp3EpXzU8Fw9lCO8sWL949P41WtzYu9+Ty7ISc=";
   };
 
   buildInputs = with python3.pkgs; [
