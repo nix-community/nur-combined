@@ -713,15 +713,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "91b38467ff3b53cffb54de587cf8a46a9fe371da";
+    version = "61ef3a2dc2ca61e8748472b7657b617cc3d81cfc";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "91b38467ff3b53cffb54de587cf8a46a9fe371da";
+      rev = "61ef3a2dc2ca61e8748472b7657b617cc3d81cfc";
       fetchSubmodules = false;
-      sha256 = "sha256-uO3XsdnaVfwFNG0cW/fjyRed4zB/CPITwfzjm/FI5UU=";
+      sha256 = "sha256-ahKMQWNEydCeUd0tBcLywY301r08hqIuzVad2Y/FyM8=";
     };
-    date = "2023-12-02";
+    date = "2023-12-05";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -891,15 +891,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "8f98f0d1c9176ce005ad76043db7f55096583675";
+    version = "1b626ad165fc19d5a4533ee40e998f9d95cb9277";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "8f98f0d1c9176ce005ad76043db7f55096583675";
+      rev = "1b626ad165fc19d5a4533ee40e998f9d95cb9277";
       fetchSubmodules = false;
-      sha256 = "sha256-ye4neNSmar42XYMKqZ9vqOR8hZjXYR/eSUkwQ7eScR4=";
+      sha256 = "sha256-BhYt6KIiU0CBOH6Vcxpybp04hAjF1NPLnZPysVZllEs=";
     };
-    date = "2023-12-03";
+    date = "2023-12-05";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -911,10 +911,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20231016";
+    version = "20231205";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231016.dict.yaml";
-      sha256 = "sha256-6KQL7Ef+EqK5RIw2r+qox2rmyhLg07H3tiXG3GIcO8w=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231205.dict.yaml";
+      sha256 = "sha256-n6fuwekBdjyRdSnlzq7vN/gpX20LAoctKsrJa+eh1u0=";
     };
   };
   route-chain = {
