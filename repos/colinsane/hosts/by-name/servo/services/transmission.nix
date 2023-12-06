@@ -39,9 +39,9 @@
     encryption = 2;
 
     # units in kBps
-    speed-limit-down = 3000;
+    speed-limit-down = 12000;
     speed-limit-down-enabled = true;
-    speed-limit-up = 600;
+    speed-limit-up = 800;
     speed-limit-up-enabled = true;
 
     # see: https://git.zknt.org/mirror/transmission/commit/cfce6e2e3a9b9d31a9dafedd0bdc8bf2cdb6e876?lang=bg-BG
