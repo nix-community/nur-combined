@@ -4,49 +4,50 @@
   sources,
   cmake,
   pkg-config,
-  qt5,
-  glib,
-  gtk2,
-  pango,
-  cairo,
-  at-spi2-atk,
-  fontconfig,
-  nss,
-  nspr,
-  expat,
-  xorg,
-  gnome2,
+  # Depedencies
   alsa-lib,
-  libpulseaudio,
+  at-spi2-atk,
+  cairo,
   cups,
+  expat,
+  fontconfig,
   gdk-pixbuf,
+  glib,
+  gnome2,
+  gtk2,
+  libpulseaudio,
+  nspr,
+  nss,
+  pango,
+  qt5,
+  xorg,
   ...
 } @ args: let
   libraries = [
-    glib
-    gtk2
-    pango
-    cairo
+    alsa-lib
     at-spi2-atk
-    fontconfig
-    nss
-    nspr
+    cairo
+    cups
     expat
+    fontconfig
+    gdk-pixbuf
+    glib
+    gnome2.GConf
+    gtk2
+    libpulseaudio
+    nspr
+    nss
+    pango
     xorg.libXcomposite
     xorg.libXcursor
     xorg.libXdamage
     xorg.libXext
     xorg.libXfixes
     xorg.libXi
-    xorg.libXrender
-    xorg.libXtst
     xorg.libXrandr
+    xorg.libXrender
     xorg.libXScrnSaver
-    gnome2.GConf
-    alsa-lib
-    libpulseaudio
-    cups
-    gdk-pixbuf
+    xorg.libXtst
   ];
 
   rpaths = lib.concatMapStringsSep " " (l: "-Wl,-rpath,${lib.getOutput "lib" l}/lib") libraries;
@@ -68,8 +69,6 @@ in
     ];
 
     dontWrapQtApps = true;
-
-    makeFlags = ["VERBOSE=1"];
 
     preConfigure = ''
       rm -rf cef
