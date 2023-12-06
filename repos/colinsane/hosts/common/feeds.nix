@@ -232,18 +232,18 @@ let
   ];
 
   videos = [
-    (fromDb "youtube.com/@TechnologyConnections" // tech)
-    (fromDb "youtube.com/@ContraPoints" // pol)
-    (fromDb "youtube.com/@hbomberguy")
     (fromDb "youtube.com/@Channel5YouTube" // pol)
-    (fromDb "youtube.com/@Vsauce")
-    (fromDb "youtube.com/@PolyMatter")
-    (fromDb "youtube.com/@Vihart")
-    (fromDb "youtube.com/@Vox")
     (fromDb "youtube.com/@ColdFusion")
+    (fromDb "youtube.com/@ContraPoints" // pol)
     (fromDb "youtube.com/@Exurb1a")
+    (fromDb "youtube.com/@PolyMatter")
+    (fromDb "youtube.com/@TechnologyConnections" // tech)
     (fromDb "youtube.com/@TheB1M")
     (fromDb "youtube.com/@TomScottGo")
+    (fromDb "youtube.com/@Vihart")
+    (fromDb "youtube.com/@Vox")
+    (fromDb "youtube.com/@Vsauce")
+    (fromDb "youtube.com/@hbomberguy")
   ];
 
   images = [
