@@ -48,7 +48,7 @@ python3Packages.buildPythonApplication rec {
     webkitgtk_6_0
   ];
 
-  propagatedBuildInputs = [ fava ];
+  propagatedBuildInputs = with python3Packages; [ pygobject3 ] ++ [ fava ];
 
   # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;
