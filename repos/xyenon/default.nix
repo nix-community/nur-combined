@@ -15,7 +15,7 @@ with pkgs; rec {
   hmModules = import ./hm-modules; # Home Manager modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  go-check = callPackage ./pkgs/go-check { buildGoModule = buildGo121Module; };
+  go-check = callPackage ./pkgs/go-check { };
   catp = callPackage ./pkgs/catp { };
   github-copilot-cli = callPackage ./pkgs/github-copilot-cli { };
   libkazv = callPackage ./pkgs/libkazv { };
