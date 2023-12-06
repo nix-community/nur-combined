@@ -1,0 +1,20 @@
+diff --git a/build.gradle b/build.gradle
+index 52e08db..f9d3d9d 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -14,7 +14,7 @@ def appName = 'MCA Selector'
+ def appUrl = 'https://github.com/Querz/mcaselector'
+ def appAuthor = 'Querz'
+ 
+-sourceCompatibility = 16
++sourceCompatibility = 17
+ 
+ idea {
+ 	module.downloadSources = true
+@@ -289,4 +289,4 @@ static String appendLicense(File f, String l) {
+ 				content
+ 	}
+ 	return l
+-}
+\ No newline at end of file
++}

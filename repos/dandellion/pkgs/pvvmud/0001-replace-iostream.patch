@@ -1,0 +1,858 @@
+diff --git a/client/coreclient/cligos.C b/client/coreclient/cligos.C
+index 87453eb..af51db6 100644
+--- a/client/coreclient/cligos.C
++++ b/client/coreclient/cligos.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "cligos.H"
+ #include "clisrvmanager.H"
+ #include "glgeometry.H"
+diff --git a/client/coreclient/clisrvmanager.C b/client/coreclient/clisrvmanager.C
+index da1bb79..dbeeb16 100644
+--- a/client/coreclient/clisrvmanager.C
++++ b/client/coreclient/clisrvmanager.C
+@@ -21,7 +21,7 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <dirent.h>
+-#include <iostream.h>
++#include <iostream>
+ #include <netinet/in.h>
+ #include "socket.H"
+ #include "clisrvmanager.H"
+diff --git a/client/coreclient/cliworldmanager.C b/client/coreclient/cliworldmanager.C
+index fbb35ef..daaf5da 100644
+--- a/client/coreclient/cliworldmanager.C
++++ b/client/coreclient/cliworldmanager.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "client.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "cliworldmanager.H"
+ #include "clisrvmanager.H"
+ #include "msgsrvcli.H"
+diff --git a/client/coreclient/cliworldmessage.C b/client/coreclient/cliworldmessage.C
+index 373a320..2e45d8c 100644
+--- a/client/coreclient/cliworldmessage.C
++++ b/client/coreclient/cliworldmessage.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "cliworldmessage.H"
+ #include "cliworldmanager.H"
+ 
+diff --git a/client/gui/gui.C b/client/gui/gui.C
+index ea02eec..a386e7f 100644
+--- a/client/gui/gui.C
++++ b/client/gui/gui.C
+@@ -17,7 +17,7 @@
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  *
+  */
+-#include <iostream.h>
++#include <iostream>
+ #include "pvvmud.H"
+ #include "gui.H"
+ 
+diff --git a/client/inputfunctionmap.C b/client/inputfunctionmap.C
+index 32007d8..d45b707 100644
+--- a/client/inputfunctionmap.C
++++ b/client/inputfunctionmap.C
+@@ -20,7 +20,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "client.H"
+ #include "inputfunctionmap.H"
+ 
+diff --git a/client/renderer/console.C b/client/renderer/console.C
+index e232c2e..491ed01 100644
+--- a/client/renderer/console.C
++++ b/client/renderer/console.C
+@@ -17,7 +17,7 @@
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  *
+  */
+-#include <iostream.h>
++#include <iostream>
+ #include <malloc.h>
+ #include <string.h>
+ #include "pvvmud.H"
+diff --git a/client/renderer/glconsole.C b/client/renderer/glconsole.C
+index 8e3f148..523faba 100644
+--- a/client/renderer/glconsole.C
++++ b/client/renderer/glconsole.C
+@@ -17,7 +17,7 @@
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  *
+  */
+-#include <iostream.h>
++#include <iostream>
+ #include "pvvmud.H"
+ #include "glconsole.H"
+ #include "pvvmudclient.H"
+diff --git a/client/renderer/glmaterial.C b/client/renderer/glmaterial.C
+index 7753301..000ffd2 100644
+--- a/client/renderer/glmaterial.C
++++ b/client/renderer/glmaterial.C
+@@ -20,7 +20,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <GL/gl.h>
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "pvvmud.H"
+ #include "glmaterial.H"
+diff --git a/client/renderer/glrenderer.C b/client/renderer/glrenderer.C
+index 6bfd54b..c1b1c16 100644
+--- a/client/renderer/glrenderer.C
++++ b/client/renderer/glrenderer.C
+@@ -17,7 +17,7 @@
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  *
+  */
+-#include <iostream.h>
++#include <iostream>
+ #include "pvvmud.H"
+ #include "glrenderer.H"
+ #include "cliviewpoint.H"
+diff --git a/client/renderer/glsrvcliconsole.C b/client/renderer/glsrvcliconsole.C
+index 3e61b0f..4778562 100644
+--- a/client/renderer/glsrvcliconsole.C
++++ b/client/renderer/glsrvcliconsole.C
+@@ -17,7 +17,7 @@
+  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  *
+  */
+-#include <iostream.h>
++#include <iostream>
+ #include "pvvmud.H"
+ #include "glsrvcliconsole.H"
+ #include "pvvmudclient.H"
+diff --git a/client/stdinput.C b/client/stdinput.C
+index d31c9da..479adbb 100644
+--- a/client/stdinput.C
++++ b/client/stdinput.C
+@@ -19,7 +19,7 @@
+  */
+ #include "stdinput.H"
+ #include <malloc.h>
+-#include <iostream.h>
++#include <iostream>
+ //  Setter standard bufferstørrelse
+ CStdInput::CStdInput() {
+   m_bufsize = m_BUFFERSIZE = 20;  //  Standard bufferstørrelse er 20 tegn
+diff --git a/common/include/bbox.H b/common/include/bbox.H
+index 2cddc36..42f6239 100644
+--- a/common/include/bbox.H
++++ b/common/include/bbox.H
+@@ -20,7 +20,7 @@
+ #ifndef _BBOX_H
+ #define _BBOX_H
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "object.H"
+ #include "position.H"
+ #include "vector.H"
+diff --git a/common/include/direction.H b/common/include/direction.H
+index 4087f1c..f9c3026 100644
+--- a/common/include/direction.H
++++ b/common/include/direction.H
+@@ -21,7 +21,7 @@
+ #define _DIRECTION_H
+ 
+ #include "object.H"
+-#include <iostream.h>
++#include <iostream>
+ 
+ class CDirection: public CObject {
+ 
+diff --git a/common/include/doublearray.H b/common/include/doublearray.H
+index bfb4f65..6dbedf1 100644
+--- a/common/include/doublearray.H
++++ b/common/include/doublearray.H
+@@ -20,7 +20,7 @@
+ #ifndef _DOUBLEARRAY_H
+ #define _DOUBLEARRAY_H
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ class CDoubleArray {
+   int m_size;
+diff --git a/common/include/exception.H b/common/include/exception.H
+index 22be86f..e0eead2 100644
+--- a/common/include/exception.H
++++ b/common/include/exception.H
+@@ -21,7 +21,7 @@
+ #define _EXCEPTION_H
+ 
+ #include "object.H"
+-#include <iostream.h>
++#include <iostream>
+ 
+ class CException : public CObject {
+ public:
+diff --git a/common/include/matrix.H b/common/include/matrix.H
+index 46b9b5c..cb3e73a 100644
+--- a/common/include/matrix.H
++++ b/common/include/matrix.H
+@@ -23,7 +23,7 @@
+ #include "object.H"
+ #include "direction.H"
+ #include "position.H"
+-#include <iostream.h>
++#include <iostream>
+ 
+ class CVector;
+ 
+diff --git a/common/include/plane.H b/common/include/plane.H
+index de47ae7..370bc63 100644
+--- a/common/include/plane.H
++++ b/common/include/plane.H
+@@ -21,7 +21,7 @@
+ #define _PLANE_H
+ 
+ #include "object.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "vector.H"
+ #include "vertex.H"
+ 
+diff --git a/common/include/position.H b/common/include/position.H
+index 42225bc..12406fd 100644
+--- a/common/include/position.H
++++ b/common/include/position.H
+@@ -21,7 +21,7 @@
+ #define _POSITION_H
+ 
+ #include "object.H"
+-#include <iostream.h>
++#include <iostream>
+ 
+ class CPosition: public CObject {
+ 
+diff --git a/common/include/vector.H b/common/include/vector.H
+index bbf6014..c2e6c7d 100644
+--- a/common/include/vector.H
++++ b/common/include/vector.H
+@@ -21,7 +21,7 @@
+ #define _VECTOR_H
+ 
+ #include "object.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "matrix.H"
+ 
+ class CVertex;
+diff --git a/common/lib/geometry/readbog.C b/common/lib/geometry/readbog.C
+index fe0d9fa..508f24e 100644
+--- a/common/lib/geometry/readbog.C
++++ b/common/lib/geometry/readbog.C
+@@ -32,7 +32,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "geometry.H"
+ #include "bogfile.H"
+diff --git a/common/lib/geometry/readmat.C b/common/lib/geometry/readmat.C
+index 3b88e22..bca8eb8 100644
+--- a/common/lib/geometry/readmat.C
++++ b/common/lib/geometry/readmat.C
+@@ -19,7 +19,7 @@
+  */
+ #include <stdio.h>
+ #include <string.h>
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "pvvmud.H"
+ #include "material.H"
+diff --git a/common/lib/gos/gos.C b/common/lib/gos/gos.C
+index 681526b..f6f0289 100644
+--- a/common/lib/gos/gos.C
++++ b/common/lib/gos/gos.C
+@@ -20,7 +20,7 @@
+ #include "pvvmud.H"
+ #include <sys/types.h>
+ #include <netinet/in.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "gos.H"
+ #include "gosprotocol.H"
+ #include "gosmessage.H"
+diff --git a/common/lib/gos/gosmessage.C b/common/lib/gos/gosmessage.C
+index 02639c6..4678287 100644
+--- a/common/lib/gos/gosmessage.C
++++ b/common/lib/gos/gosmessage.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include <limits.h>
+ #include <stdio.h>
+ #include "gosmessage.H"
+diff --git a/common/lib/gos/msggos.C b/common/lib/gos/msggos.C
+index 16ff641..08b9917 100644
+--- a/common/lib/gos/msggos.C
++++ b/common/lib/gos/msggos.C
+@@ -19,7 +19,7 @@
+  */
+ #include "pvvmud.H"
+ #include <stdlib.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "msggos.H"
+ #include "texture.H"
+ 
+diff --git a/common/lib/srvcli/bsdtree.C b/common/lib/srvcli/bsdtree.C
+index 3973c85..9cbe7a3 100644
+--- a/common/lib/srvcli/bsdtree.C
++++ b/common/lib/srvcli/bsdtree.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include <stdio.h>
+ #include "bsdtree.H"
+ 
+diff --git a/common/lib/srvcli/communicate.C b/common/lib/srvcli/communicate.C
+index 0f1b3b6..bb302bb 100644
+--- a/common/lib/srvcli/communicate.C
++++ b/common/lib/srvcli/communicate.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "communicate.H"
+ 
+ // Debug switches
+diff --git a/common/lib/srvcli/inetaddress.C b/common/lib/srvcli/inetaddress.C
+index 32977ae..85a0216 100644
+--- a/common/lib/srvcli/inetaddress.C
++++ b/common/lib/srvcli/inetaddress.C
+@@ -26,7 +26,7 @@
+ #include <arpa/inet.h>
+ #include <netdb.h>
+ #include <stdio.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "inetaddress.H"
+ 
+ #ifndef INADDR_NONE
+diff --git a/common/lib/srvcli/manager.C b/common/lib/srvcli/manager.C
+index accf341..bc5a398 100644
+--- a/common/lib/srvcli/manager.C
++++ b/common/lib/srvcli/manager.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "manager.H"
+ #include "communicate.H"
+ 
+diff --git a/common/lib/srvcli/message.C b/common/lib/srvcli/message.C
+index 444aed7..d3c7c32 100644
+--- a/common/lib/srvcli/message.C
++++ b/common/lib/srvcli/message.C
+@@ -20,7 +20,7 @@
+ #include "pvvmud.H"
+ #include <stdlib.h>
+ #include <stdio.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "message.H"
+ 
+ #define WORD_MS_BYTE(w) (BYTE)( w >> 8 )
+diff --git a/common/lib/srvcli/messagelist.C b/common/lib/srvcli/messagelist.C
+index dcb830a..b68489d 100644
+--- a/common/lib/srvcli/messagelist.C
++++ b/common/lib/srvcli/messagelist.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "messagelist.H"
+ 
+ 
+diff --git a/common/lib/srvcli/stream.C b/common/lib/srvcli/stream.C
+index 2d5df2d..8bc32df 100644
+--- a/common/lib/srvcli/stream.C
++++ b/common/lib/srvcli/stream.C
+@@ -19,7 +19,7 @@
+  */
+ #include "pvvmud.H"
+ #include <unistd.h>
+-#include <iostream.h>
++#include <iostream>
+ #include <string.h>
+ #include <stdlib.h>
+ #include <errno.h>
+diff --git a/common/lib/srvcli/timekeeper.C b/common/lib/srvcli/timekeeper.C
+index d01fa62..64e8803 100644
+--- a/common/lib/srvcli/timekeeper.C
++++ b/common/lib/srvcli/timekeeper.C
+@@ -22,7 +22,7 @@
+ #include <stdlib.h>
+ #include <limits.h>
+ #include <sys/types.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "timekeeper.H"
+ #include "exception.H"
+ 
+diff --git a/common/lib/texture/load_rgb.C b/common/lib/texture/load_rgb.C
+index f2510d6..72fc10f 100644
+--- a/common/lib/texture/load_rgb.C
++++ b/common/lib/texture/load_rgb.C
+@@ -24,7 +24,7 @@
+ #include "texture.H"
+ #include "load_rgb.H"
+ #include "exception.H"
+-#include <iostream.h>
++#include <iostream>
+ 
+ #define IMAGIC      0x01da
+ #define IMAGIC_SWAP 0xda01
+diff --git a/common/lib/texture/load_tex.C b/common/lib/texture/load_tex.C
+index 4f87e88..d1ed2c4 100644
+--- a/common/lib/texture/load_tex.C
++++ b/common/lib/texture/load_tex.C
+@@ -21,7 +21,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <strings.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "texture.H"
+ #include "exception.H"
+ 
+diff --git a/common/lib/texture/save_tex.C b/common/lib/texture/save_tex.C
+index 578333a..2bb4ef3 100644
+--- a/common/lib/texture/save_tex.C
++++ b/common/lib/texture/save_tex.C
+@@ -21,7 +21,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <strings.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "texture.H"
+ #include "exception.H"
+ 
+diff --git a/common/lib/texture/texturemap.C b/common/lib/texture/texturemap.C
+index 2b15c5b..b63995e 100644
+--- a/common/lib/texture/texturemap.C
++++ b/common/lib/texture/texturemap.C
+@@ -21,7 +21,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <strings.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "texture.H"
+ #include "exception.H"
+ 
+diff --git a/common/lib/utils/doublearray.C b/common/lib/utils/doublearray.C
+index d085f77..a1659c3 100644
+--- a/common/lib/utils/doublearray.C
++++ b/common/lib/utils/doublearray.C
+@@ -19,7 +19,7 @@
+  */
+ #include "pvvmud.H"
+ #include <stdlib.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "doublearray.H"
+ 
+ CDoubleArray::CDoubleArray(){
+diff --git a/common/lib/utils/objectarray.C b/common/lib/utils/objectarray.C
+index 03b2f0c..634927f 100644
+--- a/common/lib/utils/objectarray.C
++++ b/common/lib/utils/objectarray.C
+@@ -19,7 +19,7 @@
+  */
+ #include "pvvmud.H"
+ #include <stdlib.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "objectarray.H"
+ 
+ CObjectArray::CObjectArray(){
+diff --git a/common/lib/utils/option.C b/common/lib/utils/option.C
+index 474e7ab..1d5bc95 100644
+--- a/common/lib/utils/option.C
++++ b/common/lib/utils/option.C
+@@ -25,7 +25,7 @@
+ #include "getopt.h"
+ #endif // _HAVE_GETOPT_LONG
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <string.h>
+ #include <stdlib.h>
+ 
+diff --git a/common/lib/utils/vector.C b/common/lib/utils/vector.C
+index 482a810..3c882ea 100644
+--- a/common/lib/utils/vector.C
++++ b/common/lib/utils/vector.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "vector.H"
+ #include "vertex.H"
+ 
+diff --git a/gos/buildgosdb.C b/gos/buildgosdb.C
+index b196fb7..44fff38 100644
+--- a/gos/buildgosdb.C
++++ b/gos/buildgosdb.C
+@@ -20,7 +20,7 @@
+ #include <sys/param.h>
+ #include <stdio.h>
+ #include <string.h>
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "pvvmud.H"
+ #include "geometry.H"
+diff --git a/gos/gos.C b/gos/gos.C
+index 72fec71..fce02b4 100644
+--- a/gos/gos.C
++++ b/gos/gos.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "socket.H"
+ #include "gos.H"
+ #include "gosmanager.H"
+diff --git a/gos/gosmanager.C b/gos/gosmanager.C
+index c27fe11..84b9a81 100644
+--- a/gos/gosmanager.C
++++ b/gos/gosmanager.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "gosmanager.H"
+ 
+ static int currGOSCliManagerId = 0;
+diff --git a/gos/gossrvmanager.C b/gos/gossrvmanager.C
+index 6b7a4b4..96d5562 100644
+--- a/gos/gossrvmanager.C
++++ b/gos/gossrvmanager.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "gossrvmanager.H"
+ #include "msgsrvgos.H"
+ #include "msgserver.H"
+diff --git a/gos/gossrvsocket.C b/gos/gossrvsocket.C
+index 1e8ef9f..1aa5190 100644
+--- a/gos/gossrvsocket.C
++++ b/gos/gossrvsocket.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "gos.H"
+ #include "gossrvsocket.H"
+ #include "gosprotocol.H"
+diff --git a/gos/gossrvsrvsocket.C b/gos/gossrvsrvsocket.C
+index 6907ffd..e718da1 100644
+--- a/gos/gossrvsrvsocket.C
++++ b/gos/gossrvsrvsocket.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "gos.H"
+ #include "gossrvsrvsocket.H"
+ #include "gossrvprotocol.H"
+diff --git a/server/driver/mud.C b/server/driver/mud.C
+index e3ff311..d6b874c 100644
+--- a/server/driver/mud.C
++++ b/server/driver/mud.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "server.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "mud.H"
+ //#include "cell.H"
+ //#include "area.H"
+diff --git a/server/driver/srvclimanager.C b/server/driver/srvclimanager.C
+index 873406b..669f648 100644
+--- a/server/driver/srvclimanager.C
++++ b/server/driver/srvclimanager.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "server.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "srvclimanager.H"
+ #include "srvcliprotocol.H"
+ #include "mud.H"
+diff --git a/server/driver/srvclimessage.C b/server/driver/srvclimessage.C
+index ad9d1a9..534d434 100644
+--- a/server/driver/srvclimessage.C
++++ b/server/driver/srvclimessage.C
+@@ -19,7 +19,7 @@
+  */
+ #include "server.H"
+ #include <stdlib.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "srvclimanager.H"
+ #include "msgsrvcli.H"
+ #include "msgmsg.H"
+diff --git a/server/driver/srvcliprotocol.C b/server/driver/srvcliprotocol.C
+index 646f84a..f0f09f8 100644
+--- a/server/driver/srvcliprotocol.C
++++ b/server/driver/srvcliprotocol.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "server.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "srvcliprotocol.H"
+ #include "msgmsg.H"
+ #include "srvclimessage.H"
+diff --git a/server/driver/srvclisrvsocket.C b/server/driver/srvclisrvsocket.C
+index 6927bb8..a490fb2 100644
+--- a/server/driver/srvclisrvsocket.C
++++ b/server/driver/srvclisrvsocket.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "srvclisrvsocket.H"
+ #include "srvclimanager.H"
+ #include "srvcliprotocol.H"
+diff --git a/server/driver/srvgosmanager.C b/server/driver/srvgosmanager.C
+index c5f3fb0..1ed229c 100644
+--- a/server/driver/srvgosmanager.C
++++ b/server/driver/srvgosmanager.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "srvgosmanager.H"
+ #include "mud.H"
+ 
+diff --git a/server/driver/srvgossrvsocket.C b/server/driver/srvgossrvsocket.C
+index 62effcd..0c3c695 100644
+--- a/server/driver/srvgossrvsocket.C
++++ b/server/driver/srvgossrvsocket.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "server.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "srvgossrvsocket.H"
+ #include "srvgosmanager.H"
+ #include "srvgosprotocol.H"
+diff --git a/server/driver/srvworldmanager.C b/server/driver/srvworldmanager.C
+index 4316b88..04b97dd 100644
+--- a/server/driver/srvworldmanager.C
++++ b/server/driver/srvworldmanager.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "srvworldmanager.H"
+ #include "mud.H"
+ 
+diff --git a/server/driver/srvworldsrvsocket.C b/server/driver/srvworldsrvsocket.C
+index 6195e14..dfdafbb 100644
+--- a/server/driver/srvworldsrvsocket.C
++++ b/server/driver/srvworldsrvsocket.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "server.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "srvworldsrvsocket.H"
+ #include "srvworldmanager.H"
+ #include "srvworldprotocol.H"
+diff --git a/server/mudpvvmud.C b/server/mudpvvmud.C
+index 99cfc7b..ac31d9f 100644
+--- a/server/mudpvvmud.C
++++ b/server/mudpvvmud.C
+@@ -19,7 +19,7 @@
+  */
+ #include "pvvmud.H"
+ #include "mudpvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "srvobject.H"
+ 
+ CMudPVVMud::CMudPVVMud(COption *option):CMud(option){
+diff --git a/server/player.C b/server/player.C
+index b0b1e07..f749c46 100644
+--- a/server/player.C
++++ b/server/player.C
+@@ -19,7 +19,7 @@
+  */
+ #include "server.H"
+ #include <math.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "player.H"
+ #include "srvclimanager.H"
+ 
+diff --git a/server/pvvmudsrv.C b/server/pvvmudsrv.C
+index 51e8779..c8c39f1 100644
+--- a/server/pvvmudsrv.C
++++ b/server/pvvmudsrv.C
+@@ -20,7 +20,7 @@
+ #include "server.H"
+ #include <signal.h>
+ #include <sys/time.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "mudpvvmud.H"
+ #include "option.H"
+ 
+diff --git a/util/getgos/getgos_main.C b/util/getgos/getgos_main.C
+index 8192555..b35d3ca 100644
+--- a/util/getgos/getgos_main.C
++++ b/util/getgos/getgos_main.C
+@@ -19,7 +19,7 @@
+  */
+ #include "pvvmud.H"
+ #include <signal.h>
+-#include <iostream.h>
++#include <iostream>
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include "getgos.H"
+diff --git a/worldsrv/worldclimanager.C b/worldsrv/worldclimanager.C
+index c040e69..fc373a3 100644
+--- a/worldsrv/worldclimanager.C
++++ b/worldsrv/worldclimanager.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "worldclimanager.H"
+ 
+ static int currGOSCliManagerId = 0;
+diff --git a/worldsrv/worldclimessage.C b/worldsrv/worldclimessage.C
+index 387d770..bf77b06 100644
+--- a/worldsrv/worldclimessage.C
++++ b/worldsrv/worldclimessage.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "worldclimessage.H"
+ #include "worldclimanager.H"
+ 
+diff --git a/worldsrv/worldclisrvsocket.C b/worldsrv/worldclisrvsocket.C
+index 1c5da74..d6e6481 100644
+--- a/worldsrv/worldclisrvsocket.C
++++ b/worldsrv/worldclisrvsocket.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "worldsrv.H"
+ #include "worldclisrvsocket.H"
+ #include "worldcliprotocol.H"
+diff --git a/worldsrv/worldsrv.C b/worldsrv/worldsrv.C
+index 8624874..815aec6 100644
+--- a/worldsrv/worldsrv.C
++++ b/worldsrv/worldsrv.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include <time.h>
+ #include <sys/time.h>
+ #include <unistd.h>
+diff --git a/worldsrv/worldsrv_main.C b/worldsrv/worldsrv_main.C
+index 4b889fb..105c718 100644
+--- a/worldsrv/worldsrv_main.C
++++ b/worldsrv/worldsrv_main.C
+@@ -19,7 +19,7 @@
+  */
+ #include "pvvmud.H"
+ #include <signal.h>
+-#include <iostream.h>
++#include <iostream>
+ #include "worldsrv.H"
+ #include "option.H"
+ 
+diff --git a/worldsrv/worldsrvsrvsocket.C b/worldsrv/worldsrvsrvsocket.C
+index 5df1722..a2d0dc9 100644
+--- a/worldsrv/worldsrvsrvsocket.C
++++ b/worldsrv/worldsrvsrvsocket.C
+@@ -18,7 +18,7 @@
+  *
+  */
+ #include "pvvmud.H"
+-#include <iostream.h>
++#include <iostream>
+ #include "worldsrv.H"
+ #include "worldsrvsrvsocket.H"
+ #include "worldsrvprotocol.H"
