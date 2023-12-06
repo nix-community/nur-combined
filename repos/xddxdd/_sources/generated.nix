@@ -152,6 +152,18 @@
       sha256 = "sha256-aMnvs0CrMJic2JoZoXPEWHLTPthd0CZ0+K8It3SMvHc=";
     };
   };
+  cef-binary = {
+    pname = "cef-binary";
+    version = "fecf00339545d2819224333cc506d5aa22ae8008";
+    src = fetchFromGitHub {
+      owner = "martyr-deepin";
+      repo = "cef-binary";
+      rev = "fecf00339545d2819224333cc506d5aa22ae8008";
+      fetchSubmodules = false;
+      sha256 = "sha256-lsis37fB+cJJbM3I9GCJpYMYdZaXx2YhBu34yA77IRo=";
+    };
+    date = "2019-02-18";
+  };
   chromium-oqs-bin = {
     pname = "chromium-oqs-bin";
     version = "0.7.2";
@@ -471,6 +483,18 @@
       sha256 = "sha256-ra/1t4wQCfcC06X10uHAY+osYtnZ2LSetaMM6Z9hi3g=";
     };
     date = "2023-11-07";
+  };
+  libqcef = {
+    pname = "libqcef";
+    version = "ff3448cb3f86f42946d4c9eb01ccaa994f174fe0";
+    src = fetchFromGitHub {
+      owner = "martyr-deepin";
+      repo = "qcef";
+      rev = "ff3448cb3f86f42946d4c9eb01ccaa994f174fe0";
+      fetchSubmodules = false;
+      sha256 = "sha256-0/Frqx7s9GEYbhLMsIPE64g6Yg4MIACvH5IPGJwaQ5E=";
+    };
+    date = "2019-11-23";
   };
   librime-charcode = {
     pname = "librime-charcode";

@@ -58,6 +58,10 @@ fetch.github = "open-quantum-safe/boringssl"
 src.github = "seblucas/cops"
 fetch.url = "https://github.com/seblucas/cops/releases/download/$ver/cops-$ver.zip"
 
+[cef-binary]
+src.git = "https://github.com/martyr-deepin/cef-binary.git"
+fetch.github = "martyr-deepin/cef-binary"
+
 [chromium-oqs-bin]
 # src.github = "open-quantum-safe/oqs-demos"
 src.manual = "0.7.2"
@@ -310,6 +314,10 @@ fetch.github = "pterodactyl/wings"
 [qbittorrent-enhanced-edition]
 src.github = "c0re100/qBittorrent-Enhanced-Edition"
 fetch.github = "c0re100/qBittorrent-Enhanced-Edition"
+
+[libqcef]
+src.git = "https://github.com/martyr-deepin/qcef.git"
+fetch.github = "martyr-deepin/qcef"
 
 [qemu-user-static-amd64]
 src.webpage = "https://packages.debian.org/sid/amd64/qemu-user-static/download"

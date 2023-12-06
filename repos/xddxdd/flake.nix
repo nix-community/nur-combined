@@ -94,6 +94,7 @@
             '';
 
             trace = ''
+              rm -rf trace.txt*
               strace -ff --trace=%file -o trace.txt "$@"
             '';
 

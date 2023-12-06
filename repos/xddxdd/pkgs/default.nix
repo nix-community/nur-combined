@@ -143,6 +143,7 @@ in
     libnftnl-fullcone = pkg ./uncategorized/libnftnl-fullcone {};
     liboqs = pkg ./uncategorized/liboqs {};
     netboot-xyz = pkg ./uncategorized/netboot-xyz {};
+    netease-cloud-music = pkg ./uncategorized/netease-cloud-music {};
     netns-exec = pkg ./uncategorized/netns-exec {};
     nftables-fullcone = pkg ./uncategorized/nftables-fullcone {};
     noise-suppression-for-voice = pkg ./uncategorized/noise-suppression-for-voice {};
@@ -160,6 +161,7 @@ in
     pterodactyl-wings = pkg ./uncategorized/pterodactyl-wings {};
     qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition {};
     qbittorrent-enhanced-edition-nox = pkg ./uncategorized/qbittorrent-enhanced-edition/nox.nix {};
+    libqcef = pkg ./uncategorized/libqcef {};
     qemu-user-static = pkg ./uncategorized/qemu-user-static {};
     qq = pkg ./uncategorized/qq {};
     qqmusic = pkg ./uncategorized/qqmusic {};
