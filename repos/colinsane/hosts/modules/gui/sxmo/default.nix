@@ -612,11 +612,7 @@ in
         ];
 
         sane.user.services = let
-          sxmoPath = [
-            "/etc/profiles/per-user/colin"  # so as to launch user-enabled applications (like g4music, etc)
-            "/run/wrappers"  # for doas, and anything else suid
-            "/run/current-system/sw"  # for things installed system-wide, especially flock
-          ] ++ [ package ] ++ package.runtimeDeps;
+          sxmoPath = [ package ] ++ package.runtimeDeps;
           sxmoEnvSetup = ''
             # mimic my sxmo_init.sh a bit. refer to the actual sxmo_init.sh above for details.
             # the specific ordering, and the duplicated profile sourcing, matters.

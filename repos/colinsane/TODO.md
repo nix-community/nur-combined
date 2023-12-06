@@ -1,6 +1,5 @@
 ## BUGS
 - ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
-- Fractal opens links with non-preferred web browser
 - `nix` operations from lappy hang when `desko` is unreachable
   - could at least direct the cache to `http://desko-hn:5001`
 - waybar isn't visible on moby until after `swaymsg reload`

@@ -12,7 +12,7 @@ let
         default = "uncat";
       };
       format = mkOption {
-        type = types.enum [ "text" "image" "podcast" ];
+        type = types.enum [ "text" "image" "podcast" "video" ];
         default = "text";
       };
       title = mkOption {

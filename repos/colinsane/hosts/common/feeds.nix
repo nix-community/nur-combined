@@ -50,6 +50,8 @@ let
         else
           "infrequent"
       ));
+    } // lib.optionalAttrs (lib.hasPrefix "https://www.youtube.com/" raw.url) {
+      format = "video";
     } // lib.optionalAttrs (raw.is_podcast or false) {
       format = "podcast";
     } // lib.optionalAttrs (raw.title or "" != "") {
@@ -229,6 +231,21 @@ let
     # (mkText "https://github.com/Kaiteki-Fedi/Kaiteki/commits/master.atom" // tech // infrequent)
   ];
 
+  videos = [
+    (fromDb "youtube.com/@TechnologyConnections" // tech)
+    (fromDb "youtube.com/@ContraPoints" // pol)
+    (fromDb "youtube.com/@hbomberguy")
+    (fromDb "youtube.com/@Channel5YouTube" // pol)
+    (fromDb "youtube.com/@Vsauce")
+    (fromDb "youtube.com/@PolyMatter")
+    (fromDb "youtube.com/@Vihart")
+    (fromDb "youtube.com/@Vox")
+    (fromDb "youtube.com/@ColdFusion")
+    (fromDb "youtube.com/@Exurb1a")
+    (fromDb "youtube.com/@TheB1M")
+    (fromDb "youtube.com/@TomScottGo")
+  ];
+
   images = [
     (fromDb "smbc-comics.com" // img // humor)
     (fromDb "xkcd.com" // img // humor)
@@ -242,7 +259,7 @@ let
   ];
 in
 {
-  sane.feeds = texts ++ images ++ podcasts;
+  sane.feeds = texts ++ images ++ podcasts ++ videos;
 
   assertions = builtins.map
     (p: {

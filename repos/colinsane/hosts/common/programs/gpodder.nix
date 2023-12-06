@@ -5,7 +5,7 @@
 let
   feeds = sane-lib.feeds;
   all-feeds = config.sane.feeds;
-  wanted-feeds = feeds.filterByFormat ["podcast"] all-feeds;
+  wanted-feeds = feeds.filterByFormat [ "podcast" "video" ] all-feeds;
 in {
   sane.programs.gpodder = {
     package = pkgs.gpodder-adaptive-configured.overrideAttrs (base: {

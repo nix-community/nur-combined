@@ -77,6 +77,7 @@ in
     # "gnome.gnome-system-monitor"
     # "gnome.gnome-terminal"  # works on phosh
     "gnome.gnome-weather"
+    "gpodder"
     "gthumb"
     "gtkcord4"  # Discord client. 2023/11/21: disabled because v0.0.12 leaks memory
     "lemoa"  # lemmy app
@@ -108,7 +109,6 @@ in
     "chatty"  # matrix/xmpp/irc client
     "cozy"  # audiobook player
     "epiphany"  # gnome's web browser
-    "gpodder"
     "komikku"
     "koreader"
     "megapixels"  # camera app
