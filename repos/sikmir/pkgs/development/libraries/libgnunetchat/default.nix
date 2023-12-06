@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, cmake, meson, ninja, pkg-config, check
-, gnunet, libextractor, libgcrypt, libsodium
+{ lib
+, stdenv
+, fetchurl
+, cmake
+, meson
+, ninja
+, pkg-config
+, check
+, gnunet
+, libextractor
+, libgcrypt
+, libsodium
 }:
 
 stdenv.mkDerivation rec {

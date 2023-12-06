@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, cmake, meson, ninja, pkg-config
-, gnunet, libgcrypt, libgnunetchat, libsodium, ncurses
+{ lib
+, stdenv
+, fetchurl
+, cmake
+, meson
+, ninja
+, pkg-config
+, gnunet
+, libgcrypt
+, libgnunetchat
+, libsodium
+, ncurses
 }:
 
 stdenv.mkDerivation rec {

@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, cmake, meson, ninja, pkg-config, desktop-file-utils, desktopToDarwinBundle
-, gnunet, gst_all_1, gtk3, libgcrypt, libgnunetchat, libhandy, libnotify, libsodium, qrencode
+{ lib
+, stdenv
+, fetchurl
+, cmake
+, meson
+, ninja
+, pkg-config
+, desktop-file-utils
+, desktopToDarwinBundle
+, gnunet
+, gst_all_1
+, gtk3
+, libgcrypt
+, libgnunetchat
+, libhandy
+, libnotify
+, libsodium
+, qrencode
 }:
 
 stdenv.mkDerivation rec {
