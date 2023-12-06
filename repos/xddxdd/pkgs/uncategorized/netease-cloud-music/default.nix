@@ -57,6 +57,7 @@ let
     qt5.qtx11extras
     taglib
     udev
+    xorg.libX11
     xorg.libXcomposite
     xorg.libXcursor
     xorg.libXdamage
