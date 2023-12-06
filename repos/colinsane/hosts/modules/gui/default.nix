@@ -61,7 +61,7 @@ in
     "dino"  # XMPP client
     # "emote"
     "evince"  # works on phosh
-    # "flare-signal"  # gtk4 signal client
+    "flare-signal"  # gtk4 signal client
     # "foliate"  # e-book reader
     "fractal"  # matrix client
     "g4music"  # local music player

@@ -6,6 +6,7 @@
 { lib
 , appstream-glib
 , blueprint-compiler
+, buildPackages
 , defaultCrateOverrides
 , desktop-file-utils
 , fetchFromGitLab
@@ -28,6 +29,7 @@
 , stdenv
 , wrapGAppsHook4
 , writeText
+, crateOverrideFn ? x: x
 }:
 let
   extraCrateOverrides = {
@@ -37,7 +39,11 @@ let
         domain = "gitlab.com";
         owner = "schmiddi-on-mobile";
         repo = "flare";
+        rev = "0.10.1-beta.4";
+        hash = "sha256-SkHARJ4V8t4dXITH+V36RIfPrWL5Bdju1gahCS2aiWo=";
+
         # flare/Cargo.nix version compatibility:
+        # - flare 0.10.1-beta.5: errors with curve25519_dalek_backend stuff
         # - flare tip (49060eee): same errors as 0.10.1-beta.2
         # - flare 0.10.1-beta.2: requires gtk 4.11, not yet in nixpkgs
         #   - <https://github.com/NixOS/nixpkgs/pull/247766>
@@ -68,8 +74,8 @@ let
         # hash = "sha256-xkTM8Jeyb89ZUo2lFKNm8HlTe8BTlO/flZmENRfDEm4=";
         # rev = "0.10.1-beta.1";
         # hash = "sha256-nUR3jnbjMJvI3XbguFLz5yQL3SAXzLkdVwXyhcMeZoc=";
-        rev = "0.10.0";
-        hash = "sha256-+9zpYW9xjLe78c2GRL6raFDR5g+R/JWxQzU/ZS+5JtY=";
+        # rev = "0.10.0";
+        # hash = "sha256-+9zpYW9xjLe78c2GRL6raFDR5g+R/JWxQzU/ZS+5JtY=";
         # rev = "0.9.3";
         # hash = "sha256-bTR3Jzzy8dVdBJ4Mo2PYstEnNzBVwiWE8hRBnJ7pJSs=";
         # rev = "0.9.2";
@@ -191,18 +197,18 @@ let
       '';
       installPhase = "ninjaInstallPhase";
     };
+
     gdk-pixbuf-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ gdk-pixbuf ];
     };
-    gdk4-x11-sys = attrs: attrs // {
-      nativeBuildInputs = [ pkg-config ];
-      buildInputs = [ gtk4 ];  # depends on "gtk4_x11"
-    };
-
     gdk4-wayland-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ gtk4 ];  # depends on "gtk4_wayland"
+    };
+    gdk4-x11-sys = attrs: attrs // {
+      nativeBuildInputs = [ pkg-config ];
+      buildInputs = [ gtk4 ];  # depends on "gtk4_x11"
     };
     gio-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config ];
@@ -215,6 +221,13 @@ let
     libadwaita-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ libadwaita ];
+    };
+    ring = attrs: attrs // {
+      # CARGO_MANIFEST_LINKS = "ring_core_0_17_5";
+      postPatch = (attrs.postPatch or "") + ''
+        substituteInPlace build.rs --replace \
+          'links = std::env::var("CARGO_MANIFEST_LINKS").unwrap();' 'links = "ring_core_0_17_5".to_string();'
+      '';
     };
     sourceview5-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config ];
@@ -240,8 +253,24 @@ let
 
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
-
+    release = false;
     rootFeatures = [ ];  #< avoids --cfg feature="default", simplifying the rustc CLI so that i can pass it around easier
     defaultCrateOverrides = defaultCrateOverrides';
   };
-in cargoNix.workspaceMembers.flare.build
+  builtCrates = cargoNix.internal.builtRustCratesWithFeatures {
+    packageId = "flare";
+    features = [];
+    buildRustCrateForPkgsFunc = pkgs: crateArgs: let
+      crateDeriv = (pkgs.buildRustCrate.override {
+        defaultCrateOverrides = defaultCrateOverrides';
+      }) crateArgs;
+    in
+      crateOverrideFn crateDeriv;
+    crateConfigs = cargoNix.internal.crates;
+    runTests = false;
+  };
+in builtCrates.crates.flare.overrideAttrs (super: {
+  passthru = (super.passthru or {}) // {
+    inherit (builtCrates) crates;
+  };
+})

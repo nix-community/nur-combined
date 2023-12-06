@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -67,6 +67,11 @@
     # don’t shutdown when power button is short-pressed
     HandlePowerKey=ignore
   '';
+
+  # some packages build only if binfmt *isn't* present
+  nix.settings.system-features = lib.mkIf (config.boot.binfmt.emulatedSystems == []) [
+    "no-binfmt"
+  ];
 
   # services.snapper.configs = {
   #   root = {

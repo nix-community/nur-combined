@@ -46,6 +46,7 @@
 , writeText
 , xdg-desktop-portal
 , optimize ? true
+, crateOverrideFn ? x: x
 }:
 let mkConfigured = { optimize }:
 let
@@ -362,17 +363,15 @@ let
     defaultCrateOverrides = defaultCrateOverrides';
   };
 
-  # fractalDefault = cargoNix.workspaceMembers.fractal.build;
   builtCrates = cargoNix.internal.builtRustCratesWithFeatures {
     packageId = "fractal";
     features = [];
-    buildRustCrateForPkgsFunc = pkgs: crateArgs: (pkgs.buildRustCrate.override {
-      defaultCrateOverrides = defaultCrateOverrides';
-    }) (crateArgs // {
-      # this can be used to force a rebuild of every crate
-      # mostly useful to deal with impurities (i.e. binfmt when cross-compiling)
-      FRACTAL_BUILD_VERSION = 1;
-    });
+    buildRustCrateForPkgsFunc = pkgs: crateArgs: let
+      crateDeriv = (pkgs.buildRustCrate.override {
+        defaultCrateOverrides = defaultCrateOverrides';
+      }) crateArgs;
+    in
+      crateOverrideFn crateDeriv;
     crateConfigs = crate2NixOverrides cargoNix.internal.crates;
     runTests = false;
   };
@@ -382,6 +381,7 @@ in
     passthru = (super.passthru or {}) // {
       optimized = mkConfigured { optimize = true; };
       unoptimized = mkConfigured { optimize = false; };
+      inherit (builtCrates) crates;
     };
   });
 in

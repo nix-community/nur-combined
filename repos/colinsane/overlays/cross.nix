@@ -60,13 +60,17 @@ let
       pkg
     );
 
-  needsBinfmt = pkg: pkg.overrideAttrs (upstream: {
+  needsBinfmt = pkg: (pkg.overrideAttrs or (updater: pkg // (updater pkg))) (upstream: {
+    # weird signature to support passing *either* a package, or an ordinary attrset
     # "kvm" isn't precisely the right feature here.
     # but the effect is that if you build a `needsBinfmt` package with `-j0`,
     # then nix will try to find a builder that's been marked with `kvm` feature,
     # and i don't mark my non-binfmt builders with `kvm`, hence it's guaranteed to
     # be built on a binfmt-enabled builder (or not built, if no binfmt builders).
     requiredSystemFeatures = (upstream.requiredSystemFeatures or []) ++ [ "kvm" ];
+  });
+  cantBinfmt = pkg: (pkg.overrideAttrs or (updater: pkg // (updater pkg))) (upstream: {
+    requiredSystemFeatures = (upstream.requiredSystemFeatures or []) ++ [ "no-binfmt" ];
   });
 
   # such packages could build with `needsBinfmt` *or* `buildInQemu`.
@@ -442,6 +446,19 @@ in with final; {
   #   ];
   # });
 
+  # cinny = buildInQemu { overrides = {
+  #   buildNpmPackage = buildNpmPackage.override {
+  #     inherit (emulated) stdenv;
+  #     buildPackages = final.pkgsHostHost;
+  #   };
+  # }; } (prev.cinny.overrideAttrs (upstream: {
+  #   postPatch = ''
+  #     mkdir $TMP
+  #   '';
+  #   NIX_DEBUG = "6";
+  # }));
+  # cinny-desktop = needsBinfmt prev.cinny-desktop;
+
   # 2023/07/31: upstreaming is unblocked, implemented on servo
   # clapper = prev.clapper.overrideAttrs (upstream: {
   #   # use the host gjs (meson's find_program expects it to be executable)
@@ -498,36 +515,54 @@ in with final; {
   });
 
   # used for cargo2nix rust projects (e.g. fractal, flare)
-  defaultCrateOverrides = let
-    crateNeedsBinfmt = cname: {
-      "${cname}" = attrs: let
-        baseAttrs = (prev.defaultCrateOverrides."${cname}" or (a: a)) attrs;
-      in baseAttrs // {
-        requiredSystemFeatures = (baseAttrs.requiredSystemFeatures or []) ++ [ "kvm" ];
-      };
-    };
-  in prev.defaultCrateOverrides
-    // (crateNeedsBinfmt "gdk4")
-    // (crateNeedsBinfmt "gsk4")
-    // (crateNeedsBinfmt "gst-plugin-gtk4")
-    // (crateNeedsBinfmt "gstreamer")
-    // (crateNeedsBinfmt "gstreamer-audio")
-    // (crateNeedsBinfmt "gstreamer-audio-sys")
-    // (crateNeedsBinfmt "gstreamer-base")
-    // (crateNeedsBinfmt "gstreamer-base-sys")
-    // (crateNeedsBinfmt "gstreamer-pbutils")
-    // (crateNeedsBinfmt "gstreamer-pbutils-sys")
-    // (crateNeedsBinfmt "gstreamer-play")
-    // (crateNeedsBinfmt "gstreamer-play-sys")
-    // (crateNeedsBinfmt "gstreamer-sys")
-    // (crateNeedsBinfmt "gstreamer-video")
-    // (crateNeedsBinfmt "gstreamer-video-sys")
-    // (crateNeedsBinfmt "gtk4")
-    // (crateNeedsBinfmt "libadwaita")
-    // (crateNeedsBinfmt "libadwaita-sys")
-    // (crateNeedsBinfmt "libshumate")
-    // (crateNeedsBinfmt "sourceview5")
-  ;
+  # defaultCrateOverrides = let
+  #   crateNeedsBinfmt = cname: {
+  #     "${cname}" = attrs: let
+  #       baseAttrs = (prev.defaultCrateOverrides."${cname}" or (a: a)) attrs;
+  #     in needsBinfmt baseAttrs;
+  #   };
+  #   crateCantBinfmt = cname: {
+  #     "${cname}" = attrs: let
+  #       baseAttrs = (prev.defaultCrateOverrides."${cname}" or (a: a)) attrs;
+  #     in cantBinfmt baseAttrs;
+  #   };
+  # in prev.defaultCrateOverrides
+  #   # // (crateCantBinfmt "gdk-pixbuf-sys")
+  #   # // (crateCantBinfmt "gdk4-sys")
+  #   # // (crateCantBinfmt "glib-sys")
+  #   # // (crateCantBinfmt "gstreamer-audio-sys")
+  #   # // (crateCantBinfmt "gstreamer-base-sys")
+  #   # // (crateCantBinfmt "gstreamer-pbutils-sys")
+  #   # // (crateCantBinfmt "gstreamer-play-sys")
+  #   # // (crateCantBinfmt "gstreamer-video-sys")
+  #   # // (crateCantBinfmt "libadwaita-sys")
+
+  #   # // (crateNeedsBinfmt "gdk-pixbuf-sys")
+  #   # // (crateNeedsBinfmt "gdk-pixbuf")
+  #   # // (crateNeedsBinfmt "gdk4-sys")
+  #   # // (crateNeedsBinfmt "gdk4")
+  #   # // (crateNeedsBinfmt "glib-sys")
+  #   # // (crateNeedsBinfmt "glib")
+  #   # // (crateNeedsBinfmt "gsk4")
+  #   # // (crateNeedsBinfmt "gst-plugin-gtk4")
+  #   # // (crateNeedsBinfmt "gstreamer")
+  #   # // (crateNeedsBinfmt "gstreamer-audio")
+  #   # // (crateNeedsBinfmt "gstreamer-audio-sys")
+  #   # // (crateNeedsBinfmt "gstreamer-base")
+  #   # // (crateNeedsBinfmt "gstreamer-base-sys")
+  #   # // (crateNeedsBinfmt "gstreamer-pbutils")
+  #   # // (crateNeedsBinfmt "gstreamer-pbutils-sys")
+  #   # // (crateNeedsBinfmt "gstreamer-play")
+  #   # // (crateNeedsBinfmt "gstreamer-play-sys")
+  #   # // (crateNeedsBinfmt "gstreamer-sys")
+  #   # // (crateNeedsBinfmt "gstreamer-video")
+  #   # // (crateNeedsBinfmt "gstreamer-video-sys")
+  #   # // (crateNeedsBinfmt "gtk4")
+  #   # // (crateNeedsBinfmt "libadwaita")
+  #   # // (crateNeedsBinfmt "libadwaita-sys")
+  #   # // (crateNeedsBinfmt "libshumate")
+  #   # // (crateNeedsBinfmt "sourceview5")
+  # ;
 
   dialect = prev.dialect.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
@@ -668,17 +703,16 @@ in with final; {
      };
   });
 
-  flare-signal-nixified = prev.flare-signal-nixified.override {
-    # N.B. blueprint-compiler is in nativeBuildInputs.
-    # the trick here is to force the aarch64 versions to be used during build (via emulation).
-    # blueprint-compiler override shared with tangram.
-    blueprint-compiler = buildInQemu {} (blueprint-compiler.overrideAttrs (_: {
-      # default is to propagate gobject-introspection *as a buildInput*, when it's supposed to be native.
-      propagatedBuildInputs = [];
-      # "Namespace Gtk not available"
-      doCheck = false;
-    }));
-  };
+  flare-signal-nixified = cantBinfmt ((prev.flare-signal-nixified.override {
+    crateOverrideFn = cantBinfmt;
+  }).overrideAttrs (upstream: {
+    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace data/resources/meson.build --replace \
+        "find_program('blueprint-compiler')" \
+        "'env', 'GI_TYPELIB_PATH=${buildPackages.gdk-pixbuf.out}/lib/girepository-1.0:${buildPackages.harfbuzz.out}/lib/girepository-1.0:${buildPackages.gtk4.out}/lib/girepository-1.0:${buildPackages.graphene}/lib/girepository-1.0:${buildPackages.libadwaita}/lib/girepository-1.0:${buildPackages.pango.out}/lib/girepository-1.0', find_program('blueprint-compiler')"
+    '';
+  }));
 
   # 2023/07/31: upstreaming is blocked on ostree dep
   # needs binfmt: "./configure: line 17437: /nix/store/j2afjl8psjlk5cz23n45w5x8wkks2rkl-bubblewrap-aarch64-unknown-linux-gnu-0.8.0/bin/bwrap: cannot execute binary file: Exec format error"
@@ -764,8 +798,12 @@ in with final; {
   # });
 
   # needs binfmt: "error[E0463]: can't find crate for `gtk4`" (and others)
-  # maybe this needs binfmt only because its deps need binfmt?
-  fractal-nixified = needsBinfmt prev.fractal-nixified;
+  # either one can build fractal and all its deps with binfmt,
+  # or build *none* of them with binfmt.
+  # but mixing non-binfmt deps with a binfmt top-level fractal fails
+  fractal-nixified = cantBinfmt (prev.fractal-nixified.override {
+    crateOverrideFn = cantBinfmt;
+  });
 
   # 2023/07/31: upstreaming is unblocked -- if i can rework to not use emulation
   # fwupd-efi = prev.fwupd-efi.override {

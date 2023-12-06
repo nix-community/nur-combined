@@ -1,13 +1,14 @@
 {
-  "blurhash 0.1.1 (git+https://github.com/marc0x1/blurhash-rs?branch=pixbuf-patch#c07c0cbcd29b2277e8c1d0f6ae07b2e0fad1ed52)": "082jv82hsyjpng4idwn120hd7hcyln92n47m056fl2pn6b6nrfj8",
-  "curve25519-dalek 3.2.1 (git+https://github.com/Schmiddiii/curve25519-dalek?rev=1b9f81352bb659999a46af961f069d635ca432d3#1b9f81352bb659999a46af961f069d635ca432d3)": "0bdwcgski8gv1qig2qqpfcq572qdg8lk96cflv0x5lkngy3524fj",
-  "libsignal-protocol 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m",
-  "libsignal-service 0.1.0 (git+https://github.com/whisperfish/libsignal-service-rs?rev=8789920#87899201123b8095cd0f30317620a6d5b7fd652b)": "0cc1wz9j39faqz92brdydi4lv7dhds4j5fn0nrv1c6mgyhhg9rnn",
-  "libsignal-service-hyper 0.1.0 (git+https://github.com/whisperfish/libsignal-service-rs?rev=8789920#87899201123b8095cd0f30317620a6d5b7fd652b)": "0cc1wz9j39faqz92brdydi4lv7dhds4j5fn0nrv1c6mgyhhg9rnn",
-  "poksho 0.7.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m",
-  "presage 0.6.0-dev (git+https://github.com/MarcusGrass/presage?rev=d6d8fff#d6d8fff5f5e6429e6fe9d3c6d388323d094fdab6)": "029n526y3i7vz3nlwwcycrkdxyrb1csha6y6c807mj7qgw30laz2",
-  "presage-store-sled 0.6.0-dev (git+https://github.com/MarcusGrass/presage?rev=d6d8fff#d6d8fff5f5e6429e6fe9d3c6d388323d094fdab6)": "029n526y3i7vz3nlwwcycrkdxyrb1csha6y6c807mj7qgw30laz2",
-  "signal-crypto 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m",
-  "zkcredential 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m",
-  "zkgroup 0.9.0 (git+https://github.com/signalapp/libsignal?tag=v0.28.1#86b2fcc427bf32530866f4e30b18707c1f3682f7)": "1las4cjr94ghvwyif7sk4l7g7mk237h9a6czwv5517jr6ccjn32m"
+  "curve25519-dalek 4.0.0 (git+https://github.com/signalapp/curve25519-dalek?tag=signal-curve25519-4.0.0#463e5c7cba32561ffee8a281c4455ff3c25660d4)": "0baapyz09niwn0l64sy5cq1nc9jqsyn78wp7zw893g4mfxhyyi99",
+  "curve25519-dalek-derive 0.1.0 (git+https://github.com/signalapp/curve25519-dalek?tag=signal-curve25519-4.0.0#463e5c7cba32561ffee8a281c4455ff3c25660d4)": "0baapyz09niwn0l64sy5cq1nc9jqsyn78wp7zw893g4mfxhyyi99",
+  "libsignal-protocol 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl",
+  "libsignal-service 0.1.0 (git+https://github.com/whisperfish/libsignal-service-rs?rev=6fc62c8#6fc62c8c67817886560dd2eb99ab5e90f451bd67)": "12ycij5a92y152hnw8l7isxw64hlfbpwk4sj7ih0247m0k96bx77",
+  "libsignal-service-hyper 0.1.0 (git+https://github.com/whisperfish/libsignal-service-rs?rev=6fc62c8#6fc62c8c67817886560dd2eb99ab5e90f451bd67)": "12ycij5a92y152hnw8l7isxw64hlfbpwk4sj7ih0247m0k96bx77",
+  "poksho 0.7.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl",
+  "presage 0.6.0-dev (git+https://github.com/Schmiddiii/presage?rev=af72b474099361c68f09aff38182eb26d7c8ca86#af72b474099361c68f09aff38182eb26d7c8ca86)": "1000034fv2cg8dvhzsmxx61lvc7llqi73832vrf7wfc79yj47q8z",
+  "presage-store-cipher 0.1.0 (git+https://github.com/Schmiddiii/presage?rev=af72b474099361c68f09aff38182eb26d7c8ca86#af72b474099361c68f09aff38182eb26d7c8ca86)": "1000034fv2cg8dvhzsmxx61lvc7llqi73832vrf7wfc79yj47q8z",
+  "presage-store-sled 0.6.0-dev (git+https://github.com/Schmiddiii/presage?rev=af72b474099361c68f09aff38182eb26d7c8ca86#af72b474099361c68f09aff38182eb26d7c8ca86)": "1000034fv2cg8dvhzsmxx61lvc7llqi73832vrf7wfc79yj47q8z",
+  "signal-crypto 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl",
+  "zkcredential 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl",
+  "zkgroup 0.9.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl"
 }
