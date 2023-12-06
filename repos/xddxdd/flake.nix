@@ -45,28 +45,10 @@
 
         isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
         outputsOf = p: map (o: p.${o}) p.outputs;
-      in rec {
-        packages = import ./pkgs null {
-          inherit inputs pkgs;
-        };
-        packageNames = lib.mapAttrsToList (k: v: k) (flattenPkgs packages);
 
-        ciPackages =
-          flattenPkgs
-          (import ./pkgs "ci" {
-            inherit inputs pkgs;
-          });
-        ciPackageNames = lib.mapAttrsToList (k: v: k) ciPackages;
-        ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackages);
-
-        formatter = pkgs.alejandra;
-
-        apps =
+        commands =
           lib.mapAttrs
-          (n: v:
-            flake-utils.lib.mkApp {
-              drv = pkgs.writeShellScriptBin "script" v;
-            })
+          (n: v: pkgs.writeShellScriptBin n v)
           rec {
             ci = ''
               set -euo pipefail
@@ -111,6 +93,10 @@
               cat result > README.md
             '';
 
+            trace = ''
+              strace -ff --trace=%file -o trace.txt "$@"
+            '';
+
             update = let
               py = pkgs.python3.withPackages (p: with p; [requests]);
             in ''
@@ -124,6 +110,27 @@
               ${readme}
             '';
           };
+      in rec {
+        packages = import ./pkgs null {
+          inherit inputs pkgs;
+        };
+        packageNames = lib.mapAttrsToList (k: v: k) (flattenPkgs packages);
+
+        ciPackages =
+          flattenPkgs
+          (import ./pkgs "ci" {
+            inherit inputs pkgs;
+          });
+        ciPackageNames = lib.mapAttrsToList (k: v: k) ciPackages;
+        ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackages);
+
+        formatter = pkgs.alejandra;
+
+        apps = lib.mapAttrs (n: v: flake-utils.lib.mkApp {drv = v;}) commands;
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = lib.mapAttrsToList (n: v: v) commands;
+        };
       };
 
       overlay = self.overlays.default;
