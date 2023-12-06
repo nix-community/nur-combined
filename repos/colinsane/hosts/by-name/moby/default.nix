@@ -36,7 +36,6 @@
   # sane.programs.consoleUtils.enableFor.user.colin = false;
   # sane.programs.guiApps.enableFor.user.colin = false;
   sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile!
-  sane.programs.dialect.enableFor.user.colin = false;  # drags in 700MB of x86 dependencies (e.g. gtk4)
   sane.programs.mercurial.enableFor.user.colin = false;  # does not cross compile
   sane.programs.nvme-cli.enableFor.system = false;  # does not cross compile (libhugetlbfs)
 

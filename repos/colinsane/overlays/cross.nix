@@ -71,7 +71,7 @@ let
 
   # such packages could build with `needsBinfmt` *or* `buildInQemu`.
   # - the former is [an order of magnitude] faster, but the latter gets me closer to a pure installation.
-  needsBinfmtOrQemu = buildInQemu;
+  needsBinfmtOrQemu = buildInQemu {};
 
   # wrapGAppsHook4Fix = p: rmNativeInputs [ final.wrapGAppsHook4 ] (addNativeInputs [ final.wrapGAppsNoGuiHook final.gtk4 ] p);
 
@@ -233,7 +233,7 @@ let
 
   # given a package defined for build != host, transform it to build on the host.
   # i.e. build using the host's stdenv.
-  buildOnHost =
+  buildOnHost = { overrides ? { inherit (emulated) stdenv; } }: pkg:
     let
       # patch packages which don't expect to be moved to a different platform
       preFixPkg = p:
@@ -243,6 +243,8 @@ let
             shell = final.runtimeShell;
           })
           # final.makeBinaryWrapper
+        # else if p.name or null == "make-binary-wrapper-hook" then
+        #   p.override { DNE = "not-yet-implemented"; }
         else if p.pname or null == "pkg-config-wrapper" then
           p.override {
             # default pkg-config.__spliced.hostTarget still wants to run on the build machine.
@@ -250,6 +252,11 @@ let
             stdenvNoCC = emulated.stdenvNoCC;
             buildPackages = final.hostPackages;  # TODO: just `final`?
           }
+        else if p.name or null == "npm-install-hook" then
+          p.overrideAttrs (base: {
+            propagatedNativeBuildInputs = base.propagatedBuildInputs;
+            propagatedBuildInputs = [];
+          })
         # else if p.pname == final.python3.pname then
         #   p // {
         #     pythonForBuild = p;
@@ -261,11 +268,10 @@ let
           p
         ;
       unsplicePkg = p: p.__spliced.hostTarget or p;
+      # unsplicePkg = p: p.__spliced.hostHost or p;
       unsplicePkgs = ps: map (p: unsplicePkg (preFixPkg p)) ps;
     in
-      pkg: (pkg.override {
-        inherit (emulated) stdenv;
-      }).overrideAttrs (upstream: {
+      (pkg.override overrides).overrideAttrs (upstream: {
         # for this purpose, the naming in `depsAB` is "inputs build for A, used to create packages in B" (i think).
         # when cross compiling x86_64 -> aarch64, most packages are
         # - build: x86_64
@@ -284,7 +290,7 @@ let
         nativeInstallCheckInputs = unsplicePkgs (upstream.nativeInstallCheckInputs or []);
       });
 
-  buildInQemu = pkg: emulateBuilderQemu (buildOnHost pkg);
+  buildInQemu = overrides: pkg: emulateBuilderQemu (buildOnHost overrides pkg);
   # buildInProot = pkg: emulateBuilderProot (buildOnHost pkg);
 in with final; {
   inherit emulated;
@@ -524,12 +530,20 @@ in with final; {
   ;
 
   dialect = prev.dialect.overrideAttrs (upstream: {
+    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace data/resources/meson.build --replace \
+        "find_program('blueprint-compiler')" \
+        "'env', 'GI_TYPELIB_PATH=${buildPackages.gdk-pixbuf.out}/lib/girepository-1.0:${buildPackages.harfbuzz.out}/lib/girepository-1.0:${buildPackages.gtk4.out}/lib/girepository-1.0:${buildPackages.graphene}/lib/girepository-1.0:${buildPackages.libadwaita}/lib/girepository-1.0:${buildPackages.pango.out}/lib/girepository-1.0', find_program('blueprint-compiler')"
+    '';
     # error: "<dialect> is not allowed to refer to the following paths: <build python>"
     # dialect's meson build script sets host binaries to use build PYTHON
     # disallowedReferences = [];
     postFixup = (upstream.postFixup or "") + ''
       patchShebangs --update --host $out/share/dialect/search_provider
     '';
+    # upstream sets strictDeps=false which makes gAppsWrapperHook wrap with the build dependencies
+    strictDeps = true;
   });
 
   # CMake Error at cmake/SoupVersion.cmake:3 (file):
@@ -627,12 +641,38 @@ in with final; {
   #   # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
   #   inherit (emulated) cargo meson rustc rustPlatform stdenv;
   # };
+  flare-signal = prev.flare-signal.overrideAttrs (upstream: {
+    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace data/resources/meson.build --replace \
+        "find_program('blueprint-compiler')" \
+        "'env', 'GI_TYPELIB_PATH=${buildPackages.gdk-pixbuf.out}/lib/girepository-1.0:${buildPackages.harfbuzz.out}/lib/girepository-1.0:${buildPackages.gtk4.out}/lib/girepository-1.0:${buildPackages.graphene}/lib/girepository-1.0:${buildPackages.libadwaita}/lib/girepository-1.0:${buildPackages.pango.out}/lib/girepository-1.0', find_program('blueprint-compiler')"
+    '';
+     env = let
+       inherit buildPackages stdenv rust;
+       ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
+       cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
+       ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+       cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
+       rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;
+       rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
+       rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
+     in {
+       # taken from <pkgs/build-support/rust/hooks/default.nix>
+       # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
+       # XXX: these aren't necessarily valid environment variables: the referenced nix file is more clever to get them to work.
+       "CC_${rustBuildPlatform}" = "${ccForBuild}";
+       "CXX_${rustBuildPlatform}" = "${cxxForBuild}";
+       "CC_${rustTargetPlatform}" = "${ccForHost}";
+       "CXX_${rustTargetPlatform}" = "${cxxForHost}";
+     };
+  });
 
   flare-signal-nixified = prev.flare-signal-nixified.override {
     # N.B. blueprint-compiler is in nativeBuildInputs.
     # the trick here is to force the aarch64 versions to be used during build (via emulation).
     # blueprint-compiler override shared with tangram.
-    blueprint-compiler = buildInQemu (blueprint-compiler.overrideAttrs (_: {
+    blueprint-compiler = buildInQemu {} (blueprint-compiler.overrideAttrs (_: {
       # default is to propagate gobject-introspection *as a buildInput*, when it's supposed to be native.
       propagatedBuildInputs = [];
       # "Namespace Gtk not available"
