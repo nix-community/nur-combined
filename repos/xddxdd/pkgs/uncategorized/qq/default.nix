@@ -66,7 +66,7 @@ in
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
       sed -i "s|Exec=.*|Exec=$out/bin/qq|" $out/share/applications/qq.desktop
-      sed -i "s|Icon=.*|Icon=$out/opt/resources/app/512x512.png|" $out/share/applications/qq.desktop
+      sed -i "s|Icon=.*|Icon=qq|" $out/share/applications/qq.desktop
     '';
 
     meta = with lib; {

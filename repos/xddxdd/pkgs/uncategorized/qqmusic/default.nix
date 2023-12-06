@@ -16,6 +16,8 @@
   gdk-pixbuf,
   glib,
   gtk3,
+  libdbusmenu,
+  libglvnd,
   libpulseaudio,
   mesa_drivers,
   nspr,
@@ -42,6 +44,8 @@ let
     gdk-pixbuf
     glib
     gtk3
+    libdbusmenu
+    libglvnd
     libpulseaudio
     mesa_drivers
     nspr
@@ -65,13 +69,15 @@ let
 
   desktopFile = writeText "qqmusic.desktop" ''
     [Desktop Entry]
-    Name=qqmusic
+    Name=QQMusic
+    Name[zh_CN]=QQ音乐
     Exec=qqmusic %U
     Terminal=false
     Type=Application
     Icon=qqmusic
     StartupWMClass=qqmusic
     Comment=Tencent QQMusic
+    Comment[zh_CN]=腾讯QQ音乐
     Categories=AudioVideo;
   '';
 in
@@ -91,6 +97,9 @@ in
       cp -r opt/qqmusic $out/opt
       cp -r usr/* $out/
       ln -sf ${desktopFile} $out/share/applications/qqmusic.desktop
+
+      rm -rf $out/opt/swiftshader
+      ln -sf ${libglvnd}/lib $out/opt/swiftshader
 
       mkdir -p $out/bin
       makeWrapper $out/opt/qqmusic $out/bin/qqmusic \
