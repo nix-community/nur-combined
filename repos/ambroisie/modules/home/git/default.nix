@@ -7,6 +7,9 @@ in
 {
   options.my.home.git = with lib; {
     enable = my.mkDisableOption "git configuration";
+
+    # I want the full experience by default
+    package = mkPackageOption pkgs "git" { default = [ "gitFull" ]; };
   };
 
   config.home.packages = with pkgs; lib.mkIf cfg.enable [
@@ -22,8 +25,7 @@ in
     userEmail = mkMailAddress "bruno" "belanyi.fr";
     userName = "Bruno BELANYI";
 
-    # I want the full experience
-    package = pkgs.gitFull;
+    inherit (cfg) package;
 
     aliases = {
       git = "!git";

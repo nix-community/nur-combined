@@ -40,6 +40,7 @@ let
   };
 
   hosts = {
+    "ambroisie@bazin" = "x86_64-linux";
     "ambroisie@mousqueton" = "x86_64-linux";
   };
 in

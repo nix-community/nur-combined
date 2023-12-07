@@ -20,7 +20,6 @@ in
   config.home.packages = with pkgs; lib.mkIf cfg.enable ([
     fd
     file
-    mosh
     ripgrep
   ] ++ cfg.additionalPackages);
 }
