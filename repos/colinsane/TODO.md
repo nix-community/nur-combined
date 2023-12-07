@@ -69,6 +69,8 @@
   - UnCiv (Civ V clone; nixpkgs `unciv`; doesn't cross-compile):  <https://github.com/yairm210/UnCiv>
   - Simon Tatham's Puzzle Collection (not in nixpkgs) <https://git.tartarus.org/?p=simon/puzzles.git>
   - Shootin Stars  (Godot; not in nixpkgs) <https://gitlab.com/greenbeast/shootin-stars>
+  - numberlink (generic name for Flow Free). not packaged in Nix
+  - Neverball (https://neverball.org/screenshots.php). nix: as `neverball`
 
 #### moby
 - fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>

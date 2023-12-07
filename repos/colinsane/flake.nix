@@ -268,8 +268,13 @@
 
             # XXX: this triggers another config eval & (potentially) build.
             # if the config changed between these invocations, the above signatures might not apply to the deployed config.
-            # let the user handle that edge case by re-running this whole command
-            nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${addr} --use-remote-sudo $@
+            # let the user handle that edge case by re-running this whole command.
+            # N.B.: `--fast` option here is critical to cross-compiled deployments: without it the build machine will try to invoke the host machine's `nix` binary.
+            # TODO: solve this by replacing the nixos-build invocation with:
+            # - nix-copy-closure --to $host $result
+            # - on target: nix-env set -p /nix/var/nix/profiles/system $result
+            # - on target: $result/bin/switch-to-configuration
+            nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${addr} --use-remote-sudo $@ --fast
           '';
           deployApp = host: addr: action: {
             type = "app";

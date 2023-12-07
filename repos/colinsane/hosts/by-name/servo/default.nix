@@ -15,7 +15,6 @@
   };
 
   sane.roles.build-machine.enable = true;
-  sane.roles.build-machine.emulation = false;
   sane.zsh.showDeadlines = false;  # ~/knowledge doesn't always exist
   sane.programs.consoleUtils.suggestedPrograms = [
     "pcConsoleUtils"

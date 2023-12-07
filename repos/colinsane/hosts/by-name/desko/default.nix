@@ -9,6 +9,9 @@
   # services.distccd.enable = true;
   # sane.programs.distcc.enableFor.user.guest = true;
 
+  # TODO: remove emulation, but need to fix nixos-rebuild to moby for that.
+  # sane.roles.build-machine.emulation = true;
+
   sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.ports.openFirewall = true;  # for e.g. nix-serve

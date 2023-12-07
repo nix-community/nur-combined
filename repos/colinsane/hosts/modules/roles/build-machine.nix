@@ -13,7 +13,7 @@ in
     };
     emulation = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
     };
     ccache = mkOption {
       type = types.bool;

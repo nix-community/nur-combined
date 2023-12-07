@@ -156,6 +156,9 @@ stdenv.mkDerivation rec {
 
     substituteInPlace ../harfbuzz/autogen.sh --replace 'which pkg-config' 'which $PKG_CONFIG'
     substituteInPlace ../fribidi/autogen.sh --replace 'which pkg-config' 'which $PKG_CONFIG'
+
+    substituteInPlace base/Makefile.defs --replace \
+      'LUAROCKS_BINARY=luarocks' 'LUAROCKS_BINARY=${stdenv.hostPlatform.emulator buildPackages} ${luajit52}/bin/lua ${luaEnv.pkgs.luarocks}/bin/.luarocks-wrapped'
   '';
 
   dontConfigure = true;

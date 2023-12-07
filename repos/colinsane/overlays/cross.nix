@@ -641,36 +641,36 @@ in with final; {
   #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   # };
 
-  firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
-    unwrapped = super.unwrapped // {
-      browserpass-extension = super.unwrapped.browserpass-extension.override {
-        mkYarnModules = args: needsBinfmtOrQemu {
-          override = { stdenv }: (
-            (yarn2nix-moretea.override {
-              pkgs = pkgs.__splicedPackages // { inherit stdenv; };
-            }).mkYarnModules args
-          ).overrideAttrs (upstream: {
-            # i guess the VM creates the output directory for the derivation? not sure.
-            # and `mv` across the VM boundary breaks, too?
-            # original errors:
-            # - "mv: cannot create directory <$out>: File exists"
-            # - "mv: failed to preserve ownership for"
-            buildPhase = lib.replaceStrings
-              [
-                "mkdir $out"
-                "mv "
-              ]
-              [
-                "mkdir $out || true ; chmod +w deps/browserpass-extension-modules/package.json"
-                "cp -Rv "
-              ]
-              upstream.buildPhase
-            ;
-          });
-        };
-      };
-    };
-  });
+  # firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
+  #   unwrapped = super.unwrapped // {
+  #     browserpass-extension = super.unwrapped.browserpass-extension.override {
+  #       mkYarnModules = args: needsBinfmtOrQemu {
+  #         override = { stdenv }: (
+  #           (yarn2nix-moretea.override {
+  #             pkgs = pkgs.__splicedPackages // { inherit stdenv; };
+  #           }).mkYarnModules args
+  #         ).overrideAttrs (upstream: {
+  #           # i guess the VM creates the output directory for the derivation? not sure.
+  #           # and `mv` across the VM boundary breaks, too?
+  #           # original errors:
+  #           # - "mv: cannot create directory <$out>: File exists"
+  #           # - "mv: failed to preserve ownership for"
+  #           buildPhase = lib.replaceStrings
+  #             [
+  #               "mkdir $out"
+  #               "mv "
+  #             ]
+  #             [
+  #               "mkdir $out || true ; chmod +w deps/browserpass-extension-modules/package.json"
+  #               "cp -Rv "
+  #             ]
+  #             upstream.buildPhase
+  #           ;
+  #         });
+  #       };
+  #     };
+  #   };
+  # });
 
   # flare-signal = prev.flare-signal.override {
   #   # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
@@ -1239,7 +1239,7 @@ in with final; {
   # bin/.luarocks-wrapped: bin/luarocks: line 3: syntax error near unexpected token `]]'
   # bin/.luarocks-wrapped: bin/luarocks: line 3: `package.path=[[/nix/store/b7wa76cvxki14k9cmdi0vzd954nx6nww-luarocks-aarch64-unknown-linux-gnu-3.9.1/share/lua/5.1/?.lua;]] .. package.path'
   # ```
-  koreader-from-src = needsBinfmt prev.koreader-from-src;
+  # koreader-from-src = needsBinfmt prev.koreader-from-src;
 
   # libgweather = rmNativeInputs [ glib ] (prev.libgweather.override {
   #   # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
@@ -2043,10 +2043,6 @@ in with final; {
   #   inherit (emulated) stdenv;
   # };
 
-  # needs binfmt: "bin/yarn: line 8: syntax error near unexpected token `(': `var majorVer = parseInt(ver.split('.')[0], 10);'"
-  # - hangs in Qemu for over 8 hours
-  signal-desktop-from-src = needsBinfmt prev.signal-desktop-from-src;
-
   spandsp = prev.spandsp.overrideAttrs (upstream: {
     configureFlags = upstream.configureFlags or [] ++ [
       # fixes runtime error: "undefined symbol: rpl_realloc"
@@ -2312,17 +2308,19 @@ in with final; {
     '';
   });
 
-  wrapFirefox = prev.wrapFirefox.override {
-    buildPackages = buildPackages // {
-      # fixes "extract-binary-wrapper-cmd: line 2: strings: command not found"
-      # ^- in the `nix log` output of cross-compiled `firefox` (it's non-fatal)
-      makeBinaryWrapper = bpkgs.makeBinaryWrapper.overrideAttrs (upstream: {
-        passthru.extractCmd = bpkgs.writeShellScript "extract-binary-wrapper-cmd" ''
-          ${stdenv.cc.targetPrefix}strings -dw "$1" | sed -n '/^makeCWrapper/,/^$/ p'
-        '';
-      });
-    };
-  };
+  wob = mvToBuildInputs [ cmocka ] prev.wob;
+
+  # wrapFirefox = prev.wrapFirefox.override {
+  #   buildPackages = buildPackages // {
+  #     # fixes "extract-binary-wrapper-cmd: line 2: strings: command not found"
+  #     # ^- in the `nix log` output of cross-compiled `firefox` (it's non-fatal)
+  #     makeBinaryWrapper = bpkgs.makeBinaryWrapper.overrideAttrs (upstream: {
+  #       passthru.extractCmd = bpkgs.writeShellScript "extract-binary-wrapper-cmd" ''
+  #         ${stdenv.cc.targetPrefix}strings -dw "$1" | sed -n '/^makeCWrapper/,/^$/ p'
+  #       '';
+  #     });
+  #   };
+  # };
 
   wrapNeovimUnstable = neovim: config: (prev.wrapNeovimUnstable neovim config).overrideAttrs (upstream: {
     # nvim wrapper has a sanity check that the plugins will load correctly.

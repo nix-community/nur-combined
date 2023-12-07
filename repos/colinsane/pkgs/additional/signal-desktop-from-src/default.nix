@@ -84,6 +84,7 @@
 , atk
 , autoPatchelfHook
 , bash
+, buildPackages
 # , callPackage
 , cups
 # , electron_25
@@ -145,7 +146,7 @@ let
   #   signal_fts5_extension = signal-fts5-extension;
   # };
 
-  nodejs_18_15_0 = nodejs.overrideAttrs (upstream:
+  mkNodeJs = nodejs: nodejs.overrideAttrs (upstream:
     let
       # 18.15.0 matches the version in package.json
       version = "18.15.0";
@@ -158,9 +159,12 @@ let
       };
     }
   );
-  nodejs' = nodejs_18_15_0;
+  nodejs' = mkNodeJs nodejs;
+  # TODO: possibly i could instead use nodejs-slim (npm-less nodejs)
+  buildNodejs = mkNodeJs buildPackages.nodejs;
+
   # nodejs' = nodejs_latest;
-  yarn' = yarn.override { nodejs = nodejs'; };
+  buildYarn = buildPackages.yarn.override { nodejs = buildNodejs; };
 
   # package.json locks electron to 25.y.z
   # element-desktop uses electron_26
@@ -203,10 +207,10 @@ stdenv.mkDerivation rec {
     git  # to calculate build date
     gnused
     makeShellWrapper
-    nodejs'  # possibly i could instead use nodejs-slim (npm-less nodejs)
+    buildNodejs
     python3
     wrapGAppsHook
-    yarn'
+    buildYarn
   ];
 
   buildInputs = [
@@ -223,6 +227,7 @@ stdenv.mkDerivation rec {
     libwebp
     libxslt
     mesa # for libgbm
+    nodejs'  # to patch in the runtime
     nspr
     nss
     pango
@@ -240,6 +245,8 @@ stdenv.mkDerivation rec {
   # env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
   dontWrapGApps = true;
+
+  # NIX_DEBUG = 6;
 
   postPatch = ''
     # fixes build failure:
@@ -279,6 +286,7 @@ stdenv.mkDerivation rec {
     #   since many of those require network access
     yarn install --offline --frozen-lockfile --ignore-scripts
     patchShebangs node_modules/
+    patchShebangs --build --update node_modules/{bufferutil/node_modules/node-gyp-build/,node-gyp-build,utf-8-validate/node_modules/node-gyp-build}
     # patch these out to remove a runtime reference back to the build bash
     # (better, perhaps, would be for these build scripts to not be included in the asar...)
     sed -i 's:#!.*/bin/bash:#!/bin/sh:g' node_modules/@swc/helpers/scripts/gen.sh
@@ -365,6 +373,12 @@ stdenv.mkDerivation rec {
   '';
 
   preFixup = ''
+    # fixup the app.asar to use host nodejs
+    ${buildPackages.asar}/bin/asar extract $out/lib/Signal/resources/app.asar unpacked
+    rm $out/lib/Signal/resources/app.asar
+    patchShebangs --host --update unpacked
+    ${buildPackages.asar}/bin/asar pack unpacked $out/lib/Signal/resources/app.asar
+
     # XXX: add --ozone-platform-hint=auto to make it so that NIXOS_OZONE_WL isn't *needed*.
     # electron should auto-detect x11 v.s. wayland: launching with `NIXOS_OZONE_WL=1` is an optional way to force it when debugging.
     # xdg-utils: needed for ozone-platform-hint=auto to work
@@ -384,6 +398,9 @@ stdenv.mkDerivation rec {
       # TODO: prevent update to betas
       rev-prefix = "v";
     };
+    nodejs = nodejs';
+    buildYarn = buildYarn;
+    buildNodejs = buildNodejs;
   };
 
   meta = {
