@@ -227,6 +227,13 @@
         "url": "https://github.com/nix-community/napalm/archive/a8215ccf1c80070f51a92771f3bc637dd9b9f7ee.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "sfutils": {
+        "builtin": false,
+        "sha256": "15dl4dcf5b0yp1i4m5jaiyr7cbw5bj678ckh84hs98prk7n145fs",
+        "type": "file",
+        "url": "https://www.xilinx.com/content/dam/xilinx/publications/solarflare/drivers-software/linux/misc/SF-105095-LS-66_Solarflare_Linux_VMware_ESX_Utilities_Source.zip",
+        "url_template": "https://www.xilinx.com/content/dam/xilinx/publications/solarflare/drivers-software/linux/misc/SF-105095-LS-66_Solarflare_Linux_VMware_ESX_Utilities_Source.zip"
+    },
     "steamguard-cli": {
         "branch": "master",
         "builtin": false,

@@ -60,6 +60,10 @@ let repo = rec {
     inherit pins;
   };
 
+  sfutils = pkgs.callPackage ./pkgs/sfutils {
+    inherit pins;
+  };
+
   switch-dbibackend = pkgs.callPackage ./pkgs/switch-dbibackend {
     inherit pins;
   };
