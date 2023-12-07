@@ -2,7 +2,7 @@
 
 let
   plans = rec {
-    myosevka = {
+    mono = {
       family = "Myosevka";
       spacing = "fixed";
       serifs = "sans";
@@ -59,12 +59,12 @@ let
       export-glyph-names = true;
     };
 
-    proportional = lib.recursiveUpdate myosevka {
+    proportional = lib.recursiveUpdate mono {
       family = "Myosevka Proportional";
       spacing = "quasi-proportional";
     };
 
-    aile = lib.recursiveUpdate myosevka {
+    aile = lib.recursiveUpdate mono {
       family = "Myosevka Aile";
       desc = "Sans-serif";
       spacing = "quasi-proportional";
@@ -103,10 +103,10 @@ let
         capital-j = "descending-serifless";
         y = "cursive";
       };
-      derivingVariants.mathtt = myosevka.variants;
+      derivingVariants.mathtt = mono.variants;
     };
 
-    etoille = lib.recursiveUpdate myosevka {
+    etoile = lib.recursiveUpdate mono {
       family = "Myosevka Etoile";
       desc = "Slab-serif";
       spacing = "quasi-proportional";
@@ -124,7 +124,7 @@ let
         long-s = "flat-hook-bottom-serifed";
       };
       italic = { f = "flat-hook-tailed"; };
-      derivingVariants.mathtt = myosevka.variants;
+      derivingVariants.mathtt = mono.variants;
     };
   };
 
