@@ -9,8 +9,10 @@ from dataclasses import dataclass
 import argparse
 import logging
 import os.path
-import mutagen.flac
 import mutagen.easyid3
+import mutagen.flac
+import mutagen.oggopus
+import mutagen.oggvorbis
 
 logger = logging.getLogger(__name__)
 
@@ -107,10 +109,15 @@ class Tags:
             self.album = [ self.album[0].strip() ]
 
     def expand_shorthands(self) -> None:
-        if self.artist == ["V.A."]:
-            self.artist = ["Various Artists"]
-        if self.albumartist == ["V.A."]:
-            self.albumartist = ["Various Artists"]
+        va = ["V.A.", "Various"]
+
+        for i, a in enumerate(self.artist):
+            if a in va:
+                self.artist[i] = "Various Artists"
+
+        for i, a in enumerate(self.albumartist):
+            if a in va:
+                self.albumartist[i] = "Various Artists"
 
     def promote_albumartist(self) -> None:
         """
@@ -151,8 +158,10 @@ class Tags:
         - could have many fields. the title will always be last. trackno could be embedded or not.
         - title (handled)
         - artist - track (handled)
+        - album - track (handled)
         - trackno - track (handled)
         - trackno - artist - track (handled)
+        - album - artist - title (for Various Artists/compilation albums) (handled)
         - artist - album - trackno title (not handled)
         track numbering:
         - 01, 02, ...
@@ -172,6 +181,7 @@ class Tags:
             if new_title and new_title[-1] == '-':
                 new_title = new_title[:-1]
             if len(title) - len(new_title) < 5:
+                # we stripped too little, probably not an identifier. undo it.
                 new_title = title
             tags.title = [ new_title ]
 
@@ -181,7 +191,10 @@ class Tags:
             if len(track_parts) == 1:
                 parse_title(track)
             elif len(track_parts) == 2:
-                if tags.albumartist and track_parts[0].lower() == tags.albumartist[0].lower():
+                if tags.albumartist and loose_compare_str(track_parts[0], tags.albumartist[0]):
+                    parse_title(track_parts[1])
+                elif tags.album and loose_compare_str(track_parts[0], tags.album[0]):
+                    # less common, but sometimes `album - track`
                     parse_title(track_parts[1])
                 elif all(l in '0123456789-' for l in track_parts[0]):
                     parse_trackno(track_parts[0])
@@ -191,7 +204,9 @@ class Tags:
                     parse_trackno(track_parts[0])
                     tags.artist = [track_parts[1]]  # explicitly not album artist, but track artist
                     parse_title(track_parts[2])
-
+                elif tags.album == [ track_parts[0] ]:
+                    tags.artist = [track_parts[1]]
+                    parse_title(track_parts[2])
 
         def parse_album(album: str) -> None:
             album_parts = [p.strip() for p in album.split(' - ')]
@@ -224,10 +239,19 @@ class AudioFile:
 
         _base, ext = os.path.splitext(path_)
         try:
+            # TODO: handle:
+            # - .m4a
+            # - .wav
+            # - .wma
             if ext == '.flac':
                 self.muta = mutagen.flac.Open(path_)
-            elif ext == '.mp3':
+            elif ext in ['.aac', '.mp3']:
+                # TODO: this seems to only read tags, and not create them?
                 self.muta = mutagen.easyid3.EasyID3(path_)
+            elif ext == '.ogg':
+                self.muta = mutagen.oggvorbis.OggVorbis(path_)
+            elif ext == '.opus':
+                self.muta = mutagen.oggopus.OggOpus(path_)
             else:
                 logger.debug(f"no metadata handler for {path_}")
         except Exception as e:
@@ -270,8 +294,9 @@ class AudioFile:
         self.muta.save()
 
 class Tagger:
-    def __init__(self, dry_run: bool):
+    def __init__(self, dry_run: bool, force: bool):
         self.dry_run = dry_run
+        self.force = force
 
     def tag_file(self, path_: str) -> None:
         file_ = AudioFile.new(path_)
@@ -280,10 +305,11 @@ class Tagger:
             return
 
         old_tags = file_.tags_on_disk()
-
         path_tags = Tags.from_path(path_)
-        # logger.debug(f"extracted tags from {path_}: {path_tags}")
-        new_tags = old_tags.union(path_tags)
+        if self.force:
+            new_tags = path_tags
+        else:
+            new_tags = old_tags.union(path_tags)
         new_tags.trim_fields()
         new_tags.expand_shorthands()
         new_tags.promote_albumartist()
@@ -337,6 +363,7 @@ def main():
     parser = argparse.ArgumentParser(description="augment music tags based on library path")
     parser.add_argument("path", nargs="+", help="relative path to a file to tag")
     parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--force', action='store_true', help="update tags even if the old metadata disagrees with the path-based tag extraction")
     parser.add_argument('--verbose', action='store_true')
 
     args = parser.parse_args()
@@ -344,7 +371,7 @@ def main():
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
-    tagger = Tagger(dry_run=args.dry_run)
+    tagger = Tagger(dry_run=args.dry_run, force=args.force)
     for p in args.path:
         tagger.tag_file_or_tree(p)
 
