@@ -1,7 +1,5 @@
-{ self, inputs, ... }:
+{ self, inputs, lib, ... }:
 let
-  inherit (self) lib;
-
   defaultModules = [
     {
       # Let 'nixos-version --json' know about the Git revision
@@ -23,7 +21,7 @@ let
     ];
     specialArgs = {
       # Use my extended lib in NixOS configuration
-      inherit lib;
+      inherit (self) lib;
       # Inject inputs to use them in global registry
       inherit inputs;
     };

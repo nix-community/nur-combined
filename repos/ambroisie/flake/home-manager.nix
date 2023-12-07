@@ -39,7 +39,7 @@ let
     };
   };
 
-  hosts = {
+  homes = {
     "ambroisie@bazin" = "x86_64-linux";
     "ambroisie@mousqueton" = "x86_64-linux";
   };
@@ -50,13 +50,13 @@ in
     legacyPackages = {
       homeConfigurations =
         let
-          filteredHosts = lib.filterAttrs (_: v: v == system) hosts;
-          allHosts = filteredHosts // {
+          filteredHomes = lib.filterAttrs (_: v: v == system) homes;
+          allHomes = filteredHomes // {
             # Default configuration
             ambroisie = system;
           };
         in
-        lib.mapAttrs mkHome allHosts;
+        lib.mapAttrs mkHome allHomes;
     };
   };
 }
