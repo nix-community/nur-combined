@@ -122,15 +122,15 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "38bf6aba091216da682d3e4a41e0cff4cc8d9751";
+    version = "aad8ee98d7d4dc447f2fb5567c8d9014b6c4372d";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "38bf6aba091216da682d3e4a41e0cff4cc8d9751";
+      rev = "aad8ee98d7d4dc447f2fb5567c8d9014b6c4372d";
       fetchSubmodules = false;
-      sha256 = "sha256-HtDShTcH3p7avckY65yl1bmjtUqHcD+VpxGQvrnZ2hs=";
+      sha256 = "sha256-krrnXZBBtoQjRMLznajWIGcKYL2xGF38/tDCFuslIz8=";
     };
-    date = "2023-11-25";
+    date = "2023-12-07";
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
@@ -474,15 +474,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "78e65bf143edeceae3179c40b511e1313621ffde";
+    version = "d1e99b3f85d2eb7fe9ad3b9f58d36fd671da46a5";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "78e65bf143edeceae3179c40b511e1313621ffde";
+      rev = "d1e99b3f85d2eb7fe9ad3b9f58d36fd671da46a5";
       fetchSubmodules = false;
-      sha256 = "sha256-ra/1t4wQCfcC06X10uHAY+osYtnZ2LSetaMM6Z9hi3g=";
+      sha256 = "sha256-e914LDbw/2b0r4aFSZn8iFRSJq/nVoMfydNuJ+5z2pc=";
     };
-    date = "2023-11-07";
+    date = "2023-12-06";
   };
   libqcef = {
     pname = "libqcef";
@@ -737,15 +737,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "61ef3a2dc2ca61e8748472b7657b617cc3d81cfc";
+    version = "70856b8dd40d94e2c47e586db39f9e76cb03deb0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "61ef3a2dc2ca61e8748472b7657b617cc3d81cfc";
+      rev = "70856b8dd40d94e2c47e586db39f9e76cb03deb0";
       fetchSubmodules = false;
-      sha256 = "sha256-ahKMQWNEydCeUd0tBcLywY301r08hqIuzVad2Y/FyM8=";
+      sha256 = "sha256-Ub5HrJvzEGSv+64Q5umKzersqQmke/hR+a3J5BWChJI=";
     };
-    date = "2023-12-05";
+    date = "2023-12-06";
   };
   osdlyrics = {
     pname = "osdlyrics";
