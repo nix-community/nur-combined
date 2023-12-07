@@ -10,9 +10,37 @@ import argparse
 import logging
 import os.path
 import mutagen.flac
-import mutagen.mp3
+import mutagen.easyid3
 
 logger = logging.getLogger(__name__)
+
+def clean_for_loose_compare(a: str) -> str:
+    a = a.strip().lower()
+    if a.startswith("the "):
+        a = a[len("the "):]
+
+    # goal is to help merge path-extracted tags with embedded tags.
+    # it's common for a tag to have some rich characters which can't be represented in a file.
+    # so just remove rich characters, but in a way which doesn't become useless when faced with primarily non-latin names
+    omitable = '. &()[];:'
+    unomitable = 'abcdefghijklmnopqrstuvwxyz0123456789'
+
+    a = "".join(c for c in a if c not in omitable)
+    cleaned = "".join(c for c in a if c in unomitable)
+    if len(cleaned) >= 0.5 * len(a):
+        return cleaned
+    else:
+        # we cleaned a *suspicious* amount, probably erroneously.
+        # likely a non-english album/artist/track
+        return a
+
+def loose_compare_str(a: str, b: str) -> bool:
+    return clean_for_loose_compare(a) == clean_for_loose_compare(b)
+
+def loose_compare_lists(a: list[str], b: list[str]) -> bool:
+    a = sorted(clean_for_loose_compare(i) for i in a)
+    b = sorted(clean_for_loose_compare(i) for i in b)
+    return a == b
 
 @dataclass
 class Tags:
@@ -68,6 +96,22 @@ class Tags:
             tracknumber=tracknumber,
         )
 
+    def trim_fields(self) -> None:
+        if len(self.title) == 1:
+            self.title = [ self.title[0].strip() ]
+        if len(self.artist) == 1:
+            self.artist = [ self.artist[0].strip() ]
+        if len(self.albumartist) == 1:
+            self.albumartist = [ self.albumartist[0].strip() ]
+        if len(self.album) == 1:
+            self.album = [ self.album[0].strip() ]
+
+    def expand_shorthands(self) -> None:
+        if self.artist == ["V.A."]:
+            self.artist = ["Various Artists"]
+        if self.albumartist == ["V.A."]:
+            self.albumartist = ["Various Artists"]
+
     def promote_albumartist(self) -> None:
         """
         1. replace shorthands like "V.A." with "Various Artists".
@@ -75,23 +119,14 @@ class Tags:
         3. if the artist and album artist are nearly identical, try to merge them.
         """
 
-        if self.artist == ["V.A."]:
-            self.artist = ["Various Artists"]
-        if self.albumartist == ["V.A."]:
-            self.albumartist = ["Various Artists"]
-
-        unomitable = 'abcdefghijklmnopqrstuvwxyz0123456789'
-        if len(self.artist) == len(self.albumartist) == 1:
-            filtered_artist = [i for i in self.artist[0] if i.lower() in unomitable]
-            filtered_albumartist = [i for i in self.albumartist[0] if i.lower() in unomitable]
-            if filtered_artist == filtered_albumartist:
-                # arist & album artist are nearly identical:
-                # probably guessed one of them from filename, which was lacking certain symbols of the actual artist.
-                # recover whichever of these fields had the fewer characters removed (i.e. is longest)
-                if len(self.artist[0]) > len(self.albumartist[0]):
-                    self.artist = self.albumartist = self.artist
-                else:
-                    self.artist = self.albumartist = self.albumartist
+        if loose_compare_lists(self.artist, self.albumartist):
+            # arist & album artist are nearly identical:
+            # probably guessed one of them from filename, which was lacking certain symbols of the actual artist.
+            # recover whichever of these fields had the fewer characters removed (i.e. is longest)
+            if len("".join(self.artist)) > len("".join(self.albumartist)):
+                self.artist = self.albumartist = self.artist
+            else:
+                self.artist = self.albumartist = self.albumartist
 
         if self.artist == []:
             self.artist = self.albumartist
@@ -99,11 +134,12 @@ class Tags:
 
     def rewrite_singles(self) -> None:
         """ idiom is for singles to belong to self-titled album. else each artist's singles get merged into one massive album """
-        if self.album == ["Singles"]:
-            if self.albumartist:
-                self.album = self.albumartist
-            else:
-                self.album = self.artist
+        if len(self.album) != 1:
+            return
+
+        for artist in self.albumartist[::-1] + self.artist[::-1]:
+            if loose_compare_str(self.album[0], "Singles") or loose_compare_str(self.album[0], artist):
+                self.album = [ artist ]
 
     @staticmethod
     def from_path(p: str) -> 'Tags':
@@ -137,7 +173,7 @@ class Tags:
                 new_title = new_title[:-1]
             if len(title) - len(new_title) < 5:
                 new_title = title
-            tags.title = new_title
+            tags.title = [ new_title ]
 
         def parse_track(track: str) -> None:
             track = os.path.splitext(track)[0]
@@ -184,15 +220,18 @@ class Tags:
 class AudioFile:
     def __init__(self, path_: str):
         self.path_ = path_
+        self.muta = None
 
         _base, ext = os.path.splitext(path_)
-        if ext == '.flac':
-            self.muta = mutagen.flac.Open(path_)
-        # elif ext == '.mp3':
-        #     self.muta = mutagen.mp3.Open(path_)
-        else:
-            logger.debug(f"no metadata handler for {path_}")
-            self.muta = None
+        try:
+            if ext == '.flac':
+                self.muta = mutagen.flac.Open(path_)
+            elif ext == '.mp3':
+                self.muta = mutagen.easyid3.EasyID3(path_)
+            else:
+                logger.debug(f"no metadata handler for {path_}")
+        except Exception as e:
+            logger.warning(f"failed to open {path_}: {e}")
 
     @staticmethod
     def new(path_: str) -> 'AudioFile':
@@ -214,11 +253,17 @@ class AudioFile:
             logger.debug(f"not writing tags: no metadata handler: {self.path_}")
             return False
 
-        self.muta['artist'] = tags.artist
-        self.muta['album'] = tags.album
-        self.muta['title'] = tags.title
-        self.muta['albumartist'] = tags.albumartist
-        self.muta['tracknumber'] = tags.tracknumber
+        def set_tag(name: str, val: list):
+            if val:
+                self.muta[name] = val
+            elif name in self.muta:
+                del self.muta[name]
+
+        set_tag('artist', tags.artist)
+        set_tag('album', tags.album)
+        set_tag('title', tags.title)
+        set_tag('albumartist', tags.albumartist)
+        set_tag('tracknumber', tags.tracknumber)
 
         logger.debug(f"writing full tags: {self.muta}")
 
@@ -237,7 +282,10 @@ class Tagger:
         old_tags = file_.tags_on_disk()
 
         path_tags = Tags.from_path(path_)
+        # logger.debug(f"extracted tags from {path_}: {path_tags}")
         new_tags = old_tags.union(path_tags)
+        new_tags.trim_fields()
+        new_tags.expand_shorthands()
         new_tags.promote_albumartist()
         new_tags.rewrite_singles()
 

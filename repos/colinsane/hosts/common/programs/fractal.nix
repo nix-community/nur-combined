@@ -23,7 +23,7 @@ let
 in
 {
   sane.programs.fractal = {
-    package = pkgs.fractal-nixified;
+    package = pkgs.fractal-nixified.optimized;
     # package = pkgs.fractal-latest;
     # package = pkgs.fractal-next;
 

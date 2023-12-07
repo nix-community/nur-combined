@@ -253,7 +253,7 @@ let
 
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
-    release = false;
+    release = false;  #< XXX(2023/12/06): `release=true` is incompatible with cross compilation
     rootFeatures = [ ];  #< avoids --cfg feature="default", simplifying the rustc CLI so that i can pass it around easier
     defaultCrateOverrides = defaultCrateOverrides';
   };
