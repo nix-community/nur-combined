@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pocketsphinx";
-  version = "5.0.1";
+  version = "5.0.2";
 
   src = fetchFromGitHub {
     owner = "cmusphinx";
     repo = "pocketsphinx";
     rev = "v${version}";
-    hash = "sha256-Oa2vVVpsB3Jj5KvLcKfMP5Vu9xSeO7g1qNC5cQE3F7Y=";
+    hash = "sha256-jwhctx3AkpzDVNuTY1q3ls2f+n5SumGAK439k8Tw5c8=";
   };
 
 /*
