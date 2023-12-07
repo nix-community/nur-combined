@@ -1626,10 +1626,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "121.0.20231204.92159";
+      version = "121.0.20231206.91731";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4204246/deutsch_de_language_pack-121.0.20231204.92159.xpi";
-      sha256 = "320600e746ae56c92544d48d95808f6dbaf0d08fc663a638452eddf46713db96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205303/deutsch_de_language_pack-121.0.20231206.91731.xpi";
+      sha256 = "332d62f3b79d59889dd97f5359a0600e27f14968ea6a5777803f2b118ee0dfe8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2057,10 +2057,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.7.1";
+      version = "1.2.8";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4203507/faststream-1.2.7.1.xpi";
-      sha256 = "0092f65e33fd7faca1370e9a5013baf170673a594576ac0fa7119318cb0245fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205783/faststream-1.2.8.xpi";
+      sha256 = "5244f72f6fbbd465c6209a3118fa41b8eb03b0eb53df160fb30a7f6954c40945";
       meta = with lib;
       {
         description = "Stream without buffering, a great video player and download accelerator all in one.";
@@ -2465,10 +2465,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "121.0.20231204.92159";
+      version = "121.0.20231206.91731";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4204285/francais_language_pack-121.0.20231204.92159.xpi";
-      sha256 = "5566aa795827adca0bda44a3de8833a04ce2136ac6282d24f23386f0220040fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205357/francais_language_pack-121.0.20231206.91731.xpi";
+      sha256 = "94e566114b876c42bd851e382a33d35a32c9cb5830929889b56e117e19df4b09";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4208,10 +4208,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.9";
+      version = "3.5.0";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4172206/i_dont_care_about_cookies-3.4.9.xpi";
-      sha256 = "f88b659b2ffb27816d29330fb0f14ebad222a56a8f8c02db450cbaa4bc9af1c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202634/i_dont_care_about_cookies-3.5.0.xpi";
+      sha256 = "4de284454217fc4bee0744fb0aad8e0e10fa540dc03251013afc3ee4c20e49b0";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -4915,10 +4915,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.123.0.3";
+      version = "4.124.0.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4188586/lastpass_password_manager-4.123.0.3.xpi";
-      sha256 = "c7e39d12ed1ccb6ab462dfa155339cc7de41fb0dcfe6b80b088f4c445bd3f27e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202898/lastpass_password_manager-4.124.0.4.xpi";
+      sha256 = "f4aa08c8b00f8db0f148c4ecbf8a9aedd9f9cf36dcb893ebad4484c8056d80ce";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -6955,10 +6955,10 @@
       };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.1.4";
+      version = "2.2.0";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4186986/pay_by_privacy-2.1.4.xpi";
-      sha256 = "6d75d1b685b1d88340b0240eca73dcf18dc49ca1370aecd05c3f8344ada4f764";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202413/pay_by_privacy-2.2.0.xpi";
+      sha256 = "edda6ac8426f703042a38be934d8800c2acd8e28a8f7efb33d9e6ba44c3bb946";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -7625,10 +7625,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.7.4";
+      version = "2.8.0";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4172769/private_relay-2.7.4.xpi";
-      sha256 = "504c55f5b8bcdcb4c36a4fa99c876c1799c70f9eac787bced874b88f05c9a23f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202739/private_relay-2.8.0.xpi";
+      sha256 = "c1b929b8b24782397b90da1d50d86e390ab8640de945078a32a9052444684cc3";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -7637,8 +7637,8 @@
         mozPermissions = [
           "<all_urls>"
           "storage"
-          "contextMenus"
           "menus"
+          "contextMenus"
           "https://relay.firefox.com/"
           "https://relay.firefox.com/**"
           "https://relay.firefox.com/accounts/profile/**"
@@ -8594,10 +8594,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.28";
+      version = "5.4.29";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200697/sponsorblock-5.4.28.xpi";
-      sha256 = "4ca8f62d8b80cb16cd2822d373c52f7f9fa7ee76ce19aec9ba33997f0bc98c2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202411/sponsorblock-5.4.29.xpi";
+      sha256 = "ed7a9cf1cc9037294c7b9fdd8033b1d5fd900d59b3dc9b210e54ee7aee807128";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
