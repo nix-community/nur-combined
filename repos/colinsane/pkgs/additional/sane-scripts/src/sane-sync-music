@@ -143,6 +143,7 @@ def calculate_delta(in_dir: str, out_dir: str) -> tuple[set[Path], set[Path]]:
 
     to_del = { f for f in existing_out_files if f not in expected_out_files }
     logger.info(f'found {len(to_del)} files to delete')
+    # FIXME: files which exist but have changed (e.g fixed metadata) are incorrectly skipped
     to_copy = { f for f in in_files if target_name(f) not in existing_out_files and f.suffix not in IGNORE }
     logger.info(f'found {len(to_copy)} files to copy')
 
