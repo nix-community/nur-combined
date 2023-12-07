@@ -27,13 +27,17 @@
   # - `zfs set mountpoint=legacy pool`
   # if done correctly, the pool can be mounted before this `fileSystems` entry is created:
   # - `sudo mount -t zfs pool /mnt/persist/pool`
-  fileSystems."/mnt/persist/pool" = {
+  fileSystems."/mnt/pool" = {
     device = "pool";
     fsType = "zfs";
   };
   # services.zfs.zed = ... # TODO: zfs can send me emails when disks fail
   sane.programs.sysadminUtils.suggestedPrograms = [ "zfs" ];
 
+  sane.persist.stores."ext" = {
+    origin = "/mnt/pool/persist";
+    storeDescription = "external HDD storage";
+  };
 
   # increase /tmp space (defaults to 50% of RAM) for building large nix things.
   # even the stock `nixpkgs.linux` consumes > 16 GB of tmp
@@ -54,7 +58,7 @@
   };
 
   # slow, external storage (for archiving, etc)
-  fileSystems."/mnt/persist/ext" = {
+  fileSystems."/mnt/usb-hdd" = {
     device = "/dev/disk/by-uuid/aa272cff-0fcc-498e-a4cb-0d95fb60631b";
     fsType = "btrfs";
     options = [
@@ -62,12 +66,7 @@
       "defaults"
     ];
   };
-
-  sane.persist.stores."ext" = {
-    origin = "/mnt/persist/ext/persist";
-    storeDescription = "external HDD storage";
-  };
-  sane.fs."/mnt/persist/ext".mount = {};
+  sane.fs."/mnt/usb-hdd".mount = {};
 
   sane.persist.sys.byStore.plaintext = [
     # TODO: this is overly broad; only need media and share directories to be persisted

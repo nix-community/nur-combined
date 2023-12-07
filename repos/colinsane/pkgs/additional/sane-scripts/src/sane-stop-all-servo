@@ -1,16 +1,47 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p systemd
-sudo systemctl stop matrix-appservice-irc mx-puppet-discord mautrix-signal signald
-sudo systemctl stop ejabberd gitea lemmy-ui matrix-synapse pict-rs pleroma
-sudo systemctl stop dovecot2 opendkin postfix
-sudo systemctl stop i2p jackett transmission
-sudo systemctl stop jellyfin kiwix-serve komga navidrome
-sudo systemctl stop goaccess
+sudo systemctl stop \
+  bitcoind-mainnet \
+  coturn \
+  dovecot2 \
+  duplicity \
+  duplicity.timer \
+  ejabberd \
+  gitea \
+  goaccess \
+  i2p \
+  jackett \
+  jellyfin \
+  kiwix-serve \
+  komga \
+  lemmy \
+  lemmy-ui \
+  matrix-appservice-irc\
+  matrix-synapse \
+  mautrix-signal \
+  monero \
+  mx-puppet-discord \
+  navidrome \
+  nginx \
+  nix-serve \
+  ntfy-sh \
+  opendkin \
+  phpfpm-freshrss \
+  pict-rs \
+  pleroma \
+  postfix \
+  postgresql \
+  prosody \
+  sftpgo \
+  signald \
+  slskd \
+  systemctl \
+  tor \
+  transmission \
+  trust-dns-hn \
+  trust-dns-hn-resolver \
+  trust-dns-lan \
+  trust-dns-wan \
+  wireguard-wg-ovpns \
+
 # TODO: stop the freshrss timer
-sudo systemctl stop phpfpm-freshrss
-sudo systemctl stop nginx
-sudo systemctl stop postgresql
-sudo systemctl stop duplicity.timer
-sudo systemctl stop duplicity
-sudo systemctl stop trust-dns
-sudo systemctl stop wireguard-wg-ovpns
