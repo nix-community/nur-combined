@@ -12,7 +12,7 @@
 Run packages directly from this repository(no cache):
 
 ```sh
-nix run github:ryan4yin/nur-packages#yazi
+nix run github:ryan4yin/nur-packages#some-pakcage
 ```
 
 Use this repository in `flake.nix`:
@@ -39,7 +39,7 @@ Use this repository in `flake.nix`:
 
           environment.systemPackages = with pkgs; [
             # Add packages from this repo
-            nur-ryan4yin.packages.${system}.yazi  # terminal file manager
+            nur-ryan4yin.packages.${system}.some-package  # terminal file manager
           ];
         })
       ];
