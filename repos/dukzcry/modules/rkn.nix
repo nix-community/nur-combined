@@ -11,6 +11,19 @@ in {
     address = mkOption {
       type = types.str;
     };
+    resolver = mkOption {
+      type = types.submodule {
+        options = {
+          addresses = mkOption {
+            type = types.listOf types.str;
+          };
+          ipv6 = mkOption {
+            type = types.bool;
+            default = false;
+          };
+        };
+      };
+    };
     tor = mkOption {
       type = types.submodule {
         options = {
@@ -35,12 +48,35 @@ in {
       services.dnsmasq.settings = {
         conf-file = "/var/lib/dnsmasq/rkn";
       };
-      environment.systemPackages = with pkgs; [ ipset ];
-      networking.firewall.extraPackages = with pkgs; [ ipset ];
-      networking.firewall.extraCommands = ''
-        if ! ipset --quiet list rkn; then
-          ipset create rkn hash:ip family inet
-        fi
+      # в отличие от решения с голым ipset
+      # 1) разные сайты с одним IP не задевают друг друга
+      # 2) при удалённом использовании не надо гнать весь трафик через VPN
+      services.nginx.enable = true;
+      services.nginx.proxyResolveWhileRunning = true;
+      services.nginx.resolver = {
+        addresses = cfg.resolver.addresses;
+        ipv6 = cfg.resolver.ipv6;
+      };
+      services.nginx.virtualHosts = {
+        rkn = {
+          default = true;
+          listen = [{ addr = cfg.address; port = 80; }];
+          locations."/" = {
+            proxyPass = "http://$http_host:80";
+            extraConfig = ''
+              proxy_bind ${cfg.address};
+            '';
+          };
+        };
+      };
+      services.nginx.streamConfig = ''
+        server {
+          resolver ${toString cfg.resolver.addresses} ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
+          listen ${cfg.address}:443;
+          ssl_preread on;
+          proxy_pass $ssl_preread_server_name:443;
+          proxy_bind ${cfg.address};
+        }
       '';
     })
     (mkIf (cfg.enable && cfg.tor.enable) {
@@ -65,8 +101,7 @@ in {
         '';
       });
       networking.firewall.extraCommands = ''
-        iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -m set --match-set rkn dst -j DNAT --to-destination ${cfg.address}:9040
-        iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -m set --match-set rkn dst -j DNAT --to-destination ${cfg.address}:9040
+        iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -s ${cfg.address} -j DNAT --to-destination ${cfg.address}:9040
         # onion
         iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
