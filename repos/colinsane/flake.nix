@@ -385,23 +385,46 @@
             servo       = deployApp "servo"       "servo" "switch";
           };
 
-          sync-moby = {
-            # copy music from the current device to moby
-            # TODO: should i actually sync from /mnt/servo-media/Music instead of the local drive?
+          sync = {
             type = "app";
-            program = builtins.toString (pkgs.writeShellScript "sync-to-moby" ''
-              sudo mount /mnt/moby-home
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music ~/Music /mnt/moby-home/Music $@
+            program = builtins.toString (pkgs.writeShellScript "sync-all" ''
+              RC_lappy=$(nix run '.#sync.lappy' -- $@)
+              RC_moby=$(nix run '.#sync.moby' -- $@)
+              RC_desko=$(nix run '.#sync.desko' -- $@)
+
+              echo "lappy: $RC_lappy"
+              echo "moby: $RC_moby"
+              echo "desko: $RC_desko"
             '');
           };
 
-          sync-lappy = {
+          sync.desko = {
+            # copy music from servo to desko
+            # can run this from any device that has ssh access to desko and servo
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "sync-to-desko" ''
+              sudo mount /mnt/lappy-home
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compat /mnt/servo-media/Music /mnt/desko-home/Music $@
+            '');
+          };
+
+          sync.lappy = {
             # copy music from servo to lappy
-            # can run this from any device that has ssh access to lappy
+            # can run this from any device that has ssh access to lappy and servo
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-lappy" ''
               sudo mount /mnt/lappy-home
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music /mnt/servo-media/Music /mnt/lappy-home/Music $@
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat /mnt/servo-media/Music /mnt/lappy-home/Music $@
+            '');
+          };
+
+          sync.moby = {
+            # copy music from servo to moby
+            # can run this from any device that has ssh access to moby and servo
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "sync-to-moby" ''
+              sudo mount /mnt/moby-home
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat /mnt/servo-media/Music /mnt/moby-home/Music $@
             '');
           };
 
