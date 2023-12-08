@@ -1,0 +1,3 @@
+[py-slvs]
+src.pypi = "py-slvs"
+fetch.pypi = "py_slvs"

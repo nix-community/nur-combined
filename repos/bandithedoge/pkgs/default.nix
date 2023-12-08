@@ -1,7 +1,7 @@
 {pkgs, ...}: let
   callPackage' = pkg:
     pkgs.callPackage pkg {
-      inherit pkgs;
+      inherit pkgs callPackage';
       sources = pkgs.callPackage (pkg + "/_sources/generated.nix") {};
     };
 
@@ -24,6 +24,7 @@ in {
   octasine = callPackage' ./octasine;
   osirus = callPackage' ./osirus;
   powertab = callPackage' ./powertab;
+  pythonPackages = callPackages ./pythonPackages;
   raze = callPackage' ./raze;
   satty = callPackage' ./satty;
   sheepshaver-bin = callPackage' ./sheepshaver-bin;

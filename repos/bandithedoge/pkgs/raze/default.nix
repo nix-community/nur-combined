@@ -1,6 +1,7 @@
 {
   pkgs,
   sources,
+  ...
 }: let
   zmusic = pkgs.stdenv.mkDerivation {
     inherit (sources.zmusic) src pname version;

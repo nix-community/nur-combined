@@ -1,0 +1,17 @@
+{
+  "py-slvs": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "py-slvs",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-U6T/aXy0JTC1ptL5oBmch0ytSPmIkRA8XOi31NpArnI=",
+      "type": "url",
+      "url": "https://pypi.org/packages/source/p/py_slvs/py_slvs-1.0.6.tar.gz"
+    },
+    "version": "1.0.6"
+  }
+}

@@ -1,6 +1,7 @@
 {
   pkgs,
   sources,
+  ...
 }: let
   # copied from https://github.com/nix-community/nur-combined/blob/master/repos/rycee/pkgs/firefox-addons/default.nix
   buildFirefoxXpiAddon = pkgs.lib.makeOverridable ({
