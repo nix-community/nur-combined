@@ -305,6 +305,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         #chromium = pkgs.google-chrome;
       };
 
+      aeneas = callPackage ./pkgs/python3/pkgs/aeneas/aeneas.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

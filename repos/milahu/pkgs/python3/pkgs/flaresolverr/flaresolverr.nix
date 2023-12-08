@@ -270,17 +270,12 @@ buildPythonApplication rec {
     fi
   '';
 
-  # add env-vars for flaresolverr
-  # insert "export X=Y" lines before the last "exec" line of the wrapper script
-  # more envs are listed in the flaresolverr README.md
-  postFixup = ''
-    sed_script=""
-    sed_script+='/^exec .*/i '
-    sed_script+='[ -z "$CHROME_EXE_PATH" ] && export CHROME_EXE_PATH=${chromium}/bin/${chromium.meta.mainProgram}\n'
-    sed_script+='[ -z "$PATCHED_DRIVER_PATH" ] && export PATCHED_DRIVER_PATH=${undetected-chromedriver.bin}/bin/chromedriver\n'
-    sed_script+='[ -z "$PATCHED_DRIVER_IS_PATCHED" ] && export PATCHED_DRIVER_IS_PATCHED=1\n'
-    sed -i "$sed_script" $out/bin/flaresolverr
-  '';
+  # set default env vars for flaresolverr
+  makeWrapperArgs = [
+    "--set-default" "CHROME_EXE_PATH" "${chromium}/bin/${chromium.meta.mainProgram}"
+    "--set-default" "PATCHED_DRIVER_PATH" "${undetected-chromedriver.bin}/bin/chromedriver"
+    "--set-default" "PATCHED_DRIVER_IS_PATCHED" "1"
+  ];
 
   /*
   # fix: Testing via this command is deprecated
