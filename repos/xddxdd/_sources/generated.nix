@@ -122,15 +122,15 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "aad8ee98d7d4dc447f2fb5567c8d9014b6c4372d";
+    version = "2d2193041efc2631d8790d45b1fac3bb9b31201c";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "aad8ee98d7d4dc447f2fb5567c8d9014b6c4372d";
+      rev = "2d2193041efc2631d8790d45b1fac3bb9b31201c";
       fetchSubmodules = false;
-      sha256 = "sha256-krrnXZBBtoQjRMLznajWIGcKYL2xGF38/tDCFuslIz8=";
+      sha256 = "sha256-MiNLmQgGXR0IlR0zm9GHXIelqLN9bBQhJyOxs0pS7KE=";
     };
-    date = "2023-12-07";
+    date = "2023-12-06";
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
@@ -737,15 +737,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "70856b8dd40d94e2c47e586db39f9e76cb03deb0";
+    version = "99f42714eb4acf65ff1499bd36bc8a5bb7742f4d";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "70856b8dd40d94e2c47e586db39f9e76cb03deb0";
+      rev = "99f42714eb4acf65ff1499bd36bc8a5bb7742f4d";
       fetchSubmodules = false;
-      sha256 = "sha256-Ub5HrJvzEGSv+64Q5umKzersqQmke/hR+a3J5BWChJI=";
+      sha256 = "sha256-/MumjC5tB6I/YERFaFnxj2nhesFcFMafB7/bVctH/xI=";
     };
-    date = "2023-12-06";
+    date = "2023-12-07";
   };
   osdlyrics = {
     pname = "osdlyrics";
