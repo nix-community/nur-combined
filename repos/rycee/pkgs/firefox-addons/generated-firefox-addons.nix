@@ -2825,10 +2825,10 @@
       };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.1.3";
+      version = "2.1.4";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4204829/gitpod-2.1.3.xpi";
-      sha256 = "0a41e94dcd05d879fa3dd7f54b3b8e73434dc508ce6b6d410c7d5418bb15804e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4206091/gitpod-2.1.4.xpi";
+      sha256 = "72af5dcacfe25d05f4445a8caf3a317b9799ae2ea5c8457c2db0d0f473af0b68";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -4590,10 +4590,10 @@
       };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.17";
+      version = "2.17.3";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4191427/ipvfoo_pmarks-2.17.xpi";
-      sha256 = "4523772f67d05731d35c8f8fd7b87fa8191436c7d0ae0b575375c8ca6fd8b3c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4206143/ipvfoo-2.17.3.xpi";
+      sha256 = "7ed6a8813cce4217a9a11c6f86b0fb97384f5f3727ac7de3f79e3bdcbc0bb5ad";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -4708,10 +4708,10 @@
       };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.4.2";
+      version = "0.4.3";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195277/kagi_search_for_firefox-0.4.2.xpi";
-      sha256 = "7bd80f4717db48a5589e3d303af2a4cf016b9cff61f76ff66d7e2f7c464600f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4206027/kagi_search_for_firefox-0.4.3.xpi";
+      sha256 = "7e8366d3f6e9e41028c82bc48a7b479ec5ad1dd18b1fa124bde2f30ce7f5776a";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -7100,20 +7100,19 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2023.10.31";
+      version = "2023.12.1";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4188670/privacy_badger17-2023.10.31.xpi";
-      sha256 = "37e96cbd257b73d7350605ed20494a82b578f25a2cefc3de2dab019e5ff6ced1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4203344/privacy_badger17-2023.12.1.xpi";
+      sha256 = "aacac794c211fc6ea7dc51529883fd3e477aff37441d29ae7f576ab0f8c737b7";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
         description = "Automatically learns to block invisible trackers.";
         license = licenses.gpl3;
         mozPermissions = [
+          "<all_urls>"
           "alarms"
           "tabs"
-          "http://*/*"
-          "https://*/*"
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
@@ -7508,7 +7507,6 @@
           "http://www.google.co.zw/*"
           "https://www.google.cat/*"
           "http://www.google.cat/*"
-          "<all_urls>"
           ];
         platforms = platforms.all;
         };
@@ -7713,10 +7711,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.8.4";
+      version = "1.9.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4188487/proton_pass-1.8.4.xpi";
-      sha256 = "268615d5204f5e64bccf1d60671a6763955267903b2eae999a385aaa50a80bc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4203003/proton_pass-1.9.1.xpi";
+      sha256 = "3045c91451f5aa923429a196b99eacc05da6e89149c9acd980b35130933463a4";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9033,10 +9031,10 @@
       };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "4.19.0";
+      version = "5.0.0";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4115771/tampermonkey-4.19.0.xpi";
-      sha256 = "226a1f6b3c9a43d83ee601ca7a9a72feccb75fc8e90d2febcc4232564741db38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4202809/tampermonkey-5.0.0.xpi";
+      sha256 = "b7c12080d3d2327487c787c2bae60e45f75464f481485fb3ce059ccf98b4b4d8";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
@@ -9048,6 +9046,7 @@
           free = false;
           };
         mozPermissions = [
+          "alarms"
           "notifications"
           "tabs"
           "idle"
