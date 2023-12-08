@@ -391,7 +391,7 @@
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-moby" ''
               sudo mount /mnt/moby-home
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music ~/Music /mnt/moby-home/Music
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music ~/Music /mnt/moby-home/Music $@
             '');
           };
 
@@ -401,7 +401,7 @@
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-lappy" ''
               sudo mount /mnt/lappy-home
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music /mnt/servo-media/Music /mnt/lappy-home/Music
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music /mnt/servo-media/Music /mnt/lappy-home/Music $@
             '');
           };
 
