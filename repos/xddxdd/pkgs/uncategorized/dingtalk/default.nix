@@ -148,6 +148,9 @@ in
     nativeBuildInputs = [autoPatchelfHook makeWrapper libsForQt5.wrapQtAppsHook];
     buildInputs = libraries;
 
+    # We will append QT wrapper args to our own wrapper
+    dontWrapQtApps = true;
+
     unpackPhase = ''
       ar x ${src}
       tar xf data.tar.xz
@@ -209,6 +212,7 @@ in
       # Entrypoint
       mkdir -p $out/bin
       makeWrapper $out/lib/com.alibabainc.dingtalk $out/bin/dingtalk \
+        "''${qtWrapperArgs[@]}" \
         --argv0 "com.alibabainc.dingtalk" \
         --set WAYLAND_DISPLAY "" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"

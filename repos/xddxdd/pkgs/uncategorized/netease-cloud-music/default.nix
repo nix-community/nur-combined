@@ -4,6 +4,7 @@
   makeWrapper,
   lib,
   fetchurl,
+  callPackage,
   # Dependencies
   alsa-lib,
   at-spi2-atk,
@@ -33,6 +34,8 @@
 # - https://github.com/NixOS-CN/flakes/blob/main/packages/netease-cloud-music/default.nix
 # - https://github.com/Freed-Wu/nur-packages/blob/main/pkgs/applications/audio/netease-cloud-music/default.nix
 let
+  libnetease-patch = callPackage ./netease-patch.nix {};
+
   libraries = [
     alsa-lib
     at-spi2-atk
@@ -44,6 +47,7 @@ let
     gnome2.GConf
     gtk2
     libjpeg8
+    libnetease-patch
     libpulseaudio
     libvlc
     nspr
@@ -87,6 +91,9 @@ in
     nativeBuildInputs = [qt5.wrapQtAppsHook makeWrapper autoPatchelfHook];
     buildInputs = libraries;
 
+    # We will append QT wrapper args to our own wrapper
+    dontWrapQtApps = true;
+
     installPhase = ''
       mkdir -p $out/bin
       cp -r opt/netease/netease-cloud-music/netease-cloud-music $out/bin/
@@ -95,9 +102,11 @@ in
       cp -r usr/share/* $out/share/
 
       wrapProgram $out/bin/netease-cloud-music \
+        "''${qtWrapperArgs[@]}" \
         --set QCEF_INSTALL_PATH "${libqcef}/lib/qcef" \
         --set QT_QPA_PLATFORM xcb \
         --set XDG_SESSION_TYPE x11 \
+        --set LD_PRELOAD "${libnetease-patch}/lib/libnetease-patch.so" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
     '';
 
