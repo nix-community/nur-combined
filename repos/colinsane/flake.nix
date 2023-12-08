@@ -403,7 +403,7 @@
             # can run this from any device that has ssh access to desko and servo
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-desko" ''
-              sudo mount /mnt/lappy-home
+              sudo mount /mnt/desko-home
               ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compat /mnt/servo-media/Music /mnt/desko-home/Music $@
             '');
           };
