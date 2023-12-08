@@ -46,7 +46,7 @@ jobs:
           platforms: all
 
       - name: Install nix
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v24
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -55,7 +55,7 @@ jobs:
             extra-platforms = i686-linux aarch64-linux arm-linux
 
       - name: Setup cachix
-        uses: cachix/cachix-action@v12
+        uses: cachix/cachix-action@v13
         with:
           name: xddxdd
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
@@ -100,7 +100,7 @@ jobs:
           image: tonistiigi/binfmt:latest
           platforms: all
       - name: Install nix
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v24
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -129,7 +129,7 @@ jobs:
       id-token: 'write'
       contents: 'read'
     steps:
-      - uses: 'actions/checkout@v3'
+      - uses: 'actions/checkout@v4'
       - uses: 'DeterminateSystems/nix-installer-action@main'
       - uses: 'DeterminateSystems/flakehub-push@main'
         with:
