@@ -1663,10 +1663,13 @@ in with final; {
     # nativeBuildInputs = upstream.nativeBuildInputs ++ [ gpgme ];
     # buildInputs = lib.remove gjs upstream.buildInputs;
     # configureFlags = lib.remove "--enable-installed-tests" upstream.configureFlags;
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace Makefile-libostree.am \
-        --replace "CC=gcc" "CC=${stdenv.cc.targetPrefix}cc"
-    '';
+    # postPatch = (upstream.postPatch or "") + ''
+    #   substituteInPlace Makefile-libostree.am \
+    #     --replace "CC=gcc" "CC=${stdenv.cc.targetPrefix}cc"
+    # '';
+    makeFlags = upstream.makeFlags ++ [
+      "INTROSPECTION_SCANNER_ENV="
+    ];
   });
 
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"

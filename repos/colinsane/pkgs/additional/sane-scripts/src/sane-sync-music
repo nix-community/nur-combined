@@ -3,6 +3,7 @@
 # vim: set filetype=python :
 import argparse
 import concurrent.futures
+import datetime
 import logging
 import multiprocessing
 import os
@@ -75,6 +76,9 @@ IGNORE = [
     '.m3u',
     '.nsf_',
 ]
+
+def approx_eq(a: float, b: float, threshold: float) -> bool:
+    return abs(b - a) <= threshold
 
 def clean_name(path: Path) -> Path:
     '''
@@ -151,6 +155,17 @@ class Encoder:
         self.prefs = prefs
         self.dry_run = dry_run
 
+    def destructive(self, default_, f, *args, **kwargs):
+        if self.dry_run:
+            pretty_args = ", ".join(
+               [repr(a) for a in args]
+               + [f"{k}={v!r}" for k, v in kwargs.items()]
+            )
+            logger.debug(f"[dry-run: not invoking]: {f.__name__}({pretty_args})")
+            return default_
+        else:
+            return f(*args, **kwargs)
+
     def _check_output(self, args: list[str], quiet: bool = False) -> bytes:
         res = subprocess.run(args, capture_output=True)
 
@@ -162,9 +177,8 @@ class Encoder:
         return res.stdout
 
     def check_output(self, args: list[str], has_side_effect=True, **kwargs) -> str:
-        if self.dry_run and has_side_effect:
-            logger.debug("not invoking because dry run: " + ' '.join(args))
-            return b""
+        if has_side_effect:
+            return self.destructive(b'', self._check_output, args, **kwargs)
         else:
             return self._check_output(args, **kwargs)
 
@@ -173,17 +187,10 @@ class Encoder:
         self.check_output(['cp', str(source), str(dest)])
 
     def ensure_dir(self, dir: Path) -> None:
-        if self.dry_run:
-             logger.debug(f"not invoking because dry run: os.makedirs({dir!r}, exist_ok=True)")
-
-        else:
-            os.makedirs(str(dir), exist_ok=True)
+        self.destructive(None, os.makedirs, str(dir), exist_ok=True)
 
     def remove(self, path: Path) -> None:
-        if self.dry_run:
-            logger.debug(f"not invoking because dry run: os.remove({path!r})")
-        else:
-            os.remove(path)
+        self.destructive(None, os.remove, path)
 
     def convert(self, source: Path, dest: Path, target_samplerate: int | None) -> None:
         assert dest.suffix == '.mp3', "conversion to a target other than mp3 not yet supported"
@@ -194,6 +201,7 @@ class Encoder:
         self.check_output([
             'ffmpeg',
             '-loglevel', 'warning',
+            '-y',  # force overwrite
             '-i', str(source),
             '-codec:v', 'copy',
             '-codec:a', 'libmp3lame',
@@ -232,6 +240,12 @@ class Encoder:
             # neither resampling nor transcoding -> simple copy will suffice
             self.cp(source, dest)
 
+        # in all these cases, on success, synchronize the `mtime` to be in agreement
+        st = os.stat(source)
+        mtime = st.st_mtime
+        atime = datetime.datetime.now().timestamp()
+        self.destructive(None, os.utime, str(dest), (atime, mtime))
+
 class Sync:
     def __init__(self, encoder: Encoder, in_dir: str, out_dir: str, force_copy: bool = False):
         self.encoder = encoder
@@ -254,11 +268,12 @@ class Sync:
         else:
             return Path(str(n) + output_type)
 
-    def calculate_delta(self) -> tuple[set[Path], set[tuple[Path, Path]]]:
+    def calculate_delta(self) -> tuple[set[Path], set[tuple[Path, Path]], set[tuple[Path, Path]]]:
         '''
         Returns, as a tuple:
         - dest files which need to be deleted
-        - files to copy (in-path/out-path pairs)
+        - new files to copy (in-path/out-path pairs)
+        - existing files which need to be updated (in-path/out-path pairs)
 
         all returned paths are relative to in_dir/out_dir.
         '''
@@ -274,14 +289,35 @@ class Sync:
 
         expected_out_files = in_out_map.values()
 
-        to_del = { f for f in existing_out_files if f not in expected_out_files }
+        to_del = {
+          f for f in existing_out_files
+          if f not in expected_out_files
+        }
         logger.info(f'found {len(to_del)} files to delete')
-        to_copy = { (in_f, out_f) for (in_f, out_f) in in_out_map.items() if (self.force_copy or out_f not in existing_out_files) }
+
+        to_copy = {
+          (in_f, out_f) for (in_f, out_f) in in_out_map.items()
+          if out_f not in existing_out_files
+        }
         logger.info(f'found {len(to_copy)} files to copy')
 
-        return to_del, to_copy
+        to_update = {
+          (in_f, out_f) for (in_f, out_f) in in_out_map.items()
+          if (in_f, out_f) not in to_copy and (self.force_copy or self.needs_update(in_f, out_f))
+        }
+        logger.info(f'found {len(to_update)} files to update')
 
-    def rm_dest_files(self, files: set[Path]) -> None:
+        return to_del, to_copy, to_update
+
+    def needs_update(self, src: Path, dest: Path) -> bool:
+        '''
+        files are relative to in_dir/out_dir
+        '''
+        src_stat = os.stat(self.in_dir / src)
+        dest_stat = os.stat(self.out_dir / dest)
+        return not approx_eq(src_stat.st_mtime, dest_stat.st_mtime, threshold=120.0)
+
+    def rm_dest_files(self, files: list[Path]) -> None:
         '''
         files are relative to out_dir
         '''
@@ -310,7 +346,7 @@ class Sync:
         except Exception as e:
             logger.error(f"task failed: {e}")
 
-    def cp_files(self, file_pairs: set[tuple[Path, Path]], jobs: int):
+    def cp_files(self, file_pairs: list[tuple[Path, Path]], jobs: int):
         logger.info(f'using {jobs} jobs to copy {len(file_pairs)} files')
         with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as executor:
             for src_f, dest_f in file_pairs:
@@ -329,10 +365,10 @@ def sync_all(
     prefs = TranscodePreferences(compress=compress, compat=compat)
     encoder = Encoder(prefs, dry_run=dry_run)
     sync = Sync(encoder, in_dir, out_dir, force_copy=force_copy)
-    to_del, to_copy = sync.calculate_delta()
+    to_del, to_copy, to_update = sync.calculate_delta()
 
-    sync.rm_dest_files(to_del)
-    sync.cp_files(to_copy, jobs = jobs or multiprocessing.cpu_count())
+    sync.rm_dest_files(sorted(to_del))
+    sync.cp_files(sorted(to_copy) + sorted(to_update), jobs = jobs or multiprocessing.cpu_count())
 
 def main() -> None:
     logging.basicConfig()
