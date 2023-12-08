@@ -575,19 +575,18 @@
   };
   "privacy-badger" = buildFirefoxXpiAddon {
     pname = "privacy-badger";
-    version = "2023.10.31";
+    version = "2023.12.1";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4188670/privacy_badger17-2023.10.31.xpi";
-    sha256 = "37e96cbd257b73d7350605ed20494a82b578f25a2cefc3de2dab019e5ff6ced1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4203344/privacy_badger17-2023.12.1.xpi";
+    sha256 = "aacac794c211fc6ea7dc51529883fd3e477aff37441d29ae7f576ab0f8c737b7";
     meta = with lib; {
       homepage = "https://privacybadger.org/";
       description = "Automatically learns to block invisible trackers.";
       license = licenses.gpl3;
       mozPermissions = [
+        "<all_urls>"
         "alarms"
         "tabs"
-        "http://*/*"
-        "https://*/*"
         "webNavigation"
         "webRequest"
         "webRequestBlocking"
@@ -982,7 +981,6 @@
         "http://www.google.co.zw/*"
         "https://www.google.cat/*"
         "http://www.google.cat/*"
-        "<all_urls>"
       ];
       platforms = platforms.all;
     };
