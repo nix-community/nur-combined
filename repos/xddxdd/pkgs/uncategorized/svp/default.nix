@@ -1,7 +1,10 @@
 {
   stdenv,
   buildFHSEnv,
+  writeShellScriptBin,
   fetchurl,
+  callPackage,
+  # Dependencies
   ffmpeg,
   glibc,
   gnome,
@@ -9,13 +12,10 @@
   libmediainfo,
   libsForQt5,
   libusb1,
-  lsof,
-  mpv-unwrapped,
   ocl-icd,
   p7zip,
   patchelf,
   vapoursynth,
-  wrapMpv,
   writeText,
   xdg-utils,
   xorg,
@@ -26,21 +26,18 @@
 # https://aur.archlinux.org/packages/svp
 ################################################################################
 let
-  mpvForSVP =
-    wrapMpv
-    (mpv-unwrapped.override {
-      vapoursynthSupport = true;
-    })
-    {
-      extraMakeWrapperArgs = [
-        "--prefix"
-        "LD_LIBRARY_PATH"
-        ":"
-        "/run/opengl-driver/lib"
-      ];
-    };
+  mpvForSVP = callPackage ./mpv.nix {};
+
+  fakeLsof = writeShellScriptBin "lsof" ''
+    MPV_PID=$(grep -E "^mpv" /proc/*/comm | head -n1 | cut -d"/" -f3)
+    [ "$MPV_PID" = "" ] && exit 1
+
+    echo "p$MPV_PID"
+    echo "n/tmp/mpvsocket type=STREAM"
+  '';
 
   libraries = [
+    fakeLsof
     ffmpeg.bin
     glibc
     gnome.zenity
@@ -50,7 +47,6 @@ let
     libsForQt5.qtscript
     libsForQt5.qtsvg
     libusb1
-    lsof
     mpvForSVP
     ocl-icd
     stdenv.cc.cc.lib
@@ -133,8 +129,10 @@ in
       ln -s ${svp-dist}/share/icons $out/share/icons
     '';
 
+    passthru.mpv = mpvForSVP;
+
     meta = with lib; {
-      description = "SmoothVideo Project 4 (SVP4) (Packaging script adapted from https://aur.archlinux.org/packages/svp)";
+      description = "SmoothVideo Project 4 (SVP4) (MUST USE `packages.svp.mpv` IF YOU WANT TO LAUNCH MPV EXTERNALLY) (Packaging script adapted from https://aur.archlinux.org/packages/svp)";
       homepage = "https://www.svp-team.com/wiki/SVP:Linux";
       platforms = ["x86_64-linux"];
       license = licenses.unfree;

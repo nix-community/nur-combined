@@ -176,6 +176,7 @@ in
     soggy = pkg ./uncategorized/soggy {};
     space-cadet-pinball-full-tilt = pkg ./uncategorized/space-cadet-pinball-full-tilt {};
     svp = pkg ./uncategorized/svp {};
+    svp-mpv = pkg ./uncategorized/svp/mpv.nix {};
     tachidesk-server = pkg ./uncategorized/tachidesk-server {};
     undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver {};
     undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin {};
