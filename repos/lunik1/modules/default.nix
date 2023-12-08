@@ -1,1 +1,3 @@
-{ }
+{
+  inadyn = ./inadyn.nix;
+}
