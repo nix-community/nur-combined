@@ -1398,10 +1398,10 @@
       };
     "cookies-txt" = buildFirefoxXpiAddon {
       pname = "cookies-txt";
-      version = "0.4";
+      version = "0.6";
       addonId = "{12cf650b-1822-40aa-bff0-996df6948878}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4037589/cookies_txt-0.4.xpi";
-      sha256 = "6b07b6e478cae96c6eb5e669d90a233439458a00f866d88cb7c8275b054153e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4203553/cookies_txt-0.6.xpi";
+      sha256 = "62344e9fc9c24f8dad1fd2ee48b7b90fe818db4216c9e950c5070886593b28ad";
       meta = with lib;
       {
         description = "Exports all cookies to a Netscape HTTP Cookie File, as used by curl, wget, and youtube-dl, among others.";
@@ -1555,10 +1555,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.70";
+      version = "4.9.73";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4198549/darkreader-4.9.70.xpi";
-      sha256 = "3ccbe247031dd4fcc3d9bd840872ed38e9843729709f92803c234041070588a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205543/darkreader-4.9.73.xpi";
+      sha256 = "7c399ff32561886bb80dad0cafaf8f629792b0b71ff1efcf12667e05a2b38f1a";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1626,10 +1626,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "121.0.20231206.91731";
+      version = "121.0.20231208.91859";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4205303/deutsch_de_language_pack-121.0.20231206.91731.xpi";
-      sha256 = "332d62f3b79d59889dd97f5359a0600e27f14968ea6a5777803f2b118ee0dfe8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4206487/deutsch_de_language_pack-121.0.20231208.91859.xpi";
+      sha256 = "6638a09bfe2cc86faf7b67459d5cc5bee5a386d71ee4a58b488c632222be75ad";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2063,6 +2063,7 @@
       sha256 = "5244f72f6fbbd465c6209a3118fa41b8eb03b0eb53df160fb30a7f6954c40945";
       meta = with lib;
       {
+        homepage = "https://faststream.online/";
         description = "Stream without buffering, a great video player and download accelerator all in one.";
         license = {
           shortName = "allrightsreserved";
@@ -2313,24 +2314,23 @@
       };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
-      version = "7.5.1";
+      version = "8.2";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3616824/foxyproxy_standard-7.5.1.xpi";
-      sha256 = "42109bc250e20aafd841183d09c7336008ab49574b5e8aa9206991bb306c3a65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205084/foxyproxy_standard-8.2.xpi";
+      sha256 = "19943d65705f1cecd2fa1eb7a6ba836d1d5e036db369014557a6f1beb79bc873";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org";
         description = "FoxyProxy is an open-source, advanced proxy management tool that completely replaces Firefox's limited proxying capabilities. No paid accounts are necessary; bring your own proxies or buy from any vendor. The original proxy tool, since 2006.";
         license = licenses.gpl2;
         mozPermissions = [
-          "browsingData"
+          "downloads"
+          "notifications"
           "proxy"
           "storage"
           "tabs"
           "webRequest"
           "webRequestBlocking"
-          "downloads"
-          "notifications"
           "<all_urls>"
           ];
         platforms = platforms.all;
@@ -2465,10 +2465,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "121.0.20231206.91731";
+      version = "121.0.20231208.91859";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4205357/francais_language_pack-121.0.20231206.91731.xpi";
-      sha256 = "94e566114b876c42bd851e382a33d35a32c9cb5830929889b56e117e19df4b09";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4206522/francais_language_pack-121.0.20231208.91859.xpi";
+      sha256 = "92dfcaa24401ee2272622fe363b7b3e7eb4a3a9f66faacc0586ab8f5a917c0cc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4716,7 +4716,7 @@
       {
         homepage = "https://kagi.com";
         description = "A simple helper extension for setting Kagi as a default search engine, and automatically logging in to Kagi in private browsing windows.";
-        license = licenses.mpl20;
+        license = licenses.mit;
         mozPermissions = [
           "cookies"
           "declarativeNetRequestWithHostAccess"
@@ -7623,10 +7623,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.8.0";
+      version = "2.8.1";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4202739/private_relay-2.8.0.xpi";
-      sha256 = "c1b929b8b24782397b90da1d50d86e390ab8640de945078a32a9052444684cc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205650/private_relay-2.8.1.xpi";
+      sha256 = "4a85ddc1cd19d2a156c4efe76225d424c0c32e700ab77601f8c1e50d7975cd9d";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -7891,10 +7891,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.28.5";
+      version = "5.0.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4186072/react_devtools-4.28.5.xpi";
-      sha256 = "84740ba6c69c606ca385ee7b9f674b7e2bfaa0c3fbbd5989570285b8d7a5d817";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204958/react_devtools-5.0.0.xpi";
+      sha256 = "4290cd8eb5f51f80198ab749495a0a1239ba17a1b997b8b486e10448916a0187";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -8057,10 +8057,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.12";
+      version = "3.0.0.13";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4182960/return_youtube_dislikes-3.0.0.12.xpi";
-      sha256 = "90a3e492f38f6990109af2496f4e08cd28ca5dcb88f386a01c03b680ff4032f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4203985/return_youtube_dislikes-3.0.0.13.xpi";
+      sha256 = "599b8761489e90633f258ef1b85fafca8ccca2d84a9c2c5fab31c64dd694191d";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -8613,10 +8613,10 @@
       };
     "startpage-private-search" = buildFirefoxXpiAddon {
       pname = "startpage-private-search";
-      version = "2.0.0";
+      version = "2.0.1";
       addonId = "{20fc2e06-e3e4-4b2b-812b-ab431220cada}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4201157/startpage_private_search-2.0.0.xpi";
-      sha256 = "538f2d009651ab851c81902af875bcd82bd9505645c812d85da566beb8d4e3ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204954/startpage_private_search-2.0.1.xpi";
+      sha256 = "53d5e5868f1175b43675534b0628ad27ab79c7448c52b71963518fd8320c50b7";
       meta = with lib;
       {
         description = "This extension protects users from being tracked while allowing them to search the web in complete private mode.";
@@ -8768,10 +8768,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.38";
+      version = "1.5.41";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4190287/styl_us-1.5.38.xpi";
-      sha256 = "881b89235e8a33c32334e922abf11a4a857d0e007c4a2ff124b5445cd9994984";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204840/styl_us-1.5.41.xpi";
+      sha256 = "90ff3ca3ac070eebe2624025e6b43a46a2a88c51d2835446984b8ceadcc0f031";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -9471,10 +9471,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.3.8";
+      version = "8.4.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200469/ublacklist-8.3.8.xpi";
-      sha256 = "a3764fffdd68475b110610f4b1e24f2e7b331d16541fc6e190e189af5a42fc3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4203794/ublacklist-8.4.0.xpi";
+      sha256 = "100c3c8cd98d9c78b397256e5088895892d8678ad0dd537c724df18af9f6c3d4";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -10243,10 +10243,10 @@
       };
     "w2g" = buildFirefoxXpiAddon {
       pname = "w2g";
-      version = "8.6";
+      version = "9.5";
       addonId = "{6ea0a676-b3ef-48aa-b23d-24c8876945fb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4012364/w2g-8.6.xpi";
-      sha256 = "166b67e6e742ee1982b9cf5a740821869f7808314b09dde82ae76d0d9b395112";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4204148/w2g-9.5.xpi";
+      sha256 = "a71b56b1858e4f8163c38bf27da9470bd3aa15ce02e117355acbb171a51249b0";
       meta = with lib;
       {
         homepage = "https://w2g.tv";
@@ -10259,10 +10259,9 @@
           };
         mozPermissions = [
           "activeTab"
-          "<all_urls>"
           "webNavigation"
-          "webRequest"
-          "webRequestBlocking"
+          "scripting"
+          "storage"
           "https://stage.watch2gether.com/rooms/*"
           "https://w2g.tv/*"
           "https://rooms.w2g.tv/*"
