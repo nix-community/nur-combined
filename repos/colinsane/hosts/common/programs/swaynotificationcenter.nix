@@ -376,21 +376,21 @@ in
               command = "${systemctl-toggle}/bin/systemctl-toggle --user geary";
               active = "${pkgs.systemd}/bin/systemctl is-active --user geary";
             }
-          ] ++ lib.optionals config.sane.programs.abaddon.enabled [
-            {
-              type = "toggle";
-              label = "󰊴";  # Discord chat client; icons: 󰊴, 🎮
-              command = "${systemctl-toggle}/bin/systemctl-toggle --user abaddon";
-              active = "${pkgs.systemd}/bin/systemctl is-active --user abaddon";
-            }
-          # ] ++ lib.optionals config.sane.programs.gtkcord4.enabled [
-          #   # XXX: disabled in favor of abaddon: gtkcord4 leaks memory
+          # ] ++ lib.optionals config.sane.programs.abaddon.enabled [
+          #   # XXX: disabled in favor of gtkcord4: abaddon has troubles auto-connecting at start
           #   {
           #     type = "toggle";
           #     label = "󰊴";  # Discord chat client; icons: 󰊴, 🎮
-          #     command = "${systemctl-toggle}/bin/systemctl-toggle --user gtkcord4";
-          #     active = "${pkgs.systemd}/bin/systemctl is-active --user gtkcord4";
+          #     command = "${systemctl-toggle}/bin/systemctl-toggle --user abaddon";
+          #     active = "${pkgs.systemd}/bin/systemctl is-active --user abaddon";
           #   }
+          ] ++ lib.optionals config.sane.programs.gtkcord4.enabled [
+            {
+              type = "toggle";
+              label = "󰊴";  # Discord chat client; icons: 󰊴, 🎮
+              command = "${systemctl-toggle}/bin/systemctl-toggle --user gtkcord4";
+              active = "${pkgs.systemd}/bin/systemctl is-active --user gtkcord4";
+            }
           ] ++ lib.optionals config.sane.programs.signal-desktop.enabled [
             {
               type = "toggle";

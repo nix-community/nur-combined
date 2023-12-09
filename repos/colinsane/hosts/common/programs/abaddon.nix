@@ -10,7 +10,7 @@ in
       type = types.submodule {
         options.autostart = mkOption {
           type = types.bool;
-          default = true;
+          default = false;
         };
       };
     };
