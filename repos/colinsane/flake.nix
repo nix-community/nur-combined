@@ -192,6 +192,7 @@
 
       # unofficial output
       hostConfigs = mapAttrValues (host: host.config) self.nixosConfigurations;
+      hostSystems = mapAttrValues (host: host.config.system.build.toplevel) self.nixosConfigurations;
       hostPkgs = mapAttrValues (host: host.config.system.build.pkgs) self.nixosConfigurations;
       hostPrograms = mapAttrValues (host: mapAttrValues (p: p.package) host.config.sane.programs) self.nixosConfigurations;
 
