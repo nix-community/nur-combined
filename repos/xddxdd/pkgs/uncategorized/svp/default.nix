@@ -8,6 +8,7 @@
   ffmpeg,
   glibc,
   gnome,
+  jq,
   lib,
   libmediainfo,
   libsForQt5,
@@ -15,6 +16,7 @@
   ocl-icd,
   p7zip,
   patchelf,
+  socat,
   vapoursynth,
   writeText,
   xdg-utils,
@@ -28,12 +30,18 @@
 let
   mpvForSVP = callPackage ./mpv.nix {};
 
+  # Script provided by GitHub user @xrun1
+  # https://github.com/xddxdd/nur-packages/issues/31#issuecomment-1812591688
   fakeLsof = writeShellScriptBin "lsof" ''
-    MPV_PID=$(grep -E "^mpv" /proc/*/comm | head -n1 | cut -d"/" -f3)
-    [ "$MPV_PID" = "" ] && exit 1
-
-    echo "p$MPV_PID"
-    echo "n/tmp/mpvsocket type=STREAM"
+    for arg in "$@"; do
+      if [ -S "$arg" ]; then
+        printf %s p
+        echo '{"command": ["get_property", "pid"]}' |
+          ${socat}/bin/socat - "UNIX-CONNECT:$arg" |
+          ${jq}/bin/jq -Mr .data
+        printf '\n'
+      fi
+    done
   '';
 
   libraries = [
