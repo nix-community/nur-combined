@@ -105,7 +105,6 @@ in
   services.safeeyes.enable = true;
 
   environment.etc."sway/config.d/misc.conf".text = ''
-    exec --no-startup-id XDG_SESSION_TYPE=x11 qbittorrent
     exec --no-startup-id gammastep -l 31:121
   '';
 }

@@ -87,18 +87,11 @@
         "shardulm94.trailing-spaces"
       ];
       "dev.containers.dockerComposePath" = lib.getExe pkgs.podman-compose;
-      "dev.containers.dockerPath" = lib.getExe pkgs.podman;
+      "dev.containers.dockerPath" = lib.getExe' pkgs.podman "podman";
       "direnv.restart.automatic" = true;
       "jsonnet.languageServer" = {
         enableAutoUpdate = false;
-        pathToBinary = lib.getExe (pkgs.jsonnet-language-server.overrideAttrs {
-          patches = [
-            (pkgs.fetchpatch {
-              url = "https://github.com/grafana/jsonnet-language-server/commit/ca2db4607a3b8a75a70f4387166b8b6cc8f3538b.patch";
-              hash = "sha256-X+onwebtZw1F+0ufmzjfxYag8wkNHU0gWOc6U92s3Yc=";
-            })
-          ];
-        });
+        pathToBinary = lib.getExe' pkgs.jsonnet-language-server "jsonnet-language-server";
       };
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "${lib.getExe pkgs.nil}";

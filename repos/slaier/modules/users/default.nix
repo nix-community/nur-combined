@@ -9,7 +9,7 @@ in
   };
   users.users.nixos = {
     isNormalUser = true;
-    passwordFile = config.sops.secrets.user_nixos_passwd.path;
+    hashedPasswordFile = config.sops.secrets.user_nixos_passwd.path;
     extraGroups = [
       "adbusers"
       "aria2"

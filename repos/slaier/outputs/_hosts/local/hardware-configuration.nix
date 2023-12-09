@@ -83,7 +83,7 @@ _:
   };
 
   systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
   hardware.fancontrol =
@@ -127,13 +127,6 @@ _:
       echo "c" > pp_od_clk_voltage
     ''} %S%p/device"''
   ];
-
-  # audio
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-    support32Bit = true;
-  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
