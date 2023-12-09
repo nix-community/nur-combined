@@ -35,6 +35,8 @@ in
       # it's nice to not be limited in that way, so increase this a bit.
       nix.nrBuildUsers = 64;
 
+      nix.settings.system-features = [ "big-parallel" ];
+
       # enable cross compilation
       # TODO: do this via stdenv injection, linking into /run/binfmt the stuff in <nixpkgs:nixos/modules/system/boot/binfmt.nix>
       boot.binfmt.emulatedSystems = lib.optionals cfg.emulation [

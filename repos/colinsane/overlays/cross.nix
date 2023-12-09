@@ -386,6 +386,7 @@ in with final; {
   #   };
 
   # error: "imdi/imdi_make: line 1: ^?ELF^B^A^A^B�^A�@�^W^A@8: not found"
+  # 2023/12/08: upstreaming is unblocked
   argyllcms = needsBinfmtOrQemu prev.argyllcms;
 
   # binutils = prev.binutils.override {
@@ -419,7 +420,7 @@ in with final; {
   #   inherit (emulated) stdenv;
   # };
 
-  # 2023/10/23: upstreaming blocked by gvfs, webkitgtk 4.1 (OOMs)
+  # 2023/10/23: upstreaming blocked by gvfs, webkitgtk 4.1
   # fixes: "error: Package <foo> not found in specified Vala API directories or GObject-Introspection GIR directories"
   # needs binfmt for docs: "scangobj.py:execute_command:1293:WARNING:Running scanner failed: [Errno 8] Exec format error: './calls-scan', command: ./calls-scan"
   calls = prev.calls.overrideAttrs (upstream: {
@@ -506,6 +507,7 @@ in with final; {
   # }).overrideAttrs (upstream: {
   #   nativeBuildInputs = lib.remove glib upstream.nativeBuildInputs;
   # });
+  # 2023/12/08: upstreaming is unblocked (all dconf-editor deps build)
   dconf = prev.dconf.overrideAttrs (upstream: {
     # we need dconf to build with vala, because dconf-editor requires that.
     # upstream nixpkgs explicitly disables that on cross compilation, but in fact, it works.
@@ -564,6 +566,7 @@ in with final; {
   #   # // (crateNeedsBinfmt "sourceview5")
   # ;
 
+  # 2023/12/08: upstreaming blocked on qtsvg (pipewire)
   dialect = prev.dialect.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     postPatch = (upstream.postPatch or "") + ''
@@ -583,7 +586,7 @@ in with final; {
 
   # CMake Error at cmake/SoupVersion.cmake:3 (file):
   # file Failed to run ldconfig
-
+  # 2023/12/08: upstreaming is unblocked
   dino = prev.dino.overrideAttrs (upstream: {
     cmakeFlags = upstream.cmakeFlags ++ [
       "-DXGETTEXT_EXECUTABLE=${lib.getBin buildPackages.gettext}/bin/xgettext"
@@ -624,6 +627,7 @@ in with final; {
     # ];
   });
 
+  # 2023/12/08: upstreaming is blocked on rpm
   dtrx = prev.dtrx.override {
     # `binutils` is the nix wrapper, which reads nix-related env vars
     # before passing on to e.g. `ld`.
@@ -714,7 +718,7 @@ in with final; {
     '';
   }));
 
-  # 2023/07/31: upstreaming is blocked on ostree dep
+  # 2023/12/08: upstreaming is unblocked
   # needs binfmt: "./configure: line 17437: /nix/store/j2afjl8psjlk5cz23n45w5x8wkks2rkl-bubblewrap-aarch64-unknown-linux-gnu-0.8.0/bin/bwrap: cannot execute binary file: Exec format error"
   flatpak = prev.flatpak.overrideAttrs (upstream: {
     # fixes "No package 'libxml-2.0' found"
@@ -865,7 +869,7 @@ in with final; {
   #     buildInputs = (upstream.buildInputs or []) ++ [ prev.pkg-config ];
   #   });
   # });
-  # 2023/07/27: upstreaming is blocked on p11-kit, libavif cross compilation
+  # 2023/12/08: upstreaming is unblocked (but requires building webkitgtk-4.0)
   gthumb = mvInputs { nativeBuildInputs = [ glib ]; } prev.gthumb;
 
   # 2023/11/21: upstreaming is unblocked
@@ -888,18 +892,19 @@ in with final; {
     # - TODO: vapi stuff is contained in <dconf.dev:/share/vala/vapi/dconf.vapi>
     #   it's cross-platform; should be possible to ship dconf only in buildInputs & point dconf-editor to the right place
     # dconf-editor = addNativeInputs [ dconf ] super.dconf-editor;
-    evince = super.evince.overrideAttrs (orig: {
-      # 2023/11/21: upstreaming is blocked on jbig2dec
-      # fixes (meson) "Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)"
-      # inspired by gupnp
-      outputs = [ "out" "dev" ]
-        ++ lib.optionals (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform) [ "devdoc" ];
-      mesonFlags = orig.mesonFlags ++ [
-        "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
-      ];
-    });
+    # evince = super.evince.overrideAttrs (orig: {
+    #   # 2023/12/08: upstreaming is unblocked, working without patch
+    #   # - either gnome 45 fixed it, or it was only broken with binfmt
+    #   # fixes (meson) "Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)"
+    #   # inspired by gupnp
+    #   outputs = [ "out" "dev" ]
+    #     ++ lib.optionals (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform) [ "devdoc" ];
+    #   mesonFlags = orig.mesonFlags ++ [
+    #     "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
+    #   ];
+    # });
     evolution-data-server = super.evolution-data-server.overrideAttrs (upstream: {
-      # 2023/08/01: upstreaming is blocked on libavif
+      # 2023/12/08: upstreaming is unblocked, but depends on webkitgtk 4.1
       cmakeFlags = upstream.cmakeFlags ++ [
         "-DCMAKE_CROSSCOMPILING_EMULATOR=${stdenv.hostPlatform.emulator buildPackages}"
         "-DENABLE_TESTS=no"
@@ -935,6 +940,7 @@ in with final; {
     # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
     file-roller = mvToNativeInputs [ glib ] super.file-roller;
 
+    # 2023/12/08: upstreaming is blocked by evolution-data-server
     geary = super.geary.overrideAttrs (upstream: {
       buildInputs = upstream.buildInputs ++ [
         # glib
@@ -1081,7 +1087,7 @@ in with final; {
   #   };
   # });
 
-  # 2023/11/21: upstreaming is blocked on python3Packages.eyeD3
+  # 2023/12/08: upstreaming is blocked on python3Packages.eyeD3
   gpodder = prev.gpodder.overridePythonAttrs (upstream: {
     # fix gobject-introspection overrides import that otherwise fails on launch
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
@@ -1128,6 +1134,7 @@ in with final; {
   #   buildPackages.gtk-doc = gtk-doc;
   # });
 
+  # 2023/12/08: upstreaming is blocked on qtsvg
   iotas = prev.iotas.overrideAttrs (_: {
     # error: "<iotas> is not allowed to refer to the following paths: <build python>"
     # disallowedReferences = [];
@@ -1175,13 +1182,14 @@ in with final; {
   #   };
   # };
 
-  jbig2dec = prev.jbig2dec.overrideAttrs (_: {
-    # adding configureFlags here fixes: "configure: error: cannot run C compiled programs."
-    #   autogen needs the --host flag, i guess
-    preConfigure = ''
-      ./autogen.sh $configureFlags
-    '';
-  });
+  # jbig2dec = prev.jbig2dec.overrideAttrs (_: {
+  #   # 2023/12/08: compiles without this fix. i think it's only needed for binfmt
+  #   # adding configureFlags here fixes: "configure: error: cannot run C compiled programs."
+  #   #   autogen needs the --host flag, i guess
+  #   preConfigure = ''
+  #     ./autogen.sh $configureFlags
+  #   '';
+  # });
 
   # jellyfin-media-player = mvToBuildInputs
   #   [ libsForQt5.wrapQtAppsHook ]  # this shouldn't be: but otherwise we get mixed qtbase deps
@@ -1204,6 +1212,7 @@ in with final; {
   #   inherit (emulated) stdenv;
   # };
 
+  # 2023/12/08: upstreaming is blocked by qtsvg (pipewire)
   komikku = prev.komikku.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     postPatch = (upstream.postPatch or "") + ''
@@ -1649,28 +1658,6 @@ in with final; {
   #   # fixes "checking for /proc/net/route... configure: error: cannot check for file existence when cross compiling"
   #   inherit (emulated) stdenv;
   # };
-  # ostree = prev.ostree.override {
-  #   # fixes "configure: error: Need GPGME_PTHREAD version 1.1.8 or later"
-  #   inherit (emulated) stdenv;
-  # };
-
-  # 2023/09/02: upstreaming is implemented on servo `wip-ostree` branch
-  # 2023/11/21: upstreaming is in PR: <https://github.com/NixOS/nixpkgs/pull/269169>
-  ostree = prev.ostree.overrideAttrs (upstream: {
-    # fixes: "configure: error: Need GPGME_PTHREAD version 1.1.8 or later"
-    # new failure mode: "./src/libotutil/ot-gpg-utils.h:22:10: fatal error: gpgme.h: No such file or directory"
-    # buildInputs = lib.remove gpgme upstream.buildInputs;
-    # nativeBuildInputs = upstream.nativeBuildInputs ++ [ gpgme ];
-    # buildInputs = lib.remove gjs upstream.buildInputs;
-    # configureFlags = lib.remove "--enable-installed-tests" upstream.configureFlags;
-    # postPatch = (upstream.postPatch or "") + ''
-    #   substituteInPlace Makefile-libostree.am \
-    #     --replace "CC=gcc" "CC=${stdenv.cc.targetPrefix}cc"
-    # '';
-    makeFlags = upstream.makeFlags ++ [
-      "INTROSPECTION_SCANNER_ENV="
-    ];
-  });
 
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
   # 2023/07/27: upstreaming is blocked on p11-kit, argyllcms, libavif cross compilation
@@ -1735,7 +1722,7 @@ in with final; {
       #   ];
       # });
 
-      # 2023/11/21: upstreaming is unblocked  (eyeD3 is a dep of gpodder)
+      # 2023/12/08: upstreaming is unblocked  (eyeD3 is a dep of gpodder)
       eyeD3 = py-prev.eyeD3.overrideAttrs (orig: {
         # weird double-wrapping of the output executable, but somehow with the build python ends up on PYTHONPATH
         postInstall = "";
@@ -2055,6 +2042,7 @@ in with final; {
     ];
   });
 
+  # 2023/12/08: upstreaming is blocked by qtsvg (via pipewire)
   spot = prev.spot.overrideAttrs (upstream:
     let
       rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
@@ -2132,6 +2120,7 @@ in with final; {
   #   ;
   # };
 
+  # 2023/12/08: upstreaming is unblocked
   swaynotificationcenter = prev.swaynotificationcenter.overrideAttrs (upstream: {
     mesonFlags = (upstream.mesonFlags or []) ++ [
       # fixes "[can't find scdoc]"
@@ -2149,6 +2138,7 @@ in with final; {
   #   mvToNativeInputs [ glib ] prev.sysprof
   # );
 
+  # 2023/12/08: upstreaming is blocked by qtsvg (via pipewire)
   tangram = prev.tangram.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     # additionally, gsjpack has a shebang for the host gjs. patchShebangs --build doesn't fix that: just manually specify the build gjs
@@ -2173,7 +2163,7 @@ in with final; {
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
-  # 2023/07/27: upstreaming is blocked on p11-kit, gnustep cross compilation
+  # 2023/12/08: upstreaming is blocked on gnustep-base cross compilation
   unar = addNativeInputs [ bintools ] prev.unar;
   # unixODBCDrivers = prev.unixODBCDrivers // {
   #   # TODO: should this package be deduped with toplevel psqlodbc in upstream nixpkgs?
@@ -2226,7 +2216,7 @@ in with final; {
   #   buildInputs = upstream.buildInputs ++ [ bash ];
   # });
 
-  # 2023/11/21: upstreaming is blocked on ostree
+  # 2023/11/21: upstreaming is blocked on flatpak
   xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # fixes "meson.build:117:8: ERROR: Program 'bwrap' not found or not executable"
@@ -2239,7 +2229,7 @@ in with final; {
     ];
   });
   # fixes "No package 'xdg-desktop-portal' found"
-  # 2023/11/21: upstreaming is blocked on ostree, webp-pixbuf-loader, qtsvg (via pipewire/ffado)
+  # 2023/12/08: upstreaming is blocked on argyllcms, flatpak, qtsvg (via pipewire/ffado)
   xdg-desktop-portal-gtk = mvToBuildInputs [ xdg-desktop-portal ] prev.xdg-desktop-portal-gtk;
   # fixes: "data/meson.build:33:5: ERROR: Program 'msgfmt' not found or not executable"
   # fixes: "src/meson.build:25:0: ERROR: Program 'gdbus-codegen' not found or not executable"
@@ -2250,7 +2240,7 @@ in with final; {
     )
   );
 
-  # 2023/11/21: upstreaming is blocked on wlroots
+  # 2023/12/08: upstreaming is blocked on wlroots-hyprland
   # needs binfmt: "meson.build:420:8: ERROR: Dependency lookup for scdoc with method 'pkgconfig' failed: Pkg-config binary for machine 0 not found. Giving up."
   waybar = (prev.waybar.override {
     runTests = false;
@@ -2293,6 +2283,7 @@ in with final; {
   });
   # webkitgtk = prev.webkitgtk.override { stdenv = ccacheStdenv; };
 
+  # 2023/12/08: upstreaming is unblocked
   webp-pixbuf-loader = prev.webp-pixbuf-loader.overrideAttrs (upstream: {
     # fixes: "Builder called die: Cannot wrap '/nix/store/kpp8qhzdjqgvw73llka5gpnsj0l4jlg8-gdk-pixbuf-aarch64-unknown-linux-gnu-2.42.10/bin/gdk-pixbuf-thumbnailer' because it is not an executable file"
     # gdk-pixbuf doesn't create a `bin/` directory when cross-compiling, breaks some thumbnailing stuff.
@@ -2302,6 +2293,7 @@ in with final; {
   });
   # XXX: aarch64 webp-pixbuf-loader wanted by gdk-pixbuf-loaders.cache.drv, wanted by aarch64 gnome-control-center
 
+  # 2023/12/08: upstreaming is blocked by qtsvg (via pipewire)
   wike = prev.wike.overrideAttrs (upstream: {
     # error: "<wike> is not allowed to refer to the following paths: <build python>"
     # wike's meson build script sets host binaries to use build PYTHON
@@ -2311,6 +2303,7 @@ in with final; {
     '';
   });
 
+  # 2023/12/08: upstreaming is unblocked
   wob = mvToBuildInputs [ cmocka ] prev.wob;
 
   # wrapFirefox = prev.wrapFirefox.override {
