@@ -14,5 +14,6 @@
       "nvidia-x11"
       "nvidia-settings"
     ];
+    nixpkgs.config.nvidia.acceptLicense = true;
   };
 }

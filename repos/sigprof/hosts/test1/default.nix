@@ -41,7 +41,7 @@ in
           unstable.vial
         ];
 
-        fonts.fonts = [
+        fonts.packages = [
           self.packages.${system}.cosevka
         ];
       })
