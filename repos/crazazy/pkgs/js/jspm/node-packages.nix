@@ -697,13 +697,13 @@ let
         sha512 = "Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==";
       };
     };
-    "@types/node-18.19.1" = {
+    "@types/node-18.19.3" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.19.1";
+      version = "18.19.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.19.1.tgz";
-        sha512 = "mZJ9V11gG5Vp0Ox2oERpeFDl+JvCwK24PGy76vVY/UgBtjwJWc5rYBThFxmbnYOm9UPZNm6wEl/sxHt2SU7x9A==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.19.3.tgz";
+        sha512 = "k5fggr14DwAytoA/t8rPrIz++lXK7/DqckthCmoZOKNsEbJkId4Z//BqgApXBUGrGddrigYa1oqheo/7YmW4rg==";
       };
     };
     "abort-controller-3.0.0" = {
@@ -850,13 +850,13 @@ let
         sha512 = "obLCT9jnxAeZlbaRWluUiZrcSJEoi2JkM0eoiJqlIP7MFwZwZjcB6giZvD343PXfr96ilD91M/wFqFvyAZq+Gg==";
       };
     };
-    "browserslist-4.22.1" = {
+    "browserslist-4.22.2" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.22.1";
+      version = "4.22.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.22.1.tgz";
-        sha512 = "FEVc202+2iuClEhZhrWy6ZiAcRLvNMyYcxZ8raemul1DYVOVdFsbqckWLdsixQZCpJlwe77Z3UTalE7jsjnKfQ==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.22.2.tgz";
+        sha512 = "0UgcrvQmBDvZHFGdYUehrCNIazki7/lUP3kkoi/r3YB2amZbFM9J43ZRkJTXBUZK4gmx56+Sqk9+Vs9mwZx9+A==";
       };
     };
     "buffer-6.0.3" = {
@@ -904,13 +904,13 @@ let
         sha512 = "gxGWBrTT1JuMx6R+o5PTXMmUnhnVzLQ9SNutD4YqKtI6ap897t3tKECYla6gCWEkplXnlNybEkZg9GEGxKFCgw==";
       };
     };
-    "caniuse-lite-1.0.30001565" = {
+    "caniuse-lite-1.0.30001566" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001565";
+      version = "1.0.30001566";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001565.tgz";
-        sha512 = "xrE//a3O7TP0vaJ8ikzkD2c2NgcVUvsEe2IvFTntV4Yd1Z9FVzh+gW+enX96L0psrbaFMcVcH2l90xNuGDWc8w==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001566.tgz";
+        sha512 = "ggIhCsTxmITBAMmK8yZjEhCO5/47jKXPu6Dha/wuCS4JePVL+3uiDEBuhu2aIoT+bqTOR8L76Ip1ARL9xYsEJA==";
       };
     };
     "capital-case-1.0.4" = {
@@ -1111,13 +1111,13 @@ let
         sha512 = "M9qw6oUILGVrcENMSRRefE1MbHPIz0h79EKIeJWK9v563aT9Qkh8aEHPO1H5vi970wPirNY+jO9OpFoLiMsMGA==";
       };
     };
-    "electron-to-chromium-1.4.601" = {
+    "electron-to-chromium-1.4.609" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.601";
+      version = "1.4.609";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.601.tgz";
-        sha512 = "SpwUMDWe9tQu8JX5QCO1+p/hChAi9AE9UpoC3rcHVc+gdCGlbT3SGb5I1klgb952HRIyvt9wZhSz9bNBYz9swA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.609.tgz";
+        sha512 = "ihiCP7PJmjoGNuLpl7TjNA8pCQWu09vGyjlPYw1Rqww4gvNuCcmvl+44G+2QyJ6S2K4o+wbTS++Xz0YN8Q9ERw==";
       };
     };
     "encoding-0.1.13" = {
@@ -1399,13 +1399,13 @@ let
         sha512 = "Q8LZS/jfFFHz6XyZazLTAc078SSCoa27ZPBOfobWdpDiFO7FqPA2yskitUJIhaCgxNK8C+/lMBUTBNfVIDvLiw==";
       };
     };
-    "interface-datastore-8.2.7" = {
+    "interface-datastore-8.2.9" = {
       name = "interface-datastore";
       packageName = "interface-datastore";
-      version = "8.2.7";
+      version = "8.2.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/interface-datastore/-/interface-datastore-8.2.7.tgz";
-        sha512 = "ot5B5+VogufRfjhedAXZHm5NuEKyYZkDyVpTjBYIrxYUpS5GIfF2soE/dsd/FiBVqubcxa4IEToMXL5ruMwhjw==";
+        url = "https://registry.npmjs.org/interface-datastore/-/interface-datastore-8.2.9.tgz";
+        sha512 = "J/8PN8TnB5xxCRtgu9Vx3zExdOzcTU5/DBF2dlU41deX1GW6/SPpbJo5DRNSnvzfjmwJ7YhUOIFXyccUp8nuAA==";
       };
     };
     "interface-store-3.0.4" = {
@@ -1939,15 +1939,6 @@ let
         sha512 = "7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==";
       };
     };
-    "nanoid-5.0.3" = {
-      name = "nanoid";
-      packageName = "nanoid";
-      version = "5.0.3";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/nanoid/-/nanoid-5.0.3.tgz";
-        sha512 = "I7X2b22cxA4LIHXPSqbBCEQSL+1wv8TuoefejsX4HFWyC6jc5JG7CEaxOltiKjc1M+YCS2YkrZZcj4+dytw9GA==";
-      };
-    };
     "native-fetch-3.0.0" = {
       name = "native-fetch";
       packageName = "native-fetch";
@@ -2452,13 +2443,22 @@ let
         sha512 = "ohRElqR6C5dd60vRFLq40MCiSnUe1AzkpHvbCEMCGGP6zMoFYECsjdhL6bR1kTK37ONNRDuHQ3RIpScRYcYYIg==";
       };
     };
-    "uint8arrays-4.0.9" = {
+    "uint8arrays-4.0.10" = {
       name = "uint8arrays";
       packageName = "uint8arrays";
-      version = "4.0.9";
+      version = "4.0.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/uint8arrays/-/uint8arrays-4.0.9.tgz";
-        sha512 = "iHU8XJJnfeijILZWzV7RgILdPHqe0mjJvyzY4mO8aUUtHsDbPa2Gc8/02Kc4zeokp2W6Qq8z9Ap1xkQ1HfbKwg==";
+        url = "https://registry.npmjs.org/uint8arrays/-/uint8arrays-4.0.10.tgz";
+        sha512 = "AnJNUGGDJAgFw/eWu/Xb9zrVKEGlwJJCaeInlf3BkecE/zcTobk5YXYIPNQJO1q5Hh1QZrQQHf0JvcHqz2hqoA==";
+      };
+    };
+    "uint8arrays-5.0.0" = {
+      name = "uint8arrays";
+      packageName = "uint8arrays";
+      version = "5.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/uint8arrays/-/uint8arrays-5.0.0.tgz";
+        sha512 = "RWO7gR4x6syxnKDfZO8mDCsaaYs1/BqZCxlHgrcRge50E9GTnLmtoA4kwFSGIL4s3dQkryeTkvtG6oEFEya3yg==";
       };
     };
     "undici-5.28.2" = {
@@ -2770,7 +2770,7 @@ let
       sources."@protobufjs/utf8-1.1.0"
       sources."@tootallnate/once-1.1.2"
       sources."@types/minimatch-3.0.5"
-      sources."@types/node-18.19.1"
+      sources."@types/node-18.19.3"
       sources."abort-controller-3.0.0"
       sources."agent-base-6.0.2"
       sources."agentkeepalive-4.5.0"
@@ -2785,7 +2785,7 @@ let
       sources."brace-expansion-1.1.11"
       sources."browser-headers-0.4.1"
       sources."browser-readablestream-to-it-2.0.5"
-      sources."browserslist-4.22.1"
+      sources."browserslist-4.22.2"
       sources."buffer-6.0.3"
       sources."bufferutil-4.0.8"
       sources."cac-6.7.14"
@@ -2797,7 +2797,7 @@ let
         ];
       })
       sources."camel-case-4.1.2"
-      sources."caniuse-lite-1.0.30001565"
+      sources."caniuse-lite-1.0.30001566"
       sources."capital-case-1.0.4"
       sources."cborg-1.10.2"
       sources."chalk-2.4.2"
@@ -2818,7 +2818,7 @@ let
       sources."dns-over-http-resolver-3.0.0"
       sources."dot-case-3.0.4"
       sources."electron-fetch-1.9.1"
-      sources."electron-to-chromium-1.4.601"
+      sources."electron-to-chromium-1.4.609"
       sources."encoding-0.1.13"
       sources."err-code-3.0.1"
       sources."es-module-lexer-1.4.1"
@@ -2847,7 +2847,12 @@ let
       sources."infer-owner-1.0.4"
       sources."inflight-1.0.6"
       sources."inherits-2.0.4"
-      sources."interface-datastore-8.2.7"
+      (sources."interface-datastore-8.2.9" // {
+        dependencies = [
+          sources."multiformats-12.1.3"
+          sources."uint8arrays-5.0.0"
+        ];
+      })
       sources."interface-store-5.1.5"
       sources."ip-2.0.0"
       sources."ipfs-client-0.9.2"
@@ -2856,14 +2861,9 @@ let
           sources."@libp2p/interface-peer-id-1.1.2"
           sources."interface-datastore-7.0.4"
           sources."interface-store-3.0.4"
-          sources."nanoid-4.0.2"
         ];
       })
-      (sources."ipfs-core-utils-0.17.0" // {
-        dependencies = [
-          sources."nanoid-4.0.2"
-        ];
-      })
+      sources."ipfs-core-utils-0.17.0"
       sources."ipfs-grpc-client-0.12.0"
       sources."ipfs-grpc-protocol-0.7.0"
       sources."ipfs-http-client-59.0.0"
@@ -2933,7 +2933,7 @@ let
       sources."mkdirp-1.0.4"
       sources."ms-2.1.2"
       sources."multiformats-10.0.3"
-      sources."nanoid-5.0.3"
+      sources."nanoid-4.0.2"
       sources."native-fetch-4.0.2"
       sources."no-case-3.0.4"
       sources."node-fetch-2.7.0"
@@ -3019,7 +3019,7 @@ let
       sources."tslib-2.6.2"
       sources."uint8-varint-2.0.2"
       sources."uint8arraylist-2.4.7"
-      (sources."uint8arrays-4.0.9" // {
+      (sources."uint8arrays-4.0.10" // {
         dependencies = [
           sources."multiformats-12.1.3"
         ];
