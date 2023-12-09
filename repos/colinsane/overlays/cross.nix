@@ -586,7 +586,7 @@ in with final; {
 
   # CMake Error at cmake/SoupVersion.cmake:3 (file):
   # file Failed to run ldconfig
-  # 2023/12/08: upstreaming is unblocked
+  # 2023/12/08: upstreaming is our for PR: <https://github.com/NixOS/nixpkgs/pull/273189>
   dino = prev.dino.overrideAttrs (upstream: {
     cmakeFlags = upstream.cmakeFlags ++ [
       "-DXGETTEXT_EXECUTABLE=${lib.getBin buildPackages.gettext}/bin/xgettext"
@@ -871,14 +871,6 @@ in with final; {
   # });
   # 2023/12/08: upstreaming is unblocked (but requires building webkitgtk-4.0)
   gthumb = mvInputs { nativeBuildInputs = [ glib ]; } prev.gthumb;
-
-  # 2023/11/21: upstreaming is unblocked
-  #             but obsoleted by vala patch: <https://github.com/NixOS/nixpkgs/pull/269171>
-  # gnome-2048 = addNativeInputs [
-  #   # fix: "error: Package `libgnome-games-support-1' not found in specified Vala API directories or GObject-Introspection GIR directories"
-  #   libgnome-games-support
-  #   # gobject-introspection  # this *should* work, if libgnome-games-support were to ship GIR bindings?
-  # ] prev.gnome-2048;
 
   gnome = prev.gnome.overrideScope' (self: super: {
     # dconf-editor = super.dconf-editor.override {
@@ -2303,7 +2295,7 @@ in with final; {
     '';
   });
 
-  # 2023/12/08: upstreaming is unblocked
+  # 2023/12/08: upstreaming is out for PR: <https://github.com/NixOS/nixpkgs/pull/273190>
   wob = mvToBuildInputs [ cmocka ] prev.wob;
 
   # wrapFirefox = prev.wrapFirefox.override {
