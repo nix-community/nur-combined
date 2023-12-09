@@ -1040,6 +1040,17 @@
       sha256 = "sha256-vVN7w+oPXNTMJ/g1Rpw/AVLIytMXI+gLieNuddyyIYE=";
     };
   };
+  win2xcur = {
+    pname = "win2xcur";
+    version = "v0.1.2";
+    src = fetchFromGitHub {
+      owner = "quantum5";
+      repo = "win2xcur";
+      rev = "v0.1.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-OjLj+QYg8YOJzDq3Y6/uyEXlNWbPm8VA/b1yP9jT6Jo=";
+    };
+  };
   wine-wechat-x64 = {
     pname = "wine-wechat-x64";
     version = "3.9.8.15";

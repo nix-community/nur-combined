@@ -184,6 +184,7 @@ in
     vs-rife = pkg ./uncategorized/vs-rife {};
     wechat-uos = pkg ./uncategorized/wechat-uos {};
     wechat-uos-bin = pkg ./uncategorized/wechat-uos/official-bin.nix {};
+    win2xcur = pkg ./uncategorized/win2xcur {};
     wine-wechat = lib.makeOverridable pkg ./uncategorized/wine-wechat {};
     wine-wechat-x86 = lib.makeOverridable pkg ./uncategorized/wine-wechat-x86 {};
     xstatic-asciinema-player = pkg ./uncategorized/xstatic-asciinema-player {};
