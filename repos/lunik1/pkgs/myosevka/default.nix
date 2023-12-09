@@ -134,6 +134,7 @@ let
       inherit set privateBuildPlan;
       buildNpmPackage = args: superBuildNpmPackage
         (args // rec {
+          pname = "myosevka-${set}";
           version = "27.3.5";
           src = fetchFromGitHub {
             owner = "be5invis";
@@ -141,6 +142,8 @@ let
             rev = "v${version}";
             hash = "sha256-dqXr/MVOuEmAMueaRWsnzY9MabhnyBRtLR9IDVLN79I=";
           };
+
+          buildPlan = builtins.toJSON { buildPlans.${pname} = privateBuildPlan; };
 
           npmDepsHash = "sha256-bux8aFBP1Pi5pAQY1jkNTqD2Ny2j+QQs+QRaXWJj6xg=";
 
