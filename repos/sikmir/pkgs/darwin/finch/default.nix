@@ -5,12 +5,12 @@ let
   # Check LIMA_URL in Makefile
   lima = {
     "x86_64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1695247723.tar.gz";
-      hash = "sha256-AuyO6Egz5MMFqSE31hNM0VgLXMUBLifpDz4BwclD5LM=";
+      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1701821611.tar.gz";
+      hash = "sha256-mXBQLptj7hpPWGZXMnxDORVq3Zti/yYyW+Udm/FF9UQ=";
     };
     "aarch64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1695247723.tar.gz";
-      hash = "sha256-VetbhEPBUiMVdHN6ypS9SJMhHIShVjuurnffPtukzjE=";
+      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1701821611.tar.gz";
+      hash = "sha256-6Ll2CUwGJKUl8vxgdDx4Xm6O2WMYGJxMX6mLHJSvtT8=";
     };
   }.${stdenv.hostPlatform.system};
   # Check FINCH_OS_BASENAME in Makefile
