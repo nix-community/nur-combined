@@ -2237,18 +2237,16 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.19.1";
+      version = "5.0.2";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4090997/floccus-4.19.1.xpi";
-      sha256 = "a806d218c2e8eb11d115f3cd85d877ee8b0ec4f043a3c3edf1e41f78738ca314";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207046/floccus-5.0.2.xpi";
+      sha256 = "c80fd45de1309c101f1c27c0ff41c5f74e32409300d6e5a1622e44b8596cf515";
       meta = with lib;
       {
         homepage = "https://floccus.org";
         description = "Sync your bookmarks across browsers via Nextcloud, WebDAV or Google Drive";
         license = licenses.mpl20;
         mozPermissions = [
-          "https://*/"
-          "http://*/"
           "alarms"
           "bookmarks"
           "storage"
@@ -8292,10 +8290,10 @@
       };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "11.1.5";
+      version = "11.1.6";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197896/sidebartabs-11.1.5.xpi";
-      sha256 = "65d8853da174673122860ab676b0456f60ce59842887bb6467319b503e452965";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207161/sidebartabs-11.1.6.xpi";
+      sha256 = "a763436412d721b0cf4f028d06fae788a199c3ccc12b9e86ce80b95495d2b857";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -8647,10 +8645,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.2.3";
+      version = "2.0.0";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4196342/statshunters-1.2.3.xpi";
-      sha256 = "cabe33c6f63f1b9cdafb2df373be054f70d81a07bf5f1495f4b36fbb3c5fcc65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4206990/statshunters-2.0.0.xpi";
+      sha256 = "4e2529018b104edc70f750519164499154a01aa490d794b23c1cab3b539b2b34";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
