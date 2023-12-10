@@ -118,9 +118,13 @@ let
             generatedUnit = utils.systemdUtils.lib.serviceToUnit serviceName (value // {
               environment = (value.environment or {}) // {
                 # replicate the default NixOS user PATH (omitting dirs which don't exist)
-                PATH = lib.removePrefix ":" (
-                  (value.environment.PATH or "")
-                  + ":/run/wrappers/bin:/etc/profiles/per-user/${name}/bin:/run/current-system/sw/bin"
+                # N.B.: user PATH SHOULD be before the service's path.
+                # this allows to user to override preferences for things like e.g. bemenu (for theming)
+                PATH = lib.removeSuffix ":" (
+                  "/run/wrappers/bin:"
+                  + "/etc/profiles/per-user/${name}/bin:"
+                  + "/run/current-system/sw/bin:"
+                  + (value.environment.PATH or "")
                 );
               };
             });
