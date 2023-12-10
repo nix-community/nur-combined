@@ -22,6 +22,8 @@ pkgs.stdenv.mkDerivation {
     patchShebangs ./dpf/utils/generate-ttl.sh
   '';
 
+  enableParallelBuilding = true;
+
   makeFlags = ["PREFIX=$(out)"];
 
   meta = with pkgs.lib; {

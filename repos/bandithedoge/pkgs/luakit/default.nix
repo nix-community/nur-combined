@@ -19,7 +19,7 @@ pkgs.stdenv.mkDerivation {
       luajit
       luajitPackages.luafilesystem
       sqlite
-      webkitgtk
+      webkitgtk_4_1
     ]
     ++ (with pkgs.gst_all_1; [
       gstreamer
@@ -29,6 +29,8 @@ pkgs.stdenv.mkDerivation {
       gst-plugins-ugly
       gst-libav
     ]);
+
+  enableParallelBuilding = true;
 
   makeFlags = [
     "DEVELOPMENT_PATHS=0"
@@ -58,6 +60,5 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://luakit.github.io/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    broken = true;
   };
 }
