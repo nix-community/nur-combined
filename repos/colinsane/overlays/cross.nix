@@ -2295,9 +2295,6 @@ in with final; {
     '';
   });
 
-  # 2023/12/08: upstreaming is out for PR: <https://github.com/NixOS/nixpkgs/pull/273190>
-  wob = mvToBuildInputs [ cmocka ] prev.wob;
-
   # wrapFirefox = prev.wrapFirefox.override {
   #   buildPackages = buildPackages // {
   #     # fixes "extract-binary-wrapper-cmd: line 2: strings: command not found"

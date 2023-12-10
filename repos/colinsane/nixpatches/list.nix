@@ -28,11 +28,6 @@ in [
     saneCommit = "8631ddfb99aa8e935276b27d55ef5e10f5ab0367";
     hash = "sha256-AkxtrCJrf0wpTdty4SOIWBrWwqfG7rBI4ON38BjDi6s=";
   })
-  (fetchpatch' {
-    title = "gtkcord4: 0.0.12 -> 0.0.16-1";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/259394";
-    hash = "sha256-pEkMxAGPbj6RDj+0lMRcs5KVp1J5kfezzVBhvrQjmrk=";
-  })
   # (fetchpatch' {
   #   title = "nixos/slskd: allow omitting username from yaml config";
   #   saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
@@ -200,12 +195,6 @@ in [
   # let ccache cross-compile
   # TODO: why doesn't this apply?
   # ./2023-03-04-ccache-cross-fix.patch
-
-  (fetchpatch' {
-    title = "bambu-studio: init at 01.06.02.04";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/206495";
-    hash = "sha256-s1KrjjTsGK0+aimFHzPCvkFG0fN/l6Tqlt5l9rmh8iY=";
-  })
 
   # (fetchpatch' {
   #   # phoc: 0.25.0 -> 0.27.0
