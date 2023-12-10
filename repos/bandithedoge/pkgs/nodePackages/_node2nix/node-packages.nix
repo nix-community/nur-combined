@@ -135,13 +135,13 @@
         sha512 = "b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==";
       };
     };
-    "bumpp-9.2.0" = {
+    "bumpp-9.2.1" = {
       name = "bumpp";
       packageName = "bumpp";
-      version = "9.2.0";
+      version = "9.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bumpp/-/bumpp-9.2.0.tgz";
-        sha512 = "pgp7y3jp33QTaXFVDrE0IKuZF5Y8EsIz+ywZXFALW2nD+ZD+4crxJe/GypBQBoJuZrr5dc6TGrR3wl7fk3+C6w==";
+        url = "https://registry.npmjs.org/bumpp/-/bumpp-9.2.1.tgz";
+        sha512 = "mq6/e8+bnIsOMy1VceTLC49WucMIZqd2nYn0e7Et5LhTO3yYQ8OWJsTl/B+uJDs5eywZmJ4Yt1WTEd2HCI35pw==";
       };
     };
     "c12-1.5.1" = {
@@ -910,7 +910,7 @@ in {
       sources."anymatch-3.1.3"
       sources."binary-extensions-2.2.0"
       sources."braces-3.0.2"
-      sources."bumpp-9.2.0"
+      sources."bumpp-9.2.1"
       sources."c12-1.5.1"
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"
