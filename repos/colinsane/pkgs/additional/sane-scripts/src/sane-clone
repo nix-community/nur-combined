@@ -8,9 +8,9 @@ basedir=/home/colin/ref/repos
 
 # fetchFromGitHub: provides src.{gitRepoUrl,owner,repo}
 # fetchFromGitLab: provides src.gitRepoUrl only
-repourl="$(nix eval --raw nixpkgs#$srcattr.gitRepoUrl)"
-repoowner="$(nix eval --raw nixpkgs#$srcattr.owner)"
-reponame="$(nix eval --raw nixpkgs#$srcattr.repo)"
+repourl="$(nix eval --raw /home/colin/dev/nixos#$srcattr.gitRepoUrl)"
+repoowner="$(nix eval --raw /home/colin/dev/nixos#$srcattr.owner)"
+reponame="$(nix eval --raw /home/colin/dev/nixos#$srcattr.repo)"
 
 ownerdir="$basedir/$repoowner"
 clonedir="$ownerdir/$reponame"
