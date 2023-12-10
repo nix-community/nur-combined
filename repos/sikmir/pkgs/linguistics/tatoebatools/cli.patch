@@ -1,23 +1,24 @@
 diff --git c/setup.py i/setup.py
-index 10ad3c2..4cf6338 100644
+index 387f33e..b8d2cd0 100644
 --- c/setup.py
 +++ i/setup.py
-@@ -25,9 +25,12 @@ setuptools.setup(
+@@ -26,10 +26,13 @@ setuptools.setup(
      python_requires=">=3.8.0",
      install_requires=[
-         "beautifulsoup4>=4.9.0",
+         "beautifulsoup4>=4.12.2",
 +        "click",
-         "pandas>=1.5.0",
-         "requests>=2.23.0",
-         "SQLAlchemy==1.4.23",
-         "tqdm>=4.46.0",
+         "importlib-resources>=6.1.1;python_version<'3.9'",
+         "pandas>=2.0.3",
+         "requests>=2.31.0",
+         "SQLAlchemy>=2.0.23",
+         "tqdm>=4.66.1",
 +        "xdg-base-dirs",
      ],
 +    entry_points={"console_scripts": "parallel_corpus=tatoebatools.cli:parallel_corpus"},
  )
 diff --git c/tatoebatools/cli.py i/tatoebatools/cli.py
 new file mode 100644
-index 0000000..f128aec
+index 0000000..76a4ef0
 --- /dev/null
 +++ i/tatoebatools/cli.py
 @@ -0,0 +1,13 @@
