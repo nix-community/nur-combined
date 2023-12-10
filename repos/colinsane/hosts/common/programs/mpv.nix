@@ -23,8 +23,8 @@ in
     package = pkgs.wrapMpv pkgs.mpv-unwrapped {
       scripts = with pkgs.mpvScripts; [
         mpris
-        # uosc
-        pkgs.mpv-uosc-latest
+        uosc
+        # pkgs.mpv-uosc-latest
       ];
       extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
         # 2023/08/29: fixes an error where mpv on moby launches with the message
@@ -94,6 +94,7 @@ in
     in ''
       # docs:
       # - <https://github.com/tomasklaen/uosc>
+      # - <https://github.com/tomasklaen/uosc/blob/main/src/uosc.conf>
       # - <https://superuser.com/questions/1775550/add-new-buttons-to-mpv-uosc-ui>
       timeline_style=bar
       timeline_persistency=paused,audio
@@ -110,8 +111,7 @@ in
 
       text_border=6.0
       font_bold=yes
-      background_text=ff8080
-      foreground=ff8080
+      color=foreground=ff8080,background_text=ff8080
 
       ui_scale=1.0
     '';
