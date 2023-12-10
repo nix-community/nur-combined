@@ -362,20 +362,20 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "42037f9768eba1126f832cd9dcd0baaf3def0e9c";
+    version = "e844bcad007b8f172674bbea19dca65dc6ac0d0b";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "42037f9768eba1126f832cd9dcd0baaf3def0e9c";
+      rev = "e844bcad007b8f172674bbea19dca65dc6ac0d0b";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-qdWGM68s3N3WISBumW5i9wxPvGWrIftNFxtqBOK6BOI=";
+      sha256 = "sha256-8jpuAbITGuqtQar1Y3Wsr/wq+UPStpuWp4Ok+DdqX9g=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-42037f9768eba1126f832cd9dcd0baaf3def0e9c/Cargo.lock;
+      lockFile = ./swayosd-e844bcad007b8f172674bbea19dca65dc6ac0d0b/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-12-08";
+    date = "2023-12-10";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
