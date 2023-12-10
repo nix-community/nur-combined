@@ -887,10 +887,10 @@
     "homepage": "",
     "owner": "echasnovski",
     "repo": "mini.nvim",
-    "rev": "d8bab386fe69c02129857957e148c7178bf94ae9",
-    "sha256": "1pijm492apalks76js9x2g4ai0n8z4g1jgarkp1dx6wpqgfswdbn",
+    "rev": "c87d3b73d763d4222cdef19323e6a2c4bee33013",
+    "sha256": "1dd5k3pbd8fnnb8smbfi2af3d21190w587slixljzym2vhkm3072",
     "type": "tarball",
-    "url": "https://github.com/echasnovski/mini.nvim/archive/d8bab386fe69c02129857957e148c7178bf94ae9.tar.gz",
+    "url": "https://github.com/echasnovski/mini.nvim/archive/c87d3b73d763d4222cdef19323e6a2c4bee33013.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "mkdir.nvim": {
@@ -1532,7 +1532,7 @@
   "rainbow-delimiters.nvim": {
     "branch": "master",
     "repo": "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
-    "rev": "b61a743df90b05b8b7c1483f2e8f34419b278857",
+    "rev": "c1635c2429644bfd5044dff067a613952a9424b6",
     "type": "git"
   },
   "range-highlight.nvim": {

@@ -1,0 +1,4 @@
+[cinelerra-gg]
+src.webpage = "https://cinelerra-gg.org/download/images/?C=N;O=D"
+src.regex = 'CinGG-(\d{8})'
+fetch.url = "https://cinelerra-gg.org/download/images/CinGG-$ver-x86_64.AppImage"
