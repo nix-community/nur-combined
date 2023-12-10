@@ -953,6 +953,18 @@
     };
     date = "2023-09-09";
   };
+  sam-toki-mouse-cursors = {
+    pname = "sam-toki-mouse-cursors";
+    version = "1eedc4b98ec50f4de76d622366104e1d2054645a";
+    src = fetchFromGitHub {
+      owner = "SamToki";
+      repo = "IconDesign---Sam-Toki-Mouse-Cursors";
+      rev = "1eedc4b98ec50f4de76d622366104e1d2054645a";
+      fetchSubmodules = false;
+      sha256 = "sha256-uPi62eAKkqbi/FXWhfiPHhE8VKv0YwC+walMWKQNQ9U=";
+    };
+    date = "2023-12-02";
+  };
   sgx-software-enable = {
     pname = "sgx-software-enable";
     version = "7977d6dd373f3a14a615ee9be6f24ecd37c0b43d";

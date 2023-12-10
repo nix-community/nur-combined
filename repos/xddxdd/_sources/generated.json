@@ -1651,6 +1651,26 @@
         },
         "version": "8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197"
     },
+    "sam-toki-mouse-cursors": {
+        "cargoLocks": null,
+        "date": "2023-12-02",
+        "extract": null,
+        "name": "sam-toki-mouse-cursors",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SamToki",
+            "repo": "IconDesign---Sam-Toki-Mouse-Cursors",
+            "rev": "1eedc4b98ec50f4de76d622366104e1d2054645a",
+            "sha256": "sha256-uPi62eAKkqbi/FXWhfiPHhE8VKv0YwC+walMWKQNQ9U=",
+            "type": "github"
+        },
+        "version": "1eedc4b98ec50f4de76d622366104e1d2054645a"
+    },
     "sgx-software-enable": {
         "cargoLocks": null,
         "date": "2023-01-06",

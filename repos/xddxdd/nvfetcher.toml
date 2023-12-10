@@ -382,6 +382,10 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 src.git = "https://github.com/xddxdd/route-chain.git"
 fetch.github = "xddxdd/route-chain"
 
+[sam-toki-mouse-cursors]
+src.git = "https://github.com/SamToki/IconDesign---Sam-Toki-Mouse-Cursors.git"
+fetch.github = "SamToki/IconDesign---Sam-Toki-Mouse-Cursors"
+
 [sgx-software-enable]
 src.git = "https://github.com/intel/sgx-software-enable.git"
 fetch.github = "intel/sgx-software-enable"
