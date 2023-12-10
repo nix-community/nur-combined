@@ -8,8 +8,10 @@ rsyncnet_user=de3163@de3163.rsync.net
 
 function backup {
   from="$1"; shift
-  to="$1"; shift
-  rsync -avP "${from}" "${rsyncnet_user}:${to}" "$@"
+  to="${rsyncnet_user}:$1"; shift
+
+  echo '[*]' Fazendo backup "'$from' -> '$to'"
+  rsync -avP "${from}" "${to}" "$@"
 }
 
 if sd is_node riverwood; then
@@ -49,7 +51,8 @@ fi
 
 # mirroring of git repos -- new ones using git clone --mirror
 # TODO: is this the right way?
-ssh "$rsyncnet_user" ls git | while read repo; do
+for repo in $(ssh "$rsyncnet_user" ls git); do
+  echo "[*] Syncando mirror do repo em 'git/$repo'"
   ssh "$rsyncnet_user" git --git-dir "git/$repo" fetch --all --prune
 done
 
