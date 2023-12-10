@@ -82,6 +82,7 @@ in
     "gthumb"
     "gtkcord4"  # Discord client. 2023/11/21: disabled because v0.0.12 leaks memory
     "lemoa"  # lemmy app
+    "libnotify"  # for notify-send; debugging
     # "lollypop"
     "mate.engrampa"  # archive manager
     "mepo"  # maps viewer

@@ -120,6 +120,19 @@ in
     #   proxyPass = "http://127.0.0.1:4000";
     #   extraConfig = pleromaExtraConfig;
     # };
+
+    # redirect common feed URIs to the canonical feed
+    locations."= /atom".extraConfig = "return 301 /atom.xml;";
+    locations."= /feed".extraConfig = "return 301 /atom.xml;";
+    locations."= /feed.xml".extraConfig = "return 301 /atom.xml;";
+    locations."= /rss".extraConfig = "return 301 /atom.xml;";
+    locations."= /rss.xml".extraConfig = "return 301 /atom.xml;";
+    locations."= /blog/atom".extraConfig = "return 301 /atom.xml;";
+    locations."= /blog/atom.xml".extraConfig = "return 301 /atom.xml;";
+    locations."= /blog/feed".extraConfig = "return 301 /atom.xml;";
+    locations."= /blog/feed.xml".extraConfig = "return 301 /atom.xml;";
+    locations."= /blog/rss".extraConfig = "return 301 /atom.xml;";
+    locations."= /blog/rss.xml".extraConfig = "return 301 /atom.xml;";
   };
 
 
@@ -147,7 +160,6 @@ in
   security.acme.defaults.email = "admin.acme@uninsane.org";
 
   sane.persist.sys.byStore.plaintext = [
-    # TODO: mode?
     { user = "acme"; group = "acme"; path = "/var/lib/acme"; }
     { user = "colin"; group = "users"; path = "/var/www/sites"; }
   ];

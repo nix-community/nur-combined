@@ -1,3 +1,6 @@
+# FIRST-TIME SETUP:
+# - disable notification sounds: hamburger menu in bottom-left -> preferences
+#   - notification sounds can be handled by swaync
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.gtkcord4;

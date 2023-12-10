@@ -227,6 +227,27 @@ in
         # - SWAYNC_REPLACES_ID
         # - SWAYNC_ID
         # - SWAYNC_SUMMARY
+
+        # rules to use for testing. trigger with:
+        # - `notify-send test test:message` (etc)
+        # should also be possible to trigger via any messaging app
+        fbcli-test-im = {
+          body = "test:message";
+          exec = "${fbcli} --event proxied-message-new-instant";
+        };
+        fbcli-test-call = {
+          body = "test:call";
+          exec = "${fbcli} --event phone-incoming-call -t 20";
+        };
+        fbcli-test-call-stop = {
+          body = "test:call-stop";
+          exec = "${fbcli-stop} --event phone-incoming-call -t 20";
+        };
+        fbcli-test-timer = {
+          body = "test:timer";
+          exec = "${fbcli} --event timeout-completed";
+        };
+
         incoming-im-known-app-name = {
           # trigger notification sound on behalf of these IM clients.
           app-name = "(Chats|Dino|discord|Element|Fractal|gtkcord4)";

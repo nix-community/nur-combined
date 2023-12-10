@@ -1,3 +1,6 @@
+# test with e.g.
+# - `fbcli --event proxied-message-new-instant`
+
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.feedbackd;
