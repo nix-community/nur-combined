@@ -43,8 +43,8 @@
     ./libreoffice.nix
     ./lemoa.nix
     ./mako.nix
-    ./megapixels.nix
     ./mepo.nix
+    ./mimeo
     ./mopidy.nix
     ./mpv.nix
     ./msmtp.nix

@@ -100,6 +100,17 @@ let
           }
         '';
       };
+      mime.urlAssociations = mkOption {
+        # TODO: it'd be cool to have the value part of this be `.desktop` files.
+        # mimeo doesn't quite do that well. would need a wrapper script which does `mimeo --desk2field Exec mpv.desktop` to get the command
+        # and then interpolate the paths into it (%U)
+        type = types.attrsOf types.str;
+        default = {};
+        description = ''
+          map of regex -> command.
+          e.g. "^https?://(www.)?youtube.com/watch\?.*v=" = "mpv %U"
+        '';
+      };
       persist = mkOption {
         type = options.sane.persist.sys.type;
         default = {};

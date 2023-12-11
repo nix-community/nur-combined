@@ -1,0 +1,41 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p mimeo
+
+# TODO: migrate nixpkgs mimeo to be `buildPythonPackage` to make it importable here.
+# see <doc/languages-frameworks/python.section.md>
+
+import subprocess
+import sys
+
+desktop = sys.argv[1]
+opener_args = sys.argv[2:]
+
+desktop_fields=subprocess.check_output([
+    "mimeo",
+    "--desk2field",
+    "Exec",
+    desktop
+]).decode('utf-8')
+# print(f"fields: {desktop_fields!r}")
+
+desktop_exec = '\n'.join(desktop_fields.split('\n')[1:])
+# print(f"exec: {desktop_exec!r}")
+
+# TODO: this is obviously not correct if any of the args included spaces
+desktop_argv = [f.strip() for f in desktop_exec.split(' ') if f.strip()]
+# print(f"desktop_argv: {desktop_argv!r}")
+
+# fields explained: <https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s07.html>
+# - %U = all URLs
+# - %U = just the first URL
+substituted_argv = []
+for arg in desktop_argv:
+    if arg == '%U':
+        substituted_argv += opener_args
+    elif arg == '%u':
+        substituted_argv += opener_args[:1]
+    else:
+        substituted_argv += [arg]
+
+# print(f"argv: {substituted_argv}")
+print(subprocess.check_output(substituted_argv).decode())

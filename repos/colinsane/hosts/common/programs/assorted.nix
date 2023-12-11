@@ -144,6 +144,7 @@ in
       "lshw"
       # "memtester"
       "mercurial"  # hg
+      "mimeo"  # like xdg-open
       "neovim"  # needed as a user package, for swap persistence
       # "nettools"
       # "networkmanager"

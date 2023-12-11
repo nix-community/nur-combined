@@ -78,6 +78,7 @@ in
     # "gnome.gnome-terminal"  # works on phosh
     "gnome.gnome-weather"
     "gnome.seahorse"  # keyring/secret manager
+    "gnome-frog"  # OCR/QR decoder
     "gpodder"
     "gthumb"
     "gtkcord4"  # Discord client. 2023/11/21: disabled because v0.0.12 leaks memory

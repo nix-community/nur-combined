@@ -15,7 +15,6 @@
 , fetchFromSourcehut
 , fetchpatch
 , gnugrep
-, gojq
 , grim
 , inotify-tools
 , j4-dmenu-desktop
@@ -66,7 +65,6 @@ let
     curl
     dbus
     gnugrep  # also in busybox
-    gojq
     inotify-tools
     j4-dmenu-desktop
     jq
@@ -115,16 +113,22 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      name = "sxmo_migrate: add option to disable configversion checks";
-      url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44155/mbox";
-      hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
+      name = "only alias jq=gojq if the latter is available";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/e0caaeb4219ba3b92d358a16dfa85bcd09a89adf.patch";
+      hash = "sha256-EuJeHEEmewpipfpEy54pmyBaxhu5KBg7rX5n2kg+iMs=";
     })
-
     (fetchpatch {
       name = "sxmo_hook_apps: add a few";
       url = "https://git.uninsane.org/colin/sxmo-utils/commit/1c2e13401e28e3713665de6ce8f591714e65341d.patch";
       hash = "sha256-6OsHbjv2YZ1WueIlwDIRjgSTAN+UIZFHcvMhMbj6kfc=";
     })
+
+    (fetchpatch {
+      name = "sxmo_migrate: add option to disable configversion checks";
+      url = "https://lists.sr.ht/~mil/sxmo-devel/patches/44155/mbox";
+      hash = "sha256-ZcUD2UWPM8PxGM9TBnGe8JCJgMC72OZYzctDf2o7Ub0=";
+    })
+
     (fetchpatch {
       # experimental patch to launch apps via `swaymsg exec -- `
       # this allows them to detach from sxmo_appmenu.sh (so, `pstree` looks cleaner)

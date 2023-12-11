@@ -81,4 +81,8 @@
       '';
     });
   };
+
+  # 2023/12/10: zbar barcode scanner: used by megapixels, frog.
+  # the video component does not cross compile (qt deps), but i don't need that.
+  zbar = super.zbar.override { enableVideo = false; };
 })
