@@ -13,12 +13,14 @@ in {
     ./borderless-browser.nix
     ./theme
     ./discord.nix
-
+    ./qutebrowser.nix
   ];
 
   programs.helix.enable = true;
   # services.espanso.enable = true;
   programs.man.enable = true;
+
+  programs.qutebrowser.enable = true;
 
 
   home = {
