@@ -31,6 +31,7 @@ in {
       ]);
       font = "Monospace 10";
       use_system_font = false;
+      use_theme_colors = true;
     };
     global_config = {
       title_transmit_fg_color = "#${base05}";
