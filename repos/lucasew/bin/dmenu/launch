@@ -1,0 +1,8 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p custom.rofi
+
+set -euo pipefail
+
+rofi-launch "$@"
+
+
