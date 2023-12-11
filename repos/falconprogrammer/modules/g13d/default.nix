@@ -23,11 +23,11 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ g13d ];
 
-    users.users.g13d = {
-      description = "User for g13d";
-      isSystemUser = true;
-      group = "g13d";
-    };
+    # users.users.g13d = {
+    #   description = "User for g13d";
+    #   isSystemUser = true;
+    #   group = "g13d";
+    # };
 
     users.groups.g13d = {};
 
@@ -36,8 +36,8 @@ in
       after = [ "multi-user.target"];
 
       serviceConfig = {
-        User = "g13d";
-        Group = "g13d";
+        User = "root";
+        Group = "root";
         Restart = "on-failure";
 
         Type = "simple";
