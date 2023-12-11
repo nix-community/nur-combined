@@ -27,7 +27,7 @@ jobs:
   flake:
     runs-on: ubuntu-latest
     steps:
-      - uses: DeterminateSystems/nix-installer-action@v8
+      - uses: DeterminateSystems/nix-installer-action@v9
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: DeterminateSystems/magic-nix-cache-action@v2
