@@ -23,6 +23,7 @@ in
 	# example-package = pkgs.callPackage ./pkgs/example-package { };
 	# some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 	# ...
+	g13d = pkgs.callPackage pkgs/g13d {};
 	gitignore-template = pkgs.callPackage pkgs/gitignore-template {};
 	llama-cpp-python_310 = p_310.callPackage pkgs/llama-cpp-python {python-ver = 310;};
 	llama-cpp-python_311 = p_311.callPackage pkgs/llama-cpp-python {python-ver = 311;};
