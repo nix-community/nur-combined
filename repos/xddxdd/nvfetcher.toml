@@ -383,7 +383,7 @@ src.git = "https://github.com/xddxdd/route-chain.git"
 fetch.github = "xddxdd/route-chain"
 
 [sam-toki-mouse-cursors]
-src.git = "https://github.com/SamToki/IconDesign---Sam-Toki-Mouse-Cursors.git"
+src.github = "SamToki/IconDesign---Sam-Toki-Mouse-Cursors"
 fetch.github = "SamToki/IconDesign---Sam-Toki-Mouse-Cursors"
 
 [sgx-software-enable]

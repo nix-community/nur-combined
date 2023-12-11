@@ -206,7 +206,7 @@
     },
     "bird-lg-go": {
         "cargoLocks": null,
-        "date": "2023-12-06",
+        "date": "2023-12-11",
         "extract": null,
         "name": "bird-lg-go",
         "passthru": null,
@@ -218,11 +218,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "2d2193041efc2631d8790d45b1fac3bb9b31201c",
-            "sha256": "sha256-MiNLmQgGXR0IlR0zm9GHXIelqLN9bBQhJyOxs0pS7KE=",
+            "rev": "3c46bda49de1ca4b6dc4f43672e26e536bd0005e",
+            "sha256": "sha256-FWzOyTcbteUoKlpPVJxwf/jEw0g7lRVpuP57DE3x2zQ=",
             "type": "github"
         },
-        "version": "2d2193041efc2631d8790d45b1fac3bb9b31201c"
+        "version": "3c46bda49de1ca4b6dc4f43672e26e536bd0005e"
     },
     "boringssl-oqs": {
         "cargoLocks": null,
@@ -1583,7 +1583,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-12-09",
+        "date": "2023-12-10",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1595,11 +1595,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "f713486e4da633f30b4867098e23f88047dd9282",
-            "sha256": "sha256-R0BSAU4/7E6/aDz+I069MF4TnPOh89JzRon3pyT+dTg=",
+            "rev": "1f69d5f4195a069bd0408b52887974e046f2814a",
+            "sha256": "sha256-XTkfbemBejX8lxqJSBQuBot32kVHN4mB4x2Z3ZNWCMc=",
             "type": "github"
         },
-        "version": "f713486e4da633f30b4867098e23f88047dd9282"
+        "version": "1f69d5f4195a069bd0408b52887974e046f2814a"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -1653,7 +1653,7 @@
     },
     "sam-toki-mouse-cursors": {
         "cargoLocks": null,
-        "date": "2023-12-02",
+        "date": null,
         "extract": null,
         "name": "sam-toki-mouse-cursors",
         "passthru": null,
@@ -1665,11 +1665,11 @@
             "name": null,
             "owner": "SamToki",
             "repo": "IconDesign---Sam-Toki-Mouse-Cursors",
-            "rev": "1eedc4b98ec50f4de76d622366104e1d2054645a",
-            "sha256": "sha256-uPi62eAKkqbi/FXWhfiPHhE8VKv0YwC+walMWKQNQ9U=",
+            "rev": "v6.02",
+            "sha256": "sha256-kwG1B3hOOsJZgdDiY6U9CdpnQRwZA0wh2TxkPlpA1dI=",
             "type": "github"
         },
-        "version": "1eedc4b98ec50f4de76d622366104e1d2054645a"
+        "version": "v6.02"
     },
     "sgx-software-enable": {
         "cargoLocks": null,
