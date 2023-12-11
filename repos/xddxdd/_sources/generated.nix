@@ -122,15 +122,14 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "3c46bda49de1ca4b6dc4f43672e26e536bd0005e";
+    version = "v1.3.4";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "3c46bda49de1ca4b6dc4f43672e26e536bd0005e";
+      rev = "v1.3.4";
       fetchSubmodules = false;
-      sha256 = "sha256-FWzOyTcbteUoKlpPVJxwf/jEw0g7lRVpuP57DE3x2zQ=";
+      sha256 = "sha256-MiNLmQgGXR0IlR0zm9GHXIelqLN9bBQhJyOxs0pS7KE=";
     };
-    date = "2023-12-11";
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
