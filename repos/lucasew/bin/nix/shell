@@ -4,9 +4,13 @@
 
 echo "nix-shell kicked in!" >&2
 
+set -euo pipefail
+
 NIXCFG_ROOT_PATH=$(sd d root)
 eval "$(cat /etc/bashrc | grep NIX_PATH)"
 
-set -euo pipefail
+NIX_SHELL_BIN=nix-shell
 
-exec nix-shell "$@"
+which cached-nix-shell 2> /dev/null > /dev/null && NIX_SHELL_BIN=cached-nix-shell
+
+exec $NIX_SHELL_BIN "$@"

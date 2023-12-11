@@ -34,9 +34,10 @@ in {
     custom.tixati
     custom.pidgin
     # (custom.neovim.override { inherit colors; })
-    (custom.emacs.override { inherit colors; })
+    # (custom.emacs.override { inherit colors; })
     # custom.firefox # now I am using chromium
     # custom.vscode.programming
+    cached-nix-shell
     devenv
     dotenv
     jless # json viewer
