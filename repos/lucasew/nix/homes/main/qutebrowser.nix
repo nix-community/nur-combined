@@ -7,10 +7,12 @@ in
 {
   config = lib.mkIf config.programs.qutebrowser.enable {
     programs.qutebrowser = {
-      aliases = {
-        xb = "config-cycle statusbar.show always never";
-        xt = "config-cycle tabs.show always never";
-        xx = "config-cycle statusbar.show always never;; config-cycle tabs.show always never";
+      keyBindings = {
+        normal = {
+          xb = "config-cycle statusbar.show always never";
+          xt = "config-cycle tabs.show always never";
+          xx = "config-cycle statusbar.show always never;; config-cycle tabs.show always never";
+        };
       };
       greasemonkey = [
       
