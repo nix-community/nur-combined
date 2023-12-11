@@ -20,6 +20,7 @@ in
     ffmpeg # video converter
     send2kindle
     home-manager
+    qutebrowser
   ];
 
   home.stateVersion = mkDefault "22.11";

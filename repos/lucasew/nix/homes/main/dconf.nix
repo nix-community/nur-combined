@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   inherit (lib.hm.gvariant) mkTuple;
 in {
@@ -9,7 +9,10 @@ in {
       secondary-color = "#000000";
     };
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
+      color-scheme = if pkgs.custom.colors.isDark
+        then "prefer-dark"
+        else "prefers-light"
+      ;
     };
     "org/gnome/desktop/input-sources" = {
       current = "uint32 0";
