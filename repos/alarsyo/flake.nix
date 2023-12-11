@@ -60,9 +60,14 @@
           home-manager.verbose = true;
         };
         nix-path = {
-          nix.nixPath = [
-            "nixpkgs=${inputs.nixpkgs}"
-          ];
+          nix = {
+            nixPath = [
+              "nixpkgs=${inputs.nixpkgs}"
+            ];
+            registry = {
+              nixpkgs.flake = inputs.nixpkgs;
+            };
+          };
         };
       };
 
