@@ -146,6 +146,7 @@ let
     (fromDb "amosbbatto.wordpress.com" // tech)
     (fromDb "fasterthanli.me" // tech)
     (fromDb "jeffgeerling.com" // tech)
+    (fromDb "kosmosghost.github.io/index.xml" // tech)
     (fromDb "mg.lol" // tech)
     # (fromDb "drewdevault.com" // tech)
     ## Ken Shirriff
