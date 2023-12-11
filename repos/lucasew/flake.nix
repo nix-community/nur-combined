@@ -207,7 +207,7 @@
     inherit pkgs;
     inherit self;
 
-    colors = inputs.nix-colors.colorschemes."onedark" // {isDark = true; };
+    colors = inputs.nix-colors.colorschemes."ayu-dark" // {isDark = true; };
 
     homeConfigurations = pkgs.callPackage ./nix/homes {
       inherit extraArgs;
