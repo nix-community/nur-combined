@@ -1,0 +1,82 @@
+{
+    "boringssl-oqs": {
+        "cargoLocks": null,
+        "date": "2023-12-04",
+        "extract": null,
+        "name": "boringssl-oqs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "open-quantum-safe",
+            "repo": "boringssl",
+            "rev": "8d99c122d2e5e3152de31a37ccda260b78f55d5c",
+            "sha256": "sha256-fXGFS9m8L3w64loZBWqpbSD58/O4crCQ7MA+qzmR1+E=",
+            "type": "github"
+        },
+        "version": "8d99c122d2e5e3152de31a37ccda260b78f55d5c"
+    },
+    "liboqs": {
+        "cargoLocks": null,
+        "date": "2023-12-06",
+        "extract": null,
+        "name": "liboqs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "open-quantum-safe",
+            "repo": "liboqs",
+            "rev": "d1e99b3f85d2eb7fe9ad3b9f58d36fd671da46a5",
+            "sha256": "sha256-e914LDbw/2b0r4aFSZn8iFRSJq/nVoMfydNuJ+5z2pc=",
+            "type": "github"
+        },
+        "version": "d1e99b3f85d2eb7fe9ad3b9f58d36fd671da46a5"
+    },
+    "openssl-oqs-provider": {
+        "cargoLocks": null,
+        "date": "2023-12-07",
+        "extract": null,
+        "name": "openssl-oqs-provider",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "open-quantum-safe",
+            "repo": "oqs-provider",
+            "rev": "99f42714eb4acf65ff1499bd36bc8a5bb7742f4d",
+            "sha256": "sha256-/MumjC5tB6I/YERFaFnxj2nhesFcFMafB7/bVctH/xI=",
+            "type": "github"
+        },
+        "version": "99f42714eb4acf65ff1499bd36bc8a5bb7742f4d"
+    },
+    "qsc-key-encoder": {
+        "cargoLocks": null,
+        "date": "2023-03-30",
+        "extract": null,
+        "name": "qsc-key-encoder",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Quantum-Safe-Collaboration",
+            "repo": "qsc-key-encoder",
+            "rev": "1b6289dac9f7caf89d26bad2f1cf3cd628507af2",
+            "sha256": "sha256-fslq2BlNtnUve7enWXzWGc8xUh8clmHs+QjPozjinHM=",
+            "type": "github"
+        },
+        "version": "1b6289dac9f7caf89d26bad2f1cf3cd628507af2"
+    }
+}
