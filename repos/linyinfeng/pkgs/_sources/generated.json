@@ -258,7 +258,7 @@
     },
     "rime-cangjie": {
         "cargoLocks": null,
-        "date": "2021-02-23",
+        "date": "2023-12-11",
         "extract": null,
         "name": "rime-cangjie",
         "passthru": null,
@@ -268,12 +268,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "8dfad9e537f18821b71ba28773315d9c670ae245",
-            "sha256": "sha256-fmWGgYqWndCpDUV6nzx0zjkcf5AcVeDIYwp0023iMwk=",
+            "rev": "75b10325bf4c590a3ffef7039a6f052a729edc55",
+            "sha256": "sha256-5Ku2dO1qULadIocOq4dYHx+p2HhvqCtz7h//wos19RY=",
             "type": "git",
             "url": "https://github.com/rime/rime-cangjie.git"
         },
-        "version": "8dfad9e537f18821b71ba28773315d9c670ae245"
+        "version": "75b10325bf4c590a3ffef7039a6f052a729edc55"
     },
     "rime-cantonese": {
         "cargoLocks": null,
