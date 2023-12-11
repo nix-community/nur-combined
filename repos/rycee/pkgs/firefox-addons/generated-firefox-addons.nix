@@ -2057,10 +2057,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.8";
+      version = "1.2.9";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4205783/faststream-1.2.8.xpi";
-      sha256 = "5244f72f6fbbd465c6209a3118fa41b8eb03b0eb53df160fb30a7f6954c40945";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207380/faststream-1.2.9.xpi";
+      sha256 = "2f9eaaf6dfb463d30100b8cb801e9e7e109bf9bf84ba8d707f1093116a305d97";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -4588,10 +4588,10 @@
       };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
-      version = "2.17.3";
+      version = "2.18";
       addonId = "ipvfoo@pmarks.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4206143/ipvfoo-2.17.3.xpi";
-      sha256 = "7ed6a8813cce4217a9a11c6f86b0fb97384f5f3727ac7de3f79e3bdcbc0bb5ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207472/ipvfoo-2.18.xpi";
+      sha256 = "0621687101f24160b26fd12da3f1c299c706f98e724934d790ed7fe5e00cc265";
       meta = with lib;
       {
         homepage = "https://github.com/pmarks-net/ipvfoo";
@@ -8290,10 +8290,10 @@
       };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "11.1.6";
+      version = "11.1.7";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4207161/sidebartabs-11.1.6.xpi";
-      sha256 = "a763436412d721b0cf4f028d06fae788a199c3ccc12b9e86ce80b95495d2b857";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207233/sidebartabs-11.1.7.xpi";
+      sha256 = "1b2c3008bbf4b48f2bdb233ce70dd026d73ae220f7e75e93c910e40fa0e21ecc";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
