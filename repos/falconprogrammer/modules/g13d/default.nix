@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.services.g13d;
-  g13d = pkgs.CallPackage ../../pkgs/g13d {};
+  g13d = pkgs.callPackage ../../pkgs/g13d {};
 
   config_file = pkgs.writeText "g13d.bind" cfg.config;
 in
