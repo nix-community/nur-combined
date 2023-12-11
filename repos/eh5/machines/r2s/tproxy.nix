@@ -51,8 +51,6 @@ in
         strategy = "ipv4_only";
       };
       route = {
-        geoip.path = "/var/lib/sing-box/geoip.db";
-        geosite.path = "/var/lib/sing-box/geosite.db";
         default_interface = "extern0";
         default_mark = 255;
       };

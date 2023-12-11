@@ -14,27 +14,29 @@
 , libpcap
 , gmp
 , jansson
-, libedit
 , autoreconfHook
 , withDebugSymbols ? false
+, withCli ? true
+, libedit
 , withPython ? false
 , python3
 , withXtables ? true
 , iptables
+, nixosTests
 }:
 
 stdenv.mkDerivation rec {
-  version = "1.0.5";
+  version = "1.0.9";
   pname = "nftables";
 
   src = fetchurl {
-    url = "https://netfilter.org/projects/nftables/files/${pname}-${version}.tar.bz2";
-    hash = "sha256-jRtLGDk69DaY0QuqJdK5tjl5ab7srHgWw13QcU5N5Qo=";
+    url = "https://netfilter.org/projects/nftables/files/${pname}-${version}.tar.xz";
+    hash = "sha256-o8MEzZugYSOe4EdPmvuTipu5nYm5YCRvZvDDoKheFM0=";
   };
   patches = [
     (fetchurl {
-      url = "https://github.com/fullcone-nat-nftables/nftables-1.0.5-with-fullcone/commit/9c783d9b4a67fb6c8ff760634f2c7268ceb6e18f.diff";
-      sha256 = "sha256-Y44mzD9dlHX+uHrYXMMRmrjU9gklZbn35281d3YWrKI=";
+      url = "https://github.com/wongsyrone/lede-1/raw/3ed79cee6f4981b841ce1618e4f5b90e0d0b260d/package/network/utils/nftables/patches/999-01-nftables-add-fullcone-expression-support.patch";
+      hash = "sha256-4C/kiaLxxDGRH6V0wQCUk0ZIEKTKADd6KRv8U9lb6fU=";
     })
   ];
 
@@ -56,13 +58,16 @@ stdenv.mkDerivation rec {
     libpcap
     gmp
     jansson
-    libedit
-  ] ++ lib.optional withXtables iptables
-  ++ lib.optional withPython python3;
+  ] ++ lib.optional withCli libedit
+  ++ lib.optional withXtables iptables
+  ++ lib.optionals withPython [
+    python3
+    python3.pkgs.setuptools
+  ];
 
   configureFlags = [
     "--with-json"
-    "--with-cli=editline"
+    (lib.withFeatureAs withCli "cli" "editline")
   ] ++ lib.optional (!withDebugSymbols) "--disable-debug"
   ++ lib.optional (!withPython) "--disable-python"
   ++ lib.optional withPython "--enable-python"

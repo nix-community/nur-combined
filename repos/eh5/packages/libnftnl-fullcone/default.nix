@@ -6,18 +6,18 @@
 , libmnl
 }:
 stdenv.mkDerivation rec {
-  version = "1.2.4";
+  version = "1.2.6";
   pname = "libnftnl";
 
   src = fetchurl {
-    url = "https://netfilter.org/projects/${pname}/files/${pname}-${version}.tar.bz2";
-    hash = "sha256-wP4jO+TN/XA+fVl37462P8vx0AUrYEThsj1HyjViR38=";
+    url = "https://netfilter.org/projects/${pname}/files/${pname}-${version}.tar.xz";
+    hash = "sha256-zurqLNkhR9oZ8To1p/GkvCdn/4l+g45LR5z1S1nHd/Q=";
   };
 
   patches = [
     (fetchurl {
-      url = "https://github.com/fullcone-nat-nftables/libnftnl-1.2.4-with-fullcone/commit/05fad33b15dba2a3be7e337470a5d1fb3cb260bf.diff";
-      sha256 = "sha256-9GMNa3LBUNVLXGHgNRBJRtUWGlm5M3hM48mmaZddUcw=";
+      url = "https://github.com/wongsyrone/lede-1/raw/6b320d085a860516a575590a5a23ba16a7bb9173/package/libs/libnftnl/patches/999-01-libnftnl-add-fullcone-expression-support.patch";
+      sha256 = "sha256-il0TS51eQfzUfU6LzG9mmuFZvv5UpRF0YPY21jlsNQE=";
     })
   ];
 
