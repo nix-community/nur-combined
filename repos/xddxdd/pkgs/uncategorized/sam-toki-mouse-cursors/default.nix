@@ -19,7 +19,7 @@ in
     installPhase = ''
       mkdir -p $out/share/icons
 
-      for INF in $src/PROJECT/STMC/*.inf; do
+      for INF in PROJECT/STMC/*.inf; do
         echo "$INF"
         mkdir tmp
         ${py}/bin/python3 ${../../../tools/windows_cursor_to_linux.py} \
