@@ -2,7 +2,6 @@
 with lib;
 let
   cfg = config.programs.git.gitHub;
-  arc = import ../../canon.nix { inherit pkgs lib; };
 in {
   options.programs.git.gitHub = let
     typeRepoConfig = types.submodule {
@@ -81,7 +80,7 @@ in {
       email = if user.email != null then user.email else "${name}@users.noreply.github.com";
       signingKey = user.signingKey;
     }) cfg.users;
-    programs.git.extraConfig.url = arc.lib.foldAttrList urls;
+    programs.git.extraConfig.url = attrsets.mergeAttrsList urls;
     programs.ssh.matchBlocks = mapAttrs' (name: user:
       nameValuePair "github-${name}" (let
         privateKey = optional (user.sshKeyPrivate != null) user.sshKeyPrivate;

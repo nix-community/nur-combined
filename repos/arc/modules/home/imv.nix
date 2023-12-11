@@ -138,19 +138,14 @@ in {
         default = null;
       };
     };
-  } // optionalAttrs isNixpkgsStable {
-    enable = mkEnableOption "imv: a command line image viewer intended for use with tiling window managers";
-    package = mkPackageOption pkgs "imv" { };
   };
 
   config = {
     home.packages = mkIf cfg.enable [ cfg.package ];
     xdg.configFile."imv/config" = let
       hasBinds = cfg.settings.binds or cfg.binds != { };
-      settings = removeAttrs cfg.settings (optional needsBindsAfter [ "binds" ]);
     in mkIf cfg.enable {
       text = mkMerge [
-        (mkIf isNixpkgsStable (generators.toINI { } settings))
         (mkIf (hasBinds && needsBindsAfter) (mkAfter (generators.toINI { } {
           binds = filterAttrs (_: v: v != null) cfg.binds;
         })))

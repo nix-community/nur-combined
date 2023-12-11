@@ -1,7 +1,7 @@
 { self, ... }: let builders = {
   fetchCurlJson = { stdenvNoCC, lib, curl, sourceBashArray, cacert ? null, jq ? null }: { curlUrl, curlHeaders ? {}, curlOptions ? [], jqFilter ? null, sha256, env ? { }, name ? "fetch-curl-json" }: with lib; let
     curlHeaders' = mapAttrsToList (h: v: [ "-H" "${h}: ${v}" ])
-      (foldAttrList [ { User-Agent = "arcnmx-nix-channel"; } curlHeaders ]);
+      (attrsets.mergeAttrsList [ { User-Agent = "arcnmx-nix-channel"; } curlHeaders ]);
     curlOptions' = (flatten curlHeaders') ++ curlOptions;
     env' = builtins.removeAttrs env [ "passthru" ];
     package = assert jqFilter == null -> jq != null; stdenvNoCC.mkDerivation ({

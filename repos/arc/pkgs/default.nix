@@ -40,7 +40,7 @@
     inherit groups;
     toplevel = packages.personal // packages.public // packages.customized;
     exported = packages.public // packages.customized;
-    all = foldAttrList (attrValues packages ++ attrValues groups);
+    all = attrsets.mergeAttrsList (attrValues packages ++ attrValues groups);
   };
   extendWith = super: select.exported //
     builtins.mapAttrs (makeOrExtend super) groupsWithoutGit //
@@ -49,7 +49,7 @@
     callPackageOverrides = super.callPackageOverrides or { } // mapAttrs' (k: o:
       nameValuePair o.withAttr { ${k} = self.${o.superAttr} or super.${k} or (o.fallback { }); }
     ) (filterAttrs (_: o: o.withAttr or null != null) overrides');
-  } // foldAttrList (mapAttrsToList (_: o: overlayOverride (o // {
+  } // attrsets.mergeAttrsList (mapAttrsToList (_: o: overlayOverride (o // {
       inherit self super;
     })) overrides');
 in lib.recurseIntoAttrs or lib.id select.toplevel // {

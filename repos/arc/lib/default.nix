@@ -330,8 +330,8 @@
     ${superAttr} = super.${attr};
   };
 
-  nixpkgsVersionStable = "23.05";
-  nixpkgsVersionUnstable = "23.11";
+  nixpkgsVersionStable = "23.11";
+  nixpkgsVersionUnstable = "24.05";
   isNixpkgsStable = versionOlder version "${nixpkgsVersionUnstable}pre";
   isNixpkgsUnstable = !isNixpkgsStable;
 }; in arclib
