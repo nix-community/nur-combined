@@ -20,6 +20,7 @@ rec {
   beets-yearfixer = pkgs.callPackage ./pkgs/beets-yearfixer { };
   beets-originquery = pkgs.callPackage ./pkgs/beets-originquery { };
   beets-summarize = pkgs.callPackage ./pkgs/beets-summarize { };
+  beets-filetote = pkgs.callPackage ./pkgs/beets-filetote { };
 
   stash = pkgs.callPackage ./pkgs/stash { };
 }
