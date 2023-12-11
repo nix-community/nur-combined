@@ -29,7 +29,7 @@
     # - daily:
     #   - nixos-unstable cut from master after enough packages have been built in caches.
     # - every 6 hours:
-    #   - master auto-merged into staging.
+    #   - master auto-merged into staging and staging-next
     #   - staging-next auto-merged into staging.
     # - manually, approximately once per month:
     #   - staging-next is cut from staging.
@@ -44,8 +44,9 @@
     # <https://github.com/nixos/nixpkgs/tree/nixos-unstable>
     # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=master";
-    # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=staging-next";
-    # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=staging";
+    # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=nixos-staging";
+    # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=nixos-staging-next";
+    nixpkgs-next-unpatched.url = "github:nixos/nixpkgs?ref=staging-next";
 
     mobile-nixos = {
       # <https://github.com/nixos/mobile-nixos>
@@ -74,6 +75,7 @@
   outputs = {
     self,
     nixpkgs-unpatched,
+    nixpkgs-next-unpatched ? nixpkgs-unpatched,
     mobile-nixos,
     sops-nix,
     uninsane-dot-org,
@@ -92,9 +94,9 @@
       # rather than apply our nixpkgs patches as a flake input, do that here instead.
       # this (temporarily?) resolves the bad UX wherein a subflake residing in the same git
       # repo as the main flake causes the main flake to have an unstable hash.
-      nixpkgs = (import ./nixpatches/flake.nix).outputs {
-        self = nixpkgs;
-        nixpkgs = nixpkgs-unpatched;
+      patchNixpkgs = variant: nixpkgs: (import ./nixpatches/flake.nix).outputs {
+        inherit variant nixpkgs;
+        self = patchNixpkgs variant nixpkgs;
       } // {
         # provide values that nixpkgs ordinarily sources from the flake.lock file,
         # inaccessible to it here because of the import-from-derivation.
@@ -110,21 +112,21 @@
         inherit (self) shortRev;
       };
 
-      nixpkgsCompiledBy = system: nixpkgs.legacyPackages."${system}";
+      nixpkgs' = patchNixpkgs "master" nixpkgs-unpatched;
+      nixpkgsCompiledBy = system: nixpkgs'.legacyPackages."${system}";
 
-      evalHost = { name, local, target, light ? false }: nixpkgs.lib.nixosSystem {
+      evalHost = { name, local, target, light ? false, nixpkgs ? nixpkgs' }: nixpkgs.lib.nixosSystem {
         system = target;
         modules = [
           {
-            nixpkgs = (if (local != null) then {
-              buildPlatform = local;
-            } else {}) // {
-              # TODO: does the earlier `system` arg to nixosSystem make its way here?
-              hostPlatform.system = target;
-            };
-            # nixpkgs.buildPlatform = local;  # set by instantiate.nix instead
+            nixpkgs.buildPlatform.system = local;
             # nixpkgs.config.replaceStdenv = { pkgs }: pkgs.ccacheStdenv;
           }
+          (optionalAttrs (local != target) {
+            # XXX(2023/12/11): cache.nixos.org uses `system = ...` instead of `hostPlatform.system`, and that choice impacts the closure of every package.
+            # so avoid specifying hostPlatform.system on non-cross builds, so i can use upstream caches.
+            nixpkgs.hostPlatform.system = target;
+          })
           (optionalAttrs light {
             sane.enableSlowPrograms = false;
           })
@@ -140,39 +142,24 @@
         ];
       };
     in {
-      nixosConfigurations =
-        let
-          hosts = {
-            servo       = { name = "servo";  local = "x86_64-linux"; target = "x86_64-linux";  };
-            desko       = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  };
-            desko-light = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  light = true; };
-            lappy       = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  };
-            lappy-light = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  light = true; };
-            moby        = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; };
-            moby-light  = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; light = true; };
-            rescue      = { name = "rescue"; local = "x86_64-linux"; target = "x86_64-linux";  };
-          };
-          # cross-compiled builds: instead of emulating the host, build using a cross-compiler.
-          # - these are faster to *build* than the emulated variants (useful when tweaking packages),
-          # - but fewer of their packages can be found in upstream caches.
-          cross = mapAttrValues evalHost hosts;
-          emulated = mapAttrValues
-            (args: evalHost (args // { local = null; }))
-            hosts;
-          prefixAttrs = prefix: attrs: mapAttrs'
-            (name: value: {
-              name = prefix + name;
-              inherit value;
-            })
-            attrs;
-        in
-          (prefixAttrs "cross-" cross) //
-          (prefixAttrs "emulated-" emulated) // {
-            # prefer native builds for these machines:
-            inherit (emulated) servo desko desko-light lappy lappy-light rescue;
-            # prefer cross-compiled builds for these machines:
-            inherit (cross) moby moby-light;
-          };
+      nixosConfigurations = let
+        hosts = {
+          servo       = { name = "servo";  local = "x86_64-linux"; target = "x86_64-linux";  };
+          desko       = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  };
+          desko-light = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  light = true; };
+          lappy       = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  };
+          lappy-light = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  light = true; };
+          moby        = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; };
+          moby-light  = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; light = true; };
+          rescue      = { name = "rescue"; local = "x86_64-linux"; target = "x86_64-linux";  };
+        };
+        hostsNext = mapAttrs' (h: v: {
+          name = "${h}-next";
+          value = v // { nixpkgs = patchNixpkgs "staging-next" nixpkgs-next-unpatched; };
+        }) hosts;
+      in mapAttrValues evalHost (
+        hosts // hostsNext
+      );
 
       # unofficial output
       # this produces a EFI-bootable .img file (GPT with a /boot partition and a system (/ or /nix) partition).
@@ -487,11 +474,29 @@
                 ${checkHost "moby"}
                 ${checkHost "rescue"}
 
+                # still want to build the -light variants first so as to avoid multiple simultaneous webkitgtk builds
+                ${checkHost "desko-light-next"}
+                ${checkHost "moby-light-next"}
+
+                ${checkHost "desko-next"}
+                ${checkHost "lappy-next"}
+                ${checkHost "servo-next"}
+                ${checkHost "moby-next"}
+                ${checkHost "rescue-next"}
+
                 echo "desko: $RC_desko"
                 echo "lappy: $RC_lappy"
                 echo "servo: $RC_servo"
                 echo "moby: $RC_moby"
                 echo "rescue: $RC_rescue"
+
+                echo "desko-next: $RC_desko_next"
+                echo "lappy-next: $RC_lappy_next"
+                echo "servo-next: $RC_servo_next"
+                echo "moby-next: $RC_moby_next"
+                echo "rescue-next: $RC_rescue_next"
+
+                # i don't really care if the -next hosts fail. i build them mostly to keep the cache fresh/ready
                 exit $(($RC_desko | $RC_lappy | $RC_servo | $RC_moby | $RC_rescue))
               ''
             );

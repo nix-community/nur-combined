@@ -1,4 +1,4 @@
-{ fetchpatch2, fetchurl }:
+{ fetchpatch2, fetchurl, variant }:
 let
   fetchpatch' = {
     saneCommit ? null,
@@ -7,6 +7,7 @@ let
     hash ? null,
     title ? null,
     revert ? false,
+    applies ? [ "unstable" "master" "staging" "staging-next" ],
   }:
     let
       url = if prUrl != null then
@@ -17,11 +18,11 @@ let
       else
         "https://github.com/NixOS/nixpkgs/commit/${nixpkgsCommit}.patch"
       ;
-    in fetchpatch2 (
+    in if (builtins.elem variant applies) then fetchpatch2 (
       { inherit revert url; }
       // (if hash != null then { inherit hash; } else {})
       // (if title != null then { name = title; } else {})
-    );
+    ) else null;
 in [
   (fetchpatch' {
     title = "ripgrep: fix shell completions when cross compiling";
@@ -32,6 +33,7 @@ in [
     title = "python3Packages.numpy: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268587";
     hash = "sha256-GRRLXwUw2JXEV6Ov0QiVTFwoi/ACManG2Qk7D3fzS8E=";
+    applies = [ "unstable" "master" ];
   })
   # (fetchpatch' {
   #   title = "nixos/slskd: allow omitting username from yaml config";

@@ -85,14 +85,8 @@
 , autoPatchelfHook
 , bash
 , buildPackages
-# , callPackage
 , cups
-# , electron_25
-# , electron_26
-# , electron
-# , electron_25-bin
 , electron_27-bin
-# , electron-bin
 , fetchurl
 , fetchFromGitHub
 , fetchYarnDeps
@@ -109,17 +103,14 @@
 , libxslt
 , makeShellWrapper
 , mesa
-, nodejs  # version 18
-# , nodejs_latest
+, nodejs_18
 , nspr
 , nss
 , pango
 , python3
-# , signal-desktop
 # , sqlite
 # , sqlcipher
 , stdenv
-# , substituteAll
 , wrapGAppsHook
 , xdg-utils
 , yarn
@@ -159,11 +150,10 @@ let
       };
     }
   );
-  nodejs' = mkNodeJs nodejs;
+  nodejs' = mkNodeJs nodejs_18;
   # TODO: possibly i could instead use nodejs-slim (npm-less nodejs)
-  buildNodejs = mkNodeJs buildPackages.nodejs;
+  buildNodejs = mkNodeJs buildPackages.nodejs_18;
 
-  # nodejs' = nodejs_latest;
   buildYarn = buildPackages.yarn.override { nodejs = buildNodejs; };
 
   # package.json locks electron to 25.y.z
