@@ -8,17 +8,17 @@
 }:
 let
   shaMap = {
-    x86_64-linux = "sha256-KE5farz+ZerpXh8HqOwPLsRn+RX+ROI9d9re7Hvijp4=";
-    aarch64-linux = "sha256-6UVorKwPJ1VXMieI6srVufYh3ftIFJvoTUYaxlcweJk=";
-    x86_64-darwin = "sha256-1gn1BUEdJ196IKMIcC9UT6FvCqh6jKFPsuRXmiVlr0A=";
-    aarch64-darwin = "sha256-nMlaebNRIvoXhZ3E5WR7h7AqxNuJ7bwKOz5bpMgPDh4=";
+    x86_64-linux = "sha256-b1OU+LtgWpRK+ApCTHh+p8HQOemnZNm4/dD7e71kVNw=";
+    aarch64-linux = "sha256-y/79Vd/5FNeF1xbuuybqNtizkgjeSuSliu0K+axcxog=";
+    x86_64-darwin = "sha256-zmn/hMd+RvkUVc5QE5zUIivu4ANt+oj33W0poZiISN8=";
+    aarch64-darwin = "sha256-NLMCAc1/bga1HPJWTCOpQwGDacO9wxBLM/L5ZI9AiIE=";
   };
 
   urlMap = {
-    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.9.3/dagger_v0.9.3_linux_amd64.tar.gz";
-    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.9.3/dagger_v0.9.3_linux_arm64.tar.gz";
-    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.9.3/dagger_v0.9.3_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.9.3/dagger_v0.9.3_darwin_arm64.tar.gz";
+    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.9.4/dagger_v0.9.4_linux_amd64.tar.gz";
+    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.9.4/dagger_v0.9.4_linux_arm64.tar.gz";
+    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.9.4/dagger_v0.9.4_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.9.4/dagger_v0.9.4_darwin_arm64.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
