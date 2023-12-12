@@ -1,4 +1,5 @@
-{ fetchpatch2, fetchurl, variant }:
+{ fetchpatch2, fetchurl, lib }:
+variant: date:
 let
   fetchpatch' = {
     saneCommit ? null,
@@ -7,7 +8,7 @@ let
     hash ? null,
     title ? null,
     revert ? false,
-    applies ? [ "unstable" "master" "staging" "staging-next" ],
+    merged ? {},
   }:
     let
       url = if prUrl != null then
@@ -18,7 +19,8 @@ let
       else
         "https://github.com/NixOS/nixpkgs/commit/${nixpkgsCommit}.patch"
       ;
-    in if (builtins.elem variant applies) then fetchpatch2 (
+      isMerged = merged ? "${variant}" && lib.versionAtLeast date merged."${variant}";
+    in if !isMerged then fetchpatch2 (
       { inherit revert url; }
       // (if hash != null then { inherit hash; } else {})
       // (if title != null then { name = title; } else {})
@@ -33,7 +35,9 @@ in [
     title = "python3Packages.numpy: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/268587";
     hash = "sha256-GRRLXwUw2JXEV6Ov0QiVTFwoi/ACManG2Qk7D3fzS8E=";
-    applies = [ "unstable" "master" ];
+    # probably not correct
+    merged.staging-next = "20231212000216";
+    merged.master = "20231212000216";
   })
   # (fetchpatch' {
   #   title = "nixos/slskd: allow omitting username from yaml config";

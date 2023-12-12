@@ -9,10 +9,9 @@
         name = "nixpkgs-patched-uninsane";
         version = self.lastModifiedDate;
         src = nixpkgs;
-        patches = builtins.filter (p: p != null) (import ./list.nix {
-          inherit (nixpkgs.legacyPackages.${system}) fetchpatch2 fetchurl;
-          inherit variant;
-        });
+        patches = builtins.filter (p: p != null) (
+          nixpkgs.legacyPackages."${system}".callPackage ./list.nix { } variant self.lastModifiedDate
+        );
       };
       patchedFlakeFor = system: import "${patchedPkgsFor system}/flake.nix";
       patchedFlakeOutputsFor = system:
