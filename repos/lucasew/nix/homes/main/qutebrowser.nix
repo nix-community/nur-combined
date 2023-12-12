@@ -28,6 +28,7 @@ in
         grafana = "http://grafana.whiterun.lucao.net/dashboards";
       };
       searchEngines = {
+        a = "https://articleparser.vercel.app/api?url={}";
         w = "https://en.wikipedia.org/wiki/Special:Search?search={}&go=Go&ns0=1";
         aw = "https://wiki.archlinux.org/?search={}";
         nw = "https://nixos.wiki/index.php?search={}";
