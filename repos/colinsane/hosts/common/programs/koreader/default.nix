@@ -1,3 +1,7 @@
+# post-installation setup:
+# - download dictionaries:
+#   - search icon > settings > dictionary settings > download dictionaries
+#   - these are stored in `~/.config/koreader/data/dict`
 { config, lib, pkgs, sane-lib, ... }:
 
 let

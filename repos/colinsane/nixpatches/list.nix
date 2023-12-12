@@ -31,14 +31,6 @@ in [
     saneCommit = "8631ddfb99aa8e935276b27d55ef5e10f5ab0367";
     hash = "sha256-AkxtrCJrf0wpTdty4SOIWBrWwqfG7rBI4ON38BjDi6s=";
   })
-  (fetchpatch' {
-    title = "python3Packages.numpy: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/268587";
-    hash = "sha256-GRRLXwUw2JXEV6Ov0QiVTFwoi/ACManG2Qk7D3fzS8E=";
-    # probably not correct
-    merged.staging-next = "20231212000216";
-    merged.master = "20231211120216";
-  })
   # (fetchpatch' {
   #   title = "nixos/slskd: allow omitting username from yaml config";
   #   saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";

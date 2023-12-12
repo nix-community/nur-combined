@@ -6,22 +6,8 @@
 }:
 
 let
-  # libadwaita_1_4 = libadwaita.overrideAttrs (prev: rec {
-  #   # 2023/09/27: nixpkgs libadwaita is 1.3.5 and fractal requires 1.4.0.
-  #   version = "1.4.0";
-  #   src = fetchFromGitLab {
-  #     domain = "gitlab.gnome.org";
-  #     owner = "GNOME";
-  #     repo = "libadwaita";
-  #     rev = version;
-  #     hash = "sha256-LXrlTca50ALo+Nm55fwXNb4k3haLqHNnzLPc08VhA5s=";
-  #   };
-  # });
   self = fractal-next.overrideAttrs (upstream: rec {
     pname = "fractal-latest";
-    # XXX(2023/09/27): beyond this commit, dependencies are higher than what nixpkgs provides:
-    # - gtk4 >= 4.11.3
-    # - libadwaita >= 1.4.0
     version = "unstable-2023-11-24";
     src = fetchFromGitLab {
       domain = "gitlab.gnome.org";
