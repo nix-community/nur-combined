@@ -6,7 +6,7 @@
     script = ''
       working=$(mktemp -d /tmp/nixos-prebuild.XXXXXX)
       pushd "$working"
-      git clone https://git.uninsane.org/colin/nix-files.git
+      git clone https://git.uninsane.org/colin/nix-files.git \
         && cd nix-files \
         && nix flake update \
         || true
