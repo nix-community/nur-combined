@@ -3,6 +3,7 @@
   sane.programs.gthumb = {
     # compile without webservices to avoid the expensive webkitgtk dependency
     package = pkgs.gthumb.override { withWebservices = false; };
+    mime.priority = 200;  # gthumb is kinda bloated image/gallery viewer
     mime.associations = {
       "image/gif" = "org.gnome.gThumb.desktop";
       "image/heif" = "org.gnome.gThumb.desktop";  # apple codec

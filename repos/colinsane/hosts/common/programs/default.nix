@@ -42,6 +42,7 @@
     ./koreader
     ./libreoffice.nix
     ./lemoa.nix
+    ./loupe.nix
     ./mako.nix
     ./mepo.nix
     ./mimeo
@@ -52,6 +53,7 @@
     ./newsflash.nix
     ./nheko.nix
     ./nix-index.nix
+    ./notejot.nix
     ./ntfy-sh.nix
     ./obsidian.nix
     ./offlineimap.nix
