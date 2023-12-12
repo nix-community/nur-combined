@@ -37,7 +37,7 @@
               --arg include-overlays "[(import ./overlay.nix)]" \
               --arg predicate '(
                 let prefix = builtins.toPath ./packages; prefixLen = builtins.stringLength prefix;
-                in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
+                in (_: p: p.meta?position && (builtins.substring 0 prefixLen p.meta.position) == prefix)
               )'
           '';
         });

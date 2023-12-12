@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "moss";
-  version = "unstable-2023-11-30";
+  version = "unstable-2023-12-10";
 
   src = fetchFromGitHub {
     owner = "serpent-os";
     repo = "moss-rs";
-    rev = "1072048c7e9fb35a976fc593d8d9b08290ca0b03";
-    hash = "sha256-iNyn9hBk8W01Vh5yFg/1KAea6zIBEe7mqSQzYgDshzI=";
+    rev = "7da2b5c999afce75c57a7f7e3953cbcc92cbcdcb";
+    hash = "sha256-4aLCBlkjJ3baXn7HEjNYi2fkrXDO5yNrZyK42kQduag=";
   };
 
-  cargoHash = "sha256-GB2dpGc5j9RIHaOcbBZ20lIefOBeBaQnJ7UvDzydsSo=";
+  cargoHash = "sha256-FfvCYk9ggpbPXldm7hYSupPVapbMXbJej+luypMvbL0=";
 
   nativeBuildInputs = [
     pkg-config
