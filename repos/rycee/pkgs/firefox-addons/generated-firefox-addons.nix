@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.16.0";
+      version = "1.17.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200662/10ten_ja_reader-1.16.0.xpi";
-      sha256 = "ac91a5aee5c6a018c397257eb090eaa640feb0a17aa2e0f91248bad7d1a3e6c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205187/10ten_ja_reader-1.17.0.xpi";
+      sha256 = "b403f9f361f685a8c674d864efc050850b0e4f042a83b906d9828b3835b51db6";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -1626,10 +1626,10 @@
       };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "121.0.20231208.91859";
+      version = "121.0.20231211.174248";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4206487/deutsch_de_language_pack-121.0.20231208.91859.xpi";
-      sha256 = "6638a09bfe2cc86faf7b67459d5cc5bee5a386d71ee4a58b488c632222be75ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208037/deutsch_de_language_pack-121.0.20231211.174248.xpi";
+      sha256 = "6538e488a67d56cf0f81c587e99d806cbdf4e8293b0db32f3b17057baaa4dd52";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2057,10 +2057,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.9";
+      version = "1.2.10";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4207380/faststream-1.2.9.xpi";
-      sha256 = "2f9eaaf6dfb463d30100b8cb801e9e7e109bf9bf84ba8d707f1093116a305d97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207754/faststream-1.2.10.xpi";
+      sha256 = "68fac9232fa2cb554441ddf0d1879afe8cd0309a1aaa71c91b501936aa0d8ce9";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2463,10 +2463,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "121.0.20231208.91859";
+      version = "121.0.20231211.174248";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4206522/francais_language_pack-121.0.20231208.91859.xpi";
-      sha256 = "92dfcaa24401ee2272622fe363b7b3e7eb4a3a9f66faacc0586ab8f5a917c0cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208030/francais_language_pack-121.0.20231211.174248.xpi";
+      sha256 = "5f4df64b77fc11a05ed0637fe3913676797a675f2d361bc1b05a43d90054c9d4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4266,10 +4266,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.443";
+      version = "4.500";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4201289/youtube_addon-4.443.xpi";
-      sha256 = "57d06c52c91808601fd3e12a9f9f9569fe2514ca9e341845d2fe836829ac2476";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205814/youtube_addon-4.500.xpi";
+      sha256 = "ede07b4ddca2f5d6c0f7d695f117f563b8655174763954ba7bf13058b81f24e7";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4311,10 +4311,10 @@
       };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195880/indie_wiki_buddy-3.1.0.xpi";
-      sha256 = "555359264475342463a8dfbed4597cfed231e55488ac4618ad1c660bab064ac4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205900/indie_wiki_buddy-3.2.0.xpi";
+      sha256 = "7e473bb0f64bb894ace3d86725a28fdadde907eb0f9f57f73f16d7dced762707";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -4323,8 +4323,9 @@
         mozPermissions = [
           "storage"
           "webRequest"
-          "webRequestBlocking"
+          "declarativeNetRequest"
           "notifications"
+          "scripting"
           "https://*.fandom.com/*"
           "https://*.fextralife.com/*"
           "https://breezewiki.com/*"
@@ -8432,10 +8433,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.36";
+      version = "1.22.37";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4202975/single_file-1.22.36.xpi";
-      sha256 = "f6440ad7f86be09f80995ac41a2633fd13ab01b9af01fd6cc5aad4ad84299136";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205571/single_file-1.22.37.xpi";
+      sha256 = "5ed16290d510905b58e4724dce76e1290fbcfc15aa68d9009e15d0edfa0b7c97";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
