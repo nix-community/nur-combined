@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstable, ... }:
 
 {
   environment.sessionVariables = {
@@ -10,7 +10,7 @@
     sc-im
     git-sync
     gitFull
-    neovim
+    unstable.neovim
 
     ruby # for Linny
   ];

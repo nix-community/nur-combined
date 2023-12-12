@@ -18,6 +18,7 @@
     zoom-us
     tdesktop
     teams
+    unstable.tuba
 
     unstable.himalaya
   ];

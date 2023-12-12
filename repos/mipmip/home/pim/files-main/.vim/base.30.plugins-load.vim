@@ -65,6 +65,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 
 Plug 'bkad/camelcasemotion'
+Plug 'szw/vim-maximizer'
 
 " VIM TEXT TOOLS
 Plug 'bronson/vim-trailing-whitespace'
