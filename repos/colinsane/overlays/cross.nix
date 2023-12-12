@@ -1183,14 +1183,13 @@ in with final; {
   #   };
   # };
 
-  # jbig2dec = prev.jbig2dec.overrideAttrs (_: {
-  #   # 2023/12/08: compiles without this fix. i think it's only needed for binfmt
-  #   # adding configureFlags here fixes: "configure: error: cannot run C compiled programs."
-  #   #   autogen needs the --host flag, i guess
-  #   preConfigure = ''
-  #     ./autogen.sh $configureFlags
-  #   '';
-  # });
+  jbig2dec = prev.jbig2dec.overrideAttrs (_: {
+    # adding configureFlags here fixes: "configure: error: cannot run C compiled programs."
+    #   autogen needs the --host flag, i guess
+    preConfigure = ''
+      ./autogen.sh $configureFlags
+    '';
+  });
 
   # jellyfin-media-player = mvToBuildInputs
   #   [ libsForQt5.wrapQtAppsHook ]  # this shouldn't be: but otherwise we get mixed qtbase deps
