@@ -183,6 +183,8 @@
       hostPkgs = mapAttrValues (host: host.config.system.build.pkgs) self.nixosConfigurations;
       hostPrograms = mapAttrValues (host: mapAttrValues (p: p.package) host.config.sane.programs) self.nixosConfigurations;
 
+      patched.nixpkgs = nixpkgs';
+
       overlays = {
         # N.B.: `nix flake check` requires every overlay to take `final: prev:` at defn site,
         #   hence the weird redundancy.

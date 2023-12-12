@@ -80,11 +80,12 @@ in
     "gnome.seahorse"  # keyring/secret manager
     "gnome-frog"  # OCR/QR decoder
     "gpodder"
+    "gthumb"
     "gtkcord4"  # Discord client. 2023/11/21: disabled because v0.0.12 leaks memory
     "lemoa"  # lemmy app
     "libnotify"  # for notify-send; debugging
     # "lollypop"
-    "loupe"
+    # "loupe"
     "mate.engrampa"  # archive manager
     "mepo"  # maps viewer
     "mpv"
@@ -112,6 +113,7 @@ in
     "chatty"  # matrix/xmpp/irc client
     "cozy"  # audiobook player
     "epiphany"  # gnome's web browser
+    # "iotas"  # note taking app
     "komikku"
     "koreader"
     "megapixels"  # camera app

@@ -10,7 +10,7 @@
         version = self.lastModifiedDate;
         src = nixpkgs;
         patches = builtins.filter (p: p != null) (
-          nixpkgs.legacyPackages."${system}".callPackage ./list.nix { } variant self.lastModifiedDate
+          nixpkgs.legacyPackages."${system}".callPackage ./list.nix { } variant nixpkgs.lastModifiedDate
         );
       };
       patchedFlakeFor = system: import "${patchedPkgsFor system}/flake.nix";

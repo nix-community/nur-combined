@@ -37,7 +37,7 @@ in [
     hash = "sha256-GRRLXwUw2JXEV6Ov0QiVTFwoi/ACManG2Qk7D3fzS8E=";
     # probably not correct
     merged.staging-next = "20231212000216";
-    merged.master = "20231212000216";
+    merged.master = "20231211120216";
   })
   # (fetchpatch' {
   #   title = "nixos/slskd: allow omitting username from yaml config";

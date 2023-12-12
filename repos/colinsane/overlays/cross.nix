@@ -856,6 +856,14 @@ in with final; {
   #     "-Dgpg_path=${gnupg}/bin/gpg"
   #   ];
   # });
+
+  glycin-loaders = prev.glycin-loaders.overrideAttrs (upstream: {
+    # loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
+    # new error: "error: linker `cc` not found"
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [ buildPackages.gettext ];
+  });
+
+
   # gnustep = prev.gnustep.overrideScope' (self: super: {
   #   # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
   #   # base = emulated.gnustep.base;
