@@ -10,4 +10,6 @@
     rev = "6654e2be5e7a6ae3eb9d66174f965a0db19d1172";
     sha256 = "0s8x67qsl86lalc765rrwa9xr9q0qcj8ss01f8raka4rdv1iv1cp";
   };
+
+  passthru.ci.skip = true;
 }
