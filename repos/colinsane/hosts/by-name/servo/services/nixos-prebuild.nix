@@ -7,11 +7,13 @@
       working=$(mktemp -d /tmp/nixos-prebuild.XXXXXX)
       pushd "$working"
       git clone https://git.uninsane.org/colin/nix-files.git
-      cd nix-files
-      nix flake update
-      nix run '.#check' -- -j1 --cores 5
+        && cd nix-files \
+        && nix flake update \
+        || true
+      RC=$(nix run "$working/nix-files#check" -- -j1 --cores 5 --builders "")
       popd
       rm -rf "$working"
+      exit "$RC"
     '';
   };
 
