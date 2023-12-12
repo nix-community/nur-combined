@@ -118,7 +118,7 @@ in
         timerConfig = {
           OnStartupSec = "75s";
           OnCalendar = cfg.upnpRenewInterval;
-          RandomizeDelaySec = "30s";
+          RandomizedDelaySec = "180s";
           Unit = "upnp-forwards.target";
         };
       };

@@ -64,7 +64,7 @@ in
         protocol = [ "tcp" ];
         visibleTo.lan = true;
         visibleTo.wan = true;
-        description = "colin-notification-waiter-${builtins.toString (port+1)}-of-${builtins.toString numPorts}";
+        description = "colin-notification-waiter-${builtins.toString (port - portLow + 1)}-of-${builtins.toString numPorts}";
       };
     }));
     systemd.services = lib.mkMerge (builtins.map mkService portRange);

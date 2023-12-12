@@ -251,7 +251,7 @@
           pkgs = self.legacyPackages."x86_64-linux";
           sanePkgs = import ./pkgs { inherit pkgs; };
           deployScript = host: addr: action: pkgs.writeShellScript "deploy-${host}" ''
-            nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} $@
+            nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} "$@"
             sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result-${host})
 
             # XXX: this triggers another config eval & (potentially) build.
@@ -262,7 +262,7 @@
             # - nix-copy-closure --to $host $result
             # - on target: nix-env set -p /nix/var/nix/profiles/system $result
             # - on target: $result/bin/switch-to-configuration
-            nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${addr} --use-remote-sudo $@ --fast
+            nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${addr} --use-remote-sudo "$@" --fast
           '';
           deployApp = host: addr: action: {
             type = "app";
@@ -376,9 +376,9 @@
           sync = {
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-all" ''
-              RC_lappy=$(nix run '.#sync.lappy' -- $@)
-              RC_moby=$(nix run '.#sync.moby' -- $@)
-              RC_desko=$(nix run '.#sync.desko' -- $@)
+              RC_lappy=$(nix run '.#sync.lappy' -- "$@")
+              RC_moby=$(nix run '.#sync.moby' -- "$@")
+              RC_desko=$(nix run '.#sync.desko' -- "$@")
 
               echo "lappy: $RC_lappy"
               echo "moby: $RC_moby"
@@ -392,7 +392,7 @@
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-desko" ''
               sudo mount /mnt/desko-home
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compat /mnt/servo-media/Music /mnt/desko-home/Music $@
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compat /mnt/servo-media/Music /mnt/desko-home/Music "$@"
             '');
           };
 
@@ -402,7 +402,7 @@
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-lappy" ''
               sudo mount /mnt/lappy-home
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat /mnt/servo-media/Music /mnt/lappy-home/Music $@
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat /mnt/servo-media/Music /mnt/lappy-home/Music "$@"
             '');
           };
 
@@ -413,7 +413,7 @@
             program = builtins.toString (pkgs.writeShellScript "sync-to-moby" ''
               sudo mount /mnt/moby-home
               # N.B.: limited by network/disk -> reduce job count to improve pause/resume behavior
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat --jobs 4 /mnt/servo-media/Music /mnt/moby-home/Music $@
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat --jobs 4 /mnt/servo-media/Music /mnt/moby-home/Music "$@"
             '');
           };
 
@@ -456,7 +456,7 @@
               checkHost = host: let
                 shellHost = pkgs.lib.replaceStrings [ "-" ] [ "_" ] host;
               in ''
-                nix build -v '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} -j2 $@
+                nix build -v '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} -j2 "$@"
                 RC_${shellHost}=$?
               '';
             in builtins.toString (pkgs.writeShellScript

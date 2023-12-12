@@ -172,13 +172,15 @@ in
 
   users.users.sftpgo.extraGroups = [ "export" ];
 
-  systemd.services.sftpgo.serviceConfig = {
-    ReadOnlyPaths = [ "/var/export" ];
-    ReadWritePaths = [ "/var/export/playground" ];
+  systemd.services.sftpgo = {
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
+    serviceConfig = {
+      ReadOnlyPaths = [ "/var/export" ];
+      ReadWritePaths = [ "/var/export/playground" ];
 
-    Restart = "always";
-    RestartSec = "20s";
+      Restart = "always";
+      RestartSec = "20s";
+    };
   };
 }

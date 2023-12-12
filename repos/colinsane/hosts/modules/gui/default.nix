@@ -158,7 +158,7 @@ in
       # "nheko"  # Matrix chat client
       # "obsidian"
       # "rhythmbox"  # local music player
-      "slic3r"
+      # "slic3r"
       "soundconverter"
       "spotify"  # x86-only
       "steam"

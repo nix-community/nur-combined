@@ -22,6 +22,7 @@
     ./monero.nix
     ./navidrome.nix
     ./nginx.nix
+    ./nixos-prebuild.nix
     ./nixserve.nix
     ./ntfy
     ./pict-rs.nix
