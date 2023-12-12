@@ -444,7 +444,7 @@
                 --option restrict-eval true \
                 --option allow-import-from-derivation true \
                 --drv-path --show-trace \
-                -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+                -I nixpkgs=${nixpkgs-unpatched} \
                 -I ../../ \
                 | tee  # tee to prevent interactive mode
             '');
