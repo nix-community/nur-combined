@@ -130,7 +130,6 @@
 , withMultithread ? true # Multithreading via pthreads/win32 threads
 , withNetwork ? withHeadlessDeps # Network support
 , withPixelutils ? withHeadlessDeps # Pixel utils in libavutil
-, withLTO ? false # build with link-time optimization
 /*
  *  Program options
  */
@@ -235,8 +234,6 @@
 , libXext
 , libxml2
 , xz
-, nv-codec-headers
-, nv-codec-headers-11
 , openal
 , ocl-icd # OpenCL ICD
 , opencl-headers  # OpenCL headers
@@ -352,10 +349,6 @@ stdenv.mkDerivation (finalAttrs: {
       --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
     substituteInPlace doc/filters.texi \
       --replace /usr/local/lib/frei0r-1 ${frei0r}/lib/frei0r-1
-  '' + lib.optionalString withVulkan ''
-    # FIXME: horrible hack, remove for next release
-    substituteInPlace libavutil/hwcontext_vulkan.c \
-      --replace VK_EXT_VIDEO_DECODE VK_KHR_VIDEO_DECODE
   '';
 
   patches = map (patch: fetchpatch patch) (extraPatches
@@ -389,7 +382,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     (enableFeature withSmallBuild "small")
     (enableFeature withRuntimeCPUDetection "runtime-cpudetect")
-    (enableFeature withLTO "lto")
     (enableFeature withGrayscale "gray")
     (enableFeature withSwscaleAlpha "swscale-alpha")
     (enableFeature withHardcodedTables "hardcoded-tables")
@@ -557,9 +549,25 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ removeReferencesTo addOpenGLRunpath perl pkg-config texinfo yasm ];
 
   # TODO This was always in buildInputs before, why?
-  buildInputs = optionals withFullDeps [ libdc1394 ]
+  buildInputs = 
+  let 
+  nv-codec-headers = stdenv.mkDerivation rec {
+  pname = "nv-codec-headers";
+  version = "12.1.14.0";
+  src = fetchgit {
+    url = "https://git.videolan.org/git/ffmpeg/nv-codec-headers.git";
+    rev = "n${version}";
+    sha256 = "sha256-WJYuFmMGSW+B32LwE7oXv/IeTln6TNEeXSkquHh85Go=";
+  };
+  makeFlags = [
+    "PREFIX=$(out)"
+  ];
+
+};
+  in
+  optionals withFullDeps [ libdc1394 ]
   ++ optionals (withFullDeps && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
-  ++ optionals (withNvdec || withNvenc) [ (if (lib.versionAtLeast version "6") then nv-codec-headers-11 else nv-codec-headers) ]
+  ++ optionals (withNvdec || withNvenc || withCuda) [ nv-codec-headers ]
   ++ optionals withAmf [ amf-headers ]
   ++ optionals withAlsa [ alsa-lib ]
   ++ optionals withAom [ libaom ]

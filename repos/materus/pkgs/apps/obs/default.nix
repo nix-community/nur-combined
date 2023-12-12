@@ -61,7 +61,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "obs-studio-amf";
-  version = "30.0.0";
+  version = "30.0.2";
   src = fetchFromGitHub {
     owner = "obsproject";
     repo = "obs-studio";
@@ -74,6 +74,8 @@ stdenv.mkDerivation rec {
     ./obs-amf-patch.patch # OBS AMF Patch
     ./Enable-file-access-and-universal-access-for-file-URL.patch
     ./fix-nix-plugin-path.patch
+    ./av1-vaapi.patch
+    ./ffmpeg61.patch
   ];
 
   nativeBuildInputs = [
