@@ -6,8 +6,8 @@
   fetchYarnDeps,
   esbuild,
 }: let
-  version = "1.34.0";
-  srcHash = "sha256-JyVU3ZtvUGGhQcE5gsmsB+tFxyYBtLTdsxVAkmgK+tU=";
+  version = "1.34.1";
+  srcHash = "sha256-Wz6rKJCzcIY4KazWeuh9UV0+ys2CQGY5aDMSUvn7Gnw=";
   yarnHash = "sha256-c/ba3K/lqvJ3FixZRuUPFMv7wvuaiZAx22hs5MTvj1c=";
   rev = "v${version}";
 
@@ -38,7 +38,7 @@
       buildGoModule = args:
         buildGoModule (args
           // rec {
-            version = "1.34.0";
+            version = "0.18.20";
             src = fetchFromGitHub {
               owner = "evanw";
               repo = "esbuild";
@@ -73,7 +73,7 @@ in
     inherit (common) version src;
 
     pname = "autobrr";
-    vendorHash = "sha256-sIBzd9kUFZYne4PqSgJvejTokG2Q9dFTpTBB2M9k0S0=";
+    vendorHash = "sha256-xA6+DGyRQcAYznj/9LZYXHqRFdkCiY5/YmPbF5cDZLA=";
 
     ldflags = [
       "-X main.version=${version}"
