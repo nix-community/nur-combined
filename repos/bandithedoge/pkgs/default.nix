@@ -10,6 +10,7 @@ in {
   basiliskii-bin = callPackage' ./basiliskii-bin;
   cardinal = callPackage' ./cardinal;
   cinelerra-gg-bin = callPackage' ./cinelerra-gg-bin;
+  distrho-ports = callPackage' ./distrho-ports;
   dpf-plugins = callPackage' ./dpf-plugins;
   fennel-language-server = callPackage' ./fennel-language-server;
   firefoxAddons = callPackages ./firefoxAddons;

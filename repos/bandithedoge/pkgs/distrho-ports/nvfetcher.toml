@@ -1,0 +1,4 @@
+[distrho-ports]
+src.git = "https://github.com/DISTRHO/DISTRHO-Ports"
+fetch.github = "DISTRHO/DISTRHO-Ports"
+git.fetchSubmodules = true
