@@ -85,6 +85,7 @@ let
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
+    (fromDb "originstories.libsyn.com" // uncat)
     (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
     (fromDb "podcast.thelinuxexp.com" // tech)
     (fromDb "politicalorphanage.libsyn.com" // pol)
@@ -136,6 +137,7 @@ let
 
     ## No Moods, Ads or Cutesy Fucking Icons
     (fromDb "rifters.com/crawl" // uncat)
+    (fromDb "bitsaboutmoney.com" // uncat)
 
     # DEVELOPERS
     (fromDb "blog.jmp.chat" // tech)
