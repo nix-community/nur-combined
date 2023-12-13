@@ -857,10 +857,26 @@ in with final; {
   #   ];
   # });
 
-  glycin-loaders = prev.glycin-loaders.overrideAttrs (upstream: {
-    # loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
-    # new error: "error: linker `cc` not found"
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [ buildPackages.gettext ];
+  glycin-loaders = prev.glycin-loaders.overrideAttrs (upstream:
+  let
+    cargoEnvWrapper = buildPackages.writeShellScript "cargo-env-wrapper" ''
+      CARGO_BIN="$1"
+      shift
+      CARGO_OP="$1"
+      shift
+
+      ${rust.envVars.setEnv} "$CARGO_BIN" "$CARGO_OP" --target "${rust.envVars.rustHostPlatformSpec}" "$@"
+    '';
+  in {
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      # fixes: loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
+      buildPackages.gettext
+    ];
+    postPatch = ''
+      substituteInPlace loaders/meson.build \
+        --replace "cargo_bin, 'build'," "'${cargoEnvWrapper}', cargo_bin, 'build'," \
+        --replace "'loaders' / rust_target" "'loaders' / '${rust.envVars.rustHostPlatformSpec}' / rust_target"
+    '';
   });
 
 
@@ -1343,6 +1359,24 @@ in with final; {
     mesonFlags = (upstream.mesonFlags or []) ++ [ "-Dgtk_doc=false" ];
     # alternative partial fix, but then it tries to link against the build glib
     # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [ pkg-config ];
+  });
+
+  loupe = prev.loupe.overrideAttrs (upstream:
+  let
+    cargoEnvWrapper = buildPackages.writeShellScript "cargo-env-wrapper" ''
+      CARGO_BIN="$1"
+      shift
+      CARGO_OP="$1"
+      shift
+
+      ${rust.envVars.setEnv} "$CARGO_BIN" "$CARGO_OP" --target "${rust.envVars.rustHostPlatformSpec}" "$@"
+    '';
+  in {
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace src/meson.build \
+        --replace "cargo, 'build'," "'${cargoEnvWrapper}', cargo, 'build'," \
+        --replace "'src' / rust_target" "'src' / '${rust.envVars.rustHostPlatformSpec}' / rust_target"
+    '';
   });
 
   mepo = (prev.mepo.override {
