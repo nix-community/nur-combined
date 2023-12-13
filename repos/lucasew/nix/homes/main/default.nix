@@ -16,7 +16,7 @@ in {
     ./qutebrowser.nix
     ./mopidy.nix
   ];
-  # services.mopidy.enable = true;
+  services.mopidy.enable = true;
 
   programs.helix.enable = true;
   # services.espanso.enable = true;
