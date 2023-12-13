@@ -202,6 +202,13 @@ in
     };
   });
 
+  mopidyPackages = prev.mopidyPackages.overrideScope (self: super: {
+    mopidy-ytmusic = super.mopidy-ytmusic.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ super.pythonPackages.pythonRelaxDepsHook ];
+      pythonRelaxDeps = [ "ytmusicapi" "pytube" ];
+    });
+  });
+
   nix = prev.nixVersions.nix_2_15;
   electron = prev.electron_27-bin;
   electron_25 = prev.electron_25-bin;
