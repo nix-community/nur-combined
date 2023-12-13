@@ -233,11 +233,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1702281974,
-        "narHash": "sha256-OX6umqmLlRKKX0yEfQBmMx8pDNHtxp+sGTLyFh8kLG8=",
+        "lastModified": 1702396052,
+        "narHash": "sha256-mN/PF3B3/L+nTQWhq0cC4+RFS4zIDN/o4v7j7flV8uM=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "5ff2cdbe0db6a6f3445f7d878cb87d121d914d83",
+        "rev": "8af5563aa9971a96af7fbbf8830be602869278f3",
         "type": "github"
       },
       "original": {
