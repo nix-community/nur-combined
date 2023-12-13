@@ -55,8 +55,11 @@ let
     # it can be further customized via ~/.librewolf/librewolf.overrides.cfg
     inherit (cfg.browser) extraPrefsFiles libName;
 
-    extraNativeMessagingHosts = optional cfg.addons.browserpass-extension.enable pkgs.browserpass;
-    # extraNativeMessagingHosts = [ pkgs.gopass-native-messaging-host ];
+    nativeMessagingHosts = lib.optionals cfg.addons.browserpass-extension.enable [
+      pkgs.browserpass
+    ] ++ lib.optionals cfg.addons.fxCast.enable [
+      pkgs.fx-cast-bridge
+    ];
 
     nixExtensions = concatMap (ext: optional ext.enable ext.package) (attrValues cfg.addons);
 
@@ -157,6 +160,16 @@ in
         default = {};
       };
       sane.programs.firefox.config.addons = {
+        fxCast = {
+          # add a menu to cast to chromecast devices, but it doesn't seem to work very well.
+          # right click (or shift+rc) a video, then select "cast".
+          # - asciinema.org: icon appears, but glitches when clicked.
+          # - youtube.com: no icon appears, even when site is whitelisted.
+          # future: maybe better to have browser open all videos in mpv, and then use mpv for casting.
+          # see e.g. `ff2mpv`, `open-in-mpv` (both are packaged in nixpkgs)
+          package = pkgs.firefox-extensions.fx_cast;
+          enable = lib.mkDefault false;
+        };
         browserpass-extension = {
           package = pkgs.firefox-extensions.browserpass-extension;
           enable = lib.mkDefault true;
@@ -172,6 +185,10 @@ in
         i2p-in-private-browsing = {
           package = pkgs.firefox-extensions.i2p-in-private-browsing;
           enable = lib.mkDefault config.services.i2p.enable;
+        };
+        open-in-mpv = {
+          package = pkgs.firefox-extensions.open-in-mpv;
+          enable = lib.mkDefault config.sane.programs.open-in-mpv.enabled;
         };
         sidebery = {
           package = pkgs.firefox-extensions.sidebery;
@@ -194,6 +211,10 @@ in
     ({
       sane.programs.firefox = {
         inherit package;
+
+        suggestedPrograms = [
+          "open-in-mpv"
+        ];
 
         mime.associations = let
           inherit (cfg.browser) desktop;
@@ -239,6 +260,10 @@ in
           // note that too-large scrollbars (like 50px wide) tend to obscure content (and make buttons unclickable)
           defaultPref("widget.non-native-theme.scrollbar.size.override", 20);
           defaultPref("widget.non-native-theme.scrollbar.style", 4);
+
+          // auto-dispatch mpv:// URIs to xdg-open without prompting.
+          // can do this with other protocols too (e.g. matrix?). see about:config for common handlers.
+          defaultPref("network.protocol-handler.external.mpv", true);
         '';
         fs."${cfg.browser.dotDir}/default".dir = {};
         # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).

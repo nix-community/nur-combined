@@ -1743,6 +1743,26 @@ in with final; {
   #   inherit (emulated) stdenv;
   # };
 
+  # 2023/12/13: upstreaming is blocked by qtsvg (via pipewire)
+  pwvucontrol = prev.pwvucontrol.overrideAttrs (upstream:
+  let
+    rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
+  in {
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace src/meson.build --replace \
+        "'src' / rust_target" \
+        "'src' / '${rustTargetPlatform}' / rust_target"
+    '';
+    # nixpkgs sets CARGO_BUILD_TARGET to the build platform target, so correct that.
+    buildPhase = ''
+      runHook preBuild
+
+      ${rust.envVars.setEnv} "CARGO_BUILD_TARGET=${rustTargetPlatform}" ninja -j$NIX_BUILD_CORES
+
+      runHook postBuild
+    '';
+  });
+
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (py-final: py-prev: {
 

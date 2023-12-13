@@ -32,6 +32,11 @@ in [
     hash = "sha256-AkxtrCJrf0wpTdty4SOIWBrWwqfG7rBI4ON38BjDi6s=";
   })
   # (fetchpatch' {
+  #   title = "fx-cast-bridge: Pin nodejs to version 18";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/273768";
+  #   hash = "sha256-THf+O5THf0URY6bsq2/bVo1P2CvUq7opxNtl548yTak=";
+  # })
+  # (fetchpatch' {
   #   # 2023/12/12: needs rebasing
   #   title = "gnome-feeds: 0.16.2 -> 2.2.0";
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/217060";

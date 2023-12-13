@@ -123,12 +123,30 @@ in (lib.makeScope newScope (self: with self; {
       version = "11.7.0";
       hash = "sha256-Xb+hFxFTfGE0IKp87JKLUoaLbgjwhnWUYwTNlYj1LCM=";
     };
+    fx_cast = fetchVersionedAddon rec {
+      extid = "fx_cast@matt.tf";
+      pname = "fx_cast";
+      url = "https://github.com/hensm/fx_cast/releases/download/v${version}/fx_cast-${version}.xpi";
+      version = "0.3.1";
+      hash = "sha256-zaYnUJpJkRAPSCpM3S20PjMS4aeBtQGhXB2wgdlFkSQ=";
+    };
     i2p-in-private-browsing = fetchVersionedAddon rec {
       extid = "i2ppb@eyedeekay.github.io";
       pname = "i2p-in-private-browsing";
       url = "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/${version}/i2ppb@eyedeekay.github.io.xpi";
       version = "1.47";
       hash = "sha256-LnR5z3fqNJywlr/khFdV4qloKGQhbxNZQvWCEgz97DU=";
+    };
+    open-in-mpv = fetchVersionedAddon rec {
+      # usage:
+      # - click the "puzzle" icon in top-right of browser -> open in mpv
+      # - or, (shift)right-click a video and select "open in mpv"
+      #   - but note that this option does not work for Youtube videos
+      extid = "{d66c8515-1e0d-408f-82ee-2682f2362726}";
+      pname = "open-in-mpv";
+      url = "https://github.com/Baldomo/open-in-mpv/releases/download/v${version}/firefox.xpi";
+      version = "2.1.0";
+      hash = "sha256-jRP0hvEyScGnQ2K5EFX+ggtu6B0h9Y3fJxYYnI8cMbc=";
     };
     sidebery = fetchVersionedAddon rec {
       extid = "{3c078156-979c-498b-8990-85f7987dd929}";

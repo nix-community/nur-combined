@@ -93,6 +93,7 @@ in
     "ntfy-sh"  # notification service
     # "newsflash"  # RSS viewer
     "pavucontrol"
+    "pwvucontrol"  # pipewire version of pavu
     # "picard"  # music tagging
     # "libsForQt5.plasmatube"  # Youtube player
     "signal-desktop"
