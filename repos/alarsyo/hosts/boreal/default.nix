@@ -75,7 +75,10 @@
 
     pipewire.enable = true;
 
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "both";
+    };
   };
 
   services = {

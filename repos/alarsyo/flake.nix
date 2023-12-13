@@ -105,10 +105,9 @@
             {
               nixpkgs = {
                 overlays = shared_overlays;
-                config.permittedInsecurePackages = [
-                  "zotero-6.0.26"
-                ];
+                config.permittedInsecurePackages = [];
               };
+              hardware.enableRedistributableFirmware = true;
             }
           ]
           ++ (nixpkgs.lib.attrValues self.nixosModules);

@@ -49,7 +49,11 @@
 
   # List services that you want to enable:
   my.services = {
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "client";
+    };
+
     pipewire.enable = true;
 
     restic-backup = {

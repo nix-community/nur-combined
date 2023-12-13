@@ -28,7 +28,10 @@ in {
 
   # List services that you want to enable:
   my.services = {
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "both";
+    };
   };
 
   services = {

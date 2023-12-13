@@ -133,7 +133,7 @@ in {
 
     tailscale = {
       enable = true;
-      exitNode = true;
+      useRoutingFeatures = "server";
     };
 
     transmission = {

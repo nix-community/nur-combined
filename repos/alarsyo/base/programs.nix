@@ -3,6 +3,7 @@
     fish.enable = true;
     less.enable = true;
     mosh.enable = true;
+    tmux.enable = true;
 
     # setcap wrapper for network permissions
     bandwhich.enable = true;
@@ -20,12 +21,12 @@
     inherit
       (pkgs)
       # shell usage
-      
+
+      bat
       fd
       file
       ripgrep
       sd
-      tmux
       tokei
       tree
       wget
@@ -33,38 +34,25 @@
       pciutils
       usbutils
       # development
-      
+
+      agenix
       alejandra
       git
       git-crypt
       git-lfs
       gnumake
       gnupg
-      kakoune
       pinentry-qt
       python3
       vim
       # terminal utilities
       
-      bottom
       dogdns
       du-dust
       htop
       ldns # drill
-      tealdeer
       unzip
       zip
-      # nix pkgs lookup
-      
-      nix-index
-      agenix
-      cachix
-      ;
-
-    inherit
-      (pkgs.llvmPackages_16)
-      bintools
-      clang
       ;
   };
 }

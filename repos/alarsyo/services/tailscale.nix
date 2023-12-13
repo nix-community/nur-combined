@@ -8,34 +8,30 @@
     (lib)
     mkEnableOption
     mkIf
+    mkOption
+    types
     ;
 
   cfg = config.my.services.tailscale;
 in {
   options.my.services.tailscale = {
     enable = mkEnableOption "Tailscale";
-
-    # NOTE: still have to do `tailscale up --advertise-exit-node`
-    exitNode = mkEnableOption "Use as exit node";
+    useRoutingFeatures = mkOption {
+      type = types.enum [ "none" "client" "server" "both" ];
+      default = "none";
+    };
   };
 
   config = mkIf cfg.enable {
     services.tailscale = {
       enable = true;
       package = pkgs.tailscale;
+      openFirewall = true;
+      useRoutingFeatures = cfg.useRoutingFeatures;
     };
 
     networking.firewall = {
-      trustedInterfaces = ["tailscale0"];
-      allowedUDPPorts = [config.services.tailscale.port];
-      # needed for exit node usage
-      checkReversePath = mkIf (!cfg.exitNode) "loose";
-    };
-
-    # enable IP forwarding to use as exit node
-    boot.kernel.sysctl = mkIf cfg.exitNode {
-      "net.ipv6.conf.all.forwarding" = true;
-      "net.ipv4.ip_forward" = true;
+      trustedInterfaces = [config.services.tailscale.interfaceName];
     };
   };
 }
