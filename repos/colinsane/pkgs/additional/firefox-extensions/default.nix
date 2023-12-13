@@ -174,9 +174,9 @@ in (lib.makeScope newScope (self: with self; {
       # but web shit is absolutely cursed and building from source requires a fucking PhD
       # (if you have one, feel free to share your nix package)
       #
-      # NB: in source this is `if (!userID)...`, but the build process mangles the names
-      substituteInPlace js/background.js \
-        --replace 'default.config.userID)' 'default.config.userID && false)'
+      # NB: in source this is `alreadyInstalled: false`, but the build process hates Booleans or something
+      substituteInPlace js/*.js \
+        --replace 'alreadyInstalled:!1' 'alreadyInstalled:!0'
     '';
   }
 )
