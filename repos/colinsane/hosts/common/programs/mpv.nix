@@ -127,6 +127,7 @@ in
     mime.associations."video/webm" = "mpv.desktop";
     mime.associations."video/x-matroska" = "mpv.desktop";
     mime.urlAssociations."^https?://(www.)?youtube.com/watch\?.*v=" = "mpv.desktop";
+    mime.urlAssociations."^https?://(www.)?youtube.com/v/" = "mpv.desktop";
     mime.urlAssociations."^https?://(www.)?youtu.be/.+" = "mpv.desktop";
   };
 }

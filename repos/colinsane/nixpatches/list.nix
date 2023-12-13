@@ -32,6 +32,12 @@ in [
     hash = "sha256-AkxtrCJrf0wpTdty4SOIWBrWwqfG7rBI4ON38BjDi6s=";
   })
   # (fetchpatch' {
+  #   # 2023/12/12: needs rebasing
+  #   title = "gnome-feeds: 0.16.2 -> 2.2.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/217060";
+  #   hash = "sha256-EY3r661V2aOQQbZ2hTdPS0wipgktwPPgNrz2OJr4qFg=";
+  # })
+  # (fetchpatch' {
   #   title = "nixos/slskd: allow omitting username from yaml config";
   #   saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
   #   hash = "sha256-xQEj/oIfNcE4td9jxzDzhlnIYpncOOdXZuswkmcLNuk=";
