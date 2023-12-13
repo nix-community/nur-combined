@@ -42,6 +42,13 @@
       repo = "nixos-hardware";
       ref = "master";
     };
+
+    disko = {
+      type = "github";
+      owner = "nix-community";
+      repo = "disko";
+      ref = "master";
+    };
   };
 
   outputs = {
@@ -49,6 +56,7 @@
     nixpkgs,
     home-manager,
     agenix,
+    disko,
     ...
   } @ inputs:
     {
@@ -105,15 +113,6 @@
           ]
           ++ (nixpkgs.lib.attrValues self.nixosModules);
       in {
-        poseidon = nixpkgs.lib.nixosSystem rec {
-          inherit system;
-          modules =
-            [
-              ./poseidon.nix
-            ]
-            ++ sharedModules;
-        };
-
         hades = nixpkgs.lib.nixosSystem rec {
           inherit system;
           modules =
@@ -143,19 +142,6 @@
             ++ sharedModules;
         };
 
-        zephyrus = nixpkgs.lib.nixosSystem rec {
-          inherit system;
-          modules =
-            [
-              ./zephyrus.nix
-
-              inputs.nixos-hardware.nixosModules.common-cpu-intel
-              inputs.nixos-hardware.nixosModules.common-pc-laptop
-              inputs.nixos-hardware.nixosModules.common-pc-ssd
-            ]
-            ++ sharedModules;
-        };
-
         hephaestus = nixpkgs.lib.nixosSystem rec {
           inherit system;
           modules =
@@ -166,6 +152,16 @@
               inputs.nixos-hardware.nixosModules.common-gpu-amd
               inputs.nixos-hardware.nixosModules.common-pc-laptop
               inputs.nixos-hardware.nixosModules.common-pc-ssd
+            ]
+            ++ sharedModules;
+        };
+
+        thanatos = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules =
+            [
+              disko.nixosModules.default
+              ./thanatos.nix
             ]
             ++ sharedModules;
         };

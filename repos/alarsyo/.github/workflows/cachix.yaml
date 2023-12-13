@@ -78,7 +78,7 @@ jobs:
         - boreal
         - hades
         - hephaestus
-        - poseidon
+        - thanatos
 
     steps:
     - uses: actions/checkout@v4

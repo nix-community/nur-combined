@@ -5,14 +5,13 @@ let
   boreal = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAagal1aqZh52wEmgsw7fkCzO41o4Cx+nV4wJGZuX1RP root@boreal";
   hades = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMxw8CtKUPAiPdKDEnuS7UyRrZN5BkUwsy5UPVF8V+lt root@hades";
   hephaestus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA7Cp+n5+huof68QlAoJV8bVf5h5p9kEZFAVpltWopdL root@hephaestus";
-  poseidon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKYhZYMbWQG9TSQ2qze8GgFo2XrZzgu/GuSOGwenByJo root@poseidon";
-  zephyrus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILU4JfIADH9MXUnVe+3ezYK9WXsqy/jJcm1zFkmL4aSU root@zephyrus";
+  thanatos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID8JEAWk/8iSl8fN6/f76JkmVFwtyixTpLol4zSVsnVw root@thanatos";
 
-  machines = [boreal hades hephaestus poseidon zephyrus];
+  machines = [boreal hades hephaestus thanatos];
 
   all = users ++ machines;
 in {
-  "gandi/api-key.age".publicKeys = [alarsyo hades poseidon];
+  "gandi/api-key.age".publicKeys = [alarsyo hades];
 
   "lohr/shared-secret.age".publicKeys = [alarsyo hades];
 
@@ -35,11 +34,7 @@ in {
   "restic-backup/hades-credentials.age".publicKeys = [alarsyo hades];
   "restic-backup/hephaestus-password.age".publicKeys = [alarsyo hephaestus];
   "restic-backup/hephaestus-credentials.age".publicKeys = [alarsyo hephaestus];
-  "restic-backup/poseidon-password.age".publicKeys = [alarsyo poseidon];
-  "restic-backup/poseidon-credentials.age".publicKeys = [alarsyo poseidon];
-  "restic-backup/zephyrus-password.age".publicKeys = [alarsyo zephyrus];
-  "restic-backup/zephyrus-credentials.age".publicKeys = [alarsyo zephyrus];
 
-  "users/root-hashed-password.age".publicKeys = machines;
+  "users/root-hashed-password.age".publicKeys = machines ++ [alarsyo];
   "users/alarsyo-hashed-password.age".publicKeys = machines ++ [alarsyo];
 }

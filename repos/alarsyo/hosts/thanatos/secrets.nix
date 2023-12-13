@@ -13,9 +13,6 @@
         // attrs;
     in
       lib.mapAttrs toSecret {
-        "restic-backup/zephyrus-credentials" = {};
-        "restic-backup/zephyrus-password" = {};
-
         "users/alarsyo-hashed-password" = {};
         "users/root-hashed-password" = {};
       };
