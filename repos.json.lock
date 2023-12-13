@@ -287,8 +287,8 @@
             "url": "https://github.com/clefru/nur-packages"
         },
         "colinsane": {
-            "rev": "f9a8389f58c94f00420303c61e6f0fbdad2fbc65",
-            "sha256": "0zdhjhaq5yqad4mvclmrlh7ciy4ablizh5axc9p1jbm4m710lh4a",
+            "rev": "7f43360120bdbd21a0b8095a56be65350f9eed91",
+            "sha256": "0c8cmfg5zj67i36jwbv5wfzgxf9i591s3y592lp2jk467f5rica7",
             "url": "https://git.uninsane.org/colin/nix-files"
         },
         "congee": {
