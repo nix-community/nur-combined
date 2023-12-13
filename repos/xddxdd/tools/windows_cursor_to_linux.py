@@ -28,8 +28,8 @@ class WindowsCursors:
     NOT_ALLOWED = "not-allowed"
     SIZE_VER = "size-ver"
     SIZE_HOR = "size-hor"
-    SIZE_FDIAG = "size-fdiag"
-    SIZE_BDIAG = "size-bdiag"
+    SIZE_NW_SE = "size-fdiag"
+    SIZE_NE_SW = "size-bdiag"
     MOVE = "move"
     RIGHT_PTR = "right_ptr"
     POINTER = "pointer"
@@ -53,8 +53,8 @@ CURSOR_MAPPINGS: Dict[str, str] = {
     "alias": WindowsCursors.DEFAULT,
     "all-scroll": WindowsCursors.MOVE,
     "b66166c04f8c3109214a4fbd64a50fc8": WindowsCursors.DEFAULT,
-    "bottom_left_corner": WindowsCursors.SIZE_FDIAG,
-    "bottom_right_corner": WindowsCursors.SIZE_BDIAG,
+    "bottom_left_corner": WindowsCursors.SIZE_NE_SW,
+    "bottom_right_corner": WindowsCursors.SIZE_NW_SE,
     "bottom_side": WindowsCursors.SIZE_VER,
     "bottom_tee": WindowsCursors.SIZE_VER,
     "cell": WindowsCursors.CROSSHAIR,
@@ -90,10 +90,10 @@ CURSOR_MAPPINGS: Dict[str, str] = {
     "left_ptr_watch": WindowsCursors.PROGRESS,
     "left_side": WindowsCursors.SIZE_HOR,
     "link": WindowsCursors.DEFAULT,
-    "ne-resize": WindowsCursors.SIZE_BDIAG,
+    "ne-resize": WindowsCursors.SIZE_NE_SW,
     "no-drop": WindowsCursors.NOT_ALLOWED,
     "resize": WindowsCursors.SIZE_VER,
-    "nw-resize": WindowsCursors.SIZE_FDIAG,
+    "nw-resize": WindowsCursors.SIZE_NW_SE,
     "openhand": WindowsCursors.MOVE,
     "pirate": WindowsCursors.NOT_ALLOWED,
     "plus": WindowsCursors.CROSSHAIR,
@@ -104,19 +104,19 @@ CURSOR_MAPPINGS: Dict[str, str] = {
     "row-resize": WindowsCursors.SIZE_VER,
     "sb_h_double_arrow": WindowsCursors.SIZE_HOR,
     "sb_v_double_arrow": WindowsCursors.SIZE_VER,
-    "se-resize": WindowsCursors.SIZE_BDIAG,
+    "se-resize": WindowsCursors.SIZE_NW_SE,
     "size_all": WindowsCursors.MOVE,
-    "size_bdiag": WindowsCursors.SIZE_BDIAG,
-    "size_fdiag": WindowsCursors.SIZE_FDIAG,
+    "size_bdiag": WindowsCursors.SIZE_NE_SW,
+    "size_fdiag": WindowsCursors.SIZE_NW_SE,
     "size_hor": WindowsCursors.SIZE_HOR,
     "size_ver": WindowsCursors.SIZE_VER,
     "split_h": WindowsCursors.SIZE_HOR,
     "split_v": WindowsCursors.SIZE_VER,
     "s-resize": WindowsCursors.SIZE_VER,
-    "sw-resize": WindowsCursors.SIZE_FDIAG,
+    "sw-resize": WindowsCursors.SIZE_NE_SW,
     "top_left_arrow": WindowsCursors.DEFAULT,
-    "top_left_corner": WindowsCursors.SIZE_FDIAG,
-    "top_right_corner": WindowsCursors.SIZE_BDIAG,
+    "top_left_corner": WindowsCursors.SIZE_NW_SE,
+    "top_right_corner": WindowsCursors.SIZE_NE_SW,
     "top_side": WindowsCursors.SIZE_VER,
     "top_tee": WindowsCursors.SIZE_VER,
     "up-arrow": WindowsCursors.SIZE_VER,
@@ -225,8 +225,8 @@ class WindowsInfParser:
                         WindowsCursors.NOT_ALLOWED: self.get_cursor_path(cursors[7]),
                         WindowsCursors.SIZE_VER: self.get_cursor_path(cursors[8]),
                         WindowsCursors.SIZE_HOR: self.get_cursor_path(cursors[9]),
-                        WindowsCursors.SIZE_FDIAG: self.get_cursor_path(cursors[10]),
-                        WindowsCursors.SIZE_BDIAG: self.get_cursor_path(cursors[11]),
+                        WindowsCursors.SIZE_NW_SE: self.get_cursor_path(cursors[10]),
+                        WindowsCursors.SIZE_NE_SW: self.get_cursor_path(cursors[11]),
                         WindowsCursors.MOVE: self.get_cursor_path(cursors[12]),
                         WindowsCursors.RIGHT_PTR: self.get_cursor_path(cursors[13]),
                         WindowsCursors.POINTER: self.get_cursor_path(cursors[14]),
