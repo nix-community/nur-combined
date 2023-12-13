@@ -1,22 +1,22 @@
 {
-    "distrho-ports": {
-        "cargoLocks": null,
-        "date": "2023-12-11",
-        "extract": null,
-        "name": "distrho-ports",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "DISTRHO",
-            "repo": "DISTRHO-Ports",
-            "rev": "51eb55ff6f39484335e57189cbea8ded2334c6a1",
-            "sha256": "sha256-+S8OP8JB4RBNcFAQIrUlBRySoYsTf3PEIPkGehJV3EY=",
-            "type": "github"
-        },
-        "version": "51eb55ff6f39484335e57189cbea8ded2334c6a1"
-    }
+  "distrho-ports": {
+    "cargoLocks": null,
+    "date": "2023-12-11",
+    "extract": null,
+    "name": "distrho-ports",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": true,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "DISTRHO",
+      "repo": "DISTRHO-Ports",
+      "rev": "51eb55ff6f39484335e57189cbea8ded2334c6a1",
+      "sha256": "sha256-+S8OP8JB4RBNcFAQIrUlBRySoYsTf3PEIPkGehJV3EY=",
+      "type": "github"
+    },
+    "version": "51eb55ff6f39484335e57189cbea8ded2334c6a1"
+  }
 }
