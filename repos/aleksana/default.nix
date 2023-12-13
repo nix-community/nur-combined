@@ -17,14 +17,9 @@
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
-  
-  go-musicfox = pkgs.callPackage ./pkgs/go-musicfox { };
-  gtkcord4 = pkgs.callPackage ./pkgs/gtkcord4 { };
-  payload-dumper-go = pkgs.callPackage ./pkgs/payload-dumper-go { };
-  speedtest-go = pkgs.callPackage ./pkgs/speedtest-go { };
-  swww = pkgs.callPackage ./pkgs/swww { };
-  fastfetch = pkgs.callPackage ./pkgs/fastfetch { };
+
+  my-grimblast = pkgs.callPackage ./pkgs/my-grimblast { };
   gvim-lily = pkgs.callPackage ./pkgs/gvim-lily { };
-  neovim-gtk = pkgs.callPackage ./pkgs/neovim-gtk { };
+  neovim-remote-go = pkgs.callPackage ./pkgs/neovim-remote-go { };
   yofi = pkgs.callPackage ./pkgs/yofi { };
 }

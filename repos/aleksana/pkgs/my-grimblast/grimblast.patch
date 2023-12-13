@@ -1,0 +1,27 @@
+diff --git a/grimblast b/grimblast
+index e57f2a7..646abe7 100644
+--- a/grimblast
++++ b/grimblast
+@@ -115,7 +115,7 @@
+ fi
+ 
+ notify() {
+-  notify-send -t 3000 -a grimblast "$@"
++  dunstify -t 3000 -a grimblast "$@"
+ }
+ 
+ notifyOk() {
+@@ -260,7 +260,12 @@
+ else
+   if [ "$ACTION" = "copysave" ]; then
+     takeScreenshot - "$GEOM" "$OUTPUT" | tee "$FILE" | wl-copy --type image/png || die "Clipboard error"
+-    notifyOk "$WHAT copied to buffer and saved to $FILE" -i "$FILE"
++    rep=$(notifyOk "$WHAT copied to buffer and saved to $FILE" -i "$FILE" -A e,Edit -A d,Delete)
++    if [ $rep == e ]; then
++      $GRIMBLAST_EDITOR $FILE
++    elif [ $rep == d ]; then
++      rm $FILE
++    fi
+     echo "$FILE"
+   else
+     notifyError "Error taking screenshot with grim"
