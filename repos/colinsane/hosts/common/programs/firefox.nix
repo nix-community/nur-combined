@@ -264,6 +264,10 @@ in
           // auto-dispatch mpv:// URIs to xdg-open without prompting.
           // can do this with other protocols too (e.g. matrix?). see about:config for common handlers.
           defaultPref("network.protocol-handler.external.mpv", true);
+          // element:// for Element matrix client
+          defaultPref("network.protocol-handler.external.element", true);
+          // matrix: for Nheko matrix client
+          defaultPref("network.protocol-handler.external.matrix", true);
         '';
         fs."${cfg.browser.dotDir}/default".dir = {};
         # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).
