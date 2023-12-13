@@ -57,7 +57,7 @@ in {
     libreoffice
     mendeley
     ncdu
-    nix-option
+    # nix-option
     nix-prefetch-scripts
     nix-output-monitor
     obsidian

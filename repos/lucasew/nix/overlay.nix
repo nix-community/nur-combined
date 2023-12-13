@@ -83,13 +83,13 @@ in
 
   instantngp = cp ./pkgs/instantngp.nix;
 
-  nix-option = callPackage "${flake.inputs.nix-option}" {
-    nixos-option = (callPackage "${flake.inputs.nixpkgs}/nixos/modules/installer/tools/nixos-option" { }).overrideAttrs (attrs: attrs // {
-      meta = attrs.meta // {
-        platforms = lib.platforms.all;
-      };
-    });
-  };
+  # nix-option = callPackage "${flake.inputs.nix-option}" {
+  #   nixos-option = (callPackage "${flake.inputs.nixpkgs}/nixos/modules/installer/tools/nixos-option" { }).overrideAttrs (attrs: attrs // {
+  #     meta = attrs.meta // {
+  #       platforms = lib.platforms.all;
+  #     };
+  #   });
+  # };
   nur = import flake.inputs.nur {
     pkgs = prev;
   };
@@ -210,6 +210,6 @@ in
   });
 
   nix = prev.nixVersions.nix_2_15;
-  electron = prev.electron_27-bin;
-  electron_25 = prev.electron_25-bin;
+  # electron = prev.electron_27-bin;
+  # electron_25 = prev.electron_25-bin;
 }

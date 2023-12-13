@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+
+# sets up stuff on a new phone
+
+set -euo pipefail
+
+
+function log () {
+  echo "$@" >&2
+}
+
+dry_run=0
+
+# wrapper to easily allow dry_run
+function wr {
+  log "[.]" "$@"
+  if [ "$dry_run" != 1 ]; then
+    "$@"
+  fi
+}
+
+
+function fetch_file () {
+  url="$1"; shift
+  extra_args=("$url")
+  if [ $# -gt 0 ]; then
+    hash_type="$1"; shift
+    hash="$1"; shift
+    extra_args+=("$hash" --type "$hash_type")
+  else
+    log "[W] Hash for downloaded file is missing, this can be potentially dangerous"
+  fi
+  log "[*] Downloading '$url'"
+  wr nix-prefetch-url ${extra_args[@]} --print-path | tail -n +2
+}
+
+log "[*] Initializing..."
+
+declare -A fdroid_repos=(
+  [main]=https://f-droid.org
+  [self]=https://raw.githubusercontent.com/lucasew/fdroid-repo/master/fdroid
+  [kvaeitso]=https://fdroid.mm20.de
+)
+
+declare -A fdroid_repos_data=()
+
+apks_to_install=()
+apps_to_grant_clipboard_access=()
+
+for item in "${!fdroid_repos[@]}"; do
+  repo_url="${fdroid_repos[$item]}"
+  log "[*] Fetching repo '$item' ($repo_url)..."
+
+  index_hash="$(curl $repo_url/repo/entry.json | jq .index.sha256 -r)"
+
+  url="${fdroid_repos[$item]}/repo/index-v2.json"
+
+  fdroid_repos_data[$item]="$(fetch_file $url sha256 $index_hash)"
+done
+
+
+
+function install_apk () {
+  apk="$1"; shift
+  apks_to_install+=("$apk")
+}
+
+function install_fdroid_app () {
+  repo="$1"; shift
+  app_id="$1"; shift
+  repo_data="${fdroid_repos_data[$repo]}"
+  log "[*] Getting F-Droid app '$app_id' from '$repo'"
+
+  # Errors in this jq command may mean that the app does not exist
+  item_payload="$(cat $repo_data | jq  ".packages.\"$app_id\".versions[]" | jq -cs '.[0]')" || log "[X] App $app_id may not exist in the $repo F-Droid repo"
+  item_name="$(echo $item_payload | jq -r .file.name)"
+  item_sha256="$(echo $item_payload | jq -r .file.sha256)"
+
+  final_url="${fdroid_repos[$repo]}/repo$item_name"
+  install_apk "$(fetch_file "$final_url" sha256 $item_sha256)"
+}
+
+function install_apk_from_url() {
+  install_apk "$(fetch_file "$1")"
+}
+
+function grant_clipboard_access() {
+  app_id="$1"; shift
+  apps_to_grant_clipboard_access+=("$app_id")
+}
+
+# Some old apps that are still very useful
+
+# App that adds a share option and allows opening to browser
+install_fdroid_app self aq.com.sharetobrowser
+# QuickPic best gallery app IMO
+install_fdroid_app self com.alensw.PicFolder
+# Old office suite that google has before separating in a handful of apps
+install_fdroid_app self com.quickoffice.android
+
+# Fdroid store
+install_fdroid_app main org.fdroid.fdroid
+
+# MPDroid App to control the mopidy instance
+install_fdroid_app main com.namelessdev.mpdroid
+
+# AntennaPod Podcast player
+install_fdroid_app main de.danoeh.antennapod
+
+# AnySoftKeyboard My keyboard
+install_fdroid_app main com.menny.android.anysoftkeyboard
+
+# AnySoftKeyboard portuguese language pack
+install_fdroid_app main com.anysoftkeyboard.languagepack.brazilian
+
+# ClipStack clipboard manager
+# install_fdroid_app main com.catchingnow.tinyclipboardmanager
+grant_clipboard_access com.catchingnow.tinyclipboardmanager
+
+# integration to desktop
+install_fdroid_app main org.kde.kdeconnect_tp
+grant_clipboard_access org.kde.kdeconnect_tp
+
+# matrix animated wallpaper
+install_fdroid_app main com.gulshansingh.hackerlivewallpaper
+
+# essential, you know
+install_fdroid_app main com.termux
+
+# torrent client
+install_fdroid_app main org.proninyaroslav.libretorrent
+
+# Moonlight game streaming
+install_fdroid_app main com.limelight
+
+# ntfy, to send notifications from any PC
+install_fdroid_app main io.heckel.ntfy
+
+# transmission remote control client
+install_fdroid_app main org.equeim.tremotesf
+
+# urlcheck app to unshort links and stuff
+install_fdroid_app main com.trianguloy.urlchecker
+
+# Revanced Manager
+install_apk_from_url "$(curl https://api.github.com/repos/Revanced/revanced-manager/releases/latest | jq .assets[0].browser_download_url -r)"
+
+# Limpazap
+install_apk_from_url "$(curl https://api.github.com/repos/lucasew/limpazap/releases/latest | jq .assets[0].browser_download_url -r)"
+
+# Telegram
+install_apk_from_url https://telegram.org/dl/android/apk
+
+log '[I] Check if the target device is the only one connected in adb devices.'
+
+log '[I] adb devices output:'
+adb devices
+log '[I] When ready, press ENTER'
+
+if [ "$(adb devices | wc -l)" != 3 ]; then
+  dry_run=1
+fi
+
+if [ $dry_run == 0 ]; then
+  read
+fi
+
+for apk in ${apks_to_install[@]}; do
+  log "[*] Installing '$apk'"
+  wr adb install $apk || true
+done
+
+for app in ${apps_to_grant_clipboard_access[@]}; do
+  log "[*] Granting clipboard watch permission for $app"
+  wr adb shell appops set org.kde.kdeconnect_tp SYSTEM_ALERT_WINDOW allow
+  wr adb shell pm grant org.kde.kdeconnect_tp android.permission.READ_LOGS
+  wr adb shell am force-stop org.kde.kdeconnect_tp
+done
