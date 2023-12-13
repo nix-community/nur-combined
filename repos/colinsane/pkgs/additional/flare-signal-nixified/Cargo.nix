@@ -2989,7 +2989,7 @@ rec {
       };
       "flare" = rec {
         crateName = "flare";
-        version = "0.10.1-beta.4";
+        version = "0.10.1-beta.6";
         edition = "2021";
         crateBin = [
           {
@@ -3148,8 +3148,9 @@ rec {
           }
         ];
         features = {
+          "screenshot-setup" = [ "screenshot" ];
         };
-        resolvedDefaultFeatures = [ "default" "libspelling" "screenshot" ];
+        resolvedDefaultFeatures = [ "default" "libspelling" "screenshot" "screenshot-setup" ];
       };
       "flate2" = rec {
         crateName = "flate2";
@@ -6400,9 +6401,9 @@ rec {
         edition = "2018";
         workspace_member = null;
         src = pkgs.fetchgit {
-          url = "https://github.com/whisperfish/libsignal-service-rs";
-          rev = "6fc62c8c67817886560dd2eb99ab5e90f451bd67";
-          sha256 = "12ycij5a92y152hnw8l7isxw64hlfbpwk4sj7ih0247m0k96bx77";
+          url = "https://github.com/direc85/libsignal-service-rs";
+          rev = "4d6ebf20a43c3214ef349a1f62d87970bf26d63c";
+          sha256 = "18khsrgwkhhiyz96kkqr7awp8pcwj7sz4fj7i2r158d01zjli910";
         };
         authors = [
           "Ruben De Smet <ruben.de.smet@rubdos.be>"
@@ -6534,8 +6535,8 @@ rec {
         workspace_member = null;
         src = pkgs.fetchgit {
           url = "https://github.com/whisperfish/libsignal-service-rs";
-          rev = "6fc62c8c67817886560dd2eb99ab5e90f451bd67";
-          sha256 = "12ycij5a92y152hnw8l7isxw64hlfbpwk4sj7ih0247m0k96bx77";
+          rev = "2e3bd5813aa54abe354a46e78ac0ee164027b985";
+          sha256 = "1h8jj4mbi3kd014i8dcni5gazg3rchgpv2psxbcfvyg335c11z9n";
         };
         authors = [
           "Gabriel Féron <g@leirbag.net>"
@@ -8860,8 +8861,8 @@ rec {
         workspace_member = null;
         src = pkgs.fetchgit {
           url = "https://github.com/Schmiddiii/presage";
-          rev = "af72b474099361c68f09aff38182eb26d7c8ca86";
-          sha256 = "1000034fv2cg8dvhzsmxx61lvc7llqi73832vrf7wfc79yj47q8z";
+          rev = "86ff0c3e857af8f2f1d3bbcc7d7152d774490951";
+          sha256 = "0vdxhcz0b4xg79mmj5jz6gmqadi94acf2abfcsgwkikhs2wm362n";
         };
         authors = [
           "Gabriel Féron <g@leirbag.net>"
@@ -8927,8 +8928,8 @@ rec {
         workspace_member = null;
         src = pkgs.fetchgit {
           url = "https://github.com/Schmiddiii/presage";
-          rev = "af72b474099361c68f09aff38182eb26d7c8ca86";
-          sha256 = "1000034fv2cg8dvhzsmxx61lvc7llqi73832vrf7wfc79yj47q8z";
+          rev = "86ff0c3e857af8f2f1d3bbcc7d7152d774490951";
+          sha256 = "0vdxhcz0b4xg79mmj5jz6gmqadi94acf2abfcsgwkikhs2wm362n";
         };
         dependencies = [
           {
@@ -8984,8 +8985,8 @@ rec {
         workspace_member = null;
         src = pkgs.fetchgit {
           url = "https://github.com/Schmiddiii/presage";
-          rev = "af72b474099361c68f09aff38182eb26d7c8ca86";
-          sha256 = "1000034fv2cg8dvhzsmxx61lvc7llqi73832vrf7wfc79yj47q8z";
+          rev = "86ff0c3e857af8f2f1d3bbcc7d7152d774490951";
+          sha256 = "0vdxhcz0b4xg79mmj5jz6gmqadi94acf2abfcsgwkikhs2wm362n";
         };
         authors = [
           "Gabriel Féron <g@leirbag.net>"

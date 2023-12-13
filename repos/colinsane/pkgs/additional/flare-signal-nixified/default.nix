@@ -39,12 +39,12 @@ let
         domain = "gitlab.com";
         owner = "schmiddi-on-mobile";
         repo = "flare";
-        rev = "0.10.1-beta.4";
-        hash = "sha256-SkHARJ4V8t4dXITH+V36RIfPrWL5Bdju1gahCS2aiWo=";
+        rev = "0.10.1-beta.6";
+        hash = "sha256-NhQu9gpnweI+kIWh3Mbb9bCQnfgthxocAqDRwG0m2Hg=";
 
         # flare/Cargo.nix version compatibility:
         # - flare 0.10.1-beta.5: errors with curve25519_dalek_backend stuff
-        # - flare tip (49060eee): same errors as 0.10.1-beta.2
+        # - flare 0.10.1-beta.4: compiles
         # - flare 0.10.1-beta.2: requires gtk 4.11, not yet in nixpkgs
         #   - <https://github.com/NixOS/nixpkgs/pull/247766>
         #   - specifically, that's because of gdk4-sys 0.7.2.
@@ -68,8 +68,8 @@ let
         # - flare 0.9.1: uses a version of serde_derive (1.0.175) which doesn't cross compile in nixpkgs
         # - flare 16acc70ceb6e80eb2d87a92e72e2727e8b98b4db  (last rev before serde_derive 1.0.175): same error as 0.9.0
         # - flare 0.9.0: deps build but crate itself fails because `mod config` is unknown (i.e. we didn't invoke meson and let it generate config.rs)
-        # rev = "49060eee61e26b622150179cece4918c1707db6a";
-        # hash = "sha256-/xP4AC0ZkVsNIFiTxyTsF0sJWIj53OIiXlSLU0LhBRM=";
+        # rev = "0.10.1-beta.4";
+        # hash = "sha256-SkHARJ4V8t4dXITH+V36RIfPrWL5Bdju1gahCS2aiWo=";
         # rev = "0.10.1-beta.2";
         # hash = "sha256-xkTM8Jeyb89ZUo2lFKNm8HlTe8BTlO/flZmENRfDEm4=";
         # rev = "0.10.1-beta.1";
