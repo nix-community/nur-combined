@@ -296,13 +296,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.10";
+    version = "v3.3.11";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.10";
+      rev = "v3.3.11";
       fetchSubmodules = false;
-      sha256 = "sha256-GN6CIy0Q0uFYYEyIiz5GcvG95W1oB1DsBGwZK/ZTQ78=";
+      sha256 = "sha256-VivNIab5j0cehBZ+t/oepX2jnvNWEeh3XoCDBaW2RW0=";
     };
   };
   flasgger = {
@@ -736,15 +736,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "99f42714eb4acf65ff1499bd36bc8a5bb7742f4d";
+    version = "f205f116a82ea981278313b7bf2d9032c0710821";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "99f42714eb4acf65ff1499bd36bc8a5bb7742f4d";
+      rev = "f205f116a82ea981278313b7bf2d9032c0710821";
       fetchSubmodules = false;
-      sha256 = "sha256-/MumjC5tB6I/YERFaFnxj2nhesFcFMafB7/bVctH/xI=";
+      sha256 = "sha256-1FxvGYekw4zSmfzmqnosZoU0lcvzz9P7nMN15/lKUTA=";
     };
-    date = "2023-12-07";
+    date = "2023-12-12";
   };
   osdlyrics = {
     pname = "osdlyrics";
