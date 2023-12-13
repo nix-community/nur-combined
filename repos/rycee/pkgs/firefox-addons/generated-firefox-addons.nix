@@ -644,10 +644,10 @@
       };
     "bibbot" = buildFirefoxXpiAddon {
       pname = "bibbot";
-      version = "0.32.1";
+      version = "0.33.0";
       addonId = "voebbot@stefanwehrmeyer.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200728/bibbot-0.32.1.xpi";
-      sha256 = "10be83d1bffe6219b08663f273e2a30e1db058299aa2d08b874574b8f047076c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208475/bibbot-0.33.0.xpi";
+      sha256 = "cdac707de9d7dfd15ef80730776e08575a4965b62ab8ddcdcf28746ab43c4c73";
       meta = with lib;
       {
         homepage = "https://github.com/stefanw/bibbot";
@@ -722,10 +722,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.10.2";
+      version = "2023.12.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4191732/bitwarden_password_manager-2023.10.2.xpi";
-      sha256 = "3eac55c07a2802a6192e2788da86578d45158fca21ccdeb521e5281137ecc24a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205620/bitwarden_password_manager-2023.12.0.xpi";
+      sha256 = "f3e508d10c7bbd03890235354355c4bc526db24ebe241ce16630f272614258f4";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1807,10 +1807,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.11.17";
+      version = "2023.12.6";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197393/duckduckgo_for_firefox-2023.11.17.xpi";
-      sha256 = "5f1ea7664f9da66326151aab5ce8a4504f376666bf41fa56b3cb80dd83421d64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4205925/duckduckgo_for_firefox-2023.12.6.xpi";
+      sha256 = "48f84600dba95266fda6e7cf28792d7bdfcc9837d259f8fc4df0b5fc3b1a20ce";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2237,10 +2237,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.0.2";
+      version = "5.0.3";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4207046/floccus-5.0.2.xpi";
-      sha256 = "c80fd45de1309c101f1c27c0ff41c5f74e32409300d6e5a1622e44b8596cf515";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208447/floccus-5.0.3.xpi";
+      sha256 = "a7fc568a4c32529b79ce266db092ec8db87848f78a405c3bd2c50bca4730f63a";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -2312,10 +2312,10 @@
       };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
-      version = "8.2";
+      version = "8.6";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4205084/foxyproxy_standard-8.2.xpi";
-      sha256 = "19943d65705f1cecd2fa1eb7a6ba836d1d5e036db369014557a6f1beb79bc873";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207660/foxyproxy_standard-8.6.xpi";
+      sha256 = "659d335a05762d1ec085d16e59bc32209210b9534c1dae2babaf8cf6a070e53e";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org";
@@ -4989,10 +4989,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.6";
+      version = "1.6.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4187386/leechblock_ng-1.6.xpi";
-      sha256 = "ffd702c492a51d208b5059e64034a8fc9382de5e234dcb7cb60fb4e852a465a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207054/leechblock_ng-1.6.1.xpi";
+      sha256 = "02364608c95e4d6d2897b72f28b00d182cf2a1e1e74f18044a699cc92ca02b08";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -6537,10 +6537,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.28";
+      version = "11.4.29";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178438/noscript-11.4.28.xpi";
-      sha256 = "54d076b3226d454216117547f6441d2f95af3057d20f726e55d94b0f22573c14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4206186/noscript-11.4.29.xpi";
+      sha256 = "05b98840b05ef2acbac333543e4b7c3d40fee2ce5fb4e29260b05e2ff6fe24cd";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -9380,10 +9380,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.23.0";
+      version = "1.24.0";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4036604/tridactyl_vim-1.23.0.xpi";
-      sha256 = "08b7af97bef05300ab3ac3ad721322ff00505631233482568fc4489c16d51b71";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208422/tridactyl_vim-1.24.0.xpi";
+      sha256 = "9e70bccf7ced3a87e4cf6a5dc6210a884fa9a46a79ee19177367a28c02aaa04b";
       meta = with lib;
       {
         homepage = "https://tridactyl.xyz";
@@ -10797,10 +10797,10 @@
       };
     "youtube-screenshot-button" = buildFirefoxXpiAddon {
       pname = "youtube-screenshot-button";
-      version = "4.1.0";
+      version = "4.2.0";
       addonId = "{d8b32864-153d-47fb-93ea-c273c4d1ef17}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4187570/youtube_screenshot_button-4.1.0.xpi";
-      sha256 = "effc73a07251daf8c93e34961d19514b5a61a1b4fa6a8c3a8c2b77c7020fc524";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207366/youtube_screenshot_button-4.2.0.xpi";
+      sha256 = "670ef9fbc2374001e3d91380c13bdc5739f2d61d061e53b7371128bb65ffe808";
       meta = with lib;
       {
         homepage = "https://github.com/gurumukhi/youtube-screenshot";
