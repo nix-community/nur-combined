@@ -91,7 +91,7 @@ in
     "mpv"
     "networkmanagerapplet"  # for nm-connection-editor: it's better than not having any gui!
     "ntfy-sh"  # notification service
-    "newsflash"
+    # "newsflash"  # RSS viewer
     "pavucontrol"
     # "picard"  # music tagging
     # "libsForQt5.plasmatube"  # Youtube player

@@ -47,11 +47,13 @@
 , wtype
 , wvkbd
 , xdg-user-dirs
+, xdg-utils
 , xdotool
 , xrdb
 , supportSway ? true
 , supportDwm ? false
-, preferSystemd ? false
+, preferSystemd ? true
+, preferXdgOpen ? true
 }:
 
 let
@@ -98,7 +100,7 @@ let
     dmenu
     scrot  # sxmo_screenshot.sh
     xdotool
-  ];
+  ] ++ lib.optionals preferXdgOpen [ xdg-utils ];
 in
 stdenv.mkDerivation rec {
   pname = "sxmo-utils";
@@ -149,6 +151,12 @@ stdenv.mkDerivation rec {
     #   url = "https://git.uninsane.org/colin/sxmo-utils/commit/030280cb83298ea44656e69db4f2693d0ea35eb9.patch";
     #   hash = "sha256-dc71eztkXaZyy+hm5teCw9lI9hKS68pPoP53KiBm5Fg=";
     # })
+  ] ++ lib.optionals preferXdgOpen [
+    (fetchpatch {
+      name = "sxmo_open: use xdg-open";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/8897aa5ef869be879e2419f70a16afd710f053fe.patch";
+      hash = "sha256-jvMSDJdOGeN2VGnuQ6UT/1gmFJtzTXTxt0WJ9gPInpU=";
+    })
   ];
 
   postPatch = ''
