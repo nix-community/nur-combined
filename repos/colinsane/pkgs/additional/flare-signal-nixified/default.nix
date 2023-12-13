@@ -3,6 +3,16 @@
 # - `sed -i 's/target."curve25519_dalek_backend"/target."curve25519_dalek_backend" or ""/g' Cargo.nix`
 #
 # the generated Cargo.nix points to an impure source (~/ref/...), but that's resolved by overriding `src` below
+#
+# compatibility matrix:
+# - 0.10.1-beta.6 (2023/12/12):
+#   - link to signald JMP.chat: NO (http 405)
+#   - primary device via JMP.chat: NO (http 422)
+#   - link to iOS tel: NO (http 405)
+# - 0.10.1-beta.4 (2023/12/12):
+#   - link to signald JMP.chat: NO (http 405)
+#   - primary device via JMP.chat: NO (http 422)
+#   - link to iOS tel: NO (http 405)
 { lib
 , appstream-glib
 , blueprint-compiler
@@ -43,7 +53,8 @@ let
         hash = "sha256-NhQu9gpnweI+kIWh3Mbb9bCQnfgthxocAqDRwG0m2Hg=";
 
         # flare/Cargo.nix version compatibility:
-        # - flare 0.10.1-beta.5: errors with curve25519_dalek_backend stuff
+        # - flare 0.10.1-beta.6: compiles
+        # - flare 0.10.1-beta.5: can't crate2nix because Cargo.lock is out of date with Cargo.toml
         # - flare 0.10.1-beta.4: compiles
         # - flare 0.10.1-beta.2: requires gtk 4.11, not yet in nixpkgs
         #   - <https://github.com/NixOS/nixpkgs/pull/247766>
@@ -68,6 +79,10 @@ let
         # - flare 0.9.1: uses a version of serde_derive (1.0.175) which doesn't cross compile in nixpkgs
         # - flare 16acc70ceb6e80eb2d87a92e72e2727e8b98b4db  (last rev before serde_derive 1.0.175): same error as 0.9.0
         # - flare 0.9.0: deps build but crate itself fails because `mod config` is unknown (i.e. we didn't invoke meson and let it generate config.rs)
+        # rev = "0.10.1-beta.6";
+        # hash = "sha256-NhQu9gpnweI+kIWh3Mbb9bCQnfgthxocAqDRwG0m2Hg=";
+        # rev = "0.10.1-beta.5";
+        # hash = "sha256-AAxasck8rm8N73jcJU6qW+zR3qSAH5nsi4hTunSnW8Y=";
         # rev = "0.10.1-beta.4";
         # hash = "sha256-SkHARJ4V8t4dXITH+V36RIfPrWL5Bdju1gahCS2aiWo=";
         # rev = "0.10.1-beta.2";
@@ -127,12 +142,15 @@ let
           "--cross-file=${crossFile}"
         ];
 
-      # patch so meson will invoke our `crate2nix_cmd.sh` instead of cargo
       postPatch = ''
+        # patch so meson will invoke our `crate2nix_cmd.sh` instead of cargo
         substituteInPlace src/meson.build \
           --replace 'cargo_options,'  "" \
           --replace "cargo, 'build',"  "'bash', 'crate2nix_cmd.sh'," \
           --replace "'target' / rust_target" "'target/bin'"
+        # enable the "Primary Device" button (beta)
+        substituteInPlace data/resources/ui/setup_window.blp \
+          --replace 'sensitive: false;' ""
       '';
       postConfigure = ''
         # copied from <pkgs/development/tools/build-managers/meson/setup-hook.sh>
