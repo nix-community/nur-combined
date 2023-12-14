@@ -545,13 +545,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.6.5-xanmod1";
+    version = "6.6.7-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.5-xanmod1";
+      rev = "6.6.7-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-lmJ5Gix+CEqIu+cyBeqBq6xLZ94PjhU+6SbzAE0D8SY=";
+      sha256 = "sha256-0I+CS4Ithb0euFAO5G7ao3dxA1gq5wqFVsNyYWvRfYc=";
     };
   };
   linux-xanmod-6_0 = {
@@ -567,13 +567,13 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.66-xanmod1";
+    version = "6.1.68-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.66-xanmod1";
+      rev = "6.1.68-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-H3RTbBctvbKdsD1+G7zXVcTFb2NRON6nOzUgUW+zGxs=";
+      sha256 = "sha256-mpnoaeeBrCELXJujgHKqZxSIzRMbk8dpPv1G9EKAf3E=";
     };
   };
   nbfc-linux-lantian = {
@@ -914,15 +914,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "1f69d5f4195a069bd0408b52887974e046f2814a";
+    version = "c9555ed3c09b3224eb7162047b92ffe744c902b8";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "1f69d5f4195a069bd0408b52887974e046f2814a";
+      rev = "c9555ed3c09b3224eb7162047b92ffe744c902b8";
       fetchSubmodules = false;
-      sha256 = "sha256-XTkfbemBejX8lxqJSBQuBot32kVHN4mB4x2Z3ZNWCMc=";
+      sha256 = "sha256-y2md5i9TJX1BmtQJCB5/HAyLKiViRjJ9mS2onrhEXI8=";
     };
-    date = "2023-12-10";
+    date = "2023-12-13";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
