@@ -14,10 +14,11 @@
 , android-tools
 , makeWrapper
 , range-v3
-, maaVersion ? "4.27.1"
-, maaSourceHash ? "sha256-UP+a4n2lMhq/QyMhzyxm206OpqELlr82+jZA0VfZyT8="
+, maaVersion ? "4.28.0"
+, maaSourceHash ? "sha256-SKPKFD70wwmBXqolh8eLmHbL1ckDORiAH+LFBjC+o1A="
 , cudaSupport ? config.cudaSupport
 , onnxruntime-cuda ? pkgs.callPackage ./onnxruntime-cuda.nix { }
+, git
 }:
 
 let
@@ -98,12 +99,6 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  buildInputs = [
-    maaCore
-    maa-cli
-    android-tools
-  ];
-
   postInstall = ''
     mkdir -pv $out/share/${name}
     ln -sv ${maaCore}/share/${name}/* $out/share/${name}
@@ -113,7 +108,9 @@ stdenv.mkDerivation rec {
     cp -v ${maa-cli}/bin/* $out/share/${name}
     makeWrapper $out/share/${name}/maa $out/bin/maa'' + lib.optionalString cudaSupport '' \
       --set LD_LIBRARY_PATH ${onnxruntime}/lib:$LD_LIBRARY_PATH \
-      --set PATH ${android-tools}/bin:$PATH
+      --prefix PATH ":" ${lib.makeBinPath [
+          android-tools git
+        ]}
     '' + ''
   '';
 
