@@ -465,7 +465,7 @@ in
             in assert terminal -> events == []; events;
 
           # trigger ${button}_hold_N every `holdTime` ms until ${button} is released
-          recurseHold = button: { count ? 1, maxHolds ? 5, prefix ? "", holdTime ? 400, ... }@opts: lib.optionalAttrs (count <= maxHolds) {
+          recurseHold = button: { count ? 1, maxHolds ? 5, prefix ? "", holdTime ? 600, ... }@opts: lib.optionalAttrs (count <= maxHolds) {
             "${button}_released".terminal = true;  # end the hold -> back to root state
             timeout = {
               ms = holdTime;
@@ -493,7 +493,7 @@ in
           # map sequences of "events" to an argument to pass to sxmo_hook_inputhandler.sh
 
           # map: power (short), power (short) x2, power (long)
-          power_pressed.timeout.ms = 1000; # press w/o release. this is a long timeout because it's tied to the "kill window" action.
+          power_pressed.timeout.ms = 900; # press w/o release. this is a long timeout because it's tied to the "kill window" action.
           power_pressed.timeout.trigger = "powerhold";
           power_pressed.power_released.timeout.trigger = "powerbutton_one";
           power_pressed.power_released.timeout.ms = 300;
@@ -527,16 +527,6 @@ in
         # - default_hooks/
         # - and more
         # environment.pathsToLink = [ "/share/sxmo" ];
-
-        systemd.services."sxmo-set-permissions" = {
-          # TODO: some of these could be modified to be udev rules
-          description = "configure specific /sys and /dev nodes to be writable by sxmo scripts";
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${package}/bin/sxmo_setpermissions.sh";
-          };
-          wantedBy = [ "multi-user.target" ];
-        };
 
         # if superd fails to start a service within 100ms, it'll try to start again
         # the fallout of this is that during intense lag (e.g. OOM or swapping) it can

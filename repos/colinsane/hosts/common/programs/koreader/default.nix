@@ -7,7 +7,7 @@
 let
   feeds = sane-lib.feeds;
   allFeeds = config.sane.feeds;
-  wantedFeeds = feeds.filterByFormat [ "image" "text" ] allFeeds;
+  wantedFeeds = feeds.filterByFormat [ "text" ] allFeeds;
   koreaderRssEntries = builtins.map (feed:
     # format:
     # { "<rss/atom url>", limit = <int>, download_full_article=<bool>, include_images=<bool>, enable_filter=<bool>, filter_element = "<css selector>"},

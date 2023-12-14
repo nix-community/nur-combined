@@ -22,7 +22,6 @@
       # the device type informs (at least):
       # - SXMO_WIFI_MODULE
       # - SXMO_RTW_SCAN_INTERVAL
-      # - SXMO_SYS_FILES
       # - SXMO_TOUCHSCREEN_ID
       # - SXMO_MONITOR
       # - SXMO_ALSA_CONTROL_NAME

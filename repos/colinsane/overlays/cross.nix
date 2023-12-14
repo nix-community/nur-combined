@@ -584,49 +584,6 @@ in with final; {
     strictDeps = true;
   });
 
-  # CMake Error at cmake/SoupVersion.cmake:3 (file):
-  # file Failed to run ldconfig
-  # 2023/12/08: upstreaming is our for PR: <https://github.com/NixOS/nixpkgs/pull/273189>
-  dino = prev.dino.overrideAttrs (upstream: {
-    cmakeFlags = upstream.cmakeFlags ++ [
-      "-DXGETTEXT_EXECUTABLE=${lib.getBin buildPackages.gettext}/bin/xgettext"
-      "-DMSGFMT_EXECUTABLE=${lib.getBin buildPackages.gettext}/bin/msgfmt"
-      "-DGLIB_COMPILE_RESOURCES_EXECUTABLE=${lib.getDev buildPackages.glib}/bin/glib-compile-resources"
-      # "-DPKG_CONFIG_PATH=$PKG_CONFIG_PATH_TARGET"
-      # "-DUSE_SOUP3=yes"
-      "-DSOUP_VERSION=2"
-    ];
-    # preConfigure = (upstream.preConfigure or "") + ''
-    #   export PKG_CONFIG_PATH="$PKG_CONFIG_PATH_HOST"
-    # '';
-    # nativeBuildInputs = upstream.nativeBuildInputs ++ [
-    #   glib.dev  # for glib-compile-resources
-    # ];
-    # buildInputs = upstream.buildInputs ++ [
-    #   # dino seems unable to locate transient dependencies of gio, in particular.
-    #   # something about PKG_CONFIG_PATH not being configured correctly.
-    #   # but the non-cross compiled version complains about these too,
-    #   # and everything seems to work fine without supplying them...
-    #   appstream   # for appstream.pc
-    #   elfutils    # for libdw.pc
-    #   gupnp-igd   # for gupnp-gid-1.0.pc
-    #   libdatrie   # for datrie-0.2.pc
-    #   libidn2     # for libidn2.pc
-    #   libpsl      # for libpsl.pc
-    #   libselinux  # for libselinux.pc
-    #   libsepol    # for libsepol.pc
-    #   libsysprof-capture  # for sysprof-capture-4.pc
-    #   libtasn1    # for libtasn1.pc
-    #   libthai     # for libthai.pc
-    #   libunwind   # for libunwind.pc
-    #   p11-kit     # for p11-kit-1.pc
-    #   pcre        # for libpcre.pc
-    #   util-linux  # for mount.pc
-    #   xorg.libXdmcp  # for xdmcp.pc
-    #   zstd        # for libzstd.pc
-    # ];
-  });
-
   # 2023/12/08: upstreaming is blocked on rpm
   dtrx = prev.dtrx.override {
     # `binutils` is the nix wrapper, which reads nix-related env vars
