@@ -2057,10 +2057,10 @@
       };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.10";
+      version = "1.2.11";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4207754/faststream-1.2.10.xpi";
-      sha256 = "68fac9232fa2cb554441ddf0d1879afe8cd0309a1aaa71c91b501936aa0d8ce9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208561/faststream-1.2.11.xpi";
+      sha256 = "46dfca44d9592c53ba365fa6aaed2a6abee355b4ed6902cf3d87e0a3336b479d";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3232,16 +3232,16 @@
       };
     "hoppscotch" = buildFirefoxXpiAddon {
       pname = "hoppscotch";
-      version = "0.25";
+      version = "0.28";
       addonId = "postwoman-firefox@postwoman.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3991522/hoppscotch-0.25.xpi";
-      sha256 = "bf8b07191f73a0785f726b6def710f14ad9d4c97750fa1188984b53367711b66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208649/hoppscotch-0.28.xpi";
+      sha256 = "0fb28c4bae7b6a19c8ceed4798c52f29cf099d9303e2fab2c93f308ef9ae96ee";
       meta = with lib;
       {
         homepage = "https://github.com/hoppscotch/hoppscotch-extension";
         description = "Provides better experience for using the Hoppscotch web app.\n\nHaven't used Hoppscotch ? It's an amazing quick API Request Builder.\nTry it at <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/b9072bc5e1ee582514460d66641043506a2be371c097d77e1eb00a6b5b9dfa97/https%3A//hoppscotch.io/\" rel=\"nofollow\">https://hoppscotch.io/</a> !!!";
         license = licenses.mit;
-        mozPermissions = [ "storage" "tabs" "cookies" "<all_urls>" ];
+        mozPermissions = [ "storage" "tabs" "cookies" "scripting" ];
         platforms = platforms.all;
         };
       };
@@ -10373,10 +10373,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.2.0";
+      version = "3.3.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165270/web_scrobbler-3.2.0.xpi";
-      sha256 = "0994b3bfd1af756347019234e39761b1996e456b01cba5d93d4b24705f6dcf18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207113/web_scrobbler-3.3.0.xpi";
+      sha256 = "4bfaacb7ad9e04cf2ab07ce232e2eba04c3eca0b864d0217ccf5cb9809da8e09";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
@@ -10386,6 +10386,7 @@
           "storage"
           "contextMenus"
           "notifications"
+          "scripting"
           "<all_urls>"
           ];
         platforms = platforms.all;
