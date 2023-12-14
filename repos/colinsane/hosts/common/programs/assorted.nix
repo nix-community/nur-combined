@@ -183,6 +183,7 @@ in
     ];
 
     consoleMediaUtils = declPackageSet [
+      "catt"  # cast videos to chromecast
       "ffmpeg"
       "imagemagick"
       "sox"

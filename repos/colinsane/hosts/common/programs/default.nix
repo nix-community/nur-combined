@@ -11,6 +11,7 @@
     ./brave.nix
     ./calls.nix
     ./cantata.nix
+    ./catt.nix
     ./chatty.nix
     ./conky
     ./cozy.nix
