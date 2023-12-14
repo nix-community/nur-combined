@@ -93,11 +93,13 @@
     climod.url = "github:nixosbrasil/climod";
     climod.flake = false;
 
-    src-python-std2.url = "github:ms-jpq/std2/std";
-    src-python-std2.flake = false;
+    # src-python-std2.url = "github:ms-jpq/std2/std";
+    # src-python-std2.flake = false;
 
-    src-python-pynvim_pp.url = "github:ms-jpq/pynvim_pp/pp";
-    src-python-pynvim_pp.flake = false;
+    # src-python-pynvim_pp.url = "github:ms-jpq/pynvim_pp/pp";
+    # src-python-pynvim_pp.flake = false;
+    src-cached-nix-shell.url = "github:xzfc/cached-nix-shell";
+    src-cached-nix-shell.flake = false;
   };
 
   outputs = {

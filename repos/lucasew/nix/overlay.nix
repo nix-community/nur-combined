@@ -209,6 +209,8 @@ in
     });
   });
 
+  cached-nix-shell = callPackage flake.inputs.src-cached-nix-shell { pkgs = prev; };
+
   nix = prev.nixVersions.nix_2_15;
   # electron = prev.electron_27-bin;
   # electron_25 = prev.electron_25-bin;
