@@ -100,6 +100,8 @@ in
   options.my.services.wireguard = with lib; {
     enable = mkEnableOption "Wireguard VPN service";
 
+    simpleManagement = my.mkDisableOption "manage units without password prompts";
+
     startAtBoot = mkEnableOption ''
       Should the VPN service be started at boot. Must be true for the server to
       work reliably.
@@ -260,6 +262,37 @@ in
     # Same idea, for internal-only interface
     (lib.mkIf (cfg.internal.enable && !cfg.internal.startAtBoot) {
       systemd.services."wg-quick-${cfg.internal.name}".wantedBy = lib.mkForce [ ];
+    })
+
+    # Make systemd shut down one service when starting the other
+    (lib.mkIf (cfg.internal.enable) {
+      systemd.services."wg-quick-${cfg.iface}" = {
+        conflicts = [ "wg-quick-${cfg.internal.name}.service" ];
+        after = [ "wg-quick-${cfg.internal.name}.service" ];
+      };
+      systemd.services."wg-quick-${cfg.internal.name}" = {
+        conflicts = [ "wg-quick-${cfg.iface}.service" ];
+        after = [ "wg-quick-${cfg.iface}.service" ];
+      };
+    })
+
+    # Make it possible to manage those units without using passwords, for admins
+    (lib.mkIf cfg.simpleManagement {
+      environment.etc."polkit-1/rules.d/50-wg-quick.rules".text = ''
+        polkit.addRule(function(action, subject) {
+          if (action.id == "org.freedesktop.systemd1.manage-units") {
+            var unit = action.lookup("unit")
+            if (unit == "wg-quick-${cfg.iface}.service" || unit == "wg-quick-${cfg.internal.name}.service") {
+              var verb = action.lookup("verb");
+              if (verb == "start" || verb == "stop" || verb == "restart") {
+                if (subject.isInGroup("wheel")) {
+                  return polkit.Result.YES;
+                }
+              }
+            }
+          }
+        });
+      '';
     })
   ]);
 }
