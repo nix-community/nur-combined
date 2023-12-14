@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gamemode";
-  version = "1.8";
+  version = "1.8.1";
 
   src = fetchFromGitHub {
     owner = "FeralInteractive";
     repo = "gamemode";
     rev = "refs/tags/${finalAttrs.version}";
-    sha256 = "sha256-7JD53+W9Cwgo07SeIn6NGSUipg4tghxPNtjckNEEa0A=";
+    hash = "sha256-kusb58nGxYA3U9GbZdW3hLjA3NmHc+af0VT4iGRewBw=";
   };
 
   outputs = [ "out" "dev" "lib" "man" ];
