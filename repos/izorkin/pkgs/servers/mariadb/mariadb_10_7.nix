@@ -2,7 +2,7 @@
 # Native buildInputs components
 , bison, boost, cmake, fixDarwinDylibNames, flex, makeWrapper, pkg-config
 # Common components
-, curl, fmt, libiconv, ncurses, openssl, pcre2
+, curl, fmt_8, libiconv, ncurses, openssl, pcre2
 , libaio, libkrb5, systemd
 , CoreServices, cctools, perl
 , jemalloc, less
@@ -41,7 +41,7 @@ common = rec { # attributes common to both builds
     ++ optional (!stdenv.hostPlatform.isDarwin) makeWrapper;
 
   buildInputs = [
-    curl fmt libiconv ncurses openssl pcre2 zlib
+    curl fmt_8 libiconv ncurses openssl pcre2 zlib
   ] ++ optionals stdenv.hostPlatform.isLinux [ libaio libkrb5 systemd ]
     ++ optionals stdenv.hostPlatform.isDarwin [ CoreServices cctools perl ]
     ++ optional (!stdenv.hostPlatform.isDarwin) [ jemalloc ];

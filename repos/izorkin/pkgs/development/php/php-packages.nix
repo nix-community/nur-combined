@@ -1137,6 +1137,8 @@ let
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
 
+    buildInputs = with pkgs; [ zeromq ];
+
     meta.broken = isPhp73;
   };
 }; in self
