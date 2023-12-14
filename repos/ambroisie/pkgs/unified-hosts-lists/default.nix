@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "unified-hosts-lists";
-  version = "3.12.15";
+  version = "3.14.37";
 
   src = fetchFromGitHub {
     owner = "StevenBlack";
