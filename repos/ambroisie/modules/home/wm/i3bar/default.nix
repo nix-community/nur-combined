@@ -17,7 +17,7 @@ in
         top = {
           icons = "awesome5";
 
-          blocks = builtins.filter (attr: attr != { }) [
+          blocks = builtins.filter (attr: attr != { }) (lib.flatten [
             {
               block = "music";
               # This format seems to remove the block when not playing, somehow
@@ -59,6 +59,19 @@ in
             {
               block = "disk_space";
             }
+            (lib.optionals cfg.vpn.enable
+              (
+                let
+                  defaults = {
+                    block = "service_status";
+                    active_state = "Good";
+                    inactive_format = "";
+                    inactive_state = "Idle";
+                  };
+                in
+                builtins.map (block: defaults // block) cfg.vpn.blockConfigs
+              )
+            )
             {
               block = "net";
               format = " $icon{| $ssid|} $ip{| $signal_strength|} ";
@@ -92,7 +105,7 @@ in
               format = " $icon $timestamp.datetime(f:'%F %T') ";
               interval = 5;
             }
-          ];
+          ]);
         };
       };
     };

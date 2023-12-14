@@ -36,6 +36,31 @@ in
 
     i3bar = {
       enable = mkRelatedOption "i3bar configuration" [ "i3" ];
+
+      vpn = {
+        enable = mkEnableOption "VPN configuration";
+
+        blockConfigs = mkOption {
+          type = with types; listOf (attrsOf str);
+          default = [
+            {
+              active_format = " VPN ";
+              service = "wg-quick-wg";
+            }
+            {
+              active_format = " VPN (LAN) ";
+              service = "wg-quick-lan";
+            }
+          ];
+          example = [
+            {
+              active_format = " WORK ";
+              service = "some-service-name";
+            }
+          ];
+          description = "list of block configurations, merged with the defauls";
+        };
+      };
     };
 
     rofi = {

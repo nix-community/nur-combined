@@ -28,6 +28,13 @@
     nm-applet.enable = true;
     # Terminal
     terminal.program = "alacritty";
+    # WM configuration
+    wm = {
+      i3bar = {
+        # Show VPN blocks
+        vpn.enable = true;
+      };
+    };
     # Zathura document viewer
     zathura.enable = true;
   };
