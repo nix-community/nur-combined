@@ -10,6 +10,7 @@ in
     ./telegram
     ./obsidian
     ./discord
+    ./qtct.nix
   ];
   home.packages = with pkgs; [
     lxappearance
