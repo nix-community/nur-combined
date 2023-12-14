@@ -26,6 +26,8 @@
   geogebra = pkgs.callPackage ./pkgs/geogebra { };
   zhixi = pkgs.callPackage ./pkgs/zhixi { };
 
+  ttf-blobmoji = pkgs.callPackage ./pkgs/ttf-blobmoji { };
+
   sticky = pkgs.callPackage ./pkgs/sticky { };
   flowtime = pkgs.callPackage ./pkgs/flowtime { };
 
