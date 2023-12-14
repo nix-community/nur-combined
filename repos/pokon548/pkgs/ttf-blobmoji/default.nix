@@ -3,7 +3,7 @@
 , fetchurl
 }:
 stdenv.mkDerivation rec {
-  pname = "ttf-blogmoji";
+  pname = "ttf-blobmoji";
   version = "15.0";
 
   src = fetchurl {
