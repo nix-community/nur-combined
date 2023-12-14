@@ -1,12 +1,10 @@
-imports: { config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.services.server;
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
 in {
-  inherit imports;
-
   options.services.server = {
     enable = mkEnableOption ''
       Support for my home server
