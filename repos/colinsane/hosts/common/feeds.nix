@@ -176,6 +176,7 @@ let
 
     # TECH PROJECTS
     (fromDb "blog.rust-lang.org" // tech)
+    (fromDb "linmob.net" // tech)
 
     # (TECH; POL) COMMENTATORS
     ## Matt Webb -- engineering-ish, but dreamy

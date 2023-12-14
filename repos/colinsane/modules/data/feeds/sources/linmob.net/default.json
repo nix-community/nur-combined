@@ -1,0 +1,9 @@
+{
+  "description": "LINMOB.net is a blog about LINux on MOBile devices. With the PinePhone (Pro) and Librem 5 shipping it is back to report on GNU+Linux on mobile devices.",
+  "is_podcast": false,
+  "site_name": "LINux on MOBile",
+  "site_url": "https://linmob.net",
+  "title": "LINux on MOBile",
+  "url": "https://linmob.net/feed.xml",
+  "velocity": 0.176
+}
