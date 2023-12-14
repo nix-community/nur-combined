@@ -185,7 +185,7 @@ in
     consoleMediaUtils = declPackageSet [
       "catt"  # cast videos to chromecast
       "ffmpeg"
-      "go2tv"  # cast videos to UPNP/DLNA device (i.e. tv). TODO: needs firewall opened to allow sending of local files.
+      "go2tv"  # cast videos to UPNP/DLNA device (i.e. tv). TODO: needs firewall opened to allow sending of local files. (lappy sends a SSDP request to broadcast address, then gets response from concrete addr to the port it sent the req from).
       "imagemagick"
       "sox"
       "yt-dlp"
