@@ -57,6 +57,7 @@
     ./ntfy-sh.nix
     ./obsidian.nix
     ./offlineimap.nix
+    ./open-in-mpv.nix
     ./playerctl.nix
     ./rhythmbox.nix
     ./ripgrep.nix
