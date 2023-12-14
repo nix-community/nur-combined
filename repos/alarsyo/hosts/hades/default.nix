@@ -62,6 +62,11 @@ in {
       privatePort = 8082;
     };
 
+    immich = {
+      enable = true;
+      port = 8089;
+    };
+
     jellyfin = {
       enable = true;
     };

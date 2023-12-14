@@ -17,7 +17,7 @@ in {
   options.my.services.tailscale = {
     enable = mkEnableOption "Tailscale";
     useRoutingFeatures = mkOption {
-      type = types.enum [ "none" "client" "server" "both" ];
+      type = types.enum ["none" "client" "server" "both"];
       default = "none";
     };
   };

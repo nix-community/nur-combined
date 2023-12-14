@@ -21,7 +21,7 @@
     inherit
       (pkgs)
       # shell usage
-
+      
       bat
       fd
       file
@@ -34,7 +34,7 @@
       pciutils
       usbutils
       # development
-
+      
       agenix
       alejandra
       git

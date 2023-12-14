@@ -4,6 +4,7 @@
     ./fail2ban.nix
     ./fava.nix
     ./gitea
+    ./immich.nix
     ./jellyfin.nix
     ./lohr.nix
     ./matrix.nix
