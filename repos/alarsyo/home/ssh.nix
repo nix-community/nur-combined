@@ -34,11 +34,18 @@ in {
       in {
         boreal = addGPGAgentForwarding {hostname = "boreal.alarsyo.net";};
         hades = addGPGAgentForwarding {hostname = "hades.alarsyo.net";};
-        poseidon = addGPGAgentForwarding {hostname = "poseidon.alarsyo.net";};
+        thanatos = addGPGAgentForwarding {hostname = "thanatos.alarsyo.net";};
         pi = addGPGAgentForwarding {
           hostname = "pi.alarsyo.net";
           user = "pi";
         };
+
+        "thanatos.lrde.epita.fr" =
+          lib.hm.dag.entryBefore ["*.lrde.epita.fr"]
+          (addGPGAgentForwarding {
+            hostname = "lee.lrde.epita.fr";
+            user = "alarsyo";
+          });
 
         "*.lrde.epita.fr" = {
           user = "amartin";
