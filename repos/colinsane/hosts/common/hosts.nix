@@ -19,7 +19,7 @@
   };
 
   sane.hosts.by-name."moby" = {
-    ssh.authorized = lib.mkDefault false;  # moby's too easy to hijack: don't let it ssh places
+    # ssh.authorized = lib.mkDefault false;  # moby's too easy to hijack: don't let it ssh places
     ssh.user_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICrR+gePnl0nV/vy7I5BzrGeyVL+9eOuXHU1yNE3uCwU";
     ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1N/IT3nQYUD+dBlU1sTEEVMxfOyMkrrDeyHcYgnJvw";
     wg-home.pubkey = "I7XIR1hm8bIzAtcAvbhWOwIAabGkuEvbWH/3kyIB1yA=";

@@ -80,6 +80,7 @@
     ./wike.nix
     ./wine.nix
     ./wireshark.nix
+    ./wob.nix
     ./xarchiver.nix
     ./zeal.nix
     ./zsh

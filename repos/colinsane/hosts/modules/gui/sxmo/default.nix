@@ -265,9 +265,10 @@ in
         suggestedPrograms = [
           "guiApps"
           "bemenu"  # specifically to import its theming
-          "sfeed"      # want this here so that the user's ~/.sfeed/sfeedrc gets created
-          # "superd"     # make superctl (used by sxmo) be on PATH
+          "sfeed"   # want this here so that the user's ~/.sfeed/sfeedrc gets created
+          # "superd"  # make superctl (used by sxmo) be on PATH
           # "sway-autoscaler"
+          "wob"  # volume/brightness on-screen display
         ];
 
         persist.byStore.cryptClearOnBoot = [
@@ -645,7 +646,7 @@ in
           sxmo_networkmonitor = sxmoService "networkmonitor";
           sxmo_notificationmonitor = sxmoService "notificationmonitor";
           sxmo_soundmonitor = sxmoService "soundmonitor";
-          sxmo_wob = sxmoService "wob";
+          # sxmo_wob = sxmoService "wob";
           sxmo-x11-status = sxmoService "status_xsetroot";
 
           bonsaid.path = sxmoPath;

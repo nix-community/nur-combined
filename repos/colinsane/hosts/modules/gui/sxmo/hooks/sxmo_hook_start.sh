@@ -18,7 +18,7 @@ sxmo_jobs.sh start daemon_manager
 # TODO: start these externally, via `wantedBy` in nix
 # don't: i don't use mako
 #   superctl start mako
-systemctl --user start sxmo_wob
+# systemctl --user start sxmo_wob
 systemctl --user start sxmo_menumode_toggler
 systemctl --user start bonsaid
 # don't: sway background is managed externally
