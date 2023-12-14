@@ -9,6 +9,7 @@
 , electron
 , libGL
 , makeDesktopItem
+, nix-update-script
 }:
 
 let
@@ -117,6 +118,8 @@ buildNpmPackage rec {
       categories = [ "Utility" ];
     })
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Official Anytype client";
