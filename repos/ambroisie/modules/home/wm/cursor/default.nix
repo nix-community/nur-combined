@@ -8,7 +8,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.pointerCursor = {
-      package = pkgs.ambroisie.vimix-cursors;
+      package = pkgs.vimix-cursors;
       name = "Vimix-cursors";
 
       x11 = {

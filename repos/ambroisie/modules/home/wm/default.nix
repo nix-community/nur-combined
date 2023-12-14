@@ -38,7 +38,7 @@ in
       enable = mkRelatedOption "i3bar configuration" [ "i3" ];
 
       vpn = {
-        enable = mkEnableOption "VPN configuration";
+        enable = my.mkDisableOption "VPN configuration";
 
         blockConfigs = mkOption {
           type = with types; listOf (attrsOf str);

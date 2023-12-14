@@ -63,7 +63,7 @@ in
       enable = true;
       openFirewall = true;
       # Allow resolution of '.local' addresses
-      nssmdns = true;
+      nssmdns4 = true;
     };
   };
 }

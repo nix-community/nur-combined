@@ -36,7 +36,7 @@ in
       nativeMessagingHosts = ([ ]
         ++ lib.optional cfg.tridactyl.enable pkgs.tridactyl-native
         # Watch videos using mpv
-        ++ lib.optional cfg.ff2mpv.enable pkgs.ambroisie.ff2mpv-go
+        ++ lib.optional cfg.ff2mpv.enable pkgs.ff2mpv-go
       );
     };
 
