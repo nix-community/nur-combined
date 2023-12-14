@@ -2,9 +2,13 @@
 
 let
   c = builtins.mapAttrs (k: v: "#${v}") pkgs.custom.colors.colors;
-in
+  stylesheetBase16Variables = pkgs.writeText "base16.css" ''
+    :root {
+      ${builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs (k: v: "--${k}: ${v};") c))}
+    }
+  '';
 
-{
+in {
   config = lib.mkIf config.programs.qutebrowser.enable {
     programs.qutebrowser = {
       keyBindings = {
@@ -15,7 +19,7 @@ in
         };
       };
       greasemonkey = [
-      
+
       ];
       quickmarks = {
         nixpkgs = "https://github.com/NixOS/nixpkgs";
@@ -41,304 +45,348 @@ in
         cft = "http://cf-torrent.whiterun.lucao.net/search/torrent/result?use_google=1&use_duckduckgo=1&query={}";
         ml = "https://lista.mercadolivre.com.br/{}";
       };
-      extraConfig = ''
-base00 = "${c.base00}"
-base01 = "${c.base01}"
-base02 = "${c.base02}"
-base03 = "${c.base03}"
-base04 = "${c.base04}"
-base05 = "${c.base05}"
-base06 = "${c.base06}"
-base07 = "${c.base07}"
-base08 = "${c.base08}"
-base09 = "${c.base09}"
-base0A = "${c.base0A}"
-base0B = "${c.base0B}"
-base0C = "${c.base0C}"
-base0D = "${c.base0D}"
-base0E = "${c.base0E}"
-base0F = "${c.base0F}"
+      settings = {
+        content = { user_stylesheets = map (item: "${item}") [ stylesheetBase16Variables ]; };
+        colors = {
 
-# set qutebrowser colors
+          completion = {
 
-# Text color of the completion widget. May be a single color to use for
-# all columns or a list of three colors, one for each column.
-c.colors.completion.fg = base05
+            fg = c.base05;
 
-# Background color of the completion widget for odd rows.
-c.colors.completion.odd.bg = base01
+            # Background color of the completion widget for odd rows.
+            odd.bg = c.base01;
 
-# Background color of the completion widget for even rows.
-c.colors.completion.even.bg = base00
+            # Background color of the completion widget for even rows.
+            even.bg = c.base00;
+            category = {
 
-# Foreground color of completion widget category headers.
-c.colors.completion.category.fg = base0A
+              # Foreground color of completion widget category headers.
+              fg = c.base0A;
 
-# Background color of the completion widget category headers.
-c.colors.completion.category.bg = base00
+              # Background color of the completion widget category headers.
+              bg = c.base00;
+              border = {
 
-# Top border color of the completion widget category headers.
-c.colors.completion.category.border.top = base00
+                # Top border color of the completion widget category headers.
+                top = c.base00;
 
-# Bottom border color of the completion widget category headers.
-c.colors.completion.category.border.bottom = base00
+                # Bottom border color of the completion widget category headers.
+                bottom = c.base00;
+              };
+            };
+            item = {
+              selected = {
 
-# Foreground color of the selected completion item.
-c.colors.completion.item.selected.fg = base05
+                # Foreground color of the selected completion item.
+                fg = c.base05;
 
-# Background color of the selected completion item.
-c.colors.completion.item.selected.bg = base02
+                # Background color of the selected completion item.
+                bg = c.base02;
 
-# Top border color of the selected completion item.
-c.colors.completion.item.selected.border.top = base02
+                # Top border color of the selected completion item.
+                border.top = c.base02;
 
-# Bottom border color of the selected completion item.
-c.colors.completion.item.selected.border.bottom = base02
+                # Bottom border color of the selected completion item.
+                border.bottom = c.base02;
 
-# Foreground color of the matched text in the selected completion item.
-c.colors.completion.item.selected.match.fg = base0B
+                # Foreground color of the matched text in the selected completion item.
+                match.fg = c.base0B;
+              };
+            };
 
-# Foreground color of the matched text in the completion.
-c.colors.completion.match.fg = base0B
+            # Foreground color of the matched text in the completion.
+            match.fg = c.base0B;
+            scrollbar = {
 
-# Color of the scrollbar handle in the completion view.
-c.colors.completion.scrollbar.fg = base05
+              # Color of the scrollbar handle in the completion view.
+              fg = c.base05;
 
-# Color of the scrollbar in the completion view.
-c.colors.completion.scrollbar.bg = base00
+              # Color of the scrollbar in the completion view.
+              bg = c.base00;
+            };
+          };
+          contextmenu = {
 
-# Background color of disabled items in the context menu.
-c.colors.contextmenu.disabled.bg = base01
+            # Background color of disabled items in the context menu.
+            disabled.bg = c.base01;
 
-# Foreground color of disabled items in the context menu.
-c.colors.contextmenu.disabled.fg = base04
+            # Foreground color of disabled items in the context menu.
+            disabled.fg = c.base04;
 
-# Background color of the context menu. If set to null, the Qt default is used.
-c.colors.contextmenu.menu.bg = base00
+            # Background color of the context menu. If set to null, the Qt default is used.
+            menu.bg = c.base00;
 
-# Foreground color of the context menu. If set to null, the Qt default is used.
-c.colors.contextmenu.menu.fg =  base05
+            # Foreground color of the context menu. If set to null, the Qt default is used.
+            menu.fg = c.base05;
 
-# Background color of the context menu’s selected item. If set to null, the Qt default is used.
-c.colors.contextmenu.selected.bg = base02
+            # Background color of the context menu’s selected item. If set to null, the Qt default is used.
+            selected.bg = c.base02;
 
-#Foreground color of the context menu’s selected item. If set to null, the Qt default is used.
-c.colors.contextmenu.selected.fg = base05
+            #Foreground color of the context menu’s selected item. If set to null, the Qt default is used.
+            selected.fg = c.base05;
+          };
+          downloads = {
 
-# Background color for the download bar.
-c.colors.downloads.bar.bg = base00
+            # Background color for the download bar.
+            bar.bg = c.base00;
 
-# Color gradient start for download text.
-c.colors.downloads.start.fg = base00
+            # Color gradient start for download text.
+            start.fg = c.base00;
 
-# Color gradient start for download backgrounds.
-c.colors.downloads.start.bg = base0D
+            # Color gradient start for download backgrounds.
+            start.bg = c.base0D;
 
-# Color gradient end for download text.
-c.colors.downloads.stop.fg = base00
+            # Color gradient end for download text.
+            stop.fg = c.base00;
 
-# Color gradient stop for download backgrounds.
-c.colors.downloads.stop.bg = base0C
+            # Color gradient stop for download backgrounds.
+            stop.bg = c.base0C;
 
-# Foreground color for downloads with errors.
-c.colors.downloads.error.fg = base08
+            # Foreground color for downloads with errors.
+            error.fg = c.base08;
+          };
+          hints = {
 
-# Font color for hints.
-c.colors.hints.fg = base00
+            # Font color for hints.
+            fg = c.base00;
 
-# Background color for hints. Note that you can use a `rgba(...)` value
-# for transparency.
-c.colors.hints.bg = base0A
+            # Background color for hints. Note that you can use a `rgba(...)` value
+            # for transparency.
+            bg = c.base0A;
 
-# Font color for the matched part of hints.
-c.colors.hints.match.fg = base05
+            # Font color for the matched part of hints.
+            match.fg = c.base05;
+          };
+          keyhint = {
 
-# Text color for the keyhint widget.
-c.colors.keyhint.fg = base05
+            # Text color for the keyhint widget.
+            fg = c.base05;
 
-# Highlight color for keys to complete the current keychain.
-c.colors.keyhint.suffix.fg = base05
+            # Highlight color for keys to complete the current keychain.
+            suffix.fg = c.base05;
 
-# Background color of the keyhint widget.
-c.colors.keyhint.bg = base00
+            # Background color of the keyhint widget.
+            bg = c.base00;
+          };
+          messages = {
+            error = {
 
-# Foreground color of an error message.
-c.colors.messages.error.fg = base00
+              # Foreground color of an error message.
+              fg = c.base00;
 
-# Background color of an error message.
-c.colors.messages.error.bg = base08
+              # Background color of an error message.
+              bg = c.base08;
 
-# Border color of an error message.
-c.colors.messages.error.border = base08
+              # Border color of an error message.
+              border = c.base08;
+            };
+            warning = {
 
-# Foreground color of a warning message.
-c.colors.messages.warning.fg = base00
+              # Foreground color of a warning message.
+              fg = c.base00;
 
-# Background color of a warning message.
-c.colors.messages.warning.bg = base0E
+              # Background color of a warning message.
+              bg = c.base0E;
 
-# Border color of a warning message.
-c.colors.messages.warning.border = base0E
+              # Border color of a warning message.
+              border = c.base0E;
+            };
+            info = {
 
-# Foreground color of an info message.
-c.colors.messages.info.fg = base05
+              # Foreground color of an info message.
+              fg = c.base05;
 
-# Background color of an info message.
-c.colors.messages.info.bg = base00
+              # Background color of an info message.
+              bg = c.base00;
 
-# Border color of an info message.
-c.colors.messages.info.border = base00
+              # Border color of an info message.
+              border = c.base00;
+            };
+          };
+          prompts = {
 
-# Foreground color for prompts.
-c.colors.prompts.fg = base05
+            # Foreground color for prompts.
+            fg = c.base05;
 
-# Border used around UI elements in prompts.
-c.colors.prompts.border = base00
+            # Border used around UI elements in prompts.
+            border = c.base00;
 
-# Background color for prompts.
-c.colors.prompts.bg = base00
+            # Background color for prompts.
+            bg = c.base00;
+            selected = {
 
-# Background color for the selected item in filename prompts.
-c.colors.prompts.selected.bg = base02
+              # Background color for the selected item in filename prompts.
+              bg = c.base02;
 
-# Foreground color for the selected item in filename prompts.
-c.colors.prompts.selected.fg = base05
+              # Foreground color for the selected item in filename prompts.
+              fg = c.base05;
+            };
+          };
+          statusbar = {
+            normal = {
 
-# Foreground color of the statusbar.
-c.colors.statusbar.normal.fg = base0B
+              # Foreground color of the statusbar.
+              fg = c.base0B;
 
-# Background color of the statusbar.
-c.colors.statusbar.normal.bg = base00
+              # Background color of the statusbar.
+              bg = c.base00;
+            };
+            insert = {
 
-# Foreground color of the statusbar in insert mode.
-c.colors.statusbar.insert.fg = base00
+              # Foreground color of the statusbar in insert mode.
+              fg = c.base00;
 
-# Background color of the statusbar in insert mode.
-c.colors.statusbar.insert.bg = base0D
+              # Background color of the statusbar in insert mode.
+              bg = c.base0D;
+            };
+            passthrough = {
 
-# Foreground color of the statusbar in passthrough mode.
-c.colors.statusbar.passthrough.fg = base00
+              # Foreground color of the statusbar in passthrough mode.
+              fg = c.base00;
 
-# Background color of the statusbar in passthrough mode.
-c.colors.statusbar.passthrough.bg = base0C
+              # Background color of the statusbar in passthrough mode.
+              bg = c.base0C;
+            };
+            private = {
 
-# Foreground color of the statusbar in private browsing mode.
-c.colors.statusbar.private.fg = base00
+              # Foreground color of the statusbar in private browsing mode.
+              fg = c.base00;
 
-# Background color of the statusbar in private browsing mode.
-c.colors.statusbar.private.bg = base01
+              # Background color of the statusbar in private browsing mode.
+              bg = c.base01;
+            };
+            command = {
 
-# Foreground color of the statusbar in command mode.
-c.colors.statusbar.command.fg = base05
+              # Foreground color of the statusbar in command mode.
+              fg = c.base05;
 
-# Background color of the statusbar in command mode.
-c.colors.statusbar.command.bg = base00
+              # Background color of the statusbar in command mode.
+              bg = c.base00;
 
-# Foreground color of the statusbar in private browsing + command mode.
-c.colors.statusbar.command.private.fg = base05
+              # Foreground color of the statusbar in private browsing + command mode.
+              private.fg = c.base05;
 
-# Background color of the statusbar in private browsing + command mode.
-c.colors.statusbar.command.private.bg = base00
+              # Background color of the statusbar in private browsing + command mode.
+              private.bg = c.base00;
+            };
+            caret = {
 
-# Foreground color of the statusbar in caret mode.
-c.colors.statusbar.caret.fg = base00
+              # Foreground color of the statusbar in caret mode.
+              fg = c.base00;
 
-# Background color of the statusbar in caret mode.
-c.colors.statusbar.caret.bg = base0E
+              # Background color of the statusbar in caret mode.
+              bg = c.base0E;
 
-# Foreground color of the statusbar in caret mode with a selection.
-c.colors.statusbar.caret.selection.fg = base00
+              # Foreground color of the statusbar in caret mode with a selection.
+              selection.fg = c.base00;
 
-# Background color of the statusbar in caret mode with a selection.
-c.colors.statusbar.caret.selection.bg = base0D
+              # Background color of the statusbar in caret mode with a selection.
+              selection.bg = c.base0D;
+            };
 
-# Background color of the progress bar.
-c.colors.statusbar.progress.bg = base0D
+            # Background color of the progress bar.
+            progress.bg = c.base0D;
+            url = {
 
-# Default foreground color of the URL in the statusbar.
-c.colors.statusbar.url.fg = base05
+              # Default foreground color of the URL in the statusbar.
+              fg = c.base05;
 
-# Foreground color of the URL in the statusbar on error.
-c.colors.statusbar.url.error.fg = base08
+              # Foreground color of the URL in the statusbar on error.
+              error.fg = c.base08;
 
-# Foreground color of the URL in the statusbar for hovered links.
-c.colors.statusbar.url.hover.fg = base05
+              # Foreground color of the URL in the statusbar for hovered links.
+              hover.fg = c.base05;
 
-# Foreground color of the URL in the statusbar on successful load
-# (http).
-c.colors.statusbar.url.success.http.fg = base0C
+              # Foreground color of the URL in the statusbar on successful load
+              # (http).
+              success.http.fg = c.base0C;
 
-# Foreground color of the URL in the statusbar on successful load
-# (https).
-c.colors.statusbar.url.success.https.fg = base0B
+              # Foreground color of the URL in the statusbar on successful load
+              # (https).
+              success.https.fg = c.base0B;
 
-# Foreground color of the URL in the statusbar when there's a warning.
-c.colors.statusbar.url.warn.fg = base0E
+              # Foreground color of the URL in the statusbar when there's a warning.
+              warn.fg = c.base0E;
+            };
+          };
+          tabs = {
 
-# Background color of the tab bar.
-c.colors.tabs.bar.bg = base00
+            # Background color of the tab bar.
+            bar.bg = c.base00;
 
-# Color gradient start for the tab indicator.
-c.colors.tabs.indicator.start = base0D
+            # Color gradient start for the tab indicator.
+            indicator.start = c.base0D;
 
-# Color gradient end for the tab indicator.
-c.colors.tabs.indicator.stop = base0C
+            # Color gradient end for the tab indicator.
+            indicator.stop = c.base0C;
 
-# Color for the tab indicator on errors.
-c.colors.tabs.indicator.error = base08
+            # Color for the tab indicator on errors.
+            indicator.error = c.base08;
 
-# Foreground color of unselected odd tabs.
-c.colors.tabs.odd.fg = base05
+            # Foreground color of unselected odd tabs.
+            odd.fg = c.base05;
 
-# Background color of unselected odd tabs.
-c.colors.tabs.odd.bg = base01
+            # Background color of unselected odd tabs.
+            odd.bg = c.base01;
 
-# Foreground color of unselected even tabs.
-c.colors.tabs.even.fg = base05
+            # Foreground color of unselected even tabs.
+            even.fg = c.base05;
 
-# Background color of unselected even tabs.
-c.colors.tabs.even.bg = base00
+            # Background color of unselected even tabs.
+            even.bg = c.base00;
+            pinned = {
 
-# Background color of pinned unselected even tabs.
-c.colors.tabs.pinned.even.bg = base0C
+              # Background color of pinned unselected even tabs.
+              even.bg = c.base0C;
 
-# Foreground color of pinned unselected even tabs.
-c.colors.tabs.pinned.even.fg = base07
+              # Foreground color of pinned unselected even tabs.
+              even.fg = c.base07;
 
-# Background color of pinned unselected odd tabs.
-c.colors.tabs.pinned.odd.bg = base0B
+              # Background color of pinned unselected odd tabs.
+              odd.bg = c.base0B;
 
-# Foreground color of pinned unselected odd tabs.
-c.colors.tabs.pinned.odd.fg = base07
+              # Foreground color of pinned unselected odd tabs.
+              odd.fg = c.base07;
+              selected = {
 
-# Background color of pinned selected even tabs.
-c.colors.tabs.pinned.selected.even.bg = base02
+                # Background color of pinned selected even tabs.
+                even.bg = c.base02;
 
-# Foreground color of pinned selected even tabs.
-c.colors.tabs.pinned.selected.even.fg = base05
+                # Foreground color of pinned selected even tabs.
+                even.fg = c.base05;
 
-# Background color of pinned selected odd tabs.
-c.colors.tabs.pinned.selected.odd.bg = base02
+                # Background color of pinned selected odd tabs.
+                odd.bg = c.base02;
 
-# Foreground color of pinned selected odd tabs.
-c.colors.tabs.pinned.selected.odd.fg = base05
+                # Foreground color of pinned selected odd tabs.
+                odd.fg = c.base05;
+              };
+            };
+            selected = {
 
-# Foreground color of selected odd tabs.
-c.colors.tabs.selected.odd.fg = base05
+              # Foreground color of selected odd tabs.
+              odd.fg = c.base05;
 
-# Background color of selected odd tabs.
-c.colors.tabs.selected.odd.bg = base02
+              # Background color of selected odd tabs.
+              odd.bg = c.base02;
 
-# Foreground color of selected even tabs.
-c.colors.tabs.selected.even.fg = base05
+              # Foreground color of selected even tabs.
+              even.fg = c.base05;
 
-# Background color of selected even tabs.
-c.colors.tabs.selected.even.bg = base02
+              # Background color of selected even tabs.
+              even.bg = c.base02;
+            };
+          };
+          webpage = {
 
-# Background color for webpages if unset (or empty to use the theme's
-# color).
-# c.colors.webpage.bg = base00
-    '';
-     };
+            # Background color for webpages if unset (or empty to use the theme's
+            # color).
+            # bg = c.base00;
+            darkmode.enabled = true;
+          };
+        };
+        # colors.webpage.darkmode.policy.images = "never";
+      };
+    };
   };
 }
