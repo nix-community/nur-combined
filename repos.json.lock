@@ -1143,8 +1143,8 @@
             "url": "https://github.com/pokon548/nur-packages"
         },
         "polykernel": {
-            "rev": "b78caf559f51eec060410d9899c214a25d3ba995",
-            "sha256": "1a3b250iahmidh24qp7g0zmjcgd32g22kdvxagpy41n4qbhv2ifv",
+            "rev": "1aa1f9790077c43814430c98279f6a6c19509968",
+            "sha256": "04841mfnwxlmwl47a0hmcas6vfncfp59wrkhsc1pchdm6yfsgkxs",
             "url": "https://github.com/polykernel/nur-packages"
         },
         "presto8": {
