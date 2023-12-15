@@ -20,16 +20,16 @@ in
 
 rustPlatform.buildRustPackage rec {
   pname = "kickoff";
-  version = "v0.7.0";
+  version = "0.7.2";
 
   src = fetchFromGitHub {
     owner = "j0ru";
     repo = pname;
-    rev = version;
-    sha256 = "sha256-AolJXFolMEwoK3AtC93naphZetytzRl1yI10SP9Rnzo=";
+    rev = "v${version}";
+    sha256 = "sha256-WUDbb/GLABhqE93O6bm19Y+r0kSMEJrvduw68Igub44=";
   };
 
-  cargoHash = "sha256-OEFCR/2zSVZhZqAp6n48UyIwplRXxKb9HENsVaLIKkM=";
+  cargoHash = "sha256-jMuJyBU3tT0jOVncdhyWFUn95SE7/zG5MAC+zsQeniA=";
 
   nativeBuildInputs = [ pkg-config ];
 
