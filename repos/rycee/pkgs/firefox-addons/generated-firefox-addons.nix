@@ -1353,10 +1353,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.21.4";
+      version = "3.22.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4187793/control_panel_for_twitter-3.21.4.xpi";
-      sha256 = "3b51d307e2dfa56d83eab412e2ae1575882b4084d74cd36cb3e9f758a57b4211";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208890/control_panel_for_twitter-3.22.0.xpi";
+      sha256 = "f9f3310ee34b9d2dd8c9c9b9d28cd65f93ad9755f9ef42ddb7c5e9059bc04f62";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2520,10 +2520,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.11.1";
+      version = "8.12.5";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4142024/ghostery-8.11.1.xpi";
-      sha256 = "df20c00c94603ca153c8f10d6ee63694af024fd069fbfb369a70624859ba4e6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207768/ghostery-8.12.5.xpi";
+      sha256 = "2353897aad45f9fd035a569d4dfa2e2f1d1b9dedf5a319508558fb8c2f9b70d3";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -2542,6 +2542,7 @@
           "https://account.ghosterystage.com/*"
           "https://checkout.ghostery.com/*"
           "https://checkout.ghosterystage.com/*"
+          "*://www.youtube.com/*"
           "*://*.google.com/*"
           "*://*.google.ad/*"
           "*://*.google.ae/*"
@@ -5164,10 +5165,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.59";
+      version = "2.6.60";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197044/localcdn_fork_of_decentraleyes-2.6.59.xpi";
-      sha256 = "0aa14f964d0a851151dd8ac5ad87ae9085eea8e44d0d19e3b6b2849f92422721";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208268/localcdn_fork_of_decentraleyes-2.6.60.xpi";
+      sha256 = "9ffd3609de89b8e0a4c9a425178f5e08b1ed2729fb0dd106320b72bcfc1d3392";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -6162,10 +6163,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.5.1";
+      version = "11.6.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4198260/ether_metamask-11.5.1.xpi";
-      sha256 = "9b21dba9e3956c30c8a2cf2e22b068d6c2aea5a62142e9969e02ded790d3e97e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207789/ether_metamask-11.6.2.xpi";
+      sha256 = "a728af64dc99847cbc231bc36209a553f3d921f6ad72df1fcb08eaeb9d99c915";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -8056,10 +8057,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.13";
+      version = "3.0.0.14";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4203985/return_youtube_dislikes-3.0.0.13.xpi";
-      sha256 = "599b8761489e90633f258ef1b85fafca8ccca2d84a9c2c5fab31c64dd694191d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208483/return_youtube_dislikes-3.0.0.14.xpi";
+      sha256 = "a31ab23549846b7eab92a094e92df8349047b48bbd807f069d128083c3b27f61";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -8433,10 +8434,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.37";
+      version = "1.22.38";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4205571/single_file-1.22.37.xpi";
-      sha256 = "5ed16290d510905b58e4724dce76e1290fbcfc15aa68d9009e15d0edfa0b7c97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4208296/single_file-1.22.38.xpi";
+      sha256 = "9923da8f7803fc3c210356c129a9301f5dbfe06bd6f2a68e522fba652d32063d";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -8638,6 +8639,7 @@
       sha256 = "131509a89473a4e5917b5c859aba8f9ea77c4c9fc8cdc183333c2b0f1b2c64ee";
       meta = with lib;
       {
+        homepage = "https://github.com/igorlogius/startup-tabs/";
         description = "Open a set of bookmarks as tabs on browser startup by simply selecting a bookmark folder which contains them.";
         license = licenses.bsd2;
         mozPermissions = [ "tabs" "bookmarks" "storage" ];
@@ -9764,10 +9766,10 @@
       };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "6.1.0";
+      version = "6.3.1";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4088837/ukrainian_dictionary-6.1.0.xpi";
-      sha256 = "90a57caef9f656812c03d6fd365c251cbcab722405d51313f931f12976e18a1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4209163/ukrainian_dictionary-6.3.1.xpi";
+      sha256 = "114c6cc04cf68ccd059cc0dd0a69bd246230a965e55b2770833744ad46013c7b";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
