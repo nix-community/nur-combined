@@ -7,6 +7,8 @@
 # - `go2tv -tc -v /mnt/servo-media/Videos/Shows/bebop/session1.mkv`
 #   - LGTV: works
 #     - LGTV WITHOUT -tc: FAILS
+# - `go2tv -v /mnt/servo-media/Videos/Shows/PaniPoniDash/PaniPoni1.mp4`
+#   - LGTV: works  (even without transcoding!)
 # - `go2tv -u 'https://youtu.be/p3G5IXn0K7A'`
 #   - LGTV: FAILS ("this file cannot be recognized")
 #     - no fix via transcoding, altering the URI, etc.
