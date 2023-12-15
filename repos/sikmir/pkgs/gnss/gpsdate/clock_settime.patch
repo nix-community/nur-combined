@@ -1,0 +1,19 @@
+diff --git i/gpsdate.c w/gpsdate.c
+index 969bbdc..fe10276 100644
+--- i/gpsdate.c
++++ w/gpsdate.c
+@@ -104,10 +104,11 @@ static void process_message(const char *msgid, const char **data)
+ 			t->tm_sec = seconds;
+ 
+ 			/* Set new system time: */
+-			time_t gps_time = mktime(t);
+-			gps_time += t->tm_gmtoff;
++			struct timespec gps_time;
++			gps_time.tv_sec = mktime(t) + t->tm_gmtoff;
++			gps_time.tv_nsec = 0;
+ 
+-			if (stime(&gps_time) == 0) {
++			if (clock_settime(CLOCK_REALTIME, &gps_time) == 0) {
+ 				printf("Successfully updated local time.\n");
+ 				date_changed = true;
+ 			} else {

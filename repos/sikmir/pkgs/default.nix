@@ -261,6 +261,7 @@ lib.makeScope newScope (
     gnsstk = callPackage ./gnss/gnsstk { };
     gnsstk-apps = callPackage ./gnss/gnsstk-apps { };
     gps-sdr-sim = callPackage ./gnss/gps-sdr-sim { };
+    gpsdate = callPackage ./gnss/gpsdate { };
     rtklib = callPackage ./gnss/rtklib { };
     visualgps = libsForQt5.callPackage ./gnss/visualgps { };
 
