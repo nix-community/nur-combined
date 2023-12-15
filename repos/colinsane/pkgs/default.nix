@@ -40,7 +40,6 @@ let
     };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
     hare-ev = callPackage ./additional/hare-ev { };
-    hare-json = callPackage ./additional/hare-json { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     koreader-from-src = callPackage ./additional/koreader-from-src { };
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
@@ -154,7 +153,6 @@ let
     inherit (final'.sane)
       bonsai
       hare-ev
-      hare-json
     ;
   };
 in sane-overlay

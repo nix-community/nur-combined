@@ -296,12 +296,12 @@ in [
   #   saneCommit = "507252828934c73c7cffe255dae237c041676c27";
   #   hash = "sha256-HwycOd3v4IifdQqQmMP6w14g0E/T9RAjAw41AsUZQoc=";
   # })
-  (fetchpatch' {
-    # includes hare-json and hare-ev as pre-reqs
-    title = "bonsai: init at 1.0.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
-    hash = "sha256-EIv0hx0pXQUDz4V3PRj1SpdgNuL068Yh3zBYS9Ioh+w=";
-  })
+  # (fetchpatch' {
+  #   # includes hare-json and hare-ev as pre-reqs
+  #   title = "bonsai: init at 1.0.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
+  #   hash = "sha256-EIv0hx0pXQUDz4V3PRj1SpdgNuL068Yh3zBYS9Ioh+w=";
+  # })
 
   # pin to a pre-0.17.3 release
   # removing this and using stock 0.17.3 (also 0.17.4) causes:

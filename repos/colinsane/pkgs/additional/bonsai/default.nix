@@ -3,10 +3,13 @@
 , fetchFromSourcehut
 , gitUpdater
 , hare
+, hareThirdParty
 , hare-ev
-, hare-json
 }:
 
+let
+  inherit (hareThirdParty) hare-json;
+in
 stdenv.mkDerivation rec {
   pname = "bonsai";
   version = "1.0.2";
