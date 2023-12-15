@@ -473,15 +473,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "d1e99b3f85d2eb7fe9ad3b9f58d36fd671da46a5";
+    version = "cd67eed98c16d2620a329d92549524be2f945539";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "d1e99b3f85d2eb7fe9ad3b9f58d36fd671da46a5";
+      rev = "cd67eed98c16d2620a329d92549524be2f945539";
       fetchSubmodules = false;
-      sha256 = "sha256-e914LDbw/2b0r4aFSZn8iFRSJq/nVoMfydNuJ+5z2pc=";
+      sha256 = "sha256-pV7KiXGKB+45bqmFi0dG6BTj9vsLjd3GgDQ9b26LPno=";
     };
-    date = "2023-12-06";
+    date = "2023-12-14";
   };
   libqcef = {
     pname = "libqcef";
