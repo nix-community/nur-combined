@@ -104,7 +104,6 @@ in
                       "customizableui-special-spring1",
                       "urlbar-container",
                       "customizableui-special-spring2",
-                      "save-to-pocket-button",
                       "downloads-button",
                       "bookmarks-menu-button",
                       "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action",
