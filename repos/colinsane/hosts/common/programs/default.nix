@@ -33,6 +33,7 @@
     ./gnome-feeds.nix
     ./gnome-keyring.nix
     ./gnome-weather.nix
+    ./go2tv.nix
     ./gpodder.nix
     ./gthumb.nix
     ./gtkcord4.nix
