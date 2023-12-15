@@ -51,6 +51,7 @@
     ./mopidy.nix
     ./mpv.nix
     ./msmtp.nix
+    ./nautilus.nix
     ./neovim.nix
     ./newsflash.nix
     ./nheko.nix

@@ -10,6 +10,7 @@
 
   config = lib.mkIf config.sane.roles.handheld {
     sane.programs.guiApps.suggestedPrograms = [
+      "consoleMediaUtils"  # overbroad, but handy on very rare occasion
       "handheldGuiApps"
     ];
   };
