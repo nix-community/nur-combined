@@ -566,6 +566,28 @@ in with final; {
   #   # // (crateNeedsBinfmt "sourceview5")
   # ;
 
+  delfin = prev.delfin.overrideAttrs (upstream:
+  let
+    cargoEnvWrapper = buildPackages.writeShellScript "cargo-env-wrapper" ''
+      CARGO_BIN="$1"
+      shift
+      CARGO_OP="$1"
+      shift
+
+      ${rust.envVars.setEnv} "$CARGO_BIN" "$CARGO_OP" --target "${rust.envVars.rustHostPlatformSpec}" "$@"
+    '';
+  in {
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      # fixes: loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
+      buildPackages.gettext
+    ];
+    postPatch = ''
+      substituteInPlace delfin/meson.build \
+        --replace "cargo, 'build'," "'${cargoEnvWrapper}', cargo, 'build'," \
+        --replace "'delfin' / rust_target" "'delfin' / '${rust.envVars.rustHostPlatformSpec}' / rust_target"
+    '';
+  });
+
   # 2023/12/08: upstreaming blocked on qtsvg (pipewire)
   dialect = prev.dialect.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.

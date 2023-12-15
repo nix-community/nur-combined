@@ -15,6 +15,7 @@
 , pkg-config
 , rustc
 , rustPlatform
+, wrapGAppsHook4
 }:
 
 stdenv.mkDerivation rec {
@@ -29,7 +30,6 @@ stdenv.mkDerivation rec {
     hash = "sha256-jkNMioh0NkUMQYnzGveYVu9Vn8k2Zv5sDog8C58DJ6M=";
   };
 
-  # cargoHash = "sha256-jHXkpfNWs07WSnxWSEvSX6HFx3e3YOWGsYEs7lJcAds=";
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
@@ -38,6 +38,7 @@ stdenv.mkDerivation rec {
 
 
   nativeBuildInputs = [
+    appstream
     desktop-file-utils
     meson
     ninja
@@ -45,10 +46,10 @@ stdenv.mkDerivation rec {
     rustPlatform.cargoSetupHook
     cargo
     rustc
+    wrapGAppsHook4
   ];
 
   buildInputs = [
-    appstream
     gtk4
     libadwaita
     libglvnd

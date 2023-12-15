@@ -222,6 +222,9 @@ in
 
     cargo.persist.byStore.plaintext = [ ".cargo" ];
 
+    # auth token, preferences
+    delfin.persist.byStore.private = [ ".config/delfin" ];
+
     # creds, but also 200 MB of node modules, etc
     discord.persist.byStore.private = [ ".config/discord" ];
 
