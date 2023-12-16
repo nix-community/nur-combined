@@ -443,8 +443,8 @@
             "url": "https://git.marvid.fr/eeva/nur-packages"
         },
         "eh5": {
-            "rev": "defebcc8ab3f08586ffc990c395a1182f997c05a",
-            "sha256": "0bs6wb9rc228mclbcab0zsyvyr90s9a5chjanap618vrhlm1gvz0",
+            "rev": "3162107304bea49a1290c742a88d5f783c1d803c",
+            "sha256": "1k2nz2ijmwfxw8vppfqw3py0rnz5kbk7l9ndcadbrwxdfvxvfyw9",
             "url": "https://github.com/EHfive/flakes"
         },
         "emiller88": {
