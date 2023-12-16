@@ -14,8 +14,6 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   drone-rsync = pkgs.callPackage ./drone-rsync { };
 
-  drone-scp = pkgs.callPackage ./drone-scp { };
-
   i3-get-window-criteria = pkgs.callPackage ./i3-get-window-criteria { };
 
   lohr = pkgs.callPackage ./lohr { };
