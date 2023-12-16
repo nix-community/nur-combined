@@ -53,8 +53,6 @@ lib.makeScope newScope (
     libredict = callPackage ./data/dicts/libredict { };
     tatoeba = callPackage ./data/dicts/tatoeba { };
 
-    gpsmap64 = callPackage ./data/firmwares/gpsmap64 { };
-
     dem = callPackage ./data/maps/dem { };
     freizeitkarte-osm = callPackage ./data/maps/freizeitkarte-osm { };
     gpxsee-maps = callPackage ./data/maps/gpxsee-maps { };

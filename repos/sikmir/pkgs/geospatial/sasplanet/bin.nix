@@ -7,7 +7,7 @@
 , wine
 , makeWrapper
 , withMaps ? true
-, withExtremum ? true
+, withExtremum ? false
 }:
 let
   maps = fetchgit {
@@ -23,11 +23,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sasplanet-bin";
-  version = "201212";
+  version = "230909";
 
   src = fetchurl {
     url = "http://www.sasgis.org/programs/sasplanet/SASPlanet_${finalAttrs.version}.zip";
-    hash = "sha256-IHJjamzGMy/iSfvQmWU58rYE3AZToz+YB1cR6cp53Sg=";
+    hash = "sha256-tW82sjpiJqkbKpAI+5uvBfgI7Uqtii3Rn8ulnY3MxQM=";
   };
 
   nativeBuildInputs = [ unzip makeWrapper ];
