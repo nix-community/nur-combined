@@ -82,9 +82,11 @@ if [ "$STATE" = "unlock" ]; then
       # volume down once: toggle keyboard
       handle_with sxmo_keyboard.sh toggle
       ;;
-    "voldown_hold_1")
+    "voldown_hold_2")
       # hold voldown to launch terminal
       # note we already triggered the keyboard; that's fine: usually keyboard + terminal go together :)
+      # voldown_hold_1 frequently triggers during short taps meant only to reveal the keyboard,
+      # so prefer a longer hold duration
       handle_with sxmo_terminal.sh
       ;;
     "voldown_tap_1")

@@ -57,13 +57,46 @@ in
       ];
     };
     persist.byStore.plaintext = [ ".local/state/mpv/watch_later" ];
-    fs.".config/mpv/input.conf".symlink.text = ''
+    fs.".config/mpv/input.conf".symlink.text = let
+      execInTerm = "${pkgs.xdg-terminal-exec}/bin/xdg-terminal-exec";
+    in ''
+      # docs:
+      # - <https://mpv.io/manual/master/#list-of-input-commands>
+      # - script-binding: <https://mpv.io/manual/master/#command-interface-script-binding>
+      # - properties: <https://mpv.io/manual/master/#property-list>
+
       # let volume/power keys be interpreted by the system.
       # this is important for sxmo.
       # mpv defaults is POWER = close, VOLUME_{UP,DOWN} = adjust application-level volume
       POWER ignore
       VOLUME_UP ignore
       VOLUME_DOWN ignore
+
+      # uosc menu
+      # text after the shebang is parsed by uosc to construct the menu and names
+      menu        script-binding uosc/menu
+      s           script-binding uosc/subtitles          #! Subtitles
+      a           script-binding uosc/audio              #! Audio tracks
+      q           script-binding uosc/stream-quality     #! Stream quality
+      p           script-binding uosc/items              #! Playlist
+      c           script-binding uosc/chapters           #! Chapters
+      >           script-binding uosc/next               #! Navigation > Next
+      <           script-binding uosc/prev               #! Navigation > Prev
+      o           script-binding uosc/open-file          #! Navigation > Open file
+      #           set video-aspect-override "-1"         #! Utils > Aspect ratio > Default
+      #           set video-aspect-override "16:9"       #! Utils > Aspect ratio > 16:9
+      #           set video-aspect-override "4:3"        #! Utils > Aspect ratio > 4:3
+      #           set video-aspect-override "2.35:1"     #! Utils > Aspect ratio > 2.35:1
+      #           script-binding uosc/audio-device       #! Utils > Audio devices
+      #           script-binding uosc/editions           #! Utils > Editions
+      ctrl+s      async screenshot                       #! Utils > Screenshot
+      alt+i       script-binding uosc/keybinds           #! Utils > Key bindings
+      O           script-binding uosc/show-in-directory  #! Utils > Show in directory
+      #           script-binding uosc/open-config-directory #! Utils > Open config directory
+      #           set pause yes; run ${execInTerm} go2tv -v "''${stream-open-filename}" #! Cast
+      #           set pause yes; run ${execInTerm} go2tv -u "''${stream-open-filename}" #! Cast (...) > Stream
+      #           set pause yes; run go2tv #! Cast (...) > GUI
+      # TODO: unify "Cast" and "Cast (stream)" options above.
     '';
     fs.".config/mpv/mpv.conf".symlink.text = ''
       save-position-on-quit=yes
