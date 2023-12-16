@@ -296,13 +296,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.11";
+    version = "v3.3.12";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.11";
+      rev = "v3.3.12";
       fetchSubmodules = false;
-      sha256 = "sha256-VivNIab5j0cehBZ+t/oepX2jnvNWEeh3XoCDBaW2RW0=";
+      sha256 = "sha256-BX2wDvGDTpBQ8U8II0/vFlwEetMRSb0ZGdYiN4IBVSg=";
     };
   };
   flasgger = {
@@ -473,15 +473,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "cd67eed98c16d2620a329d92549524be2f945539";
+    version = "0febc30848e23cbeb6977672cf9326a95cb6130b";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "cd67eed98c16d2620a329d92549524be2f945539";
+      rev = "0febc30848e23cbeb6977672cf9326a95cb6130b";
       fetchSubmodules = false;
-      sha256 = "sha256-pV7KiXGKB+45bqmFi0dG6BTj9vsLjd3GgDQ9b26LPno=";
+      sha256 = "sha256-xRIaO0JigOGync1Rrl25WIgZFXsRFvX73jxnaCDisC0=";
     };
-    date = "2023-12-14";
+    date = "2023-12-15";
   };
   libqcef = {
     pname = "libqcef";

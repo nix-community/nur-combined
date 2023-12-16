@@ -517,11 +517,11 @@
             "name": null,
             "owner": "FlareSolverr",
             "repo": "FlareSolverr",
-            "rev": "v3.3.11",
-            "sha256": "sha256-VivNIab5j0cehBZ+t/oepX2jnvNWEeh3XoCDBaW2RW0=",
+            "rev": "v3.3.12",
+            "sha256": "sha256-BX2wDvGDTpBQ8U8II0/vFlwEetMRSb0ZGdYiN4IBVSg=",
             "type": "github"
         },
-        "version": "v3.3.11"
+        "version": "v3.3.12"
     },
     "flasgger": {
         "cargoLocks": null,
@@ -813,7 +813,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2023-12-14",
+        "date": "2023-12-15",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -825,11 +825,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "cd67eed98c16d2620a329d92549524be2f945539",
-            "sha256": "sha256-pV7KiXGKB+45bqmFi0dG6BTj9vsLjd3GgDQ9b26LPno=",
+            "rev": "0febc30848e23cbeb6977672cf9326a95cb6130b",
+            "sha256": "sha256-xRIaO0JigOGync1Rrl25WIgZFXsRFvX73jxnaCDisC0=",
             "type": "github"
         },
-        "version": "cd67eed98c16d2620a329d92549524be2f945539"
+        "version": "0febc30848e23cbeb6977672cf9326a95cb6130b"
     },
     "libqcef": {
         "cargoLocks": null,
