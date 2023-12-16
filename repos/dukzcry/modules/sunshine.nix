@@ -6,9 +6,6 @@ let
 in {
   options.programs.sunshine = {
     enable = mkEnableOption "Sunshine headless server";
-    user = mkOption {
-      type = types.str;
-    };
     games = mkOption {
       type = types.listOf types.package;
       default = [];
@@ -18,10 +15,10 @@ in {
   config = mkMerge [
    (mkIf cfg.enable {
       hardware.uinput.enable = true;
-      users.extraUsers.${cfg.user} = {
-        extraGroups = [ "uinput" "video" ];
-        packages = cfg.games;
-      };
+      environment.systemPackages = cfg.games;
+      services.udev.extraRules = ''
+        KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"
+      '';
       security.wrappers.sunshine = {
         owner = "root";
         group = "root";
@@ -32,13 +29,15 @@ in {
         description = "Sunshine headless server";
         wantedBy = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];
+        startLimitIntervalSec = 500;
+        startLimitBurst = 5;
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "sunshine" ''
             . /etc/set-environment
             ${config.security.wrapperDir}/sunshine
           '';
           RestartSec = 3;
-          Restart = "always";
+          Restart = "on-failure";
         };
       };
    })

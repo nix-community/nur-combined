@@ -56,6 +56,10 @@ rec {
         --replace /etc/hosts /var/lib/dnsmasq/hosts/hosts
     '';
   });
+  # https://github.com/NixOS/nixpkgs/issues/271333
+  sunshine = super.sunshine.overrideAttrs (oldAttrs: {
+    runtimeDependencies = oldAttrs.runtimeDependencies ++ [ super.libglvnd ];
+  });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
