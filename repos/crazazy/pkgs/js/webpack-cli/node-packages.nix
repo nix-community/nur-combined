@@ -67,13 +67,13 @@ let
         sha512 = "R8LcPeWZol2zR8mmH3JeKQ6QRCFb7XgUhV9ZlGhHLGyg4wpPiPZNQOOWhFZhxKw8u//yTbNGI42Bx/3paXEQ+Q==";
       };
     };
-    "@types/eslint-8.44.8" = {
+    "@types/eslint-8.44.9" = {
       name = "_at_types_slash_eslint";
       packageName = "@types/eslint";
-      version = "8.44.8";
+      version = "8.44.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/eslint/-/eslint-8.44.8.tgz";
-        sha512 = "4K8GavROwhrYl2QXDXm0Rv9epkA8GBFu0EI+XrrnnuCl7u8CWBRusX7fXJfanhZTDWSAL24gDI/UqXyUM0Injw==";
+        url = "https://registry.npmjs.org/@types/eslint/-/eslint-8.44.9.tgz";
+        sha512 = "6yBxcvwnnYoYT1Uk2d+jvIfsuP4mb2EdIxFnrPABj5a/838qe5bGkNLFOiipX4ULQ7XVQvTxOh7jO+BTAiqsEw==";
       };
     };
     "@types/eslint-scope-3.7.7" = {
@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001566" = {
+    "caniuse-lite-1.0.30001570" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001566";
+      version = "1.0.30001570";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001566.tgz";
-        sha512 = "ggIhCsTxmITBAMmK8yZjEhCO5/47jKXPu6Dha/wuCS4JePVL+3uiDEBuhu2aIoT+bqTOR8L76Ip1ARL9xYsEJA==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001570.tgz";
+        sha512 = "+3e0ASu4sw1SWaoCtvPeyXp+5PsjigkSt8OXZbF9StH5pQWbxEjLAZE3n8Aup5udop1uRiKA7a4utUk/uoSpUw==";
       };
     };
     "chrome-trace-event-1.0.3" = {
@@ -409,13 +409,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "electron-to-chromium-1.4.609" = {
+    "electron-to-chromium-1.4.614" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.609";
+      version = "1.4.614";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.609.tgz";
-        sha512 = "ihiCP7PJmjoGNuLpl7TjNA8pCQWu09vGyjlPYw1Rqww4gvNuCcmvl+44G+2QyJ6S2K4o+wbTS++Xz0YN8Q9ERw==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.614.tgz";
+        sha512 = "X4ze/9Sc3QWs6h92yerwqv7aB/uU8vCjZcrMjA8N9R1pjMFRe44dLsck5FzLilOYvcXuDn93B+bpGYyufc70gQ==";
       };
     };
     "enhanced-resolve-5.15.0" = {
@@ -1089,7 +1089,7 @@ let
       sources."@jridgewell/source-map-0.3.5"
       sources."@jridgewell/sourcemap-codec-1.4.15"
       sources."@jridgewell/trace-mapping-0.3.20"
-      sources."@types/eslint-8.44.8"
+      sources."@types/eslint-8.44.9"
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.5"
       sources."@types/json-schema-7.0.15"
@@ -1120,13 +1120,13 @@ let
       sources."ajv-keywords-3.5.2"
       sources."browserslist-4.22.2"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001566"
+      sources."caniuse-lite-1.0.30001570"
       sources."chrome-trace-event-1.0.3"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.3"
-      sources."electron-to-chromium-1.4.609"
+      sources."electron-to-chromium-1.4.614"
       sources."enhanced-resolve-5.15.0"
       sources."envinfo-7.11.0"
       sources."es-module-lexer-1.4.1"
