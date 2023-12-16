@@ -362,6 +362,23 @@
         "type": "github"
       }
     },
+    "nix-requirefile-data": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678977081,
+        "narHash": "sha256-rKjvCD5UhB66AccQoh06/9KKIr+QP1SxqsKpvPdb3cs=",
+        "owner": "lucasew",
+        "repo": "nix-requirefile",
+        "rev": "4d18e8232349d4486034e4c8f2ea922a6ea4accd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "ref": "data",
+        "repo": "nix-requirefile",
+        "type": "github"
+      }
+    },
     "nix-vscode": {
       "flake": false,
       "locked": {
@@ -651,6 +668,7 @@
         "nix-on-droid": "nix-on-droid",
         "nix-option": "nix-option",
         "nix-requirefile": "nix-requirefile",
+        "nix-requirefile-data": "nix-requirefile-data",
         "nix-vscode": "nix-vscode",
         "nixgram": "nixgram",
         "nixos-hardware": "nixos-hardware",

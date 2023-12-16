@@ -61,6 +61,9 @@
     nix-requirefile.url = "github:lucasew/nix-requirefile";
     nix-requirefile.flake = false;
 
+    nix-requirefile-data.url = "github:lucasew/nix-requirefile/data";
+    nix-requirefile-data.flake = false;
+
     borderless-browser.url = "github:lucasew/borderless-browser.nix";
     borderless-browser.flake = false;
 

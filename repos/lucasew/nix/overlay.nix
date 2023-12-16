@@ -68,7 +68,7 @@ in
   home-manager = cp "${flake.inputs.home-manager}/home-manager";
 
   prev = prev;
-  requireFileSources = [ flake.inputs.nix-requirefile.data.main ];
+  requireFileSources = [ flake.inputs.nix-requirefile-data ];
 
   appimage-wrap = final.nbr.appimage-wrap;
 
