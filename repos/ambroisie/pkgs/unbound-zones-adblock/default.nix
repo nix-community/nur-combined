@@ -1,9 +1,9 @@
-{ lib, gawk, stdenvNoCC, unified-hosts-lists }:
+{ lib, gawk, stdenvNoCC, stevenblack-blocklist }:
 stdenvNoCC.mkDerivation {
   name = "unbound-zones-adblock";
-  version = unified-hosts-lists.version;
+  version = stevenblack-blocklist.rev;
 
-  src = unified-hosts-lists;
+  src = stevenblack-blocklist;
 
   dontUnpack = true;
 
@@ -18,9 +18,11 @@ stdenvNoCC.mkDerivation {
       ];
     in
     ''
-      mkdir -p $out
-      for file in $src/*; do
-          ${gawkCmd} $file | tr '[:upper:]' '[:lower:]' | sort -u > $out/$(basename $file)
+      shopt -s globstar
+      for file in $src/**/hosts; do
+          outFile="$out/''${file#$src}"
+          mkdir -p "$(dirname "$outFile")"
+          ${gawkCmd} $file | tr '[:upper:]' '[:lower:]' | sort -u > "$outFile"
       done
     '';
 
