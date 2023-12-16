@@ -1,8 +1,5 @@
-{ stdenv, lib, fetchurl, appimageTools, makeWrapper, electron_26-bin }:
-
-# FIXME: NixOS did not roll out electron_27-bin for unstable yet :( We need to wait
-let electron = electron_26-bin;
-in stdenv.mkDerivation rec {
+{ lib, appimageTools, fetchurl, asar }:
+let
   pname = "chengla-electron";
   version = "1.0.8";
 
@@ -13,36 +10,24 @@ in stdenv.mkDerivation rec {
     name = "${pname}-${version}.AppImage";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    name = "${pname}-${version}";
-    inherit src;
-  };
+  appimageContents = appimageTools.extract { inherit pname version src; };
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
+in
+appimageTools.wrapAppImage {
+  inherit pname version;
+  src = appimageContents;
 
-  nativeBuildInputs = [ makeWrapper ];
+  extraPkgs = { pkgs, ... }@args: [
+    pkgs.hidapi
+  ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
 
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/
-
-    cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
-    cp -a ${appimageContents}/chengla-linux-unofficial.desktop $out/share/applications/${pname}.desktop
-    cp -aR ${appimageContents}/usr/share/icons/hicolor/* $out/share/icons/hicolor/
-
-    substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
-
-    runHook postInstall
-  '';
-
-  postFixup = ''
-    makeWrapper ${electron}/bin/electron $out/bin/${pname} \
-      --add-flags $out/share/${pname}/resources/app.asar \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
+  extraInstallCommands = ''
+    # Add desktop convencience stuff
+    mv $out/bin/{${pname}-*,${pname}}
+    install -Dm444 ${appimageContents}/chengla-linux-unofficial.desktop -t $out/share/applications
+    install -Dm444 ${appimageContents}/chengla-linux-unofficial.png -t $out/share/pixmaps
+    substituteInPlace $out/share/applications/chengla-linux-unofficial.desktop \
+      --replace 'Exec=AppRun' "Exec=$out/bin/${pname} --"
   '';
 
   meta = with lib; {
