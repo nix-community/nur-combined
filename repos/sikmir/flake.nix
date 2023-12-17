@@ -25,5 +25,6 @@
         crossOverlays = [ self.overlays.default ];
       };
       formatter = pkgs.nixpkgs-fmt;
+      checks.build = pkgs.linkFarmFromDrvs "sikmir-nur-packages" (lib.attrValues packages);
     });
 }
