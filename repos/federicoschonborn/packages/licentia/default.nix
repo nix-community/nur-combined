@@ -19,14 +19,14 @@
 
 stdenv.mkDerivation {
   pname = "licentia";
-  version = "unstable-2023-12-12";
+  version = "unstable-2023-12-14";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "licentia";
-    rev = "def6345c844c33312446e60cc4924c028319646b";
-    hash = "sha256-2y6LdergZIFqWCG9QH3K7vBW9DAXINe2lImt9sJ5wAQ=";
+    rev = "3795da270b66da8fb64226f931cf1ac4e9909b33";
+    hash = "sha256-ar4YVQjzLmbP8NLTMul+m0UYlOiXpbAFuHUsPNYxttA=";
   };
 
   nativeBuildInputs = [

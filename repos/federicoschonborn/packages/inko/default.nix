@@ -11,16 +11,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "inko";
-  version = "0.13.1";
+  version = "0.13.2";
 
   src = fetchFromGitHub {
     owner = "inko-lang";
     repo = "inko";
     rev = "v${version}";
-    hash = "sha256-NptfVWXwbv09Lpq067nqXSO9wlcsS55zw4AxmrO5n80=";
+    hash = "sha256-nCnlN/jn08TQKwrCiIzertjx0wUNphdefteaD/3rQx8=";
   };
 
-  cargoHash = "sha256-bhd0qJ0KGGdd428bSdw4VCcMN8bZTOnHYSVbgQzgkBs=";
+  cargoHash = "sha256-2abb7zM+nL5j+pPGl13DMJK1GH66UoXOcJu/lKOgfwc=";
 
   buildInputs = [
     libffi

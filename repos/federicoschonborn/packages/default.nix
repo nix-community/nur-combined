@@ -68,8 +68,6 @@
   });
 
   # Variants
-  fastfetchFull = pkgs.lib.warn "fastfetchFull has been replaced by fastfetch, which will conditionally enable features based on platform support" fastfetch;
-
   fastfetchMinimal = (fastfetch.overrideAttrs (oldAttrs: {
     pname = "${oldAttrs.pname}-minimal";
     meta = oldAttrs.meta // {
