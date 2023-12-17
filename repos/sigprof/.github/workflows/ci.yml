@@ -44,7 +44,7 @@ env:
   nur_channels: nixpkgs-unstable nixos-unstable nixos-23.11 nixos-23.05 nixos-22.11
   nur_main_channel: nixos-23.11
 
-  CI_NIX_INSTALL_URL: https://releases.nixos.org/nix/nix-2.14.1/install
+  CI_NIX_INSTALL_URL: https://releases.nixos.org/nix/nix-2.18.1/install
   NIX_CONFIG: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -73,7 +73,7 @@ jobs:
           extraPullNames: "pre-commit-hooks"
 
       - name: Check flake evaluation
-        run: nix flake check --no-build --show-trace
+        run: nix flake check --all-systems --no-build --show-trace
 
       - name: Collect flake jobs
         id: collect_flake_jobs
