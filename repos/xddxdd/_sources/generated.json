@@ -813,7 +813,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2023-12-15",
+        "date": "2023-12-16",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -825,11 +825,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "0febc30848e23cbeb6977672cf9326a95cb6130b",
-            "sha256": "sha256-xRIaO0JigOGync1Rrl25WIgZFXsRFvX73jxnaCDisC0=",
+            "rev": "8449e546491e77b52ca5b2f1451086ef564e16aa",
+            "sha256": "sha256-TGFTOHECc45LmLMi3xIdIiC8Y7zNM9tpZTJ+E8J8Mho=",
             "type": "github"
         },
-        "version": "0febc30848e23cbeb6977672cf9326a95cb6130b"
+        "version": "8449e546491e77b52ca5b2f1451086ef564e16aa"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1350,11 +1350,11 @@
             "name": null,
             "owner": "ReimuHakurei",
             "repo": "phppgadmin",
-            "rev": "v7.14.6-mod",
-            "sha256": "sha256-VRV0vyBqFHMe3Czrj9v88UGGFwqNv1gnzh+kDoN1ilM=",
+            "rev": "v7.14.7-mod",
+            "sha256": "sha256-cp3O520KFO3FEpcBqDfv4B48pz0hEGeFgVAAdyICTHg=",
             "type": "github"
         },
-        "version": "v7.14.6-mod"
+        "version": "v7.14.7-mod"
     },
     "plangothic-fonts": {
         "cargoLocks": null,

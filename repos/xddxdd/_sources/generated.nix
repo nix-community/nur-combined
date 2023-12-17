@@ -473,15 +473,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "0febc30848e23cbeb6977672cf9326a95cb6130b";
+    version = "8449e546491e77b52ca5b2f1451086ef564e16aa";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "0febc30848e23cbeb6977672cf9326a95cb6130b";
+      rev = "8449e546491e77b52ca5b2f1451086ef564e16aa";
       fetchSubmodules = false;
-      sha256 = "sha256-xRIaO0JigOGync1Rrl25WIgZFXsRFvX73jxnaCDisC0=";
+      sha256 = "sha256-TGFTOHECc45LmLMi3xIdIiC8Y7zNM9tpZTJ+E8J8Mho=";
     };
-    date = "2023-12-15";
+    date = "2023-12-16";
   };
   libqcef = {
     pname = "libqcef";
@@ -778,13 +778,13 @@
   };
   phppgadmin = {
     pname = "phppgadmin";
-    version = "v7.14.6-mod";
+    version = "v7.14.7-mod";
     src = fetchFromGitHub {
       owner = "ReimuHakurei";
       repo = "phppgadmin";
-      rev = "v7.14.6-mod";
+      rev = "v7.14.7-mod";
       fetchSubmodules = false;
-      sha256 = "sha256-VRV0vyBqFHMe3Czrj9v88UGGFwqNv1gnzh+kDoN1ilM=";
+      sha256 = "sha256-cp3O520KFO3FEpcBqDfv4B48pz0hEGeFgVAAdyICTHg=";
     };
   };
   plangothic-fonts = {
