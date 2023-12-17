@@ -56,4 +56,6 @@ rec {
   go-musicfox-fastupdate = pkgs.callPackage ./pkgs/common/go-musicfox.nix { };
 
   rime-project-trans = pkgs.callPackage ./pkgs/rimePackages/rime-project-trans.nix { };
+
+  ryzen-smu = pkgs.linuxPackages.callPackage ./pkgs/common/ryzen_smu.nix { };
 }
