@@ -102,6 +102,8 @@
 
   trng = pkgs.callPackage ./pkgs/trng { };
 
+  tlx = pkgs.callPackage ./pkgs/tlx { };
+
   vdt = pkgs.callPackage ./pkgs/vdt { };
 
   vectorclass = pkgs.callPackage ./pkgs/vectorclass {
