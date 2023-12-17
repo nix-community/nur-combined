@@ -24,6 +24,7 @@ in
     alias.st      = "status";
     alias.stat    = "status";
 
+    diff.noprefix = true;  #< don't show a/ or b/ prefixes in diffs
     # difftastic docs:
     # - <https://difftastic.wilfred.me.uk/git.html>
     diff.tool = "difftastic";

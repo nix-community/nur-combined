@@ -64,8 +64,12 @@
   powerManagement.cpuFreqGovernor = "ondemand";
 
   services.logind.extraConfig = ''
-    # don’t shutdown when power button is short-pressed
-    HandlePowerKey=ignore
+    # see: `man logind.conf`
+    # don’t shutdown when power button is short-pressed (commonly done an accident, or by cats).
+    #   but do on long-press: useful to gracefully power-off server.
+    HandlePowerKey=lock
+    HandlePowerKeyLongPress=poweroff
+    HandleLidSwitch=lock
   '';
 
   # some packages build only if binfmt *isn't* present
