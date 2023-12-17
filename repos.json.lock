@@ -5,6 +5,11 @@
             "sha256": "0rcf8sir5vip6nc7rr5srr8zhjhxg8lqmqv4dffd5j83zsw7wmsx",
             "url": "https://github.com/0x4A6F/nur-packages"
         },
+        "7mind": {
+            "rev": "5dc0348a2d7adc36ca2534ffcec9ef8d11e2c1c9",
+            "sha256": "0rz8r9znayv68lhidmgpy5z140ijvwdyvfykj4y3q19m9kvig0g5",
+            "url": "https://github.com/7mind/7mind-nix"
+        },
         "999eagle": {
             "rev": "653bd10353d160617982566a468844e66f041440",
             "sha256": "1ch636jyy0ib54860g24rdwh93knrkl5a9a16hiq9a412aqp83s1",
