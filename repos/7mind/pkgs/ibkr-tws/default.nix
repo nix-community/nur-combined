@@ -83,6 +83,12 @@ stdenv.mkDerivation {
     sed -i 's/\\''${installer:jtsConfigDir}/''${HOME}\/.config\/jts/g' $out/tws
     sed -i '/jtsConfigDir/d' $out/.install4j/response.varfile
 
+    mv $out/*.desktop $out/tws.desktop
+    substituteInPlace $out/tws.desktop \
+        --replace "Exec=\"$out/tws\"" "Exec=$out/bin/tws"
+
+    install -Dt $out/share/applications $out/tws.desktop
+
     makeWrapper $out/tws $out/bin/tws \
       --set app_java_home ${jre} \
       --set _JAVA_OPTIONS "" \
