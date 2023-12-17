@@ -17,6 +17,10 @@
   graalvm-legacy-packages =
     pkgs.lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/graalvm-legacy { });
 
+  ibkr-tws =
+    pkgs.callPackage ./pkgs/ibkr-tws { };
+
+
   # graalvm11-ce = graalvmCEPackages.graalvm11-ce;
   # graalvm17-ce = graalvmCEPackages.graalvm17-ce;
   # graalvm19-ce = graalvmCEPackages.graalvm19-ce;
