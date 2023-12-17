@@ -22,7 +22,7 @@ def readPackages(packageString, packages,version):
         elif x[0] == "SHA256":
             packages[len(packages) - 1]["sha256"] = x[1].strip()
 
-def generateFetchurl(version = "5.7.2", ubuntu_code = "jammy"):
+def generateFetchurl(version = "5.7.3", ubuntu_code = "jammy"):
 
     packages = []
     packages32 = []
