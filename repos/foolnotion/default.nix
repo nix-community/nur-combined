@@ -102,6 +102,8 @@
 
   trng = pkgs.callPackage ./pkgs/trng { };
 
+  vdt = pkgs.callPackage ./pkgs/vdt { };
+
   vectorclass = pkgs.callPackage ./pkgs/vectorclass {
     vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
   };
