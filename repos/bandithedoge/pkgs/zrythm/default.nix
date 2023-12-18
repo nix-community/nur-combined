@@ -8,9 +8,9 @@
     inherit (sources.carla-git) version src;
   });
 
-  zix = pkgs.zix.overrideAttrs (_: {
-    inherit (sources.zix-git) src version;
-  });
+  # zix = pkgs.zix.overrideAttrs (_: {
+  #   inherit (sources.zix-git) src version;
+  # });
 
   # remove when 4.13 gets added to nixpkgs
   gtk4 = pkgs.gtk4.overrideAttrs (oldAttrs: {

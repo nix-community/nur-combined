@@ -1,101 +1,101 @@
 {
-  "carla-git": {
-    "cargoLocks": null,
-    "date": "2023-12-13",
-    "extract": null,
-    "name": "carla-git",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "falkTX",
-      "repo": "Carla",
-      "rev": "68bbca2711626835157ef3a55938566f2ee3fe87",
-      "sha256": "sha256-2l2AD4bhYs7RSNYTVpI13Q4y2WgR3/yYIqWf/h6+09s=",
-      "type": "github"
+    "carla-git": {
+        "cargoLocks": null,
+        "date": "2023-12-13",
+        "extract": null,
+        "name": "carla-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "falkTX",
+            "repo": "Carla",
+            "rev": "68bbca2711626835157ef3a55938566f2ee3fe87",
+            "sha256": "sha256-2l2AD4bhYs7RSNYTVpI13Q4y2WgR3/yYIqWf/h6+09s=",
+            "type": "github"
+        },
+        "version": "68bbca2711626835157ef3a55938566f2ee3fe87"
     },
-    "version": "68bbca2711626835157ef3a55938566f2ee3fe87"
-  },
-  "gtk-4_13_0": {
-    "cargoLocks": null,
-    "date": null,
-    "extract": null,
-    "name": "gtk-4_13_0",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "GNOME",
-      "repo": "gtk",
-      "rev": "4.13.0",
-      "sha256": "sha256-SiL+/wfpeIUF2sQpGN1nWVn/mna+m3UxfORAFq/8fl0=",
-      "type": "github"
+    "gtk-4_13_0": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gtk-4_13_0",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "GNOME",
+            "repo": "gtk",
+            "rev": "4.13.0",
+            "sha256": "sha256-SiL+/wfpeIUF2sQpGN1nWVn/mna+m3UxfORAFq/8fl0=",
+            "type": "github"
+        },
+        "version": "4.13.0"
     },
-    "version": "4.13.0"
-  },
-  "libadwaita-1_4": {
-    "cargoLocks": null,
-    "date": null,
-    "extract": null,
-    "name": "libadwaita-1_4",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "GNOME",
-      "repo": "libadwaita",
-      "rev": "1.4.rc",
-      "sha256": "sha256-VJV5kLoDXTPXb3gXz0iANmrfo+wiR4a59Z2tcjL5+/8=",
-      "type": "github"
+    "libadwaita-1_4": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "libadwaita-1_4",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "GNOME",
+            "repo": "libadwaita",
+            "rev": "1.4.rc",
+            "sha256": "sha256-VJV5kLoDXTPXb3gXz0iANmrfo+wiR4a59Z2tcjL5+/8=",
+            "type": "github"
+        },
+        "version": "1.4.rc"
     },
-    "version": "1.4.rc"
-  },
-  "zix-git": {
-    "cargoLocks": null,
-    "date": "2023-12-02",
-    "extract": null,
-    "name": "zix-git",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "drobilla",
-      "repo": "zix",
-      "rev": "08954c900820320064d2e33445858e1ef5024a0b",
-      "sha256": "sha256-iMJUgobKNw+h8MRzziDHOD/3BBeuVd2tHvCYrRlF4G4=",
-      "type": "github"
+    "zix-git": {
+        "cargoLocks": null,
+        "date": "2023-12-02",
+        "extract": null,
+        "name": "zix-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "drobilla",
+            "repo": "zix",
+            "rev": "08954c900820320064d2e33445858e1ef5024a0b",
+            "sha256": "sha256-iMJUgobKNw+h8MRzziDHOD/3BBeuVd2tHvCYrRlF4G4=",
+            "type": "github"
+        },
+        "version": "08954c900820320064d2e33445858e1ef5024a0b"
     },
-    "version": "08954c900820320064d2e33445858e1ef5024a0b"
-  },
-  "zrythm": {
-    "cargoLocks": null,
-    "date": "2023-09-02",
-    "extract": null,
-    "name": "zrythm",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "rev": "228c7ad526b354c9ba01bed71028b9cb422f73f0",
-      "sha256": "sha256-G7U9GI5B3o2MuS6saZk+yeu1YBdY2iY1QGbksoDpY58=",
-      "type": "git",
-      "url": "https://git.sr.ht/~alextee/zrythm"
-    },
-    "version": "228c7ad526b354c9ba01bed71028b9cb422f73f0"
-  }
+    "zrythm": {
+        "cargoLocks": null,
+        "date": "2023-09-02",
+        "extract": null,
+        "name": "zrythm",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "228c7ad526b354c9ba01bed71028b9cb422f73f0",
+            "sha256": "sha256-G7U9GI5B3o2MuS6saZk+yeu1YBdY2iY1QGbksoDpY58=",
+            "type": "git",
+            "url": "https://git.sr.ht/~alextee/zrythm"
+        },
+        "version": "228c7ad526b354c9ba01bed71028b9cb422f73f0"
+    }
 }
