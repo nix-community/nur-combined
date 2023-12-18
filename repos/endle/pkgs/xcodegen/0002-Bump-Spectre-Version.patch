@@ -1,0 +1,13 @@
+diff --git a/Package.swift b/Package.swift
+index 27f7bf4..4865c55 100644
+--- a/Package.swift
++++ b/Package.swift
+@@ -14,7 +14,7 @@ let package = Package(
+         .package(url: "https://github.com/kylef/PathKit.git", from: "1.0.1"),
+         .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.0"),
+         .package(url: "https://github.com/yonaskolb/JSONUtilities.git", from: "4.2.0"),
+-        .package(url: "https://github.com/kylef/Spectre.git", from: "0.9.2"),
++        .package(url: "https://github.com/Endle/Spectre.git", from: "0.10.2"),
+         .package(url: "https://github.com/onevcat/Rainbow.git", from: "3.0.0"),
+         .package(url: "https://github.com/tuist/XcodeProj.git", from: "8.13.0"),
+         .package(url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.3"),
