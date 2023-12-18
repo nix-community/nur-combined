@@ -73,6 +73,16 @@ in
   sops.secrets."sb-config.json".restartUnits = [ "sing-box.service" ];
   services.v2ray-rules-dat.reloadServices = [ "sing-box.service" ];
 
+  systemd.services.udpspeeder = {
+    description = "UDPspeeder";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    script = ''
+      xargs -a ${secrets."udpspeeder.conf".path} ${pkgs.udpspeeder}/bin/speederv2
+    '';
+  };
+  sops.secrets."udpspeeder.conf".restartUnits = [ "udpspeeder.service" ];
+
   systemd.services.setup-tproxy = {
     unitConfig.ReloadPropagatedFrom = [ "nftables.service" ];
     bindsTo = [ "nftables.service" ];

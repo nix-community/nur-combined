@@ -61,7 +61,6 @@
                   "mosdns"
                   "sops-install-secrets-nonblock"
                   "ubootNanopiR2s"
-                  "v2ray-next"
                   "vlmcsd"
                 ]
                 platformPackages

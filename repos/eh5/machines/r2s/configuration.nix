@@ -8,6 +8,7 @@
       "mosdns.yaml" = {};
       "tproxy.nft" = {};
       "v2ray.v5.json" = {};
+      "udpspeeder.conf" = {};
     };
   };
 

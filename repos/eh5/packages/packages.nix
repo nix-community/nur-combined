@@ -18,6 +18,7 @@ let
     nftables-fullcone = callPackage ./nftables-fullcone { };
     nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
     qcef = callPackage ./qcef { };
+    udpspeeder = callPackage ./udpspeeder {};
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
     v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo120Module; };
     vlmcsd = callPackage ./vlmcsd { };
