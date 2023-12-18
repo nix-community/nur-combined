@@ -58,7 +58,6 @@ in
   # sane.fs."/var/lib/uninsane/share/Ubunchu".mount.bind = "/var/lib/uninsane/media/Books/Visual/HiroshiSeo/Ubunchu";
   # sane.fs."/var/lib/uninsane/media/Books/Visual/HiroshiSeo/Ubunchu".dir = {};
   services.nginx.virtualHosts."uninsane.org" = publog {
-    root = "${pkgs.uninsane-dot-org}/share/uninsane-dot-org";
     # a lot of places hardcode https://uninsane.org,
     # and then when we mix http + non-https, we get CORS violations
     # and things don't look right. so force SSL.
@@ -68,10 +67,14 @@ in
     # for OCSP stapling
     sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 
-    # uninsane.org/share/foo => /var/lib/uninsane/share/foo.
-    # yes, nginx does not strip the prefix when evaluating against the root.
-    locations."/share" = {
-      root = "/var/lib/uninsane";
+    locations."/" = {
+      root = "${pkgs.uninsane-dot-org}/share/uninsane-dot-org";
+      tryFiles = "$uri $uri/ @fallback";
+    };
+
+    # uninsane.org/share/foo => /var/www/sites/uninsane.org/share/foo.
+    locations."@fallback" = {
+      root = "/var/www/sites/uninsane.org";
       extraConfig = ''
         # autoindex => render directory listings
         autoindex on;
