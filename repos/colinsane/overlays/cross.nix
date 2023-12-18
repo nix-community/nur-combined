@@ -420,6 +420,10 @@ in with final; {
   #   inherit (emulated) stdenv;
   # };
 
+  # fixes: "sphinx-build: cannot execute binary file: Exec format error"
+  # fix is in PR: <https://github.com/NixOS/nixpkgs/pull/275078>
+  btrfs-progs = prev.btrfs-progs.override { python3 = buildPackages.python3; };
+
   # 2023/10/23: upstreaming blocked by gvfs, webkitgtk 4.1
   # fixes: "error: Package <foo> not found in specified Vala API directories or GObject-Introspection GIR directories"
   # needs binfmt for docs: "scangobj.py:execute_command:1293:WARNING:Running scanner failed: [Errno 8] Exec format error: './calls-scan', command: ./calls-scan"

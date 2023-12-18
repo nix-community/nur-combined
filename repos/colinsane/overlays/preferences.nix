@@ -54,11 +54,12 @@
   # ];
 
   sway-unwrapped = super.sway-unwrapped.override {
-    wlroots = wlroots.overrideAttrs (upstream: {
+    wlroots_0_16 = wlroots_0_16.overrideAttrs (upstream: {
       # 2023/09/08: fix so clicking a notification can activate the corresponding window.
       # - test: run dino, receive a message while tabbed away, click the desktop notification.
       #   - if sway activates the dino window (i.e. colors the workspace and tab), then all good
       #   - do all of this with only a touchscreen (e.g. on mobile phone) -- NOT a mouse/pointer
+      # 2023/12/17: this patch is still necessary
       ## what this patch does:
       # - allows any wayland window to request activation, at any time.
       # - traditionally, wayland only allows windows to request activation if

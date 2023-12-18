@@ -104,13 +104,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "sxmo-utils";
-  version = "unstable-2023-12-09";
+  version = "unstable-2023-12-17";
 
   src = fetchFromSourcehut {
     owner = "~mil";
     repo = "sxmo-utils";
-    rev = "97447367f6465de3759144ffe30d449d095ee479";
-    hash = "sha256-cQxjsqGqx9U97B9EvD5UhFwKEGBOGLVqtvW/34aFXuw=";
+    rev = "542d6507cfbdca7891a72164c256a36bd0f7fc6e";
+    hash = "sha256-NVYY1yOzYs3btZrCQ3ATY6C72otJ75xRlytM5MVLsuc=";
   };
 
   patches = [
