@@ -42,10 +42,10 @@ in
   stdenv.mkDerivation rec {
     pname = "nginx-lantian";
     nginxVersion = "1.21.4";
-    version = "${nginxVersion}.2";
+    version = "${nginxVersion}.3";
     src = fetchzip {
       url = "https://openresty.org/download/openresty-${version}.tar.gz";
-      sha256 = "sha256-wAlEFa43CTeF2/Nmaa+iuEmxwhbubcGj8vwPq8/hqCI=";
+      sha256 = "sha256-FMCSNHMGroOhey9VYMPg44sUGBq2A7W1iR6teRtuiD0=";
     };
 
     enableParallelBuilding = true;
