@@ -34,7 +34,11 @@
         zotero
         ;
 
-      inherit (pkgs.packages) spot;
+      inherit
+        (pkgs.packages)
+        ansel
+        spot
+        ;
 
       inherit (pkgs.wineWowPackages) stable;
     };

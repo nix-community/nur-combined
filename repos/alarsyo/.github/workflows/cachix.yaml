@@ -46,6 +46,7 @@ jobs:
       fail-fast: false
       matrix:
         name:
+        - ansel
         - grafanaDashboards/nginx
         - grafanaDashboards/node-exporter
         - kaleidoscope-udev-rules
