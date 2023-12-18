@@ -2,9 +2,12 @@
 
 My personal https://github.com/nix-community/NUR[NUR] repository
 
-
 [cols="1,1"]
 |===
 |https://github.com/presto8/pscripts[pscripts]
 |A collection of helpful scripts for system tasks.
 |===
+
+== Build the packages for testing in a local shell
+
+    nix-shell --arg pkgs 'import <nixpkgs> {}' -A pscripts
