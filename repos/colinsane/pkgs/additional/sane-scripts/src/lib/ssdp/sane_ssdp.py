@@ -46,7 +46,7 @@ def get_root_devices() -> list[str]:
     listener.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
 
     listener.bind(("", 1900))
-    logger.info("bound")
+    logger.debug("bound")
 
     mreq = struct.pack("4sl", socket.inet_aton(MCAST_GRP), socket.INADDR_ANY)
     listener.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
@@ -54,12 +54,12 @@ def get_root_devices() -> list[str]:
     root_descs = set()
     while True:
         packet, (host, src_port) = listener.recvfrom(2048)
-        logger.info(f"message from {host}")
+        logger.debug(f"message from {host}")
         # if host.endswith(".1"):  # router
         try:
             msg = packet.decode("utf-8")
         except:
-            logger.debug("failed to decode packet to string")
+            logger.info("failed to decode packet to string")
         else:
             logger.debug(msg)
             resp = SsdpResponse.parse(msg)
@@ -67,7 +67,7 @@ def get_root_devices() -> list[str]:
                 root_desc = resp.location()
                 if root_desc and root_desc not in root_descs:
                     root_descs.add(root_desc)
-                    logger.info(f"root desc: {root_desc}")
+                    logger.debug(f"root desc: {root_desc}")
                     yield root_desc
 
 def get_ips_from_location(location: str) -> tuple[str | None, str | None]:

@@ -16,7 +16,7 @@
   # transmission will by default not allow the world to read its files.
   services.transmission.downloadDirPermissions = "775";
   services.transmission.extraFlags = [
-    "--log-level=debug"
+    # "--log-level=debug"
   ];
 
   services.transmission.settings = {

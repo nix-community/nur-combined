@@ -57,7 +57,7 @@
     # what unit is this? kbps??
     global.upload.speed_limit = 32000;
     web.logging = true;
-    debug = true;
+    # debug = true;
     flags.no_logo = true;  # don't show logo at start
     # flags.volatile = true;  # store searches and active transfers in RAM (completed transfers still go to disk). rec for btrfs/zfs
   };
