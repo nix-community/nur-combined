@@ -38,7 +38,6 @@
   libpsl,
   libpulseaudio,
   libsForQt5,
-  libsodium,
   libssh2,
   libthai,
   libxcrypt-legacy,
@@ -98,7 +97,6 @@ let
     libpsl
     libpulseaudio
     libsForQt5.qtbase
-    libsodium
     libssh2
     libthai
     libxcrypt-legacy
@@ -186,7 +184,6 @@ in
       rm -f release/libpng*
       rm -f release/libpsl*
       rm -f release/libQt5*
-      rm -f release/libsodium.*
       rm -f release/libssh2*
       rm -f release/libssl.*
       rm -f release/libstdc++.so.6
