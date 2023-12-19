@@ -25,6 +25,22 @@ lib.mkIf config.services.cockpit.enable {
     };
   };
 
+  systemd.services = let
+    units = [
+      "cockpit-wsinstance-https@"
+      "cockpit-wsinstance-https-factory@"
+      "cockpit-wsinstance-http"
+      "cockpit"
+      "cockpit-motd"
+    ];
+  in lib.listToAttrs (map (unit: {
+    name = unit;
+    value.serviceConfig = {
+      MemoryHigh = "512M";
+      MemoryMax = "1G";
+    };
+  }) units);
+
   environment.etc."motd-bash.d/99-cockpit" = {
     source = "/run/cockpit/active.motd";
   };
