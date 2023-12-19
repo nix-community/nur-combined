@@ -74,7 +74,7 @@ in
             )
             {
               block = "net";
-              format = " $icon{| $ssid|} $ip{| $signal_strength|} ";
+              format = " $icon{| $ssid|}{| $ip|}{| $signal_strength|} ";
             }
             {
               block = "backlight";

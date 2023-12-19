@@ -28,7 +28,5 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };
 
-  wifi-qr = pkgs.callPackage ./wifi-qr { };
-
   zsh-done = pkgs.callPackage ./zsh-done { };
 })
