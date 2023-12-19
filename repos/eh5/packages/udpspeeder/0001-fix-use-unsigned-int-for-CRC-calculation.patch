@@ -1,0 +1,27 @@
+From fa08b30f7b145aa15cd01ca88c2112562f8c8187 Mon Sep 17 00:00:00 2001
+From: Huang-Huang Bao <i@eh5.me>
+Date: Tue, 19 Dec 2023 08:14:33 +0800
+Subject: [PATCH] fix: use unsigned int for CRC calculation
+
+---
+ packet.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/packet.cpp b/packet.cpp
+index 607e1b9..fc43c77 100644
+--- a/packet.cpp
++++ b/packet.cpp
+@@ -235,8 +235,8 @@ int my_send(const dest_t &dest, char *data, int len) {
+  */
+ unsigned int crc32h(unsigned char *message, int len) {
+     assert(len >= 0);
+-    int i, crc;
+-    unsigned int byte, c;
++    int i;
++    unsigned int byte, c, crc;
+     const unsigned int g0 = 0xEDB88320, g1 = g0 >> 1,
+                        g2 = g0 >> 2, g3 = g0 >> 3, g4 = g0 >> 4, g5 = g0 >> 5,
+                        g6 = (g0 >> 6) ^ g0, g7 = ((g0 >> 6) ^ g0) >> 1;
+-- 
+2.43.0
+

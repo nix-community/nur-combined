@@ -60,7 +60,7 @@ in
           type = "tun";
           interface_name = "tun0";
           inet4_address = "198.18.0.1/15";
-          mtu = 1500;
+          mtu = 9000;
           auto_route = false;
           stack = "gvisor";
           endpoint_independent_nat = true;

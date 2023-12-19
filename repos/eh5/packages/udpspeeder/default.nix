@@ -21,6 +21,10 @@ stdenv.mkDerivation rec {
     glibc.static
   ];
 
+  patches = [
+    ./0001-fix-use-unsigned-int-for-CRC-calculation.patch
+  ];
+
   postPatch = ''
     sed -i 's/$(shell git rev-parse HEAD)/${rev}/g' makefile
   '';
