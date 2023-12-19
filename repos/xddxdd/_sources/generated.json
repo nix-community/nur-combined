@@ -121,7 +121,7 @@
     },
     "attic": {
         "cargoLocks": null,
-        "date": "2023-10-25",
+        "date": "2023-12-18",
         "extract": null,
         "name": "attic",
         "passthru": null,
@@ -133,11 +133,11 @@
             "name": null,
             "owner": "zhaofengli",
             "repo": "attic",
-            "rev": "e9918bc6be268da6fa97af6ced15193d8a0421c0",
-            "sha256": "sha256-qnhoYYIJ0L/P7H/f56lQUEvpzNlXh4sxuHpRERV+B44=",
+            "rev": "75c0482e85732644dcb0ebd6b0e7ba5eac39cdff",
+            "sha256": "sha256-Ru2cZE+2h51w3zXVPN6g2DeG6/sPCjQxK2qBeihDeSs=",
             "type": "github"
         },
-        "version": "e9918bc6be268da6fa97af6ced15193d8a0421c0"
+        "version": "75c0482e85732644dcb0ebd6b0e7ba5eac39cdff"
     },
     "baidunetdisk": {
         "cargoLocks": null,
@@ -1485,11 +1485,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-37d7F1VB2puEFJC12x57aRj4NIYcCYyPCK06Z/OwNiM=",
+            "sha256": "sha256-3WkdE5U+m59ZAA7EVQwePtujD2szsZsgsNzpjcp/oCI=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/06d558c3/linuxqq_3.2.3-19189_amd64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/5edc39d1/linuxqq_3.2.3-19689_amd64.deb"
         },
-        "version": "06d558c3/linuxqq_3.2.3-19189"
+        "version": "5edc39d1/linuxqq_3.2.3-19689"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1500,11 +1500,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qNcw6P985F/JAB9roxaBR5hz2KcLiffUDKu/14nvvgE=",
+            "sha256": "sha256-bTI4I+XuSzti1XMTBQg7eHVYN5fejgfxTmkPH4W7EPA=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/06d558c3/linuxqq_3.2.3-19189_arm64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/5edc39d1/linuxqq_3.2.3-19689_arm64.deb"
         },
-        "version": "06d558c3/linuxqq_3.2.3-19189"
+        "version": "5edc39d1/linuxqq_3.2.3-19689"
     },
     "qqmusic": {
         "cargoLocks": null,
