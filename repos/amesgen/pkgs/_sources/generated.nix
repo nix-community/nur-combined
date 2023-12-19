@@ -3,17 +3,17 @@
 {
   cabal-docspec = {
     pname = "cabal-docspec";
-    version = "0.0.0.20230517";
+    version = "0.0.0.20231219";
     src = fetchurl {
-      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20230517/cabal-docspec-0.0.0.20230517-x86_64-linux.xz";
-      sha256 = "sha256-OzG75GOtTWcau8ED20lihWLsSKZgTKsngge1tqzSHtc=";
+      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20231219/cabal-docspec-0.0.0.20231219-x86_64-linux.xz";
+      sha256 = "sha256-i2BEgnVGa74rlAl0G13QekHFQSgwF7lbRO/m4xN50Gc=";
     };
   };
   cabal-docspec-man = {
     pname = "cabal-docspec-man";
-    version = "0.0.0.20230517";
+    version = "0.0.0.20231219";
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20230517/cabal-docspec/cabal-docspec.1";
+      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20231219/cabal-docspec/cabal-docspec.1";
       sha256 = "sha256-tyVrIqUx6XrCAqXGLeOfsbdny5ue8tY30vyGrArdl7w=";
     };
   };
@@ -27,10 +27,10 @@
   };
   fourmolu = {
     pname = "fourmolu";
-    version = "0.14.0.0";
+    version = "0.14.1.0";
     src = fetchurl {
-      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.14.0.0/fourmolu-0.14.0.0-linux-x86_64";
-      sha256 = "sha256-/iBsu+8yNJmO6nibXmG5lsLNI81dla8xKSS/uttsq0U=";
+      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.14.1.0/fourmolu-0.14.1.0-linux-x86_64";
+      sha256 = "sha256-kp3ELExZZB66imlhNElKMM8p95f/koq2ZCK0f7ZNteo=";
     };
   };
   hellsmack = {
