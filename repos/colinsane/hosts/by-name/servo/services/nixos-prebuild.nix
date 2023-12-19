@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+
+lib.optionalAttrs false  # disabled until i can be sure it's not gonna OOM my server in the middle of the night
 {
   systemd.services.nixos-prebuild = {
     description = "build a nixos image with all updated deps";
