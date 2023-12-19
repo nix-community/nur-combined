@@ -198,7 +198,7 @@
         passthru = final: prev:
           let
             mobile = (import "${mobile-nixos}/overlay/overlay.nix");
-            uninsane = uninsane-dot-org.overlay;
+            uninsane = uninsane-dot-org.overlays.default;
           in
             (mobile final prev)
             // (uninsane final prev)
