@@ -57,10 +57,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.0.13";
+    version = "0.0.14";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.13.tar.gz";
-      sha256 = "sha256-Mdxj7mcyXfuR9mThe1k7nNADT/a8KNjFwb8iEaBly7M=";
+      url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.14.tar.gz";
+      sha256 = "sha256-aRdw2/cbIL0r+Wyy+K6tqMY6m35TvurEHtkclhYwa1E=";
     };
   };
   sublime-syntax-language-server = {
@@ -89,10 +89,10 @@
   };
   translate-shell = {
     pname = "translate-shell";
-    version = "0.0.46";
+    version = "0.0.48";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.46.tar.gz";
-      sha256 = "sha256-r/GiziLPIymbSxB0GnLHDemCeDUgPe9h3hh88NKBE3U=";
+      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.48.tar.gz";
+      sha256 = "sha256-7cpi2Yvy19OYgC44fEERQNMyhVg4ZbMO/nExtMzRz9E=";
     };
   };
   undollar = {
