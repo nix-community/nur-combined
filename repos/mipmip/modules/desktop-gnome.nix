@@ -46,7 +46,7 @@
 
     # IMAGE
     #gnome.gnome-screenshot
-    mipmip_pkg.gnome-screenshot
+    #mipmip_pkg.gnome-screenshot
     image-roll
     gthumb
 

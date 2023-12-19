@@ -18,6 +18,8 @@
       t = "tmux a || smug start lobby && smug start doen && smug start sudo && smug start nixos && smug start tekst";
       lin = "vim -c LinnyStart";
       tn = "tmux new -d -s";
+      tmxa = "tmux unbind C-a && tmux set-option -g prefix C-a && tmux bind-key C-a send-prefix";
+      tmxb = "tmux unbind C-b && tmux set-option -g prefix C-b && tmux bind-key C-b send-prefix";
       smugs = "smug start doen && smug start sudo && smug start nixos && smug start quiqr_dev_run && smug start quiqr_data && smug start technative_aws && smug start lobby";
 
       crb_status = "mount | grep /mnt/cryptobox";

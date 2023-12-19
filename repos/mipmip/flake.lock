@@ -259,18 +259,18 @@
         "type": "github"
       }
     },
-    "nixpkgs-gnome-45": {
+    "nixpkgs-2311": {
       "locked": {
-        "lastModified": 1698249051,
-        "narHash": "sha256-4cLVZlTp/wTj6MPbRi5rdB/h6rRD+DQmWBet/7Fv7ss=",
+        "lastModified": 1702780907,
+        "narHash": "sha256-blbrBBXjjZt6OKTcYX1jpe9SRof2P9ZYWPzq22tzXAA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5ff440d9c9347cafe54d4076fc8c946f72f20405",
+        "rev": "1e2e384c5b7c50dbf8e9c441a9e58d85f408b01f",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "gnome",
+        "ref": "nixos-23.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -363,7 +363,7 @@
         "home-manager": "home-manager_2",
         "nixified-ai": "nixified-ai",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-gnome-45": "nixpkgs-gnome-45",
+        "nixpkgs-2311": "nixpkgs-2311",
         "nixpkgs-inkscape13": "nixpkgs-inkscape13",
         "unstable": "unstable",
         "utils": "utils_2"
