@@ -139,9 +139,9 @@ let
 
   mkNodeJs = nodejs: nodejs.overrideAttrs (upstream:
     let
-      # 18.15.0 matches the version in package.json
-      version = "18.15.0";
-      hash = "sha256-jkTWUBj/lzKEGVwjGGRpoOpAgul+xCAOX1cG1VhNqjc=";
+      # build with the same nodejs upstream expects in package.json (it will error if the version here is incorrect)
+      version = "18.17.1";
+      hash = "sha256-8hXPA9DwDwesC2dMaBn4BMFULhbxUtoEmAAirsz15lo=";
     in {
       inherit version;
       src = fetchurl {
@@ -173,13 +173,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "signal-desktop-from-src";
-  version = "6.40.0";
+  version = "6.42.0";
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${version}";
-    hash = "sha256-gtbsb78VFZvESOGu6duB8vKsrtWM7UxGf9che0ijK/M=";
+    hash = "sha256-7MiyfdrbPmiENeWlElYNZDIGsbcSHj1d4rdBozE4bN8=";
   };
 
   patches = [
@@ -228,7 +228,7 @@ stdenv.mkDerivation rec {
 
   env.yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${src}/yarn.lock";
-    hash = "sha256-S2wWk7ug8G3o0Fp7f9JqgksDecE5KL0ZLnA5mYKdfdE=";
+    hash = "sha256-QvvtggYnXDjgk2aWsT0kwRE9/DiktlC3a9QACTWN8GU=";
   };
   # env.SIGNAL_ENV = "production";
   # env.NODE_ENV = "production";

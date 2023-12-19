@@ -1,4 +1,6 @@
-{ lib
+{ lib, stdenv
+, cargo
+, desktop-file-utils
 , fetchFromGitHub
 , gdk-pixbuf
 , gitUpdater
@@ -6,28 +8,43 @@
 , graphene
 , gtk4
 , libadwaita
+, meson
+, ninja
 , openssl
 , pango
 , pkg-config
+, rustc
 , rustPlatform
+, wrapGAppsHook4
 }:
 
-rustPlatform.buildRustPackage rec {
+stdenv.mkDerivation rec {
   pname = "lemoa";
-  version = "0.4.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "lemmy-gtk";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-0xMdshQ12mV93r5UwxRLgYsIj97GgxmDDMEisam29HI=";
+    hash = "sha256-kVyVU6GYxx4axype1VNfU8gh7ZoxJqkxwX9gCGQLPE8=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
+  cargoDeps = rustPlatform.fetchCargoTarball {
+    inherit src;
+    name = "${pname}-${version}";
+    hash = "sha256-efUFa77fIsGcvH0n82ITT4cgCkbowxZ/Y5rrIz0F3yQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [
+    cargo
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+    rustc
+    rustPlatform.cargoSetupHook
+    wrapGAppsHook4
+  ];
   buildInputs = [
     gtk4
     libadwaita

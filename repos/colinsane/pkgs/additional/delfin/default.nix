@@ -4,6 +4,7 @@
 , cargo
 , desktop-file-utils
 , fetchFromGitea
+, gitUpdater
 , gtk4
 , libadwaita
 , libglvnd
@@ -36,6 +37,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-jHXkpfNWs07WSnxWSEvSX6HFx3e3YOWGsYEs7lJcAds=";
   };
 
+  # upstream pins the linker to clang, unnecessarily
+  postPatch = ''
+    rm .cargo/config.toml
+  '';
 
   nativeBuildInputs = [
     appstream
@@ -62,10 +67,9 @@ stdenv.mkDerivation rec {
     "-Dprofile=release"
   ];
 
-  # upstream pins the linker to clang, unnecessarily
-  postPatch = ''
-    rm .cargo/config.toml
-  '';
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "v";
+  };
 
   meta = with lib; {
     description = "stream movies and TV shows from Jellyfin";
