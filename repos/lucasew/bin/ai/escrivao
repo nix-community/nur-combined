@@ -67,7 +67,6 @@ def inference(audio):
     return predicted
 
 async def handle_audio(update: Update, context):
-    logger.info("chegou um audio")
     items = [
         update.message.audio,
         update.message.voice
@@ -75,10 +74,15 @@ async def handle_audio(update: Update, context):
     for item in items:
         if item is None:
             continue
+        await update.message.chat.send_action(ChatAction.TYPING)
         file = await item.get_file()
+        if file.file_size >= 20*1024*1024:
+            await update.message.reply_text("Erro: arquivo grande demais. Limite: 20MB", reply_to_message_id=update.message.id)
+            continue
         results = inference(file._get_encoded_url())
         for result in results:
             await update.message.reply_text(result, reply_to_message_id=update.message.id)
+            logger.info(f'audio ({update.message.chat.title}/{update.message.chat.username}-{update.message.chat.id}) {result}')
 
 app = Application.builder().token(args.token).build()
 app.add_handler(MessageHandler(filters.AUDIO | filters.VOICE, handle_audio))
