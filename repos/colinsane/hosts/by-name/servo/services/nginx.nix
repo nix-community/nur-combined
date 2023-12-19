@@ -72,8 +72,14 @@ in
       tryFiles = "$uri $uri/ @fallback";
     };
 
-    # uninsane.org/share/foo => /var/www/sites/uninsane.org/share/foo.
+    # unversioned files
     locations."@fallback" = {
+      root = "/var/www/sites/uninsane.org";
+    };
+
+    # uninsane.org/share/foo => /var/www/sites/uninsane.org/share/foo.
+    # special-cased to enable directory listings
+    locations."/share" = {
       root = "/var/www/sites/uninsane.org";
       extraConfig = ''
         # autoindex => render directory listings
