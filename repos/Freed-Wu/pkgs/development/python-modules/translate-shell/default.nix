@@ -11,6 +11,7 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
+    aiohttp
     colorama
     keyring
     langdetect
