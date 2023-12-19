@@ -18,6 +18,7 @@
   idris2 = pkgs.callPackage ./pkgs/idris2 { };
   postman = pkgs.callPackage ./pkgs/postman { };
   anytype = pkgs.callPackage ./pkgs/anytype { };
+  pinentry-rbw = pkgs.callPackage ./pkgs/pinentry-rbw { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

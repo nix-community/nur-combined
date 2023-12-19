@@ -1,0 +1,27 @@
+#!/bin/bash
+set -eEuo pipefail
+
+# Shim between rbw and a program which speaks pinentry.
+# Specify the name of the secret that we should produce on standard output.
+
+secret_name=$1
+
+echo 'OK Pleased to meet you'
+
+while IFS=' ' read -r command args; do
+    case "$command" in
+    GETPIN | getpin)
+        printf 'D '
+        rbw get "$secret_name" | jq -sRr @uri | head -c -4
+        printf '\n'
+        echo 'OK'
+        ;;
+    BYE | bye)
+        echo 'OK closing connection'
+        exit
+        ;;
+    *)
+        echo 'ERR Unknown command'
+        ;;
+    esac
+done
