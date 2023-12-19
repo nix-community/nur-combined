@@ -162,6 +162,7 @@ in
       "mumble"
       # "nheko"  # Matrix chat client
       # "obsidian"
+      "openscad"  # 3d modeling
       # "rhythmbox"  # local music player
       # "slic3r"
       "soundconverter"
