@@ -10,13 +10,13 @@
 rustPlatform.buildRustPackage rec {
 
   pname = "maa-cli";
-  version = "0.4.0-beta.3";
+  version = "0.4.0-beta.4";
 
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "maa-cli";
     rev = "v${version}";
-    sha256 = "sha256-QMMGa139DHqEo06PGfgwLOh8/qLT9AJQf7cBfsLyaCg=";
+    sha256 = "sha256-vjA8TGTXe69JuseYOz3wAkLxDVpiQ5zFyhHlUACjoYw=";
   };
 
   nativeBuildInputs = [
@@ -33,11 +33,7 @@ rustPlatform.buildRustPackage rec {
   buildNoDefaultFeatures = true;
   buildFeatures = [ "git2" ];
 
-  # read 'config::asst::tests::resource_config::use_user_resource' panicked at maa-cli/src/config/asst.rs:841:40:
-  # called `Result::unwrap()` on an `Err` value: Os { code: 13, kind: PermissionDenied, message: "Permission denied" }
-  doCheck = false;
-
-  cargoSha256 = "sha256-he3hsaA9SuXRUOPIFDHHlNbdeQQK3Pr52+lWX5WC65M=";
+  cargoSha256 = "sha256-77iRLjaacHy8OwtomdGt220dHit4Zcpq4JmANIU5r7o=";
 
   meta = with lib; {
     description = "A simple CLI for MAA by Rust.";

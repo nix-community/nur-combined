@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./ryzen-smu.nix
+  ];
+}
