@@ -1,11 +1,17 @@
-{ lib, appimageTools, fetchurl, asar }: let
+{ lib, stdenv, appimageTools, fetchurl, asar }: let
   pname = "todoist-electron";
-  version = "8.10.1";
+  version = "8.12.1";
 
-  src = fetchurl {
-    url = "https://electron-dl.todoist.com/linux/Todoist-linux-x86_64-${version}.AppImage";
-    hash = "sha256-Yp4wfibymHLGlaPDzu2rhSXxanwdXoNpF/d6+S0r+1U=";
-  };
+  src = {
+    x86_64-linux = fetchurl {
+      url = "https://electron-dl.todoist.com/linux/Todoist-linux-${version}-x86_64.AppImage";
+      hash = "sha256-fY5DnwxLLm66cjP/ikz3K+4brOrFr43GXsL7a+a0xXg=";
+    };
+    aarch64-linux = fetchurl {
+      url = "https://electron-dl.todoist.com/linux/Todoist-linux-${version}-arm64.AppImage";
+      hash = "sha256-vLFjCh2GOp35u3kSCmuhHE4H/WHThGDeYBssdDnj7wU=";
+    };
+  }.${stdenv.system} or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
 
   appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (oA: {
     buildCommand = ''
@@ -20,7 +26,6 @@
 
 in appimageTools.wrapAppImage {
   inherit pname version;
-  name = pname;
   src = appimageContents;
 
   extraPkgs = { pkgs, ... }@args: [
@@ -29,6 +34,7 @@ in appimageTools.wrapAppImage {
 
   extraInstallCommands = ''
     # Add desktop convencience stuff
+    mv $out/bin/{${pname}-*,${pname}}
     install -Dm444 ${appimageContents}/todoist.desktop -t $out/share/applications
     install -Dm444 ${appimageContents}/todoist.png -t $out/share/pixmaps
     substituteInPlace $out/share/applications/todoist.desktop \
@@ -38,7 +44,7 @@ in appimageTools.wrapAppImage {
   meta = with lib; {
     homepage = "https://todoist.com";
     description = "The official Todoist electron app";
-    platforms = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     license = licenses.unfree;
     maintainers = with maintainers; [ kylesferrazza pokon548 ];
   };
