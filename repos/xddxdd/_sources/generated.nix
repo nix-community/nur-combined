@@ -75,15 +75,15 @@
   };
   attic = {
     pname = "attic";
-    version = "75c0482e85732644dcb0ebd6b0e7ba5eac39cdff";
+    version = "bdafd64910bb2b861cf90fa15f1fc93318b6fbf6";
     src = fetchFromGitHub {
       owner = "zhaofengli";
       repo = "attic";
-      rev = "75c0482e85732644dcb0ebd6b0e7ba5eac39cdff";
+      rev = "bdafd64910bb2b861cf90fa15f1fc93318b6fbf6";
       fetchSubmodules = false;
-      sha256 = "sha256-Ru2cZE+2h51w3zXVPN6g2DeG6/sPCjQxK2qBeihDeSs=";
+      sha256 = "sha256-IJP9sC+/gLUdWhm6TsnWpw6A1zQWUfn53ym63KeLXvU=";
     };
-    date = "2023-12-18";
+    date = "2023-12-19";
   };
   baidunetdisk = {
     pname = "baidunetdisk";

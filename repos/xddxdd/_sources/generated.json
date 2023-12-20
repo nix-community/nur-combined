@@ -121,7 +121,7 @@
     },
     "attic": {
         "cargoLocks": null,
-        "date": "2023-12-18",
+        "date": "2023-12-19",
         "extract": null,
         "name": "attic",
         "passthru": null,
@@ -133,11 +133,11 @@
             "name": null,
             "owner": "zhaofengli",
             "repo": "attic",
-            "rev": "75c0482e85732644dcb0ebd6b0e7ba5eac39cdff",
-            "sha256": "sha256-Ru2cZE+2h51w3zXVPN6g2DeG6/sPCjQxK2qBeihDeSs=",
+            "rev": "bdafd64910bb2b861cf90fa15f1fc93318b6fbf6",
+            "sha256": "sha256-IJP9sC+/gLUdWhm6TsnWpw6A1zQWUfn53ym63KeLXvU=",
             "type": "github"
         },
-        "version": "75c0482e85732644dcb0ebd6b0e7ba5eac39cdff"
+        "version": "bdafd64910bb2b861cf90fa15f1fc93318b6fbf6"
     },
     "baidunetdisk": {
         "cargoLocks": null,
