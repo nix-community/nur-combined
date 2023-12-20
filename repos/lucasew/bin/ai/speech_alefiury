@@ -33,7 +33,7 @@ lm = None
 #     )
 
 assert args.audio.is_file(), "Audio must be a file"
-audio, sr = torchaudio.load(args.audio, normalize=False)
+audio, sr = torchaudio.load(str(args.audio), normalize=False)
 print('audio', audio, sr)
 audio = torchaudio.functional.resample(audio, sr, 16000)
 audio = torch.mean(audio, axis=0) # convert to mono
