@@ -21,7 +21,7 @@ while IFS=' ' read -r command args; do
         exit
         ;;
     *)
-        echo 'ERR Unknown command'
+        echo 'OK'
         ;;
     esac
 done
