@@ -1,0 +1,14 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p ollama
+
+if [ ! -v OLLAMA_HOST ]; then
+  OLLAMA_HOST=http://ollama.whiterun.lucao.net:80
+fi
+
+if [ ! -v OLLAMA_MODEL ]; then
+  OLLAMA_MODEL=llama2
+fi
+
+export OLLAMA_HOST
+
+ollama run "$OLLAMA_MODEL" "$@"

@@ -16,5 +16,6 @@
     ./netusage
     ./nitter.nix
     ./restic-server.nix
+    ./ollama.nix
   ];
 }
