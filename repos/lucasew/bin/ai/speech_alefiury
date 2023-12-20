@@ -1,5 +1,5 @@
 #!/usr/bin/env -S sd nix shell
-#!nix-shell -i python3 -p python3Packages.transformers python3Packages.torchaudio
+#!nix-shell -i python3 -p python3PackagesCuda.transformers python3PackagesCuda.torchaudio
 #! vim: syntax=python
 
 # Based on: https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2

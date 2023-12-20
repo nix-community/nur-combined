@@ -34,6 +34,10 @@ in
     })
   ];
 
+  python3PackagesCuda = prev.python3Packages.overrideScope (_: _: {
+    cudaSupport = true;
+  });
+
   lib = prev.lib.extend (final: prev: {
     jpg2png = cp ./lib/jpg2png.nix;
     buildDockerEnv = cp ./lib/buildDockerEnv.nix;

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S sd nix shell
-#!nix-shell -i python3 -p python3Packages.transformers python3Packages.torchaudio python3Packages.python-telegram-bot
+#!nix-shell -i python3 -p python3PackagesCuda.transformers python3PackagesCuda.torchaudio python3PackagesCuda.python-telegram-bot
 #! vim: syntax=python
 
 # Telegram bot to transcribe audio files to text. Based on: https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2
