@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     owner = "obsproject";
     repo = "obs-studio";
     rev = version;
-    sha256 = "sha256-ce2qYtR+L8afT5qSoItltEbLtuPZQtWyS6PiN+UwATc=";
+    sha256 = "sha256-8pX1kqibrtDIaE1+/Pey1A5bu6MwFTXLrBOah4rsF+4=";
     fetchSubmodules = true;
   };
 
