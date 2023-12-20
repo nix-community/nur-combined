@@ -10,6 +10,30 @@ echo 'OK Pleased to meet you'
 
 while IFS=' ' read -r command args; do
     case "$command" in
+    GETINFO)
+        printf 'D '
+        case "$args" in
+            flavor)
+            printf "rbw"
+            ;;
+            pid)
+            printf $$
+            ;;
+            version)
+            printf "0.1.0"
+            ;;
+            ttyinfo)
+            printf " - - - 1000/100 0"
+            ;;
+            *)
+            printf "unknown"
+            ;;
+        esac
+        printf '\n'
+
+        echo "OK"
+
+        ;;
     GETPIN | getpin)
         printf 'D '
         rbw get "$secret_name" | jq -sRr @uri | head -c -4
@@ -21,7 +45,8 @@ while IFS=' ' read -r command args; do
         exit
         ;;
     *)
-        echo 'OK'
+        echo "$command" "$args"
+        echo 'OK '
         ;;
     esac
 done
