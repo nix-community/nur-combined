@@ -17,7 +17,7 @@ stdenv.mkDerivation(finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    for exe in lastf pdrives pfs phash pmove pnix psg; do
+    for exe in lastf pdrives phash pmove pnix psg; do
       install -D -m 755 "$exe"/"$exe" $out/bin/"$exe"
     done
 
