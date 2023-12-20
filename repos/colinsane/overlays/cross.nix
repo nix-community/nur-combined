@@ -9,6 +9,16 @@
 #   - many others. python3.10-cffi seems to be the offender which infects 70% of consumers though
 # - 2023/10/11: build ruby is pulled in by `neovim`:
 #   - nix why-depends --all /nix/store/rhli8vhscv93ikb43639c2ysy3a6dmzp-nixos-system-moby-23.11.20231011.30c7fd8 /nix/store/5xbwwbyjmc1xvjzhghk6r89rn4ylidv8-ruby-3.1.4
+# - 2023/12/19: rustPlatform.cargoSetupHook outside of `buildRustPackage` or python packages is a mess
+#   - it doesn't populate `.cargo/config` with valid cross-compilation config
+#   - something to do with the way it's spliced: `nativeBuildInputs = [ rustPlatform.cargoSetupHook.__spliced.hostHost ]` (or hostTarget) WORKS
+#   - see <https://github.com/NixOS/nixpkgs/pull/260068> -- it's probably wrong.
+#   - WIP fix in `pr-cross-cargo`/`pr-cross-cargo2` nixpkgs branch.
+#     - sanity check by building `pkgsCross.aarch64-multiplatform.rav1e`, and the `fd` program mentioned in PR 260068
+#     - `pkgsCross.musl64.fd`
+#     - `pkgsStatic.fd`
+#   - this is way too tricky to enable cross compilation without breaking the musl stuff.
+#     - i lost a whole day trying to get it to work: don't do it!
 #
 # partially fixed:
 # - 2023/10/11: build coreutils pulled in by rpm 4.18.1, but NOT by 4.19.0

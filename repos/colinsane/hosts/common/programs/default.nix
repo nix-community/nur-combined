@@ -61,6 +61,7 @@
     ./obsidian.nix
     ./offlineimap.nix
     ./open-in-mpv.nix
+    ./planify.nix
     ./playerctl.nix
     ./rhythmbox.nix
     ./ripgrep.nix

@@ -120,6 +120,7 @@ in
     "koreader"
     "megapixels"  # camera app
     "notejot"  # note taking, e.g. shopping list
+    "planify"  # todo-tracker/planner
     "portfolio-filemanager"
     "tangram"  # web browser
     "wike"  # Wikipedia Reader
