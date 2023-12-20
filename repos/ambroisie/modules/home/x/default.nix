@@ -3,10 +3,6 @@ let
   cfg = config.my.home.x;
 in
 {
-  imports = [
-    ./keyboard
-  ];
-
   options.my.home.x = with lib; {
     enable = mkEnableOption "X server configuration";
   };

@@ -23,6 +23,7 @@
     ./gtk
     ./htop
     ./jq
+    ./keyboard
     ./mail
     ./mpv
     ./nix
