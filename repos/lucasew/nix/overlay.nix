@@ -211,8 +211,19 @@ in
 
   cached-nix-shell = callPackage flake.inputs.src-cached-nix-shell { pkgs = prev; };
 
-  ollama-cuda = prev.ollama.override { llama-cpp = prev.llama-cpp.override { cudaSupport = true; }; };
-  ollama-rocm = prev.ollama.override { llama-cpp = prev.llama-cpp.override { rocmSupport = true; }; };
+  ollama-cuda = prev.ollama.override {
+    llama-cpp = prev.llama-cpp.override {
+      stdenv = prev.gcc11Stdenv;
+      cudaSupport = true;
+      openblasSupport = false;
+    };
+  };
+  ollama-rocm = prev.ollama.override {
+    llama-cpp = prev.llama-cpp.override {
+      rocmSupport = true;
+      openblasSupport = false;
+    };
+  };
 
   nix = prev.nixVersions.nix_2_15;
   # electron = prev.electron_27-bin;
