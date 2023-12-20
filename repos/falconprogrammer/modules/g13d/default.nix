@@ -29,11 +29,16 @@ in
     #   group = "g13d";
     # };
 
-    users.groups.g13d = {};
+    # users.groups.g13d = {};
+
+    systemd.tmpfiles.rules = [
+      "d /run/g13d 0777 root root"
+    ];
 
     systemd.services.g13d = {
       description = "Logitech G13 Daemon";
       after = [ "multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         User = "root";
