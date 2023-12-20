@@ -2,7 +2,7 @@
 #!nix-shell -i python3 -p python3Packages.transformers python3Packages.torchaudio python3Packages.python-telegram-bot
 #! vim: syntax=python
 
-# Based on: https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2
+# Telegram bot to transcribe audio files to text. Based on: https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2
 
 from pathlib import Path
 from argparse import ArgumentParser
