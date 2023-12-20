@@ -1,5 +1,5 @@
 #!/usr/bin/env -S sd nix shell
-#!nix-shell -i python3 -p python3PackagesCuda.transformers python3PackagesCuda.torchaudio python3PackagesCuda.python-telegram-bot
+#!nix-shell -i python3 -p python3PackagesBin.transformers python3PackagesBin.torchaudio python3PackagesBin.python-telegram-bot
 #! vim: syntax=python
 
 # Telegram bot to transcribe audio files to text. Based on: https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2
@@ -8,6 +8,8 @@ from pathlib import Path
 from argparse import ArgumentParser
 import os
 import logging
+import gc
+import traceback
 
 logging.basicConfig(level=logging.INFO)
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -26,9 +28,11 @@ from telegram.constants import ChatAction
 parser = ArgumentParser()
 parser.add_argument('-t', '--token', type=str, default=os.getenv('TELEGRAM_TOKEN'))
 parser.add_argument('-m', '--model', type=str, default='alefiury/wav2vec2-large-xlsr-53-coraa-brazilian-portuguese-gain-normalization')
+parser.add_argument('-c', '--cpu', action='store_true', default=not torch.cuda.is_available())
 args = parser.parse_args()
+print(args)
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = 'cuda' if not args.cpu else 'cpu'
 
 model = Wav2Vec2ForCTC.from_pretrained(args.model).to(device)
 processor = Wav2Vec2Processor.from_pretrained(args.model)
@@ -79,10 +83,17 @@ async def handle_audio(update: Update, context):
         if file.file_size >= 20*1024*1024:
             await update.message.reply_text("Erro: arquivo grande demais. Limite: 20MB", reply_to_message_id=update.message.id)
             continue
-        results = inference(file._get_encoded_url())
-        for result in results:
-            await update.message.reply_text(result, reply_to_message_id=update.message.id)
-            logger.info(f'audio ({update.message.chat.title}/{update.message.chat.username}-{update.message.chat.id}) {result}')
+        try:
+            gc.collect()
+            results = inference(file._get_encoded_url())
+            gc.collect()
+            for result in results:
+                await update.message.reply_text(result, reply_to_message_id=update.message.id)
+                logger.info(f'audio ({update.message.chat.title}/{update.message.chat.username}-{update.message.chat.id}) {result}')
+        except torch.cuda.OutOfMemoryError as e:
+            print(e)
+            traceback.print_exc()
+            await update.message.reply_text("Erro: GPU sem memória o suficiente para realizar a inferência", reply_to_message_id=update.message.id)
 
 app = Application.builder().token(args.token).build()
 app.add_handler(MessageHandler(filters.AUDIO | filters.VOICE, handle_audio))

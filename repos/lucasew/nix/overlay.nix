@@ -34,6 +34,12 @@ in
     })
   ];
 
+  python3PackagesBin = prev.python3Packages.overrideScope (old: _: {
+    torch = old.torch-bin;
+    torchaudio = old.torchaudio-bin;
+    torchvision = old.torchvision-bin;
+  });
+
   python3PackagesCuda = prev.python3Packages.overrideScope (_: _: {
     cudaSupport = true;
   });
