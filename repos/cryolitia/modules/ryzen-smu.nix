@@ -29,7 +29,7 @@ in
 
   ###### implementation
 
-  config = mkIf hardware.cpu.amd.ryzen-smu.enable {
+  config = mkIf config.hardware.cpu.amd.ryzen-smu.enable {
     boot.extraModulePackages = [ ryzen-smu ];
     boot.kernelModules = [ "ryzen_smu" ];
     environment.systemPackages = [ ryzen-smu ];
