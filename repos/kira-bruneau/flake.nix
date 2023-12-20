@@ -18,7 +18,7 @@
   outputs = { self, flake-utils, flake-linter, nixpkgs }:
     {
       overlays = import ./overlays;
-      nixosModules = builtins.mapAttrs (name: value: import value) (import ./nixos/modules);
+      nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
