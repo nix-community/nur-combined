@@ -6,7 +6,6 @@
   modules = import ./modules;
   overlays = import ./overlays;
 
-  gomodrun = pkgs.callPackage ./pkgs/gomodrun.nix { };
   languagetool-code-comments = pkgs.callPackage ./pkgs/languagetool-code-comments.nix { };
   oatmeal = pkgs.callPackage ./pkgs/oatmeal.nix { };
 }

@@ -9,11 +9,13 @@ pkgs.stdenv.mkDerivation {
   };
   phases = [ "installPhase" ];
   installPhase = ''
-    mkdir -p $out/bin
-    mkdir -p $out/docs
-    tar -zxf $src -C $out/bin/ oatmeal
-    tar -zxf $src -C $out/docs/ THIRDPARTY.html
-    tar -zxf $src -C $out/docs/ LICENSE
+    mkdir -p tmp $out/bin $out/share/doc/oatmeal/copyright
+    tar -zxf $src -C tmp
+
+    mv tmp/oatmeal $out/bin/
+    mv tmp/THIRDPARTY.html $out/share/doc/oatmeal/copyright/
+    mv tmp/LICENSE $out/share/doc/oatmeal/copyright/
+
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/oatmeal
   '';
 }
-

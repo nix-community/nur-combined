@@ -1,23 +1,35 @@
-name: "Test and publish"
-on: [push]
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - master
 jobs:
   tests:
     strategy:
       matrix:
+        # Set this to notify the global nur package registry that changes are
+        # available.
+        #
+        # The repo name as used in
+        # https://github.com/nix-community/NUR/blob/master/repos.json
         nurRepo:
           - dustinblackman
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-20.03
+          - nixpkgs=channel:nixos-23.05
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4
     - name: Install nix
-      uses: cachix/install-nix-action@v18
+      uses: cachix/install-nix-action@v23
       with:
         nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Check evaluation
@@ -30,11 +42,8 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build nix packages
-      # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
-      run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-  publish:
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=dustinblackman"
+      # Don't replace <YOUR_REPO_NAME> here!
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

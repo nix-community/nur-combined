@@ -9,11 +9,14 @@ pkgs.stdenv.mkDerivation {
   };
   phases = [ "installPhase" ];
   installPhase = ''
-    mkdir -p $out/bin
-    mkdir -p $out/docs
-    tar -zxf $src -C $out/bin/ languagetool-code-comments
-    tar -zxf $src -C $out/docs/ THIRDPARTY.html
-    tar -zxf $src -C $out/docs/ LICENSE
+    mkdir -p tmp $out/bin $out/share/doc/languagetool-code-comments/copyright
+    tar -zxf $src -C tmp
+
+    mv tmp/languagetool-code-comments $out/bin/
+    mv tmp/THIRDPARTY.html $out/share/doc/languagetool-code-comments/copyright/
+    mv tmp/LICENSE $out/share/doc/languagetool-code-comments/copyright/
+
+    patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $out/bin/languagetool-code-comments
   '';
 }
 
