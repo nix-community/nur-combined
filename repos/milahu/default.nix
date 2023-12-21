@@ -650,6 +650,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   undetected-chromedriver = callPackage ./pkgs/development/tools/selenium/chromedriver/undetected-chromedriver.nix { };
 
+  perlPackages = pkgs.recurseIntoAttrs (pkgs.lib.makeScope pkgs.perlPackages.newScope (self: let inherit (self) callPackage; in ({
+
+    AptPkg = callPackage ./pkgs/perl/pkgs/apt-pkg/apt-pkg.nix { };
+
+  }))); # perlPackages
+
+  apt-file = perlPackages.callPackage ./pkgs/tools/package-management/apt-file/apt-file.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
