@@ -44,7 +44,7 @@ Use this repository in `flake.nix`:
         ({ pkgs, ... }: {
           environment.systemPackages = with pkgs; [
             # Add packages from this repo
-            nur-ryan4yin.packages.${system}.some-package  # terminal file manager
+            nur-ryan4yin.packages.${system}.some-package
           ];
         })
       ];

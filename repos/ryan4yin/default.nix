@@ -15,4 +15,4 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   gowin-eda-edu-ide = pkgs.callPackage ./pkgs/gowin-eda-edu-ide { };
-}
+} // (pkgs.callPackage ./pkgs/themes { })

@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Gowin EDA, an easy to use integrated design environment provides design engineers one-stop solution from design entry to verification. (education version)";
     homepage = "http://www.gowinsemi.com.cn/faq.aspx";
-    maintainers = with maintainers; [ryan4yin];
+    maintainers = with maintainers; [];
   };
 }
