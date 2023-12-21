@@ -473,15 +473,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "8449e546491e77b52ca5b2f1451086ef564e16aa";
+    version = "4906c3fc880328453a9efccde860e11adc5fea29";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "8449e546491e77b52ca5b2f1451086ef564e16aa";
+      rev = "4906c3fc880328453a9efccde860e11adc5fea29";
       fetchSubmodules = false;
-      sha256 = "sha256-TGFTOHECc45LmLMi3xIdIiC8Y7zNM9tpZTJ+E8J8Mho=";
+      sha256 = "sha256-lSiWp0vn5LdndaNU26aN5p+fYo0Rw9/MkU883Vbd8y0=";
     };
-    date = "2023-12-16";
+    date = "2023-12-20";
   };
   libqcef = {
     pname = "libqcef";
@@ -545,13 +545,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.6.7-xanmod1";
+    version = "6.6.8-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.7-xanmod1";
+      rev = "6.6.8-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-0I+CS4Ithb0euFAO5G7ao3dxA1gq5wqFVsNyYWvRfYc=";
+      sha256 = "sha256-TtWTYuT3GMnQy1shkF+HTgv4Z1OSOLh4RXfG+Xj0n3M=";
     };
   };
   linux-xanmod-6_0 = {
@@ -567,13 +567,13 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.68-xanmod1";
+    version = "6.1.69-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.68-xanmod1";
+      rev = "6.1.69-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-mpnoaeeBrCELXJujgHKqZxSIzRMbk8dpPv1G9EKAf3E=";
+      sha256 = "sha256-/uk2sS7g4REPtR/LSc7djjoc//m6QvrXfHO4OemQcy8=";
     };
   };
   nbfc-linux-lantian = {
@@ -748,13 +748,13 @@
   };
   osdlyrics = {
     pname = "osdlyrics";
-    version = "0.5.14";
+    version = "0.5.15";
     src = fetchFromGitHub {
       owner = "osdlyrics";
       repo = "osdlyrics";
-      rev = "0.5.14";
+      rev = "0.5.15";
       fetchSubmodules = false;
-      sha256 = "sha256-NVUQLmddXnpryt1AuHSwgPnWkgxWMBNJac09TJ12Yzo=";
+      sha256 = "sha256-4jEF1LdMwaLNF6zvzAuGW8Iu4dzhrFLutX69LwSjTAI=";
     };
   };
   payload-dumper-go = {
@@ -822,34 +822,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "8.1.3+ds-1";
+    version = "8.2.0+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.3+ds-1_amd64.deb";
-      sha256 = "sha256-ogO5NXrcGO39KL9J6pVvAhV4F9fiAi2gLQ1Lyg988dQ=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-1_amd64.deb";
+      sha256 = "sha256-nPDYNDuS4SrV5K0OaeTGjhmwPr1HFi1MWISGcCorgAA=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "8.1.3+ds-1";
+    version = "8.2.0+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.3+ds-1_arm64.deb";
-      sha256 = "sha256-GDmjPgy0sIhDjTTs2bvBejX6QGwUaEHQrf5N+nCIlfg=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-1_arm64.deb";
+      sha256 = "sha256-H7eXn5Ngnd99TQlxJycnqmoUwyhzSAAXGApRuVPyyl0=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.1.3+ds-1";
+    version = "8.2.0+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.3+ds-1_armhf.deb";
-      sha256 = "sha256-YPIpTQEQb70Rhp0VuNNRGdW9bE8Xn8zHv0l5EXxJ0hI=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-1_armhf.deb";
+      sha256 = "sha256-NIKDfC6y7U/QtFS0hT2lQUEeYSGmJF7QqUZeoi4MZfo=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.1.3+ds-1";
+    version = "8.2.0+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.1.3+ds-1_i386.deb";
-      sha256 = "sha256-i0PsznqcxJ6ZCedu1TqXuetC9WiCnPQEI2KplOfAP1w=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-1_i386.deb";
+      sha256 = "sha256-iOy/XBzFoYJ6KGx9hxnPq1YHILD6gbcNW5njA4JcLCI=";
     };
   };
   qq-amd64 = {
