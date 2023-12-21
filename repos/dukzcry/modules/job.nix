@@ -27,9 +27,6 @@ in {
       networking.firewall.extraCommands = ''
         iptables -t nat -A POSTROUTING -o job -j MASQUERADE
       '';
-      services.dnsmasq.settings = {
-        hostsdir = "/var/lib/dnsmasq/hosts";
-      };
     })
   ];
 }
