@@ -1,17 +1,17 @@
 {
   "prod": {
-    "version": "8.0.10198",
+    "version": "8.0.10201",
     "files": [
       {
-        "url": "ShadowPC-8.0.10198.AppImage",
-        "sha512": "m1LUy9I9j9f4XGOWG8T1Lu/plEL2SX0WRceBjm95K8N2HuCFBJRQDOvv0LDpKOaDG4edhLONGCY1anhQECpWpg==",
-        "size": 177789364,
-        "blockMapSize": 186824
+        "url": "ShadowPC-8.0.10201.AppImage",
+        "sha512": "689eD0LesgTl9N3jUAo4eX16WtE6EN8J9kgzJHOU/AEDyYm1DUcjDN0ELjcjhdtiP0PTK/DdWMaRlfrr/iVbZQ==",
+        "size": 177793699,
+        "blockMapSize": 187063
       }
     ],
-    "path": "ShadowPC-8.0.10198.AppImage",
-    "sha512": "m1LUy9I9j9f4XGOWG8T1Lu/plEL2SX0WRceBjm95K8N2HuCFBJRQDOvv0LDpKOaDG4edhLONGCY1anhQECpWpg==",
-    "releaseDate": "2023-12-14T08:53:48.479Z"
+    "path": "ShadowPC-8.0.10201.AppImage",
+    "sha512": "689eD0LesgTl9N3jUAo4eX16WtE6EN8J9kgzJHOU/AEDyYm1DUcjDN0ELjcjhdtiP0PTK/DdWMaRlfrr/iVbZQ==",
+    "releaseDate": "2023-12-19T16:20:03.417Z"
   },
   "preprod": {
     "version": "8.0.10199",
