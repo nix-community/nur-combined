@@ -534,10 +534,10 @@
   };
   "npm-hub" = buildFirefoxXpiAddon {
     pname = "npm-hub";
-    version = "2023.5.29";
+    version = "2023.12.20";
     addonId = "npm-hub@sikelianos.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4117658/npm_hub-2023.5.29.xpi";
-    sha256 = "3c59f51145e2fd42f0b56fdf42cfb6a8e882d04149756466a512d3ab2435bbfb";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4211397/npm_hub-2023.12.20.xpi";
+    sha256 = "39bfec64108c2e1f6207473c9c84828870bcbd5986a279143c758839b7329e1a";
     meta = with lib; {
       homepage = "https://github.com/npmhub/npmhub";
       description = "Explore npm dependencies on GitHub repos";
