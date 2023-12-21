@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "unum";
-  version = "3.5";
+  version = "3.6";
 
   src = fetchFromGitHub {
     owner = "Fourmilab";
     repo = pname;
-    rev = "6ba7be889e0cffcaf3beb250fe6f1ac483e0257b";
-    hash = "sha256-qdiFhs8dHXK6lpEdOg3jT1kJuLOuJHjypgbjmVlm60o=";
+    rev = "2e544ef429768ad7c491cbbac1ca9742e310c2f0";
+    hash = "sha256-fAegRn95n+0M5ISKP1xrkXJNJiF+qFjtkIXYV3f/4pQ=";
   };
 
   buildInputs = [ perl ];
@@ -17,14 +17,17 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm555 unum/unum.pl $out/bin/unum
+
+    install -Dm755 unum/unum.pl $out/bin/unum
+
     runHook postInstall
   '';
 
-  meta = with lib; {
-    inherit (src.meta) homepage;
+  meta = {
     description =
       "Utility for looking up Unicode characters and HTML entities by code, name, block, or description";
-    license = licenses.cc-by-sa-40;
+    homepage = "https://github.com/Fourmilab/unum";
+    license = lib.licenses.cc-by-sa-40;
+    mainProgram = "unum";
   };
 }
