@@ -28,7 +28,10 @@ pkgs.stdenv.mkDerivation {
   phases = [ \"installPhase\" ];
   installPhase = ''
     mkdir -p \$out/bin
+    mkdir -p \$out/docs
     tar -zxf \$src -C \$out/bin/ ${REPO}
+    tar -zxf \$src -C \$out/docs/ THIRDPARTY.html
+    tar -zxf \$src -C \$out/docs/ LICENSE
   '';
 }
 " >../pkgs/"$REPO".nix
