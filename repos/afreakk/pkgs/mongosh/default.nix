@@ -6,6 +6,7 @@
 , cyrus_sasl
 , libkrb5
 , openssl_1_1
+, gcc
 }:
 stdenv.mkDerivation rec {
   name = "mongosh";
