@@ -45,9 +45,6 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       services.dnsmasq.enable = true;
-      services.dnsmasq.settings = {
-        conf-file = "/var/lib/dnsmasq/rkn";
-      };
       # в отличие от решения с голым ipset
       # 1) разные сайты с одним IP не задевают друг друга
       # 2) при удалённом использовании не надо гнать весь трафик через VPN
