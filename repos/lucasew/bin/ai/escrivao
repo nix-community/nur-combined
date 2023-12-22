@@ -53,22 +53,26 @@ def inference(audio):
     audio = torchaudio.functional.resample(audio, sr, 16000); sr = 16000
     audio = torch.mean(audio, axis=0) # convert to mono
     # print('audio_shape', audio.shape)
-    
-    features = processor(audio, sampling_rate=sr, padding=True, return_tensors='pt')
-    input_values = features.input_values.to(device)
-    attention_mask = features.attention_mask.to(device)
-    predicted = []
-    with torch.no_grad():
-        logits = model(input_values, attention_mask=attention_mask).logits
-    print(logits)
-    if lm is not None:
-        logits = logits.cpu().numpy()
-        for sample_logits in logits:
-            predicted.append(lm_decoder.decode(sample_logits))
-    else:
-        pred_ids = torch.argmax(logits, dim=-1)
-        predicted = processor.batch_decode(pred_ids)
-    return predicted
+    samples = audio.shape[0]
+    last_sample_block = samples - (samples % 16000)
+    text = ""
+    for i in range(0, samples, 16000):
+        features = processor(audio, sampling_rate=sr, padding=True, return_tensors='pt')
+        input_values = features.input_values.to(device)
+        attention_mask = features.attention_mask.to(device)
+        predicted = []
+        with torch.no_grad():
+            logits = model(input_values, attention_mask=attention_mask).logits
+        print(logits)
+        if lm is not None:
+            logits = logits.cpu().numpy()
+            for sample_logits in logits:
+                predicted.append(lm_decoder.decode(sample_logits))
+        else:
+            pred_ids = torch.argmax(logits, dim=-1)
+            predicted = processor.batch_decode(pred_ids)
+        text += predicted
+    return text
 
 async def handle_audio(update: Update, context):
     items = [
