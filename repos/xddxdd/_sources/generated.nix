@@ -1063,18 +1063,18 @@
   };
   wine-wechat-x64 = {
     pname = "wine-wechat-x64";
-    version = "3.9.8.15";
+    version = "3.9.8.25";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.8.15/WeChatSetup-3.9.8.15.exe";
-      sha256 = "sha256-dJdT13QYZm9PdqEH+/OM+8j3350Z/w5SGLA6AqYSJYM=";
+      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.8.25/WeChatSetup-3.9.8.25.exe";
+      sha256 = "sha256-McpyJl1GEQpOwk8F7Dv6mfBwCJUxc5a4nsX40uX5GVA=";
     };
   };
   wine-wechat-x86 = {
     pname = "wine-wechat-x86";
-    version = "3.9.8.12";
+    version = "3.9.8.24";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.8.12/WeChatSetupX86-3.9.8.12.exe";
-      sha256 = "sha256-ywA2d0706eF+YAXCGV+snIB6tItVm4P1hR3RtkzgHa0=";
+      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.8.24/WeChatSetupX86-3.9.8.24.exe";
+      sha256 = "sha256-ykkKQemnwPdT27BVXJG4pJi0lWlFWQi+CBR2vIqkvJ0=";
     };
   };
   xstatic-asciinema-player = {
