@@ -89,10 +89,10 @@
   };
   translate-shell = {
     pname = "translate-shell";
-    version = "0.0.48";
+    version = "0.0.49";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.48.tar.gz";
-      sha256 = "sha256-7cpi2Yvy19OYgC44fEERQNMyhVg4ZbMO/nExtMzRz9E=";
+      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.49.tar.gz";
+      sha256 = "sha256-E2cr3PcU4Cfx2bxfZltMKtd4GJe3O1lF15kU8reg51w=";
     };
   };
   undollar = {
