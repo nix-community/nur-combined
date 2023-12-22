@@ -47,6 +47,21 @@ lm = None
 #         self.lm
 #     )
 
+class Timestamp:
+    def __init__(self, seconds: int):
+        self.seconds = int(seconds)
+    def __str__(self):
+        minutes = self.seconds // 60
+        hours = minutes // 60
+        minutes = minutes % 60
+        seconds = self.seconds % 60
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
+    def __add__(self, value):
+        return Timestamp(self.seconds + int(value))
+        
+
+INFERENCE_BLOCK_SECONDS = 5
+
 def inference(audio):
     audio, sr = torchaudio.load(audio, normalize=False)
     # print('audio', audio, sr)
@@ -54,16 +69,24 @@ def inference(audio):
     audio = torch.mean(audio, axis=0) # convert to mono
     # print('audio_shape', audio.shape)
     samples = audio.shape[0]
-    last_sample_block = samples - (samples % 16000)
+    block_size = sr * INFERENCE_BLOCK_SECONDS # n segundos
+    last_sample_block = samples - (samples % block_size)
     text = ""
-    for i in range(0, samples, 16000):
-        features = processor(audio, sampling_rate=sr, padding=True, return_tensors='pt')
+    for (a, b) in zip(
+      range(0, samples, block_size),
+      [*range(block_size, samples, block_size), -1]
+     ):
+        b_candidate = b + int(sr/2)
+        if b > 0 and b_candidate <= samples:
+            b = b_candidate
+
+        audio_patch = audio[a:b]
+        features = processor(audio_patch, sampling_rate=sr, padding=True, return_tensors='pt')
         input_values = features.input_values.to(device)
         attention_mask = features.attention_mask.to(device)
         predicted = []
         with torch.no_grad():
             logits = model(input_values, attention_mask=attention_mask).logits
-        print(logits)
         if lm is not None:
             logits = logits.cpu().numpy()
             for sample_logits in logits:
@@ -71,7 +94,17 @@ def inference(audio):
         else:
             pred_ids = torch.argmax(logits, dim=-1)
             predicted = processor.batch_decode(pred_ids)
-        text += predicted
+        predicted = predicted[0].strip()
+        text = text.strip()
+        timestamp = Timestamp(a/sr)
+
+        cut_point = 0
+        for i in range(15):
+            if text[-i:] == predicted[:i]:
+                cut_point = i
+        print(predicted, cut_point, logits)
+        predicted = predicted[cut_point:]
+        text = f"{text}\n({timestamp}) {predicted}"
     return text
 
 async def handle_audio(update: Update, context):
@@ -89,11 +122,14 @@ async def handle_audio(update: Update, context):
             continue
         try:
             gc.collect()
-            results = inference(file._get_encoded_url())
+            text = inference(file._get_encoded_url())
             gc.collect()
-            for result in results:
-                await update.message.reply_text(result, reply_to_message_id=update.message.id)
-                logger.info(f'audio ({update.message.chat.title}/{update.message.chat.username}-{update.message.chat.id}) {result}')
+            await update.message.reply_text(text, reply_to_message_id=update.message.id)
+            logger.info(f'audio ({update.message.chat.title}/{update.message.chat.username}-{update.message.chat.id}) {text}')
+        except Exception as e:
+            print(e)
+            traceback.print_exc()
+            await update.message.reply_text(f"Erro: {e}")
         except torch.cuda.OutOfMemoryError as e:
             print(e)
             traceback.print_exc()
