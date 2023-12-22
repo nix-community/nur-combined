@@ -105,7 +105,7 @@ def inference(audio):
         print(predicted, cut_point, logits)
         predicted = predicted[cut_point:]
         text = f"{text}\n({timestamp}) {predicted}"
-    return text
+    return f'{text}\n\n ~Escrivão by https://github.com/lucasew based on https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2'
 
 async def handle_audio(update: Update, context):
     items = [
