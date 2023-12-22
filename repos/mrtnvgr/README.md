@@ -22,3 +22,7 @@
 ### Fonts
 
 - _[comic-code](https://tosche.net/fonts/comic-code)_
+
+### Overrides
+
+- **obs-wayland** - obs with plugins for wayland and pipewire support
