@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "matrix-wechat";
-  version = "0.2.2";
+  version = "0.2.3";
   src = fetchFromGitHub {
     owner = "duo";
     repo = "matrix-wechat";
     rev = version;
-    sha256 = "sha256-kbA5DNQXn9i8ZVncBeb4/PJby5YjIiG+SGNxLph5Qu0=";
+    sha256 = "sha256-AnjFU7lMkVPjH6xZvZMIV8TnewYvCJcc7cXmAw53ymY=";
   };
 
-  vendorHash = "sha256-tovnLPZRaCD7tadmuO35jniG7wZqIgC57wsQxt3JYsA=";
+  vendorHash = "sha256-20xi3dcdSt5SRWUhmF7fZkSB6TzC/Z697M18v1kjLhg=";
 
   buildInputs = [
     olm
@@ -32,5 +32,6 @@ buildGoModule rec {
     homepage = "https://github.com/duo/matrix-wechat";
     license = licenses.agpl3;
     maintainers = with maintainers; [ yinfeng ];
+    broken = !(versionAtLeast (versions.majorMinor trivial.version) "23.11");
   };
 }
