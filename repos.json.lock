@@ -825,8 +825,8 @@
             "url": "https://github.com/lschuermann/nur-packages"
         },
         "lucasew": {
-            "rev": "037fac9007107ec6f966609482564bbdb74a77f2",
-            "sha256": "1zqn87fgarg2icc9rn7l2hgd6nnn62rznyj44clyl5i6z1ggsxrn",
+            "rev": "345ecd5274db2751348c5b2b0305620b83d7035b",
+            "sha256": "1rc54ay2wbrsfizns2q8d7fz6y5k19wbw70c6msrwf1kr7siccsv",
             "url": "https://github.com/lucasew/nixcfg"
         },
         "lunik1": {
