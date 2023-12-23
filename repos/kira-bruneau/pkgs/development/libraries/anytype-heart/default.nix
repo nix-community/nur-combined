@@ -9,18 +9,18 @@
 
 buildGoModule rec {
   pname = "anytype-heart";
-  version = "0.29.16";
+  version = "0.30.3";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     rev = "refs/tags/v${version}";
-    hash = "sha256-PHpQ13SNtfOA1kn2hTYu54ua4txvdbW6+YtwWuVKTes=";
+    hash = "sha256-IHsstFYS489sve6bCpWKx3H611ySYjc2Uku26T+7S3U=";
   };
 
   proxyVendor = true;
 
-  vendorHash = "sha256-Is5InDGZ/qU3kZJIxfMLWSyejmlr3NjZNWwRaQSHFSA=";
+  vendorHash = "sha256-Y+uzURihYKQmow7lT9ct5/ZlyZeWOCQkts+c1IIdrf0=";
 
   subPackages = [ "cmd/grpcserver" ];
 
@@ -30,7 +30,7 @@ buildGoModule rec {
     protoc-gen-js
   ];
 
-  # https://github.com/anyproto/anytype-heart/blob/v0.29.16/.github/workflows/build.yml#L313
+  # https://github.com/anyproto/anytype-heart/blob/v0.30.3/.github/workflows/build.yml#L313
   tags = [
     "envproduction"
     "nographviz"
@@ -67,6 +67,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Shared library for Anytype clients";
     homepage = "https://github.com/anyproto/anytype-heart";
+    changelog = "https://github.com/anyproto/anytype-heart/releases/tag/v${version}";
     license = licenses.unfree; # Any Source Available License 1.0
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
