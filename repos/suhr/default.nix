@@ -18,4 +18,5 @@ rec {
   dcpt720dwlpr = (pkgs.callPackage ./pkgs/dcpt720dw { }).driver;
   dcpt720dw-cupswrapper = (pkgs.callPackage ./pkgs/dcpt720dw { }).cupswrapper;
   sdrpp-git = pkgs.callPackage ./pkgs/sdrpp-git { };
+  pharo = pkgs.callPackage ./pkgs/pharo { };
 }
