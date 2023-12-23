@@ -2,8 +2,8 @@
 , lib
 , fetchurl
 , makeBinaryWrapper
-, cairo
 , cmake
+, cairo
 , freetype
 , libffi
 , libgit2
@@ -18,7 +18,7 @@ let
   inherit (lib.strings) makeLibraryPath;
   pharoVm = "PharoVM-10.0.9-de76067";
 in
-  stdenv.mkDerivation rec {
+  stdenv.mkDerivation (finalAttrs: {
     pname = "pharo";
     version = "10.0.9";
     src = fetchurl {
@@ -30,14 +30,14 @@ in
 
     buildInputs = [
       cairo
+      freetype
+      libffi
       libgit2
       libpng
+      libuuid
+      openssl
       pixman
       SDL2
-      freetype
-      openssl
-      libuuid
-      libffi
     ];
 
     nativeBuildInputs = [ cmake makeBinaryWrapper ];
@@ -58,8 +58,7 @@ in
       runHook preInstall
 
       cmake --build . --target=install
-      mkdir -p "$out/lib"
-      mkdir "$out/bin"
+      mkdir -p "$out/lib" "$out/bin"
       cp build/vm/*.so* "$out/lib/"
       cp build/vm/pharo "$out/bin/pharo"
 
@@ -67,7 +66,7 @@ in
     '';
 
     preFixup = let
-      libPath = lib.makeLibraryPath (buildInputs ++ [
+      libPath = lib.makeLibraryPath (finalAttrs.buildInputs ++ [
         stdenv.cc.cc.lib
         "$out"
       ]);
@@ -81,13 +80,13 @@ in
 
       patchelf --set-rpath "${libPath}" $out/lib/libPharoVMCore.so
       ln -s "${libgit2}/lib/libgit2.so" $out/lib/libgit2.so.1.1
-      wrapProgram "$out/bin/pharo" --set LD_LIBRARY_PATH "${libPath}"
+      wrapProgram "$out/bin/pharo" --argv0 $out/bin/pharo --set LD_LIBRARY_PATH "${libPath}"
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Clean and innovative Smalltalk-inspired environment";
       homepage = "https://pharo.org";
-      license = licenses.mit;
+      license = lib.licenses.mit;
       longDescription = ''
         Pharo's goal is to deliver a clean, innovative, free open-source
         Smalltalk-inspired environment. By providing a stable and small core
@@ -96,6 +95,6 @@ in
       '';
       maintainers = with lib.maintainers; [ suhr ];
       platforms = lib.platforms.linux;
+      mainProgram = "pharo";
     };
-  }
-
+  })
