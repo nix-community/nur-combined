@@ -4,8 +4,8 @@
 pkgs.stdenv.mkDerivation {
   name = "oatmeal";
   src = pkgs.fetchurl {
-    url = "https://github.com/dustinblackman/oatmeal/releases/download/v0.10.0/oatmeal_0.10.0_linux_amd64.tar.gz";
-    sha256 = "06nnp97vzbnflx6a56lj0nk1mmhl634q2n6sbghsnqih7rv48ww4";
+    url = "https://github.com/dustinblackman/oatmeal/releases/download/v0.11.0/oatmeal_0.11.0_linux_amd64.tar.gz";
+    sha256 = "1mpv8zqxrm2q4miq5zrrsnly1gqiv5r5alrl41hslm46g1gbp3ji";
   };
   phases = [ "installPhase" ];
   installPhase = ''
@@ -16,6 +16,7 @@ pkgs.stdenv.mkDerivation {
     mv tmp/THIRDPARTY.html $out/share/doc/oatmeal/copyright/
     mv tmp/LICENSE $out/share/doc/oatmeal/copyright/
 
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/oatmeal
+    patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $out/bin/oatmeal
   '';
 }
+
