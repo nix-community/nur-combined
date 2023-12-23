@@ -31,6 +31,8 @@ in
       pynvim_pp = prev.pynvim_pp.overrideAttrs (old: {
         src = flake.inputs.src-python-pynvim_pp;
       });
+      pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode {};
+      kenlm = final.callPackage ./pkgs/python/kenlm {};
     })
   ];
 
