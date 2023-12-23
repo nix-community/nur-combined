@@ -3,7 +3,6 @@ let
   cfg = config.my.home.keyboard;
 in
 {
-
   options.my.home.keyboard = with lib; {
     enable = my.mkDisableOption "keyboard configuration";
   };
