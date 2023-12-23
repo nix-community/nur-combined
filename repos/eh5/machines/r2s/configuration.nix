@@ -74,9 +74,11 @@
     iperf
     lm_sensors
     lsof
+    mtr
     screen
     sops
     tcpdump
+    traceroute
     usbutils
     sing-box
   ] ++ (with config.boot.kernelPackages; [

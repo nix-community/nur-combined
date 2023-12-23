@@ -42,10 +42,10 @@
       grub.enable = false;
       generic-extlinux-compatible = {
         enable = true;
-        configurationLimit = 5;
+        configurationLimit = 15;
       };
     };
-    kernelPackages = pkgs.linuxPackages;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "console=ttyS2,1500000"
       "earlycon=uart8250,mmio32,0xff130000"
@@ -53,10 +53,9 @@
     ];
     initrd = {
       includeDefaultModules = false;
-      kernelModules = [ "ledtrig-netdev" ];
     };
     blacklistedKernelModules = [ "hantro_vpu" "drm" "lima" "videodev" ];
-    kernelModules = [ "ledtrig-netdev" ];
+    kernelModules = [ "ledtrig_netdev" ];
     tmp.useTmpfs = true;
   };
 
@@ -89,6 +88,15 @@
     "ntp6.aliyun.com"
     "ntp7.aliyun.com"
   ];
+
+  systemd.services."systemd-networkd" = {
+    serviceConfig = {
+      # avoid infinity restarting,
+      # we want to tty into the system as network is not functional
+      Restart = "no";
+    };
+  };
+  systemd.network.wait-online.timeout = 20;
 
   systemd.services."wait-system-running" = {
     description = "Wait system running";
