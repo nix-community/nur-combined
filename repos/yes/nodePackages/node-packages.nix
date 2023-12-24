@@ -166,22 +166,22 @@ let
         sha512 = "/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==";
       };
     };
-    "@types/node-20.10.4" = {
+    "@types/node-20.10.5" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.10.4";
+      version = "20.10.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.10.4.tgz";
-        sha512 = "D08YG6rr8X90YB56tSIuBaddy/UXAA9RKJoFvrsnogAum/0pmjkgi4+2nx96A330FmioegBWmEYQ+syqCFaveg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.10.5.tgz";
+        sha512 = "nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==";
       };
     };
-    "@types/qs-6.9.10" = {
+    "@types/qs-6.9.11" = {
       name = "_at_types_slash_qs";
       packageName = "@types/qs";
-      version = "6.9.10";
+      version = "6.9.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/qs/-/qs-6.9.10.tgz";
-        sha512 = "3Gnx08Ns1sEoCrWssEgTSJs/rsT2vhGP+Ja9cnnk9k4ALxinORlQneLXFeFKOTJMOeZUFD1s7w+w2AphTpvzZw==";
+        url = "https://registry.npmjs.org/@types/qs/-/qs-6.9.11.tgz";
+        sha512 = "oGk0gmhnEJK4Yyk+oI7EfXsLayXatCWPHary1MtcmbAifkobT9cM9yutG/hZKIseOU0MqbIwQ/u2nn/Gb+ltuQ==";
       };
     };
     "@types/range-parser-1.2.7" = {
@@ -2137,13 +2137,13 @@ let
         sha512 = "ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==";
       };
     };
-    "rollup-4.7.0" = {
+    "rollup-4.9.1" = {
       name = "rollup";
       packageName = "rollup";
-      version = "4.7.0";
+      version = "4.9.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-4.7.0.tgz";
-        sha512 = "7Kw0dUP4BWH78zaZCqF1rPyQ8D5DSU6URG45v1dqS/faNsx9WXyess00uTOZxKr7oR/4TOjO1CPudT8L1UsEgw==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-4.9.1.tgz";
+        sha512 = "pgPO9DWzLoW/vIhlSoDByCzcpX92bKEorbgXuZrqxByte3JFk2xSW2JEeAcyLc9Ru9pqcNNW+Ob7ntsk2oT/Xw==";
       };
     };
     "safe-buffer-5.1.2" = {
@@ -2668,13 +2668,13 @@ let
         sha512 = "F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==";
       };
     };
-    "ws-8.15.0" = {
+    "ws-8.15.1" = {
       name = "ws";
       packageName = "ws";
-      version = "8.15.0";
+      version = "8.15.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ws/-/ws-8.15.0.tgz";
-        sha512 = "H/Z3H55mrcrgjFwI+5jKavgXvwQLtfPCUEp6pi35VhoB0pfcHnSoyuTzkBEZpzq49g1193CUEwIvmsjcotenYw==";
+        url = "https://registry.npmjs.org/ws/-/ws-8.15.1.tgz";
+        sha512 = "W5OZiCjXEmk0yZ66ZN82beM5Sz7l7coYxpRkzS+p9PP+ToQry8szKh+61eNktr7EA9DOwvFGhfC605jDHbP6QQ==";
       };
     };
     "xtend-4.0.2" = {
@@ -3017,7 +3017,7 @@ in
       sources."which-module-2.0.1"
       sources."wrap-ansi-6.2.0"
       sources."wrappy-1.0.2"
-      sources."ws-8.15.0"
+      sources."ws-8.15.1"
       sources."xtend-4.0.2"
       sources."y18n-4.0.3"
       sources."yargs-15.4.1"
@@ -3133,8 +3133,8 @@ in
       sources."@types/http-errors-2.0.4"
       sources."@types/http-proxy-1.17.14"
       sources."@types/mime-1.3.5"
-      sources."@types/node-20.10.4"
-      sources."@types/qs-6.9.10"
+      sources."@types/node-20.10.5"
+      sources."@types/qs-6.9.11"
       sources."@types/range-parser-1.2.7"
       sources."@types/send-0.17.4"
       sources."@types/serve-static-1.15.5"
@@ -3186,7 +3186,7 @@ in
       sources."path-parse-1.0.7"
       sources."picomatch-2.3.1"
       sources."resolve-1.22.8"
-      sources."rollup-4.7.0"
+      sources."rollup-4.9.1"
       sources."supports-preserve-symlinks-flag-1.0.0"
     ];
     buildInputs = globalBuildInputs;
@@ -3224,7 +3224,7 @@ in
       sources."minimatch-5.1.6"
       sources."once-1.4.0"
       sources."picomatch-2.3.1"
-      sources."rollup-4.7.0"
+      sources."rollup-4.9.1"
       sources."wrappy-1.0.2"
     ];
     buildInputs = globalBuildInputs;
@@ -3240,17 +3240,17 @@ in
   "@rollup/plugin-json" = nodeEnv.buildNodePackage {
     name = "_at_rollup_slash_plugin-json";
     packageName = "@rollup/plugin-json";
-    version = "6.0.1";
+    version = "6.1.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@rollup/plugin-json/-/plugin-json-6.0.1.tgz";
-      sha512 = "RgVfl5hWMkxN1h/uZj8FVESvPuBJ/uf6ly6GTj0GONnkfoBN5KC0MSz+PN2OLDgYXMhtG0mWpTrkiOjoxAIevw==";
+      url = "https://registry.npmjs.org/@rollup/plugin-json/-/plugin-json-6.1.0.tgz";
+      sha512 = "EGI2te5ENk1coGeADSIwZ7G2Q8CJS2sF120T7jLw4xFw9n7wIOXHo+kIYRAoVpJAN+kmqZSoO3Fp4JtoNF4ReA==";
     };
     dependencies = [
       sources."@rollup/pluginutils-5.1.0"
       sources."@types/estree-1.0.5"
       sources."estree-walker-2.0.2"
       sources."picomatch-2.3.1"
-      sources."rollup-4.7.0"
+      sources."rollup-4.9.1"
     ];
     buildInputs = globalBuildInputs;
     meta = {
@@ -3281,7 +3281,7 @@ in
       sources."buffer-from-1.1.2"
       sources."commander-2.20.3"
       sources."randombytes-2.1.0"
-      sources."rollup-4.7.0"
+      sources."rollup-4.9.1"
       sources."safe-buffer-5.2.1"
       sources."serialize-javascript-6.0.1"
       sources."smob-1.4.1"

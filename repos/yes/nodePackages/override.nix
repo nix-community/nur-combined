@@ -3,6 +3,7 @@
 }, system ? builtins.currentSystem}:
 
 let
+  nodejs = pkgs.nodejs_18;
   prev = import ./default.nix {
     inherit pkgs system;
   };
@@ -10,6 +11,7 @@ let
     dep: "ln -s ${prev.${dep}}/lib/node_modules/${dep} $DEST/node_modules/${dep}"
   ) deps);
 in {
+  inherit nodejs;
   inherit (prev) magireco-cn-local-server;
   aria2b = prev.aria2b.override {
     nativeBuildInputs = [ pkgs.makeWrapper ];
@@ -39,9 +41,9 @@ in {
 
       rollup -c
       mkdir -p $out/bin
-      makeWrapper ${pkgs.nodejs}/bin/node $out/bin/ss-ws-local \
+      makeWrapper ${nodejs}/bin/node $out/bin/ss-ws-local \
         --add-flags "$DEST/local.mjs"
-      makeWrapper ${pkgs.nodejs}/bin/node $out/bin/ss-ws-server \
+      makeWrapper ${nodejs}/bin/node $out/bin/ss-ws-server \
         --add-flags "$DEST/server.min.js"
     '';
   };
