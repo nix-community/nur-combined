@@ -46,7 +46,8 @@ if sd is_node phone; then
 fi
 
 if sd is_node whiterun; then
-  backup /var/backup/postgresql/ backup/lucasew/homelab/postgres
+  # there is a specific service for this
+  # backup /var/backup/postgresql/ backup/lucasew/homelab/postgres
 fi
 
 # mirroring of git repos -- new ones using git clone --mirror
