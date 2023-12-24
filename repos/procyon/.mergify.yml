@@ -4,6 +4,7 @@ pull_request_rules:
       - or:
           - "#approved-reviews-by >= 1"
           - author = dependabot[bot]
+          - author = cyber-procyon[bot]
     actions:
       queue:
         method: rebase
