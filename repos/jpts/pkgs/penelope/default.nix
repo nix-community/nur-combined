@@ -1,46 +1,45 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib
+, stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, fetchpatch
+, setuptools
+, python3
 }:
 buildPythonPackage rec {
   name = "penelope";
-  version = "0.9.2";
   owner = "brightio";
+  version = "0.10.0";
+  #owner = "jpts";
+  commit = "83a68680ca91fe813af5cf3a2006c96c15cb070f";
   repo = name;
+  format = "pyproject";
 
   src = fetchFromGitHub {
     inherit owner repo;
-    rev = "v${version}";
-    sha256 = "sha256-KlbB7i009UttTp+/MaF3y9CGUkAGEQQq/W+hQYKk9CY=";
+    #rev = "refs/tags/v${version}";
+    rev = commit;
+    sha256 = "sha256-r8ZMwPAKLITHDDafiXb/fE+H8sJnQUgUtbjwQbMko7E=";
   };
 
-  preBuild = ''
-    cat > setup.py << EOF
-    from setuptools import setup
+  nativeBuildInputs = with python3.pkgs; [
+    setuptools
+    wheel
+  ];
 
-    setup(
-      name='penelope',
-      version='${version}',
-      scripts=[
-        'penelope.py',
-      ],
-    )
-    EOF
-  '';
-
-  installPhase = "install -Dm755 $src/penelope.py $out/bin/penelope";
+  # We are a script, no tests
+  doCheck = false;
+  pythonImportsCheck = [ "penelope" ];
 
   meta = {
     homepage = "https://github.com/brightio/penelope";
     changelog = "https://github.com/brightio/penelope/tag/v${version}";
     description = "Reverse Shell Handler";
     longDescription = ''
-      Penelope is a shell handler designed to be easy to use and intended to replace netcat when exploiting RCE vulnerabilities. It is compatible with Linux and macOS and requires Python 3.6 or higher. It is a standalone script that does not require any installation or external dependencies, and it is intended to remain this way.
+      Penelope is a shell handler designed to be easy to use and intended to replace netcat when exploiting RCE vulnerabilities.
     '';
-    license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [];
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ jpts ];
     platforms = lib.platforms.unix;
   };
 }

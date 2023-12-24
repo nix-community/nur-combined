@@ -1,9 +1,8 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
+{ lib
+, stdenv
+, buildGoModule
+, fetchFromGitHub
+, installShellFiles
 }:
 buildGoModule rec {
   pname = "kubectl-execws";
@@ -14,9 +13,9 @@ buildGoModule rec {
   src = fetchFromGitHub {
     inherit owner repo;
     rev = "v${version}";
-    sha256 = "i87V1NK62fVtbf2U6vFi8in7JNQCBRM8K9i8eCi8hkY=";
+    hash = "sha256-i87V1NK62fVtbf2U6vFi8in7JNQCBRM8K9i8eCi8hkY=";
   };
-  vendorSha256 = "sha256-FU+DvsG2zGUdCXWAsL0xyok+YQjOhSAkSN41jCSXygA=";
+  vendorHash = "sha256-FU+DvsG2zGUdCXWAsL0xyok+YQjOhSAkSN41jCSXygA=";
 
   ldflags = [
     "-s"
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-X github.com/jpts/kubectl-execws/cmd.releaseVersion=v${version}"
   ];
 
-  nativeBuildInputs = [installShellFiles];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     installShellCompletion --cmd kubectl-execws \
@@ -43,7 +42,7 @@ buildGoModule rec {
       The Kubernetes API server has support for exec over WebSockets, but it has yet to land in kubectl. Although some proposals exist to add the functionality, they seem quite far away from landing. This plugin is designed to be a stopgap until they do.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [];
-    platforms = ["x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin"];
+    maintainers = with maintainers; [ ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
   };
 }
