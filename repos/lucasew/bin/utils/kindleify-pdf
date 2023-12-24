@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# use k2pdfopt to prepare a pdf file for kindle
+
+NIXPKGS_ALLOW_INSECURE=1 nix run nixpkgs/nixos-22.11#k2pdfopt --impure -- -ui- -x "$@"

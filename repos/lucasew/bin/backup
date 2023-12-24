@@ -46,6 +46,7 @@ if sd is_node phone; then
 fi
 
 if sd is_node whiterun; then
+  true
   # there is a specific service for this
   # backup /var/backup/postgresql/ backup/lucasew/homelab/postgres
 fi
