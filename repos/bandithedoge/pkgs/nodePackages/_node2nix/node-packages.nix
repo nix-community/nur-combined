@@ -504,13 +504,13 @@
         sha512 = "sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==";
       };
     };
-    "node-fetch-native-1.4.1" = {
+    "node-fetch-native-1.5.1" = {
       name = "node-fetch-native";
       packageName = "node-fetch-native";
-      version = "1.4.1";
+      version = "1.5.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-fetch-native/-/node-fetch-native-1.4.1.tgz";
-        sha512 = "NsXBU0UgBxo2rQLOeWNZqS3fvflWePMECr8CoSWoSTqCqGbVVsvl9vZu1HfQicYN0g5piV9Gh8RTEvo/uP752w==";
+        url = "https://registry.npmjs.org/node-fetch-native/-/node-fetch-native-1.5.1.tgz";
+        sha512 = "KNVu95aIrNzw7v1aKyVv/nC2kHUqNzgBnFuMTemhHnk7djEMtLjaJSDCB8h2VVgKL5s+NAcvBlZ2OIHLP0RC/Q==";
       };
     };
     "normalize-path-3.0.0" = {
@@ -959,7 +959,7 @@ in {
       sources."mlly-1.4.2"
       sources."mri-1.2.0"
       sources."ms-2.1.2"
-      sources."node-fetch-native-1.4.1"
+      sources."node-fetch-native-1.5.1"
       sources."normalize-path-3.0.0"
       sources."ohash-1.1.3"
       sources."path-key-3.1.1"
