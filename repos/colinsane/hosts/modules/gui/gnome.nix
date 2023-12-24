@@ -21,7 +21,6 @@ in
     services.xserver.displayManager.gdm.enable = true;
 
     # gnome does networking stuff with networkmanager
-    networking.useDHCP = false;
     networking.networkmanager.enable = true;
     networking.wireless.enable = lib.mkForce false;
   };

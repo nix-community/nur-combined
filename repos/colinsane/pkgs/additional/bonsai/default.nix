@@ -4,11 +4,10 @@
 , gitUpdater
 , hare
 , hareThirdParty
-, hare-ev
 }:
 
 let
-  inherit (hareThirdParty) hare-json;
+  inherit (hareThirdParty) hare-json hare-ev;
 in
 stdenv.mkDerivation rec {
   pname = "bonsai";

@@ -2,6 +2,13 @@
 # prefer to encode these in `sane.programs`
 # resort to this method for e.g. system dependencies, or things which are referenced from too many places.
 (self: super: with self; {
+  beam = super.beam.override {
+    # build erlang without webkit (for servo)
+    wxGTK32 = wxGTK32.override {
+      withWebKit = false;
+    };
+  };
+
   gnome = super.gnome.overrideScope' (gself: gsuper: with gself; {
     evolution-data-server = gsuper.evolution-data-server.override {
       # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation

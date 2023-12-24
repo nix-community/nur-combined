@@ -74,7 +74,6 @@ in
       services.gnome.gnome-online-miners.enable = mkForce false;
 
       # XXX: phosh enables networkmanager by default; can probably disable these lines
-      networking.useDHCP = false;
       networking.networkmanager.enable = true;
       networking.wireless.enable = lib.mkForce false;
 

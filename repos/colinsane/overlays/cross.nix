@@ -1,7 +1,12 @@
+# outstanding cross-compilation PRs/issues:
+# - all: <https://github.com/NixOS/nixpkgs/labels/6.topic%3A%20cross-compilation>
+# - qtsvg mixed deps: <https://github.com/NixOS/nixpkgs/issues/269756>
+#   - big Qt fix: <https://github.com/NixOS/nixpkgs/pull/267311>
+#
 # outstanding issues:
+# - 2023/12/20: argyllcms requires a fully-emulated build
 # - 2023/10/10: build python3 is pulled in by many things
 #   - nix why-depends --all /nix/store/8g3kd2jxifq10726p6317kh8srkdalf5-nixos-system-moby-23.11.20231011.dirty /nix/store/pzf6dnxg8gf04xazzjdwarm7s03cbrgz-python3-3.10.12/bin/python3.10
-#   - blueman
 #   - gstreamer-vaapi -> gstreamer-dev -> glib-dev
 #   - phog -> gnome-shell
 #   - portfolio -> {glib,cairo,pygobject}-dev
@@ -304,6 +309,8 @@ let
         nativeInstallCheckInputs = unsplicePkgs (upstream.nativeInstallCheckInputs or []);
       });
 
+  # TODO: may be able to use qemu-system instead of booting a full linux?
+  # - <https://github.com/NixOS/nixpkgs/issues/119885#issuecomment-858491472>
   buildInQemu = overrides: pkg: emulateBuilderQemu (buildOnHost overrides pkg);
   # buildInProot = pkg: emulateBuilderProot (buildOnHost pkg);
 in with final; {
@@ -396,8 +403,8 @@ in with final; {
   #   };
 
   # error: "imdi/imdi_make: line 1: ^?ELF^B^A^A^B�^A�@�^W^A@8: not found"
-  # 2023/12/08: upstreaming is unblocked
-  argyllcms = needsBinfmtOrQemu prev.argyllcms;
+  # 2023/12/20: upstreaming is unblocked; implemented in nixpatches/list.nix
+  # argyllcms = needsBinfmtOrQemu prev.argyllcms;
 
   # binutils = prev.binutils.override {
   #   # fix that resulting binary files would specify build #!sh as their interpreter.
@@ -406,23 +413,6 @@ in with final; {
   #   # note that this isn't enough to remove all build references:
   #   # - expand-response-params still references build stuff.
   #   shell = runtimeShell;
-  # };
-
-  # 2023/08/03: upstreaming is unblocked,implemented on servo, but has x86 in the runtime closure
-  # blueman = prev.blueman.overrideAttrs (orig: {
-  #   # configure: error: ifconfig or ip not found, install net-tools or iproute2
-  #   nativeBuildInputs = orig.nativeBuildInputs ++ [ iproute2 ];
-  # });
-  # bonsai = emulateBuildMachine (prev.bonsai.override {
-  #   hare = emulateBuildMachine (hare.override {
-  #     qbe = emulateBuildMachine qbe;
-  #     harePackages.harec = emulateBuildMachine (harePackages.harec.override {
-  #       qbe = emulateBuildMachine qbe;
-  #     });
-  #   });
-  # });
-  # bonsai = prev.bonsai.override {
-  #   inherit (emulated) stdenv hare;
   # };
 
   # brltty = prev.brltty.override {
@@ -442,9 +432,6 @@ in with final; {
     mesonFlags = lib.remove "-Dgtk_doc=true" upstream.mesonFlags;
   });
 
-  # fixes "FileNotFoundError: [Errno 2] No such file or directory: 'gtk4-update-icon-cache'"
-  # 2023/07/27: upstreaming is blocked on p11-kit cross compilation
-  # celluloid = wrapGAppsHook4Fix prev.celluloid;
   # cdrtools = prev.cdrtools.override {
   #   # "configure: error: installation or configuration problem: C compiler cc not found."
   #   inherit (emulated) stdenv;
@@ -497,19 +484,6 @@ in with final; {
   #   ];
   # });
 
-  # cozy = prev.cozy.override {
-  #   cozy = prev.cozy.upstream.cozy.override {
-  #     # fixes runtime error: "Settings schema 'org.gtk.Settings.FileChooser' is not installed"
-  #     # otherwise gtk3+ schemas aren't added to XDG_DATA_DIRS
-  #     inherit (emulated) wrapGAppsHook;
-  #   };
-  # };
-
-  # dante = prev.dante.override {
-  #   # fixes: "configure: error: error: getaddrinfo() error value count too low"
-  #   inherit (emulated) stdenv;
-  # };
-
   # dconf = (prev.dconf.override {
   #   # we need dconf to build with vala, because dconf-editor requires that.
   #   # this only happens if dconf *isn't* cross-compiled
@@ -517,7 +491,7 @@ in with final; {
   # }).overrideAttrs (upstream: {
   #   nativeBuildInputs = lib.remove glib upstream.nativeBuildInputs;
   # });
-  # 2023/12/08: upstreaming is unblocked (all dconf-editor deps build)
+  # 2023/12/20: out for PR: <https://github.com/NixOS/nixpkgs/pull/275732>
   dconf = prev.dconf.overrideAttrs (upstream: {
     # we need dconf to build with vala, because dconf-editor requires that.
     # upstream nixpkgs explicitly disables that on cross compilation, but in fact, it works.
@@ -708,7 +682,6 @@ in with final; {
   }));
 
   # 2023/12/08: upstreaming is unblocked
-  # needs binfmt: "./configure: line 17437: /nix/store/j2afjl8psjlk5cz23n45w5x8wkks2rkl-bubblewrap-aarch64-unknown-linux-gnu-0.8.0/bin/bwrap: cannot execute binary file: Exec format error"
   flatpak = prev.flatpak.overrideAttrs (upstream: {
     # fixes "No package 'libxml-2.0' found"
     buildInputs = upstream.buildInputs ++ [ libxml2 ];
@@ -819,16 +792,16 @@ in with final; {
   # });
   # solves (meson) "Run-time dependency libgcab-1.0 found: NO (tried pkgconfig and cmake)", and others.
   # 2023/07/31: upstreaming is blocked on argyllcms, fwupd-efi, libavif
-  fwupd = (addBuildInputs
-    [ gcab ]
-    (mvToBuildInputs [ gnutls ] prev.fwupd)
-  ).overrideAttrs (upstream: {
-    # XXX: gcab is apparently needed as both build and native input
-    # can't build docs w/o adding `gi-docgen` to ldpath, but that adds a new glibc to the ldpath
-    # which causes host binaries to be linked against the build libc & fail
-    mesonFlags = (lib.remove "-Ddocs=enabled" upstream.mesonFlags) ++ [ "-Ddocs=disabled" ];
-    outputs = lib.remove "devdoc" upstream.outputs;
-  });
+  # fwupd = (addBuildInputs
+  #   [ gcab ]
+  #   (mvToBuildInputs [ gnutls ] prev.fwupd)
+  # ).overrideAttrs (upstream: {
+  #   # XXX: gcab is apparently needed as both build and native input
+  #   # can't build docs w/o adding `gi-docgen` to ldpath, but that adds a new glibc to the ldpath
+  #   # which causes host binaries to be linked against the build libc & fail
+  #   mesonFlags = (lib.remove "-Ddocs=enabled" upstream.mesonFlags) ++ [ "-Ddocs=disabled" ];
+  #   outputs = lib.remove "devdoc" upstream.outputs;
+  # });
 
   # 2023/07/31: upstreaming is blocked on qttranslations (via pipewire)
   # N.B.: should be able to remove gnupg/ssh from {native}buildInputs when upstreaming
@@ -883,9 +856,10 @@ in with final; {
   #     buildInputs = (upstream.buildInputs or []) ++ [ prev.pkg-config ];
   #   });
   # });
-  # 2023/12/08: upstreaming is unblocked (but requires building webkitgtk-4.0)
+  # 2023/12/20: upstreaming is blocked on webp-pixbuf-loader
   gthumb = mvInputs { nativeBuildInputs = [ glib ]; } prev.gthumb;
 
+  # 2023/12/20: upstreaming is blocked on qtsvg (via pipewire), jbig2dec
   gnome-frog = prev.gnome-frog.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     postPatch = (upstream.postPatch or "") + ''
@@ -896,28 +870,14 @@ in with final; {
   });
 
   gnome = prev.gnome.overrideScope' (self: super: {
-    # dconf-editor = super.dconf-editor.override {
-    #   # fails to fix original error
-    #   inherit (emulated) stdenv;
-    # };
     # fixes "error: Package `dconf' not found in specified Vala API directories or GObject-Introspection GIR directories"
     # - but ONLY if `dconf` was built with the vala feature.
     # - dconf is NOT built with vala when cross-compiled
     #   - that's an explicit choice/limitation in nixpkgs upstream
     # - TODO: vapi stuff is contained in <dconf.dev:/share/vala/vapi/dconf.vapi>
     #   it's cross-platform; should be possible to ship dconf only in buildInputs & point dconf-editor to the right place
+    # 2023/12/20: out for PR: <https://github.com/NixOS/nixpkgs/pull/275732>
     # dconf-editor = addNativeInputs [ dconf ] super.dconf-editor;
-    # evince = super.evince.overrideAttrs (orig: {
-    #   # 2023/12/08: upstreaming is unblocked, working without patch
-    #   # - either gnome 45 fixed it, or it was only broken with binfmt
-    #   # fixes (meson) "Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)"
-    #   # inspired by gupnp
-    #   outputs = [ "out" "dev" ]
-    #     ++ lib.optionals (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform) [ "devdoc" ];
-    #   mesonFlags = orig.mesonFlags ++ [
-    #     "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
-    #   ];
-    # });
     evolution-data-server = super.evolution-data-server.overrideAttrs (upstream: {
       # 2023/12/08: upstreaming is unblocked, but depends on webkitgtk 4.1
       cmakeFlags = upstream.cmakeFlags ++ [
@@ -964,10 +924,6 @@ in with final; {
       ];
     });
 
-    # 2023/11/21: upstreaming is blocked by qtsvg (via pipewire/ffado)
-    # fixes: "meson.build:75:6: ERROR: Program 'gtk-update-icon-cache' not found or not executable"
-    # gnome-clocks = wrapGAppsHook4Fix super.gnome-clocks;
-
     # 2023/07/31: upstreaming is blocked on argyllcms, libavif
     # fixes: "src/meson.build:3:0: ERROR: Program 'glib-compile-resources' not found or not executable"
     # gnome-color-manager = mvToNativeInputs [ glib ] super.gnome-color-manager;
@@ -990,8 +946,6 @@ in with final; {
           --replace "gapplication" "${glib.bin}/bin/gapplication"
       '';
     });
-    # fixes: "Program gdbus-codegen found: NO"
-    # gnome-remote-desktop = mvToNativeInputs [ glib ] super.gnome-remote-desktop;
     # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
     #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
     #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
@@ -1070,9 +1024,6 @@ in with final; {
   });
 
   # gnome2 = prev.gnome2.overrideScope' (self: super: {
-  #   # inherit (emulated.gnome2)
-  #   #   GConf
-  #   # ;
   #   # GConf = (
   #   #   # python3 -> nativeBuildInputs fixes "2to3: command not found"
   #   #   # glib.dev in nativeBuildInputs fixes "gconfmarshal.list: command not found"
@@ -1092,14 +1043,6 @@ in with final; {
   #   #   mvToNativeInputs [ self.GConf ] super.gnome_vfs
   #   # );
   #   gnome_vfs = useEmulatedStdenv super.gnome_vfs;
-  #   libIDL  = super.libIDL.override {
-  #     # "configure: error: cannot run test program while cross compiling"
-  #     inherit (emulated) stdenv;
-  #   };
-  #   ORBit2 = super.ORBit2.override {
-  #     # "configure: error: Failed to find alignment. Check config.log for details."
-  #     inherit (emulated) stdenv;
-  #   };
   # });
 
   # 2023/12/08: upstreaming is blocked on python3Packages.eyeD3
@@ -1197,13 +1140,17 @@ in with final; {
   #   };
   # };
 
-  jbig2dec = prev.jbig2dec.overrideAttrs (_: {
-    # adding configureFlags here fixes: "configure: error: cannot run C compiled programs."
-    #   autogen needs the --host flag, i guess
-    preConfigure = ''
-      ./autogen.sh $configureFlags
-    '';
-  });
+  # 2023/12/20: upstreamed into staging, waiting on staging -> master merge: <https://github.com/NixOS/nixpkgs/pull/275027>
+  # jbig2dec = prev.jbig2dec.overrideAttrs (_: {
+  #   # adding configureFlags here fixes: "configure: error: cannot run C compiled programs."
+  #   #   autogen needs the --host flag, i guess
+  #   # preConfigure = ''
+  #   #   ./autogen.sh $configureFlags
+  #   # '';
+  #   # alternatively, we've set `configureScript` and so no longer need the preConfigure step
+  #   configureScript = "./autogen.sh";
+  #   preConfigure = "";
+  # });
 
   # jellyfin-media-player = mvToBuildInputs
   #   [ libsForQt5.wrapQtAppsHook ]  # this shouldn't be: but otherwise we get mixed qtbase deps
@@ -1582,12 +1529,6 @@ in with final; {
   #   # '';
   # });
 
-  # mpvScripts = prev.mpvScripts // {
-  #   # "line 1: pkg-config: command not found"
-  #   #   "mpris.c:1:10: fatal error: gio/gio.h: No such file or directory"
-  #   # 2023/07/31: upstreaming unblocked, implemented on servo
-  #   mpris = addNativeInputs [ pkg-config ] prev.mpvScripts.mpris;
-  # };
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
   # 2023/07/27: upstreaming is unblocked by deps; but turns out to not be this simple
@@ -1743,10 +1684,6 @@ in with final; {
   #   ffadoSupport = false;
   # };
 
-  # playerctl = prev.playerctl.overrideAttrs (upstream: {
-  #   mesonFlags = upstream.mesonFlags ++ [ "-Dgtk-doc=false" ];
-  # });
-
   # psqlodbc = prev.psqlodbc.override {
   #   # fixes "configure: error: odbc_config not found (required for unixODBC build)"
   #   inherit (emulated) stdenv;
@@ -1774,25 +1711,6 @@ in with final; {
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (py-final: py-prev: {
-
-      # aiohttp = py-prev.aiohttp.overridePythonAttrs (orig: {
-      #   # fixes "ModuleNotFoundError: No module named 'setuptools'"
-      #   propagatedBuildInputs = orig.propagatedBuildInputs ++ [
-      #     py-final.setuptools
-      #   ];
-      # });
-
-      # defcon = py-prev.defcon.overridePythonAttrs (orig: {
-      #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.nativeCheckInputs;
-      # });
-      # executing = py-prev.executing.overridePythonAttrs (orig: {
-      #   # test has an assertion that < 1s of CPU time elapsed => flakey
-      #   disabledTestPaths = orig.disabledTestPaths or [] ++ [
-      #     # "tests/test_main.py::TestStuff::test_many_source_for_filename_calls"
-      #     "tests/test_main.py"
-      #   ];
-      # });
-
       # 2023/12/08: upstreaming is unblocked  (eyeD3 is a dep of gpodder)
       eyeD3 = py-prev.eyeD3.overrideAttrs (orig: {
         # weird double-wrapping of the output executable, but somehow with the build python ends up on PYTHONPATH
@@ -1808,49 +1726,6 @@ in with final; {
       #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs ++ orig.buildInputs;
       #   buildInputs = [];
       #   # HDF5_DIR = "${hdf5}";
-      # });
-      # ipython = py-prev.ipython.overridePythonAttrs (orig: {
-      #   # fixes "FAILED IPython/terminal/tests/test_debug_magic.py::test_debug_magic_passes_through_generators - pexpect.exceptions.TIMEOUT: Timeout exceeded."
-      #   disabledTests = orig.disabledTests ++ [ "test_debug_magic_passes_through_generator" ];
-      # });
-      # mutatormath = py-prev.mutatormath.overridePythonAttrs (orig: {
-      #   nativeBuildInputs = orig.nativeBuildInputs or [] ++ orig.nativeCheckInputs;
-      # });
-      # pandas = py-prev.pandas.overridePythonAttrs (orig: {
-      #   # XXX: we only actually need numpy when building in ~/nixpkgs repo: not sure why we need all the propagatedBuildInputs here.
-      #   # nativeBuildInputs = orig.nativeBuildInputs ++ [ py-final.numpy ];
-      #   nativeBuildInputs = orig.nativeBuildInputs ++ orig.propagatedBuildInputs;
-      # });
-      # psycopg2 = py-prev.psycopg2.overridePythonAttrs (orig: {
-      #   # TODO: upstream  (see tracking issue)
-      #   #
-      #   # psycopg2 *links* against libpg, so we need the host postgres available at build time!
-      #   # present-day nixpkgs only includes it in nativeBuildInputs
-      #   buildInputs = orig.buildInputs ++ [ postgresql ];
-      # });
-      # s3transfer = py-prev.s3transfer.overridePythonAttrs (orig: {
-      #   # tests explicitly expect host CPU == build CPU
-      #   # Bail out! ERROR:../plugins/core.c:221:qemu_plugin_vcpu_init_hook: assertion failed: (success)
-      #   # Bail out! ERROR:../accel/tcg/cpu-exec.c:954:cpu_exec: assertion failed: (cpu == current_cpu)
-      #   disabledTestPaths = orig.disabledTestPaths ++ [
-      #     # "tests/functional/test_processpool.py::TestProcessPoolDownloader::test_cleans_up_tempfile_on_failure"
-      #     "tests/functional/test_processpool.py"
-      #     # "tests/unit/test_compat.py::TestBaseManager::test_can_provide_signal_handler_initializers_to_start"
-      #     "tests/unit/test_compat.py"
-      #   ];
-      # });
-      # scipy = py-prev.scipy.override {
-      #   inherit (emulated) stdenv;
-      # };
-      # scipy = py-prev.scipy.overridePythonAttrs (orig: {
-      #   # "/nix/store/yhz6yy9bp52x9fvcda4lr6kgsngxnv2l-python3.10-numpy-1.24.2/lib/python3.10/site-packages/numpy/core/include/../lib/libnpymath.a: error adding symbols: file in wrong format"
-      #   # mesonFlags = orig.mesonFlags or [] ++ [ "-Duse-pythran=false" ];
-      #   # don't know how to plumb meson falgs through python apps
-      #   # postPatch = orig.postPatch or "" + ''
-      #   #   sed -i "s/option('use-pythran', type: 'boolean', value: true,/option('use-pythran', type: 'boolean', value: false,/" meson_options.txt
-      #   # '';
-      #   SCIPY_USE_PYTHRAN = false;
-      #   nativeBuildInputs = lib.remove py-final.pythran orig.nativeBuildInputs;
       # });
       # skia-pathops = ?
       #   it tries to call `cc` during the build, but can't find it.
@@ -2085,10 +1960,6 @@ in with final; {
     };
   });
 
-  # waf-setup-hook: python3-aarch64-unknown-linux-gnu-3.11.6/bin/python: cannot execute binary file: Exec format error
-  # NOTE: not enough to fix build. better to just ensure we don't need samba
-  # samba = needsBinfmt prev.samba;
-
   # samba = prev.samba.overrideAttrs (_upstream: {
   #   # we get "cannot find C preprocessor: aarch64-unknown-linux-gnu-cpp", but ONLY when building with the ccache stdenv.
   #   # this solves that, but `CPP` must be a *single* path -- not an expression.
@@ -2200,14 +2071,9 @@ in with final; {
     ];
     # for "error: Package `libpulse' not found in specified Vala API directories or GObject-Introspection GIR directories"
     # apparently vala setuphook incorrectly uses hostOffset, instead of targetOffset?
+    # - probably fixed by <https://github.com/NixOS/nixpkgs/pull/267550/files>
     nativeBuildInputs = upstream.nativeBuildInputs ++ [ libpulseaudio ];
   });
-
-  # sysprof = (
-  #   # fixes: "src/meson.build:12:2: ERROR: Program 'gdbus-codegen' not found or not executable"
-  #   # 2023/07/27: upstreaming is blocked on p11-kit cross compilation
-  #   mvToNativeInputs [ glib ] prev.sysprof
-  # );
 
   # 2023/12/08: upstreaming is blocked by qtsvg (via pipewire)
   tangram = prev.tangram.overrideAttrs (upstream: {
@@ -2221,12 +2087,6 @@ in with final; {
     '';
   });
 
-  # fixes "meson.build:425:23: ERROR: Program 'glib-compile-schemas' not found or not executable"
-  # 2023/07/31: upstreaming is unblocked,implemented on servo
-  # tracker-miners = mvToNativeInputs [ glib ] (
-  #   # fixes "meson.build:183:0: ERROR: Can not run test applications in this cross environment."
-  #   addNativeInputs [ mesonEmulatorHook ] prev.tracker-miners
-  # );
   # twitter-color-emoji = prev.twitter-color-emoji.override {
   #   # fails to fix original error
   #   inherit (emulated) stdenv;
@@ -2281,11 +2141,6 @@ in with final; {
   #   isGraphical = false;
   #   # gtk3 = emptyDirectory;
   # };
-  # xapian = prev.xapian.overrideAttrs (upstream: {
-  #   # the output has #!/bin/sh scripts.
-  #   # - shebangs get re-written on native build, but not cross build
-  #   buildInputs = upstream.buildInputs ++ [ bash ];
-  # });
 
   # 2023/11/21: upstreaming is blocked on flatpak
   xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (upstream: {

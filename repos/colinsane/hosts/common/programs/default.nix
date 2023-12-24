@@ -7,6 +7,7 @@
     ./alacritty.nix
     ./animatch.nix
     ./assorted.nix
+    ./audacity.nix
     ./bemenu.nix
     ./brave.nix
     ./calls.nix

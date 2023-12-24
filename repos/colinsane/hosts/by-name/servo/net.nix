@@ -27,9 +27,7 @@ in
     # view refused packets with: `sudo journalctl -k`
     # networking.firewall.logRefusedPackets = true;
 
-    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-    # Per-interface useDHCP will be mandatory in the future, so this generated config
-    # replicates the default behaviour.
+    # these useDHCP lines are legacy from the auto-generated config. might be safe to remove now?
     networking.useDHCP = false;
     networking.interfaces.eth0.useDHCP = true;
     # XXX colin: probably don't need this. wlan0 won't be populated unless i touch a value in networking.interfaces.wlan0

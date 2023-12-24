@@ -4,8 +4,8 @@
 # sway-config docs: `man 5 sway`
 let
   cfg = config.sane.gui.sway;
-  defaultPackage = let
-    # `defaultPackage` exists to create a `sway.desktop` file
+  wrapSway = sway': swayOverrideArgs: let
+    # `wrapSway` exists to create a `sway.desktop` file
     # which will launch sway with our desired debugging facilities.
     # i.e. redirect output to syslog.
     scfg = config.programs.sway;
@@ -14,30 +14,35 @@ let
       echo "launching sway-session (sway.desktop)..." | ${systemd-cat} --identifier=sway-session
       sway 2>&1 | ${systemd-cat} --identifier=sway-session
     '';
-    origSway = pkgs.sway.override {
-      # this override is what `programs.nixos` would do internally if we left `package` unset.
-      extraSessionCommands = scfg.extraSessionCommands;
-      extraOptions = scfg.extraOptions;
-      withBaseWrapper = scfg.wrapperFeatures.base;
-      withGtkWrapper = scfg.wrapperFeatures.gtk;
-      isNixOS = true;
-      # TODO: `enableXWayland = ...`?
-    };
+    # this override is what `programs.nixos` would do internally if we left `package` unset.
+    configuredSway = sway'.override swayOverrideArgs;
     desktop-file = pkgs.runCommand "sway-desktop-wrapper" {} ''
       mkdir -p $out/share/wayland-sessions
-      substitute ${origSway}/share/wayland-sessions/sway.desktop $out/share/wayland-sessions/sway.desktop \
+      substitute ${configuredSway}/share/wayland-sessions/sway.desktop $out/share/wayland-sessions/sway.desktop \
         --replace 'Exec=sway' 'Exec=${swayWithLogger}/bin/sway-session'
       # XXX(2023/09/24) phog greeter (mobile greeter) will crash if DesktopNames is not set
       echo "DesktopNames=Sway" >> $out/share/wayland-sessions/sway.desktop
     '';
   in pkgs.symlinkJoin {
-    inherit (origSway) name meta;
+    inherit (configuredSway) name meta;
     # the order of these `paths` is suchs that the desktop-file should claim share/wayland-sessions/sway.deskop,
-    # overriding whatever the origSway provides
-    paths = [ desktop-file origSway ];
+    # overriding whatever the configuredSway provides
+    paths = [ desktop-file configuredSway ];
     passthru = {
-      inherit (origSway.passthru) providedSessions;
+      inherit (configuredSway.passthru) providedSessions;
+      # nixos/modules/programs/wayland/sway.nix will call `.override` on the package we provide it
+      override = wrapSway sway';
     };
+  };
+  defaultPackage = wrapSway pkgs.sway {
+    # this is technically optional, in that the nixos sway module will call `override` with these args anyway.
+    # but that wasn't always the case; it may change again; so don't rely on it.
+    inherit (config.programs.sway)
+      extraSessionCommands extraOptions;
+    withBaseWrapper = config.programs.sway.wrapperFeatures.base;
+    withGtkWrapper  = config.programs.sway.wrapperFeatures.gtk;
+    isNixOS = true;
+      # TODO: `enableXWayland = ...`?
   };
 in
 {
@@ -255,7 +260,6 @@ in
       # };
       # sane.persist.sys.byStore.plaintext = [ "/var/lib/alsa" ];
 
-      networking.useDHCP = false;
       networking.networkmanager.enable = true;
       networking.wireless.enable = lib.mkForce false;
 

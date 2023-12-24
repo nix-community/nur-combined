@@ -86,7 +86,7 @@ in
     "lemoa"  # lemmy app
     "libnotify"  # for notify-send; debugging
     # "lollypop"
-    "loupe"
+    "loupe"  # image viewer
     "mate.engrampa"  # archive manager
     "mepo"  # maps viewer
     "mpv"

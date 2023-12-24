@@ -39,7 +39,6 @@ let
       gpodder = final'.gpodder-adaptive;
     };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
-    hare-ev = callPackage ./additional/hare-ev { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     koreader-from-src = callPackage ./additional/koreader-from-src { };
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
@@ -147,11 +146,5 @@ let
     // (lib.mapAttrs (pname: _pkg: final'.sane."${pname}") sane-patched)
     # "additional" packages only get added if they've not been upstreamed:
     // (lib.mapAttrs (pname: _pkg: unpatched."${pname}" or final'.sane."${pname}") sane-additional)
-    // {
-    # temporarily hold these back because the upstream version is broken in some way
-    inherit (final'.sane)
-      bonsai
-      hare-ev
-    ;
-  };
+  ;
 in sane-overlay
