@@ -41,7 +41,7 @@ rec {
     onnxruntime-cuda = onnxruntime-cuda-bin;
   };
 
-  fastdeploy_ppocr = pkgs.callPackage ./pkgs/MaaAssistantArknights/fastdeploy_ppocr.nix { };
+  # fastdeploy_ppocr = pkgs.callPackage ./pkgs/MaaAssistantArknights/fastdeploy_ppocr.nix { };
 
   MaaX = pkgs.callPackage ./pkgs/MaaX { };
 
