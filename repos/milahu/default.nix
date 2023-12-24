@@ -656,6 +656,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   }))); # perlPackages
 
+  apt = callPackage ./pkgs/tools/package-management/apt/apt.nix {
+    # fix: error: attribute 'perl' missing at perlPackages.perl
+    # FIXME scope
+    perlPackages = pkgs.perlPackages; # // { perl = pkgs.perl; };
+  };
+
+  apt-init-config = callPackage ./pkgs/tools/package-management/apt/apt-init-config.nix { };
+
   apt-file = perlPackages.callPackage ./pkgs/tools/package-management/apt-file/apt-file.nix { };
 
 }
