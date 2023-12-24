@@ -87,6 +87,7 @@ in
 
   environment = {
     systemPackages = with pkgs; [
+      ts # simple queue system
       rlwrap
       wget
       curl
