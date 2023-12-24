@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   get-flake-inputs:
@@ -41,6 +42,7 @@ jobs:
       - run: git config --global user.email "noreply@github.com"
       - uses: cpcloud/flake-update-action@v2.0.1
         with:
+          automerge: true
           delete-branch: true
           dependency: ${{ matrix.flake }}
           pull-request-branch-prefix: update-
