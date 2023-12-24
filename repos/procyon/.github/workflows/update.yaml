@@ -5,7 +5,8 @@ on:
   schedule:
     - cron: "30 */1 * * *"
 
-permissions: {}
+permissions:
+  contents: write
 
 jobs:
   get-flake-inputs:
@@ -36,8 +37,8 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v9
         with:
           extra-conf: accept-flake-config = true
-      - run: git config --global user.name "github-actions[bot]"
-      - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - run: git config --global user.name "github[bot]"
+      - run: git config --global user.email "noreply@github.com"
       - uses: cpcloud/flake-update-action@v2.0.1
         with:
           delete-branch: true
@@ -45,4 +46,4 @@ jobs:
           pull-request-branch-prefix: update-
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          pull-request-author: github[bot] <noreply@github.com>
