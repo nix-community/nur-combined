@@ -1,0 +1,26 @@
+#!/usr/bin/env -S sd nix shell
+
+#! nix-shell -i bash -p ts
+
+set -euo pipefail
+
+# Enqueue command to run in the background then send result to sendmail
+# 
+# Run without arguments to list the jobs
+# Pass JOB_LABEL to set the label of the created job (equivalent of passing -L)
+# Run with arguments to submit it as a command to the queue
+
+if [ $# == 0 ]; then
+  ts
+  exit 0
+fi
+
+args=(-m)
+
+if [ -v JOB_LABEL ]; then
+  args+=(-L "$JOB_LABEL")
+fi
+
+# echo "${args[@]}" >&2
+
+ts ${args[@]} "$@"
