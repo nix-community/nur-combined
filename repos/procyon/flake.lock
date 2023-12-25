@@ -55,11 +55,11 @@
     "base16-foot": {
       "flake": false,
       "locked": {
-        "lastModified": 1702720096,
-        "narHash": "sha256-CaqzwAhMe3zgytHg4JhfXJyoJtYTSiu5+UHXwBy0I0Q=",
+        "lastModified": 1696725948,
+        "narHash": "sha256-65bz2bUL/yzZ1c8/GQASnoiGwaF8DczlxJtzik1c0AU=",
         "owner": "tinted-theming",
         "repo": "base16-foot",
-        "rev": "ac91059cde702c38e44e6c93e67edf1b84f9720e",
+        "rev": "eedbcfa30de0a4baa03e99f5e3ceb5535c2755ce",
         "type": "github"
       },
       "original": {
@@ -103,11 +103,11 @@
     "base16-tmux": {
       "flake": false,
       "locked": {
-        "lastModified": 1702719962,
-        "narHash": "sha256-0Ru7eVP7YOxqkCQIfzgtXAPWngmrKSE/ggZ2J0EBEFo=",
+        "lastModified": 1696725902,
+        "narHash": "sha256-wDPg5elZPcQpu7Df0lI5O8Jv4A3T6jUQIVg63KDU+3Q=",
         "owner": "tinted-theming",
         "repo": "base16-tmux",
-        "rev": "e120c7a375f09f9b6924111d8712f2808f2fc5a4",
+        "rev": "c02050bebb60dbb20cb433cd4d8ce668ecc11ba7",
         "type": "github"
       },
       "original": {
@@ -711,11 +711,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703004037,
-        "narHash": "sha256-ceYPl/ML0kQBCUaOw0gG2TxHHEl4k9xivFpsdlKidIQ=",
+        "lastModified": 1703473871,
+        "narHash": "sha256-ycthAgQEKE1Vz8stcK+mFw7/qr9ycBmaOrBHEr7j2iU=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "d14ac4912a9ab02f8b49b761e9e4b9ae836171af",
+        "rev": "a1cbd98719daec528538d2b7d56279ddf68f90e6",
         "type": "github"
       },
       "original": {
