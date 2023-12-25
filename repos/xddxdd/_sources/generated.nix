@@ -114,10 +114,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.12.5-2";
+    version = "1.13.0-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.5-2/io.github.msojocs.bilibili_1.12.5-2_amd64.deb";
-      sha256 = "sha256-oaQvJQVHXm7I+3rjt0DPMwGOXLhwgJP6wWu2bhaA1s4=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.0-1/io.github.msojocs.bilibili_1.13.0-1_amd64.deb";
+      sha256 = "sha256-YB2CbdcO/HYZWRry57BoVVwgEjVvEh+skBpkFZk4tus=";
     };
   };
   bird-lg-go = {
@@ -700,15 +700,15 @@
   };
   oci-arm-host-capacity = {
     pname = "oci-arm-host-capacity";
-    version = "1a655bf6150d64f4f3732f267477ed3e4c6f87d0";
+    version = "369de7b2851f1b22db34f95ba02001d5c9f839c7";
     src = fetchFromGitHub {
       owner = "hitrov";
       repo = "oci-arm-host-capacity";
-      rev = "1a655bf6150d64f4f3732f267477ed3e4c6f87d0";
+      rev = "369de7b2851f1b22db34f95ba02001d5c9f839c7";
       fetchSubmodules = false;
-      sha256 = "sha256-YFOdqbaiKoAdu4nOyzfHtlL9PVy8qEP9rJs6uTUTTdc=";
+      sha256 = "sha256-2p0jpl2SlyEvZ+xvZMhZz9Mk+dHEfmxgd1Ht5o9cSFo=";
     };
-    date = "2023-04-18";
+    date = "2023-12-23";
   };
   onepush = {
     pname = "onepush";
@@ -736,15 +736,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "f205f116a82ea981278313b7bf2d9032c0710821";
+    version = "e4e0164b499320a13d82595acaeff6519bb9503f";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "f205f116a82ea981278313b7bf2d9032c0710821";
+      rev = "e4e0164b499320a13d82595acaeff6519bb9503f";
       fetchSubmodules = false;
-      sha256 = "sha256-1FxvGYekw4zSmfzmqnosZoU0lcvzz9P7nMN15/lKUTA=";
+      sha256 = "sha256-ukEwCErpVKl1rFS455rM2vmFjxi+mDR1vI46OpSl/bs=";
     };
-    date = "2023-12-12";
+    date = "2023-12-24";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -914,15 +914,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "bbc49365213520d20d8faeb6cb801b462a80bfe7";
+    version = "9d6c8fda32f552e6f09de8a1ffd87b8cb80b76de";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "bbc49365213520d20d8faeb6cb801b462a80bfe7";
+      rev = "9d6c8fda32f552e6f09de8a1ffd87b8cb80b76de";
       fetchSubmodules = false;
-      sha256 = "sha256-DBvXX/0ezPuEU0yRzWSwUG21ipPp0kR0ZaNgvImcXHc=";
+      sha256 = "sha256-2tHCJEZCsG6WI+cUq3oY7AMe+mY+R0b/sKGbq0pOHVw=";
     };
-    date = "2023-12-22";
+    date = "2023-12-24";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

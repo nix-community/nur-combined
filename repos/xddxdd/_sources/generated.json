@@ -198,11 +198,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-oaQvJQVHXm7I+3rjt0DPMwGOXLhwgJP6wWu2bhaA1s4=",
+            "sha256": "sha256-YB2CbdcO/HYZWRry57BoVVwgEjVvEh+skBpkFZk4tus=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.12.5-2/io.github.msojocs.bilibili_1.12.5-2_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.0-1/io.github.msojocs.bilibili_1.13.0-1_amd64.deb"
         },
-        "version": "1.12.5-2"
+        "version": "1.13.0-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -1203,7 +1203,7 @@
     },
     "oci-arm-host-capacity": {
         "cargoLocks": null,
-        "date": "2023-04-18",
+        "date": "2023-12-23",
         "extract": null,
         "name": "oci-arm-host-capacity",
         "passthru": null,
@@ -1215,11 +1215,11 @@
             "name": null,
             "owner": "hitrov",
             "repo": "oci-arm-host-capacity",
-            "rev": "1a655bf6150d64f4f3732f267477ed3e4c6f87d0",
-            "sha256": "sha256-YFOdqbaiKoAdu4nOyzfHtlL9PVy8qEP9rJs6uTUTTdc=",
+            "rev": "369de7b2851f1b22db34f95ba02001d5c9f839c7",
+            "sha256": "sha256-2p0jpl2SlyEvZ+xvZMhZz9Mk+dHEfmxgd1Ht5o9cSFo=",
             "type": "github"
         },
-        "version": "1a655bf6150d64f4f3732f267477ed3e4c6f87d0"
+        "version": "369de7b2851f1b22db34f95ba02001d5c9f839c7"
     },
     "onepush": {
         "cargoLocks": null,
@@ -1263,7 +1263,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2023-12-12",
+        "date": "2023-12-24",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1275,11 +1275,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "f205f116a82ea981278313b7bf2d9032c0710821",
-            "sha256": "sha256-1FxvGYekw4zSmfzmqnosZoU0lcvzz9P7nMN15/lKUTA=",
+            "rev": "e4e0164b499320a13d82595acaeff6519bb9503f",
+            "sha256": "sha256-ukEwCErpVKl1rFS455rM2vmFjxi+mDR1vI46OpSl/bs=",
             "type": "github"
         },
-        "version": "f205f116a82ea981278313b7bf2d9032c0710821"
+        "version": "e4e0164b499320a13d82595acaeff6519bb9503f"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1583,7 +1583,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-12-22",
+        "date": "2023-12-24",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1595,11 +1595,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "bbc49365213520d20d8faeb6cb801b462a80bfe7",
-            "sha256": "sha256-DBvXX/0ezPuEU0yRzWSwUG21ipPp0kR0ZaNgvImcXHc=",
+            "rev": "9d6c8fda32f552e6f09de8a1ffd87b8cb80b76de",
+            "sha256": "sha256-2tHCJEZCsG6WI+cUq3oY7AMe+mY+R0b/sKGbq0pOHVw=",
             "type": "github"
         },
-        "version": "bbc49365213520d20d8faeb6cb801b462a80bfe7"
+        "version": "9d6c8fda32f552e6f09de8a1ffd87b8cb80b76de"
     },
     "rime-moegirl": {
         "cargoLocks": null,
