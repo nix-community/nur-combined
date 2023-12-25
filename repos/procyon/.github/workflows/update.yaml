@@ -39,13 +39,13 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v9
         with:
           extra-conf: accept-flake-config = true
-      - run: git config --global user.name "github[bot]"
-      - run: git config --global user.email "noreply@github.com"
+      - run: git config --global user.name "cyber-procyon[bot]"
+      - run: git config --global user.email "150026596+cyber-procyon[bot]@users.noreply.github.com"
       - uses: cpcloud/flake-update-action@v2.0.1
         with:
           delete-branch: true
           dependency: ${{ matrix.flake }}
           pull-request-branch-prefix: update-
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-author: github[bot] <noreply@github.com>
           pull-request-token: ${{ steps.generate-token.outputs.token }}
+          pull-request-author: cyber-procyon[bot] <150026596+cyber-procyon[bot]@users.noreply.github.com>
