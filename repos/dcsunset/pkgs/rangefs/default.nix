@@ -11,7 +11,6 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-iP67hQI70p0BjRhQA7dGLREpyW5bxJaVFCxBpDTlTuo=";
   };
 
-  # run prefetch-npm-deps package-lock.json to generate the hash
   cargoHash = "sha256-faOH+fyDZnjvIPKAFx/7/k2P0Q1rNlN/l+7bcOvwsoU=";
 
   meta = with lib; {

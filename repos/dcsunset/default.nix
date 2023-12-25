@@ -18,6 +18,7 @@
   batch-cmd = pkgs.callPackage ./pkgs/batch-cmd { };
   commit-and-tag-version = pkgs.callPackage ./pkgs/commit-and-tag-version { };
   rangefs = pkgs.callPackage ./pkgs/rangefs { };
+  snapshotfs = pkgs.callPackage ./pkgs/snapshotfs { };
   emacsPackages = pkgs.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/emacs-pkgs { }
   );
