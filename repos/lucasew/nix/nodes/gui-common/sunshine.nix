@@ -15,9 +15,7 @@ in
     environment.systemPackages = [ cfg.package ];
 
     systemd.user.services.sunshine = {
-      script = ''
-        ${lib.getExe cfg.package}
-      '';
+      script = lib.getExe cfg.package;
       serviceConfig = {
         Restart = "on-failure";
       };
