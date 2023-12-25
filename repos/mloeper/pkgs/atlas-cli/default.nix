@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.mongodb.com/docs/atlas/cli/stable/";
     description = "Interact with your Atlas database deployments and Atlas Search from the terminal";
-    license = licenses.unfree;
+    license = licenses.asl20;
     platforms = [ "x86_64-linux" ];
     mainProgram = "atlas";
   };

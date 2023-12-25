@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.mongodb.com/products/tools/shell";
     description = "The quickest way to connect to MongoDB and Atlas to work with your data and manage your data platform";
-    license = licenses.unfree;
+    license = licenses.asl20;
     platforms = [ "x86_64-linux" ];
     mainProgram = "mongosh";
   };
