@@ -33,4 +33,5 @@ rec {
   };
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
   mongosh = pkgs.callPackage ./pkgs/mongosh { };
+  atlas-cli = pkgs.callPackage ./pkgs/atlas-cli { };
 }

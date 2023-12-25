@@ -1,11 +1,8 @@
 { stdenv
 , autoPatchelfHook
 , fetchurl
-, xz
-, e2fsprogs
-, cyrus_sasl
-, libkrb5
 , libgcc
+, lib
 }:
 stdenv.mkDerivation rec {
   name = "mongosh";
@@ -19,12 +16,19 @@ stdenv.mkDerivation rec {
   ];
   unpackPhase = "true";
   installPhase = ''
-    mkdir -p $out
+    mkdir -p $out/bin
     tar -zxvf $src -C $out
-    mv $out/mongosh-${version}-linux-x64/* $out
-    rmdir $out/mongosh-${version}-linux-x64
+    mv $out/mongosh-${version}-linux-x64/bin/* $out/bin/
+    rm -R $out/mongosh-${version}-linux-x64
   '';
   nativeBuildInputs = [
     autoPatchelfHook
   ];
+  meta = with lib; {
+    homepage = "https://www.mongodb.com/products/tools/shell";
+    description = "The quickest way to connect to MongoDB and Atlas to work with your data and manage your data platform";
+    license = licenses.unfree;
+    platforms = [ "x86_64-linux" ];
+    mainProgram = "mongosh";
+  };
 }
