@@ -32,4 +32,5 @@ rec {
     abseil-cpp = pkgs.abseil-cpp_202103;
   };
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
+  mongosh = pkgs.callPackage ./pkgs/mongosh { };
 }
