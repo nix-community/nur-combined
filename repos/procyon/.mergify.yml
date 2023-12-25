@@ -1,14 +1,8 @@
 pull_request_rules:
-  - name: merge automatically (when CI passes and PR is approved)
+  - name: conventional commit
     conditions:
-      - "check-success=Rule: Conventional Commit (post_check)"
-      - or:
-          - "#approved-reviews-by >= 1"
-          - author = dependabot[bot]
-          - author = cyber-procyon[bot]
+      - base=main
     actions:
-      queue:
-        method: rebase
       post_check:
         success_conditions:
           - "title ~= ^(fix|feat|docs|style|refactor|perf|test|build|ci|chore|revert)(?:\\(.+\\))?:"
@@ -23,3 +17,13 @@ pull_request_rules:
           Your pull request title must follow
           [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/).
           {% endif %}
+  - name: merge automatically (when CI passes and PR is approved)
+    conditions:
+      - "check-success=Rule: conventional commit (post_check)"
+      - or:
+          - "#approved-reviews-by >= 1"
+          - author = dependabot[bot]
+          - author = cyber-procyon[bot]
+    actions:
+      queue:
+        method: rebase
