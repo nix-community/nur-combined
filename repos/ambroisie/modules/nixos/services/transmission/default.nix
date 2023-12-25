@@ -80,12 +80,11 @@ in
 
     # Default transmission webui, I prefer combustion but its development
     # seems to have stalled
-    my.services.nginx.virtualHosts = [
-      {
-        subdomain = "transmission";
+    my.services.nginx.virtualHosts = {
+      transmission = {
         inherit (cfg) port;
-      }
-    ];
+      };
+    };
 
     networking.firewall = {
       allowedTCPPorts = [ cfg.peerPort ];

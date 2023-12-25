@@ -43,11 +43,10 @@ in
       };
     };
 
-    my.services.nginx.virtualHosts = [
-      {
-        subdomain = "reader";
+    my.services.nginx.virtualHosts = {
+      reader = {
         inherit (cfg) port;
-      }
-    ];
+      };
+    };
   };
 }

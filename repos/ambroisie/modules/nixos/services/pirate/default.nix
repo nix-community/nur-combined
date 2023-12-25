@@ -21,12 +21,11 @@ let
   };
 
   mkRedirection = service: {
-    my.services.nginx.virtualHosts = [
-      {
-        subdomain = service;
+    my.services.nginx.virtualHosts = {
+      ${service} = {
         port = ports.${service};
-      }
-    ];
+      };
+    };
   };
 
   mkFail2Ban = service: lib.mkIf cfg.${service}.enable {

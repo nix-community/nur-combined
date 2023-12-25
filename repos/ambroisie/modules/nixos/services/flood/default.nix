@@ -40,11 +40,10 @@ in
       };
     };
 
-    my.services.nginx.virtualHosts = [
-      {
-        subdomain = "flood";
+    my.services.nginx.virtualHosts = {
+      flood = {
         inherit (cfg) port;
-      }
-    ];
+      };
+    };
   };
 }

@@ -17,9 +17,8 @@ in
     # Set-up media group
     users.groups.media = { };
 
-    my.services.nginx.virtualHosts = [
-      {
-        subdomain = "jellyfin";
+    my.services.nginx.virtualHosts = {
+      jellyfin = {
         port = 8096;
         extraConfig = {
           locations."/" = {
@@ -33,7 +32,7 @@ in
             proxyWebsockets = true;
           };
         };
-      }
-    ];
+      };
+    };
   };
 }

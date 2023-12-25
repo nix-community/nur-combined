@@ -5,11 +5,10 @@ let
   domain = config.networking.domain;
 
   makeHostInfo = subdomain: {
-    inherit subdomain;
     root = "/var/www/${subdomain}";
   };
 
-  hostsInfo = map makeHostInfo [ "cv" "dev" "key" ];
+  hostsInfo = lib.flip lib.genAttrs makeHostInfo [ "cv" "dev" "key" ];
 in
 {
   options.my.services.blog = {

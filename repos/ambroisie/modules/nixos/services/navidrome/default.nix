@@ -47,11 +47,10 @@ in
       };
     };
 
-    my.services.nginx.virtualHosts = [
-      {
-        subdomain = "music";
+    my.services.nginx.virtualHosts = {
+      music = {
         inherit (cfg) port;
-      }
-    ];
+      };
+    };
   };
 }

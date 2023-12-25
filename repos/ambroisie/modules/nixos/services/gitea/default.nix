@@ -116,18 +116,16 @@ in
     };
     users.groups.git = { };
 
-    my.services.nginx.virtualHosts = [
+    my.services.nginx.virtualHosts = {
       # Proxy to Gitea
-      {
-        subdomain = "git";
+      git = {
         inherit (cfg) port;
-      }
+      };
       # Redirect `gitea.` to actual forge subdomain
-      {
-        subdomain = "gitea";
+      gitea = {
         redirect = config.services.gitea.settings.server.ROOT_URL;
-      }
-    ];
+      };
+    };
 
     my.services.backup = {
       paths = [

@@ -98,11 +98,10 @@ in
     };
     users.groups.lohr = { };
 
-    my.services.nginx.virtualHosts = [
-      {
-        subdomain = "lohr";
+    my.services.nginx.virtualHosts = {
+      lohr = {
         inherit (cfg) port;
-      }
-    ];
+      };
+    };
   };
 }
