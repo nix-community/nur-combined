@@ -433,8 +433,8 @@
             "url": "https://gitlab.com/repos-holder/nur-packages"
         },
         "dustinblackman": {
-            "rev": "7ee74faa5bace6a436e428fc0cdd3a5470dad770",
-            "sha256": "0jindvk4i6fa1i7rpn6rz1w3ym8a5qrdm32h6x9lasw7dmvfk7ms",
+            "rev": "872191915bd7a9a034f944b7bd2fb45b4dba98f4",
+            "sha256": "00wb3wngw55g14awi606pgza9s3baarpmdrp7xjx4sc6fjjh5mj1",
             "url": "https://github.com/dustinblackman/nur-packages"
         },
         "dywedir": {
