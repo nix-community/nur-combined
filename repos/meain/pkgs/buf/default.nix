@@ -17,7 +17,7 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "sha256-N6BZ6HDDQ0m41BHGdKOONUjdIBDnPJOpN3eJMcsXYi8=";
   };
-  vendorSha256 = "sha256-VPS5nRsAssgKSQ6DMtB6+MkMrpIY5+JEvOpaMZ3IWV8=";
+  vendorHash = "sha256-VPS5nRsAssgKSQ6DMtB6+MkMrpIY5+JEvOpaMZ3IWV8=";
 
   patches = [
     # Skip a test that requires networking to be available to work.

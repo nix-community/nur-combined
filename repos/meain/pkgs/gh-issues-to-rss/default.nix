@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-DRJ6opCIiEF/dLdwX28J0zQKJ5BJO2zJIkNRL/W4kew=";
   };
 
-  vendorSha256 = "sha256-Zdg+IXjGluV5sOORcq9M0FKxfstBu64VdKb9jkrS0Rw=";
+  vendorHash = "sha256-Zdg+IXjGluV5sOORcq9M0FKxfstBu64VdKb9jkrS0Rw=";
   proxyVendor = true;
 
   postInstall = ''

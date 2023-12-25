@@ -12,7 +12,7 @@ buildGoModule rec {
   };
 
   subPackages = [ "cmd/migrate" ];
-  vendorSha256 = "sha256-qgjU8mUdk8S0VHmWiTK/5euwhRQ4y3o4oRxG2EHF+7E=";
+  vendorHash = "sha256-qgjU8mUdk8S0VHmWiTK/5euwhRQ4y3o4oRxG2EHF+7E=";
   inherit tags;
   ldflags = "-X main.Version=${version}";
 
