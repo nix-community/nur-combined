@@ -1173,8 +1173,8 @@
             "url": "https://git.sr.ht/~priegger/nur-packages"
         },
         "procyon": {
-            "rev": "b063e28c96f63e7fa4d1a9359ebb877aa4941034",
-            "sha256": "0g3v298i0r5mifgwi4gyjjcqmskfnwckqhkhdfgaw5v4gyn0ibgh",
+            "rev": "6d0f094d51bd8339df554182563950caf57fa22a",
+            "sha256": "0jylk6b42is7ymwnzdspg1k05wbgzp0k9ag7prd92j79imjh8vmg",
             "url": "https://github.com/UnidealisticRaccoon/SnowyBurrow"
         },
         "pschuprikov": {
