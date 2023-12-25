@@ -670,7 +670,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2023-12-22",
+        "date": "2023-12-25",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -680,12 +680,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d2767fb84ac2efed1c29313dec7ede1b756a6f81",
-            "sha256": "sha256-8594KzoU17mjeaXpFDWXm6H0gCNAWxNFe0buWwPFogA=",
+            "rev": "8ccb959992a8c977da68291ec3c8cbb2e986a4d8",
+            "sha256": "sha256-UkZiHKNqLnlPrordu1HVsSlF57f9NzwOHjRCEHWAh0c=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "d2767fb84ac2efed1c29313dec7ede1b756a6f81"
+        "version": "8ccb959992a8c977da68291ec3c8cbb2e986a4d8"
     },
     "yacd": {
         "cargoLocks": null,
