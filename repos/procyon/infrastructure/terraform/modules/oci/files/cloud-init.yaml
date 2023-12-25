@@ -1,0 +1,87 @@
+#cloud-config
+write_files:
+  - path: /run/secrets/tailscale-authkey
+    permissions: "0644"
+    content: |
+      ${TAILSCALE_AUTHKEY}
+  - path: /etc/nixos/configuration.nix
+    permissions: "0644"
+    content: |
+      { ... }: {
+        imports = [
+          ./hardware-configuration.nix
+        ];
+
+        system.stateVersion = "23.11";
+
+        users.users.root.openssh.authorizedKeys.keys = [
+          "${SSH_AUTHORIZED_KEYS}"
+        ];
+
+        networking = {
+          hostName = "${INSTANCE_HOSTNAME}";
+          timeServers = [ "169.254.169.254" ];
+        };
+
+        services.tailscale = {
+          enable = true;
+          openFirewall = true;
+          authKeyFile = /run/secrets/tailscale-authkey;
+          extraUpFlags = [
+            "--ssh"
+            "--accept-dns=false"
+            "--advertise-routes=${TAILSCALE_ROUTES}"
+            "--advertise-exit-node=${TAILSCALE_EXIT_NODE}"
+          ];
+        };
+
+        nix.settings = {
+          substituters = [ "https://cache.nixos.org/" ];
+          experimental-features = [ "nix-command" "flakes" ];
+          extra-substituters = [
+            "https://procyon.cachix.org"
+            "https://cachix.cachix.org"
+            "https://nix-community.cachix.org"
+          ];
+          extra-trusted-public-keys = [
+            "procyon.cachix.org-1:VljSnjtMCpriTsvji4EotHS9UZJoPMOCVk//fmmvIto="
+            "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
+            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+          ];
+        };
+      }
+  - path: /etc/nixos/hardware-configuration.nix
+    permissions: "0644"
+    content: |
+      { modulesPath, ... }:
+      {
+        imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+
+        zramSwap = {
+          enable = true;
+          memoryPercent = 200;
+        };
+
+        boot = {
+          tmp.cleanOnBoot = true;
+          initrd = {
+            kernelModules = [ "nvme" ];
+            availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" ];
+          };
+          loader = {
+            efi.efiSysMountPoint = "/boot/efi";
+            grub = {
+              device = "nodev";
+              efiSupport = true;
+              efiInstallAsRemovable = true;
+            };
+          };
+        };
+
+        fileSystems = {
+          "/boot/efi" = { device = "/dev/disk/by-label/UEFI"; fsType = "vfat"; };
+          "/" = { device = "/dev/disk/by-label/cloudimg-rootfs"; fsType = "ext4"; };
+        };
+      }
+runcmd:
+  - curl https://raw.githubusercontent.com/xvello/nixos-infect/oracle/nixos-infect | PROVIDER=oraclecloud NIX_CHANNEL=nixos-23.11 bash 2>&1 | tee /tmp/nixos-infect.log

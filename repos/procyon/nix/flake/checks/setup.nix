@@ -9,6 +9,15 @@
     inputs.flat-flake.flakeModules.flatFlake
   ];
 
+  flatFlake.config = {
+    allowed = [
+      [ "stylix" "base16-alacritty" ]
+      [ "stylix" "base16-foot" ]
+      [ "stylix" "base16-tmux" ]
+      [ "stylix" "base16-vim" ]
+    ];
+  };
+
   perSystem.pre-commit = {
     check.enable = true;
 

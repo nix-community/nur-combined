@@ -2,10 +2,7 @@
 
 > Personal Nix Config: powered by [flake-parts][flake-parts] [^1]
 
-[![Cachix][Cachix badge]][Cachix link]
-[![CI][CI badge]][CI link]
-[![FlakeHub][FlakeHub badge]][FlakeHub link]
-[![REUSE][REUSE badge]][REUSE compliance]
+[![Cachix][Cachix badge]][Cachix link] [![CI][CI badge]][CI link] [![REUSE][REUSE badge]][REUSE compliance]
 
 ## Licenses
 
@@ -18,8 +15,6 @@ _And the usual copies?_ &rarr; [`./LICENSES`][Project licenses].
 [Cachix link]: https://procyon.cachix.org
 [CI badge]: https://github.com/UnidealisticRaccoon/SnowyBurrow/actions/workflows/ci.yaml/badge.svg
 [CI link]: https://github.com/UnidealisticRaccoon/SnowyBurrow/actions/workflows/ci.yaml
-[FlakeHub badge]: https://img.shields.io/endpoint?url=https://flakehub.com/f/UnidealisticRaccoon/SnowyBurrow/badge
-[FlakeHub link]: https://flakehub.com/flake/UnidealisticRaccoon/SnowyBurrow
 [REUSE]: https://reuse.software
 [REUSE badge]: https://api.reuse.software/badge/github.com/UnidealisticRaccoon/SnowyBurrow
 [REUSE compliance]: https://api.reuse.software/info/github.com/UnidealisticRaccoon/SnowyBurrow

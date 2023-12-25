@@ -5,9 +5,12 @@
 terraform {
   required_version = "~> 1.6.3"
 
-  backend "gcs" {
-    prefix = "workspaces"
-    bucket = "ant-de17fa6d"
+  cloud {
+    organization = "procyonidae"
+
+    workspaces {
+      name = "snowy-burrow"
+    }
   }
 }
 
@@ -16,7 +19,8 @@ module "google" {
 }
 
 module "oci" {
-  source = "./modules/oci"
+  source                = "./modules/oci"
+  tailscale_tailnet_key = module.tailscale.tailnet_key-r1e0p1
 }
 
 module "tailscale" {

@@ -21,10 +21,10 @@ data "sops_file" "oci" {
 }
 
 provider "oci" {
+  disable_auto_retries = true
   region               = data.sops_file.oci.data["region"]
   user_ocid            = data.sops_file.oci.data["user_ocid"]
   fingerprint          = data.sops_file.oci.data["fingerprint"]
   private_key          = data.sops_file.oci.data["rsa_private"]
   tenancy_ocid         = data.sops_file.oci.data["tenancy_ocid"]
-  disable_auto_retries = var.disable_auto_retries
 }

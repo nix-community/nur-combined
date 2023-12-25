@@ -7,14 +7,6 @@ resource "tailscale_dns_preferences" "sane_defaults" {
   magic_dns = true
 }
 
-resource "time_rotating" "rotate_monthly" {
-  rotation_days = 30
-}
-
-resource "time_static" "rotate_monthly" {
-  rfc3339 = time_rotating.rotate_monthly.rfc3339
-}
-
 resource "tailscale_tailnet_key" "r1e0p1" {
   reusable      = true
   ephemeral     = false
@@ -29,7 +21,16 @@ resource "tailscale_tailnet_key" "r1e0p1" {
   }
 }
 
-output "tailnet_key-r1e0p1" {
-  sensitive = true
-  value     = tailscale_tailnet_key.r1e0p1.key
+resource "tailscale_tailnet_key" "r1e1p1" {
+  reusable      = true
+  ephemeral     = true
+  preauthorized = true
+
+  tags = ["tag:infra"]
+
+  lifecycle {
+    replace_triggered_by = [
+      time_static.rotate_monthly
+    ]
+  }
 }

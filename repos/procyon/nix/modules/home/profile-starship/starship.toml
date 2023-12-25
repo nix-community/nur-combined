@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
+#
+# SPDX-License-Identifier: MIT
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+[nix_shell]
+heuristic = true
+
+[os]
+disabled = false
+format = "on [($name )]($style)"
+
+[time]
+disabled = false
+utc_time_offset = "-3"

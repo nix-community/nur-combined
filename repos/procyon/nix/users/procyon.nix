@@ -2,9 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
+{ pkgs, ... }:
 {
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
+  home.packages = with pkgs; [
+    hyfetch
+    asciinema
+  ];
 }

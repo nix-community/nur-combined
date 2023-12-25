@@ -7,9 +7,17 @@ keys:
   - &user_procyon 2764AA78791D69DF7E8916D640802D0919B2FB7D
   - &ci_hercules age1quvwy7893k74uqhkpgyn6zq9axlu2s3nhplg5ujzumh8fg4dfgzqs73xmq
 creation_rules:
+  - path_regex: secrets/variables.env
+    key_groups:
+      - pgp:
+          - *user_procyon
   - path_regex: secrets/infrastructure/[^/]+\/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - pgp:
           - *user_procyon
         age:
           - *ci_hercules
+  - path_regex: secrets/nix/services/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - pgp:
+          - *user_procyon

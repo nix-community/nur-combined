@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": true,
+  "nixEnvSelector.nixFile": "${workspaceRoot}/flake.nix",
+  "nix.serverPath": "nil",
+  "nix.enableLanguageServer": true,
+  "nix.formatterPath": ["nix", "fmt", "--", "-"],
+  "nix.serverSettings": {
+    "nil": {
+      "formatting": {
+        "command": ["nixpkgs-fmt"]
+      }
+    }
+  }
+}

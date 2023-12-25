@@ -1,6 +1,7 @@
 pull_request_rules:
   - name: merge automatically (when CI passes and PR is approved)
     conditions:
+      - "check-success=Rule: Conventional Commit (post_check)"
       - or:
           - "#approved-reviews-by >= 1"
           - author = dependabot[bot]
@@ -8,3 +9,17 @@ pull_request_rules:
     actions:
       queue:
         method: rebase
+      post_check:
+        success_conditions:
+          - "title ~= ^(fix|feat|docs|style|refactor|perf|test|build|ci|chore|revert)(?:\\(.+\\))?:"
+        title: |
+          {% if check_status == "success" %}
+          Title follows Conventional Commit
+          {% else %}
+          Title does not follow Conventional Commit
+          {% endif %}
+        summary: |
+          {% if check_status == "failure" %}
+          Your pull request title must follow
+          [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/).
+          {% endif %}
