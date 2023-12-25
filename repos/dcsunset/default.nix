@@ -17,6 +17,7 @@
   task-json-cli = pkgs.callPackage ./pkgs/task-json-cli { };
   batch-cmd = pkgs.callPackage ./pkgs/batch-cmd { };
   commit-and-tag-version = pkgs.callPackage ./pkgs/commit-and-tag-version { };
+  rangefs = pkgs.callPackage ./pkgs/rangefs { };
   emacsPackages = pkgs.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/emacs-pkgs { }
   );
