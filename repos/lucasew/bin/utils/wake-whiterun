@@ -1,0 +1,8 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p wol
+
+set -euo pipefail
+
+# wakes up whiterun
+
+wol a8:a1:59:9c:ab:32
