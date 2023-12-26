@@ -1,0 +1,27 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i python3 -p python3Packages.face_recognition python3Packages.opencv4 python3Packages.tqdm
+
+import faulthandler
+faulthandler.enable()
+
+import face_recognition
+import cv2
+from pathlib import Path
+import numpy as np
+import pandas as pd
+from argparse import ArgumentParser
+from sys import stderr
+
+parser = ArgumentParser()
+parser.add_argument("images", help="Where images are stored")
+
+args = parser.parse_args()
+
+for (i, image_path) in args.images.iterdir():
+    print(f"[*] Processing {image_path}", file=stderr)
+    image = cv2.imread(image_path)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    boxes = face_recognition.face_locations(image, model='cnn')
+    embeddings = face_recognition.face_encodings(image, boxes)
+    for (box, enbedding) in zip(boxes, embeddings):
+        print(image_path, box, embedding)
