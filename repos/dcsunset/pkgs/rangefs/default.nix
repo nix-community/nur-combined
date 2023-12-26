@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rangefs";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-iP67hQI70p0BjRhQA7dGLREpyW5bxJaVFCxBpDTlTuo=";
+    hash = "sha256-xN/OFYxWVEke0YQCUoCcBAjflJwIfW9Y0XNQpnCsIl0=";
   };
 
-  cargoHash = "sha256-faOH+fyDZnjvIPKAFx/7/k2P0Q1rNlN/l+7bcOvwsoU=";
+  cargoHash = "sha256-gmSwg3ahWT0wUCIAr88O6RaHGewbxoC/JGIP2bKsBxg=";
 
   meta = with lib; {
     description = "A fuse-based filesystem to map ranges in file to individual files.";
