@@ -315,13 +315,13 @@
         sha512 = "VaUJspBffn/LMCJVoMvSAdmscJyS1auj5Zulnn5UoYcY531UWmdwhRWkcGKnGU93m5HSXP9LP2usOryrBtQowA==";
       };
     };
-    "giget-1.2.0" = {
+    "giget-1.2.1" = {
       name = "giget";
       packageName = "giget";
-      version = "1.2.0";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/giget/-/giget-1.2.0.tgz";
-        sha512 = "cIILJ8cBGW34vaH0IuZWeZj/pqy5s3Jkkps0m+g+nWqpsdwLjSoHaeECWjVeJWPUm7uhlS8tJSrrzSBaQXeM1A==";
+        url = "https://registry.npmjs.org/giget/-/giget-1.2.1.tgz";
+        sha512 = "4VG22mopWtIeHwogGSy1FViXVo0YT+m6BrqZfz0JJFwbSsePsCdOzdLIIli5BtMp7Xe8f/o2OmBpQX2NBOC24g==";
       };
     };
     "glob-parent-5.1.2" = {
@@ -1007,7 +1007,7 @@ in {
         })
       sources."fsevents-2.3.3"
       sources."get-stream-8.0.1"
-      sources."giget-1.2.0"
+      sources."giget-1.2.1"
       sources."glob-parent-5.1.2"
       sources."human-signals-5.0.0"
       sources."is-binary-path-2.1.0"

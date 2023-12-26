@@ -7,14 +7,14 @@
 }: {
   distrho-ports = {
     pname = "distrho-ports";
-    version = "1143c2e5d3a3454cbbc7afe46571d11207e212c7";
+    version = "ae1d546829b054ad4299c7320032d2ed0280791b";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "DISTRHO-Ports";
-      rev = "1143c2e5d3a3454cbbc7afe46571d11207e212c7";
+      rev = "ae1d546829b054ad4299c7320032d2ed0280791b";
       fetchSubmodules = true;
-      sha256 = "sha256-6uB2ghuAXDxsmXD09Hax/sssRTo0zg0Jy7j4tjDFU5M=";
+      sha256 = "sha256-vt57SEVNx3CVsNA3gB5orKL8I3X/DfLsZ0Wybmo6vSE=";
     };
-    date = "2023-12-24";
+    date = "2023-12-25";
   };
 }
