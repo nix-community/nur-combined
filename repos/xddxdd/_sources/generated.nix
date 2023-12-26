@@ -854,18 +854,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "5edc39d1/linuxqq_3.2.3-19689";
+    version = "9681283b/linuxqq_3.2.3-20201";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/5edc39d1/linuxqq_3.2.3-19689_amd64.deb";
-      sha256 = "sha256-3WkdE5U+m59ZAA7EVQwePtujD2szsZsgsNzpjcp/oCI=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/9681283b/linuxqq_3.2.3-20201_amd64.deb";
+      sha256 = "sha256-iMMQqdfYgdf8szDZ1Frv+oBjRZsPkew+pCaXgu6cxrY=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "5edc39d1/linuxqq_3.2.3-19689";
+    version = "9681283b/linuxqq_3.2.3-20201";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/5edc39d1/linuxqq_3.2.3-19689_arm64.deb";
-      sha256 = "sha256-bTI4I+XuSzti1XMTBQg7eHVYN5fejgfxTmkPH4W7EPA=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/9681283b/linuxqq_3.2.3-20201_arm64.deb";
+      sha256 = "sha256-mEXhswuV31kxGX3aTmyqThjkA6VnA4aZ/vLQTgbMaxI=";
     };
   };
   qqmusic = {
@@ -914,15 +914,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "9d6c8fda32f552e6f09de8a1ffd87b8cb80b76de";
+    version = "00d493d445eb2096762a3880d2ce0e9bbbb01b99";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "9d6c8fda32f552e6f09de8a1ffd87b8cb80b76de";
+      rev = "00d493d445eb2096762a3880d2ce0e9bbbb01b99";
       fetchSubmodules = false;
-      sha256 = "sha256-2tHCJEZCsG6WI+cUq3oY7AMe+mY+R0b/sKGbq0pOHVw=";
+      sha256 = "sha256-i16ma/9EeTvH8YdDBXNx1tb/+IWdq7d+mkfcTlIgi1o=";
     };
-    date = "2023-12-24";
+    date = "2023-12-25";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
