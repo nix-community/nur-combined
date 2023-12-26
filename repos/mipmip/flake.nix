@@ -2,8 +2,9 @@
   inputs = {
 
     ## MAIN NIXPKGS
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11"; # GNOME 43.2
+    nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11"; # GNOME 45.2
+
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
 
@@ -148,7 +149,6 @@
                 privateKeyFile = ./hosts/lego1/peerix-private;
                 publicKeyFile =  ./hosts/lego1/peerix-public;
                 publicKey = peerixPubkeys;
-
               };
             }
 
@@ -201,7 +201,7 @@
                 openFirewall = true; # UDP/12304
                 privateKeyFile = ./hosts/lego1/peerix-private;
                 publicKeyFile =  ./hosts/lego1/peerix-public;
-                publicKey = "THE CONTENT OF peerix-public FROM THE OTHER COMPUTER";
+                publicKey = peerixPubkeys;
               };
             }
 
@@ -234,7 +234,7 @@
                   openFirewall = true; # UDP/12304
                   privateKeyFile = ./hosts/ojs/peerix-private;
                   publicKeyFile =  ./hosts/ojs/peerix-public;
-                  publicKey = "peerix-lego1:UEbvvZ0dbQbFqktNWaeo4hyTIBovOb/3Is/AuzBUNJI=";
+                  publicKey = peerixPubkeys;
                 };
               }
 
