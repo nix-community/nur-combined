@@ -17,7 +17,11 @@
 
     ## OTHER
     agenix.url = "github:ryantm/agenix";
-    utils.url = "github:numtide/flake-utils";
+
+    peerix = {
+      url = "github:cid-chan/peerix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixified-ai = { url = "github:nixified-ai/flake"; };
 
@@ -28,9 +32,9 @@
     home-manager,
     nixpkgs,
     nixpkgs-2311,
+    peerix,
     unstable,
     nixpkgs-inkscape13,
-    utils,
     agenix,
     nixified-ai
   }:
@@ -170,12 +174,24 @@
           let
             system = "x86_64-linux";
             defaults = { pkgs, ... }: {
+
               _module.args.unstable = unstableForSystem "x86_64-linux";
               _module.args.nixpkgs-inkscape13 = nixpkgs-inkscape13ForSystem "x86_64-linux";
             };
           in [
             defaults
             ./hosts/lego1/configuration.nix
+            peerix.nixosModules.peerix {
+              services.peerix = {
+                enable = true;
+                package = peerix.packages.x86_64-linux.peerix;
+                openFirewall = true; # UDP/12304
+                privateKeyFile = ./hosts/lego1/peerix-private;
+                publicKeyFile =  ./hosts/lego1/peerix-public;
+                publicKey = "THE CONTENT OF peerix-public FROM THE OTHER COMPUTER";
+              };
+            }
+
             { environment.systemPackages = [ agenix.packages."${system}".default ]; }
             agenix.nixosModules.default
 
