@@ -59,6 +59,7 @@
       config.allowUnfree = true;
     };
 
+    peerixPubkeys = " peerix-lego1:UEbvvZ0dbQbFqktNWaeo4hyTIBovOb/3Is/AuzBUNJI= peerix-ojs:6QILJzG+gTv8JlT8AT1ObVB3h+AXxWLQEkOI8ACEGm0= peerix-rodin:GKCOspilVSQTzFLxzzrtLtVAkB9X3Rkrw5qku4E8wkk=";
 
   in {
 
@@ -139,6 +140,18 @@
         in [
           ./hosts/rodin/configuration.nix
           defaults
+          peerix.nixosModules.peerix {
+              services.peerix = {
+                enable = true;
+                package = peerix.packages.x86_64-linux.peerix;
+                openFirewall = true; # UDP/12304
+                privateKeyFile = ./hosts/lego1/peerix-private;
+                publicKeyFile =  ./hosts/lego1/peerix-public;
+                publicKey = peerixPubkeys;
+
+              };
+            }
+
           agenixBin
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager {
@@ -214,6 +227,16 @@
             in [
               defaults
               ./hosts/ojs/configuration.nix
+              peerix.nixosModules.peerix {
+                services.peerix = {
+                  enable = true;
+                  package = peerix.packages.x86_64-linux.peerix;
+                  openFirewall = true; # UDP/12304
+                  privateKeyFile = ./hosts/ojs/peerix-private;
+                  publicKeyFile =  ./hosts/ojs/peerix-public;
+                  publicKey = "peerix-lego1:UEbvvZ0dbQbFqktNWaeo4hyTIBovOb/3Is/AuzBUNJI=";
+                };
+              }
 
               { environment.systemPackages = [ agenix.packages."${system}".default ]; }
               agenix.nixosModules.default
