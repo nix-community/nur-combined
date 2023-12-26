@@ -8,6 +8,7 @@
       "https://procyon.cachix.org"
 
       # from inputs
+      "https://linyinfeng.cachix.org"
       "https://nix-community.cachix.org"
       "https://pre-commit-hooks.cachix.org"
     ];
@@ -17,6 +18,7 @@
       "procyon.cachix.org-1:VljSnjtMCpriTsvji4EotHS9UZJoPMOCVk//fmmvIto="
 
       # from inputs
+      "linyinfeng.cachix.org-1:sPYQXcNrnCf7Vr7T0YmjXz5dMZ7aOKG3EqLja0xr9MM="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
     ];

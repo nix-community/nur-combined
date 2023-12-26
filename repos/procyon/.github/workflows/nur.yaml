@@ -3,7 +3,7 @@ name: "NUR"
 on:
   pull_request:
     paths:
-      - 'nix/pkgs/**'
+      - "nix/pkgs/**"
   push:
     branches:
       - main

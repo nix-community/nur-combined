@@ -2,9 +2,10 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ flake, lib, ... }:
+{ flake, pkgs, lib, ... }:
 {
   users.users.root = {
+    shell = pkgs.zsh;
     initialHashedPassword = lib.mkForce null;
     openssh.authorizedKeys.keys = [ "${flake.config.people.users.${flake.config.people.myself}.keys.ssh}" ];
   };

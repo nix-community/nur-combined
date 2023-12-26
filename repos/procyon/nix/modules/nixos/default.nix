@@ -11,6 +11,7 @@
     ezModules.profile-nix
     ezModules.profile-zram
     ezModules.profile-sops
+    ezModules.profile-shells
     ezModules.profile-localization
     ezModules.networking-tailscale
     flake.inputs.nur.nixosModules.nur
