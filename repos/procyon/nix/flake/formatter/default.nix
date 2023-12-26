@@ -9,21 +9,29 @@
     inputs.treefmt-nix.flakeModule
   ];
 
-  perSystem = { config, ... }: {
+  perSystem = { pkgs, config, ... }: {
     formatter = config.treefmt.build.wrapper;
 
     treefmt = {
       inherit (config.flake-root) projectRootFile;
 
-      settings.formatter.prettier = {
-        excludes = [
-          "secrets/**/*.{yaml,json,ini,env,txt}"
-          "nix/pkgs/_sources/generated.{json,nix}"
-        ];
+      settings.formatter = {
+        prettier = {
+          options = [
+            "--write"
+            "--prose-wrap"
+            "never"
+          ];
+          excludes = [
+            "secrets/**/*.{yaml,json,ini,env,txt}"
+            "nix/pkgs/_sources/generated.{json,nix}"
+          ];
+        };
       };
 
       programs = {
         shfmt.enable = true;
+        hclfmt.enable = true;
         prettier.enable = true;
         shellcheck.enable = true;
         nixpkgs-fmt.enable = true;
