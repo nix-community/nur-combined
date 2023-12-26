@@ -67,6 +67,8 @@
 
   mdspan = pkgs.callPackage ./pkgs/mdspan { };
 
+  mppp = pkgs.callPackage ./pkgs/mppp { };
+
   nanobind = pkgs.callPackage ./pkgs/nanobind { python = pkgs.python3; };
 
   nlr = pkgs.callPackage ./pkgs/nlr { };
