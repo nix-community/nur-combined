@@ -22,14 +22,6 @@ in
           name = ''"view members" default to false'';
           hash = "sha256-9BX8iO86CU1lNrKS1G2BjDR+3IlV9bmhRNTsLrxChwQ=";
         })
-        (pkgs.fetchpatch {
-          # this makes it so Abaddon reports its app_name in notifications.
-          # not 100% necessary; just a nice-to-have. maybe don't rely on it until it's merged upstream.
-          # upstream PR: <https://github.com/uowuo/abaddon/pull/247>
-          url = "https://git.uninsane.org/colin/abaddon/commit/18cd863fdbb5e6b1e9aaf9394dbd673d51839f30.patch";
-          name = "set glib application name";
-          hash = "sha256-IFYxf1D8hIsxgZehGd6hL3zJiBkPZfWGm+Faaa5ZFl4=";
-        })
       ];
     });
 
