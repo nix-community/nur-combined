@@ -23,21 +23,19 @@
 
       nativeBuildInputs = [makeWrapper];
 
+      dontConfigure = true;
+      dontBuild = true;
+
       installPhase = ''
         runHook preInstall
 
-        mkdir -p $out/bin
-        mkdir -p $out/share/pjeoffice
-        cp pjeOffice.jar $out/share/pjeoffice
+        install -Dt $out/share/pjeoffice ./pjeOffice.jar
+        mkdir $out/bin
         makeWrapper ${lib.getExe jdk11} $out/bin/${mainProgram} \
           --add-flags "-jar $out/share/pjeoffice/pjeOffice.jar"
 
         runHook postInstall
       '';
-
-      dontConfigure = true;
-      dontBuild = true;
-      doCheck = false;
 
       meta = {
         description = "CNJ software for digital signatures for the PJe system";
