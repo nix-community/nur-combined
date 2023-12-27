@@ -7,7 +7,7 @@ Files: flake.nix README.md secrets/* infrastructure/terraform/modules/oci/files/
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: MIT
 
-Files: .github/* .vscode/* .devcontainer/devcontainer.json .envrc garnix,yaml .gitattributes .gitignore flake.lock .mergify.yml infrastructure/terraform/.terraform.lock.hcl nix/flake/ci/GPG.pub nix/pkgs/_sources/generated.*
+Files: .github/* .vscode/* .devcontainer/devcontainer.json .envrc garnix.yaml .gitattributes .gitignore flake.lock .mergify.yml infrastructure/terraform/.terraform.lock.hcl nix/flake/ci/GPG.pub nix/pkgs/_sources/generated.*
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: CC0-1.0
 

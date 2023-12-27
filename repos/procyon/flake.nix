@@ -4,6 +4,7 @@
   nixConfig = {
     extra-substituters = [
       # default
+      "https://cache.garnix.io"
       "https://cachix.cachix.org"
       "https://procyon.cachix.org"
 
@@ -14,6 +15,7 @@
     ];
     extra-trusted-public-keys = [
       # default
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
       "procyon.cachix.org-1:VljSnjtMCpriTsvji4EotHS9UZJoPMOCVk//fmmvIto="
 
