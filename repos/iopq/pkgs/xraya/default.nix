@@ -15,8 +15,8 @@ let
   src = fetchFromGitHub {
     owner = "iopq";
     repo = "xraya";
-    rev = "v3.1.1";
-    sha256 = "sha256-jCKTFJqTCR8QJ1xvv/x+jyIhG8CB2k2OH8h9x1UmRlY=";
+    rev = "4a775e7e91927087a4ec3829119b0eee2c612a4a";
+    sha256 = "sha256-64JcyZDZQ0dOIbVO+MqESyUWrCG9MY+wjRPWx2/Rh8c=";
   };
 
   web = mkYarnPackage {
@@ -45,7 +45,7 @@ buildGoModule {
   inherit pname version;
 
   src = "${src}/service";
-  vendorSha256 = "sha256-Yz6+4ghiJf6a9TB4Sql5AY67dX0mLGhf6H4PVKGXSFE=";
+  vendorHash = "sha256-Yz6+4ghiJf6a9TB4Sql5AY67dX0mLGhf6H4PVKGXSFE=";
 
   ldflags = [
     "-s"
