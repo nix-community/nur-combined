@@ -473,15 +473,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "4906c3fc880328453a9efccde860e11adc5fea29";
+    version = "6982f4c28fb4cc76ad3cf033364f9f2a6cd2d6ab";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "4906c3fc880328453a9efccde860e11adc5fea29";
+      rev = "6982f4c28fb4cc76ad3cf033364f9f2a6cd2d6ab";
       fetchSubmodules = false;
-      sha256 = "sha256-lSiWp0vn5LdndaNU26aN5p+fYo0Rw9/MkU883Vbd8y0=";
+      sha256 = "sha256-2ScdrklRdtcNEmjw/rzIEyBiOeUSEyEzukfNLorW+yA=";
     };
-    date = "2023-12-20";
+    date = "2023-12-26";
   };
   libqcef = {
     pname = "libqcef";
@@ -954,13 +954,13 @@
   };
   sam-toki-mouse-cursors = {
     pname = "sam-toki-mouse-cursors";
-    version = "v6.02";
+    version = "v6.04";
     src = fetchFromGitHub {
       owner = "SamToki";
       repo = "IconDesign---Sam-Toki-Mouse-Cursors";
-      rev = "v6.02";
+      rev = "v6.04";
       fetchSubmodules = false;
-      sha256 = "sha256-kwG1B3hOOsJZgdDiY6U9CdpnQRwZA0wh2TxkPlpA1dI=";
+      sha256 = "sha256-lzczvGekm6nprZlwSzsv15jN5weuok2s2c/G1hcCk7A=";
     };
   };
   sgx-software-enable = {
