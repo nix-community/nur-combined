@@ -192,6 +192,16 @@
     "slug": "darkreader"
   },
   {
+    "slug": "dashlane",
+    "license": {
+      "tag": "custom",
+      "shortName": "dashlane",
+      "fullName": "Dashlane Terms of Service",
+      "url": "https://www.dashlane.com/terms",
+      "free": false
+    }
+  },
+  {
     "slug": "dearrow"
   },
   {
@@ -475,6 +485,16 @@
     "license": {
       "tag": "predefined",
       "shortName": "mpl11"
+    }
+  },
+  {
+    "slug": "immersive-translate",
+    "license": {
+      "tag": "custom",
+      "shortName": "immersive-translate",
+      "fullName": "End-User License Agreement for Immersive Translate",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/immersive-translate/eula/",
+      "free": false
     }
   },
   {

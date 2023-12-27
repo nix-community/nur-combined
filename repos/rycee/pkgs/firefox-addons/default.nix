@@ -31,14 +31,14 @@ in packages // {
 
   "1password-x-password-manager" = packages.onepassword-password-manager;
 
-  bypass-paywalls-clean = let version = "3.4.3.0";
+  bypass-paywalls-clean = let version = "3.4.7.0";
   in buildFirefoxXpiAddon {
     pname = "bypass-paywalls-clean";
     inherit version;
     addonId = "magnolia@12.34";
     url =
       "https://gitlab.com/magnolia1234/bpc-uploads/-/raw/master/bypass_paywalls_clean-${version}.xpi";
-    sha256 = "sha256-Ns39G+q+DsYJZd67YI7YuI1cCllBxeLtB24K2wTBVNM=";
+    sha256 = "sha256-GNpv/P3J0AVTv4fIpHIB/j6miSsiK58WXB/ZgIp7uCs=";
     meta = with lib; {
       homepage =
         "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
