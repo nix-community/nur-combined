@@ -5,13 +5,15 @@
 # execute and callPackge in the current directory with the given args
 # FYI: `lib.genAttrs [ "foo" "bar" ] (name: "x_" + name)` => `{ foo = "x_foo"; bar = "x_bar"; }`
 lib.genAttrs
-(builtins.filter # find all overlay files in the current directory
-  
-  (
-    f:
-      f
-      != "default.nix" # ignore default.nix
-      && f != "README.md" # ignore README.md
-  )
-  (builtins.attrNames (builtins.readDir ./.)))
+(builtins.attrNames
+  (lib.attrsets.filterAttrs
+    (
+      path: _type:
+        (_type == "directory") # include directories
+        || (
+          (path != "default.nix") # ignore default.nix
+          && (lib.strings.hasSuffix ".nix" path) # include .nix files
+        )
+    )
+    (builtins.readDir ./.)))
 (name: (pkgs.callPackage (./. + "/${name}") {}))
