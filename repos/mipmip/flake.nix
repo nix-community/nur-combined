@@ -3,8 +3,8 @@
 
     ## MAIN NIXPKGS
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11"; # GNOME 43.2
-    nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11"; # GNOME 45.2
 
+    nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11"; # GNOME 45.2
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
 
@@ -278,11 +278,6 @@
             ];
 
           };
-
-    #inherit home-manager;
-    #inherit (home-manager) packages;
-
-
   };
 
 }

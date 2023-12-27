@@ -13,17 +13,23 @@
       recursive = true;
     };
   };
+  home.file = {
+    ".config/nvim" = {
+      source = ./nvim;
+      recursive = true;
+    };
+  };
 
   home.file = {
     ".tmux" = {
-      source = ./.tmux;
+      source = ./tmux;
       recursive = true;
     };
   };
 
   home.file = {
     ".vim" = {
-      source = ./.vim;
+      source = ./vim;
       recursive = true;
     };
   };

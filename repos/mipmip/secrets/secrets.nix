@@ -9,4 +9,5 @@ let
 in
 {
   "openai-api-key.age".publicKeys = [ pim ojs lego1 rodin];
+  "openai-api-key-plain.age".publicKeys = [ pim ojs lego1 rodin];
 }

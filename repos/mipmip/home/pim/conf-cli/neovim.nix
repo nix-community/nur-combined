@@ -1,24 +1,22 @@
-{ config, pkgs, ... }:
+{ config, pkgs,unstable, ... }:
 
 {
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
-      vim-javascript
-      vim-jsx-pretty
-      NeoSolarized
-      fzf-lsp-nvim
-      nerdtree
+      nvim-treesitter.withAllGrammars
     ];
 
     extraConfig = ''
+      "colorscheme NeoSolarized
+      "set termguicolors
+      "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+      "let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+      "set background=light
 
-colorscheme NeoSolarized
-set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-      set background=light
-
+      "set runtimepath^=~/.vim runtimepath+=~/.vim/after
+      "let &packpath = &runtimepath
+      "source ~/.vim/vimrc
     '';
   };
 }

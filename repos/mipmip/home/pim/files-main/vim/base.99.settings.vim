@@ -28,9 +28,13 @@ set hlsearch    " highlight matches
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
 
-silent !mkdir ~/.vim_temp/undodir > /dev/null 2>&1
-set undofile " Maintain undo history between sessions
-set undodir=~/.vim_temp/undodir
+if has('nvim')
+  "something for neovim
+else
+  silent !mkdir ~/.vim_temp/undodir > /dev/null 2>&1
+  set undofile " Maintain undo history between sessions
+  set undodir=~/.vim_temp/undodir
+endif
 
 " vim vimtricks https://www.getrevue.co/profile/vim_tricks/issues/vim-command-line-window-1458375
 set history=1000
