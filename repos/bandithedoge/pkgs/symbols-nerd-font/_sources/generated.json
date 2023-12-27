@@ -1,17 +1,17 @@
 {
-    "symbols-nerd-font": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "symbols-nerd-font",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-jGRhPv4MXRFmSpMdJB51bqQiz0rRjXmfHLXkMXEianY=",
-            "type": "url",
-            "url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/NerdFontsSymbolsOnly.zip"
-        },
-        "version": "v3.1.1"
-    }
+  "symbols-nerd-font": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "symbols-nerd-font",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-jGRhPv4MXRFmSpMdJB51bqQiz0rRjXmfHLXkMXEianY=",
+      "type": "url",
+      "url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/NerdFontsSymbolsOnly.zip"
+    },
+    "version": "v3.1.1"
+  }
 }
