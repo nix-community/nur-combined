@@ -14,8 +14,8 @@
 , android-tools
 , makeWrapper
 , range-v3
-, maaVersion ? "4.28.0"
-, maaSourceHash ? "sha256-SKPKFD70wwmBXqolh8eLmHbL1ckDORiAH+LFBjC+o1A="
+, maaVersion ? "4.28.4"
+, maaSourceHash ? "sha256-i+tP02wlsO4eUWxQhCy9edSzXZBldh92cgaYc017yLA="
 , cudaSupport ? config.cudaSupport
 , onnxruntime-cuda ? pkgs.callPackage ./onnxruntime-cuda.nix { }
 , git
