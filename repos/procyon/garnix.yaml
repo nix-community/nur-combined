@@ -1,8 +1,12 @@
 builds:
   exclude:
+    - "checks.*.*"
+    - "packages.*.*"
+    - "legacyPackages.*.*"
     - "nixosConfigurations.bootstrap"
   include:
-    - "devShells.*.*"
-    - "checks.x86_64-linux.*"
+    # - "devShells.*.*"
+    - '*.x86_64-linux.*'
+    - '*.aarch64-linux.*'
     - "homeConfigurations.*"
     - "nixosConfigurations.*"
