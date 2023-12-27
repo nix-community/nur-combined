@@ -1,10 +1,7 @@
 builds:
   exclude:
-    - packages.*
-    # - legacyPackages.*
     - nixosConfigurations.bootstrap
   include:
-    - '*.x86_64-linux.*'
     - checks.*
     - homeConfigurations.*
     - nixosConfigurations.*
