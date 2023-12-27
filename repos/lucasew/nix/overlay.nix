@@ -33,6 +33,7 @@ in
       });
       pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode {};
       kenlm = final.callPackage ./pkgs/python/kenlm {};
+      facenet-pytorch = final.callPackage ./pkgs/python/facenet-pytorch {};
       face_recognition = prev.face_recognition.overrideAttrs (old: {
         dontUsePytestCheck = true;
         dontUseSetuptoolsCheck = true;
