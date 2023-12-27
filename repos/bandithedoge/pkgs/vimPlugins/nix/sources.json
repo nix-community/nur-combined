@@ -839,10 +839,10 @@
     "homepage": "",
     "owner": "glepnir",
     "repo": "lspsaga.nvim",
-    "rev": "7a386a65a06ef75631682af5124b2c01de314887",
-    "sha256": "0z83r9i6i3jqixnn8byl82vnj9dmd4b6947a78xsrlasw1ly3p73",
+    "rev": "e71cddc9d4c1dd97c026814777b810df988daed2",
+    "sha256": "18hyzn54vrfi2dlc0xlgk59zqr73j8qcc4b344v9lzsbp69jpmjb",
     "type": "tarball",
-    "url": "https://github.com/glepnir/lspsaga.nvim/archive/7a386a65a06ef75631682af5124b2c01de314887.tar.gz",
+    "url": "https://github.com/glepnir/lspsaga.nvim/archive/e71cddc9d4c1dd97c026814777b810df988daed2.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "lualine.nvim": {
@@ -1829,10 +1829,10 @@
     "homepage": "",
     "owner": "nvim-telescope",
     "repo": "telescope.nvim",
-    "rev": "c0ee29e8e4700ef49623d12ca3ffb8481c8d69f3",
-    "sha256": "0z801sg64j7h7xkmz5lgzc116kdbx54h4vqhzvj4qfw01hbaij5b",
+    "rev": "aacaa9cd031da83ce08d8fa5f19083d731f7f62c",
+    "sha256": "0i042f7xja628cqqigy03901prf29h632mpqpaww9bv2rfk6dmfy",
     "type": "tarball",
-    "url": "https://github.com/nvim-telescope/telescope.nvim/archive/c0ee29e8e4700ef49623d12ca3ffb8481c8d69f3.tar.gz",
+    "url": "https://github.com/nvim-telescope/telescope.nvim/archive/aacaa9cd031da83ce08d8fa5f19083d731f7f62c.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "todo-comments.nvim": {
