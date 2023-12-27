@@ -1,0 +1,9 @@
+builds:
+  exclude:
+    - apps.*
+    # - checks.*
+  include:
+    - packages.*
+    - devShells.*
+    - homeConfigurations.*
+    - nixosConfigurations.*
