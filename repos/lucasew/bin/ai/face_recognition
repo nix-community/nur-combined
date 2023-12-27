@@ -1,8 +1,15 @@
 #!/usr/bin/env -S sd nix shell
 #!nix-shell -i python3 -p python3Packages.face_recognition python3Packages.opencv4 python3Packages.tqdm
 
+# The idea here is to cluster a set of images of faces
+# ~stolen~ inspired from https://pyimagesearch.com/2018/07/09/face-clustering-with-python/
+# demo dataset: https://www.kaggle.com/datasets/rawatjitesh/avengers-face-recognition
+
 import faulthandler
 faulthandler.enable()
+
+import dlib
+dlib.get_frontal_face_detector()
 
 import face_recognition
 import cv2

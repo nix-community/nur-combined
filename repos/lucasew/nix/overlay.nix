@@ -41,6 +41,7 @@ in
       });
       dlib = prev.dlib.overrideAttrs (old: {
         dontUsePytestCheck = true;
+        openblas = prev.pkgs.blas;
         postPatch = ''
           ${old.postPatch or ""}
           rm -rf tools/python/test/*
