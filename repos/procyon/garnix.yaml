@@ -1,7 +1,8 @@
 builds:
   exclude:
-    - nixosConfigurations.bootstrap
+    - "nixosConfigurations.bootstrap"
   include:
-    - checks.*
-    - homeConfigurations.*
-    - nixosConfigurations.*
+    - "devShells.*.*"
+    - "checks.x86_64-linux.*"
+    - "homeConfigurations.*"
+    - "nixosConfigurations.*"
