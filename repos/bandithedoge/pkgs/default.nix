@@ -31,6 +31,7 @@ in {
   satty = callPackage' ./satty;
   sheepshaver-bin = callPackage' ./sheepshaver-bin;
   swift-mesonlsp-bin = callPackage' ./swift-mesonlsp-bin;
+  symbols-nerd-font = callPackage' ./symbols-nerd-font;
   treeSitterGrammars = callPackages ./treeSitterGrammars;
   vimPlugins = callPackage' ./vimPlugins;
   zrythm = callPackage' ./zrythm;
