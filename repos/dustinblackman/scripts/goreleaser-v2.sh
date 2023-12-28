@@ -27,9 +27,8 @@ ls "$DISTFOLDER/nix/pkgs" | while read nixfile; do
 	cp "$DISTFOLDER/nix/pkgs/$nixfile" ./pkgs/
 done
 
-./generate-default.sh
+./scripts/generate-default.sh
 
-cd ..
 git add .
 git commit -m "$APP $VERSION"
 git push
