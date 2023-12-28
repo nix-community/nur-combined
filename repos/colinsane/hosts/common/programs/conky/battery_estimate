@@ -12,12 +12,14 @@ usage() {
   echo "  --minute-suffix <string>:  use the provided string as a minutes suffix"
   echo "  --hour-suffix <string>:  use the provided string as an hours suffix"
   echo "  --icon-suffix <string>:  use the provided string as an icon suffix"
+  echo "  --percent-suffix <string>:  use the provided string when displaying percents"
 }
 
 # these icons come from sxmo; they only render in nerdfonts
 icon_bat_chg=("󰢟" "󱊤" "󱊥" "󰂅")
 icon_bat_dis=("󰂎" "󱊡" "󱊢" "󱊣")
 suffix_icon=" "  # thin space
+suffix_percent="%"
 # suffix_icon=" "
 
 # render time like: 2ʰ08ᵐ
@@ -141,7 +143,7 @@ pretty_output() {
         duration="$(($full * 60 * $perc / (-100 * $rate)))"
       fi
     fi
-    fmt_minutes "$icon" "$perc%" "$duration"
+    fmt_minutes "$icon" "$perc$suffix_percent" "$duration"
   fi
 }
 
@@ -164,6 +166,11 @@ while [ "$#" -gt 0 ]; do
     "--minute-suffix")
       shift
       symbol_min="$1"
+      shift
+      ;;
+    "--percent-suffix")
+      shift
+      suffix_percent="$1"
       shift
       ;;
     *)
