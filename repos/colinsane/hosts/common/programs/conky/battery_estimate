@@ -1,3 +1,4 @@
+#!/bin/sh
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash
 
@@ -8,11 +9,45 @@ usage() {
   echo
   echo "options:"
   echo "  --debug: output additional information, to stderr"
+  echo "  --minute-suffix <string>:  use the provided string as a minutes suffix"
+  echo "  --hour-suffix <string>:  use the provided string as an hours suffix"
+  echo "  --icon-suffix <string>:  use the provided string as an icon suffix"
 }
 
 # these icons come from sxmo; they only render in nerdfonts
 icon_bat_chg=("󰢟" "󱊤" "󱊥" "󰂅")
 icon_bat_dis=("󰂎" "󱊡" "󱊢" "󱊣")
+suffix_icon=" "  # thin space
+# suffix_icon=" "
+
+# render time like: 2ʰ08ᵐ
+# unicode sub/super-scripts: <https://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts>
+# symbol_hr="ʰ"
+# symbol_min="ᵐ"
+
+# render time like: 2ₕ08ₘ
+# symbol_hr="ₕ"
+# symbol_min="ₘ"
+
+# render time like: 2h08m
+# symbol_hr="h"
+# symbol_min="m"
+
+# render time like: 2:08
+# symbol_hr=":"
+# symbol_min=
+
+# render time like: 2꞉08⧗
+symbol_hr="꞉"
+symbol_min="⧗"
+# variants:
+# symbol_hr=":"
+# symbol_min="⧖"
+# symbol_min="⌛"
+
+# render time like: 2'08"
+# symbol_hr="'"
+# symbol_min='"'
 
 log() {
   if [ "$BATTERY_ESTIMATE_DEBUG" = "1" ]; then
@@ -88,7 +123,7 @@ fmt_minutes() {
     hr=$(($3 / 60))
     hr_in_min=$(($hr * 60))
     min=$(($3 - $hr_in_min))
-    printf "%s %dh%02dm" "$1" "$hr" "$min"
+    printf "%s%s%d%s%02d%s" "$1" "$suffix_icon" "$hr" "$symbol_hr" "$min" "$symbol_min"
   fi
 }
 
@@ -112,6 +147,21 @@ while [ "$#" -gt 0 ]; do
     "--debug")
       shift
       BATTERY_ESTIMATE_DEBUG=1
+      ;;
+    "--icon-suffix")
+      shift
+      suffix_icon="$1"
+      shift
+      ;;
+    "--hour-suffix")
+      shift
+      symbol_hr="$1"
+      shift
+      ;;
+    "--minute-suffix")
+      shift
+      symbol_min="$1"
+      shift
       ;;
     *)
       usage
