@@ -1,0 +1,54 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i python3 -p python3PackagesBin.matplotlib python3PackagesBin.facenet-pytorch python3PackagesBin.tqdm python3PackagesBin.opencv4 python3PackagesBin.pandas python3PackagesBin.scikit-learn
+
+# The idea here is to cluster a set of images of faces
+# ~stolen~ inspired from https://pyimagesearch.com/2018/07/09/face-clustering-with-python/
+# demo dataset: https://www.kaggle.com/datasets/rawatjitesh/avengers-face-recognition
+
+import faulthandler
+faulthandler.enable()
+
+# import dlib
+# dlib.get_frontal_face_detector()
+# import face_recognition
+
+from facenet_pytorch import MTCNN, InceptionResnetV1
+from sklearn.cluster import DBSCAN
+from matplotlib import pyplot as plt
+
+import cv2
+from tqdm import tqdm
+from pathlib import Path
+import re
+import numpy as np
+import pandas as pd
+from argparse import ArgumentParser
+from sys import stderr, stdout
+import torch
+
+parser = ArgumentParser()
+parser.add_argument("image", help="Image to detect faces", type=Path)
+parser.add_argument('-d', '--device', default='cuda' if torch.cuda.is_available() else 'cpu')
+
+args = parser.parse_args()
+
+assert args.image.is_file(), "Image must be a file"
+
+device = torch.device(args.device)
+print(f"pytorch device: {device}", file=stderr)
+
+mtcnn = MTCNN(
+    image_size=160, margin=0, min_face_size=20,
+    thresholds=[0.6, 0.7, 0.7], factor=0.709, post_process=True,
+    device=device
+)
+
+image = cv2.imread(str(args.image))
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+for bbx, prob in zip(*mtcnn.detect(image)):
+    (xi, yi, xf, yf) = map(int, bbx)
+    image = cv2.rectangle(image, (xi, yi), (xf, yf), (255, 0, 0), 2)
+    print(bbx, prob)
+
+plt.imshow(image)
+plt.show()
