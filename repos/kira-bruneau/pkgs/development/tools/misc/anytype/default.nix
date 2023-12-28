@@ -16,28 +16,28 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "2196a231626445b1af5e94d611b87290b3f08aa8";
-    hash = "sha256-cYNqII1qV8p0kKxVUGLQTBy2930TflvacLJM5Qw81Rc=";
+    rev = "4bf75a0ae186bd40f8ba83e42190869bb9f66a4b";
+    hash = "sha256-jjq/xtTtnWWqJtchu1NIAeOXwmwisMC3g9YzyjPH7Wo=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.37.0";
+  version = "0.37.3";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-37Zn3PKmvFscNIpFRb8lsSidXFxPdc4HkXocvOhJKJ0=";
+    hash = "sha256-WBwIOstQyMu3If/nxPd8fkPdZmzhmYi7kMZSVpTkogM=";
   };
 
   patches = [
     ./fix-resolved.patch
   ];
 
-  npmDepsHash = "sha256-uDO2MLgb5tue+6wAwUWzgAGbOh1n/lHLjxh4khrkDhI=";
+  npmDepsHash = "sha256-9I/a66qd1aP8XdxAHxgy5/UYQRZvVCn/1cAAyWIGats=";
 
-  # https://github.com/anyproto/anytype-ts/blob/v0.37.0/electron/js/util.js#L214-L224
+  # https://github.com/anyproto/anytype-ts/blob/v0.37.3/electron/js/util.js#L214-L224
   enabledLangs = [
     "da-DK" "de-DE" "en-US"
     "es-ES" "fr-FR" "hi-IN"
@@ -48,8 +48,8 @@ buildNpmPackage rec {
     "zh-TW"
   ];
 
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.37.0/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.37.0/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.37.3/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.37.3/electron/hook/locale.js
   postUnpack = ''
     if [ $(cat "$sourceRoot/middleware.version") != ${lib.escapeShellArg anytype-heart.version} ]; then
       echo 'ERROR: middleware version mismatch'
@@ -127,7 +127,7 @@ buildNpmPackage rec {
   meta = with lib; {
     description = "Official Anytype client";
     homepage = "https://anytype.io";
-    chanelog = "https://community.anytype.io/c/news-announcements/release-notes";
+    changelog = "https://community.anytype.io/c/news-announcements/release-notes";
     license = licenses.unfree; # Any Source Available License 1.0
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
