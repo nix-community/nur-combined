@@ -1,14 +1,13 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.6.8-sunlight1";
+  modDirVersion = "6.6.8-lowlatency-sunlight1";
 
   parts = lib.splitString "-" modDirVersion;
 
   version = lib.elemAt parts 0;
-  suffix = lib.elemAt parts 1;
-
-  flavour = "lowlatency";
+  flavour = lib.elemAt parts 1;
+  suffix = lib.elemAt parts 2;
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
