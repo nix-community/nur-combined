@@ -116,29 +116,32 @@ fmt_minutes() {
   #    - we work in minutes instead of hours for precision: bash math is integer-only
   log "charge/discharge time: %f min" "$3"
   # args: <battery symbol> <text if ludicrous estimate> <estimated minutes to full/empty>
-  if [[ $3 -gt 1440 ]]; then
-    log "charge/discharge duration > 1d"
-    printf "%s %s" "$1" "$2"  # more than 1d
-  else
+  if [ -n "$3" ] && [ "$3" -lt 1440 ]; then
     hr=$(($3 / 60))
     hr_in_min=$(($hr * 60))
     min=$(($3 - $hr_in_min))
     printf "%s%s%d%s%02d%s" "$1" "$suffix_icon" "$hr" "$symbol_hr" "$min" "$symbol_min"
+  else
+    log "charge/discharge duration > 1d"
+    printf "%s%s%s" "$1" "$suffix_icon" "$2"  # more than 1d
   fi
 }
 
 pretty_output() {
-  if [[ $rate -lt 0 ]]; then
-    log "discharging"
-    icon="$(render_icon dis $perc)"
-    fmt_minutes "$icon" '∞' "$(($full * 60 * $perc / (-100 * $rate)))"
-  elif [[ $rate -gt 0 ]]; then
-    log "charging"
-    icon="$(render_icon chg $perc)"
-    fmt_minutes "$icon" '100%' "$(($full * 60 * $perc_from_full / (100 * $rate)))"
-  elif [[ "$perc" != "" ]]; then
-    log "neither charging nor discharging"
-    echo "$bat_dis $perc%"
+  if [ -n "$perc" ]; then
+    duration=""
+    if [ "$rate" -gt 0 ]; then
+      log "charging"
+      icon="$(render_icon chg $perc)"
+      duration="$(($full * 60 * $perc_from_full / (100 * $rate)))"
+    else
+      log "discharging"
+      icon="$(render_icon dis $perc)"
+      if [ "$rate" -lt 0 ]; then
+        duration="$(($full * 60 * $perc / (-100 * $rate)))"
+      fi
+    fi
+    fmt_minutes "$icon" "$perc%" "$duration"
   fi
 }
 
