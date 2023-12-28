@@ -11,7 +11,7 @@
 , systemd
 , wayland
 , wayland-protocols
-, wlroots
+, wlroots_0_16
 , xorg
 , unstableGitUpdater
 }:
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     systemd
     wayland
     wayland-protocols
-    wlroots
+    wlroots_0_16
     xorg.libxcb
     xorg.xcbutilwm
   ];

@@ -1,23 +1,24 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, libsolv
 , asciidoctor
-, boost
 , cmake
-, ninja
-, curl
 , doxygen
-, fcgi
 , gettext
-, gpgme
 , graphviz
+, ninja
+, nginx
+, pkg-config
+, vsftpd
+, boost
+, curl
+, fcgi
+, gpgme
 , libproxy
 , libsigcxx
-, libsolv
 , libxml2
-, nginx
 , pcre2
-, pkg-config
 , protobuf
 , readline
 , rpm
@@ -25,16 +26,22 @@
 , yaml-cpp
 , nix-update-script
 }:
-
+let
+  libsolv' = libsolv.overrideAttrs (prevAttrs: {
+    cmakeFlags = prevAttrs.cmakeFlags ++ [
+      "-DENABLE_HELIXREPO=true"
+    ];
+  });
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "libzypp";
-  version = "17.31.25";
+  version = "17.31.27";
 
   src = fetchFromGitHub {
     owner = "openSUSE";
     repo = "libzypp";
     rev = finalAttrs.version;
-    hash = "sha256-64LdPSG/SMdOymF36R8xNDa8KLZVOO8eiA6mXH79OKM=";
+    hash = "sha256-8B1hzYBJ/ZWiRnInmFgjXvSpz6laPbhMYNS092wZeDQ=";
   };
 
   patches = [
@@ -50,6 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     nginx # asciidoctor requires this ???
     pkg-config
+    vsftpd
   ];
 
   buildInputs = [
@@ -59,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     gpgme
     libproxy
     libsigcxx
-    libsolv
+    libsolv'
     libxml2
     pcre2
     protobuf
@@ -70,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_MODULE_PATH=${libsolv}/share/cmake/Modules"
+    "-DCMAKE_MODULE_PATH=${libsolv'}/share/cmake/Modules"
   ];
 
   passthru.updateScript = nix-update-script { };
