@@ -1263,7 +1263,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2023-12-24",
+        "date": "2023-12-28",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1275,11 +1275,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "e4e0164b499320a13d82595acaeff6519bb9503f",
-            "sha256": "sha256-ukEwCErpVKl1rFS455rM2vmFjxi+mDR1vI46OpSl/bs=",
+            "rev": "8f6937c85b10a2057261daf7a3a91832bff9712a",
+            "sha256": "sha256-8Gt+kvkVI6dmiDvOZj5jUNtd3hnYZoxZZSfxqMdtjcI=",
             "type": "github"
         },
-        "version": "e4e0164b499320a13d82595acaeff6519bb9503f"
+        "version": "8f6937c85b10a2057261daf7a3a91832bff9712a"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1583,7 +1583,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-12-25",
+        "date": "2023-12-28",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1595,11 +1595,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "00d493d445eb2096762a3880d2ce0e9bbbb01b99",
-            "sha256": "sha256-i16ma/9EeTvH8YdDBXNx1tb/+IWdq7d+mkfcTlIgi1o=",
+            "rev": "3440d695aa75320c2babe0db72f7aa0104df00b9",
+            "sha256": "sha256-15DFfan89DsEo9VdUkq01OkEN3OanOfkK4tEu0qFEcc=",
             "type": "github"
         },
-        "version": "00d493d445eb2096762a3880d2ce0e9bbbb01b99"
+        "version": "3440d695aa75320c2babe0db72f7aa0104df00b9"
     },
     "rime-moegirl": {
         "cargoLocks": null,
