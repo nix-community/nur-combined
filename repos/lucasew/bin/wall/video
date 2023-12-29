@@ -1,4 +1,4 @@
-#! /usr/bin/env nix-shell
+#! /usr/bin/env -S sd nix shell
 #! nix-shell -i bash -p xwinwrap mpv
 # animated wallpaper
 
