@@ -4,20 +4,22 @@
   nixConfig = {
     extra-substituters = [
       # default
-      "https://cache.garnix.io"
-      "https://cachix.cachix.org"
-      "https://procyon.cachix.org"
+      "https://cache.garnix.io?priority=500"
+      "https://cachix.cachix.org?priority=200"
+      "https://procyon.cachix.org?priority=100"
+      "https://numtide.cachix.org?priority=300"
 
       # from inputs
-      "https://linyinfeng.cachix.org"
-      "https://nix-community.cachix.org"
-      "https://pre-commit-hooks.cachix.org"
+      "https://linyinfeng.cachix.org?priority=300"
+      "https://nix-community.cachix.org?priority=200"
+      "https://pre-commit-hooks.cachix.org?priority=400"
     ];
     extra-trusted-public-keys = [
       # default
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
       "procyon.cachix.org-1:VljSnjtMCpriTsvji4EotHS9UZJoPMOCVk//fmmvIto="
+      "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
 
       # from inputs
       "linyinfeng.cachix.org-1:sPYQXcNrnCf7Vr7T0YmjXz5dMZ7aOKG3EqLja0xr9MM="

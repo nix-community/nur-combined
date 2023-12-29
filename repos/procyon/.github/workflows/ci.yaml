@@ -15,8 +15,6 @@ env:
     max-jobs = auto
     accept-flake-config = true
     builders-use-substitutes = true
-    substituters = https://nix-community.cachix.org https://procyon.cachix.org https://cache.garnix.io https://cache.nixos.org
-    trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= procyon.cachix.org-1:VljSnjtMCpriTsvji4EotHS9UZJoPMOCVk//fmmvIto= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
 jobs:
   reuse:
