@@ -23,6 +23,7 @@
     # cli searchers
     silver-searcher
     fzf
+    ripgrep
 
     # Security
     openssl

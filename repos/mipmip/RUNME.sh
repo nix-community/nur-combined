@@ -19,6 +19,11 @@ pcirescan(){
   sudo echo "1" /sys/bus/pci/rescan
 }
 
+make_command "up_home" "Add latest home-manager updates"
+up_home(){
+  git add ./home && home-manager switch --impure --flake .\#pim@lego1
+}
+
 make_command "missing_modules" "List missing modules in configuration"
 missing_modules(){
   files=(modules/*.nix)
