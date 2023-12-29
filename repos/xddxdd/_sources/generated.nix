@@ -576,6 +576,17 @@
       sha256 = "sha256-/uk2sS7g4REPtR/LSc7djjoc//m6QvrXfHO4OemQcy8=";
     };
   };
+  linux-xanmod-6_6 = {
+    pname = "linux-xanmod-6_6";
+    version = "6.6.8-xanmod1";
+    src = fetchFromGitHub {
+      owner = "xanmod";
+      repo = "linux";
+      rev = "6.6.8-xanmod1";
+      fetchSubmodules = false;
+      sha256 = "sha256-TtWTYuT3GMnQy1shkF+HTgv4Z1OSOLh4RXfG+Xj0n3M=";
+    };
+  };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
     version = "32a49117ca3ff17d7681713a8dc8812323142dcb";

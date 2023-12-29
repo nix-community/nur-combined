@@ -209,6 +209,11 @@ fetch.github = "lotem/librime-proto"
 src.github_tag = "xanmod/linux"
 fetch.github = "xanmod/linux"
 
+[linux-xanmod-6_6]
+src.github_tag = "xanmod/linux"
+src.include_regex = "^6\\.6\\.(.*)"
+fetch.github = "xanmod/linux"
+
 [linux-xanmod-6_1]
 src.github_tag = "xanmod/linux"
 src.include_regex = "^6\\.1\\.(.*)"

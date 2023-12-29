@@ -72,8 +72,13 @@
     })
     ++ (batch {
       prefix = "lts";
-      definitionDir = ./v6_1;
-      inherit (sources.linux-xanmod-6_1) version src;
+      definitionDir = ./v6_6;
+      inherit (sources.linux-xanmod-6_6) version src;
+    })
+    ++ (batch {
+      prefix = "v6_6";
+      definitionDir = ./v6_6;
+      inherit (sources.linux-xanmod-6_6) version src;
     })
     ++ (batch {
       prefix = "v6_1";
