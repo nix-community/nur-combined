@@ -41,10 +41,10 @@
   };
   mutt-language-server = {
     pname = "mutt-language-server";
-    version = "0.0.2";
+    version = "0.0.3";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/m/mutt-language-server/mutt-language-server-0.0.2.tar.gz";
-      sha256 = "sha256-xfEzhHAnpsbKXTOf9xrgGqtQLDbe7UwNeaCSHAPdH3c=";
+      url = "https://pypi.org/packages/source/m/mutt-language-server/mutt-language-server-0.0.3.tar.gz";
+      sha256 = "sha256-QVN1QYdkZvx9Qce6LldpL9BcahAjr4gCVzF4Crmnl7A=";
     };
   };
   repl-python-wakatime = {
@@ -81,10 +81,10 @@
   };
   tmux-language-server = {
     pname = "tmux-language-server";
-    version = "0.0.1";
+    version = "0.0.2";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tmux-language-server/tmux-language-server-0.0.1.tar.gz";
-      sha256 = "sha256-G5ZU4eL3GTLxo+/84mWxD6ajxeCIIHH3hjAQy8pUK2c=";
+      url = "https://pypi.org/packages/source/t/tmux-language-server/tmux-language-server-0.0.2.tar.gz";
+      sha256 = "sha256-TKnQ2nQMSRj62HTo8rjPvUYatyQuG2R2N49a03UCDBI=";
     };
   };
   translate-shell = {
