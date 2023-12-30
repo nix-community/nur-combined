@@ -112,7 +112,7 @@ in
   sane.programs.handheldGuiApps = declPackageSet [
     "calls"  # gnome calls (dialer/handler)
     # "celluloid"  # mpv frontend
-    "chatty"  # matrix/xmpp/irc client
+    # "chatty"  # matrix/xmpp/irc client  (2023/12/29: disabled because broken cross build)
     "cozy"  # audiobook player
     "epiphany"  # gnome's web browser
     # "iotas"  # note taking app
