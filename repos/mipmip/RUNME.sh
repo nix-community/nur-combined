@@ -21,7 +21,7 @@ pcirescan(){
 
 make_command "up_home" "Add latest home-manager updates"
 up_home(){
-  git add ./home && home-manager switch --impure --flake .\#pim@lego1
+  git add ./home && home-manager switch --impure --flake .\#$USER@$(hostname)
 }
 
 make_command "missing_modules" "List missing modules in configuration"

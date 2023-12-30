@@ -24,7 +24,8 @@
 
   services.openssh.enable = true;
 
-  services.cron.enable = true;
+ services.cron.enable = true;
+ services.atd.enable = true;
 
   services.lorri.enable = true;
   services.journald.extraConfig = "SystemMaxUse=100M";

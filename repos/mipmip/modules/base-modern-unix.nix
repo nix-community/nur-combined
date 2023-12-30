@@ -8,6 +8,8 @@
     httpie
     xh
 
+    fd
+
     # includes vidir
     moreutils
 

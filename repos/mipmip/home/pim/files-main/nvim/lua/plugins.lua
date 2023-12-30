@@ -4,9 +4,19 @@ return {
   'tpope/vim-rhubarb',
   'mcchrish/nnn.vim',
 
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  'ntpeters/vim-better-whitespace',
+  'junegunn/vim-easy-align',
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  'vim-voom/VOoM',
+
+  -- 'mipmip/linny-wikitag-github',
+
+  -- 'tpope/vim-sleuth',
+
+  -- `opts = {}` is the same as calling `require('Comment').setup({})`
+  {'numToStr/Comment.nvim', opts = {}},
+
+  'mipmip/vim-whitewriter',
+  'mipmip/vim-petra',
+  'srcery-colors/srcery-vim',
 }
