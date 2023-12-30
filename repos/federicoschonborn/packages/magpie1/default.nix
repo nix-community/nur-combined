@@ -9,7 +9,7 @@
 , pixman
 , systemd
 , wayland-protocols
-, wlroots
+, wlroots_0_17
 , xorg
 , unstableGitUpdater
 }:
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     pixman
     systemd
     wayland-protocols
-    wlroots
+    wlroots_0_17
     xorg.libxcb
     xorg.xcbutilwm
   ];

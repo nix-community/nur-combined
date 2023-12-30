@@ -12,7 +12,7 @@
   libtgd = pkgs.callPackage ./libtgd { inherit libgta; };
   libxo = pkgs.callPackage ./libxo { };
   libzypp = pkgs.callPackage ./libzypp { };
-  magpie1 = pkgs.callPackage ./magpie1 { };
+  magpie1 = pkgs.callPackage ./magpie1 { inherit wlroots_0_17; };
   minesector = pkgs.callPackage ./minesector { };
   morewaita = pkgs.callPackage ./morewaita { };
   moss = pkgs.callPackage ./moss { };
@@ -28,6 +28,22 @@
   waycheck = pkgs.qt6.callPackage ./waycheck { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
   zypper = pkgs.callPackage ./zypper { inherit libzypp; };
+
+  wlroots_0_17 = if pkgs?wlroots_0_17 then pkgs.wlroots_0_17 else
+  pkgs.wlroots_0_16.overrideAttrs (prevAttrs: {
+    version = "0.17.1";
+    src = pkgs.fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "wlroots";
+      repo = "wlroots";
+      rev = "3f2aced8c6fd00b0b71da24c790850af2004052b";
+      hash = "sha256-Z0gWM7AQqJOSr2maUtjdgk/MF6pyeyFMMTaivgt+RMI=";
+    };
+    buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
+      pkgs.hwdata
+      pkgs.libdisplay-info
+    ];
+  });
 
   # Variants
   fastfetchMinimal = (fastfetch.overrideAttrs (prevAttrs: {
