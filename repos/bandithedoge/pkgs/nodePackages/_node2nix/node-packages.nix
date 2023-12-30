@@ -90,13 +90,13 @@
         sha512 = "MaGuyW+fa13q3aYsluKqclmh62Hgp0BpKIqS66fCxfOaBcVQ1OnMQxRRgQUYnCkxFISAQlkJ0qWWPyXjro1Qrg==";
       };
     };
-    "acorn-8.11.2" = {
+    "acorn-8.11.3" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.11.2";
+      version = "8.11.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.11.2.tgz";
-        sha512 = "nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.11.3.tgz";
+        sha512 = "Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==";
       };
     };
     "anymatch-3.1.3" = {
@@ -135,13 +135,13 @@
         sha512 = "mq6/e8+bnIsOMy1VceTLC49WucMIZqd2nYn0e7Et5LhTO3yYQ8OWJsTl/B+uJDs5eywZmJ4Yt1WTEd2HCI35pw==";
       };
     };
-    "c12-1.5.1" = {
+    "c12-1.6.1" = {
       name = "c12";
       packageName = "c12";
-      version = "1.5.1";
+      version = "1.6.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/c12/-/c12-1.5.1.tgz";
-        sha512 = "BWZRJgDEveT8uI+cliCwvYSSSSvb4xKoiiu5S0jaDbKBopQLQF7E+bq9xKk1pTcG+mUa3yXuFO7bD9d8Lr9Xxg==";
+        url = "https://registry.npmjs.org/c12/-/c12-1.6.1.tgz";
+        sha512 = "fAZOi3INDvIbmjuwAVVggusyRTxwNdTAnwLay8IsXwhFzDwPPGzFxzrx6L55CPFGPulUSZI0eyFUvRDXveoE3g==";
       };
     };
     "cac-6.7.14" = {
@@ -549,13 +549,13 @@
         sha512 = "W4/tgAXFqFA0iL7fk0+uQ3g7wkL8xJmx3XdK0VGb4cHW//eZTtKGvFBBoRKVTpY7n6ze4NL9ly7rgXcHufqXKg==";
       };
     };
-    "nypm-0.3.3" = {
+    "nypm-0.3.4" = {
       name = "nypm";
       packageName = "nypm";
-      version = "0.3.3";
+      version = "0.3.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/nypm/-/nypm-0.3.3.tgz";
-        sha512 = "FHoxtTscAE723e80d2M9cJRb4YVjL82Ra+ZV+YqC6rfNZUWahi+ZhPF+krnR+bdMvibsfHCtgKXnZf5R6kmEPA==";
+        url = "https://registry.npmjs.org/nypm/-/nypm-0.3.4.tgz";
+        sha512 = "1JLkp/zHBrkS3pZ692IqOaIKSYHmQXgqfELk6YTOfVBnwealAmPA1q2kKK7PHJAHSMBozerThEFZXP3G6o7Ukg==";
       };
     };
     "ohash-1.1.3" = {
@@ -977,12 +977,12 @@ in {
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
       sources."@vscode/emmet-helper-2.9.2"
-      sources."acorn-8.11.2"
+      sources."acorn-8.11.3"
       sources."anymatch-3.1.3"
       sources."binary-extensions-2.2.0"
       sources."braces-3.0.2"
       sources."bumpp-9.2.1"
-      sources."c12-1.5.1"
+      sources."c12-1.6.1"
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"
       sources."chokidar-3.5.3"
@@ -1041,7 +1041,7 @@ in {
             sources."path-key-4.0.0"
           ];
         })
-      sources."nypm-0.3.3"
+      sources."nypm-0.3.4"
       sources."ohash-1.1.3"
       sources."onetime-6.0.0"
       sources."path-key-3.1.1"
