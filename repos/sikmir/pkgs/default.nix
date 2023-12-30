@@ -401,7 +401,7 @@ lib.makeScope newScope (
     turbo = callPackage ./misc/turbo { };
     tvision = callPackage ./misc/tvision { };
     wik = callPackage ./misc/wik { };
-    worm = callPackage ./misc/worm { };
+    #worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr {
