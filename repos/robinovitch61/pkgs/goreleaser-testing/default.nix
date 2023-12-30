@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "1wz6pr4ik7mn98dr5sgzj9983nmc2whkj4rhnkss7manbr4ix7pw";
-    x86_64-linux = "0lxyw7jvfgxizxf2cv27jqv87zxk2bsg2c0c1pnadhxvz1w71i43";
-    aarch64-linux = "1dwb435si8agsb67i9f5aa6i0v0gx69iial52bwgf7r876f6cfgd";
-    x86_64-darwin = "13iwy6pzisibddk31svn0n7jv5n9x3dk4mv7bjbrgvf2snd6m7v6";
-    aarch64-darwin = "13iwy6pzisibddk31svn0n7jv5n9x3dk4mv7bjbrgvf2snd6m7v6";
+    i686-linux = "062ry9wd7g938y1i5wh0653jv8agj293xlp1ppcghgr1lx009m48";
+    x86_64-linux = "0smcl99qs24ppszvs1arskinsglg7lgrvdq90x7c2bajv61a9ynl";
+    aarch64-linux = "0l244h7sf901rvwabk6nf7hvysanlpjzsr2s425apza2q230ybsj";
+    x86_64-darwin = "1s6l4lc2jnm86wrg411dyg74gdgkj0i4njl1ynwzz1r6yc3zjxmk";
+    aarch64-darwin = "1s6l4lc2jnm86wrg411dyg74gdgkj0i4njl1ynwzz1r6yc3zjxmk";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.21.0/goreleaser-testing_0.21.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.21.0/goreleaser-testing_0.21.0_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.21.0/goreleaser-testing_0.21.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.21.0/goreleaser-testing_0.21.0_Darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.21.0/goreleaser-testing_0.21.0_Darwin_all.tar.gz";
+    i686-linux = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.29.0/goreleaser-testing_0.29.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.29.0/goreleaser-testing_0.29.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.29.0/goreleaser-testing_0.29.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.29.0/goreleaser-testing_0.29.0_Darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/robinovitch61/goreleaser-testing/releases/download/v0.29.0/goreleaser-testing_0.29.0_Darwin_all.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "goreleaser-testing";
-  version = "0.21.0";
+  version = "0.29.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
