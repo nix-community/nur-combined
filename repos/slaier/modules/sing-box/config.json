@@ -67,6 +67,47 @@
           "private"
         ],
         "outbound": "direct_out"
+      },
+      {
+        "inbound": [
+          "mixed-in"
+        ],
+        "domain_suffix": [
+          "pscdn.co",
+          "scdn.co",
+          "spoti.fi"
+        ],
+        "domain_keyword": [
+          "spotify",
+          "www.google."
+        ],
+        "outbound": "Chinese_out"
+      },
+      {
+        "inbound": [
+          "mixed-in"
+        ],
+        "domain": [
+          "cache.nixos.org"
+        ],
+        "domain_suffix": [
+          "cachix.org",
+          "atom.io",
+          "dependabot.com",
+          "ghcr.io",
+          "git.io",
+          "myoctocat.com",
+          "npm.community",
+          "npmjs.com",
+          "npmjs.org",
+          "opensource.guide",
+          "rawgit.com",
+          "repo.new"
+        ],
+        "domain_keyword": [
+          "github"
+        ],
+        "outbound": "download_out"
       }
     ],
     "final": "select_out"
