@@ -17,6 +17,7 @@ in
       "docker"
       "vboxusers"
       "wheel"
+      config.services.syncthing.group
       config.users.groups.keys.name
     ];
   };

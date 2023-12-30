@@ -23,6 +23,7 @@ let
     sops
     spotify
     sway
+    syncthing
     users
     vscode
     waybar

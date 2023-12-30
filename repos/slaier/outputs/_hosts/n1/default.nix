@@ -7,6 +7,7 @@ let
     nix
     sing-box
     sops
+    syncthing
     users
   ];
 in
