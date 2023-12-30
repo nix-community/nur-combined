@@ -31,13 +31,13 @@ let
         sha512 = "uU27kfDRlhfKl+w1U6vp16IuvSLtjAxdArVXPa9BvLkrr7CYIsxH5adpHObeAGY/41+syctUWOZ140a2Rvkgjw==";
       };
     };
-    "@babel/core-7.23.6" = {
+    "@babel/core-7.23.7" = {
       name = "_at_babel_slash_core";
       packageName = "@babel/core";
-      version = "7.23.6";
+      version = "7.23.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/core/-/core-7.23.6.tgz";
-        sha512 = "FxpRyGjrMJXh7X3wGLGhNDCRiwpWEF74sKjTLDJSG5Kyvow3QZaG0Adbqzi9ZrVjTWpsX+2cxWXD71NMg93kdw==";
+        url = "https://registry.npmjs.org/@babel/core/-/core-7.23.7.tgz";
+        sha512 = "+UpDgowcmqe36d4NwqvKsyPMlOLNGMsfMmQ5WGCu+siCe3t3dfe9njrzGfdN4qq+bcNUt0+Vw6haRxBOycs4dw==";
       };
     };
     "@babel/generator-7.23.6" = {
@@ -67,13 +67,13 @@ let
         sha512 = "9JB548GZoQVmzrFgp8o7KxdgkTGm6xs9DW0o/Pim72UDjzr5ObUQ6ZzYPqA+g9OTS2bBQoctLJrky0RDCAWRgQ==";
       };
     };
-    "@babel/helper-create-class-features-plugin-7.23.6" = {
+    "@babel/helper-create-class-features-plugin-7.23.7" = {
       name = "_at_babel_slash_helper-create-class-features-plugin";
       packageName = "@babel/helper-create-class-features-plugin";
-      version = "7.23.6";
+      version = "7.23.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.23.6.tgz";
-        sha512 = "cBXU1vZni/CpGF29iTu4YRbOZt3Wat6zCoMDxRF1MayiEc4URxOj31tT65HUM0CRpMowA3HCJaAOVOUnMf96cw==";
+        url = "https://registry.npmjs.org/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.23.7.tgz";
+        sha512 = "xCoqR/8+BoNnXOY7RVSgv6X+o7pmT5q1d+gGcRlXYkI+9B31glE4jeejhKVpA04O1AtzOt7OSQ6VYKP5FcRl9g==";
       };
     };
     "@babel/helper-environment-visitor-7.22.20" = {
@@ -211,13 +211,13 @@ let
         sha512 = "85ttAOMLsr53VgXkTbkx8oA6YTfT4q7/HzXSLEYmjcSTJPMPQtvq1BD79Byep5xMUYbGRzEpDsjUf3dyp54IKw==";
       };
     };
-    "@babel/helpers-7.23.6" = {
+    "@babel/helpers-7.23.7" = {
       name = "_at_babel_slash_helpers";
       packageName = "@babel/helpers";
-      version = "7.23.6";
+      version = "7.23.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helpers/-/helpers-7.23.6.tgz";
-        sha512 = "wCfsbN4nBidDRhpDhvcKlzHWCTlgJYUUdSJfzXb2NuBssDSIjc3xcb+znA7l+zYsFljAcGM0aFkN40cR3lXiGA==";
+        url = "https://registry.npmjs.org/@babel/helpers/-/helpers-7.23.7.tgz";
+        sha512 = "6AMnjCoC8wjqBzDHkuqpa7jAKwvMo4dC+lr/TFBz+ucfulO1XMpDnwWPGBNwClOKZ8h6xn5N81W/R5OrcKtCbQ==";
       };
     };
     "@babel/highlight-7.23.4" = {
@@ -301,13 +301,13 @@ let
         sha512 = "QPErUVm4uyJa60rkI73qneDacvdvzxshT3kksGqlGWYdOTIUOwJ7RDUL8sGqslY1uXWSL6xMFKEXDS3ox2uF0w==";
       };
     };
-    "@babel/traverse-7.23.6" = {
+    "@babel/traverse-7.23.7" = {
       name = "_at_babel_slash_traverse";
       packageName = "@babel/traverse";
-      version = "7.23.6";
+      version = "7.23.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/traverse/-/traverse-7.23.6.tgz";
-        sha512 = "czastdK1e8YByZqezMPFiZ8ahwVMh/ESl9vPgvgdB9AmFMGP5jfpFax74AQgl5zj4XHzqeYAg2l8PuUeRS1MgQ==";
+        url = "https://registry.npmjs.org/@babel/traverse/-/traverse-7.23.7.tgz";
+        sha512 = "tY3mM8rH9jM0YHFGyfC0/xf+SB5eKUu7HPj7/k3fpi9dAlsMc5YbQvDi0Sh2QTPXqMhyaAtzAr807TIyfQrmyg==";
       };
     };
     "@babel/types-7.23.6" = {
@@ -553,13 +553,13 @@ let
         sha512 = "doST0+aB7/3dGK9+U5y3mtF3jq85KGbke1QiH0KE1F5mGQ9y56mFebTeu2D9FNOm+OT6UHb8Ss8vbSnpGjeLNw==";
       };
     };
-    "@multiformats/multiaddr-12.1.11" = {
+    "@multiformats/multiaddr-12.1.12" = {
       name = "_at_multiformats_slash_multiaddr";
       packageName = "@multiformats/multiaddr";
-      version = "12.1.11";
+      version = "12.1.12";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@multiformats/multiaddr/-/multiaddr-12.1.11.tgz";
-        sha512 = "CWG9kETEGTTMdr1T+/JEuMwFld3r3fHNP8LkLoUcLvHRy6yr8sWdotVGEDNEdDO/vrKhuD7bQBws3xMSMMyylg==";
+        url = "https://registry.npmjs.org/@multiformats/multiaddr/-/multiaddr-12.1.12.tgz";
+        sha512 = "hrY4uN/oeYhn410jBSpVXn37eenn4djKOj6Dh20Yh4xzGgqmS6u+/X08zQfHgWNjk7NJejPUcRfHEfs8e/MOcw==";
       };
     };
     "@multiformats/multiaddr-to-uri-9.0.7" = {
@@ -697,13 +697,13 @@ let
         sha512 = "Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==";
       };
     };
-    "@types/node-18.19.3" = {
+    "@types/node-18.19.4" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.19.3";
+      version = "18.19.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.19.3.tgz";
-        sha512 = "k5fggr14DwAytoA/t8rPrIz++lXK7/DqckthCmoZOKNsEbJkId4Z//BqgApXBUGrGddrigYa1oqheo/7YmW4rg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.19.4.tgz";
+        sha512 = "xNzlUhzoHotIsnFoXmJB+yWmBvFZgKCI9TtPIEdYIMM1KWfwuY8zh7wvc1u1OAXlC7dlf6mZVx/s+Y5KfFz19A==";
       };
     };
     "abort-controller-3.0.0" = {
@@ -904,13 +904,13 @@ let
         sha512 = "gxGWBrTT1JuMx6R+o5PTXMmUnhnVzLQ9SNutD4YqKtI6ap897t3tKECYla6gCWEkplXnlNybEkZg9GEGxKFCgw==";
       };
     };
-    "caniuse-lite-1.0.30001571" = {
+    "caniuse-lite-1.0.30001572" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001571";
+      version = "1.0.30001572";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001571.tgz";
-        sha512 = "tYq/6MoXhdezDLFZuCO/TKboTzuQ/xR5cFdgXPfDtM7/kchBO3b4VWghE/OAi/DV7tTdhmLjZiZBZi1fA/GheQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001572.tgz";
+        sha512 = "1Pbh5FLmn5y4+QhNyJE9j3/7dK44dGB83/ZMjv/qJk86TvDbjk0LosiZo0i0WB0Vx607qMX9jYrn1VLHCkN4rw==";
       };
     };
     "capital-case-1.0.4" = {
@@ -1921,6 +1921,15 @@ let
         sha512 = "eajQ/ZH7qXZQR2AgtfpmSMizQzmyYVmCql7pdhldPuYQi4atACekbJaQplk6dWyIi10jCaFnd6pqvcEFXjbaJw==";
       };
     };
+    "multiformats-13.0.0" = {
+      name = "multiformats";
+      packageName = "multiformats";
+      version = "13.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/multiformats/-/multiformats-13.0.0.tgz";
+        sha512 = "xiIB0p7EKmETm3wyKedOg/xuyQ18PoWwXCzzgpZAiDxL9ktl3XTh8AqoDT5kAqRg+DU48XAGPsUJL2Rn6Bx3Lw==";
+      };
+    };
     "nanoid-3.3.7" = {
       name = "nanoid";
       packageName = "nanoid";
@@ -2425,13 +2434,13 @@ let
         sha512 = "AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==";
       };
     };
-    "uint8-varint-2.0.2" = {
+    "uint8-varint-2.0.3" = {
       name = "uint8-varint";
       packageName = "uint8-varint";
-      version = "2.0.2";
+      version = "2.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/uint8-varint/-/uint8-varint-2.0.2.tgz";
-        sha512 = "LZXmBT0jiHR7J4oKM1GUhtdLFW1yPauzI8NjJlotXn92TprO9u8VMvEVR4QMk8xhUVUd+2fqfU2/kGbVHYSSWw==";
+        url = "https://registry.npmjs.org/uint8-varint/-/uint8-varint-2.0.3.tgz";
+        sha512 = "seXTM8ba4uuAMDgi3UHXPdDxCBKjWWZigW+F+1ESPhOZv9ekT1qmbdzYHLSNA+u+wHj10P55dQ41y2Qh7NOqiA==";
       };
     };
     "uint8arraylist-2.4.7" = {
@@ -2452,13 +2461,13 @@ let
         sha512 = "AnJNUGGDJAgFw/eWu/Xb9zrVKEGlwJJCaeInlf3BkecE/zcTobk5YXYIPNQJO1q5Hh1QZrQQHf0JvcHqz2hqoA==";
       };
     };
-    "uint8arrays-5.0.0" = {
+    "uint8arrays-5.0.1" = {
       name = "uint8arrays";
       packageName = "uint8arrays";
-      version = "5.0.0";
+      version = "5.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/uint8arrays/-/uint8arrays-5.0.0.tgz";
-        sha512 = "RWO7gR4x6syxnKDfZO8mDCsaaYs1/BqZCxlHgrcRge50E9GTnLmtoA4kwFSGIL4s3dQkryeTkvtG6oEFEya3yg==";
+        url = "https://registry.npmjs.org/uint8arrays/-/uint8arrays-5.0.1.tgz";
+        sha512 = "ND5RpJAnPgHmZT7hWD/2T4BwRp04j8NLKvMKC/7bhiEwEjUMkQ4kvBKiH6hOqbljd6qJ2xS8reL3vl1e33grOQ==";
       };
     };
     "undici-5.28.2" = {
@@ -2596,13 +2605,13 @@ let
         sha512 = "l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==";
       };
     };
-    "ws-8.15.1" = {
+    "ws-8.16.0" = {
       name = "ws";
       packageName = "ws";
-      version = "8.15.1";
+      version = "8.16.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ws/-/ws-8.15.1.tgz";
-        sha512 = "W5OZiCjXEmk0yZ66ZN82beM5Sz7l7coYxpRkzS+p9PP+ToQry8szKh+61eNktr7EA9DOwvFGhfC605jDHbP6QQ==";
+        url = "https://registry.npmjs.org/ws/-/ws-8.16.0.tgz";
+        sha512 = "HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==";
       };
     };
     "yallist-3.1.1" = {
@@ -2633,11 +2642,11 @@ let
       sources."@ampproject/remapping-2.2.1"
       sources."@babel/code-frame-7.23.5"
       sources."@babel/compat-data-7.23.5"
-      sources."@babel/core-7.23.6"
+      sources."@babel/core-7.23.7"
       sources."@babel/generator-7.23.6"
       sources."@babel/helper-annotate-as-pure-7.22.5"
       sources."@babel/helper-compilation-targets-7.23.6"
-      sources."@babel/helper-create-class-features-plugin-7.23.6"
+      sources."@babel/helper-create-class-features-plugin-7.23.7"
       sources."@babel/helper-environment-visitor-7.22.20"
       sources."@babel/helper-function-name-7.23.0"
       sources."@babel/helper-hoist-variables-7.22.5"
@@ -2653,7 +2662,7 @@ let
       sources."@babel/helper-string-parser-7.23.4"
       sources."@babel/helper-validator-identifier-7.22.20"
       sources."@babel/helper-validator-option-7.23.5"
-      sources."@babel/helpers-7.23.6"
+      sources."@babel/helpers-7.23.7"
       sources."@babel/highlight-7.23.4"
       sources."@babel/parser-7.23.6"
       sources."@babel/plugin-syntax-import-assertions-7.23.3"
@@ -2663,7 +2672,7 @@ let
       sources."@babel/plugin-transform-typescript-7.23.6"
       sources."@babel/preset-typescript-7.23.3"
       sources."@babel/template-7.22.15"
-      sources."@babel/traverse-7.23.6"
+      sources."@babel/traverse-7.23.7"
       sources."@babel/types-7.23.6"
       sources."@chainsafe/is-ip-2.0.2"
       sources."@chainsafe/netmask-2.0.0"
@@ -2694,15 +2703,25 @@ let
       sources."@jspm/import-map-1.0.7"
       (sources."@libp2p/interface-1.0.2" // {
         dependencies = [
-          sources."@multiformats/multiaddr-12.1.11"
+          (sources."@multiformats/multiaddr-12.1.12" // {
+            dependencies = [
+              sources."multiformats-13.0.0"
+            ];
+          })
           sources."multiformats-12.1.3"
+          (sources."uint8arrays-5.0.1" // {
+            dependencies = [
+              sources."multiformats-13.0.0"
+            ];
+          })
         ];
       })
       (sources."@libp2p/interface-connection-4.0.0" // {
         dependencies = [
-          sources."@multiformats/multiaddr-12.1.11"
+          sources."@multiformats/multiaddr-12.1.12"
           sources."it-stream-types-1.0.5"
-          sources."multiformats-12.1.3"
+          sources."multiformats-13.0.0"
+          sources."uint8arrays-5.0.1"
         ];
       })
       sources."@libp2p/interface-keychain-1.0.8"
@@ -2713,20 +2732,26 @@ let
       })
       (sources."@libp2p/interface-peer-info-1.0.10" // {
         dependencies = [
-          sources."@multiformats/multiaddr-12.1.11"
-          sources."multiformats-12.1.3"
+          sources."@multiformats/multiaddr-12.1.12"
+          sources."multiformats-13.0.0"
+          sources."uint8arrays-5.0.1"
         ];
       })
       sources."@libp2p/interface-pubsub-3.0.7"
       sources."@libp2p/interfaces-3.3.2"
       (sources."@libp2p/logger-2.1.1" // {
         dependencies = [
-          (sources."@multiformats/multiaddr-12.1.11" // {
+          (sources."@multiformats/multiaddr-12.1.12" // {
             dependencies = [
-              sources."multiformats-12.1.3"
+              sources."multiformats-13.0.0"
             ];
           })
           sources."multiformats-11.0.2"
+          (sources."uint8arrays-5.0.1" // {
+            dependencies = [
+              sources."multiformats-13.0.0"
+            ];
+          })
         ];
       })
       (sources."@libp2p/peer-id-1.1.18" // {
@@ -2742,8 +2767,9 @@ let
       })
       (sources."@multiformats/multiaddr-to-uri-9.0.7" // {
         dependencies = [
-          sources."@multiformats/multiaddr-12.1.11"
-          sources."multiformats-12.1.3"
+          sources."@multiformats/multiaddr-12.1.12"
+          sources."multiformats-13.0.0"
+          sources."uint8arrays-5.0.1"
         ];
       })
       (sources."@npmcli/fs-1.1.1" // {
@@ -2770,7 +2796,7 @@ let
       sources."@protobufjs/utf8-1.1.0"
       sources."@tootallnate/once-1.1.2"
       sources."@types/minimatch-3.0.5"
-      sources."@types/node-18.19.3"
+      sources."@types/node-18.19.4"
       sources."abort-controller-3.0.0"
       sources."agent-base-6.0.2"
       sources."agentkeepalive-4.5.0"
@@ -2797,7 +2823,7 @@ let
         ];
       })
       sources."camel-case-4.1.2"
-      sources."caniuse-lite-1.0.30001571"
+      sources."caniuse-lite-1.0.30001572"
       sources."capital-case-1.0.4"
       sources."cborg-1.10.2"
       sources."chalk-2.4.2"
@@ -2849,8 +2875,8 @@ let
       sources."inherits-2.0.4"
       (sources."interface-datastore-8.2.9" // {
         dependencies = [
-          sources."multiformats-12.1.3"
-          sources."uint8arrays-5.0.0"
+          sources."multiformats-13.0.0"
+          sources."uint8arrays-5.0.1"
         ];
       })
       sources."interface-store-5.1.5"
@@ -3017,7 +3043,12 @@ let
       sources."to-fast-properties-2.0.0"
       sources."tr46-0.0.3"
       sources."tslib-2.6.2"
-      sources."uint8-varint-2.0.2"
+      (sources."uint8-varint-2.0.3" // {
+        dependencies = [
+          sources."multiformats-13.0.0"
+          sources."uint8arrays-5.0.1"
+        ];
+      })
       sources."uint8arraylist-2.4.7"
       (sources."uint8arrays-4.0.10" // {
         dependencies = [
@@ -3039,7 +3070,7 @@ let
       sources."whatwg-url-5.0.0"
       sources."wherearewe-2.0.1"
       sources."wrappy-1.0.2"
-      sources."ws-8.15.1"
+      sources."ws-8.16.0"
       sources."yallist-3.1.1"
     ];
     buildInputs = globalBuildInputs;
