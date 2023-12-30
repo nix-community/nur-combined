@@ -3,8 +3,9 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ inputs, ... }: {
-  perSystem = { self', inputs', config, pkgs, lib, ... }:
+{ inputs, ... }:
+{
+  perSystem = { system, self', config, pkgs, lib, ... }:
     {
       checks = inputs.flake-utils.lib.flattenTree {
         devShells = lib.recurseIntoAttrs self'.devShells;
@@ -22,9 +23,10 @@
           # treefmt.build.programs
         ];
 
-        packages = with pkgs; [
-          nil
-
+        packages = (with inputs; [
+          nil.packages.${system}.nil
+          deploy-rs.packages.${system}.deploy-rs
+        ]) ++ (with pkgs; [
           # Legal
           reuse
 
@@ -33,7 +35,6 @@
 
           # Infra
           terraform
-          inputs'.deploy-rs.packages.deploy-rs
 
           # Misc
           jq
@@ -45,7 +46,7 @@
           sops
           ssh-to-age
           ssh-to-pgp
-        ];
+        ]);
       };
     };
 }

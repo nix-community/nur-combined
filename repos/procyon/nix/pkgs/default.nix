@@ -8,16 +8,19 @@ lib.makeScope newScope (
   self:
   let
     inherit (self) callPackage;
+    recursiveApps = path: (callPackage path {
+      inherit selfLib;
+      selfPackages = self;
+    });
   in
   {
     sources = callPackage ./_sources/generated.nix { };
 
-    devPackages = lib.recurseIntoAttrs (callPackage ./dev-packages {
-      inherit selfLib;
-      selfPackages = self;
-    });
-
-    cockpit-machines = callPackage ./cockpit-machines { };
     cockpit-podman = callPackage ./cockpit-podman { };
+    cockpit-machines = callPackage ./cockpit-machines { };
+
+    devPackages = lib.recurseIntoAttrs (recursiveApps ./dev-packages);
+
+    wallpapers = lib.recurseIntoAttrs (recursiveApps ./wallpapers);
   }
 )

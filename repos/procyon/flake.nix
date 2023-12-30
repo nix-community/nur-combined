@@ -1,5 +1,5 @@
 {
-  description = "Personal Nix Config: powered by flake-parts";
+  description = "parts of my systems: featuring IaC, custom packages etc";
 
   nixConfig = {
     extra-substituters = [
@@ -163,6 +163,14 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+    };
+
+    # packages
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     # compatibility layer

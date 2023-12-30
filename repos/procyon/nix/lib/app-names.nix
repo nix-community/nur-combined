@@ -17,9 +17,11 @@ let
   empty = p: { "${p}" = { }; };
   merge = lib.fold lib.recursiveUpdate { };
   appNamesDict = merge [
-    (trivial "devPackages/nvfetcher-self")
-    (empty "cockpit-machines")
     (empty "cockpit-podman")
+    (empty "cockpit-machines")
+    (trivial "devPackages/nvfetcher-self")
+    (empty "wallpapers/default")
+    (empty "wallpapers/wallhaven-m9jezy")
   ];
 in
 p: appNamesDict.${p}
