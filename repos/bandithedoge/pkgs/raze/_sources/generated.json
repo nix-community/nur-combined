@@ -13,11 +13,11 @@
       "name": null,
       "owner": "ZDoom",
       "repo": "Raze",
-      "rev": "1.8.1",
-      "sha256": "sha256-H87dyfevWmrVA6YlJ/e8aqZPV5bvDRaBz0FCzsmUvns=",
+      "rev": "1.9.0",
+      "sha256": "sha256-DQAht0buXJBMrk7bKGuwCCP2RoF3tKS8EAEAOzoyshg=",
       "type": "github"
     },
-    "version": "1.8.1"
+    "version": "1.9.0"
   },
   "zmusic": {
     "cargoLocks": null,

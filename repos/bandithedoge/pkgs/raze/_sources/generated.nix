@@ -7,13 +7,13 @@
 }: {
   raze = {
     pname = "raze";
-    version = "1.8.1";
+    version = "1.9.0";
     src = fetchFromGitHub {
       owner = "ZDoom";
       repo = "Raze";
-      rev = "1.8.1";
+      rev = "1.9.0";
       fetchSubmodules = false;
-      sha256 = "sha256-H87dyfevWmrVA6YlJ/e8aqZPV5bvDRaBz0FCzsmUvns=";
+      sha256 = "sha256-DQAht0buXJBMrk7bKGuwCCP2RoF3tKS8EAEAOzoyshg=";
     };
   };
   zmusic = {

@@ -1,0 +1,17 @@
+{
+  "deemix-gui-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "deemix-gui-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-e2neemsAzGniBpXIPYbKk5LQHoYLvFj5/8QszCcoTYM=",
+      "type": "url",
+      "url": "https://archive.org/download/deemix/gui/linux-x64-latest.AppImage"
+    },
+    "version": "3.6.6"
+  }
+}
