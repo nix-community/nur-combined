@@ -1,3 +1,6 @@
+# docs:
+# - `man 5 sway`
+#
 # xwayland enable|disable|force
 # - enable: lazily launch xwayland on first client connection
 # - disable: never launch xwayland
@@ -153,6 +156,11 @@ for_window [app_id="signal"] move container to workspace number 1
 for_window [class="Signal"] move container to workspace number 1
 for_window [app_id="so.libdb.gtkcord4"] move container to workspace number 1
 for_window [app_id="abaddon"] move container to workspace number 1
+
+# window display settings
+# force KOReader to always display a titlebar, even when the only window being rendered.
+# desirable primarily to avoid slooow reflows when another app is opened. but also nice to have the book title rendered.
+for_window [app_id="KOReader"] border normal
 
 ### displays
 ## DESKTOP

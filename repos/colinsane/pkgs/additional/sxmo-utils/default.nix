@@ -104,13 +104,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "sxmo-utils";
-  version = "unstable-2023-12-17";
+  version = "unstable-2023-12-28";
 
   src = fetchFromSourcehut {
     owner = "~mil";
     repo = "sxmo-utils";
-    rev = "542d6507cfbdca7891a72164c256a36bd0f7fc6e";
-    hash = "sha256-NVYY1yOzYs3btZrCQ3ATY6C72otJ75xRlytM5MVLsuc=";
+    rev = "29ff6e270f7261723fc7faa4529996ced3dd7455";
+    hash = "sha256-m2JTF+2vrRg+Dn/C24SZU0wF6RsBjT9DL0B61CIsuuM=";
   };
 
   patches = [
@@ -120,9 +120,14 @@ stdenv.mkDerivation rec {
       hash = "sha256-EuJeHEEmewpipfpEy54pmyBaxhu5KBg7rX5n2kg+iMs=";
     })
     (fetchpatch {
-      name = "sxmo_hook_apps: add a few";
-      url = "https://git.uninsane.org/colin/sxmo-utils/commit/1c2e13401e28e3713665de6ce8f591714e65341d.patch";
-      hash = "sha256-6OsHbjv2YZ1WueIlwDIRjgSTAN+UIZFHcvMhMbj6kfc=";
+      name = "apps: add Lemoa";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/54948ab328d751fc380c7fca032f0b7403070dbf.patch";
+      hash = "sha256-xFvzfz4g9F3VI+wxmrz2aqGokV4YjBRlnnKg5GJbhqA=";
+    })
+    (fetchpatch {
+      name ="apps: add Notejot";
+      url = "https://git.uninsane.org/colin/sxmo-utils/commit/bb862e0f89906c4d59484414f194469626e4c229.patch";
+      hash = "sha256-Sjma5ZKCd3VGk7EzzY5d1JySr3L38nA87pZuMITaxGU=";
     })
 
     (fetchpatch {
