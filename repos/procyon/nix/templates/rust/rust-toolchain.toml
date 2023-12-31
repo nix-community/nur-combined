@@ -1,0 +1,5 @@
+[toolchain]
+channel = "1.75"
+profile = "default"
+components = ["rust-src", "rust-analyzer"]
+
