@@ -2,8 +2,7 @@
 # backend of my workaround to get network usage in i3bar
 
 from pathlib import Path
-import asyncio
-from time import time
+from time import time, sleep
 import os
 
 SYS_FOLDER = Path("/sys/class/net")
@@ -13,14 +12,14 @@ last_item = dict()
 UNITS = ['B/s', 'KB/s', 'MB/s', 'GB/s']
 
 def normalize_unit(val):
-    val = int(val)
+    val = float(val)
     unit_idx = 0
-    while val > 5000:
+    while val > 100:
         unit_idx += 1
-        val = val // 1024
-    return f"{val} {UNITS[unit_idx]}"
+        val = val / 1024
+    return f"{val:.1f} {UNITS[unit_idx]}"
 
-async def handle_iteration(iface):
+def handle_iteration(iface):
     try:
         stats_dir = SYS_FOLDER / iface / "statistics"
         rx = int((stats_dir / "rx_bytes").read_text().strip())
@@ -34,7 +33,7 @@ async def handle_iteration(iface):
         rx_speed = (rx - prev['rx']) // time_delta
         tx_speed = (tx - prev['tx']) // time_delta
         last_item[iface]=dict(timestamp=timestamp,rx=rx,tx=tx)
-        if (rx_speed + tx_speed) > 1024:
+        if (rx_speed + tx_speed) > 0:
             return f"{iface} {normalize_unit(rx_speed)} {normalize_unit(tx_speed)} "
         return ""
     except Exception as e:
@@ -42,12 +41,7 @@ async def handle_iteration(iface):
         return ""
 
 
-async def main():
-    while True:
-        strs = await asyncio.gather(*map(handle_iteration, os.listdir(str(SYS_FOLDER))))
-        SHM_FILE.write_text("".join(strs))
-        # print(" ".join(strs))
-        await asyncio.sleep(1)
-
-asyncio.run(main())
-
+while True:
+    strs = map(handle_iteration,  os.listdir(str(SYS_FOLDER)))
+    SHM_FILE.write_text("".join(strs))
+    sleep(1.0)

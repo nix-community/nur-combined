@@ -16,6 +16,7 @@ while true; do
     if [ "$b" != "$current_branch" ]; then
         parent=$(git rev-parse HEAD~$i)
         echo parent_branch: $resolved_rev $parent >&2
+        echo $parent
         exit 0
     fi
 done
