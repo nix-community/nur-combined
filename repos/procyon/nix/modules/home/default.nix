@@ -8,7 +8,6 @@
   imports = [
     ezModules.suite-core
     flake.inputs.nur.hmModules.nur
-    flake.inputs.stylix.homeManagerModules.stylix
   ];
 
   fonts.fontconfig.enable = true;

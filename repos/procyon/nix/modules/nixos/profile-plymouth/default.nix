@@ -4,8 +4,6 @@
 
 { pkgs, ... }:
 {
-  stylix.targets.plymouth.enable = false;
-
   boot = {
     consoleLogLevel = 0;
     initrd.verbose = false;
