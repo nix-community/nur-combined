@@ -320,11 +320,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703938500,
-        "narHash": "sha256-Tg3ODAUO58um1b0hHtnOKzxUvZvkDJhhePTyZfMgyrY=",
+        "lastModified": 1703983518,
+        "narHash": "sha256-fAAS94s3+0JpRJSr++LHd2Pm7YhjILcXHbsGKE/N1VM=",
         "owner": "linyinfeng",
         "repo": "flat-flake",
-        "rev": "4fd0624ba8e33021e45e2eff527beea25bf0b531",
+        "rev": "d1d152062a3633275447bf67435f610958f0021d",
         "type": "github"
       },
       "original": {
