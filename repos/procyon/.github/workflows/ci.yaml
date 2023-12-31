@@ -14,7 +14,7 @@ env:
   nix-conf: |-
     max-jobs = auto
     accept-flake-config = true
-    builders-use-substitutes = true
+    allow-import-from-derivation = true
 
 jobs:
   reuse:
@@ -29,4 +29,5 @@ jobs:
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: DeterminateSystems/magic-nix-cache-action@v2
-      - run: nix flake check '${{ env.flake }}'
+      - run: nix flake show '${{ env.flake }}'
+      - run: nix flake check -L '${{ env.flake }}'
