@@ -68,6 +68,11 @@ let
   '';
 
   hookPkgs = {
+    block_suspend = pkgs.static-nix-shell.mkBash {
+      pname = "sxmo_hook_block_suspend.sh";
+      pkgs = [ "procps" ];
+      src = ./hooks;
+    };
     inputhandler = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_inputhandler.sh";
       pkgs = [ "coreutils" "playerctl" "pulseaudio" ];
@@ -150,7 +155,7 @@ in
         # by including hooks here, updating the sxmo package also updates the hooks
         # without requiring any reboot
         "sxmo_hook_apps.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_apps.sh";
-        "sxmo_hook_block_suspend.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_block_suspend.sh";
+        # "sxmo_hook_block_suspend.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_block_suspend.sh";
         "sxmo_hook_call_audio.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_call_audio.sh";
         "sxmo_hook_contextmenu_fallback.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_contextmenu_fallback.sh";
         "sxmo_hook_contextmenu.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_contextmenu.sh";
@@ -186,6 +191,7 @@ in
         "sxmo_hook_tailtextlog.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_tailtextlog.sh";
       } // {
         # default hooks for this nix module, not upstreamable
+        "sxmo_hook_block_suspend.sh" = "${hookPkgs.block_suspend}/bin/sxmo_hook_block_suspend.sh";
         "sxmo_hook_inputhandler.sh" = "${hookPkgs.inputhandler}/bin/sxmo_hook_inputhandler.sh";
         "sxmo_hook_postwake.sh" = "${hookPkgs.postwake}/bin/sxmo_hook_postwake.sh";
         "sxmo_hook_rotate.sh" = "${hookPkgs.rotate}/bin/sxmo_hook_rotate.sh";
