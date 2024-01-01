@@ -7,6 +7,15 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+        build-mount-path: '/nix'
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
     - name: Checkout repository
       uses: actions/checkout@main
     - name: Install nix
@@ -15,6 +24,19 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Set nix daemon tmp path
+      run: |
+        sudo mkdir -p /nix/tmp
+        sudo chown $(whoami) /nix/tmp
+
+        cat > override.conf <<EOF
+        [Service]
+        Environment="TMPDIR=/nix/tmp"
+        EOF
+        sudo mkdir /etc/systemd/system/nix-daemon.service.d/
+        sudo mv override.conf /etc/systemd/system/nix-daemon.service.d/override.conf
+        sudo systemctl daemon-reload
+        sudo systemctl restart nix-daemon
     - name: Setup cachix
       uses: cachix/cachix-action@master
       with:

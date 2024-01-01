@@ -180,16 +180,16 @@
   };
   rime-cantonese = {
     pname = "rime-cantonese";
-    version = "e3c6b17e638ac8a9aeab4d5852e5909b049c5ab3";
+    version = "0d5c9fd21633e674f304033ae36ea1c2d2218629";
     src = fetchgit {
       url = "https://github.com/rime/rime-cantonese.git";
-      rev = "e3c6b17e638ac8a9aeab4d5852e5909b049c5ab3";
+      rev = "0d5c9fd21633e674f304033ae36ea1c2d2218629";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-uJAiSY5gmVLQzMOvDSxr+78tLgNfwBifjmb5EygxKpw=";
+      sha256 = "sha256-majMs7cPcsOoVjt0mnbueDWwyL0CWxNpfYUizsxN9UQ=";
     };
-    date = "2023-09-12";
+    date = "2023-12-30";
   };
   rime-double-pinyin = {
     pname = "rime-double-pinyin";
@@ -442,16 +442,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "41ebdc3cb62ee6383b7241a79af7d13a5d19fd65";
+    version = "3e55d0d7f29bc91bf6ad908bf72c1f0fcb93ed1e";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "41ebdc3cb62ee6383b7241a79af7d13a5d19fd65";
+      rev = "3e55d0d7f29bc91bf6ad908bf72c1f0fcb93ed1e";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-+UAgnTQhqII1T75NDSSWZA8wetHZE8z9s1BjOdGm4Fg=";
+      sha256 = "sha256-ic5bz6uLEgSFMTYmqOW6rlCQykErFcehLhrH53IDW8Q=";
     };
-    date = "2023-12-25";
+    date = "2023-12-31";
   };
   yacd = {
     pname = "yacd";
