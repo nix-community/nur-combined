@@ -88,11 +88,6 @@ let
       pkgs = [ "sway" ];
       src = ./hooks;
     };
-    screenoff = pkgs.static-nix-shell.mkBash {
-      pname = "sxmo_hook_screenoff.sh";
-      pkgs = [ "sway" ];
-      src = ./hooks;
-    };
     start = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_start.sh";
       pkgs = [ "systemd" "xdg-user-dirs" ];
@@ -181,6 +176,7 @@ in
         "sxmo_hook_restart_modem_daemons.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_restart_modem_daemons.sh";
         "sxmo_hook_ring.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_ring.sh";
         "sxmo_hook_rotate.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_rotate.sh";
+        "sxmo_hook_screenoff.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_screenoff.sh";
         "sxmo_hook_scripts.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_scripts.sh";
         "sxmo_hook_sendsms.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_sendsms.sh";
         "sxmo_hook_smslog.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_smslog.sh";
@@ -195,7 +191,6 @@ in
         "sxmo_hook_inputhandler.sh" = "${hookPkgs.inputhandler}/bin/sxmo_hook_inputhandler.sh";
         "sxmo_hook_postwake.sh" = "${hookPkgs.postwake}/bin/sxmo_hook_postwake.sh";
         "sxmo_hook_rotate.sh" = "${hookPkgs.rotate}/bin/sxmo_hook_rotate.sh";
-        "sxmo_hook_screenoff.sh" = "${hookPkgs.screenoff}/bin/sxmo_hook_screenoff.sh";
         "sxmo_hook_start.sh" = "${hookPkgs.start}/bin/sxmo_hook_start.sh";
         "sxmo_suspend.sh" = "${hookPkgs.suspend}/bin/sxmo_suspend.sh";
       };

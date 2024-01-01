@@ -32,6 +32,7 @@ in
     mime.associations."video/mp4" = "vlc.desktop";
     mime.associations."video/quicktime" = "vlc.desktop";
     mime.associations."video/webm" = "vlc.desktop";
+    mime.associations."video/x-flv" = "vlc.desktop";
     mime.associations."video/x-matroska" = "vlc.desktop";
   };
 }

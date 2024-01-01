@@ -30,15 +30,22 @@ logger = logging.getLogger(__name__)
 
 NTFY_HOST = 'uninsane.org'
 NTFY_PORT_BASE = 5550
-SUSPEND_TIME=300
+
+# duration in seconds to sleep for
+SUSPEND_TIME = 300
 # take care that WOWLAN_DELAY might include more than you think (e.g. time spent configuring wowlan pattern rules)
-WOWLAN_DELAY=6
+WOWLAN_DELAY = 6
+
+# SXMO LED blink frequency to set on resume
+BLINK_FREQ = 5
 
 class Executor:
     def __init__(self, dry_run: bool = False):
         self.dry_run = dry_run
 
-    def exec(self, cmd: list[str], sudo: bool = False, check: bool = True):
+    def exec(self, cmd: list[str], sudo: bool = False, check: bool = True, wait: bool = True):
+        if check: assert wait, "can't check_output without first waiting for process completion"
+
         if sudo:
             cmd = [ 'doas' ] + cmd
 
@@ -46,18 +53,24 @@ class Executor:
         if self.dry_run:
             return
 
-        try:
-            res = subprocess.run(cmd, capture_output=True)
-        except Exception as e:
-            if check: raise
-            logger.warning(f"error invoking subprocess: {e}")
-            return
+        if wait:
+            try:
+                res = subprocess.run(cmd, capture_output=True)
+            except Exception as e:
+                if check: raise
+                logger.warning(f"error invoking subprocess: {e}")
+                return
 
-        logger.debug(res.stdout)
-        if res.stderr:
-            logger.warning(res.stderr)
-        if check:
-            res.check_returncode()
+            logger.debug(res.stdout)
+            if res.stderr:
+                logger.warning(res.stderr)
+            if check:
+                res.check_returncode()
+
+        else:
+            res = subprocess.Popen(cmd)
+
+        return res
 
     def try_connect(self, dest, delay):
         logger.debug(f"opening socket to {dest} with timeout {delay}")
@@ -124,11 +137,31 @@ class Suspender:
     def suspend(self, duration: int, mode: str):
         logger.info(f"calling suspend for duration: {duration}")
         if mode == 'rtcwake':
-            self.executor.exec(['rtcwake', '-m', 'mem', '-s', str(duration)], check=False)
+            self.executor.exec(['rtcwake', '-m', 'mem', '-s', str(duration)], sudo=True, check=False)
         elif mode == 'sleep':
             time.sleep(duration)
         else:
             assert False, f"unknown suspend mode: {mode}"
+
+
+class SxmoApi:
+    def __init__(self, executor: Executor):
+        self.executor = executor
+
+    def halt_services(self) -> None:
+        res = self.executor.exec(['sxmo_jobs.sh', 'running', 'periodic_blink'], check=False)
+        self.was_blinking = res and res.returncode == 0
+        if self.was_blinking:
+            self.executor.exec(['sxmo_jobs.sh', 'stop', 'periodic_blink'], check=False)
+
+    def resume_services(self) -> None:
+        if self.was_blinking:
+            # XXX: sxmo_jobs.sh is supposed to run the job in the background, but somehow it fails (blocks), only when invoked from Python.
+            #      oh well, just call it asynchronously (wait=False)
+            self.executor.exec(['sxmo_jobs.sh', 'start', 'periodic_blink', 'sxmo_run_periodically.sh', str(BLINK_FREQ), 'sxmo_led.sh', 'blink', 'red', 'blue'], check=False, wait=False)
+
+    def call_postwake_hook(self) -> None:
+        self.executor.exec(['sxmo_hook_postwake.sh'], check=False)
 
 
 def main():
@@ -152,7 +185,9 @@ def main():
     suspend_mode = args.suspend_mode
     executor = Executor(dry_run=args.dry_run)
     suspender = Suspender(executor, wowlan_delay=wowlan_delay)
+    sxmo_api = SxmoApi(executor)
 
+    sxmo_api.halt_services()
     suspender.open_ntfy_stream()
     suspender.configure_wowlan()
 
@@ -165,7 +200,8 @@ def main():
     logger.info(f"suspended for {time_spent:.0f} seconds")
 
     suspender.close_ntfy_stream()
-    executor.exec(['sxmo_hook_postwake.sh'], check=False)
+    sxmo_api.resume_services()
+    sxmo_api.call_postwake_hook()
 
 if __name__ == '__main__':
     main()

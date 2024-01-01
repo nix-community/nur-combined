@@ -158,6 +158,7 @@ in
     mime.associations."video/mp4" = "mpv.desktop";
     mime.associations."video/quicktime" = "mpv.desktop";
     mime.associations."video/webm" = "mpv.desktop";
+    mime.associations."video/x-flv" = "mpv.desktop";
     mime.associations."video/x-matroska" = "mpv.desktop";
     mime.urlAssociations."^https?://(www.)?youtube.com/watch\?.*v=" = "mpv.desktop";
     mime.urlAssociations."^https?://(www.)?youtube.com/v/" = "mpv.desktop";

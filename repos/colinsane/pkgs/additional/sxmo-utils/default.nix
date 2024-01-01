@@ -15,6 +15,7 @@
 , fetchFromSourcehut
 , fetchpatch
 , gnugrep
+, gojq
 , grim
 , inotify-tools
 , j4-dmenu-desktop
@@ -67,6 +68,7 @@ let
     curl
     dbus
     gnugrep  # also in busybox
+    gojq  # TODO: scripts/core/sxmo_wm.sh should use `jq` instead of `gojq`
     inotify-tools
     j4-dmenu-desktop
     jq
