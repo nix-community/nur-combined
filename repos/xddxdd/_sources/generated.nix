@@ -601,18 +601,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.75";
+    version = "2.0.76";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.75/netboot.xyz.efi";
-      sha256 = "sha256-VaTUwX3S5Bj5eUZAspXNaVm8Y51hURL3xBb1tRdj6Zw=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.76/netboot.xyz.efi";
+      sha256 = "sha256-21ZEydRcEpD5Qq4NawvXdM+i76jSUj3QRfOtJX2n1Jg=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.75";
+    version = "2.0.76";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.75/netboot.xyz.lkrn";
-      sha256 = "sha256-0Bo6/7bto9LBUMo6bYKaLjsxP28Yf9+bgeSeAr8b/bs=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.76/netboot.xyz.lkrn";
+      sha256 = "sha256-/2N9IvBYafAcDxBDTXubEAG/KN84kG2PgdexiPi7VBY=";
     };
   };
   netns-exec = {
