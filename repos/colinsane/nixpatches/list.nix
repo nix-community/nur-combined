@@ -65,17 +65,6 @@ in [
   })
 
   # (fetchpatch' {
-  #   title = "fx-cast-bridge: Pin nodejs to version 18";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/273768";
-  #   hash = "sha256-THf+O5THf0URY6bsq2/bVo1P2CvUq7opxNtl548yTak=";
-  # })
-  # (fetchpatch' {
-  #   # 2023/12/12: needs rebasing
-  #   title = "gnome-feeds: 0.16.2 -> 2.2.0";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/217060";
-  #   hash = "sha256-EY3r661V2aOQQbZ2hTdPS0wipgktwPPgNrz2OJr4qFg=";
-  # })
-  # (fetchpatch' {
   #   title = "nixos/slskd: allow omitting username from yaml config";
   #   saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
   #   hash = "sha256-xQEj/oIfNcE4td9jxzDzhlnIYpncOOdXZuswkmcLNuk=";
@@ -124,47 +113,6 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/260558";
     hash = "sha256-kwod+6SbUZechzbmu1D4Hlh6pYiPD18wcqetk0OIOrA=";
   })
-  # (fetchpatch' {
-  #   # doesn't apply cleanly. use build result in <working/zcash>
-  #   title = "zcash: 5.4.2 -> 5.7.0";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/229810";
-  #   hash = "sha256-ProoPJ10rUtOZh2PzpegviG6Ip1zSuWC92BpP+ux9ZQ=";
-  # })
-  # (fetchpatch' {
-  #   title = "graphicsmagick: 1.3.39 -> 1.3.42";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/218163";
-  #   hash = "sha256-E1Xfi7BRpAvqAzfChjWRG1Ar5dsFMm/yu7NXnDc95PM=";
-  # })
-  # (fetchpatch' {
-  #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.
-  #   # the latter is an alias, which breaks nix-index
-  #   title = "phog: init at 0.1.3";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/251249";
-  #   hash = "sha256-e38Z7sO7xDQHzE9UOfbptc6vJuONE5eP9JFp2Nzx53E=";
-  # })
-
-  # (fetchpatch' {
-  #   # merged 2023/09/07, but into staging
-  #   title = "waf: fix cross-compilation";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/252874";
-  #   hash = "sha256-DjwhbH9o6uoj1Ahb8eE6cEnlIKtQCL61P0v22H9fOiQ=";
-  # })
-
-  # (fetchpatch' {
-  #   # needed for subsequent "disable pipewireSupport in qemu-user" patch
-  #   # merged 2023/09/07
-  #   title = "qemu: add pipewire support (8.1 feature)";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/253660";
-  #   hash = "sha256-sABTNJHBQEF8YuXit4+zG/lyK4eRJz6MkRDpaeKe+z8=";
-  # })
-
-  # (fetchpatch' {
-  #   # fixes infinite recursion in cross qemu compile.
-  #   # merged 2023/09/07
-  #   title = "lib/systems: disable pipewireSupport in qemu-user";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/253913";
-  #   hash = "sha256-D2fnB4eOvbew0tea7Y1LH7GQJF3Pch/9DLEChf/ZNxs=";
-  # })
 
   # (fetchpatch' {
   #   # XXX: doesn't cleanly apply; fetch `firefox-pmos-mobile` branch from my git instead
@@ -173,6 +121,11 @@ in [
   #   hash = "sha256-eDsR1cJC/IMmhJl5wERpTB1VGawcnMw/gck9sI64GtQ=";
   # })
 
+  (fetchpatch' {
+    title = "firefox-pmos-mobile: init at 4.0.2";
+    saneCommit = "c3becd7cdf144d85d12e2e76663e9549a0536efd";
+    hash = "sha256-NRh2INUMA2K7q8zioqKA7xwoqg7v6sxpuJRpTG5IP1Q=";
+  })
   # (fetchpatch' {
   #   saneCommit = "70c12451b783d6310ab90229728d63e8a903c8cb";
   #   title = "firefox-pmos-mobile: init at -pmos-2.2.0";
@@ -203,11 +156,6 @@ in [
   #   title = "librewolf-pmos-mobile: init";
   #   hash = "sha256-oQEM3EZfAOmfZzDu9faCqyOFZsdHYGn1mVBgkxt68Zg=";
   # })
-  (fetchpatch' {
-    title = "firefox-pmos-mobile: init at 4.0.2";
-    saneCommit = "c3becd7cdf144d85d12e2e76663e9549a0536efd";
-    hash = "sha256-NRh2INUMA2K7q8zioqKA7xwoqg7v6sxpuJRpTG5IP1Q=";
-  })
 
   (fetchpatch' {
     title = "splatmoji: init at 1.2.0";
@@ -225,17 +173,7 @@ in [
 
   # ./2022-12-19-i2p-aarch64.patch
 
-  # fix for CMA memory leak in mesa: <https://gitlab.freedesktop.org/mesa/mesa/-/issues/8198>
-  # fixed in mesa 22.3.6: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/21330/diffs>
-  # only necessary on aarch64.
-  # it's a revert of nixpkgs commit dcf630c172df2a9ecaa47c77f868211e61ae8e52
-  # ./2023-01-30-mesa-cma-leak.patch
-  # upgrade to 22.3.6 instead
-  # ./2023-02-28-mesa-22.3.6.patch
-
-
   # let ccache cross-compile
-  # TODO: why doesn't this apply?
   # ./2023-03-04-ccache-cross-fix.patch
 
   # (fetchpatch' {
@@ -271,43 +209,42 @@ in [
   #   hash = "sha256-myKKMt5cZhC0mfPhEsNjwKjaIYICj5LBJqV01HghYUg=";
   # })
 
-  # 2023-04-20: perl: fix modules for compatibility with miniperl
-  # (fetchpatch {
-  #   url = "https://github.com/NixOS/nixpkgs/pull/225640.diff";
-  #   hash = "sha256-MNG8C0OgdPnFQ8SF2loiEhXJuP2z4n9pkXr8Zh4X7QU=";
-  # })
-
-  # 2023-08-06: conky wayland + cross compilation patches.
+  (fetchpatch' {
+    title = "conky: enable Wayland support and cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/278071";
+    hash = "sha256-e6o+Vjd3KCI9dFj0TdAWyyqfreX8cf0RfYGdyvebYC0=";
+  })
+  # 2023-08-06: OLD conky wayland + cross compilation patches.
   # nix path-info shows clean
   # branch is wip-conky-cross2 on servo
   # factoring out those feature abstractions was possibly overkill.
   # the manual wayland-scanner patching is unfortunate, but within
   #   acceptable norms of the existing package.
-  (fetchpatch' {
-    title = "conky: factor out an abstraction for feature flags";
-    saneCommit = "3ddf13038d6df90ad0db36a41d55e4077818a3e9";
-    hash = "sha256-CjLzndFEH1Ng9CqKX8gxCJ6n/wFv5U/sHnQE0FMYILc=";
-  })
-  (fetchpatch' {
-    title = "conky: simplify the features even more";
-    saneCommit = "1c4aa404743f1ae7d5b95f18a96c4057ca251a96";
-    hash = "sha256-0zhiw9siIkFgFW4sow+X88NBEa3ggCe1t1HJ5xFH4ac=";
-  })
-  (fetchpatch' {
-    title = "conky: support cross compilation";
-    saneCommit = "01e607e11c7e5bbbfe6ad132fb72394ec29dab0a";
-    hash = "sha256-Bm/XFLvE7gEyLPlBWNSAcU3qwwqKLIRdpoe0/1aHUho=";
-  })
-  (fetchpatch' {
-    title = "conky: add wayland support";
-    saneCommit = "84c51f67e02ebc7f118fd3171bd10f1978d4f1e6";
-    hash = "sha256-gRYbkzCe3q1R7X/FeOcz/haURQkeAfmED1/ZQlCCdWE=";
-  })
-  (fetchpatch' {
-    title = "conky: remove no-op sed patch";
-    saneCommit = "e8b19984a2858ca24b7e8f5acd20be8b7dfe1af0";
-    hash = "sha256-K3mG1kcyB7sQZ7ZRCdlinNsV6mCcl3eIUI2ldSmcbJE=";
-  })
+  # (fetchpatch' {
+  #   title = "conky: factor out an abstraction for feature flags";
+  #   saneCommit = "3ddf13038d6df90ad0db36a41d55e4077818a3e9";
+  #   hash = "sha256-CjLzndFEH1Ng9CqKX8gxCJ6n/wFv5U/sHnQE0FMYILc=";
+  # })
+  # (fetchpatch' {
+  #   title = "conky: simplify the features even more";
+  #   saneCommit = "1c4aa404743f1ae7d5b95f18a96c4057ca251a96";
+  #   hash = "sha256-0zhiw9siIkFgFW4sow+X88NBEa3ggCe1t1HJ5xFH4ac=";
+  # })
+  # (fetchpatch' {
+  #   title = "conky: support cross compilation";
+  #   saneCommit = "01e607e11c7e5bbbfe6ad132fb72394ec29dab0a";
+  #   hash = "sha256-Bm/XFLvE7gEyLPlBWNSAcU3qwwqKLIRdpoe0/1aHUho=";
+  # })
+  # (fetchpatch' {
+  #   title = "conky: add wayland support";
+  #   saneCommit = "84c51f67e02ebc7f118fd3171bd10f1978d4f1e6";
+  #   hash = "sha256-gRYbkzCe3q1R7X/FeOcz/haURQkeAfmED1/ZQlCCdWE=";
+  # })
+  # (fetchpatch' {
+  #   title = "conky: remove no-op sed patch";
+  #   saneCommit = "e8b19984a2858ca24b7e8f5acd20be8b7dfe1af0";
+  #   hash = "sha256-K3mG1kcyB7sQZ7ZRCdlinNsV6mCcl3eIUI2ldSmcbJE=";
+  # })
 
   # (fetchpatch' {
   #   title = "hare-json: init at unstable-2023-02-25";
@@ -331,29 +268,63 @@ in [
     hash = "sha256-i50rY3S4IeRHpZrG2wF/MJaLyS7TbfUv6pszrDOixzg=";
   })
 
-  # pin to a pre-0.17.3 release
-  # removing this and using stock 0.17.3 (also 0.17.4) causes:
-  #   INFO lemmy_server::code_migrations: No Local Site found, creating it.
-  #   Error: LemmyError { message: None, inner: duplicate key value violates unique constraint "local_site_site_id_key", context: "SpanTrace" }
-  # more specifically, lemmy can't find the site because it receives an error from diesel:
-  #   Err(DeserializationError("Unrecognized enum variant"))
-  # this is likely some mis-ordered db migrations
-  # or perhaps the whole set of migrations here isn't being running right.
-  # related: <https://github.com/NixOS/nixpkgs/issues/236890#issuecomment-1585030861>
-  # ./2023-06-10-lemmy-downgrade.patch
-
-  # (fetchpatch' {
-  #   title = "koreader: 2023.04 -> 2023.05.1";
-  #   saneCommit = "a5c471bd263abe93e291239e0078ac4255a94262";
-  #   hash = "sha256-38sND/UNRj5WAYYKpzdrRBIOK4UAT14RzbIv49KmNNw=";
-  # })
-
   (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/240602";
     saneCommit = "e83130f2770c314b2a482e1792b010da66cdd5de";
     hash = "sha256-GlYWpOVZvr0oFAs4RdSUf7LJD3FmGsCaTm32GPhbBfc=";
   })
+  (fetchpatch' {
+    # TODO: send for review once hspell fix is merged <https://github.com/NixOS/nixpkgs/pull/263182>
+    # this patch works as-is, but hspell keeps a ref to build perl and thereby pollutes this closure as well.
+    title = "gtkspell2: support cross compilation";
+    saneCommit = "56348833b4411e9fe2016c24c7fc4af1e3c1d28a";
+    hash = "sha256-0RMxouOBw7SUmQDLB2qGey714DaM0AOvZlZ5nB+Lkc4=";
+  })
+  (fetchpatch' {
+    title = "libgnt: 2.14.1 -> 2.14.3";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/246937";
+    saneCommit = "ecd423195d72036a209912868ad02742cb4b6fcd";
+    # hash = "sha256-u4V/UHNtd2c3+FppuJ5LeLNSV8ZaLe8cqj8HmcW2a/0=";
+    hash = "sha256-Tymh8r75pcoEzsqkU0wzm+vK137P2pEEilgNIyM8udQ=";
+  })
+  (fetchpatch' {
+    # TODO: send for review once the libgnt patch above is merged
+    title = "pidgin: support cross compilation";
+    saneCommit = "caacbcc54e217f5ee9281422777a7f712765f71a";
+    hash = "sha256-PDCp4GOm6hWcRob4kz7qXZfxAF6YbYrESx9idoS3e/s=";
+  })
+
+  (fetchpatch' {
+    title = "libgweather: enable introspection on cross builds";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/251956";
+    saneCommit = "7a2d0a90cc558ea71dfc78356e61b0675b995634";
+    hash = "sha256-4x1yJgrgmyqYiF+u3A9BrcbNQPQ270c+/jFBYsJoFfI=";
+  })
+
+  # (fetchpatch' {
+  #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
+  #   title = "matrix-appservice-irc: 0.38.0 -> 1.0.0";
+  #   saneCommit = "b168bf862d53535151b9142a15fbd53e18e688c5";
+  #   hash = "sha256-dDa2mrCJ416PIYsDH9ya/4aQdqtp4BwzIisa8HdVFxo=";
+  # })
+
+  # for raspberry pi: allow building u-boot for rpi 4{,00}
+  # TODO: remove after upstreamed: https://github.com/NixOS/nixpkgs/pull/176018
+  #   (it's a dupe of https://github.com/NixOS/nixpkgs/pull/112677 )
+  ./02-rpi4-uboot.patch
+
+  # (fetchpatch' {
+  #   title = "fx-cast-bridge: Pin nodejs to version 18";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/273768";
+  #   hash = "sha256-THf+O5THf0URY6bsq2/bVo1P2CvUq7opxNtl548yTak=";
+  # })
+  # (fetchpatch' {
+  #   # 2023/12/12: needs rebasing
+  #   title = "gnome-feeds: 0.16.2 -> 2.2.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/217060";
+  #   hash = "sha256-EY3r661V2aOQQbZ2hTdPS0wipgktwPPgNrz2OJr4qFg=";
+  # })
 
   # (fetchpatch' {
   #   title = "gnustep: remove `rec` to support `overrideScope`";
@@ -389,55 +360,25 @@ in [
   #   saneCommit = "7a4191c570b0e5a1ab257222c26a4a2ecb945037";
   #   hash = "sha256-FiPJhHGqZ8MFwLY+1t6HgbK6ndomFSYUKvApvrikRHE=";
   # })
-  (fetchpatch' {
-    # TODO: send for review once hspell fix is merged <https://github.com/NixOS/nixpkgs/pull/263182>
-    # this patch works as-is, but hspell keeps a ref to build perl and thereby pollutes this closure as well.
-    title = "gtkspell2: support cross compilation";
-    saneCommit = "56348833b4411e9fe2016c24c7fc4af1e3c1d28a";
-    hash = "sha256-0RMxouOBw7SUmQDLB2qGey714DaM0AOvZlZ5nB+Lkc4=";
-  })
-  (fetchpatch' {
-    title = "libgnt: 2.14.1 -> 2.14.3";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/246937";
-    saneCommit = "ecd423195d72036a209912868ad02742cb4b6fcd";
-    # hash = "sha256-u4V/UHNtd2c3+FppuJ5LeLNSV8ZaLe8cqj8HmcW2a/0=";
-    hash = "sha256-Tymh8r75pcoEzsqkU0wzm+vK137P2pEEilgNIyM8udQ=";
-  })
-  (fetchpatch' {
-    # TODO: send for review once the libgnt patch above is merged
-    title = "pidgin: support cross compilation";
-    saneCommit = "caacbcc54e217f5ee9281422777a7f712765f71a";
-    hash = "sha256-PDCp4GOm6hWcRob4kz7qXZfxAF6YbYrESx9idoS3e/s=";
-  })
 
   # (fetchpatch' {
-  #   # doesn't cleanly apply. TODO: see if this cross compiles now, thanks to <https://github.com/NixOS/nixpkgs/pull/234615>
-  #   title = "nixos/dconf: support cross compilation";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/249093";
-  #   saneCommit = "08f7cdebc58eeaa62cb349dab57db3be7a0c073d";
-  #   hash = "sha256-gqHUGeTQnr0f99gqEdd+VANLkWO+joLxz5I0RSarznE=";
+  #   # doesn't apply cleanly. use build result in <working/zcash>
+  #   title = "zcash: 5.4.2 -> 5.7.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/229810";
+  #   hash = "sha256-ProoPJ10rUtOZh2PzpegviG6Ip1zSuWC92BpP+ux9ZQ=";
   # })
-
-  (fetchpatch' {
-    title = "libgweather: enable introspection on cross builds";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/251956";
-    saneCommit = "7a2d0a90cc558ea71dfc78356e61b0675b995634";
-    hash = "sha256-4x1yJgrgmyqYiF+u3A9BrcbNQPQ270c+/jFBYsJoFfI=";
-  })
-
   # (fetchpatch' {
-  #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
-  #   title = "matrix-appservice-irc: 0.38.0 -> 1.0.0";
-  #   saneCommit = "b168bf862d53535151b9142a15fbd53e18e688c5";
-  #   hash = "sha256-dDa2mrCJ416PIYsDH9ya/4aQdqtp4BwzIisa8HdVFxo=";
+  #   title = "graphicsmagick: 1.3.39 -> 1.3.42";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/218163";
+  #   hash = "sha256-E1Xfi7BRpAvqAzfChjWRG1Ar5dsFMm/yu7NXnDc95PM=";
   # })
-
-  # for raspberry pi: allow building u-boot for rpi 4{,00}
-  # TODO: remove after upstreamed: https://github.com/NixOS/nixpkgs/pull/176018
-  #   (it's a dupe of https://github.com/NixOS/nixpkgs/pull/112677 )
-  ./02-rpi4-uboot.patch
-
-  # ./07-duplicity-rich-url.patch
+  # (fetchpatch' {
+  #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.
+  #   # the latter is an alias, which breaks nix-index
+  #   title = "phog: init at 0.1.3";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/251249";
+  #   hash = "sha256-e38Z7sO7xDQHzE9UOfbptc6vJuONE5eP9JFp2Nzx53E=";
+  # })
 
   # fix qt6.qtbase and qt6.qtModule to cross-compile.
   # unfortunately there's some tangle that makes that difficult to do via the normal `override` facilities

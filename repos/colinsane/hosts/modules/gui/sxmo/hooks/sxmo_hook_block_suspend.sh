@@ -1,14 +1,26 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p procps
 
+# Basic exponential backoff, this should save some resources if we're blocked by
+# the same thing for a while
+delay() {
+  sleep "$delay_time"
+  delay_time="$((delay_time*2))"
+  if [ "$delay_time" -gt 45 ]; then
+    delay_time=45
+  fi
+}
 
 wait_item() {
+  delay_time=1
   while $1 > /dev/null 2>&1; do
-    waited=1
     echo "Blocking suspend for $1"
-    sleep 1
+    waited=1
+    delay
   done
 }
+
+##################################### below is original, not shared with upstream sxmo_hook_block_suspend.sh
 
 casting_go2tv() {
   pgrep -f go2tv

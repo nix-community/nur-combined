@@ -282,9 +282,6 @@ in
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
 
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
-
-    # zcash coins. safe to delete, just slow to regenerate (10-60 minutes)
-    zecwallet-lite.persist.byStore.private = [ ".zcash" ];
   };
 
   programs.feedbackd = lib.mkIf config.sane.programs.feedbackd.enabled {

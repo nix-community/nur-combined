@@ -87,6 +87,7 @@
     ./wob.nix
     ./xarchiver.nix
     ./zeal.nix
+    ./zecwallet-lite.nix
     ./zsh
   ];
 
