@@ -62,8 +62,10 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dwith-systemd-user-unit-dir=lib/systemd/user"
     "-Dwith-systemd-group-dir=lib/sysusers.d"
 
-    # Meson installs internal executables to $lib/lib by default, but
-    # it's more appropriate to install them under $out/libexec
+    # The meson builder installs internal executables to $lib/lib by
+    # default, but they should be installed to "$out". It's also more
+    # appropriate to install these executables under a libexec
+    # directory instead of lib.
     "--libexecdir=libexec"
   ];
 
@@ -93,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Optimise Linux system performance on demand";
     homepage = "https://github.com/FeralInteractive/gamemode";
-    changelog = "https://github.com/FeralInteractive/gamemode/blob/${version}/CHANGELOG.md";
+    changelog = "https://github.com/FeralInteractive/gamemode/blob/${finalAttrs.version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
