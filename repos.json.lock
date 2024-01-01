@@ -171,8 +171,8 @@
             "url": "https://github.com/Artturin/artturin-nur"
         },
         "ataraxiasjel": {
-            "rev": "fbb1b17b625a06cea65329fa62eca898c9a2a095",
-            "sha256": "0add8lch7jvx40a4hjnd3f1kjmjgzz9bmlrzzqcn446p85qphbp4",
+            "rev": "516f988727e23c39c1b94280fc1136b8914dbb31",
+            "sha256": "0jc54pa2k08gdkm6c2qh9pwa2rsf0im4kmgfaqdx510wkqc1vlmw",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "awl-fcarza": {
@@ -1269,8 +1269,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "562f210ae8fd096ccc9d946bbfcc848cf6034689",
-            "sha256": "0hbj1191j3hgdgap3whfi4v7cp7ywmvvz6bks52c93zp2wwbnfb6",
+            "rev": "8275e917db7b7cd3f6a29b4b455b29e16eb2eef5",
+            "sha256": "03i6apyh1cs6kfg8xgbk08kyh3qidbqdqnvj7cj37p4xzmr0zrcg",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "sagikazarmark": {
