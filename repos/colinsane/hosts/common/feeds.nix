@@ -115,124 +115,88 @@ let
   ];
 
   texts = [
-    # AGGREGATORS (> 1 post/day)
-    (fromDb "lwn.net" // tech)
-    # (fromDb "lesswrong.com" // rat)
+    (fromDb "amosbbatto.wordpress.com" // tech)
+    (fromDb "applieddivinitystudies.com" // rat)
+    (fromDb "artemis.sh" // tech)
+    (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
+    (fromDb "austinvernon.site" // tech)
+    (fromDb "balajis.com" // pol)  # Balaji
+    (fromDb "ben-evans.com/benedictevans" // pol)
+    (fromDb "bitbashing.io" // tech)
+    (fromDb "bitsaboutmoney.com" // uncat)
+    (fromDb "blog.danieljanus.pl" // tech)
+    (fromDb "blog.dshr.org" // pol)  # David Rosenthal
+    (fromDb "blog.jmp.chat" // tech)
+    (fromDb "blog.rust-lang.org" // tech)
+    (fromDb "blog.thalheim.io" // tech)  # Mic92
+    (fromDb "bunniestudios.com" // tech)  # Bunnie Juang
+    (fromDb "capitolhillseattle.com" // pol)
+    # (fromDb "drewdevault.com" // tech)
     # (fromDb "econlib.org" // pol)
-
-    # AGGREGATORS (< 1 post/day)
+    (fromDb "edwardsnowden.substack.com" // pol // text)
+    (fromDb "fasterthanli.me" // tech)
+    (fromDb "gwern.net" // rat)
+    (fromDb "harihareswara.net" // tech // pol)  # rec by Cory Doctorow
+    (fromDb "ianthehenry.com" // tech)
+    (fromDb "idiomdrottning.org" // uncat)
+    (fromDb "interconnected.org/home/feed" // rat)  # Matt Webb -- engineering-ish, but dreamy
+    (fromDb "jeffgeerling.com" // tech)
+    (fromDb "jefftk.com" // tech)
+    (fromDb "kosmosghost.github.io/index.xml" // tech)
+    # (fromDb "lesswrong.com" // rat)
+    (fromDb "linmob.net" // tech)
+    (fromDb "lwn.net" // tech)
+    (fromDb "lynalden.com" // pol)
+    (fromDb "mako.cc/copyrighteous" // tech // pol)  # rec by Cory Doctorow
+    (fromDb "mg.lol" // tech)
+    (fromDb "mindingourway.com" // rat)
+    (fromDb "morningbrew.com/feed" // pol)
+    (fromDb "overcomingbias.com" // rat)  # Robin Hanson
     (fromDb "palladiummag.com" // uncat)
+    (fromDb "philosopher.coach" // rat)  # Peter Saint-Andre -- side project of stpeter.im
+    (fromDb "pomeroyb.com" // tech)
+    (fromDb "preposterousuniverse.com" // rat)  # Sean Carroll
     (fromDb "profectusmag.com" // uncat)
+    (fromDb "project-insanity.org" // tech)  # shared blog by a few NixOS devs, notably onny
+    (fromDb "putanumonit.com" // rat)  # mostly dating topics. not advice, or humor, but looking through a social lens
+    (fromDb "richardcarrier.info" // rat)
+    (fromDb "rifters.com/crawl" // uncat)  # No Moods, Ads or Cutesy Fucking Icons
+    (fromDb "righto.com" // tech)  # Ken Shirriff
+    (fromDb "rootsofprogress.org" // rat)  # Jason Crawford
+    (fromDb "sagacioussuricata.com" // tech)  # ian (Sanctuary)
     (fromDb "semiaccurate.com" // tech)
-    (mkText "https://linuxphoneapps.org/blog/atom.xml" // tech // infrequent)
-    (fromDb "tuxphones.com" // tech)
+    (fromDb "sideways-view.com" // rat)  # Paul Christiano
+    (fromDb "slimemoldtimemold.com" // rat)
     (fromDb "spectrum.ieee.org" // tech)
+    (fromDb "stpeter.im/atom.xml" // pol)
     # (fromDb "theregister.com" // tech)
     (fromDb "thisweek.gnome.org" // tech)
-    # more nixos stuff here, but unclear how to subscribe: <https://nixos.org/blog/categories.html>
-    (mkText "https://nixos.org/blog/announcements-rss.xml" // tech // infrequent)
-    (mkText "https://nixos.org/blog/stories-rss.xml" // tech // weekly)
-    ## n.b.: quality RSS list here: <https://forum.merveilles.town/thread/57/share-your-rss-feeds%21-6/>
-    (mkText "https://forum.merveilles.town/rss.xml" // pol // infrequent)
-
-    ## No Moods, Ads or Cutesy Fucking Icons
-    (fromDb "rifters.com/crawl" // uncat)
-    (fromDb "bitsaboutmoney.com" // uncat)
-
-    # DEVELOPERS
-    (fromDb "blog.jmp.chat" // tech)
+    (fromDb "tuxphones.com" // tech)
     (fromDb "uninsane.org" // tech)
-    (fromDb "blog.thalheim.io" // tech)  # Mic92
-    (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
+    (fromDb "unintendedconsequenc.es" // rat)
+    # (fromDb "vitalik.ca" // tech)  # moved to vitalik.eth.limo
+    (fromDb "vitalik.eth.limo" // tech)  # Vitalik Buterin
+    (fromDb "webcurious.co.uk" // uncat)
     (fromDb "xn--gckvb8fzb.com" // tech)
-    (fromDb "amosbbatto.wordpress.com" // tech)
-    (fromDb "fasterthanli.me" // tech)
-    (fromDb "jeffgeerling.com" // tech)
-    (fromDb "kosmosghost.github.io/index.xml" // tech)
-    (fromDb "mg.lol" // tech)
-    # (fromDb "drewdevault.com" // tech)
-    ## Ken Shirriff
-    (fromDb "righto.com" // tech)
-    ## shared blog by a few NixOS devs, notably onny
-    (fromDb "project-insanity.org" // tech)
-    ## Vitalik Buterin
-    (fromDb "vitalik.ca" // tech)
-    ## ian (Sanctuary)
-    (fromDb "sagacioussuricata.com" // tech)
-    (fromDb "artemis.sh" // tech)
-    ## Bunnie Juang
-    (fromDb "bunniestudios.com" // tech)
-    (fromDb "blog.danieljanus.pl" // tech)
-    (fromDb "ianthehenry.com" // tech)
-    (fromDb "bitbashing.io" // tech)
-    (fromDb "idiomdrottning.org" // uncat)
-    (mkText "http://boginjr.com/feed" // tech // infrequent)
-    (mkText "https://anish.lakhwara.com/home.html" // tech // weekly)
-    (fromDb "jefftk.com" // tech)
-    (fromDb "pomeroyb.com" // tech)
-    (fromDb "harihareswara.net" // tech // pol)  # rec by Cory Doctorow
-    (fromDb "mako.cc/copyrighteous" // tech // pol)  # rec by Cory Doctorow
-    # (mkText "https://til.simonwillison.net/tils/feed.atom" // tech // weekly)
-
-    # TECH PROJECTS
-    (fromDb "blog.rust-lang.org" // tech)
-    (fromDb "linmob.net" // tech)
-
-    # (TECH; POL) COMMENTATORS
-    ## Matt Webb -- engineering-ish, but dreamy
-    (fromDb "interconnected.org/home/feed" // rat)
-    (fromDb "edwardsnowden.substack.com" // pol // text)
-    ## Julia Evans
-    (mkText "https://jvns.ca/atom.xml" // tech // weekly)
-    (mkText "http://benjaminrosshoffman.com/feed" // pol // weekly)
-    ## Ben Thompson
-    (mkText "https://www.stratechery.com/rss" // pol // weekly)
-    ## Balaji
-    (fromDb "balajis.com" // pol)
-    (fromDb "ben-evans.com/benedictevans" // pol)
-    (fromDb "lynalden.com" // pol)
-    (fromDb "austinvernon.site" // tech)
-    (mkSubstack "oversharing" // pol // daily)
+    (mkSubstack "astralcodexten" // rat // daily)  # Scott Alexander
     (mkSubstack "byrnehobart" // pol // infrequent)
     # (mkSubstack "doomberg" // tech // weekly)  # articles are all pay-walled
-    ## David Rosenthal
-    (fromDb "blog.dshr.org" // pol)
-    ## Matt Levine
-    (mkText "https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss" // pol // weekly)
-    (fromDb "stpeter.im/atom.xml" // pol)
-    ## Peter Saint-Andre -- side project of stpeter.im
-    (fromDb "philosopher.coach" // rat)
-    (fromDb "morningbrew.com/feed" // pol)
-
-    # RATIONALITY/PHILOSOPHY/ETC
-    (mkSubstack "samkriss" // humor // infrequent)
-    (fromDb "unintendedconsequenc.es" // rat)
-    (fromDb "applieddivinitystudies.com" // rat)
-    (fromDb "slimemoldtimemold.com" // rat)
-    (fromDb "richardcarrier.info" // rat)
-    (fromDb "gwern.net" // rat)
-    ## Jason Crawford
-    (fromDb "rootsofprogress.org" // rat)
-    ## Robin Hanson
-    (fromDb "overcomingbias.com" // rat)
-    ## Scott Alexander
-    (mkSubstack "astralcodexten" // rat // daily)
-    ## Paul Christiano
-    (fromDb "sideways-view.com" // rat)
-    ## Sean Carroll
-    (fromDb "preposterousuniverse.com" // rat)
     (mkSubstack "eliqian" // rat // weekly)
+    (mkSubstack "oversharing" // pol // daily)
+    (mkSubstack "samkriss" // humor // infrequent)
+    (mkText "http://benjaminrosshoffman.com/feed" // pol // weekly)
+    (mkText "http://boginjr.com/feed" // tech // infrequent)
     (mkText "https://acoup.blog/feed" // rat // weekly)
-    (fromDb "mindingourway.com" // rat)
-
-    ## mostly dating topics. not advice, or humor, but looking through a social lens
-    (fromDb "putanumonit.com" // rat)
-
-    # LOCAL
-    (fromDb "capitolhillseattle.com" // pol)
-
-    # CODE
+    (mkText "https://anish.lakhwara.com/home.html" // tech // weekly)
+    (mkText "https://forum.merveilles.town/rss.xml" // pol // infrequent)  #quality RSS list here: <https://forum.merveilles.town/thread/57/share-your-rss-feeds%21-6/>
     # (mkText "https://github.com/Kaiteki-Fedi/Kaiteki/commits/master.atom" // tech // infrequent)
+    (mkText "https://jvns.ca/atom.xml" // tech // weekly)  # Julia Evans
+    (mkText "https://linuxphoneapps.org/blog/atom.xml" // tech // infrequent)
+    (mkText "https://nixos.org/blog/announcements-rss.xml" // tech // infrequent)  # more nixos stuff here, but unclear how to subscribe: <https://nixos.org/blog/categories.html>
+    (mkText "https://nixos.org/blog/stories-rss.xml" // tech // weekly)
+    # (mkText "https://til.simonwillison.net/tils/feed.atom" // tech // weekly)
+    (mkText "https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss" // pol // weekly)  # Matt Levine
+    (mkText "https://www.stratechery.com/rss" // pol // weekly)  # Ben Thompson
   ];
 
   videos = [
@@ -240,6 +204,7 @@ let
     (fromDb "youtube.com/@ColdFusion")
     (fromDb "youtube.com/@ContraPoints" // pol)
     (fromDb "youtube.com/@Exurb1a")
+    (fromDb "youtube.com/@hbomberguy")
     (fromDb "youtube.com/@PolyMatter")
     (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
     (fromDb "youtube.com/@TechnologyConnections" // tech)
@@ -248,19 +213,15 @@ let
     (fromDb "youtube.com/@Vihart")
     (fromDb "youtube.com/@Vox")
     (fromDb "youtube.com/@Vsauce")
-    (fromDb "youtube.com/@hbomberguy")
   ];
 
   images = [
-    (fromDb "smbc-comics.com" // img // humor)
-    (fromDb "xkcd.com" // img // humor)
-    (fromDb "turnoff.us" // img // humor)
-    (fromDb "pbfcomics.com" // img // humor)
-    # (mkImg "http://dilbert.com/feed" // humor // daily)
-    (fromDb "poorlydrawnlines.com/feed" // img // humor)
-
-    # ART
     (fromDb "miniature-calendar.com" // img // art // daily)
+    (fromDb "pbfcomics.com" // img // humor)
+    (fromDb "poorlydrawnlines.com/feed" // img // humor)
+    (fromDb "smbc-comics.com" // img // humor)
+    (fromDb "turnoff.us" // img // humor)
+    (fromDb "xkcd.com" // img // humor)
   ];
 in
 {

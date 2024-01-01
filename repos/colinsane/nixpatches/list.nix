@@ -27,6 +27,11 @@ let
     ) else null;
 in [
   (fetchpatch' {
+    title = "hareThirdParty.hare-ev: unstable-2023-10-31 -> unstable-2023-12-04";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/277222";
+    hash = "sha256-mRcx489YFiF+1iVFJRY+bxaoWf/yJqMbRh9GO3ctApQ=";
+  })
+  (fetchpatch' {
     title = "argyllcms: support cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/275755";
     saneCommit = "8114d5dabbf5f4f1e8c370b889d4f2986b63998b";
