@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "1p68nz97jkn6wikgxrd5gj9l0x2qvm578biibh87mdq2r69w26cw";
-    aarch64-linux = "00sxgwh6sjsw2xgfynyfzng7k4ixp5ilxm31lswikfj8arfyiw2p";
-    x86_64-darwin = "0bkqa200inyxyw1d7xyaq6asgrlzndqal43c1pyhqwwf0hlbm0d9";
-    aarch64-darwin = "1nfypdw72qyjw6ginvi58yaa5dgx4vq3j6ahsfdfnfh4s6c8w70w";
+    x86_64-linux = "0yg1p9rilhf0pk1qhfz6cnfd6qswqyy0rc1zcws7kz4d54g2v184";
+    aarch64-linux = "0qlysynfq262v70kc615drzfcsgzsi77pa18syv96z4p9yjwmm4d";
+    x86_64-darwin = "1xki1ckxgvsixqdswsmshymr21a829ndia7g3phla5362w6hahyi";
+    aarch64-darwin = "1asxi5yr2c890j0qnpbyx4qahds9zxjrbifc3klamyk057xcky3f";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/dustinblackman/oatmeal/releases/download/v0.12.2/oatmeal_0.12.2_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/dustinblackman/oatmeal/releases/download/v0.12.2/oatmeal_0.12.2_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/dustinblackman/oatmeal/releases/download/v0.12.2/oatmeal_0.12.2_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/dustinblackman/oatmeal/releases/download/v0.12.2/oatmeal_0.12.2_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/dustinblackman/oatmeal/releases/download/v0.12.3/oatmeal_0.12.3_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/dustinblackman/oatmeal/releases/download/v0.12.3/oatmeal_0.12.3_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/dustinblackman/oatmeal/releases/download/v0.12.3/oatmeal_0.12.3_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/dustinblackman/oatmeal/releases/download/v0.12.3/oatmeal_0.12.3_darwin_arm64.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "oatmeal";
-  version = "0.12.2";
+  version = "0.12.3";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
