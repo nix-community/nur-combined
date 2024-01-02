@@ -75,15 +75,15 @@
   };
   attic = {
     pname = "attic";
-    version = "bdafd64910bb2b861cf90fa15f1fc93318b6fbf6";
+    version = "e6bedf1869f382cfc51b69848d6e09d51585ead6";
     src = fetchFromGitHub {
       owner = "zhaofengli";
       repo = "attic";
-      rev = "bdafd64910bb2b861cf90fa15f1fc93318b6fbf6";
+      rev = "e6bedf1869f382cfc51b69848d6e09d51585ead6";
       fetchSubmodules = false;
-      sha256 = "sha256-IJP9sC+/gLUdWhm6TsnWpw6A1zQWUfn53ym63KeLXvU=";
+      sha256 = "sha256-OOEFibN9JQBepVeqxSNSBr6JUmdoZiH263ogms2jk0k=";
     };
-    date = "2023-12-19";
+    date = "2024-01-01";
   };
   baidunetdisk = {
     pname = "baidunetdisk";
@@ -122,13 +122,13 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "v1.3.4";
+    version = "v1.3.5";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "v1.3.4";
+      rev = "v1.3.5";
       fetchSubmodules = false;
-      sha256 = "sha256-MiNLmQgGXR0IlR0zm9GHXIelqLN9bBQhJyOxs0pS7KE=";
+      sha256 = "sha256-lWpTIuN+wCSDBHmpRIfVG8Z1Qx1s55MnJomQPjczB5k=";
     };
   };
   boringssl-oqs = {
@@ -545,13 +545,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.6.8-xanmod1";
+    version = "6.6.9-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.8-xanmod1";
+      rev = "6.6.9-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-TtWTYuT3GMnQy1shkF+HTgv4Z1OSOLh4RXfG+Xj0n3M=";
+      sha256 = "sha256-ugcmPGnOHRfkNu15v0hX56TPt9LN4B73yzwByaKvLUQ=";
     };
   };
   linux-xanmod-6_0 = {
@@ -567,24 +567,24 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.69-xanmod1";
+    version = "6.1.70-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.69-xanmod1";
+      rev = "6.1.70-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-/uk2sS7g4REPtR/LSc7djjoc//m6QvrXfHO4OemQcy8=";
+      sha256 = "sha256-SXXg0fIfqtOwjRC0m963rbB5J42T+Q/1iB5ombtLn0s=";
     };
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.8-xanmod1";
+    version = "6.6.9-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.8-xanmod1";
+      rev = "6.6.9-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-TtWTYuT3GMnQy1shkF+HTgv4Z1OSOLh4RXfG+Xj0n3M=";
+      sha256 = "sha256-ugcmPGnOHRfkNu15v0hX56TPt9LN4B73yzwByaKvLUQ=";
     };
   };
   nbfc-linux-lantian = {
