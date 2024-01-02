@@ -1,108 +1,67 @@
-Mapper = require("nvim-mapper")
+local commander = require("commander")
 local telescope_builtin = require('telescope.builtin')
 
-Mapper.map(
-   "n",
-   '<leader>w',
-   function()
+commander.add({
+  {
+    desc = "Open commander",
+    cmd = require("commander").show,
+    keys = { "n", "<leader>?" },
+    cat = "command",
+  },
+  {
+    desc = "Fix all whitespace",
+    cmd = function()
       vim.cmd("StripWhitespace")
-   end,
-   {silent = true},
-   "Format",
-   "stripwhitespace",
-   "Fix all whitespace"
-)
-
-Mapper.map(
-   "n",
-   ',f',
-   function()
+    end,
+    keys = { "n", "<Leader>w" },
+    cat = "format",
+  },
+  {
+    desc = "Find files in a fuzzy way",
+    cmd = function()
       telescope_builtin.find_files()
-   end,
-   {silent = true, noremap = true},
-   "Telescope",
-   "telescope0",
-   "Find files fuzzy way"
-)
-Mapper.map(
-   "n",
-   '<c-]>',
-   function()
-      telescope_builtin.grep_string()
-   end,
-   {silent = true, noremap = true},
-   "Telescope",
-   "telescope1",
-   "Grep string under cursor in current tree"
-)
-
-Mapper.map(
-   "n",
-   ',/',
-   function()
+    end,
+    keys = { "n", "<c-]>" },
+    cat = "telescope",
+  },
+  {
+    desc = "Grep in file tree",
+    cmd = function()
       telescope_builtin.live_grep()
-   end,
-   {silent = true, noremap = true},
-   "Telescope",
-   "telescope2",
-   "Grep in current tree"
-)
-
-Mapper.map(
-   "n",
-   ',b',
-   function()
+    end,
+    keys = { "n", ",f" },
+    cat = "telescope",
+  },
+  {
+    desc = "Grep string under the cursor",
+    cmd = function()
+      telescope_builtin.grep_string()
+    end,
+    keys = { "n", ",/" },
+    cat = "telescope",
+  },
+  {
+    desc = "Current buffers",
+    cmd = function()
       telescope_builtin.buffers()
-   end,
-   {silent = true, noremap = true},
-   "Telescope",
-   "telescope3",
-   "Current Buffers"
-)
-
-Mapper.map(
-   "n",
-   ',h',
-   function()
-      telescope_builtin.help_tags()
-   end,
-   {silent = true, noremap = true},
-   "Telescope",
-   "telescope4",
-   "Find help tags"
-)
-Mapper.map(
-   "n",
-   ',h',
-   function()
-      telescope_builtin.help_tags()
-   end,
-   {silent = true, noremap = true},
-   "Telescope",
-   "telescope5",
-   "Find help tags"
-)
-Mapper.map(
-   "n",
-   '<leader>?',
-   function()
-      telescope_builtin.keymaps()
-      --vim.cmd("Telescope mapper")
-   end,
-   {silent = true, noremap = true},
-   "Telescope",
-   "telescope6",
-   "Find keymaps"
-)
-
-Mapper.map(
-   "n",
-   ',r',
-   function()
+    end,
+    keys = { "n", ",b" },
+    cat = "telescope",
+  },
+ {
+    desc = "Recent files",
+    cmd = function()
       telescope_builtin.oldfiles()
-   end,
-   {silent = true, noremap = true},
-   "Telescope",
-   "telescope7",
-   "Find recent files"
-)
+    end,
+    keys = { "n", ",r" },
+    cat = "telescope",
+  },
+  {
+    desc = "Translate selection",
+    cmd = function()
+      vim.fn.ChatGPTTranslateSelect(vim.fn.visualmode())
+    end,
+    keys = { "x", "<leader>X" },
+    cat = "mychatgpt",
+  },
+})

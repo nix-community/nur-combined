@@ -19,6 +19,9 @@
     rust-analyzer
     sumneko-lua-language-server
 
+    sox
+
+
     # Language Server Dependencies
     nodePackages.pyright
     nodePackages.tailwindcss

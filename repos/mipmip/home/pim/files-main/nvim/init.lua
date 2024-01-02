@@ -20,3 +20,8 @@ require("lazy").setup("plugins")
 
 require("functions")
 require("keymaps")
+
+
+vim.cmd('source ' .. vim.fn.stdpath("config") .. '/vimscript/mychatcpt.vim')
+
+

@@ -1,3 +1,6 @@
+
+
+
 local function reloadHomeManagerNeoVimConf()
   print("home manager rebuild")
   local pid = vim.fn.getpid()
