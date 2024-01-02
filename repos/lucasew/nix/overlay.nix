@@ -88,6 +88,8 @@ in
   '';
 
   ctl = cp ./pkgs/ctl;
+  cmdlinegl = cp ./pkgs/cmdlinegl;
+  
   personal-utils = cp ./pkgs/personal-utils.nix;
   fhsctl = cp ./pkgs/fhsctl.nix;
   comby = cp ./pkgs/comby.nix;
