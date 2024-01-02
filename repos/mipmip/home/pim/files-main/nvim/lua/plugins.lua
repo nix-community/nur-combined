@@ -6,7 +6,7 @@ return {
 
   'ntpeters/vim-better-whitespace',
   'junegunn/vim-easy-align',
-
+  'SidOfc/mkdx',
   'vim-voom/VOoM',
 
   -- 'mipmip/linny-wikitag-github',

@@ -8,6 +8,7 @@ return {
   config = function()
     local config = require("nvim-treesitter.configs")
     config.setup({
+      ensure_installed = { "markdown", "lua", "vim", "vimdoc" },
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -18,6 +19,7 @@ return {
         },
       },
       auto_install = true,
+      disable = { "c" },
       highlight = { enable = true },
       indent = { enable = true },
     })
