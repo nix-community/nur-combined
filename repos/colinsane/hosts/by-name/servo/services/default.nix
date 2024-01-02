@@ -1,9 +1,9 @@
 { ... }:
 {
   imports = [
-    ./bitcoin.nix
     ./calibre.nix
     ./coturn.nix
+    ./cryptocurrencies
     ./ddns-afraid.nix
     ./ddns-he.nix
     ./email
@@ -19,7 +19,6 @@
     ./komga.nix
     ./lemmy.nix
     ./matrix
-    ./monero.nix
     ./navidrome.nix
     ./nginx.nix
     ./nixos-prebuild.nix
