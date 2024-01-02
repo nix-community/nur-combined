@@ -129,6 +129,7 @@ in
     google-earth-pro = pkg ./uncategorized/google-earth-pro {};
     gopherus = pkg ./uncategorized/gopherus {};
     grasscutter = pkg ./uncategorized/grasscutter {};
+    hanyi-wenhei = pkg ./uncategorized/hanyi-wenhei {};
     hath = pkg ./uncategorized/hath {};
 
     # This package is failing on CI for unknown reason
