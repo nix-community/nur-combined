@@ -34,6 +34,9 @@ stdenv.mkDerivation (finalAttrs: {
 
     substituteInPlace configure \
       --replace script/configure "script/configure --prefix=$out"
+
+    substituteInPlace share/CmdlineGL.lib \
+      --replace 'case "$0" in' "PATH=\"\$PATH:$out/bin\"; case \"\$0\" in"
   '';
 
   # configureFlags = [
