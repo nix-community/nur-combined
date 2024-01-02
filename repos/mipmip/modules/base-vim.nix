@@ -15,6 +15,7 @@
     sqls
     gopls
     rnix-lsp
+    tree-sitter
     rust-analyzer
     sumneko-lua-language-server
 
