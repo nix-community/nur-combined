@@ -3,51 +3,43 @@ with lib;
 let
   cfg = config.services.watchdogd;
 
-  mkPluginOpts = plugin: {
+  mkPluginOpts = plugin: defWarn: defCrit: {
     enable = mkEnableOption "watchdogd plugin ${plugin}";
     interval = mkOption {
-      type = types.int;
+      type = types.ints.unsigned;
       default = 300;
       description = ''
-        The poll interval. Defaults to 300 seconds.
+        Amount of seconds between every poll.
       '';
     };
     logmark = mkOption {
       type = types.bool;
       default = false;
       description = ''
-        Log current stats every poll interval.
-        Defaults to disabled.
+        Whether to log current stats every poll interval.
       '';
     };
     warning = mkOption {
-      type = types.int;
+      type = types.ints.unsigned;
       description = ''
         The high watermark level. Alert sent to log.
       '';
+    } // optionalAttrs (defWarn != null) {
+      default = defWarn;
     };
     critical = mkOption {
-      type = types.int;
+      type = types.ints.unsigned;
+      default = defCrit;
       description = ''
         The critical watermark level. Alert sent to log, followed by reboot or script action.
       '';
+    } // optionalAttrs (defCrit != null) {
+      default = defCrit;
     };
   };
-
-  mkPluginConf = plugin:
-    let pcfg = cfg.${plugin};
-    in optionalString pcfg.enable ''
-      ${plugin} {
-        enabled  = true
-        interval = ${toString pcfg.interval}
-        logmark  = ${toString pcfg.logmark}
-        warning  = ${toString pcfg.warning}
-        critical = ${toString pcfg.critical}
-      }
-    '';
 in {
   options.services.watchdogd = {
-    enable = mkEnableOption "Advanced system & process supervisor";
+    enable = mkEnableOption "watchdogd, an advanced system & process supervisor";
     package = mkOption {
       default = pkgs.callPackage ../pkgs/troglobit/watchdogd.nix {};
       defaultText = "pkgs.watchdogd";
@@ -56,19 +48,17 @@ in {
     };
 
     timeout = mkOption {
-      type = types.int;
+      type = types.ints.unsigned;
       default = 15;
       description = ''
         The WDT timeout before reset.
-        Defaults to 15 seconds.
       '';
     };
     interval = mkOption {
-      type = types.int;
+      type = types.ints.unsigned;
       default = 5;
       description = ''
-        The kick interval, i.e. how often watchdogd(8) should reset the WDT timer.
-        Defaults to 5 seconds.
+        The kick interval, i.e. how often {manpage}`watchdogd(8)` should reset the WDT timer.
       '';
     };
 
@@ -76,52 +66,61 @@ in {
       type = types.bool;
       default = true;
       description = ''
-        With safeExit enabled, the daemon will ask the driver to disable the WDT before exiting.
-        However, some WDT drivers (or HW) may not support this
-        Defaults to true.
+        With {var}`safeExit` enabled, the daemon will ask the driver to disable the WDT before exiting.
+        However, some WDT drivers (or hardware) may not support this.
       '';
     };
 
     extraConfig = mkOption {
-      type = types.lines;
-      default = "";
+      type = with types; nullOr lines;
+      default = null;
       description = ''
-        Additional config to put in watchdogd.conf.
-        See watchdogd.conf(5) for syntax.
-      '';
+        Additional config to put in {file}`watchdogd.conf`.
+        See {manpage}`watchdogd.conf(5)` for syntax.
+     '';
     };
 
-    filenr = mkPluginOpts "filenr";
-    loadavg = mkPluginOpts "loadavg";
-    meminfo = mkPluginOpts "meminfo";
+    filenr = mkPluginOpts "filenr" 0.9 1.0;
+    loadavg = mkPluginOpts "loadavg" null null;
+    meminfo = mkPluginOpts "meminfo" 0.9 0.95;
   };
 
-  config = mkIf cfg.enable {
+  config = let
+    mkPluginConf = plugin:
+      let pcfg = cfg.${plugin};
+      in optionalString pcfg.enable ''
+        ${plugin} {
+          enabled  = true
+          interval = ${toString pcfg.interval}
+          logmark  = ${toString pcfg.logmark}
+          warning  = ${toString pcfg.warning}
+          critical = ${toString pcfg.critical}
+        }
+    '';
+    watchdogdConf = pkgs.writeText "watchdogd.conf" ''
+      timeout = ${toString cfg.timeout}
+      interval = ${toString cfg.interval}
+      safe-exit = ${boolToString cfg.safeExit}
+      ${mkPluginConf "filenr"}
+      ${mkPluginConf "loadavg"}
+      ${mkPluginConf "meminfo"}
+      ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
+    '';
+  in mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
     # Create the service.
     systemd.services.watchdogd = {
+      documentation = [
+        "man:watchdogd(8)"
+        "man:watchdogd.conf(5)"
+      ];
       wantedBy = [ "multi-user.target" ];
       description = "Advanced system & process supervisor";
-      path = [ cfg.package ];
-      restartTriggers = [ config.environment.etc."watchdogd.conf".source ];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/watchdogd -n -f /etc/watchdogd.conf";
+        ExecStart = "${cfg.package}/bin/watchdogd -n -f ${watchdogdConf}";
       };
-    };
-
-    # Write the config.
-    environment.etc."watchdogd.conf" = {
-      mode = "0644";
-      text = ''
-        timeout = ${toString cfg.timeout}
-        interval = ${toString cfg.interval}
-        safe-exit = ${boolToString cfg.safeExit}
-        ${mkPluginConf "filenr"}
-        ${mkPluginConf "loadavg"}
-        ${mkPluginConf "meminfo"}
-      '';
     };
   };
 }
