@@ -1,33 +1,31 @@
 {
   lib,
-  pkgs,
   buildVimPlugin,
   fetchFromGitHub,
-}: let
-  doq = pkgs.python3Packages.callPackage ../../doq { };
-in
-  buildVimPlugin rec {
-    pname = "vim-pydocstring";
-    version = "2.5.0";
+  doq,
+}:
+buildVimPlugin rec {
+  pname = "vim-pydocstring";
+  version = "2.5.0";
 
-    src = fetchFromGitHub {
-      owner = "heavenshell";
-      repo = "vim-pydocstring";
-      rev = "refs/tags/v${version}";
-      hash = "sha256-z8mIRjXfkM/r21FoLuIUaMkHiDs6kjjtNcztMijKl4E=";
-    };
+  src = fetchFromGitHub {
+    owner = "heavenshell";
+    repo = "vim-pydocstring";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-z8mIRjXfkM/r21FoLuIUaMkHiDs6kjjtNcztMijKl4E=";
+  };
 
-    buildInputs = [doq];
-    postPatch = ''
-      substituteInPlace autoload/pydocstring.vim \
-        --replace "printf('%s/lib/doq', expand('<sfile>:p:h:h'))" "'${doq}/bin/doq'"
-    '';
-    dontBuild = true;
+  buildInputs = [doq];
+  postPatch = ''
+    substituteInPlace autoload/pydocstring.vim \
+      --replace "printf('%s/lib/doq', expand('<sfile>:p:h:h'))" "'${doq}/bin/doq'"
+  '';
+  dontBuild = true;
 
-    meta = with lib; {
-      description = "Generate Python docstring to your Python source code";
-      homepage = "https://github.com/heavenshell/vim-pydocstring";
-      license = licenses.bsd3;
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description = "Generate Python docstring to your Python source code";
+    homepage = "https://github.com/heavenshell/vim-pydocstring";
+    license = licenses.bsd3;
+    platforms = platforms.unix;
+  };
+}
