@@ -9,6 +9,7 @@
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
     };
 
@@ -27,6 +28,9 @@
       owner = "numtide";
       repo = "flake-utils";
       ref = "main";
+      inputs = {
+        systems.follows = "systems";
+      };
     };
 
     home-manager = {
@@ -63,6 +67,13 @@
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
       };
+    };
+
+    systems = {
+      type = "github";
+      owner = "nix-systems";
+      repo = "default";
+      ref = "main";
     };
   };
 
