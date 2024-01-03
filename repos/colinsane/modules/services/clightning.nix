@@ -18,6 +18,7 @@ let
     network=bitcoin
     bitcoin-datadir=${bitcoind.dataDir}
     ${lib.optionalString (cfg.proxy != null) "proxy=${cfg.proxy}"}
+    ${lib.optionalString (cfg.publicAddress != null) "addr=${cfg.publicAddress}"}
     always-use-proxy=${lib.boolToString cfg.always-use-proxy}
     bind-addr=${cfg.address}:${toString cfg.port}
     bitcoin-rpcconnect=127.0.0.1
@@ -68,6 +69,28 @@ in
         default = "127.0.0.1";
         description = mdDoc "Address to listen for peer connections.";
       };
+      publicAddress = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          address to publish to peers.
+          leaving this empty will prevent incoming connections and channels, but it should still be possible to create outgoing channels.
+
+          formats:
+          - statictor:<ip>:<port>
+            creates a tor hidden service based on this node's pubkey, which remains constant across reboots.
+        '';
+        example = "statictor:127.0.0.1:9051";
+      };
+      getPublicAddressCmd = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = mdDoc ''
+          Bash expression which outputs the public service address to announce to peers.
+          this is an alternative to the `publicAddress` option, for if the address is not known statically (e.g. tor).
+        '';
+      };
+
       port = mkOption {
         type = types.port;
         default = 9735;
@@ -140,7 +163,12 @@ in
         rm -f ${cfg.networkDir}/lightning-rpc
 
         umask u=rw,g=r,o=
-        cat ${configFile} ${lib.concatStringsSep " " cfg.extraConfigFiles} > ${cfg.dataDir}/config
+        {
+          cat ${configFile} ${lib.concatStringsSep " " cfg.extraConfigFiles}
+          ${lib.optionalString (cfg.getPublicAddressCmd != null) ''
+            echo "announce-addr=$(${cfg.getPublicAddressCmd}):${builtins.toString cfg.port}"
+          ''}
+        } > ${cfg.dataDir}/config
       '';
       # Wait until the rpc socket appears
       postStart = ''

@@ -30,6 +30,13 @@
       # see docs at top of file for how to generate this
       passwordHMAC = "30002c05d82daa210550e17a182db3f3$6071444151281e1aa8a2729f75e3e2d224e9d7cac3974810dab60e7c28ffaae4";
     };
+    extraConfig = ''
+      # don't load the wallet, and disable wallet RPC calls
+      disablewallet=1
+      # TODO: configure tor integration
+      # proxy=127.0.0.1:9050
+      # externalip=$(cat /var/lib/tor/onion/bitcoind/hostname)
+    '';
   };
 
   sane.users.colin.fs.".bitcoin/bitcoin.conf" = sane-lib.fs.wantedSymlinkTo config.sops.secrets."bitcoin.conf".path;
