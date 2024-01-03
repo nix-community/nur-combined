@@ -6,11 +6,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "qutebrowser";
-  version = "2.5.3";
+  version = "3.1.0";
 
   src = fetchurl {
     url = "https://github.com/qutebrowser/qutebrowser/releases/download/v${version}/qutebrowser-${version}.dmg";
-    sha256 = "sha256-T3DMZhIuXxI1tDCEi7knu6lscGCVSjU1UW76SaKd1N4=";
+    sha256 = "sha256-AvuuwUnxMcr2ekZ/O1FL/4IizV1aTMhXNrbf1SwNY7U=";
   };
 
   nativeBuildInputs = [undmg];

@@ -6,24 +6,16 @@
 }:
 stdenv.mkDerivation rec {
   pname = "nowplaying-cli";
-  version = "1.1.0";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "kirtan-shah";
     repo = "nowplaying-cli";
     rev = "v${version}";
-    hash = "sha256-IBAWeBtFAKjvmOkgyHnx4m66UO0Eu4rywPxEFgxM6nQ=";
+    hash = "sha256-FkyrtgsGzpK2rLNr+oxfPUbX43TVXYeiBg7CN1JUg8Y=";
   };
 
   buildInputs = [Cocoa];
-
-  buildPhase = ''
-    runHook preBuild
-
-    ${stdenv.cc}/bin/cc nowplaying.mm -framework Cocoa -o nowplaying-cli -O3
-
-    runHook postBuild
-  '';
 
   installPhase = ''
     runHook preInstall

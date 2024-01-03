@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -24,8 +24,12 @@
   };
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { };
-  liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { };
-  liga-hackgen-nf-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen/nerdfont.nix { };
+  liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { 
+    inherit ligaturizer; 
+  };
+  liga-hackgen-nf-font = liga-hackgen-font.override { 
+    nerdfont = true; 
+  };
 
   vimPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vim-plugins { inherit (pkgs.vimUtils) buildVimPlugin; });
 }
