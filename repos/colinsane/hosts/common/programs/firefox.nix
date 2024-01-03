@@ -178,6 +178,10 @@ in
           package = pkgs.firefox-extensions.bypass-paywalls-clean;
           enable = lib.mkDefault true;
         };
+        ctrl-shift-c-should-copy = {
+          package = pkgs.firefox-extensions.ctrl-shift-c-should-copy;
+          enable = lib.mkDefault true;
+        };
         ether-metamask = {
           package = pkgs.firefox-extensions.ether-metamask;
           enable = lib.mkDefault false;  # until i can disable the first-run notification

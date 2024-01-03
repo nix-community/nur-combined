@@ -115,6 +115,7 @@ in (lib.makeScope newScope (self: with self; {
     # `wget ...xpi`; `unar ...xpi`; `cat */manifest.json | jq '.browser_specific_settings.gecko.id'`
     browserpass-extension = callPackage ./browserpass-extension { };
     bypass-paywalls-clean = callPackage ./bypass-paywalls-clean { };
+    ctrl-shift-c-should-copy = callPackage ./ctrl-shift-c-should-copy { };
 
     ether-metamask = fetchVersionedAddon rec {
       extid = "webextension@metamask.io";

@@ -20,12 +20,6 @@
     tx-proxy=tor,127.0.0.1:9050
   '';
 
-  services.i2p.enable = true;
-  # tor: `tor.enable` doesn't start a relay, exit node, proxy, etc. it's minimal.
-  # tor.client.enable configures a torsocks proxy, accessible *only* to localhost.
-  services.tor.enable = true;
-  services.tor.client.enable = true;
-
   # monero ports: <https://monero.stackexchange.com/questions/604/what-ports-does-monero-use-rpc-p2p-etc>
   # - 18080 = "P2P" monero node <-> monero node connections
   # - 18081 = "RPC" monero client -> monero node connections

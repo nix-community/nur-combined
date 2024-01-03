@@ -156,7 +156,20 @@ in
       isSystemUser = true;
       group = cfg.group;
       extraGroups = [ "bitcoind-${cfg.bitcoindName}" ];
+      home = cfg.dataDir;
     };
     users.groups.${cfg.group} = {};
+
+    sane.fs."${cfg.dataDir}".dir.acl = {
+      user = cfg.user;
+      group = cfg.group;
+      mode = "0700";
+    };
+
+    # ~/.lightning is needed only when interactively calling `lightning-cli` as the `clightning` user.
+    sane.fs."${cfg.dataDir}/.lightning" = {
+      symlink.target = cfg.dataDir;
+      wantedBeforeBy = [ "clightning.service" ];
+    };
   };
 }
