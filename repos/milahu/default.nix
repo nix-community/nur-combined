@@ -662,7 +662,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     perlPackages = pkgs.perlPackages; # // { perl = pkgs.perl; };
   };
 
-  apt-init-config = callPackage ./pkgs/tools/package-management/apt/apt-init-config.nix { };
+  apt-init-config = callPackage ./pkgs/tools/package-management/apt-init-config/apt-init-config.nix { };
 
   apt-file = perlPackages.callPackage ./pkgs/tools/package-management/apt-file/apt-file.nix { };
 
