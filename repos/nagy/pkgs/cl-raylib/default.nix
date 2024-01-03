@@ -2,13 +2,13 @@
 
 sbcl.buildASDFSystem {
   pname = "cl-raylib";
-  version = "unstable-2023-04-17";
+  version = "unstable-2023-10-26";
 
   src = fetchFromGitHub {
     owner = "longlene";
     repo = "cl-raylib";
-    rev = "134322a238b2825b109164b1dac7f485aa70bc8d";
-    hash = "sha256-nVPuv/pFCNA3ukToJiHhGHVNa/+ipYIR4nluskofDXI=";
+    rev = "abdf7de519dfb48382862123619328602a95e03a";
+    hash = "sha256-NpZTOUZtfP5w47ltk7S8nQVx4XhiBlSPauvkiwXyW84=";
   };
 
   lisp = sbcl;
