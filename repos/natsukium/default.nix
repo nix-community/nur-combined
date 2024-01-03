@@ -17,6 +17,7 @@
   colima = pkgs.callPackage ./pkgs/colima { };
   copyq = pkgs.callPackage ./pkgs/copyq { };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
+  nixfmt = pkgs.callPackage ./pkgs/nixfmt { };
   nixpkgs-review = pkgs.callPackage ./pkgs/nixpkgs-review { };
   nowplaying-cli = pkgs.callPackage ./pkgs/nowplaying-cli { 
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
