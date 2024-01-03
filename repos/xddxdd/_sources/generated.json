@@ -813,7 +813,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2023-12-26",
+        "date": "2024-01-02",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -825,11 +825,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "6982f4c28fb4cc76ad3cf033364f9f2a6cd2d6ab",
-            "sha256": "sha256-2ScdrklRdtcNEmjw/rzIEyBiOeUSEyEzukfNLorW+yA=",
+            "rev": "b19697422f433b85c8e46573078226a0956d37ae",
+            "sha256": "sha256-BQsKaTOBc1Cr7JWEV1DbFkQVGjlWiCd/ZZzHx3nCoxw=",
             "type": "github"
         },
-        "version": "6982f4c28fb4cc76ad3cf033364f9f2a6cd2d6ab"
+        "version": "b19697422f433b85c8e46573078226a0956d37ae"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1445,11 +1445,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nPDYNDuS4SrV5K0OaeTGjhmwPr1HFi1MWISGcCorgAA=",
+            "sha256": "sha256-vtuRbQZpaSXX+nk1Q1WuEMzi6XkNgo8BGjWUQcppZzo=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-1_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-3_amd64.deb"
         },
-        "version": "8.2.0+ds-1"
+        "version": "8.2.0+ds-3"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -1460,11 +1460,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-H7eXn5Ngnd99TQlxJycnqmoUwyhzSAAXGApRuVPyyl0=",
+            "sha256": "sha256-HuBnl3tXiA2BkrmD9EO5yYubS9xuvB9T/wvRPwgA7Ks=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-1_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-3_arm64.deb"
         },
-        "version": "8.2.0+ds-1"
+        "version": "8.2.0+ds-3"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -1475,11 +1475,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-NIKDfC6y7U/QtFS0hT2lQUEeYSGmJF7QqUZeoi4MZfo=",
+            "sha256": "sha256-k6jsX9MkfLO9lea36cG5Ju8rpfMHn+aWfLmNxDOtXMc=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-1_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-3_armhf.deb"
         },
-        "version": "8.2.0+ds-1"
+        "version": "8.2.0+ds-3"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -1490,11 +1490,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iOy/XBzFoYJ6KGx9hxnPq1YHILD6gbcNW5njA4JcLCI=",
+            "sha256": "sha256-tUIupo3Nhz1ORuUrFFNpVaXYzMBCMq527vNnIZ+xQxU=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-1_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-3_i386.deb"
         },
-        "version": "8.2.0+ds-1"
+        "version": "8.2.0+ds-3"
     },
     "qq-amd64": {
         "cargoLocks": null,
@@ -1603,7 +1603,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-12-28",
+        "date": "2024-01-02",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1615,11 +1615,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "3440d695aa75320c2babe0db72f7aa0104df00b9",
-            "sha256": "sha256-15DFfan89DsEo9VdUkq01OkEN3OanOfkK4tEu0qFEcc=",
+            "rev": "2a3a2f807623e468d1ae449f5a5dffa699e62815",
+            "sha256": "sha256-iVQhEuD8Pxp4upPE4Ck1uq3ak/8921eV4GFmX3P2Kuk=",
             "type": "github"
         },
-        "version": "3440d695aa75320c2babe0db72f7aa0104df00b9"
+        "version": "2a3a2f807623e468d1ae449f5a5dffa699e62815"
     },
     "rime-moegirl": {
         "cargoLocks": null,
