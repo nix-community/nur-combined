@@ -2,10 +2,11 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ ezModules, ... }:
+{ pkgs, lib, ... }:
 {
-  imports = [
-    ezModules.suite-desktop
-    ezModules.profile-fish
-  ];
+  programs.jq.enable = true;
+
+  home.packages = lib.attrValues {
+    inherit (pkgs) yq;
+  };
 }

@@ -4,9 +4,9 @@
 
 { pkgs, ... }:
 {
-  programs.starship = {
+  programs.chromium = {
     enable = true;
-    enableTransience = true;
-    settings = pkgs.lib.importTOML ./starship.toml;
+    package = pkgs.google-chrome;
+    commandLineArgs = [ "--ozone-platform=wayland" ];
   };
 }

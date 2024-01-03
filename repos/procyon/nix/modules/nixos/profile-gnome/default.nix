@@ -33,6 +33,7 @@
       ])
       ++ (with pkgs.gnome; [
         gnome-initial-setup
+        gnome-backgrounds
         gnome-calculator
         gnome-contacts
         gnome-calendar

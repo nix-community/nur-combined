@@ -2,11 +2,13 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ pkgs, ... }:
+{ ... }:
 {
-  programs.starship = {
+  programs.eza = {
+    git = true;
+    icons = true;
     enable = true;
-    enableTransience = true;
-    settings = pkgs.lib.importTOML ./starship.toml;
+    enableAliases = true;
+    extraOptions = [ "--group-directories-first" ];
   };
 }

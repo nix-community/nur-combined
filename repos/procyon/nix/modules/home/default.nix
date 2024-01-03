@@ -10,14 +10,6 @@
     flake.inputs.nur.hmModules.nur
   ];
 
-  fonts.fontconfig.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
-
-  programs.home-manager.enable = true;
-
-  targets.genericLinux.enable = pkgs.stdenv.isLinux;
-
   home = {
     inherit (flake.selfLib.data) stateVersion;
     username = lib.mkDefault flake.config.people.myself;

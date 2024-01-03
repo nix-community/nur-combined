@@ -4,13 +4,29 @@
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
-[nix_shell]
-heuristic = true
+format = '$all'
+
+right_format='$nix_shell'
 
 [os]
 disabled = false
-format = "on [($name )]($style)"
+format = 'on [$name](bold yellow) '
 
 [time]
 disabled = false
 utc_time_offset = "-3"
+
+[git_status]
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+
+[shell]
+disabled = false
+format = 'with [$indicator](bold yellow) '
+
+[nix_shell]
+format = '$state '
+pure_msg = '[  pure \[$name\]](green)'
+impure_msg = '[  impure \[$name\]](red)'
+unknown_msg = '[  unknown \[$name\]](yellow)'

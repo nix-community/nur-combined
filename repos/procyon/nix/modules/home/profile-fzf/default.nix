@@ -2,10 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ ezModules, ... }:
+{ ... }:
 {
-  imports = [
-    ezModules.suite-desktop
-    ezModules.profile-fish
-  ];
+  programs.fzf.enable = true;
 }
