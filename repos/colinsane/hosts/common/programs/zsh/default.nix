@@ -85,6 +85,16 @@ in
           # emulate bash keybindings
           bindkey -e
 
+          # fixup bindings not handled by bash, see: <https://wiki.archlinux.org/title/Zsh#Key_bindings>
+          # `bindkey -e` seems to define most of the `key` array. everything in the Arch defaults except for these:
+          key[Backspace]="''${terminfo[kbs]}"
+          key[Control-Left]="''${terminfo[kLFT5]}"
+          key[Control-Right]="''${terminfo[kRIT5]}"
+          key[Shift-Tab]="''${terminfo[kcbt]}"
+          bindkey -- "''${key[Delete]}"     delete-char
+          bindkey -- "''${key[Control-Left]}"  backward-word
+          bindkey -- "''${key[Control-Right]}"  forward-word
+
           # or manually recreate what i care about...
           # key[Left]=''${terminfo[kcub1]}
           # key[Right]=''${terminfo[kcuf1]}
