@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ste";
-  version = "0.3.3";
+  version = "0.5";
 
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "ste";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-82XTVe3ayPKm0sZ/PSMNkBdoYBSLygWB/JBClXWq4r8=";
+    hash = "sha256-Apa+I9BkkLry5LBjxhmUzAwagLjhBTly1YNJ029jANM=";
   };
 
   nativeBuildInputs = [ redo-apenwarr ];

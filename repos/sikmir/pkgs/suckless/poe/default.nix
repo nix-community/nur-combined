@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "poe";
-  version = "1.6.0";
+  version = "1.7.2";
 
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "poe";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-6TWjdiNfcw2wsL5TSzA5LFKWAgsosPihAFXDC09Qxj0=";
+    hash = "sha256-mtHSB2s3fSchLrYnAOJjvwepzlNWyWb4nvCRe3C7zeI=";
   };
 
   nativeBuildInputs = [ redo-apenwarr ];
