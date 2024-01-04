@@ -9,13 +9,14 @@
 let
   gnomeExtensions = with pkgs.gnomeExtensions; [
     pano
-    unmess
     caffeine
     gsconnect
+    logo-menu
     mpris-label
     user-themes
     appindicator
     tailscale-qs
+    dash-to-dock
   ];
 in
 {
@@ -31,6 +32,7 @@ in
       edge-tiling = true;
       dynamic-workspaces = true;
       workspaces-only-on-primary = true;
+      experimental-features = [ "scale-monitor-framebuffer" ];
     };
 
     "org/gnome/shell" = {
@@ -38,16 +40,36 @@ in
       disabled-extensions = [ ];
       enabled-extensions =
         (map (extension: extension.extensionUuid) gnomeExtensions) ++ [
+          "apps-menu@gnome-shell-extensions.gcampax.github.com"
           "light-style@gnome-shell-extensions.gcampax.github.com"
           "places-menu@gnome-shell-extensions.gcampax.github.com"
+          "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
         ];
     };
     "org/gnome/shell/extensions/user-theme".name = config.gtk.theme.name;
+    "org/gnome/shell/extensions/auto-move-windows".application-list = [ "google-chrome.desktop:2" "kitty.desktop:3" "spotify.desktop:4" ];
+    "org/gnome/shell/extensions/mpris-label" = {
+      album-size = 100;
+      second-field = "";
+      extension-index = 0;
+    };
+    "org/gnome/shell/extensions/dash-to-dock" = {
+      show-mounts = false;
+      height-fraction = 1.0;
+      running-indicator-style = "SEGMENTED";
+    };
+    "org/gnome/shell/extensions/Logo-menu" = {
+      hide-softwarecentre = true;
+      menu-button-icon-image = 23;
+      show-activities-button = true;
+      menu-button-terminal = "kitty";
+    };
 
     "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
     "org/gnome/desktop/wm/preferences".button-layout = "close,maximize,minimize:appmenu";
-    "org/gnome/desktop/app-folders/folders/Utilities".apps = [ "gnome-abrt.desktop" "gnome-system-log.desktop" "nm-connection-editor.desktop" "org.gnome.baobab.desktop" "org.gnome.Connections.desktop" "org.gnome.DejaDup.desktop" "org.gnome.Dictionary.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.fonts.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.tweaks.desktop" "org.gnome.Usage.desktop" "vinagre.desktop" "ca.desrt.dconf-editor.desktop" "org.gnome.Settings.desktop" "org.gnome.Extensions.desktop" "gnome-system-monitor.desktop" "fish.desktop" ];
+    "org/gnome/desktop/app-folders/folders/Utilities".apps = [ "gnome-abrt.desktop" "gnome-system-log.desktop" "nm-connection-editor.desktop" "org.gnome.baobab.desktop" "org.gnome.Connections.desktop" "org.gnome.DejaDup.desktop" "org.gnome.Dictionary.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.fonts.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.tweaks.desktop" "org.gnome.Usage.desktop" "vinagre.desktop" "ca.desrt.dconf-editor.desktop" "org.gnome.Settings.desktop" "org.gnome.Extensions.desktop" "gnome-system-monitor.desktop" "fish.desktop" "Helix.desktop" ];
     "org/gnome/desktop/interface" = {
+      scaling-factor = 1.25;
       enable-hot-corners = true;
       color-scheme = "prefer-dark";
     };
