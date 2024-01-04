@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  fonts.fonts = with pkgs; [ whatsapp-emoji-font ];
+  fonts.packages = with pkgs; [ whatsapp-emoji-font ];
 }

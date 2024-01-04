@@ -32,7 +32,6 @@ in
         src = flake.inputs.src-python-pynvim_pp;
       });
       pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode {};
-      streamlit-webrtc = final.callPackage ./pkgs/python/streamlit-webrtc {};
       kenlm = final.callPackage ./pkgs/python/kenlm {};
       facenet-pytorch = final.callPackage ./pkgs/python/facenet-pytorch {};
       face_recognition = prev.face_recognition.overrideAttrs (old: {
@@ -246,13 +245,13 @@ in
     llama-cpp = prev.llama-cpp.override {
       stdenv = prev.gcc11Stdenv;
       cudaSupport = true;
-      openblasSupport = false;
+      # openblasSupport = false;
     };
   };
   ollama-rocm = prev.ollama.override {
     llama-cpp = prev.llama-cpp.override {
       rocmSupport = true;
-      openblasSupport = false;
+      # openblasSupport = false;
     };
   };
 

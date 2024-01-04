@@ -9,6 +9,12 @@ lib.mkIf config.services.invidious.enable {
   # networking.ports.invidious.port = lib.mkDefault 49149;
   services.invidious = {
     inherit (config.networking.ports.invidious) port;
+    settings = {
+      db = {
+        user = "invidious";
+        dbname = "invidious";
+      };
+    };
   };
 
   services.nginx.virtualHosts."${domain}" = {

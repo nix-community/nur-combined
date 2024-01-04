@@ -39,7 +39,7 @@ in
       (attrValues)
     ];
 
-    services.syncthing.folders = pipe config.services.syncthing.folder-targets [
+    services.syncthing.settings.folders = pipe config.services.syncthing.folder-targets [
       (mapAttrs (k: v: {
         path = "${config.services.syncthing.dataDir}/${k}";
       }))

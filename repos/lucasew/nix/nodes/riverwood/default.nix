@@ -40,17 +40,19 @@ in
     folder-targets = {
       obsidian = "/home/lucasew/WORKSPACE/ZETTEL/obsidian";
     };
-    folders = {
-      obsidian = {
-        label = "Obsidian";
-        id = "43a6e881-d9f2-4517-9ba4-22f4a0c41199";
-        devices = [ "moto-g52" ];
+    settings = {
+      folders = {
+        obsidian = {
+          label = "Obsidian";
+          id = "43a6e881-d9f2-4517-9ba4-22f4a0c41199";
+          devices = [ "moto-g52" ];
+        };
       };
-    };
-    devices = {
-      moto-g52 = {
-        addresses = [ "tcp://moto-g52" ]; # tailscale
-        id = "ZZB7S3J-5VVLWXY-OUSSEIS-N5SNGVC-MJVVRK2-7PNVQBE-SI7Z2O4-6GVINAK";
+      devices = {
+        moto-g52 = {
+          addresses = [ "tcp://moto-g52" ]; # tailscale
+          id = "ZZB7S3J-5VVLWXY-OUSSEIS-N5SNGVC-MJVVRK2-7PNVQBE-SI7Z2O4-6GVINAK";
+        };
       };
     };
   };
