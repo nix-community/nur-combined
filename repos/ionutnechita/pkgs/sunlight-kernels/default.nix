@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.6.8-lowlatency-sunlight1";
+  modDirVersion = "6.6.9-lowlatency-sunlight1";
 
   parts = lib.splitString "-" modDirVersion;
 
@@ -14,7 +14,7 @@ let
 
   rev = "${version}-${flavour}-${suffix}";
 
-  hash = "sha256-rSGCn9Lu1wWcQmA1T1tgzNWiaowhx9+RC/8QsqKjlQU=";
+  hash = "sha256-W3JS3qkqJx5aRCLsoqC9laJcB79YItoLvEQchgDYKug=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -33,7 +33,7 @@ buildLinux (args // rec {
       X86_AMD_PSTATE = lib.mkOverride 60 yes;
       X86_AMD_PSTATE_UT = no;
 
-      # Google's BBRv3 TCP congestion Control
+      # Google's BBRv3 TCP congestion Control.
       TCP_CONG_BBR = yes;
       DEFAULT_BBR = yes;
 
@@ -45,7 +45,7 @@ buildLinux (args // rec {
       FUTEX = yes;
       FUTEX_PI = yes;
 
-      # Shiftfs
+      # Shiftfs.
       SHIFT_FS = yes;
       SHIFT_FS_POSIX_ACL = yes;
 
