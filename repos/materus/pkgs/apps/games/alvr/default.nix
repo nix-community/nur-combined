@@ -1,12 +1,12 @@
-{ stdenv, fetchzip, fetchurl, lib, alsa-lib, gtk3, libunwind, x264, vulkan-loader, xorg, libva, libdrm, libvdpau, libbsd, libmd, xz }:
+{ stdenv, fetchzip, fetchurl, glib, lib, alsa-lib, gtk3, libunwind, x264, vulkan-loader, xorg, libva, libdrm, libvdpau, libbsd, libmd, xz }:
 stdenv.mkDerivation rec {
   pname = "alvr";
-  version = "v20.4.3";
+  version = "v20.5.0";
 
   src = fetchzip {
       url = "https://github.com/alvr-org/ALVR/releases/download/${version}/alvr_streamer_linux.tar.gz";
       name = "${pname}-${version}";
-      sha256 ="sha256-2gCy25FaEPe/eDddhUI8xKM1xrlthIk/yaCfbSLhlek=";
+      sha256 ="sha256-RkUVWk+6V+5MLwsvT7/d8JVps2MLnZfUMcWi8144E0I=";
     };
 
   sourceRoot = ".";
@@ -15,6 +15,7 @@ stdenv.mkDerivation rec {
     stdenv.cc.cc.lib
     alsa-lib
     gtk3
+    glib
     x264.lib
     vulkan-loader
     xorg.libX11
