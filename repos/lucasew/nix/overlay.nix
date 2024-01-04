@@ -32,6 +32,7 @@ in
         src = flake.inputs.src-python-pynvim_pp;
       });
       pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode {};
+      streamlit-webrtc = final.callPackage ./pkgs/python/streamlit-webrtc {};
       kenlm = final.callPackage ./pkgs/python/kenlm {};
       facenet-pytorch = final.callPackage ./pkgs/python/facenet-pytorch {};
       face_recognition = prev.face_recognition.overrideAttrs (old: {
