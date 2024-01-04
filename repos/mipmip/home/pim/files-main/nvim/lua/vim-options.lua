@@ -4,10 +4,18 @@ vim.g.linnycfg_path_index = vim.env.HOME .. '/secondbrain/wikiIndex'
 vim.g.linny_menu_display_docs_count = 1
 vim.g.linny_menu_display_taxo_count = 1
 vim.g.linnycfg_setup_autocommands = 1
+
 -- vim.g.linny_wikitags_register = {}
 vim.cmd [[
 let g:linny_wikitags_register = {}
 ]]
+
+
+vim.filetype.add({
+  extension = {
+    tfvars = 'terraform'
+  }
+})
 
 vim.o.hlsearch = true
 vim.wo.number = false

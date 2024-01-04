@@ -16,6 +16,8 @@ return {
   -- `opts = {}` is the same as calling `require('Comment').setup({})`
   {'numToStr/Comment.nvim', opts = {}},
 
+  {"chrisgrieser/nvim-genghis", dependencies = "stevearc/dressing.nvim"},
+
   'mipmip/vim-whitewriter',
   'mipmip/vim-petra',
   'srcery-colors/srcery-vim',

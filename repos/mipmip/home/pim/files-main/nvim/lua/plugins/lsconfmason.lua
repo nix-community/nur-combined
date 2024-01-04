@@ -29,6 +29,12 @@ return {
       lspconfig.lua_ls.setup({
         capabilites = capabilities,
       })
+      lspconfig.marksman.setup({
+        capabilites = capabilities,
+      })
+      -- lspconfig.terraformls.setup({
+      --   capabilites = capabilities,
+      -- })
       lspconfig.crystalline.setup({
         capabilites = capabilities,
       })

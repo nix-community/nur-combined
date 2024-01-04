@@ -17,25 +17,25 @@ commander.add({
     cat = "format",
   },
   {
+    desc = "Grep string under the cursor",
+    cmd = function()
+      telescope_builtin.grep_string()
+    end,
+    keys = { "n", "<c-]>" },
+    cat = "telescope",
+  },
+  {
     desc = "Find files in a fuzzy way",
     cmd = function()
       telescope_builtin.find_files()
     end,
-    keys = { "n", "<c-]>" },
+    keys = { "n", ",f" },
     cat = "telescope",
   },
   {
     desc = "Grep in file tree",
     cmd = function()
       telescope_builtin.live_grep()
-    end,
-    keys = { "n", ",f" },
-    cat = "telescope",
-  },
-  {
-    desc = "Grep string under the cursor",
-    cmd = function()
-      telescope_builtin.grep_string()
     end,
     keys = { "n", ",/" },
     cat = "telescope",
