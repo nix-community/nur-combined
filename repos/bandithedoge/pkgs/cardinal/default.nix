@@ -3,7 +3,7 @@
   sources,
   ...
 }:
-pkgs.stdenv.mkDerivation {
+pkgs.gcc10Stdenv.mkDerivation {
   inherit (sources.cardinal) src pname;
   version = sources.cardinal.date;
 
@@ -11,6 +11,7 @@ pkgs.stdenv.mkDerivation {
     cmake
     copyDesktopItems
     pkg-config
+    python3
   ];
 
   dontUseCmakeConfigure = true;
@@ -28,7 +29,6 @@ pkgs.stdenv.mkDerivation {
     liblo
     libsamplerate
     mesa
-    python3
     speexdsp
     xorg.libX11
     xorg.libXcursor
@@ -57,7 +57,10 @@ pkgs.stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  makeFlags = ["PREFIX=$(out)" "SYSDEPS=true" "STATIC_BUILD=true"];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SYSDEPS=true"
+  ];
 
   hardeningDisable = ["format"];
 
