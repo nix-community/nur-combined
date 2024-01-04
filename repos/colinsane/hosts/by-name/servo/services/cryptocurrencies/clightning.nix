@@ -8,7 +8,26 @@
 # - `sudo -u clightning -g clightning lightning-cli help`
 #
 # first, acquire peers:
+# - `lightning-cli connect id@host`
+#   where `id` is the node's pubkey, and `host` is perhaps an ip:port tuple, or a hash.onion:port tuple.
+#   for testing, choose any node listed on <https://1ml.com>
 # - `lightning-cli listpeers`
+#   should show the new peer, with `connected: true`
+#
+# then, open channels
+# - a lot of the larger nodes allow hands-free channel creation
+#   - either inbound or outbound, sometimes paid
+# - find nodes on:
+#   - <https://amboss.space>
+#   - <https://mempool.space>
+#   - <https://hashxp.org>
+#   - <https://1ml.com>
+#     - tor nodes: <https://1ml.com/node?order=capacity&iponionservice=true>
+# - a few tor-capable nodes which allow channel creation:
+#   - <https://c-otto.de/>
+#   - <https://cyberdyne.sh/>
+#   - <https://yalls.org/about/>
+#   - <https://coincept.com/>
 #
 # sanity:
 # - `lightning-cli listfunds`
@@ -59,5 +78,5 @@
     group = "clightning";
   };
 
-  sane.programs.clightning.enableFor.user.colin = true;  # put `lightning-cli` onto PATH
+  sane.programs.clightning.enableFor.user.colin = true;  # for debugging/admin: `lightning-cli`
 }

@@ -19,4 +19,7 @@
   services.tor.settings.DataDirectoryGroupReadable = true;
   # StateDirectoryMode defaults to 0700, and thereby prevents the onion hostnames from being group readable
   systemd.services.tor.serviceConfig.StateDirectoryMode = lib.mkForce "0710";
+  users.users.tor.homeMode = "0710";  # home mode defaults to 0700, causing readability problems, enforced by nixos "users" activation script
+
+  services.tor.settings.SafeLogging = false;  # show actual .onion names in the syslog, else debugging is impossible
 }

@@ -143,7 +143,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.clightning = {
       path  = [ bitcoind.package ];
-      wantedBy = [ "multi-user.target" ];
+      # note the wantedBy bitcoind: this should make it so that a bitcoind restart causes clightning to also restart (instead of to only stop)
+      wantedBy = [ "bitcoind-${cfg.bitcoindName}.service" "multi-user.target" ];
       requires = [ "bitcoind-${cfg.bitcoindName}.service" ];
       after = [ "bitcoind-${cfg.bitcoindName}.service" ];
 
