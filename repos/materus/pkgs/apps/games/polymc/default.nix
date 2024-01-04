@@ -43,13 +43,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "polymc";
-  version = "5.1";
+  version = "6.0";
 
   src = fetchFromGitHub {
     owner = "PolyMC";
     repo = "PolyMC";
     rev = version;
-    sha256 = "sha256-D7OYzuvrigtmbk3Apqf29v2bTMgmlDZKFYOx71isVRM=";
+    sha256 = "sha256-WaBig21M0GmHYWL0XVjuK7AH6H+X08f2r+cyH04Krx8=";
     fetchSubmodules = true;
   };
   dontWrapQtApps = true;
