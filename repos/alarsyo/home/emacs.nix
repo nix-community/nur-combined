@@ -43,7 +43,7 @@ in {
 
     programs.emacs = {
       enable = true;
-      package = pkgs.emacsNativeComp;
+      package = pkgs.emacs29;
       extraPackages = epkgs: [epkgs.vterm epkgs.pdf-tools pkgs.lilypond epkgs.mu4e];
     };
   };
