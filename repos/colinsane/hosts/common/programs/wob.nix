@@ -2,9 +2,11 @@
 # - <https://github.com/francma/wob/blob/master/wob.ini.5.scd>
 # - `wob -vv` to see config defaults
 #
+# the wob services defined here are largely based on those from SXMO.
+#
 # this should arguably be just a (user) service. nothing actually needs `wob` on the PATH.
 #
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.wob;
 in
@@ -60,13 +62,64 @@ in
         Restart = "always";
         RestartSec = "20s";
       };
+      path = [ cfg.package ];
       script = ''
         wobsock="$XDG_RUNTIME_DIR/${cfg.config.sock}"
         rm -f "$wobsock" || true
-        mkfifo "$wobsock" && ${cfg.package}/bin/wob <> "$wobsock"
+        mkfifo "$wobsock" && wob <> "$wobsock"
 
         # TODO: cleanup should be done in a systemd OnFailure, or OnExit, or whatever
         rm -f "$wobsock"
+      '';
+    };
+
+    services.wob-pulse = {
+      description = "notify wob when pulseaudio volume changes";
+      wantedBy = [ "wob.service" ];
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "20s";
+      };
+      path = with pkgs; [
+        # coreutils
+        gnugrep
+        gnused
+        pulseaudio
+      ];
+
+      script = ''
+
+        volismuted() {
+          pactl get-sink-mute @DEFAULT_SINK@ | grep -q "Mute: yes"
+        }
+
+        volget() {
+          if volismuted; then
+            printf "0"
+          else
+            pactl get-sink-volume @DEFAULT_SINK@ | head -n1 | cut -d'/' -f2 | sed 's/ //g' | sed 's/\%//'
+          fi
+        }
+
+        notify_volume_change() {
+          vol=$(volget)
+          if [ "$vol" != "$lastvol" ]; then
+            printf "%s\n" "$vol" > "$XDG_RUNTIME_DIR/${cfg.config.sock}"
+          fi
+          lastvol="$vol"
+        }
+
+        pactl subscribe | while read -r line; do
+          case "$line" in
+            "Event 'change' on sink "*)
+              notify_volume_change
+              ;;
+            "Event 'change' on source "*)
+              # microphone volume changed. ignore.
+              ;;
+          esac
+        done
       '';
     };
   };

@@ -64,7 +64,8 @@ systemctl --user start sxmo_notificationmonitor
 
 # monitor for headphone for statusbar
 # this also invokes `wob` whenever the volume is changed
-systemctl --user start sxmo_soundmonitor
+# don't: my volume monitoring is handled by sway
+#   systemctl --user start sxmo_soundmonitor
 
 # rotate UI based on physical display angle by default
 if [ -n "$SXMO_AUTOROTATE" ]; then

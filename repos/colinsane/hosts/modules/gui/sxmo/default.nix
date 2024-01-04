@@ -269,7 +269,6 @@ in
           "sfeed"   # want this here so that the user's ~/.sfeed/sfeedrc gets created
           # "superd"  # make superctl (used by sxmo) be on PATH
           # "sway-autoscaler"
-          "wob"  # volume/brightness on-screen display
         ];
 
         persist.byStore.cryptClearOnBoot = [
@@ -628,15 +627,18 @@ in
             serviceConfig.RestartSec = "20s";
           };
         in {
+          # these are defined here, and started mostly in sxmo_hook_start.sh.
+          # the ones commented our here are the ones i explicitly no longer use.
+          # uncommenting them here *won't* cause them to be auto-started.
           sxmo_autosuspend = sxmoService "autosuspend";
-          sxmo_battery_monitor = sxmoService "battery_monitor";
+          # sxmo_battery_monitor = sxmoService "battery_monitor";
           sxmo_desktop_widget = sxmoService "hook_desktop_widget";
           sxmo_hook_lisgd = sxmoService "hook_lisgdstart";
           sxmo_menumode_toggler = sxmoService "menumode_toggler";
           sxmo_modemmonitor = sxmoService "modemmonitor";
-          sxmo_networkmonitor = sxmoService "networkmonitor";
+          # sxmo_networkmonitor = sxmoService "networkmonitor";
           sxmo_notificationmonitor = sxmoService "notificationmonitor";
-          sxmo_soundmonitor = sxmoService "soundmonitor";
+          # sxmo_soundmonitor = sxmoService "soundmonitor";
           # sxmo_wob = sxmoService "wob";
           sxmo-x11-status = sxmoService "status_xsetroot";
 

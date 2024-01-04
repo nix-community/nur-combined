@@ -181,7 +181,7 @@ in
           "playerctl"  # for waybar & particularly to have playerctld running
           # "mako"  # notification daemon
           "swaynotificationcenter"  # notification daemon
-          # # "pavucontrol"
+          "wob"  # render volume changes on-screen
           # "gnome.gnome-bluetooth"  # XXX(2023/05/14): broken
           # "gnome.gnome-control-center"  # XXX(2023/06/28): depends on webkitgtk4_1
           "sway-contrib.grimshot"
