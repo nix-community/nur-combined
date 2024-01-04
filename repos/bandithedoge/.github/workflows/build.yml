@@ -65,11 +65,11 @@ jobs:
       - name: Build nix packages
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached -build-flags '--show-trace -vv' ci.nix -A cacheOutputs
 
+      - name: Trigger NUR update
+        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=bandithedoge"
+
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
           message: Update sources
-
-      - name: Trigger NUR update
-        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=bandithedoge"
