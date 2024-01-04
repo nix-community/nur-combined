@@ -983,10 +983,10 @@
     "homepage": "",
     "owner": "EdenEast",
     "repo": "nightfox.nvim",
-    "rev": "ccefc3e8b3dfe41d9fab2e0dd7ebe2e30c5f8feb",
-    "sha256": "01n0j6m28x9aw6rfm3iiq6qdpa1xbwmvq640d06g28my0b368a2m",
+    "rev": "34542a433e5bd03c27b6cd4570849d9cde59acf7",
+    "sha256": "0bl1vmy3d4kciwx0ab3dp5gqis2lxwymkg93vcm6lcwq3x6xk55z",
     "type": "tarball",
-    "url": "https://github.com/EdenEast/nightfox.nvim/archive/ccefc3e8b3dfe41d9fab2e0dd7ebe2e30c5f8feb.tar.gz",
+    "url": "https://github.com/EdenEast/nightfox.nvim/archive/34542a433e5bd03c27b6cd4570849d9cde59acf7.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nim.nvim": {
@@ -1163,10 +1163,10 @@
     "homepage": null,
     "owner": "rcarriga",
     "repo": "nvim-dap-ui",
-    "rev": "947660daced01c3eb673e3dc9527c988e42fe4cc",
-    "sha256": "098jkd2j42l5gff70m6q4mnwkzj6wmbbv3rlvnf2l09g61prp7y8",
+    "rev": "7e5e16427aaf814dc2d58e1b219def9ef2fa2435",
+    "sha256": "0ggp38ppin267fvyqpgxcmjacdks62h92j3y5kq5fi3ym5bj5yp8",
     "type": "tarball",
-    "url": "https://github.com/rcarriga/nvim-dap-ui/archive/947660daced01c3eb673e3dc9527c988e42fe4cc.tar.gz",
+    "url": "https://github.com/rcarriga/nvim-dap-ui/archive/7e5e16427aaf814dc2d58e1b219def9ef2fa2435.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-expand-expr": {
@@ -1211,10 +1211,10 @@
     "homepage": "",
     "owner": "mfussenegger",
     "repo": "nvim-lint",
-    "rev": "4dbc7ec60b33b656f7c54bb945671a55b18699f2",
-    "sha256": "0kaqnqyfm9nxkrb911nmvkdv5jhv625dlmkx8i7p3sgyxhxyxj72",
+    "rev": "d44185d3e57e00c164485a454174294b36ef7067",
+    "sha256": "1ls36dahn6h4gv5fqmww9vl3micndz5q925jw35bh12d6cb14573",
     "type": "tarball",
-    "url": "https://github.com/mfussenegger/nvim-lint/archive/4dbc7ec60b33b656f7c54bb945671a55b18699f2.tar.gz",
+    "url": "https://github.com/mfussenegger/nvim-lint/archive/d44185d3e57e00c164485a454174294b36ef7067.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-lspconfig": {
