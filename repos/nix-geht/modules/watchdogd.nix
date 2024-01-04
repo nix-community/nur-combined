@@ -20,7 +20,7 @@ let
       '';
     };
     warning = mkOption {
-      type = types.ints.unsigned;
+      type = types.numbers.nonnegative;
       description = ''
         The high watermark level. Alert sent to log.
       '';
@@ -28,7 +28,7 @@ let
       default = defWarn;
     };
     critical = mkOption {
-      type = types.ints.unsigned;
+      type = types.numbers.nonnegative;
       default = defCrit;
       description = ''
         The critical watermark level. Alert sent to log, followed by reboot or script action.
