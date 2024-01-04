@@ -33,6 +33,7 @@ in {
   sheepshaver-bin = callPackage' ./sheepshaver-bin;
   swift-mesonlsp-bin = callPackage' ./swift-mesonlsp-bin;
   symbols-nerd-font = callPackage' ./symbols-nerd-font;
+  tal = callPackages ./tal;
   treeSitterGrammars = callPackages ./treeSitterGrammars;
   vimPlugins = callPackage' ./vimPlugins;
   zrythm = callPackage' ./zrythm;

@@ -1,0 +1,197 @@
+{
+    "bassline-101": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "bassline-101",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QO1jNXugL7mcjfNnKl/s+c0Gf5Qw2gfAeiDwh7ot3gc=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-BassLine-101_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "chorus-lx": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "chorus-lx",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-F2OWyDo/Q9PsCuCxSDwu97lICVJpnMmZ85OZP7p4ag4=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/Tal-Chorus-LX_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "dac": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "dac",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-/7JDVxEfOQRqiCGPkejmPkbtnk3HqS/QgTskKz7Zfpc=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-DAC_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "drum": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "drum",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-9Dj5FLZPlHg3uHQqCbHfscramFH/cC6Eu777nrm7bUs=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-Drum_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "dub-x": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "dub-x",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-InaHBE9BG49wbYnkNrMbCAzPI1/ziEY3jSAuB40GylA=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-Dub-X_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "filter-2": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "filter-2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ymwvK21o3+FgqKcjVJ5R0qdFBbPPjEYlgL9QAfOEe+k=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-Filter-2_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "j-8": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "j-8",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-+wwzi/dfNFoOrekyAxsgBTlLPLF7Y5Uz3fFEM8BuCD8=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-J-8_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "mod": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "mod",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-RkCNzjRTcxMMkAIC/aiHXOwOU5Ssxxc9MwvHV08I6KI=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-Mod_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "noisemaker": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "noisemaker",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-MoVl5kb5jxTdkxoz+kOKTJ7dxFHnWbktEAX0M2+j/SA=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-NoiseMaker_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "reverb-4": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "reverb-4",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-sI2r0JHXUzUBHJqODINud7Ovj8C4iE1LzRYm/LUVW7o=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-Reverb-4_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "sampler": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "sampler",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-tiZL9EgPBWpUHVUvIZ2wiHcbqHwqGv+jfHu4xIea7OA=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-Sampler_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "u-no-lx": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "u-no-lx",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Ax9+TZYPtFn9efTfQ7xv2RAzZYXlxMSbOCwspM0y1RI=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-U-NO-LX-V2_64_linux.zip"
+        },
+        "version": "latest"
+    },
+    "vocoder": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vocoder",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-vOSpQqN8DEK4f5vISeQnZBpxhW3AaW1+/0ImajeoPsY=",
+            "type": "url",
+            "url": "https://tal-software.com/downloads/plugins/TAL-Vocoder-2_64_linux.zip"
+        },
+        "version": "latest"
+    }
+}

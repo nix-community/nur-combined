@@ -1,0 +1,64 @@
+[bassline-101]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-BassLine-101_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[chorus-lx]
+fetch.url = "https://tal-software.com/downloads/plugins/Tal-Chorus-LX_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[dac]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-DAC_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[drum]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-Drum_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[dub-x]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-Dub-X_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[filter-2]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-Filter-2_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[j-8]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-J-8_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[mod]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-Mod_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[noisemaker]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-NoiseMaker_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[reverb-4]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-Reverb-4_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[sampler]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-Sampler_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[u-no-lx]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-U-NO-LX-V2_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
+[vocoder]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-Vocoder-2_64_linux.zip"
+fetch.force = true
+src.manual = "latest"

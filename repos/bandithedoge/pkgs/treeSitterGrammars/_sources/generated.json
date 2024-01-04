@@ -1,7 +1,7 @@
 {
   "tree-sitter-hypr": {
     "cargoLocks": null,
-    "date": "2023-11-26",
+    "date": "2024-01-04",
     "extract": null,
     "name": "tree-sitter-hypr",
     "passthru": null,
@@ -13,10 +13,10 @@
       "name": null,
       "owner": "luckasRanarison",
       "repo": "tree-sitter-hypr",
-      "rev": "da3c1d780c8e04446722ece04beadb6a44eb442d",
-      "sha256": "sha256-P3ZiIurixNdBqKJrsmFibmScnwD0pjhljLo4L8BLtws=",
+      "rev": "9bd008f08ffbfb94146ce9d4f31002de66f0e627",
+      "sha256": "sha256-Fdq9ZbXy1kPeZCtaY1m1NIHM6OScnueYVzBZSJgdStw=",
       "type": "github"
     },
-    "version": "da3c1d780c8e04446722ece04beadb6a44eb442d"
+    "version": "9bd008f08ffbfb94146ce9d4f31002de66f0e627"
   }
 }
