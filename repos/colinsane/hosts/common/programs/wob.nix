@@ -88,7 +88,19 @@ in
         pulseaudio
       ];
 
+      # environment.WOB_VERBOSE = "1";
+
       script = ''
+
+        debug() {
+          printf "$@" >&2
+          printf "\n" >&2
+        }
+        verbose() {
+          if [ "$WOB_VERBOSE" = "1" ]; then
+            debug "$@"
+          fi
+        }
 
         volismuted() {
           pactl get-sink-mute @DEFAULT_SINK@ | grep -q "Mute: yes"
@@ -96,6 +108,7 @@ in
 
         volget() {
           if volismuted; then
+            verbose "muted"
             printf "0"
           else
             pactl get-sink-volume @DEFAULT_SINK@ | head -n1 | cut -d'/' -f2 | sed 's/ //g' | sed 's/\%//'
@@ -103,14 +116,18 @@ in
         }
 
         notify_volume_change() {
+          verbose "notify_volume_change"
           vol=$(volget)
+          verbose "got volume: %d -> %d" "$lastvol" "$vol"
           if [ "$vol" != "$lastvol" ]; then
+            debug "notify wob: %d -> %d" "$lastvol" "$vol"
             printf "%s\n" "$vol" > "$XDG_RUNTIME_DIR/${cfg.config.sock}"
           fi
           lastvol="$vol"
         }
 
         pactl subscribe | while read -r line; do
+          verbose "pactl says: %s" "$line"
           case "$line" in
             "Event 'change' on sink "*)
               notify_volume_change
