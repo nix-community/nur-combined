@@ -57,5 +57,7 @@ rec {
 
   rime-project-trans = pkgs.callPackage ./pkgs/rimePackages/rime-project-trans.nix { };
 
-  ryzen-smu = pkgs.linuxPackages.callPackage ./pkgs/common/ryzen-smu.nix { };
+  # ryzen-smu = pkgs.linuxPackages.callPackage ./pkgs/common/ryzen-smu.nix { };
+
+  cmd-wrapped = pkgs.callPackage ./pkgs/common/cmd-wrapped.nix { };
 }
