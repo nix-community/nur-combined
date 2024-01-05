@@ -31,7 +31,7 @@ in
   config = lib.mkIf cfg.enable {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud27;
+      package = pkgs.nextcloud28;
       hostName = "nextcloud.${config.networking.domain}";
       home = "/var/lib/nextcloud";
       maxUploadSize = cfg.maxSize;
@@ -41,6 +41,9 @@ in
         adminpassFile = cfg.passwordFile;
         dbtype = "pgsql";
         dbhost = "/run/postgresql";
+      };
+
+      extraOptions = {
         overwriteProtocol = "https"; # Nginx only allows SSL
       };
 
