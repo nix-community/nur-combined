@@ -68,8 +68,13 @@ in {
     remmina
     sqlite
     sshpass
-    nbr.telegram-desktop-bin # communication
-    vlc # media
+
+    # communication
+    tdesktop
+    # nbr.telegram-desktop-bin
+
+    # media
+    vlc
     stremio
     moonlight-qt
     nbr.wine-apps._7zip
