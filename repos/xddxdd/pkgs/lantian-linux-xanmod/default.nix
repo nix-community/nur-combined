@@ -25,14 +25,14 @@
       [
         (mkKernel {
           name = "${prefix'}generic";
-          inherit version src;
+          inherit version src sources;
           configFile = definitionDir + "/config.nix";
           patchDir = definitionDir + "/patches";
           lto = false;
         })
         (mkKernel {
           name = "${prefix'}generic-lto";
-          inherit version src;
+          inherit version src sources;
           configFile = definitionDir + "/config.nix";
           patchDir = definitionDir + "/patches";
           lto = true;
@@ -41,7 +41,7 @@
       ++ (builtins.map (march: [
           (mkKernel {
             name = "${prefix'}x86_64-${march}";
-            inherit version src;
+            inherit version src sources;
             configFile = definitionDir + "/config.nix";
             patchDir = definitionDir + "/patches";
             lto = false;
@@ -49,7 +49,7 @@
           })
           (mkKernel {
             name = "${prefix'}x86_64-${march}-lto";
-            inherit version src;
+            inherit version src sources;
             configFile = definitionDir + "/config.nix";
             patchDir = definitionDir + "/patches";
             lto = true;

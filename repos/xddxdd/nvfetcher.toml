@@ -54,6 +54,10 @@ fetch.github = "xddxdd/bird-lg-go"
 src.git = "https://github.com/open-quantum-safe/boringssl.git"
 fetch.github = "open-quantum-safe/boringssl"
 
+[cachyos-kernel-patches]
+src.git = "https://github.com/CachyOS/kernel-patches"
+fetch.github = "CachyOS/kernel-patches"
+
 [calibre-cops]
 src.github = "seblucas/cops"
 fetch.url = "https://github.com/seblucas/cops/releases/download/$ver/cops-$ver.zip"

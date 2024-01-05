@@ -143,6 +143,18 @@
     };
     date = "2023-12-04";
   };
+  cachyos-kernel-patches = {
+    pname = "cachyos-kernel-patches";
+    version = "0b2e931cf4087e47c1e3e37b5638ec7825cdb84d";
+    src = fetchFromGitHub {
+      owner = "CachyOS";
+      repo = "kernel-patches";
+      rev = "0b2e931cf4087e47c1e3e37b5638ec7825cdb84d";
+      fetchSubmodules = false;
+      sha256 = "sha256-qTyxG7+ViCTRwxVsgSmhc/fiybfneYxQ2s8ZzrlFJR4=";
+    };
+    date = "2024-01-04";
+  };
   calibre-cops = {
     pname = "calibre-cops";
     version = "1.1.3";

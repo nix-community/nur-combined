@@ -75,10 +75,48 @@
     src,
     configFile,
     patchDir,
+    sources,
     lto ? false,
     x86_64-march ? "v1",
     ...
-  }:
+  }: let
+    patchesInPatchDir =
+      builtins.map
+      (n: {
+        inherit n;
+        patch = patchDir + "/${n}";
+      })
+      (builtins.attrNames (builtins.readDir patchDir));
+
+    combinedPatchFromCachyOS = let
+      splitted = lib.splitString "-" version;
+      ver0 = builtins.elemAt splitted 0;
+      major = lib.versions.pad 2 ver0;
+      cachyDir = sources.cachyos-kernel-patches.src + "/${major}";
+    in rec {
+      name = "cachyos-patches-combined.patch";
+      patch = pkgs.runCommandNoCC name {} ''
+        for F in ${cachyDir}/*.patch; do
+          case "$F" in
+            # AMD pref core patch conflicts with me disabling AMD pstate for VMs
+            *-amd-pref-core.patch) continue;;
+
+            # Patches already included in Xanmod
+            *-bbr2.patch) continue;;
+            *-bbr3.patch) continue;;
+            *-futex-winesync.patch) continue;;
+
+            # Patches that conflict with Xanmod
+            *-cachy.patch) continue;;
+            *-clr.patch) continue;;
+            *-mm-*.patch) continue;;
+          esac
+
+          cat "$F" >> $out
+        done
+      '';
+    };
+  in
     lib.nameValuePair name (buildLinux {
       inherit lib;
       stdenv =
@@ -117,13 +155,9 @@
         [
           pkgs.kernelPatches.bridge_stp_helper
           pkgs.kernelPatches.request_key_helper
+          combinedPatchFromCachyOS
         ]
-        ++ (builtins.map
-          (n: {
-            inherit n;
-            patch = patchDir + "/${n}";
-          })
-          (builtins.attrNames (builtins.readDir patchDir)));
+        ++ patchesInPatchDir;
 
       extraMeta = {
         description = "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
