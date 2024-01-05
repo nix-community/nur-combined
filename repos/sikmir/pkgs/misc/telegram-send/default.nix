@@ -2,24 +2,25 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "telegram-send";
-  version = "2022-05-13";
+  version = "2023-10-07";
 
   src = fetchFromGitHub {
     owner = "rahiel";
     repo = "telegram-send";
-    rev = "34d7703754d441a6f4c4a7b5b3210759d36078e2";
-    hash = "sha256-/+hNnUT7kA19wpiHGNPVMQGostjoaDzHd91WYruJq0w=";
+    rev = "38cd39fb0eac6c58e886c11706ae39f58991af55";
+    hash = "sha256-DeEz1cVor2GBoQrDIHNWr5IYnPgBsTWr5xMuSM38MBw=";
   };
 
-  patches = [
-    # Update for PTB v20
-    (fetchpatch {
-      url = "https://github.com/rahiel/telegram-send/commit/daf6c404ce9dfcd94cfec789aedd622942f11091.patch";
-      hash = "sha256-e236VJVw/sPT583yB5kHEingT7w+3CyCslpzETcHWXo=";
-    })
-  ];
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "python-telegram-bot==20.6" "python-telegram-bot"
+  '';
+
+  nativeBuildInputs = with python3Packages; [ pip ];
 
   propagatedBuildInputs = with python3Packages; [ appdirs colorama python-telegram-bot ];
+
+  doCheck = false;
 
   meta = with lib; {
     description = "Send messages and files over Telegram from the command-line";

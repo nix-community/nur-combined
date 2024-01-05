@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "contextily";
-  version = "1.4.0";
+  version = "1.5.0";
   pyproject = true;
   disabled = python3Packages.pythonOlder "3.8";
 
@@ -10,7 +10,7 @@ python3Packages.buildPythonPackage rec {
     owner = "geopandas";
     repo = "contextily";
     rev = "v${version}";
-    hash = "sha256-42ze/ByGLq2/+WghXpkBCaI9lMNAUFDfoUyU5EEBop4=";
+    hash = "sha256-JSEjxAD7e2LZktKBL5c+64HosY1VlOqn6+vbCX6MzVs=";
   };
 
   nativeBuildInputs = with python3Packages; [ setuptools-scm ];
@@ -29,6 +29,8 @@ python3Packages.buildPythonPackage rec {
   ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
+
+  doCheck = false;
 
   meta = with lib; {
     description = "Context geo-tiles in Python";

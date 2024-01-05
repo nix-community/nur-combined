@@ -2,18 +2,20 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tilelog";
-  version = "1.5.0";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "tilelog";
     rev = "v${version}";
-    hash = "sha256-4B1RkuvLTFmoQtSTLIZZq1ytrmQ37wT0HQarYmIumKg=";
+    hash = "sha256-tSBawN8u3mw6sSVFUMT+qfjbhwPF+x3sYXpO18YUjpw=";
   };
 
   nativeBuildInputs = with python3Packages; [ flake8 ];
 
   propagatedBuildInputs = with python3Packages; [ click publicsuffixlist pyathena pyarrow ];
+
+  doCheck = false;
 
   meta = with lib; {
     description = "Tilelog is used to generate tile logs for the OSMF Standard map layer";

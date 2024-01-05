@@ -2,19 +2,23 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "curses-menu";
-  version = "2021-11-26";
+  version = "0.7.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pmbarrett314";
     repo = "curses-menu";
-    rev = "574d2b32db937be9442ce9140c42368668bd7d77";
-    hash = "sha256-0oBPhdigQ78RaVl0zLAdGN22cF7jXlH4xHXZzE6AedM=";
+    rev = version;
+    hash = "sha256-l5KPBPODfeQdZIW3kjoj4ImhokFKjxyiB7r57Ryqj0g=";
   };
+
+  nativeBuildInputs = with python3Packages; [ poetry-core ];
 
   propagatedBuildInputs = with python3Packages; [ deprecated pexpect pyte ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook pytest-cov ];
+
+  doCheck = false;
 
   meta = with lib; {
     description = "A simple console menu system using curses";

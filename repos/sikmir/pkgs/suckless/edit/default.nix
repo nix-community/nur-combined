@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "edit";
-  version = "0.3.2";
+  version = "2023-10-11";
 
   src = fetchFromGitHub {
     owner = "arthur-jacquin";
     repo = "edit";
-    rev = "db569efc2a3460591a44b7144769857292bdbe88";
-    hash = "sha256-q2E/XWARm6aek6E81fOb9gOpumEWxmtB1Ni5hHoQOkY=";
+    rev = "d2a9b26f21e45b699afb99180238f90055cd7332";
+    hash = "sha256-pXo5HnfJPpiXw7RApvaQcl4xvosUnyi3ov43dLcym48=";
   };
 
   postPatch = ''
