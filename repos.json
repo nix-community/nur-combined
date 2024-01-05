@@ -179,6 +179,9 @@
         "chisui": {
             "url": "https://github.com/chisui/nur-pkgs"
         },
+        "chordtoll": {
+            "url": "https://github.com/chordtoll/nur-packages"
+        },
         "chrisoboe": {
             "url": "https://github.com/ChrisOboe/nurrepo"
         },
