@@ -10,13 +10,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "watchdogd";
-  version = "3.5";
+  version = "4.0";
 
   src = fetchFromGitHub {
     owner = "troglobit";
     repo = "watchdogd";
     rev = "${version}";
-    hash = "sha256-DnXIOGZQK16jn20ASwrKIih/61zUuTTgeq7Gv9WLxxU=";
+    hash = "sha256-JNJj0CJGJXuIRpob2RXYqDRrU4Cn20PRxOjQ6TFsVYQ=";
   };
 
   nativeBuildInputs = [pkg-config autoreconfHook];
