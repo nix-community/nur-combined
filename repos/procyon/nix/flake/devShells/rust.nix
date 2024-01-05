@@ -16,9 +16,15 @@
         pkgs.mkShell {
           name = "rust-shell";
 
-          nativeBuildInputs = with pkgs; [ rust-analyzer ]
-            ++ (lib.optional stdenv.isLinux lldb)
-            ++ (lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.CoreFoundation);
+          nativeBuildInputs = with pkgs; [
+            rust-analyzer
+          ] ++ (lib.optionals stdenv.isLinux [
+            openssl
+            pkg-config
+          ])
+          ++ (lib.optionals stdenv.isDarwin [
+            darwin.apple_sdk.frameworks.CoreFoundation
+          ]);
 
           buildInputs = with pkgs; [ rust-bin.stable.latest.default ];
         };
