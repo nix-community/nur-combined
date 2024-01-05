@@ -38,6 +38,9 @@ in
         MemoryHigh = "1G";
         MemoryMax = "2G";
       };
+      environment = {
+        TRANSMISSION_WEB_HOME = lib.mkForce "${config.services.transmission.package}/share/transmission/web";
+      };
     };
     services.transmission = {
       openFirewall = true;
