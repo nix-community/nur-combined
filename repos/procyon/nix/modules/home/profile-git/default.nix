@@ -5,13 +5,23 @@
 
 { flake, pkgs, ... }:
 {
-  home.shellAliases = {
-    g = "git";
-    lg = "lazygit";
+  home = {
+    packages = with pkgs; [ git-crypt ];
+    shellAliases = {
+      g = "git";
+      lg = "lazygit";
+    };
   };
 
   programs = {
     lazygit.enable = true;
+    gh = {
+      enable = true;
+      extensions = with pkgs; [
+        gh-dash
+        gh-markdown-preview
+      ];
+    };
     git = {
       enable = true;
       lfs.enable = true;
