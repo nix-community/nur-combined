@@ -22,4 +22,8 @@
   idbuilder = pkgs.callPackage ./pkgs/idbuilder { };
   microsoft-todo-electron = pkgs.callPackage ./pkgs/microsoft-todo-electron { };
   sh-history-filter = pkgs.callPackage ./pkgs/sh-history-filter { };
+
+  mojave-dyn = pkgs.callPackage ./pkgs/mojave-dyn { };
+  catalina-dyn = pkgs.callPackage ./pkgs/catalina-dyn { };
+  bigsur-dyn = pkgs.callPackage ./pkgs/bigsur-dyn { };
 }
