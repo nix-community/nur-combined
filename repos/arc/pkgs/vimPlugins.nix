@@ -1,7 +1,6 @@
 {
-  notmuch-vim = { fetchFromGitHub, fetchpatch, vimUtils, notmuch, ruby, ruby_2_7 ? ruby, buildRubyGem, buildEnv, lib }:
+  notmuch-vim = { fetchFromGitHub, fetchpatch, vimUtils, notmuch, ruby, buildRubyGem, buildEnv, lib }:
   let
-    ruby = ruby_2_7;
     mail-gpg = buildRubyGem {
         inherit ruby;
         pname = "mail-gpg";
@@ -26,7 +25,7 @@
       type = "gem";
       version = "2.7.1";
     };
-  in vimUtils.buildVimPlugin {
+  in vimUtils.buildVimPlugin rec {
     pname = "notmuch-vim";
     version = "2018-08-23";
     src = fetchFromGitHub {
@@ -37,16 +36,16 @@
     };
     patches = [
       (let
-        rev = "6982d93e90ec493454981f36f4641507e3a3df90";
+        rev = "7423e2a42622cb12342b14fa0c3123b005ce8096";
       in fetchpatch {
         name = "notmuch-vim.patch";
-        url = "https://github.com/mashedcode/notmuch-vim/compare/master...arcnmx:${rev}.patch";
-        sha256 = "sha256-pdD4PUODUkuKIgC+7KSrk5QjoLNmPgTCUzhIY4sp3QE=";
+        url = "https://github.com/mashedcode/notmuch-vim/compare/${src.rev}...arcnmx:${rev}.patch";
+        sha256 = "sha256-5M67QLEXeo64SEzyvDHqTZSButTeR+w68otR1FMTKS4=";
       })
     ];
     gemEnv = buildEnv {
       name = "notmuch-vim-gems";
-      paths = with ruby.gems; [ mail mini_mime gpgme rack mail-gpg ]
+      paths = with ruby.gems; [ mail net-smtp mini_mime gpgme rack mail-gpg ]
       ++ lib.optional (notmuch ? ruby) notmuch.ruby;
       pathsToLink = [ "/lib" "/nix-support" ];
     };
