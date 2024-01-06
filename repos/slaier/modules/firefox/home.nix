@@ -31,6 +31,7 @@ in
       extensions = with nixosConfig.nur.repos.rycee.firefox-addons; [
         adnauseam
         aria2-integration
+        buster-captcha-solver
         clearurls
         copy-link-text
         history-cleaner
