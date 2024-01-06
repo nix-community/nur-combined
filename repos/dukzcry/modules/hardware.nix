@@ -70,8 +70,6 @@ in {
           ExternalCommand.command = "[ `cat /sys/class/power_supply/AC/online` == 1 ] && true";
         };
       };
-      programs.xss-lock.enable = true;
-      programs.xss-lock.lockerCommand = "${pkgs.i3lock}/bin/i3lock --color 000000";
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       boot.kernelParams = [ "mitigations=off" ];
