@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkIf;
@@ -38,13 +38,11 @@ in
         MemoryHigh = "1G";
         MemoryMax = "2G";
       };
-      environment = {
-        TRANSMISSION_WEB_HOME = lib.mkForce "${config.services.transmission.package}/share/transmission/web";
-      };
     };
     services.transmission = {
       openFirewall = true;
       openPeerPorts = true;
+      webHome = pkgs.flood-for-transmission;
       settings = {
         peer-port-random-on-start = true;
         peer-port-random-low = config.networking.ports.transmission-999.port;
