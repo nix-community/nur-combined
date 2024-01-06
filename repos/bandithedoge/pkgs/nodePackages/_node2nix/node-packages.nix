@@ -207,13 +207,13 @@
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "defu-6.1.3" = {
+    "defu-6.1.4" = {
       name = "defu";
       packageName = "defu";
-      version = "6.1.3";
+      version = "6.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/defu/-/defu-6.1.3.tgz";
-        sha512 = "Vy2wmG3NTkmHNg/kzpuvHhkqeIx3ODWqasgCRbKtbXEN0G+HpEEv9BtJLp7ZG1CZloFaC41Ah3ZFbq7aqCqMeQ==";
+        url = "https://registry.npmjs.org/defu/-/defu-6.1.4.tgz";
+        sha512 = "mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==";
       };
     };
     "destr-2.0.2" = {
@@ -914,10 +914,10 @@ in {
   "@tailwindcss/language-server" = nodeEnv.buildNodePackage {
     name = "_at_tailwindcss_slash_language-server";
     packageName = "@tailwindcss/language-server";
-    version = "0.0.15";
+    version = "0.0.16";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.15.tgz";
-      sha512 = "rzW0gJTLIiqsEUJ/MumCM15hkICb2nViygaBDKlJM906bjB0P6zKoN3eDfiV0YSd0c2Vd6hFm8+Rz0SI9no6Tw==";
+      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.16.tgz";
+      sha512 = "9zmvTppvma6WaA8L1VLwa+YeVgpEhsUOuslDFNzHt5lJ04SdHTc9VwF9EeOximFohXyts8Q3qSn3PWbFVBDNVg==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -990,7 +990,7 @@ in {
       sources."citty-0.1.5"
       sources."consola-3.2.3"
       sources."cross-spawn-7.0.3"
-      sources."defu-6.1.3"
+      sources."defu-6.1.4"
       sources."destr-2.0.2"
       sources."dotenv-16.3.1"
       sources."emmet-2.4.6"
