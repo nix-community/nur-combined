@@ -4,18 +4,20 @@
   stdenv,
   fetchurl,
   substituteAll,
-  git,
-  which,
+  # nginx dependencies
   brotli,
   gd,
+  git,
   libxcrypt,
   libxml2,
   libxslt,
-  openssl_3_0,
   pcre,
   perl,
+  quictls,
+  which,
   zlib,
   zstd,
+  # extra args to make nixpkgs happy
   modules ? [],
   ...
 } @ args: let
@@ -49,9 +51,9 @@ in
       libxcrypt
       libxml2
       libxslt
-      openssl_3_0
       pcre
       perl
+      quictls
       zlib
       zstd
     ];
