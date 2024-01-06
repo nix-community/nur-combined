@@ -96,9 +96,11 @@
 
   # lightning-config contains fields from here:
   # - <https://docs.corelightning.org/docs/configuration>
+  # secret config includes:
   # - bitcoin-rpcpassword
   # - alias=nodename
   # - rgb=rrggbb
+  # - feature configs (i.e. experimental-xyz options)
   sane.services.clightning.extraConfigFiles = [ config.sops.secrets."lightning-config".path ];
   sops.secrets."lightning-config" = {
     mode = "0600";
