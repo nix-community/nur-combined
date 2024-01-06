@@ -8,6 +8,11 @@
 # - guide: <https://github.com/ElementsProject/lightning>
 # - `sudo -u clightning -g clightning lightning-cli help`
 #
+# debugging:
+# - `lightning-cli getlog debug`
+# - `lightning-cli listpays`  -> show payments this node sent
+# - `lightning-cli listinvoices`  -> show payments this node received
+#
 # first, acquire peers:
 # - `lightning-cli connect id@host`
 #   where `id` is the node's pubkey, and `host` is perhaps an ip:port tuple, or a hash.onion:port tuple.
@@ -29,6 +34,7 @@
 #   - <https://terminal.lightning.engineering/>
 #   - <https://1ml.com>
 #     - tor nodes: <https://1ml.com/node?order=capacity&iponionservice=true>
+#   - <https://lightningnetwork.plus>
 #   - <https://mempool.space/lightning>
 #   - <https://amboss.space>
 # - a few tor-capable nodes which allow channel creation:
@@ -38,9 +44,11 @@
 #   - <https://coincept.com/>
 # - more resources: <https://www.lopp.net/lightning-information.html>
 #   - node routability: https://hashxp.org/lightning/node/<id>
+# - especially, acquire inbound liquidity via lightningnetwork.plus's swap feature
+#   - most of the opportunities are gated behind a minimum connection or capacity requirement
 #
 # tune payment parameters
-# - `lightning-cli setchannel id [feebase] [feeppm] [htlcmin] [htlcmax] [enforcedelay] [ignorefeelimits]`
+# - `lightning-cli setchannel <id> [feebase] [feeppm] [htlcmin] [htlcmax] [enforcedelay] [ignorefeelimits]`
 #   - e.g. `lightning-cli setchannel all 0 10`
 #   - it's suggested that feebase=0 simplifies routing.
 #
@@ -52,6 +60,7 @@
 #
 # to receive a payment (do as `clightning` user):
 # - `lightning-cli invoice <amount in millisatoshi> <label> <description>`
+#   - specify amount as `any` if undetermined
 #   - then give the resulting bolt11 URI to the payer
 # to send a payment:
 # - `lightning-cli pay <bolt11 URI>`
@@ -100,7 +109,12 @@
   # - bitcoin-rpcpassword
   # - alias=nodename
   # - rgb=rrggbb
+  # - fee-base=<millisatoshi>
+  # - fee-per-satoshi=<ppm>
   # - feature configs (i.e. experimental-xyz options)
+  sane.services.clightning.extraConfig = ''
+    log-level=debug:lightningd
+  '';
   sane.services.clightning.extraConfigFiles = [ config.sops.secrets."lightning-config".path ];
   sops.secrets."lightning-config" = {
     mode = "0600";
