@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "0b2e931cf4087e47c1e3e37b5638ec7825cdb84d";
+    version = "437e9f8a30506db73096006ba175a24dd866c1e6";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "0b2e931cf4087e47c1e3e37b5638ec7825cdb84d";
+      rev = "437e9f8a30506db73096006ba175a24dd866c1e6";
       fetchSubmodules = false;
-      sha256 = "sha256-qTyxG7+ViCTRwxVsgSmhc/fiybfneYxQ2s8ZzrlFJR4=";
+      sha256 = "sha256-dZ5KGBg9aF9AUlmd1hzweEKc1wBlu8CUxb4/dYsC9QE=";
     };
-    date = "2024-01-04";
+    date = "2024-01-05";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -557,13 +557,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.6.9-xanmod1";
+    version = "6.6.10-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.9-xanmod1";
+      rev = "6.6.10-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-ugcmPGnOHRfkNu15v0hX56TPt9LN4B73yzwByaKvLUQ=";
+      sha256 = "sha256-5BymQhVWMHg4zlQIPxf40JQI9iSWQqTZfbDd6+G3RsQ=";
     };
   };
   linux-xanmod-6_0 = {
@@ -579,24 +579,24 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.70-xanmod1";
+    version = "6.1.71-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.70-xanmod1";
+      rev = "6.1.71-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-SXXg0fIfqtOwjRC0m963rbB5J42T+Q/1iB5ombtLn0s=";
+      sha256 = "sha256-IbiACs7NKHsrd/Bl+BD+9VL08096UcOu7fztFJSmbDM=";
     };
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.9-xanmod1";
+    version = "6.6.10-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.9-xanmod1";
+      rev = "6.6.10-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-ugcmPGnOHRfkNu15v0hX56TPt9LN4B73yzwByaKvLUQ=";
+      sha256 = "sha256-5BymQhVWMHg4zlQIPxf40JQI9iSWQqTZfbDd6+G3RsQ=";
     };
   };
   nbfc-linux-lantian = {
@@ -937,15 +937,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "bccc7809ea5ec8420b28f7b59d6211481b0da0c3";
+    version = "76996e8e25488d2caf8c39d5185c63760dbd7560";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "bccc7809ea5ec8420b28f7b59d6211481b0da0c3";
+      rev = "76996e8e25488d2caf8c39d5185c63760dbd7560";
       fetchSubmodules = false;
-      sha256 = "sha256-eLsJhcdlfA7IEkfq/iMBV8v5jgStR7D4d4UmS+dtZkk=";
+      sha256 = "sha256-+tYcMtUl3MnVhuIJY0lkCPwA7ZIlAf0oU+BOnqn76LM=";
     };
-    date = "2024-01-03";
+    date = "2024-01-05";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
