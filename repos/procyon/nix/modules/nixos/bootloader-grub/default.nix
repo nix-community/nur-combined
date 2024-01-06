@@ -14,6 +14,7 @@
       device = "nodev";
       efiSupport = true;
       splashImage = null;
+      useOSProber = true;
       theme = pkgs.stdenv.mkDerivation {
         pname = "catppuccin-grub";
         version = "unstable";
