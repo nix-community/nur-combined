@@ -1813,13 +1813,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001572" = {
+    "caniuse-lite-1.0.30001574" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001572";
+      version = "1.0.30001574";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001572.tgz";
-        sha512 = "1Pbh5FLmn5y4+QhNyJE9j3/7dK44dGB83/ZMjv/qJk86TvDbjk0LosiZo0i0WB0Vx607qMX9jYrn1VLHCkN4rw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001574.tgz";
+        sha512 = "BtYEK4r/iHt/txm81KBudCUcTy7t+s9emrIaHqjYurQ10x71zJ5VQ9x1dYPcz/b+pKSp4y/v1xSI67A+LzpNyg==";
       };
     };
     "caseless-0.12.0" = {
@@ -2641,13 +2641,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.4.616" = {
+    "electron-to-chromium-1.4.623" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.616";
+      version = "1.4.623";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.616.tgz";
-        sha512 = "1n7zWYh8eS0L9Uy+GskE0lkBUNK83cXTVJI0pU3mGprFsbfSdAc15VTFbo+A+Bq4pwstmL30AVcEU3Fo463lNg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.623.tgz";
+        sha512 = "lKoz10iCYlP1WtRYdh5MvocQPWVRoI7ysp6qf18bmeBgR8abE6+I2CsfyNKztRDZvhdWc+krKT6wS7Neg8sw3A==";
       };
     };
     "elliptic-6.5.4" = {
@@ -2785,6 +2785,15 @@ let
         sha512 = "6hTjO1NAWkHnDk3OqQ4YrCuwwmGHL9S3nPlzBOUG/R44rda3wLNrfvQ5fkSGjyhHFKM7ALPKcKGrwvCLe0lC7Q==";
       };
     };
+    "escodegen-2.1.0" = {
+      name = "escodegen";
+      packageName = "escodegen";
+      version = "2.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/escodegen/-/escodegen-2.1.0.tgz";
+        sha512 = "2NlIDTwUWJN0mRPQOdtQBzbUHvdGY2P1VXSyU83Q3xKxM7WHX2Ql8dKq782Q9TgQUNOLEzEYu9bzLNj1q88I5w==";
+      };
+    };
     "esprima-3.1.3" = {
       name = "esprima";
       packageName = "esprima";
@@ -2810,6 +2819,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/estraverse/-/estraverse-4.3.0.tgz";
         sha512 = "39nnKffWz8xN1BU/2c79n9nB9HDzo0niYUqx6xyqUnyoAnQyyWpOTdZEeiCch8BBu515t4wp9ZmgVfVhn9EBpw==";
+      };
+    };
+    "estraverse-5.3.0" = {
+      name = "estraverse";
+      packageName = "estraverse";
+      version = "5.3.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/estraverse/-/estraverse-5.3.0.tgz";
+        sha512 = "MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==";
       };
     };
     "esutils-2.0.3" = {
@@ -5980,13 +5998,13 @@ let
         sha512 = "ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==";
       };
     };
-    "static-eval-2.1.0" = {
+    "static-eval-2.1.1" = {
       name = "static-eval";
       packageName = "static-eval";
-      version = "2.1.0";
+      version = "2.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/static-eval/-/static-eval-2.1.0.tgz";
-        sha512 = "agtxZ/kWSsCkI5E4QifRwsaPs0P0JmZV6dkLz6ILYfFYQGn+5plctanRN+IC8dJRiFkyXHrwEE3W9Wmx67uDbw==";
+        url = "https://registry.npmjs.org/static-eval/-/static-eval-2.1.1.tgz";
+        sha512 = "MgWpQ/ZjGieSVB3eOJVs4OA2LT/q1vx98KPCTTQPzq/aLr0YUXTsgryTXr4SLfR0ZfUUCiedM9n/ABeDIyy4mA==";
       };
     };
     "static-extend-0.1.2" = {
@@ -7069,7 +7087,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001572"
+      sources."caniuse-lite-1.0.30001574"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -7192,7 +7210,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.4.616"
+      sources."electron-to-chromium-1.4.623"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -7703,10 +7721,11 @@ let
       sources."srcset-3.0.1"
       sources."sshpk-1.18.0"
       sources."stable-0.1.8"
-      (sources."static-eval-2.1.0" // {
+      (sources."static-eval-2.1.1" // {
         dependencies = [
-          sources."escodegen-1.14.3"
+          sources."escodegen-2.1.0"
           sources."esprima-4.0.1"
+          sources."estraverse-5.3.0"
         ];
       })
       sources."static-extend-0.1.2"

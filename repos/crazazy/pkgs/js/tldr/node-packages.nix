@@ -67,13 +67,13 @@ let
         sha512 = "+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==";
       };
     };
-    "axios-1.6.3" = {
+    "axios-1.6.5" = {
       name = "axios";
       packageName = "axios";
-      version = "1.6.3";
+      version = "1.6.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/axios/-/axios-1.6.3.tgz";
-        sha512 = "fWyNdeawGam70jXSVlKl+SUNVcL6j6W79CuSIPfi6HnDUmSCH6gyUys/HrqHeA/wU0Az41rRgean494d0Jb+ww==";
+        url = "https://registry.npmjs.org/axios/-/axios-1.6.5.tgz";
+        sha512 = "Ii012v05KEVuUoFWmMW/UQv9aRIc3ZwkWDcM+h5Il8izZCtRVpDUfwpoFf7eOtajT3QiGR4yDUx7lPqHJULgbg==";
       };
     };
     "balanced-match-1.0.2" = {
@@ -238,13 +238,13 @@ let
         sha512 = "ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==";
       };
     };
-    "follow-redirects-1.15.3" = {
+    "follow-redirects-1.15.4" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.15.3";
+      version = "1.15.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.3.tgz";
-        sha512 = "1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.4.tgz";
+        sha512 = "Cr4D/5wlrb0z9dgERpUL3LrmPKVDsETIJhaCMeDfuFYcqa5bldGV6wBsAN6X/vxlXQtFBMrXdXxdL8CbDTGniw==";
       };
     };
     "form-data-4.0.0" = {
@@ -738,7 +738,7 @@ let
       sources."apparatus-0.0.10"
       sources."asynckit-0.4.0"
       sources."at-least-node-1.0.0"
-      sources."axios-1.6.3"
+      sources."axios-1.6.5"
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
       sources."bl-4.1.0"
@@ -757,7 +757,7 @@ let
       sources."defaults-1.0.4"
       sources."define-data-property-1.1.1"
       sources."delayed-stream-1.0.0"
-      sources."follow-redirects-1.15.3"
+      sources."follow-redirects-1.15.4"
       sources."form-data-4.0.0"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
