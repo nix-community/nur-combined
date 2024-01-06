@@ -21,6 +21,8 @@
 
       overlays = import ./overlays;
 
+      modules = import ./modules;
+
       devShells = forAllSystems (system: let
         pkgs = import nixpkgs { inherit system; };
       in {
