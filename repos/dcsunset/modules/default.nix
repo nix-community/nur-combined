@@ -1,5 +1,6 @@
 {
-  # Add your NixOS modules here
-  #
-  rangefs = ./rangefs;
+  # NixOS modules
+  nixos = {
+    rangefs = ./rangefs;
+  };
 }
