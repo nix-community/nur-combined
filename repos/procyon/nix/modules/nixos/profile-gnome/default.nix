@@ -18,6 +18,13 @@
     };
   };
 
+  programs.dconf.profiles.gdm.databases = [{
+    lockAll = true;
+    settings = {
+      "org/gnome/desktop/peripherals/keyboard".numlock-state = true;
+    };
+  }];
+
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages = with pkgs; [
