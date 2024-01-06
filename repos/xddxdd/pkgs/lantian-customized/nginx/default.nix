@@ -1,10 +1,7 @@
 {
   lib,
   sources,
-  pkgs,
   stdenv,
-  fetchzip,
-  fetchFromGitHub,
   fetchurl,
   substituteAll,
   git,
@@ -27,11 +24,6 @@
     sha256 = "1db5mjkxl6vxg4pic4v6g8bi8q9v5psj8fbjmjls1nfvxpz6nhvr";
   };
 
-  patchHpackDyntls = fetchurl {
-    url = "https://raw.githubusercontent.com/kn007/patch/f0b8ebd76924eb9c573c8056792b7f1d6f79d684/nginx.patch";
-    sha256 = "0dp2lcyxcv41lcridny6fbc2yr95s2sx0bd2bxs59p437d3dm7qp";
-  };
-
   patchNixEtag = substituteAll {
     src = ./patches/nix-etag-1.15.4.patch;
     preInstall = ''
@@ -41,12 +33,8 @@
 in
   stdenv.mkDerivation rec {
     pname = "nginx-lantian";
-    nginxVersion = "1.21.4";
-    version = "${nginxVersion}.3";
-    src = fetchzip {
-      url = "https://openresty.org/download/openresty-${version}.tar.gz";
-      sha256 = "sha256-FMCSNHMGroOhey9VYMPg44sUGBq2A7W1iR6teRtuiD0=";
-    };
+    inherit (sources.openresty) version src;
+    nginxVersion = lib.versions.pad 3 version;
 
     enableParallelBuilding = true;
 
@@ -88,7 +76,6 @@ in
 
       pushd bundle/nginx-${nginxVersion}
       ${patch patchUseOpensslMd5Sha1}
-      ${patch patchHpackDyntls}
       ${patch ./patches/nginx-plain.patch}
       ${patch ./patches/nginx-plain-proxy.patch}
       ${patch patchNixEtag}
@@ -122,7 +109,7 @@ in
       "--with-http_stub_status_module"
       "--with-http_sub_module"
       "--with-http_v2_module"
-      "--with-http_v2_hpack_enc"
+      "--with-http_v3_module"
       "--with-http_xslt_module"
       "--with-stream"
       "--with-stream_realip_module"

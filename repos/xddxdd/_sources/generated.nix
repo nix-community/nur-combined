@@ -745,6 +745,14 @@
     };
     date = "2023-11-28";
   };
+  openresty = {
+    pname = "openresty";
+    version = "1.25.3.1";
+    src = fetchurl {
+      url = "https://github.com/openresty/openresty/releases/download/v1.25.3.1/openresty-1.25.3.1.tar.gz";
+      sha256 = "sha256-MuwaJTpaEyUDVaB1/mW31j7EXFYLviEzUPCZKlfNed8=";
+    };
+  };
   openssl-oqs = {
     pname = "openssl-oqs";
     version = "98ce60974b53ac99b975cf2418aabab7519f1dff";

@@ -1281,6 +1281,21 @@
         },
         "version": "8b09e62330ad74ba3221bfc2b080d1732a1dcc55"
     },
+    "openresty": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "openresty",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-MuwaJTpaEyUDVaB1/mW31j7EXFYLviEzUPCZKlfNed8=",
+            "type": "url",
+            "url": "https://github.com/openresty/openresty/releases/download/v1.25.3.1/openresty-1.25.3.1.tar.gz"
+        },
+        "version": "1.25.3.1"
+    },
     "openssl-oqs": {
         "cargoLocks": null,
         "date": "2023-07-19",

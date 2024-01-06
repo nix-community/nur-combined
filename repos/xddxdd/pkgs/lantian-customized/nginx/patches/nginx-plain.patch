@@ -1,8 +1,8 @@
 diff --git a/auto/modules b/auto/modules
-index 94867bf..417a184 100644
+index 300d07c..46a7877 100644
 --- a/auto/modules
 +++ b/auto/modules
-@@ -408,6 +408,18 @@ if [ $HTTP = YES ]; then
+@@ -421,6 +421,18 @@ if [ $HTTP = YES ]; then
  
      ngx_module_type=HTTP
  
@@ -20,42 +20,42 @@ index 94867bf..417a184 100644
 +
      if [ $HTTP_V2 = YES ]; then
          have=NGX_HTTP_V2 . auto/have
-         have=NGX_HTTP_HEADERS . auto/have
+ 
 diff --git a/auto/options b/auto/options
-index 48f3a1a..e8c1a82 100644
+index e6e0cd3..eb66522 100644
 --- a/auto/options
 +++ b/auto/options
-@@ -57,6 +57,7 @@ NGX_HTTP_SCGI_TEMP_PATH=
+@@ -59,6 +59,7 @@ NGX_HTTP_SCGI_TEMP_PATH=
  HTTP_CACHE=YES
  HTTP_CHARSET=YES
  HTTP_GZIP=YES
 +HTTP_PLAIN=NO
  HTTP_SSL=NO
  HTTP_V2=NO
- HTTP_SSI=YES
-@@ -226,6 +227,7 @@ $0: warning: the \"--with-ipv6\" option is deprecated"
+ HTTP_V3=NO
+@@ -234,6 +235,7 @@ $0: warning: the \"--with-ipv6\" option is deprecated"
          --http-uwsgi-temp-path=*)        NGX_HTTP_UWSGI_TEMP_PATH="$value" ;;
          --http-scgi-temp-path=*)         NGX_HTTP_SCGI_TEMP_PATH="$value" ;;
  
 +        --with-http_plain_module)        HTTP_PLAIN=YES             ;;
          --with-http_ssl_module)          HTTP_SSL=YES               ;;
          --with-http_v2_module)           HTTP_V2=YES                ;;
-         --with-http_realip_module)       HTTP_REALIP=YES            ;;
-@@ -443,6 +445,7 @@ cat << END
+         --with-http_v3_module)           HTTP_V3=YES                ;;
+@@ -455,6 +457,7 @@ cat << END
  
-   --with-file-aio                    enable file AIO support
+   --without-quic_bpf_module          disable ngx_quic_bpf_module
  
 +  --with-http_plain_module           enable ngx_http_plain_module
    --with-http_ssl_module             enable ngx_http_ssl_module
    --with-http_v2_module              enable ngx_http_v2_module
-   --with-http_realip_module          enable ngx_http_realip_module
+   --with-http_v3_module              enable ngx_http_v3_module
 diff --git a/src/http/ngx_http.c b/src/http/ngx_http.c
-index 73c08d5..aa918ab 100644
+index d835f89..9aaa3e0 100644
 --- a/src/http/ngx_http.c
 +++ b/src/http/ngx_http.c
-@@ -1230,6 +1230,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
- {
-     ngx_uint_t             i, default_server, proxy_protocol;
+@@ -1235,6 +1235,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+     ngx_uint_t             i, default_server, proxy_protocol,
+                            protocols, protocols_prev;
      ngx_http_conf_addr_t  *addr;
 +#if (NGX_HTTP_PLAIN)
 +    ngx_uint_t             plain;
@@ -63,17 +63,17 @@ index 73c08d5..aa918ab 100644
  #if (NGX_HTTP_SSL)
      ngx_uint_t             ssl;
  #endif
-@@ -1265,6 +1268,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
- 
-         proxy_protocol = lsopt->proxy_protocol || addr[i].opt.proxy_protocol;
+@@ -1275,6 +1278,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+         protocols = lsopt->proxy_protocol;
+         protocols_prev = addr[i].opt.proxy_protocol;
  
 +#if (NGX_HTTP_PLAIN)
 +        plain = lsopt->plain || addr[i].opt.plain;
 +#endif
  #if (NGX_HTTP_SSL)
          ssl = lsopt->ssl || addr[i].opt.ssl;
- #endif
-@@ -1301,6 +1307,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+         protocols |= lsopt->ssl << 1;
+@@ -1369,6 +1375,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
  
          addr[i].opt.default_server = default_server;
          addr[i].opt.proxy_protocol = proxy_protocol;
@@ -83,7 +83,7 @@ index 73c08d5..aa918ab 100644
  #if (NGX_HTTP_SSL)
          addr[i].opt.ssl = ssl;
  #endif
-@@ -1831,6 +1840,9 @@ ngx_http_add_addrs(ngx_conf_t *cf, ngx_http_port_t *hport,
+@@ -1912,6 +1921,9 @@ ngx_http_add_addrs(ngx_conf_t *cf, ngx_http_port_t *hport,
          sin = (struct sockaddr_in *) addr[i].opt.sockaddr;
          addrs[i].addr = sin->sin_addr.s_addr;
          addrs[i].conf.default_server = addr[i].default_server;
@@ -93,7 +93,7 @@ index 73c08d5..aa918ab 100644
  #if (NGX_HTTP_SSL)
          addrs[i].conf.ssl = addr[i].opt.ssl;
  #endif
-@@ -1896,6 +1908,9 @@ ngx_http_add_addrs6(ngx_conf_t *cf, ngx_http_port_t *hport,
+@@ -1980,6 +1992,9 @@ ngx_http_add_addrs6(ngx_conf_t *cf, ngx_http_port_t *hport,
          sin6 = (struct sockaddr_in6 *) addr[i].opt.sockaddr;
          addrs6[i].addr6 = sin6->sin6_addr;
          addrs6[i].conf.default_server = addr[i].default_server;
@@ -104,10 +104,10 @@ index 73c08d5..aa918ab 100644
          addrs6[i].conf.ssl = addr[i].opt.ssl;
  #endif
 diff --git a/src/http/ngx_http.h b/src/http/ngx_http.h
-index be8b7cd..1dadbe3 100644
+index e06464e..c1420e2 100644
 --- a/src/http/ngx_http.h
 +++ b/src/http/ngx_http.h
-@@ -94,6 +94,11 @@ int ngx_http_ssl_certificate(ngx_ssl_conn_t *ssl_conn, void *arg);
+@@ -99,6 +99,11 @@ int ngx_http_ssl_certificate(ngx_ssl_conn_t *ssl_conn, void *arg);
  
  
  ngx_int_t ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b);
@@ -120,10 +120,10 @@ index be8b7cd..1dadbe3 100644
  ngx_int_t ngx_http_parse_complex_uri(ngx_http_request_t *r,
      ngx_uint_t merge_slashes);
 diff --git a/src/http/ngx_http_core_module.c b/src/http/ngx_http_core_module.c
-index c7463dc..e6a7a11 100644
+index 7845f8f..63c93fb 100644
 --- a/src/http/ngx_http_core_module.c
 +++ b/src/http/ngx_http_core_module.c
-@@ -4071,6 +4071,18 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+@@ -4170,6 +4170,18 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
              continue;
          }
  
@@ -143,23 +143,23 @@ index c7463dc..e6a7a11 100644
  #if (NGX_HTTP_SSL)
              lsopt.ssl = 1;
 diff --git a/src/http/ngx_http_core_module.h b/src/http/ngx_http_core_module.h
-index 004a98e..158e333 100644
+index 765e7ff..d4f5463 100644
 --- a/src/http/ngx_http_core_module.h
 +++ b/src/http/ngx_http_core_module.h
-@@ -75,6 +75,9 @@ typedef struct {
-     unsigned                   wildcard:1;
+@@ -76,6 +76,9 @@ typedef struct {
      unsigned                   ssl:1;
      unsigned                   http2:1;
+     unsigned                   quic:1;
 +#if (NGX_HTTP_PLAIN)
 +    unsigned                   plain:1;
 +#endif
  #if (NGX_HAVE_INET6)
      unsigned                   ipv6only:1;
  #endif
-@@ -237,6 +240,9 @@ struct ngx_http_addr_conf_s {
- 
+@@ -240,6 +243,9 @@ struct ngx_http_addr_conf_s {
      unsigned                   ssl:1;
      unsigned                   http2:1;
+     unsigned                   quic:1;
 +#if (NGX_HTTP_PLAIN)
 +    unsigned                   plain:1;
 +#endif
@@ -167,7 +167,7 @@ index 004a98e..158e333 100644
  };
  
 diff --git a/src/http/ngx_http_parse.c b/src/http/ngx_http_parse.c
-index 6460da2..69f5a14 100644
+index d4f2dae..6888b65 100644
 --- a/src/http/ngx_http_parse.c
 +++ b/src/http/ngx_http_parse.c
 @@ -815,6 +815,206 @@ done:
@@ -378,7 +378,7 @@ index 6460da2..69f5a14 100644
  ngx_http_parse_header_line(ngx_http_request_t *r, ngx_buf_t *b,
      ngx_uint_t allow_underscores)
 diff --git a/src/http/ngx_http_request.c b/src/http/ngx_http_request.c
-index 013b715..daf03a7 100644
+index bd2be5e..e18f357 100644
 --- a/src/http/ngx_http_request.c
 +++ b/src/http/ngx_http_request.c
 @@ -15,6 +15,12 @@ static ngx_http_request_t *ngx_http_alloc_request(ngx_connection_t *c);
@@ -394,9 +394,9 @@ index 013b715..daf03a7 100644
  static ngx_int_t ngx_http_alloc_large_header_buffer(ngx_http_request_t *r,
      ngx_uint_t request_line);
  
-@@ -325,6 +331,11 @@ ngx_http_init_connection(ngx_connection_t *c)
-     rev->handler = ngx_http_wait_request_handler;
-     c->write->handler = ngx_http_empty_handler;
+@@ -486,6 +492,11 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
+         }
+     }
  
 +#if (NGX_HTTP_PLAIN)
 +    if (hc->addr_conf->plain) {
@@ -404,9 +404,9 @@ index 013b715..daf03a7 100644
 +    }
 +#endif
  #if (NGX_HTTP_V2)
-     if (hc->addr_conf->http2) {
-         rev->handler = ngx_http_v2_init;
-@@ -504,6 +515,139 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
+ 
+     h2scf = ngx_http_get_module_srv_conf(hc->conf_ctx, ngx_http_v2_module);
+@@ -524,6 +535,139 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
  }
  
  
@@ -546,7 +546,7 @@ index 013b715..daf03a7 100644
  ngx_http_request_t *
  ngx_http_create_request(ngx_connection_t *c)
  {
-@@ -3544,6 +3688,110 @@ ngx_http_request_empty_handler(ngx_http_request_t *r)
+@@ -3574,6 +3718,110 @@ ngx_http_request_empty_handler(ngx_http_request_t *r)
  }
  
  
