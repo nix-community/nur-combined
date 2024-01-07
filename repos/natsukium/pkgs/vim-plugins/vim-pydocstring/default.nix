@@ -11,7 +11,7 @@ buildVimPlugin rec {
   src = fetchFromGitHub {
     owner = "heavenshell";
     repo = "vim-pydocstring";
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/${version}";
     hash = "sha256-z8mIRjXfkM/r21FoLuIUaMkHiDs6kjjtNcztMijKl4E=";
   };
 
