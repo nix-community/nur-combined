@@ -67,6 +67,7 @@
 
   environment.systemPackages = with pkgs; [
     bind
+    bpftools
     conntrack-tools
     f2fs-tools
     file

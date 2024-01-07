@@ -77,6 +77,6 @@ table ip nat {
   # for all packets to WAN, after routing, replace source address with primary IP of WAN interface
   chain postrouting {
     type nat hook postrouting priority 100; policy accept;
-    oifname extern0 fullcone
+    ip saddr 192.168.1.0/24 oifname extern0 fullcone
   }
 }

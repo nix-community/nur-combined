@@ -22,22 +22,11 @@ in
 {
   users.groups.direct-net = { };
 
-  services.v2ray-next = {
-    enable = false;
-    package = pkgs.v2ray-next.override {
-      assetsDir = config.services.v2ray-rules-dat.dataDir;
+  systemd.services.sing-box = {
+    serviceConfig = {
+      SupplementaryGroups = [ config.users.groups.direct-net.name ];
     };
-    useV5Format = true;
-    configFile = secrets.v2rayConfig.path;
   };
-  # systemd.services.v2ray-next = {
-  #   serviceConfig = {
-  #     TimeoutSec = 5;
-  #     SupplementaryGroups = [ config.users.groups.direct-net.name ];
-  #   };
-  # };
-  # services.v2ray-rules-dat.reloadServices = [ "v2ray-next.service" ];
-  # sops.secrets.v2rayConfig.restartUnits = [ "v2ray-next.service" ];
 
   services.sing-box = {
     enable = true;
@@ -60,7 +49,7 @@ in
           type = "tun";
           interface_name = "tun0";
           inet4_address = "198.18.0.1/15";
-          mtu = 9000;
+          mtu = 1500;
           auto_route = false;
           stack = "gvisor";
           endpoint_independent_nat = true;
