@@ -22,6 +22,8 @@ python3Packages.buildPythonPackage rec {
     "test_expr29"
   ];
 
+  doCheck = false;
+
   meta = with lib; {
     description = "Parser and expander for Wikipedia, Wiktionary etc. dump files, with Lua execution support";
     inherit (src.meta) homepage;

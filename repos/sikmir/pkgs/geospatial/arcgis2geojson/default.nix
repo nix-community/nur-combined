@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "arcgis2geojson";
-  version = "3.0.1";
+  version = "3.0.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "chris48s";
     repo = "arcgis2geojson";
     rev = version;
-    hash = "sha256-6lXfQoazBABryyuch1PJF/7yPq7cOBuvGWCqBUVPdts=";
+    hash = "sha256-w3teY/CLNGF3h+8R6KoYCvjat8q6ellet1awEPOXpac=";
   };
 
   postPatch = ''
@@ -24,5 +24,6 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    broken = true;
   };
 }

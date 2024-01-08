@@ -22,5 +22,6 @@ rustPlatform.buildRustPackage rec {
     inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
+    broken = true;
   };
 }
