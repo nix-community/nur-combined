@@ -17,6 +17,7 @@
           name = "rust-shell";
 
           nativeBuildInputs = with pkgs; [
+            lldb
             rust-analyzer
           ] ++ (lib.optionals stdenv.isLinux [
             openssl

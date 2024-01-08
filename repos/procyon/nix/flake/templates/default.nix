@@ -4,13 +4,13 @@
 
 { self, lib, ... }:
 let
-  mkTemplate = name: {
-    description = "${name} [Project]";
+  mkTemplate = name: type: {
+    description = "${name} [${type}]";
     path = "${self}/nix/templates/${lib.strings.toLower name}";
   };
 in
 {
   flake.templates = {
-    rust = mkTemplate "Rust";
+    rust-crane = mkTemplate "Rust" "Crane";
   };
 }

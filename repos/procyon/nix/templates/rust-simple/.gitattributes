@@ -1,0 +1,10 @@
+*          text=auto
+
+*.rs       text diff=rust
+*.toml     text diff=toml
+
+*.scm      text diff=scheme
+*.md       text diff=markdown
+
+Cargo.lock linguist-generated=true
+flake.lock linguist-generated=true
