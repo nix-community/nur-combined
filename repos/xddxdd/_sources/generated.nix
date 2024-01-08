@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "437e9f8a30506db73096006ba175a24dd866c1e6";
+    version = "f5d6a9cf389716f48e9b7a922b2cece0015579c8";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "437e9f8a30506db73096006ba175a24dd866c1e6";
+      rev = "f5d6a9cf389716f48e9b7a922b2cece0015579c8";
       fetchSubmodules = false;
-      sha256 = "sha256-dZ5KGBg9aF9AUlmd1hzweEKc1wBlu8CUxb4/dYsC9QE=";
+      sha256 = "sha256-yubEpunnLD9P1Dw6GxQ5YFGHsv5AiKI+gM9JKwprZFw=";
     };
-    date = "2024-01-05";
+    date = "2024-01-07";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -308,13 +308,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.12";
+    version = "v3.3.13";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.12";
+      rev = "v3.3.13";
       fetchSubmodules = false;
-      sha256 = "sha256-BX2wDvGDTpBQ8U8II0/vFlwEetMRSb0ZGdYiN4IBVSg=";
+      sha256 = "sha256-dIYxR+zks3IAE+ttlQDHbpL4kqQ2FyzPMNwZzafMvLE=";
     };
   };
   flasgger = {
@@ -557,13 +557,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.6.10-xanmod1";
+    version = "6.7.0-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.10-xanmod1";
+      rev = "6.7.0-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-5BymQhVWMHg4zlQIPxf40JQI9iSWQqTZfbDd6+G3RsQ=";
+      sha256 = "sha256-WqzOpqnytZqrAVzZHka1pZMh3U8jt/rA3OUGFonwMqA=";
     };
   };
   linux-xanmod-6_0 = {
