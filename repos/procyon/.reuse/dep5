@@ -3,18 +3,22 @@ Upstream-Name: Snowy Burrow
 Upstream-Contact: Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 Source: https://github.com/UnidealisticRaccoon/SnowyBurrow
 
-Files: flake.nix README.md secrets/* infrastructure/terraform/modules/oci/files/cloud-init.yaml nix/templates/rust/*.toml
+Files: flake.nix README.md secrets/* infrastructure/terraform/modules/oci/files/cloud-init.yaml nix/templates/rust-*/*.toml
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: MIT
 
-Files: .github/* .vscode/* .devcontainer/devcontainer.json .envrc garnix.yaml .gitattributes .gitignore flake.lock .mergify.yml infrastructure/terraform/.terraform.lock.hcl nix/flake/ci/GPG.pub nix/pkgs/_sources/generated.* nix/templates/rust/.* nix/templates/rust/*.lock nix/templates/rust/src/main.rs
+Files: .github/* .vscode/* .devcontainer/devcontainer.json .envrc garnix.yaml .gitattributes .gitignore flake.lock .mergify.yml infrastructure/terraform/.terraform.lock.hcl nix/flake/ci/GPG.pub nix/pkgs/_sources/generated.* nix/templates/rust-*/.* nix/templates/rust-*/*.lock nix/templates/rust-*/src/main.rs
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: CC0-1.0
 
-Files: nix/pkgs/dev-packages/* nix/templates/rust/default.nix
+Files: nix/pkgs/dev-packages/* nix/templates/rust-*/default.nix
 Copyright: 2023 Lin Yinfeng <lin.yinfeng@outlook.com>
 License: MIT
 
-Files: nix/templates/rust/flake.nix
+Files: nix/templates/rust-crane/flake.nix
 Copyright: 2023 Ivan Petkov <ivanppetkov@gmail.com>
+License: MIT
+
+Files: nix/templates/rust-simple/flake.nix
+Copyright: 2023 Sridhar Ratnakumar <3998+srid@users.noreply.github.com>
 License: MIT
