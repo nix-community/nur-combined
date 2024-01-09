@@ -50,10 +50,10 @@ in
       };
     in {
       options = {
-        file = mkOption {
+        source = mkOption {
           type = types.str;
           description = ''
-            source file to map ranges from
+            Source file to map ranges from
           '';
         };
         config = mkOption {
@@ -68,6 +68,13 @@ in
           default = null;
           description = ''
             Timeout for metadata and cache in seconds
+          '';
+        };
+        file = mkOption {
+          type = types.nullOr types.int;
+          default = null;
+          description = ''
+            Overwrite the source file
           '';
         };
         stdout = mkOption {
@@ -129,12 +136,12 @@ in
     environment.systemPackages = [ cfg.package ];
 
     fileSystems = builtins.mapAttrs (_: fs: let
-      configList = [ "timeout" "stdout" "stderr" ];
+      configList = [ "file" "timeout" "stdout" "stderr" ];
       # convert to key value str if value not null
       keyValueStr = sep: k: v:
         if v != null then "${k}${sep}${toString v}" else null;
     in {
-      device = fs.file;
+      device = fs.source;
       fsType = "fuse.rangefs";
       options = let
         optionList = [ "name" "offset" "size" "uid" "gid" ];
