@@ -5,14 +5,15 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "selenium-driverless";
-  version = "1.6.3.3";
+  # grep version src/selenium_driverless/__init__.py
+  version = "1.7.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "kaliiiiiiiiii";
     repo = "Selenium-Driverless";
-    rev = "c207798337d07e6fd98dc44e86ed5b59f3c67f48";
-    hash = "sha256-QUDAwXnH4KrwXbcIg77G5KOATlitCBUkE3V/mwzRzqk=";
+    rev = "24a3513305f833fac600ec8e31bcd5e9df955162";
+    hash = "sha256-Iixv4IrxuCJKjs3tDK0Qn3fFO/frFlYcPgtsbdmoj1Q=";
   };
 
   nativeBuildInputs = [
@@ -29,6 +30,8 @@ python3.pkgs.buildPythonPackage rec {
     twine
     matplotlib
     scipy
+    aiofiles
+    platformdirs
   ];
 
   # disable the license nag message in selenium_driverless/webdriver.py
