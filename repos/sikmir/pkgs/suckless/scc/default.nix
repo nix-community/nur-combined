@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "scc";
-  version = "2022-06-06";
+  version = "2023-10-20";
 
   src = fetchgit {
     url = "git://git.simple-cc.org/scc";
-    rev = "5c0bbb5ff6603cf20c4e3f4ec16dd7b60799cb85";
-    sha256 = "sha256-I/WtGWsYP1Xt0/Sqdx+qBXBY5a8C/IDv+zBnNldBBfg=";
+    rev = "1f350b8f200581b66c4a5fc2dd74ee2fbf574c4a";
+    sha256 = "sha256-2tR2ETiMFZABY3GPr8ovHRZ2d48Hrck0vK8RqID65Us=";
     fetchSubmodules = true;
   };
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation {
 
   #buildInputs = [ qbe ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = [ "PREFIX=$(out)" "AR:=$(AR)" "AS:=$(AS)" "CC:=$(CC)" "RANLIB:=$(RANLIB)" "HOSTCC=${stdenv.cc.targetPrefix}cc" ];
 
   #doCheck = true;
   checkTarget = "tests";

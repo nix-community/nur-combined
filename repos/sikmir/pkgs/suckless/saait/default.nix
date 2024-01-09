@@ -1,13 +1,13 @@
 { lib, stdenv, fetchgit }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "saait";
-  version = "2022-03-19";
+  version = "0.8";
 
   src = fetchgit {
     url = "git://git.codemadness.org/saait";
-    rev = "55da975904aa48d6514cc29b406ec1ea7c1c3719";
-    hash = "sha256-o4XFN9Z8hfj4L+R4puKklMIxSy9CjDG5ICsO5SImyPM=";
+    rev = version;
+    hash = "sha256-W86JAYUsyvOWt/YTqXfqMA/CwQq7uVIV1F6+AeRB/8s=";
   };
 
   installFlags = [ "PREFIX=$(out)" ];

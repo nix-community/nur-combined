@@ -1,23 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, libutf, ncurses }:
+{ lib, stdenv, fetchFromGitHub, libgrapheme }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lchat";
-  version = "2022-09-07";
+  version = "2023-09-24";
 
   src = fetchFromGitHub {
     owner = "younix";
     repo = "lchat";
-    rev = "fe93b05cea7431d7d240ae0d1d9842d288f66c4e";
-    hash = "sha256-XRekfeCRCtYzy5n0NrILWCZXW6Y68W48PretW+yCtD4=";
+    rev = "d8006087f3056c9fb37ac4d2c59825fc0e05933a";
+    hash = "sha256-KI9j/V3qml99HiFX+kHzeKkOpsqqDLoDhWzvM8ZggOU=";
   };
 
-  buildInputs = [ libutf ncurses ];
+  buildInputs = [ libgrapheme ];
 
   makeFlags = [ "CC:=$(CC)" ];
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  preInstall = "mkdir -p $out/bin $out/share/man/man1";
+  preInstall = "mkdir -p $out/bin $out/man/man1";
 
   meta = with lib; {
     description = "line chat is a simple and elegant front end for ii-like chat programs";

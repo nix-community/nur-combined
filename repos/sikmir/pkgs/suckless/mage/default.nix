@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mage";
-  version = "2022-08-28";
+  version = "2022-12-30";
 
   src = fetchFromGitHub {
     owner = "explosion-mental";
     repo = "mage";
-    rev = "6632e9080af56a2c045fc9b008cabc06782e4e04";
-    hash = "sha256-7lCuwVB2MS9PkLRQc9XcunQGkOab46PYiSVQvJGMSng=";
+    rev = "15ce5485379cc4d3d1bfdec49beccaffd9fb6c30";
+    hash = "sha256-v119RZAygmcdKnu6GpDvdw+yW2jiDQ7WyjLC2vQVXyw=";
   };
 
   configFile = lib.optionalString (conf != null) (builtins.toFile "config.h" conf);

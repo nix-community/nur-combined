@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imsg-compat";
-  version = "6.8.2";
+  version = "7.4.0";
 
   src = fetchFromGitHub {
     owner = "bsd-ac";
     repo = "imsg-compat";
     rev = finalAttrs.version;
-    hash = "sha256-TFwww3HnTuURVCSMWyaMfwjEWcgGQr1pyPkop6EoHIY=";
+    hash = "sha256-t1nEdsqRtcXWBkkspUb/lQ0PXd2ziaTutnqgwSaxAR4=";
   };
 
   postPatch = ''

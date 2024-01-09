@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nextvi";
-  version = "2023-10-23";
+  version = "2023-11-30";
 
   src = fetchFromGitHub {
     owner = "kyx0r";
     repo = "nextvi";
-    rev = "0160364bb797e4155ef14d95c29df2730b4d9169";
-    hash = "sha256-D9aq129X/Y1jRd9dejEUJk+6md7IRrqOS0Eulvj6Dyw=";
+    rev = "2ff52843c81ab1c11b534b8107ed9bfa160ab69f";
+    hash = "sha256-qXI0LnH/NRG9fRetymkkg5ESxSLuYMLewzYwvgyU7TU=";
   };
 
   buildPhase = ''

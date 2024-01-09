@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cproc";
-  version = "2022-08-05";
+  version = "2022-12-14";
 
   src = fetchFromSourcehut {
     owner = "~mcf";
     repo = "cproc";
-    rev = "6fabc79d81de56b6c1cdcc2242933fd792e2ddf9";
-    hash = "sha256-u00tGBBdLSQevge1xjOmgZGdlnfjpXFIQuqIzqbg858=";
+    rev = "0985a7893a4b5de63a67ebab445892d9fffe275b";
+    hash = "sha256-7wZw4YxMHTC7fDxl8JE1cfSEPXw30YbvwoV1YH/PHPw=";
   };
 
   buildInputs = [ qbe ];

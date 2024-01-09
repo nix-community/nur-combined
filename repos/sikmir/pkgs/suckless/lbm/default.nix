@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lbm";
-  version = "2022-03-13";
+  version = "2023-12-06";
 
   src = fetchFromGitLab {
     domain = "git.weitnahbei.de";
     owner = "nullmark";
     repo = "little_blue_man";
-    rev = "d8dcd643a02ab7fafe6c6ac88e2e31ee66839a0b";
-    hash = "sha256-64lBcpcapT+swVGA/wMAg26eITxtfaGNVGJoH+f05GY=";
+    rev = "d291e4e14df40fb84089e2dee25c3be50ea1366e";
+    hash = "sha256-nsmW8wwOelzVmhtC5E2a5DPpEdaKiu98/wGl6Gflfz4=";
     fetchSubmodules = true;
   };
 

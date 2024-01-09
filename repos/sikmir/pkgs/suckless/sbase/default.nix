@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "sbase";
-  version = "2021-09-11";
+  version = "2023-12-29";
 
   src = fetchgit {
     url = "git://git.suckless.org/sbase";
-    rev = "371f3cb5ec3b8ef3135b3729326bfd6c7b7cb85c";
-    hash = "sha256-0q3v7E82agburNaOKtXqKBHSLQHuq8swLvPdHsTJmIM=";
+    rev = "2732217a407c03900145e6f4191936ff6a33945a";
+    hash = "sha256-/yYGxu2eGI86mGPUGcW2MqAPiTY1GYRaoL+YTadQZw0=";
   };
 
   makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" "RANLIB:=$(RANLIB)" ];
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "suckless unix tools";
-    homepage = "https://tools.suckless.org/sbase/";
+    homepage = "https://core.suckless.org/sbase/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
