@@ -11,7 +11,12 @@
     nixosModules = import ./modules;
   } // flake-utils.lib.eachDefaultSystem (system:
     let
-      pkgs = nixpkgs.legacyPackages.${system};
+      config = {
+        permittedInsecurePackages = [ "openssl-1.1.1w" ];
+      };
+      pkgs = import nixpkgs {
+        inherit system config;
+      };
       inherit (pkgs) lib;
       packages = flake-utils.lib.filterPackages system (import ./default.nix {
         inherit pkgs;
@@ -20,7 +25,7 @@
     {
       inherit packages;
       legacyPackages = import nixpkgs {
-        inherit system;
+        inherit system config;
         overlays = [ self.overlays.default ];
         crossOverlays = [ self.overlays.default ];
       };
