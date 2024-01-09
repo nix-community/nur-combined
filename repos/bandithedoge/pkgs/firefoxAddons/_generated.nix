@@ -384,10 +384,10 @@
   };
   "gesturefy" = buildFirefoxXpiAddon {
     pname = "gesturefy";
-    version = "3.2.10";
+    version = "3.2.11";
     addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4198500/gesturefy-3.2.10.xpi";
-    sha256 = "9c151ef61203773ca530742f251e2abb56292641f05fed5f3bc6e6192dc6fef3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4216810/gesturefy-3.2.11.xpi";
+    sha256 = "863b6f1c75a4079fee06d35c2ab04bca6cfe93f1484c0e8a03dd5ab7d68de86c";
     meta = with lib; {
       homepage = "https://github.com/Robbendebiene/Gesturefy";
       description = "Navigate, operate, and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
@@ -987,17 +987,18 @@
   };
   "privacy-pass" = buildFirefoxXpiAddon {
     pname = "privacy-pass";
-    version = "3.0.6";
+    version = "4.0.0";
     addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4160723/privacy_pass-3.0.6.xpi";
-    sha256 = "5966bfb190a575b54bd657f6e1b8735a9fd6b9a3ee008520468da37d7838122f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4216211/privacy_pass-4.0.0.xpi";
+    sha256 = "e2b93f9b456379b185b4c19353d86cbe45a62fc4db03e5af07fc254978392128";
     meta = with lib; {
-      homepage = "https://privacypass.github.io";
-      description = "Client-side of the Privacy Pass protocol providing unlinkable cryptographic tokens.";
+      homepage = "https://github.com/cloudflare/pp-browser-extension";
+      description = "Client support for Privacy Pass anonymous authorization protocol.";
       license = licenses.bsd2;
       mozPermissions = [
         "<all_urls>"
-        "cookies"
+        "storage"
+        "tabs"
         "webRequest"
         "webRequestBlocking"
       ];
@@ -1312,15 +1313,16 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.54.0";
+    version = "1.55.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4198829/ublock_origin-1.54.0.xpi";
-    sha256 = "9797160908191710ff0858536ba6dc29ecad9923c30b2ad6d3e5e371d759e44d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4216633/ublock_origin-1.55.0.xpi";
+    sha256 = "a02ca1d32737c3437f97553e5caaead6479a66ac1f8ff3b84a06cfa6bb0c7647";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
       license = licenses.gpl3;
       mozPermissions = [
+        "alarms"
         "dns"
         "menus"
         "privacy"
