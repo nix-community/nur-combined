@@ -1,6 +1,6 @@
-{ global, ... }:
+{ global, lib, ... }:
 {
-  programs.bash.promptInit = ''
+  programs.bash.promptInit = lib.mkBefore ''
     function loadDotfilesEnv {
       ${global.environmentShell}
     }

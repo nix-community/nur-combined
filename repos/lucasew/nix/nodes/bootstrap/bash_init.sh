@@ -11,3 +11,6 @@ if test -v IN_NIX_SHELL; then
     PS1="(shell:$IN_NIX_SHELL) $PS1"
 fi
 
+if [ -f ~/.setup_nix_path ]; then
+    loadDotfilesEnv
+fi
