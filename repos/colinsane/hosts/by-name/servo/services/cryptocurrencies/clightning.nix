@@ -3,6 +3,7 @@
 # docs:
 # - tor clightning config: <https://docs.corelightning.org/docs/tor>
 # - `lightning-cli` and subcommands: <https://docs.corelightning.org/reference/lightning-cli>
+# - `man lightningd-config`
 #
 # management/setup/use:
 # - guide: <https://github.com/ElementsProject/lightning>
