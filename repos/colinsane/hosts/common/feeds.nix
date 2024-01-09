@@ -87,7 +87,7 @@ let
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "originstories.libsyn.com" // uncat)
     (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
-    (fromDb "podcast.thelinuxexp.com" // tech)
+    # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast
     (fromDb "rss.acast.com/deconstructed")  # The Intercept - Deconstructed
