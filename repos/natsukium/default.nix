@@ -14,6 +14,7 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bclm = pkgs.callPackage ./pkgs/bclm { };
   colima = pkgs.callPackage ./pkgs/colima { };
   copyq = pkgs.callPackage ./pkgs/copyq { };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };

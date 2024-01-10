@@ -3,12 +3,12 @@
   nixfmt,
 }:
 nixfmt.overrideAttrs (finalAttrs: prevAttrs: {
-  version = prevAttrs.version + "-rfc-2024-01-08";
+  version = prevAttrs.version + "-rfc-2024-01-10";
   name = "${prevAttrs.pname}-${finalAttrs.version}";
   src = fetchFromGitHub {
     owner = "piegamesde";
     repo = "nixfmt";
-    rev = "a273e5ae71bf74c4a53d1818fc2e2e6cc703bab4";
-    hash = "sha256-z9FgYQuP0IG0bPJdtwrBbpf58z33nsqi1SMe98EHEBI=";
+    rev = "82457ef5fc7b324d3cab4300af0ff7f854135cfa";
+    hash = "sha256-yhnKT8z5FOTUb/1ZXaErmFHsv1oKg1aYQVLVUCzQWMA=";
   };
 })
