@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation {
   pname = "gruvbox-plus-icons";
-  version = "unstable-2024-01-07";
+  version = "unstable-2024-01-09";
 
   src = fetchFromGitHub {
     owner = "SylEleuth";
     repo = "gruvbox-plus-icon-pack";
-    rev = "fe7ec02b9d582bdb6f22b2f284339b2bb0edb264";
-    hash = "sha256-nuq8/3S5Ahk7OP+zd+3aLjPPpVAZ8NDUXPLMe5Fs/hY=";
+    rev = "23ce775f8701496a1d1c9891682ca39ca1116e3b";
+    hash = "sha256-VTHpYGUcVAH6CXUEFN/qKeL1XIlwgRWewkTbmsgN1W0=";
   };
 
   dontBuild = true;
