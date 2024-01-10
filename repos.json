@@ -98,6 +98,9 @@
             "file": "nur.nix",
             "url": "https://github.com/arcnmx/nixexprs"
         },
+        "armaria": {
+            "url": "https://github.com/JonathanHope/nur-armaria"
+        },
         "arteneko": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~artemis/artenekoverlay"
