@@ -95,7 +95,7 @@ in {
       url = "gmail.com";
       icon = (fetchurl {
         url = "https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/256/Gmail-icon.png";
-        sha256 = "1cldc9k30rlvchh7ng00hmn0prbh632z8h9fqclj466y8bgdp15j";
+        sha256 = "sha256-zNXr51wUMBnWtIHCoW9kv7ON/6HHB2p3c/e0UmyXUuc=";
       }).outPath;
     };
     keymash =  {
