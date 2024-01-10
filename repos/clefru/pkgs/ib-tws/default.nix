@@ -2,7 +2,7 @@
 with pkgs;
 
 let ibDerivation = stdenv.mkDerivation rec {
-  version = "10.26.1j";
+  version = "10.26.1k";
   pname = "ib-tws-native";
 
   src = fetchurl {
