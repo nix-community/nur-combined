@@ -301,10 +301,10 @@
   };
   "csgofloat" = buildFirefoxXpiAddon {
     pname = "csgofloat";
-    version = "3.2.0";
+    version = "3.2.5";
     addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4147246/csgofloat-3.2.0.xpi";
-    sha256 = "2c1d46959a9c8c49625889ca2f6c4ebfaeeb299a95e13f51f478bc0b5e20befd";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4217119/csgofloat-3.2.5.xpi";
+    sha256 = "d4825ad6c1ff0b38a6f9db743f536008d9736a7613edc5e448ca7eb41aa88f8e";
     meta = with lib; {
       homepage = "https://csgofloat.com";
       description = "Shows the float value, paint seed, and screenshots of Counter-Strike (CS:GO &amp; CS2) items on the Steam Market or Inventories";
@@ -509,10 +509,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.8.8";
+    version = "1.8.9";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4197942/material_icons_for_github-1.8.8.xpi";
-    sha256 = "10eef864eb50f70d99b5b823120a5b10a71e4bba38e91cf4f5cd15d5a6a8959c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4219553/material_icons_for_github-1.8.9.xpi";
+    sha256 = "2c25216ae53e8eb722f67e9db7e242fbd867c22205ad5e29c6201998294d6124";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
