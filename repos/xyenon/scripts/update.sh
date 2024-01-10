@@ -12,7 +12,7 @@ nix-shell "$nixpkgs/maintainers/scripts/update.nix" --show-trace \
   --argstr commit 'true' \
   --arg predicate "(
     let prefix = \"$root/pkgs/\"; prefixLen = builtins.stringLength prefix;
-    in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
+    in (_: p: (builtins.substring 0 prefixLen (p.meta.position or (builtins.trace p.meta \"\"))) == prefix)
   )"
 
 # Clean up
