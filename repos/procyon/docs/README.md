@@ -14,7 +14,7 @@
 
 ## 🌟 Showcase
 
-![Screenshots][Screenshots]
+[![Screenshots][Screenshots grid]][Screenshots folder]
 
 ## 📦 Contents
 
@@ -55,7 +55,8 @@ _And the usual copies?_ &rarr; [`LICENSES`][Project licenses].
 [REUSE]: https://reuse.software
 [REUSE badge]: https://img.shields.io/reuse/compliance/github.com/UnidealisticRaccoon/SnowyBurrow?label=REUSE&color=cba6f7&labelColor=313244&style=for-the-badge&logo=gitbook&logoColor=cba6f7
 [REUSE compliance]: https://api.reuse.software/info/github.com/UnidealisticRaccoon/SnowyBurrow
-[Screenshots]: ./assets/screenshots.webp
+[Screenshots grid]: ./assets/screenshots.webp
+[Screenshots folder]: ./assets
 [Mic92]: https://github.com/Mic92
 [Mic92/sops-nix]: https://github.com/Mic92/sops-nix
 [ehllie]: https://github.com/ehllie
