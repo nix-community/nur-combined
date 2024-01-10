@@ -24,6 +24,7 @@ rec {
   };
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { };
+  rofi-rbw = pkgs.callPackage ./pkgs/rofi-rbw { };
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { 
     inherit ligaturizer; 
   };
