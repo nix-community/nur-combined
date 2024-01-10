@@ -8,7 +8,6 @@
 { flake, config, pkgs, ... }:
 let
   gnomeExtensions = with pkgs.gnomeExtensions; [
-    pano
     caffeine
     gsconnect
     logo-menu

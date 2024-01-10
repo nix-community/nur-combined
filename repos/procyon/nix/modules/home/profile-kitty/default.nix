@@ -7,7 +7,10 @@
   xdg.configFile."kitty/codepoints.conf".source = ./codepoints.conf;
 
   home.shellAliases = {
-    "icat" = "kitten icat";
+    "+ssh" = "kitty +kitten ssh";
+    "+cat" = "kitty +kitten icat";
+    "+diff" = "kitty +kitten diff";
+    "+clip" = "kitty +kitten clipboard";
   };
 
   programs.kitty = {
