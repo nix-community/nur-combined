@@ -229,23 +229,27 @@
       # extract only our own packages from the full set.
       # because of `nix flake check`, we flatten the package set and only surface x86_64-linux packages.
       packages = mapAttrs
-        (system: allPkgs:
-          allPkgs.lib.filterAttrs (name: pkg:
+        (system: passthruPkgs: passthruPkgs.lib.filterAttrs
+          (name: pkg:
             # keep only packages which will pass `nix flake check`, i.e. keep only:
             # - derivations (not package sets)
             # - packages that build for the given platform
             (! elem name [ "feeds" "pythonPackagesExtensions" ])
-            && (allPkgs.lib.meta.availableOn allPkgs.stdenv.hostPlatform pkg)
+            && (passthruPkgs.lib.meta.availableOn passthruPkgs.stdenv.hostPlatform pkg)
           )
           (
             # expose sane packages and chosen inputs (uninsane.org)
-            (import ./pkgs { pkgs = allPkgs; }) // {
-              inherit (allPkgs) uninsane-dot-org;
+            (import ./pkgs { pkgs = passthruPkgs; }) // {
+              inherit (passthruPkgs) uninsane-dot-org;
             }
           )
         )
         # self.legacyPackages;
-        { inherit (self.legacyPackages) x86_64-linux; }
+        {
+          x86_64-linux = (nixpkgsCompiledBy "x86_64-linux").appendOverlays [
+            self.overlays.passthru
+          ];
+        }
       ;
 
       apps."x86_64-linux" =
