@@ -120,7 +120,7 @@ in {
   };
 
   programs.terminator = {
-    enable = true;
+    # enable = true;
     config = {
       global_config.borderless = true;
     };

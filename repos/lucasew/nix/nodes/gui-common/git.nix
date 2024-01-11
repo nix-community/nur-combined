@@ -1,7 +1,5 @@
 {pkgs, ...}:
-let
-  deltaBin = "${pkgs.delta}/bin/delta";
-in
+
 {
   programs.git = {
     enable = true;
@@ -10,10 +8,10 @@ in
         defaultBranch = "main";
       };
       core = {
-        pager = deltaBin;
+        # pager = deltaBin;
       };
       interactive = {
-        diffFilter = "${deltaBin} --color-only";
+        # diffFilter = "${deltaBin} --color-only";
       };
       delta = {
         navigate = true;

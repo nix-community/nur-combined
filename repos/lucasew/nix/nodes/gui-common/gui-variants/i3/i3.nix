@@ -39,7 +39,7 @@ in {
     environment.systemPackages = with pkgs; [
       lockerSpace
       custom_rofi
-      terminator
+      kitty
     ];
     services.xserver.windowManager.i3 = {
       configFile = "/etc/i3config";
@@ -173,7 +173,7 @@ bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+Down focus down
 bindsym $mod+Left focus left
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec kitty
 bindsym $mod+Right focus right
 bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+1 move container to workspace number 1
