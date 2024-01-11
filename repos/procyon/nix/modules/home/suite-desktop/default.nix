@@ -10,7 +10,6 @@
     ezModules.profile-dconf
     ezModules.profile-kitty
     ezModules.profile-chrome
-    ezModules.profile-spotify
   ];
 
   xsession.enable = true;
