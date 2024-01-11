@@ -594,13 +594,13 @@
         sha512 = "haREypq7xkM7ErfgIyA0z+Bj4AGKlMSdlQE2jvJo6huWD1EdkKYV+G/T4nq0YEF2vgTT8kqMFKo1uHn950r4SQ==";
       };
     };
-    "pathe-1.1.1" = {
+    "pathe-1.1.2" = {
       name = "pathe";
       packageName = "pathe";
-      version = "1.1.1";
+      version = "1.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/pathe/-/pathe-1.1.1.tgz";
-        sha512 = "d+RQGp0MAYTIaDBIMmOfMwz3E+LOZnxx1HZd5R18mmCZY0QBlK0LDZfPc8FW8Ed2DlvsuE6PRjroDY+wg4+j/Q==";
+        url = "https://registry.npmjs.org/pathe/-/pathe-1.1.2.tgz";
+        sha512 = "whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==";
       };
     };
     "perfect-debounce-1.0.0" = {
@@ -1045,7 +1045,7 @@ in {
       sources."ohash-1.1.3"
       sources."onetime-6.0.0"
       sources."path-key-3.1.1"
-      sources."pathe-1.1.1"
+      sources."pathe-1.1.2"
       sources."perfect-debounce-1.0.0"
       sources."picomatch-2.3.1"
       (sources."pkg-types-1.0.3"
