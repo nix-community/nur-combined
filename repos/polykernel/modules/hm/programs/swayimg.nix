@@ -57,7 +57,9 @@ in
 
     home.packages = [ cfg.package ];
 
-    xdg.configFile."swayimg/config" = mkIf (cfg.settings != {}) iniFormat.generate "swayimgrc" cfg.settings;
+    xdg.configFile."swayimg/config" = mkIf (cfg.settings != {}) {
+      source = iniFormat.generate "swayimgrc" cfg.settings;
+    };
   };
 
   meta.maintainers = [ maintainers.polykernel ];
