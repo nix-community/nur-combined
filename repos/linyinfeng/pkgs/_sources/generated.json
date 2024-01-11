@@ -181,7 +181,7 @@
     },
     "plugin-git": {
         "cargoLocks": null,
-        "date": "2023-11-07",
+        "date": "2024-01-10",
         "extract": null,
         "name": "plugin-git",
         "passthru": null,
@@ -191,12 +191,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c2b38f53f0b04bc67f9a0fa3d583bafb3f558718",
-            "sha256": "sha256-efKPbsXxjHm1wVWPJCV8teG4DgZN5dshEzX8PWuhKo4=",
+            "rev": "97ec249926f0dc8b93a40e45c9aa95e788872272",
+            "sha256": "sha256-ZFjm9FgYuIeM6y05ok0T2XoJV2+6DrQUiEwSB1kHkoM=",
             "type": "git",
             "url": "https://github.com/jhillyerd/plugin-git"
         },
-        "version": "c2b38f53f0b04bc67f9a0fa3d583bafb3f558718"
+        "version": "97ec249926f0dc8b93a40e45c9aa95e788872272"
     },
     "pyim-greatdict": {
         "cargoLocks": null,
