@@ -108,12 +108,13 @@ in
     targetPkgs = _pkgs: [
       vivadoPackage
     ];
-    multiPkgs = pkgs: [
+    multiPkgs = pkgs: with pkgs; [
       coreutils
       gcc
       ncurses5
       zlib
       glibc.dev
+      libxcrypt-legacy
     ];
     runScript = "vivado";
   }
