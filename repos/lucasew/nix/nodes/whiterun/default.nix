@@ -16,13 +16,15 @@ in {
     ./dashboards.nix
     ./dlna.nix
     ./nextcloud.nix
-    ./postgresql.nix
     ./sshfs.nix
     ./zfs.nix
     ./binary-cache.nix
     # ./container-inet-rdp.nix
     ./container-nat.nix
   ];
+
+  services.postgresql.enable = true;
+  services.postgresql.testDatabases = [ "demo" ];
 
   services.ollama.enable = true;
 

@@ -12,6 +12,7 @@
     ./tt-rss.nix
     ./telegram_sendmail.nix
     ./p2k.nix
+    ./postgresql.nix
     ./nixgram.nix
     ./netusage
     ./nitter.nix
