@@ -124,7 +124,7 @@ in [
   (fetchpatch' {
     title = "firefox-pmos-mobile: init at 4.0.2";
     saneCommit = "c3becd7cdf144d85d12e2e76663e9549a0536efd";
-    hash = "sha256-NRh2INUMA2K7q8zioqKA7xwoqg7v6sxpuJRpTG5IP1Q=";
+    hash = "sha256-fQdKm5kIFzheEUgSkwxrivynJk221suigWJ/WxZJ0Zk=";
   })
   # (fetchpatch' {
   #   saneCommit = "70c12451b783d6310ab90229728d63e8a903c8cb";
@@ -279,7 +279,7 @@ in [
     # this patch works as-is, but hspell keeps a ref to build perl and thereby pollutes this closure as well.
     title = "gtkspell2: support cross compilation";
     saneCommit = "56348833b4411e9fe2016c24c7fc4af1e3c1d28a";
-    hash = "sha256-0RMxouOBw7SUmQDLB2qGey714DaM0AOvZlZ5nB+Lkc4=";
+    hash = "sha256-RUw88u7CI2C1IpRUhGbdYamHsPT1jBV0ROyVvzLWdv8=";
   })
   (fetchpatch' {
     title = "libgnt: 2.14.1 -> 2.14.3";
@@ -292,7 +292,7 @@ in [
     # TODO: send for review once the libgnt patch above is merged
     title = "pidgin: support cross compilation";
     saneCommit = "caacbcc54e217f5ee9281422777a7f712765f71a";
-    hash = "sha256-PDCp4GOm6hWcRob4kz7qXZfxAF6YbYrESx9idoS3e/s=";
+    hash = "sha256-UyZaNNp84zKShuo6zu0nfZ2FygHGcmV63Ww4Y4CtCF0=";
   })
 
   (fetchpatch' {

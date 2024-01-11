@@ -2,6 +2,8 @@
 # - <https://nixos.wiki/wiki/ZFS>
 # - <repo:nixos/nixpkgs:nixos/modules/tasks/filesystems/zfs.nix>
 #
+# zfs check health: `zpool status`
+#
 # zfs pool creation (requires `boot.supportedFilesystems = [ "zfs" ];`
 # - 1. identify disk IDs: `ls -l /dev/disk/by-id`
 # - 2. pool these disks: `zpool create -f -m legacy pool raidz ata-ST4000VN008-2DR166_WDH0VB45 ata-ST4000VN008-2DR166_WDH17616 ata-ST4000VN008-2DR166_WDH0VC8Q ata-ST4000VN008-2DR166_WDH17680`
@@ -22,6 +24,17 @@
   boot.zfs.forceImportRoot = false;
   # scrub all zfs pools weekly:
   services.zfs.autoScrub.enable = true;
+  boot.extraModprobeConfig = ''
+    # ZFS likes to use half the ram for its own cache and let the kernel push everything else to swap.
+    # so, reduce its cache size
+    # see: <https://askubuntu.com/a/1290387>
+    # see: <https://serverfault.com/a/1119083>
+    # see: <https://openzfs.github.io/openzfs-docs/Performance%20and%20Tuning/Module%20Parameters.html#zfs-arc-max>
+    # for all tunables, see: `man 4 zfs`
+    # to update these parameters without rebooting:
+    # - `echo '4294967296' | sane-sudo-redirect /sys/module/zfs/parameters/zfs_arc_max`
+    options zfs zfs_arc_max=4294967296
+  '';
   # to be able to mount the pool like this, make sure to tell zfs to NOT manage it itself.
   # otherwise local-fs.target will FAIL and you will be dropped into a rescue shell.
   # - `zfs set mountpoint=legacy pool`

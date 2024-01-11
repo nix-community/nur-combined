@@ -13,6 +13,7 @@
     ];
     group = "users";
     extraGroups = [
+      "clightning"  # servo, for clightning-cli
       "dialout"  # required for modem access (moby)
       "export"  # to read filesystem exports (servo)
       "feedbackd"  # moby, so `fbcli` can control vibrator and LEDs

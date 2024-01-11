@@ -7,7 +7,6 @@
 #
 # management/setup/use:
 # - guide: <https://github.com/ElementsProject/lightning>
-# - `sudo -u clightning -g clightning lightning-cli help`
 #
 # debugging:
 # - `lightning-cli getlog debug`
@@ -74,8 +73,11 @@
 { config, ... }:
 {
   sane.persist.sys.byStore.ext = [
-    { user = "clightning"; group = "clightning"; mode = "0700"; path = "/var/lib/clightning"; }
+    { user = "clightning"; group = "clightning"; mode = "0710"; path = "/var/lib/clightning"; }
   ];
+
+  # `lightning-cli` finds its RPC file via `~/.lightning/bitcoin/lightning-rpc`, to message the daemon
+  sane.user.fs.".lightning".symlink.target = "/var/lib/clightning";
 
   # see bitcoin.nix for how to generate this
   services.bitcoind.mainnet.rpc.users.clightning.passwordHMAC =
@@ -118,7 +120,7 @@
   '';
   sane.services.clightning.extraConfigFiles = [ config.sops.secrets."lightning-config".path ];
   sops.secrets."lightning-config" = {
-    mode = "0600";
+    mode = "0640";
     owner = "clightning";
     group = "clightning";
   };

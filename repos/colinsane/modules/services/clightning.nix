@@ -203,7 +203,7 @@ in
             sleep 0.1
         done
         # Needed to enable lightning-cli for users with group 'clightning'
-        chmod g+x ${cfg.networkDir}
+        chmod g+rx ${cfg.networkDir}
       '';
     };
 
@@ -218,7 +218,8 @@ in
     sane.fs."${cfg.dataDir}".dir.acl = {
       user = cfg.user;
       group = cfg.group;
-      mode = "0700";
+      # must be traversable by group, for `lightning-cli` to be usable by group members.
+      mode = "0710";
     };
 
     # ~/.lightning is needed only when interactively calling `lightning-cli` as the `clightning` user.
