@@ -23,8 +23,13 @@ in {
     ./container-nat.nix
   ];
 
-  services.postgresql.enable = true;
-  services.postgresql.testDatabases = [ "demo" ];
+  services.postgresql = {
+    enable = true;
+    enableTCPIP = true;
+    userSpecificDatabases = {
+      test = ["demo"];
+    };
+  };
 
   services.ollama.enable = true;
 
