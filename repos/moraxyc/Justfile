@@ -1,5 +1,5 @@
 build target:
-    nix build ".#{{target}}"
+    nom build ".#{{target}}"
 
 check:
     nix flake check .

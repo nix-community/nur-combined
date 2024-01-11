@@ -9,11 +9,11 @@
 # - null: Default mode
 # - "ci": from Garnix CI
 # - "nur": from NUR bot
-mode: {
-  pkgs ? import <nixpkgs> {},
-  inputs ? null,
-  ...
-}: let
+mode: { pkgs ? import <nixpkgs> { }
+      , inputs ? null
+      , ...
+      }:
+let
   inherit (pkgs) lib;
 
   ifNotCI = p:
@@ -28,27 +28,31 @@ mode: {
 
   mkScope = f:
     builtins.removeAttrs
-    (lib.makeScope pkgs.newScope (self: let
-      pkg = self.newScope {
-        inherit mkScope;
-        sources = self.callPackage ../_sources/generated.nix {};
-      };
-    in
-      f self pkg))
-    [
-      "newScope"
-      "callPackage"
-      "overrideScope"
-      "overrideScope'"
-      "packages"
-    ];
+      (lib.makeScope pkgs.newScope (self:
+        let
+          pkg = self.newScope {
+            inherit mkScope;
+            sources = self.callPackage ../_sources/generated.nix { };
+          };
+        in
+        f self pkg))
+      [
+        "newScope"
+        "callPackage"
+        "overrideScope"
+        "overrideScope'"
+        "packages"
+      ];
 in
-  mkScope (self: pkg: let
-    # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
-  in {
-    # Package groups
+mkScope (self: pkg:
+let
+  # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
+in
+{
+  # Package groups
 
-    boringssl-oqs = pkg ./boringssl-oqs {};
-    liboqs = pkg ./liboqs {};
-    openssl-oqs-provider = pkg ./openssl-oqs-provider {};
-  })
+  boringssl-oqs = pkg ./boringssl-oqs { };
+  liboqs = pkg ./liboqs { };
+  openssl-oqs-provider = pkg ./openssl-oqs-provider { };
+  nezha-agent = pkg ./nezha-agent { };
+})

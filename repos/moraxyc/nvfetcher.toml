@@ -13,3 +13,6 @@ fetch.github = "open-quantum-safe/oqs-provider"
 [qsc-key-encoder]
 src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
 fetch.github = "Quantum-Safe-Collaboration/qsc-key-encoder"
+[nezha-agent]
+src.github = "nezhahq/agent"
+fetch.github = "nezhahq/agent"
