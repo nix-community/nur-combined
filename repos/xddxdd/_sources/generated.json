@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-09",
+        "date": "2024-01-10",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "633d5d0d13b1e5ef6a423f27b2d0380c617c1226",
-            "sha256": "sha256-3rURn2lWqxfjWecc2SqgDAPhYG7w1nl+X4j6pkfOgBc=",
+            "rev": "dd902536d7b1b0ae5490361ca64d76168fa03654",
+            "sha256": "sha256-KAm4yXfISkcPvJF1CWTB5zMcHXpp4rNkJn9XI25PizM=",
             "type": "github"
         },
-        "version": "633d5d0d13b1e5ef6a423f27b2d0380c617c1226"
+        "version": "dd902536d7b1b0ae5490361ca64d76168fa03654"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1005,11 +1005,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.1.71-xanmod1",
-            "sha256": "sha256-IbiACs7NKHsrd/Bl+BD+9VL08096UcOu7fztFJSmbDM=",
+            "rev": "6.1.72-xanmod1",
+            "sha256": "sha256-S8Ilrce7xQb549NPIBRIMMIng4xY77Hbq58rE5LOow8=",
             "type": "github"
         },
-        "version": "6.1.71-xanmod1"
+        "version": "6.1.72-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -1025,11 +1025,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.10-xanmod1",
-            "sha256": "sha256-5BymQhVWMHg4zlQIPxf40JQI9iSWQqTZfbDd6+G3RsQ=",
+            "rev": "6.6.11-xanmod1",
+            "sha256": "sha256-pxi23tNVODsICLJFet1kTNdryL0ZkAsZQyZyOeP0tXk=",
             "type": "github"
         },
-        "version": "6.6.10-xanmod1"
+        "version": "6.6.11-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
