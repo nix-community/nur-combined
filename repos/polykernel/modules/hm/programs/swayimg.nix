@@ -10,11 +10,7 @@ with lib;
 let
   cfg = config.programs.swayimg;
 
-  iniAtom = with types; nullOr (oneOf [ str float int bool ]) // {
-    description = "INI atom (null, bool, int, float or string)";
-  };
-
-  toSwayimgIni = lib.generators.toINIWithGlobalSection { };
+  iniFormat = pkgs.formats.ini {};
 in
 
 {
@@ -32,40 +28,23 @@ in
       };
 
       settings = mkOption {
-        type = types.submodule {
-          options = {
-            globalSection = mkOption {
-              type = types.attrsOf iniAtom;
-              default = {};
-              description = ''
-                Global properties to be set in the swayimg configuration.
-              '';
-            };
-            sections = mkOption {
-              type = types.attrsOf (types.attrsOf iniAtom);
-              default = {};
-              description = ''
-                Sections to be set in the swayimg configuration.
-              '';
-            };
-          };
-        };
+        type = iniFormat.type;
         default = {};
         description = ''
           Configuration written to
           <filename>$XDG_CONFIG_HOME/swayimg/config</filename>
           </para><para>
-          Global properties (key-value pairs defined before sections) are set via
-          <option>programs.swayimg.settings.globalSection</option>. Sections are defined under
-          <option>programs.swayimg.settings.sections</option>.
           See <link xlink:href="https://github.com/artemsen/swayimg/blob/master/extra/swayimgrc"/>
           for a sample configuration.
         '';
         example = literalExpression ''
           {
-            globalSection = {
+            general = {
               scale = "optimal";
-              window = "#000000";
+              background = "000000";
+            };
+            info = {
+              mode = "full";
             };
           }
         '';
@@ -78,9 +57,7 @@ in
 
     home.packages = [ cfg.package ];
 
-    xdg.configFile."swayimg/config" = mkIf (cfg.settings != {}) {
-      text = toSwayimgIni cfg.settings;
-    };
+    xdg.configFile."swayimg/config" = mkIf (cfg.settings != {}) iniFormat.generate "swayimgrc" cfg.settings;
   };
 
   meta.maintainers = [ maintainers.polykernel ];
