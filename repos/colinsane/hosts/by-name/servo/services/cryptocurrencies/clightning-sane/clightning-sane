@@ -23,8 +23,7 @@ RPC_FILE = "/var/lib/clightning/bitcoin/lightning-rpc"
 # CLTV (HLTC delta) of the final hop
 CLTV = 9
 
-class RebalanceResult(Enum):
-    SUCCESS = "SUCCESS"
+class RebalanceError(Enum):
     FAIL_TEMPORARY = "FAIL_TEMPORARY"
     FAIL_PERMANENT = "FAIL_PERMANENT"
 
@@ -37,80 +36,140 @@ class TxBounds:
     min_msat: int
     max_msat: int
 
+    def __repr__(self) -> str:
+        return f"TxBounds({self.min_msat} <= msat <= {self.max_msat})"
+
     def is_satisfiable(self) -> bool:
         return self.min_msat <= self.max_msat
 
-    def restrict_to_htlc(self, ch: "LocalChannel") -> "Self":
+    def restrict_to_htlc(self, ch: "LocalChannel", why: str = "") -> "Self":
         """
         apply min/max HTLC size restrictions of the given channel.
         """
+        if ch:
+            why = why or ch.directed_scid_to_me
+        if why: why = f"{why}: "
+
         new_min, new_max = self.min_msat, self.max_msat
-        if ch.htlc_minimum_msat > self.min_msat:
-            new_min = ch.htlc_minimum_msat
-            logger.debug(f"raising min_msat due to HTLC requirements: {self.min_msat} -> {new_min}")
-        if ch.htlc_maximum_msat < self.max_msat:
-            new_max = ch.htlc_maximum_msat
-            logger.debug(f"lowering max_msat due to HTLC requirements: {self.max_msat} -> {new_max}")
+        if ch.htlc_minimum_to_me > self.min_msat:
+            new_min = ch.htlc_minimum_to_me
+            logger.debug(f"{why}raising min_msat due to HTLC requirements: {self.min_msat} -> {new_min}")
+        if ch.htlc_maximum_to_me < self.max_msat:
+            new_max = ch.htlc_maximum_to_me
+            logger.debug(f"{why}lowering max_msat due to HTLC requirements: {self.max_msat} -> {new_max}")
         return TxBounds(min_msat=new_min, max_msat=new_max)
 
-    def restrict_to_zero_fees(self, ch: "LocalChannel"=None, base: int=0, ppm: int=0) -> "Self":
+    def restrict_to_zero_fees(self, ch: "LocalChannel"=None, base: int=0, ppm: int=0, why:str = "") -> "Self":
         """
         restrict tx size such that PPM fees are zero.
         if the channel has a base fee, then `max_msat` is forced to 0.
         """
         if ch:
-            self = self.restrict_to_zero_fees(base=ch.to_me["base_fee_millisatoshi"], ppm=ch.to_me["fee_per_millionth"])
+            why = why or ch.directed_scid_to_me
+            self = self.restrict_to_zero_fees(base=ch.to_me["base_fee_millisatoshi"], ppm=ch.to_me["fee_per_millionth"], why=why)
+
+        if why: why = f"{why}: "
 
         new_max = self.max_msat
-        if ppm != 0:
-            new_max = math.ceil(1000000 / ppm) - 1
-            if new_max < self.max_msat:
-                logger.debug(f"decreasing max_msat due to fee ppm: {self.max_msat} -> {new_max}")
+        ppm_max = math.ceil(1000000 / ppm) - 1 if ppm != 0 else new_max
+        if ppm_max < new_max:
+            logger.debug(f"{why}decreasing max_msat due to fee ppm: {new_max} -> {ppm_max}")
+            new_max = ppm_max
+
         if base != 0:
-            logger.debug("free route impossible: channel has base fees")
+            logger.debug(f"{why}free route impossible: channel has base fees")
             new_max = 0
 
-        return TxBounds(
-            min_msat = self.min_msat,
-            max_msat = new_max,
-        )
+        return TxBounds(min_msat=self.min_msat, max_msat=new_max)
 
 
 class LocalChannel:
-    def __init__(self, channels: list, self_id: str):
-        assert len(channels) == 2, f"unexpected: more than 2 channels: {channels}"
+    def __init__(self, channels: list, rpc: "RpcHelper"):
+        assert 0 < len(channels) <= 2, f"unexpected: channel count: {channels}"
         out = None
         in_ = None
         for c in channels:
-            if c["source"] == self_id:
+            if c["source"] == rpc.self_id:
                 assert out is None, f"unexpected: multiple channels from self: {channels}"
                 out = c
-            if c["destination"] == self_id:
+            if c["destination"] == rpc.self_id:
                 assert in_ is None, f"unexpected: multiple channels to self: {channels}"
                 in_ = c
-        assert out is not None, f"no channel from self: {channels}"
-        assert in_ is not None, f"no channel to self: {channels}"
-        assert out["destination"] == in_["source"], f"channel peers are asymmetric?! {channels}"
-        assert out["short_channel_id"] == in_["short_channel_id"], f"channel ids differ?! {channels}"
+
+        # assert out is not None, f"no channel from self: {channels}"
+        # assert in_ is not None, f"no channel to self: {channels}"
+
+        if out and in_:
+            assert out["destination"] == in_["source"], f"channel peers are asymmetric?! {channels}"
+            assert out["short_channel_id"] == in_["short_channel_id"], f"channel ids differ?! {channels}"
 
         self.from_me = out
         self.to_me = in_
+        self.remote_node = rpc.node(self.remote_peer)
+        self.peer_ch = rpc.peerchannel(self.scid, self.remote_peer)
+
+    def __repr__(self) -> str:
+        return self.to_str(with_scid=True, with_bal_ratio=True, with_cost=True, with_ppm_theirs=True)
+
+    def to_str(self, with_scid: bool=False, with_bal_msat: bool=False, with_bal_ratio: bool=False, with_cost:bool = False, with_ppm_theirs:bool = False, with_ppm_mine:bool = False) -> str:
+        base_flag = "*" if self.to_me is None or self.to_me["base_fee_millisatoshi"] != 0 else ""
+        alias = f"({self.remote_alias}){base_flag}"
+        scid = f"  scid:{self.scid:>13}" if with_scid else ""
+        bal = f"  S:{int(self.sendable):11}/R:{int(self.receivable):11}" if with_bal_msat else ""
+        ratio = f"  MINE:{(100*self.send_ratio):>8.4f}%" if with_bal_ratio else ""
+        cost = f"  COST:{self.opportunity_cost_lent:>11}" if with_cost else ""
+        ppm_theirs = self.to_me["fee_per_millionth"] if self.to_me else "N/A"
+        ppm_theirs = f"  PPM_THEIRS:{ppm_theirs:>6}" if with_ppm_theirs else ""
+        ppm_mine = self.from_me["fee_per_millionth"] if self.from_me else "N/A"
+        ppm_mine = f"  PPM_MINE:{ppm_mine:>6}" if with_ppm_mine else ""
+        return f"channel{alias:30}{scid}{bal}{ratio}{cost}{ppm_theirs}{ppm_mine}"
+
+
+    @property
+    def online(self) -> bool:
+        return self.from_me and self.to_me
 
     @property
     def remote_peer(self) -> str:
-        return self.from_me["destination"]
+        if self.from_me:
+            return self.from_me["destination"]
+        else:
+            return self.to_me["source"]
+
+    @property
+    def remote_alias(self) -> str:
+        return self.remote_node["alias"]
 
     @property
     def scid(self) -> str:
-        return self.from_me["short_channel_id"]
+        if self.from_me:
+            return self.from_me["short_channel_id"]
+        else:
+            return self.to_me["short_channel_id"]
 
     @property
-    def htlc_minimum_msat(self) -> Millisatoshi:
-        return max(self.from_me["htlc_minimum_msat"], self.to_me["htlc_minimum_msat"])
+    def htlc_minimum_to_me(self) -> Millisatoshi:
+        return self.to_me["htlc_minimum_msat"]
 
     @property
-    def htlc_maximum_msat(self) -> Millisatoshi:
-        return min(self.from_me["htlc_maximum_msat"], self.to_me["htlc_maximum_msat"])
+    def htlc_minimum_from_me(self) -> Millisatoshi:
+        return self.from_me["htlc_minimum_msat"]
+
+    @property
+    def htlc_minimum(self) -> Millisatoshi:
+        return max(self.htlc_minimum_to_me, self.htlc_minimum_from_me)
+
+    @property
+    def htlc_maximum_to_me(self) -> Millisatoshi:
+        return self.to_me["htlc_maximum_msat"]
+
+    @property
+    def htlc_maximum_from_me(self) -> Millisatoshi:
+        return self.from_me["htlc_maximum_msat"]
+
+    @property
+    def htlc_maximum(self) -> Millisatoshi:
+        return min(self.htlc_maximum_to_me, self.htlc_maximum_from_me)
 
     @property
     def direction_to_me(self) -> int:
@@ -122,13 +181,11 @@ class LocalChannel:
 
     @property
     def directed_scid_to_me(self) -> str:
-        scid, dir = self.to_me["short_channel_id"], self.direction_to_me
-        return f"{scid}/{dir}"
+        return f"{self.scid}/{self.direction_to_me}"
 
     @property
     def directed_scid_from_me(self) -> str:
-        scid, dir = self.from_me["short_channel_id"], self.direction_from_me
-        return f"{scid}/{dir}"
+        return f"{self.scid}/{self.direction_from_me}"
 
     @property
     def delay_them(self) -> str:
@@ -138,69 +195,113 @@ class LocalChannel:
     def delay_me(self) -> str:
         return self.from_me["delay"]
 
-class Balancer:
+    @property
+    def ppm_from_me(self) -> int:
+        return self.peer_ch["fee_proportional_millionths"]
+
+    @property
+    def receivable(self) -> int:
+        return self.peer_ch["receivable_msat"]
+
+    @property
+    def sendable(self) -> int:
+        return self.peer_ch["spendable_msat"]
+
+    @property
+    def send_ratio(self) -> float:
+        cap = self.receivable + self.sendable
+        return self.sendable / cap
+
+    @property
+    def opportunity_cost_lent(self) -> int:
+        """ how much msat did we gain by pushing their channel to its current balance? """
+        return int(self.receivable * self.ppm_from_me / 1000000)
+
+class RpcHelper:
     def __init__(self, rpc: LightningRpc):
         self.rpc = rpc
         self.self_id = rpc.getinfo()["id"]
+
+    def localchannel(self, scid: str) -> LocalChannel:
+        listchan = self.rpc.listchannels(scid)
+        # this assertion would probably indicate a typo in the scid
+        assert listchan and listchan.get("channels", []) != [], f"bad listchannels for {scid}: {listchan}"
+        return LocalChannel(listchan["channels"], self)
+
+    def node(self, id: str) -> dict:
+        nodes = self.rpc.listnodes(id)["nodes"]
+        assert len(nodes) == 1, f"unexpected: multiple nodes for {id}: {nodes}"
+        return nodes[0]
+
+    def peerchannel(self, scid: str, peer_id: str) -> dict:
+        peerchannels = self.rpc.listpeerchannels(peer_id)["channels"]
+        channels = [c for c in peerchannels if c["short_channel_id"] == scid]
+        assert len(channels) == 1, f"expected exactly 1 channel, got: {channels}"
+        return channels[0]
+
+class Balancer:
+    def __init__(self, rpc: RpcHelper):
+        self.rpc = rpc
         self.bad_channels = []  # list of directed scid
         self.nonzero_base_channels = []  # list of directed scid
 
-    def _localchannel(self, scid: str) -> LocalChannel:
-        return LocalChannel(self.rpc.listchannels(scid)["channels"], self.self_id)
-
     def _get_directed_scid(self, scid: str, direction: int) -> dict:
-        channels = self.rpc.listchannels(scid)["channels"]
+        channels = self.rpc.rpc.listchannels(scid)["channels"]
         channels = [c for c in channels if c["direction"] == direction]
         assert len(channels) == 1, f"expected exactly 1 channel: {channels}"
         return channels[0]
 
-    def balance_once_with_retries(self, out_scid: str, in_scid: str, tx: TxBounds, retries: int = 20) -> None:
+    def balance_once_with_retries(self, out_scid: str, in_scid: str, tx: TxBounds, retries: int = 20) -> int:
         for i in range(retries):
             if i != 0:
                 logger.info(f"retrying rebalance: {i} of {retries}\n")
             res = self.balance_once(out_scid, in_scid, tx)
-            if res == RebalanceResult.SUCCESS:
-                logger.info(f"rebalanced once with success {out_scid} -> {in_scid}")
-                break
-            if res == RebalanceResult.FAIL_PERMANENT:
+            if res == RebalanceError.FAIL_PERMANENT:
                 logger.info(f"rebalance {out_scid} -> {in_scid} is impossible (likely no route)")
                 break
+            elif res == RebalanceError.FAIL_TEMPORARY:
+                continue
+            else:
+                return res  # success
         else:
             logger.info(f"failed to rebalance {out_scid} -> {in_scid} within {retries} attempts")
 
-    def balance_once(self, out_scid: str, in_scid: str, bounds: TxBounds) -> None:
-        out_ch = self._localchannel(out_scid)
-        in_ch = self._localchannel(in_scid)
+        return 0
+
+    def balance_once(self, out_scid: str, in_scid: str, bounds: TxBounds) -> RebalanceError|int:
+        out_ch = self.rpc.localchannel(out_scid)
+        in_ch = self.rpc.localchannel(in_scid)
 
         if out_ch.directed_scid_from_me in self.bad_channels or in_ch.directed_scid_to_me in self.bad_channels:
             logger.info(f"rebalance {out_scid} -> {in_scid} failed in our own channel")
-            return RebalanceResult.FAIL_PERMANENT
+            return RebalanceError.FAIL_PERMANENT
 
-        bounds = bounds.restrict_to_htlc(out_ch)
+        # bounds = bounds.restrict_to_htlc(out_ch)  # htlc bounds seem to be enforced only in the outward direction
         bounds = bounds.restrict_to_htlc(in_ch)
         bounds = bounds.restrict_to_zero_fees(in_ch)
         if not bounds.is_satisfiable():
-            return RebalanceResult.FAIL_PERMANENT  # no valid bounds
+            return RebalanceError.FAIL_PERMANENT  # no valid bounds
 
+        logger.debug(f"route with bounds {bounds}")
         route = self.route(out_ch, in_ch, bounds)
         logger.debug(f"route: {route}")
         if route == RouteError.NO_ROUTE:
-            return RebalanceResult.FAIL_PERMANENT
+            return RebalanceError.FAIL_PERMANENT
         elif route == RouteError.HAS_BASE_FEE:
             # try again with a different route
-            return RebalanceResult.FAIL_TEMPORARY
+            return RebalanceError.FAIL_TEMPORARY
 
         amount_msat = route[0]["amount_msat"]
         invoice_id = f"rebalance-{time.time():.6f}".replace(".", "_")
         invoice_desc = f"bal {out_scid}:{in_scid}"
-        invoice = self.rpc.invoice("any", invoice_id, invoice_desc)
+        invoice = self.rpc.rpc.invoice("any", invoice_id, invoice_desc)
         logger.debug(f"invoice: {invoice}")
 
-        payment = self.rpc.sendpay(route, invoice["payment_hash"], invoice_id, amount_msat, invoice["bolt11"], invoice["payment_secret"])
+        payment = self.rpc.rpc.sendpay(route, invoice["payment_hash"], invoice_id, amount_msat, invoice["bolt11"], invoice["payment_secret"])
         logger.debug(f"sent: {payment}")
 
         try:
-            wait = self.rpc.waitsendpay(invoice["payment_hash"])
+            wait = self.rpc.rpc.waitsendpay(invoice["payment_hash"])
             logger.debug(f"result: {wait}")
         except RpcError as e:
             err_data = e.error["data"]
@@ -208,9 +309,9 @@ class Balancer:
             err_directed_scid = f"{err_scid}/{err_dir}"
             logger.debug(f"ch failed, adding to excludes: {err_directed_scid}; {e.error}")
             self.bad_channels.append(err_directed_scid)
-            return RebalanceResult.FAIL_TEMPORARY
+            return RebalanceError.FAIL_TEMPORARY
         else:
-            return RebalanceResult.SUCCESS
+            return int(amount_msat)
 
     def route(self, out_ch: LocalChannel, in_ch: LocalChannel, bounds: TxBounds) -> list[dict] | RouteError:
         exclude = [
@@ -220,7 +321,7 @@ class Balancer:
             # in_ch.directed_scid_from_me,
 
             # alternatively, never route through self. this avoids a class of logic error, like what to do with fees i charge "myself".
-            self.self_id
+            self.rpc.self_id
         ] + self.bad_channels + self.nonzero_base_channels
 
         out_peer = out_ch.remote_peer
@@ -240,7 +341,7 @@ class Balancer:
         return route
 
     def _find_partial_route(self, out_peer: str, in_peer: str, bounds: TxBounds, exclude: list[str]=[]) -> list[dict] | RouteError | TxBounds:
-        route = self.rpc.getroute(in_peer, amount_msat=bounds.max_msat, riskfactor=0, fromid=out_peer, exclude=exclude, cltv=CLTV)
+        route = self.rpc.rpc.getroute(in_peer, amount_msat=bounds.max_msat, riskfactor=0, fromid=out_peer, exclude=exclude, cltv=CLTV)
         route = route["route"]
         if route == []:
             logger.debug(f"no route for {bounds.max_msat}msat {out_peer} -> {in_peer}")
@@ -250,24 +351,23 @@ class Balancer:
         if send_msat != Millisatoshi(bounds.max_msat):
             logger.debug(f"found route with non-zero fee: {send_msat} -> {bounds.max_msat}. {route}")
 
+            error = None
             for hop in route:
                 hop_scid = hop["channel"]
                 hop_dir = hop["direction"]
                 ch = self._get_directed_scid(hop_scid, hop_dir)
                 if ch["base_fee_millisatoshi"] != 0:
                     self.nonzero_base_channels.append(f"{hop_scid}/{hop_dir}")
+                    error = RouteError.HAS_BASE_FEE
                 bounds = bounds.restrict_to_zero_fees(ppm=ch["fee_per_millionth"])
 
-            if any(hop["base_fee_millisatoshi"] != 0 for hop in route):
-                return RouteError.HAS_BASE_FEE
-
-            return bounds
+            return bounds if error is None else error
 
         return route
 
     def _add_route_endpoints(self, route, out_ch: LocalChannel, in_ch: LocalChannel):
         inbound_hop = dict(
-          id=self.self_id,
+          id=self.rpc.self_id,
           channel=in_ch.scid,
           direction=in_ch.direction_to_me,
           amount_msat=route[-1]["amount_msat"],
@@ -290,31 +390,64 @@ class Balancer:
     def _add_route_delay(self, route: list[dict], delay: int) -> list[dict]:
         return [ dict(hop, delay=hop["delay"] + delay) for hop in route ]
 
+def show_status(rpc: RpcHelper, full: bool=False):
+    """
+    show a table of channel balances between peers.
+    """
+    for ch in rpc.rpc.listpeerchannels()["channels"]:
+        ch = rpc.localchannel(ch["short_channel_id"])
+        print(ch.to_str(with_scid=True, with_bal_ratio=True, with_cost=True, with_ppm_theirs=True, with_ppm_mine=full))
 
 def main():
     logging.basicConfig()
     logger.setLevel(logging.INFO)
 
     parser = argparse.ArgumentParser(description="rebalance lightning channel balances")
-    parser.add_argument("out", help="peer id to send tx through")
-    parser.add_argument("in_", help="peer id to receive tx through")
     parser.add_argument("--verbose", action="store_true", help="more logging")
-    parser.add_argument("--min-msat", default="999", help="min to rebalance")
-    parser.add_argument("--max-msat", default="1000000", help="max to rebalance")
+    subparsers = parser.add_subparsers(help="action")
+
+    status_parser = subparsers.add_parser("status")
+    status_parser.set_defaults(action="status")
+    status_parser.add_argument("--full", action="store_true", help="more info per channel")
+
+    loop_parser = subparsers.add_parser("loop")
+    loop_parser.set_defaults(action="loop")
+    loop_parser.add_argument("out", help="peer id to send tx through")
+    loop_parser.add_argument("in_", help="peer id to receive tx through")
+    loop_parser.add_argument("--min-msat", default="999", help="min to rebalance")
+    loop_parser.add_argument("--max-msat", default="1000000", help="max to rebalance")
+    loop_parser.add_argument("--max-tx", default="1", help="maximum times to rebalance")
 
     args = parser.parse_args()
 
     if args.verbose:
         logger.setLevel(logging.DEBUG)
 
-    rpc = LightningRpc(RPC_FILE)
-    balancer = Balancer(rpc)
+    rpc = RpcHelper(LightningRpc(RPC_FILE))
 
-    bounds = TxBounds(
-        min_msat = int(args.min_msat),
-        max_msat = int(args.max_msat),
-    )
-    balancer.balance_once_with_retries(args.out, args.in_, bounds)
+    if args.action == "status":
+        show_status(rpc, full=args.full)
+
+    if args.action == "loop":
+        balancer = Balancer(rpc)
+        bounds = TxBounds(
+            min_msat = int(args.min_msat),
+            max_msat = int(args.max_msat),
+        )
+
+        asked_to_route = bounds.max_msat
+        total_routed = 0
+        for i in range(int(args.max_tx)):
+            bounds.max_msat = min(bounds.max_msat, asked_to_route - total_routed)
+            if not bounds.is_satisfiable(): break
+
+            amt_balanced = balancer.balance_once_with_retries(args.out, args.in_, bounds)
+            total_routed += amt_balanced
+            if amt_balanced == 0: break
+            logger.info(f"rebalanced {amt_balanced} (total: {total_routed} of {asked_to_route})")
+            bounds.max_msat = min(bounds.max_msat, amt_balanced)
+
+        logger.info(f"rebalanced {total_routed} of {asked_to_route}")
 
 if __name__ == '__main__':
     main()
