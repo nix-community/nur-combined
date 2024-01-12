@@ -27,20 +27,10 @@ let
     ) else null;
 in [
   (fetchpatch' {
-    title = "hareThirdParty.hare-ev: unstable-2023-10-31 -> unstable-2023-12-04";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/277222";
-    hash = "sha256-mRcx489YFiF+1iVFJRY+bxaoWf/yJqMbRh9GO3ctApQ=";
-  })
-  (fetchpatch' {
     title = "argyllcms: support cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/275755";
     saneCommit = "8114d5dabbf5f4f1e8c370b889d4f2986b63998b";
     hash = "sha256-z/vY2CxdrUVd4n7w+m8aNffXaN/jH7IWEwRfWNr9w94=";
-  })
-  (fetchpatch' {
-    title = "ripgrep: fix shell completions when cross compiling";
-    saneCommit = "8631ddfb99aa8e935276b27d55ef5e10f5ab0367";
-    hash = "sha256-AkxtrCJrf0wpTdty4SOIWBrWwqfG7rBI4ON38BjDi6s=";
   })
   (fetchpatch' {
     title = "jbig2dec: fix cross";
@@ -262,7 +252,6 @@ in [
   #   hash = "sha256-HwycOd3v4IifdQqQmMP6w14g0E/T9RAjAw41AsUZQoc=";
   # })
   (fetchpatch' {
-    # includes hare-json and hare-ev as pre-reqs
     title = "bonsai: init at 1.0.2";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
     hash = "sha256-i50rY3S4IeRHpZrG2wF/MJaLyS7TbfUv6pszrDOixzg=";

@@ -1,6 +1,8 @@
 # config options:
 # - <https://github.com/mautrix/signal/blob/master/mautrix_signal/example-config.yaml>
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+lib.mkIf false  # disabled 2024/01/11: i don't use it, and pkgs.mautrix-signal had some API changes
 {
   sane.persist.sys.byStore.plaintext = [
     { user = "mautrix-signal"; group = "mautrix-signal"; path = "/var/lib/mautrix-signal"; }

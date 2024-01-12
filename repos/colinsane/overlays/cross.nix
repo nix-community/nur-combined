@@ -402,6 +402,20 @@ in with final; {
   #     });
   #   };
 
+  appstream = prev.appstream.overrideAttrs (upstream: {
+    # fixes: "Message: Native appstream required for cross-building"
+    # error introduced in:
+    # - <https://github.com/ximion/appstream/pull/510>
+    # - <https://github.com/NixOS/nixpkgs/pull/273297>
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace data/meson.build \
+        --replace 'meson.is_cross_build()' 'false'
+    '';
+    # nativeBuildInputs = upstream.nativeBuildInputs ++ [
+    #   prev.appstream
+    # ];
+  });
+
   # error: "imdi/imdi_make: line 1: ^?ELF^B^A^A^B�^A�@�^W^A@8: not found"
   # 2023/12/20: upstreaming is unblocked; implemented in nixpatches/list.nix
   # argyllcms = needsBinfmtOrQemu prev.argyllcms;
@@ -1712,7 +1726,7 @@ in with final; {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (py-final: py-prev: {
       # 2023/12/08: upstreaming is unblocked  (eyeD3 is a dep of gpodder)
-      eyeD3 = py-prev.eyeD3.overrideAttrs (orig: {
+      eyed3 = py-prev.eyed3.overrideAttrs (orig: {
         # weird double-wrapping of the output executable, but somehow with the build python ends up on PYTHONPATH
         postInstall = "";
       });
