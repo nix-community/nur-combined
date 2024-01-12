@@ -817,6 +817,17 @@
     "slug": "overview"
   },
   {
+    "slug": "paperpile-addon",
+    "pname": "paperpile",
+    "license": {
+      "tag": "custom",
+      "shortName": "paperpile-tos",
+      "fullName": "Paperpile Terms of Service",
+      "url": "https://paperpile.com/tos/",
+      "free": false
+    }
+  },
+  {
     "slug": "passff"
   },
   {
@@ -940,6 +951,9 @@
     "pname": "refined-github"
   },
   {
+    "slug": "refined-saved-replies"
+  },
+  {
     "slug": "return-youtube-dislikes"
   },
   {
@@ -1042,7 +1056,7 @@
     "slug": "startpage-private-search"
   },
   {
-    "slug": "startup-tabs"
+    "slug": "startup-bookmarks"
   },
   {
     "slug": "statshunters"
