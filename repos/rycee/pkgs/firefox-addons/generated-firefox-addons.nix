@@ -1396,6 +1396,29 @@
         platforms = platforms.all;
         };
       };
+    "cookie-quick-manager" = buildFirefoxXpiAddon {
+      pname = "cookie-quick-manager";
+      version = "0.5rc2";
+      addonId = "{60f82f00-9ad5-4de5-b31c-b16a47c51558}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3343599/cookie_quick_manager-0.5rc2.xpi";
+      sha256 = "b826e443438c880b3998e42e099d0e1949ff51489c788b50193b92ef80426c6e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/ysard/cookie-quick-manager";
+        description = "An addon to manage cookies (view, search, create, edit, remove, backup, restore, protect from deletion and much more). Firefox 57+ is supported.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "cookies"
+          "<all_urls>"
+          "activeTab"
+          "storage"
+          "browsingData"
+          "contextualIdentities"
+          "privacy"
+          ];
+        platforms = platforms.all;
+        };
+      };
     "cookies-txt" = buildFirefoxXpiAddon {
       pname = "cookies-txt";
       version = "0.6";
@@ -3174,6 +3197,44 @@
           "*://*.youtube-nocookie.com/*"
           "*://*.youtu.be/*"
           ];
+        platforms = platforms.all;
+        };
+      };
+    "hackontext" = buildFirefoxXpiAddon {
+      pname = "hackontext";
+      version = "1.3";
+      addonId = "{ed26d465-baef-4e1a-b242-6681b024b941}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3952457/hackontext-1.3.xpi";
+      sha256 = "336039d14185e052f4bf563086457c7f64eb4794f3e6335330ddb01de954c4f2";
+      meta = with lib;
+      {
+        homepage = "https://github.com/D3vil0per/hackontext";
+        description = "HacKontext allows to inject website information, HTTP headers and body parameters of the active browser tab on specific InfoSec command-line tools in order to improve and speed up their correct usage.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "contextMenus"
+          "activeTab"
+          "cookies"
+          "webRequest"
+          "<all_urls>"
+          "tabs"
+          "clipboardWrite"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "hacktools" = buildFirefoxXpiAddon {
+      pname = "hacktools";
+      version = "0.4.0";
+      addonId = "{f1423c11-a4e2-4709-a0f8-6d6a68c83d08}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901885/hacktools-0.4.0.xpi";
+      sha256 = "96cfad19c851e4c3788ebe34eca7a268414c3cf642137133f30a6c3fcbccefe3";
+      meta = with lib;
+      {
+        homepage = "https://github.com/LasCC/Hack-Tools";
+        description = "Hacktools, is a web extension facilitating your web application penetration tests, it includes cheat sheets as well as all the tools used during a test such as XSS payloads, Reverse shells to test your web application.";
+        license = licenses.lgpl3;
+        mozPermissions = [ "devtools" ];
         platforms = platforms.all;
         };
       };
@@ -7091,6 +7152,32 @@
           "*://*.youtube.com/*"
           "*://*.invidio.us/*"
           "https://*/videos/watch/*"
+          ];
+        platforms = platforms.all;
+        };
+      };
+    "penetration-testing-kit" = buildFirefoxXpiAddon {
+      pname = "penetration-testing-kit";
+      version = "8.7.2.1";
+      addonId = "{1ab3d165-d664-4bf2-adb7-fed77f46116f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4218565/penetration_testing_kit-8.7.2.1.xpi";
+      sha256 = "b0474c17622f384609be4b4e729abe8818fce66cacb0b11ce9b9a033f328e6b1";
+      meta = with lib;
+      {
+        homepage = "https://pentestkit.co.uk/";
+        description = "Penetration Testing Kit is an extension for application security practitioners, penetration testers, and red teams.";
+        license = licenses.mit;
+        mozPermissions = [
+          "<all_urls>"
+          "activeTab"
+          "cookies"
+          "notifications"
+          "storage"
+          "unlimitedStorage"
+          "tabs"
+          "webRequest"
+          "webRequestBlocking"
+          "scripting"
           ];
         platforms = platforms.all;
         };

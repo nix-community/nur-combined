@@ -160,6 +160,9 @@
     "slug": "cookie-autodelete"
   },
   {
+    "slug": "cookie-quick-manager"
+  },
+  {
     "slug": "cookies-txt"
   },
   {
@@ -445,6 +448,12 @@
   },
   {
     "slug": "h264ify"
+  },
+  {
+    "slug": "hackontext"
+  },
+  {
+    "slug": "hacktools"
   },
   {
     "slug": "header-editor"
@@ -842,6 +851,9 @@
   },
   {
     "slug": "peertubeify"
+  },
+  {
+    "slug": "penetration-testing-kit"
   },
   {
     "slug": "persistentpin"
