@@ -19,6 +19,7 @@ pull_request_rules:
           {% endif %}
   - name: merge automatically (when CI passes and PR is approved)
     conditions:
+      - "-label~=^autorelease"
       - "check-success=Rule: conventional commit (post_check)"
       - or:
           - "#approved-reviews-by >= 1"
