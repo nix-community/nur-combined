@@ -12,6 +12,9 @@ permissions:
 jobs:
   tag:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.release-please.outputs.tag_name }}
+      releases_created: ${{ steps.release-please.outputs.releases_created }}
     steps:
       - uses: tibdex/github-app-token@v2
         id: generate-token
@@ -19,10 +22,12 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - uses: google-github-actions/release-please-action@v4
+        id: release-please
         with:
           release-type: simple
           token: ${{ steps.generate-token.outputs.token }}
   iso:
+    if: needs.tag.outputs.releases_created
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
@@ -38,4 +43,8 @@ jobs:
         run: |
           nix build .#nixosConfigurations.${{ matrix.image }}.config.system.build.isoImage
           cp result/iso/nixos.iso ${{ matrix.image }}.iso
-          gh release upload ${{ needs.tag.outputs.tag }} ${{ matrix.image }}.iso
+          gh release upload \
+            ${{ needs.tag.outputs.tag }} \
+            ${{ matrix.image }}.iso \
+            --repo ${{ github.repository_owner }}/${{ github.event.repository.name }} \
+            --clobber
