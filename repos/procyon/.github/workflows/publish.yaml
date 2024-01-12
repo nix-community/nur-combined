@@ -2,8 +2,8 @@ name: "Publish"
 
 on:
   push:
-    branches:
-      - "main"
+    tags:
+      - "v?[0-9]+.[0-9]+.[0-9]+*"
 
 jobs:
   flakehub:
@@ -13,9 +13,11 @@ jobs:
       id-token: "write"
     steps:
       - uses: "actions/checkout@v4"
+        with:
+          ref: "${{ (inputs.tag != null) && format('refs/tags/{0}', inputs.tag) || '' }}"
       - uses: "DeterminateSystems/nix-installer-action@v9"
       - uses: "DeterminateSystems/flakehub-push@v3"
         with:
-          rolling: true
           visibility: "public"
+          tag: "${{ inputs.tag }}"
           name: "UnidealisticRaccoon/SnowyBurrow"

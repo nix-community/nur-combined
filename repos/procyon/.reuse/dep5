@@ -7,7 +7,7 @@ Files: flake.nix secrets/* infrastructure/terraform/modules/oci/files/cloud-init
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: MIT
 
-Files: .github/* .vscode/* docs/* .devcontainer/devcontainer.json .envrc garnix.yaml .gitattributes .gitignore flake.lock .mergify.yml infrastructure/terraform/.terraform.lock.hcl nix/flake/ci/GPG.pub nix/pkgs/_sources/generated.* nix/templates/rust-*/.* nix/templates/rust-*/*.lock nix/templates/rust-*/src/main.rs
+Files: .github/* .vscode/* docs/* .devcontainer/devcontainer.json .envrc garnix.yaml .gitattributes .gitignore .mergify.yml flake.lock CHANGELOG.md infrastructure/terraform/.terraform.lock.hcl nix/flake/ci/GPG.pub nix/pkgs/_sources/generated.* nix/templates/rust-*/.* nix/templates/rust-*/*.lock nix/templates/rust-*/src/main.rs
 Copyright: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 License: CC0-1.0
 

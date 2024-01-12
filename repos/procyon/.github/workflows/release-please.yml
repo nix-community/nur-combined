@@ -22,3 +22,20 @@ jobs:
         with:
           release-type: simple
           token: ${{ steps.generate-token.outputs.token }}
+  iso:
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        image:
+          - bootstrap
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "DeterminateSystems/nix-installer-action@v9"
+      - name: Upload ISOs
+        if: ${{ steps.tag.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          nix build .#nixosConfigurations.${{ matrix.image }}.config.system.build.isoImage
+          cp result/iso/nixos.iso ${{ matrix.image }}.iso
+          gh release upload ${{ needs.tag.outputs.tag }} ${{ matrix.image }}.iso
