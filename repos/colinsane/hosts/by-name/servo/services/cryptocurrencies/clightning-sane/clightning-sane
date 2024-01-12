@@ -21,7 +21,8 @@ logger = logging.getLogger(__name__)
 
 RPC_FILE = "/var/lib/clightning/bitcoin/lightning-rpc"
 # CLTV (HLTC delta) of the final hop
-CLTV = 9
+# set this too low and you might get inadvertent channel closures (?)
+CLTV = 18
 
 class RebalanceError(Enum):
     FAIL_TEMPORARY = "FAIL_TEMPORARY"
@@ -111,9 +112,10 @@ class LocalChannel:
     def __repr__(self) -> str:
         return self.to_str(with_scid=True, with_bal_ratio=True, with_cost=True, with_ppm_theirs=True)
 
-    def to_str(self, with_scid: bool=False, with_bal_msat: bool=False, with_bal_ratio: bool=False, with_cost:bool = False, with_ppm_theirs:bool = False, with_ppm_mine:bool = False) -> str:
+    def to_str(self, with_peer_id: bool = False, with_scid: bool=False, with_bal_msat: bool=False, with_bal_ratio: bool=False, with_cost:bool = False, with_ppm_theirs:bool = False, with_ppm_mine:bool = False) -> str:
         base_flag = "*" if self.to_me is None or self.to_me["base_fee_millisatoshi"] != 0 else ""
         alias = f"({self.remote_alias}){base_flag}"
+        peerid = f" {self.remote_peer}" if with_peer_id else ""
         scid = f"  scid:{self.scid:>13}" if with_scid else ""
         bal = f"  S:{int(self.sendable):11}/R:{int(self.receivable):11}" if with_bal_msat else ""
         ratio = f"  MINE:{(100*self.send_ratio):>8.4f}%" if with_bal_ratio else ""
@@ -122,7 +124,7 @@ class LocalChannel:
         ppm_theirs = f"  PPM_THEIRS:{ppm_theirs:>6}" if with_ppm_theirs else ""
         ppm_mine = self.from_me["fee_per_millionth"] if self.from_me else "N/A"
         ppm_mine = f"  PPM_MINE:{ppm_mine:>6}" if with_ppm_mine else ""
-        return f"channel{alias:30}{scid}{bal}{ratio}{cost}{ppm_theirs}{ppm_mine}"
+        return f"channel{alias:30}{peerid}{scid}{bal}{ratio}{cost}{ppm_theirs}{ppm_mine}"
 
 
     @property
@@ -394,9 +396,13 @@ def show_status(rpc: RpcHelper, full: bool=False):
     """
     show a table of channel balances between peers.
     """
-    for ch in rpc.rpc.listpeerchannels()["channels"]:
-        ch = rpc.localchannel(ch["short_channel_id"])
-        print(ch.to_str(with_scid=True, with_bal_ratio=True, with_cost=True, with_ppm_theirs=True, with_ppm_mine=full))
+    for peerch in rpc.rpc.listpeerchannels()["channels"]:
+        try:
+            ch = rpc.localchannel(peerch["short_channel_id"])
+        except:
+            print(f"{peerch['peer_id']} scid:{peerch['short_channel_id']} state:{peerch['state']} NO CHANNELS")
+        else:
+            print(ch.to_str(with_scid=True, with_bal_ratio=True, with_cost=True, with_ppm_theirs=True, with_ppm_mine=full, with_peer_id=full))
 
 def main():
     logging.basicConfig()
