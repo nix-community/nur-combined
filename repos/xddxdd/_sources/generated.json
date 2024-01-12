@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-10",
+        "date": "2024-01-11",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "dd902536d7b1b0ae5490361ca64d76168fa03654",
-            "sha256": "sha256-KAm4yXfISkcPvJF1CWTB5zMcHXpp4rNkJn9XI25PizM=",
+            "rev": "cf2af62243769f2a4673884aae0201dcd89763cf",
+            "sha256": "sha256-4SkmZrOov8FkYCPvJ8QJL8r2bDe9sWgSJrKeE6tsIKM=",
             "type": "github"
         },
-        "version": "dd902536d7b1b0ae5490361ca64d76168fa03654"
+        "version": "cf2af62243769f2a4673884aae0201dcd89763cf"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -471,7 +471,7 @@
     },
     "etherguard": {
         "cargoLocks": null,
-        "date": "2023-09-20",
+        "date": "2024-01-12",
         "extract": null,
         "name": "etherguard",
         "passthru": null,
@@ -483,11 +483,11 @@
             "name": null,
             "owner": "KusakabeShi",
             "repo": "EtherGuard-VPN",
-            "rev": "a96db9e8cf68da687c5e26696df9778162d42ad2",
-            "sha256": "sha256-fpjNCJs/Q02pMCG+LhYgX6G0MoIL7z5Hz77FL1Ms6RI=",
+            "rev": "d78d3335f849bf0bcf6d722023860bb535ff698d",
+            "sha256": "sha256-gC96ISlVkhLZCh9Pn/VxYlGqpOWBFfuCpj9xpjGL/uI=",
             "type": "github"
         },
-        "version": "a96db9e8cf68da687c5e26696df9778162d42ad2"
+        "version": "d78d3335f849bf0bcf6d722023860bb535ff698d"
     },
     "fastapi-dls": {
         "cargoLocks": null,
@@ -1638,7 +1638,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-01-05",
+        "date": "2024-01-11",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1650,11 +1650,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "76996e8e25488d2caf8c39d5185c63760dbd7560",
-            "sha256": "sha256-+tYcMtUl3MnVhuIJY0lkCPwA7ZIlAf0oU+BOnqn76LM=",
+            "rev": "02f50bff25b8a031a26ac42ab5c7f354dced0314",
+            "sha256": "sha256-8ZaScJZfMgl/28GRHayJFJg+pOovHHXee0SSz+HypgM=",
             "type": "github"
         },
-        "version": "76996e8e25488d2caf8c39d5185c63760dbd7560"
+        "version": "02f50bff25b8a031a26ac42ab5c7f354dced0314"
     },
     "rime-moegirl": {
         "cargoLocks": null,

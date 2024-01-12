@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "dd902536d7b1b0ae5490361ca64d76168fa03654";
+    version = "cf2af62243769f2a4673884aae0201dcd89763cf";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "dd902536d7b1b0ae5490361ca64d76168fa03654";
+      rev = "cf2af62243769f2a4673884aae0201dcd89763cf";
       fetchSubmodules = false;
-      sha256 = "sha256-KAm4yXfISkcPvJF1CWTB5zMcHXpp4rNkJn9XI25PizM=";
+      sha256 = "sha256-4SkmZrOov8FkYCPvJ8QJL8r2bDe9sWgSJrKeE6tsIKM=";
     };
-    date = "2024-01-10";
+    date = "2024-01-11";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -275,15 +275,15 @@
   };
   etherguard = {
     pname = "etherguard";
-    version = "a96db9e8cf68da687c5e26696df9778162d42ad2";
+    version = "d78d3335f849bf0bcf6d722023860bb535ff698d";
     src = fetchFromGitHub {
       owner = "KusakabeShi";
       repo = "EtherGuard-VPN";
-      rev = "a96db9e8cf68da687c5e26696df9778162d42ad2";
+      rev = "d78d3335f849bf0bcf6d722023860bb535ff698d";
       fetchSubmodules = false;
-      sha256 = "sha256-fpjNCJs/Q02pMCG+LhYgX6G0MoIL7z5Hz77FL1Ms6RI=";
+      sha256 = "sha256-gC96ISlVkhLZCh9Pn/VxYlGqpOWBFfuCpj9xpjGL/uI=";
     };
-    date = "2023-09-20";
+    date = "2024-01-12";
   };
   fastapi-dls = {
     pname = "fastapi-dls";
@@ -945,15 +945,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "76996e8e25488d2caf8c39d5185c63760dbd7560";
+    version = "02f50bff25b8a031a26ac42ab5c7f354dced0314";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "76996e8e25488d2caf8c39d5185c63760dbd7560";
+      rev = "02f50bff25b8a031a26ac42ab5c7f354dced0314";
       fetchSubmodules = false;
-      sha256 = "sha256-+tYcMtUl3MnVhuIJY0lkCPwA7ZIlAf0oU+BOnqn76LM=";
+      sha256 = "sha256-8ZaScJZfMgl/28GRHayJFJg+pOovHHXee0SSz+HypgM=";
     };
-    date = "2024-01-05";
+    date = "2024-01-11";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
