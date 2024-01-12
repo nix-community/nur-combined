@@ -1,0 +1,25 @@
+*** a/src/Kernel.php
+--- b/src/Kernel.php
+@@ -8,6 +8,21 @@ class Kernel extends BaseKernel
+ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+ 
+ class Kernel extends BaseKernel
+ {
+     use MicroKernelTrait;
++
++    public function getDataDir(): string
++    {
++        return '@dataDir@';
++    }
++
++    public function getCacheDir(): string
++    {
++        return $this->getDataDir() . '/var/cache/' . $this->getEnvironment();
++    }
++
++    public function getLogDir(): string
++    {
++        return $this->getDataDir() . '/var/logs';
++    }
+ }
+
