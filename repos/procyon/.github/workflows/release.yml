@@ -28,19 +28,17 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
   iso:
     needs: tag
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     if: needs.tag.outputs.releases_created
     strategy:
       matrix:
         image:
           - bootstrap
     steps:
-      - uses: "actions/checkout@v4"
-      - uses: "DeterminateSystems/nix-installer-action@v9"
-      - name: Upload ISOs
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v9
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - run: |
           nix build .#nixosConfigurations.${{ matrix.image }}.config.system.build.isoImage
           cp result/iso/nixos.iso ${{ matrix.image }}.iso
           sha256sum ${{ matrix.image }}.iso > ${{ matrix.image }}.iso.sha256sum
@@ -49,3 +47,5 @@ jobs:
             ${{ matrix.image }}.iso ${{ matrix.image }}.iso.sha256sum \
             --repo ${{ github.repository_owner }}/${{ github.event.repository.name }} \
             --clobber
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
