@@ -156,8 +156,8 @@
             "url": "https://github.com/arcnmx/nixexprs"
         },
         "armaria": {
-            "rev": "c923521bfb37282049ec84f57b07a2322f8bfc1e",
-            "sha256": "0a65il9il8f143rc4zkymnddd7nsv6mkpd7826i4saq7imw5ydv3",
+            "rev": "15f9d57fcb109a3298e16c61e6ad5dba7894b567",
+            "sha256": "0lnls8h8ssv0pkipkckwwkfchwwwfjrm352gwlpzyadr04gjbahc",
             "url": "https://github.com/JonathanHope/nur-armaria"
         },
         "arteneko": {
