@@ -1,3 +1,10 @@
+queue_rules:
+  - name: dep-update
+    batch_size: 10
+    batch_max_wait_time: 30 min
+    queue_conditions:
+      - author = dependabot[bot]
+      - author = cyber-procyon[bot]
 pull_request_rules:
   - name: conventional commit
     conditions:

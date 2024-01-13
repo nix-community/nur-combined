@@ -1,4 +1,4 @@
-name: "Publish"
+name: Publish
 
 on:
   push:
@@ -6,6 +6,34 @@ on:
       - "v?[0-9]+.[0-9]+.[0-9]+*"
 
 jobs:
+  iso:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        image:
+          - bootstrap
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nixbuild/nix-quick-install-action@v26
+        with:
+          nix_conf: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - run: |
+          nix build .#nixosConfigurations.${{ matrix.image }}.config.system.build.isoImage
+          cp result/iso/${{ matrix.image }}-*.iso ${{ matrix.image }}.iso
+          sha256sum ${{ matrix.image }}.iso > ${{ matrix.image }}.iso.sha256sum
+      - uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            ${{ matrix.image }}.iso
+            ${{ matrix.image }}.iso.sha256sum
   flakehub:
     runs-on: "ubuntu-latest"
     permissions:
