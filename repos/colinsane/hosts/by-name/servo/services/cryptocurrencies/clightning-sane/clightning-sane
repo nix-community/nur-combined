@@ -143,19 +143,30 @@ class LocalChannel:
     def __repr__(self) -> str:
         return self.to_str(with_scid=True, with_bal_ratio=True, with_cost=False, with_ppm_theirs=False)
 
-    def to_str(self, with_peer_id: bool = False, with_scid: bool=False, with_bal_msat: bool=False, with_bal_ratio: bool=False, with_cost:bool = False, with_ppm_theirs:bool = False, with_ppm_mine:bool = False) -> str:
+    def to_str(
+        self,
+        with_peer_id:bool = False,
+        with_scid:bool = False,
+        with_bal_msat:bool = False,
+        with_bal_ratio:bool = False,
+        with_cost:bool = False,
+        with_ppm_theirs:bool = False,
+        with_ppm_mine:bool = False,
+        with_payments:bool = False,
+    ) -> str:
         base_flag = "*" if not self.online or self.base_fee_to_me != 0 else ""
         alias = f"({self.remote_alias}){base_flag}"
         peerid = f" {self.remote_peer}" if with_peer_id else ""
         scid = f"  scid:{self.scid:>13}" if with_scid else ""
         bal = f"  S:{int(self.sendable):11}/R:{int(self.receivable):11}" if with_bal_msat else ""
         ratio = f"  MINE:{(100*self.send_ratio):>8.4f}%" if with_bal_ratio else ""
+        payments = f"  OUT:{int(self.out_fulfilled_msat):>11}/IN:{int(self.in_fulfilled_msat):>11}" if with_payments else ""
         cost = f"  COST:{self.opportunity_cost_lent:>11}" if with_cost else ""
         ppm_theirs = self.ppm_to_me if self.to_me else "N/A"
         ppm_theirs = f"  PPM_THEIRS:{ppm_theirs:>6}" if with_ppm_theirs else ""
         ppm_mine = self.ppm_from_me if self.from_me else "N/A"
         ppm_mine = f"  PPM_MINE:{ppm_mine:>6}" if with_ppm_mine else ""
-        return f"channel{alias:30}{peerid}{scid}{bal}{ratio}{cost}{ppm_theirs}{ppm_mine}"
+        return f"channel{alias:30}{peerid}{scid}{bal}{ratio}{payments}{cost}{ppm_theirs}{ppm_mine}"
 
 
     @property
@@ -248,6 +259,14 @@ class LocalChannel:
     @property
     def sendable(self) -> int:
         return self.peer_ch["spendable_msat"]
+
+    @property
+    def in_fulfilled_msat(self) -> int:
+        return self.peer_ch["in_fulfilled_msat"]
+
+    @property
+    def out_fulfilled_msat(self) -> int:
+        return self.peer_ch["out_fulfilled_msat"]
 
     @property
     def send_ratio(self) -> float:
@@ -694,7 +713,7 @@ def show_status(rpc: RpcHelper, full: bool=False):
         except:
             print(f"{peerch['peer_id']} scid:{peerch['short_channel_id']} state:{peerch['state']} NO CHANNELS")
         else:
-            print(ch.to_str(with_scid=True, with_bal_ratio=True, with_cost=True, with_ppm_theirs=True, with_ppm_mine=full, with_peer_id=full))
+            print(ch.to_str(with_scid=True, with_bal_ratio=True, with_payments=True, with_cost=full, with_ppm_theirs=True, with_ppm_mine=True, with_peer_id=full))
 
 def main():
     logging.basicConfig()
