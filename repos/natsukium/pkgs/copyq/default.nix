@@ -13,6 +13,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-sHggRlyog+t+SWyo6sTKtJcfuEu/hgyNVXrd7sOK2XQ=";
   };
 
+  preferLocalBuild = true;
+
   nativeBuildInputs = [undmg];
   unpackCmd = ''
     undmg $curSrc/CopyQ.dmg

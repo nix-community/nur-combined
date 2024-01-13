@@ -13,6 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AvuuwUnxMcr2ekZ/O1FL/4IizV1aTMhXNrbf1SwNY7U=";
   };
 
+  preferLocalBuild = true;
+
   nativeBuildInputs = [undmg];
 
   sourceRoot = "qutebrowser.app";
