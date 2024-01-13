@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "efficient-compression-tool";
-  version = "0.9.4";
+  version = "0.9.5";
 
   src = fetchFromGitHub {
     owner = "fhanau";
     repo = "Efficient-Compression-Tool";
     rev = "v${version}";
-    sha256 = "sha256-ArjgEmA6vmJWgVmLvZ7wPdA0tdVrS9g8hz8hlNWsujU=";
+    sha256 = "sha256-mlqRDYwgLiB/mRaXkkPTCLiDGxTXqEgu5Nz5jhr1Hsg=";
     fetchSubmodules = true;
   };
 
