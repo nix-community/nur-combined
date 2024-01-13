@@ -275,13 +275,13 @@
   };
   etherguard = {
     pname = "etherguard";
-    version = "d78d3335f849bf0bcf6d722023860bb535ff698d";
+    version = "f622f2a15b91fc54286f3d1f95d59adebab1a4f7";
     src = fetchFromGitHub {
       owner = "KusakabeShi";
       repo = "EtherGuard-VPN";
-      rev = "d78d3335f849bf0bcf6d722023860bb535ff698d";
+      rev = "f622f2a15b91fc54286f3d1f95d59adebab1a4f7";
       fetchSubmodules = false;
-      sha256 = "sha256-gC96ISlVkhLZCh9Pn/VxYlGqpOWBFfuCpj9xpjGL/uI=";
+      sha256 = "sha256-67ocXHf+AN3nyPt4636ZJHGRqWSjkpTiDvU5243urBw=";
     };
     date = "2024-01-12";
   };
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "c2c969c02889f2766d78a74ffb7d4c3a6dab9cd5";
+    version = "62d0ec258c664b31439102bb9de45c38bb029a0a";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "c2c969c02889f2766d78a74ffb7d4c3a6dab9cd5";
+      rev = "62d0ec258c664b31439102bb9de45c38bb029a0a";
       fetchSubmodules = false;
-      sha256 = "sha256-7TLCGuRFbBPysjkLprfT0iMn2oGcYeA3/QT3QMUJcHM=";
+      sha256 = "sha256-g3ynuk/8Fg9JqxE9AknLzXZPeETub+b5AzpTDuol2lI=";
     };
-    date = "2024-01-08";
+    date = "2024-01-12";
   };
   libqcef = {
     pname = "libqcef";
@@ -885,18 +885,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "9681283b/linuxqq_3.2.3-20201";
+    version = "d0154345/linuxqq_3.2.5-20811";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/9681283b/linuxqq_3.2.3-20201_amd64.deb";
-      sha256 = "sha256-iMMQqdfYgdf8szDZ1Frv+oBjRZsPkew+pCaXgu6cxrY=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/d0154345/linuxqq_3.2.5-20811_amd64.deb";
+      sha256 = "sha256-nHdKvdVLa+P6ybEehjwUrKlcUluXpkTi26m8Q1TXHHQ=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "9681283b/linuxqq_3.2.3-20201";
+    version = "d0154345/linuxqq_3.2.5-20811";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/9681283b/linuxqq_3.2.3-20201_arm64.deb";
-      sha256 = "sha256-mEXhswuV31kxGX3aTmyqThjkA6VnA4aZ/vLQTgbMaxI=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/d0154345/linuxqq_3.2.5-20811_arm64.deb";
+      sha256 = "sha256-gl8uiZxNR60FGO2GDk35PmSTWHfDB7l7h535gscUN9k=";
     };
   };
   qqmusic = {

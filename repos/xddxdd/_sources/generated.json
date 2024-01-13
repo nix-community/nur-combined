@@ -483,11 +483,11 @@
             "name": null,
             "owner": "KusakabeShi",
             "repo": "EtherGuard-VPN",
-            "rev": "d78d3335f849bf0bcf6d722023860bb535ff698d",
-            "sha256": "sha256-gC96ISlVkhLZCh9Pn/VxYlGqpOWBFfuCpj9xpjGL/uI=",
+            "rev": "f622f2a15b91fc54286f3d1f95d59adebab1a4f7",
+            "sha256": "sha256-67ocXHf+AN3nyPt4636ZJHGRqWSjkpTiDvU5243urBw=",
             "type": "github"
         },
-        "version": "d78d3335f849bf0bcf6d722023860bb535ff698d"
+        "version": "f622f2a15b91fc54286f3d1f95d59adebab1a4f7"
     },
     "fastapi-dls": {
         "cargoLocks": null,
@@ -833,7 +833,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-01-08",
+        "date": "2024-01-12",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -845,11 +845,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "c2c969c02889f2766d78a74ffb7d4c3a6dab9cd5",
-            "sha256": "sha256-7TLCGuRFbBPysjkLprfT0iMn2oGcYeA3/QT3QMUJcHM=",
+            "rev": "62d0ec258c664b31439102bb9de45c38bb029a0a",
+            "sha256": "sha256-g3ynuk/8Fg9JqxE9AknLzXZPeETub+b5AzpTDuol2lI=",
             "type": "github"
         },
-        "version": "c2c969c02889f2766d78a74ffb7d4c3a6dab9cd5"
+        "version": "62d0ec258c664b31439102bb9de45c38bb029a0a"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1540,11 +1540,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iMMQqdfYgdf8szDZ1Frv+oBjRZsPkew+pCaXgu6cxrY=",
+            "sha256": "sha256-nHdKvdVLa+P6ybEehjwUrKlcUluXpkTi26m8Q1TXHHQ=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/9681283b/linuxqq_3.2.3-20201_amd64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/d0154345/linuxqq_3.2.5-20811_amd64.deb"
         },
-        "version": "9681283b/linuxqq_3.2.3-20201"
+        "version": "d0154345/linuxqq_3.2.5-20811"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1555,11 +1555,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mEXhswuV31kxGX3aTmyqThjkA6VnA4aZ/vLQTgbMaxI=",
+            "sha256": "sha256-gl8uiZxNR60FGO2GDk35PmSTWHfDB7l7h535gscUN9k=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/9681283b/linuxqq_3.2.3-20201_arm64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/d0154345/linuxqq_3.2.5-20811_arm64.deb"
         },
-        "version": "9681283b/linuxqq_3.2.3-20201"
+        "version": "d0154345/linuxqq_3.2.5-20811"
     },
     "qqmusic": {
         "cargoLocks": null,
