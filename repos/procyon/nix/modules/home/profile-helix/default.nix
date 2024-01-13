@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ flake, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.helix = {
     enable = true;
@@ -10,6 +10,5 @@
     extraPackages = with pkgs; [ wl-clipboard ];
     settings = pkgs.lib.importTOML ./settings.toml;
     languages = pkgs.lib.importTOML ./languages.toml;
-    package = flake.inputs.helix.packages.${pkgs.system}.default;
   };
 }

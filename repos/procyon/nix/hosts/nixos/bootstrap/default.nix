@@ -17,6 +17,8 @@ in
 
   networking.hostName = lib.mkImageMediaOverride "bootstrap";
 
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
   boot.swraid.mdadmConf = ''
     MAILADDR=disable@nix.warning
   '';
