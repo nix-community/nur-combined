@@ -161,6 +161,9 @@
             "submodules": true,
             "url": "https://github.com/blakat360/nur-packages"
         },
+        "brpaz": {
+            "url": "https://github.com/brpaz/nur-packages"
+        },
         "c0deaddict": {
             "url": "https://github.com/c0deaddict/nur-packages"
         },
