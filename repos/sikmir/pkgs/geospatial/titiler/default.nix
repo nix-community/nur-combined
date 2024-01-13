@@ -10,13 +10,13 @@
 }:
 let
   pname = "titiler";
-  version = "0.15.0";
+  version = "0.16.1";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "titiler";
     rev = version;
-    hash = "sha256-0Q0pxcHLXAPGNfWeGPYhnJCM2Qc4IZfbdn9j3GjaPUs=";
+    hash = "sha256-LIURdGmaMO6vMwdltu/U9dd9+PIyQfH17ZpoukfzcYM=";
   };
 
   meta = with lib; {
@@ -24,7 +24,6 @@ let
     homepage = "https://developmentseed.org/titiler/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    broken = true;
   };
 
   titiler-core = python3Packages.buildPythonPackage {

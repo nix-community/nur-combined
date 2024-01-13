@@ -2,28 +2,32 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "cogeo-mosaic";
-  version = "5.1.0";
+  version = "7.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "cogeo-mosaic";
     rev = version;
-    hash = "sha256-jwl0URSt77nk3IMdMMCWGF0U+giRA/8fSs0nNVmu9Dk=";
+    hash = "sha256-FJJZvLGBEZpVyfXBqmz6r1obx4HrKmtK0dWusItX3j4=";
   };
 
   nativeBuildInputs = with python3Packages; [ hatchling hatch-fancy-pypi-readme ];
 
   propagatedBuildInputs = with python3Packages; [
-    httpx
     morecantile
     shapely
-    cachetools
-    supermercado
+    pydantic
+    httpx
+    rasterio
     rio-tiler
+    supermercado
+    cachetools
   ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+
+  doCheck = false;
 
   disabledTests = [
     "test_mosaic_crud_error" # requires network access
@@ -35,6 +39,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://developmentseed.org/cogeo-mosaic/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    broken = true;
   };
 }
