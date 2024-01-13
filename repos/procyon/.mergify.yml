@@ -1,10 +1,3 @@
-queue_rules:
-  - name: dep-update
-    batch_size: 10
-    batch_max_wait_time: 30 min
-    queue_conditions:
-      - author = dependabot[bot]
-      - author = cyber-procyon[bot]
 pull_request_rules:
   - name: conventional commit
     conditions:
@@ -35,3 +28,14 @@ pull_request_rules:
     actions:
       queue:
         method: rebase
+queue_rules:
+  - name: default
+    queue_conditions:
+      - "#approved-reviews-by >= 1"
+  - name: dependency
+    batch_size: 10
+    batch_max_wait_time: 30 min
+    queue_conditions:
+      - or:
+          - author = dependabot[bot]
+          - author = cyber-procyon[bot]
