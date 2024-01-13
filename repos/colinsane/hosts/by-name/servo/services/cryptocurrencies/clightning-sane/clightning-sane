@@ -12,6 +12,7 @@ import math
 import sys
 import time
 
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from enum import Enum
 
@@ -24,24 +25,54 @@ RPC_FILE = "/var/lib/clightning/bitcoin/lightning-rpc"
 # set this too low and you might get inadvertent channel closures (?)
 CLTV = 18
 
-class RebalanceError(Enum):
-    FAIL_TEMPORARY = "FAIL_TEMPORARY"
-    FAIL_PERMANENT = "FAIL_PERMANENT"
+# for every sequentally failed transaction, delay this much before trying again.
+# note that the initial route building process can involve 10-20 "transient" failures, as it discovers dead channels.
+TX_FAIL_BACKOFF = 0.8
+MAX_SEQUENTIAL_JOB_FAILURES = 200
+
+class LoopError(Enum):
+    """ error when trying to loop sats, or when unable to calculate a route for the loop """
+    TRANSIENT = "TRANSIENT"  # try again, we'll maybe find a different route
+    NO_ROUTE = "NO_ROUTE"
 
 class RouteError(Enum):
+    """ error when calculated a route """
     HAS_BASE_FEE = "HAS_BASE_FEE"
     NO_ROUTE = "NO_ROUTE"
 
+class Metrics:
+    looped_msat: int = 0
+    sendpay_fail: int = 0
+    sendpay_succeed: int = 0
+    own_bad_channel: int = 0
+    no_route: int = 0
+    in_ch_unsatisfiable: int = 0
+
+    def __repr__(self) -> str:
+        return f"looped:{self.looped_msat}, tx:{self.sendpay_succeed}, tx_fail:{self.sendpay_fail}, own_bad_ch:{self.own_bad_channel}, no_route:{self.no_route}, in_ch_restricted:{self.in_ch_unsatisfiable}"
+
 @dataclass
 class TxBounds:
-    min_msat: int
     max_msat: int
+    min_msat: int = 0
 
     def __repr__(self) -> str:
         return f"TxBounds({self.min_msat} <= msat <= {self.max_msat})"
 
     def is_satisfiable(self) -> bool:
         return self.min_msat <= self.max_msat
+
+    def raise_max_to_be_satisfiable(self) -> "Self":
+        if self.max_msat < self.min_msat:
+            logger.debug(f"raising max_msat to be consistent: {self.max_msat} -> {self.min_msat}")
+            return TxBounds(self.min_msat, self.min_msat)
+        return TxBounds(min_msat=self.min_msat, max_msat=self.max_msat)
+
+    def intersect(self, other: "TxBounds") -> "Self":
+        return TxBounds(
+            min_msat=max(self.min_msat, other.min_msat),
+            max_msat=min(self.max_msat, other.max_msat),
+        )
 
     def restrict_to_htlc(self, ch: "LocalChannel", why: str = "") -> "Self":
         """
@@ -110,19 +141,19 @@ class LocalChannel:
         self.peer_ch = rpc.peerchannel(self.scid, self.remote_peer)
 
     def __repr__(self) -> str:
-        return self.to_str(with_scid=True, with_bal_ratio=True, with_cost=True, with_ppm_theirs=True)
+        return self.to_str(with_scid=True, with_bal_ratio=True, with_cost=False, with_ppm_theirs=False)
 
     def to_str(self, with_peer_id: bool = False, with_scid: bool=False, with_bal_msat: bool=False, with_bal_ratio: bool=False, with_cost:bool = False, with_ppm_theirs:bool = False, with_ppm_mine:bool = False) -> str:
-        base_flag = "*" if self.to_me is None or self.to_me["base_fee_millisatoshi"] != 0 else ""
+        base_flag = "*" if not self.online or self.base_fee_to_me != 0 else ""
         alias = f"({self.remote_alias}){base_flag}"
         peerid = f" {self.remote_peer}" if with_peer_id else ""
         scid = f"  scid:{self.scid:>13}" if with_scid else ""
         bal = f"  S:{int(self.sendable):11}/R:{int(self.receivable):11}" if with_bal_msat else ""
         ratio = f"  MINE:{(100*self.send_ratio):>8.4f}%" if with_bal_ratio else ""
         cost = f"  COST:{self.opportunity_cost_lent:>11}" if with_cost else ""
-        ppm_theirs = self.to_me["fee_per_millionth"] if self.to_me else "N/A"
+        ppm_theirs = self.ppm_to_me if self.to_me else "N/A"
         ppm_theirs = f"  PPM_THEIRS:{ppm_theirs:>6}" if with_ppm_theirs else ""
-        ppm_mine = self.from_me["fee_per_millionth"] if self.from_me else "N/A"
+        ppm_mine = self.ppm_from_me if self.from_me else "N/A"
         ppm_mine = f"  PPM_MINE:{ppm_mine:>6}" if with_ppm_mine else ""
         return f"channel{alias:30}{peerid}{scid}{bal}{ratio}{cost}{ppm_theirs}{ppm_mine}"
 
@@ -198,8 +229,17 @@ class LocalChannel:
         return self.from_me["delay"]
 
     @property
+    def ppm_to_me(self) -> int:
+        return self.to_me["fee_per_millionth"]
+
+    @property
     def ppm_from_me(self) -> int:
-        return self.peer_ch["fee_proportional_millionths"]
+        return self.from_me["fee_per_millionth"]
+        # return self.peer_ch["fee_proportional_millionths"]
+
+    @property
+    def base_fee_to_me(self) -> int:
+        return self.to_me["base_fee_millisatoshi"]
 
     @property
     def receivable(self) -> int:
@@ -241,11 +281,28 @@ class RpcHelper:
         assert len(channels) == 1, f"expected exactly 1 channel, got: {channels}"
         return channels[0]
 
-class Balancer:
-    def __init__(self, rpc: RpcHelper):
+    def try_getroute(self, *args, **kwargs) -> dict | None:
+        """ wrapper for getroute which returns None instead of error if no route exists """
+        try:
+            route = self.rpc.getroute(*args, **kwargs)
+        except RpcError as e:
+            logger.debug(f"rpc failed: {e}")
+            return None
+        else:
+            route = route["route"]
+            if route == []: return None
+            return route
+
+class LoopRouter:
+    def __init__(self, rpc: RpcHelper, metrics: Metrics = None):
         self.rpc = rpc
+        self.metrics = metrics or Metrics()
         self.bad_channels = []  # list of directed scid
         self.nonzero_base_channels = []  # list of directed scid
+
+    def drop_caches(self) -> None:
+        logger.info("LoopRouter.drop_caches()")
+        self.bad_channels = []
 
     def _get_directed_scid(self, scid: str, direction: int) -> dict:
         channels = self.rpc.rpc.listchannels(scid)["channels"]
@@ -253,48 +310,34 @@ class Balancer:
         assert len(channels) == 1, f"expected exactly 1 channel: {channels}"
         return channels[0]
 
-    def balance_once_with_retries(self, out_scid: str, in_scid: str, tx: TxBounds, retries: int = 20) -> int:
-        for i in range(retries):
-            if i != 0:
-                logger.info(f"retrying rebalance: {i} of {retries}\n")
-            res = self.balance_once(out_scid, in_scid, tx)
-            if res == RebalanceError.FAIL_PERMANENT:
-                logger.info(f"rebalance {out_scid} -> {in_scid} is impossible (likely no route)")
-                break
-            elif res == RebalanceError.FAIL_TEMPORARY:
-                continue
-            else:
-                return res  # success
-        else:
-            logger.info(f"failed to rebalance {out_scid} -> {in_scid} within {retries} attempts")
-
-        return 0
-
-    def balance_once(self, out_scid: str, in_scid: str, bounds: TxBounds) -> RebalanceError|int:
+    def loop_once(self, out_scid: str, in_scid: str, bounds: TxBounds) -> LoopError|int:
         out_ch = self.rpc.localchannel(out_scid)
         in_ch = self.rpc.localchannel(in_scid)
 
         if out_ch.directed_scid_from_me in self.bad_channels or in_ch.directed_scid_to_me in self.bad_channels:
-            logger.info(f"rebalance {out_scid} -> {in_scid} failed in our own channel")
-            return RebalanceError.FAIL_PERMANENT
+            logger.info(f"loop {out_scid} -> {in_scid} failed in our own channel")
+            self.metrics.own_bad_channel += 1
+            return LoopError.TRANSIENT
 
         # bounds = bounds.restrict_to_htlc(out_ch)  # htlc bounds seem to be enforced only in the outward direction
         bounds = bounds.restrict_to_htlc(in_ch)
         bounds = bounds.restrict_to_zero_fees(in_ch)
         if not bounds.is_satisfiable():
-            return RebalanceError.FAIL_PERMANENT  # no valid bounds
+            self.metrics.in_ch_unsatisfiable += 1
+            return LoopError.NO_ROUTE
 
         logger.debug(f"route with bounds {bounds}")
         route = self.route(out_ch, in_ch, bounds)
         logger.debug(f"route: {route}")
         if route == RouteError.NO_ROUTE:
-            return RebalanceError.FAIL_PERMANENT
+            self.metrics.no_route += 1
+            return LoopError.NO_ROUTE
         elif route == RouteError.HAS_BASE_FEE:
             # try again with a different route
-            return RebalanceError.FAIL_TEMPORARY
+            return LoopError.TRANSIENT
 
         amount_msat = route[0]["amount_msat"]
-        invoice_id = f"rebalance-{time.time():.6f}".replace(".", "_")
+        invoice_id = f"loop-{time.time():.6f}".replace(".", "_")
         invoice_desc = f"bal {out_scid}:{in_scid}"
         invoice = self.rpc.rpc.invoice("any", invoice_id, invoice_desc)
         logger.debug(f"invoice: {invoice}")
@@ -306,13 +349,16 @@ class Balancer:
             wait = self.rpc.rpc.waitsendpay(invoice["payment_hash"])
             logger.debug(f"result: {wait}")
         except RpcError as e:
+            self.metrics.sendpay_fail += 1
             err_data = e.error["data"]
             err_scid, err_dir = err_data["erring_channel"], err_data["erring_direction"]
             err_directed_scid = f"{err_scid}/{err_dir}"
             logger.debug(f"ch failed, adding to excludes: {err_directed_scid}; {e.error}")
             self.bad_channels.append(err_directed_scid)
-            return RebalanceError.FAIL_TEMPORARY
+            return LoopError.TRANSIENT
         else:
+            self.metrics.sendpay_succeed += 1
+            self.metrics.looped_msat += int(amount_msat)
             return int(amount_msat)
 
     def route(self, out_ch: LocalChannel, in_ch: LocalChannel, bounds: TxBounds) -> list[dict] | RouteError:
@@ -343,9 +389,8 @@ class Balancer:
         return route
 
     def _find_partial_route(self, out_peer: str, in_peer: str, bounds: TxBounds, exclude: list[str]=[]) -> list[dict] | RouteError | TxBounds:
-        route = self.rpc.rpc.getroute(in_peer, amount_msat=bounds.max_msat, riskfactor=0, fromid=out_peer, exclude=exclude, cltv=CLTV)
-        route = route["route"]
-        if route == []:
+        route = self.rpc.try_getroute(in_peer, amount_msat=bounds.max_msat, riskfactor=0, fromid=out_peer, exclude=exclude, cltv=CLTV)
+        if route is None:
             logger.debug(f"no route for {bounds.max_msat}msat {out_peer} -> {in_peer}")
             return RouteError.NO_ROUTE
 
@@ -357,13 +402,14 @@ class Balancer:
             for hop in route:
                 hop_scid = hop["channel"]
                 hop_dir = hop["direction"]
+                directed_scid = f"{hop_scid}/{hop_dir}"
                 ch = self._get_directed_scid(hop_scid, hop_dir)
                 if ch["base_fee_millisatoshi"] != 0:
-                    self.nonzero_base_channels.append(f"{hop_scid}/{hop_dir}")
+                    self.nonzero_base_channels.append(directed_scid)
                     error = RouteError.HAS_BASE_FEE
-                bounds = bounds.restrict_to_zero_fees(ppm=ch["fee_per_millionth"])
+                bounds = bounds.restrict_to_zero_fees(ppm=ch["fee_per_millionth"], why=directed_scid)
 
-            return bounds if error is None else error
+            return bounds.raise_max_to_be_satisfiable() if error is None else error
 
         return route
 
@@ -392,6 +438,252 @@ class Balancer:
     def _add_route_delay(self, route: list[dict], delay: int) -> list[dict]:
         return [ dict(hop, delay=hop["delay"] + delay) for hop in route ]
 
+@dataclass
+class LoopJob:
+    out: str  # scid
+    in_: str  # scid
+    amount: int
+
+@dataclass
+class LoopJobIdle:
+    sec: int = 10
+
+class LoopJobDone(Enum):
+    COMPLETED = "COMPLETED"
+    ABORTED = "ABORTED"
+
+class AbstractLoopRunner:
+    def __init__(self, looper: LoopRouter, bounds: TxBounds, parallelism: int):
+        self.looper = looper
+        self.bounds = bounds
+        self.parallelism = parallelism
+        self.bounds_map = {}  # map (out:str, in_:str) -> TxBounds. it's a cache so we don't have to try 10 routes every time.
+
+    def pop_job(self) -> LoopJob | LoopJobIdle | LoopJobDone:
+        raise NotImplemented  # abstract method
+
+    def finished_job(self, job: LoopJob, progress: int|LoopError) -> None:
+        raise NotImplemented  # abstract method
+
+    def run_to_completion(self, exit_on_any_completed:bool = False) -> None:
+        self.exiting = False
+        self.exit_on_any_completed = exit_on_any_completed
+        if self.parallelism == 1:
+            # run inline to aid debugging
+            self._worker_thread()
+        else:
+            with ThreadPoolExecutor(max_workers=self.parallelism) as executor:
+                _ = list(executor.map(lambda _i: self._try_invoke(self._worker_thread), range(self.parallelism)))
+
+    def drop_caches(self) -> None:
+        logger.info("AbstractLoopRunner.drop_caches()")
+        self.looper.drop_caches()
+        self.bounds_map = {}
+
+
+    def _try_invoke(self, f, *args) -> None:
+        """
+        try to invoke `f` with the provided `args`, and log if it fails.
+        this overcomes the issue that background tasks which fail via Exception otherwise do so silently.
+        """
+        try:
+            f(*args)
+        except Exception as e:
+            logger.error(f"task failed: {e}")
+
+
+    def _worker_thread(self) -> None:
+        while not self.exiting:
+            job = self.pop_job()
+            logger.debug(f"popped job: {job}")
+            if isinstance(job, LoopJobDone):
+                return self._worker_finished(job)
+
+            if isinstance(job, LoopJobIdle):
+                logger.debug(f"idling for {job.sec}")
+                time.sleep(job.sec)
+                continue
+
+            result = self._execute_job(job)
+            logger.debug(f"finishing job {job} with {result}")
+            self.finished_job(job, result)
+
+    def _execute_job(self, job: LoopJob) -> LoopError|int:
+        bounds = self.bounds_map.get((job.out, job.in_), self.bounds)
+        bounds = bounds.intersect(TxBounds(max_msat=job.amount))
+        if not bounds.is_satisfiable():
+            logger.debug(f"TxBounds for job are unsatisfiable; skipping: {bounds} {job}")
+            return LoopError.NO_ROUTE
+
+        amt_looped = self.looper.loop_once(job.out, job.in_, bounds)
+        if amt_looped in (0, LoopError.NO_ROUTE, LoopError.TRANSIENT):
+            return amt_looped
+
+        logger.info(f"looped {amt_looped} from {job.out} -> {job.in_}")
+        bounds = bounds.intersect(TxBounds(max_msat=amt_looped))
+
+        self.bounds_map[(job.out, job.in_)] = bounds
+        return amt_looped
+
+    def _worker_finished(self, job: LoopJobDone) -> None:
+        if job == LoopJobDone.COMPLETED and self.exit_on_any_completed:
+            logger.debug(f"worker completed -> exiting pool")
+            self.exiting = True
+
+class LoopPairState:
+    # TODO: use this in MultiLoopBalancer, or stop shoving state in here and put it on LoopBalancer instead.
+    def __init__(self, out: str, in_: str, amount: int):
+        self.out = out
+        self.in_ = in_
+        self.amount_target = amount
+        self.amount_looped = 0
+        self.amount_outstanding = 0
+        self.tx_fail_count = 0
+        self.route_fail_count = 0
+        self.last_job_start_time = None
+        self.failed_tx_throttler = 0  # increase by one every time we fail, decreases more gradually, when we succeed
+
+class LoopBalancer(AbstractLoopRunner):
+    def __init__(self, out: str, in_: str, amount: int, looper: LoopRouter, bounds: TxBounds, parallelism: int=1):
+        super().__init__(looper, bounds, parallelism)
+        self.state = LoopPairState(out, in_, amount)
+
+    def pop_job(self) -> LoopJob | LoopJobIdle | LoopJobDone:
+        if self.state.tx_fail_count + 10*self.state.route_fail_count >= MAX_SEQUENTIAL_JOB_FAILURES:
+            logger.info(f"giving up ({self.state.out} -> {self.state.in_}): {self.state.tx_fail_count} tx failures, {self.state.route_fail_count} route failures")
+            return LoopJobDone.ABORTED
+
+        if self.state.tx_fail_count + self.state.route_fail_count > 0:
+            # N.B.: last_job_start_time is guaranteed to have been set by now
+            idle_until = self.state.last_job_start_time + TX_FAIL_BACKOFF*self.state.failed_tx_throttler
+            idle_for = idle_until - time.time()
+            if self.state.amount_outstanding != 0 or idle_for > 0:
+                # when we hit transient failures, restrict to just one job in flight at a time.
+                # this is aimed for the initial route building, where multiple jobs in flight is just useless,
+                # but it's not a bad idea for network blips, etc, either.
+                logger.info(f"throttling ({self.state.out} -> {self.state.in_}) for {idle_for:.0f}: {self.state.tx_fail_count} tx failures, {self.state.route_fail_count} route failures")
+                return LoopJobIdle(idle_for) if idle_for > 0 else LoopJobIdle()
+
+        amount_avail = self.state.amount_target - self.state.amount_looped - self.state.amount_outstanding
+        if amount_avail < self.bounds.min_msat:
+            if self.state.amount_outstanding == 0: return LoopJobDone.COMPLETED
+            return LoopJobIdle()  # sending out another job would risk over-transferring
+        amount_this_job = min(amount_avail, self.bounds.max_msat)
+
+        self.state.amount_outstanding += amount_this_job
+        self.state.last_job_start_time = time.time()
+        return LoopJob(out=self.state.out, in_=self.state.in_, amount=amount_this_job)
+
+    def finished_job(self, job: LoopJob, progress: int) -> None:
+        self.state.amount_outstanding -= job.amount
+        if progress == LoopError.NO_ROUTE:
+            self.state.route_fail_count += 1
+            self.state.failed_tx_throttler += 10
+        elif progress == LoopError.TRANSIENT:
+            self.state.tx_fail_count += 1
+            self.state.failed_tx_throttler += 1
+        else:
+            self.state.amount_looped += progress
+            self.state.tx_fail_count = 0
+            self.state.route_fail_count = 0
+            self.state.failed_tx_throttler = max(0, self.state.failed_tx_throttler - 0.2)
+        logger.info(f"loop progressed ({job.out} -> {job.in_}) {progress}: {self.state.amount_looped} of {self.state.amount_target}")
+
+class MultiLoopBalancer(AbstractLoopRunner):
+    """
+    multiplexes jobs between multiple LoopBalancers.
+    note that the child LoopBalancers don't actually execute the jobs -- just produce them.
+    """
+    def __init__(self, looper: LoopRouter, bounds: TxBounds, parallelism: int=1):
+        super().__init__(looper, bounds, parallelism)
+        self.loops = []
+        # job_index: increments on every job so we can grab jobs evenly from each LoopBalancer.
+        # in that event that producers are idling, it can actually increment more than once,
+        # so don't take this too literally
+        self.job_index = 0
+
+    def add_loop(self, out: LocalChannel, in_: LocalChannel, amount: int) -> None:
+        """
+        start looping sats from out -> in_
+        """
+        assert not any(l.state.out == out.scid and l.state.in_ == in_.scid for l in self.loops), f"tried to add duplicate loops from {out} -> {in_}"
+        logger.info(f"looping from ({out}) to ({in_})")
+        self.loops.append(LoopBalancer(out.scid, in_.scid, amount, self.looper, self.bounds, self.parallelism))
+
+    def pop_job(self) -> LoopJob | LoopJobIdle | LoopJobDone:
+        # N.B.: this can be called in parallel, so try to be consistent enough to not crash
+
+        idle_job = None
+        abort_job = None
+        for i, _ in enumerate(self.loops):
+            loop = self.loops[(self.job_index + i) % len(self.loops)]
+            self.job_index += 1
+            job = loop.pop_job()
+            if isinstance(job, LoopJob):
+                return job
+            if isinstance(job, LoopJobIdle):
+                idle_job = LoopJobIdle(min(job.sec, idle_job.sec)) if idle_job is not None else job
+            if job == LoopJobDone.ABORTED:
+                abort_job = job
+
+        # either there's a task to idle, or we have to terminate.
+        # if terminating, terminate ABORTED if any job aborted, else COMPLETED
+        if idle_job is not None: return idle_job
+        if abort_job is not None: return abort_job
+        return LoopJobDone.COMPLETED
+
+    def finished_job(self, job: LoopJob, progress: int) -> None:
+        # this assumes (enforced externally) that we have only one loop for a given out/in_ pair
+        for l in self.loops:
+            if l.state.out == job.out and l.state.in_ == job.in_:
+                l.finished_job(job, progress)
+
+        logger.info(f"total: {self.looper.metrics}")
+
+
+def balance_loop(rpc: RpcHelper, out: str, in_: str, amount_msat: int, min_msat: int, max_msat: int, parallelism: int):
+    looper = LoopRouter(rpc)
+    bounds = TxBounds(min_msat=min_msat, max_msat=max_msat)
+    balancer = LoopBalancer(out, in_, amount_msat, looper, bounds, parallelism)
+
+    balancer.run_to_completion()
+
+def autobalance_once(rpc: RpcHelper, metrics: Metrics, bounds: TxBounds, parallelism: int) -> bool:
+    """
+    autobalances all channels.
+    returns True if channels are balanced (or as balanced as can be); False if in need of further balancing
+    """
+    looper = LoopRouter(rpc, metrics)
+    balancer = MultiLoopBalancer(looper, bounds, parallelism)
+
+    channels = []
+    for peerch in rpc.rpc.listpeerchannels()["channels"]:
+        try:
+            channels.append(rpc.localchannel(peerch["short_channel_id"]))
+        except:
+            logger.info(f"NO CHANNELS for {peerch['peer_id']}")
+
+    channels = [ch for ch in channels if ch.online and ch.base_fee_to_me == 0]
+    give_to = [ ch for ch in channels if ch.send_ratio > 0.95 ]
+    take_from = [ ch for ch in channels if ch.send_ratio < 0.20 ]
+
+    if give_to == [] and take_from == []:
+        return True
+
+    for to in give_to:
+        for from_ in take_from:
+            balancer.add_loop(to, from_, 10000000)
+
+    balancer.run_to_completion(exit_on_any_completed=True)
+    return False
+
+
+def autobalance(rpc: RpcHelper, min_msat: int, max_msat: int, parallelism: int):
+    bounds = TxBounds(min_msat=min_msat, max_msat=max_msat)
+    metrics = Metrics()
+    while not autobalance_once(rpc, metrics, bounds, parallelism):
+        pass
+
 def show_status(rpc: RpcHelper, full: bool=False):
     """
     show a table of channel balances between peers.
@@ -410,6 +702,9 @@ def main():
 
     parser = argparse.ArgumentParser(description="rebalance lightning channel balances")
     parser.add_argument("--verbose", action="store_true", help="more logging")
+    parser.add_argument("--min-msat", default="999", help="min transaction size")
+    parser.add_argument("--max-msat", default="1000000", help="max transaction size")
+    parser.add_argument("--jobs", default="1", help="how many HTLCs to keep in-flight at once")
     subparsers = parser.add_subparsers(help="action")
 
     status_parser = subparsers.add_parser("status")
@@ -420,9 +715,10 @@ def main():
     loop_parser.set_defaults(action="loop")
     loop_parser.add_argument("out", help="peer id to send tx through")
     loop_parser.add_argument("in_", help="peer id to receive tx through")
-    loop_parser.add_argument("--min-msat", default="999", help="min to rebalance")
-    loop_parser.add_argument("--max-msat", default="1000000", help="max to rebalance")
-    loop_parser.add_argument("--max-tx", default="1", help="maximum times to rebalance")
+    loop_parser.add_argument("amount", help="total amount of msat to loop")
+
+    autobal_parser = subparsers.add_parser("autobalance")
+    autobal_parser.set_defaults(action="autobalance")
 
     args = parser.parse_args()
 
@@ -435,25 +731,10 @@ def main():
         show_status(rpc, full=args.full)
 
     if args.action == "loop":
-        balancer = Balancer(rpc)
-        bounds = TxBounds(
-            min_msat = int(args.min_msat),
-            max_msat = int(args.max_msat),
-        )
+        balance_loop(rpc, out=args.out, in_=args.in_, amount_msat=int(args.amount), min_msat=int(args.min_msat), max_msat=int(args.max_msat), parallelism=int(args.jobs))
 
-        asked_to_route = bounds.max_msat
-        total_routed = 0
-        for i in range(int(args.max_tx)):
-            bounds.max_msat = min(bounds.max_msat, asked_to_route - total_routed)
-            if not bounds.is_satisfiable(): break
-
-            amt_balanced = balancer.balance_once_with_retries(args.out, args.in_, bounds)
-            total_routed += amt_balanced
-            if amt_balanced == 0: break
-            logger.info(f"rebalanced {amt_balanced} (total: {total_routed} of {asked_to_route})")
-            bounds.max_msat = min(bounds.max_msat, amt_balanced)
-
-        logger.info(f"rebalanced {total_routed} of {asked_to_route}")
+    if args.action == "autobalance":
+        autobalance(rpc, min_msat=int(args.min_msat), max_msat=int(args.max_msat), parallelism=int(args.jobs))
 
 if __name__ == '__main__':
     main()
