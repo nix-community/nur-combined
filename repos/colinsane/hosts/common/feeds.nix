@@ -205,6 +205,7 @@ let
     (fromDb "youtube.com/@ContraPoints" // pol)
     (fromDb "youtube.com/@Exurb1a")
     (fromDb "youtube.com/@hbomberguy")
+    (fromDb "youtube.com/@JackStauber")
     (fromDb "youtube.com/@PolyMatter")
     (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
     (fromDb "youtube.com/@TechnologyConnections" // tech)

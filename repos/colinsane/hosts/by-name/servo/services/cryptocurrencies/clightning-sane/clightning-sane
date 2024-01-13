@@ -139,6 +139,7 @@ class LocalChannel:
         self.to_me = in_
         self.remote_node = rpc.node(self.remote_peer)
         self.peer_ch = rpc.peerchannel(self.scid, self.remote_peer)
+        self.forwards_from_me = rpc.rpc.listforwards(out_channel=self.scid, status="settled")["forwards"]
 
     def __repr__(self) -> str:
         return self.to_str(with_scid=True, with_bal_ratio=True, with_cost=False, with_ppm_theirs=False)
@@ -152,6 +153,7 @@ class LocalChannel:
         with_cost:bool = False,
         with_ppm_theirs:bool = False,
         with_ppm_mine:bool = False,
+        with_profits:bool = True,
         with_payments:bool = False,
     ) -> str:
         base_flag = "*" if not self.online or self.base_fee_to_me != 0 else ""
@@ -161,12 +163,13 @@ class LocalChannel:
         bal = f"  S:{int(self.sendable):11}/R:{int(self.receivable):11}" if with_bal_msat else ""
         ratio = f"  MINE:{(100*self.send_ratio):>8.4f}%" if with_bal_ratio else ""
         payments = f"  OUT:{int(self.out_fulfilled_msat):>11}/IN:{int(self.in_fulfilled_msat):>11}" if with_payments else ""
-        cost = f"  COST:{self.opportunity_cost_lent:>11}" if with_cost else ""
+        profits = f"  P$:{int(self.fees_lifetime_mine):>8}" if with_profits else ""
+        cost = f"  COST:{self.opportunity_cost_lent:>8}" if with_cost else ""
         ppm_theirs = self.ppm_to_me if self.to_me else "N/A"
         ppm_theirs = f"  PPM_THEIRS:{ppm_theirs:>6}" if with_ppm_theirs else ""
         ppm_mine = self.ppm_from_me if self.from_me else "N/A"
         ppm_mine = f"  PPM_MINE:{ppm_mine:>6}" if with_ppm_mine else ""
-        return f"channel{alias:30}{peerid}{scid}{bal}{ratio}{payments}{cost}{ppm_theirs}{ppm_mine}"
+        return f"channel{alias:30}{peerid}{scid}{bal}{ratio}{payments}{profits}{cost}{ppm_theirs}{ppm_mine}"
 
 
     @property
@@ -261,12 +264,16 @@ class LocalChannel:
         return self.peer_ch["spendable_msat"]
 
     @property
-    def in_fulfilled_msat(self) -> int:
+    def in_fulfilled_msat(self) -> Millisatoshi:
         return self.peer_ch["in_fulfilled_msat"]
 
     @property
-    def out_fulfilled_msat(self) -> int:
+    def out_fulfilled_msat(self) -> Millisatoshi:
         return self.peer_ch["out_fulfilled_msat"]
+
+    @property
+    def fees_lifetime_mine(self) -> Millisatoshi:
+        return sum(fwd["fee_msat"] for fwd in self.forwards_from_me)
 
     @property
     def send_ratio(self) -> float:
