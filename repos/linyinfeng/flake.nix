@@ -6,7 +6,7 @@
     # flake modules
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.systems.follows = "flake-utils/systems";
+    devshell.inputs.flake-utils.follows = "flake-utils";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
