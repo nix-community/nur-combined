@@ -513,13 +513,13 @@
         sha512 = "vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==";
       };
     };
-    "mlly-1.4.2" = {
+    "mlly-1.5.0" = {
       name = "mlly";
       packageName = "mlly";
-      version = "1.4.2";
+      version = "1.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/mlly/-/mlly-1.4.2.tgz";
-        sha512 = "i/Ykufi2t1EZ6NaPLdfnZk2AX8cs0d+mTzVKuPfqPKPatxLApaBoxJQ9x1/uckXtrS/U5oisPMDkNs0yQTaBRg==";
+        url = "https://registry.npmjs.org/mlly/-/mlly-1.5.0.tgz";
+        sha512 = "NPVQvAY1xr1QoVeG0cy8yUYC7FQcOx6evl/RjT1wL5FvzPnzOysoqB/jmx/DhssT2dYa8nxECLAaFI/+gVLhDQ==";
       };
     };
     "node-fetch-native-1.6.1" = {
@@ -1032,7 +1032,7 @@ in {
           ];
         })
       sources."mkdirp-1.0.4"
-      sources."mlly-1.4.2"
+      sources."mlly-1.5.0"
       sources."node-fetch-native-1.6.1"
       sources."normalize-path-3.0.0"
       (sources."npm-run-path-5.2.0"
