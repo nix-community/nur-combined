@@ -37,10 +37,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@v9
+        with:
+          extra-conf: |
+            accept-flake-config = true
       - uses: DeterminateSystems/magic-nix-cache-action@v2
       - run: |
           nix build .#nixosConfigurations.${{ matrix.image }}.config.system.build.isoImage
-          cp result/iso/nixos.iso ${{ matrix.image }}.iso
+          cp result/iso/${{ matrix.image }}-*.iso ${{ matrix.image }}.iso
           sha256sum ${{ matrix.image }}.iso > ${{ matrix.image }}.iso.sha256sum
           gh release upload \
             ${{ needs.tag.outputs.tag }} \
