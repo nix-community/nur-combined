@@ -17,7 +17,7 @@
 
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.systems.follows = "systems";
+    devshell.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = inputs @ {
