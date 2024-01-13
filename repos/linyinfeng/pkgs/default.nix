@@ -45,6 +45,7 @@ lib.makeScope newScope (
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
+    ssl-handshake = callPackage ./ssl-handshake { };
     swayosd = callPackage ./swayosd { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
