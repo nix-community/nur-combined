@@ -50,7 +50,6 @@ in {
       services.xserver.displayManager.lightdm.greeter.enable = false;
       services.xserver.windowManager.i3.enable = true;
       services.xserver.windowManager.i3.extraSessionCommands = ''
-        exec ${pkgs.x11vnc}/bin/x11vnc -forever &
         ${cfg.commands}
       '';
     })
@@ -68,14 +67,7 @@ in {
           '';
         };
       };
-      # https://github.com/NixOS/nixpkgs/issues/3702
-      system.activationScripts = {
-        enableLingering = ''
-          rm -r /var/lib/systemd/linger
-          mkdir /var/lib/systemd/linger
-          touch /var/lib/systemd/linger/${cfg.user}
-        '';
-      };
+      users.users."${cfg.user}".linger = mkDefault true;
     })
     (mkIf (cfg.wayland && !cfg.dummy) {
       services.xserver.enable = true;
@@ -88,7 +80,6 @@ in {
     (mkIf cfg.wayland {
       programs.sway.enable = true;
       environment.etc."sway/config.d/headless.conf".source = pkgs.writeText "headless.conf" (''
-        exec ${pkgs.wayvnc}/bin/wayvnc 0.0.0.0
         ${cfg.commands}
       '' + optionalString (cfg.resolutions != []) ''
         output ${cfg.output} resolution ${toString resolution.x}x${toString resolution.y}

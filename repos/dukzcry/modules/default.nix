@@ -29,5 +29,6 @@ rec {
   gamescope = ./gamescope.nix;
   vscodium = ./vscodium.nix;
   udisks = ./udisks.nix;
-  theme = import ./theme.nix [ gtk ]; 
+  theme = import ./theme.nix [ gtk ];
+  rustdesk-server = ./rustdesk-server.nix;
 }

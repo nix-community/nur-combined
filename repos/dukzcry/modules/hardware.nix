@@ -31,9 +31,6 @@ in {
     user = mkOption {
       type = types.str;
     };
-    remminaLegacy = mkEnableOption ''
-      Make Remmina work on legacy hardware
-    '';
   };
 
   config = mkMerge [

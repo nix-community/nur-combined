@@ -13,24 +13,8 @@ rec {
         --replace "if (mon->fallback)" "if (0)"
     '';
   });
-  autorandr = super.autorandr.overrideAttrs (oldAttrs: {
-    patches = (oldAttrs.patches or []) ++ [ ./autorandr.patch ];
-  });
-  remmina = super.remmina.override (optionalAttrs (config.services.hardware.remminaLegacy or false) {
-    freerdp = super.freerdp.override {
-      ffmpeg = super.ffmpeg.override {
-        libva = let
-          mesa = super.mesa.override {
-            enablePatentEncumberedCodecs = false;
-          };
-          in super.libva.overrideAttrs (oldAttrs: rec {
-            mesonFlags = [ "-Ddriverdir=${mesa.drivers}/lib/dri" ];
-          });
-      };
-    };
-  });
   # https://github.com/jellyfin/jellyfin/issues/7642
-  jellyfin-ffmpeg = super.jellyfin-ffmpeg.override (optionalAttrs (config.services.jellyfin.enable or false) {
+  jellyfin-ffmpeg = super.jellyfin-ffmpeg.override {
     ffmpeg_6-full = super.ffmpeg_6-full.override {
       libva = let
         mesa = super.mesa.overrideAttrs (oldAttrs: rec {
@@ -46,15 +30,9 @@ rec {
         mesonFlags = [ "-Ddriverdir=${mesa.drivers}/lib/dri" ];
       });
     };
-  });
-  vpn-slice = super.vpn-slice.overrideAttrs (oldAttrs: optionalAttrs (config.services.job.server or false) {
-    preConfigure = ''
-      substituteInPlace vpn_slice/posix.py \
-        --replace /etc/hosts /var/lib/dnsmasq/hosts/hosts
-    '';
-  });
+  };
   # https://github.com/NixOS/nixpkgs/issues/271333
-  sunshine = super.sunshine.overrideAttrs (oldAttrs: optionalAttrs (config.programs.sunshine.enable or false) {
+  sunshine = super.sunshine.overrideAttrs (oldAttrs: {
     runtimeDependencies = oldAttrs.runtimeDependencies ++ [ super.libglvnd ];
   });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {

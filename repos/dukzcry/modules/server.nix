@@ -35,6 +35,7 @@ in {
           transmission-remote-gtk
           moonlight-qt
           pkgs.nur.repos.dukzcry.cockpit-client
+          rustdesk
         ];
       };
       services.tor.enable = lib.mkForce false;
