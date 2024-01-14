@@ -70,7 +70,7 @@
 #   - maxfeepercent defaults to 0.5
 #   - label is a human-friendly label for my records
 
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   sane.persist.sys.byStore.ext = [
     { user = "clightning"; group = "clightning"; mode = "0710"; path = "/var/lib/clightning"; }
@@ -117,6 +117,12 @@
   # - feature configs (i.e. experimental-xyz options)
   sane.services.clightning.extraConfig = ''
     log-level=debug:lightningd
+    # peerswap:
+    # - config example: <https://github.com/fort-nix/nix-bitcoin/pull/462/files#diff-b357d832705b8ce8df1f41934d613f79adb77c4cd5cd9e9eb12a163fca3e16c6>
+    # XXX: peerswap crashes clightning on launch. stacktrace is useless.
+    # plugin=${pkgs.peerswap}/bin/peerswap
+    # peerswap-db-path=/var/lib/clightning/peerswap/swaps
+    # peerswap-policy-path=...
   '';
   sane.services.clightning.extraConfigFiles = [ config.sops.secrets."lightning-config".path ];
   sops.secrets."lightning-config" = {

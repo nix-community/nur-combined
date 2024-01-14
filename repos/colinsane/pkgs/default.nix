@@ -50,6 +50,7 @@ let
     linux-megous = callPackage ./additional/linux-megous { };
     mcg = callPackage ./additional/mcg { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
+    peerswap = callPackage ./additional/peerswap { };
     phog = callPackage ./additional/phog { };
     pipeline = callPackage ./additional/pipeline { };
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
