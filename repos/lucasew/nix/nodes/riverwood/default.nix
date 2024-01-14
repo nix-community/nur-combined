@@ -22,6 +22,22 @@ in
     ]
   ;
 
+  services.python-microservices.services = {
+    teste = {
+      script = ''
+        from io import StringIO
+        from json import dump
+        def handler():
+          def _ret(self):
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            buf = StringIO()
+            dump(dict(foi=True), buf)
+            return buf
+          return _ret
+      '';
+    };
+  };
   services.xserver.windowManager.i3.enable = true;
   # programs.hyprland.enable = true;
 

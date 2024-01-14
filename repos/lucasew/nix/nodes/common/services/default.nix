@@ -18,5 +18,6 @@
     ./nitter.nix
     ./restic-server.nix
     ./ollama.nix
+    ./python-microservices
   ];
 }
