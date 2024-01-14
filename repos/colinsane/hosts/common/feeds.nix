@@ -85,6 +85,7 @@ let
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
+    (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     (fromDb "originstories.libsyn.com" // uncat)
     (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
     # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
@@ -207,7 +208,7 @@ let
     (fromDb "youtube.com/@hbomberguy")
     (fromDb "youtube.com/@JackStauber")
     (fromDb "youtube.com/@PolyMatter")
-    (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
+    # (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
     (fromDb "youtube.com/@TechnologyConnections" // tech)
     (fromDb "youtube.com/@TheB1M")
     (fromDb "youtube.com/@TomScottGo")
