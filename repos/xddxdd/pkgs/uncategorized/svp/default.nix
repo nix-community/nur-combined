@@ -51,6 +51,7 @@ let
     gnome.zenity
     libmediainfo
     libsForQt5.qtbase
+    libsForQt5.qtwayland
     libsForQt5.qtdeclarative
     libsForQt5.qtscript
     libsForQt5.qtsvg
@@ -123,7 +124,7 @@ let
     Terminal=false
     StartupNotify=true
     Exec=${fhs}/bin/SVPManager %f
-    Icon=svp-manager4.png
+    Icon=svp-manager4
   '';
 in
   stdenv.mkDerivation {
