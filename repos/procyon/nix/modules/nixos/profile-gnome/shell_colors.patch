@@ -1,0 +1,102 @@
+# SPDX-FileCopyrightText: 2023 Daniel Thwaites <danthwaites30@btinternet.com>
+#
+# SPDX-License-Identifier: MIT
+
+--- a/data/gnome-shell-theme.gresource.xml
++++ b/data/gnome-shell-theme.gresource.xml
+@@ -11,7 +11,6 @@
+     <file>checkbox-off.svg</file>
+     <file>gnome-shell-dark.css</file>
+     <file>gnome-shell-light.css</file>
+-    <file>gnome-shell-high-contrast.css</file>
+     <file>gnome-shell-start.svg</file>
+     <file>pad-osd.css</file>
+     <file>process-working.svg</file>
+
+--- a/data/theme/gnome-shell-sass/_common.scss
++++ b/data/theme/gnome-shell-sass/_common.scss
+@@ -168,9 +168,9 @@ stage {
+ 
+ // tooltip
+ %tooltip {
+-  background-color: transparentize(black, 0.1);
+-  border: 1px solid transparentize($light_1, 0.9);
+-  color: $light_1;
++  background-color: transparentize($bg_color, 0.1);
++  border: 1px solid transparentize($base_color, 0.9);
++  color: $fg_color;
+ 
+   border-radius: 99px;
+   padding: $base_padding $base_padding * 2;
+
+--- a/data/theme/gnome-shell-sass/_drawing.scss
++++ b/data/theme/gnome-shell-sass/_drawing.scss
+@@ -143,7 +143,7 @@
+ //
+ // since buttons are all flat an borderless now the mixin is simpler
+ 
+-@mixin button($t, $tc:$fg_color, $c:$bg_color, $flat: false, $osd: false) {
++@mixin button($t, $tc:$fg_color, $c:$base_color, $flat: false, $osd: false) {
+ 
+   $button_bg_color: mix($tc, $c, $button_mix_factor);
+   transition-duration: 100ms;
+
+--- a/data/theme/gnome-shell-sass/widgets/_calendar.scss
++++ b/data/theme/gnome-shell-sass/widgets/_calendar.scss
+@@ -27,6 +27,8 @@
+   .date-label {
+     @extend %title_2;
+   }
++
++  color: $fg_color !important;
+ }
+ 
+ /* Calendar */
+@@ -220,7 +222,7 @@
+   .weather-forecast-time {
+     @extend %numeric;
+     @extend %caption;
+-    color: darken($fg_color,30%);
++    color: transparentize($insensitive_fg_color, 0.5);
+     padding-top: 0.2em;
+     padding-bottom: 0.4em;
+   }
+
+--- a/data/theme/gnome-shell-sass/widgets/_panel.scss
++++ b/data/theme/gnome-shell-sass/widgets/_panel.scss
+@@ -1,11 +1,11 @@
+ /* Top Bar */
+ // a.k.a. the panel
+ 
+-$privacy_indicator_color: $orange_3;
++$privacy_indicator_color: $warning_color;
+ 
+-$panel_bg_color: if($variant == 'light', $light_3, $dark_5);
+-$panel_fg_color: if($variant == 'light', $fg_color, darken($fg_color, 5%));
+-$panel_border_color: if($variant == 'light', darken($panel_bg_color, 2%), $panel_bg_color);
++$panel_bg_color: $base_color;
++$panel_fg_color: $fg_color;
++$panel_border_color: transparentize($panel_bg_color, 0.9);
+ 
+ $panel_system_fg_color: $system_fg_color; // always light for lockscreen, overview and other transparent panels
+ $panel_height: 2.2em;
+
+--- a/data/theme/gnome-shell-sass/widgets/_quick-settings.scss
++++ b/data/theme/gnome-shell-sass/widgets/_quick-settings.scss
+@@ -110,13 +110,9 @@
+     & .icon {
+       icon-size: $base_icon_size*1.5; // a non-standard symbolic size but ok
+       border-radius: 999px;
+-      padding: 1.5 * $base_padding;
+-      background-color: transparentize($fg_color, 0.8);
+-
+-      &.active {
+-        background-color: $selected_bg_color;
+-        color: $selected_fg_color;
+-      }
++      padding: $base_padding;
++      background-color: $bg_color;
++      color: $fg_color;
+     }
+ 
+     & .title {

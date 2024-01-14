@@ -1,0 +1,55 @@
+// SPDX-FileCopyrightText: 2023 Daniel Thwaites <danthwaites30@btinternet.com>
+//
+// SPDX-License-Identifier: MIT
+
+$is_highcontrast: false;
+
+$base_color: #181825;
+$bg_color: #1e1e2e;
+$fg_color: #cdd6f4;
+$borders_color: transparentize($bg_color, 0.9);
+$outer_borders_color: transparentize($bg_color, 0.98);
+
+$selected_fg_color: #1e1e2e;
+$selected_bg_color: #89b4fa;
+$selected_borders_color: transparentize($selected_bg_color, 0.9);
+
+$link_color: #89b4fa;
+$link_visited_color: #89b4fa;
+
+$warning_color: #f9e2af;
+$error_color: #f38ba8;
+$success_color: #a6e3a1;
+$destructive_color: $error_color;
+
+$osd_bg_color: #181825;
+$osd_fg_color: #cdd6f4;
+$osd_insensitive_bg_color: #181825;
+$osd_insensitive_fg_color: #cdd6f4;
+$osd_borders_color: transparentize($osd_bg_color, 0.9);
+$osd_outer_borders_color: transparentize($osd_bg_color, 0.98);
+
+$shadow_color: rgba(0, 0, 0, 0.1);
+
+$button_mix_factor: 0%;
+$bubble_buttons_color: #181825;
+
+$system_base_color: #1e1e2e;
+$system_fg_color: #cdd6f4;
+$system_bg_color: #1e1e2e;
+$system_borders_color: transparentize($system_bg_color, 0.9);
+$system_insensitive_fg_color: #cdd6f4;
+$system_overlay_bg_color: #181825;
+
+$insensitive_fg_color: #cdd6f4;
+$insensitive_bg_color: #181825;
+$insensitive_borders_color: transparentize($insensitive_bg_color, 0.9);
+
+$checked_bg_color: #181825;
+$checked_fg_color: #cdd6f4;
+
+$hover_bg_color: #181825;
+$hover_fg_color: #cdd6f4;
+
+$active_bg_color: #181825;
+$active_fg_color: #cdd6f4;

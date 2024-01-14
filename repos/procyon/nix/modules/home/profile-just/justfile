@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
+#
+# SPDX-License-Identifier: MIT
+
+_default:
+  just --choose --unsorted --justfile {{justfile()}}
+
+# collect garbage and optimise store
+tidy:
+  @sudo true
+  nix-collect-garbage -d
+  nix store optimise
+
+# activate home-manager config
+home path="$PWD":
+  home-manager -v switch --flake {{path}}
+
+# activate home-manager config
+nixos path="$PWD":
+  @sudo true
+  sudo nixos-rebuild -v switch --flake {{path}}
+
+# conventional commit using gum
+commit:
+  #!/bin/sh
+  TYPE=$(gum choose "fix" "feat" "docs" "style" "refactor" "test" "chore" "revert")
+  SCOPE=$(gum input --placeholder "scope")
+  test -n "$SCOPE" && SCOPE="($SCOPE)"
+  SUMMARY=$(gum input --value "$TYPE$SCOPE: " --placeholder "Summary of this change")
+  DESCRIPTION=$(gum write --placeholder "Details of this change (CTRL+D to finish)")
+  gum confirm "Commit changes?" && git commit -m "$SUMMARY" -m "$DESCRIPTION"

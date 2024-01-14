@@ -15,6 +15,7 @@
     settings = {
       excludes = [
         "flake.lock"
+        "CHANGELOG.md"
         "secrets/.*/[^/]+\.(yaml|json|env|ini)$"
         "nix/pkgs/_sources/generated.(json|nix)$"
       ];

@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
+#
+# SPDX-License-Identifier: MIT
+
+theme = "catppuccin_mocha"
+
+[editor]
+mouse = false
+true-color = true
+cursorline = true
+color-modes = true
+bufferline = "always"
+line-number = "relative"
+
+[editor.soft-wrap]
+enable = true
+
+[editor.file-picker]
+hidden = false
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.statusline]
+mode.insert = "INSERT"
+mode.normal = "NORMAL"
+mode.select = "SELECT"
+left = ["mode", "spinner", "version-control"]
+center = ["read-only-indicator", "file-name", "file-modification-indicator"]
+right = ["diagnostics", "selections", "register", "position", "file-encoding", "file-line-ending", "file-type"]

@@ -23,6 +23,7 @@
             "never"
           ];
           excludes = [
+            "CHANGELOG.md"
             "secrets/**/*.{yaml,json,ini,env,txt}"
             "nix/pkgs/_sources/generated.{json,nix}"
           ];
