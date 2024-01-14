@@ -7,5 +7,5 @@ src.manual = "4.13.0"
 fetch.github = "GNOME/gtk"
 
 [zrythm]
-src.git = "https://git.sr.ht/~alextee/zrythm"
-fetch.git = "https://git.sr.ht/~alextee/zrythm"
+src.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
+fetch.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
