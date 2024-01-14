@@ -18,14 +18,14 @@
 buildHomeAssistantComponent rec {
   owner = "graham33";
   domain = "smartbox";
-  version = "2.0.0-beta.2";
+  version = "2.0.0-pre+c02086";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "graham33";
     repo = "hass-smartbox";
-    rev = "v${version}";
-    sha256 = "12dhgga5az45002ixzlm0kr1sl9cy38wd2x53xk6vaij21vmxzd4";
+    rev = "c0208634c8c63dbab064573f2bb570e7cfd484c1";
+    sha256 = "100wj7chg3i89p67mrc2y9i029b4cwhhdzfnigdlh2ar9h4xx67p";
   };
 
   propagatedBuildInputs = [
@@ -46,19 +46,10 @@ buildHomeAssistantComponent rec {
     pytestCheckHook
   ];
 
-  doCheck = false;
-
   installPhase = ''
     mkdir -p $out/custom_components
     cp -r custom_components/smartbox $out/custom_components/
   '';
-
-  # TODO: remove once fixed
-  disabledTests = [
-    "test_setup_missing_and_extra_devices"
-    "test_setup_multiple_accounts_and_devices"
-    "test_setup_unsupported_nodes"
-  ];
 
   meta = with lib; {
     homepage = "https://github.com/graham33/hass-smartbox";
