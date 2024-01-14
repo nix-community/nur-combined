@@ -19,6 +19,7 @@
   scarb = pkgs.callPackage ./pkgs/scarb { };
   starknet-foundry-bin = pkgs.callPackage ./pkgs/starknet-foundry-bin { };
   scarb-bin = pkgs.callPackage ./pkgs/scarb-bin { };
+  huff = pkgs.callPackage ./pkgs/huff { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
