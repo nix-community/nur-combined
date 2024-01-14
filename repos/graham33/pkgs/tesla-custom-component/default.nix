@@ -8,24 +8,25 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "tesla-custom-component";
-  version = "3.19.2";
+  owner = "graham33";
+  domain = "tesla_custom";
+  version = "3.19.5";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "alandtse";
     repo = "tesla";
     rev = "v${version}";
-    sha256 = "sha256-lcaQr3pnWwzjmHSFSMgzq7oSYBJgeoFHsCjW61j8zsM=";
+    sha256 = "sha256-6qdfCK35s423NwecIsaxLpS0EwqcJ2HRe/Lpa02qF3k=";
   };
 
   patches = [ ./poetry.patch ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace 'teslajsonpy = "3.9.6"' 'teslajsonpy = ">=3.9.6"'
+      --replace 'teslajsonpy = "3.9.8"' 'teslajsonpy = ">=3.9.8"'
     substituteInPlace custom_components/tesla_custom/manifest.json \
-      --replace 'teslajsonpy==3.9.6' 'teslajsonpy>=3.9.6'
+      --replace 'teslajsonpy==3.9.8' 'teslajsonpy>=3.9.8'
   '';
 
   nativeBuildInputs = [

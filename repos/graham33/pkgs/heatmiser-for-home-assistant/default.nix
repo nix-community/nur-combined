@@ -5,13 +5,14 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "heatmiser-for-home-assistant";
+  owner = "graham33";
+  domain = "heatmiserneo";
   version = "0.0.1-pre0d4905c";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "MindrustUK";
-    repo = pname;
+    repo = "heatmiser-for-home-assistant";
     rev = "0d4905c022fca39c3b8134ece7246e3fabc00a84";
     sha256 = "sha256-nrpAvPyo4OFJcGdZKshaAxXmk6LvyOnJv99XEejXCh4=";
   };

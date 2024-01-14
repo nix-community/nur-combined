@@ -16,6 +16,7 @@
 , pyyaml
 , requests
 , requests-mock
+, setuptools
 , types-requests
 , websocket-client
 }:
@@ -33,6 +34,10 @@ buildPythonPackage rec {
     rev = "v${version}";
     sha256 = "0gr5dbmlln9n9r713m2d2xplw7rmnhbzqrr355yh9ha0b7cfar41";
   };
+
+  nativeBuildInputs = [
+    setuptools
+  ];
 
   propagatedBuildInputs = [
     aiohttp

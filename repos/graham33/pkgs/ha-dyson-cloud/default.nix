@@ -6,13 +6,14 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "ha-dyson-cloud";
+  owner = "graham33";
+  domain = "dyson_cloud";
   version = "0.15.0";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "shenxn";
-    repo = pname;
+    repo = "ha-dyson-cloud";
     rev = "v${version}";
     sha256 = "1vzv6gpip5b0ljdiwq7d863xd72hkwh5376brqbaabhhiy6m4n5v";
   };

@@ -45,7 +45,7 @@ let
       simplisafe-python = null;
     };
 
-    libedgetpu = callPackage ./pkgs/libedgetpu { };
+    #libedgetpu = callPackage ./pkgs/libedgetpu { };
 
     python3 = let
       packageOverrides = pySelf: pySuper: rec {
@@ -85,7 +85,7 @@ in rec {
     heatmiser-for-home-assistant
     home-assistant
     homeAssistantPackageOverrides
-    libedgetpu
+    #libedgetpu
     miele-custom-component
     octopus-energy
     solis-sensor

@@ -13,7 +13,8 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "octopus-energy";
+  owner = "graham33";
+  domain = "octopus-energy";
   version = "8.5.2";
   format = "other";
 

@@ -8,13 +8,14 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "miele";
+  owner = "graham33";
+  domain = "miele";
   version = "0.1.17";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "astrandb";
-    repo = pname;
+    repo = domain;
     rev = "v${version}";
     sha256 = "sha256-h9ga7VqHfACTCiy/tCppn3WvMYf4WazLQxYHFb5XUrE=";
   };

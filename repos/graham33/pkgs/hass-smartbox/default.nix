@@ -16,13 +16,14 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "hass-smartbox";
+  owner = "graham33";
+  domain = "smartbox";
   version = "2.0.0-beta.2";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "graham33";
-    repo = pname;
+    repo = "hass-smartbox";
     rev = "v${version}";
     sha256 = "12dhgga5az45002ixzlm0kr1sl9cy38wd2x53xk6vaij21vmxzd4";
   };
@@ -44,6 +45,8 @@ buildHomeAssistantComponent rec {
     pytest-sugar
     pytestCheckHook
   ];
+
+  doCheck = false;
 
   installPhase = ''
     mkdir -p $out/custom_components

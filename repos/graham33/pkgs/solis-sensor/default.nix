@@ -4,13 +4,14 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "solis-sensor";
+  owner = "graham33";
+  domain = "solis";
   version = "3.5.0";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "hultenvp";
-    repo = pname;
+    repo = "solis-sensor";
     rev = "v${version}";
     sha256 = "sha256-YtTwmjT3SHhXtsvglZfeL1kPwBdoEySfQHs4+S7ExJY=";
   };

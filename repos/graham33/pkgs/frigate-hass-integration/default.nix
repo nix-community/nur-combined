@@ -5,13 +5,14 @@
 }:
 
 buildHomeAssistantComponent rec {
-  pname = "frigate-hass-integration";
+  owner = "graham33";
+  domain = "frigate";
   version = "4.0.0";
   format = "other"; # has pyproject.toml but no build system defined
 
   src = fetchFromGitHub {
     owner = "blakeblackshear";
-    repo = pname;
+    repo = "frigate-hass-integration";
     rev = "v${version}";
     sha256 = "sha256-8td0SGyAM5HFD3Q5C1WxTLu6xqgAgnnpi+xid8OAjSQ=";
   };
