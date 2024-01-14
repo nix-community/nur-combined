@@ -62,6 +62,7 @@ let
     (fromDb "acquiredlpbonussecretsecret.libsyn.com" // tech)  # ACQ2 - more "Acquired" episodes
     (fromDb "allinchamathjason.libsyn.com" // pol)
     (fromDb "anchor.fm/s/34c7232c/podcast/rss" // tech)  # Civboot -- https://anchor.fm/civboot
+    (fromDb "anchor.fm/s/2da69154/podcast/rss" // tech)  # POD OF JAKE -- https://podofjake.com/
     (fromDb "cast.postmarketos.org" // tech)
     (fromDb "congressionaldish.libsyn.com" // pol)  # Jennifer Briney
     (fromDb "craphound.com" // pol)  # Cory Doctorow -- both podcast & text entries
