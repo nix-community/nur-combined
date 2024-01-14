@@ -92,11 +92,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
-    spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -136,11 +131,6 @@
       url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-analyzer-src.follows = "";
-    };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -153,25 +143,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
       inputs.rust-overlay.follows = "rust-overlay";
-    };
-    nix-update = {
-      url = "github:Mic92/nix-update";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-    nixpkgs-review = {
-      url = "github:Mic92/nixpkgs-review";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-    nix-init = {
-      url = "github:nix-community/nix-init";
-      inputs.fenix.follows = "fenix";
-      inputs.crane.follows = "crane";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
     };
     helix = {
       url = "github:helix-editor/helix";

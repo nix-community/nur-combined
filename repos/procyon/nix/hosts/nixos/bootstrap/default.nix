@@ -15,9 +15,7 @@ in
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  networking.hostName = lib.mkImageMediaOverride "bootstrap";
-
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  networking.hostName = lib.mkImageMediaOverride "procyon-installer";
 
   boot.swraid.mdadmConf = ''
     MAILADDR=disable@nix.warning
@@ -25,7 +23,7 @@ in
 
   isoImage = {
     storeContents = home ++ host;
-    volumeID = "bootstrap-${config.system.nixos.release}-${flake.self.shortRev or "dirty"}-${pkgs.stdenv.hostPlatform.uname.processor}";
-    isoName = lib.mkImageMediaOverride "bootstrap-${config.system.nixos.release}-${flake.self.shortRev or "dirty"}-${pkgs.stdenv.hostPlatform.uname.processor}.iso";
+    volumeID = "procyon-${config.system.nixos.release}-${flake.self.shortRev or "dirty"}-${pkgs.stdenv.hostPlatform.uname.processor}";
+    isoName = lib.mkImageMediaOverride "procyon-${config.system.nixos.release}-${flake.self.shortRev or "dirty"}-${pkgs.stdenv.hostPlatform.uname.processor}.iso";
   };
 }

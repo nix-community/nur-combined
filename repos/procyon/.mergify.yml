@@ -19,7 +19,6 @@ pull_request_rules:
           {% endif %}
   - name: merge automatically (when CI passes and PR is approved)
     conditions:
-      - "-label~=^autorelease"
       - "check-success=Rule: conventional commit (post_check)"
       - or:
           - "#approved-reviews-by >= 1"
@@ -28,14 +27,3 @@ pull_request_rules:
     actions:
       queue:
         method: rebase
-queue_rules:
-  - name: default
-    queue_conditions:
-      - "#approved-reviews-by >= 1"
-  - name: dependency
-    batch_size: 10
-    batch_max_wait_time: 30 min
-    queue_conditions:
-      - or:
-          - author = dependabot[bot]
-          - author = cyber-procyon[bot]

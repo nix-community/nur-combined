@@ -1,5 +1,5 @@
 {
-  description = "Rust Project [Crane Template]";
+  description = "Rust Project [Template]";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

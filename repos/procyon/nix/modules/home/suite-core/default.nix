@@ -2,18 +2,16 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ osConfig, ezModules, pkgs, ... }:
+{ osConfig, ezModules, ... }:
 {
   imports = [
-    ezModules.suite-cli
-    ezModules.profile-xdg
+    ezModules.profile-direnv
+    ezModules.profile-git
+    ezModules.profile-gpg
+    ezModules.profile-nix-index
+    ezModules.profile-ssh
+    ezModules.profile-starship
   ];
-
-  fonts.fontconfig.enable = true;
-
-  programs.home-manager.enable = true;
-
-  targets.genericLinux.enable = pkgs.stdenv.isLinux;
 
   programs = {
     bash.enable = true;

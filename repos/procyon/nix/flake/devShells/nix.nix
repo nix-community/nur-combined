@@ -8,18 +8,9 @@
     devShells.nix = pkgs.mkShell {
       name = "nix-shell";
 
-      packages =
-        (with pkgs;[
-          vulnix
-          statix
-          deadnix
-          nixpkgs-fmt
-        ]) ++ (with inputs;[
-          nil.packages.${system}.default
-          nix-init.packages.${system}.default
-          nix-update.packages.${system}.default
-          nixpkgs-review.packages.${system}.default
-        ]);
+      packages = (with inputs; [
+        nil.packages.${system}.nil
+      ]);
     };
   };
 }

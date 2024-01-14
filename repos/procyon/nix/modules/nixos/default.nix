@@ -1,10 +1,9 @@
 # SPDX-FileCopyrightText: 2023 Unidealistic Raccoon <procyon@secureninja.maskmy.id>
 # SPDX-FileCopyrightText: 2023 =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
-# SPDX-FileCopyrightText: 2023 Weathercold <weathercold.scr@proton.me>
 #
 # SPDX-License-Identifier: MIT
 
-{ flake, ezModules, config, pkgs, lib, ... }:
+{ flake, ezModules, pkgs, lib, ... }:
 {
   imports = [
     ezModules.user-root
@@ -26,8 +25,9 @@
   system = {
     inherit (flake.selfLib.data) stateVersion;
     activationScripts.diff = ''
-      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${config.nix.package}/bin diff \
-        /run/current-system "$systemConfig"
+      if [[ -e  /run/current-system ]]; then
+        ${pkgs.nix}/bin/nix store diff-closures /run/current-system "$systemConfig"
+      fi
     '';
   };
 }

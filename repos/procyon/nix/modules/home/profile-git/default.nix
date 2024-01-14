@@ -5,23 +5,13 @@
 
 { flake, pkgs, ... }:
 {
-  home = {
-    packages = with pkgs; [ git-crypt ];
-    shellAliases = {
-      g = "git";
-      lg = "lazygit";
-    };
+  home.shellAliases = {
+    g = "git";
+    lg = "lazygit";
   };
 
   programs = {
     lazygit.enable = true;
-    gh = {
-      enable = true;
-      extensions = with pkgs; [
-        gh-dash
-        gh-markdown-preview
-      ];
-    };
     git = {
       enable = true;
       lfs.enable = true;
@@ -32,10 +22,6 @@
         rebase.autostash = true; # https://stackoverflow.com/a/30209750/22859493
         init.defaultBranch = "main";
         diff.sopsdiffer.textconv = "${pkgs.sops}/bin/sops -d --config /dev/null";
-        push = {
-          default = "simple";
-          autoSetupRemote = true;
-        };
         user = with flake.config.people; {
           name = users.${myself}.name;
           email = users.${myself}.email;

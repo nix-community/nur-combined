@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   services.xserver = {
     displayManager.gdm.enable = true;
@@ -18,39 +18,11 @@
     };
   };
 
-  programs.dconf.profiles.gdm.databases = [{
-    lockAll = true;
-    settings = {
-      "org/gnome/desktop/peripherals/keyboard".numlock-state = true;
-      "org/gnome/desktop/interface" = {
-        cursor-size = lib.gvariant.mkInt32 32;
-        cursor-theme = "Catppuccin-Mocha-Dark-Cursors";
-      };
-    };
-  }];
-
-  nixpkgs = {
-    overlays = [
-      (self: super: {
-        gnome = super.gnome.overrideScope' (selfg: superg: {
-          gnome-shell = superg.gnome-shell.overrideAttrs (old: {
-            patches = (old.patches or [ ]) ++ [ ./shell_colors.patch ];
-            postPatch = let colors = ./_colors.scss; in old.postPatch + ''
-              rm data/theme/gnome-shell-sass/{_colors.scss,_palette.scss}
-              cp ${colors} data/theme/gnome-shell-sass/_colors.scss
-            '';
-          });
-        });
-      })
-    ];
-  };
-
   environment = {
     sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages = with pkgs; [
       gnome.dconf-editor
       gnome.gnome-tweaks
-      catppuccin-cursors.mochaDark
     ];
     gnome.excludePackages =
       (with pkgs; [
@@ -61,7 +33,6 @@
       ])
       ++ (with pkgs.gnome; [
         gnome-initial-setup
-        gnome-backgrounds
         gnome-calculator
         gnome-contacts
         gnome-calendar
