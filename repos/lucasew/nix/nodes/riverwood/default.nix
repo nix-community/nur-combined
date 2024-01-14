@@ -18,6 +18,7 @@ in
       ./plymouth.nix
       ./remote-build.nix
       ./tuning.nix
+      ./test_socket_activated
     ]
   ;
 
