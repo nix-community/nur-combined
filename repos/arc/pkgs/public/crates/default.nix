@@ -155,20 +155,19 @@
     lib, fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-call-stack";
-    version = "0.1.6";
+    version = "0.1.15";
 
     src = fetchFromGitHub {
       owner = "japaric";
       repo = pname;
       rev = "v${version}";
-      sha256 = "00ka0yx3114wmpngs44fv2j3r6jxh1v1w9kzzmbklynpi3wmb65b";
+      sha256 = "sha256-+IommgiXYbZyauoulcDXmss2P2knJg/pyztkf9KELFQ=";
     };
 
-    cargoPatches = [ ./cargo-call-stack-lock.patch ];
     patches = [
-      ./cargo-call-stack-udf.patch # https://github.com/japaric/cargo-call-stack/issues/20
+      ./cargo-call-stack-warnings.patch
     ];
-    cargoSha256 = "14qdz805z5h9vryrjcy3vsqcaic8fh9f4x60pvbkbv3r2bz072vc";
+    cargoSha256 = "sha256-2m62LRUh7N9WEWKxpJQU3Ut9D9j8ttDNu03Y+f8I/Lk=";
   };
 
   cargo-stack-sizes = {
