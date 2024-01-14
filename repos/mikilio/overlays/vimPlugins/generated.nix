@@ -53,14 +53,26 @@ final: prev:
 
   netrw-nvim = buildVimPlugin {
     pname = "netrw.nvim";
-    version = "2023-06-29";
+    version = "2024-01-12";
     src = fetchFromGitHub {
       owner = "prichrd";
       repo = "netrw.nvim";
-      rev = "596435bd2f5b0162b86c97ca8244e2b0862d3a4a";
-      sha256 = "13q841gj7v1iqj0g7iy8216nxp9v6rlzsm6gxmz2bqcl715gggyz";
+      rev = "e6e1dda74dcda63972b5bb136bc4df5771d99039";
+      sha256 = "0qxq3p356pwi7l9sk79rvpkscb09pji9j5nf01cr9zg9gp1xkc3b";
     };
     meta.homepage = "https://github.com/prichrd/netrw.nvim/";
+  };
+
+  sunglasses-nvim = buildVimPlugin {
+    pname = "sunglasses.nvim";
+    version = "2023-12-13";
+    src = fetchFromGitHub {
+      owner = "miversen33";
+      repo = "sunglasses.nvim";
+      rev = "63a0b4914da3cd200ba1c55bd3231ddef14fc5fa";
+      sha256 = "02zrk3ichr0r8yj16cq8zb6yfmnfal2bapcx7pz6k2g3mw7ysbq8";
+    };
+    meta.homepage = "https://github.com/miversen33/sunglasses.nvim/";
   };
 
   texmagic-nvim = buildVimPlugin {
