@@ -24,6 +24,7 @@
   nn = pkgs.callPackage ./pkgs/nn { };
   sirus = pkgs.callPackage ./pkgs/sirus { };
   mmm = pkgs.callPackage ./pkgs/mmm { };
+  chainlink = pkgs.callPackage ./pkgs/chainlink { };
 
   ## external
   fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
