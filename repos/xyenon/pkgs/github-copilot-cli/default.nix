@@ -2,7 +2,7 @@
 
 let
   pname = "github-copilot-cli";
-  version = "0.1.35";
+  version = "0.1.36";
   baseUrl = "https://registry.npmjs.org/@githubnext/${pname}";
   pkgUrl = "${baseUrl}/-/${pname}-${version}.tgz";
 in
@@ -11,14 +11,14 @@ buildNpmPackage {
 
   src = fetchzip {
     url = pkgUrl;
-    hash = "sha256-mG05ppDSwtJi/Fk1s98M2KsKiEFW67cPpSgvMRos0lg=";
+    hash = "sha256-7n+7sN61OrqMVGaKll85+HwX7iGG9M/UW5lf2Pd5sRU=";
   };
 
   postPatch = ''
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  npmDepsHash = "sha256-LX3ix2iF9nSRg18NAxSaCmJXIZs9o/CPQg68oZKU4r0=";
+  npmDepsHash = "sha256-wtUvyPwDnCT2oIa/RZai9wLdgV1eHccwPUCKn9dvd78=";
 
   dontNpmBuild = true;
 
