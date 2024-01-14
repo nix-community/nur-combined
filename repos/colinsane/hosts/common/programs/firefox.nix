@@ -263,6 +263,10 @@ in
           defaultPref("widget.non-native-theme.scrollbar.size.override", 20);
           defaultPref("widget.non-native-theme.scrollbar.style", 4);
 
+          // disable inertial/kinetic/momentum scrolling because it just gets in the way on touchpads
+          // source: <https://kparal.wordpress.com/2019/10/31/disabling-kinetic-scrolling-in-firefox/>
+          defaultPref("apz.gtk.kinetic_scroll.enabled", false);
+
           // auto-dispatch mpv:// URIs to xdg-open without prompting.
           // can do this with other protocols too (e.g. matrix?). see about:config for common handlers.
           defaultPref("network.protocol-handler.external.mpv", true);
