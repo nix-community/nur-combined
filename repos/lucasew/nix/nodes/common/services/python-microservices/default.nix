@@ -4,7 +4,6 @@ let
   cfg = config.services.python-microservices;
 in
 
-
 {
   options = {
     services.python-microservices = {
@@ -68,26 +67,18 @@ in
     };
   };
 
-    config = {
-      systemd.sockets = lib.pipe cfg.services [
+  config = {
+      systemd = lib.mkMerge (lib.pipe cfg.services [
         (builtins.attrValues)
         (map (item: {
-          name = item.unitName;
-          value = {
+          sockets.${item.unitName} = {
             socketConfig = {
               ListenStream = "${cfg.socketDirectory}/${item.name}";
             };
             partOf = [ "${item.unitName}.service" ];
             wantedBy = [ "sockets.target" "multi-user.target" ];
           };
-        }))
-        (lib.listToAttrs)
-      ];
-      systemd.services = lib.pipe cfg.services [
-        (builtins.attrValues)
-        (map (item: {
-          name = item.unitName;
-          value = {
+          services.${item.unitName} = {
             script = ''
               exec ${lib.getExe item.python} ${item.entrypoint};
             '';
@@ -99,11 +90,50 @@ in
               PrivateTmp = true;
             };
           };
-        }))
-        (lib.listToAttrs)
-      ];
-      systemd.tmpfiles.rules = [
-        "d ${cfg.socketDirectory} 755 root root 0"
-      ];
-    };
+
+          tmpfiles.rules = [
+            "d ${cfg.socketDirectory} 755 root root 0"
+          ];
+      }))
+    ]);
+  };
+    
+    # {
+    #   systemd.sockets = lib.pipe cfg.services [
+    #     (builtins.attrValues)
+    #     (map (item: {
+    #       name = item.unitName;
+    #       value = {
+    #         socketConfig = {
+    #           ListenStream = "${cfg.socketDirectory}/${item.name}";
+    #         };
+    #         partOf = [ "${item.unitName}.service" ];
+    #         wantedBy = [ "sockets.target" "multi-user.target" ];
+    #       };
+    #     }))
+    #     (lib.listToAttrs)
+    #   ];
+    #   systemd.services = lib.pipe cfg.services [
+    #     (builtins.attrValues)
+    #     (map (item: {
+    #       name = item.unitName;
+    #       value = {
+    #         script = ''
+    #           exec ${lib.getExe item.python} ${item.entrypoint};
+    #         '';
+    #         unitConfig = {
+    #           After = [ "network.target" ];
+    #         };
+    #         serviceConfig = {
+    #           Nice = 7;
+    #           PrivateTmp = true;
+    #         };
+    #       };
+    #     }))
+    #     (lib.listToAttrs)
+    #   ];
+    #   systemd.tmpfiles.rules = [
+    #     "d ${cfg.socketDirectory} 755 root root 0"
+    #   ];
+    # };
 }

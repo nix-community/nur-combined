@@ -35,7 +35,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         return "unix"
 
     def handle_finish_request(self, code=200, mime_type=None):
-        logger.info(f'finish request code={code} mime_type={mime_type}')
+        # logger.info(f'finish request code={code} mime_type={mime_type}')
         if mime_type is not None:
             self.send_header('Content-Type', mime_type)
         # self.send_response(code)
@@ -43,7 +43,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         # self.wfile.write(b'diggy diggy hole')
 
     def handle_response(self, response, code=200, mime_type=None):
-        logger.info(f'response {response}')
+        # logger.info(f'response {response}')
         if isinstance(response, bytes):
             self.handle_finish_request(code=code, mime_type=mime_type)
             return self.wfile.write(response)
