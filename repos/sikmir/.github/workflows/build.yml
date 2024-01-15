@@ -24,7 +24,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Install nix
-      uses: cachix/install-nix-action@v24
+      uses: cachix/install-nix-action@v25
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
@@ -33,7 +33,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v13
+      uses: cachix/cachix-action@v14
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
