@@ -1,4 +1,4 @@
-# Google Cloudtop configuration
+# Google Laptop configuration
 { lib, pkgs, ... }:
 {
   services.gpg-agent.enable = lib.mkForce false;
