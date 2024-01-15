@@ -44,7 +44,7 @@ in
       };
 
       extraOptions = {
-        overwriteProtocol = "https"; # Nginx only allows SSL
+        overwriteprotocol = "https"; # Nginx only allows SSL
       };
 
       notify_push = {
