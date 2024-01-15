@@ -22,8 +22,8 @@ commander.add({
     cmd = function()
       telescope_builtin.grep_string()
     end,
-    keys = { "n", "<c-]>" },
-    cat = "telescope",
+    keys = { "n", "<c-s>" },
+    cat = "telescopex",
   },
   {
     desc = "Find files in a fuzzy way",

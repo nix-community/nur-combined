@@ -35,9 +35,11 @@ return {
       lspconfig.marksman.setup({
         capabilites = capabilities,
       })
-      -- lspconfig.terraformls.setup({
-      --   capabilites = capabilities,
-      -- })
+
+      lspconfig.terraformls.setup({
+        capabilites = capabilities,
+      })
+
       lspconfig.crystalline.setup({
         capabilites = capabilities,
       })
@@ -46,6 +48,15 @@ return {
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
       vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+
+      -- Configure diagnostic icons.
+      local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+
+      for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+      end
+
     end,
   },
 }

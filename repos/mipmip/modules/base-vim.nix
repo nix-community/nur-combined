@@ -6,24 +6,31 @@
   };
 
   environment.systemPackages = with pkgs; [
+
     ctags
     sc-im
+
     git-sync
     gitFull
+
     unstable.neovim
 
+    #language servers
     sqls
     gopls
     rnix-lsp
     unstable.nixd
+    terraform-ls
+    sumneko-lua-language-server
+
     tree-sitter
+
     rust-analyzer
     cargo
     rustc
-    sumneko-lua-language-server
+    nodejs
 
     sox
-
 
     # Language Server Dependencies
     nodePackages.pyright
