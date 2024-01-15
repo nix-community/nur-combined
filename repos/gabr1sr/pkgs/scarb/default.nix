@@ -25,7 +25,14 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "The Cairo package manager";
     homepage = "https://github.com/software-mansion/scarb";
-    platforms = [ "x86_64-linux" ];
+
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+
     license = lib.licenses.mit;
   };
 }

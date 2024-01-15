@@ -25,7 +25,14 @@ buildNpmPackage rec {
     description =
       "Visual Studio Code language support extension for Solidity smart contracts in Ethereum";
     homepage = "https://github.com/juanfranblanco/vscode-solidity";
-    platforms = [ "x86_64-linux" ];
+
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+
     license = lib.licenses.mit;
   };
 }
