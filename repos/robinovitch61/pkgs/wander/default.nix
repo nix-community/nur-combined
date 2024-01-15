@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "12y4qpw2vr0mra3swgiwlrrv4a27j30wzj542yb9ira2z1aqw9ns";
-    x86_64-linux = "04wf87nj6ml0yygaywvsxlcgpllrp4w3nc6a0cyx0v45hm2v628l";
-    aarch64-linux = "1ywn6qp6djgqvw8v0w2kx6pl257qm4x145g6kfaylvsys7hlgqqi";
-    x86_64-darwin = "07x3ghpfjjkghp1mn6h0b4rrvl6bv8gqhkq2jhvkqmzqin8qyin9";
-    aarch64-darwin = "07x3ghpfjjkghp1mn6h0b4rrvl6bv8gqhkq2jhvkqmzqin8qyin9";
+    i686-linux = "14g26jf90736bdnc7v4fbxc9aklivk7il71z5bdhr5j8qmwcl2pn";
+    x86_64-linux = "0h794245cgwid1164jamrwcpdiy50w00bdfmdgn2v73z9j7dnb20";
+    aarch64-linux = "0d9m6d690k6aclrfd0l7ihgx2ir67n8w2vb11n1b1bz92d65vy14";
+    x86_64-darwin = "0m5qyn6v602z534zr75fsr1ap1cvvi1jr53w2xqv9cnygplra80m";
+    aarch64-darwin = "0m5qyn6v602z534zr75fsr1ap1cvvi1jr53w2xqv9cnygplra80m";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.0/wander_1.0.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.0/wander_1.0.0_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.0/wander_1.0.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/robinovitch61/wander/releases/download/v1.0.0/wander_1.0.0_Darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/robinovitch61/wander/releases/download/v1.0.0/wander_1.0.0_Darwin_all.tar.gz";
+    i686-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.1/wander_1.0.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.1/wander_1.0.1_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.1/wander_1.0.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/robinovitch61/wander/releases/download/v1.0.1/wander_1.0.1_Darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/robinovitch61/wander/releases/download/v1.0.1/wander_1.0.1_Darwin_all.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "wander";
-  version = "1.0.0";
+  version = "1.0.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
