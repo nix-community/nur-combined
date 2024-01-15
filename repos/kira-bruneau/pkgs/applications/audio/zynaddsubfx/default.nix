@@ -95,6 +95,11 @@ stdenv.mkDerivation (finalAttrs: {
     # Find FLTK without requiring an OpenGL library in buildInputs
     ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
 
+  CXXFLAGS = [
+    # GCC 13: error: 'uint8_t' does not name a type
+    "-include cstdint"
+  ];
+
   doCheck = true;
   nativeCheckInputs = [ cxxtest ruby ];
 
