@@ -15,8 +15,11 @@
     sqls
     gopls
     rnix-lsp
+    unstable.nixd
     tree-sitter
     rust-analyzer
+    cargo
+    rustc
     sumneko-lua-language-server
 
     sox

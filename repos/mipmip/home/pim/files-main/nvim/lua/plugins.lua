@@ -1,5 +1,6 @@
 return {
--- Git related plugins
+  -- Git related plugins
+
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   'mcchrish/nnn.vim',

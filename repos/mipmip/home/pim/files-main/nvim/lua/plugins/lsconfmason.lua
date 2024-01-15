@@ -29,6 +29,9 @@ return {
       lspconfig.lua_ls.setup({
         capabilites = capabilities,
       })
+      lspconfig.rnix.setup({
+        capabilites = capabilities,
+      })
       lspconfig.marksman.setup({
         capabilites = capabilities,
       })
