@@ -31,6 +31,20 @@ in {
     };
   };
 
+  systemd.services.${config.services.python-microservices.services.stt-ptbr.unitName} = {
+    environment = {
+      LD_LIBRARY_PATH = builtins.concatStringsSep ":" [
+        "/run/opengl-driver/lib"
+      ];
+    };
+  };
+  services.python-microservices.services.stt-ptbr = {
+    script = builtins.readFile ./python-microservice-stt-ptbr.py;
+    python = pkgs.python3.withPackages (p: with pkgs.python3PackagesBin; [
+      transformers torchaudio pytorch
+    ]);
+  };
+
   services.ollama.enable = true;
 
   networking.interfaces.enp5s0.wakeOnLan.enable = true;

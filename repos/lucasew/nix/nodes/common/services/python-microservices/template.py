@@ -36,14 +36,18 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
     def handle_finish_request(self, code=200, mime_type=None):
         # logger.info(f'finish request code={code} mime_type={mime_type}')
+        self.send_response(code)
         if mime_type is not None:
             self.send_header('Content-Type', mime_type)
-        # self.send_response(code)
         self.end_headers()
         # self.wfile.write(b'diggy diggy hole')
 
     def handle_response(self, response, code=200, mime_type=None):
         # logger.info(f'response {response}')
+        if response is None:
+            self.handle_finish_request(code=code, mime_type=mime_type)
+            return
+            
         if isinstance(response, bytes):
             self.handle_finish_request(code=code, mime_type=mime_type)
             return self.wfile.write(response)
@@ -57,7 +61,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             return self.handle_response(data, code=code, mime_type=mime_type)
         buf = io.StringIO()
         json.dump(response, buf)
-        return self.handle_response(buf.getvalue(), code=code, mime_type='application/json')
+        return self.handle_response(buf, code=code, mime_type='application/json')
 
     def _handle_some_request(self):
         try:
