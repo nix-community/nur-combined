@@ -34,52 +34,54 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def address_string(self):
         return "unix"
 
-    def handle_finish_request(self, code=200, mime_type='application/octet-stream'):
-        self.send_response(code)
-        self.send_header('Content-Type', mime_type)
+    def handle_finish_request(self, code=200, mime_type=None):
+        logger.info(f'finish request code={code} mime_type={mime_type}')
+        if mime_type is not None:
+            self.send_header('Content-Type', mime_type)
+        # self.send_response(code)
         self.end_headers()
-        self.flush_headers()
+        # self.wfile.write(b'diggy diggy hole')
 
-    def handle_source(self, source, code=200, mime_type='application/octet-stream'):
-        # self.protocol_version = "HTTP/1.1"
-        if isinstance(source, bytes):
+    def handle_response(self, response, code=200, mime_type=None):
+        logger.info(f'response {response}')
+        if isinstance(response, bytes):
             self.handle_finish_request(code=code, mime_type=mime_type)
-            return self.wfile.write(source)
-        if isinstance(source, str):
+            return self.wfile.write(response)
+        if isinstance(response, str):
             self.handle_finish_request(code=code, mime_type=mime_type)
-            return self.wfile.write(source.encode('utf-8'))
-        if hasattr(source, 'getvalue'):
-            self.handle_finish_request(code=code, mime_type=mime_type)
-            return self.handle_source(source.getvalue(), code=code, mime_type=mime_type)
-        buf = io.TextIO()
-        json.dump(source, buf)
-        return self.handle_source(buf.getvalue(), code=code, mime_type='application/json')
+            return self.wfile.write(response.encode('utf-8'))
+        if hasattr(response, 'getvalue'):
+            # self.handle_finish_request(code=code, mime_type=mime_type)
+            response.seek(0)
+            data = response.getvalue()
+            return self.handle_response(data, code=code, mime_type=mime_type)
+        buf = io.StringIO()
+        json.dump(response, buf)
+        return self.handle_response(buf.getvalue(), code=code, mime_type='application/json')
 
-    def _handle(self):
+    def _handle_some_request(self):
         try:
             buf = handler_handle(self)
-            print('buf', buf)
             if buf is not None:
-                self.handle_source(buf)
-            self.wfile.flush()
+                self.handle_response(buf)
         except HTTPError as e:
-            self.handle_source(dict(error=e.message), code=e.code)
+            self.handle_response(dict(error=e.message), code=e.code)
         except Exception as e:
             traceback.print_exc()
-            self.handle_source(dict(error=e.message), code=500)
-
+            self.handle_response(dict(error=str(e)), code=500)
+        self.wfile.flush()
 
     def do_GET(self):
-        self._handle()
+        self._handle_some_request()
 
     def do_POST(self):
-        self._handle()
+        self._handle_some_request()
 
     def do_PUT(self):
-        self._handle()
+        self._handle_some_request()
 
     def do_DELETE(self):
-        self._handle()
+        self._handle_some_request()
 
 
 class CustomTCPServer(socketserver.TCPServer):
