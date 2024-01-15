@@ -11,13 +11,13 @@
 }:
 stdenv.mkDerivation {
   pname = "chawan";
-  version = "unstable-2023-11-21";
+  version = "unstable-2024-01-15";
+  outputs = ["out" "man"];
   src = fetchFromSourcehut {
     owner = "~bptato";
     repo = "chawan";
-    rev = "7762995c3e153a4ddc99c51167df05f57ea7f463";
-    hash = "sha256-Ad2+whCPaCJV2pbeQ4jeCYlYjFRfsk302y6l7SmeQAY=";
-    domain = "sr.ht";
+    rev = "f637588d76627368bf7d82f6aa8f5596fe53bddf";
+    hash = "sha256-sfbDC6tcvmo2p5QX2REY9jrOUeoVKhpfJmiSlthBLgE=";
     fetchSubmodules = true;
   };
 
@@ -32,17 +32,15 @@ stdenv.mkDerivation {
     curl
   ];
 
-  buildFlags = [
-    "release"
-    "manpage"
-  ];
-
   makeFlags = [
-    "prefix=${builtins.placeholder "out"}"
-    "manprefix=${builtins.placeholder "out"}/share/man"
+    "PREFIX=${builtins.placeholder "out"}"
   ];
 
   enableParallelBuilding = true;
+
+  postBuild = ''
+    make manpage
+  '';
 
   passthru.updateScript = writeScript "update-chawan" ''
     #!/usr/bin/env nix-shell
