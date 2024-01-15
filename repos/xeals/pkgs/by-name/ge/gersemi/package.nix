@@ -5,12 +5,12 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gersemi";
-  version = "0.10.0";
+  version = "0.11.0";
   format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Gd3wZNbBIYo2i0n1DlyHg3s5c+BBJ0nppMw8IVcfKUM=";
+    hash = "sha256-K8ZbVVYiEazdjbuAUa8r9lJyjOPt2jsKbUAovTx9XeY=";
   };
 
   # Remove dataclasses backport requirement since it doesn't work on newer
