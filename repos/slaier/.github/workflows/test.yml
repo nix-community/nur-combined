@@ -34,7 +34,7 @@ jobs:
             extra-platforms = aarch64-linux i686-linux
             system-features = nixos-test benchmark big-parallel kvm
             log-lines = 1000
-      - uses: cachix/cachix-action@v13
+      - uses: cachix/cachix-action@v14
         with:
           name: slaier
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
