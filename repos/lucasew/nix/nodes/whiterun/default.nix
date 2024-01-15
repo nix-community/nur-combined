@@ -19,9 +19,12 @@ in {
     ./sshfs.nix
     ./zfs.nix
     ./binary-cache.nix
+    ./escrivao.nix
     # ./container-inet-rdp.nix
     ./container-nat.nix
   ];
+
+  services.escrivao.enable = true;
 
   services.postgresql = {
     enable = true;

@@ -4,6 +4,7 @@
     ./cf-torrent.nix
     ./cloud-savegame.nix
     ./cockpit-extra.nix
+    ./escrivao
     ./invidious.nix
     ./magnetico.nix
     ./miniflux.nix
