@@ -16,9 +16,7 @@ jobs:
       - name: Checkout repository
         uses: https://gitea.com/actions/checkout@v3
       - name: Install nix
-        uses: https://github.com/cachix/install-nix-action@v23
-        with:
-          github_access_token: ${{ secrets.INPUT_GITHUB_ACCESS_TOKEN }}
+        uses: https://github.com/cachix/install-nix-action@v24
       - name: Check ${{ matrix.check }}
         # Depends on nixos/nix#7759 to simply `nix flake check`
         run: nix run .#checks.$(nix eval --raw --impure --expr "builtins.currentSystem").${{ matrix.check }}
@@ -48,7 +46,7 @@ jobs:
     - name: Checkout repository
       uses: https://gitea.com/actions/checkout@v3
     - name: Install nix
-      uses: https://github.com/cachix/install-nix-action@v23
+      uses: https://github.com/cachix/install-nix-action@v24
     - name: Show nixpkgs version
       run: nix eval --impure --expr '(import ./flake-compat.nix { src = ./.; }).lib.version'
     - name: Setup cachix
