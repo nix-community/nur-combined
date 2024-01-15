@@ -67,7 +67,7 @@ in {
           '';
         };
       };
-      users.users."${cfg.user}".linger = mkDefault true;
+      users.extraUsers."${cfg.user}".linger = mkDefault true;
     })
     (mkIf (cfg.wayland && !cfg.dummy) {
       services.xserver.enable = true;
