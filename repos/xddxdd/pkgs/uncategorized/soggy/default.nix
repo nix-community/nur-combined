@@ -15,6 +15,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [cmake];
   buildInputs = [protobuf3_21 protobufc lua5_3_compat];
 
+  patches = [./fix-cstdint-include.patch];
+
   installPhase = ''
     runHook preInstall
 

@@ -1,0 +1,12 @@
+diff --git a/tool/binpack.cpp b/tool/binpack.cpp
+index 8a29076..c78a0b6 100644
+--- a/tool/binpack.cpp
++++ b/tool/binpack.cpp
+@@ -7,6 +7,7 @@
+ #include <sstream>
+ #include <string>
+ #include <vector>
++#include <cstdint>
+ 
+ const char *const cpp_template = R"(// generated file
+ 
