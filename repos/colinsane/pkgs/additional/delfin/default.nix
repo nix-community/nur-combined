@@ -21,20 +21,20 @@
 
 stdenv.mkDerivation rec {
   pname = "delfin";
-  version = "0.2.1";
+  version = "0.3.0";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "avery42";
     repo = "delfin";
     rev = "v${version}";
-    hash = "sha256-jkNMioh0NkUMQYnzGveYVu9Vn8k2Zv5sDog8C58DJ6M=";
+    hash = "sha256-1Q3Aywf80CCXxorWSymwxJwMU1I4k7juDoWG5J18AXY=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-jHXkpfNWs07WSnxWSEvSX6HFx3e3YOWGsYEs7lJcAds=";
+    hash = "sha256-/RZD4b7hrbC1Z5MtHDdib5TFEmxAh9odjNPo4m+FqK4=";
   };
 
   # upstream pins the linker to clang, unnecessarily

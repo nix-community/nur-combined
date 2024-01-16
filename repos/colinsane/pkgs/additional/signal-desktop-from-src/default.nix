@@ -173,13 +173,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "signal-desktop-from-src";
-  version = "6.42.0";
+  version = "6.44.0";
   src = fetchFromGitHub {
     owner = "signalapp";
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${version}";
-    hash = "sha256-7MiyfdrbPmiENeWlElYNZDIGsbcSHj1d4rdBozE4bN8=";
+    hash = "sha256-jWQ05CJDYQSq7dc7u7hI+R0/b+8IKo174ITgUnhdSDk=";
   };
 
   patches = [
@@ -228,7 +228,7 @@ stdenv.mkDerivation rec {
 
   env.yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${src}/yarn.lock";
-    hash = "sha256-QvvtggYnXDjgk2aWsT0kwRE9/DiktlC3a9QACTWN8GU=";
+    hash = "sha256-wWwvv5xj4C/viPrpVt/EmsOZR/R2quZdxMBSmXXynYU=";
   };
   # env.SIGNAL_ENV = "production";
   # env.NODE_ENV = "production";

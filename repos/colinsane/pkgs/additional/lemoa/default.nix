@@ -20,19 +20,19 @@
 
 stdenv.mkDerivation rec {
   pname = "lemoa";
-  version = "0.5.0";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "lemmy-gtk";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-kVyVU6GYxx4axype1VNfU8gh7ZoxJqkxwX9gCGQLPE8=";
+    hash = "sha256-XyVl0vreium83d6NqiMkdER3U0Ra0GeAgTq4pyrZyZE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-efUFa77fIsGcvH0n82ITT4cgCkbowxZ/Y5rrIz0F3yQ=";
+    hash = "sha256-Wb312zJQYJCzwzfsq8K+5lp4MA5jQPY8U6n4H3eFXo8=";
   };
 
   nativeBuildInputs = [

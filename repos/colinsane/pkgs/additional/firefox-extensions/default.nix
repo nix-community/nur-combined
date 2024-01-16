@@ -135,7 +135,7 @@ in (lib.makeScope newScope (self: with self; {
       extid = "i2ppb@eyedeekay.github.io";
       pname = "i2p-in-private-browsing";
       url = "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/${version}/i2ppb@eyedeekay.github.io.xpi";
-      version = "1.47";
+      version = "1.49";
       hash = "sha256-LnR5z3fqNJywlr/khFdV4qloKGQhbxNZQvWCEgz97DU=";
     };
     open-in-mpv = fetchVersionedAddon rec {
@@ -161,8 +161,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
       url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-      version = "5.4.29";
-      hash = "sha256-AR4SxbCffgupZMcbVgBB+vmd/u4ADsi4GXKg4oKWt34=";
+      version = "5.5";
+      hash = "sha256-hV50GaS05WTVQOXTFDiM5SN0Jf1wNySfEuUTUSENBRw=";
     };
     ublacklist = fetchVersionedAddon rec {
       extid = "@ublacklist";
@@ -177,8 +177,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.54.1b21";
-      hash = "sha256-baF8399byq4vOm0OSNe/3bz3mZAV/cf1ohmIJg5MGkA=";
+      version = "1.55.1b8";
+      hash = "sha256-LfcONhxWWhGycHkNgS4JRErBj7cuoS0g1sOCDv56pOk=";
     };
   };
 })).overrideScope (self: super:

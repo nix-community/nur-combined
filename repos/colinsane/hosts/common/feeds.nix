@@ -219,6 +219,7 @@ let
   ];
 
   images = [
+    (fromDb "catandgirl.com" // img // humor)
     (fromDb "miniature-calendar.com" // img // art // daily)
     (fromDb "pbfcomics.com" // img // humor)
     (fromDb "poorlydrawnlines.com/feed" // img // humor)

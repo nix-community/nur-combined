@@ -12,7 +12,7 @@ stdenv.mkDerivation {
     owner = "jscher2000";
     repo = "Ctrl-Shift-C-Should-Copy";
     rev = "d9e67f330d0e13fc3796e9d797f12450f75a8c6a";
-    hash = "sha256-8v/b8nft7WmPOKwOR27DPG/Z9rAEPKBP4YODM+Wg8Rk=";
+    hash = "sha256-AzH1rZFqEH8sovZZfJykvsEmCedEZWigQFHWHl6/PdE=";
   };
 
   nativeBuildInputs = [ zip ];
