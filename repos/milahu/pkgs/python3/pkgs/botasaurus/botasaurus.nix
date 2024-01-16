@@ -1,5 +1,9 @@
 /*
 
+  FIXME this is not working
+  test-botasaurus.py will print "heading None"
+  but heading should be a <h1> element
+
   nix-shell -E '
     let
       pkgs = import <nixpkgs> {};
@@ -23,7 +27,20 @@
 , fetchFromGitHub
 , chromium
 , chromedriver
+, npmlock2nix
 }:
+
+let
+
+  node_modules = npmlock2nix.node_modules {
+    # FIXME src should be optional
+    src = ./.;
+    #symlinkNodeModules = true;
+    packageJson = ./package.json;
+    packageLockJson = ./package-lock.json;
+  };
+
+in
 
 assert chromium.version == chromedriver.version;
 
@@ -40,7 +57,18 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Q2hAO8vye08W71SXW0hPqNmm99ahyhkw3N8JETod9wI=";
   };
 
+  # jsPyBridgeCacheEnv must be set before "from javascript import require"
+
   postPatch = ''
+    while read filePath; do
+      substituteInPlace "$filePath" \
+        --replace \
+          "from javascript import require" \
+          $'import os\nos.environ["'$jsPyBridgeCacheEnv'"] = "'$out$jsPyBridgeCachePath$'"\nfrom javascript import require'
+    done < <(
+      grep -r -l "from javascript import require" botasaurus/
+    )
+
     substituteInPlace botasaurus/get_chrome_version.py \
       --replace \
         $'def get_linux_executable_path():' \
@@ -54,6 +82,21 @@ python3.pkgs.buildPythonApplication rec {
       --replace \
         $'def get_matched_chromedriver_version(chrome_version, no_ssl=False):' \
         $'def get_matched_chromedriver_version(chrome_version, no_ssl=False):\n    return "${chromedriver.version}"' \
+  '';
+
+  # custom env added in pkgs/python3/pkgs/javascript/javascript.nix
+  # https://github.com/extremeheat/JSPyBridge/issues/117
+  # site-packages should be treated as read-only
+  jsPyBridgeCacheEnv = "JS_PY_BRIDGE_CACHE";
+
+  # TODO better place than /cache? /lib? /share? /opt?
+  jsPyBridgeCachePath = "/cache/js-py-bridge";
+
+  postBuild = ''
+    mkdir -p $out$jsPyBridgeCachePath
+    ln -s -v ${node_modules}/node_modules $out$jsPyBridgeCachePath/node_modules
+    cp -v ${./package.json} $out$jsPyBridgeCachePath/package.json
+    cp -v ${./package-lock.json} $out$jsPyBridgeCachePath/package-lock.json
   '';
 
   # use a patched pythonImportsCheckPhase

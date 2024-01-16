@@ -314,7 +314,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         npmlock2nix = nodePackages.npmlock2nix;
       };
 
-      botasaurus = callPackage ./pkgs/python3/pkgs/botasaurus/botasaurus.nix { };
+      botasaurus = callPackage ./pkgs/python3/pkgs/botasaurus/botasaurus.nix {
+        # FIXME scope
+        npmlock2nix = nodePackages.npmlock2nix;
+        chromium = pkgs.ungoogled-chromium;
+      };
 
     #}))); # python3.pkgs
 

@@ -29,16 +29,13 @@ def scrape_heading_task(driver: AntiDetectDriver, data):
     heading = driver.text("h1")
 
     # FIXME heading == None
-    print("heading", heading)
-
-    # dont write output file
-    return
+    print("heading", repr(heading))
 
     # keep browser open
-    import time
-    time.sleep(9999)
+    #import time; time.sleep(9999)
 
     # Save the data as a JSON file in output/scrape_heading_task.json
+    # "return" would write "null" to the output file
     return {
         "heading": heading
     }

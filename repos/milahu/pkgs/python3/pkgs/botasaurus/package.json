@@ -1,0 +1,9 @@
+{
+  "name": "botasaurus-deps",
+  "version": "0.0.0",
+  "dependencies": {
+    "chrome-launcher": "latest",
+    "got-scraping-export": "latest",
+    "proxy-chain": "latest"
+  }
+}

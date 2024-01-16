@@ -17,8 +17,9 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   patches = [
-    ./fix-cache-path.patch
-    ./set-node-path.patch
+    # https://github.com/extremeheat/JSPyBridge/issues/117
+    # site-packages should be treated as read-only
+    ./expose-cache-path.patch
   ];
 
   postPatch = ''

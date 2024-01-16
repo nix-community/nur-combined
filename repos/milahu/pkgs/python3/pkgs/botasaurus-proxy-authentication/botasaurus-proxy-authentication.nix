@@ -30,6 +30,8 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   # custom env added in pkgs/python3/pkgs/javascript/javascript.nix
+  # https://github.com/extremeheat/JSPyBridge/issues/117
+  # site-packages should be treated as read-only
   jsPyBridgeCacheEnv = "JS_PY_BRIDGE_CACHE";
 
   # TODO better place than /cache? /lib? /share? /opt?
