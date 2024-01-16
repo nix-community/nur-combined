@@ -15,6 +15,11 @@ in {
       default = config.networking.ports.cf-torrent.port;
       type = types.port;
     };
+    shutdownTimeout = mkOption {
+      description = "Time in ms to shutdown the service when inactive";
+      default = 10*1000;
+      type = types.int;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -29,14 +34,23 @@ in {
         proxyWebsockets = true;
       };
     };
+    systemd.sockets.cf-torrent = {
+      socketConfig = {
+        ListenStream = cfg.port;
+      };
+      partOf = [ "cf-torrent.service" ];
+      wantedBy = [ "sockets.target" "multi-user.target" ];
+    };
     systemd.services.cf-torrent = {
       inherit (cfg.package.meta) description;
-      wantedBy = [ "multi-user.target" ];
+      unitConfig = {
+        After = [ "network.target" ];
+      };
       environment = {
-        PORT="${toString cfg.port}";
+        INACTIVITY_TIMEOUT = toString cfg.shutdownTimeout;
       };
       script = ''
-        ${cfg.package}/bin/*
+        exec ${cfg.package}/bin/*
       '';
     };
   };
