@@ -43,7 +43,6 @@ in {
         "thanatos.lrde.epita.fr" =
           lib.hm.dag.entryBefore ["*.lrde.epita.fr"]
           (addGPGAgentForwarding {
-            hostname = "lee.lrde.epita.fr";
             user = "alarsyo";
           });
 
