@@ -766,7 +766,21 @@ rec {
         # wildcard dependency, which will make npm look at the lockfile.
         if ((isGitHubRef version) || (lib.hasPrefix "http" version)) then
           "*"
-        else if version == "latest" then sourceOptions.packagesVersions.${name}.version else version);
+        # error: attribute 'some-package' missing
+        #else if version == "latest" then sourceOptions.packagesVersions.${name}.version
+        else if (version == "latest" && sourceOptions.packagesVersions ? ${name}) then (
+          #(builtins.trace "npmlock2nix: ${name}:latest -> ${name}:${sourceOptions.packagesVersions.${name}.version}")
+          sourceOptions.packagesVersions.${name}.version
+        )
+        # lockfileVersion 2
+        else if (version == "latest" && sourceOptions.packagesVersions ? "node_modules/${name}") then (
+          #(builtins.trace "npmlock2nix: ${name}:latest -> ${name}:${sourceOptions.packagesVersions."node_modules/${name}".version}")
+          sourceOptions.packagesVersions."node_modules/${name}".version
+        )
+        else (
+          (builtins.trace "npmlock2nix: ${name}:latest -> ${name}:latest (FIXME find locked version in sourceOptions.packagesVersions names ${builtins.toJSON (builtins.attrNames sourceOptions.packagesVersions)})")
+          version
+        ));
       dependencies = if (content ? dependencies) then lib.mapAttrs patchDep content.dependencies else { };
       devDependencies = if (content ? devDependencies) then lib.mapAttrs patchDep content.devDependencies else { };
     in

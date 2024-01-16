@@ -1,0 +1,7 @@
+{
+  "name": "botasaurus-proxy-authentication-deps",
+  "version": "0.0.0",
+  "dependencies": {
+    "proxy-chain": "latest"
+  }
+}
