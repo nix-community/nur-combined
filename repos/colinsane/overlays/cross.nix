@@ -1243,6 +1243,13 @@ in with final; {
     }
   );
 
+  # 2024/01/14: patched and built; verified no native runtime deps
+  # fixes "proto/meson.build:17:15: ERROR: Failed running '/nix/store/sx2814jd7xim65qbiqry94vkq2b4xv5b-python3-aarch64-unknown-linux-gnu-3.11.7-env/bin/python3', binary or interpreter not executable."
+  # source runs python during build only as a sanity check: we could instead disable that.
+  # this library is probably only used by xwayland: <https://github.com/NixOS/nixpkgs/pull/280256>
+  #   in turn used by gdm
+  libei = prev.libei.override { python3 = buildPackages.python3; };
+
   # libgweather = rmNativeInputs [ glib ] (prev.libgweather.override {
   #   # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
   #   #   but presumably that's just a different way to emulate it.

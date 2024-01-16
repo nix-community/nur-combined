@@ -1,11 +1,11 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils-full -p gnugrep -p gnused -p sane-scripts.ip-check -p systemd
+#!nix-shell -i bash -p coreutils-full -p findutils -p gnugrep -p gnused -p sane-scripts.ip-check -p systemd
 
 oper="$1"
 region="$2"
 # region should be e.g. `us` or `ukr`
 
-vpns=$(systemctl list-unit-files | grep wg-quick- | cut -f 1 -d ' ' | sed s'/^wg-quick-\([a-zA-Z-]*\)\.service$/\1/g')
+vpns=$(networkctl list --json=short | jq '.Interfaces[] | select(.Kind == "wireguard") | .Name' | sed 's/"//g')
 
 usage() {
   echo "usage:"
@@ -17,11 +17,12 @@ usage() {
   echo "$vpns"
 }
 
-verb="cat"
+# TODO: this could be simplified; it's legacy from pre-networkctl. verb should always match oper now.
+verb="help"
 if [ "$oper" == up ]; then
-  verb="start"
+  verb="up"
 elif [ "$oper" == down ]; then
-  verb="stop"
+  verb="down"
 elif [ "$oper" == help ] || [ "$oper" == --help ] || [ -z "$oper" ]; then
   usage
   exit 0
@@ -44,8 +45,6 @@ else
   exit 1
 fi
 
-service="wg-quick-$iface.service"
-
 echo before: $(sane-ip-check --no-upnp)
-sudo systemctl "$verb" "$service"
+sudo networkctl "$verb" "$iface"
 echo after:  $(sane-ip-check --no-upnp)

@@ -27,31 +27,25 @@ let
     ) else null;
 in [
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/280551";
+    title = "python3Packages.pure-protobuf: 3.0.0 -> 2.3.0";  # 2024/01/12: fix build
+    hash = "sha256-T1Ojc4A9rcJsmQ8Il76qdVFNOqnWHJj9kKnnWt0E74A=";
+  })
+  (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/280925";
+    title = "j4-dmenu-desktop: pin to gcc12";  # 2024/01/14: fix build
+    hash = "sha256-VW2l7eViI1erlTRFw2mpY2qWDdBlYxVSQewFPWwRhgg=";
+  })
+  (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/277003";
+    title = " pcsclite: disable building pcsc-wirecheck{,-gen} when cross compiling";  # 2023/12/27: fix build
+    hash = "sha256-9QqeZV1FgbxRpDDqHXWcIpOqyAt0YZRBcCTdoC6ugaY=";
+  })
+  (fetchpatch' {
     title = "argyllcms: support cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/275755";
     saneCommit = "8114d5dabbf5f4f1e8c370b889d4f2986b63998b";
     hash = "sha256-z/vY2CxdrUVd4n7w+m8aNffXaN/jH7IWEwRfWNr9w94=";
-  })
-  (fetchpatch' {
-    title = "jbig2dec: fix cross";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/266254";
-    hash = "sha256-HOR9oehqs1n3KE4jKZavXYy7pqEq9osJsxupCDnrtHY=";
-    merged.staging = "202312062110";
-    merged.staging-next = "202312210000";
-  })
-  (fetchpatch' {
-    title = "jbig2dec cross fix";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/275027";
-    hash = "sha256-sGBX1UamML46oS7zPZcuQXURjwADiPvvcEmAphoHvMg=";
-    merged.staging = "202312202300";
-    merged.staging-next = "202312210000";
-  })
-  (fetchpatch' {
-    title = "vala: look for files in targetOffset";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/267550";
-    hash = "sha256-Dl9ZQazjXjIbw38Q78otQvgVCB/QZAC1IYoFX0Tuyw0=";
-    merged.staging = "202312012359";
-    merged.staging-next = "202312210000";
   })
 
   # (fetchpatch' {

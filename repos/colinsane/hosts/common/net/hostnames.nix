@@ -1,4 +1,3 @@
-# TODO: move to hosts/common/
 { config, lib, ... }:
 
 {

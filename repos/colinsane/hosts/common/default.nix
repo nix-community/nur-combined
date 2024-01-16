@@ -5,18 +5,16 @@
     ./fs.nix
     ./hardware
     ./home
-    ./hostnames.nix
     ./hosts.nix
     ./ids.nix
     ./machine-id.nix
-    ./net.nix
+    ./net
     ./nix-path
     ./persist.nix
     ./programs
     ./secrets.nix
     ./ssh.nix
     ./users
-    ./vpn.nix
   ];
 
   sane.nixcache.enable-trusted-keys = true;

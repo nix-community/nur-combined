@@ -110,6 +110,7 @@ in
       }
       (lib.mkIf cfg.forwardToWan {
         # documented here: <https://nixos.wiki/wiki/WireGuard#Server_setup_2>
+        # TODO: don't hardcode eth0!
         postSetup = ''
           ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${cfg.ip}/24 -o eth0 -j MASQUERADE
         '';
