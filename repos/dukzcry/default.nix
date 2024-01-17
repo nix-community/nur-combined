@@ -41,4 +41,5 @@ rec {
   ath10k-firmware = callPackage ./pkgs/ath10k-firmware.nix {};
   cubesuite = callPackage ./pkgs/cubesuite.nix { wrapWine = pkgs.nur.repos.lucasew.packages.wrapWine or null; };
   hostapd = callPackage ./pkgs/hostapd {};
+  steamlink = callPackage ./pkgs/steamlink.nix {};
 }

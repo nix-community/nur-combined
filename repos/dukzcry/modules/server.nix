@@ -30,11 +30,10 @@ in {
         where = "/data";
       }];
       environment = {
-        systemPackages = with pkgs; [
+        systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
           jellyfin-media-player
           transmission-remote-gtk
-          moonlight-qt
-          pkgs.nur.repos.dukzcry.cockpit-client
+          cockpit-client
           rustdesk
         ];
       };
@@ -51,7 +50,11 @@ in {
     })
     (mkIf cfg.remote {
       virtualisation.libvirtd.enable = lib.mkForce false;
-      environment.systemPackages = [ pkgs.nur.repos.dukzcry.awl-tray ];
+      environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
+        awl-tray
+        moonlight-qt
+        steamlink
+      ];
     })
   ];
 }
