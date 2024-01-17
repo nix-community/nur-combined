@@ -1,7 +1,17 @@
 { pkgs, config ? null }:
 
 self: super: with super.lib;
-rec {
+let
+  rustdeskitem = pkgs.makeDesktopItem {
+    name = "rustdesk";
+    exec = super.rustdesk.meta.mainProgram;
+    icon = "rustdesk";
+    desktopName = "RustDesk";
+    comment = super.rustdesk.meta.description;
+    genericName = "Remote Desktop";
+    categories = [ "Network" ];
+  };
+in rec {
   dtrx = super.dtrx.override {
     unzipSupport = true;
     unrarSupport = true;
@@ -34,6 +44,12 @@ rec {
   # https://github.com/NixOS/nixpkgs/issues/271333
   sunshine = super.sunshine.overrideAttrs (oldAttrs: {
     runtimeDependencies = oldAttrs.runtimeDependencies ++ [ super.libglvnd ];
+  });
+  rustdesk = super.rustdesk.overrideAttrs (oldAttrs: {
+    postInstall = ''
+      ${oldAttrs.postInstall}
+      cp -r ${rustdeskitem}/* $out
+    '';
   });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
