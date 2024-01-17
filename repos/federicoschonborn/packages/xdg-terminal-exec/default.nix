@@ -1,9 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, unstableGitUpdater
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "xdg-terminal-exec";
   version = "unstable-2023-12-18";
@@ -24,13 +24,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     mainProgram = "xdg-terminal-exec";
     description = "Proposal for XDG terminal execution utility";
     homepage = "https://github.com/Vladimir-csp/xdg-terminal-exec";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 }

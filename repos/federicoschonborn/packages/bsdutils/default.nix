@@ -1,19 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, byacc
-, cmake
-, flex
-, meson
-, ninja
-, pkg-config
-, libedit
-, libxo
-, ncurses6
-, openssl
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  byacc,
+  cmake,
+  flex,
+  meson,
+  ninja,
+  pkg-config,
+  libedit,
+  libxo,
+  ncurses6,
+  openssl,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bsdutils";
   version = "13.1";
@@ -43,18 +43,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontUseCmakeConfigure = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Alternative to GNU coreutils using software from FreeBSD";
     homepage = "https://github.com/dcantrell/bsdutils";
-    license = with lib.licenses; [
-      # LICENSE
-      bsd3
-      # COPYRIGHT
-      bsd2
-      bsdOriginal
-    ];
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

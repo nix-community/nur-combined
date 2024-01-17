@@ -1,24 +1,25 @@
-{ lib
-, stdenv
-, fetchzip
-, cmake
-, ninja
-
-, withExperimentalLibs ? false
-, withExperimentalApps ? false
-
-, withZlib ? true
-, zlib
-, withPng ? true
-, libpng
-, withBzip2 ? true
-, bzip2
-, withLevmar ? false
-, levmar
-, withFftw3 ? false
-, fftw
+{
+  lib,
+  stdenv,
+  fetchzip,
+  cmake,
+  ninja,
+  withExperimentalApps ? false,
+  withExperimentalLibs ? false,
+  # Only build a static library.
+  withStatic ? false,
+  withBzip2 ? false,
+  bzip2,
+  withPthread ? true,
+  withFftw3 ? false,
+  fftw,
+  withLevmar ? false,
+  levmar,
+  withPng ? withZlib,
+  libpng,
+  withZlib ? true,
+  zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "teem";
   version = "1.11.0";
@@ -34,22 +35,23 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    lib.optional withZlib zlib ++
-    lib.optional withPng libpng ++
-    lib.optional withBzip2 bzip2 ++
-    lib.optional withLevmar levmar ++
-    lib.optional withFftw3 fftw
-  ;
+    lib.optional withBzip2 bzip2
+    ++ lib.optional withFftw3 fftw
+    ++ lib.optional withLevmar levmar
+    ++ lib.optional withPng libpng
+    ++ lib.optional withZlib zlib;
 
   cmakeFlags = [
-    "-DENABLE_EXPERIMENTAL_LIBS=${lib.boolToString withExperimentalLibs}"
-    "-DENABLE_EXPERIMENTAL_APPS=${lib.boolToString withExperimentalApps}"
+    (lib.cmakeBool "BUILD_EXPERIMENTAL_APPS" withExperimentalApps)
+    (lib.cmakeBool "BUILD_EXPERIMENTAL_LIBS" withExperimentalLibs)
+    (lib.cmakeBool "BUILD_SHARED_LIBS" (!withStatic))
+    (lib.cmakeBool "Teem_PTHREAD" withPthread)
   ];
 
   meta = {
     description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";
     homepage = "https://teem.sourceforge.net/";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

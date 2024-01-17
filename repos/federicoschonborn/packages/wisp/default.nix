@@ -1,13 +1,13 @@
-{ lib
-, stdenv
-, fetchhg
-, autoreconfHook
-, pkg-config
-, python3
-, makeWrapper
-, guile
+{
+  lib,
+  stdenv,
+  fetchhg,
+  autoreconfHook,
+  pkg-config,
+  python3,
+  makeWrapper,
+  guile,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wisp";
   version = "1.0.11";
@@ -30,13 +30,13 @@ stdenv.mkDerivation (finalAttrs: {
     guile
   ];
 
-  postPatch = ''
-    patchShebangs bootstrap.sh bootstrap-reader.sh
-  '';
-
   makeFlags = [
     "GUILE_AUTO_COMPILE=0"
   ];
+
+  postPatch = ''
+    patchShebangs bootstrap.sh bootstrap-reader.sh
+  '';
 
   postFixup = ''
     wrapProgram $out/bin/wisp \
@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Wisp turns indentation based syntax into Lisp";
     homepage = "https://www.draketo.de/software/wisp";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
     broken = !(guile ? siteDir);
   };
 })

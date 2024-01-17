@@ -1,14 +1,14 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, libffi
-, libxml2
-, ncurses
-, zlib
-, llvmPackages_15
-, nix-update-script
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  libffi,
+  libxml2,
+  ncurses,
+  zlib,
+  llvmPackages_15,
+  nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inko";
   version = "0.13.2";
@@ -31,10 +31,10 @@ rustPlatform.buildRustPackage rec {
 
   env.LLVM_SYS_150_PREFIX = llvmPackages_15.llvm.dev;
 
-  # Some of the test require git to be installed.
+  # Some of the tests require git to be installed.
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "inko";
@@ -43,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/inko-lang/inko/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 }

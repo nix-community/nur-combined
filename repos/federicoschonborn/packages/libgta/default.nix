@@ -1,13 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, bzip2
-, xz
-, zlib
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  bzip2,
+  xz,
+  zlib,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgta";
   version = "1.2.1";
@@ -31,12 +31,12 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "libgta-(.*)" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex" "libgta-(.*)"];};
 
   meta = {
     description = "A library that reads and writes GTA files, with interfaces in C and C++";
     homepage = "https://marlam.de/gta/";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

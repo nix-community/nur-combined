@@ -1,11 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gnome
-, hicolor-icon-theme
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gnome,
+  hicolor-icon-theme,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "morewaita";
   version = "45";
@@ -31,13 +31,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "An Adwaita style extra icons theme for Gnome Shell";
     homepage = "https://github.com/somepaulo/MoreWaita";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

@@ -1,21 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, libdecor
-, libinput
-, libxkbcommon
-, meson
-, ninja
-, pixman
-, pkg-config
-, systemd
-, wayland
-, wayland-protocols
-, wlroots_0_16
-, xorg
-, unstableGitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  libdecor,
+  libinput,
+  libxkbcommon,
+  meson,
+  ninja,
+  pixman,
+  pkg-config,
+  systemd,
+  wayland,
+  wayland-protocols,
+  wlroots_0_16,
+  xorg,
+  unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "flyaway";
   version = "unstable-2023-07-04";
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     mainProgram = "flyaway";
@@ -54,6 +54,6 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.com/serebit/flyaway";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 }

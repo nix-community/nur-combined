@@ -1,11 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, libtool
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libtool,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxo";
   version = "1.6.0";
@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     "LIBTOOL=${libtool}/bin/libtool"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "xo";
@@ -37,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Juniper/libxo";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

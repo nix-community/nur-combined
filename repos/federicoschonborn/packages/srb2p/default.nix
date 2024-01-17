@@ -1,18 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchzip
-, cmake
-, ninja
-, curl
-, game-music-emu
-, libopenmpt
-, libpng
-, SDL2
-, SDL2_mixer
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchzip,
+  cmake,
+  ninja,
+  curl,
+  game-music-emu,
+  libopenmpt,
+  libpng,
+  SDL2,
+  SDL2_mixer,
+  zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "srb2p";
   version = "1.3.6";
@@ -83,6 +83,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SRB2P is a recreation of Persona's general gameplay into Sonic Robo Blast 2";
     homepage = "https://git.do.srb2.org/SinnamonLat/SRB2";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

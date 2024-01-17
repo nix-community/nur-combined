@@ -1,13 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, allegro5
-, surgescript
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  allegro5,
+  surgescript,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opensurge";
   version = "0.6.0.3";
@@ -35,13 +35,13 @@ stdenv.mkDerivation (finalAttrs: {
     "-DDESKTOP_ENTRY_PATH=${placeholder "out"}/share/applications"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "A fun 2D retro platformer inspired by Sonic games and a game creation system";
     homepage = "https://github.com/alemart/opensurge";
     changelog = "https://github.com/alemart/opensurge/blob/${finalAttrs.src.rev}/CHANGES.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

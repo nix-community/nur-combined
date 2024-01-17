@@ -1,12 +1,12 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, sqlite
-, zstd
-, unstableGitUpdater
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  sqlite,
+  zstd,
+  unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "moss";
   version = "unstable-2024-01-06";
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage {
 
   env.ZSTD_SYS_USE_PKG_CONFIG = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     mainProgram = "moss";
@@ -39,6 +39,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/serpent-os/moss-rs";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 }

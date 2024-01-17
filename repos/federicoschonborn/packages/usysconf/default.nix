@@ -1,9 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, unstableGitUpdater
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "usysconf";
   version = "unstable-2023-12-09";
@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage {
     };
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     mainProgram = "usysconf";
@@ -30,6 +30,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/serpent-os/usysconf-rs";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 }

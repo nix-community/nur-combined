@@ -1,19 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, asciidoctor
-, cmake
-, gettext
-, ninja
-, augeas
-, boost
-, libxml2
-, libzypp
-, readline
-, rpm
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asciidoctor,
+  cmake,
+  gettext,
+  ninja,
+  augeas,
+  boost,
+  libxml2,
+  libzypp,
+  readline,
+  rpm,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zypper";
   version = "1.14.68";
@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_MODULE_PATH=${libzypp}/share/cmake/Modules"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "zypper";
@@ -53,6 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/opensuse/zypper";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

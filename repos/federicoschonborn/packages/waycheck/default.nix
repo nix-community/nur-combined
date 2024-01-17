@@ -1,17 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, desktop-file-utils
-, gtk3
-, meson
-, ninja
-, pkg-config
-, wrapQtAppsHook
-, qtwayland
-, wayland
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  desktop-file-utils,
+  gtk3,
+  meson,
+  ninja,
+  pkg-config,
+  wrapQtAppsHook,
+  qtwayland,
+  wayland,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "waycheck";
   version = "1.0.0";
@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "waycheck";
@@ -46,6 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.freedesktop.org/serebit/waycheck";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

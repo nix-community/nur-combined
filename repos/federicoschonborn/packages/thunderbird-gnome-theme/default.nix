@@ -1,9 +1,9 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, unstableGitUpdater
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "thunderbird-gnome-theme";
   version = "unstable-2023-12-06";
@@ -24,12 +24,12 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "A GNOME theme for Thunderbird";
     homepage = "https://github.com/rafaelmardojai/thunderbird-gnome-theme";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 }

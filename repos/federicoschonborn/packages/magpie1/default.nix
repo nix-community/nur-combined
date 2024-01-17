@@ -1,19 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, wayland
-, libxkbcommon
-, pixman
-, systemd
-, wayland-protocols
-, wlroots_0_17
-, xorg
-, unstableGitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wayland,
+  libxkbcommon,
+  pixman,
+  systemd,
+  wayland-protocols,
+  wlroots_0_17,
+  xorg,
+  unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "magpie1";
   version = "unstable-2023-11-26";
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = unstableGitUpdater { branch = "v1"; };
+  passthru.updateScript = unstableGitUpdater {branch = "v1";};
 
   meta = {
     mainProgram = "magpie-wm";
@@ -51,6 +51,6 @@ stdenv.mkDerivation {
     branch = "v1";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 }

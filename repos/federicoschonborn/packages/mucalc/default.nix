@@ -1,13 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, muparser
-, readline
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  muparser,
+  readline,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mucalc";
   version = "2.1";
@@ -29,13 +29,13 @@ stdenv.mkDerivation (finalAttrs: {
     readline
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex" "mucalc-(.*)" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex" "mucalc-(.*)"];};
 
   meta = {
     mainProgram = "mucalc";
     description = "A convenient calculator for the command line";
     homepage = "https://marlam.de/mucalc/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

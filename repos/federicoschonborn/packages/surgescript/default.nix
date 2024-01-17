@@ -1,11 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "surgescript";
   version = "0.5.6.1";
@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "surgescript";
@@ -30,6 +30,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/alemart/surgescript";
     changelog = "https://github.com/alemart/surgescript/blob/${finalAttrs.src.rev}/CHANGES.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })
