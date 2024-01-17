@@ -119,7 +119,7 @@
     "mstickereditor": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./mstickereditor-v0.3.2/Cargo.lock",
+                "./mstickereditor-v0.3.3/Cargo.lock",
                 {}
             ]
         },
@@ -135,11 +135,11 @@
             "name": null,
             "owner": "LuckyTurtleDev",
             "repo": "mstickereditor",
-            "rev": "v0.3.2",
-            "sha256": "sha256-Spd4ISUsVAjT1ph9zAiHx4wg+DV8JQ/opLBu89n36kE=",
+            "rev": "v0.3.3",
+            "sha256": "sha256-7QHGcntKM5tF4fJ3qej90zGO3HOJc/W8Yc8K4JOVfDQ=",
             "type": "github"
         },
-        "version": "v0.3.2"
+        "version": "v0.3.3"
     },
     "mutter-mobile-shell": {
         "cargoLocks": null,
