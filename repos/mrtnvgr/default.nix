@@ -31,6 +31,7 @@ in rec {
 
   # Fonts
   comic-code = p ./pkgs/fonts/comic-code { };
+  cozette-otb = p ./pkgs/fonts/cozette-otb { };
 
   # Overrides
   obs-wayland = (pkgs.wrapOBS {
