@@ -30,12 +30,12 @@ in {
         where = "/data";
       }];
       environment = {
-        systemPackages = with pkgs; [
+        systemPackages = with pkgs; with pkgs.nur.repos; [
           jellyfin-media-player
           transmission-remote-gtk
           moonlight-qt
-          pkgs.nur.repos.dukzcry.cockpit-client
-          rustdesk
+          dukzcry.cockpit-client
+          pokon548.rustdesk-bin
         ];
       };
       services.tor.enable = lib.mkForce false;
