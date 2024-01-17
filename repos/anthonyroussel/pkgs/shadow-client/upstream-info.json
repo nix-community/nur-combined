@@ -28,17 +28,17 @@
     "releaseDate": "2024-01-02T16:18:25.330Z"
   },
   "testing": {
-    "version": "8.0.10204",
+    "version": "8.0.10210",
     "files": [
       {
-        "url": "ShadowPCAlpha-8.0.10204.AppImage",
-        "sha512": "HlUCJFP+fkfFuVhAiSihNz8DqYL/EjSpKfhSCEsbFzWB6yAXl7BW1bUJgLlgt87k2dw+Ms0jQuBKeb7VSVxDdA==",
-        "size": 177379561,
-        "blockMapSize": 186621
+        "url": "ShadowPCAlpha-8.0.10210.AppImage",
+        "sha512": "9C1GqBOSMDxRv9j81W+Hrq6MOxLhamJmiWpTuYiUyB/jwRSLq8DbniJGGqUFOmkvKi3AMgJfqHMMiHrs70tYAQ==",
+        "size": 178719290,
+        "blockMapSize": 186958
       }
     ],
-    "path": "ShadowPCAlpha-8.0.10204.AppImage",
-    "sha512": "HlUCJFP+fkfFuVhAiSihNz8DqYL/EjSpKfhSCEsbFzWB6yAXl7BW1bUJgLlgt87k2dw+Ms0jQuBKeb7VSVxDdA==",
-    "releaseDate": "2024-01-02T15:26:49.383Z"
+    "path": "ShadowPCAlpha-8.0.10210.AppImage",
+    "sha512": "9C1GqBOSMDxRv9j81W+Hrq6MOxLhamJmiWpTuYiUyB/jwRSLq8DbniJGGqUFOmkvKi3AMgJfqHMMiHrs70tYAQ==",
+    "releaseDate": "2024-01-16T12:48:16.765Z"
   }
 }
