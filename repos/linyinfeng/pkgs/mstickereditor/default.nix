@@ -1,4 +1,4 @@
-{ sources, rustPlatform, lib, pkg-config, rlottie, ffmpeg, clang }:
+{ sources, rustPlatform, lib, pkg-config, rlottie, ffmpeg_5, clang }:
 
 rustPlatform.buildRustPackage {
   inherit (sources.mstickereditor) pname version src;
@@ -15,7 +15,10 @@ rustPlatform.buildRustPackage {
   ];
   buildInputs = [
     rlottie
-    ffmpeg
+    # TODO wait for a release supporting ffmpeg 6.1
+    # https://github.com/LuckyTurtleDev/mstickereditor/releases
+    # https://github.com/LuckyTurtleDev/mstickereditor/pull/42
+    ffmpeg_5
   ];
 
   meta = with lib; {
