@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d18677a993f9d1b54770b19c736adebc0b62e251";
+    version = "0eca3b51d50351dc3cec46f58c4524b23dbc5976";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d18677a993f9d1b54770b19c736adebc0b62e251";
+      rev = "0eca3b51d50351dc3cec46f58c4524b23dbc5976";
       fetchSubmodules = false;
-      sha256 = "sha256-r4YrI/r9dl2kJZ/ShM9Vg4U4FmNEb8ELX1dFCVpdzng=";
+      sha256 = "sha256-9RF79A8+Yblnlmfm20s/QZIRsbxfvoGZWkXWDIWREaw=";
     };
-    date = "2024-01-13";
+    date = "2024-01-16";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "bb23b3f61b4c2cba00ba80980216b4584b345c9f";
+    version = "61e0fa99da04dccff936c9c237f3ca72f810ede6";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "bb23b3f61b4c2cba00ba80980216b4584b345c9f";
+      rev = "61e0fa99da04dccff936c9c237f3ca72f810ede6";
       fetchSubmodules = false;
-      sha256 = "sha256-4W4KK2zvujpmdmQsnAA67gV6rwNuzssF2nMaeF+whcs=";
+      sha256 = "sha256-gV8/ijZ70vkK1c8lcIuv1A5S7eu2ZGE8tBU7H4lIfmw=";
     };
-    date = "2024-01-14";
+    date = "2024-01-16";
   };
   libqcef = {
     pname = "libqcef";
@@ -767,15 +767,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "eb80076d1683121db35fabf8c1b0c6f9125c1b6d";
+    version = "ffc2ffd3f896b8008f0dc3f8c3cebbe94dc7dae9";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "eb80076d1683121db35fabf8c1b0c6f9125c1b6d";
+      rev = "ffc2ffd3f896b8008f0dc3f8c3cebbe94dc7dae9";
       fetchSubmodules = false;
-      sha256 = "sha256-J1pH1a5cEiMZ24JaWe9axNou01uL3Wlf2C4WJjQQOUU=";
+      sha256 = "sha256-ZfeTiGA1XX2Z2OK32wWbaoPQ5wV6FH/coMtr0PvqxJA=";
     };
-    date = "2024-01-03";
+    date = "2024-01-16";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -945,15 +945,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "47a87664400f48a2707284761f1517e9276ceb0f";
+    version = "0bfa8ccbb0008a9a4568025e95f43f211d675762";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "47a87664400f48a2707284761f1517e9276ceb0f";
+      rev = "0bfa8ccbb0008a9a4568025e95f43f211d675762";
       fetchSubmodules = false;
-      sha256 = "sha256-rtOwRrslJrlCZyY1uovCnaKXGH+ihMfXM75FpaPBTwk=";
+      sha256 = "sha256-pWOmY61jvRsuYb52HRNPUeppvO+OXI/ozKl52gwxiVY=";
     };
-    date = "2024-01-15";
+    date = "2024-01-16";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
