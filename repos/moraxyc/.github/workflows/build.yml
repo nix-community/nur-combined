@@ -45,7 +45,7 @@ jobs:
           platforms: all
 
       - name: Install nix
-        uses: cachix/install-nix-action@v24
+        uses: cachix/install-nix-action@v25
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -54,7 +54,7 @@ jobs:
             extra-platforms = i686-linux aarch64-linux arm-linux
 
       - name: Setup cachix
-        uses: cachix/cachix-action@v13
+        uses: cachix/cachix-action@v14
         with:
           name: moraxyc
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
@@ -99,7 +99,7 @@ jobs:
           image: tonistiigi/binfmt:latest
           platforms: all
       - name: Install nix
-        uses: cachix/install-nix-action@v24
+        uses: cachix/install-nix-action@v25
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
