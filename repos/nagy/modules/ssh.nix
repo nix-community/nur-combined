@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   services.openssh.knownHosts = {
     # FIXME convert this into toml, since it is only data
@@ -10,11 +8,13 @@
     "gist.github.com".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
 
+    # https://docs.gitlab.com/ee/user/gitlab_com/index.html#ssh-host-keys-fingerprints
     "gitlab.com".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
 
+    # https://man.sr.ht/git.sr.ht/#ssh-host-keys
     "sr.ht".publicKey =
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMk9TEtn9KVMpxspbmvuAmVZ5xZD3w4Y6l6RfMFTFqiE";
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZvRd4EtM7R+IHVMWmDkVU3VLQTSwQDSAvW0t2Tkj60";
     "git.sr.ht".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZvRd4EtM7R+IHVMWmDkVU3VLQTSwQDSAvW0t2Tkj60";
 

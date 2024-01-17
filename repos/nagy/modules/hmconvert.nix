@@ -1,7 +1,7 @@
 # Some programs allow to place their configuration files either in the users
 # home directory or in a system-wide location. This module leverages the
 # configuration collection from the home-manager project to configure some
-# programs sytem-wide.
+# programs system-wide.
 #
 # Usage:
 #

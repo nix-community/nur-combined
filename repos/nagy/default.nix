@@ -18,6 +18,12 @@ applied-overlay // {
     # the result an `override` ability.
     (callPackage ./lib { }));
 
+  modules = lib.mapAttrs'
+    (filename: _filetype:
+      lib.nameValuePair "${lib.removeSuffix ".nix" filename}"
+        ((import (./modules + "/${filename}"))))
+    (builtins.readDir ./modules);
+
   qemuImages =
     pkgs.recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ueforth";
-  version = "unstable-2023-07-08";
+  version = "unstable-2023-12-09";
 
   src = fetchFromGitHub {
     owner = "flagxor";
     repo = "ueforth";
-    rev = "564a8fc68b545ebeb3abab34548bfcf5591c611c";
-    hash = "sha256-N+7aHMAHbLE8R6qAr5Tiz7AY7+T9Fcx/onz0adt6tbA=";
+    rev = "d02499511b71ad35b2bc60941ab103e8d7370b42";
+    hash = "sha256-1FiVl+kIGSBTtAdT7M9QUbIXgCpgdKZpvaEqF2lLqL0=";
   };
 
   makeFlags = [

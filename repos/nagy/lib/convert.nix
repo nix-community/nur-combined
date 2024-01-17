@@ -1,8 +1,8 @@
 { pkgs, lib, callPackage }:
 
-with lib;
 let
   inherit (pkgs) jq biber;
+  inherit (lib) concatStringsSep attrNames removeSuffix importJSON;
   emacs = pkgs.emacs-nox.pkgs.withPackages (epkgs: [ epkgs.org-ref ]);
 
   conversions = {
@@ -87,7 +87,7 @@ in
 rec {
   convert = { src, output, ... }@args:
     let
-      fileExtension = last (splitString "." (src.name or (toString src)));
+      fileExtension = lib.last (lib.splitString "." (src.name or (toString src)));
       fileBase = removeSuffix ".${fileExtension}"
         (builtins.baseNameOf (src.name or (toString src)));
       entry = (
@@ -102,7 +102,7 @@ rec {
           output = o;
         };
       self =
-        if isDerivation entry then
+        if lib.isDerivation entry then
           entry
         else
           pkgs.runCommandLocal "${fileBase}.${output}"
@@ -116,7 +116,7 @@ rec {
                 pdf = convertSelf "pdf";
                 json = convertSelf "json";
               };
-              meta = foldr recursiveUpdate { } [
+              meta = lib.foldr lib.recursiveUpdate { } [
                 (src.meta or { })
                 (entry.meta or { })
                 (args.meta or { })
@@ -130,8 +130,8 @@ rec {
       name = src.name or builtins.baseNameOf src;
       buildCommand = "install -Dm444 ${src} $out";
       # these should be limited to what is available in converters
-      passthru = listToAttrs ((map
-        (output: nameValuePair output (convert { inherit src output; }))) [
+      passthru = lib.listToAttrs ((map
+        (output: lib.nameValuePair output (convert { inherit src output; }))) [
         "directory"
         "evaldir"
         "tex"
