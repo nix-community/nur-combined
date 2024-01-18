@@ -353,7 +353,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-01-16",
+        "date": "2024-01-18",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -363,12 +363,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0bfa8ccbb0008a9a4568025e95f43f211d675762",
-            "sha256": "sha256-pWOmY61jvRsuYb52HRNPUeppvO+OXI/ozKl52gwxiVY=",
+            "rev": "2a2f956cc66eaf49c3068ecbd8102fdab3087e9e",
+            "sha256": "sha256-wy5Y0v5FLNvJmxE3z0wIaSmNvlLG+71W/5N4Cd4noF4=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "0bfa8ccbb0008a9a4568025e95f43f211d675762"
+        "version": "2a2f956cc66eaf49c3068ecbd8102fdab3087e9e"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -642,11 +642,11 @@
             "name": null,
             "owner": "trojan-gfw",
             "repo": "trojan",
-            "rev": "v1.16.0",
-            "sha256": "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=",
+            "rev": "v1.15.1",
+            "sha256": "sha256-ieRKqX0IYCQAoVi9602oiBXho3PgKMJAij4kDzYTEXE=",
             "type": "github"
         },
-        "version": "v1.16.0"
+        "version": "v1.15.1"
     },
     "vlmcsd": {
         "cargoLocks": null,

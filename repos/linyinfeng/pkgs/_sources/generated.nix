@@ -232,16 +232,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0bfa8ccbb0008a9a4568025e95f43f211d675762";
+    version = "2a2f956cc66eaf49c3068ecbd8102fdab3087e9e";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "0bfa8ccbb0008a9a4568025e95f43f211d675762";
+      rev = "2a2f956cc66eaf49c3068ecbd8102fdab3087e9e";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-pWOmY61jvRsuYb52HRNPUeppvO+OXI/ozKl52gwxiVY=";
+      sha256 = "sha256-wy5Y0v5FLNvJmxE3z0wIaSmNvlLG+71W/5N4Cd4noF4=";
     };
-    date = "2024-01-16";
+    date = "2024-01-18";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -420,13 +420,13 @@
   };
   trojan = {
     pname = "trojan";
-    version = "v1.16.0";
+    version = "v1.15.1";
     src = fetchFromGitHub {
       owner = "trojan-gfw";
       repo = "trojan";
-      rev = "v1.16.0";
+      rev = "v1.15.1";
       fetchSubmodules = false;
-      sha256 = "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=";
+      sha256 = "sha256-ieRKqX0IYCQAoVi9602oiBXho3PgKMJAij4kDzYTEXE=";
     };
   };
   vlmcsd = {
