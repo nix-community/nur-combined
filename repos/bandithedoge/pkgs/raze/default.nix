@@ -13,6 +13,7 @@
 
     buildInputs = with pkgs; [
       alsa-lib
+      glib
       libsndfile
       mpg123
       zlib

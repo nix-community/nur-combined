@@ -6,6 +6,10 @@ fetch.github = "falkTX/Carla"
 src.manual = "4.13.0"
 fetch.github = "GNOME/gtk"
 
+[rtaudio-git]
+src.github = "thestk/rtaudio"
+fetch.github = "thestk/rtaudio"
+
 [zrythm]
 src.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
 fetch.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"

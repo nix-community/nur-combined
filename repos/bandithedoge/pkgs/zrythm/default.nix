@@ -8,15 +8,16 @@
     inherit (sources.carla-git) version src;
   });
 
-  # zix = pkgs.zix.overrideAttrs (_: {
-  #   inherit (sources.zix-git) src version;
-  # });
-
   # remove when 4.13 gets added to nixpkgs
-  gtk4 = pkgs.gtk4.overrideAttrs (oldAttrs: {
+  gtk4 = pkgs.gtk4.overrideAttrs (_: {
     inherit (sources.gtk-4_13_0) version src;
 
     patches = [];
+  });
+
+  # remove when 6.0.1 gets added to nixpkgs
+  rtaudio = pkgs.rtaudio.overrideAttrs (_: {
+    inherit (sources.rtaudio-git) version src;
   });
 in
   pkgs.stdenv.mkDerivation rec {
@@ -44,6 +45,7 @@ in
     ];
 
     buildInputs = with pkgs; [
+      SDL2
       alsa-lib
       bash-completion
       boost
@@ -70,8 +72,8 @@ in
       libjack2
       libpanel
       libpulseaudio
-      libsamplerate
       libsForQt5.breeze-icons
+      libsamplerate
       libsndfile
       libsoundio
       libyaml
@@ -84,7 +86,6 @@ in
       rtmidi
       rubberband
       sassc
-      SDL2
       serd
       sord
       soxr
@@ -92,6 +93,7 @@ in
       vamp-plugin-sdk
       xdg-utils
       xxHash
+      yyjson
       zix
       zstd
     ];
