@@ -59,14 +59,6 @@ in {
       services.logind.extraConfig = ''
         HandlePowerKey=hibernate
       '';
-      services.autosuspend = {
-        enable = true;
-        settings.idle_time = 0;
-        checks = {
-          XIdleTime.method = "logind";
-          ExternalCommand.command = "[ `cat /sys/class/power_supply/AC/online` == 1 ] && true";
-        };
-      };
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       boot.kernelParams = [ "mitigations=off" ];
