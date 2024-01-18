@@ -21,7 +21,7 @@
 
   nativeBuildInputs =
     let
-      xcode = xcodeenv.composeXcodeWrapper { version = "15.0"; };
+      xcode = xcodeenv.composeXcodeWrapper { version = "15.2"; };
     in
     [
       unzip
