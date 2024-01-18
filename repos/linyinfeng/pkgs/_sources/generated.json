@@ -642,11 +642,11 @@
             "name": null,
             "owner": "trojan-gfw",
             "repo": "trojan",
-            "rev": "v1.15.1",
-            "sha256": "sha256-ieRKqX0IYCQAoVi9602oiBXho3PgKMJAij4kDzYTEXE=",
+            "rev": "v1.16.0",
+            "sha256": "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=",
             "type": "github"
         },
-        "version": "v1.15.1"
+        "version": "v1.16.0"
     },
     "vlmcsd": {
         "cargoLocks": null,

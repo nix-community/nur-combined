@@ -420,13 +420,13 @@
   };
   trojan = {
     pname = "trojan";
-    version = "v1.15.1";
+    version = "v1.16.0";
     src = fetchFromGitHub {
       owner = "trojan-gfw";
       repo = "trojan";
-      rev = "v1.15.1";
+      rev = "v1.16.0";
       fetchSubmodules = false;
-      sha256 = "sha256-ieRKqX0IYCQAoVi9602oiBXho3PgKMJAij4kDzYTEXE=";
+      sha256 = "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=";
     };
   };
   vlmcsd = {
