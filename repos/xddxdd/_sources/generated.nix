@@ -366,10 +366,10 @@
   };
   google-earth-pro = {
     pname = "google-earth-pro";
-    version = "7.3.6.9345";
+    version = "7.3.6.9750";
     src = fetchurl {
-      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9345-r0_amd64.deb";
-      sha256 = "sha256-iOixqOCfCMjarI4h2APRkgOnJeH/hDemXcj7p1OhLD4=";
+      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9750-r0_amd64.deb";
+      sha256 = "sha256-gagYVWFmVj+FinNxtljqVDHNKDaHpcZ6dm3K2jHZtwU=";
     };
   };
   grasscutter = {
