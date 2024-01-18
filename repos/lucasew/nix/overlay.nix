@@ -98,6 +98,7 @@ in
   fhsctl = cp ./pkgs/fhsctl.nix;
   comby = cp ./pkgs/comby.nix;
   pkg = cp ./pkgs/pkg.nix;
+  text2image = cp ./pkgs/text2image.nix;
   wrapWine = cp ./pkgs/wrapWine.nix;
   home-manager = cp "${flake.inputs.home-manager}/home-manager";
 
@@ -112,6 +113,7 @@ in
   redial_proxy = cp flake.inputs.redial_proxy;
   send2kindle = cp flake.inputs.send2kindle;
   nixgram = cp flake.inputs.nixgram;
+  go-annotation = cp flake.inputs.go-annotation;
   wrapVSCode = args: import flake.inputs.nix-vscode (args // { pkgs = prev; });
   wrapEmacs = args: import flake.inputs.nix-emacs (args // { pkgs = prev; });
 

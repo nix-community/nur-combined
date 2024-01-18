@@ -20,6 +20,9 @@
     send2kindle.url = "github:lucasew/send2kindle";
     send2kindle.flake = false;
 
+    go-annotation.url = "github:lucasew/go-annotation";
+    go-annotation.flake = false;
+
     nix-emacs.url = "github:nixosbrasil/nix-emacs";
     nix-emacs.flake = false;
 

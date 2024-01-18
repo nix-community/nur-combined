@@ -169,6 +169,22 @@
         "type": "github"
       }
     },
+    "go-annotation": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705587240,
+        "narHash": "sha256-B/jIxKkdGOF1Hhuvgdcvvgnrm2elTH75Ke0TehJ1J0Y=",
+        "owner": "lucasew",
+        "repo": "go-annotation",
+        "rev": "f7ac9827b2beaf5bb392e91b4dfb674780eb46fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "go-annotation",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -659,6 +675,7 @@
         "devenv": "devenv",
         "dotenv": "dotenv",
         "flake-utils": "flake-utils",
+        "go-annotation": "go-annotation",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nbr": "nbr",
