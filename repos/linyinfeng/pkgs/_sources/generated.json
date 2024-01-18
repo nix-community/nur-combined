@@ -1,7 +1,7 @@
 {
     "aws-sigv4-proxy": {
         "cargoLocks": null,
-        "date": "2023-08-24",
+        "date": "2024-01-18",
         "extract": null,
         "name": "aws-sigv4-proxy",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b851e2cf4e526ea6f3b4bad01e90196886e7f66b",
-            "sha256": "sha256-L6TURQusu/vpjliblqskguQKugZhc4jSJ9cjZAxzG5E=",
+            "rev": "fd35f3090b2380d8decadb93308caae3cbc4739a",
+            "sha256": "sha256-bwpAhlMnQQwZicJGKdaVLMuaA5H3yJREIhj0J9tsiaw=",
             "type": "git",
             "url": "https://github.com/awslabs/aws-sigv4-proxy.git"
         },
-        "version": "b851e2cf4e526ea6f3b4bad01e90196886e7f66b"
+        "version": "fd35f3090b2380d8decadb93308caae3cbc4739a"
     },
     "cowrie": {
         "cargoLocks": null,

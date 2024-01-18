@@ -3,16 +3,16 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "b851e2cf4e526ea6f3b4bad01e90196886e7f66b";
+    version = "fd35f3090b2380d8decadb93308caae3cbc4739a";
     src = fetchgit {
       url = "https://github.com/awslabs/aws-sigv4-proxy.git";
-      rev = "b851e2cf4e526ea6f3b4bad01e90196886e7f66b";
+      rev = "fd35f3090b2380d8decadb93308caae3cbc4739a";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-L6TURQusu/vpjliblqskguQKugZhc4jSJ9cjZAxzG5E=";
+      sha256 = "sha256-bwpAhlMnQQwZicJGKdaVLMuaA5H3yJREIhj0J9tsiaw=";
     };
-    date = "2023-08-24";
+    date = "2024-01-18";
   };
   cowrie = {
     pname = "cowrie";
