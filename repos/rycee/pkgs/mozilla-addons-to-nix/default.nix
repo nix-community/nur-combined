@@ -1,15 +1,16 @@
-{ fetchFromSourcehut, mkDerivation, aeson, base, directory, hnix, lib
-, microlens-aeson, microlens-platform, relude, wreq }:
+{ fetchFromSourcehut, mkDerivation, aeson, base, directory, hnix, http-client
+, lib, microlens-aeson, microlens-platform, relude, wreq }:
 
-let version = "0.10.0";
-in mkDerivation {
+let
   pname = "mozilla-addons-to-nix";
-  inherit version;
+  version = "0.11.0";
+in mkDerivation {
+  inherit pname version;
   src = fetchFromSourcehut {
     owner = "~rycee";
-    repo = "mozilla-addons-to-nix";
+    repo = pname;
     rev = "v${version}";
-    hash = "sha256-IolGnrsHSR9FQ6sO/40r+9XLBiP1QwlLTrAHOAXiZ4Q=";
+    hash = "sha256-5RInoqaB8nPjgzCRlKppo3uVxE1y9eaE7yE4lexDZYA=";
   };
   isLibrary = false;
   isExecutable = true;
@@ -18,6 +19,7 @@ in mkDerivation {
     base
     directory
     hnix
+    http-client
     microlens-aeson
     microlens-platform
     relude

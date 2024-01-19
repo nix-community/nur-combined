@@ -21,10 +21,10 @@
           "https://*/*"
           "file:///*"
           "https://docs.google.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
       version = "2.0.1";
@@ -38,8 +38,8 @@
         license = licenses.mit;
         mozPermissions = [ "activeTab" "storage" "scripting" "tabs" "*://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "add-custom-search-engine" = buildFirefoxXpiAddon {
       pname = "add-custom-search-engine";
       version = "4.2";
@@ -52,8 +52,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "https://paste.mozilla.org/api/" "search" ];
         platforms = platforms.all;
-        };
       };
+    };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
       version = "2.2.8";
@@ -67,20 +67,21 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "activeTab" ];
         platforms = platforms.all;
-        };
       };
+    };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.19.0";
+      version = "3.20.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4200304/adnauseam-3.19.0.xpi";
-      sha256 = "3905de2ab2d5cf519dba1693b426b0ebe33d3193254ff23e2fb2349b59843a64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4222459/adnauseam-3.20.0.xpi";
+      sha256 = "01feaac30026ae91f80c46960cc3008a8d9e0d4d068129241a356b5434dc4d39";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
         description = "Blocking ads and fighting back against advertising surveillance.";
         license = licenses.gpl3;
         mozPermissions = [
+          "alarms"
           "dns"
           "menus"
           "privacy"
@@ -105,10 +106,10 @@
           "https://github.com/uBlockOrigin/*"
           "https://ublockorigin.github.io/*"
           "https://*.reddit.com/r/uBlockOrigin/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "adsum-notabs" = buildFirefoxXpiAddon {
       pname = "adsum-notabs";
       version = "1.1";
@@ -122,8 +123,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "alfred-launcher-integration" = buildFirefoxXpiAddon {
       pname = "alfred-launcher-integration";
       version = "1.2.0";
@@ -142,10 +143,10 @@
           "history"
           "tabs"
           "nativeMessaging"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "amp2html" = buildFirefoxXpiAddon {
       pname = "amp2html";
       version = "2.1.0";
@@ -169,10 +170,10 @@
           "webRequestBlocking"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "anchors-reveal" = buildFirefoxXpiAddon {
       pname = "anchors-reveal";
       version = "1.1";
@@ -186,8 +187,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "activeTab" "storage" "contextMenus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
       version = "1.0.9";
@@ -206,10 +207,10 @@
           "file:///*"
           "devtools"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "annotations-restored" = buildFirefoxXpiAddon {
       pname = "annotations-restored";
       version = "1.2";
@@ -225,10 +226,10 @@
           "https://storage.googleapis.com/biggest_bucket/annotations/*"
           "storage"
           "*://www.youtube.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "aria2-integration" = buildFirefoxXpiAddon {
       pname = "aria2-integration";
       version = "0.4.5";
@@ -250,10 +251,10 @@
           "webRequestBlocking"
           "cookies"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
       version = "2.6.0";
@@ -462,10 +463,10 @@
           "*://steamcommunity.com/stats/*/achievements/"
           "*://steamcommunity.com/stats/*/achievements/?*"
           "*://steamcommunity.com/tradeoffer/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
       version = "0.6.7";
@@ -485,10 +486,10 @@
           "alarms"
           "*://*/*"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "automatic-dark" = buildFirefoxXpiAddon {
       pname = "automatic-dark";
       version = "1.4.1";
@@ -506,10 +507,10 @@
           "management"
           "storage"
           "theme"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "aw-watcher-web" = buildFirefoxXpiAddon {
       pname = "aw-watcher-web";
       version = "0.4.8";
@@ -529,10 +530,10 @@
           "storage"
           "http://localhost:5600/api/*"
           "http://localhost:5666/api/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "behave" = buildFirefoxXpiAddon {
       pname = "behave";
       version = "0.9.7.1";
@@ -550,10 +551,10 @@
           "storage"
           "<all_urls>"
           "tabs"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "behind-the-overlay-revival" = buildFirefoxXpiAddon {
       pname = "behind-the-overlay-revival";
       version = "1.8.3";
@@ -567,8 +568,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "activeTab" "menus" "storage" "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "belgium-eid" = buildFirefoxXpiAddon {
       pname = "belgium-eid";
       version = "1.0.32";
@@ -582,14 +583,14 @@
         license = licenses.lgpl3;
         mozPermissions = [ "pkcs11" "notifications" "https://*.belgium.be/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.13";
+      version = "7.5.14";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4217170/betterttv-7.5.13.xpi";
-      sha256 = "f3dccf33c773f921e328b4b9d034876d36db0f2804f1dc047f03826b4b2abefa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221873/betterttv-7.5.14.xpi";
+      sha256 = "4eea508c7be720217116cba2aed93ae893ca694dc9f68caee1012b45b7ce70e9";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -599,11 +600,11 @@
           fullName = "BetterTTV Terms of Service";
           url = "https://betterttv.com/terms";
           free = false;
-          };
+        };
         mozPermissions = [ "*://*.twitch.tv/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
       version = "2.9.1";
@@ -638,10 +639,10 @@
           "*://*.dndbeyond.com/classes/*"
           "*://*.dndbeyond.com/races/*"
           "*://app.roll20.net/editor/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "bibbot" = buildFirefoxXpiAddon {
       pname = "bibbot";
       version = "0.34.0";
@@ -716,16 +717,16 @@
           "https://www.manager-magazin.de/*"
           "https://www.nwzonline.de/*"
           "https://www.saarbruecker-zeitung.de/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.12.1";
+      version = "2024.1.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4211087/bitwarden_password_manager-2023.12.1.xpi";
-      sha256 = "40f695fbe5153a7614f25289a9388f95c59a952fb039b8b9c33fd7bd99ea2da2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4219948/bitwarden_password_manager-2024.1.0.xpi";
+      sha256 = "ba77b59aba15f71568414047962e266214e656430ee347940fdff97cd1720fd8";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -744,10 +745,11 @@
           "webRequest"
           "webRequestBlocking"
           "file:///*"
-          ];
+          "https://lastpass.com/export.php"
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
       version = "0.3.38";
@@ -763,10 +765,10 @@
           "storage"
           "unlimitedStorage"
           "https://www.youtube.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "boring-rss" = buildFirefoxXpiAddon {
       pname = "boring-rss";
       version = "0.5";
@@ -780,8 +782,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "activeTab" ];
         platforms = platforms.all;
-        };
       };
+    };
     "brandon1024-find" = buildFirefoxXpiAddon {
       pname = "brandon1024-find";
       version = "2.2.1";
@@ -799,10 +801,10 @@
           "storage"
           "contextMenus"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "brotab" = buildFirefoxXpiAddon {
       pname = "brotab";
       version = "1.4.0";
@@ -816,8 +818,8 @@
         license = licenses.mit;
         mozPermissions = [ "nativeMessaging" "tabs" "activeTab" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
       version = "3.8.0";
@@ -841,10 +843,10 @@
           "webRequestBlocking"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "bukubrow" = buildFirefoxXpiAddon {
       pname = "bukubrow";
       version = "5.0.3.0";
@@ -862,10 +864,10 @@
           "tabs"
           "contextMenus"
           "activeTab"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "bulgarian-dictionary" = buildFirefoxXpiAddon {
       pname = "bulgarian-dictionary";
       version = "4.4.3";
@@ -879,8 +881,8 @@
         license = licenses.mpl20;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
       version = "2.0.1";
@@ -909,10 +911,10 @@
           "https://recaptcha.net/recaptcha/enterprise/bframe*"
           "https://www.recaptcha.net/recaptcha/enterprise/bframe*"
           "http://127.0.0.1/buster/setup?session=*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "c-c-search-extension" = buildFirefoxXpiAddon {
       pname = "c-c-search-extension";
       version = "0.4.0";
@@ -925,8 +927,8 @@
         description = "The ultimate search extension for C/C++";
         mozPermissions = [ "storage" "unlimitedStorage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
       version = "1.9";
@@ -947,10 +949,10 @@
           "contextualIdentities"
           "cookies"
           "privacy"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
       version = "18.0.0";
@@ -991,10 +993,10 @@
           "*://lenta.ru/*"
           "*://iz.ru/*"
           "*://vgtrk.ru/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
       version = "1.26.1";
@@ -1212,10 +1214,10 @@
           "*://*.yandex.ru/*"
           "*://*.yandex.com/*"
           "*://*.ya.ru/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "cliget" = buildFirefoxXpiAddon {
       pname = "cliget";
       version = "2.1.0";
@@ -1229,8 +1231,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "webRequest" "storage" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "close-other-windows" = buildFirefoxXpiAddon {
       pname = "close-other-windows";
       version = "0.1";
@@ -1243,8 +1245,8 @@
         license = licenses.mit;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
       version = "0.4.1";
@@ -1261,10 +1263,10 @@
           "scripting"
           "activeTab"
           "*://github.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "conex" = buildFirefoxXpiAddon {
       pname = "conex";
       version = "0.9.7";
@@ -1286,10 +1288,10 @@
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
       version = "1.0.12";
@@ -1303,8 +1305,8 @@
         license = licenses.mit;
         mozPermissions = [ "activeTab" "storage" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "container-proxy" = buildFirefoxXpiAddon {
       pname = "container-proxy";
       version = "0.1.22";
@@ -1324,10 +1326,10 @@
           "contextualIdentities"
           "cookies"
           "proxy"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "container-tabs-sidebar" = buildFirefoxXpiAddon {
       pname = "container-tabs-sidebar";
       version = "1.1.0";
@@ -1347,10 +1349,10 @@
           "menus.overrideContext"
           "storage"
           "sessions"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
       version = "3.22.2";
@@ -1366,10 +1368,10 @@
           "storage"
           "https://twitter.com/*"
           "https://mobile.twitter.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
       version = "3.8.2";
@@ -1392,10 +1394,10 @@
           "storage"
           "tabs"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "cookie-quick-manager" = buildFirefoxXpiAddon {
       pname = "cookie-quick-manager";
       version = "0.5rc2";
@@ -1415,10 +1417,10 @@
           "browsingData"
           "contextualIdentities"
           "privacy"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "cookies-txt" = buildFirefoxXpiAddon {
       pname = "cookies-txt";
       version = "0.6";
@@ -1435,10 +1437,10 @@
           "contextualIdentities"
           "<all_urls>"
           "tabs"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "copy-link-text" = buildFirefoxXpiAddon {
       pname = "copy-link-text";
       version = "1.6.4";
@@ -1452,8 +1454,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "clipboardWrite" "menus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "copy-selected-links" = buildFirefoxXpiAddon {
       pname = "copy-selected-links";
       version = "2.4.1";
@@ -1470,10 +1472,10 @@
           "contextMenus"
           "storage"
           "activeTab"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "copy-selected-tabs-to-clipboard" = buildFirefoxXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
       version = "1.6.2";
@@ -1493,10 +1495,10 @@
           "notifications"
           "storage"
           "tabs"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "copy-selection-as-markdown" = buildFirefoxXpiAddon {
       pname = "copy-selection-as-markdown";
       version = "0.21.0";
@@ -1513,10 +1515,10 @@
           "clipboardWrite"
           "contextMenus"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "dark-mode-webextension" = buildFirefoxXpiAddon {
       pname = "dark-mode-webextension";
       version = "0.4.5";
@@ -1530,8 +1532,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "storage" "<all_urls>" "contextMenus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "dark-mode-website-switcher" = buildFirefoxXpiAddon {
       pname = "dark-mode-website-switcher";
       version = "2.0";
@@ -1545,8 +1547,8 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "browserSettings" ];
         platforms = platforms.all;
-        };
       };
+    };
     "dark-scroll-for-tweetdeck" = buildFirefoxXpiAddon {
       pname = "dark-scroll-for-tweetdeck";
       version = "2.0.0";
@@ -1559,8 +1561,8 @@
         license = licenses.lgpl3;
         mozPermissions = [ "activeTab" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "darkcloud" = buildFirefoxXpiAddon {
       pname = "darkcloud";
       version = "1.6.4";
@@ -1574,14 +1576,14 @@
         license = licenses.mpl20;
         mozPermissions = [ "*://*.soundcloud.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.74";
+      version = "4.9.75";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216652/darkreader-4.9.74.xpi";
-      sha256 = "140a72b36750ba68a9da30d0f0df3ff192f58160b711b86c3d4f674e5be2bb2c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4220708/darkreader-4.9.75.xpi";
+      sha256 = "71b31ebced765d5694da3f70260d6f2b3272b8613fe88fb0bb0faf5cd76d6ebe";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1594,16 +1596,16 @@
           "tabs"
           "theme"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2401.1";
+      version = "6.2403.2";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216596/dashlane-6.2401.1.xpi";
-      sha256 = "f7b926813f12cca58cbd2fa54a29cff80825b2d3c7b827bd1a5107ca5c155cd1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223499/dashlane-6.2403.2.xpi";
+      sha256 = "fcda819403caba2565cba09a9f697070edbc66f7b0d77f24602107704a29d062";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1613,7 +1615,7 @@
           fullName = "Dashlane Terms of Service";
           url = "https://www.dashlane.com/terms";
           free = false;
-          };
+        };
         mozPermissions = [
           "http://*/*"
           "https://*/*"
@@ -1626,10 +1628,10 @@
           "unlimitedStorage"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
       version = "1.4";
@@ -1651,10 +1653,10 @@
           "https://*.youtube.com/*"
           "https://www.youtube-nocookie.com/embed/*"
           "scripting"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
       version = "2.0.18";
@@ -1675,24 +1677,24 @@
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "122.0.20240110.91443";
+      version = "122.0.20240118.164516";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4219760/deutsch_de_language_pack-122.0.20240110.91443.xpi";
-      sha256 = "4524a5db8a46d595ef50fe2af1ce91673ba3d92204faced1750ae8273dbbc5bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223774/deutsch_de_language_pack-122.0.20240118.164516.xpi";
+      sha256 = "60db876f4157be6a97b9085241208cbabc5b8a61f99857a605a2a791b909ce07";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
         license = licenses.mpl20;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "df-youtube" = buildFirefoxXpiAddon {
       pname = "df-youtube";
       version = "1.13.504";
@@ -1711,10 +1713,10 @@
           "https://www.youtube.com/*"
           "https://www.youtube.com/?*"
           "https://www.youtube.com/watch*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
       version = "4.1.0";
@@ -1732,10 +1734,10 @@
           "storage"
           "contextMenus"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "dictionary-german" = buildFirefoxXpiAddon {
       pname = "dictionary-german";
       version = "2.1";
@@ -1748,8 +1750,8 @@
         license = licenses.lgpl21;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "disable-facebook-news-feed" = buildFirefoxXpiAddon {
       pname = "disable-facebook-news-feed";
       version = "3.3";
@@ -1762,8 +1764,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "*://*.facebook.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "disable-javascript" = buildFirefoxXpiAddon {
       pname = "disable-javascript";
       version = "2.3.1";
@@ -1784,10 +1786,10 @@
           "webRequestBlocking"
           "menus"
           "contextMenus"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "disconnect" = buildFirefoxXpiAddon {
       pname = "disconnect";
       version = "20.3.1.1";
@@ -1806,10 +1808,10 @@
           "webRequestBlocking"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "display-_anchors" = buildFirefoxXpiAddon {
       pname = "display-_anchors";
       version = "1.3";
@@ -1826,10 +1828,10 @@
           "notifications"
           "contextMenus"
           "activeTab"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "don-t-fuck-with-paste" = buildFirefoxXpiAddon {
       pname = "don-t-fuck-with-paste";
       version = "2.7";
@@ -1843,8 +1845,8 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "tabs" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "dracula-dark-colorscheme" = buildFirefoxXpiAddon {
       pname = "dracula-dark-colorscheme";
       version = "1.9.4";
@@ -1858,8 +1860,8 @@
         license = licenses.cc-by-nc-sa-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
       version = "2023.12.6";
@@ -1882,10 +1884,10 @@
           "storage"
           "<all_urls>"
           "alarms"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
       version = "5.36.1";
@@ -1906,10 +1908,10 @@
           "cookies"
           "alarms"
           "https://*.rakuten.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ebates-express-cash-back" = buildFirefoxXpiAddon {
       pname = "ebates-express-cash-back";
       version = "7.8.1";
@@ -1928,10 +1930,10 @@
           "webRequest"
           "storage"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
       version = "4.1.0";
@@ -1945,8 +1947,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "*://*.ecosia.org/*" "storage" "contextMenus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "edit-with-emacs" = buildFirefoxXpiAddon {
       pname = "edit-with-emacs";
       version = "1.16";
@@ -1968,16 +1970,16 @@
           "http://*/*"
           "https://*/*"
           "file://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.2";
+      version = "1.0.3";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4218252/elasticvue-1.0.2.xpi";
-      sha256 = "f3541316a07a0963407ca24912f660229e92b7a1d2921cb5ff3031cc03fb45a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221292/elasticvue-1.0.3.xpi";
+      sha256 = "74be9c1f3b5feffab453065054bc053f45ef0e1df5dcaf054c64febc91a242d1";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -1985,8 +1987,8 @@
         license = licenses.mit;
         mozPermissions = [ "http://*/*" "https://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "enhanced-github" = buildFirefoxXpiAddon {
       pname = "enhanced-github";
       version = "5.0.11";
@@ -2003,10 +2005,10 @@
           "storage"
           "webRequest"
           "webNavigation"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "enhanced-h264ify" = buildFirefoxXpiAddon {
       pname = "enhanced-h264ify";
       version = "2.1.0";
@@ -2023,10 +2025,10 @@
           "*://*.youtube.com/*"
           "*://*.youtube-nocookie.com/*"
           "*://*.youtu.be/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "export-cookies-txt" = buildFirefoxXpiAddon {
       pname = "export-cookies-txt";
       version = "0.3.2";
@@ -2044,10 +2046,10 @@
           "downloads"
           "tabs"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "export-tabs-urls-and-titles" = buildFirefoxXpiAddon {
       pname = "export-tabs-urls-and-titles";
       version = "0.2.12";
@@ -2061,8 +2063,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "clipboardWrite" "notifications" "storage" "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
       version = "2.3.11";
@@ -2084,10 +2086,10 @@
           "tabs"
           "webRequestBlocking"
           "webRequest"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "fastforwardteam" = buildFirefoxXpiAddon {
       pname = "fastforwardteam";
       version = "0.2334";
@@ -2106,16 +2108,16 @@
           "tabs"
           "declarativeNetRequestWithHostAccess"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.17";
+      version = "1.2.18.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4220405/faststream-1.2.17.xpi";
-      sha256 = "635761f89387929c67c225049ffd2ea7252677741a659f4cd33a047c7bb32188";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223898/faststream-1.2.18.1.xpi";
+      sha256 = "8182e4a4e56a4396f680b02a403a7964b73bb4d8f855bcd68023ebd94888123a";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2125,17 +2127,17 @@
           fullName = "All Rights Reserved";
           url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
           free = false;
-          };
+        };
         mozPermissions = [
           "storage"
           "tabs"
           "webRequest"
           "declarativeNetRequest"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "fediact" = buildFirefoxXpiAddon {
       pname = "fediact";
       version = "0.9.8.7";
@@ -2154,10 +2156,10 @@
           "https://*/*"
           "http://*/*"
           "*://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
       version = "4.0.0";
@@ -2171,8 +2173,8 @@
         license = licenses.mit;
         mozPermissions = [ "nativeMessaging" "contextMenus" "activeTab" ];
         platforms = platforms.all;
-        };
       };
+    };
     "firefox-color" = buildFirefoxXpiAddon {
       pname = "firefox-color";
       version = "2.1.7";
@@ -2189,10 +2191,10 @@
           "storage"
           "tabs"
           "https://color.firefox.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "firefox-translations" = buildFirefoxXpiAddon {
       pname = "firefox-translations";
       version = "1.3.4buildid20230720.091143";
@@ -2211,10 +2213,10 @@
           "storage"
           "mozillaAddons"
           "contextMenus"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
       version = "2.72";
@@ -2240,10 +2242,10 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
       version = "0.2.15";
@@ -2256,8 +2258,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "nativeMessaging" "storage" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
       version = "6.1.70";
@@ -2273,7 +2275,7 @@
           fullName = "Flagfox License";
           url = "https://addons.mozilla.org/en-US/firefox/addon/flagfox/license/";
           free = false;
-          };
+        };
         mozPermissions = [
           "storage"
           "clipboardRead"
@@ -2286,10 +2288,10 @@
           "dns"
           "cookies"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
       version = "5.0.8";
@@ -2309,10 +2311,10 @@
           "unlimitedStorage"
           "tabs"
           "identity"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "forget_me_not" = buildFirefoxXpiAddon {
       pname = "forget_me_not";
       version = "2.2.8";
@@ -2338,10 +2340,10 @@
           "contextualIdentities"
           "<all_urls>"
           "https://lusito.github.io/web-ext-translator/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "form-history-control" = buildFirefoxXpiAddon {
       pname = "form-history-control";
       version = "2.5.8.0";
@@ -2362,10 +2364,10 @@
           "clipboardWrite"
           "*://*/*"
           "file:///*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
       version = "8.8";
@@ -2386,10 +2388,10 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "foxytab" = buildFirefoxXpiAddon {
       pname = "foxytab";
       version = "2.31";
@@ -2417,10 +2419,10 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "fraidycat" = buildFirefoxXpiAddon {
       pname = "fraidycat";
       version = "1.1.10";
@@ -2448,10 +2450,10 @@
           "webRequestBlocking"
           "https://fraidyc.at/s/*"
           "*://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "frame-extension" = buildFirefoxXpiAddon {
       pname = "frame-extension";
       version = "0.10.3";
@@ -2472,10 +2474,10 @@
           "file://*/*"
           "http://twitter.com/*"
           "https://twitter.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "freedom-website-blocker" = buildFirefoxXpiAddon {
       pname = "freedom-website-blocker";
       version = "17.0.12";
@@ -2491,17 +2493,17 @@
           fullName = "freedom.to Terms of Service";
           url = "https://freedom.to/terms";
           free = false;
-          };
+        };
         mozPermissions = [
           "webRequest"
           "webRequestBlocking"
           "*://*/*"
           "storage"
           "notifications"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "french-dictionary" = buildFirefoxXpiAddon {
       pname = "french-dictionary";
       version = "7.0b";
@@ -2515,22 +2517,22 @@
         license = licenses.mpl20;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "122.0.20240110.91443";
+      version = "122.0.20240118.164516";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4219715/francais_language_pack-122.0.20240110.91443.xpi";
-      sha256 = "b34f7e0e66ba465a42929e835556be02c60011c4e195a5a14e9d3a6247476c15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223729/francais_language_pack-122.0.20240118.164516.xpi";
+      sha256 = "a9be7473fc4089ac175e2bcab6b68c122b5d7eff4114cfeca2a68b80ed850794";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
         license = licenses.mpl20;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "furiganaize" = buildFirefoxXpiAddon {
       pname = "furiganaize";
       version = "0.7.2";
@@ -2550,10 +2552,10 @@
           "activeTab"
           "tabs"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
       version = "3.2.11";
@@ -2570,10 +2572,10 @@
           "storage"
           "notifications"
           "browserSettings"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
       version = "8.12.5";
@@ -2793,10 +2795,10 @@
           "*://*.google.co.zw/*"
           "*://*.google.cat/*"
           "*://*.google.ng/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
       version = "23.5.16";
@@ -2814,10 +2816,10 @@
           "http://localhost/"
           "storage"
           "http://localhost:4001/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "gitako-github-file-tree" = buildFirefoxXpiAddon {
       pname = "gitako-github-file-tree";
       version = "3.11.7";
@@ -2837,10 +2839,10 @@
           "*://gitako.enix.one/*"
           "*://*.sentry.io/*"
           "https://github.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "github-file-icons" = buildFirefoxXpiAddon {
       pname = "github-file-icons";
       version = "1.5.1";
@@ -2860,10 +2862,10 @@
           "https://gitlab.com/*"
           "https://*.gogs.io/*"
           "https://*.gitea.io/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "github-isometric-contributions" = buildFirefoxXpiAddon {
       pname = "github-isometric-contributions";
       version = "1.1.28";
@@ -2876,14 +2878,14 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "https://github.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.1.4";
+      version = "2.1.5";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4206091/gitpod-2.1.4.xpi";
-      sha256 = "72af5dcacfe25d05f4445a8caf3a317b9799ae2ea5c8457c2db0d0f473af0b68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223562/gitpod-2.1.5.xpi";
+      sha256 = "e1d6bc78c327c7d61e78b030326eaa06fd7d90aa1158ee7720c74cf068d1aa40";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -2893,7 +2895,7 @@
           fullName = "All Rights Reserved";
           url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
           free = false;
-          };
+        };
         mozPermissions = [
           "storage"
           "scripting"
@@ -2905,10 +2907,10 @@
           "https://github.com/*"
           "https://gitlab.com/*"
           "https://bitbucket.org/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "gloc" = buildFirefoxXpiAddon {
       pname = "gloc";
       version = "8.2.67";
@@ -2922,8 +2924,8 @@
         license = licenses.gpl2;
         mozPermissions = [ "storage" "*://*.github.com/*" "*://github.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "gnome-shell-integration" = buildFirefoxXpiAddon {
       pname = "gnome-shell-integration";
       version = "11.1";
@@ -2943,10 +2945,10 @@
           "tabs"
           "https://extensions.gnome.org/"
           "https://extensions.gnome.org/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "google-cal-event-merge" = buildFirefoxXpiAddon {
       pname = "google-cal-event-merge";
       version = "2.2.1";
@@ -2962,10 +2964,10 @@
           "https://calendar.google.com/*"
           "storage"
           "https://calendar.google.com/calendar/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
       version = "0.9.0";
@@ -2988,10 +2990,10 @@
           "webRequestBlocking"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
       version = "8.909.0";
@@ -3007,7 +3009,7 @@
           fullName = "Grammarly Terms of Service and License Agreement";
           url = "https://www.grammarly.com/terms";
           free = false;
-          };
+        };
         mozPermissions = [
           "http://*/*"
           "https://*/*"
@@ -3106,10 +3108,10 @@
           "*://*.outlook.office.com/*"
           "*://docs.google.com/document/*"
           "https://*.overleaf.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "granted" = buildFirefoxXpiAddon {
       pname = "granted";
       version = "1.1.2";
@@ -3122,8 +3124,8 @@
         license = licenses.mit;
         mozPermissions = [ "contextualIdentities" "cookies" "tabs" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "greasemonkey" = buildFirefoxXpiAddon {
       pname = "greasemonkey";
       version = "4.12.0";
@@ -3147,10 +3149,10 @@
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "gruvbox-dark-theme" = buildFirefoxXpiAddon {
       pname = "gruvbox-dark-theme";
       version = "1.1";
@@ -3164,8 +3166,8 @@
         license = licenses.cc-by-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "gsconnect" = buildFirefoxXpiAddon {
       pname = "gsconnect";
       version = "8";
@@ -3179,8 +3181,8 @@
         license = licenses.gpl2;
         mozPermissions = [ "nativeMessaging" "tabs" "contextMenus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "h264ify" = buildFirefoxXpiAddon {
       pname = "h264ify";
       version = "1.1.0";
@@ -3196,10 +3198,10 @@
           "*://*.youtube.com/*"
           "*://*.youtube-nocookie.com/*"
           "*://*.youtu.be/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "hackontext" = buildFirefoxXpiAddon {
       pname = "hackontext";
       version = "1.3";
@@ -3219,10 +3221,10 @@
           "<all_urls>"
           "tabs"
           "clipboardWrite"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "hacktools" = buildFirefoxXpiAddon {
       pname = "hacktools";
       version = "0.4.0";
@@ -3236,8 +3238,8 @@
         license = licenses.lgpl3;
         mozPermissions = [ "devtools" ];
         platforms = platforms.all;
-        };
       };
+    };
     "header-editor" = buildFirefoxXpiAddon {
       pname = "header-editor";
       version = "4.1.1";
@@ -3258,10 +3260,10 @@
           "downloads"
           "*://*/*"
           "unlimitedStorage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "history-cleaner" = buildFirefoxXpiAddon {
       pname = "history-cleaner";
       version = "1.4.0";
@@ -3275,8 +3277,8 @@
         license = licenses.mit;
         mozPermissions = [ "history" "storage" "idle" ];
         platforms = platforms.all;
-        };
       };
+    };
     "hls-stream-detector" = buildFirefoxXpiAddon {
       pname = "hls-stream-detector";
       version = "2.11.7";
@@ -3295,10 +3297,10 @@
           "storage"
           "tabs"
           "webRequest"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "honey" = buildFirefoxXpiAddon {
       pname = "honey";
       version = "12.8.4";
@@ -3314,17 +3316,17 @@
           fullName = "Custom License for Honey";
           url = "https://addons.mozilla.org/en-US/firefox/addon/honey/license/";
           free = false;
-          };
+        };
         mozPermissions = [
           "storage"
           "webRequest"
           "webRequestBlocking"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "hoppscotch" = buildFirefoxXpiAddon {
       pname = "hoppscotch";
       version = "0.30";
@@ -3338,14 +3340,14 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "tabs" "cookies" "scripting" ];
         platforms = platforms.all;
-        };
       };
+    };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.212";
+      version = "1.0.213";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4210216/hover_zoom_plus-1.0.212.xpi";
-      sha256 = "6e96b9deb49f1e2c59eb46bdba5fdbf9e81c84e539e717ebcba3b90adc6e8a20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4222159/hover_zoom_plus-1.0.213.xpi";
+      sha256 = "2bd4b51efbdc6617605dc401a76fa6ad6e50dccd7adcd143df4e0d3aade3d9f1";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4284,10 +4286,11 @@
           "*://*.findagrave.com/*"
           "*://*.ldlc.com/*"
           "*://*.mubi.com/*"
-          ];
+          "*://*.tapas.io/*"
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "i-auto-fullscreen" = buildFirefoxXpiAddon {
       pname = "i-auto-fullscreen";
       version = "2.0.4";
@@ -4301,8 +4304,8 @@
         license = licenses.mit;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
       version = "3.5.0";
@@ -4323,10 +4326,10 @@
           "webRequest"
           "webRequestBlocking"
           "webNavigation"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "iina-open-in-mpv" = buildFirefoxXpiAddon {
       pname = "iina-open-in-mpv";
       version = "2.0.1";
@@ -4340,8 +4343,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "tabs" "activeTab" "contextMenus" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "image-search-options" = buildFirefoxXpiAddon {
       pname = "image-search-options";
       version = "3.0.12";
@@ -4359,16 +4362,16 @@
           "activeTab"
           "tabs"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.1.2";
+      version = "1.1.5";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4217945/immersive_translate-1.1.2.xpi";
-      sha256 = "18c12bb71a895fcdd534a32fd316b7dad923258a48dc799869b97af66f122aa6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221312/immersive_translate-1.1.5.xpi";
+      sha256 = "08f9f898ebc53e36ae1ba69d5f397369c0dfd13368c5fa38f1af46f7b606c663";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -4378,7 +4381,7 @@
           fullName = "End-User License Agreement for Immersive Translate";
           url = "https://addons.mozilla.org/en-US/firefox/addon/immersive-translate/eula/";
           free = false;
-          };
+        };
         mozPermissions = [
           "<all_urls>"
           "storage"
@@ -4388,16 +4391,16 @@
           "webRequestBlocking"
           "file:///*"
           "*://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.600";
+      version = "4.615";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4219118/youtube_addon-4.600.xpi";
-      sha256 = "23d76f6d2e6dd8f2e22a6ecfc20a77ea8cb9125c107bdb352657607cf0bbfad6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221521/youtube_addon-4.615.xpi";
+      sha256 = "a41e3e4a3e8c57553fa810804b45f07f882a8f24e6d6791bd323a24152c2cf98";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4407,15 +4410,15 @@
           fullName = "ImprovedTube License";
           url = "https://github.com/code-charity/youtube/blob/master/LICENSE";
           free = false;
-          };
+        };
         mozPermissions = [
           "contextMenus"
           "storage"
           "https://www.youtube.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "impulse-blocker" = buildFirefoxXpiAddon {
       pname = "impulse-blocker";
       version = "1.2.0";
@@ -4433,10 +4436,10 @@
           "webRequestBlocking"
           "storage"
           "tabs"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
       version = "3.3.0";
@@ -4664,10 +4667,10 @@
           "https://www.google.co.zm/search*"
           "https://www.google.co.zw/search*"
           "https://www.google.cat/search*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "inkah" = buildFirefoxXpiAddon {
       pname = "inkah";
       version = "1.0.43";
@@ -4683,11 +4686,11 @@
           fullName = "Inkah Terms of Service";
           url = "https://www.inkah.com/terms-of";
           free = false;
-          };
+        };
         mozPermissions = [ "storage" "tabs" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
       version = "3.1.0";
@@ -4711,10 +4714,10 @@
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ipvfoo" = buildFirefoxXpiAddon {
       pname = "ipvfoo";
       version = "2.18";
@@ -4731,10 +4734,10 @@
           "storage"
           "webNavigation"
           "webRequest"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "istilldontcareaboutcookies" = buildFirefoxXpiAddon {
       pname = "istilldontcareaboutcookies";
       version = "1.1.4";
@@ -4755,10 +4758,10 @@
           "webRequest"
           "webRequestBlocking"
           "webNavigation"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "jabref" = buildFirefoxXpiAddon {
       pname = "jabref";
       version = "2.5";
@@ -4779,10 +4782,10 @@
           "nativeMessaging"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "joplin-web-clipper" = buildFirefoxXpiAddon {
       pname = "joplin-web-clipper";
       version = "2.11.2";
@@ -4801,10 +4804,10 @@
           "https://*/"
           "<all_urls>"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "js-search-extension" = buildFirefoxXpiAddon {
       pname = "js-search-extension";
       version = "0.1";
@@ -4817,8 +4820,8 @@
         description = "The ultimate search extension for Javascript!";
         mozPermissions = [ "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "jump-cutter" = buildFirefoxXpiAddon {
       pname = "jump-cutter";
       version = "1.27.0";
@@ -4831,14 +4834,14 @@
         license = licenses.agpl3Plus;
         mozPermissions = [ "storage" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.4.3";
+      version = "0.5.0";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4206027/kagi_search_for_firefox-0.4.3.xpi";
-      sha256 = "7e8366d3f6e9e41028c82bc48a7b479ec5ad1dd18b1fa124bde2f30ce7f5776a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224219/kagi_search_for_firefox-0.5.0.xpi";
+      sha256 = "21bcf7a32c163c708ec4d9bba5fcc89716c2f55dae3fc3975b00263271b3dd34";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -4850,10 +4853,10 @@
           "webRequest"
           "storage"
           "contextMenus"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "keepa" = buildFirefoxXpiAddon {
       pname = "keepa";
       version = "4.10";
@@ -4869,7 +4872,7 @@
           fullName = "License for Keepa.com - Amazon Price Tracker";
           url = "https://addons.mozilla.org/en-CA/firefox/addon/keepa/license/";
           free = false;
-          };
+        };
         mozPermissions = [
           "notifications"
           "cookies"
@@ -4893,10 +4896,10 @@
           "*://*.amazon.com.br/*"
           "*://*.amazon.nl/*"
           "*://*.amazon.com.au/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "keepass-helper" = buildFirefoxXpiAddon {
       pname = "keepass-helper";
       version = "1.3";
@@ -4909,8 +4912,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "tabs" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
       version = "1.8.11";
@@ -4937,10 +4940,10 @@
           "http://*/*"
           "https://api.github.com/"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "keybase" = buildFirefoxXpiAddon {
       pname = "keybase";
       version = "1.10.16";
@@ -4965,10 +4968,10 @@
           "https://github.com/*"
           "https://news.ycombinator.com/user*"
           "https://keybase.io/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "kristofferhagen-nord-theme" = buildFirefoxXpiAddon {
       pname = "kristofferhagen-nord-theme";
       version = "2.0";
@@ -4982,8 +4985,8 @@
         license = licenses.cc-by-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "laboratory-by-mozilla" = buildFirefoxXpiAddon {
       pname = "laboratory-by-mozilla";
       version = "3.0.8";
@@ -5006,10 +5009,10 @@
           "https://*/*"
           "ws://*/*"
           "wss://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
       version = "8.3.0";
@@ -5025,7 +5028,7 @@
           fullName = "Custom License for LanguageTool";
           url = "https://languagetool.org/legal/";
           free = false;
-          };
+        };
         mozPermissions = [
           "activeTab"
           "storage"
@@ -5036,10 +5039,10 @@
           "file:///*"
           "*://docs.google.com/document/*"
           "*://languagetool.org/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
       version = "4.125.0.4";
@@ -5055,7 +5058,7 @@
           fullName = "Unfree";
           url = "https://addons.mozilla.org/en-US/firefox/addon/lastpass-password-manager/license/";
           free = false;
-          };
+        };
         mozPermissions = [
           "tabs"
           "idle"
@@ -5115,10 +5118,10 @@
           "https://backoffice.lastpass.com/enterprise_users.php*"
           "https://backoffice.lastpass.com/misc_login.php*"
           "https://backoffice.lastpass.com/index.php*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
       version = "1.6.2";
@@ -5140,10 +5143,10 @@
           "unlimitedStorage"
           "webNavigation"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "lesspass" = buildFirefoxXpiAddon {
       pname = "lesspass";
       version = "9.6.9";
@@ -5157,8 +5160,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "activeTab" ];
         platforms = platforms.all;
-        };
       };
+    };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
       version = "2.8.1";
@@ -5177,10 +5180,10 @@
           "clipboardWrite"
           "contextMenus"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "limit-limit-distracting-sites" = buildFirefoxXpiAddon {
       pname = "limit-limit-distracting-sites";
       version = "0.1.4";
@@ -5196,7 +5199,7 @@
           fullName = "Unfree";
           url = "https://freedom.to/terms";
           free = false;
-          };
+        };
         mozPermissions = [
           "tabs"
           "activeTab"
@@ -5204,16 +5207,16 @@
           "idle"
           "notifications"
           "*://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.2.12";
+      version = "2.2.13";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4167046/lingq_importer2-2.2.12.xpi";
-      sha256 = "e739822eab9de0784e0c393dc36b2ad4445d22ae4f160d8c9409d69c0a072ea0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221180/lingq_importer2-2.2.13.xpi";
+      sha256 = "6660d264b519e09c8c334d858a87fafe3cf13e3f0cf73c62032ca94d31e40571";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -5231,10 +5234,10 @@
           "storage"
           "scripting"
           "tabs"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "link-cleaner" = buildFirefoxXpiAddon {
       pname = "link-cleaner";
       version = "1.5";
@@ -5248,8 +5251,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "<all_urls>" "webRequest" "webRequestBlocking" ];
         platforms = platforms.all;
-        };
       };
+    };
     "link-gopher" = buildFirefoxXpiAddon {
       pname = "link-gopher";
       version = "2.6.2";
@@ -5263,8 +5266,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "scripting" ];
         platforms = platforms.all;
-        };
       };
+    };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
       version = "1.8.0";
@@ -5278,8 +5281,8 @@
         license = licenses.mit;
         mozPermissions = [ "tabs" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "linkhints" = buildFirefoxXpiAddon {
       pname = "linkhints";
       version = "1.3.1";
@@ -5293,14 +5296,14 @@
         license = licenses.mit;
         mozPermissions = [ "<all_urls>" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.61";
+      version = "2.6.62";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4214563/localcdn_fork_of_decentraleyes-2.6.61.xpi";
-      sha256 = "2ac0583f310dfed08aa0ac56137b8dafbddf8cf14890fd5a776c2437b761521e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221333/localcdn_fork_of_decentraleyes-2.6.62.xpi";
+      sha256 = "b3fd56ad4891605c082f7fd4830b1f83c69c42d44bbe2bc57c26202c960fad32";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -5313,10 +5316,10 @@
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "lovely-forks" = buildFirefoxXpiAddon {
       pname = "lovely-forks";
       version = "3.7.2";
@@ -5332,10 +5335,10 @@
           "*://github.com/*"
           "*://api.github.com/*"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
       version = "5.1.1";
@@ -5355,10 +5358,10 @@
           "storage"
           "tabs"
           "webNavigation"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
       version = "0.9.7";
@@ -6225,10 +6228,10 @@
           "*://*.4shared.com/*"
           "*://*.videa.hu/*"
           "*://*.soraplay.xyz/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "markdownload" = buildFirefoxXpiAddon {
       pname = "markdownload";
       version = "3.3.0";
@@ -6246,10 +6249,10 @@
           "storage"
           "contextMenus"
           "clipboardWrite"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "matte-black-red" = buildFirefoxXpiAddon {
       pname = "matte-black-red";
       version = "2022.2.23";
@@ -6263,8 +6266,8 @@
         license = licenses.cc-by-nc-sa-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "maya-dark" = buildFirefoxXpiAddon {
       pname = "maya-dark";
       version = "1.0";
@@ -6277,8 +6280,8 @@
         license = licenses.cc-by-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "maya-light" = buildFirefoxXpiAddon {
       pname = "maya-light";
       version = "1.0";
@@ -6291,8 +6294,8 @@
         license = licenses.cc-by-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
       version = "11.7.2";
@@ -6319,10 +6322,10 @@
           "http://*/*"
           "https://*/*"
           "*://connect.trezor.io/*/popup.html"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
       version = "4.4.1";
@@ -6338,7 +6341,7 @@
           fullName = "Terms of Use for ModHeader";
           url = "https://modheader.com/terms#license-terms";
           free = false;
-          };
+        };
         mozPermissions = [
           "alarms"
           "contextMenus"
@@ -6347,10 +6350,10 @@
           "webRequestBlocking"
           "<all_urls>"
           "https://modheader.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "modrinthify" = buildFirefoxXpiAddon {
       pname = "modrinthify";
       version = "1.7.1";
@@ -6368,16 +6371,16 @@
           "alarms"
           "*://*.curseforge.com/minecraft/*"
           "*://*.spigotmc.org/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.12.9";
+      version = "2.13.3";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195245/momentumdash-2.12.9.xpi";
-      sha256 = "21a7514c6233e8cc290a41287d0e416483d2f1ae96e0b2495b84121ead57000d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4222797/momentumdash-2.13.3.xpi";
+      sha256 = "93967eb56fc404b9a80d7f7f1d5267028ba46779e11bc498d3b15933b9150a5e";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -6387,11 +6390,11 @@
           fullName = "Momentum Terms of Use";
           url = "https://momentumdash.com/legal";
           free = false;
-          };
+        };
         mozPermissions = [ "unlimitedStorage" "https://*.momentumdash.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "8.1.3";
@@ -6417,10 +6420,10 @@
           "tabs"
           "webRequestBlocking"
           "webRequest"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "musescore-downloader" = buildFirefoxXpiAddon {
       pname = "musescore-downloader";
       version = "0.26.0";
@@ -6434,8 +6437,8 @@
         license = licenses.mit;
         mozPermissions = [ "*://*.musescore.com/*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "native-mathml" = buildFirefoxXpiAddon {
       pname = "native-mathml";
       version = "1.9.6";
@@ -6449,8 +6452,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "new-tab-override" = buildFirefoxXpiAddon {
       pname = "new-tab-override";
       version = "15.1.1";
@@ -6469,10 +6472,10 @@
           "menus"
           "storage"
           "tabs"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "new-window-without-toolbar" = buildFirefoxXpiAddon {
       pname = "new-window-without-toolbar";
       version = "1.3.0";
@@ -6489,10 +6492,10 @@
           "contextualIdentities"
           "cookies"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "new-zealand-english-dict" = buildFirefoxXpiAddon {
       pname = "new-zealand-english-dict";
       version = "1.0.1.2webext";
@@ -6505,8 +6508,8 @@
         license = licenses.lgpl21;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "new_tongwentang" = buildFirefoxXpiAddon {
       pname = "new_tongwentang";
       version = "2.2.0";
@@ -6525,10 +6528,10 @@
           "storage"
           "unlimitedStorage"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
       version = "2.2.5";
@@ -6542,8 +6545,8 @@
         license = licenses.mit;
         mozPermissions = [ "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "newtab-adapter" = buildFirefoxXpiAddon {
       pname = "newtab-adapter";
       version = "1.3.0";
@@ -6557,8 +6560,8 @@
         license = licenses.mit;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "ng-inspect" = buildFirefoxXpiAddon {
       pname = "ng-inspect";
       version = "1.0";
@@ -6572,8 +6575,8 @@
         license = licenses.mit;
         mozPermissions = [ "contextMenus" "tabs" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "nighttab" = buildFirefoxXpiAddon {
       pname = "nighttab";
       version = "7.3.0";
@@ -6587,8 +6590,8 @@
         license = licenses.gpl3;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "ninja-cookie" = buildFirefoxXpiAddon {
       pname = "ninja-cookie";
       version = "0.2.7";
@@ -6604,16 +6607,16 @@
           fullName = "End-User License Agreement (EULA) of Ninja Cookie";
           url = "https://ninja-cookie.com/eula/";
           free = false;
-          };
+        };
         mozPermissions = [
           "*://ninja-cookie.gitlab.io/*"
           "storage"
           "tabs"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "nitter-redirect" = buildFirefoxXpiAddon {
       pname = "nitter-redirect";
       version = "1.1.5";
@@ -6634,10 +6637,10 @@
           "*://mobile.twitter.com/*"
           "*://pbs.twimg.com/*"
           "*://video.twimg.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "no-pdf-download" = buildFirefoxXpiAddon {
       pname = "no-pdf-download";
       version = "1.0.6";
@@ -6651,8 +6654,8 @@
         license = licenses.mit;
         mozPermissions = [ "webRequest" "webRequestBlocking" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "nos2x-fox" = buildFirefoxXpiAddon {
       pname = "nos2x-fox";
       version = "1.13.0";
@@ -6666,8 +6669,8 @@
         license = licenses.publicDomain;
         mozPermissions = [ "storage" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
       version = "11.4.29";
@@ -6691,10 +6694,10 @@
           "<all_urls>"
           "file://*/*"
           "ftp://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "notifier-for-github" = buildFirefoxXpiAddon {
       pname = "notifier-for-github";
       version = "23.7.12";
@@ -6708,8 +6711,8 @@
         license = licenses.mit;
         mozPermissions = [ "alarms" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "notion-web-clipper" = buildFirefoxXpiAddon {
       pname = "notion-web-clipper";
       version = "0.3.2";
@@ -6725,17 +6728,17 @@
           fullName = "Notion Terms and Privacy";
           url = "https://www.notion.so/Terms-and-Privacy-28ffdd083dc3473e9c2da6ec011b58ac";
           free = false;
-          };
+        };
         mozPermissions = [
           "activeTab"
           "storage"
           "cookies"
           "https://*.notion.so/"
           "https://*.notion.so/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "octolinker" = buildFirefoxXpiAddon {
       pname = "octolinker";
       version = "6.10.5";
@@ -6755,10 +6758,10 @@
           "https://octolinker-api.now.sh/"
           "https://github.com/*"
           "https://gist.github.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
       version = "7.11.2";
@@ -6776,10 +6779,10 @@
           "contextMenus"
           "activeTab"
           "https://github.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "offline-qr-code-generator" = buildFirefoxXpiAddon {
       pname = "offline-qr-code-generator";
       version = "1.8";
@@ -6793,8 +6796,8 @@
         license = licenses.mit;
         mozPermissions = [ "activeTab" "storage" "menus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
       version = "6.24.0";
@@ -6810,7 +6813,7 @@
           fullName = "Various Okta Agreements";
           url = "https://www.okta.com/agreements/";
           free = false;
-          };
+        };
         mozPermissions = [
           "tabs"
           "cookies"
@@ -6821,10 +6824,10 @@
           "webRequest"
           "webRequestBlocking"
           "webNavigation"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
       version = "1.8.1";
@@ -6847,10 +6850,10 @@
           "*://i.redd.it/*"
           "*://preview.redd.it/*"
           "*://old.reddit.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "omnisearch" = buildFirefoxXpiAddon {
       pname = "omnisearch";
       version = "1.4.5";
@@ -6870,10 +6873,10 @@
           "history"
           "search"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "omnivore" = buildFirefoxXpiAddon {
       pname = "omnivore";
       version = "2.8.9";
@@ -6891,10 +6894,10 @@
           "contextMenus"
           "https://*/**"
           "http://*/**"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "one-click-wayback" = buildFirefoxXpiAddon {
       pname = "one-click-wayback";
       version = "0.2";
@@ -6908,8 +6911,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "activeTab" ];
         platforms = platforms.all;
-        };
       };
+    };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
       version = "2.15.1";
@@ -6925,7 +6928,7 @@
           fullName = "Service Agreement for 1Password users and customers";
           url = "https://1password.com/legal/terms-of-service/";
           free = false;
-          };
+        };
         mozPermissions = [
           "<all_urls>"
           "alarms"
@@ -6954,10 +6957,10 @@
           "https://*.b5test.com/*"
           "https://*.b5test.eu/*"
           "https://*.b5rev.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "onetab" = buildFirefoxXpiAddon {
       pname = "onetab";
       version = "1.83";
@@ -6973,11 +6976,11 @@
           fullName = "Custom License for OneTab";
           url = "https://addons.mozilla.org/en-US/firefox/addon/onetab/license/";
           free = false;
-          };
+        };
         mozPermissions = [ "unlimitedStorage" "storage" "tabs" "contextMenus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "open-in-browser" = buildFirefoxXpiAddon {
       pname = "open-in-browser";
       version = "2.11";
@@ -6999,10 +7002,10 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "open-url-in-container" = buildFirefoxXpiAddon {
       pname = "open-url-in-container";
       version = "1.0.3";
@@ -7015,8 +7018,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "contextualIdentities" "cookies" ];
         platforms = platforms.all;
-        };
       };
+    };
     "org-capture" = buildFirefoxXpiAddon {
       pname = "org-capture";
       version = "0.2.1";
@@ -7030,8 +7033,8 @@
         license = licenses.mit;
         mozPermissions = [ "activeTab" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "overbitewx" = buildFirefoxXpiAddon {
       pname = "overbitewx";
       version = "0.4.1";
@@ -7044,8 +7047,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "overview" = buildFirefoxXpiAddon {
       pname = "overview";
       version = "0.5.0";
@@ -7059,8 +7062,8 @@
         license = licenses.mit;
         mozPermissions = [ "activeTab" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
       version = "1.0.33";
@@ -7076,7 +7079,7 @@
           fullName = "Paperpile Terms of Service";
           url = "https://paperpile.com/tos/";
           free = false;
-          };
+        };
         mozPermissions = [
           "contextMenus"
           "tabs"
@@ -7084,10 +7087,10 @@
           "<all_urls>"
           "storage"
           "*://app.paperpile.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
       version = "1.16";
@@ -7108,10 +7111,10 @@
           "contextMenus"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
       version = "2.2.1";
@@ -7127,11 +7130,11 @@
           fullName = "Custom License for Privacy | Protect Your Payments";
           url = "https://addons.mozilla.org/en-US/firefox/addon/pay-by-privacy/license/";
           free = false;
-          };
+        };
         mozPermissions = [ "storage" "tabs" "activeTab" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "peertubeify" = buildFirefoxXpiAddon {
       pname = "peertubeify";
       version = "0.6.0";
@@ -7152,10 +7155,10 @@
           "*://*.youtube.com/*"
           "*://*.invidio.us/*"
           "https://*/videos/watch/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "penetration-testing-kit" = buildFirefoxXpiAddon {
       pname = "penetration-testing-kit";
       version = "8.7.2.1";
@@ -7178,10 +7181,10 @@
           "webRequest"
           "webRequestBlocking"
           "scripting"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "persistentpin" = buildFirefoxXpiAddon {
       pname = "persistentpin";
       version = "1.1.1";
@@ -7195,8 +7198,8 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "tabs" "contextMenus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "pinboard" = buildFirefoxXpiAddon {
       pname = "pinboard";
       version = "5.0.0";
@@ -7210,8 +7213,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "activeTab" "menus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "plasma-integration" = buildFirefoxXpiAddon {
       pname = "plasma-integration";
       version = "1.8.1";
@@ -7232,29 +7235,10 @@
           "<all_urls>"
           "contextMenus"
           "*://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
-    "pocket-select-all" = buildFirefoxXpiAddon {
-      pname = "pocket-select-all";
-      version = "1.0";
-      addonId = "{68a267e1-f384-4356-9f1e-511ec5807858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1052566/pocket_select_all-1.0.xpi";
-      sha256 = "5cdf8426127fdc376bad81aa3035f3993cfa7621b2899353881333302c0df507";
-      meta = with lib;
-      {
-        description = "Adds a Select All button to <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/00c9d03cfa8d351fa7e6b5809ce9940b861a97f394a8cedefcee710f58cfb0c5/https%3A//getpocket.com\" rel=\"nofollow\">https://getpocket.com</a>.\n\n**WARNING**: Some people have complained about this extension being automatically installed or similar. If this happens, or you installed it from anywhere but <a href=\"http://addons.mozilla.org\" rel=\"nofollow\">addons.mozilla.org</a>, please remove it.";
-        license = {
-          shortName = "unfree";
-          fullName = "Unfree";
-          url = "https://addons.mozilla.org/en-US/firefox/addon/pocket-select-all/";
-          free = false;
-          };
-        mozPermissions = [ "*://getpocket.com/*" ];
-        platforms = platforms.all;
-        };
-      };
+    };
     "polish-dictionary" = buildFirefoxXpiAddon {
       pname = "polish-dictionary";
       version = "1.0.20160228.1webext";
@@ -7267,8 +7251,8 @@
         description = "Polish spell-check dictionary for Firefox, Thunderbird and SeaMonkey.";
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
       version = "0.41.1";
@@ -7281,8 +7265,8 @@
         description = "Manage your Polkadot accounts outside of dapps. Injects the accounts and allows signs transactions for a specific account.";
         mozPermissions = [ "storage" "tabs" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
       version = "2023.12.1";
@@ -7692,16 +7676,16 @@
           "http://www.google.co.zw/*"
           "https://www.google.cat/*"
           "http://www.google.cat/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "privacy-pass" = buildFirefoxXpiAddon {
       pname = "privacy-pass";
-      version = "4.0.0";
+      version = "4.0.1";
       addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216211/privacy_pass-4.0.0.xpi";
-      sha256 = "e2b93f9b456379b185b4c19353d86cbe45a62fc4db03e5af07fc254978392128";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4220646/privacy_pass-4.0.1.xpi";
+      sha256 = "956f61fc556dcebb405fb49c0c024860808cd6a4b9cc2b4be084448f160acdda";
       meta = with lib;
       {
         homepage = "https://github.com/cloudflare/pp-browser-extension";
@@ -7713,10 +7697,10 @@
           "tabs"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "privacy-possum" = buildFirefoxXpiAddon {
       pname = "privacy-possum";
       version = "2019.7.18";
@@ -7740,10 +7724,10 @@
           "cookies"
           "*://twitter.com/*"
           "*://tweetdeck.twitter.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "privacy-redirect" = buildFirefoxXpiAddon {
       pname = "privacy-redirect";
       version = "1.1.49";
@@ -7788,10 +7772,10 @@
           "*://qklhadlycap4cnod.onion/*"
           "*://c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid.onion/*"
           "*://w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd.onion/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "privacy-settings" = buildFirefoxXpiAddon {
       pname = "privacy-settings";
       version = "0.3.7";
@@ -7805,8 +7789,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "privacy" "storage" "contextMenus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
       version = "2.8.1";
@@ -7827,10 +7811,10 @@
           "https://relay.firefox.com/**"
           "https://relay.firefox.com/accounts/profile/**"
           "https://relay.firefox.com/accounts/settings/**"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "profile-switcher" = buildFirefoxXpiAddon {
       pname = "profile-switcher";
       version = "1.3.1";
@@ -7844,8 +7828,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "storage" "nativeMessaging" "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "promnesia" = buildFirefoxXpiAddon {
       pname = "promnesia";
       version = "1.2.4";
@@ -7867,10 +7851,10 @@
           "notifications"
           "bookmarks"
           "history"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "pronoundb" = buildFirefoxXpiAddon {
       pname = "pronoundb";
       version = "0.14.1";
@@ -7891,16 +7875,16 @@
           "https://*.modrinth.com/*"
           "https://*.twitch.tv/*"
           "https://*.twitter.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.9.6";
+      version = "1.10.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4215883/proton_pass-1.9.6.xpi";
-      sha256 = "a35a36890fa2eb6ea7f33075c789518fc3180425d4a52d8a4a7705801d26fbb2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4220449/proton_pass-1.10.0.xpi";
+      sha256 = "acc11a4d4ccf02f829221651abc13fcf57d847391168d8c3ece1dd95e3acc5e5";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -7917,10 +7901,10 @@
           "https://*/*"
           "http://*/*"
           "https://account.proton.me/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "proton-vpn" = buildFirefoxXpiAddon {
       pname = "proton-vpn";
       version = "1.0.8";
@@ -7944,10 +7928,10 @@
           "webRequestBlocking"
           "https://account.protonvpn.com/*"
           "https://account.proton.me/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "protondb-for-steam" = buildFirefoxXpiAddon {
       pname = "protondb-for-steam";
       version = "2.1.0";
@@ -7965,10 +7949,10 @@
           "https://store.steampowered.com/wishlist/*"
           "https://steamcommunity.com/id/*/games"
           "https://steamcommunity.com/id/*/games?tab=*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "pushbullet" = buildFirefoxXpiAddon {
       pname = "pushbullet";
       version = "366";
@@ -7989,10 +7973,10 @@
           "https://*.pushbullet.com/*"
           "http://*.pushbullet.com/*"
           "http://localhost:20807/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "pywalfox" = buildFirefoxXpiAddon {
       pname = "pywalfox";
       version = "2.0.11";
@@ -8011,10 +7995,10 @@
           "tabs"
           "alarms"
           "*://*.duckduckgo.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
       version = "2.1.6.4";
@@ -8036,10 +8020,10 @@
           "https://*.rabattcorner.ch/visit/*"
           "https://*.rabattcorner.ch/special_offer/visit/*"
           "https://*.rabattcorner.ch/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
       version = "6.6.19";
@@ -8053,8 +8037,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "contextMenus" "activeTab" "scripting" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "re-enable-right-click" = buildFirefoxXpiAddon {
       pname = "re-enable-right-click";
       version = "0.5.4";
@@ -8071,10 +8055,10 @@
           "activeTab"
           "contextMenus"
           "notifications"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
       version = "5.0.0";
@@ -8094,10 +8078,10 @@
           "scripting"
           "devtools"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "reddit-comment-collapser" = buildFirefoxXpiAddon {
       pname = "reddit-comment-collapser";
       version = "5.1.1";
@@ -8114,10 +8098,10 @@
           "https://*.reddit.com/"
           "http://*.reddit.com/*/comments/*"
           "https://*.reddit.com/*/comments/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
       version = "5.22.17";
@@ -8137,10 +8121,10 @@
           "history"
           "storage"
           "unlimitedStorage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
       version = "6.1.10";
@@ -8165,10 +8149,10 @@
           "webNavigation"
           "alarms"
           "https://*.reddit.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "redirector" = buildFirefoxXpiAddon {
       pname = "redirector";
       version = "3.5.3";
@@ -8189,10 +8173,10 @@
           "http://*/*"
           "https://*/*"
           "notifications"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "reduxdevtools" = buildFirefoxXpiAddon {
       pname = "reduxdevtools";
       version = "3.1.6";
@@ -8214,10 +8198,10 @@
           "https://*/*"
           "devtools"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
       version = "24.1.10";
@@ -8237,10 +8221,10 @@
           "https://github.com/*"
           "https://api.github.com/*"
           "https://gist.github.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "refined-saved-replies" = buildFirefoxXpiAddon {
       pname = "refined-saved-replies";
       version = "0.5";
@@ -8254,10 +8238,10 @@
         mozPermissions = [
           "https://github.com/*/*/issues/*"
           "https://github.com/*/*/pull/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
       version = "3.0.0.14";
@@ -8273,10 +8257,10 @@
           "*://*.youtube.com/*"
           "storage"
           "*://returnyoutubedislikeapi.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "rsf-censorship-detector" = buildFirefoxXpiAddon {
       pname = "rsf-censorship-detector";
       version = "2.0.0";
@@ -8290,14 +8274,14 @@
         license = licenses.gpl3;
         mozPermissions = [ "storage" "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.0.7";
+      version = "2.0.8";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4214311/rsshub_radar-2.0.7.xpi";
-      sha256 = "1c02870b40b73c4b5dfa80f376a5081076951203d5cd88e0955557dd16e5e1e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4222125/rsshub_radar-2.0.8.xpi";
+      sha256 = "2a54a8c138322c4a84f750db7f151576bfd772906d160db156e3f4381c3abb25";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
@@ -8309,10 +8293,10 @@
           "notifications"
           "alarms"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
       version = "1.12.0";
@@ -8333,10 +8317,10 @@
           "*://doc.rust-lang.org/*"
           "*://doc.rust-lang.org/nightly/nightly-rustc/*"
           "*://rust.extension.sh/update"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "saka-key" = buildFirefoxXpiAddon {
       pname = "saka-key";
       version = "1.26.3";
@@ -8358,10 +8342,10 @@
           "clipboardRead"
           "downloads"
           "cookies"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
       version = "28.11";
@@ -8384,10 +8368,10 @@
           "contextMenus"
           "notifications"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "scroll_anywhere" = buildFirefoxXpiAddon {
       pname = "scroll_anywhere";
       version = "9.2";
@@ -8403,11 +8387,11 @@
           fullName = "Scroll Anywhere License";
           url = "https://github.com/fastaddons/ScrollAnywhere/blob/master/LICENSE";
           free = false;
-          };
+        };
         mozPermissions = [ "alarms" "storage" "activeTab" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
       version = "6.1.1";
@@ -8433,10 +8417,10 @@
           "http://*/*"
           "https://*/*"
           "file:///*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "search-engines-helper" = buildFirefoxXpiAddon {
       pname = "search-engines-helper";
       version = "3.5.0";
@@ -8450,8 +8434,8 @@
         license = licenses.mit;
         mozPermissions = [ "contextMenus" "activeTab" "notifications" ];
         platforms = platforms.all;
-        };
       };
+    };
     "shaarli" = buildFirefoxXpiAddon {
       pname = "shaarli";
       version = "2.0.0";
@@ -8464,8 +8448,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "tabs" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "side-view" = buildFirefoxXpiAddon {
       pname = "side-view";
       version = "0.4.6423";
@@ -8487,10 +8471,10 @@
           "webRequestBlocking"
           "bookmarks"
           "management"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
       version = "11.1.8";
@@ -8515,10 +8499,10 @@
           "storage"
           "tabs"
           "theme"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
       version = "5.0.0";
@@ -8542,10 +8526,10 @@
           "menus.overrideContext"
           "search"
           "theme"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "simple-dark-vlasak" = buildFirefoxXpiAddon {
       pname = "simple-dark-vlasak";
       version = "3.0";
@@ -8558,8 +8542,8 @@
         license = licenses.cc-by-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
       version = "5.2";
@@ -8586,10 +8570,10 @@
           "<all_urls>"
           "storage"
           "unlimitedStorage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "simple-translate" = buildFirefoxXpiAddon {
       pname = "simple-translate";
       version = "2.8.2";
@@ -8607,10 +8591,10 @@
           "contextMenus"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "simplelogin" = buildFirefoxXpiAddon {
       pname = "simplelogin";
       version = "2.10.2";
@@ -8629,10 +8613,10 @@
           "https://*.simplelogin.io/*"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
       version = "1.22.39";
@@ -8652,10 +8636,10 @@
           "tabs"
           "<all_urls>"
           "devtools"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "skip-redirect" = buildFirefoxXpiAddon {
       pname = "skip-redirect";
       version = "2.3.6";
@@ -8674,10 +8658,10 @@
           "storage"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "smart-referer" = buildFirefoxXpiAddon {
       pname = "smart-referer";
       version = "0.2.15";
@@ -8696,10 +8680,10 @@
           "webRequest"
           "webRequestBlocking"
           "*://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "snoozetabs" = buildFirefoxXpiAddon {
       pname = "snoozetabs";
       version = "1.1.1";
@@ -8719,10 +8703,10 @@
           "storage"
           "tabs"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
       version = "0.7.2";
@@ -8736,8 +8720,8 @@
         license = licenses.bsd3;
         mozPermissions = [ "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "solarized-light" = buildFirefoxXpiAddon {
       pname = "solarized-light";
       version = "2.0";
@@ -8752,11 +8736,11 @@
           fullName = "All Rights Reserved";
           url = "https://en.wikipedia.org/wiki/All_rights_reserved";
           free = false;
-          };
+        };
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "solarized_fox" = buildFirefoxXpiAddon {
       pname = "solarized_fox";
       version = "3.0";
@@ -8769,8 +8753,8 @@
         license = licenses.cc-by-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
       version = "23.4.14.1343";
@@ -8787,10 +8771,10 @@
           "https://github.com/*"
           "https://sourcegraph.com/*"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
       version = "5.4.29";
@@ -8808,10 +8792,10 @@
           "scripting"
           "https://*.youtube.com/*"
           "https://www.youtube-nocookie.com/embed/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "startpage-private-search" = buildFirefoxXpiAddon {
       pname = "startpage-private-search";
       version = "2.0.1";
@@ -8828,10 +8812,10 @@
           "webRequest"
           "webRequestBlocking"
           "https://*.startpage.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "startup-bookmarks" = buildFirefoxXpiAddon {
       pname = "startup-bookmarks";
       version = "1.7.12";
@@ -8845,14 +8829,14 @@
         license = licenses.bsd2;
         mozPermissions = [ "tabs" "bookmarks" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "2.0.1";
+      version = "2.0.2";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4210057/statshunters-2.0.1.xpi";
-      sha256 = "5cda553adf2a974660840953721193896f81e3d777e7577626fda5a3ed3f03c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224068/statshunters-2.0.2.xpi";
+      sha256 = "3490403bc309bea2a1cd1e3cec39c3508cd994aa2672b0a444c2568b91260370";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -8892,10 +8876,10 @@
           "https://www.alltrails.com/*/explore/map/*"
           "https://openrunner.com/*"
           "https://www.openrunner.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
       version = "3.7.9";
@@ -8949,10 +8933,10 @@
           "https://steamcommunity.com/sharedfiles/*"
           "https://steamcommunity.com/workshop/*"
           "https://steamcommunity.com/market/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
       version = "2023.22";
@@ -8966,8 +8950,8 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "https://*/*" "http://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
       version = "1.5.41";
@@ -8991,16 +8975,16 @@
           "<all_urls>"
           "http://userstyles.org/*"
           "https://userstyles.org/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.16.0";
+      version = "1.16.1";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4218100/surfingkeys_ff-1.16.0.xpi";
-      sha256 = "ad037de242d2dc75a3162a163c5cf990842a859f7db5b88c2479eb643dda1e86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221189/surfingkeys_ff-1.16.1.xpi";
+      sha256 = "c146480eeda13fc86e806a2c9e02ff7d70280a82639cdaf14103d65ad51d5646";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -9020,10 +9004,10 @@
           "clipboardWrite"
           "cookies"
           "contextualIdentities"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "swedish-dictionary" = buildFirefoxXpiAddon {
       pname = "swedish-dictionary";
       version = "1.21";
@@ -9036,8 +9020,8 @@
         license = licenses.lgpl3;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "switchyomega" = buildFirefoxXpiAddon {
       pname = "switchyomega";
       version = "2.5.19";
@@ -9061,10 +9045,10 @@
           "http://*/*"
           "https://*/*"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tab-counter-plus" = buildFirefoxXpiAddon {
       pname = "tab-counter-plus";
       version = "3.4";
@@ -9078,8 +9062,8 @@
         license = licenses.asl20;
         mozPermissions = [ "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "tab-reloader" = buildFirefoxXpiAddon {
       pname = "tab-reloader";
       version = "0.6.1";
@@ -9098,10 +9082,10 @@
           "webNavigation"
           "contextMenus"
           "idle"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tab-retitle" = buildFirefoxXpiAddon {
       pname = "tab-retitle";
       version = "1.5.2";
@@ -9119,10 +9103,10 @@
           "<all_urls>"
           "contextMenus"
           "bookmarks"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
       version = "6.12.2";
@@ -9141,10 +9125,10 @@
           "cookies"
           "downloads"
           "identity"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tab-stash" = buildFirefoxXpiAddon {
       pname = "tab-stash";
       version = "3.0";
@@ -9167,10 +9151,10 @@
           "unlimitedStorage"
           "contextualIdentities"
           "cookies"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tab-unload-for-tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tab-unload-for-tree-style-tab";
       version = "6.15";
@@ -9184,8 +9168,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "storage" "menus" ];
         platforms = platforms.all;
-        };
       };
+    };
     "tabcenter-reborn" = buildFirefoxXpiAddon {
       pname = "tabcenter-reborn";
       version = "2.3.1";
@@ -9212,10 +9196,10 @@
           "tabs"
           "theme"
           "webNavigation"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tabliss" = buildFirefoxXpiAddon {
       pname = "tabliss";
       version = "2.6.0";
@@ -9229,8 +9213,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
       version = "5.0.1";
@@ -9246,7 +9230,7 @@
           fullName = "End-User License Agreement for Tampermonkey";
           url = "https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/eula/";
           free = false;
-          };
+        };
         mozPermissions = [
           "alarms"
           "notifications"
@@ -9262,10 +9246,10 @@
           "cookies"
           "downloads"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "temporary-containers" = buildFirefoxXpiAddon {
       pname = "temporary-containers";
       version = "1.9.2";
@@ -9287,10 +9271,10 @@
           "tabs"
           "webRequest"
           "webRequestBlocking"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "terms-of-service-didnt-read" = buildFirefoxXpiAddon {
       pname = "terms-of-service-didnt-read";
       version = "4.1.2";
@@ -9311,10 +9295,10 @@
           "tabs"
           "notifications"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tetrio-plus" = buildFirefoxXpiAddon {
       pname = "tetrio-plus";
       version = "0.25.9";
@@ -9332,10 +9316,10 @@
           "storage"
           "*://*.tetr.io/*"
           "https://tetr.io/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "text-contrast-for-dark-themes" = buildFirefoxXpiAddon {
       pname = "text-contrast-for-dark-themes";
       version = "2.1.6";
@@ -9348,8 +9332,8 @@
         license = licenses.mit;
         mozPermissions = [ "<all_urls>" "storage" "tabs" "webNavigation" ];
         platforms = platforms.all;
-        };
       };
+    };
     "textern" = buildFirefoxXpiAddon {
       pname = "textern";
       version = "0.8";
@@ -9366,10 +9350,10 @@
           "nativeMessaging"
           "storage"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "theater-mode-for-youtube" = buildFirefoxXpiAddon {
       pname = "theater-mode-for-youtube";
       version = "0.2.2";
@@ -9383,8 +9367,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "storage" "*://www.youtube.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "theme-nord-polar-night" = buildFirefoxXpiAddon {
       pname = "theme-nord-polar-night";
       version = "1.18";
@@ -9397,8 +9381,8 @@
         description = "<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/ba1182cc6e56316a3cb1a60385b04ef4843dca5caf9bb4a82a5ba5b0556aeee8/https%3A//paypal.me/christosbouronikos\" rel=\"nofollow\">https://paypal.me/christosbouronikos</a>";
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
       version = "0.9.0";
@@ -9412,8 +9396,8 @@
         license = licenses.mit;
         mozPermissions = [ "activeTab" "contextMenus" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "tokyo-night-v2" = buildFirefoxXpiAddon {
       pname = "tokyo-night-v2";
       version = "1.0";
@@ -9426,8 +9410,8 @@
         license = licenses.cc-by-nc-sa-30;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "tomato-clock" = buildFirefoxXpiAddon {
       pname = "tomato-clock";
       version = "6.0.2";
@@ -9441,8 +9425,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "notifications" "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
       version = "3.11.1";
@@ -9460,10 +9444,10 @@
           "https://*.ynab.com/*"
           "http://*.ynab.com/*"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
       version = "0.2.36";
@@ -9483,16 +9467,16 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.4.2";
+      version = "3.4.3";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216959/tournesol_extension-3.4.2.xpi";
-      sha256 = "2d739661645cbd7ab678a7915911da74b60f589d11dadb0dc1418a876f12755e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4222077/tournesol_extension-3.4.3.xpi";
+      sha256 = "a20615b54bcc51920c253af23a1f2227f5c8ce0652ab1e5ac98c5ae2508a7712";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -9510,10 +9494,10 @@
           "webRequestBlocking"
           "https://*.youtube.com/*"
           "https://tournesol.app/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
       version = "9.9.0.30";
@@ -9531,10 +9515,10 @@
           "contextMenus"
           "webRequest"
           "https://www.deepl.com/translator*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "transparent-standalone-image" = buildFirefoxXpiAddon {
       pname = "transparent-standalone-image";
       version = "2.1";
@@ -9547,8 +9531,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "tabs" "file:///*" "*://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
       version = "3.9.19";
@@ -9564,7 +9548,7 @@
           fullName = "Tree Style Tab License, primarily MPL 2.0";
           url = "https://github.com/piroor/treestyletab/blob/trunk/COPYING.txt";
           free = true;
-          };
+        };
         mozPermissions = [
           "activeTab"
           "contextualIdentities"
@@ -9577,10 +9561,10 @@
           "storage"
           "tabs"
           "theme"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
       version = "1.24.0";
@@ -9617,10 +9601,10 @@
           "webRequestBlocking"
           "proxy"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "tst-tab-search" = buildFirefoxXpiAddon {
       pname = "tst-tab-search";
       version = "0.0.7";
@@ -9634,8 +9618,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "storage" "notifications" "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "tst-wheel-and-double" = buildFirefoxXpiAddon {
       pname = "tst-wheel-and-double";
       version = "1.5";
@@ -9649,8 +9633,8 @@
         license = licenses.mpl20;
         mozPermissions = [ "storage" ];
         platforms = platforms.all;
-        };
       };
+    };
     "tubearchivist-companion" = buildFirefoxXpiAddon {
       pname = "tubearchivist-companion";
       version = "0.2.2";
@@ -9667,10 +9651,10 @@
           "cookies"
           "https://*.youtube.com/*"
           "https://www.youtube.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
       version = "8.4.0";
@@ -9881,10 +9865,10 @@
           "https://www.google.co.zm/search?*"
           "https://www.google.co.zw/search?*"
           "https://www.google.cat/search?*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
       version = "1.55.0";
@@ -9921,16 +9905,16 @@
           "https://github.com/uBlockOrigin/*"
           "https://ublockorigin.github.io/*"
           "https://*.reddit.com/r/uBlockOrigin/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.1.2.1038";
+      version = "2024.1.14.912";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4215964/ublock_origin_lite-2024.1.2.1038.xpi";
-      sha256 = "ee9bbad4b26112bf99ea05246f5ba05098cf93d83fa0224d91eea8c1aed81ee7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221710/ublock_origin_lite-2024.1.14.912.xpi";
+      sha256 = "b1784c943eed87322ff2a3331232f795190ca00c74141bec48c058f63da5cfe8";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -9941,10 +9925,10 @@
           "declarativeNetRequest"
           "scripting"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ubo-scope" = buildFirefoxXpiAddon {
       pname = "ubo-scope";
       version = "0.1.12";
@@ -9962,10 +9946,10 @@
           "unlimitedStorage"
           "webRequest"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
       version = "6.3.1";
@@ -9979,8 +9963,8 @@
         license = licenses.mpl11;
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "umatrix" = buildFirefoxXpiAddon {
       pname = "umatrix";
       version = "1.4.4";
@@ -10004,10 +9988,10 @@
           "<all_urls>"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "undoclosetabbutton" = buildFirefoxXpiAddon {
       pname = "undoclosetabbutton";
       version = "8.0.0";
@@ -10021,8 +10005,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "menus" "tabs" "sessions" "storage" "theme" ];
         platforms = platforms.all;
-        };
       };
+    };
     "unpaywall" = buildFirefoxXpiAddon {
       pname = "unpaywall";
       version = "3.98";
@@ -10036,8 +10020,8 @@
         license = licenses.mit;
         mozPermissions = [ "*://*.oadoi.org/*" "storage" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "user-agent-string-switcher" = buildFirefoxXpiAddon {
       pname = "user-agent-string-switcher";
       version = "0.5.0";
@@ -10057,10 +10041,10 @@
           "webRequestBlocking"
           "contextMenus"
           "*://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
       version = "8.1.4.0";
@@ -10076,7 +10060,7 @@
           fullName = "Custom License for Video DownloadHelper";
           url = "https://addons.mozilla.org/en-US/firefox/addon/video-downloadhelper/license/";
           free = false;
-          };
+        };
         mozPermissions = [
           "tabs"
           "contextMenus"
@@ -10091,10 +10075,10 @@
           "menus"
           "webRequestBlocking"
           "*://*.downloadhelper.net/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "videospeed" = buildFirefoxXpiAddon {
       pname = "videospeed";
       version = "0.6.3.3";
@@ -10108,8 +10092,8 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "http://*/*" "https://*/*" "file:///*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
       version = "5.0.2";
@@ -10310,10 +10294,10 @@
           "*://*.google.co.zm/*"
           "*://*.google.co.zw/*"
           "*://*.google.cat/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "vim-vixen" = buildFirefoxXpiAddon {
       pname = "vim-vixen";
       version = "1.2.3";
@@ -10335,10 +10319,10 @@
           "bookmarks"
           "browserSettings"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
       version = "2.0.6";
@@ -10364,10 +10348,10 @@
           "<all_urls>"
           "file:///"
           "file:///*/"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "vimium-c" = buildFirefoxXpiAddon {
       pname = "vimium-c";
       version = "1.99.997";
@@ -10390,16 +10374,16 @@
           "tabs"
           "webNavigation"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.17.0";
+      version = "2.18.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4213757/violentmonkey-2.17.0.xpi";
-      sha256 = "8a0d00f6b0a0ec2b77cab4576b0c30a81705ef7e1f45de9856c36c193afc6843";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4220396/violentmonkey-2.18.0.xpi";
+      sha256 = "4abbeea842b82965379c6011dec6a435dfff0f69c20749118a8ba2f7d14cb0f1";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -10416,10 +10400,10 @@
           "clipboardWrite"
           "contextMenus"
           "cookies"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
       version = "6.5.1";
@@ -10433,8 +10417,8 @@
         license = licenses.mit;
         mozPermissions = [ "<all_urls>" "storage" "devtools" ];
         platforms = platforms.all;
-        };
       };
+    };
     "w2g" = buildFirefoxXpiAddon {
       pname = "w2g";
       version = "9.5";
@@ -10450,7 +10434,7 @@
           fullName = "Watch2Gether Terms of Use";
           url = "https://community.w2g.tv/t/terms-of-use-english/597/1";
           free = false;
-          };
+        };
         mozPermissions = [
           "activeTab"
           "webNavigation"
@@ -10462,10 +10446,10 @@
           "https://stage-rooms.w2g.tv/*"
           "https://stage.w2g.tv/*"
           "https://staging.w2g.tv/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
       version = "1.16.0";
@@ -10479,8 +10463,8 @@
         license = licenses.mit;
         mozPermissions = [ "tabs" "storage" "contextMenus" "activeTab" ];
         platforms = platforms.all;
-        };
       };
+    };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
       version = "6.10.67";
@@ -10496,7 +10480,7 @@
           fullName = "All Rights Reserved";
           url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
           free = false;
-          };
+        };
         mozPermissions = [
           "cookies"
           "storage"
@@ -10504,10 +10488,10 @@
           "webRequest"
           "http://*/*"
           "https://*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "wayback-machine" = buildFirefoxXpiAddon {
       pname = "wayback-machine";
       version = "3.2";
@@ -10533,10 +10517,10 @@
           "<all_urls>"
           "http://*.wikipedia.org/*"
           "https://*.wikipedia.org/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "web-archives" = buildFirefoxXpiAddon {
       pname = "web-archives";
       version = "5.0.0";
@@ -10562,16 +10546,16 @@
           "http://*/*"
           "https://*/*"
           "file:///*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.4.0";
+      version = "3.5.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4217077/web_scrobbler-3.4.0.xpi";
-      sha256 = "08cb2db9ca8487f079031145aaaac406c6d0fb85dfba5764f3f2a155073acd24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4221646/web_scrobbler-3.5.0.xpi";
+      sha256 = "60e532506745a88830fa48a95b8610f6cfe220c791d0a5886a3aacaf8541f33d";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
@@ -10583,10 +10567,10 @@
           "notifications"
           "scripting"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "web-search-navigator" = buildFirefoxXpiAddon {
       pname = "web-search-navigator";
       version = "0.5.2";
@@ -10793,10 +10777,10 @@
           "*://www.google.co.zm/search*"
           "*://www.google.co.zw/search*"
           "*://www.google.cat/search*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "widegithub" = buildFirefoxXpiAddon {
       pname = "widegithub";
       version = "2.2.0";
@@ -10810,8 +10794,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "*://github.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "wikipedia-vector-skin" = buildFirefoxXpiAddon {
       pname = "wikipedia-vector-skin";
       version = "1.3";
@@ -10837,10 +10821,10 @@
           "*://*.wikinews.org/*"
           "*://*.wikisource.org/*"
           "*://*.wikibooks.org/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "wikiwand-wikipedia-modernized" = buildFirefoxXpiAddon {
       pname = "wikiwand-wikipedia-modernized";
       version = "5.1.3";
@@ -10856,7 +10840,7 @@
           fullName = "Terms of Service - Wikiwand";
           url = "https://www.wikiwand.com/terms";
           free = false;
-          };
+        };
         mozPermissions = [
           "cookies"
           "storage"
@@ -10865,10 +10849,10 @@
           "webRequestBlocking"
           "*://*.wikipedia.org/*"
           "*://*.wikiwand.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
       version = "3.4.11.1";
@@ -10900,10 +10884,10 @@
           "https://*/*"
           "file://*/*"
           "https://windscribe.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "xbrowsersync" = buildFirefoxXpiAddon {
       pname = "xbrowsersync";
       version = "1.5.2";
@@ -10925,10 +10909,10 @@
           "storage"
           "tabs"
           "unlimitedStorage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "youronlinechoices" = buildFirefoxXpiAddon {
       pname = "youronlinechoices";
       version = "0.1.1";
@@ -10944,10 +10928,10 @@
           "http://*/*"
           "unlimitedStorage"
           "storage"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "youtube-nonstop" = buildFirefoxXpiAddon {
       pname = "youtube-nonstop";
       version = "0.9.2";
@@ -10962,10 +10946,10 @@
         mozPermissions = [
           "https://www.youtube.com/*"
           "https://music.youtube.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "youtube-recommended-videos" = buildFirefoxXpiAddon {
       pname = "youtube-recommended-videos";
       version = "1.6.3";
@@ -10981,16 +10965,16 @@
           fullName = "End-User License Agreement for Unhook: Remove YouTube Recommended Videos Comments";
           url = "https://addons.mozilla.org/en-US/firefox/addon/youtube-recommended-videos/eula/},";
           free = false;
-          };
+        };
         mozPermissions = [
           "storage"
           "webRequest"
           "https://www.youtube.com/*"
           "https://m.youtube.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "youtube-screenshot-button" = buildFirefoxXpiAddon {
       pname = "youtube-screenshot-button";
       version = "4.2.0";
@@ -11007,10 +10991,10 @@
           "clipboardWrite"
           "notifications"
           "*://*.youtube.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "youtube-shorts-block" = buildFirefoxXpiAddon {
       pname = "youtube-shorts-block";
       version = "1.4.1";
@@ -11025,10 +11009,10 @@
           "storage"
           "*://*.youtube.com/*"
           "*://m.youtube.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
       version = "19.13";
@@ -11049,10 +11033,10 @@
           "http://*/*"
           "https://*/*"
           "file:///*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "zoom-redirector" = buildFirefoxXpiAddon {
       pname = "zoom-redirector";
       version = "1.0.2";
@@ -11068,8 +11052,8 @@
           "webRequestBlocking"
           "*://*.zoom.us/*"
           "*://*.zoomgov.com/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
-    }
+    };
+  }
