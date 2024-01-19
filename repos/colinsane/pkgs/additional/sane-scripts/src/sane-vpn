@@ -2,50 +2,86 @@
 #!nix-shell -i bash -p coreutils-full -p gnugrep -p gnused -p sane-scripts.ip-check -p systemd
 
 oper="$1"
-region="$2"
+shift
+region="$1"
+shift
 # region should be e.g. `us` or `ukr`
 
-vpns=$(systemctl list-unit-files | grep vpn- | cut -f 1 -d ' ' | sed s'/^vpn-\([a-zA-Z-]*\)\.service$/\1/g')
+get_vpns() {
+  vpns=$(systemctl list-unit-files \
+    | grep vpn- | cut -f 1 -d ' ' \
+    | sed s'/\.service$//' \
+    | sed s'/^vpn-//' \
+    | sed s'/^ovpnd-//'
+  )
+}
+
+canonicalize_region() {
+  if networkctl list "br-$region"; then
+    bridge="br-$region"
+  elif networkctl list "br-ovpnd-$region"; then
+    bridge="br-ovpnd-$region"
+  fi
+
+  if systemctl -q list-unit-files "$region"; then
+    service="$region"
+  elif systemctl -q list-unit-files "vpn-$region.service"; then
+    service="vpn-$region.service"
+  elif systemctl -q list-unit-files "vpn-ovpnd-$region.service"; then
+    service="vpn-ovpnd-$region.service"
+  elif systemctl -q list-unit-files "wg-quick-$region.service"; then
+    service="wg-quick-$region.service"
+  fi
+}
 
 usage() {
+  rc="$1"
+  msg="$2"
+
+  get_vpns
+  test -n "$msg" && echo "$msg"
+
   echo "usage:"
   echo "sane-vpn up REGION"
   echo "sane-vpn down REGION"
+  echo "sane-vpn do REGION COMMAND [COMMAND ARGS ...]"
   echo "sane-vpn help"
   echo ""
   echo "regions:"
   echo "$vpns"
+
+  test -n "$rc" && exit "$rc"
 }
 
-verb="cat"
+vpn_toggle() {
+  verb="$1"
+  canonicalize_region
+  test -n "$service" || usage 1 "invalid region '$region'"
+
+  echo before: $(sane-ip-check --no-upnp)
+  sudo systemctl "$verb" "$service"
+  echo after:  $(sane-ip-check --no-upnp)
+}
+
+vpn_do() {
+  canonicalize_region
+  test -n "$bridge" || usage 1 "invalid or unsupported region '$region'"
+
+  # this is nasty. `networkctl --json=pretty` gives json output that can be consumed with jq,
+  # but it converts the DNS server to octets ([10, 78, 79, 1]), which i would have to reassemble
+  dns=$(networkctl status "$bridge" | grep 'DNS:' | sed 's/ *DNS: //')
+
+  firejail --noprofile --net="$bridge" --dns="$dns" "$@"
+}
+
 if [ "$oper" == up ]; then
-  verb="start"
+  vpn_toggle start
 elif [ "$oper" == down ]; then
-  verb="stop"
+  vpn_toggle stop
+elif [ "$oper" == do ]; then
+  vpn_do "$@"
 elif [ "$oper" == help ] || [ "$oper" == --help ] || [ -z "$oper" ]; then
-  usage
-  exit 0
+  usage 0
 else
-  echo "invalid operation '$oper'"
-  usage
-  exit 1
+  usage 1 "invalid operation '$oper'"
 fi
-
-if systemctl -q list-unit-files "$region"; then
-  service="$region"
-elif systemctl -q list-unit-files "vpn-$region.service"; then
-  service="vpn-$region.service"
-elif systemctl -q list-unit-files "vpn-ovpnd-$region.service"; then
-  service="vpn-ovpnd-$region.service"
-elif systemctl -q list-unit-files "wg-quick-$region.service"; then
-  service="wg-quick-$region.service"
-else
-  echo "invalid vpn name '$region'"
-  echo "choices:"
-  echo "$vpns"
-  exit 1
-fi
-
-echo before: $(sane-ip-check --no-upnp)
-sudo systemctl "$verb" "$service"
-echo after:  $(sane-ip-check --no-upnp)
