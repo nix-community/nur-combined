@@ -24,9 +24,6 @@ in
     sane.ports.openFirewall = true;
     sane.ports.openUpnp = true;
 
-    # this is needed to forward packets from the VPN to the host
-    boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
-
     # unless we add interface-specific settings for each VPN, we have to define nameservers globally.
     # networking.nameservers = [
     #   "1.1.1.1"

@@ -56,6 +56,7 @@ in
 
 
     sysadminUtils = declPackageSet [
+      "bridge-utils"
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
       "cryptsetup"
@@ -132,6 +133,7 @@ in
       "dtrx"  # `unar` alternative, "Do The Right eXtraction"
       "efivar"
       "eza"  # a better 'ls'
+      "firejail"
       # "flashrom"
       "git"  # needed as a user package, for config.
       # "gnupg"
@@ -286,5 +288,9 @@ in
 
   programs.feedbackd = lib.mkIf config.sane.programs.feedbackd.enabled {
     enable = true;
+  };
+
+  programs.firejail = lib.mkIf config.sane.programs.firejail.enabled {
+    enable = true;  #< install the suid binary
   };
 }

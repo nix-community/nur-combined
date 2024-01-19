@@ -57,6 +57,8 @@
   sane.ids.bitcoind-mainnet.gid = 2418;
   sane.ids.clightning.uid = 2419;
   sane.ids.clightning.gid = 2419;
+  sane.ids.nix-serve.uid = 2420;
+  sane.ids.nix-serve.gid = 2420;
 
   sane.ids.colin.uid = 1000;
   sane.ids.guest.uid = 1100;

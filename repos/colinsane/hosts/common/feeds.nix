@@ -72,15 +72,12 @@ let
     (fromDb "feeds.feedburner.com/80000HoursPodcast" // rat)
     (fromDb "feeds.feedburner.com/dancarlin/history" // rat)
     (fromDb "feeds.feedburner.com/radiolab" // pol)  # Radiolab -- also available here, but ONLY OVER HTTP: <http://feeds.wnyc.org/radiolab>
-    (fromDb "feeds.libsyn.com/421877" // rat)  # Less Wrong Curated
     (fromDb "feeds.megaphone.fm/behindthebastards" // pol)  # also Maggie Killjoy
-    # (fromDb "feeds.megaphone.fm/hubermanlab" // uncat)  # Daniel Huberman on sleep
     (fromDb "feeds.megaphone.fm/recodedecode" // tech)  # The Verge - Decoder
     (fromDb "feeds.simplecast.com/54nAGcIl" // pol)  # The Daily
     (fromDb "feeds.simplecast.com/82FI35Px" // pol)  # Ezra Klein Show
     (fromDb "feeds.simplecast.com/wgl4xEgL" // rat)  # Econ Talk
     (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
-    # (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
     (fromDb "feeds.transistor.fm/acquired" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
@@ -89,7 +86,6 @@ let
     (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     (fromDb "originstories.libsyn.com" // uncat)
     (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
-    # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast
     (fromDb "rss.acast.com/deconstructed")  # The Intercept - Deconstructed
@@ -103,13 +99,17 @@ let
     (fromDb "sscpodcast.libsyn.com" // rat)  # Astral Codex Ten
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)  # Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)
     (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow
-    # (fromDb "trashfuturepodcast.podbean.com" // pol)  # rec by Cory Doctorow, but way rambly
     (fromDb "wakingup.libsyn.com" // pol)  # Sam Harris
     (fromDb "werenotwrong.fireside.fm" // pol)
 
+    # (fromDb "feeds.libsyn.com/421877" // rat)  # Less Wrong Curated
+    # (fromDb "feeds.megaphone.fm/hubermanlab" // uncat)  # Daniel Huberman on sleep
+    # (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
+    # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
     # (fromDb "rss.art19.com/your-welcome" // pol)  # Michael Malice - Your Welcome -- also available here: <https://origin.podcastone.com/podcast?categoryID2=2232>
     # (fromDb "rss.prod.firstlook.media/deconstructed/podcast.rss" // pol)  #< possible URL rot
     # (fromDb "rss.prod.firstlook.media/intercepted/podcast.rss" // pol)  #< possible URL rot
+    # (fromDb "trashfuturepodcast.podbean.com" // pol)  # rec by Cory Doctorow, but way rambly
     # (mkPod "https://anchor.fm/s/21bc734/podcast/rss" // pol // infrequent)  # Emerge: making sense of what's next -- <https://www.whatisemerging.com/emergepodcast>
     # (mkPod "https://audioboom.com/channels/5097784.rss" // tech)  # Lateral with Tom Scott
     # (mkPod "https://feeds.megaphone.fm/RUNMED9919162779" // pol // infrequent)  # The Witch Trials of J.K. Rowling: <https://www.thefp.com/witchtrials>

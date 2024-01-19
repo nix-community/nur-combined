@@ -41,6 +41,14 @@ in
       inherit (cfg) port secretKeyFile;
     };
 
+    # XXX(2024/01/19): upstream service specifies `User=nix-serve`, `Group=nix-serve` but doesn't define the users.
+    # this causes a coredump loop from within a nix-serve subprocess.
+    users.users.nix-serve = {
+      group = "nix-serve";
+      isSystemUser = true;
+    };
+    users.groups.nix-serve = {};
+
     # act as a remote builder
     nix.settings.trusted-users = [ "nixremote" ];
     users.users.nixremote = {

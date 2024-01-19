@@ -205,7 +205,7 @@ let
     vpn = static-nix-shell.mkBash {
       pname = "sane-vpn";
       src = ./src;
-      pkgs = [ "coreutils-full" "findutils" "gnugrep" "gnused" "sane-scripts.ip-check" "systemd" ];
+      pkgs = [ "coreutils-full" "gnugrep" "gnused" "sane-scripts.ip-check" "systemd" ];
     };
     which = static-nix-shell.mkBash {
       pname = "sane-which";

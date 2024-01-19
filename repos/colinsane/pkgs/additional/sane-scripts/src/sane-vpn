@@ -1,11 +1,11 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils-full -p findutils -p gnugrep -p gnused -p sane-scripts.ip-check -p systemd
+#!nix-shell -i bash -p coreutils-full -p gnugrep -p gnused -p sane-scripts.ip-check -p systemd
 
 oper="$1"
 region="$2"
 # region should be e.g. `us` or `ukr`
 
-vpns=$(networkctl list --json=short | jq '.Interfaces[] | select(.Kind == "wireguard") | .Name' | sed 's/"//g')
+vpns=$(systemctl list-unit-files | grep vpn- | cut -f 1 -d ' ' | sed s'/^vpn-\([a-zA-Z-]*\)\.service$/\1/g')
 
 usage() {
   echo "usage:"
@@ -17,12 +17,11 @@ usage() {
   echo "$vpns"
 }
 
-# TODO: this could be simplified; it's legacy from pre-networkctl. verb should always match oper now.
-verb="help"
+verb="cat"
 if [ "$oper" == up ]; then
-  verb="up"
+  verb="start"
 elif [ "$oper" == down ]; then
-  verb="down"
+  verb="stop"
 elif [ "$oper" == help ] || [ "$oper" == --help ] || [ -z "$oper" ]; then
   usage
   exit 0
@@ -32,12 +31,14 @@ else
   exit 1
 fi
 
-if [ $(echo "$vpns" | grep "^$region$") ]; then
-  iface="$region"
-elif [ $(echo "$vpns" | grep "^vpn-$region$") ]; then
-  iface="vpn-$region"
-elif [ $(echo "$vpns" | grep "^ovpnd-$region$") ]; then
-  iface="ovpnd-$region"
+if systemctl -q list-unit-files "$region"; then
+  service="$region"
+elif systemctl -q list-unit-files "vpn-$region.service"; then
+  service="vpn-$region.service"
+elif systemctl -q list-unit-files "vpn-ovpnd-$region.service"; then
+  service="vpn-ovpnd-$region.service"
+elif systemctl -q list-unit-files "wg-quick-$region.service"; then
+  service="wg-quick-$region.service"
 else
   echo "invalid vpn name '$region'"
   echo "choices:"
@@ -46,5 +47,5 @@ else
 fi
 
 echo before: $(sane-ip-check --no-upnp)
-sudo networkctl "$verb" "$iface"
+sudo systemctl "$verb" "$service"
 echo after:  $(sane-ip-check --no-upnp)
