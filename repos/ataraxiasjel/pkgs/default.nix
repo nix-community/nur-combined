@@ -14,6 +14,7 @@ with pkgs; with lib; {
   #FIXME: 'hip' has been removed in favor of 'rocmPackages.clr' on unstable channel
   # koboldcpp-rocm = callPackage ./koboldcpp-rocm { };
   mpris-ctl = callPackage ./mpris-ctl { };
+  ocis-bin = callPackage ./ocis-bin { };
   proton-ge = callPackage ./proton-ge { };
   protonhax = callPackage ./protonhax { };
   realrtcw = callPackage ./realrtcw { };
