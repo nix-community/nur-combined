@@ -6,7 +6,12 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
+let
+  sources = pkgs.callPackage ./_sources/generated.nix { };
+in
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
@@ -16,22 +21,21 @@ rec {
 
   bclm = pkgs.callPackage ./pkgs/bclm { };
   colima = pkgs.callPackage ./pkgs/colima { };
-  copyq = pkgs.callPackage ./pkgs/copyq { };
+  copyq = pkgs.callPackage ./pkgs/copyq { source = sources.copyq-darwin; };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
-  nixfmt = pkgs.callPackage ./pkgs/nixfmt { };
-  nixpkgs-review = pkgs.callPackage ./pkgs/nixpkgs-review { };
-  nowplaying-cli = pkgs.callPackage ./pkgs/nowplaying-cli { 
+  nixfmt = pkgs.callPackage ./pkgs/nixfmt { source = sources.nixfmt; };
+  nixpkgs-review = pkgs.callPackage ./pkgs/nixpkgs-review { source = sources.nixpkgs-review; };
+  nowplaying-cli = pkgs.callPackage ./pkgs/nowplaying-cli {
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
+    source = sources.nowplaying-cli;
   };
   psipred = pkgs.callPackage ./pkgs/psipred { };
-  qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { };
+  qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { source = sources.qutebrowser-darwin; };
   rofi-rbw = pkgs.callPackage ./pkgs/rofi-rbw { };
-  liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { 
-    inherit ligaturizer; 
-  };
-  liga-hackgen-nf-font = liga-hackgen-font.override { 
-    nerdfont = true; 
-  };
+  liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { inherit ligaturizer; };
+  liga-hackgen-nf-font = liga-hackgen-font.override { nerdfont = true; };
 
-  vimPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vim-plugins { inherit (pkgs.vimUtils) buildVimPlugin; });
+  vimPlugins = pkgs.recurseIntoAttrs (
+    pkgs.callPackage ./pkgs/vim-plugins { inherit (pkgs.vimUtils) buildVimPlugin; }
+  );
 }

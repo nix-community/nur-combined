@@ -1,21 +1,16 @@
 {
+  source,
   lib,
-  fetchurl,
   stdenv,
   undmg,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "qutebrowser";
-  version = "3.1.0";
-
-  src = fetchurl {
-    url = "https://github.com/qutebrowser/qutebrowser/releases/download/v${version}/qutebrowser-${version}.dmg";
-    sha256 = "sha256-AvuuwUnxMcr2ekZ/O1FL/4IizV1aTMhXNrbf1SwNY7U=";
-  };
+  inherit (source) version src;
 
   preferLocalBuild = true;
 
-  nativeBuildInputs = [undmg];
+  nativeBuildInputs = [ undmg ];
 
   sourceRoot = "qutebrowser.app";
 

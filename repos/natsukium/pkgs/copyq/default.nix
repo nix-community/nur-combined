@@ -1,23 +1,24 @@
 {
   lib,
-  fetchzip,
   stdenv,
+  source,
   undmg,
+  unzip,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "copyq";
-  version = "6.4.0";
-
-  src = fetchzip {
-    url = "https://github.com/hluk/CopyQ/releases/download/v${version}/CopyQ.dmg.zip";
-    hash = "sha256-sHggRlyog+t+SWyo6sTKtJcfuEu/hgyNVXrd7sOK2XQ=";
-  };
+  inherit (source) version src;
 
   preferLocalBuild = true;
 
-  nativeBuildInputs = [undmg];
+  nativeBuildInputs = [
+    undmg
+    unzip
+  ];
+
   unpackCmd = ''
-    undmg $curSrc/CopyQ.dmg
+    unzip $curSrc
+    undmg CopyQ.dmg
   '';
 
   sourceRoot = "CopyQ.app";

@@ -1,21 +1,13 @@
 {
+  source,
   lib,
   stdenv,
-  fetchFromGitHub,
   Cocoa,
 }:
-stdenv.mkDerivation rec {
-  pname = "nowplaying-cli";
-  version = "1.2.1";
+stdenv.mkDerivation {
+  inherit (source) pname version src;
 
-  src = fetchFromGitHub {
-    owner = "kirtan-shah";
-    repo = "nowplaying-cli";
-    rev = "v${version}";
-    hash = "sha256-FkyrtgsGzpK2rLNr+oxfPUbX43TVXYeiBg7CN1JUg8Y=";
-  };
-
-  buildInputs = [Cocoa];
+  buildInputs = [ Cocoa ];
 
   installPhase = ''
     runHook preInstall
