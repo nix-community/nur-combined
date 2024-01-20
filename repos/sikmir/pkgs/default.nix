@@ -83,6 +83,7 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / LIBRARIES
 
+    c-periphery = callPackage ./development/libraries/c-periphery { };
     libgnunetchat = callPackage ./development/libraries/libgnunetchat { };
     libshell = callPackage ./development/libraries/libshell { };
     microjson = callPackage ./development/libraries/microjson { };
