@@ -7,6 +7,8 @@ import logging
 import requests
 import tempfile
 
+from requests.exceptions import InvalidSchema
+
 from sane_bt import MediaMeta, TransmissionApi
 
 logger = logging.getLogger(__name__)
@@ -31,12 +33,26 @@ def resolve_torrent(uri: str) -> str:
     """
     if uri.startswith("http://") or uri.startswith("https://"):
         logger.info(f"downloading remote torrent data: {uri}")
-        response = requests.get(uri)
-        # N.B.: without `delete=False`, file gets deleted when the function returns.
-        # could work around this, but it's nice to keep the file around anyway for troubleshooting
-        f = tempfile.NamedTemporaryFile(suffix=".torrent", delete=False)
-        f.write(response.content)
-        uri = f.name
+        try:
+            response = requests.get(uri)
+        except InvalidSchema as e:
+            # sometimes the URI resolves to a magnet: link (popular with KAT)
+            # that's *FINE*, unfortunately `requests` library gives us no way to access that link except by parsing the error message.
+            # alternatively i could install some special requests adapter that handles the magnet: schema.
+            logger.debug(f"URL resolution error: {e}")
+            if len(e.args) == 1 and "magnet:" in e.args[0]:
+                uri = e.args[0].replace("No connection adapters were found for ", "")
+                uri = uri.strip("'")
+                if not uri.startswith("magnet:"): raise
+                logger.info(f"resolved torrent to {uri}")
+            else:
+                raise
+        else:
+            # N.B.: without `delete=False`, file gets deleted when the function returns.
+            # could work around this, but it's nice to keep the file around anyway for troubleshooting
+            f = tempfile.NamedTemporaryFile(suffix=".torrent", delete=False)
+            f.write(response.content)
+            uri = f.name
 
     if not (uri.startswith("magnet:") or uri.endswith(".torrent")):
         logger.warn(f"unknown type for torrent URI: {uri}")

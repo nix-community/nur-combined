@@ -232,7 +232,12 @@ class Client:
         params = params.copy()
         params.update(apikey=self.apikey, _=str(int(time.time())))
         resp = requests.get(url, params=params)
-        return resp.json()
+        text = str(resp.text)
+        try:
+            return json.loads(text)
+        except Exception as e:
+            logger.error(f"failed to parse json API response from {url}: {text}")
+            raise e
 
     def query(self, q: str) -> list[Torrent]:
         torrents = set()
