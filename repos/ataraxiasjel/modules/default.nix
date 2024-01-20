@@ -1,3 +1,3 @@
 {
-  # my-module = ./my-module;
+  ocis = ./ocis.nix;
 }
