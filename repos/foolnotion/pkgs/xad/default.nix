@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "xad";
-  version = "1.3.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "auto-differentiation";
     repo = "xad";
     rev = "v${version}";
-    hash = "sha256-Fag5MVEwi4MRYa3fpK+eYBk1Ztire39m/RqvLepUCzU=";
+    hash = "sha256-4awBMrBoJysyOIO8l9m7gj65f8BI/Xud1OtuWXRRye4=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
     "-DXAD_ENABLE_TESTS=OFF"
     "-DXAD_POSITION_INDEPENDENT_CODE=ON"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    "-DXAD_SIMD_OPTION=AVX2"
   ];
 
   meta = with lib; {
