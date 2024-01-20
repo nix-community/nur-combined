@@ -49,4 +49,12 @@
       sha256 = "sha256-AvuuwUnxMcr2ekZ/O1FL/4IizV1aTMhXNrbf1SwNY7U=";
     };
   };
+  vivaldi-darwin = {
+    pname = "vivaldi-darwin";
+    version = "6.5.3206.55";
+    src = fetchurl {
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.5.3206.55.universal.dmg";
+      sha256 = "sha256-1AUcbCjetZJIiDEpXALDtgSJXZK23o7Dt8Sgr+o1qro=";
+    };
+  };
 }

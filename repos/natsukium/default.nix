@@ -32,6 +32,7 @@ rec {
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { source = sources.qutebrowser-darwin; };
   rofi-rbw = pkgs.callPackage ./pkgs/rofi-rbw { };
+  vivaldi-bin = pkgs.callPackage ./pkgs/vivaldi { source = sources.vivaldi-darwin; };
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { inherit ligaturizer; };
   liga-hackgen-nf-font = liga-hackgen-font.override { nerdfont = true; };
 

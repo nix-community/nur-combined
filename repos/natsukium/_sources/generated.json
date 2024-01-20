@@ -83,5 +83,20 @@
             "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.1.0/qutebrowser-3.1.0.dmg"
         },
         "version": "3.1.0"
+    },
+    "vivaldi-darwin": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vivaldi-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1AUcbCjetZJIiDEpXALDtgSJXZK23o7Dt8Sgr+o1qro=",
+            "type": "url",
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.5.3206.55.universal.dmg"
+        },
+        "version": "6.5.3206.55"
     }
 }

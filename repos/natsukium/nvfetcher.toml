@@ -22,3 +22,7 @@ fetch.url = "https://github.com/kirtan-shah/nowplaying-cli/archive/v$ver.tar.gz"
 src.github = "qutebrowser/qutebrowser"
 src.prefix = "v"
 fetch.url = "https://github.com/qutebrowser/qutebrowser/releases/download/v$ver/qutebrowser-$ver.dmg"
+
+[vivaldi-darwin]
+src.archpkg = "vivaldi"
+fetch.url = "https://downloads.vivaldi.com/stable/Vivaldi.$ver.universal.dmg"
