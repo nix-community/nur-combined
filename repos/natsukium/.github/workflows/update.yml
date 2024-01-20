@@ -1,0 +1,24 @@
+name: "Update source and create PR"
+on:
+  schedule:
+    - cron:  '0 19 * * *'
+jobs:
+  updates:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install nix
+      uses: cachix/install-nix-action@v25
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+    - name: Update flake inputs
+      run: nix flake update
+    - name: Update sources
+      run: nix run nixpkgs#nvfetcher
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.PAT }}
+        commit-message: update source
