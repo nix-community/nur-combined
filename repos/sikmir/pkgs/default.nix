@@ -495,6 +495,9 @@ lib.makeScope newScope (
 
     acarsdec = callPackage ./radio/acarsdec { };
     aprsc = callPackage ./radio/aprsc { };
+    dumpvdl2 = callPackage ./radio/dumpvdl2 {
+      inherit (darwin.apple_sdk.frameworks) AppKit Foundation;
+    };
     fmreceiver = libsForQt5.callPackage ./radio/fmreceiver { };
     goestools = callPackage ./radio/goestools { };
     gqrx-scanner = callPackage ./radio/gqrx-scanner { };
