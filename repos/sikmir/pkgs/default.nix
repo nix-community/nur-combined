@@ -502,6 +502,7 @@ lib.makeScope newScope (
     linrad = callPackage ./radio/linrad { };
     rtlsdr-airband = callPackage ./radio/rtlsdr-airband { };
     rtltcp = callPackage ./radio/rtltcp { };
+    sdr-modem = callPackage ./radio/sdr-modem { };
     sdr-server = callPackage ./radio/sdr-server { };
     smallrx = callPackage ./radio/smallrx { };
 
