@@ -21,7 +21,6 @@ let
 
     ### ADDITIONAL PACKAGES
     alsa-ucm-conf-sane = callPackage ./additional/alsa-ucm-conf-sane { };
-    bonsai = callPackage ./additional/bonsai { };
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     chatty-latest = callPackage ./additional/chatty-latest { };

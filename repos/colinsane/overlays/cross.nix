@@ -653,6 +653,19 @@ in with final; {
   #   };
   # });
 
+  firejail = prev.firejail.overrideAttrs (upstream: {
+    # firejail executes its build outputs to produce the default filter list.
+    # i think we *could* copy the default filters from pkgsBuildBuild, but that doesn't seem future proof
+    # for any (future) arch-specific filtering
+    postPatch = (upstream.postPatch or "") + (let
+      emulator = stdenv.hostPlatform.emulator buildPackages;
+    in lib.optionalString (!prev.stdenv.buildPlatform.canExecute prev.stdenv.hostPlatform) ''
+      substituteInPlace Makefile \
+        --replace '	src/fseccomp/fseccomp' '	${emulator} src/fseccomp/fseccomp' \
+        --replace '	src/fsec-optimize/fsec-optimize' '	${emulator} src/fsec-optimize/fsec-optimize'
+    '');
+  });
+
   # flare-signal = prev.flare-signal.override {
   #   # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
   #   inherit (emulated) cargo meson rustc rustPlatform stdenv;

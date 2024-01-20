@@ -27,11 +27,6 @@ let
     ) else null;
 in [
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/280551";
-    title = "python3Packages.pure-protobuf: 3.0.0 -> 2.3.0";  # 2024/01/12: fix build
-    hash = "sha256-T1Ojc4A9rcJsmQ8Il76qdVFNOqnWHJj9kKnnWt0E74A=";
-  })
-  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/280925";
     title = "j4-dmenu-desktop: pin to gcc12";  # 2024/01/14: fix build
     hash = "sha256-VW2l7eViI1erlTRFw2mpY2qWDdBlYxVSQewFPWwRhgg=";
@@ -40,6 +35,7 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/277003";
     title = " pcsclite: disable building pcsc-wirecheck{,-gen} when cross compiling";  # 2023/12/27: fix build
     hash = "sha256-9QqeZV1FgbxRpDDqHXWcIpOqyAt0YZRBcCTdoC6ugaY=";
+    merged.staging = "202401191200";
   })
   (fetchpatch' {
     title = "argyllcms: support cross compilation";
@@ -229,27 +225,6 @@ in [
   #   saneCommit = "e8b19984a2858ca24b7e8f5acd20be8b7dfe1af0";
   #   hash = "sha256-K3mG1kcyB7sQZ7ZRCdlinNsV6mCcl3eIUI2ldSmcbJE=";
   # })
-
-  # (fetchpatch' {
-  #   title = "hare-json: init at unstable-2023-02-25";
-  #   saneCommit = "6c88c2b087755e8f60c9f61c6361dec2f7a38155";
-  #   hash = "sha256-9TTlhwLDZESaFC02k4+YER+NvoNVPz9wFYV79+Dmuxs=";
-  # })
-  # (fetchpatch' {
-  #   title = "hare-ev: init at unstable-2022-12-29";
-  #   saneCommit = "1761049e9b8620091f29bf864ecbbf204b0c56b4";
-  #   hash = "sha256-H2ekBJx/iRX8E4uVmdEyaAZVhqeM25QbwvQ9Ki7fMQ0=";
-  # })
-  # (fetchpatch' {
-  #   title = "bonsai: init at 1.0.0";
-  #   saneCommit = "507252828934c73c7cffe255dae237c041676c27";
-  #   hash = "sha256-HwycOd3v4IifdQqQmMP6w14g0E/T9RAjAw41AsUZQoc=";
-  # })
-  (fetchpatch' {
-    title = "bonsai: init at 1.0.2";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
-    hash = "sha256-i50rY3S4IeRHpZrG2wF/MJaLyS7TbfUv6pszrDOixzg=";
-  })
 
   (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
