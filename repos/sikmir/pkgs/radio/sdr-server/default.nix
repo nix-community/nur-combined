@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdr-server";
-  version = "1.1.8";
+  version = "1.1.12";
 
   src = fetchFromGitHub {
     owner = "dernasherbrezon";
     repo = "sdr-server";
     rev = finalAttrs.version;
-    hash = "sha256-xPB1EgsDVc7beoCzTvSFpx5MKpvEgksU3usX1cHHldo=";
+    hash = "sha256-LFXMWsZM2bt8Ew1g3KMakLWgHihrkAivL0QQ+XKNtos=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];

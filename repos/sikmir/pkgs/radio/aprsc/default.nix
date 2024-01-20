@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "aprsc";
-  version = "2.1.14";
+  version = "2.1.15";
 
   src = fetchFromGitHub {
     owner = "hessu";
     repo = "aprsc";
     rev = "release/${finalAttrs.version}";
-    hash = "sha256-9UND4dWzTt0dyZXf2WUiG1WwJrYMGG+NV5l1hXlOcjk=";
+    hash = "sha256-fmsebtVG+C0kSWNOLY8e5OD+N8dmoPtQEmSc27t5dt4=";
   };
 
   patches = [

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libacars";
-  version = "2.1.4";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "szpajder";
     repo = "libacars";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-uOIAGCcCUhc2RsCWOhTVGPQBNpLQMqs0vpXJ5/SS9sE=";
+    hash = "sha256-2n1tuKti8Zn5UzQHmRdvW5Q+x4CXS9QuPHFQ+DFriiE=";
   };
 
   nativeBuildInputs = [ cmake ];

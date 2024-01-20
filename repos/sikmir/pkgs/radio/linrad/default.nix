@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "linrad";
-  version = "2021-09-05";
+  version = "2023-11-12";
 
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/linrad/code/trunk";
-    rev = "994";
-    sha256 = "sha256-eO3MLSLlwFMCz1nSw/Qv00EVxO/y7q5JJyagFZpUQtY=";
+    rev = "1024";
+    sha256 = "sha256-SiP/uckq+Ph888w+4z0hsUl2N/UYbMtoYbLcbeJ7ja8=";
   };
 
   nativeBuildInputs = [ cmake nasm ];
