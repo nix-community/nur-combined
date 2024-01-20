@@ -17,6 +17,10 @@ get_vpns() {
 }
 
 canonicalize_region() {
+  if [ "$region" = "default" ]; then
+    # TODO: don't special-case this, but e.g. grab whichever VPN has the lowest `ip rule` priority.
+    region="us"
+  fi
   if networkctl list "br-$region"; then
     bridge="br-$region"
   elif networkctl list "br-ovpnd-$region"; then

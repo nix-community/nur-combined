@@ -86,8 +86,8 @@ let
 in
 {
   sane.programs.neovim = {
-    # package = config.programs.neovim.finalPackage;
-    package = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (pkgs.neovimUtils.makeNeovimConfig {
+    # packageUnwrapped = config.programs.neovim.finalPackage;
+    packageUnwrapped = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (pkgs.neovimUtils.makeNeovimConfig {
       withRuby = false;  #< doesn't cross-compile w/o binfmt
       viAlias = true;
       vimAlias = true;

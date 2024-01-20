@@ -169,7 +169,7 @@ in
   config = lib.mkMerge [
     {
       sane.programs.swayApps = {
-        package = null;
+        packageUnwrapped = null;
         suggestedPrograms = [
           "guiApps"
           "conky"  # for a nice background

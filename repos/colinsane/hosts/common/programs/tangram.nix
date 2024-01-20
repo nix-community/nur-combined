@@ -18,7 +18,7 @@ in
     # XXX(2023/07/08): running on moby without disabling the webkit sandbox fails, with:
     # - `bwrap: Can't make symlink at /var/run: File exists`
     # see epiphany.nix for more info
-    package = pkgs.tangram.overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.tangram.overrideAttrs (upstream: {
       preFixup = ''
         gappsWrapperArgs+=(
           --set WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS "1"

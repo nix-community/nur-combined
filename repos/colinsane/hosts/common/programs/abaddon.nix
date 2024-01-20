@@ -15,7 +15,7 @@ in
       };
     };
 
-    package = pkgs.abaddon.overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.abaddon.overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
         (pkgs.fetchpatch {
           url = "https://git.uninsane.org/colin/abaddon/commit/eb551f188d34679f75adcbc83cb8d5beb4d19fd6.patch";

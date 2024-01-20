@@ -13,8 +13,8 @@ let
   };
 in {
   sane.programs.zeal = {
-    # package = pkgs.zeal-qt6;  #< TODO: upgrade system to qt6 versions of everything (i.e. jellyfin-media-player, nheko)
-    package = pkgs.zeal-qt5;
+    # packageUnwrapped = pkgs.zeal-qt6;  #< TODO: upgrade system to qt6 versions of everything (i.e. jellyfin-media-player, nheko)
+    packageUnwrapped = pkgs.zeal-qt5;
     slowToBuild = true;
     persist.byStore.plaintext = [
       ".cache/Zeal"
@@ -29,7 +29,7 @@ in {
       type = configOpts;
       default = {};
     };
-    package = pkgs.symlinkJoin {
+    packageUnwrapped = pkgs.symlinkJoin {
       name = "docsets";
       # build each package with rust docs
       paths = map (name:

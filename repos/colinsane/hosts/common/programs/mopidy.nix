@@ -29,7 +29,7 @@ let
 in
 {
   sane.programs.mopidy = {
-    package = mopidyWithExtensions (with pkgs; [
+    packageUnwrapped = mopidyWithExtensions (with pkgs; [
       mopidy-iris  # web client: <https://github.com/jaedb/Iris>
       mopidy-jellyfin
       mopidy-local

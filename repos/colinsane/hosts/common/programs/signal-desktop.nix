@@ -21,7 +21,7 @@ in
       };
     };
 
-    package = pkgs.signal-desktop-from-src;
+    packageUnwrapped = pkgs.signal-desktop-from-src;
 
     # creds, media
     persist.byStore.private = [

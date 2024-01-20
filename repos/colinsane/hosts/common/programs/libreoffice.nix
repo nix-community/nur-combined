@@ -2,9 +2,9 @@
 
 {
   sane.programs.libreoffice = {
-    # package = pkgs.libreoffice-bin;
-    # package = pkgs.libreoffice-still;
-    package = pkgs.libreoffice-fresh;
+    # packageUnwrapped = pkgs.libreoffice-bin;
+    # packageUnwrapped = pkgs.libreoffice-still;
+    packageUnwrapped = pkgs.libreoffice-fresh;
 
     slowToBuild = true;
 

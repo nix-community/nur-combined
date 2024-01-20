@@ -20,7 +20,7 @@ in
         };
       };
     };
-    package = pkgs.wrapMpv pkgs.mpv-unwrapped {
+    packageUnwrapped = pkgs.wrapMpv pkgs.mpv-unwrapped {
       scripts = with pkgs.mpvScripts; [
         mpris
         uosc

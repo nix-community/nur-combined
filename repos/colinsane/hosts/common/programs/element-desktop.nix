@@ -7,7 +7,7 @@
 { pkgs, ... }:
 {
   sane.programs.element-desktop = {
-    package = pkgs.element-desktop.override {
+    packageUnwrapped = pkgs.element-desktop.override {
       # use pre-build electron because otherwise it takes 4 hrs to build from source.
       electron = pkgs.electron-bin;
     };

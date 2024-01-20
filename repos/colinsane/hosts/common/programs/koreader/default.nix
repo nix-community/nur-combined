@@ -35,7 +35,7 @@ let
   ) wantedFeeds;
 in {
   sane.programs.koreader = {
-    package = pkgs.koreader-from-src;
+    packageUnwrapped = pkgs.koreader-from-src;
     # koreader applies these lua "patches" at boot:
     # - <https://github.com/koreader/koreader/wiki/User-patches>
     # the naming is IMPORTANT. these must start with a `2-` in order to be invoked during the right initialization phase

@@ -22,7 +22,7 @@
     #
     # TODO: consider `WEBKIT_USE_SINGLE_WEB_PROCESS=1` for better perf
     # - this runs all tabs in 1 process. which is fine, if i'm not a heavy multi-tabber
-    package = pkgs.epiphany.overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.epiphany.overrideAttrs (upstream: {
       preFixup = ''
         gappsWrapperArgs+=(
           --set WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS "1"

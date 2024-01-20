@@ -38,7 +38,7 @@ let
   # defaultSettings = firefoxSettings;
   defaultSettings = librewolfSettings;
 
-  package = (pkgs.wrapFirefox cfg.browser.browser {
+  packageUnwrapped = (pkgs.wrapFirefox cfg.browser.browser {
     # inherit the default librewolf.cfg
     # it can be further customized via ~/.librewolf/librewolf.overrides.cfg
     inherit (cfg.browser) extraPrefsFiles libName;
@@ -212,7 +212,7 @@ in
     })
     ({
       sane.programs.firefox = {
-        inherit package;
+        inherit packageUnwrapped;
 
         suggestedPrograms = [
           "open-in-mpv"

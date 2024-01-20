@@ -31,9 +31,33 @@ let
   ) (mkDefaultEnables pkgSpecs) pkgSpecs;
   mkDefaultEnables = lib.mapAttrs (_pname: _pval: { system = false; user = {}; });
   defaultEnables = solveDefaultEnableFor cfg;
+
+  # wrap a package so that its binaries (maybe) run in a sandbox
+  wrapPkg = { net }: package: (
+    if net == "clearnet" then
+      package
+    else if net == "vpn" then
+      # TODO: update the package's `.desktop` files to ensure they exec the sandboxed app.
+      pkgs.symlinkJoin {
+        inherit (package) name;
+        paths = [ package ];
+        postBuild = ''
+          for p in $(ls "$out/bin/"); do
+            unlink "$out/bin/$p"
+            cat <<EOF >> "$out/bin/$p"
+          #!/bin/sh
+          exec ${pkgs.sane-scripts.vpn}/bin/sane-vpn do default "${package}/bin/$p" "\$@"
+          EOF
+            chmod +x "$out/bin/$p"
+          done
+        '';
+      }
+    else
+      throw "unknown net type '${net}'"
+  );
   pkgSpec = with lib; types.submodule ({ config, name, ... }: {
     options = {
-      package = mkOption {
+      packageUnwrapped = mkOption {
         type = types.nullOr types.package;
         description = ''
           package, or `null` if the program is some sort of meta set (in which case it much EXPLICITLY be set null).
@@ -47,6 +71,13 @@ let
             # this indexing will throw if the package doesn't exist and the user forgets to specify
             # a valid source explicitly.
             lib.getAttrFromPath pkgPath pkgs;
+      };
+      package = mkOption {
+        type = types.nullOr types.package;
+        description = ''
+          assigned internally.
+          this is `packageUnwrapped`, but with the binaries possibly wrapped in sandboxing measures.
+        '';
       };
       enableFor.system = mkOption {
         type = types.bool;
@@ -161,6 +192,15 @@ let
           marking packages like this can be used to achieve faster, but limited, rebuilds/deploys (by omitting the package).
         '';
       };
+      net = mkOption {
+        type = types.enum [ "clearnet" "vpn" ];
+        default = "clearnet";
+        description = ''
+          how this app should have its network traffic routed.
+          - "clearnet" for unsandboxed network.
+          - "vpn" to route all traffic over the default VPN.
+        '';
+      };
       configOption = mkOption {
         type = types.raw;
         default = mkOption {
@@ -181,6 +221,11 @@ let
       passesSlowTest = saneCfg.enableSlowPrograms || !config.slowToBuild;
     in {
       enabled = (config.enableFor.system || enabledForUser) && passesSlowTest;
+      package = if config.packageUnwrapped == null then
+        null
+      else
+        wrapPkg { inherit (config) net; } config.packageUnwrapped
+        ;
     };
   });
   toPkgSpec = with lib; types.coercedTo types.package (p: { package = p; }) pkgSpec;

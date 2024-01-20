@@ -7,7 +7,7 @@ let
 in
 {
   sane.programs.feedbackd = {
-    package = pkgs.rmDbusServices pkgs.feedbackd;
+    packageUnwrapped = pkgs.rmDbusServices pkgs.feedbackd;
 
     configOption = with lib; mkOption {
       type = types.submodule {

@@ -23,9 +23,9 @@ let
 in
 {
   sane.programs.fractal = {
-    package = pkgs.fractal-nixified.optimized;
-    # package = pkgs.fractal-latest;
-    # package = pkgs.fractal-next;
+    packageUnwrapped = pkgs.fractal-nixified.optimized;
+    # packageUnwrapped = pkgs.fractal-latest;
+    # packageUnwrapped = pkgs.fractal-next;
 
     configOption = with lib; mkOption {
       default = {};

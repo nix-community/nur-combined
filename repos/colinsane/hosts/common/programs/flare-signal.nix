@@ -62,8 +62,8 @@
 { pkgs, ... }:
 {
   sane.programs.flare-signal = {
-    package = pkgs.flare-signal-nixified;
-    # package = pkgs.flare-signal;
+    packageUnwrapped = pkgs.flare-signal-nixified;
+    # packageUnwrapped = pkgs.flare-signal;
     persist.byStore.private = [
       # everything: conf, state, files, all opaque
       ".local/share/flare"

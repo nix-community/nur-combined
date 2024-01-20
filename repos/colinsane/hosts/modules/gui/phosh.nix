@@ -23,7 +23,7 @@ in
   config = mkMerge [
     {
       sane.programs.phoshApps = {
-        package = null;
+        packageUnwrapped = null;
         suggestedPrograms = [
           "guiApps"
           # TODO: see about removing gnome-bluetooth if the in-built gnome-settings bluetooth manager can work

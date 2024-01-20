@@ -78,7 +78,7 @@ in {
   # CLI args: <https://git.asonix.dog/asonix/pict-rs#user-content-running>
   systemd.services.pict-rs.serviceConfig.ExecStart = lib.mkForce (lib.concatStringsSep " " [
     "${lib.getBin pict-rs}/bin/pict-rs run"
-    "--media-max-frame-count" (builtins.toString (30*60*60))
+    "--media-video-max-frame-count" (builtins.toString (30*60*60))
     "--media-process-timeout 120"
     "--media-enable-full-video true"  # allow audio
   ]);

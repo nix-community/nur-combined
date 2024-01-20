@@ -87,7 +87,7 @@ let
 in
 {
   sane.programs.bemenu = {
-    package = pkgs.bemenu.overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.bemenu.overrideAttrs (upstream: {
       nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
         pkgs.makeWrapper
       ];

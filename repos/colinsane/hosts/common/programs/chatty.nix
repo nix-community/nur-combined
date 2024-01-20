@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   sane.programs.chatty = {
-    # package = chattyNoOauth;
-    package = pkgs.chatty-latest;
+    # packageUnwrapped = chattyNoOauth;
+    packageUnwrapped = pkgs.chatty-latest;
     suggestedPrograms = [ "gnome-keyring" ];
     persist.byStore.private = [
       ".local/share/chatty"  # matrix avatars and files

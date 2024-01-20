@@ -56,6 +56,7 @@
     ./neovim.nix
     ./newsflash.nix
     ./nheko.nix
+    ./nicotine-plus.nix
     ./nix-index.nix
     ./notejot.nix
     ./ntfy-sh.nix

@@ -116,7 +116,7 @@ in
       default = {};
     };
     # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
-    package = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
       # allow toggle buttons:
       patches = (upstream.patches or []) ++ [
         # (pkgs.fetchpatch {

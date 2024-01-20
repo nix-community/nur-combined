@@ -23,7 +23,7 @@ in
       };
     };
 
-    package = pkgs.static-nix-shell.mkBash {
+    packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "sway-autoscaler";
       pkgs = [ "jq" "sway" "util-linux" ];
       src = ./.;

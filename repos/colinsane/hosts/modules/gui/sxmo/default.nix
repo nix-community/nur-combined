@@ -262,7 +262,7 @@ in
   config = lib.mkMerge [
     {
       sane.programs.sxmoApps = {
-        package = null;
+        packageUnwrapped = null;
         suggestedPrograms = [
           "guiApps"
           "bemenu"  # specifically to import its theming

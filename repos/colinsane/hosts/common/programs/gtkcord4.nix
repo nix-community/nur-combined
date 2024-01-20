@@ -17,7 +17,7 @@ in
       };
     };
 
-    package = pkgs.gtkcord4.overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.gtkcord4.overrideAttrs (upstream: {
       postConfigure = (upstream.postConfigure or "") + ''
         # gtkcord4 uses go-keyring to interface with the org.freedesktop.secrets provider (i.e. gnome-keyring).
         # go-keyring hardcodes `login.keyring` as the keyring to store secrets in, instead of reading `~/.local/share/keyring/default`.

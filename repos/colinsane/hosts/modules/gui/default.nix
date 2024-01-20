@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   declPackageSet = pkgs: {
-    package = null;
+    packageUnwrapped = null;
     suggestedPrograms = pkgs;
   };
 in
@@ -162,6 +162,7 @@ in
       "monero-gui"  # x86-only
       "mumble"
       # "nheko"  # Matrix chat client
+      "nicotine-plus"  # soulseek client
       # "obsidian"
       "openscad"  # 3d modeling
       # "rhythmbox"  # local music player

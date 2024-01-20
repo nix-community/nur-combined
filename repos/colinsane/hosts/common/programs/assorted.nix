@@ -2,7 +2,7 @@
 
 let
   declPackageSet = pkgs: {
-    package = null;
+    packageUnwrapped = null;
     suggestedPrograms = pkgs;
   };
 in
@@ -239,7 +239,7 @@ in
 
     fluffychat-moby.persist.byStore.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
-    font-manager.package = pkgs.font-manager.override {
+    font-manager.packageUnwrapped = pkgs.font-manager.override {
       # build without the "Google Fonts" integration feature, to save closure / avoid webkitgtk_4_0
       withWebkit = false;
     };
@@ -262,7 +262,7 @@ in
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
 
-    python3-repl.package = pkgs.python3.withPackages (ps: with ps; [
+    python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
       requests
     ]);
 

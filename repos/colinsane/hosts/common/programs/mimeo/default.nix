@@ -45,7 +45,7 @@ let
 in
 {
   sane.programs.mimeo = {
-    package = pkgs.mimeo.overridePythonAttrs (upstream: {
+    packageUnwrapped = pkgs.mimeo.overridePythonAttrs (upstream: {
       nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
         pkgs.copyDesktopItems
       ];

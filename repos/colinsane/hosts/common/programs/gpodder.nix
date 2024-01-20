@@ -8,7 +8,7 @@ let
   wanted-feeds = feeds.filterByFormat [ "podcast" "video" ] all-feeds;
 in {
   sane.programs.gpodder = {
-    package = pkgs.gpodder-adaptive-configured.overrideAttrs (base: {
+    packageUnwrapped = pkgs.gpodder-adaptive-configured.overrideAttrs (base: {
       # environment variables:
       # - GPODDER_HOME (defaults to "~/gPodder")
       # - GPODDER_DOWNLOAD_DIR (defaults to "$GPODDER_HOME/Downloads")
@@ -19,7 +19,7 @@ in {
         "--set" "GPODDER_HOME" "~/.local/share/gPodder"
       ];
     });
-    # package = pkgs.gpodder-configured;
+    # packageUnwrapped = pkgs.gpodder-configured;
     fs.".config/gpodderFeeds.opml".symlink.text = feeds.feedsToOpml wanted-feeds;
 
     # XXX: we preserve the whole thing because if we only preserve gPodder/Downloads
