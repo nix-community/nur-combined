@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "8b8769f5c1ff67036ff66c2a2a95c7489f6e2d48";
+    version = "9bf129ba58d5a5e7e28639825733576dc8620804";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "8b8769f5c1ff67036ff66c2a2a95c7489f6e2d48";
+      rev = "9bf129ba58d5a5e7e28639825733576dc8620804";
       fetchSubmodules = false;
-      sha256 = "sha256-2NRLAAXVW1ZJD163DuDNpQK0/hAhnNxMQaEOszu3AqU=";
+      sha256 = "sha256-AnBn7zzBa5NaG43Cx7iAv44/u062r5mxtWcA3B//SHw=";
     };
-    date = "2024-01-18";
+    date = "2024-01-19";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -521,15 +521,15 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "7c297e4d2e08fcdd3e9b2dcae2a42317b9a217ff";
+    version = "9c611a15277b9978960df780a8f5ca3dee630354";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "7c297e4d2e08fcdd3e9b2dcae2a42317b9a217ff";
+      rev = "9c611a15277b9978960df780a8f5ca3dee630354";
       fetchSubmodules = false;
-      sha256 = "sha256-GVfr2fzaQYyfNnjN20YcNfBVB144gZKVEunbX10Mgeg=";
+      sha256 = "sha256-GWuZrHnOE6WGsl15UhQ5U0MPEX2UoArdZvKyvZwyoas=";
     };
-    date = "2023-10-29";
+    date = "2024-01-20";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -579,13 +579,13 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.72-xanmod1";
+    version = "6.1.73-rt22-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.72-xanmod1";
+      rev = "6.1.73-rt22-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-S8Ilrce7xQb549NPIBRIMMIng4xY77Hbq58rE5LOow8=";
+      sha256 = "sha256-EtNpDfRgfcXPXYW9bdVE4PY22QYY4O3nxVueIXIjakk=";
     };
   };
   linux-xanmod-6_6 = {
@@ -665,15 +665,15 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "bd338835463811fe0221db858d865269952aaed9";
+    version = "724b34d7f1eff083860e3ac613a2c1d66a238dfd";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "bd338835463811fe0221db858d865269952aaed9";
+      rev = "724b34d7f1eff083860e3ac613a2c1d66a238dfd";
       fetchSubmodules = false;
-      sha256 = "sha256-ReTmYGVSOwtnYDMkQDMWwxw09vT4iHYfYZvgd8iBotk=";
+      sha256 = "sha256-bnNHL7uOxrfQrqTtH/6S0u/KxG81tAAAFgaOfhN9m8M=";
     };
-    date = "2023-05-26";
+    date = "2024-01-20";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -767,15 +767,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "5fce56839dedbf7bdec9bcf1baa21962a1581834";
+    version = "c8d30c87d4deadf153c293f89fae7c3efb5acba1";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "5fce56839dedbf7bdec9bcf1baa21962a1581834";
+      rev = "c8d30c87d4deadf153c293f89fae7c3efb5acba1";
       fetchSubmodules = false;
-      sha256 = "sha256-1+gM6EHktiS37PbUE0A3/5Pd6qG52rApi2FQW65SZQ8=";
+      sha256 = "sha256-H57uoMO2RSZAkGM9Oa2UZtfm7nKhvBnYgZWtu9EGOAs=";
     };
-    date = "2024-01-18";
+    date = "2024-01-19";
   };
   osdlyrics = {
     pname = "osdlyrics";

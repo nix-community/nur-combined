@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-18",
+        "date": "2024-01-19",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "8b8769f5c1ff67036ff66c2a2a95c7489f6e2d48",
-            "sha256": "sha256-2NRLAAXVW1ZJD163DuDNpQK0/hAhnNxMQaEOszu3AqU=",
+            "rev": "9bf129ba58d5a5e7e28639825733576dc8620804",
+            "sha256": "sha256-AnBn7zzBa5NaG43Cx7iAv44/u062r5mxtWcA3B//SHw=",
             "type": "github"
         },
-        "version": "8b8769f5c1ff67036ff66c2a2a95c7489f6e2d48"
+        "version": "9bf129ba58d5a5e7e28639825733576dc8620804"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -893,7 +893,7 @@
     },
     "librime-lua": {
         "cargoLocks": null,
-        "date": "2023-10-29",
+        "date": "2024-01-20",
         "extract": null,
         "name": "librime-lua",
         "passthru": null,
@@ -905,11 +905,11 @@
             "name": null,
             "owner": "hchunhui",
             "repo": "librime-lua",
-            "rev": "7c297e4d2e08fcdd3e9b2dcae2a42317b9a217ff",
-            "sha256": "sha256-GVfr2fzaQYyfNnjN20YcNfBVB144gZKVEunbX10Mgeg=",
+            "rev": "9c611a15277b9978960df780a8f5ca3dee630354",
+            "sha256": "sha256-GWuZrHnOE6WGsl15UhQ5U0MPEX2UoArdZvKyvZwyoas=",
             "type": "github"
         },
-        "version": "7c297e4d2e08fcdd3e9b2dcae2a42317b9a217ff"
+        "version": "9c611a15277b9978960df780a8f5ca3dee630354"
     },
     "librime-octagram": {
         "cargoLocks": null,
@@ -1005,11 +1005,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.1.72-xanmod1",
-            "sha256": "sha256-S8Ilrce7xQb549NPIBRIMMIng4xY77Hbq58rE5LOow8=",
+            "rev": "6.1.73-rt22-xanmod1",
+            "sha256": "sha256-EtNpDfRgfcXPXYW9bdVE4PY22QYY4O3nxVueIXIjakk=",
             "type": "github"
         },
-        "version": "6.1.72-xanmod1"
+        "version": "6.1.73-rt22-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -1143,7 +1143,7 @@
     },
     "nginx-module-vts": {
         "cargoLocks": null,
-        "date": "2023-05-26",
+        "date": "2024-01-20",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -1155,11 +1155,11 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "bd338835463811fe0221db858d865269952aaed9",
-            "sha256": "sha256-ReTmYGVSOwtnYDMkQDMWwxw09vT4iHYfYZvgd8iBotk=",
+            "rev": "724b34d7f1eff083860e3ac613a2c1d66a238dfd",
+            "sha256": "sha256-bnNHL7uOxrfQrqTtH/6S0u/KxG81tAAAFgaOfhN9m8M=",
             "type": "github"
         },
-        "version": "bd338835463811fe0221db858d865269952aaed9"
+        "version": "724b34d7f1eff083860e3ac613a2c1d66a238dfd"
     },
     "nginx-njs": {
         "cargoLocks": null,
@@ -1318,7 +1318,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-01-18",
+        "date": "2024-01-19",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1330,11 +1330,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "5fce56839dedbf7bdec9bcf1baa21962a1581834",
-            "sha256": "sha256-1+gM6EHktiS37PbUE0A3/5Pd6qG52rApi2FQW65SZQ8=",
+            "rev": "c8d30c87d4deadf153c293f89fae7c3efb5acba1",
+            "sha256": "sha256-H57uoMO2RSZAkGM9Oa2UZtfm7nKhvBnYgZWtu9EGOAs=",
             "type": "github"
         },
-        "version": "5fce56839dedbf7bdec9bcf1baa21962a1581834"
+        "version": "c8d30c87d4deadf153c293f89fae7c3efb5acba1"
     },
     "osdlyrics": {
         "cargoLocks": null,
