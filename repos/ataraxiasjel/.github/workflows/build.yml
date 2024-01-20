@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '.github/**'
+      - 'ci.nix'
+      - 'pkgs/**'
   schedule:
     - cron:  '43 7 * * *'
 jobs:
