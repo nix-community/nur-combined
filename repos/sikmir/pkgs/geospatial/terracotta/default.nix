@@ -2,18 +2,22 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "terracotta";
-  version = "0.7.5";
+  version = "0.8.2";
 
   src = fetchFromGitHub {
     owner = "DHI-GRAS";
     repo = "terracotta";
     rev = "refs/tags/v${version}";
-    hash = "sha256-Q1rn7Rm1W0itXyuph/aApP+mCSy1VybIoBdEJm6GO68=";
+    hash = "sha256-HWNV5MwbylpcJ/u0iFe8gJJLdnvrnK4S8UMSCpuBlqs=";
   };
+
+  postPatch = ''
+    substituteInPlace setup.py --replace "\"setuptools_scm_git_archive\"," ""
+  '';
 
   nativeBuildInputs = with python3Packages; [
     setuptools-scm
-    setuptools-scm-git-archive
+    #setuptools-scm-git-archive
   ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -32,6 +36,7 @@ python3Packages.buildPythonApplication rec {
     pillow
     pyyaml
     shapely
+    sqlalchemy
     rasterio
     toml
     tqdm

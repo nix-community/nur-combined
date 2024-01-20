@@ -11,7 +11,7 @@
 
 let
   version = "1.6.1";
-  revision = "6239"; # check on http://mighty-hoernsche.de/
+  revision = "6261"; # check on http://mighty-hoernsche.de/
   branch = "release-${lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version)}";
   optFI2 = fi2key != null && fi2iv != null;
   batchBuild = platform == null || platformsub == null;
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     url = "https://app.assembla.com/spaces/chdk/subversion/source/${revision}/branches/${branch}?_format=zip";
     extension = "zip";
     stripRoot = false;
-    hash = "sha256-gqb9JvPyzW77wlpZJqg3IYaGafQIzFopzGy9MZbr8Zs=";
+    hash = "sha256-VNkPju3nVxk1g5SzRZok5994JVupySbO7KZsD6sgXo8=";
   };
 
   nativeBuildInputs = [ gcc-arm-embedded zip ];
