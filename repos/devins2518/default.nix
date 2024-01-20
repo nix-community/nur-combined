@@ -23,4 +23,6 @@ rec {
   # zigup = pkgs.callPackage ./pkgs/zigup { };
   zig-stable = pkgs.callPackage ./pkgs/zig-stable { v = "0.10.0"; };
   gyro = pkgs.callPackage ./pkgs/gyro { zig = zig-stable; };
+
+  platformio = pkgs.callPackage ./pkgs/platformio { };
 }
