@@ -1849,10 +1849,10 @@
     };
     "dracula-dark-colorscheme" = buildFirefoxXpiAddon {
       pname = "dracula-dark-colorscheme";
-      version = "1.9.4";
+      version = "1.10.0";
       addonId = "{b743f56d-1cc1-4048-8ba6-f9c2ab7aa54d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4091018/dracula_dark_colorscheme-1.9.4.xpi";
-      sha256 = "c4c3b5dbf758f140dc3f60a7819b80af04b3b72a84e742c6731b33532c39c083";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224518/dracula_dark_colorscheme-1.10.0.xpi";
+      sha256 = "cf083076fc8d7fb5c44664648c4c029096896ef38104ee0d3fbe9a6d828943e1";
       meta = with lib;
       {
         homepage = "https://draculatheme.com/firefox";
