@@ -694,7 +694,13 @@
     }
   },
   {
+    "slug": "move-unloaded-tabs-for-tst"
+  },
+  {
     "slug": "multi-account-containers"
+  },
+  {
+    "slug": "multiple-tab-handler"
   },
   {
     "slug": "musescore-downloader"
@@ -929,6 +935,9 @@
   },
   {
     "slug": "pywalfox"
+  },
+  {
+    "slug": "qr-code-address-bar"
   },
   {
     "slug": "rabattcorner"
@@ -1209,6 +1218,24 @@
       "tag": "predefined",
       "shortName": "asl20"
     }
+  },
+  {
+    "slug": "tst-active-tab-on-scroll-bar"
+  },
+  {
+    "slug": "tst-bookmarks-subpanel"
+  },
+  {
+    "slug": "tst-fade-old-tabs"
+  },
+  {
+    "slug": "tst-indent-line"
+  },
+  {
+    "slug": "tst-lock-tree-collapsed"
+  },
+  {
+    "slug": "tst-more-tree-commands"
   },
   {
     "slug": "tst-search",

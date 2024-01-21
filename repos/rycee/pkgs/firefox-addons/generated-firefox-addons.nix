@@ -6395,6 +6395,21 @@
         platforms = platforms.all;
       };
     };
+    "move-unloaded-tabs-for-tst" = buildFirefoxXpiAddon {
+      pname = "move-unloaded-tabs-for-tst";
+      version = "2.4";
+      addonId = "{731bf636-c808-4c86-b02f-af462eccc963}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3531247/move_unloaded_tabs_for_tst-2.4.xpi";
+      sha256 = "9c1c5d8a8ae4a27428e7c1f7e8c1671b40bed388dafac35900f3b80c5118fa7b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Lej77/move-unloaded-tabs-for-tree-style-tab";
+        description = "Move tabs in the Tree Style Tab Sidebar without them becoming active.";
+        license = licenses.gpl3;
+        mozPermissions = [ "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "8.1.3";
@@ -6420,6 +6435,30 @@
           "tabs"
           "webRequestBlocking"
           "webRequest"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "multiple-tab-handler" = buildFirefoxXpiAddon {
+      pname = "multiple-tab-handler";
+      version = "3.1.11";
+      addonId = "multipletab@piro.sakura.ne.jp";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4025281/multiple_tab_handler-3.1.11.xpi";
+      sha256 = "f4e11e712357b3758f16920cd8a8baf3b5422f4997963be9d8c6910527cd842f";
+      meta = with lib;
+      {
+        homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
+        description = "Allows you to select tabs by dragging and do something.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "contextualIdentities"
+          "cookies"
+          "menus"
+          "menus.overrideContext"
+          "notifications"
+          "storage"
+          "tabs"
         ];
         platforms = platforms.all;
       };
@@ -7999,6 +8038,20 @@
         platforms = platforms.all;
       };
     };
+    "qr-code-address-bar" = buildFirefoxXpiAddon {
+      pname = "qr-code-address-bar";
+      version = "1.3";
+      addonId = "{a218c3db-51ef-4170-804b-eb053fc9a2cd}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3851152/qr_code_address_bar-1.3.xpi";
+      sha256 = "d847f3c402289663492e8e4b18341f4777b84631bc4b6d96f27d1f10b7208c0b";
+      meta = with lib;
+      {
+        description = "Adds a button to the address bar to get the current url as a qr code";
+        license = licenses.gpl3;
+        mozPermissions = [ "activeTab" ];
+        platforms = platforms.all;
+      };
+    };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
       version = "2.1.6.4";
@@ -9301,10 +9354,10 @@
     };
     "tetrio-plus" = buildFirefoxXpiAddon {
       pname = "tetrio-plus";
-      version = "0.25.9";
+      version = "0.26.0";
       addonId = "tetrio-plus@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4201664/tetrio_plus-0.25.9.xpi";
-      sha256 = "87ffd121869a302e040b750f6ee5540c7791d3cc7124c5bdb6a19c9d37f07412";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224653/tetrio_plus-0.26.0.xpi";
+      sha256 = "65fc3803914285d81d05bcd8b914d565352b7bf2fd62e6102182cc9850e2ae2e";
       meta = with lib;
       {
         description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d94d4f4d9a39d7847f4259e0053e02794a2d7361e70cf03a773b53993e17363d/http%3A//TETR.IO\" rel=\"nofollow\">TETR.IO</a>.";
@@ -9602,6 +9655,91 @@
           "proxy"
           "<all_urls>"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "tst-active-tab-on-scroll-bar" = buildFirefoxXpiAddon {
+      pname = "tst-active-tab-on-scroll-bar";
+      version = "1.2.1";
+      addonId = "tst-active-tab-on-scrollbar@piro.sakura.ne.jp";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165009/tst_active_tab_on_scroll_bar-1.2.1.xpi";
+      sha256 = "8511b44030b2109e74363d6c285f56786cf223e4e1b7a2844b5a73e20494a3a3";
+      meta = with lib;
+      {
+        description = "Provides a marker to indicate active tab position in Tree Style Tab sidebar.";
+        license = licenses.mpl20;
+        mozPermissions = [ "tabs" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "tst-bookmarks-subpanel" = buildFirefoxXpiAddon {
+      pname = "tst-bookmarks-subpanel";
+      version = "1.2.7";
+      addonId = "tst-bookmarks-subpanel@piro.sakura.ne.jp";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4025277/tst_bookmarks_subpanel-1.2.7.xpi";
+      sha256 = "c870abea11d94ca0e6d7e98943df7a6d39e067fb7cce4a2aaa7d000841a1f5b1";
+      meta = with lib;
+      {
+        description = "Provides a bookmarks subpanel for Tree Style Tab's sidebar.";
+        license = licenses.mpl20;
+        mozPermissions = [ "bookmarks" "browserSettings" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "tst-fade-old-tabs" = buildFirefoxXpiAddon {
+      pname = "tst-fade-old-tabs";
+      version = "1.0.1";
+      addonId = "tst_fade_old_tabs@emvaized.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3947697/tst_fade_old_tabs-1.0.1.xpi";
+      sha256 = "8ae93b81227316c543833358a25ccaf6ff8a84972e4866336ff37a73e6044290";
+      meta = with lib;
+      {
+        description = "This TST addon fades away tabs that hasn't been visited for a while";
+        license = licenses.mpl20;
+        mozPermissions = [ "tabs" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "tst-indent-line" = buildFirefoxXpiAddon {
+      pname = "tst-indent-line";
+      version = "1.2.4";
+      addonId = "tst-indent-line@piro.sakura.ne.jp";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165012/tst_indent_line-1.2.4.xpi";
+      sha256 = "11f334d952be34c5f41d4c3ccda0fd1fb85b11dfd07a541bcec99d6a1062fc24";
+      meta = with lib;
+      {
+        description = "Provides indent line for Tree Style Tab sidebar.";
+        license = licenses.mpl20;
+        mozPermissions = [ "tabs" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "tst-lock-tree-collapsed" = buildFirefoxXpiAddon {
+      pname = "tst-lock-tree-collapsed";
+      version = "1.3.0";
+      addonId = "tst-lock-tree-collapsed@piro.sakura.ne.jp";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4165013/tst_lock_tree_collapsed-1.3.0.xpi";
+      sha256 = "74e0aff00974d7905007f1351d3b56ee1edeb1c57d8cf1ae78928ffdfdc67bf3";
+      meta = with lib;
+      {
+        homepage = "https://github.com/piroor/tst-lock-tree-collapsed";
+        description = "Provides ability to lock trees in Tree Style Tab  as collapsed.";
+        license = licenses.mpl20;
+        mozPermissions = [ "menus" "tabs" "sessions" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "tst-more-tree-commands" = buildFirefoxXpiAddon {
+      pname = "tst-more-tree-commands";
+      version = "1.5";
+      addonId = "tst-more-tree-commands@piro.sakura.ne.jp";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4001424/tst_more_tree_commands-1.5.xpi";
+      sha256 = "11496b6b7a463241602802cb5c5b3af81102b64fb75c4c5cf6d82521586ae023";
+      meta = with lib;
+      {
+        description = "Provides extra tree manipulation commands for Tree Style Tab.";
+        license = licenses.mpl20;
+        mozPermissions = [ "menus" "tabs" "storage" ];
         platforms = platforms.all;
       };
     };
@@ -9911,10 +10049,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.1.14.912";
+      version = "2024.1.21.1302";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221710/ublock_origin_lite-2024.1.14.912.xpi";
-      sha256 = "b1784c943eed87322ff2a3331232f795190ca00c74141bec48c058f63da5cfe8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224872/ublock_origin_lite-2024.1.21.1302.xpi";
+      sha256 = "5fd974a31c4ead299fa529eb14261d6723bbe84f80899d6fb5943626e8d2e620";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
