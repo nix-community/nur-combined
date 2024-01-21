@@ -21,10 +21,10 @@
   outputs = { self, nixpkgs, flake-utils, dagger, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {inherit system};
       in {
-        devShell = pkgs.mkShell {
-          buildInputs = [ dagger.packages.dagger ];
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ dagger.packages.${system}.dagger ];
         };
       });
 }
