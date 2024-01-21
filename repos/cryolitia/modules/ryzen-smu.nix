@@ -4,10 +4,7 @@ with lib;
 
 let
 
-  ryzen-smu = config.boot.kernelPackages.callPackage ../pkgs/common/ryzen-smu.nix { };
-
-  ryzenadjCheck = lib.warnIf (builtins.elem pkgs.ryzenadj config.environment.systemPackages)
-    "ryzenadj is in environment.systemPackages, enable hardware.cpu.amd.ryzen-smu to enhance it.";
+  ryzen-smu = config.boot.kernelPackages.callPackage ../pkgs/linux/ryzen-smu.nix { };
 
 in
 {
