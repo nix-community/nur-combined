@@ -28,8 +28,6 @@ rustPlatform.buildRustPackage {
   };
   cargoBuildFlags = lib.concatMapStrings (c: "-p ${c} ") ["attic-client" "attic-server"];
 
-  patches = [./105-remove-unused-import.patch];
-
   postPatch = ''
     sed -i "/x-id/d" $cargoDepsCopy/aws-sdk-s3-*/src/operation/*.rs
   '';

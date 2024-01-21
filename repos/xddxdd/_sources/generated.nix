@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "9bf129ba58d5a5e7e28639825733576dc8620804";
+    version = "93345c020edf4932e10aa035781b2f9dc386af1f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "9bf129ba58d5a5e7e28639825733576dc8620804";
+      rev = "93345c020edf4932e10aa035781b2f9dc386af1f";
       fetchSubmodules = false;
-      sha256 = "sha256-AnBn7zzBa5NaG43Cx7iAv44/u062r5mxtWcA3B//SHw=";
+      sha256 = "sha256-DehQR/snnXsz40FBvxmRsxJhVpVnnG8PUFndOq+ZK6U=";
     };
-    date = "2024-01-19";
+    date = "2024-01-20";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -557,13 +557,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.7.0-xanmod1";
+    version = "6.7.1-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.7.0-xanmod1";
+      rev = "6.7.1-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-WqzOpqnytZqrAVzZHka1pZMh3U8jt/rA3OUGFonwMqA=";
+      sha256 = "sha256-KpE0eMdmv41GWP0XWodTk5vrf4WQMugQ/g23vO9b0BU=";
     };
   };
   linux-xanmod-6_0 = {
@@ -579,24 +579,24 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.73-rt22-xanmod1";
+    version = "6.1.74-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.73-rt22-xanmod1";
+      rev = "6.1.74-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-EtNpDfRgfcXPXYW9bdVE4PY22QYY4O3nxVueIXIjakk=";
+      sha256 = "sha256-PqCojvh7JwTcavtQHB8l/WxCTg94ndOy9KGVXsmGO/Y=";
     };
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.11-xanmod1";
+    version = "6.6.13-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.11-xanmod1";
+      rev = "6.6.13-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-pxi23tNVODsICLJFet1kTNdryL0ZkAsZQyZyOeP0tXk=";
+      sha256 = "sha256-RTfa9eIGYDqnffFnOFNaghKoGcHVy4rGYQkYumcw6Tk=";
     };
   };
   nbfc-linux-lantian = {
@@ -1094,18 +1094,18 @@
   };
   wine-wechat-x64 = {
     pname = "wine-wechat-x64";
-    version = "3.9.8.25";
+    version = "3.9.9.27";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.8.25/WeChatSetup-3.9.8.25.exe";
-      sha256 = "sha256-McpyJl1GEQpOwk8F7Dv6mfBwCJUxc5a4nsX40uX5GVA=";
+      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.27/WeChatSetup-3.9.9.27.exe";
+      sha256 = "sha256-uJ6Y0Seq39FoK9G9qDAx9Aw1Mz1OkS8g/r3rvo4H1bs=";
     };
   };
   wine-wechat-x86 = {
     pname = "wine-wechat-x86";
-    version = "3.9.8.24";
+    version = "3.9.9.22";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.8.24/WeChatSetupX86-3.9.8.24.exe";
-      sha256 = "sha256-ykkKQemnwPdT27BVXJG4pJi0lWlFWQi+CBR2vIqkvJ0=";
+      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.9.22/WeChatSetupX86-3.9.9.22.exe";
+      sha256 = "sha256-hiFh34A6nPYubgLPa7MeY3Ua9gGC9CpvKG3a5XlvJak=";
     };
   };
   xstatic-asciinema-player = {

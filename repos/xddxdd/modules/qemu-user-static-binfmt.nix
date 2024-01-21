@@ -229,7 +229,7 @@ in {
     environment.etc."binfmt.d/xddxdd-qemu-user-static.conf".text =
       lib.optionalString enabled
       (lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine qemu-user-static));
-    systemd.additionalUpstreamSystemUnits = lib.optionals enabled [
+    systemd.additionalUpstreamSystemUnits = lib.optionals (enabled && config.boot.binfmt.registrations == {}) [
       "proc-sys-fs-binfmt_misc.automount"
       "proc-sys-fs-binfmt_misc.mount"
       "systemd-binfmt.service"
