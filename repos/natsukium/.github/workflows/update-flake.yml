@@ -1,7 +1,7 @@
-name: "Update source and create PR"
+name: "Update flake and create PR"
 on:
   schedule:
-    - cron:  '0 19 * * *'
+    - cron:  '0 19 * * 6'
 jobs:
   updates:
     runs-on: ubuntu-latest
@@ -13,13 +13,13 @@ jobs:
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
-    - name: Update sources
-      run: nix run nixpkgs#nvfetcher
+    - name: Update flake inputs
+      run: nix flake update
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v5
       with:
         token: ${{ secrets.PAT }}
         committer: actions-user action@github.com
         author: actions-user action@github.com
-        commit-message: "update source"
-        title: "update source"
+        commit-message: "chore(deps): update flake inputs"
+        title: "chore(deps): update flake inputs"
