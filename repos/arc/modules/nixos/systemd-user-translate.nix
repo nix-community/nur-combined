@@ -22,6 +22,10 @@
   in unit // {
     __toString = self: "${self.name}.${self.type}";
   };
+  orderingName = ordering: {
+    before = "Before";
+    after = "After";
+  }.${ordering};
   users = mapAttrsToList (_: user: {
     inherit user;
     inherit (user.systemd) translate;
@@ -97,8 +101,10 @@
         ${config.systemStrength} = singleton (toString config.unit);
         bindsTo = mkIf (!config.userService.stopWhenUnneeded) [ (toString config.unit) ];
         partOf = bindsTo;
-        ${config.ordering} = singleton (toString config.unit);
-        unitConfig.StopWhenUnneeded = mkIf config.userService.stopWhenUnneeded true;
+        unitConfig = {
+          StopWhenUnneeded = mkIf config.userService.stopWhenUnneeded true;
+          ${orderingName config.ordering} = singleton (toString config.unit);
+        };
         serviceConfig = {
           ExecStart = singleton "${systemctl} start ${utils.escapeSystemdExecArg (toString config.systemTarget.name)}";
           ExecStop = singleton "${systemctl} stop ${utils.escapeSystemdExecArg (toString config.systemTarget.name)}";
@@ -158,17 +164,21 @@
       systemService.settings = mkMerge [ defaultServiceSettings rec {
         bindsTo = mkIf (!config.systemService.stopWhenUnneeded) [ (toString config.unit) ];
         partOf = bindsTo;
-        ${config.ordering} = singleton (toString config.unit);
-        unitConfig.StopWhenUnneeded = mkIf config.systemService.stopWhenUnneeded true;
+        unitConfig = {
+          StopWhenUnneeded = mkIf config.systemService.stopWhenUnneeded true;
+          ${orderingName config.ordering} = singleton (toString config.unit);
+        };
         environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/%i/bus";
         serviceConfig = {
           User = "%i";
           ExecStart = singleton "${systemctl-user} start ${utils.escapeSystemdExecArg (toString config.userTarget.name)}";
           ExecStop = singleton "${systemctl-user} stop ${utils.escapeSystemdExecArg (toString config.userTarget.name)}";
         };
-      } rec {
-        after = [ "user@%i.service" ];
-        unitConfig.StopPropagatedFrom = after;
+      } {
+        unitConfig = rec {
+          StopPropagatedFrom = After;
+          After = [ "user@%i.service" ];
+        };
       } ];
     };
   });
