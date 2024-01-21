@@ -78,6 +78,7 @@
     mtr
     screen
     sops
+    stuntman
     tcpdump
     traceroute
     usbutils
