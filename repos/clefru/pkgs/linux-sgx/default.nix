@@ -15,7 +15,7 @@ stdenv.mkDerivation {
 
   phases = "unpackPhase patchPhase buildPhase installPhase";
 
-  buildInputs = [ gcc bash automake autoconf pkgconfig libtool ocaml
+  buildInputs = [ gcc bash automake autoconf pkg-config libtool ocaml
     ocamlPackages.ocamlbuild libressl wget python protobuf protobufc
     curl coreutils file which mktemp ];
 

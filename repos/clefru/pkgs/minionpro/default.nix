@@ -8,17 +8,17 @@ in stdenv.mkDerivation rec {
   src = fetchzip {
     name = "scripts";
     stripRoot = false;
-    url = "http://tug.ctan.org/tex-archive/fonts/minionpro/scripts.zip";
+    url = "http://mirrors.ctan.org/fonts/minionpro/scripts.zip";
     sha256 = "0w5i6r5chf2c2mp3pd8b7as3nl0ri3f43cavxiix0wcv1da1y0lw";
   };
   enc = fetchurl {
     name = "enc";
-    url = "http://tug.ctan.org/tex-archive/fonts/minionpro/enc-2.000.zip";
+    url = "http://mirrors.ctan.org/fonts/minionpro/enc-2.000.zip";
     sha256 = "12mwn0409pf7qcigp7alvrwnz8j1zpiv10ihw8jbffdpc97gdfaj";
   };
   metrics = fetchurl {
     name = "metrics";
-    url = "http://tug.ctan.org/tex-archive/fonts/minionpro/metrics-base.zip";
+    url = "http://mirrors.ctan.org/fonts/minionpro/metrics-base.zip";
     sha256 = "0571jv8i5x0aii6ycm70hwlsfm1swb077vmzdby5qvc3c5vjyhvr";
   };
   adobereader = fetchurl {
@@ -41,7 +41,7 @@ in stdenv.mkDerivation rec {
   
   phases = [ "unpackPhase" "buildPhase" "installPhase" ];
  			       
-  buildInputs = [ texlive.combined.scheme-minimal libarchive ];
+  nativeBuildInputs = [ texlive.combined.scheme-minimal libarchive lcdf-typetools ];
 
   sourceRoot = ".";
   buildPhase = (''
