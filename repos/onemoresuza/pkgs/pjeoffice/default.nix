@@ -11,7 +11,7 @@
   libGL,
 }: let
   pjeOffice = let
-    mainProgram = "PJeOffice";
+    mainProgram = "pjeoffice";
   in
     stdenvNoCC.mkDerivation {
       pname = "pjeoffice";
@@ -47,7 +47,7 @@
     };
 in
   buildFHSEnv {
-    name = "PJeOffice";
+    name = "pjeoffice";
     targetPkgs = pkgs:
       [
         pjeOffice

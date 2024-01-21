@@ -20,5 +20,5 @@
   pdpmake = pkgs.callPackage ./pkgs/pdpmake {};
   chawan = pkgs.callPackage ./pkgs/chawan {};
   aercbook = pkgs.callPackage ./pkgs/aercbook {};
-  pjeoffice = pkgs.callPackage ./pkgs/PJeOffice {};
+  pjeoffice = pkgs.callPackage ./pkgs/pjeoffice {};
 }
