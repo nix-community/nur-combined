@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     "-DXAD_ENABLE_TESTS=OFF"
     "-DXAD_POSITION_INDEPENDENT_CODE=ON"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    "-DXAD_SIMD_OPTION=AVX2"
+    "${if stdenv.targetPlatform.isx86_64 then "-DXAD_SIMD_OPTION=AVX2" else ""}"
   ];
 
   meta = with lib; {
