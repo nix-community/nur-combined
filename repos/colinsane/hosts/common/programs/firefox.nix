@@ -113,6 +113,8 @@ let
       rm $out/lib/${cfg.browser.libName}/browser/omni.ja
       ${pkgs.buildPackages.gnused}/bin/sed -i s'/devtools-commandkey-inspector = C/devtools-commandkey-inspector = VK_F12/' omni/localization/en-US/devtools/startup/key-shortcuts.ftl
       pushd omni; ${pkgs.buildPackages.zip}/bin/zip $out/lib/${cfg.browser.libName}/browser/omni.ja -r ./*; popd
+
+      runHook postFixup
     '';
   });
 
@@ -189,6 +191,7 @@ in
           enable = lib.mkDefault config.services.i2p.enable;
         };
         open-in-mpv = {
+          # test: `open-in-mpv 'mpv:///open?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ'`
           package = pkgs.firefox-extensions.open-in-mpv;
           enable = lib.mkDefault config.sane.programs.open-in-mpv.enabled;
         };
@@ -213,6 +216,7 @@ in
     ({
       sane.programs.firefox = {
         inherit packageUnwrapped;
+        sandbox.method = "firejail";
 
         suggestedPrograms = [
           "open-in-mpv"
@@ -288,6 +292,21 @@ in
           [General]
           StartWithLastProfile=1
         '';
+
+        env.PASSWORD_STORE_DIR = "/home/colin/private/knowledge/secrets/accounts";
+        # alternative to PASSWORD_STORE_DIR, but firejail doesn't handle this symlink well
+        # fs.".password-store".symlink.target = lib.mkIf cfg.addons.browserpass-extension.enable "private/knowledge/secrets/accounts";
+
+        # browserpass needs these paths:
+        # - .ssh: to unlock the sops key, if not unlocked (`sane-secrets-unlock`(
+        # - .config/sops: where the key to decrypt account secrets
+        # - private/knowledge/secrets/accounts: where the encrypted account secrets live
+        # TODO: find a way to not expose ~/.ssh to firefox
+        # - unlock sops at login?
+        fs.".ssh" = lib.mkIf cfg.addons.browserpass-extension.enable {};
+        fs.".ssh/id_ed25519" = lib.mkIf cfg.addons.browserpass-extension.enable {};
+        fs.".config/sops" = lib.mkIf cfg.addons.browserpass-extension.enable {};
+        fs."private/knowledge/secrets/accounts" = lib.mkIf cfg.addons.browserpass-extension.enable {};
       };
     })
     (mkIf config.sane.programs.firefox.enabled {

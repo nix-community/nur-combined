@@ -89,9 +89,5 @@
     fs."Videos/servo".symlink.target = "/mnt/servo-media/Videos";
     # fs."Music/servo".symlink.target = "/mnt/servo-media/Music";
     fs."Pictures/servo-macros".symlink.target = "/mnt/servo-media/Pictures/macros";
-
-    # used by password managers, e.g. unix `pass`
-    # TODO: move this to the specific programs which need it
-    fs.".password-store".symlink.target = "knowledge/secrets/accounts";
   };
 }

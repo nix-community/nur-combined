@@ -121,8 +121,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.7.3";
-      hash = "sha256-0zlXjQq2lyZu31J2wJYf+pfp6J307tYS8xzJKZjrGOk=";
+      version = "11.7.4";
+      hash = "sha256-HG1B6svtSW6Lffmj7X5tuHCiPLkEJ7R4DJWJMgN6OsQ=";
     };
     fx_cast = fetchVersionedAddon rec {
       extid = "fx_cast@matt.tf";
@@ -177,8 +177,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.55.1b8";
-      hash = "sha256-LfcONhxWWhGycHkNgS4JRErBj7cuoS0g1sOCDv56pOk=";
+      version = "1.55.1b12";
+      hash = "sha256-htK5N8Xtq4y7HEeZYyrGjdWBD0O8u9pBAY34UwmnWDc=";
     };
   };
 })).overrideScope (self: super:
