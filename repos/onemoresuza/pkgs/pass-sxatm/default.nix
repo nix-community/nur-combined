@@ -1,62 +1,51 @@
 {
-  stdenvNoCC,
   fetchFromSourcehut,
   lib,
-  shellcheck,
-  shellspec,
-  gnupg,
-  pass,
-  shfmt,
   scdoc,
+  shellcheck,
+  stdenvNoCC,
+  coreutils,
   dmenu,
   libnotify,
+  fzf,
   xdotool,
-}:
-stdenvNoCC.mkDerivation rec {
-  pname = "pass-sxatm";
-  version = "0.1.0";
-  src = fetchFromSourcehut {
-    owner = "~onemoresuza";
-    repo = pname;
-    rev = version;
-    domain = "sr.ht";
-    vc = "git";
-    hash = "sha256-+3jbB4zvgsLJybfcYZAqpY4WEyqcG09ixWf3kX447u4=";
-  };
+  defaultNotifier ? libnotify,
+  defaultMenu ? dmenu,
+  defaultFuzzyFinder ? fzf,
+  keyTool ? xdotool,
+}: let
+  inherit (lib) getExe getExe';
+in
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "pass-sxatm";
+    version = "0.2.0";
+    src = fetchFromSourcehut {
+      owner = "~onemoresuza";
+      repo = "pass-sxatm";
+      rev = finalAttrs.version;
+      hash = "sha256-p1b0fs9EdCrJqazDM3PusIhtPK+SfGC7WGTv90EL908=";
+    };
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+    nativeBuildInputs = [scdoc];
 
-  nativeCheckInputs = [
-    shellcheck
-    shellspec
-    gnupg
-    pass
-  ];
+    nativeCheckInputs = [shellcheck];
 
-  nativeBuildInputs = [
-    shfmt
-    scdoc
-  ];
+    makeFlags = ["PREFIX=${builtins.placeholder "out"}"];
 
-  patchPhase = with lib; ''
-    sed -i \
-      's#\(PASSWORD_STORE_SXATM_MENU:-\)"dmenu"#\1"${getExe dmenu}"#' \
-      "sxatm.bash"
-    sed -i \
-      's#\(PASSWORD_STORE_SXATM_NOTIFIER:-\)"notify-send"#\1"${getExe libnotify}"#' \
-      "sxatm.bash"
-    sed -i \
-      's#xdotool#${getBin xdotool}/bin/xdotool #g' \
-      "sxatm.bash"
-  '';
+    postPatch = ''
+      substituteInPlace ./sxatm.bash \
+        --replace ':-"dmenu"' ':-"${getExe defaultMenu}"' \
+        --replace ':-"notify-send"' ':-"${getExe defaultNotifier}"' \
+        --replace ':-"fzf"' ':-"${getExe defaultFuzzyFinder}"' \
+        --replace 'command xdotool' 'command ${getExe keyTool}' \
+        --replace 'tty ' '${getExe' coreutils "tty"} '
+    '';
 
-  meta = with lib; {
-    description = "A simple X autofill tool with menu for pass";
-    homepage = "https://sr.ht/~onemoresuza/pass-sxatm/";
-    downloadPage = "https://git.sr.ht/~onemoresuza/pass-sxatm/refs/${version}";
-    license = licenses.gpl2;
-    platforms = platforms.unix;
-  };
-}
+    meta = with lib; {
+      description = "A simple X autofill tool with menu for pass";
+      homepage = "https://sr.ht/~onemoresuza/pass-sxatm/";
+      downloadPage = "https://git.sr.ht/~onemoresuza/pass-sxatm/refs/${version}";
+      license = licenses.gpl2Plus;
+      platforms = platforms.all;
+    };
+  })
