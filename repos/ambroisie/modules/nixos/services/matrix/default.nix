@@ -181,7 +181,7 @@ in
 
             # Sliding sync
             "~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
-              proxyPass = "http://${config.services.matrix-synapse.sliding-sync.settings.SYNCV3_BINDADDR}";
+              proxyPass = "http://${config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR}";
             };
           };
 

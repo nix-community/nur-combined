@@ -52,7 +52,7 @@ in
 
       mediaDir = lib.mkIf (cfg.documentPath != null) cfg.documentPath;
 
-      extraConfig =
+      settings =
         let
           paperlessDomain = "paperless.${config.networking.domain}";
         in
