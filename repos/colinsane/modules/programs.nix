@@ -33,34 +33,43 @@ let
   defaultEnables = solveDefaultEnableFor cfg;
 
   # wrap a package so that its binaries (maybe) run in a sandbox
-  wrapPkg = { sandbox, fs, net, ... }: package: (
+  wrapPkg = { fs, net, persist, sandbox, ... }: package: (
     if sandbox.method == null then
       package
     else if sandbox.method == "firejail" then
       let
         # XXX: firejail needs suid bit for some (not all) of its sandboxing methods. hence, rely on the user installing it system-wide and call it by suid path.
         firejailBin = "/run/wrappers/bin/firejail";
-        vpn = lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn);
-        vpnFlags = [
-          "--net=${vpn.bridgeDevice}"
-        ] ++ (builtins.map (addr: "--dns=${addr}") vpn.dns);
+
         allowPath = p: [
           "--noblacklist=${p}"
           "--whitelist=${p}"
         ];
-        fsFlags = lib.flatten (builtins.map
-          (p: allowPath ''''${HOME}/${p}'')
-          (builtins.attrNames fs)
-        );
+        allowHomePath = p: allowPath ''''${HOME}/${p}'';
+        allowPaths = paths: lib.flatten (builtins.map allowPath paths);
+        allowHomePaths = paths: lib.flatten (builtins.map allowHomePath paths);
+
+        fsFlags = allowHomePaths (builtins.attrNames fs);
+        persistFlags = allowHomePaths (builtins.attrNames persist.byPath);
+
+        vpn = lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn);
+        vpnFlags = [
+          "--net=${vpn.bridgeDevice}"
+        ] ++ (builtins.map (addr: "--dns=${addr}") vpn.dns);
+
         firejailFlags = [
           # "--quiet"  #< TODO: enable
           # "--tracelog"  # logs blacklist violations to syslog (but default firejail disallows this)
         ] ++ allowPath "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms`
+          # ++ allowPath "/bin/sh"  #< to allow `firejail --join=...` (doesn't work)
+          ++ allowPath "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here
+          ++ allowPaths [ "/run/opengl-driver" "/run/opengl-driver-32" ]  #< symlinks to /nix/store; needed by e.g. mpv
           ++ fsFlags
+          ++ persistFlags
           ++ lib.optionals (net == "vpn") vpnFlags;
 
         firejailBase = pkgs.writeShellScript
-          "firejail-${package.pname}-base"
+          "firejail-${package.pname or package.name or "unknown"}-base"
           ''exec ${firejailBin} ${lib.escapeShellArgs firejailFlags} \'';
 
         # two ways i could wrap a package in a sandbox:
@@ -75,22 +84,47 @@ let
         # ultimately, no.1 is probably more reliable, but i expect i'll factor out a switch to allow either approach -- particularly when debugging package buld failures.
         packageWrapped = package.overrideAttrs (unwrapped: {
           postFixup = (unwrapped.postFixup or "") + ''
-            getFirejailProfile() {
+            tryFirejailProfile() {
               _maybeProfile="${pkgs.firejail}/etc/firejail/$1.profile"
+              echo "checking for firejail profile at: $_maybeProfile"
               if [ -e "$_maybeProfile" ]; then
-                firejailProfileFlags="--profile=$_maybeProfile"
+                firejailProfilePath="$_maybeProfile"
+                firejailProfileName="$1"
+                true
               else
-                firejailProfileFlags=
-                echo "failed to locate firejail profile for $1 (expected $_maybeProfile): aborting!" && false
+                false
               fi
+            }
+            tryFirejailProfileFromBinMap() {
+              case "$1" in
+                ${builtins.concatStringsSep "\n" (lib.mapAttrsToList
+                  (bin: profile: ''
+                    (${bin})
+                      tryFirejailProfile "${profile}"
+                    ;;
+                  '')
+                  sandbox.binMap
+                )}
+                (*)
+                  echo "no special-case profile for $1"
+                  false
+                  ;;
+              esac
+            }
+            getFirejailProfile() {
+              tryFirejailProfileFromBinMap "$1" \
+                || tryFirejailProfile "$1" \
+                || tryFirejailProfile "${unwrapped.pname or ""}" \
+                || tryFirejailProfile "${unwrapped.name or ""}" \
+                || (echo "failed to locate firejail profile for $1: aborting!" && false)
             }
             firejailWrap() {
               name="$1"
               getFirejailProfile "$name"
               mv "$out/bin/$name" "$out/bin/.$name-firejailed"
               cat <<EOF >> "tmp-firejail-$name"
-          $firejailProfileFlags \
-          --join-or-start="${package.name}-$name" \
+          --profile="$firejailProfilePath" \
+          --join-or-start="$firejailProfileName" \
           -- "$out/bin/.$name-firejailed" "\$@"
           EOF
               cat ${firejailBase} "tmp-firejail-$name" > "$out/bin/$name"
@@ -110,7 +144,7 @@ let
             priority = ((unwrapped.meta or {}).priority or 0) - 1;
           };
           passthru = (unwrapped.passthru or {}) // {
-            checkSandboxed = pkgs.runCommand "${package.name}-check-sandboxed" {} ''
+            checkSandboxed = pkgs.runCommand "${unwrapped.name or unwrapped.pname or "unknown"}-check-sandboxed" {} ''
               # this pseudo-package gets "built" as part of toplevel system build.
               # if the build is failing here, that means the program isn't properly sandboxed:
               # make sure that "postFixup" gets called as part of the package's build script
@@ -275,6 +309,16 @@ let
         default = null;  #< TODO: default to firejail
         description = ''
           how/whether to sandbox all binaries in the package.
+        '';
+      };
+      sandbox.binMap = mkOption {
+        type = types.attrsOf types.str;
+        default = {};
+        description = ''
+          map binName -> sandboxAs.
+          for example,
+            if the package ships `bin/mpv` and `bin/umpv`, this module might know how to sandbox `mpv` but not `umpv`.
+            then set `sandbox.binMap.umpv = "mpv";` to sandbox `bin/umpv` with the same rules as `bin/mpv`
         '';
       };
       configOption = mkOption {

@@ -114,6 +114,7 @@ let
       ${pkgs.buildPackages.gnused}/bin/sed -i s'/devtools-commandkey-inspector = C/devtools-commandkey-inspector = VK_F12/' omni/localization/en-US/devtools/startup/key-shortcuts.ftl
       pushd omni; ${pkgs.buildPackages.zip}/bin/zip $out/lib/${cfg.browser.libName}/browser/omni.ja -r ./*; popd
 
+      # runHook postFixup to allow sandbox wrappers to wrap the binaries
       runHook postFixup
     '';
   });

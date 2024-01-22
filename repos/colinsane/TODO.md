@@ -34,16 +34,11 @@
 - validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
-- have `sane.programs` be wrapped such that they run in a cgroup?
-  - at least, only give them access to the portion of the fs they *need*.
-  - Android takes approach of giving each app its own user: could hack that in here.
-  - **systemd-run** takes a command and runs it in a temporary scope (cgroup)
-    - presumably uses the same options as systemd services
-    - see e.g. <https://github.com/NixOS/nixpkgs/issues/113903#issuecomment-857296349>
-  - flatpak does this, somehow
-  - apparmor?  SElinux?  (desktop) "portals"?
-  - see Spectrum OS; Alyssa Ross; etc
-  - bubblewrap-based sandboxing: <https://github.com/nixpak/nixpak>
+- port all sane.programs to firejail
+  - enforce that all `environment.packages` has a firejail profile (or opts out)
+  - restrict firejail SUID binary to just group `firejail`: <https://firejail.wordpress.com/documentation-2/basic-usage/#suid>
+  - remove `.ssh` access from Firefox!
+    - limit access to `~/private/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
 - canaries for important services
   - e.g. daily email checks; daily backup checks
   - integrate `nix check` into Gitea actions?

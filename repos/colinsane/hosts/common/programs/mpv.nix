@@ -20,7 +20,7 @@ in
         };
       };
     };
-    packageUnwrapped = pkgs.wrapMpv pkgs.mpv-unwrapped {
+    packageUnwrapped = (pkgs.wrapMpv pkgs.mpv-unwrapped {
       scripts = with pkgs.mpvScripts; [
         mpris
         uosc
@@ -55,7 +55,17 @@ in
         # W wlshm            Wayland SHM video output (software scaling)
         "--add-flags" "--vo=${cfg.config.vo}"
       ];
-    };
+    }).overrideAttrs (base: {
+      buildCommand = base.buildCommand + ''
+        # runHook postFixup to allow sandbox wrappers to wrap the binaries
+        runHook postFixup
+      '';
+    });
+
+    sandbox.method = "firejail";
+    sandbox.binMap."mpv_identify.sh" = "mpv";
+    sandbox.binMap."umpv" = "mpv";
+
     persist.byStore.plaintext = [ ".local/state/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = let
       execInTerm = "${pkgs.xdg-terminal-exec}/bin/xdg-terminal-exec";

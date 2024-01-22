@@ -34,5 +34,7 @@ in
 {
   # for serving local files
   # see: go2tv/soapcalls/utils/iptools.go
-  networking.firewall.allowedTCPPorts = lib.mkIf cfg.enabled [ 3500 ];
+  # go2tv tries port 3500, and then walks up from there port-by-port until it finds a free one.
+  # it tries 1000 ports, but hopefully we won't need so many.
+  networking.firewall.allowedTCPPorts = lib.mkIf cfg.enabled (lib.range 3500 3519);
 }
