@@ -30,8 +30,9 @@ set editorcmd emacsclient -c
 " copy all the things
 set yankto both
 
+blacklistadd calendar.google.com
 blacklistadd jellyfin.alarsyo.net
+blacklistadd localhost
 blacklistadd netflix.com
 blacklistadd primevideo.com
 blacklistadd youtube.com
-blacklistadd localhost
