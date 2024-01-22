@@ -8871,10 +8871,10 @@
     };
     "startup-bookmarks" = buildFirefoxXpiAddon {
       pname = "startup-bookmarks";
-      version = "1.7.12";
+      version = "1.7.13";
       addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4217600/startup_bookmarks-1.7.12.xpi";
-      sha256 = "0255c484d8f5f98307b6546bde79bfb585e33180bca87edcd4a185cbd48bb943";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224878/startup_bookmarks-1.7.13.xpi";
+      sha256 = "61006315267ecf23b8fa0325c259075c3381de944d988d7e40c26391e7bcf5aa";
       meta = with lib;
       {
         homepage = "https://github.com/igorlogius/startup-tabs/";
