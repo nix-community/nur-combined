@@ -19,7 +19,7 @@ jobs:
       uses: peter-evans/create-pull-request@v5
       with:
         token: ${{ secrets.PAT }}
-        committer: actions-user action@github.com
-        author: actions-user action@github.com
+        committer: actions-user <action@github.com>
+        author: actions-user <action@github.com>
         commit-message: "chore(deps): update flake inputs"
         title: "chore(deps): update flake inputs"
