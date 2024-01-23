@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A feature-rich dictionary lookup program";
     homepage = "http://goldendict.org/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

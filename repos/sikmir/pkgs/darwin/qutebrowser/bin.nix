@@ -38,6 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib;
     qutebrowser.meta // {
+      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       maintainers = [ maintainers.sikmir ];
       platforms = [ "x86_64-darwin" ];
       skip.ci = true;

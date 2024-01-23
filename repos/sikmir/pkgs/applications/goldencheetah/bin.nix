@@ -29,6 +29,7 @@ let
   meta = with lib; {
     description = "Performance software for cyclists, runners and triathletes";
     homepage = "https://www.goldencheetah.org/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-linux" "x86_64-darwin" ];

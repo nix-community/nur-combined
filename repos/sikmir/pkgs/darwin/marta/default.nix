@@ -1,7 +1,7 @@
 { lib, stdenvNoCC, fetchurl, undmg, makeWrapper }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "marta-bin";
+  pname = "marta";
   version = "0.8.1";
 
   src = fetchurl {
@@ -24,6 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "File Manager for macOS";
     homepage = "https://marta.sh/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

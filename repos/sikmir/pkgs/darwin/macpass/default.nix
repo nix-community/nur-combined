@@ -1,7 +1,7 @@
 { lib, stdenv, fetchfromgh, unzip }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "MacPass-bin";
+  pname = "MacPass";
   version = "0.8.1";
 
   src = fetchfromgh {
@@ -26,6 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "A native OS X KeePass client";
     homepage = "https://macpassapp.org/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

@@ -6,7 +6,7 @@ let
   };
 in
 stdenv.mkDerivation rec {
-  pname = "synwrite-bin";
+  pname = "synwrite";
   version = "6.41.2780";
 
   src = fetchurl {
@@ -37,6 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Advanced text editor for programmers and Notepad replacement";
     homepage = "http://uvviewsoft.com/synwrite/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mpl11;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

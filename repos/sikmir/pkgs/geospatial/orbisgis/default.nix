@@ -1,7 +1,7 @@
 { lib, stdenv, fetchfromgh, unzip, rsync, makeWrapper, jre }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "orbisgis-bin";
+  pname = "orbisgis";
   version = "5.1.0";
 
   src = fetchfromgh {

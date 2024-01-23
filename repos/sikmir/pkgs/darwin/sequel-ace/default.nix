@@ -1,7 +1,7 @@
 { lib, stdenvNoCC, fetchfromgh, unzip }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "sequel-ace-bin";
+  pname = "sequel-ace";
   version = "4.0.13-20062";
 
   src = fetchfromgh {
@@ -24,6 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "MySQL/MariaDB database management for macOS";
     homepage = "https://sequel-ace.com/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

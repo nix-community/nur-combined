@@ -27,6 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Multi-purpose serial data visualization & processing program";
     homepage = "https://serial-studio.github.io/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "aarch64-darwin" "x86_64-darwin" ];

@@ -1,7 +1,7 @@
 { lib, stdenvNoCC, fetchfromgh, unzip, makeWrapper }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "sloth-bin";
+  pname = "sloth";
   version = "3.2";
 
   src = fetchfromgh {
@@ -27,6 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Nice GUI for lsof";
     homepage = "https://sveinbjorn.org/sloth";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];

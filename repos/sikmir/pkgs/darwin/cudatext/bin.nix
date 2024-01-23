@@ -31,6 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     inherit (cudatext.meta) description homepage changelog license;
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = [ "aarch64-darwin" "x86_64-darwin" ];
     maintainers = [ maintainers.sikmir ];
     skip.ci = true;

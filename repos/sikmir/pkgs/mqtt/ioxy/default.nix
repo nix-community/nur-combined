@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "ioxy";
-  version = "2022-11-25";
+  version = "2023-08-20";
 
   src = fetchFromGitHub {
     owner = "NVISOsecurity";
     repo = "IOXY";
-    rev = "023e9e64cc3e9fe6a330c640fc56f7abb985c64e";
-    hash = "sha256-bhJgWnscT+qEVZHXQb9l72pm0q4NTBFnWmTqnhA6PSM=";
+    rev = "6f1d0ffc02cde306caa837713f9a9f81352f13cf";
+    hash = "sha256-j3qKlR0dwu0ZHc38JMGUjwVpN2s16ZIiRU8W+lI/X0s=";
   };
 
   sourceRoot = "${src.name}/ioxy";

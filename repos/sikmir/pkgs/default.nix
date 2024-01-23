@@ -14,7 +14,7 @@ lib.makeScope newScope (
     goldencheetah-bin = callPackage ./applications/goldencheetah/bin.nix { };
     klogg = libsForQt5.callPackage ./applications/misc/klogg { };
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
-    synwrite-bin = callPackage ./applications/synwrite/bin.nix { };
+    synwrite = callPackage ./applications/synwrite { };
 
     ### BUILD SUPPORT
 
@@ -25,23 +25,23 @@ lib.makeScope newScope (
 
     ### DARWIN
 
-    amethyst-bin = callPackage ./darwin/amethyst/bin.nix { };
+    amethyst = callPackage ./darwin/amethyst { };
     cudatext-bin = callPackage ./darwin/cudatext/bin.nix { };
     darktable-bin = callPackage ./darwin/darktable/bin.nix { };
     finch = callPackage ./darwin/finch {
       buildGoModule = pkgs.buildGo120Module;
     };
-    macpass-bin = callPackage ./darwin/macpass/bin.nix { };
-    macsvg-bin = callPackage ./darwin/macsvg { };
-    marta-bin = callPackage ./darwin/marta { };
+    macpass = callPackage ./darwin/macpass { };
+    macsvg = callPackage ./darwin/macsvg { };
+    marta = callPackage ./darwin/marta { };
     pinentry-touchid = callPackage ./darwin/pinentry-touchid {
       inherit (darwin.apple_sdk.frameworks) LocalAuthentication;
     };
     podman-desktop-bin = callPackage ./darwin/podman-desktop/bin.nix { };
     qtcreator-bin = callPackage ./darwin/qtcreator/bin.nix { };
     qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
-    sequel-ace-bin = callPackage ./darwin/sequel-ace { };
-    sloth-bin = callPackage ./darwin/sloth { };
+    sequel-ace = callPackage ./darwin/sequel-ace { };
+    sloth = callPackage ./darwin/sloth { };
 
     ### DATA
 
@@ -218,7 +218,7 @@ lib.makeScope newScope (
     mbutiles = callPackage ./geospatial/mbutiles { };
     mobroute = callPackage ./geospatial/mobroute { };
     morecantile = callPackage ./geospatial/morecantile { };
-    orbisgis-bin = callPackage ./geospatial/orbisgis/bin.nix { jre = pkgs.jre8; };
+    orbisgis = callPackage ./geospatial/orbisgis { jre = pkgs.jre8; };
     ossim = callPackage ./geospatial/ossim { };
     pmtiles = callPackage ./geospatial/pmtiles { };
     pipfile = callPackage ./geospatial/pipfile { };
@@ -243,7 +243,7 @@ lib.makeScope newScope (
     rio-mucho = callPackage ./geospatial/rio-mucho { };
     rio-stac = callPackage ./geospatial/rio-stac { };
     rio-tiler = callPackage ./geospatial/rio-tiler { };
-    sasplanet-bin = callPackage ./geospatial/sasplanet/bin.nix { };
+    sasplanet = callPackage ./geospatial/sasplanet { };
     server-thread = callPackage ./geospatial/server-thread { };
     starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
     supermercado = callPackage ./geospatial/supermercado { };
@@ -310,7 +310,7 @@ lib.makeScope newScope (
     goldendict-bin = callPackage ./linguistics/goldendict/bin.nix { };
     gt-bash-client = callPackage ./linguistics/gt-bash-client { };
     gt4gd = callPackage ./linguistics/gt4gd { };
-    i18n-editor-bin = callPackage ./linguistics/i18n-editor { jre = pkgs.jdk11; };
+    i18n-editor = callPackage ./linguistics/i18n-editor { jre = pkgs.jdk11; };
     lsdreader = callPackage ./linguistics/lsdreader { };
     mikatools = callPackage ./linguistics/mikatools { };
     odict = callPackage ./linguistics/odict { };
@@ -462,7 +462,7 @@ lib.makeScope newScope (
     imposm = callPackage ./osm/imposm { };
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
-    maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
+    maperitive = callPackage ./osm/maperitive { };
     memphis = callPackage ./osm/memphis { };
     osm-3s = callPackage ./osm/osm-3s { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };

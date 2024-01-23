@@ -1,7 +1,7 @@
 { lib, stdenv, fetchfromgh, unzip, makeWrapper }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "macsvg-bin";
+  pname = "macsvg";
   version = "1.2.0";
 
   src = fetchfromgh {
@@ -27,6 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "An open-source macOS app for designing HTML5 SVG";
     homepage = "https://macsvg.org/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = [ "aarch64-darwin" "x86_64-darwin" ];

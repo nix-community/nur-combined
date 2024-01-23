@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, unzip, mono, gtk2, makeWrapper }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "maperitive-bin";
+  pname = "maperitive";
   version = "2.4.3";
 
   src = fetchurl {
@@ -25,6 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Desktop application for drawing maps based on OpenStreetMap and GPS data";
     homepage = "http://maperitive.net/";
     changelog = "http://maperitive.net/updates.xml";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;

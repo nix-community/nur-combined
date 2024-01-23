@@ -2,22 +2,24 @@
 
 buildGoModule rec {
   pname = "tootik";
-  version = "0.5.11";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "dimkr";
     repo = "tootik";
     rev = version;
-    hash = "sha256-PmBj48JoCTv1S9QjdJK34m/WBPLyXc8ewjMFEfdigAQ=";
+    hash = "sha256-3QqZXy3Mv7IR/+4DZm6+1riW2NRq3mPs1ViD+7WwjtM=";
   };
 
-  vendorHash = "sha256-uxY+mdUm67a7dEBezs6VWcsb+RUs1zsoFeU9DXek+Lg=";
+  vendorHash = "sha256-2ZJ1WRrnt4aW3SC+cGgcavQqyOdgMNOLr3/f2lPeQYg=";
 
   nativeBuildInputs = [ openssl ];
 
   preBuild = ''
     go generate ./migrations
   '';
+
+  tags = [ "fts5" ];
 
   meta = with lib; {
     description = "A federated nanoblogging service with a Gemini frontend";
