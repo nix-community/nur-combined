@@ -57,6 +57,8 @@
 
     nativeBuildInputs = [cmake ninja];
 
+    env.CXXFLAGS = "-include cstdint";
+
     cmakeFlags = [
       "-DLIEF_PYTHON_API=OFF"
       "-DLIEF_EXAMPLES=OFF"
