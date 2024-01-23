@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-20",
+        "date": "2024-01-22",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "93345c020edf4932e10aa035781b2f9dc386af1f",
-            "sha256": "sha256-DehQR/snnXsz40FBvxmRsxJhVpVnnG8PUFndOq+ZK6U=",
+            "rev": "f3bb2fadced4053e3dcb8a552b667a22d41bae25",
+            "sha256": "sha256-9QvR5oZd7iPmm8sdPMVlRLJUxhxtrT8ayDPMQB4vPD0=",
             "type": "github"
         },
-        "version": "93345c020edf4932e10aa035781b2f9dc386af1f"
+        "version": "f3bb2fadced4053e3dcb8a552b667a22d41bae25"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -833,7 +833,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-01-18",
+        "date": "2024-01-22",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -845,11 +845,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "88b69e441bb12f29c53e51b703ac4c55ab50e00d",
-            "sha256": "sha256-MDiMJVsPiKtXPbpdMtCj5XD3aGdjKdHpOSShC1WKFMo=",
+            "rev": "93c5d489c76ae23a79d0042ccc69aece689ec0b8",
+            "sha256": "sha256-HuHtbO7RjId9ZhSSbu4a4qyaZxlkm96YX6EkgVN6B2w=",
             "type": "github"
         },
-        "version": "88b69e441bb12f29c53e51b703ac4c55ab50e00d"
+        "version": "93c5d489c76ae23a79d0042ccc69aece689ec0b8"
     },
     "libqcef": {
         "cargoLocks": null,
