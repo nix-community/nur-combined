@@ -1580,10 +1580,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.75";
+      version = "4.9.76";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4220708/darkreader-4.9.75.xpi";
-      sha256 = "71b31ebced765d5694da3f70260d6f2b3272b8613fe88fb0bb0faf5cd76d6ebe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223104/darkreader-4.9.76.xpi";
+      sha256 = "d3afe139928c3c30bd11347c08a3360fa3417be4667c47f3de19fdc0ab92da9f";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1683,10 +1683,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "122.0.20240118.164516";
+      version = "123.0.20240122.154615";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223774/deutsch_de_language_pack-122.0.20240118.164516.xpi";
-      sha256 = "60db876f4157be6a97b9085241208cbabc5b8a61f99857a605a2a791b909ce07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4225236/deutsch_de_language_pack-123.0.20240122.154615.xpi";
+      sha256 = "dcea434dc4b62215b54e12f1c0149d52018b76972ab5e278949fcb4371319f20";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2162,16 +2162,21 @@
     };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
-      version = "4.0.0";
+      version = "5.0.1";
       addonId = "ff2mpv@yossarian.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3898765/ff2mpv-4.0.0.xpi";
-      sha256 = "88312a84fc0a5d8e32100664af900a252a86875ee51869c30fd68054e990c992";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4225497/ff2mpv-5.0.1.xpi";
+      sha256 = "c9010e83d2e3e43e8a40c1e8b6fb38cecf2b0b401bc5e257c62a6540c2d9597c";
       meta = with lib;
       {
         homepage = "https://github.com/woodruffw/ff2mpv";
         description = "Tries to play links in mpv.\n\nPress the toolbar button to play the current URL in mpv. Otherwise, right click on a URL and use the context  item to play an arbitrary URL.\n\nYou'll need the native client here: <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/aadcd34348f892e0805a94f141a1124d9c4aa75199eb4cb7c4ff530417617f77/http%3A//github.com/woodruffw/ff2mpv\">github.com/woodruffw/ff2mpv</a>";
         license = licenses.mit;
-        mozPermissions = [ "nativeMessaging" "contextMenus" "activeTab" ];
+        mozPermissions = [
+          "nativeMessaging"
+          "contextMenus"
+          "activeTab"
+          "storage"
+        ];
         platforms = platforms.all;
       };
     };
@@ -2521,10 +2526,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "122.0.20240118.164516";
+      version = "123.0.20240122.154615";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223729/francais_language_pack-122.0.20240118.164516.xpi";
-      sha256 = "a9be7473fc4089ac175e2bcab6b68c122b5d7eff4114cfeca2a68b80ed850794";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4225288/francais_language_pack-123.0.20240122.154615.xpi";
+      sha256 = "e4e14b5069a1fbe61dd185e32df6ab858b04e0950355e72c1504f049f13bebb2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4368,10 +4373,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.1.5";
+      version = "1.1.7";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221312/immersive_translate-1.1.5.xpi";
-      sha256 = "08f9f898ebc53e36ae1ba69d5f397369c0dfd13368c5fa38f1af46f7b606c663";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223981/immersive_translate-1.1.7.xpi";
+      sha256 = "539d7187b2b3ca0eedcb5699684fa7cfb4b9147f6f02664f1cc80cdb66405a88";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -6377,10 +6382,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.13.3";
+      version = "2.13.4";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4222797/momentumdash-2.13.3.xpi";
-      sha256 = "93967eb56fc404b9a80d7f7f1d5267028ba46779e11bc498d3b15933b9150a5e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223182/momentumdash-2.13.4.xpi";
+      sha256 = "d744bf512668071b2247f8eef2a37f5dc7bc101b28ef76a55cd66cc1f3e61951";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -8830,10 +8835,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.29";
+      version = "5.5.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4202411/sponsorblock-5.4.29.xpi";
-      sha256 = "ed7a9cf1cc9037294c7b9fdd8033b1d5fd900d59b3dc9b210e54ee7aee807128";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224846/sponsorblock-5.5.2.xpi";
+      sha256 = "2d10f481c1fb478060be3e09794b7d73b5b3c6f32b59b9eaa8d7edd3ca22e66c";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -9588,10 +9593,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.19";
+      version = "3.9.20";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197314/tree_style_tab-3.9.19.xpi";
-      sha256 = "bb67f47a554f8f937f4176bee6144945eb0f240630b93f73d2cff49f0985b55a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223206/tree_style_tab-3.9.20.xpi";
+      sha256 = "dfce652ffc61a5ad93b18512f7af5764e9ff23eab4b2164ae028a51660a16850";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
