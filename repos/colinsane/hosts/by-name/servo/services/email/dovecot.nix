@@ -130,8 +130,8 @@
   services.dovecot2.sieve = {
     # maybe not all of these are needed. source: <https://github.com/NixOS/nixpkgs/pull/275031#issuecomment-1891052685>
     plugins = [ "sieve_imapsieve" "sieve_extprograms" ];
-    extensions = [ "fileinto" ];
-    globalExtensions = [ "+vnd.dovecot.pipe" "+vnd.dovecot.environment" ];
+    # extensions = [ "fileinto" ];
+    # globalExtensions = [ "vnd.dovecot.pipe" "vnd.dovecot.environment" ];
     # if any messages fail to pass (or lack) DKIM, move them to Junk
     # XXX the key name ("after") is only used to order sieve execution/ordering
   };
@@ -145,4 +145,6 @@
       }
     '';
   };
+
+  systemd.services.dovecot2.serviceConfig.RestartSec = lib.mkForce "15s";  # nixos defaults this to 1s
 }

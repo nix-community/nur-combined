@@ -27,6 +27,11 @@ let
     ) else null;
 in [
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/283049";
+    title = " bonsai: refactor derivation and move to pkgs/by-name";
+    hash = "sha256-PD1VKd+cQUxllV88QmqheY6JO5l+6YoBW+kT8iyu2Ns=";
+  })
+  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/280925";
     title = "j4-dmenu-desktop: pin to gcc12";  # 2024/01/14: fix build
     hash = "sha256-VW2l7eViI1erlTRFw2mpY2qWDdBlYxVSQewFPWwRhgg=";

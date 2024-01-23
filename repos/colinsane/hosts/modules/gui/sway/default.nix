@@ -328,9 +328,9 @@ in
         ".config/waybar/style.css".symlink.text =
           (builtins.readFile ./waybar-style.css) + cfg.waybar.extra_style;
 
-        ".config/sway/config".symlink.target = import ./sway-config.nix {
-            inherit pkgs;
-            inherit (cfg) config;
+        ".config/sway/config".symlink.target = pkgs.callPackage ./sway-config.nix {
+          inherit config;
+          swayCfg = cfg.config;
         };
       };
     })

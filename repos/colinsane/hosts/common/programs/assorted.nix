@@ -133,7 +133,6 @@ in
       "dtrx"  # `unar` alternative, "Do The Right eXtraction"
       "efivar"
       "eza"  # a better 'ls'
-      "firejail"
       # "flashrom"
       "git"  # needed as a user package, for config.
       # "gnupg"

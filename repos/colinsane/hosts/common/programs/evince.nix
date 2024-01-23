@@ -1,4 +1,10 @@
 { ... }:
 {
-  sane.programs.evince.mime.associations."application/pdf" = "org.gnome.Evince.desktop";
+  sane.programs.evince = {
+    sandbox.method = "bwrap";
+    sandbox.extraConfig = [
+      "--sane-sandbox-autodetect"
+    ];
+    mime.associations."application/pdf" = "org.gnome.Evince.desktop";
+  };
 }

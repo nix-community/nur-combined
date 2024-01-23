@@ -45,6 +45,8 @@ in
       };
     };
 
+    sandbox.method = "bwrap";
+
     persist.byStore.private = [ ".local/share/dino" ];
 
     services.dino = {

@@ -5,6 +5,7 @@
 
 {
   sane.programs.splatmoji = {
+    sandbox.method = "bwrap";
     persist.byStore.plaintext = [ ".local/state/splatmoji" ];
     fs.".config/splatmoji/splatmoji.config".symlink.text = ''
       # XXX doesn't seem to understand ~ as shorthand for `$HOME`

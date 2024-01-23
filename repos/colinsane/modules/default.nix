@@ -6,7 +6,7 @@
     ./feeds.nix
     ./fs
     ./ids.nix
-    ./programs.nix
+    ./programs
     ./image.nix
     ./persist
     ./ports.nix

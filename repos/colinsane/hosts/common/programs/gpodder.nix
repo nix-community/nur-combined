@@ -17,6 +17,8 @@ in {
       # - GPODDER_DISABLE_EXTENSIONS ("yes" or "no")
       extraMakeWrapperArgs = (base.extraMakeWrapperArgs or []) ++ [
         "--set" "GPODDER_HOME" "~/.local/share/gPodder"
+        # place downloads in a shared media directory to ensure sandboxed apps can read them
+        "--set" "GPODDER_DOWNLOAD_DIR" "~/Videos/gPodder"
       ];
     });
     # packageUnwrapped = pkgs.gpodder-configured;

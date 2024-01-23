@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
-  sane.programs.tor-browser-bundle-bin = {
-    packageUnwrapped = pkgs.tor-browser-bundle-bin.override {
+  sane.programs.tor-browser = {
+    packageUnwrapped = pkgs.tor-browser.override {
       # hardenedMalloc solves an "unable to connect to Tor" error when pressing the "connect" button
       # - still required as of 2023/07/14
       useHardenedMalloc = false;

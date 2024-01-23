@@ -2,6 +2,7 @@
 
 {
   sane.programs.libreoffice = {
+    # variants: "still" (stable?), "fresh" (beta?)
     # packageUnwrapped = pkgs.libreoffice-bin;
     # packageUnwrapped = pkgs.libreoffice-still;
     packageUnwrapped = pkgs.libreoffice-fresh;

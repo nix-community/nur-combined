@@ -22,6 +22,7 @@ in
     };
 
     packageUnwrapped = pkgs.signal-desktop-from-src;
+    sandbox.method = "bwrap";
 
     # creds, media
     persist.byStore.private = [

@@ -79,7 +79,7 @@
     ./sway-autoscaler
     ./swaynotificationcenter.nix
     ./tangram.nix
-    ./tor-browser-bundle-bin.nix
+    ./tor-browser.nix
     ./tuba.nix
     ./vlc.nix
     ./wike.nix

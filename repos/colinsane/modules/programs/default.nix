@@ -33,130 +33,35 @@ let
   defaultEnables = solveDefaultEnableFor cfg;
 
   # wrap a package so that its binaries (maybe) run in a sandbox
-  wrapPkg = { fs, net, persist, sandbox, ... }: package: (
+  wrapPkg = pkgName: { fs, net, persist, sandbox, ... }: package: (
     if sandbox.method == null then
       package
-    else if sandbox.method == "firejail" then
-      let
-        # XXX: firejail needs suid bit for some (not all) of its sandboxing methods. hence, rely on the user installing it system-wide and call it by suid path.
-        firejailBin = "/run/wrappers/bin/firejail";
-
-        allowPath = p: [
-          "--noblacklist=${p}"
-          "--whitelist=${p}"
-        ];
-        allowHomePath = p: allowPath ''''${HOME}/${p}'';
-        allowPaths = paths: lib.flatten (builtins.map allowPath paths);
-        allowHomePaths = paths: lib.flatten (builtins.map allowHomePath paths);
-
-        fsFlags = allowHomePaths (builtins.attrNames fs);
-        persistFlags = allowHomePaths (builtins.attrNames persist.byPath);
-
-        vpn = lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn);
-        vpnFlags = [
-          "--net=${vpn.bridgeDevice}"
-        ] ++ (builtins.map (addr: "--dns=${addr}") vpn.dns);
-
-        firejailFlags = [
-          # "--quiet"  #< TODO: enable
-          # "--tracelog"  # logs blacklist violations to syslog (but default firejail disallows this)
-        ] ++ allowPath "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms`
-          # ++ allowPath "/bin/sh"  #< to allow `firejail --join=...` (doesn't work)
-          ++ allowPath "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here
-          ++ allowPaths [ "/run/opengl-driver" "/run/opengl-driver-32" ]  #< symlinks to /nix/store; needed by e.g. mpv
-          ++ fsFlags
-          ++ persistFlags
-          ++ lib.optionals (net == "vpn") vpnFlags;
-
-        firejailBase = pkgs.writeShellScript
-          "firejail-${package.pname or package.name or "unknown"}-base"
-          ''exec ${firejailBin} ${lib.escapeShellArgs firejailFlags} \'';
-
-        # two ways i could wrap a package in a sandbox:
-        # 1. package.overrideAttrs, with `postFixup`.
-        # 2. pkgs.symlinkJoin, or pkgs.runCommand, creating an entirely new package which calls into the inner binaries.
-        #
-        # no.2 would require special-casing for .desktop files, to ensure they refer to the jailed version.
-        # no.1 may require extra care for recursive binaries, or symlink-heavy binaries (like busybox)
-        #   but even no.2 has to consider such edge-cases, just less frequently.
-        # no.1 may bloat rebuild times.
-        #
-        # ultimately, no.1 is probably more reliable, but i expect i'll factor out a switch to allow either approach -- particularly when debugging package buld failures.
-        packageWrapped = package.overrideAttrs (unwrapped: {
-          postFixup = (unwrapped.postFixup or "") + ''
-            tryFirejailProfile() {
-              _maybeProfile="${pkgs.firejail}/etc/firejail/$1.profile"
-              echo "checking for firejail profile at: $_maybeProfile"
-              if [ -e "$_maybeProfile" ]; then
-                firejailProfilePath="$_maybeProfile"
-                firejailProfileName="$1"
-                true
-              else
-                false
-              fi
-            }
-            tryFirejailProfileFromBinMap() {
-              case "$1" in
-                ${builtins.concatStringsSep "\n" (lib.mapAttrsToList
-                  (bin: profile: ''
-                    (${bin})
-                      tryFirejailProfile "${profile}"
-                    ;;
-                  '')
-                  sandbox.binMap
-                )}
-                (*)
-                  echo "no special-case profile for $1"
-                  false
-                  ;;
-              esac
-            }
-            getFirejailProfile() {
-              tryFirejailProfileFromBinMap "$1" \
-                || tryFirejailProfile "$1" \
-                || tryFirejailProfile "${unwrapped.pname or ""}" \
-                || tryFirejailProfile "${unwrapped.name or ""}" \
-                || (echo "failed to locate firejail profile for $1: aborting!" && false)
-            }
-            firejailWrap() {
-              name="$1"
-              getFirejailProfile "$name"
-              mv "$out/bin/$name" "$out/bin/.$name-firejailed"
-              cat <<EOF >> "tmp-firejail-$name"
-          --profile="$firejailProfilePath" \
-          --join-or-start="$firejailProfileName" \
-          -- "$out/bin/.$name-firejailed" "\$@"
-          EOF
-              cat ${firejailBase} "tmp-firejail-$name" > "$out/bin/$name"
-              chmod +x "$out/bin/$name"
-            }
-
-            for _p in $(ls "$out/bin/"); do
-              firejailWrap "$_p"
-            done
-
-            # stamp file which can be consumed to ensure this wrapping code was actually called.
-            mkdir -p $out/nix-support
-            touch $out/nix-support/sandboxed-firejail
-          '';
-          meta = (unwrapped.meta or {}) // {
-            # take precedence over non-sandboxed versions of the same binary.
-            priority = ((unwrapped.meta or {}).priority or 0) - 1;
-          };
-          passthru = (unwrapped.passthru or {}) // {
-            checkSandboxed = pkgs.runCommand "${unwrapped.name or unwrapped.pname or "unknown"}-check-sandboxed" {} ''
-              # this pseudo-package gets "built" as part of toplevel system build.
-              # if the build is failing here, that means the program isn't properly sandboxed:
-              # make sure that "postFixup" gets called as part of the package's build script
-              test -f "${packageWrapped}/nix-support/sandboxed-${sandbox.method}" \
-                && touch "$out"
-            '';
-          };
-        });
-      in
-        packageWrapped
     else
-      throw "unknown net type '${net}'"
+      let
+        makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { sane-sandboxed = config.sane.sandboxHelper; };
+        vpn = lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn);
+      in
+        makeSandboxed {
+          inherit pkgName package;
+          inherit (sandbox) binMap method extraConfig;
+          vpn = if net == "vpn" then vpn else null;
+          allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath;
+          allowedRootPaths = [
+            "/nix/store"
+            "/bin/sh"
+            "/etc"  #< especially for /etc/profiles/per-user/$USER/bin
+            "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms` (/run/current-system/sw/bin)
+            "/run/wrappers"  #< SUID wrappers, in this case so that firejail can be re-entrant
+            # "/bin/sh"  #< to allow `firejail --join=...` (doesn't work)
+            "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here
+            # /run/opengl-driver is a symlink into /nix/store; needed by e.g. mpv
+            "/run/opengl-driver"
+            "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
+            "/run/user"  #< particularly /run/user/$id/wayland-1, pulse, etc.
+            "/run/secrets/home"
+            # "/dev/dri"  #< fix non-fatal "libEGL warning: wayland-egl: could not open /dev/dri/renderD128" (geary)
+          ] ++ sandbox.extraPaths;
+        }
   );
   pkgSpec = with lib; types.submodule ({ config, name, ... }: {
     options = {
@@ -305,8 +210,8 @@ let
         '';
       };
       sandbox.method = mkOption {
-        type = types.nullOr (types.enum [ "firejail" ]);
-        default = null;  #< TODO: default to firejail
+        type = types.nullOr (types.enum [ "bwrap" "firejail" ]);
+        default = null;  #< TODO: default to bwrap
         description = ''
           how/whether to sandbox all binaries in the package.
         '';
@@ -319,6 +224,26 @@ let
           for example,
             if the package ships `bin/mpv` and `bin/umpv`, this module might know how to sandbox `mpv` but not `umpv`.
             then set `sandbox.binMap.umpv = "mpv";` to sandbox `bin/umpv` with the same rules as `bin/mpv`
+        '';
+      };
+      sandbox.extraPaths = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          additional absolute paths to bind into the sandbox.
+        '';
+      };
+      sandbox.extraConfig = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          extra arguments to pass to the sandbox wrapper.
+          example: [
+            "--sane-sandbox-firejail-arg"
+            "--whitelist=''${HOME}/.ssh"
+            "--sane-sandbox-firejail-arg"
+            "--keep-dev-shm"
+          ]
         '';
       };
       configOption = mkOption {
@@ -344,8 +269,14 @@ let
       package = if config.packageUnwrapped == null then
         null
       else
-        wrapPkg config config.packageUnwrapped
+        wrapPkg name config config.packageUnwrapped
         ;
+      suggestedPrograms = lib.optionals (config.sandbox.method == "bwrap") [ "bubblewrap" ]
+        ++ lib.optionals (config.sandbox.method == "firejail") [ "firejail" ];
+      # declare a fs dependency for each secret, but don't specify how to populate it yet.
+      #   can't populate it here because it varies per-user.
+      # this gets the symlink into the sandbox, but not the actual secret.
+      fs = lib.mapAttrs (_homePath: _secretSrc: {}) config.secrets;
     };
   });
   toPkgSpec = with lib; types.coercedTo types.package (p: { package = p; }) pkgSpec;
@@ -363,6 +294,9 @@ let
 
     system.checks = lib.optionals (p.enabled && p.sandbox.method != null && p.package != null) [
       p.package.passthru.checkSandboxed
+    ];
+    sane.sandboxProfiles = lib.optionals (p.enabled && p.sandbox.method != null && p.package != null) [
+      p.package.passthru.sandboxProfiles
     ];
 
     # conditionally add to system PATH and env
@@ -427,6 +361,22 @@ in
         whether to ship programs which are uniquely slow to build.
       '';
     };
+    sane.sandboxHelper = mkOption {
+      type = types.package;
+      default = pkgs.callPackage ./sane-sandboxed.nix {};
+      description = ''
+        `sane-sandbox` package.
+        exposed to facilitate debugging, e.g. `nix build '.#hostConfigs.desko.sane.sandboxHelper'`
+      '';
+    };
+    sane.sandboxProfiles = mkOption {
+      type = types.listOf types.package;
+      default = [];
+      description = ''
+        packages with /share/sane-sandbox profiles indicating how to sandbox their associated package.
+        this is mostly an internal implementation detail.
+      '';
+    };
   };
 
   config =
@@ -436,12 +386,23 @@ in
         environment.systemPackages = f.environment.systemPackages;
         environment.variables = f.environment.variables;
         users.users = f.users.users;
+        sane.sandboxProfiles = f.sane.sandboxProfiles;
         sane.users = f.sane.users;
         sops.secrets = f.sops.secrets;
         system.checks = f.system.checks;
       };
     in lib.mkMerge [
       (take (sane-lib.mkTypedMerge take configs))
+      {
+        environment.pathsToLink = [ "/share/sane-sandboxed" ];
+        environment.systemPackages = [(
+          config.sane.sandboxHelper.withProfiles
+            (pkgs.symlinkJoin {
+              name = "sane-sandbox-profiles";
+              paths = config.sane.sandboxProfiles;
+            })
+        )];
+      }
       {
         # expose the pkgs -- as available to the system -- as a build target.
         system.build.pkgs = pkgs;

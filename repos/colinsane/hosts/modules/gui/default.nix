@@ -55,7 +55,7 @@ in
   ];
 
   sane.programs.guiBaseApps = declPackageSet [
-    "abaddon"  # discord client
+    # "abaddon"  # discord client
     "alacritty"  # terminal emulator
     "delfin"  # Jellyfin client
     "dialect"  # language translation

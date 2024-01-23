@@ -19,6 +19,8 @@ in
       };
     };
 
+    sandbox.method = null; # "firejail"; #< TODO: it crashes when i try to load an inbox
+
     slowToBuild = true;  # uses webkitgtk 4.1
     persist.byStore.private = [
       # attachments, and email -- contained in a sqlite db

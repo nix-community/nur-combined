@@ -10,6 +10,7 @@ let
 in
 {
   sane.programs.vlc = {
+    sandbox.method = "firejail";
     persist.byStore.private = [
       # vlc remembers play position in ~/.config/vlc/vlc-qt-interface.conf
       # filenames are stored in plaintext (unlike mpv, which i think hashes them)

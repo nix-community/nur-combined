@@ -80,6 +80,6 @@ in {
     "${lib.getBin pict-rs}/bin/pict-rs run"
     "--media-video-max-frame-count" (builtins.toString (30*60*60))
     "--media-process-timeout 120"
-    "--media-enable-full-video true"  # allow audio
+    "--media-video-allow-audio"  # allow audio
   ]);
 }

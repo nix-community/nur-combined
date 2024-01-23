@@ -62,9 +62,10 @@ in
       '';
     });
 
-    sandbox.method = "firejail";
-    sandbox.binMap."mpv_identify.sh" = "mpv";
-    sandbox.binMap."umpv" = "mpv";
+    sandbox.method = "bwrap";
+    sandbox.extraConfig = [
+      "--sane-sandbox-autodetect"
+    ];
 
     persist.byStore.plaintext = [ ".local/state/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = let

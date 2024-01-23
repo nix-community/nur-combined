@@ -1,0 +1,236 @@
+#!@runtimeShell@
+
+test -n "$SANE_SANDBOX_DEBUG" && set -x
+
+cliArgs=()
+autodetect=
+profilesNamed=()
+rootPaths=()
+homePaths=()
+net=
+dns=()
+method=
+firejailFlags=()
+bwrapFlags=()
+
+debug() {
+  [ -n "$SANE_SANDBOX_DEBUG" ] && printf "[debug] %s" "$1" >&2
+}
+
+loadProfileByPath() {
+  # profile format is simply a list of arguments one would pass to this sane-sandboxed script itself,
+  # with one argument per line
+  readarray -t _profArgs < <(cat "$1")
+  parseArgs "${_profArgs[@]}"
+}
+
+tryLoadProfileByName() {
+  profilesNamed+=("$1")
+
+  _profileDirs=(@profileDirs@)
+  for _profileDir in "${_profileDirs[@]}"; do
+    _profile="$_profileDir/$1.profile"
+    debug "try profile at path: '$_profile'"
+    if [ -f "$_profile" ]; then
+      loadProfileByPath "$_profile"
+      break
+    fi
+  done
+}
+
+## parse CLI args into the variables declared above
+## args not intended for this helper are put into $parseArgsExtra
+parseArgs() {
+  parseArgsExtra=()
+  while [ "$#" -ne 0 ]; do
+    _arg="$1"
+    shift
+    case "$_arg" in
+      (--)
+        # rest of args are for the CLI
+        parseArgsExtra+=$@
+        break
+        ;;
+      (--sane-sandbox-debug)
+        SANE_SANDBOX_DEBUG=1
+        set -x
+        ;;
+      (--sane-sandbox-replace-cli)
+        # keep the sandbox flags, but clear any earlier CLI args.
+        # this lets the user do things like `mpv --sane-sandbox-replace-cli sh` to enter a shell
+        # with the sandbox that `mpv` would see.
+        parseArgsExtra=()
+        ;;
+      (--sane-sandbox-disable)
+        SANE_SANDBOX_DISABLE=1
+        ;;
+      (--sane-sandbox-method)
+        method="$1"
+        shift
+        ;;
+      (--sane-sandbox-autodetect)
+        # autodetect: crawl the CLI program's args & bind any which look like paths into the sandbox.
+        # this is handy for e.g. media players or document viewers.
+        # it's best combined with some two-tiered thing.
+        #   e.g. first drop to the broadest path set of interest (Music,Videos,tmp, ...), then drop via autodetect.
+        autodetect=1
+        ;;
+      (--sane-sandbox-dns)
+        # N.B.: these named temporary variables ensure that `set -x` causes $1 to be printed
+        _dns="$1"
+        shift
+        dns+=("$_dns")
+        ;;
+      (--sane-sandbox-firejail-arg)
+        _fjFlag="$1"
+        shift
+        firejailFlags+=("$_fjFlag")
+        ;;
+      (--sane-sandbox-bwrap-arg)
+        _bwrapFlag="$1"
+        shift
+        bwrapFlags+=("$_bwrapFlag")
+        ;;
+      (--sane-sandbox-net)
+        net="$1"
+        shift
+        ;;
+      (--sane-sandbox-home-path)
+        _path="$1"
+        shift
+        homePaths+=("$_path")
+        ;;
+      (--sane-sandbox-path)
+        _path="$1"
+        shift
+        rootPaths+=("$_path")
+        ;;
+      (--sane-sandbox-profile)
+        tryLoadProfileByName "$1"
+        shift
+        ;;
+      (*)
+        parseArgsExtra+=("$_arg")
+        ;;
+    esac
+  done
+}
+
+
+## FIREJAIL BACKEND
+
+firejailName=
+firejailProfile=
+
+firejailIngestRootPath() {
+  # XXX: firejail flat-out refuses to whitelist certain root paths
+  #      this exception list is non-exhaustive
+  [ "$1" != "/bin" ] && [ "$1" != "/etc" ] && firejailFlags+=("--noblacklist=$1" "--whitelist=$1")
+}
+firejailIngestHomePath() {
+  firejailFlags+=("--noblacklist="'${HOME}/'"$1" "--whitelist="'${HOME}/'"$1")
+}
+firejailIngestNet() {
+  firejailFlags+=("--net=$1")
+}
+firejailIngestDns() {
+  firejailFlags+=("--dns=$1")
+}
+firejailIngestProfile() {
+  if [ -z "$firejailName" ]; then
+    firejailName="$1"
+  fi
+  if [ -z "$firejailProfile" ]; then
+    _fjProfileDirs=(@firejailProfileDirs@)
+    for _fjProfileDir in "${_fjProfileDirs[@]}"; do
+      _fjProfile="$_fjProfileDir/$1.profile"
+      debug "try firejail profile at path: '$_fjProfile'"
+      if [ -f "$_fjProfile" ]; then
+        firejailProfile="$_fjProfile"
+      fi
+    done
+  fi
+}
+
+firejailExec() {
+  if [ -n "$firejailName" ]; then
+    firejailFlags+=("--join-or-start=$firejailName")
+  fi
+  if [ -n "$firejailProfile" ]; then
+    firejailFlags+=("--profile=$firejailProfile")
+  fi
+  PATH="$PATH:@firejail@/bin" exec firejail "${firejailFlags[@]}" -- "${cliArgs[@]}"
+}
+
+
+## BUBBLEWRAP BACKEND
+
+bwrapIngestRootPath() {
+  # N.B.: use --dev-bind-try instead of --dev-bind for platform-specific paths like /run/opengl-driver-32
+  #   which don't exist on aarch64, as the -try variant will gracefully fail (i.e. not bind it).
+  # N.B.: `test -r` for paths like /mnt/servo-media, which may otherwise break bwrap when offline with
+  #   "bwrap: Can't get type of source /mnt/...: Input/output error"
+  test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
+}
+bwrapIngestHomePath() {
+  _path="$HOME/$1"
+  # `test -r` isn't needed here, unless/until i try mounting a symlink like `~/Videos/servo` directly.
+  bwrapFlags+=("--dev-bind" "$_path" "$_path")
+}
+bwrapIngestProfile() {
+  debug "bwrap doesn't implement profiles"
+}
+# WIP
+
+bwrapExec() {
+  PATH="$PATH:@bubblewrap@/bin" exec bwrap --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- "${cliArgs[@]}"
+}
+
+
+## BACKEND HANDOFF
+
+parseArgs "$@"
+cliArgs+=("${parseArgsExtra[@]}")
+
+test -n "$SANE_SANDBOX_DISABLE" && exec "${cliArgs[@]}"
+
+### convert generic args into sandbox-specific args
+# order matters: for firejail, early args override the later --profile args
+
+for _path in "${rootPaths[@]}"; do
+  "$method"IngestRootPath "$_path"
+done
+
+for _path in "${homePaths[@]}"; do
+  "$method"IngestHomePath "$_path"
+done
+
+if [ -n "$autodetect" ]; then
+  _pwd=$(pwd)
+  for _arg in "${cliArgs[@]:1}"; do
+    # TODO: might want to also mount the directory *above* this file,
+    # to access e.g. adjacent album art in the media's folder.
+    if [[ "$_arg" == "/*" ]]; then
+      test -e "$_arg" && "$method"IngestRootPath "$_arg"
+    elif test -e "$_pwd/$_arg"; then
+      "$method"IngestRootPath "$_pwd/$_arg"
+    fi
+  done
+fi
+
+if [ -n "$net" ]; then
+  "$method"IngestNet "$net"
+fi
+
+for _addr in "${dns[@]}"; do
+  "$method"IngestDns "$_addr"
+done
+
+for _prof in "${profilesNamed[@]}"; do
+  "$method"IngestProfile "$_prof"
+done
+
+"$method"Exec
+
+echo "sandbox glue failed for method='$method'"
+exit 1

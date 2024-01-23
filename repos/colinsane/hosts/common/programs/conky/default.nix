@@ -1,6 +1,14 @@
 { config, pkgs, ... }:
 {
   sane.programs.conky = {
+    # TODO: non-sandboxed `conky` still ships via `sxmo-utils`, but unused
+    sandbox.method = "bwrap";
+    sandbox.extraPaths = [
+      "/sys/class/power_supply"
+      "/sys/devices"  # needed by battery_estimate
+      # "/sys/devices/cpu"
+      # "/sys/devices/system"
+    ];
     fs.".config/conky/conky.conf".symlink.target =
       let
         battery_estimate = pkgs.static-nix-shell.mkBash {

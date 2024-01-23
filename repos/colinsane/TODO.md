@@ -34,9 +34,14 @@
 - validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
-- port all sane.programs to firejail
-  - enforce that all `environment.packages` has a firejail profile (or opts out)
-  - restrict firejail SUID binary to just group `firejail`: <https://firejail.wordpress.com/documentation-2/basic-usage/#suid>
+- port all sane.programs to bwrap
+  - enforce that all `environment.packages` has a bwrap profile (or explicitly opts out)
+  - integrate `xdg-open` with the bwrap profiles
+    - xdg-open can run as a highly-permissioned service, fielding requests.
+    - when it determines the handler, it can enforce the bwrap profile on that handler's behalf,
+      ensuring that anything launched with xdg-open is lowly-permissioned.
+    - then, the actual desktop can be permissioned *lower*. e.g. no access to ~/.ssh, even in nautilus.
+      `xdg-open terminal` would grant a high-permission interactive terminal, for doing high-permissioned things.
   - remove `.ssh` access from Firefox!
     - limit access to `~/private/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
 - canaries for important services
