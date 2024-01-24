@@ -8,15 +8,15 @@
 
 buildGoModule rec {
   pname = "matrix-qq";
-  version = "0.1.9";
+  version = "0.1.10";
   src = fetchFromGitHub {
     owner = "duo";
     repo = "matrix-qq";
     rev = version;
-    sha256 = "sha256-A35i4C0qmYSw02O/RD/RzJ3FsVDjjcAhOjaqfk8fVys=";
+    sha256 = "sha256-TUmAlx6P34pvXu5vCP2mlb34dVMHpa9YJIhkjFMAk5w=";
   };
 
-  vendorHash = "sha256-Haz08hkKNOilX2uBum+en9z97927kobj49bsLXow/Yo=";
+  vendorHash = "sha256-VLlW178B1a2mEwEb/aLZFYPVdC9hzQzI1gen+M8pg1I=";
 
   buildInputs = [
     olm
