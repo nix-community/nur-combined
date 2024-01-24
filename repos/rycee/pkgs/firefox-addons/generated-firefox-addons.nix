@@ -587,10 +587,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.14";
+      version = "7.5.15";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221873/betterttv-7.5.14.xpi";
-      sha256 = "4eea508c7be720217116cba2aed93ae893ca694dc9f68caee1012b45b7ce70e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223757/betterttv-7.5.15.xpi";
+      sha256 = "bd13d18bc4ba5433c50d148c15f0e8865f18f77100b861590527a2dbf35964b0";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -2114,10 +2114,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.18.1";
+      version = "1.2.18.2";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223898/faststream-1.2.18.1.xpi";
-      sha256 = "8182e4a4e56a4396f680b02a403a7964b73bb4d8f855bcd68023ebd94888123a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4225842/faststream-1.2.18.2.xpi";
+      sha256 = "bc4ae115e4b6e1acf4ecc912ee9aeaf30fc42e745049c9ffd89602d943037e63";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -7925,10 +7925,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.10.0";
+      version = "1.11.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4220449/proton_pass-1.10.0.xpi";
-      sha256 = "acc11a4d4ccf02f829221651abc13fcf57d847391168d8c3ece1dd95e3acc5e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224133/proton_pass-1.11.0.xpi";
+      sha256 = "c712decdf4e7b31b77d77ad132b218f17be7fedec56b271f0cb04e3a93c9ce9c";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -8677,10 +8677,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.39";
+      version = "1.22.40";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4211794/single_file-1.22.39.xpi";
-      sha256 = "c5605f2ae5fbe14f7720ebb2f93b559acffb9256b982d034a3dfe3d979b3296c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4223580/single_file-1.22.40.xpi";
+      sha256 = "72b11aa29cac50d9c9ac6978310b4597b42eaecd79098451f545a3ab0e2b516d";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
