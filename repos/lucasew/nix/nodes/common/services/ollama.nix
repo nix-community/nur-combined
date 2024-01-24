@@ -18,9 +18,12 @@ in
     };
     
     services.nginx.virtualHosts."ollama.${config.networking.hostName}.${config.networking.domain}" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.networking.ports.ollama.port}";
-        proxyWebsockets = true;
+      root = "${pkgs.ollama-webui}/share/www";
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${toString config.networking.ports.ollama.port}";
+          proxyWebsockets = true;
+        };
       };
     };
   };

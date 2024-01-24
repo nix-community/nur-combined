@@ -172,11 +172,11 @@
     "go-annotation": {
       "flake": false,
       "locked": {
-        "lastModified": 1705587240,
-        "narHash": "sha256-B/jIxKkdGOF1Hhuvgdcvvgnrm2elTH75Ke0TehJ1J0Y=",
+        "lastModified": 1706111555,
+        "narHash": "sha256-FY0Dm51eopLQ6ulfIn2hwuklBd7RbaLvXlGfrmJsntc=",
         "owner": "lucasew",
         "repo": "go-annotation",
-        "rev": "f7ac9827b2beaf5bb392e91b4dfb674780eb46fb",
+        "rev": "92435ac0032f1f9fffa04e07a058eef28a17b8cf",
         "type": "github"
       },
       "original": {
@@ -700,7 +700,8 @@
         "simple-dashboard": "simple-dashboard",
         "sops-nix": "sops-nix",
         "src-cached-nix-shell": "src-cached-nix-shell",
-        "telegram-sendmail": "telegram-sendmail"
+        "telegram-sendmail": "telegram-sendmail",
+        "ts-proxy": "ts-proxy"
       }
     },
     "rust-overlay": {
@@ -821,6 +822,22 @@
       "original": {
         "owner": "lucasew",
         "repo": "telegram-sendmail",
+        "type": "github"
+      }
+    },
+    "ts-proxy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695417848,
+        "narHash": "sha256-BWJhDaiphx5AQIcTpZhKQLDgVB9HNXkfgi0texE4Ues=",
+        "owner": "lucasew",
+        "repo": "ts-proxy",
+        "rev": "f2ec2838cb939f87463dd4a48b22984638dcb7ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "ts-proxy",
         "type": "github"
       }
     }

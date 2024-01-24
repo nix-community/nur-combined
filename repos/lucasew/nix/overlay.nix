@@ -100,6 +100,7 @@ in
   pkg = cp ./pkgs/pkg.nix;
   text2image = cp ./pkgs/text2image.nix;
   wrapWine = cp ./pkgs/wrapWine.nix;
+  ollama-webui = cp ./pkgs/ollama-webui;
   home-manager = cp "${flake.inputs.home-manager}/home-manager";
 
   prev = prev;
@@ -114,6 +115,7 @@ in
   send2kindle = cp flake.inputs.send2kindle;
   nixgram = cp flake.inputs.nixgram;
   go-annotation = cp flake.inputs.go-annotation;
+  ts-proxy = cp flake.inputs.ts-proxy;
   wrapVSCode = args: import flake.inputs.nix-vscode (args // { pkgs = prev; });
   wrapEmacs = args: import flake.inputs.nix-emacs (args // { pkgs = prev; });
 
