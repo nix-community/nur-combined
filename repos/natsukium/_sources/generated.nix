@@ -11,15 +11,15 @@
   };
   nixfmt = {
     pname = "nixfmt";
-    version = "1eff7a84ac82fbebb5f586244f1c80e1fcc4f494";
+    version = "96c1e8da1e4cd08ef5cfe0590b350ebdb24e8bb0";
     src = fetchFromGitHub {
       owner = "piegamesde";
       repo = "nixfmt";
-      rev = "1eff7a84ac82fbebb5f586244f1c80e1fcc4f494";
+      rev = "96c1e8da1e4cd08ef5cfe0590b350ebdb24e8bb0";
       fetchSubmodules = false;
-      sha256 = "sha256-A4lWuddBY2SI4AbQFT+/eP9LsrNarnkQ2AeikrU56N0=";
+      sha256 = "sha256-jiFbX7vefrEK+oaLb7/50UCqD+FQcA7lxEm+Pt+FtKM=";
     };
-    date = "2024-01-15";
+    date = "2024-01-23";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
@@ -51,10 +51,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "6.5.3206.55";
+    version = "6.5.3206.57";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.5.3206.55.universal.dmg";
-      sha256 = "sha256-1AUcbCjetZJIiDEpXALDtgSJXZK23o7Dt8Sgr+o1qro=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.5.3206.57.universal.dmg";
+      sha256 = "sha256-rsTNLoaXkd/I24Agmf/vU4U4PTrHx44oE0vY2V6fchA=";
     };
   };
 }
