@@ -31,6 +31,7 @@ in
           --replace '"login"' '"Default_keyring"'
       '';
     });
+    sandbox.method = "bwrap";
 
     persist.byStore.private = [
       ".cache/gtkcord4"

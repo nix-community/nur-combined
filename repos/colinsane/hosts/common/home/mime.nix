@@ -33,11 +33,10 @@ in
   # - `xdg-mime query filetype path/to/thing.ext`
   # the default handler for a mime type can be found with:
   # - `xdg-mime query default <mimetype>`  (e.g. x-scheme-handler/http)
+  # the nix-configured handler can be found `nix-repl > :lf . > hostConfigs.desko.xdg.mime.defaultApplications`
   #
   # we can have single associations or a list of associations.
   # there's also options to *remove* [non-default] associations from specific apps
   xdg.mime.enable = true;
   xdg.mime.defaultApplications = removePriorities (sortMimes (mergeMimes enabledWeightedMimes));
-
-
 }

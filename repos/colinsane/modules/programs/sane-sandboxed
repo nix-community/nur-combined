@@ -3,6 +3,7 @@
 test -n "$SANE_SANDBOX_DEBUG" && set -x
 
 cliArgs=()
+cliPathArgs=()
 autodetect=
 profilesNamed=()
 rootPaths=()
@@ -38,6 +39,34 @@ tryLoadProfileByName() {
   done
 }
 
+# convert e.g. `file:///Local%20Users/foo.mp3` to `file:///Local Users/foo.mp3`
+urldecode() {
+  # source: <https://stackoverflow.com/q/6250698>
+  : "${*//+/ }"
+  echo -e "${_//%/\\x}"
+}
+
+tryArgAsPath() {
+  _arg="$1"
+  _path=
+  if [ "${_arg:0:1}" = "/" ]; then
+    # absolute path
+    _path="$_arg"
+  elif [ "${_arg:0:8}" = "file:///" ]; then
+    # URI to an absolute path which is presumably on this vfs
+    # commonly found when xdg-open/mimeo passes a path on to an application
+    # if URIs to relative paths exist, this implementation doesn't support them
+    _path="/$(urldecode "${_arg:8}")"
+  else
+    # assume relative path
+    _path="$(pwd)/$_arg"
+  fi
+
+  if [ -e "$_path" ]; then
+    cliPathArgs+=("$_path")
+  fi
+}
+
 ## parse CLI args into the variables declared above
 ## args not intended for this helper are put into $parseArgsExtra
 parseArgs() {
@@ -47,8 +76,20 @@ parseArgs() {
     shift
     case "$_arg" in
       (--)
-        # rest of args are for the CLI
-        parseArgsExtra+=$@
+        # rest of args are for the CLI, and not for us.
+        # consider two cases:
+        # - sane-sandboxed --sane-sandbox-flag1 -- /nix/store/.../mpv --arg0 arg1
+        # - sane-sandboxed /nix/store/.../mpv --arg0 -- arg1
+        # in the first case, we swallow the -- and treat the rest as CLI args.
+        # in the second case, the -- is *probably* intended for the application.
+        #    but it could be meant for us. do the most conservative thing here
+        #    and stop our own parsing, and also forward the -- to the wrapped binary.
+        #
+        # this mode of argument parsing is clearly ambiguous, it's probably worth reducing our own API in the future
+        if [ -n "$parseArgsExtra" ]; then
+          parseArgsExtra+=("--")
+        fi
+        parseArgsExtra+=("$@")
         break
         ;;
       (--sane-sandbox-debug)
@@ -206,15 +247,13 @@ for _path in "${homePaths[@]}"; do
 done
 
 if [ -n "$autodetect" ]; then
-  _pwd=$(pwd)
   for _arg in "${cliArgs[@]:1}"; do
+    tryArgAsPath "$_arg"
+  done
+  for _path in "${cliPathArgs[@]}"; do
     # TODO: might want to also mount the directory *above* this file,
     # to access e.g. adjacent album art in the media's folder.
-    if [[ "$_arg" == "/*" ]]; then
-      test -e "$_arg" && "$method"IngestRootPath "$_arg"
-    elif test -e "$_pwd/$_arg"; then
-      "$method"IngestRootPath "$_pwd/$_arg"
-    fi
+    "$method"IngestRootPath "$_path"
   done
 fi
 
