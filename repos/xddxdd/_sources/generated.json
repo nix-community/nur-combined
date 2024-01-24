@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-22",
+        "date": "2024-01-23",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "f3bb2fadced4053e3dcb8a552b667a22d41bae25",
-            "sha256": "sha256-9QvR5oZd7iPmm8sdPMVlRLJUxhxtrT8ayDPMQB4vPD0=",
+            "rev": "f4e882e00d0f71c7912deeed8d1a31f209f266dc",
+            "sha256": "sha256-S0FnAW6QynxskVM+ItIWtPr6O6hpKWf2+WdNTAiUhk0=",
             "type": "github"
         },
-        "version": "f3bb2fadced4053e3dcb8a552b667a22d41bae25"
+        "version": "f4e882e00d0f71c7912deeed8d1a31f209f266dc"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -833,7 +833,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-01-22",
+        "date": "2024-01-23",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -845,11 +845,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "93c5d489c76ae23a79d0042ccc69aece689ec0b8",
-            "sha256": "sha256-HuHtbO7RjId9ZhSSbu4a4qyaZxlkm96YX6EkgVN6B2w=",
+            "rev": "2f4a25c8de89b2bb98607f24b2f401856482737e",
+            "sha256": "sha256-eYq6EjYoSofW6kxQx58rHkCYB0h4g5Qn+Ydrik13jVs=",
             "type": "github"
         },
-        "version": "93c5d489c76ae23a79d0042ccc69aece689ec0b8"
+        "version": "2f4a25c8de89b2bb98607f24b2f401856482737e"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1318,7 +1318,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-01-19",
+        "date": "2024-01-23",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1330,11 +1330,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "c8d30c87d4deadf153c293f89fae7c3efb5acba1",
-            "sha256": "sha256-H57uoMO2RSZAkGM9Oa2UZtfm7nKhvBnYgZWtu9EGOAs=",
+            "rev": "7b21bd3bf35ba5fec53d5e5ab20f071b8afcd8b8",
+            "sha256": "sha256-LXNBiKyCT2z9+UyHjr8cGOb/oYJOB2PlRXEsz2ZDnnY=",
             "type": "github"
         },
-        "version": "c8d30c87d4deadf153c293f89fae7c3efb5acba1"
+        "version": "7b21bd3bf35ba5fec53d5e5ab20f071b8afcd8b8"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1905,11 +1905,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-uJ6Y0Seq39FoK9G9qDAx9Aw1Mz1OkS8g/r3rvo4H1bs=",
+            "sha256": "sha256-ABrtzLWeyekGfQcDugup+OFFQVndeqT6n4LA+bmldCg=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.27/WeChatSetup-3.9.9.27.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.35/WeChatSetup-3.9.9.35.exe"
         },
-        "version": "3.9.9.27"
+        "version": "3.9.9.35"
     },
     "wine-wechat-x86": {
         "cargoLocks": null,
@@ -1920,11 +1920,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hiFh34A6nPYubgLPa7MeY3Ua9gGC9CpvKG3a5XlvJak=",
+            "sha256": "sha256-U/SdPuuwCxd/STRngiDHmib+vjrqiN2LoCykDG/459w=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.9.22/WeChatSetupX86-3.9.9.22.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.9.34/WeChatSetupX86-3.9.9.34.exe"
         },
-        "version": "3.9.9.22"
+        "version": "3.9.9.34"
     },
     "xstatic-asciinema-player": {
         "cargoLocks": null,

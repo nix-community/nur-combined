@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "f3bb2fadced4053e3dcb8a552b667a22d41bae25";
+    version = "f4e882e00d0f71c7912deeed8d1a31f209f266dc";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "f3bb2fadced4053e3dcb8a552b667a22d41bae25";
+      rev = "f4e882e00d0f71c7912deeed8d1a31f209f266dc";
       fetchSubmodules = false;
-      sha256 = "sha256-9QvR5oZd7iPmm8sdPMVlRLJUxhxtrT8ayDPMQB4vPD0=";
+      sha256 = "sha256-S0FnAW6QynxskVM+ItIWtPr6O6hpKWf2+WdNTAiUhk0=";
     };
-    date = "2024-01-22";
+    date = "2024-01-23";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "93c5d489c76ae23a79d0042ccc69aece689ec0b8";
+    version = "2f4a25c8de89b2bb98607f24b2f401856482737e";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "93c5d489c76ae23a79d0042ccc69aece689ec0b8";
+      rev = "2f4a25c8de89b2bb98607f24b2f401856482737e";
       fetchSubmodules = false;
-      sha256 = "sha256-HuHtbO7RjId9ZhSSbu4a4qyaZxlkm96YX6EkgVN6B2w=";
+      sha256 = "sha256-eYq6EjYoSofW6kxQx58rHkCYB0h4g5Qn+Ydrik13jVs=";
     };
-    date = "2024-01-22";
+    date = "2024-01-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -767,15 +767,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "c8d30c87d4deadf153c293f89fae7c3efb5acba1";
+    version = "7b21bd3bf35ba5fec53d5e5ab20f071b8afcd8b8";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "c8d30c87d4deadf153c293f89fae7c3efb5acba1";
+      rev = "7b21bd3bf35ba5fec53d5e5ab20f071b8afcd8b8";
       fetchSubmodules = false;
-      sha256 = "sha256-H57uoMO2RSZAkGM9Oa2UZtfm7nKhvBnYgZWtu9EGOAs=";
+      sha256 = "sha256-LXNBiKyCT2z9+UyHjr8cGOb/oYJOB2PlRXEsz2ZDnnY=";
     };
-    date = "2024-01-19";
+    date = "2024-01-23";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -1094,18 +1094,18 @@
   };
   wine-wechat-x64 = {
     pname = "wine-wechat-x64";
-    version = "3.9.9.27";
+    version = "3.9.9.35";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.27/WeChatSetup-3.9.9.27.exe";
-      sha256 = "sha256-uJ6Y0Seq39FoK9G9qDAx9Aw1Mz1OkS8g/r3rvo4H1bs=";
+      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.35/WeChatSetup-3.9.9.35.exe";
+      sha256 = "sha256-ABrtzLWeyekGfQcDugup+OFFQVndeqT6n4LA+bmldCg=";
     };
   };
   wine-wechat-x86 = {
     pname = "wine-wechat-x86";
-    version = "3.9.9.22";
+    version = "3.9.9.34";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.9.22/WeChatSetupX86-3.9.9.22.exe";
-      sha256 = "sha256-hiFh34A6nPYubgLPa7MeY3Ua9gGC9CpvKG3a5XlvJak=";
+      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.9.34/WeChatSetupX86-3.9.9.34.exe";
+      sha256 = "sha256-U/SdPuuwCxd/STRngiDHmib+vjrqiN2LoCykDG/459w=";
     };
   };
   xstatic-asciinema-player = {
