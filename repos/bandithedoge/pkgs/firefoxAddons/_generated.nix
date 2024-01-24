@@ -987,10 +987,10 @@
   };
   "privacy-pass" = buildFirefoxXpiAddon {
     pname = "privacy-pass";
-    version = "4.0.0";
+    version = "4.0.1";
     addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4216211/privacy_pass-4.0.0.xpi";
-    sha256 = "e2b93f9b456379b185b4c19353d86cbe45a62fc4db03e5af07fc254978392128";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4220646/privacy_pass-4.0.1.xpi";
+    sha256 = "956f61fc556dcebb405fb49c0c024860808cd6a4b9cc2b4be084448f160acdda";
     meta = with lib; {
       homepage = "https://github.com/cloudflare/pp-browser-extension";
       description = "Client support for Privacy Pass anonymous authorization protocol.";
@@ -1119,10 +1119,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.4.29";
+    version = "5.5.2";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4202411/sponsorblock-5.4.29.xpi";
-    sha256 = "ed7a9cf1cc9037294c7b9fdd8033b1d5fd900d59b3dc9b210e54ee7aee807128";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4224846/sponsorblock-5.5.2.xpi";
+    sha256 = "2d10f481c1fb478060be3e09794b7d73b5b3c6f32b59b9eaa8d7edd3ca22e66c";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -1250,10 +1250,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "3.9.19";
+    version = "3.9.20";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4197314/tree_style_tab-3.9.19.xpi";
-    sha256 = "bb67f47a554f8f937f4176bee6144945eb0f240630b93f73d2cff49f0985b55a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4223206/tree_style_tab-3.9.20.xpi";
+    sha256 = "dfce652ffc61a5ad93b18512f7af5764e9ff23eab4b2164ae028a51660a16850";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";
@@ -1352,10 +1352,10 @@
   };
   "violentmonkey" = buildFirefoxXpiAddon {
     pname = "violentmonkey";
-    version = "2.17.0";
+    version = "2.18.0";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4213757/violentmonkey-2.17.0.xpi";
-    sha256 = "8a0d00f6b0a0ec2b77cab4576b0c30a81705ef7e1f45de9856c36c193afc6843";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4220396/violentmonkey-2.18.0.xpi";
+    sha256 = "4abbeea842b82965379c6011dec6a435dfff0f69c20749118a8ba2f7d14cb0f1";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Userscript support for browsers, open source.";

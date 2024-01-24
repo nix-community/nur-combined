@@ -108,6 +108,15 @@
         sha512 = "KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==";
       };
     };
+    "argparse-2.0.1" = {
+      name = "argparse";
+      packageName = "argparse";
+      version = "2.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz";
+        sha512 = "8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==";
+      };
+    };
     "binary-extensions-2.2.0" = {
       name = "binary-extensions";
       packageName = "binary-extensions";
@@ -126,13 +135,13 @@
         sha512 = "b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==";
       };
     };
-    "bumpp-9.2.1" = {
+    "bumpp-9.3.0" = {
       name = "bumpp";
       packageName = "bumpp";
-      version = "9.2.1";
+      version = "9.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bumpp/-/bumpp-9.2.1.tgz";
-        sha512 = "mq6/e8+bnIsOMy1VceTLC49WucMIZqd2nYn0e7Et5LhTO3yYQ8OWJsTl/B+uJDs5eywZmJ4Yt1WTEd2HCI35pw==";
+        url = "https://registry.npmjs.org/bumpp/-/bumpp-9.3.0.tgz";
+        sha512 = "P46VikoEZadYCqx7mbClKlaJnOyvc+JfRJPRf1YwlOjwqeYmutgFe1w9hvfXe819VhpU0N0TNXtxyVAUlAgaNA==";
       };
     };
     "c12-1.6.1" = {
@@ -225,13 +234,13 @@
         sha512 = "65AlobnZMiCET00KaFFjUefxDX0khFA/E4myqZ7a6Sq1yZtR8+FVIvilVX66vF2uobSumxooYZChiRPCKNqhmg==";
       };
     };
-    "dotenv-16.3.1" = {
+    "dotenv-16.4.1" = {
       name = "dotenv";
       packageName = "dotenv";
-      version = "16.3.1";
+      version = "16.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/dotenv/-/dotenv-16.3.1.tgz";
-        sha512 = "IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==";
+        url = "https://registry.npmjs.org/dotenv/-/dotenv-16.4.1.tgz";
+        sha512 = "CjA3y+Dr3FyFDOAMnxZEGtnW9KBR2M0JvvUtXNW+dYJL5ROWxP9DUHCwgFqpMk0OXCc0ljhaNTr2w/kutYIcHQ==";
       };
     };
     "emmet-2.4.6" = {
@@ -405,6 +414,15 @@
         sha512 = "gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==";
       };
     };
+    "js-yaml-4.1.0" = {
+      name = "js-yaml";
+      packageName = "js-yaml";
+      version = "4.1.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.0.tgz";
+        sha512 = "wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==";
+      };
+    };
     "jsonc-parser-2.3.1" = {
       name = "jsonc-parser";
       packageName = "jsonc-parser";
@@ -414,13 +432,13 @@
         sha512 = "H8jvkz1O50L3dMZCsLqiuB2tA7muqbSg1AtGEkN0leAqGjsUzDJir3Zwr02BhqdcITPg3ei3mZ+HjMocAknhhg==";
       };
     };
-    "jsonc-parser-3.2.0" = {
+    "jsonc-parser-3.2.1" = {
       name = "jsonc-parser";
       packageName = "jsonc-parser";
-      version = "3.2.0";
+      version = "3.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-3.2.0.tgz";
-        sha512 = "gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==";
+        url = "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-3.2.1.tgz";
+        sha512 = "AilxAyFOAcK5wA1+LeaySVBrHsGQvUFCDWXKpZjzaL0PqW+xfBOttn8GNtWKFWqneyMZj41MWF9Kl6iPWLwgOA==";
       };
     };
     "kleur-3.0.3" = {
@@ -549,13 +567,13 @@
         sha512 = "W4/tgAXFqFA0iL7fk0+uQ3g7wkL8xJmx3XdK0VGb4cHW//eZTtKGvFBBoRKVTpY7n6ze4NL9ly7rgXcHufqXKg==";
       };
     };
-    "nypm-0.3.4" = {
+    "nypm-0.3.6" = {
       name = "nypm";
       packageName = "nypm";
-      version = "0.3.4";
+      version = "0.3.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/nypm/-/nypm-0.3.4.tgz";
-        sha512 = "1JLkp/zHBrkS3pZ692IqOaIKSYHmQXgqfELk6YTOfVBnwealAmPA1q2kKK7PHJAHSMBozerThEFZXP3G6o7Ukg==";
+        url = "https://registry.npmjs.org/nypm/-/nypm-0.3.6.tgz";
+        sha512 = "2CATJh3pd6CyNfU5VZM7qSwFu0ieyabkEdnogE30Obn1czrmOYiZ8DOZLe1yBdLKWoyD3Mcy2maUs+0MR3yVjQ==";
       };
     };
     "ohash-1.1.3" = {
@@ -979,9 +997,10 @@ in {
       sources."@vscode/emmet-helper-2.9.2"
       sources."acorn-8.11.3"
       sources."anymatch-3.1.3"
+      sources."argparse-2.0.1"
       sources."binary-extensions-2.2.0"
       sources."braces-3.0.2"
-      sources."bumpp-9.2.1"
+      sources."bumpp-9.3.0"
       sources."c12-1.6.1"
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"
@@ -992,7 +1011,7 @@ in {
       sources."cross-spawn-7.0.3"
       sources."defu-6.1.4"
       sources."destr-2.0.2"
-      sources."dotenv-16.3.1"
+      sources."dotenv-16.4.1"
       sources."emmet-2.4.6"
       sources."execa-8.0.1"
       sources."fast-glob-3.3.2"
@@ -1017,6 +1036,7 @@ in {
       sources."is-stream-3.0.0"
       sources."isexe-2.0.0"
       sources."jiti-1.21.0"
+      sources."js-yaml-4.1.0"
       sources."jsonc-parser-2.3.1"
       sources."kleur-3.0.3"
       sources."lru-cache-6.0.0"
@@ -1041,7 +1061,7 @@ in {
             sources."path-key-4.0.0"
           ];
         })
-      sources."nypm-0.3.4"
+      sources."nypm-0.3.6"
       sources."ohash-1.1.3"
       sources."onetime-6.0.0"
       sources."path-key-3.1.1"
@@ -1051,7 +1071,7 @@ in {
       (sources."pkg-types-1.0.3"
         // {
           dependencies = [
-            sources."jsonc-parser-3.2.0"
+            sources."jsonc-parser-3.2.1"
           ];
         })
       sources."prompts-2.4.2"

@@ -19,9 +19,9 @@
       lockFile = ./octasine-v0.9.0/Cargo.lock;
       outputHashes = {
         "nih_plug_xtask-0.1.0" = "sha256-9MXkZESUK/NbZqEpDI/myqhFu+sX72hSBz9685/SACM=";
+        "iced_baseview-0.0.3" = "sha256-VSuR36LlDLO6uUf/3LfSwTeayerM5OqEeQp/ChKoijs=";
         "baseview-0.1.0" = "sha256-CK0+I2NqrDRJdhg4xotleVSp0GTiY8YZK1zBDx80BUs=";
         "reflink-0.1.3" = "sha256-1o5d/mepjbDLuoZ2/49Bi6sFgVX4WdCuhGJkk8ulhcI=";
-        "iced_baseview-0.0.3" = "sha256-VSuR36LlDLO6uUf/3LfSwTeayerM5OqEeQp/ChKoijs=";
       };
     };
   };

@@ -1,41 +1,41 @@
 {
-    "raze": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "raze",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "ZDoom",
-            "repo": "Raze",
-            "rev": "1.9.1",
-            "sha256": "sha256-lXBH2uLAV7wF/sO5t86EB8gwubWkpm56A6E42wJX68I=",
-            "type": "github"
-        },
-        "version": "1.9.1"
+  "raze": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "raze",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "ZDoom",
+      "repo": "Raze",
+      "rev": "1.9.1",
+      "sha256": "sha256-lXBH2uLAV7wF/sO5t86EB8gwubWkpm56A6E42wJX68I=",
+      "type": "github"
     },
-    "zmusic": {
-        "cargoLocks": null,
-        "date": "2023-11-29",
-        "extract": null,
-        "name": "zmusic",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "5ce525efc75a97d1391b46cca4def41a13ff1619",
-            "sha256": "sha256-XWhYOoSO4vC3hXIkMu08YenoKVb1KZiHhRWvi2IRYMk=",
-            "type": "git",
-            "url": "https://github.com/ZDoom/ZMusic"
-        },
-        "version": "5ce525efc75a97d1391b46cca4def41a13ff1619"
-    }
+    "version": "1.9.1"
+  },
+  "zmusic": {
+    "cargoLocks": null,
+    "date": "2023-11-29",
+    "extract": null,
+    "name": "zmusic",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "5ce525efc75a97d1391b46cca4def41a13ff1619",
+      "sha256": "sha256-XWhYOoSO4vC3hXIkMu08YenoKVb1KZiHhRWvi2IRYMk=",
+      "type": "git",
+      "url": "https://github.com/ZDoom/ZMusic"
+    },
+    "version": "5ce525efc75a97d1391b46cca4def41a13ff1619"
+  }
 }
