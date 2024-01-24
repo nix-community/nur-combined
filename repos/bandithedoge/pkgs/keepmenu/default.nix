@@ -23,5 +23,6 @@ pkgs.python3Packages.buildPythonApplication {
     homepage = "https://github.com/firecat53/keepmenu";
     license = licenses.gpl3;
     platforms = platforms.linux;
+    broken = true;
   };
 }
