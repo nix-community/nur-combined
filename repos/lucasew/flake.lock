@@ -172,11 +172,11 @@
     "go-annotation": {
       "flake": false,
       "locked": {
-        "lastModified": 1706111555,
-        "narHash": "sha256-FY0Dm51eopLQ6ulfIn2hwuklBd7RbaLvXlGfrmJsntc=",
+        "lastModified": 1706144476,
+        "narHash": "sha256-fNnmcruXNYr7RJcYOU/1ewk2rsbGC/h/lhYOJioRtQo=",
         "owner": "lucasew",
         "repo": "go-annotation",
-        "rev": "92435ac0032f1f9fffa04e07a058eef28a17b8cf",
+        "rev": "bc27a8e5970d4195fe5473116d6bbc38bff24df2",
         "type": "github"
       },
       "original": {

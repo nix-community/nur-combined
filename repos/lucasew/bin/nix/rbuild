@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ ! -v NIX_RBUILD_TARGET ]; then
+  NIX_RBUILD_TARGET=whiterun
+fi
+
+flakeRef="$1.drvPath";shift
+
+echo "[*] Evaluating ref \"$flakeRef\"" >&2
+drvPath=$(nix eval "$flakeRef" --raw)
+
+echo "[*] Sending derivation closure to \"$NIX_RBUILD_TARGET\"" >&2
+nix-copy-closure --to "$NIX_RBUILD_TARGET" "$drvPath"
+
+echo "[*] Building derivation \"drvPath\" on \"$NIX_RBUILD_TARGET\"" >&2
+
+function ssh_run {
+  ssh "$NIX_RBUILD_TARGET" "$@"
+}
+echo drvPath $drvPath
+
+BUILD_UUID=$(uuidgen)
+
+ssh_run -t mkdir -p /tmp/rbuild-outputs
+ssh_run -t nom build "$drvPath^*" --out-link /tmp/rbuild-outputs/$BUILD_UUID
+
+RESULT_OUTPUT="$(ssh_run realpath /tmp/rbuild-outputs/$BUILD_UUID)"
+
+echo "[*] Copying result back: \"$RESULT_OUTPUT\"" >&2
+
+nix-copy-closure --from "$NIX_RBUILD_TARGET" "$RESULT_OUTPUT/"
+
+echo "$RESULT_OUTPUT"
