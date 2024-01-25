@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=@version@
-Name=Dynobase
-Exec=@exec@
-StartupNotify=true
-Terminal=false
-Icon=@icon@
-Type=Application
