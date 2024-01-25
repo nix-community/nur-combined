@@ -232,6 +232,11 @@ in
     enableDC1394 = true;
   };
 
+  opencv4FullCuda = final.opencv4Full.override {
+    enableCuda = true;
+    enableCudnn = true;
+  };
+
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {
     src = prev.fetchzip {
       url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip";
