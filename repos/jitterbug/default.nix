@@ -8,6 +8,7 @@ rec {
   stfs = pkgs.callPackage ./pkgs/stfs { };
   vapoursynth-bwdif = pkgs.callPackage ./pkgs/vapoursynth-bwdif { };
   vapoursynth-neofft3d = pkgs.callPackage ./pkgs/vapoursynth-neofft3d { };
+  vapoursynth-vsrawsource = pkgs.callPackage ./pkgs/vapoursynth-vsrawsource { };
   pyhht = pkgs.python3.pkgs.callPackage ./pkgs/pyhht { };
   vhs-decode = pkgs.callPackage ./pkgs/vhs-decode { inherit pyhht; };
   tbc-video-export = pkgs.python3.pkgs.callPackage ./pkgs/tbc-video-export { };

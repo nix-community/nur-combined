@@ -10,7 +10,7 @@
 }:
 let
   name = "tzpfms";
-  version = "0.3.3";
+  version = "0.3.4";
 in
 stdenv.mkDerivation rec {
   inherit name;
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     owner = "~nabijaczleweli";
     repo = name;
-    sha256 = "sha256-tfIFBQZQr+kwqdSJoWkSq+30R62JcbBWF1s0xJvh7Cc=";
+    sha256 = "sha256-N8hhYzvvZuWcf4WR3W6iXLRWu7B9r2qr3acF+Q0PL6o=";
     leaveDotGit = true;
     fetchSubmodules = true; # required for leaveDotGit to work
   };
@@ -37,16 +37,8 @@ stdenv.mkDerivation rec {
     git
   ];
 
-  prePatch = ''
-    substituteInPlace "configMakefile" \
-      --replace "-flto=full" ""
-
-    substituteInPlace "configMakefile" \
-      --replace "-flto" ""
-  '';
-
   TZPFMS_VERSION = "";
-  TZPFMS_DATE = "June 12th, 2023";
+  TZPFMS_DATE = "January 25th, 2024";
 
   buildPhase = ''
     make build
