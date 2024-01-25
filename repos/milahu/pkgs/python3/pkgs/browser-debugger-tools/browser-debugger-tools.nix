@@ -15,6 +15,13 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-kEDj18m5WfQs02vy6VcYFiKo7mw0IsP9NjKdaseIszQ=";
   };
 
+  # https://github.com/scivisum/browser-debugger-tools/blob/master/setup.py
+  # fix: typing not installed
+  # https://github.com/scivisum/browser-debugger-tools/issues/46
+  postPatch = ''
+    sed -i '/"typing"/d' setup.py
+  '';
+
   nativeBuildInputs = [
     python3.pkgs.setuptools
     python3.pkgs.wheel
@@ -23,7 +30,6 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [
     requests
     websocket-client
-    typing
   ];
 
   pythonImportsCheck = [ "browserdebuggertools" ];

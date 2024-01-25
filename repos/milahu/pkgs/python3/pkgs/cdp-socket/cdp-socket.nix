@@ -15,25 +15,16 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-/LJvhx44700x67bBw40Loi9vdKAtHai4PBwiAF+GGsU=";
   };
 
-  # relax requirements
-  # remove dev deps https://github.com/kaliiiiiiiiii/CDP-Socket/issues/23
-  postPatch = ''
-    sed -i 's/[=~><]=.*$//' requirements.txt
-    sed -i 's/^twine$//; s/^setuptools$//' requirements.txt
-  '';
-
   nativeBuildInputs = [
     python3.pkgs.setuptools
     python3.pkgs.wheel
   ];
 
-  # https://github.com/kaliiiiiiiiii/CDP-Socket/blob/master/requirements.txt
+  # https://github.com/kaliiiiiiiiii/CDP-Socket/blob/master/setup.py
   propagatedBuildInputs = with python3.pkgs; [
     aiohttp
     websockets
     orjson
-    #setuptools
-    #twine
   ];
 
   pythonImportsCheck = [ "cdp_socket" ];
