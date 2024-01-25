@@ -1683,10 +1683,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "123.0.20240122.154615";
+      version = "123.0.20240124.102023";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4225236/deutsch_de_language_pack-123.0.20240122.154615.xpi";
-      sha256 = "dcea434dc4b62215b54e12f1c0149d52018b76972ab5e278949fcb4371319f20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4226140/deutsch_de_language_pack-123.0.20240124.102023.xpi";
+      sha256 = "bc0f263c6ef20ba162c81c85cc5e816885920910c72c2b5a5cf1a559e1c83a17";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2526,10 +2526,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "123.0.20240122.154615";
+      version = "123.0.20240124.102023";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4225288/francais_language_pack-123.0.20240122.154615.xpi";
-      sha256 = "e4e14b5069a1fbe61dd185e32df6ab858b04e0950355e72c1504f049f13bebb2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4226142/francais_language_pack-123.0.20240124.102023.xpi";
+      sha256 = "4d6f42c3f930d50250892f739fa83cbc28b95a6191d0e1d3de43a63fee21676c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -8535,10 +8535,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "11.1.8";
+      version = "11.2.0";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4211311/sidebartabs-11.1.8.xpi";
-      sha256 = "61a394948b8df403e8a31c9f0c6922695ce04dbe5c8f3aaf4e19976e0c34a756";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4226058/sidebartabs-11.2.0.xpi";
+      sha256 = "6877dda2450f9a708679929d241878fa907b348cc4ae231c6d3285cabb9e94d2";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
