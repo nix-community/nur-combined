@@ -2,22 +2,31 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pystac";
-  version = "1.4.0";
+  version = "1.9.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "stac-utils";
     repo = "pystac";
     rev = "v${version}";
-    hash = "sha256-khhiCUNiaxC744J+fZiJOXruNILOXvAwe3UNygr2M8U=";
+    hash = "sha256-LbHeEA/F96nVejsNVMR/zrIgIyrBxHiinHcLzk68uA0=";
   };
+
+  nativeBuildInputs = with python3Packages; [ setuptools ];
 
   propagatedBuildInputs = with python3Packages; [
     python-dateutil
   ];
 
-  doCheck = false;
-
-  nativeCheckInputs = with python3Packages; [ jsonschema pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [
+    html5lib
+    jsonschema
+    pytestCheckHook
+    pytest-cov
+    pytest-mock
+    pytest-recording
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "pystac" ];
 

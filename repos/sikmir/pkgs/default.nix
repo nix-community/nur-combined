@@ -192,7 +192,6 @@ lib.makeScope newScope (
 
     ### GEOSPATIAL
 
-    apispec-webframeworks = callPackage ./geospatial/apispec-webframeworks { };
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
     c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
     cogdumper = callPackage ./geospatial/cogdumper { };
@@ -422,6 +421,7 @@ lib.makeScope newScope (
     mproxy = callPackage ./mqtt/mproxy { };
     mqcontrol = callPackage ./mqtt/mqcontrol { };
     mqtt-benchmark = callPackage ./mqtt/mqtt-benchmark { };
+    mqtt-c = callPackage ./mqtt/mqtt-c { };
     mqtt-cli = callPackage ./mqtt/mqtt-cli { };
     mqtt-explorer = callPackage ./mqtt/mqtt-explorer { };
     mqtt-launcher = callPackage ./mqtt/mqtt-launcher { };

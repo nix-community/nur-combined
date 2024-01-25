@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, apispec-webframeworks }:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "terracotta";

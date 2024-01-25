@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pysheds";
-  version = "0.3.3";
+  version = "0.3.5";
 
   src = fetchFromGitHub {
     owner = "mdbartos";
     repo = "pysheds";
     rev = version;
-    hash = "sha256-p3m4FLj8nOh6EWXUqhqvc3jGwjR8/tr/ULyx6WSiAl0=";
+    hash = "sha256-OAc/OxqEvASpRNJL/KcE+exHGJie0oVv4fS+XXhtRcI=";
   };
 
   propagatedBuildInputs = with python3Packages; [
