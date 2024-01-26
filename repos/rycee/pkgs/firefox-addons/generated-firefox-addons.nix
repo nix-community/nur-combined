@@ -1355,10 +1355,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.22.2";
+      version = "3.23.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4217803/control_panel_for_twitter-3.22.2.xpi";
-      sha256 = "db76e8f04596c1323d352052d91c594e8772f30a7bc5a25fb21d03102608ad41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224655/control_panel_for_twitter-3.23.0.xpi";
+      sha256 = "4b4bb73f4f8e18fbe7cbfb6a82f85b0e7a3844e50307651f1187ae27b8e35b89";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -5129,10 +5129,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.6.2";
+      version = "1.6.3";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4213640/leechblock_ng-1.6.2.xpi";
-      sha256 = "63cca6013a7d36104327132a7ae50f7a351c5a138b278e5ee87abda8093d6a34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224827/leechblock_ng-1.6.3.xpi";
+      sha256 = "a98594b2c39d8e8689192f41325bccf7ad2dfebf8b385c9f3c3bb3795190a21a";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
