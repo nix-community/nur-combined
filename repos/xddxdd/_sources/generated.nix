@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "e244174aa0c74aa7e3af7347713ade46db17a461";
+    version = "2cb63beade627dbffb29b223e9b4ea4f15a3944b";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "e244174aa0c74aa7e3af7347713ade46db17a461";
+      rev = "2cb63beade627dbffb29b223e9b4ea4f15a3944b";
       fetchSubmodules = false;
-      sha256 = "sha256-uJP90M0Px9BnsG337wrORN12v5fhAvBHoDFqxsh515U=";
+      sha256 = "sha256-E2EVfZuciT9kAHU06lxELzashOQIytFmNCwyKDuip+0=";
     };
-    date = "2024-01-24";
+    date = "2024-01-25";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -885,18 +885,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "c64ca459/linuxqq_3.2.5-20979";
+    version = "feb78c41/linuxqq_3.2.5-21159";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/c64ca459/linuxqq_3.2.5-20979_amd64.deb";
-      sha256 = "sha256-XDQg98Bo0o7BGkMkl6vpUSvUd0wAbMa0cPVFPrIqWAY=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/feb78c41/linuxqq_3.2.5-21159_amd64.deb";
+      sha256 = "sha256-pX99V18gjlMM6+jC9U7E5YvHDODGsrj0twt9K4rJN4Y=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "c64ca459/linuxqq_3.2.5-20979";
+    version = "feb78c41/linuxqq_3.2.5-21159";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/c64ca459/linuxqq_3.2.5-20979_arm64.deb";
-      sha256 = "sha256-zzLCWI/0L/6opFpTEQN2xdhqWA8i3pYI+K/0z63tOh4=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/feb78c41/linuxqq_3.2.5-21159_arm64.deb";
+      sha256 = "sha256-3zbhFKQrO1tMSnWJllLJLaVeVpLs44WBbuuyU1LTMIU=";
     };
   };
   qqmusic = {
@@ -945,15 +945,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2a2f956cc66eaf49c3068ecbd8102fdab3087e9e";
+    version = "daa80b55c90303024a9adb516d56f59c3c113a4c";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2a2f956cc66eaf49c3068ecbd8102fdab3087e9e";
+      rev = "daa80b55c90303024a9adb516d56f59c3c113a4c";
       fetchSubmodules = false;
-      sha256 = "sha256-wy5Y0v5FLNvJmxE3z0wIaSmNvlLG+71W/5N4Cd4noF4=";
+      sha256 = "sha256-+jHxxVXmlCSD7SyUB0wc02rZshWC/HCZgY7xE3sKp8c=";
     };
-    date = "2024-01-18";
+    date = "2024-01-26";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
