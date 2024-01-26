@@ -40,6 +40,7 @@ let
     gpodder-configured = callPackage ./additional/gpodder-configured { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     koreader-from-src = callPackage ./additional/koreader-from-src { };
+    landlock-sandboxer = callPackage ./additional/landlock-sandboxer { };
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lemoa = callPackage ./additional/lemoa { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
