@@ -320,6 +320,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         chromium = pkgs.ungoogled-chromium;
       };
 
+      selenium = callPackage ./pkgs/python3/pkgs/selenium/selenium.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
