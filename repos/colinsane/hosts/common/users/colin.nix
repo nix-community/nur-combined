@@ -53,6 +53,64 @@
 
   security.pam.mount.enable = true;
 
+  # in the future, may add this to sshd/login/sudo
+  # security.pam.services.systemd-user.rules = {
+  #   auth.pam_cap = {
+  #     order = 11500;
+  #     # order = 12500;  # before pam_unix but after all the others
+  #     control = "required"; # ?
+  #     modulePath = "${pkgs.libcap.pam}/lib/security/pam_cap.so";
+  #   };
+  # };
+  # security.pam.services.greetd.rules = {
+  #   auth.pam_cap = {
+  #     order = 12500;  # before pam_unix but after all the others
+  #     control = "required"; # ?
+  #     modulePath = "${pkgs.libcap.pam}/lib/security/pam_cap.so";
+  #   };
+  # };
+  # environment.etc."/security/capability.conf".text = ''
+  #   # The pam_cap.so module accepts the following arguments:
+  #   #
+  #   #   debug         - be more verbose logging things (unused by pam_cap for now)
+  #   #   config=<file> - override the default config for the module with file
+  #   #   keepcaps      - workaround for applications that setuid without this
+  #   #   autoauth      - if you want pam_cap.so to always succeed for the auth phase
+  #   #   default=<iab> - provide a fallback IAB value if there is no '*' rule
+  #   #
+  #   # format:
+  #   # <CAP>[,<CAP>...] USER|@GROUP|*
+  #   #
+  #   # the part of each line before the delimiter (" \t\n") is parsed with `cap_iab_from_text`.
+  #   # so each CAP can be prefixed to indicate which set it applies to:
+  #   # [!][^][%]<CAP>
+  #   # where ! adds to the NB set
+  #   #       ^ for AI
+  #   #       % (or empty) for I
+
+  #   ^cap_net_admin,^cap_new_raw colin
+  #   # include this `none *` line otherwise non-matching users get maximum inheritable capabilities
+  #   none *
+  # '';
+
+  # grant myself extra capabilities so that i can e.g.:
+  # - run wireshark without root/setuid
+  # - (incidentally) create new network devices/routes without root/setuid, which ought to be useful for sandboxing if i deploy that right.
+  # default systemd includes cap_wake_alarm unless we specify our own capabilityAmbientSet; might be helpful for things like rtcwake?
+  #
+  # userName and uid have to be explicitly set here, to pass systemd's sanity checks.
+  # other values like `home`, `shell` can be omitted and systemd will grab those from other sources (/etc/passwd)
+  environment.etc."userdb/colin.user".text = ''
+    {
+      "userName" : "colin",
+      "uid": ${builtins.toString config.users.users.colin.uid},
+      "capabilityAmbientSet": [
+        "cap_net_admin",
+        "cap_net_raw"
+      ]
+    }
+  '';
+
   sane.users.colin = {
     default = true;
 
@@ -72,6 +130,7 @@
       # these are persisted simply to save on RAM.
       # ~/.cache/nix can become several GB.
       # fontconfig and mesa_shader_cache are < 10 MB.
+      # TODO: integrate with sane.programs.sandbox?
       ".cache/fontconfig"
       ".cache/mesa_shader_cache"
       ".cache/nix"

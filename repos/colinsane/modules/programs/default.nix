@@ -368,7 +368,10 @@ in
     };
     sane.sandboxHelper = mkOption {
       type = types.package;
-      default = pkgs.callPackage ./sane-sandboxed.nix {};
+      default = pkgs.callPackage ./sane-sandboxed.nix {
+        bubblewrap = cfg.bubblewrap.package;
+        firejail = cfg.firejail.package;
+      };
       description = ''
         `sane-sandbox` package.
         exposed to facilitate debugging, e.g. `nix build '.#hostConfigs.desko.sane.sandboxHelper'`

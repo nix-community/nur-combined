@@ -8,6 +8,7 @@ autodetect=
 profilesNamed=()
 rootPaths=()
 homePaths=()
+capabilities=()
 net=
 dns=()
 method=
@@ -116,6 +117,11 @@ parseArgs() {
         #   e.g. first drop to the broadest path set of interest (Music,Videos,tmp, ...), then drop via autodetect.
         autodetect=1
         ;;
+      (--sane-sandbox-cap)
+        _cap="$1"
+        shift
+        capabilities+=("$_cap")
+        ;;
       (--sane-sandbox-dns)
         # N.B.: these named temporary variables ensure that `set -x` causes $1 to be printed
         _dns="$1"
@@ -221,6 +227,9 @@ bwrapIngestHomePath() {
 bwrapIngestProfile() {
   debug "bwrap doesn't implement profiles"
 }
+bwrapIngestCapability() {
+  bwrapFlags+=("--cap-add" "cap_$1")
+}
 # WIP
 
 bwrapExec() {
@@ -230,8 +239,10 @@ bwrapExec() {
 
 ## BACKEND HANDOFF
 
+test -n "$SANE_SANDBOX_PREPEND" && parseArgs "${SANE_SANDBOX_PREPEND[@]}"
 parseArgs "$@"
 cliArgs+=("${parseArgsExtra[@]}")
+test -n "$SANE_SANDBOX_APPEND" && parseArgs "${SANE_SANDBOX_APPEND[@]}"
 
 test -n "$SANE_SANDBOX_DISABLE" && exec "${cliArgs[@]}"
 
@@ -256,6 +267,10 @@ if [ -n "$autodetect" ]; then
     "$method"IngestRootPath "$_path"
   done
 fi
+
+for _cap in "${capabilities[@]}"; do
+  "$method"IngestCapability "$_cap"
+done
 
 if [ -n "$net" ]; then
   "$method"IngestNet "$net"

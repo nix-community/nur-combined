@@ -83,6 +83,7 @@ in
       "iw"
       "jq"
       "killall"
+      "libcap_ng"  # for `netcap`
       "lsof"
       "miniupnpc"
       "nano"

@@ -34,7 +34,9 @@
 - validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
-- port all sane.programs to bwrap
+- port all sane.programs to be sandboxed
+  - consider using *landlock* instead of bwrap: conceptually simpler and fewer restrictions with the capabilities system
+    - <https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/samples/landlock/sandboxer.c>
   - enforce that all `environment.packages` has a bwrap profile (or explicitly opts out)
   - integrate `xdg-open` with the bwrap profiles
     - xdg-open can run as a highly-permissioned service, fielding requests.
@@ -42,6 +44,10 @@
       ensuring that anything launched with xdg-open is lowly-permissioned.
     - then, the actual desktop can be permissioned *lower*. e.g. no access to ~/.ssh, even in nautilus.
       `xdg-open terminal` would grant a high-permission interactive terminal, for doing high-permissioned things.
+    - i think there's already a xdg-open dbus equivalent in gnome. search "firejail URL issue"
+  - lock down dbus calls within the sandbox
+    - otherwise anyone can `systemd-run --user ...` to potentially escape a sandbox
+    - <https://github.com/flatpak/xdg-dbus-proxy>
   - remove `.ssh` access from Firefox!
     - limit access to `~/private/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
 - canaries for important services

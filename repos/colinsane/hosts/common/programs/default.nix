@@ -10,6 +10,7 @@
     ./audacity.nix
     ./bemenu.nix
     ./brave.nix
+    ./bubblewrap.nix
     ./calls.nix
     ./cantata.nix
     ./catt.nix
