@@ -43,6 +43,8 @@ in
         dbhost = "/run/postgresql";
       };
 
+      https = true;
+
       extraOptions = {
         overwriteprotocol = "https"; # Nginx only allows SSL
       };
