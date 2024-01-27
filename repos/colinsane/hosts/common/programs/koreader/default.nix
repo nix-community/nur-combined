@@ -3,6 +3,15 @@
 # - <https://github.com/koreader/koreader/wiki>
 #
 # post-installation setup:
+# - add FTP server:
+#   - click near top of window
+#   - tools icon > Cloud storage
+#   - plus icon > FTP server
+#     - "Your FTP name": (anything, e.g. "servo books")
+#     - FTP address: ftp://servo-hn
+#     - FTP username: anonymous
+#     - FTP password: (leave empty)
+#     - base directory: /media/Books
 # - download dictionaries:
 #   - search icon > settings > dictionary settings > download dictionaries
 #   - these are stored in `~/.config/koreader/data/dict`
@@ -36,6 +45,15 @@ let
 in {
   sane.programs.koreader = {
     packageUnwrapped = pkgs.koreader-from-src;
+    sandbox.method = "bwrap";  # sandboxes fine under landlock too, except for FTP
+    # sandbox.wrapperType = "wrappedDerivation";
+    sandbox.embedProfile = true;
+    sandbox.extraHomePaths = [
+      "Books"
+    ];
+    sandbox.extraPaths = [
+      "/mnt/servo-media/Books"
+    ];
     # koreader applies these lua "patches" at boot:
     # - <https://github.com/koreader/koreader/wiki/User-patches>
     # the naming is IMPORTANT. these must start with a `2-` in order to be invoked during the right initialization phase
