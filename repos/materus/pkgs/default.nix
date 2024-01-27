@@ -1,4 +1,4 @@
-{ pkgs, callPackage }:
+{ pkgs, callPackage}:
 rec {
   amdgpu-pro-libs = pkgs.lib.recurseIntoAttrs {
     vulkan = callPackage ./libs/amdgpu-pro-libs { };
@@ -9,13 +9,15 @@ rec {
   };
 
 
-  ffmpeg6-amf-full = pkgs.callPackage ./apps/ffmpeg {
+  ffmpeg6-amf-full = (if pkgs.ffmpeg-full.version != "6.1" then pkgs.callPackage ./apps/ffmpeg {
     inherit (pkgs.darwin.apple_sdk.frameworks)
       Cocoa CoreServices CoreAudio CoreMedia AVFoundation MediaToolbox
       VideoDecodeAcceleration VideoToolbox;
-  };
+  } else 
+   (pkgs.ffmpeg-full.overrideAttrs (finalAttrs: previousAttrs: {configureFlags = previousAttrs.configureFlags ++ ["--enable-amf"]; buildInputs = previousAttrs.buildInputs ++ [pkgs.amf-headers]; }))
+  );
 
-  obs-amf = pkgs.qt6Packages.callPackage ./apps/obs { ffmpeg = ffmpeg6-amf-full; inherit libcef;};
+  obs-amf = pkgs.qt6Packages.callPackage ./apps/obs { ffmpeg = ffmpeg6-amf-full; inherit libcef; };
 
   polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc {};
 
