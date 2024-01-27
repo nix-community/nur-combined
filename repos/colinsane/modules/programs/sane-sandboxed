@@ -19,7 +19,7 @@ method=
 firejailFlags=()
 bwrapFlags=()
 landlockPaths=
-landlockCapshCapsArg=
+capshCapsArg=
 
 debug() {
   [ -n "$isDebug" ] && printf "[debug] %s" "$1" >&2
@@ -242,8 +242,10 @@ bwrapIngestRootPath() {
 }
 bwrapIngestHomePath() {
   _path="$HOME/$1"
-  # `test -r` isn't needed here, unless/until i try mounting a symlink like `~/Videos/servo` directly.
-  bwrapFlags+=("--dev-bind" "$_path" "$_path")
+  # `-try` version of binding is still desireable for user files.
+  # although it'd be nice if all program directories could be required to exist, some things are scoped poorly.
+  #   e.g. ~/.local/share/historic.json for wike's history. i don't want to give it all of ~/.local/share, and i don't want it to fail if its history file doesn't exist.
+  bwrapFlags+=("--dev-bind-try" "$_path" "$_path")
 }
 bwrapIngestProfile() {
   debug "bwrap doesn't implement profiles"
@@ -279,16 +281,7 @@ landlockIngestProfile() {
   debug "landlock doesn't implement profiles"
 }
 landlockIngestCapability() {
-  # N.B. `capsh` parsing of `--caps=X` arg is idiosyncratic:
-  # - valid: `capsh --caps=CAP_FOO,CAP_BAR=eip -- <cmd>`
-  # - valid: `capsh --caps= -- <cmd>`
-  # - invalid: `capsh --caps=CAP_FOO,CAP_BAR -- <cmd>`
-  # - invalid: `capsh --caps==eip -- <cmd>`
-  if [ -z "$landlockCapshCapsArg" ]; then
-    landlockCapshCapsArg="cap_$1=eip"
-  else
-    landlockCapshCapsArg="cap_$1,$landlockCapshCapsArg"
-  fi
+  capshonlyIngestCapability "$1"
 }
 landlockExec() {
   # other sandboxing methods would create fake /dev, /proc, /tmp filesystems
@@ -319,7 +312,40 @@ landlockExec() {
   # invoke the actual user command.
   PATH="$PATH:@landlockSandboxer@/bin:@libcap@/bin" LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
     sandboxer \
-    capsh "--caps=$landlockCapshCapsArg" -- \
+    capsh "--caps=$capshCapsArg" -- \
+      -c "${cliArgs[*]}"
+}
+
+
+## CAPSH-ONLY BACKEND
+# this backend exists because apps which are natively bwrap may complain about having ambient privileges.
+# then, run them in a capsh sandbox, which ignores any path sandboxing and just lowers privs to what's needed.
+
+capshonlyIngestRootPath() {
+  debug "capshonly doesn't implement root paths"
+}
+capshonlyIngestHomePath() {
+  debug "capshonly doesn't implement home paths"
+}
+capshonlyIngestProfile() {
+  debug "capshonly doesn't implement profiles"
+}
+capshonlyIngestCapability() {
+  # N.B. `capsh` parsing of `--caps=X` arg is idiosyncratic:
+  # - valid: `capsh --caps=CAP_FOO,CAP_BAR=eip -- <cmd>`
+  # - valid: `capsh --caps= -- <cmd>`
+  # - invalid: `capsh --caps=CAP_FOO,CAP_BAR -- <cmd>`
+  # - invalid: `capsh --caps==eip -- <cmd>`
+  if [ -z "$capshCapsArg" ]; then
+    capshCapsArg="cap_$1=eip"
+  else
+    capshCapsArg="cap_$1,$capshCapsArg"
+  fi
+}
+
+capshonlyExec() {
+  PATH="$PATH:@libcap@/bin" exec \
+    capsh "--caps=$capshCapsArg" -- \
       -c "${cliArgs[*]}"
 }
 
