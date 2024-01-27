@@ -70,7 +70,7 @@ in {
 
     installPhase = ''
       mkdir -p $out/share/fonts/opentype/
-      cp ${src} $out/share/fonts/opentype/TH-Feon.ttf
+      cp $src $out/share/fonts/opentype/TH-Feon.ttf
     '';
 
     meta = with lib; {

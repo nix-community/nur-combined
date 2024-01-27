@@ -152,7 +152,7 @@ in
     dontWrapQtApps = true;
 
     unpackPhase = ''
-      ar x ${src}
+      ar x $src
       tar xf data.tar.xz
 
       mv opt/apps/com.alibabainc.dingtalk/files/version version

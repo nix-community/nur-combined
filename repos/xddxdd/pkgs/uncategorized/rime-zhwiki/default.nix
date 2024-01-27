@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation rec {
   dontUnpack = true;
   installPhase = ''
     mkdir -p $out/share/rime-data
-    cp ${src} $out/share/rime-data/zhwiki.dict.yaml
+    cp $src $out/share/rime-data/zhwiki.dict.yaml
   '';
 
   meta = with lib; {

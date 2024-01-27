@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation rec {
   dontUnpack = true;
   installPhase = ''
     mkdir -p $out/share/rime-data
-    cp ${src} $out/share/rime-data/moegirl.dict.yaml
+    cp $src $out/share/rime-data/moegirl.dict.yaml
   '';
 
   meta = with lib; {

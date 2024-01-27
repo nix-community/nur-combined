@@ -76,7 +76,7 @@ in
     buildInputs = libraries;
 
     unpackPhase = ''
-      ar x ${src}
+      ar x $src
       tar xf data.tar.xz
     '';
 

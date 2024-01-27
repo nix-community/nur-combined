@@ -30,7 +30,7 @@ let
     dontFixup = true;
 
     unpackPhase = ''
-      ar x ${src}
+      ar x $src
       tar xf data.tar.xz
     '';
 

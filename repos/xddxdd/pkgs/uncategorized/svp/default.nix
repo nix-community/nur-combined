@@ -76,7 +76,7 @@ let
     dontFixup = true;
 
     unpackPhase = ''
-      tar xf ${src}
+      tar xf $src
     '';
 
     buildPhase = ''

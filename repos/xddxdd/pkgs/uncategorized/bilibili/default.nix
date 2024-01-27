@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   inherit (sources.bilibili) pname version src;
 
   unpackPhase = ''
-    ar x ${src}
+    ar x $src
     tar xf data.tar.xz
   '';
 

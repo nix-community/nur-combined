@@ -30,7 +30,7 @@ let
     inherit (sources.wechat-uos) pname version src;
 
     unpackPhase = ''
-      ar x ${src}
+      ar x $src
     '';
 
     installPhase = ''

@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation rec {
   nativeBuildInputs = [p7zip];
 
   unpackPhase = ''
-    7z -aoa x ${src}
+    7z -aoa x $src
   '';
 
   installPhase = ''

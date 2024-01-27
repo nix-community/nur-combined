@@ -7,6 +7,8 @@
   wine64,
   winetricks,
   writeShellScript,
+  makeDesktopItem,
+  copyDesktopItems,
   ...
 }:
 ################################################################################
@@ -27,7 +29,7 @@ let
     dontUnpack = true;
     installPhase = ''
       mkdir -p $out
-      tar xf ${src} -C $out
+      tar xf $src -C $out
     '';
   };
 
@@ -109,13 +111,51 @@ in
   stdenv.mkDerivation {
     pname = "wine-wechat";
     inherit (sources.wine-wechat-x64) version;
-    phases = ["installPhase"];
-    installPhase = ''
-      mkdir -p $out/bin
+    dontUnpack = true;
+
+    nativeBuildInputs = [copyDesktopItems];
+
+    postInstall = ''
+      mkdir -p $out/bin $out/share/pixmaps
       cp -r ${startWechat} $out/bin/wine-wechat
       cp -r ${startWinecfg} $out/bin/wine-wechat-cfg
-      cp -r ${./share} $out/share
+      cp -r ${./wine-wechat.png} $out/share/pixmaps/wine-wechat.png
     '';
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "wine-wechat";
+        exec = "wine-wechat";
+        icon = "wine-wechat";
+        desktopName = "Wine WeChat";
+        comment = "Run WeChat with Wine";
+        startupWMClass = "wechat.exe";
+        categories = ["Network" "InstantMessaging"];
+        keywords = ["wx" "wechat" "weixin"];
+        extraConfig = {
+          "Name[zh_CN]" = "Wine 微信";
+          "Name[zh_TW]" = "Wine 微信";
+          "Comment[zh_CN]" = "使用 Wine 运行微信";
+          "Comment[zh_TW]" = "使用 Wine 运行微信";
+        };
+      })
+      (makeDesktopItem {
+        name = "wine-wechat-cfg";
+        exec = "wine-wechat-cfg";
+        icon = "wine-wechat";
+        desktopName = "Wine WeChat config";
+        comment = "Run winecfg for Wine WeChat";
+        startupNotify = true;
+        categories = ["Settings"];
+        keywords = ["wx" "wechat" "weixin"];
+        extraConfig = {
+          "Name[zh_CN]" = "Wine 微信配置";
+          "Name[zh_TW]" = "Wine 微信配置";
+          "Comment[zh_CN]" = "为 Wine 微信运行 winecfg";
+          "Comment[zh_TW]" = "为 Wine 微信运行 winecfg";
+        };
+      })
+    ];
 
     meta = with lib; {
       description = "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)";

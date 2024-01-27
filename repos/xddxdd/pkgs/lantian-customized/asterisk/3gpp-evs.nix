@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [unzip];
 
   unpackPhase = ''
-    unzip ${src}
+    unzip $src
     unzip 26443-cc0_d80_e41_f21_g10-ANSI-C_source_code.zip
   '';
   sourceRoot = "c-code";

@@ -23,7 +23,7 @@ in
 
     installPhase = ''
       mkdir -p $out/bin $out/opt
-      cp ${src} $out/opt/tachidesk-server.jar
+      cp $src $out/opt/tachidesk-server.jar
 
       makeWrapper ${jre_headless}/bin/java $out/bin/tachidesk-server \
         --add-flags "-jar" \

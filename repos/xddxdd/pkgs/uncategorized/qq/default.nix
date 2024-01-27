@@ -51,7 +51,7 @@ in
     buildInputs = libraries;
 
     unpackPhase = ''
-      ar x ${src}
+      ar x $src
     '';
 
     installPhase = ''
