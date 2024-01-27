@@ -32,6 +32,21 @@ let
   cfg = config.sane.programs.go2tv;
 in
 {
+  sane.programs.go2tv = {
+    sandbox.method = "bwrap";
+    sandbox.extraConfig = [
+      "--sane-sandbox-autodetect"
+    ];
+    # for GUI invocation, allow the common media directories
+    sandbox.extraHomePaths = [
+      "Music"
+      "Videos"
+    ];
+    sandbox.extraPaths = [
+      "/mnt/servo-media/Music"
+      "/mnt/servo-media/Videos"
+    ];
+  };
   # for serving local files
   # see: go2tv/soapcalls/utils/iptools.go
   # go2tv tries port 3500, and then walks up from there port-by-port until it finds a free one.

@@ -9,7 +9,9 @@
 {
   sane.programs.g4music = {
     sandbox.method = "bwrap";
-    fs."Music" = {};
+    sandbox.extraHomePaths = [
+      "Music"
+    ];
 
     persist.byStore.plaintext = [
       # index?

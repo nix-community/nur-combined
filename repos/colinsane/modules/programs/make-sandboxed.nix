@@ -61,15 +61,16 @@ let
   # here we switch between the options.
   # note that no.2 ("wrappedDerivation") *doesn't support .desktop files yet*.
   # the final package simply doesn't include .desktop files, only bin/.
-  package' = if wrapperType == "inline" && package.override.__functionArgs ? runCommand then
-    package.override {
-      runCommand = name: env: cmd: runCommand name env (cmd + lib.optionalString (name == package.name) ''
-        # if the package is a runCommand (common for wrappers), then patch it to call our `postFixup` hook, first
-        runHook postFixup
-      '');
-    }
-  else if wrapperType == "inline" then
-    package
+  package' = if wrapperType == "inplace" then
+    if package.override.__functionArgs ? runCommand then
+      package.override {
+        runCommand = name: env: cmd: runCommand name env (cmd + lib.optionalString (name == package.name) ''
+          # if the package is a runCommand (common for wrappers), then patch it to call our `postFixup` hook, first
+          runHook postFixup
+        '');
+      }
+    else
+      package
   else if wrapperType == "wrappedDerivation" then
     symlinkBinaries pkgName package
   else

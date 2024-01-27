@@ -2,6 +2,9 @@
 {
   sane.programs.dialect = {
     sandbox.method = "bwrap";
+    sandbox.extraHomePaths = [
+      ".config/dconf"  # to persist settings
+    ];
 
     packageUnwrapped = pkgs.dialect.overrideAttrs (upstream: {
       # TODO: send upstream
@@ -11,8 +14,5 @@
         pkgs.glib-networking  # for TLS
       ];
     });
-
-    # dialect reads settings via dconf
-    fs.".config/dconf" = {};
   };
 }

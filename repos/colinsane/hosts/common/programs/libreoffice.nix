@@ -6,6 +6,16 @@
     # packageUnwrapped = pkgs.libreoffice-bin;
     # packageUnwrapped = pkgs.libreoffice-still;
     packageUnwrapped = pkgs.libreoffice-fresh;
+    sandbox.method = "bwrap";
+    sandbox.extraConfig = [
+      "--sane-sandbox-autodetect"
+    ];
+    sandbox.extraHomePaths = [
+      # allow a spot to save files.
+      # with bwrap sandboxing, saving to e.g. ~/ succeeds but the data is inaccessible outside the sandbox,
+      # easy to shoot yourself in the foot!
+      "tmp"
+    ];
 
     slowToBuild = true;
 
