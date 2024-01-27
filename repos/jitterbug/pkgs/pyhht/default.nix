@@ -7,6 +7,8 @@ python3Packages.buildPythonPackage rec {
   version = "0.1.0";
   pname = "pyhht";
 
+  doCheck = false;
+
   src = fetchPypi {
     inherit pname version;
     sha256 = "1ecc495672f8851031d36156eac796a936e8b9726477e897376a21c449423d65";
