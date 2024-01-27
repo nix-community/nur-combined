@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, morecantile, supermercado, rio-tiler }:
+{ lib, stdenv, fetchFromGitHub, python3Packages, morecantile, supermorecado, rio-tiler }:
 
 python3Packages.buildPythonPackage rec {
   pname = "cogeo-mosaic";
@@ -18,10 +18,11 @@ python3Packages.buildPythonPackage rec {
     morecantile
     shapely
     pydantic
+    pydantic-settings
     httpx
     rasterio
     rio-tiler
-    supermercado
+    supermorecado
     cachetools
   ];
 

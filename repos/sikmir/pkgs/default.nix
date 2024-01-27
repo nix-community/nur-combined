@@ -248,6 +248,7 @@ lib.makeScope newScope (
     server-thread = callPackage ./geospatial/server-thread { };
     starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
     supermercado = callPackage ./geospatial/supermercado { };
+    supermorecado = callPackage ./geospatial/supermorecado { };
     tdh = callPackage ./geospatial/tdh { };
     terracotta = callPackage ./geospatial/terracotta { };
     tile-stitch = callPackage ./geospatial/tile-stitch { };

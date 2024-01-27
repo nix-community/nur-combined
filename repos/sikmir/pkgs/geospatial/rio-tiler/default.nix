@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-tiler";
-  version = "6.2.4";
+  version = "6.4.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cogeotiff";
     repo = "rio-tiler";
     rev = version;
-    hash = "sha256-CG474B3Q03Dq5QZSg/YtaTovt5mb+f4Aa4zEyB5QORA=";
+    hash = "sha256-qnrs069t4pWhMk0NweIG61qKaMyBpqps7gJGxPXCK/0=";
   };
 
   nativeBuildInputs = with python3Packages; [ hatchling ];
