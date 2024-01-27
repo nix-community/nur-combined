@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "2cb63beade627dbffb29b223e9b4ea4f15a3944b";
+    version = "5e1f905aed1c7f66d4cbfe341cfb8c1812cd5ab0";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "2cb63beade627dbffb29b223e9b4ea4f15a3944b";
+      rev = "5e1f905aed1c7f66d4cbfe341cfb8c1812cd5ab0";
       fetchSubmodules = false;
-      sha256 = "sha256-E2EVfZuciT9kAHU06lxELzashOQIytFmNCwyKDuip+0=";
+      sha256 = "sha256-f3QpzHPnFqbEf4mPlNsqOjmFmVXlr7s1aERZMbunkeQ=";
     };
-    date = "2024-01-25";
+    date = "2024-01-26";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -557,13 +557,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.7.1-xanmod1";
+    version = "6.7.2-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.7.1-xanmod1";
+      rev = "6.7.2-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-KpE0eMdmv41GWP0XWodTk5vrf4WQMugQ/g23vO9b0BU=";
+      sha256 = "sha256-nY7C3Qt5slxafvyVGtTf0celPF+W9MepL6MjsnPzTXg=";
     };
   };
   linux-xanmod-6_0 = {
@@ -579,24 +579,24 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.74-xanmod1";
+    version = "6.1.75-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.74-xanmod1";
+      rev = "6.1.75-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-PqCojvh7JwTcavtQHB8l/WxCTg94ndOy9KGVXsmGO/Y=";
+      sha256 = "sha256-SXaC2O5kBfH8qiQW4j9c8GhONTziXVLqDCJzDj5SKcI=";
     };
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.13-xanmod1";
+    version = "6.6.14-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.13-xanmod1";
+      rev = "6.6.14-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-RTfa9eIGYDqnffFnOFNaghKoGcHVy4rGYQkYumcw6Tk=";
+      sha256 = "sha256-WvzesXHAbOJMow4mE9Ty6JWMYef+Bq3MENLGalsThDU=";
     };
   };
   nbfc-linux-lantian = {

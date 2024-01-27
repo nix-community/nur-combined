@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-25",
+        "date": "2024-01-26",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "2cb63beade627dbffb29b223e9b4ea4f15a3944b",
-            "sha256": "sha256-E2EVfZuciT9kAHU06lxELzashOQIytFmNCwyKDuip+0=",
+            "rev": "5e1f905aed1c7f66d4cbfe341cfb8c1812cd5ab0",
+            "sha256": "sha256-f3QpzHPnFqbEf4mPlNsqOjmFmVXlr7s1aERZMbunkeQ=",
             "type": "github"
         },
-        "version": "2cb63beade627dbffb29b223e9b4ea4f15a3944b"
+        "version": "5e1f905aed1c7f66d4cbfe341cfb8c1812cd5ab0"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -965,11 +965,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.7.1-xanmod1",
-            "sha256": "sha256-KpE0eMdmv41GWP0XWodTk5vrf4WQMugQ/g23vO9b0BU=",
+            "rev": "6.7.2-xanmod1",
+            "sha256": "sha256-nY7C3Qt5slxafvyVGtTf0celPF+W9MepL6MjsnPzTXg=",
             "type": "github"
         },
-        "version": "6.7.1-xanmod1"
+        "version": "6.7.2-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1005,11 +1005,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.1.74-xanmod1",
-            "sha256": "sha256-PqCojvh7JwTcavtQHB8l/WxCTg94ndOy9KGVXsmGO/Y=",
+            "rev": "6.1.75-xanmod1",
+            "sha256": "sha256-SXaC2O5kBfH8qiQW4j9c8GhONTziXVLqDCJzDj5SKcI=",
             "type": "github"
         },
-        "version": "6.1.74-xanmod1"
+        "version": "6.1.75-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -1025,11 +1025,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.13-xanmod1",
-            "sha256": "sha256-RTfa9eIGYDqnffFnOFNaghKoGcHVy4rGYQkYumcw6Tk=",
+            "rev": "6.6.14-xanmod1",
+            "sha256": "sha256-WvzesXHAbOJMow4mE9Ty6JWMYef+Bq3MENLGalsThDU=",
             "type": "github"
         },
-        "version": "6.6.13-xanmod1"
+        "version": "6.6.14-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
