@@ -270,13 +270,13 @@
         sha512 = "oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==";
       };
     };
-    "fastq-1.16.0" = {
+    "fastq-1.17.0" = {
       name = "fastq";
       packageName = "fastq";
-      version = "1.16.0";
+      version = "1.17.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fastq/-/fastq-1.16.0.tgz";
-        sha512 = "ifCoaXsDrsdkWTtiNJX5uzHDsrck5TzfKKDcuFFTIrrc/BS076qgEIfoIy1VeZqViznfKiysPYTh/QeHtnIsYA==";
+        url = "https://registry.npmjs.org/fastq/-/fastq-1.17.0.tgz";
+        sha512 = "zGygtijUMT7jnk3h26kUms3BkSDp4IfIKjmnqI2tvx6nuBfiF1UqOxbnLfzdv+apBy+53oaImsKtMw/xYbW+1w==";
       };
     };
     "fill-range-7.0.1" = {
@@ -1015,7 +1015,7 @@ in {
       sources."emmet-2.4.6"
       sources."execa-8.0.1"
       sources."fast-glob-3.3.2"
-      sources."fastq-1.16.0"
+      sources."fastq-1.17.0"
       sources."fill-range-7.0.1"
       sources."flat-5.0.2"
       (sources."fs-minipass-2.1.0"
