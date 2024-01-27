@@ -69,8 +69,6 @@ unbind <C-f>
 " Redirections {{{
 " Always redirect Reddit to the old site
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
-" Use a better Twitter front-end
-autocmd DocStart ^http(s?)://twitter.com js tri.excmds.urlmodify("-t", "twitter.com", "nitter.net")
 " }}}
 
 " Disabled websites {{{
