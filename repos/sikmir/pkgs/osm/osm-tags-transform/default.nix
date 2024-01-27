@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osm-tags-transform";
-  version = "2022-02-19";
+  version = "2023-08-06";
 
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osm-tags-transform";
-    rev = "d8f8f729cddee97964081de25e591428dd610a9a";
-    hash = "sha256-PBxH5RGoimX+pyr17UAMJVbdknciT8M8WCzw6tWLwEs=";
+    rev = "f8717b52aba371a38e0fe538a6e0b0c1bcc7049d";
+    hash = "sha256-X0KsPlNac5ASuYjQRu75t5OL9WJSqIrXYFXyY1qFn+c=";
   };
 
   nativeBuildInputs = [ cmake ];

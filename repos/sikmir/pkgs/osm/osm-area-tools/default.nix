@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation {
   pname = "osm-area-tools";
-  version = "2021-01-04";
+  version = "2023-06-15";
 
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osm-area-tools";
-    rev = "b96db0ced55f1bb574084620ca34f0a2e9d19b5a";
-    hash = "sha256-bMD+8Md3rwlpsAu48YerfIFGq86PDfqTsKw5JeQUi6s=";
+    rev = "774443167f2e08222178253d83de359eb967d1e2";
+    hash = "sha256-3RfZhexzaLx3CJol3gKkNP4f9z0ccT1l2WNf3EOuhkE=";
   };
 
   nativeBuildInputs = [ cmake ];

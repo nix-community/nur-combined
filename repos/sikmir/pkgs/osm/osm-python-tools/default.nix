@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "osm-python-tools";
-  version = "2021-09-16";
+  version = "0.3.5";
 
   src = fetchFromGitHub {
     owner = "mocnik-science";
     repo = "osm-python-tools";
-    rev = "4ae053f65c1639bb8f0fe961c94594d31eada952";
-    hash = "sha256-3Eru0pXJtKDBs3mSpW+Z+r8d2XLmuMRTEhA4IMPrPpQ=";
+    rev = "v${version}";
+    hash = "sha256-lTDA1Rad9aYI/ymU/0xzdJHmebUGcpVJ0GW7D0Ujdko=";
   };
 
   postPatch = ''
