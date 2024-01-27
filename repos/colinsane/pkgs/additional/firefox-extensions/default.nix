@@ -161,15 +161,15 @@ in (lib.makeScope newScope (self: with self; {
       extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
       url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-      version = "5.5";
-      hash = "sha256-hV50GaS05WTVQOXTFDiM5SN0Jf1wNySfEuUTUSENBRw=";
+      version = "5.5.3";
+      hash = "sha256-AuBXi9BAwhb65fpxeCKjINaANEsDKxCiaspvNtIb3kU=";
     };
     ublacklist = fetchVersionedAddon rec {
       extid = "@ublacklist";
       pname = "ublacklist";
       url = "https://github.com/iorate/ublacklist/releases/download/v${version}/ublacklist-v${version}-firefox.zip";
-      version = "8.4.0";
-      hash = "sha256-mZOSx+2Zyjap0EYPzqV8CrNZ4lobP13E8ei7zeHAn/M=";
+      version = "8.5.0";
+      hash = "sha256-tEKRgzJQ94IxMl41XMpHVrii8vYz9ZQ/fjLKFalIwPg=";
     };
     ublock-origin = fetchVersionedAddon rec {
       extid = "uBlock0@raymondhill.net";
@@ -177,8 +177,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.55.1b12";
-      hash = "sha256-htK5N8Xtq4y7HEeZYyrGjdWBD0O8u9pBAY34UwmnWDc=";
+      version = "1.55.1b22";
+      hash = "sha256-39LS13cc691GEbxR7Zr27hpHrRI0uLQDXmkOoECNQ90=";
     };
   };
 })).overrideScope (self: super:
