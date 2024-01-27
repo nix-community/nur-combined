@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gt4gd";
-  version = "1.3.5";
+  version = "1.3.9";
 
   src = fetchFromGitHub {
     owner = "xinebf";
     repo = "google-translate-for-goldendict";
     rev = "v${version}";
-    hash = "sha256-1WZo2pDYLUN4BgbYfTsrAZpWvNgixILkVL0NWlTCkRU=";
+    hash = "sha256-zJq5dhmrd0k7bsw75xFECKmwZU4qjw+wwSzsYjg8zao=";
   };
 
   propagatedBuildInputs = with python3Packages; [ requests ]

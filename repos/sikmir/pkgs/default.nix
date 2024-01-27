@@ -42,6 +42,7 @@ lib.makeScope newScope (
     qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
     sequel-ace = callPackage ./darwin/sequel-ace { };
     sloth = callPackage ./darwin/sloth { };
+    zed = callPackage ./darwin/zed { };
 
     ### DATA
 
@@ -232,6 +233,7 @@ lib.makeScope newScope (
         proj = pkgs.proj_7;
       };
       proj = pkgs.proj_7;
+      inherit garmindev;
     };
     render_geojson = callPackage ./geospatial/render_geojson {
       wxGTK = pkgs.wxGTK32;
@@ -392,6 +394,7 @@ lib.makeScope newScope (
     sdorfehs = callPackage ./misc/sdorfehs { };
     serial-studio-bin = callPackage ./misc/serial-studio/bin.nix { };
     serverpp = callPackage ./misc/serverpp { };
+    shellprof = callPackage ./misc/shellprof { };
     socketcand = callPackage ./misc/socketcand { };
     subprocess = callPackage ./misc/subprocess { };
     tcvt = callPackage ./misc/tcvt { };

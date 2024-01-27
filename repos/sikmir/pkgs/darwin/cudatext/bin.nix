@@ -1,23 +1,25 @@
-{ lib, stdenv, fetchurl, undmg, makeWrapper, cudatext }:
+{ lib, stdenv, fetchurl, _7zz, makeWrapper, cudatext }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
-  version = "1.195.0.5";
+  version = "1.208.0.0";
 
   src = {
     "aarch64-darwin" = fetchurl {
       url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-aarch64-${finalAttrs.version}.dmg";
-      hash = "sha256-GMaqPnSEjzENcNpFi7YF5qENyk/sDEHCU/Xk/hYQtrQ=";
+      hash = "sha256-w7ypX5tYtAXaEaJgKXqhgH+ORw3yUSg0lOS3RG4lTbY=";
     };
     "x86_64-darwin" = fetchurl {
       url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
-      hash = "sha256-pNwpTACaK/tpA2bcZa0QyAndbT/r2aLomfynNibJcH4=";
+      hash = "sha256-PBYqfF73/tJ2eHfNWJ5LkjOmqkEQS+Fn/lh5ipNzajU=";
     };
   }.${stdenv.hostPlatform.system};
 
-  nativeBuildInputs = [ undmg makeWrapper ];
-
   sourceRoot = ".";
+
+  # APFS format is unsupported by undmg
+  nativeBuildInputs = [ _7zz makeWrapper ];
+  unpackCmd = "7zz x $curSrc";
 
   installPhase = ''
     runHook preInstall

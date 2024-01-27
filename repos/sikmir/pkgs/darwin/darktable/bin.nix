@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "darktable-bin";
-  version = "4.4.2";
+  version = "4.6.0";
 
   src = fetchfromgh {
     owner = "darktable-org";
     repo = "darktable";
     name = "darktable-${finalAttrs.version}-x86_64.dmg";
-    hash = "sha256-nrhOoEHarXBKjUIm2MfLp3Ui3NAD1xZpYYabHPqprJo=";
+    hash = "sha256-5OU8wexqWAACnzlyjAJIgqA1dFj1yNjg/xbf4DTnAe0=";
     version = "release-${finalAttrs.version}";
   };
 

@@ -6,13 +6,13 @@ let
     "x86_64-darwin" = "x64";
   }.${stdenv.hostPlatform.system};
   hash = {
-    "aarch64-darwin" = "sha256-mOXI5L1rR050kqsYgpgxXuuGdTbeouYCdhF46YrhMX8=";
-    "x86_64-darwin" = "sha256-YcKfP/3alkaDfio8ng4bd7T7q+6HO6gXNxRMEm1kAcw=";
+    "aarch64-darwin" = "sha256-3+Lib7gWF03UrIKRcyzHw9aX79aebkCQscAPdKAf6z0=";
+    "x86_64-darwin" = "sha256-miIw5xsL6GSHC+sX3JNxktfwhY5tkLrLCNdHHUwdtdY=";
   }.${stdenv.hostPlatform.system};
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "podman-desktop";
-  version = "0.12.0";
+  version = "1.7.0";
 
   src = fetchfromgh {
     owner = "containers";
@@ -27,13 +27,16 @@ stdenv.mkDerivation (finalAttrs: {
   sourceRoot = ".";
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/Applications
     cp -R *.app $out/Applications
+    runHook postInstall
   '';
 
   meta = with lib; {
     description = "A graphical tool for developing on containers and Kubernetes";
     homepage = "https://podman-desktop.io/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     platforms = [ "aarch64-darwin" "x86_64-darwin" ];
     maintainers = [ maintainers.sikmir ];

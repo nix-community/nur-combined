@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gdcv";
-  version = "2020-05-14";
+  version = "2023-08-27";
 
   src = fetchFromGitHub {
     owner = "konstare";
     repo = "gdcv";
-    rev = "39fd2667362710f69c13dd596e112b0391e0a57e";
-    hash = "sha256-JmT6n+VC6bbOOg+j+3bpUaoMn/Wr2Q4XDbQ6kxuLNe0=";
+    rev = "3151309d57d147231c63bd51fd0f01f10fd6ea55";
+    hash = "sha256-fzR+HKAZmvjiL4pBqfi3xIl5Ju0W3Hpy3SDHOmgoWZ0=";
   };
 
   postPatch = lib.optionalString stdenv.isDarwin ''
