@@ -4,6 +4,8 @@
   writeShellScriptBin,
   fetchurl,
   callPackage,
+  makeDesktopItem,
+  copyDesktopItems,
   # Dependencies
   ffmpeg,
   glibc,
@@ -18,10 +20,8 @@
   patchelf,
   socat,
   vapoursynth,
-  writeText,
   xdg-utils,
   xorg,
-  ...
 }:
 ################################################################################
 # Based on svp package from AUR:
@@ -69,7 +69,7 @@ let
     version = "4.5.210-2";
     src = fetchurl {
       url = "https://www.svp-team.com/files/svp4-linux.${version}.tar.bz2";
-      sha256 = "sha256-dY9uQ9jzTHiN2XSnOrXtHD11IIJW6t9BUzGGQFfZ+yg=";
+      hash = "sha256-dY9uQ9jzTHiN2XSnOrXtHD11IIJW6t9BUzGGQFfZ+yg=";
     };
 
     nativeBuildInputs = [p7zip patchelf];
@@ -111,39 +111,43 @@ let
     unshareUts = false;
     unshareCgroup = false;
   };
-
-  desktopFile = writeText "svp-manager4.desktop" ''
-    [Desktop Entry]
-    Version=1.0
-    Encoding=UTF-8
-    Name=SVP 4 Linux
-    GenericName=Real time frame interpolation
-    Type=Application
-    Categories=Multimedia;AudioVideo;Player;Video;
-    MimeType=video/x-msvideo;video/x-matroska;video/webm;video/mpeg;video/mp4;
-    Terminal=false
-    StartupNotify=true
-    Exec=${fhs}/bin/SVPManager %f
-    Icon=svp-manager4
-  '';
 in
   stdenv.mkDerivation {
     pname = "svp";
     inherit (svp-dist) version;
-    phases = ["installPhase"];
-    installPhase = ''
-      mkdir -p $out/bin $out/share/applications
+
+    dontUnpack = true;
+
+    nativeBuildInputs = [copyDesktopItems];
+
+    postInstall = ''
+      mkdir -p $out/bin $out/share
       ln -s ${fhs}/bin/SVPManager $out/bin/SVPManager
-      ln -s ${desktopFile} $out/share/applications/svp-manager4.desktop
       ln -s ${svp-dist}/share/icons $out/share/icons
     '';
 
     passthru.mpv = mpvForSVP;
 
+    desktopItems = [
+      (makeDesktopItem {
+        name = "svp-manager4";
+        exec = "${fhs}/bin/SVPManager %f";
+        desktopName = "SVP 4 Linux";
+        genericName = "Real time frame interpolation";
+        icon = "svp-manager4";
+        categories = ["AudioVideo" "Player" "Video"];
+        mimeTypes = ["video/x-msvideo" "video/x-matroska" "video/webm" "video/mpeg" "video/mp4"];
+        terminal = false;
+        startupNotify = true;
+      })
+    ];
+
     meta = with lib; {
-      description = "SmoothVideo Project 4 (SVP4) (MUST USE `packages.svp.mpv` IF YOU WANT TO LAUNCH MPV EXTERNALLY) (Packaging script adapted from https://aur.archlinux.org/packages/svp)";
+      description = "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.";
       homepage = "https://www.svp-team.com/wiki/SVP:Linux";
       platforms = ["x86_64-linux"];
       license = licenses.unfree;
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      maintainers = with lib.maintainers; [xddxdd];
     };
   }
