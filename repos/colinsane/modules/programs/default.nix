@@ -43,7 +43,7 @@ let
       in
         makeSandboxed {
           inherit pkgName package;
-          inherit (sandbox) binMap method extraConfig;
+          inherit (sandbox) binMap embedProfile extraConfig method;
           vpn = if net == "vpn" then vpn else null;
           allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
           allowedRootPaths = [
@@ -220,6 +220,17 @@ let
         default = null;  #< TODO: default to something non-null
         description = ''
           how/whether to sandbox all binaries in the package.
+        '';
+      };
+      sandbox.embedProfile = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          whether to embed the sandbox settings (path access, etc) into the wrapped binary that lives in /nix/store (true),
+          or to encode only a profile name in the wrapper, and use it to query the settings at runtime (false).
+
+          embedded profile means you have to rebuild the wrapper any time you adjust the sandboxing flags,
+          but it also means you can run the program without installing it: helpful for iteration.
         '';
       };
       sandbox.binMap = mkOption {

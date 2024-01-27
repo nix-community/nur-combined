@@ -4,6 +4,8 @@ isDebug="$SANE_SANDBOX_DEBUG"
 test -n "$isDebug" && set -x
 isDisable="$SANE_SANDBOX_DISABLE"
 
+profileDirs=(@profileDirs@)
+
 cliArgs=()
 cliPathArgs=()
 autodetect=
@@ -31,17 +33,25 @@ loadProfileByPath() {
 }
 
 tryLoadProfileByName() {
-  profilesNamed+=("$1")
+  _profile="$1"
+  if [ "${_profile:0:1}" = "/" ]; then
+    # absolute path to profile.
+    # consider it an error if it doesn't exist.
+    # in general, prefer to use `--sane-sandbox-profile-dir` and specify the profile by name.
+    # doing so maximizes compatibility with anything else that uses the name, like firejail.
+    loadProfileByPath "$_profile"
+  else
+    profilesNamed+=("$_profile")
 
-  _profileDirs=(@profileDirs@)
-  for _profileDir in "${_profileDirs[@]}"; do
-    _profile="$_profileDir/$1.profile"
-    debug "try profile at path: '$_profile'"
-    if [ -f "$_profile" ]; then
-      loadProfileByPath "$_profile"
-      break
-    fi
-  done
+    for _profileDir in "${profileDirs[@]}"; do
+      _profilePath="$_profileDir/$_profile.profile"
+      debug "try profile at path: '$_profilePath'"
+      if [ -f "$_profilePath" ]; then
+        loadProfileByPath "$_profilePath"
+        break
+      fi
+    done
+  fi
 }
 
 # convert e.g. `file:///Local%20Users/foo.mp3` to `file:///Local Users/foo.mp3`
@@ -159,6 +169,11 @@ parseArgs() {
       (--sane-sandbox-profile)
         tryLoadProfileByName "$1"
         shift
+        ;;
+      (--sane-sandbox-profile-dir)
+        _dir="$1"
+        shift
+        profileDirs+=("$_dir")
         ;;
       (*)
         parseArgsExtra+=("$_arg")

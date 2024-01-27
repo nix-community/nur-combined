@@ -4,7 +4,7 @@
 , sane-sandboxed
 , writeTextFile
 }:
-{ pkgName, package, method, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], binMap ? {}, extraConfig ? [] }:
+{ pkgName, package, method, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], binMap ? {}, extraConfig ? [], embedProfile ? false }:
 let
   sane-sandboxed' = sane-sandboxed.meta.mainProgram;  #< load by bin name to reduce rebuilds
 
@@ -34,6 +34,15 @@ let
     ++ lib.optionals (vpn != null) vpnItems
     ++ extraConfig;
 
+  sandboxProfilesPkg = writeTextFile {
+    name = "${pkgName}-sandbox-profiles";
+    destination = "/share/sane-sandboxed/profiles/${pkgName}.profile";
+    text = builtins.concatStringsSep "\n" sandboxFlags;
+  };
+  sandboxProfileDir = "${sandboxProfilesPkg}/share/sane-sandboxed/profiles";
+
+  maybeEmbedProfilesDir = lib.optionalString embedProfile ''"--sane-sandbox-profile-dir" "${sandboxProfileDir}"'';
+
   # two ways i could wrap a package in a sandbox:
   # 1. package.overrideAttrs, with `postFixup`.
   # 2. pkgs.symlinkJoin, or pkgs.runCommand, creating an entirely new package which calls into the inner binaries.
@@ -43,7 +52,7 @@ let
   #   but even no.2 has to consider such edge-cases, just less frequently.
   # no.1 may bloat rebuild times.
   #
-  # ultimately, no.1 is probably more reliable, but i expect i'll factor out a switch to allow either approach -- particularly when debugging package buld failures.
+  # ultimately, no.1 is probably more reliable, but i expect i'll factor out a switch to allow either approach -- particularly when debugging package build failures.
   package' = if package.override.__functionArgs ? runCommand then
     package.override {
       runCommand = name: env: cmd: runCommand name env (cmd + lib.optionalString (name == package.name) ''
@@ -77,7 +86,7 @@ let
 
         _profiles=("$_profileFromBinMap" "$_name" "${pkgName}" "${unwrapped.pname or ""}" "${unwrapped.name or ""}")
         # filter to just the unique profiles
-        _profileArgs=()
+        _profileArgs=(${maybeEmbedProfilesDir})
         for _profile in "''${_profiles[@]}"; do
           if [ -n "$_profile" ] && ! [[ " ''${_profileArgs[@]} " =~ " $_profile " ]]; then
             _profileArgs+=("--sane-sandbox-profile" "$_profile")
@@ -121,11 +130,7 @@ let
         test "$_numExec" -ne 0 && touch "$out"
       '';
 
-      sandboxProfiles = writeTextFile {
-        name = "${pkgName}-sandbox-profiles";
-        destination = "/share/sane-sandboxed/profiles/${pkgName}.profile";
-        text = builtins.concatStringsSep "\n" sandboxFlags;
-      };
+      sandboxProfiles = sandboxProfilesPkg;
     };
   });
 in

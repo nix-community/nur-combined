@@ -1,6 +1,16 @@
 { ... }:
 {
   sane.programs.wike = {
+    sandbox.method = "bwrap";
+    sandbox.extraPaths = [
+      # wike sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.
+      # TODO: these could maybe be mounted empty.
+      "/sys/block"
+      "/sys/bus"
+      "/sys/class"
+      "/sys/dev"
+      "/sys/devices"
+    ];
     # wike probably meant to put everything here in a subdir, but didn't.
     persist.byStore.cryptClearOnBoot = [
       ".cache/webkitgtk"
