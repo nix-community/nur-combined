@@ -332,11 +332,27 @@ let
       fs = lib.mkMerge [
         p.fs
         # link every secret into the fs:
+
         (lib.mapAttrs
           # TODO: user the user's *actual* home directory, don't guess.
           (homePath: _src: sane-lib.fs.wantedSymlinkTo "/run/secrets/home/${user}/${homePath}")
           p.secrets
         )
+        # alternative double indirection which may be slightly friendlier to sandboxing:
+        #   ~/.config/FOO.secret => ~/.config/secrets/.config/FOO.secret => /run/secrets/home/${user}/.config/FOO.secret
+        # whereas /run/secrets/* is unreadable *except* for the leafs, ~/.config/secrets is readable and traversable by $USER.
+        # (lib.mapAttrs
+        #   # TODO: user the user's *actual* home directory, don't guess.
+        #   (homePath: _src: sane-lib.fs.wantedSymlinkTo "/home/${user}/.config/secrets/${homePath}")
+        #   p.secrets
+        # )
+        # (lib.mapAttrs'
+        #   (homePath: _src: {
+        #     name = ".config/secrets/${homePath}";
+        #     value = sane-lib.fs.wantedSymlinkTo "/run/secrets/home/${user}/${homePath}";
+        #   })
+        #   p.secrets
+        # )
       ];
     }) p.enableFor.user;
 
@@ -345,7 +361,7 @@ let
       (user: en: lib.optionalAttrs (en && p.enabled) (
         lib.mapAttrs'
           (homePath: src: {
-            # TODO: user the user's *actual* home directory, don't guess.
+            # TODO: use the user's *actual* home directory, don't guess.
             # XXX: name CAN'T START WITH '/', else sops creates the directories funny.
             # TODO: report this upstream.
             name = "home/${user}/${homePath}";

@@ -19,7 +19,20 @@ in
       };
     };
 
-    sandbox.method = null; # "firejail"; #< TODO: it crashes when i try to load an inbox
+    sandbox.method = "bwrap";
+    sandbox.extraPaths = [
+      # geary sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.
+      # TODO: these could maybe be mounted empty. or maybe there's an env-var to disable geary's dbus-proxy.
+      "/sys/block"
+      "/sys/bus"
+      "/sys/class"
+      "/sys/dev"
+      "/sys/devices"
+      "/sys/fs"
+    ];
+    # if sandbox.method == "landlock", then these dirs must exist in the sandbox, even if empty.
+    # fs.".config/geary".dir = {};
+    # fs.".local/share/folks".dir = {};
 
     slowToBuild = true;  # uses webkitgtk 4.1
     persist.byStore.private = [

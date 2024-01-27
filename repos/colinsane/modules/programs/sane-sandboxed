@@ -221,7 +221,9 @@ bwrapIngestRootPath() {
   #   which don't exist on aarch64, as the -try variant will gracefully fail (i.e. not bind it).
   # N.B.: `test -r` for paths like /mnt/servo-media, which may otherwise break bwrap when offline with
   #   "bwrap: Can't get type of source /mnt/...: Input/output error"
-  test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
+  # HOWEVER, paths such as `/run/secrets` are not readable, so don't do that (or, try `test -e` if this becomes a problem again).
+  # test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
+  bwrapFlags+=("--dev-bind-try" "$1" "$1")
 }
 bwrapIngestHomePath() {
   _path="$HOME/$1"

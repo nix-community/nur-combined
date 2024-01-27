@@ -223,14 +223,14 @@ in
           "Pictures"
         ] ++ lib.optionals cfg.addons.browserpass-extension.enable [
           # browserpass needs these paths:
-          # - .ssh: to unlock the sops key, if not unlocked (`sane-secrets-unlock`(
-          # - .config/sops: where the key to decrypt account secrets
           # - private/knowledge/secrets/accounts: where the encrypted account secrets live
+          # at least one of:
+          # - .config/sops: for the sops key which can decrypt account secrets
+          # - .ssh: to unlock the sops key, if not unlocked (`sane-secrets-unlock`)
           # TODO: find a way to not expose ~/.ssh to firefox
-          # - unlock sops at login?
-          ".ssh"
-          "private/.ssh"
-          # ".ssh/id_ed25519"
+          # - unlock sops at login (or before firefox launch)?
+          # - see if ssh has a more formal type of subkey system?
+          ".ssh/id_ed25519"
           # ".config/sops"
           "private/knowledge/secrets/accounts"
         ];
