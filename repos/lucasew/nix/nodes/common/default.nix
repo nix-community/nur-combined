@@ -11,7 +11,6 @@ in
     "${inputs.simple-dashboard}/nixos-module.nix"
 
     ./ansible-python.nix
-    ./bash
     ./services
 
     ./hosts.nix

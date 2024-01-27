@@ -1,9 +1,3 @@
-export PATH="$PATH:$HOME/.yarn/bin"
-
-mkcd(){ [ ! -z "$1" ] && mkdir -p "$1" && cd "$_"; }
-
-# direnv
-eval "$(direnv hook bash)"
 
 function title() {
     if [[ -z "$ORIG" ]]; then

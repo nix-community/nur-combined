@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# basically starts the modular bashrc
+
+export SD_ROOT="$(dirname "$(realpath "$BASH_SOURCE")")"
+
+# i=0
+for script in $(ls $SD_ROOT/prelude | sort); do
+  # i=$((i+1))
+  . "$SD_ROOT/prelude/$script"
+done
+
+(return 0 2>/dev/null) || sd "$@"

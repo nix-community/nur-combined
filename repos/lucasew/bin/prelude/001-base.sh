@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-# utility functions
-
-# vim:ft=sh
-
 function bold {
     printf "$(tput bold)$*$(tput sgr0)"
 }
@@ -50,14 +45,15 @@ function random_id {
     head -c 128 /dev/urandom | md5sum | tr -d ' -'
 }
 
-function mustBinary {
+function has_binary {
+    binary=$1; shift
+    command -v "$binary" > /dev/null
+}
+
+function must_binary {
     binary=$1;shift
-    which "$binary" > /dev/null 2> /dev/null || {
+    has_binary "$binary" || {
         echo "command '$binary' not found"
         exit 1
     }
-}
-
-$(return >/dev/null 2>&1) || { # if not sourced then run args as command
-    "$@"
 }

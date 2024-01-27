@@ -14,7 +14,7 @@ NIX_SHELL_BIN=nix-shell
 export NIXPKGS_ALLOW_UNFREE=1
 
 if [ ! -v DONT_CACHE_NIX ]; then
-  which cached-nix-shell 2> /dev/null > /dev/null && NIX_SHELL_BIN=cached-nix-shell
+  has_binary cached-nix-shell && NIX_SHELL_BIN=cached-nix-shell
 fi
 
 $NIX_SHELL_BIN "$@"

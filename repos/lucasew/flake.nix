@@ -176,27 +176,9 @@
         phone =     { ts = "100.76.88.29";    zt = "192.168.69.4"; };
       };
       selectedDesktopEnvironment = "i3";
-      rootPath = "/home/${username}/.dotfiles";
-      rootPathNix = "${rootPath}";
       environmentShell = with pkgs; ''
-        export NIXPKGS_ALLOW_UNFREE=1
-        if [[ ! -v NIXCFG_ROOT_PATH ]]; then
-          export NIXCFG_ROOT_PATH=$(${./bin/d/root})
-        fi
-        export LUA_PATH="${concatStringsSep ";" [
-          ''$(realpath ${fennel}/share/lua/*)/?.lua''
-          "$NIXCFG_ROOT_PATH/scripts/?.lua"
-          "$NIXCFG_ROOT_PATH/scripts/?/index.lua"
-        ]}"
-        export PATH="${concatStringsSep ":" [
-          "$PATH"
-          "$NIXCFG_ROOT_PATH/bin"
-        ]}"
-        export LUA_INIT="pcall(require, 'adapter.fennel')"
+        source ${self}/bin/source_me
         export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/nix/compat/overlay.nix:home-manager=${home-manager}:nur=${nur}
-        export SD_ROOT=$NIXCFG_ROOT_PATH/bin
-        export SD_EDITOR=$EDITOR
-        export SD_CAT=cat
       '';
     };
 
