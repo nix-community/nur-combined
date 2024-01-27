@@ -4,6 +4,8 @@
   autoPatchelfHook,
   makeWrapper,
   lib,
+  makeDesktopItem,
+  copyDesktopItems,
   # DingTalk dependencies
   alsa-lib,
   apr,
@@ -143,7 +145,7 @@ in
   stdenv.mkDerivation rec {
     inherit (sources.dingtalk) pname version src;
 
-    nativeBuildInputs = [autoPatchelfHook makeWrapper libsForQt5.wrapQtAppsHook];
+    nativeBuildInputs = [autoPatchelfHook makeWrapper libsForQt5.wrapQtAppsHook copyDesktopItems];
     buildInputs = libraries;
 
     # We will append QT wrapper args to our own wrapper
@@ -198,7 +200,7 @@ in
       rm -rf release/xcbglintegrations
     '';
 
-    installPhase = ''
+    postInstall = ''
       mkdir -p $out
       mv version $out/
 
@@ -215,10 +217,26 @@ in
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
       # App Menu
-      mkdir -p $out/share/applications $out/share/pixmaps
-      ln -s ${./dingtalk.desktop} $out/share/applications/dingtalk.desktop
+      mkdir -p $out/share/pixmaps
       ln -s ${./dingtalk.png} $out/share/pixmaps/dingtalk.png
     '';
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "dingtalk";
+        desktopName = "Dingtalk";
+        genericName = "dingtalk";
+        categories = ["Chat"];
+        exec = "dingtalk %u";
+        icon = "dingtalk";
+        keywords = ["dingtalk"];
+        mimeTypes = ["x-scheme-handler/dingtalk"];
+        extraConfig = {
+          "Name[zh_CN]" = "钉钉";
+          "Name[zh_TW]" = "钉钉";
+        };
+      })
+    ];
 
     meta = with lib; {
       description = "钉钉";

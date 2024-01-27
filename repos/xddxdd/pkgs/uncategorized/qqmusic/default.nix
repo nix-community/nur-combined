@@ -5,6 +5,8 @@
   makeWrapper,
   writeText,
   lib,
+  makeDesktopItem,
+  copyDesktopItems,
   # QQ Music dependencies
   alsa-lib,
   at-spi2-atk,
@@ -66,25 +68,11 @@ let
     xorg.libXScrnSaver
     xorg.libXtst
   ];
-
-  desktopFile = writeText "qqmusic.desktop" ''
-    [Desktop Entry]
-    Name=QQMusic
-    Name[zh_CN]=QQ音乐
-    Exec=qqmusic %U
-    Terminal=false
-    Type=Application
-    Icon=qqmusic
-    StartupWMClass=qqmusic
-    Comment=Tencent QQMusic
-    Comment[zh_CN]=腾讯QQ音乐
-    Categories=AudioVideo;
-  '';
 in
   stdenv.mkDerivation rec {
     inherit (sources.qqmusic) pname version src;
 
-    nativeBuildInputs = [autoPatchelfHook makeWrapper];
+    nativeBuildInputs = [autoPatchelfHook makeWrapper copyDesktopItems];
     buildInputs = libraries;
 
     unpackPhase = ''
@@ -92,11 +80,10 @@ in
       tar xf data.tar.xz
     '';
 
-    installPhase = ''
+    postInstall = ''
       mkdir -p $out
       cp -r opt/qqmusic $out/opt
       cp -r usr/* $out/
-      ln -sf ${desktopFile} $out/share/applications/qqmusic.desktop
 
       rm -rf $out/opt/swiftshader
       ln -sf ${libglvnd}/lib $out/opt/swiftshader
@@ -115,6 +102,25 @@ in
       "
       sed "$_subst" -i "$out/opt/resources/app.asar"
     '';
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "qqmusic";
+        desktopName = "QQMusic";
+        exec = "qqmusic %U";
+        terminal = false;
+        icon = "qqmusic";
+        startupWMClass = "qqmusic";
+        comment = "Tencent QQMusic";
+        categories = ["AudioVideo"];
+        extraConfig = {
+          "Name[zh_CN]" = "QQ音乐";
+          "Name[zh_TW]" = "QQ音乐";
+          "Comment[zh_CN]" = "腾讯QQ音乐";
+          "Comment[zh_TW]" = "腾讯QQ音乐";
+        };
+      })
+    ];
 
     meta = with lib; {
       description = "Tencent QQ Music (Packaging script adapted from https://aur.archlinux.org/packages/qqmusic-bin)";

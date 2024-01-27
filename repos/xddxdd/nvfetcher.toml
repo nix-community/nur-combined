@@ -66,11 +66,6 @@ fetch.url = "https://github.com/seblucas/cops/releases/download/$ver/cops-$ver.z
 src.git = "https://github.com/martyr-deepin/cef-binary.git"
 fetch.github = "martyr-deepin/cef-binary"
 
-[chromium-oqs-bin]
-# src.github = "open-quantum-safe/oqs-demos"
-src.manual = "0.7.2"
-fetch.url = "https://github.com/open-quantum-safe/oqs-demos/releases/download/$ver/chromium-ubuntu-$ver.tgz"
-
 [cloudpan189-go]
 src.github = "tickstep/cloudpan189-go"
 fetch.github = "tickstep/cloudpan189-go"

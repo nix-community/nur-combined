@@ -175,14 +175,6 @@
     };
     date = "2019-02-18";
   };
-  chromium-oqs-bin = {
-    pname = "chromium-oqs-bin";
-    version = "0.7.2";
-    src = fetchurl {
-      url = "https://github.com/open-quantum-safe/oqs-demos/releases/download/0.7.2/chromium-ubuntu-0.7.2.tgz";
-      sha256 = "sha256-Gt2kucYmnMwfnPO15dhasA0Pus8m+70nDQfnfwMUxAE=";
-    };
-  };
   cloudpan189-go = {
     pname = "cloudpan189-go";
     version = "v0.1.3";

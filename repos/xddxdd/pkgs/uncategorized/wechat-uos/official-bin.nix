@@ -5,6 +5,8 @@
   autoPatchelfHook,
   writeShellScript,
   lib,
+  makeDesktopItem,
+  copyDesktopItems,
   # WeChat dependencies
   alsa-lib,
   at-spi2-atk,
@@ -127,14 +129,35 @@ in
   stdenv.mkDerivation {
     pname = "wechat-uos-bin";
     inherit (sources.wechat-uos) version;
+    dontUnpack = true;
 
-    phases = ["installPhase"];
-    installPhase = ''
-      mkdir -p $out/bin $out/share/applications
+    nativeBuildInputs = [copyDesktopItems];
+
+    postPhase = ''
+      mkdir -p $out/bin $out/share
       ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
-      ln -s ${./wechat-uos.desktop} $out/share/applications/wechat-uos.desktop
       ln -s ${resource}/share/icons $out/share/icons
     '';
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "wechat-uos";
+        desktopName = "WeChat";
+        exec = "wechat-uos %U";
+        terminal = false;
+        icon = "weixin";
+        startupWMClass = "weixin";
+        comment = "WeChat Desktop Edition";
+        categories = ["Utility"];
+        keywords = ["wechat" "weixin" "wechat-uos"];
+        extraConfig = {
+          "Name[zh_CN]" = "微信";
+          "Name[zh_TW]" = "微信";
+          "Comment[zh_CN]" = "微信桌面版";
+          "Comment[zh_TW]" = "微信桌面版";
+        };
+      })
+    ];
 
     meta = with lib; {
       description = "WeChat desktop (Official binary) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos)";

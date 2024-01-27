@@ -6,6 +6,8 @@
   electron_19,
   lib,
   scrot,
+  makeDesktopItem,
+  copyDesktopItems,
   ...
 } @ args:
 ################################################################################
@@ -70,14 +72,35 @@ let
 in
   stdenv.mkDerivation {
     inherit (sources.wechat-uos) pname version;
+    dontUnpack = true;
 
-    phases = ["installPhase"];
-    installPhase = ''
-      mkdir -p $out/bin $out/share/applications
+    nativeBuildInputs = [copyDesktopItems];
+
+    postInstall = ''
+      mkdir -p $out/bin $out/share
       ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
-      ln -s ${./wechat-uos.desktop} $out/share/applications/wechat-uos.desktop
       ln -s ${resource}/share/icons $out/share/icons
     '';
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "wechat-uos";
+        desktopName = "WeChat";
+        exec = "wechat-uos %U";
+        terminal = false;
+        icon = "weixin";
+        startupWMClass = "weixin";
+        comment = "WeChat Desktop Edition";
+        categories = ["Utility"];
+        keywords = ["wechat" "weixin" "wechat-uos"];
+        extraConfig = {
+          "Name[zh_CN]" = "微信";
+          "Name[zh_TW]" = "微信";
+          "Comment[zh_CN]" = "微信桌面版";
+          "Comment[zh_TW]" = "微信桌面版";
+        };
+      })
+    ];
 
     meta = with lib; {
       description = "WeChat desktop (System Electron) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos)";
