@@ -35,5 +35,6 @@ pkgs.rustPlatform.buildRustPackage {
     description = "Frequency modulation synthesizer plugin (VST2, CLAP).";
     homepage = "https://www.octasine.com/";
     license = licenses.agpl3;
+    platforms = platforms.linux;
   };
 }

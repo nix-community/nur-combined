@@ -23,6 +23,7 @@ in {
   luaPackages = callPackages ./luaPackages;
   luakit = callPackage' ./luakit;
   lv2vst = callPackage' ./lv2vst;
+  nimlangserver = callPackage' ./nimlangserver;
   nodePackages = callPackages ./nodePackages;
   octasine = callPackage' ./octasine;
   osirus = callPackage' ./osirus;

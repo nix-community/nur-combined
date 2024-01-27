@@ -1,0 +1,37 @@
+[asynctools]
+src.git = "https://github.com/nickysn/asynctools"
+fetch.git = "https://github.com/nickysn/asynctools"
+src.branch = "fixes_for_nimlangserver"
+
+[chronicles]
+src.git = "https://github.com/status-im/nim-chronicles"
+fetch.git = "https://github.com/status-im/nim-chronicles"
+
+[faststreams]
+src.git = "https://github.com/status-im/nim-faststreams"
+fetch.git = "https://github.com/status-im/nim-faststreams"
+
+[json-rpc]
+src.git = "https://github.com/yyoncho/nim-json-rpc"
+fetch.git = "https://github.com/yyoncho/nim-json-rpc"
+src.branch = "notif-changes"
+
+[json_serialization]
+src.git = "https://github.com/status-im/nim-json-serialization"
+fetch.git = "https://github.com/status-im/nim-json-serialization"
+
+[serialization]
+src.git = "https://github.com/status-im/nim-serialization"
+fetch.git = "https://github.com/status-im/nim-serialization"
+
+[stew]
+src.git = "https://github.com/status-im/nim-stew"
+fetch.git = "https://github.com/status-im/nim-stew"
+
+[zevv-with]
+src.github = "zevv/with"
+fetch.github = "zevv/with"
+
+[nimlangserver]
+src.git = "https://github.com/nim-lang/langserver"
+fetch.git = "https://github.com/nim-lang/langserver"
