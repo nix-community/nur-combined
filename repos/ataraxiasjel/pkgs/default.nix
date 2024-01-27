@@ -11,8 +11,7 @@ with pkgs; with lib; {
   ceserver = callPackage ./ceserver { };
   gruvbox-plus-icons = callPackage ./gruvbox-plus-icons { };
   hoyolab-daily-bot = callPackage ./hoyolab-daily-bot { };
-  #FIXME: 'hip' has been removed in favor of 'rocmPackages.clr' on unstable channel
-  # koboldcpp-rocm = callPackage ./koboldcpp-rocm { };
+  minio-kes = callPackage ./minio-kes { };
   mpris-ctl = callPackage ./mpris-ctl { };
   ocis-bin = callPackage ./ocis-bin { };
   proton-ge = callPackage ./proton-ge { };
