@@ -100,14 +100,19 @@ let
           # homeMode defaults to 700; notice: no leading 0
           mode = "0" + nixConfig.users.users."${name}".homeMode;
         };
-        fs.".profile".symlink.text =
+        # ~/.config/environment.d/*.conf is added to systemd user units.
+        # - format: lines of: `key=value`
+        # ~/.profile is added by *some* login shells.
+        # - format: lines of: `export key="value"`
+        # see: `man environment.d`
+        fs.".config/environment.d/10-sane-nixos-users.conf".symlink.text =
           let
             env = lib.mapAttrsToList
-              (key: value: ''export ${key}="${value}"'')
+              (key: value: ''${key}=${value}'')
               config.environment
             ;
           in
-            lib.concatStringsSep "\n" env;
+            lib.concatStringsSep "\n" env + "\n";
       }
       {
         fs = lib.mkMerge (mapAttrsToList (serviceName: value:

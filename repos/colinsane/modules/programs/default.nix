@@ -45,10 +45,11 @@ let
           inherit pkgName package;
           inherit (sandbox) binMap method extraConfig;
           vpn = if net == "vpn" then vpn else null;
-          allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath;
+          allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
           allowedRootPaths = [
             "/nix/store"
             "/bin/sh"
+
             "/etc"  #< especially for /etc/profiles/per-user/$USER/bin
             "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms` (/run/current-system/sw/bin)
             "/run/wrappers"  #< SUID wrappers, in this case so that firejail can be re-entrant
@@ -58,7 +59,7 @@ let
             "/run/opengl-driver"
             "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
             "/run/user"  #< particularly /run/user/$id/wayland-1, pulse, etc.
-            "/run/secrets/home"
+            "/run/secrets/home"  #< TODO: this could be restricted per-app based on the HOME paths they need
             "/usr/bin/env"
             # /dev/dri/renderD128: requested by wayland-egl (e.g. KOreader, animatch, geary)
             #   but everything seems to gracefully fallback to *something* (MESA software rendering?)
@@ -215,8 +216,8 @@ let
         '';
       };
       sandbox.method = mkOption {
-        type = types.nullOr (types.enum [ "bwrap" "firejail" ]);
-        default = null;  #< TODO: default to bwrap
+        type = types.nullOr (types.enum [ "bwrap" "firejail" "landlock" ]);
+        default = null;  #< TODO: default to something non-null
         description = ''
           how/whether to sandbox all binaries in the package.
         '';
@@ -236,6 +237,13 @@ let
         default = [];
         description = ''
           additional absolute paths to bind into the sandbox.
+        '';
+      };
+      sandbox.extraHomePaths = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          additional home-relative paths to bind into the sandbox.
         '';
       };
       sandbox.extraConfig = mkOption {
@@ -307,7 +315,8 @@ let
     # conditionally add to system PATH and env
     environment = lib.optionalAttrs (p.enabled && p.enableFor.system) {
       systemPackages = lib.optional (p.package != null) p.package;
-      variables = p.env;
+      # sessionVariables are set by PAM, as opposed to environment.variables which goes in /etc/profile
+      sessionVariables = p.env;
     };
 
     # conditionally add to user(s) PATH
@@ -392,7 +401,7 @@ in
       take = f: {
         assertions = f.assertions;
         environment.systemPackages = f.environment.systemPackages;
-        environment.variables = f.environment.variables;
+        environment.sessionVariables = f.environment.sessionVariables;
         users.users = f.users.users;
         sane.sandboxProfiles = f.sane.sandboxProfiles;
         sane.users = f.sane.users;

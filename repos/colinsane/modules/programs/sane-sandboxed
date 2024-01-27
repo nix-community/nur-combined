@@ -1,6 +1,8 @@
 #!@runtimeShell@
 
-test -n "$SANE_SANDBOX_DEBUG" && set -x
+isDebug="$SANE_SANDBOX_DEBUG"
+test -n "$isDebug" && set -x
+isDisable="$SANE_SANDBOX_DISABLE"
 
 cliArgs=()
 cliPathArgs=()
@@ -14,9 +16,11 @@ dns=()
 method=
 firejailFlags=()
 bwrapFlags=()
+landlockPaths=
+landlockCapshCapsArg=
 
 debug() {
-  [ -n "$SANE_SANDBOX_DEBUG" ] && printf "[debug] %s" "$1" >&2
+  [ -n "$isDebug" ] && printf "[debug] %s" "$1" >&2
 }
 
 loadProfileByPath() {
@@ -94,7 +98,7 @@ parseArgs() {
         break
         ;;
       (--sane-sandbox-debug)
-        SANE_SANDBOX_DEBUG=1
+        isDebug=1
         set -x
         ;;
       (--sane-sandbox-replace-cli)
@@ -104,7 +108,7 @@ parseArgs() {
         parseArgsExtra=()
         ;;
       (--sane-sandbox-disable)
-        SANE_SANDBOX_DISABLE=1
+        isDisable=1
         ;;
       (--sane-sandbox-method)
         method="$1"
@@ -237,14 +241,80 @@ bwrapExec() {
 }
 
 
+## LANDLOCK BACKEND
+landlockIngestRootPath() {
+  # TODO: escape colons
+  if [ -e "$1" ]; then
+    # landlock is fd-based and requires `open`ing the path;
+    # sandboxer will error if that part fails.
+    if [ -z "$landlockPaths" ]; then
+      # avoid leading :, which would otherwise cause a "no such file" error.
+      landlockPaths="$1"
+    else
+      landlockPaths="$landlockPaths:$1"
+    fi
+  fi
+}
+landlockIngestHomePath() {
+  landlockIngestRootPath "$HOME/$1"
+}
+landlockIngestProfile() {
+  debug "landlock doesn't implement profiles"
+}
+landlockIngestCapability() {
+  # N.B. `capsh` parsing of `--caps=X` arg is idiosyncratic:
+  # - valid: `capsh --caps=CAP_FOO,CAP_BAR=eip -- <cmd>`
+  # - valid: `capsh --caps= -- <cmd>`
+  # - invalid: `capsh --caps=CAP_FOO,CAP_BAR -- <cmd>`
+  # - invalid: `capsh --caps==eip -- <cmd>`
+  if [ -z "$landlockCapshCapsArg" ]; then
+    landlockCapshCapsArg="cap_$1=eip"
+  else
+    landlockCapshCapsArg="cap_$1,$landlockCapshCapsArg"
+  fi
+}
+landlockExec() {
+  # other sandboxing methods would create fake /dev, /proc, /tmp filesystems
+  # but landlock can't do that. so bind a minimal number of assumed-to-exist files.
+  # note that most applications actually do start without these, but maybe produce weird errors during their lifetime.
+  # typical failure mode:
+  # - /tmp: application can't perform its task
+  # - /dev/{null,random,urandom,zero}: application warns but works around it
+  landlockIngestRootPath '/dev/null'
+  landlockIngestRootPath '/dev/random'
+  landlockIngestRootPath '/dev/urandom'
+  landlockIngestRootPath '/dev/zero'
+  landlockIngestRootPath '/tmp'
+  # /dev/{stderr,stdin,stdout} are links to /proc/self/fd/N
+  # and /proc/self is a link to /proc/<N>.
+  # there seems to be an issue, observed with wireshark, in binding these.
+  # maybe i bound the symlinks but not the actual data being pointed to.
+  # if you want to bind /dev/std*, then also bind all of /proc.
+  # landlockIngestRootPath '/proc/self'
+  # landlockIngestRootPath "/proc/$$"
+  # landlockIngestRootPath '/dev/stderr'
+  # landlockIngestRootPath '/dev/stdin'
+  # landlockIngestRootPath '/dev/stdout'
+
+  # landlock sandboxer has no native support for capabilities (except that it sets nonewprivs),
+  # so trampoline through `capsh` as well, to drop privs.
+  # N.B: capsh passes its arg to bash (via /nix/store/.../bash), which means you have to `-c "my command"` to
+  # invoke the actual user command.
+  PATH="$PATH:@landlockSandboxer@/bin:@libcap@/bin" LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
+    sandboxer \
+    capsh "--caps=$landlockCapshCapsArg" -- \
+      -c "${cliArgs[*]}"
+}
+
+
 ## BACKEND HANDOFF
 
-test -n "$SANE_SANDBOX_PREPEND" && parseArgs "${SANE_SANDBOX_PREPEND[@]}"
+test -n "$SANE_SANDBOX_PREPEND" && parseArgs $SANE_SANDBOX_PREPEND
 parseArgs "$@"
 cliArgs+=("${parseArgsExtra[@]}")
-test -n "$SANE_SANDBOX_APPEND" && parseArgs "${SANE_SANDBOX_APPEND[@]}"
+test -n "$SANE_SANDBOX_APPEND" && parseArgs $SANE_SANDBOX_APPEND
 
-test -n "$SANE_SANDBOX_DISABLE" && exec "${cliArgs[@]}"
+test -n "$isDisable" && exec "${cliArgs[@]}"
 
 ### convert generic args into sandbox-specific args
 # order matters: for firejail, early args override the later --profile args
@@ -284,6 +354,14 @@ for _prof in "${profilesNamed[@]}"; do
   "$method"IngestProfile "$_prof"
 done
 
+# variables meant to be inherited
+# N.B.: SANE_SANDBOX_DEBUG FREQUENTLY BREAKS APPLICATIONS WHICH PARSE STDOUT
+# example is wireshark parsing stdout of dumpcap;
+# in such a case invoke the app with --sane-sandbox-debug instead of the env var.
+export SANE_SANDBOX_DEBUG="$SANE_SANDBOX_DEBUG"
+export SANE_SANDBOX_DISABLE="$SANE_SANDBOX_DISABLE"
+export SANE_SANDBOX_PREPEND="$SANE_SANDBOX_PREPEND"
+export SANE_SANDBOX_APPEND="$SANE_SANDBOX_APPEND"
 "$method"Exec
 
 echo "sandbox glue failed for method='$method'"

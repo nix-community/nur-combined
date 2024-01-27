@@ -217,7 +217,24 @@ in
     ({
       sane.programs.firefox = {
         inherit packageUnwrapped;
-        sandbox.method = "bwrap";
+        sandbox.method = "bwrap";  # landlock works, but requires all of /proc to be linked
+        sandbox.extraHomePaths = [
+          "tmp"
+          "Pictures"
+        ] ++ lib.optionals cfg.addons.browserpass-extension.enable [
+          # browserpass needs these paths:
+          # - .ssh: to unlock the sops key, if not unlocked (`sane-secrets-unlock`(
+          # - .config/sops: where the key to decrypt account secrets
+          # - private/knowledge/secrets/accounts: where the encrypted account secrets live
+          # TODO: find a way to not expose ~/.ssh to firefox
+          # - unlock sops at login?
+          ".ssh"
+          "private/.ssh"
+          # ".ssh/id_ed25519"
+          # ".config/sops"
+          "private/knowledge/secrets/accounts"
+        ];
+        fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};  #< needs to be created, not *just* added to the sandbox
 
         suggestedPrograms = [
           "open-in-mpv"
@@ -294,21 +311,10 @@ in
           StartWithLastProfile=1
         '';
 
+        # TODO: env.PASSWORD_STORE_DIR only needs to be present within the browser session.
         env.PASSWORD_STORE_DIR = "/home/colin/private/knowledge/secrets/accounts";
         # alternative to PASSWORD_STORE_DIR, but firejail doesn't handle this symlink well
         # fs.".password-store".symlink.target = lib.mkIf cfg.addons.browserpass-extension.enable "private/knowledge/secrets/accounts";
-
-        # browserpass needs these paths:
-        # - .ssh: to unlock the sops key, if not unlocked (`sane-secrets-unlock`(
-        # - .config/sops: where the key to decrypt account secrets
-        # - private/knowledge/secrets/accounts: where the encrypted account secrets live
-        # TODO: find a way to not expose ~/.ssh to firefox
-        # - unlock sops at login?
-        fs.".ssh" = lib.mkIf cfg.addons.browserpass-extension.enable {};
-        fs."private/.ssh" = lib.mkIf cfg.addons.browserpass-extension.enable {};
-        # fs.".ssh/id_ed25519" = lib.mkIf cfg.addons.browserpass-extension.enable {};
-        fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};
-        fs."private/knowledge/secrets/accounts" = lib.mkIf cfg.addons.browserpass-extension.enable {};
       };
     })
     (mkIf config.sane.programs.firefox.enabled {
