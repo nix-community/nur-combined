@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Reference LTFS implementation";
+    description = "Reference LTFS implementation.";
     homepage = "https://github.com/LinearTapeFileSystem/ltfs";
     license = licenses.bsd3;
     maintainers = [ "JuniorIsAJitterbug" ];

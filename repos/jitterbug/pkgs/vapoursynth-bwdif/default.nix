@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Bwdif filter for VapourSynth";
+    description = "Bwdif filter for VapourSynth.";
     homepage = "https://github.com/HomeOfVapourSynthEvolution/VapourSynth-Bwdif";
     license = licenses.gpl3;
     maintainers = [ "JuniorIsAJitterbug" ];

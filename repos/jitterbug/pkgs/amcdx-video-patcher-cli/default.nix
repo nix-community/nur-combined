@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "AMCDX Video Patcher CLI";
+    description = "AMCDX Video Patcher CLI.";
     homepage = "https://mogurenko.com";
     license = licenses.unfree;
     maintainers = [ "JuniorIsAJitterbug" ];

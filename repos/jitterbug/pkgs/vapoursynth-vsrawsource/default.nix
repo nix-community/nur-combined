@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Raw format reader for VapourSynth";
+    description = "Raw format reader for VapourSynth.";
     homepage = "https://github.com/JuniorIsAJitterbug/vsrawsource";
     license = licenses.lgpl21Only;
     maintainers = [ "JuniorIsAJitterbug" ];

@@ -7,13 +7,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "tbc-video-export";
-  version = "0.1.0b5";
+  version = "0.1.0b6";
   format = "pyproject";
 
   src = fetchPypi {
     inherit version;
     pname = builtins.replaceStrings [ "-" ] [ "_" ] pname;
-    sha256 = "sha256-O7wwE7G744u36vXUJrHA5jzy94w+IcwdawwOKwlCyu8=";
+    sha256 = "sha256-a6fUIOdJ6/QNxUlX2FpKaka+C6qbPM0HdSxsXaZAtSQ=";
   };
 
   buildInputs = [
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = " Cross-platform tool for exporting S-Video and CVBS-type TBC files to standard video files. ";
+    description = "Cross-platform tool for exporting S-Video and CVBS-type TBC files to standard video files.";
     homepage = "https://github.com/JuniorIsAJitterbug/tbc-video-export";
     license = licenses.gpl3;
     maintainers = [ "JuniorIsAJitterbug" ];

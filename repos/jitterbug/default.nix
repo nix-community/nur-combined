@@ -12,5 +12,7 @@ rec {
   pyhht = pkgs.python3.pkgs.callPackage ./pkgs/pyhht { };
   vhs-decode = pkgs.callPackage ./pkgs/vhs-decode { inherit pyhht; };
   tbc-video-export = pkgs.python3.pkgs.callPackage ./pkgs/tbc-video-export { };
+  domesdayduplicator = pkgs.callPackage ./pkgs/domesdayduplicator { };
+  misrc-extract = pkgs.callPackage ./pkgs/misrc-extract { };
   #tzpfms = pkgs.callPackage ./pkgs/tzpfms { };
 }

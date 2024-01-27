@@ -101,7 +101,7 @@ symlinkJoin {
   ];
 
   meta = with lib; {
-    description = "Software Decoder for raw rf captures of laserdisc, vhs and other analog video formats";
+    description = "Software Decoder for raw rf captures of laserdisc, vhs and other analog video formats.";
     license = licenses.gpl3;
     maintainers = [ "JuniorIsAJitterbug" ];
     homepage = "https://github.com/oyvindln/vhs-decode";

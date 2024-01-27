@@ -19,7 +19,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "A Python module for the Hilbert Huang Transform";
+    description = "A Python module for the Hilbert Huang Transform.";
     homepage = "https://github.com/jaidevd/pyhht";
     license = licenses.mit; # src uses MIT, pypi uses BSD ??
     maintainers = [ "JuniorIsAJitterbug" ];
