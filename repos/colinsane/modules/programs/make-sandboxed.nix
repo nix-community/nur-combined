@@ -4,7 +4,18 @@
 , sane-sandboxed
 , writeTextFile
 }:
-{ pkgName, package, method, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], binMap ? {}, extraConfig ? [], embedProfile ? false }:
+let
+  # helper used for `wrapperType == "wrappedDerivation"` which simply symlinks all a package's binaries into a new derivation
+  symlinkBinaries = pkgName: package: runCommand "${pkgName}-sandboxed" {} ''
+    mkdir -p "$out/bin"
+    for d in $(ls "${package}/bin"); do
+      ln -s "${package}/bin/$d" "$out/bin/$d"
+    done
+    # postFixup can do the actual wrapping
+    runHook postFixup
+  '';
+in
+{ pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], binMap ? {}, extraConfig ? [], embedProfile ? false }:
 let
   sane-sandboxed' = sane-sandboxed.meta.mainProgram;  #< load by bin name to reduce rebuilds
 
@@ -45,24 +56,24 @@ let
 
   # two ways i could wrap a package in a sandbox:
   # 1. package.overrideAttrs, with `postFixup`.
-  # 2. pkgs.symlinkJoin, or pkgs.runCommand, creating an entirely new package which calls into the inner binaries.
+  # 2. pkgs.symlinkJoin, creating an entirely new package which calls into the inner binaries.
   #
-  # no.2 would require special-casing for .desktop files, to ensure they refer to the jailed version.
-  # no.1 may require extra care for recursive binaries, or symlink-heavy binaries (like busybox)
-  #   but even no.2 has to consider such edge-cases, just less frequently.
-  # no.1 may bloat rebuild times.
-  #
-  # ultimately, no.1 is probably more reliable, but i expect i'll factor out a switch to allow either approach -- particularly when debugging package build failures.
-  package' = if package.override.__functionArgs ? runCommand then
+  # here we switch between the options.
+  # note that no.2 ("wrappedDerivation") *doesn't support .desktop files yet*.
+  # the final package simply doesn't include .desktop files, only bin/.
+  package' = if wrapperType == "inline" && package.override.__functionArgs ? runCommand then
     package.override {
       runCommand = name: env: cmd: runCommand name env (cmd + lib.optionalString (name == package.name) ''
         # if the package is a runCommand (common for wrappers), then patch it to call our `postFixup` hook, first
         runHook postFixup
       '');
     }
-  else
+  else if wrapperType == "inline" then
     package
-  ;
+  else if wrapperType == "wrappedDerivation" then
+    symlinkBinaries pkgName package
+  else
+    builtins.throw "unknown wrapperType: ${wrapperType}";
 
   packageWrapped = package'.overrideAttrs (unwrapped: {
     postFixup = (unwrapped.postFixup or "") + ''

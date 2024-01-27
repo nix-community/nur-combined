@@ -43,7 +43,7 @@ let
       in
         makeSandboxed {
           inherit pkgName package;
-          inherit (sandbox) binMap embedProfile extraConfig method;
+          inherit (sandbox) binMap embedProfile extraConfig method wrapperType;
           vpn = if net == "vpn" then vpn else null;
           allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
           allowedRootPaths = [
@@ -231,6 +231,21 @@ let
 
           embedded profile means you have to rebuild the wrapper any time you adjust the sandboxing flags,
           but it also means you can run the program without installing it: helpful for iteration.
+        '';
+      };
+      sandbox.wrapperType = mkOption {
+        type = types.enum [ "inplace" "wrappedDerivation" ];
+        default = "inplace";
+        description = ''
+          how to manipulate the `packageUnwrapped` derivation in order to achieve sandboxing.
+          - inplace: applies an override to `packageUnwrapped`, so that all `bin/` files are sandboxed,
+                     and call into un-sandboxed dot-files within `bin/` (like makeWrapper does).
+          - wrappedDerivation: leaves the input derivation unchanged, and creates a _new_ derivation whose
+                               binaries wrap the binaries in the original derivation with a sandbox.
+
+          "inplace" is more reliable, but "wrappedDerivation" is more lightweight (doesn't force any rebuilds).
+          the biggest gap in "wrappedDerivation" is that it doesn't handle .desktop files; just the binaries.
+          "wrappedDerivation" is mostly good for prototyping.
         '';
       };
       sandbox.binMap = mkOption {

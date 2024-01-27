@@ -12,6 +12,7 @@
       "/sys/devices"
     ];
     # wike probably meant to put everything here in a subdir, but didn't.
+    # see: <https://github.com/hugolabe/Wike/issues/176>
     persist.byStore.cryptClearOnBoot = [
       ".cache/webkitgtk"
       ".local/share/webkitgtk"
