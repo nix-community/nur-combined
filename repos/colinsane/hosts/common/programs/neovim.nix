@@ -86,6 +86,21 @@ let
 in
 {
   sane.programs.neovim = {
+    sandbox.method = "bwrap";
+    sandbox.autodetectCliPaths = true;
+    # sandbox.whitelistPwd = true;
+    sandbox.extraHomePaths = [
+      # directories where i'm liable to `:e ../...`
+      # "archive"
+      "dev"
+      "knowledge"
+      "nixos"
+      # "private"
+      "records"
+      "ref"
+      "tmp"
+      # "use"
+    ];
     # packageUnwrapped = config.programs.neovim.finalPackage;
     packageUnwrapped = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (pkgs.neovimUtils.makeNeovimConfig {
       withRuby = false;  #< doesn't cross-compile w/o binfmt

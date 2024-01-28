@@ -56,7 +56,7 @@ in
 
 
     sysadminUtils = declPackageSet [
-      "bridge-utils"
+      "bridge-utils"  # for brctl; debug linux "bridge" inet devices
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
       "cryptsetup"
@@ -80,12 +80,12 @@ in
       "inetutils"  # for telnet
       "iotop"
       "iptables"
-      "iw"
+      # "iw"
       "jq"
       "killall"
       "libcap_ng"  # for `netcap`
       "lsof"
-      "miniupnpc"
+      # "miniupnpc"
       "nano"
       #  "ncdu"  # ncurses disk usage. doesn't cross compile (zig)
       "neovim"
@@ -93,7 +93,7 @@ in
       "nethogs"
       "nmap"
       "nvme-cli"  # nvme
-      "openssl"
+      # "openssl"
       "parted"
       "pciutils"
       "powertop"
@@ -106,7 +106,7 @@ in
       "subversion"
       "tcpdump"
       "tree"
-      "usbutils"
+      "usbutils"  # lsusb
       "util-linux"  # lsblk, lscpu, etc
       "wget"
       "wirelesstools"  # iwlist
@@ -129,10 +129,10 @@ in
       "alsaUtils"  # for aplay, speaker-test
       "binutils-unwrapped"  # for strings; though this brings 80MB of unrelated baggage too
       # "cdrtools"
-      "clinfo"
-      "dmidecode"
+      # "clinfo"
+      # "dmidecode"
       "dtrx"  # `unar` alternative, "Do The Right eXtraction"
-      "efivar"
+      # "efivar"
       "eza"  # a better 'ls'
       # "flashrom"
       "git"  # needed as a user package, for config.
@@ -140,10 +140,10 @@ in
       # "gocryptfs"
       # "gopass"
       # "gopass-jsonapi"
-      "helix"  # text editor
-      "libsecret"  # for managing user keyrings. TODO: what needs this? lift into the consumer
-      "lm_sensors"  # for sensors-detect. TODO: what needs this? lift into the consumer
-      "lshw"
+      # "helix"  # text editor
+      # "libsecret"  # for managing user keyrings (secret-tool)
+      # "lm_sensors"  # for sensors-detect
+      # "lshw"
       # "memtester"
       "mercurial"  # hg
       "mimeo"  # like xdg-open
@@ -162,22 +162,22 @@ in
       "rsync"
       "sane-scripts.bittorrent"
       "sane-scripts.cli"
-      "snapper"
-      "sops"
+      # "snapper"
+      # "sops"
       "speedtest-cli"
       # "ssh-to-age"
       "sudo"
       # "tageditor"  # music tagging
       # "unar"
       "unzip"
-      "wireguard-tools"
+      "wireguard-tools"  # for `wg`
       "xdg-utils"  # for xdg-open
       # "yarn"
       "zsh"
     ];
 
     pcConsoleUtils = declPackageSet [
-      "gh"  # MS GitHub cli
+      # "gh"  # MS GitHub cli
       "nix-index"
       "nixpkgs-review"
       "sane-scripts.dev"
@@ -185,7 +185,7 @@ in
     ];
 
     consoleMediaUtils = declPackageSet [
-      "catt"  # cast videos to chromecast
+      # "catt"  # cast videos to chromecast
       "ffmpeg"
       "go2tv"  # cast videos to UPNP/DLNA device (i.e. tv).
       "imagemagick"
@@ -195,17 +195,17 @@ in
 
     pcTuiApps = declPackageSet [
       "aerc"  # email client
-      "msmtp"  # sendmail
-      "offlineimap"  # email mailbox sync
+      # "msmtp"  # sendmail
+      # "offlineimap"  # email mailbox sync
       # "sfeed"  # RSS fetcher
       "visidata"  # TUI spreadsheet viewer/editor
       "w3m"  # web browser
     ];
 
     iphoneUtils = declPackageSet [
-      "ifuse"
-      "ipfs"
-      "libimobiledevice"
+      # "ifuse"
+      # "ipfs"
+      # "libimobiledevice"
       "sane-scripts.sync-from-iphone"
     ];
 
@@ -216,11 +216,12 @@ in
       "nodejs"
       "patchelf"
       "rustc"
-      "tree-sitter"
+      # "tree-sitter"
     ];
 
 
     # INDIVIDUAL PACKAGE DEFINITIONS
+    "cacert.unbundled".sandbox.enable = false;
 
     cargo.persist.byStore.plaintext = [ ".cargo" ];
 
@@ -228,7 +229,11 @@ in
     delfin.persist.byStore.private = [ ".config/delfin" ];
 
     # creds, but also 200 MB of node modules, etc
+    discord.sandbox.method = "bwrap";
     discord.persist.byStore.private = [ ".config/discord" ];
+
+    dtc.sandbox.method = "bwrap";
+    dtc.sandbox.autodetectCliPaths = true;  # TODO:sandbox: untested
 
     endless-sky.persist.byStore.plaintext = [ ".local/share/endless-sky" ];
 
@@ -237,12 +242,36 @@ in
     # TODO: package [smile](https://github.com/mijorus/smile) for probably a better mobile experience.
     emote.persist.byStore.plaintext = [ ".local/share/Emote" ];
 
+    eza.sandbox.method = "landlock";  # ls replacement
+    eza.sandbox.wrapperType = "wrappedDerivation";  # slow to build
+    eza.sandbox.autodetectCliPaths = true;
+    eza.sandbox.whitelistPwd = true;
+
+    fd.sandbox.method = "landlock";
+    fd.sandbox.wrapperType = "wrappedDerivation";  # slow to build
+    fd.sandbox.autodetectCliPaths = true;
+    fd.sandbox.whitelistPwd = true;
+
+    ffmpeg.sandbox.method = "bwrap";
+    ffmpeg.sandbox.wrapperType = "wrappedDerivation";  # slow to build
+    ffmpeg.sandbox.autodetectCliPaths = true;
+
+    file.sandbox.method = "bwrap";
+    file.sandbox.autodetectCliPaths = true;
+
     fluffychat-moby.persist.byStore.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
+    font-manager.sandbox.method = "bwrap";
     font-manager.packageUnwrapped = pkgs.font-manager.override {
       # build without the "Google Fonts" integration feature, to save closure / avoid webkitgtk_4_0
       withWebkit = false;
     };
+
+    gawk.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    gawk.sandbox.autodetectCliPaths = true;
+
+    gdb.sandbox.method = "landlock";  # TODO:sandbox: untested
+    gdb.sandbox.autodetectCliPaths = true;
 
     # MS GitHub stores auth token in .config
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
@@ -250,14 +279,24 @@ in
 
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
 
+    # TODO: gnome-maps: move to own file
     "gnome.gnome-maps".persist.byStore.plaintext = [ ".cache/shumate" ];
     "gnome.gnome-maps".persist.byStore.private = [ ".local/share/maps-places.json" ];
+
+    # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect
+
+    mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    mercurial.sandbox.whitelistPwd = true;
+    mimeo.sandbox.method = "capshonly";  # xdg-open replacement
 
     # actual monero blockchain (not wallet/etc; safe to delete, just slow to regenerate)
     # XXX: is it really safe to persist this? it doesn't have info that could de-anonymize if captured?
     monero-gui.persist.byStore.plaintext = [ ".bitmonero" ];
 
     mumble.persist.byStore.private = [ ".local/share/Mumble" ];
+
+    nano.sandbox.method = "bwrap";
+    nano.sandbox.autodetectCliPaths = true;
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
@@ -266,6 +305,19 @@ in
       requests
     ]);
 
+    ripgrep.sandbox.method = "landlock";
+    ripgrep.sandbox.wrapperType = "wrappedDerivation";  # slow to build
+    ripgrep.sandbox.autodetectCliPaths = true;
+    ripgrep.sandbox.whitelistPwd = true;
+
+    rsync.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    rsync.sandbox.autodetectCliPaths = true;
+
+    sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    sequoia.sandbox.wrapperType = "wrappedDerivation";  # slow to build
+    sequoia.sandbox.whitelistPwd = true;
+    sequoia.sandbox.autodetectCliPaths = true;
+
     shattered-pixel-dungeon.persist.byStore.plaintext = [ ".local/share/.shatteredpixel/shattered-pixel-dungeon" ];
 
     # printer/filament settings
@@ -273,17 +325,43 @@ in
 
     space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
 
+    subversion.sandbox.method = "bwrap";
+    subversion.sandbox.whitelistPwd = true;
+    sudo.sandbox.enable = false;
+
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
     tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
 
     tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
 
+    tcpdump.sandbox.method = "landlock";
+    tcpdump.sandbox.autodetectCliPaths = true;
+    tcpdump.sandbox.capabilities = [ "net_admin" "net_raw" ];
+    tree.sandbox.method = "landlock";
+    tree.sandbox.autodetectCliPaths = true;
+    tree.sandbox.whitelistPwd = true;
+
+    unzip.sandbox.method = "bwrap";
+    unzip.sandbox.autodetectCliPaths = true;
+    unzip.sandbox.whitelistPwd = true;
+
+    visidata.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    visidata.sandbox.autodetectCliPaths = true;
+
     vvvvvv.persist.byStore.plaintext = [ ".local/share/VVVVVV" ];
+
+    wget.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
 
+    xdg-utils.sandbox.method = "capshonly";
+
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
+
+    yt-dlp.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    yt-dlp.sandbox.whitelistPwd = true;  # saves to pwd by default
   };
 
   programs.feedbackd = lib.mkIf config.sane.programs.feedbackd.enabled {

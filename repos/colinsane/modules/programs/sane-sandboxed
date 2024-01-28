@@ -349,8 +349,7 @@ capshonlyIngestCapability() {
 
 capshonlyExec() {
   PATH="$PATH:@libcap@/bin" exec \
-    capsh "--caps=$capshCapsArg" -- \
-      -c "${cliArgs[*]}"
+    capsh "--caps=$capshCapsArg" --shell="${cliArgs[0]}" -- "${cliArgs[@]:1}"
 }
 
 
