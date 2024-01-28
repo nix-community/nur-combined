@@ -18,12 +18,15 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
-
-  postPatch = lib.optionalString (!stdenv.isDarwin) ''
+  postPatch = ''
+    sed -i '10i #include <cstdint>' comments.h
     substituteInPlace CMakeLists.txt \
       --replace "set(CMAKE_INSTALL_PREFIX \"/usr\")" ""
   '';
+
+  nativeBuildInputs = [ cmake ];
+
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=unqualified-std-cast-call";
 
   meta = with lib; {
     description = "How to use PVS-Studio for Free?";

@@ -30,6 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-tW82sjpiJqkbKpAI+5uvBfgI7Uqtii3Rn8ulnY3MxQM=";
   };
 
+  sourceRoot = ".";
+
   nativeBuildInputs = [ unzip makeWrapper ];
 
   # Post install regedit:
