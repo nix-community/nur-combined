@@ -1,12 +1,12 @@
 { lib, stdenv, fetchFromGitHub, fetchurl, unzip, mkgmap, mkgmap-splitter, osm-extracts }:
 let
   bounds = fetchurl {
-    url = "https://www.thkukuk.de/osm/data/bounds-20231020.zip";
-    hash = "sha256-fQyaYnmP5Qu1iV4R65LMfk8QlTQkKOoIOzxhPWAMD44=";
+    url = "https://www.thkukuk.de/osm/data/bounds-20240126.zip";
+    hash = "sha256-N3QHgWKmbTu6yz9ojKlfwZm46UGeTmtkI2yuB6C7n80=";
   };
   sea = fetchurl {
-    url = "https://osm.thkukuk.de/osm/data/sea-20231021001503.zip";
-    hash = "sha256-3xVcwNbA5bxNM82cLz48UhlcgFE7V2LC/VB0dFAvfu0=";
+    url = "https://www.thkukuk.de/osm/data/sea-20240126001517.zip";
+    hash = "sha256-YGtlp3K03PDFi3dfWG9bnv3qEWQOmx96eOFm1FU4AJw=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {

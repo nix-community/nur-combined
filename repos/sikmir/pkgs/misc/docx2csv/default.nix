@@ -2,21 +2,27 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "docx2csv";
-  version = "2020-05-06";
+  version = "2023-10-11";
 
   src = fetchFromGitHub {
     owner = "ivbeg";
     repo = "docx2csv";
-    rev = "e397b6bd17c73d76b21404ce3422496b8da262db";
-    hash = "sha256-7l8gWzwhIScWixzm+mRLntfilEgG7cZOvFhhiRhPEFg=";
+    rev = "f0c0231876e2ab1210865ded80e4d6105816b0a3";
+    hash = "sha256-A7Y1zgM+9xIDXsAQN2tGGoWbe8u/kvGch6sBNKz0Nw4=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ click openpyxl python-docx xlwt ];
+  propagatedBuildInputs = with python3Packages; [
+    click
+    openpyxl
+    python-docx
+    xlwt
+  ];
 
   meta = with lib; {
     description = "Extracts tables from .docx files and saves them as .csv or .xls files";
     inherit (src.meta) homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
+    broken = true; # python-docx
   };
 }

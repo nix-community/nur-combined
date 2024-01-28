@@ -285,7 +285,7 @@ lib.makeScope newScope (
     gpxlib = callPackage ./gpx/gpxlib { };
     gpxtools = callPackage ./gpx/gpxtools { };
     gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
-    routeconverter = callPackage ./gpx/routeconverter { jre = pkgs.jdk11; };
+    routeconverter = callPackage ./gpx/routeconverter { };
     trackanimation = callPackage ./gpx/trackanimation { };
 
     ### IMAGES
@@ -354,7 +354,6 @@ lib.makeScope newScope (
     freeopcua = callPackage ./misc/freeopcua { };
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
     git-tui = callPackage ./misc/git-tui { };
-    glauth = callPackage ./misc/glauth { };
     graphene = callPackage ./misc/graphene { };
     heapusage = callPackage ./misc/heapusage { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };

@@ -2,16 +2,16 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "routeconverter";
-  version = "2.33";
+  version = "3.0";
 
   srcs = [
     (fetchurl {
       url = "https://static.routeconverter.com/download/previous-releases/${finalAttrs.version}/RouteConverterLinuxOpenSource.jar";
-      hash = "sha256-GDvrn5YfLej+v5vJ9bRP2M4g6bESpl43rFsR39mRpRI=";
+      hash = "sha256-j8mzGa4s/oCurnwkeH3a/HiOsIaH7H5fWKcwucJxUB8=";
     })
     (fetchurl {
       url = "https://static.routeconverter.com/download/previous-releases/${finalAttrs.version}/RouteConverterCmdLine.jar";
-      hash = "sha256-pTA8/1zDwYMB02tkKGDTiTdyhVJwIl3sTkdiUAEwWZs=";
+      hash = "sha256-Dceii5IwFpwIuwoTA4VXogLLETkDgyyrtO7bM5YxiVA=";
     })
   ];
 

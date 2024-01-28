@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "wik";
-  version = "2023-03-12";
+  version = "1.4.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "yashsinghcodes";
     repo = "wik";
-    rev = "7dd7b9ebd4070e4b3a1475948dac67b8288ce17a";
-    hash = "sha256-aJnBY33JB4xsH8AIcQGVli8OuIqbTulB26t7uj2GzVk=";
+    rev = "37207e7cf2955c494a55701cb81d388cc349b6ea";
+    hash = "sha256-oSHL3jYFuvJY1W7N9/CvFClFakz9f35RHg77AbMRfsI=";
   };
 
   nativeBuildInputs = with python3Packages; [ flit ];

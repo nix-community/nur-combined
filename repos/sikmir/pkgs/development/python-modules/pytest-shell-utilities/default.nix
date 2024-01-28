@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ setuptools-scm setuptools-declarative-requirements ];
 
-  propagatedBuildInputs = with python3Packages; [ psutil pytest-skip-markers pytest-subtests ];
+  propagatedBuildInputs = with python3Packages; [ psutil pytest-skip-markers pytest-subtests pytest-helpers-namespace ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

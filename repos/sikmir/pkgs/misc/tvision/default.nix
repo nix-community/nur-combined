@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "tvision";
-  version = "2023-06-22";
+  version = "2024-01-24";
 
   src = fetchFromGitHub {
     owner = "magiblot";
     repo = "tvision";
-    rev = "92177cb365b523b0bc3e17d865292045ed7e0073";
-    hash = "sha256-6Itw1Uy9AXY5Zi+eBSMBtqft7xF+rYApLdH6dgSfepE=";
+    rev = "0917f04206fcfa1973dc49547af74e7399241899";
+    hash = "sha256-BWDMpHR7/ViKZtyZwLJEfgpHIUjkRfc/DRWiQTeo9ME=";
   };
 
   nativeBuildInputs = [ cmake ];

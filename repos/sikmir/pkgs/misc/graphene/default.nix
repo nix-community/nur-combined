@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "graphene";
-  version = "2.12";
+  version = "2.13";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "graphene";
     rev = finalAttrs.version;
-    hash = "sha256-sWwPucJ59wTIweVsJpjHZ19zvRoc3pRP7j6GVQ2UCuU=";
+    hash = "sha256-N7Pdf/8+Yi+OBRvJMkz2EyRQOsnBYs5BQeO20JP8tWA=";
     fetchSubmodules = true;
   };
 

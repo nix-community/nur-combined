@@ -12,7 +12,7 @@
   } // flake-utils.lib.eachDefaultSystem (system:
     let
       config = {
-        permittedInsecurePackages = [ "openssl-1.1.1w" "qtwebkit-5.212.0-alpha4" ];
+        permittedInsecurePackages = [ "openssl-1.1.1w" "python-2.7.18.7" "qtwebkit-5.212.0-alpha4" ];
       };
       pkgs = import nixpkgs {
         inherit system config;

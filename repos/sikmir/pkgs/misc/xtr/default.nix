@@ -2,19 +2,21 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "xtr";
-  version = "0.1.8";
+  version = "0.1.9";
 
   src = fetchFromGitHub {
     owner = "woboq";
     repo = "tr";
     rev = "v${version}";
-    hash = "sha256-8Ncoo5Nzm4dj2A0L02o8OoT3ZXRciDnwCbHfLIggPw4=";
+    hash = "sha256-Un7p8n0+rSyDzEaUGuFXXWUDShR6AZgIYza40ahdZU8=";
   };
 
   cargoPatches = [ ./cargo-lock.patch ];
-  cargoHash = "sha256-g/8OZmMa2gzRr2ft6/0Tur23sjB+SEQq3/qiiAD5y6M=";
+  cargoHash = "sha256-1OII7TCmnlXO1pkY9MQe+Ig+UIUIE3aVIDU9PL4PW0Q=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv Foundation ];
+
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-incompatible-function-pointer-types";
 
   hardeningDisable = lib.optional stdenv.isDarwin "format";
 

@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation rec {
   pname = "plotjuggler";
-  version = "3.7.1";
+  version = "3.8.8";
 
   src = fetchFromGitHub {
     owner = "facontidavide";
     repo = "PlotJuggler";
     rev = version;
-    hash = "sha256-3OLJV6MhnbldZRLmgvJl9nGBzdZx2yHlvvROG/hOcB0=";
+    hash = "sha256-xJ3MEDXZ+nRHNFEuXXeFb6Ed7fKTXtHZg1rH2tEgviQ=";
   };
 
   postPatch = ''
@@ -44,5 +44,6 @@ stdenv.mkDerivation rec {
     license = licenses.mpl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # _AbslInternalSpinLockWake_lts_20230125 not found
   };
 }

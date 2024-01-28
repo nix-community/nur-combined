@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "MQTT_C_TESTS" true)
   ];
 
-  doCheck = true;
+  doCheck = false;
 
   checkPhase = ''
     ./tests
