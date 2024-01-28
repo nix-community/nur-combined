@@ -117,6 +117,7 @@ let
   ];
 
   texts = [
+    (fromDb "acoup.blog/feed")  # history, states. author: <https://historians.social/@bretdevereaux/following>
     (fromDb "amosbbatto.wordpress.com" // tech)
     (fromDb "applieddivinitystudies.com" // rat)
     (fromDb "artemis.sh" // tech)
@@ -188,7 +189,6 @@ let
     (mkSubstack "samkriss" // humor // infrequent)
     (mkText "http://benjaminrosshoffman.com/feed" // pol // weekly)
     (mkText "http://boginjr.com/feed" // tech // infrequent)
-    (mkText "https://acoup.blog/feed" // rat // weekly)
     (mkText "https://anish.lakhwara.com/home.html" // tech // weekly)
     (mkText "https://forum.merveilles.town/rss.xml" // pol // infrequent)  #quality RSS list here: <https://forum.merveilles.town/thread/57/share-your-rss-feeds%21-6/>
     # (mkText "https://github.com/Kaiteki-Fedi/Kaiteki/commits/master.atom" // tech // infrequent)
