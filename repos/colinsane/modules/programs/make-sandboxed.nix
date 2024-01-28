@@ -34,7 +34,7 @@ let
     runHook postFixup
   '';
 in
-{ pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? false, binMap ? {}, capabilities ? [], extraConfig ? [], embedProfile ? false, whitelistPwd ? false }:
+{ pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? false, binMap ? {}, capabilities ? [], embedProfile ? false, extraConfig ? [], whitelistPwd ? false }:
 let
   sane-sandboxed' = sane-sandboxed.meta.mainProgram;  #< load by bin name to reduce rebuilds
 

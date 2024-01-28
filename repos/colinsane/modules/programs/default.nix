@@ -43,7 +43,7 @@ let
       in
         makeSandboxed {
           inherit pkgName package;
-          inherit (sandbox) binMap capabilities embedProfile extraConfig method whitelistPwd wrapperType;
+          inherit (sandbox) autodetectCliPaths binMap capabilities embedProfile extraConfig method whitelistPwd wrapperType;
           vpn = if net == "vpn" then vpn else null;
           allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
           allowedRootPaths = [
