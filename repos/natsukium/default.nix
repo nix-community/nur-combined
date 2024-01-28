@@ -30,6 +30,7 @@ rec {
     source = sources.nowplaying-cli;
   };
   psipred = pkgs.callPackage ./pkgs/psipred { };
+  qmk-toolbox = pkgs.callPackage ./pkgs/qmk-toolbox { source = sources.qmk-toolbox; };
   qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { source = sources.qutebrowser-darwin; };
   rofi-rbw = pkgs.callPackage ./pkgs/rofi-rbw { };
   vivaldi-bin = pkgs.callPackage ./pkgs/vivaldi { source = sources.vivaldi-darwin; };
@@ -37,6 +38,9 @@ rec {
   liga-hackgen-nf-font = liga-hackgen-font.override { nerdfont = true; };
 
   vimPlugins = pkgs.recurseIntoAttrs (
-    pkgs.callPackage ./pkgs/vim-plugins { inherit (pkgs.vimUtils) buildVimPlugin; }
+    pkgs.callPackage ./pkgs/vim-plugins {
+      inherit (pkgs.vimUtils) buildVimPlugin;
+      inherit sources;
+    }
   );
 }

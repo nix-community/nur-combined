@@ -41,6 +41,14 @@
       sha256 = "sha256-u0kSPGYoK2SVwkVYkxOvyUh1p7DoLJrp951vJedQPbQ=";
     };
   };
+  qmk-toolbox = {
+    pname = "qmk-toolbox";
+    version = "0.2.2";
+    src = fetchurl {
+      url = "https://github.com/qmk/qmk_toolbox/releases/download/0.2.2/QMK.Toolbox.app.zip";
+      sha256 = "sha256-dfQ5qdkWMNIxCWhWa7cDMGzrpHl/m1RZsSaVFL56Ytg=";
+    };
+  };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
     version = "3.1.0";
@@ -48,6 +56,18 @@
       url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.1.0/qutebrowser-3.1.0.dmg";
       sha256 = "sha256-AvuuwUnxMcr2ekZ/O1FL/4IizV1aTMhXNrbf1SwNY7U=";
     };
+  };
+  skkeleton = {
+    pname = "skkeleton";
+    version = "076ef4dca9e8fbcfa208f1a030c04209df82f0af";
+    src = fetchFromGitHub {
+      owner = "vim-skk";
+      repo = "skkeleton";
+      rev = "076ef4dca9e8fbcfa208f1a030c04209df82f0af";
+      fetchSubmodules = false;
+      sha256 = "sha256-sWGQY1deUPthx1xDlhYzz9yIIaMt2Oxy9UguLmDMAR4=";
+    };
+    date = "2024-01-25";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";

@@ -18,10 +18,19 @@ src.github = "kirtan-shah/nowplaying-cli"
 src.prefix = "v"
 fetch.url = "https://github.com/kirtan-shah/nowplaying-cli/archive/v$ver.tar.gz"
 
+[qmk-toolbox]
+src.github = "qmk/qmk_toolbox"
+fetch.url = "https://github.com/qmk/qmk_toolbox/releases/download/$ver/QMK.Toolbox.app.zip"
+
 [qutebrowser-darwin]
 src.github = "qutebrowser/qutebrowser"
 src.prefix = "v"
 fetch.url = "https://github.com/qutebrowser/qutebrowser/releases/download/v$ver/qutebrowser-$ver.dmg"
+
+[skkeleton]
+src.git = "https://github.com/vim-skk/skkeleton"
+src.branch = "main"
+fetch.github = "vim-skk/skkeleton"
 
 [vivaldi-darwin]
 src.archpkg = "vivaldi"

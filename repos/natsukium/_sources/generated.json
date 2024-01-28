@@ -69,6 +69,21 @@
         },
         "version": "1.2.1"
     },
+    "qmk-toolbox": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qmk-toolbox",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-dfQ5qdkWMNIxCWhWa7cDMGzrpHl/m1RZsSaVFL56Ytg=",
+            "type": "url",
+            "url": "https://github.com/qmk/qmk_toolbox/releases/download/0.2.2/QMK.Toolbox.app.zip"
+        },
+        "version": "0.2.2"
+    },
     "qutebrowser-darwin": {
         "cargoLocks": null,
         "date": null,
@@ -83,6 +98,26 @@
             "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.1.0/qutebrowser-3.1.0.dmg"
         },
         "version": "3.1.0"
+    },
+    "skkeleton": {
+        "cargoLocks": null,
+        "date": "2024-01-25",
+        "extract": null,
+        "name": "skkeleton",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "vim-skk",
+            "repo": "skkeleton",
+            "rev": "076ef4dca9e8fbcfa208f1a030c04209df82f0af",
+            "sha256": "sha256-sWGQY1deUPthx1xDlhYzz9yIIaMt2Oxy9UguLmDMAR4=",
+            "type": "github"
+        },
+        "version": "076ef4dca9e8fbcfa208f1a030c04209df82f0af"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
