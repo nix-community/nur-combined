@@ -34,9 +34,7 @@ in
 {
   sane.programs.go2tv = {
     sandbox.method = "bwrap";
-    sandbox.extraConfig = [
-      "--sane-sandbox-autodetect"
-    ];
+    sandbox.autodetectCliPaths = true;
     # for GUI invocation, allow the common media directories
     sandbox.extraHomePaths = [
       "Music"

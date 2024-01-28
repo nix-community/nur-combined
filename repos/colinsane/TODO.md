@@ -117,6 +117,8 @@
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
 
 ### perf
+- debug nixos-rebuild times
+  - i bet sane.programs adds a LOT of time, with how it automatically creates an attrs for EVERY package in nixpkgs.
 - add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled
   - every package here can be auto-generated, and marked with some env var so that it doesn't pollute the pure package set
   - would be super handy for package prototyping!

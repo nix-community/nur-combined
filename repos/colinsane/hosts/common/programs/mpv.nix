@@ -63,9 +63,7 @@ in
     });
 
     sandbox.method = "bwrap";
-    sandbox.extraConfig = [
-      "--sane-sandbox-autodetect"
-    ];
+    sandbox.autodetectCliPaths = true;
 
     persist.byStore.plaintext = [ ".local/state/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = let

@@ -2,9 +2,7 @@
 {
   sane.programs.evince = {
     sandbox.method = "bwrap";
-    sandbox.extraConfig = [
-      "--sane-sandbox-autodetect"
-    ];
+    sandbox.autodetectCliPaths = true;
     mime.associations."application/pdf" = "org.gnome.Evince.desktop";
   };
 }

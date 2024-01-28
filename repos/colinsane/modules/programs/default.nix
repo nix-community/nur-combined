@@ -34,7 +34,7 @@ let
 
   # wrap a package so that its binaries (maybe) run in a sandbox
   wrapPkg = pkgName: { fs, net, persist, sandbox, ... }: package: (
-    if sandbox.method == null then
+    if !sandbox.enable || sandbox.method == null then
       package
     else
       let
@@ -43,7 +43,7 @@ let
       in
         makeSandboxed {
           inherit pkgName package;
-          inherit (sandbox) binMap embedProfile extraConfig method wrapperType;
+          inherit (sandbox) binMap capabilities embedProfile extraConfig method whitelistPwd wrapperType;
           vpn = if net == "vpn" then vpn else null;
           allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
           allowedRootPaths = [
@@ -216,11 +216,15 @@ let
         '';
       };
       sandbox.method = mkOption {
-        type = types.nullOr (types.enum [ "bwrap" "firejail" "landlock" ]);
+        type = types.nullOr (types.enum [ "bwrap" "capshonly" "firejail" "landlock" ]);
         default = null;  #< TODO: default to something non-null
         description = ''
           how/whether to sandbox all binaries in the package.
         '';
+      };
+      sandbox.enable = mkOption {
+        type = types.bool;
+        default = true;
       };
       sandbox.embedProfile = mkOption {
         type = types.bool;
@@ -248,6 +252,20 @@ let
           "wrappedDerivation" is mostly good for prototyping.
         '';
       };
+      sandbox.autodetectCliPaths = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          if a CLI argument looks like a PATH, should we add it to the sandbox?
+        '';
+      };
+      sandbox.whitelistPwd = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow the program full access to whichever directory it was launched from.
+        '';
+      };
       sandbox.binMap = mkOption {
         type = types.attrsOf types.str;
         default = {};
@@ -256,6 +274,14 @@ let
           for example,
             if the package ships `bin/mpv` and `bin/umpv`, this module might know how to sandbox `mpv` but not `umpv`.
             then set `sandbox.binMap.umpv = "mpv";` to sandbox `bin/umpv` with the same rules as `bin/mpv`
+        '';
+      };
+      sandbox.capabilities = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          list of Linux capabilities the program needs. lowercase, and without the cap_ prefix.
+          e.g. sandbox.capabilities = [ "net_admin" "net_raw" ];
         '';
       };
       sandbox.extraPaths = mkOption {
@@ -323,8 +349,12 @@ let
   configs = lib.mapAttrsToList (name: p: {
     assertions = [
       {
-        assertion = (p.net == "clearnet") || p.sandbox.method != null;
-        message = ''program "${name}" requests net "${p.net}", which requires sandboxing, but sandboxing was disabled'';
+        assertion = !(p.sandbox.enable && p.sandbox.method == null) || !p.enabled || p.package == null || !config.sane.strictSandboxing;
+        message = "program ${name} specified no `sandbox.method`; please configure a method, or set sandbox.enable = false.";
+      }
+      {
+        assertion = p.net == "clearnet" || p.sandbox.method != null;
+        message = ''program "${name}" requests net "${p.net}", which requires sandboxing, but sandboxing wasn't configured'';
       }
     ] ++ builtins.map (sug: {
       assertion = cfg ? "${sug}";
@@ -434,6 +464,13 @@ in
       description = ''
         packages with /share/sane-sandbox profiles indicating how to sandbox their associated package.
         this is mostly an internal implementation detail.
+      '';
+    };
+    sane.strictSandboxing = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        whether to require that every `sane.program` explicitly specify its sandbox settings.
       '';
     };
   };

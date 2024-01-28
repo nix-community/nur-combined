@@ -166,6 +166,10 @@ parseArgs() {
         shift
         rootPaths+=("$_path")
         ;;
+      (--sane-sandbox-add-pwd)
+        _path="$(pwd)"
+        rootPaths+=("$_path")
+        ;;
       (--sane-sandbox-profile)
         tryLoadProfileByName "$1"
         shift

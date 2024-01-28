@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.bubblewrap = {
+    sandbox.enable = false;  # don't sandbox the sandboxer :)
     packageUnwrapped = pkgs.bubblewrap.overrideAttrs (base: {
       # patches = (base.patches or []) ++ [
       #   (pkgs.fetchpatch {
@@ -16,20 +17,13 @@
         # never expected: patch out the guard check.
         #
         # see: <https://github.com/containers/bubblewrap/issues/397>
+        #
+        # note that invoking bwrap with capabilities in the 'init' namespace does NOT grant the sandboxed process
+        # capabilities in the 'init' namespace. it's a limitation of namespaces that namespaced processes can
+        # never receive capabilities in their parent namespace.
         substituteInPlace bubblewrap.c --replace \
           'die ("Unexpected capabilities but not setuid, old file caps config?");' \
           '// die ("Unexpected capabilities but not setuid, old file caps config?");'
-
-        # bwrap bin/foo produces two processes:
-        # - the parent (occupies the namespace from which it's called)
-        # - the child (occupies new namespaces, created for it by the parent).
-        # this patch changes the parent to not drop *all* privs, hoping that this would allow
-        # privileged sandboxes to do privileged net operations.
-        # but in actuality, processes within a child namespace can *NEVER* have capabilities within
-        # their parent namespace.
-        # substituteInPlace bubblewrap.c --replace \
-        #   'drop_privs (FALSE, FALSE)' \
-        #   'drop_privs (TRUE, FALSE)'
 
         # enable debug printing
         # substituteInPlace utils.h --replace \

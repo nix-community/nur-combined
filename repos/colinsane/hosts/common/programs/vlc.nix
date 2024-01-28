@@ -11,9 +11,7 @@ in
 {
   sane.programs.vlc = {
     sandbox.method = "bwrap";
-    sandbox.extraConfig = [
-      "--sane-sandbox-autodetect"
-    ];
+    sandbox.autodetectCliPaths = true;
     persist.byStore.private = [
       # vlc remembers play position in ~/.config/vlc/vlc-qt-interface.conf
       # filenames are stored in plaintext (unlike mpv, which i think hashes them)

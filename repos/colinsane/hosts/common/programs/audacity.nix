@@ -10,12 +10,12 @@
     };
 
     sandbox.method = "bwrap";
-    sandbox.extraConfig = [
-      "--sane-sandbox-autodetect"
+    sandbox.autodetectCliPaths = true;
+    sandbox.extraHomePaths = [
+      # support media imports via file->open dir to some common media directories
+      "tmp"
+      "Music"
     ];
-    # support media imports via file->open dir to some common media directories
-    fs."tmp" = {};
-    fs."Music" = {};
 
     # disable first-run splash screen
     fs.".config/audacity/audacity.cfg".file.text = ''

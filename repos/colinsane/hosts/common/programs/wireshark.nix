@@ -9,10 +9,7 @@ in
       "/proc/net"  #< only needed if using landlock
     ];
     fs.".config/wireshark".dir = {};
-    sandbox.extraConfig = [
-      "--sane-sandbox-cap" "net_admin"
-      "--sane-sandbox-cap" "net_raw"
-    ];
+    sandbox.capabilities = [ "net_admin" "net_raw" ];
     slowToBuild = true;
   };
 }
