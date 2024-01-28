@@ -12,6 +12,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
+  postPatch = ''
+    sed -i '8i #include <cstdint>' src/dcs/dcs.h
+    sed -i '4i #include <cstdint>' src/assembler/vcdu.h
+  '';
+
   nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [ opencv4 rtl-sdr zlib ];

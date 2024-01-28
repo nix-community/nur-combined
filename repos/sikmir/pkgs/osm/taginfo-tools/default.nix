@@ -25,5 +25,6 @@ stdenv.mkDerivation {
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isLinux;
   };
 }
