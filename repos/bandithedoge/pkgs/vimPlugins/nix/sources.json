@@ -53,10 +53,10 @@
     "homepage": "https://www.schemastore.org/",
     "owner": "b0o",
     "repo": "SchemaStore.nvim",
-    "rev": "2579aef95ffa497314ce871626a6145bc70da51d",
-    "sha256": "136mh81vl4mcl22s5lz908s35b6brz2l9z3ij5ajfnd2j2643bx3",
+    "rev": "85009f1efcea501d40fb7f575319516d5f93feaf",
+    "sha256": "0mqbwycms3ax44j81bxc0klb6zdcblpjy7bjssys0ic6igwb0gcv",
     "type": "tarball",
-    "url": "https://github.com/b0o/SchemaStore.nvim/archive/2579aef95ffa497314ce871626a6145bc70da51d.tar.gz",
+    "url": "https://github.com/b0o/SchemaStore.nvim/archive/85009f1efcea501d40fb7f575319516d5f93feaf.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "aniseed": {
@@ -161,10 +161,10 @@
     "homepage": "",
     "owner": "Civitasv",
     "repo": "cmake-tools.nvim",
-    "rev": "b7554dd2aeb436012b852a3d30780c00a2f9f30b",
-    "sha256": "0bb83798bg25a1gb5v7v0dxz424fbmifhirnfp7c51plca1cx7wx",
+    "rev": "cd5db8b22de45b52cdac4c3fb6b333f1c02530bf",
+    "sha256": "19kkgcgilihsl9l4csi96msyk2hil8pdz4821sppcp356fh8z9ba",
     "type": "tarball",
-    "url": "https://github.com/Civitasv/cmake-tools.nvim/archive/b7554dd2aeb436012b852a3d30780c00a2f9f30b.tar.gz",
+    "url": "https://github.com/Civitasv/cmake-tools.nvim/archive/cd5db8b22de45b52cdac4c3fb6b333f1c02530bf.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "cmp-cmdline": {
@@ -641,10 +641,10 @@
     "homepage": "",
     "owner": "MrcJkb",
     "repo": "haskell-tools.nvim",
-    "rev": "1b739495b2b3ed82d18d7de367cc2754f33d2c15",
-    "sha256": "1b7hn6hxyh8ajxbvnpxyaydsji4nlgy8x6d66ny1iyyv54cxvjcp",
+    "rev": "d7e7cb8b4c6832c8516680de3a4ba1c86c76230a",
+    "sha256": "0l8c4a8bsyhkdfpzwfcw5pcbl4zxyay7bk2p687wja5wlng51yqf",
     "type": "tarball",
-    "url": "https://github.com/MrcJkb/haskell-tools.nvim/archive/1b739495b2b3ed82d18d7de367cc2754f33d2c15.tar.gz",
+    "url": "https://github.com/MrcJkb/haskell-tools.nvim/archive/d7e7cb8b4c6832c8516680de3a4ba1c86c76230a.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "heirline.nvim": {
