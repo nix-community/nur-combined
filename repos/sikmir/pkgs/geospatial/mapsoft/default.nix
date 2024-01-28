@@ -44,6 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [ ./0001-fix-build.patch ];
 
   postPatch = ''
+    sed -i '4i #include <cstdint>' core/loaders/image_png.cpp
     substituteInPlace scripts/map_rescale \
       --replace "/usr/share/mapsoft" "$out/share/mapsoft"
     substituteInPlace core/vmap/vmap_ocad.cpp \
