@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  env.NIX_CFLAGS_COMPILE = "-Wno-error=unqualified-std-cast-call";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-error=unqualified-std-cast-call";
 
   meta = with lib; {
     description = "How to use PVS-Studio for Free?";

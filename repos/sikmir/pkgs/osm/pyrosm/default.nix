@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub, cykhash, pyrobuf }:
+{ lib, stdenv, python3Packages, fetchFromGitHub, cykhash, pyrobuf }:
 
 python3Packages.buildPythonPackage rec {
   pname = "pyrosm";
@@ -32,5 +32,6 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # pygeos
   };
 }

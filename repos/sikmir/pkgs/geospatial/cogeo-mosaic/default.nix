@@ -40,5 +40,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://developmentseed.org/cogeo-mosaic/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # pydantic-settings
   };
 }
