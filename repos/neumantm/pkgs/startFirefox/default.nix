@@ -1,5 +1,5 @@
 { lib, writeShellScriptBin, makeDesktopItem, symlinkJoin,
-  zenity,
+  yad,
   firefox,
   firefoxProfiles ? [ "Default" ],
   firefoxTmpProfileDir ? "~/.mozilla/firefox/TMP/"
@@ -15,7 +15,7 @@ let
 
       confirm() {
         # call with a prompt string or use a default
-        response="$(${zenity}/bin/zenity --entry --title "Confirm" --text "''${1:-Are you sure? [Y/N]} ")"
+        response="$(${yad}/bin/yad --splash --entry --title "Confirm" --text "''${1:-Are you sure? [Y/N]} ")"
         case "$response" in
           [yY][eE][sS]|[yY]|[jJ])
             true
@@ -35,7 +35,7 @@ let
         site="$1"
       fi
 
-      profile="$(${zenity}/bin/zenity --height 300 --list --title="Firefox Profile" --text="$site - Open with?" --print-column=2 --column="Number" --column "Profile" ${allProfiles})"
+      profile="$(${yad}/bin/yad --splash --height 300 --list --separator="" --title="Firefox Profile" --text="$site - Open with?" --search-column=1 --print-column=2 --column="Number:NUM" --column "Profile:TEXT" ${allProfiles})"
 
       if [ "$profile" == "" ]; then
         exit 2
@@ -45,7 +45,7 @@ let
 
       if [ ! "$1" == "" ]
       then
-        if ! ${zenity}/bin/zenity --question --text="$profile - Open new Window?" --title "Window?" --default-cancel
+        if ! ${yad}/bin/yad --splash --question --text="$profile - Open new Window?" --title "Window?" --default-cancel
         then
             modeRaw="-new-tab"
         fi
