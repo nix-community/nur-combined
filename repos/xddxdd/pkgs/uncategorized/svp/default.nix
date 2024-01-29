@@ -148,6 +148,5 @@ in
       platforms = ["x86_64-linux"];
       license = licenses.unfree;
       sourceProvenance = with sourceTypes; [binaryNativeCode];
-      maintainers = with lib.maintainers; [xddxdd];
     };
   }
