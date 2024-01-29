@@ -9,4 +9,6 @@ fi
 
 if [ -d ~/.dotfiles ]; then
     source ~/.dotfiles/bin/source_me
+elif [ -d /etc/.dotfiles ]; then
+    source /etc/.dotfiles/bin/source_me
 fi
