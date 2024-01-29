@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttr: {
   pname = "bmi260";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "hhd-dev";
     repo = finalAttr.pname;
     rev = "v${finalAttr.version}";
-    hash = "sha256-g75BKlnU6iumjgNUKqK/Tjr/in6OQVEZNpQimWOkoxM=";
+    hash = "sha256-J0npD75QqOGY1QUoznBjQ+jX28gq5u6b0JZOseclwE8=";
   };
 
   hardeningDisable = [ "pic" ];
@@ -38,8 +38,5 @@ stdenv.mkDerivation (finalAttr: {
     license = with licenses; [ bsd3 gpl2Only ];
     maintainers = with maintainers; [ Cryolitia ];
     platforms = platforms.linux;
-    # This driver uses i2c_client_get_device_id(), which is only available above 6.2
-    # https://lore.kernel.org/lkml/cover.1667151588.git.ang.iglesiasg@gmail.com/
-    broken = lib.versionOlder kernel.version "6.2";
   };
 })
