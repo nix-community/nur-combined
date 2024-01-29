@@ -11,17 +11,21 @@ let
     # but in a manner which avoids taking a dependency on the real sane-sandboxed.
     # the primary use for this is to allow a package's `check` phase to work even when sane-sandboxed isn't available.
     _origArgs=($@)
-    while [ "$#" -gt 0 ] && ! [[ "$1" =~ \.[^/]*-sandboxed$ ]]; do
+
+    # throw away all arguments until we find the path to the binary which is being sandboxed
+    while [ "$#" -gt 0 ] && ! [[ "$1" =~ /\.sandboxed/ ]]; do
       shift
     done
     if [ "$#" -eq 0 ]; then
       >&2 echo "sane-sandbox: failed to parse args: ''${_origArgs[*]}"
       exit 1
     fi
+
     if [ -z "$SANE_SANDBOX_DISABLE" ]; then
       >&2 echo "sane-sandbox: not called with SANE_SANDBOX_DISABLE=1; unsure how to sandbox: ''${_origArgs[*]}"
       exit 1
     fi
+    # assume that every argument after the binary name is an argument for the binary and not for the sandboxer.
     exec "$@"
   '';
   # helper used for `wrapperType == "wrappedDerivation"` which simply symlinks all a package's binaries into a new derivation
@@ -34,9 +38,15 @@ let
     runHook postFixup
   '';
 in
-{ pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? false, binMap ? {}, capabilities ? [], embedProfile ? false, extraConfig ? [], whitelistPwd ? false }:
+{ pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? false, binMap ? {}, capabilities ? [], embedProfile ? false, embedSandboxer ? false, extraConfig ? [], whitelistPwd ? false }:
 let
-  sane-sandboxed' = sane-sandboxed.meta.mainProgram;  #< load by bin name to reduce rebuilds
+  sane-sandboxed' = if embedSandboxer then
+    # optionally hard-code the sandboxer. this forces rebuilds, but allows deep iteration w/o deploys.
+    lib.getExe sane-sandboxed
+  else
+    #v prefer to load by bin name to reduce rebuilds
+    sane-sandboxed.meta.mainProgram
+  ;
 
   allowPath = p: [
     "--sane-sandbox-path"
@@ -146,12 +156,17 @@ let
           fi
         done
 
-        mv "$out/bin/$_name" "$out/bin/.$_name-sandboxed"
+        # N.B.: unlike `makeWrapper`, we place the unwrapped binary in a subdirectory and *preserve its name*.
+        # the upside of this is that for applications which read "$0" to decide what to do (e.g. busybox, git)
+        # they work as expected without any special hacks.
+        # if desired, makeWrapper-style naming could be achieved by leveraging `exec -a <original_name>`.
+        mkdir -p "$out/bin/.sandboxed"
+        mv "$out/bin/$_name" "$out/bin/.sandboxed/"
         cat <<EOF >> "$out/bin/$_name"
     #!${runtimeShell}
     exec ${sane-sandboxed'} \
     ''${_profileArgs[@]} \
-    "$out/bin/.$_name-sandboxed" "\$@"
+    "$out/bin/.sandboxed/$_name" "\$@"
     EOF
         chmod +x "$out/bin/$_name"
       }

@@ -8,8 +8,8 @@ in
 {
   sane.programs.git = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";  # can't pass installCheckPhase :?
     sandbox.whitelistPwd = true;
+    sandbox.autodetectCliPaths = true;  # necessary for git-upload-pack
     sandbox.extraHomePaths = [
       # even with `whitelistPwd`, git has to crawl *up* the path -- which isn't necessarily in the sandbox -- to locate parent .git files
       "dev"

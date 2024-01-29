@@ -1,17 +1,14 @@
 #!@runtimeShell@
 
-isDebug="$SANE_SANDBOX_DEBUG"
-test -n "$isDebug" && set -x
-isDisable="$SANE_SANDBOX_DISABLE"
-
 profileDirs=(@profileDirs@)
+isDebug=
+isDisable=
 
 cliArgs=()
 cliPathArgs=()
 autodetect=
 profilesNamed=()
-rootPaths=()
-homePaths=()
+paths=()
 capabilities=()
 net=
 dns=()
@@ -20,6 +17,11 @@ firejailFlags=()
 bwrapFlags=()
 landlockPaths=
 capshCapsArg=
+
+enableDebug() {
+  isDebug=1
+  set -x
+}
 
 debug() {
   [ -n "$isDebug" ] && printf "[debug] %s" "$1" >&2
@@ -61,6 +63,9 @@ urldecode() {
   echo -e "${_//%/\\x}"
 }
 
+# if the argument looks path-like, then add it to cliPathArgs.
+# this function ingests absolute, relative, or file:///-type URIs.
+# but it converts any such path into an absolute path before adding it to cliPathArgs.
 tryArgAsPath() {
   _arg="$1"
   _path=
@@ -79,6 +84,21 @@ tryArgAsPath() {
 
   if [ -e "$_path" ]; then
     cliPathArgs+=("$_path")
+  fi
+}
+
+# remove duplicate //, reduce '.' and '..' (naively).
+# chomps trailing slashes.
+# does not resolve symlinks, nor check for existence of any component of the path.
+normPath() {
+  realpath --logical --no-symlinks --canonicalize-missing "$1"
+}
+
+ensureTrailingSlash() {
+  if [ "${1:-1}" = "/" ]; then
+    printf "%s" "$1"
+  else
+    printf "%s/" "$1"
   fi
 }
 
@@ -108,8 +128,7 @@ parseArgs() {
         break
         ;;
       (--sane-sandbox-debug)
-        isDebug=1
-        set -x
+        enableDebug
         ;;
       (--sane-sandbox-replace-cli)
         # keep the sandbox flags, but clear any earlier CLI args.
@@ -137,7 +156,7 @@ parseArgs() {
         capabilities+=("$_cap")
         ;;
       (--sane-sandbox-dns)
-        # N.B.: these named temporary variables ensure that `set -x` causes $1 to be printed
+        # N.B.: these named temporary variables ensure that "set -x" causes $1 to be printed
         _dns="$1"
         shift
         dns+=("$_dns")
@@ -157,18 +176,18 @@ parseArgs() {
         shift
         ;;
       (--sane-sandbox-home-path)
-        _path="$1"
+        _path="$HOME/$1"
         shift
-        homePaths+=("$_path")
+        paths+=("$_path")
         ;;
       (--sane-sandbox-path)
         _path="$1"
         shift
-        rootPaths+=("$_path")
+        paths+=("$_path")
         ;;
       (--sane-sandbox-add-pwd)
         _path="$(pwd)"
-        rootPaths+=("$_path")
+        paths+=("$_path")
         ;;
       (--sane-sandbox-profile)
         tryLoadProfileByName "$1"
@@ -192,13 +211,13 @@ parseArgs() {
 firejailName=
 firejailProfile=
 
-firejailIngestRootPath() {
+firejailSetup() {
+  debug "firejailSetup: noop"
+}
+firejailIngestPath() {
   # XXX: firejail flat-out refuses to whitelist certain root paths
   #      this exception list is non-exhaustive
   [ "$1" != "/bin" ] && [ "$1" != "/etc" ] && firejailFlags+=("--noblacklist=$1" "--whitelist=$1")
-}
-firejailIngestHomePath() {
-  firejailFlags+=("--noblacklist="'${HOME}/'"$1" "--whitelist="'${HOME}/'"$1")
 }
 firejailIngestNet() {
   firejailFlags+=("--net=$1")
@@ -229,30 +248,31 @@ firejailExec() {
   if [ -n "$firejailProfile" ]; then
     firejailFlags+=("--profile=$firejailProfile")
   fi
-  PATH="$PATH:@firejail@/bin" exec firejail "${firejailFlags[@]}" -- "${cliArgs[@]}"
+  PATH="$PATH:@firejail@/bin" exec \
+    firejail "${firejailFlags[@]}" -- \
+    "${cliArgs[@]}"
 }
 
 
 ## BUBBLEWRAP BACKEND
 
-bwrapIngestRootPath() {
+bwrapSetup() {
+  debug "bwrapSetup: noop"
+}
+bwrapIngestPath() {
   # N.B.: use --dev-bind-try instead of --dev-bind for platform-specific paths like /run/opengl-driver-32
   #   which don't exist on aarch64, as the -try variant will gracefully fail (i.e. not bind it).
   # N.B.: `test -r` for paths like /mnt/servo-media, which may otherwise break bwrap when offline with
   #   "bwrap: Can't get type of source /mnt/...: Input/output error"
   # HOWEVER, paths such as `/run/secrets` are not readable, so don't do that (or, try `test -e` if this becomes a problem again).
-  # test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
-  bwrapFlags+=("--dev-bind-try" "$1" "$1")
-}
-bwrapIngestHomePath() {
-  _path="$HOME/$1"
   # `-try` version of binding is still desireable for user files.
   # although it'd be nice if all program directories could be required to exist, some things are scoped poorly.
   #   e.g. ~/.local/share/historic.json for wike's history. i don't want to give it all of ~/.local/share, and i don't want it to fail if its history file doesn't exist.
-  bwrapFlags+=("--dev-bind-try" "$_path" "$_path")
+  # test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
+  bwrapFlags+=("--dev-bind-try" "$1" "$1")
 }
 bwrapIngestProfile() {
-  debug "bwrap doesn't implement profiles"
+  debug "bwrapIngestProfile: stubbed"
 }
 bwrapIngestCapability() {
   bwrapFlags+=("--cap-add" "cap_$1")
@@ -260,12 +280,39 @@ bwrapIngestCapability() {
 # WIP
 
 bwrapExec() {
-  PATH="$PATH:@bubblewrap@/bin" exec bwrap --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- "${cliArgs[@]}"
+  PATH="$PATH:@bubblewrap@/bin" exec \
+    bwrap --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
+    "${cliArgs[@]}"
 }
 
 
 ## LANDLOCK BACKEND
-landlockIngestRootPath() {
+landlockSetup() {
+  # other sandboxing methods would create fake /dev, /proc, /tmp filesystems
+  # but landlock can't do that. so bind a minimal number of assumed-to-exist files.
+  # note that most applications actually do start without these, but maybe produce weird errors during their lifetime.
+  # typical failure mode:
+  # - /tmp: application can't perform its task
+  # - /dev/{null,random,urandom,zero}: application warns but works around it
+  paths+=(\
+    /dev/null
+    /dev/random
+    /dev/urandom
+    /dev/zero
+    /tmp
+  )
+  # /dev/{stderr,stdin,stdout} are links to /proc/self/fd/N
+  # and /proc/self is a link to /proc/<N>.
+  # there seems to be an issue, observed with wireshark, in binding these.
+  # maybe i bound the symlinks but not the actual data being pointed to.
+  # if you want to bind /dev/std*, then also bind all of /proc.
+  # /proc/self
+  # "/proc/$$"
+  # /dev/stderr
+  # /dev/stdin
+  # /dev/stdout
+}
+landlockIngestPath() {
   # TODO: escape colons
   if [ -e "$1" ]; then
     # landlock is fd-based and requires `open`ing the path;
@@ -278,46 +325,20 @@ landlockIngestRootPath() {
     fi
   fi
 }
-landlockIngestHomePath() {
-  landlockIngestRootPath "$HOME/$1"
-}
 landlockIngestProfile() {
-  debug "landlock doesn't implement profiles"
+  debug "landlockIngestProfile: stubbed"
 }
 landlockIngestCapability() {
   capshonlyIngestCapability "$1"
 }
 landlockExec() {
-  # other sandboxing methods would create fake /dev, /proc, /tmp filesystems
-  # but landlock can't do that. so bind a minimal number of assumed-to-exist files.
-  # note that most applications actually do start without these, but maybe produce weird errors during their lifetime.
-  # typical failure mode:
-  # - /tmp: application can't perform its task
-  # - /dev/{null,random,urandom,zero}: application warns but works around it
-  landlockIngestRootPath '/dev/null'
-  landlockIngestRootPath '/dev/random'
-  landlockIngestRootPath '/dev/urandom'
-  landlockIngestRootPath '/dev/zero'
-  landlockIngestRootPath '/tmp'
-  # /dev/{stderr,stdin,stdout} are links to /proc/self/fd/N
-  # and /proc/self is a link to /proc/<N>.
-  # there seems to be an issue, observed with wireshark, in binding these.
-  # maybe i bound the symlinks but not the actual data being pointed to.
-  # if you want to bind /dev/std*, then also bind all of /proc.
-  # landlockIngestRootPath '/proc/self'
-  # landlockIngestRootPath "/proc/$$"
-  # landlockIngestRootPath '/dev/stderr'
-  # landlockIngestRootPath '/dev/stdin'
-  # landlockIngestRootPath '/dev/stdout'
-
   # landlock sandboxer has no native support for capabilities (except that it sets nonewprivs),
   # so trampoline through `capsh` as well, to drop privs.
   # N.B: capsh passes its arg to bash (via /nix/store/.../bash), which means you have to `-c "my command"` to
   # invoke the actual user command.
   PATH="$PATH:@landlockSandboxer@/bin:@libcap@/bin" LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
     sandboxer \
-    capsh "--caps=$capshCapsArg" -- \
-      -c "${cliArgs[*]}"
+    capsh "--caps=$capshCapsArg" --shell="${cliArgs[0]}" -- "${cliArgs[@]:1}"
 }
 
 
@@ -325,14 +346,14 @@ landlockExec() {
 # this backend exists because apps which are natively bwrap may complain about having ambient privileges.
 # then, run them in a capsh sandbox, which ignores any path sandboxing and just lowers privs to what's needed.
 
-capshonlyIngestRootPath() {
-  debug "capshonly doesn't implement root paths"
+capshonlySetup() {
+  debug "capshonlySetup: noop"
 }
-capshonlyIngestHomePath() {
-  debug "capshonly doesn't implement home paths"
+capshonlyIngestPath() {
+  debug "capshonlyIngestPath: stubbed"
 }
 capshonlyIngestProfile() {
-  debug "capshonly doesn't implement profiles"
+  debug "capshonlyIngestProfile: stubbed"
 }
 capshonlyIngestCapability() {
   # N.B. `capsh` parsing of `--caps=X` arg is idiosyncratic:
@@ -353,52 +374,113 @@ capshonlyExec() {
 }
 
 
-## BACKEND HANDOFF
+## ARGUMENT POST-PROCESSING
 
-test -n "$SANE_SANDBOX_PREPEND" && parseArgs $SANE_SANDBOX_PREPEND
-parseArgs "$@"
-cliArgs+=("${parseArgsExtra[@]}")
-test -n "$SANE_SANDBOX_APPEND" && parseArgs $SANE_SANDBOX_APPEND
+### autodetect: if one of the CLI args looks like a path, that could be an input or output file
+#   so allow access to it.
+maybeAutodetectPaths() {
+  if [ -n "$autodetect" ]; then
+    for _arg in "${cliArgs[@]:1}"; do
+      tryArgAsPath "$_arg"
+    done
+    for _path in "${cliPathArgs[@]}"; do
+      # TODO: might want to also mount the directory *above* this file,
+      # to access e.g. adjacent album art in the media's folder.
+      paths+=("$_path")
+    done
+  fi
+}
 
-test -n "$isDisable" && exec "${cliArgs[@]}"
+### path sorting: if the app has access both to /FOO and /FOO/BAR, some backends get confused.
+#   notably bwrap, --bind /FOO /FOO followed by --bind /FOO/BAR /FOO/BAR results in /FOO being accessible but /FOO/BAR *not*.
+#   so reduce the paths to the minimal set which includes those requested.
+#   for more sophisticated (i.e. complex) backends like firejail, this may break subpaths which were blacklisted earlier.
+canonicalizePaths() {
+  # remove '//' and simplify '.', '..' paths, into canonical absolute logical paths.
+  _normPaths=()
+  for _path in "${paths[@]}"; do
+    _normPaths+=($(normPath "$_path"))
+  done
+
+  # remove subpaths, but the result might include duplicates.
+  _toplevelPaths=()
+  for _path in "${_normPaths[@]}"; do
+    _isSubpath=
+    for _other in "${_normPaths[@]}"; do
+      if [[ "$_path" =~ ^$_other/.* ]]; then
+        # N.B.: $_path lacks a trailing slash, so this never matches self.
+        _isSubpath=1
+      fi
+    done
+    if [ -z "$_isSubpath" ]; then
+      _toplevelPaths+=("$_path")
+    fi
+  done
+
+  # remove duplicated paths.
+  canonicalizedPaths=()
+  for _path in "${_toplevelPaths[@]}"; do
+    _isAlreadyListed=
+    for _other in "${canonicalizedPaths[@]}"; do
+      if [ "$_path" = "$_other" ]; then
+        _isAlreadyListed=1
+      fi
+    done
+    if [ -z "$_isAlreadyListed" ]; then
+      canonicalizedPaths+=("$_path")
+    fi
+  done
+}
+
+
+## TOPLEVEL ADAPTERS
+#  - convert CLI args/env into internal structures
+#  - convert internal structures into backend-specific structures
+
+### parse arguments, with consideration of any which may be injected via the environment
+parseArgsAndEnvironment() {
+  if [ -n "$SANE_SANDBOX_DEBUG" ]; then
+    enableDebug
+  fi
+  if [ -n "$SANE_SANDBOX_DISABLE" ]; then
+    isDisable=1
+  fi
+
+  test -n "$SANE_SANDBOX_PREPEND" && parseArgs $SANE_SANDBOX_PREPEND
+  parseArgs "$@"
+  cliArgs+=("${parseArgsExtra[@]}")
+  test -n "$SANE_SANDBOX_APPEND" && parseArgs $SANE_SANDBOX_APPEND
+}
 
 ### convert generic args into sandbox-specific args
 # order matters: for firejail, early args override the later --profile args
-
-for _path in "${rootPaths[@]}"; do
-  "$method"IngestRootPath "$_path"
-done
-
-for _path in "${homePaths[@]}"; do
-  "$method"IngestHomePath "$_path"
-done
-
-if [ -n "$autodetect" ]; then
-  for _arg in "${cliArgs[@]:1}"; do
-    tryArgAsPath "$_arg"
+ingestForBackend() {
+  for _path in "${canonicalizedPaths[@]}"; do
+    "$method"IngestPath "$_path"
   done
-  for _path in "${cliPathArgs[@]}"; do
-    # TODO: might want to also mount the directory *above* this file,
-    # to access e.g. adjacent album art in the media's folder.
-    "$method"IngestRootPath "$_path"
+
+  for _cap in "${capabilities[@]}"; do
+    "$method"IngestCapability "$_cap"
   done
-fi
 
-for _cap in "${capabilities[@]}"; do
-  "$method"IngestCapability "$_cap"
-done
+  if [ -n "$net" ]; then
+    "$method"IngestNet "$net"
+  fi
 
-if [ -n "$net" ]; then
-  "$method"IngestNet "$net"
-fi
+  for _addr in "${dns[@]}"; do
+    "$method"IngestDns "$_addr"
+  done
 
-for _addr in "${dns[@]}"; do
-  "$method"IngestDns "$_addr"
-done
+  for _prof in "${profilesNamed[@]}"; do
+    "$method"IngestProfile "$_prof"
+  done
+}
 
-for _prof in "${profilesNamed[@]}"; do
-  "$method"IngestProfile "$_prof"
-done
+
+## TOPLEVEL EXECUTION
+#  no code evaluated before this point should be dependent on user args / environment.
+
+parseArgsAndEnvironment "$@"
 
 # variables meant to be inherited
 # N.B.: SANE_SANDBOX_DEBUG FREQUENTLY BREAKS APPLICATIONS WHICH PARSE STDOUT
@@ -408,6 +490,15 @@ export SANE_SANDBOX_DEBUG="$SANE_SANDBOX_DEBUG"
 export SANE_SANDBOX_DISABLE="$SANE_SANDBOX_DISABLE"
 export SANE_SANDBOX_PREPEND="$SANE_SANDBOX_PREPEND"
 export SANE_SANDBOX_APPEND="$SANE_SANDBOX_APPEND"
+
+test -n "$isDisable" && exec "${cliArgs[@]}"
+
+# method-specific setup could add additional paths that need binding, so do that before canonicalization
+"$method"Setup
+maybeAutodetectPaths
+canonicalizePaths
+
+ingestForBackend
 "$method"Exec
 
 echo "sandbox glue failed for method='$method'"

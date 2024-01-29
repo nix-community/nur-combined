@@ -43,7 +43,7 @@ let
       in
         makeSandboxed {
           inherit pkgName package;
-          inherit (sandbox) autodetectCliPaths binMap capabilities embedProfile extraConfig method whitelistPwd wrapperType;
+          inherit (sandbox) autodetectCliPaths binMap capabilities embedProfile embedSandboxer extraConfig method whitelistPwd wrapperType;
           vpn = if net == "vpn" then vpn else null;
           allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
           allowedRootPaths = [
@@ -235,6 +235,14 @@ let
 
           embedded profile means you have to rebuild the wrapper any time you adjust the sandboxing flags,
           but it also means you can run the program without installing it: helpful for iteration.
+        '';
+      };
+      sandbox.embedSandboxer = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          whether the sandboxed application should reference its sandboxer by path or by name.
+          if you're setting this option you probably also want `embedProfile = true`
         '';
       };
       sandbox.wrapperType = mkOption {
