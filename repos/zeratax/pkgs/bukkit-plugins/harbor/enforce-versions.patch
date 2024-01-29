@@ -1,0 +1,97 @@
+diff --git a/pom.xml b/pom.xml
+index dd467cc..da3bbd4 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -5,6 +5,85 @@
+     <groupId>xyz.nkomarn</groupId>
+     <artifactId>Harbor</artifactId>
+     <version>1.6.4-SNAPSHOT</version>
++    
++    <build>
++        <plugins>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-enforcer-plugin</artifactId>
++                <version>3.3.0</version>
++                <executions>
++                    <execution>
++                        <id>enforce-plugin-versions</id>
++                        <goals>
++                            <goal>enforce</goal>
++                        </goals>
++                        <configuration>
++                            <rules>
++                                <requirePluginVersions />
++                            </rules>
++                        </configuration>
++                    </execution>
++                </executions>
++            </plugin>
++
++            <!-- Maven Compiler Plugin -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <version>3.11.0</version>
++            </plugin>
++
++            <!-- Maven Surefire Plugin -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-surefire-plugin</artifactId>
++                <version>3.1.2</version>
++            </plugin>
++
++            <!-- Maven JAR Plugin -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-jar-plugin</artifactId>
++                <version>3.3.0</version>
++            </plugin>
++
++            <!-- Maven Clean Plugin -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-clean-plugin</artifactId>
++                <version>3.2.0</version>
++            </plugin>
++
++            <!-- Maven Install Plugin -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-install-plugin</artifactId>
++                <version>3.1.1</version>
++            </plugin>
++
++            <!-- Maven Site Plugin -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-site-plugin</artifactId>
++                <version>3.12.1</version>
++            </plugin>
++
++            <!-- Maven Resources Plugin -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-resources-plugin</artifactId>
++                <version>3.3.1</version>
++            </plugin>
++
++            <!-- Maven Deploy Plugin -->
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-deploy-plugin</artifactId>
++                <version>3.1.1</version>
++            </plugin>
++        </plugins>
++    </build>
+ 
+     <properties>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+@@ -53,4 +132,4 @@
+             <scope>provided</scope>
+         </dependency>
+     </dependencies>
+-</project>
+\ No newline at end of file
++</project>
