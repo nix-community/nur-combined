@@ -48,7 +48,7 @@
   # buf = pkgs.callPackage ./pkgs/buf {};
   # grpc-gateway = pkgs.callPackage ./pkgs/grpc-gateway { };
   # golang-migrate::tags: postgres mysql redshift cassandra spanner cockroachdb clickhouse file go_bindata github aws_s3 google_cloud_storage godoc_vfs gitlab
-  golang-migrate-pg = pkgs.callPackage ./pkgs/golang-migrate { tags = [ "postgres" "file" ]; }; # with proper build tags
+  # golang-migrate-pg = pkgs.callPackage ./pkgs/golang-migrate { tags = [ "postgres" "file" ]; }; # with proper build tags
   protodot = pkgs.callPackage ./pkgs/protodot { };
 
   ## fonts
