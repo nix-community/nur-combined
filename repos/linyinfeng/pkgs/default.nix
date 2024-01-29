@@ -43,6 +43,7 @@ lib.makeScope newScope (
     mstickereditor = callPackage ./mstickereditor { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
+    rcon-cli = callPackage ./rcon-cli { };
     rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
     rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor pkgs.librime);
     ssl-handshake = callPackage ./ssl-handshake { };
