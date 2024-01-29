@@ -42,4 +42,17 @@ in {
       maintainers = [ maintainers.zeratax ];
     };
   };
+
+  github.copilot = buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "copilot";
+      publisher = "GitHub";
+      version = "1.155.679";
+      sha256 = "sha256-dmjob5JIiUt/kWurxU2FgyGXHUm9qLL3SbdDDk8NIGA=";
+    };
+    meta = with lib; {
+      license = licenses.unfree; # i think, i can at least not find one
+      maintainers = [ maintainers.zeratax ];
+    };
+  };
 }

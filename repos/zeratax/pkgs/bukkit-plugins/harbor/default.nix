@@ -1,6 +1,6 @@
-{ stdenv, lib, maven, buildMaven, fetchFromGitHub }:
-let repository = (buildMaven ./project-info.json).repo;
-in stdenv.mkDerivation rec {
+{ lib, maven, fetchFromGitHub }:
+
+maven.buildMavenPackage rec {
   pname = "harbor";
   version = "1.6.4-b1";
 
@@ -8,15 +8,10 @@ in stdenv.mkDerivation rec {
     owner = "nkomarn";
     repo = pname;
     rev = version;
-    sha256 = "xUu5f9FfLRkZIQslNVZuQH89eQhuzrBxmO2+GkMW538=";
+    sha256 = "sha256-xUu5f9FfLRkZIQslNVZuQH89eQhuzrBxmO2+GkMW538=";
   };
 
-  buildInputs = [ maven ];
-
-  buildPhase = ''
-    echo "Using repository ${repository}"
-    mvn --offline -Dmaven.repo.local=${repository} package;
-  '';
+  mvnHash = "sha256-HZE3hoBOwL4A2GBpf4wjgWvx+ZN05WtgE+4S3uIYXDo=";
 
   installPhase = ''
     install -Dm644 target/Harbor-*.jar $out/${pname}.jar
