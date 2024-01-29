@@ -16,30 +16,22 @@
 , protobuf
 , wrapQtAppsHook
 , fmt
+, tor
 }:
 
 stdenv.mkDerivation rec {
 
   pname = "ricochet-refresh";
-  version = "3.0.16-unstable-2023-07-30";
+  version = "3.0.19";
 
   src = fetchFromGitHub {
     repo = "ricochet-refresh";
     # https://github.com/blueprint-freespeech/ricochet-refresh
-
-    /*
     owner = "blueprint-freespeech";
-    #rev = "v${version}-release";
-    rev = "e1635d68ab08201d95c1eb823035c948836f7bd0";
-    sha256 = "sha256-Qoj43Nwf81V1UVQLwT2qBaNjYA9ctv8W9UVcRF5A/pU=";
-    */
-
-    # fix cmake install paths
-    # https://github.com/blueprint-freespeech/ricochet-refresh/pull/176
-    owner = "milahu";
-    rev = "4da56bed894628a2ed70e83c63df9c3ce5d669b9";
-    sha256 = "sha256-Aa8/u5tSfd9xjPn64+Jp/LbidLbraf8ROyDd46/hESw=";
-
+    # fix: undefined reference to symbol
+    # https://github.com/blueprint-freespeech/ricochet-refresh/pull/182
+    rev = "c785fbc9c705a3be8e8910257744423da0dd05b5";
+    sha256 = "sha256-fF+nZ9OQzB+QVt+5G9Ho8bIOLl32KtCv89f1BSxO0GQ=";
     # no. this is slow
     #fetchSubmodules = true;
   };
@@ -48,37 +40,22 @@ stdenv.mkDerivation rec {
   # https://github.com/blueprint-freespeech/ricochet-refresh/blob/main/.gitmodules
   # https://github.com/blueprint-freespeech/ricochet-refresh/tree/main/src/extern
 
-  # not needed
-  /*
-  # https://github.com/fmtlib/fmt
-  fmt-version = "10.1.0";
-  fmt-src = fetchFromGitHub {
-    owner = "fmtlib";
-    repo = "fmt";
-    rev = fmt-version;
-    sha256 = "sha256-t/Mcl3n2dj8UEnptQh4YgpvWrxSYN3iGPZ3LKwzlPAg=";
-  };
-  */
-
-  # https://gitlab.torproject.org/tpo/core/tor
-  tor-version = "0.4.8.3-rc";
-  tor-src = fetchFromGitLab {
-    domain = "gitlab.torproject.org";
-    owner = "tpo";
-    repo = "core/tor";
-    rev = "tor-${tor-version}";
-    hash = "sha256-A/XG8TpjiA4zq45ttuYDHb+tixZcQOp51b3Ne/m2fJY=";
-  };
-
-  /*
-    rm -rf src/extern/fmt
-    ln -s ${fmt-src} src/extern/fmt
-  */
   postUnpack = ''
     pushd $sourceRoot
+    echo unpacking ${tor.src}
     rm -rf src/extern/tor
-    ln -s ${tor-src} src/extern/tor
+    mkdir src/extern/tor
+    tar -x -f ${tor.src} -C src/extern/tor --strip-components=1
     popd
+  '';
+
+  postPatch = ''
+    # fix: error: Cannot format an argument
+    # https://github.com/blueprint-freespeech/ricochet-refresh/issues/180
+    substituteInPlace src/libtego/source/protocol/FileChannel.cpp \
+      --replace \
+        'fmt::format("Unknown FileChannel::direction()", direction)' \
+        '"Unknown FileChannel::direction()"' \
   '';
 
   desktopItem = [
