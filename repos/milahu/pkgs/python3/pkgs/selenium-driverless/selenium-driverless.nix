@@ -1,6 +1,7 @@
 { lib
 , python3
 , fetchFromGitHub
+, cdp-socket
 }:
 
 python3.pkgs.buildPythonPackage rec {
@@ -39,7 +40,18 @@ python3.pkgs.buildPythonPackage rec {
   # https://github.com/kaliiiiiiiiii/Selenium-Driverless/issues/122
   postPatch = ''
     sed -i 's/^is_first_run = .*/is_first_run = False/' src/selenium_driverless/utils/utils.py
-  '';
+  ''
+  +
+  # fix warnings
+  # fix: Package 'selenium_driverless.files.js' is absent from the `packages` configuration.
+  # fix: Package 'selenium_driverless.files.mv3_extension' is absent from the `packages` configuration.
+  ''
+    substituteInPlace setup.py \
+      --replace \
+        "setuptools.find_packages" \
+        "setuptools.find_namespace_packages" \
+  ''
+  ;
 
   pythonImportsCheck = [ "selenium_driverless" ];
 
