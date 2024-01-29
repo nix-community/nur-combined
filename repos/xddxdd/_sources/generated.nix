@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "77bacbf8b766f04d392cc1ee3da5bcfcb9ed68f1";
+    version = "5e1f905aed1c7f66d4cbfe341cfb8c1812cd5ab0";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "77bacbf8b766f04d392cc1ee3da5bcfcb9ed68f1";
+      rev = "5e1f905aed1c7f66d4cbfe341cfb8c1812cd5ab0";
       fetchSubmodules = false;
-      sha256 = "sha256-1dZLWLasgN4RvkcZXhMExtK/7uQy/Uwc13fPJ5j4u9M=";
+      sha256 = "sha256-f3QpzHPnFqbEf4mPlNsqOjmFmVXlr7s1aERZMbunkeQ=";
     };
-    date = "2024-01-28";
+    date = "2024-01-26";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -823,13 +823,13 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V1.8.5757";
+    version = "V1.8.5752";
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic";
-      rev = "V1.8.5757";
+      rev = "V1.8.5752";
       fetchSubmodules = false;
-      sha256 = "sha256-d2CK+OSkMxmAt8qogCyG/J841JI9qG+3xM8TVoWe96Q=";
+      sha256 = "sha256-6Aq8q3jG9Pvn9UZnXdFheReYDtEgIRy7m62nQT2yjuM=";
     };
   };
   pterodactyl-wings = {
@@ -948,15 +948,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "683251332445c1fedb04feb601e21133f4733851";
+    version = "daa80b55c90303024a9adb516d56f59c3c113a4c";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "683251332445c1fedb04feb601e21133f4733851";
+      rev = "daa80b55c90303024a9adb516d56f59c3c113a4c";
       fetchSubmodules = false;
-      sha256 = "sha256-ielw1q+Bg0nT/9AymCXLrm2Hj+Fk1TH9wVSxO86sojQ=";
+      sha256 = "sha256-+jHxxVXmlCSD7SyUB0wc02rZshWC/HCZgY7xE3sKp8c=";
     };
-    date = "2024-01-28";
+    date = "2024-01-26";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
