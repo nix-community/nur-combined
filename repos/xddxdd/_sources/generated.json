@@ -1341,6 +1341,26 @@
         },
         "version": "0.5.15"
     },
+    "palworld-worldoptions": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "palworld-worldoptions",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "legoduded",
+            "repo": "palworld-worldoptions",
+            "rev": "v1.6.0",
+            "sha256": "sha256-N0BKySKiZvyvL7xPehdKg3QbMH6hFGS3bMG+bDXsZXU=",
+            "type": "github"
+        },
+        "version": "v1.6.0"
+    },
     "payload-dumper-go": {
         "cargoLocks": null,
         "date": null,

@@ -780,6 +780,17 @@
       sha256 = "sha256-4jEF1LdMwaLNF6zvzAuGW8Iu4dzhrFLutX69LwSjTAI=";
     };
   };
+  palworld-worldoptions = {
+    pname = "palworld-worldoptions";
+    version = "v1.6.0";
+    src = fetchFromGitHub {
+      owner = "legoduded";
+      repo = "palworld-worldoptions";
+      rev = "v1.6.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-N0BKySKiZvyvL7xPehdKg3QbMH6hFGS3bMG+bDXsZXU=";
+    };
+  };
   payload-dumper-go = {
     pname = "payload-dumper-go";
     version = "1.2.2";

@@ -298,6 +298,10 @@ fetch.github = "open-quantum-safe/oqs-provider"
 src.github = "osdlyrics/osdlyrics"
 fetch.github = "osdlyrics/osdlyrics"
 
+[palworld-worldoptions]
+src.github = "legoduded/palworld-worldoptions"
+fetch.github = "legoduded/palworld-worldoptions"
+
 [payload-dumper-go]
 src.github = "ssut/payload-dumper-go"
 fetch.github = "ssut/payload-dumper-go"

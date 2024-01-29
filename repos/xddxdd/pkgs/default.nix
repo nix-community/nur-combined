@@ -155,6 +155,7 @@ in
     openssl-oqs = pkg ./uncategorized/openssl-oqs {cryptodev = pkgs.linuxPackages.cryptodev;};
     openssl-oqs-provider = pkg ./uncategorized/openssl-oqs-provider {};
     osdlyrics = pkg ./uncategorized/osdlyrics {};
+    palworld-worldoptions = pkg ./uncategorized/palworld-worldoptions {};
     payload-dumper-go = pkg ./uncategorized/payload-dumper-go {};
     phpmyadmin = pkg ./uncategorized/phpmyadmin {};
     phppgadmin = pkg ./uncategorized/phppgadmin {};
