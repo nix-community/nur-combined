@@ -61,7 +61,7 @@
   },
   "zrythm": {
     "cargoLocks": null,
-    "date": "2024-01-26",
+    "date": "2024-01-28",
     "extract": null,
     "name": "zrythm",
     "passthru": null,
@@ -71,11 +71,11 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "3371d14974025c4e547757a972348a1e19e5d6e8",
-      "sha256": "sha256-QJeN88weAFS+vub2fqdrBwQIQ+dXhpEudjRmlJ/0lgo=",
+      "rev": "3813506c60ca1061703af568cc338e45fdf4215a",
+      "sha256": "sha256-wh+WU/UdNDocmwxukGqIxaA5g1OAcsU6s4skRmGI+94=",
       "type": "git",
       "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
     },
-    "version": "3371d14974025c4e547757a972348a1e19e5d6e8"
+    "version": "3813506c60ca1061703af568cc338e45fdf4215a"
   }
 }
