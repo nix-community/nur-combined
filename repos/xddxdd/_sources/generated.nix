@@ -1042,6 +1042,17 @@
     };
     date = "2023-05-21";
   };
+  uesave = {
+    pname = "uesave";
+    version = "v0.3.0";
+    src = fetchFromGitHub {
+      owner = "trumank";
+      repo = "uesave-rs";
+      rev = "v0.3.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-YRn14rF94zSTnFAIRuvw84GDRBaqmns9nvaHCTjhWQg=";
+    };
+  };
   undetected-chromedriver = {
     pname = "undetected-chromedriver";
     version = "783b8393157b578e19e85b04d300fe06efeef653";

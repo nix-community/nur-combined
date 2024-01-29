@@ -179,6 +179,7 @@ in
     svp = pkg ./uncategorized/svp {};
     svp-mpv = pkg ./uncategorized/svp/mpv.nix {};
     tachidesk-server = pkg ./uncategorized/tachidesk-server {};
+    uesave = pkg ./uncategorized/uesave {};
     undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver {};
     undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin {};
     vivado-2022_2 = ifNotCI (pkg ./uncategorized/vivado-2022_2 {});
