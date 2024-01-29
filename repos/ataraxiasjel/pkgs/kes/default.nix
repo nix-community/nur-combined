@@ -5,7 +5,7 @@
 }:
 
 buildGoModule rec {
-  pname = "minio-kes";
+  pname = "kes";
   version = "2024-01-11T13-09-29Z";
 
   src = fetchFromGitHub {

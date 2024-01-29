@@ -1,17 +1,19 @@
 { pkgs ? import <nixpkgs> { } }:
 
-with pkgs; with lib; {
+with pkgs; with lib; rec {
   lib = import ../lib { inherit pkgs; };
   modules = import ../modules;
   overlays = import ../overlays;
 
   a2ln = python3Packages.callPackage ./a2ln { };
   arkenfox-userjs = callPackage ./arkenfox-userjs { };
+  authentik = callPackage ./authentik/package.nix { };
+  authentik-outposts = recurseIntoAttrs (callPackages ./authentik/outposts.nix { inherit authentik; });
   bibata-cursors-tokyonight = callPackage ./bibata-cursors-tokyonight { };
   ceserver = callPackage ./ceserver { };
   gruvbox-plus-icons = callPackage ./gruvbox-plus-icons { };
   hoyolab-daily-bot = callPackage ./hoyolab-daily-bot { };
-  minio-kes = callPackage ./minio-kes { };
+  kes = callPackage ./kes { };
   mpris-ctl = callPackage ./mpris-ctl { };
   ocis-bin = callPackage ./ocis-bin { };
   proton-ge = callPackage ./proton-ge { };

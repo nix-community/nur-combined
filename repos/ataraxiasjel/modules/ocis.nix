@@ -24,6 +24,16 @@ in
       description = lib.mdDoc "Which package to use for the ocis instance.";
       default = pkgs.ocis-bin;
     };
+    configDir = mkOption {
+      default = "/var/lib/ocis/.config";
+      type = types.path;
+      description = lib.mdDoc "The config directory. Set OCIS_CONFIG_DIR env variable.";
+    };
+    baseDataPath = mkOption {
+      default = "/var/lib/ocis";
+      type = types.path;
+      description = lib.mdDoc "The base data directory. Set OCIS_BASE_DATA_PATH env variable.";
+    };
     environment = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       default = { };
@@ -74,17 +84,19 @@ in
     };
   };
   config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d '${cfg.configDir}' - ocis ocis - -"
+      "d '${cfg.baseDataPath}' - ocis ocis - -"
+    ];
     systemd.services.ocis-init = rec {
       before = [ "ocis-server.service" ];
       requiredBy = [ "ocis-server.service" ];
       path = [ cfg.package ];
       environment = {
-        OCIS_CONFIG_DIR = "/var/lib/ocis/.config";
-        OCIS_BASE_DATA_PATH = "/var/lib/ocis";
+        OCIS_CONFIG_DIR = cfg.configDir;
+        OCIS_BASE_DATA_PATH = cfg.baseDataPath;
       } // cfg.environment;
       script = ''
-        [ ! -d "$OCIS_CONFIG_DIR" ] && mkdir -p "$OCIS_CONFIG_DIR"
-        [ ! -d "$OCIS_BASE_DATA_PATH" ] && mkdir -p "$OCIS_BASE_DATA_PATH"
         ${lib.optionalString (cfg.settings != { }) "${linkConfigs environment.OCIS_CONFIG_DIR}"}
         if [ ! -f "$OCIS_CONFIG_DIR/ocis.yaml" ]; then
           ${
@@ -118,8 +130,8 @@ in
       wantedBy = [ "multi-user.target" ];
       path = [ cfg.package ];
       environment = {
-        OCIS_CONFIG_DIR = "/var/lib/ocis/.config";
-        OCIS_BASE_DATA_PATH = "/var/lib/ocis";
+        OCIS_CONFIG_DIR = cfg.configDir;
+        OCIS_BASE_DATA_PATH = cfg.baseDataPath;
         OCIS_URL = "https://localhost:9200";
         PROXY_HTTP_ADDR = "127.0.0.1:9200";
       } // cfg.environment;
@@ -127,9 +139,9 @@ in
         Type = "simple";
         Restart = "always";
         ExecStart = "${cfg.package}/bin/ocis server";
-        StateDirectory = "ocis";
         User = "ocis";
         Group = "ocis";
+        LimitNOFILE = 65536;
       } // optionalAttrs (cfg.environmentFile != null) {
         EnvironmentFile = cfg.environmentFile;
       };
