@@ -7,58 +7,58 @@
 }: {
   osirus-clap = {
     pname = "osirus-clap";
-    version = "1.2.30";
+    version = "1.2.36";
     src = fetchurl {
-      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-Osirus-CLAP.deb";
-      sha256 = "sha256-33M/yPFeFfYtXcKY/IIzM4q0d44+kLBFuXeLgWC0oRg=";
+      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-Osirus-CLAP.deb";
+      sha256 = "sha256-HYVWnO7UjyW9vTGhKr1haX1gfc4fSgJ5GgBuoifkcvc=";
     };
   };
   osirus-test-console = {
     pname = "osirus-test-console";
-    version = "1.2.30";
+    version = "1.2.36";
     src = fetchurl {
-      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-OsirusTestConsole.deb";
-      sha256 = "sha256-2QanjIdfHrr5vkreEgdSkEQxqb/X2FDcZ0B3GyQVnsc=";
+      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-OsirusTestConsole.deb";
+      sha256 = "sha256-y6iX/RCTMumijYDTN9UqVPJDqcxoSHE4BpNh5+c78uw=";
     };
   };
   osirus-vst2 = {
     pname = "osirus-vst2";
-    version = "1.2.30";
+    version = "1.2.36";
     src = fetchurl {
-      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-Osirus-VST2.deb";
-      sha256 = "sha256-nvEqjj4Dm4SiE+kX5xdbqX9lMFJl9BVlWEpt1zbBGmI=";
+      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-Osirus-VST2.deb";
+      sha256 = "sha256-pFuTFr6BALxuGmqgO/RradFF0pb/YTtRVnW4duhkwmk=";
     };
   };
   osirus-vst3 = {
     pname = "osirus-vst3";
-    version = "1.2.30";
+    version = "1.2.36";
     src = fetchurl {
-      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-Osirus-VST3.deb";
-      sha256 = "sha256-ZcsjaBJkK7XmTipalIS90P+7M2ErALSmfOwbehX5qsA=";
+      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-Osirus-VST3.deb";
+      sha256 = "sha256-2VjxZcZcMYkWl5kqJJEXCc4DBXvIigAd08m4DB1F0Lc=";
     };
   };
   osirusfx-clap = {
     pname = "osirusfx-clap";
-    version = "1.2.30";
+    version = "1.2.36";
     src = fetchurl {
-      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-OsirusFX-CLAP.deb";
-      sha256 = "sha256-84Th0f0QAyII0SHNmr2/OmlDgBWsvCaR3BMU1vCHbZ0=";
+      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-OsirusFX-CLAP.deb";
+      sha256 = "sha256-7RK6cEdjbO3gUM1Wz608tIcBE9lgRo/54+sQijzwMvM=";
     };
   };
   osirusfx-vst2 = {
     pname = "osirusfx-vst2";
-    version = "1.2.30";
+    version = "1.2.36";
     src = fetchurl {
-      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-OsirusFX-VST2.deb";
-      sha256 = "sha256-6CT/RVOq396ZhgmJ6fuA3OUHzOaqp4o67xcj8tolOJQ=";
+      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-OsirusFX-VST2.deb";
+      sha256 = "sha256-K3sHrAzpM2ySih9f+jiuvfDDXksy074kzKoA06EhLD8=";
     };
   };
   osirusfx-vst3 = {
     pname = "osirusfx-vst3";
-    version = "1.2.30";
+    version = "1.2.36";
     src = fetchurl {
-      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-OsirusFX-VST3.deb";
-      sha256 = "sha256-+Vn3dQP0iQ7YZH1J0Hs01SubNWI5Y6wQ02u6M595l7k=";
+      url = "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-OsirusFX-VST3.deb";
+      sha256 = "sha256-+jCAJh1yvAVsECA/+QNLLtyScZ2l0jKlRs7PWTCTQm0=";
     };
   };
 }

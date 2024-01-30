@@ -8,11 +8,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-33M/yPFeFfYtXcKY/IIzM4q0d44+kLBFuXeLgWC0oRg=",
+      "sha256": "sha256-HYVWnO7UjyW9vTGhKr1haX1gfc4fSgJ5GgBuoifkcvc=",
       "type": "url",
-      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-Osirus-CLAP.deb"
+      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-Osirus-CLAP.deb"
     },
-    "version": "1.2.30"
+    "version": "1.2.36"
   },
   "osirus-test-console": {
     "cargoLocks": null,
@@ -23,11 +23,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-2QanjIdfHrr5vkreEgdSkEQxqb/X2FDcZ0B3GyQVnsc=",
+      "sha256": "sha256-y6iX/RCTMumijYDTN9UqVPJDqcxoSHE4BpNh5+c78uw=",
       "type": "url",
-      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-OsirusTestConsole.deb"
+      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-OsirusTestConsole.deb"
     },
-    "version": "1.2.30"
+    "version": "1.2.36"
   },
   "osirus-vst2": {
     "cargoLocks": null,
@@ -38,11 +38,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-nvEqjj4Dm4SiE+kX5xdbqX9lMFJl9BVlWEpt1zbBGmI=",
+      "sha256": "sha256-pFuTFr6BALxuGmqgO/RradFF0pb/YTtRVnW4duhkwmk=",
       "type": "url",
-      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-Osirus-VST2.deb"
+      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-Osirus-VST2.deb"
     },
-    "version": "1.2.30"
+    "version": "1.2.36"
   },
   "osirus-vst3": {
     "cargoLocks": null,
@@ -53,11 +53,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-ZcsjaBJkK7XmTipalIS90P+7M2ErALSmfOwbehX5qsA=",
+      "sha256": "sha256-2VjxZcZcMYkWl5kqJJEXCc4DBXvIigAd08m4DB1F0Lc=",
       "type": "url",
-      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-Osirus-VST3.deb"
+      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-Osirus-VST3.deb"
     },
-    "version": "1.2.30"
+    "version": "1.2.36"
   },
   "osirusfx-clap": {
     "cargoLocks": null,
@@ -68,11 +68,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-84Th0f0QAyII0SHNmr2/OmlDgBWsvCaR3BMU1vCHbZ0=",
+      "sha256": "sha256-7RK6cEdjbO3gUM1Wz608tIcBE9lgRo/54+sQijzwMvM=",
       "type": "url",
-      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-OsirusFX-CLAP.deb"
+      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-OsirusFX-CLAP.deb"
     },
-    "version": "1.2.30"
+    "version": "1.2.36"
   },
   "osirusfx-vst2": {
     "cargoLocks": null,
@@ -83,11 +83,11 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-6CT/RVOq396ZhgmJ6fuA3OUHzOaqp4o67xcj8tolOJQ=",
+      "sha256": "sha256-K3sHrAzpM2ySih9f+jiuvfDDXksy074kzKoA06EhLD8=",
       "type": "url",
-      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-OsirusFX-VST2.deb"
+      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-OsirusFX-VST2.deb"
     },
-    "version": "1.2.30"
+    "version": "1.2.36"
   },
   "osirusfx-vst3": {
     "cargoLocks": null,
@@ -98,10 +98,10 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-+Vn3dQP0iQ7YZH1J0Hs01SubNWI5Y6wQ02u6M595l7k=",
+      "sha256": "sha256-+jCAJh1yvAVsECA/+QNLLtyScZ2l0jKlRs7PWTCTQm0=",
       "type": "url",
-      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.30-Linux_x86_64-OsirusFX-VST3.deb"
+      "url": "https://futurenoize.com/dsp56300/builds/master/DSP56300Emu-1.2.36-Linux_x86_64-OsirusFX-VST3.deb"
     },
-    "version": "1.2.30"
+    "version": "1.2.36"
   }
 }
