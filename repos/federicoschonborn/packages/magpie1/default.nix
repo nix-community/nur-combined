@@ -6,6 +6,7 @@
   ninja,
   pkg-config,
   wayland,
+  argparse,
   libxkbcommon,
   pixman,
   systemd,
@@ -16,13 +17,13 @@
 }:
 stdenv.mkDerivation {
   pname = "magpie1";
-  version = "unstable-2023-11-26";
+  version = "unstable-2024-01-29";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "magpie";
-    rev = "e106dfeb6fab47288fef50eee2dffa6e4a8c9684";
-    hash = "sha256-kwEJxYGilWFcnm7Tl4dP0qZd2y7fSRSD234R03WPpFs=";
+    rev = "038e4416c4581ef046eb6fb9149cdf8dc6e6f4ef";
+    hash = "sha256-JqCvM+Pa8XQV6/cZ8f7ugatVkUd1iZXaWKVFczU6SFM=";
   };
 
   nativeBuildInputs = [
@@ -33,6 +34,7 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
+    argparse
     libxkbcommon
     pixman
     systemd
