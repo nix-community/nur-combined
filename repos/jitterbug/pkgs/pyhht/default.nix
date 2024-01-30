@@ -7,8 +7,6 @@ python3Packages.buildPythonPackage rec {
   version = "0.1.0";
   pname = "pyhht";
 
-  doCheck = false;
-
   src = fetchPypi {
     inherit pname version;
     sha256 = "1ecc495672f8851031d36156eac796a936e8b9726477e897376a21c449423d65";
@@ -18,6 +16,11 @@ python3Packages.buildPythonPackage rec {
     numpy
     scipy
     matplotlib
+  ];
+
+
+  patches = [
+    patches/fix_scipy_import.patch
   ];
 
   meta = with lib; {
