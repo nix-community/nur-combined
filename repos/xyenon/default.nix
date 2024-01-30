@@ -18,9 +18,12 @@ with pkgs; rec {
   go-check = callPackage ./pkgs/go-check { };
   catp = callPackage ./pkgs/catp { };
   github-copilot-cli = callPackage ./pkgs/github-copilot-cli { };
-  libkazv = callPackage ./pkgs/libkazv { };
+  immer-unstable = callPackage ./pkgs/immer { };
+  zug-unstable = callPackage ./pkgs/zug { };
+  lager-unstable = callPackage ./pkgs/lager { inherit immer-unstable zug-unstable; };
+  libkazv = callPackage ./pkgs/libkazv { inherit immer-unstable zug-unstable lager-unstable; };
   kazv = libsForQt5.callPackage ./pkgs/kazv { inherit libkazv; };
-  nginxModules = recurseIntoAttrs (callPackage ./pkgs/nginx/modules.nix { });
+  nginxModules = callPackage ./pkgs/nginx/modules { };
   nginxStable = let nginxStable' = pkgs.nginxStable; in nginxStable'.override {
     modules = nginxStable'.modules ++ (with nginxModules; [
       (http_proxy_connect nginxStable'.version)
@@ -32,6 +35,6 @@ with pkgs; rec {
     ]);
   };
   nginx = nginxStable;
-  mpvScripts = import ./pkgs/mpv/scripts { inherit lib callPackage config; };
+  mpvScripts = callPackage ./pkgs/mpv/scripts { };
   anime4k = callPackage ./pkgs/anime4k { };
 }

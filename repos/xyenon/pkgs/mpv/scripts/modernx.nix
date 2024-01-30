@@ -1,14 +1,14 @@
-{ lib, stdenvNoCC, fetchFromGitHub, makeFontsConf }:
+{ lib, stdenvNoCC, fetchFromGitHub, nix-update-script, makeFontsConf }:
 
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "ModernX";
-  version = "0.2.3.5";
+  version = "0.2.6.5";
 
   src = fetchFromGitHub {
     owner = "zydezu";
     repo = pname;
     rev = version;
-    hash = "sha256-kxfdQSvNOrQ/g5YXbwL21H5iKrbSVqu1QqZJIuggeN4=";
+    hash = "sha256-hqKqa9GoWV2MjuEYdrMtihTMWZ7/UjDROPR/7dAu9oY=";
   };
 
   dontBuild = true;
@@ -25,14 +25,17 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     runHook postInstall
   '';
 
-  passthru.scriptName = "modernx.lua";
-  passthru.extraWrapperArgs = [
-    "--set"
-    "FONTCONFIG_FILE"
-    (toString (makeFontsConf {
-      fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ];
-    }))
-  ];
+  passthru = {
+    scriptName = "modernx.lua";
+    extraWrapperArgs = [
+      "--set"
+      "FONTCONFIG_FILE"
+      (toString (makeFontsConf {
+        fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ];
+      }))
+    ];
+    updateScript = nix-update-script { };
+  };
 
   meta = with lib; {
     description = "A modern OSC UI replacement for MPV that retains the functionality of the default OSC";
