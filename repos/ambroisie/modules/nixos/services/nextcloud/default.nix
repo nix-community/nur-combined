@@ -45,7 +45,7 @@ in
 
       https = true;
 
-      extraOptions = {
+      settings = {
         overwriteprotocol = "https"; # Nginx only allows SSL
       };
 

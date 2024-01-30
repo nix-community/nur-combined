@@ -12,6 +12,8 @@ in
 {
   "acme/dns-key.age".publicKeys = all;
 
+  "aria/rpc-token.age".publicKeys = all;
+
   "backup/password.age".publicKeys = all;
   "backup/credentials.age".publicKeys = all;
 

@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.my.services.paperless;
 in
@@ -80,6 +80,9 @@ in
           # Misc
           PAPERLESS_TIME_ZONE = config.time.timeZone;
           PAPERLESS_ADMIN_USER = cfg.username;
+
+          # Fix classifier hangs
+          LD_LIBRARY_PATH = "${lib.getLib pkgs.lapack-reference}/lib";
         };
 
       # Admin password

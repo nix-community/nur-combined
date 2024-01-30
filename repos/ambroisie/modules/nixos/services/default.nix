@@ -3,6 +3,7 @@
 {
   imports = [
     ./adblock
+    ./aria
     ./backup
     ./blog
     ./calibre-web
