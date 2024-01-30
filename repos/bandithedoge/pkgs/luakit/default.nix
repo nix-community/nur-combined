@@ -33,11 +33,8 @@ pkgs.stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   makeFlags = [
-    "DEVELOPMENT_PATHS=0"
-    "USE_LUAJIT=1"
     "INSTALLDIR=${placeholder "out"}"
     "PREFIX=${placeholder "out"}"
-    "USE_GTK3=1"
     "XDGPREFIX=${placeholder "out"}/etc/xdg"
   ];
 
@@ -60,5 +57,6 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://luakit.github.io/";
     license = licenses.gpl3;
     platforms = platforms.linux;
+    broken = true;
   };
 }

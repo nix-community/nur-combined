@@ -1,22 +1,22 @@
 {
-  "luakit": {
-    "cargoLocks": null,
-    "date": "2024-01-23",
-    "extract": null,
-    "name": "luakit",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "luakit",
-      "repo": "luakit",
-      "rev": "649ed8044c705375105966c15fcce5d1e0783f71",
-      "sha256": "sha256-KFc2/5zwPWyHPOMRb3v9Mu0ymFUhtxibI++j6G7lOWE=",
-      "type": "github"
-    },
-    "version": "649ed8044c705375105966c15fcce5d1e0783f71"
-  }
+    "luakit": {
+        "cargoLocks": null,
+        "date": "2024-01-30",
+        "extract": null,
+        "name": "luakit",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "luakit",
+            "repo": "luakit",
+            "rev": "c4000ed93fa8d419b327e703704369bae23d8ebd",
+            "sha256": "sha256-1LeherLqNJGINbUh5eJe7y5TPL3nPUm734libl8xliU=",
+            "type": "github"
+        },
+        "version": "c4000ed93fa8d419b327e703704369bae23d8ebd"
+    }
 }
