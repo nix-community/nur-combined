@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-26",
+        "date": "2024-01-29",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "5e1f905aed1c7f66d4cbfe341cfb8c1812cd5ab0",
-            "sha256": "sha256-f3QpzHPnFqbEf4mPlNsqOjmFmVXlr7s1aERZMbunkeQ=",
+            "rev": "73fcbe081b06fb9176309a5ddad6caaff20a74ca",
+            "sha256": "sha256-m26gPYzI6TUTM81rT4nNtMKxtvx75Ipwc2cKFvJfWag=",
             "type": "github"
         },
-        "version": "5e1f905aed1c7f66d4cbfe341cfb8c1812cd5ab0"
+        "version": "73fcbe081b06fb9176309a5ddad6caaff20a74ca"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1430,11 +1430,11 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic",
-            "rev": "V1.8.5752",
-            "sha256": "sha256-6Aq8q3jG9Pvn9UZnXdFheReYDtEgIRy7m62nQT2yjuM=",
+            "rev": "V1.8.5757",
+            "sha256": "sha256-d2CK+OSkMxmAt8qogCyG/J841JI9qG+3xM8TVoWe96Q=",
             "type": "github"
         },
-        "version": "V1.8.5752"
+        "version": "V1.8.5757"
     },
     "pterodactyl-wings": {
         "cargoLocks": null,
@@ -1643,7 +1643,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-01-26",
+        "date": "2024-01-30",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1655,11 +1655,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "daa80b55c90303024a9adb516d56f59c3c113a4c",
-            "sha256": "sha256-+jHxxVXmlCSD7SyUB0wc02rZshWC/HCZgY7xE3sKp8c=",
+            "rev": "fea36785b5fefd918cfdf1fab738ee5f6c7e4082",
+            "sha256": "sha256-9sOqbRX9YXbyakLygHOYspreONabitmjpOJLIfh9d2I=",
             "type": "github"
         },
-        "version": "daa80b55c90303024a9adb516d56f59c3c113a4c"
+        "version": "fea36785b5fefd918cfdf1fab738ee5f6c7e4082"
     },
     "rime-moegirl": {
         "cargoLocks": null,
