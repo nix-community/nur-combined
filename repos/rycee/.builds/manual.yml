@@ -9,9 +9,10 @@ environment:
   # Pinned 2024-01-16.
   NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/9b19f5e77dd906cb52dade0b7bd280339d2a1f3d.tar.gz"
   NIX_CONFIG: "experimental-features = nix-command flakes"
+packages:
+  - nixos.cachix
 tasks:
   - setup: |
-      nix-env -f '<nixpkgs>' -iA cachix
       cachix use rycee
   - build: |
       cd ./nur-expressions
