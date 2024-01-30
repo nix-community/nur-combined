@@ -1,12 +1,16 @@
-{ lib, stdenvNoCC, fetchzip }:
+{ lib, stdenvNoCC, fetchzip, isHighEnd ? false }:
 
-stdenvNoCC.mkDerivation (finalAttrs: rec {
+let
+  endLevel = if isHighEnd then "High" else "Low";
+in stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "Anime4K";
   version = "4.0.1";
 
   src = fetchzip {
-    url = "https://github.com/Tama47/Anime4K/releases/download/v${version}/GLSL_Mac_Linux_Low-end.zip";
-    hash = "sha256-z4avJq7+JnTi+pf6mW5qn7zMxkTaplYq/3t4RU3vjOw=";
+    url = "https://github.com/Tama47/Anime4K/releases/download/v${version}/GLSL_Mac_Linux_${endLevel}-end.zip";
+    hash =
+      if isHighEnd then "sha256-Ah9fnVCDsliUzbCkKFcnWjLqG0y5DYlXJkZAz/H/oLQ=" 
+      else "sha256-z4avJq7+JnTi+pf6mW5qn7zMxkTaplYq/3t4RU3vjOw=";
     stripRoot = false;
   };
 
