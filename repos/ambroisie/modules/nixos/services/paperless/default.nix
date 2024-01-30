@@ -82,7 +82,7 @@ in
           PAPERLESS_ADMIN_USER = cfg.username;
 
           # Fix classifier hangs
-          LD_LIBRARY_PATH = "${lib.getLib pkgs.lapack-reference}/lib";
+          LD_LIBRARY_PATH = "${lib.getLib pkgs.mkl}/lib";
         };
 
       # Admin password
