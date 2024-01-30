@@ -1,32 +1,33 @@
 { pkgs ? import <nixpkgs> { } }:
 
-with pkgs; with lib; rec {
+rec {
   lib = import ../lib { inherit pkgs; };
   modules = import ../modules;
   overlays = import ../overlays;
 
-  a2ln = python3Packages.callPackage ./a2ln { };
-  arkenfox-userjs = callPackage ./arkenfox-userjs { };
-  authentik = callPackage ./authentik/package.nix { };
-  authentik-outposts = recurseIntoAttrs (callPackages ./authentik/outposts.nix { inherit authentik; });
-  bibata-cursors-tokyonight = callPackage ./bibata-cursors-tokyonight { };
-  ceserver = callPackage ./ceserver { };
-  gruvbox-plus-icons = callPackage ./gruvbox-plus-icons { };
-  hoyolab-daily-bot = callPackage ./hoyolab-daily-bot { };
-  kes = callPackage ./kes { };
-  mpris-ctl = callPackage ./mpris-ctl { };
-  ocis-bin = callPackage ./ocis-bin { };
-  proton-ge = callPackage ./proton-ge { };
-  protonhax = callPackage ./protonhax { };
-  realrtcw = callPackage ./realrtcw { };
-  reshade-shaders = callPackage ./reshade-shaders { };
-  rpcs3 = qt6Packages.callPackage ./rpcs3 { };
-  seadrive-fuse = callPackage ./seadrive-fuse { };
-  sing-box = callPackage ./sing-box { };
-  waydroid-script = callPackage ./waydroid-script { };
-  wine-ge = callPackage ./wine-ge { };
+  a2ln = pkgs.python3Packages.callPackage ./a2ln { };
+  arkenfox-userjs = pkgs.callPackage ./arkenfox-userjs { };
+  authentik = pkgs.callPackage ./authentik/package.nix { };
+  authentik-outposts = pkgs.recurseIntoAttrs (pkgs.callPackages ./authentik/outposts.nix { inherit authentik; });
+  bibata-cursors-tokyonight = pkgs.callPackage ./bibata-cursors-tokyonight { };
+  ceserver = pkgs.callPackage ./ceserver { };
+  gruvbox-plus-icons = pkgs.callPackage ./gruvbox-plus-icons { };
+  hoyolab-daily-bot = pkgs.callPackage ./hoyolab-daily-bot { };
+  kes = pkgs.callPackage ./kes { };
+  koboldcpp = pkgs.callPackage ./koboldcpp { customtkinter = python3Packages.customtkinter; };
+  mpris-ctl = pkgs.callPackage ./mpris-ctl { };
+  ocis-bin = pkgs.callPackage ./ocis-bin { };
+  proton-ge = pkgs.callPackage ./proton-ge { };
+  protonhax = pkgs.callPackage ./protonhax { };
+  realrtcw = pkgs.callPackage ./realrtcw { };
+  reshade-shaders = pkgs.callPackage ./reshade-shaders { };
+  rpcs3 = pkgs.qt6Packages.callPackage ./rpcs3 { };
+  seadrive-fuse = pkgs.callPackage ./seadrive-fuse { };
+  waydroid-script = pkgs.callPackage ./waydroid-script { };
+  wine-ge = pkgs.callPackage ./wine-ge { };
 
-  inherit (callPackage ./rosepine-gtk {}) rosepine-gtk-theme rosepine-gtk-icons;
-  inherit (callPackage ./tokyonight-gtk {}) tokyonight-gtk-theme tokyonight-gtk-icons;
-  roundcubePlugins = dontRecurseIntoAttrs (callPackage ./roundcube-plugins { });
+  inherit (pkgs.callPackage ./rosepine-gtk {}) rosepine-gtk-theme rosepine-gtk-icons;
+  inherit (pkgs.callPackage ./tokyonight-gtk {}) tokyonight-gtk-theme tokyonight-gtk-icons;
+  roundcubePlugins = pkgs.recurseIntoAttrs (pkgs.callPackages ./roundcube-plugins { });
+  python3Packages = pkgs.recurseIntoAttrs (pkgs.callPackages ./python3Packages { });
 }

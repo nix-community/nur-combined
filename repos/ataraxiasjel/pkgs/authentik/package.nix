@@ -13,13 +13,13 @@
 }:
 
 let
-  version = "2023.10.6";
+  version = "2023.10.7";
 
   src = fetchFromGitHub {
     owner = "goauthentik";
     repo = "authentik";
     rev = "version/${version}";
-    hash = "sha256-N6FeNUlenbBQPAAUSqC+2GWFfte3G+Zfu5KGVJOqNZQ=";
+    hash = "sha256-+1IdXRt28UZ2KTa0zsmjneNUOcutP99UUwqcYyVyqTI=";
   };
 
   website = buildNpmPackage {
@@ -50,7 +50,7 @@ let
       rm Makefile
 
       substituteInPlace ./scripts/api-ts-config.yaml \
-        --replace '/local' "$(pwd)/"
+        --replace-fail '/local' "$(pwd)/"
     '';
 
     nativeBuildInputs = [ openapi-generator-cli ];
@@ -105,14 +105,16 @@ let
 
         postPatch = ''
           substituteInPlace authentik/root/settings.py \
-            --replace 'Path(__file__).absolute().parent.parent.parent' "\"$out\""
+            --replace-fail 'Path(__file__).absolute().parent.parent.parent' "\"$out\""
           substituteInPlace authentik/lib/default.yml \
-            --replace '/blueprints' "$out/blueprints"
-          sed -i '/dumb-init/d' pyproject.toml
-          sed -i '/djangorestframework-guardian/d' pyproject.toml
+            --replace-fail '/blueprints' "$out/blueprints"
+          substituteInPlace pyproject.toml \
+            --replace-fail 'dumb-init = "*"' "" \
+            --replace-fail 'djangorestframework-guardian' 'djangorestframework-guardian2'
         '';
 
         nativeBuildInputs = [ prev.poetry-core ];
+
         propagatedBuildInputs = with prev; [
           argon2-cffi
           celery
@@ -192,16 +194,16 @@ let
 
     postPatch = ''
       substituteInPlace internal/gounicorn/gounicorn.go \
-        --replace './lifecycle' "${authentik-django}/lifecycle"
+        --replace-fail './lifecycle' "${authentik-django}/lifecycle"
       substituteInPlace web/static.go \
-        --replace './web' "${authentik-django}/web"
+        --replace-fail './web' "${authentik-django}/web"
       substituteInPlace internal/web/static.go \
-        --replace './web' "${authentik-django}/web"
+        --replace-fail './web' "${authentik-django}/web"
     '';
 
     CGO_ENABLED = 0;
 
-    vendorHash = "sha256-8F9emmQmbe7R+xtGrjV5ht0adGasU6WAvLa8Wxr+j8M=";
+    vendorHash = "sha256-74rSuZrO5c7mjhHh0iQlJEkOslsFrcDb1aRXXC4RsUM=";
 
     postInstall = ''
       mv $out/bin/server $out/bin/authentik
@@ -220,8 +222,8 @@ stdenvNoCC.mkDerivation {
 
     # This causes issues in systemd services
     substituteInPlace lifecycle/ak \
-      --replace 'printf' '>&2 printf' \
-      --replace '> /dev/stderr' ""
+      --replace-fail 'printf' '>&2 printf' \
+      --replace-fail '> /dev/stderr' ""
   '';
 
   installPhase = ''
