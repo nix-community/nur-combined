@@ -11,7 +11,7 @@ let
   p = pkgs.callPackage;
 in rec {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
@@ -26,7 +26,9 @@ in rec {
   celeste-classic-2 = p ./pkgs/games/native/celeste-classic-2 { };
 
   # Games (Wine)
-  celeste = p ./pkgs/games/wine/celeste { inherit (lib) wrapWine; };
+  wrapWine = p ./pkgs/wrapWine.nix { };
+
+  celeste = p ./pkgs/games/wine/celeste { inherit wrapWine; };
   celesteMods = p ./pkgs/games/wine/celeste/mods.nix { };
 
   # Fonts
