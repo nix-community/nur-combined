@@ -7,13 +7,13 @@ buildDotnetModule rec {
   src = fetchFromGitHub {
     owner = "heal-research";
     repo = "HEAL.NonlinearRegression";
-    rev = "037863b51f9f4190fbb9274dfc7fb3d90240b181";
-    sha256 = "sha256-XqTAIjJnljgI5h6ikojOkJYbmPqABetj7aGu2A0D/3E=";
+    rev = "c75cf04b4c2686fab09a445eb503b74336ba6b28";
+    sha256 = "sha256-N6EhtxPY+oIy0sUbR3CZotShTKmgWjgMcSxPcJ7Bm0s=";
 
   };
   projectFile = "./HEAL.NonlinearRegression.sln";
 
-  dotnet-sdk = dotnetCorePackages.sdk_6_0;
+  dotnet-sdk = dotnetCorePackages.sdk_7_0;
   nugetDeps = ./deps.nix;
 
   postFixup = ''
