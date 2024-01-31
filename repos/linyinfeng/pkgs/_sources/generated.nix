@@ -3,16 +3,16 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "64c8f0be13eb6b08237d6dfc3f9eef2feac12714";
+    version = "bebf2d5a8f03013c091ecd1dfbe2bab80bafb383";
     src = fetchgit {
       url = "https://github.com/awslabs/aws-sigv4-proxy.git";
-      rev = "64c8f0be13eb6b08237d6dfc3f9eef2feac12714";
+      rev = "bebf2d5a8f03013c091ecd1dfbe2bab80bafb383";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-LYYEn+2UWHAc4GUCv3fXdQq21fKPwnjWemqLjLI9lDM=";
+      sha256 = "sha256-jAsTU6Eg9x9l2lFX8Nd8lgoFdQFPkKExJ2u3N8nZpAM=";
     };
-    date = "2024-01-26";
+    date = "2024-01-30";
   };
   cowrie = {
     pname = "cowrie";
@@ -232,16 +232,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fea36785b5fefd918cfdf1fab738ee5f6c7e4082";
+    version = "e5b353ce85852c772fdf44190e4163320c41d353";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "fea36785b5fefd918cfdf1fab738ee5f6c7e4082";
+      rev = "e5b353ce85852c772fdf44190e4163320c41d353";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-9sOqbRX9YXbyakLygHOYspreONabitmjpOJLIfh9d2I=";
+      sha256 = "sha256-CQCmH3FQPB8FGXkwKP0iW9++RvixLjzmgRtkjfER/9k=";
     };
-    date = "2024-01-30";
+    date = "2024-01-31";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
