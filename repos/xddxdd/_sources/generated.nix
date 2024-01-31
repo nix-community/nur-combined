@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "73fcbe081b06fb9176309a5ddad6caaff20a74ca";
+    version = "703e297315cd461426c400008a4b55363a34f28f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "73fcbe081b06fb9176309a5ddad6caaff20a74ca";
+      rev = "703e297315cd461426c400008a4b55363a34f28f";
       fetchSubmodules = false;
-      sha256 = "sha256-m26gPYzI6TUTM81rT4nNtMKxtvx75Ipwc2cKFvJfWag=";
+      sha256 = "sha256-gurDfG05l4SxBSSt+qBDHBHyo1kl310zxRY4AIWLd08=";
     };
-    date = "2024-01-29";
+    date = "2024-01-31";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -477,15 +477,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "2f4a25c8de89b2bb98607f24b2f401856482737e";
+    version = "6bce0103a0d1fec3fac0e46081b61c2fb7c99d92";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "2f4a25c8de89b2bb98607f24b2f401856482737e";
+      rev = "6bce0103a0d1fec3fac0e46081b61c2fb7c99d92";
       fetchSubmodules = false;
-      sha256 = "sha256-eYq6EjYoSofW6kxQx58rHkCYB0h4g5Qn+Ydrik13jVs=";
+      sha256 = "sha256-mMBFH5F2HNgZWakVaOd8DpEuqMyDlGyT8PMNPjgKapI=";
     };
-    date = "2024-01-23";
+    date = "2024-01-30";
   };
   libqcef = {
     pname = "libqcef";
@@ -513,15 +513,15 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "9c611a15277b9978960df780a8f5ca3dee630354";
+    version = "265e1cca0ecb52a26f95e4a539b51714721617a4";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "9c611a15277b9978960df780a8f5ca3dee630354";
+      rev = "265e1cca0ecb52a26f95e4a539b51714721617a4";
       fetchSubmodules = false;
-      sha256 = "sha256-GWuZrHnOE6WGsl15UhQ5U0MPEX2UoArdZvKyvZwyoas=";
+      sha256 = "sha256-lsz5CYqzT6LLjS3CXYnwmDnZch1eGHxqk1/3scHzU1c=";
     };
-    date = "2024-01-20";
+    date = "2024-01-30";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -856,50 +856,50 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "8.2.0+ds-5";
+    version = "8.2.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-5_amd64.deb";
-      sha256 = "sha256-TF3GyG1N2+84l+qTfXQJiSzby+qODGhWct7VmbpjRlE=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_amd64.deb";
+      sha256 = "sha256-lWXtAOcc72w7V3eIeTx2Gk9CopofcXmuwGxD6VKQrJE=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "8.2.0+ds-5";
+    version = "8.2.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-5_arm64.deb";
-      sha256 = "sha256-72Zwteze2L4s/a5SQnMS4xHr46hW5eB6xPHqRv+B7HI=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_arm64.deb";
+      sha256 = "sha256-7mDAOU0XyxWigM0fPYjur3kqQqBpCl2BKvNugiyE3UQ=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.2.0+ds-5";
+    version = "8.2.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-5_armhf.deb";
-      sha256 = "sha256-yKJ9YN9JbL96vYwGHd3sRJfCUP7MkfGHk0qNlbXl3Pw=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_armhf.deb";
+      sha256 = "sha256-FbHzEy3M8Wb17WCHqF4nSvnT1wrhXDNHaSiwXMN98js=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.2.0+ds-5";
+    version = "8.2.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-5_i386.deb";
-      sha256 = "sha256-Rt62UU9oQcAH0oCU11Z6To2uqR5CjUWIedu7qmNAEE0=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_i386.deb";
+      sha256 = "sha256-/Fs7SRGWHqCMJvNJT1FoTDszlGvx8mKhQfxtwLZ/IDE=";
     };
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "feb78c41/linuxqq_3.2.5-21159";
+    version = "8fddf4ad/linuxqq_3.2.5-21217";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/feb78c41/linuxqq_3.2.5-21159_amd64.deb";
-      sha256 = "sha256-pX99V18gjlMM6+jC9U7E5YvHDODGsrj0twt9K4rJN4Y=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/8fddf4ad/linuxqq_3.2.5-21217_amd64.deb";
+      sha256 = "sha256-BFYLmUZXECZnx6mR7x0NtNX+Wx6u4UPQY7HHQDWH1MU=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "feb78c41/linuxqq_3.2.5-21159";
+    version = "8fddf4ad/linuxqq_3.2.5-21217";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/feb78c41/linuxqq_3.2.5-21159_arm64.deb";
-      sha256 = "sha256-3zbhFKQrO1tMSnWJllLJLaVeVpLs44WBbuuyU1LTMIU=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/8fddf4ad/linuxqq_3.2.5-21217_arm64.deb";
+      sha256 = "sha256-Y5jVPJa5O+tig+d18LW2S1+xMjDvfDUxoh269wEAdUo=";
     };
   };
   qqmusic = {
@@ -948,15 +948,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fea36785b5fefd918cfdf1fab738ee5f6c7e4082";
+    version = "e5b353ce85852c772fdf44190e4163320c41d353";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "fea36785b5fefd918cfdf1fab738ee5f6c7e4082";
+      rev = "e5b353ce85852c772fdf44190e4163320c41d353";
       fetchSubmodules = false;
-      sha256 = "sha256-9sOqbRX9YXbyakLygHOYspreONabitmjpOJLIfh9d2I=";
+      sha256 = "sha256-CQCmH3FQPB8FGXkwKP0iW9++RvixLjzmgRtkjfER/9k=";
     };
-    date = "2024-01-30";
+    date = "2024-01-31";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

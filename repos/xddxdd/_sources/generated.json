@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-29",
+        "date": "2024-01-31",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "73fcbe081b06fb9176309a5ddad6caaff20a74ca",
-            "sha256": "sha256-m26gPYzI6TUTM81rT4nNtMKxtvx75Ipwc2cKFvJfWag=",
+            "rev": "703e297315cd461426c400008a4b55363a34f28f",
+            "sha256": "sha256-gurDfG05l4SxBSSt+qBDHBHyo1kl310zxRY4AIWLd08=",
             "type": "github"
         },
-        "version": "73fcbe081b06fb9176309a5ddad6caaff20a74ca"
+        "version": "703e297315cd461426c400008a4b55363a34f28f"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -818,7 +818,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-01-23",
+        "date": "2024-01-30",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -830,11 +830,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "2f4a25c8de89b2bb98607f24b2f401856482737e",
-            "sha256": "sha256-eYq6EjYoSofW6kxQx58rHkCYB0h4g5Qn+Ydrik13jVs=",
+            "rev": "6bce0103a0d1fec3fac0e46081b61c2fb7c99d92",
+            "sha256": "sha256-mMBFH5F2HNgZWakVaOd8DpEuqMyDlGyT8PMNPjgKapI=",
             "type": "github"
         },
-        "version": "2f4a25c8de89b2bb98607f24b2f401856482737e"
+        "version": "6bce0103a0d1fec3fac0e46081b61c2fb7c99d92"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -878,7 +878,7 @@
     },
     "librime-lua": {
         "cargoLocks": null,
-        "date": "2024-01-20",
+        "date": "2024-01-30",
         "extract": null,
         "name": "librime-lua",
         "passthru": null,
@@ -890,11 +890,11 @@
             "name": null,
             "owner": "hchunhui",
             "repo": "librime-lua",
-            "rev": "9c611a15277b9978960df780a8f5ca3dee630354",
-            "sha256": "sha256-GWuZrHnOE6WGsl15UhQ5U0MPEX2UoArdZvKyvZwyoas=",
+            "rev": "265e1cca0ecb52a26f95e4a539b51714721617a4",
+            "sha256": "sha256-lsz5CYqzT6LLjS3CXYnwmDnZch1eGHxqk1/3scHzU1c=",
             "type": "github"
         },
-        "version": "9c611a15277b9978960df780a8f5ca3dee630354"
+        "version": "265e1cca0ecb52a26f95e4a539b51714721617a4"
     },
     "librime-octagram": {
         "cargoLocks": null,
@@ -1485,11 +1485,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-TF3GyG1N2+84l+qTfXQJiSzby+qODGhWct7VmbpjRlE=",
+            "sha256": "sha256-lWXtAOcc72w7V3eIeTx2Gk9CopofcXmuwGxD6VKQrJE=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-5_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_amd64.deb"
         },
-        "version": "8.2.0+ds-5"
+        "version": "8.2.1+ds-1"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -1500,11 +1500,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-72Zwteze2L4s/a5SQnMS4xHr46hW5eB6xPHqRv+B7HI=",
+            "sha256": "sha256-7mDAOU0XyxWigM0fPYjur3kqQqBpCl2BKvNugiyE3UQ=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-5_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_arm64.deb"
         },
-        "version": "8.2.0+ds-5"
+        "version": "8.2.1+ds-1"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -1515,11 +1515,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yKJ9YN9JbL96vYwGHd3sRJfCUP7MkfGHk0qNlbXl3Pw=",
+            "sha256": "sha256-FbHzEy3M8Wb17WCHqF4nSvnT1wrhXDNHaSiwXMN98js=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-5_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_armhf.deb"
         },
-        "version": "8.2.0+ds-5"
+        "version": "8.2.1+ds-1"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -1530,11 +1530,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Rt62UU9oQcAH0oCU11Z6To2uqR5CjUWIedu7qmNAEE0=",
+            "sha256": "sha256-/Fs7SRGWHqCMJvNJT1FoTDszlGvx8mKhQfxtwLZ/IDE=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.0+ds-5_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_i386.deb"
         },
-        "version": "8.2.0+ds-5"
+        "version": "8.2.1+ds-1"
     },
     "qq-amd64": {
         "cargoLocks": null,
@@ -1545,11 +1545,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pX99V18gjlMM6+jC9U7E5YvHDODGsrj0twt9K4rJN4Y=",
+            "sha256": "sha256-BFYLmUZXECZnx6mR7x0NtNX+Wx6u4UPQY7HHQDWH1MU=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/feb78c41/linuxqq_3.2.5-21159_amd64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/8fddf4ad/linuxqq_3.2.5-21217_amd64.deb"
         },
-        "version": "feb78c41/linuxqq_3.2.5-21159"
+        "version": "8fddf4ad/linuxqq_3.2.5-21217"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1560,11 +1560,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3zbhFKQrO1tMSnWJllLJLaVeVpLs44WBbuuyU1LTMIU=",
+            "sha256": "sha256-Y5jVPJa5O+tig+d18LW2S1+xMjDvfDUxoh269wEAdUo=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/feb78c41/linuxqq_3.2.5-21159_arm64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/8fddf4ad/linuxqq_3.2.5-21217_arm64.deb"
         },
-        "version": "feb78c41/linuxqq_3.2.5-21159"
+        "version": "8fddf4ad/linuxqq_3.2.5-21217"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -1643,7 +1643,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-01-30",
+        "date": "2024-01-31",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1655,11 +1655,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "fea36785b5fefd918cfdf1fab738ee5f6c7e4082",
-            "sha256": "sha256-9sOqbRX9YXbyakLygHOYspreONabitmjpOJLIfh9d2I=",
+            "rev": "e5b353ce85852c772fdf44190e4163320c41d353",
+            "sha256": "sha256-CQCmH3FQPB8FGXkwKP0iW9++RvixLjzmgRtkjfER/9k=",
             "type": "github"
         },
-        "version": "fea36785b5fefd918cfdf1fab738ee5f6c7e4082"
+        "version": "e5b353ce85852c772fdf44190e4163320c41d353"
     },
     "rime-moegirl": {
         "cargoLocks": null,
