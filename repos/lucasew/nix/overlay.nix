@@ -30,6 +30,7 @@ in
       pynvim_pp = prev.pynvim_pp.overrideAttrs (old: {
         src = flake.inputs.src-python-pynvim_pp;
       });
+      rtfunicode = final.callPackage ./pkgs/python/rtfunicode {};
       pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode {};
       kenlm = final.callPackage ./pkgs/python/kenlm {};
       facenet-pytorch = final.callPackage ./pkgs/python/facenet-pytorch {};
