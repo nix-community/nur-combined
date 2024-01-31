@@ -39,6 +39,7 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
+          - macos-14
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout repository
