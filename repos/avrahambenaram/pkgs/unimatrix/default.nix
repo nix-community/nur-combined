@@ -7,7 +7,7 @@ pkgs.stdenv.mkDerivation rec {
   src = pkgs.fetchgit {
     url = "https://github.com/will8211/unimatrix";
     name = "unimatrix";
-    hash = "sha256-QN2YunUN0nHD6aa4praWYy+o6lmPMFzR3rnVdEJw6fc=";
+    hash = "sha256-lTQRpq92wdvzvCd+3V2VwHdl7s8115ArTxy7A0BPxX0=";
   };
 
   phases = "installPhase";
