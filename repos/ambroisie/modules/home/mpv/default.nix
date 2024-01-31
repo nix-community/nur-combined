@@ -13,6 +13,7 @@ in
 
       scripts = [
         pkgs.mpvScripts.mpris # Allow controlling using media keys
+        pkgs.mpvScripts.mpv-cheatsheet # Show some simple mappings on '?'
         pkgs.mpvScripts.uosc # Nicer UI
       ];
     };
