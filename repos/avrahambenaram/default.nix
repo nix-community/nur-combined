@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   unimatrix = pkgs.callPackage ./pkgs/unimatrix { };
+  hyprpicker = pkgs.callPackage ./pkgs/hyprpicker { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
