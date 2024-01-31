@@ -68,6 +68,7 @@ in {
         printf "%s\n" "Xft.dpi: 120" | xrdb -merge
       '';
       services.redshift.enable = true;
+      services.xserver.videoDrivers = [ "intel" ];
     } // builder))
     (mkIf (cfg.enable && desktop) {
       services.nix-serve = {
@@ -84,6 +85,7 @@ in {
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
       '';
+      services.xserver.videoDrivers = [ "amdgpu" ];
     })
   ];
 }
