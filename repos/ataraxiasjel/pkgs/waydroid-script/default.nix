@@ -1,8 +1,11 @@
 { stdenv
 , lib
-, python3Packages
+, buildPythonApplication
 , fetchFromGitHub
 , substituteAll
+, inquirerpy
+, requests
+, tqdm
 , lzip
 , util-linux
 , nix-update-script
@@ -26,10 +29,10 @@ let
       cp -r bin/* $out/share/
     '';
   };
-in python3Packages.buildPythonApplication rec {
+in buildPythonApplication rec {
   inherit pname version src;
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     inquirerpy
     requests
     tqdm

@@ -1,9 +1,13 @@
 { lib
-, python3Packages
+, buildPythonApplication
 , fetchFromGitHub
+, requests
+, browser-cookie3
+, tzdata
+, typing-extensions
 , nix-update-script
 }:
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "hoyolab-daily-bot";
   version = "1.1";
 
@@ -14,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-NJZf/UxgAdMnIkEkkRWqnraBpI4ifnjvU4mYYKVGqb0=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     requests
     browser-cookie3
     tzdata

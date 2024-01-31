@@ -4,7 +4,7 @@
 , nix-update-script
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "reshade-shaders";
   version = "unstable-2024-01-15";
 

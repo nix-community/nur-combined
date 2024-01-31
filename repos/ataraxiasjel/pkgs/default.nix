@@ -12,7 +12,7 @@ rec {
   bibata-cursors-tokyonight = pkgs.callPackage ./bibata-cursors-tokyonight { };
   ceserver = pkgs.callPackage ./ceserver { };
   gruvbox-plus-icons = pkgs.callPackage ./gruvbox-plus-icons { };
-  hoyolab-daily-bot = pkgs.callPackage ./hoyolab-daily-bot { };
+  hoyolab-daily-bot = pkgs.python3Packages.callPackage ./hoyolab-daily-bot { };
   kes = pkgs.callPackage ./kes { };
   koboldcpp = pkgs.callPackage ./koboldcpp { customtkinter = python3Packages.customtkinter; };
   mpris-ctl = pkgs.callPackage ./mpris-ctl { };
@@ -23,7 +23,7 @@ rec {
   reshade-shaders = pkgs.callPackage ./reshade-shaders { };
   rpcs3 = pkgs.qt6Packages.callPackage ./rpcs3 { };
   seadrive-fuse = pkgs.callPackage ./seadrive-fuse { };
-  waydroid-script = pkgs.callPackage ./waydroid-script { };
+  waydroid-script = pkgs.python3Packages.callPackage ./waydroid-script { };
   wine-ge = pkgs.callPackage ./wine-ge { };
 
   inherit (pkgs.callPackage ./rosepine-gtk {}) rosepine-gtk-theme rosepine-gtk-icons;

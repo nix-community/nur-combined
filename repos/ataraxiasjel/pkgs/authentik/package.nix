@@ -50,7 +50,7 @@ let
       rm Makefile
 
       substituteInPlace ./scripts/api-ts-config.yaml \
-        --replace-fail '/local' "$(pwd)/"
+        --replace '/local' "$(pwd)/"
     '';
 
     nativeBuildInputs = [ openapi-generator-cli ];
@@ -105,12 +105,12 @@ let
 
         postPatch = ''
           substituteInPlace authentik/root/settings.py \
-            --replace-fail 'Path(__file__).absolute().parent.parent.parent' "\"$out\""
+            --replace 'Path(__file__).absolute().parent.parent.parent' "\"$out\""
           substituteInPlace authentik/lib/default.yml \
-            --replace-fail '/blueprints' "$out/blueprints"
+            --replace '/blueprints' "$out/blueprints"
           substituteInPlace pyproject.toml \
-            --replace-fail 'dumb-init = "*"' "" \
-            --replace-fail 'djangorestframework-guardian' 'djangorestframework-guardian2'
+            --replace 'dumb-init = "*"' "" \
+            --replace 'djangorestframework-guardian' 'djangorestframework-guardian2'
         '';
 
         nativeBuildInputs = [ prev.poetry-core ];
@@ -194,11 +194,11 @@ let
 
     postPatch = ''
       substituteInPlace internal/gounicorn/gounicorn.go \
-        --replace-fail './lifecycle' "${authentik-django}/lifecycle"
+        --replace './lifecycle' "${authentik-django}/lifecycle"
       substituteInPlace web/static.go \
-        --replace-fail './web' "${authentik-django}/web"
+        --replace './web' "${authentik-django}/web"
       substituteInPlace internal/web/static.go \
-        --replace-fail './web' "${authentik-django}/web"
+        --replace './web' "${authentik-django}/web"
     '';
 
     CGO_ENABLED = 0;
@@ -222,8 +222,8 @@ stdenvNoCC.mkDerivation {
 
     # This causes issues in systemd services
     substituteInPlace lifecycle/ak \
-      --replace-fail 'printf' '>&2 printf' \
-      --replace-fail '> /dev/stderr' ""
+      --replace 'printf' '>&2 printf' \
+      --replace '> /dev/stderr' ""
   '';
 
   installPhase = ''

@@ -7,7 +7,7 @@
 }:
 
 builtins.mapAttrs
-  (pname: attrs: stdenv.mkDerivation (attrs // rec {
+  (pname: attrs: stdenv.mkDerivation (attrs // {
     inherit pname;
 
     version = "unstable-2023-02-20";

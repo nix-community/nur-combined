@@ -1,12 +1,18 @@
 { lib
-, python3Packages
+, buildPythonApplication
 , fetchFromGitHub
+, wrapGAppsHook
+, setuptools
+, pillow
+, pygobject3
+, pyzmq
+, qrcode
+, setproctitle
 , gobject-introspection
 , libnotify
-, wrapGAppsHook
 , nix-update-script
 }:
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "a2ln";
   version = "1.1.14";
 
@@ -19,9 +25,9 @@ python3Packages.buildPythonApplication rec {
 
   format = "pyproject";
 
-  buildInputs = [ wrapGAppsHook python3Packages.setuptools ];
+  buildInputs = [ wrapGAppsHook setuptools ];
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     pillow
     pygobject3
     pyzmq
