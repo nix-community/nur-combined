@@ -9,15 +9,17 @@ let
 in
 { name
 , executable
-, chdir ? null
+, is64bits ? false
 , tricks ? [ ]
 , silent ? true
+, chdir ? null
 , preScript ? ""
 , postScript ? ""
 , setupScript ? ""
 , wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
 , wineFlags ? ""
-, is64bits ? false
+# Useful for native linux apps that require wine environment (e.g. reaper with yabridge)
+, isWinBin ? true,
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
@@ -55,18 +57,19 @@ let
       ${setupScript}
     fi
 
-    ${if chdir != null 
-      then ''cd "${chdir}"'' 
+    ${if chdir != null
+      then ''cd "${chdir}"''
       else ""}
 
-    # if $REPL is setup then start a shell in the context
+    # $REPL is defined => start a shell in the context
     if [ ! "$REPL" == "" ]; then
       bash; exit 0
     fi
 
     ${preScript}
 
-    ${wineBin} ${wineFlags} "${executable}" "$@"
+    ${if isWinBin then ''${wineBin} ${wineFlags}'' else ""} "${executable}" "$@"
+
     wineserver -w
 
     ${postScript}
