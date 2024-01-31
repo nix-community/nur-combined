@@ -113,7 +113,7 @@ let
     firefox-unwrapped = callPackage ./patched/firefox-unwrapped { inherit (unpatched) firefox-unwrapped; };
 
     gnome = unpatched.gnome.overrideScope' (gself: gsuper: {
-      gnome-control-center = gself.callPackage ./patched/gnome-control-center {
+      gnome-control-center = import ./patched/gnome-control-center {
         inherit (gsuper) gnome-control-center;
       };
     });

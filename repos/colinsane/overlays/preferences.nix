@@ -14,6 +14,14 @@
       # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation
       enableOAuth2 = false;
     };
+    gnome-control-center = gsuper.gnome-control-center.override {
+      # i build goa without the "backend", to avoid webkit_4_1.
+      # however gnome-control-center *directly* uses goa-backend because it manages the accounts...
+      # so if you really need gnome-control center, then here we are, re-enabling the goa backend.
+      gnome-online-accounts = self.gnome-online-accounts.override {
+        enableBackend = true;
+      };
+    };
     # gnome-shell = gsuper.gnome-shell.override {
     #   evolution-data-server-gtk4 = evolution-data-server-gtk4.override {
     #     # avoid webkitgtk_6_0 build. lol.

@@ -46,6 +46,7 @@ in
     };
 
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
 
     persist.byStore.private = [ ".local/share/dino" ];
 

@@ -32,6 +32,7 @@ in
       '';
     });
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
 
     persist.byStore.private = [
       ".cache/gtkcord4"

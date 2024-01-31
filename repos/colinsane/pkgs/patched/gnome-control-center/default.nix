@@ -1,6 +1,6 @@
 { gnome-control-center }:
 
-(gnome-control-center.overrideAttrs (upstream: {
+gnome-control-center.overrideAttrs (upstream: {
   # gnome-control-center does not start without XDG_CURRENT_DESKTOP=gnome
   # see: <https://github.com/NixOS/nixpkgs/issues/230493>
   # see: <https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/736>
@@ -12,4 +12,4 @@
       --set XDG_CURRENT_DESKTOP "gnome"
     );
   '' + upstream.preFixup;
-}))
+})

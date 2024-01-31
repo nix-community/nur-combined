@@ -51,102 +51,6 @@
     };
   };
 
-  security.pam.mount.enable = true;
-
-  # pam.d ordering:
-  # /etc/pam.d/greetd:
-  #   auth optional pam_unix.so likeauth nullok # unix-early (order 11600)
-  #   auth optional /nix/store/051v0pwqfy1z7ld6087y99fdrv12113n-pam_mount-2.20/lib/security/pam_mount.so disable_interactive # mount (order 12000)
-  #   auth optional /nix/store/82zqzh7i88pxybcf48zapnz4v0jf19nm-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so # gnome_keyring (order 12200)
-  #   auth sufficient pam_unix.so likeauth nullok try_first_pass # unix (order 12800)
-  #   auth required pam_deny.so # deny (order 13600)
-  # /etc/pam.d/login:
-  #   auth optional pam_unix.so likeauth nullok # unix-early (order 11600)
-  #   auth optional /nix/store/051v0pwqfy1z7ld6087y99fdrv12113n-pam_mount-2.20/lib/security/pam_mount.so disable_interactive # mount (order 12000)
-  #   auth optional /nix/store/82zqzh7i88pxybcf48zapnz4v0jf19nm-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so # gnome_keyring (order 12200)
-  #   auth sufficient pam_unix.so likeauth nullok try_first_pass # unix (order 12800)
-  #   auth required pam_deny.so # deny (order 13600)
-  # /etc/pam.d/sshd: `auth required pam_deny.so # deny (order 12400)`
-  # /etc/pam.d/sudo:
-  #   auth optional pam_unix.so likeauth # unix-early (order 11600)
-  #   auth optional /nix/store/051v0pwqfy1z7ld6087y99fdrv12113n-pam_mount-2.20/lib/security/pam_mount.so disable_interactive # mount (order 12000)
-  #   auth sufficient pam_unix.so likeauth try_first_pass # unix (order 12800)
-  #   auth required pam_deny.so # deny (order 13600)
-  # /etc/pam.d/systemd-user:
-  #   auth sufficient pam_unix.so likeauth try_first_pass # unix (order 11600)
-  #   auth required pam_deny.so # deny (order 12400)
-
-  # brief overview of PAM order/control:
-  # - rules are executed sequentially
-  # - a rule marked "optional": doesn't affect control flow.
-  # - a rule marked "sufficient": on success, early-returns a success value and no further rules are executed.
-  #   on failure, control flow is normal.
-  # - a rule marked "required": on failure, early-returns a fail value and no further rules are executed.
-  #   on success, control flow is normal.
-  # hence, supplementary things like pam_mount, pam_cap, should be marked "optional" and occur before the first "sufficient" rule.
-  #
-  # pam_cap module args are in pam_cap/pam_cap.c:parse_args:
-  # - debug
-  # - config=<filename>
-  # - keepcaps
-  # - autoauth
-  # - default=<string>
-  # - defer
-  #
-  # about propagating capabilities to PAM consumers:
-  # - `setuid` call typically drops all ambient capabilities.
-  #   but setting keepcaps first will preserve the caps across a setuid call
-  # - pam_cap bug, and fix: <https://bugzilla.kernel.org/show_bug.cgi?id=212945#c5>
-  # - may need to use keepcaps + defer: <https://bugzilla.kernel.org/show_bug.cgi?id=214377#c3>
-  # security.pam.services.greetd.rules = {
-  #   # 2024/01/28: greetd seems to get its caps from systemd (pid1), no matter what i do.
-  #   auth.pam_cap = {
-  #     order = 12700;
-  #     control = "optional";
-  #     modulePath = "${pkgs.libcap.pam}/lib/security/pam_cap.so";
-  #     # args = [ "keepcaps" "defer" ];  #< doesn't take effect
-  #     # args = [ "keepcaps" ];  #< doesn't take effect
-  #     # args = [];  #< doesn't take effect
-  #   };
-  # };
-  security.pam.services.login.rules = {
-    # keepcaps + defer WORKS
-    auth.pam_cap = {
-      order = 12700;
-      control = "optional";
-      modulePath = "${pkgs.libcap.pam}/lib/security/pam_cap.so";
-      args = [ "keepcaps" "defer" ];
-    };
-  };
-  # security.pam.services.sshd.rules = {
-  #   2024/01/28: sshd only supports caps in the I set, because of the keep-caps/setuid issue (above)
-  #   auth.pam_cap = {
-  #     order = 12300;
-  #     control = "optional";
-  #     modulePath = "${pkgs.libcap.pam}/lib/security/pam_cap.so";
-  #     args = [ "keepcaps" "defer" ];  #< doesn't take effect
-  #   };
-  # };
-  # security.pam.services.sudo.rules = {
-  #   2024/01/28: sudo only supports caps in the I set, because of the keep-caps/setuid issue (above)
-  #   auth.pam_cap = {
-  #     # order = 11500;
-  #     order = 12700;
-  #     control = "optional";
-  #     modulePath = "${pkgs.libcap.pam}/lib/security/pam_cap.so";
-  #     args = [ "keepcaps" "defer" ];  #< doesn't take effect
-  #   };
-  # };
-  security.pam.services.systemd-user.rules = {
-    # 2024/01/28: systemd-user seems to override whatever pam_cap tries to set (?)
-    auth.pam_cap = {
-      order = 11500;
-      control = "optional";
-      modulePath = "${pkgs.libcap.pam}/lib/security/pam_cap.so";
-      # args = [ "keepcaps" "defer" ];  #< doesn't take effect
-      args = [ "keepcaps" ];
-    };
-  };
   environment.etc."/security/capability.conf".text = ''
     # The pam_cap.so module accepts the following arguments:
     #
@@ -173,7 +77,7 @@
     none *
   '';
 
-  # grant myself extra capabilities so that i can e.g.:
+  # grant myself extra capabilities for systemd sessions so that i can e.g.:
   # - run wireshark without root/setuid
   # - (incidentally) create new network devices/routes without root/setuid, which ought to be useful for sandboxing if i deploy that right.
   # default systemd includes cap_wake_alarm unless we specify our own capabilityAmbientSet; might be helpful for things like rtcwake?
@@ -187,16 +91,18 @@
   # - capabilityAmbientSet
   # - service
   # - privileged
-  environment.etc."userdb/colin.user".text = ''
-    {
-      "userName" : "colin",
-      "uid": ${builtins.toString config.users.users.colin.uid},
-      "capabilityAmbientSet": [
-        "cap_net_admin",
-        "cap_net_raw"
-      ]
-    }
-  '';
+  #
+  # XXX 2024/01/30: as of systemd 255, ambient capabilities are broken; not set at login and not usable via systemd --user services.
+  # environment.etc."userdb/colin.user".text = ''
+  #   {
+  #     "userName" : "colin",
+  #     "uid": ${builtins.toString config.users.users.colin.uid},
+  #     "capabilityAmbientSet": [
+  #       "cap_net_admin",
+  #       "cap_net_raw"
+  #     ]
+  #   }
+  # '';
 
   sane.users.colin = {
     default = true;

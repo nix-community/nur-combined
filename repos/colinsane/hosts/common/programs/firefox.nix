@@ -107,12 +107,28 @@ let
   }).overrideAttrs (base: {
     # de-associate `ctrl+shift+c` from activating the devtools.
     # based on <https://stackoverflow.com/a/54260938>
+    # TODO: could use `zip -f` to only update the one changed file, instead of rezipping everything.
     buildCommand = (base.buildCommand or "") + ''
       mkdir omni
-      ${pkgs.buildPackages.unzip}/bin/unzip $out/lib/${cfg.browser.libName}/browser/omni.ja -d omni
+
+      echo "omni.ja BEFORE:"
+      ls -l $(readlink $out/lib/${cfg.browser.libName}/browser/omni.ja)
+
+      echo "unzipping omni.ja"
+      # N.B. `zip` exits non-zero even on successful extraction, if the file didn't 100% obey spec
+      ${pkgs.buildPackages.unzip}/bin/unzip $out/lib/${cfg.browser.libName}/browser/omni.ja -d omni || true
+
+      echo "removing old omni.ja"
       rm $out/lib/${cfg.browser.libName}/browser/omni.ja
+
+      echo "patching omni.ja"
       ${pkgs.buildPackages.gnused}/bin/sed -i s'/devtools-commandkey-inspector = C/devtools-commandkey-inspector = VK_F12/' omni/localization/en-US/devtools/startup/key-shortcuts.ftl
+
+      echo "re-zipping omni.ja"
       pushd omni; ${pkgs.buildPackages.zip}/bin/zip $out/lib/${cfg.browser.libName}/browser/omni.ja -r ./*; popd
+
+      echo "omni.ja AFTER:"
+      ls -l $out/lib/${cfg.browser.libName}/browser/omni.ja
 
       # runHook postFixup to allow sane.programs sandbox wrappers to wrap the binaries
       runHook postFixup
@@ -233,6 +249,11 @@ in
           ".ssh/id_ed25519"
           # ".config/sops"
           "private/knowledge/secrets/accounts"
+        ];
+        sandbox.extraPaths = [
+          # ~/Pictures/servo-macros links to here.
+          # TODO: consider a bind-mount, so that access to ~/Pictures also gives access to here.
+          "/mnt/servo-media/Pictures/macros"
         ];
         fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};  #< needs to be created, not *just* added to the sandbox
 

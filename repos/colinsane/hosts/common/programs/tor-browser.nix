@@ -8,6 +8,7 @@
     #   useHardenedMalloc = false;
     # };
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
     persist.byStore.cryptClearOnBoot = [
       ".local/share/tor-browser"
     ];

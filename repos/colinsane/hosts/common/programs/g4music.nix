@@ -9,6 +9,7 @@
 {
   sane.programs.g4music = {
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
     sandbox.extraHomePaths = [
       "Music"
     ];

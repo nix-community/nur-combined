@@ -40,13 +40,16 @@ let
       runHook postInstall
     '';
 
-    passthru.withProfiles = profiles: self.overrideAttrs (base: {
-      inherit profiles;
-      postInstall = (base.postInstall or "") + ''
-        install -d $out/share/sane-sandboxed
-        ln -s "${profiles}/${profileDir}" "$out/${profileDir}"
-      '';
-    });
+    passthru = {
+      inherit landlock-sandboxer;
+      withProfiles = profiles: self.overrideAttrs (base: {
+        inherit profiles;
+        postInstall = (base.postInstall or "") + ''
+          install -d $out/share/sane-sandboxed
+          ln -s "${profiles}/${profileDir}" "$out/${profileDir}"
+        '';
+      });
+    };
 
     meta = {
       description = ''

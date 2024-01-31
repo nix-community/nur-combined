@@ -256,7 +256,8 @@ let
                                binaries wrap the binaries in the original derivation with a sandbox.
 
           "inplace" is more reliable, but "wrappedDerivation" is more lightweight (doesn't force any rebuilds).
-          the biggest gap in "wrappedDerivation" is that it doesn't handle .desktop files; just the binaries.
+          the biggest gap in "wrappedDerivation" is that it doesn't link anything outside `bin/`, except for
+          some limited (verified safe) support for `share/applications/*.desktop`
           "wrappedDerivation" is mostly good for prototyping.
         '';
       };
@@ -460,6 +461,11 @@ in
       default = pkgs.callPackage ./sane-sandboxed.nix {
         bubblewrap = cfg.bubblewrap.package;
         firejail = cfg.firejail.package;
+        landlock-sandboxer = pkgs.landlock-sandboxer.override {
+          # not strictly necessary (landlock ABI is versioned), however when sandboxer version != kernel version,
+          # the sandboxer may nag about one or the other wanting to be updated.
+          linux = config.boot.kernelPackages.kernel;
+        };
       };
       description = ''
         `sane-sandbox` package.

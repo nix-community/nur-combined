@@ -10,6 +10,7 @@
     };
 
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
     sandbox.autodetectCliPaths = true;
     sandbox.extraHomePaths = [
       # support media imports via file->open dir to some common media directories

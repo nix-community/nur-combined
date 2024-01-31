@@ -3,7 +3,7 @@
 {
   sane.programs.cozy = {
     sandbox.method = "bwrap";  # landlock gives: _multiprocessing.SemLock: Permission Denied
-    sandbox.embedProfile = true;
+    sandbox.wrapperType = "wrappedDerivation";
     sandbox.extraHomePaths = [
       "Books"
     ];

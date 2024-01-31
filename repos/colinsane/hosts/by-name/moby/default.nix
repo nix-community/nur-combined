@@ -28,7 +28,7 @@
   # XXX colin: phosh doesn't work well with passwordless login,
   # so set this more reliable default password should anything go wrong
   users.users.colin.initialPassword = "147147";
-  services.getty.autologinUser = "root";  # allows for emergency maintenance?
+  # services.getty.autologinUser = "root";  # allows for emergency maintenance?
 
   sops.secrets.colin-passwd.neededForUsers = true;
 
@@ -45,7 +45,7 @@
 
   # sane.programs.ntfy-sh.config.autostart = true;
   sane.programs.dino.config.autostart = true;
-  sane.programs.signal-desktop.config.autostart = true;
+  # sane.programs.signal-desktop.config.autostart = true;  # TODO: enable once electron stops derping.
   # sane.programs."gnome.geary".config.autostart = true;
   # sane.programs.calls.config.autostart = true;
   sane.programs.mpv.config.vo = "wlshm";  #< see hosts/common/programs/mpv.nix for details

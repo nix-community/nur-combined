@@ -108,24 +108,27 @@ in
       type = types.bool;
     };
     sane.gui.sxmo.greeter = mkOption {
-      type = types.enum [
+      type = types.nullOr (types.enum [
         "greetd-phog"
         "greetd-sway-gtkgreet"
         "greetd-sway-phog"
         "greetd-sxmo"
         "lightdm-mobile"
-      ];
+        "unl0kr"
+      ]);
       # default = "lightdm-mobile";
-      default = "greetd-sway-phog";
+      # default = "greetd-sway-phog";
+      default = "unl0kr";
       description = ''
         which greeter to use.
         "greetd-phog"          => phosh-based greeter. keypad (0-9) with option to open an on-screen keyboard.
+        "greetd-sway-gtkgreet" => layered sway greeter. keyboard-only user/pass input; impractical on mobile.
         "greetd-sway-phog"     => phog, but uses sway as the compositor instead of phoc.
                               requires a patched phog, since sway doesn't provide the Wayland global "zphoc_layer_shell_effects_v1".
         "greetd-sxmo"          => launch sxmo directly from greetd, no auth.
                                   this means no keychain unlocked or encrypted home mounted.
         "lightdm-mobile"       => keypad style greeter. can only enter digits 0-9 as password.
-        "greetd-sway-gtkgreet" => layered sway greeter. keyboard-only user/pass input; impractical on mobile.
+        "unl0kr"               => pmOS boot unlocker. uses a virtual keyboard, can enter most passwords.
       '';
     };
     sane.gui.sxmo.package = mkOption {
@@ -294,7 +297,8 @@ in
         sane.gui.sway = {
           enable = true;
           # we manage the greeter ourselves  (TODO: merge this into sway config as well)
-          useGreeter = false;
+          # EXCEPT for the unl0kr case, since that works well on both mobile and desktop!
+          useGreeter = cfg.greeter == "unl0kr";
           waybar.top = import ./waybar-top.nix { inherit pkgs; };
           # reset extra waybar style
           waybar.extra_style = "";

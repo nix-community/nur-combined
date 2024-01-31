@@ -1,6 +1,6 @@
-# N.B.: landlock is a relatively new thing as of 2024/01;
-# `pkgs.linux` is kinda old.
-# may want to use `linux_latest`, here and everywhere, if you find landlock to be lacking.
+# N.B.: landlock is a relatively new thing as of 2024/01, and undergoing ABI revisions.
+# the ABI is versioned, and the sandboxer will work when run against either a newer or older kernel than it was built from,
+# but it will complain (stderr) about an update being available if kernel max ABI != sandbox max ABI.
 { stdenv
 , linux
 }:
@@ -9,7 +9,11 @@ stdenv.mkDerivation rec {
   version = linux.version;
   src = linux.src;
 
-  sourceRoot = "linux-${version}/samples/landlock";
+  # sourceRoot = "linux-${version}/samples/landlock";
+  preBuild = ''
+    cd samples/landlock
+  '';
+
   makeFlags = [ "sandboxer" ];
   installPhase = ''
     mkdir -p $out/bin

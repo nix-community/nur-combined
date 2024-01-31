@@ -13,6 +13,9 @@ in
     sandbox.extraHomePaths = [
       # even with `whitelistPwd`, git has to crawl *up* the path -- which isn't necessarily in the sandbox -- to locate parent .git files
       "dev"
+      "knowledge"
+      "nixos"
+      "private/knowledge"
       "ref"
       ".ssh/id_ed25519"
     ];

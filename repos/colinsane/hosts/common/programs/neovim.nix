@@ -87,6 +87,7 @@ in
 {
   sane.programs.neovim = {
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
     sandbox.autodetectCliPaths = true;
     # sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [

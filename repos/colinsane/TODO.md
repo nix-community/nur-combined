@@ -3,13 +3,13 @@
 - ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
 - `nix` operations from lappy hang when `desko` is unreachable
   - could at least direct the cache to `http://desko-hn:5001`
+- entering the wrong password in unl0kr hangs the TTY
 
 ## REFACTORING:
 
 - fold hosts/common/home/ssh.nix -> hosts/common/users/colin.nix
 
 ### sops/secrets
-- attach secrets to the thing they're used by (sane.programs)
 - rework secrets to leverage `sane.fs`
 - remove sops activation script as it's covered by my systemd sane.fs impl
 
@@ -22,7 +22,6 @@
 - bump nodejs version in lemmy-ui
 - add updateScripts to all my packages in nixpkgs
 - fix lightdm-mobile-greeter for newer libhandy
-- port zecwallet-lite to a from-source build
 - REVIEW/integrate jellyfin dataDir config: <https://github.com/NixOS/nixpkgs/pull/233617>
 
 #### upstreaming to non-nixpkgs repos
@@ -35,16 +34,22 @@
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
 - port all sane.programs to be sandboxed
-  - consider using *landlock* instead of bwrap: conceptually simpler and fewer restrictions with the capabilities system
-    - <https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/samples/landlock/sandboxer.c>
-  - enforce that all `environment.packages` has a bwrap profile (or explicitly opts out)
-  - integrate `xdg-open` with the bwrap profiles
+  - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
+  - integrate `xdg-open` with the sandbox profiles
     - xdg-open can run as a highly-permissioned service, fielding requests.
-    - when it determines the handler, it can enforce the bwrap profile on that handler's behalf,
+    - when it determines the handler, it can enforce the sandbox profile on that handler's behalf,
       ensuring that anything launched with xdg-open is lowly-permissioned.
     - then, the actual desktop can be permissioned *lower*. e.g. no access to ~/.ssh, even in nautilus.
       `xdg-open terminal` would grant a high-permission interactive terminal, for doing high-permissioned things.
     - i think there's already a xdg-open dbus equivalent in gnome. search "firejail URL issue"
+    - ALTERNATIVELY:
+      1. compute the closure of each program and its `suggestedPrograms`
+      2. jump into a sandbox for the above
+      3. launch some program which fields requests and passes them to xdg-open
+      4. launch the original program we seek to sandbox in a _nested_ sandbox, of just its own files, but with xdg-open aliased to forward requests to the proxy.
+      - i don't know how exactly the proxy works: `mkfifo`? a TCP socket that traverses a network namespace? there's some complexity here.
+      - this is sort of just a more sophisticated version of the above.
+      - computing sandbox unions is probably far more difficult than it appears. e.g. what to do when a `bwrap` program wishes to call a `landlock` program? how is that outer scope to be sandboxed? my sandboxes are already frail enough that making them dynamic like this will surely cause unpredictable breakages.
   - lock down dbus calls within the sandbox
     - otherwise anyone can `systemd-run --user ...` to potentially escape a sandbox
     - <https://github.com/flatpak/xdg-dbus-proxy>
@@ -53,9 +58,6 @@
 - canaries for important services
   - e.g. daily email checks; daily backup checks
   - integrate `nix check` into Gitea actions?
-
-### faster/better deployments
-- remove audacity's dependency on webkitgtk (via wxwidgets)
 
 ### user experience
 - install apps:

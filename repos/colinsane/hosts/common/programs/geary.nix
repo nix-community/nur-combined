@@ -20,6 +20,7 @@ in
     };
 
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
     sandbox.extraPaths = [
       # geary sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.
       # TODO: these could maybe be mounted empty. or maybe there's an env-var to disable geary's dbus-proxy.

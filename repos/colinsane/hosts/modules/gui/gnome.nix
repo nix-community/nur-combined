@@ -1,18 +1,17 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 
-with lib;
 let
   cfg = config.sane.gui.gnome;
 in
 {
-  options = {
+  options = with lib; {
     sane.gui.gnome.enable = mkOption {
       default = false;
       type = types.bool;
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     sane.programs.guiApps.enableFor.user.colin = true;
 
     # start gnome/gdm on boot
@@ -23,6 +22,27 @@ in
     # gnome does networking stuff with networkmanager
     networking.networkmanager.enable = true;
     networking.wireless.enable = lib.mkForce false;
+
+
+    # services.xserver.desktopManager.gnome.enable enables some default apps we don't really care about.
+    # see <nixos/modules/services/x11/desktop-managers/gnome.nix>
+    environment.gnome.excludePackages = with pkgs; [
+      # gnome.gnome-menus  # unused outside gnome classic, but probably harmless
+      gnome.gnome-control-center  #< if you want a faster deploy
+      gnome-tour
+    ];
+
+    # disable these for a faster build cycle
+    services.dleyna-renderer.enable = false;
+    services.dleyna-server.enable = false;
+    services.gnome.gnome-browser-connector.enable = false;
+    services.gnome.gnome-initial-setup.enable = false;
+    services.gnome.gnome-remote-desktop.enable = false;
+    services.gnome.gnome-user-share.enable = false;
+    services.gnome.rygel.enable = false;
+    services.gnome.evolution-data-server.enable = lib.mkForce false;
+    services.gnome.gnome-online-accounts.enable = lib.mkForce false;
+    services.gnome.gnome-online-miners.enable = lib.mkForce false;
   };
   # user extras:
   # obtain these by running `dconf dump /` after manually customizing gnome

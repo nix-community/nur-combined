@@ -28,6 +28,7 @@ in
     # packageUnwrapped = pkgs.fractal-next;
 
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
 
     configOption = with lib; mkOption {
       default = {};

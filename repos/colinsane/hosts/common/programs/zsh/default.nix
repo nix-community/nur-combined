@@ -104,6 +104,9 @@ in
           # bindkey '^E'               end-of-line
           # bindkey "^''${key[Left]}"  backward-word
           # bindkey "^''${key[Right]}" forward-word
+
+          # run any additional, sh-generic commands (useful for e.g. launching a login manager on login)
+          test -e ~/.profile && source ~/.profile
         '';
       };
     })

@@ -3,7 +3,8 @@
 { pkgs, ... }:
 {
   sane.gui.sxmo = {
-    greeter = "greetd-sway-gtkgreet";
+    # greeter = "greetd-sway-gtkgreet";
+    greeter = "unl0kr";
     noidle = true;  #< power button requires 1s hold, which makes it impractical to be dealing with.
     settings = {
       # XXX: make sure the user is part of the `input` group!
