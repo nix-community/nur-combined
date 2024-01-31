@@ -19,15 +19,15 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "f6157351a99fddf02f0747cab4491a63cd7c99b8";
+    version = "9c8540a56432db6555755a9a649b4874833520ed";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "f6157351a99fddf02f0747cab4491a63cd7c99b8";
+      rev = "9c8540a56432db6555755a9a649b4874833520ed";
       fetchSubmodules = false;
-      sha256 = "sha256-NFtpRFPS9SrnRrhQLdKo14M1ePVim6UvFfI/5T5ZOxY=";
+      sha256 = "sha256-O5T4/1+dERQitmA6pwcP67/tREcJQ7KuATD8kGiB2Es=";
     };
-    date = "2024-01-19";
+    date = "2024-01-30";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";

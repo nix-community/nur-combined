@@ -1195,10 +1195,10 @@
   };
   "stylus" = buildFirefoxXpiAddon {
     pname = "stylus";
-    version = "1.5.41";
+    version = "1.5.45";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4204840/styl_us-1.5.41.xpi";
-    sha256 = "90ff3ca3ac070eebe2624025e6b43a46a2a88c51d2835446984b8ceadcc0f031";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4226958/styl_us-1.5.45.xpi";
+    sha256 = "0ea1e3bf6d415e4509730896318b4605a6d8186b11e30cede600eba0b54af3dc";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
@@ -1250,10 +1250,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "3.9.20";
+    version = "3.9.22";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4223206/tree_style_tab-3.9.20.xpi";
-    sha256 = "dfce652ffc61a5ad93b18512f7af5764e9ff23eab4b2164ae028a51660a16850";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4229169/tree_style_tab-3.9.22.xpi";
+    sha256 = "b3df30f96fbcf33dd74cfae30e9053709003792d9e184c8438f9a88cbb439f1d";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";
