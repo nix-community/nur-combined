@@ -1,14 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.ocis;
   format = pkgs.formats.yaml { };
 
-  linkConfigs = confDir: lib.pipe cfg.settings [
-    (lib.attrsets.mapAttrs (n: v: format.generate "${n}.yaml" v))
-    (lib.mapAttrsToList (n: v: "ln -sf ${v} ${confDir}/${n}.yaml"))
-    (lib.concatStringsSep "\n")
-  ];
+  linkConfigs =
+    confDir:
+    lib.pipe cfg.settings [
+      (lib.attrsets.mapAttrs (n: v: format.generate "${n}.yaml" v))
+      (lib.mapAttrsToList (n: v: "ln -sf ${v} ${confDir}/${n}.yaml"))
+      (lib.concatStringsSep "\n")
+    ];
 
   mkExport = { arg, value }: "export ${arg}=${value}";
   adminpass = {
@@ -48,7 +55,7 @@ in
       type = with types; nullOr str;
       default = null;
       description = lib.mdDoc ''
-        file in the format of an EnvironmentFile as described by systemd.exec(5).
+        File in the format of an EnvironmentFile as described by systemd.exec(5).
       '';
     };
     adminpassFile = mkOption {
@@ -120,9 +127,7 @@ in
         StateDirectory = "ocis";
         User = "ocis";
         Group = "ocis";
-      } // optionalAttrs (cfg.environmentFile != null) {
-        EnvironmentFile = cfg.environmentFile;
-      };
+      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
     };
 
     systemd.services.ocis-server = {
@@ -142,9 +147,7 @@ in
         User = "ocis";
         Group = "ocis";
         LimitNOFILE = 65536;
-      } // optionalAttrs (cfg.environmentFile != null) {
-        EnvironmentFile = cfg.environmentFile;
-      };
+      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
     };
 
     environment.systemPackages = [ cfg.package ];
