@@ -1,22 +1,13 @@
 # Cargo.nix and crate-hashes.json were created with:
 # - `nix run '.#crate2nix' -- generate -f ~/ref/repos/gnome/fractal/Cargo.toml`
-# or, for latest crate2nix:
+# or, for devel crate2nix:
 # - `nix shell -f https://github.com/kolloch/crate2nix/tarball/master`
 #   - `crate2nix generate -f ~/ref/repos/gnome/fractal/Cargo.toml`
-#
-# note that serde_derive fails for cross compilation. pin to 1.0.171.
-# - see: <https://discourse.nixos.org/t/errors-using-serde-derive-with-buildrustcrate/31398>
-#   - sounds like serde-derive did eventually remove the "precompiled" blobs
-# - 1.0.183: fails
-# - 1.0.192: seems to work?
 #
 # to update:
 # - `git fetch` in `~/ref/repos/gnome/fractal/`
 # - re-run that crate2nix step
 # - update `src` rev to match the local checkout!
-#
-# then:
-# - `sed -i 's/target."curve25519_dalek_backend"/target."curve25519_dalek_backend" or ""/g' Cargo.nix`
 
 { pkgs
 , lib
@@ -66,10 +57,10 @@ let
         domain = "gitlab.gnome.org";
         owner = "GNOME";
         repo = "fractal";
-        rev = "5";
-        hash = "sha256-XHb8HjQ5PDL2sen6qUivDllvYEhKnp1vQynD2Lksi30=";
-        # rev = "ba15c5b12a3cdb67b57d6a1ce7c4a2e6a15f8c88";
-        # hash = "sha256-BZC/otMPM4pf/VOhFkgRrq6yEquChL3I9QsQVpFMakQ=";
+        rev = "6";
+        hash = "sha256-J4Jb7G5Rfou3N7mytetIdLl0dGY5dSvTjnu8aj4kWXQ=";
+        # rev = "5";
+        # hash = "sha256-XHb8HjQ5PDL2sen6qUivDllvYEhKnp1vQynD2Lksi30=";
       };
       codegenUnits = 256;  #< this does get plumbed, but doesn't seem to affect build speed
       outputs = [ "out" ];  # default is "out" and "lib", but that somehow causes cycles
@@ -318,10 +309,17 @@ let
       # LIBCLANG_PATH = "${buildPackages.llvmPackages.libclang.lib}/lib";
     };
     ring = attrs: attrs // {
-      # CARGO_MANIFEST_LINKS = "ring_core_0_17_5";
+      # if after an update you see:
+      # ```
+      # > assertion `left == right` failed
+      # >   left: "ring_core_0_17_5"
+      # >  right: "ring_core_0_17_7"
+      # ```
+      # just update this patch to reflect the right-hand side
+      # CARGO_MANIFEST_LINKS = "ring_core_0_17_7";
       postPatch = (attrs.postPatch or "") + ''
         substituteInPlace build.rs --replace \
-          'links = std::env::var("CARGO_MANIFEST_LINKS").unwrap();' 'links = "ring_core_0_17_5".to_string();'
+          'links = std::env::var("CARGO_MANIFEST_LINKS").unwrap();' 'links = "ring_core_0_17_7".to_string();'
       '';
     };
     sourceview5-sys = attrs: attrs // {
@@ -338,6 +336,14 @@ let
   crate2NixOverrides = crates: crates // {
     # crate2nix sometimes "misses" dependencies, or gets them wrong in a way that crateOverrides can't patch.
     # this function lets me patch over Cargo.nix without actually modifying it by hand.
+    matrix-sdk = crates.matrix-sdk // {
+      dependencies = crates.matrix-sdk.dependencies ++ [
+        {
+          name = "ruma-events";
+          packageId = "ruma-events";
+        }
+      ];
+    };
     matrix-sdk-base = crates.matrix-sdk-base // {
       dependencies = crates.matrix-sdk-base.dependencies ++ [
         {
