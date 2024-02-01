@@ -1602,10 +1602,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2403.2";
+      version = "6.2405.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223499/dashlane-6.2403.2.xpi";
-      sha256 = "fcda819403caba2565cba09a9f697070edbc66f7b0d77f24602107704a29d062";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229519/dashlane-6.2405.1.xpi";
+      sha256 = "a8b454d0780e0427e23aed632b8c5b6267fd2824cf16753db0d9d0acf25c0797";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1683,10 +1683,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "123.0.20240129.91730";
+      version = "123.0.20240131.91640";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228484/deutsch_de_language_pack-123.0.20240129.91730.xpi";
-      sha256 = "1b4911166d7d1350013fcbf89e619e4495e90df98395cd5053b61e2895894bf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229700/deutsch_de_language_pack-123.0.20240131.91640.xpi";
+      sha256 = "c5e2f7cb6a5bb030e7b3a291a95108fd53b425352cd16bbcc18cac7cc82b663e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2375,10 +2375,10 @@
     };
     "foxyproxy-standard" = buildFirefoxXpiAddon {
       pname = "foxyproxy-standard";
-      version = "8.8";
+      version = "8.9";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4212976/foxyproxy_standard-8.8.xpi";
-      sha256 = "b93e4e4ed0469a3bcd75450dda0faca451c3a4e16e3ca096262cab7e73bd3460";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4228676/foxyproxy_standard-8.9.xpi";
+      sha256 = "b1e1b85f4b3b047560f5329040e14a2fec9699edd4706391f6f2318b203ab023";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org";
@@ -2526,10 +2526,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "123.0.20240129.91730";
+      version = "123.0.20240131.91640";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228478/francais_language_pack-123.0.20240129.91730.xpi";
-      sha256 = "90df5658ca01106bf29cf0e57f3e9f70a134fb348b5720f8d2a47ec1920f54d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229705/francais_language_pack-123.0.20240131.91640.xpi";
+      sha256 = "a192a53d37633e39bb234cc7663036857f84a619aee6db8693cc1e51efc9e4e0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3334,10 +3334,10 @@
     };
     "hoppscotch" = buildFirefoxXpiAddon {
       pname = "hoppscotch";
-      version = "0.30";
+      version = "0.31";
       addonId = "postwoman-firefox@postwoman.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4213853/hoppscotch-0.30.xpi";
-      sha256 = "7b52a0120bfc68e816701b49860f4477daf824c021fcea6d4f01556b897944db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229676/hoppscotch-0.31.xpi";
+      sha256 = "31c8c7231e710c218028d2ac3e6d713aeb14af13bd85fc25f4288977d61f7cdd";
       meta = with lib;
       {
         homepage = "https://github.com/hoppscotch/hoppscotch-extension";
@@ -4921,10 +4921,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.11";
+      version = "1.8.12";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4218010/keepassxc_browser-1.8.11.xpi";
-      sha256 = "8baf4fef3f7dfffb993190d3b4f6b881c89e2aabcf4850fd9d39e5cffd57eac8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4228043/keepassxc_browser-1.8.12.xpi";
+      sha256 = "c5c5c2def2040f32dde6d59e4e98515682eefc52bd8679128b5627e71c84cdc9";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -4933,6 +4933,7 @@
         mozPermissions = [
           "activeTab"
           "contextMenus"
+          "cookies"
           "clipboardWrite"
           "nativeMessaging"
           "notifications"
@@ -8452,10 +8453,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "6.1.1";
+      version = "6.1.2";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4209928/search_by_image-6.1.1.xpi";
-      sha256 = "254d78084e332190a2b6ccb1959a42257bdc287addc0685419fcde7df1a52e76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4227669/search_by_image-6.1.2.xpi";
+      sha256 = "fed46723702c79d0d2dcd2132901402b6c391f9fef8efbb58635b5ea9e47476f";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -9593,10 +9594,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.21";
+      version = "3.9.22";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4227049/tree_style_tab-3.9.21.xpi";
-      sha256 = "0302907866889894078290310a041bf740323449b41856699408938ff40ddb07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229169/tree_style_tab-3.9.22.xpi";
+      sha256 = "b3df30f96fbcf33dd74cfae30e9053709003792d9e184c8438f9a88cbb439f1d";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
