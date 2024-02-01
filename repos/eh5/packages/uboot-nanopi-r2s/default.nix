@@ -7,6 +7,9 @@ let
 in
 buildUBoot {
   defconfig = "nanopi-r2s-rk3328_defconfig";
+  extraPatches = [
+    ./expand-kernel-image-addr-space.patch
+  ];
   extraMeta.platforms = [ "aarch64-linux" ];
   BL31 = "${armTrustedFirmwareRK3328}/bl31.elf";
   enableParallelBuilding = true;
