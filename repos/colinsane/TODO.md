@@ -130,4 +130,3 @@
 - migrate MAME cabinet to nix
   - boot it from PXE from servo?
 - enable IPv6
-- package lemonade lemmy app: <https://linuxphoneapps.org/apps/ml.mdwalters.lemonade/>

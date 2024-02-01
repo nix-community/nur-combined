@@ -43,6 +43,7 @@ let
     landlock-sandboxer = callPackage ./additional/landlock-sandboxer { };
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lemoa = callPackage ./additional/lemoa { };
+    lemmy-lemonade = callPackage ./additional/lemonade { };  # XXX: nixpkgs already has a `lemonade` pkg
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
     linux-firmware-megous = callPackage ./additional/linux-firmware-megous { };
     # XXX: eval error: need to port past linux_6_4
