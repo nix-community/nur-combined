@@ -13,12 +13,6 @@ let
 in {
   inherit nodejs;
   inherit (prev) magireco-cn-local-server;
-  aria2b = prev.aria2b.override {
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    preRebuild = ''
-      makeWrapper $out/lib/node_modules/aria2b/app.js $out/bin/aria2b --suffix PATH : ${pkgs.ipset}/bin
-    '';
-  };
   shadowsocks-ws = prev."shadowsocks-ws-git+https://github.com/totravel/shadowsocks-ws.git".override {
     nativeBuildInputs = [ pkgs.makeWrapper prev."rollup-<4" ];
     postInstall = ''
