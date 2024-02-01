@@ -23,6 +23,8 @@ rec {
   edmarketconnector =
     pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
 
+  gcsim = pkgs.callPackage ./pkgs/gcsim { };
+
   hassLovelaceModules = pkgs.recurseIntoAttrs {
     mini-graph-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-graph-card { };
     vacuum-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/vacuum-card { };
