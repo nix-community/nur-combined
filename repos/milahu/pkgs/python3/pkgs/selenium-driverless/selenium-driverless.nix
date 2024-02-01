@@ -1,21 +1,32 @@
 { lib
 , python3
 , fetchFromGitHub
+, fetchurl
 , cdp-socket
 }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "selenium-driverless";
   # grep version src/selenium_driverless/__init__.py
-  version = "1.7.1";
+  version = "1.7.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "kaliiiiiiiiii";
     repo = "Selenium-Driverless";
-    rev = "24a3513305f833fac600ec8e31bcd5e9df955162";
-    hash = "sha256-Iixv4IrxuCJKjs3tDK0Qn3fFO/frFlYcPgtsbdmoj1Q=";
+    rev = "5f56548a3c2bade6d42edda7bcc8085fcf8afff0";
+    hash = "sha256-31Dpx9ot3PQ5Lwfe6XRjXrvBZnWHs7IY+Q9AAb2eYTw=";
   };
+
+  patches = [
+    # remove license nagger
+    # https://github.com/kaliiiiiiiiii/Selenium-Driverless/issues/122
+    # https://github.com/milahu/selenium_driverless
+    (fetchurl {
+      url = "https://github.com/milahu/selenium_driverless/commit/9795a393a4e4c74f9453e1aefa12064eda8ccdcb.patch";
+      hash = "sha256-3RXbCLJOs10JjiEy/Wqyb7VE81KjWbi0DfJK9cMT4uU=";
+    })
+  ];
 
   nativeBuildInputs = [
     python3.pkgs.setuptools
@@ -35,23 +46,19 @@ python3.pkgs.buildPythonPackage rec {
     platformdirs
   ];
 
-  # disable the license nag message in selenium_driverless/webdriver.py
-  # the "is_first_run" file is checked in selenium_driverless/utils/utils.py
-  # https://github.com/kaliiiiiiiiii/Selenium-Driverless/issues/122
   postPatch = ''
-    sed -i 's/^is_first_run = .*/is_first_run = False/' src/selenium_driverless/utils/utils.py
-  ''
-  +
-  # fix warnings
-  # fix: Package 'selenium_driverless.files.js' is absent from the `packages` configuration.
-  # fix: Package 'selenium_driverless.files.mv3_extension' is absent from the `packages` configuration.
-  ''
-    substituteInPlace setup.py \
+    echo "relaxing dependency versions"
+    sed -i.bak -E "s/[~>]=[0-9.]+([\"'])/\1/g" setup.py    
+    diff -u setup.py.bak setup.py || true
+    rm setup.py.bak
+
+    # fix: find_elements returns wrong number of elements
+    # https://github.com/kaliiiiiiiiii/Selenium-Driverless/issues/162
+    substituteInPlace src/selenium_driverless/types/deserialize.py \
       --replace \
-        "setuptools.find_packages" \
-        "setuptools.find_namespace_packages" \
-  ''
-  ;
+        "int(description[-2])" \
+        "int(description[len(class_name)+1:-1])"
+  '';
 
   pythonImportsCheck = [ "selenium_driverless" ];
 
