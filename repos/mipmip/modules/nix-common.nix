@@ -30,6 +30,7 @@
   services.lorri.enable = true;
   services.journald.extraConfig = "SystemMaxUse=100M";
 
+  programs.fish.enable = true;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
