@@ -128,10 +128,7 @@
     pkgs.dovecot_pigeonhole  # enables sieve execution (?)
   ];
   services.dovecot2.sieve = {
-    # maybe not all of these are needed. source: <https://github.com/NixOS/nixpkgs/pull/275031#issuecomment-1891052685>
-    plugins = [ "sieve_imapsieve" "sieve_extprograms" ];
-    # extensions = [ "fileinto" ];
-    # globalExtensions = [ "vnd.dovecot.pipe" "vnd.dovecot.environment" ];
+    extensions = [ "fileinto" ];
     # if any messages fail to pass (or lack) DKIM, move them to Junk
     # XXX the key name ("after") is only used to order sieve execution/ordering
     scripts.after = builtins.toFile "ensuredkim.sieve" ''
