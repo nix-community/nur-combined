@@ -95,7 +95,14 @@ let
         # they work as expected without any special hacks.
         # if desired, makeWrapper-style naming could be achieved by leveraging `exec -a <original_name>`.
         mkdir -p "$out/bin/.sandboxed"
-        mv "$out/bin/$_name" "$out/bin/.sandboxed/"
+        if [[ "$(readlink $out/bin/$_name)" =~ ^\.\./ ]]; then
+          # relative links which ascend a directory (into a non-bin/ directory)
+          # won't point to the right place if we naively move them
+          ln -s "../$(readlink $out/bin/$_name)" "$out/bin/.sandboxed/$_name"
+          rm "$out/bin/$_name"
+        else
+          mv "$out/bin/$_name" "$out/bin/.sandboxed/"
+        fi
         cat <<EOF >> "$out/bin/$_name"
     #!${runtimeShell}
     exec ${sane-sandboxed'} \
