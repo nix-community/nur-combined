@@ -76,6 +76,7 @@
     lm_sensors
     lsof
     mtr
+    python3
     screen
     sops
     stuntman

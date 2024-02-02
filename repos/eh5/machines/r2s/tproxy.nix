@@ -63,11 +63,16 @@ in
 
   systemd.services.udpspeeder = {
     description = "UDPspeeder";
-    after = [ "network.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     script = ''
       xargs -a ${secrets."udpspeeder.conf".path} ${pkgs.udpspeeder}/bin/speederv2
     '';
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = 4;
+    };
   };
   sops.secrets."udpspeeder.conf".restartUnits = [ "udpspeeder.service" ];
 

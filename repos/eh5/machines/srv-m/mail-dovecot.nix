@@ -70,7 +70,7 @@ in
       Spam.specialUse = "Junk";
       Templates.auto = "create";
     };
-    sieveScripts = {
+    sieve.scripts = {
       after = builtins.toFile "spam.sieve" ''
         require ["variables", "fileinto", "envelope", "subaddress", "mailbox", "duplicate"];
 

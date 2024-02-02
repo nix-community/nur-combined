@@ -55,7 +55,6 @@
       includeDefaultModules = false;
     };
     blacklistedKernelModules = [ "hantro_vpu" "drm" "lima" "videodev" ];
-    kernelModules = [ "ledtrig_netdev" ];
     tmp.useTmpfs = true;
   };
 
@@ -108,10 +107,12 @@
 
   systemd.services."setup-net-leds" = {
     description = "Setup network LEDs";
-    unitConfig = { DefaultDependencies = "no"; };
     serviceConfig = { Type = "simple"; };
-    wantedBy = [ "sysinit.target" ];
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
     script = ''
+      ${pkgs.kmod}/bin/modprobe ledtrig_netdev
       cd /sys/class/leds/nanopi-r2s:green:lan
       echo netdev > trigger
       echo 1 | tee link tx rx >/dev/null
