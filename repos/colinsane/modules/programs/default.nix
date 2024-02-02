@@ -45,7 +45,9 @@ let
           inherit pkgName package;
           inherit (sandbox) autodetectCliPaths binMap capabilities embedProfile embedSandboxer extraConfig method whitelistPwd wrapperType;
           vpn = if net == "vpn" then vpn else null;
-          allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
+          allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths ++ [
+            ".config/mimeo"  #< TODO: required, until i fully integrate xdg-open into sandboxing. else, `xdg-open https://...` inifinite-loops.
+          ];
           allowedRootPaths = [
             "/nix/store"
             "/bin/sh"

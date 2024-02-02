@@ -92,7 +92,7 @@ in
 
     services.feedbackd = {
       description = "feedbackd audio/vibration/led controller";
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "default.target" ];  #< should technically be `sound.target`, but that doesn't seem to get auto-started?
       serviceConfig = {
         ExecStart = "${cfg.package}/libexec/feedbackd";
         Type = "simple";

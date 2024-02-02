@@ -85,7 +85,7 @@ in
 
     services.geary = {
       description = "Geary email client";
-      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
+      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/geary";
         Type = "simple";

@@ -51,7 +51,7 @@ in
 
     services.fractal = {
       description = "auto-start and maintain fractal Matrix connection";
-      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
+      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/fractal";
         Type = "simple";

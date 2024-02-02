@@ -340,6 +340,20 @@ in
         })
       ];
 
+      sane.user.services.sway-session = {
+        description = "no-op unit to signal that sway is operational";
+        documentation = [
+          "https://github.com/swaywm/sway/issues/7862"
+          "https://github.com/alebastr/sway-systemd"
+        ];
+        bindsTo = [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.coreutils}/bin/true";
+          Type = "oneshot";
+          RemainAfterExit = true;
+        };
+      };
+
       sane.user.fs = {
         ".config/waybar/config".symlink.target =
           (pkgs.formats.json {}).generate "waybar-config.json" [

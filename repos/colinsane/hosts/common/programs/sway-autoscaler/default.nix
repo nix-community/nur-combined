@@ -31,7 +31,7 @@ in
 
     services.sway-autoscaler = {
       description = "adjust global desktop scale to match the activate application";
-      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
+      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/sway-autoscaler --loop-sec ${builtins.toString cfg.config.interval}";
         Type = "simple";

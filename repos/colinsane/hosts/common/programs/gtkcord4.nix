@@ -41,7 +41,7 @@ in
 
     services.gtkcord4 = {
       description = "unofficial Discord chat client";
-      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
+      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/gtkcord4";
         Type = "simple";

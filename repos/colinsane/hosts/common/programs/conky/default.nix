@@ -23,10 +23,7 @@
 
     services.conky = {
       description = "conky dynamic desktop background";
-      wantedBy = [ "default.target" ];
-      # XXX: should be part of graphical-session.target, but whatever mix of greetd/sway
-      # i'm using means that target's never reached...
-      # wantedBy = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
       # partOf = [ "graphical-session.target" ];
 
       serviceConfig.ExecStart = "${config.sane.programs.conky.package}/bin/conky";
@@ -34,9 +31,6 @@
       serviceConfig.Restart = "on-failure";
       serviceConfig.RestartSec = "10s";
       # serviceConfig.Slice = "session.slice";
-
-      # don't start conky until after sway
-      preStart = ''test -n "$SWAYSOCK"'';
     };
   };
 }

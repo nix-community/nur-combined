@@ -461,7 +461,7 @@ in
       # swaync ships its own service, but i want to add `environment` variables and flags for easier debugging.
       # seems that's not possible without defining an entire nix-native service (i.e. this).
       description = "Swaync desktop notification daemon";
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "graphical-session.target" ];
       serviceConfig.ExecStart = "${cfg.package}/bin/swaync";
       serviceConfig.Type = "simple";
       # serviceConfig.BusName = "org.freedesktop.Notifications";

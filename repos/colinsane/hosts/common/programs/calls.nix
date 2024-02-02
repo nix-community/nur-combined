@@ -44,7 +44,7 @@ in
     services.gnome-calls = {
       # TODO: prevent gnome-calls from daemonizing when started manually
       description = "gnome-calls daemon to monitor incoming SIP calls";
-      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
+      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
       serviceConfig = {
         # add --verbose for more debugging
         ExecStart = "${cfg.package}/bin/gnome-calls --daemon";

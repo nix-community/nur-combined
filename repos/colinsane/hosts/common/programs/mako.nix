@@ -53,7 +53,7 @@
     # on environment.packages, but then logs are blackholed.
     services.mako = {
       description = "mako desktop notification daemon";
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "graphical-session.target" ];
       # XXX: should be part of graphical-session.target, but whatever mix of greetd/sway
       # i'm using means that target's never reached...
 

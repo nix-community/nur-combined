@@ -199,4 +199,9 @@ output "Unknown 0x0637 0x00000000" {
 # for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
 include /etc/sway/config.d/*
 
+# signal to systemd that sway is active,
+# and therefore let it start the graphical-session target
+# see `systemctl --user cat sway-session` for links to docs
+exec --no-startup-id systemctl start --user sway-session.service
+
 @extra_lines@
