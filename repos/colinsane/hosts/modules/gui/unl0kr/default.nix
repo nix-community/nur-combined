@@ -107,13 +107,16 @@ in
 
     systemd.defaultUnit = "graphical.target";
 
-    sane.users."${cfg.user}".fs.".profile".symlink.text = lib.optionalString (cfg.afterLogin != null) ''
+    # lib.mkAfter so that launching the DE happens *after* any other .profile setup.
+    # alternatively, we could recurse: exec a new login shell with some env-var signalling to not launch the DE,
+    #   run with `-c "{cfg.afterLogin}"`
+    sane.users."${cfg.user}".fs.".profile".symlink.text = lib.mkAfter (lib.optionalString (cfg.afterLogin != null) ''
       # if already running a desktop environment, or if running from ssh, then `tty` will show /dev/pts/NN.
       if [ "$(tty)" = "/dev/${tty}" ]; then
         echo 'launching default session in ${builtins.toString cfg.delay}s'
         sleep ${builtins.toString cfg.delay} && exec ${cfg.afterLogin}
       fi
-    '';
+    '');
 
     # see: `man login.defs`
     # disable timeout for `login` program.

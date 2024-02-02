@@ -113,6 +113,15 @@ let
             ;
           in
             lib.concatStringsSep "\n" env + "\n";
+        fs.".profile".symlink.text = ''
+          # source env vars and the like, as systemd would. `man environment.d`
+          for env in ~/.config/environment.d/*.conf; do
+            # surround with `set -o allexport` since environment.d doesn't explicitly `export` their vars
+            set -a
+            source "$env"
+            set +a
+          done
+        '';
       }
       {
         fs = lib.mkMerge (mapAttrsToList (serviceName: value:
