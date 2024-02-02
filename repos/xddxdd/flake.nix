@@ -46,6 +46,20 @@
         isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
         outputsOf = p: map (o: p.${o}) p.outputs;
 
+        ciPackages = import ./pkgs "ci" {
+          inherit inputs pkgs;
+        };
+        ciPackagesFlattened = flattenPkgs ciPackages;
+        ciPackageNames = lib.mapAttrsToList (k: v: k) ciPackages;
+        ciPackageNamesFlattened = lib.mapAttrsToList (k: v: k) ciPackagesFlattened;
+        ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackagesFlattened);
+
+        garnixConfigFile = pkgs.writeText "garnix.yaml" (builtins.toJSON {
+          builds.include =
+            (builtins.map (p: "packages.x86_64-linux.${p}") self.ciPackageNames.x86_64-linux)
+            ++ (builtins.map (p: "packages.aarch64-linux.${p}") self.ciPackageNames.aarch64-linux);
+        });
+
         commands =
           lib.mapAttrs
           (n: v: pkgs.writeShellScriptBin n v)
@@ -63,6 +77,10 @@
               done
 
               exit 1
+            '';
+
+            garnix = ''
+              cat ${garnixConfigFile} > garnix.yaml
             '';
 
             nvfetcher = ''
@@ -119,6 +137,7 @@
               ${py}/bin/python3 pkgs/openj9-ibm-semeru/update.py
               ${py}/bin/python3 pkgs/openjdk-adoptium/update.py
               ${readme}
+              ${garnix}
             '';
           };
       in rec {
@@ -127,13 +146,7 @@
         };
         packageNames = lib.mapAttrsToList (k: v: k) (flattenPkgs packages);
 
-        ciPackages =
-          flattenPkgs
-          (import ./pkgs "ci" {
-            inherit inputs pkgs;
-          });
-        ciPackageNames = lib.mapAttrsToList (k: v: k) ciPackages;
-        ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackages);
+        inherit ciPackages ciPackagesFlattened ciPackageNames ciPackageNamesFlattened ciOutputs;
 
         formatter = pkgs.alejandra;
 
