@@ -541,6 +541,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   unarr = callPackage ./pkgs/tools/archivers/unarr/unarr.nix { };
 
+  zip = callPackage ./pkgs/tools/archivers/zip { };
+
   # https://github.com/NixOS/nixpkgs/pull/244713
   # libarchive: 3.6.2 -> 3.7.0
   libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
