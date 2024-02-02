@@ -993,6 +993,9 @@
     "slug": "save-page-we"
   },
   {
+    "slug": "screenshot-capture-annotate"
+  },
+  {
     "slug": "scroll_anywhere",
     "license": {
       "tag": "custom",
@@ -1341,6 +1344,10 @@
   {
     "slug": "wayback-machine_new",
     "pname": "wayback-machine"
+  },
+  {
+    "slug": "web-eid-webextension",
+    "pname": "web-eid"
   },
   {
     "slug": "web-scrobbler"

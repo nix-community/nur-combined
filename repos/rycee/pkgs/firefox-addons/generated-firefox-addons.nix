@@ -8430,6 +8430,32 @@
         platforms = platforms.all;
       };
     };
+    "screenshot-capture-annotate" = buildFirefoxXpiAddon {
+      pname = "screenshot-capture-annotate";
+      version = "4.3.7.13";
+      addonId = "jid0-GXjLLfbCoAx0LcltEdFrEkQdQPI@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4222998/screenshot_capture_annotate-4.3.7.13.xpi";
+      sha256 = "d23fb0409975a10614703fe94c3f2071b9a2bd5eb3234b02a67b3149230f3b3a";
+      meta = with lib;
+      {
+        homepage = "https://www.awesomescreenshot.com";
+        description = "Full page screen capture and screen recorder 2 in 1. Share screencast video instantly.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "tabs"
+          "downloads"
+          "<all_urls>"
+          "storage"
+          "unlimitedStorage"
+          "clipboardWrite"
+          "cookies"
+          "http://*/*"
+          "https://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "scroll_anywhere" = buildFirefoxXpiAddon {
       pname = "scroll_anywhere";
       version = "9.2";
@@ -8570,7 +8596,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
-        description = "Tabs tree and bookmarks in sidebar with advanced containers configuration.";
+        description = "Vertical tabs tree and bookmarks in sidebar with advanced containers configuration, grouping and many other features.";
         license = licenses.mit;
         mozPermissions = [
           "activeTab"
@@ -10690,6 +10716,20 @@
           "https://*/*"
           "file:///*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "web-eid" = buildFirefoxXpiAddon {
+      pname = "web-eid";
+      version = "2.2.1";
+      addonId = "{e68418bc-f2b0-4459-a9ea-3e72b6751b07}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079746/web_eid_webextension-2.2.1.xpi";
+      sha256 = "392666581a3e71130307eb94f9010b4ca843829f592db9a093ad68fc00ca59ba";
+      meta = with lib;
+      {
+        description = "Use your electronic identification card for secure authentication and digital signing.";
+        license = licenses.mit;
+        mozPermissions = [ "*://*/*" "nativeMessaging" ];
         platforms = platforms.all;
       };
     };
