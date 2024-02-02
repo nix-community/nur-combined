@@ -64,6 +64,7 @@ in
 
     sandbox.method = "bwrap";
     sandbox.autodetectCliPaths = true;
+    sandbox.whitelistDri = true;  #< mpv has excellent fallbacks to non-DRI, but DRI offers a good 30%-50% reduced CPU
 
     persist.byStore.plaintext = [ ".local/state/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = let

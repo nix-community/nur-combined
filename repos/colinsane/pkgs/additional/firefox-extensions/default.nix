@@ -121,8 +121,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.7.4";
-      hash = "sha256-HG1B6svtSW6Lffmj7X5tuHCiPLkEJ7R4DJWJMgN6OsQ=";
+      version = "11.8.0";
+      hash = "sha256-X9y4EwYze6ja1cPRSEwtyDgIfeb8RJGa66Qts1X+2DM=";
     };
     fx_cast = fetchVersionedAddon rec {
       extid = "fx_cast@matt.tf";
@@ -154,15 +154,15 @@ in (lib.makeScope newScope (self: with self; {
       pname = "sidebery";
       # N.B.: unsure if this URL format is stable
       url = "https://github.com/mbnuqw/sidebery/releases/download/v${version}/sidebery-${version}-unsigned.zip";
-      version = "5.0.0";
+      version = "5.1.1";
       hash = "sha256-tHTU/l8ct+tY1/H+nZf3VlMlwoYn68+0pgeuFzm91XY=";
     };
     sponsorblock = fetchVersionedAddon rec {
       extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
       url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-      version = "5.5.3";
-      hash = "sha256-AuBXi9BAwhb65fpxeCKjINaANEsDKxCiaspvNtIb3kU=";
+      version = "5.5.4";
+      hash = "sha256-vYb76eynoe4MWbwo9T4PieGZldTKD/AMV4D9pUUE7Ls=";
     };
     ublacklist = fetchVersionedAddon rec {
       extid = "@ublacklist";
@@ -177,8 +177,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.55.1b22";
-      hash = "sha256-39LS13cc691GEbxR7Zr27hpHrRI0uLQDXmkOoECNQ90=";
+      version = "1.55.1b28";
+      hash = "sha256-QHVcVymrQ3MxfOJr+skZrWEM9A+CliiyL7xIQskwdGY=";
     };
   };
 })).overrideScope (self: super:
