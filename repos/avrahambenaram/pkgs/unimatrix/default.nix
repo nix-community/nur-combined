@@ -1,6 +1,6 @@
 { pkgs, stdenv, ... }:
 
-pkgs.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "unimatrix";
   version = "1.0.0";
 
@@ -9,6 +9,10 @@ pkgs.stdenv.mkDerivation rec {
     name = "unimatrix";
     hash = "sha256-lTQRpq92wdvzvCd+3V2VwHdl7s8115ArTxy7A0BPxX0=";
   };
+
+  buildInputs = with pkgs; [
+    python3
+  ];
 
   phases = "installPhase";
 
