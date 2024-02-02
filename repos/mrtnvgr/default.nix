@@ -46,6 +46,10 @@ in rec {
   cascadia-code-nerd-font = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
   cascadia-mono-nerd-font = (pkgs.nerdfonts.override { fonts = [ "CascadiaMono" ]; });
 
+  # Misc
+
+  reaper-sws-extension = p ./pkgs/misc/reaper-sws-extension { };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
