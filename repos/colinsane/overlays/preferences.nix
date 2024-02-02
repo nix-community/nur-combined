@@ -9,7 +9,7 @@
     };
   };
 
-  gnome = super.gnome.overrideScope' (gself: gsuper: with gself; {
+  gnome = super.gnome.overrideScope (gself: gsuper: with gself; {
     evolution-data-server = gsuper.evolution-data-server.override {
       # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation
       enableOAuth2 = false;

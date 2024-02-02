@@ -47,6 +47,9 @@
     keep-outputs = true  # default: false
     # how many lines to show from failed build
     log-lines = 30  # default: 10
+    # how many substitution downloads to perform in parallel.
+    # i wonder if parallelism is causing moby's substitutions to fail?
+    max-substitution-jobs = 6  # default: 16
     # narinfo-cache-negative-ttl = 3600  # default: 3600
     # whether to use ~/.local/state/nix/profile instead of ~/.nix-profile, etc
     use-xdg-base-directories = true  # default: false

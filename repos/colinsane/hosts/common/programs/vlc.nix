@@ -1,4 +1,4 @@
-{ config, lib, sane-lib, ... }:
+{ config, lib, pkgs, sane-lib, ... }:
 
 let
   feeds = sane-lib.feeds;
@@ -10,6 +10,10 @@ let
 in
 {
   sane.programs.vlc = {
+    packageUnwrapped = pkgs.vlc.override {
+      # disable uneeded samba features to avoid an expensive samba build
+      samba = null;
+    };
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.autodetectCliPaths = true;

@@ -260,6 +260,10 @@
             nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} "$@"
             sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result-${host})
 
+            # add more `-v` for more verbosity (up to 5).
+            # i copy the closure here separately from the nixos-rebuild mostly for the sake of introspectability.
+            nix-copy-closure -v --gzip --to "${host}" ./result-${host}
+
             # XXX: this triggers another config eval & (potentially) build.
             # if the config changed between these invocations, the above signatures might not apply to the deployed config.
             # let the user handle that edge case by re-running this whole command.

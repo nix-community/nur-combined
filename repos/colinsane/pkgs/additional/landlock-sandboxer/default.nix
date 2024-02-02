@@ -3,11 +3,23 @@
 # but it will complain (stderr) about an update being available if kernel max ABI != sandbox max ABI.
 { stdenv
 , linux
+, makeLinuxHeaders
 }:
+let
+  linuxHeaders = makeLinuxHeaders {
+    inherit (linux) src version;
+  };
+in
 stdenv.mkDerivation rec {
   pname = "landlock-sandboxer";
   version = linux.version;
   src = linux.src;
+
+  NIX_DEBUG = 6;
+
+  buildInputs = [
+    linuxHeaders  # to get the right linux headers!
+  ];
 
   # sourceRoot = "linux-${version}/samples/landlock";
   preBuild = ''
@@ -19,6 +31,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     install -m755 sandboxer $out/bin
   '';
+
+  passthru = {
+    inherit linuxHeaders;
+  };
 
   meta = {
     description = ''

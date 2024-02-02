@@ -25,6 +25,10 @@
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."moby".wg-home.ip;
 
+  # for some reason desko -> moby deploys are super flaky when desko is also a nixcache (not true of desko -> lappy deploys, though!)
+  # > unable to download 'http://desko:5001/<hash>.narinfo': Server returned nothing (no headers, no data) (52)
+  sane.nixcache.substituters.desko = false;
+
   # XXX colin: phosh doesn't work well with passwordless login,
   # so set this more reliable default password should anything go wrong
   users.users.colin.initialPassword = "147147";

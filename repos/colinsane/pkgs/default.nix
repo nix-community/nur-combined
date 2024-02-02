@@ -100,7 +100,7 @@ let
 
     # XXX patching this is... really costly.
     # prefer to set ALSA_CONFIG_UCM2 = "${pkgs.alsa-ucm-conf-sane}/share/alsa/ucm2" if possible instead.
-    # alsa-project = unpatched.alsa-project.overrideScope' (sself: ssuper: {
+    # alsa-project = unpatched.alsa-project.overrideScope (sself: ssuper: {
     #   alsa-ucm-conf = sself.callPackage ./additional/alsa-ucm-conf-sane { inherit (ssuper) alsa-ucm-conf; };
     # });
 
@@ -113,7 +113,7 @@ let
     # mozilla keeps nerfing itself and removing configuration options
     firefox-unwrapped = callPackage ./patched/firefox-unwrapped { inherit (unpatched) firefox-unwrapped; };
 
-    gnome = unpatched.gnome.overrideScope' (gself: gsuper: {
+    gnome = unpatched.gnome.overrideScope (gself: gsuper: {
       gnome-control-center = import ./patched/gnome-control-center {
         inherit (gsuper) gnome-control-center;
       };

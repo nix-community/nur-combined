@@ -253,6 +253,10 @@ in
         pulse.enable = true;
       };
       services.gvfs.enable = true;  # allow nautilus to mount remote filesystems (e.g. ftp://...)
+      services.gvfs.package = lib.mkDefault (pkgs.gvfs.override {
+        # i don't need to mount samba shares, and samba build is expensive/flaky (mostly for cross, but even problematic on native)
+        samba = null;
+      });
       # rtkit/RealtimeKit: allow applications which want realtime audio (e.g. Dino? Pulseaudio server?) to request it.
       # this might require more configuration (e.g. polkit-related) to work exactly as desired.
       # - readme outlines requirements: <https://github.com/heftig/rtkit>

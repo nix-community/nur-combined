@@ -28,6 +28,13 @@
   #   "systemd.log_level=debug"
   #   "systemd.log_target=console"
 
+  # moby has to run recent kernels (defined elsewhere).
+  # meanwhile, kernel variation plays some minor role in things like sandboxing (landlock) and capabilities.
+  # simpler to keep near the latest kernel on all devices,
+  # and also makes certain that any weird system-level bugs i see aren't likely to be stale kernel bugs.
+  # servo needs zfs though, which doesn't support every kernel.
+  boot.kernelPackages = lib.mkDefault pkgs.zfs.latestCompatibleLinuxPackages;
+
   # hack in the `boot.shell_on_fail` arg since that doesn't always seem to work.
   boot.initrd.preFailCommands = "allowShell=1";
 

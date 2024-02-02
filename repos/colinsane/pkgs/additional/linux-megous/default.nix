@@ -23,15 +23,20 @@ let
   #   - `git checkout <commit> ; git tag <tagname>`
   # - `git push origin <tag>`
   # - grab VERSION/PATCHLEVEL/SUBLEVEL/EXTRAVERSION from Makefile.
+  #   - `rg '^(VERSION|PATCHLEVEL|SUBLEVEL|EXTRAVERSION) =' Makefile`
+  # for extra safety, pin to the same version as postmarketOS, in pmaports:
+  # - device/main/linux-postmarketos-allwinner/APKBUILD
+  # if `withModemPower = false` then update the commit for the "drop-modem-power" patch from pmOS, below
+  #
+  # build via: `nix build '.#hostConfigs.moby.boot.kernelPackages.kernel'`
   #
   # - megi publishes release notes as the most recent commit on any release tag, so just `git show` or `git log`
   # - orange-pi is listed as the "main integration branch".
   #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` tags are "formal" releases
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
-  # rev = "orange-pi-6.4-20230914-1603";
-  rev = "orange-pi-6.6-20231103-1422";
-  hash = "sha256-d5xQXfFqMBGOCbKO+HOoAKSUrvdhSmpqPAfqW7AYvAg=";
-  base = "6.6.0";
+  rev = "orange-pi-6.7-20240127-1717";
+  base = "6.7.2";
+  hash = "sha256-vukzm6fHDBNHTQDbclwTzIA4fkpIcX0EGHhxOwgCguA=";
   # set to empty if not a release candidate, else `-rc<N>`
   rc = "";
 
@@ -209,8 +214,8 @@ let
       # source: <https://github.com/NixOS/mobile-nixos/pull/573>
       name = "remove-modem-power-from-devicetree";
       patch = fetchpatch {
-        url = "https://gitlab.com/postmarketOS/pmaports/-/raw/164e9f010dcf56642d8e6f422a994b927ae23f38/device/main/linux-postmarketos-allwinner/0007-dts-pinephone-drop-modem-power-node.patch";
-        sha256 = "nYCoaYj8CuxbgXfy5q43Xb/ebe5DlJ1Px571y1/+lfQ=";
+        url = "https://gitlab.com/postmarketOS/pmaports/-/raw/05a3c22d81591dd6b4b41a0ffebe1159be49b09b/device/main/linux-postmarketos-allwinner/0006-dts-pinephone-drop-modem-power-node.patch";
+        hash = "sha256-dyxlzp73hQ2AsaQbLIl0B7bR7Z1PHIMUS+CFN0kkMTs=";
       };
     }
   ];

@@ -134,9 +134,7 @@
     # globalExtensions = [ "vnd.dovecot.pipe" "vnd.dovecot.environment" ];
     # if any messages fail to pass (or lack) DKIM, move them to Junk
     # XXX the key name ("after") is only used to order sieve execution/ordering
-  };
-  services.dovecot2.sieveScripts = {
-    after = builtins.toFile "ensuredkim.sieve" ''
+    scripts.after = builtins.toFile "ensuredkim.sieve" ''
       require "fileinto";
 
       if not header :contains "Authentication-Results" "dkim=pass" {

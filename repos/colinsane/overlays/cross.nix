@@ -622,7 +622,7 @@ in with final; {
   #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   # };
 
-  # firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
+  # firefox-extensions = prev.firefox-extensions.overrideScope (self: super: {
   #   unwrapped = super.unwrapped // {
   #     browserpass-extension = super.unwrapped.browserpass-extension.override {
   #       mkYarnModules = args: needsBinfmtOrQemu {
@@ -870,7 +870,7 @@ in with final; {
   });
 
 
-  # gnustep = prev.gnustep.overrideScope' (self: super: {
+  # gnustep = prev.gnustep.overrideScope (self: super: {
   #   # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
   #   # base = emulated.gnustep.base;
   #   base = (super.base.override {
@@ -896,7 +896,7 @@ in with final; {
     '';
   });
 
-  gnome = prev.gnome.overrideScope' (self: super: {
+  gnome = prev.gnome.overrideScope (self: super: {
     # fixes "error: Package `dconf' not found in specified Vala API directories or GObject-Introspection GIR directories"
     # - but ONLY if `dconf` was built with the vala feature.
     # - dconf is NOT built with vala when cross-compiled
@@ -1050,7 +1050,7 @@ in with final; {
     # );
   });
 
-  # gnome2 = prev.gnome2.overrideScope' (self: super: {
+  # gnome2 = prev.gnome2.overrideScope (self: super: {
   #   # GConf = (
   #   #   # python3 -> nativeBuildInputs fixes "2to3: command not found"
   #   #   # glib.dev in nativeBuildInputs fixes "gconfmarshal.list: command not found"
@@ -1322,7 +1322,7 @@ in with final; {
     outputs = lib.remove "devdoc" upstream.outputs;
   });
 
-  # libsForQt5 = prev.libsForQt5.overrideScope' (self: super: {
+  # libsForQt5 = prev.libsForQt5.overrideScope (self: super: {
   #   qgpgme = super.qgpgme.overrideAttrs (orig: {
   #     # fix so it can find the MOC compiler
   #     # it looks like it might not *need* to propagate qtbase, but so far unclear
@@ -1334,7 +1334,7 @@ in with final; {
   #     buildInputs = orig.buildInputs ++ [ extra-cmake-modules ];
   #   });
   # });
-  # libsForQt5 = prev.libsForQt5.overrideScope' (self: super: {
+  # libsForQt5 = prev.libsForQt5.overrideScope (self: super: {
   #   # emulate all the qt5 packages, but rework `libsForQt5.callPackage` and `mkDerivation`
   #   # to use non-emulated stdenv by default.
   #   mkDerivation = self.mkDerivationWith stdenv.mkDerivation;
@@ -1888,7 +1888,7 @@ in with final; {
   #   mkDerivation = self.mkDerivationWith stdenv.mkDerivation;
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit stdenv; };
   # });
-  # qt6 = prev.qt6.overrideScope' (self: super: {
+  # qt6 = prev.qt6.overrideScope (self: super: {
   #   # # inherit (emulated.qt6) qtModule;
   #   # qtbase = super.qtbase.overrideAttrs (upstream: {
   #   #   # cmakeFlags = upstream.cmakeFlags ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [

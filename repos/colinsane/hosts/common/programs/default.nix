@@ -39,9 +39,11 @@
     ./gpodder.nix
     ./gthumb.nix
     ./gtkcord4.nix
+    ./handbrake.nix
     ./helix.nix
     ./imagemagick.nix
     ./jellyfin-media-player.nix
+    ./kdenlive.nix
     ./komikku.nix
     ./koreader
     ./libreoffice.nix
