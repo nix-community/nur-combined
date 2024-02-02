@@ -399,7 +399,7 @@ canonicalizePaths() {
   # remove '//' and simplify '.', '..' paths, into canonical absolute logical paths.
   _normPaths=()
   for _path in "${paths[@]}"; do
-    _normPaths+=($(normPath "$_path"))
+    _normPaths+=("$(normPath "$_path")")
   done
 
   # remove subpaths, but the result might include duplicates.
