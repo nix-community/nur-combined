@@ -43,15 +43,21 @@
         inherit (pkgs) system;
         inherit (pkgs.callPackage ./helpers/flatten-pkgs.nix {}) flattenPkgs;
 
-        isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+        isBuildable = p:
+          !(p.meta.broken or false)
+          && (
+            if (p.meta.platforms or []) != []
+            then builtins.elem "${system}" p.meta.platforms
+            else true
+          );
         outputsOf = p: map (o: p.${o}) p.outputs;
 
         ciPackages = import ./pkgs "ci" {
           inherit inputs pkgs;
         };
         ciPackagesFlattened = flattenPkgs ciPackages;
-        ciPackageNames = lib.mapAttrsToList (k: v: k) ciPackages;
-        ciPackageNamesFlattened = lib.mapAttrsToList (k: v: k) ciPackagesFlattened;
+        ciPackageNames = lib.mapAttrsToList (k: v: k) (lib.filterAttrs (_: isBuildable) ciPackages);
+        ciPackageNamesFlattened = lib.mapAttrsToList (k: v: k) (lib.filterAttrs (_: isBuildable) ciPackagesFlattened);
         ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackagesFlattened);
 
         garnixConfigFile = pkgs.writeText "garnix.yaml" (builtins.toJSON {
