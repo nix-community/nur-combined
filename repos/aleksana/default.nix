@@ -24,4 +24,7 @@
   yofi = pkgs.callPackage ./pkgs/yofi { };
   fcitx5-pinyin-cedict = pkgs.callPackage ./pkgs/fcitx5-pinyin-cedict { };
   fcitx5-pinyin-chinese-idiom = pkgs.callPackage ./pkgs/fcitx5-pinyin-chinese-idiom { };
+  fcitx5-pinyin-ff14 = pkgs.callPackage ./pkgs/fcitx5-pinyin-ff14 { };
+  fcitx5-pinyin-moegirl = pkgs.callPackage ./pkgs/fcitx5-pinyin-moegirl { };
+  fcitx5-pinyin-zhwiki = pkgs.callPackage ./pkgs/fcitx5-pinyin-zhwiki { };
 }
