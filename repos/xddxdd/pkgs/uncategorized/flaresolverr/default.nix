@@ -50,5 +50,7 @@ in
       description = "Proxy server to bypass Cloudflare protection";
       homepage = "https://github.com/FlareSolverr/FlareSolverr";
       license = licenses.mit;
+      # Platform depends on chromedriver
+      inherit (undetected-chromedriver-bin.meta) platforms;
     };
   }

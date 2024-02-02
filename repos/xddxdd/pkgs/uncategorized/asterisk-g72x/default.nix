@@ -12,13 +12,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [autoreconfHook];
   buildInputs = [asterisk bcg729];
+
+  patches = [./remove-march.patch];
+
   configureFlags = [
     "--with-bcg729"
   ];
-
-  preAutoreconf = ''
-    sed -i "s/march=native/march=x86-64/g" configure.ac
-  '';
 
   meta = with lib; {
     description = "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)";

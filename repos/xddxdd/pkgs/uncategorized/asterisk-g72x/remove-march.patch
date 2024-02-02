@@ -1,0 +1,119 @@
+diff --git a/configure.ac b/configure.ac
+index 43b82f9..5a604bb 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -25,14 +25,6 @@ case "${host_os}" in
+         ;;
+ esac
+ 
+-# tested on raspberry Pi, may be not valid for other ARM devices
+-case "${host}" in
+-  armv6l-*-linux-gnueabihf*)
+-    cflags="-mcpu=arm1176jzf-s -mfloat-abi=hard -mfpu=vfp -O3 -Wall"
+-    march="armv6zk"
+-    ;;
+-esac
+-
+ if test "${prefix}" = "NONE"; then
+     prefix="${ac_default_prefix}"
+ fi
+@@ -117,14 +109,6 @@ AC_ARG_WITH(bcg729,
+ 
+ AC_CHECK_HEADERS([asterisk/asterisk.h], [ASTERISK_ASTERISK_H=-DASTERISK_ASTERISK_H])
+ 
+-AX_CHECK_COMPILER_FLAGS(-march=native,    [march=native])
+-AX_CHECK_COMPILER_FLAGS(-mavx,            [mavx=-mavx],            [mavx=""])
+-AX_CHECK_COMPILER_FLAGS(-march=core2,     [march_core2=core2],     [march_core2=nocona])
+-AX_CHECK_COMPILER_FLAGS(-march=atom,      [march_atom=atom],       [march_core2=$march_core2; mtune_generic=-mtune=generic])
+-AX_CHECK_COMPILER_FLAGS(-march=k8-sse3,   [march_k8_sse3=k8-sse3], [march_k8_sse3=k8])
+-AX_CHECK_COMPILER_FLAGS(-march=barcelona, [march_k10=barcelona],   [march_k10=$march_k8_sse3])
+-AX_CHECK_COMPILER_FLAGS(-march=geode,     [march_geode=geode],     [march_geode=k6-3; mtune_generic=-mtune=generic])
+-
+ if test "$CC" = "icc"; then
+     if test -z "$CFLAGS"; then
+         AC_MSG_ERROR([For ICC please set CFLAGS])
+@@ -134,56 +118,6 @@ else
+     AX_CHECK_COMPILER_FLAGS(-flto, [flto="-flto"; fwholeprg="-fwhole-program"])
+ fi
+ 
+-AC_ARG_ENABLE([barcelona],
+-    AS_HELP_STRING([--enable-barcelona],
+-    [Optimize for AMD K10/Opteron/Phenom (enables SSE3)]),
+-    [march=$march_k10; ipp_core=t7; ipp_core64=m7; cflags="-msse3 -mfpmath=sse"])
+-AC_ARG_ENABLE([opteron-sse3],
+-    AS_HELP_STRING([--enable-opteron-sse3],
+-    [Optimize for AMD K8/Opteron/Athlon64 (enables SSE3)]),
+-    [march=$march_k8_sse3; ipp_core=t7; ipp_core64=m7; cflags="-msse3 -mfpmath=sse"])
+-AC_ARG_ENABLE([opteron],
+-    AS_HELP_STRING([--enable-opteron],
+-    [Optimize for AMD K8/Opteron/Athlon64 (enables SSE2)]),
+-    [march=k8; ipp_core=w7; ipp_core64=mx; cflags="-msse2 -mfpmath=sse"])
+-AC_ARG_ENABLE([athlon],
+-    AS_HELP_STRING([--enable-athlon], [Optimize for AMD K7/Athlon-XP (enables SSE)]),
+-    [march=athlon-xp; ipp_core=a6; cflags="-msse -mfpmath=sse"])
+-AC_ARG_ENABLE([geode],
+-    AS_HELP_STRING([--enable-geode], [Optimize for AMD Geode LX]),
+-    [march=$march_geode; ipp_core=px; ipp_cdefs=-DIPPCORE_NO_SSE; cflags="$mtune_generic"])
+-
+-AC_ARG_ENABLE([avx],
+-    AS_HELP_STRING([--enable-avx], [Optimize for Intel Sandy Bridge (enables AVX)]),
+-    [march=$march_core2; ipp_core=g9; ipp_core64=e9; cflags="$mavx"])
+-AC_ARG_ENABLE([penryn],
+-    AS_HELP_STRING([--enable-penryn], [Optimize for Intel Core2 Penryn and Core i7 Nehalem/Westmere (enables SSE4.1)]),
+-    [march=$march_core2; ipp_core=p8; ipp_core64=y8; cflags="-msse3 -mfpmath=sse"])
+-AC_ARG_ENABLE([core2],
+-    AS_HELP_STRING([--enable-core2], [Optimize for Intel Core2 (enables SSE3 and SSSE3)]),
+-    [march=$march_core2; ipp_core=v8; ipp_core64=u8; cflags="-msse3 -mfpmath=sse"])
+-AC_ARG_ENABLE([atom],
+-    AS_HELP_STRING([--enable-atom], [Optimize for Intel Atom (enables SSE4.1)]),
+-    [march=$march_core2; ipp_core=s8; ipp_core64=n8; cflags="-mtune=generic -msse3 -mfpmath=sse"])
+-AC_ARG_ENABLE([nocona],
+-    AS_HELP_STRING([--enable-nocona], [Optimize for Intel Pentium4 Prescott and Nocona (enables SSE3)]),
+-    [march=nocona; ipp_core=t7; ipp_core64=m7; cflags="-msse3 -mfpmath=sse"])
+-AC_ARG_ENABLE([pentium4],
+-    AS_HELP_STRING([--enable-pentium4], [Optimize for Intel Pentium4 (enables SSE2)]),
+-    [march=pentium4; ipp_core=w7; cflags="-msse2 -mfpmath=sse"])
+-AC_ARG_ENABLE([pentiumm],
+-    AS_HELP_STRING([--enable-pentiumm], [Optimize for Intel PentiumM (enables SSE2)]),
+-    [march=pentium-m; ipp_core=w7; cflags="-msse2 -mfpmath=sse"])
+-AC_ARG_ENABLE([pentium3],
+-    AS_HELP_STRING([--enable-pentium3], [Optimize for Intel Pentium3 (enables SSE)]),
+-    [march=pentium3; ipp_core=a6; cflags="-msse -mfpmath=sse"])
+-AC_ARG_ENABLE([pentium2],
+-    AS_HELP_STRING([--enable-pentium2], [Optimize for Intel Pentium2]),
+-    [march=pentium2; ipp_core=px; ipp_cdefs=-DIPPCORE_NO_SSE; cflags=""])
+-AC_ARG_ENABLE([pentium],
+-    AS_HELP_STRING([--enable-pentium], [Optimize for Intel Pentium]),
+-    [march=pentium-mmx; ipp_core=px; ipp_cdefs=-DIPPCORE_NO_SSE; cflags=""])
+-
+ if test -z "$G72X_BCG729"; then
+     if test -z "$ipp_core"; then
+         AC_CHECK_FILE([/proc/cpuinfo],
+@@ -219,10 +153,6 @@ if test -z "$G72X_BCG729"; then
+         AC_MSG_RESULT([$cpu_features])
+     fi
+ 
+-    if test -z "$saved_cflags" -a -z "$march"; then
+-        AC_MSG_ERROR([compiler does not support -march=native, use --enable-pentium/etc. to choose the core, or set CFLAGS])
+-    fi
+-
+     case "$build_cpu" in
+         i?86)
+             ipp_arch=ia32;
+@@ -391,7 +321,7 @@ else # G72X_BCG729 is defined
+ fi
+ 
+ if test -z "$saved_cflags"; then
+-    CFLAGS="-O3 -fomit-frame-pointer -march=$march $flto $cflags"
++    CFLAGS="-O3 -fomit-frame-pointer $flto $cflags"
+     FLTO_LDFLAGS="$fwholeprg"
+ fi
+ 
+@@ -412,7 +342,6 @@ AC_OUTPUT([Makefile])
+ 
+ echo
+ echo "Architecture: $build_cpu"
+-echo "  CPU -march: $march"
+ echo "      CFLAGS: $CFLAGS $IPP_CFLAGS $ASTERISK_CFLAGS"
+ echo "     LDFLAGS: $FLTO_LDFLAGS" $IPP_LDFLAGS $IPP_LIBS
+ echo " Codecs impl:" $(test -z "$G72X_BCG729" && echo IPP || echo Bcg729) $(test -z "$G729_NOFP_TRUE" && echo "/ G.729 integer codec")

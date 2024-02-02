@@ -84,13 +84,13 @@ for source in sources:
             'version': version,
             'type': 'jre',
             'url': jre['downloadLink'],
-            'sha256': jre['checksum'],
+            'sha256': re.sub(r"[^0-9a-fA-F]", "", jre['checksum']),
         }
         formatted_source['jdk-bin-' + key][arch] = {
             'version': version,
             'type': 'jdk',
             'url': jdk['downloadLink'],
-            'sha256': jdk['checksum'],
+            'sha256': re.sub(r"[^0-9a-fA-F]", "", jdk['checksum']),
         }
 
     add_java_revision(str(major_revision))

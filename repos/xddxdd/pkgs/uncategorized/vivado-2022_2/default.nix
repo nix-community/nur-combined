@@ -190,6 +190,7 @@ let
       description = "Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix)";
       homepage = "https://www.xilinx.com/products/design-tools/vivado.html";
       license = lib.licenses.unfree;
+      preferLocalBuild = true;
     };
   };
 in

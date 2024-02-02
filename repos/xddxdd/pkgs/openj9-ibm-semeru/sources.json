@@ -1130,7 +1130,7 @@
             "version": "11.0.15.0",
             "type": "jdk",
             "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.15%2B10_openj9-0.32.0/ibm-semeru-open-jdk_aarch64_linux_11.0.15_10_openj9-0.32.0.tar.gz",
-            "sha256": "4703a9a73796497014f76d0b863e7c22e28c18628edbd9f167a0d5790adda73es"
+            "sha256": "4703a9a73796497014f76d0b863e7c22e28c18628edbd9f167a0d5790adda73e"
         }
     },
     "jre-bin-11_0_15_0": {
