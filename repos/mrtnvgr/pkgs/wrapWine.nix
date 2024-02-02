@@ -19,8 +19,7 @@ in
 , wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
 , wineFlags ? ""
 # Useful for native linux apps that require wine environment (e.g. reaper with yabridge)
-, isWinBin ? true
-, waitForWine ? true
+, isWinBin ? true,
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
@@ -71,9 +70,9 @@ let
 
     ${if isWinBin then ''${wineBin} ${wineFlags}'' else ""} "${executable}" "$@"
 
-    ${postScript}
+    wineserver -w
 
-    ${if waitForWine then ''wineserver -w'' else ""}
+    ${postScript}
   '';
 in
 script
