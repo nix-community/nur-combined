@@ -12,7 +12,7 @@ rec {
   bibata-cursors-tokyonight = pkgs.callPackage ./bibata-cursors-tokyonight { };
   ceserver = pkgs.callPackage ./ceserver { };
   gruvbox-plus-icons = pkgs.callPackage ./gruvbox-plus-icons { };
-  hoyolab-daily-bot = pkgs.python3Packages.callPackage ./hoyolab-daily-bot { };
+  hoyolab-claim-bot = pkgs.callPackage ./hoyolab-claim-bot { };
   kes = pkgs.callPackage ./kes { };
   koboldcpp = pkgs.callPackage ./koboldcpp { customtkinter = python3Packages.customtkinter; };
   mpris-ctl = pkgs.callPackage ./mpris-ctl { };
