@@ -5,11 +5,6 @@ on:
     branches:
       - main
       - master
-  schedule:
-    # rebuild everyday at 2:51
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '51 2 * * *'
 jobs:
   tests:
     strategy:
@@ -27,25 +22,16 @@ jobs:
         # Format: Your cachix cache host name without the ".cachix.org" suffix.
         # Example: mycache (for mycache.cachix.org)
         #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-22.11
+          - nixpkgs=channel:nixos-23.11
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Install nix
-      uses: cachix/install-nix-action@v19
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      uses: DeterminateSystems/nix-installer-action@main
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \

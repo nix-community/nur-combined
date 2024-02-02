@@ -4,7 +4,7 @@
 }:
 
 stdenvNoCC.mkDerivation {
-  pname = "fcitx5-pinyin-cedict";
+  pname = "fcitx5-pinyin-zhwiki";
   version = "20231205";
 
   src = fetchurl {
