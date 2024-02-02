@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-01-31",
+        "date": "2024-02-01",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "5e08188382538be391c81d526daa9caeda49ee7a",
-            "sha256": "sha256-SRg2LaV1WLOJQeRy19T7IQZrEjeLVW2n7b1z/s3BLfQ=",
+            "rev": "45f5ecc8ad9cb3059d08b5fe0212b527bf0fb9e0",
+            "sha256": "sha256-2Aj7cHLhLm9FTPGfHET2p0Ev0xsfRUdd8IlMcJoW/6M=",
             "type": "github"
         },
-        "version": "5e08188382538be391c81d526daa9caeda49ee7a"
+        "version": "45f5ecc8ad9cb3059d08b5fe0212b527bf0fb9e0"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -818,7 +818,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-01-31",
+        "date": "2024-02-01",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -830,11 +830,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "688bdb431f3d20d5c349e69cba5c130e08c800ba",
-            "sha256": "sha256-8SvArXJhSrMW2GavAKU8GyqJKY5i2gqAScL6KMRkA+g=",
+            "rev": "670cefd42913b13b5dc07cb64f7c29d8d47cd4b2",
+            "sha256": "sha256-F62qz4DPvWnMutT/CbuOTevRKIJvoe62hSiP2rwQnmQ=",
             "type": "github"
         },
-        "version": "688bdb431f3d20d5c349e69cba5c130e08c800ba"
+        "version": "670cefd42913b13b5dc07cb64f7c29d8d47cd4b2"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -950,11 +950,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.7.2-xanmod1",
-            "sha256": "sha256-nY7C3Qt5slxafvyVGtTf0celPF+W9MepL6MjsnPzTXg=",
+            "rev": "6.7.3-xanmod1",
+            "sha256": "sha256-EJWOrITqnEw/oXmSiQ5O2RrGeaS/Xb2vzpV9R/hAU9Y=",
             "type": "github"
         },
-        "version": "6.7.2-xanmod1"
+        "version": "6.7.3-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -990,11 +990,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.1.75-xanmod1",
-            "sha256": "sha256-SXaC2O5kBfH8qiQW4j9c8GhONTziXVLqDCJzDj5SKcI=",
+            "rev": "6.1.76-xanmod1",
+            "sha256": "sha256-0nBdUFRGMWM3IL/q8CYiDEUA/sIrYPMkzsBQen30o2E=",
             "type": "github"
         },
-        "version": "6.1.75-xanmod1"
+        "version": "6.1.76-xanmod1"
     },
     "linux-xanmod-6_6": {
         "cargoLocks": null,
@@ -1010,11 +1010,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.14-xanmod1",
-            "sha256": "sha256-WvzesXHAbOJMow4mE9Ty6JWMYef+Bq3MENLGalsThDU=",
+            "rev": "6.6.15-xanmod1",
+            "sha256": "sha256-KHn4Ntm1QStgJRWzwmPYXEbEcuZcF4pWJ964wc6J2Wk=",
             "type": "github"
         },
-        "version": "6.6.14-xanmod1"
+        "version": "6.6.15-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1545,11 +1545,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BFYLmUZXECZnx6mR7x0NtNX+Wx6u4UPQY7HHQDWH1MU=",
+            "sha256": "sha256-osthO8sksNXjOt5udvZGNMzvU0N/dntzOd8LIkaroVQ=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/8fddf4ad/linuxqq_3.2.5-21217_amd64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/7c0c5cc3/linuxqq_3.2.5-21357_amd64.deb"
         },
-        "version": "8fddf4ad/linuxqq_3.2.5-21217"
+        "version": "7c0c5cc3/linuxqq_3.2.5-21357"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1560,11 +1560,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Y5jVPJa5O+tig+d18LW2S1+xMjDvfDUxoh269wEAdUo=",
+            "sha256": "sha256-ATojWNolHnnq/GKhPKDPS1R0hnZLYNiu4CCjuw4lwJw=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/8fddf4ad/linuxqq_3.2.5-21217_arm64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/7c0c5cc3/linuxqq_3.2.5-21357_arm64.deb"
         },
-        "version": "8fddf4ad/linuxqq_3.2.5-21217"
+        "version": "7c0c5cc3/linuxqq_3.2.5-21357"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -1643,7 +1643,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-02-01",
+        "date": "2024-02-02",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1655,11 +1655,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "86ebf99f4f1be5246d93f28e65f504fc6e0697e9",
-            "sha256": "sha256-wYvHjZVbrttxor88ZaTIkueNpo8JuhDBqpKKBdckAxc=",
+            "rev": "7ff9e6479ab8aa3d11067127bb0c74f736217245",
+            "sha256": "sha256-Bl7csR7fpU0XmdOA5gvPzVUhH7gJzBBvV+bAcd6HMNI=",
             "type": "github"
         },
-        "version": "86ebf99f4f1be5246d93f28e65f504fc6e0697e9"
+        "version": "7ff9e6479ab8aa3d11067127bb0c74f736217245"
     },
     "rime-moegirl": {
         "cargoLocks": null,
