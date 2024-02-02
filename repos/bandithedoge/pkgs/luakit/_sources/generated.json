@@ -1,7 +1,7 @@
 {
   "luakit": {
     "cargoLocks": null,
-    "date": "2024-01-30",
+    "date": "2024-02-01",
     "extract": null,
     "name": "luakit",
     "passthru": null,
@@ -13,10 +13,10 @@
       "name": null,
       "owner": "luakit",
       "repo": "luakit",
-      "rev": "a7e0cddaa590d44625adcaa7423bb68798d9a087",
-      "sha256": "sha256-uMoDI1y+ku+uB/dJCLONOGN3vhqgfR2/YBFUxjRtWYw=",
+      "rev": "26c253441532434b88f37d4385044ddd05148812",
+      "sha256": "sha256-yFuKy61rBKfY0ubQHBcizt5fmCH18EcYFXVyeafFoTY=",
       "type": "github"
     },
-    "version": "a7e0cddaa590d44625adcaa7423bb68798d9a087"
+    "version": "26c253441532434b88f37d4385044ddd05148812"
   }
 }
