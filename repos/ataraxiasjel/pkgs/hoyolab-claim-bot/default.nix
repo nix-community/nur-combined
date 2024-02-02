@@ -8,16 +8,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "hoyolab-claim-bot";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "AtaraxiaSjel";
     repo = "hoyolab-claim-bot";
     rev = "v${version}";
-    hash = "sha256-tvQ16nqEWKjqTjwhBvqPJjVaGlx5urytjWeaKnWtgdw=";
+    hash = "sha256-Cgv6qstlxUjygylD4Ii4r8OBjQ50i/ysd2yE0fKunL8=";
   };
 
-  cargoHash = "sha256-cV+z/qGA6eGuNNdag2MhDbYzsotKmYi3xJMxl/MvtS0=";
+  cargoHash = "sha256-xZ4DblznnTMhDKd5sELe9JMLn2bJClrwjLcXzvT6oOA=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ];
