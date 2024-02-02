@@ -322,6 +322,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       selenium = callPackage ./pkgs/python3/pkgs/selenium/selenium.nix { };
 
+      crx3 = callPackage ./pkgs/python3/pkgs/crx3/crx3.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
