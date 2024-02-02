@@ -63,11 +63,6 @@ let
             "/run/user"  #< particularly /run/user/$id/wayland-1, pulse, etc.
             "/run/secrets/home"  #< TODO: this could be restricted per-app based on the HOME paths they need
             "/usr/bin/env"
-            # /dev/dri/renderD128: requested by wayland-egl (e.g. KOreader, animatch, geary)
-            #   but everything seems to gracefully fallback to *something* (MESA software rendering?)
-            #   GPU attack surface is *large*: <https://security.stackexchange.com/questions/182501/modern-linux-gpu-driver-security>
-            # TODO: restrict /dev/dri to just the applications that actually benefit from it
-            # "/dev/dri" "/sys/dev/char" "/sys/devices" (lappy: "/sys/devices/pci0000:00")
           ] ++ sandbox.extraPaths;
         }
   );
@@ -295,6 +290,17 @@ let
           e.g. sandbox.capabilities = [ "net_admin" "net_raw" ];
         '';
       };
+      sandbox.whitelistDri = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow sandbox to access the kernel's /dev/dri interface(s).
+          this enables GPU acceleration, particularly for mesa applications,
+          however, this basically amounts to letting the sandbox send GPU-specific
+          commands directly to the GPU (or, its kernel module), which is a rather
+          broad and unaudited attack surface.
+        '';
+      };
       sandbox.extraPaths = mkOption {
         type = types.listOf types.str;
         default = [];
@@ -353,6 +359,14 @@ let
       #   can't populate it here because it varies per-user.
       # this gets the symlink into the sandbox, but not the actual secret.
       fs = lib.mapAttrs (_homePath: _secretSrc: {}) config.secrets;
+
+      sandbox.extraPaths = lib.mkIf config.sandbox.whitelistDri [
+        # /dev/dri/renderD128: requested by wayland-egl (e.g. KOreader, animatch, geary)
+        # - but everything seems to gracefully fallback to *something* (MESA software rendering?)
+        #   - CPU usage difference between playing videos in Gtk apps (e.g. fractal) with v.s. without DRI is 10% v.s. 90%.
+        # - GPU attack surface is *large*: <https://security.stackexchange.com/questions/182501/modern-linux-gpu-driver-security>
+        "/dev/dri" "/sys/dev/char" "/sys/devices" # (lappy: "/sys/devices/pci0000:00", moby needs something different)
+      ];
     };
   });
   toPkgSpec = with lib; types.coercedTo types.package (p: { package = p; }) pkgSpec;
