@@ -11,15 +11,15 @@
   };
   nixfmt = {
     pname = "nixfmt";
-    version = "d6930fd0c62c4d7ec9e4a814adc3d2f590d96271";
+    version = "c6417f77559570b099e5aa3a0f49a5c60ea17bac";
     src = fetchFromGitHub {
       owner = "piegamesde";
       repo = "nixfmt";
-      rev = "d6930fd0c62c4d7ec9e4a814adc3d2f590d96271";
+      rev = "c6417f77559570b099e5aa3a0f49a5c60ea17bac";
       fetchSubmodules = false;
-      sha256 = "sha256-lQxl/AqSktUzHrFTa9JeVcH935EmCV+1IpvFzNtvWcY=";
+      sha256 = "sha256-XwvofzNSwW4ywlQEra0EeMxbG5wnbb/2kbl8wa2oitI=";
     };
-    date = "2024-01-31";
+    date = "2024-02-02";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
@@ -59,15 +59,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "076ef4dca9e8fbcfa208f1a030c04209df82f0af";
+    version = "d977480e00cad217da9612d7ba38d104640a9c93";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "076ef4dca9e8fbcfa208f1a030c04209df82f0af";
+      rev = "d977480e00cad217da9612d7ba38d104640a9c93";
       fetchSubmodules = false;
-      sha256 = "sha256-sWGQY1deUPthx1xDlhYzz9yIIaMt2Oxy9UguLmDMAR4=";
+      sha256 = "sha256-Zss3Z8Xa1iZXc+1uWCKlnP5fIFthKDaT6DMF8ntnm2g=";
     };
-    date = "2024-01-25";
+    date = "2024-02-02";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
