@@ -1634,10 +1634,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.5.1";
+      version = "1.5.2";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228761/dearrow-1.5.1.xpi";
-      sha256 = "2682fd3f5060282d59c7c2409590d39267a504d03b7278c2787822f926d9b72a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229314/dearrow-1.5.2.xpi";
+      sha256 = "e22f497e352fa0946b4746de018c8c9af382c04b155a12ae5e89e5c4e1f73d77";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2267,10 +2267,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.70";
+      version = "6.1.71";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4215210/flagfox-6.1.70.xpi";
-      sha256 = "0a639b3eae2d69382f6415df51a5a6d64d67013e1f5618ea7496ae1fa7fc8ac5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229348/flagfox-6.1.71.xpi";
+      sha256 = "6a18d9ce27adb5c2cde53c473b0360985020c740c5055ebb77cfa4779957698d";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -3008,7 +3008,7 @@
       meta = with lib;
       {
         homepage = "http://grammarly.com";
-        description = "Improve your writing with Grammarly's communication assistance. Spell check, grammar check, and punctuation check in one tool. Real-time suggestions for improving tone and clarity help ensure your writing makes the impression you want.";
+        description = "Improve your writing with Grammarly's assistance. Get spell check, grammar check, and punctuation check in one tool. Real-time suggestions for improving tone and clarity help ensure your writing makes the impression you want.";
         license = {
           shortName = "grammarly";
           fullName = "Grammarly Terms of Service and License Agreement";
@@ -4373,10 +4373,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.1.8";
+      version = "1.1.9";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4225767/immersive_translate-1.1.8.xpi";
-      sha256 = "91655ebc5d92d8eb047eff3f06abaea02523ba0397d71415478cbf0958b08998";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229174/immersive_translate-1.1.9.xpi";
+      sha256 = "eae044f44e2711e76b385b584075436f5d5348a2685b134631de8e42131ddc24";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -4447,10 +4447,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.3.0";
+      version = "3.4.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4211982/indie_wiki_buddy-3.3.0.xpi";
-      sha256 = "bd241d015f4348cd5f0b4b7a3793942e0b9ef503fd4021c913296cc8af888fb3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4228881/indie_wiki_buddy-3.4.0.xpi";
+      sha256 = "3a7b63bec6e726b65afdf222e69dec8a69ac20e63cccd5770e02cdbd56f458a9";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -4459,7 +4459,6 @@
         mozPermissions = [
           "storage"
           "webRequest"
-          "declarativeNetRequest"
           "notifications"
           "scripting"
           "https://*.fandom.com/*"
@@ -8337,10 +8336,10 @@
     };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.0.11";
+      version = "2.0.14";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229200/rsshub_radar-2.0.11.xpi";
-      sha256 = "64e353d6d341b3e78bf0f336c9a625f845d017711ed9ca0cef43b4ce3bbb547e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4230388/rsshub_radar-2.0.14.xpi";
+      sha256 = "908e17408dd174760c12b6a1152cc7603d82e8df66ff3bd8db453bf0f9602a68";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
