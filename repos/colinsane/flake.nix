@@ -258,21 +258,23 @@
           sanePkgs = import ./pkgs { inherit pkgs; };
           deployScript = host: addr: action: pkgs.writeShellScript "deploy-${host}" ''
             nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} "$@"
-            sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result-${host})
+            storePath="$(readlink ./result-${host})"
+            sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey "$storePath"
+
+            # N.B.: `--fast` option here is critical to cross-compiled deployments: without it the build machine will try to invoke the host machine's `nix` binary.
+            # nixos-rebuild --flake '.#${host}' '${action}' --target-host colin@${addr} --use-remote-sudo "$@" --fast
+            # instead of `nixos-rebuild --target-host`, recreate its main parts in-line, below.
+            # the benefit is fewer nix evals, and more granularity for debugging/tweaking.
+            # `nixos-rebuild --target-host` effectively does:
+            # - nix-copy-closure ...
+            # - nix-env --set ...
+            # - switch-to-configuration <boot|dry-activate|switch|test|>
 
             # add more `-v` for more verbosity (up to 5).
             # i copy the closure here separately from the nixos-rebuild mostly for the sake of introspectability.
-            nix-copy-closure -v --gzip --to "${host}" ./result-${host}
-
-            # XXX: this triggers another config eval & (potentially) build.
-            # if the config changed between these invocations, the above signatures might not apply to the deployed config.
-            # let the user handle that edge case by re-running this whole command.
-            # N.B.: `--fast` option here is critical to cross-compiled deployments: without it the build machine will try to invoke the host machine's `nix` binary.
-            # TODO: solve this by replacing the nixos-build invocation with:
-            # - nix-copy-closure --to $host $result
-            # - on target: nix-env set -p /nix/var/nix/profiles/system $result
-            # - on target: $result/bin/switch-to-configuration
-            nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${addr} --use-remote-sudo "$@" --fast
+            nix-copy-closure -v --gzip --to '${host}' "$storePath"
+            ssh '${host}' sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath"
+            ssh '${host}' sudo "$storePath/bin/switch-to-configuration" '${action}'
           '';
           deployApp = host: addr: action: {
             type = "app";
