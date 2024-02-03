@@ -10,10 +10,10 @@
 
 * [authentik](https://goauthentik.io/), open-source Identity Provider focused on flexibility and versatility. Available as [services.authentik](modules/authentik.nix).
 
-* [homepage](https://goauthentik.io/), a modern, fully static, fast, secure fully proxied, highly customizable application dashboard. Available as [services.homepage-dashboard](modules/homepage.nix).
+* [homepage](https://gethomepage.dev/), a modern, fully static, fast, secure fully proxied, highly customizable application dashboard. Available as [services.homepage-dashboard](modules/homepage.nix).
 Disables NixOS's homepage-dashboard service.
 
-* [hoyolab-claim-bot](https://goauthentik.io/), hoyolab daily claim bot for Hoyoverse games. Available as [services.hoyolab-claim-bot](modules/hoyolab.nix).
+* [hoyolab-claim-bot](https://github.com/AtaraxiaSjel/hoyolab-claim-bot/), hoyolab daily claim bot for Hoyoverse games. Available as [services.hoyolab-claim-bot](modules/hoyolab.nix).
 
 * [kes](https://github.com/minio/kes), Key Managament Server for Object Storage and more. Available as [services.kes](modules/kes.nix).
 
