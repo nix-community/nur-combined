@@ -4296,6 +4296,21 @@
         platforms = platforms.all;
       };
     };
+    "hulu-ad-blocker" = buildFirefoxXpiAddon {
+      pname = "hulu-ad-blocker";
+      version = "1.0.0";
+      addonId = "{a1541a5e-68f8-480d-8f10-784f93079060}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3933295/hulu_ad_blocker_firefox-1.0.0.xpi";
+      sha256 = "c741eeac7c8f13af4bb5d5fdafa0b4f7f90d137f5604d28b03ad344832e2ab1d";
+      meta = with lib;
+      {
+        homepage = "https://www.huluadblocker.com";
+        description = "Block All Hulu Ads, Stream Freely!";
+        license = licenses.mpl20;
+        mozPermissions = [ "https://*/*" "http://*/*" ];
+        platforms = platforms.all;
+      };
+    };
     "i-auto-fullscreen" = buildFirefoxXpiAddon {
       pname = "i-auto-fullscreen";
       version = "2.0.4";
@@ -7997,6 +8012,20 @@
         platforms = platforms.all;
       };
     };
+    "purpleadblock" = buildFirefoxXpiAddon {
+      pname = "purpleadblock";
+      version = "2.6.4";
+      addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4230431/purpleadblock-2.6.4.xpi";
+      sha256 = "b2519095ce4bc93e82b5886ba89fd67b367955cc899652ec76a942bcebddc921";
+      meta = with lib;
+      {
+        description = "Purple AdBlock is a adblock for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/45c441178c2a4b8efed92eca84091cb4171a2c325f054a4351164ea9d10563f8/http%3A//Twitch.tv\" rel=\"nofollow\">Twitch.tv</a>";
+        license = licenses.gpl3;
+        mozPermissions = [ "https://*.twitch.tv/*" "activeTab" "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "pushbullet" = buildFirefoxXpiAddon {
       pname = "pushbullet";
       version = "366";
@@ -9482,6 +9511,33 @@
         platforms = platforms.all;
       };
     };
+    "to-google-translate" = buildFirefoxXpiAddon {
+      pname = "to-google-translate";
+      version = "4.2.0";
+      addonId = "jid1-93WyvpgvxzGATw@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3798719/to_google_translate-4.2.0.xpi";
+      sha256 = "1b3b22b3d50fe101e76e931ec2a0207b547f272c970db72b7ed72d4ff065f2d6";
+      meta = with lib;
+      {
+        homepage = "https://github.com/itsecurityco/to-google-translate";
+        description = "Right-click a section of text and click the Translate icon next to it to text translate or listen to it in your language.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "http://*/*"
+          "https://*/*"
+          "contextMenus"
+          "storage"
+          "webRequest"
+          "webRequestBlocking"
+          "tabs"
+          "*://translate.google.com/*"
+          "*://translate.google.cn/*"
+          "*://translate.googleusercontent.com/*"
+          "*://translate.googleusercontent.cn/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "tokyo-night-v2" = buildFirefoxXpiAddon {
       pname = "tokyo-night-v2";
       version = "1.0";
@@ -10188,6 +10244,21 @@
         description = "Get free text of research papers as you browse, using Unpaywall's index of ten million legal, open-access articles.";
         license = licenses.mit;
         mozPermissions = [ "*://*.oadoi.org/*" "storage" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
+    "unwanted-twitch" = buildFirefoxXpiAddon {
+      pname = "unwanted-twitch";
+      version = "23.10.17";
+      addonId = "unwanted@twitch.tv";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4182683/unwanted_twitch-23.10.17.xpi";
+      sha256 = "33749d909c04897e48098aea68ab685077faec89b5f8a96eaf0e5d8b75c9df9a";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kwaschny/unwanted-twitch";
+        description = "Hide unwanted streams, games, categories, channels and tags on: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/467fe07ac13c13856de8dd6315fd58ddc3356ad980bae2d20314f29ad039768e/http%3A//twitch.tv\" rel=\"nofollow\">twitch.tv</a>";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "https://www.twitch.tv/*" ];
         platforms = platforms.all;
       };
     };
