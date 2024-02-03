@@ -16,7 +16,6 @@ in rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   # Soundfonts
-  soundfont-arachno = p ./pkgs/soundfonts/arachno { };
   soundfont-touhou = p ./pkgs/soundfonts/touhou { };
 
   # Games (Native)
