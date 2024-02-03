@@ -8,7 +8,13 @@ set -eu
 var_prefix="$1"; shift
 node="$1"; shift
 
-item=`cat /run/secrets/ssh-alias | grep -e "^$node" | sed 's;[^ ]*[ ]*\([^$]*\);\1;' | head -n 1`
+item="$({
+    cat /run/secrets/ssh-alias
+    for host in riverwood whiterun; do
+        echo $host lucasew@$host:22
+    done
+} | grep -e "^$node" | sed 's;[^ ]*[ ]*\([^$]*\);\1;' | head -n 1
+)"
 
 # printf "'%s'\n" $item >&2
 
