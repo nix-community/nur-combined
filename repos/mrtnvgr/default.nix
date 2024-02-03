@@ -45,11 +45,6 @@ in rec {
   cascadia-code-nerd-font = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
   cascadia-mono-nerd-font = (pkgs.nerdfonts.override { fonts = [ "CascadiaMono" ]; });
 
-  wine-custom = pkgs.wineWowPackages.stagingFull.override {
-    alsaSupport = true;
-    gtkSupport = true;
-  };
-
   # Misc
 
   reaper-sws-extension = p ./pkgs/misc/reaper-sws-extension { };
