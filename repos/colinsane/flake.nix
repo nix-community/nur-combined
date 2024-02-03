@@ -262,7 +262,7 @@
             sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey "$storePath"
 
             # N.B.: `--fast` option here is critical to cross-compiled deployments: without it the build machine will try to invoke the host machine's `nix` binary.
-            # nixos-rebuild --flake '.#${host}' '${action}' --target-host colin@${addr} --use-remote-sudo "$@" --fast
+            # nixos-rebuild --flake '.#${host}' <action> --target-host colin@${addr} --use-remote-sudo "$@" --fast
             # instead of `nixos-rebuild --target-host`, recreate its main parts in-line, below.
             # the benefit is fewer nix evals, and more granularity for debugging/tweaking.
             # `nixos-rebuild --target-host` effectively does:
@@ -272,9 +272,11 @@
 
             # add more `-v` for more verbosity (up to 5).
             # i copy the closure here separately from the nixos-rebuild mostly for the sake of introspectability.
-            nix-copy-closure -v --gzip --to '${host}' "$storePath"
-            ssh '${host}' sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath"
-            ssh '${host}' sudo "$storePath/bin/switch-to-configuration" '${action}'
+            nix-copy-closure -v --gzip --to '${addr}' "$storePath"
+            ${pkgs.lib.optionalString (action != null) ''
+              ssh '${addr}' sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath"
+              ssh '${addr}' sudo "$storePath/bin/switch-to-configuration" '${action}'
+            ''}
           '';
           deployApp = host: addr: action: {
             type = "app";
@@ -348,7 +350,11 @@
                 - `nix run '.#update.feeds'`
                   - updates metadata for all feeds
                 - `nix run '.#init-feed' <url>`
-                - `nix run '.#deploy.{desko,lappy,moby,servo}[-light][.test]' [nixos-rebuild args ...]`
+                - `nix run '.#deploy.{desko,lappy,moby,servo}[-light|-test]' [nix args ...]`
+                  - build and deploy the host
+                - `nix run '.#preDeploy.{desko,lappy,moby,servo}[-light]' [nix args ...]`
+                  - copy closures to a host, but don't activate it
+                  - or `nix run '.#preDeploy'` to target all hosts
                 - `nix run '.#check'`
                   - make sure all systems build; NUR evaluates
 
@@ -377,12 +383,42 @@
           };
 
           deploy = {
+            desko       = deployApp "desko"       "desko" "switch";
+            desko-light = deployApp "desko-light" "desko" "switch";
             lappy       = deployApp "lappy"       "lappy" "switch";
             lappy-light = deployApp "lappy-light" "lappy" "switch";
             moby        = deployApp "moby"        "moby"  "switch";
             moby-light  = deployApp "moby-light"  "moby"  "switch";
             moby-test   = deployApp "moby"        "moby"  "test";
             servo       = deployApp "servo"       "servo" "switch";
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "deploy-all" ''
+              nix run '.#deploy.lappy'
+              nix run '.#deploy.moby'
+              nix run '.#deploy.desko'
+              nix run '.#deploy.servo'
+            '');
+          };
+          preDeploy = {
+            # build the host and copy the runtime closure to that host, but don't activate it.
+            desko       = deployApp "desko"       "desko" null;
+            desko-light = deployApp "desko-light" "desko" null;
+            lappy       = deployApp "lappy"       "lappy" null;
+            lappy-light = deployApp "lappy-light" "lappy" null;
+            moby        = deployApp "moby"        "moby"  null;
+            moby-light  = deployApp "moby-light"  "moby"  null;
+            servo       = deployApp "servo"       "servo" null;
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "predeploy-all" ''
+              # copy the -light variants first; this might be run while waiting on a full build. or the full build failed.
+              nix run '.#preDeploy.moby-light' -- "$@"
+              nix run '.#preDeploy.lappy-light' -- "$@"
+              nix run '.#preDeploy.desko-light' -- "$@"
+              nix run '.#preDeploy.lappy' -- "$@"
+              nix run '.#preDeploy.servo' -- "$@"
+              nix run '.#preDeploy.moby' -- "$@"
+              nix run '.#preDeploy.desko' -- "$@"
+            '');
           };
 
           sync = {
