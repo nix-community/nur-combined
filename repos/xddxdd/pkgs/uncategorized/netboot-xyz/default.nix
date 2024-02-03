@@ -9,8 +9,8 @@ assert (sources.netboot-xyz-lkrn.version == sources.netboot-xyz-lkrn.version);
     pname = "netboot-xyz";
     inherit (sources.netboot-xyz-lkrn) version;
 
-    phases = ["installPhase"];
-    installPhase = ''
+    dontUnpack = true;
+    postInstall = ''
       mkdir $out
       cp ${sources.netboot-xyz-efi.src} $out/netboot.xyz.efi
       cp ${sources.netboot-xyz-lkrn.src} $out/netboot.xyz.lkrn

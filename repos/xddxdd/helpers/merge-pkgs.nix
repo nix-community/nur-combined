@@ -1,7 +1,7 @@
 {
-  stdenv,
   lib,
   enableWrapper,
+  runCommand,
   ...
 }: packages:
 # Utility to build all derivations in `packages`.
@@ -12,14 +12,9 @@ in
   (
     if enableWrapper
     then
-      (stdenv.mkDerivation {
-        name = "merged-packages";
-        phases = ["installPhase"];
-        installPhase =
-          ''
-            mkdir -p $out
-          ''
-          + lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "ln -s ${v} $out/${k}") packages');
+      runCommand
+      "merged-packages"
+      {
         passthru = packages;
 
         meta = let
@@ -53,7 +48,11 @@ in
             }
             else {}
           );
-      })
+      }
+      (''
+          mkdir -p $out
+        ''
+        + lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "ln -s ${v} $out/${k}") packages'))
     else packages
   )
   // {

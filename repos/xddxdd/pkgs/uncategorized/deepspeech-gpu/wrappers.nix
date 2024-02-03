@@ -34,8 +34,8 @@ in
 
     buildInputs = [makeWrapper];
 
-    phases = ["installPhase"];
-    installPhase = ''
+    dontUnpack = true;
+    postInstall = ''
       mkdir -p $out/bin
 
       makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-en \

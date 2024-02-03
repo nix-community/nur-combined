@@ -28,8 +28,8 @@
 in
   stdenvNoCC.mkDerivation {
     inherit (sources.cloudpan189-go) pname version;
-    phases = ["installPhase"];
-    installPhase = ''
+    dontUnpack = true;
+    postInstall = ''
       mkdir -p $out/bin
       ln -s ${startScript} $out/bin/cloudpan189-go
     '';

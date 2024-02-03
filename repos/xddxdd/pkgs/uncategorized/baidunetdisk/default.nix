@@ -72,7 +72,7 @@ in
   stdenv.mkDerivation {
     pname = "baidunetdisk";
     version = "4.17.7";
-    phases = ["installPhase"];
+    dontUnpack = true;
 
     nativeBuildInputs = [makeWrapper copyDesktopItems];
     postInstall = ''
