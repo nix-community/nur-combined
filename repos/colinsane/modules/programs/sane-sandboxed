@@ -63,11 +63,17 @@ urldecode() {
   echo -e "${_//%/\\x}"
 }
 
+# return the path to this file or directory's parent, even if the input doesn't exist.
+parent() {
+  realpath --logical --no-symlinks --canonicalize-missing "$1/.."
+}
+
 # if the argument looks path-like, then add it to cliPathArgs.
 # this function ingests absolute, relative, or file:///-type URIs.
 # but it converts any such path into an absolute path before adding it to cliPathArgs.
 tryArgAsPath() {
   _arg="$1"
+  _how="$2"
   _path=
   if [ "${_arg:0:1}" = "/" ]; then
     # absolute path
@@ -84,6 +90,14 @@ tryArgAsPath() {
 
   if [ -e "$_path" ]; then
     cliPathArgs+=("$_path")
+  elif [ "$_how" = "existingFileOrParent" ]; then
+    # the path doesn't exist, but that's because the program might create it.
+    if [ "${_path:0:1}" = "-" ]; then
+      # 99% chance it's a CLI argument. if not, use `./-<...>`
+      return
+    elif [ -e "$(parent "$_path/..")" ]; then
+      cliPathArgs+=("$_path/..")
+    fi
   fi
 }
 
@@ -148,7 +162,8 @@ parseArgs() {
         # this is handy for e.g. media players or document viewers.
         # it's best combined with some two-tiered thing.
         #   e.g. first drop to the broadest path set of interest (Music,Videos,tmp, ...), then drop via autodetect.
-        autodetect=1
+        autodetect="$1"
+        shift
         ;;
       (--sane-sandbox-cap)
         _cap="$1"
@@ -381,7 +396,7 @@ capshonlyExec() {
 maybeAutodetectPaths() {
   if [ -n "$autodetect" ]; then
     for _arg in "${cliArgs[@]:1}"; do
-      tryArgAsPath "$_arg"
+      tryArgAsPath "$_arg" "$autodetect"
     done
     for _path in "${cliPathArgs[@]}"; do
       # TODO: might want to also mount the directory *above* this file,

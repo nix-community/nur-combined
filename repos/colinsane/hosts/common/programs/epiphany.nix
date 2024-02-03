@@ -10,14 +10,13 @@
   sane.programs.epiphany = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  # /share/epiphany/default-bookmarks.rdf refers back to /share; dbus files to /libexec
-    sandbox.extraConfig = [
-      # default sandboxing breaks rendering in weird ways. sites are super zoomed in / not scaled.
-      # enabling DRM (as below) seems to fix that.
-      "--sane-sandbox-path" "/dev/dri"
-      "--sane-sandbox-path" "/sys/dev/char"
-      "--sane-sandbox-path" "/sys/devices"
+    # default sandboxing breaks rendering in weird ways. sites are super zoomed in / not scaled.
+    # enabling DRI/DRM (as below) seems to fix that.
+    sandbox.whitelistDri = true;
+    sandbox.extraHomePaths = [
+      "tmp"
     ];
-    fs."tmp" = {};
+
     # XXX(2023/07/08): running on moby without `WEBKIT_DISABLE_SANDBOX...` fails, with:
     # - `bwrap: Can't make symlink at /var/run: File exists`
     # this could be due to:

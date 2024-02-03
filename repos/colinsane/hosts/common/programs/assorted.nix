@@ -255,7 +255,7 @@ in
 
     ffmpeg.sandbox.method = "bwrap";
     ffmpeg.sandbox.wrapperType = "wrappedDerivation";  # slow to build
-    ffmpeg.sandbox.autodetectCliPaths = true;
+    ffmpeg.sandbox.autodetectCliPaths = "existingFileOrParent";  # it outputs uncreated files -> parent dir needs mounting
 
     file.sandbox.method = "bwrap";
     file.sandbox.wrapperType = "wrappedDerivation";
@@ -303,7 +303,7 @@ in
 
     nano.sandbox.method = "bwrap";
     nano.sandbox.wrapperType = "wrappedDerivation";
-    nano.sandbox.autodetectCliPaths = true;
+    nano.sandbox.autodetectCliPaths = "existingFileOrParent";
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
@@ -314,7 +314,7 @@ in
 
     rsync.sandbox.method = "bwrap";  # TODO:sandbox: untested
     rsync.sandbox.wrapperType = "wrappedDerivation";
-    rsync.sandbox.autodetectCliPaths = true;
+    rsync.sandbox.autodetectCliPaths = "existingFileOrParent";
 
     sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested
     sequoia.sandbox.wrapperType = "wrappedDerivation";  # slow to build
@@ -351,7 +351,7 @@ in
 
     tcpdump.sandbox.method = "landlock";
     tcpdump.sandbox.wrapperType = "wrappedDerivation";
-    tcpdump.sandbox.autodetectCliPaths = true;
+    tcpdump.sandbox.autodetectCliPaths = "existingFileOrParent";
     tcpdump.sandbox.capabilities = [ "net_admin" "net_raw" ];
     tree.sandbox.method = "landlock";
     tree.sandbox.wrapperType = "wrappedDerivation";
@@ -360,7 +360,7 @@ in
 
     unzip.sandbox.method = "bwrap";
     unzip.sandbox.wrapperType = "wrappedDerivation";
-    unzip.sandbox.autodetectCliPaths = true;
+    unzip.sandbox.autodetectCliPaths = "existingFileOrParent";
     unzip.sandbox.whitelistPwd = true;
 
     visidata.sandbox.method = "bwrap";  # TODO:sandbox: untested

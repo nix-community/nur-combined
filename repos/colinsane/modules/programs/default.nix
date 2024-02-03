@@ -43,7 +43,17 @@ let
       in
         makeSandboxed {
           inherit pkgName package;
-          inherit (sandbox) autodetectCliPaths binMap capabilities embedProfile embedSandboxer extraConfig method whitelistPwd wrapperType;
+          inherit (sandbox)
+            autodetectCliPaths
+            binMap
+            capabilities
+            embedProfile
+            embedSandboxer
+            extraConfig
+            method
+            whitelistPwd
+            wrapperType
+          ;
           vpn = if net == "vpn" then vpn else null;
           allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths ++ [
             ".config/mimeo"  #< TODO: required, until i fully integrate xdg-open into sandboxing. else, `xdg-open https://...` inifinite-loops.
@@ -259,10 +269,15 @@ let
         '';
       };
       sandbox.autodetectCliPaths = mkOption {
-        type = types.bool;
-        default = false;
+        type = types.coercedTo types.bool
+          (b: if b then "existing" else null)
+          (types.nullOr (types.enum [ "existing" "existingFileOrParent" ]));
+        default = null;
         description = ''
           if a CLI argument looks like a PATH, should we add it to the sandbox?
+          - null => never
+          - "existing" => only if the file exists
+          - "existingFileOrParent" => add the file if it exists; if not, add its parent if that exists. useful for programs which create files.
         '';
       };
       sandbox.whitelistPwd = mkOption {

@@ -199,87 +199,89 @@ let
     };
   });
 
-in
-{ pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? false, binMap ? {}, capabilities ? [], embedProfile ? false, embedSandboxer ? false, extraConfig ? [], whitelistPwd ? false }:
-let
-  sane-sandboxed' = if embedSandboxer then
-    # optionally hard-code the sandboxer. this forces rebuilds, but allows deep iteration w/o deploys.
-    lib.getExe sane-sandboxed
-  else
-    #v prefer to load by bin name to reduce rebuilds
-    sane-sandboxed.meta.mainProgram
-  ;
+  make-sandboxed = { pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? null, binMap ? {}, capabilities ? [], embedProfile ? false, embedSandboxer ? false, extraConfig ? [], whitelistPwd ? false }@args:
+  let
+    sane-sandboxed' = if embedSandboxer then
+      # optionally hard-code the sandboxer. this forces rebuilds, but allows deep iteration w/o deploys.
+      lib.getExe sane-sandboxed
+    else
+      #v prefer to load by bin name to reduce rebuilds
+      sane-sandboxed.meta.mainProgram
+    ;
 
-  allowPath = p: [
-    "--sane-sandbox-path"
-    p
-  ];
-  allowHomePath = p: [
-    "--sane-sandbox-home-path"
-    p
-  ];
-  allowPaths = paths: lib.flatten (builtins.map allowPath paths);
-  allowHomePaths = paths: lib.flatten (builtins.map allowHomePath paths);
+    allowPath = p: [
+      "--sane-sandbox-path"
+      p
+    ];
+    allowHomePath = p: [
+      "--sane-sandbox-home-path"
+      p
+    ];
+    allowPaths = paths: lib.flatten (builtins.map allowPath paths);
+    allowHomePaths = paths: lib.flatten (builtins.map allowHomePath paths);
 
-  capabilityFlags = lib.flatten (builtins.map (c: [ "--sane-sandbox-cap" c ]) capabilities);
+    capabilityFlags = lib.flatten (builtins.map (c: [ "--sane-sandbox-cap" c ]) capabilities);
 
-  vpnItems = [
-    "--sane-sandbox-net"
-    vpn.bridgeDevice
-  ] ++ lib.flatten (builtins.map (addr: [
-    "--sane-sandbox-dns"
-    addr
-  ]) vpn.dns);
+    vpnItems = [
+      "--sane-sandbox-net"
+      vpn.bridgeDevice
+    ] ++ lib.flatten (builtins.map (addr: [
+      "--sane-sandbox-dns"
+      addr
+    ]) vpn.dns);
 
-  sandboxFlags = [
-    "--sane-sandbox-method" method
-  ] ++ allowPaths allowedRootPaths
-    ++ allowHomePaths allowedHomePaths
-    ++ capabilityFlags
-    ++ lib.optionals autodetectCliPaths [ "--sane-sandbox-autodetect" ]
-    ++ lib.optionals whitelistPwd [ "--sane-sandbox-add-pwd" ]
-    ++ lib.optionals (vpn != null) vpnItems
-    ++ extraConfig;
+    sandboxFlags = [
+      "--sane-sandbox-method" method
+    ] ++ allowPaths allowedRootPaths
+      ++ allowHomePaths allowedHomePaths
+      ++ capabilityFlags
+      ++ lib.optionals (autodetectCliPaths != null) [ "--sane-sandbox-autodetect" autodetectCliPaths ]
+      ++ lib.optionals whitelistPwd [ "--sane-sandbox-add-pwd" ]
+      ++ lib.optionals (vpn != null) vpnItems
+      ++ extraConfig;
 
-  sandboxProfilesPkg = writeTextFile {
-    name = "${pkgName}-sandbox-profiles";
-    destination = "/share/sane-sandboxed/profiles/${pkgName}.profile";
-    text = builtins.concatStringsSep "\n" sandboxFlags;
-  };
-  sandboxProfileDir = "${sandboxProfilesPkg}/share/sane-sandboxed/profiles";
+    sandboxProfilesPkg = writeTextFile {
+      name = "${pkgName}-sandbox-profiles";
+      destination = "/share/sane-sandboxed/profiles/${pkgName}.profile";
+      text = builtins.concatStringsSep "\n" sandboxFlags;
+    };
+    sandboxProfileDir = "${sandboxProfilesPkg}/share/sane-sandboxed/profiles";
 
-  maybeEmbedProfilesDir = lib.optionalString embedProfile ''"--sane-sandbox-profile-dir" "${sandboxProfileDir}"'';
+    maybeEmbedProfilesDir = lib.optionalString embedProfile ''"--sane-sandbox-profile-dir" "${sandboxProfileDir}"'';
 
-  # two ways i could wrap a package in a sandbox:
-  # 1. package.overrideAttrs, with `postFixup`.
-  # 2. pkgs.symlinkJoin, creating an entirely new package which calls into the inner binaries.
-  #
-  # here we switch between the options.
-  # regardless of which one is chosen here, all other options are exposed via `passthru`.
-  sandboxedBy = {
-    inplace = sandboxBinariesInPlace
-      binMap
-      sane-sandboxed'
-      maybeEmbedProfilesDir
-      pkgName
-      (makeHookable package);
-
-    wrappedDerivation = let
-      binaries = sandboxBinariesInPlace
+    # two ways i could wrap a package in a sandbox:
+    # 1. package.overrideAttrs, with `postFixup`.
+    # 2. pkgs.symlinkJoin, creating an entirely new package which calls into the inner binaries.
+    #
+    # here we switch between the options.
+    # regardless of which one is chosen here, all other options are exposed via `passthru`.
+    sandboxedBy = {
+      inplace = sandboxBinariesInPlace
         binMap
         sane-sandboxed'
         maybeEmbedProfilesDir
         pkgName
-        (symlinkBinaries pkgName package);
-      nonBinaries = copyNonBinaries pkgName package binaries;
-    in symlinkJoin {
-      name = "${pkgName}-sandboxed-all";
-      paths = [ binaries nonBinaries ];
-      passthru = { inherit binaries nonBinaries; };
+        (makeHookable package);
+
+      wrappedDerivation = let
+        binaries = sandboxBinariesInPlace
+          binMap
+          sane-sandboxed'
+          maybeEmbedProfilesDir
+          pkgName
+          (symlinkBinaries pkgName package);
+        nonBinaries = copyNonBinaries pkgName package binaries;
+      in symlinkJoin {
+        name = "${pkgName}-sandboxed-all";
+        paths = [ binaries nonBinaries ];
+        passthru = { inherit binaries nonBinaries; };
+      };
     };
-  };
-  packageWrapped = sandboxedBy."${wrapperType}";
-in
-  fixupMetaAndPassthru pkgName packageWrapped sandboxProfilesPkg {
-    inherit sandboxedBy;
-  }
+    packageWrapped = sandboxedBy."${wrapperType}";
+  in
+    fixupMetaAndPassthru pkgName packageWrapped sandboxProfilesPkg {
+      inherit sandboxedBy;
+      withEmbeddedSandboxer = make-sandboxed (args // { embedSandboxer = true; });
+    }
+  ;
+in make-sandboxed

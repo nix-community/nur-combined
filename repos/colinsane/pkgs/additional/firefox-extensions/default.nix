@@ -153,8 +153,9 @@ in (lib.makeScope newScope (self: with self; {
       extid = "{3c078156-979c-498b-8990-85f7987dd929}";
       pname = "sidebery";
       # N.B.: unsure if this URL format is stable
+      # 2024/02/02: nope, dev is inconsistent with releases
       url = "https://github.com/mbnuqw/sidebery/releases/download/v${version}/sidebery-${version}-unsigned.zip";
-      version = "5.1.1";
+      version = "5.0.0";
       hash = "sha256-tHTU/l8ct+tY1/H+nZf3VlMlwoYn68+0pgeuFzm91XY=";
     };
     sponsorblock = fetchVersionedAddon rec {

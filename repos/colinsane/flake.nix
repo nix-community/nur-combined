@@ -422,6 +422,8 @@
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-moby" ''
               sudo mount /mnt/moby-home
+              sudo mount /mnt/desko-home
+              ${pkgs.rsync}/bin/rsync -arv --exclude servo-macros /mnt/moby-home/Pictures/ /mnt/desko-home/Pictures/moby/
               # N.B.: limited by network/disk -> reduce job count to improve pause/resume behavior
               ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat --jobs 4 /mnt/servo-media/Music /mnt/moby-home/Music "$@"
             '');
