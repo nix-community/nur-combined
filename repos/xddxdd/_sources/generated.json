@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-02-01",
+        "date": "2024-02-02",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "45f5ecc8ad9cb3059d08b5fe0212b527bf0fb9e0",
-            "sha256": "sha256-2Aj7cHLhLm9FTPGfHET2p0Ev0xsfRUdd8IlMcJoW/6M=",
+            "rev": "a171e3d62bcbba54a6275a69501f81e19daafa6a",
+            "sha256": "sha256-cthR2JFuQFhwS4fGTvnS5b4xHUdThVkhMuNppDabRFs=",
             "type": "github"
         },
-        "version": "45f5ecc8ad9cb3059d08b5fe0212b527bf0fb9e0"
+        "version": "a171e3d62bcbba54a6275a69501f81e19daafa6a"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -878,7 +878,7 @@
     },
     "librime-lua": {
         "cargoLocks": null,
-        "date": "2024-01-30",
+        "date": "2024-02-02",
         "extract": null,
         "name": "librime-lua",
         "passthru": null,
@@ -890,11 +890,11 @@
             "name": null,
             "owner": "hchunhui",
             "repo": "librime-lua",
-            "rev": "265e1cca0ecb52a26f95e4a539b51714721617a4",
-            "sha256": "sha256-lsz5CYqzT6LLjS3CXYnwmDnZch1eGHxqk1/3scHzU1c=",
+            "rev": "a29897dc3dd47b2849d5ed59c81261449842bd53",
+            "sha256": "sha256-4hpLzPxt+LX7zFuA0w4KySQ7MRcchZ3vZwqsdhzxSjw=",
             "type": "github"
         },
-        "version": "265e1cca0ecb52a26f95e4a539b51714721617a4"
+        "version": "a29897dc3dd47b2849d5ed59c81261449842bd53"
     },
     "librime-octagram": {
         "cargoLocks": null,
@@ -1303,7 +1303,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-01-23",
+        "date": "2024-02-02",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1315,11 +1315,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "7b21bd3bf35ba5fec53d5e5ab20f071b8afcd8b8",
-            "sha256": "sha256-LXNBiKyCT2z9+UyHjr8cGOb/oYJOB2PlRXEsz2ZDnnY=",
+            "rev": "24f98e8274becb49b33bf94ef07d5dbae7c35fdc",
+            "sha256": "sha256-riWQ5qM4vvmRb1gALDQvIVCthCm5v0oIMtsmuJknoGA=",
             "type": "github"
         },
-        "version": "7b21bd3bf35ba5fec53d5e5ab20f071b8afcd8b8"
+        "version": "24f98e8274becb49b33bf94ef07d5dbae7c35fdc"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1643,7 +1643,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-02-02",
+        "date": "2024-02-03",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1655,11 +1655,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "7ff9e6479ab8aa3d11067127bb0c74f736217245",
-            "sha256": "sha256-Bl7csR7fpU0XmdOA5gvPzVUhH7gJzBBvV+bAcd6HMNI=",
+            "rev": "c8652325610acbbf97928883e9cc5077d606c884",
+            "sha256": "sha256-reka0lqqy8E+j3YrOltwumyxPy9DmPlRFNq6uCo/Ues=",
             "type": "github"
         },
-        "version": "7ff9e6479ab8aa3d11067127bb0c74f736217245"
+        "version": "c8652325610acbbf97928883e9cc5077d606c884"
     },
     "rime-moegirl": {
         "cargoLocks": null,
