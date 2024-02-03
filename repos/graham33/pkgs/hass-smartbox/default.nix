@@ -18,14 +18,14 @@
 buildHomeAssistantComponent rec {
   owner = "graham33";
   domain = "smartbox";
-  version = "2.0.0-pre+c02086";
+  version = "2.0.0-pre+500fbd";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "graham33";
     repo = "hass-smartbox";
-    rev = "c0208634c8c63dbab064573f2bb570e7cfd484c1";
-    sha256 = "100wj7chg3i89p67mrc2y9i029b4cwhhdzfnigdlh2ar9h4xx67p";
+    rev = "500fbd50e832d7245e093493aba840217a40b0aa";
+    sha256 = "07nyfgxracn7rmhk5xr3xhwk99c4q096ww0nc6y9vp6a2xi2m7vq";
   };
 
   propagatedBuildInputs = [
