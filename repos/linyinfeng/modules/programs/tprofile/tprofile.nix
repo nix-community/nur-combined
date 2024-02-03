@@ -15,11 +15,9 @@ in
   };
 
   config = lib.mkIf (cfg.enable) {
-    system.activationScripts.tprofile = lib.stringAfter [ "users" "groups" ]
-      ''
-        echo "setting up /run/tprofile..."
-        mkdir --parents --mode=777 /run/tprofile
-      '';
+    systemd.tmpfiles.rules = [
+        "d /run/tprofile 777 root root - -"
+      ];
     programs.bash.interactiveShellInit = ''
       source ${./tprofile.bash};
     '';
