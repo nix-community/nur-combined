@@ -36,7 +36,7 @@ Build NUR:
     - nix --experimental-features 'nix-command' eval -f default.nix ndModules
     - nix --experimental-features 'nix-command' eval -f default.nix overlays
     - |
-      if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then
+      if [ "$CI_COMMIT_REF_NAME" = "master" -a -n "$CACHIX_SIGNING_KEY" ] ; then
         nix-build ci.nix -A cacheOutputs | cachix push rycee
         curl -sfSL -XPOST https://nur-update.nix-community.org/update?repo=rycee || true
       else
