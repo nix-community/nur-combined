@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "emitter";
-  version = "3.0";
+  version = "3.1";
 
   src = fetchFromGitHub {
     owner = "emitter-io";
     repo = "emitter";
     rev = "v${version}";
-    hash = "sha256-oLTAWw6JgW8yF+pvAhQtaATvOpA/8tKN+pGZQXYYv6c=";
+    hash = "sha256-eWBgRG0mLdiJj1TMSAxYPs+8CqLNaFUOW6/ghDn/zKE=";
   };
 
-  vendorHash = "sha256-5BeYdznpopkz4XhdKu5MXZ5qhpHntAe+h17XsKLrGd0=";
+  vendorHash = "sha256-6K9KAvb+05nn2pFuVDiQ9IHZWpm+q01su6pl7CxXxBY=";
 
   preCheck = ''
     export HOME=$TMPDIR

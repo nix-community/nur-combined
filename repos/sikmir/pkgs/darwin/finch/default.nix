@@ -27,17 +27,17 @@ let
 in
 buildGoModule rec {
   pname = "finch";
-  version = "1.0.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "runfinch";
     repo = "finch";
     rev = "v${version}";
-    hash = "sha256-vCucOIbePR7WkQR7xr71wyvYgLQgAinH2YxK+YzP/8c=";
+    hash = "sha256-idZFqE99rT98okO4XPJcKCsn2TrdewEn1KeVtl6uLSE=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-GjTsS0VSjWTlopLQa8LfL+P5z1qrliWXKXn2i2c2UHo=";
+  vendorHash = "sha256-BxGaWDFnOjHFDTqpK8Q4FWiIwndWxqKxl0TuDyGJHpU=";
 
   subPackages = [ "cmd/finch" ];
 
