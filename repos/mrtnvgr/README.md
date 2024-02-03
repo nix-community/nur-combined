@@ -27,3 +27,4 @@
 - **obs-wayland** - obs with plugins for wayland and pipewire support
 - **cascadia-code-nerd-font** - Cascadia Code with Nerd Font symbols
 - **cascadia-mono-nerd-font** - Cascadia Mono with Nerd Font symbols
+- **wine-custom** - wine-staging package with some extra stuff enabled
