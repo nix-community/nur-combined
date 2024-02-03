@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, php, perl, git, pkg-config, gtk3 }:
 stdenv.mkDerivation {
-  pname = "sws-reaper-extension";
+  pname = "reaper-sws-extension";
   version = "1.3.2";
 
   src = fetchFromGitHub {
