@@ -23,7 +23,17 @@ in
         passthru = packages;
 
         meta = let
-          packagePlatforms = builtins.filter (v: v != []) (lib.mapAttrsToList (k: v: v.meta.platforms or []) packages);
+          allMetas =
+            lib.mapAttrsToList
+            (k: v: let
+              evalResult = builtins.tryEval v;
+            in
+              if evalResult.success
+              then evalResult.value.meta or {}
+              else {})
+            packages;
+
+          packagePlatforms = builtins.filter (v: v != []) (builtins.map (v: v.platforms or []) allMetas);
           allPlatforms =
             if builtins.length packagePlatforms > 0
             then builtins.foldl' lib.intersectLists (builtins.head packagePlatforms) packagePlatforms
@@ -31,10 +41,10 @@ in
         in
           {
             license =
-              if builtins.all (v: v) (lib.mapAttrsToList (k: v: v.meta.license.free or false) packages)
+              if builtins.all (v: v) (builtins.map (v: v.license.free or false) allMetas)
               then lib.licenses.free
               else lib.licenses.unfree;
-            broken = builtins.any (v: v) (lib.mapAttrsToList (k: v: v.meta.broken or false) packages);
+            broken = builtins.any (v: v) (builtins.map (v: v.broken or false) allMetas);
           }
           // (
             if allPlatforms != []
