@@ -2,6 +2,7 @@
 
 # nix-shell wrapper that loads the NIX_PATH from dotfiles first, good for shebangs without loadDotfilesEnv
 
+
 echo "nix-shell kicked in!" >&2
 
 set -euo pipefail
@@ -14,7 +15,7 @@ NIX_SHELL_BIN=nix-shell
 export NIXPKGS_ALLOW_UNFREE=1
 
 if [ ! -v DONT_CACHE_NIX ]; then
-  has_binary cached-nix-shell && NIX_SHELL_BIN=cached-nix-shell
+  which cached-nix-shell 2>/dev/null && NIX_SHELL_BIN=cached-nix-shell
 fi
 
 $NIX_SHELL_BIN "$@"

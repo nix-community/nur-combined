@@ -22,6 +22,8 @@ in
     ]
   ;
 
+  services.php-utils.enable = true;
+
   services.python-microservices.services = {
     teste = {
       script = ''

@@ -53,9 +53,10 @@ fi
 
 # mirroring of git repos -- new ones using git clone --mirror
 # TODO: is this the right way?
+export GIT_TERMINAL_PROMPT=0
 for repo in $(ssh "$rsyncnet_user" ls git); do
   echo "[*] Syncando mirror do repo em 'git/$repo'"
-  ssh "$rsyncnet_user" git --git-dir "git/$repo" fetch --all --prune
+  ssh "$rsyncnet_user" -o SendEnv=GIT_TERMINAL_PROMPT git --git-dir "git/$repo" fetch --all --prune
 done
 
 # deleting empty files
