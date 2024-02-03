@@ -28,12 +28,9 @@ in
       inherit (cfg) user;
       settings = {
         "listen.owner" = config.services.nginx.user;
-        "pm" = "dynamic";
+        "pm" = "ondemand";
         "pm.max_children" = 32;
         "pm.max_requests" = 500;
-        "pm.start_servers" = 1;
-        "pm.min_spare_servers" = 1;
-        "pm.max_spare_servers" = 5;
       };
       phpEnv.PATH = lib.makeBinPath [ pkgs.php ];
     };
