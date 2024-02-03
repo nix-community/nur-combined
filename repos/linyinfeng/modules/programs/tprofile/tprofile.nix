@@ -16,8 +16,8 @@ in
 
   config = lib.mkIf (cfg.enable) {
     systemd.tmpfiles.rules = [
-        "d /run/tprofile 777 root root - -"
-      ];
+      "d /run/tprofile 777 root root - -"
+    ];
     programs.bash.interactiveShellInit = ''
       source ${./tprofile.bash};
     '';
