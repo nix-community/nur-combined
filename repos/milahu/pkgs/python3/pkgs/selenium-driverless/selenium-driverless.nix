@@ -48,7 +48,7 @@ python3.pkgs.buildPythonPackage rec {
 
   postPatch = ''
     echo "relaxing dependency versions"
-    sed -i.bak -E "s/[~>]=[0-9.]+([\"'])/\1/g" setup.py    
+    sed -i.bak -E "s/[~>]=[0-9.]+([\"'])/\1/g" setup.py
     diff -u setup.py.bak setup.py || true
     rm setup.py.bak
 

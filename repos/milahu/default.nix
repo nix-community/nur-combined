@@ -294,6 +294,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       selenium-driverless = callPackage ./pkgs/python3/pkgs/selenium-driverless/selenium-driverless.nix { };
 
+      aiohttp-chromium = callPackage ./pkgs/python3/pkgs/aiohttp-chromium/aiohttp-chromium.nix { };
+
       undetected-chromedriver = callPackage ./pkgs/python3/pkgs/undetected-chromedriver/undetected-chromedriver.nix {
         # FIXME scope: error: attribute 'undetected-chromedriver' missing
         #pkgs-undetected-chromedriver = pkgs.undetected-chromedriver;
