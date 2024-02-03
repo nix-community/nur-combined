@@ -88,7 +88,7 @@ in
   sane.programs.neovim = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
-    sandbox.autodetectCliPaths = true;
+    sandbox.autodetectCliPaths = "existingFileOrParent";
     # sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
       # directories where i'm liable to `:e ../...`
