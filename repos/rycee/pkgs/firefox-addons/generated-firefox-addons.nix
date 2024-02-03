@@ -1683,10 +1683,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "123.0.20240131.91640";
+      version = "123.0.20240202.91630";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229700/deutsch_de_language_pack-123.0.20240131.91640.xpi";
-      sha256 = "c5e2f7cb6a5bb030e7b3a291a95108fd53b425352cd16bbcc18cac7cc82b663e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4230846/deutsch_de_language_pack-123.0.20240202.91630.xpi";
+      sha256 = "def800ce456dc8989996f5b3be7a8b9e60c99aab7196ab7a1109c7fe5e928b72";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1864,10 +1864,10 @@
     };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.12.6";
+      version = "2024.1.19";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4205925/duckduckgo_for_firefox-2023.12.6.xpi";
-      sha256 = "48f84600dba95266fda6e7cf28792d7bdfcc9837d259f8fc4df0b5fc3b1a20ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229541/duckduckgo_for_firefox-2024.1.19.xpi";
+      sha256 = "48bc215807024dd1f95774b4844bcfdbc90e989fddfab42d08961866fc0f3191";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2526,10 +2526,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "123.0.20240131.91640";
+      version = "123.0.20240202.91630";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229705/francais_language_pack-123.0.20240131.91640.xpi";
-      sha256 = "a192a53d37633e39bb234cc7663036857f84a619aee6db8693cc1e51efc9e4e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4230829/francais_language_pack-123.0.20240202.91630.xpi";
+      sha256 = "5893ffee44d9260c9febc0e10188067c26907b68c413d7192ee5ed7226cb0c5b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -8262,10 +8262,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.1.10";
+      version = "24.2.2";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4219626/refined_github-24.1.10.xpi";
-      sha256 = "4f38a0ba88df819fee0ff456bbb17b8e0223b17cb97ee17953fa7c5b44c81ca8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4230668/refined_github-24.2.2.xpi";
+      sha256 = "c356c4f3a978e867bfeff13ec684c805c55c44e0ab7658f84a63a850fa8eb26d";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -8861,10 +8861,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.5.3";
+      version = "5.5.4";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4225820/sponsorblock-5.5.3.xpi";
-      sha256 = "6504674f064080b7d536d87dd5260067f263ef346769b9fcd9852398c0acacec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4229442/sponsorblock-5.5.4.xpi";
+      sha256 = "5ffbbbfb0090eb44be36e0f569cd9b5654f3d58e97e6190430f11cfb1ca8e39f";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -9691,10 +9691,10 @@
     };
     "tst-active-tab-on-scroll-bar" = buildFirefoxXpiAddon {
       pname = "tst-active-tab-on-scroll-bar";
-      version = "1.2.1";
+      version = "1.3";
       addonId = "tst-active-tab-on-scrollbar@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165009/tst_active_tab_on_scroll_bar-1.2.1.xpi";
-      sha256 = "8511b44030b2109e74363d6c285f56786cf223e4e1b7a2844b5a73e20494a3a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231009/tst_active_tab_on_scroll_bar-1.3.xpi";
+      sha256 = "995a2bf47db54ea970c1e8649d6fd8545a26bb68fa846dd1d1380d8ff1b517fc";
       meta = with lib;
       {
         description = "Provides a marker to indicate active tab position in Tree Style Tab sidebar.";
@@ -9733,10 +9733,10 @@
     };
     "tst-indent-line" = buildFirefoxXpiAddon {
       pname = "tst-indent-line";
-      version = "1.2.4";
+      version = "1.3";
       addonId = "tst-indent-line@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165012/tst_indent_line-1.2.4.xpi";
-      sha256 = "11f334d952be34c5f41d4c3ccda0fd1fb85b11dfd07a541bcec99d6a1062fc24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231008/tst_indent_line-1.3.xpi";
+      sha256 = "7b35c69ab30b37cfeee507302a7bf5513db165b91936ba72ab28ca6d05615fba";
       meta = with lib;
       {
         description = "Provides indent line for Tree Style Tab sidebar.";
@@ -9747,10 +9747,10 @@
     };
     "tst-lock-tree-collapsed" = buildFirefoxXpiAddon {
       pname = "tst-lock-tree-collapsed";
-      version = "1.3.0";
+      version = "1.4.0";
       addonId = "tst-lock-tree-collapsed@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165013/tst_lock_tree_collapsed-1.3.0.xpi";
-      sha256 = "74e0aff00974d7905007f1351d3b56ee1edeb1c57d8cf1ae78928ffdfdc67bf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231006/tst_lock_tree_collapsed-1.4.0.xpi";
+      sha256 = "84eaf4659dc8ddbd7060b7f6d5939d17542b1923d7d22487bffa5e044b3a5800";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/tst-lock-tree-collapsed";
