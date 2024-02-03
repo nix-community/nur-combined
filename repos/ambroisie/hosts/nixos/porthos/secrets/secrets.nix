@@ -64,6 +64,8 @@ in
 
   "podgrab/password.age".publicKeys = all;
 
+  "pyload/credentials.age".publicKeys = all;
+
   "sso/auth-key.age".publicKeys = all;
   "sso/ambroisie/password-hash.age".publicKeys = all;
   "sso/ambroisie/totp-secret.age".publicKeys = all;

@@ -134,6 +134,10 @@ in
     };
     # Regular backups
     postgresql-backup.enable = true;
+    pyload = {
+      enable = true;
+      credentialsFile = secrets."pyload/credentials".path;
+    };
     # RSS provider for websites that do not provide any feeds
     rss-bridge.enable = true;
     # Usenet client
