@@ -1052,10 +1052,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "24.1.10";
+    version = "24.2.2";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4219626/refined_github-24.1.10.xpi";
-    sha256 = "4f38a0ba88df819fee0ff456bbb17b8e0223b17cb97ee17953fa7c5b44c81ca8";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4230668/refined_github-24.2.2.xpi";
+    sha256 = "c356c4f3a978e867bfeff13ec684c805c55c44e0ab7658f84a63a850fa8eb26d";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1080,7 +1080,7 @@
     sha256 = "f592427a1c68d3e51aee208d05588f39702496957771fd84b76a93e364138bf5";
     meta = with lib; {
       homepage = "https://github.com/mbnuqw/sidebery";
-      description = "Tabs tree and bookmarks in sidebar with advanced containers configuration.";
+      description = "Vertical tabs tree and bookmarks in sidebar with advanced containers configuration, grouping and many other features.";
       license = licenses.mit;
       mozPermissions = [
         "activeTab"
@@ -1119,10 +1119,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.5.3";
+    version = "5.5.4";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4225820/sponsorblock-5.5.3.xpi";
-    sha256 = "6504674f064080b7d536d87dd5260067f263ef346769b9fcd9852398c0acacec";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4229442/sponsorblock-5.5.4.xpi";
+    sha256 = "5ffbbbfb0090eb44be36e0f569cd9b5654f3d58e97e6190430f11cfb1ca8e39f";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
