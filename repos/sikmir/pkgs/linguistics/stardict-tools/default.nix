@@ -1,11 +1,12 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, fetchurl
 , autoconf
 , automake
 , libtool
+, p7zip
 , pkg-config
-, gtk3
+, gtk2
 , libmysqlclient
 , libxml2
 , pcre
@@ -13,23 +14,23 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "stardict-tools";
-  version = "2021-04-05";
+  version = "3.0.6";
 
-  src = fetchFromGitHub {
-    owner = "huzheng001";
-    repo = "stardict-3";
-    rev = "e861c2a8f551a37f3ce1520d5cdcd611f146d90d";
-    hash = "sha256-k3rvl6Y2zMXTQ+VQIydUgKk3f8Ji0gP8IJFDWWlOeyY=";
+  src = fetchurl {
+    url = "mirror://sourceforge/stardict-4/stardict-${finalAttrs.version}-2-src.7z";
+    hash = "sha256-2Q+PNqFCnxioFmD4IEUQlD2x22Ueh+nKXP5i9N3STFE=";
   };
 
   nativeBuildInputs = [
     autoconf
     automake
     libtool
+    p7zip
     pkg-config
   ];
+
   buildInputs = [
-    gtk3
+    gtk2
     libmysqlclient
     libxml2
     pcre
@@ -38,14 +39,14 @@ stdenv.mkDerivation (finalAttrs: {
   hardeningDisable = [ "format" ];
 
   postPatch = ''
-    substituteInPlace tools/src/wikipediaImage.cpp \
-      --replace "MYSQL_PORT" "0"
     substituteInPlace tools/src/Makefile.am \
       --replace "noinst_PROGRAMS =" "bin_PROGRAMS ="
   '';
 
   preConfigure = "./autogen.sh";
   configureFlags = [ "--disable-dict" ];
+
+  env.NIX_CFLAGS_COMPILE = "-std=c++14";
 
   postInstall = ''
     find $out/bin/ -not -name 'stardict-*' -type f | \
@@ -57,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "Stardict tools";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://stardict-4.sourceforge.net/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
