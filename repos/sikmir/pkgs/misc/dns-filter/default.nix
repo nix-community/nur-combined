@@ -19,6 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
     sh ./build.sh
   '';
 
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion -Wno-error=implicit-function-declaration";
+
   installPhase = ''
     install -Dm755 dns-filter -t $out/bin
     install -Dm644 *.txt -t $out/share/dns-filter
