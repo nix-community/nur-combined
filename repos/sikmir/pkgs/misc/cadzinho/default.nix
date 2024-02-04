@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cadzinho";
-  version = "0.4.0";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "zecruel";
     repo = "CadZinho";
     rev = version;
-    hash = "sha256-ple9Tl2thfXgW8+HtaUTAvRhkXLYTz2qx2PTAcvLI7o=";
+    hash = "sha256-6/sBNxQb52FFO2fWLVs6YDOmJLEbSOA5mwdMdJDjEDM=";
   };
 
   postPatch = ''
@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC:=$(CC)" ];
 
-  NIX_CFLAGS_COMPILE = "-Wno-format-security";
+  # https://github.com/llvm/llvm-project/issues/62254
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-fno-builtin-strrchr";
+
+  hardeningDisable = [ "format" ];
 
   installPhase = ''
     runHook preInstall

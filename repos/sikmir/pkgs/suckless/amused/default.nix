@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "amused";
-  version = "0.13";
+  version = "0.14";
 
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = "amused";
     rev = finalAttrs.version;
-    hash = "sha256-VqCiSEKwWeqe5ecsLFjFQJ4n1kPvyGWMfsyjqp2XVDU=";
+    hash = "sha256-iVBJENiepBnqExMXQezd3Ja4RUNarLOAcA0JQUIfg5o=";
   };
 
   nativeBuildInputs = [ bmake pkg-config ];
