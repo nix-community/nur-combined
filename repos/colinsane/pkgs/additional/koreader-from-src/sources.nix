@@ -192,24 +192,24 @@ in
     #   source.hash = "sha256-S57/NR+0hF1KTdn+cbVkJh3MTfklSwtZua1CYKduVlk=";
     #   # package = luajit;  #< could be fixed; follows a different install structure
     # };
-    lua-rapidjson = {
-      source.url = "https://github.com/xpol/lua-rapidjson";
-      source.rev = "242b40c8eaceb0cc43bcab88309736461cac1234";
-      source.hash = "sha256-y/czEVPtCt4uN1n49Qi7BrgZmkG+SDXlM5D2GvvO2qg=";
-      # package: TODO: packaged in nix as a luarocks package
-    };
-    luasec = {
-      source.url = "https://github.com/brunoos/luasec";
-      source.rev = "tags/v1.3.1";
-      source.hash = "sha256-3iYRNQoVk5HFjDSqRRmg1taSqeT2cHFil36vxjrEofo=";
-      # package: TODO: packaged in nix as a luarocks package
-    };
-    luasocket = {
-      source.url = "https://github.com/lunarmodules/luasocket";
-      source.rev = "8c2ff7217e2a205eb107a6f48b04ff1b2b3090a1";
-      source.hash = "sha256-Y35QYNLznQmErr6rIjxLzw0/6Y7y8TbzD4yaEdgEljA=";
-      # package: TODO: packaged in nix as a luarocks package
-    };
+    # lua-rapidjson = {
+    #   source.url = "https://github.com/xpol/lua-rapidjson";
+    #   source.rev = "242b40c8eaceb0cc43bcab88309736461cac1234";
+    #   source.hash = "sha256-y/czEVPtCt4uN1n49Qi7BrgZmkG+SDXlM5D2GvvO2qg=";
+    #   # package: TODO: packaged in nix as a luarocks package
+    # };
+    # luasec = {
+    #   source.url = "https://github.com/brunoos/luasec";
+    #   source.rev = "tags/v1.3.1";
+    #   source.hash = "sha256-3iYRNQoVk5HFjDSqRRmg1taSqeT2cHFil36vxjrEofo=";
+    #   # package: TODO: packaged in nix as a luarocks package
+    # };
+    # luasocket = {
+    #   source.url = "https://github.com/lunarmodules/luasocket";
+    #   source.rev = "8c2ff7217e2a205eb107a6f48b04ff1b2b3090a1";
+    #   source.hash = "sha256-Y35QYNLznQmErr6rIjxLzw0/6Y7y8TbzD4yaEdgEljA=";
+    #   # package: TODO: packaged in nix as a luarocks package
+    # };
     lua-Spore = {
       # Complete... ish?
       # this originally failed like so:
@@ -302,47 +302,6 @@ in
     #   source.rev = "e618d18f6a7cbf350cededa17ddfe8f76bdf0b5c";
     #   source.hash = "sha256-S0vxCON1l6S+NWlnRPfm7R07DVkvkG+6QW5LNvXBlA8=";
     #   package = zsync;  # possibly a different thing than koreader's
-    # };
-  };
-
-  externalProjects = {
-    # dropbear = {
-    #   url = "http://deb.debian.org/debian/pool/main/d/dropbear/dropbear_2018.76.orig.tar.bz2";
-    #   hash = "sha256-8vuRZ+yoz5NFal/B1Pr3CZAqOrcN1E41LzrLw//a6mU=";
-    # };
-    # gettext = {
-    #   url = "http://ftpmirror.gnu.org/gettext/gettext-0.21.tar.gz";
-    #   hash = "sha256-x30NoxAq7JwH9DZx5gYR6/+JqZbvFZSXzo5Z0HV4axI=";
-    # };
-    # libiconv = {
-    #   url = "http://ftpmirror.gnu.org/libiconv/libiconv-1.15.tar.gz";
-    #   hash = "sha256-zPU2YgpFRY0muoOIepg7loJwAekqE4R7ReSSXMiRMXg=";
-    # };
-    lpeg = {
-      url = "http://distcache.FreeBSD.org/ports-distfiles/lpeg-1.0.2.tar.gz";
-      hash = "sha256-SNZldgUbbHg4j6rQm3BJMJMmRYj80PJY3aqxzdShX/4=";
-    };
-    # sdcv = {
-    #   # TODO: if this form of substitution works, i could optionally patch in *all* deps
-    #   # using the `file://@foo@` ExternalProject_Add syntax
-    #   url = "https://github.com/Dushistov/sdcv/archive/v0.5.5.tar.gz";
-    #   hash = "sha256-TSUZ6PhHm5MB3JHpzaPh7v7xmXDs4OjAXwx7et5dyUs=";
-    # };
-    sdl2 = {
-      url = "https://github.com/libsdl-org/SDL/releases/download/release-2.28.1/SDL2-2.28.1.tar.gz";
-      hash = "sha256-SXfOulwAVNvmwvEUZBrO1DzjvytB6mS2o3LWuhKcsV0=";
-    };
-    # sqlite = {
-    #   url = "https://www.sqlite.org/2023/sqlite-autoconf-3440200.tar.gz";
-    #   hash = "sha256-HGcZoUi8Qc8PK7vjkm184/XKCdh48SRvzCB2exdbtAc=";
-    # };
-    # tar = {
-    #   url = "http://ftpmirror.gnu.org/tar/tar-1.34.tar.gz";
-    #   hash = "sha256-A9kIz1doz+a3rViMkhxu0hrKv7K3m3iNEzBFNQdkeu0=";
-    # };
-    # zlib = {
-    #   url = "https://github.com/madler/zlib/releases/download/v1.2.13/zlib-1.2.13.tar.xz";
-    #   hash = "sha256-0Uw44xOvw1qah2Da3yYEL1HqD10VSwYwox2gVAEH+5g=";
     # };
   };
 }

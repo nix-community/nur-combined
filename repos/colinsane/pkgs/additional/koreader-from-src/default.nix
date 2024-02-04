@@ -99,12 +99,16 @@ let
   });
   luaEnv = luajit52.withPackages (ps: with ps; [
     (buildLuarocksPackage {
+      # needed by KOReader's lua-Spore
       pname = "luajson";
       version = "1.3.4-1";
       src = fetchgit {
         url = "https://github.com/harningt/luajson.git";
-        rev = "1.3.4";
-        hash = "sha256-JaJsjN5Gp+8qswfzl5XbHRQMfaCAJpWDWj9DYWJ0gEI=";
+        # rev = "1.3.4";
+        # 1.3.4 (released 2017) has some incompatible bugs with lpeg library.
+        # see: <https://github.com/harningt/luajson/commit/6ecaf9bea8b121a9ffca5a470a2080298557b55d>
+        rev = "6ecaf9bea8b121a9ffca5a470a2080298557b55d";
+        hash = "sha256-56G0NqIpavKHMQWUxy+Bp7G4ZKrQwUZ2C5e7GJxUJeg=";
       };
       knownRockspec = (fetchurl {
         url = "mirror://luarocks/luajson-1.3.4-1.rockspec";
@@ -112,7 +116,15 @@ let
       }).outPath;
       propagatedBuildInputs = [ lpeg ];
     })
+    lpeg
+    luasec
+    luasocket
+    rapidjson
   ]);
+  rockspecFor = luaPkgName: let
+    pkg = luaEnv.pkgs."${luaPkgName}";
+  in
+    "${luaEnv}/${pkg.rocksSubdir}/${luaPkgName}/${pkg.rockspecVersion}/${luaPkgName}-${pkg.rockspecVersion}.rockspec";
   crossTargets = {
     # koreader-base Makefile targets to use when compiling for the given host platform
     # only used when cross compiling
@@ -225,12 +237,16 @@ let
     LIBWEBPDEMUX_LIB="${lib.getLib libwebp}/lib/libwebpdemux.so" \
     LIBWEBPSHARPYUV_LIB="${lib.getLib libwebp}/lib/libwebpsharpyuv.so" \
     LIBWEBP_DIR="${lib.getDev libwebp}" \
+    LPEG_ROCK="${rockspecFor "lpeg"}" \
     LUAROCKS_BINARY="${lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) (stdenv.hostPlatform.emulator buildPackages)} ${luajit52}/bin/lua ${luaEnv.pkgs.luarocks}/bin/.luarocks-wrapped" \
-    LUAJIT="${luajit52}/bin/luajit" \
-    LUAJIT_JIT="${luajit52}/share/lua/5.1/jit" \
-    LUAJIT_LIB="${lib.getLib luajit52}/lib/libluajit-5.1.so" \
-    LUA_INCDIR="${lib.getDev luajit52}/include" \
-    LUA_LIBDIR="${lib.getLib luajit52}/lib/libluajit-5.1.so" \
+    LUAJIT="${luaEnv}/bin/luajit" \
+    LUAJIT_JIT="${luaEnv}/share/lua/5.1/jit" \
+    LUAJIT_LIB="${lib.getLib luaEnv}/lib/libluajit-5.1.so" \
+    LUASEC="${luaEnv}/share/lua/5.1/ssl/" \
+    LUASOCKET="${luaEnv}/share/lua/5.1/socket/" \
+    LUA_INCDIR="${lib.getDev luaEnv}/include" \
+    LUA_LIBDIR="${lib.getLib luaEnv}/lib/libluajit-5.1.so" \
+    LUA_RAPIDJSON_ROCK="${rockspecFor "rapidjson"}" \
     OPENSSL_LIB="${lib.getLib openssl}/lib/libssl.so" \
     OPENSSL_DIR="${opensslAll}" \
     SSL_LIB="${lib.getLib openssl}/lib/libssl.so.3" \
@@ -315,14 +331,6 @@ stdenv.mkDerivation rec {
     ./debug.patch  #< not needed to build, just helps debug packaging issues
     ./no_rm_build_dirs.patch
     ./lua-Spore-no-luajson.patch  #< TODO: test this at runtime! we ship luajson, but just don't expose it via luarocks
-    (substituteAll (
-      {
-        src = ./vendor-external-projects.patch;
-      } // (lib.mapAttrs
-        (_proj: source: fetchurl source)
-        sources.externalProjects
-      )
-    ))
     ./rss-no-interrupt-on-image-failure.patch  # just a preference
   ];
 
@@ -334,17 +342,10 @@ stdenv.mkDerivation rec {
     automake
     autoPatchelfHook  # used by us, in fixupPhase, to ensure substituted thirdparty deps can be loaded at runtime
     cmake  # for koreader/base submodule
-    dpkg
-    gettext
     git
     libtool
     makeWrapper
-    perl  # TODO: openssl might try to take a runtime dep on this; see nixpkg
     pkg-config
-    python3
-    ragel
-    which
-    # luajit_lua52.pkgs.luarocks
     luaEnv.pkgs.luarocks
   ];
   buildInputs = [
@@ -352,37 +353,7 @@ stdenv.mkDerivation rec {
     luaEnv
   ];
 
-  postPatch =
-  let
-    env = "${buildPackages.coreutils}/bin/env";
-  in ''
-    ${lib.optionalString false /* only needed if using the koreader vendored deps */ ''
-      substituteInPlace ../openssl/config --replace '/usr/bin/env' '${env}'
-      substituteInPlace ../openssl/Configure --replace '/usr/bin/env' '${env}'
-
-      chmod +x ../glib/gio/gio-querymodules-wrapper.py
-      chmod +x ../glib/gio/tests/gengiotypefuncs.py
-      chmod +x ../glib/gobject/tests/taptestrunner.py
-      # need directory write perm in order to patchShebangs
-      chmod u+w ../glib/{gio,gio/tests,glib,gobject/tests,tests}
-
-      patchShebangs ../glib/gio/data-to-c.py
-      patchShebangs ../glib/gio/gio-querymodules-wrapper.py
-      patchShebangs ../glib/gio/tests/gengiotypefuncs.py
-      patchShebangs ../glib/glib/update-gtranslit.py
-      patchShebangs ../glib/gobject/tests/taptestrunner.py
-      patchShebangs ../glib/tests/gen-casefold-txt.py
-      patchShebangs ../glib/tests/gen-casemap-txt.py
-
-      substituteInPlace ../glib/gio/gdbus-2.0/codegen/gdbus-codegen.in --replace '/usr/bin/env @PYTHON@' '@PYTHON@'
-      substituteInPlace ../glib/glib/gtester-report.in --replace '/usr/bin/env @PYTHON@' '@PYTHON@'
-      substituteInPlace ../glib/gobject/glib-genmarshal.in --replace '/usr/bin/env @PYTHON@' '@PYTHON@'
-      substituteInPlace ../glib/gobject/glib-mkenums.in --replace '/usr/bin/env @PYTHON@' '@PYTHON@'
-
-      substituteInPlace ../harfbuzz/autogen.sh --replace 'which pkg-config' 'which $PKG_CONFIG'
-      substituteInPlace ../fribidi/autogen.sh --replace 'which pkg-config' 'which $PKG_CONFIG'
-    ''}
-
+  postPatch = ''
     # patch for newer openssl
     substituteInPlace --fail base/ffi/crypto.lua \
       --replace 'ffi.load("libs/libcrypto.so.1.1")' 'ffi.load("libcrypto.so")'
@@ -393,37 +364,6 @@ stdenv.mkDerivation rec {
       substituteInPlace "$f" \
         --replace-quiet 'ffi.load("libs/' 'ffi.load("'
     done
-
-    # reduce deps so that Make doesn't try to rebuild all the thirdparty libraries.
-    # could probably do this better, like by changing the atime of all of thirdparty/ to match /nix/store products
-    # substituteInPlace base/Makefile.third --replace-warn '/*.*' '/'
-    substituteInPlace base/Makefile.third \
-      --replace-warn '$(THIRDPARTY_DIR)/curl/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/czmq/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/djvulibre/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/dropbear/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/freetype2/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/fribidi/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/gettext/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/giflib/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/glib/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/harfbuzz/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/libiconv/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/libjpeg-turbo/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/libpng/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/libunibreak/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/libwebp/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/luajit/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/openssh/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/openssl/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/sdcv/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/sqlite/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/tar/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/utf8proc/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/zlib/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/libzmq/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/zstd/*.*' "" \
-      --replace-warn '$(THIRDPARTY_DIR)/zsync2/*.*' "" \
 
     # lots of places in Makefile.third (incorrectly) assume lib paths are relative to CURDIR,
     # so link /nix into CURDIR to allow them to work anyway
