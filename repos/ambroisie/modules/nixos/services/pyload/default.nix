@@ -14,7 +14,7 @@ in
 
     downloadDirectory = mkOption {
       type = types.str;
-      default = "/data/downloads";
+      default = "/data/downloads/pyload";
       example = "/var/lib/pyload/download";
       description = "Download directory";
     };
@@ -42,9 +42,17 @@ in
     };
 
     # User media group when downloading files
-    systemd. services. pyload = {
+    systemd.services.pyload = {
       serviceConfig = {
         Group = lib.mkForce "media";
+      };
+    };
+
+    # And make sure the download directory has the correct owners
+    systemd.tmpfiles.settings.pyload = {
+      ${cfg.downloadDirectory}.d = {
+        user = "pyload";
+        group = "media";
       };
     };
 
