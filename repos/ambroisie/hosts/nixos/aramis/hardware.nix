@@ -26,6 +26,12 @@
     firmware = {
       cpuFlavor = "intel";
     };
+
+    graphics = {
+      enable = true;
+
+      gpuFlavor = "intel";
+    };
   };
 
   hardware = {

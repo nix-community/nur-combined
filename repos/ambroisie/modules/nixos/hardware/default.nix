@@ -6,6 +6,7 @@
     ./bluetooth
     ./ergodox
     ./firmware
+    ./graphics
     ./mx-ergo
     ./networking
     ./sound
