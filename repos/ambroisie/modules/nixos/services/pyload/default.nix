@@ -41,10 +41,12 @@ in
         ;
     };
 
-    # User media group when downloading files
+    # Use pyload user/media group when downloading files
     systemd.services.pyload = {
       serviceConfig = {
+        User = lib.mkForce "pyload";
         Group = lib.mkForce "media";
+        DynamicUser = lib.mkForce false;
       };
     };
 
@@ -56,7 +58,12 @@ in
       };
     };
 
-    # Set-up media group
+    # Set-up pyload user and media group
+    users.users.pyload = {
+      isSystemUser = true;
+      group = "media";
+    };
+
     users.groups.media = { };
 
     my.services.nginx.virtualHosts = {
