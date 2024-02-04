@@ -15,7 +15,7 @@
 
 - _[celeste](https://www.celestegame.com)_
 
-- [celeste-classic](https://celesteclassic.github.io/)
+- [celeste-classic](https://celesteclassic.github.io)
 - [celeste-classic-2](https://mattmakesgames.itch.io/celeste-classic-2)
 
 ### Fonts
@@ -24,8 +24,9 @@
 
 ### Audio
 
-- [reaper-sws-extension](https://www.sws-extension.org/)
+- [reaper-sws-extension](https://www.sws-extension.org)
 - [neuralnote](https://github.com/DamRsn/NeuralNote)
+- [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
 
 ### Overrides
 

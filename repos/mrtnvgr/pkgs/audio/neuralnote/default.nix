@@ -111,5 +111,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/DamRsn/NeuralNote";
     license = licenses.asl20;
     platforms = platforms.linux;
+    broken = true;
   };
 }
