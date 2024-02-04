@@ -1,7 +1,7 @@
 { stdenv, requireFile, p7zip, wimlib, lib, ... }:
 stdenv.mkDerivation rec {
-  pname = "Win10_LTSC_2019_fonts";
-  version = "LTSC_2019";
+  pname = "Win10_LTSC_2021_fonts";
+  version = "LTSC_2021";
 
   src = requireFile {
     name = "SW_DVD9_WIN_ENT_LTSC_2021_64BIT_ChnSimp_MLF_X22-84402.ISO";
