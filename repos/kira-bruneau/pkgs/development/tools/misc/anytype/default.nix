@@ -94,6 +94,7 @@ buildNpmPackage rec {
       --add-flags "$out/share/anytype/resources/app.asar" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libGL ]} \
+      --set-default ELECTRON_IS_DEV 0 \
       --inherit-argv0
 
     for icon in electron/img/icons/*; do
