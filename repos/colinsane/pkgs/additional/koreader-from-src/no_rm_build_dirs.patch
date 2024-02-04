@@ -2,10 +2,10 @@ diff --git a/base/Makefile.third b/base/Makefile.third
 index f6a80523..1080ab98 100644
 --- a/base/Makefile.third
 +++ b/base/Makefile.third
-@@ -137,7 +137,6 @@ $(MUPDF_LIB) $(MUPDF_DIR)/include: $(JPEG_LIB) \
- 		$(HARFBUZZ_LIB) $(HARFBUZZ_DIR)/include \
- 		$(LIBWEBP_LIB) $(LIBWEBP_DIR)/include \
- 		$(ZLIB) $(AES_LIB) $(THIRDPARTY_DIR)/mupdf/*.*
+@@ -138,7 +138,6 @@ $(MUPDF_LIB): $(JPEG_LIB) \
+ 		$(LIBWEBP_LIB) \
+ 		$(ZLIB) $(AES_LIB) \
+ 		$(THIRDPARTY_DIR)/mupdf/*.*
 -	-rm -rf $(MUPDF_BUILD_DIR)
  	install -d $(MUPDF_BUILD_DIR)
  	cd $(MUPDF_BUILD_DIR) && \

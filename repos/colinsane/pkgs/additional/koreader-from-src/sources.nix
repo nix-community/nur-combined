@@ -20,128 +20,195 @@
 # - it may be that koreader-base is more strongly decoupled from `koreader` than first appears:
 #   - most `koreader` commits which update base simply bump its rev and nothing more.
 #   - then, `koreader-base` could be its own package, updated independently from the main koreader.
+{ lib
+, symlinkJoin
+, curl
+, czmq
+, djvulibre
+, freetype
+, fribidi
+, giflib
+, glib
+, harfbuzz
+, k2pdfopt
+, leptonica
+, libjpeg_turbo
+, libpng
+, libunibreak
+, libwebp
+, luajit
+, minizip
+, mupdf
+, mupdf_1_17
+, nanosvg
+, openssh
+, openssl_1_1
+, sdcv
+, tesseract
+, turbo
+, utf8proc
+, zeromq4
+, zstd
+, zsync
+}:
+let
+  libAndDev = pkg: symlinkJoin {
+    inherit (pkg) name;
+    paths = [
+      (lib.getLib pkg)
+      (lib.getDev pkg)
+    ];
+  };
+in
 {
   thirdparty = {
-    curl = {
-      source.url = "https://github.com/curl/curl.git";
-      source.rev = "tags/curl-7_80_0";
-      source.hash = "sha256-kzozc0Io+1f4UMivSV2IhzJDQXmad4wNhXN/Y2Lsg3Q=";
-    };
-    czmq = {
-      source.url = "https://github.com/zeromq/czmq.git";
-      source.rev = "2a0ddbc4b2dde623220d7f4980ddd60e910cfa78";
-      source.hash = "sha256-p4Cl2PLVgRQ0S4qr3VClJXjvAd2LUBU9oRUvOCfVnyw=";
-    };
-    djvulibre = {
-      source.url = "https://gitlab.com/koreader/djvulibre.git";
-      source.rev = "6a1e5ba1c9ef81c205a4b270c3f121a1e106f4fc";
-      source.hash = "sha256-OWSbxdr93FH3ed0D+NSFWIah7VDTcL3LIGOciY+f4dk=";
-    };
+    # providing `package` is just a way to optimize builds, by getting KOReader to use the built nixpkg instead of building it itself from source.
+    # if it fails during an update, it should always be safe to delete the package key.
+    # curl = {
+    #   source.url = "https://github.com/curl/curl.git";
+    #   source.rev = "tags/curl-7_80_0";
+    #   source.hash = "sha256-kzozc0Io+1f4UMivSV2IhzJDQXmad4wNhXN/Y2Lsg3Q=";
+    #   package = curl;
+    # };
+    # czmq = {
+    #   source.url = "https://github.com/zeromq/czmq.git";
+    #   source.rev = "2a0ddbc4b2dde623220d7f4980ddd60e910cfa78";
+    #   source.hash = "sha256-p4Cl2PLVgRQ0S4qr3VClJXjvAd2LUBU9oRUvOCfVnyw=";
+    #   # package = czmq;  # koreader wants v1, nixpkgs has v4
+    # };
+    # djvulibre = {
+    #   source.url = "https://gitlab.com/koreader/djvulibre.git";
+    #   source.rev = "6a1e5ba1c9ef81c205a4b270c3f121a1e106f4fc";
+    #   source.hash = "sha256-OWSbxdr93FH3ed0D+NSFWIah7VDTcL3LIGOciY+f4dk=";
+    #   # package = djvulibre;  # "cp -fL /build/koreader/base/thirdparty/djvulibre/build/aarch64-unknown-linux-gnu/djvulibre-prefix/src/djvulibre/libdjvu/.libs/libdjvulibre.so.21 ..."
+    # };
     fbink = {
       source.url = "https://github.com/NiLuJe/FBInk.git";
       source.rev = "ae9dd275de369b1b34e1b566bca29573f06f38a2";
       source.hash = "sha256-wkyl9xtw9ocjGGArvfGa1qjamwgywPktnZJNfdychB0=";
+      # package: not packaged for nix
     };
-    freetype2 = {
-      source.url = "https://gitlab.com/koreader/freetype2.git";
-      source.rev = "VER-2-13-2";
-      source.hash = "sha256-yylSmVM3D5xnbFx9qEEHFIP/K0x/WDXZr0MA4C7ng7k=";
-    };
-    fribidi = {
-      source.url = "https://github.com/fribidi/fribidi.git";
-      source.rev = "tags/v1.0.12";
-      source.hash = "sha256-L4m/F9rs8fiv9rSf8oy7P6cthhupc6R/lCv30PLiQ4M=";
-    };
-    giflib = {
-      source.url = "https://gitlab.com/koreader/giflib.git";
-      source.rev = "5.1.4";
-      source.hash = "sha256-znbY4tliXHXVLBd8sTKrbglOdCUb7xhcCQsDDWcQfhw=";
-    };
-    glib = {
-      source.url = "https://github.com/GNOME/glib.git";
-      source.rev = "2.58.3";
-      source.hash = "sha256-KmJXCJ6h2QhPyK1axk+Y9+yJzO0wnCczcogopxGShJc=";
-    };
-    harfbuzz = {
-      source.url = "https://github.com/harfbuzz/harfbuzz.git";
-      source.rev = "8.2.1";
-      source.hash = "sha256-1JgOXpObptt/IOkYj3Q9K170Yd5DIoBa20eoqY/iY6M=";
-    };
+    # freetype2 = {
+    #   source.url = "https://gitlab.com/koreader/freetype2.git";
+    #   source.rev = "VER-2-13-2";
+    #   source.hash = "sha256-yylSmVM3D5xnbFx9qEEHFIP/K0x/WDXZr0MA4C7ng7k=";
+    #   package = libAndDev freetype;
+    # };
+    # fribidi = {
+    #   source.url = "https://github.com/fribidi/fribidi.git";
+    #   source.rev = "tags/v1.0.12";
+    #   source.hash = "sha256-L4m/F9rs8fiv9rSf8oy7P6cthhupc6R/lCv30PLiQ4M=";
+    #   package = libAndDev fribidi;
+    # };
+    # giflib = {
+    #   source.url = "https://gitlab.com/koreader/giflib.git";
+    #   source.rev = "5.1.4";
+    #   source.hash = "sha256-znbY4tliXHXVLBd8sTKrbglOdCUb7xhcCQsDDWcQfhw=";
+    #   package = giflib;
+    # };
+    # glib = {
+    #   source.url = "https://github.com/GNOME/glib.git";
+    #   source.rev = "2.58.3";
+    #   source.hash = "sha256-KmJXCJ6h2QhPyK1axk+Y9+yJzO0wnCczcogopxGShJc=";
+    #   # package = libAndDev glib;  # breaks sdcv build
+    # };
+    # harfbuzz = {
+    #   source.url = "https://github.com/harfbuzz/harfbuzz.git";
+    #   source.rev = "8.3.0";
+    #   source.hash = "sha256-sO0Kd2wAbMm+Auf7tXsDNal7hqND8iwkb0M/9WWt9sI=";
+    #   # package = harfbuzz;
+    #   package = libAndDev harfbuzz;
+    # };
     kobo-usbms = {
       source.url = "https://github.com/koreader/KoboUSBMS.git";
       source.rev = "3daab316d3aff2b43ced9c0b18e6ecdeec953e4a";
       source.hash = "sha256-iBbbKCpi0/velkX91Qju0oXLZtRYGesbra1huKnGQFE=";
+      # package: not in nixpkgs
     };
     leptonica = {
       source.url = "https://github.com/DanBloomberg/leptonica.git";
       source.rev = "1.74.1";
       source.hash = "sha256-SDXKam768xvZZvTbXe3sssvZyeLEEiY97Vrzx8hoc6g=";
+      # package = leptonica;  # k2pdf needs leptonica src.  # cp -f /build/koreader/base/thirdparty/libk2pdfopt/build/aarch64-unknown-linux-gnu/libk2pdfopt-prefix/src/libk2pdfopt/leptonica_mod/dewarp2.c
     };
-    libjpeg-turbo = {
-      source.url = "https://github.com/libjpeg-turbo/libjpeg-turbo.git";
-      source.rev = "3.0.0";
-      source.hash = "sha256-mIeSBP65+rWOCRS/33MPqGUpemBee2qR45CZ6H00Hak=";
-    };
+    # libjpeg-turbo = {
+    #   source.url = "https://github.com/libjpeg-turbo/libjpeg-turbo.git";
+    #   source.rev = "3.0.1";
+    #   source.hash = "sha256-ofdecix4m0FA9gdyQh7zYn99SYBbH2+a7jfoZlsadoA=";
+    #   # package = libAndDev libjpeg_turbo;
+    # };
     libk2pdfopt = {
       source.url = "https://github.com/koreader/libk2pdfopt.git";
-      source.rev = "60b82eeecf71d1776951da970fe8cd2cc5735ded";
-      source.hash = "sha256-9UcDr9e4GZCZ78moRs1ADAt4Xl7z3vR93KDexXEHvhw=";
+      source.rev = "09f1e011a618c8ec06b4caa67079682119d2aaa7";
+      source.hash = "sha256-37sZ46dG6Z1Wk7NrhKAKl5j9r1bN6g01cd5Iyt/2coM=";
+      # package = k2pdfopt;  # nixpkgs k2pdfopt does not compile (broken deps). also, uses old insecure mupdf 1.17 (oh well, koreader is even older)
     };
-    libpng = {
-      source.url = "https://github.com/glennrp/libpng.git";
-      source.rev = "v1.6.40";
-      source.hash = "sha256-Rad7Y5Z9PUCipBTQcB7LEP8fIVTG3JsnMeknUkZ/rRg=";
-    };
-    libunibreak = {
-      source.url = "https://github.com/adah1972/libunibreak.git";
-      source.rev = "tags/libunibreak_5_1";
-      source.hash = "sha256-hjgT5DCQ6KFXKlxk9LLzxGHz6B71X/3Ot7ipK3KY85A=";
-    };
-    libwebp = {
-      source.url = "https://github.com/webmproject/libwebp.git";
-      source.rev = "v1.3.2";
-      source.hash = "sha256-gfwUlJ44biO1lB/3SKfMkM/YBiYcz6RqeMOw+0o6Z/Q=";
-    };
-    libzmq = {
-      source.url = "https://github.com/zeromq/libzmq";
-      source.rev = "883e95b22e0bffffa72312ea1fec76199afbe458";
-      source.hash = "sha256-R76EREtHsqcoKxKrgT8gfEf9pIWdLTBXvF9cDvjEf3E=";
-    };
+    # libpng = {
+    #   source.url = "https://github.com/glennrp/libpng.git";
+    #   source.rev = "v1.6.40";
+    #   source.hash = "sha256-Rad7Y5Z9PUCipBTQcB7LEP8fIVTG3JsnMeknUkZ/rRg=";
+    #   # package = libAndDev libpng;  # "/build/koreader/base/thirdparty/libpng/build/aarch64-unknown-linux-gnu/libpng-prefix/src/libpng-build/.libs/libpng16.so.16"
+    # };
+    # libunibreak = {
+    #   source.url = "https://github.com/adah1972/libunibreak.git";
+    #   source.rev = "tags/libunibreak_5_1";
+    #   source.hash = "sha256-hjgT5DCQ6KFXKlxk9LLzxGHz6B71X/3Ot7ipK3KY85A=";
+    #   # package = libAndDev libunibreak;  # nixpkgs version is incompatible (kpvcrlib/crengine #includes libunibreak and then fails, calling into undefined functions)
+    # };
+    # libwebp = {
+    #   source.url = "https://github.com/webmproject/libwebp.git";
+    #   source.rev = "v1.3.2";
+    #   source.hash = "sha256-gfwUlJ44biO1lB/3SKfMkM/YBiYcz6RqeMOw+0o6Z/Q=";
+    #   package = libAndDev libwebp;
+    # };
+    # libzmq = {
+    #   source.url = "https://github.com/zeromq/libzmq";
+    #   source.rev = "883e95b22e0bffffa72312ea1fec76199afbe458";
+    #   source.hash = "sha256-R76EREtHsqcoKxKrgT8gfEf9pIWdLTBXvF9cDvjEf3E=";
+    #   # package = zeromq4;  # despite the name, it's libzmq.so.5 instead of libzmq.so.4
+    # };
     lj-wpaclient = {
       source.url = "https://github.com/koreader/lj-wpaclient.git";
       source.rev = "2f93beb3071e6ebb57c783bd5b92f83aa5ebb757";
       source.hash = "sha256-ilJviGZTvL2i1TN5lHQ4eA9pFiM7NlXD+v9ofv520b8=";
       machineAgnostic = true;
+      # package: not in nixpkgs; not even a non-luajit `wpaclient`
     };
     lodepng = {
       source.url = "https://github.com/lvandeve/lodepng.git";
       source.rev = "c18b949b71f45e78b1f9a28c5d458bce0da505d6";
       source.hash = "sha256-AAw6I+MxDaxmGpjC5efxuBNw7Lx8FXwg2TEfl6LfPfQ=";
+      # package: not in nixpkgs, except in source-only form (mujoco.pin.lodepng)
     };
     lua-htmlparser = {
       source.url = "https://github.com/msva/lua-htmlparser";
       source.rev = "5ce9a775a345cf458c0388d7288e246bb1b82bff";
       source.hash = "sha256-aSTLSfqz/MIDFVRwtBlDNBUhPb7KqOl32/Y62Hdec1s=";
+      # package: not in nixpkgs
     };
-    luajit = {
-      source.url = "https://github.com/LuaJIT/LuaJIT";
-      source.rev = "656ecbcf8f669feb94e0d0ec4b4f59190bcd2e48";
-      source.hash = "sha256-KPZ1jaU9qu7CUg2eHxBNu2mrHD54+lNOCQB4sb1DPok=";
-    };
+    # luajit = {
+    #   source.url = "https://github.com/LuaJIT/LuaJIT";
+    #   source.rev = "29b0b282f59ac533313199f4f7be79490b7eee51";
+    #   source.hash = "sha256-S57/NR+0hF1KTdn+cbVkJh3MTfklSwtZua1CYKduVlk=";
+    #   # package = luajit;  #< could be fixed; follows a different install structure
+    # };
     lua-rapidjson = {
       source.url = "https://github.com/xpol/lua-rapidjson";
       source.rev = "242b40c8eaceb0cc43bcab88309736461cac1234";
       source.hash = "sha256-y/czEVPtCt4uN1n49Qi7BrgZmkG+SDXlM5D2GvvO2qg=";
+      # package: TODO: packaged in nix as a luarocks package
     };
     luasec = {
       source.url = "https://github.com/brunoos/luasec";
       source.rev = "tags/v1.3.1";
       source.hash = "sha256-3iYRNQoVk5HFjDSqRRmg1taSqeT2cHFil36vxjrEofo=";
+      # package: TODO: packaged in nix as a luarocks package
     };
     luasocket = {
       source.url = "https://github.com/lunarmodules/luasocket";
       source.rev = "8c2ff7217e2a205eb107a6f48b04ff1b2b3090a1";
       source.hash = "sha256-Y35QYNLznQmErr6rIjxLzw0/6Y7y8TbzD4yaEdgEljA=";
+      # package: TODO: packaged in nix as a luarocks package
     };
     lua-Spore = {
       # Complete... ish?
@@ -152,119 +219,130 @@
       source.url = "https://framagit.org/fperrad/lua-Spore";
       source.rev = "tags/0.3.3";
       source.hash = "sha256-wb7ykJsndoq0DazHpfXieUcBBptowYqD/eTTN/EK/6g=";
+      # package: not in nixpkgs
     };
     lunasvg = {
       source.url = "https://github.com/sammycage/lunasvg.git";
       source.rev = "59d6f6ba835c1b7c7a0f9d4ea540ec3981777885";
       source.hash = "sha256-gW2ikakS6Omz5upmy26nAo/jkGHYO2kjlB3UmKJBh1k=";
+      # package: not in nixpkgs
     };
     minizip = {
       source.url = "https://github.com/nmoinvaz/minizip";
       source.rev = "0b46a2b4ca317b80bc53594688883f7188ac4d08";
       source.hash = "sha256-P/3MMMGYDqD9NmkYvw/thKpUNa3wNOSlBBjANHSonAg=";
+      # package = libAndDev minizip;  # weird #include incompatibilities... maybe resolvable.
     };
     mupdf = {
       source.url = "https://github.com/ArtifexSoftware/mupdf.git";
       source.rev = "tags/1.13.0";
       source.hash = "sha256-pQejRon9fO9A1mhz3oLjBr1j4HveDLcQIWjR1/Rpy5Q=";
+      # package = libAndDev mupdf;  # nixpkgs' mupdf is incompatible with koreader's `libwrap-mupdf`
+      # package = libAndDev mupdf_1_17;  # does not compile
     };
     nanosvg = {
       source.url = "https://github.com/memononen/nanosvg.git";
       source.rev = "9da543e8329fdd81b64eb48742d8ccb09377aed1";
       source.hash = "sha256-VOiN6583DtzGYPRkl19VG2QvSzl4T9HaynBuNcvZf94=";
       machineAgnostic = true;
+      package = nanosvg.src;  # KOReader only wants the .h files, but decides to do that without even building it.
     };
-    openssh = {
-      source.url = "https://github.com/openssh/openssh-portable.git";
-      source.rev = "V_8_6_P1";
-      source.hash = "sha256-yjIpSbe5pt9sEV2MZYGztxejg/aBFfKO8ieRvoLN2KA=";
-    };
-    openssl = {
-      source.url = "https://github.com/openssl/openssl.git";
-      source.rev = "OpenSSL_1_1_1u";
-      source.hash = "sha256-JOcUj4ovA6621+1k2HUsvhGX1B9BjvaMbCaSx680nSs=";
-    };
+    # openssh = {
+    #   source.url = "https://github.com/openssh/openssh-portable.git";
+    #   source.rev = "V_8_6_P1";
+    #   source.hash = "sha256-yjIpSbe5pt9sEV2MZYGztxejg/aBFfKO8ieRvoLN2KA=";
+    #   package = openssh;
+    # };
+    # openssl = {
+    #   source.url = "https://github.com/openssl/openssl.git";
+    #   source.rev = "OpenSSL_1_1_1u";
+    #   source.hash = "sha256-JOcUj4ovA6621+1k2HUsvhGX1B9BjvaMbCaSx680nSs=";
+    #   # TODO: i think we can use nixpkgs openssl, just lift lib/* up to the root of the package directory
+    #   # package = lib.getLib openssl_1_1;  # N.B.: requires building with `NIXPKGS_ALLOW_INSECURE=1 nix build --impure ...`
+    # };
     popen-noshell = {
       source.url = "https://github.com/famzah/popen-noshell.git";
       source.rev = "e715396a4951ee91c40a98d2824a130f158268bb";
       source.hash = "sha256-JeBZMsg6ZUGSnyZ4eds4w63gM/L73EsAnLaHOPpL6iM=";
+      # package: not in nixpkgs
     };
     # sdcv = {
     #   # upstream is (temporarily?) acquiring this via `download_project` machinery
     #   source.url = "https://github.com/Dushistov/sdcv.git";
-    #   source.rev = "v0.5.5"
-    #   # source.rev = "6e36e7730caf07b6cd0bfa265cdf9b5e31e7acad";
-    #   # source.hash = "sha256-pPaT9tB39dd+VyE21KSjMpON99KjOxQ8Hi8+ZgFsuUY=";
+    #   source.rev = "v0.5.5";
+    #   source.hash = "sha256-EyvljVXhOsdxIYOGTzD+T16nvW7/RNx3DuQ2OdhjXJ4=";
+    #   package = sdcv;
     # };
     tesseract = {
       source.url = "https://github.com/tesseract-ocr/tesseract.git";
       source.rev = "60176fc5ae5e7f6bdef60c926a4b5ea03de2bfa7";
       source.hash = "sha256-FQvlrJ+Uy7+wtUxBuS5NdoToUwNRhYw2ju8Ya8MLyQw=";
+      # package = tesseract;  # i guess koreader's k2pdf also builds tessearct??
     };
     turbo = {
       source.url = "https://github.com/kernelsauce/turbo";
       source.rev = "tags/v2.1.3";
       source.hash = "sha256-vBRkFdc5a0FIt15HBz3TnqMZ+GGsqjEefnfJEpuVTBs=";
+      # package = turbo;  # nixpkgs' turbo is a totally different thing
     };
-    utf8proc = {
-      source.url = "https://github.com/JuliaStrings/utf8proc.git";
-      source.rev = "v2.8.0";
-      source.hash = "sha256-/lSD78kj133rpcSAOh8T8XFW/Z0c3JKkGQM5Z6DcMtU=";
-    };
-    zstd = {
-      source.url = "https://github.com/facebook/zstd.git";
-      source.rev = "tags/v1.5.5";
-      source.hash = "sha256-tHHHIsQU7vJySrVhJuMKUSq11MzkmC+Pcsj00uFJdnQ=";
-    };
-    zsync2 = {
-      source.url = "https://github.com/NiLuJe/zsync2.git";
-      source.rev = "e618d18f6a7cbf350cededa17ddfe8f76bdf0b5c";
-      source.hash = "sha256-S0vxCON1l6S+NWlnRPfm7R07DVkvkG+6QW5LNvXBlA8=";
-    };
+    # utf8proc = {
+    #   source.url = "https://github.com/JuliaStrings/utf8proc.git";
+    #   source.rev = "v2.9.0";
+    #   source.hash = "sha256-Sgh8vTbclUV+lFZdR29PtNUy8F+9L/OAXk647B+l2mg=";
+    #   # package = libAndDev utf8proc;  # nixpkgs is v3, not v2; incompatible .so name. /build/koreader/base/thirdparty/utf8proc/build/aarch64-unknown-linux-gnu/utf8proc-prefix/src/utf8proc/libutf8proc.so.2
+    # };
+    # zstd = {
+    #   source.url = "https://github.com/facebook/zstd.git";
+    #   source.rev = "tags/v1.5.5";
+    #   source.hash = "sha256-tHHHIsQU7vJySrVhJuMKUSq11MzkmC+Pcsj00uFJdnQ=";
+    #   package = libAndDev zstd;
+    # };
+    # zsync2 = {
+    #   source.url = "https://github.com/NiLuJe/zsync2.git";
+    #   source.rev = "e618d18f6a7cbf350cededa17ddfe8f76bdf0b5c";
+    #   source.hash = "sha256-S0vxCON1l6S+NWlnRPfm7R07DVkvkG+6QW5LNvXBlA8=";
+    #   package = zsync;  # possibly a different thing than koreader's
+    # };
   };
 
   externalProjects = {
-    dropbear = {
-      url = "http://deb.debian.org/debian/pool/main/d/dropbear/dropbear_2018.76.orig.tar.bz2";
-      hash = "sha256-8vuRZ+yoz5NFal/B1Pr3CZAqOrcN1E41LzrLw//a6mU=";
-    };
-    gettext = {
-      url = "http://ftpmirror.gnu.org/gettext/gettext-0.21.tar.gz";
-      hash = "sha256-x30NoxAq7JwH9DZx5gYR6/+JqZbvFZSXzo5Z0HV4axI=";
-    };
-    libffi = {
-      url = "https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz";
-      hash = "sha256-1mxWrSWags8qnfxAizK/XaUjcVALhHRff7i2RXEt9nY=";
-    };
-    libiconv = {
-      url = "http://ftpmirror.gnu.org/libiconv/libiconv-1.15.tar.gz";
-      hash = "sha256-zPU2YgpFRY0muoOIepg7loJwAekqE4R7ReSSXMiRMXg=";
-    };
+    # dropbear = {
+    #   url = "http://deb.debian.org/debian/pool/main/d/dropbear/dropbear_2018.76.orig.tar.bz2";
+    #   hash = "sha256-8vuRZ+yoz5NFal/B1Pr3CZAqOrcN1E41LzrLw//a6mU=";
+    # };
+    # gettext = {
+    #   url = "http://ftpmirror.gnu.org/gettext/gettext-0.21.tar.gz";
+    #   hash = "sha256-x30NoxAq7JwH9DZx5gYR6/+JqZbvFZSXzo5Z0HV4axI=";
+    # };
+    # libiconv = {
+    #   url = "http://ftpmirror.gnu.org/libiconv/libiconv-1.15.tar.gz";
+    #   hash = "sha256-zPU2YgpFRY0muoOIepg7loJwAekqE4R7ReSSXMiRMXg=";
+    # };
     lpeg = {
       url = "http://distcache.FreeBSD.org/ports-distfiles/lpeg-1.0.2.tar.gz";
       hash = "sha256-SNZldgUbbHg4j6rQm3BJMJMmRYj80PJY3aqxzdShX/4=";
     };
-    sdcv = {
-      # TODO: if this form of substitution works, i could optionally patch in *all* deps
-      # using the `file://@foo@` ExternalProject_Add syntax
-      url = "https://github.com/Dushistov/sdcv/archive/v0.5.5.tar.gz";
-      hash = "sha256-TSUZ6PhHm5MB3JHpzaPh7v7xmXDs4OjAXwx7et5dyUs=";
-    };
+    # sdcv = {
+    #   # TODO: if this form of substitution works, i could optionally patch in *all* deps
+    #   # using the `file://@foo@` ExternalProject_Add syntax
+    #   url = "https://github.com/Dushistov/sdcv/archive/v0.5.5.tar.gz";
+    #   hash = "sha256-TSUZ6PhHm5MB3JHpzaPh7v7xmXDs4OjAXwx7et5dyUs=";
+    # };
     sdl2 = {
       url = "https://github.com/libsdl-org/SDL/releases/download/release-2.28.1/SDL2-2.28.1.tar.gz";
       hash = "sha256-SXfOulwAVNvmwvEUZBrO1DzjvytB6mS2o3LWuhKcsV0=";
     };
-    sqlite = {
-      url = "https://www.sqlite.org/2023/sqlite-autoconf-3430200.tar.gz";
-      hash = "sha256-bUIrb2LE3iyoDWGGDjo/tpNVTS91uxqsp0PMxNb2CfA=";
-    };
-    tar = {
-      url = "http://ftpmirror.gnu.org/tar/tar-1.34.tar.gz";
-      hash = "sha256-A9kIz1doz+a3rViMkhxu0hrKv7K3m3iNEzBFNQdkeu0=";
-    };
-    zlib = {
-      url = "https://github.com/madler/zlib/releases/download/v1.2.13/zlib-1.2.13.tar.xz";
-      hash = "sha256-0Uw44xOvw1qah2Da3yYEL1HqD10VSwYwox2gVAEH+5g=";
-    };
+    # sqlite = {
+    #   url = "https://www.sqlite.org/2023/sqlite-autoconf-3440200.tar.gz";
+    #   hash = "sha256-HGcZoUi8Qc8PK7vjkm184/XKCdh48SRvzCB2exdbtAc=";
+    # };
+    # tar = {
+    #   url = "http://ftpmirror.gnu.org/tar/tar-1.34.tar.gz";
+    #   hash = "sha256-A9kIz1doz+a3rViMkhxu0hrKv7K3m3iNEzBFNQdkeu0=";
+    # };
+    # zlib = {
+    #   url = "https://github.com/madler/zlib/releases/download/v1.2.13/zlib-1.2.13.tar.xz";
+    #   hash = "sha256-0Uw44xOvw1qah2Da3yYEL1HqD10VSwYwox2gVAEH+5g=";
+    # };
   };
 }

@@ -96,7 +96,7 @@ in
       "dev"
       "knowledge"
       "nixos"
-      # "private"
+      "private/knowledge"
       "records"
       "ref"
       "tmp"

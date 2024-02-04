@@ -274,7 +274,8 @@ in
     gawk.sandbox.wrapperType = "inplace";  # share/gawk libraries refer to /libexec
     gawk.sandbox.autodetectCliPaths = true;
 
-    gdb.sandbox.method = "landlock";  # TODO:sandbox: untested
+    gdb.sandbox.enable = false;  # gdb doesn't sandbox well. i don't know how you could.
+    # gdb.sandbox.method = "landlock";  # permission denied when trying to attach, even as root
     gdb.sandbox.wrapperType = "wrappedDerivation";
     gdb.sandbox.autodetectCliPaths = true;
 
