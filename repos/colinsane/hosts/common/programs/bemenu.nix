@@ -87,6 +87,8 @@ let
 in
 {
   sane.programs.bemenu = {
+    sandbox.method = "landlock";
+    sandbox.wrapperType = "wrappedDerivation";
     packageUnwrapped = pkgs.bemenu.overrideAttrs (upstream: {
       nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
         pkgs.makeWrapper

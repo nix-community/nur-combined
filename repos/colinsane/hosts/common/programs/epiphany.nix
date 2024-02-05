@@ -14,6 +14,7 @@
     # enabling DRI/DRM (as below) seems to fix that.
     sandbox.whitelistDri = true;
     sandbox.extraHomePaths = [
+      ".config/epiphany"  #< else it gets angry at launch
       "tmp"
     ];
 
@@ -40,6 +41,7 @@
     });
     persist.byStore.private = [
       ".cache/epiphany"
+      ".config/dconf"  #< for persisting e.g. "Set as Default Browser" prompt question
       ".local/share/epiphany"
       # also .config/epiphany, but appears empty
     ];

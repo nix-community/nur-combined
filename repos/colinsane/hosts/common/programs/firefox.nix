@@ -235,6 +235,7 @@ in
         inherit packageUnwrapped;
         sandbox.method = "bwrap";  # landlock works, but requires all of /proc to be linked
         sandbox.extraHomePaths = [
+          "dev"  # for developing anything web-related
           "tmp"
           "Pictures"
         ] ++ lib.optionals cfg.addons.browserpass-extension.enable [

@@ -145,6 +145,7 @@ let
     (fromDb "interconnected.org/home/feed" // rat)  # Matt Webb -- engineering-ish, but dreamy
     (fromDb "jeffgeerling.com" // tech)
     (fromDb "jefftk.com" // tech)
+    (fromDb "kill-the-newsletter.com/feeds/joh91bv7am2pnznv.xml" // pol)  # Matt Levine - Money Stuff
     (fromDb "kosmosghost.github.io/index.xml" // tech)
     # (fromDb "lesswrong.com" // rat)
     (fromDb "linmob.net" // tech)
@@ -197,7 +198,7 @@ let
     (mkText "https://nixos.org/blog/announcements-rss.xml" // tech // infrequent)  # more nixos stuff here, but unclear how to subscribe: <https://nixos.org/blog/categories.html>
     (mkText "https://nixos.org/blog/stories-rss.xml" // tech // weekly)
     # (mkText "https://til.simonwillison.net/tils/feed.atom" // tech // weekly)
-    (mkText "https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss" // pol // weekly)  # Matt Levine
+    # (mkText "https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss" // pol // weekly)  # Matt Levine (preview/paywalled)
     (mkText "https://www.stratechery.com/rss" // pol // weekly)  # Ben Thompson
   ];
 

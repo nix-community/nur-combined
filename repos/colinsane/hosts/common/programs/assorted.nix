@@ -221,6 +221,9 @@ in
 
 
     # INDIVIDUAL PACKAGE DEFINITIONS
+    blanket.sandbox.method = "bwrap";
+    blanket.sandbox.wrapperType = "wrappedDerivation";
+
     "cacert.unbundled".sandbox.enable = false;
 
     cargo.persist.byStore.plaintext = [ ".cargo" ];

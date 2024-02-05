@@ -55,6 +55,8 @@
     - <https://github.com/flatpak/xdg-dbus-proxy>
   - remove `.ssh` access from Firefox!
     - limit access to `~/private/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
+- make dconf stuff less monolithic
+  - i.e. per-app dconf profiles for those which need it. possible static config.
 - canaries for important services
   - e.g. daily email checks; daily backup checks
   - integrate `nix check` into Gitea actions?
