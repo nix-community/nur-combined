@@ -9761,10 +9761,10 @@
     };
     "tst-bookmarks-subpanel" = buildFirefoxXpiAddon {
       pname = "tst-bookmarks-subpanel";
-      version = "1.2.7";
+      version = "2.0";
       addonId = "tst-bookmarks-subpanel@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4025277/tst_bookmarks_subpanel-1.2.7.xpi";
-      sha256 = "c870abea11d94ca0e6d7e98943df7a6d39e067fb7cce4a2aaa7d000841a1f5b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231489/tst_bookmarks_subpanel-2.0.xpi";
+      sha256 = "a1d813e6aeff23d5d5b73496c99940815b03560556c22f975d6df4b7d781865d";
       meta = with lib;
       {
         description = "Provides a bookmarks subpanel for Tree Style Tab's sidebar.";
