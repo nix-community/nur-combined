@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-02-02",
+        "date": "2024-02-04",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "a171e3d62bcbba54a6275a69501f81e19daafa6a",
-            "sha256": "sha256-cthR2JFuQFhwS4fGTvnS5b4xHUdThVkhMuNppDabRFs=",
+            "rev": "5df37c6ad79e0337a2d9c4ca978f94fec538544a",
+            "sha256": "sha256-tD8Iw2gLXqcQeWkQpR2T5S2F58XpswcwFBUoG0tJtQs=",
             "type": "github"
         },
-        "version": "a171e3d62bcbba54a6275a69501f81e19daafa6a"
+        "version": "5df37c6ad79e0337a2d9c4ca978f94fec538544a"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1643,7 +1643,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-02-03",
+        "date": "2024-02-04",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1655,11 +1655,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "b96a716bddc4995f9e47b1291777f748cc22bcc5",
-            "sha256": "sha256-1eC9RUdgqAKaTvAIv4oBJLcYE9eWwCYkF5yZrVBgelI=",
+            "rev": "45ba711d6e15ed0cf5bad2a970753bbc41633bb1",
+            "sha256": "sha256-lXv1ra/KgAeAUbqipCFxMGaCuGpUI3lZ2bSD0lNx9jg=",
             "type": "github"
         },
-        "version": "b96a716bddc4995f9e47b1291777f748cc22bcc5"
+        "version": "45ba711d6e15ed0cf5bad2a970753bbc41633bb1"
     },
     "rime-moegirl": {
         "cargoLocks": null,

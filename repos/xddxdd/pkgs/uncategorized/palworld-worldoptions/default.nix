@@ -25,4 +25,11 @@ stdenv.mkDerivation {
       --add-flags "--uesave" \
       --add-flags "${uesave}/bin/uesave"
   '';
+
+  meta = with lib; {
+    description = "A tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers";
+    homepage = "https://github.com/legoduded/palworld-worldoptions";
+    # Unspecified license
+    license = licenses.unfree;
+  };
 }
