@@ -1,8 +1,7 @@
-{ stdenv
-, gnome-feeds
+{
+gnome-feeds
 , gpodder
 , makeWrapper
-, python3
 , static-nix-shell
 , symlinkJoin
 }:

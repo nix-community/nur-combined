@@ -55,6 +55,11 @@
     - <https://github.com/flatpak/xdg-dbus-proxy>
   - remove `.ssh` access from Firefox!
     - limit access to `~/private/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
+  - make /mnt/servo-media more sandbox-friendly
+    - having the sandboxer detect ~/Videos and ~/Videos/servo, and derefrencing the symlink in the latter (rather than consolidating them), to add those paths, would go a long way.
+    - ~/Videos/servo would also need to link not to /mnt/servo-media/Videos, but to /mnt/servo-nfs/media/Videos
+      - maybe just kill /mnt/servo-nfs and /mnt/servo-media, consolidate to /mnt/servo/media/...
+      - and rework /mnt/desko-home -> /mnt/desko/home, ...
 - make dconf stuff less monolithic
   - i.e. per-app dconf profiles for those which need it. possible static config.
 - canaries for important services
@@ -80,6 +85,7 @@
   - Shootin Stars  (Godot; not in nixpkgs) <https://gitlab.com/greenbeast/shootin-stars>
   - numberlink (generic name for Flow Free). not packaged in Nix
   - Neverball (https://neverball.org/screenshots.php). nix: as `neverball`
+  - blurble (https://linuxphoneapps.org/games/app.drey.blurble/). nix: not as of 2024-02-05
 
 #### moby
 - fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>

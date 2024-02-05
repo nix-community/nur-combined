@@ -229,6 +229,9 @@ in
     cargo.persist.byStore.plaintext = [ ".cargo" ];
 
     # auth token, preferences
+    delfin.sandbox.method = "bwrap";
+    delfin.sandbox.wrapperType = "wrappedDerivation";
+    delfin.sandbox.whitelistDri = true;
     delfin.persist.byStore.private = [ ".config/delfin" ];
 
     # creds, but also 200 MB of node modules, etc
@@ -286,6 +289,32 @@ in
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
     gh.persist.byStore.private = [ ".config/gh" ];
 
+    gimp.sandbox.method = "bwrap";
+    gimp.sandbox.wrapperType = "wrappedDerivation";
+    gimp.sandbox.extraHomePaths = [
+      "Pictures"
+      "dev"
+      "ref"
+      "tmp"
+    ];
+    gimp.sandbox.extraPaths = [
+      "/mnt/servo-media/Pictures"
+    ];
+    gimp.sandbox.autodetectCliPaths = true;
+
+    "gnome.gnome-calculator".sandbox.method = "bwrap";
+    "gnome.gnome-calculator".sandbox.wrapperType = "inplace";  # /libexec/gnome-calculator-search-provider
+
+    # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
+    "gnome.gnome-calendar".sandbox.method = "bwrap";
+    "gnome.gnome-calendar".sandbox.wrapperType = "wrappedDerivation";
+
+    "gnome.gnome-clocks".sandbox.method = "bwrap";
+    "gnome.gnome-clocks".sandbox.wrapperType = "wrappedDerivation";
+    "gnome.gnome-clocks".persist.byStore.private = [
+      ".config/dconf"
+    ];
+
     gnome-2048.sandbox.method = "bwrap";
     gnome-2048.sandbox.wrapperType = "wrappedDerivation";
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
@@ -293,6 +322,14 @@ in
     # TODO: gnome-maps: move to own file
     "gnome.gnome-maps".persist.byStore.plaintext = [ ".cache/shumate" ];
     "gnome.gnome-maps".persist.byStore.private = [ ".local/share/maps-places.json" ];
+
+    # hitori rules:
+    # - click to shade a tile
+    # 1. no number may appear unshaded more than once in the same row/column
+    # 2. no two shaded tiles can be direct N/S/E/W neighbors
+    # - win once (1) and (2) are satisfied
+    "gnome.hitori".sandbox.method = "bwrap";
+    "gnome.hitori".sandbox.wrapperType = "wrappedDerivation";
 
     # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect
 
@@ -313,6 +350,12 @@ in
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
+
+    pavucontrol.sandbox.method = "bwrap";
+    pavucontrol.sandbox.wrapperType = "wrappedDerivation";
+
+    pwvucontrol.sandbox.method = "bwrap";
+    pwvucontrol.sandbox.wrapperType = "wrappedDerivation";
 
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
       requests

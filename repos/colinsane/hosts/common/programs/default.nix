@@ -27,6 +27,7 @@
     ./flare-signal.nix
     ./fontconfig.nix
     ./fractal.nix
+    ./frozen-bubble.nix
     ./fwupd.nix
     ./g4music.nix
     ./gajim.nix
