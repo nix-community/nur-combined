@@ -17,6 +17,7 @@ rec {
   koboldcpp = pkgs.callPackage ./koboldcpp { customtkinter = python-pkgs.customtkinter; };
   mpris-ctl = pkgs.callPackage ./mpris-ctl { };
   ocis-bin = pkgs.callPackage ./ocis-bin { };
+  ocis-next-bin = pkgs.callPackage ./ocis-bin/next.nix { };
   proton-ge = pkgs.callPackage ./proton-ge { };
   protonhax = pkgs.callPackage ./protonhax { };
   realrtcw = pkgs.callPackage ./realrtcw { };
