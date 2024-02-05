@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
 
   src =
   if true then
+  # https://github.com/GJDuck/e9patch/pull/73
   # fix: error: 'SIZE_MAX' was not declared in this scope
   # fix: warning: format '%zu' expects argument of type 'size_t', but argument 5 has type 'int'
   fetchFromGitHub {
