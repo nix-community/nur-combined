@@ -64,7 +64,7 @@ jobs:
         extraPullNames: nix-community, cuda-maintainers
     - name: Setup Github Caches
       if: ${{ matrix.arch == 'aarch64' }}
-      uses: DeterminateSystems/magic-nix-cache-action@v2
+      uses: DeterminateSystems/magic-nix-cache-action@v3
     - name: Check evaluation
       run: |
         nix flake update
