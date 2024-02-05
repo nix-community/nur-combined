@@ -21,6 +21,7 @@ in
   nix-gen-node-tools = callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;};
   nvfetcher = callPackage ./nvfetcher { };
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
+  enso = callPackage ./enso { };
   # vendor broken. Also in nixpkgs already
   # efm-langserver = callPackage ./efm-langserver { };
   # In nixpkgs already

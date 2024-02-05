@@ -139,13 +139,13 @@ let
         sha512 = "+AWBwjGadtksxjOQSFDhPNQbed7icNXApT4+2BNpsXzcCBiInq2H9XW0O8sfHFaPmnQRs7cg/P0fAr2IWQSW0g==";
       };
     };
-    "envinfo-7.11.0" = {
+    "envinfo-7.11.1" = {
       name = "envinfo";
       packageName = "envinfo";
-      version = "7.11.0";
+      version = "7.11.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.11.0.tgz";
-        sha512 = "G9/6xF1FPbIw0TtalAMaVPpiq2aDEuKLXM314jPVAO9r2fo2a4BLqMNkmRS7O/xPPZ+COAhGIz3ETvHEV3eUcg==";
+        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.11.1.tgz";
+        sha512 = "8PiZgZNIB4q/Lw4AhOvAfB/ityHAd2bli3lESSWmWSzSsl5dKpy5N1d1Rfkd2teq/g9xN90lc6o98DOjMeYHpg==";
       };
     };
     "fs-extra-10.1.0" = {
@@ -620,7 +620,7 @@ let
       sources."cross-spawn-7.0.3"
       sources."debug-2.6.9"
       sources."duplexer2-0.0.2"
-      sources."envinfo-7.11.0"
+      sources."envinfo-7.11.1"
       sources."fs-extra-10.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"

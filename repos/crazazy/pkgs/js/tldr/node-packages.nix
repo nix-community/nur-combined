@@ -67,13 +67,13 @@ let
         sha512 = "+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==";
       };
     };
-    "axios-1.6.5" = {
+    "axios-1.6.7" = {
       name = "axios";
       packageName = "axios";
-      version = "1.6.5";
+      version = "1.6.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/axios/-/axios-1.6.5.tgz";
-        sha512 = "Ii012v05KEVuUoFWmMW/UQv9aRIc3ZwkWDcM+h5Il8izZCtRVpDUfwpoFf7eOtajT3QiGR4yDUx7lPqHJULgbg==";
+        url = "https://registry.npmjs.org/axios/-/axios-1.6.7.tgz";
+        sha512 = "/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA==";
       };
     };
     "balanced-match-1.0.2" = {
@@ -238,6 +238,15 @@ let
         sha512 = "ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==";
       };
     };
+    "es-errors-1.3.0" = {
+      name = "es-errors";
+      packageName = "es-errors";
+      version = "1.3.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/es-errors/-/es-errors-1.3.0.tgz";
+        sha512 = "Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==";
+      };
+    };
     "follow-redirects-1.15.5" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
@@ -283,13 +292,13 @@ let
         sha512 = "7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==";
       };
     };
-    "get-intrinsic-1.2.2" = {
+    "get-intrinsic-1.2.3" = {
       name = "get-intrinsic";
       packageName = "get-intrinsic";
-      version = "1.2.2";
+      version = "1.2.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.2.2.tgz";
-        sha512 = "0gSo4ml/0j98Y3lngkFEot/zhiCeWsbYIlZ+uZOVgzLyLaUw7wxUL+nCTP0XJvJg1AXulJRI3UJi8GsbDuxdGA==";
+        url = "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.2.3.tgz";
+        sha512 = "JIcZczvcMVE7AUOP+X72bh8HqHBRxFdz5PDHYtNG/lE3yk9b3KZBJlwFcTyPYjg3L4RLLmZJzvjxhaZVapxFrQ==";
       };
     };
     "glob-7.2.3" = {
@@ -427,13 +436,13 @@ let
         sha512 = "xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==";
       };
     };
-    "json-stable-stringify-1.1.0" = {
+    "json-stable-stringify-1.1.1" = {
       name = "json-stable-stringify";
       packageName = "json-stable-stringify";
-      version = "1.1.0";
+      version = "1.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/json-stable-stringify/-/json-stable-stringify-1.1.0.tgz";
-        sha512 = "zfA+5SuwYN2VWqN1/5HZaDzQKLJHaBVMZIIM+wuYjdptkaQsqzDdqjqf+lZZJUuJq1aanHiY8LhH8LmH+qBYJA==";
+        url = "https://registry.npmjs.org/json-stable-stringify/-/json-stable-stringify-1.1.1.tgz";
+        sha512 = "SU/971Kt5qVQfJpyDveVhQ/vya+5hvrjClFOcr8c0Fq5aODJjMwutrOfCU+eCnVD5gpx1Q3fEqkyom77zH1iIg==";
       };
     };
     "jsonfile-6.1.0" = {
@@ -616,13 +625,13 @@ let
         sha512 = "rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==";
       };
     };
-    "set-function-length-1.1.1" = {
+    "set-function-length-1.2.0" = {
       name = "set-function-length";
       packageName = "set-function-length";
-      version = "1.1.1";
+      version = "1.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/set-function-length/-/set-function-length-1.1.1.tgz";
-        sha512 = "VoaqjbBJKiWtg4yRcKBQ7g7wnGnLV3M8oLvVWwOk2PdYY6PEFegR1vezXR0tw6fZGF9csVakIRjrJiy2veSBFQ==";
+        url = "https://registry.npmjs.org/set-function-length/-/set-function-length-1.2.0.tgz";
+        sha512 = "4DBHDoyHlM1IRPGYcoxexgh67y4ueR53FKV1yyxwFMY7aCqcN/38M1+SwZ/qJQ8iLv7+ck385ot4CcisOAPT9w==";
       };
     };
     "signal-exit-3.0.7" = {
@@ -738,7 +747,7 @@ let
       sources."apparatus-0.0.10"
       sources."asynckit-0.4.0"
       sources."at-least-node-1.0.0"
-      sources."axios-1.6.5"
+      sources."axios-1.6.7"
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
       sources."bl-4.1.0"
@@ -757,12 +766,13 @@ let
       sources."defaults-1.0.4"
       sources."define-data-property-1.1.1"
       sources."delayed-stream-1.0.0"
+      sources."es-errors-1.3.0"
       sources."follow-redirects-1.15.5"
       sources."form-data-4.0.0"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."function-bind-1.1.2"
-      sources."get-intrinsic-1.2.2"
+      sources."get-intrinsic-1.2.3"
       sources."glob-7.2.3"
       sources."gopd-1.0.1"
       sources."graceful-fs-4.2.11"
@@ -778,7 +788,7 @@ let
       sources."is-interactive-1.0.0"
       sources."is-unicode-supported-0.1.0"
       sources."isarray-2.0.5"
-      sources."json-stable-stringify-1.1.0"
+      sources."json-stable-stringify-1.1.1"
       sources."jsonfile-6.1.0"
       sources."jsonify-0.0.1"
       sources."lodash-4.17.21"
@@ -799,7 +809,7 @@ let
       sources."readable-stream-3.6.2"
       sources."restore-cursor-3.1.0"
       sources."safe-buffer-5.2.1"
-      sources."set-function-length-1.1.1"
+      sources."set-function-length-1.2.0"
       sources."signal-exit-3.0.7"
       sources."string_decoder-1.3.0"
       sources."strip-ansi-6.0.1"

@@ -1,7 +1,7 @@
 [seamonkey]
 src.webpage = "https://www.seamonkey-project.org/releases/"
 src.regex = "SeaMonkey ([0-9\\.]+) [^B]"
-fetch.tarball = "https://archive.mozilla.org/pub/seamonkey/releases/$ver/linux-x86_64/en-US/seamonkey-$ver.en-US.linux-x86_64.tar.bz2"
+fetch.tarball = "https://archive.seamonkey-project.org/releases/$ver/linux-x86_64/en-US/seamonkey-$ver.en-US.linux-x86_64.tar.bz2"
 
 [trufflesqueak]
 src.github = "hpi-swa/trufflesqueak"
@@ -22,3 +22,7 @@ fetch.tarball = "https://gitlab.com/a-sassmannshausen/guile-hall/-/archive/$ver/
 [cakeml]
 src.github_tag = "cakeml/cakeml"
 fetch.tarball = "https://github.com/CakeML/cakeml/releases/download/$ver/cake-x64-64.tar.gz"
+
+[enso]
+src.github = "enso-org/enso"
+fetch.url = "https://github.com/enso-org/enso/releases/download/$ver/enso-linux-$ver.AppImage"

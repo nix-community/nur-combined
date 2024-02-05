@@ -3,10 +3,18 @@
 {
   cakeml = {
     pname = "cakeml";
-    version = "v2233";
+    version = "v2274";
     src = fetchzip {
-      url = "https://github.com/CakeML/cakeml/releases/download/v2233/cake-x64-64.tar.gz";
-      sha256 = "sha256-5v2WK/OypWhWZh22SbNW5g+u0jYbkss6ow8p0oSarq8=";
+      url = "https://github.com/CakeML/cakeml/releases/download/v2274/cake-x64-64.tar.gz";
+      sha256 = "sha256-etPOxeW9jY3kltsqoj8jthmggDt8eQdmJcF0p3YDACs=";
+    };
+  };
+  enso = {
+    pname = "enso";
+    version = "2023.2.1-nightly.2023.12.1";
+    src = fetchurl {
+      url = "https://github.com/enso-org/enso/releases/download/2023.2.1-nightly.2023.12.1/enso-linux-2023.2.1-nightly.2023.12.1.AppImage";
+      sha256 = "sha256-0SwVAgdE6KfSK1O8bdG+A1FylMr2xnlvxnPmCnHjbNU=";
     };
   };
   guile-config = {
@@ -27,10 +35,10 @@
   };
   seamonkey = {
     pname = "seamonkey";
-    version = "2.53.18";
+    version = "2.53.18.1";
     src = fetchzip {
-      url = "https://archive.mozilla.org/pub/seamonkey/releases/2.53.18/linux-x86_64/en-US/seamonkey-2.53.18.en-US.linux-x86_64.tar.bz2";
-      sha256 = "sha256-CAZla95/mPRPacof4zHFgPFOTqNxk4/O282uUsjuerE=";
+      url = "https://archive.seamonkey-project.org/releases/2.53.18.1/linux-x86_64/en-US/seamonkey-2.53.18.1.en-US.linux-x86_64.tar.bz2";
+      sha256 = "sha256-qU9D17IqKabwg/riR9SQCgS3RZk5HcunOwVCHw4gzI4=";
     };
   };
   trufflesqueak = {
