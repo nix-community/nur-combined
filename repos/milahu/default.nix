@@ -336,6 +336,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
       # Pre-release
       django_5 = callPackage ./pkgs/development/python-modules/django/5.nix { };
 
+      fritap = callPackage ./pkgs/python3/pkgs/fritap/fritap.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
