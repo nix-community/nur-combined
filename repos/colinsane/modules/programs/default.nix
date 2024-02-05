@@ -389,7 +389,7 @@ let
   configs = lib.mapAttrsToList (name: p: {
     assertions = [
       {
-        assertion = !(p.sandbox.enable && p.sandbox.method == null) || !p.enabled || p.package == null || !config.sane.strictSandboxing;
+        assertion = !(p.sandbox.enable && p.sandbox.method == null) || !p.enabled || p.package == null || config.sane.strictSandboxing != "assert";
         message = "program ${name} specified no `sandbox.method`; please configure a method, or set sandbox.enable = false.";
       }
       {
@@ -400,6 +400,10 @@ let
       assertion = cfg ? "${sug}";
       message = ''program "${sug}" referenced by "${name}", but not defined'';
     }) p.suggestedPrograms;
+
+    warnings = lib.mkIf (config.sane.strictSandboxing == "warn" && p.sandbox.enable && p.sandbox.method == null && p.enabled && p.package != null) [
+      "program ${name} specified no `sandbox.method`; please configure a method, or set sandbox.enable = false."
+    ];
 
     system.checks = lib.optionals (p.enabled && p.sandbox.method != null && p.package != null) [
       p.package.passthru.checkSandboxed
@@ -512,8 +516,8 @@ in
       '';
     };
     sane.strictSandboxing = mkOption {
-      type = types.bool;
-      default = false;
+      type = types.enum [ false "warn" "assert" ];
+      default = "warn";
       description = ''
         whether to require that every `sane.program` explicitly specify its sandbox settings.
       '';
@@ -531,6 +535,7 @@ in
         sane.users = f.sane.users;
         sops.secrets = f.sops.secrets;
         system.checks = f.system.checks;
+        warnings = f.warnings;
       };
     in lib.mkMerge [
       (take (sane-lib.mkTypedMerge take configs))
