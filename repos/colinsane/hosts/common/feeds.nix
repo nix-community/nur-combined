@@ -123,7 +123,7 @@ let
     (fromDb "artemis.sh" // tech)
     (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
     (fromDb "austinvernon.site" // tech)
-    (fromDb "balajis.com" // pol)  # Balaji
+    # (fromDb "balajis.com" // pol)  # Balaji
     (fromDb "ben-evans.com/benedictevans" // pol)
     (fromDb "bitbashing.io" // tech)
     (fromDb "bitsaboutmoney.com" // uncat)
