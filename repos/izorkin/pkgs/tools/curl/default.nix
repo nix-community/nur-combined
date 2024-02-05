@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, pkg-config, perl, nixosTests
+{ lib, stdenv, fetchurl, darwin, pkg-config, perl, nixosTests
 , brotliSupport ? false, brotli
 , c-aresSupport ? false, c-aresMinimal
 , gnutlsSupport ? false, gnutls
@@ -15,6 +15,7 @@
   ), libkrb5
 , http2Support ? true, nghttp2
 , http3Support ? false, nghttp3, ngtcp2
+, websocketSupport ? false
 , idnSupport ? false, libidn2
 , ipv6Support ? true
 , ldapSupport ? false, openldap
@@ -48,19 +49,19 @@ assert !((lib.count (x: x) [ gnutlsSupport opensslSupport wolfsslSupport rustlsS
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
-  version = "8.5.0";
+  version = "8.6.0";
 
   src = fetchurl {
     urls = [
-      "https://curl.haxx.se/download/curl-${finalAttrs.version}.tar.bz2"
+      "https://curl.haxx.se/download/curl-${finalAttrs.version}.tar.xz"
       "https://github.com/curl/curl/releases/download/curl-${builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version}/curl-${finalAttrs.version}.tar.xz"
     ];
-    hash = "sha256-zktqZlVDEUdiSq9YJjKjb+Gt4mLV+rOFxg94lC3Y2Hs=";
+    hash = "sha256-PM1V2Rr5UWU534BiX4GMc03G8uz5utozx2dl6ZEh2xU=";
   };
 
-  patches = [
-    ./patch/7.79.1-darwin-no-systemconfiguration.patch
-  ];
+  postPatch = ''
+    patchShebangs scripts
+  '';
 
   outputs = [ "bin" "dev" "out" "man" "devdoc" ];
   separateDebugInfo = stdenv.isLinux;
@@ -91,7 +92,12 @@ stdenv.mkDerivation (finalAttrs: {
     optional wolfsslSupport wolfssl ++
     optional rustlsSupport rustls-ffi ++
     optional zlibSupport zlib ++
-    optional zstdSupport zstd;
+    optional zstdSupport zstd ++
+    optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      CoreFoundation
+      CoreServices
+      SystemConfiguration
+    ]);
 
   # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
   preConfigure = ''
@@ -105,6 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.enableFeature c-aresSupport "ares")
       (lib.enableFeature ldapSupport "ldap")
       (lib.enableFeature ldapSupport "ldaps")
+      (lib.enableFeature websocketSupport "websockets")
       # --with-ca-fallback is only supported for openssl and gnutls https://github.com/curl/curl/blame/curl-8_0_1/acinclude.m4#L1640
       (lib.withFeature (opensslSupport || gnutlsSupport) "ca-fallback")
       (lib.withFeature http3Support "nghttp3")
@@ -112,6 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.withFeature rtmpSupport "librtmp")
       (lib.withFeature rustlsSupport "rustls")
       (lib.withFeature zstdSupport "zstd")
+      (lib.withFeature pslSupport "libpsl")
       (lib.withFeatureAs brotliSupport "brotli" (lib.getDev brotli))
       (lib.withFeatureAs gnutlsSupport "gnutls" (lib.getDev gnutls))
       (lib.withFeatureAs idnSupport "libidn2" (lib.getDev libidn2))
@@ -173,7 +181,6 @@ stdenv.mkDerivation (finalAttrs: {
     inherit opensslSupport openssl;
     tests = {
       withCheck = finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
-      fetchpatch = tests.fetchpatch.simple.override { fetchpatch = (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // { version = 1; }; };
       curlpp = useThisCurl curlpp;
       coeurl = useThisCurl coeurl;
       haskell-curl = useThisCurl haskellPackages.curl;
@@ -185,6 +192,8 @@ stdenv.mkDerivation (finalAttrs: {
       # nginx-http3 = useThisCurl nixosTests.nginx-http3;
       nginx-http3 = nixosTests.nginx-http3;
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+    } // lib.optionalAttrs (!stdenv.isDarwin) {
+      fetchpatch = tests.fetchpatch.simple.override { fetchpatch = (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // { version = 1; }; };
     };
   };
 
