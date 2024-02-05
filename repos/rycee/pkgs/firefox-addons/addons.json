@@ -1,8 +1,4 @@
 [
-  { "slug": "hulu-ad-blocker-firefox", "pname": "hulu-ad-blocker" },
-  { "slug": "purpleadblock" },
-  { "slug": "to-google-translate" },
-  { "slug": "unwanted-twitch" },
   {
     "slug": "10ten-ja-reader"
   },
@@ -485,6 +481,10 @@
     "slug": "hover-zoom-plus"
   },
   {
+    "slug": "hulu-ad-blocker-firefox",
+    "pname": "hulu-ad-blocker"
+  },
+  {
     "slug": "i-auto-fullscreen"
   },
   {
@@ -935,6 +935,9 @@
     "slug": "protondb-for-steam"
   },
   {
+    "slug": "purpleadblock"
+  },
+  {
     "slug": "pushbullet"
   },
   {
@@ -1174,6 +1177,9 @@
     "slug": "to-deepl"
   },
   {
+    "slug": "to-google-translate"
+  },
+  {
     "slug": "tokyo-night-v2"
   },
   {
@@ -1278,6 +1284,9 @@
   },
   {
     "slug": "unpaywall"
+  },
+  {
+    "slug": "unwanted-twitch"
   },
   {
     "slug": "user-agent-string-switcher"

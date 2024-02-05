@@ -33,19 +33,18 @@ in packages // {
 
   "1password-x-password-manager" = packages.onepassword-password-manager;
 
-  "7tv" = let
-    version = "3.0.16";
+  "7tv" = let version = "3.0.9";
   in buildFirefoxXpiAddon {
     pname = "7tv";
     inherit version;
     addonId = "moz-addon-prod@7tv.app";
     url =
-      "https://github.com/SevenTV/Extension/releases/download/v${version}/7tv-webextension-ext.xpi";
-    sha256 = "3HPq4aCf3kE5yaQtMGhWElFopoXx/R0YCYQvfe1g4Vw=";
+      "https://github.com/SevenTV/Extension/releases/download/v${version}/7tv-webextension-ext-signed.xpi";
+    sha256 = "32LAjiEthFYwK6GwoWaeKk1C9F28kmWuudZ5htZZs2o=";
     meta = with lib; {
-      homepage =
-        "https://7tv.app/";
-      description = "The Web Extension for 7TV, bringing new features, emotes, vanity and performance to Twitch, Kick & YouTube";
+      homepage = "https://7tv.app/";
+      description =
+        "The Web Extension for 7TV, bringing new features, emotes, vanity and performance to Twitch, Kick & YouTube";
       license = licenses.asl20;
       platforms = platforms.all;
     };
