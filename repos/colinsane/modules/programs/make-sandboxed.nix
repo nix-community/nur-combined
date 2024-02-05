@@ -281,7 +281,7 @@ let
   in
     fixupMetaAndPassthru pkgName packageWrapped sandboxProfilesPkg {
       inherit sandboxedBy;
-      withEmbeddedSandboxer = make-sandboxed (args // { embedSandboxer = true; });
+      withEmbeddedSandboxer = make-sandboxed (args // { embedSandboxer = true; embedProfile = true; });
     }
   ;
 in make-sandboxed

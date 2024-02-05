@@ -283,6 +283,8 @@ in
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
     gh.persist.byStore.private = [ ".config/gh" ];
 
+    gnome-2048.sandbox.method = "bwrap";
+    gnome-2048.sandbox.wrapperType = "wrappedDerivation";
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
 
     # TODO: gnome-maps: move to own file
