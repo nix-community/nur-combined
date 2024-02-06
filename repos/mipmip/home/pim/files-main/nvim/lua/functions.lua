@@ -2,7 +2,7 @@
 
 
 local function reloadHomeManagerNeoVimConf()
-  print("home manager rebuild")
+  print("home manager: rebuilding")
   local pid = vim.fn.getpid()
   local ok, result = pcall(vim.fn.writefile, {'kill -9 '.. tostring(pid)}, "/tmp/restartVim.sh")
   local job = vim.fn.jobstart(
@@ -10,7 +10,7 @@ local function reloadHomeManagerNeoVimConf()
     {
       cwd = '/etc/nixos',
       on_exit = function()
-        print("home manager rebuild finished")
+        print("home manager: rebuild finished")
         if ok then
           --vim.fn.system('kill -9 '.. tostring(pid))
         else

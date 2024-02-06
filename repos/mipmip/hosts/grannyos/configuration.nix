@@ -15,7 +15,8 @@
 
       ../../modules/desktop-firefox.nix
       ../../modules/desktop-fonts.nix
-      ../../modules/desktop-gnome.nix
+
+      ../../modules/desktop-grannyos.nix
 
       ../../modules/nix-common.nix
       ../../modules/nix-desktop.nix
@@ -44,13 +45,5 @@
 
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  virtualisation.vmVariant = {
-    virtualisation = {
-      memorySize =  2048; # Use 2048MiB memory.
-      cores = 3;
-    };
-  };
-
-  users.users.pim.initialPassword = "test";
 
 }

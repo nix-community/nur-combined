@@ -20,11 +20,13 @@ vim.filetype.add({
 vim.o.hlsearch = true
 vim.wo.number = false
 vim.o.mouse = 'a'
-vim.o.clipboard = 'unnamedplus'
+--vim.o.clipboard = 'unnamedplus' -- use *y or "*p
 vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.wrap = false
+
 
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'

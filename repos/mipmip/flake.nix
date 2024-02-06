@@ -3,11 +3,11 @@
   inputs = {
 
     ## MAIN NIXPKGS
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11"; # GNOME 43.2
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";       # GNOME 43.2
+    #nixpkgs-2305.url = "github:NixOS/nixpkgs/nixos-23.05";  # GNOME 44.2?
+    nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11";  # GNOME 45.2
 
-    nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11"; # GNOME 45.2
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
 
     nixpkgs-inkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
 
@@ -248,6 +248,19 @@
               }
             ];
           };
+
+        nixosConfigurations.gnome45 = nixpkgs-2311.lib.nixosSystem {
+          modules =
+            let
+              system = "x86_64-linux";
+            in
+            [
+              {
+                nixpkgs.config.pkgs = import nixpkgs-2311 { inherit system; };
+              }
+              ./hosts/gnome-45/configuration.nix
+            ];
+        };
 
         nixosConfigurations.grannyos = nixpkgs-2311.lib.nixosSystem {
           modules =

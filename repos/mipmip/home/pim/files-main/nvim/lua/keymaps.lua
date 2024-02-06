@@ -58,6 +58,14 @@ commander.add({
     cat = "telescope",
   },
   {
+    desc = "Toggle Checkbox",
+    cmd = function()
+      vim.cmd("MDTaskToggle")
+    end,
+    keys = { {"n", "v"}, "-" },
+    cat = "markdown",
+  },
+  {
     desc = "Translate selection",
     cmd = function()
       vim.fn.ChatGPTTranslateSelect(vim.fn.visualmode())

@@ -41,15 +41,6 @@
     extraGroups = [ "wheel" "docker" "networkmanager" "disk"];
   };
 
-
-  # Reference how to user
-  # mkpasswd -m sha512crypt
-  #  users.users.testuser = {
-  #    shell = pkgs.zsh;
-  #    isNormalUser = true;
-  #    passwordFile = config.age.secrets.pim-desktop-password.path;
-  #  };
-
   users.users.tim = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "networkmanager" "disk"];
