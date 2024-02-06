@@ -1602,10 +1602,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2405.1";
+      version = "6.2406.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229519/dashlane-6.2405.1.xpi";
-      sha256 = "a8b454d0780e0427e23aed632b8c5b6267fd2824cf16753db0d9d0acf25c0797";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231763/dashlane-6.2406.0.xpi";
+      sha256 = "3fc45d3ffe9399b1dfaf32384a3bd60ae0ed4e70a4456195993de74360d1a8ed";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1683,10 +1683,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "123.0.20240202.91630";
+      version = "122.0.20240205.133611";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4230846/deutsch_de_language_pack-123.0.20240202.91630.xpi";
-      sha256 = "def800ce456dc8989996f5b3be7a8b9e60c99aab7196ab7a1109c7fe5e928b72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232265/deutsch_de_language_pack-122.0.20240205.133611.xpi";
+      sha256 = "a6f9857d17e52bc0dc1e94c7064bfe736b7a545786ef8376499fe7e0ad470aa5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2526,10 +2526,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "123.0.20240202.91630";
+      version = "122.0.20240205.133611";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4230829/francais_language_pack-123.0.20240202.91630.xpi";
-      sha256 = "5893ffee44d9260c9febc0e10188067c26907b68c413d7192ee5ed7226cb0c5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232321/francais_language_pack-122.0.20240205.133611.xpi";
+      sha256 = "d637f5d000c0fe807e464f2c24557cde1fd0e229ca59a785c59ac1c69be80d38";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -8590,10 +8590,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "11.2.0";
+      version = "12.0.2";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4226058/sidebartabs-11.2.0.xpi";
-      sha256 = "6877dda2450f9a708679929d241878fa907b348cc4ae231c6d3285cabb9e94d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232454/sidebartabs-12.0.2.xpi";
+      sha256 = "644a766894fd64f8a4f9924634e91310cdafa080791c6b5e0f1871acf8ae58f4";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
