@@ -276,6 +276,10 @@ in
       withWebkit = false;
     };
 
+    fuzzel.sandbox.method = "bwrap";  #< landlock nearly works, but unable to open ~/.cache
+    fuzzel.sandbox.wrapperType = "wrappedDerivation";
+    fuzzel.persist.byStore.private = [ ".cache/fuzzel" ];  #< this is a file of recent selections
+
     gawk.sandbox.method = "bwrap";  # TODO:sandbox: untested
     gawk.sandbox.wrapperType = "inplace";  # share/gawk libraries refer to /libexec
     gawk.sandbox.autodetectCliPaths = true;
