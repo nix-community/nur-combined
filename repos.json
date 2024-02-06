@@ -375,6 +375,9 @@
         "geonix": {
             "url": "https://github.com/imincik/geonix"
         },
+        "ggemre": {
+            "url": "https://github.com/ggemre/nur-packages"
+        },
         "goreleaser": {
             "url": "https://github.com/goreleaser/nur"
         },
