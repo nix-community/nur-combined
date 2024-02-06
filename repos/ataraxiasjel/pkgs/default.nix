@@ -14,7 +14,7 @@ rec {
   gruvbox-plus-icons = pkgs.callPackage ./gruvbox-plus-icons { };
   hoyolab-claim-bot = pkgs.callPackage ./hoyolab-claim-bot { };
   kes = pkgs.callPackage ./kes { };
-  koboldcpp = pkgs.callPackage ./koboldcpp { customtkinter = python-pkgs.customtkinter; };
+  koboldcpp = pkgs.callPackage ./koboldcpp { inherit (python-pkgs) customtkinter; };
   mpris-ctl = pkgs.callPackage ./mpris-ctl { };
   ocis-bin = pkgs.callPackage ./ocis-bin { };
   ocis-next-bin = pkgs.callPackage ./ocis-bin/next.nix { };
@@ -26,6 +26,7 @@ rec {
   seadrive-fuse = pkgs.callPackage ./seadrive-fuse { };
   waydroid-script = pkgs.python3Packages.callPackage ./waydroid-script { };
   wine-ge = pkgs.callPackage ./wine-ge { };
+  wopiserver = pkgs.python3Packages.callPackage ./wopiserver { inherit (python-pkgs) cs3apis; };
 
   inherit (pkgs.callPackage ./rosepine-gtk {}) rosepine-gtk-theme rosepine-gtk-icons;
   inherit (pkgs.callPackage ./tokyonight-gtk {}) tokyonight-gtk-theme tokyonight-gtk-icons;

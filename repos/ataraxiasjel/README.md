@@ -23,13 +23,15 @@ Package [ocis-bin](pkgs/ocis-bin/) included in this repo. Until [#230190](https:
 * [rustic](https://github.com/rustic-rs/rustic), rustic - fast, encrypted, and deduplicated backups powered by Rust. Available as [services.rustic](modules/rustic.nix).
 Usage [example](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machines/Home-Hypervisor/backups.nix)
 
+* [wopiserver](https://github.com/cs3org/wopiserver/), a vendor-neutral application gateway compatible with the WOPI specifications. Available as [services.wopiserver](modules/wopiserver.nix).
+
 ## Overlays
 
 * [default](overlays/default.nix), default overlays that includes all [packages](pkgs/) from this nur repo.
 
-* [grub2-unstable](overlays/grub2-unstable/), grub2 with argon2 patches from aur. Tested on my [home-hypervisor](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machines/Home-Hypervisor) machine.
+* [grub2-argon2](overlays/grub2-23.05/), grub2 v2.06 with argon2 patches. Tested on my [home-hypervisor](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machines/Home-Hypervisor) machine.
 
-* [grub2-23.05](overlays/grub2-23.05/), like previous overlay but for old nixos-23.05 version.
+* [grub2-unstable-argon2](overlays/grub2-unstable/), upstream version of grub2 with argon2 patches from aur. Untested.
 
 ## Packages
 

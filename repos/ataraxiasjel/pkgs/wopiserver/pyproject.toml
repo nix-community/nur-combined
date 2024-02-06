@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools >= 65.5.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wopiserver"
+version = "@version@"
+license = {file = "LICENSE"}
+requires-python = ">= 3.6"
+dependencies = [
+  "grpcio>=1.47.0",
+  "grpcio-tools>=1.47.0",
+  "flask",
+  "PyJWT",
+  "requests",
+  "more_itertools",
+  "prometheus-flask-exporter",
+  "cs3apis>=0.1.dev101",
+  "waitress",
+  "werkzeug",
+]
+
+[project.scripts]
+wopiserver = "wopiserver:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}

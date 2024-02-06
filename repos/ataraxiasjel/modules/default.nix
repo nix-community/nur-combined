@@ -5,4 +5,5 @@
   kes = ./kes.nix;
   ocis = ./ocis.nix;
   rustic = ./rustic.nix;
+  wopiserver = ./wopiserver.nix;
 }
