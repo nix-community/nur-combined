@@ -143,6 +143,22 @@ in {
           ];
         };
 
+        # TODO: make it configurable per machine
+        workspaceOutputAssign = [
+          { workspace = "1"; output = ["DP-3" "eDP-1"]; }
+          { workspace = "2"; output = ["DP-3" "eDP-1"]; }
+          { workspace = "3"; output = ["DP-3" "eDP-1"]; }
+          { workspace = "4"; output = ["DP-3" "eDP-1"]; }
+          { workspace = "5"; output = ["DP-3" "eDP-1"]; }
+
+          { workspace = "6"; output = ["eDP-1"]; }
+          { workspace = "7"; output = ["eDP-1"]; }
+
+          { workspace = "8"; output = ["DP-4" "eDP-1"]; }
+          { workspace = "9"; output = ["DP-4" "eDP-1"]; }
+          { workspace = "10"; output = ["DP-4" "eDP-1"]; }
+        ];
+
         window.commands = [
           {
             command = "border pixel 2";

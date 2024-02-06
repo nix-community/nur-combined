@@ -146,6 +146,53 @@
   services.xserver.desktopManager.plasma5.enable = true;
   services.power-profiles-daemon.enable = false;
 
+  services.autorandr = {
+    enable = true;
+    profiles = {
+      default = {
+        fingerprint = {
+          "eDP-1" = "00ffffffffffff0030e42c0600000000001c0104a51f117802aa95955e598e271b5054000000010101010101010101010101010101012e3680a070381f403020350035ae1000001ab62c80f4703816403020350035ae1000001a000000fe004c4720446973706c61790a2020000000fe004c503134305746412d535044340018";
+        };
+        config = {
+          "eDP-1" = {
+            enable = true;
+            crtc = 0;
+            primary = true;
+            position = "0x0";
+            mode = "1920x1080";
+          };
+        };
+      };
+      dock = {
+        fingerprint = {
+          "eDP-1" = "00ffffffffffff0030e42c0600000000001c0104a51f117802aa95955e598e271b5054000000010101010101010101010101010101012e3680a070381f403020350035ae1000001ab62c80f4703816403020350035ae1000001a000000fe004c4720446973706c61790a2020000000fe004c503134305746412d535044340018";
+          "DP-3" = "00ffffffffffff0026cd0f610101010101190103813420782a4ca5a7554da226105054adcf0031468180818c9500950fb300a940d1c0283c80a070b023403020360006442100001a000000ff0031313230303530313030333630000000fd00324b1e4b11000a202020202020000000fc0058323438350a20202020202020008a";
+          "DP-4" = "00ffffffffffff0026cd0f610101010108180103813420782a4ca5a7554da226105054adcf0031468180818c9500950fb300a940d1c0283c80a070b023403020360006442100001a000000ff0031313230303430383030333330000000fd00324b1e4b11000a202020202020000000fc0058323438350a202020202020200081";
+        };
+        config = {
+          "eDP-1" = {
+            enable = true;
+            primary = false;
+            position = "0x120";
+            mode = "1920x1080";
+          };
+          "DP-3" = {
+            enable = true;
+            primary = true;
+            position = "1920x0";
+            mode = "1920x1200";
+          };
+          "DP-4" = {
+            enable = true;
+            primary = false;
+            position = "3840x0";
+            mode = "1920x1200";
+          };
+        };
+      };
+    };
+  };
+
   # Configure console keymap
   console.keyMap = "us";
 
