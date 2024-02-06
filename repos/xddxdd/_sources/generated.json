@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-02-04",
+        "date": "2024-02-05",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "5df37c6ad79e0337a2d9c4ca978f94fec538544a",
-            "sha256": "sha256-tD8Iw2gLXqcQeWkQpR2T5S2F58XpswcwFBUoG0tJtQs=",
+            "rev": "2fb3c0aac8f069f8dc2e33268e48e43adc81d72d",
+            "sha256": "sha256-77vNaAxaVEkmhB63icnByhgTjCL+zUVZIIKobF+yfVs=",
             "type": "github"
         },
-        "version": "5df37c6ad79e0337a2d9c4ca978f94fec538544a"
+        "version": "2fb3c0aac8f069f8dc2e33268e48e43adc81d72d"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -818,7 +818,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-02-01",
+        "date": "2024-02-05",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -830,11 +830,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "670cefd42913b13b5dc07cb64f7c29d8d47cd4b2",
-            "sha256": "sha256-F62qz4DPvWnMutT/CbuOTevRKIJvoe62hSiP2rwQnmQ=",
+            "rev": "64b7921e3413bf22eaeffd0a253a1befbf3dae71",
+            "sha256": "sha256-NhoOm+IYNG9rOkmXJJAJhfaGoYIrS1QNjO2O3W8bAOk=",
             "type": "github"
         },
-        "version": "670cefd42913b13b5dc07cb64f7c29d8d47cd4b2"
+        "version": "64b7921e3413bf22eaeffd0a253a1befbf3dae71"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -898,7 +898,7 @@
     },
     "librime-octagram": {
         "cargoLocks": null,
-        "date": "2023-01-25",
+        "date": "2024-02-05",
         "extract": null,
         "name": "librime-octagram",
         "passthru": null,
@@ -910,11 +910,11 @@
             "name": null,
             "owner": "lotem",
             "repo": "librime-octagram",
-            "rev": "a6ced5a1d623afed17284fbaa395dd3a8b019a14",
-            "sha256": "sha256-6HVRrEM0XG3F5hCOvP+lHwUbYA38KmEMiDa2JtofFHI=",
+            "rev": "bd12863f45fbbd5c7db06d5ec8be8987b10253bf",
+            "sha256": "sha256-77g72tee4ahNcu3hfW1Okqr9z8Y6WrPgUhw316O72Ng=",
             "type": "github"
         },
-        "version": "a6ced5a1d623afed17284fbaa395dd3a8b019a14"
+        "version": "bd12863f45fbbd5c7db06d5ec8be8987b10253bf"
     },
     "librime-proto": {
         "cargoLocks": null,
@@ -1643,7 +1643,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-02-04",
+        "date": "2024-02-06",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1655,11 +1655,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "45ba711d6e15ed0cf5bad2a970753bbc41633bb1",
-            "sha256": "sha256-lXv1ra/KgAeAUbqipCFxMGaCuGpUI3lZ2bSD0lNx9jg=",
+            "rev": "f3d92bddd0a37876bb99218e073acae8574cfbdf",
+            "sha256": "sha256-f+raY8YifqKf5aOGudXl5JFawVp6BCSO7rgl85yeaRI=",
             "type": "github"
         },
-        "version": "45ba711d6e15ed0cf5bad2a970753bbc41633bb1"
+        "version": "f3d92bddd0a37876bb99218e073acae8574cfbdf"
     },
     "rime-moegirl": {
         "cargoLocks": null,
