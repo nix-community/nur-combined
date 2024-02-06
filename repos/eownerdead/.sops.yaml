@@ -1,0 +1,5 @@
+keys:
+  - &eownerdead  009E56305CA54D63
+creation_rules:
+  - path_regex: .*sops\.yaml$
+    pgp: *eownerdead

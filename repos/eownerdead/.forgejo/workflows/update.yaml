@@ -1,0 +1,33 @@
+name: update-flake-lock
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Run every days.
+
+jobs:
+  lockfile:
+    runs-on: docker
+    container:
+       # nixos/nix doesn't work because it doesn't have /bin/sleep.
+      image: nixpkgs/nix-flakes:nixos-23.05
+    steps:
+      - name: Install dependencies
+        run: |-
+          echo /root/.nix-profile/bin/ >> $GITHUB_PATH
+          nix profile install nixpkgs#tea
+      - name: Checkout
+        run:
+          git clone --depth 1
+          ${{ github.server_url }}/${{ github.repository }} .
+      - name: Update flake.lock
+        run: nix flake update --commit-lock-file
+        env:
+          GIT_AUTHOR_NAME: EOWNERDEAD CI
+          GIT_AUTHOR_EMAIL: eownerdead@disroot.org
+          GIT_COMMITTER_NAME: EOWNERDEAD CI
+          GIT_COMMITTER_EMAIL: eownerdead@disroot.org
+      - name: Push
+        # TODO: Use ${{ github.server_url }}
+        run: git push https://${{ github.repository_owner }}:$PASSWORD@codeberg.org/${{ github.repository }}
+        env:
+          PASSWORD: ${{ secrets.TOKEN }}
