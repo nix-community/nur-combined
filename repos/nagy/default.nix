@@ -32,7 +32,6 @@ applied-overlay // {
       (self: import ./pkgs/python3-packages { inherit (self) callPackage; }));
 
   lispPackages = pkgs.recurseIntoAttrs {
-    dbus = pkgs.callPackage ./pkgs/cl-dbus { };
     cl-opengl = pkgs.callPackage ./pkgs/cl-opengl { };
     cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { };
   };

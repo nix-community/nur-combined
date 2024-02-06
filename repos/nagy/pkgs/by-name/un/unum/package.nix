@@ -1,14 +1,14 @@
 { lib, stdenv, fetchFromGitHub, perl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "unum";
   version = "3.6";
 
   src = fetchFromGitHub {
     owner = "Fourmilab";
-    repo = pname;
-    rev = "2e544ef429768ad7c491cbbac1ca9742e310c2f0";
-    hash = "sha256-fAegRn95n+0M5ISKP1xrkXJNJiF+qFjtkIXYV3f/4pQ=";
+    repo = "unum";
+    rev = "5a7851baa76e125f4b59a2f28a23d2e52ed270f2";
+    hash = "sha256-sHWpLJ7PHPPB+Vcgw1eHReTo2U9yCpJrYlMkfXhmuFM=";
   };
 
   buildInputs = [ perl ];
