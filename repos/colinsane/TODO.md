@@ -6,7 +6,8 @@
 - entering the wrong password in unl0kr hangs the TTY
 
 ## REFACTORING:
-
+- consolidate ~/dev and ~/ref
+  - ~/dev becomes a link to ~/ref/cat/mine
 - fold hosts/common/home/ssh.nix -> hosts/common/users/colin.nix
 
 ### sops/secrets
