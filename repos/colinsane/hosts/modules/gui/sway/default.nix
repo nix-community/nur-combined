@@ -25,7 +25,7 @@ let
     '';
   in pkgs.symlinkJoin {
     inherit (configuredSway) name meta;
-    # the order of these `paths` is suchs that the desktop-file should claim share/wayland-sessions/sway.deskop,
+    # the order of these `paths` is such that the desktop-file should claim share/wayland-sessions/sway.deskop,
     # overriding whatever the configuredSway provides
     paths = [ desktop-file configuredSway ];
     passthru = {
@@ -42,7 +42,7 @@ let
     withBaseWrapper = config.programs.sway.wrapperFeatures.base;
     withGtkWrapper  = config.programs.sway.wrapperFeatures.gtk;
     isNixOS = true;
-      # TODO: `enableXWayland = ...`?
+    # TODO: `enableXWayland = ...`?
   };
 in
 {
@@ -118,17 +118,17 @@ in
       # TODO: split these into their own option scope
       brightness_down_cmd = mkOption {
         type = types.str;
-        default = "${pkgs.brightnessctl}/bin/brightnessctl set 2%-";
+        default = "brightnessctl set 2%-";
         description = "command to run when use wants to decrease screen brightness";
       };
       brightness_up_cmd = mkOption {
         type = types.str;
-        default = "${pkgs.brightnessctl}/bin/brightnessctl set +2%";
+        default = "brightnessctl set +2%";
         description = "command to run when use wants to increase screen brightness";
       };
       screenshot_cmd = mkOption {
         type = types.str;
-        default = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+        default = "grimshot copy area";
         description = "command to run when user wants to take a screenshot";
       };
     };
@@ -173,20 +173,24 @@ in
         packageUnwrapped = null;
         suggestedPrograms = [
           "guiApps"
-          "conky"  # for a nice background
-          "splatmoji"  # used by us, but 'enabling' it gets us persistence & cfg
-          "swaylock"
-          "swayidle"
-          "wl-clipboard"
           "blueberry"  # GUI bluetooth manager
-          "playerctl"  # for waybar & particularly to have playerctld running
-          # "mako"  # notification daemon
-          "swaynotificationcenter"  # notification daemon
-          "wob"  # render volume changes on-screen
+          "brightnessctl"
+          "conky"  # for a nice background
+          "fuzzel"
           # "gnome.gnome-bluetooth"  # XXX(2023/05/14): broken
           # "gnome.gnome-control-center"  # XXX(2023/06/28): depends on webkitgtk4_1
-          "sway-contrib.grimshot"
+          "playerctl"  # for waybar & particularly to have playerctld running
+          "pulsemixer"  # for volume controls
+          "splatmoji"  # used by sway config
+          "sway-contrib.grimshot"  # used by sway config
+          # "swayidle"  # enable if you need it
+          "swaylock"  # used by sway config
+          "swaynotificationcenter"  # notification daemon
+          "waybar"  # used by sway config
           "wdisplays"  # like xrandr
+          "wl-clipboard"
+          "wob"  # render volume changes on-screen
+          "xdg-terminal-exec"  # used by sway config
         ];
 
         secrets.".config/sane-sway/snippets.txt" = ../../../../secrets/common/snippets.txt.bin;

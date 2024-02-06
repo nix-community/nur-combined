@@ -394,6 +394,8 @@ in
 
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
+    swaylock.sandbox.enable = false;  #< neither landlock nor bwrap works. pam_authenticate failed: invalid credentials. does it rely on SUID?
+
     tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
 
     tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
