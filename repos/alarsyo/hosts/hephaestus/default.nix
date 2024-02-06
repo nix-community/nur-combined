@@ -190,6 +190,50 @@
           };
         };
       };
+      dock-lid-closed = {
+        fingerprint = {
+          "DP-3" = "00ffffffffffff0026cd0f610101010101190103813420782a4ca5a7554da226105054adcf0031468180818c9500950fb300a940d1c0283c80a070b023403020360006442100001a000000ff0031313230303530313030333630000000fd00324b1e4b11000a202020202020000000fc0058323438350a20202020202020008a";
+          "DP-4" = "00ffffffffffff0026cd0f610101010108180103813420782a4ca5a7554da226105054adcf0031468180818c9500950fb300a940d1c0283c80a070b023403020360006442100001a000000ff0031313230303430383030333330000000fd00324b1e4b11000a202020202020000000fc0058323438350a202020202020200081";
+        };
+        config = {
+          "DP-3" = {
+            enable = true;
+            primary = true;
+            position = "1920x0";
+            mode = "1920x1200";
+          };
+          "DP-4" = {
+            enable = true;
+            primary = false;
+            position = "3840x0";
+            mode = "1920x1200";
+          };
+        };
+      };
+    };
+  };
+
+  systemd.services.autorandr-lid-listener = {
+    wantedBy = ["multi-user.target"];
+    description = "Listening for lid events to invoke autorandr";
+
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = let
+        stdbufExe = lib.getExe' pkgs.coreutils "stdbuf";
+        libinputExe = lib.getExe' pkgs.libinput "libinput";
+        grepExe = lib.getExe pkgs.gnugrep;
+        autorandrExe = lib.getExe pkgs.autorandr;
+      in
+        pkgs.writeShellScript "lid-listener.sh" ''
+          ${stdbufExe} -oL ${libinputExe} debug-events |
+            ${grepExe} -E --line-buffered '^[[:space:]-]+event[0-9]+[[:space:]]+SWITCH_TOGGLE[[:space:]]' |
+            while read line; do
+              ${pkgs.systemd}/bin/systemctl start --no-block autorandr.service
+            done
+        '';
+      Restart = "always";
+      RestartSec = "30";
     };
   };
 
