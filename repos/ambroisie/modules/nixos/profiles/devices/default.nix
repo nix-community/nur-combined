@@ -11,7 +11,7 @@ in
     my.hardware = {
       ergodox.enable = true;
 
-      mx-ergo.enable = true;
+      trackball.enable = true;
     };
 
     # MTP devices auto-mount via file explorers

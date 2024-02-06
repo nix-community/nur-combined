@@ -7,9 +7,9 @@
     ./ergodox
     ./firmware
     ./graphics
-    ./mx-ergo
     ./networking
     ./sound
+    ./trackball
     ./upower
   ];
 }
