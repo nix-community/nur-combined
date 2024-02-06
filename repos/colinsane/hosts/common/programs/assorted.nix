@@ -236,7 +236,7 @@ in
 
     # creds, but also 200 MB of node modules, etc
     discord.sandbox.method = "bwrap";
-    discord.sandbox.wrapperType = "wrappedDerivation";
+    discord.sandbox.wrapperType = "inplace";  #< /opt-style packaging
     discord.persist.byStore.private = [ ".config/discord" ];
 
     dtc.sandbox.method = "bwrap";
@@ -276,6 +276,10 @@ in
       withWebkit = false;
     };
 
+    # fuzzel: TODO: re-enable sandbox. i use fuzzel both as an entry system (snippets) AND an app-launcher.
+    #   as an app-launcher, it cannot be sandboxed without over-restricting the app it launches.
+    #   should probably make it not be an app-launcher
+    fuzzel.sandbox.enable = false;
     fuzzel.sandbox.method = "bwrap";  #< landlock nearly works, but unable to open ~/.cache
     fuzzel.sandbox.wrapperType = "wrappedDerivation";
     fuzzel.persist.byStore.private = [ ".cache/fuzzel" ];  #< this is a file of recent selections

@@ -137,19 +137,21 @@ let
   # - share/icons
   # - share/man
   # - share/mime
-  fixHardcodedRefs = unsandboxed: sandboxedNonBin: sandboxedBin: sandboxedNonBin.overrideAttrs (prevAttrs: {
+  fixHardcodedRefs = unsandboxed: sandboxedBin: unsandboxedNonBin: unsandboxedNonBin.overrideAttrs (prevAttrs: {
     postInstall = (prevAttrs.postInstall or "") + ''
       trySubstitute() {
         _outPath="$1"
         _pattern="$2"
         _from=$(printf "$_pattern" "${unsandboxed}")
         _to=$(printf "$_pattern" "${sandboxedBin}")
-        printf "applying known substitutions to %s" "$_outPath"
-        # substituteInPlace can fail on symlinks, but frequently that's fine because
-        # the referenced file is already safe, so don't error on failure here.
-        substituteInPlace "$_outPath" \
-          --replace "$_from" "$_to" \
-          || true
+        printf "applying known substitutions to %s\n" "$_outPath"
+        # for closure efficiency, we only want to rewrite stuff which actually needs changing,
+        # and allow unchanged stuff to remain as symlinks.
+        # `substitute` can't rewrite symlinks, so instead do the substitution to a temp output
+        # with `--replace-fail` and only recreate the output symlink as a file if the substitution succeeds (i.e. if it matched).
+        if substitute "$_outPath" ./substituteResult --replace-fail "$_from" "$_to"; then
+          mv ./substituteResult "$_outPath"
+        fi
       }
       # fixup a few files i understand well enough
       for d in $out/share/applications/*.desktop; do
@@ -159,36 +161,44 @@ let
         trySubstitute "$d" "Exec=%s/bin/"
       done
     '';
+    passthru = (prevAttrs.passthru or {}) // {
+      # check that sandboxedNonBin references only sandboxed binaries, and never the original unsandboxed binaries.
+      # do this by dereferencing all sandboxedNonBin symlinks, and making `unsandboxed` a disallowedReference.
+      # further, since the sandboxed binaries intentionally reference the unsandboxed binaries,
+      # we have to patch those out as a way to whitelist them.
+      checkSandboxed = let
+        sandboxedNonBin = fixHardcodedRefs unsandboxed "/dev/null" unsandboxedNonBin;
+      in runCommand "${sandboxedNonBin.name}-check-sandboxed"
+        { disallowedReferences = [ unsandboxed ]; }
+        ''
+          # dereference every symlink, ensuring that whatever data is behind it does not reference non-sandboxed binaries.
+          # the dereference *can* fail, in case it's a relative symlink that refers to a part of the non-binaries we don't patch.
+          # in such case, this could lead to weird brokenness (e.g. no icons/images), so failing is reasonable.
+          cp -R --dereference "${sandboxedNonBin}" "$out"  # IF YOUR BUILD FAILS HERE, TRY SANDBOXING WITH "inplace"
+        ''
+      ;
+    };
   });
 
-  # copy or symlink the non-binary files from the unsandboxed package,
+  # symlink the non-binary files from the unsandboxed package,
   # patch them to use the sandboxed binaries,
   # and add some passthru metadata to enforce no lingering references to the unsandboxed binaries.
-  sandboxNonBinaries = method: pkgName: unsandboxed: sandboxedBin: let
-    unsandboxedNonBinaries = runCommand "${pkgName}-sandboxed-non-binary" {
-      passthru.checkSandboxed = (copyNonBinaries pkgName unsandboxed sandboxedBin).overrideAttrs (_: {
-        # copy everything, patch just as we would for any method, and then enforce no refs to the unsandboxed pkg.
-        # we can do that only because we're copying instead of symlinking.
-        # TODO: instead of `passthru.checkSandboxed`, just make this a build prereq of the out derivation,
-        #       such that it fails the main derivation if it would contain bad refs
-        disallowedReferences = [ unsandboxed ];
-      });
-    } ''
+  sandboxNonBinaries = pkgName: unsandboxed: sandboxedBin:
+    fixHardcodedRefs unsandboxed sandboxedBin (runCommand "${pkgName}-sandboxed-non-binary" {} ''
+      set -e
       mkdir "$out"
       if [ -e "${unsandboxed}/share" ]; then
-        ${method} "${unsandboxed}/share" "$out/"
+        mkdir "$out/share"
+        ${buildPackages.xorg.lndir}/bin/lndir "${unsandboxed}/share" "$out/share"
       fi
       runHook postInstall
-      '';
-    in fixHardcodedRefs unsandboxed unsandboxedNonBinaries sandboxedBin;
-
-  copyNonBinaries = sandboxNonBinaries "cp -R";
-  symlinkNonBinaries = sandboxNonBinaries "${buildPackages.xorg.lndir}/bin/lndir";
+    '');
 
   # take the nearly-final sandboxed package, with binaries and and else, and
   # populate passthru attributes the caller expects, like `sandboxProfiles` and `checkSandboxed`.
   fixupMetaAndPassthru = pkgName: pkg: sandboxProfiles: extraPassthru: pkg.overrideAttrs (finalAttrs: prevAttrs: let
     final = fixupMetaAndPassthru pkgName pkg sandboxProfiles extraPassthru;
+    nonBin = (prevAttrs.passthru or {}).sandboxedNonBin or {};
   in {
     meta = (prevAttrs.meta or {}) // {
       # take precedence over non-sandboxed versions of the same binary.
@@ -197,6 +207,7 @@ let
     passthru = (prevAttrs.passthru or {}) // extraPassthru // {
       inherit sandboxProfiles;
       checkSandboxed = runCommand "${pkgName}-check-sandboxed" {} ''
+        set -e
         # invoke each binary in a way only the sandbox wrapper will recognize,
         # ensuring that every binary has in fact been wrapped.
         _numExec=0
@@ -210,17 +221,17 @@ let
         done
 
         echo "successfully tested $_numExec binaries"
+        test "$_numExec" -ne 0
+        mkdir "$out"
         # forward prevAttrs checkSandboxed, to guarantee correctness for the /share directory (`sandboxNonBinaries`).
-        ${lib.optionalString (prevAttrs ? passthru && prevAttrs.passthru ? checkSandboxed)
-          ''echo "also checked: ${prevAttrs.passthru.checkSandboxed}"''
-        }
-        test "$_numExec" -ne 0 && touch "$out"
+        ln -s ${nonBin.checkSandboxed or "/dev/null"} "$out/sandboxed-non-binaries"
       '';
     };
   });
 
   make-sandboxed = { pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? null, binMap ? {}, capabilities ? [], embedProfile ? false, embedSandboxer ? false, extraConfig ? [], whitelistPwd ? false }@args:
   let
+    unsandboxed = package;
     sane-sandboxed' = if embedSandboxer then
       # optionally hard-code the sandboxer. this forces rebuilds, but allows deep iteration w/o deploys.
       lib.getExe sane-sandboxed
@@ -281,20 +292,20 @@ let
         sane-sandboxed'
         maybeEmbedProfilesDir
         pkgName
-        (makeHookable package);
+        (makeHookable unsandboxed);
 
       wrappedDerivation = let
-        binaries = sandboxBinariesInPlace
+        sandboxedBin = sandboxBinariesInPlace
           binMap
           sane-sandboxed'
           maybeEmbedProfilesDir
           pkgName
-          (symlinkBinaries pkgName package);
-        nonBinaries = symlinkNonBinaries pkgName package binaries;
+          (symlinkBinaries pkgName unsandboxed);
+        sandboxedNonBin = sandboxNonBinaries pkgName unsandboxed sandboxedBin;
       in symlinkJoin {
         name = "${pkgName}-sandboxed-all";
-        paths = [ binaries nonBinaries ];
-        passthru = { inherit binaries nonBinaries; };
+        paths = [ sandboxedBin sandboxedNonBin ];
+        passthru = { inherit sandboxedBin sandboxedNonBin unsandboxed; };
       };
     };
     packageWrapped = sandboxedBy."${wrapperType}";

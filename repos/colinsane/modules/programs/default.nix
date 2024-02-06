@@ -405,10 +405,10 @@ let
       "program ${name} specified no `sandbox.method`; please configure a method, or set sandbox.enable = false."
     ];
 
-    system.checks = lib.optionals (p.enabled && p.sandbox.method != null && p.package != null) [
+    system.checks = lib.optionals (p.enabled && p.sandbox.enable && p.sandbox.method != null && p.package != null) [
       p.package.passthru.checkSandboxed
     ];
-    sane.sandboxProfiles = lib.optionals (p.enabled && p.sandbox.method != null && p.package != null) [
+    sane.sandboxProfiles = lib.optionals (p.enabled && p.sandbox.enable && p.sandbox.method != null && p.package != null) [
       p.package.passthru.sandboxProfiles
     ];
 
