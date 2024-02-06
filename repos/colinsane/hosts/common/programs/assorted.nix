@@ -302,7 +302,7 @@ in
       "tmp"
     ];
     gimp.sandbox.extraPaths = [
-      "/mnt/servo-media/Pictures"
+      "/mnt/servo/media/Pictures"
     ];
     gimp.sandbox.autodetectCliPaths = true;
 

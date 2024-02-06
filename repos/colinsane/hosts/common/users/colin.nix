@@ -137,9 +137,9 @@
     # convenience
     fs."knowledge".symlink.target = "private/knowledge";
     fs."nixos".symlink.target = "dev/nixos";
-    fs."Books/servo".symlink.target = "/mnt/servo-media/Books";
-    fs."Videos/servo".symlink.target = "/mnt/servo-media/Videos";
-    # fs."Music/servo".symlink.target = "/mnt/servo-media/Music";
-    fs."Pictures/servo-macros".symlink.target = "/mnt/servo-media/Pictures/macros";
+    fs."Books/servo".symlink.target = "/mnt/servo/media/Books";
+    fs."Videos/servo".symlink.target = "/mnt/servo/media/Videos";
+    # fs."Music/servo".symlink.target = "/mnt/servo/media/Music";
+    fs."Pictures/servo-macros".symlink.target = "/mnt/servo/media/Pictures/macros";
   };
 }

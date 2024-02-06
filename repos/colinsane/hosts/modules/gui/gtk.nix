@@ -328,5 +328,12 @@ in
       themes.gtk-theme."${cfg.gtk-theme}"
       themes.icon-theme."${cfg.icon-theme}"
     ] ++ lib.optionals cfg.all (lib.attrValues unsortedThemes);
+
+    # XXX(2024/02/05): set GSK_RENDERER=cairo to solve graphical edge-case on moby where some JPEGs would render as black!
+    # - repro by loading komikku and viewing images. some fail (particularly mangadex onimai), some work.
+    # - run `GSK_RENDERER=help loupe` to see options.
+    # - TODO: see if i can enable the `vulkan` GSK_RENDERER?
+    # - for more on GSK_RENDERER: <https://blog.gtk.org/2024/01/28/new-renderers-for-gtk/>
+    environment.variables.GSK_RENDERER = "cairo";
   };
 }

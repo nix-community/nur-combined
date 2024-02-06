@@ -8,7 +8,7 @@
       "Books"
     ];
     sandbox.extraPaths = [
-      "/mnt/servo-media/Books"
+      "/mnt/servo/media/Books"
     ];
     # cozy uses a sqlite db for its config and exposes no CLI options other than --help and --debug
     persist.byStore.plaintext = [

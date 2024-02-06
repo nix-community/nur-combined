@@ -277,7 +277,7 @@ bwrapSetup() {
 bwrapIngestPath() {
   # N.B.: use --dev-bind-try instead of --dev-bind for platform-specific paths like /run/opengl-driver-32
   #   which don't exist on aarch64, as the -try variant will gracefully fail (i.e. not bind it).
-  # N.B.: `test -r` for paths like /mnt/servo-media, which may otherwise break bwrap when offline with
+  # N.B.: `test -r` for paths like /mnt/servo/media, which may otherwise break bwrap when offline with
   #   "bwrap: Can't get type of source /mnt/...: Input/output error"
   # HOWEVER, paths such as `/run/secrets` are not readable, so don't do that (or, try `test -e` if this becomes a problem again).
   # `-try` version of binding is still desireable for user files.

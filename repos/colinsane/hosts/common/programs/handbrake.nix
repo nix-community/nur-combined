@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.handbrake = {
-    sandbox.method = "bwrap";  #< landlock would be better (prevents output to tmp dirs), but needs work for /mnt/servo-media to function.
+    sandbox.method = "landlock";  #< also supports bwrap, but landlock ensures we don't write to non-mounted tmpfs dir
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.extraHomePaths = [
       "Music"
@@ -10,8 +10,8 @@
       "tmp"
     ];
     sandbox.extraPaths = [
-      "/mnt/servo-media/Pictures"
-      "/mnt/servo-media/Videos"
+      "/mnt/servo/media/Pictures"
+      "/mnt/servo/media/Videos"
     ];
     sandbox.autodetectCliPaths = true;
 

@@ -439,8 +439,8 @@
             # can run this from any device that has ssh access to desko and servo
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-desko" ''
-              sudo mount /mnt/desko-home
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compat /mnt/servo-media/Music /mnt/desko-home/Music "$@"
+              sudo mount /mnt/desko/home
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compat /mnt/servo/media/Music /mnt/desko/home/Music "$@"
             '');
           };
 
@@ -449,8 +449,8 @@
             # can run this from any device that has ssh access to lappy and servo
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-lappy" ''
-              sudo mount /mnt/lappy-home
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat /mnt/servo-media/Music /mnt/lappy-home/Music "$@"
+              sudo mount /mnt/lappy/home
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat /mnt/servo/media/Music /mnt/lappy/home/Music "$@"
             '');
           };
 
@@ -459,11 +459,11 @@
             # can run this from any device that has ssh access to moby and servo
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "sync-to-moby" ''
-              sudo mount /mnt/moby-home
-              sudo mount /mnt/desko-home
-              ${pkgs.rsync}/bin/rsync -arv --exclude servo-macros /mnt/moby-home/Pictures/ /mnt/desko-home/Pictures/moby/
+              sudo mount /mnt/moby/home
+              sudo mount /mnt/desko/home
+              ${pkgs.rsync}/bin/rsync -arv --exclude servo-macros /mnt/moby/home/Pictures/ /mnt/desko/home/Pictures/moby/
               # N.B.: limited by network/disk -> reduce job count to improve pause/resume behavior
-              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat --jobs 4 /mnt/servo-media/Music /mnt/moby-home/Music "$@"
+              ${pkgs.sane-scripts.sync-music}/bin/sane-sync-music --compress --compat --jobs 4 /mnt/servo/media/Music /mnt/moby/home/Music "$@"
             '');
           };
 

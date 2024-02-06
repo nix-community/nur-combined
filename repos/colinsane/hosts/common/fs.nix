@@ -57,13 +57,13 @@ let
     ];
   };
   remoteHome = host: {
-    fileSystems."/mnt/${host}-home" = {
+    fileSystems."/mnt/${host}/home" = {
       device = "colin@${host}:/home/colin";
       fsType = "fuse.sshfs";
       options = fsOpts.sshColin ++ fsOpts.noauto;
       noCheck = true;
     };
-    sane.fs."/mnt/${host}-home" = sane-lib.fs.wantedDir;
+    sane.fs."/mnt/${host}/home" = sane-lib.fs.wantedDir;
   };
 in
 lib.mkMerge [
@@ -105,13 +105,13 @@ lib.mkMerge [
     #   fsType = "nfs";
     #   options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
     # };
-    fileSystems."/mnt/servo-nfs/media" = {
+    fileSystems."/mnt/servo/media" = {
       device = "servo-hn:/media";
       noCheck = true;
       fsType = "nfs";
       options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
     };
-    fileSystems."/mnt/servo-nfs/playground" = {
+    fileSystems."/mnt/servo/playground" = {
       device = "servo-hn:/playground";
       noCheck = true;
       fsType = "nfs";
@@ -123,7 +123,7 @@ lib.mkMerge [
     #   fsType = "nfs";
     #   options = fsOpts.common ++ fsOpts.auto;
     # };
-    sane.fs."/mnt/servo-media" = sane-lib.fs.wantedSymlinkTo "/mnt/servo-nfs/media";
+    # sane.fs."/mnt/servo-media" = sane-lib.fs.wantedSymlinkTo "/mnt/servo-nfs/media";
 
     environment.pathsToLink = [
       # needed to achieve superuser access for user-mounted filesystems (see optionsRoot above)

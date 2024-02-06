@@ -10,8 +10,8 @@
       "tmp"
     ];
     sandbox.extraPaths = [
-      "/mnt/servo-media/Pictures"
-      "/mnt/servo-media/Videos"
+      "/mnt/servo/media/Pictures"
+      "/mnt/servo/media/Videos"
     ];
     sandbox.whitelistDri = true;
     packageUnwrapped = pkgs.kdenlive.override {

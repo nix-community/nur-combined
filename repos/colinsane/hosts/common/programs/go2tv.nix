@@ -11,9 +11,9 @@
 #       - e.g. `go2tv -u 'https://inv.us.projectsegfau.lt/latest_version?id=qBzjHU_zEwM&itag=18'`
 #       - e.g. `go2tv -tc -u 'https://yt.artemislena.eu/latest_version?id=qBzjHU_zEwM&itag=22'`
 #       - sometimes transcoding is needed, sometimes not...
-# - `go2tv -v /mnt/servo-media/Videos/Shows/bebop/session1.mkv`
+# - `go2tv -v /mnt/servo/media/Videos/Shows/bebop/session1.mkv`
 #   - LGTV: works
-# - `go2tv -tc -v /mnt/servo-media/Videos/Shows/bebop/session1.mkv`
+# - `go2tv -tc -v /mnt/servo/media/Videos/Shows/bebop/session1.mkv`
 #   - LGTV: works
 #
 # WHEN TO TRANSCODE:
@@ -42,8 +42,8 @@ in
       "Videos"
     ];
     sandbox.extraPaths = [
-      "/mnt/servo-media/Music"
-      "/mnt/servo-media/Videos"
+      "/mnt/servo/media/Music"
+      "/mnt/servo/media/Videos"
     ];
   };
   # for serving local files

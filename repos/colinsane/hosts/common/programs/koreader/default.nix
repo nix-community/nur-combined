@@ -53,7 +53,7 @@ in {
       "Books"
     ];
     sandbox.extraPaths = [
-      "/mnt/servo-media/Books"
+      "/mnt/servo/media/Books"
     ];
     # koreader applies these lua "patches" at boot:
     # - <https://github.com/koreader/koreader/wiki/User-patches>
