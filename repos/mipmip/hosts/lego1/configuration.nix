@@ -2,15 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, system, pkgs, peerix, unstable, ... }:
+{ config, lib, inputs, system, pkgs, peerix, unstable, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../_roles/desktop.nix
-
-
   ];
 
   nix = {
@@ -35,10 +33,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  boot.initrd.systemd.enable = true;
+  boot.initrd.verbose = false;
+
   boot.kernelPackages = unstable.linuxPackages_latest;
-  networking.hostName = "lego1";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  boot.plymouth.enable = true;
+  boot.plymouth.theme = "breeze";
 
   # Setup keyfile
   boot.initrd.secrets = {
@@ -50,10 +54,10 @@
   boot.initrd.luks.devices."luks-57e3184e-15a9-4b84-9de7-ccf0fdb877eb".keyFile = "/crypto_keyfile.bin";
 
   # Enable networking
+  networking.hostName = "lego1";
   networking.networkmanager.enable = true;
-
-
   networking.firewall.enable = false;
+  networking.useDHCP = lib.mkDefault true;
 
   system.stateVersion = "22.11"; # Did you read the comment?
 
