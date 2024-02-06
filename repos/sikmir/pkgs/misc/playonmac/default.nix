@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "playonmac";
-  version = "4.3.3";
+  version = "4.4.4";
 
   src = fetchurl {
     url = "https://repository.playonmac.com/PlayOnMac/PlayOnMac_${version}.dmg";
-    sha256 = "11gdw7y8f281gpp8vlyrhjaghlaqaxaqq373z7d31rzx7vq9jl3r";
+    hash = "sha256-e+a+4W2N8+DKpd9vZHrEN6XE137X+hsRodsC7fnGZSI=";
   };
 
   sourceRoot = ".";

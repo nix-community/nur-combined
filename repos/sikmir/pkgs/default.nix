@@ -285,7 +285,7 @@ lib.makeScope newScope (
     gpxeditor = callPackage ./gpx/gpxeditor { };
     gpxlib = callPackage ./gpx/gpxlib { };
     gpxtools = callPackage ./gpx/gpxtools { };
-    #gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
+    gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
     routeconverter = callPackage ./gpx/routeconverter { };
     trackanimation = callPackage ./gpx/trackanimation { };
 
@@ -302,7 +302,6 @@ lib.makeScope newScope (
       };
       mbtileserver = callPackage ./images/mbtileserver { };
       quark = callPackage ./images/quark { };
-      wekan = callPackage ./images/wekan { };
     };
 
     ### LINGUISTICS
