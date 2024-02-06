@@ -1,8 +1,8 @@
-{ lib, stdenv, fetchFromGitHub
+{ lib, gcc12Stdenv, fetchFromGitHub
 , nodejs, python3
 }:
 
-stdenv.mkDerivation rec {
+gcc12Stdenv.mkDerivation rec {
   pname = "ueforth";
   ## https://github.com/flagxor/ueforth/commit/8e46c227aca17f4d0d0eb5ab71af6c88298e35cd
   version = "7.0.7.15-pre";
