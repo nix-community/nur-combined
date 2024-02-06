@@ -392,6 +392,9 @@ in
     subversion.sandbox.whitelistPwd = true;
     sudo.sandbox.enable = false;
 
+    superTux.sandbox.method = "bwrap";
+    superTux.sandbox.wrapperType = "wrappedDerivation";
+    superTux.sandbox.whitelistDri = true;
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
     swaylock.sandbox.enable = false;  #< neither landlock nor bwrap works. pam_authenticate failed: invalid credentials. does it rely on SUID?
@@ -418,9 +421,12 @@ in
     visidata.sandbox.wrapperType = "wrappedDerivation";
     visidata.sandbox.autodetectCliPaths = true;
 
+    vvvvvv.sandbox.method = "bwrap";
+    vvvvvv.sandbox.wrapperType = "wrappedDerivation";
+    vvvvvv.sandbox.whitelistDri = true;  #< playable without, but burns noticably more CPU
     vvvvvv.persist.byStore.plaintext = [ ".local/share/VVVVVV" ];
 
-    wget.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    wget.sandbox.method = "bwrap";
     wget.sandbox.wrapperType = "wrappedDerivation";
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
