@@ -4,7 +4,12 @@
 
   environment.systemPackages = with pkgs; [
 
+    # terminals
     alacritty
+    kitty
+    wezterm
+    foot
+
     xclip
     xorg.xkill
 

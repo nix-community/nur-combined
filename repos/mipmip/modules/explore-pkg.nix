@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, unstable, pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
+    unstable.zellij
 
 
 
