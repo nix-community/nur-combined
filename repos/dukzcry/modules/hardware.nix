@@ -49,6 +49,7 @@ in {
     } // builder))
     (mkIf (cfg.enable && laptop) ({
       hardware.bluetooth.enable = true;
+      hardware.bluetooth.powerOnBoot = false;
       services.upower = {
         enable = true;
         percentageLow = 7;
@@ -77,6 +78,7 @@ in {
       };
       nix.settings.cores = 8;
       hardware.bluetooth.enable = true;
+      hardware.bluetooth.powerOnBoot = false;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
       services.xserver.displayManager.sessionCommands = ''
         printf "%s\n" "Xft.dpi: 144" | xrdb -merge
