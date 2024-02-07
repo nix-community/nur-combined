@@ -15,38 +15,38 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "c2c969c02889f2766d78a74ffb7d4c3a6dab9cd5";
+    version = "61b5e8caefdf94a27848946e0c2ca45d1a7b82c0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "c2c969c02889f2766d78a74ffb7d4c3a6dab9cd5";
+      rev = "61b5e8caefdf94a27848946e0c2ca45d1a7b82c0";
       fetchSubmodules = false;
-      sha256 = "sha256-7TLCGuRFbBPysjkLprfT0iMn2oGcYeA3/QT3QMUJcHM=";
+      sha256 = "sha256-sChWHGNzRFN5FV/mPuHw33+PKoZI4RFqW/QjgCG/qqE=";
     };
-    date = "2024-01-08";
+    date = "2024-02-06";
   };
   nezha-agent = {
     pname = "nezha-agent";
-    version = "v0.15.17";
+    version = "v0.15.18";
     src = fetchFromGitHub {
       owner = "nezhahq";
       repo = "agent";
-      rev = "v0.15.17";
+      rev = "v0.15.18";
       fetchSubmodules = false;
-      sha256 = "sha256-ZoJqO555cQ2jl/ofEOgkorSPJ0H4MFtBFD8KktVvVus=";
+      sha256 = "sha256-GpJyWmmiS1L5WPmnLjeI+8YxRcW8Vwa6wix7kPmzoaU=";
     };
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "eb80076d1683121db35fabf8c1b0c6f9125c1b6d";
+    version = "81eae6d1ce58492dfa89d952f2f1961ed0c67f20";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "eb80076d1683121db35fabf8c1b0c6f9125c1b6d";
+      rev = "81eae6d1ce58492dfa89d952f2f1961ed0c67f20";
       fetchSubmodules = false;
-      sha256 = "sha256-J1pH1a5cEiMZ24JaWe9axNou01uL3Wlf2C4WJjQQOUU=";
+      sha256 = "sha256-XBhVwZqyCcEBPYhSDU9dKiemhcZWXXhoGy9Zd1E8jZk=";
     };
-    date = "2024-01-03";
+    date = "2024-02-03";
   };
   qsc-key-encoder = {
     pname = "qsc-key-encoder";
