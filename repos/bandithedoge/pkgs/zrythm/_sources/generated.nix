@@ -7,15 +7,15 @@
 }: {
   carla-git = {
     pname = "carla-git";
-    version = "df1f800a3979dcf91fc9c36116a65a324c1176a7";
+    version = "1e3b910d014f7f7d44e8b3b76eb47efad2121e4f";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "df1f800a3979dcf91fc9c36116a65a324c1176a7";
+      rev = "1e3b910d014f7f7d44e8b3b76eb47efad2121e4f";
       fetchSubmodules = false;
-      sha256 = "sha256-Txq/SH3EfNBJsntLrglcr8N1u0FptU4VbvjOsB4+w7c=";
+      sha256 = "sha256-2ErjlweNxOSEO1q7FB40EHHLZn3z2GauW9DK9soQjvI=";
     };
-    date = "2024-02-03";
+    date = "2024-02-06";
   };
   gtk-4_13_0 = {
     pname = "gtk-4_13_0";

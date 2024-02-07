@@ -171,13 +171,13 @@
         sha512 = "HpX65o1Hnr9HH25ojC1YGs7HCQLq0GCOibSaWER0eNpgJ/Z1MZv2mTc7+xh6WOPxbRVcmgbv4hGU+uSQ/2xFZQ==";
       };
     };
-    "chokidar-3.5.3" = {
+    "chokidar-3.6.0" = {
       name = "chokidar";
       packageName = "chokidar";
-      version = "3.5.3";
+      version = "3.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/chokidar/-/chokidar-3.5.3.tgz";
-        sha512 = "Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==";
+        url = "https://registry.npmjs.org/chokidar/-/chokidar-3.6.0.tgz";
+        sha512 = "7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==";
       };
     };
     "chownr-2.0.0" = {
@@ -304,15 +304,6 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/fs-minipass/-/fs-minipass-2.1.0.tgz";
         sha512 = "V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==";
-      };
-    };
-    "fsevents-2.3.3" = {
-      name = "fsevents";
-      packageName = "fsevents";
-      version = "2.3.3";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz";
-        sha512 = "5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==";
       };
     };
     "get-stream-8.0.1" = {
@@ -801,13 +792,13 @@
         sha512 = "1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==";
       };
     };
-    "ufo-1.3.2" = {
+    "ufo-1.4.0" = {
       name = "ufo";
       packageName = "ufo";
-      version = "1.3.2";
+      version = "1.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ufo/-/ufo-1.3.2.tgz";
-        sha512 = "o+ORpgGwaYQXgqGDwd+hkS4PuZ3QnmqMMxRuajK/a38L6fTpcE5GPIfrf+L/KemFzfUpeUQc1rRS1iDBozvnFA==";
+        url = "https://registry.npmjs.org/ufo/-/ufo-1.4.0.tgz";
+        sha512 = "Hhy+BhRBleFjpJ2vchUNN40qgkh0366FWJGqVLYBHev0vpHTrXSA0ryT+74UiW6KWsldNurQMKGqCm1M2zBciQ==";
       };
     };
     "vscode-jsonrpc-6.0.0" = {
@@ -1004,7 +995,7 @@ in {
       sources."c12-1.6.1"
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"
-      sources."chokidar-3.5.3"
+      sources."chokidar-3.6.0"
       sources."chownr-2.0.0"
       sources."citty-0.1.5"
       sources."consola-3.2.3"
@@ -1024,7 +1015,6 @@ in {
             sources."minipass-3.3.6"
           ];
         })
-      sources."fsevents-2.3.3"
       sources."get-stream-8.0.1"
       sources."giget-1.2.1"
       sources."glob-parent-5.1.2"
@@ -1090,7 +1080,7 @@ in {
       sources."tar-6.2.0"
       sources."to-regex-range-5.0.1"
       sources."type-detect-4.0.8"
-      sources."ufo-1.3.2"
+      sources."ufo-1.4.0"
       sources."vscode-jsonrpc-8.1.0"
       sources."vscode-languageserver-8.1.0"
       (sources."vscode-languageserver-protocol-3.17.3"
