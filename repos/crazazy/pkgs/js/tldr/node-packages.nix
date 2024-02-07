@@ -121,13 +121,13 @@ let
         sha512 = "EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==";
       };
     };
-    "call-bind-1.0.5" = {
+    "call-bind-1.0.6" = {
       name = "call-bind";
       packageName = "call-bind";
-      version = "1.0.5";
+      version = "1.0.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/call-bind/-/call-bind-1.0.5.tgz";
-        sha512 = "C3nQxfFZxFRVoJoGKKI8y3MOEo129NQ+FgQ08iye+Mk4zNZZGdjfs06bVTr+DBSlA66Q2VEcMki/cUCP4SercQ==";
+        url = "https://registry.npmjs.org/call-bind/-/call-bind-1.0.6.tgz";
+        sha512 = "Mj50FLHtlsoVfRfnHaZvyrooHcrlceNZdL/QBvJJVd9Ta55qCQK0gs4ss2oZDeV9zFCs6ewzYgVE5yfVmfFpVg==";
       };
     };
     "chalk-4.1.2" = {
@@ -220,13 +220,13 @@ let
         sha512 = "eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==";
       };
     };
-    "define-data-property-1.1.1" = {
+    "define-data-property-1.1.2" = {
       name = "define-data-property";
       packageName = "define-data-property";
-      version = "1.1.1";
+      version = "1.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/define-data-property/-/define-data-property-1.1.1.tgz";
-        sha512 = "E7uGkTzkk1d0ByLeSc6ZsFS79Axg+m1P/VsgYsxHgiuc3tFSj+MjMIwe90FC4lOAZzNBdY7kkO2P2wKdsQ1vgQ==";
+        url = "https://registry.npmjs.org/define-data-property/-/define-data-property-1.1.2.tgz";
+        sha512 = "SRtsSqsDbgpJBbW3pABMCOt6rQyeM8s8RiyeSN8jYG8sYmt/kGJejbydttUsnDs1tadr19tvhT4ShwMyoqAm4g==";
       };
     };
     "delayed-stream-1.0.0" = {
@@ -292,13 +292,13 @@ let
         sha512 = "7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==";
       };
     };
-    "get-intrinsic-1.2.3" = {
+    "get-intrinsic-1.2.4" = {
       name = "get-intrinsic";
       packageName = "get-intrinsic";
-      version = "1.2.3";
+      version = "1.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.2.3.tgz";
-        sha512 = "JIcZczvcMVE7AUOP+X72bh8HqHBRxFdz5PDHYtNG/lE3yk9b3KZBJlwFcTyPYjg3L4RLLmZJzvjxhaZVapxFrQ==";
+        url = "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.2.4.tgz";
+        sha512 = "5uYhsJH8VJBTv7oslg4BznJYhDoRI6waYCxMmCdnTrcCrHA/fCFKoTFz2JKKE0HdDFUF7/oQuhzumXJK7paBRQ==";
       };
     };
     "glob-7.2.3" = {
@@ -625,13 +625,13 @@ let
         sha512 = "rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==";
       };
     };
-    "set-function-length-1.2.0" = {
+    "set-function-length-1.2.1" = {
       name = "set-function-length";
       packageName = "set-function-length";
-      version = "1.2.0";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/set-function-length/-/set-function-length-1.2.0.tgz";
-        sha512 = "4DBHDoyHlM1IRPGYcoxexgh67y4ueR53FKV1yyxwFMY7aCqcN/38M1+SwZ/qJQ8iLv7+ck385ot4CcisOAPT9w==";
+        url = "https://registry.npmjs.org/set-function-length/-/set-function-length-1.2.1.tgz";
+        sha512 = "j4t6ccc+VsKwYHso+kElc5neZpjtq9EnRICFZtWyBsLojhmeF/ZBd/elqm22WJh/BziDe/SBiOeAt0m2mfLD0g==";
       };
     };
     "signal-exit-3.0.7" = {
@@ -753,7 +753,7 @@ let
       sources."bl-4.1.0"
       sources."brace-expansion-1.1.11"
       sources."buffer-5.7.1"
-      sources."call-bind-1.0.5"
+      sources."call-bind-1.0.6"
       sources."chalk-4.1.2"
       sources."cli-cursor-3.1.0"
       sources."cli-spinners-2.9.2"
@@ -764,7 +764,7 @@ let
       sources."commander-6.2.1"
       sources."concat-map-0.0.1"
       sources."defaults-1.0.4"
-      sources."define-data-property-1.1.1"
+      sources."define-data-property-1.1.2"
       sources."delayed-stream-1.0.0"
       sources."es-errors-1.3.0"
       sources."follow-redirects-1.15.5"
@@ -772,7 +772,7 @@ let
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."function-bind-1.1.2"
-      sources."get-intrinsic-1.2.3"
+      sources."get-intrinsic-1.2.4"
       sources."glob-7.2.3"
       sources."gopd-1.0.1"
       sources."graceful-fs-4.2.11"
@@ -809,7 +809,7 @@ let
       sources."readable-stream-3.6.2"
       sources."restore-cursor-3.1.0"
       sources."safe-buffer-5.2.1"
-      sources."set-function-length-1.2.0"
+      sources."set-function-length-1.2.1"
       sources."signal-exit-3.0.7"
       sources."string_decoder-1.3.0"
       sources."strip-ansi-6.0.1"

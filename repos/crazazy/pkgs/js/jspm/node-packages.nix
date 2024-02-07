@@ -553,13 +553,13 @@ let
         sha512 = "VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==";
       };
     };
-    "caniuse-lite-1.0.30001584" = {
+    "caniuse-lite-1.0.30001585" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001584";
+      version = "1.0.30001585";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001584.tgz";
-        sha512 = "LOz7CCQ9M1G7OjJOF9/mzmqmj3jE/7VOmrfw6Mgs0E8cjOsbRXQJHsPBfmBOXDskXKrHLyyW3n7kpDW/4BsfpQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001585.tgz";
+        sha512 = "yr2BWR1yLXQ8fMpdS/4ZZXpseBgE7o4g41x3a6AJOqZuOi+iE/WdJYAuZ6Y95i4Ohd2Y+9MzIWRR+uGABH4s3Q==";
       };
     };
     "chalk-2.4.2" = {
@@ -679,13 +679,13 @@ let
         sha512 = "eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==";
       };
     };
-    "electron-to-chromium-1.4.656" = {
+    "electron-to-chromium-1.4.659" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.656";
+      version = "1.4.659";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.656.tgz";
-        sha512 = "9AQB5eFTHyR3Gvt2t/NwR0le2jBSUNwCnMbUCejFWHD+so4tH40/dRLgoE+jxlPeWS43XJewyvCv+I8LPMl49Q==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.659.tgz";
+        sha512 = "sRJ3nV3HowrYpBtPF9bASQV7OW49IgZC01Xiq43WfSE3RTCkK0/JidoCmR73Hyc1mN+l/H4Yqx0eNiomvExFZg==";
       };
     };
     "encoding-0.1.13" = {
@@ -715,13 +715,13 @@ let
         sha512 = "cXLGjP0c4T3flZJKQSuziYoq7MlT+rnvfZjfp7h+I7K9BNX54kP9nyWvdbwjQ4u1iWbOL4u96fgeZLToQlZC7w==";
       };
     };
-    "escalade-3.1.1" = {
+    "escalade-3.1.2" = {
       name = "escalade";
       packageName = "escalade";
-      version = "3.1.1";
+      version = "3.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/escalade/-/escalade-3.1.1.tgz";
-        sha512 = "k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==";
+        url = "https://registry.npmjs.org/escalade/-/escalade-3.1.2.tgz";
+        sha512 = "ErCHMCae19vR8vQGe50xIsVomy19rg6gFu3+r3jkEO46suLMWBksvVyoGgQV+jOfl84ZSOSlmv6Gxa89PmTGmA==";
       };
     };
     "escape-string-regexp-1.0.5" = {
@@ -1327,13 +1327,13 @@ let
         sha512 = "BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==";
       };
     };
-    "semver-7.5.4" = {
+    "semver-7.6.0" = {
       name = "semver";
       packageName = "semver";
-      version = "7.5.4";
+      version = "7.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz";
-        sha512 = "1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.6.0.tgz";
+        sha512 = "EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==";
       };
     };
     "signal-exit-3.0.7" = {
@@ -1569,7 +1569,7 @@ let
       (sources."@npmcli/fs-1.1.1" // {
         dependencies = [
           sources."lru-cache-6.0.0"
-          sources."semver-7.5.4"
+          sources."semver-7.6.0"
           sources."yallist-4.0.0"
         ];
       })
@@ -1599,7 +1599,7 @@ let
           sources."yallist-4.0.0"
         ];
       })
-      sources."caniuse-lite-1.0.30001584"
+      sources."caniuse-lite-1.0.30001585"
       sources."chalk-2.4.2"
       sources."chownr-2.0.0"
       sources."clean-stack-2.2.0"
@@ -1612,11 +1612,11 @@ let
       sources."convert-source-map-2.0.0"
       sources."debug-4.3.4"
       sources."defaults-1.0.4"
-      sources."electron-to-chromium-1.4.656"
+      sources."electron-to-chromium-1.4.659"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
       sources."es-module-lexer-1.4.1"
-      sources."escalade-3.1.1"
+      sources."escalade-3.1.2"
       sources."escape-string-regexp-1.0.5"
       sources."event-target-shim-5.0.1"
       sources."fs-minipass-2.1.0"

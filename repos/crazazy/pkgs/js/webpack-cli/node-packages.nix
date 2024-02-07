@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001584" = {
+    "caniuse-lite-1.0.30001585" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001584";
+      version = "1.0.30001585";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001584.tgz";
-        sha512 = "LOz7CCQ9M1G7OjJOF9/mzmqmj3jE/7VOmrfw6Mgs0E8cjOsbRXQJHsPBfmBOXDskXKrHLyyW3n7kpDW/4BsfpQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001585.tgz";
+        sha512 = "yr2BWR1yLXQ8fMpdS/4ZZXpseBgE7o4g41x3a6AJOqZuOi+iE/WdJYAuZ6Y95i4Ohd2Y+9MzIWRR+uGABH4s3Q==";
       };
     };
     "chrome-trace-event-1.0.3" = {
@@ -409,13 +409,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "electron-to-chromium-1.4.656" = {
+    "electron-to-chromium-1.4.659" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.656";
+      version = "1.4.659";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.656.tgz";
-        sha512 = "9AQB5eFTHyR3Gvt2t/NwR0le2jBSUNwCnMbUCejFWHD+so4tH40/dRLgoE+jxlPeWS43XJewyvCv+I8LPMl49Q==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.659.tgz";
+        sha512 = "sRJ3nV3HowrYpBtPF9bASQV7OW49IgZC01Xiq43WfSE3RTCkK0/JidoCmR73Hyc1mN+l/H4Yqx0eNiomvExFZg==";
       };
     };
     "enhanced-resolve-5.15.0" = {
@@ -445,13 +445,13 @@ let
         sha512 = "cXLGjP0c4T3flZJKQSuziYoq7MlT+rnvfZjfp7h+I7K9BNX54kP9nyWvdbwjQ4u1iWbOL4u96fgeZLToQlZC7w==";
       };
     };
-    "escalade-3.1.1" = {
+    "escalade-3.1.2" = {
       name = "escalade";
       packageName = "escalade";
-      version = "3.1.1";
+      version = "3.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/escalade/-/escalade-3.1.1.tgz";
-        sha512 = "k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==";
+        url = "https://registry.npmjs.org/escalade/-/escalade-3.1.2.tgz";
+        sha512 = "ErCHMCae19vR8vQGe50xIsVomy19rg6gFu3+r3jkEO46suLMWBksvVyoGgQV+jOfl84ZSOSlmv6Gxa89PmTGmA==";
       };
     };
     "eslint-scope-5.1.1" = {
@@ -1120,17 +1120,17 @@ let
       sources."ajv-keywords-3.5.2"
       sources."browserslist-4.22.3"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001584"
+      sources."caniuse-lite-1.0.30001585"
       sources."chrome-trace-event-1.0.3"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.3"
-      sources."electron-to-chromium-1.4.656"
+      sources."electron-to-chromium-1.4.659"
       sources."enhanced-resolve-5.15.0"
       sources."envinfo-7.11.1"
       sources."es-module-lexer-1.4.1"
-      sources."escalade-3.1.1"
+      sources."escalade-3.1.2"
       sources."eslint-scope-5.1.1"
       (sources."esrecurse-4.3.0" // {
         dependencies = [

@@ -57,4 +57,16 @@
       sha256 = "sha256-/9rbH9hEHSgaOUbSHpDCdmCX4m+myxVIgG6Nf5r85Zg=";
     };
   };
+  wasmfxtime = {
+    pname = "wasmfxtime";
+    version = "cd98f15e67b15cbe2939187b729051a91b83313b";
+    src = fetchFromGitHub {
+      owner = "wasmfx";
+      repo = "wasmfxtime";
+      rev = "cd98f15e67b15cbe2939187b729051a91b83313b";
+      fetchSubmodules = false;
+      sha256 = "sha256-POUfmaJU6ioQ4/5Xw1oq5xdTOCdgVIVoBlw2y0jmPGQ=";
+    };
+    date = "2024-02-06";
+  };
 }

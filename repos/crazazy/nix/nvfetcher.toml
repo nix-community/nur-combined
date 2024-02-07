@@ -28,5 +28,5 @@ src.github = "enso-org/enso"
 fetch.url = "https://github.com/enso-org/enso/releases/download/$ver/enso-linux-$ver.AppImage"
 
 [wasmfxtime]
-src.github = "wasmfx/wasmfxtime"
+src.git = "https://github.com/wasmfx/wasmfxtime"
 fetch.github = "wasmfx/wasmfxtime"

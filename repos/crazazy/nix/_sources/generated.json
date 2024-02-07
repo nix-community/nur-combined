@@ -99,5 +99,25 @@
             "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/23.1.0/TruffleSqueakImage-23.1.0.zip"
         },
         "version": "23.1.0"
+    },
+    "wasmfxtime": {
+        "cargoLocks": null,
+        "date": "2024-02-06",
+        "extract": null,
+        "name": "wasmfxtime",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wasmfx",
+            "repo": "wasmfxtime",
+            "rev": "cd98f15e67b15cbe2939187b729051a91b83313b",
+            "sha256": "sha256-POUfmaJU6ioQ4/5Xw1oq5xdTOCdgVIVoBlw2y0jmPGQ=",
+            "type": "github"
+        },
+        "version": "cd98f15e67b15cbe2939187b729051a91b83313b"
     }
 }
