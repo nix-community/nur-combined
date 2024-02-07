@@ -115,17 +115,6 @@ in
         '';
       };
 
-      # TODO: split these into their own option scope
-      brightness_down_cmd = mkOption {
-        type = types.str;
-        default = "brightnessctl set 2%-";
-        description = "command to run when use wants to decrease screen brightness";
-      };
-      brightness_up_cmd = mkOption {
-        type = types.str;
-        default = "brightnessctl set +2%";
-        description = "command to run when use wants to increase screen brightness";
-      };
       screenshot_cmd = mkOption {
         type = types.str;
         default = "grimshot copy area";

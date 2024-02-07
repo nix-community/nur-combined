@@ -10,17 +10,18 @@
 xwayland @xwayland@
 
 set $mod @mod@
-set $term @terminal_cmd@
-set $menu @launcher_cmd@
-set $emoji_picker @emoji_cmd@
-set $locker @lock_cmd@
+set $term xdg-terminal-exec
+set $menu fuzzel
+set $emoji_picker splatmoji -s medium-light type
+set $locker swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30
 set $snippets_picker @snip_cmd@
 set $screenshot @screenshot_cmd@
-set $brightness_up @brightness_up_cmd@
-set $brightness_down @brightness_down_cmd@
-set $volume_up @vol_up_cmd@
-set $volume_down @vol_down_cmd@
-set $mute @mute_cmd@
+set $brightness_up brightnessctl set +5%
+set $brightness_down brightnessctl set 5%-
+# TODO: use native pipewire controls instead of pulsemixer?
+set $volume_up pulsemixer --change-volume +5
+set $volume_down pulsemixer --change-volume -5
+set $mute pulsemixer --toggle-mute
 set $default_workspace_layout @workspace_layout@
 
 ### default font (for e.g. window titles)
@@ -56,14 +57,18 @@ workspace_layout $default_workspace_layout
 ### key bindings
 floating_modifier $mod
 #### media keys
-bindsym $mod+Page_Up exec $volume_up
-bindsym $mod+Page_Down exec $volume_down
 # --locked means to keep the binding active even when display is locked/off
+bindsym --locked $mod+Page_Up exec $volume_up
+bindsym --locked $mod+Page_Down exec $volume_down
+bindsym --locked $mod+Space exec playerctl play-pause
+bindsym --locked $mod+Shift+Page_Down exec playerctl previous
+bindsym --locked $mod+Shift+Page_Up exec playerctl next
+
 bindsym --locked XF86AudioMute exec $mute
-bindsym --locked XF86AudioPlay exec @playerctl@ play-pause
-bindsym --locked XF86AudioStop exec @playerctl@ stop
-bindsym --locked XF86AudioNext exec @playerctl@ next
-bindsym --locked XF86AudioPrev exec @playerctl@ previous
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioStop exec playerctl stop
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86MonBrightnessUp exec $brightness_up
 bindsym --locked XF86MonBrightnessDown exec $brightness_down
 
@@ -85,8 +90,8 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+a focus parent
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+Shift+space floating toggle
+# bindsym $mod+space focus mode_toggle
 bindsym $mod+r mode resize
 
 #### movement
@@ -120,8 +125,8 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 
 #### "scratchpad" = ??
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+# bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+minus scratchpad show
 
 mode "resize" {
   bindsym Down resize grow height 30 px
@@ -137,7 +142,7 @@ mode "resize" {
 }
 
 bar {
-  swaybar_command @waybar@
+  swaybar_command waybar
 }
 
 ### application-specific settings
