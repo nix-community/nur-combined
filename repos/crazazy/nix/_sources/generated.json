@@ -117,13 +117,13 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "owner": "wasmfx",
             "repo": "wasmfxtime",
             "rev": "cd98f15e67b15cbe2939187b729051a91b83313b",
-            "sha256": "sha256-POUfmaJU6ioQ4/5Xw1oq5xdTOCdgVIVoBlw2y0jmPGQ=",
+            "sha256": "sha256-kNvNExiMf2dGYZZU30bWblBDd2huRkz8Xulkkv8trtI=",
             "type": "github"
         },
         "version": "cd98f15e67b15cbe2939187b729051a91b83313b"

@@ -64,8 +64,8 @@
       owner = "wasmfx";
       repo = "wasmfxtime";
       rev = "cd98f15e67b15cbe2939187b729051a91b83313b";
-      fetchSubmodules = false;
-      sha256 = "sha256-POUfmaJU6ioQ4/5Xw1oq5xdTOCdgVIVoBlw2y0jmPGQ=";
+      fetchSubmodules = true;
+      sha256 = "sha256-kNvNExiMf2dGYZZU30bWblBDd2huRkz8Xulkkv8trtI=";
     };
     cargoLock."./Cargo.lock" = {
       lockFile = ./wasmfxtime-cd98f15e67b15cbe2939187b729051a91b83313b/./Cargo.lock;

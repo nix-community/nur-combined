@@ -31,3 +31,4 @@ fetch.url = "https://github.com/enso-org/enso/releases/download/$ver/enso-linux-
 src.git = "https://github.com/wasmfx/wasmfxtime"
 fetch.github = "wasmfx/wasmfxtime"
 cargo_locks = ["./Cargo.lock"]
+git.fetchSubmodules = true
