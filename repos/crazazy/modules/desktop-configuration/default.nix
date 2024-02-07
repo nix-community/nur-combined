@@ -14,7 +14,7 @@
     lxqt.lxqt-policykit
   ];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
@@ -24,9 +24,9 @@
   ];
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.xkbVariant = "altgr-intl";
-  services.xserver.xkbOptions = "eurosign:5";
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.variant = "altgr-intl";
+  services.xserver.xkb.options = "eurosign:5";
 
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
