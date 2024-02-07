@@ -1,4 +1,5 @@
 # where to find good stuff?
+# - universal search/directory: <https://podcastindex.org>
 # - podcasts w/ a community: <https://lemmyverse.net/communities?query=podcast>
 # - podcast rec thread: <https://lemmy.ml/post/1565858>
 #
