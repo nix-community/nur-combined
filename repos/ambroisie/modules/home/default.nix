@@ -39,6 +39,7 @@
     ./tmux
     ./udiskie
     ./vim
+    ./wget
     ./wm
     ./x
     ./xdg
