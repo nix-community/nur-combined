@@ -17,6 +17,7 @@
   clone-org = pkgs.callPackage ./pkgs/clone-org { };
   discord-applemusic-rich-presence = pkgs.callPackage ./pkgs/discord-applemusic-rich-presence { };
   fork-cleaner = pkgs.callPackage ./pkgs/fork-cleaner { };
+  glyphs = pkgs.callPackage ./pkgs/glyphs { };
   gocovsh = pkgs.callPackage ./pkgs/gocovsh { };
   jsonfmt = pkgs.callPackage ./pkgs/jsonfmt { };
   org-stats = pkgs.callPackage ./pkgs/org-stats { };
