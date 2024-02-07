@@ -16,6 +16,7 @@
   xorg,
   unstableGitUpdater,
 }:
+
 stdenv.mkDerivation {
   pname = "flyaway";
   version = "unstable-2023-07-04";
@@ -46,7 +47,7 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = unstableGitUpdater {};
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     mainProgram = "flyaway";
@@ -54,6 +55,6 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.com/serebit/flyaway";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [federicoschonborn];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

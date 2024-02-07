@@ -6,6 +6,7 @@
   pkg-config,
   nix-update-script,
 }:
+
 rustPlatform.buildRustPackage rec {
   pname = "cargo-aoc";
   version = "0.3.7";
@@ -19,21 +20,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-DKP9YMbVojK7w5pkX/gok4PG6WUjhqUdvTwSir05d0s=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ];
+  buildInputs = [ openssl ];
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "cargo-aoc";
     description = "Cargo Advent of Code Helper";
     homepage = "https://github.com/gobanos/cargo-aoc";
-    license = with lib.licenses; [asl20 mit];
-    maintainers = with lib.maintainers; [federicoschonborn];
+    license = with lib.licenses; [
+      asl20
+      mit
+    ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

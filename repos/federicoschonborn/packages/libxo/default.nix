@@ -6,37 +6,34 @@
   libtool,
   nix-update-script,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "libxo";
-  version = "1.6.0";
 
-  src = fetchFromGitHub {
-    owner = "Juniper";
-    repo = "libxo";
-    rev = finalAttrs.version;
-    hash = "sha256-iTB/zADckrLe6pfNa76CDYf6iozI+WUScd/IQlvFhnE=";
-  };
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "libxo";
+    version = "1.6.0";
 
-  patches = [
-    ./remove-sysctl-include.patch
-  ];
+    src = fetchFromGitHub {
+      owner = "Juniper";
+      repo = "libxo";
+      rev = finalAttrs.version;
+      hash = "sha256-iTB/zADckrLe6pfNa76CDYf6iozI+WUScd/IQlvFhnE=";
+    };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+    patches = [ ./remove-sysctl-include.patch ];
 
-  makeFlags = [
-    "LIBTOOL=${libtool}/bin/libtool"
-  ];
+    nativeBuildInputs = [ autoreconfHook ];
 
-  passthru.updateScript = nix-update-script {};
+    makeFlags = [ "LIBTOOL=${libtool}/bin/libtool" ];
 
-  meta = {
-    mainProgram = "xo";
-    description = "Library for emitting text, XML, JSON, or HTML output";
-    homepage = "https://github.com/Juniper/libxo";
-    license = lib.licenses.bsd2;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [federicoschonborn];
-  };
-})
+    passthru.updateScript = nix-update-script { };
+
+    meta = {
+      mainProgram = "xo";
+      description = "Library for emitting text, XML, JSON, or HTML output";
+      homepage = "https://github.com/Juniper/libxo";
+      license = lib.licenses.bsd2;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [ federicoschonborn ];
+    };
+  }
+)

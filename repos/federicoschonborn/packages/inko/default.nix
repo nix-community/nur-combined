@@ -9,18 +9,24 @@
   llvmPackages_15,
   nix-update-script,
 }:
+
 rustPlatform.buildRustPackage rec {
   pname = "inko";
-  version = "0.13.2";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "inko-lang";
     repo = "inko";
     rev = "v${version}";
-    hash = "sha256-nCnlN/jn08TQKwrCiIzertjx0wUNphdefteaD/3rQx8=";
+    hash = "sha256-6NnTqc9V/Ck4Dzo6ZcWLpCNQQVym55gQ3q7w+0DXiDc=";
   };
 
-  cargoHash = "sha256-2abb7zM+nL5j+pPGl13DMJK1GH66UoXOcJu/lKOgfwc=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "inkwell-0.2.0" = "sha256-E1DpyNlmPmD455Gxtnl2OJ/nvr0nj+xhlFNAj3lEccA=";
+    };
+  };
 
   buildInputs = [
     libffi
@@ -34,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   # Some of the tests require git to be installed.
   doCheck = false;
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "inko";
@@ -43,6 +49,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/inko-lang/inko/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [federicoschonborn];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

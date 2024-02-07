@@ -8,35 +8,41 @@
   zlib,
   nix-update-script,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "libgta";
-  version = "1.2.1";
 
-  src = fetchFromGitHub {
-    owner = "marlam";
-    repo = "gta-mirror";
-    rev = "libgta-${finalAttrs.version}";
-    hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
-  };
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "libgta";
+    version = "1.2.1";
 
-  sourceRoot = "source/libgta";
+    src = fetchFromGitHub {
+      owner = "marlam";
+      repo = "gta-mirror";
+      rev = "libgta-${finalAttrs.version}";
+      hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
+    };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+    sourceRoot = "source/libgta";
 
-  buildInputs = [
-    bzip2
-    xz
-    zlib
-  ];
+    nativeBuildInputs = [ autoreconfHook ];
 
-  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex" "libgta-(.*)"];};
+    buildInputs = [
+      bzip2
+      xz
+      zlib
+    ];
 
-  meta = {
-    description = "A library that reads and writes GTA files, with interfaces in C and C++";
-    homepage = "https://marlam.de/gta/";
-    license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [federicoschonborn];
-  };
-})
+    passthru.updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex"
+        "libgta-(.*)"
+      ];
+    };
+
+    meta = {
+      description = "A library that reads and writes GTA files, with interfaces in C and C++";
+      homepage = "https://marlam.de/gta/";
+      license = lib.licenses.lgpl21Plus;
+      maintainers = with lib.maintainers; [ federicoschonborn ];
+    };
+  }
+)

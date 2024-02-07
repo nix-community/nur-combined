@@ -7,22 +7,21 @@
   zstd,
   unstableGitUpdater,
 }:
+
 rustPlatform.buildRustPackage {
   pname = "moss";
-  version = "unstable-2024-01-29";
+  version = "unstable-2024-02-05";
 
   src = fetchFromGitHub {
     owner = "serpent-os";
     repo = "moss-rs";
-    rev = "40073f75ef4c2bc638abaf4e5b5572cb54282dc0";
-    hash = "sha256-RqzWU7OQTtIFiCGYzod09FKP6EuhsIa1ETI6d7p2Cgo=";
+    rev = "4364e12dcda17aebc98d33c77bb052fb71584517";
+    hash = "sha256-vDV9VO6X6A0+bWiXJdqdS4W/6pXYBwMhnk9QvxxGgwo=";
   };
 
-  cargoHash = "sha256-nKUnTqJo1BrJ8ohOXahwBAOslnp8R5myiO1LxIsHqAE=";
+  cargoHash = "sha256-TsDTjOS/ajQRU+urzNW6ztNll4oCJ51M5+IRtrRtLbY=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     sqlite
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage {
 
   env.ZSTD_SYS_USE_PKG_CONFIG = true;
 
-  passthru.updateScript = unstableGitUpdater {};
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     mainProgram = "moss";
@@ -39,6 +38,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/serpent-os/moss-rs";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [federicoschonborn];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

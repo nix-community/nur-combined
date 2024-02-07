@@ -5,8 +5,7 @@
   cmake,
   ninja,
   withExperimentalApps ? false,
-  withExperimentalLibs ? false,
-  # Only build a static library.
+  withExperimentalLibs ? false, # Only build a static library.
   withStatic ? false,
   withBzip2 ? false,
   bzip2,
@@ -20,38 +19,41 @@
   withZlib ? true,
   zlib,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "teem";
-  version = "1.11.0";
 
-  src = fetchzip {
-    url = "mirror://sourceforge/teem/teem/${finalAttrs.version}/teem-${finalAttrs.version}-src.tar.gz";
-    hash = "sha256-MAvl+ZLVepZNOFkEOduRFiV6Pxw9dgt4qvSQRtW39cg=";
-  };
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "teem";
+    version = "1.11.0";
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+    src = fetchzip {
+      url = "mirror://sourceforge/teem/teem/${finalAttrs.version}/teem-${finalAttrs.version}-src.tar.gz";
+      hash = "sha256-MAvl+ZLVepZNOFkEOduRFiV6Pxw9dgt4qvSQRtW39cg=";
+    };
 
-  buildInputs =
-    lib.optional withBzip2 bzip2
-    ++ lib.optional withFftw3 fftw
-    ++ lib.optional withLevmar levmar
-    ++ lib.optional withPng libpng
-    ++ lib.optional withZlib zlib;
+    nativeBuildInputs = [
+      cmake
+      ninja
+    ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "BUILD_EXPERIMENTAL_APPS" withExperimentalApps)
-    (lib.cmakeBool "BUILD_EXPERIMENTAL_LIBS" withExperimentalLibs)
-    (lib.cmakeBool "BUILD_SHARED_LIBS" (!withStatic))
-    (lib.cmakeBool "Teem_PTHREAD" withPthread)
-  ];
+    buildInputs =
+      lib.optional withBzip2 bzip2
+      ++ lib.optional withFftw3 fftw
+      ++ lib.optional withLevmar levmar
+      ++ lib.optional withPng libpng
+      ++ lib.optional withZlib zlib;
 
-  meta = {
-    description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";
-    homepage = "https://teem.sourceforge.net/";
-    license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [federicoschonborn];
-  };
-})
+    cmakeFlags = [
+      (lib.cmakeBool "BUILD_EXPERIMENTAL_APPS" withExperimentalApps)
+      (lib.cmakeBool "BUILD_EXPERIMENTAL_LIBS" withExperimentalLibs)
+      (lib.cmakeBool "BUILD_SHARED_LIBS" (!withStatic))
+      (lib.cmakeBool "Teem_PTHREAD" withPthread)
+    ];
+
+    meta = {
+      description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";
+      homepage = "https://teem.sourceforge.net/";
+      license = lib.licenses.lgpl21Plus;
+      maintainers = with lib.maintainers; [ federicoschonborn ];
+    };
+  }
+)

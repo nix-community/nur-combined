@@ -12,40 +12,43 @@
   wayland,
   nix-update-script,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "waycheck";
-  version = "1.0.0";
 
-  src = fetchFromGitLab {
-    domain = "gitlab.freedesktop.org";
-    owner = "serebit";
-    repo = "waycheck";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-oGpiFwbPBQHF0wRHliltU8B+QmClcoFfbjpAYzOFPqs=";
-  };
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "waycheck";
+    version = "1.0.0";
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    gtk3 # for gtk-update-icon-cache
-    meson
-    ninja
-    pkg-config
-    wrapQtAppsHook
-  ];
+    src = fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "serebit";
+      repo = "waycheck";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-oGpiFwbPBQHF0wRHliltU8B+QmClcoFfbjpAYzOFPqs=";
+    };
 
-  buildInputs = [
-    qtwayland
-    wayland
-  ];
+    nativeBuildInputs = [
+      desktop-file-utils
+      gtk3 # gtk-update-icon-cache
+      meson
+      ninja
+      pkg-config
+      wrapQtAppsHook
+    ];
 
-  passthru.updateScript = nix-update-script {};
+    buildInputs = [
+      qtwayland
+      wayland
+    ];
 
-  meta = {
-    mainProgram = "waycheck";
-    description = "Simple GUI that displays the protocols implemented by a Wayland compositor";
-    homepage = "https://gitlab.freedesktop.org/serebit/waycheck";
-    license = lib.licenses.asl20;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [federicoschonborn];
-  };
-})
+    passthru.updateScript = nix-update-script { };
+
+    meta = {
+      mainProgram = "waycheck";
+      description = "Simple GUI that displays the protocols implemented by a Wayland compositor";
+      homepage = "https://gitlab.freedesktop.org/serebit/waycheck";
+      license = lib.licenses.asl20;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [ federicoschonborn ];
+    };
+  }
+)

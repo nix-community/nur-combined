@@ -4,32 +4,35 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "firefox-gnome-theme";
-  version = "121.1";
 
-  src = fetchFromGitHub {
-    owner = "rafaelmardojai";
-    repo = "firefox-gnome-theme";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-SYp0DRkO73i8XVyOdAlcP2ZItqx9DqraIEJy6mY/2Ng=";
-  };
+stdenvNoCC.mkDerivation (
+  finalAttrs: {
+    pname = "firefox-gnome-theme";
+    version = "122";
 
-  installPhase = ''
-    runHook preInstall
+    src = fetchFromGitHub {
+      owner = "rafaelmardojai";
+      repo = "firefox-gnome-theme";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-QZk/qZQVt1X53peCqB2qmWhpA3xtAVgY95pebSKaTFU=";
+    };
 
-    mkdir -p $out/
-    cp -r $src/* $out/
+    installPhase = "
+      runHook preInstall
 
-    runHook postInstall
-  '';
+      mkdir -p $out/
+      cp -r $src/* $out/
 
-  passthru.updateScript = nix-update-script {};
+      runHook postInstall
+    ";
 
-  meta = {
-    description = "A GNOME theme for Firefox";
-    homepage = "https://github.com/rafaelmardojai/firefox-gnome-theme";
-    license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [federicoschonborn];
-  };
-})
+    passthru.updateScript = nix-update-script { };
+
+    meta = {
+      description = "A GNOME theme for Firefox";
+      homepage = "https://github.com/rafaelmardojai/firefox-gnome-theme";
+      license = lib.licenses.unlicense;
+      maintainers = with lib.maintainers; [ federicoschonborn ];
+    };
+  }
+)

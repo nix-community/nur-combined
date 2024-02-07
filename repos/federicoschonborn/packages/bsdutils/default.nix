@@ -14,41 +14,44 @@
   openssl,
   nix-update-script,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "bsdutils";
-  version = "13.1";
 
-  src = fetchFromGitHub {
-    owner = "dcantrell";
-    repo = "bsdutils";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-rRB+H3nqVXRaEhxdgFOc3awq99jh8Tw+c5Qy5d9CK+0=";
-  };
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "bsdutils";
+    version = "13.1";
 
-  nativeBuildInputs = [
-    byacc
-    cmake # Meson crashes without this.
-    flex
-    meson
-    ninja
-    pkg-config
-  ];
+    src = fetchFromGitHub {
+      owner = "dcantrell";
+      repo = "bsdutils";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-rRB+H3nqVXRaEhxdgFOc3awq99jh8Tw+c5Qy5d9CK+0=";
+    };
 
-  buildInputs = [
-    libedit
-    libxo
-    ncurses6
-    openssl
-  ];
+    nativeBuildInputs = [
+      byacc
+      cmake # Meson crashes without this.
+      flex
+      meson
+      ninja
+      pkg-config
+    ];
 
-  dontUseCmakeConfigure = true;
+    buildInputs = [
+      libedit
+      libxo
+      ncurses6
+      openssl
+    ];
 
-  passthru.updateScript = nix-update-script {};
+    dontUseCmakeConfigure = true;
 
-  meta = {
-    description = "Alternative to GNU coreutils using software from FreeBSD";
-    homepage = "https://github.com/dcantrell/bsdutils";
-    license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [federicoschonborn];
-  };
-})
+    passthru.updateScript = nix-update-script { };
+
+    meta = {
+      description = "Alternative to GNU coreutils using software from FreeBSD";
+      homepage = "https://github.com/dcantrell/bsdutils";
+      license = lib.licenses.bsd3;
+      maintainers = with lib.maintainers; [ federicoschonborn ];
+    };
+  }
+)

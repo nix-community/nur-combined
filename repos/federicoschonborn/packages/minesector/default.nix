@@ -10,36 +10,39 @@
   SDL2_mixer,
   nix-update-script,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "minesector";
-  version = "1.1.5";
 
-  src = fetchFromGitHub {
-    owner = "grassdne";
-    repo = "minesector";
-    rev = finalAttrs.version;
-    hash = "sha256-VMTXZ4CIk9RpE4R9shHPl0R/T7mJUKY2b8Zi0DPW0/Q=";
-  };
+stdenv.mkDerivation (
+  finalAttrs: {
+    pname = "minesector";
+    version = "1.1.5";
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+    src = fetchFromGitHub {
+      owner = "grassdne";
+      repo = "minesector";
+      rev = finalAttrs.version;
+      hash = "sha256-VMTXZ4CIk9RpE4R9shHPl0R/T7mJUKY2b8Zi0DPW0/Q=";
+    };
 
-  buildInputs = [
-    (SDL2.override {withStatic = true;})
-    SDL2_image
-    SDL2_ttf
-    SDL2_mixer
-  ];
+    nativeBuildInputs = [
+      cmake
+      ninja
+    ];
 
-  passthru.updateScript = nix-update-script {};
+    buildInputs = [
+      (SDL2.override { withStatic = true; })
+      SDL2_image
+      SDL2_ttf
+      SDL2_mixer
+    ];
 
-  meta = {
-    mainProgram = "minesector";
-    description = "Snazzy Minesweeper-based game built with SDL2";
-    homepage = "https://github.com/grassdne/minesector";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [federicoschonborn];
-  };
-})
+    passthru.updateScript = nix-update-script { };
+
+    meta = {
+      mainProgram = "minesector";
+      description = "Snazzy Minesweeper-based game built with SDL2";
+      homepage = "https://github.com/grassdne/minesector";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [ federicoschonborn ];
+    };
+  }
+)

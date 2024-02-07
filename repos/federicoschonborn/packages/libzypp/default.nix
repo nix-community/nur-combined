@@ -26,29 +26,27 @@
   systemd,
   yaml-cpp,
   nix-update-script,
-}: let
-  libsolv' = libsolv.overrideAttrs (prevAttrs: {
-    cmakeFlags =
-      (prevAttrs.cmakeFlags or [])
-      ++ [
-        "-DENABLE_HELIXREPO=true"
-      ];
-  });
+}:
+
+let
+  libsolv' = libsolv.overrideAttrs (
+    prevAttrs: { cmakeFlags = (prevAttrs.cmakeFlags or [ ]) ++ [ "-DENABLE_HELIXREPO=true" ]; }
+  );
 in
-  stdenv.mkDerivation (finalAttrs: {
+
+stdenv.mkDerivation (
+  finalAttrs: {
     pname = "libzypp";
-    version = "17.31.29";
+    version = "17.31.30";
 
     src = fetchFromGitHub {
       owner = "openSUSE";
       repo = "libzypp";
       rev = finalAttrs.version;
-      hash = "sha256-mrV9Uw0I3ov3jJr56lQYTyeemOniklDjVA6tmNKf8Xk=";
+      hash = "sha256-4ViiTOGIZCS3ASZWmxsbEpckO/g+d63yvWi7M62BPg0=";
     };
 
-    patches = [
-      ./libdir.patch
-    ];
+    patches = [ ./libdir.patch ];
 
     nativeBuildInputs = [
       asciidoctor
@@ -79,17 +77,16 @@ in
       yaml-cpp
     ];
 
-    cmakeFlags = [
-      "-DCMAKE_MODULE_PATH=${libsolv'}/share/cmake/Modules"
-    ];
+    cmakeFlags = [ "-DCMAKE_MODULE_PATH=${libsolv'}/share/cmake/Modules" ];
 
-    passthru.updateScript = nix-update-script {};
+    passthru.updateScript = nix-update-script { };
 
     meta = {
       description = "ZYpp Package Management library";
       homepage = "https://github.com/openSUSE/libzypp";
       license = lib.licenses.gpl2Plus;
       platforms = lib.platforms.linux;
-      maintainers = with lib.maintainers; [federicoschonborn];
+      maintainers = with lib.maintainers; [ federicoschonborn ];
     };
-  })
+  }
+)

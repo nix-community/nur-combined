@@ -15,15 +15,16 @@
   xorg,
   unstableGitUpdater,
 }:
+
 stdenv.mkDerivation {
   pname = "magpie1";
-  version = "unstable-2024-01-29";
+  version = "unstable-2024-02-03";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "magpie";
-    rev = "038e4416c4581ef046eb6fb9149cdf8dc6e6f4ef";
-    hash = "sha256-JqCvM+Pa8XQV6/cZ8f7ugatVkUd1iZXaWKVFczU6SFM=";
+    rev = "20712c3a96fc9558e5f04665bafd26acd77e0a48";
+    hash = "sha256-6xQ80Myd9sqrbzb7YVX44r/xuUcSOIk26U5DMijqloo=";
   };
 
   nativeBuildInputs = [
@@ -44,7 +45,7 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = unstableGitUpdater {branch = "v1";};
+  passthru.updateScript = unstableGitUpdater { branch = "v1"; };
 
   meta = {
     mainProgram = "magpie-wm";
@@ -53,6 +54,6 @@ stdenv.mkDerivation {
     branch = "v1";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [federicoschonborn];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
