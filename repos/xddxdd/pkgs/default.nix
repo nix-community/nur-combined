@@ -159,6 +159,7 @@ in
     payload-dumper-go = pkg ./uncategorized/payload-dumper-go {};
     phpmyadmin = pkg ./uncategorized/phpmyadmin {};
     phppgadmin = pkg ./uncategorized/phppgadmin {};
+    procps4 = pkg ./uncategorized/procps4 {};
     pterodactyl-wings = pkg ./uncategorized/pterodactyl-wings {};
     qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition {};
     qbittorrent-enhanced-edition-nox = pkg ./uncategorized/qbittorrent-enhanced-edition/nox.nix {};
@@ -181,6 +182,7 @@ in
     svp-mpv = pkg ./uncategorized/svp/mpv.nix {};
     tachidesk-server = pkg ./uncategorized/tachidesk-server {};
     uesave = pkg ./uncategorized/uesave {};
+    uksmd = pkg ./uncategorized/uksmd {};
     undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver {};
     undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin {};
     vivado-2022_2 = ifNotCI (pkg ./uncategorized/vivado-2022_2 {});

@@ -188,6 +188,10 @@ fetch.github = "xddxdd/libltnginx"
 src.git = "https://github.com/open-quantum-safe/liboqs.git"
 fetch.github = "open-quantum-safe/liboqs"
 
+[libqcef]
+src.git = "https://github.com/martyr-deepin/qcef.git"
+fetch.github = "martyr-deepin/qcef"
+
 [librime-charcode]
 src.git = "https://github.com/rime/librime-charcode.git"
 fetch.github = "rime/librime-charcode"
@@ -321,6 +325,10 @@ fetch.github = "ReimuHakurei/phppgadmin"
 src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 
+[procps4]
+src.archpkg = "procps-ng"
+fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-$ver.tar.xz"
+
 [pterodactyl-wings]
 src.github = "pterodactyl/wings"
 fetch.github = "pterodactyl/wings"
@@ -328,10 +336,6 @@ fetch.github = "pterodactyl/wings"
 [qbittorrent-enhanced-edition]
 src.github = "c0re100/qBittorrent-Enhanced-Edition"
 fetch.github = "c0re100/qBittorrent-Enhanced-Edition"
-
-[libqcef]
-src.git = "https://github.com/martyr-deepin/qcef.git"
-fetch.github = "martyr-deepin/qcef"
 
 [qemu-user-static-amd64]
 src.webpage = "https://packages.debian.org/sid/amd64/qemu-user-static/download"
@@ -424,6 +428,10 @@ fetch.github = "ronggang/transmission-web-control"
 [uesave]
 src.github = "trumank/uesave-rs"
 fetch.github = "trumank/uesave-rs"
+
+[uksmd]
+src.github_tag = "CachyOS/uksmd"
+fetch.github = "CachyOS/uksmd"
 
 [undetected-chromedriver]
 src.git = "https://github.com/ultrafunkamsterdam/undetected-chromedriver.git"
