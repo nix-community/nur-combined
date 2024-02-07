@@ -48,8 +48,11 @@ in
     LESSHISTFILE = "${dataHome}/less/history";
     LESSKEY = "${configHome}/less/lesskey";
     PSQL_HISTORY = "${dataHome}/psql_history";
-    REPO_CONFIG_DIR = "${configHome}/repo";
+    PYTHONPYCACHEPREFIX = "${cacheHome}/python/";
+    PYTHONUSERBASE = "${dataHome}/python/";
+    PYTHON_HISTORY = "${stateHome}/python/history";
     REDISCLI_HISTFILE = "${dataHome}/redis/rediscli_history";
+    REPO_CONFIG_DIR = "${configHome}/repo";
     XCOMPOSECACHE = "${dataHome}/X11/xcompose";
   };
 }
