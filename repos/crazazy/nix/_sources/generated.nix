@@ -67,6 +67,13 @@
       fetchSubmodules = false;
       sha256 = "sha256-POUfmaJU6ioQ4/5Xw1oq5xdTOCdgVIVoBlw2y0jmPGQ=";
     };
+    cargoLock."./Cargo.lock" = {
+      lockFile = ./wasmfxtime-cd98f15e67b15cbe2939187b729051a91b83313b/./Cargo.lock;
+      outputHashes = {
+        "wit-bindgen-0.16.0" = "sha256-j4QpPNa4G4VknvDipECzPCEsrL0G9aX9/810otzfAwI=";
+        "wasm-encoder-0.41.0" = "sha256-JyIO9jOn/5ibnL+6dSrwuoV9jz7hY+1HuVc3ye0r4+I=";
+      };
+    };
     date = "2024-02-06";
   };
 }

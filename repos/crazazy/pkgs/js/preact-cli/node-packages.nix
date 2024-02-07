@@ -9013,13 +9013,13 @@ let
         sha512 = "yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA==";
       };
     };
-    "postcss-8.4.34" = {
+    "postcss-8.4.35" = {
       name = "postcss";
       packageName = "postcss";
-      version = "8.4.34";
+      version = "8.4.35";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.34.tgz";
-        sha512 = "4eLTO36woPSocqZ1zIrFD2K1v6wH7pY1uBh0JIM2KKfrVtGvPFiAku6aNOP0W1Wr9qwnaCsF0Z+CrVnryB2A8Q==";
+        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.35.tgz";
+        sha512 = "u5U8qYpBCpN13BsiEB0CbR1Hhh4Gc0zLFuedrHJKMctHCHAGrMdG0PRM/KErzAL3CU6/eckEtmHNB3x6e3c0vA==";
       };
     };
     "postcss-calc-7.0.5" = {
@@ -14526,7 +14526,7 @@ let
       sources."pn-1.1.0"
       sources."pnp-webpack-plugin-1.7.0"
       sources."posix-character-classes-0.1.1"
-      sources."postcss-8.4.34"
+      sources."postcss-8.4.35"
       (sources."postcss-calc-7.0.5" // {
         dependencies = [
           sources."picocolors-0.2.1"

@@ -101,7 +101,15 @@
         "version": "23.1.0"
     },
     "wasmfxtime": {
-        "cargoLocks": null,
+        "cargoLocks": {
+            "./Cargo.lock": [
+                "./wasmfxtime-cd98f15e67b15cbe2939187b729051a91b83313b/./Cargo.lock",
+                {
+                    "wasm-encoder-0.41.0": "sha256-JyIO9jOn/5ibnL+6dSrwuoV9jz7hY+1HuVc3ye0r4+I=",
+                    "wit-bindgen-0.16.0": "sha256-j4QpPNa4G4VknvDipECzPCEsrL0G9aX9/810otzfAwI="
+                }
+            ]
+        },
         "date": "2024-02-06",
         "extract": null,
         "name": "wasmfxtime",
