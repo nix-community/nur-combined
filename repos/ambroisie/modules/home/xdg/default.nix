@@ -43,6 +43,7 @@ in
     CARGO_HOME = "${dataHome}/cargo";
     DOCKER_CONFIG = "${configHome}/docker";
     GDBHISTFILE = "${dataHome}/gdb/gdb_history";
+    GRADLE_USER_HOME = "${dataHome}/gradle";
     HISTFILE = "${dataHome}/bash/history";
     INPUTRC = "${configHome}/readline/inputrc";
     LESSHISTFILE = "${dataHome}/less/history";
