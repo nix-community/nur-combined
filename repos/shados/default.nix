@@ -23,6 +23,9 @@ let repo = rec {
     inherit pins;
   };
 
+  bootloadhid = pkgs.callPackage ./pkgs/bootloadhid {
+  };
+
   broadcast-box = pkgs.callPackage ./pkgs/broadcast-box {
     inherit pins napalm;
   };
