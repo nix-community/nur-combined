@@ -6,6 +6,7 @@ in
   sane.programs.wireshark = {
     sandbox.method = "landlock";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "all";
     sandbox.extraPaths = [
       "/proc/net"  #< only needed if using landlock
     ];

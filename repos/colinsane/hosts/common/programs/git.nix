@@ -8,6 +8,8 @@ in
 {
   sane.programs.git = {
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "inplace";
+    sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.autodetectCliPaths = true;  # necessary for git-upload-pack
     sandbox.extraHomePaths = [

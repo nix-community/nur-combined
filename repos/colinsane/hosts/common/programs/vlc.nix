@@ -16,6 +16,7 @@ in
     };
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";
     sandbox.autodetectCliPaths = true;
     persist.byStore.private = [
       # vlc remembers play position in ~/.config/vlc/vlc-qt-interface.conf

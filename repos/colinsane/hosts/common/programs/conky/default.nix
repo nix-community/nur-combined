@@ -3,6 +3,7 @@
   sane.programs.conky = {
     # TODO: non-sandboxed `conky` still ships via `sxmo-utils`, but unused
     sandbox.method = "bwrap";
+    sandbox.net = "clearnet";  #< for the scripts it calls (weather)
     sandbox.extraPaths = [
       "/sys/class/power_supply"
       "/sys/devices"  # needed by battery_estimate

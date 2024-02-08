@@ -234,6 +234,8 @@ in
       sane.programs.firefox = {
         inherit packageUnwrapped;
         sandbox.method = "bwrap";  # landlock works, but requires all of /proc to be linked
+        sandbox.wrapperType = "inplace";  # probably wrappedDerivation could work too.
+        sandbox.net = "all";
         sandbox.extraHomePaths = [
           "dev"  # for developing anything web-related
           "tmp"

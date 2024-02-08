@@ -286,6 +286,11 @@ bwrapIngestPath() {
   # test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
   bwrapFlags+=("--dev-bind-try" "$1" "$1")
 }
+bwrapIngestNet() {
+  debug "bwrapIngestNet: enabling full net access for '$1' because don't know how to restrict it more narrowly"
+  # N.B.: `--share-net` will override any earlier call to `--unshare-net`
+  bwrapFlags+=("--share-net")
+}
 bwrapIngestProfile() {
   debug "bwrapIngestProfile: stubbed"
 }
@@ -296,7 +301,7 @@ bwrapIngestCapability() {
 
 bwrapExec() {
   PATH="$PATH:@bubblewrap@/bin" exec \
-    bwrap --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
+    bwrap --unshare-net --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
     "${cliArgs[@]}"
 }
 
@@ -340,6 +345,9 @@ landlockIngestPath() {
     fi
   fi
 }
+landlockIngestNet() {
+  debug "landlockIngestNet: '$1': stubbed (landlock network is always unrestricted)"
+}
 landlockIngestProfile() {
   debug "landlockIngestProfile: stubbed"
 }
@@ -366,6 +374,9 @@ capshonlySetup() {
 }
 capshonlyIngestPath() {
   debug "capshonlyIngestPath: stubbed"
+}
+capshonlyIngestNet() {
+  debug "capshonlyIngestNet: '$1': stubbed (capsh network is always unrestricted)"
 }
 capshonlyIngestProfile() {
   debug "capshonlyIngestProfile: stubbed"

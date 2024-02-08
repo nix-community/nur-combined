@@ -29,6 +29,7 @@ in
 
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";
     sandbox.whitelistDri = true;  # otherwise video playback buuuuurns CPU
 
     configOption = with lib; mkOption {

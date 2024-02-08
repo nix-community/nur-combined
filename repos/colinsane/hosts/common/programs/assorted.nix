@@ -232,11 +232,13 @@ in
     delfin.sandbox.method = "bwrap";
     delfin.sandbox.wrapperType = "wrappedDerivation";
     delfin.sandbox.whitelistDri = true;
+    delfin.sandbox.net = "clearnet";
     delfin.persist.byStore.private = [ ".config/delfin" ];
 
     # creds, but also 200 MB of node modules, etc
     discord.sandbox.method = "bwrap";
     discord.sandbox.wrapperType = "inplace";  #< /opt-style packaging
+    discord.sandbox.net = "clearnet";
     discord.persist.byStore.private = [ ".config/discord" ];
 
     dtc.sandbox.method = "bwrap";
@@ -343,6 +345,7 @@ in
 
     mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
     mercurial.sandbox.wrapperType = "wrappedDerivation";
+    mercurial.sandbox.net = "clearnet";
     mercurial.sandbox.whitelistPwd = true;
     mimeo.sandbox.method = "capshonly";  # xdg-open replacement
 
@@ -371,6 +374,7 @@ in
 
     rsync.sandbox.method = "bwrap";  # TODO:sandbox: untested
     rsync.sandbox.wrapperType = "wrappedDerivation";
+    rsync.sandbox.net = "clearnet";
     rsync.sandbox.autodetectCliPaths = "existingFileOrParent";
 
     sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested
@@ -397,6 +401,7 @@ in
 
     subversion.sandbox.method = "bwrap";
     subversion.sandbox.wrapperType = "wrappedDerivation";
+    subversion.sandbox.net = "clearnet";
     subversion.sandbox.whitelistPwd = true;
     sudo.sandbox.enable = false;
 
@@ -413,6 +418,7 @@ in
 
     tcpdump.sandbox.method = "landlock";
     tcpdump.sandbox.wrapperType = "wrappedDerivation";
+    tcpdump.sandbox.net = "all";
     tcpdump.sandbox.autodetectCliPaths = "existingFileOrParent";
     tcpdump.sandbox.capabilities = [ "net_admin" "net_raw" ];
     tree.sandbox.method = "landlock";
@@ -436,6 +442,7 @@ in
 
     wget.sandbox.method = "bwrap";
     wget.sandbox.wrapperType = "wrappedDerivation";
+    wget.sandbox.net = "all";
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
@@ -447,6 +454,7 @@ in
 
     yt-dlp.sandbox.method = "bwrap";  # TODO:sandbox: untested
     yt-dlp.sandbox.wrapperType = "wrappedDerivation";
+    yt-dlp.sandbox.net = "all";
     yt-dlp.sandbox.whitelistPwd = true;  # saves to pwd by default
   };
 

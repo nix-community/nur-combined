@@ -4,6 +4,8 @@
 {
   sane.programs."gnome.gnome-weather" = {
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "inplace";
+    sandbox.net = "clearnet";
     sandbox.extraHomePaths = [
       ".config/dconf"  # stores city/location settings
     ];

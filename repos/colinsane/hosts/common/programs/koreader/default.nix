@@ -47,6 +47,7 @@ in {
     packageUnwrapped = pkgs.koreader-from-src;
     sandbox.method = "bwrap";  # sandboxes fine under landlock too, except for FTP
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";
     sandbox.whitelistDri = true;  # reduces startup time and subjective page flip time
     sandbox.embedProfile = true;
     sandbox.extraHomePaths = [

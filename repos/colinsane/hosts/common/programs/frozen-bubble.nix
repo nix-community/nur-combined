@@ -4,6 +4,7 @@
   sane.programs.frozen-bubble = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";  # net play
     packageUnwrapped = pkgs.frozen-bubble.overrideAttrs (upstream: {
       # patch so it stores its dot-files not in root ~.
       postPatch = (upstream.postPatch or "") + ''

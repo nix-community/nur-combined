@@ -33,7 +33,7 @@ let
   defaultEnables = solveDefaultEnableFor cfg;
 
   # wrap a package so that its binaries (maybe) run in a sandbox
-  wrapPkg = pkgName: { fs, net, persist, sandbox, ... }: package: (
+  wrapPkg = pkgName: { fs, persist, sandbox, ... }: package: (
     if !sandbox.enable || sandbox.method == null then
       package
     else
@@ -54,7 +54,14 @@ let
             whitelistPwd
             wrapperType
           ;
-          vpn = if net == "vpn" then vpn else null;
+          netDev = if sandbox.net == "vpn" then
+            vpn.bridgeDevice
+          else
+            sandbox.net;
+          dns = if sandbox.net == "vpn" then
+            vpn.dns
+          else
+            null;
           allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths ++ [
             ".config/mimeo"  #< TODO: required, until i fully integrate xdg-open into sandboxing. else, `xdg-open https://...` inifinite-loops.
           ];
@@ -213,13 +220,19 @@ let
           marking packages like this can be used to achieve faster, but limited, rebuilds/deploys (by omitting the package).
         '';
       };
-      net = mkOption {
-        type = types.enum [ "clearnet" "vpn" ];
-        default = "clearnet";
+      sandbox.net = mkOption {
+        type = types.coercedTo
+          types.str
+          (s: if s == "clearnet" then "all" else s)
+          (types.enum [ null "all" "vpn" ]);
+        default = null;
         description = ''
           how this app should have its network traffic routed.
-          - "clearnet" for unsandboxed network.
-          - "vpn" to route all traffic over the default VPN.
+          - "all": unsandboxed network.
+          - "clearnet": traffic is routed only over clearnet.
+            currently, just an alias for "all"
+          - "vpn": to route all traffic over the default VPN.
+          - null: to maximally isolate from the network.
         '';
       };
       sandbox.method = mkOption {
@@ -393,8 +406,8 @@ let
         message = "program ${name} specified no `sandbox.method`; please configure a method, or set sandbox.enable = false.";
       }
       {
-        assertion = p.net == "clearnet" || p.sandbox.method != null;
-        message = ''program "${name}" requests net "${p.net}", which requires sandboxing, but sandboxing wasn't configured'';
+        assertion = p.sandbox.net == "all" || p.sandbox.method != null || !p.enabled || p.package == null || config.sane.strictSandboxing != "assert";
+        message = ''program "${name}" requests net "${builtins.toString p.sandbox.net}", which requires sandboxing, but sandboxing wasn't configured'';
       }
     ] ++ builtins.map (sug: {
       assertion = cfg ? "${sug}";

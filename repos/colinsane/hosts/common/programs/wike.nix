@@ -3,6 +3,7 @@
   sane.programs.wike = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  # share/wike/wike-sp refers back to the binaries and share
+    sandbox.net = "clearnet";
     sandbox.extraPaths = [
       # wike sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.
       # TODO: these could maybe be mounted empty.

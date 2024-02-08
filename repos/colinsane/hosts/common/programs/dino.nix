@@ -47,6 +47,7 @@ in
 
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";
 
     persist.byStore.private = [ ".local/share/dino" ];
 

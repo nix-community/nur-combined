@@ -9,6 +9,7 @@
     # };
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";  # tor over VPN wouldn't make sense
     persist.byStore.cryptClearOnBoot = [
       ".local/share/tor-browser"
     ];

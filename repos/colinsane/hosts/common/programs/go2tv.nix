@@ -35,6 +35,7 @@ in
   sane.programs.go2tv = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";
     sandbox.autodetectCliPaths = true;
     # for GUI invocation, allow the common media directories
     sandbox.extraHomePaths = [

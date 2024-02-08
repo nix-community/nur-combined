@@ -229,7 +229,7 @@ let
     };
   });
 
-  make-sandboxed = { pkgName, package, method, wrapperType, vpn ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? null, binMap ? {}, capabilities ? [], embedProfile ? false, embedSandboxer ? false, extraConfig ? [], whitelistPwd ? false }@args:
+  make-sandboxed = { pkgName, package, method, wrapperType, netDev ? null, dns ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? null, binMap ? {}, capabilities ? [], embedProfile ? false, embedSandboxer ? false, extraConfig ? [], whitelistPwd ? false }@args:
   let
     unsandboxed = package;
     sane-sandboxed' = if embedSandboxer then
@@ -253,22 +253,25 @@ let
 
     capabilityFlags = lib.flatten (builtins.map (c: [ "--sane-sandbox-cap" c ]) capabilities);
 
-    vpnItems = [
+    netItems = lib.optionals (netDev != null) [
       "--sane-sandbox-net"
-      vpn.bridgeDevice
-    ] ++ lib.flatten (builtins.map (addr: [
-      "--sane-sandbox-dns"
-      addr
-    ]) vpn.dns);
+      netDev
+    ] ++ lib.optionals (dns != null) (
+      lib.flatten (builtins.map
+        (addr: [ "--sane-sandbox-dns" addr ])
+        dns
+      )
+    );
 
     sandboxFlags = [
       "--sane-sandbox-method" method
-    ] ++ allowPaths allowedRootPaths
+    ]
+      ++ netItems
+      ++ allowPaths allowedRootPaths
       ++ allowHomePaths allowedHomePaths
       ++ capabilityFlags
       ++ lib.optionals (autodetectCliPaths != null) [ "--sane-sandbox-autodetect" autodetectCliPaths ]
       ++ lib.optionals whitelistPwd [ "--sane-sandbox-add-pwd" ]
-      ++ lib.optionals (vpn != null) vpnItems
       ++ extraConfig;
 
     sandboxProfilesPkg = writeTextFile {
