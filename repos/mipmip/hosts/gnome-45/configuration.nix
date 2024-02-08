@@ -20,7 +20,9 @@
   };
 
   boot.plymouth.enable = true;
-  #boot.plymouth.theme="breeze";
+  boot.plymouth.theme="breeze";
+  boot.initrd.systemd.enable = true;
+  boot.initrd.verbose = false;
 
   networking.hostName = "gnome-45";
   networking.firewall.enable = false;

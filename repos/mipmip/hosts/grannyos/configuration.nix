@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, system, pkgs, ... }:
+{ config, lib, nixpkgs, inputs, system, pkgs, ... }:
 
 {
   imports =
@@ -11,16 +11,10 @@
 
       ../../modules/base-common.nix
       ../../modules/base-git.nix
-      #../../modules/base-vim.nix
-
       ../../modules/desktop-firefox.nix
       ../../modules/desktop-fonts.nix
-
       ../../modules/desktop-grannyos.nix
-
-      ../../modules/nix-common.nix
       ../../modules/nix-desktop.nix
-      ../../modules/nix-utils.nix
       ../../modules/nix-vm-test.nix
     ];
 
@@ -31,6 +25,7 @@
     '';
   };
 
+  nixpkgs.config.allowUnfree = true;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -40,6 +35,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.useDHCP = lib.mkDefault true;
 
   networking.firewall.enable = false;
 

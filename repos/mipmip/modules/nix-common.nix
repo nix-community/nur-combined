@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-
   time.timeZone = "Europe/Amsterdam";
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -24,8 +23,8 @@
 
   services.openssh.enable = true;
 
- services.cron.enable = true;
- services.atd.enable = true;
+  services.cron.enable = true;
+  services.atd.enable = true;
 
   services.lorri.enable = true;
   services.journald.extraConfig = "SystemMaxUse=100M";

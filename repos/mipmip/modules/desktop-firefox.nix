@@ -3,7 +3,7 @@
 {
 
   environment.systemPackages = with pkgs; [
-    #firefox
+    firefox
   ];
 
   environment.sessionVariables = {
