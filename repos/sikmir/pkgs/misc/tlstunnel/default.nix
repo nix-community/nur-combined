@@ -2,13 +2,13 @@
 
 ocamlPackages.buildDunePackage rec {
   pname = "tlstunnel";
-  version = "2023-03-09";
+  version = "2024-01-10";
 
   src = fetchFromGitHub {
-    owner = "roburio";
+    owner = "robur-coop";
     repo = "tlstunnel";
-    rev = "85413a3c2c54fdeda982fdca5d6035e6b740f6fe";
-    hash = "sha256-Oe4sDLFoTUzb65LDUcdqyRHAq13ap4Gme+GA3fPpHmc=";
+    rev = "c81e48739342e2f5c8ad5537b3543dfad721fc99";
+    hash = "sha256-+Cj6eea5IuOZUhCD4zCYddG/AjV/i7jluEeLfhWh5Go=";
   };
 
   sourceRoot = "${src.name}/client";

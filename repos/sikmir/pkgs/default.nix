@@ -339,9 +339,6 @@ lib.makeScope newScope (
     bwh = darwin.apple_sdk_11_0.callPackage ./misc/bwh {
       inherit (darwin.apple_sdk_11_0.frameworks) AppKit;
     };
-    cadzinho = callPackage ./misc/cadzinho {
-      lua = pkgs.lua5_4;
-    };
     capture2text = libsForQt5.callPackage ./misc/capture2text { };
     cfiles = callPackage ./misc/cfiles { };
     csv2html = callPackage ./misc/csv2html { };
