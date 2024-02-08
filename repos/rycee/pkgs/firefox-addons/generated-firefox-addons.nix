@@ -1683,10 +1683,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "122.0.20240205.133611";
+      version = "123.0.20240207.91958";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232265/deutsch_de_language_pack-122.0.20240205.133611.xpi";
-      sha256 = "a6f9857d17e52bc0dc1e94c7064bfe736b7a545786ef8376499fe7e0ad470aa5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233191/deutsch_de_language_pack-123.0.20240207.91958.xpi";
+      sha256 = "8f8fa7fa99a818e913e53f3975788f0f7e8eeb29eb3e2701d4d9836f9cf54164";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2526,10 +2526,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "122.0.20240205.133611";
+      version = "123.0.20240207.91958";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232321/francais_language_pack-122.0.20240205.133611.xpi";
-      sha256 = "d637f5d000c0fe807e464f2c24557cde1fd0e229ca59a785c59ac1c69be80d38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233128/francais_language_pack-123.0.20240207.91958.xpi";
+      sha256 = "d0c1edc790711e62fc2cc18f95c2a98aecb016529d6768b02793a4c5f39a027b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6461,10 +6461,10 @@
     };
     "multiple-tab-handler" = buildFirefoxXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.1.11";
+      version = "3.1.12";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4025281/multiple_tab_handler-3.1.11.xpi";
-      sha256 = "f4e11e712357b3758f16920cd8a8baf3b5422f4997963be9d8c6910527cd842f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233377/multiple_tab_handler-3.1.12.xpi";
+      sha256 = "8a1ecc77e7064b3fd84899d45c9fe10640845df35f96773f76530925550e517f";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -7940,10 +7940,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.11.1";
+      version = "1.12.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4226810/proton_pass-1.11.1.xpi";
-      sha256 = "10fa4360fb5628e6ff53d6fff873764f7dac09e822534a3fbf796505e285c68b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231059/proton_pass-1.12.0.xpi";
+      sha256 = "bbbe353baacca8d252d9bcb4d651d676d75bfab8f1c6c6c78ae987cd7b41923e";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -7960,6 +7960,7 @@
           "https://*/*"
           "http://*/*"
           "https://account.proton.me/*"
+          "https://pass.proton.me/*"
         ];
         platforms = platforms.all;
       };
@@ -8618,10 +8619,10 @@
     };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
-      version = "5.0.0";
+      version = "5.1.1";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4170134/sidebery-5.0.0.xpi";
-      sha256 = "f592427a1c68d3e51aee208d05588f39702496957771fd84b76a93e364138bf5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4230615/sidebery-5.1.1.xpi";
+      sha256 = "99f5baed77b78ce107d858a1233d5eb1feb63b53f392ab759f6de7e4fd505299";
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
@@ -9747,10 +9748,10 @@
     };
     "tst-active-tab-on-scroll-bar" = buildFirefoxXpiAddon {
       pname = "tst-active-tab-on-scroll-bar";
-      version = "1.3";
+      version = "1.3.1";
       addonId = "tst-active-tab-on-scrollbar@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231009/tst_active_tab_on_scroll_bar-1.3.xpi";
-      sha256 = "995a2bf47db54ea970c1e8649d6fd8545a26bb68fa846dd1d1380d8ff1b517fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233388/tst_active_tab_on_scroll_bar-1.3.1.xpi";
+      sha256 = "8895bb1aa623813bb53133c805d805744144fe32649e8b9512b14104346993c2";
       meta = with lib;
       {
         description = "Provides a marker to indicate active tab position in Tree Style Tab sidebar.";
@@ -9789,10 +9790,10 @@
     };
     "tst-indent-line" = buildFirefoxXpiAddon {
       pname = "tst-indent-line";
-      version = "1.3";
+      version = "1.3.1";
       addonId = "tst-indent-line@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231008/tst_indent_line-1.3.xpi";
-      sha256 = "7b35c69ab30b37cfeee507302a7bf5513db165b91936ba72ab28ca6d05615fba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233395/tst_indent_line-1.3.1.xpi";
+      sha256 = "3896a6ba7450d3b48b320d9338f23fa162bc9b64f9aeac0c663eca56ec55b8af";
       meta = with lib;
       {
         description = "Provides indent line for Tree Style Tab sidebar.";
@@ -9803,10 +9804,10 @@
     };
     "tst-lock-tree-collapsed" = buildFirefoxXpiAddon {
       pname = "tst-lock-tree-collapsed";
-      version = "1.4.0";
+      version = "1.4.1";
       addonId = "tst-lock-tree-collapsed@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231006/tst_lock_tree_collapsed-1.4.0.xpi";
-      sha256 = "84eaf4659dc8ddbd7060b7f6d5939d17542b1923d7d22487bffa5e044b3a5800";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233389/tst_lock_tree_collapsed-1.4.1.xpi";
+      sha256 = "a311dcd23a5a521bc0c0551ad0c6bc83d6a4f73d58f2160baaa306095590c7db";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/tst-lock-tree-collapsed";
