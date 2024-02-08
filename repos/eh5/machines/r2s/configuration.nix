@@ -69,6 +69,7 @@
     bind
     bpftools
     conntrack-tools
+    ethtool
     f2fs-tools
     file
     htop
