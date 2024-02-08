@@ -7,7 +7,6 @@
   ssort = callPackage ./ssort { };
   extcolors = callPackage ./extcolors { };
   convcolors = callPackage ./convcolors { };
-  pymatting = callPackage ./pymatting { };
   rembg = callPackage ./rembg { };
   warctools = callPackage ./warctools { };
   blender-file = callPackage ./blender-file { };

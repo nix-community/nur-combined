@@ -1,21 +1,23 @@
 { lib
 , fetchPypi
-, buildPythonApplication
+, buildPythonPackage
 , setuptools
 , anyio
+, poetry-core
 , typing-extensions
 }:
 
-buildPythonApplication rec {
+buildPythonPackage rec {
   pname = "asyncer";
-  version = "0.0.2";
+  version = "0.0.4";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-1UbIXzYm67rwa7Q5XbSXYckCphpqyAKxp0EzyrT39DM=";
+    sha256 = "sha256-2UAEGNS1COXz6BmAm9Pnuc1D2ZplwKXq2hTUFYMWTKY=";
   };
 
-  propagatedBuildInputs = [ setuptools anyio typing-extensions ];
+  propagatedBuildInputs = [ poetry-core anyio typing-extensions ];
 
   pythonImportsCheck = [ "asyncer" ];
 
