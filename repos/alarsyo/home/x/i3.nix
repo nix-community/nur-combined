@@ -115,6 +115,8 @@ in {
 
           "${modifier}+l" = "exec --no-startup-id betterlockscreen --lock";
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
+
+          "${modifier}+Shift+a" = ''exec --no-startup-id autorandr --change'';
         };
 
         modes = let
