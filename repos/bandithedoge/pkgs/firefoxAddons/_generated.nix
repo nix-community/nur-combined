@@ -1052,10 +1052,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "24.2.2";
+    version = "24.2.8";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4230668/refined_github-24.2.2.xpi";
-    sha256 = "c356c4f3a978e867bfeff13ec684c805c55c44e0ab7658f84a63a850fa8eb26d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4233557/refined_github-24.2.8.xpi";
+    sha256 = "df51ec2cd17001bd474b86d75d6657156e91b54de607b6c7b4977a2044c5f6a7";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1074,10 +1074,10 @@
   };
   "sidebery" = buildFirefoxXpiAddon {
     pname = "sidebery";
-    version = "5.0.0";
+    version = "5.1.1";
     addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4170134/sidebery-5.0.0.xpi";
-    sha256 = "f592427a1c68d3e51aee208d05588f39702496957771fd84b76a93e364138bf5";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4230615/sidebery-5.1.1.xpi";
+    sha256 = "99f5baed77b78ce107d858a1233d5eb1feb63b53f392ab759f6de7e4fd505299";
     meta = with lib; {
       homepage = "https://github.com/mbnuqw/sidebery";
       description = "Vertical tabs tree and bookmarks in sidebar with advanced containers configuration, grouping and many other features.";

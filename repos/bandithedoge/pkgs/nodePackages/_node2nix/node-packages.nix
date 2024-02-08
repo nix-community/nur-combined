@@ -144,13 +144,13 @@
         sha512 = "P46VikoEZadYCqx7mbClKlaJnOyvc+JfRJPRf1YwlOjwqeYmutgFe1w9hvfXe819VhpU0N0TNXtxyVAUlAgaNA==";
       };
     };
-    "c12-1.6.1" = {
+    "c12-1.7.0" = {
       name = "c12";
       packageName = "c12";
-      version = "1.6.1";
+      version = "1.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/c12/-/c12-1.6.1.tgz";
-        sha512 = "fAZOi3INDvIbmjuwAVVggusyRTxwNdTAnwLay8IsXwhFzDwPPGzFxzrx6L55CPFGPulUSZI0eyFUvRDXveoE3g==";
+        url = "https://registry.npmjs.org/c12/-/c12-1.7.0.tgz";
+        sha512 = "luqIHUs5S5s4vcSa1TVIGxSC1dH8mBT8cxzRvrlHN/iZs+G/PkxsOb300ODuAdvRzUopyXYqg7cmdOGpcYaxwg==";
       };
     };
     "cac-6.7.14" = {
@@ -414,6 +414,15 @@
         sha512 = "wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==";
       };
     };
+    "json5-2.2.3" = {
+      name = "json5";
+      packageName = "json5";
+      version = "2.2.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/json5/-/json5-2.2.3.tgz";
+        sha512 = "XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==";
+      };
+    };
     "jsonc-parser-2.3.1" = {
       name = "jsonc-parser";
       packageName = "jsonc-parser";
@@ -531,13 +540,13 @@
         sha512 = "NPVQvAY1xr1QoVeG0cy8yUYC7FQcOx6evl/RjT1wL5FvzPnzOysoqB/jmx/DhssT2dYa8nxECLAaFI/+gVLhDQ==";
       };
     };
-    "node-fetch-native-1.6.1" = {
+    "node-fetch-native-1.6.2" = {
       name = "node-fetch-native";
       packageName = "node-fetch-native";
-      version = "1.6.1";
+      version = "1.6.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-fetch-native/-/node-fetch-native-1.6.1.tgz";
-        sha512 = "bW9T/uJDPAJB2YNYEpWzE54U5O3MQidXsOyTfnbKYtTtFexRvGzb1waphBN4ZwP6EcIvYYEOwW0b72BpAqydTw==";
+        url = "https://registry.npmjs.org/node-fetch-native/-/node-fetch-native-1.6.2.tgz";
+        sha512 = "69mtXOFZ6hSkYiXAVB5SqaRvrbITC/NPyqv7yuu/qw0nmgPyYbIMYYNIDhNtwPrzk0ptrimrLz/hhjvm4w5Z+w==";
       };
     };
     "normalize-path-3.0.0" = {
@@ -992,7 +1001,12 @@ in {
       sources."binary-extensions-2.2.0"
       sources."braces-3.0.2"
       sources."bumpp-9.3.0"
-      sources."c12-1.6.1"
+      (sources."c12-1.7.0"
+        // {
+          dependencies = [
+            sources."jsonc-parser-3.2.1"
+          ];
+        })
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"
       sources."chokidar-3.6.0"
@@ -1027,6 +1041,7 @@ in {
       sources."isexe-2.0.0"
       sources."jiti-1.21.0"
       sources."js-yaml-4.1.0"
+      sources."json5-2.2.3"
       sources."jsonc-parser-2.3.1"
       sources."kleur-3.0.3"
       sources."lru-cache-6.0.0"
@@ -1043,7 +1058,7 @@ in {
         })
       sources."mkdirp-1.0.4"
       sources."mlly-1.5.0"
-      sources."node-fetch-native-1.6.1"
+      sources."node-fetch-native-1.6.2"
       sources."normalize-path-3.0.0"
       (sources."npm-run-path-5.2.0"
         // {

@@ -72,16 +72,16 @@
   };
   nimlangserver = {
     pname = "nimlangserver";
-    version = "092ce765f3f7382e1eeeece902ba9c06ffc29299";
+    version = "3eb83dabfba18f079fca72f1b72199f01beb13b5";
     src = fetchgit {
       url = "https://github.com/nim-lang/langserver";
-      rev = "092ce765f3f7382e1eeeece902ba9c06ffc29299";
+      rev = "3eb83dabfba18f079fca72f1b72199f01beb13b5";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-QcV9HTVMWElXvVF1/vBjc8+JUQPIsVyexqyfImvvFU0=";
+      sha256 = "sha256-+vBDFSGay9jjQKNxNOtwclQDhN91a4gLHnIkihZVlI0=";
     };
-    date = "2024-02-06";
+    date = "2024-02-07";
   };
   serialization = {
     pname = "serialization";
