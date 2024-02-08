@@ -10,8 +10,8 @@ stdenv.mkDerivation(finalAttrs: {
   src = fetchFromGitHub {
     owner = "presto8";
     repo = "pscripts";
-    rev = "519871d375753e0d26322096ab854123d340b04e";
-    hash = "sha256-syPgtWtTv58R3pPkUiBLBpSr55YHbf1WN4QQPlqPuCI=";
+    rev = "2d45bba1d5737c86cf04e3a061e402ed9decaa78";
+    hash = "sha256-WIUip9WY9zZnfSLWPtuxYMldhyhHiM32XZNANIfBjb0=";
   };
 
   installPhase = ''
