@@ -24,7 +24,7 @@ jobs:
           traffic sirus prosemd-lsp |
           tr ' ' '\n' | shuf | xargs -L1 ./_scripts/autoupdate
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v6
         if: always()
         with:
           commit-message: Update packages
