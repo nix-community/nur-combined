@@ -4,33 +4,22 @@
 , stdenv
 , fetchFromGitHub
 , xxd
+, gcc
+, binutils
+, coreutils
+, gnugrep
 }:
 
 stdenv.mkDerivation rec {
   pname = "e9patch";
   version = "1.0.0-rc8";
 
-  src =
-  if true then
-  # https://github.com/GJDuck/e9patch/pull/73
-  # fix: error: 'SIZE_MAX' was not declared in this scope
-  # fix: warning: format '%zu' expects argument of type 'size_t', but argument 5 has type 'int'
-  fetchFromGitHub {
-    owner = "milahu";
-    repo = "e9patch";
-    rev = "171a74b91e6a52565930f2967816c69ac00e336d";
-    hash = "sha256-lf5RTQXyYZxKu7B6PnBk5wuLdTAeNlM0hzWvZwk1hoA=";
-  }
-  else
-  fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "GJDuck";
     repo = "e9patch";
-    /*
-    rev = "v${version}";
-    hash = "sha256-/Q6tm4VqiqzQWZVX5CYoTPlntzoP/I2kK9YZaKIeu/c=";
-    */
-    rev = "8d5e2e9f04ea05b94d5d3e29fbb39c5f37c27c8d";
-    hash = "sha256-CKssutKRAc3vUxbaYoQrfx0iF3R3qilCnQFIs7j8+Rw=";
+    # https://github.com/GJDuck/e9patch/pull/76
+    rev = "6048a213a7ac608fc26a8abec2ebf308215fab34";
+    hash = "sha256-L9EB37lxM3qUDsBkOHQVA1VAZKVXm4nkyZw57biT6NE=";
   };
 
   zydis-src = fetchFromGitHub {
@@ -85,14 +74,33 @@ stdenv.mkDerivation rec {
     popd >/dev/null
   '';
 
+  runtimeInputs = [
+    gcc
+    binutils # objdump readelf
+    coreutils # head
+    gnugrep
+  ];
+
+  postPatch = ''
+    echo "patching e9compile.sh"
+    substituteInPlace e9compile.sh \
+      --replace "#!/bin/sh" "#!/bin/sh"$'\n'"export PATH='${lib.makeBinPath runtimeInputs}':\"$PATH\"" \
+      --replace 'include_examples_path="examples/"' "include_examples_path='$out/share/doc/e9patch/examples'"
+  '';
+
   nativeBuildInputs = [
     xxd
   ];
 
   buildPhase = ''
     runHook preBuild
+
+    echo "building libZydis.a"
     make -j $NIX_BUILD_CORES -f Makefile.zydis
+
+    echo "building e9tool and e9patch"
     make -j $NIX_BUILD_CORES tool release
+
     runHook postBuild
   '';
 
@@ -100,6 +108,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     mv -v e9patch $out/bin
     mv -v e9tool $out/bin
+    mv -v e9compile.sh $out/bin/e9compile
 
     mkdir -p $out/share/man/man1
     mv -v doc/e9*.1 $out/share/man/man1
