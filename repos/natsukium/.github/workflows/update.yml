@@ -16,7 +16,7 @@ jobs:
     - name: Update sources
       run: nix run nixpkgs#nvfetcher
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.PAT }}
         committer: actions-user <action@github.com>
