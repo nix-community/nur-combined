@@ -1580,10 +1580,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.76";
+      version = "4.9.77";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223104/darkreader-4.9.76.xpi";
-      sha256 = "d3afe139928c3c30bd11347c08a3360fa3417be4667c47f3de19fdc0ab92da9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233074/darkreader-4.9.77.xpi";
+      sha256 = "931de67e9091c69edd9fd3f348a7ed1de1dce7d136017fed641bd10eb0ae8891";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -3271,16 +3271,22 @@
     };
     "history-cleaner" = buildFirefoxXpiAddon {
       pname = "history-cleaner";
-      version = "1.4.0";
+      version = "1.5.0";
       addonId = "{a138007c-5ff6-4d10-83d9-0afaf0efbe5e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3853325/history_cleaner-1.4.0.xpi";
-      sha256 = "9aa09f68d29c499180c37a4cc6e7b93eae9d6a96e13a525417eeeb68afb85a6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231612/history_cleaner-1.5.0.xpi";
+      sha256 = "4f9eb347dda231efb2e355bc610fbe6c19c6810bfeb090ce37e1047360d5c9b4";
       meta = with lib;
       {
         homepage = "https://github.com/Rayquaza01/HistoryCleaner";
         description = "Deletes browsing history older than a specified number of days.";
         license = licenses.mit;
-        mozPermissions = [ "history" "storage" "idle" ];
+        mozPermissions = [
+          "history"
+          "storage"
+          "idle"
+          "notifications"
+          "alarms"
+        ];
         platforms = platforms.all;
       };
     };
@@ -4388,10 +4394,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.1.9";
+      version = "1.2.1";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229174/immersive_translate-1.1.9.xpi";
-      sha256 = "eae044f44e2711e76b385b584075436f5d5348a2685b134631de8e42131ddc24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233015/immersive_translate-1.2.1.xpi";
+      sha256 = "4a7c4aa9e229f9546feefb4c952fa15f62999f32fad9fa82d93ee28569cea542";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5320,10 +5326,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.62";
+      version = "2.6.63";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221333/localcdn_fork_of_decentraleyes-2.6.62.xpi";
-      sha256 = "b3fd56ad4891605c082f7fd4830b1f83c69c42d44bbe2bc57c26202c960fad32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231487/localcdn_fork_of_decentraleyes-2.6.63.xpi";
+      sha256 = "6989dc192f992b809ddb99c8454677a9e7a2d8f0fe14d080369d1bf6bc0c5cf6";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -6515,10 +6521,10 @@
     };
     "new-tab-override" = buildFirefoxXpiAddon {
       pname = "new-tab-override";
-      version = "15.1.1";
+      version = "16.0.0";
       addonId = "newtaboverride@agenedia.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3782413/new_tab_override-15.1.1.xpi";
-      sha256 = "74d97de74c1d4d5cc146182dbbf9cdc3f383ba4c5d1492edbdb14351549a9d64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231522/new_tab_override-16.0.0.xpi";
+      sha256 = "da730dfbde7137344d909ab71f403dac7e83231c2853bc134fa842cfacb0ff04";
       meta = with lib;
       {
         homepage = "https://www.soeren-hentzschel.at/firefox-webextensions/new-tab-override/";
@@ -7328,10 +7334,10 @@
     };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2023.12.1";
+      version = "2024.2.6";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4203344/privacy_badger17-2023.12.1.xpi";
-      sha256 = "aacac794c211fc6ea7dc51529883fd3e477aff37441d29ae7f576ab0f8c737b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232703/privacy_badger17-2024.2.6.xpi";
+      sha256 = "81d80bff29b6209aa444713bc548a3d06fd5bde208c9c3c596dba81cc97add02";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -8292,10 +8298,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.2.2";
+      version = "24.2.8";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4230668/refined_github-24.2.2.xpi";
-      sha256 = "c356c4f3a978e867bfeff13ec684c805c55c44e0ab7658f84a63a850fa8eb26d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233557/refined_github-24.2.8.xpi";
+      sha256 = "df51ec2cd17001bd474b86d75d6657156e91b54de607b6c7b4977a2044c5f6a7";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -9068,10 +9074,10 @@
     };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.45";
+      version = "1.5.46";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4226958/styl_us-1.5.45.xpi";
-      sha256 = "0ea1e3bf6d415e4509730896318b4605a6d8186b11e30cede600eba0b54af3dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232144/styl_us-1.5.46.xpi";
+      sha256 = "9a75bf1bdde7263a5502d78009b5f19117ea09e6237afc852e7ba4e52b565364";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
