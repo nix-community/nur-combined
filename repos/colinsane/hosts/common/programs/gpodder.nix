@@ -21,6 +21,9 @@ in {
         "--set" "GPODDER_DOWNLOAD_DIR" "~/Videos/gPodder"
       ];
     });
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";
     # packageUnwrapped = pkgs.gpodder-configured;
     fs.".config/gpodderFeeds.opml".symlink.text = feeds.feedsToOpml wanted-feeds;
 

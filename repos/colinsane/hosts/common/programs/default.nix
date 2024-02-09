@@ -91,6 +91,7 @@
     ./wireshark.nix
     ./wob.nix
     ./xarchiver.nix
+    ./xdg-utils.nix
     ./zeal.nix
     ./zecwallet-lite.nix
     ./zsh

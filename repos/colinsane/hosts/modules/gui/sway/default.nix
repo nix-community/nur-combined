@@ -320,17 +320,19 @@ in
       # - org.freedesktop.impl.portal.Print
       # and conditionally (i.e. unless buildPortalsInGnome = false) for:
       # - org.freedesktop.impl.portal.AppChooser (@appchooser_iface@)
-      # - org.freedesktop.impl.portal.Background (@background_iface@)
       # - org.freedesktop.impl.portal.Lockdown (@lockdown_iface@)
-      # - org.freedesktop.impl.portal.RemoteDesktop (@remotedesktop_iface@)
-      # - org.freedesktop.impl.portal.ScreenCast (@screencast_iface@)
-      # - org.freedesktop.impl.portal.Screenshot (@screenshot_iface@)
       # - org.freedesktop.impl.portal.Settings (@settings_iface@)
       # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
       xdg.portal.extraPortals = [
-        (pkgs.xdg-desktop-portal-gtk.override {
-          buildPortalsInGnome = false;
-        })
+        pkgs.xdg-desktop-portal-gtk
+        # N.B.: xdg-desktop-portal will only provide `org.freedesktop.portal.OpenURI`
+        #       if it sees a `org.freedesktop.impl.portal.AppChooser` implementation on the bus.
+        #       so to be able to do file opening over dbus instead of base `xdg-open`, `buildPortalsInGnome` MUST be true.
+        #       previously `buildPortalsInGnome` provided `ScreenCast` and `Screenshot`, which conflicted with sway.
+        #       nowadays, those live in `xdg-desktop-portal-gnome` proper.
+        # (pkgs.xdg-desktop-portal-gtk.override {
+        #   buildPortalsInGnome = false;
+        # })
       ];
 
       sane.user.services.sway-session = {

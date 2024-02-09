@@ -447,9 +447,6 @@ in
 
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
 
-    xdg-utils.sandbox.method = "capshonly";
-    xdg-utils.sandbox.wrapperType = "wrappedDerivation";
-
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
 
     yt-dlp.sandbox.method = "bwrap";  # TODO:sandbox: untested

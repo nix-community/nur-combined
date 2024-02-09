@@ -195,13 +195,15 @@ output "Unknown 0x0637 0x00000000" {
   res 1920x1080
 }
 
-# XXX: needed for xdg-desktop-portal-* to work.
+# XXX: `include /etc/sway/config.d/*` is needed for xdg-desktop-portal-* to work.
 # this is how we expose these env vars to user dbus services:
 # - DISPLAY
 # - WAYLAND_DISPLAY
 # - SWAYSOCK
 # - XDG_CURRENT_DESKTOP
+# also, manually export PATH here, since all my user services need that, and sane-sandboxed implementation depends on it.
 # for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
+exec dbus-update-activation-environment --systemd PATH
 include /etc/sway/config.d/*
 
 # signal to systemd that sway is active,

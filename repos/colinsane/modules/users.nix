@@ -47,7 +47,10 @@ let
 
       services = mkOption {
         # see: <repo:nixos/nixpkgs:nixos/lib/utils.nix>
-        type = utils.systemdUtils.types.services;
+        # type = utils.systemdUtils.types.services;
+        # `utils.systemdUtils.types.services` is nearly what we want, but remove `stage2ServiceConfig`,
+        # as we don't want to force a PATH for every service.
+        type = types.attrsOf (types.submodule [ utils.systemdUtils.unitOptions.stage2ServiceOptions utils.systemdUtils.lib.unitConfig ]);
         default = {};
         description = ''
           systemd user-services to define for this user.
@@ -130,17 +133,14 @@ let
             # see: <repo:nix-community/home-manager:modules/systemd.nix>
             cleanName = utils.systemdUtils.lib.mkPathSafeName serviceName;
             generatedUnit = utils.systemdUtils.lib.serviceToUnit serviceName (value // {
-              environment = (value.environment or {}) // {
-                # replicate the default NixOS user PATH (omitting dirs which don't exist)
-                # N.B.: user PATH SHOULD be before the service's path.
-                # this allows to user to override preferences for things like e.g. bemenu (for theming)
-                PATH = lib.removeSuffix ":" (
-                  "/run/wrappers/bin:"
-                  + "/etc/profiles/per-user/${name}/bin:"
-                  + "/run/current-system/sw/bin:"
-                  + (value.environment.PATH or "")
-                );
-              };
+              environment = {
+                # clear PATH to allow inheriting it from environment.
+                # otherwise, nixos would force it to `systemd.globalEnvironment.PATH`, which is mostly tools like sed/find/etc.
+                # clearing PATH here allows user services to inherit whatever PATH the graphical session sets
+                # (see `dbus-update-activation-environment` call in ~/.config/sway/config),
+                # which is critical to making it so user services can see user *programs*/packages.
+                PATH = null;
+              } // (value.environment or {});
             });
             #^ generatedUnit contains keys:
             # - text
