@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "go-pmtiles";
-  version = "1.10.5";
+  version = "1.16.1";
 
   src = fetchFromGitHub {
     owner = "protomaps";
     repo = "go-pmtiles";
     rev = "v${version}";
-    hash = "sha256-92pERXjZvvb+k0fi8Gi/p/FgvmyBoMb6XG484FkkSSw=";
+    hash = "sha256-FOYvzYC/tdARfUjcr+cugTSqi3tLezFp8m8lMgLSboU=";
   };
 
-  vendorHash = "sha256-Dy2ozaxFGGT9UFvgAqFfxmSM5lyX3fudggkZJ5T8KdI=";
+  vendorHash = "sha256-tSQjCdgEXIGlSWcIB6lLQulAiEAebgW3pXL9Z2ujgIs=";
 
   ldflags = [ "-s" "-w" ];
 
