@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "11c1wd0lh3yrbp4c9gcrs0f57xmmaihiszxmq7wbx8lxwfw452zh";
-    armv7l-linux = "0z3vvmndahpwsycdz2iazsv6c6c2vcsxiw8c63vxgynsz258almz";
-    aarch64-linux = "1lz5w31ip0ar1yd29cdnmqz2vidcyqbsgrdz0mf5rpyizf8m006f";
-    x86_64-darwin = "03q27s4kl683bkaa43n1xf2k9dffz55jwg5zbr1yax2xxqaqyhbf";
-    aarch64-darwin = "1wjy4aapagxvld2y8d4bbz36xl4xy2l8xyf0wfwl0b5ps2wkn55v";
+    x86_64-linux = "1lx268m48vni3ps2sf4jmp4yczx3lf8gii2l52h8rc1isc64p03s";
+    armv7l-linux = "0d9bl4f0c9dmh7snl7wda2hmx5svfgwhdsxyww2x4zxv5993kggq";
+    aarch64-linux = "1v0jy905kxm35wkw4ysq1grg3dfafkv400i7c8ijsbsm053wjy4c";
+    x86_64-darwin = "137qfbaivnm48ajyr96c7lx3g5l837jhgppcwdd58v0pazbp8rqi";
+    aarch64-darwin = "0wwiknbcg42jm4f59s2k5x3zcimgckg0fbgii2l6nqj3j3n69ska";
   };
 
   urlMap = {
-    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.9.8/dagger_v0.9.8_linux_amd64.tar.gz";
-    armv7l-linux = "https://dl.dagger.io/dagger/releases/0.9.8/dagger_v0.9.8_linux_armv7.tar.gz";
-    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.9.8/dagger_v0.9.8_linux_arm64.tar.gz";
-    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.9.8/dagger_v0.9.8_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.9.8/dagger_v0.9.8_darwin_arm64.tar.gz";
+    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_linux_amd64.tar.gz";
+    armv7l-linux = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_linux_armv7.tar.gz";
+    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_linux_arm64.tar.gz";
+    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_darwin_arm64.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "dagger";
-  version = "0.9.8";
+  version = "0.9.9";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
