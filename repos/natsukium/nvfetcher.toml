@@ -27,6 +27,11 @@ src.github = "qutebrowser/qutebrowser"
 src.prefix = "v"
 fetch.url = "https://github.com/qutebrowser/qutebrowser/releases/download/v$ver/qutebrowser-$ver.dmg"
 
+[sbarlua]
+src.git = "https://github.com/FelixKratz/SbarLua"
+src.branch = "main"
+fetch.github = "FelixKratz/SbarLua"
+
 [skkeleton]
 src.git = "https://github.com/vim-skk/skkeleton"
 src.branch = "main"

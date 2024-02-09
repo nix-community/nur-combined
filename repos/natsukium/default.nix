@@ -33,6 +33,7 @@ rec {
   qmk-toolbox = pkgs.callPackage ./pkgs/qmk-toolbox { source = sources.qmk-toolbox; };
   qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { source = sources.qutebrowser-darwin; };
   rofi-rbw = pkgs.callPackage ./pkgs/rofi-rbw { };
+  sbarlua = pkgs.callPackage ./pkgs/sbarlua { source = sources.sbarlua; };
   vivaldi-bin = pkgs.callPackage ./pkgs/vivaldi { source = sources.vivaldi-darwin; };
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { inherit ligaturizer; };
   liga-hackgen-nf-font = liga-hackgen-font.override { nerdfont = true; };
