@@ -300,8 +300,11 @@ bwrapIngestCapability() {
 # WIP
 
 bwrapExec() {
+  # --unshare-pid: mean that the /proc mount does not expose /proc/$PID/ for every other process on the machine.
+  # --unshare-net creates a new net namespace with only the loopback interface.
+  #               if `bwrapFlags` contains --share-net, thiss is canceled and the program sees an unsandboxed network.
   PATH="$PATH:@bubblewrap@/bin" exec \
-    bwrap --unshare-net --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
+    bwrap --unshare-net --unshare-pid --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
     "${cliArgs[@]}"
 }
 
