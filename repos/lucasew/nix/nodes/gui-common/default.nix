@@ -30,6 +30,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     gparted
+    parallel
     home-manager
     paper-icon-theme
     p7zip unzip # archiving
