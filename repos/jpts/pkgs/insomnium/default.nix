@@ -7,11 +7,11 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "insomnium";
-  version = "0.2.2";
+  version = "0.2.3-a";
 
   src = fetchurl {
-    url = "https://github.com/ArchGPT/insomnium/releases/download/core@${version}/Insomnium.CoreMacOS-${version}.dmg";
-    sha256 = "sha256-kedT9Uup2ngZz0TFwYkL4V4z7+vEqGouSmwaJPfmo20=";
+    url = "https://github.com/ArchGPT/insomnium/releases/download/core@${version}/Insomnium.Core-${version}.signed.dmg";
+    sha256 = "sha256-OlYfoNNBPSMYDVSIsANKW7yy1DPkYA4x0ALgyipS2d8=";
   };
 
   sourceRoot = ".";
