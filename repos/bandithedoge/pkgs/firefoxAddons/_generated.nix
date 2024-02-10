@@ -1057,7 +1057,7 @@
     url = "https://addons.mozilla.org/firefox/downloads/file/4233557/refined_github-24.2.8.xpi";
     sha256 = "df51ec2cd17001bd474b86d75d6657156e91b54de607b6c7b4977a2044c5f6a7";
     meta = with lib; {
-      homepage = "https://github.com/sindresorhus/refined-github";
+      homepage = "https://github.com/refined-github/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
       license = licenses.mit;
       mozPermissions = [
