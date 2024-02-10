@@ -1683,10 +1683,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "123.0.20240207.91958";
+      version = "123.0.20240209.102425";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233191/deutsch_de_language_pack-123.0.20240207.91958.xpi";
-      sha256 = "8f8fa7fa99a818e913e53f3975788f0f7e8eeb29eb3e2701d4d9836f9cf54164";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4234295/deutsch_de_language_pack-123.0.20240209.102425.xpi";
+      sha256 = "6902693f27eb9e6a8b793eca994a4a4baffe85fb71f0e3fd8808cf41903fb716";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2526,10 +2526,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "123.0.20240207.91958";
+      version = "123.0.20240209.102425";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233128/francais_language_pack-123.0.20240207.91958.xpi";
-      sha256 = "d0c1edc790711e62fc2cc18f95c2a98aecb016529d6768b02793a4c5f39a027b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4234227/francais_language_pack-123.0.20240209.102425.xpi";
+      sha256 = "90bdddb34804fb46123e612a658ea825f7b54fcef69ef4729bd40c4de92b64e0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6324,10 +6324,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.7.3";
+      version = "11.7.5";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4225715/ether_metamask-11.7.3.xpi";
-      sha256 = "65f212aa161d972bff93f7a9f9811c2a7bf437bf1af251d6287fa0ae4d9eb4f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232237/ether_metamask-11.7.5.xpi";
+      sha256 = "adc0aef8a353ab0e274783662c25b9e0f965e9d32ff676e849636621aa6683b5";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -6403,10 +6403,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.13.4";
+      version = "2.13.16";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223182/momentumdash-2.13.4.xpi";
-      sha256 = "d744bf512668071b2247f8eef2a37f5dc7bc101b28ef76a55cd66cc1f3e61951";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232446/momentumdash-2.13.16.xpi";
+      sha256 = "e9da0fc67582dd46bd5950e027a353e3b55510c860f5a190e124bf9916345154";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -6865,10 +6865,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.24.0";
+      version = "6.26.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4189165/okta_browser_plugin-6.24.0.xpi";
-      sha256 = "0ac01a558d07f8fb53b035f7ee74ce0f807119296060ff5b9c684d86b124559a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231102/okta_browser_plugin-6.26.0.xpi";
+      sha256 = "a38036862fc771205ecf51b048aea11ea1c7d950b8ee8fcd0ed745e14f88fb71";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -6980,10 +6980,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.15.1";
+      version = "2.20.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4168788/1password_x_password_manager-2.15.1.xpi";
-      sha256 = "2210a7a79456bf59e445e7b751de676a29f610de14c6ea3b04cb2c7763a54b2a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232852/1password_x_password_manager-2.20.2.xpi";
+      sha256 = "5a4998b873d568cd66ef5582bf08b0d8233d15829f5910423a805be6cc5af7ae";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -7226,10 +7226,10 @@
     };
     "penetration-testing-kit" = buildFirefoxXpiAddon {
       pname = "penetration-testing-kit";
-      version = "8.7.2.1";
+      version = "8.8.2";
       addonId = "{1ab3d165-d664-4bf2-adb7-fed77f46116f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4218565/penetration_testing_kit-8.7.2.1.xpi";
-      sha256 = "b0474c17622f384609be4b4e729abe8818fce66cacb0b11ce9b9a033f328e6b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4234190/penetration_testing_kit-8.8.2.xpi";
+      sha256 = "6c2264cd4181e1861e402c1d4cf031c17375bd72b1976760e3f33cef6b2736a6";
       meta = with lib;
       {
         homepage = "https://pentestkit.co.uk/";
@@ -8304,7 +8304,7 @@
       sha256 = "df51ec2cd17001bd474b86d75d6657156e91b54de607b6c7b4977a2044c5f6a7";
       meta = with lib;
       {
-        homepage = "https://github.com/sindresorhus/refined-github";
+        homepage = "https://github.com/refined-github/refined-github";
         description = "Simplifies the GitHub interface and adds many useful features.";
         license = licenses.mit;
         mozPermissions = [
