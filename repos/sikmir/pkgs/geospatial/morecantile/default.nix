@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "morecantile";
-  version = "5.2.2";
+  version = "5.3.0";
   pyproject = true;
   disabled = python3Packages.pythonOlder "3.8";
 
@@ -10,7 +10,7 @@ python3Packages.buildPythonPackage rec {
     owner = "developmentseed";
     repo = "morecantile";
     rev = version;
-    hash = "sha256-Y0KUsI0OjkgEjEJsMTwchcQG0LEOEzj7YwN5F+eUb8I=";
+    hash = "sha256-F7xYQrOngoRsZjmS6ZHRGN0/GD53AYcMQzyY1LZ1O7I=";
   };
 
   nativeBuildInputs = with python3Packages; [ flit ];
