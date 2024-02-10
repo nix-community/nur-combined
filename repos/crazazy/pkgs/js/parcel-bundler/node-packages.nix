@@ -2641,13 +2641,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.4.659" = {
+    "electron-to-chromium-1.4.665" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.659";
+      version = "1.4.665";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.659.tgz";
-        sha512 = "sRJ3nV3HowrYpBtPF9bASQV7OW49IgZC01Xiq43WfSE3RTCkK0/JidoCmR73Hyc1mN+l/H4Yqx0eNiomvExFZg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.665.tgz";
+        sha512 = "UpyCWObBoD+nSZgOC2ToaIdZB0r9GhqT2WahPKiSki6ckkSuKhQNso8V2PrFcHBMleI/eqbKgVQgVC4Wni4ilw==";
       };
     };
     "elliptic-6.5.4" = {
@@ -3136,13 +3136,13 @@ let
         sha512 = "x5UJKlgeUiNT8nyo/AcnwLnZuZNcSjSw0kogRB+Whd1fjjFq4B1hySFxSFWWSn4mIBzg3sRNUDFYc4g5gjPoLg==";
       };
     };
-    "get-symbol-description-1.0.1" = {
+    "get-symbol-description-1.0.2" = {
       name = "get-symbol-description";
       packageName = "get-symbol-description";
-      version = "1.0.1";
+      version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/get-symbol-description/-/get-symbol-description-1.0.1.tgz";
-        sha512 = "KmuibvwbWaM4BHcBRYwJfZ1JxyJeBwB8ct9YYu67SvYdbEIlcQ2e56dHxfbobqW38GXo8/zDFqJeGtHiVbWyQw==";
+        url = "https://registry.npmjs.org/get-symbol-description/-/get-symbol-description-1.0.2.tgz";
+        sha512 = "g0QYk1dZBxGwk+Ngc+ltRH2IBp2f7zBkBMBJZCDerh6EhlhSR6+9irMCuT/09zD6qkarHUSn529sK/yL4S27mg==";
       };
     };
     "get-value-2.0.6" = {
@@ -7219,7 +7219,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.4.659"
+      sources."electron-to-chromium-1.4.665"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -7285,7 +7285,7 @@ let
       sources."gensync-1.0.0-beta.2"
       sources."get-intrinsic-1.2.4"
       sources."get-port-3.2.0"
-      sources."get-symbol-description-1.0.1"
+      sources."get-symbol-description-1.0.2"
       sources."get-value-2.0.6"
       sources."getpass-0.1.7"
       sources."glob-7.2.3"

@@ -103,13 +103,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-20.11.16" = {
+    "@types/node-20.11.17" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.11.16";
+      version = "20.11.17";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.11.16.tgz";
-        sha512 = "gKb0enTmRCzXSSUJDq6/sPcqrfCv2mkkG6Jt/clpn5eiCbKTY+SgZUxo+p8ZKMof5dCp9vHQUAB7wOUTod22wQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.11.17.tgz";
+        sha512 = "QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw==";
       };
     };
     "@webassemblyjs/ast-1.11.6" = {
@@ -409,13 +409,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "electron-to-chromium-1.4.659" = {
+    "electron-to-chromium-1.4.665" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.659";
+      version = "1.4.665";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.659.tgz";
-        sha512 = "sRJ3nV3HowrYpBtPF9bASQV7OW49IgZC01Xiq43WfSE3RTCkK0/JidoCmR73Hyc1mN+l/H4Yqx0eNiomvExFZg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.665.tgz";
+        sha512 = "UpyCWObBoD+nSZgOC2ToaIdZB0r9GhqT2WahPKiSki6ckkSuKhQNso8V2PrFcHBMleI/eqbKgVQgVC4Wni4ilw==";
       };
     };
     "enhanced-resolve-5.15.0" = {
@@ -1093,7 +1093,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.5"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-20.11.16"
+      sources."@types/node-20.11.17"
       sources."@webassemblyjs/ast-1.11.6"
       sources."@webassemblyjs/floating-point-hex-parser-1.11.6"
       sources."@webassemblyjs/helper-api-error-1.11.6"
@@ -1126,7 +1126,7 @@ let
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.3"
-      sources."electron-to-chromium-1.4.659"
+      sources."electron-to-chromium-1.4.665"
       sources."enhanced-resolve-5.15.0"
       sources."envinfo-7.11.1"
       sources."es-module-lexer-1.4.1"

@@ -1687,13 +1687,13 @@ let
         sha512 = "hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==";
       };
     };
-    "@types/node-20.11.16" = {
+    "@types/node-20.11.17" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.11.16";
+      version = "20.11.17";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.11.16.tgz";
-        sha512 = "gKb0enTmRCzXSSUJDq6/sPcqrfCv2mkkG6Jt/clpn5eiCbKTY+SgZUxo+p8ZKMof5dCp9vHQUAB7wOUTod22wQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.11.17.tgz";
+        sha512 = "QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw==";
       };
     };
     "@types/node-forge-1.3.11" = {
@@ -4603,13 +4603,13 @@ let
         sha512 = "iirFqlP3tiFoedNZ7dQcjvechunl054VbW6Ki38T/pabgXMAncduSE0ZXLeVGn1NbmcUJF9Z5TC0EvQ4RIpP9Q==";
       };
     };
-    "electron-to-chromium-1.4.659" = {
+    "electron-to-chromium-1.4.665" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.659";
+      version = "1.4.665";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.659.tgz";
-        sha512 = "sRJ3nV3HowrYpBtPF9bASQV7OW49IgZC01Xiq43WfSE3RTCkK0/JidoCmR73Hyc1mN+l/H4Yqx0eNiomvExFZg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.665.tgz";
+        sha512 = "UpyCWObBoD+nSZgOC2ToaIdZB0r9GhqT2WahPKiSki6ckkSuKhQNso8V2PrFcHBMleI/eqbKgVQgVC4Wni4ilw==";
       };
     };
     "elliptic-6.5.4" = {
@@ -5575,13 +5575,13 @@ let
         sha512 = "ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==";
       };
     };
-    "get-symbol-description-1.0.1" = {
+    "get-symbol-description-1.0.2" = {
       name = "get-symbol-description";
       packageName = "get-symbol-description";
-      version = "1.0.1";
+      version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/get-symbol-description/-/get-symbol-description-1.0.1.tgz";
-        sha512 = "KmuibvwbWaM4BHcBRYwJfZ1JxyJeBwB8ct9YYu67SvYdbEIlcQ2e56dHxfbobqW38GXo8/zDFqJeGtHiVbWyQw==";
+        url = "https://registry.npmjs.org/get-symbol-description/-/get-symbol-description-1.0.2.tgz";
+        sha512 = "g0QYk1dZBxGwk+Ngc+ltRH2IBp2f7zBkBMBJZCDerh6EhlhSR6+9irMCuT/09zD6qkarHUSn529sK/yL4S27mg==";
       };
     };
     "get-value-2.0.6" = {
@@ -9598,13 +9598,13 @@ let
         sha512 = "1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==";
       };
     };
-    "preact-10.19.3" = {
+    "preact-10.19.4" = {
       name = "preact";
       packageName = "preact";
-      version = "10.19.3";
+      version = "10.19.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/preact/-/preact-10.19.3.tgz";
-        sha512 = "nHHTeFVBTHRGxJXKkKu5hT8C/YWBkPso4/Gad6xuj5dbptt9iF9NZr9pHbPhBrnT2klheu7mHTxTZ/LjwJiEiQ==";
+        url = "https://registry.npmjs.org/preact/-/preact-10.19.4.tgz";
+        sha512 = "dwaX5jAh0Ga8uENBX1hSOujmKWgx9RtL80KaKUFLc6jb4vCEAc3EeZ0rnQO/FO4VgjfPMfoLFWnNG8bHuZ9VLw==";
       };
     };
     "preact-render-to-string-6.3.1" = {
@@ -11065,13 +11065,13 @@ let
         sha512 = "cbqHunsQWnJNE6KhVSMsMeH5H/L9EpymbzqTQ3uLwNCLZ1Q481oWaofqH7nO6V07xlXwY6PhQdQ2IedWx/ZK4Q==";
       };
     };
-    "spdx-license-ids-3.0.16" = {
+    "spdx-license-ids-3.0.17" = {
       name = "spdx-license-ids";
       packageName = "spdx-license-ids";
-      version = "3.0.16";
+      version = "3.0.17";
       src = fetchurl {
-        url = "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.16.tgz";
-        sha512 = "eWN+LnM3GR6gPu35WxNgbGl8rmY1AEmoMDvL/QD6zYmPWgywxWqJWNdLGT+ke8dKNWrcYgYjPpG5gbTfghP8rw==";
+        url = "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.17.tgz";
+        sha512 = "sh8PWc/ftMqAAdFiBu6Fy6JUOYjqDJBJvIhpfDMyHrr0Rbp5liZqd4TjtQ/RgfLjKFZb+LMx5hpml5qOWy0qvg==";
       };
     };
     "spdy-4.0.2" = {
@@ -13229,7 +13229,7 @@ let
       sources."@types/json-schema-7.0.15"
       sources."@types/mime-1.3.5"
       sources."@types/minimist-1.2.5"
-      sources."@types/node-20.11.16"
+      sources."@types/node-20.11.17"
       sources."@types/node-forge-1.3.11"
       sources."@types/normalize-package-data-2.4.4"
       sources."@types/parse-json-4.0.2"
@@ -13707,7 +13707,7 @@ let
       sources."ee-first-1.1.1"
       sources."ejs-3.1.9"
       sources."ejs-loader-0.5.0"
-      sources."electron-to-chromium-1.4.659"
+      sources."electron-to-chromium-1.4.665"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -13942,7 +13942,7 @@ let
       sources."get-port-5.1.1"
       sources."get-stdin-4.0.1"
       sources."get-stream-4.1.0"
-      sources."get-symbol-description-1.0.1"
+      sources."get-symbol-description-1.0.2"
       sources."get-value-2.0.6"
       sources."getpass-0.1.7"
       (sources."gittar-0.1.1" // {
@@ -14750,7 +14750,7 @@ let
         ];
       })
       sources."postcss-value-parser-4.2.0"
-      sources."preact-10.19.3"
+      sources."preact-10.19.4"
       sources."preact-render-to-string-6.3.1"
       sources."prelude-ls-1.1.2"
       sources."prepend-http-2.0.0"
@@ -15044,7 +15044,7 @@ let
       sources."spdx-correct-3.2.0"
       sources."spdx-exceptions-2.4.0"
       sources."spdx-expression-parse-3.0.1"
-      sources."spdx-license-ids-3.0.16"
+      sources."spdx-license-ids-3.0.17"
       sources."spdy-4.0.2"
       sources."spdy-transport-3.0.0"
       sources."split-string-3.1.0"

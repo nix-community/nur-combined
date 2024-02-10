@@ -679,13 +679,13 @@ let
         sha512 = "eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==";
       };
     };
-    "electron-to-chromium-1.4.659" = {
+    "electron-to-chromium-1.4.665" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.659";
+      version = "1.4.665";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.659.tgz";
-        sha512 = "sRJ3nV3HowrYpBtPF9bASQV7OW49IgZC01Xiq43WfSE3RTCkK0/JidoCmR73Hyc1mN+l/H4Yqx0eNiomvExFZg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.665.tgz";
+        sha512 = "UpyCWObBoD+nSZgOC2ToaIdZB0r9GhqT2WahPKiSki6ckkSuKhQNso8V2PrFcHBMleI/eqbKgVQgVC4Wni4ilw==";
       };
     };
     "encoding-0.1.13" = {
@@ -1612,7 +1612,7 @@ let
       sources."convert-source-map-2.0.0"
       sources."debug-4.3.4"
       sources."defaults-1.0.4"
-      sources."electron-to-chromium-1.4.659"
+      sources."electron-to-chromium-1.4.665"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
       sources."es-module-lexer-1.4.1"
