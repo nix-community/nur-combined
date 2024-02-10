@@ -299,6 +299,21 @@
         },
         "version": "fecf00339545d2819224333cc506d5aa22ae8008"
     },
+    "click-loglevel": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "click-loglevel",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-/MmKE2qWR5tHaElN8lAXEUuhy1JdrAvtYZIJs1eP1PM=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/c/click-loglevel/click-loglevel-0.5.0.tar.gz"
+        },
+        "version": "0.5.0"
+    },
     "cloudpan189-go": {
         "cargoLocks": null,
         "date": null,
@@ -1341,6 +1356,26 @@
         },
         "version": "0.5.15"
     },
+    "palworld-exporter": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "palworld-exporter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "palworldlol",
+            "repo": "palworld-exporter",
+            "rev": "v1.2.0",
+            "sha256": "sha256-/P9TBRHPLEjaVUPtbojFziakdFy+LsPz3f9XOaXLU4U=",
+            "type": "github"
+        },
+        "version": "v1.2.0"
+    },
     "palworld-worldoptions": {
         "cargoLocks": null,
         "date": null,
@@ -1470,6 +1505,26 @@
             "type": "github"
         },
         "version": "v1.11.8"
+    },
+    "py-rcon": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "py-rcon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ttk1",
+            "repo": "py-rcon",
+            "rev": "v1.3.0",
+            "sha256": "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=",
+            "type": "github"
+        },
+        "version": "v1.3.0"
     },
     "qbittorrent-enhanced-edition": {
         "cargoLocks": null,

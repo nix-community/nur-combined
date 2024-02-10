@@ -175,6 +175,14 @@
     };
     date = "2019-02-18";
   };
+  click-loglevel = {
+    pname = "click-loglevel";
+    version = "0.5.0";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/c/click-loglevel/click-loglevel-0.5.0.tar.gz";
+      sha256 = "sha256-/MmKE2qWR5tHaElN8lAXEUuhy1JdrAvtYZIJs1eP1PM=";
+    };
+  };
   cloudpan189-go = {
     pname = "cloudpan189-go";
     version = "v0.1.3";
@@ -778,6 +786,17 @@
       sha256 = "sha256-4jEF1LdMwaLNF6zvzAuGW8Iu4dzhrFLutX69LwSjTAI=";
     };
   };
+  palworld-exporter = {
+    pname = "palworld-exporter";
+    version = "v1.2.0";
+    src = fetchFromGitHub {
+      owner = "palworldlol";
+      repo = "palworld-exporter";
+      rev = "v1.2.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-/P9TBRHPLEjaVUPtbojFziakdFy+LsPz3f9XOaXLU4U=";
+    };
+  };
   palworld-worldoptions = {
     pname = "palworld-worldoptions";
     version = "v1.6.0";
@@ -847,6 +866,17 @@
       rev = "v1.11.8";
       fetchSubmodules = false;
       sha256 = "sha256-JzbxROashDAL4NSeqMcWR9PgFqe9peBNpeofA347oE4=";
+    };
+  };
+  py-rcon = {
+    pname = "py-rcon";
+    version = "v1.3.0";
+    src = fetchFromGitHub {
+      owner = "ttk1";
+      repo = "py-rcon";
+      rev = "v1.3.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
     };
   };
   qbittorrent-enhanced-edition = {

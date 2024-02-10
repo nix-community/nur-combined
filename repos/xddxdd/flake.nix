@@ -113,6 +113,7 @@
               set -euo pipefail
               nix build .#_meta.readme
               cat result > README.md
+              ${garnix}
             '';
 
             trace = ''
@@ -131,7 +132,6 @@
               ${py}/bin/python3 pkgs/openj9-ibm-semeru/update.py
               ${py}/bin/python3 pkgs/openjdk-adoptium/update.py
               ${readme}
-              ${garnix}
             '';
           };
       in rec {

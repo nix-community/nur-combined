@@ -2,8 +2,6 @@
   lib,
   sources,
   python3Packages,
-  xstatic-asciinema-player,
-  xstatic-font-awesome,
   ...
 } @ args:
 with python3Packages;

@@ -66,6 +66,10 @@ fetch.url = "https://github.com/seblucas/cops/releases/download/$ver/cops-$ver.z
 src.git = "https://github.com/martyr-deepin/cef-binary.git"
 fetch.github = "martyr-deepin/cef-binary"
 
+[click-loglevel]
+src.pypi = "click-loglevel"
+fetch.pypi = "click-loglevel"
+
 [cloudpan189-go]
 src.github = "tickstep/cloudpan189-go"
 fetch.github = "tickstep/cloudpan189-go"
@@ -304,6 +308,10 @@ fetch.github = "open-quantum-safe/oqs-provider"
 src.github = "osdlyrics/osdlyrics"
 fetch.github = "osdlyrics/osdlyrics"
 
+[palworld-exporter]
+src.github_tag = "palworldlol/palworld-exporter"
+fetch.github = "palworldlol/palworld-exporter"
+
 [palworld-worldoptions]
 src.github = "legoduded/palworld-worldoptions"
 fetch.github = "legoduded/palworld-worldoptions"
@@ -334,6 +342,10 @@ fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-
 [pterodactyl-wings]
 src.github = "pterodactyl/wings"
 fetch.github = "pterodactyl/wings"
+
+[py-rcon]
+src.github_tag = "ttk1/py-rcon"
+fetch.github = "ttk1/py-rcon"
 
 [qbittorrent-enhanced-edition]
 src.github = "c0re100/qBittorrent-Enhanced-Edition"

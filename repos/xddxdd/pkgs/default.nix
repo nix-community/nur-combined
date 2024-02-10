@@ -107,6 +107,7 @@ in
     boringssl-oqs = pkg ./uncategorized/boringssl-oqs {};
     calibre-cops = pkg ./uncategorized/calibre-cops {};
     chmlib-utils = pkg ./uncategorized/chmlib-utils {};
+    click-loglevel = pkg ./uncategorized/click-loglevel {};
     cloudpan189-go = pkg ./uncategorized/cloudpan189-go {};
     cockpy = pkg ./uncategorized/cockpy {};
     deepspeech-gpu = ifNotCI (pkg ./uncategorized/deepspeech-gpu {});
@@ -155,12 +156,14 @@ in
     openssl-oqs = pkg ./uncategorized/openssl-oqs {cryptodev = pkgs.linuxPackages.cryptodev;};
     openssl-oqs-provider = pkg ./uncategorized/openssl-oqs-provider {};
     osdlyrics = pkg ./uncategorized/osdlyrics {};
+    palworld-exporter = pkg ./uncategorized/palworld-exporter {};
     palworld-worldoptions = pkg ./uncategorized/palworld-worldoptions {};
     payload-dumper-go = pkg ./uncategorized/payload-dumper-go {};
     phpmyadmin = pkg ./uncategorized/phpmyadmin {};
     phppgadmin = pkg ./uncategorized/phppgadmin {};
     procps4 = pkg ./uncategorized/procps4 {};
     pterodactyl-wings = pkg ./uncategorized/pterodactyl-wings {};
+    py-rcon = pkg ./uncategorized/py-rcon {};
     qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition {};
     qbittorrent-enhanced-edition-nox = pkg ./uncategorized/qbittorrent-enhanced-edition/nox.nix {};
     libqcef = pkg ./uncategorized/libqcef {};
