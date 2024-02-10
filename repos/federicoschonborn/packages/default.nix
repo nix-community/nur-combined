@@ -65,13 +65,13 @@ rec {
       }
     )).override
       {
-        enableLibpci = false;
         enableVulkan = false;
         enableWayland = false;
         enableXcb = false;
         enableXcbRandr = false;
         enableXrandr = false;
         enableX11 = false;
+        enableDrm = false;
         enableGio = false;
         enableDconf = false;
         enableDbus = false;

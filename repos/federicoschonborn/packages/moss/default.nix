@@ -6,6 +6,7 @@
   sqlite,
   zstd,
   unstableGitUpdater,
+  rustc,
 }:
 
 rustPlatform.buildRustPackage {
@@ -14,7 +15,7 @@ rustPlatform.buildRustPackage {
 
   src = fetchFromGitHub {
     owner = "serpent-os";
-    repo = "moss-rs";
+    repo = "moss";
     rev = "4364e12dcda17aebc98d33c77bb052fb71584517";
     hash = "sha256-vDV9VO6X6A0+bWiXJdqdS4W/6pXYBwMhnk9QvxxGgwo=";
   };
@@ -35,9 +36,10 @@ rustPlatform.buildRustPackage {
   meta = {
     mainProgram = "moss";
     description = "The safe, fast and sane package manager for Linux";
-    homepage = "https://github.com/serpent-os/moss-rs";
+    homepage = "https://github.com/serpent-os/moss";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder rustc.version "1.74.0";
   };
 }

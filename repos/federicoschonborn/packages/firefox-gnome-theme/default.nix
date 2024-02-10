@@ -17,14 +17,14 @@ stdenvNoCC.mkDerivation (
       hash = "sha256-QZk/qZQVt1X53peCqB2qmWhpA3xtAVgY95pebSKaTFU=";
     };
 
-    installPhase = "
+    installPhase = ''
       runHook preInstall
 
       mkdir -p $out/
       cp -r $src/* $out/
 
       runHook postInstall
-    ";
+    '';
 
     passthru.updateScript = nix-update-script { };
 

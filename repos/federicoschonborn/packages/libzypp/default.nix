@@ -37,13 +37,13 @@ in
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "libzypp";
-    version = "17.31.30";
+    version = "17.31.31";
 
     src = fetchFromGitHub {
       owner = "openSUSE";
       repo = "libzypp";
       rev = finalAttrs.version;
-      hash = "sha256-4ViiTOGIZCS3ASZWmxsbEpckO/g+d63yvWi7M62BPg0=";
+      hash = "sha256-TX+j0R6+QPtE5lrsRhzM9uXfytcJdPbhUTDXyn2UAlI=";
     };
 
     patches = [ ./libdir.patch ];

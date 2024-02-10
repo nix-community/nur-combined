@@ -5,10 +5,10 @@
   cmake,
   ninja,
   pkg-config,
+  python3,
   yyjson,
   nix-update-script,
-  enableLibpci ? stdenv.isLinux || stdenv.isBSD,
-  pciutils,
+
   enableVulkan ? stdenv.isLinux || stdenv.isDarwin || stdenv.isBSD || stdenv.isCygwin,
   vulkan-loader,
   enableWayland ? stdenv.isLinux || stdenv.isBSD,
@@ -18,6 +18,8 @@
   enableXrandr ? stdenv.isLinux || stdenv.isBSD,
   enableX11 ? stdenv.isLinux || stdenv.isBSD,
   xorg,
+  enableDrm ? stdenv.isLinux || stdenv.isBSD,
+  libdrm,
   enableGio ? stdenv.isLinux || stdenv.isBSD,
   glib,
   enableDconf ? stdenv.isLinux || stdenv.isBSD,
@@ -41,15 +43,14 @@
   enableGlx ? stdenv.isLinux || stdenv.isBSD,
   libglvnd,
   enableOsmesa ? stdenv.isLinux || stdenv.isBSD,
-  mesa_drivers,
+  mesa,
   enableOpencl ? stdenv.isLinux || stdenv.isBSD,
   ocl-icd,
-  opencl-headers,
   enableLibnm ? stdenv.isLinux,
   networkmanager,
-  enableFreetype ? stdenv.isLinux, # Android
+  enableFreetype ? false, # Android
   freetype,
-  enablePulse ? stdenv.isLinux || stdenv.isBSD,
+  enablePulse ? stdenv.isLinux,
   pulseaudio,
   enableDdcutil ? stdenv.isLinux,
   ddcutil,
@@ -60,29 +61,30 @@
 stdenv.mkDerivation (
   finalAttrs: {
     pname = "fastfetch";
-    version = "2.7.1";
+    version = "2.8.2";
 
     src = fetchFromGitHub {
-      owner = "LinusDierheimer";
+      owner = "fastfetch-cli";
       repo = "fastfetch";
       rev = finalAttrs.version;
-      hash = "sha256-s0N3Rt3lLOCyaeXeNYu6hlGtNtGR+YC7Aj4/3SeVMpQ=";
+      hash = "sha256-ftyROkt2gObzLB0i+e1lT5AcaMeqyH3FRBVo8BVeR6E=";
     };
 
     nativeBuildInputs = [
       cmake
       ninja
       pkg-config
+      python3
     ];
 
     buildInputs =
       [ yyjson ]
-      ++ lib.optional enableLibpci pciutils
       ++ lib.optional enableVulkan vulkan-loader
       ++ lib.optional enableWayland wayland
       ++ lib.optional (enableXcb || enableXcbRandr) xorg.libxcb
       ++ lib.optional enableXrandr xorg.libXrandr
       ++ lib.optional enableX11 xorg.libX11
+      ++ lib.optional enableDrm libdrm
       ++ lib.optional enableGio glib
       ++ lib.optional enableDconf dconf
       ++ lib.optional enableDbus dbus
@@ -94,29 +96,24 @@ stdenv.mkDerivation (
       ++ lib.optional enableZlib zlib
       ++ lib.optional enableEgl libGL
       ++ lib.optional enableGlx libglvnd
-      ++ lib.optional enableOsmesa mesa_drivers.dev
-      ++ lib.optionals enableOpencl [
-        ocl-icd
-        opencl-headers
-      ]
+      ++ lib.optional enableOsmesa mesa
+      ++ lib.optional enableOpencl ocl-icd
       ++ lib.optional enableLibnm networkmanager
       ++ lib.optional enableFreetype freetype
       ++ lib.optional enablePulse pulseaudio
       ++ lib.optional enableDdcutil ddcutil
       ++ lib.optional enableDirectxHeaders directx-headers;
 
-    env.NIX_CFLAGS_COMPILE = "-Wno-error=uninitialized";
-
     cmakeFlags = [
       "-DTARGET_DIR_ROOT=${placeholder "out"}"
       "-DENABLE_SYSTEM_YYJSON=ON"
-      (lib.cmakeBool "ENABLE_LIBPCI" enableLibpci)
       (lib.cmakeBool "ENABLE_VULKAN" enableVulkan)
       (lib.cmakeBool "ENABLE_WAYLAND" enableWayland)
       (lib.cmakeBool "ENABLE_XCB" enableXcb)
       (lib.cmakeBool "ENABLE_XCB_RANDR" enableXcbRandr)
       (lib.cmakeBool "ENABLE_XRANDR" enableXrandr)
       (lib.cmakeBool "ENABLE_X11" enableX11)
+      (lib.cmakeBool "ENABLE_DRM" enableDrm)
       (lib.cmakeBool "ENABLE_GIO" enableGio)
       (lib.cmakeBool "ENABLE_DCONF" enableDconf)
       (lib.cmakeBool "ENABLE_DBUS" enableDbus)
