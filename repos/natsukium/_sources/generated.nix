@@ -71,15 +71,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "a21a3d9e610aa0b46f87404663fcb72afb2c062f";
+    version = "b9fe24dce395cb7b7696fa23f0546d3d870365a3";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "a21a3d9e610aa0b46f87404663fcb72afb2c062f";
+      rev = "b9fe24dce395cb7b7696fa23f0546d3d870365a3";
       fetchSubmodules = false;
-      sha256 = "sha256-BYCRFDA77Hpt2rEFyuRoYnX6BmGqd9bkaBx663VQly4=";
+      sha256 = "sha256-H7L8FOSVQn4PkUmwJ6s7WoWqHGcyT73bwU0oyXRQnZI=";
     };
-    date = "2024-02-06";
+    date = "2024-02-09";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
