@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "8ab238ad4ee9f2d53a3d32d3ee2b99a1b81bfa53";
+    version = "441ad0438fb1822aa85b06ab57e91eaafd4bb4af";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "8ab238ad4ee9f2d53a3d32d3ee2b99a1b81bfa53";
+      rev = "441ad0438fb1822aa85b06ab57e91eaafd4bb4af";
       fetchSubmodules = false;
-      sha256 = "sha256-AS0yzGp9gSHH+gNEn7qD6wUvQIPnENOPddnkiSvm/mU=";
+      sha256 = "sha256-cO+iG4AxH1gzHDWJqCDoBkC1WtTwlmGzwxcRR9ufgjA=";
     };
-    date = "2024-02-08";
+    date = "2024-02-09";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -501,15 +501,15 @@
   };
   librime-charcode = {
     pname = "librime-charcode";
-    version = "3e73214fdf5d162517a74762433f486b70a5c0e1";
+    version = "3709ca7a39a7c14f9e02fa00489a9850fd5a907b";
     src = fetchFromGitHub {
       owner = "rime";
       repo = "librime-charcode";
-      rev = "3e73214fdf5d162517a74762433f486b70a5c0e1";
+      rev = "3709ca7a39a7c14f9e02fa00489a9850fd5a907b";
       fetchSubmodules = false;
-      sha256 = "sha256-wfaz4ReCV2w+zRaPbJuZ1lgXQI9Pa1Xz9NuQe+UqcB0=";
+      sha256 = "sha256-KfKkpph+2ChQpkkGKubmpg/18uPX9qUHTqJT1PSGorI=";
     };
-    date = "2023-09-03";
+    date = "2024-02-10";
   };
   librime-lua = {
     pname = "librime-lua";
@@ -974,10 +974,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20231205";
+    version = "20240210";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231205.dict.yaml";
-      sha256 = "sha256-n6fuwekBdjyRdSnlzq7vN/gpX20LAoctKsrJa+eh1u0=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20240210.dict.yaml";
+      sha256 = "sha256-2Y4M4RrBBxNKGyWx+Y+nmFEsKPukfNsaggIyVrWM204=";
     };
   };
   route-chain = {
