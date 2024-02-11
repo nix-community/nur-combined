@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "stacklet";
-  version = "0.1.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "ggemre";
     repo = pname;
     rev = version;
-    sha256 = "0xxaphwrslp2s9sjk5crzp7himin9n6dynq5wd4b8pxcm5xa1mv3";
+    sha256 = "0zfm4v6hnzjgcn8566frcixqz8y8w9k0yjhx8fvakyagnbscvvbk";
   };
 
-  cargoSha256 = "sha256-RHQMcQZdOiRzatalEgth/lR7z65233dT5+M5NJZ+cmo=";
+  cargoSha256 = "sha256-bo3pemgeONf9vOfvEA9Up2TCKB655HAwVSZOpgG3LoE=";
   buildInputs = [ ncurses ];
 
   meta = with lib; {
