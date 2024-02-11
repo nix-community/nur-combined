@@ -62,4 +62,6 @@ rec {
   #ryzen-smu = pkgs.linuxPackages.callPackage ./pkgs/linux/ryzen-smu.nix { };
 
   bmi260 = pkgs.linuxPackages_latest.callPackage ./pkgs/linux/bmi260.nix { };
+
+  telegram-desktop-fix-webview = pkgs.qt6Packages.callPackage ./pkgs/common/telegram-desktop.nix { };
 }
