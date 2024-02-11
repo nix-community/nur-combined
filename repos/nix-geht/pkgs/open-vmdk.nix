@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "open-vmdk";
-  version = "0.3.6";
+  version = "0.3.7";
 
   src = fetchFromGitHub {
     owner = "vmware";
     repo = "open-vmdk";
     rev = "v${version}";
-    hash = "sha256-ntf0FklqobRXvJYQapD2qlDOUjNAPChkYlbzB/O3Uvs=";
+    hash = "sha256-sxsTX6Au9YW233pkQ//g1y3412tLyDqmLX8sT3wNf2k=";
   };
 
   installFlags = ["PREFIX=$(out)"];
