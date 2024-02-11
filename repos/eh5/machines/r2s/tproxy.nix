@@ -23,6 +23,7 @@ in
 
   systemd.services.sing-box = {
     serviceConfig = {
+      CPUWeight = "90%";
       SupplementaryGroups = [ config.users.groups.direct-net.name ];
     };
   };
@@ -51,6 +52,7 @@ in
           mtu = 1500;
           auto_route = false;
           stack = "gvisor";
+          udp_timeout = 60;
           endpoint_independent_nat = true;
           sniff = true;
         }
