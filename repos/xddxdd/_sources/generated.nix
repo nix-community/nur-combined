@@ -1123,6 +1123,17 @@
     };
     date = "2023-11-15";
   };
+  vpp = {
+    pname = "vpp";
+    version = "v23.10";
+    src = fetchFromGitHub {
+      owner = "FDio";
+      repo = "vpp";
+      rev = "v23.10";
+      fetchSubmodules = false;
+      sha256 = "sha256-YcDMDHvKIL2tOD98hTcuyQrL5pk80olYKNWiN+BA49U=";
+    };
+  };
   vs-rife = {
     pname = "vs-rife";
     version = "v4.2.0";

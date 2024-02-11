@@ -1,0 +1,14 @@
+BUG_REPORT_URL="https://github.com/NixOS/nixpkgs/issues"
+BUILD_ID="24.05pre-git"
+DOCUMENTATION_URL="https://nixos.org/learn.html"
+HOME_URL="https://nixos.org/"
+ID=nixos
+IMAGE_ID=""
+IMAGE_VERSION=""
+LOGO="nix-snowflake"
+NAME=NixOS
+PRETTY_NAME="NixOS 24.05 (Uakari)"
+SUPPORT_URL="https://nixos.org/community.html"
+VERSION="24.05 (Uakari)"
+VERSION_CODENAME=uakari
+VERSION_ID="24.05"

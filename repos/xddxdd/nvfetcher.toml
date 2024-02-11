@@ -451,6 +451,11 @@ fetch.github = "CachyOS/uksmd"
 src.git = "https://github.com/ultrafunkamsterdam/undetected-chromedriver.git"
 fetch.github = "ultrafunkamsterdam/undetected-chromedriver"
 
+[vpp]
+src.github_tag = "FDio/vpp"
+src.include_regex = "^v[0-9.]+$"
+fetch.github = "FDio/vpp"
+
 [vs-rife]
 src.github = "HolyWu/vs-rife"
 fetch.github = "HolyWu/vs-rife"

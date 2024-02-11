@@ -1956,6 +1956,26 @@
         },
         "version": "783b8393157b578e19e85b04d300fe06efeef653"
     },
+    "vpp": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vpp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "FDio",
+            "repo": "vpp",
+            "rev": "v23.10",
+            "sha256": "sha256-YcDMDHvKIL2tOD98hTcuyQrL5pk80olYKNWiN+BA49U=",
+            "type": "github"
+        },
+        "version": "v23.10"
+    },
     "vs-rife": {
         "cargoLocks": null,
         "date": null,
