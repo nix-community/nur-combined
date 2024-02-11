@@ -245,6 +245,16 @@
     "slug": "dracula-dark-colorscheme"
   },
   {
+    "slug": "dualsub",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "duckduckgo-for-firefox",
     "pname": "duckduckgo-privacy-essentials",
     "license": {
@@ -836,6 +846,9 @@
     "slug": "overview"
   },
   {
+    "slug": "pakkujs"
+  },
+  {
     "slug": "paperpile-addon",
     "pname": "paperpile",
     "license": {
@@ -991,6 +1004,9 @@
     "slug": "rsshub-radar"
   },
   {
+    "slug": "rsspreview"
+  },
+  {
     "slug": "rust-search-extension"
   },
   {
@@ -1105,6 +1121,9 @@
   {
     "slug": "styl-us",
     "pname": "stylus"
+  },
+  {
+    "slug": "substitoot"
   },
   {
     "pname": "surfingkeys",

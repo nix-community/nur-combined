@@ -1862,6 +1862,61 @@
         platforms = platforms.all;
       };
     };
+    "dualsub" = buildFirefoxXpiAddon {
+      pname = "dualsub";
+      version = "2.23.1";
+      addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232866/dualsub-2.23.1.xpi";
+      sha256 = "8219b2d1b3ba04a95f08b79052f4d3ba32b6077f6deeb09f6cb522fd98bb77dc";
+      meta = with lib;
+      {
+        homepage = "https://www.dualsub.xyz/";
+        description = "Display dual subtitles, use machine translation and speech recognition to generate subtitles.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "storage"
+          "https://www.youtube.com/*"
+          "https://www.netflix.com/*"
+          "https://www.disneyplus.com/*"
+          "https://www.9now.com.au/*"
+          "https://www.ardmediathek.de/*"
+          "https://www.bbc.co.uk/*"
+          "https://www.bilibili.com/*"
+          "https://www.britbox.com/*"
+          "https://www.channel4.com/*"
+          "https://www.coupangplay.com/*"
+          "https://www.coursera.org/*"
+          "https://www.funimation.com/*"
+          "https://www.hulu.com/*"
+          "https://www.iflix.com/*"
+          "https://www.iq.com/*"
+          "https://www.itv.com/*"
+          "https://www.paramountplus.com/*"
+          "https://www.peacocktv.com/*"
+          "https://www.primevideo.com/*"
+          "https://www.raiplay.it/*"
+          "https://www.rtve.es/*"
+          "https://www.ted.com/*"
+          "https://www.udemy.com/*"
+          "https://www.viki.com/*"
+          "https://www.youku.tv/*"
+          "https://www.zdf.de/*"
+          "https://10play.com.au/*"
+          "https://7plus.com.au/*"
+          "https://iview.abc.net.au/*"
+          "https://m.youtube.com/*"
+          "https://vimeo.com/*"
+          "https://wetv.vip/*"
+          "https://player.dualsub.xyz/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
       version = "2024.1.19";
@@ -7129,6 +7184,29 @@
         platforms = platforms.all;
       };
     };
+    "pakkujs" = buildFirefoxXpiAddon {
+      pname = "pakkujs";
+      version = "10.2.8";
+      addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4168807/pakkujs-10.2.8_jX9iPyf.xpi";
+      sha256 = "067a913d8563d622d44d59eaf4f455a904b18a66b3c7198959dcbecb40b32096";
+      meta = with lib;
+      {
+        homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
+        description = "瞬间过滤B站(<a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4d0b4461e26c11562fa1a512258f7f68dd57fa773da49fcb021256804f09b1fc/http%3A//bilibili.com\">bilibili.com</a>)刷屏的相似弹幕，还你清爽的弹幕视频体验。\t\n*a tweak for a Chinese website. Please ignore this add-on if you are not a user of <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4d0b4461e26c11562fa1a512258f7f68dd57fa773da49fcb021256804f09b1fc/http%3A//bilibili.com\">bilibili.com</a>.*";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "*://*.bilibili.com/*"
+          "webRequest"
+          "webRequestBlocking"
+          "notifications"
+          "storage"
+          "ws://*.bilibili.com/*"
+          "wss://*.bilibili.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
       version = "1.0.33";
@@ -8391,6 +8469,27 @@
         platforms = platforms.all;
       };
     };
+    "rsspreview" = buildFirefoxXpiAddon {
+      pname = "rsspreview";
+      version = "3.21";
+      addonId = "{7799824a-30fe-4c67-8b3e-7094ea203c94}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133240/rsspreview-3.21.xpi";
+      sha256 = "9aef2927ae413f887e3f5db840faeab2d8893fa6c864e40079641eb2f486e03e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/aureliendavid/rsspreview";
+        description = "Preview RSS feeds in-browser";
+        license = licenses.mit;
+        mozPermissions = [
+          "<all_urls>"
+          "webRequest"
+          "webRequestBlocking"
+          "storage"
+          "tabs"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
       version = "1.12.0";
@@ -9096,6 +9195,21 @@
           "http://userstyles.org/*"
           "https://userstyles.org/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "substitoot" = buildFirefoxXpiAddon {
+      pname = "substitoot";
+      version = "0.7.1.0";
+      addonId = "substitoot@kludge.guru";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233037/substitoot-0.7.1.0.xpi";
+      sha256 = "23555ac6fa540cac4497132bf16ed5cb24e3c362d0479ae7ee96ce086c218b79";
+      meta = with lib;
+      {
+        homepage = "https://github.com/virtulis/substitoot";
+        description = "A transparent toot fetcher for Mastodon. Loads missing replies to boosted toots in your feed directly from the source server.\n\nMake sure you set your home instance(s) in preferences to start using this!";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "scripting" ];
         platforms = platforms.all;
       };
     };
