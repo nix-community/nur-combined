@@ -4,7 +4,6 @@
 rec {
   bsdutils = pkgs.callPackage ./bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./cargo-aoc { };
-  celeste-classic = pkgs.callPackage ./celeste-classic { };
   fastfetch = pkgs.callPackage ./fastfetch { };
   firefox-gnome-theme = pkgs.callPackage ./firefox-gnome-theme { };
   flyaway = pkgs.callPackage ./flyaway { };
