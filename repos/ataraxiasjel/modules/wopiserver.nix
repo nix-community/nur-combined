@@ -12,7 +12,7 @@ let
 in
 {
   options.services.wopiserver = {
-    enable = mkEnableOption (mdDoc "Key Managament Server");
+    enable = mkEnableOption (mdDoc "WOPI application gateway");
     package = lib.mkPackageOption pkgs "wopiserver" { };
     settings = mkOption {
       type = format.type;

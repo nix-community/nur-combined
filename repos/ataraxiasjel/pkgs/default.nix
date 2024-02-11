@@ -18,6 +18,7 @@ rec {
   mpris-ctl = pkgs.callPackage ./mpris-ctl { };
   ocis-bin = pkgs.callPackage ./ocis-bin { };
   ocis-next-bin = pkgs.callPackage ./ocis-bin/next.nix { };
+  prometheus-podman-exporter = pkgs.callPackage ./prometheus-podman-exporter { };
   proton-ge = pkgs.callPackage ./proton-ge { };
   protonhax = pkgs.callPackage ./protonhax { };
   realrtcw = pkgs.callPackage ./realrtcw { };

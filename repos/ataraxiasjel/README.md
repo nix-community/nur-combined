@@ -20,6 +20,8 @@ Disables NixOS's homepage-dashboard service.
 * [ocis](https://owncloud.dev/ocis/), ownCloud Infinite Scale - the modern file-sync and share platform. Available as [services.ocis](modules/ocis.nix).
 Package [ocis-bin](pkgs/ocis-bin/) included in this repo. Until [#230190](https://github.com/NixOS/nixpkgs/issues/230190) not resolved ocis-bin derivation pulls pre-built binary from [ocis repo](https://github.com/owncloud/ocis).
 
+* [prometheus-podman-exporter](https://github.com/containers/prometheus-podman-exporter), Prometheus exporter for podman environments. Available as [services.prometheus-podman-exporter](modules/prometheus-podman-exporter.nix).
+
 * [rustic](https://github.com/rustic-rs/rustic), rustic - fast, encrypted, and deduplicated backups powered by Rust. Available as [services.rustic](modules/rustic.nix).
 Usage [example](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machines/Home-Hypervisor/backups.nix)
 
