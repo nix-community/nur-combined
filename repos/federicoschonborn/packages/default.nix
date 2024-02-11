@@ -4,6 +4,7 @@
 rec {
   bsdutils = pkgs.callPackage ./bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./cargo-aoc { };
+  celeste-classic = pkgs.callPackage ./celeste-classic { };
   fastfetch = pkgs.callPackage ./fastfetch { };
   firefox-gnome-theme = pkgs.callPackage ./firefox-gnome-theme { };
   flyaway = pkgs.callPackage ./flyaway { };
@@ -17,7 +18,6 @@ rec {
   magpie1 = pkgs.callPackage ./magpie1 { inherit wlroots_0_17; };
   minesector = pkgs.callPackage ./minesector { };
   morewaita = pkgs.callPackage ./morewaita { };
-  moss = pkgs.callPackage ./moss { };
   mucalc = pkgs.callPackage ./mucalc { };
   opensurge = pkgs.callPackage ./opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./qv { inherit libtgd; };
@@ -25,7 +25,6 @@ rec {
   surgescript = pkgs.callPackage ./surgescript { };
   teem = pkgs.callPackage ./teem { };
   thunderbird-gnome-theme = pkgs.callPackage ./thunderbird-gnome-theme { };
-  usysconf = pkgs.callPackage ./usysconf { };
   wisp = pkgs.callPackage ./wisp { };
   waycheck = pkgs.qt6.callPackage ./waycheck { };
   xdg-terminal-exec = pkgs.callPackage ./xdg-terminal-exec { };
