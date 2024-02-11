@@ -1,7 +1,7 @@
 {
   "ildaeil": {
     "cargoLocks": null,
-    "date": "2023-10-07",
+    "date": "2024-02-11",
     "extract": null,
     "name": "ildaeil",
     "passthru": null,
@@ -13,10 +13,10 @@
       "name": null,
       "owner": "DISTRHO",
       "repo": "Ildaeil",
-      "rev": "0044a9cca7435953d746ccbfaad27aa98e590d96",
-      "sha256": "sha256-A+2qLqGST/ZSll6Y5GTIj7dLNGQ4/966/5kiNJyi9uY=",
+      "rev": "74e54cdea89b035d7f6b5c86d8841e47e665258c",
+      "sha256": "sha256-vACQOr05+BBuArng+iE/mumlYGRvRuOhgSpSfEH8Vjc=",
       "type": "github"
     },
-    "version": "0044a9cca7435953d746ccbfaad27aa98e590d96"
+    "version": "74e54cdea89b035d7f6b5c86d8841e47e665258c"
   }
 }

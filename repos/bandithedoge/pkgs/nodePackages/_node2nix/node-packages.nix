@@ -234,13 +234,13 @@
         sha512 = "65AlobnZMiCET00KaFFjUefxDX0khFA/E4myqZ7a6Sq1yZtR8+FVIvilVX66vF2uobSumxooYZChiRPCKNqhmg==";
       };
     };
-    "dotenv-16.4.1" = {
+    "dotenv-16.4.2" = {
       name = "dotenv";
       packageName = "dotenv";
-      version = "16.4.1";
+      version = "16.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/dotenv/-/dotenv-16.4.1.tgz";
-        sha512 = "CjA3y+Dr3FyFDOAMnxZEGtnW9KBR2M0JvvUtXNW+dYJL5ROWxP9DUHCwgFqpMk0OXCc0ljhaNTr2w/kutYIcHQ==";
+        url = "https://registry.npmjs.org/dotenv/-/dotenv-16.4.2.tgz";
+        sha512 = "rZSSFxke7d9nYQ5NeMIwp5PP+f8wXgKNljpOb7KtH6SKW1cEqcXAz9VSJYVLKe7Jhup/gUYOkaeSVyK8GJ+nBg==";
       };
     };
     "emmet-2.4.6" = {
@@ -1016,7 +1016,7 @@ in {
       sources."cross-spawn-7.0.3"
       sources."defu-6.1.4"
       sources."destr-2.0.2"
-      sources."dotenv-16.4.1"
+      sources."dotenv-16.4.2"
       sources."emmet-2.4.6"
       sources."execa-8.0.1"
       sources."fast-glob-3.3.2"
