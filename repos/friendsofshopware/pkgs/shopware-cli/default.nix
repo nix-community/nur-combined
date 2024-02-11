@@ -2,29 +2,29 @@
 # vim: set ft=nix ts=2 sw=2 sts=2 et sta
 {
 system ? builtins.currentSystem
-, pkgs
 , lib
 , fetchurl
 , installShellFiles
+, stdenvNoCC
 }:
 let
   shaMap = {
-    x86_64-linux = "1mpinnsmbsypwydl8jj61cv1vy4ayrhbf7sy6ni5gvcnszxnxs6n";
-    aarch64-linux = "0f8qc6jxbf460izp5jwd3arhm91hy0bdrljv4b4h8i30zqkik4n6";
-    x86_64-darwin = "1c2n00bgi2zc3hv2rxddjldbbbwdx86k7gybrfgclvq1qm0ca9jp";
-    aarch64-darwin = "1pmfi9xfralxnd8cpvdvc27j97z5zmi98c959amq4xg6913fxbsr";
+    x86_64-linux = "1shgxbzaxfx6ha5r6wp29dlmarkq6k7c6w00cnh2f5gfrwvxa4as";
+    aarch64-linux = "1igrsjlg3rf4w0f4p4wdx0z1yv6rkl2bclsp57awpmvhmlyky74p";
+    x86_64-darwin = "0f9bdj9j2q8sj2z3q9jxgwpmnbpcmi37kj0a5g0387i1494f8s3i";
+    aarch64-darwin = "0c2pmywfw0n4yjzwzmzxn11c7ph9v4hdpi59xcprva4cfhcipmw8";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/FriendsOfShopware/shopware-cli/releases/download/0.4.22/shopware-cli_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/FriendsOfShopware/shopware-cli/releases/download/0.4.22/shopware-cli_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/FriendsOfShopware/shopware-cli/releases/download/0.4.22/shopware-cli_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/FriendsOfShopware/shopware-cli/releases/download/0.4.22/shopware-cli_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/FriendsOfShopware/shopware-cli/releases/download/0.4.23/shopware-cli_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/FriendsOfShopware/shopware-cli/releases/download/0.4.23/shopware-cli_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/FriendsOfShopware/shopware-cli/releases/download/0.4.23/shopware-cli_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/FriendsOfShopware/shopware-cli/releases/download/0.4.23/shopware-cli_Darwin_arm64.tar.gz";
   };
 in
-pkgs.stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "shopware-cli";
-  version = "0.4.22";
+  version = "0.4.23";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
