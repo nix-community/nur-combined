@@ -77,6 +77,7 @@ stdenv.mkDerivation rec {
   ];
   
   meta = with lib; {
+    broken = true;
     description = "A cross-platform launcher for Cataclysm: DDA and BN";
     longDescription = ''
     Catapult is a cross-platform launcher and content manager for Cataclysm: Dark Days Ahead 
