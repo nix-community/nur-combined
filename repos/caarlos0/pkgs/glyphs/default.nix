@@ -5,13 +5,13 @@ with import <nixpkgs> { };
 }:
 buildGoModule {
   pname = "glyphs";
-  version = "2024-02-06";
+  version = "2024-02-08";
 
   src = fetchFromGitHub {
     owner = "maaslalani";
     repo = "glyphs";
-    rev = "main";
-    hash = "sha256-AosbD235VOMG+zYFf/14AOUEtHD63aOU4Xwka+e1QN8=";
+    rev = "b51340f85d9323ed214b55135c939f59934af90a";
+    hash = "sha256-HRfjEka6kl29tWf3zUZzOsdHb3+6zfhF6eq5gknn6ys=";
   };
 
   vendorHash = "sha256-R1M74SGmooHIsFUkqF4Vj52znKDsXyezrmL9o3fBDws=";
