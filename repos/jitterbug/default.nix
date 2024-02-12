@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { } }:
-rec {
+{
   modules = import ./modules;
   overlays = import ./overlays;
 
@@ -10,7 +10,7 @@ rec {
   vapoursynth-neofft3d = pkgs.callPackage ./pkgs/vapoursynth-neofft3d { };
   vapoursynth-vsrawsource = pkgs.callPackage ./pkgs/vapoursynth-vsrawsource { };
   pyhht = pkgs.python3.pkgs.callPackage ./pkgs/pyhht { };
-  vhs-decode = pkgs.callPackage ./pkgs/vhs-decode { inherit pyhht; };
+  vhs-decode = pkgs.callPackage ./pkgs/vhs-decode { };
   tbc-video-export = pkgs.python3.pkgs.callPackage ./pkgs/tbc-video-export { };
   domesdayduplicator = pkgs.callPackage ./pkgs/domesdayduplicator { };
   misrc-extract = pkgs.callPackage ./pkgs/misrc-extract { };

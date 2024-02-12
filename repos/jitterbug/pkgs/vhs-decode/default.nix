@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , symlinkJoin
 , ffmpeg
-, pyhht
 , stdenv
 , cmake
 , pkg-config
@@ -15,13 +14,13 @@
 let
   # we need a valid version for SETUPTOOLS_SCM
   version = "0.2.4";
-  rev = "d46caf09128e4a98281100c6a6d28f09139d9ae3";
+  rev = "5b86baae8048b12a79837ba25207093929eaa156";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "oyvindln";
     repo = "vhs-decode";
-    sha256 = "sha256-sjjN42ViIPCthbIM3RhjQirBXErKPCGFXtLd9OgD8QE=";
+    sha256 = "sha256-W/CnIvQP7ks8rUy0cSZPpf9H8IOFWsQqC8+JU4Mepzg=";
   };
 
   py-vhs-decode = python3Packages.buildPythonApplication {
@@ -50,7 +49,6 @@ let
       scipy
       matplotlib
       soundfile
-      pyhht
       samplerate
     ];
 
