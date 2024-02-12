@@ -89,6 +89,7 @@
       "packages.x86_64-linux.uksmd",
       "packages.x86_64-linux.undetected-chromedriver",
       "packages.x86_64-linux.undetected-chromedriver-bin",
+      "packages.x86_64-linux.vpp",
       "packages.x86_64-linux.wechat-uos",
       "packages.x86_64-linux.wechat-uos-bin",
       "packages.x86_64-linux.win2xcur",
@@ -173,6 +174,7 @@
       "packages.aarch64-linux.uesave",
       "packages.aarch64-linux.uksmd",
       "packages.aarch64-linux.undetected-chromedriver",
+      "packages.aarch64-linux.vpp",
       "packages.aarch64-linux.win2xcur",
       "packages.aarch64-linux.xstatic-asciinema-player",
       "packages.aarch64-linux.xstatic-font-awesome"
