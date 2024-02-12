@@ -1,11 +1,11 @@
-# Thanks to @lucasew <3
+# Heavily modified version of @lucasew's `wrapWine` package.
 # https://github.com/lucasew/nixcfg/blob/047c4913e9dceedd4957fb097bbf4803e5278563/nix/pkgs/wrapWine.nix
 
 { pkgs }:
 let
   inherit (builtins) length concatStringsSep;
-  inherit (pkgs) lib cabextract winetricks writeShellScriptBin;
-  inherit (lib) makeBinPath;
+  inherit (pkgs) lib cabextract winetricks writeTextFile runtimeShell;
+  inherit (lib) makeBinPath optionalString;
 in
 { name
 , executable
@@ -19,27 +19,26 @@ in
 , wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
 , wineFlags ? ""
 # Useful for native linux apps that require wine environment (e.g. reaper with yabridge)
-, isWinBin ? true,
+, isWinBin ? true
+, meta ? {}
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
 
   requiredPackages = [ wine cabextract ];
 
-  tricksHook =
-    if (length tricks) > 0 then
-      let
-        tricksStr = concatStringsSep " " tricks;
-        tricksCmd = ''
-          pushd $(mktemp -d)
-            ${winetricks}/bin/winetricks ${if silent then "-q" else ""} ${tricksStr}
-          popd
-        '';
-      in
-      tricksCmd
-    else "";
+  tricksHook = optionalString ((length tricks) > 0) ''
+    pushd $(mktemp -d)
+      ${winetricks}/bin/winetricks ${optionalString silent "-q"} ${concatStringsSep " " tricks}
+    popd
+  '';
+in writeTextFile {
+  inherit name;
+  inherit meta;
 
-  script = writeShellScriptBin name ''
+  text = ''
+    #! ${runtimeShell}
+
     export WINEARCH=win${if is64bits then "64" else "32"}
     export PATH=${makeBinPath requiredPackages}:$PATH
 
@@ -57,9 +56,7 @@ let
       ${setupScript}
     fi
 
-    ${if chdir != null
-      then ''cd "${chdir}"''
-      else ""}
+    ${optionalString (chdir != null) "cd \"${chdir}\""}
 
     # $REPL is defined => start a shell in the context
     if [ ! "$REPL" == "" ]; then
@@ -68,11 +65,13 @@ let
 
     ${preScript}
 
-    ${if isWinBin then ''${wineBin} ${wineFlags}'' else ""} "${executable}" "$@"
+    ${optionalString isWinBin "${wineBin} ${wineFlags}"} "${executable}" "$@"
 
     wineserver -w
 
     ${postScript}
   '';
-in
-script
+
+  executable = true;
+  destination = "bin/${name}";
+}
