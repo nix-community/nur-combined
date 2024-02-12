@@ -355,13 +355,13 @@
   };
   glauth = {
     pname = "glauth";
-    version = "v2.3.0";
+    version = "v2.3.1";
     src = fetchFromGitHub {
       owner = "glauth";
       repo = "glauth";
-      rev = "v2.3.0";
+      rev = "v2.3.1";
       fetchSubmodules = false;
-      sha256 = "sha256-XYNNR3bVLNtAl+vbGRv0VhbLf+em8Ay983jqcW7KDFU=";
+      sha256 = "sha256-OkkiB1AGO7r7ehpnSJ+cB00crVpZ5Cwy4rAT55LUUdE=";
     };
   };
   google-earth-pro = {

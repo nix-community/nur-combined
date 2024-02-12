@@ -104,7 +104,7 @@ Or, use variables from this repository in case I change them:
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | ftp.proxy - FTP Proxy Server |
 |  | `genshin-checkin-helper` | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | b9e36543bfe5b042e015463e5d0398cd234cba90 | More than check-in for Genshin Impact. |
 |  | `genshinhelper2` | [genshinhelper2](https://gitlab.com/y1ndan/genshinhelper2) | 1382b89d0ee1f5dfcbe1425398fb4cfc260ddcdd | A Python library for miHoYo bbs and HoYoLAB Community. |
-|  | `glauth` | [glauth](https://github.com/glauth/glauth) | v2.3.0 | A lightweight LDAP server for development, home use, or CI |
+|  | `glauth` | [glauth](https://github.com/glauth/glauth) | v2.3.1 | A lightweight LDAP server for development, home use, or CI |
 |  | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.9750 | A world sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.1 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace. |
 |  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | A server software reimplementation for a certain anime game. |
