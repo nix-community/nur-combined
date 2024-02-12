@@ -23,7 +23,7 @@ in
 , meta ? {}
 }:
 let
-  wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
+  wineBin = "${wine}/bin/wine${optionalString is64bits "64"}";
 
   requiredPackages = [ wine cabextract ];
 
@@ -73,5 +73,5 @@ in writeTextFile {
   '';
 
   executable = true;
-  destination = "bin/${name}";
+  destination = "/bin/${name}";
 }
