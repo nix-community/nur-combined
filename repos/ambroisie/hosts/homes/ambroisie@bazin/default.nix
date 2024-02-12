@@ -21,5 +21,11 @@
         package = pkgs.emptyDirectory;
       };
     };
+
+    zsh = {
+      notify = {
+        enable = true;
+      };
+    };
   };
 }
