@@ -89,6 +89,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Essential files which should always be backed up
+    my.services.backup.paths = lib.flatten [
+      # Should be unique to a given host, used by some software (e.g: ZFS)
+      "/etc/machine-id"
+      # Contains the UID/GID map, and other useful state
+      "/var/lib/nixos"
+      # SSH host keys (and public keys for convenience)
+      (builtins.map (key: [ key.path "${key.path}.pub" ]) config.services.openssh.hostKeys)
+    ];
+
     services.restic.backups.backblaze = {
       # Take care of included and excluded files
       paths = cfg.paths;
