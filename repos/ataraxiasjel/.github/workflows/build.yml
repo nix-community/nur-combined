@@ -26,6 +26,16 @@ jobs:
     permissions:
       contents: write
     steps:
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@v1.3.1
+      with:
+        android: true
+        docker-images: true
+        dotnet: true
+        haskell: true
+        large-packages: false
+        swap-storage: false
+        tool-cache: false
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Install nix
