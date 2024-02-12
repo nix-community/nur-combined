@@ -30,7 +30,14 @@
           legacyPackages = import ./. { inherit pkgs; };
           packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) config.legacyPackages;
 
-          devShells.default = pkgs.mkShell { packages = with pkgs; [ just ]; };
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              jq
+              just
+              nix-output-monitor
+              nix-tree
+            ];
+          };
 
           apps.update = {
             type = "app";
@@ -38,12 +45,12 @@
               pkgs.writeShellApplication {
                 name = "update";
                 text = ''
-                nix-shell "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
-                  --arg include-overlays "[(import ./overlay.nix)]" \
-                  --arg predicate '(
-                    let prefix = builtins.toPath ./packages; prefixLen = builtins.stringLength prefix;
-                    in (_: p: p.meta?position && (builtins.substring 0 prefixLen p.meta.position) == prefix)
-                  )'
+                  nix-shell "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
+                    --arg include-overlays "[(import ./overlay.nix)]" \
+                    --arg predicate '(
+                      let prefix = builtins.toPath ./packages; prefixLen = builtins.stringLength prefix;
+                      in (_: p: p.meta?position && (builtins.substring 0 prefixLen p.meta.position) == prefix)
+                    )'
                 '';
               }
             );
