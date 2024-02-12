@@ -12,7 +12,7 @@ let
       # Use pinned nixpkgs when using `nix run pkgs#<whatever>`
       pkgs = inputs.nixpkgs;
     }
-    (lib.optionalAttrs cfg.overrideNixpkgs {
+    (lib.optionalAttrs cfg.inputs.overrideNixpkgs {
       # ... And with `nix run nixpkgs#<whatever>`
       nixpkgs = inputs.nixpkgs;
     })
@@ -22,20 +22,26 @@ in
   options.my.home.nix = with lib; {
     enable = my.mkDisableOption "nix configuration";
 
-    linkInputs = my.mkDisableOption "link inputs to `$XDG_CONFIG_HOME/nix/inputs`";
+    cache = {
+      selfHosted = my.mkDisableOption "self-hosted cache";
+    };
 
-    addToRegistry = my.mkDisableOption "add inputs and self to registry";
+    inputs = {
+      link = my.mkDisableOption "link inputs to `/etc/nix/inputs/`";
 
-    addToNixPath = my.mkDisableOption "add inputs and self to nix path";
+      addToRegistry = my.mkDisableOption "add inputs and self to registry";
 
-    overrideNixpkgs = my.mkDisableOption "point nixpkgs to pinned system version";
+      addToNixPath = my.mkDisableOption "add inputs and self to nix path";
+
+      overrideNixpkgs = my.mkDisableOption "point nixpkgs to pinned system version";
+    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       assertions = [
         {
-          assertion = cfg.addToNixPath -> cfg.linkInputs;
+          assertion = cfg.inputs.addToNixPath -> cfg.inputs.link;
           message = ''
             enabling `my.home.nix.addToNixPath` needs to have
             `my.home.nix.linkInputs = true`
@@ -54,7 +60,23 @@ in
       };
     }
 
-    (lib.mkIf cfg.addToRegistry {
+    (lib.mkIf cfg.cache.selfHosted {
+      nix = {
+        settings = {
+          # The NixOS module adds the official Hydra cache by default
+          # No need to use `extra-*` options.
+          substituters = [
+            "https://cache.belanyi.fr/"
+          ];
+
+          trusted-public-keys = [
+            "cache.belanyi.fr:LPhrTqufwfxTceg1nRWueDWf7/2zSVY9K00pq2UI7tw="
+          ];
+        };
+      };
+    })
+
+    (lib.mkIf cfg.inputs.addToRegistry {
       nix.registry =
         let
           makeEntry = v: { flake = v; };
@@ -63,7 +85,7 @@ in
         makeEntries channels;
     })
 
-    (lib.mkIf cfg.linkInputs {
+    (lib.mkIf cfg.inputs.link {
       xdg.configFile =
         let
           makeLink = n: v: {
@@ -75,7 +97,7 @@ in
         makeLinks channels;
     })
 
-    (lib.mkIf cfg.addToNixPath {
+    (lib.mkIf cfg.inputs.addToNixPath {
       home.sessionVariables.NIX_PATH = "${config.xdg.configHome}/nix/inputs\${NIX_PATH:+:$NIX_PATH}";
     })
   ]);
