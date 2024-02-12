@@ -11,21 +11,20 @@ in {
 
   programs.git = {
     enable = true;
+    package = pkgs.gitFull;
     delta.enable = true;
     userEmail = email.address;
     userName = email.realName;
     signing = {
-      key = email.gpg.key;
+      inherit (email.gpg) key;
       signByDefault = true;
     };
     extraConfig = {
       include.path = "${gitAlias}";
       init.defaultBranch = "main";
       commit.verbose = true;
-      credential.helper = [
-        "cache"
-        "${pkgs.unstable.git-credential-oauth}/bin/git-credential-oauth"
-      ];
+      core.quotepath = false;
+      credential.helper = [ "cache" ];
     };
   };
 }
