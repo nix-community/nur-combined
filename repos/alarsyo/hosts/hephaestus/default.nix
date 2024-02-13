@@ -199,13 +199,13 @@
           "DP-3" = {
             enable = true;
             primary = false;
-            position = "3840x0";
+            position = "1920x0";
             mode = "1920x1200";
           };
           "DP-4" = {
             enable = true;
             primary = true;
-            position = "1920x0";
+            position = "0x0";
             mode = "1920x1200";
           };
         };
