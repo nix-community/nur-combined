@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "6d560ceb0826dd650e19d2b0386c12fcc2637a2e";
+    version = "bd5d9e403968dee10b730ad1fdf6b18566cec543";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "6d560ceb0826dd650e19d2b0386c12fcc2637a2e";
+      rev = "bd5d9e403968dee10b730ad1fdf6b18566cec543";
       fetchSubmodules = false;
-      sha256 = "sha256-62WNC6Yo7WQAVjP575PjBkz7rsFWptGLswNjO6DDxr8=";
+      sha256 = "sha256-ivqowyr9K5iS4BH0zoCy/35GEAzKRZGUExOhiIi2fvQ=";
     };
-    date = "2024-02-10";
+    date = "2024-02-12";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "3e34ed18548d504aadc0edf0fac53af5f664a7be";
+    version = "f371848268c3521dacf23463c8dde270dfa7d6a2";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "3e34ed18548d504aadc0edf0fac53af5f664a7be";
+      rev = "f371848268c3521dacf23463c8dde270dfa7d6a2";
       fetchSubmodules = false;
-      sha256 = "sha256-lYoSVOMYbBHQduaXuJJzCPsJA5SFl8dImVY18a4TtJQ=";
+      sha256 = "sha256-SzeVyQ1BahES3JlL+ZtN3ASV2SeYJ3E2yXuf1gjwJSA=";
     };
-    date = "2024-02-08";
+    date = "2024-02-12";
   };
   libqcef = {
     pname = "libqcef";
@@ -765,15 +765,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "81eae6d1ce58492dfa89d952f2f1961ed0c67f20";
+    version = "510fea62449edb14b3ead8a51061b251817298cf";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "81eae6d1ce58492dfa89d952f2f1961ed0c67f20";
+      rev = "510fea62449edb14b3ead8a51061b251817298cf";
       fetchSubmodules = false;
-      sha256 = "sha256-XBhVwZqyCcEBPYhSDU9dKiemhcZWXXhoGy9Zd1E8jZk=";
+      sha256 = "sha256-Lj7AeUWPptdus/Mxobpdkfsnua8JYRSFEh5bhZ3AgNc=";
     };
-    date = "2024-02-03";
+    date = "2024-02-12";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -788,13 +788,13 @@
   };
   palworld-exporter = {
     pname = "palworld-exporter";
-    version = "v1.2.0";
+    version = "v1.3.0";
     src = fetchFromGitHub {
       owner = "palworldlol";
       repo = "palworld-exporter";
-      rev = "v1.2.0";
+      rev = "v1.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-/P9TBRHPLEjaVUPtbojFziakdFy+LsPz3f9XOaXLU4U=";
+      sha256 = "sha256-SlDN+DiQq9cWSa1V13n3SPQIfrl0ZqculjdH46BJpYY=";
     };
   };
   palworld-worldoptions = {
