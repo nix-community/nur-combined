@@ -29,6 +29,10 @@ in {
       } ];
     };
   };
+  nix.config.max-silent-time = mkIf (hasInfix "unstable" config.channels.nixpkgs.version) (
+    # kanidm-develop can stall for up to 30 minutes!
+    45 * 60
+  );
   channels = {
     nixpkgs = {
       version = mkDefault "unstable";

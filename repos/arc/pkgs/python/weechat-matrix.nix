@@ -15,7 +15,14 @@ with pythonPackages; let
   });
   matrix-nio = if lib.versionOlder pythonPackages.matrix-nio.version "0.21"
     then matrix-nio-0_21
-    else pythonPackages.matrix-nio;
+    else pythonPackages.matrix-nio.overridePythonAttrs (old: {
+      nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
+        pythonRelaxDepsHook
+      ];
+      pythonRelaxDeps = [
+        "cachetools"
+      ];
+    });
 
 in buildPythonPackage rec {
   pname = "weechat-matrix";
@@ -26,7 +33,11 @@ in buildPythonPackage rec {
     rev = "feae9fda26ea9de98da9cd6733980a203115537e";
     sha256 = "sha256-flv1XF0tZgu3qoMFfJZ2MzeHYI++t12nkq3jJkRiCQ0=";
   };
+  format = "setuptools";
 
+  nativeBuildInputs = [
+    pip
+  ];
   propagatedBuildInputs = [
     pyopenssl
     webcolors
@@ -40,11 +51,11 @@ in buildPythonPackage rec {
   ] ++ lib.optional (pythonOlder "3.5") typing
   ++ lib.optional (pythonOlder "3.2") future
   ++ lib.optional (pythonAtLeast "3.5") aiohttp
-  ++ lib.optionals enableOlm [
+  ++ lib.optionals enableOlm (matrix-nio.optional-dependencies.e2e or [
     cachetools
     python-olm
     peewee
-  ];
+  ]);
 
   passAsFile = [ "setup" ];
   setup = ''
