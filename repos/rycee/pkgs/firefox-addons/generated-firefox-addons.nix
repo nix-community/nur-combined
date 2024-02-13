@@ -1683,10 +1683,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "123.0.20240209.102425";
+      version = "123.0.20240212.203859";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4234295/deutsch_de_language_pack-123.0.20240209.102425.xpi";
-      sha256 = "6902693f27eb9e6a8b793eca994a4a4baffe85fb71f0e3fd8808cf41903fb716";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235730/deutsch_de_language_pack-123.0.20240212.203859.xpi";
+      sha256 = "711b4fe991fa7f543d5e3b889e1906c1ae8b0d9e304071d190df86a852c0f347";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2581,10 +2581,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "123.0.20240209.102425";
+      version = "123.0.20240212.203859";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4234227/francais_language_pack-123.0.20240209.102425.xpi";
-      sha256 = "90bdddb34804fb46123e612a658ea825f7b54fcef69ef4729bd40c4de92b64e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235735/francais_language_pack-123.0.20240212.203859.xpi";
+      sha256 = "c2f33604244e8686031be83d96fd30bfa005a000ba92d6b603e221e6c2721171";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4918,10 +4918,10 @@
     };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.5.1";
+      version = "0.6.0";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4227463/kagi_search_for_firefox-0.5.1.xpi";
-      sha256 = "d0ae33551d245da4364983b6cde893e5cf0115dbdf3115ef8acb7d75fb52e4ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235536/kagi_search_for_firefox-0.6.0.xpi";
+      sha256 = "4e0c7419378166fed21b1c4d64e0ca0b42cde28d4233a6a9c7d0b2d6a881c50e";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -8024,10 +8024,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.12.0";
+      version = "1.13.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231059/proton_pass-1.12.0.xpi";
-      sha256 = "bbbe353baacca8d252d9bcb4d651d676d75bfab8f1c6c6c78ae987cd7b41923e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233328/proton_pass-1.13.0.xpi";
+      sha256 = "eca535bc59bd3b802b2046f0399015e0060e6349141c552b1749ea8fdde9c1a3";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -8450,10 +8450,10 @@
     };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.0.14";
+      version = "2.0.16";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4230388/rsshub_radar-2.0.14.xpi";
-      sha256 = "908e17408dd174760c12b6a1152cc7603d82e8df66ff3bd8db453bf0f9602a68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235248/rsshub_radar-2.0.16.xpi";
+      sha256 = "2a8bc5c75e4f0e731e571b8e58a3ea21507405b2ebe5dfacbe43c3143bcdcbef";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
@@ -9734,10 +9734,10 @@
     };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.5.0";
+      version = "3.5.2";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228383/tournesol_extension-3.5.0.xpi";
-      sha256 = "0bdae210994293564648eadb222e62958b73f5fcde1b0c9ebfe6a6749c7410cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235216/tournesol_extension-3.5.2.xpi";
+      sha256 = "35d16f336cd642be3b1daa6f933a71f4663bc7c6a8503ab82b469ab4433b1c62";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
