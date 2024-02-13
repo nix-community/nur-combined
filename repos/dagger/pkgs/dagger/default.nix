@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "1lx268m48vni3ps2sf4jmp4yczx3lf8gii2l52h8rc1isc64p03s";
-    armv7l-linux = "0d9bl4f0c9dmh7snl7wda2hmx5svfgwhdsxyww2x4zxv5993kggq";
-    aarch64-linux = "1v0jy905kxm35wkw4ysq1grg3dfafkv400i7c8ijsbsm053wjy4c";
-    x86_64-darwin = "137qfbaivnm48ajyr96c7lx3g5l837jhgppcwdd58v0pazbp8rqi";
-    aarch64-darwin = "0wwiknbcg42jm4f59s2k5x3zcimgckg0fbgii2l6nqj3j3n69ska";
+    x86_64-linux = "02b1qfgzxq4zd0mbkmgpq8w4h8ph64ik524kgi8divsp23pvlnhf";
+    armv7l-linux = "0vfy590n91p49jbbnyhh1rn04sw6ysywpkphd077dszcqm1hnrr3";
+    aarch64-linux = "0zcb3zgn08hnmnfz699ln1iifmpk6dilkqjrhlzwm8azi6fdrbpz";
+    x86_64-darwin = "043qb0yhphm810jkl6qh4m2fs8a7rn6l8vivi6n8vr1rkc8kmk6x";
+    aarch64-darwin = "1hd7p38rl6qkvnv1560lzbamsmyi12zpl0sjzl177jly6c47wayc";
   };
 
   urlMap = {
-    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_linux_amd64.tar.gz";
-    armv7l-linux = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_linux_armv7.tar.gz";
-    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_linux_arm64.tar.gz";
-    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.9.9/dagger_v0.9.9_darwin_arm64.tar.gz";
+    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.9.10/dagger_v0.9.10_linux_amd64.tar.gz";
+    armv7l-linux = "https://dl.dagger.io/dagger/releases/0.9.10/dagger_v0.9.10_linux_armv7.tar.gz";
+    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.9.10/dagger_v0.9.10_linux_arm64.tar.gz";
+    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.9.10/dagger_v0.9.10_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.9.10/dagger_v0.9.10_darwin_arm64.tar.gz";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "dagger";
-  version = "0.9.9";
+  version = "0.9.10";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
