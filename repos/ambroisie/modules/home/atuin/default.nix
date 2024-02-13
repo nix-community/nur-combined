@@ -25,6 +25,8 @@ in
         search_mode = "skim";
         # Show long command lines at the bottom
         show_preview = true;
+        # I like being able to edit my commands
+        enter_accept = false;
       };
     };
   };
