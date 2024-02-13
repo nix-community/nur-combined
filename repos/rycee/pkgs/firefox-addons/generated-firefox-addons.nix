@@ -534,6 +534,27 @@
         platforms = platforms.all;
       };
     };
+    "batchcamp" = buildFirefoxXpiAddon {
+      pname = "batchcamp";
+      version = "1.4.3";
+      addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4232400/batchcamp-1.4.3.xpi";
+      sha256 = "7d8ac3120e44ed278847d67388be2955df5e6242e746c66af4cbd28f05697676";
+      meta = with lib;
+      {
+        homepage = "https://github.com/hyphmongo/batchcamp";
+        description = "Bulk downloader for your Bandcamp purchases";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "downloads"
+          "cookies"
+          "https://bandcamp.com/*"
+          "https://*.bandcamp.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "behave" = buildFirefoxXpiAddon {
       pname = "behave";
       version = "0.9.7.1";
