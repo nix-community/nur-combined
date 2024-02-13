@@ -19,7 +19,11 @@ in
     notify = {
       enable = mkEnableOption "zsh-done notification";
 
-      enableSsh = mkEnableOption "notify through SSH connections";
+      ssh = {
+        enable = mkEnableOption "notify through SSH/non-graphical connections";
+
+        useOsc777 = lib.my.mkDisableOption "use OSC-777 for notifications";
+      };
     };
   };
 
@@ -110,13 +114,15 @@ in
           }
         ];
 
-        localVariables = {
+        # `localVariables` values don't get merged correctly due to their type,
+        # don't use `mkIf`
+        localVariables = { }
           # Enable `zsh-done` through SSH, if configured
-          DONE_ALLOW_NONGRAPHICAL = lib.mkIf cfg.notify.enableSsh 1;
-        };
+          // lib.optionalAttrs cfg.notify.ssh.enable { DONE_ALLOW_NONGRAPHICAL = 1; }
+        ;
 
         # Use OSC-777 to send the notification through SSH
-        initExtra = lib.mkIf cfg.notify.enableSsh ''
+        initExtra = lib.mkIf cfg.notify.ssh.useOsc777 ''
           done_send_notification() {
             local exit_status="$1"
             local title="$2"
