@@ -63,7 +63,7 @@ in rec {
 
   fetchurl-gz = args: pkgs.fetchurl ({
     postFetch = ''
-      [ $downloadedFile =~ \.zst$ ] && ${pkgs.zstd} -d $downloadedFile
+      [[ $downloadedFile =~ \.zst$ ]] && ${pkgs.zstd} -d $downloadedFile
     '';
   } // args);
 
