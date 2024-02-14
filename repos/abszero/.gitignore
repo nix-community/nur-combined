@@ -1,0 +1,14 @@
+.direnv
+source
+outputs
+result*
+temp
+
+/lib/haumea
+!/lib/haumea/src
+
+/.gitsecret/keys/random_seed
+/home/configurations/weathercold/_base.nix
+!/lib/haumea/default.nix
+/nixos/configurations/fracture-ray/proxy.json
+/nixos/modules/services/rclone/file-systems.nix

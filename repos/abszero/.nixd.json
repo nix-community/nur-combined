@@ -1,0 +1,23 @@
+{
+  "eval": {
+    "target": {
+      "args": [
+        "-f",
+        "default.nix"
+      ],
+      "installable": ""
+    }
+  },
+  "formatting": {
+    "command": "nixpkgs-fmt"
+  },
+  "options": {
+    "enable": true,
+    "target": {
+      "args": [],
+      // "installable": ".#debug.options"
+      "installable": ".#nixosConfigurations.nixos-inspiron7405.options"
+      // "installable": ".#homeConfigurations.\"weathercold@nixos-inspiron7405\".options"
+    }
+  }
+}

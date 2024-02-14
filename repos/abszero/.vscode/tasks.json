@@ -1,0 +1,30 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "system-rebuild",
+      "type": "shell",
+      "command": "sudo nixos-rebuild switch --flake path:/home/weathercold/src/nixfiles",
+      "group": {
+        "kind": "build"
+      }
+    },
+    {
+      "label": "home-rebuild",
+      "type": "shell",
+      "command": "home-manager switch --impure -b backup --flake path:/home/weathercold/src/nixfiles",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "flake-update",
+      "type": "shell",
+      "command": "nix flake update; nix flake update --flake ./nixos; nix flake update --flake ./home; nix flake update --flake ./pkgs; nix flake update --flake ./lib; git pull -s subtree haumea main",
+      "problemMatcher": []
+    }
+  ]
+}
