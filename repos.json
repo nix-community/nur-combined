@@ -681,6 +681,9 @@
         "nexromancers": {
             "url": "https://github.com/neXromancers/nixromancers"
         },
+        "nginx": {
+            "url": "https://github.com/nginxinc/nur"
+        },
         "nix-data": {
             "url": "https://github.com/Jake-Gillberg/nix-data"
         },
