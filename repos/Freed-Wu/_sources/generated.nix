@@ -116,10 +116,10 @@
   };
   zathura-language-server = {
     pname = "zathura-language-server";
-    version = "0.0.5";
+    version = "0.0.6";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/z/zathura-language-server/zathura-language-server-0.0.5.tar.gz";
-      sha256 = "sha256-XG0AxXHJ9oWn6tyDsIkc0Zw8F+TLxuLccsuR++K34Dk=";
+      url = "https://pypi.org/packages/source/z/zathura-language-server/zathura-language-server-0.0.6.tar.gz";
+      sha256 = "sha256-px0P3h7RYkHZVFoMWRdHbqI/z1knsUnVqVa3mUhUH+Q=";
     };
   };
 }
