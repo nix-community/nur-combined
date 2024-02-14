@@ -41,10 +41,10 @@
   };
   mutt-language-server = {
     pname = "mutt-language-server";
-    version = "0.0.3";
+    version = "0.0.4";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/m/mutt-language-server/mutt-language-server-0.0.3.tar.gz";
-      sha256 = "sha256-QVN1QYdkZvx9Qce6LldpL9BcahAjr4gCVzF4Crmnl7A=";
+      url = "https://pypi.org/packages/source/m/mutt-language-server/mutt-language-server-0.0.4.tar.gz";
+      sha256 = "sha256-zqv3fhSiO/h0TyV8faFZKx6dHjGQ3UzuUxPE8JXwnew=";
     };
   };
   repl-python-wakatime = {
