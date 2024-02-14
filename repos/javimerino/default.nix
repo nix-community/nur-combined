@@ -9,6 +9,6 @@
   # Only add pkgs when NUR is imported with pkgs. Otherwise, when used
   # as nur-no-pkgs, only modules and overlays are defined and no pkgs
   # are evaluated.
-pkgs.lib.optionalAttrs (builtins.tryEval pkgs).success
-  (import ./pkgs { inherit pkgs; })
+(if (builtins.tryEval pkgs).success then
+  (import ./pkgs { inherit pkgs; }) else { })
 
