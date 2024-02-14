@@ -62,8 +62,9 @@ in rec {
   } // args);
 
   fetchurl-gz = args: pkgs.fetchurl ({
+    nativeBuildInputs = with pkgs; [ zstd ];
     postFetch = ''
-      [[ $downloadedFile =~ \.zst$ ]] && ${pkgs.zstd} -d $downloadedFile
+      [[ $downloadedFile =~ \.zst$ ]] && zstd -d $downloadedFile
     '';
   } // args);
 
