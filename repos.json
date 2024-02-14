@@ -62,6 +62,10 @@
         "aasg": {
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
+        "abszero": {
+            "file": "nur.nix",
+            "url": "https://github.com/Weathercold/nixfiles"
+        },
         "afreakk": {
             "url": "https://github.com/afreakk/mynixrepo"
         },
