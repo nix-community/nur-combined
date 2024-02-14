@@ -1,7 +1,9 @@
-{ pkgs, python-hwinfo }:
-let
-in
-pkgs.python3Packages.buildPythonPackage {
+{ lib
+, pkgs
+, python-hwinfo
+}:
+
+pkgs.python3Packages.buildPythonApplication {
   pname = "ack-results-parser";
   # Upstream does not do versions
   version = "0.1.0-a09a9024e19e";
@@ -19,4 +21,12 @@ pkgs.python3Packages.buildPythonPackage {
     pymongo
     python-hwinfo
   ];
+
+  meta = with lib; {
+    description = "Tool for parsing the output of an ACK run";
+    homepage = "https://github.com/xenserver/ack-results-parser/";
+    maintainers = with maintainers; [ javimerino ];
+    license = [ licenses.unlicense ];
+    platforms = platforms.all;
+  };
 }
