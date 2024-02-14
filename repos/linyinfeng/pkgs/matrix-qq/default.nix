@@ -8,12 +8,12 @@
 
 buildGoModule rec {
   pname = "matrix-qq";
-  version = "0.1.10";
+  version = "0.1.11";
   src = fetchFromGitHub {
     owner = "duo";
     repo = "matrix-qq";
     rev = version;
-    sha256 = "sha256-TUmAlx6P34pvXu5vCP2mlb34dVMHpa9YJIhkjFMAk5w=";
+    sha256 = "sha256-8QY5rySBJ+FSH8uEHewFX7WqhpbzZL1+fMEduDPHu9U=";
   };
 
   vendorHash = "sha256-VLlW178B1a2mEwEb/aLZFYPVdC9hzQzI1gen+M8pg1I=";
