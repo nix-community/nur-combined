@@ -1,0 +1,19 @@
+name: "Check flake"
+on:
+  schedule:
+    # rebuild every Saturday at 4:15
+    # A random time from:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    # Posix crontab syntax:
+    # https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
+    - cron: '15 4 * * 6'
+jobs:
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Nix flake inputs
+        uses: DeterminateSystems/flake-checker-action@v5
+        with:
+          fail-mode: true
+          ignore-missing-flake-lock: true

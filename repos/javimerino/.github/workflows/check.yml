@@ -1,0 +1,19 @@
+name: "Lints"
+on:
+  - pull_request
+  - push
+jobs:
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install nix
+        uses: cachix/install-nix-action@v25
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: check README format
+        run:  nix run nixpkgs#mdl -- README.md
+      - name: check format of nix files
+        run:  nix run nixpkgs#fd -- -t f '\.nix$' -X nix run nixpkgs#nixpkgs-fmt -- --check
