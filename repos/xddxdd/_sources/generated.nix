@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "bd5d9e403968dee10b730ad1fdf6b18566cec543";
+    version = "be7b3b0ef917bd19841485b9a70711ae5c92cb32";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "bd5d9e403968dee10b730ad1fdf6b18566cec543";
+      rev = "be7b3b0ef917bd19841485b9a70711ae5c92cb32";
       fetchSubmodules = false;
-      sha256 = "sha256-ivqowyr9K5iS4BH0zoCy/35GEAzKRZGUExOhiIi2fvQ=";
+      sha256 = "sha256-ZELMJaDBkBJHsSXdr/tDK6hCoChAx2BXDqasYLEBRhY=";
     };
-    date = "2024-02-12";
+    date = "2024-02-13";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "f371848268c3521dacf23463c8dde270dfa7d6a2";
+    version = "ac164b4084ca9dbf696b93047edcb616530a039c";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "f371848268c3521dacf23463c8dde270dfa7d6a2";
+      rev = "ac164b4084ca9dbf696b93047edcb616530a039c";
       fetchSubmodules = false;
-      sha256 = "sha256-SzeVyQ1BahES3JlL+ZtN3ASV2SeYJ3E2yXuf1gjwJSA=";
+      sha256 = "sha256-z1Bww5hHOa3CggqAf5wf78g6H2qyrFRYXbwGEuy+9gw=";
     };
-    date = "2024-02-12";
+    date = "2024-02-13";
   };
   libqcef = {
     pname = "libqcef";
@@ -984,15 +984,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "e05b887f00ea80184248cc6d8d44c5646c9231d0";
+    version = "6707145dd6deb73d9e976c5f29cd14e264724833";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "e05b887f00ea80184248cc6d8d44c5646c9231d0";
+      rev = "6707145dd6deb73d9e976c5f29cd14e264724833";
       fetchSubmodules = false;
-      sha256 = "sha256-Bfl66Ld8Uyk04u3fCgiPIvUsd1QrS/dC2gOvbsrq6sI=";
+      sha256 = "sha256-BLtfpLsqElHqWvASFXUIHGekjdcddOzg5sIFAPxCCXc=";
     };
-    date = "2024-02-11";
+    date = "2024-02-14";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
