@@ -1885,10 +1885,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.23.1";
+      version = "2.24.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232866/dualsub-2.23.1.xpi";
-      sha256 = "8219b2d1b3ba04a95f08b79052f4d3ba32b6077f6deeb09f6cb522fd98bb77dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235934/dualsub-2.24.0.xpi";
+      sha256 = "9bd8380f1553f239b948f46f6285f8f16180a875379cdbbd1800b8165fa0b757";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/";
@@ -2190,10 +2190,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.19.1";
+      version = "1.2.20";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229203/faststream-1.2.19.1.xpi";
-      sha256 = "ff5ef42bf38a98dc032774efe3eda11bbdbcb2e1cff7d54a9b655b3986b94934";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236219/faststream-1.2.20.xpi";
+      sha256 = "a0977a1288fe892598ad2e520edd7aa5155425f7b551a52025bd1ab251b213e2";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -10278,10 +10278,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.1.29.1338";
+      version = "2024.2.14.104";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228853/ublock_origin_lite-2024.1.29.1338.xpi";
-      sha256 = "940aa955d78814bee7c4a87ad7b4ca0bfbebf90608a06a54bbfb34998dd66dd4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236185/ublock_origin_lite-2024.2.14.104.xpi";
+      sha256 = "801bb271cad458212a928584ebd68909522ae8cfc9c043e32e03b0b10df2afa9";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
