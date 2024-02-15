@@ -28,8 +28,8 @@ buildGoModule rec {
     in
     [
       "-X ${pkg}/cmd.buildVersion=${version}"
-      "-X ${pkg}/cmd.buildRevision=1"
-      "-X ${pkg}/cmd.buildBranch=release-v${version}"
+      "-X ${pkg}/cmd.buildRevision=${src.rev}"
+      "-X ${pkg}/cmd.buildBranch=unknown"
     ];
 
   nativeBuildInputs = [ pkg-config ];
@@ -47,6 +47,5 @@ buildGoModule rec {
     homepage = "https://github.com/containers/prometheus-podman-exporter";
     license = licenses.asl20;
     maintainers = with maintainers; [ ataraxiasjel ];
-    platforms = platforms.linux;
   };
 }

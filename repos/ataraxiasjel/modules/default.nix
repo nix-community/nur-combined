@@ -4,7 +4,7 @@
   hoyolab = ./hoyolab.nix;
   kes = ./kes.nix;
   ocis = ./ocis.nix;
-  prometheus-podman-exporter = ./prometheus-podman-exporter.nix;
+  prometheus-exporters = import ./prometheus-exporters;
   rustic = ./rustic.nix;
   wopiserver = ./wopiserver.nix;
 }
