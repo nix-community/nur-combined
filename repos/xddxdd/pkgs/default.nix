@@ -56,12 +56,13 @@ in
 
       howto = pkg ./_meta/howto {};
       readme = pkg ./_meta/readme {};
+      garnix-yaml = pkg ./_meta/garnix-yaml {};
     };
 
     # Package groups
     asteriskDigiumCodecs = mergePkgs (pkg ./asterisk-digium-codecs {inherit mergePkgs;});
 
-    lantianCustomized = ifNotCI (mergePkgs {
+    lantianCustomized = mergePkgs {
       # Packages with significant customization by Lan Tian
       asterisk = pkg ./lantian-customized/asterisk {};
       attic-telnyx-compatible = ifNotNUR (pkg ./lantian-customized/attic-telnyx-compatible {});
@@ -79,9 +80,9 @@ in
       nbfc-linux = pkg ./lantian-customized/nbfc-linux {};
       nginx = pkg ./lantian-customized/nginx {};
       transmission-with-webui = pkg ./lantian-customized/transmission-with-webui {};
-    });
+    };
 
-    lantianLinuxXanmod = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod {}));
+    lantianLinuxXanmod = mergePkgs (pkg ./lantian-linux-xanmod {});
     lantianLinuxXanmodPackages = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod/packages.nix {}));
 
     lantianPersonal = ifNotCI (mergePkgs {
@@ -125,16 +126,13 @@ in
     ftp-proxy = pkg ./uncategorized/ftp-proxy {};
     genshin-checkin-helper = pkg ./uncategorized/genshin-checkin-helper {};
     genshinhelper2 = pkg ./uncategorized/genshinhelper2 {};
-    glauth = ifNotCI (pkg ./uncategorized/glauth {});
+    glauth = pkg ./uncategorized/glauth {};
     google-earth-pro = pkg ./uncategorized/google-earth-pro {};
     gopherus = pkg ./uncategorized/gopherus {};
     grasscutter = pkg ./uncategorized/grasscutter {};
     hanyi-wenhei = pkg ./uncategorized/hanyi-wenhei {};
     hath = pkg ./uncategorized/hath {};
-
-    # This package is failing on CI for unknown reason
-    hesuvi-hrir = ifNotCI (pkg ./uncategorized/hesuvi-hrir {});
-
+    hesuvi-hrir = pkg ./uncategorized/hesuvi-hrir {};
     hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs {};
     kaixinsong-fonts = pkg ./uncategorized/kaixinsong-fonts {};
     kata-image = pkg ./uncategorized/kata-image {};
