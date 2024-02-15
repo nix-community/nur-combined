@@ -14,6 +14,14 @@
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      "Music"
+      "Pictures"
+      "Pictures/servo-macros"
+      "Videos"
+      "Videos/servo"
+      "tmp"
+    ];
 
     packageUnwrapped = pkgs.element-desktop.override {
       # use pre-build electron because otherwise it takes 4 hrs to build from source.

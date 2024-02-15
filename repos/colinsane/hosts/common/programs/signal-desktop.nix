@@ -27,6 +27,14 @@ in
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      "Music"
+      "Pictures"
+      "Pictures/servo-macros"
+      "Videos"
+      "Videos/servo"
+      "tmp"
+    ];
 
     # creds, media
     persist.byStore.private = [

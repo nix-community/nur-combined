@@ -34,6 +34,14 @@ in
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistDri = true;  # otherwise video playback buuuuurns CPU
     sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      "Music"
+      "Pictures"
+      "Pictures/servo-macros"
+      "Videos"
+      "Videos/servo"
+      "tmp"
+    ];
 
     configOption = with lib; mkOption {
       default = {};

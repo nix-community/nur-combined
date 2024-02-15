@@ -1,3 +1,7 @@
+![hello](doc/hello.gif)
+
+# .❄️≡We|_c0m3 7o m`/ f14k≡❄️.
+
 ## What's Here
 
 this is the top-level repo from which i configure/deploy all my NixOS machines:

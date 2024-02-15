@@ -52,6 +52,14 @@ in
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistDri = true;  #< not strictly necessary, but we need all the perf we can get on moby
     sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      "Music"
+      "Pictures"
+      "Pictures/servo-macros"
+      "Videos"
+      "Videos/servo"
+      "tmp"
+    ];
 
     persist.byStore.private = [ ".local/share/dino" ];
 

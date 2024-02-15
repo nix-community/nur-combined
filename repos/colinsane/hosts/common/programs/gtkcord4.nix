@@ -38,6 +38,14 @@ in
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      "Music"
+      "Pictures"
+      "Pictures/servo-macros"
+      "Videos"
+      "Videos/servo"
+      "tmp"
+    ];
 
     persist.byStore.private = [
       ".cache/gtkcord4"
