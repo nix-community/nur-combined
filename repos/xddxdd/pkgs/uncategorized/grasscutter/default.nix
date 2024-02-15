@@ -12,7 +12,7 @@
   resources = sources.grasscutter-resources.src;
   keystore = fetchurl {
     url = "https://github.com/Grasscutters/Grasscutter/raw/development/keystore.p12";
-    sha256 = "sha256-apFbGtWacE3GjXU/6h2yseskAsob0Xc/NWEu2uC0v3M=";
+    hash = "sha256-apFbGtWacE3GjXU/6h2yseskAsob0Xc/NWEu2uC0v3M=";
   };
 in
   stdenvNoCC.mkDerivation rec {

@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   version = "16.1.0";
   src = fetchurl {
     url = "https://www.etsi.org/deliver/etsi_ts/126400_126499/126443/16.01.00_60/ts_126443v160100p0.zip";
-    sha256 = "sha256-KlRADPdBIrFqj9gGwlTa9iI1VQ1uRFJ8dfe6ilJMXAY=";
+    hash = "sha256-KlRADPdBIrFqj9gGwlTa9iI1VQ1uRFJ8dfe6ilJMXAY=";
   };
 
   nativeBuildInputs = [unzip];

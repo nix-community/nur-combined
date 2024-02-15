@@ -15,7 +15,7 @@ in
     version = "${ver}-r${rev}";
     src = fetchurl {
       url = "https://github.com/Suwayomi/Tachidesk-Server/releases/download/v${ver}/Tachidesk-Server-v${ver}-r${rev}.jar";
-      sha256 = "sha256-/s+bc/W5mFp5hNLgHsOJRHcWkKbyzaSqm26raJ6nmjI=";
+      hash = "sha256-/s+bc/W5mFp5hNLgHsOJRHcWkKbyzaSqm26raJ6nmjI=";
     };
     dontUnpack = true;
 

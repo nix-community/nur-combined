@@ -16,7 +16,7 @@
       owner = "zyantific";
       repo = "zycore-c";
       rev = version;
-      sha256 = "sha256-Rtg5nXj4Cplr1xr3lz8lexzmkvQL9v75a6Blc0f+To0=";
+      hash = "sha256-Rtg5nXj4Cplr1xr3lz8lexzmkvQL9v75a6Blc0f+To0=";
     };
 
     nativeBuildInputs = [cmake];
@@ -33,7 +33,7 @@
       owner = "zyantific";
       repo = "zydis";
       rev = version;
-      sha256 = "sha256-PU++CMQ8zlaTt4q2cHfHLcHRoM2UgzvW8XNrgN6hbrg=";
+      hash = "sha256-PU++CMQ8zlaTt4q2cHfHLcHRoM2UgzvW8XNrgN6hbrg=";
     };
 
     nativeBuildInputs = [cmake];
@@ -52,7 +52,7 @@
       owner = "lief-project";
       repo = "LIEF";
       rev = "b65e7cca03ec4cd91f1d7125e717d01635ea81ba";
-      sha256 = "sha256-kYTiSyvcOXywHVstGkKz/Adeztj0z+fLHYIp4Qk83i4=";
+      hash = "sha256-kYTiSyvcOXywHVstGkKz/Adeztj0z+fLHYIp4Qk83i4=";
     };
 
     nativeBuildInputs = [cmake ninja];
@@ -72,7 +72,7 @@
     owner = "gpakosz";
     repo = "PPK_ASSERT";
     rev = "833b8b7ea49aea540a49f07ad08bf0bae1faac32";
-    sha256 = "sha256-gGhqhdPMweFjhGPMGza5MwEOo5cJKrb5YrskjCvWX3w=";
+    hash = "sha256-gGhqhdPMweFjhGPMGza5MwEOo5cJKrb5YrskjCvWX3w=";
   };
 
   nvidia530Patch = fetchurl {
@@ -87,7 +87,7 @@ in
       owner = "illnyang";
       repo = "nvlax";
       rev = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
-      sha256 = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
+      hash = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
     };
 
     patches =

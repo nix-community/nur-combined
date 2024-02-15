@@ -6,11 +6,11 @@
 } @ args: let
   kaixinsong-a = fetchurl {
     url = "https://backblaze.lantian.pub/KaiXinSongA.ttf";
-    sha256 = "sha256-ThHI0V3O9k5bVVSOV2RELRsfO+b8UjRvEzivm0jPGb0=";
+    hash = "sha256-ThHI0V3O9k5bVVSOV2RELRsfO+b8UjRvEzivm0jPGb0=";
   };
   kaixinsong-b = fetchurl {
     url = "https://backblaze.lantian.pub/KaiXinSongB.ttf";
-    sha256 = "sha256-2nvseKgZSVIy0oYkT+DB+V0UfoSBG4Ds4EcWnFfNSkU=";
+    hash = "sha256-2nvseKgZSVIy0oYkT+DB+V0UfoSBG4Ds4EcWnFfNSkU=";
   };
 in
   stdenvNoCC.mkDerivation rec {

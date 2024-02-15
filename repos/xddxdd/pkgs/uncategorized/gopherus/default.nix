@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   version = "1.2.1";
   src = fetchurl {
     url = "http://downloads.sourceforge.net/project/${pname}/v${version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-UQ9xWRri9AxVv/9H88IVx12FrPRRhOdSo4HfamxkeHs=";
+    hash = "sha256-UQ9xWRri9AxVv/9H88IVx12FrPRRhOdSo4HfamxkeHs=";
   };
 
   buildInputs = [ncurses SDL2];

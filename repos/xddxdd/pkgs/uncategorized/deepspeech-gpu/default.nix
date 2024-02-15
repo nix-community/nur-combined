@@ -26,7 +26,7 @@ in
 
     src = fetchurl {
       url = "https://github.com/mozilla/DeepSpeech/releases/download/v${version}/${wheelName}";
-      sha256 = "sha256-YGvD5Ts4uagjwzJt56yyAOPoz2brAk0gCe+TV7sv6+M=";
+      hash = "sha256-YGvD5Ts4uagjwzJt56yyAOPoz2brAk0gCe+TV7sv6+M=";
     };
 
     dontUnpack = true;

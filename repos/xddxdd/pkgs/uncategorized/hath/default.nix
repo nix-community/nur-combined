@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchzip {
     url = "https://repo.e-hentai.org/hath/HentaiAtHome_${version}.zip";
     stripRoot = false;
-    sha256 = "sha256-a690bpznUEqe4Z6vn6QClUBToSqpcj3vPyklURZlgW0=";
+    hash = "sha256-a690bpznUEqe4Z6vn6QClUBToSqpcj3vPyklURZlgW0=";
   };
 
   nativeBuildInputs = [makeWrapper];

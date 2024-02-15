@@ -10,22 +10,22 @@
 
   model-en = fetchurl {
     url = "https://github.com/mozilla/DeepSpeech/releases/download/v${version}/deepspeech-${version}-models.pbmm";
-    sha256 = "sha256-6+m09kvaNZGs1yPCdinxAdG7HsSHcw2fiCvP4DIURi0=";
+    hash = "sha256-6+m09kvaNZGs1yPCdinxAdG7HsSHcw2fiCvP4DIURi0=";
   };
 
   model-zh = fetchurl {
     url = "https://github.com/mozilla/DeepSpeech/releases/download/v${version}/deepspeech-${version}-models-zh-CN.pbmm";
-    sha256 = "sha256-fQQ1HVUmKQqh0YGV+S1/XrhMDuq0N8gE3SQcZ989PdE=";
+    hash = "sha256-fQQ1HVUmKQqh0YGV+S1/XrhMDuq0N8gE3SQcZ989PdE=";
   };
 
   scorer-en = fetchurl {
     url = "https://github.com/mozilla/DeepSpeech/releases/download/v${version}/deepspeech-${version}-models.scorer";
-    sha256 = "sha256-0M+SarnKtUqKfXAAO5MbLWLr2RBe05LR7JyEACmGd5k=";
+    hash = "sha256-0M+SarnKtUqKfXAAO5MbLWLr2RBe05LR7JyEACmGd5k=";
   };
 
   scorer-zh = fetchurl {
     url = "https://github.com/mozilla/DeepSpeech/releases/download/v${version}/deepspeech-${version}-models-zh-CN.scorer";
-    sha256 = "sha256-JofZaPRhiVBNm57cD5FPa0s5xNlMc/dbamwYDTPzAkA=";
+    hash = "sha256-JofZaPRhiVBNm57cD5FPa0s5xNlMc/dbamwYDTPzAkA=";
   };
 in
   stdenv.mkDerivation rec {
