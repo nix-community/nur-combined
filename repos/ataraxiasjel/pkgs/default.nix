@@ -13,6 +13,7 @@ rec {
   ceserver = pkgs.callPackage ./ceserver { };
   gruvbox-plus-icons = pkgs.callPackage ./gruvbox-plus-icons { };
   hoyolab-claim-bot = pkgs.callPackage ./hoyolab-claim-bot { };
+  json-liquid-rs = pkgs.callPackage ./json-liquid-rs { };
   kes = pkgs.callPackage ./kes { };
   koboldcpp = pkgs.callPackage ./koboldcpp { inherit (python-pkgs) customtkinter; };
   mpris-ctl = pkgs.callPackage ./mpris-ctl { };
