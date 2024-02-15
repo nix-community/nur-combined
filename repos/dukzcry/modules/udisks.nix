@@ -6,7 +6,7 @@ let
 in {
   options.services.udisks = {
     enable = mkEnableOption ''
-      udsiks server
+      udisks server
     '';
   };
 
