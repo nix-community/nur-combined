@@ -8,7 +8,10 @@
       "dev"  # for developing anything web-related
       "tmp"
     ];
+    sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
+    sandbox.whitelistWayland = true;
+
     persist.byStore.cryptClearOnBoot = [
       ".cache/BraveSoftware"
       ".config/BraveSoftware"

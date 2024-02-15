@@ -2,6 +2,9 @@
 {
   sane.programs.playerctl = {
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "inplace";
+    sandbox.whitelistDbus = [ "user" ];  # notifications
+
     services.playerctld = {
       description = "playerctl daemon to keep track of which MPRIS players were recently active";
       documentation = [ "https://github.com/altdesktop/playerctl/issues/161" ];

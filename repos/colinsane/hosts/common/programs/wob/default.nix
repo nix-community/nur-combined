@@ -8,6 +8,11 @@
 #
 { config, lib, pkgs, ... }:
 let
+  wob-pulse = pkgs.static-nix-shell.mkBash {
+    pname = "wob-pulse";
+    src = ./.;
+    pkgs = [ "gnugrep" "gnused" "pulseaudio" ];
+  };
   cfg = config.sane.programs.wob;
 in
 {
@@ -25,6 +30,10 @@ in
         };
       };
     };
+
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistWayland = true;
 
     fs.".config/wob/wob.ini".symlink.text = ''
       timeout = 900
@@ -62,82 +71,28 @@ in
         Restart = "always";
         RestartSec = "20s";
       };
-      path = [ cfg.package ];
       script = ''
-        wobsock="$XDG_RUNTIME_DIR/${cfg.config.sock}"
+        wobsock="$XDG_RUNTIME_DIR/$WOBSOCK_NAME"
         rm -f "$wobsock" || true
         mkfifo "$wobsock" && wob <> "$wobsock"
 
         # TODO: cleanup should be done in a systemd OnFailure, or OnExit, or whatever
         rm -f "$wobsock"
       '';
+      environment.WOBSOCK_NAME = cfg.config.sock;
     };
 
     services.wob-pulse = {
       description = "notify wob when pulseaudio volume changes";
       wantedBy = [ "wob.service" ];
       serviceConfig = {
+        ExecStart = "${wob-pulse}/bin/wob-pulse";
         Type = "simple";
         Restart = "always";
         RestartSec = "20s";
       };
-      path = with pkgs; [
-        # coreutils
-        gnugrep
-        gnused
-        pulseaudio
-      ];
-
       # environment.WOB_VERBOSE = "1";
-
-      script = ''
-
-        debug() {
-          printf "$@" >&2
-          printf "\n" >&2
-        }
-        verbose() {
-          if [ "$WOB_VERBOSE" = "1" ]; then
-            debug "$@"
-          fi
-        }
-
-        volismuted() {
-          pactl get-sink-mute @DEFAULT_SINK@ | grep -q "Mute: yes"
-        }
-
-        volget() {
-          if volismuted; then
-            verbose "muted"
-            printf "0"
-          else
-            pactl get-sink-volume @DEFAULT_SINK@ | head -n1 | cut -d'/' -f2 | sed 's/ //g' | sed 's/\%//'
-          fi
-        }
-
-        notify_volume_change() {
-          verbose "notify_volume_change"
-          vol=$(volget)
-          verbose "got volume: %d -> %d" "$lastvol" "$vol"
-          if [ "$vol" != "$lastvol" ]; then
-            debug "notify wob: %d -> %d" "$lastvol" "$vol"
-            printf "%s\n" "$vol" > "$XDG_RUNTIME_DIR/${cfg.config.sock}"
-          fi
-          lastvol="$vol"
-        }
-
-        pactl subscribe | while read -r line; do
-          verbose "pactl says: %s" "$line"
-          case "$line" in
-            "Event 'change' on sink "*)
-              notify_volume_change
-              ;;
-            "Event 'change' on source "*)
-              # microphone volume changed. ignore.
-              ;;
-          esac
-        done
-      '';
+      environment.WOBSOCK_NAME = cfg.config.sock;
     };
   };
 }

@@ -133,12 +133,16 @@ let
             # see: <repo:nix-community/home-manager:modules/systemd.nix>
             cleanName = utils.systemdUtils.lib.mkPathSafeName serviceName;
             generatedUnit = utils.systemdUtils.lib.serviceToUnit serviceName (value // {
-              environment = {
+              environment = lib.throwIf (value.path != []) "user service ${serviceName} specifies unsupported 'path' attribute (${builtins.toString value.path})" {
                 # clear PATH to allow inheriting it from environment.
                 # otherwise, nixos would force it to `systemd.globalEnvironment.PATH`, which is mostly tools like sed/find/etc.
                 # clearing PATH here allows user services to inherit whatever PATH the graphical session sets
                 # (see `dbus-update-activation-environment` call in ~/.config/sway/config),
                 # which is critical to making it so user services can see user *programs*/packages.
+                #
+                # note that systemd provides no way to *append* to the PATH, only to override it (or not).
+                # nor do they intend to ever support that:
+                # - <https://github.com/systemd/systemd/issues/1082>
                 PATH = null;
               } // (value.environment or {});
             });
@@ -181,6 +185,7 @@ let
     in
     {
       sane.fs = makeWanted (prefixWithHome defn.fs);
+      sane.defaultUser = lib.mkIf defn.default user;
 
       # `byPath` is the actual output here, computed from the other keys.
       sane.persist.sys.byPath = prefixWithHome defn.persist.byPath;
@@ -206,6 +211,16 @@ in
         options to pass down to the default user
       '';
     };
+
+    sane.defaultUser = mkOption {
+      type = types.nullOr types.string;
+      default = null;
+      description = ''
+        the name of the default user.
+        other attributes of the default user may be retrieved via
+        `config.sane.users."''${config.sane.defaultUser}".<attr>`.
+      '';
+    };
   };
   config =
     let
@@ -214,6 +229,7 @@ in
       take = f: {
         sane.fs = f.sane.fs;
         sane.persist.sys.byPath = f.sane.persist.sys.byPath;
+        sane.defaultUser = f.sane.defaultUser;
       };
     in mkMerge [
       (take (sane-lib.mkTypedMerge take configs))

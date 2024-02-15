@@ -14,9 +14,6 @@ let
     inherit bubblewrap firejail libcap runtimeShell;
     landlockSandboxer = landlock-sandboxer;
     firejailProfileDirs = "/run/current-system/sw/etc/firejail /etc/firejail ${firejail}/etc/firejail";
-    # /run might be unavailable inside a container, so to support nested containers
-    # fallback to a profile dir adjacent to the sane-sandboxed binary
-    profileDirs = "/run/current-system/sw/${profileDir} @out@/${profileDir}";
   };
   self = stdenv.mkDerivation {
     pname = "sane-sandboxed";

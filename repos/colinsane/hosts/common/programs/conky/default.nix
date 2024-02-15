@@ -10,6 +10,8 @@
       # "/sys/devices/cpu"
       # "/sys/devices/system"
     ];
+    sandbox.whitelistWayland = true;
+
     fs.".config/conky/conky.conf".symlink.target =
       let
         battery_estimate = pkgs.static-nix-shell.mkBash {

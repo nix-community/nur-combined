@@ -21,10 +21,13 @@ in {
         "--set" "GPODDER_DOWNLOAD_DIR" "~/Videos/gPodder"
       ];
     });
+
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
-    # packageUnwrapped = pkgs.gpodder-configured;
+    sandbox.extraHomePaths = [ "Videos/gPodder" ];
+
     fs.".config/gpodderFeeds.opml".symlink.text = feeds.feedsToOpml wanted-feeds;
 
     # XXX: we preserve the whole thing because if we only preserve gPodder/Downloads

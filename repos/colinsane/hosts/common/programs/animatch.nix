@@ -29,8 +29,11 @@
         ];
       });
     };
+
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistWayland = true;
+
     persist.byStore.plaintext = [
       # ".config/Holy Pangolin/Animatch"  #< used for SuperDerpy config (e.g. debug, disableTouch, fullscreen, enable sound, etc). SuperDerpy.ini
       ".local/share/Holy Pangolin/Animatch"  #< used for game state (level clears). SuperDerpy.ini

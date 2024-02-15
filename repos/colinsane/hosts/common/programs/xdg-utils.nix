@@ -1,21 +1,29 @@
 { ... }:
 {
   sane.programs.xdg-utils = {
-    sandbox.method = "capshonly";
-    sandbox.wrapperType = "wrappedDerivation";
-    # xdg-utils portal interaction: for `xdg-open` to open a file whose handler may require files not in the current sandbox,
-    # we have to use a background service. that's achieved via `xdg-desktop-portal` and the org.freedesktop.portal.OpenURI dbus interface.
-    # so, this `xdg-open` should simply forward all requests to the portal, and the portal may re-invoke xdg-open without that redirection.
+    # xdg-open may need to open things with elevated perms, like wireshark.
+    # generally, the caller can be trusted to sandbox it.
+    # if the caller is sandboxed, it will typically set NIXOS_XDG_OPEN_USE_PORTAL=1,
+    # and then xdg-open simply forwards the request to dbus `org.freedesktop.portal.OpenURI` (i.e. xdg-desktop-portal).
     #
-    # note that `xdg-desktop-portal` seems to (inadvertently) only accept requests from applications which *don't* have elevated privileges, hence xdg-open *has* to be sandboxed for this to work.
-    env.NIXOS_XDG_OPEN_USE_PORTAL = "1";
-  };
+    # N.B.: `xdg-desktop-portal` seems to (inadvertently) only accept requests from applications which *don't* have elevated privileges.
+    # this will be true of nearly all sandboxed applications, but for those which it is not, `sandbox.method = "capshonly"` may be necessary
+    sandbox.enable = false;
 
-  # ensure that any `xdg-open` invocations from within the portal don't recurse.
-  # N.B.: use `systemd.user.units...` instead of `systemd.user.services...` because the latter
-  # pollutes the PATH for this unit.
-  systemd.user.units."xdg-desktop-portal.service".text = ''
-    [Service]
-    Environment="NIXOS_XDG_OPEN_USE_PORTAL="
-  '';
+    # `mimetype` provides better mime associations than `file`
+    # - see: <https://github.com/NixOS/nixpkgs/pull/285233#issuecomment-1940828629>
+    suggestedPrograms = [ "perlPackages.FileMimeInfo" ];
+
+    # alternative to letting the sandbox decide for itself: forcibly use the portal
+    #   if the mime association list is not visible/in scope.
+    # packageUnwrapped = pkgs.xdg-utils.overrideAttrs (base: {
+    #   postInstall = base.postInstall + ''
+    #     sed '2i\
+    #     if ! [ -e ~/.local/share/applications ]; then\
+    #       NIXOS_XDG_OPEN_USE_PORTAL=1\
+    #     fi\
+    #     ' -i "$out"/bin/*
+    #   '';
+    # });
+  };
 }

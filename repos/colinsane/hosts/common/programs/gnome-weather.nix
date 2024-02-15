@@ -5,10 +5,12 @@
   sane.programs."gnome.gnome-weather" = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";
+    sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
     sandbox.extraHomePaths = [
       ".config/dconf"  # stores city/location settings
     ];
+
     persist.byStore.plaintext = [
       ".cache/libgweather"
     ];

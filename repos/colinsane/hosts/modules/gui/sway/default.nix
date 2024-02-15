@@ -179,6 +179,24 @@ in
           "wdisplays"  # like xrandr
           "wl-clipboard"
           "wob"  # render volume changes on-screen
+          "xdg-desktop-portal"
+          # xdg-desktop-portal-gtk provides portals for:
+          # - org.freedesktop.impl.portal.Access
+          # - org.freedesktop.impl.portal.Account
+          # - org.freedesktop.impl.portal.DynamicLauncher
+          # - org.freedesktop.impl.portal.Email
+          # - org.freedesktop.impl.portal.FileChooser
+          # - org.freedesktop.impl.portal.Inhibit
+          # - org.freedesktop.impl.portal.Notification
+          # - org.freedesktop.impl.portal.Print
+          # and conditionally (i.e. unless buildPortalsInGnome = false) for:
+          # - org.freedesktop.impl.portal.AppChooser (@appchooser_iface@)
+          # - org.freedesktop.impl.portal.Lockdown (@lockdown_iface@)
+          # - org.freedesktop.impl.portal.Settings (@settings_iface@)
+          # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
+          "xdg-desktop-portal-gtk"
+          # xdg-desktop-portal-wlr provides portals for screenshots/screen sharing
+          "xdg-desktop-portal-wlr"
           "xdg-terminal-exec"  # used by sway config
         ];
 
@@ -309,31 +327,11 @@ in
         wrapperFeatures.base = true;
       };
       programs.xwayland.enable = cfg.config.xwayland;
-      # provide portals for:
-      # - org.freedesktop.impl.portal.Access
-      # - org.freedesktop.impl.portal.Account
-      # - org.freedesktop.impl.portal.DynamicLauncher
-      # - org.freedesktop.impl.portal.Email
-      # - org.freedesktop.impl.portal.FileChooser
-      # - org.freedesktop.impl.portal.Inhibit
-      # - org.freedesktop.impl.portal.Notification
-      # - org.freedesktop.impl.portal.Print
-      # and conditionally (i.e. unless buildPortalsInGnome = false) for:
-      # - org.freedesktop.impl.portal.AppChooser (@appchooser_iface@)
-      # - org.freedesktop.impl.portal.Lockdown (@lockdown_iface@)
-      # - org.freedesktop.impl.portal.Settings (@settings_iface@)
-      # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
-      xdg.portal.extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-        # N.B.: xdg-desktop-portal will only provide `org.freedesktop.portal.OpenURI`
-        #       if it sees a `org.freedesktop.impl.portal.AppChooser` implementation on the bus.
-        #       so to be able to do file opening over dbus instead of base `xdg-open`, `buildPortalsInGnome` MUST be true.
-        #       previously `buildPortalsInGnome` provided `ScreenCast` and `Screenshot`, which conflicted with sway.
-        #       nowadays, those live in `xdg-desktop-portal-gnome` proper.
-        # (pkgs.xdg-desktop-portal-gtk.override {
-        #   buildPortalsInGnome = false;
-        # })
-      ];
+
+      # disable nixos' portal module, otherwise /share/applications gets linked into the system and complicates things (sandboxing).
+      # instead, i manage portals myself via the sane.programs API (e.g. sane.programs.xdg-desktop-portal).
+      xdg.portal.enable = false;
+      xdg.menus.enable = false;  #< links /share/applications, and a bunch of other empty (i.e. unused) dirs
 
       sane.user.services.sway-session = {
         description = "no-op unit to signal that sway is operational";
@@ -350,6 +348,11 @@ in
       };
 
       sane.user.fs = {
+        ".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
+          # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>
+          [preferred]
+          default=wlr;gtk
+        '';
         ".config/waybar/config".symlink.target =
           (pkgs.formats.json {}).generate "waybar-config.json" [
             ({ layer = "top"; } // cfg.waybar.top)

@@ -34,6 +34,10 @@ in
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [ "user" ];  # notifications
+    sandbox.whitelistDri = true;
+    sandbox.whitelistWayland = true;
 
     persist.byStore.private = [
       ".cache/gtkcord4"

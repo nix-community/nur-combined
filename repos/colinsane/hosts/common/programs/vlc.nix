@@ -18,6 +18,9 @@ in
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
     sandbox.autodetectCliPaths = true;
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [ "user" ];  # mpris
+    sandbox.whitelistWayland = true;
     persist.byStore.private = [
       # vlc remembers play position in ~/.config/vlc/vlc-qt-interface.conf
       # filenames are stored in plaintext (unlike mpv, which i think hashes them)

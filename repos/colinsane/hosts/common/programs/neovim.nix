@@ -89,6 +89,7 @@ in
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.autodetectCliPaths = "existingFileOrParent";
+    sandbox.whitelistWayland = true;  # for system clipboard integration
     # sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
       # directories where i'm liable to `:e ../...`
@@ -102,6 +103,7 @@ in
       "tmp"
       # "use"
     ];
+
     # packageUnwrapped = config.programs.neovim.finalPackage;
     packageUnwrapped = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (pkgs.neovimUtils.makeNeovimConfig {
       withRuby = false;  #< doesn't cross-compile w/o binfmt

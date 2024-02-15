@@ -70,6 +70,8 @@ in
       };
     });
 
+    sandbox.enable = false;  # could technically sandbox with `capsh`, but that breaks the abstraction.
+
     fs.".config/mimeo/associations.txt".symlink.text = lib.concatStringsSep "\n" (assocs' ++ fallbackAssocs');
     mime.priority = 20;
     mime.associations."x-scheme-handler/http" = "mimeo.desktop";

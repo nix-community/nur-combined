@@ -615,11 +615,10 @@ in
             source "$XDG_CONFIG_HOME/sxmo/profile"
             source ${package}/etc/profile.d/sxmo_init.sh
             source "$XDG_CONFIG_HOME/sxmo/profile"
-            export PATH="$XDG_CONFIG_HOME/sxmo/hooks:$PATH"
+            export PATH="$XDG_CONFIG_HOME/sxmo/hooks:$PATH:${lib.makeBinPath sxmoPath}"
           '';
           sxmoService = name: {
             description = "sxmo ${name}";
-            path = sxmoPath;
             script = ''
               ${sxmoEnvSetup}
               exec sxmo_${name}.sh
@@ -644,7 +643,6 @@ in
           # sxmo_wob = sxmoService "wob";
           sxmo-x11-status = sxmoService "status_xsetroot";
 
-          bonsaid.path = sxmoPath;
           bonsaid.script = lib.mkBefore sxmoEnvSetup;
         };
       }

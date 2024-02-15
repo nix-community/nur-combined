@@ -4,6 +4,8 @@
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  # share/wike/wike-sp refers back to the binaries and share
     sandbox.net = "clearnet";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistWayland = true;
     sandbox.extraPaths = [
       # wike sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.
       # TODO: these could maybe be mounted empty.

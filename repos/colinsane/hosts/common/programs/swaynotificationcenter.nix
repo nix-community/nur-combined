@@ -115,6 +115,7 @@ in
       };
       default = {};
     };
+
     # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
     packageUnwrapped = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
       # allow toggle buttons:
@@ -144,7 +145,17 @@ in
           --replace '96' '${builtins.toString mprisIconSize}'
       '';
     }));
+
+    # glib/gio applications support many notification backends ("portal", "gtk", "freedesktop", ...).
+    # swaync implements only the `org.freedesktop.Notifications` dbus interface ("freedesktop"/fdo).
+    # however gio applications may be tricked into using one of the other backends, particularly
+    # if xdg-desktop-portal-gtk is installed and GIO_USE_PORTALS=1.
+    # so, explicitly specify the desired backend.
+    # the glib code which consumes this is `g_notification_backend_new_default`, calling into `_g_io_module_get_default_type`.
+    env.GNOTIFICATION_BACKEND = "freedesktop";
+
     suggestedPrograms = [ "feedbackd" ];
+
     fs.".config/swaync/style.css".symlink.text = ''
       /* these color definitions are used by the built-in style */
       /* noti-bg defaults `rgb(48, 48, 48)` and is the default button/slider/grid background */

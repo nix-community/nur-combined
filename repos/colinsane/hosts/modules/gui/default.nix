@@ -171,10 +171,10 @@ in
       "soundconverter"
       "spotify"  # x86-only
       "steam"
-      "tor-browser-bundle-bin"  # x86-only
+      "tor-browser"  # x86-only
       "vlc"
       "wireshark"  # could maybe ship the cli as sysadmin pkg
-      "zecwallet-lite"  # x86-only
+      # "zecwallet-lite"  # x86-only
     ]
   );
 

@@ -10,6 +10,9 @@
   sane.programs.g4music = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [ "user" ];  # mpris
+    sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"
     ];

@@ -6,14 +6,16 @@
     sandbox.extraHomePaths = [
       "Music"
       "Pictures"  # i have some videos in there too.
+      "Pictures/servo-macros"
       "Videos"
+      "Videos/servo"
       "tmp"
     ];
-    sandbox.extraPaths = [
-      "/mnt/servo/media/Pictures"
-      "/mnt/servo/media/Videos"
-    ];
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistDri = true;
+    sandbox.whitelistWayland = true;
+
     packageUnwrapped = pkgs.kdenlive.override {
       ffmpeg-full = pkgs.ffmpeg-full.override {
         # avoid expensive samba build for a feature i don't use

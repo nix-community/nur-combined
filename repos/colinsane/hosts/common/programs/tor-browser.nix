@@ -8,8 +8,10 @@
     #   useHardenedMalloc = false;
     # };
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.wrapperType = "inplace";
     sandbox.net = "clearnet";  # tor over VPN wouldn't make sense
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistWayland = true;
     persist.byStore.cryptClearOnBoot = [
       ".local/share/tor-browser"
     ];

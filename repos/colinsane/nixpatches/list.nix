@@ -27,21 +27,21 @@ let
     ) else null;
 in [
   (fetchpatch' {
+    saneCommit = "20c9492d303be7cbad560e3d83bc47ab4b1e93f7";
+    title = "procmail: support cross compilation";
+    hash = "sha256-cC9GBF5tCeJ2GDSjMjlG4hYStIJPEoRBAK9/KhJiiIo=";
+  })
+  (fetchpatch' {
+    # fixes build on moby by avoiding broken `lockfileProgs`
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/286533";
+    title = "xdg-utils: remove unnecessary input";
+    hash = "sha256-IAt07OSGaX8QHaOzlmYFTZJpvmXjYFA6/IFPsMzQVW8=";
+    merged.staging = "202402061152";
+  })
+  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/280925";
     title = "j4-dmenu-desktop: pin to gcc12";  # 2024/01/14: fix build
     hash = "sha256-VW2l7eViI1erlTRFw2mpY2qWDdBlYxVSQewFPWwRhgg=";
-  })
-  (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/277003";
-    title = " pcsclite: disable building pcsc-wirecheck{,-gen} when cross compiling";  # 2023/12/27: fix build
-    hash = "sha256-9QqeZV1FgbxRpDDqHXWcIpOqyAt0YZRBcCTdoC6ugaY=";
-    merged.staging = "202401191200";
-  })
-  (fetchpatch' {
-    title = "argyllcms: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/275755";
-    saneCommit = "8114d5dabbf5f4f1e8c370b889d4f2986b63998b";
-    hash = "sha256-z/vY2CxdrUVd4n7w+m8aNffXaN/jH7IWEwRfWNr9w94=";
   })
 
   # (fetchpatch' {

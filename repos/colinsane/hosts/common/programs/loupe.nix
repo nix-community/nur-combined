@@ -3,18 +3,19 @@
   sane.programs.loupe = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistWayland = true;
+    sandbox.autodetectCliPaths = "parent";
     sandbox.extraHomePaths = [
       "Pictures"
+      "Pictures/servo-macros"
       "Videos"
+      "Videos/servo"
       "dev"
       "records"
       "ref"
       "tmp"
     ];
-    sandbox.extraPaths = [
-      "/mnt/servo/media/Pictures"
-      "/mnt/servo/media/Videos"
-    ];
+
     mime.associations = {
       "image/gif" = "org.gnome.Loupe.desktop";
       "image/heif" = "org.gnome.Loupe.desktop";  # apple codec

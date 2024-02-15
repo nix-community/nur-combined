@@ -86,11 +86,13 @@
     ./tor-browser.nix
     ./tuba.nix
     ./vlc.nix
+    ./waylock.nix
     ./wike.nix
     ./wine.nix
     ./wireshark.nix
-    ./wob.nix
+    ./wob
     ./xarchiver.nix
+    ./xdg-desktop-portal.nix
     ./xdg-utils.nix
     ./zeal.nix
     ./zecwallet-lite.nix

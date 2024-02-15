@@ -257,26 +257,41 @@
           pkgs = self.legacyPackages."x86_64-linux";
           sanePkgs = import ./pkgs { inherit pkgs; };
           deployScript = host: addr: action: pkgs.writeShellScript "deploy-${host}" ''
-            nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} "$@"
-            storePath="$(readlink ./result-${host})"
-            sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey "$storePath"
+            host="${host}"
+            addr="${addr}"
+            action="${action}"
+            runOnTarget() {
+              # run the command ($@) on the machine we're deploying to.
+              # if that's a remote machine, then do it via ssh, else local shell.
+              if [ -n "$addr" ]; then
+                ssh "$addr" "$@"
+              else
+                "$@"
+              fi
+            }
 
-            # N.B.: `--fast` option here is critical to cross-compiled deployments: without it the build machine will try to invoke the host machine's `nix` binary.
-            # nixos-rebuild --flake '.#${host}' <action> --target-host colin@${addr} --use-remote-sudo "$@" --fast
-            # instead of `nixos-rebuild --target-host`, recreate its main parts in-line, below.
-            # the benefit is fewer nix evals, and more granularity for debugging/tweaking.
-            # `nixos-rebuild --target-host` effectively does:
+            nix build ".#nixosConfigurations.$host.config.system.build.toplevel" --out-link "./result-$host" "$@"
+            storePath="$(readlink ./result-$host)"
+
+            # mimic `nixos-rebuild --target-host`, in effect:
             # - nix-copy-closure ...
             # - nix-env --set ...
             # - switch-to-configuration <boot|dry-activate|switch|test|>
+            # avoid the actual `nixos-rebuild` for a few reasons:
+            # - fewer nix evals
+            # - more introspectability and debuggability
+            # - sandbox friendliness (especially: `git` doesn't have to be run as root)
 
-            # add more `-v` for more verbosity (up to 5).
-            # i copy the closure here separately from the nixos-rebuild mostly for the sake of introspectability.
-            nix-copy-closure -v --gzip --to '${addr}' "$storePath"
-            ${pkgs.lib.optionalString (action != null) ''
-              ssh '${addr}' sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath"
-              ssh '${addr}' sudo "$storePath/bin/switch-to-configuration" '${action}'
-            ''}
+            if [ -n "$addr" ]; then
+              sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey "$storePath"
+              # add more `-v` for more verbosity (up to 5).
+              nix-copy-closure -v --gzip --to "$addr" "$storePath"
+            fi
+
+            if [ -n "$action" ]; then
+              runOnTarget sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath"
+              runOnTarget sudo "$storePath/bin/switch-to-configuration" "$action"
+            fi
           '';
           deployApp = host: addr: action: {
             type = "app";
@@ -391,6 +406,10 @@
             moby-light  = deployApp "moby-light"  "moby"  "switch";
             moby-test   = deployApp "moby"        "moby"  "test";
             servo       = deployApp "servo"       "servo" "switch";
+
+            # like `nixos-rebuild --flake . switch`
+            self        = deployApp "$(hostname)" ""      "switch";
+
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "deploy-all" ''
               nix run '.#deploy.lappy'

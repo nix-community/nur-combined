@@ -171,7 +171,7 @@ in
           };
 
           function switch() {
-            sudo nixos-rebuild --flake . switch --keep-going;
+            nix run '.#deploy.self'
           }
         '';
 

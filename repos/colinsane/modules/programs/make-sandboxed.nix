@@ -1,5 +1,6 @@
 { lib
 , buildPackages
+, callPackage
 , runCommand
 , runtimeShell
 , sane-sandboxed
@@ -195,9 +196,9 @@ let
     '');
 
   # take the nearly-final sandboxed package, with binaries and and else, and
-  # populate passthru attributes the caller expects, like `sandboxProfiles` and `checkSandboxed`.
-  fixupMetaAndPassthru = pkgName: pkg: sandboxProfiles: extraPassthru: pkg.overrideAttrs (finalAttrs: prevAttrs: let
-    final = fixupMetaAndPassthru pkgName pkg sandboxProfiles extraPassthru;
+  # populate passthru attributes the caller expects, like `checkSandboxed`.
+  fixupMetaAndPassthru = pkgName: pkg: extraPassthru: pkg.overrideAttrs (finalAttrs: prevAttrs: let
+    final = fixupMetaAndPassthru pkgName pkg extraPassthru;
     nonBin = (prevAttrs.passthru or {}).sandboxedNonBin or {};
   in {
     meta = (prevAttrs.meta or {}) // {
@@ -205,7 +206,6 @@ let
       priority = ((prevAttrs.meta or {}).priority or 0) - 1;
     };
     passthru = (prevAttrs.passthru or {}) // extraPassthru // {
-      inherit sandboxProfiles;
       checkSandboxed = runCommand "${pkgName}-check-sandboxed" {} ''
         set -e
         # invoke each binary in a way only the sandbox wrapper will recognize,
@@ -229,7 +229,7 @@ let
     };
   });
 
-  make-sandboxed = { pkgName, package, method, wrapperType, netDev ? null, dns ? null, allowedHomePaths ? [], allowedRootPaths ? [], autodetectCliPaths ? null, binMap ? {}, capabilities ? [], embedProfile ? false, embedSandboxer ? false, extraConfig ? [], whitelistPwd ? false }@args:
+  make-sandboxed = { pkgName, package, wrapperType, binMap ? {}, embedSandboxer ? false, extraSandboxerArgs ? [], passthru ? {} }@args:
   let
     unsandboxed = package;
     sane-sandboxed' = if embedSandboxer then
@@ -240,48 +240,7 @@ let
       sane-sandboxed.meta.mainProgram
     ;
 
-    allowPath = p: [
-      "--sane-sandbox-path"
-      p
-    ];
-    allowHomePath = p: [
-      "--sane-sandbox-home-path"
-      p
-    ];
-    allowPaths = paths: lib.flatten (builtins.map allowPath paths);
-    allowHomePaths = paths: lib.flatten (builtins.map allowHomePath paths);
-
-    capabilityFlags = lib.flatten (builtins.map (c: [ "--sane-sandbox-cap" c ]) capabilities);
-
-    netItems = lib.optionals (netDev != null) [
-      "--sane-sandbox-net"
-      netDev
-    ] ++ lib.optionals (dns != null) (
-      lib.flatten (builtins.map
-        (addr: [ "--sane-sandbox-dns" addr ])
-        dns
-      )
-    );
-
-    sandboxFlags = [
-      "--sane-sandbox-method" method
-    ]
-      ++ netItems
-      ++ allowPaths allowedRootPaths
-      ++ allowHomePaths allowedHomePaths
-      ++ capabilityFlags
-      ++ lib.optionals (autodetectCliPaths != null) [ "--sane-sandbox-autodetect" autodetectCliPaths ]
-      ++ lib.optionals whitelistPwd [ "--sane-sandbox-add-pwd" ]
-      ++ extraConfig;
-
-    sandboxProfilesPkg = writeTextFile {
-      name = "${pkgName}-sandbox-profiles";
-      destination = "/share/sane-sandboxed/profiles/${pkgName}.profile";
-      text = builtins.concatStringsSep "\n" sandboxFlags;
-    };
-    sandboxProfileDir = "${sandboxProfilesPkg}/share/sane-sandboxed/profiles";
-
-    maybeEmbedProfilesDir = lib.optionalString embedProfile ''"--sane-sandbox-profile-dir" "${sandboxProfileDir}"'';
+    extraSandboxerArgsStr = lib.escapeShellArgs extraSandboxerArgs;
 
     # two ways i could wrap a package in a sandbox:
     # 1. package.overrideAttrs, with `postFixup`.
@@ -293,7 +252,7 @@ let
       inplace = sandboxBinariesInPlace
         binMap
         sane-sandboxed'
-        maybeEmbedProfilesDir
+        extraSandboxerArgsStr
         pkgName
         (makeHookable unsandboxed);
 
@@ -301,7 +260,7 @@ let
         sandboxedBin = sandboxBinariesInPlace
           binMap
           sane-sandboxed'
-          maybeEmbedProfilesDir
+          extraSandboxerArgsStr
           pkgName
           (symlinkBinaries pkgName unsandboxed);
         sandboxedNonBin = sandboxNonBinaries pkgName unsandboxed sandboxedBin;
@@ -313,9 +272,10 @@ let
     };
     packageWrapped = sandboxedBy."${wrapperType}";
   in
-    fixupMetaAndPassthru pkgName packageWrapped sandboxProfilesPkg {
+    fixupMetaAndPassthru pkgName packageWrapped (passthru // {
+      # allow the user to build this package, but sandboxed in a different manner.
+      # e.g. `<pkg>.sandboxedBy.inplace`.
       inherit sandboxedBy;
-      withEmbeddedSandboxer = make-sandboxed (args // { embedSandboxer = true; embedProfile = true; });
-    }
+    })
   ;
 in make-sandboxed

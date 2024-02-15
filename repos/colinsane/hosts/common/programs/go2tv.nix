@@ -41,10 +41,10 @@ in
     sandbox.extraHomePaths = [
       "Music"
       "Videos"
+      "Videos/servo"
     ];
     sandbox.extraPaths = [
       "/mnt/servo/media/Music"
-      "/mnt/servo/media/Videos"
     ];
   };
   # for serving local files

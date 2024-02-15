@@ -236,10 +236,14 @@ in
         sandbox.method = "bwrap";  # landlock works, but requires all of /proc to be linked
         sandbox.wrapperType = "inplace";  # probably wrappedDerivation could work too.
         sandbox.net = "all";
+        sandbox.whitelistAudio = true;
+        sandbox.whitelistDbus = [ "user" ];  # mpris
+        sandbox.whitelistWayland = true;
         sandbox.extraHomePaths = [
           "dev"  # for developing anything web-related
           "tmp"
           "Pictures"
+          "Pictures/servo-macros"
         ] ++ lib.optionals cfg.addons.browserpass-extension.enable [
           # browserpass needs these paths:
           # - private/knowledge/secrets/accounts: where the encrypted account secrets live
@@ -252,11 +256,6 @@ in
           ".ssh/id_ed25519"
           # ".config/sops"
           "private/knowledge/secrets/accounts"
-        ];
-        sandbox.extraPaths = [
-          # ~/Pictures/servo-macros links to here.
-          # TODO: consider a bind-mount, so that access to ~/Pictures also gives access to here.
-          "/mnt/servo/media/Pictures/macros"
         ];
         fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};  #< needs to be created, not *just* added to the sandbox
 

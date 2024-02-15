@@ -7,6 +7,7 @@
     # packageUnwrapped = pkgs.libreoffice-still;
     packageUnwrapped = pkgs.libreoffice-fresh;
     sandbox.method = "bwrap";
+    sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = true;
     sandbox.extraHomePaths = [
       # allow a spot to save files.

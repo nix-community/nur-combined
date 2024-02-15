@@ -4,10 +4,10 @@
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  # nontraditional package structure, where binaries live in /share/spotify
     sandbox.net = "clearnet";
-    sandbox.extraConfig = [
-      "--sane-sandbox-firejail-arg"
-      "--keep-dev-shm"
-    ];
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [ "user" ];  # mpris
+    sandbox.whitelistWayland = true;
+
     persist.byStore.plaintext = [
       # probably just songs and such (haven't checked)
       ".cache/spotify"

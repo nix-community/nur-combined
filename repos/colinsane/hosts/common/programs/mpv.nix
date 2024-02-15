@@ -65,7 +65,21 @@ in
     sandbox.method = "bwrap";
     sandbox.autodetectCliPaths = true;
     sandbox.net = "all";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [ "user" ];  #< mpris
     sandbox.whitelistDri = true;  #< mpv has excellent fallbacks to non-DRI, but DRI offers a good 30%-50% reduced CPU
+    sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      ".config/mpv"  #< else mpris plugin crashes on launch
+      # it's common for album (or audiobook, podcast) images/lyrics/metadata to live adjacent to the primary file.
+      # CLI detection is too poor to pick those up, so expose the common media dirs to the sandbox to make that *mostly* work.
+      "Books"
+      "Books/servo"
+      "Music"
+      "Videos"
+      "Videos/servo"
+    ];
+    sandbox.extraRuntimePaths = [];
 
     persist.byStore.plaintext = [ ".local/state/mpv/watch_later" ];
     fs.".config/mpv/input.conf".symlink.text = let

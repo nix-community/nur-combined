@@ -45,7 +45,7 @@ in self // {
     # of the right file. meta.position gets overwritten if set in overrideAttrs, hence this
     # manual `//` hack
     position = let
-      pos = builtins.unsafeGetAttrPos "updateScript" self.passthru;
+      pos = builtins.unsafeGetAttrPos "src" self;
     in "${pos.file}:${builtins.toString pos.line}";
   };
 }

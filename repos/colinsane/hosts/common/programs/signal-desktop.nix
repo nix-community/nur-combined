@@ -25,6 +25,8 @@ in
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistWayland = true;
 
     # creds, media
     persist.byStore.private = [

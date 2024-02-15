@@ -2,6 +2,7 @@
 let
   saneCfg = config.sane;
   cfg = config.sane.programs;
+  path-lib = sane-lib.path;
 
   # create a map:
   # {
@@ -38,34 +39,44 @@ let
       package
     else
       let
+        makeProfile = pkgs.callPackage ./make-sandbox-profile.nix { };
         makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { sane-sandboxed = config.sane.sandboxHelper; };
+
+        # removeStorePaths: [ str ] -> [ str ], but remove store paths, because nix evals aren't allowed to contain any (for purity reasons?)
+        removeStorePaths = lib.filter (p: !(lib.hasPrefix "/nix/store" p));
+        # onlySymlinks: [ str ] -> [ str ], keeping only those strings which represent paths that are symlinks
+        onlySymlinks = lib.filter
+          (p: (config.sane.fs."${p}" or { symlink = null; }).symlink != null);
+        # expandSymlinksOnce: [ str ] -> [ str ], returning all the original paths plus dereferencing any symlinks and adding their targets to this list.
+        derefSymlinks = paths: builtins.map
+          (p: config.sane.fs."${p}".symlink.target)
+          (onlySymlinks paths)
+        ;
+        expandSymlinksOnce = paths: lib.unique (paths ++ removeStorePaths (derefSymlinks paths));
+        expandSymlinks = lib.converge expandSymlinksOnce;
+
         vpn = lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn);
-      in
-        makeSandboxed {
-          inherit pkgName package;
-          inherit (sandbox)
-            autodetectCliPaths
-            binMap
-            capabilities
-            embedProfile
-            embedSandboxer
-            extraConfig
-            method
-            whitelistPwd
-            wrapperType
-          ;
-          netDev = if sandbox.net == "vpn" then
-            vpn.bridgeDevice
-          else
-            sandbox.net;
-          dns = if sandbox.net == "vpn" then
-            vpn.dns
-          else
-            null;
-          allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths ++ [
-            ".config/mimeo"  #< TODO: required, until i fully integrate xdg-open into sandboxing. else, `xdg-open https://...` inifinite-loops.
-          ];
-          allowedRootPaths = [
+
+        sandboxProfilesFor = userName: let
+          homeDir = config.sane.users."${userName}".home;
+          uid = config.users.users."${userName}".uid;
+          xdgRuntimeDir = "/run/user/${builtins.toString uid}";
+          fullHomePaths = lib.optionals (userName != null) (
+            builtins.map
+              (p: path-lib.concat [ homeDir p ])
+              (builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths)
+          );
+          fullRuntimePaths = lib.optionals (userName != null) (
+            builtins.map
+              (p: path-lib.concat [ xdgRuntimeDir p ])
+              (
+                sandbox.extraRuntimePaths
+                ++ lib.optionals sandbox.whitelistAudio [ "pipewire-0" "pipewire-0.lock" "pulse" ]  # also pipewire-0-manager, unknown purpose
+                ++ lib.optionals (builtins.elem "user" sandbox.whitelistDbus) [ "bus" ]
+                ++ lib.optionals sandbox.whitelistWayland [ "wayland-1" "wayland-1.lock" ]  # app can still communicate with wayland server w/o this, if it has net access
+              )
+          );
+          allowedPaths = [
             "/nix/store"
             "/bin/sh"
 
@@ -77,11 +88,56 @@ let
             # /run/opengl-driver is a symlink into /nix/store; needed by e.g. mpv
             "/run/opengl-driver"
             "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
-            "/run/user"  #< particularly /run/user/$id/wayland-1, pulse, etc.
             "/run/secrets/home"  #< TODO: this could be restricted per-app based on the HOME paths they need
             "/usr/bin/env"
-          ] ++ sandbox.extraPaths;
-        }
+          ] ++ lib.optionals (builtins.elem "system" sandbox.whitelistDbus) [ "/run/dbus/system_bus_socket" ]
+            ++ sandbox.extraPaths ++ fullHomePaths ++ fullRuntimePaths;
+        in makeProfile {
+          inherit pkgName;
+          inherit (sandbox)
+            autodetectCliPaths
+            capabilities
+            extraConfig
+            method
+            whitelistPwd
+          ;
+          netDev = if sandbox.net == "vpn" then
+            vpn.bridgeDevice
+          else
+            sandbox.net;
+          dns = if sandbox.net == "vpn" then
+            vpn.dns
+          else
+            null;
+          allowedPaths = expandSymlinks allowedPaths;
+        };
+        defaultProfile = sandboxProfilesFor config.sane.defaultUser;
+        makeSandboxedArgs = {
+          inherit pkgName package;
+          inherit (sandbox)
+            binMap
+            embedSandboxer
+            wrapperType
+          ;
+        };
+      in
+        makeSandboxed (makeSandboxedArgs // {
+          passthru = {
+            inherit sandboxProfilesFor;
+            withEmbeddedSandboxer = makeSandboxed (makeSandboxedArgs // {
+              # embed the sandboxer AND a profile, whichever profile the package would have if installed by the default user.
+              # useful to iterate a package's sandbox config without redeploying.
+              embedSandboxer = true;
+              extraSandboxerArgs = [
+                "--sane-sandbox-profile-dir" "${defaultProfile}/share/sane-sandboxed/profiles"
+              ];
+            });
+            withEmbeddedSandboxerOnly = makeSandboxed (makeSandboxedArgs // {
+              # embed the sandboxer but no profile. useful pretty much only for testing changes within the actual sandboxer.
+              embedSandboxer = true;
+            });
+          };
+        })
   );
   pkgSpec = with lib; types.submodule ({ config, name, ... }: {
     options = {
@@ -195,7 +251,11 @@ let
       env = mkOption {
         type = types.attrsOf types.str;
         default = {};
-        description = "environment variables to set when this program is enabled";
+        description = ''
+          environment variables to set when this program is enabled.
+          env vars set here are intended to propagate everywhere into the user's (or system's) session/services;
+          they aren't visible just to the program which specified them.
+        '';
       };
       services = mkOption {
         # see: <repo:nixos/nixpkgs:nixos/lib/utils.nix>
@@ -223,14 +283,16 @@ let
       sandbox.net = mkOption {
         type = types.coercedTo
           types.str
-          (s: if s == "clearnet" then "all" else s)
+          (s: if s == "clearnet" || s == "localhost" then "all" else s)
           (types.enum [ null "all" "vpn" ]);
         default = null;
         description = ''
           how this app should have its network traffic routed.
           - "all": unsandboxed network.
           - "clearnet": traffic is routed only over clearnet.
-            currently, just an alias for "all"
+            currently, just an alias for "all".
+          - "localhost": only needs access to other services running on this host.
+            currently, just an alias for "all".
           - "vpn": to route all traffic over the default VPN.
           - null: to maximally isolate from the network.
         '';
@@ -246,23 +308,11 @@ let
         type = types.bool;
         default = true;
       };
-      sandbox.embedProfile = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          whether to embed the sandbox settings (path access, etc) into the wrapped binary that lives in /nix/store (true),
-          or to encode only a profile name in the wrapper, and use it to query the settings at runtime (false).
-
-          embedded profile means you have to rebuild the wrapper any time you adjust the sandboxing flags,
-          but it also means you can run the program without installing it: helpful for iteration.
-        '';
-      };
       sandbox.embedSandboxer = mkOption {
         type = types.bool;
         default = false;
         description = ''
           whether the sandboxed application should reference its sandboxer by path or by name.
-          if you're setting this option you probably also want `embedProfile = true`
         '';
       };
       sandbox.wrapperType = mkOption {
@@ -284,20 +334,14 @@ let
       sandbox.autodetectCliPaths = mkOption {
         type = types.coercedTo types.bool
           (b: if b then "existing" else null)
-          (types.nullOr (types.enum [ "existing" "existingFileOrParent" ]));
+          (types.nullOr (types.enum [ "existing" "existingFileOrParent" "parent" ]));
         default = null;
         description = ''
           if a CLI argument looks like a PATH, should we add it to the sandbox?
           - null => never
           - "existing" => only if the file exists
+          - "parent" => allow access to the directory containing any file (whether that file exists or not). useful for certain media viewers/library managers.
           - "existingFileOrParent" => add the file if it exists; if not, add its parent if that exists. useful for programs which create files.
-        '';
-      };
-      sandbox.whitelistPwd = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          allow the program full access to whichever directory it was launched from.
         '';
       };
       sandbox.binMap = mkOption {
@@ -318,6 +362,20 @@ let
           e.g. sandbox.capabilities = [ "net_admin" "net_raw" ];
         '';
       };
+      sandbox.whitelistAudio = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow sandbox to freely interact with pulse/pipewire.
+        '';
+      };
+      sandbox.whitelistDbus = mkOption {
+        type = types.listOf (types.enum [ "user" "system" ]);
+        default = [ ];
+        description = ''
+          allow sandbox to freely interact with dbus services.
+        '';
+      };
       sandbox.whitelistDri = mkOption {
         type = types.bool;
         default = false;
@@ -329,6 +387,30 @@ let
           broad and unaudited attack surface.
         '';
       };
+      sandbox.whitelistPwd = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow the program full access to whichever directory it was launched from.
+        '';
+      };
+      sandbox.whitelistWayland = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow sandbox to communicate with the wayland server.
+          note that this does NOT permit access to compositor admin tooling like `swaymsg`.
+        '';
+      };
+      sandbox.whitelistX = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow the sandbox to communicate with the X server.
+          typically, this is actually the Xwayland server and you should also enable `whitelistWayland`.
+        '';
+      };
+
       sandbox.extraPaths = mkOption {
         type = types.listOf types.str;
         default = [];
@@ -343,6 +425,15 @@ let
           additional home-relative paths to bind into the sandbox.
         '';
       };
+      sandbox.extraRuntimePaths = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = ''
+          additional $XDG_RUNTIME_DIR-relative paths to bind into the sandbox.
+          e.g. `[ "bus" "wayland-1" ]` to bind the dbus and wayland sockets.
+          or `[ "/" ]` to bind all of XDG_RUNTIME_DIR.
+        '';
+      };
       sandbox.extraConfig = mkOption {
         type = types.listOf types.str;
         default = [];
@@ -354,6 +445,14 @@ let
             "--sane-sandbox-firejail-arg"
             "--keep-dev-shm"
           ]
+        '';
+      };
+      sandbox.usePortal = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          instruct the sandboxed program to open external applications
+          via calls to xdg-desktop-portal.
         '';
       };
       configOption = mkOption {
@@ -388,12 +487,17 @@ let
       # this gets the symlink into the sandbox, but not the actual secret.
       fs = lib.mapAttrs (_homePath: _secretSrc: {}) config.secrets;
 
+      sandbox.net = lib.mkIf config.sandbox.whitelistX "localhost";
+
       sandbox.extraPaths = lib.mkIf config.sandbox.whitelistDri [
         # /dev/dri/renderD128: requested by wayland-egl (e.g. KOreader, animatch, geary)
         # - but everything seems to gracefully fallback to *something* (MESA software rendering?)
         #   - CPU usage difference between playing videos in Gtk apps (e.g. fractal) with v.s. without DRI is 10% v.s. 90%.
         # - GPU attack surface is *large*: <https://security.stackexchange.com/questions/182501/modern-linux-gpu-driver-security>
         "/dev/dri" "/sys/dev/char" "/sys/devices" # (lappy: "/sys/devices/pci0000:00", moby needs something different)
+      ];
+      sandbox.extraConfig = lib.mkIf config.sandbox.usePortal [
+        "--sane-sandbox-portal"
       ];
     };
   });
@@ -421,20 +525,21 @@ let
     system.checks = lib.optionals (p.enabled && p.sandbox.enable && p.sandbox.method != null && p.package != null) [
       p.package.passthru.checkSandboxed
     ];
-    sane.sandboxProfiles = lib.optionals (p.enabled && p.sandbox.enable && p.sandbox.method != null && p.package != null) [
-      p.package.passthru.sandboxProfiles
-    ];
 
     # conditionally add to system PATH and env
     environment = lib.optionalAttrs (p.enabled && p.enableFor.system) {
-      systemPackages = lib.optional (p.package != null) p.package;
+      systemPackages = lib.optionals (p.package != null) (
+        [ p.package ] ++ lib.optional (p.sandbox.enable && p.sandbox.method != null) (p.package.passthru.sandboxProfilesFor null)
+      );
       # sessionVariables are set by PAM, as opposed to environment.variables which goes in /etc/profile
       sessionVariables = p.env;
     };
 
     # conditionally add to user(s) PATH
-    users.users = lib.mapAttrs (user: en: {
-      packages = lib.optional (p.package != null && en && p.enabled) p.package;
+    users.users = lib.mapAttrs (userName: en: {
+      packages = lib.optionals (p.package != null && en && p.enabled) (
+        [ p.package ] ++ lib.optional (p.sandbox.enable && p.sandbox.method != null) (p.package.passthru.sandboxProfilesFor userName)
+      );
     }) p.enableFor.user;
 
     # conditionally persist relevant user dirs and create files
@@ -520,14 +625,6 @@ in
         exposed to facilitate debugging, e.g. `nix build '.#hostConfigs.desko.sane.sandboxHelper'`
       '';
     };
-    sane.sandboxProfiles = mkOption {
-      type = types.listOf types.package;
-      default = [];
-      description = ''
-        packages with /share/sane-sandbox profiles indicating how to sandbox their associated package.
-        this is mostly an internal implementation detail.
-      '';
-    };
     sane.strictSandboxing = mkOption {
       type = types.enum [ false "warn" "assert" ];
       default = "warn";
@@ -544,7 +641,6 @@ in
         environment.systemPackages = f.environment.systemPackages;
         environment.sessionVariables = f.environment.sessionVariables;
         users.users = f.users.users;
-        sane.sandboxProfiles = f.sane.sandboxProfiles;
         sane.users = f.sane.users;
         sops.secrets = f.sops.secrets;
         system.checks = f.system.checks;
@@ -554,13 +650,7 @@ in
       (take (sane-lib.mkTypedMerge take configs))
       {
         environment.pathsToLink = [ "/share/sane-sandboxed" ];
-        environment.systemPackages = [(
-          config.sane.sandboxHelper.withProfiles
-            (pkgs.symlinkJoin {
-              name = "sane-sandbox-profiles";
-              paths = config.sane.sandboxProfiles;
-            })
-        )];
+        environment.systemPackages = [ config.sane.sandboxHelper ];
       }
       {
         # expose the pkgs -- as available to the system -- as a build target.
@@ -575,6 +665,7 @@ in
           (lib.mapAttrs' (pkgName: _pkg: { name = "gnome.${pkgName}"; value = {}; }) pkgs.gnome)
           (lib.mapAttrs' (pkgName: _pkg: { name = "libsForQt5.${pkgName}"; value = {}; }) pkgs.libsForQt5)
           (lib.mapAttrs' (pkgName: _pkg: { name = "mate.${pkgName}"; value = {}; }) pkgs.mate)
+          (lib.mapAttrs' (pkgName: _pkg: { name = "perlPackages.${pkgName}"; value = {}; }) pkgs.perlPackages)
           (lib.mapAttrs' (pkgName: _pkg: { name = "plasma5Packages.${pkgName}"; value = {}; }) pkgs.plasma5Packages)
           (lib.mapAttrs' (pkgName: _pkg: { name = "python3Packages.${pkgName}"; value = {}; }) pkgs.python3Packages)
           (lib.mapAttrs' (pkgName: _pkg: { name = "sane-scripts.${pkgName}"; value = {}; }) pkgs.sane-scripts)

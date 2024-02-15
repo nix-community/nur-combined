@@ -1,6 +1,6 @@
 #!@runtimeShell@
 
-profileDirs=(@profileDirs@)
+profileDirs=()
 isDebug=
 isDisable=
 
@@ -56,6 +56,12 @@ tryLoadProfileByName() {
   fi
 }
 
+initDefaultProfileDirs() {
+  for d in ${XDG_DATA_DIRS//:/ }; do
+    profileDirs+=("$d/sane-sandboxed/profiles")
+  done
+}
+
 # convert e.g. `file:///Local%20Users/foo.mp3` to `file:///Local Users/foo.mp3`
 urldecode() {
   # source: <https://stackoverflow.com/q/6250698>
@@ -66,6 +72,28 @@ urldecode() {
 # return the path to this file or directory's parent, even if the input doesn't exist.
 parent() {
   realpath --logical --no-symlinks --canonicalize-missing "$1/.."
+}
+
+# subroutine of `tryArgAsPath` for after the arg has been converted into a valid (but possibly not existing) path.
+# adds an entry to `cliPathArgs` and evals `true` on success;
+# evals `false` if the path couldn't be added, for any reason.
+tryPath() {
+  _path="$1"
+  _how="$2"
+
+  if [ "$_how" = "existing" ]; then
+    if [ -e "$_path" ]; then
+      cliPathArgs+=("$_path")
+      true
+    fi
+    false
+  elif [ "$_how" = "parent" ]; then
+    # the caller wants access to the entire directory containing this directory regardless of the file's existence.
+    tryPath "$(parent "$_path")" "existing"
+  elif [ "$_how" = "existingFileOrParent" ]; then
+    # the caller wants access to the file, or write access to the directory so it may create the file if it doesn't exist.
+    tryPath "$_path" "existing" || tryPath "$_path" "parent"
+  fi
 }
 
 # if the argument looks path-like, then add it to cliPathArgs.
@@ -83,22 +111,15 @@ tryArgAsPath() {
     # commonly found when xdg-open/mimeo passes a path on to an application
     # if URIs to relative paths exist, this implementation doesn't support them
     _path="/$(urldecode "${_arg:8}")"
+  elif [ "${_path:0:1}" = "-" ]; then
+    # 99% chance it's a CLI argument. if not, use `./-<...>`
+    return
   else
     # assume relative path
     _path="$(pwd)/$_arg"
   fi
 
-  if [ -e "$_path" ]; then
-    cliPathArgs+=("$_path")
-  elif [ "$_how" = "existingFileOrParent" ]; then
-    # the path doesn't exist, but that's because the program might create it.
-    if [ "${_path:0:1}" = "-" ]; then
-      # 99% chance it's a CLI argument. if not, use `./-<...>`
-      return
-    elif [ -e "$(parent "$_path/..")" ]; then
-      cliPathArgs+=("$_path/..")
-    fi
-  fi
+  tryPath "$_path" "$_how"
 }
 
 # remove duplicate //, reduce '.' and '..' (naively).
@@ -118,8 +139,8 @@ ensureTrailingSlash() {
 
 ## parse CLI args into the variables declared above
 ## args not intended for this helper are put into $parseArgsExtra
+parseArgsExtra=()
 parseArgs() {
-  parseArgsExtra=()
   while [ "$#" -ne 0 ]; do
     _arg="$1"
     shift
@@ -170,6 +191,16 @@ parseArgs() {
         shift
         capabilities+=("$_cap")
         ;;
+      (--sane-sandbox-portal)
+        # instruct glib/gtk apps to perform actions such as opening external files via dbus calls to org.freedesktop.portal.*.
+        # note that this env var primarily acts as a *fallback*: apps only open files via the portal if they don't know how to themelves.
+        # this switch is typically accompanied by removing all MIME associations from the app's view, then.
+        export GIO_USE_PORTALS=1
+        # old name, beginning to be phased out as of 2023-10-02
+        export GTK_USE_PORTAL=1
+        # make `xdg-open` just forward to the portal
+        export NIXOS_XDG_OPEN_USE_PORTAL=1
+        ;;
       (--sane-sandbox-dns)
         # N.B.: these named temporary variables ensure that "set -x" causes $1 to be printed
         _dns="$1"
@@ -190,11 +221,6 @@ parseArgs() {
         net="$1"
         shift
         ;;
-      (--sane-sandbox-home-path)
-        _path="$HOME/$1"
-        shift
-        paths+=("$_path")
-        ;;
       (--sane-sandbox-path)
         _path="$1"
         shift
@@ -205,13 +231,17 @@ parseArgs() {
         paths+=("$_path")
         ;;
       (--sane-sandbox-profile)
+        # load the profile *immediately*, inline.
+        # this way, user arguments which come later on the CLI can override any profile config, v.s. if profile loading were defered.
         tryLoadProfileByName "$1"
         shift
         ;;
       (--sane-sandbox-profile-dir)
+        # add another directory in which to search for profiles,
+        # and give it *greater* precedence than the existing search directories (i.e. override the default profile)
         _dir="$1"
         shift
-        profileDirs+=("$_dir")
+        profileDirs=("$_dir" "${profileDirs[@]}")
         ;;
       (*)
         parseArgsExtra+=("$_arg")
@@ -300,11 +330,16 @@ bwrapIngestCapability() {
 # WIP
 
 bwrapExec() {
+  # --unshare-all implies the following:
   # --unshare-pid: mean that the /proc mount does not expose /proc/$PID/ for every other process on the machine.
   # --unshare-net creates a new net namespace with only the loopback interface.
   #               if `bwrapFlags` contains --share-net, thiss is canceled and the program sees an unsandboxed network.
+  # --unshare-ipc
+  # --unshare-cgroup
+  # --unshare-uts
+  # --unshare-user (implicit to every non-suid call to bwrap)
   PATH="$PATH:@bubblewrap@/bin" exec \
-    bwrap --unshare-net --unshare-pid --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
+    bwrap --unshare-all --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
     "${cliArgs[@]}"
 }
 
@@ -509,6 +544,7 @@ ingestForBackend() {
 ## TOPLEVEL EXECUTION
 #  no code evaluated before this point should be dependent on user args / environment.
 
+initDefaultProfileDirs
 parseArgsAndEnvironment "$@"
 
 # variables meant to be inherited

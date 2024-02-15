@@ -49,13 +49,12 @@ in {
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
     sandbox.whitelistDri = true;  # reduces startup time and subjective page flip time
-    sandbox.embedProfile = true;
+    sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Books"
+      "Books/servo"
     ];
-    sandbox.extraPaths = [
-      "/mnt/servo/media/Books"
-    ];
+
     # koreader applies these lua "patches" at boot:
     # - <https://github.com/koreader/koreader/wiki/User-patches>
     # the naming is IMPORTANT. these must start with a `2-` in order to be invoked during the right initialization phase

@@ -48,6 +48,10 @@ in
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [ "user" ];  # notifications
+    sandbox.whitelistDri = true;  #< not strictly necessary, but we need all the perf we can get on moby
+    sandbox.whitelistWayland = true;
 
     persist.byStore.private = [ ".local/share/dino" ];
 

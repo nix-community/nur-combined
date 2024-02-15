@@ -33,6 +33,23 @@ in
 
   security.pam.mount.enable = true;
 
+  system.activationScripts.makeEtcShadowSandboxable = {
+    deps = [ "users" ];
+    text = ''
+      # /etc is a public config directory. secrets like /etc/shadow don't belong there.
+      # move /etc/shadow to a non-config directory but link to it from /etc.
+      # this lets me keep all of /etc public, but only expose the private shadow file to sandboxed programs selectively.
+      # this is technically racy, but the nixos `users` activation script is not easily patchable.
+      mkdir -p /var/lib/etc_secrets
+      cp --preserve=all --dereference /etc/shadow /var/lib/etc_secrets/shadow
+      chown root:wheel /var/lib/etc_secrets/shadow
+      ln -sf /var/lib/etc_secrets/shadow /etc/shadow
+    '';
+  };
+  # define this specifically so that other parts of the config can know the real location of /etc/shadow
+  # i.e. so that sandboxed programs which require it can indeed provision it (sane.programs.sandbox...)
+  sane.fs."/etc/shadow".symlink.target = "/var/lib/etc_secrets/shadow";
+
   # pam.d ordering (auth section only):
   # /etc/pam.d/greetd:
   #   auth optional pam_unix.so likeauth nullok # unix-early (order 11600)

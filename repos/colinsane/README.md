@@ -6,18 +6,18 @@ this is the top-level repo from which i configure/deploy all my NixOS machines:
 - server
 - mobile phone (Pinephone)
 
-everything outside of <./hosts/> and <./secrets/> is intended for export, to be importable for use by 3rd parties.
+everything outside of [hosts/](./hosts/) and [secrets/](./secrets/) is intended for export, to be importable for use by 3rd parties.
 the only hard dependency for my exported pkgs/modules should be [nixpkgs][nixpkgs].
-building <./hosts/> will require [sops][sops].
+building [hosts/](./hosts/) will require [sops][sops].
 
 you might specifically be interested in these files (elaborated further in #key-points-of-interest):
 - [`sxmo-utils`](./pkgs/additional/sxmo-utils/default.nix)
   - [example SXMO deployment](./hosts/modules/gui/sxmo/default.nix)
 - [my implementation of impermanence](./modules/persist/default.nix)
 - my way of deploying dotfiles/configuring programs per-user:
-  - <./modules/fs/default.nix>
-  - <./modules/programs.nix>
-  - <./modules/users.nix>
+  - [modules/fs/](./modules/fs/default.nix)
+  - [modules/programs/](./modules/programs/default.nix)
+  - [modules/users.nix](./modules/users.nix)
 
 [nixpkgs]: https://github.com/NixOS/nixpkgs
 [sops]: https://github.com/Mic92/sops-nix
@@ -35,37 +35,37 @@ or follow the instructions [here][NUR] to use it via the Nix User Repositories.
 
 ## Layout
 - `doc/`
-    - instructions for tasks i find myself doing semi-occasionally in this repo.
+  - instructions for tasks i find myself doing semi-occasionally in this repo.
 - `hosts/`
-    - the bulk of config which isn't factored with external use in mind.
-    - that is, if you were to add this repo to a flake.nix for your own use,
-      you won't likely be depending on anything in this directory.
+  - the bulk of config which isn't factored with external use in mind.
+  - that is, if you were to add this repo to a flake.nix for your own use,
+    you won't likely be depending on anything in this directory.
 - `integrations/`
-    - code intended for consumption by external tools (e.g. the Nix User Repos)
+  - code intended for consumption by external tools (e.g. the Nix User Repos)
 - `modules/`
-    - config which is gated behind `enable` flags, in similar style to nixpkgs'
-      `nixos/` directory.
-    - if you depend on this repo, it's most likely for something in this directory.
+  - config which is gated behind `enable` flags, in similar style to nixpkgs'
+    `nixos/` directory.
+  - if you depend on this repo, it's most likely for something in this directory.
 - `nixpatches/`
-    - literally, diffs i apply atop upstream nixpkgs before performing further eval.
+  - literally, diffs i apply atop upstream nixpkgs before performing further eval.
 - `overlays/`
-    - exposed via the `overlays` output in `flake.nix`.
-    - predominantly a list of `callPackage` directives.
+  - exposed via the `overlays` output in `flake.nix`.
+  - predominantly a list of `callPackage` directives.
 - `pkgs/`
-    - derivations for things not yet packaged in nixpkgs.
-    - derivations for things from nixpkgs which i need to `override` for some reason.
-    - inline code for wholly custom packages (e.g. `pkgs/additional/sane-scripts/` for CLI tools
-      that are highly specific to my setup).
+  - derivations for things not yet packaged in nixpkgs.
+  - derivations for things from nixpkgs which i need to `override` for some reason.
+  - inline code for wholly custom packages (e.g. `pkgs/additional/sane-scripts/` for CLI tools
+    that are highly specific to my setup).
 - `scripts/`
-    - scripts which aren't reachable on a deployed system, but may aid manual deployments
+  - scripts which aren't reachable on a deployed system, but may aid manual deployments
 - `secrets/`
-    - encrypted keys, API tokens, anything which one or more of my machines needs
-      read access to but shouldn't be world-readable.
-    - not much to see here
+  - encrypted keys, API tokens, anything which one or more of my machines needs
+    read access to but shouldn't be world-readable.
+  - not much to see here
 - `templates/`
-    - exposed via the `templates` output in `flake.nix`.
-    - used to instantiate short-lived environments.
-    - used to auto-fill the boiler-plate portions of new packages.
+  - exposed via the `templates` output in `flake.nix`.
+  - used to instantiate short-lived environments.
+  - used to auto-fill the boiler-plate portions of new packages.
 
 
 ## Key Points of Interest
@@ -73,35 +73,40 @@ or follow the instructions [here][NUR] to use it via the Nix User Repositories.
 i.e. you might find value in using these in your own config:
 
 - `modules/fs/`
-    - use this to statically define leafs and nodes anywhere in the filesystem,
-      not just inside `/nix/store`.
-    - e.g. specify that `/var/www` should be:
-        - owned by a specific user/group
-        - set to a specific mode
-        - symlinked to some other path
-        - populated with some statically-defined data
-        - populated according to some script
-        - created as a dependency of some service (e.g. `nginx`)
-    - values defined here are applied neither at evaluation time _nor_ at activation time.
-        - rather, they become systemd services.
-        - systemd manages dependencies
-        - e.g. link `/var/www -> /mnt/my-drive/www` only _after_ `/mnt/my-drive/www` appears)
-    - this is akin to using [Home Manager's][home-manager] file API -- the part which lets you
-      statically define `~/.config` files -- just with a different philosophy.
+  - use this to statically define leafs and nodes anywhere in the filesystem,
+    not just inside `/nix/store`.
+  - e.g. specify that `/var/www` should be:
+    - owned by a specific user/group
+    - set to a specific mode
+    - symlinked to some other path
+    - populated with some statically-defined data
+    - populated according to some script
+    - created as a dependency of some service (e.g. `nginx`)
+  - values defined here are applied neither at evaluation time _nor_ at activation time.
+    - rather, they become systemd services.
+    - systemd manages dependencies
+    - e.g. link `/var/www -> /mnt/my-drive/www` only _after_ `/mnt/my-drive/www` appears)
+  - this is akin to using [Home Manager's][home-manager] file API -- the part which lets you
+    statically define `~/.config` files -- just with a different philosophy.
 - `modules/persist/`
-    - my alternative to the Impermanence module.
-    - this builds atop `modules/fs/` to achieve things stock impermanence can't:
-        - persist things to encrypted storage which is unlocked at login time (pam_mount).
-        - "persist" cache directories -- to free up RAM -- but auto-wipe them on mount
-          and encrypt them to ephemeral keys so they're unreadable post shutdown/unmount.
-- `modules/programs.nix`
-    - like nixpkgs' `programs` options, but allows both system-wide or per-user deployment.
-    - allows `fs` and `persist` config values to be gated behind program deployment:
-        - e.g. `/home/<user>/.mozilla/firefox` is persisted only for users who
-          `sane.programs.firefox.enableFor.user."<user>" = true;`
+  - my alternative to the Impermanence module.
+  - this builds atop `modules/fs/` to achieve things stock impermanence can't:
+    - persist things to encrypted storage which is unlocked at login time (pam_mount).
+    - "persist" cache directories -- to free up RAM -- but auto-wipe them on mount
+      and encrypt them to ephemeral keys so they're unreadable post shutdown/unmount.
+- `modules/programs/`
+  - like nixpkgs' `programs` options, but allows both system-wide or per-user deployment.
+  - allows `fs` and `persist` config values to be gated behind program deployment:
+    - e.g. `/home/<user>/.mozilla/firefox` is persisted only for users who
+      `sane.programs.firefox.enableFor.user."<user>" = true;`
+  - allows aggressive sandboxing any program:
+    - `sane.programs.firefox.sandbox.method = "bwrap";  # sandbox with bubblewrap`
+    - `sane.programs.firefox.sandbox.whitelistWayland = true;  # allow it to render a wayland window`
+    - `sane.programs.firefox.sandbox.extraHomePaths = [ "Downloads" ];  # allow it read/write access to ~/Downloads`
+    - integrated with `fs` and `persist` modules so that programs' config files and persisted data stores are linked into the sandbox w/o any extra involvement.
 - `modules/users.nix`
-    - convenience layer atop the above modules so that you can just write
-      `fs.".config/git"` instead of `fs."/home/colin/.config/git"`
+  - convenience layer atop the above modules so that you can just write
+    `fs.".config/git"` instead of `fs."/home/colin/.config/git"`
 
 some things in here could easily find broader use. if you would find benefit in
 them being factored out of my config, message me and we could work to make that happen.

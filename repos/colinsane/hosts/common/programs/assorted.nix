@@ -223,6 +223,17 @@ in
     # INDIVIDUAL PACKAGE DEFINITIONS
     blanket.sandbox.method = "bwrap";
     blanket.sandbox.wrapperType = "wrappedDerivation";
+    blanket.sandbox.whitelistAudio = true;
+    # blanket.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
+    blanket.sandbox.whitelistWayland = true;
+
+    brightnessctl.sandbox.method = "landlock";  # also bwrap, but landlock is more responsive
+    brightnessctl.sandbox.wrapperType = "wrappedDerivation";
+    brightnessctl.sandbox.extraPaths = [
+      "/sys/class/backlight"
+      "/sys/devices"
+    ];
+    brightnessctl.sandbox.whitelistDbus = [ "system" ];
 
     "cacert.unbundled".sandbox.enable = false;
 
@@ -231,13 +242,23 @@ in
     # auth token, preferences
     delfin.sandbox.method = "bwrap";
     delfin.sandbox.wrapperType = "wrappedDerivation";
+    delfin.sandbox.whitelistAudio = true;
+    # delfin.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
     delfin.sandbox.whitelistDri = true;
+    delfin.sandbox.whitelistWayland = true;
     delfin.sandbox.net = "clearnet";
     delfin.persist.byStore.private = [ ".config/delfin" ];
+
+    dig.sandbox.method = "bwrap";
+    dig.sandbox.wrapperType = "wrappedDerivation";
+    dig.sandbox.net = "all";
 
     # creds, but also 200 MB of node modules, etc
     discord.sandbox.method = "bwrap";
     discord.sandbox.wrapperType = "inplace";  #< /opt-style packaging
+    discord.sandbox.whitelistAudio = true;
+    # discord.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
+    discord.sandbox.whitelistWayland = true;
     discord.sandbox.net = "clearnet";
     discord.persist.byStore.private = [ ".config/discord" ];
 
@@ -284,6 +305,7 @@ in
     fuzzel.sandbox.enable = false;
     fuzzel.sandbox.method = "bwrap";  #< landlock nearly works, but unable to open ~/.cache
     fuzzel.sandbox.wrapperType = "wrappedDerivation";
+    fuzzel.sandbox.whitelistWayland = true;
     fuzzel.persist.byStore.private = [ ".cache/fuzzel" ];  #< this is a file of recent selections
 
     gawk.sandbox.method = "bwrap";  # TODO:sandbox: untested
@@ -301,32 +323,35 @@ in
 
     gimp.sandbox.method = "bwrap";
     gimp.sandbox.wrapperType = "wrappedDerivation";
+    gimp.sandbox.whitelistWayland = true;
     gimp.sandbox.extraHomePaths = [
       "Pictures"
+      "Pictures/servo-macros"
       "dev"
       "ref"
       "tmp"
-    ];
-    gimp.sandbox.extraPaths = [
-      "/mnt/servo/media/Pictures"
     ];
     gimp.sandbox.autodetectCliPaths = true;
 
     "gnome.gnome-calculator".sandbox.method = "bwrap";
     "gnome.gnome-calculator".sandbox.wrapperType = "inplace";  # /libexec/gnome-calculator-search-provider
+    "gnome.gnome-calculator".sandbox.whitelistWayland = true;
 
     # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
     "gnome.gnome-calendar".sandbox.method = "bwrap";
     "gnome.gnome-calendar".sandbox.wrapperType = "wrappedDerivation";
+    "gnome.gnome-calendar".sandbox.whitelistWayland = true;
 
     "gnome.gnome-clocks".sandbox.method = "bwrap";
     "gnome.gnome-clocks".sandbox.wrapperType = "wrappedDerivation";
+    "gnome.gnome-clocks".sandbox.whitelistWayland = true;
     "gnome.gnome-clocks".persist.byStore.private = [
       ".config/dconf"
     ];
 
     gnome-2048.sandbox.method = "bwrap";
     gnome-2048.sandbox.wrapperType = "wrappedDerivation";
+    gnome-2048.sandbox.whitelistWayland = true;
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
 
     # TODO: gnome-maps: move to own file
@@ -340,14 +365,45 @@ in
     # - win once (1) and (2) are satisfied
     "gnome.hitori".sandbox.method = "bwrap";
     "gnome.hitori".sandbox.wrapperType = "wrappedDerivation";
+    "gnome.hitori".sandbox.whitelistWayland = true;
 
     # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect
+
+    krita.sandbox.method = "bwrap";
+    krita.sandbox.wrapperType = "wrappedDerivation";
+    krita.sandbox.whitelistWayland = true;
+    krita.sandbox.autodetectCliPaths = "existing";
+    krita.sandbox.extraHomePaths = [
+      "dev"
+      "Pictures"
+      "Pictures/servo-macros"
+      "ref"
+      "tmp"
+    ];
+
+    libnotify.sandbox.method = "bwrap";
+    libnotify.sandbox.wrapperType = "wrappedDerivation";
+    libnotify.sandbox.whitelistDbus = [ "user" ];  # notify-send
+
+    losslesscut-bin.sandbox.method = "bwrap";
+    losslesscut-bin.sandbox.wrapperType = "wrappedDerivation";
+    losslesscut-bin.sandbox.extraHomePaths = [
+      "Music"
+      "Pictures"  # i have some videos in there too.
+      "Pictures/servo-macros"
+      "Videos"
+      "Videos/servo"
+      "tmp"
+    ];
+    losslesscut-bin.sandbox.whitelistAudio = true;
+    losslesscut-bin.sandbox.whitelistDri = true;
+    losslesscut-bin.sandbox.whitelistWayland = true;
+    losslesscut-bin.sandbox.whitelistX = true;
 
     mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
     mercurial.sandbox.wrapperType = "wrappedDerivation";
     mercurial.sandbox.net = "clearnet";
     mercurial.sandbox.whitelistPwd = true;
-    mimeo.sandbox.method = "capshonly";  # xdg-open replacement
 
     # actual monero blockchain (not wallet/etc; safe to delete, just slow to regenerate)
     # XXX: is it really safe to persist this? it doesn't have info that could de-anonymize if captured?
@@ -364,9 +420,15 @@ in
 
     pavucontrol.sandbox.method = "bwrap";
     pavucontrol.sandbox.wrapperType = "wrappedDerivation";
+    pavucontrol.sandbox.whitelistAudio = true;
+    pavucontrol.sandbox.whitelistWayland = true;
+
+    "perlPackages.FileMimeInfo".sandbox.enable = false;  #< TODO: sandbox `mimetype` but not `mimeopen`.
 
     pwvucontrol.sandbox.method = "bwrap";
     pwvucontrol.sandbox.wrapperType = "wrappedDerivation";
+    pwvucontrol.sandbox.whitelistAudio = true;
+    pwvucontrol.sandbox.whitelistWayland = true;
 
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
       requests
@@ -399,6 +461,10 @@ in
 
     space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
 
+    speedtest-cli.sandbox.method = "bwrap";
+    speedtest-cli.sandbox.wrapperType = "wrappedDerivation";
+    speedtest-cli.sandbox.net = "all";
+
     subversion.sandbox.method = "bwrap";
     subversion.sandbox.wrapperType = "wrappedDerivation";
     subversion.sandbox.net = "clearnet";
@@ -407,24 +473,49 @@ in
 
     superTux.sandbox.method = "bwrap";
     superTux.sandbox.wrapperType = "wrappedDerivation";
+    superTux.sandbox.whitelistAudio = true;
     superTux.sandbox.whitelistDri = true;
+    superTux.sandbox.whitelistWayland = true;
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
-    swaylock.sandbox.enable = false;  #< neither landlock nor bwrap works. pam_authenticate failed: invalid credentials. does it rely on SUID?
+    swaylock.sandbox.method = "bwrap";
+    swaylock.sandbox.wrapperType = "wrappedDerivation";
+    swaylock.sandbox.extraPaths = [
+      # N.B.: we need to be able to follow /etc/shadow to wherever it's symlinked.
+      # swaylock seems (?) to offload password checking to pam's `unix_chkpwd`,
+      # which needs read access to /etc/shadow. that can be either via suid bit (default; incompatible with sandbox)
+      # or by making /etc/shadow readable by the user (which is what i do -- check the activationScript)
+      "/etc/shadow"
+    ];
+    swaylock.sandbox.whitelistWayland = true;
 
-    tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
-
-    tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
+    "sway-contrib.grimshot".sandbox.method = "bwrap";
+    "sway-contrib.grimshot".sandbox.wrapperType = "wrappedDerivation";
+    "sway-contrib.grimshot".sandbox.whitelistWayland = true;
+    "sway-contrib.grimshot".sandbox.whitelistDbus = [ "user" ];
+    "sway-contrib.grimshot".sandbox.autodetectCliPaths = "existingFileOrParent";
 
     tcpdump.sandbox.method = "landlock";
     tcpdump.sandbox.wrapperType = "wrappedDerivation";
     tcpdump.sandbox.net = "all";
     tcpdump.sandbox.autodetectCliPaths = "existingFileOrParent";
     tcpdump.sandbox.capabilities = [ "net_admin" "net_raw" ];
+
+    tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
+
+    tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
+
     tree.sandbox.method = "landlock";
     tree.sandbox.wrapperType = "wrappedDerivation";
     tree.sandbox.autodetectCliPaths = true;
     tree.sandbox.whitelistPwd = true;
+
+    tumiki-fighters.sandbox.method = "bwrap";
+    tumiki-fighters.sandbox.wrapperType = "wrappedDerivation";
+    tumiki-fighters.sandbox.whitelistAudio = true;
+    tumiki-fighters.sandbox.whitelistDri = true;  #< not strictly necessary, but triples CPU perf
+    tumiki-fighters.sandbox.whitelistWayland = true;
+    tumiki-fighters.sandbox.whitelistX = true;
 
     unzip.sandbox.method = "bwrap";
     unzip.sandbox.wrapperType = "wrappedDerivation";
@@ -437,7 +528,9 @@ in
 
     vvvvvv.sandbox.method = "bwrap";
     vvvvvv.sandbox.wrapperType = "wrappedDerivation";
+    vvvvvv.sandbox.whitelistAudio = true;
     vvvvvv.sandbox.whitelistDri = true;  #< playable without, but burns noticably more CPU
+    vvvvvv.sandbox.whitelistWayland = true;
     vvvvvv.persist.byStore.plaintext = [ ".local/share/VVVVVV" ];
 
     wget.sandbox.method = "bwrap";
@@ -446,6 +539,8 @@ in
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
+
+    xdg-terminal-exec.sandbox.enable = false;  # xdg-terminal-exec is a launcher for $TERM
 
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
 
