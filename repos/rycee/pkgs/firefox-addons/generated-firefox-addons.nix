@@ -257,10 +257,10 @@
     };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
-      version = "2.6.0";
+      version = "3.0.0";
       addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4167723/augmented_steam-2.6.0.xpi";
-      sha256 = "949f9f8c8a932cbaee3fea6ccbb25a34fa1d260c61df78e5c384bdf7d4118c59";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4234656/augmented_steam-3.0.0.xpi";
+      sha256 = "14032ec9220d621aea6d6f7415cf205852a6d0b47fa2dd79cdf9e2a49bcde3f1";
       meta = with lib;
       {
         homepage = "https://augmentedsteam.com/";
@@ -744,16 +744,17 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.1.1";
+      version = "2024.2.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4225453/bitwarden_password_manager-2024.1.1.xpi";
-      sha256 = "af5aabc846eba9adeaf194dc0cacc0921df734c21f1156d705ad9b9cf57e1d73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4233394/bitwarden_password_manager-2024.2.0.xpi";
+      sha256 = "2c59e7040749dee010b34fb2a9c24b28ada71ad7fa5a23264ff70e63f8f686d1";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
         description = "A secure and free password manager for all of your devices.";
         license = licenses.gpl3;
         mozPermissions = [
+          "<all_urls>"
           "tabs"
           "contextMenus"
           "storage"
@@ -1704,10 +1705,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "123.0.20240212.203859";
+      version = "123.0.20240213.221259";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4235730/deutsch_de_language_pack-123.0.20240212.203859.xpi";
-      sha256 = "711b4fe991fa7f543d5e3b889e1906c1ae8b0d9e304071d190df86a852c0f347";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236342/deutsch_de_language_pack-123.0.20240213.221259.xpi";
+      sha256 = "ad0fb0fc292dd50db0d2d8427567a79795086a76eb989193f6f67fd9d2f2d9a2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2602,10 +2603,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "123.0.20240212.203859";
+      version = "123.0.20240213.221259";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4235735/francais_language_pack-123.0.20240212.203859.xpi";
-      sha256 = "c2f33604244e8686031be83d96fd30bfa005a000ba92d6b603e221e6c2721171";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236315/francais_language_pack-123.0.20240213.221259.xpi";
+      sha256 = "cbe7d5b97e5b4c84cf0b583f4cdf23aef322836d9c92e2e27ab6fc225d9bb161";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2963,10 +2964,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.1.5";
+      version = "2.1.6";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223562/gitpod-2.1.5.xpi";
-      sha256 = "e1d6bc78c327c7d61e78b030326eaa06fd7d90aa1158ee7720c74cf068d1aa40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236422/gitpod-2.1.6.xpi";
+      sha256 = "91d59e7cc9ba5ba696b78b8e4049e7a9ec124931ddb9d19314921766662dcc8b";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -3431,10 +3432,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.213";
+      version = "1.0.214.1";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4222159/hover_zoom_plus-1.0.213.xpi";
-      sha256 = "2bd4b51efbdc6617605dc401a76fa6ad6e50dccd7adcd143df4e0d3aade3d9f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236693/hover_zoom_plus-1.0.214.1.xpi";
+      sha256 = "9e8befc8e759e3cf9682f7e2b4b995f4cbc1f0068053a46011bc6f057aa87e77";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4374,6 +4375,8 @@
           "*://*.ldlc.com/*"
           "*://*.mubi.com/*"
           "*://*.tapas.io/*"
+          "*://*.sspai.com/*"
+          "*://*.bsky.app/*"
         ];
         platforms = platforms.all;
       };
@@ -8234,10 +8237,10 @@
     };
     "re-enable-right-click" = buildFirefoxXpiAddon {
       pname = "re-enable-right-click";
-      version = "0.5.4";
+      version = "0.5.5";
       addonId = "{278b0ae0-da9d-4cc6-be81-5aa7f3202672}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3981363/re_enable_right_click-0.5.4.xpi";
-      sha256 = "9dd95815d72ebb3bd4ac3ed23b78073cfbd93acca5a7af52de136519aa422b6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235187/re_enable_right_click-0.5.5.xpi";
+      sha256 = "d6ded992a5fabc546c3c3d718d3daf4c2fc1408baa122ef3f9a964b39c6e451a";
       meta = with lib;
       {
         homepage = "http://add0n.com/allow-right-click.html";
@@ -8513,10 +8516,10 @@
     };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.12.0";
+      version = "1.13.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139032/rust_search_extension-1.12.0.xpi";
-      sha256 = "5731dd0ac69570e41537034073ca9fc51616d15f08cf0138f0a9a1bd0d7b078e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236369/rust_search_extension-1.13.0.xpi";
+      sha256 = "59ddefdab6cd7dbe5fb368fe6fac2eace052060bf9357dd39bc9c7ff3439be13";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -9221,10 +9224,10 @@
     };
     "substitoot" = buildFirefoxXpiAddon {
       pname = "substitoot";
-      version = "0.7.1.0";
+      version = "0.7.2.0";
       addonId = "substitoot@kludge.guru";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233037/substitoot-0.7.1.0.xpi";
-      sha256 = "23555ac6fa540cac4497132bf16ed5cb24e3c362d0479ae7ee96ce086c218b79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236602/substitoot-0.7.2.0.xpi";
+      sha256 = "d5ab92a848e479bc1149b980554b18c32efb765ed34023a7aa0a33a68567aa02";
       meta = with lib;
       {
         homepage = "https://github.com/virtulis/substitoot";
