@@ -42,7 +42,6 @@ in {
       services.ddccontrol.enable = true;
       hardware.i2c.enable = true;
       environment.systemPackages = with pkgs; [ ddcutil ];
-      environment.variables.QT_AUTO_SCREEN_SCALE_FACTOR = "0";
     })
     (mkIf (cfg.enable && cfg.hotplug) {
       systemd.user.services.autorandr = {

@@ -65,9 +65,6 @@ in {
       boot.kernelParams = [ "mitigations=off" ];
       services.tlp.enable = true;
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
-      services.xserver.displayManager.sessionCommands = ''
-        printf "%s\n" "Xft.dpi: 120" | xrdb -merge
-      '';
       services.redshift.enable = true;
       services.xserver.videoDrivers = [ "intel" ];
     } // builder))
@@ -80,9 +77,6 @@ in {
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = false;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
-      services.xserver.displayManager.sessionCommands = ''
-        printf "%s\n" "Xft.dpi: 144" | xrdb -merge
-      '';
       services.redshift.enable = true;
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
