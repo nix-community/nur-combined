@@ -121,6 +121,7 @@ in
         description = "command to run when user wants to take a screenshot";
       };
     };
+    # TODO: move to hosts/common/programs/waybar.nix
     sane.gui.sway.waybar.extra_style = mkOption {
       type = types.lines;
       default = ''

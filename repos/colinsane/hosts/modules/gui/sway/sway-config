@@ -141,10 +141,6 @@ mode "resize" {
   bindsym l resize grow width 30 px
 }
 
-bar {
-  swaybar_command waybar
-}
-
 ### application-specific settings
 #### to obtain app-id's run `swaymsg -t get_tree`
 for_window [app_id="pinentry-.*"] floating true
