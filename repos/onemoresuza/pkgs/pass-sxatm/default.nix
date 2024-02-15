@@ -18,12 +18,12 @@
 in
   stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "pass-sxatm";
-    version = "0.2.1";
+    version = "0.2.3";
     src = fetchFromSourcehut {
       owner = "~onemoresuza";
       repo = "pass-sxatm";
       rev = finalAttrs.version;
-      hash = "sha256-JyLTwlrVf5D3CgSp4fF7YkeWovGNsQymsQjVdWvwO8k=";
+      hash = "sha256-gINSXgrf787xWuHWl1sYqHIZ/kXQYjYtDlKPjeA7Jzo=";
     };
 
     nativeBuildInputs = [scdoc];
