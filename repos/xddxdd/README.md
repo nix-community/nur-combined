@@ -148,7 +148,7 @@ Or, use variables from this repository in case I change them:
 |  | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.5 | Tencent QQ Music (Packaging script adapted from https://aur.archlinux.org/packages/qqmusic-bin) |
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | 【极光拼音】输入方案 |
 |  | `rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | RIME 词库增强 |
-|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 6707145dd6deb73d9e976c5f29cd14e264724833 | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
+|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 8a2a06ecc64283650435c74490d1af1eb2b72633 | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
 |  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20231114 | Releases for dict of zh.moegirl.org.cn |
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20240210 | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197 | A small app to generate a long path in traceroute. |
@@ -226,7 +226,7 @@ Or, use variables from this repository in case I change them:
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
 |  | `lantianCustomized.asterisk` | [asterisk](https://www.asterisk.org/) | 20.6.0 | Asterisk with Lan Tian modifications |
-|  | `lantianCustomized.attic-telnyx-compatible` | [attic-telnyx-compatible](https://github.com/zhaofengli/attic) | fbe252a5c21febbe920c025560cbd63b20e24f3b | Attic (Nix binary cache) patched for Telnyx Cloud Storage compatibility |
+|  | `lantianCustomized.attic-telnyx-compatible` | [attic-telnyx-compatible](https://github.com/zhaofengli/attic) | 6eabc3f02fae3683bffab483e614bebfcd476b21 | Attic (Nix binary cache) patched for Telnyx Cloud Storage compatibility |
 |  | `lantianCustomized.coredns` | [coredns-lantian](https://github.com/xddxdd/coredns) | a411a29f831648afa98aa79b164e790add2d6f14 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.9.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
 |  | `lantianCustomized.linux-xanmod-lantian` | [linux](https://www.kernel.org/) | 6.7.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
