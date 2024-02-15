@@ -5,6 +5,7 @@ with lib;
 let
   cfg = config.gtk;
   gtk2 = cfg.enable && cfg.gtk2;
+  disableCsd = cfg.enable && cfg.disableCsd;
 
   toGtk2File = key: value:
     let
@@ -37,7 +38,7 @@ let
     optionalAttrs (cfg.cursorTheme != null)
       { gtk-cursor-theme-name = cfg.cursorTheme.name; };
 
-  fontType = types.submodule {
+  themeType = types.submodule {
     options = {
       package = mkOption {
         internal = true;
@@ -50,22 +51,9 @@ let
       };
     };
   };
-  themeType = types.submodule {
-    options = {
-      package = mkOption {
-        internal = true;
-        type = types.listOf types.package;
-        default = [];
-      };
-      name = mkOption {
-        internal = true;
-        type = types.str;
-      };
-    };
-  };
 
   optionalPackage = opt:
-    optionals (opt != null && opt.package != null) opt.package;
+    optional (opt != null && opt.package != null) opt.package;
 in
 {
   options = {
@@ -80,8 +68,13 @@ in
         '';
       };
 
+      disableCsd = mkOption {
+        type = types.bool;
+        default = true;
+      };
+
       font = mkOption {
-        type = types.nullOr fontType;
+        type = types.nullOr themeType;
         default = null;
         example = literalExample ''
           {
@@ -129,11 +122,6 @@ in
         '';
         description = "The GTK+ theme to use.";
       };
-
-      gtk3noCsd = mkOption {
-        type = types.bool;
-        default = false;
-      };
     };
   };
 
@@ -144,6 +132,11 @@ in
         concatStringsSep "\n" (
           mapAttrsToList toGtk2File settings
         );
+    })
+
+    (mkIf disableCsd {
+      environment.variables.GTK_CSD = "0";
+      environment.variables.LD_PRELOAD = "${pkgs.nur.repos.dukzcry.gtk3-nocsd}/lib/libgtk3-nocsd.so.0";
     })
 
     (mkIf cfg.enable {
@@ -177,11 +170,6 @@ in
           }
         ];
       };
-    })
-
-    (mkIf cfg.gtk3noCsd {
-      environment.variables.GTK_CSD = "0";
-      environment.variables.LD_PRELOAD = "${pkgs.nur.repos.dukzcry.gtk3-nocsd}/lib/libgtk3-nocsd.so.0";
     })
   ];
 }
