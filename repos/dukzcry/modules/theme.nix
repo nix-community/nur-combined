@@ -8,13 +8,16 @@ in {
 
   options.programs.theme = {
     enable = mkEnableOption "theming.";
-    dark = mkEnableOption "dark theme.";
+    theme = mkOption {
+      type = types.str;
+      default = "Adwaita";
+    };
   };
 
   config = mkIf cfg.enable {
     gtk = {
       enable = true;
-      theme.name = "Adwaita" + optionalString cfg.dark "-dark";
+      theme.name = cfg.theme;
       gtk3noCsd = true;
     };
     qt = {
