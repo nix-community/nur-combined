@@ -294,14 +294,16 @@ in
 
     (lib.mkIf cfg.enable (lib.mkMerge [
       {
+        sane.programs.waybar.config = {
+          top = import ./waybar-top.nix { inherit pkgs; };
+          # reset extra waybar style
+          extra_style = "";
+        };
         sane.gui.sway = {
           enable = true;
           # we manage the greeter ourselves  (TODO: merge this into sway config as well)
           # EXCEPT for the unl0kr case, since that works well on both mobile and desktop!
           useGreeter = cfg.greeter == "unl0kr";
-          waybar.top = import ./waybar-top.nix { inherit pkgs; };
-          # reset extra waybar style
-          waybar.extra_style = "";
           config = {
             # N.B. missing from upstream sxmo config here is:
             # - `bindsym $mod+g exec sxmo_hook_locker.sh`

@@ -86,7 +86,7 @@
     ./tor-browser.nix
     ./tuba.nix
     ./vlc.nix
-    ./waybar.nix
+    ./waybar
     ./waylock.nix
     ./wike.nix
     ./wine.nix

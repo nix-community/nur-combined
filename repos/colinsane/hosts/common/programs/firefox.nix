@@ -240,6 +240,7 @@ in
         sandbox.whitelistDbus = [ "user" ];  # mpris
         sandbox.whitelistWayland = true;
         sandbox.extraHomePaths = [
+          ".local/share/applications"  #< this might be needed only for custom schemes (like mpv:// for open-in-mpv)?
           "dev"  # for developing anything web-related
           "tmp"
           "Pictures"
@@ -256,6 +257,8 @@ in
           ".ssh/id_ed25519"
           # ".config/sops"
           "private/knowledge/secrets/accounts"
+        ] ++ lib.optionals cfg.addons.open-in-mpv.enable [
+          ".config/open-in-mpv"
         ];
         fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};  #< needs to be created, not *just* added to the sandbox
 

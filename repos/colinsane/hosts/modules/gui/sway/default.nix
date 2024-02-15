@@ -121,40 +121,6 @@ in
         description = "command to run when user wants to take a screenshot";
       };
     };
-    # TODO: move to hosts/common/programs/waybar.nix
-    sane.gui.sway.waybar.extra_style = mkOption {
-      type = types.lines;
-      default = ''
-        /* default font-size is about 14px, which is good for moby, but not quite for larger displays */
-        window#waybar {
-          font-size: 16px;
-        }
-      '';
-      description = ''
-        extra CSS rules to append to ~/.config/waybar/style.css
-      '';
-    };
-    sane.gui.sway.waybar.top = mkOption {
-      type = types.submodule {
-        # `attrsOf types.anything` (v.s. plain `attrs`) causes merging of the toplevel items.
-        # this allows for `waybar.top.x = lib.mkDefault a;` with `waybar.top.x = b;` to resolve to `b`.
-        # but note that `waybar.top.x.y = <multiple assignment>` won't be handled as desired.
-        freeformType = types.attrsOf types.anything;
-      };
-      default = {};
-      description = ''
-        Waybar configuration for the bar at the top of the display.
-        see: <https://github.com/Alexays/Waybar/wiki/Configuration>
-        example:
-        ```nix
-        {
-          height = 40;
-          modules-left = [ "sway/workspaces" "sway/mode" ];
-          ...
-        }
-        ```
-      '';
-    };
   };
 
   config = lib.mkMerge [
@@ -203,9 +169,6 @@ in
 
         secrets.".config/sane-sway/snippets.txt" = ../../../../secrets/common/snippets.txt.bin;
       };
-
-      # default waybar
-      sane.gui.sway.waybar.top = import ./waybar-top.nix { inherit lib pkgs; };
     }
 
     (lib.mkIf cfg.enable {
@@ -354,13 +317,6 @@ in
           [preferred]
           default=wlr;gtk
         '';
-        ".config/waybar/config".symlink.target =
-          (pkgs.formats.json {}).generate "waybar-config.json" [
-            ({ layer = "top"; } // cfg.waybar.top)
-          ];
-
-        ".config/waybar/style.css".symlink.text =
-          (builtins.readFile ./waybar-style.css) + cfg.waybar.extra_style;
 
         ".config/sway/config".symlink.target = pkgs.callPackage ./sway-config.nix {
           inherit config;
