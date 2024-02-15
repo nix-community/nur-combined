@@ -19,6 +19,27 @@ in
     notify = {
       enable = mkEnableOption "zsh-done notification";
 
+      exclude = mkOption {
+        type = with types; listOf str;
+        default = [
+          "direnv reload"
+          "fg"
+          "git (?!push|pull|fetch)"
+          "htop"
+          "less"
+          "man"
+          "nvim"
+          "tail -f"
+          "tmux"
+          "vim"
+        ];
+        example = [ "command --long-running-option" ];
+        description = ''
+          List of exclusions which should not be create a notification. Accepts
+          Perl regexes (implicitly anchored with `^\s*`).
+        '';
+      };
+
       ssh = {
         enable = mkEnableOption "notify through SSH/non-graphical connections";
 
@@ -116,10 +137,17 @@ in
 
         # `localVariables` values don't get merged correctly due to their type,
         # don't use `mkIf`
-        localVariables = { }
-          # Enable `zsh-done` through SSH, if configured
-          // lib.optionalAttrs cfg.notify.ssh.enable { DONE_ALLOW_NONGRAPHICAL = 1; }
-        ;
+        localVariables = {
+          DONE_EXCLUDE =
+            let
+              joined = lib.concatMapStringsSep "|" (c: "(${c})") cfg.notify.exclude;
+            in
+            ''^\s*(${joined})'';
+        }
+        # Enable `zsh-done` through SSH, if configured
+        // lib.optionalAttrs cfg.notify.ssh.enable {
+          DONE_ALLOW_NONGRAPHICAL = 1;
+        };
 
         # Use OSC-777 to send the notification through SSH
         initExtra = lib.mkIf cfg.notify.ssh.useOsc777 ''

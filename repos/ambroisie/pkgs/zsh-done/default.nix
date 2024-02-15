@@ -2,13 +2,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "zsh-done";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "ambroisie";
     repo = "zsh-done";
     rev = "v${version}";
-    hash = "sha256-DC7urJDXPP9vBYABrJF5KZ4HfMbrpHIVogSmEB8PWLA=";
+    hash = "sha256-dyhPhoMrAfDWtrBX5TA+B3G7QZ7gBhoDGNOEqGsCBQU=";
   };
 
   dontConfigure = true;
