@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   pname = "sleef";
-  version = "3.6.0";
+  version = "3.6";
 
   src = fetchFromGitHub {
     owner = "shibatch";
     repo = "sleef";
-    rev = "69cfa7130f3f2bda838633071b1c63aa7d56f940";
-    sha256 = "sha256-3Ms/dEk4FfG4+P94y/IySW6aEca18CMKcnw1xm6PhVc=";
+    rev = "${version}";
+    sha256 = "sha256-7eXhpIJB9PlvHrmWtdZq7CyB9I1yfhoRzyl/Pk4pum8=";
   };
 
   nativeBuildInputs = [ cmake ];

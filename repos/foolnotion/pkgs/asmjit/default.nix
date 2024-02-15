@@ -12,8 +12,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     repo   = "asmjit";
     owner  = "asmjit";
-    rev    = "06d0badec53710a4f572cf5642881ce570c5d274";
-    sha256 = "sha256-fMSttVxIQSQpgAxJl4V9CeN6HWXXIBlqp+KiIOVpByY=";
+    rev    = "d82e478fb8d3a5a36fbd8090e7abafebbcbc2447";
+    sha256 = "sha256-nv92gAZdTsndQtoBq+goDNHTOVMu3tGCFANPTzAIK0E=";
   };
 
   meta = with lib; {
