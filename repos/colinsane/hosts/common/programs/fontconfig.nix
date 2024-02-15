@@ -28,6 +28,17 @@ let
     wantedNerdfonts;
 in
 {
+  sane.programs.fontconfig = {
+    sandbox.method = "bwrap";  # TODO:sandbox: untested
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.autodetectCliPaths = "existingFileOrParent";  #< this might be overkill; or, how many programs reference fontconfig internally?
+
+    persist.byStore.plaintext = [
+      # < 10 MiB
+      ".cache/fontconfig"
+    ];
+  };
+
   fonts = lib.mkIf config.sane.programs.fontconfig.enabled {
     fontconfig.enable = true;
     fontconfig.defaultFonts = {
