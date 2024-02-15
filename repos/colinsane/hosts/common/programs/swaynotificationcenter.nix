@@ -146,6 +146,36 @@ in
       '';
     }));
 
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [
+      "user"  # mpris; portal
+      "system"  # backlight
+    ];
+    sandbox.whitelistWayland = true;
+    sandbox.extraPaths = [
+      "/sys/class/backlight"
+      "/sys/devices"
+    ];
+    sandbox.extraRuntimePaths = [
+      # systemd/private allows one to `systemctl --user {status,start,stop,...}`
+      # notably, it does *not* allow for `systemd-run` (that's dbus: org.freedesktop.systemd1.Manager.StartTransientUnit).
+      # that doesn't necessarily mean this is entirely safe against privilege escalation though.
+      # TODO: audit the safety of this systemd sandboxing.
+      # few alternatives:
+      # - superd
+      # - simply `xdg-open app://dino`, etc. `pkill` to stop, `pgrep` to query.
+      # - more robust: `xdg-open sane-service://start?service=dino`
+      #   - still need `pgrep` to query if it's running, or have the service mark a pid file
+      # - dbus activation for each app
+      "systemd/private"
+    ];
+    sandbox.extraConfig = [
+      # systemctl calls seem to require same pid namespace
+      "--sane-sandbox-keep-pidspace"
+    ];
+
     # glib/gio applications support many notification backends ("portal", "gtk", "freedesktop", ...).
     # swaync implements only the `org.freedesktop.Notifications` dbus interface ("freedesktop"/fdo).
     # however gio applications may be tricked into using one of the other backends, particularly

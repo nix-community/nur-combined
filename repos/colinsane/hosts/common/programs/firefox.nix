@@ -240,7 +240,6 @@ in
         sandbox.whitelistDbus = [ "user" ];  # mpris
         sandbox.whitelistWayland = true;
         sandbox.extraHomePaths = [
-          ".local/share/applications"  #< this might be needed only for custom schemes (like mpv:// for open-in-mpv)?
           "dev"  # for developing anything web-related
           "tmp"
           "Pictures"
@@ -257,8 +256,6 @@ in
           ".ssh/id_ed25519"
           # ".config/sops"
           "private/knowledge/secrets/accounts"
-        ] ++ lib.optionals cfg.addons.open-in-mpv.enable [
-          ".config/open-in-mpv"
         ];
         fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};  #< needs to be created, not *just* added to the sandbox
 
@@ -315,7 +312,11 @@ in
           // source: <https://kparal.wordpress.com/2019/10/31/disabling-kinetic-scrolling-in-firefox/>
           defaultPref("apz.gtk.kinetic_scroll.enabled", false);
 
-          // auto-dispatch mpv:// URIs to xdg-open without prompting.
+          // open external URIs/files via xdg-desktop-portal.
+          defaultPref("widget.use-xdg-desktop-portal.mime-handler", 1);
+          defaultPref("widget.use-xdg-desktop-portal.open-uri", 1);
+
+          // auto-open mpv:// URIs without prompting.
           // can do this with other protocols too (e.g. matrix?). see about:config for common handlers.
           defaultPref("network.protocol-handler.external.mpv", true);
           // element:// for Element matrix client

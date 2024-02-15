@@ -50,9 +50,25 @@ in
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "all";  #< to show net connection status and BW
-    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistDbus = [
+      "user"  #< for playerctl/media
+      "system"  #< for modem (on phone)
+    ];
     sandbox.whitelistWayland = true;
-    sandbox.extraRuntimePaths = [ "/" ];  #< needs to talk to sway IPC. TODO: give the sway IPC a predictable name.
+    sandbox.extraRuntimePaths = [
+      "sway-ipc.sock"
+      # "sxmo_status"  #< only necessary if relying on sxmo's statusbar periodicals service
+    ];
+    sandbox.extraPaths = [
+      # for wifi status on sxmo/phone
+      "/dev/rfkill"
+      # for the battery indicator
+      "/sys/class/power_supply"
+      "/sys/devices"
+    ];
+    sandbox.extraHomePaths = [
+      ".config/sxmo/hooks"
+    ];
 
     fs.".config/waybar/config".symlink.target =
       (pkgs.formats.json {}).generate "waybar-config.json" [

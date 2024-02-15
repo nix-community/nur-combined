@@ -191,17 +191,18 @@ output "Unknown 0x0637 0x00000000" {
   res 1920x1080
 }
 
-# XXX: `include /etc/sway/config.d/*` is needed for xdg-desktop-portal-* to work.
-# this is how we expose these env vars to user dbus services:
+# manually export PATH here, since all my user services need that, and sane-sandboxed implementation depends on it.
+# also, manually export XDG_DATA_DIRS. glib fails in weird ways (e.g. thinks everything is application/x-octet-stream mime type) without it.
+# for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
+exec dbus-update-activation-environment --systemd PATH XDG_DATA_DIRS DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+# previously: `include /etc/sway/config.d/*` was needed for xdg-desktop-portal-* to work.
+# stock nixos `programs.sway` would setup /etc/sway/config.d with additional variables to import to the dbus env.
+# but now i'm doing that manually:
 # - DISPLAY
 # - WAYLAND_DISPLAY
 # - SWAYSOCK
 # - XDG_CURRENT_DESKTOP
-# also, manually export PATH here, since all my user services need that, and sane-sandboxed implementation depends on it.
-# also, manually export XDG_DATA_DIRS. glib fails in weird ways (e.g. thinks everything is application/x-octet-stream mime type) without it.
-# for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
-exec dbus-update-activation-environment --systemd PATH XDG_DATA_DIRS
-include /etc/sway/config.d/*
+# include /etc/sway/config.d/*
 
 # signal to systemd that sway is active,
 # and therefore let it start the graphical-session target

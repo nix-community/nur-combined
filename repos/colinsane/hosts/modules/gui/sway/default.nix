@@ -34,13 +34,24 @@ let
       override = wrapSway sway';
     };
   };
-  defaultPackage = wrapSway pkgs.sway {
-    # this is technically optional, in that the nixos sway module will call `override` with these args anyway.
-    # but that wasn't always the case; it may change again; so don't rely on it.
-    inherit (config.programs.sway)
-      extraSessionCommands extraOptions;
-    withBaseWrapper = config.programs.sway.wrapperFeatures.base;
-    withGtkWrapper  = config.programs.sway.wrapperFeatures.gtk;
+  swayPackage = wrapSway pkgs.sway {
+    extraOptions = [
+      # "--debug"
+    ];
+    extraSessionCommands = ''
+      # sway defaults to auto-generating a unix domain socket named "sway-ipc.$UID.NNNN.sock",
+      # which allows for multiple sway sessions under the same user.
+      # but the unpredictability makes static sandboxing & such difficult, so hardcode it:
+      export SWAYSOCK="$XDG_RUNTIME_DIR/sway-ipc.sock"
+    '';
+    # withBaseWrapper sets XDG_CURRENT_DESKTOP=sway
+    # and makes sure that sway is launched dbus-run-session.
+    withBaseWrapper = true;
+    # "wrapGAppsHook wrapper to execute sway with required environment variables for GTK applications."
+    # this literally just sets XDG_DATA_DIRS to the gtk3 gsettings-schemas before launching sway.
+    # notably, this pulls in the *build* gtk3 -- probably not in an incompatible way
+    # but still as a mistake, and wasteful for cross compilation
+    withGtkWrapper  = false;
     isNixOS = true;
     # TODO: `enableXWayland = ...`?
   };
@@ -50,10 +61,6 @@ in
     sane.gui.sway.enable = mkOption {
       default = false;
       type = types.bool;
-    };
-    sane.gui.sway.package = mkOption {
-      default = defaultPackage;
-      type = types.package;
     };
     sane.gui.sway.useGreeter = mkOption {
       description = ''
@@ -125,8 +132,8 @@ in
 
   config = lib.mkMerge [
     {
-      sane.programs.swayApps = {
-        packageUnwrapped = null;
+      sane.programs.sway = {
+        packageUnwrapped = swayPackage;
         suggestedPrograms = [
           "guiApps"
           "blueberry"  # GUI bluetooth manager
@@ -168,12 +175,38 @@ in
         ];
 
         secrets.".config/sane-sway/snippets.txt" = ../../../../secrets/common/snippets.txt.bin;
+
+        fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
+          # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>
+          [preferred]
+          default=wlr;gtk
+        '';
+
+        fs.".config/sway/config".symlink.target = pkgs.callPackage ./sway-config.nix {
+          inherit config;
+          swayCfg = cfg.config;
+        };
+
+        services.sway-session = {
+          description = "no-op unit to signal that sway is operational";
+          documentation = [
+            "https://github.com/swaywm/sway/issues/7862"
+            "https://github.com/alebastr/sway-systemd"
+          ];
+          bindsTo = [ "graphical-session.target" ];
+          serviceConfig = {
+            ExecStart = "${pkgs.coreutils}/bin/true";
+            Type = "oneshot";
+            RemainAfterExit = true;
+          };
+        };
+
       };
     }
 
     (lib.mkIf cfg.enable {
       sane.programs.fontconfig.enableFor.system = true;
-      sane.programs.swayApps.enableFor.user.colin = true;
+      sane.programs.sway.enableFor.user.colin = true;
 
       sane.gui.gtk.enable = lib.mkDefault true;
       # sane.gui.gtk.gtk-theme = lib.mkDefault "Fluent-Light-compact";
@@ -273,23 +306,6 @@ in
       # a system service can't depend on a user service, so just launch it at graphical-session
       systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];
 
-      programs.sway = {
-        # provides xdg-desktop-portal-wlr, which exposes on dbus:
-        # - org.freedesktop.impl.portal.ScreenCast
-        # - org.freedesktop.impl.portal.Screenshot
-        enable = true;
-        package = cfg.package;
-        extraPackages = [];  # nixos adds swaylock, swayidle, foot, dmenu by default
-        # extraOptions = [ "--debug" ];
-        # "wrapGAppsHook wrapper to execute sway with required environment variables for GTK applications."
-        # this literally just sets XDG_DATA_DIRS to the gtk3 gsettings-schemas before launching sway.
-        # notably, this pulls in the *build* gtk3 -- probably not in an incompatible way
-        # but still as a mistake, and wasteful for cross compilation
-        wrapperFeatures.gtk = false;
-        # this sets XDG_CURRENT_DESKTOP=sway
-        # and makes sure that sway is launched dbus-run-session.
-        wrapperFeatures.base = true;
-      };
       programs.xwayland.enable = cfg.config.xwayland;
 
       # disable nixos' portal module, otherwise /share/applications gets linked into the system and complicates things (sandboxing).
@@ -297,32 +313,6 @@ in
       xdg.portal.enable = false;
       xdg.menus.enable = false;  #< links /share/applications, and a bunch of other empty (i.e. unused) dirs
 
-      sane.user.services.sway-session = {
-        description = "no-op unit to signal that sway is operational";
-        documentation = [
-          "https://github.com/swaywm/sway/issues/7862"
-          "https://github.com/alebastr/sway-systemd"
-        ];
-        bindsTo = [ "graphical-session.target" ];
-        serviceConfig = {
-          ExecStart = "${pkgs.coreutils}/bin/true";
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-      };
-
-      sane.user.fs = {
-        ".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
-          # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>
-          [preferred]
-          default=wlr;gtk
-        '';
-
-        ".config/sway/config".symlink.target = pkgs.callPackage ./sway-config.nix {
-          inherit config;
-          swayCfg = cfg.config;
-        };
-      };
     })
   ];
 }

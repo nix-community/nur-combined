@@ -231,6 +231,7 @@ in
     brightnessctl.sandbox.wrapperType = "wrappedDerivation";
     brightnessctl.sandbox.extraPaths = [
       "/sys/class/backlight"
+      "/sys/class/leds"
       "/sys/devices"
     ];
     brightnessctl.sandbox.whitelistDbus = [ "system" ];
@@ -477,17 +478,6 @@ in
     superTux.sandbox.whitelistDri = true;
     superTux.sandbox.whitelistWayland = true;
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
-
-    swaylock.sandbox.method = "bwrap";
-    swaylock.sandbox.wrapperType = "wrappedDerivation";
-    swaylock.sandbox.extraPaths = [
-      # N.B.: we need to be able to follow /etc/shadow to wherever it's symlinked.
-      # swaylock seems (?) to offload password checking to pam's `unix_chkpwd`,
-      # which needs read access to /etc/shadow. that can be either via suid bit (default; incompatible with sandbox)
-      # or by making /etc/shadow readable by the user (which is what i do -- check the activationScript)
-      "/etc/shadow"
-    ];
-    swaylock.sandbox.whitelistWayland = true;
 
     "sway-contrib.grimshot".sandbox.method = "bwrap";
     "sway-contrib.grimshot".sandbox.wrapperType = "wrappedDerivation";

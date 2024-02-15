@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
   sane.programs.loupe = {
+    # loupe is marked "dbus activatable", which does not seem to actually work (at least when launching from Firefox or Nautilus)
+    packageUnwrapped = pkgs.rmDbusServices pkgs.loupe;
+
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;

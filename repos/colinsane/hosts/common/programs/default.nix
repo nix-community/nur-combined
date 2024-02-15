@@ -81,6 +81,7 @@
     ./sublime-music.nix
     ./supertuxkart.nix
     ./sway-autoscaler
+    ./swaylock.nix
     ./swaynotificationcenter.nix
     ./tangram.nix
     ./tor-browser.nix

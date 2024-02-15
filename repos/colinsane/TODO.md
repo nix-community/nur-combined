@@ -34,6 +34,8 @@
 - validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
+- /mnt/desko/home, etc, shouldn't include secrets (~/private)
+  - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
 - port all sane.programs to be sandboxed
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
   - integrate `xdg-open` with the sandbox profiles

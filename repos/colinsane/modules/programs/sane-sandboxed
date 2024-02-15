@@ -11,9 +11,15 @@ profilesNamed=()
 paths=()
 capabilities=()
 net=
+keepPidspace=
 dns=()
 method=
+extraEnv=()
+
+# backend-specific state:
 firejailFlags=()
+bwrapUnshareNet=(--unshare-net)
+bwrapUnsharePid=(--unshare-pid)
 bwrapFlags=()
 landlockPaths=
 capshCapsArg=
@@ -193,13 +199,10 @@ parseArgs() {
         ;;
       (--sane-sandbox-portal)
         # instruct glib/gtk apps to perform actions such as opening external files via dbus calls to org.freedesktop.portal.*.
-        # note that this env var primarily acts as a *fallback*: apps only open files via the portal if they don't know how to themelves.
+        # note that GIO_USE_PORTALS primarily acts as a *fallback*: apps only open files via the portal if they don't know how to themelves.
         # this switch is typically accompanied by removing all MIME associations from the app's view, then.
-        export GIO_USE_PORTALS=1
-        # old name, beginning to be phased out as of 2023-10-02
-        export GTK_USE_PORTAL=1
-        # make `xdg-open` just forward to the portal
-        export NIXOS_XDG_OPEN_USE_PORTAL=1
+        # GTK_USE_PORTALS is the old name, beginning to be phased out as of 2023-10-02
+        extraEnv+=("GIO_USE_PORTALS=1" "GTK_USE_PORTAL=1" "NIXOS_XDG_OPEN_USE_PORTAL=1")
         ;;
       (--sane-sandbox-dns)
         # N.B.: these named temporary variables ensure that "set -x" causes $1 to be printed
@@ -220,6 +223,9 @@ parseArgs() {
       (--sane-sandbox-net)
         net="$1"
         shift
+        ;;
+      (--sane-sandbox-keep-pidspace)
+        keepPidspace=1
         ;;
       (--sane-sandbox-path)
         _path="$1"
@@ -270,6 +276,9 @@ firejailIngestNet() {
 firejailIngestDns() {
   firejailFlags+=("--dns=$1")
 }
+firejailIngestKeepPidspace() {
+  debug "firejailIngestKeepPidspace: noop"
+}
 firejailIngestProfile() {
   if [ -z "$firejailName" ]; then
     firejailName="$1"
@@ -295,7 +304,7 @@ firejailExec() {
   fi
   PATH="$PATH:@firejail@/bin" exec \
     firejail "${firejailFlags[@]}" -- \
-    "${cliArgs[@]}"
+    env "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
 
@@ -318,8 +327,10 @@ bwrapIngestPath() {
 }
 bwrapIngestNet() {
   debug "bwrapIngestNet: enabling full net access for '$1' because don't know how to restrict it more narrowly"
-  # N.B.: `--share-net` will override any earlier call to `--unshare-net`
-  bwrapFlags+=("--share-net")
+  bwrapUnshareNet=()
+}
+bwrapIngestKeepPidspace() {
+  bwrapUnsharePid=()
 }
 bwrapIngestProfile() {
   debug "bwrapIngestProfile: stubbed"
@@ -339,8 +350,8 @@ bwrapExec() {
   # --unshare-uts
   # --unshare-user (implicit to every non-suid call to bwrap)
   PATH="$PATH:@bubblewrap@/bin" exec \
-    bwrap --unshare-all --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
-    "${cliArgs[@]}"
+    bwrap --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}" --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
+    env "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
 
@@ -386,6 +397,9 @@ landlockIngestPath() {
 landlockIngestNet() {
   debug "landlockIngestNet: '$1': stubbed (landlock network is always unrestricted)"
 }
+landlockIngestKeepPidspace() {
+  debug "landlockIngestKeepPidspace: noop"
+}
 landlockIngestProfile() {
   debug "landlockIngestProfile: stubbed"
 }
@@ -399,7 +413,7 @@ landlockExec() {
   # invoke the actual user command.
   PATH="$PATH:@landlockSandboxer@/bin:@libcap@/bin" LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
     sandboxer \
-    capsh "--caps=$capshCapsArg" --shell="${cliArgs[0]}" -- "${cliArgs[@]:1}"
+    capsh "--caps=$capshCapsArg" --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
 
@@ -415,6 +429,9 @@ capshonlyIngestPath() {
 }
 capshonlyIngestNet() {
   debug "capshonlyIngestNet: '$1': stubbed (capsh network is always unrestricted)"
+}
+capshonlyIngestKeepPidspace() {
+  debug "capshonlyIngestKeepPidspace: noop"
 }
 capshonlyIngestProfile() {
   debug "capshonlyIngestProfile: stubbed"
@@ -434,7 +451,32 @@ capshonlyIngestCapability() {
 
 capshonlyExec() {
   PATH="$PATH:@libcap@/bin" exec \
-    capsh "--caps=$capshCapsArg" --shell="${cliArgs[0]}" -- "${cliArgs[@]:1}"
+    capsh "--caps=$capshCapsArg" --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
+}
+
+
+## NONE BACKEND
+# this backend exists only to allow benchmarking
+noneSetup() {
+  :
+}
+noneIngestPath() {
+  :
+}
+noneIngestNet() {
+  :
+}
+noneIngestKeepPidspace() {
+  :
+}
+noneIngestProfile() {
+  :
+}
+noneIngestCapability() {
+  :
+}
+noneExec() {
+  exec "${cliArgs[@]}"
 }
 
 
@@ -534,6 +576,10 @@ ingestForBackend() {
   for _addr in "${dns[@]}"; do
     "$method"IngestDns "$_addr"
   done
+
+  if [ -n "$keepPidspace" ]; then
+    "$method"IngestKeepPidspace
+  fi
 
   for _prof in "${profilesNamed[@]}"; do
     "$method"IngestProfile "$_prof"
