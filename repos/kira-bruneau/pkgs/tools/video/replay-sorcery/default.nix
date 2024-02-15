@@ -6,12 +6,9 @@
 , pkg-config
 , ffmpeg
 , libX11
-, drmSupport ? true
-, libdrm
-, notifySupport ? true
-, libnotify
-, pulseaudioSupport ? true
-, libpulseaudio
+, drmSupport ? true, libdrm
+, notifySupport ? true, libnotify
+, pulseaudioSupport ? true, libpulseaudio
 , nix-update-script
 }:
 

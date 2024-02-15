@@ -5,38 +5,6 @@ with final;
 let
   callPackage = prev.newScope final;
 
-  inherit (builtins)
-    readDir;
-
-  inherit (lib.attrsets)
-    mapAttrsToList
-    mergeAttrsList;
-
-  # Package files for a single shard
-  # Type: String -> String -> AttrsOf Path
-  namesForShard = shard: type:
-    if type != "directory" then
-      # Ignore all non-directories. Technically only README.md is allowed as a file in the base directory, so we could alternatively:
-      # - Assume that README.md is the only file and change the condition to `shard == "README.md"` for a minor performance improvement.
-      #   This would however cause very poor error messages if there's other files.
-      # - Ensure that README.md is the only file, throwing a better error message if that's not the case.
-      #   However this would make for a poor code architecture, because one type of error would have to be duplicated in the validity checks and here.
-      # Additionally in either of those alternatives, we would have to duplicate the hardcoding of "README.md"
-      { }
-    else
-      builtins.mapAttrs
-        (name: _: ./by-name + "/${shard}/${name}/package.nix")
-        (readDir (./by-name + "/${shard}"));
-
-  # The attribute set mapping names to the package files defining them
-  # This is defined up here in order to allow reuse of the value (it's kind of expensive to compute)
-  # if the overlay has to be applied multiple times
-  packageFiles = mergeAttrsList (mapAttrsToList namesForShard (readDir ./by-name));
-
-  autoCalledPackages = builtins.mapAttrs
-    (name: file: callPackage file { })
-    packageFiles;
-
   rocmPackgesOverlay = rfinal: rprev:
     builtins.mapAttrs
       # rocmUpdateScript isn't publicly exposed
@@ -88,18 +56,13 @@ in
 
   ccache = callPackage ./by-name/cc/ccache/package.nix { };
 
-  clonehero = clonehero-fhs-wrapper;
-  clonehero-fhs-wrapper = callPackage ./games/clonehero/fhs-wrapper.nix { };
-  clonehero-unwrapped = callPackage ./games/clonehero { };
-  clonehero-xdg-wrapper = callPackage ./games/clonehero/xdg-wrapper.nix { };
+  clonehero = callPackage ./games/clonehero { };
 
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server {
     inherit cmake cmake-format;
   };
 
   emacsPackages = recurseIntoAttrs (emacsPackagesOverlay (prev.emacsPackages // emacsPackages) prev.emacsPackages);
-
-  x = recurseIntoAttrs autoCalledPackages;
 
   gamemode = callPackage ./tools/games/gamemode rec {
     libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode {

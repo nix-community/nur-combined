@@ -131,8 +131,7 @@ multiStdenv.mkDerivation (finalAttrs: {
   ];
 
   mesonFlags = [
-    "--cross-file"
-    "cross-wine.conf"
+    "--cross-file" "cross-wine.conf"
     "-Dbitbridge=true"
 
     # Requires CMake and is unnecessary

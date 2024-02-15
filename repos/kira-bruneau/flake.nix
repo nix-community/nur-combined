@@ -69,9 +69,7 @@
           };
         };
 
-        nurPkgs = import ./pkgs finalPkgs pkgs;
-
-        finalPkgs = pkgs // nurPkgs;
+        nurPkgs = import ./pkgs (pkgs // nurPkgs) pkgs;
 
         flatNurPkgs = flake-utils.lib.flattenTree nurPkgs;
       in

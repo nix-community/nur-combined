@@ -35,26 +35,13 @@ buildNpmPackage rec {
 
   # https://github.com/anyproto/anytype-ts/blob/v0.38.0/electron/js/util.js#L214-L224
   enabledLangs = [
-    "da-DK"
-    "de-DE"
-    "en-US"
-    "es-ES"
-    "fr-FR"
-    "hi-IN"
-    "id-ID"
-    "it-IT"
-    "ja-JP"
-    "nl-NL"
-    "no-NO"
-    "pl-PL"
-    "pt-BR"
-    "ro-RO"
-    "ru-RU"
-    "tr-TR"
-    "uk-UA"
-    "vi-VN"
-    "zh-CN"
-    "zh-TW"
+    "da-DK" "de-DE" "en-US"
+    "es-ES" "fr-FR" "hi-IN"
+    "id-ID" "it-IT" "ja-JP"
+    "nl-NL" "no-NO" "pl-PL"
+    "pt-BR" "ro-RO" "ru-RU"
+    "tr-TR" "uk-UA" "vi-VN"
+    "zh-CN" "zh-TW"
   ];
 
   # middleware: https://github.com/anyproto/anytype-ts/blob/v0.38.0/update-ci.sh
