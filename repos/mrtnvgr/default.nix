@@ -27,7 +27,14 @@ in rec {
   # Games (Wine)
   wrapWine = p ./pkgs/wrapWine.nix { };
 
+  # celeste = p ./pkgs/games/wine/celeste { inherit wrapWine; };
   celeste = p ./pkgs/games/wine/celeste { inherit wrapWine; };
+  celeste-test = celeste.override {
+    src = pkgs.fetchtorrent {
+      url = "magnet:?xt=urn:btih:4A9EBBC92B836D331DE38EB3E62FDD4384E35C16&tr=http%3A%2F%2Fbt.t-ru.org%2Fann%3Fmagnet&dn=Celeste%20%5BL%5D%20%5BRUS%20%2B%20ENG%20%2B%207%5D%20(2019)%20(1.4.0.0)%20%5BEGS-Rip%5D";
+      hash = "sha256-MMPcilJW8HCFg/X7OJpZzN/F8R8NxZssK9flC2sJGH4=";
+    };
+  };
   celesteMods = p ./pkgs/games/wine/celeste/mods.nix { };
 
   # Fonts
@@ -56,14 +63,14 @@ in rec {
 
   fetchurl-gz = args:
     let
-      inherit (builtins) hasAttr head;
+      inherit (builtins) hasAttr head baseNameOf;
       url = if hasAttr "url" args then args.url else head args.urls;
       tmpFilename = if hasAttr "extension" args then "download.${args.extension}" else baseNameOf url;
     in pkgs.fetchurl ({
       nativeBuildInputs = with pkgs; [ zstd ];
       postFetch = ''
         TMPFILE=$TMPDIR/${tmpFilename}
-        mv $downloadedFile $TMPFILE
+        mv "$downloadedFile" "$TMPFILE"
 
         [[ "$TMPFILE" =~ \.zst$ ]] && zstd -d -T$NIX_BUILD_CORES "$TMPFILE"
       '';
