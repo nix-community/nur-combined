@@ -56,7 +56,6 @@ in
 
       howto = pkg ./_meta/howto {};
       readme = pkg ./_meta/readme {};
-      garnix-yaml = pkg ./_meta/garnix-yaml {};
     };
 
     # Package groups

@@ -74,7 +74,7 @@
             '';
 
             garnix = ''
-              nix eval --raw .#ciPackages.${system}._meta.garnix-yaml.text | ${pkgs.jq}/bin/jq > garnix.yaml
+              nix eval --raw .#garnixConfig | ${pkgs.jq}/bin/jq > garnix.yaml
             '';
 
             nvfetcher = ''
@@ -151,11 +151,17 @@
         };
       };
 
-      garnixConfig = builtins.toJSON {
-        builds.include =
-          (builtins.map (p: "packages.x86_64-linux.${p}") self.ciPackageNames.x86_64-linux)
-          ++ (builtins.map (p: "packages.aarch64-linux.${p}") self.ciPackageNames.aarch64-linux);
-      };
+      garnixConfig = let
+        platforms = ["x86_64-linux" "aarch64-linux"];
+      in
+        builtins.toJSON {
+          builds.include =
+            lib.naturalSort
+            (lib.flatten
+              (builtins.map
+                (platform: (builtins.map (p: "packages.${platform}.${p}") self.ciPackageNames."${platform}"))
+                platforms));
+        };
 
       overlay = self.overlays.default;
       overlays = {
