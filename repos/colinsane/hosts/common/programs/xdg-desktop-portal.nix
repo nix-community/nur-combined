@@ -20,6 +20,9 @@ in
       '';
     });
 
+    # the portal is a launcher, needs to handle anything
+    sandbox.enable = false;
+
     services.xdg-desktop-portal = {
       description = "Portal service";
       wantedBy = [ "graphical-session.target" ];

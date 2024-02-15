@@ -33,6 +33,11 @@ debug() {
   [ -n "$isDebug" ] && printf "[debug] %s" "$1" >&2
 }
 
+# `locate <bin-name> </path/to/default>` => print the full path to `<bin-name>` if it's on PATH, else print `</path/to/default>`
+locate() {
+  command -v "$1" || echo "$2"
+}
+
 loadProfileByPath() {
   # profile format is simply a list of arguments one would pass to this sane-sandboxed script itself,
   # with one argument per line
@@ -302,8 +307,9 @@ firejailExec() {
   if [ -n "$firejailProfile" ]; then
     firejailFlags+=("--profile=$firejailProfile")
   fi
-  PATH="$PATH:@firejail@/bin" exec \
-    firejail "${firejailFlags[@]}" -- \
+  _firejail="$(locate firejail @firejail@/bin/firejail)"
+  exec \
+    "$_firejail" "${firejailFlags[@]}" -- \
     env "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
@@ -349,8 +355,9 @@ bwrapExec() {
   # --unshare-cgroup
   # --unshare-uts
   # --unshare-user (implicit to every non-suid call to bwrap)
-  PATH="$PATH:@bubblewrap@/bin" exec \
-    bwrap --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}" --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
+  _bwrap="$(locate bwrap @bubblewrap@/bin/bwrap)"
+  exec \
+    "$_bwrap" --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}" --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
     env "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
@@ -411,9 +418,11 @@ landlockExec() {
   # so trampoline through `capsh` as well, to drop privs.
   # N.B: capsh passes its arg to bash (via /nix/store/.../bash), which means you have to `-c "my command"` to
   # invoke the actual user command.
-  PATH="$PATH:@landlockSandboxer@/bin:@libcap@/bin" LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
-    sandboxer \
-    capsh "--caps=$capshCapsArg" --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
+  _sandboxer="$(locate sandboxer @landlockSandboxer@/bin/sandboxer)"
+  _capsh="$(locate capsh @libcap@/bin/capsh)"
+  LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
+    "$_sandboxer" \
+    "$_capsh" "--caps=$capshCapsArg" --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
 
@@ -450,8 +459,9 @@ capshonlyIngestCapability() {
 }
 
 capshonlyExec() {
-  PATH="$PATH:@libcap@/bin" exec \
-    capsh "--caps=$capshCapsArg" --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
+  _capsh="$(locate capsh @libcap@/bin/capsh)"
+  exec \
+    "$_capsh" "--caps=$capshCapsArg" --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
 

@@ -368,6 +368,18 @@ in
     "gnome.hitori".sandbox.wrapperType = "wrappedDerivation";
     "gnome.hitori".sandbox.whitelistWayland = true;
 
+    inkscape.sandbox.method = "bwrap";
+    inkscape.sandbox.wrapperType = "wrappedDerivation";
+    inkscape.sandbox.whitelistWayland = true;
+    inkscape.sandbox.extraHomePaths = [
+      "Pictures"
+      "Pictures/servo-macros"
+      "dev"
+      "ref"
+      "tmp"
+    ];
+    inkscape.sandbox.autodetectCliPaths = true;
+
     # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect
 
     krita.sandbox.method = "bwrap";
@@ -400,6 +412,18 @@ in
     losslesscut-bin.sandbox.whitelistDri = true;
     losslesscut-bin.sandbox.whitelistWayland = true;
     losslesscut-bin.sandbox.whitelistX = true;
+
+    "mate.engrampa".sandbox.method = "bwrap";  # TODO:sandbox: untested
+    "mate.engrampa".sandbox.wrapperType = "inplace";
+    "mate.engrampa".sandbox.whitelistWayland = true;
+    "mate.engrampa".sandbox.autodetectCliPaths = "existingFileOrParent";
+    "mate.engrampa".sandbox.extraHomePaths = [
+      "archive"
+      "Books"
+      "records"
+      "ref"
+      "tmp"
+    ];
 
     mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
     mercurial.sandbox.wrapperType = "wrappedDerivation";
@@ -528,9 +552,29 @@ in
     wget.sandbox.net = "all";
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
+    w3m.sandbox.method = "bwrap";
+    w3m.sandbox.wrapperType = "wrappedDerivation";
+    w3m.sandbox.net = "all";
+    w3m.sandbox.extraHomePaths = [
+      # little-used feature, but you can save web pages :)
+      "tmp"
+    ];
+
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
 
+    # TODO: these live in /libexec
+    # xdg-desktop-portal-gtk.sandbox.method = "bwrap";
+    # xdg-desktop-portal-gtk.sandbox.wrapperType = "inplace";
+    # xdg-desktop-portal-gtk.sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
+    # xdg-desktop-portal-gtk.sandbox.whitelistWayland = true;
+
+    # xdg-desktop-portal-wlr.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    # xdg-desktop-portal-wlr.sandbox.wrapperType = "inplace";
+    # xdg-desktop-portal-wlr.sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
+    # xdg-desktop-portal-wlr.sandbox.whitelistWayland = true;
+
     xdg-terminal-exec.sandbox.enable = false;  # xdg-terminal-exec is a launcher for $TERM
+    xterm.sandbox.enable = false;  # need to be able to do everything
 
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
 
