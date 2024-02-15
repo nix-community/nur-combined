@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+imports: { config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -24,6 +24,8 @@ let
     '';
   };
 in {
+  inherit imports;
+
   options.services.hardware = {
     enable = mkEnableOption ''
       Hardware tweaks for different hosts
@@ -67,6 +69,7 @@ in {
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
       services.redshift.enable = true;
       services.xserver.videoDrivers = [ "intel" ];
+      services.hidpi.dpi = 120;
     } // builder))
     (mkIf (cfg.enable && desktop) {
       services.nix-serve = {
@@ -85,6 +88,11 @@ in {
       services.xserver.deviceSection = ''
         Option "TearFree" "true"
       '';
+      services.hidpi = {
+        dpi = 144;
+        cursorTheme = "Adwaita";
+        cursorSize = 32;
+      };
     })
   ];
 }

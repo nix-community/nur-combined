@@ -4,7 +4,7 @@ rec {
   # my-module = ./my-module;
   logitech-k380 = ./logitech-k380.nix;
   gtk = ./gtk.nix;
-  cursor = ./cursor.nix;
+  hidpi = ./hidpi.nix;
   jack = ./jack.nix;
   pulseaudio = ./pulseaudio.nix;
   pipewire = ./pipewire.nix;
@@ -21,7 +21,7 @@ rec {
   awl = ./awl.nix;
   cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
-  hardware = import ./hardware.nix;
+  hardware = import ./hardware.nix [ hidpi ];
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
   archisteamfarm = ./archisteamfarm.nix;
