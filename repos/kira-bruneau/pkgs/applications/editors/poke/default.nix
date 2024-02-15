@@ -7,9 +7,15 @@
 , texinfo
 , boehmgc
 , readline
-, guiSupport ? false, makeWrapper, tcl, tcllib, tk
-, miSupport ? true, json_c
-, nbdSupport ? !stdenv.isDarwin, libnbd
+, guiSupport ? false
+, makeWrapper
+, tcl
+, tcllib
+, tk
+, miSupport ? true
+, json_c
+, nbdSupport ? !stdenv.isDarwin
+, libnbd
 , textStylingSupport ? true
 , dejagnu
 
