@@ -63,13 +63,11 @@ in
     (lib.mkIf cfg.cache.selfHosted {
       nix = {
         settings = {
-          # The NixOS module adds the official Hydra cache by default
-          # No need to use `extra-*` options.
-          substituters = [
+          extra-substituters = [
             "https://cache.belanyi.fr/"
           ];
 
-          trusted-public-keys = [
+          extra-trusted-public-keys = [
             "cache.belanyi.fr:LPhrTqufwfxTceg1nRWueDWf7/2zSVY9K00pq2UI7tw="
           ];
         };
