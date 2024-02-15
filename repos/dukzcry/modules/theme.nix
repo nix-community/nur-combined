@@ -14,7 +14,7 @@ in {
   config = mkIf cfg.enable {
     gtk = {
       enable = true;
-      theme.name = "Adwaita${optionalString cfg.dark "-dark"}";
+      theme.name = "Adwaita" + optionalString cfg.dark "-dark";
       gtk3noCsd = true;
     };
     qt = {
