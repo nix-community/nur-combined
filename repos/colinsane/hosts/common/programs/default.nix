@@ -78,6 +78,7 @@
     ./spotify.nix
     ./steam.nix
     ./stepmania.nix
+    ./strings.nix
     ./sublime-music.nix
     ./supertuxkart.nix
     ./sway-autoscaler

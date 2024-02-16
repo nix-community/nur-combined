@@ -1,0 +1,12 @@
+{ pkgs, ... }:
+{
+  sane.programs.strings = {
+    # binutils-unwrapped is like 80 MiB, just for this one binary;
+    # dynamic linking means copying the binary doesn't reduce the closure much at all compared to just symlinking it.
+    packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.binutils-unwrapped "bin/strings";
+
+    sandbox.method = "landlock";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.autodetectCliPaths = "existing";
+  };
+}

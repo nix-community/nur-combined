@@ -66,6 +66,8 @@ let
     tree-sitter-nix-shell = callPackage ./additional/tree-sitter-nix-shell { };
     trivial-builders = lib.recurseIntoAttrs (callPackage ./additional/trivial-builders { });
     inherit (trivial-builders)
+      copyIntoOwnPackage
+      linkIntoOwnPackage
       rmDbusServices
     ;
     unftp = callPackage ./additional/unftp { };

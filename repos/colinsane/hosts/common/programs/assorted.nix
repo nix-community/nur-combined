@@ -127,7 +127,7 @@ in
     #   - debugging?
     consoleUtils = declPackageSet [
       "alsaUtils"  # for aplay, speaker-test
-      "binutils-unwrapped"  # for strings; though this brings 80MB of unrelated baggage too
+      "strings"
       # "cdrtools"
       # "clinfo"
       # "dmidecode"
