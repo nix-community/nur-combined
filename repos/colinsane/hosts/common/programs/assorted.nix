@@ -83,7 +83,7 @@ in
       # "iw"
       "jq"
       "killall"
-      "libcap_ng"  # for `netcap`
+      # "libcap_ng"  # for `netcap`
       "lsof"
       # "miniupnpc"
       "nano"
@@ -226,6 +226,16 @@ in
     blanket.sandbox.whitelistAudio = true;
     # blanket.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
     blanket.sandbox.whitelistWayland = true;
+
+    blueberry.sandbox.method = "bwrap";
+    blueberry.sandbox.wrapperType = "wrappedDerivation";
+    blueberry.sandbox.whitelistWayland = true;
+    blueberry.sandbox.extraPaths = [
+      "/dev/rfkill"
+      "/run/dbus"
+      "/sys/class/rfkill"
+      "/sys/devices"
+    ];
 
     brightnessctl.sandbox.method = "landlock";  # also bwrap, but landlock is more responsive
     brightnessctl.sandbox.wrapperType = "wrappedDerivation";
@@ -412,6 +422,12 @@ in
 
     # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect
 
+    killall.sandbox.method = "landlock";
+    killall.sandbox.wrapperType = "wrappedDerivation";
+    killall.sandbox.extraPaths = [
+      "/proc"
+    ];
+
     krita.sandbox.method = "bwrap";
     krita.sandbox.wrapperType = "wrappedDerivation";
     krita.sandbox.whitelistWayland = true;
@@ -423,6 +439,8 @@ in
       "ref"
       "tmp"
     ];
+
+    libcap_ng.sandbox.enable = false;  # there's something about /proc/$pid/fd which breaks `readlink`/stat with every sandbox technique (except capsh-only)
 
     libnotify.sandbox.method = "bwrap";
     libnotify.sandbox.wrapperType = "wrappedDerivation";
@@ -518,6 +536,12 @@ in
       "/sys/kernel"
     ];
 
+    pstree.sandbox.method = "landlock";
+    pstree.sandbox.wrapperType = "wrappedDerivation";
+    pstree.sandbox.extraPaths = [
+      "/proc"
+    ];
+
     pwvucontrol.sandbox.method = "bwrap";
     pwvucontrol.sandbox.wrapperType = "wrappedDerivation";
     pwvucontrol.sandbox.whitelistAudio = true;
@@ -540,6 +564,11 @@ in
     sequoia.sandbox.autodetectCliPaths = true;
 
     shattered-pixel-dungeon.persist.byStore.plaintext = [ ".local/share/.shatteredpixel/shattered-pixel-dungeon" ];
+    shattered-pixel-dungeon.sandbox.method = "bwrap";
+    shattered-pixel-dungeon.sandbox.wrapperType = "wrappedDerivation";
+    shattered-pixel-dungeon.sandbox.whitelistAudio = true;
+    shattered-pixel-dungeon.sandbox.whitelistDri = true;
+    shattered-pixel-dungeon.sandbox.whitelistWayland = true;
 
     # printer/filament settings
     slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
@@ -621,6 +650,8 @@ in
     tumiki-fighters.sandbox.whitelistDri = true;  #< not strictly necessary, but triples CPU perf
     tumiki-fighters.sandbox.whitelistWayland = true;
     tumiki-fighters.sandbox.whitelistX = true;
+
+    util-linux.sandbox.enable = false;  #< TODO: possible to sandbox if i specific a different profile for each of its ~50 binaries
 
     unzip.sandbox.method = "bwrap";
     unzip.sandbox.wrapperType = "wrappedDerivation";
