@@ -17,6 +17,7 @@
   "3dstool" = pkgs.callPackage ./pkgs/3dstool { };
   lnshot = pkgs.callPackage ./pkgs/lnshot { };
   save3ds = pkgs.callPackage ./pkgs/save3ds { };
+  cleaninty = pkgs.python3Packages.callPackage ./pkgs/cleaninty { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
