@@ -221,6 +221,11 @@ in
 
 
     # INDIVIDUAL PACKAGE DEFINITIONS
+
+    alsaUtils.sandbox.method = "landlock";
+    alsaUtils.sandbox.wrapperType = "wrappedDerivation";
+    alsaUtils.sandbox.whitelistAudio = true;  #< not strictly necessary?
+
     blanket.sandbox.method = "bwrap";
     blanket.sandbox.wrapperType = "wrappedDerivation";
     blanket.sandbox.whitelistAudio = true;
@@ -250,6 +255,25 @@ in
 
     cargo.persist.byStore.plaintext = [ ".cargo" ];
 
+    # cryptsetup: typical use is `cryptsetup open /dev/loopxyz mappedName`, and creates `/dev/mapper/mappedName`
+    cryptsetup.sandbox.method = "landlock";
+    cryptsetup.sandbox.wrapperType = "wrappedDerivation";
+    cryptsetup.sandbox.extraPaths = [
+      "/dev/mapper"
+      "/dev/random"
+      "/dev/urandom"
+      "/run"  #< it needs the whole directory, at least if using landlock
+      "/proc"
+      "/sys/dev/block"
+      "/sys/devices"
+    ];
+    cryptsetup.sandbox.capabilities = [ "sys_admin" ];
+    cryptsetup.sandbox.autodetectCliPaths = "existing";
+
+    ddrescue.sandbox.method = "landlock";  # TODO:sandbox: untested
+    ddrescue.sandbox.wrapperType = "wrappedDerivation";
+    ddrescue.sandbox.autodetectCliPaths = "existingFileOrParent";
+
     # auth token, preferences
     delfin.sandbox.method = "bwrap";
     delfin.sandbox.wrapperType = "wrappedDerivation";
@@ -276,6 +300,27 @@ in
     dtc.sandbox.method = "bwrap";
     dtc.sandbox.autodetectCliPaths = true;  # TODO:sandbox: untested
 
+    dtrx.sandbox.method = "bwrap";
+    dtrx.sandbox.wrapperType = "wrappedDerivation";
+    dtrx.sandbox.whitelistPwd = true;
+    dtrx.sandbox.autodetectCliPaths = "existing";  #< for the archive
+
+    e2fsprogs.sandbox.method = "landlock";
+    e2fsprogs.sandbox.wrapperType = "wrappedDerivation";
+    e2fsprogs.sandbox.autodetectCliPaths = "existing";
+
+    efibootmgr.sandbox.method = "landlock";
+    efibootmgr.sandbox.wrapperType = "wrappedDerivation";
+    efibootmgr.sandbox.extraPaths = [
+      "/sys/firmware/efi"
+    ];
+
+    electrum.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    electrum.sandbox.wrapperType = "wrappedDerivation";
+    electrum.sandbox.net = "all";  # TODO: probably want to make this run behind a VPN, always
+    electrum.sandbox.whitelistWayland = true;
+    electrum.persist.byStore.cryptClearOnBoot = [ ".electrum" ];  #< TODO: use XDG dirs!
+
     endless-sky.persist.byStore.plaintext = [ ".local/share/endless-sky" ];
     endless-sky.sandbox.method = "bwrap";
     endless-sky.sandbox.wrapperType = "wrappedDerivation";
@@ -288,10 +333,18 @@ in
     # TODO: package [smile](https://github.com/mijorus/smile) for probably a better mobile experience.
     emote.persist.byStore.plaintext = [ ".local/share/Emote" ];
 
+    ethtool.sandbox.method = "landlock";
+    ethtool.sandbox.wrapperType = "wrappedDerivation";
+    ethtool.sandbox.capabilities = [ "net_admin" ];
+
     eza.sandbox.method = "landlock";  # ls replacement
     eza.sandbox.wrapperType = "wrappedDerivation";  # slow to build
     eza.sandbox.autodetectCliPaths = true;
     eza.sandbox.whitelistPwd = true;
+
+    fatresize.sandbox.method = "landlock";
+    fatresize.sandbox.wrapperType = "wrappedDerivation";
+    fatresize.sandbox.autodetectCliPaths = "parent";  # /dev/sda1 -> needs /dev/sda
 
     fd.sandbox.method = "landlock";
     fd.sandbox.wrapperType = "wrappedDerivation";  # slow to build
@@ -495,6 +548,11 @@ in
     nethogs.sandbox.wrapperType = "wrappedDerivation";
     nethogs.sandbox.capabilities = [ "net_admin" "net_raw" ];
 
+    networkmanagerapplet.sandbox.method = "bwrap";
+    networkmanagerapplet.sandbox.wrapperType = "wrappedDerivation";
+    networkmanagerapplet.sandbox.whitelistWayland = true;
+    networkmanagerapplet.sandbox.whitelistDbus = [ "system" ];
+
     nmon.sandbox.method = "landlock";
     nmon.sandbox.wrapperType = "wrappedDerivation";
     nmon.sandbox.extraPaths = [
@@ -523,6 +581,13 @@ in
     pavucontrol.sandbox.wrapperType = "wrappedDerivation";
     pavucontrol.sandbox.whitelistAudio = true;
     pavucontrol.sandbox.whitelistWayland = true;
+
+    pciutils.sandbox.method = "landlock";
+    pciutils.sandbox.wrapperType = "wrappedDerivation";
+    pciutils.sandbox.extraPaths = [
+      "/sys/bus/pci"
+      "/sys/devices"
+    ];
 
     "perlPackages.FileMimeInfo".sandbox.enable = false;  #< TODO: sandbox `mimetype` but not `mimeopen`.
 

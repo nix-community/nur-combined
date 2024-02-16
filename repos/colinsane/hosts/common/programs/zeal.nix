@@ -49,6 +49,8 @@ in {
         mv $out/*.docset $out/share/docset
       '';
     };
+
+    sandbox.enable = false;  # meta-package; no binaries
   };
 
   environment.pathsToLink = mkIf config.sane.programs.zeal.enabled [
