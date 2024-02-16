@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-02-14",
+        "date": "2024-02-16",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "d1ccd4a417b8c1af6e12f064d0542a3f55a7716d",
-            "sha256": "sha256-trDbYqTVNGLh7ShMyihQ1klSvGlqR+kzbVsKhAfjNq0=",
+            "rev": "53d3f118cf2ef73ebd11ae2ab460fedf08c81531",
+            "sha256": "sha256-VEIjckToydMaz7JqH6RDH2Ykl77pGz3Fa5sEM+SzLIU=",
             "type": "github"
         },
-        "version": "d1ccd4a417b8c1af6e12f064d0542a3f55a7716d"
+        "version": "53d3f118cf2ef73ebd11ae2ab460fedf08c81531"
     },
     "calibre-cops": {
         "cargoLocks": null,
