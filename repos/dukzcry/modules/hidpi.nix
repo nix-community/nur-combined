@@ -54,6 +54,7 @@ in
         printf "%s\n" "Xft.dpi: ${toString cfg.dpi}" | xrdb -merge
       '';
       environment.variables.QT_AUTO_SCREEN_SCALE_FACTOR = "0";
+      environment.variables.QT_SCREEN_SCALE_FACTORS = toString (cfg.dpi / 96.0);
     })
 
     # https://github.com/NixOS/nixpkgs/issues/274545

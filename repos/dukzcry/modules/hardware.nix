@@ -70,7 +70,7 @@ in {
       services.redshift.enable = true;
       services.xserver.videoDrivers = [ "intel" ];
       services.hidpi = {
-        dpi = 120;
+        dpi = 144;
         cursorTheme = "Adwaita";
         cursorSize = 16;
       };
@@ -93,7 +93,7 @@ in {
         Option "TearFree" "true"
       '';
       services.hidpi = {
-        dpi = 144;
+        dpi = 192;
         cursorTheme = "Adwaita";
         cursorSize = 32;
         console = true;
