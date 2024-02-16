@@ -38,26 +38,17 @@
   - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
 - port all sane.programs to be sandboxed
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
-  - integrate `xdg-open` with the sandbox profiles
-    - xdg-open can run as a highly-permissioned service, fielding requests.
-    - when it determines the handler, it can enforce the sandbox profile on that handler's behalf,
-      ensuring that anything launched with xdg-open is lowly-permissioned.
-    - then, the actual desktop can be permissioned *lower*. e.g. no access to ~/.ssh, even in nautilus.
-      `xdg-open terminal` would grant a high-permission interactive terminal, for doing high-permissioned things.
-    - i think there's already a xdg-open dbus equivalent in gnome. search "firejail URL issue"
-    - ALTERNATIVELY:
-      1. compute the closure of each program and its `suggestedPrograms`
-      2. jump into a sandbox for the above
-      3. launch some program which fields requests and passes them to xdg-open
-      4. launch the original program we seek to sandbox in a _nested_ sandbox, of just its own files, but with xdg-open aliased to forward requests to the proxy.
-      - i don't know how exactly the proxy works: `mkfifo`? a TCP socket that traverses a network namespace? there's some complexity here.
-      - this is sort of just a more sophisticated version of the above.
-      - computing sandbox unions is probably far more difficult than it appears. e.g. what to do when a `bwrap` program wishes to call a `landlock` program? how is that outer scope to be sandboxed? my sandboxes are already frail enough that making them dynamic like this will surely cause unpredictable breakages.
+  - revisit "non-sandboxable" apps and check that i'm not actually just missing mountpoints
+    - LL_FS_RW=/ isn't enough -- need all mount points like `=/:/proc:/sys:...`.
+  - ensure non-bin package outputs are linked for sandboxed apps
+    - i.e. `outputs.man`, `outputs.debug`, `outputs.doc`, ...
   - lock down dbus calls within the sandbox
     - otherwise anyone can `systemd-run --user ...` to potentially escape a sandbox
     - <https://github.com/flatpak/xdg-dbus-proxy>
   - remove `.ssh` access from Firefox!
     - limit access to `~/private/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
+  - port sane-sandboxed to a compiled language (hare?)
+    - it adds like 50-70ms launch time _on my laptop_. i'd hate to know how much that is on the pinephone.
 - make dconf stuff less monolithic
   - i.e. per-app dconf profiles for those which need it. possible static config.
 - canaries for important services
