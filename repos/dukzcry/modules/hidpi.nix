@@ -35,6 +35,8 @@ in
         type = types.nullOr types.int;
         default = null;
       };
+
+      console = mkEnableOption "fix hidpi console font";
     };
   };
 
@@ -51,6 +53,19 @@ in
       services.xserver.displayManager.sessionCommands = optionalString (cfg.dpi != null) ''
         printf "%s\n" "Xft.dpi: ${toString cfg.dpi}" | xrdb -merge
       '';
+    })
+
+    # https://github.com/NixOS/nixpkgs/issues/274545
+    (mkIf cfg.console {
+      console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
+      systemd.services.my-reload-systemd-vconsole-setup =
+        { wantedBy = [ "graphical.target" ];
+          after = [ "graphical.target" ];
+          serviceConfig =
+            { RemainAfterExit = true;
+              ExecStart = "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup";
+            };
+        };
     })
   ];
 }

@@ -92,6 +92,7 @@ in {
         dpi = 144;
         cursorTheme = "Adwaita";
         cursorSize = 32;
+        console = true;
       };
     })
   ];
