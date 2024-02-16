@@ -21,7 +21,7 @@ in {
     hardware.nvidia.prime.offload.enable = true;
     hardware.nvidia.prime.nvidiaBusId = "PCI:1:0:0";
     hardware.nvidia.prime.intelBusId = "PCI:0:2:0";
-    # actual for 23.05
+    # workaround: don't restart xorg on system rebuild
     systemd.services.systemd-udev-trigger.restartIfChanged = false;
     environment = {
       systemPackages = with pkgs; [ nvidia-offload ];

@@ -51,6 +51,7 @@ in rec {
       cp -r ${rustdeskitem}/* $out
     '';
   });
+  # https://github.com/NixOS/nixpkgs/issues/87667
   qmmp = super.qmmp.overrideAttrs (oldAttrs: {
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ super.wrapGAppsHook ];
     dontWrapGApps = true;

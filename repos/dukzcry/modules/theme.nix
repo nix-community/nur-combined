@@ -20,6 +20,7 @@ in {
       enable = true;
       style = "adwaita-highcontrastinverse";
     };
+    # workaround: qgnomeplatform is unmaintained
     environment.variables.QT_QPA_PLATFORMTHEME = "gtk3";
   };
 }
