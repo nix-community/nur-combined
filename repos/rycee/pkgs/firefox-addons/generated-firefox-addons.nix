@@ -1624,10 +1624,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2406.0";
+      version = "6.2407.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231763/dashlane-6.2406.0.xpi";
-      sha256 = "3fc45d3ffe9399b1dfaf32384a3bd60ae0ed4e70a4456195993de74360d1a8ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236375/dashlane-6.2407.1.xpi";
+      sha256 = "5004ae70345f496f4bcae5ed67d7c53d972bc593c3528f62ff78581172f285bc";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3432,10 +3432,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.214.1";
+      version = "1.0.214.2";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236693/hover_zoom_plus-1.0.214.1.xpi";
-      sha256 = "9e8befc8e759e3cf9682f7e2b4b995f4cbc1f0068053a46011bc6f057aa87e77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4237055/hover_zoom_plus-1.0.214.2.xpi";
+      sha256 = "1e83b38d553467df63e4f82ec0536b581fbf4bbccfaf969750e275c7c1a1d119";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -5150,10 +5150,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.125.0.4";
+      version = "4.126.0.1";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4208799/lastpass_password_manager-4.125.0.4.xpi";
-      sha256 = "ff714c257ee7fb5e4eb351a42a41c7f82c7a07c45b91f440223a2e2b1962e873";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235582/lastpass_password_manager-4.126.0.1.xpi";
+      sha256 = "b398f580f6449d383f0e46fec3b6fc06c5f107f63f3247bdd25ccda28da2b593";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -5184,7 +5184,6 @@
           "https://lastpass.com/?ac=1*"
           "https://lastpass.com/recover.php*"
           "https://lastpass.eu/recover.php*"
-          "https://lastpass.com/vault/vault.html*"
           "https://www.lastpass.com/create-account/success*"
           "https://lastpass.com/*"
           "https://backoffice.lastpass.com/*"
@@ -8862,10 +8861,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.40";
+      version = "1.22.42";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223580/single_file-1.22.40.xpi";
-      sha256 = "72b11aa29cac50d9c9ac6978310b4597b42eaecd79098451f545a3ab0e2b516d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4235927/single_file-1.22.42.xpi";
+      sha256 = "c79c2cfd7c9361f5ccdd7ba55eb3ab6898d4c43bc5641bc8ee21a58504bdd336";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10426,40 +10425,6 @@
           "webRequestBlocking"
           "contextMenus"
           "*://*/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
-    "video-downloadhelper" = buildFirefoxXpiAddon {
-      pname = "video-downloadhelper";
-      version = "8.1.4.0";
-      addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216787/video_downloadhelper-8.1.4.0.xpi";
-      sha256 = "7efb7c6c8e6007228c020af1e9d78a348d68194bce3fe960e27c5fadf904232f";
-      meta = with lib;
-      {
-        homepage = "http://www.downloadhelper.net/";
-        description = "The easy way to download and convert Web videos from hundreds of YouTube-like sites.";
-        license = {
-          shortName = "vdh";
-          fullName = "Custom License for Video DownloadHelper";
-          url = "https://addons.mozilla.org/en-US/firefox/addon/video-downloadhelper/license/";
-          free = false;
-        };
-        mozPermissions = [
-          "tabs"
-          "contextMenus"
-          "nativeMessaging"
-          "webRequest"
-          "downloads"
-          "webNavigation"
-          "notifications"
-          "scripting"
-          "storage"
-          "<all_urls>"
-          "menus"
-          "webRequestBlocking"
-          "*://*.downloadhelper.net/*"
         ];
         platforms = platforms.all;
       };
