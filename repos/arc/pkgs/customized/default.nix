@@ -565,22 +565,14 @@ let
     });
 
     pfsshell-develop = { pfsshell, pkg-config, fuse, fetchpatch, fetchFromGitHub, lib, enableFuse ? true }: pfsshell.overrideAttrs (old: {
-      version = "2023-10-03";
+      version = "2024-02-13";
 
       src = fetchFromGitHub {
         owner = "ps2homebrew";
         repo = "pfsshell";
-        rev = "57af531b43026ccadaf531097c8936e188953035";
-        sha256 = "sha256-M5MpSZwe3AB+p5zeM+VT4ChkL7JWhmI7h+EFFWpOTiQ=";
+        rev = "2f5aac085c8d7ac808d3c6b57d74595b476d9e98";
+        sha256 = "sha256-2gKSMg9Q/4XvSRPcOt2aqNIZH6009lfmb7AoMSvRo3Q=";
       };
-
-      patches = [
-        (fetchpatch {
-          name = "stdin-eof.patch";
-          url = "https://github.com/ps2homebrew/pfsshell/pull/48/commits/4a631358e8e195756697015917c2faa4ade867b6.patch";
-          sha256 = "sha256-nRBxCsu/CM/VDQ7k7g4nBDgGBqI2gabkwff4gA9dZT0=";
-        })
-      ];
 
       nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
         pkg-config
