@@ -1,7 +1,12 @@
 labels:
-  type: exec
+  backend: local
 
 steps:
+- name: pre-commit check
+  image: bash
+  commands:
+  - nix develop --command pre-commit run --all
+
 - name: nix flake check
   image: bash
   commands:
