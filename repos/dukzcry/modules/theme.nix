@@ -14,6 +14,7 @@ in {
     gtk = {
       enable = true;
       theme.name = "HighContrastInverse";
+      gtk2Theme.name = "Adwaita-dark";
     };
     qt = {
       enable = true;

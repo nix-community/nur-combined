@@ -25,12 +25,12 @@ let
         "${key}=${value'}";
   };
 
-  settings =
+  settings = theme:
     optionalAttrs (cfg.font != null)
       { gtk-font-name = cfg.font.name; }
     //
-    optionalAttrs (cfg.theme != null)
-      { gtk-theme-name = cfg.theme.name; }
+    optionalAttrs (theme != null)
+      { gtk-theme-name = theme.name; }
     //
     optionalAttrs (cfg.iconTheme != null)
       { gtk-icon-theme-name = cfg.iconTheme.name; }
@@ -66,6 +66,18 @@ in
         description = ''
           Whether to enable theming for obsolete GTK2 engine.
         '';
+      };
+
+      gtk2Theme = mkOption {
+        type = types.nullOr themeType;
+        default = cfg.theme;
+        example = literalExample ''
+          {
+            name = "Adwaita";
+            package = pkgs.gnome-themes-extra;
+          };
+        '';
+        description = "The GTK+ theme to use.";
       };
 
       disableCsd = mkOption {
@@ -130,7 +142,7 @@ in
     (mkIf gtk2 {
       environment.etc."xdg/gtk-2.0/gtkrc".text =
         concatStringsSep "\n" (
-          mapAttrsToList toGtk2File settings
+          mapAttrsToList toGtk2File (settings cfg.gtk2Theme)
         );
     })
 
@@ -147,7 +159,7 @@ in
         ++ optionalPackage cfg.cursorTheme;
 
       environment.etc."xdg/gtk-3.0/settings.ini".text =
-        toGtk3File { Settings = settings; };
+        toGtk3File { Settings = (settings cfg.theme); };
 
       programs.dconf.enable = lib.mkDefault true;
       programs.dconf.profiles = {
