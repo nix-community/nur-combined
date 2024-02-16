@@ -53,6 +53,7 @@ in
       services.xserver.displayManager.sessionCommands = optionalString (cfg.dpi != null) ''
         printf "%s\n" "Xft.dpi: ${toString cfg.dpi}" | xrdb -merge
       '';
+      # workaround: for qt5 taken from plasma
       environment.variables.QT_AUTO_SCREEN_SCALE_FACTOR = "0";
       environment.variables.QT_SCREEN_SCALE_FACTORS = toString (cfg.dpi / 96.0);
     })
