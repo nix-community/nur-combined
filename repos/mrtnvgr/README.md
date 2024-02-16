@@ -28,10 +28,13 @@
 - [neuralnote](https://github.com/DamRsn/NeuralNote)
 - [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
 
+### Fetchers
+
+- **fetchurl-gz** - `fetchurl` but with decompression support
+- **fetchzip-gz** - `fetchzip` but with decompression support
+
 ### Overrides
 
 - **obs-wayland** - obs with plugins for wayland and pipewire support
 - **cascadia-code-nerd-font** - Cascadia Code with Nerd Font symbols
 - **cascadia-mono-nerd-font** - Cascadia Mono with Nerd Font symbols
-- **fetchurl-gz** - `fetchurl` but with decompression support
-- **fetchzip-gz** - `fetchzip` but with decompression support

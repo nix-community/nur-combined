@@ -45,33 +45,14 @@ in rec {
   cascadia-code-nerd-font = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
   cascadia-mono-nerd-font = (pkgs.nerdfonts.override { fonts = [ "CascadiaMono" ]; });
 
-  # fetchers with decompression support
+  # Fetchers
   # note: zip suffix doesn't mean that only zip archives are supported,
   #       so that's why gz here is like an generic term for compression algorithms
   # source: https://www.reddit.com/r/NixOS/comments/kqe57g/comment/gi3uii6
+  #         https://discourse.nixos.org/t/fetchurl-with-compressed-files/39823
   # TODO: add support for .gz, ...
-  fetchzip-gz = args: pkgs.fetchzip ({
-    nativeBuildInputs = with pkgs; [ zstd ];
-  } // args);
-
-  # TODO: rename file in the nix store
-  fetchurl-gz = args:
-    let
-      inherit (builtins) hasAttr head baseNameOf;
-      url = if hasAttr "url" args then args.url else head args.urls;
-      tmpFilename = if hasAttr "extension" args then "download.${args.extension}" else baseNameOf url;
-    in pkgs.fetchurl ({
-      nativeBuildInputs = with pkgs; [ zstd ];
-      postFetch = ''
-        TMPFILE=$TMPDIR/${tmpFilename}
-        mv "$downloadedFile" "$TMPFILE"
-
-        [[ "$TMPFILE" =~ \.zst$ ]] && zstd -d "$TMPFILE" -o $out
-      '';
-
-      downloadToTemp = true;
-      recursiveHash = true;
-    } // args);
+  fetchzip-gz = p ./pkgs/fetchers/fetchzip-gz { };
+  fetchurl-gz = p ./pkgs/fetchers/fetchurl-gz { };
 
   # Audio
 
