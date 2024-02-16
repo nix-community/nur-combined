@@ -267,6 +267,11 @@ in
     dtc.sandbox.autodetectCliPaths = true;  # TODO:sandbox: untested
 
     endless-sky.persist.byStore.plaintext = [ ".local/share/endless-sky" ];
+    endless-sky.sandbox.method = "bwrap";
+    endless-sky.sandbox.wrapperType = "wrappedDerivation";
+    endless-sky.sandbox.whitelistAudio = true;
+    endless-sky.sandbox.whitelistDri = true;
+    endless-sky.sandbox.whitelistWayland = true;
 
     # `emote` will show a first-run dialog based on what's in this directory.
     # mostly, it just keeps a LRU of previously-used emotes to optimize display order.
@@ -368,6 +373,31 @@ in
     "gnome.hitori".sandbox.wrapperType = "wrappedDerivation";
     "gnome.hitori".sandbox.whitelistWayland = true;
 
+    hase.sandbox.method = "bwrap";
+    hase.sandbox.wrapperType = "wrappedDerivation";
+    hase.sandbox.net = "clearnet";
+    hase.sandbox.whitelistAudio = true;
+    hase.sandbox.whitelistDri = true;
+    hase.sandbox.whitelistWayland = true;
+
+    htop.sandbox.method = "landlock";
+    htop.sandbox.wrapperType = "wrappedDerivation";
+    htop.sandbox.extraPaths = [
+      "/proc"
+      "/sys/devices"
+    ];
+
+    iftop.sandbox.method = "landlock";
+    iftop.sandbox.wrapperType = "wrappedDerivation";
+    iftop.sandbox.capabilities = [ "net_raw" ];
+
+    iotop.sandbox.method = "landlock";
+    iotop.sandbox.wrapperType = "wrappedDerivation";
+    iotop.sandbox.extraPaths = [
+      "/proc"
+    ];
+    iotop.sandbox.capabilities = [ "net_admin" ];
+
     inkscape.sandbox.method = "bwrap";
     inkscape.sandbox.wrapperType = "wrappedDerivation";
     inkscape.sandbox.whitelistWayland = true;
@@ -413,6 +443,9 @@ in
     losslesscut-bin.sandbox.whitelistWayland = true;
     losslesscut-bin.sandbox.whitelistX = true;
 
+    lsof.sandbox.method = "capshonly";  # lsof doesn't sandbox under bwrap or even landlock w/ full access to /
+    lsof.sandbox.wrapperType = "wrappedDerivation";
+
     "mate.engrampa".sandbox.method = "bwrap";  # TODO:sandbox: untested
     "mate.engrampa".sandbox.wrapperType = "inplace";
     "mate.engrampa".sandbox.whitelistWayland = true;
@@ -440,8 +473,33 @@ in
     nano.sandbox.wrapperType = "wrappedDerivation";
     nano.sandbox.autodetectCliPaths = "existingFileOrParent";
 
+    nethogs.sandbox.method = "capshonly";  # *partially* works under landlock w/ full access to /
+    nethogs.sandbox.wrapperType = "wrappedDerivation";
+    nethogs.sandbox.capabilities = [ "net_admin" "net_raw" ];
+
+    nmon.sandbox.method = "landlock";
+    nmon.sandbox.wrapperType = "wrappedDerivation";
+    nmon.sandbox.extraPaths = [
+      "/proc"
+    ];
+
+    nixpkgs-review.sandbox.method = "bwrap";
+    nixpkgs-review.sandbox.wrapperType = "inplace";  #< shell completions use full paths
+    nixpkgs-review.sandbox.net = "clearnet";
+    nixpkgs-review.sandbox.whitelistPwd = true;
+    nixpkgs-review.sandbox.extraPaths = [
+      "/nix"
+    ];
+
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
+
+    parted.sandbox.method = "landlock";
+    parted.sandbox.wrapperType = "wrappedDerivation";
+    parted.sandbox.extraPaths = [
+      "/dev"
+    ];
+    parted.sandbox.autodetectCliPaths = "existing";  #< sometimes you'll use parted on a device file.
 
     pavucontrol.sandbox.method = "bwrap";
     pavucontrol.sandbox.wrapperType = "wrappedDerivation";
@@ -449,6 +507,16 @@ in
     pavucontrol.sandbox.whitelistWayland = true;
 
     "perlPackages.FileMimeInfo".sandbox.enable = false;  #< TODO: sandbox `mimetype` but not `mimeopen`.
+
+    powertop.sandbox.method = "landlock";
+    powertop.sandbox.wrapperType = "wrappedDerivation";
+    powertop.sandbox.capabilities = [ "ipc_lock" "sys_admin" ];
+    powertop.sandbox.extraPaths = [
+      "/proc"
+      "/sys/class"
+      "/sys/devices"
+      "/sys/kernel"
+    ];
 
     pwvucontrol.sandbox.method = "bwrap";
     pwvucontrol.sandbox.wrapperType = "wrappedDerivation";
@@ -463,6 +531,8 @@ in
     rsync.sandbox.wrapperType = "wrappedDerivation";
     rsync.sandbox.net = "clearnet";
     rsync.sandbox.autodetectCliPaths = "existingFileOrParent";
+
+    screen.sandbox.enable = false;  #< tty; needs to run anything
 
     sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested
     sequoia.sandbox.wrapperType = "wrappedDerivation";  # slow to build
@@ -484,11 +554,32 @@ in
       "knowledge"
     ];
 
+    soundconverter.sandbox.method = "bwrap";
+    soundconverter.sandbox.wrapperType = "wrappedDerivation";
+    soundconverter.sandbox.whitelistWayland = true;
+    soundconverter.sandbox.extraHomePaths = [
+      "Music"
+      "tmp"
+      "use"
+    ];
+    soundconverter.sandbox.extraPaths = [
+      "/mnt/servo/media/Music"
+      "/mnt/servo/media/games"
+    ];
+    soundconverter.sandbox.autodetectCliPaths = "existingFileOrParent";
+
     space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
+    space-cadet-pinball.sandbox.method = "bwrap";
+    space-cadet-pinball.sandbox.wrapperType = "wrappedDerivation";
+    space-cadet-pinball.sandbox.whitelistAudio = true;
+    space-cadet-pinball.sandbox.whitelistDri = true;
+    space-cadet-pinball.sandbox.whitelistWayland = true;
 
     speedtest-cli.sandbox.method = "bwrap";
     speedtest-cli.sandbox.wrapperType = "wrappedDerivation";
     speedtest-cli.sandbox.net = "all";
+
+    strace.sandbox.enable = false;  #< needs to `exec` its args, and therefore support *anything*
 
     subversion.sandbox.method = "bwrap";
     subversion.sandbox.wrapperType = "wrappedDerivation";
@@ -536,6 +627,13 @@ in
     unzip.sandbox.autodetectCliPaths = "existingFileOrParent";
     unzip.sandbox.whitelistPwd = true;
 
+    usbutils.sandbox.method = "bwrap";  # breaks `usbhid-dump`, but `lsusb`, `usb-devices` work
+    usbutils.sandbox.wrapperType = "wrappedDerivation";
+    usbutils.sandbox.extraPaths = [
+      "/sys/devices"
+      "/sys/bus/usb"
+    ];
+
     visidata.sandbox.method = "bwrap";  # TODO:sandbox: untested
     visidata.sandbox.wrapperType = "wrappedDerivation";
     visidata.sandbox.autodetectCliPaths = true;
@@ -547,11 +645,6 @@ in
     vvvvvv.sandbox.whitelistWayland = true;
     vvvvvv.persist.byStore.plaintext = [ ".local/share/VVVVVV" ];
 
-    wget.sandbox.method = "bwrap";
-    wget.sandbox.wrapperType = "wrappedDerivation";
-    wget.sandbox.net = "all";
-    wget.sandbox.whitelistPwd = true;  # saves to pwd by default
-
     w3m.sandbox.method = "bwrap";
     w3m.sandbox.wrapperType = "wrappedDerivation";
     w3m.sandbox.net = "all";
@@ -560,7 +653,20 @@ in
       "tmp"
     ];
 
+    wdisplays.sandbox.method = "bwrap";
+    wdisplays.sandbox.wrapperType = "wrappedDerivation";
+    wdisplays.sandbox.whitelistWayland = true;
+
+    wget.sandbox.method = "bwrap";
+    wget.sandbox.wrapperType = "wrappedDerivation";
+    wget.sandbox.net = "all";
+    wget.sandbox.whitelistPwd = true;  # saves to pwd by default
+
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
+
+    wl-clipboard.sandbox.method = "bwrap";
+    wl-clipboard.sandbox.wrapperType = "wrappedDerivation";
+    wl-clipboard.sandbox.whitelistWayland = true;
 
     xdg-desktop-portal-gtk.sandbox.method = "bwrap";
     xdg-desktop-portal-gtk.sandbox.wrapperType = "inplace";

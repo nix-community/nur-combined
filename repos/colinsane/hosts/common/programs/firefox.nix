@@ -241,6 +241,8 @@ in
         sandbox.whitelistWayland = true;
         sandbox.extraHomePaths = [
           "dev"  # for developing anything web-related
+          # for uploads/downloads.
+          # it still needs these paths despite using the portal's file-chooser :?
           "tmp"
           "Pictures"
           "Pictures/servo-macros"

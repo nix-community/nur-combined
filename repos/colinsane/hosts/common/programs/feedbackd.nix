@@ -24,6 +24,11 @@ in
       default = {};
     };
 
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistAudio = true;
+
     # N.B.: feedbackd will load ~/.config/feedbackd/themes/default.json by default
     # - but using that would forbid `parent-theme = "default"`
     # the default theme ships support for these events:

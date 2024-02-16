@@ -14,6 +14,9 @@
       # XXX doesn't seem to understand ~ as shorthand for `$HOME`
       history_file=/home/colin/.local/state/splatmoji/history
       history_length=5
+      # XXX: hardcode the package paths here. all these packages are sandboxed identically
+      # to `splatmoji` itself, so there's zero benefit to acquiring them via the environment;
+      # doing so would in fact be costlier.
       paste_command=${pkgs.wtype}/bin/wtype -M Ctrl -k v
       # rofi_command=${pkgs.wofi}/bin/wofi --dmenu --insensitive --cache-file /dev/null
       rofi_command=${pkgs.fuzzel}/bin/fuzzel -d -i -w 60

@@ -422,7 +422,7 @@ landlockExec() {
   _capsh="$(locate capsh @libcap@/bin/capsh)"
   LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
     "$_sandboxer" \
-    "$_capsh" "--caps=$capshCapsArg" --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
+    "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
 
@@ -461,7 +461,7 @@ capshonlyIngestCapability() {
 capshonlyExec() {
   _capsh="$(locate capsh @libcap@/bin/capsh)"
   exec \
-    "$_capsh" "--caps=$capshCapsArg" --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
+    "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
 }
 
 

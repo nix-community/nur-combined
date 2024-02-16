@@ -35,6 +35,7 @@ in
     sandbox.whitelistDri = true;  # otherwise video playback buuuuurns CPU
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
+      # still needs these paths despite it using the portal's file-chooser :?
       "Music"
       "Pictures"
       "Pictures/servo-macros"

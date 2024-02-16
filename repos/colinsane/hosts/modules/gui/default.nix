@@ -84,7 +84,7 @@ in
     "gpodder"
     # "gthumb"
     "gtkcord4"  # Discord client. 2023/11/21: disabled because v0.0.12 leaks memory
-    "lemoa"  # lemmy app
+    # "lemoa"  # lemmy app
     "libnotify"  # for notify-send; debugging
     # "lollypop"
     "loupe"  # image viewer
@@ -155,17 +155,17 @@ in
       "inkscape"
       # "jellyfin-media-player"
       "kdenlive"
-      "kid3"  # audio tagging
+      # "kid3"  # audio tagging
       "krita"
       "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
       "losslesscut-bin"  # x86-only
-      "makemkv"  # x86-only
+      # "makemkv"  # x86-only
       "monero-gui"  # x86-only
-      "mumble"
+      # "mumble"
       # "nheko"  # Matrix chat client
       # "nicotine-plus"  # soulseek client. before re-enabling this, get it to run without firejail.
       # "obsidian"
-      "openscad"  # 3d modeling
+      # "openscad"  # 3d modeling
       # "rhythmbox"  # local music player
       # "slic3r"
       "soundconverter"
