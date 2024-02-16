@@ -69,7 +69,11 @@ in {
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
       services.redshift.enable = true;
       services.xserver.videoDrivers = [ "intel" ];
-      services.hidpi.dpi = 120;
+      services.hidpi = {
+        dpi = 120;
+        cursorTheme = "Adwaita";
+        cursorSize = 16;
+      };
     } // builder))
     (mkIf (cfg.enable && desktop) {
       services.nix-serve = {
