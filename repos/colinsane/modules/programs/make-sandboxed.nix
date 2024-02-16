@@ -80,7 +80,8 @@ let
         esac
       }
       sandboxWrap() {
-        _name="$1"
+        _dir="$1"
+        _name="$2"
         _profileFromBinMap="$(getProfileFromBinMap $_name)"
 
         _profiles=("$_profileFromBinMap" "$_name" "${pkgName}" "${unwrapped.pname or ""}" "${unwrapped.name or ""}")
@@ -96,36 +97,56 @@ let
         # the upside of this is that for applications which read "$0" to decide what to do (e.g. busybox, git)
         # they work as expected without any special hacks.
         # if desired, makeWrapper-style naming could be achieved by leveraging `exec -a <original_name>`.
-        mkdir -p "$out/bin/.sandboxed"
-        if [[ "$(readlink $out/bin/$_name)" =~ ^\.\./ ]]; then
+        mkdir -p "$_dir/.sandboxed"
+        if [[ "$(readlink $_dir/$_name)" =~ ^\.\./ ]]; then
           # relative links which ascend a directory (into a non-bin/ directory)
           # won't point to the right place if we naively move them
-          ln -s "../$(readlink $out/bin/$_name)" "$out/bin/.sandboxed/$_name"
-          rm "$out/bin/$_name"
+          ln -s "../$(readlink $_dir/$_name)" "$_dir/.sandboxed/$_name"
+          rm "$_dir/$_name"
         else
-          mv "$out/bin/$_name" "$out/bin/.sandboxed/"
+          mv "$_dir/$_name" "$_dir/.sandboxed/"
         fi
-        cat <<EOF >> "$out/bin/$_name"
+        cat <<EOF >> "$_dir/$_name"
     #!${runtimeShell}
     exec ${sane-sandboxed'} \
     ''${_profileArgs[@]} \
-    "$out/bin/.sandboxed/$_name" "\$@"
+    "$_dir/.sandboxed/$_name" "\$@"
     EOF
-        chmod +x "$out/bin/$_name"
+        chmod +x "$_dir/$_name"
       }
 
-      for _p in $(ls "$out/bin/"); do
-        sandboxWrap "$_p"
-      done
+      crawlAndWrap() {
+        _dir="$1"
+        for _p in $(ls "$_dir/"); do
+          if [ -x "$_dir/$_p" ]; then
+            sandboxWrap "$_dir" "$_p"
+          elif [ -d "$_dir/$_p" ]; then
+            crawlAndWrap "$_dir/$_p"
+          fi
+          # ignore all non-binaries
+        done
+      }
+
+      if [ -e "$out/bin" ]; then
+        crawlAndWrap "$out/bin"
+      fi
+      if [ -e "$out/libexec" ]; then
+        crawlAndWrap "$out/libexec"
+      fi
     '';
   });
 
   # helper used for `wrapperType == "wrappedDerivation"` which simply symlinks all a package's binaries into a new derivation
   symlinkBinaries = pkgName: package: runCommand "${pkgName}-bin-only" {} ''
-    mkdir -p "$out/bin"
-    for d in $(ls "${package}/bin"); do
-      ln -s "${package}/bin/$d" "$out/bin/$d"
-    done
+    set -e
+    if [ -e "${package}/bin" ]; then
+      mkdir -p "$out/bin"
+      ${buildPackages.xorg.lndir}/bin/lndir "${package}/bin" "$out/bin"
+    fi
+    if [ -e "${package}/libexec" ]; then
+      mkdir -p "$out/libexec"
+      ${buildPackages.xorg.lndir}/bin/lndir "${package}/libexec" "$out/libexec"
+    fi
     # allow downstream wrapping to hook this (and thereby actually wrap the binaries)
     runHook postFixup
   '';
@@ -211,14 +232,38 @@ let
         # invoke each binary in a way only the sandbox wrapper will recognize,
         # ensuring that every binary has in fact been wrapped.
         _numExec=0
-        for b in ${finalAttrs.finalPackage}/bin/*; do
-          echo "checking if $b is sandboxed"
+        _checkExecutable() {
+          echo "checking if $1 is sandboxed"
           PATH="${finalAttrs.finalPackage}/bin:${sane-sandboxed}/bin:$PATH" \
             SANE_SANDBOX_DISABLE=1 \
-            "$b" --sane-sandbox-replace-cli echo "printing for test" \
+            "$1" --sane-sandbox-replace-cli echo "printing for test" \
             | grep "printing for test"
           _numExec=$(( $_numExec + 1 ))
-        done
+        }
+        _checkDir() {
+          for b in $(ls "$1"); do
+            if [ -d "$1/$b" ]; then
+              if [ "$b" != .sandboxed ]; then
+                _checkDir "$1/$b"
+              fi
+            elif [ -x "$1/$b" ]; then
+              _checkExecutable "$1/$b"
+            else
+              test -n "$CHECK_DIR_NON_BIN"
+            fi
+          done
+        }
+
+        # *everything* in the bin dir should be a wrapped executable
+        if [ -e "${finalAttrs.finalPackage}/bin" ]; then
+          _checkDir "${finalAttrs.finalPackage}/bin"
+        fi
+
+        # the libexec dir is 90% wrapped executables, but sometimes also .so/.la objects.
+        # note that this directory isn't flat
+        if [ -e "${finalAttrs.finalPackage}/libexec" ]; then
+          CHECK_DIR_NON_BIN=1 _checkDir "${finalAttrs.finalPackage}/libexec"
+        fi
 
         echo "successfully tested $_numExec binaries"
         test "$_numExec" -ne 0
@@ -275,6 +320,7 @@ let
     fixupMetaAndPassthru pkgName packageWrapped (passthru // {
       # allow the user to build this package, but sandboxed in a different manner.
       # e.g. `<pkg>.sandboxedBy.inplace`.
+      # e.g. `<pkg>.sandboxedBy.wrappedDerivation.sandboxedNonBin`
       inherit sandboxedBy;
     })
   ;

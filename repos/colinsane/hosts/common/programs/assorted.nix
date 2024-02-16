@@ -497,7 +497,7 @@ in
     sudo.sandbox.enable = false;
 
     superTux.sandbox.method = "bwrap";
-    superTux.sandbox.wrapperType = "wrappedDerivation";
+    superTux.sandbox.wrapperType = "inplace";  # package Makefile incorrectly installs to $out/games/superTux instead of $out/share/games
     superTux.sandbox.whitelistAudio = true;
     superTux.sandbox.whitelistDri = true;
     superTux.sandbox.whitelistWayland = true;
@@ -562,16 +562,32 @@ in
 
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
 
-    # TODO: these live in /libexec
-    # xdg-desktop-portal-gtk.sandbox.method = "bwrap";
-    # xdg-desktop-portal-gtk.sandbox.wrapperType = "inplace";
-    # xdg-desktop-portal-gtk.sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
-    # xdg-desktop-portal-gtk.sandbox.whitelistWayland = true;
+    xdg-desktop-portal-gtk.sandbox.method = "bwrap";
+    xdg-desktop-portal-gtk.sandbox.wrapperType = "inplace";
+    xdg-desktop-portal-gtk.sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
+    xdg-desktop-portal-gtk.sandbox.whitelistWayland = true;
+    xdg-desktop-portal-gtk.sandbox.extraHomePaths = [
+      ".local/share/applications"  # file opener needs to find .desktop files, for their icon/name.
+      # for file-chooser portal users (fractal, firefox, ...), need to provide anything they might want.
+      # i think (?) portal users can only access the files here interactively, i.e. by me interacting with the portal's visual filechooser,
+      # so shoving stuff here is trusting the portal but not granting any trust to the portal user.
+      "Books"
+      "Music"
+      "Pictures"
+      "Pictures/servo-macros"
+      "Videos"
+      "Videos/servo"
+      "archive"
+      "dev"
+      "ref"
+      "tmp"
+      "use"
+    ];
 
-    # xdg-desktop-portal-wlr.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    # xdg-desktop-portal-wlr.sandbox.wrapperType = "inplace";
-    # xdg-desktop-portal-wlr.sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
-    # xdg-desktop-portal-wlr.sandbox.whitelistWayland = true;
+    xdg-desktop-portal-wlr.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    xdg-desktop-portal-wlr.sandbox.wrapperType = "inplace";
+    xdg-desktop-portal-wlr.sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
+    xdg-desktop-portal-wlr.sandbox.whitelistWayland = true;
 
     xdg-terminal-exec.sandbox.enable = false;  # xdg-terminal-exec is a launcher for $TERM
     xterm.sandbox.enable = false;  # need to be able to do everything

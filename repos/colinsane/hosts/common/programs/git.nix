@@ -7,8 +7,19 @@ let
 in
 {
   sane.programs.git = {
+    packageUnwrapped = (pkgs.git.override {
+      # build without gitweb support, as that installs to share/git,
+      # which causes trouble trying to make the sandboxer
+      perlSupport = false;
+    }).overrideAttrs (upstream: {
+      postInstall = upstream.postInstall + ''
+        # git-jump is a symlink from bin/git-jump -> share/contrib/git-jump,
+        # which causes trouble trying to make the sandboxer
+        rm "$out/bin/git-jump"
+      '';
+    });
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";
+    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.autodetectCliPaths = true;  # necessary for git-upload-pack
