@@ -148,6 +148,10 @@ in
         autoStash = true;
       };
 
+      rerere = {
+        enabled = true;
+      };
+
       url = {
         "git@git.belanyi.fr:" = {
           insteadOf = "https://git.belanyi.fr/";
