@@ -1,5 +1,5 @@
 { stdenvNoCC, fetchurl, lib, zstd }:
-{ args }:
+{ ... } @ args:
 let
   inherit (builtins) length hasAttr head baseNameOf;
   inherit (lib) removeSuffix take last;

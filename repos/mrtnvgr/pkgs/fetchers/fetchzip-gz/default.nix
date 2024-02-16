@@ -1,5 +1,5 @@
 { fetchzip, zstd, ... }:
-{ args }:
+{ ... } @ args:
 fetchzip ({
   nativeBuildInputs = [ zstd ];
 } // args)
