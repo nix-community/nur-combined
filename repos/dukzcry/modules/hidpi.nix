@@ -53,6 +53,7 @@ in
       services.xserver.displayManager.sessionCommands = optionalString (cfg.dpi != null) ''
         printf "%s\n" "Xft.dpi: ${toString cfg.dpi}" | xrdb -merge
       '';
+      environment.variables.QT_ENABLE_HIGHDPI_SCALING = "1";
     })
 
     # https://github.com/NixOS/nixpkgs/issues/274545
