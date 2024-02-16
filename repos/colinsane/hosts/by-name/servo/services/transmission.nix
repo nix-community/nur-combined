@@ -1,5 +1,24 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  # 2023/09/06: nixpkgs `transmission` defaults to old 3.00
+  # 2024/02/15: some torrent trackers whitelist clients; everyone is still on 3.00 for some reason :|
+  realTransmission = pkgs.transmission_4;
+  realVersion = {
+    major = lib.versions.major realTransmission.version;
+    minor = lib.versions.minor realTransmission.version;
+    patch = lib.versions.patch realTransmission.version;
+  };
+  package = realTransmission.overrideAttrs (upstream: {
+    # `cmakeFlags = [ "-DTR_VERSION_MAJOR=3" ]`, etc, doesn't seem to take effect.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace CMakeLists.txt \
+        --replace-fail 'TR_VERSION_MAJOR "${realVersion.major}"' 'TR_VERSION_MAJOR "3"' \
+        --replace-fail 'TR_VERSION_MINOR "${realVersion.minor}"' 'TR_VERSION_MINOR "0"' \
+        --replace-fail 'TR_VERSION_PATCH "${realVersion.patch}"' 'TR_VERSION_PATCH "0"'
+    '';
+  });
+in
 {
   sane.persist.sys.byStore.plaintext = [
     # TODO: mode? we need this specifically for the stats tracking in .config/
@@ -8,7 +27,7 @@
   users.users.transmission.extraGroups = [ "media" ];
 
   services.transmission.enable = true;
-  services.transmission.package = pkgs.transmission_4;  #< 2023/09/06: nixpkgs `transmission` defaults to old 3.00
+  services.transmission.package = package;
   #v setting `group` this way doesn't tell transmission to `chown` the files it creates
   #  it's a nixpkgs setting which just runs the transmission daemon as this group
   services.transmission.group = "media";
@@ -20,6 +39,8 @@
   ];
 
   services.transmission.settings = {
+    # DOCUMENTATION/options list: <https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md#options>
+
     # message-level = 3;  #< enable for debug logging. 0-3, default is 2.
     # 0.0.0.0 => allow rpc from any host: we gate it via firewall and auth requirement
     rpc-bind-address = "0.0.0.0";

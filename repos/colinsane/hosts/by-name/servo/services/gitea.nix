@@ -100,6 +100,24 @@
     locations."/" = {
       proxyPass = "http://127.0.0.1:3000";
     };
+    # gitea serves all `raw` files as content-type: plain, but i'd like to serve them as their actual content type.
+    # or at least, enough to make specific pages viewable (serving unoriginal content as arbitrary content type is dangerous).
+    locations."~ ^/colin/phone-case-cq/raw/.*.html" = {
+      proxyPass = "http://127.0.0.1:3000";
+      extraConfig = ''
+        proxy_hide_header Content-Type;
+        default_type text/html;
+        add_header Content-Type text/html;
+      '';
+    };
+    locations."~ ^/colin/phone-case-cq/raw/.*.js" = {
+      proxyPass = "http://127.0.0.1:3000";
+      extraConfig = ''
+        proxy_hide_header Content-Type;
+        default_type text/html;
+        add_header Content-Type text/javascript;
+      '';
+    };
   };
 
   sane.dns.zones."uninsane.org".inet.CNAME."git" = "native";
