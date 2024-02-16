@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  sabaki = pkgs.callPackage ./pkgs/sabaki { };
   task-json-cli = pkgs.callPackage ./pkgs/task-json-cli { };
   batch-cmd = pkgs.callPackage ./pkgs/batch-cmd { };
   commit-and-tag-version = pkgs.callPackage ./pkgs/commit-and-tag-version { };
