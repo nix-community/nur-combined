@@ -1,24 +1,42 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, cmake, pkg-config, git
-, qtbase, qtmultimedia, qtwayland, openal, glew, vulkan-headers, vulkan-loader, libpng, libSM
-, ffmpeg, libevdev, libusb1, zlib, curl, wolfssl, python3, pugixml, faudio, flatbuffers
-, sdl2Support ? true, SDL2
-, cubebSupport ? true, cubeb
-, waylandSupport ? true, wayland
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, pkg-config
+, git
+, qt6Packages
+, openal
+, glew
+, vulkan-headers
+, vulkan-loader
+, libpng
+, libSM
+, ffmpeg
+, libevdev
+, libusb1
+, zlib
+, curl
+, wolfssl
+, python3
+, pugixml
+, flatbuffers
+, llvm_16
+, cubeb
+, faudioSupport ? true
+, faudio
+, SDL2
+, waylandSupport ? true
+, wayland
 }:
 
 let
   # Keep these separate so the update script can regex them
-  rpcs3GitVersion = "16100-d71f4b33d";
-  rpcs3Version = "0.0.30-16100-d71f4b33d";
-  rpcs3Revision = "d71f4b33d75c70594449dbb3cdfc69506512c842";
-  rpcs3Sha256 = "1f1lhbbjw917sa9qyv69ixygn89d2hxxhmxc6f4c06cqcipf4gjp";
+  rpcs3GitVersion = "16121-1867f9aa1";
+  rpcs3Version = "0.0.30-16121-1867f9aa1";
+  rpcs3Revision = "1867f9aa1f0497d86ac579875c03756d0d8b4c63";
+  rpcs3Hash = "sha256-NUVzCWYJO6zQ7XgFEmQBdwjhMmjOfto2gtdAVUxhZbg=";
 
-  ittapi = fetchFromGitHub {
-    owner = "intel";
-    repo = "ittapi";
-    rev = "v3.18.12";
-    sha256 = "0c3g30rj1y8fbd2q4kwlpg1jdy02z4w5ryhj3yr9051pdnf4kndz";
-  };
+  inherit (qt6Packages) qtbase qtmultimedia wrapQtAppsHook;
 in
 stdenv.mkDerivation {
   pname = "rpcs3";
@@ -29,10 +47,8 @@ stdenv.mkDerivation {
     repo = "rpcs3";
     rev = rpcs3Revision;
     fetchSubmodules = true;
-    sha256 = rpcs3Sha256;
+    hash = rpcs3Hash;
   };
-
-  patches = [ ./0001-llvm-ExecutionEngine-IntelJITEvents-only-use-ITTAPI_.patch ];
 
   passthru.updateScript = ./update.sh;
 
@@ -55,19 +71,20 @@ stdenv.mkDerivation {
     "-DUSE_SYSTEM_FAUDIO=ON"
     "-DUSE_SYSTEM_PUGIXML=ON"
     "-DUSE_SYSTEM_FLATBUFFERS=ON"
+    "-DUSE_SYSTEM_SDL=ON"
+    "-DWITH_LLVM=ON"
+    "-DBUILD_LLVM=OFF"
     "-DUSE_NATIVE_INSTRUCTIONS=OFF"
-    "-DITTAPI_SOURCE_DIR=${ittapi}"
-    "-DBUILD_LLVM=ON"
-    "-DSTATIC_LINK_LLVM=ON"
+    "-DUSE_FAUDIO=${if faudioSupport then "ON" else "OFF"}"
   ];
 
   nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook ];
 
   buildInputs = [
-    qtbase qtmultimedia qtwayland openal glew vulkan-headers vulkan-loader libpng ffmpeg
-    libevdev zlib libusb1 curl wolfssl python3 pugixml faudio flatbuffers libSM
-  ] ++ lib.optional sdl2Support SDL2
-    ++ lib.optionals cubebSupport cubeb.passthru.backendLibs
+    qtbase qtmultimedia openal glew vulkan-headers vulkan-loader libpng ffmpeg
+    libevdev zlib libusb1 curl wolfssl python3 pugixml flatbuffers llvm_16 libSM
+  ] ++ cubeb.passthru.backendLibs
+    ++ lib.optionals faudioSupport [ faudio SDL2 ]
     ++ lib.optional waylandSupport wayland;
 
   postInstall = ''
@@ -80,8 +97,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "PS3 emulator/debugger";
     homepage = "https://rpcs3.net/";
-    maintainers = with maintainers; [ ataraxiasjel ];
+    maintainers = with maintainers; [ abbradar neonfuz ilian zane ataraxiasjel ];
     license = licenses.gpl2Only;
     platforms = [ "x86_64-linux" "aarch64-linux" ];
+    mainProgram = "rpcs3";
   };
 }
