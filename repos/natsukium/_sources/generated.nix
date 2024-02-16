@@ -59,15 +59,15 @@
   };
   sbarlua = {
     pname = "sbarlua";
-    version = "2220739be594965a1ddab6167dbdab77f617749e";
+    version = "0ef843242c5672a16ca1fff5dff8712338268931";
     src = fetchFromGitHub {
       owner = "FelixKratz";
       repo = "SbarLua";
-      rev = "2220739be594965a1ddab6167dbdab77f617749e";
+      rev = "0ef843242c5672a16ca1fff5dff8712338268931";
       fetchSubmodules = false;
-      sha256 = "sha256-VsPdorwYo/W5xWUQyC9nJ4E3Q1vCwo8CNXFyhIsxD2o=";
+      sha256 = "sha256-A93mmUOWHFoIK2ShY+GswM+A4CxO7KhNcu91vqdh+0U=";
     };
-    date = "2024-01-30";
+    date = "2024-02-16";
   };
   skkeleton = {
     pname = "skkeleton";
