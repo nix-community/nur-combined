@@ -9,6 +9,30 @@ in
 {
   sane.programs = {
     # PACKAGE SETS
+
+    # packages which are unavoidably enabled system-wide by default nixos deployment
+    # the only real reason to make a proper package set out of these is for documentation
+    # and to allow them to be easily replaced by sandboxed versions.
+    nixosBuiltins = {
+      enableFor.system = lib.mkDefault true;
+      packageUnwrapped = null;
+      suggestedPrograms = [ "nixosBuiltinsNet" ]
+        ++ lib.optionals config.networking.wireless.enable [ "nixosBuiltinsWireless" ];
+    };
+    nixosBuiltinsNet = declPackageSet [
+      # from nixos/modules/tasks/network-interfaces.nix
+      "host"
+      "iproute2"
+      "iputils"
+      "nettools"
+    ];
+    nixosBuiltinsWireless = declPackageSet [
+      # from nixos/modules/tasks/network-interfaces.nix
+      # if config.networking.wireless.enable
+      "wirelesstools"
+      "iw"
+    ];
+
     "sane-scripts.backup" = declPackageSet [
       "sane-scripts.backup-ls"
       "sane-scripts.backup-restore"
@@ -300,7 +324,7 @@ in
     discord.sandbox.method = "bwrap";
     discord.sandbox.wrapperType = "inplace";  #< /opt-style packaging
     discord.sandbox.whitelistAudio = true;
-    # discord.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
+    discord.sandbox.whitelistDbus = [ "user" ];  # needed for xdg-open
     discord.sandbox.whitelistWayland = true;
     discord.sandbox.net = "clearnet";
     discord.persist.byStore.private = [ ".config/discord" ];
@@ -456,6 +480,10 @@ in
     hdparm.sandbox.wrapperType = "wrappedDerivation";
     hdparm.sandbox.autodetectCliPaths = true;
 
+    host.sandbox.method = "landlock";
+    host.sandbox.wrapperType = "wrappedDerivation";
+    host.sandbox.net = "all";  #< technically, only needs to contact localhost's DNS server
+
     htop.sandbox.method = "landlock";
     htop.sandbox.wrapperType = "wrappedDerivation";
     htop.sandbox.extraPaths = [
@@ -468,17 +496,9 @@ in
     iftop.sandbox.capabilities = [ "net_raw" ];
 
     # inetutils: ping, ifconfig, hostname, traceroute, whois, ....
-    # TODO: requires more than this;
-    # - also, sandboxed `ping` doesn't make it onto /run/current-system/sw/bin; unsandboxed `ping` does instead
-    # inetutils.sandbox.method = "landlock";  # want to keep the same netns, at least.
-    # inetutils.sandbox.wrapperType = "wrappedDerivation";
-
-    iotop.sandbox.method = "landlock";
-    iotop.sandbox.wrapperType = "wrappedDerivation";
-    iotop.sandbox.extraPaths = [
-      "/proc"
-    ];
-    iotop.sandbox.capabilities = [ "net_admin" ];
+    # N.B.: inetutils' `ping` is shadowed by iputils' ping (by nixos, intentionally).
+    inetutils.sandbox.method = "landlock";  # want to keep the same netns, at least.
+    inetutils.sandbox.wrapperType = "wrappedDerivation";
 
     inkscape.sandbox.method = "bwrap";
     inkscape.sandbox.wrapperType = "wrappedDerivation";
@@ -491,6 +511,35 @@ in
       "tmp"
     ];
     inkscape.sandbox.autodetectCliPaths = true;
+
+    iotop.sandbox.method = "landlock";
+    iotop.sandbox.wrapperType = "wrappedDerivation";
+    iotop.sandbox.extraPaths = [
+      "/proc"
+    ];
+    iotop.sandbox.capabilities = [ "net_admin" ];
+
+    # provides `ip`, `routel`, others
+    iproute2.sandbox.method = "landlock";
+    iproute2.sandbox.wrapperType = "wrappedDerivation";
+    iproute2.sandbox.net = "all";
+    iproute2.sandbox.capabilities = [ "net_admin" ];
+
+    iptables.sandbox.method = "landlock";
+    iptables.sandbox.wrapperType = "wrappedDerivation";
+    iptables.sandbox.net = "all";
+    iptables.sandbox.capabilities = [ "net_admin" ];
+
+    # iputils provides `ping` (and arping, clockdiff, tracepath)
+    iputils.sandbox.method = "landlock";
+    iputils.sandbox.wrapperType = "wrappedDerivation";
+    iputils.sandbox.net = "all";
+    iputils.sandbox.capabilities = [ "net_raw" ];
+
+    iw.sandbox.method = "landlock";
+    iw.sandbox.wrapperType = "wrappedDerivation";
+    iw.sandbox.net = "all";
+    iw.sandbox.capabilities = [ "net_admin" ];
 
     # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect
 
@@ -571,6 +620,15 @@ in
     nethogs.sandbox.wrapperType = "wrappedDerivation";
     nethogs.sandbox.capabilities = [ "net_admin" "net_raw" ];
 
+    # provides `arp`, `hostname`, `route`, `ifconfig`
+    nettools.sandbox.method = "landlock";
+    nettools.sandbox.wrapperType = "wrappedDerivation";
+    nettools.sandbox.net = "all";
+    nettools.sandbox.capabilities = [ "net_admin" "net_raw" ];
+    nettools.sandbox.extraPaths = [
+      "/proc"
+    ];
+
     networkmanagerapplet.sandbox.method = "bwrap";
     networkmanagerapplet.sandbox.wrapperType = "wrappedDerivation";
     networkmanagerapplet.sandbox.whitelistWayland = true;
@@ -642,6 +700,8 @@ in
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
       requests
     ]);
+
+    qemu.sandbox.enable = false;  #< it's a launcher
 
     rsync.sandbox.method = "bwrap";  # TODO:sandbox: untested
     rsync.sandbox.wrapperType = "wrappedDerivation";
@@ -786,6 +846,11 @@ in
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
+
+    # provides `iwconfig`, `iwlist`, `iwpriv`, ...
+    wirelesstools.sandbox.method = "landlock";
+    wirelesstools.sandbox.wrapperType = "wrappedDerivation";
+    wirelesstools.sandbox.capabilities = [ "net_admin" ];
 
     wl-clipboard.sandbox.method = "bwrap";
     wl-clipboard.sandbox.wrapperType = "wrappedDerivation";

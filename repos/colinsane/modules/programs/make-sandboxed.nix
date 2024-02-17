@@ -136,8 +136,14 @@ let
     '';
   });
 
+  # there are certain `meta` fields we care to preserve from the original package (priority),
+  # and others we *can't* preserve (outputsToInstall).
+  extractMeta = pkg: if (pkg ? meta) && (pkg.meta ? priority) then {
+    inherit (pkg.meta) priority;
+  } else {};
+
   # helper used for `wrapperType == "wrappedDerivation"` which simply symlinks all a package's binaries into a new derivation
-  symlinkBinaries = pkgName: package: runCommand "${pkgName}-bin-only" {} ''
+  symlinkBinaries = pkgName: package: (runCommand "${pkgName}-bin-only" {} ''
     set -e
     if [ -e "${package}/bin" ]; then
       mkdir -p "$out/bin"
@@ -149,7 +155,10 @@ let
     fi
     # allow downstream wrapping to hook this (and thereby actually wrap the binaries)
     runHook postFixup
-  '';
+  '').overrideAttrs (_: {
+    # specifically, preserve meta.priority
+    meta = extractMeta package;
+  });
 
   # helper used for `wrapperType == "wrappedDerivation"` which ensures that and copied/symlinked share/ files (like .desktop) files
   # don't point to the unwrapped binaries.
@@ -205,8 +214,8 @@ let
   # symlink the non-binary files from the unsandboxed package,
   # patch them to use the sandboxed binaries,
   # and add some passthru metadata to enforce no lingering references to the unsandboxed binaries.
-  sandboxNonBinaries = pkgName: unsandboxed: sandboxedBin:
-    fixHardcodedRefs unsandboxed sandboxedBin (runCommand "${pkgName}-sandboxed-non-binary" {} ''
+  sandboxNonBinaries = pkgName: unsandboxed: sandboxedBin: let
+    sandboxedWithoutFixedRefs = (runCommand "${pkgName}-sandboxed-non-binary" {} ''
       set -e
       mkdir "$out"
       if [ -e "${unsandboxed}/share" ]; then
@@ -214,7 +223,11 @@ let
         ${buildPackages.xorg.lndir}/bin/lndir "${unsandboxed}/share" "$out/share"
       fi
       runHook postInstall
-    '');
+    '').overrideAttrs (_: {
+      # specifically for meta.priority, though it shouldn't actually matter here.
+      meta = extractMeta unsandboxed;
+    });
+  in fixHardcodedRefs unsandboxed sandboxedBin sandboxedWithoutFixedRefs;
 
   # take the nearly-final sandboxed package, with binaries and and else, and
   # populate passthru attributes the caller expects, like `checkSandboxed`.
@@ -313,6 +326,8 @@ let
         name = "${pkgName}-sandboxed-all";
         paths = [ sandboxedBin sandboxedNonBin ];
         passthru = { inherit sandboxedBin sandboxedNonBin unsandboxed; };
+        # specifically, for priority
+        meta = extractMeta sandboxedBin;
       };
     };
     packageWrapped = sandboxedBy."${wrapperType}";
