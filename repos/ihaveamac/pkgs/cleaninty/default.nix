@@ -1,13 +1,13 @@
 { lib, fetchFromGitHub, buildPythonApplication, cryptography, pycurl, defusedxml }:
 
 buildPythonApplication rec {
-  name = "cleaninty";
+  pname = "cleaninty";
   version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "luigoalma";
-    repo = name;
-    rev = "v0.1.3";
+    repo = pname;
+    rev = "v${version}";
     sha256 = "sha256-QVttOy3WPFZXvbNaJUhFSsEWwPDZgkGuDBR7zxlS+w8=";
   };
 
