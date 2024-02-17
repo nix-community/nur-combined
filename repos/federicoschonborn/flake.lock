@@ -36,10 +36,31 @@
         "type": "github"
       }
     },
+    "pinix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1708208940,
+        "narHash": "sha256-CyheHldtsKJTnWLJpYDU+XGURW5V+LjeoOnO8mIamJc=",
+        "owner": "remi-dupre",
+        "repo": "pinix",
+        "rev": "12539466ce91017fc7309f450e1914cf6d26ac78",
+        "type": "github"
+      },
+      "original": {
+        "owner": "remi-dupre",
+        "repo": "pinix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "pinix": "pinix"
       }
     }
   },

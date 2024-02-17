@@ -3,6 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+pinix = {
+url="github:remi-dupre/pinix";
+inputs.nixpkgs.follows="nixpkgs";
+};
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -10,7 +16,7 @@
   };
 
   outputs =
-    { nixpkgs, flake-parts, ... }@inputs:
+    { nixpkgs, pinix, flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
@@ -24,6 +30,7 @@
           lib,
           pkgs,
           config,
+          inputs',
           ...
         }:
         {
@@ -34,8 +41,8 @@
             packages = with pkgs; [
               jq
               just
-              nix-output-monitor
               nix-tree
+              inputs'.pinix.packages.pinix
             ];
           };
 
