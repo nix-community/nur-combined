@@ -18,6 +18,7 @@
   lnshot = pkgs.callPackage ./pkgs/lnshot { };
   save3ds = pkgs.callPackage ./pkgs/save3ds { };
   cleaninty = pkgs.python3Packages.callPackage ./pkgs/cleaninty { };
+  rvthtool = pkgs.callPackage ./pkgs/rvthtool { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
