@@ -2,31 +2,31 @@
 # vim: set ft=nix ts=2 sw=2 sts=2 et sta
 {
 system ? builtins.currentSystem
-, pkgs
 , lib
 , fetchurl
 , installShellFiles
+, stdenvNoCC
 }:
 let
   shaMap = {
-    i686-linux = "181xdpg7ycrzb8xpz5b57jrjb0n79dkvk0cafs5zypxzr5x24aia";
-    x86_64-linux = "1iiansy7qxf24zch113k9sdd0lnpchj7pbl6772313apcmyigzjs";
-    aarch64-linux = "18nn5kcpmvv9waw7yrkhpvwar5mcfnc1gi00iihja0zz03ys8ram";
-    x86_64-darwin = "11mnrlcdlf2pgf7iasvxnqlv9pwh8zkdhscskp72x85c873zi7qy";
-    aarch64-darwin = "11mnrlcdlf2pgf7iasvxnqlv9pwh8zkdhscskp72x85c873zi7qy";
+    i686-linux = "1n6x3i6rdmqzank5zc6xy0pscji7kslclq4m8h58kfma3c7jw7x6";
+    x86_64-linux = "1ld1b1gy5ia55yd69qyc8i1xx1pvj6damq6fs4v3l8dc6h8ik0hx";
+    aarch64-linux = "1xp5pd2hsy7x2sfcxzyy7a3crn03lw76i1irwmma3qqc3dwfri6w";
+    x86_64-darwin = "1b1iyhrq6rii362pmk9q7jq1sr2nj0qyz8kj9cnlc8jcgvbb0vqc";
+    aarch64-darwin = "1b1iyhrq6rii362pmk9q7jq1sr2nj0qyz8kj9cnlc8jcgvbb0vqc";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.2/wander_1.0.2_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.2/wander_1.0.2_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/robinovitch61/wander/releases/download/v1.0.2/wander_1.0.2_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/robinovitch61/wander/releases/download/v1.0.2/wander_1.0.2_Darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/robinovitch61/wander/releases/download/v1.0.2/wander_1.0.2_Darwin_all.tar.gz";
+    i686-linux = "https://github.com/robinovitch61/wander/releases/download/v1.1.0/wander_1.1.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/robinovitch61/wander/releases/download/v1.1.0/wander_1.1.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/robinovitch61/wander/releases/download/v1.1.0/wander_1.1.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/robinovitch61/wander/releases/download/v1.1.0/wander_1.1.0_Darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/robinovitch61/wander/releases/download/v1.1.0/wander_1.1.0_Darwin_all.tar.gz";
   };
 in
-pkgs.stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "wander";
-  version = "1.0.2";
+  version = "1.1.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
