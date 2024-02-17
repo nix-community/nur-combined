@@ -10,6 +10,10 @@ fetch.github = "GNOME/gtk"
 src.github = "thestk/rtaudio"
 fetch.github = "thestk/rtaudio"
 
+[libadwaita-git]
+src.git = "https://gitlab.gnome.org/GNOME/libadwaita"
+fetch.git = "https://gitlab.gnome.org/GNOME/libadwaita"
+
 [zrythm]
 src.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
 fetch.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"

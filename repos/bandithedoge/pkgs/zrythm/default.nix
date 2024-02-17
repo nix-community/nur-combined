@@ -19,6 +19,11 @@
   rtaudio = pkgs.rtaudio.overrideAttrs (_: {
     inherit (sources.rtaudio-git) version src;
   });
+
+  # remove when 1.5 gets added to nixpkgs
+  libadwaita = pkgs.libadwaita.overrideAttrs (_: {
+    inherit (sources.libadwaita-git) version src;
+  });
 in
   pkgs.stdenv.mkDerivation rec {
     inherit (sources.zrythm) pname src;
