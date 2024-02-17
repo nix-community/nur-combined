@@ -1,5 +1,7 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gnugrep -p gnused -p pulseaudio
+#!nix-shell -i bash -p coreutils -p gnugrep -p gnused -p pulseaudio
+
+set -e
 
 debug() {
   printf "$@" >&2
