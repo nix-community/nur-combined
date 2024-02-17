@@ -1,15 +1,21 @@
 { pkgs }:
+
 pkgs.lib.makeScope pkgs.newScope (self:
 let
-  callPackage = self.callPackage;
+  # Convert a string to a path.  builtins.toPath is deprecated and recommends this
+  toPath = s: ./. + "/${s}";
+  # All subdirectories contain packages
+  directories = builtins.attrNames
+    (pkgs.lib.attrsets.filterAttrs
+      (_: v: v == "directory")
+      (builtins.readDir ./.)
+    );
+  pkg_list = builtins.map
+    (dir: {
+      name = dir;
+      value = self.callPackage (toPath dir) { };
+    })
+    directories;
 in
-{
-  ack-results-parser = callPackage ./ack-results-parser { };
-  koji = callPackage ./koji { };
-  pybeam = callPackage ./pybeam { };
-  python-hwinfo = callPackage ./python-hwinfo { };
-  python-ollama = callPackage ./python-ollama { };
-  python-qpid-proton = callPackage ./python-qpid-proton { };
-  python-requests-gssapi = callPackage ./python-requests-gssapi { };
-  rpmlint = callPackage ./rpmlint { };
-})
+builtins.listToAttrs pkg_list
+)
