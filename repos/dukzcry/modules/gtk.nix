@@ -4,7 +4,6 @@ with lib;
 
 let
   cfg = config.gtk;
-  gtk2 = cfg.enable && cfg.gtk2;
   disableCsd = cfg.enable && cfg.disableCsd;
 
   toGtk2File = key: value:
@@ -60,26 +59,6 @@ in
     gtk = {
       enable = mkEnableOption "Gtk theming configuration";
 
-      gtk2 = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          Whether to enable theming for obsolete GTK2 engine.
-        '';
-      };
-
-      gtk2Theme = mkOption {
-        type = types.nullOr themeType;
-        default = cfg.theme;
-        example = literalExample ''
-          {
-            name = "Adwaita";
-            package = pkgs.gnome-themes-extra;
-          };
-        '';
-        description = "The GTK+ theme to use.";
-      };
-
       disableCsd = mkOption {
         type = types.bool;
         default = true;
@@ -134,18 +113,22 @@ in
         '';
         description = "The GTK+ theme to use.";
       };
+
+      gtk2Theme = mkOption {
+        type = types.nullOr themeType;
+        default = cfg.theme;
+        example = literalExample ''
+          {
+            name = "Adwaita";
+            package = pkgs.gnome-themes-extra;
+          };
+        '';
+        description = "The GTK+ theme to use.";
+      };
     };
   };
 
   config = mkMerge [
-
-    (mkIf gtk2 {
-      environment.etc."xdg/gtk-2.0/gtkrc".text =
-        concatStringsSep "\n" (
-          mapAttrsToList toGtk2File (settings cfg.gtk2Theme)
-        );
-    })
-
     (mkIf disableCsd {
       environment.variables.GTK_CSD = "0";
       environment.variables.LD_PRELOAD = "${pkgs.nur.repos.dukzcry.gtk3-nocsd}/lib/libgtk3-nocsd.so.0";
@@ -157,6 +140,11 @@ in
         ++ optionalPackage cfg.theme
         ++ optionalPackage cfg.iconTheme
         ++ optionalPackage cfg.cursorTheme;
+
+      environment.etc."xdg/gtk-2.0/gtkrc".text =
+        concatStringsSep "\n" (
+          mapAttrsToList toGtk2File (settings cfg.gtk2Theme)
+        );
 
       environment.etc."xdg/gtk-3.0/settings.ini".text =
         toGtk3File { Settings = (settings cfg.theme); };
