@@ -111,8 +111,6 @@ in
     inherit (gnome) zenity;
   };
 
-  protoc-gen-js = callPackage ./development/tools/protoc-gen-js { };
-
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     steam-run = steamPackages.steam-fhsenv-without-steam.run;
     inherit winetricks yad;
