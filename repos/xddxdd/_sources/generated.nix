@@ -145,13 +145,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "53d3f118cf2ef73ebd11ae2ab460fedf08c81531";
+    version = "7411756fb2f849f8388ce5521f55addf02ada309";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "53d3f118cf2ef73ebd11ae2ab460fedf08c81531";
+      rev = "7411756fb2f849f8388ce5521f55addf02ada309";
       fetchSubmodules = false;
-      sha256 = "sha256-VEIjckToydMaz7JqH6RDH2Ykl77pGz3Fa5sEM+SzLIU=";
+      sha256 = "sha256-xoObUHsxpHHOMG/0mXJJ48PS1nCgNlFhsKxCJsOQcRQ=";
     };
     date = "2024-02-16";
   };
@@ -308,13 +308,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.13";
+    version = "v3.3.14-hotfix2";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.13";
+      rev = "v3.3.14-hotfix2";
       fetchSubmodules = false;
-      sha256 = "sha256-dIYxR+zks3IAE+ttlQDHbpL4kqQ2FyzPMNwZzafMvLE=";
+      sha256 = "sha256-N6Ju0ez3nt6DkBQQLsk7TJfHgtLSdo4e9B9PjctKIfE=";
     };
   };
   flasgger = {
@@ -555,13 +555,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.7.4-xanmod1";
+    version = "6.7.5-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.7.4-xanmod1";
+      rev = "6.7.5-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-lBahYp0KaKSjhs20OZgCJk4kyYoJL5M7erqzr/c3Las=";
+      sha256 = "sha256-achx+rElMOdPUD0qU2TStrlJXZU71E89HVlM4tKf7WE=";
     };
   };
   linux-xanmod-6_0 = {
@@ -588,13 +588,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.16-xanmod1";
+    version = "6.6.17-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.16-xanmod1";
+      rev = "6.6.17-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-2iAeeO/q3i94fyZFuWYREYRRzaiB7jDAIiZxzubS3GI=";
+      sha256 = "sha256-WSWI3UByuD2SrcFC6El3ao0DINeG0IgtrvazDiHaIR0=";
     };
   };
   nbfc-linux-lantian = {
