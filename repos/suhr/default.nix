@@ -13,7 +13,7 @@ rec {
   ciao = pkgs.callPackage ./pkgs/ciao { };
   iosevka-term = pkgs.callPackage ./pkgs/iosevka/term.nix { };
   frame = pkgs.callPackage ./pkgs/frame { };
-  why3 = pkgs.callPackage ./pkgs/why3 { };
+  # why3 = pkgs.callPackage ./pkgs/why3 { };
   pianoteq-stage = pkgs.callPackage ./pkgs/pianoteq-stage { };
   dcpt720dwlpr = (pkgs.callPackage ./pkgs/dcpt720dw { }).driver;
   dcpt720dw-cupswrapper = (pkgs.callPackage ./pkgs/dcpt720dw { }).cupswrapper;
