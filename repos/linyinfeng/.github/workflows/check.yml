@@ -26,8 +26,8 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Set nix daemon tmp path
       run: |
-        sudo mkdir -p /nix/tmp
-        sudo chown $(whoami) /nix/tmp
+        sudo mkdir --parents /nix/tmp
+        sudo chmod 777 /nix/tmp
 
         cat > override.conf <<EOF
         [Service]
