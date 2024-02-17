@@ -2,12 +2,12 @@
 
 let
   pname = "amazing-marvin";
-  version = "1.64.0";
+  version = "1.64.3";
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://amazingmarvin.s3.amazonaws.com/Marvin-${version}.AppImage";
-    sha256 = "sha256-YUnz+XqTroQW4ef/Stp+N8KhzZI1TXCO0KOfAUKQg8w=";
+    sha256 = "sha256-hBd5ZcU7w3Hzsnh0cc9Mc8gs1o7ZlafaAhMgzWDEdus=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
