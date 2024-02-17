@@ -763,8 +763,8 @@
             "url": "https://github.com/jakobrs/nur-packages"
         },
         "javimerino": {
-            "rev": "a0a63022684084cd78617ccc150b5126bc33c9d3",
-            "sha256": "1apx309653sg8dn1mzxp9k5gv8mpjwjwgjnpgm146ns2k38l6xj2",
+            "rev": "e8d5b5b287dfe0abfd4523977ce81b17fb184e4f",
+            "sha256": "07d9rh0y3dcsryv0hhi7nrvr2b030v8s1m03c4chijgl1b2vi2rm",
             "url": "https://github.com/JaviMerino/nur-packages"
         },
         "jbarthelmes": {
