@@ -1,5 +1,3 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  healthchecks-heartbeat = ./healthchecks-heartbeat.nix;
 }
