@@ -451,10 +451,18 @@ capshonlyIngestCapability() {
   # - valid: `capsh --caps= -- <cmd>`
   # - invalid: `capsh --caps=CAP_FOO,CAP_BAR -- <cmd>`
   # - invalid: `capsh --caps==eip -- <cmd>`
-  if [ -z "$capshCapsArg" ]; then
-    capshCapsArg="cap_$1=eip"
+  #
+  # `capsh --caps=CAP_FOO=eip -- true` will fail if we don't have CAP_FOO,
+  # but for my use i'd still like to try running the command even if i can't grant it all capabilities.
+  # therefore, only grant it those capabilities i know will succeed.
+  if capsh "--has-p=cap_$1" 2>/dev/null; then
+    if [ -z "$capshCapsArg" ]; then
+      capshCapsArg="cap_$1=eip"
+    else
+      capshCapsArg="cap_$1,$capshCapsArg"
+    fi
   else
-    capshCapsArg="cap_$1,$capshCapsArg"
+    debug "capsh: don't have capability $1"
   fi
 }
 

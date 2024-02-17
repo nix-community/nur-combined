@@ -4,6 +4,13 @@
 
 {
   sane.programs.mepo = {
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "all";  # for tiles *and* for localhost comm to gpsd
+    sandbox.whitelistDri = true;
+    sandbox.whitelistWayland = true;
+    sandbox.whitelistDbus = [ "user" ];  # for geoclue
+
     persist.byStore.plaintext = [ ".cache/mepo/tiles" ];
     # ~/.cache/mepo/savestate has precise coordinates and pins: keep those private
     persist.byStore.private = [

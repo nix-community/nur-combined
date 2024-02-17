@@ -33,11 +33,12 @@
       "Videos"
     ];
     sandbox.extraPaths = [
-      "boot"
-      "mnt"
+      "/boot"
+      "/mnt"
       # "nix"
-      "tmp"
-      "var"
+      "/run/media"  # for mounted devices
+      "/tmp"
+      "/var"
     ];
     sandbox.extraRuntimePaths = [
       # not sure if these are actually necessary

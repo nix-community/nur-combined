@@ -125,7 +125,7 @@ in
       "ripgrep"
       "screen"
       "smartmontools"  # smartctl
-      "socat"
+      # "socat"
       "strace"
       "subversion"
       "tcpdump"
@@ -134,7 +134,7 @@ in
       "util-linux"  # lsblk, lscpu, etc
       "wget"
       "wirelesstools"  # iwlist
-      "xq"  # jq for XML
+      # "xq"  # jq for XML
       # "zfs"  # doesn't cross-compile (requires samba)
     ];
     sysadminExtraUtils = declPackageSet [
@@ -418,6 +418,13 @@ in
     gdb.sandbox.wrapperType = "wrappedDerivation";
     gdb.sandbox.autodetectCliPaths = true;
 
+    gptfdisk.sandbox.method = "landlock";
+    gptfdisk.sandbox.wrapperType = "wrappedDerivation";
+    gptfdisk.sandbox.extraPaths = [
+      "/dev"
+    ];
+    gptfdisk.sandbox.autodetectCliPaths = "existing";  #< sometimes you'll use gdisk on a device file.
+
     # MS GitHub stores auth token in .config
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
     gh.persist.byStore.private = [ ".config/gh" ];
@@ -433,6 +440,9 @@ in
       "tmp"
     ];
     gimp.sandbox.autodetectCliPaths = true;
+    gimp.sandbox.extraPaths = [
+      "/tmp"  # "Cannot open display:" if it can't mount /tmp 👀
+    ];
 
     "gnome.gnome-calculator".sandbox.method = "bwrap";
     "gnome.gnome-calculator".sandbox.wrapperType = "inplace";  # /libexec/gnome-calculator-search-provider
@@ -450,10 +460,41 @@ in
       ".config/dconf"
     ];
 
+    # gnome-disks
+    "gnome.gnome-disk-utility".sandbox.method = "bwrap";
+    "gnome.gnome-disk-utility".sandbox.wrapperType = "wrappedDerivation";
+    "gnome.gnome-disk-utility".sandbox.whitelistDbus = [ "system" ];
+    "gnome.gnome-disk-utility".sandbox.whitelistWayland = true;
+
+    # TODO: verify location services
+    # "gnome.gnome-maps".sandbox.method = "bwrap";
+    # "gnome.gnome-maps".sandbox.wrapperType = "inplace";
+    # "gnome.gnome-maps".sandbox.whitelistDri = true;
+    # "gnome.gnome-maps".sandbox.whitelistDbus = [ "user" ];  # for GPS (geoclue, portals)
+    # "gnome.gnome-maps".sandbox.whitelistWayland = true;
+    # "gnome.gnome-maps".sandbox.net = "clearnet";
+
     gnome-2048.sandbox.method = "bwrap";
     gnome-2048.sandbox.wrapperType = "wrappedDerivation";
     gnome-2048.sandbox.whitelistWayland = true;
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
+
+    gnome-frog.sandbox.method = "bwrap";
+    gnome-frog.sandbox.wrapperType = "wrappedDerivation";
+    gnome-frog.sandbox.whitelistWayland = true;
+    gnome-frog.sandbox.whitelistDbus = [ "user" ];
+    gnome-frog.sandbox.extraPaths = [
+      # needed when processing screenshots
+      "/tmp"
+    ];
+    gnome-frog.sandbox.extraHomePaths = [
+      # for OCR'ing photos from disk
+      "tmp"
+      "Pictures"
+    ];
+    gnome-frog.persist.byStore.cryptClearOnBoot = [
+      ".local/share/tessdata"  # 15M; dunno what all it is.
+    ];
 
     # TODO: gnome-maps: move to own file
     "gnome.gnome-maps".persist.byStore.plaintext = [ ".cache/shumate" ];
@@ -541,7 +582,9 @@ in
     iw.sandbox.net = "all";
     iw.sandbox.capabilities = [ "net_admin" ];
 
-    # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect
+    # jq.sandbox.method = "bwrap";
+    # jq.sandbox.wrapperType = "wrappedDerivation";
+    # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect, but how else to sandbox?
 
     killall.sandbox.method = "landlock";
     killall.sandbox.wrapperType = "wrappedDerivation";
@@ -605,6 +648,12 @@ in
     # actual monero blockchain (not wallet/etc; safe to delete, just slow to regenerate)
     # XXX: is it really safe to persist this? it doesn't have info that could de-anonymize if captured?
     monero-gui.persist.byStore.plaintext = [ ".bitmonero" ];
+    monero-gui.sandbox.method = "bwrap";
+    monero-gui.sandbox.wrapperType = "wrappedDerivation";
+    monero-gui.sandbox.net = "all";
+    monero-gui.sandbox.extraHomePaths = [
+      "records/finance/cryptocurrencies/monero"
+    ];
 
     mumble.persist.byStore.private = [ ".local/share/Mumble" ];
 
@@ -642,11 +691,27 @@ in
       "/nix"
     ];
 
+    nmap.sandbox.method = "bwrap";
+    nmap.sandbox.wrapperType = "wrappedDerivation";
+    nmap.sandbox.net = "all";  # clearnet and lan
+
     nmon.sandbox.method = "landlock";
     nmon.sandbox.wrapperType = "wrappedDerivation";
     nmon.sandbox.extraPaths = [
       "/proc"
     ];
+
+    # `nvme list` only shows results when run as root.
+    nvme-cli.sandbox.method = "landlock";
+    nvme-cli.sandbox.wrapperType = "wrappedDerivation";
+    nvme-cli.sandbox.extraPaths = [
+      "/sys/devices"
+      "/sys/class/nvme"
+      "/sys/class/nvme-subsystem"
+      "/sys/class/nvme-generic"
+      "/dev"
+    ];
+    nvme-cli.sandbox.capabilities = [ "sys_rawio" ];
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
@@ -725,6 +790,12 @@ in
     # printer/filament settings
     slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
 
+    # use like `sudo smartctl /dev/sda -a`
+    smartmontools.sandbox.method = "landlock";
+    smartmontools.sandbox.wrapperType = "wrappedDerivation";
+    smartmontools.sandbox.autodetectCliPaths = "existing";
+    smartmontools.sandbox.capabilities = [ "sys_rawio" ];
+
     sops.sandbox.method = "bwrap";  # TODO:sandbox: untested
     sops.sandbox.wrapperType = "wrappedDerivation";
     sops.sandbox.extraHomePaths = [
@@ -748,6 +819,11 @@ in
       "/mnt/servo/media/games"
     ];
     soundconverter.sandbox.autodetectCliPaths = "existingFileOrParent";
+
+    sox.sandbox.method = "bwrap";
+    sox.sandbox.wrapperType = "wrappedDerivation";
+    sox.sandbox.autodetectCliPaths = "existingFileOrParent";
+    sox.sandbox.whitelistAudio = true;
 
     space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
     space-cadet-pinball.sandbox.method = "bwrap";
@@ -821,6 +897,10 @@ in
     visidata.sandbox.wrapperType = "wrappedDerivation";
     visidata.sandbox.autodetectCliPaths = true;
 
+    # `vulkaninfo`, `vkcube`
+    vulkan-tools.sandbox.method = "landlock";
+    vulkan-tools.sandbox.wrapperType = "wrappedDerivation";
+
     vvvvvv.sandbox.method = "bwrap";
     vvvvvv.sandbox.wrapperType = "wrappedDerivation";
     vvvvvv.sandbox.whitelistAudio = true;
@@ -846,6 +926,11 @@ in
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
+
+    # `wg`, `wg-quick`
+    wireguard-tools.sandbox.method = "landlock";
+    wireguard-tools.sandbox.wrapperType = "wrappedDerivation";
+    wireguard-tools.sandbox.capabilities = [ "net_admin" ];
 
     # provides `iwconfig`, `iwlist`, `iwpriv`, ...
     wirelesstools.sandbox.method = "landlock";

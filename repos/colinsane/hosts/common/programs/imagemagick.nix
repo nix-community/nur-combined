@@ -8,6 +8,6 @@
     packageUnwrapped = pkgs.imagemagick.override {
       ghostscriptSupport = true;
     };
-    suggestedPrograms = [ "ghostscript" ];
+    # suggestedPrograms = [ "ghostscript" ];  #< XXX: needed? is `ghostscriptSupport = true` alone not enough??
   };
 }

@@ -40,6 +40,8 @@ in
       # tracking issue for having xdg-desktop-portal locate portals via more standard directories, obviating this var:
       # - <https://github.com/flatpak/xdg-desktop-portal/issues/603>
       environment.XDG_DESKTOP_PORTAL_DIR = "/etc/profiles/per-user/%u/share/xdg-desktop-portal/portals";
+
+      environment.G_MESSAGES_DEBUG = "all";
     };
   };
 
