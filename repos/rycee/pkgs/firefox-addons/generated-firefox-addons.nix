@@ -10429,6 +10429,40 @@
         platforms = platforms.all;
       };
     };
+    "video-downloadhelper" = buildFirefoxXpiAddon {
+      pname = "video-downloadhelper";
+      version = "8.2.0.23";
+      addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236242/video_downloadhelper-8.2.0.23.xpi";
+      sha256 = "11fb8dc5129befdc10801a737ed631156f718437132ae817d39a97b575da4267";
+      meta = with lib;
+      {
+        homepage = "http://www.downloadhelper.net/";
+        description = "The easy way to download and convert Web videos from hundreds of YouTube-like sites.";
+        license = {
+          shortName = "vdh";
+          fullName = "Custom License for Video DownloadHelper";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/video-downloadhelper/license/";
+          free = false;
+        };
+        mozPermissions = [
+          "tabs"
+          "contextMenus"
+          "nativeMessaging"
+          "webRequest"
+          "downloads"
+          "webNavigation"
+          "notifications"
+          "scripting"
+          "storage"
+          "<all_urls>"
+          "menus"
+          "webRequestBlocking"
+          "*://*.downloadhelper.net/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "videospeed" = buildFirefoxXpiAddon {
       pname = "videospeed";
       version = "0.6.3.3";
