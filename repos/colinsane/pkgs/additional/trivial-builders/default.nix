@@ -12,6 +12,7 @@
   } ''
     mkdir -p "$out/$(dirname "$item")"
     cp -a "$fromPkg/$item" "$out/$item"
+    runHook postFixup
   '';
 
   linkIntoOwnPackage = pkg: path: runCommand "${pkg.pname or pkg.name}-${path}" {
@@ -20,6 +21,7 @@
   } ''
     mkdir -p "$out/$(dirname "$item")"
     ln -s "$fromPkg/$item" "$out/$item"
+    runHook postFixup
   '';
 
   # given some package, create a new package which symlinks every file of the original

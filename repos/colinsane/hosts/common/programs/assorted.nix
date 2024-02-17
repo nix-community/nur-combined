@@ -242,6 +242,10 @@ in
       "/sys/devices"
     ];
 
+    bridge-utils.sandbox.method = "bwrap";  #< bwrap, landlock: both work
+    bridge-utils.sandbox.wrapperType = "wrappedDerivation";
+    bridge-utils.sandbox.net = "all";
+
     brightnessctl.sandbox.method = "landlock";  # also bwrap, but landlock is more responsive
     brightnessctl.sandbox.wrapperType = "wrappedDerivation";
     brightnessctl.sandbox.extraPaths = [
@@ -250,6 +254,10 @@ in
       "/sys/devices"
     ];
     brightnessctl.sandbox.whitelistDbus = [ "system" ];
+
+    btrfs-progs.sandbox.method = "bwrap";  #< bwrap, landlock: both work
+    btrfs-progs.sandbox.wrapperType = "wrappedDerivation";
+    btrfs-progs.sandbox.autodetectCliPaths = "existing";  # e.g. `btrfs filesystem df /my/fs`
 
     "cacert.unbundled".sandbox.enable = false;
 
@@ -443,6 +451,11 @@ in
     hase.sandbox.whitelistDri = true;
     hase.sandbox.whitelistWayland = true;
 
+    # hdparm: has to be run as sudo. e.g. `sudo hdparm -i /dev/sda`
+    hdparm.sandbox.method = "bwrap";
+    hdparm.sandbox.wrapperType = "wrappedDerivation";
+    hdparm.sandbox.autodetectCliPaths = true;
+
     htop.sandbox.method = "landlock";
     htop.sandbox.wrapperType = "wrappedDerivation";
     htop.sandbox.extraPaths = [
@@ -453,6 +466,12 @@ in
     iftop.sandbox.method = "landlock";
     iftop.sandbox.wrapperType = "wrappedDerivation";
     iftop.sandbox.capabilities = [ "net_raw" ];
+
+    # inetutils: ping, ifconfig, hostname, traceroute, whois, ....
+    # TODO: requires more than this;
+    # - also, sandboxed `ping` doesn't make it onto /run/current-system/sw/bin; unsandboxed `ping` does instead
+    # inetutils.sandbox.method = "landlock";  # want to keep the same netns, at least.
+    # inetutils.sandbox.wrapperType = "wrappedDerivation";
 
     iotop.sandbox.method = "landlock";
     iotop.sandbox.wrapperType = "wrappedDerivation";
@@ -544,6 +563,10 @@ in
     nano.sandbox.wrapperType = "wrappedDerivation";
     nano.sandbox.autodetectCliPaths = "existingFileOrParent";
 
+    netcat.sandbox.method = "landlock";
+    netcat.sandbox.wrapperType = "wrappedDerivation";
+    netcat.sandbox.net = "all";
+
     nethogs.sandbox.method = "capshonly";  # *partially* works under landlock w/ full access to /
     nethogs.sandbox.wrapperType = "wrappedDerivation";
     nethogs.sandbox.capabilities = [ "net_admin" "net_raw" ];
@@ -553,18 +576,18 @@ in
     networkmanagerapplet.sandbox.whitelistWayland = true;
     networkmanagerapplet.sandbox.whitelistDbus = [ "system" ];
 
-    nmon.sandbox.method = "landlock";
-    nmon.sandbox.wrapperType = "wrappedDerivation";
-    nmon.sandbox.extraPaths = [
-      "/proc"
-    ];
-
     nixpkgs-review.sandbox.method = "bwrap";
     nixpkgs-review.sandbox.wrapperType = "inplace";  #< shell completions use full paths
     nixpkgs-review.sandbox.net = "clearnet";
     nixpkgs-review.sandbox.whitelistPwd = true;
     nixpkgs-review.sandbox.extraPaths = [
       "/nix"
+    ];
+
+    nmon.sandbox.method = "landlock";
+    nmon.sandbox.wrapperType = "wrappedDerivation";
+    nmon.sandbox.extraPaths = [
+      "/proc"
     ];
 
     # settings (electron app)
@@ -606,6 +629,10 @@ in
     pstree.sandbox.extraPaths = [
       "/proc"
     ];
+
+    pulsemixer.sandbox.method = "landlock";
+    pulsemixer.sandbox.wrapperType = "wrappedDerivation";
+    pulsemixer.sandbox.whitelistAudio = true;
 
     pwvucontrol.sandbox.method = "bwrap";
     pwvucontrol.sandbox.wrapperType = "wrappedDerivation";

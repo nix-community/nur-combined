@@ -6,7 +6,7 @@
     packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.binutils-unwrapped "bin/strings";
 
     sandbox.method = "landlock";
-    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.wrapperType = "inplace";
     sandbox.autodetectCliPaths = "existing";
   };
 }

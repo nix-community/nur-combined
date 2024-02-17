@@ -3,6 +3,9 @@
 let
   # 2023/09/06: nixpkgs `transmission` defaults to old 3.00
   # 2024/02/15: some torrent trackers whitelist clients; everyone is still on 3.00 for some reason :|
+  #             some do this via peer-id (e.g. baka); others via user-agent (e.g. MAM).
+  #             peer-id format is essentially the same between 3.00 and 4.x (just swap the MAJOR/MINOR/PATCH numbers).
+  #             user-agent format has changed. `Transmission/3.00` (old) v.s. `TRANSMISSION/MAJ.MIN.PATCH` (new).
   realTransmission = pkgs.transmission_4;
   realVersion = {
     major = lib.versions.major realTransmission.version;
@@ -15,7 +18,8 @@ let
       substituteInPlace CMakeLists.txt \
         --replace-fail 'TR_VERSION_MAJOR "${realVersion.major}"' 'TR_VERSION_MAJOR "3"' \
         --replace-fail 'TR_VERSION_MINOR "${realVersion.minor}"' 'TR_VERSION_MINOR "0"' \
-        --replace-fail 'TR_VERSION_PATCH "${realVersion.patch}"' 'TR_VERSION_PATCH "0"'
+        --replace-fail 'TR_VERSION_PATCH "${realVersion.patch}"' 'TR_VERSION_PATCH "0"' \
+        --replace-fail 'set(TR_USER_AGENT_PREFIX "''${TR_SEMVER}")' 'set(TR_USER_AGENT_PREFIX "3.00")'
     '';
   });
 in
