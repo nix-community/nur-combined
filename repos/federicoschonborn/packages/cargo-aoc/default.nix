@@ -6,10 +6,12 @@
   pkg-config,
   nix-update-script,
 }:
-
-rustPlatform.buildRustPackage rec {
-  pname = "cargo-aoc";
+let
   version = "0.3.7";
+in
+rustPlatform.buildRustPackage {
+  pname = "cargo-aoc";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "gobanos";

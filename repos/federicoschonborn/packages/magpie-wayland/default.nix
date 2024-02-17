@@ -17,7 +17,7 @@
 }:
 
 stdenv.mkDerivation {
-  pname = "magpie1";
+  pname = "magpie-wayland";
   version = "unstable-2024-02-03";
 
   src = fetchFromGitHub {
@@ -51,7 +51,6 @@ stdenv.mkDerivation {
     mainProgram = "magpie-wm";
     description = "wlroots-based Wayland compositor designed for the Budgie Desktop";
     homepage = "https://github.com/BuddiesOfBudgie/magpie";
-    branch = "v1";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ federicoschonborn ];

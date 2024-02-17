@@ -56,6 +56,7 @@
   ddcutil,
   enableDirectxHeaders ? stdenv.isLinux,
   directx-headers,
+  enableProprietaryGpuDriverApi ? true,
 }:
 
 stdenv.mkDerivation (
@@ -132,6 +133,7 @@ stdenv.mkDerivation (
       (lib.cmakeBool "ENABLE_PULSE" enablePulse)
       (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
       (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
+      (lib.cmakeBool "ENABLE_PROPRIETARY_GPU_DRIVER_API" enableProprietaryGpuDriverApi)
     ];
 
     passthru.updateScript = nix-update-script { };

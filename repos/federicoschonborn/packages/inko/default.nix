@@ -9,17 +9,20 @@
   llvmPackages_15,
   nix-update-script,
 }:
-
-rustPlatform.buildRustPackage rec {
-  pname = "inko";
+let
   version = "0.14.0";
-
   src = fetchFromGitHub {
     owner = "inko-lang";
     repo = "inko";
     rev = "v${version}";
     hash = "sha256-6NnTqc9V/Ck4Dzo6ZcWLpCNQQVym55gQ3q7w+0DXiDc=";
   };
+in
+rustPlatform.buildRustPackage {
+  pname = "inko";
+  inherit version;
+
+  inherit src;
 
   cargoLock = {
     lockFile = ./Cargo.lock;
