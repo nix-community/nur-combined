@@ -16,13 +16,6 @@ in rec {
     unzipSupport = true;
     unrarSupport = true;
   };
-  ddccontrol = super.ddccontrol.overrideAttrs (oldAttrs: {
-    prePatch = ''
-      ${oldAttrs.prePatch}
-      substituteInPlace src/gddccontrol/notebook.c \
-        --replace "if (mon->fallback)" "if (0)"
-    '';
-  });
   # https://github.com/jellyfin/jellyfin/issues/7642
   jellyfin-ffmpeg = super.jellyfin-ffmpeg.override {
     ffmpeg_6-full = super.ffmpeg_6-full.override {

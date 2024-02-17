@@ -19,10 +19,7 @@ let
 in {
   options.hardware.monitor = {
     enable = mkEnableOption ''
-      Adoptions for monitor
-    '';
-    hotplug = mkEnableOption ''
-      Hotplug monitor support
+      Adoptions for hotplugging monitor
     '';
     config = mkOption {
       type = types.nullOr types.attrs;
@@ -39,11 +36,6 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.ddccontrol.enable = true;
-      hardware.i2c.enable = true;
-      environment.systemPackages = with pkgs; [ ddcutil ];
-    })
-    (mkIf (cfg.enable && cfg.hotplug) {
       systemd.user.services.autorandr = {
         description = "autorandr start on login";
         wantedBy = [ "graphical-session.target" ];

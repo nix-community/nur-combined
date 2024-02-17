@@ -88,6 +88,10 @@ in {
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
       '';
+      boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
+      boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
+      programs.light.enable = true;
+      users.users.${cfg.user}.extraGroups = [ "video" ];
       services.xserver.videoDrivers = [ "amdgpu" ];
       services.xserver.deviceSection = ''
         Option "TearFree" "true"
