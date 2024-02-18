@@ -40,7 +40,7 @@ in {
   options.programs.openssl-oqs-provider = {
     enable = lib.mkEnableOption (lib.mdDoc "load post-quantum algorithm provider for OpenSSL 3.x") // {default = true;};
     curves = lib.mkOption {
-      type = lib.types.listOf lib.types.string;
+      type = lib.types.listOf lib.types.str;
       default = [
         "p256_frodo640aes"
         "x25519_frodo640aes"
