@@ -4,10 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-pinix = {
-url="github:remi-dupre/pinix";
-inputs.nixpkgs.follows="nixpkgs";
-};
+    pinix = {
+      url = "github:FedericoSchonborn/pinix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -16,24 +16,29 @@ inputs.nixpkgs.follows="nixpkgs";
   };
 
   outputs =
-    { nixpkgs, pinix, flake-parts, ... }@inputs:
+    { nixpkgs, flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
-        "x86_64-darwin"
+        "aarch64-darwin"
       ];
 
       perSystem =
         {
           lib,
-          pkgs,
           config,
-          inputs',
+          pkgs,
+          system,
           ...
         }:
         {
+          _module.args.pkgs = import nixpkgs {
+            inherit system;
+            overlays = with inputs; [ pinix.overlays.default ];
+          };
+
           legacyPackages = import ./. { inherit pkgs; };
           packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) config.legacyPackages;
 
@@ -42,7 +47,7 @@ inputs.nixpkgs.follows="nixpkgs";
               jq
               just
               nix-tree
-              inputs'.pinix.packages.pinix
+              pinix
             ];
           };
 

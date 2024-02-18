@@ -99,7 +99,10 @@ stdenv.mkDerivation (
       ++ lib.optional enableEgl libGL
       ++ lib.optional enableGlx libglvnd
       ++ lib.optional enableOsmesa mesa
-      ++ lib.optionals enableOpencl [ocl-icd opencl-headers]
+      ++ lib.optionals enableOpencl [
+        ocl-icd
+        opencl-headers
+      ]
       ++ lib.optional enableLibnm networkmanager
       ++ lib.optional enableFreetype freetype
       ++ lib.optional enablePulse pulseaudio
