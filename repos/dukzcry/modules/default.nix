@@ -24,7 +24,6 @@ rec {
   hardware = import ./hardware.nix [ hidpi ];
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
-  archisteamfarm = ./archisteamfarm.nix;
   adblock = ./adblock.nix;
   gamescope = ./gamescope.nix;
   vscodium = ./vscodium.nix;

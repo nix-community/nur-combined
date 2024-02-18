@@ -138,6 +138,7 @@ in
       environment.systemPackages =
         optionalPackage cfg.font
         ++ optionalPackage cfg.theme
+        ++ optionalPackage cfg.gtk2Theme
         ++ optionalPackage cfg.iconTheme
         ++ optionalPackage cfg.cursorTheme;
 
