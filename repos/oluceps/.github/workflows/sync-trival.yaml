@@ -1,3 +1,4 @@
+name: "Sync nixos-config repo"
 on:
   workflow_dispatch:
   push:

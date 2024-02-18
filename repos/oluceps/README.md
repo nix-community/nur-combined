@@ -65,6 +65,16 @@ Applying:
 }
 ```
 
+### Cache
+
+```nix
+nix.settings = {
+  substituers = ["https://nur-pkgs.cachix.org"];
+  trusted-public-keys = [
+    "nur-pkgs.cachix.org-1:PAvPHVwmEBklQPwyNZfy4VQqQjzVIaFOkYYnmnKco78="
+  ];
+};
+```
 
 
 ## References
