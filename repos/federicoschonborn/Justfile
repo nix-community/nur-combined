@@ -26,7 +26,7 @@ rebuild-all-stable:
 
 # Build one or more packages.
 build +PACKAGES:
-    PACKAGES="{{ PACKAGES }}"; nom build -L ${NIX_BUILD_FLAGS[@]} $(echo ".#${PACKAGES// / .#}")
+    PACKAGES="{{ PACKAGES }}"; pix build -L ${NIX_BUILD_FLAGS[@]} $(echo ".#${PACKAGES// / .#}")
 
 # Build one or more packages against the stable channel.
 build-stable +PACKAGES:

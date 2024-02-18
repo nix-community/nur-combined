@@ -36,10 +36,31 @@
         "type": "github"
       }
     },
+    "pinix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1708214363,
+        "narHash": "sha256-FRTyzCn6rRY+xFj1PhVwYWzzT0WH3Revkjaxwq7tPkw=",
+        "owner": "FedericoSchonborn",
+        "repo": "pinix",
+        "rev": "d365fcd3295fc7c20d35696d1035eded083f8309",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FedericoSchonborn",
+        "repo": "pinix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "pinix": "pinix"
       }
     }
   },
