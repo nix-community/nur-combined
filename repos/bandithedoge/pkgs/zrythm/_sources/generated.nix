@@ -30,16 +30,16 @@
   };
   libadwaita-git = {
     pname = "libadwaita-git";
-    version = "40e27c0fe7c9128acf8ff733952cf51d2c09c928";
+    version = "fe49b53ae2759394733e1f0d3d56517cacc2d378";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "40e27c0fe7c9128acf8ff733952cf51d2c09c928";
+      rev = "fe49b53ae2759394733e1f0d3d56517cacc2d378";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-HsKyecJhHiGgFifce4EMFMr55kZuSKQR0IVO5OF3cw0=";
+      sha256 = "sha256-J0Y67jvJ48DGvOMpuobAj0VAU1C/irdmru9rvgu3vmY=";
     };
-    date = "2024-02-17";
+    date = "2024-02-18";
   };
   rtaudio-git = {
     pname = "rtaudio-git";
@@ -54,14 +54,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "a0fbf700682a42d54e898f643e94b66dcb99439b";
+    version = "ad80aa73aa843e520d93f4982c8c04bcfeee0595";
     src = fetchgit {
       url = "https://gitlab.zrythm.org/zrythm/zrythm.git";
-      rev = "a0fbf700682a42d54e898f643e94b66dcb99439b";
+      rev = "ad80aa73aa843e520d93f4982c8c04bcfeee0595";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-xIFIH/M8FNGc0WPJ6/r0ZR209QpxeBEQu+DZrusI4vo=";
+      sha256 = "sha256-veRzcxLGP8jkm0qWK98aSfEMv/UFPkgPOT/yRI8jfdc=";
     };
     date = "2024-02-18";
   };

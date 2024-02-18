@@ -16,6 +16,7 @@ in {
   fennel-language-server = callPackage' ./fennel-language-server;
   firefoxAddons = callPackages ./firefoxAddons;
   flexipatch = callPackages ./flexipatch;
+  geonkick = callPackage' ./geonkick;
   haskellPackages = callPackages ./haskellPackages;
   ildaeil = callPackage' ./ildaeil;
   keepmenu = callPackage' ./keepmenu;

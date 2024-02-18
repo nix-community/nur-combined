@@ -1,0 +1,22 @@
+{
+  "geonkick": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "geonkick",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "Geonkick-Synthesizer",
+      "repo": "geonkick",
+      "rev": "v3.3.2",
+      "sha256": "sha256-v3a6+YW6C/7nO+RnrH2vj1elxt/qVGYfSuxunyVyJ14=",
+      "type": "github"
+    },
+    "version": "v3.3.2"
+  }
+}
