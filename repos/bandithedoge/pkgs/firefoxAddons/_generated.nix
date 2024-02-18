@@ -6,10 +6,10 @@
 }: {
   "augmented-steam" = buildFirefoxXpiAddon {
     pname = "augmented-steam";
-    version = "2.6.0";
+    version = "3.0.0";
     addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4167723/augmented_steam-2.6.0.xpi";
-    sha256 = "949f9f8c8a932cbaee3fea6ccbb25a34fa1d260c61df78e5c384bdf7d4118c59";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4234656/augmented_steam-3.0.0.xpi";
+    sha256 = "14032ec9220d621aea6d6f7415cf205852a6d0b47fa2dd79cdf9e2a49bcde3f1";
     meta = with lib; {
       homepage = "https://augmentedsteam.com/";
       description = "Augments your Steam Experience";

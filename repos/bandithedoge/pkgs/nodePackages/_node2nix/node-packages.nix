@@ -144,13 +144,13 @@
         sha512 = "P46VikoEZadYCqx7mbClKlaJnOyvc+JfRJPRf1YwlOjwqeYmutgFe1w9hvfXe819VhpU0N0TNXtxyVAUlAgaNA==";
       };
     };
-    "c12-1.7.0" = {
+    "c12-1.8.0" = {
       name = "c12";
       packageName = "c12";
-      version = "1.7.0";
+      version = "1.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/c12/-/c12-1.7.0.tgz";
-        sha512 = "luqIHUs5S5s4vcSa1TVIGxSC1dH8mBT8cxzRvrlHN/iZs+G/PkxsOb300ODuAdvRzUopyXYqg7cmdOGpcYaxwg==";
+        url = "https://registry.npmjs.org/c12/-/c12-1.8.0.tgz";
+        sha512 = "93U6RndoaAwFQPBcS9F/6lwtgBfrWh4695sQ/ChILkbj0C7zOZVptOU3Sxp0I/9xvfW/lzBWD90AXDQz4muSkA==";
       };
     };
     "cac-6.7.14" = {
@@ -189,13 +189,13 @@
         sha512 = "bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==";
       };
     };
-    "citty-0.1.5" = {
+    "citty-0.1.6" = {
       name = "citty";
       packageName = "citty";
-      version = "0.1.5";
+      version = "0.1.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/citty/-/citty-0.1.5.tgz";
-        sha512 = "AS7n5NSc0OQVMV9v6wt3ByujNIrne0/cTjiC2MYqhvao57VNfiuVksTSr2p17nVOhEr2KtqiAkGwHcgMC/qUuQ==";
+        url = "https://registry.npmjs.org/citty/-/citty-0.1.6.tgz";
+        sha512 = "tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==";
       };
     };
     "consola-3.2.3" = {
@@ -234,13 +234,13 @@
         sha512 = "65AlobnZMiCET00KaFFjUefxDX0khFA/E4myqZ7a6Sq1yZtR8+FVIvilVX66vF2uobSumxooYZChiRPCKNqhmg==";
       };
     };
-    "dotenv-16.4.2" = {
+    "dotenv-16.4.4" = {
       name = "dotenv";
       packageName = "dotenv";
-      version = "16.4.2";
+      version = "16.4.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/dotenv/-/dotenv-16.4.2.tgz";
-        sha512 = "rZSSFxke7d9nYQ5NeMIwp5PP+f8wXgKNljpOb7KtH6SKW1cEqcXAz9VSJYVLKe7Jhup/gUYOkaeSVyK8GJ+nBg==";
+        url = "https://registry.npmjs.org/dotenv/-/dotenv-16.4.4.tgz";
+        sha512 = "XvPXc8XAQThSjAbY6cQ/9PcBXmFoWuw1sQ3b8HqUCR6ziGXjkTi//kB9SWa2UwqlgdAIuRqAa/9hVljzPehbYg==";
       };
     };
     "emmet-2.4.6" = {
@@ -1001,7 +1001,7 @@ in {
       sources."binary-extensions-2.2.0"
       sources."braces-3.0.2"
       sources."bumpp-9.3.0"
-      (sources."c12-1.7.0"
+      (sources."c12-1.8.0"
         // {
           dependencies = [
             sources."jsonc-parser-3.2.1"
@@ -1011,12 +1011,12 @@ in {
       sources."call-me-maybe-1.0.2"
       sources."chokidar-3.6.0"
       sources."chownr-2.0.0"
-      sources."citty-0.1.5"
+      sources."citty-0.1.6"
       sources."consola-3.2.3"
       sources."cross-spawn-7.0.3"
       sources."defu-6.1.4"
       sources."destr-2.0.2"
-      sources."dotenv-16.4.2"
+      sources."dotenv-16.4.4"
       sources."emmet-2.4.6"
       sources."execa-8.0.1"
       sources."fast-glob-3.3.2"
