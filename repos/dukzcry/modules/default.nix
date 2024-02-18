@@ -29,4 +29,5 @@ rec {
   vscodium = ./vscodium.nix;
   udisks = ./udisks.nix;
   rustdesk-server = ./rustdesk-server.nix;
+  local-variables = ./local-variables.nix;
 }
