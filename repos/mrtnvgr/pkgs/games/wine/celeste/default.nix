@@ -1,5 +1,5 @@
 { lib, fetchtorrent, fetchzip, wrapWine, unzip, stdenvNoCC, everestSupport ? false, everestMods ? [ ], ... }:
-let
+let 
   name = "celeste";
 
   src = fetchtorrent {
@@ -15,7 +15,7 @@ let
   isEverestEnabled = if everestMods != [ ] then true else everestSupport;
 
   everestSetup = if isEverestEnabled then ''
-    cp -rlv ${everestSrc}/* .
+    cp -r ${everestSrc}/* .
     chmod -R +w .
     wine MiniInstaller.exe
     wineserver -w
@@ -32,7 +32,7 @@ let
         mkdir celeste
         cd celeste
 
-        cp -rlv ${src}/* .
+        cp -r ${src}/* .
 
         ${everestSetup}
       popd
@@ -42,7 +42,7 @@ let
       # Checks if mods directory either doesn't exist or is empty
       if [ -z "$(ls -A Mods)" ]; then
         mkdir Mods
-        ${lib.concatMapStringsSep "\n" (mod: "cp -rlv ${mod} Mods/") everestMods}
+        ${lib.concatMapStringsSep "\n" (mod: "cp -r ${mod} Mods/") everestMods}
       fi
     '' else "";
 
