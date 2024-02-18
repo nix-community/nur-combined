@@ -7,26 +7,28 @@ let
     let
       res = toString ((toInt (head (splitString "x" mode))) * scale);
     in (head (splitString "." res));
-  monitor' = {
-    name = cfg.monitorPort;
-    setup = "00ffffffffffff0030aee66100000000331e0104b53e22783bb4a5ad4f449e250f5054a10800d100d1c0b30081c081809500a9c081004dd000a0f0703e80302035006d552100001a000000fd00283c858538010a202020202020000000fc004c454e20533238752d31300a20000000ff00564e4135433339420a2020202001f002031bf14e61605f101f05140413121103020123097f0783010000a36600a0f0701f80302035006d552100001a565e00a0a0a02950302035006d552100001ae26800a0a0402e60302036006d552100001a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002f";
-    config = {
-      enable = true;
-      mode = "3840x2160";
-      dpi = 144;
-    };
-  };
 in {
   options.hardware.monitor = {
     enable = mkEnableOption ''
       Adoptions for hotplugging monitor
     '';
-    config = mkOption {
+    laptopConfig = mkOption {
       type = types.nullOr types.attrs;
       default = null;
     };
-    monitorPort = mkOption {
-      type = types.nullOr types.string;
+    monitorConfig = mkOption {
+      type = types.nullOr types.attrs;
+      default = null;
+      example = literalExpression ''
+        {
+          name = "HDMI-1";
+          setup = "<edid>";
+          config = {
+            enable = true;
+            mode = "3840x2160";
+            dpi = 144;
+          };
+      '';
     };
     postswitch = mkOption {
       type = types.nullOr types.str;
@@ -47,38 +49,38 @@ in {
       };
       services.autorandr = {
         enable = true;
-        defaultTarget = if cfg.config != null then "laptop" else "monitor";
+        defaultTarget = if cfg.laptopConfig != null then "laptop" else "monitor";
         profiles = rec {
-          laptop = optionalAttrs (cfg.config != null) {
-            fingerprint."${cfg.config.name}" = cfg.config.setup;
+          laptop = optionalAttrs (cfg.laptopConfig != null) {
+            fingerprint."${cfg.laptopConfig.name}" = cfg.laptopConfig.setup;
             config = {
-              "${cfg.config.name}" = cfg.config.config;
-              "${monitor'.name}".enable = false;
+              "${cfg.laptopConfig.name}" = cfg.laptopConfig.config;
+              "${cfg.monitorConfig.name}".enable = false;
             };
           };
           monitor = {
             fingerprint = {
-              "${monitor'.name}" = monitor'.setup;
-            } // optionalAttrs (cfg.config != null) {
-              "${cfg.config.name}" = cfg.config.setup;
+              "${cfg.monitorConfig.name}" = cfg.monitorConfig.setup;
+            } // optionalAttrs (cfg.laptopConfig != null) {
+              "${cfg.laptopConfig.name}" = cfg.laptopConfig.setup;
             };
             config = {
-              "${monitor'.name}" = monitor'.config;
-            } // optionalAttrs (cfg.config != null) {
-              "${cfg.config.name}".enable = false;
+              "${cfg.monitorConfig.name}" = cfg.monitorConfig.config;
+            } // optionalAttrs (cfg.laptopConfig != null) {
+              "${cfg.laptopConfig.name}".enable = false;
             };
           };
           # workaround: filter isn't supported before next version of autorandr
           integer = monitor // {
-            hooks.postswitch.xrandr = "${pkgs.xorg.xrandr}/bin/xrandr --output ${monitor'.name} --scale 0.5x0.5 --filter nearest";
+            hooks.postswitch.xrandr = "${pkgs.xorg.xrandr}/bin/xrandr --output ${cfg.monitorConfig.name} --scale 0.5x0.5 --filter nearest";
           };
-          both = optionalAttrs (cfg.config != null) {
-            fingerprint."${cfg.config.name}" = cfg.config.setup;
-            fingerprint."${monitor'.name}" = monitor'.setup;
+          both = optionalAttrs (cfg.laptopConfig != null) {
+            fingerprint."${cfg.laptopConfig.name}" = cfg.laptopConfig.setup;
+            fingerprint."${cfg.monitorConfig.name}" = cfg.monitorConfig.setup;
             config = {
-              "${cfg.config.name}" = cfg.config.config;
-              "${monitor'.name}" = monitor'.config // {
-                position = "${position' cfg.config.config.mode (cfg.config.scale or 1.0)}x0";
+              "${cfg.laptopConfig.name}" = cfg.laptopConfig.config;
+              "${cfg.monitorConfig.name}" = cfg.monitorConfig.config // {
+                position = "${position' cfg.laptopConfig.config.mode (cfg.laptopConfig.scale or 1.0)}x0";
                 primary = true;
               };
             };
@@ -96,10 +98,10 @@ in {
                   DPI=144
                   SIZE=32
                   ;;
-            '' + optionalString (cfg.config != null) ''
+            '' + optionalString (cfg.laptopConfig != null) ''
                   laptop)
-                    DPI=${toString cfg.config.dpi}
-                    SIZE=${toString cfg.config.size}
+                    DPI=${toString cfg.laptopConfig.dpi}
+                    SIZE=${toString cfg.laptopConfig.size}
                     ;;
             '' + ''
                 *)
