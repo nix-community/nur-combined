@@ -259,7 +259,7 @@
           deployScript = host: addr: action: pkgs.writeShellScript "deploy-${host}" ''
             host="${host}"
             addr="${addr}"
-            action="${action}"
+            action="${if action != null then action else ""}"
             runOnTarget() {
               # run the command ($@) on the machine we're deploying to.
               # if that's a remote machine, then do it via ssh, else local shell.
