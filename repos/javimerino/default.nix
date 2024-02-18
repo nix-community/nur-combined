@@ -5,7 +5,7 @@ let
   # as nur-no-pkgs, only modules and overlays are defined and no pkgs
   # are evaluated.
   my_pkgs =
-    if pkgs != null then
+    if (builtins.tryEval pkgs).success then
       (import ./pkgs { inherit pkgs; })
     else
       { };
