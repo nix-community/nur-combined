@@ -833,7 +833,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-02-13",
+        "date": "2024-02-17",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -845,11 +845,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "ac164b4084ca9dbf696b93047edcb616530a039c",
-            "sha256": "sha256-z1Bww5hHOa3CggqAf5wf78g6H2qyrFRYXbwGEuy+9gw=",
+            "rev": "6b06e87255591f0096db88ebc57f4bf8f0700d22",
+            "sha256": "sha256-TAKzmWve+FV7R72oQxPuBFIBoog5LHliSqBg5n5fyE4=",
             "type": "github"
         },
-        "version": "ac164b4084ca9dbf696b93047edcb616530a039c"
+        "version": "6b06e87255591f0096db88ebc57f4bf8f0700d22"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1370,11 +1370,11 @@
             "name": null,
             "owner": "palworldlol",
             "repo": "palworld-exporter",
-            "rev": "v1.3.0",
-            "sha256": "sha256-SlDN+DiQq9cWSa1V13n3SPQIfrl0ZqculjdH46BJpYY=",
+            "rev": "v1.3.1",
+            "sha256": "sha256-1hYOiU3fYQBOKEqE6HvqmLF4+kS+PjAph0LoYpmglrg=",
             "type": "github"
         },
-        "version": "v1.3.0"
+        "version": "v1.3.1"
     },
     "palworld-worldoptions": {
         "cargoLocks": null,
@@ -1390,11 +1390,11 @@
             "name": null,
             "owner": "legoduded",
             "repo": "palworld-worldoptions",
-            "rev": "v1.6.0",
-            "sha256": "sha256-N0BKySKiZvyvL7xPehdKg3QbMH6hFGS3bMG+bDXsZXU=",
+            "rev": "v1.7.0",
+            "sha256": "sha256-7LATVGDo5LZyQYzvlOEKw24E+NaM9XuYjz9iDHVCOMk=",
             "type": "github"
         },
-        "version": "v1.6.0"
+        "version": "v1.7.0"
     },
     "payload-dumper-go": {
         "cargoLocks": null,
@@ -1938,7 +1938,7 @@
     },
     "undetected-chromedriver": {
         "cargoLocks": null,
-        "date": "2023-11-15",
+        "date": "2024-02-17",
         "extract": null,
         "name": "undetected-chromedriver",
         "passthru": null,
@@ -1950,11 +1950,11 @@
             "name": null,
             "owner": "ultrafunkamsterdam",
             "repo": "undetected-chromedriver",
-            "rev": "783b8393157b578e19e85b04d300fe06efeef653",
-            "sha256": "sha256-vQ66TAImX0GZCSIaphEfE9O/wMNflGuGB54+29FiUJE=",
+            "rev": "0aa5fbe252370b4cb2b95526add445392cad27ba",
+            "sha256": "sha256-Qe+GrsUPnhjJMDgjdUCloapjj0ggFlm/Dr42WLcmb1o=",
             "type": "github"
         },
-        "version": "783b8393157b578e19e85b04d300fe06efeef653"
+        "version": "0aa5fbe252370b4cb2b95526add445392cad27ba"
     },
     "vpp": {
         "cargoLocks": null,

@@ -118,7 +118,7 @@ Or, use variables from this repository in case I change them:
 |  | `konnect` | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.6 | A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
-|  | `liboqs` | [liboqs](https://openquantumsafe.org) | ac164b4084ca9dbf696b93047edcb616530a039c | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs` | [liboqs](https://openquantumsafe.org) | 6b06e87255591f0096db88ebc57f4bf8f0700d22 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | ff3448cb3f86f42946d4c9eb01ccaa994f174fe0 | Qt5 binding of CEF |
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.76 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | `netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
@@ -133,8 +133,8 @@ Or, use variables from this repository in case I change them:
 |  | `openssl-oqs` | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | A cryptographic library that implements the SSL and TLS protocols |
 |  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 510fea62449edb14b3ead8a51061b251817298cf | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
-|  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | v1.3.0 | Prometheus exporter for Palword Server |
-|  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | v1.6.0 | A tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers |
+|  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | v1.3.1 | Prometheus exporter for Palword Server |
+|  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | v1.7.0 | A tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers |
 |  | `payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | An android OTA payload dumper written in Go |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | A web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.7-mod | The premier web-based administration tool for PostgreSQL |
@@ -162,7 +162,7 @@ Or, use variables from this repository in case I change them:
 |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Tachidesk-Server) | 0.6.2-r1074 | A rewrite of Tachiyomi for the Desktop |
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | v0.3.0 | A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | v1.2.9 | Userspace KSM helper daemon |
-|  | `undetected-chromedriver` | [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) | 783b8393157b578e19e85b04d300fe06efeef653 | Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM) |
+|  | `undetected-chromedriver` | [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) | 0aa5fbe252370b4cb2b95526add445392cad27ba | Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM) |
 |  | `undetected-chromedriver-bin` | [undetected-chromedriver-bin](https://chromedriver.chromium.org/) | 121.0.6167.85 | Chromedriver with undetected-chromedriver patch |
 |  | `vivado-2022_2` | [vivado](https://www.xilinx.com/products/design-tools/vivado.html) | 2022.2 | Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix) |
 |  | `vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | v23.10 | Vector Packet Processing |

@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "ac164b4084ca9dbf696b93047edcb616530a039c";
+    version = "6b06e87255591f0096db88ebc57f4bf8f0700d22";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "ac164b4084ca9dbf696b93047edcb616530a039c";
+      rev = "6b06e87255591f0096db88ebc57f4bf8f0700d22";
       fetchSubmodules = false;
-      sha256 = "sha256-z1Bww5hHOa3CggqAf5wf78g6H2qyrFRYXbwGEuy+9gw=";
+      sha256 = "sha256-TAKzmWve+FV7R72oQxPuBFIBoog5LHliSqBg5n5fyE4=";
     };
-    date = "2024-02-13";
+    date = "2024-02-17";
   };
   libqcef = {
     pname = "libqcef";
@@ -788,24 +788,24 @@
   };
   palworld-exporter = {
     pname = "palworld-exporter";
-    version = "v1.3.0";
+    version = "v1.3.1";
     src = fetchFromGitHub {
       owner = "palworldlol";
       repo = "palworld-exporter";
-      rev = "v1.3.0";
+      rev = "v1.3.1";
       fetchSubmodules = false;
-      sha256 = "sha256-SlDN+DiQq9cWSa1V13n3SPQIfrl0ZqculjdH46BJpYY=";
+      sha256 = "sha256-1hYOiU3fYQBOKEqE6HvqmLF4+kS+PjAph0LoYpmglrg=";
     };
   };
   palworld-worldoptions = {
     pname = "palworld-worldoptions";
-    version = "v1.6.0";
+    version = "v1.7.0";
     src = fetchFromGitHub {
       owner = "legoduded";
       repo = "palworld-worldoptions";
-      rev = "v1.6.0";
+      rev = "v1.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-N0BKySKiZvyvL7xPehdKg3QbMH6hFGS3bMG+bDXsZXU=";
+      sha256 = "sha256-7LATVGDo5LZyQYzvlOEKw24E+NaM9XuYjz9iDHVCOMk=";
     };
   };
   payload-dumper-go = {
@@ -1113,15 +1113,15 @@
   };
   undetected-chromedriver = {
     pname = "undetected-chromedriver";
-    version = "783b8393157b578e19e85b04d300fe06efeef653";
+    version = "0aa5fbe252370b4cb2b95526add445392cad27ba";
     src = fetchFromGitHub {
       owner = "ultrafunkamsterdam";
       repo = "undetected-chromedriver";
-      rev = "783b8393157b578e19e85b04d300fe06efeef653";
+      rev = "0aa5fbe252370b4cb2b95526add445392cad27ba";
       fetchSubmodules = false;
-      sha256 = "sha256-vQ66TAImX0GZCSIaphEfE9O/wMNflGuGB54+29FiUJE=";
+      sha256 = "sha256-Qe+GrsUPnhjJMDgjdUCloapjj0ggFlm/Dr42WLcmb1o=";
     };
-    date = "2023-11-15";
+    date = "2024-02-17";
   };
   vpp = {
     pname = "vpp";
