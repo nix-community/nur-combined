@@ -14,7 +14,14 @@ let
     "shufflecake"
 
     # use things from flake that  not pass strict eval
+    "arch-run"
+    "guix-run"
+    "lunar-run"
     "opulr-a-run"
+    "runbkworm"
+    "runwin"
+    "ubt-rv-run"
+
     "restls"
     "shadow-tls"
   ];
