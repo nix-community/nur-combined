@@ -116,12 +116,13 @@ in (lib.makeScope newScope (self: with self; {
     browserpass-extension = callPackage ./browserpass-extension { };
     bypass-paywalls-clean = callPackage ./bypass-paywalls-clean { };
     ctrl-shift-c-should-copy = callPackage ./ctrl-shift-c-should-copy { };
+    open-in-mpv = callPackage ./open-in-mpv { };
 
     ether-metamask = fetchVersionedAddon rec {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.8.0";
+      version = "11.10.0-mmi.0";
       hash = "sha256-X9y4EwYze6ja1cPRSEwtyDgIfeb8RJGa66Qts1X+2DM=";
     };
     fx_cast = fetchVersionedAddon rec {
@@ -138,17 +139,6 @@ in (lib.makeScope newScope (self: with self; {
       version = "1.49";
       hash = "sha256-LnR5z3fqNJywlr/khFdV4qloKGQhbxNZQvWCEgz97DU=";
     };
-    open-in-mpv = fetchVersionedAddon rec {
-      # usage:
-      # - click the "puzzle" icon in top-right of browser -> open in mpv
-      # - or, (shift)right-click a video and select "open in mpv"
-      #   - but note that this option does not work for Youtube videos
-      extid = "{d66c8515-1e0d-408f-82ee-2682f2362726}";
-      pname = "open-in-mpv";
-      url = "https://github.com/Baldomo/open-in-mpv/releases/download/v${version}/firefox.xpi";
-      version = "2.1.0";
-      hash = "sha256-jRP0hvEyScGnQ2K5EFX+ggtu6B0h9Y3fJxYYnI8cMbc=";
-    };
     sidebery = fetchVersionedAddon rec {
       extid = "{3c078156-979c-498b-8990-85f7987dd929}";
       pname = "sidebery";
@@ -162,8 +152,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
       url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-      version = "5.5.4";
-      hash = "sha256-vYb76eynoe4MWbwo9T4PieGZldTKD/AMV4D9pUUE7Ls=";
+      version = "5.5.5";
+      hash = "sha256-y4lh3t/L8ZMnY9220dDkIaUy23eYeFpO9CBtOsRrrjI=";
     };
     ublacklist = fetchVersionedAddon rec {
       extid = "@ublacklist";
@@ -178,8 +168,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.55.1b28";
-      hash = "sha256-QHVcVymrQ3MxfOJr+skZrWEM9A+CliiyL7xIQskwdGY=";
+      version = "1.56.1b0";
+      hash = "sha256-8qKK7pEXTkUHmgFXFCUzwzv6wSEvVTITpHkhODy4DT8=";
     };
   };
 })).overrideScope (self: super:

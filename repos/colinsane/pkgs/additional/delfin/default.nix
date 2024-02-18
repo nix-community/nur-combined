@@ -21,26 +21,21 @@
 
 stdenv.mkDerivation rec {
   pname = "delfin";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "avery42";
     repo = "delfin";
     rev = "v${version}";
-    hash = "sha256-1Q3Aywf80CCXxorWSymwxJwMU1I4k7juDoWG5J18AXY=";
+    hash = "sha256-QwxdNPLL7PBokq5WaPylD4bBmXmJWyEQsWKN7DM2utk=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-/RZD4b7hrbC1Z5MtHDdib5TFEmxAh9odjNPo4m+FqK4=";
+    hash = "sha256-ElB9TbfmYn/A1Y3+oQ752zHqkC+f2RJPxfGXH0m5C/E=";
   };
-
-  # upstream pins the linker to clang, unnecessarily
-  postPatch = ''
-    rm .cargo/config.toml
-  '';
 
   nativeBuildInputs = [
     appstream

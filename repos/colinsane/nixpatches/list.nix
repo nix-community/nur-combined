@@ -27,6 +27,13 @@ let
     ) else null;
 in [
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/289665";
+    saneCommit = "b1093e0ba00c4d9dbece45e3c17463b1d156f630";
+    title = "open-in-mpv: 2.1.0-unstable-2023-05-13 -> 2.2.0";
+    # hash = "sha256-6GKl4u1GiJBKeq10oxYtyOiA/vohBdw4qaBnyZFDT+U=";
+    hash = "sha256-02lKaYqpugSW/DaPJ6yACQz06LJ9a5nSLLxHF/O1q3Y=";
+  })
+  (fetchpatch' {
     saneCommit = "20c9492d303be7cbad560e3d83bc47ab4b1e93f7";
     title = "procmail: support cross compilation";
     hash = "sha256-cC9GBF5tCeJ2GDSjMjlG4hYStIJPEoRBAK9/KhJiiIo=";

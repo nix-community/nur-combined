@@ -148,7 +148,14 @@ let
   }
     # patched packages always override anything:
     // (lib.mapAttrs (pname: _pkg: final'.sane."${pname}") sane-patched)
-    # "additional" packages only get added if they've not been upstreamed:
-    // (lib.mapAttrs (pname: _pkg: unpatched."${pname}" or final'.sane."${pname}") sane-additional)
+    # "additional" packages only get added if their version is newer than upstream
+    // (lib.mapAttrs
+      (pname: _pkg: if unpatched ? "${pname}" && lib.versionAtLeast unpatched."${pname}".version final'.sane."${pname}".version  then
+        unpatched."${pname}"
+      else
+        final'.sane."${pname}"
+      )
+      sane-additional
+    )
   ;
 in sane-overlay
