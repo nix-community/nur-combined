@@ -3,7 +3,7 @@
   boot.kernelModules = [ "tcp_bbr" ];
   boot.kernel.sysctl = {
     "net.core.default_qdisc" = "cake";
-    "net.core.somaxconn" = 8192;
+    "net.core.somaxconn" = 65536;
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.ipv4.tcp_fastopen" = 3;
     "net.ipv4.tcp_keepalive_time" = 60;
@@ -30,6 +30,8 @@
     "net.ipv4.udp_wmem_min" = 8192;
 
     "net.ipv4.ip_forward" = true;
+    "net.ipv4.conf.all.forwarding" = true;
+    "net.ipv4.conf.default.forwarding" = true;
     "net.ipv6.conf.all.forwarding" = true;
     "net.ipv6.conf.default.forwarding" = true;
     "net.ipv4.conf.all.rp_filter" = false;
@@ -98,6 +100,7 @@
     };
     dhcpV4Config = {
       SendHostname = true;
+      # UseRoutes = false;
     };
     dhcpV6Config = {
       WithoutRA = "solicit";
@@ -106,6 +109,12 @@
       UseAddress = false;
     };
     linkConfig.ActivationPolicy = "always-up";
+    # routes = [{
+    #   routeConfig = {
+    #     Gateway = "_dhcp4";
+    #     PreferredSource = "192.168.1.1";
+    #   };
+    # }];
   };
 
   ## Uncoment after https://github.com/SagerNet/sing-tun/pull/16 being merged
