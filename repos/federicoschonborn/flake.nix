@@ -4,12 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    pinix = {
-      url = "github:FedericoSchonborn/pinix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    flake-parts = {
+flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
@@ -34,11 +29,6 @@
           ...
         }:
         {
-          _module.args.pkgs = import nixpkgs {
-            inherit system;
-            overlays = with inputs; [ pinix.overlays.default ];
-          };
-
           legacyPackages = import ./. { inherit pkgs; };
           packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) config.legacyPackages;
 
@@ -46,8 +36,8 @@
             packages = with pkgs; [
               jq
               just
+              nix-output-monitor
               nix-tree
-              pinix
             ];
           };
 
