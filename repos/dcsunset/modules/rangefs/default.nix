@@ -14,37 +14,27 @@ in
           name = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description = ''
-            Name of mapped file for this range
-          '';
+            description = "Name of mapped file for this range";
           };
           offset = mkOption {
             type = types.nullOr types.int;
             default = null;
-            description = ''
-            Offset in the source file as start of range in bytes
-          '';
+            description = "Offset in the source file as start of range in bytes";
           };
           size = mkOption {
             type = types.nullOr types.int;
             default = null;
-            description = ''
-            Size of the range in bytes
-          '';
+            description = "Size of the range in bytes";
           };
           uid = mkOption {
             type = types.nullOr types.int;
             default = null;
-            description = ''
-            Uid of the mapped file
-          '';
+            description = "Uid of the mapped file";
           };
           gid = mkOption {
             type = types.nullOr types.int;
             default = null;
-            description = ''
-            Gid of the mapped file
-          '';
+            description = "Gid of the mapped file";
           };
         };
       };
@@ -52,69 +42,51 @@ in
       options = {
         source = mkOption {
           type = types.str;
-          description = ''
-            Source file to map ranges from
-          '';
+          description = "Source file to map ranges from";
         };
         config = mkOption {
           type = types.nonEmptyListOf (types.submodule configOpts);
           default = [];
-          description = ''
-            Config for each mapped range
-          '';
+          description = "Config for each mapped range";
         };
         timeout = mkOption {
           type = types.nullOr types.int;
           default = null;
-          description = ''
-            Timeout for metadata and cache in seconds
-          '';
+          description = "Timeout for metadata and cache in seconds";
         };
         file = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = ''
-            Overwrite the source file
-          '';
+          description = "Overwrite the source file";
         };
         stdout = mkOption {
           type = types.nullOr types.path;
           default = null;
-          description = ''
-            Redirect stdout to file
-          '';
+          description = "Redirect stdout to file";
         };
         stderr = mkOption {
           type = types.nullOr types.path;
           default = null;
-          description = ''
-            Redirect stderr to file
-          '';
+          description = "Redirect stderr to file";
         };
         extraOptions = mkOption {
           type = types.listOf types.str;
           default = [];
           example = [ "nofail" ];
-          description = ''
-            Extra options passed to fileSystems.<name>.options
-          '';
+          description = "Extra options passed to fileSystems.<name>.options";
         };
       };
     };
   in {
     enable = mkOption {
       type = types.bool;
-      default = true;
-      description = ''
-        Whether to enable rangefs
-      '';
+      default = false;
+      description = "Whether to enable rangefs";
     };
 
     package = mkOption {
       type = types.package;
-      description = ''
-        The rangefs package to use (e.g. package from nur)
-      '';
+      description = "The rangefs package to use (e.g. package from nur)";
     };
 
     fileSystems = mkOption {
