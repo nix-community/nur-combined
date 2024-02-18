@@ -9,22 +9,28 @@
 python3Packages.buildPythonPackage rec {
   inherit (sources.bepasty) pname version src;
 
-  propagatedBuildInputs = ([
-    xstatic-asciinema-player
-    xstatic-font-awesome
-  ]) ++ (with python3Packages; [
-    flask
-    pygments
-    setuptools
-    setuptools-scm
-    xstatic
-    xstatic-bootbox
-    xstatic-bootstrap
-    xstatic-jquery
-    xstatic-jquery-file-upload
-    xstatic-jquery-ui
-    xstatic-pygments
-  ]);
+  patches = [
+    ./319-use-urllib-parse-quote.patch
+  ];
+
+  propagatedBuildInputs =
+    [
+      xstatic-asciinema-player
+      xstatic-font-awesome
+    ]
+    ++ (with python3Packages; [
+      flask
+      pygments
+      setuptools
+      setuptools-scm
+      xstatic
+      xstatic-bootbox
+      xstatic-bootstrap
+      xstatic-jquery
+      xstatic-jquery-file-upload
+      xstatic-jquery-ui
+      xstatic-pygments
+    ]);
 
   format = "pyproject";
 

@@ -1,0 +1,48 @@
+diff --git a/src/bepasty/apis/lodgeit.py b/src/bepasty/apis/lodgeit.py
+index 980cb9e6..9482f48e 100644
+--- a/src/bepasty/apis/lodgeit.py
++++ b/src/bepasty/apis/lodgeit.py
+@@ -1,10 +1,10 @@
+ from io import BytesIO
++import urllib
+ 
+ from flask import request
+ from flask.views import MethodView
+ from pygments.lexers import get_all_lexers
+ from werkzeug.exceptions import Forbidden
+-from werkzeug.urls import url_quote
+ 
+ from ..constants import FOREVER
+ from ..utils.http import redirect_next
+@@ -53,4 +53,4 @@ def post(self):
+         maxlife_timestamp = FOREVER
+         name = create_item(f, filename, size, content_type, content_type_hint,
+                            maxlife_stamp=maxlife_timestamp)
+-        return redirect_next('bepasty.display', name=name, _anchor=url_quote(filename))
++        return redirect_next('bepasty.display', name=name, _anchor=urllib.parse.quote(filename))
+diff --git a/src/bepasty/views/upload.py b/src/bepasty/views/upload.py
+index fe3526b9..88b778f7 100644
+--- a/src/bepasty/views/upload.py
++++ b/src/bepasty/views/upload.py
+@@ -2,11 +2,11 @@
+ import errno
+ from io import BytesIO
+ import time
++import urllib
+ 
+ from flask import abort, current_app, jsonify, request, url_for
+ from flask.views import MethodView
+ from werkzeug.exceptions import NotFound, Forbidden
+-from werkzeug.urls import url_quote
+ 
+ from ..constants import COMPLETE, FILENAME, SIZE
+ from ..utils.date_funcs import get_maxlife
+@@ -56,7 +56,7 @@ def post(self):
+         maxlife_timestamp = int(time.time()) + maxtime if maxtime > 0 else maxtime
+         name = create_item(f, filename, size, content_type, content_type_hint, maxlife_stamp=maxlife_timestamp)
+         kw = {}
+-        kw['_anchor'] = url_quote(filename)
++        kw['_anchor'] = urllib.parse.quote(filename)
+         if content_type == 'text/x-bepasty-redirect':
+             # after creating a redirect, we want to stay on the bepasty
+             # redirect display, so the user can copy the URL.
