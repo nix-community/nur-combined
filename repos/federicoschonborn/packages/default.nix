@@ -27,25 +27,22 @@ let
 
     # Backports
     wlroots_0_17 =
-      if pkgs ? wlroots_0_17 then
-        pkgs.wlroots_0_17
-      else
-        pkgs.wlroots_0_16.overrideAttrs (
-          prevAttrs: {
-            version = "0.17.1";
-            src = pkgs.fetchFromGitLab {
-              domain = "gitlab.freedesktop.org";
-              owner = "wlroots";
-              repo = "wlroots";
-              rev = "3f2aced8c6fd00b0b71da24c790850af2004052b";
-              hash = "sha256-Z0gWM7AQqJOSr2maUtjdgk/MF6pyeyFMMTaivgt+RMI=";
-            };
-            buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
-              pkgs.hwdata
-              pkgs.libdisplay-info
-            ];
-          }
-        );
+      pkgs.wlroots_0_17 or (pkgs.wlroots_0_16.overrideAttrs (
+        prevAttrs: {
+          version = "0.17.1";
+          src = pkgs.fetchFromGitLab {
+            domain = "gitlab.freedesktop.org";
+            owner = "wlroots";
+            repo = "wlroots";
+            rev = "3f2aced8c6fd00b0b71da24c790850af2004052b";
+            hash = "sha256-Z0gWM7AQqJOSr2maUtjdgk/MF6pyeyFMMTaivgt+RMI=";
+          };
+          buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
+            pkgs.hwdata
+            pkgs.libdisplay-info
+          ];
+        }
+      ));
 
     # Variants
     fastfetchMinimal =
