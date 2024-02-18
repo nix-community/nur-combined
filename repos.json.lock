@@ -1158,8 +1158,8 @@
             "url": "https://github.com/ocfox/nur-pkgs"
         },
         "oluceps": {
-            "rev": "60509cee2c42ee30d327bb8594fb4e7fcbf3c178",
-            "sha256": "1sd7y0acfwqscrfdi5zb5khw5xgm306nwqkgfbw8r2z368sarcsh",
+            "rev": "1927941645d2401abe35ae61b8e3f1f31f72a90d",
+            "sha256": "0l3dp9lpvw5bq2wwxj6rkh730mvml0cvqyzzfxyj8jahx2gkw9z0",
             "url": "https://github.com/oluceps/nur-pkgs"
         },
         "ondt": {
