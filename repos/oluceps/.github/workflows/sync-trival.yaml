@@ -21,3 +21,4 @@ jobs:
         source_repo: "https://github.com/oluceps/nixos-config"
         source_branch: "trival"
         destination_branch: "master"
+        github_token: ${{ secrets.PAT }}

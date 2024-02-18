@@ -1,0 +1,24 @@
+jobs:
+  check-sensitive:
+    name: key material check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: detect
+        run: |
+          #!/bin/bash
+          headers=("AGE-SECRET-KEY" "BEGIN OPENSSH PRIVATE KEY" "BEGIN PGP PRIVATE KEY BLOCK" "PRIVATE")
+          
+          for per in "${headers[@]}"
+          do
+            [ -z "$(grep -r "$per" --exclude="sensitive.yaml" ./)" ] || exit 1
+          done
+        shell: bash
+name: sensitive check
+on:
+  pull_request:
+    branches: ["*"]
+  push:
+    branches: ["main"]
