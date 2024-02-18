@@ -1,0 +1,200 @@
+monitor=VGA-1,1920x1080@75,auto,1
+# monitor=VGA-1,transform,1
+monitor=eDP-1,2160x1440@60,0x0,1.5
+exec-once=fcitx5
+exec-once=mako
+# exec-once=waybar
+
+# Log errors
+env = HYPRLAND_LOG_WLR, 1
+input {
+    kb_layout=us
+    follow_mouse=1
+    force_no_accel=1
+    touchpad {
+      natural_scroll=1
+    }
+
+    sensitivity = 0
+}
+general {
+    cursor_inactive_timeout=30
+    gaps_in=3
+    gaps_out=3
+    border_size=2
+    col.active_border=rgba(f0c9cfbf)
+    col.inactive_border=rgba(59595940)
+    layout = dwindle
+}
+dwindle {
+     no_gaps_when_only = false
+     force_split = 2 
+     special_scale_factor = 0.8
+     split_width_multiplier = 1.0 
+     use_active_for_splits = true
+     pseudotile = yes 
+     preserve_split = yes 
+}
+      
+master {
+     new_is_master = true
+     special_scale_factor = 0.8
+     new_is_master = true
+     no_gaps_when_only = false
+}
+
+decoration {
+    # See https://wiki.hyprland.org/Configuring/Variables/ for more
+    rounding = 11 
+    drop_shadow = false
+    shadow_range = 4
+    shadow_render_power = 3
+    col.shadow = rgba($transparent)
+}
+#animations {
+#     enabled=1
+#     bezier = overshot, 0.13, 0.7, 0.29, 1.1
+#     animation = windows, 1, 3, overshot, slide
+#     animation = windowsOut, 1, 3, default, popin 80%
+#     animation = border, 1, 3, default
+#     animation = fade, 1, 2, default
+#     animation = workspaces, 1, 2, default
+#}
+animations {
+    enabled = true
+
+    # Animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+
+    bezier = overshot, 0.13, 0.99, 0.29, 1.1
+
+    animation = windows, 1, 4, overshot, slide
+    animation = border, 1, 3, default
+    animation = borderangle, 1, 200, default, loop
+    animation = fade, 1, 10, default
+#    animation = workspaces, 1, 6, overshot, slidevert
+    animation = workspaces, 1, 2, default
+}
+bind=SUPER,Q,killactive,
+bind=SUPERSHIFT,E,exec,pkill Hyprland
+bind=SUPER,F,fullscreen,
+bind=SUPER,Space,togglefloating,
+bind=SUPER,P,pseudo,
+bind=SUPERCTRL,L,exec,swaylock
+bindm=SUPER,mouse:272,movewindow
+bindm=SUPER,mouse:273,resizewindow
+bind=,Print,exec,$ssselection
+# screen recorder
+bind=SUPERCTRL,R,exec,screen-recorder-toggle
+bind=SUPERCTRL,S,exec,save-clipboard-to
+bind=ALT,Print,exec,$ssall
+# move focus
+bind=SUPER,H,movefocus,l
+bind=SUPER,L,movefocus,r
+bind=SUPER,K,movefocus,u
+bind=SUPER,J,movefocus,d
+# go to workspace
+bind=SUPER,grave,togglespecialworkspace,VGA-1
+bind=SUPER,1,workspace,1
+bind=SUPER,2,workspace,2
+bind=SUPER,3,workspace,3
+bind=SUPER,4,workspace,4
+bind=SUPER,5,workspace,5
+bind=SUPER,6,workspace,6
+bind=SUPER,7,workspace,7
+bind=SUPER,8,workspace,8
+bind=SUPER,9,workspace,9
+bind=SUPER,0,workspace,10
+bind = SUPER SHIFT,left ,movewindow, l
+bind = SUPER SHIFT,right ,movewindow, r
+bind = SUPER SHIFT,up ,movewindow, u
+bind = SUPER SHIFT,down ,movewindow, d
+  
+bind = SUPER SHIFT,H ,movewindow, l
+bind = SUPER SHIFT,L ,movewindow, r
+bind = SUPER SHIFT,K ,movewindow, u
+bind = SUPER SHIFT,J ,movewindow, d
+bind = SUPER CTRL, 1, movetoworkspace, 1
+bind = SUPER CTRL, 2, movetoworkspace, 2
+bind = SUPER CTRL, 3, movetoworkspace, 3
+bind = SUPER CTRL, 4, movetoworkspace, 4
+bind = SUPER CTRL, 5, movetoworkspace, 5
+bind = SUPER CTRL, 6, movetoworkspace, 6
+bind = SUPER CTRL, 7, movetoworkspace, 7
+bind = SUPER CTRL, 8, movetoworkspace, 8
+bind = SUPER CTRL, 9, movetoworkspace, 9
+bind = SUPER CTRL, 0, movetoworkspace, 10
+bind = SUPER CTRL, bracketleft, movetoworkspace, -1
+bind = SUPER CTRL, bracketright, movetoworkspace, +1
+# same as above, but doesnt switch to the workspace
+bind = SUPER SHIFT, 1, movetoworkspacesilent, 1
+bind = SUPER SHIFT, 2, movetoworkspacesilent, 2
+bind = SUPER SHIFT, 3, movetoworkspacesilent, 3
+bind = SUPER SHIFT, 4, movetoworkspacesilent, 4
+bind = SUPER SHIFT, 5, movetoworkspacesilent, 5
+bind = SUPER SHIFT, 6, movetoworkspacesilent, 6
+bind = SUPER SHIFT, 7, movetoworkspacesilent, 7
+bind = SUPER SHIFT, 8, movetoworkspacesilent, 8
+bind = SUPER SHIFT, 9, movetoworkspacesilent, 9
+bind = SUPER SHIFT, 0, movetoworkspacesilent, 10
+# Scroll through existing workspaces with mainMod + scroll
+bind = SUPER, mouse_down, workspace, e-1
+bind = SUPER, mouse_up, workspace, e+1
+  
+bind = ,mouse_down mouse:275,workspace,e-1
+bind = ,mouse_up mouse:275,workspace,e+1
+bind=SUPER,R,submap,resize
+submap=resize
+binde=,right,resizeactive,15 0
+binde=,left,resizeactive,-15 0
+binde=,up,resizeactive,0 -15
+binde=,down,resizeactive,0 15
+binde=,l,resizeactive,15 0
+binde=,h,resizeactive,-15 0
+binde=,k,resizeactive,0 -15
+binde=,j,resizeactive,0 15
+bind=,escape,submap,reset 
+submap=reset
+bind=CTRL SHIFT, left, resizeactive,-15 0
+bind=CTRL SHIFT, right, resizeactive,15 0
+bind=CTRL SHIFT, up, resizeactive,0 -15
+bind=CTRL SHIFT, down, resizeactive,0 15
+bind=CTRL SHIFT, l, resizeactive, 15 0
+bind=CTRL SHIFT, h, resizeactive,-15 0
+bind=CTRL SHIFT, k, resizeactive, 0 -15
+bind=CTRL SHIFT, j, resizeactive, 0 15
+windowrule=float,title:^(Picture-in-Picture)$
+windowrule=size 960 540,title:^(Picture-in-Picture)$
+windowrule=move 25%-,title:^(Picture-in-Picture)$
+windowrule=float,imv
+windowrule=move 25%-,imv
+windowrule=size 960 540,imv
+windowrule=float,mpv
+windowrule=move 25%-,mpv
+windowrule=size 960 540,mpv
+windowrule=float,danmufloat
+windowrule=move 25%-,danmufloat
+windowrule=pin,danmufloat
+windowrule=rounding 5,danmufloat
+windowrule=size 960 540,danmufloat
+windowrule=float,termfloat
+windowrule=move 25%-,termfloat
+windowrule=size 960 540,termfloat
+windowrule=rounding 5,termfloat
+windowrule=float,pcmanfm
+windowrule=move 25%-,pcmanfm
+windowrule=size 960 540,pcmanfm
+windowrule=animation slide right,kitty
+windowrule=animation slide right,alacritty
+windowrule=animation slide right,telegramdesktop
+windowrule=float,ncmpcpp
+windowrule=float,eog
+windowrule=noanim,eog
+windowrule=move 25%-,ncmpcpp
+windowrule=size 960 540,ncmpcpp
+windowrule=rounding 0,MATLAB R2022b - academic use
+windowrule=noborder, ^(grim)$
+windowrule=noborder, ^(slurp)$
+windowrulev2=animation fade,class:org.telegram.desktop,title:Media viewer
+windowrulev2=float,class:org.telegram.desktop,title:Media viewer
+# layerrule = blur, notifications
+layerrule = noanim,selection
