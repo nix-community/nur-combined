@@ -355,13 +355,13 @@
   };
   glauth = {
     pname = "glauth";
-    version = "v2.3.1";
+    version = "v2.3.2";
     src = fetchFromGitHub {
       owner = "glauth";
       repo = "glauth";
-      rev = "v2.3.1";
+      rev = "v2.3.2";
       fetchSubmodules = false;
-      sha256 = "sha256-OkkiB1AGO7r7ehpnSJ+cB00crVpZ5Cwy4rAT55LUUdE=";
+      sha256 = "sha256-FOhtL8nIm5kuKRxFtkrDyUU2z1K22ZdHaes3GY0KmfQ=";
     };
   };
   google-earth-pro = {
@@ -984,15 +984,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "8a2a06ecc64283650435c74490d1af1eb2b72633";
+    version = "6d438fb8f4de5e54e0fb2e1daf0635d729277493";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "8a2a06ecc64283650435c74490d1af1eb2b72633";
+      rev = "6d438fb8f4de5e54e0fb2e1daf0635d729277493";
       fetchSubmodules = false;
-      sha256 = "sha256-gZIAdwDXMkr9/GsNPhZWOFDaNsLHOeCk9+rQkG2rLGQ=";
+      sha256 = "sha256-bKwzulM6Xl3+Xr0Nk9jNKXKfbDJyPr8u90jHceCVwo8=";
     };
-    date = "2024-02-15";
+    date = "2024-02-18";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
