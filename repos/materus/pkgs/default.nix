@@ -17,7 +17,7 @@ rec {
    (pkgs.ffmpeg-full.overrideAttrs (finalAttrs: previousAttrs: {configureFlags = previousAttrs.configureFlags ++ ["--enable-amf"]; buildInputs = previousAttrs.buildInputs ++ [pkgs.amf-headers]; }))
   );
 
-  obs-amf = pkgs.qt6Packages.callPackage ./apps/obs { ffmpeg = ffmpeg6-amf-full; inherit libcef; };
+  obs-amf = pkgs.qt6Packages.callPackage ./apps/obs { ffmpeg = ffmpeg6-amf-full; inherit libcef;};
 
   polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc {};
 
