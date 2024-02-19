@@ -2,19 +2,19 @@
 
 let
   pname-base = "mingo";
-  version = "1.13.3";
+  version = "1.13.5";
   appImage = appimageTools.wrapType2 {
     inherit version;
     pname = "${pname-base}-wrapped";
 
     src = fetchurl {
-      url = "https://github.com/mingo-app/mingo/releases/download/v1.13.3/Mingo-1.13.3.AppImage";
-      hash = "sha256-VVVHcWnoZxlgzL13EnCKcymyas4CqfyLptcI8raT7PA=";
+      url = "https://github.com/mingo-app/mingo/releases/download/v${version}/Mingo-${version}.AppImage";
+      hash = "sha256-mrFcKX7nGv4sdI3ruWk6pV9qdwZMIgbCGXHiSgFwjh8=";
     };
 
-    extraPkgs = pkgs: with pkgs; [
-      libsecret
-    ];
+    # extraPkgs = pkgs: with pkgs; [
+    #   libsecret
+    # ];
   };
   desktopFile = pkgs.substituteAll {
     inherit version;
@@ -47,6 +47,6 @@ pkgs.symlinkJoin
     description = "The best MongoDB GUI Admin. Intuitive • Fast • Secure";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    mainProgram = "Mingo";
+    mainProgram = "mingo";
   };
 }
