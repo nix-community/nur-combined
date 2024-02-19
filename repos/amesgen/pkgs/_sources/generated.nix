@@ -17,6 +17,14 @@
       sha256 = "sha256-tyVrIqUx6XrCAqXGLeOfsbdny5ue8tY30vyGrArdl7w=";
     };
   };
+  cabal-gild = {
+    pname = "cabal-gild";
+    version = "1.0.2.0";
+    src = fetchurl {
+      url = "https://github.com/tfausak/cabal-gild/releases/download/1.0.2.0/cabal-gild-1.0.2.0-linux-x64";
+      sha256 = "sha256-zBEfV2HQEuSDokzQqdl6w8CbcoAyQWOjLNGOKTmWURM=";
+    };
+  };
   cabal-plan = {
     pname = "cabal-plan";
     version = "0.7.3.0";
@@ -27,10 +35,10 @@
   };
   fourmolu = {
     pname = "fourmolu";
-    version = "0.14.1.0";
+    version = "0.15.0.0";
     src = fetchurl {
-      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.14.1.0/fourmolu-0.14.1.0-linux-x86_64";
-      sha256 = "sha256-kp3ELExZZB66imlhNElKMM8p95f/koq2ZCK0f7ZNteo=";
+      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.15.0.0/fourmolu-0.15.0.0-linux-x86_64";
+      sha256 = "sha256-s8x2jUpCsOXXmthBNn64mrEDdk92x3D2+m4VwWk6PmY=";
     };
   };
   hellsmack = {

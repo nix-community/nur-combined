@@ -189,4 +189,31 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         platforms = [ "x86_64-linux" ];
       };
     };
+
+  cabal-gild =
+    { lib
+    , stdenv
+    , autoPatchelfHook
+    , upx
+    , gmp
+    }:
+    stdenv.mkDerivation rec {
+      inherit (nv.cabal-gild) pname version src;
+      dontUnpack = true;
+      nativeBuildInputs = [ autoPatchelfHook upx ];
+      buildInputs = [ gmp ];
+      installPhase = ''
+        mkdir -p $out/bin
+        install -m755 -D $src $out/bin/cabal-gild
+        upx -d $out/bin/cabal-gild
+      '';
+
+      meta = {
+        description = "Format Haskell package descriptions";
+        homepage = "https://github.com/tfausak/cabal-gild";
+        license = lib.licenses.mit;
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        platforms = [ "x86_64-linux" ];
+      };
+    };
 }

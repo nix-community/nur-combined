@@ -45,4 +45,8 @@ in
     restUrl = "v$ver/fourmolu-$ver-linux-x86_64";
     src.prefix = "v";
   };
+  cabal-gild = github {
+    slug = "tfausak/cabal-gild";
+    restUrl = "$ver/cabal-gild-$ver-linux-x64";
+  };
 }
