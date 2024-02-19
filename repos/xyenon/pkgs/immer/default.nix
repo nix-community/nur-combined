@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, catch2, unstableGitUpdater, ... }:
+{ lib, stdenv, fetchFromGitHub, cmake, catch2_3, unstableGitUpdater, ... }:
 
 stdenv.mkDerivation rec {
   pname = "immer";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ catch2 ];
+  buildInputs = [ catch2_3 ];
 
   cmakeFlags = [
     "-Dimmer_BUILD_TESTS=ON"
