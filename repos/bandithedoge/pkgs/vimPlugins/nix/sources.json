@@ -53,10 +53,10 @@
     "homepage": "https://www.schemastore.org/",
     "owner": "b0o",
     "repo": "SchemaStore.nvim",
-    "rev": "844081710a935b4bd95bb8a3cf2742ffb9630993",
-    "sha256": "0dijcbygl5z4jw8gcfjvld09yijlz0fl10b0c6giizy9r09ij7av",
+    "rev": "12ff3accf50fe1e59b360b2feb0b1be13d14bd3c",
+    "sha256": "0zyff2w88msq1fciqza2x7hvng66ll9fw2lz2a6cmjh9ciq2gngi",
     "type": "tarball",
-    "url": "https://github.com/b0o/SchemaStore.nvim/archive/844081710a935b4bd95bb8a3cf2742ffb9630993.tar.gz",
+    "url": "https://github.com/b0o/SchemaStore.nvim/archive/12ff3accf50fe1e59b360b2feb0b1be13d14bd3c.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "aniseed": {
@@ -1343,10 +1343,10 @@
     "homepage": "",
     "owner": "nvim-treesitter",
     "repo": "nvim-treesitter",
-    "rev": "8e1df60b13301c9e3a14b79cddd7ccee1088d878",
-    "sha256": "0zinb4qlarszk12h698q8p3d40qia3a4d5msf6a3m5363wfvjnrx",
+    "rev": "d10e856c11ccc6ca4d9c11766a6ef605c375dd0a",
+    "sha256": "1z32aj3i3cfkqm2svwsyn2q7qiyrkarikavyr46kr556g9linl3y",
     "type": "tarball",
-    "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/8e1df60b13301c9e3a14b79cddd7ccee1088d878.tar.gz",
+    "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/d10e856c11ccc6ca4d9c11766a6ef605c375dd0a.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-treesitter-textsubjects": {
@@ -1565,10 +1565,10 @@
     "homepage": null,
     "owner": "ThePrimeagen",
     "repo": "refactoring.nvim",
-    "rev": "fb4990a0546c59136930ea624b8640d07957f281",
-    "sha256": "14d33lc0a7r5k7i8x2nzy86xgy6p003cjxv9nc827q1g9jv55r7z",
+    "rev": "1b593e7203b31c7bde3fa638e6869144698df3b6",
+    "sha256": "0q0xbn5xxh4fyjm5v2c2pvai9djyk67xk2brqn209sx3qq8drs5n",
     "type": "tarball",
-    "url": "https://github.com/ThePrimeagen/refactoring.nvim/archive/fb4990a0546c59136930ea624b8640d07957f281.tar.gz",
+    "url": "https://github.com/ThePrimeagen/refactoring.nvim/archive/1b593e7203b31c7bde3fa638e6869144698df3b6.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "remember.nvim": {
