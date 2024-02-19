@@ -11,6 +11,12 @@ with python3Packages;
     inherit (sources.palworld-exporter) pname version src;
     pyproject = true;
 
+    # Remove dependency on get_version package
+    postPatch = ''
+      sed -i "/get_version/d" pyproject.toml
+      echo "__version__ = '${version}'.removeprefix('v')" > src/palworld_exporter/__init__.py
+    '';
+
     propagatedBuildInputs = [
       setuptools
       click
