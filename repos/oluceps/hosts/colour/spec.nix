@@ -67,6 +67,10 @@
           enable = true;
           port = 4432;
         };
+        credentials = [
+          "key:${config.age.secrets."nyaw.key".path}"
+          "cert:${config.age.secrets."nyaw.cert".path}"
+        ];
         configFile = config.age.secrets.hyst-us.path;
       }
     ];

@@ -32,7 +32,10 @@
                   # "nixpkgs-wayland"
                 ]);
             };
-            specialArgs = lib.base // { user = "riro"; };
+            specialArgs = lib.base // {
+              inherit lib;
+              user = "riro";
+            };
             modules = [
               ./hardware.nix
               ./network.nix

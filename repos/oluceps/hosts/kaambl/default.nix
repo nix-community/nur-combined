@@ -29,7 +29,7 @@
                   "nixpkgs-wayland"
                 ]) ++ (import ../../overlays.nix inputs);
             };
-            specialArgs = lib.base // { user = "elen"; };
+            specialArgs = lib.base // { inherit lib; user = "elen"; };
             modules = [
               ./hardware.nix
               ./network.nix

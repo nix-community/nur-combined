@@ -28,6 +28,8 @@ let
   };
 
   genModules = map (let m = i: inputs.${i}.nixosModules; in i: (m i).default or (m i).${i});
+
+  pkgs = import inputs.nixpkgs { system = "x86_64-linux"; overlays = [ inputs.nuenv.overlays.default ]; };
 in
 {
   inherit data genModules;
@@ -52,6 +54,15 @@ in
         (map (removeSuffix ".nix")
           (attrNames
             (readDir dir))));
+
+  genCredPath = config: key: (key + ":" + config.age.secrets.${key}.path);
+
+  genNtfyMsgScriptPath = header: level: body:
+    toString (pkgs.lib.getExe (pkgs.nuenv.writeScriptBin
+      {
+        name = "post-ntfy-msg";
+        script = "cat /run/agenix/ntfy-token | str trim | http post --password $in --headers [${header}] https://ntfy.nyaw.xyz/${level} ${body}";
+      }));
 
   base =
     let inherit (inputs.nixpkgs) lib;

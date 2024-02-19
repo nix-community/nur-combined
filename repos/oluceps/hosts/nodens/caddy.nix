@@ -8,26 +8,27 @@
           servers = {
             srv0 = {
               listen = [ ":443" ];
-              routes = [{
-                handle = [{
-                  handler = "subroute";
-                  routes = [{
-                    handle = [{
-                      handler = "reverse_proxy";
-                      upstreams = [{
-                        dial = "10.0.1.2:6167";
+              routes = [
+                {
+                  handle = [{
+                    handler = "subroute";
+                    routes = [{
+                      handle = [{
+                        handler = "reverse_proxy";
+                        upstreams = [{
+                          dial = "10.0.1.2:6167";
+                        }];
+                      }];
+                      match = [{
+                        path = [ "/_matrix/*" ];
                       }];
                     }];
-                    match = [{
-                      path = [ "/_matrix/*" ];
-                    }];
                   }];
-                }];
-                match = [{
-                  host = [ "matrix.nyaw.xyz" ];
-                }];
-                terminal = true;
-              }
+                  match = [{
+                    host = [ "matrix.nyaw.xyz" ];
+                  }];
+                  terminal = true;
+                }
                 {
                   handle = [{
                     handler = "subroute";
@@ -80,6 +81,42 @@
                     host = [ "pb.nyaw.xyz" ];
                   }];
                   terminal = false;
+                }
+
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "static_response";
+                              headers = { Location = [ "https://{http.request.host}{http.request.uri}" ]; };
+                              status_code = 302;
+                            }
+                          ];
+                          match = [
+                            {
+                              method = [ "GET" ];
+                              path_regexp = { pattern = "^/([-_a-z0-9]{0,64}$|docs/|static/)"; };
+                              protocol = "http";
+                            }
+                          ];
+                        }
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [{ dial = "127.0.0.1:2586"; }];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [{ host = [ "ntfy.nyaw.xyz" ]; }];
+                  terminal = true;
                 }
                 {
                   handle = [{
@@ -170,7 +207,8 @@
                     host = [ "nyaw.xyz" ];
                   }];
                   terminal = true;
-                }];
+                }
+              ];
               tls_connection_policies = [{
                 certificate_selection = {
                   any_tag = [ "cert0" ];
@@ -215,8 +253,8 @@
           };
           certificates = {
             load_files = [{
-              certificate = "/run/agenix/nyaw.cert";
-              key = "/run/agenix/nyaw.key";
+              certificate = "/run/credentials/caddy.service/nyaw.cert";
+              key = "/run/credentials/caddy.service/nyaw.key";
               tags = [ "cert0" ];
             }];
           };

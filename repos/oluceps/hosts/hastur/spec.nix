@@ -20,7 +20,14 @@
     serviceConfig.Environment = [ "GOGC=20" ];
   };
 
-
+  # systemd.services.tester = {
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     ExecStart = "exit 3";
+  #     ExecStopPost = lib.genNtfyMsgScriptPath "tags warning prio high" "info" "test";
+  #   };
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 
   # hardware = {
   #   nvidia = {

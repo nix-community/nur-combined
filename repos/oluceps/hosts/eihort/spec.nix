@@ -57,6 +57,10 @@
     }
     {
       # zfs.autoScrub.enable = true;
+      report = {
+        enable = true;
+        calendars = [ "*-*-* 12:00:00" ];
+      };
       dae.enable = true;
       mosdns.enable = true;
       minio = {

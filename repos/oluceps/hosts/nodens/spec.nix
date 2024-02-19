@@ -19,6 +19,10 @@
     factorio-headless
   ];
 
+  systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
+    "nyaw.cert"
+    "nyaw.key"
+  ];
   services = lib.mkMerge [
     {
       inherit ((import ../../services.nix
@@ -34,6 +38,16 @@
         botConfigPath = config.age.secrets.factorio-manager-bot.path;
         serverSettingsFile = config.age.secrets.factorio-server.path;
         serverAdminsFile = config.age.secrets.factorio-server.path;
+      };
+
+      ntfy-sh = {
+        enable = true;
+        settings = {
+          listen-http = ":2586";
+          behind-proxy = true;
+          auth-default-access = "deny-all";
+          base-url = "http://ntfy.nyaw.xyz";
+        };
       };
 
       # factorio = {

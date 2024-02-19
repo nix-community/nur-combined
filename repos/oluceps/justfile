@@ -10,7 +10,7 @@ alias p := push-secret
 host := `hostname`
 me := `whoami`
 loc := "/home/riro/Src/nixos"
-nodes := `nix eval --impure --expr "with builtins; attrNames (getFlake "/home/riro/Src/nixos").nixosConfigurations"`
+nodes := `nix eval --impure --expr 'with builtins; attrNames (getFlake (toString ./.) ).nixosConfigurations'`
 
 # now `all` produces false while which in list.
 

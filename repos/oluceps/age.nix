@@ -15,11 +15,13 @@
         genMaterial = i: gen i user "users" "400";
         genBoot = i: gen i "root" "root" "400";
         genWg = i: gen i "systemd-network" "root" "400";
+        genGlobalR = i: gen i "root" "root" "444";
       in
       (genProxys [ "rat" "ss" "sing" "hyst-us" "tuic" "naive" "dae.sub" "jc-do" "juic-san" "tuic-san" "caddy-lsa" "ss-az" ]) //
       (genMaterial [ "minisign.key" "ssh-cfg" "gh-eu" "riro.u2f" "elen.u2f" "gh-token" "age" "pub" "id" "id_sk" "minio" "prism" "aws-s3-cred" "vault" "restic-repo" "restic-envs" ]) //
       (genBoot [ "db.key" "db.pem" ]) //
       (genWg [ "wg" "wgk" "wgy" "wga" "wgc-warp" "wge" ]) //
+      (genGlobalR [ "ntfy-token" ]) //
       {
         dae = { rekeyFile = ./sec/dae.age; mode = "640"; owner = "root"; group = "users"; name = "d.dae"; };
         "nyaw.key" = { rekeyFile = ./sec/nyaw.key.age; mode = "640"; owner = "root"; group = "users"; };
