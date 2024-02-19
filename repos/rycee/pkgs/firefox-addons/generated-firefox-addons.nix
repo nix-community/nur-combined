@@ -1892,7 +1892,7 @@
       sha256 = "9bd8380f1553f239b948f46f6285f8f16180a875379cdbbd1800b8165fa0b757";
       meta = with lib;
       {
-        homepage = "https://www.dualsub.xyz/";
+        homepage = "https://www.dualsub.xyz/en/";
         description = "Display dual subtitles, use machine translation and speech recognition to generate subtitles.";
         license = {
           shortName = "allrightsreserved";
@@ -2239,10 +2239,10 @@
     };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
-      version = "5.1.0";
+      version = "5.1.1";
       addonId = "ff2mpv@yossarian.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228128/ff2mpv-5.1.0.xpi";
-      sha256 = "4d46cffe0dc81a03fb55319fb4ce63f23da3d505b8505dc41df2c7ea9b47f005";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4237837/ff2mpv-5.1.1.xpi";
+      sha256 = "0e3fa6850f600adba8ed477f91dd1ec4988e338c8746624e9113b861303fdf41";
       meta = with lib;
       {
         homepage = "https://github.com/woodruffw/ff2mpv";
@@ -2927,10 +2927,10 @@
     };
     "github-file-icons" = buildFirefoxXpiAddon {
       pname = "github-file-icons";
-      version = "1.5.1";
+      version = "1.5.2";
       addonId = "{85860b32-02a8-431a-b2b1-40fbd64c9c69}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4156831/github_file_icons-1.5.1.xpi";
-      sha256 = "f8315da0ed692718154f558742559f8b3b6bf161f27b8e7391e7d9634d4d25be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238111/github_file_icons-1.5.2.xpi";
+      sha256 = "b7ad067981605e5396439bcc356a759c7cc7872a65ef6ad5eb4b6243239920b3";
       meta = with lib;
       {
         homepage = "https://github.com/xxhomey19/github-file-icon";
