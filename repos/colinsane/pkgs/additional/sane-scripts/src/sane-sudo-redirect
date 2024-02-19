@@ -14,4 +14,4 @@
 # $ sudo do_thing | sane-sudo-redirect /into/file
 # ```
 
-exec sudo tee $@ > /dev/null
+exec sudo tee "$@" > /dev/null

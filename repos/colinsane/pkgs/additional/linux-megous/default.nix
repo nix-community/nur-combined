@@ -34,9 +34,9 @@ let
   # - orange-pi is listed as the "main integration branch".
   #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` tags are "formal" releases
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
-  rev = "orange-pi-6.7-20240127-1717";
-  base = "6.7.2";
-  hash = "sha256-vukzm6fHDBNHTQDbclwTzIA4fkpIcX0EGHhxOwgCguA=";
+  rev = "orange-pi-6.7-20240211-1928";
+  base = "6.7.4";
+  hash = "sha256-wngHUrs9NeKcb7TYusRYRsWH9VwAW+gBwBPgq9QGjfs=";
   # set to empty if not a release candidate, else `-rc<N>`
   rc = "";
 

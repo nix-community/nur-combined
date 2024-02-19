@@ -86,11 +86,6 @@ let
       src = ./src;
       pkgs = [ "findutils" ];
     };
-    git-init = static-nix-shell.mkBash {
-      pname = "sane-git-init";
-      src = ./src;
-      pkgs = [ "git" ];
-    };
     ip-check = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-check";
       src = ./src;
@@ -102,11 +97,6 @@ let
       src = ./src;
       pkgs = [ "inetutils" "miniupnpc" ];
       pyPkgs = [ "sane-lib.ssdp" ];
-    };
-    ip-reconnect = static-nix-shell.mkPython3Bin {
-      pname = "sane-ip-reconnect";
-      src = ./src;
-      pkgs = [ "systemd" ];
     };
     private-change-passwd = static-nix-shell.mkBash {
       pname = "sane-private-change-passwd";

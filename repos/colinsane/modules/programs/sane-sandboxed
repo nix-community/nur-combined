@@ -91,7 +91,8 @@ normPath() {
     # and we push nothing to _npComps,
     # but we're guaranteed to make progress.
     _npThisComp="${_npUnparsed%%/*}"
-    _npUnparsed="${_npUnparsed/$_npThisComp}"
+    _npThisLen="${#_npThisComp}"
+    _npUnparsed="${_npUnparsed:$_npThisLen}"
     if [ "$_npThisComp" = ".." ]; then
       # "go up" path component => delete the leaf dir (if any)
       if [ ${#_npComps[@]} -ne 0 ]; then

@@ -73,6 +73,7 @@
     ./playerctl.nix
     ./rhythmbox.nix
     ./ripgrep.nix
+    ./sane-scripts.nix
     ./sfeed.nix
     ./signal-desktop.nix
     ./splatmoji.nix

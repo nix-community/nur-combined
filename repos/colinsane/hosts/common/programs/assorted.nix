@@ -33,52 +33,6 @@ in
       "iw"
     ];
 
-    "sane-scripts.backup" = declPackageSet [
-      "sane-scripts.backup-ls"
-      "sane-scripts.backup-restore"
-    ];
-    "sane-scripts.bittorrent" = declPackageSet [
-      "sane-scripts.bt-add"
-      "sane-scripts.bt-rm"
-      "sane-scripts.bt-search"
-      "sane-scripts.bt-show"
-    ];
-    "sane-scripts.dev" = declPackageSet [
-      "sane-scripts.clone"
-      "sane-scripts.dev-cargo-loop"
-      "sane-scripts.git-init"
-    ];
-    "sane-scripts.cli" = declPackageSet [
-      "sane-scripts.deadlines"
-      "sane-scripts.find-dotfiles"
-      "sane-scripts.ip-check"
-      "sane-scripts.ip-reconnect"
-      "sane-scripts.private-change-passwd"
-      "sane-scripts.private-do"
-      "sane-scripts.private-init"
-      "sane-scripts.private-lock"
-      "sane-scripts.private-unlock"
-      "sane-scripts.rcp"
-      "sane-scripts.reboot"
-      "sane-scripts.reclaim-boot-space"
-      "sane-scripts.reclaim-disk-space"
-      "sane-scripts.secrets-dump"
-      "sane-scripts.secrets-unlock"
-      "sane-scripts.secrets-update-keys"
-      "sane-scripts.shutdown"
-      "sane-scripts.sudo-redirect"
-      "sane-scripts.sync-from-servo"
-      "sane-scripts.tag-music"
-      "sane-scripts.vpn"
-      "sane-scripts.which"
-      "sane-scripts.wipe"
-    ];
-    "sane-scripts.sys-utils" = declPackageSet [
-      "sane-scripts.ip-port-forward"
-      "sane-scripts.sync-music"
-    ];
-
-
     sysadminUtils = declPackageSet [
       "bridge-utils"  # for brctl; debug linux "bridge" inet devices
       "btrfs-progs"
@@ -370,7 +324,10 @@ in
     ethtool.sandbox.wrapperType = "wrappedDerivation";
     ethtool.sandbox.capabilities = [ "net_admin" ];
 
-    eza.sandbox.method = "landlock";  # ls replacement
+    # eza `ls` replacement
+    # landlock is OK, only `whitelistPwd` doesn't make the intermediate symlinks traversable, so it breaks on e.g. ~/Videos/servo/Shows/foo
+    # eza.sandbox.method = "landlock";
+    eza.sandbox.method = "bwrap";
     eza.sandbox.wrapperType = "wrappedDerivation";  # slow to build
     eza.sandbox.autodetectCliPaths = true;
     eza.sandbox.whitelistPwd = true;

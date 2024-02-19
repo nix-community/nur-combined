@@ -9,9 +9,8 @@ set -xeu
 # scan the store and hard-link identical files
 # nix-store --optimise
 
-# TODO: do we need `sudo` here?
 # TODO: `nix-store --gc`?
-sudo nix-collect-garbage --delete-older-than 30d
+nix-collect-garbage --delete-older-than 30d
 
 # TODO: could use dduper: https://github.com/Lakshmipathi/dduper
 #   like rmlint, but better perf for btrfs (checksum tests)
