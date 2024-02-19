@@ -1,0 +1,3 @@
+{
+  frp = import ./frp.nix;
+}
