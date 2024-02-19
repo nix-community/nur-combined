@@ -1,4 +1,4 @@
-imports: { config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -24,8 +24,6 @@ let
     '';
   };
 in {
-  inherit imports;
-
   options.services.hardware = {
     enable = mkEnableOption ''
       Hardware tweaks for different hosts

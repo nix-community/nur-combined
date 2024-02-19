@@ -21,7 +21,7 @@ rec {
   awl = ./awl.nix;
   cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
-  hardware = import ./hardware.nix [ hidpi ];
+  hardware = ./hardware.nix;
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
   adblock = ./adblock.nix;
