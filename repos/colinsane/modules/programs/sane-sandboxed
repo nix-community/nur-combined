@@ -1,28 +1,8 @@
-#!@runtimeShell@
+#!@bash@/bin/bash
 
-profileDirs=()
+## EARLY DEBUG HOOKS
+
 isDebug=
-isDisable=
-
-cliArgs=()
-cliPathArgs=()
-autodetect=
-profilesNamed=()
-paths=()
-capabilities=()
-net=
-keepPidspace=
-dns=()
-method=
-extraEnv=()
-
-# backend-specific state:
-firejailFlags=()
-bwrapUnshareNet=(--unshare-net)
-bwrapUnsharePid=(--unshare-pid)
-bwrapFlags=()
-landlockPaths=
-capshCapsArg=
 
 enableDebug() {
   isDebug=1
@@ -33,15 +13,164 @@ debug() {
   [ -n "$isDebug" ] && printf "[debug] %s" "$1" >&2
 }
 
-# `locate <bin-name> </path/to/default>` => print the full path to `<bin-name>` if it's on PATH, else print `</path/to/default>`
-locate() {
-  command -v "$1" || echo "$2"
+# if requested, enable debugging as early as possible
+if [ -n "$SANE_SANDBOX_DEBUG" ]; then
+  enableDebug
+fi
+
+## INTERPRETER CONFIGURATION
+
+# enable native implementations for common utils like `realpath`
+# to get a pretty meaningful speedup.
+# see: <https://unix.stackexchange.com/a/558605>
+# XXX 2024/02/17: nixpkgs bash initializes this to nonsense FHS directories:
+# "/usr/local/lib/bash:/usr/lib/bash:/opt/local/lib/bash:/usr/pkg/lib/bash:/opt/pkg/lib/bash"
+# BASH_LOADABLES_PATH="$BASH_LOADABLES_PATH:@bash@/lib/bash"
+# enable -f realpath realpath
+# enable -f dirname dirname
+
+
+## MUTABLE GLOBAL VARIABLES AND HELPER FUNCTIONS
+
+profileDirs=()
+# isDisable: set non-empty to invoke the binary without any sandboxing
+isDisable=
+
+### values derived directly from $argv
+# cliArgs: the actual command we'll be running inside the sandbox
+cliArgs=()
+# type of sandbox to use
+# - "bwrap"
+# - "landlock"
+# - "capshonly"
+# - "firejail"
+# - "none"
+method=
+# autodetect: set non-empty to add any path-like entities intended for the binary's CLI, into its sandbox.
+# - "existing"
+# - "parent"
+# - "existingFileOrParent"
+autodetect=
+# paths: list of paths to make available inside the sandbox.
+#        this could contain duplicates, non-canonical paths (`a/../b`), paths that don't exist, etc.
+paths=()
+# linux capabilities to provide to the sandbox, like `sys_admin` (no `cap_` prefix here)
+capabilities=()
+# set non-empty if this process may want to query /proc/$PID/... of _other_ processes.
+keepPidspace=
+# name of some network device to make available to the sandbox, if any.
+net=
+# list of IP addresses to use for DNS servers inside the sandbox (firejail only)
+dns=()
+# list of `VAR=VALUE` environment variables to add to the sandboxed program's environment
+extraEnv=()
+# profilesNamed: list of profile names we've successfully loaded
+profilesNamed=()
+
+# arguments to forward onto a specific backend (if that backend is active)
+firejailFlags=()
+bwrapFlags=()
+
+
+## UTILITIES/BOILERPLATE
+
+# `normPath outVar "$path"`
+# remove duplicate //, reduce '.' and '..' (naively).
+# expects a full path as input
+# chomps trailing slashes.
+# does not resolve symlinks, nor check for existence of any component of the path.
+normPath() {
+  _npOut="$1"
+  _npUnparsed="$2"
+  _npComps=()
+  while [ -n "$_npUnparsed" ]; do
+    # chomp leading `/`
+    _npUnparsed="${_npUnparsed:1}"
+    # split into <first></re/st/...>
+    # in the case of `//`, or more, _npThisComp is empty,
+    # and we push nothing to _npComps,
+    # but we're guaranteed to make progress.
+    _npThisComp="${_npUnparsed%%/*}"
+    _npUnparsed="${_npUnparsed/$_npThisComp}"
+    if [ "$_npThisComp" = ".." ]; then
+      # "go up" path component => delete the leaf dir (if any)
+      if [ ${#_npComps[@]} -ne 0 ]; then
+        unset _npComps[-1]
+      fi
+    elif [ "$_npThisComp" != "." ] && [ -n "$_npThisComp" ]; then
+      # normal, non-empty path component => append it
+      _npComps+=("$_npThisComp")
+    fi
+  done
+
+  # join the components
+  if [ ${#_npComps[@]} -eq 0 ]; then
+    declare -g "$_npOut"="/"
+  else
+    _npJoined=
+    for _npComp in "${_npComps[@]}"; do
+      _npJoined="$_npJoined/$_npComp"
+    done
+    declare -g "$_npOut"="$_npJoined"
+  fi
 }
+
+# normPathBashBuiltin() {
+#   # normPath implementation optimized by using bash builtins (`help realpath`):
+#   # -s: canonicalize `.` and `..` without resolving symlinks
+#   # -c: enforce that each component exist (intentionally omitted)
+#   # XXX: THIS DOESN'T WORK: if bash is asked to canonicalize a path with symlinks, it either (1) resolves the symlink (default) or (2) aborts (-s). there's no equivalent to coreutils
+#   realpath -s "$1"
+# }
+
+# legacy coreutils normPath: definitive, but slow (requires a fork/exec subshell).
+# bash `normPath` aims to be equivalent to this one.
+# normPathCoreutils() {
+#   # `man realpath`:
+#   # --logical: resolve `..` before dereferencing symlinks
+#   # --no-symlinks: don't follow symlinks
+#   # --canonicalize-missing: don't error if path components don't exist
+#   realpath --logical --no-symlinks --canonicalize-missing "$1"
+# }
+
+# `parent outVar "$path"`
+# return the path to this file or directory's parent, even if the input doesn't exist.
+parent() {
+  normPath "$1" "$2/.."
+}
+
+# `locate outVar <bin-name> </path/to/default>` => if `<bin-name>` is on PATH, then return that, else </path/to/default>
+locate() {
+  # N.B.: explicitly avoid returning the output of `command -v`, for optimization.
+  # unlike other bash builtins, `x="$(command -v y)"` forks, whereas just `command -v y` does not.
+  if command -v "$2" > /dev/null; then
+    declare -g "$1"="$2"
+  else
+    declare -g "$1"="$3"
+  fi
+}
+
+# `urldecode outVar <uri>`
+# convert e.g. `file:///Local%20Users/foo.mp3` to `file:///Local Users/foo.mp3`
+urldecode() {
+  local outVar="$1"
+  shift
+
+  # source: <https://stackoverflow.com/q/6250698>
+  # replace each `+` with space
+  local i="${*//+/ }"
+  # then replace each `%` with `\x`
+  # and have `echo` evaluate the escape sequences
+  declare -g "$outVar"="$(echo -e "${i//%/\\x}")"
+}
+
+
+## HELPERS
 
 loadProfileByPath() {
   # profile format is simply a list of arguments one would pass to this sane-sandboxed script itself,
   # with one argument per line
-  readarray -t _profArgs < <(cat "$1")
+  readarray -t _profArgs < "$1"
   parseArgs "${_profArgs[@]}"
 }
 
@@ -73,21 +202,10 @@ initDefaultProfileDirs() {
   done
 }
 
-# convert e.g. `file:///Local%20Users/foo.mp3` to `file:///Local Users/foo.mp3`
-urldecode() {
-  # source: <https://stackoverflow.com/q/6250698>
-  : "${*//+/ }"
-  echo -e "${_//%/\\x}"
-}
-
-# return the path to this file or directory's parent, even if the input doesn't exist.
-parent() {
-  realpath --logical --no-symlinks --canonicalize-missing "$1/.."
-}
-
 # subroutine of `tryArgAsPath` for after the arg has been converted into a valid (but possibly not existing) path.
 # adds an entry to `cliPathArgs` and evals `true` on success;
 # evals `false` if the path couldn't be added, for any reason.
+cliPathArgs=()
 tryPath() {
   _path="$1"
   _how="$2"
@@ -100,7 +218,8 @@ tryPath() {
     false
   elif [ "$_how" = "parent" ]; then
     # the caller wants access to the entire directory containing this directory regardless of the file's existence.
-    tryPath "$(parent "$_path")" "existing"
+    parent _tryPathParent "$_path"
+    tryPath "$_tryPathParent" "existing"
   elif [ "$_how" = "existingFileOrParent" ]; then
     # the caller wants access to the file, or write access to the directory so it may create the file if it doesn't exist.
     tryPath "$_path" "existing" || tryPath "$_path" "parent"
@@ -121,35 +240,22 @@ tryArgAsPath() {
     # URI to an absolute path which is presumably on this vfs
     # commonly found when xdg-open/mimeo passes a path on to an application
     # if URIs to relative paths exist, this implementation doesn't support them
-    _path="/$(urldecode "${_arg:8}")"
+    urldecode _path "${_arg:7}"
   elif [ "${_path:0:1}" = "-" ]; then
     # 99% chance it's a CLI argument. if not, use `./-<...>`
     return
   else
     # assume relative path
-    _path="$(pwd)/$_arg"
+    _path="$PWD/$_arg"
   fi
 
   tryPath "$_path" "$_how"
 }
 
-# remove duplicate //, reduce '.' and '..' (naively).
-# chomps trailing slashes.
-# does not resolve symlinks, nor check for existence of any component of the path.
-normPath() {
-  realpath --logical --no-symlinks --canonicalize-missing "$1"
-}
 
-ensureTrailingSlash() {
-  if [ "${1:-1}" = "/" ]; then
-    printf "%s" "$1"
-  else
-    printf "%s/" "$1"
-  fi
-}
-
-## parse CLI args into the variables declared above
-## args not intended for this helper are put into $parseArgsExtra
+## ARGV PARSING LOOP
+#  parse CLI args into the variables declared above
+#  args not intended for this helper are put into $parseArgsExtra
 parseArgsExtra=()
 parseArgs() {
   while [ "$#" -ne 0 ]; do
@@ -238,7 +344,7 @@ parseArgs() {
         paths+=("$_path")
         ;;
       (--sane-sandbox-add-pwd)
-        _path="$(pwd)"
+        _path="$PWD"
         paths+=("$_path")
         ;;
       (--sane-sandbox-profile)
@@ -307,7 +413,7 @@ firejailExec() {
   if [ -n "$firejailProfile" ]; then
     firejailFlags+=("--profile=$firejailProfile")
   fi
-  _firejail="$(locate firejail @firejail@/bin/firejail)"
+  locate _firejail "firejail" "@firejail@/bin/firejail"
   exec \
     "$_firejail" "${firejailFlags[@]}" -- \
     env "${extraEnv[@]}" "${cliArgs[@]}"
@@ -315,6 +421,9 @@ firejailExec() {
 
 
 ## BUBBLEWRAP BACKEND
+
+bwrapUnshareNet=(--unshare-net)
+bwrapUnsharePid=(--unshare-pid)
 
 bwrapSetup() {
   debug "bwrapSetup: noop"
@@ -344,7 +453,6 @@ bwrapIngestProfile() {
 bwrapIngestCapability() {
   bwrapFlags+=("--cap-add" "cap_$1")
 }
-# WIP
 
 bwrapExec() {
   # --unshare-all implies the following:
@@ -355,7 +463,7 @@ bwrapExec() {
   # --unshare-cgroup
   # --unshare-uts
   # --unshare-user (implicit to every non-suid call to bwrap)
-  _bwrap="$(locate bwrap @bubblewrap@/bin/bwrap)"
+  locate _bwrap "bwrap" "@bubblewrap@/bin/bwrap"
   exec \
     "$_bwrap" --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}" --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
     env "${extraEnv[@]}" "${cliArgs[@]}"
@@ -363,6 +471,9 @@ bwrapExec() {
 
 
 ## LANDLOCK BACKEND
+
+landlockPaths=
+
 landlockSetup() {
   # other sandboxing methods would create fake /dev, /proc, /tmp filesystems
   # but landlock can't do that. so bind a minimal number of assumed-to-exist files.
@@ -418,8 +529,8 @@ landlockExec() {
   # so trampoline through `capsh` as well, to drop privs.
   # N.B: capsh passes its arg to bash (via /nix/store/.../bash), which means you have to `-c "my command"` to
   # invoke the actual user command.
-  _sandboxer="$(locate sandboxer @landlockSandboxer@/bin/sandboxer)"
-  _capsh="$(locate capsh @libcap@/bin/capsh)"
+  locate _sandboxer "sandboxer" "@landlockSandboxer@/bin/sandboxer"
+  locate _capsh "capsh" "@libcap@/bin/capsh"
   LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
     "$_sandboxer" \
     "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
@@ -429,6 +540,8 @@ landlockExec() {
 ## CAPSH-ONLY BACKEND
 # this backend exists because apps which are natively bwrap may complain about having ambient privileges.
 # then, run them in a capsh sandbox, which ignores any path sandboxing and just lowers privs to what's needed.
+
+capshCapsArg=
 
 capshonlySetup() {
   debug "capshonlySetup: noop"
@@ -467,7 +580,7 @@ capshonlyIngestCapability() {
 }
 
 capshonlyExec() {
-  _capsh="$(locate capsh @libcap@/bin/capsh)"
+  locate _capsh "capsh" "@libcap@/bin/capsh"
   exec \
     "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
 }
@@ -523,7 +636,8 @@ canonicalizePaths() {
   # remove '//' and simplify '.', '..' paths, into canonical absolute logical paths.
   _normPaths=()
   for _path in "${paths[@]}"; do
-    _normPaths+=("$(normPath "$_path")")
+    normPath _canonPath "$_path"
+    _normPaths+=("$_canonPath")
   done
 
   # remove subpaths, but the result might include duplicates.
@@ -531,8 +645,9 @@ canonicalizePaths() {
   for _path in "${_normPaths[@]}"; do
     _isSubpath=
     for _other in "${_normPaths[@]}"; do
-      if [[ "$_path" =~ ^$_other/.* ]]; then
+      if [[ "$_path" =~ ^$_other/.* ]] || [ "$_other" = "/" ] && [ "$_path" != "/" ]; then
         # N.B.: $_path lacks a trailing slash, so this never matches self.
+        # UNLESS $_path or $_other is exactly `/`, which we special-case.
         _isSubpath=1
       fi
     done
@@ -563,9 +678,6 @@ canonicalizePaths() {
 
 ### parse arguments, with consideration of any which may be injected via the environment
 parseArgsAndEnvironment() {
-  if [ -n "$SANE_SANDBOX_DEBUG" ]; then
-    enableDebug
-  fi
   if [ -n "$SANE_SANDBOX_DISABLE" ]; then
     isDisable=1
   fi

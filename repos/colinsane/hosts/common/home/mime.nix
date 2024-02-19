@@ -25,7 +25,11 @@ let
 
   # [ { priority, desktop } ... ] -> Self
   sortOneMimeType = associations: builtins.sort
-    (l: r: assert l.priority != r.priority; l.priority < r.priority)
+    (l: r: lib.throwIf
+      (l.priority == r.priority)
+      "${l.desktop} and ${r.desktop} share a preferred mime type with identical priority ${builtins.toString l.priority} (and so the desired association is ambiguous)"
+      (l.priority < r.priority)
+    )
     associations;
   sortMimes = mimes: builtins.mapAttrs (_k: sortOneMimeType) mimes;
   # { "<mime-type>"} = [ { priority, desktop } ... ]; } -> { "<mime-type>" = [ "<desktop>" ... ]; }

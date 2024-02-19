@@ -188,12 +188,23 @@ in
         };
 
         services.sway-session = {
-          description = "no-op unit to signal that sway is operational";
+          description = "sway-session: active iff sway desktop environment is baseline operational";
           documentation = [
             "https://github.com/swaywm/sway/issues/7862"
             "https://github.com/alebastr/sway-systemd"
           ];
+
+          # we'd like to start graphical-session after sway is ready, but it's marked `RefuseManualStart` because Lennart.
+          # instead, create `sway-session.service` which `bindsTo` `graphical-session.target`.
+          # we can manually start `sway-session`, and the `bindsTo` means that it will start `graphical-session`,
+          # and then track `graphical-session`s state (that is: it'll stop when graphical-session stops).
+          #
+          # additionally, set `ConditionEnvironment` to guard that the sway environment variables *really have* been imported into systemd.
+          unitConfig.ConditionEnvironment = "SWAYSOCK";
+          # requiredBy = [ "graphical-session.target" ];
+          before = [ "graphical-session.target" ];
           bindsTo = [ "graphical-session.target" ];
+
           serviceConfig = {
             ExecStart = "${pkgs.coreutils}/bin/true";
             Type = "oneshot";
@@ -294,14 +305,17 @@ in
 
       hardware.bluetooth.enable = true;
       services.blueman.enable = true;
+
       # gsd provides Rfkill, which is required for the bluetooth pane in gnome-control-center to work
       # services.gnome.gnome-settings-daemon.enable = true;
+
       # start the components of gsd we need at login
       # systemd.user.targets."org.gnome.SettingsDaemon.Rfkill".wantedBy = [ "graphical-session.target" ];
       # go ahead and `systemctl --user cat gnome-session-initialized.target`. i dare you.
       # the only way i can figure out how to get Rfkill to actually load is to just disable all the shit it depends on.
       # it doesn't actually seem to need ANY of them in the first place T_T
       # systemd.user.targets."gnome-session-initialized".enable = false;
+
       # bluez can't connect to audio devices unless pipewire is running.
       # a system service can't depend on a user service, so just launch it at graphical-session
       systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];

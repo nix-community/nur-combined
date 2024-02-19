@@ -26,14 +26,14 @@
 
     services.conky = {
       description = "conky dynamic desktop background";
+      after = [ "graphical-session.target" ];
+      # partOf = [ "graphical-session.target" ];  # propagate stop/restart signal from graphical-session to this unit
       wantedBy = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];
 
       serviceConfig.ExecStart = "${config.sane.programs.conky.package}/bin/conky";
       serviceConfig.Type = "simple";
       serviceConfig.Restart = "on-failure";
       serviceConfig.RestartSec = "10s";
-      # serviceConfig.Slice = "session.slice";
     };
   };
 }

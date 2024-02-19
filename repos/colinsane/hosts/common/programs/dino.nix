@@ -65,7 +65,10 @@ in
 
     services.dino = {
       description = "dino XMPP client";
+      after = [ "graphical-session.target" ];
+      # partOf = [ "graphical-session.target" ];
       wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
+
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/dino";
         Type = "simple";

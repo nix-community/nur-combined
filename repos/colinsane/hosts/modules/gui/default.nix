@@ -63,7 +63,7 @@ in
     "dino"  # XMPP client
     # "emote"
     "evince"  # works on phosh
-    "flare-signal"  # gtk4 signal client
+    # "flare-signal"  # gtk4 signal client
     # "foliate"  # e-book reader
     "fractal"  # matrix client
     "g4music"  # local music player
@@ -111,7 +111,7 @@ in
   ];
 
   sane.programs.handheldGuiApps = declPackageSet [
-    "calls"  # gnome calls (dialer/handler)
+    # "calls"  # gnome calls (dialer/handler)
     # "celluloid"  # mpv frontend
     # "chatty"  # matrix/xmpp/irc client  (2023/12/29: disabled because broken cross build)
     "cozy"  # audiobook player

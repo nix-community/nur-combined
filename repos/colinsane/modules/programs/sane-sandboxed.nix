@@ -1,9 +1,9 @@
 { lib, stdenv
+, bash
 , bubblewrap
 , firejail
 , landlock-sandboxer
 , libcap
-, runtimeShell
 , substituteAll
 , profileDir ? "/share/sane-sandboxed/profiles"
 }:
@@ -11,7 +11,7 @@
 let
   sane-sandboxed = substituteAll {
     src = ./sane-sandboxed;
-    inherit bubblewrap firejail libcap runtimeShell;
+    inherit bash bubblewrap firejail libcap;
     landlockSandboxer = landlock-sandboxer;
     firejailProfileDirs = "/run/current-system/sw/etc/firejail /etc/firejail ${firejail}/etc/firejail";
   };

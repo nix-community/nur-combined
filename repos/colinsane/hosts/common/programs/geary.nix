@@ -87,8 +87,11 @@ in
     secrets.".config/geary/account_02/geary.ini" = ../../../secrets/common/geary_account_02.ini.bin;
 
     services.geary = {
-      description = "Geary email client";
+      description = "geary email client";
+      after = [ "graphical-session.target" ];
+      # partOf = [ "graphical-session.target" ];
       wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
+
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/geary";
         Type = "simple";

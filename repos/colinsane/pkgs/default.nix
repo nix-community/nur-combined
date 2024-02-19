@@ -69,6 +69,7 @@ let
       copyIntoOwnPackage
       linkIntoOwnPackage
       rmDbusServices
+      rmDbusServicesInPlace
     ;
     unftp = callPackage ./additional/unftp { };
     where-am-i = callPackage ./additional/where-am-i { };

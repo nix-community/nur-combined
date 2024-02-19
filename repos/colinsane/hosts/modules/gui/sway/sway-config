@@ -194,7 +194,12 @@ output "Unknown 0x0637 0x00000000" {
 # manually export PATH here, since all my user services need that, and sane-sandboxed implementation depends on it.
 # also, manually export XDG_DATA_DIRS. glib fails in weird ways (e.g. thinks everything is application/x-octet-stream mime type) without it.
 # for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
-exec dbus-update-activation-environment --systemd PATH XDG_DATA_DIRS DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+#
+# XXX: dbus-update-activation-environment --systemd is ASYNCHRONOUS. it returns before the systemd environment is actually updated.
+# hence, call `systemctl import-environment` ourselves. i could probably remove the dbus stuff and be safe, but at least for now it's an OK backup.
+exec --no-startup-id systemctl --user import-environment PATH XDG_DATA_DIRS DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec --no-startup-id dbus-update-activation-environment --systemd PATH XDG_DATA_DIRS DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
 # previously: `include /etc/sway/config.d/*` was needed for xdg-desktop-portal-* to work.
 # stock nixos `programs.sway` would setup /etc/sway/config.d with additional variables to import to the dbus env.
 # but now i'm doing that manually:
@@ -205,7 +210,7 @@ exec dbus-update-activation-environment --systemd PATH XDG_DATA_DIRS DISPLAY WAY
 # include /etc/sway/config.d/*
 
 # signal to systemd that sway is active,
-# and therefore let it start the graphical-session target
+# and therefore let it start any downstream services (e.g. apps that would like to auto-start)
 # see `systemctl --user cat sway-session` for links to docs
 exec --no-startup-id systemctl start --user sway-session.service
 

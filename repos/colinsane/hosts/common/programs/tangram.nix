@@ -29,6 +29,13 @@ in
 
     slowToBuild = true;  # only true for cross-compiled tangram
 
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.net = "clearnet";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDri = true;
+    sandbox.whitelistWayland = true;
+
     persist.byStore.private = [
       ".cache/Tangram"
       ".local/share/Tangram"

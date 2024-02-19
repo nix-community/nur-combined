@@ -63,8 +63,11 @@ in
     '';
 
     services.wob = {
-      description = "Wayland Overlay Bar (renders volume/backlight levels)";
+      description = "Wayland Overlay Bar (wob) renders volume/backlight levels when requested";
+      after = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
       wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
+
       serviceConfig = {
         # ExecStart = "${cfg.package}/bin/wob";
         Type = "simple";
@@ -83,7 +86,7 @@ in
     };
 
     services.wob-pulse = {
-      description = "notify wob when pulseaudio volume changes";
+      description = "wob-pulse: monitor pulseaudio and display volume changes on-screen";
       wantedBy = [ "wob.service" ];
       serviceConfig = {
         ExecStart = "${wob-pulse}/bin/wob-pulse";

@@ -78,12 +78,17 @@ in
       (builtins.readFile ./waybar-style.css) + cfg.config.extra_style;
 
     services.waybar = {
-      description = "sway header bar";
+      description = "swaybar graphical header bar/tray for sway";
+      after = [ "graphical-session.target" ];
+      # partOf = [ "graphical-session.target" ];
       wantedBy = [ "graphical-session.target" ];
-      serviceConfig.ExecStart = "${cfg.package}/bin/waybar";
-      serviceConfig.Type = "simple";
-      serviceConfig.Restart = "on-failure";
-      serviceConfig.RestartSec = "10s";
+
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/waybar";
+        Type = "simple";
+        Restart = "on-failure";
+        RestartSec = "10s";
+      };
       # environment.G_MESSAGES_DEBUG = "all";
     };
   };

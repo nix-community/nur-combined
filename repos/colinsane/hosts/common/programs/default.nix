@@ -51,6 +51,7 @@
     ./lemoa.nix
     ./loupe.nix
     ./mako.nix
+    ./megapixels.nix
     ./mepo.nix
     ./mimeo
     ./mopidy.nix
@@ -68,6 +69,7 @@
     ./offlineimap.nix
     ./open-in-mpv.nix
     ./planify.nix
+    ./portfolio-filemanager.nix
     ./playerctl.nix
     ./rhythmbox.nix
     ./ripgrep.nix
@@ -96,6 +98,8 @@
     ./wob
     ./xarchiver.nix
     ./xdg-desktop-portal.nix
+    ./xdg-desktop-portal-gtk.nix
+    ./xdg-desktop-portal-wlr.nix
     ./xdg-utils.nix
     ./zeal.nix
     ./zecwallet-lite.nix

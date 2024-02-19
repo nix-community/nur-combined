@@ -64,8 +64,11 @@ in
     suggestedPrograms = [ "gnome-keyring" ];
 
     services.fractal = {
-      description = "auto-start and maintain fractal Matrix connection";
+      description = "fractal Matrix client";
+      after = [ "graphical-session.target" ];
+      # partOf = [ "graphical-session.target" ];
       wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
+
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/fractal";
         Type = "simple";

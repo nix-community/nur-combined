@@ -53,8 +53,11 @@ in
     ];
 
     services.gtkcord4 = {
-      description = "unofficial Discord chat client";
+      description = "gtkcord4 Discord client";
+      after = [ "graphical-session.target" ];
+      # partOf = [ "graphical-session.target" ];
       wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
+
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/gtkcord4";
         Type = "simple";

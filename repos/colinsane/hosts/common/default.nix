@@ -11,6 +11,7 @@
     ./net
     ./nix-path
     ./persist.nix
+    ./polyunfill.nix
     ./programs
     ./secrets.nix
     ./ssh.nix
@@ -64,6 +65,12 @@
   # TODO: see if i can remove this?
   nix.settings.trusted-users = [ "root" ];
 
+  systemd.extraConfig = ''
+    # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
+    # note that the values for the system manager and the user service manager must be set separately.
+    DefaultTimeoutStopSec=25
+  '';
+
   services.journald.extraConfig = ''
     # docs: `man journald.conf`
     # merged journald config is deployed to /etc/systemd/journald.conf
@@ -105,7 +112,7 @@
     text = ''
       # send a notification to any sway users logged in, that the system has been activated/upgraded.
       # this probably doesn't work if more than one sway session exists on the system.
-      _notifyActiveSwaySock="$(echo /run/user/*/sway-ipc.*.sock)"
+      _notifyActiveSwaySock="$(echo /run/user/*/sway-ipc*.sock)"
       if [ -e "$_notifyActiveSwaySock" ]; then
         SWAYSOCK="$_notifyActiveSwaySock" ${pkgs.sway}/bin/swaymsg -- exec \
           "${pkgs.libnotify}/bin/notify-send 'nixos activated' 'version: $(cat $systemConfig/nixos-version)'"

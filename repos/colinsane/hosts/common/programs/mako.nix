@@ -54,8 +54,6 @@
     services.mako = {
       description = "mako desktop notification daemon";
       wantedBy = [ "graphical-session.target" ];
-      # XXX: should be part of graphical-session.target, but whatever mix of greetd/sway
-      # i'm using means that target's never reached...
 
       serviceConfig.ExecStart = "${config.sane.programs.mako.package}/bin/mako";
       serviceConfig.Type = "simple";

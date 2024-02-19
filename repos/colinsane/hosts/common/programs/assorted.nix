@@ -93,6 +93,7 @@ in
       "fatresize"
       "fd"
       "file"
+      "forkstat"  # monitor every spawned/forked process
       # "fwupd"
       "gawk"
       "gdb"  # to debug segfaults
@@ -399,6 +400,15 @@ in
       # build without the "Google Fonts" integration feature, to save closure / avoid webkitgtk_4_0
       withWebkit = false;
     };
+
+    forkstat.sandbox.method = "landlock";  #< doesn't seem to support bwrap
+    forkstat.sandbox.wrapperType = "wrappedDerivation";
+    forkstat.sandbox.extraConfig = [
+      "--sane-sandbox-keep-pidspace"
+    ];
+    forkstat.sandbox.extraPaths = [
+      "/proc"
+    ];
 
     # fuzzel: TODO: re-enable sandbox. i use fuzzel both as an entry system (snippets) AND an app-launcher.
     #   as an app-launcher, it cannot be sandboxed without over-restricting the app it launches.
@@ -940,33 +950,6 @@ in
     wl-clipboard.sandbox.method = "bwrap";
     wl-clipboard.sandbox.wrapperType = "wrappedDerivation";
     wl-clipboard.sandbox.whitelistWayland = true;
-
-    xdg-desktop-portal-gtk.sandbox.method = "bwrap";
-    xdg-desktop-portal-gtk.sandbox.wrapperType = "inplace";
-    xdg-desktop-portal-gtk.sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
-    xdg-desktop-portal-gtk.sandbox.whitelistWayland = true;
-    xdg-desktop-portal-gtk.sandbox.extraHomePaths = [
-      ".local/share/applications"  # file opener needs to find .desktop files, for their icon/name.
-      # for file-chooser portal users (fractal, firefox, ...), need to provide anything they might want.
-      # i think (?) portal users can only access the files here interactively, i.e. by me interacting with the portal's visual filechooser,
-      # so shoving stuff here is trusting the portal but not granting any trust to the portal user.
-      "Books"
-      "Music"
-      "Pictures"
-      "Pictures/servo-macros"
-      "Videos"
-      "Videos/servo"
-      "archive"
-      "dev"
-      "ref"
-      "tmp"
-      "use"
-    ];
-
-    xdg-desktop-portal-wlr.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    xdg-desktop-portal-wlr.sandbox.wrapperType = "inplace";
-    xdg-desktop-portal-wlr.sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
-    xdg-desktop-portal-wlr.sandbox.whitelistWayland = true;
 
     xdg-terminal-exec.sandbox.enable = false;  # xdg-terminal-exec is a launcher for $TERM
     xterm.sandbox.enable = false;  # need to be able to do everything
