@@ -12,9 +12,9 @@ let
       hash = "sha256-mrFcKX7nGv4sdI3ruWk6pV9qdwZMIgbCGXHiSgFwjh8=";
     };
 
-    # extraPkgs = pkgs: with pkgs; [
-    #   libsecret
-    # ];
+    extraPkgs = pkgs: with pkgs; [
+      libsecret
+    ];
   };
   desktopFile = pkgs.substituteAll {
     inherit version;
