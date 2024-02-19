@@ -35,6 +35,7 @@ in {
         init = {defaultBranch = "main";};
         pull = {rebase = true;};
         rerere = {enabled = true;};
+        maintenance.prefetch.enabled = false;
       };
 
       aliases = {
