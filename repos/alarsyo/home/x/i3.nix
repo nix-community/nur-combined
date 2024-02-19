@@ -157,15 +157,15 @@ in {
           }
           {
             workspace = "3";
-            output = ["DP-4" "eDP-1"];
+            output = ["DP-5" "eDP-1"];
           }
           {
             workspace = "4";
-            output = ["DP-4" "eDP-1"];
+            output = ["DP-5" "eDP-1"];
           }
           {
             workspace = "5";
-            output = ["DP-4" "eDP-1"];
+            output = ["DP-5" "eDP-1"];
           }
 
           {
@@ -179,15 +179,15 @@ in {
 
           {
             workspace = "8";
-            output = ["DP-3" "eDP-1"];
+            output = ["DP-4" "eDP-1"];
           }
           {
             workspace = "9";
-            output = ["DP-3" "eDP-1"];
+            output = ["DP-4" "eDP-1"];
           }
           {
             workspace = "10";
-            output = ["DP-3" "eDP-1"];
+            output = ["DP-4" "eDP-1"];
           }
         ];
 
