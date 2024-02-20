@@ -14,7 +14,6 @@ in
     ./sway
     ./sxmo
     ./theme
-    ./unl0kr
   ];
 
   sane.programs.gameApps = declPackageSet [

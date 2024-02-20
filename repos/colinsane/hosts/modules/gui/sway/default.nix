@@ -172,6 +172,8 @@ in
           # xdg-desktop-portal-wlr provides portals for screenshots/screen sharing
           "xdg-desktop-portal-wlr"
           "xdg-terminal-exec"  # used by sway config
+        ] ++ lib.optionals cfg.useGreeter [
+          "unl0kr"
         ];
 
         secrets.".config/sane-sway/snippets.txt" = ../../../../secrets/common/snippets.txt.bin;
@@ -233,10 +235,8 @@ in
       # sane.gui.gtk.icon-theme = lib.mkDefault "rose-pine-dawn";  # 2.5/5 coverage on moby
       # sane.gui.gtk.icon-theme = lib.mkDefault "Flat-Remix-Grey-Light";  # requires qtbase
 
-      sane.gui.unl0kr = lib.mkIf cfg.useGreeter {
-        enable = true;
+      sane.programs.unl0kr.config = lib.mkIf cfg.useGreeter {
         afterLogin = "sway";
-        user = "colin";
       };
 
       # swap in these lines to use `greetd`+`gtkgreet` instead:

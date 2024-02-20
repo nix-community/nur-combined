@@ -22,6 +22,7 @@ let
       ]);
       type = "lua";
       config = ''
+        -- lifted mostly from readme: <https://github.com/nvim-treesitter/nvim-treesitter>
         require'nvim-treesitter.configs'.setup {
           highlight = {
             enable = true,
@@ -37,7 +38,7 @@ let
             keymaps = {
               init_selection = "gnn",
               node_incremental = "grn",
-              mcope_incremental = "grc",
+              scope_incremental = "grc",
               node_decremental = "grm"
             }
           },

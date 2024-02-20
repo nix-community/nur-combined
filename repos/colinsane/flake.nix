@@ -408,7 +408,8 @@
             servo       = deployApp "servo"       "servo" "switch";
 
             # like `nixos-rebuild --flake . switch`
-            self        = deployApp "$(hostname)" ""      "switch";
+            self        = deployApp "$(hostname)"       ""      "switch";
+            self-light  = deployApp "$(hostname)-light" ""      "switch";
 
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "deploy-all" ''

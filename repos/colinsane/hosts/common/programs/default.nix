@@ -90,6 +90,7 @@
     ./tangram.nix
     ./tor-browser.nix
     ./tuba.nix
+    ./unl0kr
     ./vlc.nix
     ./waybar
     ./waylock.nix
