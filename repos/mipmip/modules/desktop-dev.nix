@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, unstable, pkgs, ... }:
 
 {
 
@@ -21,7 +21,7 @@
     actionlint
 
 
-    hugo # needed for linny
+    unstable.hugo # needed for linny
 
     #TRANSLATION TOOLS
     poedit

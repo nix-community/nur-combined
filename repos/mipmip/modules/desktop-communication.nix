@@ -16,6 +16,7 @@
 
     unstable.whatsapp-for-linux
     zoom-us
+    skypeforlinux
     tdesktop
     teams
     unstable.srain

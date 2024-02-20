@@ -26,6 +26,10 @@ return {
       lspconfig.html.setup({
         capabilites = capabilities,
       })
+      lspconfig.jsonls.setup({
+        capabilites = capabilities,
+      })
+
       lspconfig.lua_ls.setup({
         capabilites = capabilities,
       })
