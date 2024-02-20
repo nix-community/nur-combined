@@ -2191,10 +2191,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.21";
+      version = "1.2.22";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4238137/faststream-1.2.21.xpi";
-      sha256 = "d8153ddb71f3cbdb3d4447f7b00c16fd1283e87f526dcd93a0955441e9c43c26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238773/faststream-1.2.22.xpi";
+      sha256 = "6210ec6d35f50a663067b49d2394039646b0581c4f36f8061074f67e4555f1c7";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -5445,10 +5445,10 @@
     };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "5.1.1";
+      version = "5.1.2";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180802/mailvelope-5.1.1.xpi";
-      sha256 = "5eb8320d46dda12e857747ba9e239878c5c71c5a05ec5f24063e4431bb4902d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236627/mailvelope-5.1.2.xpi";
+      sha256 = "8319529760a588ce9bf10ffec1e213746b9e7b159ab54fba01d6f9d98a4886af";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -7405,6 +7405,21 @@
         platforms = platforms.all;
       };
     };
+    "playback-speed" = buildFirefoxXpiAddon {
+      pname = "playback-speed";
+      version = "1.4.4";
+      addonId = "playbackSpeed@waldemar.b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3864607/playback_speed-1.4.4.xpi";
+      sha256 = "49f195fe05ada13b39505f2c0aa44631e287f7d19a2242085e7725443ecc1cfd";
+      meta = with lib;
+      {
+        homepage = "https://github.com/fx4waldi/playbackSpeed";
+        description = "Control the speed of video playback.";
+        license = licenses.gpl2;
+        mozPermissions = [ "tabs" "activeTab" "storage" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "polish-dictionary" = buildFirefoxXpiAddon {
       pname = "polish-dictionary";
       version = "1.0.20160228.1webext";
@@ -8861,10 +8876,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.42";
+      version = "1.22.43";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4235927/single_file-1.22.42.xpi";
-      sha256 = "c79c2cfd7c9361f5ccdd7ba55eb3ab6898d4c43bc5641bc8ee21a58504bdd336";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236989/single_file-1.22.43.xpi";
+      sha256 = "7d32842dad41355c9b8ea8bd862a5e62e772f9138f024ea079464204acf01b10";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";

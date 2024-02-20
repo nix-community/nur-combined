@@ -891,6 +891,9 @@
     "slug": "plasma-integration"
   },
   {
+    "slug": "playback-speed"
+  },
+  {
     "slug": "pocket-select-all",
     "license": {
       "tag": "custom",
