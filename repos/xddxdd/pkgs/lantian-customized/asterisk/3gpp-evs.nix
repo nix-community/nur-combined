@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "3gpp-evs";
   version = "16.1.0";
   src = fetchurl {
-    url = "https://www.etsi.org/deliver/etsi_ts/126400_126499/126443/16.01.00_60/ts_126443v160100p0.zip";
+    url = "https://web.archive.org/web/20240220062854/https://www.etsi.org/deliver/etsi_ts/126400_126499/126443/16.01.00_60/ts_126443v160100p0.zip";
     hash = "sha256-KlRADPdBIrFqj9gGwlTa9iI1VQ1uRFJ8dfe6ilJMXAY=";
   };
 
