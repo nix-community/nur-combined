@@ -32,7 +32,7 @@ in {
     };
     systemd.services.matrix-synapse = mkIf (config.services.matrix-synapse.enable && enable) {
       serviceConfig = {
-        RuntimeDirectory = [ "matrix-synapse" ];
+        RuntimeDirectory = "matrix-synapse";
       };
       preStart = mkMerge (map (appservice: ''
         ${appservice.configuration.out.generate}
