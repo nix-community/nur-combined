@@ -498,6 +498,10 @@ in
       "/proc"
       "/sys/devices"
     ];
+    htop.persist.byStore.plaintext = [
+      # consider setting `show_program_path=0` and either `hide_userland_threads=1` or `show_thread_names=1`
+      ".config/htop"
+    ];
 
     iftop.sandbox.method = "landlock";
     iftop.sandbox.wrapperType = "wrappedDerivation";
@@ -734,6 +738,7 @@ in
     ]);
 
     qemu.sandbox.enable = false;  #< it's a launcher
+    qemu.slowToBuild = true;
 
     rsync.sandbox.method = "bwrap";  # TODO:sandbox: untested
     rsync.sandbox.wrapperType = "wrappedDerivation";
