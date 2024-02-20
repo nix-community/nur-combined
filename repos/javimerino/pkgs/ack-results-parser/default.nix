@@ -6,13 +6,13 @@
 pkgs.python3Packages.buildPythonApplication {
   pname = "ack-results-parser";
   # Upstream does not do versions
-  version = "0.1.0-a09a9024e19e";
+  version = "0.1.0-20240220-32e04ac47a00";
   # Temporarily get my python3 conversion branch
   src = pkgs.fetchFromGitHub {
     owner = "JaviMerino";
     repo = "ack-results-parser";
-    rev = "a09a9024e19e46eff8d9a35941bdc7a984a3e501";
-    hash = "sha256-CpcKhyvbDSkr6ZV/qtUNeiHBSFKKYqt2prCDZ+eMTik=";
+    rev = "32e04ac47a001db5214ba5941a223fb47886117b";
+    hash = "sha256-N+DMYOKRul+pXsl1B4J0la4ggaqwUevhssFg61iaQj0=";
   };
   # nose tests have not been converted to python3
   doCheck = false;
