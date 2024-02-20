@@ -57,6 +57,7 @@ in
   sane.programs.guiBaseApps = declPackageSet [
     # "abaddon"  # discord client
     "alacritty"  # terminal emulator
+    "dconf"  # required by many packages, but not well-documented :(
     "delfin"  # Jellyfin client
     "dialect"  # language translation
     "dino"  # XMPP client

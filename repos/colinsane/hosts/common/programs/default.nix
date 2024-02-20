@@ -17,6 +17,7 @@
     ./chatty.nix
     ./conky
     ./cozy.nix
+    ./dconf.nix
     ./dialect.nix
     ./dino.nix
     ./element-desktop.nix

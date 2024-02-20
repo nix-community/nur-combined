@@ -176,11 +176,6 @@ let
       src = ./src;
       pkgs = [ "coreutils-full" "ifuse" "rsync" ];
     };
-    sync-from-servo = static-nix-shell.mkBash {
-      pname = "sane-sync-from-servo";
-      src = ./src;
-      pkgs = [ "rsync" ];
-    };
     sync-music = static-nix-shell.mkPython3Bin {
       pname = "sane-sync-music";
       src = ./src;

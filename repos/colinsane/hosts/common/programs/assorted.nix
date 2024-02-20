@@ -115,6 +115,7 @@ in
       "eza"  # a better 'ls'
       # "flashrom"
       "git"  # needed as a user package, for config.
+      # "glib"  # for `gsettings`
       # "gnupg"
       # "gocryptfs"
       # "gopass"

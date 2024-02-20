@@ -2,6 +2,9 @@
 
 { lib, ... }:
 {
+  # disable non-required packages like nano, perl, rsync, strace
+  environment.defaultPackages = [];
+
   # remove all the non-existent default directories from XDG_DATA_DIRS, XDG_CONFIG_DIRS to simplify debugging.
   # this is defaulted in <repo:nixos/nixpkgs:nixos/modules/programs/environment.nix>,
   # without being gated by any higher config.

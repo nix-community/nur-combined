@@ -16,6 +16,7 @@
     ./ssh.nix
     ./users.nix
     ./vpn.nix
+    ./warnings.nix
     ./wowlan.nix
   ];
 

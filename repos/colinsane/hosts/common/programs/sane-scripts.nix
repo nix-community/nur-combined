@@ -39,7 +39,6 @@ in
       "sane-scripts.secrets-update-keys"
       "sane-scripts.shutdown"
       "sane-scripts.sudo-redirect"
-      "sane-scripts.sync-from-servo"
       "sane-scripts.tag-music"
       "sane-scripts.vpn"
       "sane-scripts.which"

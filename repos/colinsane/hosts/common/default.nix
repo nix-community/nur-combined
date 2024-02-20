@@ -9,12 +9,13 @@
     ./ids.nix
     ./machine-id.nix
     ./net
-    ./nix-path
+    ./nix
     ./persist.nix
     ./polyunfill.nix
     ./programs
     ./secrets.nix
     ./ssh.nix
+    ./systemd.nix
     ./users
   ];
 
@@ -30,72 +31,6 @@
 
   # time.timeZone = "America/Los_Angeles";
   time.timeZone = "Etc/UTC";  # DST is too confusing for me => use a stable timezone
-
-  nix.extraOptions = ''
-    # see: `man nix.conf`
-    # useful when a remote builder has a faster internet connection than me
-    builders-use-substitutes = true  # default: false
-    # maximum seconds to wait when connecting to binary substituter
-    connect-timeout = 3  # default: 0
-    # download-attempts = 5  # default: 5
-    # allow `nix flake ...` command
-    experimental-features = nix-command flakes
-    # whether to build from source when binary substitution fails
-    fallback = true  # default: false
-    # whether to keep building dependencies if any other one fails
-    keep-going = true  # default: false
-    # whether to keep build-only dependencies of GC roots (e.g. C compiler) when doing GC
-    keep-outputs = true  # default: false
-    # how many lines to show from failed build
-    log-lines = 30  # default: 10
-    # how many substitution downloads to perform in parallel.
-    # i wonder if parallelism is causing moby's substitutions to fail?
-    max-substitution-jobs = 6  # default: 16
-    # narinfo-cache-negative-ttl = 3600  # default: 3600
-    # whether to use ~/.local/state/nix/profile instead of ~/.nix-profile, etc
-    use-xdg-base-directories = true  # default: false
-    # whether to warn if repository has uncommited changes
-    warn-dirty = false  # default: true
-  '';
-  # hardlinks identical files in the nix store to save 25-35% disk space.
-  # unclear _when_ this occurs. it's not a service.
-  # does the daemon continually scan the nix store?
-  # does the builder use some content-addressed db to efficiently dedupe?
-  nix.settings.auto-optimise-store = true;
-  # TODO: see if i can remove this?
-  nix.settings.trusted-users = [ "root" ];
-
-  systemd.extraConfig = ''
-    # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
-    # note that the values for the system manager and the user service manager must be set separately.
-    DefaultTimeoutStopSec=25
-  '';
-
-  services.journald.extraConfig = ''
-    # docs: `man journald.conf`
-    # merged journald config is deployed to /etc/systemd/journald.conf
-    [Journal]
-    # disable journal compression because the underlying fs is compressed
-    Compress=no
-  '';
-
-  systemd.services.nix-daemon.serviceConfig = {
-    # the nix-daemon manages nix builders
-    # kill nix-daemon subprocesses when systemd-oomd detects an out-of-memory condition
-    # see:
-    # - nixos PR that enabled systemd-oomd: <https://github.com/NixOS/nixpkgs/pull/169613>
-    # - systemd's docs on these properties: <https://www.freedesktop.org/software/systemd/man/systemd.resource-control.html#ManagedOOMSwap=auto%7Ckill>
-    #
-    # systemd's docs warn that without swap, systemd-oomd might not be able to react quick enough to save the system.
-    # see `man oomd.conf` for further tunables that may help.
-    #
-    # alternatively, apply this more broadly with `systemd.oomd.enableSystemSlice = true` or `enableRootSlice`
-    # TODO: also apply this to the guest user's slice (user-1100.slice)
-    # TODO: also apply this to distccd
-    ManagedOOMMemoryPressure = "kill";
-    ManagedOOMSwap = "kill";
-  };
-
 
   system.activationScripts.nixClosureDiff = {
     supportsDryActivation = true;
@@ -119,26 +54,6 @@
       fi
     '';
   };
-
-  # disable non-required packages like nano, perl, rsync, strace
-  environment.defaultPackages = [];
-
-  # dconf docs: <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/profiles>
-  # this lets programs temporarily write user-level dconf settings (aka gsettings).
-  # they're written to ~/.config/dconf/user, unless `DCONF_PROFILE` is set to something other than the default of /etc/dconf/profile/user
-  # find keys/values with `dconf dump /`
-  programs.dconf.enable = true;
-  programs.dconf.packages = [
-    (pkgs.writeTextFile {
-      name = "dconf-user-profile";
-      destination = "/etc/dconf/profile/user";
-      text = ''
-        user-db:user
-        system-db:site
-      '';
-    })
-  ];
-  # sane.programs.glib.enableFor.user.colin = true;  # for `gsettings`
 
   # link debug symbols into /run/current-system/sw/lib/debug
   # hopefully picked up by gdb automatically?

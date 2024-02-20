@@ -51,6 +51,12 @@
     };
   };
 
+  # i explicitly set both `initialPassword` and `hashedPasswordFile`, so ignore the warning against this.
+  # see: <https://github.com/NixOS/nixpkgs/pull/287506>
+  sane.silencedWarnings = [
+    "The user 'colin' has multiple of the options\n`hashedPassword`, `password`, `hashedPasswordFile`, `initialPassword`\n& `initialHashedPassword` set to a non-null value.\nThe options silently discard others by the order of precedence\ngiven above which can lead to surprising results. To resolve this warning,\nset at most one of the options above to a non-`null` value.\n"
+  ];
+
   environment.etc."/security/capability.conf".text = ''
     # The pam_cap.so module accepts the following arguments:
     #

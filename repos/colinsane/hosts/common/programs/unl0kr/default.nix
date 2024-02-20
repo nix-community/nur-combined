@@ -10,6 +10,7 @@ let
   launcher = pkgs.writeShellApplication {
     name = "unl0kr-login";
     runtimeInputs = [
+      # TODO: since this invokes `login`, adding these deps to PATH is questionable
       cfg.package
       pkgs.shadow
       redirect-tty
@@ -99,7 +100,27 @@ in
         sleep ${builtins.toString cfg.config.delay} && exec ${cfg.config.afterLogin}
       fi
     '');
+
+    # N.B.: this sandboxing applies to `unl0kr` itself -- the on-screen-keyboard;
+    #       NOT to the wrapper which invokes `login`.
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistDri = true;
+    sandbox.extraPaths = [
+      "/dev/fb0"
+      "/dev/input"
+      "/run/udev"
+      "/sys/class/input"
+      "/sys/devices"
+      #v without /dev/tty0, it fails to fully take over the tty (even though it's ostensibly running on ${cfg.config.vt})
+      # and your password is dumped to the framebuffer.
+      # it still *works*, but wow, kinda weird and concerning
+      "/dev/tty0"
+    ];
   };
+
+  # unl0kr is run as root, and especially with sandboxing, needs to be installed for root if expected to work.
+  sane.programs.unl0kr.enableFor.system = lib.mkIf (builtins.any (en: en)(builtins.attrValues config.sane.programs.unl0kr.enableFor.user)) true;
 
   systemd = lib.mkIf cfg.enabled {
     # prevent nixos-rebuild from killing us after a redeploy
@@ -109,6 +130,13 @@ in
       #   and instead launch --login-program *immediately*
       # N.B.: exec paths here must be absolute. neither systemd nor agetty query PATH.
       serviceConfig.ExecStart = "${pkgs.util-linux}/bin/agetty --login-program '${cfg.config.launcher}/bin/unl0kr-login' --noclear --skip-login --keep-baud ${tty} 115200,38400,9600 $TERM";
+
+      path = [
+        # necessary for `sane-sandboxed` to be found. TODO: add this to every systemd service.
+        "/run/current-system/sw"  # `/bin` is appended
+      ];
+      # needed to find sane-sandbox profiles (TODO: add this to every service)
+      environment.XDG_DATA_DIRS = "/run/current-system/sw/share";
 
       serviceConfig.Type = "simple";
       serviceConfig.Restart = "always";
