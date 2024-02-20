@@ -518,15 +518,15 @@
   };
   gtk = {
     enable = true;
-    theme = {
-      package =
-        pkgs.fluent-gtk-theme.override
-          {
-            themeVariants = [ "purple" ];
-            # tweaks = [ "blur" ];
-          };
-      name = "Fluent-purple";
-    };
+    # theme = {
+    #   package =
+    #     pkgs.fluent-gtk-theme.override
+    #       {
+    #         themeVariants = [ "purple" ];
+    #         # tweaks = [ "blur" ];
+    #       };
+    #   name = "Fluent-purple";
+    # };
 
     iconTheme = {
       package = pkgs.fluent-icon-theme;

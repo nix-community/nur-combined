@@ -33,6 +33,7 @@
     {
 
       package = null;
+      # enable = if osConfig.networking.hostName == "hastur" then false else true;
       enable = true;
       extraSessionCommands = ''
         export SDL_VIDEODRIVER=wayland

@@ -24,6 +24,7 @@
     dates = "weekly";
     options = "--delete-older-than 10d";
   };
+  programs.sway.enable = true;
 
   services =
     lib.mkMerge [
@@ -33,6 +34,7 @@
             // { inherit pkgs config; })).services) dae;
       }
       {
+        tailscale = { enable = true; openFirewall = true; };
         dae = {
           enable = true;
           # package = pkgs.dae-unstable;

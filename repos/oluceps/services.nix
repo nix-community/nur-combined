@@ -12,12 +12,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    # xdgOpenUsePortal = true;
-  };
-
   systemd.services.btrfs-scrub-persist.serviceConfig.ExecStopPost =
     lib.genNtfyMsgScriptPath "tags red_circle prio high" "error" "btrfs scrub failed on hastur";
 
@@ -32,7 +26,7 @@
     hysteria.instances = [
     ];
     i2pd = {
-      enable = true;
+      enable = false;
       notransit = true;
       outTunnels = {
         # ssh-vpqn = {

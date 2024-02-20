@@ -28,7 +28,7 @@ let system = "x86_64-linux"; in [
       #     }).lazygit;
       inherit ((import inputs.nixpkgs-master {
         inherit system; config.allowUnfree = true;
-      })) monaspace factorio-headless-experimental;
+      })) monaspace factorio-headless-experimental linuxPackages_latest;
       # inherit ((import inputs.nixpkgs-dae {
       #   inherit system; config.allowUnfree = true;
       # })) dae;
@@ -74,6 +74,17 @@ let system = "x86_64-linux"; in [
       };
 
       # sha256 = "0000000000000000000000000000000000000000000000000000";
+
+      gnome = prev.gnome.overrideScope' (gnomeFinal: gnomePrev: {
+        mutter = gnomePrev.mutter.overrideAttrs (old: {
+          src = prev.fetchgit {
+            url = "https://gitlab.gnome.org/vanvugt/mutter.git";
+            # GNOME 45: triple-buffering-v4-45
+            rev = "0b896518b2028d9c4d6ea44806d093fd33793689";
+            sha256 = "sha256-mzNy5GPlB2qkI2KEAErJQzO//uo8yO0kPQUwvGDwR4w=";
+          };
+        });
+      });
 
       nur-pkgs = inputs.nur-pkgs.packages.${system};
 

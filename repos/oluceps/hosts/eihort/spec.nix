@@ -57,6 +57,7 @@
     }
     {
       # zfs.autoScrub.enable = true;
+      tailscale = { enable = true; openFirewall = true; };
       report = {
         enable = true;
         calendars = [ "*-*-* 12:00:00" ];

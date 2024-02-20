@@ -14,6 +14,7 @@
   programs = {
     anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
     niri.enable = false;
+    sway.enable = true;
   };
   systemd.services.atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
   systemd.services.restic-backups-persist = {
@@ -34,17 +35,18 @@
   #     package = config.boot.kernelPackages.nvidiaPackages.latest;
   #     modesetting.enable = true;
   #     powerManagement.enable = false;
+  #     open = true;
   #   };
 
-  # opengl = {
-  #   enable = true;
-  #   extraPackages = with pkgs; [
-  #     rocm-opencl-icd
-  #     rocm-opencl-runtime
-  #   ];
-  # driSupport = true;
-  # driSupport32Bit = true;
-  # };
+  #   opengl = {
+  #     enable = true;
+  #     # extraPackages = with pkgs; [
+  #     #   rocm-opencl-icd
+  #     #   rocm-opencl-runtime
+  #     # ];
+  #     driSupport = true;
+  #     driSupport32Bit = true;
+  #   };
   # };
 
   systemd = {
@@ -79,6 +81,7 @@
     [ 9000 9001 6622 ] ++ [ config.services.photoprism.port ];
 
   xdg.portal.wlr.enable = true;
+  xdg.portal.enable = true;
 
   programs.dconf.enable = true;
 
@@ -92,6 +95,26 @@
       {
 
         # xserver.videoDrivers = [ "nvidia" ];
+
+        # xserver.enable = true;
+        # xserver.displayManager.gdm.enable = true;
+        # xserver.desktopManager.gnome.enable = true;
+        snapy.instances = [
+          {
+            name = "persist";
+            source = "/persist";
+            keep = "2hr";
+            calendar = "*:0/3";
+          }
+          {
+            name = "var";
+            source = "/var";
+            keep = "2hr";
+            calendar = "*:0/3";
+          }
+        ];
+
+        tailscale = { enable = true; openFirewall = true; };
 
         dae.enable = true;
         sing-box.enable = true;
