@@ -1,0 +1,18 @@
+diff --git a/tree_sitter_languages/core.pyx b/tree_sitter_languages/core.pyx
+index a27377c..f01480b 100644
+--- a/tree_sitter_languages/core.pyx
++++ b/tree_sitter_languages/core.pyx
+@@ -5,12 +5,7 @@ from tree_sitter import Language, Parser
+ 
+ 
+ def get_language(language):
+-    if sys.platform == 'win32':
+-        filename = 'languages.dll'
+-    else:
+-        filename = 'languages.so'
+-
+-    binary_path = str(pathlib.Path(__file__).parent / filename)
++    binary_path = str(pathlib.Path(__file__).parent / "languages" / language)
+     language = Language(binary_path, language)
+     return language
+ 
