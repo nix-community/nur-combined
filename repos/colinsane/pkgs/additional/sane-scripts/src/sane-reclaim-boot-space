@@ -1,44 +1,75 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i python3 -p "python3.withPackages (ps: [  ])"
+#! vim: set filetype=python :
 
+import argparse
+import logging
 import os
 import os.path
 import subprocess
 import sys
 
+from dataclasses import dataclass
+
 EXTLINUX_CONF = "/boot/extlinux/extlinux.conf"
+
+logger = logging.getLogger(__name__)
 
 class ConfItem:
     pass
 
+@dataclass
 class ConfLine:
     """ uninteresting line in the config """
-    def __init__(self, line: str):
-        self.line = line
+    line: str
 
     def __str__(self) -> str:
         return self.line
 
+@dataclass
 class ConfEntry:
+    label: str
+    menu: str
+    linux: str
+    initrd: str
+    append: str
+    fdtdir: str | None
+
+    def __str__(self) -> str:
+        def format_attr(attr_name: str) -> str:
+            attr_val = getattr(self, attr_name)
+            return f"{attr_name.upper()} {attr_val}"
+
+        fdtdir = self.format_attr("fdtdir") if self.fdtdir is not None else ""
+        return f"""
+{format_attr("label")}
+  {format_attr("menu")}
+  {format_attr("linux")}
+  {format_attr("initrd")}
+  {format_attr("append")}
+  {fdtdir}
+""".strip()
+
+class ConfEntryBuilder:
     """ boot entry, with label/linux/etc """
     menu = linux = initrd = append = fdtdir = None
     def __init__(self, label: str):
         self.label = label
 
-    def format_attr(self, attr_name: str) -> str:
-        attr_val = getattr(self, attr_name)
-        assert attr_val is not None, f"not set: {attr_name}"
-        return f"{attr_name.upper()} {attr_val}"
-
-    def __str__(self) -> str:
-        return f"""
-{self.format_attr("label")}
-  {self.format_attr("menu")}
-  {self.format_attr("linux")}
-  {self.format_attr("initrd")}
-  {self.format_attr("append")}
-  {self.format_attr("fdtdir")}
-""".strip()
+    def build(self) -> ConfEntry:
+        assert self.menu is not None, self
+        assert self.linux is not None, self
+        assert self.initrd is not None, self
+        assert self.append is not None, self
+        # fdtdir is optional
+        return ConfEntry(
+            label=self.label,
+            menu=self.menu,
+            linux=self.linux,
+            initrd=self.initrd,
+            append=self.append,
+            fdtdir=self.fdtdir,
+        )
 
     def parse(self, line: str) -> None:
         split_at = line.index(" ")
@@ -71,6 +102,7 @@ class UseTracker:
             self.sizes[item] = [0, self._get_size(item)]
 
     def append_unique(self, list_: list, item: str) -> None:
+        logger.debug("tracking used item: %s", item)
         if item not in list_:
             list_.append(item)
         self.sizes[item][0] += 1
@@ -79,7 +111,8 @@ class UseTracker:
         if isinstance(entry, ConfEntry):
             self.append_unique(self.linux, entry.linux)
             self.append_unique(self.initrd, entry.initrd)
-            self.append_unique(self.fdtdir, entry.fdtdir)
+            if entry.fdtdir is not None:
+                self.append_unique(self.fdtdir, entry.fdtdir)
 
     def get_use_count(self, item: str) -> int:
         return self.sizes[item][0]
@@ -98,9 +131,11 @@ class UseTracker:
 
     def _get_size(self, item: str) -> int:
         path = os.path.join("/boot/extlinux", item)
+        logger.debug("_get_size %s ...", path)
         du_output = subprocess.check_output(["du", "-b", "-c", path], text=True).strip()
         last = du_output.split("\n")[-1]
         size, label = last.split("\t")
+        logger.debug("  -> %s", size)
         assert label == "total", f"unexpected du output: {last}"
         return int(size)
 
@@ -132,26 +167,36 @@ def delete_unused_from_disk(tracker: UseTracker) -> None:
 def parse_extlinux(contents: str) -> list:
     items = []
     active_entry = None
+    def finalize_entry():
+        nonlocal active_entry
+        if active_entry is None: return
+        items.append(active_entry.build())
+        active_entry = None
+
     for line in contents.split("\n"):
+        logger.debug("config: %s", line)
         if line.startswith("#") or line == "" or line.startswith("DEFAULT ") or line.startswith("MENU ") or line.startswith("TIMEOUT "):
+            finalize_entry()
             items.append(ConfLine(line))
         elif line.startswith("LABEL "):
-            items.append(ConfEntry(line[len("LABEL "):]))
+            finalize_entry()
+            active_entry = ConfEntryBuilder(line[len("LABEL "):])
         elif line.startswith("  "):
-            items[-1].parse(line[2:])
+            active_entry.parse(line[2:])
         else:
             assert False, f"unknown directive {line!r}"
 
+    finalize_entry()
     return items
 
-def write_extlinux(contents: str) -> None:
+def write_extlinux(contents: str, backup: str) -> None:
     with open(EXTLINUX_CONF, "r+") as new:
         # backup file
-        with open("./extlinux.conf.back", "w") as back:
+        with open(backup, "w") as back:
             back.write(new.read())
 
         new.seek(0)
-        new.write(new_extlinux)
+        new.write(contents)
         new.truncate()
 
 def dump_items(items: list) -> str:
@@ -162,34 +207,51 @@ def prompt_continue() -> None:
         print("aborting")
         sys.exit(0)
 
-orig_extlinux = open(EXTLINUX_CONF, "r").read()
-items = parse_extlinux(orig_extlinux)
-tracker = UseTracker.from_items(items)
-print_tracker_use(tracker)
-print()
+def main():
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
 
-if tracker.get_unused():
-    print(f"recommended to delete unused items from disk to save {tracker.unused_size()}b")
-    prompt_continue()
-else:
-    orig_tracker = tracker
-    rmcount = 0
-    while tracker.used_size() == orig_tracker.used_size():
-        item = items.pop()
-        rmcount += isinstance(item, ConfEntry)
-        tracker = UseTracker.from_items(items)
+    parser = argparse.ArgumentParser(description="remove old entries from /boot")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--backup", default="/boot/extlinux.conf.back", help="save a backup of the conf file before modifying it")
 
-    orig_size = orig_tracker.used_size()
-    new_size = tracker.used_size()
-    print(f"recommended to delete {rmcount} oldest entries to save {orig_size - new_size}b")
+    args = parser.parse_args()
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
+
+
+    orig_extlinux = open(EXTLINUX_CONF, "r").read()
+    items = parse_extlinux(orig_extlinux)
+    tracker = UseTracker.from_items(items)
     print_tracker_use(tracker)
-    prompt_continue()
     print()
 
-    new_extlinux = dump_items(items)
-    print(f"new contents:\n{new_extlinux}")
-    prompt_continue()
+    if tracker.get_unused():
+        print(f"recommended to delete unused items from disk to save {tracker.unused_size()}b")
+        prompt_continue()
+    else:
+        orig_tracker = tracker
+        rmcount = 0
+        while tracker.used_size() == orig_tracker.used_size():
+            item = items.pop()
+            rmcount += isinstance(item, ConfEntry)
+            tracker = UseTracker.from_items(items)
 
-    write_extlinux(new_extlinux)
+        orig_size = orig_tracker.used_size()
+        new_size = tracker.used_size()
+        print(f"recommended to delete {rmcount} oldest entries to save {orig_size - new_size}b")
+        print_tracker_use(tracker)
+        prompt_continue()
+        print()
 
-delete_unused_from_disk(tracker)
+        new_extlinux = dump_items(items)
+        print(f"new contents:\n{new_extlinux}")
+        prompt_continue()
+
+        write_extlinux(new_extlinux, args.backup)
+
+    delete_unused_from_disk(tracker)
+
+if __name__ == "__main__":
+    main()

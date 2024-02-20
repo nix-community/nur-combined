@@ -1,40 +1,56 @@
-{ pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  nix.extraOptions = ''
+  nix.settings = {
     # see: `man nix.conf`
+
     # useful when a remote builder has a faster internet connection than me
-    builders-use-substitutes = true  # default: false
+    builders-use-substitutes = true;  # default: false
+
     # maximum seconds to wait when connecting to binary substituter
-    connect-timeout = 3  # default: 0
-    # download-attempts = 5  # default: 5
+    connect-timeout = 3;  # default: 0
+
+    # download-attempts = 5;  # default: 5
+
     # allow `nix flake ...` command
-    experimental-features = nix-command flakes
+    experimental-features = [ "nix-command" "flakes "];
+
     # whether to build from source when binary substitution fails
-    fallback = true  # default: false
+    fallback = true;  # default: false
+
     # whether to keep building dependencies if any other one fails
-    keep-going = true  # default: false
+    keep-going = true;  # default: false
+
     # whether to keep build-only dependencies of GC roots (e.g. C compiler) when doing GC
-    keep-outputs = true  # default: false
+    keep-outputs = true;  # default: false
+
     # how many lines to show from failed build
-    log-lines = 30  # default: 10
+    log-lines = 30;  # default: 10
+
     # how many substitution downloads to perform in parallel.
     # i wonder if parallelism is causing moby's substitutions to fail?
-    max-substitution-jobs = 6  # default: 16
+    max-substitution-jobs = 6;  # default: 16
+
     # narinfo-cache-negative-ttl = 3600  # default: 3600
     # whether to use ~/.local/state/nix/profile instead of ~/.nix-profile, etc
-    use-xdg-base-directories = true  # default: false
+    use-xdg-base-directories = true;  # default: false
+
     # whether to warn if repository has uncommited changes
-    warn-dirty = false  # default: true
-  '';
+    warn-dirty = false;  # default: true
 
-  # hardlinks identical files in the nix store to save 25-35% disk space.
-  # unclear _when_ this occurs. it's not a service.
-  # does the daemon continually scan the nix store?
-  # does the builder use some content-addressed db to efficiently dedupe?
-  nix.settings.auto-optimise-store = true;
+    # hardlinks identical files in the nix store to save 25-35% disk space.
+    # unclear _when_ this occurs. it's not a service.
+    # does the daemon continually scan the nix store?
+    # does the builder use some content-addressed db to efficiently dedupe?
+    auto-optimise-store = true;
 
-  # allow `nix-shell` (and probably nix-index?) to locate our patched and custom packages
+    # allow #!nix-shell scripts to locate my patched nixpkgs & custom packages.
+    # this line might become unnecessary: see <https://github.com/NixOS/nixpkgs/pull/273170>
+    nix-path = config.nix.nixPath;
+  };
+
+  # allow `nix-shell` (and probably nix-index?) to locate our patched and custom packages.
+  # this is actually a no-op, and the real action happens in assigning `nix.settings.nix-path`.
   nix.nixPath = [
     "nixpkgs=${pkgs.path}"
     # note the import starts at repo root: this allows `./overlay/default.nix` to access the stuff at the root

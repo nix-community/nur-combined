@@ -4,7 +4,7 @@
 # optionally, provide your own build command as the first argument
 
 external_cmd="cargo build --all"
-if [ "x$1" != "x" ]
+if [ -n "$1" ]
 then
         external_cmd=$1
 fi

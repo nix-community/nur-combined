@@ -91,6 +91,20 @@ in
       extraHomePaths = [ "knowledge/planner/deadlines.tsv" ];
     };
 
+    "sane-scripts.dev-cargo-loop".sandbox = {
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      net = "clearnet";
+      whitelistPwd = true;
+      extraPaths = [
+        # a build script can do a lot... but a well-written one will be confined
+        # to XDG dirs and the local dir, and maybe the internet for fetching dependencies.
+        ".cache"
+        ".config"
+        ".local"
+      ];
+    };
+
     "sane-scripts.find-dotfiles".sandbox = {
       method = "bwrap";
       wrapperType = "wrappedDerivation";
@@ -114,12 +128,11 @@ in
       net = "clearnet";
     };
 
-    # TODO: is `sane-reclaim-boot-space` broken?
-    # "sane-scripts.reclaim-boot-space".sandbox = {
-    #   method = "bwrap";
-    #   wrapperType = "wrappedDerivation";
-    #   extraPaths = [ "/boot" ];
-    # };
+    "sane-scripts.reclaim-boot-space".sandbox = {
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      extraPaths = [ "/boot" ];
+    };
 
     # it's just a thin wrapper around rsync, which is already sandboxed
     "sane-scripts.rcp".sandbox.enable = false;
@@ -152,6 +165,12 @@ in
 
     # if `tee` isn't trustworthy we have bigger problems
     "sane-scripts.sudo-redirect".sandbox.enable = false;
+
+    "sane-scripts.tag-music".sandbox = {
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      autodetectCliPaths = "existing";
+    };
 
     "sane-scripts.which".sandbox = {
       method = "bwrap";
