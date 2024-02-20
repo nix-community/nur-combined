@@ -608,10 +608,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.15";
+      version = "7.5.16";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4223757/betterttv-7.5.15.xpi";
-      sha256 = "bd13d18bc4ba5433c50d148c15f0e8865f18f77100b861590527a2dbf35964b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236648/betterttv-7.5.16.xpi";
+      sha256 = "e23b00c26ae32516fbf118f1627d7c844524710d7e7eb870174dd6ff7b97e13b";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1705,10 +1705,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "123.0.20240213.221259";
+      version = "124.0.20240219.92531";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236342/deutsch_de_language_pack-123.0.20240213.221259.xpi";
-      sha256 = "ad0fb0fc292dd50db0d2d8427567a79795086a76eb989193f6f67fd9d2f2d9a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238353/deutsch_de_language_pack-124.0.20240219.92531.xpi";
+      sha256 = "0a7cad826763165efabb2e6c6280a6eb9367ffefee5a89ef9194dbe7078b91a1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2191,10 +2191,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.20";
+      version = "1.2.21";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236219/faststream-1.2.20.xpi";
-      sha256 = "a0977a1288fe892598ad2e520edd7aa5155425f7b551a52025bd1ab251b213e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238137/faststream-1.2.21.xpi";
+      sha256 = "d8153ddb71f3cbdb3d4447f7b00c16fd1283e87f526dcd93a0955441e9c43c26";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2603,10 +2603,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "123.0.20240213.221259";
+      version = "124.0.20240219.92531";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236315/francais_language_pack-123.0.20240213.221259.xpi";
-      sha256 = "cbe7d5b97e5b4c84cf0b583f4cdf23aef322836d9c92e2e27ab6fc225d9bb161";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238306/francais_language_pack-124.0.20240219.92531.xpi";
+      sha256 = "494cd9e9432c440ecd6df80e87fcf7c12bcc5a349664dd30cc187d52b113d082";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4547,10 +4547,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.4.0";
+      version = "3.5.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228881/indie_wiki_buddy-3.4.0.xpi";
-      sha256 = "3a7b63bec6e726b65afdf222e69dec8a69ac20e63cccd5770e02cdbd56f458a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236392/indie_wiki_buddy-3.5.0.xpi";
+      sha256 = "0dc74c7c198f67efeec92cbd1dbc5c5441f0eb48aca99fe06be8f3ec255b59b3";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -7209,10 +7209,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "10.2.8";
+      version = "10.2.9";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4168807/pakkujs-10.2.8_jX9iPyf.xpi";
-      sha256 = "067a913d8563d622d44d59eaf4f455a904b18a66b3c7198959dcbecb40b32096";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238156/pakkujs-10.2.9.xpi";
+      sha256 = "f34ea5a4ac6a6290aeee0538e72959639e06b4dc41e448d1c2ea58760617bd55";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -8719,10 +8719,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "12.0.2";
+      version = "12.0.3";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232454/sidebartabs-12.0.2.xpi";
-      sha256 = "644a766894fd64f8a4f9924634e91310cdafa080791c6b5e0f1871acf8ae58f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238660/sidebartabs-12.0.3.xpi";
+      sha256 = "80d525e74b81802d99263146a8bb65e9e37abaaa543b09e1fe85a4c44721d8f3";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -9019,10 +9019,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.5.4";
+      version = "5.5.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229442/sponsorblock-5.5.4.xpi";
-      sha256 = "5ffbbbfb0090eb44be36e0f569cd9b5654f3d58e97e6190430f11cfb1ca8e39f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236218/sponsorblock-5.5.5.xpi";
+      sha256 = "f6b2e987a09e5769ecb43a75c94fcbc76c779e69a401fd3f0c681785fd7e8ede";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -9991,10 +9991,10 @@
     };
     "tst-wheel-and-double" = buildFirefoxXpiAddon {
       pname = "tst-wheel-and-double";
-      version = "1.5";
+      version = "1.5.9";
       addonId = "tst-wheel_and_double@dontpokebadgers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3473925/tree_style_tab_mouse_wheel-1.5.xpi";
-      sha256 = "c9bad51fceb18e7323465fd25dd81df7c6cb3f5dbaf878dc6f84e8963c492bb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238561/tree_style_tab_mouse_wheel-1.5.9.xpi";
+      sha256 = "0a01661043222df41264743e8f9d9daef9c6b0e27ec6660bd212c9df6f877676";
       meta = with lib;
       {
         homepage = "https://github.com/joshuacant/";
