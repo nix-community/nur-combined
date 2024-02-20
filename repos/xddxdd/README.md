@@ -654,19 +654,18 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: th-fonts (10 packages)</summary>
+<summary>Package set: th-fonts (9 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `th-fonts.feon` | [TH-Feon](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Feon font |
-|  | `th-fonts.hak` | [TH-Hak](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Hak font |
-|  | `th-fonts.joeng` | [TH-Joeng](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Joeng font |
-|  | `th-fonts.khaai-p` | [TH-Khaai-P](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Khaai-P font |
-|  | `th-fonts.khaai-t` | [TH-Khaai-T](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Khaai-T font |
-|  | `th-fonts.ming` | [TH-Ming](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Ming font |
-|  | `th-fonts.sung-p` | [TH-Sung-P](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Sung-P font |
-|  | `th-fonts.sung-t` | [TH-Sung-T](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Sung-T font |
-|  | `th-fonts.sy` | [TH-Sy](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Sy font |
-|  | `th-fonts.tshyn` | [TH-Tshyn](http://cheonhyeong.com/Simplified/download.html) | 3.0.0 | TH-Tshyn font |
+|  | `th-fonts.hak` | [th-hak](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | th-hak font |
+|  | `th-fonts.joeng` | [th-joeng](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | th-joeng font |
+|  | `th-fonts.khaai-p` | [th-khaai-p](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | th-khaai-p font |
+|  | `th-fonts.khaai-t` | [th-khaai-t](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | th-khaai-t font |
+|  | `th-fonts.ming` | [th-ming](http://cheonhyeong.com/Simplified/download.html) | 4.1.0 | th-ming font |
+|  | `th-fonts.sung-p` | [th-sung-p](http://cheonhyeong.com/Simplified/download.html) | 4.0.0 | th-sung-p font |
+|  | `th-fonts.sung-t` | [th-sung-t](http://cheonhyeong.com/Simplified/download.html) | 4.1.0 | th-sung-t font |
+|  | `th-fonts.sy` | [th-sy](http://cheonhyeong.com/Simplified/download.html) | 4.1.0 | th-sy font |
+|  | `th-fonts.tshyn` | [th-tshyn](http://cheonhyeong.com/Simplified/download.html) | 4.1.0 | th-tshyn font |
 </details>
 

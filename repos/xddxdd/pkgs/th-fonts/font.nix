@@ -1,21 +1,13 @@
 {
   stdenvNoCC,
   lib,
-  fetchurl,
   p7zip,
-  # Args
-  pname,
-  version,
-  filename ? "${pname}-${version}",
-  sha256,
   ...
 } @ args:
+# Args
+source:
 stdenvNoCC.mkDerivation rec {
-  inherit pname version;
-  src = fetchurl {
-    url = "https://backblaze.lantian.pub/${filename}.7z";
-    inherit sha256;
-  };
+  inherit (source) pname version src;
 
   nativeBuildInputs = [p7zip];
 

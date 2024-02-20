@@ -1876,6 +1876,141 @@
         },
         "version": "b7b76b853131b6fa7579d20c2816b4b6abb16bea"
     },
+    "th-hak": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-hak",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Rpsr3powrT5C/O9fmPsAoOVzaInYFLDK4QfMhkyAc1Y=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Hak-4.0.0.7z"
+        },
+        "version": "4.0.0"
+    },
+    "th-joeng": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-joeng",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-C44pbdGsdyDNTHQwSZpdzHirth9doQi4wNJph9y01q0=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Joeng-4.0.0.7z"
+        },
+        "version": "4.0.0"
+    },
+    "th-khaai-p": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-khaai-p",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ijfTLLWVlRNlHdRCvKa/bNRmn0ecoiLojHKiBmgnIS8=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Khaai-P4.0.0.7z"
+        },
+        "version": "4.0.0"
+    },
+    "th-khaai-t": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-khaai-t",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-33SRtSmE90RCmxyTOsZL0hchFtwoUWj4YUn5s6vd75w=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Khaai-T4.0.0.7z"
+        },
+        "version": "4.0.0"
+    },
+    "th-ming": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-ming",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-HzDbcEnljEY7Iji/ilvdlH92bglrw97N1JZwcD08Yw0=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Ming-4.1.0.7z"
+        },
+        "version": "4.1.0"
+    },
+    "th-sung-p": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-sung-p",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-UuAgX7xIRW340VSBYlpswZIw7qCoeo8HGk9tNHSpoIs=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Sung-P4.0.0.7z"
+        },
+        "version": "4.0.0"
+    },
+    "th-sung-t": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-sung-t",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Erp4sv25qqnXBR4VGCcKTHOqZmx5P+xlCMkROlSo/mE=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Sung-T4.1.0.7z"
+        },
+        "version": "4.1.0"
+    },
+    "th-sy": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-sy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-vcuTCBLy+8tYNylUlnvpfs1jWa1QlwLQV/FQvX7qqvo=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Sy-4.1.0.7z"
+        },
+        "version": "4.1.0"
+    },
+    "th-tshyn": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "th-tshyn",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QqDKNGOnrtFK1p5JdoVLQr+PoZr9TvsVICvMxqSxdyA=",
+            "type": "url",
+            "url": "http://cheonhyeong.com/File/TH-Tshyn-4.1.0.7z"
+        },
+        "version": "4.1.0"
+    },
     "transmission-web-control": {
         "cargoLocks": null,
         "date": "2023-05-21",

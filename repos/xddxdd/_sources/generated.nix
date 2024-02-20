@@ -1077,6 +1077,78 @@
     };
     date = "2016-12-18";
   };
+  th-hak = {
+    pname = "th-hak";
+    version = "4.0.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Hak-4.0.0.7z";
+      sha256 = "sha256-Rpsr3powrT5C/O9fmPsAoOVzaInYFLDK4QfMhkyAc1Y=";
+    };
+  };
+  th-joeng = {
+    pname = "th-joeng";
+    version = "4.0.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Joeng-4.0.0.7z";
+      sha256 = "sha256-C44pbdGsdyDNTHQwSZpdzHirth9doQi4wNJph9y01q0=";
+    };
+  };
+  th-khaai-p = {
+    pname = "th-khaai-p";
+    version = "4.0.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Khaai-P4.0.0.7z";
+      sha256 = "sha256-ijfTLLWVlRNlHdRCvKa/bNRmn0ecoiLojHKiBmgnIS8=";
+    };
+  };
+  th-khaai-t = {
+    pname = "th-khaai-t";
+    version = "4.0.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Khaai-T4.0.0.7z";
+      sha256 = "sha256-33SRtSmE90RCmxyTOsZL0hchFtwoUWj4YUn5s6vd75w=";
+    };
+  };
+  th-ming = {
+    pname = "th-ming";
+    version = "4.1.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Ming-4.1.0.7z";
+      sha256 = "sha256-HzDbcEnljEY7Iji/ilvdlH92bglrw97N1JZwcD08Yw0=";
+    };
+  };
+  th-sung-p = {
+    pname = "th-sung-p";
+    version = "4.0.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Sung-P4.0.0.7z";
+      sha256 = "sha256-UuAgX7xIRW340VSBYlpswZIw7qCoeo8HGk9tNHSpoIs=";
+    };
+  };
+  th-sung-t = {
+    pname = "th-sung-t";
+    version = "4.1.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Sung-T4.1.0.7z";
+      sha256 = "sha256-Erp4sv25qqnXBR4VGCcKTHOqZmx5P+xlCMkROlSo/mE=";
+    };
+  };
+  th-sy = {
+    pname = "th-sy";
+    version = "4.1.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Sy-4.1.0.7z";
+      sha256 = "sha256-vcuTCBLy+8tYNylUlnvpfs1jWa1QlwLQV/FQvX7qqvo=";
+    };
+  };
+  th-tshyn = {
+    pname = "th-tshyn";
+    version = "4.1.0";
+    src = fetchurl {
+      url = "http://cheonhyeong.com/File/TH-Tshyn-4.1.0.7z";
+      sha256 = "sha256-QqDKNGOnrtFK1p5JdoVLQr+PoZr9TvsVICvMxqSxdyA=";
+    };
+  };
   transmission-web-control = {
     pname = "transmission-web-control";
     version = "5aeb20c141f6c1ca30c0aaae6b861471a48210d8";
