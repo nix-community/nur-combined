@@ -67,21 +67,12 @@ in
       attic-telnyx-compatible = ifNotNUR (pkg ./lantian-customized/attic-telnyx-compatible {});
       coredns = pkg ./lantian-customized/coredns {};
       librime-with-plugins = pkg ./lantian-customized/librime-with-plugins {};
-
-      linux-xanmod-lantian = self.lantianLinuxXanmod.generic;
-      linux-xanmod-lantian-lto = self.lantianLinuxXanmod.generic-lto;
-
-      # Temporary package to test a problem with Btrfs Linux 6.1
-      # Replaced since Btrfs is fixed in latest Linux 6.1
-      linux-xanmod-lantian-unstable = self.lantianLinuxXanmod.generic;
-      linux-xanmod-lantian-unstable-lto = self.lantianLinuxXanmod.generic-lto;
-
       nbfc-linux = pkg ./lantian-customized/nbfc-linux {};
       nginx = pkg ./lantian-customized/nginx {};
       transmission-with-webui = pkg ./lantian-customized/transmission-with-webui {};
     };
 
-    lantianLinuxXanmod = mergePkgs (pkg ./lantian-linux-xanmod {});
+    lantianLinuxXanmod = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod {}));
     lantianLinuxXanmodPackages = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod/packages.nix {}));
 
     lantianPersonal = ifNotCI (mergePkgs {

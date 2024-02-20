@@ -126,7 +126,6 @@
       "packages.x86_64-linux.kata-runtime",
       "packages.x86_64-linux.konnect",
       "packages.x86_64-linux.lantianCustomized",
-      "packages.x86_64-linux.lantianLinuxXanmod",
       "packages.x86_64-linux.ldap-auth-proxy",
       "packages.x86_64-linux.libnftnl-fullcone",
       "packages.x86_64-linux.liboqs",
