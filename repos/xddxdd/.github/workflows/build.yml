@@ -77,7 +77,6 @@ jobs:
 
       - name: Build nix packages
         run: |
-          nix flake update
           env TMPDIR=/nix/tmpdir nix run .#ci -- ${{ matrix.system }}
 
   test-nur-eval:
