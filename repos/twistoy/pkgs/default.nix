@@ -1,8 +1,5 @@
-# {pkgs, ...}: {
-#   gersemi = pkgs.callPackage ./gersemi {};
-#   rime-ls = pkgs.callPackage ./rime-ls {};
-# }
 {
+  pkgs,
   lib,
   newScope,
 }:
@@ -13,5 +10,8 @@ lib.makeScope newScope
   in {
     gersemi = callPackage ./gersemi {};
     rime-ls = callPackage ./rime-ls {};
+    vimPlugins = pkgs.recurseIntoAttrs (callPackage ./vim-plugins {
+      buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
+    });
   }
 )
