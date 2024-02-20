@@ -35,7 +35,6 @@ let
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
     # autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
-    # bitbake-language-server = callPackage ./pkgs/development/python-modules/bitbake-language-server { };
     expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
     mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
     # requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };

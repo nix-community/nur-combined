@@ -17,10 +17,6 @@ fetch.pypi = "translate-shell"
 # [autotools-language-server]
 # src.pypi = "autotools-language-server"
 # fetch.pypi = "autotools-language-server"
-#
-# [bitbake-language-server]
-# src.pypi = "bitbake-language-server"
-# fetch.pypi = "bitbake-language-server"
 
 [expect-language-server]
 src.pypi = "expect-language-server"
