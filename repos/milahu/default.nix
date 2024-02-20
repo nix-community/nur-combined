@@ -338,6 +338,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       fritap = callPackage ./pkgs/python3/pkgs/fritap/fritap.nix { };
 
+      camel-snake-pep8 = callPackage ./pkgs/python3/pkgs/camel-snake-pep8/camel-snake-pep8.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
