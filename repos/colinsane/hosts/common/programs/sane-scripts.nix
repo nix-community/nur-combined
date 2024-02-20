@@ -121,10 +121,33 @@ in
     #   extraPaths = [ "/boot" ];
     # };
 
+    # it's just a thin wrapper around rsync, which is already sandboxed
+    "sane-scripts.rcp".sandbox.enable = false;
+    # but make sure rsync is always on PATH, so that we actually do get sandboxing :)
+    "sane-scripts.rcp".suggestedPrograms = [ "rsync" ];
+
+    "sane-scripts.reboot".sandbox = {
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      extraPaths = [
+        "/run/dbus"
+        "/run/systemd"
+      ];
+    };
+
     "sane-scripts.reclaim-disk-space".sandbox = {
       method = "bwrap";
       wrapperType = "wrappedDerivation";
       extraPaths = [ "/nix/var/nix" ];
+    };
+
+    "sane-scripts.shutdown".sandbox = {
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      extraPaths = [
+        "/run/dbus"
+        "/run/systemd"
+      ];
     };
 
     # if `tee` isn't trustworthy we have bigger problems

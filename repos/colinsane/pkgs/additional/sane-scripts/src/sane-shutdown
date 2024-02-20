@@ -1,11 +1,13 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p inetutils -p systemd
+#!nix-shell -i bash -p nettools -p systemd
 
 target="$1"
+shift
+
 host="$(hostname)"
 if [ "$host" = "$target" ]
 then
-  sudo shutdown now
+  shutdown now "$@"
 else
   echo "WRONG MACHINE. you're on $host."
   exit 1

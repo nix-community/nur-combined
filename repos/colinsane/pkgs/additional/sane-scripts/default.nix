@@ -130,7 +130,7 @@ let
     reboot = static-nix-shell.mkBash {
       pname = "sane-reboot";
       src = ./src;
-      pkgs = [ "systemd" ];
+      pkgs = [ "nettools" "systemd" ];
     };
     reclaim-boot-space = static-nix-shell.mkPython3Bin {
       pname = "sane-reclaim-boot-space";
@@ -159,7 +159,7 @@ let
     shutdown = static-nix-shell.mkBash {
       pname = "sane-shutdown";
       src = ./src;
-      pkgs = [ "inetutils" "systemd" ];
+      pkgs = [ "nettools" "systemd" ];
     };
     stop-all-servo = static-nix-shell.mkBash {
       pname = "sane-stop-all-servo";

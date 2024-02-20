@@ -33,8 +33,6 @@
   # does the daemon continually scan the nix store?
   # does the builder use some content-addressed db to efficiently dedupe?
   nix.settings.auto-optimise-store = true;
-  # TODO: see if i can remove this?
-  nix.settings.trusted-users = [ "root" ];
 
   # allow `nix-shell` (and probably nix-index?) to locate our patched and custom packages
   nix.nixPath = [

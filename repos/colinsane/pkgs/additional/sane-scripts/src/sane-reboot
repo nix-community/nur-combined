@@ -1,11 +1,14 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p systemd
+#!nix-shell -i bash -p nettools -p systemd
 
 target="$1"
+shift
+
 host="$(hostname)"
 if [ "$host" = "$target" ]
 then
-  sudo reboot now
+  # N.B.: anything other than just `reboot` with no args requires `sudo` privilegs (to write to /run/systemd/)
+  reboot "$@"
 else
   echo "WRONG MACHINE. you're on $host."
   exit 1
