@@ -174,8 +174,6 @@ in
         "sxmo_hook_notification.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_notification.sh";
         "sxmo_hook_notifications.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_notifications.sh";
         "sxmo_hook_pickup.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_pickup.sh";
-        "sxmo_hook_poweroff.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_poweroff.sh";
-        "sxmo_hook_reboot.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_reboot.sh";
         "sxmo_hook_restart_modem_daemons.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_restart_modem_daemons.sh";
         "sxmo_hook_ring.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_ring.sh";
         "sxmo_hook_rotate.sh" = "${package}/share/sxmo/default_hooks/sxmo_hook_rotate.sh";
