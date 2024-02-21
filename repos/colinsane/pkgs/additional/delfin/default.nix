@@ -22,7 +22,7 @@
 
 stdenv.mkDerivation rec {
   pname = "delfin";
-  version = "0.4.1";
+  version = "0.4.0";
 
   src = if devBuild then fetchFromGitea {
     domain = "git.uninsane.org";
@@ -35,22 +35,14 @@ stdenv.mkDerivation rec {
     owner = "avery42";
     repo = "delfin";
     rev = "v${version}";
-    hash = "sha256-LBdHWEGz6dujcF3clrJbViohgiBTyWR7Y70totimVJ8=";
+    hash = "sha256-QwxdNPLL7PBokq5WaPylD4bBmXmJWyEQsWKN7DM2utk=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-TaUYqq4rkMBXhIM+0ZH6O0F+SUOpT1ImgLx2HCzJPrM=";
+    hash = "sha256-ElB9TbfmYn/A1Y3+oQ752zHqkC+f2RJPxfGXH0m5C/E=";
   };
-
-  postPatch = ''
-    substituteInPlace delfin/Cargo.toml \
-      --replace-warn 'rust-version = "1.76.0"' 'rust-version = "1.75.0"'
-  '' + lib.optionalString devBuild ''
-    substituteInPlace video_player_mpv/sys/video-player-mpv/video-player-mpv.c \
-      --replace-fail '// printf("mpv log: %s\n"' 'printf("mpv log: %s\n"'
-  '';
 
   nativeBuildInputs = [
     appstream

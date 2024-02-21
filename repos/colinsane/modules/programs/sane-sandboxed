@@ -435,9 +435,12 @@ bwrapIngestPath() {
   # N.B.: `test -r` for paths like /mnt/servo/media, which may otherwise break bwrap when offline with
   #   "bwrap: Can't get type of source /mnt/...: Input/output error"
   # HOWEVER, paths such as `/run/secrets` are not readable, so don't do that (or, try `test -e` if this becomes a problem again).
-  # `-try` version of binding is still desireable for user files.
-  # although it'd be nice if all program directories could be required to exist, some things are scoped poorly.
-  #   e.g. ~/.local/share/historic.json for wike's history. i don't want to give it all of ~/.local/share, and i don't want it to fail if its history file doesn't exist.
+  # HOWEVER, `test -e` hangs (for ~10s?) on broken mount points or mount subpaths. it handles mount superpaths fine. e.g.:
+  # - /mnt/servo/media/Pictures -> prone to hanging (subdir of mount)
+  # - /mnt/servo/media          -> prone to hanging (root mount point)
+  # - /mnt/servo                -> never hangs
+  # may be possible to place ever mount in a subdir, and mount the super dir?
+  # or maybe configure remote mounts to somehow never hang.
   # test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
   bwrapFlags+=("--dev-bind-try" "$1" "$1")
 }

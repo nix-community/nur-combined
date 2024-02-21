@@ -266,7 +266,7 @@ in
     delfin.sandbox.method = "bwrap";
     delfin.sandbox.wrapperType = "wrappedDerivation";
     delfin.sandbox.whitelistAudio = true;
-    # delfin.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
+    delfin.sandbox.whitelistDbus = [ "user" ];  # else `mpris` plugin crashes the player
     delfin.sandbox.whitelistDri = true;
     delfin.sandbox.whitelistWayland = true;
     delfin.sandbox.net = "clearnet";
