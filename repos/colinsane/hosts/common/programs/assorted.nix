@@ -350,6 +350,11 @@ in
     file.sandbox.wrapperType = "wrappedDerivation";
     file.sandbox.autodetectCliPaths = true;
 
+    findutils.sandbox.method = "bwrap";
+    findutils.sandbox.wrapperType = "wrappedDerivation";
+    findutils.sandbox.autodetectCliPaths = true;
+    findutils.sandbox.whitelistPwd = true;
+
     fluffychat-moby.persist.byStore.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
     font-manager.sandbox.method = "bwrap";
@@ -385,6 +390,11 @@ in
     # gdb.sandbox.method = "landlock";  # permission denied when trying to attach, even as root
     gdb.sandbox.wrapperType = "wrappedDerivation";
     gdb.sandbox.autodetectCliPaths = true;
+
+    gnugrep.sandbox.method = "bwrap";
+    gnugrep.sandbox.wrapperType = "wrappedDerivation";
+    gnugrep.sandbox.autodetectCliPaths = true;
+    gnugrep.sandbox.whitelistPwd = true;
 
     gptfdisk.sandbox.method = "landlock";
     gptfdisk.sandbox.wrapperType = "wrappedDerivation";
@@ -424,9 +434,7 @@ in
     "gnome.gnome-clocks".sandbox.method = "bwrap";
     "gnome.gnome-clocks".sandbox.wrapperType = "wrappedDerivation";
     "gnome.gnome-clocks".sandbox.whitelistWayland = true;
-    "gnome.gnome-clocks".persist.byStore.private = [
-      ".config/dconf"
-    ];
+    "gnome.gnome-clocks".suggestedPrograms = [ "dconf" ];
 
     # gnome-disks
     "gnome.gnome-disk-utility".sandbox.method = "bwrap";
@@ -684,6 +692,10 @@ in
       "/dev"
     ];
     nvme-cli.sandbox.capabilities = [ "sys_rawio" ];
+
+    # contains only `oathtool`, which i only use for evaluating TOTP codes from CLI/stdin
+    oath-toolkit.sandbox.method = "bwrap";
+    oath-toolkit.sandbox.wrapperType = "wrappedDerivation";
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];

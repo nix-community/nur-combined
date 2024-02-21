@@ -45,7 +45,8 @@ in
       # - bind-mounting `~/private/.config/dconf/tangram` causes dconf to try a cross-fs `mv`, which fails
       # - dconf provides no way to specify an alternate ~/.config/dconf dir, except by overriding XDG_CONFIG_HOME
       # { type = "file"; path = ".config/dconf/tangram"; method = "bind"; }
-      ".config/dconf"
+      # ".config/dconf"
     ];
+    suggestedPrograms = [ "dconf" ];
   };
 }

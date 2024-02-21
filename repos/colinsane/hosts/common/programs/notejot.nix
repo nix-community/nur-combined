@@ -4,9 +4,7 @@
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
-    sandbox.extraHomePaths = [
-      ".config/dconf"  # else it can't persist notebooks
-    ];
+    suggestedPrograms = [ "dconf" ];  #< else it can't persist notes
 
     persist.byStore.private = [
       ".local/share/io.github.lainsce.Notejot"

@@ -2,7 +2,7 @@
 {
   options = with lib; {
     sane.silencedWarnings = mkOption {
-      type = types.listOf types.string;
+      type = types.listOf types.str;
       default = [];
       description = ''
         list of `config.warnings` values you want to ignore, verbatim.

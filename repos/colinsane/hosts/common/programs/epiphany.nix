@@ -42,9 +42,9 @@
         );
       '' + (upstream.preFixup or "");
     });
+    suggestedPrograms = [ "dconf" ];  #< for persisting e.g. "Set as Default Browser" prompt question
     persist.byStore.private = [
       ".cache/epiphany"
-      ".config/dconf"  #< for persisting e.g. "Set as Default Browser" prompt question
       ".local/share/epiphany"
       # also .config/epiphany, but appears empty
     ];

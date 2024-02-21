@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, ... }:
 let
   declPackageSet = pkgs: {
     packageUnwrapped = null;
@@ -123,10 +123,19 @@ in
     };
 
     "sane-scripts.ip-check".sandbox = {
-      method = "bwrap";
+      method = "landlock";
       wrapperType = "wrappedDerivation";
-      net = "clearnet";
+      net = "all";
     };
+
+    # TODO: gocryptfs/fuse requires /run/wrappers/bin/fusermount3 SUID
+    # "sane-scripts.private-unlock".sandbox = {
+    #   method = "landlock";
+    #   wrapperType = "wrappedDerivation";
+    #   extraHomePaths = [ "private" ];
+    #   # TODO: don't hardcode the username here.
+    #   extraPaths = [ "/nix/persist/home/colin/private" ];
+    # };
 
     "sane-scripts.reclaim-boot-space".sandbox = {
       method = "bwrap";
@@ -154,6 +163,32 @@ in
       extraPaths = [ "/nix/var/nix" ];
     };
 
+    "sane-scripts.secrets-unlock".sandbox = {
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      extraHomePaths = [
+        ".ssh/id_ed25519"
+        ".ssh/id_ed25519.pub"
+        ".config/sops"
+      ];
+    };
+
+    # sane-secrets-dump is a thin wrapper around sops + some utilities.
+    # really i should sandbox just the utilities
+    "sane-scripts.secrets-dump".sandbox.enable = false;
+    "sane-scripts.secrets-dump".suggestedPrograms = [
+      "gnugrep"
+      "oath-toolkit"
+      "sops"
+    ];
+    # sane-secrets-update-keys is a thin wrapper around sops + some utilities.
+    # really i should sandbox just the utilities
+    "sane-scripts.secrets-update-keys".sandbox.enable = false;
+    "sane-scripts.secrets-update-keys".suggestedPrograms = [
+      "findutils"
+      "sops"
+    ];
+
     "sane-scripts.shutdown".sandbox = {
       method = "bwrap";
       wrapperType = "wrappedDerivation";
@@ -170,6 +205,33 @@ in
       method = "bwrap";
       wrapperType = "wrappedDerivation";
       autodetectCliPaths = "existing";
+    };
+
+    "sane-scripts.vpn".fs = lib.foldl'
+      (acc: vpn:
+        let
+          vpnCfg = config.sane.vpn."${vpn}";
+        in acc // {
+          ".config/sane-vpn/vpns/${vpn}".symlink.text = ''
+            id=${builtins.toString vpnCfg.id}
+            fwmark=${builtins.toString vpnCfg.fwmark}
+            priorityMain=${builtins.toString vpnCfg.priorityMain}
+            priorityFwMark=${builtins.toString vpnCfg.priorityFwMark}
+            bridgeDevice=${vpnCfg.bridgeDevice}
+            dns=(${lib.concatStringsSep " " vpnCfg.dns})
+          '';
+        } // (lib.optionalAttrs vpnCfg.isDefault {
+          ".config/sane-vpn/default".symlink.text = vpn;
+        })
+      )
+      {}
+      (builtins.attrNames config.sane.vpn);
+    "sane-scripts.vpn".sandbox = {
+      method = "landlock";  #< bwrap can't handle `ip link` stuff even with cap_net_admin
+      wrapperType = "wrappedDerivation";
+      net = "all";
+      capabilities = [ "net_admin" ];
+      extraHomePaths = [ ".config/sane-vpn" ];
     };
 
     "sane-scripts.which".sandbox = {

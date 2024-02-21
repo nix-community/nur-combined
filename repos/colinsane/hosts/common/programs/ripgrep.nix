@@ -1,8 +1,8 @@
 { ... }:
 {
   sane.programs.ripgrep = {
-    sandbox.method = "landlock";
-    sandbox.wrapperType = "wrappedDerivation";  # slow to build
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
     sandbox.autodetectCliPaths = true;
     sandbox.whitelistPwd = true;
 

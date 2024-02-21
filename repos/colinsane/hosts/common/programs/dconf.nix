@@ -8,8 +8,15 @@ let
   cfg = config.sane.programs.dconf;
 in
 {
+  sane.programs.dconf = {
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    persist.byStore.private = [
+      ".config/dconf"
+    ];
+  };
+
   programs.dconf = lib.mkIf cfg.enabled {
-    # TODO: sandbox.
     # note that `programs.dconf` doesn't allow specifying the dconf package.
     enable = true;
     packages = [

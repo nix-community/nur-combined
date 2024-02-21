@@ -1,55 +1,113 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils-full -p gnugrep -p gnused -p sane-scripts.ip-check -p systemd
+#!nix-shell -i bash -p coreutils-full -p sane-scripts.ip-check
 
-oper="$1"
-shift
-region="$1"
-shift
-# region should be e.g. `us` or `ukr`
-
-get_vpns() {
-  vpns=$(systemctl list-unit-files \
-    | grep vpn- | cut -f 1 -d ' ' \
-    | sed s'/\.service$//' \
-    | sed s'/^vpn-//' \
-    | sed s'/^ovpnd-//'
-  )
+usageDescription() {
+  echo "sane-vpn: tool to route all system internet traffic through some VPN, or just one application's"
+  echo 'and, thanks to cap_net_admin, we can do all this without superuser!'
+  echo "however, systemd --user has poor support for capabilities, hence this here is a bespoke script instead of a service"
+  echo ""
+  echo "usage:"
+  echo "sane-vpn up REGION"
+  echo "sane-vpn down REGION"
+  echo "sane-vpn do REGION COMMAND [COMMAND ARGS ...]"
+  echo "sane-vpn help"
 }
 
-canonicalize_region() {
-  if [ "$region" = "default" ]; then
-    # TODO: don't special-case this, but e.g. grab whichever VPN has the lowest `ip rule` priority.
-    region="us"
-  fi
-  if networkctl list "br-$region"; then
-    bridge="br-$region"
-  elif networkctl list "br-ovpnd-$region"; then
-    bridge="br-ovpnd-$region"
-  fi
 
-  if systemctl -q list-unit-files "$region"; then
-    service="$region"
-  elif systemctl -q list-unit-files "vpn-$region.service"; then
-    service="vpn-$region.service"
-  elif systemctl -q list-unit-files "vpn-ovpnd-$region.service"; then
-    service="vpn-ovpnd-$region.service"
-  elif systemctl -q list-unit-files "wg-quick-$region.service"; then
-    service="wg-quick-$region.service"
+## GLOBALS, POPULATED LATER:
+# region, populated from CLI: should be e.g. `us` or `ukr`
+region=
+# vpn names: populated from ~/.config/sane-vpn
+vpns=()
+defaultVpn=
+
+# loaded from a specific ~/.config/sane-vpn/vpns profile
+id=
+fwmark=
+prioMain=
+prioFwMark=
+bridgeDevice=
+dns=()
+
+debug() {
+  if [ -n "$SANE_VPN_DEBUG" ]; then
+    printf "%s\n" "$@"
   fi
+}
+
+# load VPN names from disk
+getVpns() {
+  vpns=($(ls ~/.config/sane-vpn/vpns))
+  defaultVpn="$(cat ~/.config/sane-vpn/default)"
+  debug "default vpn: $defaultVpn"
+}
+
+# load a specific VPN profile, `"$1"`
+sourceVpn() {
+  # populates:
+  # - id
+  # - fwmark
+  # - prioMain
+  # - prioFwMark
+  # - bridgeDevice
+  # - dns
+  debug "sourcing: ~/.config/sane-vpn/vpns/$1"
+  # TODO: don't blindly source this, but parse explicitly as `K=V`
+  source ~/.config/sane-vpn/vpns/$1
+}
+
+canonicalizeRegion() {
+  debug "region before canonicalization: '$region'"
+  for v in "${vpns[@]}"; do
+    if [ "ovpnd-$region" = "$v" ]; then
+      debug "canonicalizing shorthand ovpnd- region to '$v'"
+      region="$v"
+    fi
+  done
+
+  if [ -z "$region" ] || [ "$region" = "default" ]; then
+    debug "canonicalizing default region to '$defaultVpn'"
+    region="$defaultVpn"
+  fi
+  debug "region after canonicalization: '$region'"
+}
+
+vpnToggle() {
+  verb="$1"
+
+  debug "vpnToggle with:"
+  debug "  id='$id'"
+  debug "  fwmark='$fwmark'"
+  debug "  priorityMain='$priorityMain'"
+  debug "  priorityFwMark='$priorityFwMark'"
+
+  echo before: $(sane-ip-check --no-upnp)
+
+  # first, allow all non-default routes (prefix-length != 0) a chance to route the packet.
+  # - this allows the wireguard tunnel itself to pass traffic via our LAN gateway.
+  # - incidentally, it allows traffic to LAN devices and other machine-local or virtual networks.
+  ip rule "$verb" from all lookup main suppress_prefixlength 0 priority "$priorityMain"
+  # if packet hasn't gone through the wg device yet (fwmark), then move it to the table which will cause it to.
+  ip rule "$verb" not from all fwmark "$fwmark" lookup "$id" priority "$priorityFwMark"
+
+  echo after:  $(sane-ip-check --no-upnp)
+}
+
+vpnDo() {
+  debug "vpnDo with:"
+  debug "  bridgeDevice='$bridgeDevice'"
+  debug "  dns='$dns'"
+  # TODO: switch to bwrap, or `sane-sandboxed`!
+  firejail --noprofile --net="$bridgeDevice" --dns="$dns" "$@"
 }
 
 usage() {
   rc="$1"
   msg="$2"
 
-  get_vpns
   test -n "$msg" && echo "$msg"
 
-  echo "usage:"
-  echo "sane-vpn up REGION"
-  echo "sane-vpn down REGION"
-  echo "sane-vpn do REGION COMMAND [COMMAND ARGS ...]"
-  echo "sane-vpn help"
+  usageDescription
   echo ""
   echo "regions:"
   echo "$vpns"
@@ -57,35 +115,33 @@ usage() {
   test -n "$rc" && exit "$rc"
 }
 
-vpn_toggle() {
-  verb="$1"
-  canonicalize_region
-  test -n "$service" || usage 1 "invalid region '$region'"
+parseCli() {
+  _oper="$1"
+  shift
+  region="$1"
+  shift
 
-  echo before: $(sane-ip-check --no-upnp)
-  sudo systemctl "$verb" "$service"
-  echo after:  $(sane-ip-check --no-upnp)
+  getVpns
+  canonicalizeRegion
+  sourceVpn "$region"
+
+  case "$_oper" in
+    (up)
+      vpnToggle add
+      ;;
+    (down)
+      vpnToggle del
+      ;;
+    (do)
+      vpnDo "$@"
+      ;;
+    (--help|help|"")
+      usage 0
+      ;;
+    (*)
+      usage 1 "invalid operation '$_oper'"
+      ;;
+  esac
 }
 
-vpn_do() {
-  canonicalize_region
-  test -n "$bridge" || usage 1 "invalid or unsupported region '$region'"
-
-  # this is nasty. `networkctl --json=pretty` gives json output that can be consumed with jq,
-  # but it converts the DNS server to octets ([10, 78, 79, 1]), which i would have to reassemble
-  dns=$(networkctl status "$bridge" | grep 'DNS:' | sed 's/ *DNS: //')
-
-  firejail --noprofile --net="$bridge" --dns="$dns" "$@"
-}
-
-if [ "$oper" == up ]; then
-  vpn_toggle start
-elif [ "$oper" == down ]; then
-  vpn_toggle stop
-elif [ "$oper" == do ]; then
-  vpn_do "$@"
-elif [ "$oper" == help ] || [ "$oper" == --help ] || [ -z "$oper" ]; then
-  usage 0
-else
-  usage 1 "invalid operation '$oper'"
-fi
+parseCli "$@"

@@ -213,7 +213,7 @@ in
     };
 
     sane.defaultUser = mkOption {
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
       default = null;
       description = ''
         the name of the default user.

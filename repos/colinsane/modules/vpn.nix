@@ -4,6 +4,20 @@
 # docs:
 # - wireguard (nixos): <https://nixos.wiki/wiki/WireGuard#Setting_up_WireGuard_with_systemd-networkd>
 # - wireguard (arch): <https://wiki.archlinux.org/title/WireGuard>
+#
+# to route all internet traffic through a VPN endpoint, run `systemctl start vpn-${vpnName}`
+# to show the routing table: `ip rule`
+# to show the NAT rules used for bridging: `sudo iptables -t nat --list-rules -v`
+#
+# the rough idea here is:
+# 1. each VPN has an IP address: if we originate a packet, and the source address is the VPN's address, then it gets routed over the VPN trivially.
+# 2a. create a bridge device for each VPN. traffic exiting that bridge is source-NAT'd to the VPN's address.
+# 2b. to route all traffic for a specific application (or container), give it access to only the bridge device.
+# 3a. create a separate routing table for each VPN, with table id = ID.
+# 3b. if a packet enters the VPN's table then it will be routed via the VPN.
+# 3c. to apply a VPN to all internet traffic, system-wide, a rule is added that forces each packet to enter that VPN's routing table.
+#     - that's done with `systemctl start vpn-$VPN`.
+#     - the VPN acts as the default route. so traffic destined to e.g. a LAN device do not traverse the VPN in this case. only internet traffic is VPN'd.
 
 { config, lib, pkgs, sane-lib, ... }:
 let
@@ -24,7 +38,19 @@ let
           lowest number = default VPN to use when no other is specified, or when multiple are enabled in the same circumstance.
         '';
       };
-      default = mkOption {
+      fwmark = mkOption {
+        type = types.int;
+      };
+      priorityMain = mkOption {
+        type = types.int;
+      };
+      priorityWgTable = mkOption {
+        type = types.int;
+      };
+      priorityFwMark = mkOption {
+        type = types.int;
+      };
+      isDefault = mkOption {
         type = types.bool;
         description = ''
           read-only value: set based on whichever VPN has the lowest id.
@@ -78,11 +104,14 @@ let
 
     config = {
       inherit name;
-      default = builtins.all (other: config.id <= other.id) (builtins.attrValues cfg);
+      isDefault = builtins.all (other: config.id <= other.id) (builtins.attrValues cfg);
+      fwmark = config.id + 10000;
+      priorityMain = config.id + 100;
+      priorityWgTable = config.id + 200;
+      priorityFwMark = config.id + 300;
     };
   });
-  mkVpnConfig = name: { id, dns, endpoint, publicKey, addrV4, privateKeyFile, bridgeDevice, ... }: let
-    fwmark = id + 10000;
+  mkVpnConfig = name: { id, dns, endpoint, publicKey, addrV4, privateKeyFile, bridgeDevice, priorityMain, priorityWgTable, priorityFwMark, fwmark, ... }: let
     bridgeAddrV4 = "10.20.${builtins.toString id}.1/24";
   in {
     assertions = [
@@ -91,6 +120,7 @@ let
         message = "multiple VPNs share id ${id}";
       }
     ];
+
     systemd.network.netdevs."98-${name}" = {
       # see: `man 5 systemd.netdev`
       netdevConfig = {
@@ -99,7 +129,7 @@ let
       };
       wireguardConfig = {
         PrivateKeyFile = privateKeyFile;
-        FirewallMark = id;
+        FirewallMark = fwmark;
       };
       wireguardPeers = [{
         wireguardPeerConfig = {
@@ -112,6 +142,7 @@ let
         };
       }];
     };
+
     systemd.network.networks."50-${name}" = {
       # see: `man 5 systemd.network`
       matchConfig.Name = name;
@@ -125,11 +156,11 @@ let
       routingPolicyRules = [
         {
           routingPolicyRuleConfig = {
-            # send traffic from the the container bridge out over the VPN.
+            # send traffic from the container bridge out over the VPN.
             # the bridge itself does source nat (SNAT) to rewrite the packet source address to that of the VPNs
             # -- but that happens in POSTROUTING: *after* the kernel decides which interface to give the packet to next.
             # therefore, we have to route here based on the packet's address as it is in PREROUTING, i.e. the bridge address. weird!
-            Priority = id;
+            Priority = priorityWgTable;
             From = bridgeAddrV4;
             Table = id;
           };
@@ -149,6 +180,7 @@ let
       netdevConfig.Kind = "bridge";
       netdevConfig.Name = bridgeDevice;
     };
+
     systemd.network.networks."51-${bridgeDevice}" = {
       matchConfig.Name = bridgeDevice;
       networkConfig.Description = "NATs inbound traffic to ${name}, intended for container isolation";
@@ -163,6 +195,7 @@ let
       # networkConfig.DHCPServer = true;
       linkConfig.RequiredForOnline = false;
     };
+
     networking.localCommands = with pkgs; ''
       # view rules with:
       # - `sudo iptables -t nat --list-rules -v`
@@ -190,29 +223,6 @@ let
     #   ${iptables}/bin/iptables -t mangle -I PREROUTING 1 -i ${name} -m mark --mark 0 -j CONNMARK --restore-mark
     #   ${iptables}/bin/iptables -t mangle -A POSTROUTING  -o ${name} -m mark --mark ${builtins.toString id} -j CONNMARK --save-mark
     # '';
-
-    systemd.services."vpn-${name}" = {
-      path = with pkgs; [ iproute2 ];
-      serviceConfig = let
-        prioMain = id - 200;
-        prioFwMark = id - 100;
-        mkScript = verb: pkgs.writeShellScript "vpn-${name}-${verb}" ''
-          # first, allow all non-default routes (prefix-length != 0) a chance to route the packet.
-          # - this allows the wireguard tunnel itself to pass traffic via our LAN gateway.
-          # - incidentally, it allows traffic to LAN devices and other machine-local or virtual networks.
-          ip rule ${verb} from all lookup main suppress_prefixlength 0 priority ${builtins.toString prioMain}
-          # if packet hasn't gone through the wg device yet (fwmark), then move it to the table which will cause it to.
-          ip rule ${verb} not from all fwmark ${builtins.toString id} lookup ${builtins.toString id} priority ${builtins.toString prioFwMark}
-        '';
-      in {
-        ExecStart = ''${mkScript "add"}'';
-        ExecStop = ''${mkScript "del"}'';
-        Type = "oneshot";
-        RemainAfterExit = true;
-        Restart = "on-failure";
-        # it'd be nice if this could depend on the network device we just declared, but there seems no way to do that except via 3rd-party tooling.
-      };
-    };
   };
 in
 {

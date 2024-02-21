@@ -18,7 +18,6 @@
       # ".config/megapixels"
       # ".config/xcb"
       # ".xcb"
-      ".config/dconf"  #< not sure if necessary
       ".local/share/applications"  #< needed for viewing photos, until i can sort out the portal stuff
       # ".local/share/icons"
       # ".icons"  #< actually needed!
@@ -44,5 +43,6 @@
     sandbox.extraRuntimePaths = [
       "dconf"  #< else it's very spammy, and slow
     ];
+    suggestedPrograms = [ "dconf" ];  #< not sure if necessary
   };
 }
