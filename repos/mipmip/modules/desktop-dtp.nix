@@ -23,6 +23,7 @@
     libreoffice
 
     nextcloud-client
+    syncthing
 
   ];
 }

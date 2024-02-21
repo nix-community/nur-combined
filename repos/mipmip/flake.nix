@@ -190,6 +190,7 @@
             defaults = { pkgs, ... }: {
 
               _module.args.unstable = unstableForSystem "x86_64-linux";
+              _module.args.pkgs-2311 = nixpkgs-2311 "x86_64-linux";
               _module.args.nixpkgs-inkscape13 = nixpkgs-inkscape13ForSystem "x86_64-linux";
             };
           in [
