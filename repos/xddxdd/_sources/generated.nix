@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "7411756fb2f849f8388ce5521f55addf02ada309";
+    version = "e1705d886efb40dce417390d30a227b4a041bb7a";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "7411756fb2f849f8388ce5521f55addf02ada309";
+      rev = "e1705d886efb40dce417390d30a227b4a041bb7a";
       fetchSubmodules = false;
-      sha256 = "sha256-xoObUHsxpHHOMG/0mXJJ48PS1nCgNlFhsKxCJsOQcRQ=";
+      sha256 = "sha256-dA5xpO99Dp8gxtIeTzKzOXh40zKI5ulfYx+zQb+bpA4=";
     };
-    date = "2024-02-16";
+    date = "2024-02-20";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -308,13 +308,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.14-hotfix2";
+    version = "v3.3.15";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.14-hotfix2";
+      rev = "v3.3.15";
       fetchSubmodules = false;
-      sha256 = "sha256-N6Ju0ez3nt6DkBQQLsk7TJfHgtLSdo4e9B9PjctKIfE=";
+      sha256 = "sha256-+SMO9mpVwbnvRRyVB82IgDUq96O8AG3kOUevktake+o=";
     };
   };
   flasgger = {
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "6b06e87255591f0096db88ebc57f4bf8f0700d22";
+    version = "60adf53107885b3e4ff71864683c472bc561ff89";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "6b06e87255591f0096db88ebc57f4bf8f0700d22";
+      rev = "60adf53107885b3e4ff71864683c472bc561ff89";
       fetchSubmodules = false;
-      sha256 = "sha256-TAKzmWve+FV7R72oQxPuBFIBoog5LHliSqBg5n5fyE4=";
+      sha256 = "sha256-2iTC2rqoX2o62qx0KfCW548107q0yIIFsZ0tTDBKR0Q=";
     };
-    date = "2024-02-17";
+    date = "2024-02-19";
   };
   libqcef = {
     pname = "libqcef";
@@ -984,15 +984,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "6d438fb8f4de5e54e0fb2e1daf0635d729277493";
+    version = "362288fed5814b3fe10fe9819672767c38d836c9";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "6d438fb8f4de5e54e0fb2e1daf0635d729277493";
+      rev = "362288fed5814b3fe10fe9819672767c38d836c9";
       fetchSubmodules = false;
-      sha256 = "sha256-bKwzulM6Xl3+Xr0Nk9jNKXKfbDJyPr8u90jHceCVwo8=";
+      sha256 = "sha256-8ZC9qt2xbV9/J6te/ngxJayvcLTDMT44/QsgmYHEc0U=";
     };
-    date = "2024-02-18";
+    date = "2024-02-21";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

@@ -99,7 +99,7 @@ Or, use variables from this repository in case I change them:
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | f622f2a15b91fc54286f3d1f95d59adebab1a4f7 | Layer2 version of wireguard with Floyd Warshall implement in go |
 |  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 65de4d0534f0da3528588843347a82649d2df8d1 | Minimal Delegated License Service (DLS) |
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 2.0.0 | Fcitx5 theme to match KDE's Breeze style |
-|  | `flaresolverr` | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.3.14-hotfix2 | Proxy server to bypass Cloudflare protection |
+|  | `flaresolverr` | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.3.15 | Proxy server to bypass Cloudflare protection |
 |  | `flasgger` | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | ftp.proxy - FTP Proxy Server |
 |  | `genshin-checkin-helper` | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | b9e36543bfe5b042e015463e5d0398cd234cba90 | More than check-in for Genshin Impact. |
@@ -118,7 +118,7 @@ Or, use variables from this repository in case I change them:
 |  | `konnect` | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.6 | A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
-|  | `liboqs` | [liboqs](https://openquantumsafe.org) | 6b06e87255591f0096db88ebc57f4bf8f0700d22 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs` | [liboqs](https://openquantumsafe.org) | 60adf53107885b3e4ff71864683c472bc561ff89 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | ff3448cb3f86f42946d4c9eb01ccaa994f174fe0 | Qt5 binding of CEF |
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.76 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | `netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
@@ -148,7 +148,7 @@ Or, use variables from this repository in case I change them:
 |  | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.5 | Tencent QQ Music (Packaging script adapted from https://aur.archlinux.org/packages/qqmusic-bin) |
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | 【极光拼音】输入方案 |
 |  | `rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | RIME 词库增强 |
-|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 6d438fb8f4de5e54e0fb2e1daf0635d729277493 | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
+|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 362288fed5814b3fe10fe9819672767c38d836c9 | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
 |  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20231114 | Releases for dict of zh.moegirl.org.cn |
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20240210 | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197 | A small app to generate a long path in traceroute. |
@@ -228,7 +228,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.asterisk` | [asterisk](https://www.asterisk.org/) | 20.6.0 | Asterisk with Lan Tian modifications |
 |  | `lantianCustomized.attic-telnyx-compatible` | [attic-telnyx-compatible](https://github.com/zhaofengli/attic) | 6eabc3f02fae3683bffab483e614bebfcd476b21 | Attic (Nix binary cache) patched for Telnyx Cloud Storage compatibility |
 |  | `lantianCustomized.coredns` | [coredns-lantian](https://github.com/xddxdd/coredns) | a411a29f831648afa98aa79b164e790add2d6f14 | CoreDNS with Lan Tian's modifications |
-|  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.9.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
+|  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.10.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.25.3.1 | OpenResty with Lan Tian modifications |
 |  | `lantianCustomized.transmission-with-webui` | [transmission](http://www.transmissionbt.com/) | 3.00 | A fast, easy and free BitTorrent client |
