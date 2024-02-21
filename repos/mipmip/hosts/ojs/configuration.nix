@@ -5,6 +5,7 @@
 
     ./hardware-configuration.nix
     ../_roles/desktop.nix
+    ../../modules/nix-samba.nix
   ];
 
   nix = {
