@@ -189,8 +189,8 @@ let system = "x86_64-linux"; in [
           src = fetchFromGitHub {
             owner = "daeuniverse";
             repo = "dae";
-            rev = "a85abb41446b9c74b5815d30d93868d38fc28504";
-            hash = "sha256-LzoK30/vr+FsgJIqjzAx9lpTbMHt7GIqHh7crLc1A7c=";
+            rev = "8ee97eaab798401207ab3af2f9372b7ad9928518";
+            hash = "sha256-O59MaK0/kxjUZ/Wf1eyZJs921f1vxu5kFHIE0TG4Jrk=";
             fetchSubmodules = true;
           };
 

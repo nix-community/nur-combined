@@ -103,14 +103,14 @@
           {
             name = "persist";
             source = "/persist";
-            keep = "2hr";
-            calendar = "*:0/3";
+            keep = "2day";
+            timerConfig.onCalendar = "*:0/10";
           }
           {
             name = "var";
             source = "/var";
-            keep = "2hr";
-            calendar = "*:0/3";
+            keep = "7day";
+            timerConfig.onCalendar = "daily";
           }
         ];
 

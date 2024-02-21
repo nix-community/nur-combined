@@ -1,11 +1,13 @@
 { pkgs
 , config
 , lib
+, utils
 , ...
 }:
 with lib;
 let
   cfg = config.services.snapy;
+  inherit (utils.systemdUtils.unitOptions) unitOption;
 in
 {
   options.services.snapy = {
@@ -17,9 +19,11 @@ in
             type = types.str;
             default = "/persist";
           };
-          calendar = mkOption {
-            type = types.str;
-            default = "*:0/3";
+          timerConfig = mkOption {
+            type = types.nullOr (types.attrsOf unitOption);
+            default = {
+              OnCalendar = "daily";
+            };
           };
           keep = mkOption {
             type = types.str;
@@ -40,9 +44,7 @@ in
               "snapy-${s.name}" = {
                 description = "snap task ${s.name}";
                 wantedBy = [ "timers.target" ];
-                timerConfig = {
-                  OnCalendar = s.calendar;
-                };
+                timerConfig = s.timerConfig;
               };
             })
           { }
@@ -62,13 +64,13 @@ in
                       {
                         name = "snapy";
                         script = ''
-                          let date_format = "%Y-%m-%d_%H:%M:%S%z"
+                          const date_format = %Y-%m-%d_%H:%M:%S%z
 
                           # take snapshot
                           date now | format date $date_format | ${btrfs} subvol snapshot -r ${s.source} $'${s.source}/.snapshots/($in)'
 
                           # clean outdated
-                          ls ${s.source}/.snapshots | filter { |i| ((date now) - ($i.name | into datetime --format $date_format)) > ${s.keep} } | each { |d| ${btrfs} sub del $d.name }
+                          ls ${s.source}/.snapshots | filter { |i| ((date now) - ($i.name | path basename | into datetime --format $date_format)) > ${s.keep} } | each { |d| ${btrfs} sub del $d.name }
                         '';
                       }));
                 };
