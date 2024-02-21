@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstable, ... }:
 
 {
 
@@ -47,7 +47,7 @@
     # IMAGE
     #gnome.gnome-screenshot
     mipmip_pkg.gnome-screenshot
-    image-roll
+    unstable.image-roll
     gthumb
 
     #DEV

@@ -3,12 +3,12 @@
 {
   imports =
     [
-      ./hardware-configuration.nix
-
       ../../modules/base-common.nix
       ../../modules/base-git.nix
+      ../../modules/base-tmux.nix
       ../../modules/desktop-firefox.nix
       ../../modules/desktop-gnome-45.nix
+
       ../../modules/nix-vm-test.nix
     ];
 
@@ -18,6 +18,29 @@
        experimental-features = nix-command flakes
     '';
   };
+
+
+  virtualisation.vmVariant = {
+
+    virtualisation = {
+      memorySize =  4096;
+      cores = 3;
+
+      # login this machine with ssh -p2222 pim@localhost
+      forwardPorts = [
+        {
+          from = "host";
+          host.port = 2222;
+          guest.port = 22;
+        }
+      ];
+
+    };
+  };
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  services.openssh.enable = true;
 
   boot.plymouth.enable = true;
   boot.plymouth.theme="breeze";

@@ -20,6 +20,7 @@
     ../../modules/desktop-dev.nix
     ../../modules/desktop-fonts.nix
     ../../modules/desktop-gnome.nix
+    ../../modules/desktop-qt-apps.nix
     ../../modules/desktop-hyprland.nix
     ../../modules/desktop-st.nix
     ../../modules/desktop-openai.nix
