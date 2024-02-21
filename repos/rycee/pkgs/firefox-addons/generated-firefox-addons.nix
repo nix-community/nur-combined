@@ -191,10 +191,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.9";
+      version = "1.0.10";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195504/angular_devtools-1.0.9.xpi";
-      sha256 = "d1066b1b0d6df063a25dcc829bd424d2964c9c80e26499b5877ec4774e243cca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238972/angular_devtools-1.0.10.xpi";
+      sha256 = "1fcf8deb97408f46feb785640a672cd561e5f407ded7fedcc6ff910093306adc";
       meta = with lib;
       {
         homepage = "https://angular.io/devtools";
@@ -9728,10 +9728,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.11.1";
+      version = "3.12.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4219159/toolkit_for_ynab-3.11.1.xpi";
-      sha256 = "5a556593eac04885185c58a41e6bd6d45c70d88e2d95aa758648792dfa50b29a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239078/toolkit_for_ynab-3.12.0.xpi";
+      sha256 = "a87616973c7c260f8f0fbfa5c08bacc79065ddfdb8076ac8a433edb84b06af27";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
@@ -10255,10 +10255,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.55.0";
+      version = "1.56.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216633/ublock_origin-1.55.0.xpi";
-      sha256 = "a02ca1d32737c3437f97553e5caaead6479a66ac1f8ff3b84a06cfa6bb0c7647";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4237670/ublock_origin-1.56.0.xpi";
+      sha256 = "f5fbeeac511ca4e10a74723413727fda8e6f9236c726d16eb54ade1fbe7be5be";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
