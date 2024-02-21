@@ -40,6 +40,9 @@
          cp "${gh-actions-nvim-bin}/lib/libgh_actions_rust.dylib" "$out/lua/libgh_actions_rust.so" || true
          cp "${gh-actions-nvim-bin}/lib/libgh_actions_rust.so" "$out/lua/libgh_actions_rust.so" || true
       '';
-      meta.homepage = "https://github.com/topaxi/gh-actions.nvim";
+      meta = {
+        homepage = "https://github.com/topaxi/gh-actions.nvim";
+        description = "See status of workflows and dispatch runs directly in neovim";
+      };
     };
 }
