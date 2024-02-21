@@ -10,32 +10,47 @@
 , libglvnd
 , libepoxy
 , meson
-, mpv
+, mpv-unwrapped
 , ninja
 , openssl
 , pkg-config
 , rustc
 , rustPlatform
 , wrapGAppsHook4
+, devBuild ? false, git
 }:
 
 stdenv.mkDerivation rec {
   pname = "delfin";
-  version = "0.4.0";
+  version = "0.4.1";
 
-  src = fetchFromGitea {
+  src = if devBuild then fetchFromGitea {
+    domain = "git.uninsane.org";
+    owner = "colin";
+    repo = "delfin";
+    rev = "dev-sane";
+    hash = "sha256-l/Lm9dUtYfWbf8BoqNodF/5s0FzxhI/dyPevcaeyPME=";
+  } else fetchFromGitea {
     domain = "codeberg.org";
     owner = "avery42";
     repo = "delfin";
     rev = "v${version}";
-    hash = "sha256-QwxdNPLL7PBokq5WaPylD4bBmXmJWyEQsWKN7DM2utk=";
+    hash = "sha256-LBdHWEGz6dujcF3clrJbViohgiBTyWR7Y70totimVJ8=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-ElB9TbfmYn/A1Y3+oQ752zHqkC+f2RJPxfGXH0m5C/E=";
+    hash = "sha256-TaUYqq4rkMBXhIM+0ZH6O0F+SUOpT1ImgLx2HCzJPrM=";
   };
+
+  postPatch = ''
+    substituteInPlace delfin/Cargo.toml \
+      --replace-warn 'rust-version = "1.76.0"' 'rust-version = "1.75.0"'
+  '' + lib.optionalString devBuild ''
+    substituteInPlace video_player_mpv/sys/video-player-mpv/video-player-mpv.c \
+      --replace-fail '// printf("mpv log: %s\n"' 'printf("mpv log: %s\n"'
+  '';
 
   nativeBuildInputs = [
     appstream
@@ -47,6 +62,8 @@ stdenv.mkDerivation rec {
     cargo
     rustc
     wrapGAppsHook4
+  ] ++ lib.optionals devBuild [
+    git
   ];
 
   buildInputs = [
@@ -54,11 +71,11 @@ stdenv.mkDerivation rec {
     libadwaita
     libglvnd
     libepoxy
-    mpv
+    mpv-unwrapped
     openssl
   ];
 
-  mesonFlags = [
+  mesonFlags = lib.optionals (!devBuild) [
     "-Dprofile=release"
   ];
 
