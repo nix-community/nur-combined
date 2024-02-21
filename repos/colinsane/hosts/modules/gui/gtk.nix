@@ -334,6 +334,10 @@ in
     # - run `GSK_RENDERER=help loupe` to see options.
     # - TODO: see if i can enable the `vulkan` GSK_RENDERER?
     # - for more on GSK_RENDERER: <https://blog.gtk.org/2024/01/28/new-renderers-for-gtk/>
-    environment.variables.GSK_RENDERER = "cairo";
+    # XXX(2024/02/21): GSK_RENDERER=cairo breaks `delfin`  (as does GSK_RENDERER=vulkan, when gtk4 is compiled with `vulkanSupport = true`)
+    # - perhaps it's best to let this be defaulted and set it ONLY where needed
+    # - upstream gtk recommends using mesa 24.0 (latest) specifically in response to the GSK renderers triggering new driver bugs,
+    #   so maybe i can update that before re-enabling GSK_RENDERER anywhere else.
+    # environment.variables.GSK_RENDERER = "cairo";
   };
 }
