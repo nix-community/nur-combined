@@ -6,21 +6,21 @@
 , stdenv
 , cmake
 , pkg-config
-, qt5
-, libsForQt5
+, qt6
+, qwt
 , fftw
 , ...
 }:
 let
   # we need a valid version for SETUPTOOLS_SCM
-  version = "0.2.4";
-  rev = "5b86baae8048b12a79837ba25207093929eaa156";
+  version = "0.2.5";
+  rev = "74c06090630f25c063bc730963d84949fd3b7e9e";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "oyvindln";
     repo = "vhs-decode";
-    sha256 = "sha256-W/CnIvQP7ks8rUy0cSZPpf9H8IOFWsQqC8+JU4Mepzg=";
+    sha256 = "sha256-k0DxcUh2nUkWPf9uRRh6XpbHlZcqXsISMHqzIcxhrz0=";
   };
 
   py-vhs-decode = python3Packages.buildPythonApplication {
@@ -51,18 +51,6 @@ let
       soundfile
       samplerate
     ];
-
-    prePatch = ''
-      # causes FileExistsError as pyproject.toml also defines projects.scripts
-      substituteInPlace "setup.py" \
-        --replace "scripts=[" "__disabled_scrips=["
-
-      substituteInPlace "pyproject.toml" \
-        --replace ", \"static-ffmpeg\"" ""
-
-      substituteInPlace "pyproject.toml" \
-        --replace "numba>=0.48" "numba"
-    '';
   };
 
   vhs-decode-tools = stdenv.mkDerivation {
@@ -75,16 +63,16 @@ let
     ];
 
     buildInputs = [
-      qt5.qttools
-      qt5.wrapQtAppsHook
-      libsForQt5.qwt
+      qt6.qttools
+      qt6.wrapQtAppsHook
+      qwt
       ffmpeg
       fftw
     ];
 
     cmakeFlags = [
       "-DCMAKE_BUILD_TYPE=Release"
-      "-DUSE_QT_VERSION=5"
+      "-DUSE_QT_VERSION=6"
       "-DBUILD_PYTHON=false"
     ];
   };
