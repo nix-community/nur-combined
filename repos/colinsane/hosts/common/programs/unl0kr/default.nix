@@ -30,6 +30,42 @@ let
       login -p ${cfg.config.user}
     '';
   };
+  tryLaunchDefaultDesktop = pkgs.writeShellScriptBin "tryLaunchDefaultDesktop" ''
+    # return an array of paths to .desktop files which contain wayland sessions.
+    getWaylandDesktops() {
+      _desktops=()
+      _xdgDirs=(''${XDG_DATA_DIRS//:/ })
+      for _dataDir in ''${_xdgDirs[@]}; do
+        for _maybeDesktop in $_dataDir/wayland-sessions/*.desktop; do
+          # if no matches, bash will give literally "<path>/*.desktop", with the asterisk
+          if [ -e "$_maybeDesktop" ]; then
+            _desktops+=("$_maybeDesktop")
+          fi
+        done
+      done
+      echo "''${_desktops[@]}"
+    }
+
+    # IF there's any desktop files, then launch the first one
+    tryLaunchDefaultDesktop() {
+      _desktops=($(getWaylandDesktops))
+      if [ -n "$_desktops" ]; then
+        _firstDesktop="''${_desktops[0]}"
+        if command -v gio > /dev/null; then
+          _gio="gio"
+        else
+          _gio="${lib.getBin pkgs.glib}/bin/gio"
+        fi
+
+        echo "launching $(basename $_firstDesktop) session in ${builtins.toString cfg.config.delay}s"
+        # if the `sleep` call here is `Ctrl+C'd`, then it'll exit false and the desktop isn't launched.
+        sleep ${builtins.toString cfg.config.delay} && \
+          "$_gio" launch "$_firstDesktop"
+      fi
+    }
+
+    tryLaunchDefaultDesktop
+  '';
 in
 {
   sane.programs.unl0kr = {
@@ -55,13 +91,6 @@ in
             which user to login by default.
             unl0kr is just a virtual keyboard for entering a password: one has to choose the user to login before launching it.
             on a typical single-user install, leave this unset and the user will be chosen based on who this package is installed for.
-          '';
-        };
-        options.afterLogin = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          description = ''
-            shell code to run after a successful login (via .profile).
           '';
         };
         options.delay = mkOption {
@@ -93,13 +122,12 @@ in
     # lib.mkAfter so that launching the DE happens *after* any other .profile setup.
     # alternatively, we could recurse: exec a new login shell with some env-var signalling to not launch the DE,
     #   run with `-c "{cfg.afterLogin}"`
-    fs.".profile".symlink.text = lib.mkAfter (lib.optionalString (cfg.config.afterLogin != null) ''
+    fs.".profile".symlink.text = lib.mkAfter ''
       # if already running a desktop environment, or if running from ssh, then `tty` will show /dev/pts/NN.
       if [ "$(tty)" = "/dev/${tty}" ]; then
-        echo 'launching default session in ${builtins.toString cfg.config.delay}s'
-        sleep ${builtins.toString cfg.config.delay} && exec ${cfg.config.afterLogin}
+        ${tryLaunchDefaultDesktop}/bin/tryLaunchDefaultDesktop
       fi
-    '');
+    '';
 
     # N.B.: this sandboxing applies to `unl0kr` itself -- the on-screen-keyboard;
     #       NOT to the wrapper which invokes `login`.
@@ -121,6 +149,11 @@ in
 
   # unl0kr is run as root, and especially with sandboxing, needs to be installed for root if expected to work.
   sane.programs.unl0kr.enableFor.system = lib.mkIf (builtins.any (en: en)(builtins.attrValues config.sane.programs.unl0kr.enableFor.user)) true;
+
+  environment.pathsToLink = lib.mkIf cfg.enabled [
+    # so we can figure out what to auto-launch
+    "/share/wayland-sessions"
+  ];
 
   systemd = lib.mkIf cfg.enabled {
     # prevent nixos-rebuild from killing us after a redeploy

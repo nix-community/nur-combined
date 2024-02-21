@@ -53,22 +53,13 @@ let
     # but still as a mistake, and wasteful for cross compilation
     withGtkWrapper  = false;
     isNixOS = true;
-    # TODO: `enableXWayland = ...`?
+    enableXWayland = cfg.config.xwayland;
   };
 in
 {
   options = with lib; {
     sane.gui.sway.enable = mkOption {
       default = false;
-      type = types.bool;
-    };
-    sane.gui.sway.useGreeter = mkOption {
-      description = ''
-        launch sway via a greeter (like greetd's gtkgreet).
-        sway is usable without a greeter, but skipping the greeter means no PAM session.
-        alternatively, one may launch it directly from a TTY, which does get a PAM session.
-      '';
-      default = true;
       type = types.bool;
     };
     sane.gui.sway.config = {
@@ -149,6 +140,7 @@ in
           # "swayidle"  # enable if you need it
           "swaylock"  # used by sway config
           "swaynotificationcenter"  # notification daemon
+          "unl0kr"  # greeter
           "waybar"  # used by sway config
           "wdisplays"  # like xrandr
           "wl-clipboard"
@@ -172,8 +164,6 @@ in
           # xdg-desktop-portal-wlr provides portals for screenshots/screen sharing
           "xdg-desktop-portal-wlr"
           "xdg-terminal-exec"  # used by sway config
-        ] ++ lib.optionals cfg.useGreeter [
-          "unl0kr"
         ];
 
         secrets.".config/sane-sway/snippets.txt" = ../../../../secrets/common/snippets.txt.bin;
@@ -234,33 +224,6 @@ in
       # sane.gui.gtk.icon-theme = lib.mkDefault "Qogir";  # 2.5/5 coverage on moby
       # sane.gui.gtk.icon-theme = lib.mkDefault "rose-pine-dawn";  # 2.5/5 coverage on moby
       # sane.gui.gtk.icon-theme = lib.mkDefault "Flat-Remix-Grey-Light";  # requires qtbase
-
-      sane.programs.unl0kr.config = lib.mkIf cfg.useGreeter {
-        afterLogin = "sway";
-      };
-
-      # swap in these lines to use `greetd`+`gtkgreet` instead:
-      # sane.gui.greetd = lib.mkIf cfg.useGreeter {
-      #   enable = true;
-      #   sway.enable = true;  # have greetd launch a sway compositor in which we host a greeter
-      #   sway.gtkgreet = {
-      #     enable = true;
-      #     session.name = "sway-on-gtkgreet";
-      #     session.command = "${cfg.package}/bin/sway";  #< works, simplest way to run sway
-      #     # session.command = "${pkgs.libcap}/bin/capsh --print";  # DEBUGGING
-
-      #     # instead, want to run sway as a systemd user service.
-      #     # this seems silly, but it allows the launched sway to access any linux capabilities which the systemd --user manager is granted.
-      #     # notably, that means CAP_NET_ADMIN, CAP_NET_RAW; necessary for wireshark.
-      #     # these capabilities are granted to systemd --user by pam. see the user definition in hosts/common/users/colin.nix for more.
-      #     # session.command = "${pkgs.systemd}/bin/systemd-run --user --wait --collect --service-type=exec ${cfg.package}/bin/sway";  #< works, but can't launch terminals, etc ("exec: no such file" (sh))
-      #     # session.command = ''${pkgs.systemd}/bin/systemd-run --user --wait --collect --service-type=exec -E "PATH=$PATH" -p AmbientCapabilities="cap_net_admin cap_net_raw" ${cfg.package}/bin/sway'';
-      #   };
-      # };
-
-      # swap in these lines to use SDDM instead:
-      # services.xserver.displayManager.sddm.enable = true;
-      # services.xserver.enable = true;
 
       # unlike other DEs, sway configures no audio stack
       # administer with pw-cli, pw-mon, pw-top commands
