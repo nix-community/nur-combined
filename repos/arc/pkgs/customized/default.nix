@@ -382,9 +382,11 @@ let
       ];
     });
 
-    electrum-cli = { lib, electrum }: let
+    electrum-cli = { lib, electrum, python3Packages }: let
       electrum-cli = electrum.override { enableQt = false; };
-    in electrum-cli.overrideAttrs (old: {
+    in electrum-cli.overridePythonAttrs (old: {
+      propagatedBuildInputs = old.propagatedBuildInputs
+        ++ lib.optional (lib.versionOlder electrum.version "4.5.3") python3Packages.pyperclip;
       meta = old.meta // {
         broken = old.meta.broken or false || electrum.stdenv.isDarwin;
       };
