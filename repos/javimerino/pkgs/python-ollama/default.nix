@@ -29,6 +29,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://ollama.ai/";
     maintainers = with maintainers; [ javimerino ];
     license = [ licenses.mit ];
-    platforms = platforms.all;
   };
 }

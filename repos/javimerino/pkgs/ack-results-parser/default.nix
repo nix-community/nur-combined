@@ -1,14 +1,15 @@
-{ lib
-, pkgs
+{ fetchFromGitHub
+, lib
 , python-hwinfo
+, python3Packages
 }:
 
-pkgs.python3Packages.buildPythonApplication {
+python3Packages.buildPythonApplication {
   pname = "ack-results-parser";
   # Upstream does not do versions
   version = "0.1.0-20240220-32e04ac47a00";
   # Temporarily get my python3 conversion branch
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "JaviMerino";
     repo = "ack-results-parser";
     rev = "32e04ac47a001db5214ba5941a223fb47886117b";
@@ -16,7 +17,7 @@ pkgs.python3Packages.buildPythonApplication {
   };
   # nose tests have not been converted to python3
   doCheck = false;
-  propagatedBuildInputs = with pkgs.python3Packages; [
+  propagatedBuildInputs = with python3Packages; [
     jira
     pymongo
     python-hwinfo
@@ -27,6 +28,5 @@ pkgs.python3Packages.buildPythonApplication {
     homepage = "https://github.com/xenserver/ack-results-parser/";
     maintainers = with maintainers; [ javimerino ];
     license = [ licenses.unlicense ];
-    platforms = platforms.all;
   };
 }

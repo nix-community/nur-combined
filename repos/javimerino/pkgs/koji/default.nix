@@ -62,6 +62,5 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://pagure.io/koji/";
     maintainers = with maintainers; [ javimerino ];
     license = licenses.lgpl21Only;
-    platforms = platforms.all;
   };
 }

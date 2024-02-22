@@ -50,6 +50,5 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/rpm-software-management/rpmlint";
     maintainers = with maintainers; [ javimerino ];
     license = [ licenses.gpl2 ];
-    platforms = platforms.all;
   };
 }

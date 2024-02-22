@@ -32,6 +32,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://qpid.apache.org/proton/";
     maintainers = with maintainers; [ javimerino ];
     license = [ licenses.asl20 ];
-    platforms = platforms.all;
   };
 }
