@@ -6,15 +6,15 @@
   darwin,
   librime,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "rime-ls";
   version = "0.2.4";
 
   src = fetchFromGitHub {
-    owner = "wlh320";
+    owner = "TwIStOy";
     repo = "rime-ls";
-    rev = "v${version}";
-    sha256 = "sha256-6jiyOVjnYpX9C9H2+tTJqRUeqNWNVJ+acqStwMkaWb0=";
+    rev = "9ba73ff740f3dc35a0aadd958535dea1cf7977b7";
+    sha256 = "sha256-wi1dcyITAgukIFE6bAh9BtfCf/r/QbixFkS3msRX9Yk=";
   };
 
   nativeBuildInputs = [
