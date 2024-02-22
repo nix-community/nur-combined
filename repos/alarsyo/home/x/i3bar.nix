@@ -91,6 +91,22 @@ in {
                 chip = cfg.temperature.chip;
                 inputs = cfg.temperature.inputs;
               }
+              {
+                block = "custom";
+                # TODO: get service name programmatically somehow
+                command = let
+                  systemctl = lib.getExe' pkgs.systemd "systemctl";
+                in
+                  pkgs.writeShellScript "check-restic.sh" ''
+                    BACKUP_STATUS=Good
+                    if ${systemctl} is-failed --quiet restic-backups-backblaze.service; then
+                      BACKUP_STATUS=Critical
+                    fi
+                    echo "{\"state\": \"$BACKUP_STATUS\", \"text\": \"Backup\"}"
+                  '';
+                json = true;
+                interval = 60;
+              }
             ]
             ++ (
               lists.optionals ((builtins.length cfg.networking.throughput_interfaces) != 0)
