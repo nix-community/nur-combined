@@ -201,13 +201,11 @@ src.git = "https://github.com/rime/librime-charcode.git"
 fetch.github = "rime/librime-charcode"
 
 [librime-lua]
-# src.git = "https://github.com/hchunhui/librime-lua.git"
-src.manual = "a29897dc3dd47b2849d5ed59c81261449842bd53"
+src.git = "https://github.com/hchunhui/librime-lua.git"
 fetch.github = "hchunhui/librime-lua"
 
 [librime-octagram]
-# src.git = "https://github.com/lotem/librime-octagram.git"
-src.manual = "a6ced5a1d623afed17284fbaa395dd3a8b019a14"
+src.git = "https://github.com/lotem/librime-octagram.git"
 fetch.github = "lotem/librime-octagram"
 
 [librime-proto]
