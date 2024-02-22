@@ -144,13 +144,13 @@
         sha512 = "P46VikoEZadYCqx7mbClKlaJnOyvc+JfRJPRf1YwlOjwqeYmutgFe1w9hvfXe819VhpU0N0TNXtxyVAUlAgaNA==";
       };
     };
-    "c12-1.8.0" = {
+    "c12-1.9.0" = {
       name = "c12";
       packageName = "c12";
-      version = "1.8.0";
+      version = "1.9.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/c12/-/c12-1.8.0.tgz";
-        sha512 = "93U6RndoaAwFQPBcS9F/6lwtgBfrWh4695sQ/ChILkbj0C7zOZVptOU3Sxp0I/9xvfW/lzBWD90AXDQz4muSkA==";
+        url = "https://registry.npmjs.org/c12/-/c12-1.9.0.tgz";
+        sha512 = "7KTCZXdIbOA2hLRQ+1KzJ15Qp9Wn58one74dkihMVp2H6EzKTa3OYBy0BSfS1CCcmxYyqeX8L02m40zjQ+dstg==";
       };
     };
     "cac-6.7.14" = {
@@ -196,6 +196,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/citty/-/citty-0.1.6.tgz";
         sha512 = "tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==";
+      };
+    };
+    "confbox-0.1.3" = {
+      name = "confbox";
+      packageName = "confbox";
+      version = "0.1.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/confbox/-/confbox-0.1.3.tgz";
+        sha512 = "eH3ZxAihl1PhKfpr4VfEN6/vUd87fmgb6JkldHgg/YR6aEBhW63qUDgzP2Y6WM0UumdsYp5H3kibalXAdHfbgg==";
       };
     };
     "consola-3.2.3" = {
@@ -414,15 +423,6 @@
         sha512 = "wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==";
       };
     };
-    "json5-2.2.3" = {
-      name = "json5";
-      packageName = "json5";
-      version = "2.2.3";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/json5/-/json5-2.2.3.tgz";
-        sha512 = "XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==";
-      };
-    };
     "jsonc-parser-2.3.1" = {
       name = "jsonc-parser";
       packageName = "jsonc-parser";
@@ -531,13 +531,13 @@
         sha512 = "vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==";
       };
     };
-    "mlly-1.5.0" = {
+    "mlly-1.6.0" = {
       name = "mlly";
       packageName = "mlly";
-      version = "1.5.0";
+      version = "1.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/mlly/-/mlly-1.5.0.tgz";
-        sha512 = "NPVQvAY1xr1QoVeG0cy8yUYC7FQcOx6evl/RjT1wL5FvzPnzOysoqB/jmx/DhssT2dYa8nxECLAaFI/+gVLhDQ==";
+        url = "https://registry.npmjs.org/mlly/-/mlly-1.6.0.tgz";
+        sha512 = "YOvg9hfYQmnaB56Yb+KrJE2u0Yzz5zR+sLejEvF4fzwzV1Al6hkf2vyHTwqCRyv0hCi9rVCqVoXpyYevQIRwLQ==";
       };
     };
     "node-fetch-native-1.6.2" = {
@@ -1001,17 +1001,13 @@ in {
       sources."binary-extensions-2.2.0"
       sources."braces-3.0.2"
       sources."bumpp-9.3.0"
-      (sources."c12-1.8.0"
-        // {
-          dependencies = [
-            sources."jsonc-parser-3.2.1"
-          ];
-        })
+      sources."c12-1.9.0"
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"
       sources."chokidar-3.6.0"
       sources."chownr-2.0.0"
       sources."citty-0.1.6"
+      sources."confbox-0.1.3"
       sources."consola-3.2.3"
       sources."cross-spawn-7.0.3"
       sources."defu-6.1.4"
@@ -1041,7 +1037,6 @@ in {
       sources."isexe-2.0.0"
       sources."jiti-1.21.0"
       sources."js-yaml-4.1.0"
-      sources."json5-2.2.3"
       sources."jsonc-parser-2.3.1"
       sources."kleur-3.0.3"
       sources."lru-cache-6.0.0"
@@ -1057,7 +1052,7 @@ in {
           ];
         })
       sources."mkdirp-1.0.4"
-      sources."mlly-1.5.0"
+      sources."mlly-1.6.0"
       sources."node-fetch-native-1.6.2"
       sources."normalize-path-3.0.0"
       (sources."npm-run-path-5.2.0"
