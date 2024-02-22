@@ -1705,10 +1705,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240219.92531";
+      version = "124.0.20240221.91558";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4238353/deutsch_de_language_pack-124.0.20240219.92531.xpi";
-      sha256 = "0a7cad826763165efabb2e6c6280a6eb9367ffefee5a89ef9194dbe7078b91a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239374/deutsch_de_language_pack-124.0.20240221.91558.xpi";
+      sha256 = "2abcb2d399c6cf5f301e6f58ec46f3dcb35b7936860b5491bb04cb9ebdcfe523";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2191,10 +2191,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.22";
+      version = "1.2.23";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4238773/faststream-1.2.22.xpi";
-      sha256 = "6210ec6d35f50a663067b49d2394039646b0581c4f36f8061074f67e4555f1c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239764/faststream-1.2.23.xpi";
+      sha256 = "a918b1f398041c453f5b0e82496234b1f83e6c9def9be206ceccf11bc5edf20c";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2603,10 +2603,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240219.92531";
+      version = "124.0.20240221.91558";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4238306/francais_language_pack-124.0.20240219.92531.xpi";
-      sha256 = "494cd9e9432c440ecd6df80e87fcf7c12bcc5a349664dd30cc187d52b113d082";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239350/francais_language_pack-124.0.20240221.91558.xpi";
+      sha256 = "2e7cdefc6168882dfa8b93f0ff76906931950fef7bd6508b011cfd6810cd1f97";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4502,10 +4502,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.615";
+      version = "4.642";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221521/youtube_addon-4.615.xpi";
-      sha256 = "a41e3e4a3e8c57553fa810804b45f07f882a8f24e6d6791bd323a24152c2cf98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4237978/youtube_addon-4.642.xpi";
+      sha256 = "efd9432dac1b9afb1fbea9e520cd2affe9799aaf44c342a26a95cc2712012a87";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -7283,10 +7283,10 @@
     };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.2.1";
+      version = "2.3.0";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4217588/pay_by_privacy-2.2.1.xpi";
-      sha256 = "ce1cea3ea96d3426ce4fbd3f471c5384b0e1d1c48e3018a0a5c4597cb1ef9457";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239684/pay_by_privacy-2.3.0.xpi";
+      sha256 = "dd4fb29cf76e0b3aa3fcbf6ace69bc9299c3487e515effa1fd9bd65a2a9daea5";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -9196,10 +9196,10 @@
     };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.22";
+      version = "2024.1";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4215476/streetpass_for_mastodon-2023.22.xpi";
-      sha256 = "32a5152c98f5a3f0a56495f9d9da1f4959ab2d5337573dadaddfb677293cb3f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239700/streetpass_for_mastodon-2024.1.xpi";
+      sha256 = "9e711dbed82ef3e2444327007738c6474320347679683936539c4f2454116028";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
