@@ -81,7 +81,7 @@ rekey:
 
 overwrite-s3:
     mc mirror --overwrite --remove /home/{{ me }}/Sec/ r2/sec/Sec
-    mc mirror --overwrite --remove /etc/nixos/sec/ r2/sec/credentials
+    mc mirror --overwrite --remove {{loc}}/sec/ r2/sec/credentials
 
 overwrite-local:
     mc mirror --overwrite --remove r2/sec/Sec /home/{{ me }}/Sec/

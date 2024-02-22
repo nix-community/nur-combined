@@ -58,11 +58,11 @@ in
   genCredPath = config: key: (key + ":" + config.age.secrets.${key}.path);
 
   genNtfyMsgScriptPath = header: level: body:
-    toString (pkgs.lib.getExe (pkgs.nuenv.writeScriptBin
+    pkgs.lib.getExe (pkgs.nuenv.writeScriptBin
       {
         name = "post-ntfy-msg";
-        script = "cat /run/agenix/ntfy-token | str trim | http post --password $in --headers [${header}] https://ntfy.nyaw.xyz/${level} ${body}";
-      }));
+        script = "http post --password $in --headers [${header}] https://ntfy.nyaw.xyz/${level} ${body}";
+      });
 
   base =
     let inherit (inputs.nixpkgs) lib;

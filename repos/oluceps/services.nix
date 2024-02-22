@@ -39,22 +39,6 @@
       };
     };
 
-    btrbk = {
-      config = ''
-        ssh_identity /persist/keys/ssh_host_ed25519_key
-        timestamp_format        long
-        snapshot_preserve_min   24h
-        snapshot_preserve       7d 
-        volume /persist
-          snapshot_dir .snapshots
-          subvolume .
-          snapshot_create onchange
-        volume /var
-          snapshot_dir .snapshots
-          subvolume .
-          snapshot_create onchange
-      '';
-    };
     fwupd.enable = true;
     # vault = { enable = true; extraConfig = "ui = true"; package = pkgs.vault-bin; };
 

@@ -60,7 +60,7 @@ in
                   User = "root";
                   ExecStart =
                     let btrfs = lib.getExe' pkgs.btrfs-progs "btrfs"; in
-                    toString (pkgs.lib.getExe (pkgs.nuenv.writeScriptBin
+                    pkgs.lib.getExe (pkgs.nuenv.writeScriptBin
                       {
                         name = "snapy";
                         script = ''
@@ -72,7 +72,7 @@ in
                           # clean outdated
                           ls ${s.source}/.snapshots | filter { |i| ((date now) - ($i.name | path basename | into datetime --format $date_format)) > ${s.keep} } | each { |d| ${btrfs} sub del $d.name }
                         '';
-                      }));
+                      });
                 };
             };
           })
