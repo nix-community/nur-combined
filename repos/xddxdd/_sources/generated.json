@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-02-20",
+        "date": "2024-02-21",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "e1705d886efb40dce417390d30a227b4a041bb7a",
-            "sha256": "sha256-dA5xpO99Dp8gxtIeTzKzOXh40zKI5ulfYx+zQb+bpA4=",
+            "rev": "39b1bf66257d5fb6ff71bb5861cccc75a0c385c1",
+            "sha256": "sha256-FwtKWxy/ldLXhNZ8v/1pAxh28M2XrVC812o4ZGi5EnA=",
             "type": "github"
         },
-        "version": "e1705d886efb40dce417390d30a227b4a041bb7a"
+        "version": "39b1bf66257d5fb6ff71bb5861cccc75a0c385c1"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1725,11 +1725,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "362288fed5814b3fe10fe9819672767c38d836c9",
-            "sha256": "sha256-8ZC9qt2xbV9/J6te/ngxJayvcLTDMT44/QsgmYHEc0U=",
+            "rev": "a20ba10f69f945d87fe147dbf8e4013d7aa6468e",
+            "sha256": "sha256-Dbt/Re1IqCgJB+JcLZIzs0Sa/d1mAgTtCxpAwEC4bqA=",
             "type": "github"
         },
-        "version": "362288fed5814b3fe10fe9819672767c38d836c9"
+        "version": "a20ba10f69f945d87fe147dbf8e4013d7aa6468e"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -2175,11 +2175,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ABrtzLWeyekGfQcDugup+OFFQVndeqT6n4LA+bmldCg=",
+            "sha256": "sha256-9t5AoODFtR2qcEVhidEPf8Hn3NNhaM+K/LFwNe/aZoY=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.35/WeChatSetup-3.9.9.35.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.43/WeChatSetup-3.9.9.43.exe"
         },
-        "version": "3.9.9.35"
+        "version": "3.9.9.43"
     },
     "wine-wechat-x86": {
         "cargoLocks": null,

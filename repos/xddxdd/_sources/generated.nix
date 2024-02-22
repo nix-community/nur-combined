@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "e1705d886efb40dce417390d30a227b4a041bb7a";
+    version = "39b1bf66257d5fb6ff71bb5861cccc75a0c385c1";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "e1705d886efb40dce417390d30a227b4a041bb7a";
+      rev = "39b1bf66257d5fb6ff71bb5861cccc75a0c385c1";
       fetchSubmodules = false;
-      sha256 = "sha256-dA5xpO99Dp8gxtIeTzKzOXh40zKI5ulfYx+zQb+bpA4=";
+      sha256 = "sha256-FwtKWxy/ldLXhNZ8v/1pAxh28M2XrVC812o4ZGi5EnA=";
     };
-    date = "2024-02-20";
+    date = "2024-02-21";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -984,13 +984,13 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "362288fed5814b3fe10fe9819672767c38d836c9";
+    version = "a20ba10f69f945d87fe147dbf8e4013d7aa6468e";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "362288fed5814b3fe10fe9819672767c38d836c9";
+      rev = "a20ba10f69f945d87fe147dbf8e4013d7aa6468e";
       fetchSubmodules = false;
-      sha256 = "sha256-8ZC9qt2xbV9/J6te/ngxJayvcLTDMT44/QsgmYHEc0U=";
+      sha256 = "sha256-Dbt/Re1IqCgJB+JcLZIzs0Sa/d1mAgTtCxpAwEC4bqA=";
     };
     date = "2024-02-21";
   };
@@ -1238,10 +1238,10 @@
   };
   wine-wechat-x64 = {
     pname = "wine-wechat-x64";
-    version = "3.9.9.35";
+    version = "3.9.9.43";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.35/WeChatSetup-3.9.9.35.exe";
-      sha256 = "sha256-ABrtzLWeyekGfQcDugup+OFFQVndeqT6n4LA+bmldCg=";
+      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.43/WeChatSetup-3.9.9.43.exe";
+      sha256 = "sha256-9t5AoODFtR2qcEVhidEPf8Hn3NNhaM+K/LFwNe/aZoY=";
     };
   };
   wine-wechat-x86 = {
