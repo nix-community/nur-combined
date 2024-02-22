@@ -23,15 +23,15 @@
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
-    version = "236d75ca105090170934f6f33abbd04d0fdb30fd";
+    version = "8e8f6f97a8259728f7bdbe8ca0aaec87d5f33cc9";
     src = fetchFromGitHub {
       owner = "natsukium";
       repo = "nixpkgs-review";
-      rev = "236d75ca105090170934f6f33abbd04d0fdb30fd";
+      rev = "8e8f6f97a8259728f7bdbe8ca0aaec87d5f33cc9";
       fetchSubmodules = false;
-      sha256 = "sha256-+DWTeOnglwqLZ9Hke1Y2oCW1pYXPIrutnOXnBLply08=";
+      sha256 = "sha256-E8dtlnor79fKVGAGxwibntfSPCcjCmpAYLO+Dxku69k=";
     };
-    date = "2024-01-03";
+    date = "2024-02-20";
   };
   nowplaying-cli = {
     pname = "nowplaying-cli";
@@ -59,15 +59,15 @@
   };
   sbarlua = {
     pname = "sbarlua";
-    version = "0ef843242c5672a16ca1fff5dff8712338268931";
+    version = "c0286cc701d1fd1e20f8a22afdb0eead31ffc87c";
     src = fetchFromGitHub {
       owner = "FelixKratz";
       repo = "SbarLua";
-      rev = "0ef843242c5672a16ca1fff5dff8712338268931";
+      rev = "c0286cc701d1fd1e20f8a22afdb0eead31ffc87c";
       fetchSubmodules = false;
-      sha256 = "sha256-A93mmUOWHFoIK2ShY+GswM+A4CxO7KhNcu91vqdh+0U=";
+      sha256 = "sha256-+gzPAe/MpK48hWIvCXHYv33SrcOmobyXZDx/Y6fWpiA=";
     };
-    date = "2024-02-16";
+    date = "2024-02-20";
   };
   skkeleton = {
     pname = "skkeleton";

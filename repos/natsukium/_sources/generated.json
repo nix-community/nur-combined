@@ -36,7 +36,7 @@
     },
     "nixpkgs-review": {
         "cargoLocks": null,
-        "date": "2024-01-03",
+        "date": "2024-02-20",
         "extract": null,
         "name": "nixpkgs-review",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "natsukium",
             "repo": "nixpkgs-review",
-            "rev": "236d75ca105090170934f6f33abbd04d0fdb30fd",
-            "sha256": "sha256-+DWTeOnglwqLZ9Hke1Y2oCW1pYXPIrutnOXnBLply08=",
+            "rev": "8e8f6f97a8259728f7bdbe8ca0aaec87d5f33cc9",
+            "sha256": "sha256-E8dtlnor79fKVGAGxwibntfSPCcjCmpAYLO+Dxku69k=",
             "type": "github"
         },
-        "version": "236d75ca105090170934f6f33abbd04d0fdb30fd"
+        "version": "8e8f6f97a8259728f7bdbe8ca0aaec87d5f33cc9"
     },
     "nowplaying-cli": {
         "cargoLocks": null,
@@ -101,7 +101,7 @@
     },
     "sbarlua": {
         "cargoLocks": null,
-        "date": "2024-02-16",
+        "date": "2024-02-20",
         "extract": null,
         "name": "sbarlua",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "FelixKratz",
             "repo": "SbarLua",
-            "rev": "0ef843242c5672a16ca1fff5dff8712338268931",
-            "sha256": "sha256-A93mmUOWHFoIK2ShY+GswM+A4CxO7KhNcu91vqdh+0U=",
+            "rev": "c0286cc701d1fd1e20f8a22afdb0eead31ffc87c",
+            "sha256": "sha256-+gzPAe/MpK48hWIvCXHYv33SrcOmobyXZDx/Y6fWpiA=",
             "type": "github"
         },
-        "version": "0ef843242c5672a16ca1fff5dff8712338268931"
+        "version": "c0286cc701d1fd1e20f8a22afdb0eead31ffc87c"
     },
     "skkeleton": {
         "cargoLocks": null,
