@@ -194,18 +194,18 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
     { lib
     , stdenv
     , autoPatchelfHook
-    , upx
     , gmp
     }:
     stdenv.mkDerivation rec {
       inherit (nv.cabal-gild) pname version src;
-      dontUnpack = true;
-      nativeBuildInputs = [ autoPatchelfHook upx ];
+      unpackPhase = ''
+        tar xf $src
+      '';
+      nativeBuildInputs = [ autoPatchelfHook ];
       buildInputs = [ gmp ];
       installPhase = ''
         mkdir -p $out/bin
-        install -m755 -D $src $out/bin/cabal-gild
-        upx -d $out/bin/cabal-gild
+        install -m755 -D cabal-gild $out/bin/cabal-gild
       '';
 
       meta = {

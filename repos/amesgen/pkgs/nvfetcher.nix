@@ -47,6 +47,6 @@ in
   };
   cabal-gild = github {
     slug = "tfausak/cabal-gild";
-    restUrl = "$ver/cabal-gild-$ver-linux-x64";
+    restUrl = "$ver/cabal-gild-$ver-linux-x64.tar.gz";
   };
 }

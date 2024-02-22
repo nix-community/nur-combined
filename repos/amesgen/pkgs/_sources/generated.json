@@ -38,11 +38,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zBEfV2HQEuSDokzQqdl6w8CbcoAyQWOjLNGOKTmWURM=",
+            "sha256": "sha256-06UYNwLrhM79TCoJoF0Y6lnScBFYJuaWqmtHoZNVY1A=",
             "type": "url",
-            "url": "https://github.com/tfausak/cabal-gild/releases/download/1.0.2.0/cabal-gild-1.0.2.0-linux-x64"
+            "url": "https://github.com/tfausak/cabal-gild/releases/download/1.0.2.1/cabal-gild-1.0.2.1-linux-x64.tar.gz"
         },
-        "version": "1.0.2.0"
+        "version": "1.0.2.1"
     },
     "cabal-plan": {
         "cargoLocks": null,

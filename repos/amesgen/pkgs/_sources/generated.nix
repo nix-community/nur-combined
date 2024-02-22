@@ -19,10 +19,10 @@
   };
   cabal-gild = {
     pname = "cabal-gild";
-    version = "1.0.2.0";
+    version = "1.0.2.1";
     src = fetchurl {
-      url = "https://github.com/tfausak/cabal-gild/releases/download/1.0.2.0/cabal-gild-1.0.2.0-linux-x64";
-      sha256 = "sha256-zBEfV2HQEuSDokzQqdl6w8CbcoAyQWOjLNGOKTmWURM=";
+      url = "https://github.com/tfausak/cabal-gild/releases/download/1.0.2.1/cabal-gild-1.0.2.1-linux-x64.tar.gz";
+      sha256 = "sha256-06UYNwLrhM79TCoJoF0Y6lnScBFYJuaWqmtHoZNVY1A=";
     };
   };
   cabal-plan = {
