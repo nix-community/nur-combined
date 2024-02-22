@@ -292,108 +292,100 @@ in
 
     (lib.mkIf cfg.enable (lib.mkMerge [
       {
+        sane.programs.sway.enableFor.user.colin = true;
         sane.programs.unl0kr.enableFor.user.colin = (cfg.greeter == "unl0kr");
         sane.programs.waybar.config = {
           top = import ./waybar-top.nix { inherit pkgs; };
           # reset extra waybar style
           extra_style = "";
         };
-        sane.gui.sway = {
-          enable = true;
-          config = {
-            # N.B. missing from upstream sxmo config here is:
-            # - `bindsym $mod+g exec sxmo_hook_locker.sh`
-            # - `bindsym $mod+t exec sxmo_appmenu.sh power`
-            # - `bindsym $mod+i exec sxmo_wmmenu.sh windowswitcher`
-            # - `bindsym $mod+p exec sxmo_appmenu.sh`
-            # - `bindsym $mod+Shift+p exec sxmo_appmenu.sh sys`
-            # - `input * xkb_options compose:ralt`
-            # these could be added, but i don't see much benefit.
-            font = "pango:monospace 10";
-            mod = "Mod1";  # prefer Alt
-            # about xwayland:
-            # - required by many electron apps, though some electron apps support NIXOS_OZONE_WL=1 for native wayland.
-            # - when xwayland is enabled, KOreader incorrectly chooses the X11 backend
-            #   -> slower; blurrier
-            # - xwayland uses a small amount of memory (like 30MiB, IIRC?)
-            xwayland = false;
-            workspace_layout = "tabbed";
+        sane.programs.sway.config = {
+          # N.B. missing from upstream sxmo config here is:
+          # - `bindsym $mod+g exec sxmo_hook_locker.sh`
+          # - `bindsym $mod+t exec sxmo_appmenu.sh power`
+          # - `bindsym $mod+i exec sxmo_wmmenu.sh windowswitcher`
+          # - `bindsym $mod+p exec sxmo_appmenu.sh`
+          # - `bindsym $mod+Shift+p exec sxmo_appmenu.sh sys`
+          # - `input * xkb_options compose:ralt`
+          # these could be added, but i don't see much benefit.
+          font = "pango:monospace 10";
+          mod = "Mod1";  # prefer Alt
+          workspace_layout = "tabbed";
 
-            screenshot_cmd = "sxmo_screenshot.sh";
-            extra_lines =
-              let
-                sxmo_init = pkgs.writeShellScript "sxmo_init.sh" ''
-                  # perform the same behavior as sxmo_{x,w}init.sh -- but without actually launching wayland/X11
-                  # this amounts to:
-                  # - setting env vars (e.g. getting the hooks onto PATH)
-                  # - placing default configs in ~ for sxmo-launched services (sxmo_migrate.sh)
-                  # - binding vol/power buttons (sxmo_swayinitconf.sh)
-                  # - launching sxmo_hook_start.sh
-                  #
-                  # the commands here are similar to upstream sxmo_winit.sh, but not identical and the ordering may be different
+          screenshot_cmd = "sxmo_screenshot.sh";
+          extra_lines =
+            let
+              sxmo_init = pkgs.writeShellScript "sxmo_init.sh" ''
+                # perform the same behavior as sxmo_{x,w}init.sh -- but without actually launching wayland/X11
+                # this amounts to:
+                # - setting env vars (e.g. getting the hooks onto PATH)
+                # - placing default configs in ~ for sxmo-launched services (sxmo_migrate.sh)
+                # - binding vol/power buttons (sxmo_swayinitconf.sh)
+                # - launching sxmo_hook_start.sh
+                #
+                # the commands here are similar to upstream sxmo_winit.sh, but not identical and the ordering may be different
 
-                  # profile may contain SXMO_DEVICE_NAME which is used by _sxmo_load_environment so load it early
-                  source "$XDG_CONFIG_HOME/sxmo/profile"
-                  # sourcing upstream sxmo_init.sh triggers _sxmo_load_environment
-                  # which ensures SXMO_* environment variables are set
-                  source ${package}/etc/profile.d/sxmo_init.sh
-                  # _sxmo_prepare_dirs ensures ~/.cache/sxmo & other XDG dirs exist with correct perms & owner
-                  _sxmo_prepare_dirs
-                  # migrate tells sxmo to provide the following default files:
-                  # - ~/.config/sxmo/profile
-                  # - ~/.config/fontconfig/conf.d/50-sxmo.conf
-                  # - ~/.config/sxmo/sway
-                  # - ~/.config/foot/foot.ini
-                  # - ~/.config/mako/config
-                  # - ~/.config/sxmo/bonsai_tree.json
-                  # - ~/.config/wob/wob.ini
-                  # - ~/.config/sxmo/conky.conf
-                  sxmo_migrate.sh sync
-                  # various things may have happened above that require me to re-load the profile here:
-                  # - _sxmo_load_environment sources a deviceprofile.sh file, which may override my profile settings.
-                  #   very obvious if you set a non-default SXMO_SWAY_SCALE.
-                  # - sxmo_migrate.sh may have provided a default profile, if i failed to
-                  source "$XDG_CONFIG_HOME/sxmo/profile"
-                  # place my non-specialized hooks at higher precedence than the default device-hooks
-                  # alternative would be to move my hooks to ~/.config/sxmo/hooks/<device-name>.
-                  export PATH="$XDG_CONFIG_HOME/sxmo/hooks:$PATH"
+                # profile may contain SXMO_DEVICE_NAME which is used by _sxmo_load_environment so load it early
+                source "$XDG_CONFIG_HOME/sxmo/profile"
+                # sourcing upstream sxmo_init.sh triggers _sxmo_load_environment
+                # which ensures SXMO_* environment variables are set
+                source ${package}/etc/profile.d/sxmo_init.sh
+                # _sxmo_prepare_dirs ensures ~/.cache/sxmo & other XDG dirs exist with correct perms & owner
+                _sxmo_prepare_dirs
+                # migrate tells sxmo to provide the following default files:
+                # - ~/.config/sxmo/profile
+                # - ~/.config/fontconfig/conf.d/50-sxmo.conf
+                # - ~/.config/sxmo/sway
+                # - ~/.config/foot/foot.ini
+                # - ~/.config/mako/config
+                # - ~/.config/sxmo/bonsai_tree.json
+                # - ~/.config/wob/wob.ini
+                # - ~/.config/sxmo/conky.conf
+                sxmo_migrate.sh sync
+                # various things may have happened above that require me to re-load the profile here:
+                # - _sxmo_load_environment sources a deviceprofile.sh file, which may override my profile settings.
+                #   very obvious if you set a non-default SXMO_SWAY_SCALE.
+                # - sxmo_migrate.sh may have provided a default profile, if i failed to
+                source "$XDG_CONFIG_HOME/sxmo/profile"
+                # place my non-specialized hooks at higher precedence than the default device-hooks
+                # alternative would be to move my hooks to ~/.config/sxmo/hooks/<device-name>.
+                export PATH="$XDG_CONFIG_HOME/sxmo/hooks:$PATH"
 
-                  # kill anything leftover from the previous sxmo run. this way we can (try to) be reentrant
-                  echo "sxmo_init: killing stale daemons (if active)"
-                  sxmo_jobs.sh stop all
-                  pkill bemenu
-                  pkill wvkbd
-                  pkill superd
+                # kill anything leftover from the previous sxmo run. this way we can (try to) be reentrant
+                echo "sxmo_init: killing stale daemons (if active)"
+                sxmo_jobs.sh stop all
+                pkill bemenu
+                pkill wvkbd
+                pkill superd
 
-                  # configure vol/power-button input mapping (upstream SXMO has this in sway config)
-                  echo "sxmo_init: configuring sway bindings/displays with:"
-                  echo "SXMO_POWER_BUTTON: $SXMO_POWER_BUTTON"
-                  echo "SXMO_VOLUME_BUTTON: $SXMO_VOLUME_BUTTON"
-                  echo "SXMO_SWAY_SCALE: $SXMO_SWAY_SCALE"
-                  sxmo_swayinitconf.sh
+                # configure vol/power-button input mapping (upstream SXMO has this in sway config)
+                echo "sxmo_init: configuring sway bindings/displays with:"
+                echo "SXMO_POWER_BUTTON: $SXMO_POWER_BUTTON"
+                echo "SXMO_VOLUME_BUTTON: $SXMO_VOLUME_BUTTON"
+                echo "SXMO_SWAY_SCALE: $SXMO_SWAY_SCALE"
+                sxmo_swayinitconf.sh
 
-                  echo "sxmo_init: invoking sxmo_hook_start.sh with:"
-                  echo "PATH: $PATH"
-                  sxmo_hook_start.sh
-                '';
-              in ''
-                # TODO: some of this is probably unnecessary
-                mode "menu" {
-                  # just a placeholder for "menu" mode
-                  bindsym --input-device=1:1:1c21800.lradc XF86AudioMute exec nothing
-                }
-                bindsym button2 kill
-                bindswitch lid:on exec sxmo_wm.sh dpms on
-                bindswitch lid:off exec sxmo_wm.sh dpms off
-
-                exec 'printf %s "$SWAYSOCK" > "$XDG_RUNTIME_DIR"/sxmo.swaysock'
-
-                # XXX(2023/12/04): this shouldn't be necessary, but without this Komikku fails to launch because XDG_SESSION_TYPE is unset
-
-                exec dbus-update-activation-environment --systemd XDG_SESSION_TYPE
-                exec_always ${sxmo_init}
+                echo "sxmo_init: invoking sxmo_hook_start.sh with:"
+                echo "PATH: $PATH"
+                sxmo_hook_start.sh
               '';
-          };
+            in ''
+              # TODO: some of this is probably unnecessary
+              mode "menu" {
+                # just a placeholder for "menu" mode
+                bindsym --input-device=1:1:1c21800.lradc XF86AudioMute exec nothing
+              }
+              bindsym button2 kill
+              bindswitch lid:on exec sxmo_wm.sh dpms on
+              bindswitch lid:off exec sxmo_wm.sh dpms off
+
+              exec 'printf %s "$SWAYSOCK" > "$XDG_RUNTIME_DIR"/sxmo.swaysock'
+
+              # XXX(2023/12/04): this shouldn't be necessary, but without this Komikku fails to launch because XDG_SESSION_TYPE is unset
+
+              exec dbus-update-activation-environment --systemd XDG_SESSION_TYPE
+              exec_always ${sxmo_init}
+            '';
         };
 
         sane.programs.sxmoApps.enableFor.user.colin = true;

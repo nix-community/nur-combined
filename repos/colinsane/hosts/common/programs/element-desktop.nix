@@ -7,6 +7,15 @@
 { pkgs, ... }:
 {
   sane.programs.element-desktop = {
+    packageUnwrapped = pkgs.element-desktop.override {
+      # use pre-build electron because otherwise it takes 4 hrs to build from source.
+      electron = pkgs.electron-bin;
+    };
+    suggestedPrograms = [
+      "gnome-keyring"
+      "xwayland"
+    ];
+
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
@@ -23,14 +32,7 @@
       "tmp"
     ];
 
-    packageUnwrapped = pkgs.element-desktop.override {
-      # use pre-build electron because otherwise it takes 4 hrs to build from source.
-      electron = pkgs.electron-bin;
-    };
-
     # creds/session keys, etc
     persist.byStore.private = [ ".config/Element" ];
-
-    suggestedPrograms = [ "gnome-keyring" ];
   };
 }

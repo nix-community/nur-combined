@@ -4,6 +4,7 @@
 , writeShellApplication
 }:
 let
+  # TODO: port this snip_cmd_pkg to an ordinary `sane.programs`
   prog = config.sane.programs;
   # "bookmarking"/snippets inspired by Luke Smith:
   # - <https://www.youtube.com/watch?v=d_11QaTlf1I>
@@ -15,7 +16,7 @@ let
       prog.wtype.package
     ];
     text = ''
-      snippet=$(cat ${../snippets.txt} ~/.config/sane-sway/snippets.txt | \
+      snippet=$(cat ${./snippets.txt} ~/.config/sane-sway/snippets.txt | \
         fuzzel -d -i -w 60 | \
         sed 's/ #.*$//')
       wtype "$snippet"
@@ -34,5 +35,5 @@ in substituteAll {
     mod
     workspace_layout
   ;
-  xwayland = if swayCfg.xwayland then "enable" else "disable";
+  xwayland = if config.sane.programs.xwayland.enabled then "enable" else "disable";
 }

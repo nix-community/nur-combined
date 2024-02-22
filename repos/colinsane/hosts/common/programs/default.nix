@@ -69,6 +69,7 @@
     ./obsidian.nix
     ./offlineimap.nix
     ./open-in-mpv.nix
+    ./pipewire.nix
     ./planify.nix
     ./portfolio-filemanager.nix
     ./playerctl.nix
@@ -85,6 +86,7 @@
     ./strings.nix
     ./sublime-music.nix
     ./supertuxkart.nix
+    ./sway
     ./sway-autoscaler
     ./swaylock.nix
     ./swaynotificationcenter.nix

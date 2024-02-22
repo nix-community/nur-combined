@@ -23,6 +23,11 @@
   # see: <repo:nixos/nixpkgs:nixos/modules/config/xdg/icons.nix>
   environment.sessionVariables.XCURSOR_PATH = lib.mkForce [];
 
+  # disable nixos' portal module, otherwise /share/applications gets linked into the system and complicates things (sandboxing).
+  # instead, i manage portals myself via the sane.programs API (e.g. sane.programs.xdg-desktop-portal).
+  xdg.portal.enable = false;
+  xdg.menus.enable = false;  #< links /share/applications, and a bunch of other empty (i.e. unused) dirs
+
   # xdg.autostart.enable defaults to true, and links /etc/xdg/autostart into the environment, populated with .desktop files.
   # see: <repo:nixos/nixpkgs:nixos/modules/config/xdg/autostart.nix>
   # .desktop files are a questionable way to autostart things: i generally prefer a service manager for that.

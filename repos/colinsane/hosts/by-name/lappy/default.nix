@@ -12,10 +12,10 @@
   sane.services.wg-home.ip = config.sane.hosts.by-name."lappy".wg-home.ip;
 
   # sane.guest.enable = true;
-  sane.gui.sway.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
+  sane.programs.sway.enableFor.user.colin = true;
   sane.programs."gnome.geary".config.autostart = true;
   sane.programs.signal-desktop.config.autostart = true;
   sane.programs.stepmania.enableFor.user.colin = true;

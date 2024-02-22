@@ -11,7 +11,6 @@ in
     ./greetd.nix
     ./gtk.nix
     ./phosh.nix
-    ./sway
     ./sxmo
     ./theme
   ];

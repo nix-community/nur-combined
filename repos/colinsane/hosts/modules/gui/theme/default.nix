@@ -22,7 +22,7 @@ in
   };
 
   config = {
-    sane.gui.sway.config.background = lib.mkDefault cfg.png;
+    sane.programs.sway.config.background = lib.mkDefault cfg.png;
     sane.gui.sxmo.settings.SXMO_BG_IMG = lib.mkDefault (builtins.toString cfg.png);
   };
 }
