@@ -15,6 +15,7 @@ python3Packages.buildPythonPackage rec {
   nativeBuildInputs = with python3Packages; [ flit ];
 
   propagatedBuildInputs = with python3Packages; [
+    httpx
     starlette
     cramjam
     typing-extensions
