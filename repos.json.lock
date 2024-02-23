@@ -336,11 +336,6 @@
             "sha256": "01izw9702cj65b6vwz1lywy53r0gd47r6hb903zlzjn6734ll3vh",
             "url": "https://github.com/clefru/nur-packages"
         },
-        "colinsane": {
-            "rev": "bd7ca20361e8e538287043b72817d91d5e9310cf",
-            "sha256": "07r13mgjpn0mjdcppp6nsfwxni8lahqbhiqyp1b4lya12s3qq4kb",
-            "url": "https://git.uninsane.org/colin/nix-files"
-        },
         "congee": {
             "rev": "040526d46e3d221309d74ce45a4a1431a8cf1ecf",
             "sha256": "0wp88vmcq50hiaq01grjq6cm8m6x483pv4mxxq8898gi7frci1d2",
