@@ -558,13 +558,13 @@
         sha512 = "6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==";
       };
     };
-    "npm-run-path-5.2.0" = {
+    "npm-run-path-5.3.0" = {
       name = "npm-run-path";
       packageName = "npm-run-path";
-      version = "5.2.0";
+      version = "5.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/npm-run-path/-/npm-run-path-5.2.0.tgz";
-        sha512 = "W4/tgAXFqFA0iL7fk0+uQ3g7wkL8xJmx3XdK0VGb4cHW//eZTtKGvFBBoRKVTpY7n6ze4NL9ly7rgXcHufqXKg==";
+        url = "https://registry.npmjs.org/npm-run-path/-/npm-run-path-5.3.0.tgz";
+        sha512 = "ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==";
       };
     };
     "nypm-0.3.6" = {
@@ -1055,7 +1055,7 @@ in {
       sources."mlly-1.6.0"
       sources."node-fetch-native-1.6.2"
       sources."normalize-path-3.0.0"
-      (sources."npm-run-path-5.2.0"
+      (sources."npm-run-path-5.3.0"
         // {
           dependencies = [
             sources."path-key-4.0.0"

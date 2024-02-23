@@ -41,7 +41,7 @@
   },
   "libadwaita-git": {
     "cargoLocks": null,
-    "date": "2024-02-20",
+    "date": "2024-02-22",
     "extract": null,
     "name": "libadwaita-git",
     "passthru": null,
@@ -51,12 +51,12 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "2678b5b469b742c2c50d150cc1d1eeec9035fc41",
-      "sha256": "sha256-q6eCR8/8qjNNdji1qYtpawucjPwUAjJ1ulv/mVFxLKM=",
+      "rev": "c9a4e5421bcbe66ca69ae5bc2dc335291fe11928",
+      "sha256": "sha256-8J5yQZPf0zb795oluGlLY6ZlX6cHp/iBUMIJ4ur/+dA=",
       "type": "git",
       "url": "https://gitlab.gnome.org/GNOME/libadwaita"
     },
-    "version": "2678b5b469b742c2c50d150cc1d1eeec9035fc41"
+    "version": "c9a4e5421bcbe66ca69ae5bc2dc335291fe11928"
   },
   "rtaudio-git": {
     "cargoLocks": null,
@@ -80,7 +80,7 @@
   },
   "zrythm": {
     "cargoLocks": null,
-    "date": "2024-02-21",
+    "date": "2024-02-22",
     "extract": null,
     "name": "zrythm",
     "passthru": null,
@@ -90,11 +90,11 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "8855628da516074fdd3d4a6462dc81f56fc01b57",
-      "sha256": "sha256-+LGyj8foo/R9rQ6/uxGeoJYGzzpFAktVv9QVHnYjOo8=",
+      "rev": "5ca9e76c2f5e1150aa93bd6a02cb7d715549e25d",
+      "sha256": "sha256-FYhASL7bYBN6/qE070XAO3OFjZIXNKfQGzL7kcAl54U=",
       "type": "git",
       "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
     },
-    "version": "8855628da516074fdd3d4a6462dc81f56fc01b57"
+    "version": "5ca9e76c2f5e1150aa93bd6a02cb7d715549e25d"
   }
 }
