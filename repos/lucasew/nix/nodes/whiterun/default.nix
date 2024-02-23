@@ -107,7 +107,7 @@ in {
   services.transmission.enable = true;
 
   services.miniflux.enable = true;
-  services.nitter.enable = true;
+  # services.nitter.enable = true;
 
   programs.gamemode.enable = true;
   services.cf-torrent.enable = true;
