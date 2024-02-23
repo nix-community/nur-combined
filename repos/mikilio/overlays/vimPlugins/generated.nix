@@ -39,6 +39,18 @@ final: prev:
     meta.homepage = "https://github.com/barreiroleo/ltex_extra.nvim/";
   };
 
+  neovim-session-manager = buildVimPlugin {
+    pname = "neovim-session-manager";
+    version = "2024-02-18";
+    src = fetchFromGitHub {
+      owner = "Shatur";
+      repo = "neovim-session-manager";
+      rev = "d8e1ba3bbcf3fdc6a887bcfbd94c48ae4707b457";
+      sha256 = "0l1p7rmix8vddgiqp2i2dxfkpnnyzjy2jifnlza9gb59r5ixcc7r";
+    };
+    meta.homepage = "https://github.com/Shatur/neovim-session-manager/";
+  };
+
   netrw-nvim = buildVimPlugin {
     pname = "netrw.nvim";
     version = "2024-01-12";
@@ -75,16 +87,16 @@ final: prev:
     meta.homepage = "https://github.com/jakewvincent/texmagic.nvim/";
   };
 
-  neovim-session-manager = buildVimPlugin {
-    pname = "neovim-session-manager";
-    version = "2024-02-18";
+  wezterm-nvim = buildVimPlugin {
+    pname = "wezterm.nvim";
+    version = "2024-02-06";
     src = fetchFromGitHub {
-      owner = "Shatur";
-      repo = "neovim-session-manager";
-      rev = "d8e1ba3bbcf3fdc6a887bcfbd94c48ae4707b457";
-      sha256 = "0l1p7rmix8vddgiqp2i2dxfkpnnyzjy2jifnlza9gb59r5ixcc7r";
+      owner = "willothy";
+      repo = "wezterm.nvim";
+      rev = "9c8e58f8918b2b883d11bf6589786cefbbaea310";
+      sha256 = "1zznhwgy4nhr8n7jrny8mcmw7nxa22w3qi7y9niqvlqy834fkn9r";
     };
-    meta.homepage = "https://github.com/Shatur/neovim-session-manager/";
+    meta.homepage = "https://github.com/willothy/wezterm.nvim/";
   };
 
 
