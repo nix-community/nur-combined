@@ -774,10 +774,10 @@
     };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.3.38";
+      version = "0.4.0";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4152352/blocktube-0.3.38.xpi";
-      sha256 = "09e79457ecf19596570fdef9f90d4374861785738f71d3558b013be7208477d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4237768/blocktube-0.4.0.xpi";
+      sha256 = "8df7e5f52303d0ac0b056051d6b3aa37ac200396075e1aa6d8068aaf86495e63";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -787,6 +787,7 @@
           "storage"
           "unlimitedStorage"
           "https://www.youtube.com/*"
+          "https://m.youtube.com/*"
         ];
         platforms = platforms.all;
       };
@@ -2191,10 +2192,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.23";
+      version = "1.2.23.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4239764/faststream-1.2.23.xpi";
-      sha256 = "a918b1f398041c453f5b0e82496234b1f83e6c9def9be206ceccf11bc5edf20c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240136/faststream-1.2.23.1.xpi";
+      sha256 = "8ba30b1e14f14bc5ad3652364e76a639e0ab5c62e21b29c2e5e212879eaafd88";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -6943,10 +6944,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.26.0";
+      version = "6.27.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231102/okta_browser_plugin-6.26.0.xpi";
-      sha256 = "a38036862fc771205ecf51b048aea11ea1c7d950b8ee8fcd0ed745e14f88fb71";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4237431/okta_browser_plugin-6.27.0.xpi";
+      sha256 = "43bc4db6745271835b74a024ed8fee03835a9b2012383a35ef4004a19da3072c";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
