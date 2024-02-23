@@ -15,7 +15,7 @@ lib.mkIf config.sane.persist.enable
       typical use case is for the user to encrypt this store using their login password so that it
       can be auto-unlocked at login.
     '';
-    origin = lib.mkDefault "/mnt/private";
+    origin = lib.mkDefault "/mnt/persist/private";
     defaultOrdering = let
       private-unit = config.sane.fs."${private-dir}".unit;
     in {
