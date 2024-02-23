@@ -34,6 +34,20 @@
             // { inherit pkgs config; })).services) dae;
       }
       {
+        snapy.instances = [
+          {
+            name = "persist";
+            source = "/persist";
+            keep = "2day";
+            timerConfig.onCalendar = "*:0/10";
+          }
+          {
+            name = "var";
+            source = "/var";
+            keep = "7day";
+            timerConfig.onCalendar = "daily";
+          }
+        ];
         tailscale = { enable = true; openFirewall = true; };
         dae = {
           enable = true;
@@ -179,7 +193,6 @@
 
         gvfs.enable = false;
         blueman.enable = true;
-        btrbk.enable = true;
         pipewire = {
           enable = true;
           alsa.enable = true;

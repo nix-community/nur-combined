@@ -194,8 +194,6 @@
           };
         };
 
-        btrbk.enable = false;
-
         keycloak = {
           enable = false;
           settings = {
