@@ -1,5 +1,5 @@
 # Google Laptop configuration
-{ lib, pkgs, ... }:
+{ lib, options, pkgs, ... }:
 {
   services.gpg-agent.enable = lib.mkForce false;
 
@@ -25,6 +25,10 @@
     zsh = {
       notify = {
         enable = true;
+
+        exclude = options.my.home.zsh.notify.exclude.default ++ [
+          "adb shell$" # Only interactive shell sessions
+        ];
 
         ssh = {
           enable = true;

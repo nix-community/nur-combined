@@ -22,6 +22,7 @@ in
       exclude = mkOption {
         type = with types; listOf str;
         default = [
+          "delta"
           "direnv reload"
           "fg"
           "git (?!push|pull|fetch)"
