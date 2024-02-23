@@ -13,5 +13,6 @@ lib.makeScope newScope
     vimPlugins = pkgs.recurseIntoAttrs (callPackage ./vim-plugins {
       buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
     });
+    distant = callPackage ./distant {};
   }
 )
