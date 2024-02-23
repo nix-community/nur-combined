@@ -61,7 +61,7 @@ stdenv.mkDerivation (
       hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
     };
 
-    sourceRoot = "source/gtatool";
+    sourceRoot = "${finalAttrs.src.name}/gtatool";
 
     patches = [ ./gcc11.patch ];
 

@@ -32,5 +32,13 @@ build +PACKAGES:
 build-stable +PACKAGES:
     @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --override-input nixpkgs github:NixOS/nixpkgs/nixos-23.11" {{ just }} build {{ PACKAGES }}
 
+# Rebuild one or more packages.
+rebuild +PACKAGES:
+    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --rebuild" {{ just }} build {{ PACKAGES }}
+
+# Rebuild one or more packages against the stable channel.
+rebuild-stable +PACKAGES:
+    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --rebuild" {{ just }} build-stable {{ PACKAGES }}
+
 tree PACKAGE: (build PACKAGE)
     nix-tree ".#{{ PACKAGE }}"

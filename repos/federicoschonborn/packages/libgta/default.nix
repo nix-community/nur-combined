@@ -21,7 +21,7 @@ stdenv.mkDerivation (
       hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
     };
 
-    sourceRoot = "source/libgta";
+    sourceRoot = "${finalAttrs.src.name}/libgta";
 
     nativeBuildInputs = [ autoreconfHook ];
 
