@@ -926,6 +926,12 @@ in
     wl-clipboard.sandbox.wrapperType = "wrappedDerivation";
     wl-clipboard.sandbox.whitelistWayland = true;
 
+    xwayland.sandbox.method = "bwrap";
+    xwayland.sandbox.wrapperType = "inplace";  #< consumers use it as a library (e.g. wlroots)
+    xwayland.sandbox.whitelistWayland = true;  #< just assuming this is needed
+    xwayland.sandbox.net = "clearnet";  #< just assuming this is needed (X11 traffic)
+    xwayland.sandbox.whitelistDri = true;  #< would assume this gives better gfx perf
+
     xdg-terminal-exec.sandbox.enable = false;  # xdg-terminal-exec is a launcher for $TERM
     xterm.sandbox.enable = false;  # need to be able to do everything
 

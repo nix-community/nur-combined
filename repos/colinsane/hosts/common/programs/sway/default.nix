@@ -27,7 +27,12 @@ let
         configuredSway
       ];
     };
-  swayPackage = wrapSway (pkgs.sway-unwrapped.overrideAttrs (_: {
+  swayPackage = wrapSway (
+    (pkgs.sway-unwrapped.override {
+      # wlroots seems to launch Xwayland itself, and i can't easily just do that myself externally.
+      # so in order for the Xwayland it launches to be sandboxed, i need to patch the sandboxed version in here.
+      wlroots_0_16 = pkgs.wlroots_0_16.override { xwayland = config.sane.programs.xwayland.package; };
+    }).overrideAttrs (_: {
     # isNixOS = true;  #< doesn't matter
     #
     # about xwayland:
@@ -39,7 +44,8 @@ let
     # TODO: something else is dragging a xwayland-enabled wlroots into the environment,
     #       making this actually kinda wasteful.
     enableXWayland = config.sane.programs.xwayland.enabled;
-  }));
+    })
+  );
 in
 {
   sane.programs.sway = {
