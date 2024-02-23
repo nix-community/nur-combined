@@ -27,6 +27,12 @@ let
     ) else null;
 in [
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/290761";
+    title = "icu: fix cross compilation";
+    saneCommit = "cc7119ca4903d36bbb4308a778fcbc560596fd2e";
+    hash = "sha256-qMgQaNHggwLe5DKPO0g4Dp/QnyARgMmuRvSY/uMgQPc=";
+  })
+  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/288292";
     title = "megapixels: 1.7.0 -> 1.8.0";
     hash = "sha256-jV9eE/BOrvNqVUkk2RG5i6ReNMJWraqqfksJCCdDGGs=";
