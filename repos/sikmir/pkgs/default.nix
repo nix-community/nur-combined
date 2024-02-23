@@ -267,6 +267,7 @@ lib.makeScope newScope (
     gps-sdr-sim = callPackage ./gnss/gps-sdr-sim { };
     gpsdate = callPackage ./gnss/gpsdate { };
     rtklib = callPackage ./gnss/rtklib { };
+    rtklib-demo5 = callPackage ./gnss/rtklib/demo5.nix { };
     visualgps = libsForQt5.callPackage ./gnss/visualgps { };
 
     ### GPX
