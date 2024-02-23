@@ -1,8 +1,8 @@
 repo,branch,alias
-https://github.com/Mikilio/harpoon/,HEAD,
 https://github.com/Mikilio/knap/,HEAD,
-https://github.com/VonHeikemen/lsp-zero.nvim/,dev-v3,
+https://github.com/VonHeikemen/lsp-zero.nvim/,HEAD,
 https://github.com/barreiroleo/ltex_extra.nvim/,HEAD,
+https://github.com/Shatur/neovim-session-manager/,HEAD,
 https://github.com/prichrd/netrw.nvim/,HEAD,
 https://github.com/miversen33/sunglasses.nvim/,HEAD,
 https://github.com/jakewvincent/texmagic.nvim/,HEAD,

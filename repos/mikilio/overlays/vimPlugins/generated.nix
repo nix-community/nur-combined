@@ -3,18 +3,6 @@
 
 final: prev:
 {
-  harpoon = buildVimPlugin {
-    pname = "harpoon";
-    version = "2023-11-20";
-    src = fetchFromGitHub {
-      owner = "Mikilio";
-      repo = "harpoon";
-      rev = "458832b25cb859b8bffad7d8572c9f8da13afd03";
-      sha256 = "01l274gj1hvzclwzlgja618kiibqs5p21wki21v37h66by7fxlx2";
-    };
-    meta.homepage = "https://github.com/Mikilio/harpoon/";
-  };
-
   knap = buildVimPlugin {
     pname = "knap";
     version = "2023-08-03";
@@ -29,24 +17,24 @@ final: prev:
 
   lsp-zero-nvim = buildVimPlugin {
     pname = "lsp-zero.nvim";
-    version = "2023-09-09";
+    version = "2024-02-04";
     src = fetchFromGitHub {
       owner = "VonHeikemen";
       repo = "lsp-zero.nvim";
-      rev = "b768db11b7ff3a142a779a321dee86098c82fe4f";
-      sha256 = "1a5q7ii66rbi929p1lg25d6bfjxw2wli5n54fqwx6qb5h0grcf22";
+      rev = "abac76482ec3012a2b359ba956a74e2ffd33d46f";
+      sha256 = "0y5dv0gb8yy1isgz271yr712xspphax5ii4lc6cnlzrhxrmjdi8c";
     };
     meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
   };
 
   ltex_extra-nvim = buildVimPlugin {
     pname = "ltex_extra.nvim";
-    version = "2023-07-28";
+    version = "2024-02-03";
     src = fetchFromGitHub {
       owner = "barreiroleo";
       repo = "ltex_extra.nvim";
-      rev = "9bed99b2b8488cc2daf66c76d2e0cf051ee80d13";
-      sha256 = "1v4vxfysvisl9l91f519mbj4r7a43gzfyaj4cbgs3fc650h00f1g";
+      rev = "42dd3572cb09b52a137e91e515f2dff5eb631b1e";
+      sha256 = "1hirgy2w7lqn22qb20xkcxd7p1212wvra1xbyy43ky3an0bn6ivs";
     };
     meta.homepage = "https://github.com/barreiroleo/ltex_extra.nvim/";
   };
@@ -65,12 +53,12 @@ final: prev:
 
   sunglasses-nvim = buildVimPlugin {
     pname = "sunglasses.nvim";
-    version = "2023-12-13";
+    version = "2024-02-19";
     src = fetchFromGitHub {
       owner = "miversen33";
       repo = "sunglasses.nvim";
-      rev = "63a0b4914da3cd200ba1c55bd3231ddef14fc5fa";
-      sha256 = "02zrk3ichr0r8yj16cq8zb6yfmnfal2bapcx7pz6k2g3mw7ysbq8";
+      rev = "fe31ab6fdd4eaaec545eed729b0d59e63a0934f9";
+      sha256 = "0d1ybpjp3qqm6cszzz1l2hciwnwxib1jks206sjhlla33mgjx1kc";
     };
     meta.homepage = "https://github.com/miversen33/sunglasses.nvim/";
   };
@@ -85,6 +73,18 @@ final: prev:
       sha256 = "19r6sdyaxkjmm9k5l97n4fcp5ycx8d3v9kyydxzcpxji5synv2gq";
     };
     meta.homepage = "https://github.com/jakewvincent/texmagic.nvim/";
+  };
+
+  neovim-session-manager = buildVimPlugin {
+    pname = "neovim-session-manager";
+    version = "2024-02-18";
+    src = fetchFromGitHub {
+      owner = "Shatur";
+      repo = "neovim-session-manager";
+      rev = "d8e1ba3bbcf3fdc6a887bcfbd94c48ae4707b457";
+      sha256 = "0l1p7rmix8vddgiqp2i2dxfkpnnyzjy2jifnlza9gb59r5ixcc7r";
+    };
+    meta.homepage = "https://github.com/Shatur/neovim-session-manager/";
   };
 
 
