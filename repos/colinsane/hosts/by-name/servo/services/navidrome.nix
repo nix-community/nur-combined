@@ -2,7 +2,7 @@
 
 {
   sane.persist.sys.byStore.plaintext = [
-    { user = "navidrome"; group = "navidrome"; path = "/var/lib/navidrome"; }
+    { user = "navidrome"; group = "navidrome"; path = "/var/lib/navidrome"; method = "bind"; }
   ];
   services.navidrome.enable = true;
   services.navidrome.settings = {

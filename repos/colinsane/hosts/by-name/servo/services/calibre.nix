@@ -13,7 +13,7 @@ in
 lib.mkIf false
 {
   sane.persist.sys.byStore.plaintext = [
-    { inherit user group; mode = "0700"; path = svc-dir; }
+    { inherit user group; mode = "0700"; path = svc-dir; method = "bind"; }
   ];
 
   services.calibre-web.enable = true;

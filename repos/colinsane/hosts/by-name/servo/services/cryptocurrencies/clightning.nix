@@ -73,7 +73,7 @@
 { config, pkgs, ... }:
 {
   sane.persist.sys.byStore.ext = [
-    { user = "clightning"; group = "clightning"; mode = "0710"; path = "/var/lib/clightning"; }
+    { user = "clightning"; group = "clightning"; mode = "0710"; path = "/var/lib/clightning"; method = "bind"; }
   ];
 
   # `lightning-cli` finds its RPC file via `~/.lightning/bitcoin/lightning-rpc`, to message the daemon

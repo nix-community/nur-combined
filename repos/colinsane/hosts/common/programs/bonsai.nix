@@ -1,7 +1,7 @@
 # bonsai docs: <https://sr.ht/~stacyharper/bonsai/>
 { config, lib, pkgs, ... }:
 let
-  cfg = config.sane.programs.bonsai.config;
+  cfg = config.sane.programs.bonsai;
 
   delayType = with lib; types.submodule {
     options = {
@@ -101,7 +101,7 @@ in
           };
           configFile = mkOption {
             type = types.path;
-            default = pkgs.writeText "bonsai_tree.json" (builtins.toJSON cfg.transitions);
+            default = pkgs.writeText "bonsai_tree.json" (builtins.toJSON cfg.config.transitions);
             description = ''
               configuration file to pass to bonsai.
               usually auto-generated from the sibling options; exposed mainly for debugging or convenience.
@@ -118,7 +118,7 @@ in
 
       script = ''
         ${pkgs.coreutils}/bin/rm -f $XDG_RUNTIME_DIR/bonsai
-        exec ${cfg.package}/bin/bonsaid -t ${cfg.configFile}
+        exec ${cfg.package}/bin/bonsaid -t ${cfg.config.configFile}
       '';
       serviceConfig = {
         Type = "simple";

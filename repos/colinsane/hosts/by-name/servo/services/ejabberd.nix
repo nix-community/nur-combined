@@ -45,7 +45,7 @@ in
 lib.mkIf false
 {
   sane.persist.sys.byStore.plaintext = [
-    { user = "ejabberd"; group = "ejabberd"; path = "/var/lib/ejabberd"; }
+    { user = "ejabberd"; group = "ejabberd"; path = "/var/lib/ejabberd"; method = "bind"; }
   ];
   sane.ports.ports = lib.mkMerge ([
     {

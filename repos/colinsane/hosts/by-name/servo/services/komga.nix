@@ -5,7 +5,7 @@ let
 in
 {
   sane.persist.sys.byStore.plaintext = [
-    { inherit user group; mode = "0700"; path = stateDir; }
+    { inherit user group; mode = "0700"; path = stateDir; method = "bind"; }
   ];
 
   services.komga.enable = true;

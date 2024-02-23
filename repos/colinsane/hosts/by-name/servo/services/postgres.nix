@@ -8,7 +8,7 @@ in
 {
   sane.persist.sys.byStore.plaintext = [
     # TODO: mode?
-    { user = "postgres"; group = "postgres"; path = "/var/lib/postgresql"; }
+    { user = "postgres"; group = "postgres"; path = "/var/lib/postgresql"; method = "bind"; }
   ];
   services.postgresql.enable = true;
 

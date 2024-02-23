@@ -34,7 +34,7 @@ in
     # not 100% necessary to persist this, but ntfy does keep a 12hr (by default) cache
     # for pushing notifications to users who become offline.
     # ACLs also live here.
-    { user = "ntfy-sh"; group ="ntfy-sh"; path = "/var/lib/ntfy-sh"; }
+    { user = "ntfy-sh"; group ="ntfy-sh"; path = "/var/lib/ntfy-sh"; method = "bind"; }
   ];
 
   services.ntfy-sh.enable = true;

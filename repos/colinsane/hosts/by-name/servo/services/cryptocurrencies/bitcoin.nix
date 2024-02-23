@@ -30,8 +30,7 @@ let
 in
 {
   sane.persist.sys.byStore.ext = [
-    # /var/lib/monero/lmdb is what consumes most of the space
-    { user = "bitcoind-mainnet"; group = "bitcoind-mainnet"; path = "/var/lib/bitcoind-mainnet"; }
+    { user = "bitcoind-mainnet"; group = "bitcoind-mainnet"; path = "/var/lib/bitcoind-mainnet"; method = "bind"; }
   ];
 
   # sane.ports.ports."8333" = {

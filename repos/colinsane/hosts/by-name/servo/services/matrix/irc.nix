@@ -103,7 +103,7 @@ in
 
   sane.persist.sys.byStore.plaintext = [
     # TODO: mode?
-    { user = "matrix-appservice-irc"; group = "matrix-appservice-irc"; path = "/var/lib/matrix-appservice-irc"; }
+    { user = "matrix-appservice-irc"; group = "matrix-appservice-irc"; path = "/var/lib/matrix-appservice-irc"; method = "bind"; }
   ];
 
   # XXX: matrix-appservice-irc PreStart tries to chgrp the registration.yml to matrix-synapse,

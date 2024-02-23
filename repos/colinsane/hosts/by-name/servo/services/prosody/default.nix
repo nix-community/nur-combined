@@ -57,7 +57,7 @@ let
 in
 {
   sane.persist.sys.byStore.plaintext = [
-    { user = "prosody"; group = "prosody"; path = "/var/lib/prosody"; }
+    { user = "prosody"; group = "prosody"; path = "/var/lib/prosody"; method = "bind"; }
   ];
   sane.ports.ports."5000" = {
     protocol = [ "tcp" ];

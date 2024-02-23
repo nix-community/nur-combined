@@ -6,7 +6,7 @@
 { config, lib, ... }:
 {
   sane.persist.sys.byStore.plaintext = [
-    { user = "slskd"; group = "slskd"; path = "/var/lib/slskd"; }
+    { user = "slskd"; group = "slskd"; path = "/var/lib/slskd"; method = "bind"; }
   ];
   sops.secrets."slskd_env" = {
     owner = config.users.users.slskd.name;

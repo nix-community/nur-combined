@@ -26,7 +26,7 @@ in
 {
   sane.persist.sys.byStore.plaintext = [
     # TODO: mode? we need this specifically for the stats tracking in .config/
-    { user = "transmission"; group = config.users.users.transmission.group; path = "/var/lib/transmission"; }
+    { user = "transmission"; group = config.users.users.transmission.group; path = "/var/lib/transmission"; method = "bind"; }
   ];
   users.users.transmission.extraGroups = [ "media" ];
 

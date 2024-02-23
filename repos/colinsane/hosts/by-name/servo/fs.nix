@@ -84,7 +84,7 @@
 
   sane.persist.sys.byStore.plaintext = [
     # TODO: this is overly broad; only need media and share directories to be persisted
-    { user = "colin"; group = "users"; path = "/var/lib/uninsane"; }
+    { user = "colin"; group = "users"; path = "/var/lib/uninsane"; method = "bind"; }
   ];
   # force some problematic directories to always get correct permissions:
   sane.fs."/var/lib/uninsane/media".dir.acl = {

@@ -3,11 +3,13 @@
 
 set -ex
 
-# mounts ~/private
+# mounts the directory formerly known as ~/private.
+# ALTERNATIVELY: `mount /mnt/persist/private`
 
-mount=/home/colin/private
-cipher="/nix/persist$mount"
-mkdir -p "$mount"
+mount=/mnt/persist/private
+cipher=/nix/persist/home/colin/private
+sudo mkdir -p "$mount"
+sudo chown colin:users "$mount"
 if [ ! -f "$mount/init" ]
 then
   gocryptfs "$cipher" "$mount"

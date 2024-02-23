@@ -5,8 +5,8 @@
 lib.mkIf false  # disabled 2024/01/11: i don't use it, and pkgs.mautrix-signal had some API changes
 {
   sane.persist.sys.byStore.plaintext = [
-    { user = "mautrix-signal"; group = "mautrix-signal"; path = "/var/lib/mautrix-signal"; }
-    { user = "signald"; group = "signald"; path = "/var/lib/signald"; }
+    { user = "mautrix-signal"; group = "mautrix-signal"; path = "/var/lib/mautrix-signal"; method = "bind"; }
+    { user = "signald"; group = "signald"; path = "/var/lib/signald"; method = "bind"; }
   ];
 
   # allow synapse to read the registration file

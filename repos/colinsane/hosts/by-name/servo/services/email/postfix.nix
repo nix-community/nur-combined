@@ -20,9 +20,9 @@ in
 {
   sane.persist.sys.byStore.plaintext = [
     # TODO: mode? could be more granular
-    { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; }
-    { user = "root"; group = "root"; path = "/var/lib/postfix"; }
-    { user = "root"; group = "root"; path = "/var/spool/mail"; }
+    { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; method = "bind"; }
+    { user = "root"; group = "root"; path = "/var/lib/postfix"; method = "bind"; }
+    { user = "root"; group = "root"; path = "/var/spool/mail"; method = "bind"; }
     # *probably* don't need these dirs:
     # "/var/lib/dhparams"          # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/dhparams.nix
     # "/var/lib/dovecot"

@@ -3,9 +3,8 @@
 let
   # TODO: parameterize!
   persist-base = "/nix/persist";
-  private-dir = config.sane.persist.stores."private".origin;
-  # TODO: remove the `prefix` part of this (will require data migration)
-  private-backing-dir = sane-lib.path.concat [ persist-base config.sane.persist.stores."private".prefix "private" ];
+  origin = config.sane.persist.stores."private".origin;
+  backing = sane-lib.path.concat [ persist-base "private" ];
 in
 lib.mkIf config.sane.persist.enable
 {
@@ -17,7 +16,7 @@ lib.mkIf config.sane.persist.enable
     '';
     origin = lib.mkDefault "/mnt/persist/private";
     defaultOrdering = let
-      private-unit = config.sane.fs."${private-dir}".unit;
+      private-unit = config.sane.fs."${origin}".unit;
     in {
       # auto create only after the store is mounted
       wantedBy = [ private-unit ];
@@ -27,8 +26,8 @@ lib.mkIf config.sane.persist.enable
     defaultMethod = "symlink";
   };
 
-  fileSystems."${private-dir}" = {
-    device = private-backing-dir;
+  fileSystems."${origin}" = {
+    device = backing;
     fsType = "fuse.gocryptfs";
     options = [
       "noauto"  # don't try to mount, until the user logs in!
@@ -44,9 +43,9 @@ lib.mkIf config.sane.persist.enable
   };
 
   # let sane.fs know about the mount
-  sane.fs."${private-dir}".mount = {};
+  sane.fs."${origin}".mount = {};
   # it also needs to know that the underlying device is an ordinary folder
-  sane.fs."${private-backing-dir}".dir = {};
+  sane.fs."${backing}".dir = {};
 
   # TODO: could add this *specifically* to the .mount file for the encrypted fs?
   system.fsPackages = [ pkgs.gocryptfs ];  # fuse needs to find gocryptfs

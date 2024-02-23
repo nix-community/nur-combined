@@ -41,7 +41,7 @@
   };
 
   sane.persist.sys.byStore.plaintext = [
-    { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin"; }
+    { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin"; method = "bind"; }
   ];
   sane.fs."/var/lib/jellyfin/config/logging.json" = {
     # "Emby.Dlna" logging: <https://jellyfin.org/docs/general/networking/dlna>

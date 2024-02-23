@@ -169,8 +169,8 @@ in
   security.acme.defaults.email = "admin.acme@uninsane.org";
 
   sane.persist.sys.byStore.plaintext = [
-    { user = "acme"; group = "acme"; path = "/var/lib/acme"; }
-    { user = "colin"; group = "users"; path = "/var/www/sites"; }
+    { user = "acme"; group = "acme"; path = "/var/lib/acme"; method = "bind"; }
+    { user = "colin"; group = "users"; path = "/var/www/sites"; method = "bind"; }
   ];
 
   # let's encrypt default chain looks like:

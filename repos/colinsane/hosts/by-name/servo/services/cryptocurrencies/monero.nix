@@ -3,7 +3,7 @@
 {
   sane.persist.sys.byStore.ext = [
     # /var/lib/monero/lmdb is what consumes most of the space
-    { user = "monero"; group = "monero"; path = "/var/lib/monero"; }
+    { user = "monero"; group = "monero"; path = "/var/lib/monero"; method = "bind"; }
   ];
 
   services.monero.enable = true;

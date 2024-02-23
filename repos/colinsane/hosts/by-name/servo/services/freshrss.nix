@@ -16,7 +16,7 @@
     mode = "0400";
   };
   sane.persist.sys.byStore.plaintext = [
-    { user = "freshrss"; group = "freshrss"; path = "/var/lib/freshrss"; }
+    { user = "freshrss"; group = "freshrss"; path = "/var/lib/freshrss"; method = "bind"; }
   ];
 
   services.freshrss.enable = true;

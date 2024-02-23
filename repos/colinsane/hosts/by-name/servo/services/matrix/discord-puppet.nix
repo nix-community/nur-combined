@@ -6,7 +6,7 @@
 lib.mkIf false
 {
   sane.persist.sys.byStore.plaintext = [
-    { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/mx-puppet-discord"; }
+    { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/mx-puppet-discord"; method = "bind"; }
   ];
 
   services.matrix-synapse.settings.app_service_config_files = [

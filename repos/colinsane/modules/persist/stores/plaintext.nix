@@ -3,13 +3,15 @@
 let
   # TODO: parameterize!
   persist-base = "/nix/persist";
-  plaintext-dir = config.sane.persist.stores."plaintext".origin;
-  plaintext-backing-dir = persist-base;  #< TODO: scope this!
-in lib.mkIf config.sane.persist.enable {
+  origin = config.sane.persist.stores."plaintext".origin;
+  backing = persist-base;  #< TODO: scope this!
+in {
   sane.persist.stores."plaintext" = {
     origin = lib.mkDefault "/mnt/persist/plaintext";
   };
 
   # TODO: scope this!
-  sane.fs."${plaintext-dir}".mount.bind = plaintext-backing-dir;
+  sane.fs = lib.mkIf config.sane.persist.enable {
+    "${origin}".mount.bind = backing;
+  };
 }

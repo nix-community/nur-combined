@@ -30,7 +30,7 @@
   # to query the quota/status:
   # - `sudo btrfs qgroup show -re /var/export/playground`
   sane.persist.sys.byStore.ext = [
-    { user = "root"; group = "export"; mode = "0775"; path = "/var/export/playground"; }
+    { user = "root"; group = "export"; mode = "0775"; path = "/var/export/playground"; method = "bind"; }
   ];
 
   sane.fs."/var/export/README.md" = {

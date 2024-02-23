@@ -21,7 +21,7 @@
   ];
 
   sane.persist.sys.byStore.plaintext = [
-    { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/matrix-synapse"; }
+    { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/matrix-synapse"; method = "bind"; }
   ];
   services.matrix-synapse.enable = true;
   services.matrix-synapse.settings = {

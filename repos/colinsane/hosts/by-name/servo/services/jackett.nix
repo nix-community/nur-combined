@@ -3,7 +3,7 @@
 {
   sane.persist.sys.byStore.plaintext = [
     # TODO: mode? we only need this to save Indexer creds ==> migrate to config?
-    { user = "root"; group = "root"; path = "/var/lib/jackett"; }
+    { user = "root"; group = "root"; path = "/var/lib/jackett"; method = "bind"; }
   ];
   services.jackett.enable = true;
 

@@ -2,9 +2,9 @@
 
 let
   persist-base = "/nix/persist";
-  device = config.sane.persist.stores."cryptClearOnBoot".origin;
-  key = "${device}.key";
-  underlying = sane-lib.path.concat [ persist-base "crypt/clearedonboot" ];
+  origin = config.sane.persist.stores."cryptClearOnBoot".origin;
+  key = "${origin}.key";
+  backing = sane-lib.path.concat [ persist-base "crypt/clearedonboot" ];
 in
 lib.mkIf config.sane.persist.enable
 {
@@ -17,8 +17,8 @@ lib.mkIf config.sane.persist.enable
   };
 
 
-  fileSystems."${device}" = {
-    device = underlying;
+  fileSystems."${origin}" = {
+    device = backing;
     fsType = "fuse.gocryptfs";
     options = [
       # "nodev"   # "Unknown parameter 'nodev'". gocryptfs requires this be passed as `-ko nodev`
@@ -30,18 +30,18 @@ lib.mkIf config.sane.persist.enable
     noCheck = true;
   };
   # let sane.fs know about our fileSystem and automatically add the appropriate dependencies
-  sane.fs."${device}".mount = {
+  sane.fs."${origin}".mount = {
     # technically the dependency on the keyfile is extraneous because that *happens* to
     # be needed to init the store.
     depends = let
-      cryptfile = config.sane.fs."${underlying}/gocryptfs.conf";
+      cryptfile = config.sane.fs."${backing}/gocryptfs.conf";
       keyfile = config.sane.fs."${key}";
     in [ keyfile.unit cryptfile.unit ];
   };
 
   # let sane.fs know how to initialize the gocryptfs store,
   # and that it MUST do so
-  sane.fs."${underlying}/gocryptfs.conf".generated = let
+  sane.fs."${backing}/gocryptfs.conf".generated = let
     script = pkgs.writeShellScript "init-gocryptfs-store" ''
       backing="$1"
       passfile="$2"
@@ -54,7 +54,7 @@ lib.mkIf config.sane.persist.enable
       ${pkgs.gocryptfs}/bin/gocryptfs -quiet -passfile "$passfile" -init "$backing"
     '';
   in {
-    command = [ "${script}" underlying key ];
+    command = [ "${script}" backing key ];
     # we need the key in order to initialize the store
     depends = [ config.sane.fs."${key}".unit ];
   };

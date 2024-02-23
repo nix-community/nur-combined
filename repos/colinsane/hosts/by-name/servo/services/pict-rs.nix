@@ -6,7 +6,7 @@ let
 in
 {
   sane.persist.sys.byStore.plaintext = lib.mkIf cfg.enable [
-    { user = "pict-rs"; group = "pict-rs"; path = cfg.dataDir; }
+    { user = "pict-rs"; group = "pict-rs"; path = cfg.dataDir; method = "bind"; }
   ];
 
   systemd.services.pict-rs.serviceConfig = {

@@ -7,7 +7,7 @@
 { ... }:
 {
   sane.persist.sys.byStore.ext = [
-    { user = "colin"; group = "users"; path = "/var/lib/kiwix"; }
+    { user = "colin"; group = "users"; path = "/var/lib/kiwix"; method = "bind"; }
   ];
 
   sane.services.kiwix-serve = {
