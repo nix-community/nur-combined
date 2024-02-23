@@ -65,11 +65,13 @@ in
   };
 
   config = {
-    # persist the host key
-    # prefer specifying it via environment.etc since although it is generated per-host,
-    # it's made to be immutable after generation. hence, a `persist`-style mount wouldn't be as great.
-    environment.etc."ssh/host_keys".source = "/nix/persist/etc/ssh/host_keys";
-    # sane.persist.sys.byStore.plaintext = [ "/etc/ssh/host_keys" ];
+    # persist the host key.
+    sane.persist.sys.byStore.plaintext = [ "/etc/ssh/host_keys" ];
+    # N.B.: use the plaintext `backing` dir instead of proper persistence, because this needs to be available
+    # during activation time (see /etc/machine-id and setupSecretsForUsers activation script).
+    environment.etc."ssh/host_keys".source = let
+      plaintextBacking = config.sane.fs."${config.sane.persist.stores.plaintext.origin}".mount.bind;
+    in "${plaintextBacking}/etc/ssh/host_keys";
 
     # let openssh find our host keys
     services.openssh.hostKeys = [
