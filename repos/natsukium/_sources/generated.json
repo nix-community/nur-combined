@@ -78,11 +78,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dfQ5qdkWMNIxCWhWa7cDMGzrpHl/m1RZsSaVFL56Ytg=",
+            "sha256": "sha256-KrXokUrglXE4emfdxAMux64CIHdOm96GX72zrXXxxaU=",
             "type": "url",
-            "url": "https://github.com/qmk/qmk_toolbox/releases/download/0.2.2/QMK.Toolbox.app.zip"
+            "url": "https://github.com/qmk/qmk_toolbox/releases/download/0.3.0/QMK.Toolbox.app.zip"
         },
-        "version": "0.2.2"
+        "version": "0.3.0"
     },
     "qutebrowser-darwin": {
         "cargoLocks": null,
