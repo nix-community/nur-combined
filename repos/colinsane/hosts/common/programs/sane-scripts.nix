@@ -109,16 +109,9 @@ in
       method = "bwrap";
       wrapperType = "wrappedDerivation";
       extraHomePaths = [
-        ".cache"
-        ".config"
-        ".local"
-        # would be nice to give it everything *except* ~/private, but not currently possible
-        ".bitmonero"
-        ".electrum"
-        ".librewolf"
-        ".ssh"
-        ".steam"
-        ".wine"
+        "/"
+        ".persist/ephemeral"
+        ".persist/plaintext"
       ];
     };
 
@@ -249,6 +242,8 @@ in
       whitelistDbus = [ "user" ];  #< for `secret-tool` and `systemd --user stop <service>
       extraHomePaths = [
         # could be more specific, but at a maintenance cost.
+        # TODO: needs updating, now that persisted data lives behind symlinks!
+        #       both this list AND the script need patching for that.
         ".cache"
         ".config"
         ".local/share"

@@ -28,9 +28,8 @@ in
       "dev"
       "knowledge"
       "nixos"
-      "private/knowledge"
       "ref"
-      ".ssh/id_ed25519"
+      ".ssh/id_ed25519"  # for ssh-auth'd remotes
     ];
     fs.".config/git/config".symlink.text = mkCfg {
       # top-level options documented:

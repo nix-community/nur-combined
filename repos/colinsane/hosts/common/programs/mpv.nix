@@ -79,9 +79,11 @@ in
       "Videos"
       "Videos/servo"
     ];
-    sandbox.extraRuntimePaths = [];
 
-    persist.byStore.plaintext = [ ".local/state/mpv/watch_later" ];
+    persist.byStore.plaintext = [
+      # for `watch_later`
+      ".local/state/mpv"
+    ];
     fs.".config/mpv/input.conf".symlink.text = let
       execInTerm = "${pkgs.xdg-terminal-exec}/bin/xdg-terminal-exec";
     in ''

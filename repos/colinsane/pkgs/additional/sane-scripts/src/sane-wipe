@@ -16,12 +16,12 @@ wipe_browser() {
   # remove chromium/epiphany/firefox/librewolf artifacts
   rm -rf \
     ~/.cache/BraveSoftware/* \
-    ~/.cache/chromium \
+    ~/.cache/chromium/* \
     ~/.cache/epiphany/* \
     ~/.cache/librewolf/* \
     ~/.cache/mozilla/firefox/* \
     ~/.config/BraveSoftware/* \
-    ~/.config/chromium \
+    ~/.config/chromium/* \
     ~/.librewolf/default/* \
     ~/.local/share/epiphany/* \
     ~/.mozilla/* \
@@ -46,9 +46,9 @@ wipe_flare() {
 
   dconf reset -f /de/schmidhuberj/Flare/
 
-  rm -rf ~/.local/share/flare
+  rm -rf ~/.local/share/flare/*
 
-  echo "you may repair Flare. after doing so, mv ~/.local/share/flare ~/private/.local/share/flare to persist"
+  echo "Flare is wiped: you may now repair it."
 }
 
 wipe_fractal() {

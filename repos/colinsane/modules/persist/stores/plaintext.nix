@@ -1,11 +1,15 @@
 { config, lib, ... }:
 
 let
-  cfg = config.sane.persist;
-in lib.mkIf cfg.enable {
-  sane.persist.stores."plaintext" = lib.mkDefault {
-    origin = "/nix/persist";
+  # TODO: parameterize!
+  persist-base = "/nix/persist";
+  plaintext-dir = config.sane.persist.stores."plaintext".origin;
+  plaintext-backing-dir = persist-base;  #< TODO: scope this!
+in lib.mkIf config.sane.persist.enable {
+  sane.persist.stores."plaintext" = {
+    origin = lib.mkDefault "/mnt/persist/plaintext";
   };
-  # TODO: needed?
-  # sane.fs."/nix".mount = {};
+
+  # TODO: scope this!
+  sane.fs."${plaintext-dir}".mount.bind = plaintext-backing-dir;
 }

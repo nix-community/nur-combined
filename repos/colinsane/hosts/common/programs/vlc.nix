@@ -24,7 +24,7 @@ in
     persist.byStore.private = [
       # vlc remembers play position in ~/.config/vlc/vlc-qt-interface.conf
       # filenames are stored in plaintext (unlike mpv, which i think hashes them)
-      ".config/vlc"
+      ({ path = ".config/vlc/vlc-qt-interface.conf"; type = "file"; })
       # vlc caches artwork. i'm not sure where it gets the artwork (internet? embedded metadata?)
       ".cache/vlc"
     ];

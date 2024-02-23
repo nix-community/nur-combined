@@ -1,5 +1,6 @@
 # docs
 # - x-systemd options: <https://www.freedesktop.org/software/systemd/man/systemd.mount.html>
+# - fuse options: `man mount.fuse`
 
 { lib, pkgs, sane-lib, ... }:
 
@@ -8,7 +9,9 @@ let
     common = [
       "_netdev"
       "noatime"
-      "user"  # allow any user with access to the device to mount the fs
+      # user: allow any user with access to the device to mount the fs.
+      #       note that this requires a suid `mount` binary; see: <https://zameermanji.com/blog/2022/8/5/using-fuse-without-root-on-linux/>
+      "user"
       "x-systemd.requires=network-online.target"
       "x-systemd.after=network-online.target"
       "x-systemd.mount-timeout=10s"  # how long to wait for mount **and** how long to wait for unmount
@@ -22,7 +25,8 @@ let
 
     ssh = common ++ [
       "identityfile=/home/colin/.ssh/id_ed25519"
-      "allow_other"
+      # "allow_other"  # allow users other than the one who mounts it to access it
+      "allow_root"  # allow root to access files on this fs
       "default_permissions"
     ];
     sshColin = ssh ++ [
@@ -63,7 +67,11 @@ let
       options = fsOpts.sshColin ++ fsOpts.noauto;
       noCheck = true;
     };
-    sane.fs."/mnt/${host}/home" = sane-lib.fs.wantedDir;
+    sane.fs."/mnt/${host}/home" = sane-lib.fs.wanted {
+      dir.acl.user = "colin";
+      dir.acl.group = "users";
+      dir.acl.mode = "0700";
+    };
   };
 in
 lib.mkMerge [
@@ -111,11 +119,21 @@ lib.mkMerge [
       fsType = "nfs";
       options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
     };
+    sane.fs."/mnt/servo/media" = sane-lib.fs.wanted {
+      dir.acl.user = "colin";
+      dir.acl.group = "users";
+      dir.acl.mode = "0750";
+    };
     fileSystems."/mnt/servo/playground" = {
       device = "servo-hn:/playground";
       noCheck = true;
       fsType = "nfs";
       options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
+    };
+    sane.fs."/mnt/servo/playground" = sane-lib.fs.wanted {
+      dir.acl.user = "colin";
+      dir.acl.group = "users";
+      dir.acl.mode = "0750";
     };
     # fileSystems."/mnt/servo-media-nfs" = {
     #   device = "servo-hn:/media";
@@ -131,6 +149,7 @@ lib.mkMerge [
       "/libexec"
     ];
 
+    programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
     environment.systemPackages = [
       pkgs.sshfs-fuse
     ];

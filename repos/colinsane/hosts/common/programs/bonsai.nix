@@ -1,7 +1,7 @@
 # bonsai docs: <https://sr.ht/~stacyharper/bonsai/>
 { config, lib, pkgs, ... }:
 let
-  cfg = config.sane.gui.sxmo.bonsaid;
+  cfg = config.sane.programs.bonsai.config;
 
   delayType = with lib; types.submodule {
     options = {
@@ -88,74 +88,43 @@ let
         mergeOneOption loc defs
     ;
   };
-
-  # transitionType = with lib; types.submodule {
-  #   options = {
-  #     type = mkOption {
-  #       type = types.enum [ "delay" "event" "exec" ];
-  #     };
-  #     delay_duration = mkOption {
-  #       type = types.nullOr types.int;
-  #       default = null;
-  #       description = ''
-  #         used for "delay" types only.
-  #         nanoseconds until the event is finalized.
-  #       '';
-  #     };
-  #     event_name = mkOption {
-  #       type = types.nullOr types.str;
-  #       default = null;
-  #       description = ''
-  #         name of event which this transition applies to.
-  #       '';
-  #     };
-  #     transitions = mkOption {
-  #       type = types.nullOr (types.listOf transitionType);
-  #       default = null;
-  #       description = ''
-  #         list of transitions out of this state.
-  #       '';
-  #     };
-  #     command = mkOption {
-  #       type = types.nullOr (types.listOf types.str);
-  #       default = null;
-  #       description = ''
-  #         used for "exec" types only.
-  #         command to run when the event is triggered.
-  #       '';
-  #     };
-  #   };
-  # };
 in
 {
-  options = with lib; {
-    sane.gui.sxmo.bonsaid.package = mkOption {
-      type = types.package;
-      default = pkgs.bonsai;
+  sane.programs.bonsai = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options = {
+          transitions = mkOption {
+            type = types.listOf transitionType;
+            default = [];
+          };
+          configFile = mkOption {
+            type = types.path;
+            default = pkgs.writeText "bonsai_tree.json" (builtins.toJSON cfg.transitions);
+            description = ''
+              configuration file to pass to bonsai.
+              usually auto-generated from the sibling options; exposed mainly for debugging or convenience.
+            '';
+          };
+        };
+      };
     };
-    sane.gui.sxmo.bonsaid.transitions = mkOption {
-      type = types.listOf transitionType;
-      default = [];
-    };
-    sane.gui.sxmo.bonsaid.configFile = mkOption {
-      type = types.path;
-      default = pkgs.writeText "bonsai_tree.json" (builtins.toJSON cfg.transitions);
-      description = ''
-        configuration file to pass to bonsai.
-        usually auto-generated from the sibling options; exposed mainly for debugging or convenience.
-      '';
-    };
-  };
-  config = lib.mkIf config.sane.gui.sxmo.enable {
-    sane.user.services.bonsaid = {
-      description = "programmable input dispatcher";
+
+    services.bonsaid = {
+      description = "bonsai: programmable input dispatcher";
+      after = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
+
       script = ''
         ${pkgs.coreutils}/bin/rm -f $XDG_RUNTIME_DIR/bonsai
         exec ${cfg.package}/bin/bonsaid -t ${cfg.configFile}
       '';
-      serviceConfig.Type = "simple";
-      serviceConfig.Restart = "always";
-      serviceConfig.RestartSec = "5s";
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "5s";
+      };
     };
   };
 }

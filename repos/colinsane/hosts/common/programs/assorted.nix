@@ -332,6 +332,11 @@ in
     eza.sandbox.wrapperType = "wrappedDerivation";  # slow to build
     eza.sandbox.autodetectCliPaths = true;
     eza.sandbox.whitelistPwd = true;
+    eza.sandbox.extraHomePaths = [
+      # so that e.g. `eza -l ~` can show which symlink exist
+      ".persist/ephemeral"
+      ".persist/plaintext"
+    ];
 
     fatresize.sandbox.method = "landlock";
     fatresize.sandbox.wrapperType = "wrappedDerivation";
@@ -341,6 +346,11 @@ in
     fd.sandbox.wrapperType = "wrappedDerivation";  # slow to build
     fd.sandbox.autodetectCliPaths = true;
     fd.sandbox.whitelistPwd = true;
+    fd.sandbox.extraHomePaths = [
+      # let it follow symlinks to non-sensitive data
+      ".persist/ephemeral"
+      ".persist/plaintext"
+    ];
 
     ffmpeg.sandbox.method = "bwrap";
     ffmpeg.sandbox.wrapperType = "wrappedDerivation";  # slow to build
@@ -354,6 +364,11 @@ in
     findutils.sandbox.wrapperType = "wrappedDerivation";
     findutils.sandbox.autodetectCliPaths = true;
     findutils.sandbox.whitelistPwd = true;
+    findutils.sandbox.extraHomePaths = [
+      # let it follow symlinks to non-sensitive data
+      ".persist/ephemeral"
+      ".persist/plaintext"
+    ];
 
     fluffychat-moby.persist.byStore.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
@@ -380,7 +395,10 @@ in
     fuzzel.sandbox.method = "bwrap";  #< landlock nearly works, but unable to open ~/.cache
     fuzzel.sandbox.wrapperType = "wrappedDerivation";
     fuzzel.sandbox.whitelistWayland = true;
-    fuzzel.persist.byStore.private = [ ".cache/fuzzel" ];  #< this is a file of recent selections
+    fuzzel.persist.byStore.private = [
+      # this is a file of recent selections
+      { path=".cache/fuzzel"; type="file"; }
+    ];
 
     gawk.sandbox.method = "bwrap";  # TODO:sandbox: untested
     gawk.sandbox.wrapperType = "inplace";  # share/gawk libraries refer to /libexec
@@ -395,6 +413,11 @@ in
     gnugrep.sandbox.wrapperType = "wrappedDerivation";
     gnugrep.sandbox.autodetectCliPaths = true;
     gnugrep.sandbox.whitelistPwd = true;
+    gnugrep.sandbox.extraHomePaths = [
+      # let it follow symlinks to non-sensitive data
+      ".persist/ephemeral"
+      ".persist/plaintext"
+    ];
 
     gptfdisk.sandbox.method = "landlock";
     gptfdisk.sandbox.wrapperType = "wrappedDerivation";
@@ -474,7 +497,9 @@ in
 
     # TODO: gnome-maps: move to own file
     "gnome.gnome-maps".persist.byStore.plaintext = [ ".cache/shumate" ];
-    "gnome.gnome-maps".persist.byStore.private = [ ".local/share/maps-places.json" ];
+    "gnome.gnome-maps".persist.byStore.private = [
+      ({ path = ".local/share/maps-places.json"; type = "file"; })
+    ];
 
     # hitori rules:
     # - click to shade a tile
@@ -753,7 +778,7 @@ in
     qemu.sandbox.enable = false;  #< it's a launcher
     qemu.slowToBuild = true;
 
-    rsync.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    rsync.sandbox.method = "bwrap";
     rsync.sandbox.wrapperType = "wrappedDerivation";
     rsync.sandbox.net = "clearnet";
     rsync.sandbox.autodetectCliPaths = "existingFileOrParent";

@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./keyring
+    ./fs.nix
     ./mime.nix
     ./ssh.nix
     ./xdg-dirs.nix

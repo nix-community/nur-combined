@@ -42,7 +42,7 @@ in
       # dconf achieves atomic writes via `mv`, so a symlink doesn't work
       # moreover, i have to persist the *whole* directory:
       # - `user-db:tangram/user` causes a schema failure
-      # - bind-mounting `~/private/.config/dconf/tangram` causes dconf to try a cross-fs `mv`, which fails
+      # - bind-mounting `~/.config/dconf/tangram` causes dconf to try a cross-fs `mv`, which fails
       # - dconf provides no way to specify an alternate ~/.config/dconf dir, except by overriding XDG_CONFIG_HOME
       # { type = "file"; path = ".config/dconf/tangram"; method = "bind"; }
       # ".config/dconf"

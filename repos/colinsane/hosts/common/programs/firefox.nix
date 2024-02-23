@@ -248,7 +248,7 @@ in
           "Pictures/servo-macros"
         ] ++ lib.optionals cfg.addons.browserpass-extension.enable [
           # browserpass needs these paths:
-          # - private/knowledge/secrets/accounts: where the encrypted account secrets live
+          # - knowledge/secrets/accounts: where the encrypted account secrets live
           # at least one of:
           # - .config/sops: for the sops key which can decrypt account secrets
           # - .ssh: to unlock the sops key, if not unlocked (`sane-secrets-unlock`)
@@ -257,7 +257,7 @@ in
           # - see if ssh has a more formal type of subkey system?
           ".ssh/id_ed25519"
           # ".config/sops"
-          "private/knowledge/secrets/accounts"
+          "knowledge/secrets/accounts"
         ];
         fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};  #< needs to be created, not *just* added to the sandbox
 
@@ -326,7 +326,6 @@ in
           // matrix: for Nheko matrix client
           defaultPref("network.protocol-handler.external.matrix", true);
         '';
-        fs."${cfg.browser.dotDir}/default".dir = {};
         # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).
         # XXX: the directory *must* exist, even if empty; Firefox will not create the directory itself.
         fs."${cfg.browser.dotDir}/profiles.ini".symlink.text = ''
@@ -341,27 +340,26 @@ in
         '';
 
         # TODO: env.PASSWORD_STORE_DIR only needs to be present within the browser session.
-        env.PASSWORD_STORE_DIR = "/home/colin/private/knowledge/secrets/accounts";
+        env.PASSWORD_STORE_DIR = "/home/colin/knowledge/secrets/accounts";
         # alternative to PASSWORD_STORE_DIR, but firejail doesn't handle this symlink well
-        # fs.".password-store".symlink.target = lib.mkIf cfg.addons.browserpass-extension.enable "private/knowledge/secrets/accounts";
-      };
-    })
-    (mkIf config.sane.programs.firefox.enabled {
-      # TODO: move the persistence into the sane.programs API (above)
-      # flush the cache to disk to avoid it taking up too much tmp.
-      sane.user.persist.byPath."${cfg.browser.cacheDir}".store =
-        if (cfg.persistData != null) then
-          cfg.persistData
-        else
-          "cryptClearOnBoot"
+        # fs.".password-store".symlink.target = lib.mkIf cfg.addons.browserpass-extension.enable "knowledge/secrets/accounts";
+
+        # flush the cache to disk to avoid it taking up too much tmp.
+        persist.byPath."${cfg.browser.cacheDir}".store =
+          if (cfg.persistData != null) then
+            cfg.persistData
+          else
+            "cryptClearOnBoot"
         ;
 
-      sane.user.persist.byPath."${cfg.browser.dotDir}/default".store =
-        if (cfg.persistData != null) then
-          cfg.persistData
-        else
-          "cryptClearOnBoot"
+        persist.byPath."${cfg.browser.dotDir}/default".store =
+          if (cfg.persistData != null) then
+            cfg.persistData
+          else
+            "cryptClearOnBoot"
         ;
+      };
+
     })
   ];
 }

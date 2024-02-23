@@ -1,7 +1,7 @@
 { config, lib, pkgs, sane-lib, utils, ... }:
 
 let
-  persist-base = config.sane.persist.stores."plaintext".origin;
+  persist-base = "/nix/persist";
   device = config.sane.persist.stores."cryptClearOnBoot".origin;
   key = "${device}.key";
   underlying = sane-lib.path.concat [ persist-base "crypt/clearedonboot" ];

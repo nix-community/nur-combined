@@ -23,6 +23,11 @@ let
       };
       origin = mkOption {
         type = types.str;
+        description = ''
+          where this store is rooted within the outer filesystem.
+          conceptually, this is the store's "mount point",
+          though technically this could be a path within any larger mount.
+        '';
       };
       prefix = mkOption {
         type = types.str;
@@ -36,7 +41,7 @@ let
       };
       defaultMethod = mkOption {
         type = types.enum [ "bind" "symlink" ];
-        default = "bind";
+        default = "symlink";
         description = ''
           preferred way to link items from the store into the fs
         '';
@@ -231,23 +236,25 @@ in
           };
         })
         (lib.optionalAttrs (opt.type == "file") {
-          # ensure the backing path of this file's parent exists.
-          # XXX: this forces the backing parent to be a directory
-          # this is almost always what is wanted, but it's sometimes an arbitrary constraint
-          sane.fs."${path.parent (fsPathToBackingPath fspath)}" = {
+          # create the backing file, as an empty file.
+          # the old way was to create the parent directory and leave the file empty, expecting the program to create it.
+          # that doesn't work well with sandboxing, where the fs handles we want to give the program have to exist before launch.
+          sane.fs."${fsPathToBackingPath fspath}" = {
             wantedBeforeBy = [ config.sane.fs."${fspath}".unit ];
-            dir = {};
+            file.acl = config.sane.fs."${fspath}".generated.acl;
+            file.text = lib.mkDefault "";
           };
         })
         {
           # default each item along the backing path to have the same acl as the location it would be mounted.
+          # also, default each parent to being a directory.
           sane.fs = lib.mkMerge (builtins.map
             (fsSubpath: {
               "${fsPathToBackingPath fsSubpath}" = {
-                generated.acl = config.sane.fs."${fsSubpath}".generated.acl;
+                dir.acl = config.sane.fs."${fsSubpath}".generated.acl;
               };
             })
-            (path.walk store.prefix (path.parent fspath))
+            (lib.init (path.walk store.prefix fspath))
           );
         }
       ];

@@ -9,6 +9,7 @@
     ./assorted.nix
     ./audacity.nix
     ./bemenu.nix
+    ./bonsai.nix
     ./brave.nix
     ./bubblewrap.nix
     ./calls.nix
@@ -35,7 +36,7 @@
     ./geary.nix
     ./git.nix
     ./gnome-feeds.nix
-    ./gnome-keyring.nix
+    ./gnome-keyring
     ./gnome-weather.nix
     ./go2tv.nix
     ./gpodder.nix

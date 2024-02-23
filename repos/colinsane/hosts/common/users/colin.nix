@@ -41,8 +41,8 @@
     # - <https://github.com/lourkeur/distro/blob/11173454c6bb50f7ccab28cc2c757dca21446d1d/nixos/profiles/users/louis-full.nix>
     # - <https://github.com/dnr/sample-nix-code/blob/03494480c1fae550c033aa54fd96aeb3827761c5/nixos/laptop.nix>
     pamMount = let
-      hasPrivate = config.fileSystems ? "/home/colin/private";
-      priv = config.fileSystems."/home/colin/private";
+      hasPrivate = config.fileSystems ? "/mnt/persist/private";
+      priv = config.fileSystems."/mnt/persist/private";
     in lib.mkIf hasPrivate {
       fstype = priv.fsType;
       path = priv.device;
@@ -78,7 +78,9 @@
     #
     # special capabilities "all" and "none" enable all/none of the caps known to the system.
 
-    ^cap_net_admin,^cap_net_raw colin
+    # cap_ipc_lock: required by gnome-keyring (for `mlock`)
+    ^cap_net_admin,^cap_net_raw,^cap_ipc_lock colin
+
     # include this `none *` line otherwise non-matching users get maximum inheritable capabilities
     none *
   '';
@@ -110,41 +112,5 @@
   #   }
   # '';
 
-  sane.users.colin = {
-    default = true;
-
-    persist.byStore.plaintext = [
-      "archive"
-      "dev"
-      # TODO: records should be private
-      "records"
-      "ref"
-      "tmp"
-      "use"
-      "Books"
-      "Music"
-      "Pictures"
-      "Videos"
-
-      # these are persisted simply to save on RAM.
-      # ~/.cache/nix can become several GB.
-      # mesa_shader_cache is < 10 MB.
-      # TODO: integrate with sane.programs.sandbox?
-      ".cache/mesa_shader_cache"
-      ".cache/nix"
-
-      # ".cargo"
-      # ".rustup"
-    ];
-
-    # fs.".cargo".symlink.target = "/tmp/colin-cargo";
-
-    # convenience
-    fs."knowledge".symlink.target = "private/knowledge";
-    fs."nixos".symlink.target = "dev/nixos";
-    fs."Books/servo".symlink.target = "/mnt/servo/media/Books";
-    fs."Videos/servo".symlink.target = "/mnt/servo/media/Videos";
-    # fs."Music/servo".symlink.target = "/mnt/servo/media/Music";
-    fs."Pictures/servo-macros".symlink.target = "/mnt/servo/media/Pictures/macros";
-  };
+  sane.users.colin.default = true;
 }

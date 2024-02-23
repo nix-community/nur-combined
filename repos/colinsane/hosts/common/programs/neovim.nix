@@ -98,7 +98,6 @@ in
       "dev"
       "knowledge"
       "nixos"
-      "private/knowledge"
       "records"
       "ref"
       "tmp"

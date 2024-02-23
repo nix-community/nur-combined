@@ -18,6 +18,8 @@
       # support media imports via file->open dir to some common media directories
       "tmp"
       "Music"
+      # audacity needs the entire config dir mounted if running in a sandbox
+      ".config/audacity"
     ];
 
     # disable first-run splash screen
@@ -29,7 +31,5 @@
       Major=3
       Minor=4
     '';
-    # audacity needs the entire config dir mounted if running in a sandbox
-    fs.".config/audacity".dir = {};
   };
 }

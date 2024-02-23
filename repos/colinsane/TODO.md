@@ -46,7 +46,7 @@
     - otherwise anyone can `systemd-run --user ...` to potentially escape a sandbox
     - <https://github.com/flatpak/xdg-dbus-proxy>
   - remove `.ssh` access from Firefox!
-    - limit access to `~/private/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
+    - limit access to `~/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
   - port sane-sandboxed to a compiled language (hare?)
     - it adds like 50-70ms launch time _on my laptop_. i'd hate to know how much that is on the pinephone.
 - make dconf stuff less monolithic

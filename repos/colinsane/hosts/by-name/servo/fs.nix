@@ -50,6 +50,7 @@
   sane.persist.stores."ext" = {
     origin = "/mnt/pool/persist";
     storeDescription = "external HDD storage";
+    defaultMethod = "bind";  #< TODO: change to "symlink"?
   };
 
   # increase /tmp space (defaults to 50% of RAM) for building large nix things.
@@ -90,6 +91,7 @@
     user = "colin"; group = "media"; mode = "0775";
   };
   sane.fs."/var/lib/uninsane/media/archive".dir = {};
+  # this is file.text instead of symlink.text so that it may be read over a remote mount (where consumers might not have any /nix/store/.../README.md path)
   sane.fs."/var/lib/uninsane/media/archive/README.md".file.text = ''
     this directory is for media i wish to remove from my library,
     but keep for a short time in case i reverse my decision.
@@ -108,6 +110,7 @@
   sane.fs."/var/lib/uninsane/media/Videos/Film".dir = {};
   sane.fs."/var/lib/uninsane/media/Videos/Shows".dir = {};
   sane.fs."/var/lib/uninsane/media/Videos/Talks".dir = {};
+  # this is file.text instead of symlink.text so that it may be read over a remote mount (where consumers might not have any /nix/store/.../README.md path)
   sane.fs."/var/lib/uninsane/datasets/README.md".file.text = ''
     this directory may seem redundant with ../media/datasets. it isn't.
     this directory exists on SSD, allowing for speedy access to specific datasets when necessary.

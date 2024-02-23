@@ -2,6 +2,7 @@
 let
   saneCfg = config.sane;
   cfg = config.sane.programs;
+  fs-lib = sane-lib.fs;
   path-lib = sane-lib.path;
 
   # create a map:
@@ -43,17 +44,14 @@ let
         makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { sane-sandboxed = config.sane.sandboxHelper; };
 
         # removeStorePaths: [ str ] -> [ str ], but remove store paths, because nix evals aren't allowed to contain any (for purity reasons?)
-        removeStorePaths = lib.filter (p: !(lib.hasPrefix "/nix/store" p));
-        # onlySymlinks: [ str ] -> [ str ], keeping only those strings which represent paths that are symlinks
-        onlySymlinks = lib.filter
-          (p: (config.sane.fs."${p}" or { symlink = null; }).symlink != null);
+        removeStorePaths = paths: lib.filter (p: !(lib.hasPrefix "/nix/store" p)) paths;
+
+        # derefSymlinks: [ str ] -> [ str ]: for each path which is a symlink (or a child of a symlink'd dir), dereference one layer of symlink. else, drop it from the list.
+        derefSymlinks' = paths: builtins.map (fs-lib.derefSymlinkOrNull fs) paths;
+        derefSymlinks = paths: lib.filter (p: p != null) (derefSymlinks' paths);
         # expandSymlinksOnce: [ str ] -> [ str ], returning all the original paths plus dereferencing any symlinks and adding their targets to this list.
-        derefSymlinks = paths: builtins.map
-          (p: config.sane.fs."${p}".symlink.target)
-          (onlySymlinks paths)
-        ;
         expandSymlinksOnce = paths: lib.unique (paths ++ removeStorePaths (derefSymlinks paths));
-        expandSymlinks = lib.converge expandSymlinksOnce;
+        expandSymlinks = paths: lib.converge expandSymlinksOnce paths;
 
         vpn = lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn);
 

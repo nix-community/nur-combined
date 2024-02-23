@@ -97,9 +97,9 @@ let
 
       # actually generate the item
       generated.command = lib.mkMerge [
-        (lib.mkIf (config.dir != null) [ "${ensure-dir}/bin/ensure-dir" name ])
-        (lib.mkIf (config.file != null) [ "${ensure-file}/bin/ensure-file" name config.file.copyFrom ])
-        (lib.mkIf (config.symlink != null) [ "${ensure-symlink}/bin/ensure-symlink" name config.symlink.target ])
+        (lib.mkIf (config.dir != null) (lib.escapeShellArgs [ "${ensure-dir}/bin/ensure-dir" name ]))
+        (lib.mkIf (config.file != null) (lib.escapeShellArgs [ "${ensure-file}/bin/ensure-file" name config.file.copyFrom ]))
+        (lib.mkIf (config.symlink != null) (lib.escapeShellArgs [ "${ensure-symlink}/bin/ensure-symlink" name config.symlink.target ]))
       ];
 
       # make the unit file which generates the underlying thing available so that `mount` can use it.
@@ -199,8 +199,13 @@ let
         default = [];
       };
       command = mkOption {
-        type = types.listOf types.str;
-        default = [];
+        type = types.coercedTo (types.listOf types.str) lib.escapeShellArgs types.str;
+        default = "";
+        description = ''
+          command to `exec` which will generate the output.
+          this can be a list -- in which case it's treated as some `argv` to exec,
+          or a string, in which case it's passed onto the CLI unescaped.
+        '';
       };
       unit = mkOption {
         type = types.str;
@@ -240,7 +245,7 @@ let
       gen-opt.acl.user
       gen-opt.acl.group
       gen-opt.acl.mode
-    ] ++ gen-opt.command;
+    ];
   in {
     systemd.services."${serviceNameFor path}" = {
       description = "prepare ${path}";
@@ -248,7 +253,7 @@ let
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;  # makes `systemctl start ensure-blah` a noop if already completed, instead of a restart
-        ExecStart = escapeShellArgs wrappedCommand;
+        ExecStart = (escapeShellArgs wrappedCommand) + " " + gen-opt.command;
       };
 
       after = gen-opt.depends;
@@ -321,7 +326,9 @@ let
       extraDefs = builtins.map (p: {
         file = ./.;
         value = {
-          "${p}".dir = {};
+          "${p}" = lib.mkDefault {
+            dir = {};
+          };
         };
       }) extraPaths;
     in

@@ -1,8 +1,8 @@
 { ... }:
 
 {
-  sane.persist.stores.private.origin = "/home/colin/private";
-  # store /home/colin/a/b in /home/private/a/b instead of /home/private/home/colin/a/b
+  sane.persist.stores.private.origin = "/mnt/persist/private";
+  # store /home/colin/a/b in /mnt/persist/private/a/b instead of /mnt/persist/private/home/colin/a/b
   sane.persist.stores.private.prefix = "/home/colin";
 
   sane.persist.sys.byStore.plaintext = [

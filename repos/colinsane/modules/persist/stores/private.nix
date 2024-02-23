@@ -1,9 +1,11 @@
 { config, lib, pkgs, sane-lib, utils, ... }:
 
 let
-  persist-base = config.sane.persist.stores."plaintext".origin;
+  # TODO: parameterize!
+  persist-base = "/nix/persist";
   private-dir = config.sane.persist.stores."private".origin;
-  private-backing-dir = sane-lib.path.concat [ persist-base private-dir ];
+  # TODO: remove the `prefix` part of this (will require data migration)
+  private-backing-dir = sane-lib.path.concat [ persist-base config.sane.persist.stores."private".prefix "private" ];
 in
 lib.mkIf config.sane.persist.enable
 {
@@ -32,7 +34,7 @@ lib.mkIf config.sane.persist.enable
       "noauto"  # don't try to mount, until the user logs in!
       "nofail"
       # "nodev"   # "Unknown parameter 'nodev'". gocryptfs requires this be passed as `-ko nodev`
-      # "noexec"  # handful of scripts in ~/private/knowledge that are executable
+      # "noexec"  # handful of scripts in ~/knowledge that are executable
       # "nosuid"  # "Unknown parameter 'nosuid'". gocryptfs requires this be passed as `-ko nosuid` (also nosuid is default)
       "allow_other"  # root ends up being the user that mounts this, so need to make it visible to other users.
       # "quiet"

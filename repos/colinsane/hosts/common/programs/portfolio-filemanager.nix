@@ -8,26 +8,18 @@
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       # grant access to pretty much everything, except for secret keys.
-      # ".cache"
-      # ".config"
-      # ".local"
-      "archive"
-      "Books"
-      "dev"
+      "/"
+      ".persist/ephemeral"
+      ".persist/plaintext"
       "knowledge"
-      "Music"
       "nixos"
-      "Pictures"
-      # "private"  #< explicitly NOT
-      "records"
-      "ref"
-      "tmp"
-      "use"
-      "Videos"
     ];
     sandbox.extraPaths = [
       "/boot"
-      "/mnt"
+      "/mnt/desko"
+      "/mnt/lappy"
+      "/mnt/moby"
+      "/mnt/servo"
       # "nix"
       "/run/media"  # for mounted devices
       "/tmp"

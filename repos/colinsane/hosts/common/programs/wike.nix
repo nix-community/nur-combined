@@ -22,7 +22,7 @@
       ".local/share/webkitgtk"
     ];
     persist.byStore.private = [
-      ".local/share/historic.json"  # history
+      ({ path=".local/share/historic.json"; type="file"; })  # history
       # .local/share/cookies (probably not necessary to persist?)
 
       # .local/share/booklists.json (empty; not sure if wike's)

@@ -256,10 +256,6 @@ in
     };
   };
 
-  imports = [
-    ./bonsai.nix
-  ];
-
   config = lib.mkMerge [
     {
       sane.programs.sxmoApps = {
@@ -267,6 +263,7 @@ in
         suggestedPrograms = [
           "guiApps"
           "bemenu"  # specifically to import its theming
+          "bonsai"
           "sfeed"   # want this here so that the user's ~/.sfeed/sfeedrc gets created
           # "superd"  # make superctl (used by sxmo) be on PATH
           # "sway-autoscaler"
@@ -403,7 +400,6 @@ in
         # TODO: could use `displayManager.sessionPackages`?
         environment.systemPackages = [
           package
-          pkgs.bonsai  # sway (not sxmo) needs to exec `bonsaictl` by name (sxmo_swayinitconf.sh)
         ] ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
           ++ lib.optionals (cfg.keyboard != null) [ pkgs."${cfg.keyboard}" ];
 
@@ -420,7 +416,7 @@ in
         );
 
 
-        sane.gui.sxmo.bonsaid.transitions = let
+        sane.programs.bonsai.config.transitions = let
           doExec = inputName: transitions: {
             type = "exec";
             command = [
