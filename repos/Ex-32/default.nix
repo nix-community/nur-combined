@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  ccc = pkgs.callPackage ./pkgs/ccc { };
   devcontainer-cli = pkgs.callPackage ./pkgs/devcontainer-cli { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
