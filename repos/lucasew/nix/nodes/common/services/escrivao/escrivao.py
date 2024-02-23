@@ -10,6 +10,7 @@ import os
 import logging
 import gc
 import traceback
+import sys
 
 logging.basicConfig(level=logging.INFO)
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -32,6 +33,9 @@ TELEGRAM_TOKEN = args.token.read_text().strip()
 backend_transport = httpx.HTTPTransport(uds=str(args.worker_socket))
 client = httpx.Client(transport=backend_transport)
 
+class BackendException(Exception):
+    pass
+
 class Timestamp:
     def __init__(self, seconds: int):
         self.seconds = int(seconds)
@@ -47,10 +51,13 @@ class Timestamp:
 async def inference(audio):
     inference_response = client.send(httpx.Request('GET', 'http://a', content=audio))
     data = inference_response.json()
+    if 'error' in data:
+        raise BackendException(data['error'])
     if 'data' in data:
         data = data['data']
     text = ''
     for chunk in data:
+        print(chunk, file=sys.stderr)
         timestamp = Timestamp(chunk['location'])
         chunk_text = chunk['text']
         text = f"{text}\n({timestamp}) {chunk_text}"
@@ -63,6 +70,7 @@ async def inference(audio):
 async def handle_audio(update: Update, context):
     items = [
         update.message.audio,
+        update.message.document,
         update.message.voice
     ]
     for item in items:
@@ -74,22 +82,16 @@ async def handle_audio(update: Update, context):
             await update.message.reply_text("Erro: arquivo grande demais. Limite: 20MB", reply_to_message_id=update.message.id)
             continue
         try:
-            gc.collect()
             audio_bytes = await file.download_as_bytearray()
             audio_bytes = bytes(audio_bytes)
-            print(audio_bytes)
+            # print(audio_bytes)
             text = await inference(audio_bytes)
-            gc.collect()
             await update.message.reply_text(text, reply_to_message_id=update.message.id)
             logger.info(f'audio ({update.message.chat.title}/{update.message.chat.username}-{update.message.chat.id}) {text}')
         except Exception as e:
             print(e)
             traceback.print_exc()
             await update.message.reply_text(f"Erro: {e}")
-        except torch.cuda.OutOfMemoryError as e:
-            print(e)
-            traceback.print_exc()
-            await update.message.reply_text("Erro: GPU sem memória o suficiente para realizar a inferência", reply_to_message_id=update.message.id)
 
 app = Application.builder().token(TELEGRAM_TOKEN).build()
 app.add_handler(MessageHandler(filters.AUDIO | filters.VOICE, handle_audio))

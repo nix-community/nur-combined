@@ -38,6 +38,7 @@ in {
     environment = {
       LD_LIBRARY_PATH = builtins.concatStringsSep ":" [
         "/run/opengl-driver/lib"
+        "${pkgs.ffmpeg.lib}/lib"
       ];
     };
   };
