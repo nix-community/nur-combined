@@ -33,13 +33,13 @@ python3Packages.buildPythonApplication rec {
              elevation/util.py \
              tests/test_*.py; do
       substituteInPlace $f \
-        --replace-fail "make " "${lib.getBin gnumake}/bin/make " \
-        --replace-fail "curl " "${lib.getBin curl}/bin/curl " \
-        --replace-fail "gunzip " "gunzip.t " \
-        --replace-fail "unzip " "${lib.getBin unzip}/bin/unzip " \
-        --replace-fail "gunzip.t " "${lib.getBin gzip}/bin/gunzip " \
-        --replace-fail "gdal_translate " "${lib.getBin gdal}/bin/gdal_translate " \
-        --replace-fail "gdalbuildvrt " "${lib.getBin gdal}/bin/gdalbuildvrt "
+        --replace-warn "make " "${lib.getBin gnumake}/bin/make " \
+        --replace-warn "curl " "${lib.getBin curl}/bin/curl " \
+        --replace-warn "gunzip " "gunzip.t " \
+        --replace-warn "unzip " "${lib.getBin unzip}/bin/unzip " \
+        --replace-warn "gunzip.t " "${lib.getBin gzip}/bin/gunzip " \
+        --replace-warn "gdal_translate " "${lib.getBin gdal}/bin/gdal_translate " \
+        --replace-warn "gdalbuildvrt " "${lib.getBin gdal}/bin/gdalbuildvrt "
     done
   '';
 
