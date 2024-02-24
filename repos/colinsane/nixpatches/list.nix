@@ -33,11 +33,6 @@ in [
     hash = "sha256-R3EIQwIMMCACmGKbfW6Xv7uZhCDQ/bMHw8/pHcnmOLo=";
   })
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/288292";
-    title = "megapixels: 1.7.0 -> 1.8.0";
-    hash = "sha256-jV9eE/BOrvNqVUkk2RG5i6ReNMJWraqqfksJCCdDGGs=";
-  })
-  (fetchpatch' {
     saneCommit = "20c9492d303be7cbad560e3d83bc47ab4b1e93f7";
     title = "procmail: support cross compilation";
     hash = "sha256-cC9GBF5tCeJ2GDSjMjlG4hYStIJPEoRBAK9/KhJiiIo=";
