@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "farbfeld-utils";
-  version = "2022-12-16";
+  version = "0-unstable-2022-12-16";
 
   src = fetchfossil {
     url = "http://zzo38computer.org/fossil/farbfeld.ui";

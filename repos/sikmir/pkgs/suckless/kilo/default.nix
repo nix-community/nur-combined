@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kilo";
-  version = "2020-07-05";
+  version = "0-unstable-2020-07-05";
 
   src = fetchFromGitHub {
     owner = "antirez";

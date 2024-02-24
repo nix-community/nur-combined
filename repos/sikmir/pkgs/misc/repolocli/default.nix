@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "repolocli";
-  version = "2021-04-06";
+  version = "0-unstable-2021-04-06";
 
   src = fetchFromSourcehut {
     owner = "~matthiasbeyer";

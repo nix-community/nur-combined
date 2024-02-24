@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "ozi_map";
-  version = "2022-08-05";
+  version = "0-unstable-2022-08-05";
 
   src = fetchFromGitHub {
     owner = "wladich";

@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libst";
-  version = "2021-06-06";
+  version = "0-unstable-2021-06-06";
 
   src = fetchFromGitHub {
     owner = "jeremybobbin";

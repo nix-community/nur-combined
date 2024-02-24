@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "gemini-ipfs-gateway";
-  version = "2023-10-19";
+  version = "0-unstable-2023-10-19";
 
   src = fetchFromSourcehut {
     owner = "~hsanjuan";

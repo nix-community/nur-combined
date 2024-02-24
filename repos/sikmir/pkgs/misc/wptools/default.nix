@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "wptools";
-  version = "2022-02-22";
+  version = "0.4.17-unstable-2022-02-22";
 
   src = fetchFromGitHub {
     owner = "siznax";

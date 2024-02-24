@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "edit";
-  version = "2023-10-11";
+  version = "0-unstable-2024-02-04";
 
   src = fetchFromGitHub {
     owner = "arthur-jacquin";
     repo = "edit";
-    rev = "d2a9b26f21e45b699afb99180238f90055cd7332";
-    hash = "sha256-pXo5HnfJPpiXw7RApvaQcl4xvosUnyi3ov43dLcym48=";
+    rev = "d0814100f003649c5afe3ec6cdd0c8d3fd7593f9";
+    hash = "sha256-woFX3nGSOY4RSNPGRAt40xHDNOPlO2t1kgzb8U2v5+U=";
   };
 
   postPatch = ''
@@ -23,6 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 })

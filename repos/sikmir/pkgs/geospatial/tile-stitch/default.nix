@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tile-stitch";
-  version = "2019-07-11";
+  version = "0-unstable-2019-07-11";
 
   src = fetchFromGitHub {
     owner = "e-n-f";

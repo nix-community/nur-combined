@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "thinplatespline";
-  version = "2022-06-02";
+  version = "0-unstable-2024-02-06";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "thinplatespline";
-    rev = "acedd7aa9eef7f66a54df53a9596a0b4d95af92b";
-    hash = "sha256-/RLcB+xq1U7AKx26brw4gG29AMJB1LedC+5MNbK/rxI=";
+    rev = "81f40c74663d9510ceedf57a04a711ec7fc8b7fa";
+    hash = "sha256-1U5WEPFH5dhf2lkfZY6rrwlUNq/rY2mSlgEZVnReyng=";
   };
 
   doCheck = false;

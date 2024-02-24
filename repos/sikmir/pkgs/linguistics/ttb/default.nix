@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "ttb";
-  version = "2022-12-14";
+  version = "0-unstable-2022-12-14";
 
   src = fetchFromGitHub {
     owner = "TheOpenDictionary";

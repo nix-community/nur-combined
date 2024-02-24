@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "csvtools";
-  version = "2019-08-03";
+  version = "0-unstable-2023-10-10";
 
   src = fetchFromGitHub {
     owner = "DavyLandman";
     repo = "csvtools";
-    rev = "efd3ef1c94c26c673e958ecb045056bfc2c7b4f3";
-    hash = "sha256-hNEI5vQ3j6zyn31H2G+0xywdff7uaXi0kv2q4Hjiimg=";
+    rev = "0162d828ec7500cf01080f73fd28387a9cdada92";
+    hash = "sha256-avdnbdKh/GFibIFfKmmLLcZOvijnQmJb5VNgaZA+NiY=";
   };
 
   buildInputs = [ pcre ];

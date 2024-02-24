@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "datamaps";
-  version = "2014-08-19";
+  version = "0-unstable-2014-08-19";
 
   src = fetchFromGitHub {
     owner = "e-n-f";

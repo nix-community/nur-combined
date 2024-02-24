@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ffshot";
-  version = "2022-05-29";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "shinyblink";
     repo = "ffshot";
-    rev = "07d86c717d764690cbb765ea658405f14364556c";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-lPHPwieotSgA6qF3EGDZk+lME0rqglOnEreYLk0/oUY=";
   };
 

@@ -2,7 +2,7 @@
 
 buildPerlPackage rec {
   pname = "gpx-layer";
-  version = "2013-09-19";
+  version = "0-unstable-2013-09-19";
 
   src = fetchFromGitHub {
     owner = "e-n-f";

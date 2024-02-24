@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "shellprof";
-  version = "2021-04-27";
+  version = "0-unstable-2021-04-27";
   format = "other";
 
   src = fetchFromGitHub {

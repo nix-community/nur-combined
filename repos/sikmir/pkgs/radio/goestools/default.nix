@@ -2,20 +2,15 @@
 
 stdenv.mkDerivation rec {
   pname = "goestools";
-  version = "2022-11-11";
+  version = "0-unstable-2024-02-10";
 
   src = fetchFromGitHub {
     owner = "pietern";
     repo = "goestools";
-    rev = "865e5c73683f8f688d102748e6b495ab5978768f";
-    hash = "sha256-sbYQAh7auQ/lDYyk0b5q1SScU6q7O0Q7DNgZ0t9pHag=";
+    rev = "80ece1a7ab8a93fb5dfa50d47387ae7c4a8f2a73";
+    hash = "sha256-qrtLiS1nFsGIFrazitLQetrEPiMP5SbBSbwp0bPhCV0=";
     fetchSubmodules = true;
   };
-
-  postPatch = ''
-    sed -i '8i #include <cstdint>' src/dcs/dcs.h
-    sed -i '4i #include <cstdint>' src/assembler/vcdu.h
-  '';
 
   nativeBuildInputs = [ cmake pkg-config ];
 

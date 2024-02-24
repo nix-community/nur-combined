@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "gpx2yaml";
-  version = "2021-08-19";
+  version = "0-unstable-2021-08-19";
 
   src = fetchFromSourcehut {
     owner = "~sikmir";

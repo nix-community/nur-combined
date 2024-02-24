@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gpx-cmd-tools";
-  version = "2020-08-08";
+  version = "0-unstable-2020-08-08";
 
   src = fetchFromGitHub {
     owner = "tkrajina";

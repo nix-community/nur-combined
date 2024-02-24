@@ -5,7 +5,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "mbtiles2osmand";
-  version = "2021-01-01";
+  version = "0-unstable-2021-01-01";
   format = "other";
 
   src = fetchFromGitHub {

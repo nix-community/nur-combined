@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gdcv";
-  version = "2023-08-27";
+  version = "0-unstable-2023-08-27";
 
   src = fetchFromGitHub {
     owner = "konstare";

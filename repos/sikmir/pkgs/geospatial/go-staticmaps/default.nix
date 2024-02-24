@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "go-staticmaps";
-  version = "2021-12-31";
+  version = "0-unstable-2021-12-31";
 
   src = fetchFromGitHub {
     owner = "flopp";

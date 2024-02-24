@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "map-stylizer";
-  version = "2020-06-30";
+  version = "0-unstable-2020-06-30";
   format = "other";
 
   src = fetchFromGitHub {

@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lchat";
-  version = "2023-09-24";
+  version = "1.0-unstable-2023-09-24";
 
   src = fetchFromGitHub {
     owner = "younix";

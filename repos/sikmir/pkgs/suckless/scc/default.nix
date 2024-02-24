@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "scc";
-  version = "2023-10-20";
+  version = "0-unstable-2024-02-11";
 
   src = fetchgit {
     url = "git://git.simple-cc.org/scc";
-    rev = "1f350b8f200581b66c4a5fc2dd74ee2fbf574c4a";
-    sha256 = "sha256-2tR2ETiMFZABY3GPr8ovHRZ2d48Hrck0vK8RqID65Us=";
+    rev = "527601ad4c29e586f0ce307353583c5c09f3c321";
+    sha256 = "sha256-tog3LCUQwjNb8ZIoztmnKNL8mo/9ik9NXNJLQmAPltA=";
     fetchSubmodules = true;
   };
 

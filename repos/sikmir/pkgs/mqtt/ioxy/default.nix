@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "ioxy";
-  version = "2023-08-20";
+  version = "0-unstable-2023-08-20";
 
   src = fetchFromGitHub {
     owner = "NVISOsecurity";

@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "taginfo-tools";
-  version = "2022-05-24";
+  version = "0-unstable-2022-05-24";
 
   src = fetchFromGitHub {
     owner = "taginfo";

@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "telegram-send";
-  version = "2023-10-07";
+  version = "0-unstable-2023-10-07";
 
   src = fetchFromGitHub {
     owner = "rahiel";

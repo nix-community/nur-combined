@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "tcvt";
-  version = "2021-01-22";
+  version = "0-unstable-2022-09-28";
 
   src = fetchgit {
     url = "git://git.subdivi.de/~helmut/tcvt.git";
-    rev = "2747b2ba0dff190380f9eb7a078c94192dd310f1";
-    hash = "sha256-/QT5/NfaIpPKR88Byo7HgS6qs3Zwq06jiMCTRR/tcBU=";
+    rev = "4b6275c0617628c306c42b98b9c7f2107bf64d48";
+    hash = "sha256-32oCtTOYFoPKHgJ7RzamcSW5H+Z1WR+iQK02yC/62Sk=";
   };
 
   buildInputs = [ python3 ];

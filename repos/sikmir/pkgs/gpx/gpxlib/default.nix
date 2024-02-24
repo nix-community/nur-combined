@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "gpxlib";
-  version = "2021-02-16";
+  version = "0-unstable-2021-02-16";
 
   src = fetchFromGitHub {
     owner = "irdvo";

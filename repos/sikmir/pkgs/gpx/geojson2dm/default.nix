@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "geojson2dm";
-  version = "2021-08-25";
+  version = "0-unstable-2021-08-25";
 
   src = fetchFromSourcehut {
     owner = "~sikmir";

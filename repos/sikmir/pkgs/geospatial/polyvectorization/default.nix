@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "polyvectorization";
-  version = "2019-08-23";
+  version = "0-unstable-2019-08-23";
 
   src = fetchFromGitHub {
     owner = "bmpix";

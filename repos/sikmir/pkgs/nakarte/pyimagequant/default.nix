@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyimagequant";
-  version = "2022-06-10";
+  version = "0-unstable-2022-06-10";
 
   src = fetchFromGitHub {
     owner = "wladich";
@@ -11,6 +11,11 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-80SsAcN0iEaEEQpNTsi81n71DEQksSYiaSe/LQpqMbc=";
     fetchSubmodules = true;
   };
+
+  postPatch = ''
+    # error: could not create 'build': File exists
+    rm BUILD
+  '';
 
   propagatedBuildInputs = with python3Packages; [ cython ];
 
@@ -21,6 +26,5 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    broken = stdenv.isDarwin;
   };
 }

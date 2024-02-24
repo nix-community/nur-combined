@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "mqtt-launcher";
-  version = "2021-09-17";
+  version = "0-unstable-2021-09-17";
   format = "other";
 
   src = fetchFromGitHub {

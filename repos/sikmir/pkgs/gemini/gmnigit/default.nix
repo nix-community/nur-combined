@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "gmnigit";
-  version = "2022-01-10";
+  version = "0-unstable-2022-01-10";
 
   src = fetchFromSourcehut {
     owner = "~kornellapacz";
@@ -18,5 +18,6 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "gmnigit";
   };
 }

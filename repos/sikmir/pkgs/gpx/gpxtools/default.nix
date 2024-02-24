@@ -1,13 +1,15 @@
-{ lib, stdenv, fetchgit, cmake, expat, exiv2 }:
+{ lib, stdenv, fetchFromGitea, cmake, expat, exiv2 }:
 
 stdenv.mkDerivation {
   pname = "gpxtools";
-  version = "2022-01-11";
+  version = "0-unstable-2023-08-13";
 
-  src = fetchgit {
-    url = "https://notabug.org/irdvo/gpxtools.git";
-    rev = "45b7b8f5a42d8426f2fc998d017d2f224943f959";
-    hash = "sha256-hhvxQ+2jOvY0OVt8iKQ9XcHgRN4ECywV1W1fKV7Q9Mo=";
+  src = fetchFromGitea {
+    domain = "notabug.org";
+    owner = "irdvo";
+    repo = "gpxtools";
+    rev = "bad31cc7e278c835db196ed4013551034c606f09";
+    hash = "sha256-QFjHlUByD4iqEUDYhl3dcol3B8sGV+BLN7IumqQXxdA=";
   };
 
   nativeBuildInputs = [ cmake ];

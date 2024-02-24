@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lacc";
-  version = "2022-05-21";
+  version = "0-unstable-2022-05-21";
 
   src = fetchFromGitHub {
     owner = "larmel";

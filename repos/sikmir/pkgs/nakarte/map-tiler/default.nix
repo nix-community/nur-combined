@@ -13,13 +13,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "map-tiler";
-  version = "2022-08-06";
+  version = "0-unstable-2022-08-06";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "map-tiler";
-    rev = "28372c77f73282c234a236ad59672ed28721d88b";
-    hash = "sha256-P5HXWCxxcGX/QRcRVsMAng/aZI0zBjkOgSEyVCjuAYg=";
+    rev = "5554d207730e2cbcb59004a50c83c9420769a49c";
+    hash = "sha256-suBS0jCGX09mY2fc2UsWr1ptySZkA68Kp6iSIJQeWuA=";
   };
 
   postPatch = ''
@@ -54,6 +54,5 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    broken = stdenv.isDarwin;
   };
 }

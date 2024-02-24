@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "miband4";
-  version = "2022-10-07";
+  version = "0-unstable-2022-10-07";
   format = "other";
 
   src = fetchFromGitHub {

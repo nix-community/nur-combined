@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gpxtrackposter";
-  version = "2023-02-19";
+  version = "0-unstable-2023-02-19";
 
   src = fetchFromGitHub {
     owner = "flopp";

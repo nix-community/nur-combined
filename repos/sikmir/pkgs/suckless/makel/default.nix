@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "makel";
-  version = "2022-01-24";
+  version = "0-unstable-2022-01-24";
 
   src = fetchFromGitHub {
     owner = "maandree";

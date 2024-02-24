@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "socketcand";
-  version = "2023-12-06";
+  version = "0.6.1-unstable-2023-12-06";
 
   src = fetchFromGitHub {
     owner = "linux-can";

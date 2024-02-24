@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ff-tools";
-  version = "2019-06-08";
+  version = "0-unstable-2019-06-08";
 
   src = fetchFromGitHub {
     owner = "sirjofri";

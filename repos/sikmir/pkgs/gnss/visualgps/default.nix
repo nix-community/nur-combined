@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "visualgps";
-  version = "2020-03-29";
+  version = "1.0-unstable-2020-03-29";
 
   src = fetchFromGitHub {
     owner = "VisualGPS";

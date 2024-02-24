@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "modbus_sim_cli";
-  version = "2019-02-27";
+  version = "0-unstable-2019-02-27";
 
   src = fetchFromGitHub {
     owner = "dhoomakethu";
@@ -36,6 +36,5 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    broken = true;
   };
 }

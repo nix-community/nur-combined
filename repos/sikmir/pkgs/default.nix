@@ -108,7 +108,9 @@ lib.makeScope newScope (
     jsonseq = callPackage ./development/python-modules/jsonseq { };
     large-image = callPackage ./development/python-modules/large-image { };
     large-image-source-gdal = (callPackage ./development/python-modules/large-image/sources.nix { }).source-gdal;
-    modbus_tk = callPackage ./development/python-modules/modbus_tk { };
+    modbus_tk = callPackage ./development/python-modules/modbus_tk {
+      python3Packages = pkgs.python310Packages;
+    };
     portolan = callPackage ./development/python-modules/portolan { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     pytest-mp = callPackage ./development/python-modules/pytest-mp { };
@@ -376,7 +378,9 @@ lib.makeScope newScope (
     modbus-tools = callPackage ./misc/modbus-tools {
       inherit (darwin.apple_sdk.frameworks) IOKit;
     };
-    modbus_sim_cli = callPackage ./misc/modbus_sim_cli { };
+    modbus_sim_cli = callPackage ./misc/modbus_sim_cli {
+      python3Packages = pkgs.python310Packages;
+    };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
     mysql-to-sqlite3 = callPackage ./misc/mysql-to-sqlite3 { };

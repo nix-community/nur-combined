@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "gssg";
-  version = "2022-03-31";
+  version = "0-unstable-2023-05-29";
 
   src = fetchFromSourcehut {
     owner = "~gsthnz";
     repo = "gssg";
-    rev = "a842c013b9fa044b720b32ee015fedcde3f24ab1";
-    hash = "sha256-OwS6nUQ8AUbzm8ibckbvyfjdxT+KYyuDzcJAR95wUoU=";
+    rev = "fc755f281d750d0b022689d58d0f32e6799dfef8";
+    hash = "sha256-m0bVH6upLSA1dcxds3VJFFaSYs7YoMuoAmEe5qAUTmw=";
   };
 
   vendorHash = "sha256-NxfZbwKo8SY0XfWivQ42cNqIbJQ1EBsxPFr70ZU9G6E=";
@@ -18,5 +18,6 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "gssg";
   };
 }

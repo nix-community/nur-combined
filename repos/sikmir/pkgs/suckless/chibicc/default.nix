@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chibicc";
-  version = "2020-12-07";
+  version = "0-unstable-2020-12-07";
 
   src = fetchFromGitHub {
     owner = "rui314";

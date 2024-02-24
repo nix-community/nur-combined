@@ -17,7 +17,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "garta";
-  version = "2021-02-08";
+  version = "0.1.0-unstable-2021-02-08";
 
   src = fetchFromGitLab {
     owner = "timosaarinen";

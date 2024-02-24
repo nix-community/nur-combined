@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "ocad2mp";
-  version = "2011-01-26";
+  version = "1.14-unstable-2011-01-26";
 
   src = fetchsvn {
     url = "svn://svn.code.sf.net/p/ocad2mp/code/trunk/ocad2mp";

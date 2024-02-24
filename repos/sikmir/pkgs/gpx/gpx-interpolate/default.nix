@@ -1,15 +1,15 @@
 { lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
-  pname = "gpx_interpolate";
-  version = "2021-01-24";
+  pname = "gpx-interpolate";
+  version = "0-unstable-2023-10-28";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "remisalmon";
-    repo = "gpx_interpolate";
-    rev = "24236e45e3d8baa0662c329b735b79a17e84c1bd";
-    hash = "sha256-bN8ED3H4FXjfG9q7sIC7UmhvIFCgkbueUSFW/Q7uKD4=";
+    repo = "gpx-interpolate";
+    rev = "00af3c636d566d049f6a140c093af4e91d0482d5";
+    hash = "sha256-cCiRXpX6qj2o+vPs3V0/+UwnnHKvDFOgTbCV347BKkc=";
   };
 
   propagatedBuildInputs = with python3Packages; [ gpxpy scipy numpy ];
@@ -17,17 +17,19 @@ python3Packages.buildPythonApplication rec {
   dontUseSetuptoolsBuild = true;
 
   checkPhase = ''
-    ${python3Packages.python.interpreter} -m doctest -o IGNORE_EXCEPTION_DETAIL -f test/test.txt
+    ${python3Packages.python.interpreter} -m doctest -o IGNORE_EXCEPTION_DETAIL -f tests/tests.txt
   '';
 
   installPhase = ''
-    install -Dm755 gpx_interpolate.py $out/bin/gpx_interpolate
+    sed -i '1i #!/usr/bin/env python3' gpx_interpolate.py
+    install -Dm755 gpx_interpolate.py $out/bin/gpx-interpolate
   '';
 
   meta = with lib; {
-    description = "Python script to interpolate GPX files using linear or spline interpolation";
+    description = "Python script to interpolate GPX files using piecewise cubic Hermite splines";
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "gpx-interpolate";
   };
 }

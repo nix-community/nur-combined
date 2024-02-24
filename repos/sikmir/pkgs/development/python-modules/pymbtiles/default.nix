@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pymbtiles";
-  version = "2021-02-16";
+  version = "0.5.0-unstable-2021-02-16";
 
   src = fetchFromGitHub {
     owner = "consbio";

@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "smallrx";
-  version = "2018-12-18";
+  version = "0-unstable-2018-12-18";
 
   src = fetchFromGitHub {
     owner = "ha7ilm";

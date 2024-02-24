@@ -2,19 +2,19 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "modbus_tk";
-  version = "2022-07-28";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
-    owner = "dhoomakethu";
+    owner = "ljean";
     repo = "modbus-tk";
-    rev = "9fe168ca06164a4887c85a272c616a86871dddd8";
-    hash = "sha256-2fHYFQIeYdtpx+j4S7LRwyG9NLPQ4T/0SgYaQDMQsFA=";
+    rev = version;
+    hash = "sha256-zikfVMFdlOJvuKVQGEsK03i58X6BGFsGWGrGOJZGC0g=";
   };
 
   propagatedBuildInputs = with python3Packages; [ pyserial ];
 
   meta = with lib; {
-    description = "Modbus testkit";
+    description = "Implementation of modbus protocol in python";
     inherit (src.meta) homepage;
     license = licenses.lgpl2;
     maintainers = [ maintainers.sikmir ];

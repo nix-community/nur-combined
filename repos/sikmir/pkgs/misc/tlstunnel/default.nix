@@ -2,7 +2,7 @@
 
 ocamlPackages.buildDunePackage rec {
   pname = "tlstunnel";
-  version = "2024-01-10";
+  version = "0-unstable-2024-01-10";
 
   src = fetchFromGitHub {
     owner = "robur-coop";

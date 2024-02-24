@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "maprec";
-  version = "2022-08-06";
+  version = "0-unstable-2023-04-18";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "maprec";
-    rev = "3332183a8010bceba564078cdb05ab6c02ac852e";
-    hash = "sha256-2V1n6XEXPePA5YB8dKlBgTtbL2/2qG2KBdsHbekETXE=";
+    rev = "ccefe661659a30c1bd334710e5884256b945a042";
+    hash = "sha256-jm7B5I5OxG3oVxq/AUzN2P1GPa5uQIx0TWMKgx47C28=";
   };
 
   postPatch = ''

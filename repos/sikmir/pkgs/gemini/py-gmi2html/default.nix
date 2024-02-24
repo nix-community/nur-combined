@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gmi2html";
-  version = "2022-02-16";
+  version = "1.0-unstable-2022-02-16";
 
   src = fetchFromGitea {
     domain = "notabug.org";

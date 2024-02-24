@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "docx2csv";
-  version = "2023-10-11";
+  version = "0-unstable-2023-10-11";
 
   src = fetchFromGitHub {
     owner = "ivbeg";
@@ -23,6 +23,5 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
-    broken = true; # python-docx
   };
 }

@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "kineto";
-  version = "2021-11-04";
+  version = "0-unstable-2021-11-04";
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
@@ -18,5 +18,6 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "kineto";
   };
 }

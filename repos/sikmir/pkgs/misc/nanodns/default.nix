@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   pname = "nanodns";
-  version = "2021-10-29";
+  version = "0-unstable-2021-10-29";
 
   src = fetchFromGitHub {
     owner = "Sina-Ghaderi";

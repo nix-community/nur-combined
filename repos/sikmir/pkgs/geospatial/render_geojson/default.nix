@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "render_geojson";
-  version = "2018-07-11";
+  version = "0-unstable-2018-07-11";
 
   src = fetchFromGitHub {
     owner = "pedro-vicente";

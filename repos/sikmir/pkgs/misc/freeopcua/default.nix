@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "freeopcua";
-  version = "2023-05-30";
+  version = "0-unstable-2023-05-30";
 
   src = fetchFromGitHub {
     owner = "FreeOpcUa";
