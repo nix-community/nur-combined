@@ -46,11 +46,12 @@ let
         # removeStorePaths: [ str ] -> [ str ], but remove store paths, because nix evals aren't allowed to contain any (for purity reasons?)
         removeStorePaths = paths: lib.filter (p: !(lib.hasPrefix "/nix/store" p)) paths;
 
+        makeCanonical = paths: builtins.map path-lib.realpath paths;
         # derefSymlinks: [ str ] -> [ str ]: for each path which is a symlink (or a child of a symlink'd dir), dereference one layer of symlink. else, drop it from the list.
-        derefSymlinks' = paths: builtins.map (fs-lib.derefSymlinkOrNull fs) paths;
+        derefSymlinks' = paths: builtins.map (fs-lib.derefSymlinkOrNull config.sane.fs) paths;
         derefSymlinks = paths: lib.filter (p: p != null) (derefSymlinks' paths);
         # expandSymlinksOnce: [ str ] -> [ str ], returning all the original paths plus dereferencing any symlinks and adding their targets to this list.
-        expandSymlinksOnce = paths: lib.unique (paths ++ removeStorePaths (derefSymlinks paths));
+        expandSymlinksOnce = paths: lib.unique (paths ++ removeStorePaths (makeCanonical (derefSymlinks paths)));
         expandSymlinks = paths: lib.converge expandSymlinksOnce paths;
 
         vpn = lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn);

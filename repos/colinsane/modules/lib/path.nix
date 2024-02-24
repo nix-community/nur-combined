@@ -20,6 +20,22 @@ let path = rec {
   # always starting with '/', never trailing with '/' unless it's the empty (root) path
   norm = str: path.join (path.split str);
 
+  # removes ".." and "." components from a path component list, by evaluating them logically.
+  # Type realpathArray: [ str ] -> [ str ]
+  realpathArray = arr: lib.foldl'
+    (acc: next:
+      if next == ".." then lib.init acc
+      else if next == "." then acc
+      else acc ++ [ next ]
+    )
+    []
+    arr
+    ;
+  # removes ".." and "." from a path, by evaluating them logically.
+  # has the effect of also normalizing the path, in the process.
+  # Type realpath: str -> str
+  realpath = str: path.join (path.realpathArray (path.split str));
+
   # return the parent directory. doesn't care about leading/trailing slashes.
   # the parent of "/" is "/".
   parent = str: path.norm (builtins.dirOf (path.norm str));

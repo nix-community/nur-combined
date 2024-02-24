@@ -35,6 +35,8 @@ fi
 profileDirs=()
 # isDisable: set non-empty to invoke the binary without any sandboxing
 isDisable=
+# isDryRun: don't actually execute the program or sandbox: just print the command which would be run (and which the user may run from their own shell)
+isDryRun=
 
 ### values derived directly from $argv
 # cliArgs: the actual command we'll be running inside the sandbox
@@ -292,6 +294,9 @@ parseArgs() {
       (--sane-sandbox-disable)
         isDisable=1
         ;;
+      (--sane-sandbox-dry-run)
+        isDryRun=1
+        ;;
       (--sane-sandbox-method)
         method="$1"
         shift
@@ -407,7 +412,7 @@ firejailIngestProfile() {
   fi
 }
 
-firejailExec() {
+firejailGetCli() {
   if [ -n "$firejailName" ]; then
     firejailFlags+=("--join-or-start=$firejailName")
   fi
@@ -415,9 +420,10 @@ firejailExec() {
     firejailFlags+=("--profile=$firejailProfile")
   fi
   locate _firejail "firejail" "@firejail@/bin/firejail"
-  exec \
-    "$_firejail" "${firejailFlags[@]}" -- \
+  cliArgs=(
+    "$_firejail" "${firejailFlags[@]}" --
     env "${extraEnv[@]}" "${cliArgs[@]}"
+  )
 }
 
 
@@ -458,7 +464,7 @@ bwrapIngestCapability() {
   bwrapFlags+=("--cap-add" "cap_$1")
 }
 
-bwrapExec() {
+bwrapGetCli() {
   # --unshare-all implies the following:
   # --unshare-pid: mean that the /proc mount does not expose /proc/$PID/ for every other process on the machine.
   # --unshare-net creates a new net namespace with only the loopback interface.
@@ -468,9 +474,10 @@ bwrapExec() {
   # --unshare-uts
   # --unshare-user (implicit to every non-suid call to bwrap)
   locate _bwrap "bwrap" "@bubblewrap@/bin/bwrap"
-  exec \
-    "$_bwrap" --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}" --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" -- \
+  cliArgs=(
+    "$_bwrap" --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}" --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" --
     env "${extraEnv[@]}" "${cliArgs[@]}"
+  )
 }
 
 
@@ -528,16 +535,17 @@ landlockIngestProfile() {
 landlockIngestCapability() {
   capshonlyIngestCapability "$1"
 }
-landlockExec() {
+landlockGetCli() {
   # landlock sandboxer has no native support for capabilities (except that it sets nonewprivs),
   # so trampoline through `capsh` as well, to drop privs.
   # N.B: capsh passes its arg to bash (via /nix/store/.../bash), which means you have to `-c "my command"` to
   # invoke the actual user command.
   locate _sandboxer "sandboxer" "@landlockSandboxer@/bin/sandboxer"
   locate _capsh "capsh" "@libcap@/bin/capsh"
-  LL_FS_RO= LL_FS_RW="$landlockPaths" exec \
-    "$_sandboxer" \
+  cliArgs=(env LL_FS_RO= LL_FS_RW="$landlockPaths"
+    "$_sandboxer"
     "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
+  )
 }
 
 
@@ -583,10 +591,11 @@ capshonlyIngestCapability() {
   fi
 }
 
-capshonlyExec() {
+capshonlyGetCli() {
   locate _capsh "capsh" "@libcap@/bin/capsh"
-  exec \
+  cliArgs=(
     "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="/usr/bin/env" -- "${extraEnv[@]}" "${cliArgs[@]}"
+  )
 }
 
 
@@ -610,8 +619,8 @@ noneIngestProfile() {
 noneIngestCapability() {
   :
 }
-noneExec() {
-  exec "${cliArgs[@]}"
+noneGetCli() {
+  :
 }
 
 
@@ -736,15 +745,22 @@ export SANE_SANDBOX_DISABLE="$SANE_SANDBOX_DISABLE"
 export SANE_SANDBOX_PREPEND="$SANE_SANDBOX_PREPEND"
 export SANE_SANDBOX_APPEND="$SANE_SANDBOX_APPEND"
 
-test -n "$isDisable" && exec "${cliArgs[@]}"
+if [ -z "$isDisable" ]; then
+  # method-specific setup could add additional paths that need binding, so do that before canonicalization
+  "$method"Setup
+  maybeAutodetectPaths
+  canonicalizePaths
 
-# method-specific setup could add additional paths that need binding, so do that before canonicalization
-"$method"Setup
-maybeAutodetectPaths
-canonicalizePaths
+  ingestForBackend
+  "$method"GetCli
+fi
 
-ingestForBackend
-"$method"Exec
+if [ -n "$isDryRun" ]; then
+  echo "dry-run: ${cliArgs[*]}"
+  exit 0
+fi
+
+exec "${cliArgs[@]}"
 
 echo "sandbox glue failed for method='$method'"
 exit 1

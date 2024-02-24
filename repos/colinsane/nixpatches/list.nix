@@ -29,8 +29,8 @@ in [
   (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/290761";
     title = "icu: fix cross compilation";
-    saneCommit = "cc7119ca4903d36bbb4308a778fcbc560596fd2e";
-    hash = "sha256-qMgQaNHggwLe5DKPO0g4Dp/QnyARgMmuRvSY/uMgQPc=";
+    # saneCommit = "ab094c1e8a511a019cd872b0e957cb42adadd39c";
+    hash = "sha256-R3EIQwIMMCACmGKbfW6Xv7uZhCDQ/bMHw8/pHcnmOLo=";
   })
   (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/288292";

@@ -69,6 +69,7 @@ in
     sane.persist.sys.byStore.plaintext = [ "/etc/ssh/host_keys" ];
     # N.B.: use the plaintext `backing` dir instead of proper persistence, because this needs to be available
     # during activation time (see /etc/machine-id and setupSecretsForUsers activation script).
+    # TODO: this should go in the same dir as `/var/log`, then. i.e. `stores.initrd` (but rename to `stores.early`).
     environment.etc."ssh/host_keys".source = let
       plaintextBacking = config.sane.fs."${config.sane.persist.stores.plaintext.origin}".mount.bind;
     in "${plaintextBacking}/etc/ssh/host_keys";
