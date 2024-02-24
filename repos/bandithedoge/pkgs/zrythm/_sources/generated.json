@@ -1,7 +1,7 @@
 {
   "carla-git": {
     "cargoLocks": null,
-    "date": "2024-02-06",
+    "date": "2024-02-23",
     "extract": null,
     "name": "carla-git",
     "passthru": null,
@@ -13,11 +13,11 @@
       "name": null,
       "owner": "falkTX",
       "repo": "Carla",
-      "rev": "1e3b910d014f7f7d44e8b3b76eb47efad2121e4f",
-      "sha256": "sha256-2ErjlweNxOSEO1q7FB40EHHLZn3z2GauW9DK9soQjvI=",
+      "rev": "0b250a0cb73e4967ca9db0e2065b430c0530c128",
+      "sha256": "sha256-pYOTWY7o8W0BklwnKcWRkdxe6/PBpzbRJ0WxO6VFOsw=",
       "type": "github"
     },
-    "version": "1e3b910d014f7f7d44e8b3b76eb47efad2121e4f"
+    "version": "0b250a0cb73e4967ca9db0e2065b430c0530c128"
   },
   "gtk-4_13_0": {
     "cargoLocks": null,
@@ -41,7 +41,7 @@
   },
   "libadwaita-git": {
     "cargoLocks": null,
-    "date": "2024-02-22",
+    "date": "2024-02-23",
     "extract": null,
     "name": "libadwaita-git",
     "passthru": null,
@@ -51,12 +51,12 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "c9a4e5421bcbe66ca69ae5bc2dc335291fe11928",
-      "sha256": "sha256-8J5yQZPf0zb795oluGlLY6ZlX6cHp/iBUMIJ4ur/+dA=",
+      "rev": "59a6e91aabff406cbb88fa635bf15ed47f8a7981",
+      "sha256": "sha256-vV17v+ADhYfdVBDJs5c6BjhmP7GE5Br+0Xn0QOC+L1o=",
       "type": "git",
       "url": "https://gitlab.gnome.org/GNOME/libadwaita"
     },
-    "version": "c9a4e5421bcbe66ca69ae5bc2dc335291fe11928"
+    "version": "59a6e91aabff406cbb88fa635bf15ed47f8a7981"
   },
   "rtaudio-git": {
     "cargoLocks": null,
@@ -80,7 +80,7 @@
   },
   "zrythm": {
     "cargoLocks": null,
-    "date": "2024-02-22",
+    "date": "2024-02-23",
     "extract": null,
     "name": "zrythm",
     "passthru": null,
@@ -90,11 +90,11 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "5ca9e76c2f5e1150aa93bd6a02cb7d715549e25d",
-      "sha256": "sha256-FYhASL7bYBN6/qE070XAO3OFjZIXNKfQGzL7kcAl54U=",
+      "rev": "af4766d68d893864d5da7d0938698c76e5a5d5c0",
+      "sha256": "sha256-Uum/qgn+G+YED8HAFZHBWNGPjWZOYIeMbfziAH6D+DI=",
       "type": "git",
       "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
     },
-    "version": "5ca9e76c2f5e1150aa93bd6a02cb7d715549e25d"
+    "version": "af4766d68d893864d5da7d0938698c76e5a5d5c0"
   }
 }

@@ -7,15 +7,15 @@
 }: {
   carla-git = {
     pname = "carla-git";
-    version = "1e3b910d014f7f7d44e8b3b76eb47efad2121e4f";
+    version = "0b250a0cb73e4967ca9db0e2065b430c0530c128";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "1e3b910d014f7f7d44e8b3b76eb47efad2121e4f";
+      rev = "0b250a0cb73e4967ca9db0e2065b430c0530c128";
       fetchSubmodules = false;
-      sha256 = "sha256-2ErjlweNxOSEO1q7FB40EHHLZn3z2GauW9DK9soQjvI=";
+      sha256 = "sha256-pYOTWY7o8W0BklwnKcWRkdxe6/PBpzbRJ0WxO6VFOsw=";
     };
-    date = "2024-02-06";
+    date = "2024-02-23";
   };
   gtk-4_13_0 = {
     pname = "gtk-4_13_0";
@@ -30,16 +30,16 @@
   };
   libadwaita-git = {
     pname = "libadwaita-git";
-    version = "c9a4e5421bcbe66ca69ae5bc2dc335291fe11928";
+    version = "59a6e91aabff406cbb88fa635bf15ed47f8a7981";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "c9a4e5421bcbe66ca69ae5bc2dc335291fe11928";
+      rev = "59a6e91aabff406cbb88fa635bf15ed47f8a7981";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-8J5yQZPf0zb795oluGlLY6ZlX6cHp/iBUMIJ4ur/+dA=";
+      sha256 = "sha256-vV17v+ADhYfdVBDJs5c6BjhmP7GE5Br+0Xn0QOC+L1o=";
     };
-    date = "2024-02-22";
+    date = "2024-02-23";
   };
   rtaudio-git = {
     pname = "rtaudio-git";
@@ -54,15 +54,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "5ca9e76c2f5e1150aa93bd6a02cb7d715549e25d";
+    version = "af4766d68d893864d5da7d0938698c76e5a5d5c0";
     src = fetchgit {
       url = "https://gitlab.zrythm.org/zrythm/zrythm.git";
-      rev = "5ca9e76c2f5e1150aa93bd6a02cb7d715549e25d";
+      rev = "af4766d68d893864d5da7d0938698c76e5a5d5c0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-FYhASL7bYBN6/qE070XAO3OFjZIXNKfQGzL7kcAl54U=";
+      sha256 = "sha256-Uum/qgn+G+YED8HAFZHBWNGPjWZOYIeMbfziAH6D+DI=";
     };
-    date = "2024-02-22";
+    date = "2024-02-23";
   };
 }
