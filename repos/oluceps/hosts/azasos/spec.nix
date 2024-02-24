@@ -15,23 +15,19 @@
     inherit ((import ../../boot.nix { inherit lib; }).boot) kernel;
   };
 
-  services = lib.mkMerge [
-    {
-
-      inherit ((import ../../services.nix
-        ((import ../lib.nix { inherit inputs; }).base
-          // { inherit pkgs config; })).services)
-        dae
-        openssh
-        mosdns
-        fail2ban
-        ;
-    }
-    {
+  services =
+    (
+      let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
+        "openssh"
+        "mosdns"
+        "fail2ban"
+        "dae"
+      ]
+        (n: importService n)
+    ) // {
       dae.enable = true;
       sing-box.enable = true;
-    }
-  ];
+    };
 
   networking.firewall = {
     allowedUDPPorts = [ 6059 ];

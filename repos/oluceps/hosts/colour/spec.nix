@@ -18,12 +18,6 @@
     inherit ((import ../../boot.nix { inherit lib; }).boot) kernel;
   };
 
-  services = {
-    inherit ((import ../../services.nix
-      (lib.base
-        // { inherit pkgs config; })).services)
-      openssh fail2ban;
-  };
 
   programs = {
     git.enable = true;
@@ -50,7 +44,13 @@
   systemd.tmpfiles.rules = [
   ];
 
-  services = {
+  services = (
+    let importService = n: import ../../services/${n}.nix { inherit pkgs config; }; in lib.genAttrs [
+      "openssh"
+      "fail2ban"
+    ]
+      (n: importService n)
+  ) // {
     juicity.instances = [{
       name = "only";
       serve = {

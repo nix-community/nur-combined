@@ -28,7 +28,6 @@
                   "android-nixpkgs"
                   "agenix-rekey"
                   "misskey"
-                  "nixyDomains"
                   # "nixpkgs-wayland"
                 ]);
             };
@@ -46,7 +45,7 @@
               ../persist.nix
               ../secureboot.nix
               ../../packages.nix
-              ../../services.nix
+              ../../services/misc.nix
               ../../misc.nix
               ../../sysvars.nix
               ../../age.nix

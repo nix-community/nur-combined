@@ -19,19 +19,17 @@
     factorio-headless
   ];
 
-  services = lib.mkMerge [
+  services =
+    (
+      let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
+        "openssh"
+        "mosdns"
+        "fail2ban"
+        "dae"
+      ]
+        (n: importService n)
+    ) //
     {
-
-      inherit ((import ../../services.nix
-        ((import ../lib.nix { inherit inputs; }).base
-          // { inherit pkgs config; })).services)
-        openssh
-        mosdns
-        fail2ban
-        dae;
-    }
-    {
-      dae.enable = true;
       sing-box.enable = true;
 
       juicity.instances = [
@@ -64,8 +62,7 @@
         enable = false;
         openFirewall = false;
       };
-    }
-  ];
+    };
 
   networking.firewall = {
     allowedUDPPorts = [ 6059 ];

@@ -25,7 +25,6 @@
                   "nuenv"
                   "android-nixpkgs"
                   "agenix-rekey"
-                  "nixyDomains"
                   "nixpkgs-wayland"
                 ]) ++ (import ../../overlays.nix inputs);
             };
@@ -37,7 +36,7 @@
               ./spec.nix
               ../persist.nix
               ../secureboot.nix
-              ../../services.nix
+              ../../services/misc.nix
               inputs.home-manager.nixosModules.default
               ../../home
               ../../boot.nix

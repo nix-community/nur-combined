@@ -23,14 +23,15 @@
     "nyaw.cert"
     "nyaw.key"
   ];
-  services = lib.mkMerge [
-    {
-      inherit ((import ../../services.nix
-        (lib.base
-          // { inherit pkgs config; })).services)
-        openssh fail2ban dae;
-    }
-    {
+  services =
+    (
+      let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
+        "openssh"
+        "fail2ban"
+        "dae"
+      ]
+        (n: importService n)
+    ) // {
       do-agent.enable = true;
       factorio-manager = {
         enable = true;
@@ -270,8 +271,7 @@
       #   };
 
       # };
-    }
-  ];
+    };
 
   programs = {
     git.enable = true;

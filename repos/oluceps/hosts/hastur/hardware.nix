@@ -15,7 +15,7 @@
   boot = {
     initrd = {
       systemd.enable = true;
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "lz4" "zsmalloc" ];
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "zsmalloc" ];
       kernelModules = [ "tpm" "tpm_tis" "tpm_crb" "kvm-amd" ];
     };
     kernelModules = [ "ec_sys" "uhid" "kvm-amd" ];
@@ -34,7 +34,7 @@
       "amd_iommu=on"
       "random.trust_cpu=off"
       "zswap.enabled=1"
-      "zswap.compressor=lz4"
+      "zswap.compressor=zstd"
       "zswap.zpool=zsmalloc"
       "systemd.gpt_auto=0"
     ];

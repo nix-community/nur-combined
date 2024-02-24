@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   virtualisation.podman = {
@@ -46,17 +46,19 @@
   };
   environment.systemPackages = with pkgs;[ zfs ];
 
-  services = lib.mkMerge [
-    {
-      inherit ((import ../../services.nix
-        (lib.base
-          // { inherit pkgs config; })).services)
-        openssh fail2ban mosdns dae;
-      resolved.enable = lib.mkForce false;
+  services =
 
-    }
-    {
+    (
+      let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
+        "openssh"
+        "mosdns"
+        "fail2ban"
+        "dae"
+      ]
+        (n: importService n)
+    ) // {
       # zfs.autoScrub.enable = true;
+      resolved.enable = lib.mkForce false;
       tailscale = { enable = true; openFirewall = true; };
       report = {
         enable = true;
@@ -98,8 +100,7 @@
         }
       ];
 
-    }
-  ];
+    };
 
   programs = {
     git.enable = true;

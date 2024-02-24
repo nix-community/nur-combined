@@ -18,7 +18,6 @@
                   "EHfive"
                   "nuenv"
                   "agenix-rekey"
-                  "nixyDomains"
                   "nixpkgs-wayland"
                 ]);
             };
