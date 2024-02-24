@@ -9,23 +9,19 @@ buildPythonPackage rec {
   format = "pyproject";
 
   pname = "beets-filetote";
-  version = "0.4.6";
+  version = "0.4.8";
 
   src = fetchFromGitHub {
     owner = "gtronset";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-hJu+k9TIA3T8r4dTMiRJ/JC1TzbUFAC9RjoMRD/XdKU=";
+    hash = "sha256-ve6druyiu4WJJI1RKc20AMHPARD0h84myg8CM9paZeM=";
   };
 
   nativeBuildInputs = [
     beets
     poetry-core
   ];
-
-  prePatch = ''
-    sed -i 's|mediafile = "0.10.0"|mediafile = "^0.10.0"|' pyproject.toml
-  '';
 
   pythonImportsCheck = [ "beetsplug.filetote" ];
 

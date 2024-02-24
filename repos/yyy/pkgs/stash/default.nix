@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "stash";
-  version = "0.22.1";
+  version = "0.24.3";
 
   src = fetchurl {
     url = "https://github.com/stashapp/stash/releases/download/v${version}/stash-linux";
-    sha256 = "e46bfb717fb415e8c6def824be1ad3d4f33a0f6eb2114afc7e985c3745d4e44c";
+    sha1 = "7e9aeafb68a360e9f1b19eb2d414d25f5f128bc0";
   };
 
   unpackPhase = ":";
