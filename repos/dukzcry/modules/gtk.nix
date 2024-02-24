@@ -24,12 +24,12 @@ let
         "${key}=${value'}";
   };
 
-  settings = theme:
+  settings =
     optionalAttrs (cfg.font != null)
       { gtk-font-name = cfg.font.name; }
     //
-    optionalAttrs (theme != null)
-      { gtk-theme-name = theme.name; }
+    optionalAttrs (cfg.theme != null)
+      { gtk-theme-name = cfg.theme.name; }
     //
     optionalAttrs (cfg.iconTheme != null)
       { gtk-icon-theme-name = cfg.iconTheme.name; }
@@ -113,18 +113,6 @@ in
         '';
         description = "The GTK+ theme to use.";
       };
-
-      gtk2Theme = mkOption {
-        type = types.nullOr themeType;
-        default = cfg.theme;
-        example = literalExample ''
-          {
-            name = "Adwaita";
-            package = pkgs.gnome-themes-extra;
-          };
-        '';
-        description = "The GTK+ theme to use.";
-      };
     };
   };
 
@@ -138,17 +126,16 @@ in
       environment.systemPackages =
         optionalPackage cfg.font
         ++ optionalPackage cfg.theme
-        ++ optionalPackage cfg.gtk2Theme
         ++ optionalPackage cfg.iconTheme
         ++ optionalPackage cfg.cursorTheme;
 
       environment.etc."xdg/gtk-2.0/gtkrc".text =
         concatStringsSep "\n" (
-          mapAttrsToList toGtk2File (settings cfg.gtk2Theme)
+          mapAttrsToList toGtk2File settings
         );
 
       environment.etc."xdg/gtk-3.0/settings.ini".text =
-        toGtk3File { Settings = (settings cfg.theme); };
+        toGtk3File { Settings = settings; };
 
       programs.dconf.enable = lib.mkDefault true;
       programs.dconf.profiles = {
