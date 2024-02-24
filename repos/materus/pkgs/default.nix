@@ -29,5 +29,6 @@ rec {
 
   libcef = callPackage ./libs/libcef.nix {};
 
+  lh2ctrl = callPackage ./apps/lh2ctrl.nix {};
 
 }
