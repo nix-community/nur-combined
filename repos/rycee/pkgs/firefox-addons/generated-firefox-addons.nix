@@ -1706,10 +1706,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240221.91558";
+      version = "124.0.20240223.91706";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4239374/deutsch_de_language_pack-124.0.20240221.91558.xpi";
-      sha256 = "2abcb2d399c6cf5f301e6f58ec46f3dcb35b7936860b5491bb04cb9ebdcfe523";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240378/deutsch_de_language_pack-124.0.20240223.91706.xpi";
+      sha256 = "8ecc60913e39b09a7dc07da80dc2c66afcd03098bfbdc41e64392f826f44883a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2604,10 +2604,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240221.91558";
+      version = "124.0.20240223.91706";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4239350/francais_language_pack-124.0.20240221.91558.xpi";
-      sha256 = "2e7cdefc6168882dfa8b93f0ff76906931950fef7bd6508b011cfd6810cd1f97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240438/francais_language_pack-124.0.20240223.91706.xpi";
+      sha256 = "361647c946a9891d6f03cb49cc93d13962b7b499cad15423dba4e2a0c7c38233";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -9729,10 +9729,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.12.0";
+      version = "3.12.1";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4239078/toolkit_for_ynab-3.12.0.xpi";
-      sha256 = "a87616973c7c260f8f0fbfa5c08bacc79065ddfdb8076ac8a433edb84b06af27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240795/toolkit_for_ynab-3.12.1.xpi";
+      sha256 = "93d867886332b197a5d5ec627b78306f36db85be8a620ba0e90342685b9d9312";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
@@ -10447,10 +10447,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "8.2.0.23";
+      version = "8.2.1.1";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236242/video_downloadhelper-8.2.0.23.xpi";
-      sha256 = "11fb8dc5129befdc10801a737ed631156f718437132ae817d39a97b575da4267";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4238200/video_downloadhelper-8.2.1.1.xpi";
+      sha256 = "2515f890353bf2ec80b91110f110e4596b43f8163d5d224e9cf526530cf53266";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -10867,10 +10867,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.67";
+      version = "6.10.68";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4189626/wappalyzer-6.10.67.xpi";
-      sha256 = "a4fcb78f9a4c776ce5e97cee9e3ef6d57b504cf40dbe8195cbfeaf09004b9cee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239079/wappalyzer-6.10.68.xpi";
+      sha256 = "13331af05825be9c3cd61074bb26b6cd006a8f839879f747142d6a19e34deddc";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
