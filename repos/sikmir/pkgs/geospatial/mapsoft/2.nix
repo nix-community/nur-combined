@@ -50,16 +50,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace modules/get_deps \
-      --replace "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
+      --replace-fail "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
     substituteInPlace modules/mapview/mapview.cpp \
-      --replace "/usr/share" "$out/share"
+      --replace-fail "/usr/share" "$out/share"
     patchShebangs .
 
-    substituteInPlace vmap_data/scripts/vmaps_preview --replace "vmaps.sh" "$out/bin/vmaps.sh"
-    substituteInPlace vmap_data/scripts/vmaps_out --replace "vmaps.sh" "$out/bin/vmaps.sh"
-    substituteInPlace vmap_data/scripts/vmaps_get_fig --replace "vmaps.sh" "$out/bin/vmaps.sh"
-    substituteInPlace vmap_data/scripts/vmaps_in --replace "vmaps.sh" "$out/bin/vmaps.sh"
-    substituteInPlace vmap_data/scripts/vmaps.sh --replace "/usr" "$out"
+    substituteInPlace vmap_data/scripts/vmaps_preview --replace-fail "vmaps.sh" "$out/bin/vmaps.sh"
+    substituteInPlace vmap_data/scripts/vmaps_out --replace-fail "vmaps.sh" "$out/bin/vmaps.sh"
+    substituteInPlace vmap_data/scripts/vmaps_get_fig --replace-fail "vmaps.sh" "$out/bin/vmaps.sh"
+    substituteInPlace vmap_data/scripts/vmaps_in --replace-fail "vmaps.sh" "$out/bin/vmaps.sh"
+    substituteInPlace vmap_data/scripts/vmaps.sh --replace-fail "/usr" "$out"
   '';
 
   desktopItems = [

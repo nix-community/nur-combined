@@ -46,11 +46,11 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     sed -i '4i #include <cstdint>' core/loaders/image_png.cpp
     substituteInPlace scripts/map_rescale \
-      --replace "/usr/share/mapsoft" "$out/share/mapsoft"
+      --replace-fail "/usr/share/mapsoft" "$out/share/mapsoft"
     substituteInPlace core/vmap/vmap_ocad.cpp \
-      --replace "/usr/share/mapsoft" "$out/share/mapsoft"
+      --replace-fail "/usr/share/mapsoft" "$out/share/mapsoft"
     substituteInPlace core/vmap/zn.cpp \
-      --replace "/usr/share/mapsoft" "$out/share/mapsoft"
+      --replace-fail "/usr/share/mapsoft" "$out/share/mapsoft"
   '';
 
   nativeBuildInputs = [
@@ -93,10 +93,10 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall = ''
     wrapPythonProgramsIn $out/lib/gimp/${lib.versions.major gimp.version}.0/plug-ins/
     substituteInPlace $out/bin/mapsoft_wp_parse \
-      --replace "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
+      --replace-fail "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
     wrapProgram $out/bin/mapsoft_wp_parse --prefix PERL5LIB : "$PERL5LIB"
     substituteInPlace $out/bin/map_rescale \
-      --replace "getopt " "${getopt}/bin/getopt "
+      --replace-fail "getopt " "${getopt}/bin/getopt "
   '';
 
   meta = with lib; {

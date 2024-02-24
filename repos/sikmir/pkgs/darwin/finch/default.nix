@@ -27,17 +27,17 @@ let
 in
 buildGoModule rec {
   pname = "finch";
-  version = "1.1.1";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "runfinch";
     repo = "finch";
     rev = "v${version}";
-    hash = "sha256-idZFqE99rT98okO4XPJcKCsn2TrdewEn1KeVtl6uLSE=";
+    hash = "sha256-Pjuzwzo+nihAJ8Z6d3nqg7V1PyS4n61L8MhXOUAkMNc=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-BxGaWDFnOjHFDTqpK8Q4FWiIwndWxqKxl0TuDyGJHpU=";
+  vendorHash = "sha256-AwTcjCTZZ9qF2yGmoBJrOiDUN0Gpw/fa2wGTiOZQAKc=";
 
   subPackages = [ "cmd/finch" ];
 
@@ -63,9 +63,9 @@ buildGoModule rec {
     cp finch.yaml $out/Applications/Finch/os
 
     substituteInPlace $out/Applications/Finch/os/finch.yaml \
-      --replace "<finch_image_location>" "$out/Applications/Finch/os/${os.name}" \
-      --replace "<finch_image_arch>" "${arch}" \
-      --replace "<finch_image_digest>" "sha256:$(sha256sum ${os} | cut -d' ' -f1)"
+      --replace-fail "<finch_image_location>" "$out/Applications/Finch/os/${os.name}" \
+      --replace-fail "<finch_image_arch>" "${arch}" \
+      --replace-fail "<finch_image_digest>" "sha256:$(sha256sum ${os} | cut -d' ' -f1)"
   '';
 
   meta = with lib; {

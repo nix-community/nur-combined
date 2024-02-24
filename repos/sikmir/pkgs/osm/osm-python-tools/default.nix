@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "'pytest" "#'pytest" \
+      --replace-fail "'pytest" "#'pytest" \
   '';
 
   propagatedBuildInputs = with python3Packages; [

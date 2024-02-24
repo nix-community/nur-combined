@@ -13,7 +13,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace src/cmd/Makefile \
-      --replace "git submodule" "#git submodule"
+      --replace-fail "git submodule" "#git submodule"
   '';
 
   #buildInputs = [ qbe ];

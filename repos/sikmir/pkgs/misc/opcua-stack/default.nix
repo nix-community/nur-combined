@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "${src.name}/src";
 
   postPatch = ''
-    substituteInPlace CMakeLists.txt --replace "/usr" "$out"
+    substituteInPlace CMakeLists.txt --replace-fail "/usr" "$out"
   '';
 
   nativeBuildInputs = [ cmake ];

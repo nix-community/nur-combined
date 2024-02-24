@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "shapely~=1.7.0" "shapely"
+      --replace-fail "shapely~=1.7.0" "shapely"
   '';
 
   propagatedBuildInputs = with python3Packages; [

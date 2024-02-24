@@ -11,7 +11,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ expat lz4 zlib ];
 
-  configureFlags = [ "--enable-lz4" ];
+  configureFlags = [
+    (lib.enableFeature true "lz4")
+  ];
 
   meta = with lib; {
     description = "A database engine to query the OpenStreetMap data";

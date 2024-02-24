@@ -26,7 +26,7 @@ let
 
       install -Dm444 ${appimageContents}/mqtt-explorer.desktop -t $out/share/applications
       substituteInPlace $out/share/applications/mqtt-explorer.desktop \
-        --replace "Exec=AppRun" "Exec=$out/bin/mqtt-explorer"
+        --replace-fail "Exec=AppRun" "Exec=$out/bin/mqtt-explorer"
 
       install -Dm444 ${appimageContents}/mqtt-explorer.png -t $out/share/icons/hicolor/512x512/apps
     '';

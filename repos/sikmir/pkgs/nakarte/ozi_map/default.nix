@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace " @ git+https://github.com/wladich/maprec.git" ""
+      --replace-fail " @ git+https://github.com/wladich/maprec.git" ""
   '';
 
   propagatedBuildInputs = with python3Packages; [ maprec pyproj ];

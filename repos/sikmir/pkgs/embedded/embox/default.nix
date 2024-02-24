@@ -35,11 +35,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace templates/aarch64/qemu/build.conf \
-      --replace "aarch64-elf" "aarch64-none-elf"
+      --replace-fail "aarch64-elf" "aarch64-none-elf"
     substituteInPlace templates/ppc/qemu/build.conf \
-      --replace "powerpc-elf" "powerpc-none-eabi"
+      --replace-fail "powerpc-elf" "powerpc-none-eabi"
     substituteInPlace templates/riscv64/qemu/build.conf \
-      --replace "riscv64-unknown-elf" "riscv64-none-elf"
+      --replace-fail "riscv64-unknown-elf" "riscv64-none-elf"
   '';
 
   nativeBuildInputs = [

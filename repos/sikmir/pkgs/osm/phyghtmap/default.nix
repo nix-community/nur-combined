@@ -10,7 +10,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   postPatch = ''
-    substituteInPlace phyghtmap/hgt.py --replace "_contour" "contour"
+    substituteInPlace phyghtmap/hgt.py --replace-fail "_contour" "contour"
   '';
 
   nativeBuildInputs = [ installShellFiles ];

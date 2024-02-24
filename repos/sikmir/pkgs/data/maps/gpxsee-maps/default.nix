@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation {
     let
       insertApiKey = map: key: ''
         substitute ${map}.{tpl,xml} \
-          --replace "insert-your-apikey-here" "${key}"
+          --replace-fail "insert-your-apikey-here" "${key}"
       '';
     in
     ''

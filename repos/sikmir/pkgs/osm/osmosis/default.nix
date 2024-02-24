@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r . $out
     rm $out/bin/*.bat
     substituteInPlace $out/bin/osmosis \
-      --replace "JAVACMD=java" "JAVACMD=${jre}/bin/java"
+      --replace-fail "JAVACMD=java" "JAVACMD=${jre}/bin/java"
   '';
 
   meta = with lib; {

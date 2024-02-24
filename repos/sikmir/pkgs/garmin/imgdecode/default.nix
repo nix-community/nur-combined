@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace garminimg.cc \
-      --replace "<stdio.h>" "<cstring>"
+      --replace-fail "<stdio.h>" "<cstring>"
   '';
 
   configurePhase = "./configure || true";

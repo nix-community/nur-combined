@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   postPatch = ''
-    substituteInPlace setup.py --replace "\"setuptools_scm_git_archive\"," ""
+    substituteInPlace setup.py --replace-fail "\"setuptools_scm_git_archive\"," ""
   '';
 
   nativeBuildInputs = with python3Packages; [

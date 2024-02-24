@@ -23,10 +23,10 @@ python3Packages.buildPythonApplication rec {
     cp -r src main.py $site_packages
 
     substituteInPlace $site_packages/main.py \
-      --replace "'src'" "'$site_packages/src'"
+      --replace-fail "'src'" "'$site_packages/src'"
 
     substituteInPlace $site_packages/src/core/constants.py \
-      --replace "src/resources" "$site_packages/src/resources"
+      --replace-fail "src/resources" "$site_packages/src/resources"
 
     makeWrapper ${(python3Packages.python.withPackages (ps: [ ps.pyqt5 ])).interpreter} $out/bin/map-stylizer \
       --set QT_QPA_PLATFORM_PLUGIN_PATH ${qt5.qtbase.bin}/lib/qt-*/plugins/platforms \

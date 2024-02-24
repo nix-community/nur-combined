@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace ConfigureChecks.cmake \
-      --replace \$\{PLUGIN_INSTALL_DIR\} "${garmindev}/lib/qlandkartegt"
+      --replace-fail \$\{PLUGIN_INSTALL_DIR\} "${garmindev}/lib/qlandkartegt"
   '';
 
   postInstall = ''

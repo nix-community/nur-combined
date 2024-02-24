@@ -34,12 +34,12 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace fmreceiver.pro \
-      --replace "-lqwt-qt5" "-lqwt" \
-      --replace "CONFIG" "#CONFIG"
+      --replace-fail "-lqwt-qt5" "-lqwt" \
+      --replace-fail "CONFIG" "#CONFIG"
   '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace fmreceiver.pro --replace "-lrt " ""
-    substituteInPlace includes/fm-constants.h --replace "<malloc.h>" "<stdlib.h>"
-    substituteInPlace devices/rtlsdr-handler/rtlsdr-handler.cpp --replace ".so" ".dylib"
+    substituteInPlace fmreceiver.pro --replace-fail "-lrt " ""
+    substituteInPlace includes/fm-constants.h --replace-fail "<malloc.h>" "<stdlib.h>"
+    substituteInPlace devices/rtlsdr-handler/rtlsdr-handler.cpp --replace-fail ".so" ".dylib"
   '';
 
   nativeBuildInputs = [ qmake wrapQtAppsHook ];

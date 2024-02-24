@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace "poetry.masonry" "poetry.core.masonry"
+      --replace-fail "poetry.masonry" "poetry.core.masonry"
   '';
 
   nativeBuildInputs = with python3Packages; [ poetry-core ];

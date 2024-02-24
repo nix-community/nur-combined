@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace gpxtrackposter/poster.py \
-      --replace "self.translate(\"ATHLETE\")" "\"\""
+      --replace-fail "self.translate(\"ATHLETE\")" "\"\""
     substituteInPlace gpxtrackposter/cli.py \
       --subst-var out
     sed -i 's/~=.*//' requirements.txt

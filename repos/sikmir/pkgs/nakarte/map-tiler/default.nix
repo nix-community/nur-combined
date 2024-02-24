@@ -24,10 +24,10 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace setup.cfg \
-      --replace " @ git+https://github.com/wladich/thinplatespline.git" "" \
-      --replace " @ git+https://github.com/wladich/maprec.git" "" \
-      --replace " @ git+https://github.com/wladich/ozi_map.git" "" \
-      --replace " @ git+https://github.com/wladich/pyimagequant.git" ""
+      --replace-fail " @ git+https://github.com/wladich/thinplatespline.git" "" \
+      --replace-fail " @ git+https://github.com/wladich/maprec.git" "" \
+      --replace-fail " @ git+https://github.com/wladich/ozi_map.git" "" \
+      --replace-fail " @ git+https://github.com/wladich/pyimagequant.git" ""
   '';
 
   nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];

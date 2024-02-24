@@ -40,11 +40,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace tools/src/Makefile.am \
-      --replace "noinst_PROGRAMS =" "bin_PROGRAMS ="
+      --replace-fail "noinst_PROGRAMS =" "bin_PROGRAMS ="
   '';
 
   preConfigure = "./autogen.sh";
-  configureFlags = [ "--disable-dict" ];
+  configureFlags = [
+    (lib.enableFeature false "dict")
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-std=c++14";
 

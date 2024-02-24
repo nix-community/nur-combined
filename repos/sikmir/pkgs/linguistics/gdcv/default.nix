@@ -13,13 +13,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile \
-      --replace "CC=gcc" ""
+      --replace-fail "CC=gcc" ""
 
     substituteInPlace gdcv.c \
-      --replace "#include <error.h>" ""
+      --replace-fail "#include <error.h>" ""
 
     substituteInPlace index.c \
-      --replace "|FNM_EXTMATCH" ""
+      --replace-fail "|FNM_EXTMATCH" ""
   '';
 
   nativeBuildInputs = [ pkg-config ];

@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-    substituteInPlace Makefile --replace "ranlib" "\$(RANLIB)"
+    substituteInPlace Makefile --replace-fail "ranlib" "\$(RANLIB)"
   '';
 
   makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" "PREFIX=$(out)" "RANLIB:=$(RANLIB)" ];

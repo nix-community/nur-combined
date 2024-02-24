@@ -19,8 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace Makefile \
-      --replace "lex " "flex " \
-      --replace "-ltermcap" "-lncurses"
+      --replace-fail "lex " "flex " \
+      --replace-fail "-ltermcap" "-lncurses"
   '';
 
   nativeBuildInputs = [ bison flex installShellFiles ];

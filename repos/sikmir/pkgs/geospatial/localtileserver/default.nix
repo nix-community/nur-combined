@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "large-image[gdal]" "large-image-source-gdal"
+      --replace-fail "large-image[gdal]" "large-image-source-gdal"
   '';
 
   propagatedBuildInputs = with python3Packages; [

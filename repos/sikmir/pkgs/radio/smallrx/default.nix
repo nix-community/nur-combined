@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace Makefile \
-      --replace "CC=gcc" ""
+      --replace-fail "CC=gcc" ""
   '';
 
   installPhase = "install -Dm755 rx -t $out/bin";

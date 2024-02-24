@@ -11,13 +11,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace ascii-gfx/main.cpp \
-      --replace "boing.wav" "$out/share/ascii-dash/sounds/boing.wav"
+      --replace-fail "boing.wav" "$out/share/ascii-dash/sounds/boing.wav"
     substituteInPlace dash/dash.cpp \
-      --replace "sounds/" "$out/share/ascii-dash/sounds/"
+      --replace-fail "sounds/" "$out/share/ascii-dash/sounds/"
     substituteInPlace dash/dash_physics.cpp \
-      --replace "sounds/" "$out/share/ascii-dash/sounds/"
+      --replace-fail "sounds/" "$out/share/ascii-dash/sounds/"
     substituteInPlace main.cpp \
-      --replace "data/" "$out/share/ascii-dash/data/"
+      --replace-fail "data/" "$out/share/ascii-dash/data/"
   '';
 
   nativeBuildInputs = [ cmake unzip ];

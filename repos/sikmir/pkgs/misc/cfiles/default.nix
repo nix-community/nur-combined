@@ -13,11 +13,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace scripts/clearimg \
-      --replace "/usr/lib/w3m/w3mimgdisplay" "${w3m}/bin/w3mimgdisplay"
+      --replace-fail "/usr/lib/w3m/w3mimgdisplay" "${w3m}/bin/w3mimgdisplay"
     substituteInPlace scripts/displayimg \
-      --replace "/usr/lib/w3m/w3mimgdisplay" "${w3m}/bin/w3mimgdisplay"
+      --replace-fail "/usr/lib/w3m/w3mimgdisplay" "${w3m}/bin/w3mimgdisplay"
     substituteInPlace scripts/displayimg_uberzug \
-      --replace "ueberzug" "${ueberzug}/bin/ueberzug"
+      --replace-fail "ueberzug" "${ueberzug}/bin/ueberzug"
   '';
 
   nativeBuildInputs = [ pkg-config ];

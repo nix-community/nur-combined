@@ -15,8 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace Makefile \
-      --replace "/usr/bin/gcc" "gcc" \
-      --replace "/usr/bin/install" "install"
+      --replace-fail "/usr/bin/gcc" "gcc" \
+      --replace-fail "/usr/bin/install" "install"
   '';
 
   meta = with lib; {

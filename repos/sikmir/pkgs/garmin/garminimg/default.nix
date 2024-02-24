@@ -13,11 +13,11 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-      --replace "PROJ4" "PROJ"
+      --replace-fail "PROJ4" "PROJ"
     substituteInPlace srcEncodeImg/CMakeLists.txt \
-      --replace "PROJ4_" "PROJ_"
+      --replace-fail "PROJ4_" "PROJ_"
     substituteInPlace srcDecodeImg/CMakeLists.txt \
-      --replace "PROJ4_" "PROJ_"
+      --replace-fail "PROJ4_" "PROJ_"
   '';
 
   nativeBuildInputs = [ cmake wrapQtAppsHook ];

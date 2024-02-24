@@ -12,9 +12,9 @@ stdenv.mkDerivation {
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.gcc \
-      --replace "CXX=g++" "" \
-      --replace "LINK=g++" "LINK=$CXX" \
-      --replace "-lgcc" ""
+      --replace-fail "CXX=g++" "" \
+      --replace-fail "LINK=g++" "LINK=$CXX" \
+      --replace-fail "-lgcc" ""
   '';
 
   NIX_CFLAGS_COMPILE = [

@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace src/main.cpp \
-      --replace "#define WITH_GUI 1" "//#define WITH_GUI 1"
+      --replace-fail "#define WITH_GUI 1" "//#define WITH_GUI 1"
   '';
 
   nativeBuildInputs = [ cmake wrapQtAppsHook ];

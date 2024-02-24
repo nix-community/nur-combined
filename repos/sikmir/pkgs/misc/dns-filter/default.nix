@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-    substituteInPlace build.sh --replace "gcc" "cc"
+    substituteInPlace build.sh --replace-fail "gcc" "cc"
   '';
 
   buildPhase = ''

@@ -29,7 +29,7 @@ lib.makeScope newScope (
     cudatext-bin = callPackage ./darwin/cudatext/bin.nix { };
     darktable-bin = callPackage ./darwin/darktable/bin.nix { };
     finch = callPackage ./darwin/finch {
-      buildGoModule = pkgs.buildGo120Module;
+      buildGoModule = pkgs.buildGo122Module;
     };
     macpass = callPackage ./darwin/macpass { };
     macsvg = callPackage ./darwin/macsvg { };

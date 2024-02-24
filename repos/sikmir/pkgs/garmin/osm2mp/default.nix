@@ -53,7 +53,7 @@ buildPerlPackage rec {
 
   postPatch = ''
     substituteInPlace osm2mp.pl \
-      --replace "\$Bin/cfg" "$out/share/osm2mp/cfg"
+      --replace-fail "\$Bin/cfg" "$out/share/osm2mp/cfg"
   '';
 
   preConfigure = "touch Makefile.PL";

@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   postPatch = ''
-    substituteInPlace forwarder.py --replace "ur'" "r'"
+    substituteInPlace forwarder.py --replace-fail "ur'" "r'"
   '';
 
   dontUseSetuptoolsBuild = true;

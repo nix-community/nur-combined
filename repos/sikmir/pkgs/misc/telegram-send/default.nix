@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "python-telegram-bot==20.6" "python-telegram-bot"
+      --replace-fail "python-telegram-bot==20.6" "python-telegram-bot"
   '';
 
   nativeBuildInputs = with python3Packages; [ pip ];

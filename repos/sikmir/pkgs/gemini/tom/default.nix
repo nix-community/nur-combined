@@ -21,8 +21,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace runcgi.sh \
-      --replace "lua53" "${lua5_3}/bin/lua" \
-      --replace "tom.lua" "$out/share/lua/tom.lua"
+      --replace-fail "lua53" "${lua5_3}/bin/lua" \
+      --replace-fail "tom.lua" "$out/share/lua/tom.lua"
   '';
 
   nativeBuildInputs = [ pkg-config makeWrapper ];

@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace python-Levenshtein Levenshtein
+      --replace-fail python-Levenshtein Levenshtein
   '';
 
   propagatedBuildInputs = with python3Packages; [ levenshtein setuptools wikitextprocessor nltk ];

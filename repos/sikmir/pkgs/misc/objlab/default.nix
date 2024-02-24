@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-      --replace "add_subdirectory" "#add_subdirectory"
+      --replace-fail "add_subdirectory" "#add_subdirectory"
   '';
 
   nativeBuildInputs = [ cmake ];

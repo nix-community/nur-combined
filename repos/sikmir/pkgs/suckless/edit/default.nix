@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace config.mk \
-      --replace "LDFLAGS" "#LDFLAGS"
+      --replace-fail "LDFLAGS" "#LDFLAGS"
   '';
 
   makeFlags = [ "CC:=$(CC)" "PREFIX=$(out)" ];

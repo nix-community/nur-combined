@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
 
   postPatch = ''
     substituteInPlace ./configure.sh \
-      --replace "target/release" "target/${rust.toRustTargetSpec stdenv.hostPlatform}/release"
+      --replace-fail "target/release" "target/${rust.toRustTargetSpec stdenv.hostPlatform}/release"
 
     patchShebangs configure.sh
   '';
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     ./configure.sh --prefix $out
 
     substituteInPlace install.sh \
-      --replace "/etc/firejail" "$out/etc/firejail"
+      --replace-fail "/etc/firejail" "$out/etc/firejail"
 
     patchShebangs install.sh
   '';

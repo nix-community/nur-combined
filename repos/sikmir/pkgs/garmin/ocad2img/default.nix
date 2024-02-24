@@ -20,11 +20,11 @@ buildPerlPackage {
 
   postPatch = ''
     substituteInPlace ocad2img.pl \
-      --replace "cgpsmapper" "${cgpsmapper}/bin/cgpsmapper-static" \
-      --replace "ocad2mp.exe" "${ocad2mp}/bin/ocad2mp" \
-      --replace "symbols.txt" "$out/share/ocad2img/symbols.txt" \
-      --replace "use Win32" "#use Win32" \
-      --replace "require \"unicore/lib/gc_sc" "#require \"unicore/lib/gc_sc"
+      --replace-fail "cgpsmapper" "${cgpsmapper}/bin/cgpsmapper-static" \
+      --replace-fail "ocad2mp.exe" "${ocad2mp}/bin/ocad2mp" \
+      --replace-fail "symbols.txt" "$out/share/ocad2img/symbols.txt" \
+      --replace-fail "use Win32" "#use Win32" \
+      --replace-fail "require \"unicore/lib/gc_sc" "#require \"unicore/lib/gc_sc"
   '';
 
   preConfigure = ''

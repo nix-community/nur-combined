@@ -15,7 +15,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace gpxgeotag.cpp \
-      --replace "exiv2" "${exiv2}/bin/exiv2"
+      --replace-fail "exiv2" "${exiv2}/bin/exiv2"
   '';
 
   installPhase = "install -Dm755 gpx* -t $out/bin";

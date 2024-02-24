@@ -56,7 +56,7 @@ python2Packages.buildPythonApplication rec {
       cp *.py *.sql $site_packages
 
       substitute config.py.example $site_packages/config.py \
-        --replace "'password" "#'password"
+        --replace-fail "'password" "#'password"
 
       makeWrapper ${pythonEnv.interpreter} $out/bin/tracks_storage_server \
         --add-flags "$site_packages/server.py"

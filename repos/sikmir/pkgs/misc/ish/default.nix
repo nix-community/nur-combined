@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-    substituteInPlace Makefile --replace "/bin/rm" "rm"
+    substituteInPlace Makefile --replace-fail "/bin/rm" "rm"
   '';
 
   makeFlags = [ "linux" ];

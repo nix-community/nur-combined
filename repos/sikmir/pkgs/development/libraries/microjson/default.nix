@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace tests/CMakeLists.txt \
-      --replace "find_package(microjson CONFIG REQUIRED)" ""
+      --replace-fail "find_package(microjson CONFIG REQUIRED)" ""
   '';
 
   nativeBuildInputs = [ cmake gtest ];

@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace src/buffer/buffer.h \
-      --replace "<endian.h>" "<machine/endian.h>"
+      --replace-fail "<endian.h>" "<machine/endian.h>"
   '';
 
   nativeBuildInputs = [ cmake ];

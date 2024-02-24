@@ -35,9 +35,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    substituteInPlace Makefile --replace "/usr" "" --replace ": Makefile.perl" ":"
-    substituteInPlace backend-mapnik/Makefile --replace "/usr" ""
-    substituteInPlace lib/Tirex.pm --replace "/etc" "$out/etc"
+    substituteInPlace Makefile --replace-fail "/usr" "" --replace-fail ": Makefile.perl" ":"
+    substituteInPlace backend-mapnik/Makefile --replace-fail "/usr" ""
+    substituteInPlace lib/Tirex.pm --replace-fail "/etc" "$out/etc"
   '';
 
   preConfigure = ''

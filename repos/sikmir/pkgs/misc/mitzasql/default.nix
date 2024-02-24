@@ -13,10 +13,10 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "pygments ==2.7.4" "pygments" \
-      --replace "mysql-connector-python ==8.0.22" "mysql-connector-python" \
-      --replace "urwid ==2.1.2" "urwid" \
-      --replace "appdirs ==1.4.4" "appdirs"
+      --replace-fail "pygments ==2.7.4" "pygments" \
+      --replace-fail "mysql-connector-python ==8.0.22" "mysql-connector-python" \
+      --replace-fail "urwid ==2.1.2" "urwid" \
+      --replace-fail "appdirs ==1.4.4" "appdirs"
   '';
 
   propagatedBuildInputs = with python3Packages; [ appdirs pygments mysql-connector urwid ];

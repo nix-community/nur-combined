@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   postPatch = ''
     sed -i 's/==.*//;/trollius/d' requirements
     substituteInPlace modbus_sim/utils/config_parser.py \
-      --replace "yaml.load(conffile.read())" "yaml.safe_load(conffile)"
+      --replace-fail "yaml.load(conffile.read())" "yaml.safe_load(conffile)"
   '';
 
   propagatedBuildInputs = with python3Packages; [

@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preConfigure = "LD=$CC";
   configureFlags = [
-    "--with-openssl"
+    (lib.withFeature true "openssl")
     "--mandir=$(out)/share/man"
   ];
 

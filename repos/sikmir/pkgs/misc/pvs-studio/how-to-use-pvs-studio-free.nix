@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     sed -i '10i #include <cstdint>' comments.h
     substituteInPlace CMakeLists.txt \
-      --replace "set(CMAKE_INSTALL_PREFIX \"/usr\")" ""
+      --replace-fail "set(CMAKE_INSTALL_PREFIX \"/usr\")" ""
   '';
 
   nativeBuildInputs = [ cmake ];

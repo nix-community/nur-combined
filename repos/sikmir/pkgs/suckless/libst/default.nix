@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace Makefile \
-      --replace "ar rcs" "\$(AR) rcs"
+      --replace-fail "ar rcs" "\$(AR) rcs"
   '';
 
   nativeBuildInputs = [ ncurses ];

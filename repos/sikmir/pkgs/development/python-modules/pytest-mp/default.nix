@@ -12,10 +12,10 @@ python3Packages.buildPythonPackage rec {
   };
 
   postPatch = ''
-    substituteInPlace setup.py --replace "'setuptools-markdown'" ""
+    substituteInPlace setup.py --replace-fail "'setuptools-markdown'" ""
 
     # https://github.com/ansible/pytest-mp/issues/8
-    substituteInPlace pytest_mp/terminal.py --replace "reporter.writer" "reporter._tw"
+    substituteInPlace pytest_mp/terminal.py --replace-fail "reporter.writer" "reporter._tw"
   '';
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];

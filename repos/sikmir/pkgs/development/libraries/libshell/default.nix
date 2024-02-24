@@ -23,12 +23,12 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ help2man ];
 
   postPatch = ''
-    substituteInPlace Makefile --replace "/usr" ""
-    substituteInPlace utils/Makefile --replace "/usr" ""
-    substituteInPlace utils/cgrep.in --replace "/bin/ash" "${dash}/bin/dash"
-    substituteInPlace shell-terminfo --replace "tput" "${ncurses}/bin/tput"
+    substituteInPlace Makefile --replace-fail "/usr" ""
+    substituteInPlace utils/Makefile --replace-fail "/usr" ""
+    substituteInPlace utils/cgrep.in --replace-fail "/bin/ash" "${dash}/bin/dash"
+    substituteInPlace shell-terminfo --replace-fail "tput" "${ncurses}/bin/tput"
     for f in shell-* ; do
-      substituteInPlace $f --replace "/bin/sh" "${bash}/bin/sh"
+      substituteInPlace $f --replace-fail "/bin/sh" "${bash}/bin/sh"
     done
   '';
 

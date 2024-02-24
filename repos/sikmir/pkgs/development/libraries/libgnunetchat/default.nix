@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     # GNUNET_MESSENGER_VERSION 0x00000002
     # GNUNET_CHAT_VERSION      0x000000010000L
     substituteInPlace src/gnunet_chat_lib.c \
-      --replace "GNUNET_CHAT_VERSION_ASSERT();" ""
+      --replace-fail "GNUNET_CHAT_VERSION_ASSERT();" ""
   '';
 
   nativeBuildInputs = [ meson cmake ninja pkg-config ];

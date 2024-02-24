@@ -12,10 +12,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace lel-open \
-      --replace "jpg2ff" "${farbfeld}/bin/jpg2ff" \
-      --replace "png2ff" "${farbfeld}/bin/png2ff" \
-      --replace "gif2ff" "${farbfeld-utils}/bin/gif2ff" \
-      --replace "lel" "$out/bin/lel"
+      --replace-fail "jpg2ff" "${farbfeld}/bin/jpg2ff" \
+      --replace-fail "png2ff" "${farbfeld}/bin/png2ff" \
+      --replace-fail "gif2ff" "${farbfeld-utils}/bin/gif2ff" \
+      --replace-fail "lel" "$out/bin/lel"
   '';
 
   buildInputs = [ libX11 ];

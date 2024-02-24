@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace " @ git+https://github.com/wladich/thinplatespline.git" ""
+      --replace-fail " @ git+https://github.com/wladich/thinplatespline.git" ""
   '';
 
   propagatedBuildInputs = with python3Packages; [ pyyaml pyproj thinplatespline ];

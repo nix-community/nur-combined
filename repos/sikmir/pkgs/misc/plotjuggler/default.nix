@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-      --replace "set(PJ_PLUGIN_INSTALL_DIRECTORY bin)" "set(PJ_PLUGIN_INSTALL_DIRECTORY lib/plugins)"
+      --replace-fail "set(PJ_PLUGIN_INSTALL_DIRECTORY bin)" "set(PJ_PLUGIN_INSTALL_DIRECTORY lib/plugins)"
     substituteInPlace plotjuggler_app/mainwindow.cpp \
-      --replace "QCoreApplication::applicationDirPath()" "\"$out/lib/plugins\""
+      --replace-fail "QCoreApplication::applicationDirPath()" "\"$out/lib/plugins\""
   '';
 
   nativeBuildInputs = [ cmake wrapQtAppsHook ]
