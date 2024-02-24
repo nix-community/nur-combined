@@ -16,8 +16,15 @@ let
       "x-systemd.after=network-online.target"
       "x-systemd.mount-timeout=10s"  # how long to wait for mount **and** how long to wait for unmount
     ];
-    auto = [ "x-systemd.automount" ];
-    noauto = [ "noauto" ];  # don't mount as part of remote-fs.target
+    # x-systemd.automount: mount the fs automatically *on first access*.
+    # creates a `path-to-mount.automount` systemd unit.
+    automount = [ "x-systemd.automount" ];
+    # noauto: don't mount as part of remote-fs.target.
+    # N.B.: `remote-fs.target` is a dependency of multi-user.target, itself of graphical.target.
+    # hence, omitting `noauto` can slow down boots.
+    noauto = [ "noauto" ];
+    # lazyMount: defer mounting until first access from userspace
+    lazyMount = noauto ++ automount;
     wg = [
       "x-systemd.requires=wireguard-wg-home.service"
       "x-systemd.after=wireguard-wg-home.service"
@@ -25,11 +32,25 @@ let
 
     ssh = common ++ [
       "identityfile=/home/colin/.ssh/id_ed25519"
-      # "allow_other"  # allow users other than the one who mounts it to access it
-      "allow_root"  # allow root to access files on this fs
+      "allow_other"  # allow users other than the one who mounts it to access it. needed, if systemd is the one mounting this fs (as root)
+      # allow_root: allow root to access files on this fs (if mounted by non-root, else it can always access them).
+      #             N.B.: if both allow_root and allow_other are specified, then only allow_root takes effect.
+      # "allow_root"
+      # default_permissions: enforce local permissions check. CRUCIAL if using `allow_other`.
+      # w/o this, permissions mode of sshfs is like:
+      # - sshfs runs all remote commands as the remote user.
+      # - if a local user has local permissions to the sshfs mount, then their file ops are sent blindly across the tunnel.
+      # - `allow_other` allows *any* local user to access the mount, and hence any local user can now freely become the remote mapped user.
+      # with default_permissions, sshfs doesn't tunnel file ops from users until checking that said user could perform said op on an equivalent local fs.
       "default_permissions"
     ];
     sshColin = ssh ++ [
+      # follow_symlinks: remote files which are symlinks are presented to the local system as ordinary files (as the target of the symlink).
+      #                  if the symlink target does not exist, the presentation is unspecified.
+      #                  symlinks which point outside the mount ARE followed. so this is more capable than `transform_symlinks`
+      "follow_symlinks"
+      # symlinks on the remote fs which are absolute paths are presented to the local system as relative symlinks pointing to the expected data on the remote fs.
+      # only symlinks which would point inside the mountpoint are translated.
       "transform_symlinks"
       "idmap=user"
       "uid=1000"
@@ -64,7 +85,7 @@ let
     fileSystems."/mnt/${host}/home" = {
       device = "colin@${host}:/home/colin";
       fsType = "fuse.sshfs";
-      options = fsOpts.sshColin ++ fsOpts.noauto;
+      options = fsOpts.sshColin ++ fsOpts.lazyMount;
       noCheck = true;
     };
     sane.fs."/mnt/${host}/home" = sane-lib.fs.wanted {
@@ -111,13 +132,13 @@ lib.mkMerge [
     #   device = "servo-hn:/";
     #   noCheck = true;
     #   fsType = "nfs";
-    #   options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
+    #   options = fsOpts.nfs ++ fsOpts.automount ++ fsOpts.wg;
     # };
     fileSystems."/mnt/servo/media" = {
       device = "servo-hn:/media";
       noCheck = true;
       fsType = "nfs";
-      options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
+      options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
     };
     sane.fs."/mnt/servo/media" = sane-lib.fs.wanted {
       dir.acl.user = "colin";
@@ -128,20 +149,13 @@ lib.mkMerge [
       device = "servo-hn:/playground";
       noCheck = true;
       fsType = "nfs";
-      options = fsOpts.nfs ++ fsOpts.auto ++ fsOpts.wg;
+      options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
     };
     sane.fs."/mnt/servo/playground" = sane-lib.fs.wanted {
       dir.acl.user = "colin";
       dir.acl.group = "users";
       dir.acl.mode = "0750";
     };
-    # fileSystems."/mnt/servo-media-nfs" = {
-    #   device = "servo-hn:/media";
-    #   noCheck = true;
-    #   fsType = "nfs";
-    #   options = fsOpts.common ++ fsOpts.auto;
-    # };
-    # sane.fs."/mnt/servo-media" = sane-lib.fs.wantedSymlinkTo "/mnt/servo-nfs/media";
 
     environment.pathsToLink = [
       # needed to achieve superuser access for user-mounted filesystems (see optionsRoot above)
