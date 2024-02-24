@@ -123,16 +123,6 @@ let
       };
     });
 
-    imv-develop = { imv, fetchFromGitHub, fetchpatch }: imv.overrideAttrs (old: {
-      version = "2021-07-29";
-      src = fetchFromGitHub {
-        owner = "eXeC64";
-        repo = "imv";
-        rev = "b194997c20fb1ade3aa2828676ca85a2738a8f3e";
-        sha256 = "1jp5glqigq6mq6awamja9av83imsrp2c7731rprflvrj6i7sff7z";
-      };
-    });
-
     i3gopher-sway = { i3gopher }: i3gopher.override {
       enableI3 = false;
       enableSway = true;
