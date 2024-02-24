@@ -266,6 +266,12 @@ lib.makeScope newScope (
     gnsstk-apps = callPackage ./gnss/gnsstk-apps { };
     gps-sdr-sim = callPackage ./gnss/gps-sdr-sim { };
     gpsdate = callPackage ./gnss/gpsdate { };
+    pygnssutils = callPackage ./gnss/pygnssutils { };
+    pygpsclient = callPackage ./gnss/pygpsclient { };
+    pynmeagps = callPackage ./gnss/pynmeagps { };
+    pyrtcm = callPackage ./gnss/pyrtcm { };
+    pyspartn = callPackage ./gnss/pyspartn { };
+    pyubx2 = callPackage ./gnss/pyubx2 { };
     rtklib = callPackage ./gnss/rtklib { };
     rtklib-demo5 = callPackage ./gnss/rtklib/demo5.nix { };
     visualgps = libsForQt5.callPackage ./gnss/visualgps { };
