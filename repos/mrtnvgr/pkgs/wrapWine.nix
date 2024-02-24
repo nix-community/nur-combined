@@ -33,8 +33,7 @@ let
     popd
   '';
 in writeTextFile {
-  inherit name;
-  inherit meta;
+  inherit name meta;
 
   text = ''
     #! ${runtimeShell}
