@@ -19,14 +19,16 @@
 , copyDesktopItems
 , openal
 }:
-
+let
+  sources = import ./sources.nix;
+in
 stdenv.mkDerivation rec {
   pname = "hmcl-bin";
-  version = "3.5.5.236";
+  version = sources.version;
 
   src = fetchurl {
-    url = "https://github.com/huanghongxun/HMCL/releases/download/v${version}/HMCL-${version}.jar";
-    sha256 = "sha256-8Rp/n56vSTScpKEeomj2PrDvMZocz15YK6mYHywqWcE=";
+    url = "https://github.com/HMCL-dev/HMCL/releases/download/v${version}/HMCL-${version}.jar";
+    sha256 = sources.jar_hash;
   };
 
   dontUnpack = true;
@@ -67,6 +69,14 @@ stdenv.mkDerivation rec {
         --set LD_LIBRARY_PATH ${libpath}
       runHook postInstall
     '';
+  passthru.updateScript = ./update.sh;
+
+  meta = with lib; {
+    homepage = "https://github.com/HMCL-dev/HMCL/";
+    description = "HMCL is a cross-platform Minecraft launcher.";
+    license = licenses.gpl3;
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+  };
 
   desktopItems = lib.toList (makeDesktopItem {
     name = "HMCL";
