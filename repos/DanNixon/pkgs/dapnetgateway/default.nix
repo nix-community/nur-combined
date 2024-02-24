@@ -17,6 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./0001-Add-missing-cstdint-include.patch
+    ./0001-Fix-buffer-overflow-in-logging.patch
   ];
 
   installPhase = ''

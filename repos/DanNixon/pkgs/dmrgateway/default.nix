@@ -15,6 +15,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "p6sGPWuRWQ0UfW6aUHt1omR88k8ZtrKhVoO+Dvay2T4=";
   };
 
+  patches = [
+    ./0001-Fix-error-in-logging.patch
+  ];
+
   installPhase = ''
     install -Dm775 DMRGateway $out/bin/DMRGateway
   '';

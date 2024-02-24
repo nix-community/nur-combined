@@ -16,6 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "+aji55IeWx2CLiedEnruNMcOF6ADPQoPyhA/sGS34Z4=";
   };
 
+  patches = [
+    ./798.patch
+  ];
+
   buildInputs = [
     libsamplerate
   ];

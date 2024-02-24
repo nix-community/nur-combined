@@ -1,0 +1,26 @@
+From dce49b02e1900306aa67d7080b860eb53c37b133 Mon Sep 17 00:00:00 2001
+From: Dan Nixon <dan@dan-nixon.com>
+Date: Sat, 24 Feb 2024 10:07:01 +0000
+Subject: [PATCH] Fix buffer overflow in logging
+
+---
+ Log.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Log.cpp b/Log.cpp
+index 752601e..2350255 100644
+--- a/Log.cpp
++++ b/Log.cpp
+@@ -167,7 +167,8 @@ void Log(unsigned int level, const char* fmt, ...)
+ 	va_list vl;
+ 	va_start(vl, fmt);
+ 
+-	::vsnprintf(buffer + ::strlen(buffer), 500, fmt, vl);
++	const auto used = ::strlen(buffer);
++	::vsnprintf(buffer + used, 500 - used, fmt, vl);
+ 
+ 	va_end(vl);
+ 
+-- 
+2.42.0
+

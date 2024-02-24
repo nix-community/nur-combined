@@ -15,6 +15,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "+WvGAPuTlqb8Ie/7LGErpfC4EW+OEjifG7C1FOIh7CY=";
   };
 
+  patches = [
+    ./0001-Fix-buffer-overflow-in-logging.patch
+  ];
+
   installPhase = ''
     install -Dm775 APRSGateway $out/bin/APRSGateway
   '';

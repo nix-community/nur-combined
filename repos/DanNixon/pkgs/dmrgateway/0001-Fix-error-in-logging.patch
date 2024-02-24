@@ -1,0 +1,26 @@
+From 3912634aac95d978f105c4ad8e4cc45ba1defe58 Mon Sep 17 00:00:00 2001
+From: Dan Nixon <dan@dan-nixon.com>
+Date: Mon, 19 Feb 2024 23:16:38 +0000
+Subject: [PATCH] Fix error in logging
+
+---
+ Log.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Log.cpp b/Log.cpp
+index 752601e..3704253 100644
+--- a/Log.cpp
++++ b/Log.cpp
+@@ -167,7 +167,8 @@ void Log(unsigned int level, const char* fmt, ...)
+ 	va_list vl;
+ 	va_start(vl, fmt);
+ 
+-	::vsnprintf(buffer + ::strlen(buffer), 500, fmt, vl);
++	auto const used = ::strlen(buffer);
++	::vsnprintf(buffer + used, 500 - used, fmt, vl);
+ 
+ 	va_end(vl);
+ 
+-- 
+2.42.0
+

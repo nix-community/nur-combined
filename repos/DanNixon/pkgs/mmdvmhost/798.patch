@@ -1,0 +1,25 @@
+From f7389578bdbb1d65325212337bb7387d075d19d2 Mon Sep 17 00:00:00 2001
+From: Dan Nixon <dan@dan-nixon.com>
+Date: Mon, 19 Feb 2024 23:02:59 +0000
+Subject: [PATCH] Fix potential buffer overflow in logging
+
+Previously, size parameter to `vsnprintf` did not take into account the
+amount of the buffer already used for the timestamp.
+---
+ Log.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Log.cpp b/Log.cpp
+index 752601e5..2350255b 100644
+--- a/Log.cpp
++++ b/Log.cpp
+@@ -167,7 +167,8 @@ void Log(unsigned int level, const char* fmt, ...)
+ 	va_list vl;
+ 	va_start(vl, fmt);
+ 
+-	::vsnprintf(buffer + ::strlen(buffer), 500, fmt, vl);
++	const auto used = ::strlen(buffer);
++	::vsnprintf(buffer + used, 500 - used, fmt, vl);
+ 
+ 	va_end(vl);
+ 
