@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "eee1817966a46c6f04bf11af15173544ae0adb7b",
-            "sha256": "sha256-WShgA2fNbVJ7EKbBjsfZs3KTpmfdSvFwJQ1VhjQkGhg=",
+            "rev": "10ed86207d93c531b8d720356907f027352287c3",
+            "sha256": "sha256-gcEmyoipP4a8Qj0ZexVSP5q/yWkkXRKghLk/Y39Va/4=",
             "type": "github"
         },
-        "version": "eee1817966a46c6f04bf11af15173544ae0adb7b"
+        "version": "10ed86207d93c531b8d720356907f027352287c3"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -833,7 +833,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-02-19",
+        "date": "2024-02-23",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -845,11 +845,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "60adf53107885b3e4ff71864683c472bc561ff89",
-            "sha256": "sha256-2iTC2rqoX2o62qx0KfCW548107q0yIIFsZ0tTDBKR0Q=",
+            "rev": "154ae5cc3328e26cabe4ac4fec3019e5cecb4611",
+            "sha256": "sha256-yVJyNjF/UNpncx2SNo46F7AVrT+4IVTHe5Gg4B8+Cg0=",
             "type": "github"
         },
-        "version": "60adf53107885b3e4ff71864683c472bc561ff89"
+        "version": "154ae5cc3328e26cabe4ac4fec3019e5cecb4611"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -965,11 +965,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.7.5-xanmod1",
-            "sha256": "sha256-achx+rElMOdPUD0qU2TStrlJXZU71E89HVlM4tKf7WE=",
+            "rev": "6.7.6-xanmod1",
+            "sha256": "sha256-gg8B/i6kidgvRBOm3JiMBwP18UtVRH1ELNGQUBkDOMs=",
             "type": "github"
         },
-        "version": "6.7.5-xanmod1"
+        "version": "6.7.6-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1025,11 +1025,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.17-xanmod1",
-            "sha256": "sha256-WSWI3UByuD2SrcFC6El3ao0DINeG0IgtrvazDiHaIR0=",
+            "rev": "6.6.18-xanmod1",
+            "sha256": "sha256-WGfbCmM0fpWXQt1ThfaHn4bqZz22bNkhc9I2qeXMsws=",
             "type": "github"
         },
-        "version": "6.6.17-xanmod1"
+        "version": "6.6.18-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1318,7 +1318,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-02-12",
+        "date": "2024-02-23",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1330,11 +1330,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "510fea62449edb14b3ead8a51061b251817298cf",
-            "sha256": "sha256-Lj7AeUWPptdus/Mxobpdkfsnua8JYRSFEh5bhZ3AgNc=",
+            "rev": "49bb2d271ec64f35f5a3905577f2dbc2c1b8d07d",
+            "sha256": "sha256-9F8eB596tqUnfgy+mVf6AY9ohH+4B6HslWRtY0mxmaQ=",
             "type": "github"
         },
-        "version": "510fea62449edb14b3ead8a51061b251817298cf"
+        "version": "49bb2d271ec64f35f5a3905577f2dbc2c1b8d07d"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1713,7 +1713,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-02-21",
+        "date": "2024-02-23",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1725,11 +1725,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "a20ba10f69f945d87fe147dbf8e4013d7aa6468e",
-            "sha256": "sha256-Dbt/Re1IqCgJB+JcLZIzs0Sa/d1mAgTtCxpAwEC4bqA=",
+            "rev": "10dbeb4a4d5f7b9e6ea511ced442f34bdc529142",
+            "sha256": "sha256-Yy8cWDfy1aa5nmBsOVFqJ3dJXy47RgocQ18XVrBWxqM=",
             "type": "github"
         },
-        "version": "a20ba10f69f945d87fe147dbf8e4013d7aa6468e"
+        "version": "10dbeb4a4d5f7b9e6ea511ced442f34bdc529142"
     },
     "rime-moegirl": {
         "cargoLocks": null,

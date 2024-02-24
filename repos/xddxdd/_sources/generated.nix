@@ -145,13 +145,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "eee1817966a46c6f04bf11af15173544ae0adb7b";
+    version = "10ed86207d93c531b8d720356907f027352287c3";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "eee1817966a46c6f04bf11af15173544ae0adb7b";
+      rev = "10ed86207d93c531b8d720356907f027352287c3";
       fetchSubmodules = false;
-      sha256 = "sha256-WShgA2fNbVJ7EKbBjsfZs3KTpmfdSvFwJQ1VhjQkGhg=";
+      sha256 = "sha256-gcEmyoipP4a8Qj0ZexVSP5q/yWkkXRKghLk/Y39Va/4=";
     };
     date = "2024-02-23";
   };
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "60adf53107885b3e4ff71864683c472bc561ff89";
+    version = "154ae5cc3328e26cabe4ac4fec3019e5cecb4611";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "60adf53107885b3e4ff71864683c472bc561ff89";
+      rev = "154ae5cc3328e26cabe4ac4fec3019e5cecb4611";
       fetchSubmodules = false;
-      sha256 = "sha256-2iTC2rqoX2o62qx0KfCW548107q0yIIFsZ0tTDBKR0Q=";
+      sha256 = "sha256-yVJyNjF/UNpncx2SNo46F7AVrT+4IVTHe5Gg4B8+Cg0=";
     };
-    date = "2024-02-19";
+    date = "2024-02-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -557,13 +557,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.7.5-xanmod1";
+    version = "6.7.6-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.7.5-xanmod1";
+      rev = "6.7.6-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-achx+rElMOdPUD0qU2TStrlJXZU71E89HVlM4tKf7WE=";
+      sha256 = "sha256-gg8B/i6kidgvRBOm3JiMBwP18UtVRH1ELNGQUBkDOMs=";
     };
   };
   linux-xanmod-6_0 = {
@@ -590,13 +590,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.17-xanmod1";
+    version = "6.6.18-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.17-xanmod1";
+      rev = "6.6.18-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-WSWI3UByuD2SrcFC6El3ao0DINeG0IgtrvazDiHaIR0=";
+      sha256 = "sha256-WGfbCmM0fpWXQt1ThfaHn4bqZz22bNkhc9I2qeXMsws=";
     };
   };
   nbfc-linux-lantian = {
@@ -767,15 +767,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "510fea62449edb14b3ead8a51061b251817298cf";
+    version = "49bb2d271ec64f35f5a3905577f2dbc2c1b8d07d";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "510fea62449edb14b3ead8a51061b251817298cf";
+      rev = "49bb2d271ec64f35f5a3905577f2dbc2c1b8d07d";
       fetchSubmodules = false;
-      sha256 = "sha256-Lj7AeUWPptdus/Mxobpdkfsnua8JYRSFEh5bhZ3AgNc=";
+      sha256 = "sha256-9F8eB596tqUnfgy+mVf6AY9ohH+4B6HslWRtY0mxmaQ=";
     };
-    date = "2024-02-12";
+    date = "2024-02-23";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -986,15 +986,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "a20ba10f69f945d87fe147dbf8e4013d7aa6468e";
+    version = "10dbeb4a4d5f7b9e6ea511ced442f34bdc529142";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a20ba10f69f945d87fe147dbf8e4013d7aa6468e";
+      rev = "10dbeb4a4d5f7b9e6ea511ced442f34bdc529142";
       fetchSubmodules = false;
-      sha256 = "sha256-Dbt/Re1IqCgJB+JcLZIzs0Sa/d1mAgTtCxpAwEC4bqA=";
+      sha256 = "sha256-Yy8cWDfy1aa5nmBsOVFqJ3dJXy47RgocQ18XVrBWxqM=";
     };
-    date = "2024-02-21";
+    date = "2024-02-23";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
