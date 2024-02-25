@@ -71,32 +71,32 @@ let
     block_suspend = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_block_suspend.sh";
       pkgs = [ "procps" ];
-      src = ./hooks;
+      srcRoot = ./hooks;
     };
     inputhandler = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_inputhandler.sh";
       pkgs = [ "coreutils" "playerctl" "pulseaudio" ];
-      src = ./hooks;
+      srcRoot = ./hooks;
     };
     postwake = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_postwake.sh";
       pkgs = [ "coreutils" ];
-      src = ./hooks;
+      srcRoot = ./hooks;
     };
     rotate = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_rotate.sh";
       pkgs = [ "sway" ];
-      src = ./hooks;
+      srcRoot = ./hooks;
     };
     start = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_start.sh";
       pkgs = [ "systemd" "xdg-user-dirs" ];
-      src = ./hooks;
+      srcRoot = ./hooks;
     };
     suspend = pkgs.static-nix-shell.mkPython3Bin {
       pname = "sxmo_suspend.sh";
       pkgs = [ "rtl8723cs-wowlan" "util-linux" ];
-      src = ./hooks;
+      srcRoot = ./hooks;
       extraMakeWrapperArgs = [ "--add-flags" "--verbose" ];
     };
   };

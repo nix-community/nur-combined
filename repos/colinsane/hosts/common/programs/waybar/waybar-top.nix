@@ -5,7 +5,7 @@
 let
   waybar-media = pkgs.static-nix-shell.mkBash {
     pname = "waybar-media";
-    src = ./.;
+    srcRoot = ./.;
     pkgs = [ "jq" "playerctl" ];
   };
 in

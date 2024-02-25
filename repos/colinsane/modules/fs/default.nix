@@ -7,19 +7,19 @@ let
 
   ensure-dir = pkgs.static-nix-shell.mkBash {
     pname = "ensure-dir";
-    src = ./.;
+    srcRoot = ./.;
   };
   ensure-file = pkgs.static-nix-shell.mkBash {
     pname = "ensure-file";
-    src = ./.;
+    srcRoot = ./.;
   };
   ensure-symlink = pkgs.static-nix-shell.mkBash {
     pname = "ensure-symlink";
-    src = ./.;
+    srcRoot = ./.;
   };
   ensure-perms = pkgs.static-nix-shell.mkBash {
     pname = "ensure-perms";
-    src = ./.;
+    srcRoot = ./.;
   };
 
   mountNameFor = path: "${utils.escapeSystemdPath path}.mount";

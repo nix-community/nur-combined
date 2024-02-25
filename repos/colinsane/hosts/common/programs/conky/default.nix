@@ -16,7 +16,7 @@
       let
         battery_estimate = pkgs.static-nix-shell.mkBash {
           pname = "battery_estimate";
-          src = ./.;
+          srcRoot = ./.;
         };
       in pkgs.substituteAll {
         src = ./conky.conf;

@@ -5,7 +5,7 @@ let
   tty = "tty${builtins.toString cfg.config.vt}";
   redirect-tty = pkgs.static-nix-shell.mkPython3Bin {
     pname = "redirect-tty";
-    src = ./.;
+    srcRoot = ./.;
   };
   launcher = pkgs.writeShellApplication {
     name = "unl0kr-login";

@@ -10,7 +10,7 @@
 let
   wob-pulse = pkgs.static-nix-shell.mkBash {
     pname = "wob-pulse";
-    src = ./.;
+    srcRoot = ./.;
     pkgs = [ "coreutils" "gnugrep" "gnused" "pulseaudio" ];
   };
   cfg = config.sane.programs.wob;

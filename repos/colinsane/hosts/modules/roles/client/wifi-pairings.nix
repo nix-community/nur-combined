@@ -3,7 +3,7 @@
 let
   install-nm = pkgs.static-nix-shell.mkPython3Bin {
     pname = "install-nm";
-    src = ./.;
+    srcRoot = ./.;
   };
 in
 {

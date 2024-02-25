@@ -9,7 +9,7 @@ gnome-feeds
 let
   remove-extra = static-nix-shell.mkPython3Bin {
     pname = "gpodder-remove-extra";
-    src = ./.;
+    srcRoot = ./.;
     pyPkgs = _ps: {
       "gnome-feeds.listparser" = gnome-feeds.listparser;
     };

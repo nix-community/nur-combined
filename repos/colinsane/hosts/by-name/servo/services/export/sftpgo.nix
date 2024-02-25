@@ -91,7 +91,7 @@ let
   authFailJson = pkgs.writeText "sftp-auth-fail.json" (builtins.toJSON authResponseFail);
   unwrappedAuthProgram = pkgs.static-nix-shell.mkBash {
     pname = "sftpgo_external_auth_hook";
-    src = ./.;
+    srcRoot = ./.;
     pkgs = [ "coreutils" ];
   };
   authProgram = pkgs.writeShellScript "sftpgo-auth-hook" ''

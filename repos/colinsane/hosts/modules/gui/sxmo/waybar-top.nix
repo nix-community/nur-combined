@@ -5,7 +5,7 @@
 let
   waybar-sxmo-status = pkgs.static-nix-shell.mkBash {
     pname = "waybar-sxmo-status";
-    src = ./.;
+    srcRoot = ./.;
     pkgs = [ "sxmo-utils" "sxmo-utils.runtimeDeps" ];
   };
 in

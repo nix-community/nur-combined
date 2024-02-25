@@ -5,7 +5,7 @@
 let
   mimeo-open-desktop = pkgs.static-nix-shell.mkPython3Bin {
     pname = "mimeo-open-desktop";
-    src = ./.;
+    srcRoot = ./.;
     pkgs = [ "mimeo" ];
   };
 

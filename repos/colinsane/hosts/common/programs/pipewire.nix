@@ -7,11 +7,22 @@ in
   sane.programs.pipewire = {
     suggestedPrograms = [ "wireplumber" ];
 
-    # sandbox.method = "bwrap";
-    # sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
-    # # needs to *create* the various device files, so needs write access to the /run/user/$uid directory itself
-    # # sandbox.extraRuntimePaths = [ "/" ];
-    # sandbox.extraPaths = [ "/" ];  #< TODO: narrow this down
+    # sandbox.method = "landlock";  #< also works
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
+    sandbox.extraConfig = [
+      "--sane-sandbox-keep-namespace" "pid"
+    ];
+    sandbox.usePortal = false;
+    # needs to *create* the various device files, so needs write access to the /run/user/$uid directory itself
+    sandbox.extraRuntimePaths = [ "/" ];
+    sandbox.extraPaths = [
+      "/dev/snd"
+    ];
+    sandbox.extraHomePaths = [
+      # pulseaudio cookie
+      ".config/pulse"
+    ];
 
     services.pipewire = {
       description = "pipewire: multimedia service";

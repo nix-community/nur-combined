@@ -18,7 +18,7 @@ lib.makeScope newScope (self: with self; {
   );
   update-feed = static-nix-shell.mkPython3Bin {
     pname = "update";
-    src = ./.;
+    srcRoot = ./.;
     pyPkgs = [ "feedsearch-crawler" ];
     srcPath = "update.py";
   };

@@ -121,6 +121,15 @@ in
       net = "all";
     };
 
+    "sane-scripts.private-change-passwd".sandbox = {
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      autodetectCliPaths = "existing";  #< for the new `private` location
+      capabilities = [ "sys_admin" ];  # it needs to mount the new store
+      extraHomePaths = [
+        ".persist/private"
+      ];
+    };
     "sane-scripts.private-do".sandbox = {
       # because `mount` is a cap_sys_admin syscall, there's no great way to mount stuff dynamically like this.
       # instead, we put ourselves in a mount namespace, do the mount, and drop into a shell or run a command.
@@ -134,6 +143,14 @@ in
       # (crucially, that includes the backing store)
       net = "all";
       extraPaths = [ "/" ];
+    };
+    "sane-scripts.private-init".sandbox = {
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      capabilities = [ "sys_admin" ];  # it needs to mount the new store
+      extraHomePaths = [
+        ".persist/private"
+      ];
     };
     "sane-scripts.private-lock".sandbox.enable = false;
     "sane-scripts.private-unlock".sandbox.enable = false;

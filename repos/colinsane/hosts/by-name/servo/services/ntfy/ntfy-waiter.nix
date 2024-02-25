@@ -49,7 +49,7 @@ in
       type = types.package;
       default = pkgs.static-nix-shell.mkPython3Bin {
         pname = "ntfy-waiter";
-        src = ./.;
+        srcRoot = ./.;
         pkgs = [ "ntfy-sh" ];
       };
       description = ''

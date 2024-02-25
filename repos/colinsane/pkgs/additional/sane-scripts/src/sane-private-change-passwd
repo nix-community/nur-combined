@@ -1,33 +1,40 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gocryptfs -p rsync -p sane-scripts.private-unlock
+#!nix-shell -i bash -p gocryptfs -p rsync
+
+# HOW TO USE
+# ```sh
+# $ sudo mkdir /nix/persist/private.new && sudo chown colin:users /nix/persist/private.new
+# $ sane-private-change-passwd /nix/persist/private.new
+# this should prompt you to enter a password for the new directory.
+# now all data in the original /mnt/persist/private has been re-encrypted, into /nix/persist/private.new/cipher
+# if the data on-disk looks reasonable, continue:
+# $ sudo mv /nix/persist/private /nix/persist/private.old
+# $ sudo mv /nix/persist/private.new/cipher /nix/persist/private
+# $ sudo rmdir /nix/persist/private.new
+# ```
 
 set -ex
 
-new_plain=/home/colin/private-new
-new_cipher="/nix/persist${new_plain}"
-dest_plain=/home/colin/private
-dest_cipher="/nix/persist${dest_plain}"
+new_cipher="$1/cipher"
+new_plain="$1/plain"
+old_plain=/mnt/persist/private
+old_cipher=/nix/persist/private
+
+mkdir -p "$new_cipher"
+mkdir -p "$new_plain"
 
 # initialize the new store
-sudo mkdir -p "${new_cipher}" && sudo chown colin:users "${new_cipher}"
-mkdir -p "${new_plain}"
-gocryptfs -init "${new_cipher}"
+gocryptfs -init "$new_cipher"
 
-# mount the new and old store
-gocryptfs "${new_cipher}" "${new_plain}"
-sane-private-unlock
+# mount the new store. assume the old store is mounted.
+# if old store ISN'T mounted, then run this entire script inside `sane-private-do`
+gocryptfs "$new_cipher" "$new_plain"
 
 # transfer to the new store
-rsync -arv /home/colin/private/ "${new_plain}"/
+rsync -arv "$old_plain/" "$new_plain/"
 
-# unmount both stores
-sudo umount "${new_plain}"
-sudo umount /home/colin/private
-
-# swap the stores
-sudo mv "${dest_cipher}" "${dest_cipher}-old"
-sudo mv "${new_cipher}" "${dest_cipher}"
-
-sane-private-unlock
-
-echo "if things look well, rm ${dest_cipher}-old"
+echo "now spot-check the data on-disk at $new_cipher"
+echo "if it looks good, then:"
+echo "  - sudo mv $old_cipher $old_cipher.old"
+echo "  - sudo mv $new_cipher $old_cipher"
+echo "  - sudo rmdir $new_plain && sudo rmdir $new_plain/.."

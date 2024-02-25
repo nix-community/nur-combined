@@ -4,7 +4,7 @@ let
 
   hash-path-with-salt = pkgs.static-nix-shell.mkBash {
     pname = "hash-path-with-salt";
-    src = ./.;
+    srcRoot = ./.;
   };
 
   cfg = config.sane.derived-secrets;

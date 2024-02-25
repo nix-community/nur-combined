@@ -10,10 +10,7 @@
 let
   inherit (builtins) attrNames attrValues concatStringsSep foldl' map typeOf;
   inherit (lib) concatMapAttrs;
-  bash' = bash;
   pkgs' = pkgs;
-  python3' = python3;
-  zsh' = zsh;
   # create an attrset of
   #   <name> = expected string in the nix-shell invocation
   #   <value> = package to provide
@@ -40,10 +37,19 @@ in rec {
     pkgsEnv,
     pkgExprs,
     srcPath ? pname,
+    srcRoot ? null,
     extraMakeWrapperArgs ? [],
     ...
   }@attrs:
   let
+    extraDerivArgs = lib.optionalAttrs (srcRoot != null) {
+      # use can use `srcRoot` instead of `src` in most scenarios, to avoid include the entire directory containing their
+      # source file in the closure, but *just* the source file itself.
+      # `lib.fileset` docs: <https://ryantm.github.io/nixpkgs/functions/library/fileset/>
+      src = lib.fileset.toSource {
+        root = srcRoot; fileset = lib.path.append srcRoot srcPath;
+      };
+    };
     pkgsStr = concatStringsSep "" (map
       (pname: " -p ${pname}")
       pkgExprs
@@ -82,11 +88,11 @@ in rec {
 
         runHook postInstall
       '';
-    } // (removeAttrs attrs [ "extraMakeWrapperArgs" "interpreter" "interpreterName" "pkgsEnv" "pkgExprs" "srcPath" ])
+    } // extraDerivArgs // (removeAttrs attrs [ "extraMakeWrapperArgs" "interpreter" "interpreterName" "pkgsEnv" "pkgExprs" "srcPath" ])
   );
 
   # `mkShell` specialization for `nix-shell -i bash` scripts.
-  mkBash = { pname, pkgs ? {}, srcPath ? pname, bash ? bash', ...}@attrs:
+  mkBash = { pname, pkgs ? {}, ...}@attrs:
     let
       pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
       pkgsEnv = attrValues pkgsAsAttrs;
@@ -98,7 +104,7 @@ in rec {
   );
 
   # `mkShell` specialization for `nix-shell -i zsh` scripts.
-  mkZsh = { pname, pkgs ? {}, srcPath ? pname, zsh ? zsh', ...}@attrs:
+  mkZsh = { pname, pkgs ? {}, ...}@attrs:
     let
       pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
       pkgsEnv = attrValues pkgsAsAttrs;
@@ -112,7 +118,7 @@ in rec {
   # `mkShell` specialization for invocations of `nix-shell -p "python3.withPackages (...)"`
   # pyPkgs argument is parsed the same as pkgs, except that names are assumed to be relative to `"ps"` if specified in list form.
   # TODO: rename to `mkPython3` for consistency with e.g. `mkBash`
-  mkPython3Bin = { pname, pkgs ? {}, pyPkgs ? {}, srcPath ? pname, python3 ? python3', ... }@attrs:
+  mkPython3Bin = { pname, pkgs ? {}, pyPkgs ? {}, ... }@attrs:
     let
       pyEnv = python3.withPackages (ps: attrValues (
         pkgsToAttrs "ps." ps pyPkgs
