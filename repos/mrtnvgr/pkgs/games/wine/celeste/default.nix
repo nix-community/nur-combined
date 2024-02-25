@@ -22,7 +22,7 @@ let
   isEverestEnabled = if everestMods != [ ] then true else everestSupport;
 
   everestSetup = optionalString isEverestEnabled /* bash */ ''
-    cp -rlv ${everestSrc}/* .
+    cp -rv ${everestSrc}/* .
     chmod -R +w .
     wine MiniInstaller.exe
     wineserver -w
@@ -38,7 +38,7 @@ in wrapWine {
       mkdir celeste
       cd celeste
 
-      cp -rlv ${src}/* .
+      cp -rv ${optionalString (!isEverestEnabled) "-s"} ${src}/* .
 
       ${everestSetup}
     popd
