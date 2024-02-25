@@ -56,10 +56,10 @@ let
       "uid=1000"
       "gid=100"
     ];
-    sshRoot = ssh ++ [
-      # we don't transform_symlinks because that breaks the validity of remote /nix stores
-      "sftp_server=/run/wrappers/bin/sudo\\040/run/current-system/sw/libexec/sftp-server"
-    ];
+    # sshRoot = ssh ++ [
+    #   # we don't transform_symlinks because that breaks the validity of remote /nix stores
+    #   "sftp_server=/run/wrappers/bin/sudo\\040/run/current-system/sw/libexec/sftp-server"
+    # ];
     # in the event of hunt NFS mounts, consider:
     # - <https://unix.stackexchange.com/questions/31979/stop-broken-nfs-mounts-from-locking-a-directory>
 
@@ -157,11 +157,11 @@ lib.mkMerge [
       dir.acl.mode = "0750";
     };
 
-    environment.pathsToLink = [
-      # needed to achieve superuser access for user-mounted filesystems (see optionsRoot above)
-      # we can only link whole directories here, even though we're only interested in pkgs.openssh
-      "/libexec"
-    ];
+    # environment.pathsToLink = [
+    #   # needed to achieve superuser access for user-mounted filesystems (see sshRoot above)
+    #   # we can only link whole directories here, even though we're only interested in pkgs.openssh
+    #   "/libexec"
+    # ];
 
     programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
     environment.systemPackages = [
