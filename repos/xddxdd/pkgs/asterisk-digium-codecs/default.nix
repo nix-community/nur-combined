@@ -4,7 +4,6 @@
   fetchurl,
   autoPatchelfHook,
   curl,
-  mergePkgs,
   ...
 } @ args: let
   mkLibrary = asterisk_version: name: bits: value:
@@ -31,12 +30,11 @@
       };
     };
 
-  mkAsteriskVersion = asterisk_version: v:
-    mergePkgs (lib.mapAttrs
-      (name: value:
-        if stdenv.isx86_64
-        then mkLibrary asterisk_version name "64" value."64"
-        else mkLibrary asterisk_version name "32" value."32")
-      v);
+  mkAsteriskVersion = asterisk_version: v: (lib.recurseIntoAttrs (lib.mapAttrs
+    (name: value:
+      if stdenv.isx86_64
+      then mkLibrary asterisk_version name "64" value."64"
+      else mkLibrary asterisk_version name "32" value."32")
+    v));
 in
   lib.mapAttrs mkAsteriskVersion (lib.importJSON ./sources.json)
