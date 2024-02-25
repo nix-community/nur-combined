@@ -8,9 +8,9 @@
 
 ## IMPORTANT UPDATE 2024-02-24
 
-The packages in this repository has been reorganized into a flat structure. If you are using packages in a category, please replace the dots `.` in the package path with slashes `/`.
+The packages in this repository has been reorganized into a flat structure. If you are using packages in a category, please replace the dots `.` in the package path with double minus signs `--`.
 
-For example: `pkgs.lantianCustomized.nginx` -> `pkgs."lantianCustomized/nginx"`
+For example: `pkgs.lantianCustomized.nginx` -> `pkgs."lantianCustomized--nginx"`
 
 If you are only using uncategorized packages, you are not affected.
 
