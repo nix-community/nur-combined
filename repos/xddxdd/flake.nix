@@ -22,10 +22,9 @@
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
-    supportedSystems = ["x86_64-linux" "aarch64-linux"];
   in
     flake-utils-plus.lib.mkFlake {
-      inherit self inputs supportedSystems;
+      inherit self inputs;
       channels.nixpkgs = {
         config = {
           allowUnfree = true;
@@ -42,9 +41,18 @@
       outputsBuilder = channels: let
         pkgs = channels.nixpkgs;
         inherit (pkgs) system;
+        inherit (pkgs.callPackage ./helpers/flatten-pkgs.nix {}) flattenPkgs;
         inherit (pkgs.callPackage ./helpers/is-buildable.nix {}) isBuildable;
 
         outputsOf = p: map (o: p.${o}) p.outputs;
+
+        ciPackages = import ./pkgs "ci" {
+          inherit inputs pkgs;
+        };
+        ciPackagesFlattened = flattenPkgs ciPackages;
+        ciPackageNames = lib.mapAttrsToList (k: v: k) (lib.filterAttrs (_: isBuildable) ciPackages);
+        ciPackageNamesFlattened = lib.mapAttrsToList (k: v: k) (lib.filterAttrs (_: isBuildable) ciPackagesFlattened);
+        ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackagesFlattened);
 
         commands =
           lib.mapAttrs
@@ -103,7 +111,8 @@
 
             readme = ''
               set -euo pipefail
-              nix eval --raw .#readme.${system} > README.md
+              nix build .#_meta.readme
+              cat result > README.md
               ${garnix}
             '';
 
@@ -126,20 +135,14 @@
             '';
           };
       in rec {
-        packages = inputs.flake-utils.lib.flattenTree (import ./pkgs null {
+        packages = import ./pkgs null {
           inherit inputs pkgs;
-        });
+        };
+        packageNames = lib.mapAttrsToList (k: v: k) (flattenPkgs packages);
 
-        ciPackages = lib.filterAttrs (n: isBuildable) (inputs.flake-utils.lib.flattenTree (import ./pkgs "ci" {
-          inherit inputs pkgs;
-        }));
-        ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackages);
+        inherit ciPackages ciPackagesFlattened ciPackageNames ciPackageNamesFlattened ciOutputs;
 
         formatter = pkgs.alejandra;
-
-        readme = pkgs.callPackage helpers/readme.nix {
-          inherit packages;
-        };
 
         apps = lib.mapAttrs (n: v: flake-utils.lib.mkApp {drv = v;}) commands;
 
@@ -148,14 +151,17 @@
         };
       };
 
-      garnixConfig = builtins.toJSON {
-        builds.include =
-          lib.naturalSort
-          (lib.flatten
-            (builtins.map
-              (platform: (builtins.map (p: "packages.${platform}.${p}") (builtins.attrNames (self.ciPackages."${platform}"))))
-              supportedSystems));
-      };
+      garnixConfig = let
+        platforms = ["x86_64-linux" "aarch64-linux"];
+      in
+        builtins.toJSON {
+          builds.include =
+            lib.naturalSort
+            (lib.flatten
+              (builtins.map
+                (platform: (builtins.map (p: "packages.${platform}.${p}") self.ciPackageNames."${platform}"))
+                platforms));
+        };
 
       overlay = self.overlays.default;
       overlays = {

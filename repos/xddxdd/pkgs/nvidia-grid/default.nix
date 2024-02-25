@@ -2,6 +2,7 @@
   lib,
   callPackage,
   linux,
+  mergePkgs,
   fetchpatch,
   ...
 } @ args: let
@@ -39,21 +40,17 @@
   in
     callPackage pkg {kernel = linux;};
 in {
-  grid = lib.recurseIntoAttrs (
-    lib.mapAttrs'
+  grid = mergePkgs (lib.mapAttrs'
     (k: v:
       lib.nameValuePair
       (builtins.replaceStrings ["."] ["_"] k)
       (gridDriver k v))
-    sources
-  );
+    sources);
 
-  vgpu = lib.recurseIntoAttrs (
-    lib.mapAttrs'
+  vgpu = mergePkgs (lib.mapAttrs'
     (k: v:
       lib.nameValuePair
       (builtins.replaceStrings ["."] ["_"] k)
       (vgpuDriver k v))
-    sources
-  );
+    sources);
 }

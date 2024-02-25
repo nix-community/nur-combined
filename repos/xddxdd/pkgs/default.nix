@@ -43,13 +43,25 @@ mode: {
       "packages"
     ];
 in
-  mkScope (self: pkg: {
-    _meta = pkgs.callPackage ./_meta {};
+  mkScope (self: pkg: let
+    # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
+    mergePkgs = self.callPackage ../helpers/merge-pkgs.nix {
+      enableWrapper = mode != "nur";
+    };
+  in {
+    # Binary cache information
+    _meta = mergePkgs {
+      url = "https://xddxdd.cachix.org";
+      publicKey = "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=";
+
+      howto = pkg ./_meta/howto {};
+      readme = pkg ./_meta/readme {};
+    };
 
     # Package groups
-    asteriskDigiumCodecs = lib.recurseIntoAttrs (pkg ./asterisk-digium-codecs {});
+    asteriskDigiumCodecs = mergePkgs (pkg ./asterisk-digium-codecs {inherit mergePkgs;});
 
-    lantianCustomized = lib.recurseIntoAttrs {
+    lantianCustomized = mergePkgs {
       # Packages with significant customization by Lan Tian
       asterisk = pkg ./lantian-customized/asterisk {};
       attic-telnyx-compatible = ifNotNUR (pkg ./lantian-customized/attic-telnyx-compatible {});
@@ -60,19 +72,19 @@ in
       transmission-with-webui = pkg ./lantian-customized/transmission-with-webui {};
     };
 
-    lantianLinuxXanmod = ifNotCI (lib.recurseIntoAttrs (pkg ./lantian-linux-xanmod {}));
-    # lantianLinuxXanmodPackages = ifNotCI (lib.recurseIntoAttrs (pkg ./lantian-linux-xanmod/packages.nix {}));
+    lantianLinuxXanmod = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod {}));
+    lantianLinuxXanmodPackages = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod/packages.nix {}));
 
-    lantianPersonal = ifNotCI (lib.recurseIntoAttrs {
+    lantianPersonal = ifNotCI (mergePkgs {
       # Personal packages with no intention to be used by others
       libltnginx = pkg ./lantian-personal/libltnginx {};
     });
 
-    nvidia-grid = ifNotCI (lib.recurseIntoAttrs (pkg ./nvidia-grid {}));
-    openj9-ibm-semeru = ifNotCI (lib.recurseIntoAttrs (pkg ./openj9-ibm-semeru {}));
-    openjdk-adoptium = ifNotCI (lib.recurseIntoAttrs (pkg ./openjdk-adoptium {}));
-    plangothic-fonts = lib.recurseIntoAttrs (pkg ./plangothic-fonts {});
-    th-fonts = lib.recurseIntoAttrs (pkg ./th-fonts {});
+    nvidia-grid = ifNotCI (mergePkgs (pkg ./nvidia-grid {inherit mergePkgs;}));
+    openj9-ibm-semeru = ifNotCI (mergePkgs (pkg ./openj9-ibm-semeru {}));
+    openjdk-adoptium = ifNotCI (mergePkgs (pkg ./openjdk-adoptium {}));
+    plangothic-fonts = mergePkgs (pkg ./plangothic-fonts {});
+    th-fonts = mergePkgs (pkg ./th-fonts {});
 
     # Other packages
     amule-dlp = pkg ./uncategorized/amule-dlp {};
