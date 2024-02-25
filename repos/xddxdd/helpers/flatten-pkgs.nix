@@ -40,5 +40,5 @@
           else [])
         s));
   flattenPkgs' = prefix: sep: s: lib.listToAttrs (_flattenPkgs prefix sep s);
-  flattenPkgs = flattenPkgs' "" "/";
+  flattenPkgs = flattenPkgs' "" "--";
 }

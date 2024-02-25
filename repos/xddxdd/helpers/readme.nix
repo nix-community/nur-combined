@@ -9,14 +9,14 @@
   constants = import ./constants.nix;
 
   scopes = builtins.filter (v: v != null) (lib.unique (lib.mapAttrsToList (k: v:
-    if lib.hasInfix "/" k
-    then builtins.head (lib.splitString "/" k)
+    if lib.hasInfix "--" k
+    then builtins.head (lib.splitString "--" k)
     else null)
   packages));
 
-  packageSets = lib.genAttrs scopes (scope: lib.filterAttrs (k: v: lib.hasPrefix "${scope}/" k) packages);
+  packageSets = lib.genAttrs scopes (scope: lib.filterAttrs (k: v: lib.hasPrefix "${scope}--" k) packages);
   # Also filter out _meta helper package
-  uncategorizedPackages = lib.filterAttrs (k: v: !lib.hasInfix "/" k && k != "_meta") packages;
+  uncategorizedPackages = lib.filterAttrs (k: v: !lib.hasInfix "--" k && k != "_meta") packages;
 
   packageList = scopedPackages:
     builtins.map
@@ -33,10 +33,7 @@
     } | ${v.version} | ${v.description} |")
     (lib.mapAttrsToList
       (n: v: {
-        path =
-          if lib.hasInfix "/" n
-          then "pkgs.\"${n}\""
-          else "pkgs.${n}";
+        path = n;
         pname = v.pname or v.name or n;
         version = v.version or "";
         description = v.meta.description or "";
@@ -75,9 +72,9 @@ in ''
 
   ## IMPORTANT UPDATE 2024-02-24
 
-  The packages in this repository has been reorganized into a flat structure. If you are using packages in a category, please replace the dots `.` in the package path with slashes `/`.
+  The packages in this repository has been reorganized into a flat structure. If you are using packages in a category, please replace the dots `.` in the package path with double minus signs `--`.
 
-  For example: `pkgs.lantianCustomized.nginx` -> `pkgs."lantianCustomized/nginx"`
+  For example: `pkgs.lantianCustomized.nginx` -> `pkgs."lantianCustomized--nginx"`
 
   If you are only using uncategorized packages, you are not affected.
 
