@@ -37,6 +37,7 @@
     ./git.nix
     ./gnome-feeds.nix
     ./gnome-keyring
+    ./gnome-maps.nix
     ./gnome-weather.nix
     ./go2tv.nix
     ./gpodder.nix
@@ -100,6 +101,7 @@
     ./waylock.nix
     ./wike.nix
     ./wine.nix
+    ./wireplumber.nix
     ./wireshark.nix
     ./wob
     ./xarchiver.nix

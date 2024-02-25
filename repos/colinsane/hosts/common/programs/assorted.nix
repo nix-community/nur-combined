@@ -382,7 +382,7 @@ in
     forkstat.sandbox.method = "landlock";  #< doesn't seem to support bwrap
     forkstat.sandbox.wrapperType = "wrappedDerivation";
     forkstat.sandbox.extraConfig = [
-      "--sane-sandbox-keep-pidspace"
+      "--sane-sandbox-keep-namespace" "pid"
     ];
     forkstat.sandbox.extraPaths = [
       "/proc"
@@ -408,23 +408,6 @@ in
     # gdb.sandbox.method = "landlock";  # permission denied when trying to attach, even as root
     gdb.sandbox.wrapperType = "wrappedDerivation";
     gdb.sandbox.autodetectCliPaths = true;
-
-    gnugrep.sandbox.method = "bwrap";
-    gnugrep.sandbox.wrapperType = "wrappedDerivation";
-    gnugrep.sandbox.autodetectCliPaths = true;
-    gnugrep.sandbox.whitelistPwd = true;
-    gnugrep.sandbox.extraHomePaths = [
-      # let it follow symlinks to non-sensitive data
-      ".persist/ephemeral"
-      ".persist/plaintext"
-    ];
-
-    gptfdisk.sandbox.method = "landlock";
-    gptfdisk.sandbox.wrapperType = "wrappedDerivation";
-    gptfdisk.sandbox.extraPaths = [
-      "/dev"
-    ];
-    gptfdisk.sandbox.autodetectCliPaths = "existing";  #< sometimes you'll use gdisk on a device file.
 
     # MS GitHub stores auth token in .config
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
@@ -465,13 +448,12 @@ in
     "gnome.gnome-disk-utility".sandbox.whitelistDbus = [ "system" ];
     "gnome.gnome-disk-utility".sandbox.whitelistWayland = true;
 
-    # TODO: verify location services
-    # "gnome.gnome-maps".sandbox.method = "bwrap";
-    # "gnome.gnome-maps".sandbox.wrapperType = "inplace";
-    # "gnome.gnome-maps".sandbox.whitelistDri = true;
-    # "gnome.gnome-maps".sandbox.whitelistDbus = [ "user" ];  # for GPS (geoclue, portals)
-    # "gnome.gnome-maps".sandbox.whitelistWayland = true;
-    # "gnome.gnome-maps".sandbox.net = "clearnet";
+    # seahorse: dump gnome-keyring secrets.
+    # N.B.: it can also manage ~/.ssh keys, but i explicitly don't add those to the sandbox for now.
+    "gnome.seahorse".sandbox.method = "bwrap";
+    "gnome.seahorse".sandbox.wrapperType = "wrappedDerivation";
+    "gnome.seahorse".sandbox.whitelistDbus = [ "user" ];
+    "gnome.seahorse".sandbox.whitelistWayland = true;
 
     gnome-2048.sandbox.method = "bwrap";
     gnome-2048.sandbox.wrapperType = "wrappedDerivation";
@@ -495,12 +477,6 @@ in
       ".local/share/tessdata"  # 15M; dunno what all it is.
     ];
 
-    # TODO: gnome-maps: move to own file
-    "gnome.gnome-maps".persist.byStore.plaintext = [ ".cache/shumate" ];
-    "gnome.gnome-maps".persist.byStore.private = [
-      ({ path = ".local/share/maps-places.json"; type = "file"; })
-    ];
-
     # hitori rules:
     # - click to shade a tile
     # 1. no number may appear unshaded more than once in the same row/column
@@ -509,6 +485,23 @@ in
     "gnome.hitori".sandbox.method = "bwrap";
     "gnome.hitori".sandbox.wrapperType = "wrappedDerivation";
     "gnome.hitori".sandbox.whitelistWayland = true;
+
+    gnugrep.sandbox.method = "bwrap";
+    gnugrep.sandbox.wrapperType = "wrappedDerivation";
+    gnugrep.sandbox.autodetectCliPaths = true;
+    gnugrep.sandbox.whitelistPwd = true;
+    gnugrep.sandbox.extraHomePaths = [
+      # let it follow symlinks to non-sensitive data
+      ".persist/ephemeral"
+      ".persist/plaintext"
+    ];
+
+    gptfdisk.sandbox.method = "landlock";
+    gptfdisk.sandbox.wrapperType = "wrappedDerivation";
+    gptfdisk.sandbox.extraPaths = [
+      "/dev"
+    ];
+    gptfdisk.sandbox.autodetectCliPaths = "existing";  #< sometimes you'll use gdisk on a device file.
 
     hase.sandbox.method = "bwrap";
     hase.sandbox.wrapperType = "wrappedDerivation";

@@ -60,8 +60,9 @@ autodetect=
 paths=()
 # linux capabilities to provide to the sandbox, like `sys_admin` (no `cap_` prefix here)
 capabilities=()
-# set non-empty if this process may want to query /proc/$PID/... of _other_ processes.
-keepPidspace=
+# keepNamespace:
+# - "pid": if this process may wany to query /proc/$PID/... of parent/sibling processes.
+keepNamespace=()
 # name of some network device to make available to the sandbox, if any.
 net=
 # list of IP addresses to use for DNS servers inside the sandbox (firejail only)
@@ -354,8 +355,10 @@ parseArgs() {
         net="$1"
         shift
         ;;
-      (--sane-sandbox-keep-pidspace)
-        keepPidspace=1
+      (--sane-sandbox-keep-namespace)
+        _namespace="$1"
+        shift
+        keepNamespace+=("$_namespace")
         ;;
       (--sane-sandbox-path)
         _path="$1"
@@ -406,8 +409,8 @@ firejailIngestNet() {
 firejailIngestDns() {
   firejailFlags+=("--dns=$1")
 }
-firejailIngestKeepPidspace() {
-  debug "firejailIngestKeepPidspace: noop"
+firejailIngestKeepNamespace() {
+  debug "firejailIngestKeepNamespace: noop"
 }
 firejailIngestProfile() {
   if [ -z "$firejailName" ]; then
@@ -442,8 +445,11 @@ firejailGetCli() {
 
 ## BUBBLEWRAP BACKEND
 
+bwrapUnshareCgroup=(--unshare-cgroup)
+bwrapUnshareIpc=(--unshare-ipc)
 bwrapUnshareNet=(--unshare-net)
 bwrapUnsharePid=(--unshare-pid)
+bwrapUnshareUts=(--unshare-uts)
 bwrapVirtualizeDev=(--dev /dev)
 bwrapVirtualizeProc=(--proc /proc)
 bwrapVirtualizeTmp=(--tmpfs /tmp)
@@ -485,8 +491,21 @@ bwrapIngestNet() {
   debug "bwrapIngestNet: enabling full net access for '$1' because don't know how to restrict it more narrowly"
   bwrapUnshareNet=()
 }
-bwrapIngestKeepPidspace() {
-  bwrapUnsharePid=()
+bwrapIngestKeepNamespace() {
+  case "$1" in
+    (cgroup)
+      bwrapUnshareCgroup=()
+      ;;
+    (ipc)
+      bwrapUnshareIpc=()
+      ;;
+    (pid)
+      bwrapUnsharePid=()
+      ;;
+    (uts)
+      bwrapUnshareUts=()
+      ;;
+  esac
 }
 bwrapIngestProfile() {
   debug "bwrapIngestProfile: stubbed"
@@ -506,8 +525,9 @@ bwrapGetCli() {
   # --unshare-user (implicit to every non-suid call to bwrap)
   locate _bwrap "bwrap" "@bubblewrap@/bin/bwrap"
   cliArgs=(
-    "$_bwrap" --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts
+    "$_bwrap" "${bwrapUnshareCgroup[@]}" "${bwrapUnshareIpc[@]}"
       "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}"
+      "${bwrapUnshareUser[@]}" "${bwrapUnshareUts[@]}"
       "${bwrapVirtualizeDev[@]}" "${bwrapVirtualizeProc[@]}" "${bwrapVirtualizeTmp[@]}"
       "${bwrapFlags[@]}" --
     env "${extraEnv[@]}" "${cliArgs[@]}"
@@ -560,8 +580,8 @@ landlockIngestPath() {
 landlockIngestNet() {
   debug "landlockIngestNet: '$1': stubbed (landlock network is always unrestricted)"
 }
-landlockIngestKeepPidspace() {
-  debug "landlockIngestKeepPidspace: noop"
+landlockIngestKeepNamespace() {
+  debug "landlockIngestKeepNamespace: noop"
 }
 landlockIngestProfile() {
   debug "landlockIngestProfile: stubbed"
@@ -598,8 +618,8 @@ capshonlyIngestPath() {
 capshonlyIngestNet() {
   debug "capshonlyIngestNet: '$1': stubbed (capsh network is always unrestricted)"
 }
-capshonlyIngestKeepPidspace() {
-  debug "capshonlyIngestKeepPidspace: noop"
+capshonlyIngestKeepNamespace() {
+  debug "capshonlyIngestKeepNamespace: noop"
 }
 capshonlyIngestProfile() {
   debug "capshonlyIngestProfile: stubbed"
@@ -644,7 +664,7 @@ noneIngestPath() {
 noneIngestNet() {
   :
 }
-noneIngestKeepPidspace() {
+noneIngestKeepNamespace() {
   :
 }
 noneIngestProfile() {
@@ -754,9 +774,9 @@ ingestForBackend() {
     "$method"IngestDns "$_addr"
   done
 
-  if [ -n "$keepPidspace" ]; then
-    "$method"IngestKeepPidspace
-  fi
+  for _ns in "${keepNamespace[@]}"; do
+    "$method"IngestKeepNamespace "$_ns"
+  done
 
   for _prof in "${profilesNamed[@]}"; do
     "$method"IngestProfile "$_prof"

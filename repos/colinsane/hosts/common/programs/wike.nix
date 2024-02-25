@@ -5,6 +5,9 @@
     sandbox.wrapperType = "inplace";  # share/wike/wike-sp refers back to the binaries and share
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
+    # default sandboxing breaks rendering in weird ways. like it loads the desktop version of articles.
+    # enabling DRI/DRM (as below) hopefully fixes that.
+    sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [
       # wike sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.

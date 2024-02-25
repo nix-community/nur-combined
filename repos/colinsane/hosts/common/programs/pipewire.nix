@@ -5,23 +5,57 @@ let
 in
 {
   sane.programs.pipewire = {
-    persist.byStore.plaintext = [
-      # persist per-device volume levels
-      ".local/state/wireplumber"
-    ];
+    suggestedPrograms = [ "wireplumber" ];
+
+    # sandbox.method = "bwrap";
+    # sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
+    # # needs to *create* the various device files, so needs write access to the /run/user/$uid directory itself
+    # # sandbox.extraRuntimePaths = [ "/" ];
+    # sandbox.extraPaths = [ "/" ];  #< TODO: narrow this down
+
+    services.pipewire = {
+      description = "pipewire: multimedia service";
+      after = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/pipewire";
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "5s";
+      };
+    };
+    services.pipewire-pulse = {
+      description = "pipewire-pulse: Pipewire compatibility layer for PulseAudio clients";
+      after = [ "pipewire.service" ];
+      wantedBy = [ "pipewire.service" ];
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/pipewire-pulse";
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "5s";
+      };
+    };
   };
 
-  services.pipewire = lib.mkIf cfg.enabled {
-    enable = true;
-    package = cfg.package;
-    alsa.enable = true;
-    alsa.support32Bit = true;  # ??
-    # emulate pulseaudio for legacy apps (e.g. sxmo-utils)
-    pulse.enable = true;
-    # TODO: try:
-    # socketActivation = false;
+  # taken from nixos/modules/services/desktops/pipewire/pipewire.nix
+  # removed 32-bit compatibility stuff
+  environment.etc = lib.mkIf cfg.enabled {
+    "alsa/conf.d/49-pipewire-modules.conf".text = ''
+      pcm_type.pipewire {
+        libs.native = ${cfg.package}/lib/alsa-lib/libasound_module_pcm_pipewire.so ;
+      }
+      ctl_type.pipewire {
+        libs.native = ${cfg.package}/lib/alsa-lib/libasound_module_ctl_pipewire.so ;
+      }
+    '';
+
+    "alsa/conf.d/50-pipewire.conf".source = "${cfg.package}/share/alsa/alsa.conf.d/50-pipewire.conf";
+    "alsa/conf.d/99-pipewire-default.conf".source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
   };
-  systemd.user.services."pipewire".wantedBy = lib.optionals cfg.enabled [ "graphical-session.target" ];
+
+  services.udev.packages = lib.mkIf cfg.enabled [
+    cfg.package
+  ];
 
   # rtkit/RealtimeKit: allow applications which want realtime audio (e.g. Dino? Pulseaudio server?) to request it.
   # this might require more configuration (e.g. polkit-related) to work exactly as desired.
