@@ -1,4 +1,4 @@
-{ stdenv, python3,  fetchFromGitHub}:
+{ stdenv, python3, fetchFromGitHub, lib}:
 stdenv.mkDerivation
  rec {
   pname = "lh2ctrl";
@@ -18,4 +18,12 @@ stdenv.mkDerivation
   };
 
   installPhase = "install -Dm755 ${src + "/pylh2ctrl/lh2ctrl.py"} $out/bin/lh2ctrl";
+
+  meta = with lib; {
+    description = "Power management of Valve v2 lighthouses over Bluetooth LE";
+    homepage = "https://github.com/risa2000/lh2ctrl";
+    license = licenses.mit;
+    platforms = platforms.linux;
+  };
 }
+
