@@ -1,40 +1,24 @@
 {
+  writeTextFile,
   callPackage,
   lib,
   newScope,
-  legacyPackages,
+  packages,
   ...
 }: let
   constants = import ./constants.nix;
 
-  nurPackages =
-    builtins.removeAttrs
-    legacyPackages
-    [
-      "newScope"
-      "callPackage"
-      "overrideScope"
-      "overrideScope'"
-      "packages"
-    ];
+  scopes = builtins.filter (v: v != null) (lib.unique (lib.mapAttrsToList (k: v:
+    if lib.hasInfix "--" k
+    then builtins.head (lib.splitString "--" k)
+    else null)
+  packages));
 
-  inherit
-    (callPackage ./flatten-pkgs.nix {})
-    isIndependentDerivation
-    isHiddenName
-    shouldRecurseForDerivations
-    flattenPkgs'
-    ;
+  packageSets = lib.genAttrs scopes (scope: lib.filterAttrs (k: v: lib.hasPrefix "${scope}--" k) packages);
+  # Also filter out _meta helper package
+  uncategorizedPackages = lib.filterAttrs (k: v: !lib.hasInfix "--" k && k != "_meta") packages;
 
-  packageSets =
-    lib.filterAttrs
-    (n: v:
-      (builtins.tryEval v).success
-      && !(isHiddenName n)
-      && (shouldRecurseForDerivations v))
-    nurPackages;
-
-  packageList = prefix: ps:
+  packageList = scopedPackages:
     builtins.map
     (v: let
       tags =
@@ -47,21 +31,23 @@
       then "[${v.pname}](${v.url})"
       else v.pname
     } | ${v.version} | ${v.description} |")
-    (lib.mapAttrsToList (n: v: {
-      path = n;
-      pname = v.pname or v.name or n;
-      version = v.version or "";
-      description = v.meta.description or "";
-      broken = v.meta.broken or false;
-      platforms = v.meta.platforms or [];
-      url = v.meta.homepage or null;
-    }) (flattenPkgs' prefix "." ps));
+    (lib.mapAttrsToList
+      (n: v: {
+        path = n;
+        pname = v.pname or v.name or n;
+        version = v.version or "";
+        description = v.meta.description or "";
+        broken = v.meta.broken or false;
+        platforms = v.meta.platforms or [];
+        url = v.meta.homepage or null;
+      })
+      scopedPackages);
 
-  packageSetOutput = name: path: v: let
-    list = packageList path v;
+  packageSetOutput = scope: scopedPackages: let
+    list = packageList scopedPackages;
   in ''
     <details>
-    <summary>Package set: ${name} (${builtins.toString (builtins.length list)} packages)</summary>
+    <summary>Package set: ${scope} (${builtins.toString (builtins.length list)} packages)</summary>
 
     | State | Path | Name | Version | Description |
     | ----- | ---- | ---- | ------- | ----------- |
@@ -72,12 +58,9 @@
   uncategorizedOutput =
     packageSetOutput
     "(Uncategorized)"
-    ""
-    (lib.filterAttrs
-      (n: v: (builtins.tryEval v).success && isIndependentDerivation v)
-      nurPackages);
+    uncategorizedPackages;
 
-  packageSetsOutput = builtins.concatStringsSep "\n" (lib.mapAttrsToList (n: v: packageSetOutput n n v) packageSets);
+  packageSetsOutput = builtins.concatStringsSep "\n" (lib.mapAttrsToList packageSetOutput packageSets);
 in ''
   # Lan Tian's NUR Packages
 
@@ -86,6 +69,14 @@ in ''
   [![Cachix Cache](https://img.shields.io/badge/cachix-xddxdd-blue.svg)](https://xddxdd.cachix.org)
 
   [![built with garnix](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fxddxdd%2Fnur-packages)](https://garnix.io)
+
+  ## IMPORTANT UPDATE 2024-02-24
+
+  The packages in this repository has been reorganized into a flat structure. If you are using packages in a category, please replace the dots `.` in the package path with double minus signs `--`.
+
+  For example: `pkgs.lantianCustomized.nginx` -> `pkgs."lantianCustomized--nginx"`
+
+  If you are only using uncategorized packages, you are not affected.
 
   ## Maintenance and Backwards Compatibility
 

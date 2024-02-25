@@ -3,6 +3,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-utils-plus = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     nvfetcher = {
       url = "github:berberman/nvfetcher";
@@ -14,14 +18,15 @@
     self,
     nixpkgs,
     flake-utils,
+    flake-utils-plus,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
     supportedSystems = ["x86_64-linux" "aarch64-linux"];
-
-    pkgsForSystem = system:
-      import nixpkgs {
-        inherit system;
+  in
+    flake-utils-plus.lib.mkFlake {
+      inherit self inputs supportedSystems;
+      channels.nixpkgs = {
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [
@@ -31,136 +36,133 @@
             "python-2.7.18.7"
           ];
         };
+        input = inputs.nixpkgs;
       };
-  in
-    (flake-utils.lib.eachSystem supportedSystems (system: let
-      pkgs = pkgsForSystem system;
-      inherit (pkgs.callPackage ./helpers/flatten-pkgs.nix {}) flattenPkgs;
-      inherit (pkgs.callPackage ./helpers/is-buildable.nix {}) isBuildable;
-      outputsOf = p: map (o: p.${o}) p.outputs;
 
-      commands =
-        lib.mapAttrs
-        (n: v: pkgs.writeShellScriptBin n v)
-        rec {
-          ci = ''
-            set -euo pipefail
-            if [ "$1" == "" ]; then
-              echo "Usage: ci <system>";
-              exit 1;
-            fi
+      outputsBuilder = channels: let
+        pkgs = channels.nixpkgs;
+        inherit (pkgs) system;
+        inherit (pkgs.callPackage ./helpers/is-buildable.nix {}) isBuildable;
 
-            # Workaround https://github.com/NixOS/nix/issues/6572
-            for i in {1..3}; do
-              ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace && exit 0
-            done
+        outputsOf = p: map (o: p.${o}) p.outputs;
 
-            exit 1
-          '';
+        commands =
+          lib.mapAttrs
+          (n: v: pkgs.writeShellScriptBin n v)
+          rec {
+            ci = ''
+              set -euo pipefail
+              if [ "$1" == "" ]; then
+                echo "Usage: ci <system>";
+                exit 1;
+              fi
 
-          garnix = ''
-            nix eval --raw .#garnixConfig | ${pkgs.jq}/bin/jq > garnix.yaml
-          '';
+              # Workaround https://github.com/NixOS/nix/issues/6572
+              for i in {1..3}; do
+                ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace && exit 0
+              done
 
-          nvfetcher = ''
-            set -euo pipefail
-            KEY_FLAG=""
-            [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
-            [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-            export PATH=${pkgs.nix-prefetch-scripts}/bin:$PATH
-            ${inputs.nvfetcher.packages."${system}".default}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
-            ${readme}
-          '';
+              exit 1
+            '';
 
-          nur-check = ''
-            set -euo pipefail
-            TMPDIR=$(mktemp -d)
-            FLAKEDIR=$(pwd)
+            garnix = ''
+              nix eval --raw .#garnixConfig | ${pkgs.jq}/bin/jq > garnix.yaml
+            '';
 
-            git clone --depth=1 https://github.com/nix-community/NUR.git "$TMPDIR"
-            cd "$TMPDIR"
+            nvfetcher = ''
+              set -euo pipefail
+              KEY_FLAG=""
+              [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
+              [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
+              export PATH=${pkgs.nix-prefetch-scripts}/bin:$PATH
+              ${inputs.nvfetcher.packages."${system}".default}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+              ${readme}
+            '';
 
-            cp ${./repos.json} repos.json
-            rm -f repos.json.lock
+            nur-check = ''
+              set -euo pipefail
+              TMPDIR=$(mktemp -d)
+              FLAKEDIR=$(pwd)
 
-            bin/nur update
-            bin/nur eval "$FLAKEDIR"
+              git clone --depth=1 https://github.com/nix-community/NUR.git "$TMPDIR"
+              cd "$TMPDIR"
 
-            git clone --single-branch "https://github.com/nix-community/nur-combined.git"
-            cp repos.json repos.json.lock nur-combined/
-            bin/nur index nur-combined > index.json
+              cp ${./repos.json} repos.json
+              rm -f repos.json.lock
 
-            cd "$FLAKEDIR"
-            rm -rf "$TMPDIR"
-          '';
+              bin/nur update
+              bin/nur eval "$FLAKEDIR"
 
-          readme = ''
-            set -euo pipefail
-            nix eval --raw .#readme.${system} > README.md
-            ${garnix}
-          '';
+              git clone --single-branch "https://github.com/nix-community/nur-combined.git"
+              cp repos.json repos.json.lock nur-combined/
+              bin/nur index nur-combined > index.json
 
-          trace = ''
-            rm -rf trace.txt*
-            strace -ff --trace=%file -o trace.txt "$@"
-          '';
+              cd "$FLAKEDIR"
+              rm -rf "$TMPDIR"
+            '';
 
-          update = let
-            py = pkgs.python3.withPackages (p: with p; [requests]);
-          in ''
-            set -euo pipefail
-            nix flake update
-            ${nvfetcher}
-            ${py}/bin/python3 pkgs/asterisk-digium-codecs/update.py
-            # ${py}/bin/python3 pkgs/nvidia-grid/update.py
-            ${py}/bin/python3 pkgs/openj9-ibm-semeru/update.py
-            ${py}/bin/python3 pkgs/openjdk-adoptium/update.py
-            ${readme}
-          '';
+            readme = ''
+              set -euo pipefail
+              nix eval --raw .#readme.${system} > README.md
+              ${garnix}
+            '';
+
+            trace = ''
+              rm -rf trace.txt*
+              strace -ff --trace=%file -o trace.txt "$@"
+            '';
+
+            update = let
+              py = pkgs.python3.withPackages (p: with p; [requests]);
+            in ''
+              set -euo pipefail
+              nix flake update
+              ${nvfetcher}
+              ${py}/bin/python3 pkgs/asterisk-digium-codecs/update.py
+              # ${py}/bin/python3 pkgs/nvidia-grid/update.py
+              ${py}/bin/python3 pkgs/openj9-ibm-semeru/update.py
+              ${py}/bin/python3 pkgs/openjdk-adoptium/update.py
+              ${readme}
+            '';
+          };
+      in rec {
+        packages = import ./pkgs null {
+          inherit inputs pkgs;
         };
-    in rec {
-      legacyPackages = import ./pkgs {
-        inherit inputs pkgs;
-        mode = null;
+
+        ciPackages = lib.filterAttrs (n: isBuildable) (import ./pkgs "ci" {
+          inherit inputs pkgs;
+        });
+        ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackages);
+
+        formatter = pkgs.alejandra;
+
+        readme = pkgs.callPackage helpers/readme.nix {
+          inherit packages;
+        };
+
+        apps = lib.mapAttrs (n: v: flake-utils.lib.mkApp {drv = v;}) commands;
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = lib.mapAttrsToList (n: v: v) commands;
+        };
       };
 
-      packages = flattenPkgs legacyPackages;
-
-      ciPackages = flattenPkgs (lib.filterAttrs (n: isBuildable) (import ./pkgs {
-        inherit inputs pkgs;
-        mode = "ci";
-      }));
-      ciOutputs = lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackages);
-
-      formatter = pkgs.alejandra;
-
-      readme = pkgs.callPackage helpers/readme.nix {
-        inherit legacyPackages;
-      };
-
-      apps = lib.mapAttrs (n: v: flake-utils.lib.mkApp {drv = v;}) commands;
-
-      devShells.default = pkgs.mkShell {
-        buildInputs = lib.mapAttrsToList (n: v: v) commands;
-      };
-    }))
-    // {
       garnixConfig = builtins.toJSON {
         builds.include =
           lib.naturalSort
           (lib.flatten
             (builtins.map
-              (platform: (builtins.map (p: "packages.${platform}.\"${p}\"") (builtins.attrNames (self.ciPackages."${platform}"))))
+              (platform: (builtins.map (p: "packages.${platform}.${p}") (builtins.attrNames (self.ciPackages."${platform}"))))
               supportedSystems));
       };
 
       overlay = self.overlays.default;
       overlays = {
         default = final: prev:
-          import ./pkgs {
+          import ./pkgs null {
             pkgs = prev;
             inherit inputs;
-            mode = null;
           };
       };
 

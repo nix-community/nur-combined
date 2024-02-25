@@ -9,13 +9,13 @@
 # - null: Default mode
 # - "ci": from Garnix CI
 # - "nur": from NUR bot
-{
-  pkgs,
-  mode,
+mode: {
+  pkgs ? import <nixpkgs> {},
   inputs ? null,
   ...
 }: let
   inherit (pkgs) lib;
+  inherit (pkgs.callPackage ../helpers/flatten-pkgs.nix {}) flattenPkgs;
 
   ifNotCI = p:
     if mode == "ci"
@@ -44,7 +44,7 @@
       "packages"
     ];
 in
-  mkScope (self: pkg: {
+  flattenPkgs (mkScope (self: pkg: {
     _meta = pkgs.callPackage ./_meta {};
 
     # Package groups
@@ -175,4 +175,4 @@ in
     wine-wechat-x86 = lib.makeOverridable pkg ./uncategorized/wine-wechat-x86 {};
     xstatic-asciinema-player = pkg ./uncategorized/xstatic-asciinema-player {};
     xstatic-font-awesome = pkg ./uncategorized/xstatic-font-awesome {};
-  })
+  }))
