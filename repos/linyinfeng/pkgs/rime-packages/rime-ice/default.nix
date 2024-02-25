@@ -13,17 +13,21 @@ stdenv.mkDerivation {
   ];
 
   installPhase = ''
-    install -Dm644 cn_dicts/* -t "$out/share/rime-data/cn_dicts"
-    install -Dm644 en_dicts/* -t "$out/share/rime-data/en_dicts"
-    install -Dm644 opencc/*   -t "$out/share/rime-data/opencc"
+    mkdir -p "$out/share/rime-data"
+    cp -r cn_dicts "$out/share/rime-data/cn_dicts"
+    cp -r en_dicts "$out/share/rime-data/en_dicts"
+    cp -r opencc   "$out/share/rime-data/opencc"
+    cp -r lua      "$out/share/rime-data/lua"
 
     install -Dm644 *.{schema,dict}.yaml -t "$out/share/rime-data/"
-    install -Dm644 *.{lua,gram}         -t "$out/share/rime-data/"
+    install -Dm644 *.lua                -t "$out/share/rime-data/"
     install -Dm644 custom_phrase.txt    -t "$out/share/rime-data/"
     install -Dm644 symbols_v.yaml       -t "$out/share/rime-data/"
     install -Dm644 symbols_caps_v.yaml  -t "$out/share/rime-data/"
 
-    install -Dm644 build/*  -t "$out/share/rime-data/build"
+    install -Dm644 default.yaml "$out/share/rime-data/rime_ice_suggestion.yaml"
+
+    install -Dm644 build/* -t "$out/share/rime-data/build"
   '';
 
   passthru.rimeDependencies = [ rime-prelude ];
