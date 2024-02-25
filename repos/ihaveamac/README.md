@@ -8,6 +8,7 @@ My personal [NUR](https://github.com/nix-community/NUR) repository.
 
 * 3dstool-1.2.6
 * lnshot-0.1.3
-* save3ds-1.3.1-beta
+* save3ds-dev-2023-03-28
 * cleaninty-0.1.3
 * rvthtool-dev-2024-01-24
+* themethod3-2024-02-24

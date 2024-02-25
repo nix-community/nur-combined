@@ -2,17 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "save3ds";
-  version = "1.3.1-indev";
+  version = "dev-2023-03-28";
 
   src = fetchFromGitHub {
     owner = "wwylele";
     repo = pname;
-    #rev = "v${version}";
     rev = "c42ef5356bcac92e679ebc95e2d4c263cda0a2f1";
     hash = "sha256-fmwVcGOXq4BvszEVboyon5y3xR1yEIwnDdCzCR7f3M8=";
   };
 
-  cargoHash = "sha256-OiX27/kZvAqpfDxD+Q8BmFG0hHijDHKIKNZrSP2YN00=";
+  cargoHash = "sha256-1BgEb02j6yC94sy8Io+RT6dfux8vvCu03pI2x1yUHYk=";
 
   buildInputs = [ fuse ];
   nativeBuildInputs = [ pkg-config ];
