@@ -333,14 +333,16 @@ let
       sandbox.autodetectCliPaths = mkOption {
         type = types.coercedTo types.bool
           (b: if b then "existing" else null)
-          (types.nullOr (types.enum [ "existing" "existingFileOrParent" "parent" ]));
+          (types.nullOr (types.enum [ "existing" "existingFile" "existingFileOrParent" "existingOrParent" "parent" ]));
         default = null;
         description = ''
           if a CLI argument looks like a PATH, should we add it to the sandbox?
           - null => never
-          - "existing" => only if the file exists
+          - "existing" => only if the path exists.
+          - "existingFile" => only if the path exists *and is file-like* (i.e. a file or a symlink to a file, but not a directory)
           - "parent" => allow access to the directory containing any file (whether that file exists or not). useful for certain media viewers/library managers.
-          - "existingFileOrParent" => add the file if it exists; if not, add its parent if that exists. useful for programs which create files.
+          - "existingOrParent" => add the path if it exists; if not, add its parent if that exists. useful for programs which create files or directories.
+          - "existingFileOrParent" => add the path if it exists and is file-like; if not, add its parent if that exists. useful for programs which create files.
         '';
       };
       sandbox.binMap = mkOption {

@@ -27,6 +27,11 @@ let
     ) else null;
 in [
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/291232";
+    title = "bonsai: 1.0.2 -> 1.1.0";
+    hash = "sha256-WHb/pMEQNTLugj96iv705TMmjCT1hWUFQCKKMiM/8qY=";
+  })
+  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/290761";
     title = "icu: fix cross compilation";
     # saneCommit = "ab094c1e8a511a019cd872b0e957cb42adadd39c";

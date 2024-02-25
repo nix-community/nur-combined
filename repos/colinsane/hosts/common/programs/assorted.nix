@@ -260,7 +260,7 @@ in
 
     ddrescue.sandbox.method = "landlock";  # TODO:sandbox: untested
     ddrescue.sandbox.wrapperType = "wrappedDerivation";
-    ddrescue.sandbox.autodetectCliPaths = "existingFileOrParent";
+    ddrescue.sandbox.autodetectCliPaths = "existingOrParent";
 
     # auth token, preferences
     delfin.sandbox.method = "bwrap";
@@ -587,9 +587,9 @@ in
     iw.sandbox.net = "all";
     iw.sandbox.capabilities = [ "net_admin" ];
 
-    # jq.sandbox.method = "bwrap";
-    # jq.sandbox.wrapperType = "wrappedDerivation";
-    # jq.sandbox.autodetectCliPaths = true;  # liable to over-detect, but how else to sandbox?
+    jq.sandbox.method = "bwrap";
+    jq.sandbox.wrapperType = "wrappedDerivation";
+    jq.sandbox.autodetectCliPaths = "existingFile";
 
     killall.sandbox.method = "landlock";
     killall.sandbox.wrapperType = "wrappedDerivation";
@@ -636,7 +636,7 @@ in
     "mate.engrampa".sandbox.method = "bwrap";  # TODO:sandbox: untested
     "mate.engrampa".sandbox.wrapperType = "inplace";
     "mate.engrampa".sandbox.whitelistWayland = true;
-    "mate.engrampa".sandbox.autodetectCliPaths = "existingFileOrParent";
+    "mate.engrampa".sandbox.autodetectCliPaths = "existingOrParent";
     "mate.engrampa".sandbox.extraHomePaths = [
       "archive"
       "Books"
@@ -781,7 +781,7 @@ in
     rsync.sandbox.method = "bwrap";
     rsync.sandbox.wrapperType = "wrappedDerivation";
     rsync.sandbox.net = "clearnet";
-    rsync.sandbox.autodetectCliPaths = "existingFileOrParent";
+    rsync.sandbox.autodetectCliPaths = "existingOrParent";
 
     screen.sandbox.enable = false;  #< tty; needs to run anything
 
@@ -828,7 +828,7 @@ in
       "/mnt/servo/media/Music"
       "/mnt/servo/media/games"
     ];
-    soundconverter.sandbox.autodetectCliPaths = "existingFileOrParent";
+    soundconverter.sandbox.autodetectCliPaths = "existingOrParent";
 
     sox.sandbox.method = "bwrap";
     sox.sandbox.wrapperType = "wrappedDerivation";
@@ -893,7 +893,7 @@ in
 
     unzip.sandbox.method = "bwrap";
     unzip.sandbox.wrapperType = "wrappedDerivation";
-    unzip.sandbox.autodetectCliPaths = "existingFileOrParent";
+    unzip.sandbox.autodetectCliPaths = "existingOrParent";
     unzip.sandbox.whitelistPwd = true;
 
     usbutils.sandbox.method = "bwrap";  # breaks `usbhid-dump`, but `lsusb`, `usb-devices` work

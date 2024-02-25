@@ -49,8 +49,10 @@ cliArgs=()
 # - "none"
 method=
 # autodetect: set non-empty to add any path-like entities intended for the binary's CLI, into its sandbox.
-# - "existing"
+# - "existing" (file or directory)
+# - "existingFile" (file only; no directories)
 # - "parent"
+# - "existingOrParent"
 # - "existingFileOrParent"
 autodetect=
 # paths: list of paths to make available inside the sandbox.
@@ -214,7 +216,15 @@ tryPath() {
   _how="$2"
 
   if [ "$_how" = "existing" ]; then
+    # the caller wants to access either a file, or a directory (possibly a symlink to such a thing)
     if [ -e "$_path" ]; then
+      cliPathArgs+=("$_path")
+      true
+    fi
+    false
+  elif [ "$_how" = "existingFile" ]; then
+    # the caller wants to access a file, and explicitly *not* a directory (though it could be a symlink *to a file*)
+    if [ -f "$_path" ]; then
       cliPathArgs+=("$_path")
       true
     fi
@@ -223,9 +233,12 @@ tryPath() {
     # the caller wants access to the entire directory containing this directory regardless of the file's existence.
     parent _tryPathParent "$_path"
     tryPath "$_tryPathParent" "existing"
-  elif [ "$_how" = "existingFileOrParent" ]; then
-    # the caller wants access to the file, or write access to the directory so it may create the file if it doesn't exist.
+  elif [ "$_how" = "existingOrParent" ]; then
+    # the caller wants access to the path, or write access to the parent directory so it may create the path if it doesn't exist.
     tryPath "$_path" "existing" || tryPath "$_path" "parent"
+  elif [ "$_how" = "existingFileOrParent" ]; then
+    # the caller wants access to the file, or write access to the parent directory so it may create the file if it doesn't exist.
+    tryPath "$_path" "existingFile" || tryPath "$_path" "parent"
   fi
 }
 
