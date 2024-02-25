@@ -1,9 +1,14 @@
 { config, pkgs, lib, ... }:
 {
-  boot.kernelModules = [ "tcp_bbr" ];
+  boot.kernelModules = [
+    "tcp_bbr"
+    # preload to make sysctl options avaliable
+    "nf_conntrack"
+  ];
   boot.kernel.sysctl = {
     "net.core.default_qdisc" = "cake";
     "net.core.somaxconn" = 65536;
+    "net.core.netdev_max_backlog" = 65536;
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.ipv4.tcp_fastopen" = 3;
     "net.ipv4.tcp_keepalive_time" = 60;
@@ -12,7 +17,7 @@
     "net.ipv4.tcp_mtu_probing" = true;
 
     # tcp pending
-    "net.ipv4.tcp_max_syn_backlog" = 8192;
+    "net.ipv4.tcp_max_syn_backlog" = 65536;
     "net.ipv4.tcp_max_tw_buckets" = 2000000;
     "net.ipv4.tcp_tw_reuse" = true;
     "net.ipv4.tcp_fin_timeout" = 10;
@@ -36,6 +41,13 @@
     "net.ipv6.conf.default.forwarding" = true;
     "net.ipv4.conf.all.rp_filter" = false;
     "net.ipv4.conf.default.rp_filter" = false;
+
+    "net.netfilter.nf_conntrack_buckets" = 65536;
+    "net.netfilter.nf_conntrack_max" = 65536;
+    "net.netfilter.nf_conntrack_generic_timeout" = 60;
+    "net.netfilter.nf_conntrack_tcp_timeout_fin_wait" = 10;
+    "net.netfilter.nf_conntrack_tcp_timeout_established" = 600;
+    "net.netfilter.nf_conntrack_tcp_timeout_time_wait" = 1;
   };
 
   # required to set hostname, see <https://github.com/systemd/systemd/issues/16656>
