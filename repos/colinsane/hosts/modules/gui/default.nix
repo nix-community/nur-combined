@@ -44,7 +44,7 @@ in
     "space-cadet-pinball"  # LMB/RMB controls (bindable though. volume buttons?)
     "tumiki-fighters" # keyboard-only
     "vvvvvv"  # keyboard-only controls
-    "wine"
+    # "wine"
   ];
 
   sane.programs.guiApps = declPackageSet [

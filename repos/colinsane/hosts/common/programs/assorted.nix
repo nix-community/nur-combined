@@ -767,6 +767,13 @@ in
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
       requests
     ]);
+    python3-repl.sandbox.method = "bwrap";
+    python3-repl.sandbox.wrapperType = "wrappedDerivation";
+    python3-repl.sandbox.net = "clearnet";
+    python3-repl.sandbox.extraHomePaths = [
+      "/"
+      ".persist/plaintext"
+    ];
 
     qemu.sandbox.enable = false;  #< it's a launcher
     qemu.slowToBuild = true;
