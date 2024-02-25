@@ -292,6 +292,7 @@ let
           # x-systemd options documented here:
           # - <https://www.freedesktop.org/software/systemd/man/systemd.mount.html>
         ]
+        ++ (builtins.map (unit: "x-systemd.after=${unit}") requires)
         ++ (builtins.map (unit: "x-systemd.requires=${unit}") requires)
         ++ (builtins.map (unit: "x-systemd.before=${unit}") opt.wantedBeforeBy)
         ++ (builtins.map (unit: "x-systemd.wanted-by=${unit}") (opt.wantedBy ++ opt.wantedBeforeBy));

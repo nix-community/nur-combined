@@ -444,6 +444,9 @@ firejailGetCli() {
 
 bwrapUnshareNet=(--unshare-net)
 bwrapUnsharePid=(--unshare-pid)
+bwrapVirtualizeDev=(--dev /dev)
+bwrapVirtualizeProc=(--proc /proc)
+bwrapVirtualizeTmp=(--tmpfs /tmp)
 
 bwrapSetup() {
   debug "bwrapSetup: noop"
@@ -462,6 +465,21 @@ bwrapIngestPath() {
   # or maybe configure remote mounts to somehow never hang.
   # test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
   bwrapFlags+=("--dev-bind-try" "$1" "$1")
+
+  # default to virtualizing a few directories in a way that's safe (doesn't impact outside environment)
+  # and maximizes compatibility with apps. but if explicitly asked for the directory, then remove the virtual
+  # device and bind it as normal.
+  if [ "$1" = / ]; then
+    bwrapVirtualizeDev=()
+    bwrapVirtualizeProc=()
+    bwrapVirtualizeTmp=()
+  elif [ "$1" = /dev ]; then
+    bwrapVirtualizeDev=()
+  elif [ "$1" = /proc ]; then
+    bwrapVirtualizeProc=()
+  elif [ "$1" = /tmp ]; then
+    bwrapVirtualizeTmp=()
+  fi
 }
 bwrapIngestNet() {
   debug "bwrapIngestNet: enabling full net access for '$1' because don't know how to restrict it more narrowly"
@@ -488,7 +506,10 @@ bwrapGetCli() {
   # --unshare-user (implicit to every non-suid call to bwrap)
   locate _bwrap "bwrap" "@bubblewrap@/bin/bwrap"
   cliArgs=(
-    "$_bwrap" --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}" --dev /dev --proc /proc --tmpfs /tmp "${bwrapFlags[@]}" --
+    "$_bwrap" --unshare-cgroup --unshare-ipc --unshare-user --unshare-uts
+      "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}"
+      "${bwrapVirtualizeDev[@]}" "${bwrapVirtualizeProc[@]}" "${bwrapVirtualizeTmp[@]}"
+      "${bwrapFlags[@]}" --
     env "${extraEnv[@]}" "${cliArgs[@]}"
   )
 }

@@ -1,16 +1,7 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gocryptfs
+#!nix-shell -i bash -p util-linux.mount
 
-set -ex
-
-# mounts the directory formerly known as ~/private.
-# ALTERNATIVELY: `mount /mnt/persist/private`
-
-mount=/mnt/persist/private
-cipher=/nix/persist/home/colin/private
-sudo mkdir -p "$mount"
-sudo chown colin:users "$mount"
-if [ ! -f "$mount/init" ]
-then
-  gocryptfs "$cipher" "$mount"
-fi
+# TODO: the mountpoint isn't created as part of startup: why?
+sudo mkdir -p /mnt/persist/private
+sudo chown colin:users /mmt/persist/private
+mount /mnt/persist/private

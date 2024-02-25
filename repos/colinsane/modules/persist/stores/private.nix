@@ -45,7 +45,13 @@ lib.mkIf config.sane.persist.enable
   # let sane.fs know about the mount
   sane.fs."${origin}".mount = {};
   # it also needs to know that the underlying device is an ordinary folder
-  sane.fs."${backing}".dir = {};
+  sane.fs."${backing}" = sane-lib.fs.wantedDir;
+  # in order for non-systemd `mount` to work, the mount point has to already be created, so make that a default target
+  systemd.units = let
+    originUnit = config.sane.fs."${origin}".generated.unit;
+  in {
+    "${originUnit}".wantedBy = [ "local-fs.target" ];
+  };
 
   # TODO: could add this *specifically* to the .mount file for the encrypted fs?
   system.fsPackages = [ pkgs.gocryptfs ];  # fuse needs to find gocryptfs

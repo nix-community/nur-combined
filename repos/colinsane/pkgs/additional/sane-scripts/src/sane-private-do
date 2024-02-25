@@ -1,12 +1,36 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p sane-scripts.private-unlock
+#!nix-shell -i bash -p util-linux
 
-# unlock the ~/private store, run some command, and then re-lock the store
+# unlock the private store, run some command, and then re-lock the store
+# N.B.: `mount`ing requires elevated privileges (cap_sys_admin).
+#       for this reason, it's expected that this script is run from within a mount namespace, not directly.
+#       this also has the side effect that parent/sibling processes don't see our mount in their namespace.
+#       i.e. the real /mnt/persist/private path is never modified.
 
-set -x
+mntpoint=/mnt/persist/private
+if mountpoint -q "$mntpoint"; then
+  # don't mount/unmount if it already exists (re-entrancy)
+  mntpoint=
+fi
 
-external_cmd=$@
+external_cmd=("$@")
+if [ -z "$external_cmd" ]; then
+  if [ -n "$SHELL" ]; then
+    external_cmd=("$SHELL" "-i")
+  else
+    external_cmd=("/bin/sh" "-i")
+  fi
+fi
 
-sane-private-unlock
-$external_cmd
-exec sane-private-lock
+if [ -n "$mntpoint" ]; then
+  mount "$mntpoint"
+fi
+
+"${external_cmd[@]}"
+RC=$?
+
+if [ -n "$mntpoint" ]; then
+  umount "$mntpoint"
+fi
+
+exit "$RC"

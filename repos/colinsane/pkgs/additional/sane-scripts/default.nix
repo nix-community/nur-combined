@@ -106,7 +106,7 @@ let
     private-do = static-nix-shell.mkBash {
       pname = "sane-private-do";
       src = ./src;
-      pkgs = [ "sane-scripts.private-unlock" ];
+      pkgs = [ "util-linux" ];
     };
     private-init = static-nix-shell.mkBash {
       pname = "sane-private-init";
@@ -116,11 +116,12 @@ let
     private-lock = static-nix-shell.mkBash {
       pname = "sane-private-lock";
       src = ./src;
+      pkgs = [ "util-linux.mount" ];
     };
     private-unlock = static-nix-shell.mkBash {
       pname = "sane-private-unlock";
       src = ./src;
-      pkgs = [ "gocryptfs" ];
+      pkgs = [ "util-linux.mount" ];
     };
     rcp = static-nix-shell.mkBash {
       pname = "sane-rcp";

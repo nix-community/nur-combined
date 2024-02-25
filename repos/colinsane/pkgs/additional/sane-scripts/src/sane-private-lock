@@ -1,4 +1,4 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash
+#!nix-shell -i bash -p util-linux.mount
 
-sudo umount /home/colin/private
+umount /home/colin/private

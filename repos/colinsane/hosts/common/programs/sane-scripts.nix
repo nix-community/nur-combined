@@ -121,14 +121,22 @@ in
       net = "all";
     };
 
-    # TODO: gocryptfs/fuse requires /run/wrappers/bin/fusermount3 SUID
-    # "sane-scripts.private-unlock".sandbox = {
-    #   method = "landlock";
-    #   wrapperType = "wrappedDerivation";
-    #   extraHomePaths = [ "private" ];
-    #   # TODO: don't hardcode the username here.
-    #   extraPaths = [ "/nix/persist/home/colin/private" ];
-    # };
+    "sane-scripts.private-do".sandbox = {
+      # because `mount` is a cap_sys_admin syscall, there's no great way to mount stuff dynamically like this.
+      # instead, we put ourselves in a mount namespace, do the mount, and drop into a shell or run a command.
+      # this actually has an OK side effect, that the mount isn't shared, and so we avoid contention/interleaving that would cause the ending `umount` to fail.
+      method = "bwrap";
+      wrapperType = "wrappedDerivation";
+      # cap_sys_admin is needed to mount stuff.
+      # ordinarily /run/wrappers/bin/mount would do that via setuid, but sandboxes have no_new_privs by default.
+      capabilities = [ "sys_admin" ];
+      # `sane-private-do` acts as a launcher, so give it access to anything it could possibly need.
+      # (crucially, that includes the backing store)
+      net = "all";
+      extraPaths = [ "/" ];
+    };
+    "sane-scripts.private-lock".sandbox.enable = false;
+    "sane-scripts.private-unlock".sandbox.enable = false;
 
     "sane-scripts.reclaim-boot-space".sandbox = {
       method = "bwrap";
