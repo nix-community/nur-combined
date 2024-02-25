@@ -41,7 +41,7 @@
   },
   "libadwaita-git": {
     "cargoLocks": null,
-    "date": "2024-02-23",
+    "date": "2024-02-25",
     "extract": null,
     "name": "libadwaita-git",
     "passthru": null,
@@ -51,12 +51,12 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "59a6e91aabff406cbb88fa635bf15ed47f8a7981",
-      "sha256": "sha256-vV17v+ADhYfdVBDJs5c6BjhmP7GE5Br+0Xn0QOC+L1o=",
+      "rev": "7dfbfa5bbe500dfe02e24daff88f20aaef6ff1b8",
+      "sha256": "sha256-iU0SinQWu8kPwcc9fbl77ezQOBw3IMGvY9FwIBYh1OI=",
       "type": "git",
       "url": "https://gitlab.gnome.org/GNOME/libadwaita"
     },
-    "version": "59a6e91aabff406cbb88fa635bf15ed47f8a7981"
+    "version": "7dfbfa5bbe500dfe02e24daff88f20aaef6ff1b8"
   },
   "rtaudio-git": {
     "cargoLocks": null,
