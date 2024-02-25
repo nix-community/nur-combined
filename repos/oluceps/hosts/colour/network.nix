@@ -117,7 +117,7 @@
 
           {
             wireguardPeerConfig = {
-              PublicKey = "TcqM0iPp4Dw1IceB88qw/hSiPWXAzT9GECVT36eyzgc=";
+              PublicKey = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk=";
               AllowedIPs = [ "10.0.2.6/32" ];
               PersistentKeepalive = 15;
             };

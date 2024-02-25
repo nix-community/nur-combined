@@ -91,6 +91,7 @@
       "mosdns"
       "fail2ban"
       "dae"
+      "scrutiny"
     ]
       (n: importService n)
   ) // {
@@ -100,6 +101,7 @@
     # xserver.enable = true;
     # xserver.displayManager.gdm.enable = true;
     # xserver.desktopManager.gnome.enable = true;
+
 
     snapy.instances = [
       {

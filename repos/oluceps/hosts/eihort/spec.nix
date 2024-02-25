@@ -44,7 +44,7 @@
     supportedFilesystems = [ "tcp_bbr" ];
     inherit ((import ../../boot.nix { inherit lib; }).boot) kernel;
   };
-  environment.systemPackages = with pkgs;[ zfs ];
+  # environment.systemPackages = with pkgs;[ zfs ];
 
   services =
 
@@ -54,10 +54,17 @@
         "mosdns"
         "fail2ban"
         "dae"
+        "scrutiny"
       ]
         (n: importService n)
     ) // {
       # zfs.autoScrub.enable = true;
+
+      btrfs.autoScrub = {
+        enable = true;
+        interval = "weekly";
+        fileSystems = [ "/" ];
+      };
       resolved.enable = lib.mkForce false;
       tailscale = { enable = true; openFirewall = true; };
       report = {
@@ -72,6 +79,16 @@
         rootCredentialsFile = config.age.secrets.minio.path;
         dataDir = [ "/three/bucket/data" ];
       };
+
+
+      snapy.instances = [
+        {
+          name = "root";
+          source = "/";
+          keep = "2day";
+          timerConfig.onCalendar = "*:0/10";
+        }
+      ];
 
       # compose-up.instances = [
       #   {
