@@ -27,6 +27,12 @@ let
     ) else null;
 in [
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/291500";
+    saneCommit = "8ba6a995c34515fcccefc7ad2bbb929c21bd4a31";
+    title = "libkiwix: 12.1.1 -> 13.1.0";
+    hash = "sha256-li6wDwhwIwRiuh4eqtRIkJbeOS/ZBIvte3LWby7RnZE=";
+  })
+  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/291232";
     title = "bonsai: 1.0.2 -> 1.1.0";
     hash = "sha256-WHb/pMEQNTLugj96iv705TMmjCT1hWUFQCKKMiM/8qY=";
