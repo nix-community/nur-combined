@@ -151,7 +151,7 @@ let
     // (lib.mapAttrs (pname: _pkg: final'.sane."${pname}") sane-patched)
     # "additional" packages only get added if their version is newer than upstream
     // (lib.mapAttrs
-      (pname: _pkg: if unpatched ? "${pname}" && lib.versionAtLeast unpatched."${pname}".version final'.sane."${pname}".version  then
+      (pname: _pkg: if unpatched ? "${pname}" && unpatched."${pname}" ? version && lib.versionAtLeast unpatched."${pname}".version final'.sane."${pname}".version  then
         unpatched."${pname}"
       else
         final'.sane."${pname}"

@@ -32,15 +32,16 @@ in
       type = types.bool;
     };
     sane.nixcache.substituters = let
-      subOpt = mkOption {
-        default = true;
+      subOpt = default: mkOption {
+        inherit default;
         type = types.bool;
       };
     in {
-      servo = subOpt;
-      desko = subOpt;
-      nixos = subOpt;
-      cachix = subOpt;
+      nixos = subOpt true;
+      cachix = subOpt true;
+      # the interaction particularly between moby and nixcache.uninsane.org is just too finicky.
+      servo = subOpt false;
+      desko = subOpt false;
     };
     sane.nixcache.remote-builders.desko = mkOption {
       default = true;

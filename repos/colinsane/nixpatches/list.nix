@@ -33,27 +33,9 @@ in [
     hash = "sha256-li6wDwhwIwRiuh4eqtRIkJbeOS/ZBIvte3LWby7RnZE=";
   })
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/291232";
-    title = "bonsai: 1.0.2 -> 1.1.0";
-    hash = "sha256-WHb/pMEQNTLugj96iv705TMmjCT1hWUFQCKKMiM/8qY=";
-  })
-  (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/290761";
-    title = "icu: fix cross compilation";
-    # saneCommit = "ab094c1e8a511a019cd872b0e957cb42adadd39c";
-    hash = "sha256-R3EIQwIMMCACmGKbfW6Xv7uZhCDQ/bMHw8/pHcnmOLo=";
-  })
-  (fetchpatch' {
     saneCommit = "20c9492d303be7cbad560e3d83bc47ab4b1e93f7";
     title = "procmail: support cross compilation";
     hash = "sha256-cC9GBF5tCeJ2GDSjMjlG4hYStIJPEoRBAK9/KhJiiIo=";
-  })
-  (fetchpatch' {
-    # fixes build on moby by avoiding broken `lockfileProgs`
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/286533";
-    title = "xdg-utils: remove unnecessary input";
-    hash = "sha256-IAt07OSGaX8QHaOzlmYFTZJpvmXjYFA6/IFPsMzQVW8=";
-    merged.staging = "202402061152";
   })
   (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/280925";
@@ -90,11 +72,14 @@ in [
     # hash = "sha256-9PNKzNlJ62WAq6H+tqlt0spFZ1DPP1hHmpx0YPuieFE=";
     hash = "sha256-6hUdsExHSMHy6FMY1+OLtVmKpRwysGIVkcDpYv7RRBk=";
   })
-  (fetchpatch' {
-    title = "hspell: remove build perl from runtime closure";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/263182";
-    hash = "sha256-Wau+PB+EUQDvWX8Kycw1sNrM3GkPVjKSS4niIDI0sjM=";
-  })
+
+  # 2024/02/25: still outstanding; merge conflicts
+  # (fetchpatch' {
+  #   title = "hspell: remove build perl from runtime closure";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/263182";
+  #   hash = "sha256-Wau+PB+EUQDvWX8Kycw1sNrM3GkPVjKSS4niIDI0sjM=";
+  # })
+
   # (fetchpatch' {
   #   title = "trust-dns: 0.23.0 -> 0.24.0";
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/262466";

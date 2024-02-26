@@ -144,16 +144,18 @@ in (lib.makeScope newScope (self: with self; {
       pname = "sidebery";
       # N.B.: unsure if this URL format is stable
       # 2024/02/02: nope, dev is inconsistent with releases
-      url = "https://github.com/mbnuqw/sidebery/releases/download/v${version}/sidebery-${version}-unsigned.zip";
-      version = "5.0.0";
-      hash = "sha256-tHTU/l8ct+tY1/H+nZf3VlMlwoYn68+0pgeuFzm91XY=";
+      url = let
+        versionPrefix = lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version));
+      in "https://github.com/mbnuqw/sidebery/releases/download/v${versionPrefix}/sidebery-${version}.xpi";
+      version = "5.1.1.7";
+      hash = "sha256-v1tBJhzypkb3GtFSzCcqNwjMXVqczZq0wBF1DPo88cY=";
     };
     sponsorblock = fetchVersionedAddon rec {
       extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
       url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-      version = "5.5.5";
-      hash = "sha256-y4lh3t/L8ZMnY9220dDkIaUy23eYeFpO9CBtOsRrrjI=";
+      version = "5.5.6";
+      hash = "sha256-Ht/p31YMQMMLFNQDVpLm184NjTHJyndXi/yb6zQJ+po=";
     };
     ublacklist = fetchVersionedAddon rec {
       extid = "@ublacklist";
