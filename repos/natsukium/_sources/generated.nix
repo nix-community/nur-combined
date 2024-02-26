@@ -9,6 +9,18 @@
       sha256 = "sha256-8dYfEZSSI5NHGXXA+KzPg61Y7Z6nezo0Knced3j3TRU=";
     };
   };
+  emacs-plus = {
+    pname = "emacs-plus";
+    version = "5f068f6fe34eb9b431d87959f30f06945be3f587";
+    src = fetchFromGitHub {
+      owner = "d12frosted";
+      repo = "homebrew-emacs-plus";
+      rev = "5f068f6fe34eb9b431d87959f30f06945be3f587";
+      fetchSubmodules = false;
+      sha256 = "sha256-R7ac9kNy1UkdKHCVi/ZXk6L9quCkkVY1LQ6yZLapWwk=";
+    };
+    date = "2024-01-24";
+  };
   nixfmt = {
     pname = "nixfmt";
     version = "ca1fe3572ea6134551ee6af40ae735a1a1ed0d35";

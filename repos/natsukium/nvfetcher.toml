@@ -3,6 +3,11 @@ src.github = "hluk/CopyQ"
 src.prefix = "v"
 fetch.url = "https://github.com/hluk/CopyQ/releases/download/v$ver/CopyQ.dmg.zip"
 
+[emacs-plus]
+src.git = "https://github.com/d12frosted/homebrew-emacs-plus"
+src.branch = "master"
+fetch.github = "d12frosted/homebrew-emacs-plus"
+
 [nixfmt]
 src.git = "https://github.com/piegamesde/nixfmt"
 src.branch = "rfc101-style"

@@ -22,6 +22,7 @@ rec {
   bclm = pkgs.callPackage ./pkgs/bclm { };
   colima = pkgs.callPackage ./pkgs/colima { };
   copyq = pkgs.callPackage ./pkgs/copyq { source = sources.copyq-darwin; };
+  emacs-plus = pkgs.callPackage ./pkgs/emacs-plus { source = sources.emacs-plus; };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
   nixfmt = pkgs.callPackage ./pkgs/nixfmt { source = sources.nixfmt; };
   nixpkgs-review = pkgs.callPackage ./pkgs/nixpkgs-review { source = sources.nixpkgs-review; };
