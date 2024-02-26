@@ -714,6 +714,9 @@
         "noneucat": {
             "url": "https://git.sr.ht/~noneucat/nur-packages"
         },
+        "nousefreak": {
+            "url": "https://github.com/NoUseFreak/nix-packages"
+        },
         "novafacing": {
             "url": "https://github.com/novafacing/nur-packages"
         },
