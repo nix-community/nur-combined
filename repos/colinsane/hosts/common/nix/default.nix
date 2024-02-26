@@ -4,7 +4,9 @@
   nix.settings = {
     # see: `man nix.conf`
 
-    # useful when a remote builder has a faster internet connection than me
+    # useful when a remote builder has a faster internet connection than me.
+    # note that this also applies to `nix copy --to`, though.
+    # i think any time a remote machine wants a path, this means we ask them to try getting it themselves before we supply it.
     builders-use-substitutes = true;  # default: false
 
     # maximum seconds to wait when connecting to binary substituter

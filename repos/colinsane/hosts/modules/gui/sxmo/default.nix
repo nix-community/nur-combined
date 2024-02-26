@@ -107,30 +107,6 @@ in
       default = false;
       type = types.bool;
     };
-    sane.gui.sxmo.greeter = mkOption {
-      type = types.nullOr (types.enum [
-        "greetd-phog"
-        "greetd-sway-gtkgreet"
-        "greetd-sway-phog"
-        "greetd-sxmo"
-        "lightdm-mobile"
-        "unl0kr"
-      ]);
-      # default = "lightdm-mobile";
-      # default = "greetd-sway-phog";
-      default = "unl0kr";
-      description = ''
-        which greeter to use.
-        "greetd-phog"          => phosh-based greeter. keypad (0-9) with option to open an on-screen keyboard.
-        "greetd-sway-gtkgreet" => layered sway greeter. keyboard-only user/pass input; impractical on mobile.
-        "greetd-sway-phog"     => phog, but uses sway as the compositor instead of phoc.
-                              requires a patched phog, since sway doesn't provide the Wayland global "zphoc_layer_shell_effects_v1".
-        "greetd-sxmo"          => launch sxmo directly from greetd, no auth.
-                                  this means no keychain unlocked or encrypted home mounted.
-        "lightdm-mobile"       => keypad style greeter. can only enter digits 0-9 as password.
-        "unl0kr"               => pmOS boot unlocker. uses a virtual keyboard, can enter most passwords.
-      '';
-    };
     sane.gui.sxmo.package = mkOption {
       type = types.package;
       default = pkgs.sxmo-utils.override { preferSystemd = true; };
@@ -290,7 +266,6 @@ in
     (lib.mkIf cfg.enable (lib.mkMerge [
       {
         sane.programs.sway.enableFor.user.colin = true;
-        sane.programs.unl0kr.enableFor.user.colin = (cfg.greeter == "unl0kr");
         sane.programs.waybar.config = {
           top = import ./waybar-top.nix { inherit pkgs; };
           # reset extra waybar style
@@ -396,8 +371,6 @@ in
         # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
         services.gnome.at-spi2-core.enable = true;
 
-
-        # TODO: could use `displayManager.sessionPackages`?
         environment.systemPackages = [
           package
         ] ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
@@ -632,88 +605,6 @@ in
           bonsaid.script = lib.mkBefore sxmoEnvSetup;
         };
       }
-
-      (lib.mkIf (cfg.greeter == "lightdm-mobile") {
-        sane.persist.sys.byStore.plaintext = [
-          # this takes up 4-5 MB of fontconfig and mesa shader caches.
-          # it could optionally be cleared on boot.
-          { path = "/var/lib/lightdm"; user = "lightdm"; group = "lightdm"; mode = "0770"; }
-        ];
-
-        services.xserver = {
-          enable = true;
-
-          displayManager.lightdm.enable = true;
-          displayManager.lightdm.greeters.mobile.enable = true;
-          displayManager.lightdm.extraSeatDefaults = ''
-            user-session = swmo
-          '';
-
-          displayManager.sessionPackages = with pkgs; [
-            package  # this gets share/wayland-sessions/swmo.desktop linked
-          ];
-
-          # taken from gui/phosh:
-          # NB: setting defaultSession has the critical side-effect that it lets org.freedesktop.AccountsService
-          # know that our user exists. this ensures lightdm succeeds when calling /org/freedesktop/AccountsServices ListCachedUsers
-          # lightdm greeters get the login users from lightdm which gets it from org.freedesktop.Accounts.ListCachedUsers.
-          # this requires the user we want to login as to be cached.
-          displayManager.job.preStart = ''
-            ${pkgs.systemd}/bin/busctl call org.freedesktop.Accounts /org/freedesktop/Accounts org.freedesktop.Accounts CacheUser s colin
-          '';
-        };
-      })
-
-      (lib.mkIf (cfg.greeter == "greetd-sway-gtkgreet") {
-        sane.gui.greetd = {
-          enable = true;
-          sway.enable = true;
-          sway.gtkgreet.enable = true;
-          sway.gtkgreet.session.name = "sxmo-on-gtkgreet";
-          sway.gtkgreet.session.command = "${pkgs.sway}/bin/sway --debug";
-        };
-      })
-
-      (lib.mkIf (cfg.greeter == "greetd-sway-phog") {
-        sane.gui.greetd = {
-          enable = true;
-          sway.enable = true;
-          sway.greeterCmd = "${pkgs.phog}/libexec/phog";
-        };
-        # phog locates sxmo_winit.sh (or sway.desktop) via <env>/share/wayland-sessions
-        environment.pathsToLink = [ "/share/wayland-sessions" ];
-      })
-
-      (lib.mkIf (cfg.greeter == "greetd-phog") {
-        sane.gui.greetd = {
-          enable = true;
-          session.name = "phog";
-          session.command = "${pkgs.phog}/bin/phog";
-        };
-        # phog locates sxmo_winit.sh (or sway.desktop) via <env>/share/wayland-sessions
-        environment.pathsToLink = [ "/share/wayland-sessions" ];
-      })
-
-      (lib.mkIf (cfg.greeter == "greetd-sxmo") {
-        sane.gui.greetd = {
-          enable = true;
-          session.name = "sxmo";
-          # session.command = "${package}/bin/sxmo_winit.sh";
-          session.command = "${pkgs.sway}/bin/sway --debug";
-          session.user = "colin";
-        };
-      })
-
-      # old, greeterless options:
-      # services.xserver.windowManager.session = [{
-      #   name = "sxmo";
-      #   desktopNames = [ "sxmo" ];
-      #   start = ''
-      #     ${package}/bin/sxmo_xinit.sh &
-      #     waitPID=$!
-      #   '';
-      # }];
-      # services.xserver.enable = true;
     ]))
   ];
 }

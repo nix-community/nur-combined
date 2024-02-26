@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p nix
+
 # script to reclaim some hard drive space
 # some of this is documented here:
 # - <https://nixos.wiki/wiki/Storage_optimization>
@@ -12,8 +13,6 @@ set -xeu
 # TODO: `nix-store --gc`?
 nix-collect-garbage --delete-older-than 30d
 
-# TODO: could use dduper: https://github.com/Lakshmipathi/dduper
-#   like rmlint, but better perf for btrfs (checksum tests)
-#   likely also better compression, on account of being block-based instead of whole-file based.
-#   however, not clearly actively maintained; uses custom btrfs-progs patch; riskier
-#     might not currently build on nix: https://github.com/NixOS/nixpkgs/issues/175730
+if [ "$(id -u)" -ne 0 ]; then
+  echo "now re-run as root to free old system-level generations"
+fi

@@ -283,9 +283,11 @@
             # - sandbox friendliness (especially: `git` doesn't have to be run as root)
 
             if [ -n "$addr" ]; then
-              sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey "$storePath"
+              sudo nix store sign -r -k /run/secrets/nix_serve_privkey "$storePath"
               # add more `-v` for more verbosity (up to 5).
-              nix-copy-closure -v --gzip --to "$addr" "$storePath"
+              # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
+              #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
+              nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$addr" "$storePath"
             fi
 
             if [ -n "$action" ]; then
