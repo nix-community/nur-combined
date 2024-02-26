@@ -1,0 +1,33 @@
+/* to show active config: `rofi -dump-config`
+ * to show keybindings: `rofi -show keys`
+ * to show theme config: `rofi -dump-theme`
+ * - for live theme switching: `rofi-theme-selector`
+ */
+
+configuration {
+  modes: "combi";
+  show-icons: true;
+  combi-modes: "filebrowser,drun,run";
+  kb-accept-entry: "Return,KP_Enter,XF86PowerOff";
+  kb-row-up: "Up,XF86AudioRaiseVolume";
+  kb-row-down: "Down,XF86AudioLowerVolume";
+  filebrowser {
+    /* filebrowser starting directory */
+    directory: "/home";
+    /* display-name: text to prepend in combi mode */
+    display-name: "/";
+  }
+  drun {
+    display-name: " ";
+  }
+  run {
+    display-name: "run ";
+  }
+  /* combi-display-format: "{mode} {text}"; */
+  /* combi-display-format: "{text}"; */
+  combi-display-format: "{mode}{text}";
+
+  drun-use-desktop-cache: true;
+}
+
+@theme "gruvbox-light"

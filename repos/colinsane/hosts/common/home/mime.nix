@@ -80,6 +80,7 @@ in
   # glib/gio is queried via glib.bin output:
   # - `gio mime x-scheme-handler/https`
   # - `gio open <path_or_url>`
+  # - `gio launch </path/to/app.desktop>`
   #
   # we can have single associations or a list of associations.
   # there's also options to *remove* [non-default] associations from specific apps

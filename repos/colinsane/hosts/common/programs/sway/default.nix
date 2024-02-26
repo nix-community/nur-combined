@@ -117,6 +117,7 @@ in
       "pipewire"
       "playerctl"  # for waybar & particularly to have playerctld running
       "pulsemixer"  # for volume controls
+      "rofi"  # menu/launcher
       "splatmoji"  # used by sway config
       "sway-contrib.grimshot"  # used by sway config
       # "swayidle"  # enable if you need it

@@ -1,3 +1,20 @@
+# xdg-desktop-portal:
+# - dbus user service which allows sandboxed applications to request specific things from their external environment.
+# - frequently paired with portal implementations like `xdg-desktop-portal-gtk`, `xdg-desktop-portal-wlr`
+#   wherein `xdg-desktop-portal` is the only component which speaks to the outside world, and the implementations speak only to the xdg-desktop-portal.
+# - org.freedesktop.portal.OpenURI:
+#   - <https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.OpenURI.html>
+#   - request that the OS open some URI for the user
+#   - optionally provide a list of recommended .desktop files to handle the URI
+#   - xdg-desktop-portal dispatches this request to the backend (xdg-desktop-portal-gtk) which will present an app chooser to the user by default
+#   - xdg-desktop-portal then executes the chosen .desktop file, passing it the URI.
+#   - example (glib): `gdbus call --session --timeout 10 --dest org.freedesktop.portal.Desktop --object-path /org/freedesktop/portal/desktop --method org.freedesktop.portal.OpenURI.OpenURI '' 'https://www.google.com' "{'ask': <false>}"`
+#   - force non-flatpak glib apps to use this portal with: GTK_USE_PORTAL=1 or GIO_USE_PORTALS=1 (and then making sure the app can't see mimeapps.list)
+# - org.freedesktop.portal.DynamicLauncher
+#   - <https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.DynamicLauncher.html>
+#   - whereas OpenURI requires a URI argument, DynamicLauncher is just "launch an app by <app_id>.desktop"
+#   - example (glib): `gdbus call --session --timeout 10 --dest org.freedesktop.portal.Desktop --object-path /org/freedesktop/portal/desktop --method org.freedesktop.portal.DynamicLauncher.Launch 'audacity.desktop' "{}"`
+#   - .desktop files are searched for in ~/.local/share/xdg-desktop-portal/applications
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.xdg-desktop-portal;
@@ -25,6 +42,9 @@ in
 
     # the portal is a launcher, needs to handle anything
     sandbox.enable = false;
+
+    # portal can use the same .desktop files from the rest of my config.
+    fs.".local/share/xdg-desktop-portal/applications".symlink.target = "../applications";
 
     services.xdg-desktop-portal = {
       description = "xdg-desktop-portal freedesktop.org portal (URI opener, file chooser, etc)";

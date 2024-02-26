@@ -77,6 +77,7 @@
     ./playerctl.nix
     ./rhythmbox.nix
     ./ripgrep.nix
+    ./rofi
     ./sane-scripts.nix
     ./sfeed.nix
     ./signal-desktop.nix

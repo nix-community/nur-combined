@@ -11,7 +11,7 @@ xwayland @xwayland@
 
 set $mod @mod@
 set $term xdg-terminal-exec
-set $menu fuzzel
+set $menu rofi -show
 set $emoji_picker splatmoji -s medium-light type
 set $locker swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30
 set $snippets_picker @snip_cmd@
