@@ -81,6 +81,14 @@
     };
     date = "2024-02-13";
   };
+  vim-startuptime = {
+    pname = "vim-startuptime";
+    version = "1.3.2";
+    src = fetchurl {
+      url = "https://github.com/rhysd/vim-startuptime/archive/v1.3.2.tar.gz";
+      sha256 = "sha256-1IB0DZJ+pAME35jxM1whJ/R+D6ZX9rjxHmXnQBX/IdQ=";
+    };
+  };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
     version = "6.5.3206.63";

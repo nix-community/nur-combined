@@ -139,6 +139,21 @@
         },
         "version": "32e0048f0f4198ef0344b5f177056db7b41bdcef"
     },
+    "vim-startuptime": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vim-startuptime",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1IB0DZJ+pAME35jxM1whJ/R+D6ZX9rjxHmXnQBX/IdQ=",
+            "type": "url",
+            "url": "https://github.com/rhysd/vim-startuptime/archive/v1.3.2.tar.gz"
+        },
+        "version": "1.3.2"
+    },
     "vivaldi-darwin": {
         "cargoLocks": null,
         "date": null,

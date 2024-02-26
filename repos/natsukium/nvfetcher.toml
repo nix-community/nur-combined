@@ -37,6 +37,11 @@ src.git = "https://github.com/vim-skk/skkeleton"
 src.branch = "main"
 fetch.github = "vim-skk/skkeleton"
 
+[vim-startuptime]
+src.github = "rhysd/vim-startuptime"
+src.prefix = "v"
+fetch.url = "https://github.com/rhysd/vim-startuptime/archive/v$ver.tar.gz"
+
 [vivaldi-darwin]
 src.archpkg = "vivaldi"
 fetch.url = "https://downloads.vivaldi.com/stable/Vivaldi.$ver.universal.dmg"
