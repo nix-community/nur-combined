@@ -1,24 +1,49 @@
 {
-  more_uarches = { lib, fetchpatch, hostPlatform, linux, kernelArch ? null, gccArch ? hostPlatform.linux-kernel.arch or hostPlatform.gcc.arch or "x86-64-v3" }: rec {
+  more_uarches = { lib, fetchpatch, hostPlatform, linux, kernelArch ? null, gccArch ? hostPlatform.linux-kernel.arch or hostPlatform.gcc.arch or "x86-64-v3" }: let
     name = "more-uarches";
-    patch = let
-      src =
-        if lib.versionAtLeast linux.version "5.15" then {
-          versionRange = "5.15+";
-          sha256 = "0cfmi2f27zpms220vv0bdxqsxnfnplm1g3dkl28zsjkw1mjagf34";
-        } else if lib.versionAtLeast linux.version "5.8" then {
-          versionRange = "5.8-5.14";
-          sha256 = "079f1gvgj7k1irj25k6bc1dgnihhmxvcwqwbgmvrdn14f7kh8qb3";
-        } else {
-          versionRange = "4.19-5.4";
-          sha256 = "14xczd9bq6w9rc0lf8scq8nsgphxlnp7jqm91d0zvxj0v0mqylch";
-        };
-        patchUrl = range: "https://github.com/graysky2/kernel_compiler_patch/raw/b3967a789a54334ff9a8e28bd6da58348fd5dd2e/more-uarches-for-kernel-${range}.patch";
-    in fetchpatch {
-      name = name + "${src.versionRange}.patch";
-      url = patchUrl (lib.replaceStrings [ "+" ] [ "%2B" ] src.versionRange);
-      inherit (src) sha256;
+    srcs = lib.mapAttrs (_: doSrc) {
+      "4.19" = {
+        versionRange = "4.19-5.4";
+        sha256 = "14xczd9bq6w9rc0lf8scq8nsgphxlnp7jqm91d0zvxj0v0mqylch";
+      };
+      "5.8" = {
+        versionRange = "5.8-5.14";
+        sha256 = "079f1gvgj7k1irj25k6bc1dgnihhmxvcwqwbgmvrdn14f7kh8qb3";
+      };
+      "5.15" = {
+        versionRange = "5.15-5.16";
+        sha256 = "sha256-WSN+1t8Leodt7YRosuDF7eiSL5/8PYseXzxquf0LtP8=";
+      };
+      "5.17" = {
+        versionRange = "5.17-6.1.78";
+        sha256 = "sha256-HPaB0/vh5uIkBLGZqTVcFMbm87rc9GVb5q+L1cHAE/o=";
+      };
+      "6.1.79" = {
+        versionRange = "6.1.79-6.8-rc3";
+        sha256 = "sha256-ZEeeQViUZWunzZzeJ6z9/RwoNaQzzJK7q1yBUh4weXE=";
+      };
+      "6.8-rc4" = {
+        versionRange = "6.8-rc4+";
+        sha256 = "sha256-VjdF4DC/midcNGcYGrquLwCpkZKeghVbWI3S9++RTV8=";
+      };
     };
+    doSrc = { versionRange, sha256 }: fetchpatch {
+      name = name + "-${versionRange}.patch";
+      url = patchUrl (lib.replaceStrings [ "+" ] [ "%2B" ] versionRange);
+      inherit sha256;
+    };
+    patchUrl = range: "https://github.com/graysky2/kernel_compiler_patch/raw/c409515574bd4d69af45ad74d4e7ba7151010516/more-uarches-for-kernel-${range}.patch";
+  in {
+    inherit name srcs;
+    patch =
+      if lib.versionOlder linux.version "5.8" then srcs."4.19"
+      else if lib.versionOlder linux.version "5.15" then srcs."5.8"
+      else if lib.versionOlder linux.version "5.17" then srcs."5.15"
+      else if lib.versionOlder linux.version "6.1.79" then srcs."5.17"
+      else if lib.versionOlder linux.version "6.8"
+        || (lib.hasPrefix "6.8-rc" && lib.versionOlder linux.version "6.8-rc4")
+      then srcs."6.1.79"
+      else srcs."6.8-rc4";
     extraConfig = let
       archconfig = if kernelArch != null then kernelArch else {
         barcelona = "MBARCELONA";
@@ -31,6 +56,7 @@
         znver1 = "MZEN";
         znver2 = "MZEN2";
         znver3 = "MZEN3";
+        znver4 = "MZEN4";
         core2 = "MCORE2";
         nehalem = "MNEHALEM";
         westmere = "MWESTMERE";
@@ -48,6 +74,10 @@
         tigerlake = "MTIGERLAKE";
         sapphirerapids = "MSAPPHIRERAPIDS";
         rocketlake = "MROCKETLAKE";
+        alderlake = "MALDERLAKE";
+        raptorlake = "MRAPTORLAKE";
+        meteorlake = "MMETEORLAKE";
+        emeraldrapids = "MEMERALDRAPIDS";
         x86-64-v2 = "GENERIC_CPU2";
         x86-64-v3 = "GENERIC_CPU3";
         x86-64-v4 = "GENERIC_CPU4";

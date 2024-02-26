@@ -377,9 +377,14 @@ let
     in electrum-cli.overridePythonAttrs (old: {
       propagatedBuildInputs = old.propagatedBuildInputs
         ++ lib.optional (lib.versionOlder electrum.version "4.5.3") python3Packages.pyperclip;
+
+      # work around nixpkgs breakage
+      doCheck = false;
+
       meta = old.meta // {
         broken = old.meta.broken or false || electrum.stdenv.isDarwin;
       };
+
       passthru = old.passthru or { } // {
         ci.warn = true;
       };
