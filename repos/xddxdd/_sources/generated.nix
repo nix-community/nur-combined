@@ -521,15 +521,15 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "7f3eca2ce659fc2401b8acb52bd2182b433e12b1";
+    version = "b2ad34cc8c639b7bb1bc6abcde08621b57e3e055";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "7f3eca2ce659fc2401b8acb52bd2182b433e12b1";
+      rev = "b2ad34cc8c639b7bb1bc6abcde08621b57e3e055";
       fetchSubmodules = false;
-      sha256 = "sha256-n+KCu8JmFBGPyfBgeLiFqND3wmQs/4eOZjqTXuaW+hk=";
+      sha256 = "sha256-v9kzTaCBx+P0L2ITQ5L6grOmUvprqCU6YsNNr7yPHTc=";
     };
-    date = "2024-02-06";
+    date = "2024-02-25";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -613,18 +613,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.76";
+    version = "2.0.77";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.76/netboot.xyz.efi";
-      sha256 = "sha256-21ZEydRcEpD5Qq4NawvXdM+i76jSUj3QRfOtJX2n1Jg=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.77/netboot.xyz.efi";
+      sha256 = "sha256-19raFHKY+i58tFpq2ax1adNI+L7peGu4QY681JYjt7A=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.76";
+    version = "2.0.77";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.76/netboot.xyz.lkrn";
-      sha256 = "sha256-/2N9IvBYafAcDxBDTXubEAG/KN84kG2PgdexiPi7VBY=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.77/netboot.xyz.lkrn";
+      sha256 = "sha256-QFVvx3GZQoezFiMt7sIR8whkiQHNvEqkfEJZrbZCpj8=";
     };
   };
   netns-exec = {
@@ -767,15 +767,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "49bb2d271ec64f35f5a3905577f2dbc2c1b8d07d";
+    version = "19e5a975a249d11e38937de80651bc855bb7ec3c";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "49bb2d271ec64f35f5a3905577f2dbc2c1b8d07d";
+      rev = "19e5a975a249d11e38937de80651bc855bb7ec3c";
       fetchSubmodules = false;
-      sha256 = "sha256-9F8eB596tqUnfgy+mVf6AY9ohH+4B6HslWRtY0mxmaQ=";
+      sha256 = "sha256-yDQ+yzARLV8wuiAydFm1obpwPqqUDKU0ORzFF4D+6Cw=";
     };
-    date = "2024-02-23";
+    date = "2024-02-24";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -894,34 +894,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "8.2.1+ds-1";
+    version = "8.2.1+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_amd64.deb";
-      sha256 = "sha256-lWXtAOcc72w7V3eIeTx2Gk9CopofcXmuwGxD6VKQrJE=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_amd64.deb";
+      sha256 = "sha256-KjSStHiw5+FO8r43g/mRU+sV8NJB2L/+cCx6msLQA7s=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "8.2.1+ds-1";
+    version = "8.2.1+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_arm64.deb";
-      sha256 = "sha256-7mDAOU0XyxWigM0fPYjur3kqQqBpCl2BKvNugiyE3UQ=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_arm64.deb";
+      sha256 = "sha256-LhAFU1ehnTO4tOcxpvQOZ/2c5FogvXC7gYTQ8c2Vrlo=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.2.1+ds-1";
+    version = "8.2.1+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_armhf.deb";
-      sha256 = "sha256-FbHzEy3M8Wb17WCHqF4nSvnT1wrhXDNHaSiwXMN98js=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_armhf.deb";
+      sha256 = "sha256-ftnQOJn1Ow0GapkHgyl04YrKxF1PIhyOkdHHoTN2y1Q=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.2.1+ds-1";
+    version = "8.2.1+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-1_i386.deb";
-      sha256 = "sha256-/Fs7SRGWHqCMJvNJT1FoTDszlGvx8mKhQfxtwLZ/IDE=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_i386.deb";
+      sha256 = "sha256-n0AaAVx2Kf01djaaGzI/pLWgYx4UpgWF8AR5HVj+iOI=";
     };
   };
   qq-amd64 = {
@@ -986,15 +986,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "10dbeb4a4d5f7b9e6ea511ced442f34bdc529142";
+    version = "ec9c14000c4e54d2a39311452f822ab07a99b336";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "10dbeb4a4d5f7b9e6ea511ced442f34bdc529142";
+      rev = "ec9c14000c4e54d2a39311452f822ab07a99b336";
       fetchSubmodules = false;
-      sha256 = "sha256-Yy8cWDfy1aa5nmBsOVFqJ3dJXy47RgocQ18XVrBWxqM=";
+      sha256 = "sha256-eH7+tQnNt0UTM2lbsqujgn4uoilw3Mr+B/2Yl0irAdY=";
     };
-    date = "2024-02-23";
+    date = "2024-02-25";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
