@@ -1887,10 +1887,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.24.0";
+      version = "2.25.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4235934/dualsub-2.24.0.xpi";
-      sha256 = "9bd8380f1553f239b948f46f6285f8f16180a875379cdbbd1800b8165fa0b757";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241282/dualsub-2.25.0.xpi";
+      sha256 = "6c6d44fa20d01e956d4c1ae828a5dd27d35362b8002f47960843cfb5160ba2ec";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -1910,11 +1910,9 @@
           "https://www.ardmediathek.de/*"
           "https://www.bbc.co.uk/*"
           "https://www.bilibili.com/*"
-          "https://www.britbox.com/*"
           "https://www.channel4.com/*"
           "https://www.coupangplay.com/*"
           "https://www.coursera.org/*"
-          "https://www.funimation.com/*"
           "https://www.hulu.com/*"
           "https://www.iflix.com/*"
           "https://www.iq.com/*"
@@ -1923,7 +1921,6 @@
           "https://www.peacocktv.com/*"
           "https://www.primevideo.com/*"
           "https://www.raiplay.it/*"
-          "https://www.rtve.es/*"
           "https://www.ted.com/*"
           "https://www.udemy.com/*"
           "https://www.viki.com/*"
@@ -8489,10 +8486,10 @@
     };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.0.16";
+      version = "2.0.18";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4235248/rsshub_radar-2.0.16.xpi";
-      sha256 = "2a8bc5c75e4f0e731e571b8e58a3ea21507405b2ebe5dfacbe43c3143bcdcbef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241144/rsshub_radar-2.0.18.xpi";
+      sha256 = "9b64316b8aa0a69a04738880786481869239402f1860200ebfcb3e69cb8b3af7";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
@@ -10296,10 +10293,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.2.14.104";
+      version = "2024.2.26.112";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236185/ublock_origin_lite-2024.2.14.104.xpi";
-      sha256 = "801bb271cad458212a928584ebd68909522ae8cfc9c043e32e03b0b10df2afa9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241371/ublock_origin_lite-2024.2.26.112.xpi";
+      sha256 = "a6d16290cfdba656e0b435a6bcd7da224f0f71f15e87406ce6a3367346e6ecab";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
