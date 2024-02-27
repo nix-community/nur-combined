@@ -122,6 +122,8 @@ in
 
   rocmPackages = recurseIntoAttrs (rocmPackgesOverlay (prev.rocmPackages // rocmPackages) prev.rocmPackages);
 
+  swaylock-fprintd = callPackage ./by-name/sw/swaylock-fprintd/package.nix { };
+
   texlab = callPackage ./development/tools/misc/texlab {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
   };

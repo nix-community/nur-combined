@@ -1,0 +1,15 @@
+diff --git a/fingerprint/meson.build b/fingerprint/meson.build
+index 2239952..d2550f8 100644
+--- a/fingerprint/meson.build
++++ b/fingerprint/meson.build
+@@ -5,8 +5,8 @@ glib = dependency('glib-2.0', version: '>=2.64.0')
+ gio_dep = dependency('gio-2.0')
+ 
+ fprintd_dbus_interfaces = files(
+-    '/usr/share/dbus-1/interfaces/net.reactivated.Fprint.Manager.xml',
+-    '/usr/share/dbus-1/interfaces/net.reactivated.Fprint.Device.xml',
++    '@fprintd@/share/dbus-1/interfaces/net.reactivated.Fprint.Manager.xml',
++    '@fprintd@/share/dbus-1/interfaces/net.reactivated.Fprint.Device.xml',
+ )
+ 
+ fprintd_dbus_sources = gnome.gdbus_codegen('fprintd-dbus',
