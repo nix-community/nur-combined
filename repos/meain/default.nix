@@ -36,7 +36,7 @@
   # notmuch-git = pkgs.callPackage ./pkgs/notmuch-git {};
   gnomeExtensions.steal-my-focus = pkgs.callPackage ./pkgs/steal-my-focus { };
   prosemd-lsp = pkgs.callPackage ./pkgs/prosemd-lsp { };
-  gcalendar = pkgs.python3.pkgs.callPackage ./pkgs/gcalendar { };
+  # gcalendar = pkgs.python3.pkgs.callPackage ./pkgs/gcalendar { };
   spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
   # dbui = pkgs.callPackage ./pkgs/dbui { };
   dotool = pkgs.callPackage ./pkgs/dotool { };
