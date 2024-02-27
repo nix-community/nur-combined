@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ltfs";
-  version = "v2.4.6.0-10507";
+  version = "v2.4.6.0-10511";
 
   src = fetchFromGitHub {
     rev = version;
     owner = "LinearTapeFileSystem";
     repo = "ltfs";
-    sha256 = "sha256-EAQa0C8UPStoM2zx6hHDiYjblF747GPg8eK9mLYZveA=";
+    sha256 = "sha256-eCshucE56P7WkJ6FweenGQKR5BvLDUJEtfQtGmNDbts=";
   };
 
   nativeBuildInputs = [
