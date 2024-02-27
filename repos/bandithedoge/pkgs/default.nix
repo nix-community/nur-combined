@@ -17,6 +17,7 @@ in {
   firefoxAddons = callPackages ./firefoxAddons;
   flexipatch = callPackages ./flexipatch;
   geonkick = callPackage' ./geonkick;
+  giada = callPackage' ./giada;
   haskellPackages = callPackages ./haskellPackages;
   ildaeil = callPackage' ./ildaeil;
   keepmenu = callPackage' ./keepmenu;

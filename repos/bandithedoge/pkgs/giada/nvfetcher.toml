@@ -1,0 +1,4 @@
+[giada]
+src.github = "monocasual/giada"
+fetch.github = "monocasual/giada"
+git.fetchSubmodules = true

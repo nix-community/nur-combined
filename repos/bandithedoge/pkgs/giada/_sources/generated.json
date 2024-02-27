@@ -1,0 +1,22 @@
+{
+    "giada": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "giada",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "monocasual",
+            "repo": "giada",
+            "rev": "1.0.0",
+            "sha256": "sha256-vTOUS9mI4B3yRNnM2dNCH7jgMuD3ztdhe1FMgXUIt58=",
+            "type": "github"
+        },
+        "version": "1.0.0"
+    }
+}
