@@ -6,7 +6,7 @@ template = open(".default_template.nix", "r").read()
 let_tag = "<<TEMPLATE_LET>>"
 package_tag = "<<TEMPLATE_PACKAGES>>"
 
-python_versions = ["39", "310", "311"]
+python_versions = ["310", "311"]
 
 def main():
 	pkgs = Path('pkgs')
