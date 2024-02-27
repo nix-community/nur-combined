@@ -110,8 +110,8 @@ stdenv.mkDerivation (
       ++ lib.optional enableDirectxHeaders directx-headers;
 
     cmakeFlags = [
-      "-DTARGET_DIR_ROOT=${placeholder "out"}"
-      "-DENABLE_SYSTEM_YYJSON=ON"
+      (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
+      (lib.cmakeBool "ENABLE_SYSTEM_YYJSON" true)
       (lib.cmakeBool "ENABLE_VULKAN" enableVulkan)
       (lib.cmakeBool "ENABLE_WAYLAND" enableWayland)
       (lib.cmakeBool "ENABLE_XCB" enableXcb)
