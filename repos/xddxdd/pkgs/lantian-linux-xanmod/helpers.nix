@@ -152,12 +152,12 @@
             ));
 
       kernelPatches =
-        [
+        patchesInPatchDir
+        ++ [
           pkgs.kernelPatches.bridge_stp_helper
           pkgs.kernelPatches.request_key_helper
           combinedPatchFromCachyOS
-        ]
-        ++ patchesInPatchDir;
+        ];
 
       extraMeta = {
         description = "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
