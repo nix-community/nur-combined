@@ -27,10 +27,31 @@
   sane.programs.rofi = {
     # 2024/02/26: wayland is only supported by the fork: <https://github.com/lbonn/rofi>.
     # it's actively maintained though, and more of an overlay than a true fork.
-    packageUnwrapped = pkgs.rofi-wayland;
+    packageUnwrapped = pkgs.rofi-wayland.override {
+      rofi-unwrapped = pkgs.rofi-wayland-unwrapped.overrideAttrs (upstream: {
+        # my patches made for tip don't cleanly apply to stable, so advance the entire src
+        src = pkgs.fetchFromGitea {
+          domain = "git.uninsane.org";
+          owner = "colin";
+          repo = "rofi";
+          fetchSubmodules = true;
+          # rev = "dev-sane";  #< fetchFromGitea doesn't support tags (?)
+          rev = "1edfceaeefa2cae971ae90dc55811f3b7592a1b4";
+          hash = "sha256-oIWLwec1LRsss12S92ebBWQk14FBJWc6QcYxzOU3eFI=";
+        };
+        # patches = (upstream.patches or []) ++ [
+        #   (pkgs.fetchpatch {
+        #     url = "https://git.uninsane.org/colin/rofi/commit/d8bb0b9944ec1f3bf7479c9f127ec09d4198e87f.patch";
+        #     name = "run-{shell-,}command: expand `{app_id}` inside the template string";
+        #     hash = "sha256-XiZRvr+BARU7h3OPU0NUUEem3isnUVER69zucSqvNNk=";
+        #   })
+        # ];
+      });
+    };
 
     fs.".config/rofi/config.rasi".symlink.target = ./config.rasi;
     # redirect its default drun cache location
+    fs.".cache/rofi3.druncache".symlink.target = "rofi/rofi3.druncache";
     fs.".cache/rofi-drun-desktop.cache".symlink.target = "rofi/rofi-drun-desktop.cache";
     persist.byStore.cryptClearOnBoot = [
       # optional, for caching .desktop files rofi finds on disk (perf)
