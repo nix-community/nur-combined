@@ -1,4 +1,4 @@
-# https://github.com/NixOS/nixpkgs/pull/272501
+# todo: remove with next release
 
 { lib, pkgs, config, ... }:
 let
