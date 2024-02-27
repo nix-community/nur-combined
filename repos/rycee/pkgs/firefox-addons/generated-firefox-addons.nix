@@ -1706,10 +1706,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240223.91706";
+      version = "124.0.20240226.91939";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240378/deutsch_de_language_pack-124.0.20240223.91706.xpi";
-      sha256 = "8ecc60913e39b09a7dc07da80dc2c66afcd03098bfbdc41e64392f826f44883a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241602/deutsch_de_language_pack-124.0.20240226.91939.xpi";
+      sha256 = "132284ead5b6ebab6bb99f4f913cf714ba0824627e3924fe7012eb233fc0fdbb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2051,10 +2051,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.3";
+      version = "1.0.4";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221292/elasticvue-1.0.3.xpi";
-      sha256 = "74be9c1f3b5feffab453065054bc053f45ef0e1df5dcaf054c64febc91a242d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241908/elasticvue-1.0.4.xpi";
+      sha256 = "db8d10e941e36c7acf4d620ed2cccbeac57d97494e85f3420415b513c5f3c137";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -2601,10 +2601,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240223.91706";
+      version = "124.0.20240226.91939";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240438/francais_language_pack-124.0.20240223.91706.xpi";
-      sha256 = "361647c946a9891d6f03cb49cc93d13962b7b499cad15423dba4e2a0c7c38233";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241592/francais_language_pack-124.0.20240226.91939.xpi";
+      sha256 = "120d1421b78a9400be00a8f3c83eaac389dd8626c619109af203f33d9afd03c3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -8060,10 +8060,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.13.0";
+      version = "1.13.2";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233328/proton_pass-1.13.0.xpi";
-      sha256 = "eca535bc59bd3b802b2046f0399015e0060e6349141c552b1749ea8fdde9c1a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239613/proton_pass-1.13.2.xpi";
+      sha256 = "2ade474303179d1f1653575e84119dd970c7522ee50f5cc0e747f084542509df";
       meta = with lib;
       {
         homepage = "https://proton.me";
