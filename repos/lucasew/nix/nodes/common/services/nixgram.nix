@@ -43,7 +43,7 @@ in
     };
     systemd.services.nixgram = {
       description = "nixgram service";
-      after = [ "network-online.target" ];
+      requires = [ "network-online.target" ];
       script = "nixgram";
       path = [ cfg.package ] ++ (lib.pipe cfg.customCommands [
         (builtins.mapAttrs (k: v: pkgs.writeShellScriptBin "nixgram-${k}" v))

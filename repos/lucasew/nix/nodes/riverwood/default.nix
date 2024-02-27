@@ -99,7 +99,7 @@ in
 
   programs.steam.enable = true;
 
-  services.xserver.xkbModel = "acer_laptop";
+  services.xserver.xkb.model = "acer_laptop";
 
   services.simple-dashboardd = {
     enable = true;

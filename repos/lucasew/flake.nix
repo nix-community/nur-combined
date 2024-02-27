@@ -194,14 +194,16 @@
       rust-overlay = final: prev: import "${inputs.rust-overlay}/rust-overlay.nix" final prev;
       zzzthis = import ./nix/overlay.nix self;
     };
+    colors = inputs.nix-colors.colorschemes."ayu-dark" // {isDark = true; };
   in {
     # inherit (extraArgs) bumpkin;
     inherit global;
     inherit overlays;
     inherit pkgs;
     inherit self;
-
-    colors = inputs.nix-colors.colorschemes."ayu-dark" // {isDark = true; };
+    colors = colors // {
+      colors = colors.palette;
+    };
 
     homeConfigurations = pkgs.callPackage ./nix/homes {
       inherit extraArgs;

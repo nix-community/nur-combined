@@ -13,7 +13,7 @@ in
 
     systemd.services.ollama = {
       environment = {
-        OLLAMA_HOST = "127.0.0.1:${toString config.networking.ports.ollama.port}";
+        OLLAMA_HOST = lib.mkForce "127.0.0.1:${toString config.networking.ports.ollama.port}";
       };
     };
     
