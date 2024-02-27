@@ -2,8 +2,8 @@
 src.git = "https://github.com/falkTX/Carla"
 fetch.github = "falkTX/Carla"
 
-[gtk-4_13_0]
-src.manual = "4.13.0"
+[gtk-4_13_4]
+src.manual = "4.13.4"
 fetch.github = "GNOME/gtk"
 
 [rtaudio-git]

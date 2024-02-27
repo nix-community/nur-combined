@@ -10,7 +10,7 @@
 
   # remove when 4.13 gets added to nixpkgs
   gtk4 = pkgs.gtk4.overrideAttrs (_: {
-    inherit (sources.gtk-4_13_0) version src;
+    inherit (sources.gtk-4_13_4) version src;
 
     patches = [];
   });
@@ -21,9 +21,13 @@
   });
 
   # remove when 1.5 gets added to nixpkgs
-  libadwaita = pkgs.libadwaita.overrideAttrs (_: {
-    inherit (sources.libadwaita-git) version src;
-  });
+  libadwaita =
+    (pkgs.libadwaita.override {
+      inherit gtk4;
+    })
+    .overrideAttrs (_: {
+      inherit (sources.libadwaita-git) version src;
+    });
 in
   pkgs.stdenv.mkDerivation rec {
     inherit (sources.zrythm) pname src;
