@@ -109,6 +109,7 @@
             # Patches that conflict with Xanmod
             *-cachy.patch) continue;;
             *-clr.patch) continue;;
+            *-fixes.patch) continue;;
             *-mm-*.patch) continue;;
           esac
 
@@ -152,12 +153,12 @@
             ));
 
       kernelPatches =
-        patchesInPatchDir
-        ++ [
+        [
           pkgs.kernelPatches.bridge_stp_helper
           pkgs.kernelPatches.request_key_helper
           combinedPatchFromCachyOS
-        ];
+        ]
+        ++ patchesInPatchDir;
 
       extraMeta = {
         description = "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
