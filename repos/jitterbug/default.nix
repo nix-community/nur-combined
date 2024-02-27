@@ -15,5 +15,6 @@
   tbc-video-export = pkgs.python3.pkgs.callPackage ./pkgs/tbc-video-export { };
   domesdayduplicator = pkgs.callPackage ./pkgs/domesdayduplicator { };
   misrc-extract = pkgs.callPackage ./pkgs/misrc-extract { };
+  vhs-decode-auto-audio-align = pkgs.callPackage ./pkgs/vhs-decode-auto-audio-align { };
   #tzpfms = pkgs.callPackage ./pkgs/tzpfms { };
 }
