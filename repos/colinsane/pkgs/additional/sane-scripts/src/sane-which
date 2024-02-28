@@ -1,25 +1,50 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils-full -p file
+#!nix-shell -i bash -p coreutils-full -p file -p gnugrep
 # traces a PATH lookup by printing the source, resolution, and any symlinks traversed
 # finally, prints the content of the file
-echo $1
 
-v=$(which $1)
-# this probably doesn't handle paths with spaces
-while [ "$(readlink $v || echo $v)" != "$v" ]
-do
-  # TODO: this doesn't handle relative symlinks
-  echo '->' "$v"
-  v=$(readlink "$v")
+cur="$1"
+next="$(which "$cur")"
+
+getExists() {
+  [ -e "$1" ] && echo "$1"
+}
+
+getSymlinked() {
+  # test if $cur is a symlink
+  local next_
+  next_="$(readlink "$cur")"
+  [ "$?" -eq 0 ] && (getExists "$next_" || getExists "$(dirname "$cur")/$next_" || echo "$next_")
+}
+
+getWrapped() {
+  # test if $cur is a wrapper around a patch matching $1 template
+  local dir="$(dirname "$cur")"
+  local base="$(basename "$cur")"
+  local wrapped="$(printf "$1" "$dir" "$base")"
+  [ -e "$wrapped" ] && grep -q "$wrapped" "$cur" && echo "$wrapped"
+}
+
+getNext() {
+  getSymlinked \
+    || getWrapped "%s/.sandboxed/%s" \
+    || getWrapped "%s/.%s-wrapped"
+}
+
+
+echo "$cur"
+while [ -n "$next" ]; do
+  cur="$next"
+  echo "-> $cur"
+  next="$(getNext "$cur")"
 done
+echo
 
-echo '->' "$v"
-echo ''
-case $(file --brief --mime "$v") in
+case $(file --brief --mime "$cur") in
   (*text*)
-    cat "$v"
+    head -n30 "$cur"
     ;;
   (*)
-    echo $(file "$v")
+    echo $(file "$cur")
     ;;
 esac

@@ -4,7 +4,7 @@
 {
   sane.programs."gnome.gnome-weather" = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";
+    sandbox.wrapperType = "inplace";  #< /share/org.gnome.Weather/org.gnome.Weather file refers to bins by full path
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
     suggestedPrograms = [ "dconf" ];  #< stores city/location settings

@@ -28,7 +28,6 @@ in
     # packageUnwrapped = pkgs.fractal-next;
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # notifications

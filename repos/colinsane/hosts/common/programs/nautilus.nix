@@ -1,16 +1,16 @@
 { pkgs, ... }:
 {
   sane.programs."gnome.nautilus" = {
-    packageUnwrapped = pkgs.gnome.nautilus.overrideAttrs (orig: {
+    # some of its dbus services don't even refer to real paths
+    packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.gnome.nautilus.overrideAttrs (orig: {
       # enable the "Audio and Video Properties" pane. see: <https://nixos.wiki/wiki/Nautilus>
       buildInputs = orig.buildInputs ++ (with pkgs.gst_all_1; [
         gst-plugins-good
         gst-plugins-bad
       ]);
-    });
+    }));
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";
     sandbox.whitelistDbus = [ "user" ];  # for portals launching apps
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

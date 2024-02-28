@@ -81,13 +81,13 @@ let
         esac
       }
       sandboxWrap() {
-        _dir="$1"
-        _name="$2"
-        _profileFromBinMap="$(getProfileFromBinMap $_name)"
+        local _dir="$1"
+        local _name="$2"
+        local _profileFromBinMap="$(getProfileFromBinMap $_name)"
 
-        _profiles=("$_profileFromBinMap" "$_name" "${pkgName}" "${unwrapped.pname or ""}" "${unwrapped.name or ""}")
+        local _profiles=("$_profileFromBinMap" "$_name" "${pkgName}" "${unwrapped.pname or ""}" "${unwrapped.name or ""}")
         # filter to just the unique profiles
-        _profileArgs=(${extraSandboxArgsStr})
+        local _profileArgs=(${extraSandboxArgsStr})
         for _profile in "''${_profiles[@]}"; do
           if [ -n "$_profile" ] && ! [[ " ''${_profileArgs[@]} " =~ " $_profile " ]]; then
             _profileArgs+=("--sane-sandbox-profile" "$_profile")
@@ -117,9 +117,9 @@ let
       }
 
       crawlAndWrap() {
-        _dir="$1"
+        local _dir="$1"
         for _p in $(ls "$_dir/"); do
-          if [ -x "$_dir/$_p" ]; then
+          if [ -x "$_dir/$_p" ] && ! [ -d "$_dir/$_p" ]; then
             sandboxWrap "$_dir" "$_p"
           elif [ -d "$_dir/$_p" ]; then
             crawlAndWrap "$_dir/$_p"
@@ -172,10 +172,10 @@ let
   fixHardcodedRefs = unsandboxed: sandboxedBin: unsandboxedNonBin: unsandboxedNonBin.overrideAttrs (prevAttrs: {
     postInstall = (prevAttrs.postInstall or "") + ''
       trySubstitute() {
-        _outPath="$1"
-        _pattern="$2"
-        _from=$(printf "$_pattern" "${unsandboxed}")
-        _to=$(printf "$_pattern" "${sandboxedBin}")
+        local _outPath="$1"
+        local _pattern="$2"
+        local _from=$(printf "$_pattern" "${unsandboxed}")
+        local _to=$(printf "$_pattern" "${sandboxedBin}")
         printf "applying known substitutions to %s\n" "$_outPath"
         # for closure efficiency, we only want to rewrite stuff which actually needs changing,
         # and allow unchanged stuff to remain as symlinks.
@@ -186,11 +186,19 @@ let
         fi
       }
       # fixup a few files i understand well enough
-      for d in $out/share/applications/*.desktop; do
+      for d in \
+        $out/etc/xdg/autostart/*.desktop \
+        $out/lib/systemd/user/*.service \
+        $out/share/applications/*.desktop \
+        $out/share/dbus-1/services/*.service \
+        $out/share/systemd/user/*.service \
+      ; do
+        # dbus and desktop files
         trySubstitute "$d" "Exec=%s/bin/"
-      done
-      for d in $out/share/dbus-1/services/*.service; do
-        trySubstitute "$d" "Exec=%s/bin/"
+        trySubstitute "$d" "Exec=%s/libexec/"
+        # systemd service files
+        trySubstitute "$d" "ExecStart=%s/bin/"
+        trySubstitute "$d" "ExecStart=%s/libexec/"
       done
     '';
     passthru = (prevAttrs.passthru or {}) // {

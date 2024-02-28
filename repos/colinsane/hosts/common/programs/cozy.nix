@@ -3,7 +3,6 @@
 {
   sane.programs.cozy = {
     sandbox.method = "bwrap";  # landlock gives: _multiprocessing.SemLock: Permission Denied
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # mpris
     sandbox.whitelistWayland = true;

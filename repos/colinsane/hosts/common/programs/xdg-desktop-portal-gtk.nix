@@ -8,7 +8,6 @@ in
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.xdg-desktop-portal-gtk;
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";
     sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

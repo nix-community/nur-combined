@@ -25,7 +25,6 @@ in
     };
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistDbus = [ "user" ];
     sandbox.whitelistAudio = true;
 

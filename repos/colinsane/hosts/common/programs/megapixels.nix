@@ -10,7 +10,6 @@
     # bwrap (loupe image viewer) doesn't like to run inside landlock
     #   "bwrap: failed to make / slave: Operation not permitted"
     sandbox.method = "bwrap";  # supports landlock or bwrap
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.whitelistDbus = [ "user" ];  #< so that it can in theory open the image viewer using fdo portal... but it doesn't :|

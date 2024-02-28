@@ -17,7 +17,6 @@ let
 in {
   sane.programs.sfeed = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
 
     fs.".sfeed/sfeedrc".symlink.text = ''

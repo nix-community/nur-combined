@@ -5,7 +5,6 @@ in
 {
   sane.programs.wireshark = {
     sandbox.method = "landlock";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
     sandbox.net = "all";
     sandbox.capabilities = [ "net_admin" "net_raw" ];

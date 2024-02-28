@@ -265,6 +265,8 @@
           pkgs = self.legacyPackages."x86_64-linux";
           sanePkgs = import ./pkgs { inherit pkgs; };
           deployScript = host: addr: action: pkgs.writeShellScript "deploy-${host}" ''
+            set -e
+
             host="${host}"
             addr="${addr}"
             action="${if action != null then action else ""}"

@@ -23,7 +23,6 @@ in {
     });
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistDbus = [ "user" ];  # it won't launch without it, dunno exactly why.
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";

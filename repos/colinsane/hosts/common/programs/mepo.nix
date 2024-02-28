@@ -5,7 +5,6 @@
 {
   sane.programs.mepo = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "all";  # for tiles *and* for localhost comm to gpsd
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;

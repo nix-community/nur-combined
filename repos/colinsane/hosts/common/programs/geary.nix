@@ -20,7 +20,6 @@ in
     };
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistWayland = true;

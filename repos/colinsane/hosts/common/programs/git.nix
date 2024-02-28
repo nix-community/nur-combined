@@ -19,7 +19,6 @@ in
       '';
     });
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.autodetectCliPaths = true;  # necessary for git-upload-pack

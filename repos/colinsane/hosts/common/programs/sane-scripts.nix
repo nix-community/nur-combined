@@ -54,7 +54,6 @@ in
 
     "sane-scripts.bt-add".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       net = "clearnet";
       # TODO: migrate `transmission_passwd` to `secrets` api
       extraPaths = [ "/run/secrets/transmission_passwd" ];
@@ -62,7 +61,6 @@ in
 
     "sane-scripts.bt-rm".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       net = "clearnet";
       # TODO: migrate `transmission_passwd` to `secrets` api
       extraPaths = [ "/run/secrets/transmission_passwd" ];
@@ -70,7 +68,6 @@ in
 
     "sane-scripts.bt-search".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       net = "clearnet";
       # TODO: migrate `jackett_apikey` to `secrets` api
       extraPaths = [ "/run/secrets/jackett_apikey" ];
@@ -78,7 +75,6 @@ in
 
     "sane-scripts.bt-show".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       net = "clearnet";
       # TODO: migrate `transmission_passwd` to `secrets` api
       extraPaths = [ "/run/secrets/transmission_passwd" ];
@@ -90,13 +86,11 @@ in
 
     "sane-scripts.deadlines".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       extraHomePaths = [ "knowledge/planner/deadlines.tsv" ];
     };
 
     "sane-scripts.dev-cargo-loop".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       net = "clearnet";
       whitelistPwd = true;
       extraPaths = [
@@ -110,7 +104,6 @@ in
 
     "sane-scripts.find-dotfiles".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       extraHomePaths = [
         "/"
         ".persist/ephemeral"
@@ -120,7 +113,6 @@ in
 
     "sane-scripts.ip-check".sandbox = {
       method = "landlock";
-      wrapperType = "wrappedDerivation";
       net = "all";
     };
 
@@ -128,7 +120,6 @@ in
 
     "sane-scripts.private-change-passwd".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       autodetectCliPaths = "existing";  #< for the new `private` location
       capabilities = [ "sys_admin" ];  # it needs to mount the new store
       extraHomePaths = [
@@ -140,7 +131,6 @@ in
       # instead, we put ourselves in a mount namespace, do the mount, and drop into a shell or run a command.
       # this actually has an OK side effect, that the mount isn't shared, and so we avoid contention/interleaving that would cause the ending `umount` to fail.
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       # cap_sys_admin is needed to mount stuff.
       # ordinarily /run/wrappers/bin/mount would do that via setuid, but sandboxes have no_new_privs by default.
       capabilities = [ "sys_admin" ];
@@ -151,7 +141,6 @@ in
     };
     "sane-scripts.private-init".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       capabilities = [ "sys_admin" ];  # it needs to mount the new store
       extraHomePaths = [
         ".persist/private"
@@ -162,7 +151,6 @@ in
 
     "sane-scripts.reclaim-boot-space".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       extraPaths = [ "/boot" ];
     };
 
@@ -173,7 +161,6 @@ in
 
     "sane-scripts.reboot".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       extraPaths = [
         "/run/dbus"
         "/run/systemd"
@@ -182,13 +169,11 @@ in
 
     "sane-scripts.reclaim-disk-space".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       extraPaths = [ "/nix/var/nix" ];
     };
 
     "sane-scripts.secrets-unlock".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       extraHomePaths = [
         ".ssh/id_ed25519"
         ".ssh/id_ed25519.pub"
@@ -214,7 +199,6 @@ in
 
     "sane-scripts.shutdown".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       extraPaths = [
         "/run/dbus"
         "/run/systemd"
@@ -231,7 +215,6 @@ in
 
     "sane-scripts.tag-music".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       autodetectCliPaths = "existing";
     };
 
@@ -256,7 +239,6 @@ in
       (builtins.attrNames config.sane.vpn);
     "sane-scripts.vpn".sandbox = {
       method = "landlock";  #< bwrap can't handle `ip link` stuff even with cap_net_admin
-      wrapperType = "wrappedDerivation";
       net = "all";
       capabilities = [ "net_admin" ];
       extraHomePaths = [ ".config/sane-vpn" ];
@@ -264,7 +246,6 @@ in
 
     "sane-scripts.which".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       extraHomePaths = [
         # for SXMO
         ".config/sxmo/hooks"
@@ -273,7 +254,6 @@ in
 
     "sane-scripts.wipe".sandbox = {
       method = "bwrap";
-      wrapperType = "wrappedDerivation";
       whitelistDbus = [ "user" ];  #< for `secret-tool` and `systemd --user stop <service>
       extraHomePaths = [
         # could be more specific, but at a maintenance cost.

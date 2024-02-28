@@ -11,7 +11,6 @@
     });
 
     sandbox.method = "firejail";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
     sandbox.net = "vpn";
 

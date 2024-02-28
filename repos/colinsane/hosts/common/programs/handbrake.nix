@@ -2,7 +2,6 @@
 {
   sane.programs.handbrake = {
     sandbox.method = "landlock";  #< also supports bwrap, but landlock ensures we don't write to non-mounted tmpfs dir
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

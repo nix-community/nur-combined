@@ -63,7 +63,6 @@ in
     ];
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistDbus = [ "user" ];  #< to launch apps via the portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
@@ -84,6 +83,7 @@ in
     fs.".config/rofi/config.rasi".symlink.target = ./config.rasi;
     # redirect its default drun cache location
     fs.".cache/rofi3.druncache".symlink.target = "rofi/rofi3.druncache";
+    fs.".cache/rofi3.filebrowsercache".symlink.target = "rofi/rofi3.filebrowsercache";
     fs.".cache/rofi-drun-desktop.cache".symlink.target = "rofi/rofi-drun-desktop.cache";
     persist.byStore.cryptClearOnBoot = [
       # optional, for caching .desktop files rofi finds on disk (perf)
@@ -117,8 +117,11 @@ in
     };
     # if i could remove the sed, then maybe possible to not sandbox.
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      ".cache/rofi"
+      ".config/rofi/config.rasi"
+    ];
 
     suggestedPrograms = [ "rofi" ];
 

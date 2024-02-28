@@ -88,7 +88,6 @@ in
 {
   sane.programs.bemenu = {
     sandbox.method = "bwrap";  # landlock works, but requires *all* of /run/user/$ID to be granted.
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".cache/fontconfig"  #< else it complains, and is *way* slower

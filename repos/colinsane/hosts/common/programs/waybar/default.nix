@@ -57,7 +57,6 @@ in
     };
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "all";  #< to show net connection status and BW
     sandbox.whitelistDbus = [
       "user"  #< for playerctl/media

@@ -6,7 +6,6 @@ in
   sane.programs.gnome-keyring = {
     packageUnwrapped = pkgs.rmDbusServices pkgs.gnome.gnome-keyring;
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistDbus = [ "user" ];
     sandbox.extraRuntimePaths = [
       "keyring/control"

@@ -31,7 +31,6 @@
     };
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
 
     persist.byStore.plaintext = [

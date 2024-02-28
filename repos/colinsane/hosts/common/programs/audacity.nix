@@ -10,7 +10,6 @@
     };
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = true;

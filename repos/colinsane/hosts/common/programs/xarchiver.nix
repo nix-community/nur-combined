@@ -7,7 +7,6 @@
     };
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "archive"

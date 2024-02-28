@@ -3,7 +3,6 @@
   sane.programs.portfolio-filemanager = {
     # this is all taken pretty directly from nautilus config
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";
     sandbox.whitelistDbus = [ "user" ];  # for portals launching apps
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

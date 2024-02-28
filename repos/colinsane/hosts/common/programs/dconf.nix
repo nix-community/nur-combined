@@ -10,7 +10,6 @@ in
 {
   sane.programs.dconf = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     persist.byStore.private = [
       ".config/dconf"
     ];

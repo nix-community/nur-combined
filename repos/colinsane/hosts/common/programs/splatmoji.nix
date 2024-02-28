@@ -6,8 +6,11 @@
 {
   sane.programs.splatmoji = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;  # it calls into a dmenu helper
+    sandbox.extraHomePaths = [
+      ".cache/rofi"
+      ".config/rofi/config.rasi"
+    ];
 
     suggestedPrograms = [ "rofi" ];
 

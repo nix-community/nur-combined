@@ -7,7 +7,7 @@
 configuration {
   modes: "combi";
   show-icons: true;
-  combi-modes: "filebrowser,drun,run";
+  combi-modes: "filebrowser,drun";
   kb-accept-entry: "Return,KP_Enter,XF86PowerOff";
   kb-row-up: "Up,XF86AudioRaiseVolume";
   kb-row-down: "Down,XF86AudioLowerVolume";

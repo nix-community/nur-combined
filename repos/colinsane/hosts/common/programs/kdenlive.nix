@@ -2,7 +2,6 @@
 {
   sane.programs.kdenlive = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.extraHomePaths = [
       "Music"
       "Pictures/from"  # e.g. Videos taken from my phone

@@ -5,7 +5,6 @@ in
 {
   sane.programs.wireplumber = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";  #< it ships systemd files in a non-standard /lib/systemd dir
     sandbox.whitelistDbus = [
       # i think this isn't strictly necessary; it just wants to ask the portal for realtime perms
       # "system"

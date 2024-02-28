@@ -2,7 +2,6 @@
 {
   sane.programs.planify = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistDbus = [ "user" ];  # for dconf? else it can't persist any tasks/notes
     sandbox.whitelistWayland = true;
 

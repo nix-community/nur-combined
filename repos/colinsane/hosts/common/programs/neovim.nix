@@ -88,7 +88,6 @@ in
 {
   sane.programs.neovim = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.autodetectCliPaths = "existingOrParent";
     sandbox.whitelistWayland = true;  # for system clipboard integration
     # sandbox.whitelistPwd = true;

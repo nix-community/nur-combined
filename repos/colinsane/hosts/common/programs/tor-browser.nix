@@ -8,7 +8,7 @@
     #   useHardenedMalloc = false;
     # };
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";
+    sandbox.wrapperType = "inplace";  # trivial package, so cheaper to wrap in-place
     sandbox.net = "clearnet";  # tor over VPN wouldn't make sense
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;

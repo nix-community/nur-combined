@@ -203,19 +203,17 @@ in
     # INDIVIDUAL PACKAGE DEFINITIONS
 
     alsaUtils.sandbox.method = "landlock";
-    alsaUtils.sandbox.wrapperType = "wrappedDerivation";
     alsaUtils.sandbox.whitelistAudio = true;  #< not strictly necessary?
 
     backblaze-b2 = {};
 
     blanket.sandbox.method = "bwrap";
-    blanket.sandbox.wrapperType = "wrappedDerivation";
     blanket.sandbox.whitelistAudio = true;
     # blanket.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
     blanket.sandbox.whitelistWayland = true;
 
     blueberry.sandbox.method = "bwrap";
-    blueberry.sandbox.wrapperType = "inplace";  # /etc/xdg/autostart hardcodes paths
+    blueberry.sandbox.wrapperType = "inplace";  #< various /lib scripts refer to the bins by full path
     blueberry.sandbox.whitelistWayland = true;
     blueberry.sandbox.extraPaths = [
       "/dev/rfkill"
@@ -225,11 +223,9 @@ in
     ];
 
     bridge-utils.sandbox.method = "bwrap";  #< bwrap, landlock: both work
-    bridge-utils.sandbox.wrapperType = "wrappedDerivation";
     bridge-utils.sandbox.net = "all";
 
     brightnessctl.sandbox.method = "landlock";  # also bwrap, but landlock is more responsive
-    brightnessctl.sandbox.wrapperType = "wrappedDerivation";
     brightnessctl.sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/class/leds"
@@ -238,7 +234,6 @@ in
     brightnessctl.sandbox.whitelistDbus = [ "system" ];
 
     btrfs-progs.sandbox.method = "bwrap";  #< bwrap, landlock: both work
-    btrfs-progs.sandbox.wrapperType = "wrappedDerivation";
     btrfs-progs.sandbox.autodetectCliPaths = "existing";  # e.g. `btrfs filesystem df /my/fs`
 
     "cacert.unbundled".sandbox.enable = false;
@@ -249,7 +244,6 @@ in
 
     # cryptsetup: typical use is `cryptsetup open /dev/loopxyz mappedName`, and creates `/dev/mapper/mappedName`
     cryptsetup.sandbox.method = "landlock";
-    cryptsetup.sandbox.wrapperType = "wrappedDerivation";
     cryptsetup.sandbox.extraPaths = [
       "/dev/mapper"
       "/dev/random"
@@ -263,12 +257,10 @@ in
     cryptsetup.sandbox.autodetectCliPaths = "existing";
 
     ddrescue.sandbox.method = "landlock";  # TODO:sandbox: untested
-    ddrescue.sandbox.wrapperType = "wrappedDerivation";
     ddrescue.sandbox.autodetectCliPaths = "existingOrParent";
 
     # auth token, preferences
     delfin.sandbox.method = "bwrap";
-    delfin.sandbox.wrapperType = "wrappedDerivation";
     delfin.sandbox.whitelistAudio = true;
     delfin.sandbox.whitelistDbus = [ "user" ];  # else `mpris` plugin crashes the player
     delfin.sandbox.whitelistDri = true;
@@ -277,7 +269,6 @@ in
     delfin.persist.byStore.private = [ ".config/delfin" ];
 
     dig.sandbox.method = "bwrap";
-    dig.sandbox.wrapperType = "wrappedDerivation";
     dig.sandbox.net = "all";
 
     # creds, but also 200 MB of node modules, etc
@@ -293,18 +284,15 @@ in
     dtc.sandbox.autodetectCliPaths = true;  # TODO:sandbox: untested
 
     dtrx.sandbox.method = "bwrap";
-    dtrx.sandbox.wrapperType = "wrappedDerivation";
     dtrx.sandbox.whitelistPwd = true;
     dtrx.sandbox.autodetectCliPaths = "existing";  #< for the archive
 
     duplicity = {};
 
     e2fsprogs.sandbox.method = "landlock";
-    e2fsprogs.sandbox.wrapperType = "wrappedDerivation";
     e2fsprogs.sandbox.autodetectCliPaths = "existing";
 
     efibootmgr.sandbox.method = "landlock";
-    efibootmgr.sandbox.wrapperType = "wrappedDerivation";
     efibootmgr.sandbox.extraPaths = [
       "/sys/firmware/efi"
     ];
@@ -312,14 +300,12 @@ in
     eg25-control = {};
 
     electrum.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    electrum.sandbox.wrapperType = "wrappedDerivation";
     electrum.sandbox.net = "all";  # TODO: probably want to make this run behind a VPN, always
     electrum.sandbox.whitelistWayland = true;
     electrum.persist.byStore.cryptClearOnBoot = [ ".electrum" ];  #< TODO: use XDG dirs!
 
     endless-sky.persist.byStore.plaintext = [ ".local/share/endless-sky" ];
     endless-sky.sandbox.method = "bwrap";
-    endless-sky.sandbox.wrapperType = "wrappedDerivation";
     endless-sky.sandbox.whitelistAudio = true;
     endless-sky.sandbox.whitelistDri = true;
     endless-sky.sandbox.whitelistWayland = true;
@@ -330,14 +316,12 @@ in
     emote.persist.byStore.plaintext = [ ".local/share/Emote" ];
 
     ethtool.sandbox.method = "landlock";
-    ethtool.sandbox.wrapperType = "wrappedDerivation";
     ethtool.sandbox.capabilities = [ "net_admin" ];
 
     # eza `ls` replacement
     # landlock is OK, only `whitelistPwd` doesn't make the intermediate symlinks traversable, so it breaks on e.g. ~/Videos/servo/Shows/foo
     # eza.sandbox.method = "landlock";
     eza.sandbox.method = "bwrap";
-    eza.sandbox.wrapperType = "wrappedDerivation";  # slow to build
     eza.sandbox.autodetectCliPaths = true;
     eza.sandbox.whitelistPwd = true;
     eza.sandbox.extraHomePaths = [
@@ -347,11 +331,9 @@ in
     ];
 
     fatresize.sandbox.method = "landlock";
-    fatresize.sandbox.wrapperType = "wrappedDerivation";
     fatresize.sandbox.autodetectCliPaths = "parent";  # /dev/sda1 -> needs /dev/sda
 
     fd.sandbox.method = "landlock";
-    fd.sandbox.wrapperType = "wrappedDerivation";  # slow to build
     fd.sandbox.autodetectCliPaths = true;
     fd.sandbox.whitelistPwd = true;
     fd.sandbox.extraHomePaths = [
@@ -361,15 +343,12 @@ in
     ];
 
     ffmpeg.sandbox.method = "bwrap";
-    ffmpeg.sandbox.wrapperType = "wrappedDerivation";  # slow to build
     ffmpeg.sandbox.autodetectCliPaths = "existingFileOrParent";  # it outputs uncreated files -> parent dir needs mounting
 
     file.sandbox.method = "bwrap";
-    file.sandbox.wrapperType = "wrappedDerivation";
     file.sandbox.autodetectCliPaths = true;
 
     findutils.sandbox.method = "bwrap";
-    findutils.sandbox.wrapperType = "wrappedDerivation";
     findutils.sandbox.autodetectCliPaths = true;
     findutils.sandbox.whitelistPwd = true;
     findutils.sandbox.extraHomePaths = [
@@ -381,14 +360,12 @@ in
     fluffychat-moby.persist.byStore.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
     font-manager.sandbox.method = "bwrap";
-    font-manager.sandbox.wrapperType = "inplace";  # .desktop and dbus .service file refer to /libexec
-    font-manager.packageUnwrapped = pkgs.font-manager.override {
+    font-manager.packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.font-manager.override {
       # build without the "Google Fonts" integration feature, to save closure / avoid webkitgtk_4_0
       withWebkit = false;
-    };
+    });
 
     forkstat.sandbox.method = "landlock";  #< doesn't seem to support bwrap
-    forkstat.sandbox.wrapperType = "wrappedDerivation";
     forkstat.sandbox.extraConfig = [
       "--sane-sandbox-keep-namespace" "pid"
     ];
@@ -401,7 +378,6 @@ in
     #   should probably make it not be an app-launcher
     fuzzel.sandbox.enable = false;
     fuzzel.sandbox.method = "bwrap";  #< landlock nearly works, but unable to open ~/.cache
-    fuzzel.sandbox.wrapperType = "wrappedDerivation";
     fuzzel.sandbox.whitelistWayland = true;
     fuzzel.persist.byStore.private = [
       # this is a file of recent selections
@@ -409,12 +385,11 @@ in
     ];
 
     gawk.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    gawk.sandbox.wrapperType = "inplace";  # share/gawk libraries refer to /libexec
+    gawk.sandbox.wrapperType = "inplace";  # /share/gawk libraries refer to /libexec
     gawk.sandbox.autodetectCliPaths = true;
 
     gdb.sandbox.enable = false;  # gdb doesn't sandbox well. i don't know how you could.
     # gdb.sandbox.method = "landlock";  # permission denied when trying to attach, even as root
-    gdb.sandbox.wrapperType = "wrappedDerivation";
     gdb.sandbox.autodetectCliPaths = true;
 
     geoclue2-with-demo-agent = {};
@@ -424,7 +399,6 @@ in
     gh.persist.byStore.private = [ ".config/gh" ];
 
     gimp.sandbox.method = "bwrap";
-    gimp.sandbox.wrapperType = "wrappedDerivation";
     gimp.sandbox.whitelistWayland = true;
     gimp.sandbox.extraHomePaths = [
       "Pictures/albums"
@@ -443,39 +417,32 @@ in
     ];
 
     "gnome.gnome-calculator".sandbox.method = "bwrap";
-    "gnome.gnome-calculator".sandbox.wrapperType = "inplace";  # /libexec/gnome-calculator-search-provider
     "gnome.gnome-calculator".sandbox.whitelistWayland = true;
 
     # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
     "gnome.gnome-calendar".sandbox.method = "bwrap";
-    "gnome.gnome-calendar".sandbox.wrapperType = "wrappedDerivation";
     "gnome.gnome-calendar".sandbox.whitelistWayland = true;
 
     "gnome.gnome-clocks".sandbox.method = "bwrap";
-    "gnome.gnome-clocks".sandbox.wrapperType = "wrappedDerivation";
     "gnome.gnome-clocks".sandbox.whitelistWayland = true;
     "gnome.gnome-clocks".suggestedPrograms = [ "dconf" ];
 
     # gnome-disks
     "gnome.gnome-disk-utility".sandbox.method = "bwrap";
-    "gnome.gnome-disk-utility".sandbox.wrapperType = "inplace";  # /etc/xdg/autostart
     "gnome.gnome-disk-utility".sandbox.whitelistDbus = [ "system" ];
     "gnome.gnome-disk-utility".sandbox.whitelistWayland = true;
 
     # seahorse: dump gnome-keyring secrets.
     # N.B.: it can also manage ~/.ssh keys, but i explicitly don't add those to the sandbox for now.
     "gnome.seahorse".sandbox.method = "bwrap";
-    "gnome.seahorse".sandbox.wrapperType = "wrappedDerivation";
     "gnome.seahorse".sandbox.whitelistDbus = [ "user" ];
     "gnome.seahorse".sandbox.whitelistWayland = true;
 
     gnome-2048.sandbox.method = "bwrap";
-    gnome-2048.sandbox.wrapperType = "wrappedDerivation";
     gnome-2048.sandbox.whitelistWayland = true;
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
 
     gnome-frog.sandbox.method = "bwrap";
-    gnome-frog.sandbox.wrapperType = "wrappedDerivation";
     gnome-frog.sandbox.whitelistWayland = true;
     gnome-frog.sandbox.whitelistDbus = [ "user" ];
     gnome-frog.sandbox.extraPaths = [
@@ -502,11 +469,9 @@ in
     # 2. no two shaded tiles can be direct N/S/E/W neighbors
     # - win once (1) and (2) are satisfied
     "gnome.hitori".sandbox.method = "bwrap";
-    "gnome.hitori".sandbox.wrapperType = "wrappedDerivation";
     "gnome.hitori".sandbox.whitelistWayland = true;
 
     gnugrep.sandbox.method = "bwrap";
-    gnugrep.sandbox.wrapperType = "wrappedDerivation";
     gnugrep.sandbox.autodetectCliPaths = true;
     gnugrep.sandbox.whitelistPwd = true;
     gnugrep.sandbox.extraHomePaths = [
@@ -519,7 +484,6 @@ in
     gpsd = {};
 
     gptfdisk.sandbox.method = "landlock";
-    gptfdisk.sandbox.wrapperType = "wrappedDerivation";
     gptfdisk.sandbox.extraPaths = [
       "/dev"
     ];
@@ -528,7 +492,6 @@ in
     grim = {};
 
     hase.sandbox.method = "bwrap";
-    hase.sandbox.wrapperType = "wrappedDerivation";
     hase.sandbox.net = "clearnet";
     hase.sandbox.whitelistAudio = true;
     hase.sandbox.whitelistDri = true;
@@ -536,15 +499,12 @@ in
 
     # hdparm: has to be run as sudo. e.g. `sudo hdparm -i /dev/sda`
     hdparm.sandbox.method = "bwrap";
-    hdparm.sandbox.wrapperType = "wrappedDerivation";
     hdparm.sandbox.autodetectCliPaths = true;
 
     host.sandbox.method = "landlock";
-    host.sandbox.wrapperType = "wrappedDerivation";
     host.sandbox.net = "all";  #< technically, only needs to contact localhost's DNS server
 
     htop.sandbox.method = "landlock";
-    htop.sandbox.wrapperType = "wrappedDerivation";
     htop.sandbox.extraPaths = [
       "/proc"
       "/sys/devices"
@@ -555,16 +515,13 @@ in
     ];
 
     iftop.sandbox.method = "landlock";
-    iftop.sandbox.wrapperType = "wrappedDerivation";
     iftop.sandbox.capabilities = [ "net_raw" ];
 
     # inetutils: ping, ifconfig, hostname, traceroute, whois, ....
     # N.B.: inetutils' `ping` is shadowed by iputils' ping (by nixos, intentionally).
     inetutils.sandbox.method = "landlock";  # want to keep the same netns, at least.
-    inetutils.sandbox.wrapperType = "wrappedDerivation";
 
     inkscape.sandbox.method = "bwrap";
-    inkscape.sandbox.wrapperType = "wrappedDerivation";
     inkscape.sandbox.whitelistWayland = true;
     inkscape.sandbox.extraHomePaths = [
       "Pictures/albums"
@@ -580,7 +537,6 @@ in
     inkscape.sandbox.autodetectCliPaths = true;
 
     iotop.sandbox.method = "landlock";
-    iotop.sandbox.wrapperType = "wrappedDerivation";
     iotop.sandbox.extraPaths = [
       "/proc"
     ];
@@ -588,38 +544,31 @@ in
 
     # provides `ip`, `routel`, others
     iproute2.sandbox.method = "landlock";
-    iproute2.sandbox.wrapperType = "wrappedDerivation";
     iproute2.sandbox.net = "all";
     iproute2.sandbox.capabilities = [ "net_admin" ];
 
     iptables.sandbox.method = "landlock";
-    iptables.sandbox.wrapperType = "wrappedDerivation";
     iptables.sandbox.net = "all";
     iptables.sandbox.capabilities = [ "net_admin" ];
 
     # iputils provides `ping` (and arping, clockdiff, tracepath)
     iputils.sandbox.method = "landlock";
-    iputils.sandbox.wrapperType = "wrappedDerivation";
     iputils.sandbox.net = "all";
     iputils.sandbox.capabilities = [ "net_raw" ];
 
     iw.sandbox.method = "landlock";
-    iw.sandbox.wrapperType = "wrappedDerivation";
     iw.sandbox.net = "all";
     iw.sandbox.capabilities = [ "net_admin" ];
 
     jq.sandbox.method = "bwrap";
-    jq.sandbox.wrapperType = "wrappedDerivation";
     jq.sandbox.autodetectCliPaths = "existingFile";
 
     killall.sandbox.method = "landlock";
-    killall.sandbox.wrapperType = "wrappedDerivation";
     killall.sandbox.extraPaths = [
       "/proc"
     ];
 
     krita.sandbox.method = "bwrap";
-    krita.sandbox.wrapperType = "wrappedDerivation";
     krita.sandbox.whitelistWayland = true;
     krita.sandbox.autodetectCliPaths = "existing";
     krita.sandbox.extraHomePaths = [
@@ -637,11 +586,9 @@ in
     libcap_ng.sandbox.enable = false;  # there's something about /proc/$pid/fd which breaks `readlink`/stat with every sandbox technique (except capsh-only)
 
     libnotify.sandbox.method = "bwrap";
-    libnotify.sandbox.wrapperType = "wrappedDerivation";
     libnotify.sandbox.whitelistDbus = [ "user" ];  # notify-send
 
     losslesscut-bin.sandbox.method = "bwrap";
-    losslesscut-bin.sandbox.wrapperType = "wrappedDerivation";
     losslesscut-bin.sandbox.extraHomePaths = [
       "Music"
       "Pictures/from"  # videos from e.g. mobile phone
@@ -656,12 +603,11 @@ in
     losslesscut-bin.sandbox.whitelistX = true;
 
     lsof.sandbox.method = "capshonly";  # lsof doesn't sandbox under bwrap or even landlock w/ full access to /
-    lsof.sandbox.wrapperType = "wrappedDerivation";
 
     lua = {};
 
+    "mate.engrampa".packageUnwrapped = pkgs.rmDbusServices pkgs.mate.engrampa;
     "mate.engrampa".sandbox.method = "bwrap";  # TODO:sandbox: untested
-    "mate.engrampa".sandbox.wrapperType = "inplace";
     "mate.engrampa".sandbox.whitelistWayland = true;
     "mate.engrampa".sandbox.autodetectCliPaths = "existingOrParent";
     "mate.engrampa".sandbox.extraHomePaths = [
@@ -674,7 +620,6 @@ in
     ];
 
     mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    mercurial.sandbox.wrapperType = "wrappedDerivation";
     mercurial.sandbox.net = "clearnet";
     mercurial.sandbox.whitelistPwd = true;
 
@@ -682,7 +627,6 @@ in
     # XXX: is it really safe to persist this? it doesn't have info that could de-anonymize if captured?
     monero-gui.persist.byStore.plaintext = [ ".bitmonero" ];
     monero-gui.sandbox.method = "bwrap";
-    monero-gui.sandbox.wrapperType = "wrappedDerivation";
     monero-gui.sandbox.net = "all";
     monero-gui.sandbox.extraHomePaths = [
       "records/finance/cryptocurrencies/monero"
@@ -691,20 +635,16 @@ in
     mumble.persist.byStore.private = [ ".local/share/Mumble" ];
 
     nano.sandbox.method = "bwrap";
-    nano.sandbox.wrapperType = "wrappedDerivation";
     nano.sandbox.autodetectCliPaths = "existingFileOrParent";
 
     netcat.sandbox.method = "landlock";
-    netcat.sandbox.wrapperType = "wrappedDerivation";
     netcat.sandbox.net = "all";
 
     nethogs.sandbox.method = "capshonly";  # *partially* works under landlock w/ full access to /
-    nethogs.sandbox.wrapperType = "wrappedDerivation";
     nethogs.sandbox.capabilities = [ "net_admin" "net_raw" ];
 
     # provides `arp`, `hostname`, `route`, `ifconfig`
     nettools.sandbox.method = "landlock";
-    nettools.sandbox.wrapperType = "wrappedDerivation";
     nettools.sandbox.net = "all";
     nettools.sandbox.capabilities = [ "net_admin" "net_raw" ];
     nettools.sandbox.extraPaths = [
@@ -712,7 +652,6 @@ in
     ];
 
     networkmanagerapplet.sandbox.method = "bwrap";
-    networkmanagerapplet.sandbox.wrapperType = "wrappedDerivation";
     networkmanagerapplet.sandbox.whitelistWayland = true;
     networkmanagerapplet.sandbox.whitelistDbus = [ "system" ];
 
@@ -725,11 +664,9 @@ in
     ];
 
     nmap.sandbox.method = "bwrap";
-    nmap.sandbox.wrapperType = "wrappedDerivation";
     nmap.sandbox.net = "all";  # clearnet and lan
 
     nmon.sandbox.method = "landlock";
-    nmon.sandbox.wrapperType = "wrappedDerivation";
     nmon.sandbox.extraPaths = [
       "/proc"
     ];
@@ -738,7 +675,6 @@ in
 
     # `nvme list` only shows results when run as root.
     nvme-cli.sandbox.method = "landlock";
-    nvme-cli.sandbox.wrapperType = "wrappedDerivation";
     nvme-cli.sandbox.extraPaths = [
       "/sys/devices"
       "/sys/class/nvme"
@@ -750,13 +686,11 @@ in
 
     # contains only `oathtool`, which i only use for evaluating TOTP codes from CLI/stdin
     oath-toolkit.sandbox.method = "bwrap";
-    oath-toolkit.sandbox.wrapperType = "wrappedDerivation";
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
 
     parted.sandbox.method = "landlock";
-    parted.sandbox.wrapperType = "wrappedDerivation";
     parted.sandbox.extraPaths = [
       "/dev"
     ];
@@ -765,12 +699,10 @@ in
     patchelf = {};
 
     pavucontrol.sandbox.method = "bwrap";
-    pavucontrol.sandbox.wrapperType = "wrappedDerivation";
     pavucontrol.sandbox.whitelistAudio = true;
     pavucontrol.sandbox.whitelistWayland = true;
 
     pciutils.sandbox.method = "landlock";
-    pciutils.sandbox.wrapperType = "wrappedDerivation";
     pciutils.sandbox.extraPaths = [
       "/sys/bus/pci"
       "/sys/devices"
@@ -779,7 +711,6 @@ in
     "perlPackages.FileMimeInfo".sandbox.enable = false;  #< TODO: sandbox `mimetype` but not `mimeopen`.
 
     powertop.sandbox.method = "landlock";
-    powertop.sandbox.wrapperType = "wrappedDerivation";
     powertop.sandbox.capabilities = [ "ipc_lock" "sys_admin" ];
     powertop.sandbox.extraPaths = [
       "/proc"
@@ -789,17 +720,14 @@ in
     ];
 
     pstree.sandbox.method = "landlock";
-    pstree.sandbox.wrapperType = "wrappedDerivation";
     pstree.sandbox.extraPaths = [
       "/proc"
     ];
 
     pulsemixer.sandbox.method = "landlock";
-    pulsemixer.sandbox.wrapperType = "wrappedDerivation";
     pulsemixer.sandbox.whitelistAudio = true;
 
     pwvucontrol.sandbox.method = "bwrap";
-    pwvucontrol.sandbox.wrapperType = "wrappedDerivation";
     pwvucontrol.sandbox.whitelistAudio = true;
     pwvucontrol.sandbox.whitelistWayland = true;
 
@@ -807,7 +735,6 @@ in
       requests
     ]);
     python3-repl.sandbox.method = "bwrap";
-    python3-repl.sandbox.wrapperType = "wrappedDerivation";
     python3-repl.sandbox.net = "clearnet";
     python3-repl.sandbox.extraHomePaths = [
       "/"
@@ -818,7 +745,6 @@ in
     qemu.slowToBuild = true;
 
     rsync.sandbox.method = "bwrap";
-    rsync.sandbox.wrapperType = "wrappedDerivation";
     rsync.sandbox.net = "clearnet";
     rsync.sandbox.autodetectCliPaths = "existingOrParent";
 
@@ -827,13 +753,11 @@ in
     screen.sandbox.enable = false;  #< tty; needs to run anything
 
     sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    sequoia.sandbox.wrapperType = "wrappedDerivation";  # slow to build
     sequoia.sandbox.whitelistPwd = true;
     sequoia.sandbox.autodetectCliPaths = true;
 
     shattered-pixel-dungeon.persist.byStore.plaintext = [ ".local/share/.shatteredpixel/shattered-pixel-dungeon" ];
     shattered-pixel-dungeon.sandbox.method = "bwrap";
-    shattered-pixel-dungeon.sandbox.wrapperType = "wrappedDerivation";
     shattered-pixel-dungeon.sandbox.whitelistAudio = true;
     shattered-pixel-dungeon.sandbox.whitelistDri = true;
     shattered-pixel-dungeon.sandbox.whitelistWayland = true;
@@ -850,7 +774,6 @@ in
     smartmontools.sandbox.capabilities = [ "sys_rawio" ];
 
     sops.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    sops.sandbox.wrapperType = "wrappedDerivation";
     sops.sandbox.extraHomePaths = [
       ".config/sops"
       "dev/nixos"
@@ -860,7 +783,6 @@ in
     ];
 
     soundconverter.sandbox.method = "bwrap";
-    soundconverter.sandbox.wrapperType = "wrappedDerivation";
     soundconverter.sandbox.whitelistWayland = true;
     soundconverter.sandbox.extraHomePaths = [
       "Music"
@@ -874,19 +796,16 @@ in
     soundconverter.sandbox.autodetectCliPaths = "existingOrParent";
 
     sox.sandbox.method = "bwrap";
-    sox.sandbox.wrapperType = "wrappedDerivation";
     sox.sandbox.autodetectCliPaths = "existingFileOrParent";
     sox.sandbox.whitelistAudio = true;
 
     space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
     space-cadet-pinball.sandbox.method = "bwrap";
-    space-cadet-pinball.sandbox.wrapperType = "wrappedDerivation";
     space-cadet-pinball.sandbox.whitelistAudio = true;
     space-cadet-pinball.sandbox.whitelistDri = true;
     space-cadet-pinball.sandbox.whitelistWayland = true;
 
     speedtest-cli.sandbox.method = "bwrap";
-    speedtest-cli.sandbox.wrapperType = "wrappedDerivation";
     speedtest-cli.sandbox.net = "all";
 
     sqlite = {};
@@ -894,7 +813,6 @@ in
     strace.sandbox.enable = false;  #< needs to `exec` its args, and therefore support *anything*
 
     subversion.sandbox.method = "bwrap";
-    subversion.sandbox.wrapperType = "wrappedDerivation";
     subversion.sandbox.net = "clearnet";
     subversion.sandbox.whitelistPwd = true;
     sudo.sandbox.enable = false;
@@ -907,7 +825,6 @@ in
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
     tcpdump.sandbox.method = "landlock";
-    tcpdump.sandbox.wrapperType = "wrappedDerivation";
     tcpdump.sandbox.net = "all";
     tcpdump.sandbox.autodetectCliPaths = "existingFileOrParent";
     tcpdump.sandbox.capabilities = [ "net_admin" "net_raw" ];
@@ -917,12 +834,10 @@ in
     tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
 
     tree.sandbox.method = "landlock";
-    tree.sandbox.wrapperType = "wrappedDerivation";
     tree.sandbox.autodetectCliPaths = true;
     tree.sandbox.whitelistPwd = true;
 
     tumiki-fighters.sandbox.method = "bwrap";
-    tumiki-fighters.sandbox.wrapperType = "wrappedDerivation";
     tumiki-fighters.sandbox.whitelistAudio = true;
     tumiki-fighters.sandbox.whitelistDri = true;  #< not strictly necessary, but triples CPU perf
     tumiki-fighters.sandbox.whitelistWayland = true;
@@ -931,34 +846,28 @@ in
     util-linux.sandbox.enable = false;  #< TODO: possible to sandbox if i specific a different profile for each of its ~50 binaries
 
     unzip.sandbox.method = "bwrap";
-    unzip.sandbox.wrapperType = "wrappedDerivation";
     unzip.sandbox.autodetectCliPaths = "existingOrParent";
     unzip.sandbox.whitelistPwd = true;
 
     usbutils.sandbox.method = "bwrap";  # breaks `usbhid-dump`, but `lsusb`, `usb-devices` work
-    usbutils.sandbox.wrapperType = "wrappedDerivation";
     usbutils.sandbox.extraPaths = [
       "/sys/devices"
       "/sys/bus/usb"
     ];
 
     visidata.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    visidata.sandbox.wrapperType = "wrappedDerivation";
     visidata.sandbox.autodetectCliPaths = true;
 
     # `vulkaninfo`, `vkcube`
     vulkan-tools.sandbox.method = "landlock";
-    vulkan-tools.sandbox.wrapperType = "wrappedDerivation";
 
     vvvvvv.sandbox.method = "bwrap";
-    vvvvvv.sandbox.wrapperType = "wrappedDerivation";
     vvvvvv.sandbox.whitelistAudio = true;
     vvvvvv.sandbox.whitelistDri = true;  #< playable without, but burns noticably more CPU
     vvvvvv.sandbox.whitelistWayland = true;
     vvvvvv.persist.byStore.plaintext = [ ".local/share/VVVVVV" ];
 
     w3m.sandbox.method = "bwrap";
-    w3m.sandbox.wrapperType = "wrappedDerivation";
     w3m.sandbox.net = "all";
     w3m.sandbox.extraHomePaths = [
       # little-used feature, but you can save web pages :)
@@ -966,11 +875,9 @@ in
     ];
 
     wdisplays.sandbox.method = "bwrap";
-    wdisplays.sandbox.wrapperType = "wrappedDerivation";
     wdisplays.sandbox.whitelistWayland = true;
 
     wget.sandbox.method = "bwrap";
-    wget.sandbox.wrapperType = "wrappedDerivation";
     wget.sandbox.net = "all";
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
@@ -978,16 +885,13 @@ in
 
     # `wg`, `wg-quick`
     wireguard-tools.sandbox.method = "landlock";
-    wireguard-tools.sandbox.wrapperType = "wrappedDerivation";
     wireguard-tools.sandbox.capabilities = [ "net_admin" ];
 
     # provides `iwconfig`, `iwlist`, `iwpriv`, ...
     wirelesstools.sandbox.method = "landlock";
-    wirelesstools.sandbox.wrapperType = "wrappedDerivation";
     wirelesstools.sandbox.capabilities = [ "net_admin" ];
 
     wl-clipboard.sandbox.method = "bwrap";
-    wl-clipboard.sandbox.wrapperType = "wrappedDerivation";
     wl-clipboard.sandbox.whitelistWayland = true;
 
     wtype = {};
@@ -1004,7 +908,6 @@ in
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
 
     yt-dlp.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    yt-dlp.sandbox.wrapperType = "wrappedDerivation";
     yt-dlp.sandbox.net = "all";
     yt-dlp.sandbox.whitelistPwd = true;  # saves to pwd by default
 

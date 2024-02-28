@@ -196,7 +196,7 @@ let
     which = static-nix-shell.mkBash {
       pname = "sane-which";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "file" ];
+      pkgs = [ "coreutils-full" "file" "gnugrep" ];
     };
     wipe = static-nix-shell.mkBash {
       pname = "sane-wipe";

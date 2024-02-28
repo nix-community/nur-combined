@@ -141,7 +141,6 @@ in
     }));
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [
       "user"  # mpris; portal

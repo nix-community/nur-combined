@@ -5,7 +5,6 @@ in
 {
   sane.programs.swaylock = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.extraPaths = [
       # N.B.: we need to be able to follow /etc/shadow to wherever it's symlinked.
       # swaylock seems (?) to offload password checking to pam's `unix_chkpwd`,

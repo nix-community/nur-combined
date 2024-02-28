@@ -15,7 +15,6 @@
       "wl-clipboard"
     ];
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
     sandbox.whitelistDbus = [ "user" ];
     sandbox.autodetectCliPaths = "existingFileOrParent";

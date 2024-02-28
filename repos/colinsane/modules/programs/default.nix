@@ -316,7 +316,7 @@ let
       };
       sandbox.wrapperType = mkOption {
         type = types.enum [ "inplace" "wrappedDerivation" ];
-        default = "inplace";
+        default = "wrappedDerivation";
         description = ''
           how to manipulate the `packageUnwrapped` derivation in order to achieve sandboxing.
           - inplace: applies an override to `packageUnwrapped`, so that all `bin/` files are sandboxed,
@@ -327,7 +327,6 @@ let
           "inplace" is more reliable, but "wrappedDerivation" is more lightweight (doesn't force any rebuilds).
           the biggest gap in "wrappedDerivation" is that it doesn't link anything outside `bin/`, except for
           some limited (verified safe) support for `share/applications/*.desktop`
-          "wrappedDerivation" is mostly good for prototyping.
         '';
       };
       sandbox.autodetectCliPaths = mkOption {

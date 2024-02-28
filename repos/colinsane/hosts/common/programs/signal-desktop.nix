@@ -23,7 +23,6 @@ in
 
     packageUnwrapped = pkgs.signal-desktop-from-src;
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;

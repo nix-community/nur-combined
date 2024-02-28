@@ -15,7 +15,6 @@ in
       samba = null;
     };
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
     sandbox.autodetectCliPaths = true;
     sandbox.whitelistAudio = true;

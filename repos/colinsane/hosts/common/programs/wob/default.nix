@@ -32,7 +32,6 @@ in
     };
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.whitelistWayland = true;
 
     fs.".config/wob/wob.ini".symlink.text = ''

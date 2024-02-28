@@ -21,7 +21,6 @@ in
     };
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";
 
     secrets.".config/ntfy-sh/topic" = ../../../secrets/common/ntfy-sh-topic.bin;

@@ -30,7 +30,6 @@ in
 {
   sane.programs.fontconfig = {
     sandbox.method = "bwrap";  # TODO:sandbox: untested
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.autodetectCliPaths = "existingOrParent";  #< this might be overkill; or, how many programs reference fontconfig internally?
 
     persist.byStore.plaintext = [

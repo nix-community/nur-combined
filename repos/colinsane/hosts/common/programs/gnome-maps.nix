@@ -1,8 +1,8 @@
-{ ... }:
+{ pkgs, ... }:
 {
   sane.programs."gnome.gnome-maps" = {
+    packageUnwrapped = pkgs.rmDbusServices pkgs.gnome.gnome-maps;
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";  #< dbus files
     sandbox.whitelistDri = true;  # for perf
     sandbox.whitelistDbus = [
       "system"  # system is required for non-portal location services

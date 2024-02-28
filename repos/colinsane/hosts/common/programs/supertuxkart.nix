@@ -2,7 +2,6 @@
 {
   sane.programs.superTuxKart = {
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "clearnet";  # net play
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
