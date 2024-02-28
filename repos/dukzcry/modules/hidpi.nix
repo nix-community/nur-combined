@@ -50,7 +50,7 @@ in
     })
 
     (mkIf (cfg.dpi != null) {
-      services.xserver.displayManager.sessionCommands = optionalString (cfg.dpi != null) ''
+      services.xserver.displayManager.sessionCommands = ''
         printf "%s\n" "Xft.dpi: ${toString cfg.dpi}" | xrdb -merge
       '';
       # workaround: for qt5 taken from plasma
