@@ -9,10 +9,10 @@
   });
 
   # remove when 4.13 gets added to nixpkgs
-  gtk4 = pkgs.gtk4.overrideAttrs (_: {
+  gtk4 = pkgs.gtk4.overrideAttrs (old: {
     inherit (sources.gtk-4_13_4) version src;
-
     patches = [];
+    buildInputs = old.buildInputs ++ (with pkgs; [libdrm]);
   });
 
   # remove when 6.0.1 gets added to nixpkgs
