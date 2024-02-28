@@ -14,4 +14,5 @@
   vimPlugins = pkgs.callPackage ./vimPlugins {};
   thunar = import ./thunar;
   waybar = import ./waybar;
+  ultimateKeys = import ./ultimateKeys;
 }
