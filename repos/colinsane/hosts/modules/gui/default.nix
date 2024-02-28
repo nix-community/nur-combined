@@ -10,7 +10,6 @@ in
     ./gnome.nix
     ./greetd.nix
     ./gtk.nix
-    ./phosh.nix
     ./sxmo
     ./theme
   ];

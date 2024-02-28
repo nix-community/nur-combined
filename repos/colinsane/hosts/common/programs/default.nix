@@ -26,6 +26,7 @@
     ./evince.nix
     ./feedbackd.nix
     ./firefox.nix
+    ./firejail.nix
     ./flare-signal.nix
     ./fontconfig.nix
     ./fractal.nix

@@ -49,6 +49,9 @@ in
       "sane-scripts.sync-music"
     ];
 
+    "sane-scripts.backup-ls" = {};
+    "sane-scripts.backup-restore" = {};
+
     "sane-scripts.bt-add".sandbox = {
       method = "bwrap";
       wrapperType = "wrappedDerivation";
@@ -120,6 +123,8 @@ in
       wrapperType = "wrappedDerivation";
       net = "all";
     };
+
+    "sane-scripts.ip-port-forward" = {};
 
     "sane-scripts.private-change-passwd".sandbox = {
       method = "bwrap";
@@ -216,8 +221,13 @@ in
       ];
     };
 
+    "sane-scripts.stop-all-servo" = {};
+
     # if `tee` isn't trustworthy we have bigger problems
     "sane-scripts.sudo-redirect".sandbox.enable = false;
+
+    "sane-scripts.sync-music" = {};
+    "sane-scripts.sync-from-iphone" = {};
 
     "sane-scripts.tag-music".sandbox = {
       method = "bwrap";

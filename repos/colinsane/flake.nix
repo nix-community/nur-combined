@@ -525,6 +525,7 @@
                 --option allow-import-from-derivation true \
                 --drv-path --show-trace \
                 -I nixpkgs=${nixpkgs-unpatched} \
+                -I nixpkgs-overlays=${./.}/hosts/common/nix/overlay \
                 -I ../../ \
                 | tee  # tee to prevent interactive mode
             '');

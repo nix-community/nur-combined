@@ -28,7 +28,7 @@ in
 
     fs.".local/share/keyrings/default" = {
       file.text = "Default_keyring.keyring";  #< no trailing newline
-      wantedBy = [ config.sane.fs."${config.sane.persist.stores.private.origin}".unit ];
+      # wantedBy = [ config.sane.fs."${config.sane.persist.stores.private.origin}".unit ];
       wantedBeforeBy = [  #< don't create this as part of `multi-user.target`
         "gnome-keyring.service"  # TODO: sane.programs should declare this dependency for us
       ];
@@ -43,7 +43,7 @@ in
         lock-on-idle=false
         lock-after=false
       '';
-      wantedBy = [ config.sane.fs."${config.sane.persist.stores.private.origin}".unit ];
+      # wantedBy = [ config.sane.fs."${config.sane.persist.stores.private.origin}".unit ];
       wantedBeforeBy = [  #< don't create this as part of `multi-user.target`
         "gnome-keyring.service"
       ];

@@ -28,10 +28,10 @@ wipe_browser() {
     || true  # in case no matches
 
   # browsers like to stick around in the background so they can load faster
-  sudo pkill brave || true
-  sudo pkill epiphany || true
-  sudo pkill firefox || true
-  sudo pkill librewolf || true
+  pkill brave || true
+  pkill epiphany || true
+  pkill firefox || true
+  pkill librewolf || true
 }
 
 wipe_dino() {

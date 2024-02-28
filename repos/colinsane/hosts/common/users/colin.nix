@@ -42,7 +42,7 @@
     # - <https://github.com/dnr/sample-nix-code/blob/03494480c1fae550c033aa54fd96aeb3827761c5/nixos/laptop.nix>
     pamMount = let
       priv = config.fileSystems."${config.sane.persist.stores.private.origin}";
-    in {
+    in lib.mkIf config.sane.persist.enable {
       fstype = priv.fsType;
       path = priv.device;
       mountpoint = priv.mountPoint;

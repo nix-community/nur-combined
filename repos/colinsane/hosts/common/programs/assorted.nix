@@ -206,6 +206,8 @@ in
     alsaUtils.sandbox.wrapperType = "wrappedDerivation";
     alsaUtils.sandbox.whitelistAudio = true;  #< not strictly necessary?
 
+    backblaze-b2 = {};
+
     blanket.sandbox.method = "bwrap";
     blanket.sandbox.wrapperType = "wrappedDerivation";
     blanket.sandbox.whitelistAudio = true;
@@ -242,6 +244,8 @@ in
     "cacert.unbundled".sandbox.enable = false;
 
     cargo.persist.byStore.plaintext = [ ".cargo" ];
+
+    clang = {};
 
     # cryptsetup: typical use is `cryptsetup open /dev/loopxyz mappedName`, and creates `/dev/mapper/mappedName`
     cryptsetup.sandbox.method = "landlock";
@@ -293,6 +297,8 @@ in
     dtrx.sandbox.whitelistPwd = true;
     dtrx.sandbox.autodetectCliPaths = "existing";  #< for the archive
 
+    duplicity = {};
+
     e2fsprogs.sandbox.method = "landlock";
     e2fsprogs.sandbox.wrapperType = "wrappedDerivation";
     e2fsprogs.sandbox.autodetectCliPaths = "existing";
@@ -302,6 +308,8 @@ in
     efibootmgr.sandbox.extraPaths = [
       "/sys/firmware/efi"
     ];
+
+    eg25-control = {};
 
     electrum.sandbox.method = "bwrap";  # TODO:sandbox: untested
     electrum.sandbox.wrapperType = "wrappedDerivation";
@@ -409,6 +417,8 @@ in
     gdb.sandbox.wrapperType = "wrappedDerivation";
     gdb.sandbox.autodetectCliPaths = true;
 
+    geoclue2-with-demo-agent = {};
+
     # MS GitHub stores auth token in .config
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
     gh.persist.byStore.private = [ ".config/gh" ];
@@ -505,12 +515,17 @@ in
       ".persist/plaintext"
     ];
 
+    gnused = {};
+    gpsd = {};
+
     gptfdisk.sandbox.method = "landlock";
     gptfdisk.sandbox.wrapperType = "wrappedDerivation";
     gptfdisk.sandbox.extraPaths = [
       "/dev"
     ];
     gptfdisk.sandbox.autodetectCliPaths = "existing";  #< sometimes you'll use gdisk on a device file.
+
+    grim = {};
 
     hase.sandbox.method = "bwrap";
     hase.sandbox.wrapperType = "wrappedDerivation";
@@ -643,6 +658,8 @@ in
     lsof.sandbox.method = "capshonly";  # lsof doesn't sandbox under bwrap or even landlock w/ full access to /
     lsof.sandbox.wrapperType = "wrappedDerivation";
 
+    lua = {};
+
     "mate.engrampa".sandbox.method = "bwrap";  # TODO:sandbox: untested
     "mate.engrampa".sandbox.wrapperType = "inplace";
     "mate.engrampa".sandbox.whitelistWayland = true;
@@ -717,6 +734,8 @@ in
       "/proc"
     ];
 
+    nodejs = {};
+
     # `nvme list` only shows results when run as root.
     nvme-cli.sandbox.method = "landlock";
     nvme-cli.sandbox.wrapperType = "wrappedDerivation";
@@ -742,6 +761,8 @@ in
       "/dev"
     ];
     parted.sandbox.autodetectCliPaths = "existing";  #< sometimes you'll use parted on a device file.
+
+    patchelf = {};
 
     pavucontrol.sandbox.method = "bwrap";
     pavucontrol.sandbox.wrapperType = "wrappedDerivation";
@@ -801,6 +822,8 @@ in
     rsync.sandbox.net = "clearnet";
     rsync.sandbox.autodetectCliPaths = "existingOrParent";
 
+    rustc = {};
+
     screen.sandbox.enable = false;  #< tty; needs to run anything
 
     sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested
@@ -817,6 +840,8 @@ in
 
     # printer/filament settings
     slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
+
+    slurp = {};
 
     # use like `sudo smartctl /dev/sda -a`
     smartmontools.sandbox.method = "landlock";
@@ -863,6 +888,8 @@ in
     speedtest-cli.sandbox.method = "bwrap";
     speedtest-cli.sandbox.wrapperType = "wrappedDerivation";
     speedtest-cli.sandbox.net = "all";
+
+    sqlite = {};
 
     strace.sandbox.enable = false;  #< needs to `exec` its args, and therefore support *anything*
 
@@ -963,6 +990,8 @@ in
     wl-clipboard.sandbox.wrapperType = "wrappedDerivation";
     wl-clipboard.sandbox.whitelistWayland = true;
 
+    wtype = {};
+
     xwayland.sandbox.method = "bwrap";
     xwayland.sandbox.wrapperType = "inplace";  #< consumers use it as a library (e.g. wlroots)
     xwayland.sandbox.whitelistWayland = true;  #< just assuming this is needed
@@ -978,13 +1007,11 @@ in
     yt-dlp.sandbox.wrapperType = "wrappedDerivation";
     yt-dlp.sandbox.net = "all";
     yt-dlp.sandbox.whitelistPwd = true;  # saves to pwd by default
+
+    zfs = {};
   };
 
   programs.feedbackd = lib.mkIf config.sane.programs.feedbackd.enabled {
     enable = true;
-  };
-
-  programs.firejail = lib.mkIf config.sane.programs.firejail.enabled {
-    enable = true;  #< install the suid binary
   };
 }

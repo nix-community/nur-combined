@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   sane.user.persist.byStore.plaintext = [
     "archive"
@@ -29,14 +29,17 @@
   ];
 
   # convenience
-  sane.user.fs.".persist/private".symlink.target = config.sane.persist.stores.private.origin;
-  sane.user.fs.".persist/plaintext".symlink.target = config.sane.persist.stores.plaintext.origin;
-  sane.user.fs.".persist/ephemeral".symlink.target = config.sane.persist.stores.cryptClearOnBoot.origin;
+  sane.user.fs = let
+    persistEnabled = config.sane.persist.enable;
+  in {
+    ".persist/private" = lib.mkIf persistEnabled { symlink.target = config.sane.persist.stores.private.origin; };
+    ".persist/plaintext" = lib.mkIf persistEnabled { symlink.target = config.sane.persist.stores.plaintext.origin; };
+    ".persist/ephemeral" = lib.mkIf persistEnabled { symlink.target = config.sane.persist.stores.cryptClearOnBoot.origin; };
 
-  sane.user.fs."nixos".symlink.target = "dev/nixos";
+    "nixos".symlink.target = "dev/nixos";
 
-  sane.user.fs."Books/servo".symlink.target = "/mnt/servo/media/Books";
-  sane.user.fs."Videos/servo".symlink.target = "/mnt/servo/media/Videos";
-  # sane.user.fs."Music/servo".symlink.target = "/mnt/servo/media/Music";
-  sane.user.fs."Pictures/servo-macros".symlink.target = "/mnt/servo/media/Pictures/macros";
+    "Books/servo".symlink.target = "/mnt/servo/media/Books";
+    "Videos/servo".symlink.target = "/mnt/servo/media/Videos";
+    "Pictures/servo-macros".symlink.target = "/mnt/servo/media/Pictures/macros";
+  };
 }
