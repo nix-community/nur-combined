@@ -28,7 +28,6 @@
       let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
         "openssh"
         "fail2ban"
-        "dae"
       ]
         (n: importService n)
     ) // {
@@ -76,6 +75,13 @@
       #       })) // { deps = [ ]; })
       #     ];
       # };
+
+      online-keeper.instances = [
+        {
+          name = "sec";
+          environmentFile = config.age.secrets.tg-session.path;
+        }
+      ];
 
       rustypaste = {
         enable = true;

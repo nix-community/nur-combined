@@ -8,6 +8,7 @@
       factorio-server = { rekeyFile = ../../sec/factorio-server.age; mode = "640"; owner = "factorio"; group = "users"; name = "factorio-server"; };
       factorio-admin = { rekeyFile = ../../sec/factorio-admin.age; mode = "640"; owner = "factorio"; group = "users"; name = "factorio-admin"; };
       factorio-manager-bot = { rekeyFile = ../../sec/factorio-manager-bot.age; mode = "640"; owner = "factorio"; group = "users"; name = "factorio-manager-bot"; };
+      tg-session = { rekeyFile = ../../sec/tg-session.age; mode = "640"; owner = "root"; group = "root"; name = "tg-session"; };
     };
   };
 }

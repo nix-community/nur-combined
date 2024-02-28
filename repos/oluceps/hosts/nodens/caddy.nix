@@ -269,6 +269,7 @@
                 "vault.nyaw.xyz"
                 "pb.nyaw.xyz"
                 "nyaw.xyz"
+                "api.heartrate.nyaw.xyz"
               ];
             }
               {

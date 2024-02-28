@@ -9,7 +9,7 @@ alias p := push-secret
 
 host := `hostname`
 me := `whoami`
-loc := "/home/riro/Src/nixos"
+loc := `pwd`
 nodes := `nix eval --impure --expr 'with builtins; attrNames (getFlake (toString ./.) ).nixosConfigurations'`
 
 # now `all` produces false while which in list.
@@ -20,7 +20,7 @@ filter := '''
 map := '''
 	{
 		hastur: riro@hastur,
-		kaambl: elen@kaambl,
+		kaambl: elen@localhost,
 		eihort: root@192.168.1.159,
 		nodens: dgs,
 		azasos: tcs,
@@ -81,7 +81,7 @@ rekey:
 
 overwrite-s3:
     mc mirror --overwrite --remove /home/{{ me }}/Sec/ r2/sec/Sec
-    mc mirror --overwrite --remove {{loc}}/sec/ r2/sec/credentials
+    mc mirror --overwrite --remove {{ loc }}/sec/ r2/sec/credentials
 
 overwrite-local:
     mc mirror --overwrite --remove r2/sec/Sec /home/{{ me }}/Sec/

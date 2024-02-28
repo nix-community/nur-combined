@@ -36,6 +36,7 @@
             ]
             ++ lib.sharedModules ++ [
               inputs.factorio-manager.nixosModules.default
+              inputs.tg-online-keeper.nixosModules.default
             ];
 
           };

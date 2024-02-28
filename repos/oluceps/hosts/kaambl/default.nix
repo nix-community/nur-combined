@@ -52,6 +52,7 @@
             [
               inputs.aagl.nixosModules.default
               inputs.disko.nixosModules.default
+              inputs.tg-online-keeper.nixosModules.default
               # inputs.factorio-manager.nixosModules.default
             ];
           };

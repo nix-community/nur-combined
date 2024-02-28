@@ -54,6 +54,7 @@ let
         yaml-language-server
         tree-sitter
         stylua
+        biome
         # black
       ]
       # languages related

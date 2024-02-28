@@ -3,7 +3,7 @@
   outputs = inputs@{ flake-parts, ... }:
     let extraLibs = (import ./hosts/lib.nix inputs); /* f = excludes: valueFunc: */
     in
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    flake-parts.lib.mkFlake { inherit inputs; } ({ ... }: {
       imports = import ./hosts inputs;
       debug = false;
       systems = [ "x86_64-linux" "aarch64-linux" ];
@@ -39,7 +39,7 @@
               "shufflecake"
             ];
           in
-          extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (n: pkgs.${n});
+          (extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (n: pkgs.${n}));
       };
 
       flake = {
@@ -79,7 +79,7 @@
           modules // { inherit default; };
       };
 
-    };
+    });
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -93,6 +93,7 @@
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tg-online-keeper.url = "github:oluceps/TelegramOnlineKeeper";
     RyanGibb = {
       url = "github:RyanGibb/nixos";
     };

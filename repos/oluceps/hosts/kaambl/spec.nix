@@ -51,13 +51,6 @@
       }
     ];
     tailscale = { enable = true; openFirewall = true; };
-    dae = {
-      enable = true;
-      # package = pkgs.dae-unstable;
-    };
-    sing-box = {
-      enable = true;
-    };
 
     copilot-gpt4.enable = true;
     # cloudflared = {

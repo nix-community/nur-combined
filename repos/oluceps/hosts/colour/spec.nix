@@ -53,6 +53,10 @@
   ) // {
     juicity.instances = [{
       name = "only";
+      credentials = [
+        "key:${config.age.secrets."nyaw.key".path}"
+        "cert:${config.age.secrets."nyaw.cert".path}"
+      ];
       serve = {
         enable = true;
         port = 23180;
@@ -74,31 +78,6 @@
         configFile = config.age.secrets.hyst-us.path;
       }
     ];
-
-
-    caddy = {
-      enable = true;
-      virtualHosts = {
-        "api.atuin.nyaw.xyz" = {
-          hostName = "api.atuin.nyaw.xyz";
-          extraConfig = ''
-            log {
-              level DEBUG
-            }
-    
-            tls mn1.674927211@gmail.com
-            reverse_proxy 10.0.2.2:8888
-          '';
-        };
-        "gpt4.nyaw.xyz" = {
-          hostName = "gpt4.nyaw.xyz";
-          extraConfig = ''
-            tls mn1.674927211@gmail.com
-            reverse_proxy 10.0.2.3:3000
-          '';
-        };
-      };
-    };
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?

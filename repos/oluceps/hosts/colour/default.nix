@@ -28,6 +28,7 @@
               ./network.nix
               ./rekey.nix
               ./spec.nix
+              ./caddy.nix
               ../../age.nix
               ../../packages.nix
               ../../misc.nix
