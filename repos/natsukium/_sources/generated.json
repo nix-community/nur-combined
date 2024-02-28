@@ -16,7 +16,7 @@
     },
     "emacs-plus": {
         "cargoLocks": null,
-        "date": "2024-01-24",
+        "date": "2024-02-21",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -28,15 +28,15 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "5f068f6fe34eb9b431d87959f30f06945be3f587",
-            "sha256": "sha256-R7ac9kNy1UkdKHCVi/ZXk6L9quCkkVY1LQ6yZLapWwk=",
+            "rev": "d5dd64d3ad95b5e99c282f8cb7c596ed69da108b",
+            "sha256": "sha256-N20cgvkcG3YKb+Qjh+3NlGhomX2QXfjC6pd54CR0dwc=",
             "type": "github"
         },
-        "version": "5f068f6fe34eb9b431d87959f30f06945be3f587"
+        "version": "d5dd64d3ad95b5e99c282f8cb7c596ed69da108b"
     },
     "nixfmt": {
         "cargoLocks": null,
-        "date": "2024-02-08",
+        "date": "2024-02-27",
         "extract": null,
         "name": "nixfmt",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "piegamesde",
             "repo": "nixfmt",
-            "rev": "ca1fe3572ea6134551ee6af40ae735a1a1ed0d35",
-            "sha256": "sha256-d7a6xfqhbyLikHultxjHO33SqUcif/8eGyxhRZ9PvZk=",
+            "rev": "dc93faa18cdc031ce5e22f4ef6f91222c70bb36d",
+            "sha256": "sha256-ONofjTlhWaKw3MtLP+d2nyTNSG8bE8pRZhuERvXlABA=",
             "type": "github"
         },
-        "version": "ca1fe3572ea6134551ee6af40ae735a1a1ed0d35"
+        "version": "dc93faa18cdc031ce5e22f4ef6f91222c70bb36d"
     },
     "nixpkgs-review": {
         "cargoLocks": null,
@@ -121,7 +121,7 @@
     },
     "sbarlua": {
         "cargoLocks": null,
-        "date": "2024-02-20",
+        "date": "2024-02-27",
         "extract": null,
         "name": "sbarlua",
         "passthru": null,
@@ -133,11 +133,11 @@
             "name": null,
             "owner": "FelixKratz",
             "repo": "SbarLua",
-            "rev": "c0286cc701d1fd1e20f8a22afdb0eead31ffc87c",
-            "sha256": "sha256-+gzPAe/MpK48hWIvCXHYv33SrcOmobyXZDx/Y6fWpiA=",
+            "rev": "6157671ab29bb9213f345f541115329329a0e6bd",
+            "sha256": "sha256-fJigsTJOce4xTk1Y+QHGd+y3muMH0SchOJXdjwVOJMY=",
             "type": "github"
         },
-        "version": "c0286cc701d1fd1e20f8a22afdb0eead31ffc87c"
+        "version": "6157671ab29bb9213f345f541115329329a0e6bd"
     },
     "skkeleton": {
         "cargoLocks": null,

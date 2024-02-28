@@ -11,27 +11,27 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "5f068f6fe34eb9b431d87959f30f06945be3f587";
+    version = "d5dd64d3ad95b5e99c282f8cb7c596ed69da108b";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "5f068f6fe34eb9b431d87959f30f06945be3f587";
+      rev = "d5dd64d3ad95b5e99c282f8cb7c596ed69da108b";
       fetchSubmodules = false;
-      sha256 = "sha256-R7ac9kNy1UkdKHCVi/ZXk6L9quCkkVY1LQ6yZLapWwk=";
+      sha256 = "sha256-N20cgvkcG3YKb+Qjh+3NlGhomX2QXfjC6pd54CR0dwc=";
     };
-    date = "2024-01-24";
+    date = "2024-02-21";
   };
   nixfmt = {
     pname = "nixfmt";
-    version = "ca1fe3572ea6134551ee6af40ae735a1a1ed0d35";
+    version = "dc93faa18cdc031ce5e22f4ef6f91222c70bb36d";
     src = fetchFromGitHub {
       owner = "piegamesde";
       repo = "nixfmt";
-      rev = "ca1fe3572ea6134551ee6af40ae735a1a1ed0d35";
+      rev = "dc93faa18cdc031ce5e22f4ef6f91222c70bb36d";
       fetchSubmodules = false;
-      sha256 = "sha256-d7a6xfqhbyLikHultxjHO33SqUcif/8eGyxhRZ9PvZk=";
+      sha256 = "sha256-ONofjTlhWaKw3MtLP+d2nyTNSG8bE8pRZhuERvXlABA=";
     };
-    date = "2024-02-08";
+    date = "2024-02-27";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
@@ -71,15 +71,15 @@
   };
   sbarlua = {
     pname = "sbarlua";
-    version = "c0286cc701d1fd1e20f8a22afdb0eead31ffc87c";
+    version = "6157671ab29bb9213f345f541115329329a0e6bd";
     src = fetchFromGitHub {
       owner = "FelixKratz";
       repo = "SbarLua";
-      rev = "c0286cc701d1fd1e20f8a22afdb0eead31ffc87c";
+      rev = "6157671ab29bb9213f345f541115329329a0e6bd";
       fetchSubmodules = false;
-      sha256 = "sha256-+gzPAe/MpK48hWIvCXHYv33SrcOmobyXZDx/Y6fWpiA=";
+      sha256 = "sha256-fJigsTJOce4xTk1Y+QHGd+y3muMH0SchOJXdjwVOJMY=";
     };
-    date = "2024-02-20";
+    date = "2024-02-27";
   };
   skkeleton = {
     pname = "skkeleton";
