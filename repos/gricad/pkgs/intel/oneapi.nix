@@ -1,6 +1,6 @@
 { lib, stdenv, fetchurl, glibc, libX11, glib, libnotify, xdg-utils, ncurses, nss, 
   at-spi2-core, libxcb, libdrm, gtk3, mesa, qt515, zlib, xorg, atk, nspr, dbus,
-  pango, cairo, gdk_pixbuf, x11, cups, expat, libxkbcommon, alsaLib, file, at-spi2-atk,
+  pango, cairo, gdk_pixbuf, cups, expat, libxkbcommon, alsaLib, file, at-spi2-atk,
   freetype, fontconfig }:
 
 stdenv.mkDerivation rec {
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   libPath = lib.makeLibraryPath [ stdenv.cc.cc libX11 glib libnotify xdg-utils 
                                   ncurses nss at-spi2-core libxcb libdrm gtk3 
                                   mesa qt515.full zlib atk nspr dbus pango cairo 
-                                  gdk_pixbuf x11 cups expat libxkbcommon alsaLib
+                                  gdk_pixbuf cups expat libxkbcommon alsaLib
                                   at-spi2-atk xorg.libXcomposite xorg.libxshmfence 
                                   xorg.libXdamage xorg.libXext xorg.libXfixes
                                   xorg.libXrandr ];

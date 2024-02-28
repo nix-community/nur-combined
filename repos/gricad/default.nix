@@ -15,7 +15,6 @@ rec {
   intel-compilers-2019 = pkgs.callPackage ./pkgs/intel/2019.nix { };
   intel-oneapi = pkgs.callPackage ./pkgs/intel/oneapi.nix { 
     gdk_pixbuf = pkgs.gdk-pixbuf; 
-    x11 = pkgs.xlibsWrapper;
   };
 
   # iRods
@@ -52,7 +51,15 @@ rec {
     libfabric = libfabric;
     ucx = ucx;
   };
-  openmpi = openmpi4;
+  openmpi5 = pkgs.callPackage ./pkgs/openmpi/5.nix {
+    enablePrefix = true;
+    fabricSupport = true;
+    libfabric = libfabric;
+    ucx = ucx;
+  };
+
+  openmpi = openmpi5;
+
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
   libfabric = pkgs.callPackage ./pkgs/libfabric { };
   # Now obsolete, by libfabric 1.17 which enables OPX
@@ -69,9 +76,10 @@ rec {
   hpl = pkgs.callPackage ./pkgs/hpl { mpi = openmpi4; };
 
   # Trilinos
-  trilinos =  pkgs.callPackage ./pkgs/trilinos { 
-    openmpi = openmpi4;
-  };
+  # Now is upstream
+  #trilinos =  pkgs.callPackage ./pkgs/trilinos { 
+  #  openmpi = openmpi4;
+  #};
 
   # Fate
   fate = pkgs.callPackage ./pkgs/fate { };
@@ -80,7 +88,8 @@ rec {
   gdl = pkgs.callPackage ./pkgs/gdl { };
 
   # Zonation
-  zonation-core = pkgs.callPackage ./pkgs/zonation-core { };
+  # Requires qt4 which is not maintained anymore
+  #zonation-core = pkgs.callPackage ./pkgs/zonation-core { };
 
   # Scotch with mumps libraries
   scotch-mumps = pkgs.callPackage ./pkgs/scotch-mumps { };
@@ -117,7 +126,7 @@ rec {
   osu-micro-benchmarks =  pkgs.callPackage ./pkgs/osu-micro-benchmarks { 
     #mpi = openmpi3;
     #mpi = pkgs.mpich;
-    mpi = openmpi4;
+    mpi = openmpi5;
   };
 
   hp2p = pkgs.callPackage ./pkgs/hp2p { mpi = openmpi4; };
