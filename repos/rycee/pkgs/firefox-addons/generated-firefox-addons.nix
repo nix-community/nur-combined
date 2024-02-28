@@ -191,10 +191,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.10";
+      version = "1.0.11";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4238972/angular_devtools-1.0.10.xpi";
-      sha256 = "1fcf8deb97408f46feb785640a672cd561e5f407ded7fedcc6ff910093306adc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4242281/angular_devtools-1.0.11.xpi";
+      sha256 = "b2f2f2c5e68aa6069e7b08e2fcd80329b709bbb80a34990689946dd1224aebdb";
       meta = with lib;
       {
         homepage = "https://angular.io/devtools";
@@ -4500,10 +4500,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.642";
+      version = "4.702";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4237978/youtube_addon-4.642.xpi";
-      sha256 = "efd9432dac1b9afb1fbea9e520cd2affe9799aaf44c342a26a95cc2712012a87";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241069/youtube_addon-4.702.xpi";
+      sha256 = "292eff2b102b81213371ec2151c5f5844775e01a5ae9092ebab16a1c2cc69638";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -7207,10 +7207,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "10.2.9";
+      version = "10.2.10";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4238156/pakkujs-10.2.9.xpi";
-      sha256 = "f34ea5a4ac6a6290aeee0538e72959639e06b4dc41e448d1c2ea58760617bd55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4242078/pakkujs-10.2.10.xpi";
+      sha256 = "6feb62bc9bc0c3467dd84ee79b51741bdc7b20c27da17641f70927195fb81dc1";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
