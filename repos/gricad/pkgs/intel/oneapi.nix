@@ -4,8 +4,9 @@
   freetype, fontconfig }:
 
 stdenv.mkDerivation rec {
-  version = "2022.2.0.262";
-  hpc_version = "2022.2.0.191";
+  version = "2024.0.1.46";
+  hpc_version = "2024.0.1.38";
+  version_dir="2024.0";
   name = "intel-oneapi-${version}";
 
   # For localy downloaded offline installers
@@ -15,12 +16,12 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
   srcs = [
     (fetchurl {
-      url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18673/l_BaseKit_p_2022.2.0.262_offline.sh";
-      sha256 = "03qx6sb58mkhc7iyc8va4y1ihj6l3155dxwmqj8dfw7j2ma7r5f6";
+      url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/163da6e4-56eb-4948-aba3-debcec61c064/l_BaseKit_p_2024.0.1.46_offline.sh";
+      sha256 = "1sp1fgjv8xj8qxf8nv4lr1x5cxz7xl5wv4ixmfmcg0gyk28cjq1g";
     })
     (fetchurl {
-      url = "https://registrationcenter-download.intel.com/akdlm/irc_nas/18679/l_HPCKit_p_2022.2.0.191_offline.sh";
-      sha256 = "0swz4w9bn58wwqjkqhjqnkcs8k8ms9nn9s8k7j5w6rzvsa6817d2";
+      url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/67c08c98-f311-4068-8b85-15d79c4f277a/l_HPCKit_p_2024.0.1.38_offline.sh";
+      sha256 = "06vpdz51w2v4ncgk8k6y2srlfbbdqdmb4v4bdwb67zsg9lmf8fp9";
     })
   ];
 
@@ -83,7 +84,7 @@ stdenv.mkDerivation rec {
       for file in `find $dir -type f -exec file {} + | grep ELF| awk -F: '{print $1}'`
       do
           echo "       $file"
-          patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath '$ORIGIN'":${glibc}/lib:$libPath:$dir/latest/lib64" $file 2>/dev/null || true
+          patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath '$ORIGIN'":${glibc}/lib:$libPath:$dir/latest/lib64:$out/${version_dir}/lib" $file 2>/dev/null || true
       done
     done
   '';
