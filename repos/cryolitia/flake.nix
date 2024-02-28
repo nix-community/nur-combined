@@ -19,8 +19,24 @@
         "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       ];
     };
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
+  inputs = {
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    gpd-linuxcontrols = {
+      url = "github:Cryolitia/GPD-LinuxControls";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+  };
+  outputs = { self, nixpkgs, gpd-linuxcontrols, ... }:
     let
       systems = [
         "x86_64-linux"
@@ -33,12 +49,14 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
-      legacyPackages = forAllSystems (system: import ./default.nix {
+      legacyPackages = (forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
         };
-      });
+      } // gpd-linuxcontrols.legacyPackages.${system}
+      ));
+
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
       nixosModules = import ./modules;
