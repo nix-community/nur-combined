@@ -7,7 +7,9 @@
   sane.programs.splatmoji = {
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
-    sandbox.whitelistWayland = true;  # it calls into `fuzzel`.
+    sandbox.whitelistWayland = true;  # it calls into a dmenu helper
+
+    suggestedPrograms = [ "rofi" ];
 
     persist.byStore.plaintext = [ ".local/state/splatmoji" ];
     fs.".config/splatmoji/splatmoji.config".symlink.text = ''
@@ -18,10 +20,11 @@
       # to `splatmoji` itself, so there's zero benefit to acquiring them via the environment;
       # doing so would in fact be costlier.
       paste_command=${pkgs.wtype}/bin/wtype -M Ctrl -k v
-      # rofi_command=${pkgs.wofi}/bin/wofi --dmenu --insensitive --cache-file /dev/null
-      rofi_command=${pkgs.fuzzel}/bin/fuzzel -d -i -w 60
       xdotool_command=${pkgs.wtype}/bin/wtype
       xsel_command=${pkgs.findutils}/bin/xargs ${pkgs.wl-clipboard}/bin/wl-copy
     '';
+    # alternative tweaks:
+    # rofi_command=${pkgs.wofi}/bin/wofi --dmenu --insensitive --cache-file /dev/null
+    # rofi_command=${pkgs.fuzzel}/bin/fuzzel -d -i -w 60
   };
 }

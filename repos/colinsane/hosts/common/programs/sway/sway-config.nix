@@ -11,13 +11,13 @@ let
   snip_cmd_pkg = writeShellApplication {
     name = "type-snippet";
     runtimeInputs = [
-      prog.fuzzel.package
+      prog.rofi.package
       prog.gnused.package
       prog.wtype.package
     ];
     text = ''
       snippet=$(cat ${./snippets.txt} ~/.config/sane-sway/snippets.txt | \
-        fuzzel -d -i -w 60 | \
+        rofi -dmenu | \
         sed 's/ #.*$//')
       wtype "$snippet"
     '';

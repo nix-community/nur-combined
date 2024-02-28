@@ -109,7 +109,6 @@ in
       "brightnessctl"
       "conky"  # for a nice background
       "fontconfig"
-      "fuzzel"
       # "gnome.gnome-bluetooth"  # XXX(2023/05/14): broken
       # "gnome.gnome-control-center"  # XXX(2023/06/28): depends on webkitgtk4_1
       "pipewire"

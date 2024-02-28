@@ -23,30 +23,39 @@
 # - <https://github.com/ceuk/rofi-screenshot>
 # - <https://gitlab.com/DamienCassou/rofi-pulse-select>
 { pkgs, ... }:
+let
+  rofi-unwrapped = pkgs.rofi-wayland-unwrapped.overrideAttrs (upstream: {
+    # my patches made for tip don't cleanly apply to stable, so advance the entire src
+    src = pkgs.fetchFromGitea {
+      domain = "git.uninsane.org";
+      owner = "colin";
+      repo = "rofi";
+      fetchSubmodules = true;
+      # rev = "dev-sane";  #< fetchFromGitea doesn't support tags (?)
+      rev = "1edfceaeefa2cae971ae90dc55811f3b7592a1b4";
+      hash = "sha256-oIWLwec1LRsss12S92ebBWQk14FBJWc6QcYxzOU3eFI=";
+    };
+    # patches = (upstream.patches or []) ++ [
+    #   (pkgs.fetchpatch {
+    #     url = "https://git.uninsane.org/colin/rofi/commit/d8bb0b9944ec1f3bf7479c9f127ec09d4198e87f.patch";
+    #     name = "run-{shell-,}command: expand `{app_id}` inside the template string";
+    #     hash = "sha256-XiZRvr+BARU7h3OPU0NUUEem3isnUVER69zucSqvNNk=";
+    #   })
+    # ];
+  });
+  # rofi-emoji = pkgs.rofi-emoji.override {
+  #   # plugins must be compiled against the same rofi they're loaded by
+  #   inherit rofi-unwrapped;
+  # };
+in
 {
   sane.programs.rofi = {
     # 2024/02/26: wayland is only supported by the fork: <https://github.com/lbonn/rofi>.
     # it's actively maintained though, and more of an overlay than a true fork.
     packageUnwrapped = pkgs.rofi-wayland.override {
-      rofi-unwrapped = pkgs.rofi-wayland-unwrapped.overrideAttrs (upstream: {
-        # my patches made for tip don't cleanly apply to stable, so advance the entire src
-        src = pkgs.fetchFromGitea {
-          domain = "git.uninsane.org";
-          owner = "colin";
-          repo = "rofi";
-          fetchSubmodules = true;
-          # rev = "dev-sane";  #< fetchFromGitea doesn't support tags (?)
-          rev = "1edfceaeefa2cae971ae90dc55811f3b7592a1b4";
-          hash = "sha256-oIWLwec1LRsss12S92ebBWQk14FBJWc6QcYxzOU3eFI=";
-        };
-        # patches = (upstream.patches or []) ++ [
-        #   (pkgs.fetchpatch {
-        #     url = "https://git.uninsane.org/colin/rofi/commit/d8bb0b9944ec1f3bf7479c9f127ec09d4198e87f.patch";
-        #     name = "run-{shell-,}command: expand `{app_id}` inside the template string";
-        #     hash = "sha256-XiZRvr+BARU7h3OPU0NUUEem3isnUVER69zucSqvNNk=";
-        #   })
-        # ];
-      });
+      inherit rofi-unwrapped;
+      # rofi-emoji: "insert" mode doesn't work; use a wrapper like `splatmoji` instead.
+      # plugins = [ rofi-emoji ];
     };
 
     suggestedPrograms = [
