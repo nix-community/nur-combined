@@ -21,7 +21,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-02-23",
+        "date": "2024-02-27",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -33,11 +33,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "154ae5cc3328e26cabe4ac4fec3019e5cecb4611",
-            "sha256": "sha256-yVJyNjF/UNpncx2SNo46F7AVrT+4IVTHe5Gg4B8+Cg0=",
+            "rev": "890a6aa448598a019e72b5431d8ba8e0a5dbcc85",
+            "sha256": "sha256-3sj8xItngfUQ6W85QCWOQpcXLFVbgLGvqjCs5VBaUlc=",
             "type": "github"
         },
-        "version": "154ae5cc3328e26cabe4ac4fec3019e5cecb4611"
+        "version": "890a6aa448598a019e72b5431d8ba8e0a5dbcc85"
     },
     "nezha-agent": {
         "cargoLocks": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "nezhahq",
             "repo": "agent",
-            "rev": "v0.16.0",
-            "sha256": "sha256-dg6GBNbCnC94h0b/NzFQBBAE8YwfWRtBTlgQ370+zko=",
+            "rev": "v0.16.1",
+            "sha256": "sha256-YumfGpKoThKqodk+D/7hBMegzZpdc5x3KiwwQEY3Gx0=",
             "type": "github"
         },
-        "version": "v0.16.0"
+        "version": "v0.16.1"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
