@@ -382,6 +382,8 @@
                   - or `nix run '.#preDeploy'` to target all hosts
                 - `nix run '.#check'`
                   - make sure all systems build; NUR evaluates
+                - `nix run '.#bench'`
+                  - benchmark the eval time of common targets this flake provides
 
                 specific build targets of interest:
                 - `nix build '.#imgs.rescue'`
@@ -587,6 +589,30 @@
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "check-rescue" ''
               nix build -v '.#imgs.rescue' --out-link ./result-rescue-img -j2
+            '');
+          };
+
+          bench = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "bench" ''
+              doBench() {
+                attrPath="$1"
+                shift
+                echo -n "benchmarking eval of '$attrPath'... "
+                /run/current-system/sw/bin/time -f "%e sec" -o /dev/stdout \
+                  nix eval --no-eval-cache --quiet --raw ".#$attrPath" --apply 'result: if result != null then "" else "unexpected null"' $@ 2> /dev/null
+              }
+
+              if [ -n "$1" ]; then
+                doBench "$@"
+              else
+                doBench hostConfigs
+                doBench hostConfigs.lappy
+                doBench hostConfigs.lappy.sane.programs
+                doBench hostConfigs.lappy.sane.users.colin
+                doBench hostConfigs.lappy.sane.fs
+                doBench hostConfigs.lappy.environment.systemPackages
+              fi
             '');
           };
         };

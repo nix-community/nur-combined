@@ -1,0 +1,10 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p gnused -p rofi -p wtype
+
+# "bookmarking"/snippets inspired by Luke Smith:
+# - <https://www.youtube.com/watch?v=d_11QaTlf1I>
+
+snippet=$(cat ~/.config/rofi-snippets/public.txt ~/.config/rofi-snippets/private.txt | \
+  rofi -dmenu | \
+  sed 's/ #.*$//')
+wtype "$snippet"

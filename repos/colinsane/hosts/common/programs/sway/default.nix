@@ -115,6 +115,7 @@ in
       "playerctl"  # for waybar & particularly to have playerctld running
       "pulsemixer"  # for volume controls
       "rofi"  # menu/launcher
+      "rofi-snippets"
       "splatmoji"  # used by sway config
       "sway-contrib.grimshot"  # used by sway config
       # "swayidle"  # enable if you need it
@@ -145,8 +146,6 @@ in
       "xdg-desktop-portal-wlr"
       "xdg-terminal-exec"  # used by sway config
     ];
-
-    secrets.".config/sane-sway/snippets.txt" = ../../../../secrets/common/snippets.txt.bin;
 
     fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
       # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>

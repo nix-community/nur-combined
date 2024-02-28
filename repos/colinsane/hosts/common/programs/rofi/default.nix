@@ -104,4 +104,25 @@ in
       "xdg-utils"
     ];
   };
+
+  sane.programs.rofi-snippets = {
+    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+      pname = "rofi-snippets";
+      srcRoot = ./.;
+      pkgs = [
+        "gnused"
+        "rofi"
+        "wtype"
+      ];
+    };
+    # if i could remove the sed, then maybe possible to not sandbox.
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistWayland = true;
+
+    suggestedPrograms = [ "rofi" ];
+
+    fs.".config/rofi-snippets/public.txt".symlink.target = ./snippets.txt;
+    secrets.".config/rofi-snippets/private.txt" = ../../../../secrets/common/snippets.txt.bin;
+  };
 }

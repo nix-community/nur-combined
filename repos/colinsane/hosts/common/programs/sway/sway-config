@@ -14,7 +14,7 @@ set $term xdg-terminal-exec
 set $menu rofi -show
 set $emoji_picker splatmoji -s medium-light type
 set $locker swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30
-set $snippets_picker @snip_cmd@
+set $snippets_picker rofi-snippets
 set $screenshot @screenshot_cmd@
 set $brightness_up brightnessctl set +5%
 set $brightness_down brightnessctl set 5%-
