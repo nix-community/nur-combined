@@ -14,8 +14,9 @@
         );
       };
       patchedFlakeFor = system: import "${patchedPkgsFor system}/flake.nix";
-      patchedFlakeOutputsFor = system:
-        (patchedFlakeFor system).outputs { self = self._forSystem system; };
+      patchedFlakeOutputsFor = system: (patchedFlakeFor system).outputs {
+        self = self // self._forSystem system;
+      };
 
       extractBuildPlatform = nixosSystemArgs:
         builtins.foldl'

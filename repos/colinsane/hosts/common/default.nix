@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     ./feeds.nix
@@ -49,7 +49,7 @@
       # this probably doesn't work if more than one sway session exists on the system.
       _notifyActiveSwaySock="$(echo /run/user/*/sway-ipc*.sock)"
       if [ -e "$_notifyActiveSwaySock" ]; then
-        SWAYSOCK="$_notifyActiveSwaySock" ${pkgs.sway}/bin/swaymsg -- exec \
+        SWAYSOCK="$_notifyActiveSwaySock" ${config.sane.programs.sway.packageUnwrapped}/bin/swaymsg -- exec \
           "${pkgs.libnotify}/bin/notify-send 'nixos activated' 'version: $(cat $systemConfig/nixos-version)'"
       fi
     '';

@@ -61,6 +61,7 @@ in rec {
   in
     stdenv.mkDerivation (final: {
       version = "0.1.0";  # default version
+      preferLocalBuild = true;
       patchPhase = ''
         substituteInPlace ${srcPath} \
           --replace '#!/usr/bin/env nix-shell' '#!${interpreter}' \

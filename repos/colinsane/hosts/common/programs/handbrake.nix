@@ -7,8 +7,8 @@
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"
-      "Pictures"  # i have some videos in there too.
-      "Videos"
+      "Pictures/from"  # e.g. videos filmed from my phone
+      "Videos/local"
       "Videos/servo"
       "tmp"
     ];

@@ -1,14 +1,6 @@
 # docs: https://github.com/Alexays/Waybar/wiki/Configuration
 # format specifiers: https://fmt.dev/latest/syntax.html#syntax
 # this is merged with the sway/waybar-top.nix defaults
-{ pkgs }:
-let
-  waybar-sxmo-status = pkgs.static-nix-shell.mkBash {
-    pname = "waybar-sxmo-status";
-    srcRoot = ./.;
-    pkgs = [ "sxmo-utils" "sxmo-utils.runtimeDeps" ];
-  };
-in
 {
   height = 26;
 
@@ -43,7 +35,7 @@ in
     # so it works even without the "statusbar periodics" sxmo service running.
     interval = 2;
     format = "{}";
-    exec = "${waybar-sxmo-status}/bin/waybar-sxmo-status modem-state modem-tech modem-signal wifi-status volume";
+    exec = "waybar-sxmo-status modem-state modem-tech modem-signal wifi-status volume";
   };
 
   "custom/sxmo" = {

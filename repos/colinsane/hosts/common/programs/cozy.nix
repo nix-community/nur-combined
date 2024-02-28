@@ -8,7 +8,7 @@
     sandbox.whitelistDbus = [ "user" ];  # mpris
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      "Books"
+      "Books/local"
       "Books/servo"
     ];
 

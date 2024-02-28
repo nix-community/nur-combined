@@ -33,6 +33,7 @@
     ./fwupd.nix
     ./g4music.nix
     ./gajim.nix
+    ./gdbus.nix
     ./geary.nix
     ./git.nix
     ./gnome-feeds.nix
@@ -41,6 +42,7 @@
     ./gnome-weather.nix
     ./go2tv.nix
     ./gpodder.nix
+    ./grimshot.nix
     ./gthumb.nix
     ./gtkcord4.nix
     ./handbrake.nix

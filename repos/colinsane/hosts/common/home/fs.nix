@@ -8,10 +8,14 @@
     "ref"
     "tmp"
     "use"
-    "Books"
+    "Books/local"
     "Music"
-    "Pictures"
-    "Videos"
+    "Pictures/albums"
+    "Pictures/cat"
+    "Pictures/from"
+    "Pictures/Screenshots"  #< XXX: something is case-sensitive about this?
+    "Pictures/Photos"
+    "Videos/local"
 
     # these are persisted simply to save on RAM.
     # ~/.cache/nix can become several GB.

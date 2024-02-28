@@ -73,10 +73,10 @@ in
       ".config/mpv"  #< else mpris plugin crashes on launch
       # it's common for album (or audiobook, podcast) images/lyrics/metadata to live adjacent to the primary file.
       # CLI detection is too poor to pick those up, so expose the common media dirs to the sandbox to make that *mostly* work.
-      "Books"
+      "Books/local"
       "Books/servo"
       "Music"
-      "Videos"
+      "Videos/local"
       "Videos/servo"
     ];
 

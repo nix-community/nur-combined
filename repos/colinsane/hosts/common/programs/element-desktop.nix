@@ -25,9 +25,13 @@
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"
-      "Pictures"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
       "Pictures/servo-macros"
-      "Videos"
+      "Videos/local"
       "Videos/servo"
       "tmp"
     ];

@@ -1,9 +1,7 @@
 ## BUGS
-- nixpkgs date is incorrect (1970.01.01...)
 - ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
 - `nix` operations from lappy hang when `desko` is unreachable
   - could at least direct the cache to `http://desko-hn:5001`
-- entering the wrong password in unl0kr hangs the TTY
 
 ## REFACTORING:
 - consolidate ~/dev and ~/ref
@@ -94,7 +92,6 @@
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - especially, make the menubar collapsible
   - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
-- phog: remove the gnome-shell runtime dependency to save hella closure size
 
 #### non-moby
 - RSS: integrate a paywall bypass
@@ -121,7 +118,6 @@
 - add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled
   - every package here can be auto-generated, and marked with some env var so that it doesn't pollute the pure package set
   - would be super handy for package prototyping!
-- fix desko so it doesn't dispatch so many build jobs to servo by default
 
 ## NEW FEATURES:
 - migrate MAME cabinet to nix

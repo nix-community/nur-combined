@@ -1,4 +1,4 @@
-{ runCommand
+{ runCommandLocal
 , rmDbusServicesInPlace
 , symlinkJoin
 }:
@@ -7,7 +7,7 @@
   # its own package, but otherwise keeping the same path.
   # this is done by copying the bits, so as to avoid including the item's neighbors
   # in its runtime closure.
-  copyIntoOwnPackage = pkg: path: runCommand "${pkg.pname or pkg.name}-${path}" {
+  copyIntoOwnPackage = pkg: path: runCommandLocal "${pkg.pname or pkg.name}-${path}" {
     env.item = path;
     env.fromPkg = pkg;
   } ''
@@ -16,7 +16,7 @@
     runHook postFixup
   '';
 
-  linkIntoOwnPackage = pkg: path: runCommand "${pkg.pname or pkg.name}-${path}" {
+  linkIntoOwnPackage = pkg: path: runCommandLocal "${pkg.pname or pkg.name}-${path}" {
     env.item = path;
     env.fromPkg = pkg;
   } ''

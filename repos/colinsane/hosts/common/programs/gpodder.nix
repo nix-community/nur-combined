@@ -27,12 +27,13 @@ in {
     sandbox.whitelistDbus = [ "user" ];  # it won't launch without it, dunno exactly why.
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
-    sandbox.extraHomePaths = [ "Videos/gPodder" ];
 
     fs.".config/gpodderFeeds.opml".symlink.text = feeds.feedsToOpml wanted-feeds;
 
-    # XXX: we preserve the whole thing because if we only preserve gPodder/Downloads
-    #   then startup is SLOW during feed import, and we might end up with zombie eps in the dl dir.
-    persist.byStore.plaintext = [ ".local/share/gPodder" ];
+    persist.byStore.plaintext = [
+      "Videos/gPodder"
+      # if you don't persist its database, you get untracked (and hence non-gc'd) downloads, plus slooow startup.
+      ".local/share/gPodder"
+    ];
   };
 }

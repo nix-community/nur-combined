@@ -16,11 +16,16 @@ in
       # for file-chooser portal users (fractal, firefox, ...), need to provide anything they might want.
       # i think (?) portal users can only access the files here interactively, i.e. by me interacting with the portal's visual filechooser,
       # so shoving stuff here is trusting the portal but not granting any trust to the portal user.
-      "Books"
+      "Books/local"
+      "Books/servo"
       "Music"
-      "Pictures"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
       "Pictures/servo-macros"
-      "Videos"
+      "Videos/local"
       "Videos/servo"
       "archive"
       "dev"

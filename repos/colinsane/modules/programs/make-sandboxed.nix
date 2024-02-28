@@ -2,6 +2,7 @@
 , buildPackages
 , callPackage
 , runCommand
+, runCommandLocal
 , runtimeShell
 , sane-sandboxed
 , symlinkJoin
@@ -143,7 +144,7 @@ let
   } else {};
 
   # helper used for `wrapperType == "wrappedDerivation"` which simply symlinks all a package's binaries into a new derivation
-  symlinkBinaries = pkgName: package: (runCommand "${pkgName}-bin-only" {} ''
+  symlinkBinaries = pkgName: package: (runCommandLocal "${pkgName}-bin-only" {} ''
     set -e
     if [ -e "${package}/bin" ]; then
       mkdir -p "$out/bin"
@@ -199,7 +200,7 @@ let
       # we have to patch those out as a way to whitelist them.
       checkSandboxed = let
         sandboxedNonBin = fixHardcodedRefs unsandboxed "/dev/null" unsandboxedNonBin;
-      in runCommand "${sandboxedNonBin.name}-check-sandboxed"
+      in runCommandLocal "${sandboxedNonBin.name}-check-sandboxed"
         { disallowedReferences = [ unsandboxed ]; }
         ''
           # dereference every symlink, ensuring that whatever data is behind it does not reference non-sandboxed binaries.
@@ -215,13 +216,18 @@ let
   # patch them to use the sandboxed binaries,
   # and add some passthru metadata to enforce no lingering references to the unsandboxed binaries.
   sandboxNonBinaries = pkgName: unsandboxed: sandboxedBin: let
-    sandboxedWithoutFixedRefs = (runCommand "${pkgName}-sandboxed-non-binary" {} ''
+    sandboxedWithoutFixedRefs = (runCommandLocal "${pkgName}-sandboxed-non-binary" {} ''
       set -e
       mkdir "$out"
-      if [ -e "${unsandboxed}/share" ]; then
-        mkdir "$out/share"
-        ${buildPackages.xorg.lndir}/bin/lndir "${unsandboxed}/share" "$out/share"
-      fi
+      # link in a limited subset of the directories.
+      # lib/ is the primary one to avoid, because of shared objects that would be unsandboxed if dlopen'd.
+      # all other directories are safe-ish, because they won't end up on PATH or LDPATH.
+      for dir in etc share; do
+        if [ -e "${unsandboxed}/$dir" ]; then
+          mkdir "$out/$dir"
+          ${buildPackages.xorg.lndir}/bin/lndir "${unsandboxed}/$dir" "$out/$dir"
+        fi
+      done
       runHook postInstall
     '').overrideAttrs (_: {
       # specifically for meta.priority, though it shouldn't actually matter here.
@@ -240,7 +246,7 @@ let
       priority = ((prevAttrs.meta or {}).priority or 0) - 1;
     };
     passthru = (prevAttrs.passthru or {}) // extraPassthru // {
-      checkSandboxed = runCommand "${pkgName}-check-sandboxed" {} ''
+      checkSandboxed = runCommandLocal "${pkgName}-check-sandboxed" {} ''
         set -e
         # invoke each binary in a way only the sandbox wrapper will recognize,
         # ensuring that every binary has in fact been wrapped.

@@ -213,7 +213,7 @@ in
     blanket.sandbox.whitelistWayland = true;
 
     blueberry.sandbox.method = "bwrap";
-    blueberry.sandbox.wrapperType = "wrappedDerivation";
+    blueberry.sandbox.wrapperType = "inplace";  # /etc/xdg/autostart hardcodes paths
     blueberry.sandbox.whitelistWayland = true;
     blueberry.sandbox.extraPaths = [
       "/dev/rfkill"
@@ -417,7 +417,11 @@ in
     gimp.sandbox.wrapperType = "wrappedDerivation";
     gimp.sandbox.whitelistWayland = true;
     gimp.sandbox.extraHomePaths = [
-      "Pictures"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
       "Pictures/servo-macros"
       "dev"
       "ref"
@@ -444,7 +448,7 @@ in
 
     # gnome-disks
     "gnome.gnome-disk-utility".sandbox.method = "bwrap";
-    "gnome.gnome-disk-utility".sandbox.wrapperType = "wrappedDerivation";
+    "gnome.gnome-disk-utility".sandbox.wrapperType = "inplace";  # /etc/xdg/autostart
     "gnome.gnome-disk-utility".sandbox.whitelistDbus = [ "system" ];
     "gnome.gnome-disk-utility".sandbox.whitelistWayland = true;
 
@@ -471,7 +475,12 @@ in
     gnome-frog.sandbox.extraHomePaths = [
       # for OCR'ing photos from disk
       "tmp"
-      "Pictures"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
+      "Pictures/servo-macros"
     ];
     gnome-frog.persist.byStore.cryptClearOnBoot = [
       ".local/share/tessdata"  # 15M; dunno what all it is.
@@ -543,7 +552,11 @@ in
     inkscape.sandbox.wrapperType = "wrappedDerivation";
     inkscape.sandbox.whitelistWayland = true;
     inkscape.sandbox.extraHomePaths = [
-      "Pictures"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
       "Pictures/servo-macros"
       "dev"
       "ref"
@@ -596,7 +609,11 @@ in
     krita.sandbox.autodetectCliPaths = "existing";
     krita.sandbox.extraHomePaths = [
       "dev"
-      "Pictures"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
       "Pictures/servo-macros"
       "ref"
       "tmp"
@@ -612,9 +629,9 @@ in
     losslesscut-bin.sandbox.wrapperType = "wrappedDerivation";
     losslesscut-bin.sandbox.extraHomePaths = [
       "Music"
-      "Pictures"  # i have some videos in there too.
+      "Pictures/from"  # videos from e.g. mobile phone
       "Pictures/servo-macros"
-      "Videos"
+      "Videos/local"
       "Videos/servo"
       "tmp"
     ];
@@ -632,7 +649,8 @@ in
     "mate.engrampa".sandbox.autodetectCliPaths = "existingOrParent";
     "mate.engrampa".sandbox.extraHomePaths = [
       "archive"
-      "Books"
+      "Books/local"
+      "Books/servo"
       "records"
       "ref"
       "tmp"
@@ -802,7 +820,7 @@ in
 
     # use like `sudo smartctl /dev/sda -a`
     smartmontools.sandbox.method = "landlock";
-    smartmontools.sandbox.wrapperType = "wrappedDerivation";
+    smartmontools.sandbox.wrapperType = "inplace";  # ships a script in /etc that calls into its bin
     smartmontools.sandbox.autodetectCliPaths = "existing";
     smartmontools.sandbox.capabilities = [ "sys_rawio" ];
 
@@ -860,12 +878,6 @@ in
     superTux.sandbox.whitelistDri = true;
     superTux.sandbox.whitelistWayland = true;
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
-
-    "sway-contrib.grimshot".sandbox.method = "bwrap";
-    "sway-contrib.grimshot".sandbox.wrapperType = "wrappedDerivation";
-    "sway-contrib.grimshot".sandbox.whitelistWayland = true;
-    "sway-contrib.grimshot".sandbox.whitelistDbus = [ "user" ];
-    "sway-contrib.grimshot".sandbox.autodetectCliPaths = "existingFileOrParent";
 
     tcpdump.sandbox.method = "landlock";
     tcpdump.sandbox.wrapperType = "wrappedDerivation";

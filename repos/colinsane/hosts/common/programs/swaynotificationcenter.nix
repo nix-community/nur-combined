@@ -98,6 +98,20 @@ let
       fi
     '';
   };
+
+  printIsActive = pkgs.writeShellApplication {
+    name = "print-is-active";
+    runtimeInputs = [
+      pkgs.systemd
+    ];
+    text = ''
+      if systemctl is-active "$@"; then
+        echo true
+      else
+        echo false
+      fi
+    '';
+  };
 in
 {
   sane.programs.swaynotificationcenter = {
@@ -118,26 +132,6 @@ in
 
     # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
     packageUnwrapped = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
-      # allow toggle buttons:
-      patches = (upstream.patches or []) ++ [
-        # (pkgs.fetchpatch {
-        #   url = "https://github.com/ErikReider/SwayNotificationCenter/pull/304.patch";
-        #   name = "Add toggle button";
-        #   hash = "sha256-bove2EXc5FZ5nN1X1FYOn3czCgHG03ibIAupJNoctiM=";
-        # })
-        (pkgs.fetchpatch {
-          # import of <https://github.com/ErikReider/SwayNotificationCenter/pull/304>
-          # as of 2023/11/08 the upstream patch has merge conflicts AND runtime issues (see wip-swaync-update nixos branch)
-          url = "https://git.uninsane.org/colin/SwayNotificationCenter/commit/d9a0d938b88cbee65cfaef887af77a5a23d5fe89.patch";
-          name = "Add toggle button";
-          hash = "sha256-bove2EXc5FZ5nN1X1FYOn3czCgHG03ibIAupJNoctiM=";
-        })
-        (pkgs.fetchpatch {
-          url = "https://git.uninsane.org/colin/SwayNotificationCenter/commit/f5d9405e040fc42ea98dc4d37202c85728d0d4fd.patch";
-          name = "toggleButton: change active field to be a command";
-          hash = "sha256-Y8fiZbAP9yGOVU3rOkZKO8TnPPlrGpINWYGaqeeNzF0=";
-        })
-      ];
       postPatch = (upstream.postPatch or "") + ''
         # XXX: this might actually be changing the DPI, not the scaling...
         # in that case, it might be possible to do this in CSS
@@ -407,7 +401,8 @@ in
               type = "toggle";
               label = "";  # GPS services; other icons: gps, ⌖, 🛰, 🌎, 
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-gps";
-              active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-gps.service";
+              update-command = "${printIsActive}/bin/print-is-active eg25-control-gps.service";
+              active = true;
             }
             {
               type = "toggle";
@@ -415,28 +410,32 @@ in
               # modem and NetworkManager auto-establishes a connection when powered.
               # though some things like `wg-home` VPN tunnel will remain routed over the old interface.
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle eg25-control-powered";
-              active = "${pkgs.systemd}/bin/systemctl is-active eg25-control-powered.service";
+              update-command = "${printIsActive}/bin/print-is-active eg25-control-powered.service";
+              active = true;
             }
           ] ++ lib.optionals false [
             {
               type = "toggle";
               label = "vpn::hn";  # route all traffic through servo; useful to debug moby's networking
               command = "/run/wrappers/bin/sudo ${systemctl-toggle}/bin/systemctl-toggle wg-quick-vpn-servo";
-              active = "${pkgs.systemd}/bin/systemctl is-active wg-quick-vpn-servo.service";
+              update-command = "${printIsActive}/bin/print-is-active wg-quick-vpn-servo.service";
+              active = true;
             }
           ] ++ lib.optionals config.sane.programs.calls.config.autostart [
             {
               type = "toggle";
               label = "SIP";
               command = "${systemctl-toggle}/bin/systemctl-toggle --user gnome-calls";
-              active = "${pkgs.systemd}/bin/systemctl is-active --user gnome-calls";
+              update-command = "${printIsActive}/bin/print-is-active --user gnome-calls";
+              active = true;
             }
           ] ++ lib.optionals config.sane.programs."gnome.geary".enabled [
             {
               type = "toggle";
               label = "󰇮";  # email (Geary); other icons: ✉, [E], 📧, 󰇮
               command = "${systemctl-toggle}/bin/systemctl-toggle --user geary";
-              active = "${pkgs.systemd}/bin/systemctl is-active --user geary";
+              update-command = "${printIsActive}/bin/print-is-active --user geary";
+              active = true;
             }
           # ] ++ lib.optionals config.sane.programs.abaddon.enabled [
           #   # XXX: disabled in favor of gtkcord4: abaddon has troubles auto-connecting at start
@@ -444,35 +443,40 @@ in
           #     type = "toggle";
           #     label = "󰊴";  # Discord chat client; icons: 󰊴, 🎮
           #     command = "${systemctl-toggle}/bin/systemctl-toggle --user abaddon";
-          #     active = "${pkgs.systemd}/bin/systemctl is-active --user abaddon";
+          #     update-command = "${printIsActive}/bin/print-is-active --user abaddon";
+          #     active = true;
           #   }
           ] ++ lib.optionals config.sane.programs.gtkcord4.enabled [
             {
               type = "toggle";
               label = "󰊴";  # Discord chat client; icons: 󰊴, 🎮
               command = "${systemctl-toggle}/bin/systemctl-toggle --user gtkcord4";
-              active = "${pkgs.systemd}/bin/systemctl is-active --user gtkcord4";
+              update-command = "${printIsActive}/bin/print-is-active --user gtkcord4";
+              active = true;
             }
           ] ++ lib.optionals config.sane.programs.signal-desktop.enabled [
             {
               type = "toggle";
               label = "💬";  # Signal messenger; other icons: 󰍦
               command = "${systemctl-toggle}/bin/systemctl-toggle --user signal-desktop";
-              active = "${pkgs.systemd}/bin/systemctl is-active --user signal-desktop";
+              update-command = "${printIsActive}/bin/print-is-active signal-desktop";
+              active = true;
             }
           ] ++ lib.optionals config.sane.programs.dino.enabled [
             {
               type = "toggle";
               label = "XMPP";  # XMPP calls (jingle)
               command = "${systemctl-toggle}/bin/systemctl-toggle --user dino";
-              active = "${pkgs.systemd}/bin/systemctl is-active --user dino";
+              update-command = "${printIsActive}/bin/print-is-active --user dino";
+              active = true;
             }
           ] ++ lib.optionals config.sane.programs.fractal.enabled [
             {
               type = "toggle";
               label = "[m]";  # Matrix messages
               command = "${systemctl-toggle}/bin/systemctl-toggle --user fractal";
-              active = "${pkgs.systemd}/bin/systemctl is-active --user fractal";
+              update-command = "${printIsActive}/bin/print-is-active --user fractal";
+              active = true;
             }
           ];
         };

@@ -244,7 +244,11 @@ in
           # for uploads/downloads.
           # it still needs these paths despite using the portal's file-chooser :?
           "tmp"
-          "Pictures"
+          "Pictures/albums"
+          "Pictures/cat"
+          "Pictures/from"
+          "Pictures/Photos"
+          "Pictures/Screenshots"
           "Pictures/servo-macros"
         ] ++ lib.optionals cfg.addons.browserpass-extension.enable [
           # browserpass needs these paths:

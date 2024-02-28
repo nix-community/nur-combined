@@ -40,7 +40,7 @@ in
     # for GUI invocation, allow the common media directories
     sandbox.extraHomePaths = [
       "Music"
-      "Videos"
+      "Videos/local"
       "Videos/servo"
     ];
     sandbox.extraPaths = [

@@ -16,9 +16,13 @@
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "parent";
     sandbox.extraHomePaths = [
-      "Pictures"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
       "Pictures/servo-macros"
-      "Videos"
+      "Videos/local"
       "Videos/servo"
       "dev"
       "records"

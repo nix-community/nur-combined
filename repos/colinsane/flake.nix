@@ -98,19 +98,29 @@
         inherit variant nixpkgs;
         self = patchNixpkgs variant nixpkgs;
       } // {
-        # provide values that nixpkgs ordinarily sources from the flake.lock file,
-        # inaccessible to it here because of the import-from-derivation.
-        # rev and shortRev seem to not always exist (e.g. if the working tree is dirty),
-        # so those are made conditional.
+        # sourceInfo includes fields (square brackets for the ones which are not always present):
+        # - [dirtyRev]
+        # - [dirtyShortRev]
+        # - lastModified
+        # - lastModifiedDate
+        # - narHash
+        # - outPath
+        # - [rev]
+        # - [revCount]
+        # - [shortRev]
+        # - submodules
         #
-        # these values impact the name of a produced nixos system. having date/rev in the
-        # `readlink /run/current-system` store path helps debuggability.
-        inherit (self) lastModifiedDate lastModified;
-      } // optionalAttrs (self ? rev) {
-        inherit (self) rev;
-      } // optionalAttrs (self ? shortRev) {
-        inherit (self) shortRev;
-      };
+        # these values are used within nixpkgs:
+        # - to give a friendly name to the nixos system (`readlink /run/current-system` -> `...nixos-system-desko-24.05.20240227.dirty`)
+        # - to alias `import <nixpkgs>` so that nix uses the system's nixpkgs when called externally (supposedly).
+        #
+        # these values seem to exist both within the `sourceInfo` attrset and at the top-level.
+        # for a list of all implicit flake outputs (which is what these seem to be):
+        # $ nix-repl
+        # > lf .
+        # > <tab>
+        inherit (self) sourceInfo;
+      } // self.sourceInfo;
 
       nixpkgs' = patchNixpkgs "master" nixpkgs-unpatched;
       nixpkgsCompiledBy = system: nixpkgs'.legacyPackages."${system}";
@@ -190,11 +200,9 @@
         #   hence the weird redundancy.
         default = final: prev: self.overlays.pkgs final prev;
         sane-all = final: prev: import ./overlays/all.nix final prev;
-        disable-flakey-tests = final: prev: import ./overlays/disable-flakey-tests.nix final prev;
         pkgs = final: prev: import ./overlays/pkgs.nix final prev;
         pins = final: prev: import ./overlays/pins.nix final prev;
         preferences = final: prev: import ./overlays/preferences.nix final prev;
-        optimizations = final: prev: import ./overlays/optimizations.nix final prev;
         passthru = final: prev:
           let
             mobile = (import "${mobile-nixos}/overlay/overlay.nix");

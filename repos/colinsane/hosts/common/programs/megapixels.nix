@@ -25,7 +25,7 @@
       # ".nix-profile"
       ".cache/mesa_shader_cache"  # loads way faster
       "tmp"
-      "Pictures"
+      "Pictures"  #< TODO: make this Pictures/Photos and save photos there
       # also it addresses a lot via relative path.
     ];
     sandbox.extraPaths = [

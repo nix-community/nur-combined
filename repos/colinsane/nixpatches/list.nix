@@ -27,20 +27,27 @@ let
     ) else null;
 in [
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/291500";
-    saneCommit = "8ba6a995c34515fcccefc7ad2bbb929c21bd4a31";
-    title = "libkiwix: 12.1.1 -> 13.1.0";
-    hash = "sha256-li6wDwhwIwRiuh4eqtRIkJbeOS/ZBIvte3LWby7RnZE=";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/291806";
+    title = "swaynotificationcenter: support cross compilation";
+    hash = "sha256-Od5591zj8OW2WncI4eY9i5i8cFsAM7NQtHyYB9KSpLg=";
   })
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/288518";
     saneCommit = "20c9492d303be7cbad560e3d83bc47ab4b1e93f7";
     title = "procmail: support cross compilation";
     hash = "sha256-cC9GBF5tCeJ2GDSjMjlG4hYStIJPEoRBAK9/KhJiiIo=";
   })
+
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/280925";
-    title = "j4-dmenu-desktop: pin to gcc12";  # 2024/01/14: fix build
-    hash = "sha256-VW2l7eViI1erlTRFw2mpY2qWDdBlYxVSQewFPWwRhgg=";
+    # this forces an expensive rebuild, mostly just to reduce moby's closure by 40 MiB (if even)
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/291942";
+    title = "imagemagick, graphicsmagick: remove build coreutils from cross-compiled output";
+    hash = "sha256-jUtMmT4d+/6hZgrpXhfBcToAfdecl7xtEj1d/ofxaIM=";
+  })
+  (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/291947";
+    title = "libshumate: support cross compilation";
+    hash = "sha256-l1EXoggqgcmAlKdq501x2hBjqaGJrG4hO/xSnSWDt3U=";
   })
 
   # (fetchpatch' {
@@ -58,13 +65,6 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/270646";
     hash = "sha256-5brmmPfYp7G+5Dr5q2skWSwkrEwsRAe/UetoN0AqGjY=";
   })
-  # (fetchpatch' {
-  #   # N.B.: obsoleted by 267550 PR above
-  #   title = "vala: search for vapi files in targetOffset, not hostOffset";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/269171";
-  #   saneCommit = "6990fa8f3e1cfcd1224d70d110bc1ccc18763585";
-  #   hash = "sha256-QiguGtP5HrB753/V/UaoAKH3+9TINxR83I68rggbkr0=";
-  # })
   (fetchpatch' {
     title = "gcr: remove build gnupg from runtime closure";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263158";
@@ -103,11 +103,11 @@ in [
   #   hash = "sha256-eDsR1cJC/IMmhJl5wERpTB1VGawcnMw/gck9sI64GtQ=";
   # })
 
-  (fetchpatch' {
-    title = "firefox-pmos-mobile: init at 4.0.2";
-    saneCommit = "c3becd7cdf144d85d12e2e76663e9549a0536efd";
-    hash = "sha256-fQdKm5kIFzheEUgSkwxrivynJk221suigWJ/WxZJ0Zk=";
-  })
+  # (fetchpatch' {
+  #   title = "firefox-pmos-mobile: init at 4.0.2";
+  #   saneCommit = "c3becd7cdf144d85d12e2e76663e9549a0536efd";
+  #   hash = "sha256-fQdKm5kIFzheEUgSkwxrivynJk221suigWJ/WxZJ0Zk=";
+  # })
   # (fetchpatch' {
   #   saneCommit = "70c12451b783d6310ab90229728d63e8a903c8cb";
   #   title = "firefox-pmos-mobile: init at -pmos-2.2.0";
@@ -153,81 +153,11 @@ in [
   #   hash = "sha256-eTwEbVULYjmOW7zUFcTUqvBZqUFjHTKFhvmU2m3XQeo=";
   # })
 
-  # ./2022-12-19-i2p-aarch64.patch
-
-  # let ccache cross-compile
-  # ./2023-03-04-ccache-cross-fix.patch
-
-  # (fetchpatch' {
-  #   # phoc: 0.25.0 -> 0.27.0
-  #   # TODO: move wayland-scanner & glib to nativeBuildInputs
-  #   # TODO: once i press power button to screen blank, power doesn't reactivate phoc
-  #   # sus commits:
-  #   # - all lie between 0.25.0 .. 0.26.0
-  #   # - 25d65b9e6ebde26087be6414e41cf516599c3469  2023/03/12 phosh-private: Forward key release as well
-  #   # idle inhibit 2023/03/14
-  #   #   - 20e7b26af16e9d9c22cba4550f922b90b80b6df6
-  #   #   - b081ef963154c7c94a6ab33376a712b3efe17545
-  #   # screen blank fix  (NOPE: this one is OK)
-  #   #   - 37542bb80be8a7746d2ccda0c02048dd92fac7af  2023/03/11
-  #   saneCommit = "12e89c9d26b7a1a79f6b8b2f11fce0dd8f4d5197";
-  #   hash = "sha256-IJNBVr2xAwQW4SAJvq4XQYW4D5tevvd9zRrgXYmm38g=";
-  # })
-  # (fetchpatch' {
-  #   # phosh: 0.25.1 -> 0.27.0
-  #   # TODO: fix Calls:
-  #   # > Failed to get emergency contacts: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.gnome.Calls was not provided by any .service files
-  #   saneCommit = "c8fa213c7cb357c0ca0d5bea66278362a47caeb8";
-  #   hash = "sha256-I8IZ8fjJstmcIXEN622/A1w2uHDACwXFl1WbXTWOyi4=";
-  # })
-
-  # (fetchpatch' {
-  #   # phosh-mobile-settings: 0.23.1 -> 0.27.0
-  #   # branch: pr/sane/phosh-mobile-settings-0.27.0
-  #   # TODO: fix feedback section
-  #   # > Settings schema 'org.gtk.gtk4.Settings.FileChooser' is not installed
-  #   # ^ is that provided by nautilus?
-  #   saneCommit = "8952f79699d3b0d72d9f6efb022e826175b143a6";
-  #   hash = "sha256-myKKMt5cZhC0mfPhEsNjwKjaIYICj5LBJqV01HghYUg=";
-  # })
-
   (fetchpatch' {
     title = "conky: enable Wayland support and cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/278071";
     hash = "sha256-e6o+Vjd3KCI9dFj0TdAWyyqfreX8cf0RfYGdyvebYC0=";
   })
-  # 2023-08-06: OLD conky wayland + cross compilation patches.
-  # nix path-info shows clean
-  # branch is wip-conky-cross2 on servo
-  # factoring out those feature abstractions was possibly overkill.
-  # the manual wayland-scanner patching is unfortunate, but within
-  #   acceptable norms of the existing package.
-  # (fetchpatch' {
-  #   title = "conky: factor out an abstraction for feature flags";
-  #   saneCommit = "3ddf13038d6df90ad0db36a41d55e4077818a3e9";
-  #   hash = "sha256-CjLzndFEH1Ng9CqKX8gxCJ6n/wFv5U/sHnQE0FMYILc=";
-  # })
-  # (fetchpatch' {
-  #   title = "conky: simplify the features even more";
-  #   saneCommit = "1c4aa404743f1ae7d5b95f18a96c4057ca251a96";
-  #   hash = "sha256-0zhiw9siIkFgFW4sow+X88NBEa3ggCe1t1HJ5xFH4ac=";
-  # })
-  # (fetchpatch' {
-  #   title = "conky: support cross compilation";
-  #   saneCommit = "01e607e11c7e5bbbfe6ad132fb72394ec29dab0a";
-  #   hash = "sha256-Bm/XFLvE7gEyLPlBWNSAcU3qwwqKLIRdpoe0/1aHUho=";
-  # })
-  # (fetchpatch' {
-  #   title = "conky: add wayland support";
-  #   saneCommit = "84c51f67e02ebc7f118fd3171bd10f1978d4f1e6";
-  #   hash = "sha256-gRYbkzCe3q1R7X/FeOcz/haURQkeAfmED1/ZQlCCdWE=";
-  # })
-  # (fetchpatch' {
-  #   title = "conky: remove no-op sed patch";
-  #   saneCommit = "e8b19984a2858ca24b7e8f5acd20be8b7dfe1af0";
-  #   hash = "sha256-K3mG1kcyB7sQZ7ZRCdlinNsV6mCcl3eIUI2ldSmcbJE=";
-  # })
-
   (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/240602";
@@ -262,29 +192,10 @@ in [
     hash = "sha256-4x1yJgrgmyqYiF+u3A9BrcbNQPQ270c+/jFBYsJoFfI=";
   })
 
-  # (fetchpatch' {
-  #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
-  #   title = "matrix-appservice-irc: 0.38.0 -> 1.0.0";
-  #   saneCommit = "b168bf862d53535151b9142a15fbd53e18e688c5";
-  #   hash = "sha256-dDa2mrCJ416PIYsDH9ya/4aQdqtp4BwzIisa8HdVFxo=";
-  # })
-
   # for raspberry pi: allow building u-boot for rpi 4{,00}
   # TODO: remove after upstreamed: https://github.com/NixOS/nixpkgs/pull/176018
   #   (it's a dupe of https://github.com/NixOS/nixpkgs/pull/112677 )
   ./02-rpi4-uboot.patch
-
-  # (fetchpatch' {
-  #   title = "fx-cast-bridge: Pin nodejs to version 18";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/273768";
-  #   hash = "sha256-THf+O5THf0URY6bsq2/bVo1P2CvUq7opxNtl548yTak=";
-  # })
-  # (fetchpatch' {
-  #   # 2023/12/12: needs rebasing
-  #   title = "gnome-feeds: 0.16.2 -> 2.2.0";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/217060";
-  #   hash = "sha256-EY3r661V2aOQQbZ2hTdPS0wipgktwPPgNrz2OJr4qFg=";
-  # })
 
   # (fetchpatch' {
   #   title = "gnustep: remove `rec` to support `overrideScope`";
@@ -297,12 +208,6 @@ in [
   #   title = "clapper: support cross compilation";
   #   saneCommit = "8a171b49aca406f8220f016e56964b3fae53a3df";
   #   hash = "sha256-R11IYatGhSXxZnJxJid519Oc9Kh56D9NT2/cxf2CLuM=";
-  # })
-  # (fetchpatch' {
-  #   # not correct: build time dependencies end up in runtime closure
-  #   title = "gcr_4: support cross compilation";
-  #   saneCommit = "a8c3d69236fa67382a8c18cc1ef0f34610fd3275";
-  #   hash = "sha256-UnLqkkpXxBKaqlsoD1jUIigZkxgLtNpjmMHOx10HpfE=";
   # })
   # these probably work, but i don't use them
   # (fetchpatch' {
@@ -326,11 +231,6 @@ in [
   #   title = "zcash: 5.4.2 -> 5.7.0";
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/229810";
   #   hash = "sha256-ProoPJ10rUtOZh2PzpegviG6Ip1zSuWC92BpP+ux9ZQ=";
-  # })
-  # (fetchpatch' {
-  #   title = "graphicsmagick: 1.3.39 -> 1.3.42";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/218163";
-  #   hash = "sha256-E1Xfi7BRpAvqAzfChjWRG1Ar5dsFMm/yu7NXnDc95PM=";
   # })
   # (fetchpatch' {
   #   # disabled, at least until the PR is updated to use `pkg-config` instead of `pkgconfig`.

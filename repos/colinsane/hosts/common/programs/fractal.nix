@@ -37,9 +37,13 @@ in
     sandbox.extraHomePaths = [
       # still needs these paths despite it using the portal's file-chooser :?
       "Music"
-      "Pictures"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
       "Pictures/servo-macros"
-      "Videos"
+      "Videos/local"
       "Videos/servo"
       "tmp"
     ];

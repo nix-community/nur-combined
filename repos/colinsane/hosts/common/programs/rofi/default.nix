@@ -49,6 +49,29 @@
       });
     };
 
+    suggestedPrograms = [
+      "rofi-run-command"
+    ];
+
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "wrappedDerivation";
+    sandbox.whitelistDbus = [ "user" ];  #< to launch apps via the portal
+    sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      ".local/share/applications"  #< to locate .desktop files
+      "Music"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
+      "Pictures/servo-macros"
+      "Videos/local"
+      "Videos/servo"
+      "knowledge"
+      "tmp"
+    ];
+
     fs.".config/rofi/config.rasi".symlink.target = ./config.rasi;
     # redirect its default drun cache location
     fs.".cache/rofi3.druncache".symlink.target = "rofi/rofi3.druncache";
@@ -56,6 +79,20 @@
     persist.byStore.cryptClearOnBoot = [
       # optional, for caching .desktop files rofi finds on disk (perf)
       ".cache/rofi"
+    ];
+  };
+
+  sane.programs.rofi-run-command = {
+    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+      pname = "rofi-run-command";
+      srcRoot = ./.;
+      pkgs = [ "glib" "xdg-utils" ];
+    };
+    sandbox.enable = false;  #< trivial script, and all our deps are sandboxed
+
+    suggestedPrograms = [
+      "gdbus"
+      "xdg-utils"
     ];
   };
 }

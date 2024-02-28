@@ -1,0 +1,27 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p glib -p xdg-utils
+
+# use:
+# rofi-run-command <handler>.desktop [cmd [args ...]]
+# if a non-empty desktop file is provided, we'll just launch that.
+# else, if the cmd is `xdg-open`, then we'll treat `args` as a URI and forward that to xdg-open.
+# nothing else is as-yet supported.
+
+desktop="$1"
+shift
+binary="$1"
+shift
+binArgs=("$@")
+
+if [ "$desktop" != .desktop ]; then
+  exec gdbus call --session --timeout 10 \
+    --dest org.freedesktop.portal.Desktop \
+    --object-path /org/freedesktop/portal/desktop \
+    --method org.freedesktop.portal.DynamicLauncher.Launch \
+    "$desktop" {}
+elif [ "$binary" = "xdg-open" ]; then
+  exec xdg-open "$@"
+fi
+
+printf "no .desktop file, and unexpected binary; not invoking: %s %s" "$binary" "${binArgs[*]}" > /dev/null
+exit 1

@@ -47,6 +47,15 @@ in
     # default waybar
     config.top = import ./waybar-top.nix { inherit lib pkgs; };
 
+    packageUnwrapped = pkgs.waybar.override {
+      # not *required*, however this does cut down on some cross-compilation issues
+      # and also avoids building entirely unused dependencies
+      sway = config.sane.programs.sway.package;
+      cavaSupport = false;  #< doesn't cross
+      hyprlandSupport = false;  #< doesn't cross
+      sndioSupport = false;  #< useless
+    };
+
     sandbox.method = "bwrap";
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.net = "all";  #< to show net connection status and BW

@@ -51,7 +51,7 @@ in {
     sandbox.whitelistDri = true;  # reduces startup time and subjective page flip time
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      "Books"
+      "Books/local"
       "Books/servo"
     ];
 

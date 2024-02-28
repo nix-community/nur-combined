@@ -16,6 +16,8 @@ configuration {
     directory: "/home";
     /* display-name: text to prepend in combi mode */
     display-name: "/";
+    /* `command` is the prefix to prepend (along with a space) *before* passing it off to `run-command` */
+    command: "xdg-open";
   }
   drun {
     display-name: " ";
@@ -26,6 +28,9 @@ configuration {
   /* combi-display-format: "{mode} {text}"; */
   /* combi-display-format: "{text}"; */
   combi-display-format: "{mode}{text}";
+
+  /* launch applications via my own launcher, which directs them through to xdg-desktop-portal */
+  run-command: "rofi-run-command '{app_id}.desktop' {cmd}";
 
   drun-use-desktop-cache: true;
 }

@@ -85,7 +85,9 @@ let
     };
     rotate = pkgs.static-nix-shell.mkBash {
       pname = "sxmo_hook_rotate.sh";
-      pkgs = [ "sway" ];
+      pkgs = {
+        sway = config.sane.programs.sway.package.sway-unwrapped;
+      };
       srcRoot = ./hooks;
     };
     start = pkgs.static-nix-shell.mkBash {
@@ -109,7 +111,10 @@ in
     };
     sane.gui.sxmo.package = mkOption {
       type = types.package;
-      default = pkgs.sxmo-utils.override { preferSystemd = true; };
+      default = pkgs.sxmo-utils.override {
+        preferSystemd = true;
+        sway = config.sane.programs.sway.package.sway-unwrapped;
+      };
       description = ''
         sxmo base scripts and hooks collection.
         consider overriding the outputs under /share/sxmo/default_hooks
@@ -243,6 +248,7 @@ in
           "sfeed"   # want this here so that the user's ~/.sfeed/sfeedrc gets created
           # "superd"  # make superctl (used by sxmo) be on PATH
           # "sway-autoscaler"
+          "waybar-sxmo-status"
         ];
 
         persist.byStore.cryptClearOnBoot = [
@@ -251,6 +257,17 @@ in
           ".local/share/sxmo/modem"  # SMS
           ".local/share/sxmo/notifications" # so i can see new SMS messages. not sure actually if this needs persisting or if it'll re-hydrate from modem.
         ];
+      };
+
+      sane.programs.waybar-sxmo-status = {
+        packageUnwrapped = pkgs.static-nix-shell.mkBash {
+          pname = "waybar-sxmo-status";
+          srcRoot = ./.;
+          pkgs = {
+            sxmo-utils = package;
+            "sxmo-utils.runtimeDeps" = package.runtimeDeps;
+          };
+        };
       };
     }
 
@@ -267,7 +284,7 @@ in
       {
         sane.programs.sway.enableFor.user.colin = true;
         sane.programs.waybar.config = {
-          top = import ./waybar-top.nix { inherit pkgs; };
+          top = import ./waybar-top.nix;
           # reset extra waybar style
           extra_style = "";
         };

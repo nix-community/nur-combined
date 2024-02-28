@@ -5,9 +5,9 @@
     sandbox.wrapperType = "wrappedDerivation";
     sandbox.extraHomePaths = [
       "Music"
-      "Pictures"  # i have some videos in there too.
+      "Pictures/from"  # e.g. Videos taken from my phone
       "Pictures/servo-macros"
-      "Videos"
+      "Videos/local"
       "Videos/servo"
       "tmp"
     ];
