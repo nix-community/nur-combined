@@ -11,9 +11,11 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-D5XOqbgpLkUKFOJe9kArARTMd3sM2rOFwJTtwKe6Ypk=";
   };
 
-  cargoHash = "sha256-IVbF+6ibTTb+LML5gZyB0DIWsxpSE3dDsCtoejdR/qw=";
+  cargoLock.lockFile = ./Cargo.lock;
 
-  cargoPatches = [ ./cargo-lock.patch ];
+  postPatch = ''
+    ln -s ${./Cargo.lock} Cargo.lock
+  '';
 
   buildInputs = lib.optional stdenv.isDarwin SystemConfiguration;
 
@@ -22,6 +24,6 @@ rustPlatform.buildRustPackage rec {
     inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    broken = true;
+    mainProgram = "ttb";
   };
 }

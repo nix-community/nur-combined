@@ -542,7 +542,6 @@ lib.makeScope newScope (
     lbm = callPackage ./suckless/lbm { };
     lchat = callPackage ./suckless/lchat { };
     lel = callPackage ./suckless/lel { };
-    libgrapheme = callPackage ./suckless/libgrapheme { };
     libst = callPackage ./suckless/libst { };
     libutf = callPackage ./suckless/libutf { };
     mage = callPackage ./suckless/mage { };

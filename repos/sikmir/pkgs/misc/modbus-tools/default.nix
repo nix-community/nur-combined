@@ -5,14 +5,17 @@ rustPlatform.buildRustPackage rec {
   version = "0.2";
 
   src = fetchFromGitLab {
-    owner = "alexssh";
+    owner = "alexs-sh";
     repo = "modbus-tools";
     rev = "v${version}";
     hash = "sha256-PA8EuZa2jKkd/pn6UGGJ6f7jac1bN2sS2fX3qmYVduQ=";
   };
 
-  cargoPatches = [ ./cargo-lock.patch ];
-  cargoHash = "sha256-Fd8B7PmcWUeWg5QxNB4twP0buEyPznaj/LCPisbPWLQ=";
+  cargoLock.lockFile = ./Cargo.lock;
+
+  postPatch = ''
+    ln -s ${./Cargo.lock} Cargo.lock
+  '';
 
   buildInputs = lib.optional stdenv.isDarwin IOKit;
 
