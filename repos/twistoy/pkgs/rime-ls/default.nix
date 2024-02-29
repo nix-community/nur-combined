@@ -8,13 +8,13 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "rime-ls";
-  version = "0.2.4";
+  version = "2024-02-29";
 
   src = fetchFromGitHub {
     owner = "TwIStOy";
     repo = "rime-ls";
     rev = "2d6e765e268b789ab02d177556f701db1711b16a";
-    sha256 = "sha256-wi1dcyITAgukIFE6bAh9BtfCf/r/QbixFkS3msRX9Yk=";
+    sha256 = "sha256-Q1o/a1M8dy5mZDiWOVVhNl5rYzLsrRdL9dXfsLgcu1I=";
   };
 
   nativeBuildInputs = [
