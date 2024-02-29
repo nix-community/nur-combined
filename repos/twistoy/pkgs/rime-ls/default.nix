@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "TwIStOy";
     repo = "rime-ls";
-    rev = "9ba73ff740f3dc35a0aadd958535dea1cf7977b7";
+    rev = "2d6e765e268b789ab02d177556f701db1711b16a";
     sha256 = "sha256-wi1dcyITAgukIFE6bAh9BtfCf/r/QbixFkS3msRX9Yk=";
   };
 
