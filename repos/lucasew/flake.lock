@@ -671,6 +671,22 @@
         "type": "github"
       }
     },
+    "regex101": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709226365,
+        "narHash": "sha256-k4SgfEmr02a4PVpd7+9M0rDDLC5xPSpeHsYWeJxfbSc=",
+        "owner": "lucasew",
+        "repo": "regex101",
+        "rev": "1170e6de3a493c2803fed375051cb5ef1404750f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "regex101",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "borderless-browser": "borderless-browser",
@@ -701,6 +717,7 @@
         "pocket2kindle": "pocket2kindle",
         "pytorrentsearch": "pytorrentsearch",
         "redial-proxy": "redial-proxy",
+        "regex101": "regex101",
         "rust-overlay": "rust-overlay",
         "send2kindle": "send2kindle",
         "simple-dashboard": "simple-dashboard",

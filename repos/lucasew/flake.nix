@@ -102,6 +102,9 @@
     climod.url = "github:nixosbrasil/climod";
     climod.flake = false;
 
+    regex101.url = "github:lucasew/regex101";
+    regex101.flake = false;
+
     # src-python-std2.url = "github:ms-jpq/std2/std";
     # src-python-std2.flake = false;
 
