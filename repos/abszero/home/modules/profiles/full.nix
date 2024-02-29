@@ -29,6 +29,8 @@
     zz = "z -";
   };
 
+  services.arrpc.enable = true;
+
   programs = {
     bat.enable = true;
     eza = {
