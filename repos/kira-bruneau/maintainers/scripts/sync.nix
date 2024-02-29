@@ -34,7 +34,6 @@ let
     "pkgs/applications/networking/feedreaders/newsflash"
     "pkgs/applications/version-management/git-review"
     "pkgs/development/python-modules/debugpy"
-    "pkgs/development/python-modules/huggingface-hub"
     "pkgs/development/python-modules/pygls"
     "pkgs/development/python-modules/pytest-datadir"
     "pkgs/development/python-modules/vdf"
