@@ -182,7 +182,7 @@
               "XF86AudioLowerVolume" = "exec pamixer -d 5";
               "XF86MonBrightnessUp" = "exec brightnessctl set +3%";
               "XF86MonBrightnessdown" = "exec brightnessctl set 3%-";
-              "${modifier}+Return" = "exec ${lib.getExe systemd-run-app} ${lib.getExe alacritty}";
+              "${modifier}+Return" = "exec ${lib.getExe systemd-run-app} ${lib.getExe foot}";
               "${modifier}+d" = "exec ${lib.getExe fuzzel} ${fuzzelArgs}";
               "${modifier}+space" = "floating toggle";
               "${modifier}+Shift+space" = null;

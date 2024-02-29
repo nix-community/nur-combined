@@ -28,7 +28,7 @@
                   "android-nixpkgs"
                   "agenix-rekey"
                   "misskey"
-                  # "nixpkgs-wayland"
+                  "nixpkgs-wayland"
                 ]);
             };
             specialArgs = lib.base // {

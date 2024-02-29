@@ -25,7 +25,7 @@
                   "nuenv"
                   "android-nixpkgs"
                   "agenix-rekey"
-                  "nixpkgs-wayland"
+                  # "nixpkgs-wayland"
                 ]) ++ (import ../../overlays.nix inputs);
             };
             specialArgs = lib.base // { inherit lib; user = "elen"; };

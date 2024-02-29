@@ -981,17 +981,17 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1694116212,
-        "narHash": "sha256-55XlSIUlUHkRSySKB4jpJRBmU9i4AZlksN3K6YcbOTE=",
+        "lastModified": 1709082145,
+        "narHash": "sha256-NoDUjGCp2fW3cdJzQ0cf8ZcHQZ/vflPoPmFddEcectI=",
         "owner": "daeuniverse",
         "repo": "flake.nix",
-        "rev": "e16931c97e18eddd6a36b182687701cd6d03b284",
+        "rev": "1e5f8828b1d665dafa1b1b0a6c46629a27edbf74",
         "type": "github"
       },
       "original": {
         "owner": "daeuniverse",
+        "ref": "exp",
         "repo": "flake.nix",
-        "rev": "e16931c97e18eddd6a36b182687701cd6d03b284",
         "type": "github"
       }
     },
@@ -6089,22 +6089,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-dae_2": {
-      "locked": {
-        "lastModified": 1703592166,
-        "narHash": "sha256-y6q8zVECbzKaqVa93ozQWiQhFDgiSQarJH0+V3SR8jY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c43c81954dee4f0b383a6c4ee3f3c66384146d42",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c43c81954dee4f0b383a6c4ee3f3c66384146d42",
-        "type": "github"
-      }
-    },
     "nixpkgs-for-bootstrap": {
       "locked": {
         "lastModified": 1686921029,
@@ -7910,7 +7894,7 @@
           "nixpkgs"
         ],
         "nixpkgs-22": "nixpkgs-22_2",
-        "nixpkgs-dae": "nixpkgs-dae_2",
+        "nixpkgs-dae": "nixpkgs-dae",
         "nixpkgs-master": "nixpkgs-master_2",
         "nixpkgs-rebuild": "nixpkgs-rebuild_2",
         "nixpkgs-wayland": "nixpkgs-wayland_2",
@@ -9076,7 +9060,6 @@
         "nixified-ai": "nixified-ai",
         "nixpkgs": "nixpkgs_26",
         "nixpkgs-22": "nixpkgs-22",
-        "nixpkgs-dae": "nixpkgs-dae",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-rebuild": "nixpkgs-rebuild",
         "nixpkgs-wayland": "nixpkgs-wayland",

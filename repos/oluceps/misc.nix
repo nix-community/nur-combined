@@ -315,7 +315,7 @@ lib.mkMerge [
       adb.enable = true;
       mosh.enable = true;
       nix-ld.enable = true;
-      command-not-found.enable = false;
+      command-not-found.enable = true;
       steam = {
         enable = true;
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play

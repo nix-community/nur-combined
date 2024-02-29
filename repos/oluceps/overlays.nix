@@ -111,22 +111,22 @@ let system = "x86_64-linux"; in [
       #     sha256 = "sha256-nYA8W7iabaepiIsxDrCkG/WIFNrVdubk/AtFhIvYJB8=";
       #   };
       # });
-      # sway-unwrapped = inputs.;
-      sway-unwrapped = prev.callPackage "${inputs.RyanGibb}/pkgs/sway-im/package.nix" {
-        libdrm = final.libdrm;
-        wlroots = prev.callPackage "${inputs.RyanGibb}/pkgs/wlroots/default.nix" {
-          # for libdrm >=2.4.120
-          mesa = final.mesa;
-          wayland-protocols = prev.wayland-protocols.overrideAttrs (old: rec {
-            pname = "wayland-protocols";
-            version = "1.33";
-            src = prev.fetchurl {
-              url = "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
-              hash = "sha256-lPDFCwkNbmGgP2IEhGexmrvoUb5OEa57NvZfi5jDljo=";
-            };
-          });
-        };
-      };
+      sway-unwrapped = inputs.nixpkgs-wayland.packages.${system}.sway-unwrapped;
+      # sway-unwrapped = prev.callPackage "${inputs.RyanGibb}/pkgs/sway-im/package.nix" {
+      #   libdrm = final.libdrm;
+      #   wlroots = prev.callPackage "${inputs.RyanGibb}/pkgs/wlroots/default.nix" {
+      #     # for libdrm >=2.4.120
+      #     mesa = final.mesa;
+      #     wayland-protocols = prev.wayland-protocols.overrideAttrs (old: rec {
+      #       pname = "wayland-protocols";
+      #       version = "1.33";
+      #       src = prev.fetchurl {
+      #         url = "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
+      #         hash = "sha256-lPDFCwkNbmGgP2IEhGexmrvoUb5OEa57NvZfi5jDljo=";
+      #       };
+      #     });
+      #   };
+      # };
 
 
       # sway-unwrapped =
@@ -189,8 +189,8 @@ let system = "x86_64-linux"; in [
           src = fetchFromGitHub {
             owner = "daeuniverse";
             repo = "dae";
-            rev = "8ee97eaab798401207ab3af2f9372b7ad9928518";
-            hash = "sha256-O59MaK0/kxjUZ/Wf1eyZJs921f1vxu5kFHIE0TG4Jrk=";
+            rev = "16dfabc93596d4036c0c8418789a7b114bf61619";
+            hash = "sha256-Ya/M0/bx8O50kqdHO14mPz56FfW4xXDu7rYLjlB3OZc=";
             fetchSubmodules = true;
           };
 

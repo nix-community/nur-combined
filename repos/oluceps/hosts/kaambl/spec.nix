@@ -36,6 +36,18 @@
       (n: importService n)
   ) //
   {
+
+    beesd.filesystems = {
+      os = {
+        spec = "/nix";
+        hashTableSizeMB = 512; # 256 *2 *2
+        verbosity = "crit";
+        extraOptions = [
+          "--loadavg-target"
+          "2.0"
+        ];
+      };
+    };
     snapy.instances = [
       {
         name = "persist";
