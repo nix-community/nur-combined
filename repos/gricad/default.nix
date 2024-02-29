@@ -16,6 +16,9 @@ rec {
   intel-oneapi = pkgs.callPackage ./pkgs/intel/oneapi.nix { 
     gdk_pixbuf = pkgs.gdk-pixbuf; 
   };
+  intel-oneapi-2022 = pkgs.callPackage ./pkgs/intel/oneapi-2022.nix { 
+    gdk_pixbuf = pkgs.gdk-pixbuf; 
+  };
 
   # iRods
   inherit (pkgs.callPackages ./pkgs/irods rec {
