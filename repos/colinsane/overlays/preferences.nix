@@ -69,7 +69,7 @@
   # ];
 
   sway-unwrapped = super.sway-unwrapped.override {
-    wlroots_0_16 = wlroots_0_16.overrideAttrs (upstream: {
+    wlroots = wlroots.overrideAttrs (upstream: {
       # 2023/09/08: fix so clicking a notification can activate the corresponding window.
       # - test: run dino, receive a message while tabbed away, click the desktop notification.
       #   - if sway activates the dino window (i.e. colors the workspace and tab), then all good
@@ -93,7 +93,7 @@
       #     - i.e. my experience with dino is the same using mako as with SwayNC
       postPatch = (upstream.postPatch or "") + ''
         substituteInPlace types/wlr_xdg_activation_v1.c \
-          --replace 'if (token->seat != NULL)' 'if (false && token->seat != NULL)'
+          --replace-fail 'if (token->seat != NULL)' 'if (false && token->seat != NULL)'
       '';
     });
   };

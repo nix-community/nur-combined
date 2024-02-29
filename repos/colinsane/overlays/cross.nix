@@ -1110,8 +1110,8 @@ in with final; {
     }
   );
 
-  # 2024/01/14: patched and built; verified no native runtime deps
   # 2024/02/27: upstreaming is unblocked
+  #             out for PR: <https://github.com/NixOS/nixpkgs/pull/292415>
   # fixes "proto/meson.build:17:15: ERROR: Failed running '/nix/store/sx2814jd7xim65qbiqry94vkq2b4xv5b-python3-aarch64-unknown-linux-gnu-3.11.7-env/bin/python3', binary or interpreter not executable."
   # source runs python during build only as a sanity check: we could instead disable that.
   # this library is probably only used by xwayland: <https://github.com/NixOS/nixpkgs/pull/280256>
@@ -2002,27 +2002,26 @@ in with final; {
   );
 
   # 2024/02/27: upstreaming is blocked on wlroots-hyprland (libei)
-  # needs binfmt: "meson.build:420:8: ERROR: Dependency lookup for scdoc with method 'pkgconfig' failed: Pkg-config binary for machine 0 not found. Giving up."
-  waybar = (prev.waybar.override {
-    runTests = false;  #< upstream expects `catch2_3` as a runtime requirement
-    cavaSupport = false;  # doesn't cross compile
-    hyprlandSupport = false;  # doesn't cross compile
-    # fixes: "/nix/store/sc1pz0zaqwpai24zh7xx0brjinflmc6v-aarch64-unknown-linux-gnu-binutils-2.40/bin/aarch64-unknown-linux-gnu-ld: /nix/store/ghxl1zrfnvh69dmv7xa1swcbyx06va4y-wayland-1.22.0/lib/libwayland-client.so: error adding symbols: file in wrong format"
-    wrapGAppsHook = wrapGAppsNoGuiHook;
-  }).overrideAttrs (upstream: {
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      buildPackages.wayland-scanner
-      (makeShellWrapper.overrideAttrs (_: {
-        # else it tries to invoke the host CC compiler (??)
-        shell = runtimeShell;
-      }))
-    ];
-    # buildInputs = upstream.buildInputs ++ [ catch2_3 ];  #< either this or override `runTests = false`
-    mesonFlags = upstream.mesonFlags ++ [
-      # fixes "Dependency lookup for scdoc with method 'pkgconfig' failed: Pkg-config binary for machine 0 not found. Giving up."
-      "-Dman-pages=disabled"
-    ];
-  });
+  #             out for PR: <https://github.com/NixOS/nixpkgs/pull/292415>
+  # waybar = (prev.waybar.override {
+  #   runTests = false;  #< upstream expects `catch2_3` as a runtime requirement
+  #   hyprlandSupport = false;  # doesn't cross compile
+  #   # fixes: "/nix/store/sc1pz0zaqwpai24zh7xx0brjinflmc6v-aarch64-unknown-linux-gnu-binutils-2.40/bin/aarch64-unknown-linux-gnu-ld: /nix/store/ghxl1zrfnvh69dmv7xa1swcbyx06va4y-wayland-1.22.0/lib/libwayland-client.so: error adding symbols: file in wrong format"
+  #   wrapGAppsHook = wrapGAppsNoGuiHook;
+  # }).overrideAttrs (upstream: {
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #     buildPackages.wayland-scanner
+  #     (makeShellWrapper.overrideAttrs (_: {
+  #       # else it tries to invoke the host CC compiler (??)
+  #       shell = runtimeShell;
+  #     }))
+  #   ];
+  #   # buildInputs = upstream.buildInputs ++ [ catch2_3 ];  #< either this or override `runTests = false`
+  #   mesonFlags = upstream.mesonFlags ++ [
+  #     # fixes "Dependency lookup for scdoc with method 'pkgconfig' failed: Pkg-config binary for machine 0 not found. Giving up."
+  #     "-Dman-pages=disabled"
+  #   ];
+  # });
 
   webkitgtk = prev.webkitgtk.overrideAttrs (upstream: {
     # fixes "wayland-scanner: line 5: syntax error: unterminated quoted string"
@@ -2061,6 +2060,15 @@ in with final; {
       patchShebangs --update $out/share/wike/wike-sp
     '';
   });
+
+  # 2024/02/29: upstreaming is blocked on libei (unless Xwayland config option is disabled in nixpkgs)
+  #             out for PR: <https://github.com/NixOS/nixpkgs/pull/292415>
+  # wlroots = prev.wlroots.overrideAttrs (upstream: {
+  #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+  #     # incorrectly specified as `buildInputs` in nixpkgs.
+  #     hwdata
+  #   ];
+  # });
 
   # wrapFirefox = prev.wrapFirefox.override {
   #   buildPackages = buildPackages // {

@@ -50,10 +50,8 @@ in
     packageUnwrapped = pkgs.waybar.override {
       # not *required*, however this does cut down on some cross-compilation issues
       # and also avoids building entirely unused dependencies
-      sway = config.sane.programs.sway.package;
-      cavaSupport = false;  #< doesn't cross
-      hyprlandSupport = false;  #< doesn't cross
-      sndioSupport = false;  #< useless
+      sway = config.sane.programs.sway.package.sway-unwrapped;
+      # hyprlandSupport = false;  #< doesn't cross
     };
 
     sandbox.method = "bwrap";

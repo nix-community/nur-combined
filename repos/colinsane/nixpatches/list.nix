@@ -32,15 +32,16 @@ in [
   # etc, where "date" is like "20240228181608"
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/291806";
-    title = "swaynotificationcenter: support cross compilation";
-    hash = "sha256-Od5591zj8OW2WncI4eY9i5i8cFsAM7NQtHyYB9KSpLg=";
-  })
-  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/288518";
     saneCommit = "20c9492d303be7cbad560e3d83bc47ab4b1e93f7";
     title = "procmail: support cross compilation";
     hash = "sha256-cC9GBF5tCeJ2GDSjMjlG4hYStIJPEoRBAK9/KhJiiIo=";
+  })
+
+  (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/292415";
+    title = "sway/hyprland: cross compilation fixes";
+    hash = "sha256-MgqeTufPek0cUELXjHWoSfDU5Pl9wtwnjWBlnqabHu8=";
   })
 
   (fetchpatch' {
@@ -49,11 +50,6 @@ in [
     title = "imagemagick, graphicsmagick: remove build coreutils from cross-compiled output";
     hash = "sha256-jUtMmT4d+/6hZgrpXhfBcToAfdecl7xtEj1d/ofxaIM=";
     merged.staging = "20240228181608";
-  })
-  (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/291947";
-    title = "libshumate: support cross compilation";
-    hash = "sha256-l1EXoggqgcmAlKdq501x2hBjqaGJrG4hO/xSnSWDt3U=";
   })
 
   # (fetchpatch' {
