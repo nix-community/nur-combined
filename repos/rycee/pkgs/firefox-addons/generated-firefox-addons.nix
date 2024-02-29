@@ -56,10 +56,10 @@
     };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
-      version = "2.2.8";
+      version = "2.2.9";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4177552/addy_io-2.2.8.xpi";
-      sha256 = "5fda51900275254e752f206d5d4630417e00b1c07427321aa4921440ce380c06";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4242551/addy_io-2.2.9.xpi";
+      sha256 = "f583cc8a395d1d81bc17d65a135338f8d9abf2f257656219f53e08a93e11e70a";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -1706,10 +1706,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240226.91939";
+      version = "124.0.20240228.91714";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241602/deutsch_de_language_pack-124.0.20240226.91939.xpi";
-      sha256 = "132284ead5b6ebab6bb99f4f913cf714ba0824627e3924fe7012eb233fc0fdbb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4242713/deutsch_de_language_pack-124.0.20240228.91714.xpi";
+      sha256 = "ef0a38c1adccdeaffc11a6084b966f4d6b8e02f830bf76779c7d97c4fab541ab";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1965,10 +1965,10 @@
     };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
-      version = "5.36.1";
+      version = "5.38.2";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4211144/ebates-5.36.1.xpi";
-      sha256 = "b1855be21121fbeb151dc26910749e9f8d89bda5913d8424b930c78ea46c0826";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4239706/ebates-5.38.2.xpi";
+      sha256 = "eca78e6366d0a1b7f8fb280363df3117de6f0b91ec959d9672d1bec984d30a8e";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -2189,10 +2189,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.23.1";
+      version = "1.2.24";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240136/faststream-1.2.23.1.xpi";
-      sha256 = "8ba30b1e14f14bc5ad3652364e76a639e0ab5c62e21b29c2e5e212879eaafd88";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243008/faststream-1.2.24.xpi";
+      sha256 = "79bb898f4877005bb02366edb3fa2a5cd8a12908e0055165f2ccc459c9a14696";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2601,10 +2601,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240226.91939";
+      version = "124.0.20240228.91714";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241592/francais_language_pack-124.0.20240226.91939.xpi";
-      sha256 = "120d1421b78a9400be00a8f3c83eaac389dd8626c619109af203f33d9afd03c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4242644/francais_language_pack-124.0.20240228.91714.xpi";
+      sha256 = "d0d900dbc7b84e3eeba310252f7519701fac93078f1bfe0b41b83c7c6f195c6d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -10963,10 +10963,10 @@
     };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.5.0";
+      version = "3.6.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221646/web_scrobbler-3.5.0.xpi";
-      sha256 = "60e532506745a88830fa48a95b8610f6cfe220c791d0a5886a3aacaf8541f33d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240733/web_scrobbler-3.6.1.xpi";
+      sha256 = "54344aa7505e6ea2dbf132b77982d5f09056d66a40b135cd4cf3ca7f021b69b2";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
