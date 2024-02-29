@@ -32,8 +32,8 @@ let
       repo = "rofi";
       fetchSubmodules = true;
       # rev = "dev-sane";  #< fetchFromGitea doesn't support tags (?)
-      rev = "1edfceaeefa2cae971ae90dc55811f3b7592a1b4";
-      hash = "sha256-oIWLwec1LRsss12S92ebBWQk14FBJWc6QcYxzOU3eFI=";
+      rev = "3e7ed93b3a75b964d9c49f1322c9cc886f7d498e";
+      hash = "sha256-wiQtdvnmju42jmi4UR8PYDL119Gt2DQ/3an4dmeMrjE=";
     };
     # patches = (upstream.patches or []) ++ [
     #   (pkgs.fetchpatch {
@@ -47,6 +47,10 @@ let
   #   # plugins must be compiled against the same rofi they're loaded by
   #   inherit rofi-unwrapped;
   # };
+  # rofi-file-browser = pkgs.rofi-file-browser.override {
+  #   # plugins must be compiled against the same rofi they're loaded by
+  #   rofi = rofi-unwrapped;
+  # };
 in
 {
   sane.programs.rofi = {
@@ -54,8 +58,15 @@ in
     # it's actively maintained though, and more of an overlay than a true fork.
     packageUnwrapped = pkgs.rofi-wayland.override {
       inherit rofi-unwrapped;
-      # rofi-emoji: "insert" mode doesn't work; use a wrapper like `splatmoji` instead.
-      # plugins = [ rofi-emoji ];
+      plugins = [
+        # rofi-[extended-]-file-browser: <https://github.com/marvinkreis/rofi-file-browser-extended>
+        # because the builtin rofi filebrowser only partially lists ~/Videos/servo/Shows, seemingly at random.
+        # but rofi-file-browser doesn't compile against my patched rofi (oops)
+        # rofi-file-browser
+
+        # rofi-emoji: "insert" mode doesn't work; use a wrapper like `splatmoji` instead.
+        # rofi-emoji
+      ];
     };
 
     suggestedPrograms = [

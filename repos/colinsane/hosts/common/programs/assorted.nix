@@ -719,10 +719,16 @@ in
       "/sys/kernel"
     ];
 
+    procps = {};
+
+    psmisc = {};
+
     pstree.sandbox.method = "landlock";
     pstree.sandbox.extraPaths = [
       "/proc"
     ];
+
+    pulseaudio = {};
 
     pulsemixer.sandbox.method = "landlock";
     pulsemixer.sandbox.whitelistAudio = true;
@@ -902,7 +908,6 @@ in
     xwayland.sandbox.net = "clearnet";  #< just assuming this is needed (X11 traffic)
     xwayland.sandbox.whitelistDri = true;  #< would assume this gives better gfx perf
 
-    xdg-terminal-exec.sandbox.enable = false;  # xdg-terminal-exec is a launcher for $TERM
     xterm.sandbox.enable = false;  # need to be able to do everything
 
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];

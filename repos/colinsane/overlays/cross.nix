@@ -1021,17 +1021,6 @@ in with final; {
     '';
   });
 
-  # 2024/02/27: upstreaming is unblocked
-  # this patch isn't strictly necessary: it mostly just removes build tools from the runtime closure
-  # out for PR: <https://github.com/NixOS/nixpkgs/pull/291942>
-  # graphicsmagick = prev.graphicsmagick.overrideAttrs (upstream: {
-  #   # by default the build holds onto a reference to build `mv`
-  #   # N.B.: `imagemagick` package has this identical issue (but requires a different fix?)
-  #   configureFlags = upstream.configureFlags ++ [
-  #     "MVDelegate=${coreutils}/bin/mv"
-  #   ];
-  # });
-
   # fixes: "make: gcc: No such file or directory"
   # java-service-wrapper = useEmulatedStdenv prev.java-service-wrapper;
 

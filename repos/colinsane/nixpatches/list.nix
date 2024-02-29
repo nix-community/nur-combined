@@ -26,6 +26,11 @@ let
       // (if title != null then { name = title; } else {})
     ) else null;
 in [
+  # if a patch has been merged, use
+  #   merged.staging = "<date>";
+  #   merged.master = "<date>";
+  # etc, where "date" is like "20240228181608"
+  # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
   (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/291806";
     title = "swaynotificationcenter: support cross compilation";
@@ -43,6 +48,7 @@ in [
     prUrl = "https://github.com/NixOS/nixpkgs/pull/291942";
     title = "imagemagick, graphicsmagick: remove build coreutils from cross-compiled output";
     hash = "sha256-jUtMmT4d+/6hZgrpXhfBcToAfdecl7xtEj1d/ofxaIM=";
+    merged.staging = "20240228181608";
   })
   (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/291947";

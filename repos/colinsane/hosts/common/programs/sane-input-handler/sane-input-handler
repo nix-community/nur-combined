@@ -1,0 +1,228 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p coreutils -p playerctl -p procps -p psmisc -p pulseaudio -p sway -p util-linux -p wvkbd
+
+# input map considerations
+# - using compound actions causes delays.
+#   e.g. if volup->volup is a distinct action from volup, then single-volup action is forced to wait the maximum button delay.
+# - actions which are to be responsive should therefore have a dedicated key.
+# - a dedicated "kill" combo is important for unresponsive fullscreen apps, because appmenu doesn't show in those
+#   - although better may be to force appmenu to show over FS apps
+# - bonsai mappings are static, so buttons can't benefit from non-compounding unless they're mapped accordingly for all lock states
+#   - this limitation could be removed, but with work
+#
+# example of a design which considers these things:
+# - when unlocked:
+#   - volup toggle  -> app menu
+#   - voldown press -> keyboard
+#   - voldown hold  -> terminal
+#   - power x2      -> screenoff
+#   - hold power    -> kill app
+# - when locked:
+#   - volup tap     -> volume up
+#   - volup hold    -> media seek forward
+#   - voldown tap   -> volume down
+#   - voldown hold  -> media seek backward
+#   - power x1      -> screen on
+#   - power x2      -> play/pause media
+# some trickiness allows for media controls in unlocked mode:
+#   - volup tap     -> enter media mode
+#     - i.e. in this state, vol tap/hold is mapped to volume/seek
+#     - if, after entering media mode, no more taps occur, then we trigger the default app-menu action
+# limitations/downsides:
+# - power mappings means phone is artificially slow to unlock.
+# - media controls when unlocked have quirks:
+#   - mashing voldown to decrease the volume will leave you with a toggled keyboard.
+#   - seeking backward isn't possible except by first tapping volup.
+
+
+# increments to use for volume adjustment
+VOL_INCR=5
+KEYBOARD="${KEYBOARD:-wvkbd-mobintl}"
+
+action="$1"
+
+isTouchOn() {
+  # success if all touch inputs have their events enabled
+  swaymsg -t get_inputs --raw \
+    | jq --exit-status '. | map(select(.type == "touch")) | all(.libinput.send_events == "enabled")' \
+    > /dev/null
+}
+isScreenOn() {
+  # success if all outputs have power
+  swaymsg -t get_outputs --raw \
+    | jq --exit-status '. | all(.power)' \
+    > /dev/null
+}
+
+isAllOn() {
+  isTouchOn && isScreenOn
+}
+
+isInhibited() {
+  pidof rofi
+}
+
+
+ignore() {
+  true
+}
+inhibited() {
+  true
+}
+unmapped() {
+  true
+}
+
+openDesktop() {
+  # open a .desktop file via the xdg-desktop-portal
+  gdbus call --session --timeout 10 \
+    --dest org.freedesktop.portal.Desktop \
+    --object-path /org/freedesktop/portal/desktop \
+    --method org.freedesktop.portal.DynamicLauncher.Launch \
+    "$1" {}
+}
+
+allOn() {
+  swaymsg -- output '*' power true
+  swaymsg -- input type:touch events enabled
+}
+allOff() {
+  swaymsg -- output '*' power false
+  swaymsg -- input type:touch events disabled
+}
+
+toggleKeyboard() {
+  local kbpid=$(pidof "$KEYBOARD")
+  if [ -z "$kbpid" ] || ! ( env kill -s RTMIN+0 "$kbpid" ); then
+    echo "sane-input-handler: failed to toggle keyboard; launching manually: $KEYBOARD"
+    # manually launch the keyboard, as a fallback
+    "$KEYBOARD" &
+  fi
+}
+
+handleWith() {
+  state=
+  if [ -n "$_isInhibited" ]; then
+    state="inhibited+"
+  fi
+  if [ -n "$_isAllOn" ]; then
+    state="${state}on"
+  else
+    state="${state}off"
+  fi
+  echo "sane-input-handler: state=$state action=$action: handleWith: $@"
+  "$@"
+  exit 0
+}
+
+dispatchDefault() {
+  case "$action" in
+    "powerbutton_one")
+      # power once => unlock
+      handleWith allOn
+      ;;
+    "powerbutton_two")
+      # power twice => screenoff
+      handleWith allOff
+      ;;
+    # powerbutton_three: intentional no-op because overloading the kill-window handler is risky
+
+    volup_tap*|modal_volup_tap*)
+      handleWith pactl set-sink-volume @DEFAULT_SINK@ +"$VOL_INCR%"
+      ;;
+    voldown_tap*|modal_voldown_tap*)
+      handleWith pactl set-sink-volume @DEFAULT_SINK@ -"$VOL_INCR%"
+      ;;
+
+    volup_hold*|modal_volup_hold*)
+      handleWith playerctl position 30+
+      ;;
+    voldown_hold*|modal_voldown_hold*)
+      handleWith playerctl position 10-
+      ;;
+  esac
+}
+
+dispatchOff() {
+  case "$action" in
+    "powerbutton_two")
+      # power twice => toggle media player
+      handleWith playerctl play-pause
+      ;;
+    "powerhold")
+      # power toggle during deep sleep often gets misread as power hold, so treat same
+      handleWith allOn
+      ;;
+  esac
+}
+
+dispatchOn() {
+  case "$action" in
+    # powerbutton_one: intentional default to no-op
+    # powerbutton_two: intentional default to screenoff
+    "powerhold")
+      # power thrice: kill active window
+      handleWith swaymsg kill
+      ;;
+
+    "volup_tap_1")
+      # swallow: this could be the start to a media control (multi taps / holds),
+      # or it could be just a single tap -> release, handled next/below
+      handleWith ignore
+      ;;
+    "volup_1")
+      # volume up once: system menu
+      handleWith openDesktop rofi.desktop
+      ;;
+
+    "voldown_start")
+      # volume down once: toggle keyboard
+      handleWith toggleKeyboard
+      ;;
+    "voldown_hold_2")
+      # hold voldown to launch terminal
+      # note we already triggered the keyboard; that's fine: usually keyboard + terminal go together :)
+      # voldown_hold_1 frequently triggers during short taps meant only to reveal the keyboard,
+      # so prefer a longer hold duration
+      handleWith openDesktop xdg-terminal-exec.desktop
+      ;;
+    "voldown_tap_1")
+      # swallow, to prevent keyboard from also triggering media controls
+      handleWith ignore
+      ;;
+    voldown_hold_*)
+      # swallow, to prevent terminal from also triggering media controls
+      handleWith ignore
+      ;;
+  esac
+}
+
+dispatchInhibited() {
+  case "$action" in
+    "powerhold")
+      # power thrice: escape hatch in case rofi has hung
+      handleWith killall -9 rofi
+      ;;
+    *)
+      # eat everything else (and let rofi consume it)
+      handleWith inhibited
+      ;;
+  esac
+}
+
+_isAllOn="$(isAllOn && echo 1 || true)"
+_isInhibited="$(isInhibited && echo 1 || true)"
+
+if [ -n "$_isInhibited" ]; then
+  dispatchInhibited
+fi
+
+if [ -n "$_isAllOn" ]; then
+  dispatchOn
+else
+  dispatchOff
+fi
+
+dispatchDefault
+
+handleWith unmapped

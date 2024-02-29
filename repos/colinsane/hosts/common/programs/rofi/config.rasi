@@ -12,12 +12,16 @@ configuration {
   kb-row-up: "Up,XF86AudioRaiseVolume";
   kb-row-down: "Down,XF86AudioLowerVolume";
   filebrowser {
-    /* filebrowser starting directory */
+    /* directory: filebrowser starting directory. leave unset to start at the last directory. */
     directory: "/home";
     /* display-name: text to prepend in combi mode */
     display-name: "/";
     /* `command` is the prefix to prepend (along with a space) *before* passing it off to `run-command` */
     command: "xdg-open";
+    directories-first: true;
+    /* sorting-method: name/atime/ctime/mtime */
+    sorting-method: "name";
+    show-hidden: false;
   }
   drun {
     display-name: " ";

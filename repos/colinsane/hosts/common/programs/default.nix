@@ -81,6 +81,7 @@
     ./rhythmbox.nix
     ./ripgrep.nix
     ./rofi
+    ./sane-input-handler
     ./sane-scripts.nix
     ./sfeed.nix
     ./signal-desktop.nix
@@ -108,10 +109,12 @@
     ./wireplumber.nix
     ./wireshark.nix
     ./wob
+    ./wvkbd.nix
     ./xarchiver.nix
     ./xdg-desktop-portal.nix
     ./xdg-desktop-portal-gtk.nix
     ./xdg-desktop-portal-wlr.nix
+    ./xdg-terminal-exec.nix
     ./xdg-utils.nix
     ./zeal.nix
     ./zecwallet-lite.nix
