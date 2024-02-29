@@ -10,10 +10,6 @@ let inherit (lib) genAttrs const; in
 
   nix = {
     package = pkgs.nixVersions.unstable;
-    # Let nix-shell use the system nixpkgs
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-    # Pin nixpkgs to the system version
-    registry.nixpkgs.flake = inputs.nixpkgs;
     gc = {
       automatic = true;
       dates = "daily";

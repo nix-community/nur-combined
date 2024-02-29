@@ -23,7 +23,7 @@
     {
       "label": "flake-update",
       "type": "shell",
-      "command": "nix flake update; nix flake update --flake ./nixos; nix flake update --flake ./home; nix flake update --flake ./pkgs; nix flake update --flake ./lib; git pull -s subtree haumea main",
+      "command": "nix flake update; nix flake update --flake ./nixos; nix flake update --flake ./home; nix flake update --flake ./pkgs; nix flake update --flake ./lib; git subtree pull haumea main",
       "problemMatcher": []
     }
   ]
