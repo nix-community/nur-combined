@@ -53,6 +53,7 @@
     ./kdenlive.nix
     ./komikku.nix
     ./koreader
+    ./less.nix
     ./libreoffice.nix
     ./lemoa.nix
     ./loupe.nix

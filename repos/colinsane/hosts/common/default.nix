@@ -45,12 +45,14 @@
   };
   system.activationScripts.notifyActive = {
     text = ''
-      # send a notification to any sway users logged in, that the system has been activated/upgraded.
-      # this probably doesn't work if more than one sway session exists on the system.
-      _notifyActiveSwaySock="$(echo /run/user/*/sway-ipc*.sock)"
-      if [ -e "$_notifyActiveSwaySock" ]; then
-        SWAYSOCK="$_notifyActiveSwaySock" ${config.sane.programs.sway.packageUnwrapped}/bin/swaymsg -- exec \
-          "${pkgs.libnotify}/bin/notify-send 'nixos activated' 'version: $(cat $systemConfig/nixos-version)'"
+      # notify all logged-in users that the system has been activated/upgraded.
+      if [ -d /run/user ]; then
+        for uid in $(ls /run/user); do
+          PATH="$PATH:${pkgs.sudo}/bin" \
+          sudo -u "#$uid" env DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus" \
+            PATH="$PATH:${pkgs.libnotify}/bin" \
+            notify-send 'nixos activated' "version: $(cat "$systemConfig/nixos-version")"
+        done
       fi
     '';
   };

@@ -62,6 +62,7 @@ in
       # "iw"
       "jq"
       "killall"
+      "less"
       # "libcap_ng"  # for `netcap`
       "lsof"
       # "miniupnpc"

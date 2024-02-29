@@ -13,7 +13,7 @@
     "/run/current-system/sw"
   ];
 
-  # NIXPKGS_CONFIG defaults to "/etc/nix/nixpkgs-config.nix", for idfk why.
+  # NIXPKGS_CONFIG defaults to "/etc/nix/nixpkgs-config.nix" in <nixos/modules/programs/environment.nix>.
   # that's never existed on my system and everything does fine without it set empty (no nixpkgs API to forcibly *unset* it).
   environment.variables.NIXPKGS_CONFIG = lib.mkForce "";
   # XDG_CONFIG_DIRS defaults to "/etc/xdg", which doesn't exist.
@@ -42,4 +42,10 @@
   # so as to inform when trying to run a non-nixos binary?
   # IMO that's confusing: i thought /lib/ld-linux.so was some file actually required by nix.
   environment.stub-ld.enable = false;
+
+  # `less.enable` sets LESSKEYIN_SYSTEM, LESSOPEN, LESSCLOSE env vars, which does confusing "lesspipe" things, so disable that.
+  # it's enabled by default from `<nixos/modules/programs/environment.nix>`, who also sets `PAGER="less"` and `EDITOR="nano"` (keep).
+  programs.less.enable = lib.mkForce false;
+  environment.variables.PAGER = lib.mkOverride 900 "";  # mkDefault sets 1000. non-override is 100. 900 will beat the nixpkgs `mkDefault` but not anyone else.
+  environment.variables.EDITOR = lib.mkOverride 900 "";
 }
