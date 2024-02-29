@@ -19,7 +19,7 @@ bind ,<Space> nohlsearch
 set findcase smart
 
 " New reddit is bad
-autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+" autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
 
 " Orange site / Reddit / Lobste.rs specific hints to toggle comments
 bind ;c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
