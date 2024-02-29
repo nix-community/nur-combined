@@ -39,31 +39,12 @@ in
         downloadDirectory
         port
         ;
-    };
 
-    # Use pyload user/media group when downloading files
-    systemd.services.pyload = {
-      serviceConfig = {
-        User = lib.mkForce "pyload";
-        Group = lib.mkForce "media";
-        DynamicUser = lib.mkForce false;
-      };
-    };
-
-    # And make sure the download directory has the correct owners
-    systemd.tmpfiles.settings.pyload = {
-      ${cfg.downloadDirectory}.d = {
-        user = "pyload";
-        group = "media";
-      };
-    };
-
-    # Set-up pyload user and media group
-    users.users.pyload = {
-      isSystemUser = true;
+      # Use media group when downloading files
       group = "media";
     };
 
+    # Set-up media group
     users.groups.media = { };
 
     my.services.nginx.virtualHosts = {
