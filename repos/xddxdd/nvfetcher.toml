@@ -170,10 +170,12 @@ fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzh
 
 [kata-containers]
 src.github = "kata-containers/kata-containers"
+src.include_regex = "^[0-9\\.]+$"
 fetch.github = "kata-containers/kata-containers"
 
 [kata-image]
 src.github = "kata-containers/kata-containers"
+src.include_regex = "^[0-9\\.]+$"
 fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-amd64.tar.xz"
 
 [konnect]

@@ -53,6 +53,8 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
+            keep-going = true
+            log-lines = 25
 
       - name: Setup cachix
         uses: cachix/cachix-action@v14
