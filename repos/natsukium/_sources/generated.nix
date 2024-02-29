@@ -23,13 +23,13 @@
   };
   nixfmt = {
     pname = "nixfmt";
-    version = "dc93faa18cdc031ce5e22f4ef6f91222c70bb36d";
+    version = "4144733e2299c6e89fad4c0d6f4f0002f00a2035";
     src = fetchFromGitHub {
       owner = "piegamesde";
       repo = "nixfmt";
-      rev = "dc93faa18cdc031ce5e22f4ef6f91222c70bb36d";
+      rev = "4144733e2299c6e89fad4c0d6f4f0002f00a2035";
       fetchSubmodules = false;
-      sha256 = "sha256-ONofjTlhWaKw3MtLP+d2nyTNSG8bE8pRZhuERvXlABA=";
+      sha256 = "sha256-2BBrtmRHXapyy5iRJdYSz3fG7TCr9UuK5pDV1dNSiZI=";
     };
     date = "2024-02-27";
   };
@@ -71,15 +71,15 @@
   };
   sbarlua = {
     pname = "sbarlua";
-    version = "6157671ab29bb9213f345f541115329329a0e6bd";
+    version = "29395b1928835efa1b376d438216fbf39e0d0f83";
     src = fetchFromGitHub {
       owner = "FelixKratz";
       repo = "SbarLua";
-      rev = "6157671ab29bb9213f345f541115329329a0e6bd";
+      rev = "29395b1928835efa1b376d438216fbf39e0d0f83";
       fetchSubmodules = false;
-      sha256 = "sha256-fJigsTJOce4xTk1Y+QHGd+y3muMH0SchOJXdjwVOJMY=";
+      sha256 = "sha256-C2tg1mypz/CdUmRJ4vloPckYfZrwHxc4v8hsEow4RZs=";
     };
-    date = "2024-02-27";
+    date = "2024-02-28";
   };
   skkeleton = {
     pname = "skkeleton";
