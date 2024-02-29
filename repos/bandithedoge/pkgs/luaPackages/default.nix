@@ -4,7 +4,8 @@
   ...
 }: {
   lua-dbus_proxy = pkgs.luaPackages.buildLuarocksPackage rec {
-    inherit (sources.lua-dbus_proxy) src pname version;
+    inherit (sources.lua-dbus_proxy) src pname;
+    version = sources.lua-dbus_proxy.date;
 
     propagatedBuildInputs = with pkgs.luaPackages; [lgi];
     knownRockspec = src + "/rockspec/dbus_proxy-devel-1.rockspec";
@@ -27,6 +28,7 @@
       description = "convenient dbus api in lua";
       homepage = "https://github.com/dodo/lua-dbus";
       license = licenses.mit;
+      broken = true;
     };
   };
 
