@@ -20,6 +20,7 @@
   commit-and-tag-version = pkgs.callPackage ./pkgs/commit-and-tag-version { };
   rangefs = pkgs.callPackage ./pkgs/rangefs { };
   snapshotfs = pkgs.callPackage ./pkgs/snapshotfs { };
+  i3-focus-group = pkgs.python3Packages.callPackage ./pkgs/i3-focus-group { };
   emacsPackages = pkgs.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/emacs-pkgs { }
   );
