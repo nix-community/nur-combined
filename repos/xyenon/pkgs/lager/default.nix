@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lager";
-  version = "unstable-2023-11-22";
+  version = "unstable-2024-02-21";
 
   src = fetchFromGitHub {
     owner = "arximboldi";
     repo = pname;
-    rev = "53dfad020a177b33d375e9b294a5e924edd8a82a";
-    hash = "sha256-uvIAQ0nipxnfVUIig4LIER96GltaSPGiGsssc8DWB78=";
+    rev = "f17194a98bad82f546aa1e894c11cf65b98ff43d";
+    hash = "sha256-6VMltltZj105x7V8/SfJTEowOt0U5XuPaEoVHntLhfk=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
