@@ -2,6 +2,8 @@
 
 # automatically submit local changes to a remote git repo
 
+set -eu
+
 if [ $# == 1 ]; then
 	GIT_DIR="$1"
 else
@@ -17,7 +19,7 @@ status="$(git status -s -b)"
 	echo "git sync checkpoint"
 	echo
 	echo "$status"
-} | git commit -F -
+} | git commit -F - || exit 0
 
 git pull --rebase
 git push
