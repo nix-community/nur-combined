@@ -8,8 +8,15 @@ in
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.xdg-desktop-portal-wlr;
 
     sandbox.method = "bwrap";  # TODO:sandbox: untested
+    sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
+    sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
+    sandbox.extraPaths = [
+      # not sure why it needs these
+      "/sys/dev/char"
+      "/sys/devices"
+    ];
 
     fs.".config/xdg-desktop-portal/portals/wlr.portal".symlink.target =
       "${cfg.package}/share/xdg-desktop-portal/portals/wlr.portal";

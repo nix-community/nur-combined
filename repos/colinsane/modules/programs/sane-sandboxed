@@ -61,7 +61,11 @@ paths=()
 # linux capabilities to provide to the sandbox, like `sys_admin` (no `cap_` prefix here)
 capabilities=()
 # keepNamespace:
+# - "cgroup"
+# - "ipc"
 # - "pid": if this process may wany to query /proc/$PID/... of parent/sibling processes.
+# - "uts"
+# - "all": as if all the above were specified
 keepNamespace=()
 # name of some network device to make available to the sandbox, if any.
 net=
@@ -358,7 +362,11 @@ parseArgs() {
       (--sane-sandbox-keep-namespace)
         _namespace="$1"
         shift
-        keepNamespace+=("$_namespace")
+        if [ "$_namespace" = all ]; then
+          keepNamespace+=("cgroup" "ipc" "pid" "uts")
+        else
+          keepNamespace+=("$_namespace")
+        fi
         ;;
       (--sane-sandbox-path)
         _path="$1"

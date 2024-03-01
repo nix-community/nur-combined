@@ -11,16 +11,15 @@
 ### sops/secrets
 - rework secrets to leverage `sane.fs`
 - remove sops activation script as it's covered by my systemd sane.fs impl
+- user secrets could just use `gocryptfs`, like with ~/private?
+  - can gocryptfs support nested filesystems, each with different perms (for desko, moby, etc)?
 
 ### roles
 - allow any host to take the role of `uninsane.org`
   - will make it easier to test new services?
 
 ### upstreaming
-- split out a sxmo module usable by NUR consumers
-- bump nodejs version in lemmy-ui
 - add updateScripts to all my packages in nixpkgs
-- fix lightdm-mobile-greeter for newer libhandy
 - REVIEW/integrate jellyfin dataDir config: <https://github.com/NixOS/nixpkgs/pull/233617>
 
 #### upstreaming to non-nixpkgs repos
@@ -54,6 +53,11 @@
   - integrate `nix check` into Gitea actions?
 
 ### user experience
+- gpodder: stop showing the "new episodes" window oh my god
+- get xdg-desktop-portal{,-gtk} to stop prompting for openers
+- replace starship prompt with something more efficient
+  - watch `forkstat`: it does way too much
+- cleanup waybar so that it's not invoking playerctl every 2 seconds
 - install apps:
   - display QR codes for WiFi endpoints: <https://linuxphoneapps.org/apps/noappid.wisperwind.wifi2qr/>
   - shopping list (not in nixpkgs): <https://linuxphoneapps.org/apps/ro.hume.cosmin.shoppinglist/>
@@ -76,6 +80,7 @@
 
 #### moby
 - fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>
+- moby: tune keyboard layout
 - SwayNC:
   - don't show MPRIS if no players detected
     - this is a problem of playerctld, i guess
@@ -97,6 +102,7 @@
 - RSS: integrate a paywall bypass
   - e.g. self-hosted [ladder](https://github.com/everywall/ladder) (like 12ft.io)
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
+- neovim: integrate LLMs
 - Helix: make copy-to-system clipboard be the default
 - firefox/librewolf: persist history
   - just not cookies or tabs
@@ -114,7 +120,6 @@
 
 ### perf
 - debug nixos-rebuild times
-  - i bet sane.programs adds a LOT of time, with how it automatically creates an attrs for EVERY package in nixpkgs.
 - add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled
   - every package here can be auto-generated, and marked with some env var so that it doesn't pollute the pure package set
   - would be super handy for package prototyping!

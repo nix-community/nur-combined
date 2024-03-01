@@ -85,6 +85,7 @@ in
       "Pictures/Photos"
       "Pictures/Screenshots"
       "Pictures/servo-macros"
+      "Videos/gPodder"
       "Videos/local"
       "Videos/servo"
       "knowledge"

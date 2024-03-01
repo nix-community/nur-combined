@@ -76,6 +76,7 @@ in
       "Books/local"
       "Books/servo"
       "Music"
+      "Videos/gPodder"
       "Videos/local"
       "Videos/servo"
     ];
