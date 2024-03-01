@@ -6,11 +6,26 @@
 
 configuration {
   modes: "combi";
+  font: "mono 20";
   show-icons: true;
-  combi-modes: "filebrowser,drun";
   kb-accept-entry: "Return,KP_Enter,XF86PowerOff";
   kb-row-up: "Up,XF86AudioRaiseVolume";
   kb-row-down: "Down,XF86AudioLowerVolume";
+
+  combi {
+    /* this is rendered in the filter box, here we disable it */
+    display-name: "";
+  }
+  /* combi-display-format: "{mode} {text}"; */
+  /* combi-display-format: "{text}"; */
+  combi-display-format: "{mode}{text}";
+  combi-modes: "filebrowser,drun";
+
+  drun {
+    display-name: " ";
+  }
+  drun-use-desktop-cache: true;
+
   filebrowser {
     /* directory: filebrowser starting directory. leave unset to start at the last directory. */
     directory: "/home";
@@ -23,20 +38,54 @@ configuration {
     sorting-method: "name";
     show-hidden: false;
   }
-  drun {
-    display-name: " ";
-  }
+
   run {
     display-name: "run ";
   }
-  /* combi-display-format: "{mode} {text}"; */
-  /* combi-display-format: "{text}"; */
-  combi-display-format: "{mode}{text}";
-
   /* launch applications via my own launcher, which directs them through to xdg-desktop-portal */
   run-command: "rofi-run-command '{app_id}.desktop' {cmd}";
-
-  drun-use-desktop-cache: true;
 }
 
-@theme "gruvbox-light"
+/* theme */
+* {
+  /* my own variables */
+  bg: #1d1721;       /* slight purple */
+  fg0: #d8d8d8;      /* inactive text (light grey) */
+  fg1: #ffffff;      /* active text (white) */
+  accent0: #1f5e54;  /* darker but saturated teal */
+  accent1: #418379;  /* teal (matches nixos-bg) */
+  accent2: #5b938a;  /* brighter but muted teal */
+
+  /* map my variables to variables rofi uses internally */
+  background-color: var(accent0);
+  background: var(accent0);
+  /* foreground: non-alternating text, scrollbar, borders, separators */
+  foreground: var(fg0);
+
+  /* override derived styles */
+  alternate-active-background: var(accent0);
+  alternate-normal-background: var(accent0);
+  alternate-active-foreground: var(fg0);
+  alternate-normal-foreground: var(fg0);
+  border-color: var(accent0);
+  text-color: var(fg0);
+  selected-active-background: var(accent1);
+  selected-normal-background: var(accent1);
+  selected-active-foreground: var(fg1);
+  selected-normal-foreground: var(fg1);
+  separatorcolor: var(accent1);
+}
+entry {
+  placeholder: "";
+  text-color: var(fg1);
+}
+num-rows, num-filtered-rows {
+  text-color: var(fg0);
+}
+prompt, textbox-prompt-colon {
+  /* hide */
+  text-color: var(accent0);
+}
+scrollbar {
+  handle-color: var(accent2);
+}
