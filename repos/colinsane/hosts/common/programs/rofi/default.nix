@@ -90,6 +90,10 @@ in
       "knowledge"
       "tmp"
     ];
+    sandbox.extraPaths = [
+      "/mnt/servo/media"
+      "/mnt/servo/playground"
+    ];
 
     fs.".config/rofi/config.rasi".symlink.target = ./config.rasi;
     # redirect its default drun cache location

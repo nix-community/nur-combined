@@ -156,7 +156,7 @@ for_window [app_id="KOReader"] border normal
 
 ### displays
 ## DESKTOP
-output "Goldstar Company Ltd LG ULTRAWIDE 0x00004E94" {
+output "LG Electronics LG ULTRAWIDE 0x00004E94" {
   pos 0,0
   res 3440x1440
 }
