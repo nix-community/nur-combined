@@ -12,6 +12,9 @@ configuration {
   kb-row-up: "Up,XF86AudioRaiseVolume";
   kb-row-down: "Down,XF86AudioLowerVolume";
 
+  /* to position rofi to the top of the screen: */
+  /* location: 2; */
+
   combi {
     /* this is rendered in the filter box, here we disable it */
     display-name: "";
@@ -88,4 +91,18 @@ prompt, textbox-prompt-colon {
 }
 scrollbar {
   handle-color: var(accent2);
+}
+window {
+  /* rofi supports very complex calculations here */
+  /* one may even read environment variables (useful for knowing if screen is rotated?) */
+  /* `calc(... min 100%)` ensures it never overflows */
+
+  width: calc(960 min 100%);
+  /* 520px @ font size 20 gives 13 rows + filter */
+  height: calc(520 min 60%);
+
+  /* anchor the *north* edge of the window at the *north* location of the screen */
+  anchor: north;
+  location: north;
+  y-offset: 116;
 }
