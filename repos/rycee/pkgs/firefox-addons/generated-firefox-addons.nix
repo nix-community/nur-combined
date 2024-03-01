@@ -1815,10 +1815,10 @@
     };
     "disconnect" = buildFirefoxXpiAddon {
       pname = "disconnect";
-      version = "20.3.1.1";
+      version = "20.3.1.2";
       addonId = "2.0@disconnect.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3655554/disconnect-20.3.1.1.xpi";
-      sha256 = "f1e98b4b1189975753c5c806234de70cbd7f09ae3925ab65ef834da5915ac64d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240055/disconnect-20.3.1.2.xpi";
+      sha256 = "5fe7ac089f9de8a10520813b527e76d95248aba8c8414e2dc2c359c505ca3b31";
       meta = with lib;
       {
         homepage = "https://disconnect.me/";
@@ -3346,10 +3346,10 @@
     };
     "history-cleaner" = buildFirefoxXpiAddon {
       pname = "history-cleaner";
-      version = "1.5.0";
+      version = "1.5.1";
       addonId = "{a138007c-5ff6-4d10-83d9-0afaf0efbe5e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231612/history_cleaner-1.5.0.xpi";
-      sha256 = "4f9eb347dda231efb2e355bc610fbe6c19c6810bfeb090ce37e1047360d5c9b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240570/history_cleaner-1.5.1.xpi";
+      sha256 = "f331f4ff30ea1988d6097203d436eaa2dbdc44f2f202ef7bd0ad3783111ad2e2";
       meta = with lib;
       {
         homepage = "https://github.com/Rayquaza01/HistoryCleaner";
@@ -4545,10 +4545,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.5.0";
+      version = "3.6.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236392/indie_wiki_buddy-3.5.0.xpi";
-      sha256 = "0dc74c7c198f67efeec92cbd1dbc5c5441f0eb48aca99fe06be8f3ec255b59b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240749/indie_wiki_buddy-3.6.0.xpi";
+      sha256 = "fd0eba18bedaf7c7e879b53a3eba799df59fed7415be6f1ea2c232adfd8f9408";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -4561,24 +4561,53 @@
           "scripting"
           "https://*.fandom.com/*"
           "https://*.fextralife.com/*"
+          "https://*.neoseeker.com/*"
           "https://breezewiki.com/*"
           "https://antifandom.com/*"
-          "https://bw.projectsegfau.lt/*"
-          "https://breeze.hostux.net/*"
-          "https://breezewiki.pussthecat.org/*"
-          "https://bw.vern.cc/*"
-          "https://breezewiki.esmailelbob.xyz/*"
           "https://bw.artemislena.eu/*"
+          "https://breezewiki.catsarch.com/*"
+          "https://breezewiki.esmailelbob.xyz/*"
+          "https://breezewiki.frontendfriendly.xyz/*"
           "https://bw.hamstro.dev/*"
+          "https://breeze.hostux.net/*"
+          "https://breezewiki.hyperreal.coffee/*"
+          "https://breeze.mint.lgbt/*"
+          "https://breezewiki.nadeko.net/*"
           "https://nerd.whatever.social/*"
           "https://breeze.nohost.network/*"
+          "https://z.opnxng.com/*"
+          "https://bw.projectsegfau.lt/*"
+          "https://breezewiki.pussthecat.org/*"
+          "https://bw.vern.cc/*"
           "https://breeze.whateveritworks.org/*"
+          "https://breezewiki.woodland.cafe/*"
           "https://*.bing.com/search*"
           "https://search.brave.com/search*"
           "https://*.duckduckgo.com/*"
           "https://*.ecosia.org/*"
-          "https://*.startpage.com/*"
+          "https://kagi.com/search*"
+          "https://*.qwant.com/*"
           "https://*.search.yahoo.com/*"
+          "https://*.startpage.com/*"
+          "https://*.ya.ru/*"
+          "https://*.yandex.az/*"
+          "https://*.yandex.by/*"
+          "https://*.yandex.co.il/*"
+          "https://*.yandex.com.am/*"
+          "https://*.yandex.com.ge/*"
+          "https://*.yandex.com.tr/*"
+          "https://*.yandex.com/*"
+          "https://*.yandex.ee/*"
+          "https://*.yandex.eu/*"
+          "https://*.yandex.fr/*"
+          "https://*.yandex.kz/*"
+          "https://*.yandex.lt/*"
+          "https://*.yandex.lv/*"
+          "https://*.yandex.md/*"
+          "https://*.yandex.ru/*"
+          "https://*.yandex.tj/*"
+          "https://*.yandex.tm/*"
+          "https://*.yandex.uz/*"
           "https://www.google.com/search*"
           "https://www.google.ad/search*"
           "https://www.google.ae/search*"
