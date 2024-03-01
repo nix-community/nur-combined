@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p glib -p xdg-utils
+#!nix-shell -i bash -p sane-open-desktop -p xdg-utils
 
 # use:
 # rofi-run-command <handler>.desktop [cmd [args ...]]
@@ -14,11 +14,7 @@ shift
 binArgs=("$@")
 
 if [ "$desktop" != .desktop ]; then
-  exec gdbus call --session --timeout 10 \
-    --dest org.freedesktop.portal.Desktop \
-    --object-path /org/freedesktop/portal/desktop \
-    --method org.freedesktop.portal.DynamicLauncher.Launch \
-    "$desktop" {}
+  exec sane-open-desktop "$desktop"
 elif [ "$binary" = "xdg-open" ]; then
   exec xdg-open "$@"
 fi

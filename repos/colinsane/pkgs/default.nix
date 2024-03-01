@@ -56,6 +56,7 @@ let
     pipeline = callPackage ./additional/pipeline { };
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
     rtl8723cs-wowlan = callPackage ./additional/rtl8723cs-wowlan { };
+    sane-open-desktop = callPackage ./additional/sane-open-desktop { };
     sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
     sane-weather = callPackage ./additional/sane-weather { };
     signal-desktop-from-src = callPackage ./additional/signal-desktop-from-src { };

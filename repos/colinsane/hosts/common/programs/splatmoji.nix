@@ -5,6 +5,15 @@
 
 {
   sane.programs.splatmoji = {
+    packageUnwrapped = pkgs.splatmoji.overrideAttrs (upstream: {
+      desktopItems = (upstream.desktopItems or []) ++ [
+        (pkgs.makeDesktopItem {
+          name = "splatmoji";
+          exec = "splatmoji -s medium-light type";
+          desktopName = "Splatmoji Emoji Picker";
+        })
+      ];
+    });
     sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;  # it calls into a dmenu helper
     sandbox.extraHomePaths = [

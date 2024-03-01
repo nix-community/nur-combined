@@ -285,8 +285,7 @@ in
         sane.programs.sway.enableFor.user.colin = true;
         sane.programs.waybar.config = {
           top = import ./waybar-top.nix;
-          # reset extra waybar style
-          extra_style = "";
+          fontSize = 14;
         };
         sane.programs.sway.config = {
           # N.B. missing from upstream sxmo config here is:

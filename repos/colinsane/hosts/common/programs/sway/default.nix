@@ -116,6 +116,7 @@ in
       "pulsemixer"  # for volume controls
       "rofi"  # menu/launcher
       "rofi-snippets"
+      "sane-open-desktop"
       "splatmoji"  # used by sway config
       "sway-contrib.grimshot"  # used by sway config
       # "swayidle"  # enable if you need it
@@ -153,9 +154,17 @@ in
       default=wlr;gtk
     '';
 
-    fs.".config/sway/config".symlink.target = pkgs.callPackage ./sway-config.nix {
-      inherit config;
-      swayCfg = cfg.config;
+    fs.".config/sway/config".symlink.target = pkgs.substituteAll {
+      src = ./sway-config;
+      inherit (cfg.config)
+        background
+        extra_lines
+        screenshot_cmd
+        font
+        mod
+        workspace_layout
+      ;
+      xwayland = if config.sane.programs.xwayland.enabled then "enable" else "disable";
     };
 
     services.sway-session = {

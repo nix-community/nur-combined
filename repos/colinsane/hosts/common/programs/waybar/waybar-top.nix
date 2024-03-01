@@ -1,16 +1,17 @@
 # docs: <https://github.com/Alexays/Waybar/wiki/Configuration>
 # - custom modules: <https://github.com/Alexays/Waybar/wiki/Module:-Custom>
 # - format specifiers: <https://fmt.dev/latest/syntax.html#syntax>
-{ lib, pkgs }:
+{ lib, static-nix-shell }:
 let
-  waybar-media = pkgs.static-nix-shell.mkBash {
+  waybar-media = static-nix-shell.mkBash {
     pname = "waybar-media";
     srcRoot = ./.;
     pkgs = [ "jq" "playerctl" ];
   };
 in
+{ height, persistWorkspaces }:
 {
-  height = lib.mkDefault 40;
+  inherit height;
   modules-left = lib.mkDefault [ "sway/workspaces" ];
   modules-center = lib.mkDefault [ "sway/window" ];
   modules-right = lib.mkDefault [
@@ -26,6 +27,10 @@ in
   "sway/window" = {
     max-length = 50;
   };
+
+  "sway/workspaces".persistent_workspaces = lib.mkIf (persistWorkspaces != []) (
+    lib.genAttrs persistWorkspaces (_: [])
+  );
 
   "custom/media" = {
     # this module shows the actively playing song

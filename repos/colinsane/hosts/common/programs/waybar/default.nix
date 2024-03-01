@@ -7,16 +7,32 @@ in
     configOption = with lib; mkOption {
       type = types.submodule {
         options = {
-          extra_style = mkOption {
+          extraStyle = mkOption {
             type = types.lines;
-            default = ''
-              /* default font-size is about 14px, which is good for moby, but not quite for larger displays */
-              window#waybar {
-                font-size: 16px;
-              }
-            '';
+            default = "";
             description = ''
               extra CSS rules to append to ~/.config/waybar/style.css
+            '';
+          };
+          fontSize = mkOption {
+            type = types.int;
+            default = 16;
+            description = ''
+              default font-size is about 14px, which is good for moby, but not quite for larger displays
+            '';
+          };
+          height = mkOption {
+            type = types.int;
+            default = 40;
+            description = ''
+              height of the top bar in px.
+            '';
+          };
+          persistWorkspaces = mkOption {
+            type = types.listOf types.str;
+            default = [];
+            description = ''
+              list of workspaces to always show, e.g. [ "1" "7" ]
             '';
           };
           top = mkOption {
@@ -45,7 +61,9 @@ in
     };
 
     # default waybar
-    config.top = import ./waybar-top.nix { inherit lib pkgs; };
+    config.top = pkgs.callPackage ./waybar-top.nix { } {
+      inherit (cfg.config) height persistWorkspaces;
+    };
 
     packageUnwrapped = pkgs.waybar.override {
       # not *required*, however this does cut down on some cross-compilation issues
@@ -80,8 +98,10 @@ in
       (pkgs.formats.json {}).generate "waybar-config.json" [
         ({ layer = "top"; } // cfg.config.top)
       ];
-    fs.".config/waybar/style.css".symlink.text =
-      (builtins.readFile ./waybar-style.css) + cfg.config.extra_style;
+    fs.".config/waybar/style.css".symlink.target = pkgs.substituteAll {
+      src = ./waybar-style.css;
+      inherit (cfg.config) extraStyle fontSize;
+    };
 
     services.waybar = {
       description = "swaybar graphical header bar/tray for sway";

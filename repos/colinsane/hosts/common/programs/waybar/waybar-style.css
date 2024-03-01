@@ -14,6 +14,7 @@ window#waybar {
   color: #ffffff;
   transition-property: background-color;
   transition-duration: .2s;
+  font-size: @fontSize@px;
 }
 
 .modules-right {
@@ -99,3 +100,5 @@ window#waybar {
   -gtk-icon-effect: highlight;
   background-color: #e64291;
 }
+
+@extraStyle@

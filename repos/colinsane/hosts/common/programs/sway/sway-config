@@ -10,14 +10,7 @@
 xwayland @xwayland@
 
 set $mod @mod@
-set $term xdg-terminal-exec
-set $menu rofi -show
-set $emoji_picker splatmoji -s medium-light type
-set $locker swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30
-set $snippets_picker rofi-snippets
-set $screenshot @screenshot_cmd@
-set $brightness_up brightnessctl set +5%
-set $brightness_down brightnessctl set 5%-
+# N.B.: volume_up/volume_down are factored out because they're potentially used by `extra_lines` down below
 # TODO: use native pipewire controls instead of pulsemixer?
 set $volume_up pulsemixer --change-volume +5
 set $volume_down pulsemixer --change-volume -5
@@ -60,25 +53,27 @@ floating_modifier $mod
 # --locked means to keep the binding active even when display is locked/off
 bindsym --locked $mod+Page_Up exec $volume_up
 bindsym --locked $mod+Page_Down exec $volume_down
+bindsym --locked XF86AudioMute exec $mute
+
 bindsym --locked $mod+Space exec playerctl play-pause
 bindsym --locked $mod+Shift+Page_Down exec playerctl previous
 bindsym --locked $mod+Shift+Page_Up exec playerctl next
 
-bindsym --locked XF86AudioMute exec $mute
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioStop exec playerctl stop
 bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
-bindsym --locked XF86MonBrightnessUp exec $brightness_up
-bindsym --locked XF86MonBrightnessDown exec $brightness_down
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 
 #### special functions
-bindsym $mod+Print exec $screenshot
-bindsym $mod+l exec $locker
-bindsym $mod+s exec $snippets_picker
-bindsym $mod+slash exec $emoji_picker
-bindsym $mod+d exec $menu
-bindsym $mod+Return exec $term
+bindsym $mod+Print exec @screenshot_cmd@
+bindsym $mod+l exec sane-open-desktop swaylock.desktop
+bindsym $mod+s exec sane-open-desktop rofi-snippets.desktop
+bindsym $mod+slash exec sane-open-desktop splatmoji.desktop
+bindsym $mod+d exec sane-open-desktop rofi.desktop
+bindsym $mod+Return exec sane-open-desktop xdg-terminal-exec.desktop
+
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Shift+c reload
@@ -143,8 +138,6 @@ mode "resize" {
 
 ### application-specific settings
 #### to obtain app-id's run `swaymsg -t get_tree`
-for_window [app_id="pinentry-.*"] floating true
-for_window [app_id="foot" title=".*sxmo/modem/.*/draft.txt.*"] resize set height 25
 for_window [title="megapixels"] inhibit_idle open
 
 # workspace assignments
@@ -183,10 +176,14 @@ output "Pioneer Electronic Corporation VSX-524 0x00000101" {
   pos 0,0
   res 1920x1080
 }
-# internal display
+# laptop internal display
 output "Unknown 0x0637 0x00000000" {
   pos 1920,0
   res 1920x1080
+}
+# pinephone internal display (a.k.a. "Unknown Unknown Unknown")
+output "DSI-1" {
+  scale 1.6
 }
 
 # manually export PATH here, since all my user services need that, and sane-sandboxed implementation depends on it.

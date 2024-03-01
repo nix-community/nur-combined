@@ -757,6 +757,11 @@ in
 
     rustc = {};
 
+    sane-open-desktop.sandbox.enable = false;  #< trivial script, and all our deps are sandboxed
+    sane-open-desktop.suggestedPrograms = [
+      "gdbus"
+    ];
+
     screen.sandbox.enable = false;  #< tty; needs to run anything
 
     sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested

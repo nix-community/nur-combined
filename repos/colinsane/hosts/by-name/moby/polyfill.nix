@@ -24,6 +24,16 @@
     backlight = "backlight";  # /sys/class/backlight/*backlight*/brightness
   };
 
+  sane.programs.sway.config = {
+    font = "pango:monospace 10";
+    mod = "Mod1";  # prefer Alt
+    workspace_layout = "tabbed";
+  };
+
+  sane.programs.waybar.config.fontSize = 14;
+  sane.programs.waybar.config.height = 26;
+  sane.programs.waybar.config.persistWorkspaces = [ "1" "2" "3" "4" "5" ];
+
   sane.gui.sxmo = {
     nogesture = true;
     settings = {

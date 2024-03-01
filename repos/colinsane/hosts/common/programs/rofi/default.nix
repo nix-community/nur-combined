@@ -106,12 +106,12 @@ in
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "rofi-run-command";
       srcRoot = ./.;
-      pkgs = [ "glib" "xdg-utils" ];
+      pkgs = [ "sane-open-desktop" "xdg-utils" ];
     };
     sandbox.enable = false;  #< trivial script, and all our deps are sandboxed
 
     suggestedPrograms = [
-      "gdbus"
+      "sane-open-desktop"
       "xdg-utils"
     ];
   };
