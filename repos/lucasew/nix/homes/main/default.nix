@@ -35,6 +35,7 @@ in {
     gum
     calibre # a dependency is broken
     chromium
+    regex101
     custom.tixati
     custom.pidgin
     # (custom.neovim.override { inherit colors; })
