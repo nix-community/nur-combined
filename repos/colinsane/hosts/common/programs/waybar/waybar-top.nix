@@ -9,19 +9,16 @@ let
     pkgs = [ "jq" "playerctl" ];
   };
 in
-{ height, persistWorkspaces }:
+{ height, modules, persistWorkspaces }:
 {
   inherit height;
-  modules-left = lib.mkDefault [ "sway/workspaces" ];
-  modules-center = lib.mkDefault [ "sway/window" ];
-  modules-right = lib.mkDefault [
-    "custom/media"
-    "custom/swaync"
-    "clock"
-    "battery"
-    "memory"
-    "cpu"
-    "network"
+  modules-left = [ "sway/workspaces" ];
+  modules-center = lib.mkIf modules.windowTitle [ "sway/window" ];
+  modules-right = lib.flatten [  # XXX can't use lib.mkMerge here without error ??
+    (lib.optionals modules.media [ "custom/media" ])
+    [ "custom/swaync" "clock" "battery" ]
+    (lib.optionals modules.perf [ "memory" "cpu" ])
+    (lib.optionals modules.network [ "network" ])
   ];
 
   "sway/window" = {
@@ -65,13 +62,13 @@ in
     escape = true;
     format = "{icon}";  # or "{icon} {}" to include notif count
     format-icons = {
-      notification = "<span foreground='red'><sup></sup></span>";
+      notification = "<span foreground='#ff8080'><sup></sup></span>";
       none = "";
-      dnd-notification = "<span foreground='red'><sup></sup></span>";
+      dnd-notification = "<span foreground='#ff8080'><sup></sup></span>";
       dnd-none = "";
-      inhibited-notification = "<span foreground='red'><sup></sup></span>";
+      inhibited-notification = "<span foreground='#ff8080'><sup></sup></span>";
       inhibited-none = "";
-      dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+      dnd-inhibited-notification = "<span foreground='#ff8080'><sup></sup></span>";
       dnd-inhibited-none = "";
     };
     tooltip = false;

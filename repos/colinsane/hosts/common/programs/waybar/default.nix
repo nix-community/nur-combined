@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.waybar;
+  mkEnableOption' = default: description: lib.mkOption {
+    type = lib.types.bool;
+    inherit default description;
+  };
 in
 {
   sane.programs.waybar = {
@@ -35,6 +39,12 @@ in
               list of workspaces to always show, e.g. [ "1" "7" ]
             '';
           };
+
+          modules.windowTitle = mkEnableOption' true "display window title in center";
+          modules.media = mkEnableOption' true "display current track on right";
+          modules.perf = mkEnableOption' true "display RAM, CPU on right";
+          modules.network = mkEnableOption' true "display IP traffic on right";
+
           top = mkOption {
             type = types.submodule {
               # `attrsOf types.anything` (v.s. plain `attrs`) causes merging of the toplevel items.
@@ -62,7 +72,7 @@ in
 
     # default waybar
     config.top = pkgs.callPackage ./waybar-top.nix { } {
-      inherit (cfg.config) height persistWorkspaces;
+      inherit (cfg.config) height modules persistWorkspaces;
     };
 
     packageUnwrapped = pkgs.waybar.override {
