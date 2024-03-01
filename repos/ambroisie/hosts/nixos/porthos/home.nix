@@ -1,6 +1,13 @@
 { ... }:
 {
   my.home = {
+    nix = {
+      cache = {
+        # This server is the one serving the cache, don't try to query it
+        selfHosted = false;
+      };
+    };
+
     # Allow using 24bit color when SSH-ing from various clients
     tmux.trueColorTerminals = [
       # My usual terminal, e.g: on laptop
