@@ -121,6 +121,7 @@ in
           # common typos
           "cd.." = "cd ..";
           "cd../" = "cd ../";
+          "exiy" = "exit";
           # ls helpers (eza is a nicer `ls`
           "l" = "eza --oneline";  # show one entry per line
           "ll" = "eza --long --time-style=long-iso";
@@ -160,9 +161,13 @@ in
 
           # extra aliases
           # TODO: move to `shellAliases` config?
+          function c() {
+            cd "$1"
+            l
+          }
           function nd() {
-            mkdir -p "$1";
-            pushd "$1";
+            mkdir -p "$1"
+            pushd "$1"
           }
 
           function repo() {
