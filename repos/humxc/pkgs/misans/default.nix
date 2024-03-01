@@ -1,6 +1,6 @@
 { lib, stdenvNoCC, fetchzip }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "misans";
   version = "1.0";
 
