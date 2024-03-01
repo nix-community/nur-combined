@@ -6,6 +6,9 @@
 {
   sane.programs.splatmoji = {
     packageUnwrapped = pkgs.splatmoji.overrideAttrs (upstream: {
+      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+        pkgs.copyDesktopItems
+      ];
       desktopItems = (upstream.desktopItems or []) ++ [
         (pkgs.makeDesktopItem {
           name = "splatmoji";

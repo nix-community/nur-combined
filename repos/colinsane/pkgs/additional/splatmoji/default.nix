@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     owner = "cspeterson";
     repo = "splatmoji";
     rev = "v${version}";
-    sha256 = "sha256-fsZ8FhLP3vAalRJWUEi/0fe0DlwAz5zZeRZqAuwgv/U=";
+    hash = "sha256-fsZ8FhLP3vAalRJWUEi/0fe0DlwAz5zZeRZqAuwgv/U=";
   };
 
   nativeBuildInputs = [
@@ -33,10 +33,13 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
+    runHook preBuild
     ./build.sh ${version} dir
+    runHook postBuild
   '';
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out
     cp -R build/usr/* $out
 
@@ -44,6 +47,7 @@ stdenv.mkDerivation rec {
     # splatmoji refers to its lib and data by absolute path
     sed -i "s:/usr/lib/splatmoji:$out/lib/splatmoji:g" $out/bin/splatmoji
     sed -i -r "s:/usr/share/+splatmoji:$out/share/splatmoji:g" $out/lib/splatmoji/functions
+    runHook postInstall
   '';
 
   meta = with lib; {

@@ -62,6 +62,15 @@ in rec {
     stdenv.mkDerivation (final: {
       version = "0.1.0";  # default version
       preferLocalBuild = true;
+
+      nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [
+        makeWrapper
+      ];
+
+      makeWrapperArgs = [
+        "--suffix" "PATH" ":" (lib.makeBinPath pkgsEnv')
+      ] ++ extraMakeWrapperArgs;
+
       patchPhase = ''
         substituteInPlace ${srcPath} \
           --replace '#!/usr/bin/env nix-shell' '#!${interpreter}' \
@@ -69,10 +78,7 @@ in rec {
             '#!nix-shell -i ${interpreterName}${pkgsStr}' \
             '# nix deps evaluated statically'
       '';
-      nativeBuildInputs = [ makeWrapper ];
-      makeWrapperArgs = [
-        "--suffix" "PATH" ":" (lib.makeBinPath pkgsEnv')
-      ] ++ extraMakeWrapperArgs;
+
       installPhase = ''
         runHook preInstall
         mkdir -p $out/bin
@@ -89,7 +95,15 @@ in rec {
 
         runHook postInstall
       '';
-    } // extraDerivArgs // (removeAttrs attrs [ "extraMakeWrapperArgs" "interpreter" "interpreterName" "pkgsEnv" "pkgExprs" "srcPath" ])
+    } // extraDerivArgs // (removeAttrs attrs [
+      "extraMakeWrapperArgs"
+      "interpreter"
+      "interpreterName"
+      "nativeBuildInputs"
+      "pkgExprs"
+      "pkgsEnv"
+      "srcPath"
+    ])
   );
 
   # `mkShell` specialization for `nix-shell -i bash` scripts.

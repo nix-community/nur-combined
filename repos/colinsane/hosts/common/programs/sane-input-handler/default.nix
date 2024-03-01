@@ -88,11 +88,11 @@ in
       pname = "sane-input-handler";
       srcRoot = ./.;
       pkgs = {
-        inherit (pkgs) coreutils playerctl procps psmisc pulseaudio util-linux wvkbd;
+        inherit (pkgs) coreutils killall playerctl procps pulseaudio util-linux wvkbd;
         sway = config.sane.programs.sway.package.sway-unwrapped;
       };
     };
-    suggestedPrograms = [ "bonsai" "playerctl" "procps" "psmisc" "pulseaudio" "sway" "wvkbd" ];
+    suggestedPrograms = [ "bonsai" "killall" "playerctl" "procps" "pulseaudio" "sway" "wvkbd" ];
   };
 
   # sane.programs.actkbd = {

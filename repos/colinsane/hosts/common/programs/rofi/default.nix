@@ -129,6 +129,16 @@ in
         "rofi"
         "wtype"
       ];
+      nativeBuildInputs = [
+        pkgs.copyDesktopItems
+      ];
+      desktopItems = [
+        (pkgs.makeDesktopItem {
+          name = "rofi-snippets";
+          exec = "rofi-snippets";
+          desktopName = "rofi macro to insert common texts";
+        })
+      ];
     };
     # if i could remove the sed, then maybe possible to not sandbox.
     sandbox.method = "bwrap";

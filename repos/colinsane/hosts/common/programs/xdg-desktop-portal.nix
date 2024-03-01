@@ -68,7 +68,7 @@ in
       # arguable if that's a packaging bug, or limitation...
       environment.XDG_DESKTOP_PORTAL_DIR = "%E/xdg-desktop-portal";
 
-      environment.G_MESSAGES_DEBUG = "all";
+      # environment.G_MESSAGES_DEBUG = "all";  #< also applies to all apps launched by the portal
     };
   };
 

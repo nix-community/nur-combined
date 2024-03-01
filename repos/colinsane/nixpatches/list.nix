@@ -141,12 +141,13 @@ in [
   #   hash = "sha256-oQEM3EZfAOmfZzDu9faCqyOFZsdHYGn1mVBgkxt68Zg=";
   # })
 
-  (fetchpatch' {
-    title = "splatmoji: init at 1.2.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
-    saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
-    hash = "sha256-abLakAWaRfc8tgu4IwUdR/w8GAuSl+OhQkYozlprD0c=";
-  })
+  # TODO: splatmoji PR is out-of-date
+  # (fetchpatch' {
+  #   title = "splatmoji: init at 1.2.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
+  #   saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
+  #   hash = "sha256-abLakAWaRfc8tgu4IwUdR/w8GAuSl+OhQkYozlprD0c=";
+  # })
 
   # (fetchpatch {
   #   # stdenv: fix cc for pseudo-crosscompilation

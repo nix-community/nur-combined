@@ -722,8 +722,6 @@ in
 
     procps = {};
 
-    psmisc = {};
-
     pstree.sandbox.method = "landlock";
     pstree.sandbox.extraPaths = [
       "/proc"

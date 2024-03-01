@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils -p playerctl -p procps -p psmisc -p pulseaudio -p sway -p util-linux -p wvkbd
+#!nix-shell -i bash -p coreutils -p killall -p playerctl -p procps -p pulseaudio -p sway -p util-linux -p wvkbd
 
 # input map considerations
 # - using compound actions causes delays.
