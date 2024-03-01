@@ -4,8 +4,7 @@ let
   doExec = inputName: transitions: {
     type = "exec";
     command = [
-      "setsid"
-      "-f"
+      "setsid" "-f"  #< fork before invoking the input handler, else it runs synchronously
       "sane-input-handler"
       inputName
     ];
@@ -64,6 +63,27 @@ let
 in
 {
   sane.programs.sane-input-handler = {
+    configOption = with lib; mkOption{
+      default = {};
+      type = types.submodule {
+        options = {
+          devices = mkOption {
+            type = types.listOf types.str;
+            default = [
+              "0:1:Power_Button"  #< Thinkpad power button
+              "1:1:AT_Translated_Set_2_keyboard"  #< Thinkpad volume buttons (plus all its other buttons)
+              "0:0:axp20x-pek"  #< Pinephone power button
+              "1:1:1c21800.lradc"  #< Pinephone volume buttons
+            ];
+            description = ''
+              list of devices which we should listen for special inputs from.
+              find these names with:
+              `swaymsg -t get_inputs --raw | jq 'map(.identifier)'`
+            '';
+          };
+        };
+      };
+    };
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "sane-input-handler";
       srcRoot = ./.;
@@ -74,6 +94,31 @@ in
     };
     suggestedPrograms = [ "bonsai" "playerctl" "procps" "psmisc" "pulseaudio" "sway" "wvkbd" ];
   };
+
+  # sane.programs.actkbd = {
+  #   fs.".config/actkbd/actkbd.conf".symlink.text = ''
+  #     114:key::bonsaictl -e voldown_pressed
+  #     114:rel::bonsaictl -e voldown_released
+  #     115:key::bonsaictl -e volup_pressed
+  #     115:rel::bonsaictl -e volup_released
+  #     # note that power might be on its own /dev/input/event* device separate from the volume buttons
+  #     116:key::bonsaictl -e power_pressed
+  #     116:rel::bonsaictl -e power_released
+  #   '';
+  #   services.actkbd = {
+  #     # TODO: apparently i need one instance per /dev/input, which also means i need udev, etc.
+  #     description = "actkbd: keyboard input mapping";
+  #     after = [ "graphical-session.target" ];
+  #     wantedBy = [ "graphical-session.target" ];
+
+  #     serviceConfig = {
+  #       ExecStart = "${config.sane.programs.actkbd.package}/bin/actkbd -c /home/colin/.config/actkbd/actkbd.conf";
+  #       Type = "simple";
+  #       Restart = "always";
+  #       RestartSec = "5s";
+  #     };
+  #   };
+  # };
 
   sane.programs.bonsai.config.transitions = lib.mkIf cfg.enabled (friendlyToBonsai {
     # map sequences of "events" to an argument to pass to sane-input-handler
@@ -107,14 +152,23 @@ in
     };
   });
 
-  sane.programs.sway.config.extra_lines = lib.mkIf cfg.enabled ''
-    # TODO: `bindsym` at this level CONSUMES the event globally;
-    # need some way to allow rofi to see these events when it is in focus
-    bindsym --locked --no-repeat XF86PowerOff exec bonsaictl -e power_pressed
-    bindsym --locked --release XF86PowerOff exec bonsaictl -e power_released
-    bindsym --locked --no-repeat XF86AudioRaiseVolume exec bonsaictl -e volup_pressed
-    bindsym --locked --release XF86AudioRaiseVolume exec bonsaictl -e volup_released
-    bindsym --locked --no-repeat XF86AudioLowerVolume exec bonsaictl -e voldown_pressed
-    bindsym --locked --release XF86AudioLowerVolume exec bonsaictl -e voldown_released
-  '';
+  sane.programs.sway.config.extra_lines = lib.mkIf cfg.enabled (
+    ''
+      # bindsym --input-device=... :
+      # i wish to route certain events both to bonsai and/or the application
+      #   (rather, if there is an application which would receive them, send them, else re-route to bonsai).
+      # bindsym --input-device=* SWALLOWS all events: it sends them to bonsaid and NOT any gui app.
+      # bindsym --input-device=<dev> DOESN'T SWALLOW EVENTS: it sends them to BOTH places (yay!).
+      # however, this is considered a BUG. i am relying on a bug here that may be fixed in future sway versions:
+      # - <https://github.com/swaywm/sway/issues/6961>
+      # if so, migrate this to an evdev daemon, such as `evdevremapkeys` or `actkbd`
+    '' + lib.concatStringsSep "\n" (lib.forEach cfg.config.devices (dev: ''
+      bindsym --locked --input-device=${dev} --no-repeat XF86PowerOff exec bonsaictl -e power_pressed
+      bindsym --locked --input-device=${dev} --release XF86PowerOff exec bonsaictl -e power_released
+      bindsym --locked --input-device=${dev} --no-repeat XF86AudioRaiseVolume exec bonsaictl -e volup_pressed
+      bindsym --locked --input-device=${dev} --release XF86AudioRaiseVolume exec bonsaictl -e volup_released
+      bindsym --locked --input-device=${dev} --no-repeat XF86AudioLowerVolume exec bonsaictl -e voldown_pressed
+      bindsym --locked --input-device=${dev} --release XF86AudioLowerVolume exec bonsaictl -e voldown_released
+    ''))
+  );
 }

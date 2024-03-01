@@ -10,7 +10,7 @@ in
       wantedBy = [ "graphical-session.target" ];
       serviceConfig = {
         # --hidden: send SIGUSR2 to unhide
-        Execstart = "${cfg.package}/bin/wvkbd-mobintl --hidden";
+        ExecStart = "${cfg.package}/bin/wvkbd-mobintl --hidden";
         Type = "simple";
         Restart = "always";
         RestartSec = "3s";
