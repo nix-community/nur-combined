@@ -33,8 +33,6 @@ in
       else "sha256-a8uq7FasZl3D+tF1BqZwdp2d18CjHr5hucuOkxUwOOI="
     }";
 
-    passthru.updateScript = ./update.sh;
-
     postInstall = ''
       installShellCompletion --cmd deck \
         --bash <($out/bin/deck completion bash) \
