@@ -44,7 +44,8 @@ in
               "snapy-${s.name}" = {
                 description = "snap task ${s.name}";
                 wantedBy = [ "timers.target" ];
-                timerConfig = s.timerConfig;
+                timerConfig =
+                  lib.mapAttrs' (name: value: nameValuePair (lib.capitalize name) value) s.timerConfig;
               };
             })
           { }

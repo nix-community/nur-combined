@@ -79,7 +79,8 @@
       online-keeper.instances = [
         {
           name = "sec";
-          environmentFile = config.age.secrets.tg-session.path;
+          sessionFile = config.age.secrets.tg-session.path;
+          environmentFile = config.age.secrets.tg-env.path;
         }
       ];
 

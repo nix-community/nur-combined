@@ -17,6 +17,10 @@ in
             type = types.str;
             default = "/none";
           };
+          extraArgs = mkOption {
+            type = types.str;
+            default = "";
+          };
         };
       });
       default = [ ];
@@ -37,7 +41,7 @@ in
                 {
                   User = "root";
                   WorkingDirectory = s.workingDirectory;
-                  ExecStart = "${lib.getExe' pkgs.docker-compose "docker-compose"} up";
+                  ExecStart = "${lib.getExe' pkgs.docker-compose "docker-compose"} up ${s.extraArgs}";
                   Restart = "on-failure";
                 };
             };

@@ -70,6 +70,14 @@
     #   environmentFile = config.age.secrets.cloudflare-garden-00.path;
     # };
 
+    compose-up.instances = [
+      {
+        name = "nextchat";
+        workingDirectory = "/home/${user}/Src/ChatGPT-Next-Web";
+        extraArgs = "chatgpt-next-web";
+      }
+    ];
+
     shadowsocks.instances = [{
       name = "kaambl-local";
       configFile = config.age.secrets.ss.path;

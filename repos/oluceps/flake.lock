@@ -1716,7 +1716,7 @@
     },
     "fenix_9": {
       "inputs": {
-        "nixpkgs": "nixpkgs_62",
+        "nixpkgs": "nixpkgs_63",
         "rust-analyzer-src": "rust-analyzer-src_9"
       },
       "locked": {
@@ -5330,6 +5330,24 @@
         "type": "github"
       }
     },
+    "naersk": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_60"
+      },
+      "locked": {
+        "lastModified": 1698420672,
+        "narHash": "sha256-/TdeHMPRjjdJub7p7+w55vyABrsJlt5QkznPYy55vKA=",
+        "owner": "nix-community",
+        "repo": "naersk",
+        "rev": "aeb58d5e8faead8980a807c840232697982d47b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "naersk",
+        "type": "github"
+      }
+    },
     "nil": {
       "inputs": {
         "flake-utils": "flake-utils_27",
@@ -7645,6 +7663,19 @@
     },
     "nixpkgs_60": {
       "locked": {
+        "lastModified": 1708655239,
+        "narHash": "sha256-ZrP/yACUvDB+zbqYJsln4iwotbH6CTZiTkANJ0AgDv4=",
+        "path": "/nix/store/xwc3zfc544jg6zhr0wi6k8253s7mwlhi-source",
+        "rev": "cbc4211f0afffe6dfd2478a62615dd5175a13f9a",
+        "type": "path"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_61": {
+      "locked": {
         "lastModified": 1708807242,
         "narHash": "sha256-sRTRkhMD4delO/hPxxi+XwLqPn8BuUq6nnj4JqLwOu0=",
         "owner": "NixOS",
@@ -7659,7 +7690,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_61": {
+    "nixpkgs_62": {
       "locked": {
         "lastModified": 1708422533,
         "narHash": "sha256-OJxUslyGM/Eni66IOq8WGCjpM3H0vEfdv+fwzUmsOSY=",
@@ -7675,7 +7706,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_62": {
+    "nixpkgs_63": {
       "locked": {
         "lastModified": 1692447944,
         "narHash": "sha256-fkJGNjEmTPvqBs215EQU4r9ivecV5Qge5cF/QDLVn3U=",
@@ -8362,7 +8393,7 @@
       "inputs": {
         "flake-utils": "flake-utils_64",
         "nix-github-actions": "nix-github-actions_5",
-        "nixpkgs": "nixpkgs_61",
+        "nixpkgs": "nixpkgs_62",
         "systems": "systems_69",
         "treefmt-nix": "treefmt-nix_7"
       },
@@ -10728,21 +10759,21 @@
       "inputs": {
         "devenv": "devenv_5",
         "flake-parts": "flake-parts_26",
-        "nixpkgs": "nixpkgs_60",
+        "naersk": "naersk",
+        "nixpkgs": "nixpkgs_61",
         "poetry2nix": "poetry2nix_3"
       },
       "locked": {
+        "dirtyRev": "2a6eb7f6ddea1ae9a23d939a1bb09abde78d72d0-dirty",
+        "dirtyShortRev": "2a6eb7f-dirty",
         "lastModified": 1709083474,
-        "narHash": "sha256-Q0lz9mzo+TNSdVz7lUuu21cuQnA2dWimQ7zqj3XRA8Y=",
-        "owner": "oluceps",
-        "repo": "TelegramOnlineKeeper",
-        "rev": "2a6eb7f6ddea1ae9a23d939a1bb09abde78d72d0",
-        "type": "github"
+        "narHash": "sha256-NaoMjICX658kEIDh7wCF4ZWfCifAeObJDO980xIsPqE=",
+        "type": "git",
+        "url": "file:///home/elen/Src/tg-online-keeper"
       },
       "original": {
-        "owner": "oluceps",
-        "repo": "TelegramOnlineKeeper",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/elen/Src/tg-online-keeper"
       }
     },
     "treefmt-nix": {

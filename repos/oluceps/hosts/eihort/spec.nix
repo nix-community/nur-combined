@@ -71,7 +71,6 @@
         enable = true;
         calendars = [ "*-*-* 12:00:00" ];
       };
-      dae.enable = true;
       mosdns.enable = true;
       minio = {
         enable = true;
@@ -97,14 +96,12 @@
       #   }
       # ];
 
-      hysteria.instances = [{
-        name = "nodens";
-        configFile = config.age.secrets.hyst-us-cli-has.path;
-      }
+      hysteria.instances = [
         {
           name = "colour";
           configFile = config.age.secrets.hyst-az-cli-has.path;
-        }];
+        }
+      ];
 
       shadowsocks.instances = [
         {

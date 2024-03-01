@@ -64,6 +64,14 @@ in
         script = "http post --password $in --headers [${header}] https://ntfy.nyaw.xyz/${level} ${body}";
       });
 
+  capitalize = str:
+    with pkgs.lib.strings;
+    concatStrings [
+      (toUpper
+        (substring 0 1 str))
+      (substring 1 16 str)
+    ];
+
   base =
     let inherit (inputs.nixpkgs) lib;
     in { inherit inputs lib data; inherit (inputs) self; };
