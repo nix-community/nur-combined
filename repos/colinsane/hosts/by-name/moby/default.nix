@@ -36,9 +36,9 @@
 
   sops.secrets.colin-passwd.neededForUsers = true;
 
-  sane.gui.sxmo.enable = true;
-  # sane.programs.consoleUtils.enableFor.user.colin = false;
-  # sane.programs.guiApps.enableFor.user.colin = false;
+  # sane.gui.sxmo.enable = true;
+  sane.programs.sway.enableFor.user.colin = true;
+  sane.programs.sane-input-handler.enableFor.user.colin = true;
   sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile!
   sane.programs.mercurial.enableFor.user.colin = false;  # does not cross compile
   sane.programs.nvme-cli.enableFor.system = false;  # does not cross compile (libhugetlbfs)
