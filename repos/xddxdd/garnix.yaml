@@ -182,7 +182,8 @@
       "packages.x86_64-linux.wine-wechat",
       "packages.x86_64-linux.wine-wechat-x86",
       "packages.x86_64-linux.xstatic-asciinema-player",
-      "packages.x86_64-linux.xstatic-font-awesome"
+      "packages.x86_64-linux.xstatic-font-awesome",
+      "nixosConfigurations.*"
     ]
   }
 }

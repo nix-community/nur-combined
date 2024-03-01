@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    (python3.withPackages (p: with p; [ jinja2 pyyaml tabulate ]))
+    (python3.withPackages (p: with p; [jinja2 pyyaml tabulate]))
   ];
 
   buildInputs = [
