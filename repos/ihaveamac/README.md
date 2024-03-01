@@ -4,6 +4,8 @@
 
 My personal [NUR](https://github.com/nix-community/NUR) repository.
 
+Darwin/macOS builds are manually pushed by me to cachix occasionally. Usually when I also update flake.lock.
+
 ## Packages
 
 * 3dstool-1.2.6

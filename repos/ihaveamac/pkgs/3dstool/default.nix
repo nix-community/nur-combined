@@ -18,6 +18,12 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DUSE_DEP=OFF" ];
   enableParallelBuilding = true;
 
+  # fixes building on linux aarch64 (or anything non-x86_64 probably)
+  patchPhase = ''
+    sed -i 's/-m64//g' CMakeLists.txt
+    sed -i 's/-m32//g' CMakeLists.txt
+  '';
+
   installPhase = "
     mkdir $out/bin -p
     cp ../bin/Release/3dstool $out/bin/
@@ -29,8 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dnasdw/3dstool";
     license = licenses.mit;
     platforms = platforms.all;
-    # strange build error on this specific platform
-    broken = stdenv.isLinux && stdenv.isAarch64;
     mainProgram = "3dstool";
   };
 }
