@@ -29,6 +29,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dnasdw/3dstool";
     license = licenses.mit;
     platforms = platforms.all;
+    # strange build error on this specific platform
+    broken = stdenv.isLinux && stdenv.isAarch64;
     mainProgram = "3dstool";
   };
 }
