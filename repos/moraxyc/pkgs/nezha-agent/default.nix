@@ -1,13 +1,14 @@
-{ buildGoModule
-, lib
-, sources
-, system ? builtins.currentSystem
-, ...
+{
+  buildGoModule,
+  lib,
+  sources,
+  system ? builtins.currentSystem,
+  ...
 } @ args:
 buildGoModule rec {
   pname = "nezha-agent";
   inherit (sources.nezha-agent) version src;
-  vendorHash = "sha256-qbJdPDFC5OvJRhHP8qAY7QSTIPACanUBA9F9UK3vm5Y=";
+  vendorHash = "sha256-Cat731ODnHIfbizDcOztmyIXOBSWPHT/0Pf4XuG+7TI=";
   CGO_ENABLED = 0;
 
   ldflags = [

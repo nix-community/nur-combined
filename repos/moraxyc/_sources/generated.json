@@ -53,11 +53,11 @@
             "name": null,
             "owner": "nezhahq",
             "repo": "agent",
-            "rev": "v0.16.1",
-            "sha256": "sha256-YumfGpKoThKqodk+D/7hBMegzZpdc5x3KiwwQEY3Gx0=",
+            "rev": "v0.16.2",
+            "sha256": "sha256-IeD0jEsXsICTTr+6VsOLtH+HZpVk8DR55Z+sv/S28hs=",
             "type": "github"
         },
-        "version": "v0.16.1"
+        "version": "v0.16.2"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,

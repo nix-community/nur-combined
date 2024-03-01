@@ -27,13 +27,13 @@
   };
   nezha-agent = {
     pname = "nezha-agent";
-    version = "v0.16.1";
+    version = "v0.16.2";
     src = fetchFromGitHub {
       owner = "nezhahq";
       repo = "agent";
-      rev = "v0.16.1";
+      rev = "v0.16.2";
       fetchSubmodules = false;
-      sha256 = "sha256-YumfGpKoThKqodk+D/7hBMegzZpdc5x3KiwwQEY3Gx0=";
+      sha256 = "sha256-IeD0jEsXsICTTr+6VsOLtH+HZpVk8DR55Z+sv/S28hs=";
     };
   };
   openssl-oqs-provider = {
