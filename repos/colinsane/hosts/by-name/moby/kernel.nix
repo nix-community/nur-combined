@@ -85,6 +85,7 @@ in
     "lima.sched_timeout_ms=2000"
   ];
 
-  services.xserver.displayManager.job.preStart = ensureHWReady;
-  systemd.services.greetd.preStart = ensureHWReady;
+  # services.xserver.displayManager.job.preStart = ensureHWReady;
+  # systemd.services.greetd.preStart = ensureHWReady;
+  systemd.services.unl0kr.preStart = ensureHWReady;
 }
