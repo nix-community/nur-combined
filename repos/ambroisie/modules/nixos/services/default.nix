@@ -16,6 +16,7 @@
     ./jellyfin
     ./lohr
     ./matrix
+    ./mealie
     ./miniflux
     ./monitoring
     ./navidrome
