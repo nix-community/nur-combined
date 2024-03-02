@@ -83,6 +83,7 @@
     ./ripgrep.nix
     ./rofi
     ./sane-input-handler
+    ./sane-screenshot.nix
     ./sane-scripts.nix
     ./sfeed.nix
     ./signal-desktop.nix

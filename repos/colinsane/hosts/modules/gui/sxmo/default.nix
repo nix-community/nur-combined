@@ -300,7 +300,7 @@ in
           mod = "Mod1";  # prefer Alt
           workspace_layout = "tabbed";
 
-          screenshot_cmd = "sxmo_screenshot.sh";
+          # screenshot_cmd = "sxmo_screenshot.sh";
           extra_lines =
             let
               sxmo_init = pkgs.writeShellScript "sxmo_init.sh" ''

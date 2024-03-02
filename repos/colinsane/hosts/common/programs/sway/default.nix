@@ -92,12 +92,6 @@ in
               - etc
             '';
           };
-
-          screenshot_cmd = mkOption {
-            type = types.str;
-            default = "grimshot copy area";
-            description = "command to run when user wants to take a screenshot";
-          };
         };
       };
     };
@@ -116,6 +110,7 @@ in
       "pulsemixer"  # for volume controls
       "rofi"  # menu/launcher
       "rofi-snippets"
+      "sane-screenshot"
       "sane-open-desktop"
       "splatmoji"  # used by sway config
       "sway-contrib.grimshot"  # used by sway config
@@ -159,7 +154,6 @@ in
       inherit (cfg.config)
         background
         extra_lines
-        screenshot_cmd
         font
         mod
         workspace_layout

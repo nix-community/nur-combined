@@ -834,6 +834,8 @@ in
     superTux.sandbox.whitelistWayland = true;
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
+    swappy = {};
+
     tcpdump.sandbox.method = "landlock";
     tcpdump.sandbox.net = "all";
     tcpdump.sandbox.autodetectCliPaths = "existingFileOrParent";

@@ -67,7 +67,8 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 
 #### special functions
-bindsym $mod+Print exec @screenshot_cmd@
+bindsym Print exec sane-open-desktop sane-screenshot.desktop
+bindsym $mod+Print exec sane-open-desktop sane-screenshot.desktop
 bindsym $mod+l exec sane-open-desktop swaylock.desktop
 bindsym $mod+s exec sane-open-desktop rofi-snippets.desktop
 bindsym $mod+slash exec sane-open-desktop splatmoji.desktop
