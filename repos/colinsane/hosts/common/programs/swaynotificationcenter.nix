@@ -458,7 +458,7 @@ in
               type = "toggle";
               label = "💬";  # Signal messenger; other icons: 󰍦
               command = "${systemctl-toggle}/bin/systemctl-toggle --user signal-desktop";
-              update-command = "${printIsActive}/bin/print-is-active signal-desktop";
+              update-command = "${printIsActive}/bin/print-is-active --user signal-desktop";
               active = true;
             }
           ] ++ lib.optionals config.sane.programs.dino.enabled [

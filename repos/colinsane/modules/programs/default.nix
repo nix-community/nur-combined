@@ -81,13 +81,11 @@ let
 
             "/etc"  #< especially for /etc/profiles/per-user/$USER/bin
             "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms` (/run/current-system/sw/bin)
-            "/run/wrappers"  #< SUID wrappers, in this case so that firejail can be re-entrant
-            # "/bin/sh"  #< to allow `firejail --join=...` (doesn't work)
+            "/run/wrappers"  #< SUID wrappers, in this case so that firejail can be re-entrant. TODO: remove!
             "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here
             # /run/opengl-driver is a symlink into /nix/store; needed by e.g. mpv
             "/run/opengl-driver"
             "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
-            "/run/secrets/home"  #< TODO: this could be restricted per-app based on the HOME paths they need
             "/usr/bin/env"
           ] ++ lib.optionals (builtins.elem "system" sandbox.whitelistDbus) [ "/run/dbus/system_bus_socket" ]
             ++ sandbox.extraPaths ++ fullHomePaths ++ fullRuntimePaths;
