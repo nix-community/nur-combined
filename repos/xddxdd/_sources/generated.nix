@@ -145,15 +145,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "10ed86207d93c531b8d720356907f027352287c3";
+    version = "9885d6292ec6d6e572da7766cbca02de94425466";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "10ed86207d93c531b8d720356907f027352287c3";
+      rev = "9885d6292ec6d6e572da7766cbca02de94425466";
       fetchSubmodules = false;
-      sha256 = "sha256-gcEmyoipP4a8Qj0ZexVSP5q/yWkkXRKghLk/Y39Va/4=";
+      sha256 = "sha256-mQ5RkSwAQaocrVvqSHeAeNaFR4u1MGSq9+0nO7pzoks=";
     };
-    date = "2024-02-23";
+    date = "2024-03-01";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -287,16 +287,16 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "65de4d0534f0da3528588843347a82649d2df8d1";
+    version = "5b3959848710449495f26d635d0f178064d52d89";
     src = fetchgit {
       url = "https://gitea.publichub.eu/oscar.krause/fastapi-dls.git";
-      rev = "65de4d0534f0da3528588843347a82649d2df8d1";
+      rev = "5b3959848710449495f26d635d0f178064d52d89";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-IhKy4Ye+AlYwSEqYxHaVURiCCO98UZUHacv+mDjonsA=";
+      sha256 = "sha256-UsoDLvcFe59te+DxmAHgCJNKQ8R2OtEPos5jCuTrTfM=";
     };
-    date = "2023-10-16";
+    date = "2024-02-27";
   };
   fcitx5-breeze = {
     pname = "fcitx5-breeze";
@@ -308,13 +308,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.15";
+    version = "v3.3.16";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.15";
+      rev = "v3.3.16";
       fetchSubmodules = false;
-      sha256 = "sha256-+SMO9mpVwbnvRRyVB82IgDUq96O8AG3kOUevktake+o=";
+      sha256 = "sha256-pf5sibZ9Vjc98UOVTEUlKrBoXXKiykrt+szXLbNJB3k=";
     };
   };
   flasgger = {
@@ -366,10 +366,10 @@
   };
   google-earth-pro = {
     pname = "google-earth-pro";
-    version = "7.3.6.9750";
+    version = "7.3.6.9796";
     src = fetchurl {
-      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9750-r0_amd64.deb";
-      sha256 = "sha256-gagYVWFmVj+FinNxtljqVDHNKDaHpcZ6dm3K2jHZtwU=";
+      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9796-r0_amd64.deb";
+      sha256 = "sha256-Wv2jPGN7LC5T32WdX3W1BfGYrcXTNWTI1Wv+PmD0gNM=";
     };
   };
   grasscutter = {
@@ -431,21 +431,21 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.2.0";
+    version = "4.1.0-test";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      rev = "3.2.0";
+      rev = "4.1.0-test";
       fetchSubmodules = false;
-      sha256 = "sha256-zEKuEjw8a5hRNULNSkozjuHT6+hcbuTIbVPPImy/TsQ=";
+      sha256 = "sha256-TyK2RHlx4QmGHWZL4d7y5oZy71pYLb9MwW72dO8/IVY=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.2.0";
+    version = "4.1.0-test";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.2.0/kata-static-3.2.0-amd64.tar.xz";
-      sha256 = "sha256-IbuEhKBgRQ1lIvKb7X2I13PChSB3TqosUitvR/0SxKE=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/4.1.0-test/kata-static-4.1.0-test-amd64.tar.xz";
+      sha256 = "sha256-oI7CG3sXPZG/h3NH0J2bY20aggQjyrNcYRPGK8aLS60=";
     };
   };
   konnect = {
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "154ae5cc3328e26cabe4ac4fec3019e5cecb4611";
+    version = "5690baebe4363fb650b128a5c03dc1d7b3eead54";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "154ae5cc3328e26cabe4ac4fec3019e5cecb4611";
+      rev = "5690baebe4363fb650b128a5c03dc1d7b3eead54";
       fetchSubmodules = false;
-      sha256 = "sha256-yVJyNjF/UNpncx2SNo46F7AVrT+4IVTHe5Gg4B8+Cg0=";
+      sha256 = "sha256-Io9vLXcbU+C7eHs6UxI2ZYXxoK/GU26P/luZcce6m1M=";
     };
-    date = "2024-02-23";
+    date = "2024-03-01";
   };
   libqcef = {
     pname = "libqcef";
@@ -521,15 +521,15 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "b2ad34cc8c639b7bb1bc6abcde08621b57e3e055";
+    version = "0f69bfa2f2724c513987855cad71611f8759c703";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "b2ad34cc8c639b7bb1bc6abcde08621b57e3e055";
+      rev = "0f69bfa2f2724c513987855cad71611f8759c703";
       fetchSubmodules = false;
-      sha256 = "sha256-v9kzTaCBx+P0L2ITQ5L6grOmUvprqCU6YsNNr7yPHTc=";
+      sha256 = "sha256-GDQRAQ/eyaBh+qEssAPqd2+6FuCdvQWC2Q6s4w8A2HA=";
     };
-    date = "2024-02-25";
+    date = "2024-02-27";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -557,13 +557,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.7.6-xanmod1";
+    version = "6.7.7-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.7.6-xanmod1";
+      rev = "6.7.7-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-gg8B/i6kidgvRBOm3JiMBwP18UtVRH1ELNGQUBkDOMs=";
+      sha256 = "sha256-Y+SvnvkFOGCxq+hGwpiiymNr1rYbNqppNA0d63TyUmo=";
     };
   };
   linux-xanmod-6_0 = {
@@ -590,13 +590,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.18-xanmod1";
+    version = "6.6.19-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.18-xanmod1";
+      rev = "6.6.19-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-WGfbCmM0fpWXQt1ThfaHn4bqZz22bNkhc9I2qeXMsws=";
+      sha256 = "sha256-DfoClySWV0vlDDRAJsujGj5ypnGr+HsVbszCYfi+2V0=";
     };
   };
   nbfc-linux-lantian = {
@@ -767,15 +767,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "19e5a975a249d11e38937de80651bc855bb7ec3c";
+    version = "c442a5c30548a0c2740e106dafbf44b678e6c397";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "19e5a975a249d11e38937de80651bc855bb7ec3c";
+      rev = "c442a5c30548a0c2740e106dafbf44b678e6c397";
       fetchSubmodules = false;
-      sha256 = "sha256-yDQ+yzARLV8wuiAydFm1obpwPqqUDKU0ORzFF4D+6Cw=";
+      sha256 = "sha256-xbCzF+T11KJLWRN7OuDsiVqiQ/hCvREQSineTK0Alg4=";
     };
-    date = "2024-02-24";
+    date = "2024-03-01";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -801,13 +801,13 @@
   };
   palworld-worldoptions = {
     pname = "palworld-worldoptions";
-    version = "v1.7.0";
+    version = "v1.8.0";
     src = fetchFromGitHub {
       owner = "legoduded";
       repo = "palworld-worldoptions";
-      rev = "v1.7.0";
+      rev = "v1.8.0";
       fetchSubmodules = false;
-      sha256 = "sha256-7LATVGDo5LZyQYzvlOEKw24E+NaM9XuYjz9iDHVCOMk=";
+      sha256 = "sha256-K9Ds6kQ9whrD15kP5NXTqryTYpYTdeetq5foSrEPlQ4=";
     };
   };
   payload-dumper-go = {
@@ -986,15 +986,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "ec9c14000c4e54d2a39311452f822ab07a99b336";
+    version = "c2e02af730d64e7b73b1c1102e0a4bd2eef073f5";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "ec9c14000c4e54d2a39311452f822ab07a99b336";
+      rev = "c2e02af730d64e7b73b1c1102e0a4bd2eef073f5";
       fetchSubmodules = false;
-      sha256 = "sha256-eH7+tQnNt0UTM2lbsqujgn4uoilw3Mr+B/2Yl0irAdY=";
+      sha256 = "sha256-TlxalXNEkDyh7Ir8W7zLSzOsrgaQMEB2OTEkhP+McKA=";
     };
-    date = "2024-02-25";
+    date = "2024-02-28";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1199,13 +1199,13 @@
   };
   vpp = {
     pname = "vpp";
-    version = "v23.10";
+    version = "v24.02";
     src = fetchFromGitHub {
       owner = "FDio";
       repo = "vpp";
-      rev = "v23.10";
+      rev = "v24.02";
       fetchSubmodules = false;
-      sha256 = "sha256-YcDMDHvKIL2tOD98hTcuyQrL5pk80olYKNWiN+BA49U=";
+      sha256 = "sha256-Cfm0Xzsx2UgUvIIeq5wBN6tA9ynCUa5bslEQk8wbd6E=";
     };
   };
   vs-rife = {
