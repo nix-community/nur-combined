@@ -14,6 +14,12 @@ shift
 binArgs=("$@")
 
 if [ "$desktop" != .desktop ]; then
+  # launching an app; the file browser position is no longer interesting: clear it so it opens in ~ next time.
+  # better UX would be to manage this in the other branch:
+  # - open in ~ by default, regardless of last directory
+  # - after launching a *file*, when that file is closed, re-open rofi in that file's directory.
+  # however, `xdg-open` and the `OpenFile` xdg-desktop-portal API don't give any obvious way to block for the app to close.
+  rm -f ~/.cache/rofi/rofi3.filebrowsercache
   exec sane-open-desktop "$desktop"
 elif [ "$binary" = "xdg-open" ]; then
   exec xdg-open "$@"

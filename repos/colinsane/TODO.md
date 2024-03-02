@@ -53,6 +53,10 @@
   - integrate `nix check` into Gitea actions?
 
 ### user experience
+- mpv: sync volume control with system volume
+  - would be much nicer UX for moby
+- rofi: filebrowser should re-appear after an open'd file is closed
+  - or, save the location; but reset it whenever i launch an app (not a file)?
 - gpodder: stop showing the "new episodes" window oh my god
 - get xdg-desktop-portal{,-gtk} to stop prompting for openers
 - replace starship prompt with something more efficient

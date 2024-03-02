@@ -11,6 +11,7 @@ configuration {
   kb-accept-entry: "Return,KP_Enter,XF86PowerOff";
   kb-row-up: "Up,XF86AudioRaiseVolume";
   kb-row-down: "Down,XF86AudioLowerVolume";
+  cache-dir: "~/.cache/rofi";
 
   /* to position rofi to the top of the screen: */
   /* location: 2; */
@@ -31,7 +32,8 @@ configuration {
 
   filebrowser {
     /* directory: filebrowser starting directory. leave unset to start at the last directory. */
-    directory: "/home";
+    /* directory: "/home"; */
+
     /* display-name: text to prepend in combi mode */
     display-name: "/";
     /* `command` is the prefix to prepend (along with a space) *before* passing it off to `run-command` */

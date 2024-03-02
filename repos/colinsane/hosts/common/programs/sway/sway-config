@@ -182,9 +182,9 @@ output "Unknown 0x0637 0x00000000" {
   res 1920x1080
 }
 # pinephone internal display (a.k.a. "Unknown Unknown Unknown")
-output "DSI-1" {
-  scale 1.6
-}
+# output "DSI-1" {
+#   scale 1.6
+# }
 
 # manually export PATH here, since all my user services need that, and sane-sandboxed implementation depends on it.
 # also, manually export XDG_DATA_DIRS. glib fails in weird ways (e.g. thinks everything is application/x-octet-stream mime type) without it.

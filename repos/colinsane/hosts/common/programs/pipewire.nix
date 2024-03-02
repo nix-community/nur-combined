@@ -18,6 +18,10 @@ in
     sandbox.extraRuntimePaths = [ "/" ];
     sandbox.extraPaths = [
       "/dev/snd"
+      # desko/lappy don't need these, but moby complains if not present
+      "/dev/video0"
+      "/dev/video1"
+      "/dev/video2"
     ];
     sandbox.extraHomePaths = [
       # pulseaudio cookie

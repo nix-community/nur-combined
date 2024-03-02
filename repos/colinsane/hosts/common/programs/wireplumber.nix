@@ -17,6 +17,7 @@ in
       "/dev/snd"
       "/dev/video0"
       "/dev/video1"
+      "/dev/video2"
       "/run/systemd"
       "/run/udev"
       "/sys/class/sound"
