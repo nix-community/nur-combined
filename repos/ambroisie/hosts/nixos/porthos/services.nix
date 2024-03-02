@@ -68,6 +68,10 @@ in
         secretFile = secrets."matrix/sliding-sync-secret".path;
       };
     };
+    mealie = {
+      enable = true;
+      credentialsFile = secrets."mealie/mail".path;
+    };
     miniflux = {
       enable = true;
       credentialsFiles = secrets."miniflux/credentials".path;

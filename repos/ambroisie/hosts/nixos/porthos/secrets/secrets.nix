@@ -41,6 +41,10 @@ in
     publicKeys = all;
   };
 
+  "mealie/mail.age" = {
+    publicKeys = all;
+  };
+
   "miniflux/credentials.age".publicKeys = all;
 
   "monitoring/password.age" = {
