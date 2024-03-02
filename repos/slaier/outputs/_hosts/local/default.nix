@@ -100,6 +100,7 @@ in
     zip
   ] ++ (map makeNoProxyWrapper [
     ydict
+    kodi-wayland
     ungoogled-chromium
   ]);
 
