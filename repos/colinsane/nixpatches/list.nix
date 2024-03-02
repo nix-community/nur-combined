@@ -31,6 +31,15 @@ in [
   #   merged.master = "<date>";
   # etc, where "date" is like "20240228181608"
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
+
+  (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/292868";
+    saneCommit = "f090c1cd6bb5bbb14a86ec90ced78ca1a165a4fe";
+    title = "mpvScripts.uosc: 5.1.1 -> 5.2.0";
+    # hash = "sha256-oGRysTvCrN8buMSpdAOg87cyqJAffwgwAVZ73ocKsIY=";
+    hash = "sha256-AzkMYm9Pm85Xfm+nd44oKIULZYGyMXulmjFbutouysc=";
+  })
+
   (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/288518";
     saneCommit = "20c9492d303be7cbad560e3d83bc47ab4b1e93f7";

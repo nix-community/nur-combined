@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils -p killall -p playerctl -p procps -p pulseaudio -p sway -p util-linux -p wvkbd
+#!nix-shell -i bash -p coreutils -p killall -p playerctl -p procps -p pulseaudio -p sane-open-desktop -p sway -p util-linux -p wvkbd
 
 # input map considerations
 # - using compound actions causes delays.
@@ -71,15 +71,6 @@ inhibited() {
 }
 unmapped() {
   true
-}
-
-openDesktop() {
-  # open a .desktop file via the xdg-desktop-portal
-  gdbus call --session --timeout 10 \
-    --dest org.freedesktop.portal.Desktop \
-    --object-path /org/freedesktop/portal/desktop \
-    --method org.freedesktop.portal.DynamicLauncher.Launch \
-    "$1" {}
 }
 
 allOn() {
@@ -172,7 +163,7 @@ dispatchOn() {
       ;;
     "volup_1")
       # volume up once: system menu
-      handleWith openDesktop rofi.desktop
+      handleWith sane-open-desktop rofi.desktop
       ;;
 
     "voldown_start")
@@ -184,7 +175,7 @@ dispatchOn() {
       # note we already triggered the keyboard; that's fine: usually keyboard + terminal go together :)
       # voldown_hold_1 frequently triggers during short taps meant only to reveal the keyboard,
       # so prefer a longer hold duration
-      handleWith openDesktop xdg-terminal-exec.desktop
+      handleWith sane-open-desktop xdg-terminal-exec.desktop
       ;;
     "voldown_tap_1")
       # swallow, to prevent keyboard from also triggering media controls

@@ -26,13 +26,17 @@ in
         };
         options.sock = mkOption {
           type = types.str;
-          default = "sxmo.wobsock";
+          default = "sxmo.wobsock";  #< TODO: rename this!
         };
       };
     };
 
     sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;
+
+    suggestedPrograms = [
+      "wob-pulse"
+    ];
 
     fs.".config/wob/wob.ini".symlink.text = ''
       timeout = 900
@@ -83,9 +87,26 @@ in
       '';
       environment.WOBSOCK_NAME = cfg.config.sock;
     };
+  };
+
+  sane.programs.wob-pulse = {
+    packageUnwrapped = wob-pulse;
+    sandbox.method = "bwrap";
+    sandbox.whitelistAudio = true;
+    sandbox.extraRuntimePaths = [
+      cfg.config.sock
+    ];
+
+    suggestedPrograms = [
+      # "coreutils"
+      "gnugrep"
+      "gnused"
+      "pulseaudio"  #< TODO: replace with just the one binary we need.
+    ];
 
     services.wob-pulse = {
       description = "wob-pulse: monitor pulseaudio and display volume changes on-screen";
+      after = [ "wob.service" ];
       wantedBy = [ "wob.service" ];
       serviceConfig = {
         ExecStart = "${wob-pulse}/bin/wob-pulse";
