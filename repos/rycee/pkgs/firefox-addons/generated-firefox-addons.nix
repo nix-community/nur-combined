@@ -774,10 +774,10 @@
     };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.4.0";
+      version = "0.4.1";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4237768/blocktube-0.4.0.xpi";
-      sha256 = "8df7e5f52303d0ac0b056051d6b3aa37ac200396075e1aa6d8068aaf86495e63";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240883/blocktube-0.4.1.xpi";
+      sha256 = "092f55d34bb2d46ee696026776c4943a45cfa1ee33caaa971092c0893436f2d1";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -1657,10 +1657,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.5.2";
+      version = "1.5.3";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229314/dearrow-1.5.2.xpi";
-      sha256 = "e22f497e352fa0946b4746de018c8c9af382c04b155a12ae5e89e5c4e1f73d77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241053/dearrow-1.5.3.xpi";
+      sha256 = "c09e576a9c5bdc40156fe33eda839a81e05d68efef8a562ef8bebd4f56c68206";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1706,10 +1706,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240228.91714";
+      version = "124.0.20240301.91852";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4242713/deutsch_de_language_pack-124.0.20240228.91714.xpi";
-      sha256 = "ef0a38c1adccdeaffc11a6084b966f4d6b8e02f830bf76779c7d97c4fab541ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243683/deutsch_de_language_pack-124.0.20240301.91852.xpi";
+      sha256 = "f2304d06e058137276f001e186c41179a9265ec13db94d39f543701935c0284d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2601,10 +2601,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240228.91714";
+      version = "124.0.20240301.91852";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4242644/francais_language_pack-124.0.20240228.91714.xpi";
-      sha256 = "d0d900dbc7b84e3eeba310252f7519701fac93078f1bfe0b41b83c7c6f195c6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243716/francais_language_pack-124.0.20240301.91852.xpi";
+      sha256 = "f7481cd94febeccaf5460ea9f2748578a2dadc2b37a053ea1b605cf687f1e835";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -9061,10 +9061,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.5.5";
+      version = "5.5.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236218/sponsorblock-5.5.5.xpi";
-      sha256 = "f6b2e987a09e5769ecb43a75c94fcbc76c779e69a401fd3f0c681785fd7e8ede";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241055/sponsorblock-5.5.6.xpi";
+      sha256 = "bde2199d2fd00281cd990a824f51e2c9c4bacc62e095f2192c5b101a148d1845";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -9826,10 +9826,10 @@
     };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.9.0.30";
+      version = "10.0.0.4";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165403/traduzir_paginas_web-9.9.0.30.xpi";
-      sha256 = "8d584260e2b57ddfb9bc24d4023dc457fcd8b27841863ca8819fa10bcc9964fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241102/traduzir_paginas_web-10.0.0.4.xpi";
+      sha256 = "5cabc2733016e5c66e748ac6533a2e712032cf672bb6a1d5ce7bbf918e4d1085";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
