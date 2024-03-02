@@ -63,7 +63,10 @@
   ];
 
   # ensure new deployments have a source of this repo with which they can bootstrap.
-  environment.etc."nixos".source = ../../..;
+  # this however changes on every commit and can be slow to copy for e.g. `moby`.
+  environment.etc."nixos" = lib.mkIf config.sane.enableSlowPrograms {
+    source = ../../..;
+  };
 
   systemd.services.nix-daemon.serviceConfig = {
     # the nix-daemon manages nix builders
