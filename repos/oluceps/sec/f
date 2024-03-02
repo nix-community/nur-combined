@@ -1,0 +1,23 @@
+#!/usr/bin/env nu
+
+def "main en" [name: string] {
+  rage -e $name -i /run/agenix/age -i ./age-yubikey-identity-7d5d5540.txt.pub -o $'./($name).age'
+  srm $name
+}
+
+def "main de" [name: string] {
+  rage -d $'./($name)' -i /run/agenix/age # -i ./age-yubikey-identity-7d5d5540.txt.pub
+}
+
+def "main dump" [] {
+  srm -frC decrypted
+  mkdir decrypted
+  ls ./*.age | par-each {|i| main de $i.name | save $'decrypted/($i.name)' }
+}
+
+def "main chk" [] {
+  let allow = ["f" "age-yubikey-identity-7d5d5540.txt.pub"]
+  ls | filter {|i| not ($in.name | str ends-with "age")} | filter {|i| not ($i.name in $allow) }
+}
+
+def main [] { }

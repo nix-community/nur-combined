@@ -56,6 +56,9 @@ deploy targets=nodes builder="hastur" mode="switch":
     def get_map [ k: string ] { {{ map }} | get $k }
     {{ targets }} | {{ filter }} | par-each { |target| nixos-rebuild --target-host (get_map $target) --build-host (get_map {{ builder }}) {{ mode }} --use-remote-sudo --flake $'{{ loc }}#($target)' }
 
+deploy-local builder="hastur" mode="switch":
+    sudo nixos-rebuild --build-host ({{ map }} | get {{ builder }}) {{ mode }} --flake .
+
 home-active +args="":
     nom build '.#homeConfigurations.{{ me }}.activationPackage' {{ args }}
     ./result/activate

@@ -94,7 +94,7 @@
   security.tpm2.tctiEnvironment.enable = true;
 
   services.scx = {
-    enable = false;
+    enable = true;
     scheduler = "scx_rusty";
   };
   boot = {
@@ -116,7 +116,7 @@
       "zswap.enabled=1"
       # "zswap.compressor=lz4"
       "zswap.zpool=zsmalloc"
-      # "systemd.gpt_auto=0"
+      "systemd.gpt_auto=0"
     ];
     # extraModulePackages = with config.boot.kernelPackages; [
     #   v4l2loopback
@@ -127,8 +127,8 @@
       # (import inputs.nixpkgs-pin {
       #   system = "x86_64-linux";
       # })
-      pkgs.linuxPackages_latest;
-    # inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-sched-ext-lto-zen4;
+      # pkgs.linuxPackages_latest;
+      inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-zen3;
 
     # kernelPatches =
     #   let patchPath = ../../.attachs/cachyos-kernel;

@@ -27,7 +27,7 @@
                     }];
                   }];
                   match = [{
-                    host = [ "hato.nyaw.xyz" ];
+                    host = [ "dokidoki.nyaw.xyz" ];
                   }];
                   terminal = true;
                 }
