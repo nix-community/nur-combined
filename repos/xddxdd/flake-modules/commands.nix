@@ -7,6 +7,7 @@
     config,
     system,
     pkgs,
+    inputs',
     ...
   }: let
     commands = rec {
@@ -34,8 +35,8 @@
         KEY_FLAG=""
         [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
         [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-        export PATH=${pkgs.nvchecker}/bin:${pkgs.nix-prefetch-scripts}/bin:$PATH
-        ${pkgs.nvfetcher}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+        export PYTHONPATH=${pkgs.python3Packages.packaging}/lib/python${pkgs.python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
+        ${inputs'.nvfetcher.packages.default}/bin/nvfetcher $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
         ${readme}
       '';
 
