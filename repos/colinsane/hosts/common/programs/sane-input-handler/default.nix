@@ -102,7 +102,6 @@ in
       "sway"
       "wvkbd"
     ];
-
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  #< to launch applications
@@ -137,6 +136,10 @@ in
   #   };
   # };
 
+  # TODO: duplicated sandboxing here is just ugly
+  sane.programs.bonsai.sandbox = lib.mkIf cfg.enabled (
+    builtins.removeAttrs cfg.sandbox [ "method" ]  #< else infinite recursion
+  );
   sane.programs.bonsai.config.transitions = lib.mkIf cfg.enabled (friendlyToBonsai {
     # map sequences of "events" to an argument to pass to sane-input-handler
 

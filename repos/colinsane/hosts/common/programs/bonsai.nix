@@ -111,6 +111,11 @@ in
       };
     };
 
+    sandbox.method = "bwrap";
+    sandbox.extraRuntimePaths = [
+      "/"  #< just needs "bonsai", but needs to create it first...
+    ];
+
     services.bonsaid = {
       description = "bonsai: programmable input dispatcher";
       after = [ "graphical-session.target" ];
