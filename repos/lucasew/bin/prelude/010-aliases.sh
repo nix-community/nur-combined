@@ -3,4 +3,4 @@ alias l='ls'
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ç='sd'
-
+alias e=$EDITOR
