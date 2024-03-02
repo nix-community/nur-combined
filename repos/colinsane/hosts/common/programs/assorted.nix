@@ -374,10 +374,6 @@ in
       "/proc"
     ];
 
-    # fuzzel: TODO: re-enable sandbox. i use fuzzel both as an entry system (snippets) AND an app-launcher.
-    #   as an app-launcher, it cannot be sandboxed without over-restricting the app it launches.
-    #   should probably make it not be an app-launcher
-    fuzzel.sandbox.enable = false;
     fuzzel.sandbox.method = "bwrap";  #< landlock nearly works, but unable to open ~/.cache
     fuzzel.sandbox.whitelistWayland = true;
     fuzzel.persist.byStore.private = [
@@ -490,7 +486,9 @@ in
     ];
     gptfdisk.sandbox.autodetectCliPaths = "existing";  #< sometimes you'll use gdisk on a device file.
 
-    grim = {};
+    grim.sandbox.method = "bwrap";
+    grim.sandbox.autodetectCliPaths = "existingOrParent";
+    grim.sandbox.whitelistWayland = true;
 
     hase.sandbox.method = "bwrap";
     hase.sandbox.net = "clearnet";
@@ -775,7 +773,8 @@ in
     # printer/filament settings
     slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
 
-    slurp = {};
+    slurp.sandbox.method = "bwrap";
+    slurp.sandbox.whitelistWayland = true;
 
     # use like `sudo smartctl /dev/sda -a`
     smartmontools.sandbox.method = "landlock";
@@ -834,7 +833,9 @@ in
     superTux.sandbox.whitelistWayland = true;
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
-    swappy = {};
+    swappy.sandbox.method = "bwrap";
+    swappy.sandbox.autodetectCliPaths = "existingFileOrParent";
+    swappy.sandbox.whitelistWayland = true;
 
     tcpdump.sandbox.method = "landlock";
     tcpdump.sandbox.net = "all";

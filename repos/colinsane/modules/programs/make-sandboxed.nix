@@ -1,7 +1,5 @@
 { lib
 , buildPackages
-, callPackage
-, runCommand
 , runCommandLocal
 , runtimeShell
 , sane-sandboxed
@@ -33,17 +31,11 @@ let
     exec "$@"
   '';
 
-  makeHookable = pkg:
-    if ((pkg.override or {}).__functionArgs or {}) ? runCommand then
-      pkg.override {
-        runCommand = name: env: cmd: runCommand name env (cmd + lib.optionalString (name == pkg.name) ''
-          # if the package is a runCommand (common for wrappers), then patch it to call our `postFixup` hook, first
-          runHook postFixup
-        '');
-      }
-    else
-      # assume the package already calls postFixup (if not, we error during system-level build)
-      pkg;
+  makeHookable = pkg: pkg.overrideAttrs (drv: lib.optionalAttrs (drv ? buildCommand && !lib.hasInfix "postFixup" drv.buildCommand) {
+    buildCommand = drv.buildCommand + ''
+      runHook postFixup
+    '';
+  });
 
   # take an existing package, which may have a `bin/` folder as well as `share/` etc,
   # and patch the `bin/` items in-place
@@ -246,7 +238,6 @@ let
   # take the nearly-final sandboxed package, with binaries and and else, and
   # populate passthru attributes the caller expects, like `checkSandboxed`.
   fixupMetaAndPassthru = pkgName: pkg: extraPassthru: pkg.overrideAttrs (finalAttrs: prevAttrs: let
-    final = fixupMetaAndPassthru pkgName pkg extraPassthru;
     nonBin = (prevAttrs.passthru or {}).sandboxedNonBin or {};
   in {
     meta = (prevAttrs.meta or {}) // {

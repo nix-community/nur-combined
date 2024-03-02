@@ -143,6 +143,29 @@ in
       "xdg-terminal-exec"  # used by sway config
     ];
 
+    sandbox.method = "bwrap";
+    sandbox.wrapperType = "inplace";
+    sandbox.whitelistAudio = true;  # it runs playerctl directly
+    sandbox.whitelistDbus = [ "system" "user" ];  # to e.g. launch apps
+    sandbox.whitelistDri = true;
+    sandbox.whitelistWayland = true;
+    # needs to *create* the sway socket. could move the sway socket into its own directory, and whitelist just that, but doesn't buy me much.
+    sandbox.extraRuntimePaths = [ "/" ];
+    sandbox.extraPaths = [
+      "/dev/input"
+      "/run/systemd"
+      "/run/udev"
+      "/sys/class/backlight"
+      "/sys/class/drm"
+      "/sys/class/input"
+      "/sys/dev/char"
+      "/sys/devices"
+    ];
+    sandbox.extraConfig = [
+      "--sane-sandbox-keep-namespace" "pid"
+    ];
+
+
     fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
       # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>
       [preferred]
