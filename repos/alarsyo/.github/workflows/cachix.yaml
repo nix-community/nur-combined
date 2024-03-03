@@ -79,6 +79,7 @@ jobs:
         - boreal
         - hades
         - hephaestus
+        - talos
         - thanatos
 
     steps:

@@ -33,7 +33,7 @@
       type = "github";
       owner = "numtide";
       repo = "flake-utils";
-      ref = "master";
+      ref = "main";
     };
 
     nixos-hardware = {
@@ -151,6 +151,17 @@
               inputs.nixos-hardware.nixosModules.common-gpu-amd
               inputs.nixos-hardware.nixosModules.common-pc-laptop
               inputs.nixos-hardware.nixosModules.common-pc-ssd
+            ]
+            ++ sharedModules;
+        };
+
+        talos = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules =
+            [
+              inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+              disko.nixosModules.default
+              ./talos.nix
             ]
             ++ sharedModules;
         };
