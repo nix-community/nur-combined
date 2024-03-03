@@ -26,31 +26,22 @@
       fd
       file
       ripgrep
-      sd
-      tokei
       tree
       wget
-      jq
       pciutils
       usbutils
       # development
       
-      agenix
-      alejandra
       git
       git-crypt
       git-lfs
       gnumake
       gnupg
-      pinentry-qt
       python3
       vim
       # terminal utilities
       
-      dogdns
-      du-dust
       htop
-      ldns # drill
       unzip
       zip
       ;
