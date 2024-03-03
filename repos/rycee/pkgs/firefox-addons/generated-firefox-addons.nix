@@ -6704,10 +6704,10 @@
     };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
-      version = "2.2.5";
+      version = "2.2.6";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4108116/news_feed_eradicator-2.2.5.xpi";
-      sha256 = "37398b398296c9c20889ad2e4f8181ea41470a8d315ace1ab86d89058721daf9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4244154/news_feed_eradicator-2.2.6.xpi";
+      sha256 = "8dd8eeb57390b0b4765b06c44bdf9498bfd4cba815f783334473027653abbc0a";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
