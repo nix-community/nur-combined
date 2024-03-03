@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "kes";
-  version = "2024-01-11T13-09-29Z";
+  version = "2024-02-29T08-12-28Z";
 
   src = fetchFromGitHub {
     owner = "minio";
     repo = "kes";
     rev = version;
-    hash = "sha256-nxYfLFmv5tgN8nZ9tVvEpsMrrBx9pLZigezl6CWBG1o=";
+    hash = "sha256-ryokJ8jw5yts6xG/kvzsBWYKXf5zGmETOqkVOhRABzI=";
   };
 
-  vendorHash = "sha256-VC1bNS+NUyiqvdb0OK1RoIrEjPqMpdhw2lPL3GKaN8A=";
+  vendorHash = "sha256-pEtBhsihraxl3IBwE1EGECEBwBSF36AqndjNrRaLnYU=";
 
   passthru.updateScript = nix-update-script { };
 
