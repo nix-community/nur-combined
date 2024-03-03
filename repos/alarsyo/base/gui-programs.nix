@@ -34,7 +34,6 @@ in {
           if config.my.gui.isNvidia
           then ["nvidia"]
           else options.services.xserver.videoDrivers.default;
-        windowManager.i3.enable = true;
         layout = "fr";
         xkbVariant = "us";
         libinput = {
@@ -51,10 +50,8 @@ in {
     environment.systemPackages = builtins.attrValues {
       inherit
         (pkgs)
-        chrysalis
-        evince
+        discord
         feh
-        firefox
         ffmpeg
         gimp-with-plugins
         imagemagick
@@ -69,11 +66,7 @@ in {
         zathura
         ;
 
-      inherit (pkgs.gnome) nautilus;
-
       inherit (pkgs.libsForQt5) okular;
-
-      discord = pkgs.discord.override {nss = pkgs.nss_latest;};
     };
 
     networking.networkmanager = {

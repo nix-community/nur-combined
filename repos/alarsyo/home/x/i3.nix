@@ -6,11 +6,12 @@
 }: let
   inherit
     (lib)
+    mkEnableOption
     mkIf
     mkOptionDefault
     ;
 
-  isEnabled = config.my.home.x.enable;
+  isEnabled = config.my.home.x.i3.enable;
 
   myTerminal =
     # FIXME: fix when terminal is setup in home
@@ -26,6 +27,10 @@
 
   i3Theme = config.my.theme.i3Theme;
 in {
+  options.my.home.x.i3 = {
+    enable = mkEnableOption "i3wm configuration";
+  };
+
   config = mkIf isEnabled {
     my.home = {
       flameshot.enable = true;
