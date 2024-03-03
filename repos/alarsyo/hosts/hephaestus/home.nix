@@ -4,6 +4,7 @@
   ...
 }: {
   home-manager.users.alarsyo = {
+    home.stateVersion = "23.05";
     my.home.laptop.enable = true;
 
     # Keyboard settings & i3 settings

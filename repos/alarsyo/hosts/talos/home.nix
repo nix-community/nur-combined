@@ -1,11 +1,10 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }: {
   home-manager.users.alarsyo = {
-    home.stateVersion = lib.mkForce "23.11";
+    home.stateVersion = "23.11";
 
     my.home.laptop.enable = true;
 
@@ -26,32 +25,24 @@
         (pkgs)
         # some websites only work there :(
         
-        #chromium
+        chromium
+        darktable
+        # dev
         
-        #darktable
-        
-        ## dev
-        
-        #
-        
-        #rustup
-        
-        #gdb
-        
-        #valgrind
-        
+        rustup
+        gdb
+        valgrind
         arandr
-        #zotero
-        
+        zotero
         ;
 
-      #inherit
-      #  (pkgs.packages)
-      #  ansel
-      #  spot
-      #  ;
+      inherit
+        (pkgs.packages)
+        ansel
+        spot
+        ;
 
-      #inherit (pkgs.wineWowPackages) stable;
+      inherit (pkgs.wineWowPackages) stable;
     };
   };
 }
