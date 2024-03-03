@@ -3,7 +3,7 @@
   enable = true;
   disableTxChecksumIpGeneric = false;
   configFile = config.age.secrets.dae.path;
-  package = pkgs.dae-unstable;
+  # package = pkgs.dae-unstable;
   assetsPath = toString (pkgs.symlinkJoin {
     name = "dae-assets-nixy";
     paths = [
