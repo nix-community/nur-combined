@@ -133,27 +133,27 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "8d99c122d2e5e3152de31a37ccda260b78f55d5c";
+    version = "6de623d229e3705779fa05f3145f7c9619872c4a";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "8d99c122d2e5e3152de31a37ccda260b78f55d5c";
+      rev = "6de623d229e3705779fa05f3145f7c9619872c4a";
       fetchSubmodules = false;
-      sha256 = "sha256-fXGFS9m8L3w64loZBWqpbSD58/O4crCQ7MA+qzmR1+E=";
+      sha256 = "sha256-0cPXuFuOfEUEuMhJUNuX0swBc5XRXSweJy3F1oI6U7M=";
     };
-    date = "2023-12-04";
+    date = "2024-03-02";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "9885d6292ec6d6e572da7766cbca02de94425466";
+    version = "c3f02a81e5f68c62958237e6cbc336f31dbd3c71";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "9885d6292ec6d6e572da7766cbca02de94425466";
+      rev = "c3f02a81e5f68c62958237e6cbc336f31dbd3c71";
       fetchSubmodules = false;
-      sha256 = "sha256-mQ5RkSwAQaocrVvqSHeAeNaFR4u1MGSq9+0nO7pzoks=";
+      sha256 = "sha256-5pNVU7SPrcPehG08PxU/6+Riccz/rvkPa3JvSr6VgGc=";
     };
-    date = "2024-03-01";
+    date = "2024-03-02";
   };
   calibre-cops = {
     pname = "calibre-cops";
