@@ -126,39 +126,18 @@
   # inject specialized alsa configs via the environment.
   # specifically, this gets the pinephone headphones & internal earpiece working.
   # see pkgs/patched/alsa-ucm-conf for more info.
-  environment.variables.ALSA_CONFIG_UCM2 = "/run/current-system/sw/share/alsa/ucm2";
-  environment.pathsToLink = [ "/share/alsa/ucm2" ];
-  environment.systemPackages = [
-    (pkgs.alsa-ucm-conf-sane.override {
-      # internal speaker has a tendency to break :(
-      preferEarpiece = true;
-    })
-  ];
-  systemd = let
-    ucm-env = config.environment.variables.ALSA_CONFIG_UCM2;
-  in {
-    # cribbed from <repo:nixos/mobile-nixos:modules/quirks/audio.nix>
+  # TODO: move this directly into `sane.programs.alsa-ucm-conf`?
+  sane.programs.alsa-ucm-conf.packageUnwrapped = pkgs.alsa-ucm-conf-sane.override {
+    # internal speaker has a tendency to break :(
+    preferEarpiece = true;
+  };
 
-    # pipewire
-    user.services.pipewire.environment.ALSA_CONFIG_UCM2       = ucm-env;
-    user.services.pipewire-pulse.environment.ALSA_CONFIG_UCM2 = ucm-env;
-    user.services.wireplumber.environment.ALSA_CONFIG_UCM2    = ucm-env;
-    services.pipewire.environment.ALSA_CONFIG_UCM2            = ucm-env;
-    services.pipewire-pulse.environment.ALSA_CONFIG_UCM2      = ucm-env;
-    services.wireplumber.environment.ALSA_CONFIG_UCM2         = ucm-env;
-
-    # pulseaudio
-    # user.services.pulseaudio.environment.ALSA_CONFIG_UCM2 = ucm-env;
-    # services.pulseaudio.environment.ALSA_CONFIG_UCM2      = ucm-env;
-
-
-    # TODO: move elsewhere...
-    services.ModemManager.serviceConfig = {
-      # N.B.: the extra "" in ExecStart serves to force upstream ExecStart to be ignored
-      ExecStart = [ "" "${pkgs.modemmanager}/bin/ModemManager --debug" ];
-      # --debug sets DEBUG level logging: so reset
-      ExecStartPost = [ "${pkgs.modemmanager}/bin/mmcli --set-logging=INFO" ];
-    };
+  # TODO: move elsewhere...
+  systemd.services.ModemManager.serviceConfig = {
+    # N.B.: the extra "" in ExecStart serves to force upstream ExecStart to be ignored
+    ExecStart = [ "" "${pkgs.modemmanager}/bin/ModemManager --debug" ];
+    # --debug sets DEBUG level logging: so reset
+    ExecStartPost = [ "${pkgs.modemmanager}/bin/mmcli --set-logging=INFO" ];
   };
 
   services.udev.extraRules = let

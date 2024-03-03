@@ -4,6 +4,9 @@ let
 in
 {
   sane.programs.wvkbd = {
+    sandbox.method = "bwrap";
+    sandbox.whitelistWayland = true;
+
     services.wvkbd = {
       description = "wvkbd: wayland virtual keyboard";
       after = [ "graphical-session.target" ];

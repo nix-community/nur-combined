@@ -25,6 +25,8 @@ in
       "/sys/devices"
     ];
 
+    suggestedPrograms = [ "alsa-ucm-conf" ];
+
     persist.byStore.plaintext = [
       # persist per-device volume levels
       ".local/state/wireplumber"

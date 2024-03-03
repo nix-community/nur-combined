@@ -98,10 +98,12 @@ window {
   /* rofi supports very complex calculations here */
   /* one may even read environment variables (useful for knowing if screen is rotated?) */
   /* `calc(... min 100%)` ensures it never overflows */
+  /* rofi is aware of the top bar (waybar) and any virtual keyboards,
+   * so e.g. height: 100% will never overlap those */
 
   width: calc(960 min 100%);
   /* 520px @ font size 20 gives 13 rows + filter */
-  height: calc(520 min 60%);
+  height: calc(520 min 100%);
 
   /* anchor the *north* edge of the window at the *north* location of the screen */
   anchor: north;

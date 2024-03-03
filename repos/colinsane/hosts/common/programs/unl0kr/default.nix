@@ -147,7 +147,7 @@ in
   };
 
   # unl0kr is run as root, and especially with sandboxing, needs to be installed for root if expected to work.
-  sane.programs.unl0kr.enableFor.system = lib.mkIf (builtins.any (en: en)(builtins.attrValues config.sane.programs.unl0kr.enableFor.user)) true;
+  sane.programs.unl0kr.enableFor.system = lib.mkIf (builtins.any (en: en) (builtins.attrValues cfg.enableFor.user)) true;
 
   environment.pathsToLink = lib.mkIf cfg.enabled [
     # so we can figure out what to auto-launch
