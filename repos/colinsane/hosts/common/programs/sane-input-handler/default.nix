@@ -88,7 +88,7 @@ in
       pname = "sane-input-handler";
       srcRoot = ./.;
       pkgs = {
-        inherit (pkgs) coreutils killall playerctl procps pulseaudio sane-open-desktop util-linux wvkbd;
+        inherit (pkgs) coreutils killall playerctl procps sane-open-desktop util-linux wireplumber wvkbd;
         sway = config.sane.programs.sway.package.sway-unwrapped;
       };
     };
@@ -97,9 +97,9 @@ in
       "killall"
       "playerctl"
       "procps"
-      "pulseaudio"  #< TODO: replace with just the pulseaudio util we actually need, for proper sandboxing
       "sane-open-desktop"
       "sway"
+      "wireplumber"
       "wvkbd"
     ];
     sandbox.method = "bwrap";

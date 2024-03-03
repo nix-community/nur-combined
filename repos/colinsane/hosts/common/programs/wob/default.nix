@@ -8,10 +8,10 @@
 #
 { config, lib, pkgs, ... }:
 let
-  wob-pulse = pkgs.static-nix-shell.mkBash {
-    pname = "wob-pulse";
+  wob-audio = pkgs.static-nix-shell.mkBash {
+    pname = "wob-audio";
     srcRoot = ./.;
-    pkgs = [ "coreutils" "gnugrep" "gnused" "pulseaudio" ];
+    pkgs = [ "coreutils" "gnugrep" "gnused" "wireplumber" ];
   };
   cfg = config.sane.programs.wob;
 in
@@ -35,7 +35,7 @@ in
     sandbox.whitelistWayland = true;
 
     suggestedPrograms = [
-      "wob-pulse"
+      "wob-audio"
     ];
 
     fs.".config/wob/wob.ini".symlink.text = ''
@@ -89,8 +89,8 @@ in
     };
   };
 
-  sane.programs.wob-pulse = {
-    packageUnwrapped = wob-pulse;
+  sane.programs.wob-audio = {
+    packageUnwrapped = wob-audio;
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.extraRuntimePaths = [
@@ -101,15 +101,15 @@ in
       # "coreutils"
       "gnugrep"
       "gnused"
-      "pulseaudio"  #< TODO: replace with just the one binary we need.
+      "wireplumber"  #< TODO: replace with just the one binary we need.
     ];
 
-    services.wob-pulse = {
-      description = "wob-pulse: monitor pulseaudio and display volume changes on-screen";
+    services.wob-audio = {
+      description = "wob-audio: monitor audio and display volume changes on-screen";
       after = [ "wob.service" ];
       wantedBy = [ "wob.service" ];
       serviceConfig = {
-        ExecStart = "${wob-pulse}/bin/wob-pulse";
+        ExecStart = "${wob-audio}/bin/wob-audio";
         Type = "simple";
         Restart = "always";
         RestartSec = "20s";

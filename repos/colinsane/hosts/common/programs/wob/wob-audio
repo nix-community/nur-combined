@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils -p gnugrep -p gnused -p pulseaudio
+#!nix-shell -i bash -p coreutils -p gnugrep -p gnused -p wireplumber
 
 set -e
 
@@ -13,22 +13,21 @@ verbose() {
   fi
 }
 
-volismuted() {
-  pactl get-sink-mute @DEFAULT_SINK@ | grep -q "Mute: yes"
-}
-
 volget() {
-  if volismuted; then
+  # returns audio volume, as an integer (0 - 100)
+  volLine="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
+  if echo "$volLine" | grep -q '\[MUTED\]'; then
     verbose "muted"
-    printf "0"
+    echo "0"
   else
-    pactl get-sink-volume @DEFAULT_SINK@ | head -n1 | cut -d'/' -f2 | sed 's/ //g' | sed 's/\%//'
+    vol="$(echo "$vol" | cut -d' ' -f2)"
+    echo "$(( $vol * 100 ))"
   fi
 }
 
 notify_volume_change() {
   verbose "notify_volume_change"
-  vol=$(volget)
+  vol="$(volget)"
   verbose "got volume: %d -> %d" "$lastvol" "$vol"
   if [ "$vol" != "$lastvol" ]; then
     debug "notify wob: %d -> %d" "$lastvol" "$vol"

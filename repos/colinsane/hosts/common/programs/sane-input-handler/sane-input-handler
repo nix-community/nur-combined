@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils -p killall -p playerctl -p procps -p pulseaudio -p sane-open-desktop -p sway -p util-linux -p wvkbd
+#!nix-shell -i bash -p coreutils -p killall -p playerctl -p procps -p sane-open-desktop -p sway -p util-linux -p wireplumber -p wvkbd
 
 # input map considerations
 # - using compound actions causes delays.
@@ -35,7 +35,7 @@
 #   - seeking backward isn't possible except by first tapping volup.
 
 
-# increments to use for volume adjustment
+# increments to use for volume adjustment (in %)
 VOL_INCR=5
 KEYBOARD="${KEYBOARD:-wvkbd-mobintl}"
 
@@ -119,10 +119,10 @@ dispatchDefault() {
     # powerbutton_three: intentional no-op because overloading the kill-window handler is risky
 
     volup_tap*|modal_volup_tap*)
-      handleWith pactl set-sink-volume @DEFAULT_SINK@ +"$VOL_INCR%"
+      handleWith wpctl set-volume @DEFAULT_AUDIO_SINK@ "$VOL_INCR"%+
       ;;
     voldown_tap*|modal_voldown_tap*)
-      handleWith pactl set-sink-volume @DEFAULT_SINK@ -"$VOL_INCR%"
+      handleWith wpctl set-volume @DEFAULT_AUDIO_SINK@ "$VOL_INCR"%-
       ;;
 
     volup_hold*|modal_volup_hold*)

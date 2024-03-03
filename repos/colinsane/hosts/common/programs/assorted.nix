@@ -477,7 +477,11 @@ in
       ".persist/plaintext"
     ];
 
-    gnused = {};
+    # sed: there is an edgecase of `--file=<foo>`, wherein `foo` won't be whitelisted.
+    gnused.sandbox.method = "bwrap";
+    gnused.sandbox.autodetectCliPaths = "existingFile";
+    gnused.sandbox.whitelistPwd = true;  #< `-i` flag creates a temporary file in pwd (?) and then moves it.
+
     gpsd = {};
 
     gptfdisk.sandbox.method = "landlock";
@@ -718,7 +722,11 @@ in
       "/sys/kernel"
     ];
 
-    procps = {};
+    # procps: free, pgrep, pidof, pkill, ps, pwait, top, uptime, couple others
+    procps.sandbox.method = "bwrap";
+    procps.sandbox.extraConfig = [
+      "--sane-sandbox-keep-namespace" "pid"
+    ];
 
     pstree.sandbox.method = "landlock";
     pstree.sandbox.extraPaths = [
