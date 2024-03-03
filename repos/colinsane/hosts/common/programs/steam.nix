@@ -8,6 +8,9 @@
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.whitelistX = true;
+    sandbox.extraPaths = [
+      "/dev/input"  #< for controllers (Steam, Switch, ...)
+    ];
 
     persist.byStore.plaintext = [
       ".steam"
