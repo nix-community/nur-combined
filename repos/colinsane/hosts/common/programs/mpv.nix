@@ -1,18 +1,67 @@
+# curated mpv mods/scripts/users:
+# - <https://github.com/stax76/awesome-mpv>
 # mpv docs:
 # - <https://mpv.io/manual/master>
 # - <https://github.com/mpv-player/mpv/wiki>
-# curated mpv mods/scripts/users:
-# - <https://github.com/stax76/awesome-mpv>
+# debugging:
+# - enter console by pressing backtick.
+#   > `set volume 50`     -> sets application volume to 50%
+#   > `set ao-volume 50`  -> sets system-wide volume to 50%
+#   > `show-text "vol: ${volume}"`  -> get the volume
+# - show script output by running mpv with `--msg-level=all=trace`
+#   - and then just `print(...)` from lua & it'll show in terminal
+# - invoke mpv with `--no-config` to have it not read ~/.config/mpv/*
+# - press `i` to show decoder info
 { config, lib, pkgs, ... }:
 
 let
   cfg = config.sane.programs.mpv;
+  uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: {
+    # patch so that the volume control corresponds to `ao-volume`, i.e. the system-wide volume.
+    # this is particularly nice for moby, because it avoids the awkwardness that system volume
+    # is hard to adjust while screen is on.
+    # note that only under alsa (`-ao=alsa`) does `ao-volume` actually correspond to system volume.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace src/uosc/main.lua \
+        --replace-fail "mp.observe_property('volume'" "mp.observe_property('ao-volume'"
+      substituteInPlace src/uosc/elements/Volume.lua \
+        --replace-fail "mp.commandv('set', 'volume'" "mp.commandv('set', 'ao-volume'" \
+        --replace-fail "mp.set_property_native('volume'" "mp.set_property('ao-volume'"
+
+      # `ao-volume` isn't actually an observable property.
+      # as of 2024/03/02, they *may* be working on that:
+      # - <https://github.com/mpv-player/mpv/pull/13604#issuecomment-1971665736>
+      # in the meantime, just query the volume every tick (i.e. frame)
+      cat <<EOF >> src/uosc/main.lua
+      function update_ao_volume()
+        local vol = mp.get_property('ao-volume')
+        if vol ~= nil then
+          vol = tonumber(vol)
+          if vol ~= state.volume then
+            set_state('volume', vol)
+            request_render()
+          end
+        end
+      end
+      -- tick seems to occur on every redraw (even when volume is hidden).
+      -- in practice: for every new frame of the source, or whenever the cursor is moved.
+      mp.register_event('tick', update_ao_volume)
+      -- if paused and cursor isn't moving, then `tick` isn't called. fallback to a timer.
+      mp.add_periodic_timer(2, update_ao_volume)
+      -- invoke immediately to ensure state.volume is non-nil
+      update_ao_volume()
+      if state.volume == nil then
+        state.volume = 0
+      end
+      EOF
+    '';
+  });
 in
 {
   sane.programs.mpv = {
-    packageUnwrapped = pkgs.wrapMpv pkgs.mpv-unwrapped {
-      scripts = with pkgs.mpvScripts; [
-        mpris
+    packageUnwrapped = with pkgs; wrapMpv mpv-unwrapped {
+      scripts = [
+        mpvScripts.mpris
         uosc
         # pkgs.mpv-uosc-latest
       ];
@@ -125,6 +174,12 @@ in
       osd-bar=no
       # uosc will draw its own window controls if you disable window border
       border=no
+
+      # ao=alsa so that uosc can work with ao-volume (see my uosc patch)
+      ao=alsa
+      # with `ao-volume`, the max actually is 100.
+      # to go higher you'll have to use the system's native controls.
+      volume-max=100
     '';
     fs.".config/mpv/script-opts/osc.conf".symlink.text = ''
       # make the on-screen controls *always* visible
@@ -151,7 +206,7 @@ in
       # speed_persistency=paused,audio
       # vvv  want a close button?
       top_bar=always
-      top_bar_persistency=paused
+      top_bar_persistency=paused,audio
 
       controls=menu,<video>subtitles,<has_many_audio>audio,<has_many_video>video,<has_many_edition>editions,<stream>stream-quality,space,${rev_btn},${play_pause_btn},${fwd_btn},space,speed:1.0,gap,<video>fullscreen
 

@@ -1,6 +1,8 @@
-# mimeo is an exec dispatcher like xdg-open, but why allows mapping different URL regexes to different handlers.
+# mimeo is an exec dispatcher like xdg-open, but which allows mapping different URL regexes to different handlers.
 # my setup sets mimeo as the default http/https handler,
 # and from there it dispatches specialized rules, falling back to the original http/https handler if no URL specialization exists
+#
+# alternative to mimeo is jaro: <https://github.com/isamert/jaro>
 { config, lib, pkgs, ... }:
 let
   mimeo-open-desktop = pkgs.static-nix-shell.mkPython3Bin {
