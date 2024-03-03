@@ -53,8 +53,9 @@
 
   # allow `nix-shell` (and probably nix-index?) to locate our patched and custom packages.
   # this is actually a no-op, and the real action happens in assigning `nix.settings.nix-path`.
-  nix.nixPath = [
+  nix.nixPath = (lib.optionals config.sane.enableSlowPrograms [
     "nixpkgs=${pkgs.path}"
+  ]) ++ [
     # note the import starts at repo root: this allows `./overlay/default.nix` to access the stuff at the root
     # "nixpkgs-overlays=${../../..}/hosts/common/nix-path/overlay"
     # as long as my system itself doesn't rely on NIXPKGS at runtime, we can point the overlays to git
