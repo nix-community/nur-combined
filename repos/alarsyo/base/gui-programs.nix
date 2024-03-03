@@ -69,51 +69,7 @@ in {
       inherit (pkgs.libsForQt5) okular;
     };
 
-    networking.networkmanager = {
-      enable = true;
-
-      dispatcherScripts = [
-        {
-          source = let
-            grep = "${pkgs.gnugrep}/bin/grep";
-            nmcli = "${pkgs.networkmanager}/bin/nmcli";
-          in
-            pkgs.writeShellScript "disable_wifi_on_ethernet" ''
-              export LC_ALL=C
-              date >> /tmp/disable_wifi_on_ethernet.log
-              echo START "$@" >> /tmp/disable_wifi_on_ethernet.log
-
-              beginswith() { case $2 in "$1"*) true;; *) false;; esac; }
-
-              is_ethernet_interface ()
-              {
-                  local type="$(${nmcli} dev show "$1" | grep 'GENERAL\.TYPE:' | awk '{ print $2 }')"
-                  test "$type" = "ethernet" || beginswith enp "$1"
-              }
-
-              hotspot_enabled ()
-              {
-                ${nmcli} dev | ${grep} -q "hotspot"
-              }
-
-              if is_ethernet_interface "$1" && ! hotspot_enabled; then
-                echo "change in ethernet and not in hotspot mode" >> /tmp/disable_wifi_on_ethernet.log
-                if [ "$2" = "up" ]; then
-                    echo "turning wifi off" >> /tmp/disable_wifi_on_ethernet.log
-                    nmcli radio wifi off
-                fi
-
-                if [ "$2" = "down" ]; then
-                    echo "turning wifi on" >> /tmp/disable_wifi_on_ethernet.log
-                    nmcli radio wifi on
-                fi
-              fi
-              echo END "$@" >> /tmp/disable_wifi_on_ethernet.log
-            '';
-          type = "basic";
-        }
-      ];
-    };
+    networking.networkmanager.enable = true;
     programs.nm-applet.enable = true;
     programs.steam.enable = true;
 
