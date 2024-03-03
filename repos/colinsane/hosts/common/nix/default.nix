@@ -67,6 +67,9 @@
   environment.etc."nixos" = lib.mkIf config.sane.enableSlowPrograms {
     source = ../../..;
   };
+  environment.etc."nix/registry.json" = lib.mkIf (!config.sane.enableSlowPrograms) {
+    enable = false;
+  };
 
   systemd.services.nix-daemon.serviceConfig = {
     # the nix-daemon manages nix builders

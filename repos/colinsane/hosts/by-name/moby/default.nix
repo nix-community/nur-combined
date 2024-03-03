@@ -52,7 +52,6 @@
   # sane.programs.signal-desktop.config.autostart = true;  # TODO: enable once electron stops derping.
   # sane.programs."gnome.geary".config.autostart = true;
   # sane.programs.calls.config.autostart = true;
-  sane.programs.mpv.config.vo = "wlshm";  #< see hosts/common/programs/mpv.nix for details
 
   sane.programs.firefox.mime.priority = 300;  # prefer other browsers when possible
   # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`

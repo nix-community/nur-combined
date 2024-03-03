@@ -10,57 +10,42 @@ let
 in
 {
   sane.programs.mpv = {
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.vo = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          description = "--vo=FOO flag to pass to mpv";
-        };
-      };
-    };
-    packageUnwrapped = (pkgs.wrapMpv pkgs.mpv-unwrapped {
+    packageUnwrapped = pkgs.wrapMpv pkgs.mpv-unwrapped {
       scripts = with pkgs.mpvScripts; [
         mpris
         uosc
         # pkgs.mpv-uosc-latest
       ];
-      extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
-        # 2023/08/29: fixes an error where mpv on moby launches with the message
-        #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
-        #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
-        #
-        #   this is likely a regression for mpv 0.36.0.
-        #   the actual error message *appears* to come from the mesa library, but it's tough to trace.
-        #
-        #   TODO(2023/12/03): remove once mesa 23.3.1 lands: <https://github.com/NixOS/nixpkgs/pull/265740>
-        #
-        # backend compatibility (2023/10/22):
-        # run with `--vo=help` to see a list of all output options.
-        # non-exhaustive (W=works, F=fails, A=audio-only, U=audio+ui only (no video))
-        # ? null             Null video output
-        # A (default)
-        # A dmabuf-wayland   Wayland dmabuf video output
-        # A libmpv           render API for libmpv  (mpv plays the audio, but doesn't even render a window)
-        # A vdpau            VDPAU with X11
-        # F drm              Direct Rendering Manager (software scaling)
-        # F gpu-next         Video output based on libplacebo
-        # F vaapi            VA API with X11
-        # F x11              X11 (software scaling)
-        # F xv               X11/Xv
-        # U gpu              Shader-based GPU Renderer
-        # W caca             libcaca  (terminal rendering)
-        # W sdl              SDL 2.0 Renderer
-        # W wlshm            Wayland SHM video output (software scaling)
-        "--add-flags" "--vo=${cfg.config.vo}"
-      ];
-    }).overrideAttrs (base: {
-      buildCommand = base.buildCommand + ''
-        # runHook postFixup to allow sandbox wrappers to wrap the binaries
-        runHook postFixup
-      '';
-    });
+      # extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
+      #   # 2023/08/29: fixes an error where mpv on moby launches with the message
+      #   #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
+      #   #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
+      #   #
+      #   #   this is likely a regression for mpv 0.36.0.
+      #   #   the actual error message *appears* to come from the mesa library, but it's tough to trace.
+      #   #
+      #   # 2024/03/02: no longer necessary, with mesa 23.3.1: <https://github.com/NixOS/nixpkgs/pull/265740>
+      #   #
+      #   # backend compatibility (2023/10/22):
+      #   # run with `--vo=help` to see a list of all output options.
+      #   # non-exhaustive (W=works, F=fails, A=audio-only, U=audio+ui only (no video))
+      #   # ? null             Null video output
+      #   # A (default)
+      #   # A dmabuf-wayland   Wayland dmabuf video output
+      #   # A libmpv           render API for libmpv  (mpv plays the audio, but doesn't even render a window)
+      #   # A vdpau            VDPAU with X11
+      #   # F drm              Direct Rendering Manager (software scaling)
+      #   # F gpu-next         Video output based on libplacebo
+      #   # F vaapi            VA API with X11
+      #   # F x11              X11 (software scaling)
+      #   # F xv               X11/Xv
+      #   # U gpu              Shader-based GPU Renderer
+      #   # W caca             libcaca  (terminal rendering)
+      #   # W sdl              SDL 2.0 Renderer
+      #   # W wlshm            Wayland SHM video output (software scaling)
+      #   "--add-flags" "--vo=${cfg.config.vo}"
+      # ];
+    };
 
     sandbox.method = "bwrap";
     sandbox.autodetectCliPaths = true;
