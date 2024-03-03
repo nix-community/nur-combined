@@ -145,6 +145,7 @@ in
 
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";
+    sandbox.net = "clearnet";  #< for Xwayland (TODO: separate!)
     sandbox.whitelistAudio = true;  # it runs playerctl directly
     sandbox.whitelistDbus = [ "system" "user" ];  # to e.g. launch apps
     sandbox.whitelistDri = true;
