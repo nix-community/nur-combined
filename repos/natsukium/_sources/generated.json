@@ -36,7 +36,7 @@
     },
     "nixfmt": {
         "cargoLocks": null,
-        "date": "2024-02-27",
+        "date": "2024-03-01",
         "extract": null,
         "name": "nixfmt",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "piegamesde",
             "repo": "nixfmt",
-            "rev": "4144733e2299c6e89fad4c0d6f4f0002f00a2035",
-            "sha256": "sha256-2BBrtmRHXapyy5iRJdYSz3fG7TCr9UuK5pDV1dNSiZI=",
+            "rev": "2b5ee820690bae64cb4003e46917ae43541e3e0b",
+            "sha256": "sha256-D8OYHmW3BiOfv7HSjBqihfqBihraeE7jdac9ggNbMsQ=",
             "type": "github"
         },
-        "version": "4144733e2299c6e89fad4c0d6f4f0002f00a2035"
+        "version": "2b5ee820690bae64cb4003e46917ae43541e3e0b"
     },
     "nixpkgs-review": {
         "cargoLocks": null,
