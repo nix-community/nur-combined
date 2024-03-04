@@ -18,7 +18,10 @@
 
   hardware.amdgpu.opencl = false;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  boot.kernelPackages = pkgs.linuxPackages_6_7;
+  # Set Wi-Fi regulatory domain. Currently always set to '00' (world), and could
+  # lead to bad Wi-Fi performance
+  boot.kernelParams = ["cfg80211.ieee80211_regdom=FR"];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot = {
@@ -41,7 +44,10 @@
   networking.domain = "alarsyo.net";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = true;
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";

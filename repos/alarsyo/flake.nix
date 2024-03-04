@@ -93,6 +93,8 @@
                 inherit system;
                 config.allowUnfree = true;
               };
+
+              power-profiles-daemon = self.unstable.power-profiles-daemon;
             })
 
             agenix.overlays.default
@@ -177,11 +179,18 @@
         };
       };
     }
-    // inputs.flake-utils.lib.eachDefaultSystem (system: {
+    // inputs.flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
       packages =
         inputs.flake-utils.lib.flattenTree
         (import ./pkgs {
           pkgs = import nixpkgs {inherit system;};
         });
+      devShells.default = pkgs.mkShellNoCC {
+        buildInputs = [
+          pkgs.alejandra
+        ];
+      };
     });
 }
