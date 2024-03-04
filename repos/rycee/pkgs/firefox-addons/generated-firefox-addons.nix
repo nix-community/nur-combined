@@ -8364,10 +8364,10 @@
     };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.10";
+      version = "6.1.13";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4148396/reddit_moderator_toolbox-6.1.10.xpi";
-      sha256 = "48d54e071785e78a1f4418c4748e0a802f1ec1ca9f23ea7f2c60ec418a93a35b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4244682/reddit_moderator_toolbox-6.1.13.xpi";
+      sha256 = "ca2569493c167496ebc9c905b53bb9b1856ff35bc034493f36bcca85a64d0762";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -10322,10 +10322,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.2.26.112";
+      version = "2024.3.4.107";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241371/ublock_origin_lite-2024.2.26.112.xpi";
-      sha256 = "a6d16290cfdba656e0b435a6bcd7da224f0f71f15e87406ce6a3367346e6ecab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4244745/ublock_origin_lite-2024.3.4.107.xpi";
+      sha256 = "b2626717a8f3f7d130bbd979d8e7a68df7ddece3605805803cee830c27d9d417";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
