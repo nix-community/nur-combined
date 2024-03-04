@@ -30,7 +30,7 @@ let
 in wrapWine {
   inherit name;
 
-  chdir = "$WINEPREFIX/drive_c/celeste";
+  workdir = "$WINEPREFIX/drive_c/celeste";
   executable = "./Celeste.exe";
 
   setupScript = /* bash */ ''

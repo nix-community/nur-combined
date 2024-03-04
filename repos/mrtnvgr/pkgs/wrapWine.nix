@@ -9,15 +9,20 @@ let
 in
 { name
 , executable
-, is64bits ? false
+, workdir ? null
+
+, is64bits ? true
+
 , tricks ? [ ]
 , silent ? true
-, chdir ? null
+
 , preScript ? ""
 , postScript ? ""
 , setupScript ? ""
-, wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
+
+, wine ? pkgs.wine-staging
 , wineFlags ? ""
+
 # Useful for native linux apps that require wine environment (e.g. reaper with yabridge)
 , isWinBin ? true
 , meta ? {}
@@ -27,7 +32,7 @@ let
 
   requiredPackages = [ wine cabextract ];
 
-  tricksHook = optionalString ((length tricks) > 0) ''
+  tricksHook = optionalString ((length tricks) > 0) /* bash */ ''
     pushd $(mktemp -d)
       ${winetricks}/bin/winetricks ${optionalString silent "-q"} ${concatStringsSep " " tricks}
     popd
@@ -35,7 +40,7 @@ let
 in writeTextFile {
   inherit name meta;
 
-  text = ''
+  text = /* bash */ ''
     #! ${runtimeShell}
 
     export WINEARCH=win${if is64bits then "64" else "32"}
@@ -55,7 +60,7 @@ in writeTextFile {
       ${setupScript}
     fi
 
-    ${optionalString (chdir != null) "cd \"${chdir}\""}
+    ${optionalString (workdir != null) "cd \"${workdir}\""}
 
     # $REPL is defined => start a shell in the context
     if [ ! "$REPL" == "" ]; then
