@@ -22,7 +22,7 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@v3
 
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v20
+        uses: DeterminateSystems/update-flake-lock@v21
         id: update_flakes
         with:
           pr-title: "chore(deps): update flake.lock"
