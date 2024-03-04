@@ -111,8 +111,6 @@ let
 
     browserpass = callPackage ./patched/browserpass { inherit (unpatched) browserpass; };
 
-    cozy = callPackage ./patched/cozy { inherit (unpatched) cozy; };
-
     engrampa = callPackage ./patched/engrampa { inherit (unpatched) mate; };
 
     # mozilla keeps nerfing itself and removing configuration options
