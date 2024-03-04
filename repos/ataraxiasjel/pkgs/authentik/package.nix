@@ -1,31 +1,38 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  buildNpmPackage,
-  buildGoModule,
-  runCommand,
-  openapi-generator-cli,
-  nodejs,
-  python3,
-  codespell,
-  makeWrapper,
-}:
+{ lib
+, stdenvNoCC
+, fetchFromGitHub
+, buildNpmPackage
+, buildGoModule
+, runCommand
+, openapi-generator-cli
+, nodejs
+, python3
+, codespell
+, makeWrapper }:
 
 let
-  version = "2023.10.7";
+  version = "2024.2.1";
 
   src = fetchFromGitHub {
     owner = "goauthentik";
     repo = "authentik";
     rev = "version/${version}";
-    hash = "sha256-+1IdXRt28UZ2KTa0zsmjneNUOcutP99UUwqcYyVyqTI=";
+    hash = "sha256-M1LykpaKAHX9pLlueHufj2RcbNZRcCnhzbhek87EWFs=";
+  };
+
+  meta = with lib; {
+    description = "The authentication glue you need";
+    changelog = "https://github.com/goauthentik/authentik/releases/tag/version%2F${version}";
+    homepage = "https://goauthentik.io/";
+    license = licenses.mit;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ jvanbruegge ataraxiasjel ];
   };
 
   website = buildNpmPackage {
     pname = "authentik-website";
-    inherit version src;
-    npmDepsHash = "sha256-4dgFxEvMnp+35nSQNsEchtN1qoS5X2KzEbLPvMnyR+k=";
+    inherit version src meta;
+    npmDepsHash = "sha256-paACBXG7hEQSLekxCvxNns2Tg9rN3DUgz6o3A/lAhA8=";
 
     NODE_ENV = "production";
     NODE_OPTIONS = "--openssl-legacy-provider";
@@ -44,7 +51,7 @@ let
 
   clientapi = stdenvNoCC.mkDerivation {
     pname = "authentik-client-api";
-    inherit version src;
+    inherit version src meta;
 
     postPatch = ''
       rm Makefile
@@ -67,15 +74,15 @@ let
 
   webui = buildNpmPackage {
     pname = "authentik-webui";
-    inherit version;
+    inherit version meta;
 
-    src = runCommand "authentik-webui-source" { } ''
+    src = runCommand "authentik-webui-source" {} ''
       mkdir -p $out/web/node_modules/@goauthentik/
       cp -r ${src}/web $out/
       ln -s ${src}/website $out/
       ln -s ${clientapi} $out/web/node_modules/@goauthentik/api
     '';
-    npmDepsHash = "sha256-5aCKlArtoEijGqeYiY3zoV0Qo7/Xt5hSXbmy2uYZpok=";
+    npmDepsHash = "sha256-Xtzs91m+qu7jTwr0tMeS74gjlZs4vufGGlplPVf9yew=";
 
     postPatch = ''
       cd web
@@ -98,24 +105,68 @@ let
   python = python3.override {
     self = python;
     packageOverrides = final: prev: {
+      django-tenants = prev.buildPythonPackage rec {
+        pname = "django-tenants";
+        version = "unstable-2024-01-11";
+        src = fetchFromGitHub {
+          owner = "rissson";
+          repo = pname;
+          rev = "a7f37c53f62f355a00142473ff1e3451bb794eca";
+          hash = "sha256-YBT0kcCfETXZe0j7/f1YipNIuRrcppRVh1ecFS3cvNo=";
+        };
+        format = "setuptools";
+        doCheck = false; # Tests require postgres
+
+        propagatedBuildInputs = with prev; [
+          django
+          psycopg
+          gunicorn
+        ];
+      };
+
+      tenant-schemas-celery = prev.buildPythonPackage rec {
+        pname = "tenant-schemas-celery";
+        version = "2.2.0";
+        src = fetchFromGitHub {
+          owner = "maciej-gol";
+          repo = pname;
+          rev = version;
+          hash = "sha256-OpIJobjWZE5GQGnHADioeoJo3A6DAKh0HdO10k4rsX4=";
+        };
+        format = "setuptools";
+        doCheck = false;
+
+        propagatedBuildInputs = with prev; [
+          freezegun
+          more-itertools
+          psycopg2
+        ];
+      };
+
       authentik-django = prev.buildPythonPackage {
         pname = "authentik-django";
-        inherit version src;
+        inherit version src meta;
         pyproject = true;
 
         postPatch = ''
+          rm lifecycle/system_migrations/tenant_files.py
           substituteInPlace authentik/root/settings.py \
             --replace 'Path(__file__).absolute().parent.parent.parent' "\"$out\""
           substituteInPlace authentik/lib/default.yml \
-            --replace '/blueprints' "$out/blueprints"
+            --replace '/blueprints' "$out/blueprints" \
+            --replace './media' '/var/lib/authentik/media'
           substituteInPlace pyproject.toml \
             --replace 'dumb-init = "*"' "" \
-            --replace 'djangorestframework-guardian' 'djangorestframework-guardian2'
+            --replace 'djangorestframework-guardian' 'djangorestframework-guardian2' \
+            --replace 'version = "4.9.4"' 'version = "*"' \
+            --replace 'version = "<2"' 'version = "*"'
+          substituteInPlace authentik/stages/email/utils.py \
+            --replace 'web/' '${webui}/'
         '';
 
         nativeBuildInputs = [ prev.poetry-core ];
 
-        propagatedBuildInputs = with prev; [
+        propagatedBuildInputs = with final; [
           argon2-cffi
           celery
           channels
@@ -131,6 +182,8 @@ let
           django-model-utils
           django-prometheus
           django-redis
+          django-storages
+          django-tenants
           djangorestframework
           djangorestframework-guardian2
           docker
@@ -144,6 +197,7 @@ let
           kubernetes
           ldap3
           lxml
+          jsonpatch
           opencontainers
           packaging
           paramiko
@@ -155,8 +209,10 @@ let
           pyyaml
           requests-oauthlib
           sentry-sdk
+          service-identity
           structlog
           swagger-spec-validator
+          tenant-schemas-celery
           twilio
           twisted
           ua-parser
@@ -169,7 +225,6 @@ let
           wsproto
           xmlsec
           zxcvbn
-          jsonpatch
         ] ++ [
           codespell
         ];
@@ -190,7 +245,7 @@ let
 
   proxy = buildGoModule {
     pname = "authentik-proxy";
-    inherit version src;
+    inherit version src meta;
 
     postPatch = ''
       substituteInPlace internal/gounicorn/gounicorn.go \
@@ -203,7 +258,7 @@ let
 
     CGO_ENABLED = 0;
 
-    vendorHash = "sha256-74rSuZrO5c7mjhHh0iQlJEkOslsFrcDb1aRXXC4RsUM=";
+    vendorHash = "sha256-UIJBCTq7AJGUDIlZtJaWCovyxlMPzj2BCJQqthybEz4=";
 
     postInstall = ''
       mv $out/bin/server $out/bin/authentik
@@ -211,8 +266,8 @@ let
 
     subPackages = [ "cmd/server" ];
   };
-in
-stdenvNoCC.mkDerivation {
+
+in stdenvNoCC.mkDerivation {
   pname = "authentik";
   inherit src version;
 
@@ -232,12 +287,7 @@ stdenvNoCC.mkDerivation {
     cp -r lifecycle/ak $out/bin/
 
     wrapProgram $out/bin/ak \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          (python.withPackages (ps: [ ps.authentik-django ]))
-          proxy
-        ]
-      } \
+      --prefix PATH : ${lib.makeBinPath [ (python.withPackages (ps: [ps.authentik-django])) proxy ]} \
       --set TMPDIR /dev/shm \
       --set PYTHONDONTWRITEBYTECODE 1 \
       --set PYTHONUNBUFFERED 1
@@ -246,12 +296,7 @@ stdenvNoCC.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  meta = with lib; {
-    description = "The authentication glue you need";
-    changelog = "https://github.com/goauthentik/authentik/releases/tag/version%2F${version}";
-    homepage = "https://goauthentik.io/";
-    license = licenses.mit;
-    maintainers = with maintainers; [ jvanbruegge ataraxiasjel ];
+  meta = meta // {
     mainProgram = "ak";
   };
 }
