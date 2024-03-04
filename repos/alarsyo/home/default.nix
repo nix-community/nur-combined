@@ -2,6 +2,7 @@
   imports = [
     ./alacritty.nix
     ./bat.nix
+    ./direnv.nix
     ./emacs.nix
     ./env.nix
     ./firefox.nix
@@ -10,7 +11,6 @@
     ./git.nix
     ./gtk.nix
     ./laptop.nix
-    ./lorri.nix
     ./mail.nix
     ./rbw.nix
     ./rofi.nix

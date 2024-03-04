@@ -180,13 +180,11 @@
       };
     }
     // inputs.flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {inherit system;};
+      pkgs = nixpkgs.legacyPackages.${system};
     in {
       packages =
         inputs.flake-utils.lib.flattenTree
-        (import ./pkgs {
-          pkgs = import nixpkgs {inherit system;};
-        });
+        (import ./pkgs {inherit pkgs;});
       devShells.default = pkgs.mkShellNoCC {
         buildInputs = [
           pkgs.alejandra

@@ -9,17 +9,15 @@
     mkIf
     ;
 
-  cfg = config.my.home.lorri;
+  cfg = config.my.home.direnv;
 in {
-  options.my.home.lorri = {
-    enable = (mkEnableOption "lorri daemon setup") // {default = true;};
+  options.my.home.direnv = {
+    enable = (mkEnableOption "setup direnv usage") // {default = true;};
   };
 
   config = mkIf cfg.enable {
-    services.lorri.enable = true;
     programs.direnv = {
       enable = true;
-      # FIXME: proper file, not lorri.nix
       nix-direnv = {
         enable = true;
       };
