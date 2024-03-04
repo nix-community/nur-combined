@@ -77,14 +77,14 @@
 }:
 let
   sources = callPackage ./sources.nix { luajit = luajit52; };
-  version = "2024.01";
+  version = "2024.03";
   src = fetchFromGitHub {
     owner = "koreader";
     repo = "koreader";
     name = "koreader";  # needed because `srcs = ` in the outer derivation is a list
     fetchSubmodules = true;
     rev = "v${version}";
-    hash = "sha256-0ftpMnu3vMwEj2cyzn01E1lCHpE3HtnjyytH3BuRBcU=";
+    hash = "sha256-/51pOGSAoaS0gOKlqNKruwaKY5qylzCpeNUrWyzYTpA=";
   };
   # XXX: for some inscrutable reason, `enable52Compat` is *partially* broken, only when cross compiling.
   # `table.unpack` is non-nil, but `table.pack` is nil.

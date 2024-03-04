@@ -22,7 +22,7 @@
 
 stdenv.mkDerivation rec {
   pname = "delfin";
-  version = "0.4.0";
+  version = "0.4.0";  #< version 0.4.1 requires rust 1.76.0
 
   src = if devBuild then fetchFromGitea {
     domain = "git.uninsane.org";

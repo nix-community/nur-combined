@@ -116,11 +116,17 @@
 , yarn
 }:
 let
+  version = "7.0.0";
+
   ringrtcPrebuild = fetchurl {
-    url = "https://build-artifacts.signal.org/libraries/ringrtc-desktop-build-v2.33.0.tar.gz";
-    hash = "sha256-TkMa1lCTVIvXh6ixoEXR+tOUTnTLw/Ax3FMyD7qSr34=";
+    # version is found in signal-desktop's package.json as "@signalapp/ringrtc"
+    url = "https://build-artifacts.signal.org/libraries/ringrtc-desktop-build-v2.36.0.tar.gz";
+    hash = "sha256-BIp+2V0PVmRqAA4mXt28utAMOAY4GrRELP8tfETf3Ns=";
   };
   sqlcipherTarball = fetchurl {
+    # this is a dependency of better-sqlite3.
+    # version/url is found in <repo:https://github.com/signalapp/better-sqlite3:deps/download.js>
+    # - checkout the better-sqlite3 tag which matches signal-dekstop's package.json "@signalapp/better-sqlite3" key.
     url = "https://build-artifacts.signal.org/desktop/sqlcipher-4.5.5-fts5-fix--3.0.7--0.2.1-ef53ea45ed92b928ecfd33c552d8d405263e86e63dec38e1ec63e1b0193b630b.tar.gz";
     hash = "sha256-71PqRe2SuSjs/TPFUtjUBSY+huY97Djh7GPhsBk7Yws=";
   };
@@ -137,11 +143,18 @@ let
   #   signal_fts5_extension = signal-fts5-extension;
   # };
 
+  src = fetchFromGitHub {
+    owner = "signalapp";
+    repo = "Signal-Desktop";
+    leaveDotGit = true;  # signal calculates the release date via `git`
+    rev = "v${version}";
+    hash = "sha256-iIPDUMFGL2a6JKblSTY05nPSDhF4b4AvyO2k0NY9UJE=";
+  };
   mkNodeJs = nodejs: nodejs.overrideAttrs (upstream:
     let
       # build with the same nodejs upstream expects in package.json (it will error if the version here is incorrect)
-      version = "18.17.1";
-      hash = "sha256-8hXPA9DwDwesC2dMaBn4BMFULhbxUtoEmAAirsz15lo=";
+      version = "18.18.2";
+      hash = "sha256-ckni8K+UPsOFmVBPSyor0x+5OHhykbbMymyLrfAeO1Y=";
     in {
       inherit version;
       src = fetchurl {
@@ -150,6 +163,11 @@ let
       };
     }
   );
+  yarnOfflineCache = fetchYarnDeps {
+    yarnLock = "${src}/yarn.lock";
+    hash = "sha256-+IFzjTv3ghyFu0MRca2SO+tzeQPJGVW/KyWf7SdCmtQ=";
+  };
+
   nodejs' = mkNodeJs nodejs_18;
   # TODO: possibly i could instead use nodejs-slim (npm-less nodejs)
   buildNodejs = mkNodeJs buildPackages.nodejs_18;
@@ -173,14 +191,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "signal-desktop-from-src";
-  version = "6.44.0";
-  src = fetchFromGitHub {
-    owner = "signalapp";
-    repo = "Signal-Desktop";
-    leaveDotGit = true;  # signal calculates the release date via `git`
-    rev = "v${version}";
-    hash = "sha256-jWQ05CJDYQSq7dc7u7hI+R0/b+8IKo174ITgUnhdSDk=";
-  };
+  inherit src version;
 
   patches = [
     # ./debug.patch
@@ -226,10 +237,7 @@ stdenv.mkDerivation rec {
     # sqlcipher
   ];
 
-  env.yarnOfflineCache = fetchYarnDeps {
-    yarnLock = "${src}/yarn.lock";
-    hash = "sha256-wWwvv5xj4C/viPrpVt/EmsOZR/R2quZdxMBSmXXynYU=";
-  };
+  env.yarnOfflineCache = yarnOfflineCache;
   # env.SIGNAL_ENV = "production";
   # env.NODE_ENV = "production";
   # env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -281,7 +289,9 @@ stdenv.mkDerivation rec {
     # (better, perhaps, would be for these build scripts to not be included in the asar...)
     sed -i 's:#!.*/bin/bash:#!/bin/sh:g' node_modules/@swc/helpers/scripts/gen.sh
     sed -i 's:#!.*/bin/bash:#!/bin/sh:g' node_modules/@swc/helpers/scripts/generator.sh
-    substituteInPlace node_modules/dashdash/etc/dashdash.bash_completion.in --replace '#!/bin/bash' '#!/bin/sh'
+    substituteInPlace node_modules/dashdash/etc/dashdash.bash_completion.in --replace-fail '#!/bin/bash' '#!/bin/sh'
+
+    set -x
 
     # provide necessecities which were skipped as part of --ignore-scripts
     cp ${ringrtcPrebuild} node_modules/@signalapp/ringrtc/scripts/prebuild.tar.gz
@@ -290,7 +300,8 @@ stdenv.mkDerivation rec {
     popd
     cp ${sqlcipherTarball} node_modules/@signalapp/better-sqlite3/deps/sqlcipher.tar.gz
     pushd node_modules/@signalapp/better-sqlite3
-      yarn --offline build-release
+      # node-gyp isn't consistently linked into better-sqlite's `node_modules` (maybe due to version mismatch with sinal-desktop's node-gyp?)
+      PATH="$PATH:$(pwd)/../../.bin" yarn --offline build-release
     popd
     pushd node_modules/@signalapp/libsignal-client
       yarn node-gyp-build

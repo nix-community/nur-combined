@@ -84,8 +84,8 @@ in
     # };
     fbink = {
       source.url = "https://github.com/NiLuJe/FBInk.git";
-      source.rev = "ae9dd275de369b1b34e1b566bca29573f06f38a2";
-      source.hash = "sha256-wkyl9xtw9ocjGGArvfGa1qjamwgywPktnZJNfdychB0=";
+      source.rev = "1a989b30a195ca240a3cf37f9de61b4b3c7e891c";
+      source.hash = "sha256-O3bZzvuj/BRVV+UoutaaZZgGZws2J/i5ArfBHbz6omI=";
       # package: not packaged for nix
     };
     # freetype2 = {
@@ -121,8 +121,8 @@ in
     # };
     kobo-usbms = {
       source.url = "https://github.com/koreader/KoboUSBMS.git";
-      source.rev = "3daab316d3aff2b43ced9c0b18e6ecdeec953e4a";
-      source.hash = "sha256-iBbbKCpi0/velkX91Qju0oXLZtRYGesbra1huKnGQFE=";
+      source.rev = "v1.3.9";
+      source.hash = "sha256-/yYpagekWlfTrXu/1DNTmBmdd3IkCDjRtslRv13mtCg=";
       # package: not in nixpkgs
     };
     leptonica = {
@@ -176,8 +176,8 @@ in
     };
     lodepng = {
       source.url = "https://github.com/lvandeve/lodepng.git";
-      source.rev = "c18b949b71f45e78b1f9a28c5d458bce0da505d6";
-      source.hash = "sha256-AAw6I+MxDaxmGpjC5efxuBNw7Lx8FXwg2TEfl6LfPfQ=";
+      source.rev = "d398e0f10d152a5d17fa30463474dc9f56523f9c";
+      source.hash = "sha256-ApOHUgU6X1rHwyjAHA/0Nt+buDFqY2ttXEnEvdrRl3A=";
       # package: not in nixpkgs, except in source-only form (mujoco.pin.lodepng)
     };
     lua-htmlparser = {
@@ -242,8 +242,8 @@ in
     };
     nanosvg = {
       source.url = "https://github.com/memononen/nanosvg.git";
-      source.rev = "9da543e8329fdd81b64eb48742d8ccb09377aed1";
-      source.hash = "sha256-VOiN6583DtzGYPRkl19VG2QvSzl4T9HaynBuNcvZf94=";
+      source.rev = "93ce879dc4c04a3ef1758428ec80083c38610b1f";
+      source.hash = "sha256-ZtenaXJqMZr2+BxYENG1zUoQ+Qoxlxy0m/1YfJBKAFk=";
       machineAgnostic = true;
       package = nanosvg.src;  # KOReader only wants the .h files, but decides to do that without even building it.
     };
