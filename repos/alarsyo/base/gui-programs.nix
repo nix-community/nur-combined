@@ -50,6 +50,7 @@ in {
     environment.systemPackages = builtins.attrValues {
       inherit
         (pkgs)
+        arandr
         discord
         feh
         ffmpeg

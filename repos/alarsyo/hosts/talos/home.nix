@@ -23,15 +23,7 @@
     home.packages = builtins.attrValues {
       inherit
         (pkgs)
-        # some websites only work there :(
-        
-        chromium
-        # dev
-        
-        rustup
-        gdb
-        valgrind
-        arandr
+        chromium # some websites only work there :(
         zotero
         ;
 
@@ -40,8 +32,6 @@
         ansel
         spot
         ;
-
-      inherit (pkgs.wineWowPackages) stable;
     };
   };
 }

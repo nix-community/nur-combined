@@ -31,7 +31,6 @@
         rustup
         gdb
         valgrind
-        arandr
         zotero
         ;
 
