@@ -11,14 +11,15 @@
 , cudaSupport ? config.cudaSupport
 , cudaPackages ? { }
 , symlinkJoin
-, onnxruntime-cuda ? pkgs.callPackage ./onnxruntime-cuda.nix { }
 }:
 
 let
 
-  onnxruntime = if cudaSupport then onnxruntime-cuda else pkgs.onnxruntime;
-
   cuda = import ../common/cuda.nix { inherit cudaPackages; inherit symlinkJoin; };
+
+  onnxruntime = pkgs.onnxruntime.override {
+    inherit cudaSupport;
+  };
 
 in
 cudaPackages.backendStdenv.mkDerivation rec {

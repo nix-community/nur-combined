@@ -1,4 +1,5 @@
 { stdenv
+, pkgs
 , lib
 , fetchurl
 , autoPatchelfHook
@@ -56,8 +57,8 @@ in stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = pkgs.onnxruntime.meta // (with lib; {
     platforms = [ "x86_64-linux" ];
-  };
+  });
 
 }

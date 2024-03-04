@@ -1,5 +1,6 @@
 name: "Build and populate cache"
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches:

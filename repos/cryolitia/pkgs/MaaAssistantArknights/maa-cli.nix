@@ -10,13 +10,13 @@
 rustPlatform.buildRustPackage rec {
 
   pname = "maa-cli";
-  version = "0.4.0-beta.4";
+  version = "0.4.4";
 
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "maa-cli";
     rev = "v${version}";
-    sha256 = "sha256-vjA8TGTXe69JuseYOz3wAkLxDVpiQ5zFyhHlUACjoYw=";
+    sha256 = "sha256-pAtv6gCLFKRwUQEF6kD2bCPGpQGzahsfq/tAnQjrZrw=";
   };
 
   nativeBuildInputs = [
@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   buildNoDefaultFeatures = true;
   buildFeatures = [ "git2" ];
 
-  cargoSha256 = "sha256-77iRLjaacHy8OwtomdGt220dHit4Zcpq4JmANIU5r7o=";
+  cargoSha256 = "sha256-KjI/5vl7oKVtXYehGLgi9jcaO4Y/TceL498rCPGHMD0=";
 
   meta = with lib; {
     description = "A simple CLI for MAA by Rust.";

@@ -14,20 +14,19 @@
 , android-tools
 , makeWrapper
 , range-v3
-, maaVersion ? "4.28.4"
-, maaSourceHash ? "sha256-i+tP02wlsO4eUWxQhCy9edSzXZBldh92cgaYc017yLA="
+, maaVersion ? "5.1.0"
+, maaSourceHash ? "sha256-uScOQEggQ9UGrzwExtclqG5vBzjfb9qDJy80n7e1e80="
 , cudaSupport ? config.cudaSupport
-, onnxruntime-cuda ? pkgs.callPackage ./onnxruntime-cuda.nix { }
 , git
 }:
 
 let
-
-  onnxruntime = if cudaSupport then onnxruntime-cuda else pkgs.onnxruntime;
-
   fastdeploy_ppocr = pkgs.callPackage ./fastdeploy_ppocr.nix {
     inherit cudaSupport;
-    inherit onnxruntime-cuda;
+  };
+
+  onnxruntime = pkgs.onnxruntime.override {
+    inherit cudaSupport;
   };
 
   maa-cli = pkgs.callPackage ./maa-cli.nix { };
@@ -121,7 +120,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ Cryolitia ];
     mainProgram = "maa";
-    broken = cudaSupport && stdenv.hostPlatform.system != "x86_64-linux";
+    broken = true && cudaSupport && stdenv.hostPlatform.system != "x86_64-linux";
   };
 
 }

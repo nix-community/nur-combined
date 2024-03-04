@@ -41,21 +41,38 @@
       systems = [
         "x86_64-linux"
         "i686-linux"
+        "aarch64-linux"
+        "armv6l-linux"
+        "armv7l-linux"
+
         "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+
+      systems-linux = [
+        "x86_64-linux"
+        "i686-linux"
         "aarch64-linux"
         "armv6l-linux"
         "armv7l-linux"
       ];
+
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
-      legacyPackages = (forAllSystems (system: import ./default.nix {
+      legacyPackages = (forAllSystems (system: ( with {
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
         };
-      } // gpd-linuxcontrols.legacyPackages.${system}
-      ));
+      }; import ./default.nix {
+        inherit pkgs;
+      } // gpd-linuxcontrols.legacyPackages.${system} // (
+        if ( builtins.elem system systems-linux ) then 
+        import ./linux-specific.nix {
+          inherit pkgs;
+        } else { } )
+      )));
 
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 

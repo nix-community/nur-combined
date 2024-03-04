@@ -16,50 +16,30 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  #example-package = pkgs.callPackage ./pkgs/example-package { };
+  # MaaAssistantArknights = pkgs.callPackage ./pkgs/MaaAssistantArknights { };
 
-  MaaAssistantArknights = pkgs.callPackage ./pkgs/MaaAssistantArknights { };
+  # MaaAssistantArknights-cuda = MaaAssistantArknights.override {
+  #   cudaSupport = true;
+  # };
 
-  MaaAssistantArknights-cuda = MaaAssistantArknights.override {
-    cudaSupport = true;
-  };
+  # MaaAssistantArknights-beta = MaaAssistantArknights.override {
+  #   maaVersion = "4.28.0";
+  #   maaSourceHash = "sha256-SKPKFD70wwmBXqolh8eLmHbL1ckDORiAH+LFBjC+o1A=";
+  # };
 
-  MaaAssistantArknights-cuda-bin = MaaAssistantArknights-cuda.override {
-    onnxruntime-cuda = onnxruntime-cuda-bin;
-  };
+  # MaaAssistantArknights-beta-cuda = MaaAssistantArknights-beta.override {
+  #   cudaSupport = true;
+  # };
 
-  MaaAssistantArknights-beta = MaaAssistantArknights.override {
-    #maaVersion = "4.28.0";
-    #maaSourceHash = "sha256-SKPKFD70wwmBXqolh8eLmHbL1ckDORiAH+LFBjC+o1A=";
-  };
-
-  MaaAssistantArknights-beta-cuda = MaaAssistantArknights-beta.override {
-    cudaSupport = true;
-  };
-
-  MaaAssistantArknights-beta-cuda-bin = MaaAssistantArknights-beta-cuda.override {
-    onnxruntime-cuda = onnxruntime-cuda-bin;
-  };
-
-  # fastdeploy_ppocr = pkgs.callPackage ./pkgs/MaaAssistantArknights/fastdeploy_ppocr.nix { };
+  # onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda-bin.nix { };
 
   MaaX = pkgs.callPackage ./pkgs/MaaX { };
-
-  onnxruntime-cuda = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda.nix { };
-
-  onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda-bin.nix { };
 
   maa-cli = pkgs.callPackage ./pkgs/MaaAssistantArknights/maa-cli.nix { };
 
   rime-latex = pkgs.callPackage ./pkgs/rimePackages/rime-latex.nix { };
 
-  go-musicfox-fastupdate = pkgs.callPackage ./pkgs/common/go-musicfox.nix { };
-
   rime-project-trans = pkgs.callPackage ./pkgs/rimePackages/rime-project-trans.nix { };
-
-  #ryzen-smu = pkgs.linuxPackages.callPackage ./pkgs/linux/ryzen-smu.nix { };
-
-  bmi260 = pkgs.linuxPackages_latest.callPackage ./pkgs/linux/bmi260.nix { };
 
   telegram-desktop-fix-webview = pkgs.qt6Packages.callPackage ./pkgs/common/telegram-desktop.nix { };
 }
