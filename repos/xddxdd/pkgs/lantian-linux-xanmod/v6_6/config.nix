@@ -135,6 +135,6 @@ with lib.kernel; {
   FUTEX = yes;
   FUTEX_PI = yes;
 
-  # WineSync driver for fast kernel-backed Wine
-  WINESYNC = module;
+  # NTSync driver for fast kernel-backed Wine
+  NTSYNC = module;
 }
