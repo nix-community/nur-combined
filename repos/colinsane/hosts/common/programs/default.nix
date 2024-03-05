@@ -5,7 +5,7 @@
     ./abaddon.nix
     ./aerc.nix
     ./alacritty.nix
-    ./alsa-ucm-conf.nix
+    ./alsa-ucm-conf
     ./animatch.nix
     ./assorted.nix
     ./audacity.nix

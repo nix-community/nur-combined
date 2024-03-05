@@ -97,30 +97,7 @@
       patchNixpkgs = variant: nixpkgs: (import ./nixpatches/flake.nix).outputs {
         inherit variant nixpkgs;
         self = patchNixpkgs variant nixpkgs;
-      } // {
-        # sourceInfo includes fields (square brackets for the ones which are not always present):
-        # - [dirtyRev]
-        # - [dirtyShortRev]
-        # - lastModified
-        # - lastModifiedDate
-        # - narHash
-        # - outPath
-        # - [rev]
-        # - [revCount]
-        # - [shortRev]
-        # - submodules
-        #
-        # these values are used within nixpkgs:
-        # - to give a friendly name to the nixos system (`readlink /run/current-system` -> `...nixos-system-desko-24.05.20240227.dirty`)
-        # - to alias `import <nixpkgs>` so that nix uses the system's nixpkgs when called externally (supposedly).
-        #
-        # these values seem to exist both within the `sourceInfo` attrset and at the top-level.
-        # for a list of all implicit flake outputs (which is what these seem to be):
-        # $ nix-repl
-        # > lf .
-        # > <tab>
-        inherit (self) sourceInfo;
-      } // self.sourceInfo;
+      };
 
       nixpkgs' = patchNixpkgs "master" nixpkgs-unpatched;
       nixpkgsCompiledBy = system: nixpkgs'.legacyPackages."${system}";
@@ -280,8 +257,8 @@
               fi
             }
 
-            nix build ".#nixosConfigurations.$host.config.system.build.toplevel" --out-link "./result-$host" "$@"
-            storePath="$(readlink ./result-$host)"
+            nix build ".#nixosConfigurations.$host.config.system.build.toplevel" --out-link "./build/result-$host" "$@"
+            storePath="$(readlink ./build/result-$host)"
 
             # mimic `nixos-rebuild --target-host`, in effect:
             # - nix-copy-closure ...
@@ -541,7 +518,7 @@
               checkHost = host: let
                 shellHost = pkgs.lib.replaceStrings [ "-" ] [ "_" ] host;
               in ''
-                nix build -v '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} -j2 "$@"
+                nix build -v '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./build/result-${host} -j2 "$@"
                 RC_${shellHost}=$?
               '';
             in builtins.toString (pkgs.writeShellScript
@@ -590,7 +567,7 @@
           check.rescue = {
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "check-rescue" ''
-              nix build -v '.#imgs.rescue' --out-link ./result-rescue-img -j2
+              nix build -v '.#imgs.rescue' --out-link ./build/result-rescue-img -j2
             '');
           };
 

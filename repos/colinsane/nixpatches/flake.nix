@@ -7,7 +7,7 @@
     let
       patchedPkgsFor = system: nixpkgs.legacyPackages.${system}.applyPatches {
         name = "nixpkgs-patched-uninsane";
-        version = self.lastModifiedDate;
+        version = nixpkgs.sourceInfo.lastModifiedDate;
         src = nixpkgs;
         patches = builtins.filter (p: p != null) (
           nixpkgs.legacyPackages."${system}".callPackage ./list.nix { } variant nixpkgs.lastModifiedDate
@@ -45,5 +45,28 @@
       ).lib.nixosSystem args;
 
       legacyPackages = (self._forSystem null).legacyPackages;
-    };
+
+      # sourceInfo includes fields (square brackets for the ones which are not always present):
+      # - [dirtyRev]
+      # - [dirtyShortRev]
+      # - lastModified
+      # - lastModifiedDate
+      # - narHash
+      # - outPath
+      # - [rev]
+      # - [revCount]
+      # - [shortRev]
+      # - submodules
+      #
+      # these values are used within nixpkgs:
+      # - to give a friendly name to the nixos system (`readlink /run/current-system` -> `...nixos-system-desko-24.05.20240227.dirty`)
+      # - to alias `import <nixpkgs>` so that nix uses the system's nixpkgs when called externally (supposedly).
+      #
+      # these values seem to exist both within the `sourceInfo` attrset and at the top-level.
+      # for a list of all implicit flake outputs (which is what these seem to be):
+      # $ nix-repl
+      # > lf .
+      # > <tab>
+      inherit (nixpkgs) sourceInfo;
+    } // nixpkgs.sourceInfo;
 }

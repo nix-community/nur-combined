@@ -123,15 +123,6 @@
   # enable rotation sensor
   hardware.sensor.iio.enable = true;
 
-  # inject specialized alsa configs via the environment.
-  # specifically, this gets the pinephone headphones & internal earpiece working.
-  # see pkgs/patched/alsa-ucm-conf for more info.
-  # TODO: move this directly into `sane.programs.alsa-ucm-conf`?
-  sane.programs.alsa-ucm-conf.packageUnwrapped = pkgs.alsa-ucm-conf-sane.override {
-    # internal speaker has a tendency to break :(
-    preferEarpiece = true;
-  };
-
   # TODO: move elsewhere...
   systemd.services.ModemManager.serviceConfig = {
     # N.B.: the extra "" in ExecStart serves to force upstream ExecStart to be ignored

@@ -20,7 +20,6 @@ let
     sane-lib = import ../modules/lib final';
 
     ### ADDITIONAL PACKAGES
-    alsa-ucm-conf-sane = callPackage ./additional/alsa-ucm-conf-sane { };
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     chatty-latest = callPackage ./additional/chatty-latest { };
