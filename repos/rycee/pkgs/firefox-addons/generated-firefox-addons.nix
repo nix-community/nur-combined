@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.17.1";
+      version = "1.18.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216725/10ten_ja_reader-1.17.1.xpi";
-      sha256 = "f9ff2420341adc2e3ea59c8c28271cc03c4c09f2467cbe59215804d62660fa8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241410/10ten_ja_reader-1.18.0.xpi";
+      sha256 = "5433bcfec5a327bf1fa198b3f0645a9cdcdc44232465ad940fa8a5858b6996f8";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -1625,10 +1625,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2407.1";
+      version = "6.2409.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236375/dashlane-6.2407.1.xpi";
-      sha256 = "5004ae70345f496f4bcae5ed67d7c53d972bc593c3528f62ff78581172f285bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4241504/dashlane-6.2409.0.xpi";
+      sha256 = "414c0ed5d18ecd3e1af4880be00a34c2743998ef0120c0b87dd3baed85bbf1d1";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1706,10 +1706,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240301.91852";
+      version = "124.0.20240304.91753";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243683/deutsch_de_language_pack-124.0.20240301.91852.xpi";
-      sha256 = "f2304d06e058137276f001e186c41179a9265ec13db94d39f543701935c0284d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4245048/deutsch_de_language_pack-124.0.20240304.91753.xpi";
+      sha256 = "8f19dcdaf02cf8c2492171bc6044147b891a7a83c7556ae623df5e4f6f99f362";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2189,10 +2189,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.24";
+      version = "1.2.25";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243008/faststream-1.2.24.xpi";
-      sha256 = "79bb898f4877005bb02366edb3fa2a5cd8a12908e0055165f2ccc459c9a14696";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4245405/faststream-1.2.25.xpi";
+      sha256 = "6eaff01edee5606776a8addf159e0144a19d0e85134b2832596ea7d50ef35404";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2601,10 +2601,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240301.91852";
+      version = "124.0.20240304.91753";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243716/francais_language_pack-124.0.20240301.91852.xpi";
-      sha256 = "f7481cd94febeccaf5460ea9f2748578a2dadc2b37a053ea1b605cf687f1e835";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4245026/francais_language_pack-124.0.20240304.91753.xpi";
+      sha256 = "7c27d66028015be7b05692d4623f7dd6a500211dbfc18a4fe7bf7fcc99978b45";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -6429,10 +6429,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.7.5";
+      version = "11.10.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232237/ether_metamask-11.7.5.xpi";
-      sha256 = "adc0aef8a353ab0e274783662c25b9e0f965e9d32ff676e849636621aa6683b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4242329/ether_metamask-11.10.1.xpi";
+      sha256 = "728ee6e988fecbe312b644d28d6591478ba15afb3193f8bf74d76052ad132502";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -8881,10 +8881,10 @@
     };
     "simplelogin" = buildFirefoxXpiAddon {
       pname = "simplelogin";
-      version = "2.10.2";
+      version = "2.11.0";
       addonId = "addon@simplelogin";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169486/simplelogin-2.10.2.xpi";
-      sha256 = "989ddc4f2c40995dde1a7343a2f9f10e858d9616b7ac11162772f84c2b3ba88b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236864/simplelogin-2.11.0.xpi";
+      sha256 = "e2e4cc49352ae6b6ca86c92292b469e48891f27b0c25f9102c1b5dd5e35728f0";
       meta = with lib;
       {
         homepage = "https://simplelogin.io";
@@ -10068,10 +10068,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.5.0";
+      version = "8.5.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4225116/ublacklist-8.5.0.xpi";
-      sha256 = "7aadcea31f57a6019d410dcef1fb75fa1cb34629627ad4038042d35dbe15691e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4242219/ublacklist-8.5.1.xpi";
+      sha256 = "9836d32df703337b5c5c83d56cc477e26d7fe3d6bfd2cc5d31dc78ccaf9dbbe7";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
