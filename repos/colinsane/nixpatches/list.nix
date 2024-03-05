@@ -35,7 +35,7 @@ in [
   (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/291400";
     title = "cozy: 1.2.1 -> 1.3.0";
-    hash = "sha256-gu1Ni7orOFfZNwqA41Uq5gCC/2TdiUB8YeSLsZYn4H4=";
+    hash = "sha256-fU59om6Ad+RHcA6t4w4db6eDM4Dd5KetXRCNpK5eXlo=";
   })
 
   (fetchpatch' {

@@ -36,9 +36,10 @@ in
       --run "$out/bin/gpo import ~/.config/gpodderFeeds.opml || true" \
 
     # fix up the .desktop file to invoke our wrapped application
+    # (rather, invoke `gpodder` by PATH, which could be this, or an outer layer of wrapping)
     orig_desktop=$(readlink $out/share/applications/gpodder.desktop)
     unlink $out/share/applications/gpodder.desktop
-    sed "s:Exec=.*:Exec=$out/bin/gpodder-configured:" $orig_desktop > $out/share/applications/gpodder.desktop
+    sed "s:Exec=.*/gpodder:Exec=gpodder:" $orig_desktop > $out/share/applications/gpodder.desktop
   '';
 
   passthru = {

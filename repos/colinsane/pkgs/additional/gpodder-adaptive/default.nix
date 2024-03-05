@@ -30,6 +30,11 @@ self = gpodder.overridePythonAttrs (upstream: rec {
       "share/dbus-1/services/org.gpodder.service"
   '';
 
+  postFixup = ''
+    substituteInPlace $out/share/applications/gpodder-url-handler.desktop \
+      --replace-fail 'Exec=/bin/gpodder' 'Exec=gpodder'
+  '';
+
   buildInputs = upstream.buildInputs ++ [
     libhandy
   ];
