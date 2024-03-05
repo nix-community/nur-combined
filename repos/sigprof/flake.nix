@@ -68,24 +68,6 @@
                 tools.alejandra = alejandra;
               };
             }
-            // nixos-unstable.lib.optionalAttrs (nixos-unstable.telegram-desktop.meta.available or false) {
-              telegram-desktop = nixos-unstable.pkgs.stdenvNoCC.mkDerivation {
-                name = "telegram-desktop-check";
-                dontBuild = true;
-                doCheck = true;
-                src = ./.;
-                nativeBuildInputs = [nixos-unstable.which nixos-unstable.telegram-desktop];
-                checkPhase = ''
-                  if file "$(which telegram-desktop)" | grep -qs "too large"; then
-                    echo "error: telegram-desktop wrapper is corrupted" 1>&2
-                    exit 1
-                  fi
-                '';
-                installPhase = ''
-                  mkdir "$out"
-                '';
-              };
-            }
             // (
               let
                 inherit (nixpkgs.lib) filterAttrs mapAttrs mapAttrs' nameValuePair pipe;
