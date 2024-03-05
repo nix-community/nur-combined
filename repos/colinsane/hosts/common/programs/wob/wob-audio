@@ -1,49 +1,97 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils -p gnugrep -p gnused -p wireplumber
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p wireplumber
+# vim: set filetype=python :
 
-set -e
+import logging
+import os
+import subprocess
 
-debug() {
-  printf "$@" >&2
-  printf "\n" >&2
-}
-verbose() {
-  if [ "$WOB_VERBOSE" = "1" ]; then
-    debug "$@"
-  fi
-}
+logger = logging.getLogger(__name__)
 
-volget() {
-  # returns audio volume, as an integer (0 - 100)
-  volLine="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
-  if echo "$volLine" | grep -q '\[MUTED\]'; then
-    verbose "muted"
-    echo "0"
-  else
-    vol="$(echo "$vol" | cut -d' ' -f2)"
-    echo "$(( $vol * 100 ))"
-  fi
-}
+class PwMonConsumer:
+    last_volume: float | None = None
+    last_mute: bool | None = None
+    last_effective_volume: float | None = None
 
-notify_volume_change() {
-  verbose "notify_volume_change"
-  vol="$(volget)"
-  verbose "got volume: %d -> %d" "$lastvol" "$vol"
-  if [ "$vol" != "$lastvol" ]; then
-    debug "notify wob: %d -> %d" "$lastvol" "$vol"
-    printf "%s\n" "$vol" > "$XDG_RUNTIME_DIR/$WOBSOCK_NAME"
-  fi
-  lastvol="$vol"
-}
+    # parser state:
+    in_changed: bool = False
+    in_node: bool = False
+    in_vol: bool = False
+    in_mute: bool = False
 
-pactl subscribe | while read -r line; do
-  verbose "pactl says: %s" "$line"
-  case "$line" in
-    "Event 'change' on sink "*)
-      notify_volume_change
-      ;;
-    "Event 'change' on source "*)
-      # microphone volume changed. ignore.
-      ;;
-  esac
-done
+    def feed_line(self, line: str) -> float | None:
+        """ consume a line and *maybe* return the volume """
+
+        logger.debug("got pw-mon line: %s", line.rstrip())
+        line = line.strip()
+
+        if line.startswith("changed:"):
+            self.in_changed = True
+        elif line.startswith("added:") or line.startswith("removed:"):
+            self.in_changed = False
+        elif line.startswith("type: "):
+            self.in_node = line.startswith("type: PipeWire:Interface:Node")
+            logger.debug("parsed `type:` %s %d", line, self.in_node)
+        elif line.startswith("Prop: "):
+            # which of the *Volumes params we read is unclear.
+            # alternative to this is to just detect the change, and then cal wpctl get-volume @DEFAULT_AUDIO_SINK@
+            self.in_vol = line.startswith("Prop: key Spa:Pod:Object:Param:Props:channelVolumes")
+            self.in_mute = line.startswith("Prop: key Spa:Pod:Object:Param:Props:softMute")
+            logger.debug("parsed `Prop:` %s %d", line, self.in_vol)
+        elif line.startswith("Float ") and self.in_changed and self.in_node and self.in_vol:
+            value = float(line[len("Float "):])
+            self.feed_volume(value)
+        elif line.startswith("Bool ") and self.in_changed and self.in_node and self.in_mute:
+            value = line[len("Bool "):] == "true"
+            self.feed_mute(value)
+
+    def feed_volume(self, new: float) -> None:
+        logger.debug("feed volume: %f -> %f", self.last_volume or 0.0, new)
+        self.last_volume = new
+        self.check_effective_volume()
+
+    def feed_mute(self, new: bool) -> None:
+        logger.debug("feed mute: %d -> %d", self.last_mute or False, new)
+        self.last_mute = new
+        self.check_effective_volume()
+
+    def check_effective_volume(self) -> None:
+        eff_volume = 0.0 if self.last_mute else self.last_volume
+        if eff_volume != self.last_effective_volume:
+            logger.info("new effective volume: %f", eff_volume)
+            self.on_new_volume(eff_volume)
+            self.last_effective_volume = eff_volume
+
+
+class PwMonWobConsumer(PwMonConsumer):
+    def __init__(self):
+        self.sock_name = os.path.join(
+            os.environ.get("XDG_RUNTIME_DIR", "/run"),
+            os.environ.get("WOBSOCK_NAME", "wob.sock"),
+        )
+        self.wob_sock = open(self.sock_name, "w")
+
+    def on_new_volume(self, vol: float) -> None:
+        # pipewire volume is between 0 and 3.375.
+        # wob is between 0 - 1, or 1 - 2 if overdriven.
+        # idk where vol ** (1/3) comes from, but it precisely matches what wpctl shows,
+        # getting the range to 0.00 - 1.50 with precise 0.05 increments.
+        int_vol = int(round(vol ** 0.3333 * 100))
+        logger.info("writing to %s: %d", self.sock_name, int_vol)
+        self.wob_sock.write(f"{int_vol}\n")
+        self.wob_sock.flush()
+
+
+def main() -> None:
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
+    if os.environ.get("WOB_VERBOSE", "") == "1":
+        logging.getLogger().setLevel(logging.DEBUG)
+
+    consumer = PwMonWobConsumer()
+    proc = subprocess.Popen(["pw-mon"], stdout=subprocess.PIPE)
+    for line in iter(proc.stdout.readline, b''):
+        consumer.feed_line(line.decode("utf-8"))
+
+if __name__ == "__main__":
+    main()

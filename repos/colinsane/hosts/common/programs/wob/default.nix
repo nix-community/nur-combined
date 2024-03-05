@@ -8,10 +8,10 @@
 #
 { config, lib, pkgs, ... }:
 let
-  wob-audio = pkgs.static-nix-shell.mkBash {
+  wob-audio = pkgs.static-nix-shell.mkPython3Bin {
     pname = "wob-audio";
     srcRoot = ./.;
-    pkgs = [ "coreutils" "gnugrep" "gnused" "wireplumber" ];
+    pkgs = [ "wireplumber" ];
   };
   cfg = config.sane.programs.wob;
 in
@@ -98,9 +98,6 @@ in
     ];
 
     suggestedPrograms = [
-      # "coreutils"
-      "gnugrep"
-      "gnused"
       "wireplumber"  #< TODO: replace with just the one binary we need.
     ];
 
