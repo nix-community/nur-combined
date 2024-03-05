@@ -58,6 +58,8 @@ in
         appName = "Ambroisie's forge";
 
         user = "git";
+        group = "git";
+
         lfs.enable = true;
 
         useWizard = false;
@@ -107,11 +109,6 @@ in
       home = config.services.gitea.stateDir;
       useDefaultShell = true;
       group = "git";
-
-      # The service for gitea seems to hardcode the group as
-      # gitea, so, uh, just in case?
-      extraGroups = [ "gitea" ];
-
       isSystemUser = true;
     };
     users.groups.git = { };
