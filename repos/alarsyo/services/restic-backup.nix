@@ -98,7 +98,7 @@ in {
       environmentFile = cfg.environmentFile;
 
       extraBackupArgs =
-        ["--verbose=2"]
+        ["--verbose=1"]
         ++ optional (builtins.length cfg.exclude != 0) excludeArg;
 
       timerConfig = cfg.timerConfig;
