@@ -26,7 +26,7 @@ in
         };
         options.sock = mkOption {
           type = types.str;
-          default = "sxmo.wobsock";  #< TODO: rename this!
+          default = "wob.sock";
         };
       };
     };
