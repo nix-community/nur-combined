@@ -45,6 +45,11 @@ in {
       };
 
       logind.lidSwitch = "ignore";
+
+      printing = {
+        enable = true;
+        cups-pdf.enable = true;
+      };
     };
 
     environment.systemPackages = builtins.attrValues {
