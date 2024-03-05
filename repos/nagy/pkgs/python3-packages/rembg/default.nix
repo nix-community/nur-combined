@@ -55,13 +55,13 @@ let
 in
 buildPythonPackage rec {
   pname = "rembg";
-  version = "2.0.54";
+  version = "2.0.55";
 
   src = fetchFromGitHub {
     owner = "danielgatis";
     repo = "rembg";
     rev = "v${version}";
-    sha256 = "sha256-X0qi3IFv2q9X9ru3VBT06hYxSsM1UzTtM2/QjpvmCyk=";
+    sha256 = "sha256-2a9lOr2k+G0AoxMafYIlAVbHrnA7SXicne2GPD1Yxqg=";
   };
 
   nativeBuildInputs = [ setuptools-scm installShellFiles ];

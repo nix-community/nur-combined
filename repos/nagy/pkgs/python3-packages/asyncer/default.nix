@@ -9,12 +9,12 @@
 
 buildPythonPackage rec {
   pname = "asyncer";
-  version = "0.0.4";
+  version = "0.0.5";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-2UAEGNS1COXz6BmAm9Pnuc1D2ZplwKXq2hTUFYMWTKY=";
+    sha256 = "sha256-KXnz4Ey+3+XP63kCfc99AE/MRDCgygBmriBJDyGOwG4=";
   };
 
   propagatedBuildInputs = [ poetry-core anyio typing-extensions ];
