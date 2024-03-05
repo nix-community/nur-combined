@@ -36,6 +36,21 @@
       mods = "Control|Shift"
       key = "PageDown"
       action = "ScrollPageDown"
+
+      # disable OS shortcuts which leak through...
+      # see sway config or sane-input-handler for more info on why these leak through
+      [[keyboard.bindings]]
+      key = "AudioVolumeUp"
+      action = "None"
+      [[keyboard.bindings]]
+      key = "AudioVolumeDown"
+      action = "None"
+      [[keyboard.bindings]]
+      key = "Power"
+      action = "None"
+      [[keyboard.bindings]]
+      key = "PowerOff"
+      action = "None"
     '';
   };
 }
