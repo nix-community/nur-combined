@@ -88,7 +88,7 @@ in
             ENABLED = true;
             SMTP_ADDR = cfg.mail.host;
             SMTP_PORT = cfg.mail.port;
-            FROM = cfg.mail.user;
+            FROM = "Gitea <${cfg.mail.user}>";
             USER = cfg.mail.user;
             PROTOCOL = cfg.mail.protocol;
           };
