@@ -608,10 +608,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.16";
+      version = "7.5.18";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236648/betterttv-7.5.16.xpi";
-      sha256 = "e23b00c26ae32516fbf118f1627d7c844524710d7e7eb870174dd6ff7b97e13b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243342/betterttv-7.5.18.xpi";
+      sha256 = "8dea46d16d1349b232f4cd5e42add10d101260a431423375c4526691ed27dd00";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -976,6 +976,26 @@
         platforms = platforms.all;
       };
     };
+    "castkodi" = buildFirefoxXpiAddon {
+      pname = "castkodi";
+      version = "7.5.1";
+      addonId = "castkodi@regseb.github.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4228770/castkodi-7.5.1.xpi";
+      sha256 = "c182e1895a4c3b00874117c50c225f86ea4c7a108e22df05e3b1166ae402f43e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/regseb/castkodi";
+        description = "Cast videos and music from more than 50 sites (YouTube, Twitch, Vimeo, SoundCloud, torrents, …) to Kodi with context menu and remote control.";
+        license = licenses.mit;
+        mozPermissions = [
+          "activeTab"
+          "contextMenus"
+          "notifications"
+          "storage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
       version = "18.0.0";
@@ -1287,6 +1307,20 @@
           "activeTab"
           "*://github.com/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "commafeed" = buildFirefoxXpiAddon {
+      pname = "commafeed";
+      version = "3.3.2";
+      addonId = "firefox@commafeed.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4126587/commafeed-3.3.2.xpi";
+      sha256 = "44ce246de1cd163891c6ddb42e0c1f2b50e4451d023821293795c8c9e695465e";
+      meta = with lib;
+      {
+        description = "The extension will show an action next to the address bar with the count of your unread articles.\nClicking the button will either:\n\n-   show CommaFeed in a popup\n-   open CommaFeed in a new tab\n-   open next unread article in a new tab";
+        license = licenses.mpl20;
+        mozPermissions = [ "storage" "alarms" "*://*/*" ];
         platforms = platforms.all;
       };
     };
@@ -1603,10 +1637,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.77";
+      version = "4.9.78";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233074/darkreader-4.9.77.xpi";
-      sha256 = "931de67e9091c69edd9fd3f348a7ed1de1dce7d136017fed641bd10eb0ae8891";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243182/darkreader-4.9.78.xpi";
+      sha256 = "21e08b3f26e9b54257d30f6b2fb2d966d41ace54d2d79ccec55e55517084c7ce";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2189,10 +2223,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.25";
+      version = "1.2.25.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4245405/faststream-1.2.25.xpi";
-      sha256 = "6eaff01edee5606776a8addf159e0144a19d0e85134b2832596ea7d50ef35404";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4245545/faststream-1.2.25.1.xpi";
+      sha256 = "a62ab886ebd2c63ef9dfc13f8ba1195136f8493cd36feb5d13d963b0eb468044";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2342,10 +2376,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.71";
+      version = "6.1.72";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229348/flagfox-6.1.71.xpi";
-      sha256 = "6a18d9ce27adb5c2cde53c473b0360985020c740c5055ebb77cfa4779957698d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243023/flagfox-6.1.72.xpi";
+      sha256 = "e86e74636f641512d2237a90fa97d7ccd491399e85b05e0965da71b4340252be";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4545,10 +4579,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.6.0";
+      version = "3.6.1";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240749/indie_wiki_buddy-3.6.0.xpi";
-      sha256 = "fd0eba18bedaf7c7e879b53a3eba799df59fed7415be6f1ea2c232adfd8f9408";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243449/indie_wiki_buddy-3.6.1.xpi";
+      sha256 = "f7cb8c309704e58d9bf024f0845db5337b116d2e137d68c42bc55987fdce024f";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -7085,10 +7119,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.20.2";
+      version = "2.21.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232852/1password_x_password_manager-2.20.2.xpi";
-      sha256 = "5a4998b873d568cd66ef5582bf08b0d8233d15829f5910423a805be6cc5af7ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4242854/1password_x_password_manager-2.21.0.xpi";
+      sha256 = "45a18b6101ab3354a522902d82a151648269670b7cfec42086a1ce853f5b053c";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -8089,10 +8123,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.13.2";
+      version = "1.14.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4239613/proton_pass-1.13.2.xpi";
-      sha256 = "2ade474303179d1f1653575e84119dd970c7522ee50f5cc0e747f084542509df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243202/proton_pass-1.14.1.xpi";
+      sha256 = "3a0cee9a4116ea276cafcff9d7edeb53ec954bce39b869a9d351bd7c013a7635";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -10522,10 +10556,10 @@
     };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "5.0.2";
+      version = "5.1.0";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4215808/view_image-5.0.2.xpi";
-      sha256 = "8380c1f45982dc321c3ad7d396723a9aa98cf0dfdb5661ee8a5c6624e9aa859b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243620/view_image-5.1.0.xpi";
+      sha256 = "0c5cae8ef634e701cbefb92c2dd6c8c62dd0f791d8cd439b58a01fc5da781e9e";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
@@ -10992,10 +11026,10 @@
     };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.6.1";
+      version = "3.6.2";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240733/web_scrobbler-3.6.1.xpi";
-      sha256 = "54344aa7505e6ea2dbf132b77982d5f09056d66a40b135cd4cf3ca7f021b69b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243335/web_scrobbler-3.6.2.xpi";
+      sha256 = "0011f175594c807ab6b1637906e14270196a415c7144394212482555c888187a";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";

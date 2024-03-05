@@ -122,6 +122,9 @@
     "slug": "canvasblocker"
   },
   {
+    "slug": "castkodi"
+  },
+  {
     "slug": "censor-tracker"
   },
   {
@@ -139,6 +142,9 @@
       "tag": "predefined",
       "shortName": "asl20"
     }
+  },
+  {
+    "slug": "commafeed"
   },
   {
     "slug": "conex"
