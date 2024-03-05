@@ -43,6 +43,7 @@ jobs:
         with:
           name: ${{ env.CACHIX_NAME }}
           extraPullNames: "pre-commit-hooks"
+          useDaemon: false
 
       - name: Run the update script
         env:

@@ -86,6 +86,7 @@ runs:
         pushFilter: ${{ inputs.cachix-push-filter }}
         #cachixArgs: ${{ inputs.cachix-args }}
         installCommand: ${{ inputs.cachix-install-command }}
+        useDaemon: false
 
     - name: Build
       shell: bash

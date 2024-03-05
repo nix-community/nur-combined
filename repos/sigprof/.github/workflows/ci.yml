@@ -71,6 +71,7 @@ jobs:
           name: ${{ env.CACHIX_NAME }}
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           extraPullNames: "pre-commit-hooks"
+          useDaemon: false
 
       - name: Check flake evaluation
         run: nix flake check --all-systems --no-build --show-trace
@@ -138,6 +139,7 @@ jobs:
           name: ${{ env.CACHIX_NAME }}
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           extraPullNames: "pre-commit-hooks"
+          useDaemon: false
 
       - name: Check NUR evaluation
         run: |
