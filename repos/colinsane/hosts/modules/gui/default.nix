@@ -190,4 +190,18 @@ in
     # upstream nixpkgs forbids setting driSupport32Bit unless specifically x86_64 (so aarch64 isn't allowed)
     driSupport32Bit = lib.mkDefault true;
   }));
+
+  system.activationScripts.notifyActive = lib.mkIf config.sane.programs.guiApps.enabled {
+    text = ''
+      # notify all logged-in users that the system has been activated/upgraded.
+      if [ -d /run/user ]; then
+        for uid in $(ls /run/user); do
+          PATH="$PATH:${pkgs.sudo}/bin" \
+          sudo -u "#$uid" env DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus" \
+            PATH="$PATH:${pkgs.libnotify}/bin" \
+            notify-send 'nixos activated' "version: $(cat "$systemConfig/nixos-version")"
+        done
+      fi
+    '';
+  };
 }

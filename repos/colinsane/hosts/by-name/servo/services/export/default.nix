@@ -9,7 +9,7 @@
 
   fileSystems."/var/export/media" = {
     # everything in here could be considered publicly readable (based on the viewer's legal jurisdiction)
-    device = "/var/lib/uninsane/media";
+    device = "/var/media";
     options = [ "rbind" ];
   };
   # fileSystems."/var/export/playground" = {

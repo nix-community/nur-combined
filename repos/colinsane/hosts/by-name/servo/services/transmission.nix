@@ -72,8 +72,8 @@ in
     # see: https://git.zknt.org/mirror/transmission/commit/cfce6e2e3a9b9d31a9dafedd0bdc8bf2cdb6e876?lang=bg-BG
     anti-brute-force-enabled = false;
 
-    download-dir = "/var/lib/uninsane/media";
-    incomplete-dir = "/var/lib/uninsane/media/incomplete";
+    download-dir = "/var/media";
+    incomplete-dir = "/var/media/incomplete";
     # transmission regularly fails to move stuff from the incomplete dir to the main one, so disable:
     # TODO: uncomment this line!
     incomplete-dir-enabled = false;

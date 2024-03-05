@@ -18,11 +18,11 @@
       "export"  # to read filesystem exports (servo)
       "feedbackd"  # moby, so `fbcli` can control vibrator and LEDs
       "input"  # for /dev/input/<xyz>: sxmo
-      "media"  # servo, for /var/lib/uninsane/media
+      "media"  # servo
       "networkmanager"
       "nixbuild"
       "systemd-journal"  # allows to view other user's journals (esp system users)
-      "transmission"  # servo, to admin /var/lib/uninsane/media
+      "transmission"  # servo
       "video"  # mobile; for LEDs & maybe for camera?
       "wheel"
       "wireshark"

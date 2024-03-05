@@ -69,7 +69,7 @@ class MediaMeta:
             vn="Books/Visual/",
         )[self.type_]
 
-    def fs_path(self, base: str="/var/lib/uninsane/media/") -> None:
+    def fs_path(self, base: str="/var/media/") -> None:
         return os.path.join(
             base,
             self.prefix or "",

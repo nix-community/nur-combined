@@ -44,13 +44,13 @@
       # [Alias]/path/on/disk
       # NOTE: Music library is quick to scan; videos take a solid 10min to scan.
       # TODO: re-enable the other libraries
-      # "[Audioooks]/var/lib/uninsane/media/Books/Audiobooks"
-      # "[Books]/var/lib/uninsane/media/Books/Books"
-      # "[Manga]/var/lib/uninsane/media/Books/Visual"
-      # "[games]/var/lib/uninsane/media/games"
-      "[Music]/var/lib/uninsane/media/Music"
-      # "[Film]/var/lib/uninsane/media/Videos/Film"
-      # "[Shows]/var/lib/uninsane/media/Videos/Shows"
+      # "[Audioooks]/var/media/Books/Audiobooks"
+      # "[Books]/var/media/Books/Books"
+      # "[Manga]/var/media/Books/Visual"
+      # "[games]/var/media/games"
+      "[Music]/var/media/Music"
+      # "[Film]/var/media/Videos/Film"
+      # "[Shows]/var/media/Videos/Shows"
     ];
     # directories.downloads = "..." # TODO
     # directories.incomplete = "..." # TODO

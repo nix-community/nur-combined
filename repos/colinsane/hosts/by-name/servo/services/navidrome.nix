@@ -1,5 +1,6 @@
 { lib, ... }:
 
+lib.mkIf false  #< i don't actively use navidrome
 {
   sane.persist.sys.byStore.plaintext = [
     { user = "navidrome"; group = "navidrome"; path = "/var/lib/navidrome"; method = "bind"; }
@@ -9,7 +10,7 @@
     # docs: https://www.navidrome.org/docs/usage/configuration-options/
     Address = "127.0.0.1";
     Port = 4533;
-    MusicFolder = "/var/lib/uninsane/media/Music";
+    MusicFolder = "/var/media/Music";
     CovertArtPriority = "*.jpg, *.JPG, *.png, *.PNG, embedded";
     AutoImportPlaylists = false;
     ScanSchedule = "@every 1h";

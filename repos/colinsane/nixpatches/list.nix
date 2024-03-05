@@ -63,7 +63,7 @@ in [
     # this forces an expensive rebuild, mostly just to reduce moby's closure by 40 MiB (if even)
     prUrl = "https://github.com/NixOS/nixpkgs/pull/291942";
     title = "imagemagick, graphicsmagick: remove build coreutils from cross-compiled output";
-    hash = "sha256-jUtMmT4d+/6hZgrpXhfBcToAfdecl7xtEj1d/ofxaIM=";
+    hash = "sha256-XtQtB1gq25TE5hFiWUH8bdk6VV9CxcKlA6ffVJvHqZo=";
     merged.staging = "20240228181608";
   })
 

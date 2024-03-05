@@ -82,34 +82,34 @@
   };
   sane.fs."/mnt/usb-hdd".mount = {};
 
-  sane.persist.sys.byStore.plaintext = [
-    # TODO: this is overly broad; only need media and share directories to be persisted
-    { user = "colin"; group = "users"; path = "/var/lib/uninsane"; method = "bind"; }
-  ];
-  # force some problematic directories to always get correct permissions:
-  sane.fs."/var/lib/uninsane/media".dir.acl = {
-    user = "colin"; group = "media"; mode = "0775";
-  };
-  sane.fs."/var/lib/uninsane/media/archive".dir = {};
+  sane.persist.sys.byStore.plaintext = [{
+    path = "/var/media";
+    method = "bind";  #< this HAS to be `bind` if we're going to persist the whole thing but create subdirs, as below.
+    user = "colin";
+    group = "media";
+    mode = "0755";
+  }];
+  sane.fs."/var/media/archive".dir = {};
   # this is file.text instead of symlink.text so that it may be read over a remote mount (where consumers might not have any /nix/store/.../README.md path)
-  sane.fs."/var/lib/uninsane/media/archive/README.md".file.text = ''
+  sane.fs."/var/media/archive/README.md".file.text = ''
     this directory is for media i wish to remove from my library,
     but keep for a short time in case i reverse my decision.
     treat it like a system trash can.
   '';
-  sane.fs."/var/lib/uninsane/media/Books".dir = {};
-  sane.fs."/var/lib/uninsane/media/Books/Audiobooks".dir = {};
-  sane.fs."/var/lib/uninsane/media/Books/Books".dir = {};
-  sane.fs."/var/lib/uninsane/media/Books/Visual".dir = {};
-  sane.fs."/var/lib/uninsane/media/collections".dir = {};
-  sane.fs."/var/lib/uninsane/media/datasets".dir = {};
-  sane.fs."/var/lib/uninsane/media/freeleech".dir = {};
-  sane.fs."/var/lib/uninsane/media/Music".dir = {};
-  sane.fs."/var/lib/uninsane/media/Pictures".dir = {};
-  sane.fs."/var/lib/uninsane/media/Videos".dir = {};
-  sane.fs."/var/lib/uninsane/media/Videos/Film".dir = {};
-  sane.fs."/var/lib/uninsane/media/Videos/Shows".dir = {};
-  sane.fs."/var/lib/uninsane/media/Videos/Talks".dir = {};
+  sane.fs."/var/media/Books".dir = {};
+  sane.fs."/var/media/Books/Audiobooks".dir = {};
+  sane.fs."/var/media/Books/Books".dir = {};
+  sane.fs."/var/media/Books/Visual".dir = {};
+  sane.fs."/var/media/collections".dir = {};
+  sane.fs."/var/media/datasets".dir = {};
+  sane.fs."/var/media/freeleech".dir = {};
+  sane.fs."/var/media/Music".dir = {};
+  sane.fs."/var/media/Pictures".dir = {};
+  sane.fs."/var/media/Videos".dir = {};
+  sane.fs."/var/media/Videos/Film".dir = {};
+  sane.fs."/var/media/Videos/Shows".dir = {};
+  sane.fs."/var/media/Videos/Talks".dir = {};
+
   # this is file.text instead of symlink.text so that it may be read over a remote mount (where consumers might not have any /nix/store/.../README.md path)
   sane.fs."/var/lib/uninsane/datasets/README.md".file.text = ''
     this directory may seem redundant with ../media/datasets. it isn't.
@@ -122,19 +122,19 @@
       user = "colin";
       group = "users";
       mode = "0777";
-      path = "/var/lib/uninsane/media/Videos";
+      path = "/var/media/Videos";
     }
     {
       user = "colin";
       group = "users";
       mode = "0777";
-      path = "/var/lib/uninsane/media/freeleech";
+      path = "/var/media/freeleech";
     }
     {
       user = "colin";
       group = "users";
-      mode = "0777";
-      path = "/var/lib/uninsane/media/datasets";
+      mode = "0775";
+      path = "/var/lib/uninsane/datasets";
     }
   ];
 

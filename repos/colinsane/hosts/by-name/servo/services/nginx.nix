@@ -55,8 +55,8 @@ in
 
   # web blog/personal site
   # alternative way to link stuff into the share:
-  # sane.fs."/var/lib/uninsane/share/Ubunchu".mount.bind = "/var/lib/uninsane/media/Books/Visual/HiroshiSeo/Ubunchu";
-  # sane.fs."/var/lib/uninsane/media/Books/Visual/HiroshiSeo/Ubunchu".dir = {};
+  # sane.fs."/var/www/sites/uninsane.org/share/Ubunchu".mount.bind = "/var/media/Books/Visual/HiroshiSeo/Ubunchu";
+  # sane.fs."/var/media/Books/Visual/HiroshiSeo/Ubunchu".dir = {};
   services.nginx.virtualHosts."uninsane.org" = publog {
     # a lot of places hardcode https://uninsane.org,
     # and then when we mix http + non-https, we get CORS violations

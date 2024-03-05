@@ -43,19 +43,6 @@
       fi
     '';
   };
-  system.activationScripts.notifyActive = {
-    text = ''
-      # notify all logged-in users that the system has been activated/upgraded.
-      if [ -d /run/user ]; then
-        for uid in $(ls /run/user); do
-          PATH="$PATH:${pkgs.sudo}/bin" \
-          sudo -u "#$uid" env DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus" \
-            PATH="$PATH:${pkgs.libnotify}/bin" \
-            notify-send 'nixos activated' "version: $(cat "$systemConfig/nixos-version")"
-        done
-      fi
-    '';
-  };
 
   # link debug symbols into /run/current-system/sw/lib/debug
   # hopefully picked up by gdb automatically?
