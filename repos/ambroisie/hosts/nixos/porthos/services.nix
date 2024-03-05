@@ -41,7 +41,7 @@ in
       enable = true;
       mail = {
         enable = true;
-        host = "smtp.migadu.com:465";
+        host = "smtp.migadu.com";
         user = lib.my.mkMailAddress "gitea" "belanyi.fr";
         passwordFile = secrets."gitea/mail-password".path;
       };
