@@ -35,6 +35,8 @@ in {
   "restic-backup/hades-credentials.age".publicKeys = [alarsyo hades];
   "restic-backup/hephaestus-password.age".publicKeys = [alarsyo hephaestus];
   "restic-backup/hephaestus-credentials.age".publicKeys = [alarsyo hephaestus];
+  "restic-backup/talos-password.age".publicKeys = [alarsyo talos];
+  "restic-backup/talos-credentials.age".publicKeys = [alarsyo talos];
 
   "users/root-hashed-password.age".publicKeys = machines ++ [alarsyo];
   "users/alarsyo-hashed-password.age".publicKeys = machines ++ [alarsyo];
