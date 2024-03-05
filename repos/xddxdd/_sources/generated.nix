@@ -133,27 +133,27 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "6de623d229e3705779fa05f3145f7c9619872c4a";
+    version = "913c00080e0f0308c22e9f82159751777ecbb6bf";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "6de623d229e3705779fa05f3145f7c9619872c4a";
+      rev = "913c00080e0f0308c22e9f82159751777ecbb6bf";
       fetchSubmodules = false;
-      sha256 = "sha256-0cPXuFuOfEUEuMhJUNuX0swBc5XRXSweJy3F1oI6U7M=";
+      sha256 = "sha256-8V9C7XTkQuHw/85cZaAJMAVWfSkw+Tdm3pBTWrkWa6o=";
     };
-    date = "2024-03-02";
+    date = "2024-03-04";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "dcc305b239ed92e39a9cdcf5b5ce3fb2345b8329";
+    version = "88abd72baf2bdbd2847b18672a525efa352f1a4f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "dcc305b239ed92e39a9cdcf5b5ce3fb2345b8329";
+      rev = "88abd72baf2bdbd2847b18672a525efa352f1a4f";
       fetchSubmodules = false;
-      sha256 = "sha256-zJTU/UVccHcyCjjPa+rYJEis/tflc/SdiRWtBV3N3As=";
+      sha256 = "sha256-ycYHZbp/RXWvC+8AgiE4ROtC4/M6xSxwWbUdTvfuoZU=";
     };
-    date = "2024-03-03";
+    date = "2024-03-04";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -485,15 +485,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "5690baebe4363fb650b128a5c03dc1d7b3eead54";
+    version = "bdce95401037aef04fd78f7674aef76bdb435ff2";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "5690baebe4363fb650b128a5c03dc1d7b3eead54";
+      rev = "bdce95401037aef04fd78f7674aef76bdb435ff2";
       fetchSubmodules = false;
-      sha256 = "sha256-Io9vLXcbU+C7eHs6UxI2ZYXxoK/GU26P/luZcce6m1M=";
+      sha256 = "sha256-vGe+jb6l/g+7Uc/CBHVL6AaD92lOJQ0XBXScOttcxyI=";
     };
-    date = "2024-03-01";
+    date = "2024-03-04";
   };
   libqcef = {
     pname = "libqcef";
@@ -767,15 +767,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "c442a5c30548a0c2740e106dafbf44b678e6c397";
+    version = "fdc65c7aaa55d6a5851114d09c9b9f9c59eb8653";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "c442a5c30548a0c2740e106dafbf44b678e6c397";
+      rev = "fdc65c7aaa55d6a5851114d09c9b9f9c59eb8653";
       fetchSubmodules = false;
-      sha256 = "sha256-xbCzF+T11KJLWRN7OuDsiVqiQ/hCvREQSineTK0Alg4=";
+      sha256 = "sha256-6AL9Al6niH0YuVdOySA+th5G3sVzG9dBqjdAxl9/f78=";
     };
-    date = "2024-03-01";
+    date = "2024-03-04";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -918,10 +918,10 @@
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.2.1+ds-2";
+    version = "8.2.2+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_i386.deb";
-      sha256 = "sha256-n0AaAVx2Kf01djaaGzI/pLWgYx4UpgWF8AR5HVj+iOI=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-1_i386.deb";
+      sha256 = "sha256-9pcNOgWxWoP8utnWbsDt3kTQEB6xWryC2N5MFEcvYzc=";
     };
   };
   qq-amd64 = {
