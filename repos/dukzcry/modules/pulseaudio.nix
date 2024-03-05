@@ -38,7 +38,7 @@ in {
     sound.enable = mkForce false;
     hardware.pulseaudio.enable = true;
     nixpkgs.config.pulseaudio = true;
-    programs.dconf.enable = true;
+    programs.dconf.enable = mkDefault true;
     environment = {
       systemPackages = with pkgs; [ pavucontrol pulseeffects-legacy ];
     };

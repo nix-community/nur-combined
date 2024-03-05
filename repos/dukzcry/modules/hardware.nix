@@ -38,8 +38,6 @@ in {
       services.fstrim.enable = true;
       boot.kernel.sysctl."vm.swappiness" = 1;
       boot.loader.systemd-boot.enable = true;
-      location.latitude = 55.751244;
-      location.longitude = 37.618423;
     })
     (mkIf (cfg.enable && server) ({
       systemd.watchdog.runtimeTime = "30s";
@@ -65,13 +63,7 @@ in {
       boot.kernelParams = [ "mitigations=off" ];
       services.tlp.enable = true;
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
-      services.redshift.enable = true;
-      services.xserver.videoDrivers = [ "intel" ];
-      services.hidpi = {
-        dpi = 144;
-        cursorTheme = "Adwaita";
-        cursorSize = 16;
-      };
+      gtk.cursorTheme.size = 16;
     } // builder))
     (mkIf (cfg.enable && desktop) {
       services.nix-serve = {
@@ -82,7 +74,6 @@ in {
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = false;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
-      services.redshift.enable = true;
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
       '';
@@ -90,16 +81,8 @@ in {
       boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
-      services.xserver.videoDrivers = [ "amdgpu" ];
-      services.xserver.deviceSection = ''
-        Option "TearFree" "true"
-      '';
-      services.hidpi = {
-        dpi = 192;
-        cursorTheme = "Adwaita";
-        cursorSize = 32;
-        console = true;
-      };
+      gtk.cursorTheme.size = 24;
+      services.hidpi.console = true;
     })
   ];
 }

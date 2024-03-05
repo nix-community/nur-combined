@@ -15,13 +15,11 @@ in {
 
   config = mkMerge [
     (mkIf cfg.client {
-      environment = {
-        systemPackages = with pkgs; [
-          networkmanagerapplet remmina
-          skypeforlinux zoom-us mattermost-desktop
-        ];
-      };
+      environment.systemPackages = with pkgs; [ remmina yandex-disk ];
       programs.evolution.plugins = [ pkgs.evolution-ews ];
+      services.xserver.displayManager.sessionCommands = ''
+        yandex-disk start
+      '';
     })
     (mkIf cfg.server {
       networking.firewall.extraCommands = ''

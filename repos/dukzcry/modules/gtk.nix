@@ -1,3 +1,5 @@
+# https://github.com/nix-community/home-manager/blob/master/modules/misc/gtk.nix
+
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -24,18 +26,49 @@ let
         "${key}=${value'}";
   };
 
+  gtk4Css = optionalString (notNull cfg.theme "package" && notNull cfg.theme "name") ''
+    @import url("file://${cfg.theme.package}/share/themes/${cfg.theme.name}/gtk-4.0/gtk.css");
+  '';
+
   settings =
-    optionalAttrs (cfg.font != null)
+    optionalAttrs (notNull cfg.font "name")
       { gtk-font-name = cfg.font.name; }
     //
-    optionalAttrs (cfg.theme != null)
+    optionalAttrs (notNull cfg.monospaceFont "name")
+      { gtk-monospace-font-name = cfg.monospaceFont.name; }
+    //
+    optionalAttrs (notNull cfg.theme "name")
       { gtk-theme-name = cfg.theme.name; }
     //
-    optionalAttrs (cfg.iconTheme != null)
+    optionalAttrs (notNull cfg.iconTheme "name")
       { gtk-icon-theme-name = cfg.iconTheme.name; }
     //
-    optionalAttrs (cfg.cursorTheme != null)
-      { gtk-cursor-theme-name = cfg.cursorTheme.name; };
+    optionalAttrs (notNull cfg.cursorTheme "name")
+      { gtk-cursor-theme-name = cfg.cursorTheme.name; }
+    //
+    optionalAttrs (notNull cfg.cursorTheme "size")
+      { gtk-cursor-theme-size = cfg.cursorTheme.size; };
+
+    dconf-settings = with lib.gvariant; {
+      "org/gnome/desktop/interface" =
+        optionalAttrs (notNull cfg.font "name")
+          { font-name = cfg.font.name; }
+        //
+        optionalAttrs (notNull cfg.monospaceFont "name")
+          { monospace-font-name = cfg.monospaceFont.name; }
+        //
+        optionalAttrs (notNull cfg.theme "name")
+          { gtk-theme = cfg.theme.name; }
+        //
+        optionalAttrs (notNull cfg.iconTheme "name")
+          { icon-theme = cfg.iconTheme.name; }
+        //
+        optionalAttrs (notNull cfg.cursorTheme "name")
+          { cursor-theme = cfg.cursorTheme.name; }
+        //
+        optionalAttrs (notNull cfg.cursorTheme "size")
+          { cursor-size = mkInt32 cfg.cursorTheme.size; };
+    };
 
   themeType = types.submodule {
     options = {
@@ -46,13 +79,20 @@ let
       };
       name = mkOption {
         internal = true;
-        type = types.str;
+        type = types.nullOr types.str;
+        default = null;
+      };
+      size = mkOption {
+        internal = true;
+        type = types.nullOr types.int;
       };
     };
   };
 
   optionalPackage = opt:
     optional (opt != null && opt.package != null) opt.package;
+  notNull = opt: attr:
+    (opt != null && opt."${attr}" != null);
 in
 {
   options = {
@@ -76,6 +116,11 @@ in
         description = ''
           The font to use in GTK+ applications.
         '';
+      };
+
+      monospaceFont = mkOption {
+        type = types.nullOr themeType;
+        default = null;
       };
 
       iconTheme = mkOption {
@@ -125,6 +170,7 @@ in
     (mkIf cfg.enable {
       environment.systemPackages =
         optionalPackage cfg.font
+        ++ optionalPackage cfg.monospaceFont
         ++ optionalPackage cfg.theme
         ++ optionalPackage cfg.iconTheme
         ++ optionalPackage cfg.cursorTheme;
@@ -137,24 +183,13 @@ in
       environment.etc."xdg/gtk-3.0/settings.ini".text =
         toGtk3File { Settings = settings; };
 
+      environment.etc."xdg/gtk-4.0/gtk.css".text = gtk4Css;
+
       programs.dconf.enable = lib.mkDefault true;
       programs.dconf.profiles = {
         user.databases = [
           {
-            settings = {
-              "org/gnome/desktop/interface" =
-                optionalAttrs (cfg.font != null)
-                  { font-name = cfg.font.name; }
-                //
-                optionalAttrs (cfg.theme != null)
-                  { gtk-theme = cfg.theme.name; }
-                //
-                optionalAttrs (cfg.iconTheme != null)
-                  { icon-theme = cfg.iconTheme.name; }
-                //
-                optionalAttrs (cfg.cursorTheme != null)
-                  { cursor-theme = cfg.cursorTheme.name; };
-            };
+            settings = dconf-settings;
           }
         ];
       };

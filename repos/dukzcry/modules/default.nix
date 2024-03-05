@@ -28,6 +28,6 @@ rec {
   gamescope = ./gamescope.nix;
   vscodium = ./vscodium.nix;
   udisks = ./udisks.nix;
-  rustdesk-server = ./rustdesk-server.nix;
   local-variables = ./local-variables.nix;
+  gaming = ./gaming.nix;
 }

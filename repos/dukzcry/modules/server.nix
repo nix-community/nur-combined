@@ -34,7 +34,7 @@ in {
           jellyfin-media-player
           transmission-remote-gtk
           cockpit-client
-          rustdesk
+          remmina
         ];
       };
       services.tor.enable = lib.mkForce false;
