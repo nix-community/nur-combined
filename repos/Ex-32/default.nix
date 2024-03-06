@@ -6,16 +6,15 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
-
-{
+{pkgs ? import <nixpkgs> {}}: {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib {inherit pkgs;}; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  ccc = pkgs.callPackage ./pkgs/ccc { };
-  devcontainer-cli = pkgs.callPackage ./pkgs/devcontainer-cli { };
+  ccc = pkgs.callPackage ./pkgs/ccc {};
+  devcontainer-cli = pkgs.callPackage ./pkgs/devcontainer-cli {};
+  pokemon-colorscripts = pkgs.callPackage ./pkgs/pokemon-colorscripts {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

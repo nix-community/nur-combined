@@ -1,9 +1,9 @@
-{ lib
-, fetchFromGitHub
-, fetchYarnDeps
-, mkYarnPackage
+{
+  lib,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  mkYarnPackage,
 }:
-
 mkYarnPackage rec {
   pname = "devcontainers";
   version = "0.56.0";
