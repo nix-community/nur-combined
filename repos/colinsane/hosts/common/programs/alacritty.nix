@@ -3,14 +3,28 @@
 #   - `man 5 alacritty`
 #   - defaults: <https://github.com/alacritty/alacritty/releases>  -> alacritty.yml
 # - irc: #alacritty on libera.chat
-{ lib, ... }:
+{ config, lib, ... }:
+let
+  cfg = config.sane.programs.alacritty;
+in
 {
   sane.programs.alacritty = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.fontSize = mkOption {
+          type = types.int;
+          default = 14;
+        };
+      };
+    };
+
     sandbox.enable = false;
     env.TERMINAL = lib.mkDefault "alacritty";
+
     fs.".config/alacritty/alacritty.toml".symlink.text = ''
       [font]
-      size = 14
+      size = ${builtins.toString cfg.config.fontSize}
 
       [[keyboard.bindings]]
       mods = "Control"

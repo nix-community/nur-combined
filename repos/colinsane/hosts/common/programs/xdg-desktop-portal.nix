@@ -22,7 +22,7 @@ in
 {
   sane.programs.xdg-desktop-portal = {
     # rmDbusServices: because we care about ordering with the rest of the desktop, and don't want something else to auto-start this.
-    packageUnwrapped = pkgs.rmDbusServices (
+    packageUnwrapped = pkgs.rmDbusServicesInPlace (
       pkgs.xdg-desktop-portal.overrideAttrs (upstream: {
         postPatch = (upstream.postPatch or "") + ''
           # wherever we have a default mime association, don't prompt the user to choose an app.
@@ -34,8 +34,14 @@ in
           # the alternative to patching is to instead manually populate ~/.local/share/flatpak/db
           # according to this format (binary):
           # - <https://github.com/flatpak/xdg-desktop-portal/wiki/The-Permission-Store/16760c9f2e0a7ea7333ad5b190bd651ddc700897#storage-data-format>
-          substituteInPlace --replace-fail src/open-uri.c \
-            '#define DEFAULT_THRESHOLD 3' '#define DEFAULT_THRESHOLD 0'
+          #
+          # DEFAULT_THRESHOLD=0: fixes URLs to unconditionally open in browser, but all other file types
+          # still require at least one manual choice (see `should_use_default_app`).
+          # substituteInPlace src/open-uri.c \
+          #   --replace-fail '#define DEFAULT_THRESHOLD 3' '#define DEFAULT_THRESHOLD 0'
+          #
+          substituteInPlace src/open-uri.c \
+            --replace-fail 'if (default_app != NULL && use_default_app)' 'if (default_app != NULL)'
         '';
       })
     );
@@ -57,8 +63,6 @@ in
         Type = "simple";
         Restart = "always";
         RestartSec = "10s";
-        # Type = "dbus";
-        # BusName = "org.freedesktop.portal.Desktop";
       };
 
       # tracking issue for having xdg-desktop-portal locate portals via more standard directories, obviating this var:
@@ -70,6 +74,26 @@ in
 
       # environment.G_MESSAGES_DEBUG = "all";  #< also applies to all apps launched by the portal
     };
+
+    services.xdg-permission-store = {
+      # xdg-desktop-portal would *usually* dbus-activate this.
+      # this service might not strictly be necssary. xdg-desktop-portal does warn if it's not present, though.
+      description = "xdg-permission-store: lets xdg-desktop-portal know which handlers are 'safe'";
+      after = [ "graphical-session.target" ];
+      before = [ "xdg-desktop-portal.service" ];
+      wantedBy = [ "xdg-desktop-portal.service" ];
+
+      serviceConfig = {
+        ExecStart="${cfg.package}/libexec/xdg-permission-store";
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "10s";
+      };
+      environment.XDG_DESKTOP_PORTAL_DIR = "%E/xdg-desktop-portal";
+    };
+    # also available: ${cfg.package}/libexec/xdg-document-portal
+    # - <https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Documents.html>
+    # - shares files from its namespace with programs inside a namespace, via a fuse mount at /run/user/$uid/doc
   };
 
   # after #603 is resolved, i can probably stop linking `{gtk,wlr}.portal` into ~

@@ -264,6 +264,21 @@ in
         ".local/share"
         ".librewolf"
         ".mozilla"
+        ".persist/ephemeral/.cache"
+        ".persist/ephemeral/.config"
+        ".persist/ephemeral/.local/share"
+        ".persist/ephemeral/.librewolf"
+        ".persist/ephemeral/.mozilla"
+        ".persist/plaintext/.cache"
+        ".persist/plaintext/.config"
+        ".persist/plaintext/.local/share"
+        ".persist/plaintext/.librewolf"
+        ".persist/plaintext/.mozilla"
+        ".persist/private/.cache"
+        ".persist/private/.config"
+        ".persist/private/.local/share"
+        ".persist/private/.librewolf"
+        ".persist/private/.mozilla"
       ];
     };
   };

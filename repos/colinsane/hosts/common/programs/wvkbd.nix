@@ -18,6 +18,23 @@ in
         Restart = "always";
         RestartSec = "3s";
       };
+
+      # wvkbd layers:
+      # - full
+      # - landscape
+      # - special  (e.g. coding symbols like ~)
+      # - emoji
+      # - nav
+      # - simple  (like landscape, but no parens/tab/etc; even fewer chars)
+      # - simplegrid  (simple, but grid layout)
+      # - dialer  (digits)
+      # - cyrillic
+      # - arabic
+      # - persian
+      # - greek
+      # - georgian
+      environment.WVKBD_LANDSCAPE_LAYERS = "landscape,special,emoji";
+      environment.WVKBD_LAYERS = "full,special,emoji";
     };
   };
 }
