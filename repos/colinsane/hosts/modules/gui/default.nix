@@ -24,6 +24,7 @@ in
   sane.programs.pcGameApps = declPackageSet [
     # "andyetitmoves" # TODO: fix build!
     # "armagetronad"  # tron/lightcycles; WAN and LAN multiplayer
+    "celeste64"
     # "cutemaze"      # meh: trivial maze game; qt6 and keyboard-only
     # "cuyo"          # trivial puyo-puyo clone
     "endless-sky"     # space merchantilism/exploration
@@ -60,7 +61,7 @@ in
     "dialect"  # language translation
     "dino"  # XMPP client
     # "emote"
-    "evince"  # works on phosh
+    # "evince"  # PDF viewer
     # "flare-signal"  # gtk4 signal client
     # "foliate"  # e-book reader
     "fractal"  # matrix client
@@ -105,7 +106,7 @@ in
     "vulkan-tools"  # vulkaninfo
     # "whalebird"  # pleroma client (Electron). input is broken on phosh.
     "xdg-terminal-exec"
-    "xterm"  # broken on phosh
+    "zathura"  # PDF/CBZ/ePUB viewer
   ];
 
   sane.programs.handheldGuiApps = declPackageSet [
@@ -172,6 +173,7 @@ in
       "tor-browser"  # x86-only
       "vlc"
       "wireshark"  # could maybe ship the cli as sysadmin pkg
+      "xterm"  # requires Xwayland
       # "zecwallet-lite"  # x86-only
     ]
   );

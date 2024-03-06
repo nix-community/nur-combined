@@ -16,6 +16,7 @@
     ./calls.nix
     ./cantata.nix
     ./catt.nix
+    ./celeste64.nix
     ./chatty.nix
     ./conky
     ./cozy.nix
@@ -119,6 +120,7 @@
     ./xdg-desktop-portal-wlr.nix
     ./xdg-terminal-exec.nix
     ./xdg-utils.nix
+    ./zathura.nix
     ./zeal.nix
     ./zecwallet-lite.nix
     ./zsh
