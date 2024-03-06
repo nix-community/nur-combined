@@ -2996,10 +2996,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.1.6";
+      version = "2.1.8";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236422/gitpod-2.1.6.xpi";
-      sha256 = "91d59e7cc9ba5ba696b78b8e4049e7a9ec124931ddb9d19314921766662dcc8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4245887/gitpod-2.1.8.xpi";
+      sha256 = "2ca9b88f73c7a0241f63f38f13e79e5e79e9cdfd899b168734b37340e6d96edb";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
