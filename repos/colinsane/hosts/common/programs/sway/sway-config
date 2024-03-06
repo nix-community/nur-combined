@@ -172,17 +172,17 @@ output "MS Telematica TV 0x00000001" {
 }
 
 ## LAPTOP
-# sh/en TV
-output "Pioneer Electronic Corporation VSX-524 0x00000101" {
+# laptop internal display
+input "1386:20606:Wacom_Pen_and_multitouch_sensor_Pen" map_to_output "Unknown 0x0637 0x00000000"
+input "1386:20606:Wacom_Pen_and_multitouch_sensor_Finger" map_to_output "Unknown 0x0637 0x00000000"
+output "Unknown 0x0637 0x00000000" {
   pos 0,0
   res 1920x1080
 }
-# laptop internal display
-output "Unknown 0x0637 0x00000000" {
-  pos 1920,0
-  res 1920x1080
-}
+
+## MOBILE
 # pinephone internal display (a.k.a. "Unknown Unknown Unknown")
+input "1046:4097:Goodix_Capacitive_TouchScreen" map_to_output "DSI-1"
 # output "DSI-1" {
 #   scale 1.6
 # }
