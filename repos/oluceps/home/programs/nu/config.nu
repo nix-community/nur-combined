@@ -1,104 +1,131 @@
-alias nd = cd /etc/nixos
-alias swc = sudo nixos-rebuild switch --flake /etc/nixos --verbose
+alias nd = cd ~/Src/nixos
+alias swc = nh os switch
 alias off = poweroff
 alias kls = ls
 alias lks = ls
 alias sl = ls
 alias l = ls
-alias la = ls -la
 alias g = lazygit
 alias cd.. = cd ..
-alias e = exit
 
+const color_palette = {
+    rosewater: "#f5e0dc"
+    flamingo: "#f2cdcd"
+    pink: "#f5c2e7"
+    mauve: "#cba6f7"
+    red: "#f38ba8"
+    maroon: "#eba0ac"
+    peach: "#fab387"
+    yellow: "#f9e2af"
+    green: "#a6e3a1"
+    teal: "#94e2d5"
+    sky: "#89dceb"
+    sapphire: "#74c7ec"
+    blue: "#89b4fa"
+    lavender: "#b4befe"
+    text: "#cdd6f4"
+    subtext1: "#bac2de"
+    subtext0: "#a6adc8"
+    overlay2: "#9399b2"
+    overlay1: "#7f849c"
+    overlay0: "#6c7086"
+    surface2: "#585b70"
+    surface1: "#45475a"
+    surface0: "#313244"
+    base: "#1e1e2e"
+    mantle: "#181825"
+    crust: "#11111b"
+}
 
-
-let light_theme = {
-    # color for nushell primitives
-    separator: dark_gray
-    leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
-    header: green_bold
-    empty: blue
-    # Closures can be used to choose colors for specific values.
-    # The value (in this case, a bool) is piped into the closure.
-    bool: {|| if $in { 'dark_cyan' } else { 'dark_gray' } }
-    int: dark_gray
+let theme = {
+    separator: $color_palette.overlay0
+    leading_trailing_space_bg: { attr: "n" }
+    header: { fg: $color_palette.blue attr: "b" }
+    empty: $color_palette.lavender
+    bool: $color_palette.lavender
+    int: $color_palette.peach
+    duration: $color_palette.text
     filesize: {|e|
-      if $e == 0b {
-        'dark_gray'
-      } else if $e < 1mb {
-        'cyan_bold'
-      } else { 'blue_bold' }
+          if $e < 1mb {
+            $color_palette.green
+        } else if $e < 100mb {
+            $color_palette.yellow
+        } else if $e < 500mb {
+            $color_palette.peach
+        } else if $e < 800mb {
+            $color_palette.maroon
+        } else if $e > 800mb {
+            $color_palette.red
+        }
     }
-    duration: dark_gray
-  date: {|| (date now) - $in |
-    if $in < 1hr {
-      'purple'
-    } else if $in < 6hr {
-      'red'
-    } else if $in < 1day {
-      'yellow'
-    } else if $in < 3day {
-      'green'
-    } else if $in < 1wk {
-      'light_green'
-    } else if $in < 6wk {
-      'cyan'
-    } else if $in < 52wk {
-      'blue'
-    } else { 'dark_gray' }
-  }
-    range: dark_gray
-    float: dark_gray
-    string: dark_gray
-    nothing: dark_gray
-    binary: dark_gray
-    cellpath: dark_gray
-    row_index: green_bold
-    record: white
-    list: white
-    block: white
-    hints: dark_gray
+    date: {|| (date now) - $in |
+        if $in < 1hr {
+            $color_palette.green
+        } else if $in < 1day {
+            $color_palette.yellow
+        } else if $in < 3day {
+            $color_palette.peach
+        } else if $in < 1wk {
+            $color_palette.maroon
+        } else if $in > 1wk {
+            $color_palette.red
+        }
+    }
+    range: $color_palette.text
+    float: $color_palette.text
+    string: $color_palette.text
+    nothing: $color_palette.text
+    binary: $color_palette.text
+    cellpath: $color_palette.text
+    row_index: { fg: $color_palette.mauve attr: "b" }
+    record: $color_palette.text
+    list: $color_palette.text
+    block: $color_palette.text
+    hints: $color_palette.overlay1
+    search_result: { fg: $color_palette.red bg: $color_palette.text }
 
-    shape_and: purple_bold
-    shape_binary: purple_bold
-    shape_block: blue_bold
-    shape_bool: light_cyan
-    shape_closure: green_bold
-    shape_custom: green
-    shape_datetime: cyan_bold
-    shape_directory: cyan
-    shape_external: cyan
-    shape_externalarg: green_bold
-    shape_filepath: cyan
-    shape_flag: blue_bold
-    shape_float: purple_bold
-    # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b}
-    shape_globpattern: cyan_bold
-    shape_int: purple_bold
-    shape_internalcall: cyan_bold
-    shape_list: cyan_bold
-    shape_literal: blue
-    shape_match_pattern: green
-    shape_matching_brackets: { attr: u }
-    shape_nothing: light_cyan
-    shape_operator: yellow
-    shape_or: purple_bold
-    shape_pipe: purple_bold
-    shape_range: yellow_bold
-    shape_record: cyan_bold
-    shape_redirection: purple_bold
-    shape_signature: green_bold
-    shape_string: green
-    shape_string_interpolation: cyan_bold
-    shape_table: blue_bold
-    shape_variable: purple
-    shape_vardecl: purple
+    shape_and: { fg: $color_palette.pink attr: "b" }
+    shape_binary: { fg: $color_palette.pink attr: "b" }
+    shape_block: { fg: $color_palette.blue attr: "b" }
+    shape_bool: $color_palette.teal
+    shape_custom: $color_palette.green
+    shape_datetime: { fg: $color_palette.teal attr: "b" }
+    shape_directory: $color_palette.teal
+    shape_external: $color_palette.teal
+    shape_externalarg: { fg: $color_palette.green attr: "b" }
+    shape_filepath: $color_palette.teal
+    shape_flag: { fg: $color_palette.blue attr: "b" }
+    shape_float: { fg: $color_palette.pink attr: "b" }
+    shape_garbage: { fg: $color_palette.text bg: $color_palette.red attr: "b" }
+    shape_globpattern: { fg: $color_palette.teal attr: "b" }
+    shape_int: { fg: $color_palette.pink attr: "b" }
+    shape_internalcall: { fg: $color_palette.teal attr: "b" }
+    shape_list: { fg: $color_palette.teal attr: "b" }
+    shape_literal: $color_palette.blue
+    shape_match_pattern: $color_palette.green
+    shape_matching_brackets: { attr: "u" }
+    shape_nothing: $color_palette.teal
+    shape_operator: $color_palette.peach
+    shape_or: { fg: $color_palette.pink attr: "b" }
+    shape_pipe: { fg: $color_palette.pink attr: "b" }
+    shape_range: { fg: $color_palette.peach attr: "b" }
+    shape_record: { fg: $color_palette.teal attr: "b" }
+    shape_redirection: { fg: $color_palette.pink attr: "b" }
+    shape_signature: { fg: $color_palette.green attr: "b" }
+    shape_string: $color_palette.green
+    shape_string_interpolation: { fg: $color_palette.teal attr: "b" }
+    shape_table: { fg: $color_palette.blue attr: "b" }
+    shape_variable: $color_palette.pink
+
+    background: $color_palette.base
+    foreground: $color_palette.text
+    cursor: $color_palette.blue
 }
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
   # true or false to enable or disable the welcome banner at startup
+  # render_right_prompt_on_last_line : true
   show_banner: false
   ls: {
     use_ls_colors: true # use the LS_COLORS environment variable to colorize output
@@ -200,7 +227,7 @@ $env.config = {
     vi_insert: line # block, underscore, line (block is the default)
     vi_normal: underscore # block, underscore, line  (underscore is the default)
   }
-  color_config: $light_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
+  color_config: $theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
   use_grid_icons: true
   footer_mode: "25" # always, never, number_of_rows, auto
   float_precision: 2 # the precision for displaying floats in tables
@@ -208,7 +235,7 @@ $env.config = {
   use_ansi_coloring: true
   edit_mode: vi # emacs, vi
   shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
-  render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
+  render_right_prompt_on_last_line: true # true or false to enable or disable right prompt to be rendered on last line of the prompt.
 
   hooks: {
     pre_prompt: [{||

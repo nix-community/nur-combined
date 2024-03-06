@@ -98,7 +98,7 @@ mods = "Control"
 decorations = "none"
 dynamic_padding = false
 opacity = 0.9
-startup_mode = "Maximized"
+# startup_mode = "Maximized"
 
 [window.padding]
 x = 8

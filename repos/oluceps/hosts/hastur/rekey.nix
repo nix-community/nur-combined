@@ -6,6 +6,7 @@ let hostPrivKey = "/persist/keys/ssh_host_ed25519_key"; in {
     secrets = {
       hyst-us-cli-has = { rekeyFile = ../../sec/hyst-us-cli-has.age; mode = "640"; owner = "root"; group = "users"; name = "hyst-us-cli-has.yaml"; };
       hyst-az-cli-has = { rekeyFile = ../../sec/hyst-az-cli-has.age; mode = "640"; owner = "root"; group = "users"; name = "hyst-az-cli-has.yaml"; };
+      nextchat = { rekeyFile = ../../sec/nextchat.age; mode = "400"; owner = "root"; group = "users"; name = "nextchat"; };
     };
   };
   services.openssh.hostKeys = [{

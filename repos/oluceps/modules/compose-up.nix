@@ -21,6 +21,10 @@ in
             type = types.str;
             default = "";
           };
+          environmentFile = mkOption {
+            type = types.str;
+            default = "";
+          };
         };
       });
       default = [ ];
@@ -41,6 +45,7 @@ in
                 {
                   User = "root";
                   WorkingDirectory = s.workingDirectory;
+                  EnvironmentFile = s.environmentFile;
                   ExecStart = "${lib.getExe' pkgs.docker-compose "docker-compose"} up ${s.extraArgs}";
                   Restart = "on-failure";
                 };

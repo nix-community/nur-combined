@@ -56,13 +56,13 @@
                       handle = [{
                         handler = "reverse_proxy";
                         upstreams = [{
-                          dial = "10.0.2.3:3000";
+                          dial = "10.0.2.2:3001";
                         }];
                       }];
                     }];
                   }];
                   match = [{
-                    host = [ "gpt4.nyaw.xyz" ];
+                    host = [ "chat.nyaw.xyz" ];
                   }];
                   terminal = true;
                 }
@@ -109,7 +109,7 @@
                 "nyaw.xyz"
                 "api.heartrate.nyaw.xyz"
                 "api.atuin.nyaw.xyz"
-                "gpt4.nyaw.xyz"
+                "chat.nyaw.xyz"
               ];
             }];
           };

@@ -102,6 +102,8 @@
     # xserver.displayManager.gdm.enable = true;
     # xserver.desktopManager.gnome.enable = true;
 
+    copilot-gpt4.enable = true;
+    # nextchat.enable = true;
 
     snapy.instances = [
       {
@@ -158,6 +160,12 @@
       {
         name = "misskey";
         workingDirectory = "/home/${user}/Src/misskey";
+      }
+      {
+        name = "nextchat";
+        workingDirectory = "/home/${user}/Src/ChatGPT-Next-Web";
+        extraArgs = "chatgpt-next-web";
+        environmentFile = config.age.secrets.nextchat.path;
       }
     ];
 

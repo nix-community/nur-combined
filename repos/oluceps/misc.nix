@@ -14,6 +14,12 @@ lib.mkMerge [
     # system.etc.overlay.enable = true;
     # system.etc.overlay.mutable = false;
 
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+      flake = "/home/${user}/Src/nixos";
+    };
     systemd.services.nix-daemon = {
       serviceConfig.LimitNOFILE = lib.mkForce 500000000;
       path = [ pkgs.netcat-openbsd ];
@@ -189,11 +195,11 @@ lib.mkMerge [
           ovmf = {
             enable = true;
             packages =
-              let
-                pkgs = import inputs.nixpkgs-22 {
-                  system = "x86_64-linux";
-                };
-              in
+              # let
+              #   pkgs = import inputs.nixpkgs-22 {
+              #     system = "x86_64-linux";
+              #   };
+              # in
               [
                 pkgs.OVMFFull.fd
                 pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd
@@ -308,6 +314,7 @@ lib.mkMerge [
       bash = {
         interactiveShellInit = ''
           eval "$(${pkgs.zoxide}/bin/zoxide init bash)"
+          eval "$(${lib.getExe pkgs.atuin} init bash)"
         '';
         blesh.enable = true;
       };
@@ -315,9 +322,12 @@ lib.mkMerge [
       adb.enable = true;
       mosh.enable = true;
       nix-ld.enable = true;
-      command-not-found.enable = true;
+      command-not-found.enable = false;
       steam = {
         enable = true;
+        package = pkgs.steam.override {
+          extraPkgs = pkgs: [ pkgs.maple-mono-SC-NF ];
+        };
         remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
         dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       };
@@ -338,8 +348,6 @@ lib.mkMerge [
         {
           enable = lib.mkDefault false;
           xkb.layout = "us";
-          xkb.options = "eurosign:e";
-          windowManager.bspwm.enable = true;
         };
     };
 

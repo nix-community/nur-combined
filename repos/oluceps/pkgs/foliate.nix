@@ -22,13 +22,13 @@
 
 stdenv.mkDerivation {
   pname = "foliate";
-  version = "unstable";
+  version = "3.1.0-unstable";
 
   src = fetchFromGitHub {
     owner = "johnfactotum";
     repo = "foliate";
-    rev = "efddb107ae3c3a7c3acca73ad0c6a19981234e04";
-    hash = "sha256-zvxNxpIRd6tZ+bd9c4BwaCVk3Genbo0SSU4rf0zFdBQ=";
+    rev = "4f8fe2e163a82dd783c4f1e0f79387bf6273995a";
+    hash = "sha256-nNqWjTIboc+7DURdW5oAwhKdWJHgLDo9GVIgbIU4Fiw=";
     fetchSubmodules = true;
   };
 

@@ -5532,6 +5532,26 @@
         "type": "github"
       }
     },
+    "nh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1709278248,
+        "narHash": "sha256-ceZXyzxTLSOrQlcTPQmvQnDV696NNMBwFmVPb9jpX2E=",
+        "owner": "viperML",
+        "repo": "nh",
+        "rev": "6947e6f6f234d303131ecc1e54ef6703c82257e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "viperML",
+        "repo": "nh",
+        "type": "github"
+      }
+    },
     "nil": {
       "inputs": {
         "flake-utils": "flake-utils_27",
@@ -9309,6 +9329,7 @@
         "j-link": "j-link",
         "lanzaboote": "lanzaboote",
         "misskey": "misskey",
+        "nh": "nh",
         "nil": "nil",
         "niri": "niri",
         "nix-direnv": "nix-direnv",

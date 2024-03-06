@@ -9,7 +9,7 @@
         dpi-aware = "yes";
         term = "foot";
         pad = "8x12";
-        shell = "${pkgs.fish}/bin/fish";
+        shell = "${pkgs.nushell}/bin/nu";
         login-shell = "no";
       };
 
@@ -34,6 +34,7 @@
         regular6 = "94e2d5";
         regular7 = "bac2de";
       };
+      csd.preferred = "none";
       key-bindings = {
         prompt-prev = "Control+Shift+z";
         prompt-next = "Control+Shift+x";

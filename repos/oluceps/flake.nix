@@ -90,6 +90,10 @@
     nixpkgs-22.url = "github:NixOS/nixpkgs?rev=c91d0713ac476dfb367bbe12a7a048f6162f039c";
     nixpkgs-rebuild.url = "github:SuperSandro2000/nixpkgs?rev=449114c6240520433a650079c0b5440d9ecf6156";
     niri.url = "github:sodiboo/niri-flake";
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
+    };
     # niri.inputs.niri-src.url = "github:YaLTeR/niri";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";

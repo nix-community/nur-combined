@@ -15,20 +15,34 @@ $env.ENV_CONVERSIONS = {
 
 # Directories to search for scripts when calling source or use
 $env.NU_LIB_DIRS = [
-    # ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
+    ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
 ]
 
 # Directories to search for plugin binaries when calling register
 $env.NU_PLUGIN_DIRS = [
-    # ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
+    ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
 ]
 
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
-# $env.PROMPT_INDICATOR = {|| "> " }
-$env.PROMPT_INDICATOR_VI_INSERT = {|| "" }
-$env.PROMPT_INDICATOR_VI_NORMAL = {|| "< " }
-$env.PROMPT_MULTILINE_INDICATOR = {|| ":: " }
+
+def create_prompt [p] {
+    let gold = {fg: '#f1c4cd'}
+    let home = $env.HOME | str trim
+    let in_home = pwd | str starts-with $home
+    let path = if $in_home {
+        pwd | str replace $home '~'
+    }
+    $'(ansi blue)($path) (ansi reset)(ansi --escape $gold)(do -i {git rev-parse --abbrev-ref HEAD } | str trim | str join)(ansi reset)(char newline)(ansi cyan)($p)(ansi reset)'
+}
+
+
+$env.PROMPT_INDICATOR = {|| "" }
+# $env.PROMPT_COMMAND_RIGHT = {|| ""}
+$env.PROMPT_COMMAND = {|| ""}
+$env.PROMPT_INDICATOR_VI_INSERT = {|| create_prompt "> " }
+$env.PROMPT_INDICATOR_VI_NORMAL = {|| create_prompt "< " }
+$env.PROMPT_MULTILINE_INDICATOR = {|| create_prompt "::" }
 
 $env.EDITOR = "hx"
 $env.VISUAL = "hx"

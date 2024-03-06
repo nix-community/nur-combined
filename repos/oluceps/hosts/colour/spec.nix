@@ -63,7 +63,6 @@
       };
       configFile = config.age.secrets.juic-san.path;
     }];
-
     hysteria.instances = [
       {
         name = "only";

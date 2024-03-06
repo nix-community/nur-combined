@@ -120,7 +120,7 @@ let
 
     web = [ hugo ];
 
-    de = with gnomeExtensions;[ simple-net-speed blur-my-shell ];
+    de = with gnomeExtensions;[ simple-net-speed paperwm ];
 
     virt = [
       # virt-manager
@@ -148,7 +148,9 @@ let
       ];
     bluetooth = [ bluetuith ];
 
-    sound = [ pulseaudio ];
+    sound = [ pulseaudio pwvucontrol ];
+
+    display = [ cage ];
 
   };
 in

@@ -37,7 +37,7 @@ in
   genOverlays = map (i: inputs.${i}.overlays.default);
 
   sharedModules = [
-  ] ++ (genModules [ "agenix-rekey" "ragenix" "impermanence" "lanzaboote" "nix-ld" "self" ])
+  ] ++ (genModules [ "agenix-rekey" "ragenix" "impermanence" "lanzaboote" "nh" "self" ])
   ++ (with inputs.dae.nixosModules;[ dae daed ]);
 
   genFilteredDirAttrs = dir: excludes:
