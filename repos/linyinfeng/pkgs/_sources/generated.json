@@ -315,7 +315,7 @@
     },
     "rime-emoji": {
         "cargoLocks": null,
-        "date": "2023-08-25",
+        "date": "2024-03-05",
         "extract": null,
         "name": "rime-emoji",
         "passthru": null,
@@ -325,12 +325,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a18b09997e7c457066e4c92adf249a4b3e235f9c",
-            "sha256": "sha256-Zp0kkp0dWZHlvitYMsV/mLPnfSzodkxlGUGH7kdOSj0=",
+            "rev": "be7d308e42c4c4485229de37ec0afb7bafbfafc0",
+            "sha256": "sha256-+p71X6mMv7eK+qRQ0j4FaAgMKFR7rrBPHVLzpZGv5XE=",
             "type": "git",
             "url": "https://github.com/rime/rime-emoji.git"
         },
-        "version": "a18b09997e7c457066e4c92adf249a4b3e235f9c"
+        "version": "be7d308e42c4c4485229de37ec0afb7bafbfafc0"
     },
     "rime-essay": {
         "cargoLocks": null,
