@@ -176,11 +176,20 @@ in
     ]
   );
 
+  # TODO: find a better place for these
   sane.persist.sys.byStore.plaintext = lib.mkIf config.sane.programs.guiApps.enabled [
     "/var/lib/alsa"                # preserve output levels, default devices
-    "/var/lib/colord"              # preserve color calibrations (?)
-    "/var/lib/systemd/backlight"   # backlight brightness
+    { path = "/var/lib/systemd/backlight"; method = "bind"; }   # backlight brightness; bind because systemd T_T
   ];
+
+  systemd.services."systemd-backlight@" = lib.mkIf config.sane.programs.guiApps.enabled {
+    after = [
+      "ensure-var-lib-systemd-backlight.service"
+    ];
+    wants = [
+      "ensure-var-lib-systemd-backlight.service"
+    ];
+  };
 
   hardware.opengl = lib.mkIf config.sane.programs.guiApps.enabled ({
     enable = true;
