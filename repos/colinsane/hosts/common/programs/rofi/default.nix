@@ -78,6 +78,8 @@ in
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".local/share/applications"  #< to locate .desktop files
+      "Books/local"
+      "Books/servo"
       "Music"
       "Pictures/albums"
       "Pictures/cat"
