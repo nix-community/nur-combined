@@ -88,6 +88,7 @@ lib.makeScope newScope (
     libgnunetchat = callPackage ./development/libraries/libgnunetchat { };
     libshell = callPackage ./development/libraries/libshell { };
     microjson = callPackage ./development/libraries/microjson { };
+    libsockcanpp = callPackage ./development/libraries/libsockcanpp { };
 
     ### DEVELOPMENT / PERL MODULES
 
