@@ -33,13 +33,13 @@
 
 stdenv.mkDerivation {
   pname = "nheko";
-  version = "unstable-2024-02-02";
+  version = "unstable-2024-03-06";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    rev = "961cb403f7b25d2b1c55158f3e9cc444a76d740c";
-    hash = "sha256-nxDmlx4pO1b9hnHgSSxNMDyc71lMtqNmWPRWgOzfjII=";
+    rev = "7ec56d8df5f67bb8777118c4da5db7d8c21b4eff";
+    hash = "sha256-eNqV9of9dvBbEPxOt3kLGXv/8dWd2VeC7rS4fAsYjCw=";
   };
 
   nativeBuildInputs = [
