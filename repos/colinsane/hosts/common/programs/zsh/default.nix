@@ -163,7 +163,7 @@ in
           # TODO: move to `shellAliases` config?
           function c() {
             cd "$1"
-            l
+            eza --oneline
           }
           function nd() {
             mkdir -p "$1"
