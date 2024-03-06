@@ -38,12 +38,6 @@ in rec {
   sunshine = super.sunshine.overrideAttrs (oldAttrs: {
     runtimeDependencies = oldAttrs.runtimeDependencies ++ [ super.libglvnd ];
   });
-  rustdesk = super.rustdesk.overrideAttrs (oldAttrs: {
-    postInstall = ''
-      ${oldAttrs.postInstall}
-      cp -r ${rustdeskitem}/* $out
-    '';
-  });
   # https://github.com/NixOS/nixpkgs/issues/87667
   qmmp = super.qmmp.overrideAttrs (oldAttrs: {
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ super.wrapGAppsHook ];
