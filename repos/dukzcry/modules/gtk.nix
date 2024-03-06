@@ -34,9 +34,6 @@ let
     optionalAttrs (notNull cfg.font "name")
       { gtk-font-name = cfg.font.name; }
     //
-    optionalAttrs (notNull cfg.monospaceFont "name")
-      { gtk-monospace-font-name = cfg.monospaceFont.name; }
-    //
     optionalAttrs (notNull cfg.theme "name")
       { gtk-theme-name = cfg.theme.name; }
     //
