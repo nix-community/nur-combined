@@ -23,7 +23,7 @@ in {
         owner = "root";
         group = "root";
         capabilities = "cap_sys_admin+p";
-        source = "${pkgs.sunshine}/bin/sunshine";
+        source = "${pkgs.nur.repos.dukzcry.sunshine}/bin/sunshine";
       };
       systemd.user.services.sunshine = {
         description = "Sunshine headless server";
@@ -36,7 +36,7 @@ in {
             . /etc/set-environment
             ${config.security.wrapperDir}/sunshine
           '';
-          RestartSec = 3;
+          RestartSec = 5;
           Restart = "on-failure";
         };
       };

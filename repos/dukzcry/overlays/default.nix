@@ -34,10 +34,6 @@ in rec {
       });
     };
   };
-  # https://github.com/NixOS/nixpkgs/issues/271333
-  sunshine = super.sunshine.overrideAttrs (oldAttrs: {
-    runtimeDependencies = oldAttrs.runtimeDependencies ++ [ super.libglvnd ];
-  });
   # https://github.com/NixOS/nixpkgs/issues/87667
   qmmp = super.qmmp.overrideAttrs (oldAttrs: {
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ super.wrapGAppsHook ];
