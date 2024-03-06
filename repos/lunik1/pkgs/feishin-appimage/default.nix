@@ -2,12 +2,12 @@
 
 let
   pname = "feishin";
-  version = "0.5.3";
+  version = "0.6.0";
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://github.com/jeffvli/feishin/releases/download/v${version}/Feishin-${version}-linux-x86_64.AppImage";
-    sha256 = "sha256-1JlsEBLVBaaae9NDGsGI5CyE+XcBunSt0CWQFpkL87w=";
+    sha256 = "sha256-/jLtPZHIiz67hqGRwaij3hsc23dYfTJQdilGFLJ8U8I=";
   };
 
   icon = fetchurl {
