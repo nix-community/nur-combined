@@ -1,17 +1,7 @@
 { pkgs, config ? null }:
 
 self: super: with super.lib;
-let
-  rustdeskitem = pkgs.makeDesktopItem {
-    name = "rustdesk";
-    exec = super.rustdesk.meta.mainProgram;
-    icon = "rustdesk";
-    desktopName = "RustDesk";
-    comment = super.rustdesk.meta.description;
-    genericName = "Remote Desktop";
-    categories = [ "Network" ];
-  };
-in rec {
+rec {
   dtrx = super.dtrx.override {
     unzipSupport = true;
     unrarSupport = true;
