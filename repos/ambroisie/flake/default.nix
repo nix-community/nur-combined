@@ -1,9 +1,9 @@
 { flake-parts
-, futils
+, systems
 , ...
 } @ inputs:
 let
-  mySystems = futils.lib.defaultSystems;
+  mySystems = import systems;
 in
 flake-parts.lib.mkFlake { inherit inputs; } {
   systems = mySystems;

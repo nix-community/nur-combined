@@ -35,7 +35,7 @@ in
         useACMEHost = domain;
         default = true;
 
-        locations."/".return = "302 https://belanyi.fr$request_uri";
+        locations."/".return = "302 ${domain}$request_uri";
       };
     };
 
