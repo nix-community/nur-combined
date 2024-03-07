@@ -2,18 +2,22 @@
 
 stdenv.mkDerivation rec {
   pname = "tvision";
-  version = "0-unstable-2024-02-05";
+  version = "0-unstable-2024-02-28";
 
   src = fetchFromGitHub {
     owner = "magiblot";
     repo = "tvision";
-    rev = "be6e64f85355c6c96b7c09174986fafb6a411c6a";
-    hash = "sha256-ngI5VX2SwLdKYLqD65/B93ZhNhHZWaAkIRgF3LLaRxM=";
+    rev = "d1fa783e0fa8685c199563a466cdc221e8d9b85c";
+    hash = "sha256-MEAGs/PhLPmmn7+9J2DbZm+FhrXBZynv38JdAptxtLA=";
   };
 
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [ ncurses ];
+
+  cmakeFlags = [
+    (lib.cmakeBool "TV_BUILD_EXAMPLES" false)
+  ];
 
   meta = with lib; {
     description = "A modern port of Turbo Vision 2.0, the classical framework for text-based user interfaces";

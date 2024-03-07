@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'CMAKE_CXX_STANDARD 11' 'CMAKE_CXX_STANDARD 17'
     substituteInPlace tests/CMakeLists.txt \
       --replace-fail "find_package(microjson CONFIG REQUIRED)" ""
   '';
