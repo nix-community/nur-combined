@@ -71,10 +71,10 @@
     };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.20.0";
+      version = "3.21.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4222459/adnauseam-3.20.0.xpi";
-      sha256 = "01feaac30026ae91f80c46960cc3008a8d9e0d4d068129241a356b5434dc4d39";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4244829/adnauseam-3.21.0.xpi";
+      sha256 = "cde20f691dfa1dcc8a77d4d64e7e0618fe277f4a8f62d72d884ac4b5d0a8f3b8";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -1691,10 +1691,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.5.3";
+      version = "1.5.6";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241053/dearrow-1.5.3.xpi";
-      sha256 = "c09e576a9c5bdc40156fe33eda839a81e05d68efef8a562ef8bebd4f56c68206";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243954/dearrow-1.5.6.xpi";
+      sha256 = "70f2dabddc43399bf9cbaa3575b5f7accbdb8077abc524df68525788ebc0d698";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1740,10 +1740,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240304.91753";
+      version = "124.0.20240306.104756";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4245048/deutsch_de_language_pack-124.0.20240304.91753.xpi";
-      sha256 = "8f19dcdaf02cf8c2492171bc6044147b891a7a83c7556ae623df5e4f6f99f362";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246160/deutsch_de_language_pack-124.0.20240306.104756.xpi";
+      sha256 = "dd408ddeaba4aee03b5292aa8c2045e1ac11cb681dcc068da807cefa8a34b507";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2635,10 +2635,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240304.91753";
+      version = "124.0.20240306.104756";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4245026/francais_language_pack-124.0.20240304.91753.xpi";
-      sha256 = "7c27d66028015be7b05692d4623f7dd6a500211dbfc18a4fe7bf7fcc99978b45";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246134/francais_language_pack-124.0.20240306.104756.xpi";
+      sha256 = "f0dbd1d854247748a1091770eb3573d1928f0e0a5d4f50765089c877f06aceff";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5024,10 +5024,10 @@
     };
     "keepa" = buildFirefoxXpiAddon {
       pname = "keepa";
-      version = "4.10";
+      version = "4.16";
       addonId = "amptra@keepa.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4041807/keepa-4.10.xpi";
-      sha256 = "473a1e745065d054e590099a1cb8226fc466d9e3eda5962711bcefbcf38e7b24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243128/keepa-4.16.xpi";
+      sha256 = "399225a531df3d0ae9920278253798390bbbb6e0579f9b38c1239d7b93119e96";
       meta = with lib;
       {
         homepage = "https://Keepa.com";
@@ -5465,10 +5465,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.63";
+      version = "2.6.64";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231487/localcdn_fork_of_decentraleyes-2.6.63.xpi";
-      sha256 = "6989dc192f992b809ddb99c8454677a9e7a2d8f0fe14d080369d1bf6bc0c5cf6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243456/localcdn_fork_of_decentraleyes-2.6.64.xpi";
+      sha256 = "8032733c1aef04998869b1916a0e30ef479911ab87b4bd84be3f36a1423a41da";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
