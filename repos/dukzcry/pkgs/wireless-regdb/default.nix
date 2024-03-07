@@ -35,6 +35,6 @@ in stdenvNoCC.mkDerivation rec {
     homepage = "http://wireless.kernel.org/en/developers/Regulatory/";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [ ];
   };
 }
