@@ -43,5 +43,4 @@ rec {
   hostapd = callPackage ./pkgs/hostapd {};
   steamlink = callPackage ./pkgs/steamlink.nix {};
   sunshine = callPackage ./pkgs/sunshine {};
-  clipmon = callPackage ./pkgs/clipmon.nix {};
 }
