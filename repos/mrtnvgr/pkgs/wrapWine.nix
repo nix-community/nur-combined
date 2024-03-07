@@ -20,7 +20,7 @@ in
 , postScript ? ""
 , setupScript ? ""
 
-, wine ? pkgs.wine-staging
+, wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
 , wineFlags ? ""
 
 # Useful for native linux apps that require wine environment (e.g. reaper with yabridge)
