@@ -1,0 +1,3 @@
+build:
+  nix-build
+
