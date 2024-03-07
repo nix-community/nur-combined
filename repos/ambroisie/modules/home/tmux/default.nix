@@ -5,6 +5,14 @@ let
     config.my.home.x.enable
     (config.my.home.wm.windowManager != null)
   ];
+
+  mkFlags = opt: flag:
+    let
+      mkFlag = term: ''set -as terminal-features ",${term}:${flag}"'';
+      enabledTerminals = lib.filterAttrs (_: v: v.${opt}) cfg.terminalFeatures;
+      terminals = lib.attrNames enabledTerminals;
+    in
+    lib.concatMapStringsSep "\n" mkFlag terminals;
 in
 {
   options.my.home.tmux = with lib; {
@@ -12,16 +20,22 @@ in
 
     enablePassthrough = mkEnableOption "tmux DCS passthrough sequence";
 
-    trueColorTerminals = mkOption {
-      type = with types; listOf str;
-      default = lib.my.nullableToList config.my.home.terminal.program;
-      defaultText = ''
-        `[ config.my.home.terminal.program ]` if it is non-null, otherwise an
-        empty list.
+    terminalFeatures = mkOption {
+      type = with types; attrsOf (types.submodule {
+        options = {
+          trueColor = my.mkDisableOption "24-bit (RGB) color support";
+
+          hyperlinks = my.mkDisableOption "hyperlinks through OSC8";
+        };
+      });
+
+      default = { ${config.my.home.terminal.program} = { }; };
+      defaultText = litteralExpression ''
+        { ''${config.my.home.terminal.program} = { }; };
       '';
-      example = [ "xterm-256color" ];
+      example = { xterm-256color = { }; };
       description = ''
-        $TERM values which should be considered to always support 24-bit color.
+        $TERM values which should be considered to have additional features.
       '';
     };
   };
@@ -90,12 +104,9 @@ in
       }
 
       # Force 24-bit color for each relevant $TERM
-      ${
-        let
-          mkTcFlag = term: ''set -as terminal-features ",${term}:RGB"'';
-        in
-        lib.concatMapStringsSep "\n" mkTcFlag cfg.trueColorTerminals
-      }
+      ${mkFlags "trueColor" "RGB"}
+      # Force OSC8 hyperlinks for each relevant $TERM
+      ${mkFlags "hyperlinks" "hyperlinks"}
     '';
   };
 }

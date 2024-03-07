@@ -8,11 +8,11 @@
       };
     };
 
-    # Allow using 24bit color when SSH-ing from various clients
-    tmux.trueColorTerminals = [
+    # Allow using extended features when SSH-ing from various clients
+    tmux.terminalFeatures = {
       # My usual terminal, e.g: on laptop
-      "alacritty"
-    ];
+      alacritty = { };
+    };
 
     # Always start a tmux session when opening a shell session
     zsh.launchTmux = true;
