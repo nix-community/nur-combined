@@ -6,7 +6,7 @@ let
     (config.my.home.wm.windowManager != null)
   ];
 
-  mkFlags = opt: flag:
+  mkTerminalFlags = opt: flag:
     let
       mkFlag = term: ''set -as terminal-features ",${term}:${flag}"'';
       enabledTerminals = lib.filterAttrs (_: v: v.${opt}) cfg.terminalFeatures;
@@ -23,9 +23,9 @@ in
     terminalFeatures = mkOption {
       type = with types; attrsOf (types.submodule {
         options = {
-          trueColor = my.mkDisableOption "24-bit (RGB) color support";
-
           hyperlinks = my.mkDisableOption "hyperlinks through OSC8";
+
+          trueColor = my.mkDisableOption "24-bit (RGB) color support";
         };
       });
 
@@ -103,10 +103,10 @@ in
         ''
       }
 
-      # Force 24-bit color for each relevant $TERM
-      ${mkFlags "trueColor" "RGB"}
       # Force OSC8 hyperlinks for each relevant $TERM
-      ${mkFlags "hyperlinks" "hyperlinks"}
+      ${mkTerminalFlags "hyperlinks" "hyperlinks"}
+      # Force 24-bit color for each relevant $TERM
+      ${mkTerminalFlags "trueColor" "RGB"}
     '';
   };
 }
