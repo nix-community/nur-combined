@@ -1,0 +1,55 @@
+#+STARTUP: overview
+#+TITLE: nur-packages
+#+AUTHOR: natsukium
+
+My personal [[https://github.com/nix-community/NUR][NUR]] repository
+
+[[Build and populate cache][https://github.com/natsukium/nur-packages/actions/workflows/build.yml/badge.svg]]
+
+[[https://natsukium.cachix.org][https://img.shields.io/badge/cachix-natsukium-blue.svg]]
+
+** Packages
+
+#+begin_src shell :results output table :exports results
+echo Package, Description, Homepage, Platforms, License
+nix eval --raw .#packages.x86_64-linux \
+    --apply 'ps:
+builtins.concatStringsSep "\n" (
+  builtins.map
+    (
+      p:
+      "${p}, ${ps.${p}.meta.description}, ${ps.${p}.meta.homepage}, ${
+        builtins.concatStringsSep " / " (
+          builtins.filter (
+            x: x == "x86_64-linux" || x == "aarch64-linux" || x == "x86_64-darwin" || x == "aarch64-darwin"
+          ) ps.${p}.meta.platforms
+        )
+      }, ${ps.${p}.meta.license.shortName}"
+    )
+    (
+      builtins.filter (x: !(x == "lib" || x == "modules" || x == "overlays" || x == "vimPlugins")) (
+        builtins.attrNames ps
+      )
+    )
+)'
+#+end_src
+
+#+RESULTS:
+| Package              | Description                                                      | Homepage                                                                         | Platforms                                                     | License  |
+| bclm                 | MacOS command-line utility to limit max battery charge           | https://github.com/zackelia/bclm                                                 | x86_64-darwin / aarch64-darwin                                | mit      |
+| colima               | Patched colima which supports xdg base directory on darwin       | https://github.com/abiosoft/colima                                               | x86_64-darwin / aarch64-darwin / aarch64-linux / x86_64-linux | mit      |
+| copyq                | Clipboard Manager with Advanced Features                         | https://hluk.github.io/CopyQ                                                     | x86_64-darwin / aarch64-darwin                                | gpl3Only |
+| emacs-plus           | A wide range of extra functionality over regular Emacs for macOS | https://github.com/d12frosted/homebrew-emacs-plus                                | x86_64-darwin / aarch64-darwin                                | gpl3Plus |
+| liga-hackgen-font    | Ligaturized hackgen with fira code                               | https://github.com/natsukium/nur-packages/tree/main/pkgs/data/fonts/liga-hackgen | x86_64-darwin / aarch64-darwin / aarch64-linux / x86_64-linux | ofl      |
+| liga-hackgen-nf-font | Ligaturized hackgen-nf with fira code                            | https://github.com/natsukium/nur-packages/tree/main/pkgs/data/fonts/liga-hackgen | x86_64-darwin / aarch64-darwin / aarch64-linux / x86_64-linux | ofl      |
+| ligaturizer          | A tool for adding ligatures to any coding font                   | https://github.com/ToxicFrog/Ligaturizer                                         | x86_64-darwin / aarch64-darwin / aarch64-linux / x86_64-linux | gpl3     |
+| nixfmt               | nixfmt adoped rfc101/166 style                                   | https://github.com/piegamesde/nixfmt                                             | x86_64-darwin / aarch64-darwin / aarch64-linux / x86_64-linux | mpl20    |
+| nixpkgs-review       | Patched version of nixpkgs-review with additional features       | https://github.com/natsukium/nixpkgs-review                                      | aarch64-linux / x86_64-linux / x86_64-darwin / aarch64-darwin | mit      |
+| nowplaying-cli       | A commandline utility for currently playing media for macOS      | https://github.com/kirtan-shah/nowplaying-cli                                    | x86_64-darwin / aarch64-darwin                                | gpl3     |
+| psipred              | Protein Secondary Structure Predictor                            | http://bioinf.cs.ucl.ac.uk/psipred                                               | aarch64-linux / x86_64-linux                                  | boost    |
+| qmk-toolbox          | A Toolbox companion for QMK Firmware                             | https://github.com/qmk/qmk_toolbox                                               | x86_64-darwin / aarch64-darwin                                | mit      |
+| qutebrowser          | Keyboard-focused browser with a minimal GUI                      | https://github.com/qutebrowser/qutebrowser                                       | x86_64-darwin / aarch64-darwin                                | gpl3     |
+| rofi-rbw             | Patched version of rofi-rbw with fuzzel support                  | https://github.com/natsukium/rofi-rbw                                            | aarch64-linux / x86_64-linux                                  | mit      |
+| sbarlua              | A Lua API for SketchyBar                                         | https://github.com/FelixKratz/SbarLua                                            | x86_64-darwin / aarch64-darwin                                | gpl3Only |
+| vim-startuptime      | A small Go program for better `vim --startuptime` alternative    | https://github.com/rhysd/vim-startuptime                                         | x86_64-darwin / aarch64-darwin / aarch64-linux / x86_64-linux | mit      |
+| vivaldi-bin          | A Browser for our Friends powerful and personal                  | https://vivaldi.com                                                              | x86_64-darwin / aarch64-darwin                                | unfree   |

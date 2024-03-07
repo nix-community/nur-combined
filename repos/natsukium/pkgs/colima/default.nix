@@ -13,4 +13,8 @@ colima.overrideAttrs (finalAttrs: prevAttrs: {
         --replace '"github.com/abiosoft/colima/util"' "" \
         --replace " || util.MacOS()" ""
     '';
+
+  meta = prevAttrs.meta // {
+    description = "Patched colima which supports xdg base directory on darwin";
+  };
 })

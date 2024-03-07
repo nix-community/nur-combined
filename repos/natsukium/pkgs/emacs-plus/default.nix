@@ -17,6 +17,8 @@ emacs.overrideAttrs (
     ];
 
     meta = prevAttrs.meta // {
+      description = "A wide range of extra functionality over regular Emacs for macOS";
+      homepage = "https://github.com/d12frosted/homebrew-emacs-plus";
       platforms = lib.platforms.darwin;
       # fail to patch on emacs28
       broken = lib.versionOlder prevAttrs.version "29";

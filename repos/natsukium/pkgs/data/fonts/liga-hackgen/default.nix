@@ -38,6 +38,8 @@ in
 
     meta = with lib; {
       description = "Ligaturized ${family} with fira code";
+      homepage = "https://github.com/natsukium/nur-packages/tree/main/pkgs/data/fonts/liga-hackgen";
+      license = licenses.ofl;
       platforms = platforms.unix;
     };
   }

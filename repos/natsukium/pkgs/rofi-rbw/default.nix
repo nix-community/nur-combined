@@ -9,5 +9,10 @@ rofi-rbw.overrideAttrs (
         hash = "sha256-7HhDPFj7qvblYRzAv3Jt05t+na+7QyDwHwFLbhxZPqc=";
       })
     ];
+
+    meta = oldAttrs.meta // {
+      description = "Patched version of rofi-rbw with fuzzel support";
+      homepage = "https://github.com/natsukium/rofi-rbw";
+    };
   }
 )

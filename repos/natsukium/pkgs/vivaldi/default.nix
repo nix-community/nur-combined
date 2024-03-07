@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A Browser for our Friends, powerful and personal";
+    description = "A Browser for our Friends powerful and personal";
     homepage = "https://vivaldi.com";
     license = licenses.unfree;
     platforms = platforms.darwin;

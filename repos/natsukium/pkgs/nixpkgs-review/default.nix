@@ -14,5 +14,10 @@ nixpkgs-review.overrideAttrs (
         backoff
         humanize
       ]);
+
+    meta = prevAttrs.meta // {
+      description = "Patched version of nixpkgs-review with additional features";
+      homepage = "https://github.com/natsukium/nixpkgs-review";
+    };
   }
 )
