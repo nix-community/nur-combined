@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  cfg = config.services.hoogle;
+  cfg = config.services.hoogle-server;
 
   hoogleEnv = pkgs.buildEnv {
     name = "hoogle";
