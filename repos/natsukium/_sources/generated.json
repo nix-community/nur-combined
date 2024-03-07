@@ -183,10 +183,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bbwN72Hdc1UTssVJ5SVqoQpmQf8dxWiPSS0j5zK/u/Q=",
+            "sha256": "sha256-qlqjF3Ff1+o8D6Fzjs/1TRJTK8x+GrQA38wy4f/h5U0=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.45.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.48.universal.dmg"
         },
-        "version": "6.6.3271.45"
+        "version": "6.6.3271.48"
     }
 }
