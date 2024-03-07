@@ -7,6 +7,7 @@ alias sl = ls
 alias l = ls
 alias g = lazygit
 alias cd.. = cd ..
+alias j = just
 
 const color_palette = {
     rosewater: "#f5e0dc"
@@ -235,7 +236,7 @@ $env.config = {
   use_ansi_coloring: true
   edit_mode: vi # emacs, vi
   shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
-  render_right_prompt_on_last_line: true # true or false to enable or disable right prompt to be rendered on last line of the prompt.
+  render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
 
   hooks: {
     pre_prompt: [{||

@@ -38,7 +38,7 @@ def create_prompt [p] {
 
 
 $env.PROMPT_INDICATOR = {|| "" }
-# $env.PROMPT_COMMAND_RIGHT = {|| ""}
+$env.PROMPT_COMMAND_RIGHT = {|| ""}
 $env.PROMPT_COMMAND = {|| ""}
 $env.PROMPT_INDICATOR_VI_INSERT = {|| create_prompt "> " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| create_prompt "< " }

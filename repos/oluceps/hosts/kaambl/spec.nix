@@ -44,7 +44,7 @@
         verbosity = "crit";
         extraOptions = [
           "--loadavg-target"
-          "100.0"
+          "2.0"
         ];
       };
     };
@@ -216,9 +216,9 @@
       extraConfig.pipewire."92-low-latency" = {
         context.properties = {
           default.clock.rate = 48000;
-          default.clock.quantum = 64;
-          default.clock.min-quantum = 64;
-          default.clock.max-quantum = 64;
+          default.clock.quantum = 256;
+          default.clock.min-quantum = 256;
+          default.clock.max-quantum = 256;
         };
       };
     };
