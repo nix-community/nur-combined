@@ -183,11 +183,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-R3bvrl/tOP0S9m6X+MwYK6fMQ51cI6W5AoxyYZ8aZ/w=",
+            "sha256": "sha256-08cyr2AruGAfHAwHHS8WMfJh7DBKymaYyz4AxI/ubkE=",
             "type": "url",
-            "url": "https://pypi.org/packages/source/b/bepasty/bepasty-1.2.0.tar.gz"
+            "url": "https://pypi.org/packages/source/b/bepasty/bepasty-1.2.1.tar.gz"
         },
-        "version": "1.2.0"
+        "version": "1.2.1"
     },
     "bilibili": {
         "cargoLocks": null,
@@ -246,7 +246,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-03-04",
+        "date": "2024-03-07",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "88abd72baf2bdbd2847b18672a525efa352f1a4f",
-            "sha256": "sha256-ycYHZbp/RXWvC+8AgiE4ROtC4/M6xSxwWbUdTvfuoZU=",
+            "rev": "c1ea4ccfbf184a8be880d35363c02fdb06d4aa1c",
+            "sha256": "sha256-ArmShIa4c9a4F/3p4YPdb3aY5Tn0LhtZsE2/PS3r8c0=",
             "type": "github"
         },
-        "version": "88abd72baf2bdbd2847b18672a525efa352f1a4f"
+        "version": "c1ea4ccfbf184a8be880d35363c02fdb06d4aa1c"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -833,7 +833,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-03-04",
+        "date": "2024-03-07",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -845,11 +845,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "bdce95401037aef04fd78f7674aef76bdb435ff2",
-            "sha256": "sha256-vGe+jb6l/g+7Uc/CBHVL6AaD92lOJQ0XBXScOttcxyI=",
+            "rev": "d03535006cfba2887b2fc37072dde578ab6e32c0",
+            "sha256": "sha256-8MdJ2VQT8ecTv1imrupn9vKkixQog2uczHSK9RiGAyE=",
             "type": "github"
         },
-        "version": "bdce95401037aef04fd78f7674aef76bdb435ff2"
+        "version": "d03535006cfba2887b2fc37072dde578ab6e32c0"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -965,11 +965,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.7.7-xanmod1",
-            "sha256": "sha256-Y+SvnvkFOGCxq+hGwpiiymNr1rYbNqppNA0d63TyUmo=",
+            "rev": "6.7.9-xanmod1",
+            "sha256": "sha256-/YoZTclMdJBQ8iwpfm/Ne/YLNQneN0hccy95o3fWvGM=",
             "type": "github"
         },
-        "version": "6.7.7-xanmod1"
+        "version": "6.7.9-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1025,11 +1025,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.19-xanmod1",
-            "sha256": "sha256-DfoClySWV0vlDDRAJsujGj5ypnGr+HsVbszCYfi+2V0=",
+            "rev": "6.6.21-xanmod1",
+            "sha256": "sha256-DDkjrtKK7zIffVMuBtHvSWp0GtMA87YuOp8AhUw64+Y=",
             "type": "github"
         },
-        "version": "6.6.19-xanmod1"
+        "version": "6.6.21-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1318,7 +1318,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-03-04",
+        "date": "2024-03-07",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1330,11 +1330,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "fdc65c7aaa55d6a5851114d09c9b9f9c59eb8653",
-            "sha256": "sha256-6AL9Al6niH0YuVdOySA+th5G3sVzG9dBqjdAxl9/f78=",
+            "rev": "f08657b5ac5000c1f56c42dd16331e3306b9a7b2",
+            "sha256": "sha256-OC5+hNNaVCbDsy2bBLHRE+yKfrCMv0+K1/pDl5KSds8=",
             "type": "github"
         },
-        "version": "fdc65c7aaa55d6a5851114d09c9b9f9c59eb8653"
+        "version": "f08657b5ac5000c1f56c42dd16331e3306b9a7b2"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1555,11 +1555,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-KjSStHiw5+FO8r43g/mRU+sV8NJB2L/+cCx6msLQA7s=",
+            "sha256": "sha256-FNHqJdl22upd9UeffozjeHJBAlDKoCom1X7qoQqNry0=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_amd64.deb"
         },
-        "version": "8.2.1+ds-2"
+        "version": "8.2.2+ds-2"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -1570,11 +1570,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LhAFU1ehnTO4tOcxpvQOZ/2c5FogvXC7gYTQ8c2Vrlo=",
+            "sha256": "sha256-VnUawl3oCiJJeioo4lrPUTMwLLW4iFDb1R2ri/kMp6g=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_arm64.deb"
         },
-        "version": "8.2.1+ds-2"
+        "version": "8.2.2+ds-2"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -1600,11 +1600,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9pcNOgWxWoP8utnWbsDt3kTQEB6xWryC2N5MFEcvYzc=",
+            "sha256": "sha256-19x1vgqXf3gQVPPts587uh6eKoM73oU9+E+UdgyO4hw=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-1_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_i386.deb"
         },
-        "version": "8.2.2+ds-1"
+        "version": "8.2.2+ds-2"
     },
     "qq-amd64": {
         "cargoLocks": null,
@@ -1615,11 +1615,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6Qe4bP3q9RLEIJn9EfqqYaVTF8FRBNcjtVPl+zY7v5c=",
+            "sha256": "sha256-x/OU02oZYIKy4po/2buYKkSLaC3okfQBjF9is9nWCew=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/852276c1/linuxqq_3.2.5-21453_amd64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.5_240305_amd64_01.deb"
         },
-        "version": "852276c1/linuxqq_3.2.5-21453"
+        "version": "Linux/QQ_3.2.5_240305_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1630,11 +1630,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-g0J1FWG07bkabDHp2nuS48MNut2+N7gk0k5zWcmuQVw=",
+            "sha256": "sha256-v2WHWCgw6/OWGdk0HAxIlVnjndsmhVPodmajjeTISBM=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/852276c1/linuxqq_3.2.5-21453_arm64.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.5_240305_arm64_01.deb"
         },
-        "version": "852276c1/linuxqq_3.2.5-21453"
+        "version": "Linux/QQ_3.2.5_240305_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -1713,7 +1713,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-02-28",
+        "date": "2024-03-07",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1725,11 +1725,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "c2e02af730d64e7b73b1c1102e0a4bd2eef073f5",
-            "sha256": "sha256-TlxalXNEkDyh7Ir8W7zLSzOsrgaQMEB2OTEkhP+McKA=",
+            "rev": "a03b57b17a123498af87959806457f146662da7e",
+            "sha256": "sha256-fvyIKDwQKR4pDi3WRfRjyK3IsfmFHHKqtUeyB/KJo2o=",
             "type": "github"
         },
-        "version": "c2e02af730d64e7b73b1c1102e0a4bd2eef073f5"
+        "version": "a03b57b17a123498af87959806457f146662da7e"
     },
     "rime-moegirl": {
         "cargoLocks": null,
