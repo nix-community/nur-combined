@@ -9,6 +9,7 @@
 
     # Keyboard settings & i3 settings
     my.home.x.enable = true;
+    my.home.x.i3.enable = true;
     my.home.x.i3bar.temperature.chip = "k10temp-pci-*";
     my.home.x.i3bar.temperature.inputs = ["Tctl"];
     my.home.x.i3bar.networking.throughput_interfaces = ["wlp3s0" "enp6s0f3u1u1"];

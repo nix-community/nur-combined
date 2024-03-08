@@ -74,6 +74,7 @@
             ];
             registry = {
               nixpkgs.flake = inputs.nixpkgs;
+              unstable.flake = inputs.nixpkgs-unstable-small;
             };
           };
         };
