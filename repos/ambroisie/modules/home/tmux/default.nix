@@ -46,7 +46,7 @@ in
     keyMode = "vi"; # Home-row keys and other niceties
     clock24 = true; # I'm one of those heathens
     escapeTime = 0; # Let vim do its thing instead
-    historyLimit = 50000; # Bigger buffer
+    historyLimit = 100000; # Bigger buffer
     terminal = "tmux-256color"; # I want accurate termcap info
 
     plugins = with pkgs.tmuxPlugins; [
