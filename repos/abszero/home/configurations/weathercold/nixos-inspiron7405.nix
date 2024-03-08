@@ -14,17 +14,18 @@ optionalAttrs (readDir ./. ? "_base.nix") {
     modules =
       import ./_base.nix { inherit self lib; }
       ++ [{
-        specialisation.colloid = {
+        specialisation.latte = {
           default = true;
           configuration = {
             imports = with self.homeModules; [
               # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
-              catppuccin-cursor
+              base-firefox-vertical-tabs
+              base-foot
+              base-nushell
+              catppuccin-fonts
+              catppuccin-plasma
+              catppuccin-stylix
               colloid-fcitx5
-              colloid-firefox
-              colloid-fonts
-              colloid-gtk
-              colloid-plasma
             ];
 
             abszero.themes.catppuccin.accent = "pink";

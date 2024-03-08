@@ -1,4 +1,8 @@
-{
-  # Using colloid fonts for now.
-  imports = [ ../colloid/fonts.nix ];
+{ pkgs, ... }: {
+  fonts.fontconfig.enable = true;
+
+  home.packages = with pkgs; [
+    inconsolata-nerdfont
+    noto-fonts-cjk-sans
+  ];
 }

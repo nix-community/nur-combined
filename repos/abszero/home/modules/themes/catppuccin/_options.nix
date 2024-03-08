@@ -25,21 +25,36 @@ let
         '';
       };
       lightVariant = mkOption {
-        type = types.enum [ "latte" "frappe" "macchiato" "mocha" ];
+        type = types.enum [ "frappe" "latte" "macchiato" "mocha" ];
         default = "latte";
         description = ''
           The light theme variant (latte, frappe, macchiato, mocha).
         '';
       };
       darkVariant = mkOption {
-        type = types.enum [ "latte" "frappe" "macchiato" "mocha" ];
+        type = types.enum [ "frappe" "latte" "macchiato" "mocha" ];
         default = "macchiato";
         description = ''
           The dark theme variant (latte, frappe, macchiato, mocha).
         '';
       };
       accent = mkOption {
-        type = types.nonEmptyStr;
+        type = types.enum [
+          "rosewater"
+          "flamingo"
+          "pink"
+          "mauve"
+          "red"
+          "maroon"
+          "peach"
+          "yellow"
+          "green"
+          "teal"
+          "sky"
+          "sapphire"
+          "blue"
+          "lavender"
+        ];
         default = "mauve";
         description = ''
           The primary accent color.

@@ -8,7 +8,11 @@
       direnv.enable = true;
       dotdrop.enable = true;
       firefox.enable = true;
-      fish.enable = true;
+      fish = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
+      foot.enable = true;
       git.enable = true;
       nushell.enable = true;
       starship.enable = true;

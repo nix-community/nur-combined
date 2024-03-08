@@ -45,6 +45,14 @@
       url = "github:Weathercold/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        home-manager.follows = "home-manager";
+      };
+    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,9 +75,7 @@
     flake-parts.lib.mkFlake
       {
         inherit inputs;
-        specialArgs = {
-          lib = extLib;
-        };
+        specialArgs.lib = extLib;
       }
       {
         imports = [

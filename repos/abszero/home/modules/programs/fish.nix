@@ -9,8 +9,7 @@ in
   options.abszero.programs.fish = {
     enable = mkEnableOption "managing fish";
     enableNushellIntegration =
-      mkEnableOption "using fish as an external completer"
-      // { default = true; };
+      mkEnableOption "using fish only as an external completer for nushell";
   };
 
   config = mkIf cfg.enable {
@@ -28,6 +27,8 @@ in
           fetchhash = "nix flake prefetch --json $argv | jq -r .hash";
         };
       };
+
+      foot.settings.main.shell = mkIf (!cfg.enableNushellIntegration) "fish";
 
       # https://www.nushell.sh/cookbook/external_completers.html
       nushell.extraConfig = pipe [

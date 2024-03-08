@@ -36,10 +36,12 @@ in
           };
 
           catppuccin.configuration.imports = with self.homeModules; [
-            catppuccin-cursor
             catppuccin-discord
             catppuccin-fcitx5
             catppuccin-fonts
+            catppuccin-kvantum
+            catppuccin-plasma
+            catppuccin-stylix
           ];
         };
       }
