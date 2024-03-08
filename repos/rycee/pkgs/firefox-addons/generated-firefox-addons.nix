@@ -751,7 +751,7 @@
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
-        description = "A secure and free password manager for all of your devices.";
+        description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
         license = licenses.gpl3;
         mozPermissions = [
           "<all_urls>"
@@ -2570,10 +2570,10 @@
     };
     "frame-extension" = buildFirefoxXpiAddon {
       pname = "frame-extension";
-      version = "0.10.3";
+      version = "0.11.0";
       addonId = "{77691beb-4c53-48de-ab20-6589a537717a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4146194/frame_extension-0.10.3.xpi";
-      sha256 = "e28b844e3b452ecd53d9cc6ab70c34c2e26383ceef54c8a8e88cd4e6ff23ddaa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246850/frame_extension-0.11.0.xpi";
+      sha256 = "abb8db2e2392941c3efbbb1069dd9edc194652125be19fc45adc5986f9f80c42";
       meta = with lib;
       {
         homepage = "https://github.com/floating/frame";
@@ -2996,10 +2996,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.1.8";
+      version = "2.1.9";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4245887/gitpod-2.1.8.xpi";
-      sha256 = "2ca9b88f73c7a0241f63f38f13e79e5e79e9cdfd899b168734b37340e6d96edb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246655/gitpod-2.1.9.xpi";
+      sha256 = "5bcbd39c02c353392af55741151829eb68190f451f798204ddbf8176caa9b8b8";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -7004,10 +7004,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.27.0";
+      version = "6.28.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4237431/okta_browser_plugin-6.27.0.xpi";
-      sha256 = "43bc4db6745271835b74a024ed8fee03835a9b2012383a35ef4004a19da3072c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4244068/okta_browser_plugin-6.28.0.xpi";
+      sha256 = "2a0766052631788fdc895f0a898d4a97de1a0f6c1fe55e27ce511032f019c029";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
