@@ -21,7 +21,7 @@ in
     enablePassthrough = mkEnableOption "tmux DCS passthrough sequence";
 
     terminalFeatures = mkOption {
-      type = with types; attrsOf (types.submodule {
+      type = with types; attrsOf (submodule {
         options = {
           hyperlinks = my.mkDisableOption "hyperlinks through OSC8";
 
