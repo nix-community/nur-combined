@@ -373,13 +373,13 @@ fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver
 
 [qq-amd64]
 src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
-src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+)_amd64.deb\""
-fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver_amd64.deb"
+src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+_amd64[^\"]*).deb\""
+fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver.deb"
 
 [qq-arm64]
 src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
-src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+)_arm64.deb\""
-fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver_arm64.deb"
+src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+_arm64[^\"]*).deb\""
+fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver.deb"
 
 [qqmusic]
 src.aur = "qqmusic-bin"
