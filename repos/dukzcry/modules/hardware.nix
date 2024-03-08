@@ -81,7 +81,7 @@ in {
       boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
-      gtk.cursorTheme.size = 24;
+      gtk.cursorTheme.size = 16;
       services.hidpi.console = true;
     })
   ];
