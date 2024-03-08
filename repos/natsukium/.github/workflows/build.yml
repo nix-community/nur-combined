@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
   schedule:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
@@ -33,9 +32,6 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - natsukium
-        nixPath:
-          - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-23.11
         os:
           - ubuntu-latest
           - macos-latest
@@ -47,12 +43,10 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v25
       with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set and show nixpkgs version
+      run: |
+        nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run nixpkgs#jq -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz
     - name: Setup cachix
       uses: cachix/cachix-action@v14
       # Don't replace <YOUR_CACHIX_NAME> here!
@@ -68,10 +62,10 @@ jobs:
           --option restrict-eval true \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run nixpkgs#jq -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz \
           -I $PWD
     - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: nix shell --impure nixpkgs#nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run nixpkgs#jq -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
