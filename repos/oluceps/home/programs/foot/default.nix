@@ -14,7 +14,7 @@
       };
 
       colors = {
-        alpha = "0.9";
+        alpha = "0.93";
         background = "0f0d0e";
         bright0 = "a7a8bd";
         bright1 = "f38ba8";

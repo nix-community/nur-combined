@@ -12,7 +12,7 @@
 
 window {
 	color: rgba(217, 216, 216, 1);
-	background: rgba(83, 89, 83, 0);
+	background: rgba(83, 89, 83, 0.25);
 }
 
 window#waybar.solo {

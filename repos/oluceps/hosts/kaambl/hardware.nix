@@ -97,13 +97,20 @@
   security.tpm2.tctiEnvironment.enable = true;
 
   services.scx = {
-    enable = false;
+    enable = true;
     scheduler = "scx_rusty";
   };
   boot = {
     supportedFilesystems = [ "bcachefs" ];
     initrd = {
-      systemd = { enable = true; emergencyAccess = data.keys.hashedPasswd; };
+      systemd = {
+        enable = true;
+        # emergencyAccess = data.keys.hashedPasswd;
+        # work with cachyos kernel
+        suppressedStorePaths = [
+          "${config.boot.initrd.systemd.package}/lib/systemd/system-generators/systemd-hibernate-resume-generator"
+        ];
+      };
       availableKernelModules =
         [
           "nvme"
@@ -150,8 +157,8 @@
       # (import inputs.nixpkgs-pin {
       #   system = "x86_64-linux";
       # })
-      pkgs.linuxPackages_latest;
-    # inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-zen3;
+      # pkgs.linuxPackages_latest;
+      inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-zen3;
 
     # kernelPatches =
     #   let patchPath = ../../.attachs/cachyos-kernel;

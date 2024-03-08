@@ -276,6 +276,10 @@
       rebootTime = "30s";
     };
 
+    sleep.extraConfig = ''
+      AllowHibernation=no
+    '';
+
   };
   programs.dconf.enable = true;
   programs = {

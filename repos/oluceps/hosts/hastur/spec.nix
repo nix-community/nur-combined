@@ -218,6 +218,11 @@
       database.passwordFile = toString (pkgs.writeText "password" "keycloak");
     };
 
+    surrealdb = {
+      enable = true;
+      port = 8713;
+    };
+
     postgresqlBackup = {
       enable = true;
       location = "/var/lib/backup/postgresql";

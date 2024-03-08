@@ -381,8 +381,8 @@ let system = "x86_64-linux"; in [
         {
           name = "systemd-run-app";
           text = ''
-            name=$(${prev.coreutils}/bin/basename "$1")
-            id=$(${prev.openssl}/bin/openssl rand -hex 4)
+            name=$(${final.uutils-coreutils-noprefix}/bin/basename "$1")
+            id=$(${final.openssl}/bin/openssl rand -hex 4)
             exec systemd-run \
               --user \
               --scope \

@@ -3,7 +3,7 @@
 {
 
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = false;
     package = pkgs.hyprland;
     systemdIntegration = true;
     extraConfig = import ./config.nix { inherit pkgs user lib; };
