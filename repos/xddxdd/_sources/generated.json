@@ -226,7 +226,7 @@
     },
     "boringssl-oqs": {
         "cargoLocks": null,
-        "date": "2024-03-04",
+        "date": "2024-03-08",
         "extract": null,
         "name": "boringssl-oqs",
         "passthru": null,
@@ -238,15 +238,15 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "boringssl",
-            "rev": "913c00080e0f0308c22e9f82159751777ecbb6bf",
-            "sha256": "sha256-8V9C7XTkQuHw/85cZaAJMAVWfSkw+Tdm3pBTWrkWa6o=",
+            "rev": "c0a0bb4d1243952819b983129c546f9ae1c03008",
+            "sha256": "sha256-Sp3EMNtnns3SNJ3mqgFyP6zcW+nWurB+j8I3Ijv+1fc=",
             "type": "github"
         },
-        "version": "913c00080e0f0308c22e9f82159751777ecbb6bf"
+        "version": "c0a0bb4d1243952819b983129c546f9ae1c03008"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-03-07",
+        "date": "2024-03-08",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -258,11 +258,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "c1ea4ccfbf184a8be880d35363c02fdb06d4aa1c",
-            "sha256": "sha256-ArmShIa4c9a4F/3p4YPdb3aY5Tn0LhtZsE2/PS3r8c0=",
+            "rev": "8fc0def453fccaf52ac0a8a424701c42ee7cb142",
+            "sha256": "sha256-SKZBNFMBCa+1qXAeqm4nuqkHEE/FH4T/HUJskf06XAA=",
             "type": "github"
         },
-        "version": "c1ea4ccfbf184a8be880d35363c02fdb06d4aa1c"
+        "version": "8fc0def453fccaf52ac0a8a424701c42ee7cb142"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -893,7 +893,7 @@
     },
     "librime-lua": {
         "cargoLocks": null,
-        "date": "2024-02-27",
+        "date": "2024-03-08",
         "extract": null,
         "name": "librime-lua",
         "passthru": null,
@@ -905,11 +905,11 @@
             "name": null,
             "owner": "hchunhui",
             "repo": "librime-lua",
-            "rev": "0f69bfa2f2724c513987855cad71611f8759c703",
-            "sha256": "sha256-GDQRAQ/eyaBh+qEssAPqd2+6FuCdvQWC2Q6s4w8A2HA=",
+            "rev": "20ddea907e0b0c9c60d1dcb6b102bee38697cb5c",
+            "sha256": "sha256-kU3pceqQoIM4pypPg2nLLnnyrgQSUEWZW9VLmmPJltU=",
             "type": "github"
         },
-        "version": "0f69bfa2f2724c513987855cad71611f8759c703"
+        "version": "20ddea907e0b0c9c60d1dcb6b102bee38697cb5c"
     },
     "librime-octagram": {
         "cargoLocks": null,
@@ -1740,11 +1740,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yEC1E11n9SkyPhW/JVpWuS5xpi8cLrBcQjdeBmzJXJ0=",
+            "sha256": "sha256-XUJX0mcqXM0O7c+7cGQKwws1wACqchP8gshJbuhAYAk=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20231114/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20240309/moegirl.dict.yaml"
         },
-        "version": "20231114"
+        "version": "20240309"
     },
     "rime-zhwiki": {
         "cargoLocks": null,

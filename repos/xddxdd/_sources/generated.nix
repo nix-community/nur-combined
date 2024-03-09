@@ -133,27 +133,27 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "913c00080e0f0308c22e9f82159751777ecbb6bf";
+    version = "c0a0bb4d1243952819b983129c546f9ae1c03008";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "913c00080e0f0308c22e9f82159751777ecbb6bf";
+      rev = "c0a0bb4d1243952819b983129c546f9ae1c03008";
       fetchSubmodules = false;
-      sha256 = "sha256-8V9C7XTkQuHw/85cZaAJMAVWfSkw+Tdm3pBTWrkWa6o=";
+      sha256 = "sha256-Sp3EMNtnns3SNJ3mqgFyP6zcW+nWurB+j8I3Ijv+1fc=";
     };
-    date = "2024-03-04";
+    date = "2024-03-08";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "c1ea4ccfbf184a8be880d35363c02fdb06d4aa1c";
+    version = "8fc0def453fccaf52ac0a8a424701c42ee7cb142";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "c1ea4ccfbf184a8be880d35363c02fdb06d4aa1c";
+      rev = "8fc0def453fccaf52ac0a8a424701c42ee7cb142";
       fetchSubmodules = false;
-      sha256 = "sha256-ArmShIa4c9a4F/3p4YPdb3aY5Tn0LhtZsE2/PS3r8c0=";
+      sha256 = "sha256-SKZBNFMBCa+1qXAeqm4nuqkHEE/FH4T/HUJskf06XAA=";
     };
-    date = "2024-03-07";
+    date = "2024-03-08";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -521,15 +521,15 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "0f69bfa2f2724c513987855cad71611f8759c703";
+    version = "20ddea907e0b0c9c60d1dcb6b102bee38697cb5c";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "0f69bfa2f2724c513987855cad71611f8759c703";
+      rev = "20ddea907e0b0c9c60d1dcb6b102bee38697cb5c";
       fetchSubmodules = false;
-      sha256 = "sha256-GDQRAQ/eyaBh+qEssAPqd2+6FuCdvQWC2Q6s4w8A2HA=";
+      sha256 = "sha256-kU3pceqQoIM4pypPg2nLLnnyrgQSUEWZW9VLmmPJltU=";
     };
-    date = "2024-02-27";
+    date = "2024-03-08";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -998,10 +998,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20231114";
+    version = "20240309";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20231114/moegirl.dict.yaml";
-      sha256 = "sha256-yEC1E11n9SkyPhW/JVpWuS5xpi8cLrBcQjdeBmzJXJ0=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240309/moegirl.dict.yaml";
+      sha256 = "sha256-XUJX0mcqXM0O7c+7cGQKwws1wACqchP8gshJbuhAYAk=";
     };
   };
   rime-zhwiki = {
