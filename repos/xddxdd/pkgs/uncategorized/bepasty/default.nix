@@ -9,10 +9,6 @@
 python3Packages.buildPythonPackage rec {
   inherit (sources.bepasty) pname version src;
 
-  patches = [
-    ./319-use-urllib-parse-quote.patch
-  ];
-
   propagatedBuildInputs =
     [
       xstatic-asciinema-player
