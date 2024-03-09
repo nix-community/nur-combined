@@ -1740,10 +1740,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240306.104756";
+      version = "124.0.20240308.91626";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246160/deutsch_de_language_pack-124.0.20240306.104756.xpi";
-      sha256 = "dd408ddeaba4aee03b5292aa8c2045e1ac11cb681dcc068da807cefa8a34b507";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4247276/deutsch_de_language_pack-124.0.20240308.91626.xpi";
+      sha256 = "6ac7e212699d4e3cabdbc2390754a29f35a9d001d29322b41028fa8ff7e79e5e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2408,10 +2408,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.0.8";
+      version = "5.0.10";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4218289/floccus-5.0.8.xpi";
-      sha256 = "72c05ea95f1ec5ac3327d2060c9369e026117c17e90c7436cf124b833040e75e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4247541/floccus-5.0.10.xpi";
+      sha256 = "8e8ef6e0737df84405c98bf902b1d4b4ffaff743aa880e9205759c8c16dac236";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -2635,10 +2635,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240306.104756";
+      version = "124.0.20240308.91626";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246134/francais_language_pack-124.0.20240306.104756.xpi";
-      sha256 = "f0dbd1d854247748a1091770eb3573d1928f0e0a5d4f50765089c877f06aceff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4247305/francais_language_pack-124.0.20240308.91626.xpi";
+      sha256 = "b6380a7df3c3012ef25d89ba98a757f5669bf8dc5c9d07436472a05cdd87c10b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4505,10 +4505,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.2.1";
+      version = "1.2.4";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233015/immersive_translate-1.2.1.xpi";
-      sha256 = "4a7c4aa9e229f9546feefb4c952fa15f62999f32fad9fa82d93ee28569cea542";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4245250/immersive_translate-1.2.4.xpi";
+      sha256 = "0e2533aa7d3a292015945e3273fd98ab12624331f58e6ffd63eb58cf59a39774";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5081,10 +5081,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.12";
+      version = "1.9.0.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228043/keepassxc_browser-1.8.12.xpi";
-      sha256 = "c5c5c2def2040f32dde6d59e4e98515682eefc52bd8679128b5627e71c84cdc9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246845/keepassxc_browser-1.9.0.1.xpi";
+      sha256 = "f0f1144ac92cf84432eb0da3fa1d2d90fff8e4385d95effdd3bbaa08a79e0367";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -5092,9 +5092,9 @@
         license = licenses.gpl3;
         mozPermissions = [
           "activeTab"
+          "clipboardWrite"
           "contextMenus"
           "cookies"
-          "clipboardWrite"
           "nativeMessaging"
           "notifications"
           "storage"
