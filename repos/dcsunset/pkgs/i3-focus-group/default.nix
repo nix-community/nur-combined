@@ -7,14 +7,14 @@
 
 buildPythonApplication rec {
   pname = "i3-focus-group";
-  version = "0.1.3";
+  version = "0.1.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "i3-focus-group";
     rev = "refs/tags/v${version}";
-    hash = "sha256-AKm9wPZ0a+h/Olabhi+zDd9+BHebaTRmASp/7p/yNFE=";
+    hash = "sha256-o5aLPl4baTRY9uTwNbuaVW3eqA+VFFH08nhhKmHpHQ0=";
   };
 
   nativeBuildInputs = [
