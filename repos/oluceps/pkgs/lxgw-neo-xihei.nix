@@ -5,10 +5,10 @@
 
 stdenv.mkDerivation rec {
   pname = "lxgw-neo-xihei";
-  version = "1.100";
+  version = "1.120";
   src = fetchurl {
     url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v${version}/LXGWNeoXiHei.ttf";
-    sha256 = "sha256-CQ+A0Hcpo54iaZXdoEyguSO9ACCl1khdqPaOg+QKvVA=";
+    sha256 = "sha256-rQ+gbmUYr+iWm5WCUSqb+8+aMD5JZUsbPXZ0Nio2cl8=";
   };
   dontUnpack = true;
   installPhase = ''

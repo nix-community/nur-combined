@@ -278,6 +278,7 @@
 
     sleep.extraConfig = ''
       AllowHibernation=no
+      AllowSuspend=no
     '';
 
   };

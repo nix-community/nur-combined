@@ -107,9 +107,9 @@
         enable = true;
         # emergencyAccess = data.keys.hashedPasswd;
         # work with cachyos kernel
-        suppressedStorePaths = [
-          "${config.boot.initrd.systemd.package}/lib/systemd/system-generators/systemd-hibernate-resume-generator"
-        ];
+        # suppressedStorePaths = [
+        #   "${config.boot.initrd.systemd.package}/lib/systemd/system-generators/systemd-hibernate-resume-generator"
+        # ];
       };
       availableKernelModules =
         [
@@ -147,6 +147,7 @@
       "zswap.enabled=1"
       "zswap.zpool=zsmalloc"
       "systemd.gpt_auto=0"
+      "noresume"
     ];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
