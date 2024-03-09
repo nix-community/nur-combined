@@ -230,6 +230,18 @@
     };
     date = "2023-09-02";
   };
+  cryptodev-linux = {
+    pname = "cryptodev-linux";
+    version = "5e7121e45ff283d30097da381fd7e97c4bb61364";
+    src = fetchFromGitHub {
+      owner = "cryptodev-linux";
+      repo = "cryptodev-linux";
+      rev = "5e7121e45ff283d30097da381fd7e97c4bb61364";
+      fetchSubmodules = false;
+      sha256 = "sha256-lBe4i//fYkGjsocmLbFKvfYMithMvrAMwOGZblVgDnQ=";
+    };
+    date = "2023-12-12";
+  };
   dingtalk = {
     pname = "dingtalk";
     version = "7.0.50.30831";

@@ -4,10 +4,8 @@
   sources,
   buildPackages,
   perl,
-  python3,
-  coreutils,
   liboqs,
-  cryptodev,
+  cryptodev-unstable,
   static ? stdenv.hostPlatform.isStatic,
   ...
 } @ args:
@@ -48,7 +46,7 @@ with lib;
     nativeBuildInputs = [
       perl
     ];
-    buildInputs = [cryptodev];
+    buildInputs = [cryptodev-unstable];
 
     preBuild = ''
       ln -s ${liboqs} oqs
