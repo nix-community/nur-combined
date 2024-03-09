@@ -39,6 +39,6 @@ in {
     ciPackages = lib.filterAttrs (n: isBuildable) (import ../pkgs "ci" {
       inherit inputs pkgs;
     });
-    ciOutputs = lib.flatten (lib.mapAttrsToList (_: outputsOf) (lib.filterAttrs (_: isBuildable) ciPackages));
+    ciOutputs = lib.flatten (lib.mapAttrsToList (_: outputsOf) ciPackages);
   };
 }

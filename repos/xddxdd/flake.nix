@@ -19,7 +19,6 @@
       imports = [
         ./flake-modules/ci-outputs.nix
         ./flake-modules/commands.nix
-        ./flake-modules/garnix.nix
         ./flake-modules/modules-test-nixos-config.nix
         ./flake-modules/nixpkgs-options.nix
       ];
