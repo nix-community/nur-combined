@@ -28,13 +28,13 @@ let
   effectiveStdenv = if cudaSupport then cudaPackages.backendStdenv else stdenv;
 
   pname = "koboldcpp";
-  version = "1.59.1";
+  version = "1.60.1";
 
   src = fetchFromGitHub {
     owner = "LostRuins";
     repo = "koboldcpp";
     rev = "v${version}";
-    hash = "sha256-DgXUJ3nLj144P7AqSTMSAF9IT5FOOxSzMb6qtehEG5U=";
+    hash = "sha256-CUQN9sM+0xVSn2fl6RGz/3NbvtYJ/yN1aW8uzO6SAfw=";
   };
 
   koboldcpp-libs = effectiveStdenv.mkDerivation {
