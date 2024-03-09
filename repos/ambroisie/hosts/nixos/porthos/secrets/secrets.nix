@@ -21,6 +21,11 @@ in
   "drone/secret.age".publicKeys = all;
   "drone/ssh/private-key.age".publicKeys = all;
 
+  "forgejo/mail-password.age" = {
+    owner = "git";
+    publicKeys = all;
+  };
+
   "gitea/mail-password.age" = {
     owner = "git";
     publicKeys = all;

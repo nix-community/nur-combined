@@ -49,7 +49,7 @@ in
           };
 
           porthos = {
-            hostname = "91.121.177.163";
+            hostname = "37.187.146.15";
             identityFile = "~/.ssh/shared_rsa";
             user = "ambroisie";
           };

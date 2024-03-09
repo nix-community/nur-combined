@@ -3,15 +3,14 @@
 
 {
   boot = {
-    # Use the GRUB 2 boot loader.
-    loader.grub = {
-      enable = true;
-      # Define on which hard drive you want to install Grub.
-      device = "/dev/disk/by-id/ata-HGST_HUS724020ALA640_PN2181P6J58M1P";
+    # Use the systemd-boot EFI boot loader.
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
 
     initrd = {
-      availableKernelModules = [ "uhci_hcd" "ahci" "usbhid" ];
+      availableKernelModules = [ "ahci" "xhci_pci" "ehci_pci" "usbhid" "sd_mod" ];
       kernelModules = [ "dm-snapshot" ];
     };
 

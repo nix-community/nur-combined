@@ -8,6 +8,12 @@
 
   options.my.services.woodpecker = with lib; {
     enable = mkEnableOption "Woodpecker CI";
+    forge = mkOption {
+      type = types.enum [ "gitea" "forgejo" ];
+      default = "forgejo";
+      example = "gitea";
+      description = "Which Forge to connect to";
+    };
     runners = mkOption {
       type = with types; listOf (enum [ "exec" "docker" ]);
       default = [ ];

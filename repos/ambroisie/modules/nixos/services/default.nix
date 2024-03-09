@@ -10,6 +10,7 @@
     ./drone
     ./fail2ban
     ./flood
+    ./forgejo
     ./gitea
     ./grocy
     ./indexers

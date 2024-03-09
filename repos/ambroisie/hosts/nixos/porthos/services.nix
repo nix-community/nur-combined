@@ -36,14 +36,14 @@ in
     flood = {
       enable = true;
     };
-    # Gitea forge
-    gitea = {
+    # Forgejo forge
+    forgejo = {
       enable = true;
       mail = {
         enable = true;
         host = "smtp.migadu.com";
-        user = lib.my.mkMailAddress "gitea" "belanyi.fr";
-        passwordFile = secrets."gitea/mail-password".path;
+        user = lib.my.mkMailAddress "forgejo" "belanyi.fr";
+        passwordFile = secrets."forgejo/mail-password".path;
       };
     };
     # Meta-indexers

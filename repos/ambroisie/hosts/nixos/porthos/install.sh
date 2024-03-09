@@ -3,7 +3,7 @@
 SWAP_SIZE=16GiB
 
 parted /dev/sda --script -- \
-    mklabel msdos \
+    mklabel gpt \
     mkpart primary 512MiB -$SWAP_SIZE \
     mkpart primary linux-swap -$SWAP_SIZE 100% \
     mkpart ESP fat32 1MiB 512MiB \
@@ -11,14 +11,24 @@ parted /dev/sda --script -- \
 
 parted /dev/sdb --script -- \
     mklabel gpt \
-    mkpart primary 0MiB 100%
+    mkpart primary 0% 100%
+parted /dev/sdc --script -- \
+    mklabel gpt \
+    mkpart primary 0% 100%
+parted /dev/sdd --script -- \
+    mklabel gpt \
+    mkpart primary 0% 100%
 
 mkfs.ext4 -L media1 /dev/sda1
 mkfs.ext4 -L media2 /dev/sdb1
+mkfs.ext4 -L media3 /dev/sdc1
+mkfs.ext4 -L media4 /dev/sdd1
 
 pvcreate /dev/sda1
 pvcreate /dev/sdb1
-vgcreate lvm /dev/sda1 /dev/sdb1
+pvcreate /dev/sdc1
+pvcreate /dev/sdd1
+vgcreate lvm /dev/sda1 /dev/sdb1 /dev/sdc1 /dev/sdd1
 lvcreate -l 100%FREE -n media lvm
 
 mkfs.ext4 -L nixos /dev/mapper/lvm-media
@@ -27,17 +37,17 @@ mkfs.fat -F 32 -n boot /dev/sda3
 
 mount /dev/disk/by-label/nixos /mnt
 swapon /dev/sda2
+mkdir -p /mnt/boot
+mount /dev/disk/by-label/boot /mnt/boot
 
 apt install sudo
 useradd -m -G sudo setupuser
-# shellcheck disable=2117
-su setupuser
 
 cat << EOF
 # Run the following commands as setup user
-curl -L https://nixos.org/nix/install | sh
-. $HOME/.nix-profile/etc/profile.d/nix.sh
-nix-channel --add https://nixos.org/channels/nixos-20.09 nixpkgs
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+nix profile install nixpkgs#nixos-install-tools
 sudo "$(which nixos-generate-config)" --root /mnt
 
 # Change uuids to labels
@@ -54,3 +64,6 @@ git crypt unlock
 
 nixos-install --root /mnt --flake '.#<hostname>'
 EOF
+
+# shellcheck disable=2117
+su setupuser
