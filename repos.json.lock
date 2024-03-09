@@ -1614,8 +1614,8 @@
             "url": "https://codeberg.org/wolfangaukang/nix-agordoj.git"
         },
         "xddxdd": {
-            "rev": "68d82a8b53c398d56c9ff047dbbc123da3b74631",
-            "sha256": "1g7dcycf4rwfba3fa94frlq2m3q490cixbz31wxvmblpvkm066bi",
+            "rev": "afadabf4e74f490b6fade9f966edb1c537591a26",
+            "sha256": "05pxyw3h1nmhj8x8gzlhqd53w9pnn2vrfc9xwfnazgq0ykgiwl1z",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
