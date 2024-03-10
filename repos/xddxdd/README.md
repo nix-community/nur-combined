@@ -71,7 +71,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (101 packages)</summary>
+<summary>Package set: (Uncategorized) (106 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -95,6 +95,7 @@ Or, use variables from this repository in case I change them:
 |  | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.0.50.30831 | 钉钉 |
 |  | `dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.0.0 | DN42 Pingfinder |
 |  | `douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | c7e2a0f59ba5cfb2d10a31013547686a4afab99d | A Douban API server that provides an unofficial APIs for media information gathering |
+|  | `dpdk-kmod` | [dpdk-kmod](https://git.dpdk.org/dpdk-kmods/) | e721c733cd24206399bebb8f0751b0387c4c1595 | DPDK kernel modules or add-ons |
 |  | `drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | b69ba503becb41c72a1b724f38a26e7f2c34b110 | A secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable. |
 |  | `drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | v1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | f622f2a15b91fc54286f3d1f95d59adebab1a4f7 | Layer2 version of wireguard with Floyd Warshall implement in go |
@@ -113,10 +114,11 @@ Or, use variables from this repository in case I change them:
 |  | `hath` | [hath](https://e-hentai.org/) | 1.6.1 | Hentai@Home |
 |  | `hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
 |  | `hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 9914343c51384e45496522074c6cc6b15394543c | Constructed scripts by Hoyoverse 米哈游的架空文字  |
+|  | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 82755c2bc58491be31c7ac43fec3b2ff2aea3242 | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `kata-image` | [kata-image](https://github.com/kata-containers/kata-containers) | 4.1.0-test | Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix) |
 |  | `kata-runtime` | [kata-runtime](https://github.com/kata-containers/kata-containers) | 4.1.0-test | Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix) |
-|  | `kernel` | [linux](https://www.kernel.org/) | 6.7.7 | The Linux kernel (with patches: bridge-stp-helper, request-key-helper, rust-1.74.patch, rust-1.75.patch) |
+|  | `kernel` | [linux](https://www.kernel.org/) | 6.6.19 | The Linux kernel (with patches: bridge-stp-helper, request-key-helper) |
 |  | `konnect` | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.6 | A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
@@ -125,9 +127,11 @@ Or, use variables from this repository in case I change them:
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.77 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | `netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
 |  | `netns-exec` | [netns-exec](https://github.com/pekman/netns-exec) | aa346fd058d47b238ae1b86250f414bcab2e7927 | Run command in Linux network namespace as normal user |
+|  | `nft-fullcone` | [nft-fullcone](https://github.com/fullcone-nat-nftables/nft-fullcone) | 07d93b626ce5ea885cd16f9ab07fac3213c355d9 | Nftables fullcone expression kernel module |
 |  | `nftables-fullcone` | [nftables](https://netfilter.org/projects/nftables/) | 1.0.9 | The project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
 |  | `noise-suppression-for-voice` | [noise-suppression-for-voice](https://github.com/werman/noise-suppression-for-voice) | v1.03 | Noise suppression plugin based on Xiph's RNNoise |
 |  | `nullfs` | [nullfs](https://github.com/xrgtn/nullfs) | 0884f87ec01faaee219f59742c14ed3c3945f5c0 | FUSE nullfs drivers |
+|  | `nullfsvfs` | [nullfsvfs](https://github.com/abbbi/nullfsvfs) | v0.17 | A virtual black hole file system that behaves like /dev/null |
 |  | `nvlax` | [nvlax](https://github.com/illnyang/nvlax) | b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f | Future-proof NvENC & NvFBC patcher |
 |  | `nvlax-530` | [nvlax](https://github.com/illnyang/nvlax) | b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f | Future-proof NvENC & NvFBC patcher (for NVIDIA driver >= 530) |
 |  | `oci-arm-host-capacity` | [oci-arm-host-capacity](https://github.com/hitrov/oci-arm-host-capacity) | 369de7b2851f1b22db34f95ba02001d5c9f839c7 | This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain. |
@@ -135,6 +139,7 @@ Or, use variables from this repository in case I change them:
 |  | `openssl-oqs` | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | A cryptographic library that implements the SSL and TLS protocols |
 |  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | f08657b5ac5000c1f56c42dd16331e3306b9a7b2 | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
+|  | `ovpn-dco` | [ovpn-dco](https://github.com/OpenVPN/ovpn-dco) | 2aa7f931803f81d2745b0cefafb63654a35cc3d5 | OpenVPN Data Channel Offload in the linux kernel |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | v1.3.1 | Prometheus exporter for Palword Server |
 |  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | v1.8.0 | A tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers |
 |  | `payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | An android OTA payload dumper written in Go |

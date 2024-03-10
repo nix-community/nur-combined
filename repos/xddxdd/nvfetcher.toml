@@ -100,6 +100,10 @@ fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/
 src.git = "https://github.com/caryyu/douban-openapi-server.git"
 fetch.github = "caryyu/douban-openapi-server"
 
+[dpdk-kmod]
+src.git = "git://dpdk.org/dpdk-kmods"
+fetch.git = "git://dpdk.org/dpdk-kmods"
+
 [drone-file-secret]
 src.git = "https://github.com/xddxdd/drone-file-secret.git"
 fetch.github = "xddxdd/drone-file-secret"
@@ -171,6 +175,10 @@ fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/teyvat
 [hoyo-glyphs-xianzhou-seal]
 src.manual = "1.000"
 fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip"
+
+[i915-sriov-dkms]
+src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
+fetch.github = "strongtz/i915-sriov-dkms"
 
 [kata-containers]
 src.github = "kata-containers/kata-containers"
@@ -254,6 +262,10 @@ src.git = "https://github.com/pekman/netns-exec.git"
 fetch.github = "pekman/netns-exec"
 git.fetchSubmodules = true
 
+[nft-fullcone]
+src.git = "https://github.com/fullcone-nat-nftables/nft-fullcone.git"
+fetch.github = "fullcone-nat-nftables/nft-fullcone"
+
 [nginx-module-stream-sts]
 src.git = "https://github.com/vozlt/nginx-module-stream-sts.git"
 fetch.github = "vozlt/nginx-module-stream-sts"
@@ -285,6 +297,10 @@ fetch.github = "werman/noise-suppression-for-voice"
 src.git = "https://github.com/xrgtn/nullfs.git"
 fetch.github = "xrgtn/nullfs"
 
+[nullfsvfs]
+src.github = "abbbi/nullfsvfs"
+fetch.github = "abbbi/nullfsvfs"
+
 [oci-arm-host-capacity]
 src.git = "https://github.com/hitrov/oci-arm-host-capacity.git"
 fetch.github = "hitrov/oci-arm-host-capacity"
@@ -311,6 +327,10 @@ fetch.github = "open-quantum-safe/oqs-provider"
 [osdlyrics]
 src.github = "osdlyrics/osdlyrics"
 fetch.github = "osdlyrics/osdlyrics"
+
+[ovpn-dco]
+src.git = "https://github.com/OpenVPN/ovpn-dco.git"
+fetch.github = "OpenVPN/ovpn-dco"
 
 [palworld-exporter]
 src.github_tag = "palworldlol/palworld-exporter"

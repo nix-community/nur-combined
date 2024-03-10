@@ -80,14 +80,20 @@ in
       libltnginx = pkg ./lantian-personal/libltnginx {};
     });
 
-    # To build kernel modules
-    kernel = pkgs.linux_latest;
-
     nvidia-grid = ifNotCI (mergePkgs (pkg ./nvidia-grid {inherit mergePkgs;}));
     openj9-ibm-semeru = ifNotCI (mergePkgs (pkg ./openj9-ibm-semeru {}));
     openjdk-adoptium = ifNotCI (mergePkgs (pkg ./openjdk-adoptium {}));
     plangothic-fonts = mergePkgs (pkg ./plangothic-fonts {});
     th-fonts = mergePkgs (pkg ./th-fonts {});
+
+    # Kernel modules
+    kernel = pkgs.linux;
+    cryptodev-unstable = pkg ./kernel-modules/cryptodev-unstable {};
+    dpdk-kmod = pkg ./kernel-modules/dpdk-kmod {};
+    i915-sriov = pkg ./kernel-modules/i915-sriov {};
+    nft-fullcone = pkg ./kernel-modules/nft-fullcone {};
+    nullfsvfs = pkg ./kernel-modules/nullfsvfs {};
+    ovpn-dco = pkg ./kernel-modules/ovpn-dco {};
 
     # Other packages
     amule-dlp = pkg ./uncategorized/amule-dlp {};
@@ -104,7 +110,6 @@ in
     click-loglevel = pkg ./uncategorized/click-loglevel {};
     cloudpan189-go = pkg ./uncategorized/cloudpan189-go {};
     cockpy = pkg ./uncategorized/cockpy {};
-    cryptodev-unstable = pkg ./uncategorized/cryptodev-unstable {};
     deepspeech-gpu = ifNotCI (pkg ./uncategorized/deepspeech-gpu {});
     deepspeech-wrappers = ifNotCI (pkg ./uncategorized/deepspeech-gpu/wrappers.nix {});
     dingtalk = pkg ./uncategorized/dingtalk {};

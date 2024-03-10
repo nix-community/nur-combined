@@ -262,6 +262,19 @@
     };
     date = "2022-12-17";
   };
+  dpdk-kmod = {
+    pname = "dpdk-kmod";
+    version = "e721c733cd24206399bebb8f0751b0387c4c1595";
+    src = fetchgit {
+      url = "git://dpdk.org/dpdk-kmods";
+      rev = "e721c733cd24206399bebb8f0751b0387c4c1595";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-AG5Lthp+CPR4R7I23DUmoWAmET8gLEFHHdjk2TUbQn4=";
+    };
+    date = "2023-02-05";
+  };
   drone-file-secret = {
     pname = "drone-file-secret";
     version = "b69ba503becb41c72a1b724f38a26e7f2c34b110";
@@ -440,6 +453,18 @@
       url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip";
       sha256 = "sha256-1cXp5ZH6oY6LPdeN7EpiMJzO4SiXmeJTnLLrBPJD4g4=";
     };
+  };
+  i915-sriov-dkms = {
+    pname = "i915-sriov-dkms";
+    version = "82755c2bc58491be31c7ac43fec3b2ff2aea3242";
+    src = fetchFromGitHub {
+      owner = "strongtz";
+      repo = "i915-sriov-dkms";
+      rev = "82755c2bc58491be31c7ac43fec3b2ff2aea3242";
+      fetchSubmodules = false;
+      sha256 = "sha256-ayY+oXt96CAVfJ49Pbu5sd6SzkCOThhiPjJrZMxD+YY=";
+    };
+    date = "2024-01-29";
   };
   kata-containers = {
     pname = "kata-containers";
@@ -651,6 +676,18 @@
     };
     date = "2016-07-30";
   };
+  nft-fullcone = {
+    pname = "nft-fullcone";
+    version = "07d93b626ce5ea885cd16f9ab07fac3213c355d9";
+    src = fetchFromGitHub {
+      owner = "fullcone-nat-nftables";
+      repo = "nft-fullcone";
+      rev = "07d93b626ce5ea885cd16f9ab07fac3213c355d9";
+      fetchSubmodules = false;
+      sha256 = "sha256-PJHKt7w72lYFAb2OSswX7QyLnSY0jB93DkBxGk8AwD4=";
+    };
+    date = "2023-05-17";
+  };
   nginx-module-stream-sts = {
     pname = "nginx-module-stream-sts";
     version = "a60cd2fc2bdd689b8b4e12abcf71f7cf5018424a";
@@ -733,6 +770,17 @@
     };
     date = "2016-01-28";
   };
+  nullfsvfs = {
+    pname = "nullfsvfs";
+    version = "v0.17";
+    src = fetchFromGitHub {
+      owner = "abbbi";
+      repo = "nullfsvfs";
+      rev = "v0.17";
+      fetchSubmodules = false;
+      sha256 = "sha256-Hkplhem4Gb1xsYQtRSWub0m15Fiil3qJAO183ygP+WI=";
+    };
+  };
   oci-arm-host-capacity = {
     pname = "oci-arm-host-capacity";
     version = "369de7b2851f1b22db34f95ba02001d5c9f839c7";
@@ -799,6 +847,18 @@
       fetchSubmodules = false;
       sha256 = "sha256-4jEF1LdMwaLNF6zvzAuGW8Iu4dzhrFLutX69LwSjTAI=";
     };
+  };
+  ovpn-dco = {
+    pname = "ovpn-dco";
+    version = "2aa7f931803f81d2745b0cefafb63654a35cc3d5";
+    src = fetchFromGitHub {
+      owner = "OpenVPN";
+      repo = "ovpn-dco";
+      rev = "2aa7f931803f81d2745b0cefafb63654a35cc3d5";
+      fetchSubmodules = false;
+      sha256 = "sha256-Iupo1wdZwel/Q8GvP2MPOhoLK3uBj5JAbT1/Fib/Bsk=";
+    };
+    date = "2024-02-02";
   };
   palworld-exporter = {
     pname = "palworld-exporter";

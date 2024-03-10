@@ -449,6 +449,25 @@
         },
         "version": "c7e2a0f59ba5cfb2d10a31013547686a4afab99d"
     },
+    "dpdk-kmod": {
+        "cargoLocks": null,
+        "date": "2023-02-05",
+        "extract": null,
+        "name": "dpdk-kmod",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e721c733cd24206399bebb8f0751b0387c4c1595",
+            "sha256": "sha256-AG5Lthp+CPR4R7I23DUmoWAmET8gLEFHHdjk2TUbQn4=",
+            "type": "git",
+            "url": "git://dpdk.org/dpdk-kmods"
+        },
+        "version": "e721c733cd24206399bebb8f0751b0387c4c1595"
+    },
     "drone-file-secret": {
         "cargoLocks": null,
         "date": "2023-06-25",
@@ -755,6 +774,26 @@
             "url": "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip"
         },
         "version": "1.000"
+    },
+    "i915-sriov-dkms": {
+        "cargoLocks": null,
+        "date": "2024-01-29",
+        "extract": null,
+        "name": "i915-sriov-dkms",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "strongtz",
+            "repo": "i915-sriov-dkms",
+            "rev": "82755c2bc58491be31c7ac43fec3b2ff2aea3242",
+            "sha256": "sha256-ayY+oXt96CAVfJ49Pbu5sd6SzkCOThhiPjJrZMxD+YY=",
+            "type": "github"
+        },
+        "version": "82755c2bc58491be31c7ac43fec3b2ff2aea3242"
     },
     "kata-containers": {
         "cargoLocks": null,
@@ -1121,6 +1160,26 @@
         },
         "version": "aa346fd058d47b238ae1b86250f414bcab2e7927"
     },
+    "nft-fullcone": {
+        "cargoLocks": null,
+        "date": "2023-05-17",
+        "extract": null,
+        "name": "nft-fullcone",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "fullcone-nat-nftables",
+            "repo": "nft-fullcone",
+            "rev": "07d93b626ce5ea885cd16f9ab07fac3213c355d9",
+            "sha256": "sha256-PJHKt7w72lYFAb2OSswX7QyLnSY0jB93DkBxGk8AwD4=",
+            "type": "github"
+        },
+        "version": "07d93b626ce5ea885cd16f9ab07fac3213c355d9"
+    },
     "nginx-module-stream-sts": {
         "cargoLocks": null,
         "date": "2022-09-16",
@@ -1261,6 +1320,26 @@
         },
         "version": "0884f87ec01faaee219f59742c14ed3c3945f5c0"
     },
+    "nullfsvfs": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "nullfsvfs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "abbbi",
+            "repo": "nullfsvfs",
+            "rev": "v0.17",
+            "sha256": "sha256-Hkplhem4Gb1xsYQtRSWub0m15Fiil3qJAO183ygP+WI=",
+            "type": "github"
+        },
+        "version": "v0.17"
+    },
     "oci-arm-host-capacity": {
         "cargoLocks": null,
         "date": "2023-12-23",
@@ -1375,6 +1454,26 @@
             "type": "github"
         },
         "version": "0.5.15"
+    },
+    "ovpn-dco": {
+        "cargoLocks": null,
+        "date": "2024-02-02",
+        "extract": null,
+        "name": "ovpn-dco",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "OpenVPN",
+            "repo": "ovpn-dco",
+            "rev": "2aa7f931803f81d2745b0cefafb63654a35cc3d5",
+            "sha256": "sha256-Iupo1wdZwel/Q8GvP2MPOhoLK3uBj5JAbT1/Fib/Bsk=",
+            "type": "github"
+        },
+        "version": "2aa7f931803f81d2745b0cefafb63654a35cc3d5"
     },
     "palworld-exporter": {
         "cargoLocks": null,
