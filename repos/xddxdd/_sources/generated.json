@@ -1,4 +1,24 @@
 {
+    "acpi-ec": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "acpi-ec",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "musikid",
+            "repo": "acpi_ec",
+            "rev": "v1.0.4",
+            "sha256": "sha256-gDcEzZKtHMULtTtJSDTRH1W9otSB6IC0E6EBF9j6F7Q=",
+            "type": "github"
+        },
+        "version": "v1.0.4"
+    },
     "amule-dlp": {
         "cargoLocks": null,
         "date": "2023-03-02",

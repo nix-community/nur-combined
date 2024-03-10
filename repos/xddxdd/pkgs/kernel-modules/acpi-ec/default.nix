@@ -1,21 +1,12 @@
 {
   stdenv,
   lib,
-  fetchFromGitHub,
+  sources,
   kernel,
-  kmod,
   ...
 }:
 stdenv.mkDerivation rec {
-  name = "acpi_ec";
-  version = "1.0.2";
-
-  src = fetchFromGitHub {
-    owner = "musikid";
-    repo = "acpi_ec";
-    rev = "v${version}";
-    sha256 = "sha256-RyBr9g2ho/TdLkFKAH+YnILtO4kS/nGhQUeYeextYY8=";
-  };
+  inherit (sources.acpi-ec) pname version src;
 
   sourceRoot = "source/src";
   hardeningDisable = ["pic" "format"];
@@ -29,4 +20,11 @@ stdenv.mkDerivation rec {
     makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
   '';
   installTargets = ["modules_install"];
+
+  meta = {
+    description = "Kernel module to access directly to the ACPI EC";
+    homepage = "https://github.com/musikid/acpi_ec";
+    license = lib.licenses.gpl3;
+    platforms = lib.platforms.linux;
+  };
 }

@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     description = "DKMS module of Linux i915 driver with SR-IOV support";
     homepage = "https://github.com/strongtz/i915-sriov-dkms";
     license = lib.licenses.gpl3;
-    platforms = lib.platforms.linux;
+    platforms = ["x86_64-linux"];
   };
 }

@@ -88,6 +88,7 @@ in
 
     # Kernel modules
     kernel = pkgs.linux;
+    acpi-ec = pkg ./kernel-modules/acpi-ec {};
     cryptodev-unstable = pkg ./kernel-modules/cryptodev-unstable {};
     dpdk-kmod = pkg ./kernel-modules/dpdk-kmod {};
     i915-sriov = pkg ./kernel-modules/i915-sriov {};

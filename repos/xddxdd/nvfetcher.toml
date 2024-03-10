@@ -1,3 +1,7 @@
+[acpi-ec]
+src.github = "musikid/acpi_ec"
+fetch.github = "musikid/acpi_ec"
+
 [amule-dlp]
 src.git = "https://github.com/persmule/amule-dlp.git"
 fetch.github = "persmule/amule-dlp"
