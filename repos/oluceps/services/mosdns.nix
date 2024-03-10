@@ -2,6 +2,7 @@
   enable = true;
   config = {
     log = { level = "debug"; production = false; };
+    api.http = "localhost:9092";
     plugins = let src = "${inputs.nixyDomains}/assets"; in [
       {
         args = {

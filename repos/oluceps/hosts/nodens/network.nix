@@ -3,6 +3,7 @@
 , ...
 }: {
   networking = {
+    domain = "nyaw.xyz";
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;

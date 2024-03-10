@@ -34,7 +34,7 @@ export def b [
   let machine_spec = "x86_64-linux - - - big-parallel"
 
   $nodes | par-each {|| 
-    (nix build $'.#nixosConfigurations.($in).config.system.build.toplevel'
+    (nom build $'.#nixosConfigurations.($in).config.system.build.toplevel'
       --builders $"($target_addr) ($machine_spec)"
       ...($job) -vvv) 
   }

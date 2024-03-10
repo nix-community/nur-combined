@@ -144,6 +144,11 @@
               mode = "2160x1440";
               scale = "2";
             };
+            HDMI-A-1 = {
+              bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
+              mode = "2560x1660";
+              scale = "2";
+            };
           } else {
 
             eDP-1 = {

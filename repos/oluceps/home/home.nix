@@ -71,6 +71,7 @@
   home.packages = with pkgs;
 
     [
+      qq
       gtkcord4
       celeste
       stellarium

@@ -8,6 +8,7 @@
     # useHostResolvConf = true;
 
     hostName = "hastur"; # Define your hostname.
+    domain = "nyaw.xyz";
     # replicates the default behaviour.
     enableIPv6 = true;
     interfaces.eth0.wakeOnLan.enable = true;

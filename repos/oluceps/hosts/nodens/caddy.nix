@@ -1,14 +1,39 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
+
   services.caddy = {
     enable = true;
-    package = pkgs.caddy-naive;
+    # package = pkgs.caddy-naive;
     settings = {
+      admin = {
+        listen = "unix//tmp/caddy.sock";
+        config.persist = false;
+      };
       apps = {
         http = {
           servers = {
             srv0 = {
               listen = [ ":443" ];
+              strict_sni_host = false;
+              metrics = { };
               routes = [
+                {
+                  match = [{
+                    host = [ config.networking.fqdn ];
+                    path = [ "/caddy" ];
+                  }];
+                  handle = [
+                    {
+                      handler = "authentication";
+                      providers.http_basic.accounts = [{
+                        username = "prometheus";
+                        password = "$2b$05$EGDkhDEoadOvUkJujmyer.944J2Dh4U73TUtb11Z1bVZwd2rjNECO";
+                      }];
+                    }
+                    {
+                      handler = "metrics";
+                    }
+                  ];
+                }
                 {
                   handle = [{
                     handler = "subroute";
@@ -270,6 +295,7 @@
                 "pb.nyaw.xyz"
                 "nyaw.xyz"
                 "api.heartrate.nyaw.xyz"
+                config.networking.fqdn
               ];
             }
               {

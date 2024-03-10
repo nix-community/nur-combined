@@ -122,7 +122,7 @@
 
     tailscale = { enable = true; openFirewall = true; };
 
-    sing-box.enable = true;
+    sing-box.enable = false;
     # beesd.filesystems = {
     #   os = {
     #     spec = "LABEL=nixos";

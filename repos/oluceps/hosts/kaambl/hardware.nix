@@ -146,7 +146,7 @@
       "amd_pstate=active"
       "zswap.enabled=1"
       "zswap.zpool=zsmalloc"
-      "systemd.gpt_auto=0"
+      # "systemd.gpt_auto=0"
       "noresume"
     ];
     extraModulePackages = with config.boot.kernelPackages; [

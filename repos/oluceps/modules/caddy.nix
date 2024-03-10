@@ -36,14 +36,8 @@ in
 
       serviceConfig = {
         Type = "notify";
-        ExecStartPre = pkgs.writeShellScript "init-caddy" ''
-          set -euo pipefail
-          umask u=rwx,g=,o=
-          ${utils.genJqSecretsReplacementSnippet cfg.settings "/var/lib/caddy/config.json"}
-        '';
         ExecStart = "${cfg.package}/bin/caddy run --config /var/lib/caddy/config.json";
         ExecReload = "${cfg.package}/bin/caddy reload --force --config /var/lib/caddy/config.json";
-        # DynamicUser = true;
         User = "root";
         StateDirectory = "caddy";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
