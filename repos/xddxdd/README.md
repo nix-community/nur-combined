@@ -71,7 +71,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (99 packages)</summary>
+<summary>Package set: (Uncategorized) (101 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -89,6 +89,7 @@ Or, use variables from this repository in case I change them:
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.5.0 | Log level parameter type for Click |
 |  | `cloudpan189-go` | [cloudpan189-go](https://github.com/tickstep/cloudpan189-go) | v0.1.3 | 天翼云盘命令行客户端(CLI)，基于GO语言实现 |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 00fa2f220fd5e22c14a88b5f6000487b49b071f1 | public and open source version of the cbt2 ps im working on  |
+|  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 5e7121e45ff283d30097da381fd7e97c4bb61364 | Device that allows access to Linux kernel cryptographic drivers |
 |  | `deepspeech-gpu` | [deepspeech-gpu](https://github.com/mozilla/DeepSpeech) | 0.9.3 | Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers. |
 |  | `deepspeech-wrappers` | [deepspeech](https://github.com/mozilla/DeepSpeech) | 0.9.3 | Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers. |
 |  | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.0.50.30831 | 钉钉 |
@@ -115,6 +116,7 @@ Or, use variables from this repository in case I change them:
 |  | `kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `kata-image` | [kata-image](https://github.com/kata-containers/kata-containers) | 4.1.0-test | Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix) |
 |  | `kata-runtime` | [kata-runtime](https://github.com/kata-containers/kata-containers) | 4.1.0-test | Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix) |
+|  | `kernel` | [linux](https://www.kernel.org/) | 6.7.7 | The Linux kernel (with patches: bridge-stp-helper, request-key-helper, rust-1.74.patch, rust-1.75.patch) |
 |  | `konnect` | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.6 | A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |

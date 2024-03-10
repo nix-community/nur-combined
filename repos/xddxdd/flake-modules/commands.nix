@@ -26,10 +26,6 @@
         exit 1
       '';
 
-      garnix = ''
-        nix eval --raw .#garnixConfig | ${pkgs.jq}/bin/jq > garnix.yaml
-      '';
-
       nvfetcher = ''
         set -euo pipefail
         KEY_FLAG=""
@@ -66,7 +62,6 @@
         set -euo pipefail
         nix build .#_meta.readme
         cat result > README.md
-        ${garnix}
       '';
 
       trace = ''
