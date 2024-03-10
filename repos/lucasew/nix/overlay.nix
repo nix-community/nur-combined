@@ -257,6 +257,8 @@ in
   ollama-cuda = prev.ollama.override { enableCuda = true; };
   ollama-rocm = prev.ollama.override { enableRocm = true; };
 
+  arcan = prev.arcan.override { useTracy = false; };
+
   regex101 = prev.callPackage flake.inputs.regex101 { };
 
   # nix = prev.nixVersions.nix_2_15;

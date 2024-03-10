@@ -22,6 +22,8 @@ in
     ]
   ;
 
+  services.guix.enable = true;
+
   services.php-utils.enable = true;
 
   services.python-microservices.services = {

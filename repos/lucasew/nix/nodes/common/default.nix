@@ -27,7 +27,7 @@ in
     ./postgres-backup.nix
   ];
 
-  boot.supportedFilesystems = [ "nfs" ];
+  boot.supportedFilesystems = [ "nfs" "btrfs" ];
 
   services.lvm.enable = mkDefault false;
 

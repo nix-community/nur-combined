@@ -867,11 +867,11 @@
     "ts-proxy": {
       "flake": false,
       "locked": {
-        "lastModified": 1695417848,
-        "narHash": "sha256-BWJhDaiphx5AQIcTpZhKQLDgVB9HNXkfgi0texE4Ues=",
+        "lastModified": 1709567300,
+        "narHash": "sha256-F8RE40LWg3OChrKs2BQ3hIj6Xu7S4R+HsyTpRcP3llU=",
         "owner": "lucasew",
         "repo": "ts-proxy",
-        "rev": "f2ec2838cb939f87463dd4a48b22984638dcb7ba",
+        "rev": "3534cdcc84b01e40cc5bd0d2687b364e7273951c",
         "type": "github"
       },
       "original": {
