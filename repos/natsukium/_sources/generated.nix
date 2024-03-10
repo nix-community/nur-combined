@@ -11,15 +11,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "d5dd64d3ad95b5e99c282f8cb7c596ed69da108b";
+    version = "c8bb5ccf04f0360c668ade0d71b7a07becd1ddae";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "d5dd64d3ad95b5e99c282f8cb7c596ed69da108b";
+      rev = "c8bb5ccf04f0360c668ade0d71b7a07becd1ddae";
       fetchSubmodules = false;
-      sha256 = "sha256-N20cgvkcG3YKb+Qjh+3NlGhomX2QXfjC6pd54CR0dwc=";
+      sha256 = "sha256-eYpq1jGh4IiRLVU0vQrYs/fHgX9IzyBkIhZyoANmTNg=";
     };
-    date = "2024-02-21";
+    date = "2024-03-08";
   };
   nixfmt = {
     pname = "nixfmt";
@@ -55,10 +55,10 @@
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
-    version = "0.3.0";
+    version = "0.3.1";
     src = fetchurl {
-      url = "https://github.com/qmk/qmk_toolbox/releases/download/0.3.0/QMK.Toolbox.app.zip";
-      sha256 = "sha256-KrXokUrglXE4emfdxAMux64CIHdOm96GX72zrXXxxaU=";
+      url = "https://github.com/qmk/qmk_toolbox/releases/download/0.3.1/QMK.Toolbox.app.zip";
+      sha256 = "sha256-J3yh/VsTSAyU688/GToOI4hOkRFdozxTVvp9Yp/bIlg=";
     };
   };
   qutebrowser-darwin = {
@@ -83,15 +83,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "32e0048f0f4198ef0344b5f177056db7b41bdcef";
+    version = "02592b0ea4a94bb064f3213e6b2001d02c1241cc";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "32e0048f0f4198ef0344b5f177056db7b41bdcef";
+      rev = "02592b0ea4a94bb064f3213e6b2001d02c1241cc";
       fetchSubmodules = false;
-      sha256 = "sha256-sizoaeJgXZkHvigsRk/EFZT5DD+fPq+OWrIGu66/p8M=";
+      sha256 = "sha256-RacXFvwI45GeiUMzfoGlJ2XFCZ0Vi6PwP7a8j9asF1w=";
     };
-    date = "2024-02-13";
+    date = "2024-03-08";
   };
   vim-startuptime = {
     pname = "vim-startuptime";
