@@ -13,7 +13,7 @@ jobs:
         package:
           - llr
           - mkvcleaner
-          - g90updatefw
+          # - g90updatefw
 
     steps:
       - uses: actions/checkout@v4
