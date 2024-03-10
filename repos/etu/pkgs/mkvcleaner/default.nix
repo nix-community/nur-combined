@@ -14,10 +14,10 @@ in
       owner = "etu";
       repo = pname;
       rev = version;
-      sha256 = "sha256-5UG2u7BTrqTLCSKpD2ioI1HleCUe3woMsrjateXhJuI=";
+      hash = "sha256-5UG2u7BTrqTLCSKpD2ioI1HleCUe3woMsrjateXhJuI=";
     };
 
-    vendorSha256 = "sha256-jjZ2XVvy5Qc53HJQ02KPDsmUNpsVFFaj9P/px2U01nQ=";
+    vendorHash = "sha256-jjZ2XVvy5Qc53HJQ02KPDsmUNpsVFFaj9P/px2U01nQ=";
 
     meta = with lib; {
       description = "bulk-remux mkv-files from tracks of unwanted languages";

@@ -10,7 +10,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://talyz.github.io/talyz-new-roman/font/TalyzNewRoman.ttf";
-    sha256 = "00pi45pwmm1mialb643ifvp2qf6rhgwkmbk9malmyac815abpb0g";
+    hash = "sha256-D6y7VAmIKV+pqmmuOvmD2Tgs7nZxELOoijXUym8h8QI=";
   };
 
   dontUnpack = true;

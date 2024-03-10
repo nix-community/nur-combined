@@ -14,10 +14,10 @@ in
       owner = "etu";
       repo = pname;
       rev = version;
-      sha256 = "sha256-0gWDs6W6Sh5aGd8XG12ZIEwVvhtdRfhAIHjr38BPo8I=";
+      hash = "sha256-0gWDs6W6Sh5aGd8XG12ZIEwVvhtdRfhAIHjr38BPo8I=";
     };
 
-    vendorSha256 = "14x9ikn9jfldvs8dznzf3xabqw0d9c20gzqggmiy4pca0s9bc34z";
+    vendorHash = "sha256-nwy2kgaKXeJjfQ//BwRLDXC8VB/u29+Q3o06meyMqZM=";
 
     meta = with lib; {
       description = "llr reads text and truncates it to the terminal width";

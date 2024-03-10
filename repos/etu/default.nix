@@ -6,5 +6,4 @@
   github-markdown-toc = pkgs.callPackage ./pkgs/github-markdown-toc {};
   llr = pkgs.callPackage ./pkgs/llr {};
   mkvcleaner = pkgs.callPackage ./pkgs/mkvcleaner {};
-  #vscode-php-debug = pkgs.callPackage ./pkgs/vscode-php-debug {};
 }

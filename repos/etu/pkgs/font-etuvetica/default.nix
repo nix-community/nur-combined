@@ -10,7 +10,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://elis.nu/etuvetica/css/fonts/etuvetica.ttf";
-    sha256 = "0z1wf1q7wx8ny54w6fcz91r5xx9m2496jqfybciricmwhgdkz25j";
+    hash = "sha256-sog/24O8spgjW95haRIRNfVeckifOcNJ8RZ1fnBwPHw=";
   };
 
   dontUnpack = true;

@@ -14,7 +14,7 @@ in
       owner = "ekalinin";
       repo = pname;
       rev = version;
-      sha256 = "sha256-IZ97vxMl0kD/GxibB/4tiucG87wKWpULRVlNARJP5us=";
+      hash = "sha256-IZ97vxMl0kD/GxibB/4tiucG87wKWpULRVlNARJP5us=";
     };
 
     dontBuild = true;

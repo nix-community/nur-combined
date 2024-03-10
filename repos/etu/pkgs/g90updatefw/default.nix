@@ -14,10 +14,10 @@ in
       owner = "DaleFarnsworth";
       repo = pname;
       rev = "v${version}";
-      sha256 = "sha256-jTeEpUHEuFRGmIo70f0nVg5eQ0MIOhamsd/jACkkhfU=";
+      hash = "sha256-jTeEpUHEuFRGmIo70f0nVg5eQ0MIOhamsd/jACkkhfU=";
     };
 
-    vendorSha256 = null;
+    vendorHash = null;
 
     meta = with lib; {
       description = "Xiegu G90 and Xiego G106 Firmware Updater";
