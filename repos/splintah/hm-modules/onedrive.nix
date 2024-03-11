@@ -44,6 +44,11 @@ in
         '';
       };
 
+      syncList = mkOption {
+        type = with types; lines;
+        default = "";
+      };
+
       extraConfig = mkOption {
         type = with types; lines;
         default = "";
@@ -63,5 +68,6 @@ in
     home.packages = [ cfg.package ];
     xdg.configFile."onedrive/config".text =
       toOnedriveConfig cfg.config + cfg.extraConfig;
+    xdg.configFile."onedrive/sync_list".text = cfg.syncList;
   };
 }
