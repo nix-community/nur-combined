@@ -1,0 +1,5 @@
+* TODO Take a look at goldwarden when 24.05 releases
+
+https://github.com/quexten/goldwarden
+
+* TODO Setup sway correctly
