@@ -155,6 +155,10 @@
   services.xserver.desktopManager.plasma5.enable = true;
   services.power-profiles-daemon.enable = true;
 
+  environment.systemPackages = [
+    pkgs.framework-tool
+  ];
+
   #programs.hyprland.enable = true;
   #programs.sway = {
   #  enable = true;
