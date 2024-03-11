@@ -43,7 +43,7 @@
               nixpkgs-fmt
               nixpkgs-lint
               nurl
-              rnix-lsp
+              nil
               statix
             ];
           };

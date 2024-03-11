@@ -6,8 +6,8 @@ let
       family = "Myosevka";
       spacing = "fixed";
       serifs = "sans";
-      no-cv-ss = true;
-      no-ligation = true;
+      noCvSs = true;
+      noLigation = true;
       variants = {
         design = rec {
           ampersand = "upper-open";
@@ -19,8 +19,8 @@ let
           eight = "crossing-asymmetric";
           eszet = "longs-s-lig-serifless";
           f = "flat-hook-serifless";
-          five = "oblique-arched";
-          four = "closed";
+          five = "oblique-arched-serifless";
+          four = "closed-serifless";
           g = "double-storey-open";
           j = "flat-hook-serifed";
           k = "symmetric-touching-serifless";
@@ -56,7 +56,7 @@ let
         menu = 5;
         css = "normal";
       };
-      export-glyph-names = true;
+      exportGlyphNames = true;
     };
 
     proportional = lib.recursiveUpdate mono {
@@ -135,17 +135,17 @@ let
       buildNpmPackage = args: superBuildNpmPackage
         (args // rec {
           pname = "myosevka-${set}";
-          version = "27.3.5";
+          version = "29.0.1";
           src = fetchFromGitHub {
             owner = "be5invis";
             repo = "iosevka";
             rev = "v${version}";
-            hash = "sha256-dqXr/MVOuEmAMueaRWsnzY9MabhnyBRtLR9IDVLN79I=";
+            hash = "sha256-deAJQAV77l9OwOSy3iSrIU1lZadAZm40uvxEwQtPeLA=";
           };
 
           buildPlan = builtins.toJSON { buildPlans.${pname} = privateBuildPlan; };
 
-          npmDepsHash = "sha256-bux8aFBP1Pi5pAQY1jkNTqD2Ny2j+QQs+QRaXWJj6xg=";
+          npmDepsHash = "sha256-lOK8QmLfyjWbaT1MwnUsvGCiZBnKhzd2pkcD45UhoKw=";
 
           meta = with lib; {
             inherit (src.meta) homepage;
