@@ -6,13 +6,13 @@
 }:
 mkYarnPackage rec {
   pname = "devcontainers";
-  version = "0.56.0";
+  version = "0.57.0";
 
   src = fetchFromGitHub {
     owner = "devcontainers";
     repo = "cli";
     rev = "v${version}";
-    hash = "sha256-PQQRjefXaTyVQkUD9a5CZCn1ftmVB0fIW8PvLC0Wqqo=";
+    hash = "sha256-qMrcJGI2TL5VHiLfvxIyOT7hFbh9mxMN7g5fBTgJWq8=";
   };
 
   yarnLock = "${src}/yarn.lock";
@@ -20,7 +20,7 @@ mkYarnPackage rec {
 
   offlineCache = fetchYarnDeps {
     inherit yarnLock;
-    hash = "sha256-puKgUp24IdbAKaBayFxVgIiS4vZHSMVjC+WdUS7yvbs=";
+    hash = "sha256-FTu/m32FAJhkiAmJlu/tjxNnht+77MJfhpzYmdJNjcU=";
   };
 
   buildPhase = ''
@@ -33,7 +33,7 @@ mkYarnPackage rec {
 
   meta = {
     homepage = "https://github.com/devcontainers/cli";
-    description = "A reference implementation devcontainers";
+    description = "A reference implementation of devcontainers";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
   };
