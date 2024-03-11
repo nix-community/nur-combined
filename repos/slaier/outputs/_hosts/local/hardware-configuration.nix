@@ -50,6 +50,7 @@ _:
         ".nali"
         ".pki"
         ".ssh"
+        ".android"
         "repos"
       ];
     };
