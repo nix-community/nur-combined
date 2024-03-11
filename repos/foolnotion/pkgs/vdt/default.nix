@@ -5,10 +5,10 @@ stdenv.mkDerivation rec {
   version = "0.4.4";
 
   src = fetchFromGitHub {
-    owner = "dpiparo";
+    owner = "foolnotion";
     repo = "vdt";
-    rev = "v${version}";
-    hash = "sha256-dGhlLhDBw3iI8wAoXVS1Ynq8U3CExGWF/+XhMpG5OC4=";
+    rev = "f23b87bbebdbac0a3e53d5e560c3d5f68790ea83";
+    hash = "sha256-DElmGB4TzmrOm3ZoV/8hE8Ap53hd6frXYMQMKmlGanc=";
   };
 
   nativeBuildInputs = [ cmake ];
