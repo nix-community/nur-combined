@@ -13,22 +13,24 @@
 , kio
 , kirigami2
 , kconfig
+, nlohmann_json
 , libkazv
+, cmark
 , breeze-icons
 , unstableGitUpdater
 }:
 
 stdenv.mkDerivation rec {
   pname = "kazv";
-  version = "unstable-2024-03-02";
+  version = "unstable-2024-03-10";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = pname;
     fetchSubmodules = true;
-    rev = "1c33a62186a3e57b8f8fdd2aacfbc4388eceaf81";
-    hash = "sha256-ZzMsxZBBv//vWwfUT/bU+dYpzkL0X+3QJWubYk4KHCY=";
+    rev = "ef00d49f2db28b793189a54fcf2e937241c050e8";
+    hash = "sha256-topJHhsAVjFyxd3m0YaRXqgbd/jSuzitBHhjy3B7C+M=";
   };
 
   nativeBuildInputs = [ wrapQtAppsHook cmake pkg-config ];
@@ -46,7 +48,9 @@ stdenv.mkDerivation rec {
     kirigami2
     kconfig
 
+    nlohmann_json
     libkazv
+    cmark
   ];
 
   propagatedBuildInputs = [ breeze-icons ];
