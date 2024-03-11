@@ -5,7 +5,7 @@
   unmerged = lib.unmerged or arclib.unmerged;
   canRequire = false;
   package = pkgs.writeShellScriptBin "watchdog-command" ''
-    while ${pkgs.coreutils}/bin/sleep $((WATCHDOG_USEC / 2000000)); do
+    while ${pkgs.coreutils}/bin/sleep $((WATCHDOG_USEC / 3250000)); do
       if "$@" > /dev/null; then
         ${builtins.dirOf config.systemd.user.systemctlPath}/systemd-notify WATCHDOG=1
       else
@@ -33,7 +33,7 @@
       };
       interval = mkOption {
         type = types.str;
-        default = "90s";
+        default = "120s";
       };
     };
     config = {

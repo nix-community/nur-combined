@@ -69,40 +69,6 @@
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
   };
 
-  xargo-unwrapped = { fetchFromGitHub, rustPlatform }: rustPlatform.buildRustPackage rec {
-    pname = "xargo";
-    version = "0.3.16";
-    src = fetchFromGitHub {
-      owner = "japaric";
-      repo = pname;
-      rev = "v${version}";
-      sha256 = "019s7jd7k8r1r0iwd40113c56sfifrzz8i4lwh75n0fpnalpcnyb";
-    };
-
-    RUSTC_BOOTSTRAP = true;
-
-    patches = [ ./xargo-stable.patch ];
-    cargoSha256 = "1y0l5mi1pvq9h9mgvig2qyam49ij33p5lr8ww0qypdg1r8kslhsa";
-
-    doCheck = false;
-  };
-
-  xargo = { stdenvNoCC, xargo-unwrapped, makeWrapper, rustPlatform, rustc, cargo, rustcSrc ? rustPlatform.rustcSrc }: stdenvNoCC.mkDerivation {
-    inherit (xargo-unwrapped) pname version;
-    xargo = xargo-unwrapped;
-    inherit rustcSrc rustc cargo;
-
-    nativeBuildInputs = [ makeWrapper ];
-
-    buildCommand = ''
-      mkdir -p $out/bin
-      makeWrapper $xargo/bin/xargo $out/bin/xargo \
-        --set-default XARGO_RUST_SRC "$rustcSrc" \
-        --set-default CARGO "$cargo/bin/cargo" \
-        --set-default RUSTC "$rustc/bin/rustc"
-    '';
-  };
-
   cargo-binutils-unwrapped = {
     fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {
