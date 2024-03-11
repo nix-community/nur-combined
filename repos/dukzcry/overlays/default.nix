@@ -32,6 +32,14 @@ rec {
       qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
     '';
   });
+  # https://github.com/emersion/mako/issues/154
+  mako = super.mako.overrideAttrs (oldAttrs: {
+    NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";
+    postUnpack = ''
+      substituteInPlace source/dbus/xdg.c \
+        --replace 'SD_BUS_METHOD("CloseNotification", "u", "", handle_close_notification, SD_BUS_VTABLE_UNPRIVILEGED),' ""
+    '';
+  });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
