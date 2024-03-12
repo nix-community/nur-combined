@@ -37,7 +37,7 @@ in
   genOverlays = map (i: inputs.${i}.overlays.default);
 
   sharedModules = [
-  ] ++ (genModules [ "agenix-rekey" "ragenix" "impermanence" "lanzaboote" "nh" "self" ])
+  ] ++ (genModules [ "agenix-rekey" "ragenix" "impermanence" "lanzaboote" "nh" "alertmanager-ntfy" "self" ])
   ++ (with inputs.dae.nixosModules;[ dae daed ]);
 
   genFilteredDirAttrs = dir: excludes:
@@ -71,8 +71,4 @@ in
         (substring 0 1 str))
       (substring 1 16 str)
     ];
-
-  base =
-    let inherit (inputs.nixpkgs) lib;
-    in { inherit inputs lib data; inherit (inputs) self; };
 }

@@ -1,61 +1,55 @@
-{ self, inputs, ... }: {
-  flake =
-    let lib = inputs.nixpkgs.lib.extend self.overlays.lib; in
-    {
-      nixosConfigurations = {
-        kaambl = inputs.nixpkgs.lib.nixosSystem
-          {
-            pkgs = import inputs.nixpkgs {
-              system = "x86_64-linux";
-              config = {
-                # contentAddressedByDefault = true;
-                allowUnfree = true;
-                allowBroken = false;
-                segger-jlink.acceptLicense = true;
-                allowUnsupportedSystem = true;
-                permittedInsecurePackages = lib.mkForce [ "electron-25.9.0" ];
-              };
-              overlays =
-                (lib.genOverlays [
-                  "self"
-                  # "clansty"
-                  "fenix"
-                  "berberman"
-                  "EHfive"
-                  "nuenv"
-                  "android-nixpkgs"
-                  "agenix-rekey"
-                  # "nixpkgs-wayland"
-                ]) ++ (import ../../overlays.nix inputs);
-            };
-            specialArgs = lib.base // { inherit lib; user = "elen"; };
-            modules = [
-              ./hardware.nix
-              ./network.nix
-              ./rekey.nix
-              ./spec.nix
-              ../persist.nix
-              ../secureboot.nix
-              ../../services/misc.nix
-              inputs.home-manager.nixosModules.default
-              ../../home
-              ../../boot.nix
-              ../../age.nix
-              ../../packages.nix
-              ../../misc.nix
-              ../../users.nix
-              ../../sysvars.nix
-              inputs.niri.nixosModules.niri
-            ]
-            ++ lib.sharedModules
-            ++
-            [
-              inputs.aagl.nixosModules.default
-              inputs.disko.nixosModules.default
-              inputs.tg-online-keeper.nixosModules.default
-              # inputs.factorio-manager.nixosModules.default
-            ];
-          };
+{ withSystem, self, inputs, ... }:
+{
+  flake.nixosConfigurations.kaambl = withSystem "x86_64-linux" (_ctx@{ config, inputs', ... }:
+    let inherit (self) lib; in lib.nixosSystem {
+      specialArgs = {
+        inherit lib self inputs inputs';
+        inherit (config) packages;
+        inherit (lib) data;
+        user = "elen";
       };
-    };
+      modules = lib.sharedModules ++ [
+        {
+          nixpkgs = {
+            config = {
+              allowUnfree = true;
+            };
+            hostPlatform = "x86_64-linux";
+            overlays =
+              (lib.genOverlays [
+                "self"
+                "fenix"
+                "berberman"
+                "EHfive"
+                "nuenv"
+                "android-nixpkgs"
+                "agenix-rekey"
+              ]) ++ (import ../../overlays.nix inputs);
+          };
+        }
+        ./hardware.nix
+        ./network.nix
+        ./rekey.nix
+        ./spec.nix
+        ../persist.nix
+        ../secureboot.nix
+        ../../services/misc.nix
+        inputs.home-manager.nixosModules.default
+        ../../home
+        ../../boot.nix
+        ../../age.nix
+        ../../packages.nix
+        ../../misc.nix
+        ../../users.nix
+        ../../sysvars.nix
+        inputs.niri.nixosModules.niri
+      ]
+        ++
+        [
+          inputs.aagl.nixosModules.default
+          inputs.disko.nixosModules.default
+          inputs.tg-online-keeper.nixosModules.default
+          # inputs.factorio-manager.nixosModules.default
+        ];
+    });
 }

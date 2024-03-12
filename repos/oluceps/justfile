@@ -10,7 +10,7 @@ default:
     @just --choose
 
 build-livecd:
-    nom build .#nixosConfigurations.nixos.config.system.build.isoImage
+    nom build .#nixosConfigurations.livecd.config.system.build.isoImage
 
 build-bootstrap:
     nom build .#nixosConfigurations.bootstrap.config.system.build.diskoImages

@@ -4,6 +4,11 @@ let
   targets = map (n: "${n}.nyaw.xyz") [ "nodens" "colour" ];
 in
 {
+
+  systemd.services.prometheus.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
+    "wg"
+  ];
+
   services.prometheus = {
     enable = true;
     webExternalUrl = "https://colour.nyaw.xyz/prom";
@@ -20,7 +25,7 @@ in
         scheme = "https";
         basic_auth = {
           username = "prometheus";
-          password_file = config.age.secrets.wg.path;
+          password_file = "/run/credentials/prometheus.service/wg";
         };
         metrics_path = "/caddy";
         static_configs = [{ inherit targets; }];
@@ -30,7 +35,6 @@ in
         metrics_path = "/metrics";
         static_configs = [{ targets = [ "localhost:9092" ]; }];
       }
-
     ];
     rules = lib.singleton (builtins.toJSON {
       groups = [{
@@ -55,18 +59,30 @@ in
         ];
       }];
     });
-    # alertmanagers = [{
-    #   static_configs = [{
-    #     targets = [ "127.0.0.1:8009" ];
-    #   }];
-    # }];
+    alertmanagers = [{
+      static_configs = [{
+        targets = [ "127.0.0.1:8009" ];
+      }];
+    }];
+
+    exporters = {
+      node = {
+        enable = true;
+        listenAddress = "127.0.0.1";
+        enabledCollectors = [ "systemd" ];
+        disabledCollectors = [ "arp" ];
+      };
+      blackbox = {
+        enable = true;
+        listenAddress = "127.0.0.1";
+        configFile = (pkgs.formats.yaml { }).generate "config.yml" {
+          modules = {
+            http_2xx = {
+              prober = "http";
+            };
+          };
+        };
+      };
+    };
   };
-
-  # cloud.services.prometheus-ntfy-bridge.config = {
-  #   ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../../fn/alert.ts}";
-  #   MemoryDenyWriteExecute = false;
-  #   EnvironmentFile = [ config.sops.secrets.alert.path ];
-  #   Environment = [ "PORT=8009" "DENO_DIR=/tmp" ];
-  # };
-
 }

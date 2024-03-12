@@ -4,10 +4,10 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v19
+        uses: cachix/install-nix-action@v26
 
       - name: flake check
         run: |

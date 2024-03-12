@@ -24,6 +24,7 @@ let
 
     "restls"
     "shadow-tls"
+    "trojan-rs"
   ];
 in
 (genFilteredDirAttrsV2 ./pkgs shadowedPkgs

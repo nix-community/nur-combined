@@ -1,10 +1,13 @@
 {
   description = "oluceps' flake";
   outputs = inputs@{ flake-parts, ... }:
-    let extraLibs = (import ./hosts/lib.nix inputs); /* f = excludes: valueFunc: */
+    let extraLibs = (import ./hosts/lib.nix inputs);
     in
-    flake-parts.lib.mkFlake { inherit inputs; } ({ ... }: {
-      imports = import ./hosts inputs;
+    flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }: {
+      imports = (import ./hosts inputs) ++ (with inputs;[
+        pre-commit-hooks.flakeModule
+        devshell.flakeModule
+      ]);
       debug = false;
       systems = [ "x86_64-linux" "aarch64-linux" ];
       perSystem = { pkgs, system, inputs', ... }: {
@@ -18,16 +21,15 @@
           ];
         };
 
-        checks = with pkgs; {
-          pre-commit-check =
-            inputs.pre-commit-hooks.lib.${system}.run {
-              src = lib.cleanSource ./.;
-              hooks = { nixpkgs-fmt.enable = true; };
-            };
+        pre-commit = {
+          check.enable = true;
+          settings.hooks = {
+            nixpkgs-fmt.enable = true;
+          };
         };
 
-        devShells.default = with pkgs; mkShell {
-          packages = [ agenix-rekey home-manager just ];
+        devshells.default.devshell = {
+          packages = with pkgs;[ agenix-rekey home-manager just ];
         };
 
         packages =
@@ -43,11 +45,12 @@
       };
 
       flake = {
+        lib = inputs.nixpkgs.lib.extend inputs.self.overlays.lib;
 
         agenix-rekey = inputs.agenix-rekey.configure {
           userFlake = inputs.self;
           nodes = with inputs.nixpkgs.lib;
-            filterAttrs (n: _: !elem n [ "nixos" "bootstrap" ]) inputs.self.nixosConfigurations;
+            filterAttrs (n: _: !elem n [ "livecd" "bootstrap" ]) inputs.self.nixosConfigurations;
         };
 
         overlays =
@@ -92,6 +95,7 @@
       inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
     };
     # niri.inputs.niri-src.url = "github:YaLTeR/niri";
+    devshell.url = "github:numtide/devshell";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -101,6 +105,7 @@
     RyanGibb = {
       url = "github:RyanGibb/nixos";
     };
+    alertmanager-ntfy.url = "github:pinpox/alertmanager-ntfy";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -1,13 +1,21 @@
-{ self, inputs, ... }: {
-  flake =
-    let lib = inputs.nixpkgs.lib.extend self.overlays.lib; in
-    {
-      nixosConfigurations = {
-        colour = lib.nixosSystem
+{ withSystem, self, inputs, ... }:
+{
+  flake.nixosConfigurations.colour = withSystem "x86_64-linux" (_ctx@{ config, inputs', system, ... }:
+    let inherit (self) lib; in lib.nixosSystem
+      {
+        specialArgs = {
+          inherit lib self inputs inputs';
+          inherit (config) packages;
+          inherit (lib) data;
+          user = "elen";
+        };
+        modules = lib.sharedModules ++ [
           {
-            pkgs = import inputs.nixpkgs {
-              system = "x86_64-linux";
-              config = { allowUnfree = true; };
+            nixpkgs = {
+              hostPlatform = system;
+              config = {
+                allowUnfree = true;
+              };
               overlays = (import ../../overlays.nix inputs)
                 ++
                 (lib.genOverlays [
@@ -19,23 +27,16 @@
                   "nixpkgs-wayland"
                 ]);
             };
-            specialArgs = lib.base // {
-              inherit lib;
-              user = "elen";
-            };
-            modules = [
-              ./hardware.nix
-              ./network.nix
-              ./rekey.nix
-              ./spec.nix
-              ./caddy.nix
-              ../../age.nix
-              ../../packages.nix
-              ../../misc.nix
-              ../../users.nix
-            ]
-            ++ lib.sharedModules;
-          };
-      };
-    };
+          }
+          ./hardware.nix
+          ./network.nix
+          ./rekey.nix
+          ./spec.nix
+          ./caddy.nix
+          ../../age.nix
+          ../../packages.nix
+          ../../misc.nix
+          ../../users.nix
+        ];
+      });
 }
