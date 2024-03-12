@@ -10,6 +10,7 @@
 let
   pname = "lfreader";
   version = "1.0.2";
+  name = "${pname}-${version}";
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "LFReader";
@@ -19,6 +20,7 @@ let
 
   frontendDrv = buildNpmPackage {
     inherit pname version src;
+    name = "${name}-frontend";
     sourceRoot = "${src.name}/frontend";
 
     npmDepsHash = "sha256-UwRYI/CGD5qLqxtK29ZYTtUHL00sldFhBWJ4McJXkfw=";
@@ -35,6 +37,7 @@ let
 
   backendDrv = python3.pkgs.buildPythonApplication {
     inherit pname version src;
+    name = "${name}-backend";
     sourceRoot = "${src.name}/backend";
 
     pyproject = true;
@@ -52,7 +55,7 @@ let
   };
 in
 symlinkJoin {
-  name = "${pname}-${version}";
+  inherit name;
   paths = [ frontendDrv backendDrv ];
   meta = with lib; {
     description = "A self-hosted Local-first Feed Reader written in Python and Preact/React.";
