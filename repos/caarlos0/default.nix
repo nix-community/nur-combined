@@ -24,4 +24,7 @@
   svu = pkgs.callPackage ./pkgs/svu { };
   timer = pkgs.callPackage ./pkgs/timer { };
   xdg-open-svc = pkgs.callPackage ./pkgs/xdg-open-svc { };
+
+  mkdocs-rss-plugin = pkgs.callPackage ./pkgs/mkdocs-rss-plugin { };
+  mkdocs-include-markdown-plugin = pkgs.callPackage ./pkgs/mkdocs-include-markdown-plugin { };
 }
