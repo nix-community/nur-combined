@@ -42,6 +42,8 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
       uses: cachix/cachix-action@v14
       if: ${{ matrix.cachixName != '<YOUR_REPO_NAME>' }}
@@ -56,9 +58,8 @@ jobs:
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+          -I $PWD > /dev/null
     - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: nix shell nixpkgs#nix-build-uncached -c nix-build-uncached ci.nix
     - name: Trigger NUR update
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
