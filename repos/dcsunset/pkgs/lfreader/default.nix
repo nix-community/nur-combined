@@ -1,7 +1,5 @@
 { lib
-, stdenv
 , fetchFromGitHub
-, fetchgit
 , symlinkJoin
 , buildNpmPackage
 , python3
@@ -9,13 +7,13 @@
 
 let
   pname = "lfreader";
-  version = "1.0.2";
+  version = "1.0.4";
   name = "${pname}-${version}";
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "LFReader";
     rev = "v${version}";
-    hash = "sha256-2+/vGgt3Gm+XLnRsXfapNOXUKMD2NEfRmpNsxKedFkE=";
+    hash = "sha256-ox/FxmVnqop0jsmUIu1b7+PLAiku+A5aFPX4tLrVb6Y=";
   };
 
   frontendDrv = buildNpmPackage {
