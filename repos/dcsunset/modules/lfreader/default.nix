@@ -30,13 +30,13 @@ in {
       description = "Path of db file";
     };
 
-    archivePath = {
+    archivePath = mkOption {
       type = types.str;
       default = "/var/lib/lfreader/archives";
       description = "Path of archive dir";
     };
 
-    userAgent = {
+    userAgent = mkOption {
       type = types.nullOr types.str;
       default = null;
       description = "User agent to use when fetching resources";
