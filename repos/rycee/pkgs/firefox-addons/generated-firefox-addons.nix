@@ -1351,16 +1351,16 @@
     };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.12";
+      version = "1.0.13";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4074847/consent_o_matic-1.0.12.xpi";
-      sha256 = "013ea48757b8a4d84a2a0d944bc49b5612d62bae1d337f9569f425f2b8310e0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246350/consent_o_matic-1.0.13.xpi";
+      sha256 = "ee577eaedebd9fef65f77218b86c59972818442c9af551d551a7015a4a246e9a";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
         description = "Automatic handling of GDPR consent forms";
         license = licenses.mit;
-        mozPermissions = [ "activeTab" "storage" "<all_urls>" ];
+        mozPermissions = [ "activeTab" "tabs" "storage" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -1659,10 +1659,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2409.0";
+      version = "6.2411.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241504/dashlane-6.2409.0.xpi";
-      sha256 = "414c0ed5d18ecd3e1af4880be00a34c2743998ef0120c0b87dd3baed85bbf1d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4248373/dashlane-6.2411.0.xpi";
+      sha256 = "c6e8a899eacb00c9129a4cf14b984ef100825f81681c92264595371ad93db113";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1691,10 +1691,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.5.6";
+      version = "1.5.8";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243954/dearrow-1.5.6.xpi";
-      sha256 = "70f2dabddc43399bf9cbaa3575b5f7accbdb8077abc524df68525788ebc0d698";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246391/dearrow-1.5.8.xpi";
+      sha256 = "dfda7050d4f6526d54545f4d446cf79b1db98de001345b039f940cdc35b555ec";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1740,10 +1740,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240308.91626";
+      version = "124.0.20240311.145044";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4247276/deutsch_de_language_pack-124.0.20240308.91626.xpi";
-      sha256 = "6ac7e212699d4e3cabdbc2390754a29f35a9d001d29322b41028fa8ff7e79e5e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4248599/deutsch_de_language_pack-124.0.20240311.145044.xpi";
+      sha256 = "bf0a3480d7c6d1747de2e0c554e31f1ea6985febf33651be604ed3326ab927e1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2635,10 +2635,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240308.91626";
+      version = "124.0.20240311.145044";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4247305/francais_language_pack-124.0.20240308.91626.xpi";
-      sha256 = "b6380a7df3c3012ef25d89ba98a757f5669bf8dc5c9d07436472a05cdd87c10b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4248524/francais_language_pack-124.0.20240311.145044.xpi";
+      sha256 = "f24a583c6f7fac67e39693c2c1e513978e5955a7e5be9dc81025c7b5d8f7ae38";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5211,10 +5211,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.126.0.1";
+      version = "4.127.0.1";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4235582/lastpass_password_manager-4.126.0.1.xpi";
-      sha256 = "b398f580f6449d383f0e46fec3b6fc06c5f107f63f3247bdd25ccda28da2b593";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246455/lastpass_password_manager-4.127.0.1.xpi";
+      sha256 = "225c323fbd862a904a7c1b364a1f5beca792f8a5fa1deca0e9298b0cad7721bf";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -5329,10 +5329,10 @@
     };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.8.1";
+      version = "2.8.2";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4178347/libredirect-2.8.1.xpi";
-      sha256 = "c91f19377b07b119eec4d53c28c45cdb5d0755287a79b715328654adb5c7ddfa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4248205/libredirect-2.8.2.xpi";
+      sha256 = "ac23b1c222f7af20c3b817f1514d796df5f5e3d24894dd1ec6a176e5830b8351";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -8823,10 +8823,10 @@
     };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
-      version = "5.1.1";
+      version = "5.2.0";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4230615/sidebery-5.1.1.xpi";
-      sha256 = "99f5baed77b78ce107d858a1233d5eb1feb63b53f392ab759f6de7e4fd505299";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246774/sidebery-5.2.0.xpi";
+      sha256 = "a5dd94227daafeec200dc2052fae6daa74d1ba261c267b71c03faa4cc4a6fa14";
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
@@ -9860,10 +9860,10 @@
     };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "10.0.0.4";
+      version = "10.0.1.1";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241102/traduzir_paginas_web-10.0.0.4.xpi";
-      sha256 = "5cabc2733016e5c66e748ac6533a2e712032cf672bb6a1d5ce7bbf918e4d1085";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4245500/traduzir_paginas_web-10.0.1.1.xpi";
+      sha256 = "26ca52178f68e33d7da4ac3fc8ae1479ba6f98a0ec827ecb7faf097413235bb6";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
@@ -9895,10 +9895,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.22";
+      version = "4.0.1";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229169/tree_style_tab-3.9.22.xpi";
-      sha256 = "b3df30f96fbcf33dd74cfae30e9053709003792d9e184c8438f9a88cbb439f1d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246897/tree_style_tab-4.0.1.xpi";
+      sha256 = "53ef2dab4a5e76a2a49c9282c083bab9b4589a774d2d9e94e8852ff4c8c347bc";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -10356,10 +10356,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.3.4.107";
+      version = "2024.3.11.1438";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4244745/ublock_origin_lite-2024.3.4.107.xpi";
-      sha256 = "b2626717a8f3f7d130bbd979d8e7a68df7ddece3605805803cee830c27d9d417";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4248789/ublock_origin_lite-2024.3.11.1438.xpi";
+      sha256 = "7fbe76e1ab06cfc02fe1033f7a5ea102aa1bfa851598e4fb314305454db812b2";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
