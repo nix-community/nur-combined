@@ -41,7 +41,7 @@
       else if lib.versionOlder linux.version "5.17" then srcs."5.15"
       else if lib.versionOlder linux.version "6.1.79" then srcs."5.17"
       else if lib.versionOlder linux.version "6.8"
-        || (lib.hasPrefix "6.8-rc" && lib.versionOlder linux.version "6.8-rc4")
+        || (lib.hasPrefix "6.8-rc" linux.version && lib.versionOlder linux.version "6.8-rc4")
       then srcs."6.1.79"
       else srcs."6.8-rc4";
     extraConfig = let
