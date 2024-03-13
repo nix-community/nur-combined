@@ -22,6 +22,10 @@ in
     ]
   ;
 
+  environment.systemPackages = with pkgs; [
+    thunderbird
+  ];
+
   services.guix.enable = true;
 
   services.php-utils.enable = true;
