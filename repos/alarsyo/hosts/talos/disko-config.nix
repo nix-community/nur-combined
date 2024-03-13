@@ -20,7 +20,7 @@
               };
             };
             luks = {
-              size = "100%";
+              size = "60%";
               content = {
                 type = "luks";
                 name = "crypted";
@@ -51,6 +51,7 @@
                       mountpoint = "/persist";
                       mountOptions = ["compress=zstd" "noatime"];
                     };
+                    "@snapshots" = {};
                     "@swap" = {
                       mountpoint = "/.swapvol";
                       swap.swapfile.size = "8G";
