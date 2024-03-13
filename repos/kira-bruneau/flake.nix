@@ -26,6 +26,7 @@
             allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName (nixpkgs.lib.getName pkg)).name [
               "anytype"
               "anytype-heart"
+              "anytype-nmh"
               "clonehero"
               "virtualparadise"
             ];

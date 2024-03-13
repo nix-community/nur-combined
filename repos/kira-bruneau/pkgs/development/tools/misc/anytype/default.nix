@@ -2,6 +2,8 @@
 , buildNpmPackage
 , fetchFromGitHub
 , anytype-heart
+, anytype-nmh
+, fetchpatch
 , copyDesktopItems
 , makeWrapper
 , pkg-config
@@ -16,36 +18,37 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "ccef09cf8f160e8bac31ca23ffb83866edd26637";
-    hash = "sha256-PNR40qIDE39rxAA38bg9tF+E8bLoGCORRZZqHGgfAa0=";
+    rev = "3bd7be346cdaaa78d4549c7d6cdb38b26b48773d";
+    hash = "sha256-3EAiAuEhZTGRgfnwbogKrAkPg5LPbe/bU6fNKjdk2bQ=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.38.0";
+  version = "0.39.0";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-Hpy1X8iC3Izgrl+KWl1BsFDkOucQ4CQluim4z3w21Oo=";
+    hash = "sha256-Q6tRBTWWq5gwfVSLhNCjaNrbzs5TkgMG4v/LG8MldJg=";
   };
 
-  npmDepsHash = "sha256-jEGBrNQ9T+WpDpu8zoQqybpJk+gsiAqJQNmfEPK6OJA=";
+  npmDepsHash = "sha256-V3J4dGMi8u8LxMh6TNJ46lnQCHO53eGg6CJ/Qd1YyIM=";
 
-  # https://github.com/anyproto/anytype-ts/blob/v0.38.0/electron/js/util.js#L214-L224
+  # https://github.com/anyproto/anytype-ts/blob/v0.39.0/electron/js/util.js#L223-L230
   enabledLangs = [
-    "da-DK" "de-DE" "en-US"
-    "es-ES" "fr-FR" "hi-IN"
-    "id-ID" "it-IT" "ja-JP"
+    "cs-CZ" "da-DK" "de-DE"
+    "en-US" "es-ES" "fr-FR"
+    "hi-IN" "id-ID" "it-IT"
+    "lt-LT" "ja-JP" "ko-KR"
     "nl-NL" "no-NO" "pl-PL"
     "pt-BR" "ro-RO" "ru-RU"
     "tr-TR" "uk-UA" "vi-VN"
     "zh-CN" "zh-TW"
   ];
 
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.38.0/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.38.0/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.39.0/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.39.0/electron/hook/locale.js
   postUnpack = ''
     if [ $(cat "$sourceRoot/middleware.version") != ${lib.escapeShellArg anytype-heart.version} ]; then
       echo 'ERROR: middleware version mismatch'
@@ -55,11 +58,20 @@ buildNpmPackage rec {
     ln -s ${anytype-heart}/libexec/anytype/grpcserver "$sourceRoot/dist/anytypeHelper"
     ln -s ${anytype-heart}/include/anytype/protobuf/* "$sourceRoot/dist/lib"
     ln -s ${anytype-heart}/share/anytype/json/* "$sourceRoot/dist/lib/json/generated"
+    ln -s ${anytype-nmh}/bin/* "$sourceRoot/dist"
 
     for lang in ''${enabledLangs[@]}; do
       ln -s "${l10n-anytype-ts}/locales/$lang.json" "$sourceRoot/dist/lib/json/lang"
     done
   '';
+
+  patches = [
+    # Fix error on startup if ~/.config/google-chrome doesn't exist
+    (fetchpatch {
+      url = "https://github.com/anyproto/anytype-ts/commit/b41bb539eb82ecb32f5d570b63443086615f8dd7.patch";
+      hash = "sha256-XmAFctpjkXCZS+kHPBun0MQhgSwd5kYq7kCZiT+P4X4=";
+    })
+  ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = 1;

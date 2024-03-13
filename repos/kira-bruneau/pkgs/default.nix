@@ -54,6 +54,8 @@ in
 
   anytype-heart = callPackage ./development/libraries/anytype-heart { };
 
+  anytype-nmh = callPackage ./development/libraries/anytype-nmh { };
+
   ccache = callPackage ./by-name/cc/ccache/package.nix { };
 
   clonehero = callPackage ./games/clonehero { };
