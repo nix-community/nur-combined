@@ -153,11 +153,11 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "342f71218dd08ad3053f141302db2fb1101f1213",
-            "sha256": "sha256-umpBr09lMSng44PQ3jauWVEi1EuVJ1A9+dOlLAONbTw=",
+            "rev": "1a41a6ba35ec4b66a1043803e049c81f9c8ed77d",
+            "sha256": "sha256-OdIGOxlsyhQg94CI3AgMZWzeTskHZ8Co/9FwwFOH++I=",
             "type": "github"
         },
-        "version": "342f71218dd08ad3053f141302db2fb1101f1213"
+        "version": "1a41a6ba35ec4b66a1043803e049c81f9c8ed77d"
     },
     "vim-startuptime": {
         "cargoLocks": null,
@@ -183,10 +183,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qlqjF3Ff1+o8D6Fzjs/1TRJTK8x+GrQA38wy4f/h5U0=",
+            "sha256": "sha256-vnlX+2CAiTZVeq9i3tshAnCUbMhGIa0I67Uc+b7AOp8=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.48.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.50.universal.dmg"
         },
-        "version": "6.6.3271.48"
+        "version": "6.6.3271.50"
     }
 }
