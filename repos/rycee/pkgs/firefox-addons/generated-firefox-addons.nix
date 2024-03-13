@@ -25,6 +25,31 @@
         platforms = platforms.all;
       };
     };
+    "2fas-two-factor-authentication" = buildFirefoxXpiAddon {
+      pname = "2fas-two-factor-authentication";
+      version = "1.6.3";
+      addonId = "admin@2fas.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243349/2fas_two_factor_authentication-1.6.3.xpi";
+      sha256 = "6eb75222bc0ae2f74c2cdf4055d59aaa5ad3fc665a088da82496fff8e012ed40";
+      meta = with lib;
+      {
+        homepage = "https://2fas.com/";
+        description = "2FAS extension is simple, private, and secured: one click, one tap, and your 2FA token is automatically entered!";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "activeTab"
+          "tabs"
+          "storage"
+          "notifications"
+          "contextMenus"
+          "https://*.2fas.com/*"
+          "wss://*.2fas.com/*"
+          "https://*/*"
+          "http://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
       version = "2.0.1";
@@ -774,10 +799,10 @@
     };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.4.1";
+      version = "0.4.2";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240883/blocktube-0.4.1.xpi";
-      sha256 = "092f55d34bb2d46ee696026776c4943a45cfa1ee33caaa971092c0893436f2d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4247450/blocktube-0.4.2.xpi";
+      sha256 = "bab25393b1d0a57d99d010112351bd89a66924412fb505c391d4b30d42194719";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -3110,10 +3135,10 @@
     };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.910.0";
+      version = "8.911.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4230318/grammarly_1-8.910.0.xpi";
-      sha256 = "70c41ae83d408b38953aab64d2f37de09c9d8bc8de68d8ae7a6dbd081da37519";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4247452/grammarly_1-8.911.0.xpi";
+      sha256 = "fe48318f867c70bc6e260fcfe71a8c24ff18f8ccc9f2a6c3bbb6ea291e9807fa";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -9025,21 +9050,6 @@
         platforms = platforms.all;
       };
     };
-    "snowflake" = buildFirefoxXpiAddon {
-      pname = "snowflake";
-      version = "0.7.2";
-      addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095470/torproject_snowflake-0.7.2.xpi";
-      sha256 = "101b5c6f8f968645bd95d23ecd5c1f245b45d37c692153bf6e73c866997101dd";
-      meta = with lib;
-      {
-        homepage = "https://snowflake.torproject.org/";
-        description = "Help people in censored countries access the Internet without restrictions. Once you install and enable the extension, wait for the snowflake icon to turn green, this means a censored user is connecting through your extension to access the Internet!";
-        license = licenses.bsd3;
-        mozPermissions = [ "storage" ];
-        platforms = platforms.all;
-      };
-    };
     "solarized-light" = buildFirefoxXpiAddon {
       pname = "solarized-light";
       version = "2.0";
@@ -9895,10 +9905,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.1";
+      version = "4.0.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246897/tree_style_tab-4.0.1.xpi";
-      sha256 = "53ef2dab4a5e76a2a49c9282c083bab9b4589a774d2d9e94e8852ff4c8c347bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4249095/tree_style_tab-4.0.3.xpi";
+      sha256 = "0904fe9db63b949b66f876cbea911c1f2d9f59d5b2ae0e0f1cae362a1ca36720";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -11403,6 +11413,21 @@
           "unlimitedStorage"
           "storage"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "youtube-alternative-switch" = buildFirefoxXpiAddon {
+      pname = "youtube-alternative-switch";
+      version = "2.1.0";
+      addonId = "{0290a66b-cebd-47e3-9475-9da502aab1ff}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4213502/youtube_alternative_switch-2.1.0.xpi";
+      sha256 = "9aa18b6e783100689cc85365f3292b3fe556d1366da1b9bda89640b91c64383c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/willswats/youtube-alternative-switch";
+        description = "Quickly switch videos between YouTube, Piped, Invidious and Chat Replay.";
+        license = licenses.mit;
+        mozPermissions = [ "tabs" "contextMenus" "storage" ];
         platforms = platforms.all;
       };
     };
