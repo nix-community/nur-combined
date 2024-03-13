@@ -36,7 +36,7 @@
         ../../services/misc.nix
         inputs.home-manager.nixosModules.default
         ../../home
-        ../../boot.nix
+        ../sysctl.nix
         ../../age.nix
         ../../packages.nix
         ../../misc.nix

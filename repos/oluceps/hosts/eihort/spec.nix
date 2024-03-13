@@ -42,7 +42,7 @@
 
   boot = {
     supportedFilesystems = [ "tcp_bbr" ];
-    inherit ((import ../../boot.nix { inherit lib; }).boot) kernel;
+    inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
   # environment.systemPackages = with pkgs;[ zfs ];
 

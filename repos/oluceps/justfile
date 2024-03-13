@@ -1,6 +1,11 @@
 set shell := ["nu", "-c"]
 
 alias c := check
+alias b := build
+alias d := deploy
+alias de := decrypt
+alias en := encrypt
+alias chk:= check
 
 host := `hostname`
 me := `whoami`
@@ -15,8 +20,35 @@ build-livecd:
 build-bootstrap:
     nom build .#nixosConfigurations.bootstrap.config.system.build.diskoImages
 
-check +args="":
-    nix flake check {{ args }}
+build *args:
+    #!/usr/bin/env nu
+    use {{loc}}/f
+    f b {{ args }}
+
+deploy *args:
+    #!/usr/bin/env nu
+    use {{loc}}/f
+    f d {{ args }}
+
+encrypt *args:
+    #!/usr/bin/env nu
+    let age_pub = "/run/agenix/age"
+    echo "input file name: "
+    let name = (input)
+    let raw_path = (mktemp)
+    hx $raw_path
+    rage -e $raw_path -i $age_pub -i ./sec/age-yubikey-identity-7d5d5540.txt.pub -o $'./sec/($name).age'
+    srm $raw_path
+
+decrypt *args:
+    #!/usr/bin/env nu
+    use {{loc}}/f
+    f de sec/(^ls sec | fzf --scheme=path)
+
+check:
+    #!/usr/bin/env nu
+    use {{loc}}/f
+    f chk
 
 slow-action +args="": rekey check overwrite-s3
     sudo nixos-rebuild switch

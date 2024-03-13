@@ -29,7 +29,7 @@ export def b [
 
   let job = if $h != $builder {
     ["--max-jobs" "0"]
-  }
+  } else { [] }
 
   let machine_spec = "x86_64-linux - - - big-parallel"
 

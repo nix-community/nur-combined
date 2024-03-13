@@ -1,12 +1,6 @@
 { ...
 }: {
   boot = {
-    loader.efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/efi";
-    };
-
-    supportedFilesystems = [ "ntfs" "tcp_bbr" ];
     kernel.sysctl = {
       "kernel.panic" = 10;
       "kernel.sysrq" = 1;

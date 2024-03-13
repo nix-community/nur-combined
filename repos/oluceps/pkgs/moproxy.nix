@@ -26,7 +26,6 @@ rustPlatform.buildRustPackage rec{
     in
     ''
       sed -i '15s/.*/let zip_path = PathBuf::from("${lib.escape ["/"]  (toString webBundle)}");/' build.rs
-      sed -i '17s/.*/return;/' build.rs # build script try to download from network
     '';
 
   meta = with lib; {

@@ -5,7 +5,6 @@
 , lib
 , pkgs
 , modulesPath
-, inputs
 , ...
 }: {
   imports = [
@@ -13,6 +12,11 @@
   ];
 
   boot = {
+    loader.efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/efi";
+    };
+
     initrd = {
       systemd.enable = true;
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "zsmalloc" ];

@@ -101,6 +101,11 @@
     scheduler = "scx_rusty";
   };
   boot = {
+    loader.efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/efi";
+    };
+
     supportedFilesystems = [ "bcachefs" ];
     initrd = {
       systemd = {

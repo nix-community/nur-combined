@@ -29,7 +29,7 @@
         };
 
         devshells.default.devshell = {
-          packages = with pkgs;[ agenix-rekey home-manager just ];
+          packages = with pkgs;[ agenix-rekey just ];
         };
 
         packages =

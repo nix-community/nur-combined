@@ -34,7 +34,7 @@
 
         openssh.authorizedKeys.keys = with data.keys;[ sshPubKey skSshPubKey ];
       };
-      root.shell = pkgs.bash;
+      root.shell = pkgs.fish;
 
     };
     groups.nixosvmtest = { };

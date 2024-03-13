@@ -51,7 +51,7 @@
           ../../sysvars.nix
           ../../age.nix
 
-          ../../boot.nix
+          ../sysctl.nix
 
           inputs.home-manager.nixosModules.default
           ../../home

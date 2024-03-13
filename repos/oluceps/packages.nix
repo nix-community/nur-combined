@@ -14,6 +14,7 @@ let
     # ];
 
     cmd = [
+      ntfy-sh
       _7zz
       yazi
       rclone
