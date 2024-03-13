@@ -11,15 +11,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "c8bb5ccf04f0360c668ade0d71b7a07becd1ddae";
+    version = "d565d8ada1c2e00c3182b57ea6bc6497ebb7bdef";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "c8bb5ccf04f0360c668ade0d71b7a07becd1ddae";
+      rev = "d565d8ada1c2e00c3182b57ea6bc6497ebb7bdef";
       fetchSubmodules = false;
-      sha256 = "sha256-eYpq1jGh4IiRLVU0vQrYs/fHgX9IzyBkIhZyoANmTNg=";
+      sha256 = "sha256-RLbkHfnnXIJjaYLhfHleSztfPmcms5k0gy3slrYp20Y=";
     };
-    date = "2024-03-08";
+    date = "2024-03-12";
   };
   nixfmt = {
     pname = "nixfmt";
@@ -83,15 +83,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "02592b0ea4a94bb064f3213e6b2001d02c1241cc";
+    version = "342f71218dd08ad3053f141302db2fb1101f1213";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "02592b0ea4a94bb064f3213e6b2001d02c1241cc";
+      rev = "342f71218dd08ad3053f141302db2fb1101f1213";
       fetchSubmodules = false;
-      sha256 = "sha256-RacXFvwI45GeiUMzfoGlJ2XFCZ0Vi6PwP7a8j9asF1w=";
+      sha256 = "sha256-umpBr09lMSng44PQ3jauWVEi1EuVJ1A9+dOlLAONbTw=";
     };
-    date = "2024-03-08";
+    date = "2024-03-12";
   };
   vim-startuptime = {
     pname = "vim-startuptime";
