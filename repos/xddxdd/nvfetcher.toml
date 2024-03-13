@@ -185,12 +185,12 @@ src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 fetch.github = "strongtz/i915-sriov-dkms"
 
 [kata-containers]
-src.github = "kata-containers/kata-containers"
+src.github_tag = "kata-containers/kata-containers"
 src.include_regex = "^[0-9\\.]+$"
 fetch.github = "kata-containers/kata-containers"
 
 [kata-image]
-src.github = "kata-containers/kata-containers"
+src.github_tag = "kata-containers/kata-containers"
 src.include_regex = "^[0-9\\.]+$"
 fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-amd64.tar.xz"
 

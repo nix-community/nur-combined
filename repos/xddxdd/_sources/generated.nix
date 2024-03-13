@@ -479,21 +479,21 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "4.1.0-test";
+    version = "3.2.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      rev = "4.1.0-test";
+      rev = "3.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-TyK2RHlx4QmGHWZL4d7y5oZy71pYLb9MwW72dO8/IVY=";
+      sha256 = "sha256-zEKuEjw8a5hRNULNSkozjuHT6+hcbuTIbVPPImy/TsQ=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "4.1.0-test";
+    version = "3.2.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/4.1.0-test/kata-static-4.1.0-test-amd64.tar.xz";
-      sha256 = "sha256-oI7CG3sXPZG/h3NH0J2bY20aggQjyrNcYRPGK8aLS60=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.2.0/kata-static-3.2.0-amd64.tar.xz";
+      sha256 = "sha256-IbuEhKBgRQ1lIvKb7X2I13PChSB3TqosUitvR/0SxKE=";
     };
   };
   konnect = {
