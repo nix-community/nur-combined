@@ -744,10 +744,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.2.0";
+      version = "2024.2.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233394/bitwarden_password_manager-2024.2.0.xpi";
-      sha256 = "2c59e7040749dee010b34fb2a9c24b28ada71ad7fa5a23264ff70e63f8f686d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246600/bitwarden_password_manager-2024.2.1.xpi";
+      sha256 = "f2db399e5a0915e4fd7e4906c32c72eac4a2b7bb4b4acacd892fff18e73085d4";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2692,10 +2692,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.12.5";
+      version = "8.12.7";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4207768/ghostery-8.12.5.xpi";
-      sha256 = "2353897aad45f9fd035a569d4dfa2e2f1d1b9dedf5a319508558fb8c2f9b70d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246763/ghostery-8.12.7.xpi";
+      sha256 = "11d7d82d8767dd2745094752175940bccc328ba9dffd4bfa2ae736664f9f106b";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -6542,10 +6542,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.13.16";
+      version = "2.13.24";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232446/momentumdash-2.13.16.xpi";
-      sha256 = "e9da0fc67582dd46bd5950e027a353e3b55510c860f5a190e124bf9916345154";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243072/momentumdash-2.13.24.xpi";
+      sha256 = "396e0a08699e9f951fdc5caa4fe5034561552952103131d2ca583d5c4920adde";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -7083,10 +7083,10 @@
     };
     "omnivore" = buildFirefoxXpiAddon {
       pname = "omnivore";
-      version = "2.8.9";
+      version = "2.10.0";
       addonId = "save-extension@omnivore.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4198103/omnivore-2.8.9.xpi";
-      sha256 = "9a37cabf6fa9823a8563c016d77046e000f6ac40e4cf348e3463941dbff80db7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246656/omnivore-2.10.0.xpi";
+      sha256 = "31142640e86215823150bd9dd3fac003cc0d2dd6735bb36c6f42c1c215916ca4";
       meta = with lib;
       {
         homepage = "https://omnivore.app/";
@@ -9095,10 +9095,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.5.6";
+      version = "5.5.8";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241055/sponsorblock-5.5.6.xpi";
-      sha256 = "bde2199d2fd00281cd990a824f51e2c9c4bacc62e095f2192c5b101a148d1845";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4246981/sponsorblock-5.5.8.xpi";
+      sha256 = "c20dc2f508fcc7ee4939b2e30d151db5273047a639a8a5412cc742bcdf893556";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
