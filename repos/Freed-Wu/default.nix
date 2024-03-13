@@ -24,6 +24,7 @@ let
     netease-cloud-music = callPackage ./pkgs/applications/audio/netease-cloud-music { };
     # https://github.com/NixOS/nixpkgs/pull/243032
     g3kb-switch = callPackage ./pkgs/tools/misc/g3kb-switch { };
+    rime-japanese = callPackage ./pkgs/data/misc/rime-japanese { };
 
     rime-kaomoji = callPackage ./pkgs/data/misc/rime-kaomoji { };
     gdb-prompt = callPackage ./pkgs/development/libraries/gdb-prompt { };
