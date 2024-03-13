@@ -25,6 +25,7 @@ let
     # https://github.com/NixOS/nixpkgs/pull/243032
     g3kb-switch = callPackage ./pkgs/tools/misc/g3kb-switch { };
 
+    rime-kaomoji = callPackage ./pkgs/data/misc/rime-kaomoji { };
     gdb-prompt = callPackage ./pkgs/development/libraries/gdb-prompt { };
     tcl-prompt = callPackage ./pkgs/development/libraries/tcl-prompt { };
     bash-prompt = callPackage ./pkgs/shells/bash/bash-prompt { };
