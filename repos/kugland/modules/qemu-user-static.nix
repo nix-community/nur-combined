@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.virtualisation.qemu-user-static;
-
 in {
   options = {
     virtualisation.qemu-user-static = {
