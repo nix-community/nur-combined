@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ugrep-indexer";
-  version = "0.9.5-2";
+  version = "0.9.6";
 
   src = fetchFromGitHub {
     owner = "Genivia";
     repo = "ugrep-indexer";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-nZZRUaRwM0LN0VnS44g9oPL1z1q61ONu59NVYPQVPuQ=";
+    hash = "sha256-ZXZF9ZSdfQ2gxi5JkDJCUzMbkTs9KLzZBsyYxR/v4tI=";
   };
 
   buildInputs = [
