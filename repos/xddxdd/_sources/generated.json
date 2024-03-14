@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-03-12",
+        "date": "2024-03-13",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "97cbea2e6fc06cc4cb48710e444c965a1db8e4d6",
-            "sha256": "sha256-wjxqeB5Ny/CYXiaTlCaFOyZxdlIaG4JI7alzbxpDhyk=",
+            "rev": "36fb0d105bdc2a2b43f3f53ac639e742331052c3",
+            "sha256": "sha256-b5wRQwNAnV4DSDAoEdh3KvpLx1UPc6UvbBTpp/K3Fls=",
             "type": "github"
         },
-        "version": "97cbea2e6fc06cc4cb48710e444c965a1db8e4d6"
+        "version": "36fb0d105bdc2a2b43f3f53ac639e742331052c3"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -912,7 +912,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-03-07",
+        "date": "2024-03-13",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -924,11 +924,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "d03535006cfba2887b2fc37072dde578ab6e32c0",
-            "sha256": "sha256-8MdJ2VQT8ecTv1imrupn9vKkixQog2uczHSK9RiGAyE=",
+            "rev": "1bc6d11ef4f5be8be9797ec5ba03b4c583ea1056",
+            "sha256": "sha256-X3bBATBGbeGgqROyDUXd0luquPk9UUYk/GgU3ioHyN4=",
             "type": "github"
         },
-        "version": "d03535006cfba2887b2fc37072dde578ab6e32c0"
+        "version": "1bc6d11ef4f5be8be9797ec5ba03b4c583ea1056"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1639,11 +1639,11 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "v1.11.8",
-            "sha256": "sha256-JzbxROashDAL4NSeqMcWR9PgFqe9peBNpeofA347oE4=",
+            "rev": "v1.11.10",
+            "sha256": "sha256-EOkHi+x4ciODyHPPx7766IEh8XGLHY4Ng1N/iq2mgJI=",
             "type": "github"
         },
-        "version": "v1.11.8"
+        "version": "v1.11.10"
     },
     "py-rcon": {
         "cargoLocks": null,
