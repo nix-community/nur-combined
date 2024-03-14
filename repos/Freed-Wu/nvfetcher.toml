@@ -14,9 +14,13 @@ fetch.pypi = "repl-python-wakatime"
 src.pypi = "translate-shell"
 fetch.pypi = "translate-shell"
 
-# [autotools-language-server]
-# src.pypi = "autotools-language-server"
-# fetch.pypi = "autotools-language-server"
+[lsp-tree-sitter]
+src.pypi = "lsp-tree-sitter"
+fetch.pypi = "lsp-tree-sitter"
+
+[autotools-language-server]
+src.pypi = "autotools-language-server"
+fetch.pypi = "autotools-language-server"
 
 [expect-language-server]
 src.pypi = "expect-language-server"
@@ -41,6 +45,18 @@ fetch.pypi = "termux-language-server"
 [tmux-language-server]
 src.pypi = "tmux-language-server"
 fetch.pypi = "tmux-language-server"
+
+[tree-sitter-muttrc]
+src.pypi = "tree-sitter-muttrc"
+fetch.pypi = "tree_sitter_muttrc"
+
+[tree-sitter-tmux]
+src.pypi = "tree-sitter-tmux"
+fetch.pypi = "tree_sitter_tmux"
+
+[tree-sitter-zathurarc]
+src.pypi = "tree-sitter-zathurarc"
+fetch.pypi = "tree_sitter_zathurarc"
 
 [xilinx-language-server]
 src.pypi = "xilinx-language-server"

@@ -32,13 +32,17 @@ let
     bash-prompt = callPackage ./pkgs/shells/bash/bash-prompt { };
     undollar = callPackage ./pkgs/tools/misc/undollar { };
     manpager = callPackage ./pkgs/tools/misc/manpager { };
+
     # https://github.com/NixOS/nixpkgs/issues/261342
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
+
+    lsp-tree-sitter = callPackage ./pkgs/development/python-modules/lsp-tree-sitter { };
+    tree-sitter-muttrc = callPackage ./pkgs/development/python-modules/tree-sitter-muttrc { };
+    mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
     # autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
     expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
-    # mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
     # requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
     sublime-syntax-language-server = callPackage ./pkgs/development/python-modules/sublime-syntax-language-server { };
     # termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };

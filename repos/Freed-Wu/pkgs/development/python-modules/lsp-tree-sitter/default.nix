@@ -1,31 +1,32 @@
 { mySources
 , python3
 , lib
-, lsp-tree-sitter
-, tree-sitter-muttrc
 }:
 
 with python3.pkgs;
 
 buildPythonPackage rec {
-  inherit (mySources.mutt-language-server) pname version src;
+  inherit (mySources.lsp-tree-sitter) pname version src;
   format = "pyproject";
-  disabled = pythonOlder "3.10";
+  disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    lsp-tree-sitter
-    tree-sitter-muttrc
+    colorama
+    jinja2
+    jsonschema
+    pygls
+    tree-sitter
   ];
   nativeBuildInputs = [
     setuptools-generate
     setuptools-scm
   ];
   pythonImportsCheck = [
-    "mutt_language_server"
+    "lsp_tree_sitter"
   ];
 
   meta = with lib; {
-    homepage = "https://mutt-language-server.readthedocs.io";
-    description = "mutt/neomutt's language server";
+    homepage = "https://lsp-tree-sitter.readthedocs.io";
+    description = "A library to create language servers";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
