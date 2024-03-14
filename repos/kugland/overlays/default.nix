@@ -1,5 +1,3 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  google-authenticator-singlesecret = import ./google-authenticator-singlesecret;
 }
