@@ -2,11 +2,11 @@
 
 let
   pname = "quiet";
-  version = "1.9.7";
+  version = "2.1.1";
   name = "quiet-${version}";
   src = fetchurl {
-    url = "https://github.com/TryQuiet/quiet/releases/download/quiet%40${version}/Quiet-${version}.AppImage";
-    hash = "sha256-TChQbWFKNvzKZKHSJQHAf9e9CFeWdQ5iCXndm3lXhJw=";
+    url = "https://github.com/TryQuiet/quiet/releases/download/%40quiet%2Fdesktop%40${version}/Quiet-${version}.AppImage";
+    hash = "sha256-/YDGspQbl2kvS5Iwl2Ys/yxhB9rZoxG66TSBr35GvBI=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
@@ -16,9 +16,9 @@ appimageTools.wrapType2 {
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
-    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
-    substituteInPlace $out/share/applications/quiet.desktop \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
+    install -m 444 -D ${appimageContents}/@quietdesktop.desktop -t $out/share/applications
+    substituteInPlace $out/share/applications/@quietdesktop.desktop \
+      --replace 'Exec=AppRun' 'Exec=@quietdesktop'
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 
