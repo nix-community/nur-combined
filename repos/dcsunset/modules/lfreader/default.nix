@@ -37,9 +37,21 @@ in {
     };
 
     userAgent = mkOption {
-      type = types.nullOr types.str;
-      default = null;
+      type = types.str;
+      default = "";
+      description = "User agent to use when fetching resources (empty means no user agent)";
+    };
+
+    timeout = mkOption {
+      type = types.int;
+      default = 10;
       description = "User agent to use when fetching resources";
+    };
+
+    logLevel = mkOption {
+      type = types.enum [ "notset" "debug" "info" "warning" "error" "critical" ];
+      default = "info";
+      description = "Log level";
     };
 
     user = mkOption {
@@ -62,9 +74,10 @@ in {
       environment = {
         LFREADER_DB = cfg.dbPath;
         LFREADER_ARCHIVE = cfg.archivePath;
-      } // (optionalAttrs (cfg.userAgent != null) {
-        USER_AGENT = cfg.userAgent;
-      });
+        LFREADER_USER_AGENT = cfg.userAgent;
+        LFREADER_TIMEOUT = toString cfg.timeout;
+        LFREADER_LOG_LEVEL = cfg.logLevel;
+      };
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/lfreader-server --host ${cfg.host} --port ${toString cfg.port} \
