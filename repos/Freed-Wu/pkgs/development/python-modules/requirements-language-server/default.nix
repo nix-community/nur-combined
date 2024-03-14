@@ -1,6 +1,8 @@
 { mySources
 , python3
 , lib
+, lsp-tree-sitter
+, tree-sitter-requirements
 }:
 
 with python3.pkgs;
@@ -8,15 +10,11 @@ with python3.pkgs;
 buildPythonPackage rec {
   inherit (mySources.requirements-language-server) pname version src;
   format = "pyproject";
-  disabled = pythonOlder "3.6";
+  disabled = pythonOlder "3.10";
   propagatedBuildInputs = [
-    pygls
     platformdirs
-    jinja2
-    # https://github.com/NixOS/nixpkgs/issues/241691
-    # pip-cache
-    pip-tools
-    # tree-sitter-requirements
+    lsp-tree-sitter
+    tree-sitter-requirements
   ];
   nativeBuildInputs = [
     setuptools-generate
@@ -27,8 +25,6 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    # pip-cache
-    broken = true;
     homepage = "https://requirements-language-server.readthedocs.io";
     description = "requirements.txt language server";
     license = licenses.gpl3;

@@ -1,6 +1,8 @@
 { mySources
 , python3
 , lib
+, lsp-tree-sitter
+, tree-sitter-zathurarc
 }:
 
 with python3.pkgs;
@@ -10,8 +12,8 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    pygls
-    platformdirs
+    lsp-tree-sitter
+    tree-sitter-zathurarc
   ];
   nativeBuildInputs = [
     setuptools-generate

@@ -41,14 +41,16 @@ let
     lsp-tree-sitter = callPackage ./pkgs/development/python-modules/lsp-tree-sitter { };
     tree-sitter-muttrc = callPackage ./pkgs/development/python-modules/tree-sitter-muttrc { };
     mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
+    tree-sitter-tmux = callPackage ./pkgs/development/python-modules/tree-sitter-tmux { };
+    tmux-language-server = callPackage ./pkgs/development/python-modules/tmux-language-server { };
+    tree-sitter-zathurarc = callPackage ./pkgs/development/python-modules/tree-sitter-zathurarc { };
+    zathura-language-server = callPackage ./pkgs/development/python-modules/zathura-language-server { };
+    # requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
+    # termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
     # autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
     expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
-    # requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
     sublime-syntax-language-server = callPackage ./pkgs/development/python-modules/sublime-syntax-language-server { };
-    # termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
-    # tmux-language-server = callPackage ./pkgs/development/python-modules/tmux-language-server { };
     xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
-    # zathura-language-server = callPackage ./pkgs/development/python-modules/zathura-language-server { };
   };
 in
 myPkgs
