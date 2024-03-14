@@ -54,7 +54,7 @@ For more information, check out `qemu-user-static`’s [GitHub repository](https
 
 **I’m not a security expert, so use this at your own risk.**
 
-[**google-authenticator-singlesecret**](./modules/google-authenticator-singlesecret.nix) is a
+[**google-authenticator-singlesecret**](./modules/google-authenticator-singlesecret/) is a
 module that overlays a patched version of `google-authenticator-libpam` that hardcodes the options
 `secret`, `user` and `echo_verification_code` as a workaround to the NixOS module `security.pam`
 inability to pass arbitrary options to the Google Authenticator PAM module.
