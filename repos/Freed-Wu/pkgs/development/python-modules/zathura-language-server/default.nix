@@ -14,6 +14,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     lsp-tree-sitter
     tree-sitter-zathurarc
+    webcolors
   ];
   nativeBuildInputs = [
     setuptools-generate
