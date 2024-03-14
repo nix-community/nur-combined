@@ -4,3 +4,4 @@ trace.txt*
 .gcroots
 .vscode
 .direnv
+*.log

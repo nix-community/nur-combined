@@ -18,9 +18,28 @@
           exit 1;
         fi
 
+        NIX_LOGFILE=nix-build-uncached.log
+
         # Workaround https://github.com/NixOS/nix/issues/6572
         for i in {1..3}; do
-          ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace && exit 0
+          ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace 2>&1 | tee $NIX_LOGFILE && exit 0
+          if grep -q "specified:" $NIX_LOGFILE; then
+            if grep -q "got:" $NIX_LOGFILE; then
+              SAVEIFS=$IFS
+              IFS=$'\n'
+
+              SPECIFIED_HASH=($(grep "specified:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
+              GOT_HASH=($(grep "got:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
+
+              IFS=$SAVEIFS
+
+              for (( i=0; i<''${#SPECIFIED_HASH[@]}; i++ )); do
+                echo "Auto replace ''${SPECIFIED_HASH[$i]} with ''${GOT_HASH[$i]}"
+                sed -i "s#''${SPECIFIED_HASH[$i]}#''${GOT_HASH[$i]}#g" $(find pkgs/ -name \*.nix) || true
+              done
+            fi
+          fi
+          rm -f $NIX_LOGFILE
         done
 
         exit 1

@@ -81,6 +81,11 @@ jobs:
         run: |
           env TMPDIR=/nix/tmpdir nix run .#ci -- ${{ matrix.system }}
 
+      - name: Commit back to repository
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'auto: update package hashes'
+
   test-nur-eval:
     strategy:
       fail-fast: false
