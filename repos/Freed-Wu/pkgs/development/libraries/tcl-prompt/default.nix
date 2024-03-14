@@ -10,7 +10,7 @@
 tcl.mkTclDerivation rec {
   name = "tcl-prompt";
   src = fetchFromGitHub {
-    owner = "Freed-Wu";
+    owner = "wakatime";
     repo = name;
     rev = "f11e245093d86967d5dbc10e110f8b0fbbcc4b8f";
     hash = "sha256-R55o6Ezj2N2F8I3XObysJQN7dF+V0iopyU20Nz4Ln8I=";

@@ -1,6 +1,7 @@
 { mySources
 , python3
 , lib
+, fetchFromGitHub
 }:
 
 with python3.pkgs;
@@ -19,6 +20,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [
     "tree_sitter_languages"
   ];
+  preBuild = import ./fetchLanguages.nix fetchFromGitHub;
 
   meta = with lib; {
     homepage = "https://github.com/grantjenks/py-tree-sitter-languages";

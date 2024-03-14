@@ -38,13 +38,13 @@
   };
   manpager = {
     pname = "manpager";
-    version = "0.0.2";
+    version = "0.0.3";
     src = fetchFromGitHub {
       owner = "Freed-Wu";
       repo = "manpager";
-      rev = "0.0.2";
+      rev = "0.0.3";
       fetchSubmodules = false;
-      sha256 = "sha256-DzFH/K03JZRursmGFiLEuWWOmK3tv2NghkJIpKVcwUk=";
+      sha256 = "sha256-oqAgY/9qZ2d8p74qqFEM2VxT9ohV3CR8bcBCbyHlcOo=";
     };
   };
   mulimgviewer = {
