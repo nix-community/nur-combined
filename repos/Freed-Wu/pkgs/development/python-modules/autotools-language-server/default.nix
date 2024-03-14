@@ -1,7 +1,8 @@
 { mySources
 , python3
 , lib
-, git
+, lsp-tree-sitter
+, tree-sitter-languages
 }:
 
 with python3.pkgs;
@@ -11,18 +12,15 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    pygls
-    platformdirs
-    tree-sitter
+    lsp-tree-sitter
+    tree-sitter-languages
   ];
   nativeBuildInputs = [
-    scikit-build-core
-    cmake
-    ninja
-    git
+    setuptools-generate
+    setuptools-scm
   ];
   pythonImportsCheck = [
-    "autotools_language_server"
+    "make_language_server"
   ];
 
   meta = with lib; {

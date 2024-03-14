@@ -45,9 +45,12 @@ let
     tmux-language-server = callPackage ./pkgs/development/python-modules/tmux-language-server { };
     tree-sitter-zathurarc = callPackage ./pkgs/development/python-modules/tree-sitter-zathurarc { };
     zathura-language-server = callPackage ./pkgs/development/python-modules/zathura-language-server { };
-    # requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
-    # termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
-    # autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
+    tree-sitter-requirements = callPackage ./pkgs/development/python-modules/tree-sitter-requirements { };
+    requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
+    tree-sitter-languages = callPackage ./pkgs/development/python-modules/tree-sitter-languages { };
+    termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
+    autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
+
     expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
     sublime-syntax-language-server = callPackage ./pkgs/development/python-modules/sublime-syntax-language-server { };
     xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };

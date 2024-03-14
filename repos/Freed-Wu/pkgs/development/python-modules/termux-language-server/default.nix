@@ -1,6 +1,8 @@
 { mySources
 , python3
 , lib
+, lsp-tree-sitter
+, tree-sitter-languages
 }:
 
 with python3.pkgs;
@@ -10,8 +12,11 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    pygls
+    lsp-tree-sitter
+    tree-sitter-languages
     platformdirs
+    fqdn
+    rfc3987
   ];
   nativeBuildInputs = [
     setuptools-generate

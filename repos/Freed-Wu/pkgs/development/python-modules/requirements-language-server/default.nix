@@ -10,8 +10,9 @@ with python3.pkgs;
 buildPythonPackage rec {
   inherit (mySources.requirements-language-server) pname version src;
   format = "pyproject";
-  disabled = pythonOlder "3.10";
+  disabled = pythonOlder "3.11";
   propagatedBuildInputs = [
+    aiohttp
     platformdirs
     lsp-tree-sitter
     tree-sitter-requirements

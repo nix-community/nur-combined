@@ -58,6 +58,14 @@ fetch.pypi = "tree_sitter_tmux"
 src.pypi = "tree-sitter-zathurarc"
 fetch.pypi = "tree_sitter_zathurarc"
 
+[tree-sitter-requirements]
+src.github_tag = "tree-sitter-grammars/tree-sitter-requirements"
+fetch.github = "tree-sitter-grammars/tree-sitter-requirements"
+
+[tree-sitter-languages]
+src.github_tag = "grantjenks/py-tree-sitter-languages"
+fetch.github = "grantjenks/py-tree-sitter-languages"
+
 [xilinx-language-server]
 src.pypi = "xilinx-language-server"
 fetch.pypi = "xilinx-language-server"
