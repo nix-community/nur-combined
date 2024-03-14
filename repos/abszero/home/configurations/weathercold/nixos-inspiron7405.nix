@@ -23,6 +23,7 @@ optionalAttrs (readDir ./. ? "_base.nix") {
               base-foot
               base-nushell
               catppuccin-fonts
+              catppuccin-gtk
               catppuccin-plasma
               catppuccin-stylix
               colloid-fcitx5

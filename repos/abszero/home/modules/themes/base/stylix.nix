@@ -16,6 +16,7 @@ let inherit (lib) mkDefault; in
     targets = {
       firefox.enable = mkDefault false;
       fish.enable = mkDefault false;
+      gtk.enable = mkDefault false;
       kde.enable = mkDefault false;
       vscode.enable = mkDefault false;
     };
