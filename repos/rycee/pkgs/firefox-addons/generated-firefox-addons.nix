@@ -2248,10 +2248,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.2.25.1";
+      version = "1.3.0";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4245545/faststream-1.2.25.1.xpi";
-      sha256 = "a62ab886ebd2c63ef9dfc13f8ba1195136f8493cd36feb5d13d963b0eb468044";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4249787/faststream-1.3.0.xpi";
+      sha256 = "c1aa4b4e258cefcc0dbcce8d5adafee9b8a113759f053dd13694e9583d6dc873";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2267,6 +2267,8 @@
           "tabs"
           "webRequest"
           "declarativeNetRequest"
+          "https://www.bilibili.com/*"
+          "https://www.bilibili.tv/*"
           "<all_urls>"
         ];
         platforms = platforms.all;
