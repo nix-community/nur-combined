@@ -39,7 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ascii-dash.sourceforge.io/";
     license = licenses.mit;
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # mesa is broken
     mainProgram = "ascii-dash";
   };
 })

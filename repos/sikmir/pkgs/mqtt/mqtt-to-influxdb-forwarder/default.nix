@@ -30,6 +30,5 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ sikmir ];
-    broken = stdenv.isLinux; # python3Packages.influxdb is broken
   };
 }

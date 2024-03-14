@@ -24,7 +24,6 @@ let
     homepage = "https://developmentseed.org/titiler/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    broken = true; # fastapi>=0.107.0 not satisfied
   };
 
   titiler-core = python3Packages.buildPythonPackage {
@@ -36,6 +35,7 @@ let
     nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     propagatedBuildInputs = with python3Packages; [
       fastapi
+      jinja2
       rio-tiler
       geojson-pydantic
       simplejson

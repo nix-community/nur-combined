@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
-  version = "0-unstable-2024-02-08";
+  version = "0-unstable-2024-03-08";
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = "imscript";
-    rev = "5623dd9b49377166fdb19ba4329db787b89aa447";
-    hash = "sha256-+w6ceMmiU2JzbQnaSk9XV8N6qhV+oftljZ6ynXOAfsE=";
+    rev = "0798aa2dc3d648454b6cac71f8f515d296c186d4";
+    hash = "sha256-7OhJXUGzOBdQDw0d8fH6ubTin9vGU736zqZeEV18b24=";
   };
 
   nativeBuildInputs = [ installShellFiles ];

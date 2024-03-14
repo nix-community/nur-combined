@@ -11,12 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-woFX3nGSOY4RSNPGRAt40xHDNOPlO2t1kgzb8U2v5+U=";
   };
 
-  postPatch = ''
-    substituteInPlace config.mk \
-      --replace-fail "LDFLAGS" "#LDFLAGS"
-  '';
-
-  makeFlags = [ "CC:=$(CC)" "PREFIX=$(out)" ];
+  makeFlags = [ "CC:=$(CC)" "LDFLAGS=" "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "A suckless, simple, featured text editor";
