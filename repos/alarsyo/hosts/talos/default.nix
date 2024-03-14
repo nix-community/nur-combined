@@ -65,7 +65,7 @@
   };
   virtualisation = {
     docker.enable = true;
-    libvirtd.enable = true;
+    libvirtd.enable = false;
   };
 
   my.services = {
