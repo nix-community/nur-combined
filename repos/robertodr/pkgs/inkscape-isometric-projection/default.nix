@@ -4,13 +4,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "inkscape-isometric-projection";
-  version = "2.1";
+  version = "4.0";
 
   src = fetchFromGitHub {
     owner = "jdhoek";
     repo = "inkscape-isometric-projection";
-    rev = "${version}";
-    sha256 = "1ganair0ifza9lfjn17r84bx3yl9gyabgc9rnaz806pxwx3akik0";
+    rev = "07c2778089962a60d4c1b2ffec6eb9fefc7d1fe1";
+    hash = "sha256-vKh/SSjYk+yCSnLDbt9aKLHVDJFqenrDbBY8GktgL/g=";
   };
 
   installPhase = ''
