@@ -1,30 +1,31 @@
 { lib
 , fetchFromGitHub
-, pkgs
+, rustPlatform
 }:
 
-let
-
-  rustPlatform = pkgs.makeRustPlatform { inherit (pkgs.fenix.minimal) cargo rustc; };
-in
 rustPlatform.buildRustPackage rec{
   pname = "shadow-tls";
-  version = "0.2.3";
+  version = "0.2.25";
 
   src = fetchFromGitHub {
-    rev = "44ed093e69097f611a890651152e2d721a51c6f3";
     owner = "ihciah";
-    repo = pname;
-    sha256 = "sha256-k9Ig/PoQ2HLIBd9lUvH6Tb7JAa7wnJJ+kNGfvJH6bOw=";
+    repo = "shadow-tls";
+    rev = "v${version}";
+    hash = "sha256-T+GPIrcME6Wq5sdfIt4t426/3ew5sUQMykYeZ6zw1ko=";
   };
 
-  cargoSha256 = "sha256-3jTrJqwClIrokotfedjVsrYnlB/BKDeKgtpHlc8gWFU=";
+  cargoHash = "sha256-w+DQeiQAtVsTw1VJhntX1FXymgS0fxsXiUmd6OjVWLQ=";
+
+  RUSTC_BOOTSTRAP = 1;
+
+  # network required
+  doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/ihciah/shadow-tls";
-    description = ''
-      A proxy to expose real tls handshake to the firewall.
-    '';
-    #    maintainers = with maintainers; [ oluceps ];
+    description = "A proxy to expose real tls handshake to the firewall";
+    license = licenses.mit;
+    mainProgram = "shadow-tls";
+    maintainers = with maintainers; [ oluceps ];
   };
 }

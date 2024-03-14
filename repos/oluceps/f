@@ -66,8 +66,17 @@ export def en [name: string] {
   srm $name
 }
 
-export def de [name: string] {
-  rage -d $'./($name)' -i $age_pub # -i ./age-yubikey-identity-7d5d5540.txt.pub
+export def de [path: string] {
+  let tmp_path = (mktemp -t)
+  rage -d $path -i $age_pub -o $tmp_path # -i ./age-yubikey-identity-7d5d5540.txt.pub
+  let mime_type = (xdg-mime query filetype $tmp_path)
+  if ($mime_type | str contains "image") {
+    cat $tmp_path | img2sixel
+  } else {
+    cat $tmp_path
+  }
+
+  srm -C $tmp_path
 }
 
 export def dump [path?: string = "./sec/decrypted"] {

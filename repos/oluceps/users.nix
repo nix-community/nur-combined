@@ -30,7 +30,7 @@
           "tss"
           "podman"
         ];
-        shell = pkgs.nushell;
+        shell = pkgs.fish;
 
         openssh.authorizedKeys.keys = with data.keys;[ sshPubKey skSshPubKey ];
       };

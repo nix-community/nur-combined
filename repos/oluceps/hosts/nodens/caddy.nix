@@ -17,6 +17,23 @@
               metrics = { };
               routes = [
                 {
+                  handle = [{
+                    handler = "subroute";
+                    routes = [{
+                      handle = [{
+                        handler = "reverse_proxy";
+                        upstreams = [{
+                          dial = "10.0.1.2:3001";
+                        }];
+                      }];
+                    }];
+                  }];
+                  match = [{
+                    host = [ "chat.nyaw.xyz" ];
+                  }];
+                  terminal = true;
+                }
+                {
                   match = [{
                     host = [ config.networking.fqdn ];
                     path = [ "/caddy" ];
