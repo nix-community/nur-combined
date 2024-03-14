@@ -30,8 +30,6 @@ service to start the container on boot.
 To use this module, add the following to your `configuration.nix`:
 
 ```nix
-{ config, pkgs, ... }:
-
 {
   imports = [ pkgs.nur.repos.kugland.modules.qemu-user-static ];
   virtualisation.qemu-user-static = {
@@ -52,23 +50,55 @@ you actually have a s390x machine, means that the container is being executed wi
 
 For more information, check out `qemu-user-static`’s [GitHub repository](https://github.com/multiarch/qemu-user-static).
 
-# Overlays
-
 ## google-authenticator-singlesecret
 
 **I’m not a security expert, so use this at your own risk.**
 
-[**google-authenticator-singlesecret**](./overlays/google-authenticator-singlesecret/) is a patched
-version of `google-authenticator-libpam` that hardcodes the options `secret`, `user` and
-`echo_verification_code` as a workaround to the Nix module `security.pam` inability to pass
-arbitrary options to the Google Authenticator PAM module. With the original configuration, you
-can only use TOTP secrets stored at your own home directory and readable by your own user, which
-makes it pointless for use with `sudo` (the secret is readable by your user *before* you acquire
-privileges). In this version, the secret is stored at `/etc/my-secrets/google-authenticator/secret`,
-and is only readable by the user `totp-auth`. This setup only makes sense if you have a single user
-on your system.
+[**google-authenticator-singlesecret**](./modules/google-authenticator-singlesecret.nix) is a
+module that overlays a patched version of `google-authenticator-libpam` that hardcodes the options
+`secret`, `user` and `echo_verification_code` as a workaround to the NixOS module `security.pam`
+inability to pass arbitrary options to the Google Authenticator PAM module.
 
-I intend to make a module to configure this.
+With the original configuration, you can only use secrets stored at your own home directory and
+readable by your own user, making it useless for `sudo` (the secret is readable by your user
+*before* you acquire privileges). In this version, the secret is readable only by a single user
+(default: `totp-auth`), and resides at this user’s home directory (default: `/var/lib/totp-auth`).
+
+This setup only makes sense on a single-user system.
+
+To use this module, add the following to your `configuration.nix`:
+
+```nix
+{
+  imports = [ pkgs.nur.repos.kugland.modules.google-authenticator-singlesecret ];
+  security.pam.services.google-authenticator = {
+    enable = true;
+    #user = "totp-auth"; # Change the user name if you want
+    #secret-dir = "/var/lib/totp-auth"; # Change the secret directory if you want
+    echo = true; # If you want the verification code to be echoed to the terminal, I like it.
+  };
+  security = {
+    sudo = {
+      enable = true;
+      # For some reason, with this config sudo lectures us every time, let's suppress it.
+      extraConfig = ''Defaults lecture="never"'';
+    };
+    pam.services = {
+      # Now enable Google Authenticator for su and sudo :-)
+      su.googleAuthenticator.enable = true; # enable 2FA for su
+      sudo.googleAuthenticator.enable = true; # enable 2FA for sudo
+    };
+  };
+}
+```
+
+After adding this and rebuilding your system, you **MUST** run `setup-google-authenticator-singlesecret.sh`
+as root to configure the secret for the user you specified. If you don’t, you will not be able
+to easily `sudo` again.
+
+# Overlays
+
+*Sorry, no overlays yet.*
 
 # License
 
