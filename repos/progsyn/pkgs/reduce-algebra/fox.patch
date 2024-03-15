@@ -1,0 +1,21 @@
+diff --git a/csl/fox/src/FXGLViewer.cpp b/csl/fox/src/FXGLViewer.cpp
+index d10f0f0..9bc4c16 100644
+--- a/csl/fox/src/FXGLViewer.cpp
++++ b/csl/fox/src/FXGLViewer.cpp
+@@ -2420,7 +2420,7 @@ long FXGLViewer::onCmdPrintImage(FXObject*,FXSelector,void*){
+ 
+       // Try open printer
+       if(!pdc.beginPrint(printer)){
+-        FXMessageBox::error(this,MBOX_OK,tr("Printer Error"),tr("Unable to print."));
++        // FXMessageBox::error(this,MBOX_OK,tr("Printer Error"),tr("Unable to print."));
+         return 1;
+         }
+ 
+@@ -2595,7 +2595,7 @@ long FXGLViewer::onCmdPrintVector(FXObject*,FXSelector,void*){
+     dlg.getPrinter(printer);
+     FXDCPrint pdc(getApp());
+     if(!pdc.beginPrint(printer)){
+-      FXMessageBox::error(this,MBOX_OK,tr("Printer Error"),tr("Unable to print."));
++      // FXMessageBox::error(this,MBOX_OK,tr("Printer Error"),tr("Unable to print."));
+       return 1;
+       }

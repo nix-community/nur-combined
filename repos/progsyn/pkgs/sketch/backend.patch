@@ -1,0 +1,75 @@
+diff --git a/src/MiniSat/core/MSolver.h b/src/MiniSat/core/MSolver.h
+index c5348150..64c3ea2f 100644
+--- a/src/MiniSat/core/MSolver.h
++++ b/src/MiniSat/core/MSolver.h
+@@ -30,6 +30,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
+ #include "Alg.h"
+ #include <set>
+ #include "SolverTypes.h"
++#include <limits>
++#include <chrono>
+ 
+ #include "IntPropagator.h"
+ #include "StringHTable.h"
+diff --git a/src/SketchSolver/InputParser/BenchmarkScore.cpp b/src/SketchSolver/InputParser/BenchmarkScore.cpp
+index b430a1ac..4899ed5e 100644
+--- a/src/SketchSolver/InputParser/BenchmarkScore.cpp
++++ b/src/SketchSolver/InputParser/BenchmarkScore.cpp
+@@ -5,6 +5,7 @@
+ #include "BenchmarkScore.h"
+ #include <vector>
+ #include <iomanip>
++#include <algorithm>
+ 
+ map<string, BenchmarkScore> timestamp_counter = map<string, BenchmarkScore>();
+ 
+diff --git a/src/SketchSolver/InputParser/CegisMainHelpers.h b/src/SketchSolver/InputParser/CegisMainHelpers.h
+index bfd9b1d3..16580764 100644
+--- a/src/SketchSolver/InputParser/CegisMainHelpers.h
++++ b/src/SketchSolver/InputParser/CegisMainHelpers.h
+@@ -4,6 +4,8 @@
+     // void runDriver();
+     // InterpreterEnvironment* getEnvt();
+ 
++#include <sys/user.h>
++
+ void printStats ();
+ void AssertionHandler(int signal);
+ void CtrlCHandler(int signal);
+diff --git a/src/SketchSolver/InputParser/DagLikeProgramInterpreter.h b/src/SketchSolver/InputParser/DagLikeProgramInterpreter.h
+index 8b46ae47..d8380d48 100644
+--- a/src/SketchSolver/InputParser/DagLikeProgramInterpreter.h
++++ b/src/SketchSolver/InputParser/DagLikeProgramInterpreter.h
+@@ -8,6 +8,7 @@
+ #endif //SKETCH_DAGLIKEPROGRAMINTERPRETER_H
+ 
+ #include "types.h"
++#include <memory>
+ 
+ namespace VectorizedInterpreter {
+ 
+diff --git a/src/SketchSolver/InputParser/Frontier.h b/src/SketchSolver/InputParser/Frontier.h
+index 2e0bb224..a1f9a91e 100644
+--- a/src/SketchSolver/InputParser/Frontier.h
++++ b/src/SketchSolver/InputParser/Frontier.h
+@@ -20,6 +20,7 @@
+ #include <algorithm>
+ #include <sstream>
+ #include <iomanip>
++#include <limits>
+ 
+ using namespace std;
+ 
+diff --git a/src/SketchSolver/memory_statistics.h b/src/SketchSolver/memory_statistics.h
+index 4fb8f067..ecbe9a6b 100644
+--- a/src/SketchSolver/memory_statistics.h
++++ b/src/SketchSolver/memory_statistics.h
+@@ -66,7 +66,7 @@ getMemoryStatistics (MemoryStatistics *ms)
+     assert (NULL != ms);
+     memset (ms, 0, sizeof (*ms));
+ 
+-    ms->pageSize = pageSize = PAGE_SIZE;
++    ms->pageSize = pageSize = sysconf(_SC_PAGESIZE);
+ 
+     if (0 >= snprintf (statFileName,
+                        sizeof (statFileName), "/proc/%d/statm", getpid ()))
