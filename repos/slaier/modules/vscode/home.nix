@@ -11,7 +11,6 @@
         jnoortheen.nix-ide
         llvm-vs-code-extensions.vscode-clangd
         mkhl.direnv
-        ms-python.python
         ms-python.vscode-pylance
         ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh

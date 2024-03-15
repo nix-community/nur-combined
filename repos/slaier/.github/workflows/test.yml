@@ -71,5 +71,4 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           extraPullNames: nix-community,colmena
       - name: Build NixOS system
-        run: nix develop .#ci --command nixos-rebuild build --flake .#local
-
+        run: nix develop .#ci --command nixos-rebuild build --flake .#n1
