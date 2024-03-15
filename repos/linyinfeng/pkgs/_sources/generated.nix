@@ -390,13 +390,13 @@
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
-    version = "v1.3.0";
+    version = "v1.4.0";
     src = fetchFromGitHub {
       owner = "matrix-org";
       repo = "synapse-s3-storage-provider";
-      rev = "v1.3.0";
+      rev = "v1.4.0";
       fetchSubmodules = false;
-      sha256 = "sha256-2mQjhZk3NsbjiGWoa/asGjhaKM3afXsCl633p6ZW0DY=";
+      sha256 = "sha256-LOkSsgxHoABiiVtqssBaWYUroQBzzaJ3SclYcEMm2Mk=";
     };
   };
   telegram-send = {
@@ -455,16 +455,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "32eac3ccb738691974121b77b4af0c47d1cbe524";
+    version = "fc4b9fa22b3fa4d636efcabf489e5e117bbf4421";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "32eac3ccb738691974121b77b4af0c47d1cbe524";
+      rev = "fc4b9fa22b3fa4d636efcabf489e5e117bbf4421";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-cDzmHjamN5W16iMIE1CUJWYi0AX+xqPdY1QpbwlDLZQ=";
+      sha256 = "sha256-cDASm9q49MwrfOTfv50dQS6R2kHAeW6PCV28Ueqlv7o=";
     };
-    date = "2024-03-13";
+    date = "2024-03-15";
   };
   yacd = {
     pname = "yacd";

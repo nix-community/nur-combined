@@ -579,11 +579,11 @@
             "name": null,
             "owner": "matrix-org",
             "repo": "synapse-s3-storage-provider",
-            "rev": "v1.3.0",
-            "sha256": "sha256-2mQjhZk3NsbjiGWoa/asGjhaKM3afXsCl633p6ZW0DY=",
+            "rev": "v1.4.0",
+            "sha256": "sha256-LOkSsgxHoABiiVtqssBaWYUroQBzzaJ3SclYcEMm2Mk=",
             "type": "github"
         },
-        "version": "v1.3.0"
+        "version": "v1.4.0"
     },
     "telegram-send": {
         "cargoLocks": null,
@@ -670,7 +670,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2024-03-13",
+        "date": "2024-03-15",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -680,12 +680,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "32eac3ccb738691974121b77b4af0c47d1cbe524",
-            "sha256": "sha256-cDzmHjamN5W16iMIE1CUJWYi0AX+xqPdY1QpbwlDLZQ=",
+            "rev": "fc4b9fa22b3fa4d636efcabf489e5e117bbf4421",
+            "sha256": "sha256-cDASm9q49MwrfOTfv50dQS6R2kHAeW6PCV28Ueqlv7o=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "32eac3ccb738691974121b77b4af0c47d1cbe524"
+        "version": "fc4b9fa22b3fa4d636efcabf489e5e117bbf4421"
     },
     "yacd": {
         "cargoLocks": null,
