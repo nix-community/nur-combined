@@ -821,6 +821,9 @@
         "qwbarch": {
             "url": "https://github.com/qwbarch/nur-packages"
         },
+        "raizyr": {
+            "url": "https://github.com/raizyr/nur-packages"
+        },
         "rconan": {
             "url": "https://gitlab.com/rconan/nix-packages"
         },
