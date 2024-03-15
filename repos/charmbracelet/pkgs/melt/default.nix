@@ -2,39 +2,50 @@
 # vim: set ft=nix ts=2 sw=2 sts=2 et sta
 {
 system ? builtins.currentSystem
-, pkgs
 , lib
 , fetchurl
 , installShellFiles
+, stdenvNoCC
 }:
 let
   shaMap = {
-    i686-linux = "1lb55mrvjzw7bbs1z1h4dxjk1r3kc8qfgrv3ngbnljbx0mpqsgm2";
-    x86_64-linux = "13gybc6rp5mz190q3rkag27aah95qyl3qr1icyqqrjrys3kbyacs";
-    armv7l-linux = "16z4qc7h2bh6x4rcr4dmzwxfxiyqlsnfdv5i75y7zhwm4ggww532";
-    aarch64-linux = "1hp56049vjf8fv5pwxy4x2b7cm937k6rs2gn4il8fjg4dsr0j4r2";
-    x86_64-darwin = "0i7aclfqnv1lar1yk1hsa556r0ycgfyywcyg5f0vrs5a92a2fnd4";
-    aarch64-darwin = "0icgw5fyjjpplynf3hcknx9pgw9y9rii68q8cm3wfl36r76zqxvy";
+    i686-linux = "1bf6f3725f0lksvb1qfh64y8zj5d0z86l3l5ap4gh2ygxqbzlw0v";
+    x86_64-linux = "1ajwvmx42mf5xf5kkvl8r1r2xajxx5568bq2brqa8wgf65vsghl4";
+    armv6l-linux = "1dn24pwgymdagygjz2y7d9bxv18wxazsgca68nd5pppkfidwna0q";
+    armv7l-linux = "16dl421466c34a792ibg4pr0q4kca870b3lvir97f69889ahyqr9";
+    aarch64-linux = "0g8nf5a3ch1spbzxix08478zl1vl6x90rzgsbpnnbw6sv6b16hj8";
+    x86_64-darwin = "0l2wmy1bgdmscxan9hiw7fza4ly70f2fcpx5w5pwpvrrm28zafxq";
+    aarch64-darwin = "1g550m0r2ihccdsgrg8ibiskr3fgryg3x49l0l1qd5barkr6r0sm";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.0/melt_0.6.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.0/melt_0.6.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.0/melt_0.6.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.0/melt_0.6.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/melt/releases/download/v0.6.0/melt_0.6.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/melt/releases/download/v0.6.0/melt_0.6.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.1/melt_0.6.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.1/melt_0.6.1_Linux_x86_64.tar.gz";
+    armv6l-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.1/melt_0.6.1_Linux_armv6.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.1/melt_0.6.1_Linux_armv7.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/melt/releases/download/v0.6.1/melt_0.6.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/melt/releases/download/v0.6.1/melt_0.6.1_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/melt/releases/download/v0.6.1/melt_0.6.1_Darwin_arm64.tar.gz";
+  };
+  sourceRootMap = {
+    i686-linux = "melt_0.6.1_Linux_i386";
+    x86_64-linux = "melt_0.6.1_Linux_x86_64";
+    armv6l-linux = "melt_0.6.1_Linux_armv6";
+    armv7l-linux = "melt_0.6.1_Linux_armv7";
+    aarch64-linux = "melt_0.6.1_Linux_arm64";
+    x86_64-darwin = "melt_0.6.1_Darwin_x86_64";
+    aarch64-darwin = "melt_0.6.1_Darwin_arm64";
   };
 in
-pkgs.stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "melt";
-  version = "0.6.0";
+  version = "0.6.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
   };
 
-  sourceRoot = ".";
+  sourceRoot = sourceRootMap.${system};
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -52,9 +63,12 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://charm.sh/";
     license = lib.licenses.mit;
 
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+
     platforms = [
       "aarch64-darwin"
       "aarch64-linux"
+      "armv6l-linux"
       "armv7l-linux"
       "i686-linux"
       "x86_64-darwin"
