@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-03-13",
+        "date": "2024-03-14",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "36fb0d105bdc2a2b43f3f53ac639e742331052c3",
-            "sha256": "sha256-b5wRQwNAnV4DSDAoEdh3KvpLx1UPc6UvbBTpp/K3Fls=",
+            "rev": "b32570f489fe2bc67c4caa5bf72d4b93c045e9af",
+            "sha256": "sha256-RxYc2GkXVd7igBtvlLv9BLX5VxeRzlshkmEh+Auwze4=",
             "type": "github"
         },
-        "version": "36fb0d105bdc2a2b43f3f53ac639e742331052c3"
+        "version": "b32570f489fe2bc67c4caa5bf72d4b93c045e9af"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1639,11 +1639,11 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "v1.11.10",
-            "sha256": "sha256-EOkHi+x4ciODyHPPx7766IEh8XGLHY4Ng1N/iq2mgJI=",
+            "rev": "v1.11.11",
+            "sha256": "sha256-7rpnPKeFZM6QZfiI1Vp7ibCdBNTOo7stf8lNZlN4I4M=",
             "type": "github"
         },
-        "version": "v1.11.10"
+        "version": "v1.11.11"
     },
     "py-rcon": {
         "cargoLocks": null,

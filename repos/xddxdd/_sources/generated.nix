@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "36fb0d105bdc2a2b43f3f53ac639e742331052c3";
+    version = "b32570f489fe2bc67c4caa5bf72d4b93c045e9af";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "36fb0d105bdc2a2b43f3f53ac639e742331052c3";
+      rev = "b32570f489fe2bc67c4caa5bf72d4b93c045e9af";
       fetchSubmodules = false;
-      sha256 = "sha256-b5wRQwNAnV4DSDAoEdh3KvpLx1UPc6UvbBTpp/K3Fls=";
+      sha256 = "sha256-RxYc2GkXVd7igBtvlLv9BLX5VxeRzlshkmEh+Auwze4=";
     };
-    date = "2024-03-13";
+    date = "2024-03-14";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -944,13 +944,13 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "v1.11.10";
+    version = "v1.11.11";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "v1.11.10";
+      rev = "v1.11.11";
       fetchSubmodules = false;
-      sha256 = "sha256-EOkHi+x4ciODyHPPx7766IEh8XGLHY4Ng1N/iq2mgJI=";
+      sha256 = "sha256-7rpnPKeFZM6QZfiI1Vp7ibCdBNTOo7stf8lNZlN4I4M=";
     };
   };
   py-rcon = {

@@ -147,7 +147,7 @@ Or, use variables from this repository in case I change them:
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | A web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.7-mod | The premier web-based administration tool for PostgreSQL |
 |  | `procps4` | [procps4](https://gitlab.com/procps-ng/procps) | 4.0.4 | Utilities that give information about processes using the /proc filesystem |
-|  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | v1.11.10 | The server control plane for Pterodactyl Panel. |
+|  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | v1.11.11 | The server control plane for Pterodactyl Panel. |
 |  | `py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | v1.3.0 | Python implementation of RCON |
 |  | `qbittorrent-enhanced-edition` | [qbittorrent-enhanced-edition](https://www.qbittorrent.org) | release-4.6.3.10 | Featureful free software BitTorrent client |
 |  | `qbittorrent-enhanced-edition-nox` | [qbittorrent-enhanced-edition](https://www.qbittorrent.org) | release-4.6.3.10 | Featureful free software BitTorrent client |
@@ -171,7 +171,7 @@ Or, use variables from this repository in case I change them:
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | v0.3.0 | A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | v1.2.9 | Userspace KSM helper daemon |
 |  | `undetected-chromedriver` | [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) | 0aa5fbe252370b4cb2b95526add445392cad27ba | Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM) |
-|  | `undetected-chromedriver-bin` | [undetected-chromedriver-bin](https://chromedriver.chromium.org/) | 122.0.6261.94 | Chromedriver with undetected-chromedriver patch |
+|  | `undetected-chromedriver-bin` | [undetected-chromedriver-bin](https://chromedriver.chromium.org/) | 122.0.6261.128 | Chromedriver with undetected-chromedriver patch |
 |  | `vivado-2022_2` | [vivado](https://www.xilinx.com/products/design-tools/vivado.html) | 2022.2 | Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix) |
 |  | `vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | v24.02 | Vector Packet Processing |
 | `Broken` | `vs-rife` | [vs-rife](https://github.com/HolyWu/vs-rife) | v4.2.0 | Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth |
