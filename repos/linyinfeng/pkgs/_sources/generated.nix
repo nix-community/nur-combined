@@ -43,7 +43,9 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./dot-tar-07a378cb52a5d31cf0813e9cab17b5b20b37500e/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+
+      };
     };
     date = "2023-04-27";
   };
@@ -91,7 +93,9 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./mstickereditor-v0.3.3/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+
+      };
     };
   };
   mutter-mobile-shell = {
@@ -378,7 +382,9 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./swayosd-a0709bcd89d6ca19889486972bac35e69f1fa8e4/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+
+      };
     };
     date = "2023-12-10";
   };
@@ -419,7 +425,9 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./tg-send-d3aea3f2dc37c39521ce59c5fb156427764ad68f/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+
+      };
     };
     date = "2023-03-25";
   };
@@ -478,7 +486,9 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./zeronsd-v0.5.2/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+
+      };
     };
   };
 }
