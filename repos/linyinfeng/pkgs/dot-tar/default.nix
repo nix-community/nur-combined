@@ -1,16 +1,18 @@
-{ sources, rustPlatform, lib, pkg-config, openssl, zstd }:
+{
+  sources,
+  rustPlatform,
+  lib,
+  pkg-config,
+  openssl,
+  zstd,
+}:
 
-rustPlatform.buildRustPackage
-rec {
+rustPlatform.buildRustPackage rec {
   inherit (sources.dot-tar) pname version src;
   cargoLock = sources.dot-tar.cargoLock."Cargo.lock";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
-  buildInputs = [
-    openssl
-  ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ openssl ];
 
   # TODO due to some unknown reason, checkType = "release" causing failure
   # thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 13, kind: PermissionDenied, message: "Permission denied" }'

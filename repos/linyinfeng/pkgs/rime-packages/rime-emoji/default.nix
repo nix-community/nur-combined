@@ -1,6 +1,7 @@
-{ sources
-, stdenv
-, lib
+{
+  sources,
+  stdenv,
+  lib,
 }:
 
 stdenv.mkDerivation {

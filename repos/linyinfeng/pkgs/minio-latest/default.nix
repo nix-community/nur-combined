@@ -1,6 +1,11 @@
 # TODO wait for https://github.com/NixOS/nixpkgs/issues/199318
 # taken from nixpkgs pkgs/servers/minio/default.nix
-{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 
 let
   # The web client verifies, that the server version is a valid datetime string:
@@ -9,11 +14,15 @@ let
   # Example:
   #   versionToTimestamp "2021-04-22T15-44-28Z"
   #   => "2021-04-22T15:44:28Z"
-  versionToTimestamp = version:
+  versionToTimestamp =
+    version:
     let
       splitTS = builtins.elemAt (builtins.split "(.*)(T.*)" version) 1;
     in
-    builtins.concatStringsSep "" [ (builtins.elemAt splitTS 0) (builtins.replaceStrings [ "-" ] [ ":" ] (builtins.elemAt splitTS 1)) ];
+    builtins.concatStringsSep "" [
+      (builtins.elemAt splitTS 0)
+      (builtins.replaceStrings [ "-" ] [ ":" ] (builtins.elemAt splitTS 1))
+    ];
 in
 buildGoModule rec {
   pname = "minio-latest";
@@ -36,7 +45,10 @@ buildGoModule rec {
 
   tags = [ "kqueue" ];
 
-  ldflags = let t = "github.com/minio/minio/cmd"; in
+  ldflags =
+    let
+      t = "github.com/minio/minio/cmd";
+    in
     [
       "-s"
       "-w"

@@ -1,4 +1,8 @@
-{ sources, trivialBuild, lib }:
+{
+  sources,
+  trivialBuild,
+  lib,
+}:
 
 trivialBuild {
   inherit (sources.pyim-greatdict) pname version src;

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -69,8 +74,8 @@ in
   config =
     let
       configFile =
-        if cfg.configFile != null
-        then cfg.configFile
+        if cfg.configFile != null then
+          cfg.configFile
         else
           pkgs.writeTextFile {
             name = "trojan.json";
@@ -84,27 +89,24 @@ in
           message = "Either but not both `configFile` and `config` should be specified for trojan.";
         }
       ];
-      systemd.services.trojan =
-        {
-          description = "An unidentifiable mechanism that helps you bypass GFW";
+      systemd.services.trojan = {
+        description = "An unidentifiable mechanism that helps you bypass GFW";
 
-          serviceConfig = {
-            Type = "simple";
-            StandardError = "journal";
-            User = cfg.user;
-            Group = cfg.group;
-            AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-            ExecStart = "${cfg.package}/bin/trojan --config ${configFile} ${cfg.extraOptions}";
-            ExecReload = "${pkgs.util-linux}/bin/kill -HUP $MAINPID";
-            Restart = "on-failure";
-            RestartSec = "1s";
-          };
-
-          wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "simple";
+          StandardError = "journal";
+          User = cfg.user;
+          Group = cfg.group;
+          AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+          ExecStart = "${cfg.package}/bin/trojan --config ${configFile} ${cfg.extraOptions}";
+          ExecReload = "${pkgs.util-linux}/bin/kill -HUP $MAINPID";
+          Restart = "on-failure";
+          RestartSec = "1s";
         };
 
-      environment.systemPackages = [
-        cfg.package
-      ];
+        wantedBy = [ "multi-user.target" ];
+      };
+
+      environment.systemPackages = [ cfg.package ];
     };
 }

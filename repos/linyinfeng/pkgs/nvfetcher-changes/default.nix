@@ -1,4 +1,10 @@
-{ writeShellScriptBin, git, nix, path, lib }:
+{
+  writeShellScriptBin,
+  git,
+  nix,
+  path,
+  lib,
+}:
 
 writeShellScriptBin "nvfetcher-changes" ''
   set -e

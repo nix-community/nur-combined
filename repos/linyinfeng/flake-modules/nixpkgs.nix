@@ -1,6 +1,13 @@
-{ config, inputs, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 
-let cfg = config.nixpkgs; in
+let
+  cfg = config.nixpkgs;
+in
 {
   options.nixpkgs = {
     config = lib.mkOption {
@@ -13,7 +20,8 @@ let cfg = config.nixpkgs; in
     };
   };
   config = {
-    perSystem = { system, ... }:
+    perSystem =
+      { system, ... }:
       {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;

@@ -1,16 +1,18 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.services.dot-tar;
 
   cfgFile =
-    if cfg.configFile != null
-    then cfg.configFile
+    if cfg.configFile != null then
+      cfg.configFile
     else
-      pkgs.runCommand "dot-tar.toml"
-        {
-          buildInputs = [ pkgs.remarshal ];
-        } ''
+      pkgs.runCommand "dot-tar.toml" { buildInputs = [ pkgs.remarshal ]; } ''
         remarshal -if json -of toml \
           < ${pkgs.writeText "dot-tar.json" (builtins.toJSON cfg.config)} \
           > $out
@@ -50,15 +52,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions =
-      [{
+    assertions = [
+      {
         assertion = cfg.configFile != null || cfg.config != null;
         message = "either config or configFile should be defined";
       }
-        {
-          assertion = !(cfg.configFile != null && cfg.config != null);
-          message = "config conflicts with configFile";
-        }];
+      {
+        assertion = !(cfg.configFile != null && cfg.config != null);
+        message = "config conflicts with configFile";
+      }
+    ];
 
     systemd.services.dot-tar = {
       description = "Fetch file and tar it";

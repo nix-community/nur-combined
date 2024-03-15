@@ -1,15 +1,16 @@
-{ sources
-, stdenv
-, lib
-, librime
-, rimeDataBuildHook
-, rime-cangjie
-, rime-emoji
-, rime-loengfan
-, rime-luna-pinyin
-, rime-stroke
-, rime-essay
-, rime-prelude
+{
+  sources,
+  stdenv,
+  lib,
+  librime,
+  rimeDataBuildHook,
+  rime-cangjie,
+  rime-emoji,
+  rime-loengfan,
+  rime-luna-pinyin,
+  rime-stroke,
+  rime-essay,
+  rime-prelude,
 }:
 
 stdenv.mkDerivation {

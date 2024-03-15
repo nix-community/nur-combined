@@ -1,4 +1,8 @@
-{ sources, buildGoModule, lib }:
+{
+  sources,
+  buildGoModule,
+  lib,
+}:
 
 buildGoModule rec {
   inherit (sources.aws-sigv4-proxy) pname version src;

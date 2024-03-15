@@ -1,4 +1,9 @@
-{ sources, lib, python3Packages, stdenv }:
+{
+  sources,
+  lib,
+  python3Packages,
+  stdenv,
+}:
 
 python3Packages.buildPythonApplication rec {
   inherit (sources.telegram-send) pname version src;

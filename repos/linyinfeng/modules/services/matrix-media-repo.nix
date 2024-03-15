@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.services.matrix-media-repo;
@@ -44,17 +49,11 @@ in
         DynamicUser = true;
         StateDirectory = "matrix-media-repo";
         WorkingDirectory = "/var/lib/matrix-media-repo";
-        LoadCredential = [
-          "config.yaml:${cfg.configFile}"
-        ];
+        LoadCredential = [ "config.yaml:${cfg.configFile}" ];
       };
-      path = with pkgs; [
-        imagemagick
-      ];
+      path = with pkgs; [ imagemagick ];
       wantedBy = [ "multi-user.target" ];
     };
-    environment.systemPackages = [
-      cfg.package
-    ];
+    environment.systemPackages = [ cfg.package ];
   };
 }

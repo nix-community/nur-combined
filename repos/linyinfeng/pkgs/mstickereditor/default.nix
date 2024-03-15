@@ -1,4 +1,12 @@
-{ sources, rustPlatform, lib, pkg-config, rlottie, ffmpeg, clang }:
+{
+  sources,
+  rustPlatform,
+  lib,
+  pkg-config,
+  rlottie,
+  ffmpeg,
+  clang,
+}:
 
 rustPlatform.buildRustPackage {
   inherit (sources.mstickereditor) pname version src;

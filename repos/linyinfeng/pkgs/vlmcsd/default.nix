@@ -1,4 +1,9 @@
-{ sources, stdenv, lib, gzip }:
+{
+  sources,
+  stdenv,
+  lib,
+  gzip,
+}:
 
 stdenv.mkDerivation rec {
   inherit (sources.vlmcsd) pname version src;

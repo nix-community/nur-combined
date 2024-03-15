@@ -1,4 +1,12 @@
-{ callPackage, fetchFromGitHub, lib, mkYarnPackage, nodejs, makeWrapper, matrix-sdk-crypto-nodejs }:
+{
+  callPackage,
+  fetchFromGitHub,
+  lib,
+  mkYarnPackage,
+  nodejs,
+  makeWrapper,
+  matrix-sdk-crypto-nodejs,
+}:
 
 mkYarnPackage rec {
   pname = "matrix-chatgpt-bot";
@@ -13,9 +21,7 @@ mkYarnPackage rec {
   packageJSON = ./package.json;
   yarnNix = ./yarn.nix;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildPhase = ''
     runHook preBuild
@@ -36,7 +42,11 @@ mkYarnPackage rec {
 
   passthru = {
     updateScriptEnabled = true;
-    updateScript = let script = callPackage ./update.nix { }; in [ "${script}" ];
+    updateScript =
+      let
+        script = callPackage ./update.nix { };
+      in
+      [ "${script}" ];
   };
 
   meta = with lib; {

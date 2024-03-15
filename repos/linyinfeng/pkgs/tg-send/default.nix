@@ -1,16 +1,20 @@
-{ sources, rustPlatform, lib, pkg-config, openssl, libgit2, sqlite, zlib }:
+{
+  sources,
+  rustPlatform,
+  lib,
+  pkg-config,
+  openssl,
+  libgit2,
+  sqlite,
+  zlib,
+}:
 
-rustPlatform.buildRustPackage
-rec {
+rustPlatform.buildRustPackage rec {
   inherit (sources.tg-send) pname version src;
   cargoLock = sources.tg-send.cargoLock."Cargo.lock";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
-  buildInputs = [
-    openssl
-  ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ openssl ];
 
   meta = with lib; {
     homepage = "https://github.com/linyinfeng/tg-send";

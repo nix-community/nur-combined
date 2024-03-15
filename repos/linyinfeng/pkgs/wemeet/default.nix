@@ -1,29 +1,29 @@
-{ callPackage
-, system
-, fetchurl
-, lib
-, autoPatchelfHook
-, dpkg
-, makeDesktopItem
-, rsync
-, fd
-, qt5
+{
+  callPackage,
+  system,
+  fetchurl,
+  lib,
+  autoPatchelfHook,
+  dpkg,
+  makeDesktopItem,
+  rsync,
+  fd,
+  qt5,
 }:
 
 let
   sourceInfo = builtins.fromJSON (lib.readFile ./source.json);
-  desktopItem = makeDesktopItem
-    {
-      name = "wemeetapp";
-      desktopName = "Wemeet";
-      exec = "wemeetapp %u";
-      icon = "wemeetapp";
-      categories = [ "AudioVideo" ];
-      mimeTypes = [ "x-scheme-handler/wemeet" ];
-      extraConfig = {
-        "Name[zh_CN]" = "腾讯会议";
-      };
+  desktopItem = makeDesktopItem {
+    name = "wemeetapp";
+    desktopName = "Wemeet";
+    exec = "wemeetapp %u";
+    icon = "wemeetapp";
+    categories = [ "AudioVideo" ];
+    mimeTypes = [ "x-scheme-handler/wemeet" ];
+    extraConfig = {
+      "Name[zh_CN]" = "腾讯会议";
     };
+  };
   desktopItemForceX11 = desktopItem.override {
     name = "wemeetapp-force-x11";
     desktopName = "Wemeet (X)";
@@ -36,9 +36,7 @@ in
 qt5.mkDerivation {
   pname = "wemeet";
   inherit (sourceInfo.${system}) version;
-  src = fetchurl {
-    inherit (sourceInfo.${system}) url sha512;
-  };
+  src = fetchurl { inherit (sourceInfo.${system}) url sha512; };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -91,9 +89,10 @@ qt5.mkDerivation {
     install "${desktopItem}/share/applications/"*         "$out/share/applications/"
     ${
       with lib;
-      if versionAtLeast (versions.majorMinor trivial.version) "22.11"
-      then ''install "${desktopItemForceX11}/share/applications/"* "$out/share/applications/"''
-      else ""
+      if versionAtLeast (versions.majorMinor trivial.version) "22.11" then
+        ''install "${desktopItemForceX11}/share/applications/"* "$out/share/applications/"''
+      else
+        ""
     }
 
     mkdir -p "$out/share"
@@ -106,7 +105,11 @@ qt5.mkDerivation {
 
   passthru = {
     updateScriptEnabled = true;
-    updateScript = let script = callPackage ./update.nix { }; in [ "${script}" ];
+    updateScript =
+      let
+        script = callPackage ./update.nix { };
+      in
+      [ "${script}" ];
   };
 
   meta = with lib; {

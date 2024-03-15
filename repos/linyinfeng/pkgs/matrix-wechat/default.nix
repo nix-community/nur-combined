@@ -1,4 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, nix-update-script, olm }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+  olm,
+}:
 
 buildGoModule rec {
   pname = "matrix-wechat";
@@ -12,9 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-20xi3dcdSt5SRWUhmF7fZkSB6TzC/Z697M18v1kjLhg=";
 
-  buildInputs = [
-    olm
-  ];
+  buildInputs = [ olm ];
 
   ldflags = [
     "-s"

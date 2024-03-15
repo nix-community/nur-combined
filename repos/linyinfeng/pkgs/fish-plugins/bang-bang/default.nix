@@ -1,4 +1,8 @@
-{ sources, lib, buildFishPlugin }:
+{
+  sources,
+  lib,
+  buildFishPlugin,
+}:
 
 buildFishPlugin rec {
   inherit (sources.plugin-bang-bang) pname version src;

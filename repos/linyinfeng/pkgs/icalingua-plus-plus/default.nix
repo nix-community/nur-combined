@@ -1,14 +1,15 @@
-{ sources
-, stdenv
-, lib
-, makeWrapper
-, electron
-, makeDesktopItem
-, nodePackages
-, imagemagick
+{
+  sources,
+  stdenv,
+  lib,
+  makeWrapper,
+  electron,
+  makeDesktopItem,
+  nodePackages,
+  imagemagick,
 
   # package customization
-, commandLineArgs ? ""
+  commandLineArgs ? "",
 }:
 
 let

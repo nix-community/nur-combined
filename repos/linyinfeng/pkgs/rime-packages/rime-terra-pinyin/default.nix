@@ -1,11 +1,12 @@
-{ sources
-, stdenv
-, lib
-, librime
-, rimeDataBuildHook
-, rime-prelude
-, rime-essay
-, rime-stroke
+{
+  sources,
+  stdenv,
+  lib,
+  librime,
+  rimeDataBuildHook,
+  rime-prelude,
+  rime-essay,
+  rime-stroke,
 }:
 
 stdenv.mkDerivation {

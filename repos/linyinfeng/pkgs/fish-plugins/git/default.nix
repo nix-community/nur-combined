@@ -1,4 +1,8 @@
-{ sources, lib, buildFishPlugin }:
+{
+  sources,
+  lib,
+  buildFishPlugin,
+}:
 
 buildFishPlugin rec {
   inherit (sources.plugin-git) pname version src;

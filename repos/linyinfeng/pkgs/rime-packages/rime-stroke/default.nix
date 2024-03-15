@@ -1,4 +1,13 @@
-{ sources, stdenv, lib, librime, rimeDataBuildHook, rime-luna-pinyin, rime-prelude, rime-essay }:
+{
+  sources,
+  stdenv,
+  lib,
+  librime,
+  rimeDataBuildHook,
+  rime-luna-pinyin,
+  rime-prelude,
+  rime-essay,
+}:
 
 stdenv.mkDerivation {
   inherit (sources.rime-stroke) pname version src;

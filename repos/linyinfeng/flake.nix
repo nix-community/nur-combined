@@ -27,19 +27,19 @@
     nixos-stable.url = "github:nixos/nixpkgs/nixos-23.11";
   };
 
-  outputs = inputs @ { flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; }
-      {
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
-        imports = [
-          inputs.flake-parts.flakeModules.easyOverlay
-          inputs.devshell.flakeModule
-          inputs.treefmt-nix.flakeModule
+  outputs =
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      imports = [
+        inputs.flake-parts.flakeModules.easyOverlay
+        inputs.devshell.flakeModule
+        inputs.treefmt-nix.flakeModule
 
-          ./flake
-        ];
-      };
+        ./flake
+      ];
+    };
 }

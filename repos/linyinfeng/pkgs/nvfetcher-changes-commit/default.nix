@@ -1,4 +1,9 @@
-{ writeShellScriptBin, git, nvfetcher-changes, lib }:
+{
+  writeShellScriptBin,
+  git,
+  nvfetcher-changes,
+  lib,
+}:
 
 writeShellScriptBin "nvfetcher-changes-commit" ''
   set -e

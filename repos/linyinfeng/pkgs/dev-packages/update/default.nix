@@ -1,16 +1,17 @@
-{ lib
-, selfLib
-, writeShellScriptBin
-, nvfetcher-self
-, nvfetcher-changes-commit
-, path
-, selfPackages
-, tmpDir ? "/tmp/linyinfeng-nur-packages-update"
-, changelogFile ? "${tmpDir}/changelog"
-, nvfetcherChangelogFile ? "${tmpDir}/nvfetcher-changelog"
-, updateScriptCommitMessageFile ? "${tmpDir}/commit-message"
-, alternativeEnvFile ? "${tmpDir}/github-env"
-, nvcheckerKeyFile ? "keyfile.toml"
+{
+  lib,
+  selfLib,
+  writeShellScriptBin,
+  nvfetcher-self,
+  nvfetcher-changes-commit,
+  path,
+  selfPackages,
+  tmpDir ? "/tmp/linyinfeng-nur-packages-update",
+  changelogFile ? "${tmpDir}/changelog",
+  nvfetcherChangelogFile ? "${tmpDir}/nvfetcher-changelog",
+  updateScriptCommitMessageFile ? "${tmpDir}/commit-message",
+  alternativeEnvFile ? "${tmpDir}/github-env",
+  nvcheckerKeyFile ? "keyfile.toml",
 }:
 
 let
@@ -50,7 +51,7 @@ let
         rm "${updateScriptCommitMessageFile}"
       fi
     }
-    ${ lib.concatStringsSep "\n" (builtins.map (s: "handle_update_script ${s}") escapedUpdateScripts) }
+    ${lib.concatStringsSep "\n" (builtins.map (s: "handle_update_script ${s}") escapedUpdateScripts)}
 
     # remove old Cargo.lock files
     pushd pkgs/_sources
@@ -87,7 +88,6 @@ let
     cat ${changelogFile} >> $ENV_FILE
     echo "EOF" >> $ENV_FILE
   '';
-
 in
 drv.overrideAttrs (old: {
   meta = with lib; {

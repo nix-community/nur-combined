@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -35,21 +40,18 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    systemd.services.vlmcsd =
-      {
-        description = "KMS Emulator";
+    systemd.services.vlmcsd = {
+      description = "KMS Emulator";
 
-        serviceConfig = {
-          Type = "forking";
-          User = "nobody";
-          ExecStart = "${cfg.package}/bin/vlmcsd ${cfg.extraOptions}";
-        };
-
-        wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "forking";
+        User = "nobody";
+        ExecStart = "${cfg.package}/bin/vlmcsd ${cfg.extraOptions}";
       };
 
-    environment.systemPackages = [
-      cfg.package
-    ];
+      wantedBy = [ "multi-user.target" ];
+    };
+
+    environment.systemPackages = [ cfg.package ];
   };
 }

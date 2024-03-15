@@ -1,9 +1,10 @@
-{ buildGoModule
-, go
-, fetchFromGitHub
-, lib
-, nix-update-script
-, olm
+{
+  buildGoModule,
+  go,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+  olm,
 }:
 
 buildGoModule rec {
@@ -18,9 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-VLlW178B1a2mEwEb/aLZFYPVdC9hzQzI1gen+M8pg1I=";
 
-  buildInputs = [
-    olm
-  ];
+  buildInputs = [ olm ];
 
   ldflags = [
     "-s"

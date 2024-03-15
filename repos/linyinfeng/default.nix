@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 let
   inherit (pkgs) lib;
@@ -11,7 +13,4 @@ in
   modules = import ./modules;
   overlays = import ./overlays;
 }
-  //
-(pkgs'.callPackage ./pkgs {
-  inherit selfLib;
-})
+// (pkgs'.callPackage ./pkgs { inherit selfLib; })

@@ -1,9 +1,19 @@
-{ writeShellScript, lib, curl, jq }:
+{
+  writeShellScript,
+  lib,
+  curl,
+  jq,
+}:
 
 writeShellScript "update-wemeet" ''
   set -e
 
-  export PATH="${lib.makeBinPath [curl jq]}:$PATH"
+  export PATH="${
+    lib.makeBinPath [
+      curl
+      jq
+    ]
+  }:$PATH"
 
   while [[ $# -gt 0 ]]; do
     case $1 in

@@ -2,8 +2,11 @@
 
 let
   extractPname = n: lib.lists.last (lib.strings.split "/" n);
-  trivial = p:
-    let pname = extractPname p; in
+  trivial =
+    p:
+    let
+      pname = extractPname p;
+    in
     {
       "${p}" = {
         "${p}" = pname;
@@ -21,7 +24,11 @@ let
     (trivial "devPackages/nvfetcher-self")
     (trivial "devPackages/update")
     (trivial "dot-tar")
-    { "dpt-rp1-py" = { "dpt-rp1-py" = "dptrp1"; }; }
+    {
+      "dpt-rp1-py" = {
+        "dpt-rp1-py" = "dptrp1";
+      };
+    }
     (trivial "emacsPackages/pyim-greatdict")
     (empty "fishPlugins/bang-bang")
     (empty "fishPlugins/git")
@@ -39,11 +46,19 @@ let
     }
     (trivial "matrix-qq")
     (trivial "matrix-wechat")
-    { "minio-latest" = { "minio" = "minio"; }; }
+    {
+      "minio-latest" = {
+        "minio" = "minio";
+      };
+    }
     (trivial "mstickereditor")
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
-    { "rcon-cli" = { "gorcon" = "gorcon"; }; }
+    {
+      "rcon-cli" = {
+        "gorcon" = "gorcon";
+      };
+    }
     (empty "rimePackages/librime")
     (empty "rimePackages/rimeDataBuildHook")
     (empty "rimePackages/rime-bopomofo")

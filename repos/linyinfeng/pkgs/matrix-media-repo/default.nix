@@ -1,4 +1,12 @@
-{ buildGoModule, fetchFromGitHub, lib, nix-update-script, libde265, pkg-config, libheif }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+  libde265,
+  pkg-config,
+  libheif,
+}:
 
 buildGoModule rec {
   pname = "matrix-media-repo";
@@ -14,13 +22,9 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libheif
-  ];
+  buildInputs = [ libheif ];
 
   preBuild = ''
     go run ./cmd/utilities/compile_assets

@@ -1,4 +1,11 @@
-{ sources, stdenv, lib, librime, rimeDataBuildHook, rime-prelude }:
+{
+  sources,
+  stdenv,
+  lib,
+  librime,
+  rimeDataBuildHook,
+  rime-prelude,
+}:
 
 stdenv.mkDerivation {
   inherit (sources.rime-ice) pname version src;
@@ -8,9 +15,7 @@ stdenv.mkDerivation {
     rimeDataBuildHook
   ];
 
-  buildInputs = [
-    rime-prelude
-  ];
+  buildInputs = [ rime-prelude ];
 
   installPhase = ''
     mkdir -p "$out/share/rime-data"

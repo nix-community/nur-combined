@@ -1,17 +1,18 @@
-{ sources
-, rustPlatform
-, lib
-, pkg-config
-, autoconf
-, automake
-, libtool
-, python3
-, glib
-, gtk3
-, gtk-layer-shell
-, pulseaudio
-, udev
-, libinput
+{
+  sources,
+  rustPlatform,
+  lib,
+  pkg-config,
+  autoconf,
+  automake,
+  libtool,
+  python3,
+  glib,
+  gtk3,
+  gtk-layer-shell,
+  pulseaudio,
+  udev,
+  libinput,
 }:
 
 rustPlatform.buildRustPackage {

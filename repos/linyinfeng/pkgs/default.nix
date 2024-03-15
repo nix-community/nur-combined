@@ -1,7 +1,8 @@
-{ lib
-, newScope
-, selfLib
-, pkgs
+{
+  lib,
+  newScope,
+  selfLib,
+  pkgs,
 }:
 
 lib.makeScope newScope (
@@ -11,10 +12,12 @@ lib.makeScope newScope (
   in
   {
     sources = callPackage ./_sources/generated.nix { };
-    devPackages = lib.recurseIntoAttrs (callPackage ./dev-packages {
-      selfPackages = self;
-      inherit selfLib;
-    });
+    devPackages = lib.recurseIntoAttrs (
+      callPackage ./dev-packages {
+        selfPackages = self;
+        inherit selfLib;
+      }
+    );
 
     activate-dpt = callPackage ./activate-dpt { };
     aws-s3-reverse-proxy = callPackage ./aws-s3-reverse-proxy { };
@@ -23,18 +26,19 @@ lib.makeScope newScope (
     cf-terraforming = callPackage ./cf-terraforming { };
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
-    emacsPackages = lib.recurseIntoAttrs (callPackage ./emacs-packages {
-      emacsPackagesToplevel = pkgs.emacsPackages;
-    });
-    fishPlugins = lib.recurseIntoAttrs (callPackage ./fish-plugins {
-      fishPluginsToplevel = pkgs.fishPlugins;
-    });
+    emacsPackages = lib.recurseIntoAttrs (
+      callPackage ./emacs-packages { emacsPackagesToplevel = pkgs.emacsPackages; }
+    );
+    fishPlugins = lib.recurseIntoAttrs (
+      callPackage ./fish-plugins { fishPluginsToplevel = pkgs.fishPlugins; }
+    );
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
     matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot {
       matrix-sdk-crypto-nodejs =
-        if pkgs.matrix-sdk-crypto-nodejs.version == "0.1.0-beta.3"
-        then pkgs.matrix-sdk-crypto-nodejs
-        else pkgs.matrix-sdk-crypto-nodejs-0_1_0-beta_3;
+        if pkgs.matrix-sdk-crypto-nodejs.version == "0.1.0-beta.3" then
+          pkgs.matrix-sdk-crypto-nodejs
+        else
+          pkgs.matrix-sdk-crypto-nodejs-0_1_0-beta_3;
     };
     matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };

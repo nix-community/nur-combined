@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -46,10 +51,5 @@ in
     };
   };
 
-  config =
-    mkIf (cfg.enable) {
-      environment.systemPackages = [
-        telegram-send
-      ];
-    };
+  config = mkIf (cfg.enable) { environment.systemPackages = [ telegram-send ]; };
 }

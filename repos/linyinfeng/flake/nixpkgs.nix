@@ -1,6 +1,4 @@
 { inputs, ... }:
 {
-  nixpkgs.overlays = [
-    inputs.nvfetcher.overlays.default
-  ];
+  nixpkgs.overlays = [ inputs.nvfetcher.overlays.default ];
 }

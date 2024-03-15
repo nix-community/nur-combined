@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -55,10 +60,5 @@ in
     };
   };
 
-  config =
-    mkIf (cfg.enable) {
-      environment.systemPackages = [
-        tg-send
-      ];
-    };
+  config = mkIf (cfg.enable) { environment.systemPackages = [ tg-send ]; };
 }

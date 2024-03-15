@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, lib, nix-update-script }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+}:
 
 buildGoModule rec {
   pname = "rcon-cli";

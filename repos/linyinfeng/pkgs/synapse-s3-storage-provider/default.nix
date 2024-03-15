@@ -1,4 +1,8 @@
-{ sources, lib, python3Packages }:
+{
+  sources,
+  lib,
+  python3Packages,
+}:
 
 python3Packages.buildPythonPackage rec {
   inherit (sources.synapse-s3-storage-provider) pname version src;

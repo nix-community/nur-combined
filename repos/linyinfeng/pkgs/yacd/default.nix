@@ -1,4 +1,8 @@
-{ sources, lib, stdenv }:
+{
+  sources,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   inherit (sources.yacd) pname version src;

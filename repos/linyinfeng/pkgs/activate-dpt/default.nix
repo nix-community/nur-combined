@@ -1,4 +1,10 @@
-{ lib, python3Packages, runCommand, makeWrapper, avahi }:
+{
+  lib,
+  python3Packages,
+  runCommand,
+  makeWrapper,
+  avahi,
+}:
 
 let
   pname = "activate-dpt";
@@ -7,24 +13,21 @@ let
   pyPkg = python3Packages.buildPythonPackage {
     inherit pname version;
     src = ./.;
-    propagatedBuildInputs = with python3Packages; [
-      pyserial
-    ];
+    propagatedBuildInputs = with python3Packages; [ pyserial ];
   };
 in
 runCommand "${name}"
-{
-  inherit pname version;
+  {
+    inherit pname version;
 
-  buildInputs = [
-    makeWrapper
-  ];
-  meta = with lib; {
-    description = "Python script to activate Ethernet over USB of Sony DPT-RP1";
-    maintainers = with maintainers; [ yinfeng ];
-    license = licenses.mit;
-  };
-} ''
-  makeWrapper "${pyPkg}/bin/activate-dpt.py" "$out/bin/activate-dpt" \
-    --prefix PATH : "${avahi}/bin"
-''
+    buildInputs = [ makeWrapper ];
+    meta = with lib; {
+      description = "Python script to activate Ethernet over USB of Sony DPT-RP1";
+      maintainers = with maintainers; [ yinfeng ];
+      license = licenses.mit;
+    };
+  }
+  ''
+    makeWrapper "${pyPkg}/bin/activate-dpt.py" "$out/bin/activate-dpt" \
+      --prefix PATH : "${avahi}/bin"
+  ''

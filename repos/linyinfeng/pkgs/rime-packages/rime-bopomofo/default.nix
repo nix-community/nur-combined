@@ -1,12 +1,13 @@
-{ sources
-, stdenv
-, lib
-, librime
-, rimeDataBuildHook
-, rime-stroke
-, rime-terra-pinyin
-, rime-prelude
-, rime-essay
+{
+  sources,
+  stdenv,
+  lib,
+  librime,
+  rimeDataBuildHook,
+  rime-stroke,
+  rime-terra-pinyin,
+  rime-prelude,
+  rime-essay,
 }:
 
 stdenv.mkDerivation {
@@ -22,9 +23,7 @@ stdenv.mkDerivation {
     rime-essay
   ];
 
-  propagatedBuildInputs = [
-    rime-terra-pinyin
-  ];
+  propagatedBuildInputs = [ rime-terra-pinyin ];
 
   installPhase = ''
     install -Dm644 *.yaml -t "$out/share/rime-data/"

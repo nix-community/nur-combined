@@ -1,4 +1,8 @@
-{ sources, stdenv, lib }:
+{
+  sources,
+  stdenv,
+  lib,
+}:
 
 stdenv.mkDerivation {
   inherit (sources.rime-essay) pname version src;

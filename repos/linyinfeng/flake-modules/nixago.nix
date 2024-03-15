@@ -1,11 +1,18 @@
-{ inputs, lib, flake-parts-lib, ... }:
+{
+  inputs,
+  lib,
+  flake-parts-lib,
+  ...
+}:
 
 let
   inherit (lib) mkOption types;
   inherit (flake-parts-lib) mkPerSystemOption;
 
-  nixagoConfig = { defaultEngine }:
-    { ... }: {
+  nixagoConfig =
+    { defaultEngine }:
+    { ... }:
+    {
       options = {
         data = mkOption {
           type = types.anything;
@@ -37,29 +44,36 @@ let
     };
 in
 {
-  options.perSystem = mkPerSystemOption ({ config, system, ... }: {
-    _file = ./nixago.nix;
-    options = {
-      nixago = {
-        configs = mkOption {
-          type = with types; listOf (submodule (nixagoConfig {
-            defaultEngine = inputs.nixago.engines.${system}.nix { };
-          }));
-          default = [ ];
-          description = ''
-            List of nixago configurations.
-          '';
-        };
-        shellHook = mkOption {
-          type = types.str;
-          default = (inputs.nixago.lib.${system}.makeAll config.nixago.configs).shellHook;
-          defaultText = "(inputs.nixago.lib.\${system}.makeAll config.nixago.configs).shellHook";
-          readOnly = true;
-          description = ''
-            Shell hook string of nixago.
-          '';
+  options.perSystem = mkPerSystemOption (
+    { config, system, ... }:
+    {
+      _file = ./nixago.nix;
+      options = {
+        nixago = {
+          configs = mkOption {
+            type =
+              with types;
+              listOf (
+                submodule (nixagoConfig {
+                  defaultEngine = inputs.nixago.engines.${system}.nix { };
+                })
+              );
+            default = [ ];
+            description = ''
+              List of nixago configurations.
+            '';
+          };
+          shellHook = mkOption {
+            type = types.str;
+            default = (inputs.nixago.lib.${system}.makeAll config.nixago.configs).shellHook;
+            defaultText = "(inputs.nixago.lib.\${system}.makeAll config.nixago.configs).shellHook";
+            readOnly = true;
+            description = ''
+              Shell hook string of nixago.
+            '';
+          };
         };
       };
-    };
-  });
+    }
+  );
 }
