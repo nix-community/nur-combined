@@ -16,14 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up QEMU
         if: ${{ !env.ACT }}
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v20
+        uses: cachix/install-nix-action@v26
         with:
           nix_path: nixpkgs=channel:nixos-unstable-small
           extra_nix_config: |
@@ -31,7 +31,7 @@ jobs:
             sandbox = false # can't install in act without this
 
       - name: Set up cachix
-        uses: cachix/cachix-action@v12
+        uses: cachix/cachix-action@v14
         with:
           name: eh5
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -54,7 +54,7 @@ jobs:
 
       - name: Commit changes
         if: ${{ !env.ACT }}
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
           commit_message: "chore: update flake"
