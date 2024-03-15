@@ -16,6 +16,18 @@
               strict_sni_host = false;
               metrics = { };
               routes = [
+
+                {
+                  match = [{
+                    host = [ config.networking.fqdn ];
+                    path = [ "/prom" "/prom/*" ];
+                  }];
+                  handle = [{
+                    handler = "reverse_proxy";
+                    upstreams = [{ dial = "10.0.1.2:9090"; }];
+                  }];
+                }
+
                 {
                   handle = [{
                     handler = "subroute";

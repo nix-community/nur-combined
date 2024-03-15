@@ -7,7 +7,7 @@
           inherit lib self inputs inputs';
           inherit (config) packages;
           inherit (lib) data;
-          user = "elen";
+          user = "riro";
         };
         modules = lib.sharedModules ++ [
           {

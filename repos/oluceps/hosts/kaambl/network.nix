@@ -121,7 +121,7 @@
       "20-wireless" = {
         matchConfig.Name = "wlan0";
         DHCP = "yes";
-        dhcpV4Config.RouteMetric = 2046;
+        dhcpV4Config.RouteMetric = 2040;
         dhcpV6Config.RouteMetric = 2046;
         networkConfig = {
           DNSSEC = true;

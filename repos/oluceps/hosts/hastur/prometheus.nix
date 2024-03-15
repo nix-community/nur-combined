@@ -12,7 +12,7 @@ in
   services.prometheus = {
     enable = true;
     webExternalUrl = "https://colour.nyaw.xyz/prom";
-    listenAddress = "10.0.2.2";
+    listenAddress = "0.0.0.0";
     port = 9090;
     retentionTime = "7d";
     globalConfig = {

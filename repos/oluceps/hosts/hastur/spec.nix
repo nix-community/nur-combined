@@ -92,11 +92,12 @@
       "fail2ban"
       "dae"
       "scrutiny"
-      "alertmanager-ntfy"
+      "ddns-go"
     ]
       (n: importService n)
   ) // {
 
+    prom-ntfy-bridge.enable = true;
     # xserver.videoDrivers = [ "nvidia" ];
 
     # xserver.enable = true;
@@ -357,8 +358,8 @@
         };
         pools = [
           {
-            url = "gulf.moneroocean.stream:20128";
-            user = "83u3a1Sx8wt5hQ9o8eHoSbKDPRwt9uGLJ8b26GHzfZ3Ha17ASekNTMvQk7TnYEqL724UuWQrJbBq7Cvg1HHZqGQc7WsT8RV";
+            url = "pool.supportxmr.com:443";
+            user = "43WvF2Vv5e2Dpte5w44gHzWbZeLZm9PNNEsxCMRRc66GNVPmNoAaxwPFPurR1hQtNzP4NgY1dtjEohh9LyWLKAvqJUErReS";
             keepalive = true;
             tls = true;
             pass = "rha";

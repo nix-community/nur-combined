@@ -144,8 +144,8 @@
       "ec_sys"
       "uhid"
       "kvm-amd"
-      # "brutal"
-      # "dm_sflc"
+      "brutal"
+      "dm_sflc"
     ];
     kernelParams = [
       "amd_pstate=active"

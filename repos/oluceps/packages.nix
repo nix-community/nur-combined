@@ -14,6 +14,7 @@ let
     # ];
 
     cmd = [
+      deno
       ntfy-sh
       _7zz
       yazi

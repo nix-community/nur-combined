@@ -32,10 +32,13 @@
       "mosdns"
       "fail2ban"
       "dae"
+      "ddns-go"
     ]
       (n: importService n)
   ) //
   {
+
+    # prom-ntfy-bridge.enable = true;
 
     beesd.filesystems = {
       os = {

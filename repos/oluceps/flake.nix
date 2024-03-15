@@ -105,7 +105,6 @@
     RyanGibb = {
       url = "github:RyanGibb/nixos";
     };
-    alertmanager-ntfy.url = "github:pinpox/alertmanager-ntfy";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -147,7 +146,8 @@
     };
     # path:/home/riro/Src/flake.nix
     dae.url = "github:daeuniverse/flake.nix/exp";
-    # nixyDomains.url = "/home/elen/nixyDomains";
+    # dae.url = "/home/elen/Src/flake.nix";
+    # nixyDomains.url = "";
     nixyDomains.url = "github:oluceps/nixyDomains";
     nixyDomains.flake = false;
     nuenv.url = "github:DeterminateSystems/nuenv";
