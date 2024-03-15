@@ -802,6 +802,9 @@
             "file": "nix/nur/default.nix",
             "url": "https://github.com/UnidealisticRaccoon/SnowyBurrow"
         },
+        "progsyn": {
+            "url": "https://github.com/mistzzt/program-synthesis-nur"
+        },
         "pschuprikov": {
             "url": "https://github.com/pschuprikov/nur-packages"
         },
