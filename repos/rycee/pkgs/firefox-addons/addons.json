@@ -275,6 +275,13 @@
     }
   },
   {
+    "slug": "earth-view-from-google",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
+  },
+  {
     "slug": "ebates"
   },
   {
@@ -300,6 +307,16 @@
   },
   {
     "slug": "enhanced-h264ify"
+  },
+  {
+    "slug": "enhancer-for-youtube",
+    "license": {
+      "tag": "custom",
+      "shortName": "enhancer-for-youtube",
+      "fullName": "Custom License for Enhancer for YouTube™",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/",
+      "free": false
+    }
   },
   {
     "slug": "ether-metamask",
@@ -1454,6 +1471,13 @@
       "fullName": "End-User License Agreement for Unhook: Remove YouTube Recommended Videos Comments",
       "url": "https://addons.mozilla.org/en-US/firefox/addon/youtube-recommended-videos/eula/},",
       "free": false
+    }
+  },
+  {
+    "slug": "youtube-redux",
+    "license": {
+      "tag": "predefined",
+      "shortName": "mit"
     }
   },
   {

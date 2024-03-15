@@ -2022,6 +2022,21 @@
         platforms = platforms.all;
       };
     };
+    "earth-view-from-google" = buildFirefoxXpiAddon {
+      pname = "earth-view-from-google";
+      version = "2.18.7";
+      addonId = "{44ec79ad-72a9-471d-962d-49e7e5501d97}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/737036/earth_view_from_google-2.18.7.xpi";
+      sha256 = "3b6d7a1b7b3e9835436301cdf61dc653cdb88ef6c4c2f19a0de216cbde124d8f";
+      meta = with lib;
+      {
+        homepage = "https://earthview.withgoogle.com/";
+        description = "Experience a beautiful image from Google Earth every time you open a new tab.";
+        license = licenses.asl20;
+        mozPermissions = [ "https://www.gstatic.com/prettyearth/*" ];
+        platforms = platforms.all;
+      };
+    };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
       version = "5.38.2";
@@ -2159,6 +2174,34 @@
           "*://*.youtube.com/*"
           "*://*.youtube-nocookie.com/*"
           "*://*.youtu.be/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "enhancer-for-youtube" = buildFirefoxXpiAddon {
+      pname = "enhancer-for-youtube";
+      version = "2.0.122.1";
+      addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231850/enhancer_for_youtube-2.0.122.1.xpi";
+      sha256 = "fbed2be2e99747ab78dd9ee9334f6a3c161497d1beb71ae50e6cf685b0a075fd";
+      meta = with lib;
+      {
+        homepage = "https://www.mrfdev.com/enhancer-for-youtube";
+        description = "Take control of YouTube and boost your user experience!";
+        license = {
+          shortName = "enhancer-for-youtube";
+          fullName = "Custom License for Enhancer for YouTube™";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/";
+          free = false;
+        };
+        mozPermissions = [
+          "cookies"
+          "storage"
+          "*://www.youtube.com/*"
+          "*://www.youtube.com/embed/*"
+          "*://www.youtube.com/live_chat*"
+          "*://www.youtube.com/pop-up-player/*"
+          "*://www.youtube.com/shorts/*"
         ];
         platforms = platforms.all;
       };
@@ -8150,10 +8193,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.14.1";
+      version = "1.15.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243202/proton_pass-1.14.1.xpi";
-      sha256 = "3a0cee9a4116ea276cafcff9d7edeb53ec954bce39b869a9d351bd7c013a7635";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4248868/proton_pass-1.15.0.xpi";
+      sha256 = "7269a3e6a426aa8ce09fb707a0b6900cc766f52e601cdb0a052ccc902757c6ca";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -11466,6 +11509,20 @@
           "https://www.youtube.com/*"
           "https://m.youtube.com/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "youtube-redux" = buildFirefoxXpiAddon {
+      pname = "youtube-redux";
+      version = "3.4.1";
+      addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4224361/youtube_redux-3.4.1.xpi";
+      sha256 = "734dee3b7d32ca972af10dd462b0d9d5af0939ad54627733bd83b15a0021176e";
+      meta = with lib;
+      {
+        description = "Replicate old YouTube look and features within the modern layout!";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "storage" "*://*.youtube.com/*" ];
         platforms = platforms.all;
       };
     };
