@@ -1716,10 +1716,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.5.8";
+      version = "1.5.9";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246391/dearrow-1.5.8.xpi";
-      sha256 = "dfda7050d4f6526d54545f4d446cf79b1db98de001345b039f940cdc35b555ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4248489/dearrow-1.5.9.xpi";
+      sha256 = "8e23a3720d9c5d8853cf934345fed9027bf857e57dbe86c0bc8993565db656a2";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1998,10 +1998,10 @@
     };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2024.1.19";
+      version = "2024.3.11";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229541/duckduckgo_for_firefox-2024.1.19.xpi";
-      sha256 = "48bc215807024dd1f95774b4844bcfdbc90e989fddfab42d08961866fc0f3191";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4248904/duckduckgo_for_firefox-2024.3.11.xpi";
+      sha256 = "705babc0c33f76cf9642015e5dfec8c62f94fe227592d4206c3c039cb25bb44c";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -3476,10 +3476,10 @@
     };
     "hoppscotch" = buildFirefoxXpiAddon {
       pname = "hoppscotch";
-      version = "0.31";
+      version = "0.32";
       addonId = "postwoman-firefox@postwoman.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4229676/hoppscotch-0.31.xpi";
-      sha256 = "31c8c7231e710c218028d2ac3e6d713aeb14af13bd85fc25f4288977d61f7cdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4249999/hoppscotch-0.32.xpi";
+      sha256 = "84a7bf299a5d6fc72b2e2a41c3bcad6b7b1d1c71ece5df37279c0e2b0718b65a";
       meta = with lib;
       {
         homepage = "https://github.com/hoppscotch/hoppscotch-extension";
@@ -8576,22 +8576,15 @@
     };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.0.18";
+      version = "2.0.19";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241144/rsshub_radar-2.0.18.xpi";
-      sha256 = "9b64316b8aa0a69a04738880786481869239402f1860200ebfcb3e69cb8b3af7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250199/rsshub_radar-2.0.19.xpi";
+      sha256 = "ecaf49abe0ddd7bdd4655245354c3fce87b94ac6e7fac90d4d4b74ffaa34ec3c";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
         description = "Easily find and subscribe to RSS and RSSHub.";
-        mozPermissions = [
-          "storage"
-          "tabs"
-          "offscreen"
-          "notifications"
-          "alarms"
-          "<all_urls>"
-        ];
+        mozPermissions = [ "storage" "tabs" "offscreen" "alarms" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -9502,10 +9495,10 @@
     };
     "tab-unload-for-tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tab-unload-for-tree-style-tab";
-      version = "6.15";
+      version = "6.16";
       addonId = "{7aa0a466-58f8-427b-8cd2-e94645c4edc2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940033/tab_unload_for_tree_style_tab-6.15.xpi";
-      sha256 = "fbe4ec3cff0a29fe9d730f689d323ba98ad159cb04800e59b7f91f694256473b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250340/tab_unload_for_tree_style_tab-6.16.xpi";
+      sha256 = "39cff2d0811695b2c9ac16f4ded001bbb4e2e237becb64d23774548183786dde";
       meta = with lib;
       {
         homepage = "https://github.com/Lej77/tab-unloader-for-tree-style-tab";
