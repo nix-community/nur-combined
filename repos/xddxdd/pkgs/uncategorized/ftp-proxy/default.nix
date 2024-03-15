@@ -4,7 +4,7 @@
   ctags,
   fetchurl,
   ...
-} @ args:
+}@args:
 stdenv.mkDerivation rec {
   pname = "ftp-proxy";
   version = "1.2.3";

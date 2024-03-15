@@ -1,4 +1,5 @@
-{sources, ...}: {
+{ sources, ... }:
+{
   stdenv,
   lib,
   fetchurl,
@@ -19,13 +20,12 @@
   cairo,
   glib,
   gtk3,
-}: let
+}:
+let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   thisSource = sources."${cpuName}" or null;
   runtimeDependencies =
-    [
-      cups
-    ]
+    [ cups ]
     ++ lib.optionals gtkSupport [
       cairo
       glib
@@ -36,26 +36,25 @@
   result = stdenv.mkDerivation rec {
     pname = "openj9-ibm-semeru-${thisSource.type}-bin";
     version = thisSource.version;
-    src = fetchurl {
-      inherit (thisSource) url sha256;
-    };
+    src = fetchurl { inherit (thisSource) url sha256; };
 
-    buildInputs =
-      [
-        alsa-lib # libasound.so wanted by lib/libjsound.so
-        fontconfig
-        freetype
-        stdenv.cc.cc.lib # libstdc++.so.6
-        xorg.libX11
-        xorg.libXext
-        xorg.libXi
-        xorg.libXrender
-        xorg.libXtst
-        zlib
-      ]
-      ++ lib.optional stdenv.isAarch32 libffi;
+    buildInputs = [
+      alsa-lib # libasound.so wanted by lib/libjsound.so
+      fontconfig
+      freetype
+      stdenv.cc.cc.lib # libstdc++.so.6
+      xorg.libX11
+      xorg.libXext
+      xorg.libXi
+      xorg.libXrender
+      xorg.libXtst
+      zlib
+    ] ++ lib.optional stdenv.isAarch32 libffi;
 
-    nativeBuildInputs = [autoPatchelfHook makeWrapper];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      makeWrapper
+    ];
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
@@ -118,6 +117,4 @@
     };
   };
 in
-  if thisSource == null
-  then null
-  else result
+if thisSource == null then null else result

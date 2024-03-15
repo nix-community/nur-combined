@@ -3,24 +3,29 @@
   lib,
   sources,
   ...
-} @ args: let
-  helpers = callPackage ./helpers.nix {};
+}@args:
+let
+  helpers = callPackage ./helpers.nix { };
   inherit (helpers) mkKernel;
 
-  x86_64-march = ["v1" "v2" "v3" "v4"];
+  x86_64-march = [
+    "v1"
+    "v2"
+    "v3"
+    "v4"
+  ];
 
-  batch = {
-    prefix,
-    definitionDir,
-    version,
-    src,
-    ...
-  }: let
-    prefix' =
-      if prefix != ""
-      then prefix + "-"
-      else "";
-  in
+  batch =
+    {
+      prefix,
+      definitionDir,
+      version,
+      src,
+      ...
+    }:
+    let
+      prefix' = if prefix != "" then prefix + "-" else "";
+    in
     lib.flatten (
       [
         (mkKernel {
@@ -39,24 +44,23 @@
         })
       ]
       ++ (builtins.map (march: [
-          (mkKernel {
-            name = "${prefix'}x86_64-${march}";
-            inherit version src sources;
-            configFile = definitionDir + "/config.nix";
-            patchDir = definitionDir + "/patches";
-            lto = false;
-            x86_64-march = march;
-          })
-          (mkKernel {
-            name = "${prefix'}x86_64-${march}-lto";
-            inherit version src sources;
-            configFile = definitionDir + "/config.nix";
-            patchDir = definitionDir + "/patches";
-            lto = true;
-            x86_64-march = march;
-          })
-        ])
-        x86_64-march)
+        (mkKernel {
+          name = "${prefix'}x86_64-${march}";
+          inherit version src sources;
+          configFile = definitionDir + "/config.nix";
+          patchDir = definitionDir + "/patches";
+          lto = false;
+          x86_64-march = march;
+        })
+        (mkKernel {
+          name = "${prefix'}x86_64-${march}-lto";
+          inherit version src sources;
+          configFile = definitionDir + "/config.nix";
+          patchDir = definitionDir + "/patches";
+          lto = true;
+          x86_64-march = march;
+        })
+      ]) x86_64-march)
     );
 
   batches =
@@ -91,4 +95,4 @@
       inherit (sources.linux-xanmod-6_0) version src;
     });
 in
-  builtins.listToAttrs batches
+builtins.listToAttrs batches

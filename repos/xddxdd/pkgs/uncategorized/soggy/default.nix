@@ -7,15 +7,19 @@
   protobufc,
   lua5_3_compat,
   ...
-} @ args:
+}@args:
 stdenv.mkDerivation rec {
   inherit (sources.soggy) pname version src;
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [cmake];
-  buildInputs = [protobuf3_21 protobufc lua5_3_compat];
+  nativeBuildInputs = [ cmake ];
+  buildInputs = [
+    protobuf3_21
+    protobufc
+    lua5_3_compat
+  ];
 
-  patches = [./fix-cstdint-include.patch];
+  patches = [ ./fix-cstdint-include.patch ];
 
   installPhase = ''
     runHook preInstall

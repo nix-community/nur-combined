@@ -8,47 +8,51 @@
   makeWrapper,
   writeScript,
   ...
-} @ args: let
+}@args:
+let
   resources = sources.grasscutter-resources.src;
   keystore = fetchurl {
     url = "https://github.com/Grasscutters/Grasscutter/raw/development/keystore.p12";
     hash = "sha256-apFbGtWacE3GjXU/6h2yseskAsob0Xc/NWEu2uC0v3M=";
   };
 in
-  stdenvNoCC.mkDerivation rec {
-    inherit (sources.grasscutter) pname version src;
+stdenvNoCC.mkDerivation rec {
+  inherit (sources.grasscutter) pname version src;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    nativeBuildInputs = [makeWrapper procps];
+  nativeBuildInputs = [
+    makeWrapper
+    procps
+  ];
 
-    installPhase = ''
-      mkdir -p $out/bin $out/opt
-      cp $src $out/grasscutter.jar
+  installPhase = ''
+    mkdir -p $out/bin $out/opt
+    cp $src $out/grasscutter.jar
 
-      ln -s ${resources}/Resources $out/opt/resources
-      ln -s ${keystore} $out/opt/keystore.p12
+    ln -s ${resources}/Resources $out/opt/resources
+    ln -s ${keystore} $out/opt/keystore.p12
 
-      pushd $out/opt/
-      # Without MongoDB, Grasscutter is expected to fail
-      (${jre_headless}/bin/java -jar $out/grasscutter.jar || true) | while read line; do
-        [[ "''${line}" == *"Loading Grasscutter"* ]] && echo "Aborting loading" && pkill -9 java
-        echo ''${line}
-      done
-      mv config.json config.example.json
-      rm -rf logs
-      popd
+    pushd $out/opt/
+    # Without MongoDB, Grasscutter is expected to fail
+    (${jre_headless}/bin/java -jar $out/grasscutter.jar || true) | while read line; do
+      [[ "''${line}" == *"Loading Grasscutter"* ]] && echo "Aborting loading" && pkill -9 java
+      echo ''${line}
+    done
+    mv config.json config.example.json
+    rm -rf logs
+    popd
 
-      makeWrapper ${jre_headless}/bin/java $out/bin/grasscutter \
-        --run "cp -r $out/opt/* ." \
-        --run "chmod -R +rw ." \
-        --add-flags "-jar" \
-        --add-flags "$out/grasscutter.jar" \
-    '';
+    makeWrapper ${jre_headless}/bin/java $out/bin/grasscutter \
+      --run "cp -r $out/opt/* ." \
+      --run "chmod -R +rw ." \
+      --add-flags "-jar" \
+      --add-flags "$out/grasscutter.jar" \
+  '';
 
-    meta = with lib; {
-      description = "A server software reimplementation for a certain anime game.";
-      homepage = "https://github.com/Grasscutters/Grasscutter";
-      license = with licenses; [agpl3];
-    };
-  }
+  meta = with lib; {
+    description = "A server software reimplementation for a certain anime game.";
+    homepage = "https://github.com/Grasscutters/Grasscutter";
+    license = with licenses; [ agpl3 ];
+  };
+}

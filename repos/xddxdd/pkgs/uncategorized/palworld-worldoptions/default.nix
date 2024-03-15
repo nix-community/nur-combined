@@ -9,7 +9,7 @@
 stdenv.mkDerivation {
   inherit (sources.palworld-worldoptions) pname version src;
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   postPatch = ''
     rm -rf src/uesave

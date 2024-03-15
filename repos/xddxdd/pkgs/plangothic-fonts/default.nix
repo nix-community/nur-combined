@@ -3,8 +3,10 @@
   lib,
   sources,
   ...
-} @ args: let
-  package = P1_variant:
+}@args:
+let
+  package =
+    P1_variant:
     stdenvNoCC.mkDerivation rec {
       pname = "plangothic-fonts-${P1_variant}";
       inherit (sources.plangothic-fonts) version src;
@@ -20,7 +22,8 @@
         license = licenses.ofl;
       };
     };
-in {
+in
+{
   allideo = package "allideo";
   fallback = package "fallback";
 }

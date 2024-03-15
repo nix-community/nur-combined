@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   opensslConf = pkgs.writeText "openssl.conf" ''
     openssl_conf = openssl_init
 
@@ -36,9 +37,12 @@
     [system_default_sect]
     Groups = ${builtins.concatStringsSep ":" config.programs.openssl-oqs-provider.curves}
   '';
-in {
+in
+{
   options.programs.openssl-oqs-provider = {
-    enable = lib.mkEnableOption (lib.mdDoc "load post-quantum algorithm provider for OpenSSL 3.x") // {default = true;};
+    enable = lib.mkEnableOption (lib.mdDoc "load post-quantum algorithm provider for OpenSSL 3.x") // {
+      default = true;
+    };
     curves = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [

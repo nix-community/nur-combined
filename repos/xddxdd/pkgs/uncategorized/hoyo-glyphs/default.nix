@@ -4,7 +4,7 @@
   sources,
   unzip,
   ...
-} @ args:
+}@args:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.hoyo-glyphs) pname version;
 
@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [unzip];
+  nativeBuildInputs = [ unzip ];
 
   installPhase = ''
     mkdir -p $out/share/fonts/opentype/

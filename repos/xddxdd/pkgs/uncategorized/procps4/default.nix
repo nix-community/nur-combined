@@ -5,13 +5,13 @@
   pkg-config,
   ncurses,
   ...
-} @ args:
+}@args:
 stdenv.mkDerivation rec {
   inherit (sources.procps4) pname version src;
-  nativeBuildInputs = [pkg-config];
-  buildInputs = [ncurses];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ ncurses ];
 
-  configureFlags = ["--disable-modern-top"];
+  configureFlags = [ "--disable-modern-top" ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/procps-ng/procps";

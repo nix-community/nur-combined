@@ -3,7 +3,7 @@
   stdenv,
   chmlib,
   ...
-} @ args:
+}@args:
 chmlib.overrideAttrs (oldAttrs: {
-  configureFlags = ["--enable-examples=yes"];
+  configureFlags = [ "--enable-examples=yes" ];
 })

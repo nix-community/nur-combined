@@ -4,7 +4,7 @@
   sources,
   cmake,
   ...
-} @ args:
+}@args:
 stdenv.mkDerivation rec {
   inherit (sources.libltnginx) pname version src;
 
@@ -15,7 +15,5 @@ stdenv.mkDerivation rec {
     mv libltnginx.so $out/lib
   '';
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 }

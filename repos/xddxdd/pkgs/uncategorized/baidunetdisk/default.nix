@@ -11,7 +11,7 @@
   libdbusmenu,
   libglvnd,
   ...
-} @ args:
+}@args:
 ################################################################################
 # Mostly based on baidnetdisk-electron package from AUR:
 # https://aur.archlinux.org/packages/baidunetdisk-electron
@@ -69,47 +69,50 @@ let
     '';
   };
 in
-  stdenv.mkDerivation {
-    pname = "baidunetdisk";
-    version = "4.17.7";
-    dontUnpack = true;
+stdenv.mkDerivation {
+  pname = "baidunetdisk";
+  version = "4.17.7";
+  dontUnpack = true;
 
-    nativeBuildInputs = [makeWrapper copyDesktopItems];
-    postInstall = ''
-      mkdir -p $out/bin
-      makeWrapper ${electron_11}/bin/electron $out/bin/baidunetdisk \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}:${dist}" \
-        --add-flags "--no-sandbox" \
-        --add-flags "${dist}/resources/app.asar"
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
+  postInstall = ''
+    mkdir -p $out/bin
+    makeWrapper ${electron_11}/bin/electron $out/bin/baidunetdisk \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}:${dist}" \
+      --add-flags "--no-sandbox" \
+      --add-flags "${dist}/resources/app.asar"
 
-      mkdir -p $out/share/icons/hicolor/scalable/apps
-      ln -s ${dist}/baidunetdisk.svg $out/share/icons/hicolor/scalable/apps/baidunetdisk.svg
-    '';
+    mkdir -p $out/share/icons/hicolor/scalable/apps
+    ln -s ${dist}/baidunetdisk.svg $out/share/icons/hicolor/scalable/apps/baidunetdisk.svg
+  '';
 
-    desktopItems = [
-      (makeDesktopItem {
-        name = "baidunetdisk";
-        desktopName = "Baidu Netdisk";
-        exec = "baidunetdisk %U";
-        terminal = false;
-        icon = "baidunetdisk";
-        startupWMClass = "baidunetdisk";
-        comment = "百度网盘";
-        mimeTypes = ["x-scheme-handler/baiduyunguanjia"];
-        categories = ["Network"];
-        extraConfig = {
-          "Name[zh_CN]" = "百度网盘";
-          "Name[zh_TW]" = "百度网盘";
-          "Comment[zh_CN]" = "百度网盘";
-          "Comment[zh_TW]" = "百度网盘";
-        };
-      })
-    ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "baidunetdisk";
+      desktopName = "Baidu Netdisk";
+      exec = "baidunetdisk %U";
+      terminal = false;
+      icon = "baidunetdisk";
+      startupWMClass = "baidunetdisk";
+      comment = "百度网盘";
+      mimeTypes = [ "x-scheme-handler/baiduyunguanjia" ];
+      categories = [ "Network" ];
+      extraConfig = {
+        "Name[zh_CN]" = "百度网盘";
+        "Name[zh_TW]" = "百度网盘";
+        "Comment[zh_CN]" = "百度网盘";
+        "Comment[zh_TW]" = "百度网盘";
+      };
+    })
+  ];
 
-    meta = with lib; {
-      description = "Baidu Netdisk";
-      homepage = "https://pan.baidu.com/";
-      platforms = ["x86_64-linux"];
-      license = licenses.unfreeRedistributable;
-    };
-  }
+  meta = with lib; {
+    description = "Baidu Netdisk";
+    homepage = "https://pan.baidu.com/";
+    platforms = [ "x86_64-linux" ];
+    license = licenses.unfreeRedistributable;
+  };
+}

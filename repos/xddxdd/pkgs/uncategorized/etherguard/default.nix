@@ -3,7 +3,7 @@
   lib,
   sources,
   ...
-} @ args:
+}@args:
 buildGoModule rec {
   pname = "etherguard";
   inherit (sources.etherguard) version src;

@@ -59,7 +59,7 @@
   util-linux,
   xorg,
   ...
-} @ args:
+}@args:
 ################################################################################
 # Mostly based on dingtalk-bin package from AUR:
 # https://aur.archlinux.org/packages/dingtalk-bin
@@ -142,106 +142,111 @@ let
     xorg.xcbutilwm
   ];
 in
-  stdenv.mkDerivation rec {
-    inherit (sources.dingtalk) pname version src;
+stdenv.mkDerivation rec {
+  inherit (sources.dingtalk) pname version src;
 
-    nativeBuildInputs = [autoPatchelfHook makeWrapper libsForQt5.wrapQtAppsHook copyDesktopItems];
-    buildInputs = libraries;
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    libsForQt5.wrapQtAppsHook
+    copyDesktopItems
+  ];
+  buildInputs = libraries;
 
-    # We will append QT wrapper args to our own wrapper
-    dontWrapQtApps = true;
+  # We will append QT wrapper args to our own wrapper
+  dontWrapQtApps = true;
 
-    unpackPhase = ''
-      ar x $src
-      tar xf data.tar.xz
+  unpackPhase = ''
+    ar x $src
+    tar xf data.tar.xz
 
-      mv opt/apps/com.alibabainc.dingtalk/files/version version
-      mv opt/apps/com.alibabainc.dingtalk/files/*-Release.* release
+    mv opt/apps/com.alibabainc.dingtalk/files/version version
+    mv opt/apps/com.alibabainc.dingtalk/files/*-Release.* release
 
-      # Cleanup
-      rm -f release/{*.a,*.la,*.prl}
-      rm -f release/dingtalk_crash_report
-      rm -f release/dingtalk_updater
-      rm -f release/libapr*
-      rm -f release/libcrypto.so.*
-      rm -f release/libcurl.so.*
-      rm -f release/libEGL*
-      rm -f release/libfontconfig*
-      rm -f release/libfreetype*
-      rm -f release/libfribidi*
-      rm -f release/libgdk*
-      rm -f release/libGLES*
-      rm -f release/libgtk*
-      rm -f release/libgtk-x11-2.0.so.*
-      rm -f release/libharfbuzz*
-      rm -f release/libicu*
-      rm -f release/libidn2*
-      rm -f release/libjpeg*
-      rm -f release/libm.so.*
-      rm -f release/libnghttp2*
-      rm -f release/libpango-1.0.*
-      rm -f release/libpangocairo-1.0.*
-      rm -f release/libpangoft2-1.0.*
-      rm -f release/libpcre2*
-      rm -f release/libpng*
-      rm -f release/libpsl*
-      rm -f release/libQt5*
-      rm -f release/libssh2*
-      rm -f release/libssl.*
-      rm -f release/libstdc++.so.6
-      rm -f release/libstdc++*
-      rm -f release/libunistring*
-      rm -f release/libz*
-      rm -rf release/engines-1_1
-      rm -rf release/imageformats
-      rm -rf release/platform*
-      rm -rf release/Resources/{i18n/tool/*.exe,qss/mac}
-      rm -rf release/swiftshader
-      rm -rf release/xcbglintegrations
-    '';
+    # Cleanup
+    rm -f release/{*.a,*.la,*.prl}
+    rm -f release/dingtalk_crash_report
+    rm -f release/dingtalk_updater
+    rm -f release/libapr*
+    rm -f release/libcrypto.so.*
+    rm -f release/libcurl.so.*
+    rm -f release/libEGL*
+    rm -f release/libfontconfig*
+    rm -f release/libfreetype*
+    rm -f release/libfribidi*
+    rm -f release/libgdk*
+    rm -f release/libGLES*
+    rm -f release/libgtk*
+    rm -f release/libgtk-x11-2.0.so.*
+    rm -f release/libharfbuzz*
+    rm -f release/libicu*
+    rm -f release/libidn2*
+    rm -f release/libjpeg*
+    rm -f release/libm.so.*
+    rm -f release/libnghttp2*
+    rm -f release/libpango-1.0.*
+    rm -f release/libpangocairo-1.0.*
+    rm -f release/libpangoft2-1.0.*
+    rm -f release/libpcre2*
+    rm -f release/libpng*
+    rm -f release/libpsl*
+    rm -f release/libQt5*
+    rm -f release/libssh2*
+    rm -f release/libssl.*
+    rm -f release/libstdc++.so.6
+    rm -f release/libstdc++*
+    rm -f release/libunistring*
+    rm -f release/libz*
+    rm -rf release/engines-1_1
+    rm -rf release/imageformats
+    rm -rf release/platform*
+    rm -rf release/Resources/{i18n/tool/*.exe,qss/mac}
+    rm -rf release/swiftshader
+    rm -rf release/xcbglintegrations
+  '';
 
-    postInstall = ''
-      mkdir -p $out
-      mv version $out/
+  postInstall = ''
+    mkdir -p $out
+    mv version $out/
 
-      # Move libraries
-      # DingTalk relies on (some of) the exact libraries it ships with
-      mv release $out/lib
+    # Move libraries
+    # DingTalk relies on (some of) the exact libraries it ships with
+    mv release $out/lib
 
-      # Entrypoint
-      mkdir -p $out/bin
-      makeWrapper $out/lib/com.alibabainc.dingtalk $out/bin/dingtalk \
-        "''${qtWrapperArgs[@]}" \
-        --argv0 "com.alibabainc.dingtalk" \
-        --set WAYLAND_DISPLAY "" \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
+    # Entrypoint
+    mkdir -p $out/bin
+    makeWrapper $out/lib/com.alibabainc.dingtalk $out/bin/dingtalk \
+      "''${qtWrapperArgs[@]}" \
+      --argv0 "com.alibabainc.dingtalk" \
+      --set WAYLAND_DISPLAY "" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
-      # App Menu
-      mkdir -p $out/share/pixmaps
-      ln -s ${./dingtalk.png} $out/share/pixmaps/dingtalk.png
-    '';
+    # App Menu
+    mkdir -p $out/share/pixmaps
+    ln -s ${./dingtalk.png} $out/share/pixmaps/dingtalk.png
+  '';
 
-    desktopItems = [
-      (makeDesktopItem {
-        name = "dingtalk";
-        desktopName = "Dingtalk";
-        genericName = "dingtalk";
-        categories = ["Chat"];
-        exec = "dingtalk %u";
-        icon = "dingtalk";
-        keywords = ["dingtalk"];
-        mimeTypes = ["x-scheme-handler/dingtalk"];
-        extraConfig = {
-          "Name[zh_CN]" = "钉钉";
-          "Name[zh_TW]" = "钉钉";
-        };
-      })
-    ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "dingtalk";
+      desktopName = "Dingtalk";
+      genericName = "dingtalk";
+      categories = [ "Chat" ];
+      exec = "dingtalk %u";
+      icon = "dingtalk";
+      keywords = [ "dingtalk" ];
+      mimeTypes = [ "x-scheme-handler/dingtalk" ];
+      extraConfig = {
+        "Name[zh_CN]" = "钉钉";
+        "Name[zh_TW]" = "钉钉";
+      };
+    })
+  ];
 
-    meta = with lib; {
-      description = "钉钉";
-      homepage = "https://www.dingtalk.com/";
-      platforms = ["x86_64-linux"];
-      license = licenses.unfreeRedistributable;
-    };
-  }
+  meta = with lib; {
+    description = "钉钉";
+    homepage = "https://www.dingtalk.com/";
+    platforms = [ "x86_64-linux" ];
+    license = licenses.unfreeRedistributable;
+  };
+}

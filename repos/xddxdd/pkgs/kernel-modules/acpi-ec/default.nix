@@ -9,7 +9,10 @@ stdenv.mkDerivation rec {
   inherit (sources.acpi-ec) pname version src;
 
   sourceRoot = "source/src";
-  hardeningDisable = ["pic" "format"];
+  hardeningDisable = [
+    "pic"
+    "format"
+  ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
@@ -19,7 +22,7 @@ stdenv.mkDerivation rec {
   preBuild = ''
     makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
   '';
-  installTargets = ["modules_install"];
+  installTargets = [ "modules_install" ];
 
   meta = {
     description = "Kernel module to access directly to the ACPI EC";

@@ -73,7 +73,7 @@ let
   };
 
   libraries = [
-    (runCommand "busybox-arch" {} "mkdir -p $out/bin && ln -sf ${busybox}/bin/arch $out/bin/arch")
+    (runCommand "busybox-arch" { } "mkdir -p $out/bin && ln -sf ${busybox}/bin/arch $out/bin/arch")
     coreutils
     fontconfig
     freetype
@@ -109,8 +109,16 @@ let
     pname = "vivado";
     version = "2022.2";
 
-    nativeBuildInputs = [envsubst zlib];
-    buildInputs = [patchelf procps ncurses5 makeWrapper];
+    nativeBuildInputs = [
+      envsubst
+      zlib
+    ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses5
+      makeWrapper
+    ];
 
     src = extractedSource;
 
@@ -194,4 +202,4 @@ let
     };
   };
 in
-  vivadoPackage
+vivadoPackage

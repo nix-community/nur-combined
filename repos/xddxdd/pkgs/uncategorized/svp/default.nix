@@ -31,7 +31,7 @@
 # https://aur.archlinux.org/packages/svp
 ################################################################################
 let
-  mpvForSVP = callPackage ./mpv.nix {inherit mpv-unwrapped wrapMpv;};
+  mpvForSVP = callPackage ./mpv.nix { inherit mpv-unwrapped wrapMpv; };
 
   # Script provided by GitHub user @xrun1
   # https://github.com/xddxdd/nur-packages/issues/31#issuecomment-1812591688
@@ -75,7 +75,10 @@ let
       hash = "sha256-dY9uQ9jzTHiN2XSnOrXtHD11IIJW6t9BUzGGQFfZ+yg=";
     };
 
-    nativeBuildInputs = [p7zip patchelf];
+    nativeBuildInputs = [
+      p7zip
+      patchelf
+    ];
     dontFixup = true;
 
     unpackPhase = ''
@@ -115,41 +118,51 @@ let
     unshareCgroup = false;
   };
 in
-  stdenv.mkDerivation {
-    pname = "svp";
-    inherit (svp-dist) version;
+stdenv.mkDerivation {
+  pname = "svp";
+  inherit (svp-dist) version;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    nativeBuildInputs = [copyDesktopItems];
+  nativeBuildInputs = [ copyDesktopItems ];
 
-    postInstall = ''
-      mkdir -p $out/bin $out/share
-      ln -s ${fhs}/bin/SVPManager $out/bin/SVPManager
-      ln -s ${svp-dist}/share/icons $out/share/icons
-    '';
+  postInstall = ''
+    mkdir -p $out/bin $out/share
+    ln -s ${fhs}/bin/SVPManager $out/bin/SVPManager
+    ln -s ${svp-dist}/share/icons $out/share/icons
+  '';
 
-    passthru.mpv = mpvForSVP;
+  passthru.mpv = mpvForSVP;
 
-    desktopItems = [
-      (makeDesktopItem {
-        name = "svp-manager4";
-        exec = "${fhs}/bin/SVPManager %f";
-        desktopName = "SVP 4 Linux";
-        genericName = "Real time frame interpolation";
-        icon = "svp-manager4";
-        categories = ["AudioVideo" "Player" "Video"];
-        mimeTypes = ["video/x-msvideo" "video/x-matroska" "video/webm" "video/mpeg" "video/mp4"];
-        terminal = false;
-        startupNotify = true;
-      })
-    ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "svp-manager4";
+      exec = "${fhs}/bin/SVPManager %f";
+      desktopName = "SVP 4 Linux";
+      genericName = "Real time frame interpolation";
+      icon = "svp-manager4";
+      categories = [
+        "AudioVideo"
+        "Player"
+        "Video"
+      ];
+      mimeTypes = [
+        "video/x-msvideo"
+        "video/x-matroska"
+        "video/webm"
+        "video/mpeg"
+        "video/mp4"
+      ];
+      terminal = false;
+      startupNotify = true;
+    })
+  ];
 
-    meta = with lib; {
-      description = "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.";
-      homepage = "https://www.svp-team.com/wiki/SVP:Linux";
-      platforms = ["x86_64-linux"];
-      license = licenses.unfree;
-      sourceProvenance = with sourceTypes; [binaryNativeCode];
-    };
-  }
+  meta = with lib; {
+    description = "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.";
+    homepage = "https://www.svp-team.com/wiki/SVP:Linux";
+    platforms = [ "x86_64-linux" ];
+    license = licenses.unfree;
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+  };
+}

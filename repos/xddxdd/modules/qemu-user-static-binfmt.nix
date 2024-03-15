@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   qemuPackage = pkgs.qemu-user-static;
   qemuSuffix = "-static";
 
@@ -187,38 +188,39 @@
 
   # NixOS's binfmt creates a script to call qemu-user-static. Containers don't like that.
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/binfmt.nix
-  makeBinfmtLine = name: {
-    enable ? true,
-    recognitionType ? "magic",
-    offset ? 0,
-    magicOrExtension,
-    mask,
-    preserveArgvZero ? true,
-    openBinary ? true,
-    interpreter,
-    matchCredentials ? true,
-    fixBinary ? true,
-    ...
-  }: let
-    type =
-      if recognitionType == "magic"
-      then "M"
-      else "E";
-    offset' = toString offset;
-    mask' = toString mask;
-    flags =
-      if !(matchCredentials -> openBinary)
-      then throw "boot.binfmt.registrations.${name}: you can't specify openBinary = true when matchCredentials = true."
-      else
-        lib.optionalString preserveArgvZero "P"
-        + lib.optionalString (openBinary && !matchCredentials) "O"
-        + lib.optionalString matchCredentials "C"
-        + lib.optionalString fixBinary "F";
-  in
+  makeBinfmtLine =
+    name:
+    {
+      enable ? true,
+      recognitionType ? "magic",
+      offset ? 0,
+      magicOrExtension,
+      mask,
+      preserveArgvZero ? true,
+      openBinary ? true,
+      interpreter,
+      matchCredentials ? true,
+      fixBinary ? true,
+      ...
+    }:
+    let
+      type = if recognitionType == "magic" then "M" else "E";
+      offset' = toString offset;
+      mask' = toString mask;
+      flags =
+        if !(matchCredentials -> openBinary) then
+          throw "boot.binfmt.registrations.${name}: you can't specify openBinary = true when matchCredentials = true."
+        else
+          lib.optionalString preserveArgvZero "P"
+          + lib.optionalString (openBinary && !matchCredentials) "O"
+          + lib.optionalString matchCredentials "C"
+          + lib.optionalString fixBinary "F";
+    in
     lib.optionalString enable ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
 
   enabled = pkgs.stdenv.isx86_64 || pkgs.stdenv.isAarch64;
-in {
+in
+{
   options.lantian.qemu-user-static-binfmt.enable = lib.mkOption {
     type = lib.types.bool;
     default = true;
@@ -226,14 +228,16 @@ in {
   };
 
   config = lib.mkIf config.lantian.qemu-user-static-binfmt.enable {
-    environment.etc."binfmt.d/xddxdd-qemu-user-static.conf".text =
-      lib.optionalString enabled
-      (lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine qemu-user-static));
-    systemd.additionalUpstreamSystemUnits = lib.optionals (enabled && config.boot.binfmt.registrations == {}) [
-      "proc-sys-fs-binfmt_misc.automount"
-      "proc-sys-fs-binfmt_misc.mount"
-      "systemd-binfmt.service"
-    ];
+    environment.etc."binfmt.d/xddxdd-qemu-user-static.conf".text = lib.optionalString enabled (
+      lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine qemu-user-static)
+    );
+    systemd.additionalUpstreamSystemUnits =
+      lib.optionals (enabled && config.boot.binfmt.registrations == { })
+        [
+          "proc-sys-fs-binfmt_misc.automount"
+          "proc-sys-fs-binfmt_misc.mount"
+          "systemd-binfmt.service"
+        ];
     nix.settings.extra-platforms = lib.optionals enabled lib.platforms.linux;
   };
 }

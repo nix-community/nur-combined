@@ -1,10 +1,8 @@
+{ callPackage, sources, ... }@args:
+let
+  font = callPackage ./font.nix { };
+in
 {
-  callPackage,
-  sources,
-  ...
-} @ args: let
-  font = callPackage ./font.nix {};
-in {
   tshyn = font sources.th-tshyn;
   hak = font sources.th-hak;
   joeng = font sources.th-joeng;

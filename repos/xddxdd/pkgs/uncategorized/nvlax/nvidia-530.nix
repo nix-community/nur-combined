@@ -1,2 +1,1 @@
-{callPackage, ...}:
-callPackage ./default.nix {enableNvidia530Patch = true;}
+{ callPackage, ... }: callPackage ./default.nix { enableNvidia530Patch = true; }

@@ -10,11 +10,20 @@
   systemd,
   ninja,
   ...
-} @ args:
+}@args:
 stdenv.mkDerivation rec {
   inherit (sources.uksmd) pname version src;
-  nativeBuildInputs = [meson cmake pkg-config ninja];
-  buildInputs = [procps4 libcap_ng systemd];
+  nativeBuildInputs = [
+    meson
+    cmake
+    pkg-config
+    ninja
+  ];
+  buildInputs = [
+    procps4
+    libcap_ng
+    systemd
+  ];
 
   postPatch = ''
     sed -i "s#install_dir: systemd_system_unit_dir#install_dir: '$out/lib/systemd/system'#g" meson.build

@@ -29,7 +29,7 @@
   udev,
   xorg,
   ...
-} @ args:
+}@args:
 ################################################################################
 # Mostly based on wechat-uos package from AUR:
 # https://aur.archlinux.org/packages/wechat-uos
@@ -83,7 +83,7 @@ let
     pname = "wechat-uos-bin";
     inherit (sources.wechat-uos) version src;
 
-    nativeBuildInputs = [autoPatchelfHook];
+    nativeBuildInputs = [ autoPatchelfHook ];
 
     buildInputs = libraries;
 
@@ -116,7 +116,8 @@ let
 
   fhs = buildFHSUserEnvBubblewrap {
     name = "wechat-uos";
-    targetPkgs = pkgs:
+    targetPkgs =
+      pkgs:
       [
         license
         resource
@@ -126,43 +127,47 @@ let
     unsharePid = false;
   };
 in
-  stdenv.mkDerivation {
-    pname = "wechat-uos-bin";
-    inherit (sources.wechat-uos) version;
-    dontUnpack = true;
+stdenv.mkDerivation {
+  pname = "wechat-uos-bin";
+  inherit (sources.wechat-uos) version;
+  dontUnpack = true;
 
-    nativeBuildInputs = [copyDesktopItems];
+  nativeBuildInputs = [ copyDesktopItems ];
 
-    postPhase = ''
-      mkdir -p $out/bin $out/share
-      ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
-      ln -s ${resource}/share/icons $out/share/icons
-    '';
+  postPhase = ''
+    mkdir -p $out/bin $out/share
+    ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
+    ln -s ${resource}/share/icons $out/share/icons
+  '';
 
-    desktopItems = [
-      (makeDesktopItem {
-        name = "wechat-uos";
-        desktopName = "WeChat";
-        exec = "wechat-uos %U";
-        terminal = false;
-        icon = "weixin";
-        startupWMClass = "weixin";
-        comment = "WeChat Desktop Edition";
-        categories = ["Utility"];
-        keywords = ["wechat" "weixin" "wechat-uos"];
-        extraConfig = {
-          "Name[zh_CN]" = "微信";
-          "Name[zh_TW]" = "微信";
-          "Comment[zh_CN]" = "微信桌面版";
-          "Comment[zh_TW]" = "微信桌面版";
-        };
-      })
-    ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "wechat-uos";
+      desktopName = "WeChat";
+      exec = "wechat-uos %U";
+      terminal = false;
+      icon = "weixin";
+      startupWMClass = "weixin";
+      comment = "WeChat Desktop Edition";
+      categories = [ "Utility" ];
+      keywords = [
+        "wechat"
+        "weixin"
+        "wechat-uos"
+      ];
+      extraConfig = {
+        "Name[zh_CN]" = "微信";
+        "Name[zh_TW]" = "微信";
+        "Comment[zh_CN]" = "微信桌面版";
+        "Comment[zh_TW]" = "微信桌面版";
+      };
+    })
+  ];
 
-    meta = with lib; {
-      description = "WeChat desktop (Official binary) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos)";
-      homepage = "https://weixin.qq.com/";
-      platforms = ["x86_64-linux"];
-      license = licenses.unfreeRedistributable;
-    };
-  }
+  meta = with lib; {
+    description = "WeChat desktop (Official binary) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos)";
+    homepage = "https://weixin.qq.com/";
+    platforms = [ "x86_64-linux" ];
+    license = licenses.unfreeRedistributable;
+  };
+}

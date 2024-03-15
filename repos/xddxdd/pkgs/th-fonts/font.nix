@@ -3,13 +3,13 @@
   lib,
   p7zip,
   ...
-} @ args:
+}@args:
 # Args
 source:
 stdenvNoCC.mkDerivation rec {
   inherit (source) pname version src;
 
-  nativeBuildInputs = [p7zip];
+  nativeBuildInputs = [ p7zip ];
 
   unpackPhase = ''
     7z -aoa x $src

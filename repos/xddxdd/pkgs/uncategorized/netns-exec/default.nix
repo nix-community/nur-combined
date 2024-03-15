@@ -3,7 +3,7 @@
   sources,
   lib,
   ...
-} @ args:
+}@args:
 stdenv.mkDerivation rec {
   inherit (sources.netns-exec) pname version src;
   buildPhase = ''

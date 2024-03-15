@@ -3,21 +3,21 @@
   sources,
   python3Packages,
   ...
-} @ args:
+}@args:
 with python3Packages;
-  buildPythonPackage rec {
-    inherit (sources.smartrent_py) pname version src;
+buildPythonPackage rec {
+  inherit (sources.smartrent_py) pname version src;
 
-    propagatedBuildInputs = [
-      aiohttp
-      websockets
-    ];
+  propagatedBuildInputs = [
+    aiohttp
+    websockets
+  ];
 
-    doCheck = false;
+  doCheck = false;
 
-    meta = with lib; {
-      description = "Api for SmartRent locks, thermostats, moisture sensors and switches";
-      homepage = "https://github.com/ZacheryThomas/smartrent.py";
-      license = with licenses; [mit];
-    };
-  }
+  meta = with lib; {
+    description = "Api for SmartRent locks, thermostats, moisture sensors and switches";
+    homepage = "https://github.com/ZacheryThomas/smartrent.py";
+    license = with licenses; [ mit ];
+  };
+}

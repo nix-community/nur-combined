@@ -7,7 +7,7 @@
   openssl_3_0,
   python3,
   ...
-} @ args:
+}@args:
 stdenv.mkDerivation rec {
   inherit (sources.openssl-oqs-provider) pname version src;
 
@@ -16,7 +16,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    (python3.withPackages (p: with p; [jinja2 pyyaml tabulate]))
+    (python3.withPackages (
+      p: with p; [
+        jinja2
+        pyyaml
+        tabulate
+      ]
+    ))
   ];
 
   buildInputs = [
@@ -24,7 +30,7 @@ stdenv.mkDerivation rec {
     openssl_3_0
   ];
 
-  cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
   preConfigure = ''
     cp -r ${sources.qsc-key-encoder.src} qsc-key-encoder
@@ -46,6 +52,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OpenSSL 3 provider containing post-quantum algorithms";
     homepage = "https://openquantumsafe.org";
-    license = with licenses; [mit];
+    license = with licenses; [ mit ];
   };
 }

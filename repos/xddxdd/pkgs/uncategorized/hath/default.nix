@@ -5,7 +5,7 @@
   jre_headless,
   makeWrapper,
   ...
-} @ args:
+}@args:
 stdenvNoCC.mkDerivation rec {
   pname = "hath";
   version = "1.6.1";
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-a690bpznUEqe4Z6vn6QClUBToSqpcj3vPyklURZlgW0=";
   };
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin $out/opt

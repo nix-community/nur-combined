@@ -3,22 +3,22 @@
   sources,
   python3Packages,
   ...
-} @ args:
+}@args:
 with python3Packages;
-  buildPythonPackage rec {
-    inherit (sources.click-loglevel) pname version src;
-    pyproject = true;
+buildPythonPackage rec {
+  inherit (sources.click-loglevel) pname version src;
+  pyproject = true;
 
-    propagatedBuildInputs = [
-      click
-      setuptools
-    ];
+  propagatedBuildInputs = [
+    click
+    setuptools
+  ];
 
-    doCheck = false;
+  doCheck = false;
 
-    meta = with lib; {
-      description = "Log level parameter type for Click";
-      homepage = "https://github.com/jwodder/click-loglevel";
-      license = with licenses; [mit];
-    };
-  }
+  meta = with lib; {
+    description = "Log level parameter type for Click";
+    homepage = "https://github.com/jwodder/click-loglevel";
+    license = with licenses; [ mit ];
+  };
+}

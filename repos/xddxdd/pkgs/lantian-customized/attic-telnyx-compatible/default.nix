@@ -26,7 +26,10 @@ rustPlatform.buildRustPackage {
     lockFile = sources.attic.src + "/Cargo.lock";
     allowBuiltinFetchGit = true;
   };
-  cargoBuildFlags = lib.concatMapStrings (c: "-p ${c} ") ["attic-client" "attic-server"];
+  cargoBuildFlags = lib.concatMapStrings (c: "-p ${c} ") [
+    "attic-client"
+    "attic-server"
+  ];
 
   postPatch = ''
     sed -i "/x-id/d" $cargoDepsCopy/aws-sdk-s3-*/src/operation/*.rs

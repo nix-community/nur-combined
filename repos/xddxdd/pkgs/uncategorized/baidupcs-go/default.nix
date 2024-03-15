@@ -3,7 +3,7 @@
   lib,
   sources,
   ...
-} @ args:
+}@args:
 buildGoModule rec {
   inherit (sources.baidupcs-go) pname version src;
   vendorHash = "sha256-msTlXtidxLTe3xjxTOWCqx/epFT0XPdwGPantDJUGpc=";

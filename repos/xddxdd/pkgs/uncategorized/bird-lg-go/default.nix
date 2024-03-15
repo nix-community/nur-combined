@@ -3,7 +3,7 @@
   lib,
   sources,
   ...
-} @ args:
+}@args:
 buildGoModule rec {
   pname = "bird-lg-go";
   inherit (sources.bird-lg-go) version src;

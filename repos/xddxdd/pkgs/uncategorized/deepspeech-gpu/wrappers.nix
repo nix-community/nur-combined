@@ -4,8 +4,9 @@
   fetchurl,
   makeWrapper,
   ...
-}: let
-  deepspeech = callPackage ./default.nix {};
+}:
+let
+  deepspeech = callPackage ./default.nix { };
   version = deepspeech.version;
 
   model-en = fetchurl {
@@ -28,28 +29,28 @@
     hash = "sha256-JofZaPRhiVBNm57cD5FPa0s5xNlMc/dbamwYDTPzAkA=";
   };
 in
-  stdenv.mkDerivation rec {
-    pname = "deepspeech";
-    inherit version;
+stdenv.mkDerivation rec {
+  pname = "deepspeech";
+  inherit version;
 
-    buildInputs = [makeWrapper];
+  buildInputs = [ makeWrapper ];
 
-    dontUnpack = true;
-    postInstall = ''
-      mkdir -p $out/bin
+  dontUnpack = true;
+  postInstall = ''
+    mkdir -p $out/bin
 
-      makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-en \
-        --add-flags "--model" \
-        --add-flags "${model-en}" \
-        --add-flags "--scorer" \
-        --add-flags "${scorer-en}"
+    makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-en \
+      --add-flags "--model" \
+      --add-flags "${model-en}" \
+      --add-flags "--scorer" \
+      --add-flags "${scorer-en}"
 
-      makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-zh \
-        --add-flags "--model" \
-        --add-flags "${model-zh}" \
-        --add-flags "--scorer" \
-        --add-flags "${scorer-zh}"
-    '';
+    makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-zh \
+      --add-flags "--model" \
+      --add-flags "${model-zh}" \
+      --add-flags "--scorer" \
+      --add-flags "${scorer-zh}"
+  '';
 
-    inherit (deepspeech) meta;
-  }
+  inherit (deepspeech) meta;
+}

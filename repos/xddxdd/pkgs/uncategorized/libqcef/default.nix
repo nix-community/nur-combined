@@ -22,7 +22,8 @@
   qt5,
   xorg,
   ...
-} @ args: let
+}@args:
+let
   libraries = [
     alsa-lib
     at-spi2-atk
@@ -52,35 +53,36 @@
 
   rpaths = lib.concatMapStringsSep " " (l: "-Wl,-rpath,${lib.getOutput "lib" l}/lib") libraries;
 in
-  stdenv.mkDerivation rec {
-    inherit (sources.libqcef) pname version src;
+stdenv.mkDerivation rec {
+  inherit (sources.libqcef) pname version src;
 
-    patches = [./fix-deprecated-option.patch];
+  patches = [ ./fix-deprecated-option.patch ];
 
-    nativeBuildInputs = [cmake pkg-config];
-    buildInputs = [
-      qt5.qtbase
-      qt5.qtwebengine
-      qt5.qtx11extras
-    ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    qt5.qtbase
+    qt5.qtwebengine
+    qt5.qtx11extras
+  ];
 
-    cmakeFlags = [
-      "-DCMAKE_BUILD_TYPE=Release"
-    ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
-    dontWrapQtApps = true;
+  dontWrapQtApps = true;
 
-    preConfigure = ''
-      rm -rf cef
-      ln -sf ${sources.cef-binary.src} cef
+  preConfigure = ''
+    rm -rf cef
+    ln -sf ${sources.cef-binary.src} cef
 
-      sed -i 's|-Wall|${rpaths}|g' src/CMakeLists.txt
-    '';
+    sed -i 's|-Wall|${rpaths}|g' src/CMakeLists.txt
+  '';
 
-    meta = {
-      description = "Qt5 binding of CEF";
-      homepage = "https://github.com/martyr-deepin/libqcef";
-      platforms = ["x86_64-linux"];
-      license = lib.licenses.lgpl3;
-    };
-  }
+  meta = {
+    description = "Qt5 binding of CEF";
+    homepage = "https://github.com/martyr-deepin/libqcef";
+    platforms = [ "x86_64-linux" ];
+    license = lib.licenses.lgpl3;
+  };
+}

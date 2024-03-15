@@ -5,7 +5,8 @@
   stdenvNoCC,
   writeShellScript,
   ...
-} @ args: let
+}@args:
+let
   cmd = buildGoModule rec {
     inherit (sources.cloudpan189-go) pname version src;
     vendorHash = "sha256-6t4wJqUGJneR6Hv7Dotr4P9MTA1oQcCe/ujDojS0g8s=";
@@ -26,17 +27,17 @@
     exec ${cmd}/bin/cloudpan189-go "$@"
   '';
 in
-  stdenvNoCC.mkDerivation {
-    inherit (sources.cloudpan189-go) pname version;
-    dontUnpack = true;
-    postInstall = ''
-      mkdir -p $out/bin
-      ln -s ${startScript} $out/bin/cloudpan189-go
-    '';
+stdenvNoCC.mkDerivation {
+  inherit (sources.cloudpan189-go) pname version;
+  dontUnpack = true;
+  postInstall = ''
+    mkdir -p $out/bin
+    ln -s ${startScript} $out/bin/cloudpan189-go
+  '';
 
-    meta = with lib; {
-      description = "天翼云盘命令行客户端(CLI)，基于GO语言实现";
-      homepage = "https://github.com/tickstep/cloudpan189-go";
-      license = licenses.asl20;
-    };
-  }
+  meta = with lib; {
+    description = "天翼云盘命令行客户端(CLI)，基于GO语言实现";
+    homepage = "https://github.com/tickstep/cloudpan189-go";
+    license = licenses.asl20;
+  };
+}

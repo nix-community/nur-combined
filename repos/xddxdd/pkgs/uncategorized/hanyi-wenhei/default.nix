@@ -5,7 +5,7 @@
   sources,
   unar,
   ...
-} @ args:
+}@args:
 stdenvNoCC.mkDerivation rec {
   pname = "hanyi-wenhei";
   version = "1.0";
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0mwi4ar8170wshd17nyr90fn35dlbab9yv1f9hjrsdryasvh9cmr";
   };
 
-  nativeBuildInputs = [unar];
+  nativeBuildInputs = [ unar ];
 
   unpackPhase = ''
     unar -e gb2312 $src

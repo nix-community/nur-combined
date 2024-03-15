@@ -4,50 +4,52 @@
   lib,
   buildLinux,
   ...
-} @ args: rec {
+}@args:
+rec {
   # https://github.com/NixOS/nixpkgs/pull/129806
   # https://github.com/lovesegfault/nix-config/blob/master/nix/overlays/linux-lto.nix
-  stdenvLLVM = let
-    noBintools = {
-      bootBintools = null;
-      bootBintoolsNoLibc = null;
-    };
-    hostLLVM = pkgs.pkgsBuildHost.llvmPackages_latest.override noBintools;
-    buildLLVM = pkgs.pkgsBuildBuild.llvmPackages_latest.override noBintools;
-
-    mkLLVMPlatform = platform:
-      platform
-      // {
-        linux-kernel =
-          platform.linux-kernel
-          // {
-            makeFlags =
-              (platform.linux-kernel.makeFlags or [])
-              ++ [
-                "LLVM=1"
-                "LLVM_IAS=1"
-                "CC=${buildLLVM.clangUseLLVM}/bin/clang"
-                "LD=${buildLLVM.lld}/bin/ld.lld"
-                "HOSTLD=${hostLLVM.lld}/bin/ld.lld"
-                "AR=${buildLLVM.llvm}/bin/llvm-ar"
-                "HOSTAR=${hostLLVM.llvm}/bin/llvm-ar"
-                "NM=${buildLLVM.llvm}/bin/llvm-nm"
-                "STRIP=${buildLLVM.llvm}/bin/llvm-strip"
-                "OBJCOPY=${buildLLVM.llvm}/bin/llvm-objcopy"
-                "OBJDUMP=${buildLLVM.llvm}/bin/llvm-objdump"
-                "READELF=${buildLLVM.llvm}/bin/llvm-readelf"
-                "HOSTCC=${hostLLVM.clangUseLLVM}/bin/clang"
-                "HOSTCXX=${hostLLVM.clangUseLLVM}/bin/clang++"
-              ];
-          };
+  stdenvLLVM =
+    let
+      noBintools = {
+        bootBintools = null;
+        bootBintoolsNoLibc = null;
       };
+      hostLLVM = pkgs.pkgsBuildHost.llvmPackages_latest.override noBintools;
+      buildLLVM = pkgs.pkgsBuildBuild.llvmPackages_latest.override noBintools;
 
-    stdenv' = pkgs.overrideCC hostLLVM.stdenv hostLLVM.clangUseLLVM;
-  in
+      mkLLVMPlatform =
+        platform:
+        platform
+        // {
+          linux-kernel = platform.linux-kernel // {
+            makeFlags = (platform.linux-kernel.makeFlags or [ ]) ++ [
+              "LLVM=1"
+              "LLVM_IAS=1"
+              "CC=${buildLLVM.clangUseLLVM}/bin/clang"
+              "LD=${buildLLVM.lld}/bin/ld.lld"
+              "HOSTLD=${hostLLVM.lld}/bin/ld.lld"
+              "AR=${buildLLVM.llvm}/bin/llvm-ar"
+              "HOSTAR=${hostLLVM.llvm}/bin/llvm-ar"
+              "NM=${buildLLVM.llvm}/bin/llvm-nm"
+              "STRIP=${buildLLVM.llvm}/bin/llvm-strip"
+              "OBJCOPY=${buildLLVM.llvm}/bin/llvm-objcopy"
+              "OBJDUMP=${buildLLVM.llvm}/bin/llvm-objdump"
+              "READELF=${buildLLVM.llvm}/bin/llvm-readelf"
+              "HOSTCC=${hostLLVM.clangUseLLVM}/bin/clang"
+              "HOSTCXX=${hostLLVM.clangUseLLVM}/bin/clang++"
+            ];
+          };
+        };
+
+      stdenv' = pkgs.overrideCC hostLLVM.stdenv hostLLVM.clangUseLLVM;
+    in
     stdenv'.override (old: {
       hostPlatform = mkLLVMPlatform old.hostPlatform;
       buildPlatform = mkLLVMPlatform old.buildPlatform;
-      extraNativeBuildInputs = [hostLLVM.lld pkgs.patchelf];
+      extraNativeBuildInputs = [
+        hostLLVM.lld
+        pkgs.patchelf
+      ];
     });
 
   marchFlags = with lib.kernel; {
@@ -69,76 +71,78 @@
   };
 
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
-  mkKernel = {
-    name,
-    version,
-    src,
-    configFile,
-    patchDir,
-    sources,
-    lto ? false,
-    x86_64-march ? "v1",
-    ...
-  }: let
-    patchesInPatchDir =
-      builtins.map
-      (n: {
+  mkKernel =
+    {
+      name,
+      version,
+      src,
+      configFile,
+      patchDir,
+      sources,
+      lto ? false,
+      x86_64-march ? "v1",
+      ...
+    }:
+    let
+      patchesInPatchDir = builtins.map (n: {
         inherit n;
         patch = patchDir + "/${n}";
-      })
-      (builtins.attrNames (builtins.readDir patchDir));
+      }) (builtins.attrNames (builtins.readDir patchDir));
 
-    combinedPatchFromCachyOS = let
-      splitted = lib.splitString "-" version;
-      ver0 = builtins.elemAt splitted 0;
-      major = lib.versions.pad 2 ver0;
-      cachyDir = sources.cachyos-kernel-patches.src + "/${major}";
-    in rec {
-      name = "cachyos-patches-combined.patch";
-      patch = pkgs.runCommandNoCC name {} ''
-        for F in ${cachyDir}/*.patch; do
-          case "$F" in
-            # AMD pref core patch conflicts with me disabling AMD pstate for VMs
-            *-amd-pref-core.patch) continue;;
+      combinedPatchFromCachyOS =
+        let
+          splitted = lib.splitString "-" version;
+          ver0 = builtins.elemAt splitted 0;
+          major = lib.versions.pad 2 ver0;
+          cachyDir = sources.cachyos-kernel-patches.src + "/${major}";
+        in
+        rec {
+          name = "cachyos-patches-combined.patch";
+          patch = pkgs.runCommandNoCC name { } ''
+            for F in ${cachyDir}/*.patch; do
+              case "$F" in
+                # AMD pref core patch conflicts with me disabling AMD pstate for VMs
+                *-amd-pref-core.patch) continue;;
 
-            # Patches already included in Xanmod
-            *-bbr2.patch) continue;;
-            *-bbr3.patch) continue;;
-            *-futex-winesync.patch) continue;;
+                # Patches already included in Xanmod
+                *-bbr2.patch) continue;;
+                *-bbr3.patch) continue;;
+                *-futex-winesync.patch) continue;;
 
-            # Patches that conflict with Xanmod
-            *-cachy.patch) continue;;
-            *-clr.patch) continue;;
-            *-fixes.patch) continue;;
-            *-mm-*.patch) continue;;
-          esac
+                # Patches that conflict with Xanmod
+                *-cachy.patch) continue;;
+                *-clr.patch) continue;;
+                *-fixes.patch) continue;;
+                *-mm-*.patch) continue;;
+              esac
 
-          cat "$F" >> $out
-        done
-      '';
-    };
-  in
+              cat "$F" >> $out
+            done
+          '';
+        };
+    in
     lib.nameValuePair name (buildLinux {
       inherit lib;
-      stdenv =
-        if lto
-        then stdenvLLVM
-        else stdenv;
+      stdenv = if lto then stdenvLLVM else stdenv;
 
       inherit version src;
-      modDirVersion = let
-        splitted = lib.splitString "-" version;
-        ver0 = builtins.elemAt splitted 0;
-        ver1 = builtins.elemAt splitted 1;
-      in "${ver0}-lantian-${ver1}";
+      modDirVersion =
+        let
+          splitted = lib.splitString "-" version;
+          ver0 = builtins.elemAt splitted 0;
+          ver1 = builtins.elemAt splitted 1;
+        in
+        "${ver0}-lantian-${ver1}";
 
-      structuredExtraConfig = let
-        cfg = import configFile args;
-      in
-        if !lto
-        then cfg
+      structuredExtraConfig =
+        let
+          cfg = import configFile args;
+        in
+        if !lto then
+          cfg
         else
-          ((builtins.removeAttrs cfg [
+          (
+            (builtins.removeAttrs cfg [
               "GCC_PLUGINS"
               "FORTIFY_SOURCE"
             ])
@@ -146,22 +150,18 @@
               LTO_NONE = no;
               LTO_CLANG_FULL = yes;
             })
-            // (
-              if stdenv.isx86_64
-              then marchFlags."${x86_64-march}"
-              else {}
-            ));
+            // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { })
+          );
 
-      kernelPatches =
-        [
-          pkgs.kernelPatches.bridge_stp_helper
-          pkgs.kernelPatches.request_key_helper
-          combinedPatchFromCachyOS
-        ]
-        ++ patchesInPatchDir;
+      kernelPatches = [
+        pkgs.kernelPatches.bridge_stp_helper
+        pkgs.kernelPatches.request_key_helper
+        combinedPatchFromCachyOS
+      ] ++ patchesInPatchDir;
 
       extraMeta = {
-        description = "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
+        description =
+          "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
         broken = !stdenv.isx86_64;
       };
     });

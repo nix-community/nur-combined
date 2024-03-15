@@ -5,17 +5,21 @@
   unzip,
   p7zip,
   ...
-} @ args: let
-  unpack = args: version: source:
-    stdenv.mkDerivation ({
+}@args:
+let
+  unpack =
+    args: version: source:
+    stdenv.mkDerivation (
+      {
         inherit version;
 
-        srcs = lib.mapAttrsToList (url: hash:
+        srcs = lib.mapAttrsToList (
+          url: hash:
           fetchurl {
             url = url;
             sha256 = hash;
-          })
-        source.urls;
+          }
+        ) source.urls;
         sourceRoot = ".";
 
         unpackPhase = ''
@@ -38,10 +42,15 @@
           cd NVIDIA-GRID-Linux-KVM-* || true
         '';
 
-        nativeBuildInputs = [unzip p7zip];
+        nativeBuildInputs = [
+          unzip
+          p7zip
+        ];
       }
-      // args);
-in {
+      // args
+    );
+in
+{
   extractVgpuDriver = unpack {
     pname = "nvidia-vgpu-driver";
     installPhase = ''
@@ -52,7 +61,7 @@ in {
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU host driver (vGPU-KVM driver) installer";
       license = licenses.unfreeRedistributable;
-      platforms = ["x86_64-linux"];
+      platforms = [ "x86_64-linux" ];
     };
   };
 
@@ -66,7 +75,7 @@ in {
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU guest driver (GRID driver) installer";
       license = licenses.unfreeRedistributable;
-      platforms = ["x86_64-linux"];
+      platforms = [ "x86_64-linux" ];
     };
   };
 }

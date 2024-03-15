@@ -5,7 +5,7 @@
   lib,
   makeWrapper,
   ...
-} @ args:
+}@args:
 stdenv.mkDerivation rec {
   inherit (sources.bilibili) pname version src;
 
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     tar xf data.tar.xz
   '';
 
-  buildInputs = [makeWrapper];
+  buildInputs = [ makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin

@@ -4,7 +4,8 @@
   linuxKernel,
   sources,
   ...
-} @ args: let
+}@args:
+let
   kernels = callPackage ./default.nix args;
 in
-  lib.mapAttrs (n: v: linuxKernel.packagesFor v) kernels
+lib.mapAttrs (n: v: linuxKernel.packagesFor v) kernels

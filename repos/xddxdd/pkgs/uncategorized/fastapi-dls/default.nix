@@ -5,9 +5,10 @@
   python3,
   makeWrapper,
   ...
-}: let
-  python = python3.withPackages (p:
-    with p; [
+}:
+let
+  python = python3.withPackages (
+    p: with p; [
       dateutils
       fastapi
       markdown
@@ -16,30 +17,31 @@
       python-jose
       sqlalchemy
       uvicorn
-    ]);
+    ]
+  );
 in
-  stdenv.mkDerivation {
-    inherit (sources.fastapi-dls) pname version src;
+stdenv.mkDerivation {
+  inherit (sources.fastapi-dls) pname version src;
 
-    nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
-    installPhase = ''
-      mkdir -p $out/bin $out/opt
-      cp -r * $out/opt/
+  installPhase = ''
+    mkdir -p $out/bin $out/opt
+    cp -r * $out/opt/
 
-      sed -i "s#\\.\\./#$out/opt/#g" $out/opt/app/main.py
+    sed -i "s#\\.\\./#$out/opt/#g" $out/opt/app/main.py
 
-      makeWrapper ${python}/bin/python $out/bin/fastapi-dls \
-        --add-flags "-m" \
-        --add-flags "uvicorn" \
-        --add-flags "--app-dir" \
-        --add-flags "$out/opt/app" \
-        --add-flags "main:app" \
-    '';
+    makeWrapper ${python}/bin/python $out/bin/fastapi-dls \
+      --add-flags "-m" \
+      --add-flags "uvicorn" \
+      --add-flags "--app-dir" \
+      --add-flags "$out/opt/app" \
+      --add-flags "main:app" \
+  '';
 
-    meta = with lib; {
-      description = "Minimal Delegated License Service (DLS)";
-      homepage = "https://gitea.publichub.eu/oscar.krause/fastapi-dls";
-      license = licenses.unfree;
-    };
-  }
+  meta = with lib; {
+    description = "Minimal Delegated License Service (DLS)";
+    homepage = "https://gitea.publichub.eu/oscar.krause/fastapi-dls";
+    license = licenses.unfree;
+  };
+}

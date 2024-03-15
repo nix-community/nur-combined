@@ -8,7 +8,8 @@
   lief,
   enableNvidia530Patch ? false,
   ...
-}: let
+}:
+let
   zycoreOld = stdenv.mkDerivation rec {
     pname = "zycore";
     version = "636bb29945c94ffe4cedb5b6cc797e42c98de3af";
@@ -19,7 +20,7 @@
       hash = "sha256-Rtg5nXj4Cplr1xr3lz8lexzmkvQL9v75a6Blc0f+To0=";
     };
 
-    nativeBuildInputs = [cmake];
+    nativeBuildInputs = [ cmake ];
 
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zycore-config.cmake.in
@@ -36,10 +37,10 @@
       hash = "sha256-PU++CMQ8zlaTt4q2cHfHLcHRoM2UgzvW8XNrgN6hbrg=";
     };
 
-    nativeBuildInputs = [cmake];
-    buildInputs = [zycoreOld];
+    nativeBuildInputs = [ cmake ];
+    buildInputs = [ zycoreOld ];
 
-    cmakeFlags = ["-DZYDIS_SYSTEM_ZYCORE=ON"];
+    cmakeFlags = [ "-DZYDIS_SYSTEM_ZYCORE=ON" ];
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zydis-config.cmake.in
     '';
@@ -55,7 +56,10 @@
       hash = "sha256-kYTiSyvcOXywHVstGkKz/Adeztj0z+fLHYIp4Qk83i4=";
     };
 
-    nativeBuildInputs = [cmake ninja];
+    nativeBuildInputs = [
+      cmake
+      ninja
+    ];
 
     env.CXXFLAGS = "-include cstdint";
 
@@ -65,7 +69,7 @@
     ];
 
     # https://github.com/lief-project/LIEF/issues/770
-    patches = [./lief.patch];
+    patches = [ ./lief.patch ];
   };
 
   ppkAssertOld = fetchFromGitHub {
@@ -80,30 +84,32 @@
     sha256 = "0r1p423x3n12xz0nvdvnyjmf1v6w8908nd0fkg6r00yj29fgzx50";
   };
 in
-  stdenv.mkDerivation {
-    pname = "nvlax";
-    version = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
-    src = fetchFromGitHub {
-      owner = "illnyang";
-      repo = "nvlax";
-      rev = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
-      hash = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
-    };
+stdenv.mkDerivation {
+  pname = "nvlax";
+  version = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
+  src = fetchFromGitHub {
+    owner = "illnyang";
+    repo = "nvlax";
+    rev = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
+    hash = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
+  };
 
-    patches =
-      [./nvlax-cpm.patch]
-      ++ lib.optionals enableNvidia530Patch [nvidia530Patch];
+  patches = [ ./nvlax-cpm.patch ] ++ lib.optionals enableNvidia530Patch [ nvidia530Patch ];
 
-    nativeBuildInputs = [cmake];
-    buildInputs = [zycoreOld zydisOld liefOld];
-    cmakeFlags = ["-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}"];
+  nativeBuildInputs = [ cmake ];
+  buildInputs = [
+    zycoreOld
+    zydisOld
+    liefOld
+  ];
+  cmakeFlags = [ "-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}" ];
 
-    meta = with lib; {
-      description =
-        "Future-proof NvENC & NvFBC patcher"
-        + lib.optionalString enableNvidia530Patch " (for NVIDIA driver >= 530)";
-      homepage = "https://github.com/illnyang/nvlax";
-      license = with licenses; [gpl3Only];
-      # broken = true;
-    };
-  }
+  meta = with lib; {
+    description =
+      "Future-proof NvENC & NvFBC patcher"
+      + lib.optionalString enableNvidia530Patch " (for NVIDIA driver >= 530)";
+    homepage = "https://github.com/illnyang/nvlax";
+    license = with licenses; [ gpl3Only ];
+    # broken = true;
+  };
+}

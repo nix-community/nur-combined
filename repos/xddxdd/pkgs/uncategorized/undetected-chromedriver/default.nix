@@ -9,22 +9,22 @@
   ...
 }:
 with python3Packages;
-  buildPythonPackage {
-    inherit (sources.undetected-chromedriver) pname version src;
+buildPythonPackage {
+  inherit (sources.undetected-chromedriver) pname version src;
 
-    buildInputs = [
-      selenium
-      requests
-      websockets
-    ];
+  buildInputs = [
+    selenium
+    requests
+    websockets
+  ];
 
-    preConfigure = ''
-      sed -i "s#selenium>=4.9.0#selenium#g" setup.py
-    '';
+  preConfigure = ''
+    sed -i "s#selenium>=4.9.0#selenium#g" setup.py
+  '';
 
-    meta = with lib; {
-      description = "Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM)";
-      homepage = "https://github.com/ultrafunkamsterdam/undetected-chromedriver";
-      license = with licenses; [gpl3Only];
-    };
-  }
+  meta = with lib; {
+    description = "Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM)";
+    homepage = "https://github.com/ultrafunkamsterdam/undetected-chromedriver";
+    license = with licenses; [ gpl3Only ];
+  };
+}
