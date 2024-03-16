@@ -32,6 +32,7 @@
 
   services = {
     desktopManager.plasma6.enable = true;
+    flatpak.enable = true;
     gnome.gnome-keyring.enable = true; # For storing vscode auth token
     mpd.enable = true;
     xserver = {
