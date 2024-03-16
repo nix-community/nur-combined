@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lbm";
-  version = "2023-12-06";
+  version = "0-unstable-2023-12-06";
 
   src = fetchFromGitLab {
     domain = "git.weitnahbei.de";

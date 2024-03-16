@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "iso15765-canbus";
-  version = "2024-01-17";
+  version = "0-unstable-2024-01-17";
 
   src = fetchFromGitHub {
     owner = "devcoons";

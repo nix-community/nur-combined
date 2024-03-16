@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "vectiler";
-  version = "2021-06-30";
+  version = "0.1.0-unstable-2021-06-30";
 
   src = fetchFromGitHub {
     owner = "karimnaaji";
@@ -26,5 +26,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    mainProgram = "vectiler";
   };
 }

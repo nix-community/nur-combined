@@ -2,7 +2,7 @@
 
 buildGoPackage rec {
   pname = "dict2rest";
-  version = "2016-12-05";
+  version = "0-unstable-2016-12-05";
 
   src = fetchFromGitHub {
     owner = "felix";
@@ -19,5 +19,6 @@ buildGoPackage rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    mainProgram = "go-dict2rest";
   };
 }

@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gimgtools";
-  version = "2013-09-19";
+  version = "0.01-unstable-2013-09-19";
 
   src = fetchFromGitHub {
     owner = "wuyongzheng";
@@ -13,10 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace-fail "CC = gcc" ""
-  '';
+  makeFlags = [ "CC:=$(CC)" ];
 
   installPhase = ''
     for tool in gimginfo gimgfixcmd gimgxor gimgunlock gimgch gimgextract cmdc; do
@@ -27,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Garmin Image Tools";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
+    license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };

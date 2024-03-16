@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpsdate";
-  version = "2019-12-02";
+  version = "0-unstable-2019-12-02";
 
   src = fetchFromGitHub {
     owner = "adamheinrich";
@@ -23,5 +23,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    mainProgram = "gpsdate";
   };
 })

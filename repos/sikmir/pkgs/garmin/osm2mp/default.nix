@@ -21,7 +21,7 @@
 
 buildPerlPackage rec {
   pname = "osm2mp";
-  version = "2018-08-31";
+  version = "0-unstable-2018-08-31";
 
   src = fetchFromGitHub {
     owner = "liosha";
@@ -75,5 +75,6 @@ buildPerlPackage rec {
     inherit (src.meta) homepage;
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "osm2mp";
   };
 }

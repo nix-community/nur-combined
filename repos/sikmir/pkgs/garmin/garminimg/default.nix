@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "garminimg";
-  version = "2021-01-07";
+  version = "0-unstable-2021-01-07";
 
   src = fetchFromGitHub {
     owner = "kiozen";

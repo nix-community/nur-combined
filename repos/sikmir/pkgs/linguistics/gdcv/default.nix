@@ -12,9 +12,6 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = lib.optionalString stdenv.isDarwin ''
-    substituteInPlace Makefile \
-      --replace-fail "CC=gcc" ""
-
     substituteInPlace gdcv.c \
       --replace-fail "#include <error.h>" ""
 
@@ -26,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ emacs zlib ] ++ lib.optional stdenv.isDarwin argp-standalone;
 
-  makeFlags = [ "gdcv" "emacs-module" ];
+  makeFlags = [ "CC:=$(CC)" "gdcv" "emacs-module" ];
 
   env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-largp";
 
@@ -42,5 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
     skip.ci = stdenv.isDarwin;
+    mainProgram = "gdcv";
   };
 })

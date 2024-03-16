@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "objlab";
-  version = "2019-11-23";
+  version = "0-unstable-2019-11-23";
 
   src = fetchFromGitHub {
     owner = "lighttransport";
@@ -42,5 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
+    mainProgram = "objlab";
   };
 })
