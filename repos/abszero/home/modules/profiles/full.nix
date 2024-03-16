@@ -2,7 +2,10 @@
   imports = [ ./base.nix ];
 
   abszero = {
-    services.gpg-agent.enable = true;
+    services = {
+      desktopManager.plasma6.enable = true;
+      gpg-agent.enable = true;
+    };
     programs = {
       carapace.enable = true;
       direnv.enable = true;

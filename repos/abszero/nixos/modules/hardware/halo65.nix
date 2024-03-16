@@ -61,7 +61,7 @@ let
 in
 
 {
-  imports = [ ../services/kanata.nix ];
+  imports = [ ../services/hardware/kanata.nix ];
 
   services = mkIf config.abszero.services.kanata.enable {
     # Add permanent static name when connected via Bluetooth

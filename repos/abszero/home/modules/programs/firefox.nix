@@ -19,6 +19,10 @@ in
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-devedition-bin;
+      nativeMessagingHosts =
+        with pkgs;
+        mkIf config.abszero.services.desktopManager.plasma6.enable
+          [ kdePackages.plasma-browser-integration ];
       profiles.${cfg.profile}.settings = {
         "services.sync.username" = findName
           (_: v: v.primary)
@@ -26,13 +30,8 @@ in
         "browser.aboutConfig.showWarning" = false;
       };
     };
-    home.file = {
-      # Make dev edition use the same profile as the normal Firefox.
-      ".mozilla/firefox/ignore-dev-edition-profile".text = "";
-      # Workaround to add plasma-browser-integration to the native messaging hosts.
-      # https://github.com/NixOS/nixpkgs/issues/47340#issuecomment-440645870
-      ".mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json".source =
-        pkgs.libsForQt5.plasma-browser-integration + "/lib/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json";
-    };
+
+    # Make dev edition use the same profile as the normal Firefox.
+    home.file.".mozilla/firefox/ignore-dev-edition-profile".text = "";
   };
 }

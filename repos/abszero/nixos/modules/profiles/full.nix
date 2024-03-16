@@ -5,10 +5,14 @@
   ];
 
   abszero = {
-    virtualisation.libvirtd.enable = true;
-    services = {
-      kanata.enable = true;
+    virtualisation = {
       act.enable = true;
+      libvirtd.enable = true;
+    };
+    services = {
+      desktopManager.plasma6.enable = true;
+      displayManager.sddm.enable = true;
+      kanata.enable = true;
       rclone = {
         enable = true;
         enableFileSystems = true;
@@ -31,16 +35,11 @@
   virtualisation.waydroid.enable = true;
 
   services = {
-    desktopManager.plasma6.enable = true;
     flatpak.enable = true;
     gnome.gnome-keyring.enable = true; # For storing vscode auth token
     mpd.enable = true;
     xserver = {
       enable = true;
-      displayManager = {
-        sddm.enable = true;
-        sddm.wayland.enable = true;
-      };
       libinput = {
         enable = true;
         touchpad = {
@@ -66,50 +65,41 @@
 
   environment = {
     defaultPackages = [ ];
-    systemPackages =
-      with pkgs;
-      with libsForQt5;
-      [
-        # TODO: Switch to anki-qt6 when it is no longer broken on Wayland
-        anki-bin-qt6
-        aseprite
-        clinfo # For Plasma Info Center
-        ffmpeg_5-full
-        gh
-        git-absorb
-        git-secret
-        glxinfo # For Plasma Info Center
-        gnome-solanum
-        goldendict-ng
-        inkscape
-        jetbrains.idea-community
-        jq
-        katawa-shoujo
-        kooha
-        libreoffice-qt
-        neofetch
-        noita_save_manager
-        obsidian-ime
-        pciutils # For Plasma Info Center
-        protonmail-bridge
-        protonvpn-gui
-        sddm-kcm # SDDM Plasma integration
-        taisei
-        tenacity
-        unzip
-        (ventoy-bin.override {
-          defaultGuiType = "qt5";
-          withQt5 = true;
-        })
-        vesktop
-        vscode
-        vulkan-tools # For Plasma Info Center
-        wayland-utils # For Plasma Info Center
-        wget
-        win2xcur
-        xorg.xeyes
-        zip
-      ];
+    systemPackages = with pkgs; [
+      # TODO: Switch to anki-qt6 when it is no longer broken on Wayland
+      anki-bin-qt6
+      aseprite
+      ffmpeg_5-full
+      gh
+      git-absorb
+      git-secret
+      gnome-solanum
+      goldendict-ng
+      inkscape
+      jetbrains.idea-community
+      jq
+      katawa-shoujo
+      kooha
+      libreoffice-qt
+      neofetch
+      noita_save_manager
+      obsidian-ime
+      protonmail-bridge
+      protonvpn-gui
+      taisei
+      tenacity
+      unzip
+      (ventoy.override {
+        defaultGuiType = "qt5";
+        withQt5 = true;
+      })
+      vesktop
+      vscode
+      wget
+      win2xcur
+      xorg.xeyes
+      zip
+    ];
     sessionVariables = {
       # Enable running commands without installation
       # Currently not needed because nix-index is enabled in home-manager

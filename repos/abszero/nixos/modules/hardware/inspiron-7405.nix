@@ -5,7 +5,7 @@ let inherit (lib) mkIf; in
 {
   imports = [
     inputs.nixos-hardware.nixosModules.dell-inspiron-7405
-    ../services/kanata.nix
+    ../services/hardware/kanata.nix
   ];
 
   hardware.bluetooth.enable = true;
