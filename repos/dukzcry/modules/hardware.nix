@@ -71,6 +71,7 @@ in {
         secretKeyFile = "/var/cache-priv-key.pem";
       };
       nix.settings.cores = 8;
+      nix.settings.trusted-users = [ cfg.user ];
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = false;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
