@@ -933,6 +933,9 @@
         "syberant": {
             "url": "https://github.com/syberant/nur-packages"
         },
+        "tarantoj": {
+            "url": "https://github.com/tarantoj/nur-packages"
+        },
         "tboerger": {
             "url": "https://github.com/tboerger/nur-packages"
         },
