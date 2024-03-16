@@ -106,8 +106,8 @@
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
         "abszero": {
-            "rev": "2b19baab03d55ff488c47923cb22c7113b309e4a",
-            "sha256": "0g0na6ch54nqpbp6khzjqlq1frigic86w8rds1hd00hm9s5fq7fv",
+            "rev": "11452e70b1f154bbb3123046c5c58dc7e559dc01",
+            "sha256": "0qj2c79wqk95wg3jf3rmhlpwm5j0zssxslqny8wwv46jmqgzvfrc",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "afreakk": {
