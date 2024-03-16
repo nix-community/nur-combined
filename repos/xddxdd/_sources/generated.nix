@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "b32570f489fe2bc67c4caa5bf72d4b93c045e9af";
+    version = "3ae91dc10624f43c000e88d3443e19a07de0ce68";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "b32570f489fe2bc67c4caa5bf72d4b93c045e9af";
+      rev = "3ae91dc10624f43c000e88d3443e19a07de0ce68";
       fetchSubmodules = false;
-      sha256 = "sha256-RxYc2GkXVd7igBtvlLv9BLX5VxeRzlshkmEh+Auwze4=";
+      sha256 = "sha256-wvJCc8cT0ywMYaEn4aKPNwWzKSXmrq8+vCsdn9mguD4=";
     };
-    date = "2024-03-14";
+    date = "2024-03-15";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -533,15 +533,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "1bc6d11ef4f5be8be9797ec5ba03b4c583ea1056";
+    version = "d183ed326609a0e0087f339b0eb948de9d33035d";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "1bc6d11ef4f5be8be9797ec5ba03b4c583ea1056";
+      rev = "d183ed326609a0e0087f339b0eb948de9d33035d";
       fetchSubmodules = false;
-      sha256 = "sha256-X3bBATBGbeGgqROyDUXd0luquPk9UUYk/GgU3ioHyN4=";
+      sha256 = "sha256-d6zENV28eteSI8my6ZXfhuai5FA5D3krLObYHKdikUo=";
     };
-    date = "2024-03-13";
+    date = "2024-03-15";
   };
   libqcef = {
     pname = "libqcef";
@@ -557,15 +557,15 @@
   };
   librime-charcode = {
     pname = "librime-charcode";
-    version = "3709ca7a39a7c14f9e02fa00489a9850fd5a907b";
+    version = "c202c85eaa45a2f836a3cf79223897096336aa9e";
     src = fetchFromGitHub {
       owner = "rime";
       repo = "librime-charcode";
-      rev = "3709ca7a39a7c14f9e02fa00489a9850fd5a907b";
+      rev = "c202c85eaa45a2f836a3cf79223897096336aa9e";
       fetchSubmodules = false;
-      sha256 = "sha256-KfKkpph+2ChQpkkGKubmpg/18uPX9qUHTqJT1PSGorI=";
+      sha256 = "sha256-UXZzJ6HbwOJ/8ckkALkoeWaAL+lUyVc3lEP1RJPhoLM=";
     };
-    date = "2024-02-10";
+    date = "2024-03-15";
   };
   librime-lua = {
     pname = "librime-lua";
@@ -605,13 +605,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.8.0-xanmod1";
+    version = "6.8.1-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.8.0-xanmod1";
+      rev = "6.8.1-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-szLxZIObCYh9ozgwCegSnCv0joQd4Km33XVbZr7SkCE=";
+      sha256 = "sha256-FF/1gijFmYzKk4XoXfwtCQ5eGlwFW2l80O43Y4aSx1g=";
     };
   };
   linux-xanmod-6_0 = {
@@ -638,13 +638,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.21-xanmod1";
+    version = "6.6.22-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.21-xanmod1";
+      rev = "6.6.22-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-DDkjrtKK7zIffVMuBtHvSWp0GtMA87YuOp8AhUw64+Y=";
+      sha256 = "sha256-vpWUdzgI8i/1r5nMp0tx+x67GDTnjQF5ueITIl36lvA=";
     };
   };
   nbfc-linux-lantian = {
