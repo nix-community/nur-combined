@@ -42,4 +42,5 @@ rec {
   hostapd = callPackage ./pkgs/hostapd {};
   steamlink = callPackage ./pkgs/steamlink.nix {};
   sunshine = callPackage ./pkgs/sunshine {};
+  ydcmd = callPackage ./pkgs/ydcmd.nix {};
 }

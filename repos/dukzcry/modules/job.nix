@@ -15,11 +15,8 @@ in {
 
   config = mkMerge [
     (mkIf cfg.client {
-      environment.systemPackages = with pkgs; [ remmina yandex-disk ];
+      environment.systemPackages = with pkgs; [ remmina ];
       programs.evolution.plugins = [ pkgs.evolution-ews ];
-      services.xserver.displayManager.sessionCommands = ''
-        yandex-disk start
-      '';
     })
     (mkIf cfg.server {
       networking.firewall.extraCommands = ''
