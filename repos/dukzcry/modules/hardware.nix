@@ -16,7 +16,7 @@ let
       maxJobs = 4;
     }];
     nix.distributedBuilds = true;
-    nix.settings.substituters = lib.mkForce [ "http://powerhorse:5000" ];
+    nix.settings.substituters = [ "http://powerhorse:5000" ];
     nix.settings.trusted-public-keys = [ "powerhorse-1:d6cps6qy6UuAaTquP0RwSePLhrmzz9xFjk+rVlmP2sY=" ];
     nix.extraOptions = ''
       builders-use-substitutes = true
