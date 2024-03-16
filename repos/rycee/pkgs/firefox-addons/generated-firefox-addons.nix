@@ -2291,10 +2291,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.0";
+      version = "1.3.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4249787/faststream-1.3.0.xpi";
-      sha256 = "c1aa4b4e258cefcc0dbcce8d5adafee9b8a113759f053dd13694e9583d6dc873";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250717/faststream-1.3.1.xpi";
+      sha256 = "d314c68b893db4e99829fa50560b3a0ff446e27f40e2817fa77664e76f877ac9";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
