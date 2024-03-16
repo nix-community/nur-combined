@@ -18,4 +18,5 @@
   dapnetgateway = pkgs.callPackage ./pkgs/dapnetgateway { };
   dmrgateway = pkgs.callPackage ./pkgs/dmrgateway { };
   mmdvmhost = pkgs.callPackage ./pkgs/mmdvmhost { };
+  satorictl-unstable = pkgs.callPackage ./pkgs/satorictl-unstable { };
 }
