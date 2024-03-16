@@ -9,7 +9,7 @@
         devshell.flakeModule
       ]);
       debug = false;
-      systems = [ "x86_64-linux" "aarch64-linux" ];
+      systems = [ "x86_64-linux" "aarch64-linux" "riscv64-linux" ];
       perSystem = { pkgs, system, inputs', ... }: {
 
         _module.args.pkgs = import inputs.nixpkgs {
@@ -42,6 +42,7 @@
             ];
           in
           (extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (n: pkgs.${n}));
+        formatter = pkgs.nixpkgs-fmt;
       };
 
       flake = {
@@ -80,6 +81,7 @@
             };
           in
           modules // { inherit default; };
+
       };
 
     });

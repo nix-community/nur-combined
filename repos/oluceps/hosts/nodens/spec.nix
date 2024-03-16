@@ -23,6 +23,12 @@
     "nyaw.cert"
     "nyaw.key"
   ];
+
+  systemd.services.trojan-server.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
+    "nyaw.cert"
+    "nyaw.key"
+  ];
+
   services =
     (
       let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
@@ -31,6 +37,8 @@
       ]
         (n: importService n)
     ) // {
+
+      trojan-server.enable = true;
       do-agent.enable = true;
       copilot-gpt4.enable = true;
       factorio-manager = {

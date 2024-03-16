@@ -35,6 +35,24 @@
                       handle = [{
                         handler = "reverse_proxy";
                         upstreams = [{
+                          dial = "127.0.0.1:7921";
+                        }];
+                      }];
+                    }];
+                  }];
+                  match = [{
+                    host = [ "nai.nyaw.xyz" ];
+                  }];
+                  terminal = true;
+                }
+
+                {
+                  handle = [{
+                    handler = "subroute";
+                    routes = [{
+                      handle = [{
+                        handler = "reverse_proxy";
+                        upstreams = [{
                           dial = "10.0.1.2:3001";
                         }];
                       }];
@@ -45,6 +63,7 @@
                   }];
                   terminal = true;
                 }
+
                 {
                   match = [{
                     host = [ config.networking.fqdn ];
@@ -62,6 +81,24 @@
                       handler = "metrics";
                     }
                   ];
+                }
+
+                {
+                  handle = [{
+                    handler = "subroute";
+                    routes = [{
+                      handle = [{
+                        handler = "reverse_proxy";
+                        upstreams = [{
+                          dial = "10.0.1.2:8888";
+                        }];
+                      }];
+                    }];
+                  }];
+                  match = [{
+                    host = [ "api.atuin.nyaw.xyz" ];
+                  }];
+                  terminal = true;
                 }
                 {
                   handle = [{

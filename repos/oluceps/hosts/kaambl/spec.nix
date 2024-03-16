@@ -40,6 +40,7 @@
 
     # prom-ntfy-bridge.enable = true;
 
+    sing-box.enable = true;
     beesd.filesystems = {
       os = {
         spec = "/nix";
