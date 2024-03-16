@@ -31,6 +31,7 @@
   virtualisation.waydroid.enable = true;
 
   services = {
+    desktopManager.plasma6.enable = true;
     gnome.gnome-keyring.enable = true; # For storing vscode auth token
     mpd.enable = true;
     xserver = {
@@ -39,7 +40,6 @@
         sddm.enable = true;
         sddm.wayland.enable = true;
       };
-      desktopManager.plasma6.enable = true;
       libinput = {
         enable = true;
         touchpad = {

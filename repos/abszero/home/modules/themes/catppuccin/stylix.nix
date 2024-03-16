@@ -40,11 +40,11 @@ in
       serif = {
         # package = pkgs.noto-fonts;
         # name = "Noto Serif";
-        package = pkgs.iosevka-bin.override { variant = "sgr-iosevka-etoile"; };
+        package = pkgs.iosevka-bin.override { variant = "Etoile"; };
         name = "Iosevka Etoile";
       };
       monospace = {
-        package = pkgs.iosevka-bin.override { variant = "sgr-iosevka-term"; };
+        package = pkgs.iosevka-bin.override { variant = "SGr-IosevkaTerm"; };
         name = "Iosevka Term Extended";
       };
     };

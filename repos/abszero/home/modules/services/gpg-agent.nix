@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -11,6 +11,6 @@ in
   config.services.gpg-agent = mkIf cfg.enable {
     enable = true;
     enableSshSupport = true;
-    pinentryFlavor = "gnome3";
+    pinentryPackage = pkgs.pinentry-gnome3;
   };
 }

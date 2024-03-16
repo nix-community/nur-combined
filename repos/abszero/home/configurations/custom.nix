@@ -39,6 +39,7 @@ in
             catppuccin-discord
             catppuccin-fcitx5
             catppuccin-fonts
+            catppuccin-gtk
             catppuccin-kvantum
             catppuccin-plasma
             catppuccin-stylix
