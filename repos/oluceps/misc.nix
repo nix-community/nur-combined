@@ -335,7 +335,7 @@ lib.mkMerge [
       gnupg = {
         agent = {
           enable = false;
-          pinentryFlavor = "curses";
+          pinentryPackage = pkgs.pinentry-curses;
           enableSSHSupport = true;
         };
       };

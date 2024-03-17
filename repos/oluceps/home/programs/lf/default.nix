@@ -8,7 +8,7 @@
     '';
   };
 
-  xdg.configFile."lf/lf_kitty_clean".text = builtins.readFile ./lf_kitty_clean;
-  xdg.configFile."lf/lf_kitty_preview".text = builtins.readFile ./lf_kitty_preview;
+  xdg.configFile."lf/lf_kitty_clean".source = ./lf_kitty_clean;
+  xdg.configFile."lf/lf_kitty_preview".source = ./lf_kitty_preview;
 }
 

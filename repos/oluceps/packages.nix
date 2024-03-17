@@ -25,7 +25,7 @@ let
 
       helix
       srm
-      onagre
+      # onagre
       libsixel
       ouch
       nix-output-monitor
@@ -142,7 +142,7 @@ let
     cmd =
       [
         metasploit
-        linuxKernel.packages.linux_latest_libre.cpupower
+        # linuxKernel.packages.linux_latest_libre.cpupower
         clean-home
         just
         typst

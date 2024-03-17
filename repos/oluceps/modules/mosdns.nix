@@ -1,3 +1,4 @@
+# Originally from https://github.com/EHfive/flakes/blob/main/modules/mosdns/default.nix
 { config, lib, pkgs, ... }:
 with lib;
 let

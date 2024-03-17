@@ -68,6 +68,11 @@ decrypt *args:
       each {|| ls $in } | flatten | $in.name |
               reduce {|it, acc| $it + (char newline) + $acc } | fzf | str trim | f de $in
 
+remote-switch *args:
+    #!/usr/bin/env nu
+    use {{loc}}/f
+    f rswc {{ args }}
+
 check:
     #!/usr/bin/env nu
     use {{loc}}/f

@@ -342,7 +342,7 @@
         path = "${config.xdg.dataHome}/zsh_history";
       };
 
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       # syntaxHighlighting.enable = true;
       autocd = true;

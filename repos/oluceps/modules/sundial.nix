@@ -53,7 +53,7 @@ in
               serviceConfig = {
                 Type = "simple";
                 User = "root";
-                ExecStart = "${lib.getExe' pkgs.linuxKernel.packages.linux_latest_libre.cpupower "cpupower"} frequency-set -g ${mode}";
+                ExecStart = "${lib.getExe' pkgs.linuxKernel.packages.linux_latest.cpupower "cpupower"} frequency-set -g ${mode}";
                 Restart = "on-failure";
               };
             };

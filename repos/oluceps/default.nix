@@ -21,9 +21,6 @@ let
     "runbkworm"
     "runwin"
     "ubt-rv-run"
-
-    "restls"
-    "shadow-tls"
     "trojan-rs"
   ];
 in

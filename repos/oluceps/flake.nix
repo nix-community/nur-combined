@@ -71,7 +71,7 @@
 
         nixosModules =
           let
-            shadowedModules = [ ];
+            shadowedModules = [ "sundial" ];
             modules =
               extraLibs.genFilteredDirAttrsV2 ./modules shadowedModules
                 (n: import (./modules + "/${n}.nix"));
@@ -153,7 +153,6 @@
     nixyDomains.url = "github:oluceps/nixyDomains";
     nixyDomains.flake = false;
     nuenv.url = "github:DeterminateSystems/nuenv";
-    EHfive.url = "github:EHfive/flakes";
     agenix-rekey = {
       url = "github:oddlama/agenix-rekey";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -178,7 +177,6 @@
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    typst-lsp.url = "github:nvarner/typst-lsp";
     nur-pkgs = {
       url = "github:oluceps/nur-pkgs";
       inputs.nixpkgs.follows = "nixpkgs";

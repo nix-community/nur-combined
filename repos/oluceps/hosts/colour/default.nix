@@ -21,7 +21,6 @@
                 (lib.genOverlays [
                   "self"
                   "fenix"
-                  "EHfive"
                   "nuenv"
                   "agenix-rekey"
                   "nixpkgs-wayland"

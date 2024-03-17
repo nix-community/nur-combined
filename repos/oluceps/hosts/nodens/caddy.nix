@@ -8,6 +8,13 @@
         listen = "unix//tmp/caddy.sock";
         config.persist = false;
       };
+      # logging = {
+      #   logs = {
+      #     debug = {
+      #       level = "debug";
+      #     };
+      #   };
+      # };
       apps = {
         http = {
           servers = {

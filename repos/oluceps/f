@@ -3,6 +3,7 @@
 const map = [
     [name, addr];
 		[hastur, riro@hastur.nyaw.xyz ],
+		# [hastur, riro@10.0.1.2 ],
 		[kaambl, elen@localhost],
 		[eihort, elen@10.0.2.6],
 		[nodens, dgs],
@@ -34,7 +35,7 @@ export def b [
   let machine_spec = "x86_64-linux - - - big-parallel"
 
   $nodes | par-each {|| 
-    (nom build $'.#nixosConfigurations.($in).config.system.build.toplevel'
+    (nix build $'.#nixosConfigurations.($in).config.system.build.toplevel'
       --builders $"($target_addr) ($machine_spec)"
       ...($job) -vvv) 
   }
@@ -96,4 +97,17 @@ export def chk [] {
     filter {|i|
       not ($i.name | path basename | $in in $allow)
     }
+}
+
+export def rswc [
+  --builder (-b): string = "hastur"
+] {
+
+  let job = ["--max-jobs" "0"]
+
+  let target_addr = do $env.get_addr $builder
+
+  let machine_spec = "x86_64-linux - - -"
+
+  nh os switch --no-nom -- --builders $"($target_addr)"
 }

@@ -6,13 +6,12 @@
   xdg.configFile =
     let
       settingsFormat = pkgs.formats.toml { };
-      genText = x: y: builtins.readFile (settingsFormat.generate x y);
     in
     {
-      "helix/languages.toml".text =
-        genText "config.toml" (import ./languages.nix { inherit pkgs lib; });
-      "helix/themes/catppuccin_macchiato.toml".text =
-        genText "catppuccin_macchiato.toml" (import ./catppuccin_macchiato.nix);
+      "helix/languages.toml".source =
+        settingsFormat.generate "config.toml" (import ./languages.nix { inherit pkgs lib; });
+      "helix/themes/catppuccin_macchiato.toml".source =
+        settingsFormat.generate "catppuccin_macchiato.toml" (import ./catppuccin_macchiato.nix);
     };
 
   # lsps

@@ -20,7 +20,6 @@
                 "self"
                 "fenix"
                 "berberman"
-                "EHfive"
                 "nuenv"
                 "android-nixpkgs"
                 "agenix-rekey"

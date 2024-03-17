@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
-  xdg.configFile."bspwm/bspwmrc".text = builtins.readFile ./bspwmrc;
+  xdg.configFile."bspwm/bspwmrc".source = ./bspwmrc;
 
-  xdg.configFile."sxhkd/sxhkdrc".text = builtins.readFile ./sxhkdrc;
+  xdg.configFile."sxhkd/sxhkdrc".source = ./sxhkdrc;
 
 }

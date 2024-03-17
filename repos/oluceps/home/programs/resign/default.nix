@@ -14,7 +14,7 @@
       Unit.PartOf = [ "graphical-session.target" ];
       Unit.After = [ "graphical-session.target" ];
       Service = {
-        Environment = [ "PATH=${lib.makeBinPath [ pkgs.pinentry-gnome ]}" ];
+        Environment = [ "PATH=${lib.makeBinPath [ pkgs.pinentry_qt5 ]}" ];
         ExecStart = "${lib.getBin pkgs.resign}/bin/resign --listen %t/resign.ssh";
       };
     };
