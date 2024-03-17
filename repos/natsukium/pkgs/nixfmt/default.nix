@@ -7,7 +7,7 @@ nixfmt.overrideAttrs (
 
     meta = prevAttrs.meta // {
       description = "nixfmt adoped rfc101/166 style";
-      homepage = "https://github.com/piegamesde/nixfmt";
+      homepage = "https://github.com/NixOS/nixfmt";
     };
   }
 )

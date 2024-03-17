@@ -1,7 +1,7 @@
 [copyq-darwin]
 src.github = "hluk/CopyQ"
 src.prefix = "v"
-fetch.url = "https://github.com/hluk/CopyQ/releases/download/v$ver/CopyQ.dmg.zip"
+fetch.url = "https://github.com/hluk/CopyQ/releases/download/v$ver/CopyQ-macos-12-m1.dmg.zip"
 
 [emacs-plus]
 src.git = "https://github.com/d12frosted/homebrew-emacs-plus"
@@ -9,9 +9,9 @@ src.branch = "master"
 fetch.github = "d12frosted/homebrew-emacs-plus"
 
 [nixfmt]
-src.git = "https://github.com/piegamesde/nixfmt"
-src.branch = "rfc101-style"
-fetch.github = "piegamesde/nixfmt"
+src.git = "https://github.com/NixOS/nixfmt"
+src.branch = "master"
+fetch.github = "NixOS/nixfmt"
 
 [nixpkgs-review]
 src.git = "https://github.com/natsukium/nixpkgs-review"

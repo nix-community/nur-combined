@@ -32,6 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://hluk.github.io/CopyQ";
     description = "Clipboard Manager with Advanced Features";
     license = licenses.gpl3Only;
-    platforms = platforms.darwin;
+    platforms = [ "aarch64-darwin" ];
   };
 }

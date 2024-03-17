@@ -8,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8dYfEZSSI5NHGXXA+KzPg61Y7Z6nezo0Knced3j3TRU=",
+            "sha256": "sha256-F8s0JIAgPBmXiunw8yB8hBEz32M/Il4dK2lFrPa9SXU=",
             "type": "url",
-            "url": "https://github.com/hluk/CopyQ/releases/download/v7.1.0/CopyQ.dmg.zip"
+            "url": "https://github.com/hluk/CopyQ/releases/download/v8.0.0/CopyQ-macos-12-m1.dmg.zip"
         },
-        "version": "7.1.0"
+        "version": "8.0.0"
     },
     "emacs-plus": {
         "cargoLocks": null,
@@ -36,7 +36,7 @@
     },
     "nixfmt": {
         "cargoLocks": null,
-        "date": "2024-03-01",
+        "date": "2024-03-15",
         "extract": null,
         "name": "nixfmt",
         "passthru": null,
@@ -46,13 +46,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "piegamesde",
+            "owner": "NixOS",
             "repo": "nixfmt",
-            "rev": "2b5ee820690bae64cb4003e46917ae43541e3e0b",
-            "sha256": "sha256-D8OYHmW3BiOfv7HSjBqihfqBihraeE7jdac9ggNbMsQ=",
+            "rev": "136005fc3dd34ff0d6af9f8c57cd1d3d7d342537",
+            "sha256": "sha256-g0MTMQZeRlKFQiKdEVc1IQ73nNeRwu0+GtUIvcm2NV4=",
             "type": "github"
         },
-        "version": "2b5ee820690bae64cb4003e46917ae43541e3e0b"
+        "version": "136005fc3dd34ff0d6af9f8c57cd1d3d7d342537"
     },
     "nixpkgs-review": {
         "cargoLocks": null,
