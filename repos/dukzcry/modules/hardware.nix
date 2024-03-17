@@ -20,6 +20,7 @@ let
     nix.settings.trusted-public-keys = [ "powerhorse-1:d6cps6qy6UuAaTquP0RwSePLhrmzz9xFjk+rVlmP2sY=" ];
     nix.extraOptions = ''
       builders-use-substitutes = true
+      # https://github.com/NixOS/nix/issues/3514
       fallback = true
     '';
   };
