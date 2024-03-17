@@ -15,7 +15,11 @@ stdenv.mkDerivation rec {
     (python3.withPackages (pythonPackages: with pythonPackages; [ dateutil ]))
   ];
 
-  installPhase = "install -Dm755 ydcmd.py $out/bin/ydcmd";
+  installPhase = ''
+    install -Dm755 ydcmd.py $out/bin/ydcmd
+    install -Dm644 man/ydcmd.1 $out/share/man/man1/ydcmd.1
+    install -Dm644 man/ydcmd.ru.1 $out/share/man/ru/man1/ydcmd.1
+  '';
 
   meta = with lib; {
     description = "Консольный клиент Linux/FreeBSD для работы с Яндекс.Диск (Yandex.Disk) посредством REST API";
