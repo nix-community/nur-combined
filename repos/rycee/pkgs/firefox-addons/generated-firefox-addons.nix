@@ -1583,10 +1583,10 @@
     };
     "copy-selection-as-markdown" = buildFirefoxXpiAddon {
       pname = "copy-selection-as-markdown";
-      version = "0.21.0";
+      version = "0.22.0";
       addonId = "{db9a72da-7bc5-4805-bcea-da3cb1a15316}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3802383/copy_selection_as_markdown-0.21.0.xpi";
-      sha256 = "ead9406f8e9afbe409a55c5b5b3d9d4eb9f0b8fb0f3f42c985b86bcfe2173ed4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250904/copy_selection_as_markdown-0.22.0.xpi";
+      sha256 = "5d76d73b93762b2a42781cc564de20e982387b428664e96bda50b3066db9ac08";
       meta = with lib;
       {
         homepage = "https://github.com/0x6b/copy-selection-as-markdown";
@@ -5505,10 +5505,10 @@
     };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.8.0";
+      version = "1.9.0";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4176160/linkding_extension-1.8.0.xpi";
-      sha256 = "1a8bbbaee7b69c1d5b36556dc2690eb7902c907e1cb49bc05cca9f60d8b2c318";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250843/linkding_extension-1.9.0.xpi";
+      sha256 = "65fc0af6603630c631f9e82e2520537f3d9769b9ab747514bee8ddb65baaca6e";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
