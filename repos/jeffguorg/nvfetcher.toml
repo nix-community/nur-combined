@@ -1,0 +1,5 @@
+[cargo-create-tauri-app]
+src.github_tag = "tauri-apps/create-tauri-app"
+src.include_regex = "create-tauri-app-v\\d+\\.\\d+\\.\\d+"
+fetch.github = "tauri-apps/create-tauri-app"
+extract = ["Cargo.lock"]

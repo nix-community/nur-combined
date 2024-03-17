@@ -1,0 +1,24 @@
+{
+    "cargo-create-tauri-app": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": {
+            "Cargo.lock": "./cargo-create-tauri-app-create-tauri-app-v3.13.14/Cargo.lock"
+        },
+        "name": "cargo-create-tauri-app",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tauri-apps",
+            "repo": "create-tauri-app",
+            "rev": "create-tauri-app-v3.13.14",
+            "sha256": "sha256-bhmsN1OrhbTfaj3a7vab6OQGPSX/Fmv6mJRi42mF5X8=",
+            "type": "github"
+        },
+        "version": "create-tauri-app-v3.13.14"
+    }
+}
