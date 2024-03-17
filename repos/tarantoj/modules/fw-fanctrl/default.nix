@@ -6,6 +6,7 @@
 }: let
   cfg = config.services.fw-fanctrl;
   settingsFile = pkgs.writeText "config.json" (builtins.toJSON config.services.fw-fanctrl.settings);
+  fw-fanctrl = pkgs.callPackage ../../pkgs/fw-fanctrl {};
 in {
   options.services.fw-fanctrl = with lib; {
     enable = mkEnableOption "fw-fanctrl";
@@ -90,7 +91,7 @@ in {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart = "${pkgs.fw-fanctrl}/bin/fanctrl.py --config ${settingsFile}";
+        ExecStart = "${fw-fanctrl}/bin/fanctrl.py --config ${settingsFile}";
         Type = "simple";
       };
     };
