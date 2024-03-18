@@ -1,0 +1,27 @@
+{
+  "firefox": {
+    "version": "123.0.1",
+    "url": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/123.0.1/mac/en-US/Firefox%20123.0.1.dmg",
+    "sha256": "35885bacbe7c838c8de476ced3aa2dc0f8642d613c0db5b462e919da1b6cf8c7"
+  },
+  "firefox-beta": {
+    "version": "124.0b9",
+    "url": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/124.0b9/mac/en-US/Firefox%20124.0b9.dmg",
+    "sha256": "c716240f5fd76937cccbe93e9ffdb681782fbacb9af1face7416351a6e71a1a3"
+  },
+  "firefox-devedition": {
+    "version": "124.0b9",
+    "url": "https://download-installer.cdn.mozilla.net/pub/devedition/releases/124.0b9/mac/en-US/Firefox%20124.0b9.dmg",
+    "sha256": "ebdad754a0999d859dc947d1968039fcbf19530804bc0d8ef43f6cb199ff4bf3"
+  },
+  "firefox-esr": {
+    "version": "115.8.0esr",
+    "url": "https://download-installer.cdn.mozilla.net/pub/firefox/releases/115.8.0esr/mac/en-US/Firefox%20115.8.0esr.dmg",
+    "sha256": "7edacf44e860b87410b11bd298e54296d9be53e13736f58693a49720b7a170e3"
+  },
+  "firefox-nightly": {
+    "version": "125.0a1",
+    "url": "https://download-installer.cdn.mozilla.net/pub/firefox/nightly/2024/03/2024-03-14-09-25-45-mozilla-central/firefox-125.0a1.en-US.mac.dmg",
+    "sha256": "cf832a8fb12a06fdd3d56d867251ed04dbc46d2ca445b9650662718c6403e014"
+  }
+}

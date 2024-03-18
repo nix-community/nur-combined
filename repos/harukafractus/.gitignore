@@ -1,3 +1,2 @@
-result
-result-*
-
+result*
+*.DS_Store

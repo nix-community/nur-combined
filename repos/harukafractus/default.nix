@@ -10,10 +10,10 @@
 
 {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; };
-  modules = import ./modules;
-  overlays = import ./overlays;
+  #lib = import ./lib { inherit pkgs; };
+  #modules = import ./modules;
+  #overlays = import ./overlays;
 
-  gothic-nguyen = pkgs.callPackage ./pkgs/gothic-nguyen.nix {};
-  mozc = pkgs.callPackage ./pkgs/mozc.nix {};
+  gothic-nguyen = pkgs.callPackage ./pkgs/gothic-nguyen {};
+  mozc = pkgs.callPackage ./pkgs/mozc {};
 }
