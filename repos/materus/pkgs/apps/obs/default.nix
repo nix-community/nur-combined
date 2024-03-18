@@ -70,6 +70,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-Wno-error"
+  ];
   patches = [
     ./obs-amf-patch.patch # OBS AMF Patch
     ./Enable-file-access-and-universal-access-for-file-URL.patch
