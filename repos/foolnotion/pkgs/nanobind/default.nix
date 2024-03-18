@@ -5,13 +5,13 @@ enableTesting ? false
 
 stdenv.mkDerivation rec {
   pname = "nanobind";
-  version = "1.8.0";
+  version = "1.9.2";
 
   src = fetchFromGitHub {
     owner = "wjakob";
     repo = "nanobind";
     rev = "v${version}";
-    hash = "sha256-MkbdjUL9ZC/JVBCSCgNLqTObISczPhJtDKKOSa85gmA=";
+    hash = "sha256-6swDqw7sEYOawQbNWD8VfSQoi+9wjhOhOOwPPkahDas=";
     fetchSubmodules = true;
   };
 

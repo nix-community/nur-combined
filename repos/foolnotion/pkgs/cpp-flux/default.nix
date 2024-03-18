@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "tcbrindle";
     repo = "flux";
-    rev = "1c128b50af95fc39b6683d437f9210239e219836";
-    hash = "sha256-WFHju4hguuuoodCCUHnhPvF4z4YsWSkGqH0fqt+iQ+c=";
+    rev = "b8047a547659d41e6c91f3a20c8acd42326de8ea";
+    hash = "sha256-yfIxg0ex1lqtC9epUzKaIMRUebRyygEIrlZvo/yyg6k=";
   };
 
   nativeBuildInputs = [ cmake ];

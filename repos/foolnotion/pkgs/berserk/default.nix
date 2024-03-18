@@ -1,11 +1,12 @@
 { lib, stdenv, fetchurl, fetchFromGitHub }:
 
 let
-  version = "12";
+  version = "12.1";
   nnueFile = "berserk-fb675dad41b4.nn";
+  nnueVersion = "12";
   nnue = fetchurl {
     name = nnueFile;
-    url = "https://github.com/jhonnold/berserk/releases/download/${version}/${nnueFile}";
+    url = "https://github.com/jhonnold/berserk/releases/download/${nnueVersion}/${nnueFile}";
     hash = "sha256-+2ddrUG0X3KgMDefECJBJwSmhVT3A8y0B0dAQ2QLr8c=";
   };
 in stdenv.mkDerivation rec {
@@ -15,14 +16,14 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jhonnold";
     repo = "berserk";
-    rev = "94d48b044bbad8144f7fce7a2848ac888812a1fd";
-    hash = "sha256-Nlr8sdB5JulDBJcFpd4GMyvrlm6BrULZ2TPP7z/Xj7E=";
+    rev = "refs/tags/${version}";
+    hash = "sha256-jiYbR5XzNPzLjqO1DWRNsFwxNqhIVOpshguJHugqD3I=";
   };
 
   preConfigure = ''
     cd src
-    substituteInPlace makefile --replace native x86-64-v3
-    substituteInPlace makefile --replace ": clone-networks" ":"
+    substituteInPlace makefile --replace-fail native x86-64-v3
+    substituteInPlace makefile --replace-fail ": clone-networks" ":"
     cp ${nnue} networks/${nnueFile}
   '';
 
