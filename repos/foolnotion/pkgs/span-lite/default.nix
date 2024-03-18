@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "span-lite";
-  version = "0.10.3";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "martinmoene";
     repo = "span-lite";
     rev = "v${version}";
-    sha256 = "sha256-WfoyyPLBqXSGGATWN/wny6P++3aCmQMOMLCARhB+R3c=";
+    sha256 = "sha256-BYRSdGzIvrOjPXxeabMj4tPFmQ0wfq7y+zJf6BD/bTw=";
   };
 
   nativeBuildInputs = [ cmake ];
