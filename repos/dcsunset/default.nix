@@ -14,6 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  tproxy = pkgs.callPackage ./pkgs/tproxy { };
   lfreader = pkgs.callPackage ./pkgs/lfreader { };
   sabaki = pkgs.callPackage ./pkgs/sabaki { };
   task-json-cli = pkgs.callPackage ./pkgs/task-json-cli { };
