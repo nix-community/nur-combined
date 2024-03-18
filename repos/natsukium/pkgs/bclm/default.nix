@@ -11,7 +11,7 @@
 let
   generated = swiftpm2nix.helpers ./nix;
 in
-stdenv.mkDerivation rec {
+swiftPackages.stdenv.mkDerivation rec {
   pname = "bclm";
   version = "0.1.0";
 
