@@ -51,16 +51,15 @@
     ]
       (n: importService n)
   ) // {
+
     juicity.instances = [{
       name = "only";
       credentials = [
         "key:${config.age.secrets."nyaw.key".path}"
         "cert:${config.age.secrets."nyaw.cert".path}"
       ];
-      serve = {
-        enable = true;
-        port = 23180;
-      };
+      serve = true;
+      openFirewall = 23180;
       configFile = config.age.secrets.juic-san.path;
     }];
     hysteria.instances = [
