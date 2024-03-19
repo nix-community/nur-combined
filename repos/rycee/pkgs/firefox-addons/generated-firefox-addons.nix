@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildFirefoxXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.6.3";
+      version = "1.6.4";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243349/2fas_two_factor_authentication-1.6.3.xpi";
-      sha256 = "6eb75222bc0ae2f74c2cdf4055d59aaa5ad3fc665a088da82496fff8e012ed40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251878/2fas_two_factor_authentication-1.6.4.xpi";
+      sha256 = "5f0f45a9804f00b6d905911ed61549ff8c32b7037f0c0d3ac5b2ad943968ed1e";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -1662,10 +1662,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.78";
+      version = "4.9.80";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243182/darkreader-4.9.78.xpi";
-      sha256 = "21e08b3f26e9b54257d30f6b2fb2d966d41ace54d2d79ccec55e55517084c7ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4249607/darkreader-4.9.80.xpi";
+      sha256 = "a93f1250b72cc27fe4a9b02be062c68fb079e45a1233d562852b48e1e9b99307";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1765,10 +1765,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240311.145044";
+      version = "125.0.20240318.85508";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4248599/deutsch_de_language_pack-124.0.20240311.145044.xpi";
-      sha256 = "bf0a3480d7c6d1747de2e0c554e31f1ea6985febf33651be604ed3326ab927e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251556/deutsch_de_language_pack-125.0.20240318.85508.xpi";
+      sha256 = "81c51490f0fde8b9113978c2e74051525f45b75610750917203975bc7a8633a6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2180,10 +2180,10 @@
     };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.122.1";
+      version = "2.0.123";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231850/enhancer_for_youtube-2.0.122.1.xpi";
-      sha256 = "fbed2be2e99747ab78dd9ee9334f6a3c161497d1beb71ae50e6cf685b0a075fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250017/enhancer_for_youtube-2.0.123.xpi";
+      sha256 = "18ed7dcb7cd373af7107e9f15b627df9d33a59f1dc5bd33b7f00f995b99fbcf2";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -2705,10 +2705,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240311.145044";
+      version = "125.0.20240318.85508";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4248524/francais_language_pack-124.0.20240311.145044.xpi";
-      sha256 = "f24a583c6f7fac67e39693c2c1e513978e5955a7e5be9dc81025c7b5d8f7ae38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251568/francais_language_pack-125.0.20240318.85508.xpi";
+      sha256 = "74c234ec68b9abd9d4ab0998918ec2e37767fe788f3d8f3edc2c02197fee1a3e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4575,10 +4575,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.2.4";
+      version = "1.3.2";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4245250/immersive_translate-1.2.4.xpi";
-      sha256 = "0e2533aa7d3a292015945e3273fd98ab12624331f58e6ffd63eb58cf59a39774";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250116/immersive_translate-1.3.2.xpi";
+      sha256 = "ee4f0a9cfe86e2ff745348616fcc4bf71de3858bfc172153ed3aee5f2b147cba";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -8193,10 +8193,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.15.0";
+      version = "1.14.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4248868/proton_pass-1.15.0.xpi";
-      sha256 = "7269a3e6a426aa8ce09fb707a0b6900cc766f52e601cdb0a052ccc902757c6ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4243202/proton_pass-1.14.1.xpi";
+      sha256 = "3a0cee9a4116ea276cafcff9d7edeb53ec954bce39b869a9d351bd7c013a7635";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9000,10 +9000,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.43";
+      version = "1.22.45";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236989/single_file-1.22.43.xpi";
-      sha256 = "7d32842dad41355c9b8ea8bd862a5e62e772f9138f024ea079464204acf01b10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4249603/single_file-1.22.45.xpi";
+      sha256 = "c5956270a4e098edd309e3f6279c27ff5713ad4222aba1f4a84e7cc9fb9aea26";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -9943,10 +9943,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.3";
+      version = "4.0.8";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4249095/tree_style_tab-4.0.3.xpi";
-      sha256 = "0904fe9db63b949b66f876cbea911c1f2d9f59d5b2ae0e0f1cae362a1ca36720";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251381/tree_style_tab-4.0.8.xpi";
+      sha256 = "2264a8615f57e3936ff56eeea7f343745437adfbbc8f3d8c7ea9426e7efdceb9";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
