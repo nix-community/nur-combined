@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyrtcm";
-  version = "1.0.15";
+  version = "1.0.16";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyrtcm";
     rev = "v${version}";
-    hash = "sha256-+1PnM4A47zXpwmr7RvAKQxgSLOvNf1v+BGbf+eHA4h0=";
+    hash = "sha256-FQRCpog9bPJf/nW4obBieH0PbuvX6VUFzobL++3bXUk=";
   };
 
   nativeBuildInputs = with python3Packages; [ setuptools ];
