@@ -1,15 +1,15 @@
 { lib, stdenv, appimageTools, fetchurl, asar }: let
   pname = "todoist-electron";
-  version = "8.14.1";
+  version = "8.17.3";
 
   src = {
     x86_64-linux = fetchurl {
       url = "https://electron-dl.todoist.com/linux/Todoist-linux-${version}-x86_64.AppImage";
-      hash = "sha256-TMcS+0wg2UR8+AjF36xVh8+p7DbKe8ZSJRkEQ3OjGms=";
+      hash = "sha256-ydjEE/FUUTBgnl/G1UllVNQ7Qa7lafY3bF628pzd7VQ=";
     };
     aarch64-linux = fetchurl {
       url = "https://electron-dl.todoist.com/linux/Todoist-linux-${version}-arm64.AppImage";
-      hash = "sha256-3eEa/nV3G3qQbUrMqH8KEIOnICAfN+Hg2YjSLjcOUX8=";
+      hash = "sha256-EwhxERMVlw1ORgIVFsJisH0NP+sGR4DTgUzuMcerZkw=";
     };
   }.${stdenv.system} or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
 
