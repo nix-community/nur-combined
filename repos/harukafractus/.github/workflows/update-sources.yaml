@@ -21,11 +21,11 @@ jobs:
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
       - name: Update Firefox sources
-        working-directory: ./pkgs/firefox
+        working-directory: ./pkgs/firefox-darwin
         run: nix-shell -p 'with import <nixpkgs> {}; callPackage ./update.nix {}' --run "firefox-update-source"
 
       - name: Update Librewolf sources
-        working-directory: ./pkgs/librewolf
+        working-directory: ./pkgs/librewolf-darwin
         run: nix-shell -p 'with import <nixpkgs> {}; callPackage ./update.nix {}' --run "librewolf-update-source"
 
       - name: Commit changes

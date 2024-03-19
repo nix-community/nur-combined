@@ -17,5 +17,5 @@ function generate_json_librewolf(){
 
 generate_json_librewolf arm64
 generate_json_librewolf x86_64
-''
+'';
 }
