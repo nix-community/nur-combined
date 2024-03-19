@@ -13,6 +13,10 @@ in {
       desktopName = "Remote control";
       url = "https://reemo.io";
     };
+    clickup = {
+      desktopName = "ClickUp";
+      url = "https://clickup.com";
+    };
     facebook = {
       desktopName = "Facebook"; # no need for web containers lol
       url = "https://facebook.com";
