@@ -8,22 +8,24 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+let
+  mylib = import ./lib { inherit pkgs; }; # functions
+in {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = mylib;
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  tproxy = pkgs.callPackage ./pkgs/tproxy { };
-  lfreader = pkgs.callPackage ./pkgs/lfreader { };
-  sabaki = pkgs.callPackage ./pkgs/sabaki { };
-  task-json-cli = pkgs.callPackage ./pkgs/task-json-cli { };
-  batch-cmd = pkgs.callPackage ./pkgs/batch-cmd { };
-  commit-and-tag-version = pkgs.callPackage ./pkgs/commit-and-tag-version { };
-  rangefs = pkgs.callPackage ./pkgs/rangefs { };
-  snapshotfs = pkgs.callPackage ./pkgs/snapshotfs { };
-  i3-focus-group = pkgs.python3Packages.callPackage ./pkgs/i3-focus-group { };
-  emacsPackages = pkgs.recurseIntoAttrs (
-    pkgs.callPackage ./pkgs/emacs-pkgs { }
+  emacsPackages = builtins.listToAttrs (
+    map (p: {
+      name = p;
+      value = pkgs.callPackage (./pkgs/emacs + "/${p}") { };
+    }) (mylib.listSubdirNames ./pkgs/emacs)
   );
-}
+} // (builtins.listToAttrs (
+  # top-level
+  map (p: {
+    name = p;
+    value = pkgs.callPackage (./pkgs/top-level + "/${p}") { };
+  }) (mylib.listSubdirNames ./pkgs/top-level)
+))

@@ -1,10 +1,11 @@
-{ buildPythonApplication
-, fetchFromGitHub
-, lib
-, i3ipc
-, setuptools
-}:
+{ python3Packages, fetchFromGitHub, lib }:
 
+let
+  inherit (python3Packages)
+    buildPythonApplication
+    i3ipc
+    setuptools;
+in
 buildPythonApplication rec {
   pname = "i3-focus-group";
   version = "0.1.5";
