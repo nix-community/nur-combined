@@ -173,6 +173,9 @@
         "bhipple": {
             "url": "https://github.com/bhipple/nur-packages"
         },
+        "binarycat": {
+            "url": "https://github.com/lolbinarycat/nur-packages"
+        },
         "blakat360": {
             "submodules": true,
             "url": "https://github.com/blakat360/nur-packages"
