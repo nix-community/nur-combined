@@ -353,7 +353,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-03-19",
+        "date": "2024-03-20",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -363,12 +363,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cb19fd4b14931009dab69b0d7d30512cbebc5074",
-            "sha256": "sha256-FqlDSWHfvJFGeWru443vcLl0N+SzvL4zqgXEhCT7ZBk=",
+            "rev": "440ac15a13238ab51ff14ff7ca2d40d104eba6a6",
+            "sha256": "sha256-+H9kEryP6yq43KYsXAY+CtivlkTK/ioshjlpVNgPow4=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "cb19fd4b14931009dab69b0d7d30512cbebc5074"
+        "version": "440ac15a13238ab51ff14ff7ca2d40d104eba6a6"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -670,7 +670,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2024-03-17",
+        "date": "2024-03-19",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -680,12 +680,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "2c927de4c624d0c560f73ad78b4abc85fb703562",
-            "sha256": "sha256-1URWibOZbUnbry0vZGLCpo4dzKbUSnF0fe+IGrUbVxE=",
+            "rev": "73e24af71c302c285573ca63099945efcfc4a685",
+            "sha256": "sha256-4lT+o1j9YaJUtAjudnsEFKav/m6+VniXdOjisfC8Fv0=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "2c927de4c624d0c560f73ad78b4abc85fb703562"
+        "version": "73e24af71c302c285573ca63099945efcfc4a685"
     },
     "yacd": {
         "cargoLocks": null,
