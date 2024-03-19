@@ -48,8 +48,8 @@ buildGoModule rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p "$out/libexec/anytype"
-    cp "$GOPATH/bin/grpcserver" "$out/libexec/anytype"
+    mkdir -p "$out/bin"
+    cp "$GOPATH/bin/grpcserver" "$out/bin/anytypeHelper"
 
     mkdir -p "$out/include/anytype/protobuf/protos"
     cp pb/protos/*.proto pb/protos/service/*.proto pkg/lib/pb/model/protos/*.proto "$out/include/anytype/protobuf/protos"
@@ -71,5 +71,6 @@ buildGoModule rec {
     license = licenses.unfree; # Any Source Available License 1.0
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
+    mainProgram = "anytypeHelper";
   };
 }

@@ -48,6 +48,12 @@ buildPythonPackage rec {
     # To avoid this issue, debugpy should be installed using python.withPackages:
     # python.withPackages (ps: with ps; [ debugpy ])
     ./fix-test-pythonpath.patch
+
+    # Attach pid tests are disabled by default on windows & macos,
+    # but are also flaky on linux:
+    # - https://github.com/NixOS/nixpkgs/issues/262000
+    # - https://github.com/NixOS/nixpkgs/issues/251045
+    ./skip-attach-pid-tests.patch
   ] ++ lib.optionals stdenv.isLinux [
     # Hard code GDB path (used to attach to process)
     (substituteAll {

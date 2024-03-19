@@ -152,6 +152,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ goibhniu kira-bruneau ];
     platforms = platforms.all;
+    mainProgram = "zynaddsubfx";
 
     # On macOS:
     # - Tests don't compile (ld: unknown option: --no-as-needed)

@@ -55,7 +55,7 @@ buildNpmPackage rec {
       exit 1
     fi
 
-    ln -s ${anytype-heart}/libexec/anytype/grpcserver "$sourceRoot/dist/anytypeHelper"
+    ln -s ${anytype-heart}/bin/* "$sourceRoot/dist"
     ln -s ${anytype-heart}/include/anytype/protobuf/* "$sourceRoot/dist/lib"
     ln -s ${anytype-heart}/share/anytype/json/* "$sourceRoot/dist/lib/json/generated"
     ln -s ${anytype-nmh}/bin/* "$sourceRoot/dist"
@@ -140,5 +140,6 @@ buildNpmPackage rec {
     license = licenses.unfree; # Any Source Available License 1.0
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
+    mainProgram = "anytype";
   };
 }

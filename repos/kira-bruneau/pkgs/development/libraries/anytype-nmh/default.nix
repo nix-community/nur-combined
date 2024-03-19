@@ -13,5 +13,6 @@ buildGoModule {
 
   meta = anytype.meta // {
     description = "Native messaging host for the AnyType browser extension";
+    mainProgram = "nativeMessagingHost";
   };
 }
