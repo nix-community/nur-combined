@@ -1,12 +1,12 @@
 { lib, stdenvNoCC, pkgs, fetchurl }: 
 let
-  version = "123.0-1";
+  version = "123.0.1-1";
   
-  x86_64_url = "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/123.0-1/librewolf-123.0-1-macos-x86_64-package.dmg";
-  x86_64_sha256 = "86f5c9cbc385956cde673098ff83c905d2dc35fb4e2d1c658a1df8c8ef90f23d";
+  x86_64_url = "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/123.0.1-1/librewolf-123.0.1-1-macos-x86_64-package.dmg";
+  x86_64_sha256 = "15cbfc5ca15c55c742f55556315ee9176c660288e5c8524c9e0035d2b3e012f5";
   
-  arm64_url = "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/123.0-1/librewolf-123.0-1-macos-arm64-package.dmg";
-  arm64_sha256 = "92f2d64d3106577036c53c93a6720b4dffde9f48998d81ed4229b46f2c13c75e";
+  arm64_url = "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/123.0.1-1/librewolf-123.0.1-1-macos-arm64-package.dmg";
+  arm64_sha256 = "e9a8ee4a3fa132bc7ea9a0962be4a5d806ab95147176cf56291bdebb820ecd80";
 
 in stdenvNoCC.mkDerivation rec {
   pname = "Librewolf";
