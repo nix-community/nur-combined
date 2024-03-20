@@ -1236,15 +1236,15 @@
   };
   transmission-web-control = {
     pname = "transmission-web-control";
-    version = "5aeb20c141f6c1ca30c0aaae6b861471a48210d8";
+    version = "9018e35d12d2e20c9ec01b8a858ecaa2c3ce96f4";
     src = fetchFromGitHub {
       owner = "ronggang";
       repo = "transmission-web-control";
-      rev = "5aeb20c141f6c1ca30c0aaae6b861471a48210d8";
+      rev = "9018e35d12d2e20c9ec01b8a858ecaa2c3ce96f4";
       fetchSubmodules = false;
-      sha256 = "sha256-LbhAxInDEcf5Y9KPBbBVlqNC4qbVV9/KMK1PxcdFezY=";
+      sha256 = "sha256-A9EW27LGJ6asqvnZqBRe57/hzBDaS/m7ud45o9BHWE8=";
     };
-    date = "2023-05-21";
+    date = "2024-03-20";
   };
   uesave = {
     pname = "uesave";

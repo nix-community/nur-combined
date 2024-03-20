@@ -2152,7 +2152,7 @@
     },
     "transmission-web-control": {
         "cargoLocks": null,
-        "date": "2023-05-21",
+        "date": "2024-03-20",
         "extract": null,
         "name": "transmission-web-control",
         "passthru": null,
@@ -2164,11 +2164,11 @@
             "name": null,
             "owner": "ronggang",
             "repo": "transmission-web-control",
-            "rev": "5aeb20c141f6c1ca30c0aaae6b861471a48210d8",
-            "sha256": "sha256-LbhAxInDEcf5Y9KPBbBVlqNC4qbVV9/KMK1PxcdFezY=",
+            "rev": "9018e35d12d2e20c9ec01b8a858ecaa2c3ce96f4",
+            "sha256": "sha256-A9EW27LGJ6asqvnZqBRe57/hzBDaS/m7ud45o9BHWE8=",
             "type": "github"
         },
-        "version": "5aeb20c141f6c1ca30c0aaae6b861471a48210d8"
+        "version": "9018e35d12d2e20c9ec01b8a858ecaa2c3ce96f4"
     },
     "uesave": {
         "cargoLocks": null,
