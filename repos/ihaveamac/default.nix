@@ -20,6 +20,7 @@
   cleaninty = pkgs.python3Packages.callPackage ./pkgs/cleaninty { };
   rvthtool = pkgs.callPackage ./pkgs/rvthtool { };
   themethod3 = pkgs.callPackage ./pkgs/themethod3 { };
+  makebax = pkgs.callPackage ./pkgs/makebax { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

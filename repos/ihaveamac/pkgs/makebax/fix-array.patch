@@ -1,0 +1,12 @@
+diff --git a/src/bax.cc b/src/bax.cc
+index 3e91aab..d5137cc 100644
+--- a/src/bax.cc
++++ b/src/bax.cc
+@@ -2,6 +2,7 @@
+ #include <cstring>
+ #include <fstream>
+ #include <stdexcept>
++#include <array>
+ 
+ #include "bax.h"
+ #include "end.h"

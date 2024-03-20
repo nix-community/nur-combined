@@ -1,0 +1,11 @@
+diff --git a/src/compress.cc b/src/compress.cc
+index 4e67b93..f38659e 100644
+--- a/src/compress.cc
++++ b/src/compress.cc
+@@ -1,5 +1,6 @@
+ #include <cstdint>
+ #include <stdexcept>
++#include <new>
+ 
+ #include <lz4.h>
+ #include <lz4hc.h>
