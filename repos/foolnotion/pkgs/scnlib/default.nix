@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, simdutf, fast-float
+{ lib, stdenv, fetchFromGitHub, cmake, simdutf_4, fast-float
 , enableShared ? !stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ fast-float simdutf ];
+  buildInputs = [ fast-float simdutf_4 ];
 
   cmakeFlags = [
     "-DSCN_TESTS=OFF"
