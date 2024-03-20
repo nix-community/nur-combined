@@ -1043,6 +1043,28 @@
     };
     date = "2023-03-30";
   };
+  r8125 = {
+    pname = "r8125";
+    version = "9.012.04-1";
+    src = fetchFromGitHub {
+      owner = "awesometic";
+      repo = "realtek-r8125-dkms";
+      rev = "9.012.04-1";
+      fetchSubmodules = false;
+      sha256 = "sha256-OUhST4Ez4hew4uBSVrMoqni5OJh0zI/7eqK8W9qjhJk=";
+    };
+  };
+  r8168 = {
+    pname = "r8168";
+    version = "8.052.01";
+    src = fetchFromGitHub {
+      owner = "mtorromeo";
+      repo = "r8168";
+      rev = "8.052.01";
+      fetchSubmodules = false;
+      sha256 = "sha256-8nuQd+UVHBEmqRHg+mCWDZ3IgDz/Zje7kodZkSA8sQY=";
+    };
+  };
   rime-aurora-pinyin = {
     pname = "rime-aurora-pinyin";
     version = "122b46976401995cbafcfc748806985ff3a437a4";

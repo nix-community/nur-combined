@@ -1810,6 +1810,46 @@
         },
         "version": "1b6289dac9f7caf89d26bad2f1cf3cd628507af2"
     },
+    "r8125": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "r8125",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "awesometic",
+            "repo": "realtek-r8125-dkms",
+            "rev": "9.012.04-1",
+            "sha256": "sha256-OUhST4Ez4hew4uBSVrMoqni5OJh0zI/7eqK8W9qjhJk=",
+            "type": "github"
+        },
+        "version": "9.012.04-1"
+    },
+    "r8168": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "r8168",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mtorromeo",
+            "repo": "r8168",
+            "rev": "8.052.01",
+            "sha256": "sha256-8nuQd+UVHBEmqRHg+mCWDZ3IgDz/Zje7kodZkSA8sQY=",
+            "type": "github"
+        },
+        "version": "8.052.01"
+    },
     "rime-aurora-pinyin": {
         "cargoLocks": null,
         "date": "2022-08-28",
