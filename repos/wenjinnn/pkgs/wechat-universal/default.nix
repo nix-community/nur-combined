@@ -229,7 +229,8 @@ buildFHSEnv {
 
     mv $out/bin/$name $out/bin/wechat-universal
 
-    substituteInPlace $out/share/applications/com.tencent.wechat.desktop --replace-quiet 'Exec=/usr/bin/wechat' "Exec=$out/bin/wechat-universal --"
+    substituteInPlace $out/share/applications/com.tencent.wechat.desktop \
+      --replace 'Exec=/usr/bin/wechat' "Exec=$out/bin/wechat-universal --"
   '';
   targetPkgs = pkgs: [ wechat-universal-env ];
 
