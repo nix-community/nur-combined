@@ -64,7 +64,6 @@ in {
       boot.kernelParams = [ "mitigations=off" ];
       services.tlp.enable = true;
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
-      gtk.cursorTheme.size = 16;
     } // builder))
     (mkIf (cfg.enable && desktop) {
       services.nix-serve = {
@@ -83,7 +82,6 @@ in {
       boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
-      gtk.cursorTheme.size = 16;
       services.hidpi.console = true;
     })
   ];
