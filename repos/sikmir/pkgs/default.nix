@@ -400,6 +400,7 @@ lib.makeScope newScope (
     qasync = callPackage ./misc/qasync { };
     qoiview = callPackage ./misc/qoiview { };
     repolocli = callPackage ./misc/repolocli { };
+    riffraff = callPackage ./misc/riffraff { };
     rst2txt = callPackage ./misc/rst2txt { };
     sdorfehs = callPackage ./misc/sdorfehs { };
     serial-studio-bin = callPackage ./misc/serial-studio/bin.nix { };

@@ -17,8 +17,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/Applications
+    mkdir -p $out/{Applications,bin}
     cp -r *.app $out/Applications
+    ln -s $out/Applications/Zed.app/Contents/MacOS/cli $out/bin/zed
     runHook postInstall
   '';
 
