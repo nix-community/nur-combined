@@ -1023,10 +1023,10 @@
     };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "18.0.0";
+      version = "18.2.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4161132/censor_tracker-18.0.0.xpi";
-      sha256 = "87790bda0dbcb77418e2cc504ef31ad85afcfc6f9d59cb87ccba27f0e68b2060";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252094/censor_tracker-18.2.0.xpi";
+      sha256 = "6ad0db779f17e061b53271d4c0b5ade02feb4efe7ec4c8f45451d76211faeb43";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
@@ -1043,24 +1043,6 @@
           "storage"
           "tabs"
           "unlimitedStorage"
-          "*://*.rt.com/*"
-          "*://*.1tv.ru/*"
-          "*://*.1tv.com/*"
-          "*://*.1tv.live/*"
-          "*://*.ntv.ru/*"
-          "*://ren.tv/*"
-          "*://topspb.tv/*"
-          "*://*.5-tv.ru/*"
-          "*://78.ru/*"
-          "*://*.interfax.ru/*"
-          "*://*.interfax.com/*"
-          "*://tass.ru/*"
-          "*://tass.com/*"
-          "*://ria.ru/*"
-          "*://*.gazeta.ru/*"
-          "*://lenta.ru/*"
-          "*://iz.ru/*"
-          "*://vgtrk.ru/*"
         ];
         platforms = platforms.all;
       };
@@ -2291,10 +2273,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.1";
+      version = "1.3.2";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4250717/faststream-1.3.1.xpi";
-      sha256 = "d314c68b893db4e99829fa50560b3a0ff446e27f40e2817fa77664e76f877ac9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252318/faststream-1.3.2.xpi";
+      sha256 = "701bd344ad66ca1121e4c3e138582d33f824d262befe3f38b8b7ed8211625977";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -5151,10 +5133,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.0.1";
+      version = "1.9.0.2";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246845/keepassxc_browser-1.9.0.1.xpi";
-      sha256 = "f0f1144ac92cf84432eb0da3fa1d2d90fff8e4385d95effdd3bbaa08a79e0367";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250129/keepassxc_browser-1.9.0.2.xpi";
+      sha256 = "abbc78e65c9d129c43ee5097f9a038b3e8de05c088b92baaae33f6c0c9f57d4f";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -5251,10 +5233,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.3.0";
+      version = "8.6.0";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4199245/languagetool-8.3.0.xpi";
-      sha256 = "e357424e3df9dde4ba10eb9f8f3719ac4830681570557f4d51db15a462cd7667";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4249956/languagetool-8.6.0.xpi";
+      sha256 = "d9db9aac9fdd53eb39179c153161762cd9e9eb1f6d7da8e8b8a32238b4847094";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -7038,10 +7020,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.11.2";
+      version = "7.12.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216853/octotree-7.11.2.xpi";
-      sha256 = "0af6b77f65396a3b79e65f98d9d1bd84dad70a955f7bed39b05f2834d021225a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252236/octotree-7.12.0.xpi";
+      sha256 = "f1b4822095373e63fac232487dfa3edb24767f2dddfc4df7bf9fcba743c928f5";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -8193,10 +8175,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.14.1";
+      version = "1.15.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243202/proton_pass-1.14.1.xpi";
-      sha256 = "3a0cee9a4116ea276cafcff9d7edeb53ec954bce39b869a9d351bd7c013a7635";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250914/proton_pass-1.15.1.xpi";
+      sha256 = "8c1e9eb2f9aaf8a1601e1ff64f8089a9a22d0240563d5489776fa5cd79107c12";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -8402,10 +8384,10 @@
     };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "5.0.0";
+      version = "5.0.2";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4204958/react_devtools-5.0.0.xpi";
-      sha256 = "4290cd8eb5f51f80198ab749495a0a1239ba17a1b997b8b486e10448916a0187";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4247170/react_devtools-5.0.2.xpi";
+      sha256 = "0b880751b0f63ef4b10ffc436e42f65e5054fd3fc747f7e04733e8173c2dab57";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -8545,10 +8527,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.2.8";
+      version = "24.3.20";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233557/refined_github-24.2.8.xpi";
-      sha256 = "df51ec2cd17001bd474b86d75d6657156e91b54de607b6c7b4977a2044c5f6a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252355/refined_github-24.3.20.xpi";
+      sha256 = "ad3cc2317f57e5e6bd3101714a6dc6369f878cc619814e6628781ad34dd29716";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -8858,10 +8840,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "12.0.3";
+      version = "12.0.4";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4238660/sidebartabs-12.0.3.xpi";
-      sha256 = "80d525e74b81802d99263146a8bb65e9e37abaaa543b09e1fe85a4c44721d8f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252341/sidebartabs-12.0.4.xpi";
+      sha256 = "05540f40a06124e4e824872570617c441bdfa82ee0b2f6f8c636a1fa17076730";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
