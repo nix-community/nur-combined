@@ -62,15 +62,15 @@
   };
   asterisk-g72x = {
     pname = "asterisk-g72x";
-    version = "f2313ea51ba11cf8763d52ef02d00c4ac5f719a5";
+    version = "4c06f54bd58a07d6b01186d47899cd1ace2b28be";
     src = fetchFromGitHub {
       owner = "arkadijs";
       repo = "asterisk-g72x";
-      rev = "f2313ea51ba11cf8763d52ef02d00c4ac5f719a5";
+      rev = "4c06f54bd58a07d6b01186d47899cd1ace2b28be";
       fetchSubmodules = false;
-      sha256 = "sha256-omCU4ia+lQnxOoJuLjd5MmIJ73WUe1yTcicqEVghNsA=";
+      sha256 = "sha256-wJMiXPlvdrV7B/PTkchJUWpIbqJjxpPTwVTBZnzNNos=";
     };
-    date = "2024-03-18";
+    date = "2024-03-19";
   };
   asterisk-gsm-efr = {
     pname = "asterisk-gsm-efr";
@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d9746a3747339a45e50ac7e71c50c18754b60597";
+    version = "e133767ff871e019f850ef2c0a311b3f8f0bd290";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d9746a3747339a45e50ac7e71c50c18754b60597";
+      rev = "e133767ff871e019f850ef2c0a311b3f8f0bd290";
       fetchSubmodules = false;
-      sha256 = "sha256-B5d9BCaQme2xiYX+U8X6m/IZjVz+XfSBDOH/wV97tzs=";
+      sha256 = "sha256-ejabX36snhQTeXDkamCJVpjIBcrDZ5M9EKtTzlJ4qCc=";
     };
-    date = "2024-03-18";
+    date = "2024-03-19";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -557,15 +557,15 @@
   };
   librime-charcode = {
     pname = "librime-charcode";
-    version = "c202c85eaa45a2f836a3cf79223897096336aa9e";
+    version = "55e7f563e999802d41a13ba02657c1be4b2011b4";
     src = fetchFromGitHub {
       owner = "rime";
       repo = "librime-charcode";
-      rev = "c202c85eaa45a2f836a3cf79223897096336aa9e";
+      rev = "55e7f563e999802d41a13ba02657c1be4b2011b4";
       fetchSubmodules = false;
-      sha256 = "sha256-UXZzJ6HbwOJ/8ckkALkoeWaAL+lUyVc3lEP1RJPhoLM=";
+      sha256 = "sha256-KfKkpph+2ChQpkkGKubmpg/18uPX9qUHTqJT1PSGorI=";
     };
-    date = "2024-03-15";
+    date = "2024-03-19";
   };
   librime-lua = {
     pname = "librime-lua";
@@ -838,15 +838,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "f581687432509741524904b6008c480fa8af7505";
+    version = "37769c92a5e0e65480ed2701c98cf2fb49fa71bf";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "f581687432509741524904b6008c480fa8af7505";
+      rev = "37769c92a5e0e65480ed2701c98cf2fb49fa71bf";
       fetchSubmodules = false;
-      sha256 = "sha256-t1kuju2lEGZQeya2yqFaKMTM6ZNeLUzNKmOrgpsa9wU=";
+      sha256 = "sha256-qNz7rXI4QWwKZ28BPC7SJ/VqntY2Dz4CU3XbzjQFcLs=";
     };
-    date = "2024-03-18";
+    date = "2024-03-19";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -1069,15 +1069,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "cb19fd4b14931009dab69b0d7d30512cbebc5074";
+    version = "440ac15a13238ab51ff14ff7ca2d40d104eba6a6";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "cb19fd4b14931009dab69b0d7d30512cbebc5074";
+      rev = "440ac15a13238ab51ff14ff7ca2d40d104eba6a6";
       fetchSubmodules = false;
-      sha256 = "sha256-FqlDSWHfvJFGeWru443vcLl0N+SzvL4zqgXEhCT7ZBk=";
+      sha256 = "sha256-+H9kEryP6yq43KYsXAY+CtivlkTK/ioshjlpVNgPow4=";
     };
-    date = "2024-03-19";
+    date = "2024-03-20";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
