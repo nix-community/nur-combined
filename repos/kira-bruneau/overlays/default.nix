@@ -25,7 +25,5 @@
       };
 
       pythonPackagesExtensions = [ pythonModulesOverlay ];
-
-      rocmPackages = prev.rocmPackages // (removeAttrs nurPkgs.rocmPackages [ "callPackage" ]);
     };
 }

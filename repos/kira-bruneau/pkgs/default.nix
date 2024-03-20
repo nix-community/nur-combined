@@ -5,12 +5,6 @@ with final;
 let
   callPackage = prev.newScope final;
 
-  rocmPackgesOverlay = rfinal: rprev:
-    builtins.mapAttrs
-      # rocmUpdateScript isn't publicly exposed
-      (name: drv: if drv ? updateScript then removeAttrs drv [ "updateScript" ] else drv)
-      (import ./development/rocm-modules/5/default.nix final rfinal rprev);
-
   emacsPackagesOverlay =
     import ./applications/editors/emacs/elisp-packages/manual-packages final;
 
@@ -121,8 +115,6 @@ in
   python3Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages);
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
-
-  rocmPackages = recurseIntoAttrs (rocmPackgesOverlay (prev.rocmPackages // rocmPackages) prev.rocmPackages);
 
   swaylock-fprintd = callPackage ./by-name/sw/swaylock-fprintd/package.nix { };
 

@@ -13,9 +13,11 @@
     };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    nix-fast-build.url = "github:Mic92/nix-fast-build";
   };
 
-  outputs = { self, flake-utils, flake-linter, nixpkgs }:
+  outputs = { self, flake-utils, flake-linter, nixpkgs, nix-fast-build }:
     {
       overlays = import ./overlays;
       nixosModules = import ./nixos/modules;
@@ -83,6 +85,7 @@
           sync = {
             type = "app";
             program = nixpkgs.lib.getExe (nurPkgs.callPackage ./maintainers/scripts/sync.nix {
+              nix-fast-build = nix-fast-build.packages.${system}.default;
               inherit nixpkgs;
             });
           };

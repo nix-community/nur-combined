@@ -14,6 +14,7 @@
 , git
 , gnused
 , nix
+, nix-fast-build
 }:
 
 let
@@ -37,7 +38,6 @@ let
     "pkgs/development/python-modules/pygls"
     "pkgs/development/python-modules/pytest-datadir"
     "pkgs/development/python-modules/vdf"
-    "pkgs/development/rocm-modules/5/rocfft"
     "pkgs/development/tools/misc/cmake-language-server"
     "pkgs/development/tools/misc/texlab"
     "pkgs/games/clonehero"
@@ -83,6 +83,7 @@ writeShellApplication {
     git
     gnused
     nix
+    nix-fast-build
   ];
 
   text = ''
@@ -149,7 +150,7 @@ writeShellApplication {
     nix flake update
     git add flake.lock
     git commit --message 'flake.lock: update' --quiet || :
-    nix flake check
+    nix-fast-build
     git switch --quiet -
     git rebase 'HEAD@{1}'
   '';
