@@ -8,11 +8,10 @@
 
 { pkgs ? import <nixpkgs> { } }:
 let
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib { inherit pkgs lib; }; # functions
 in
 {
-  inherit lib;
+  inherit lib pkgs;
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 } // (lib.callDir ./pkgs/by-name { })
-
