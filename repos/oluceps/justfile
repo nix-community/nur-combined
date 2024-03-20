@@ -92,4 +92,6 @@ overwrite-local:
     mc mirror --overwrite --remove r2/sec/Sec {{ home }}/Sec/
 
 cleanthebucket:
-    if ((input) == "yes") { srm -frC {{ home }}/Sec/*a }
+    #!/usr/bin/env nu
+    if ((input) == "yes") { srm -frC {{ home }}/Sec/* }
+    sudo btrfs sub del /persist/.snapshots/*

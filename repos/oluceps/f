@@ -1,22 +1,9 @@
 #!/usr/bin/env nu
 
-const map = [
-    [name, addr];
-		[hastur, riro@hastur.nyaw.xyz ],
-		# [hastur, riro@10.0.1.2 ],
-		[kaambl, elen@localhost],
-		[eihort, elen@10.0.2.6],
-		[nodens, dgs],
-		# [azasos, tcs],
-		# [abhoth, abh],
-		[colour, col],
-]
-
-const hosts = $map.name
+const map_path = "/run/agenix/addr-map"
 
 export-env {
-  $env.get_map = { |per| $map | where name == $per }
-  $env.get_addr = { |b| do $env.get_map $b | $in.addr.0 }
+  $env.get_addr = { |map, per| $map | where name == $per | $in.addr.0 }
 }
 
 export def b [
@@ -24,7 +11,9 @@ export def b [
   --builder (-b): string = "hastur"
 ] {
 
-  let target_addr = do $env.get_addr $builder
+  let map = (open $map_path | lines | split column ":" name addr)
+
+  let target_addr = do $env.get_addr ($map) $builder
 
   let h = hostname | str trim
 
@@ -48,12 +37,16 @@ export def d [
   --builder (-b): string = "hastur"
 ] {
 
-  let builder_addr = do $env.get_addr $builder
+  let map = (open $map_path | lines | split column ":" name addr)
+
+  let get_addr = {|x| do $env.get_addr ($map) ($x)}
+
+  let builder_addr = do $get_addr $builder
 
   $nodes | par-each {||
     (nixos-rebuild $mode
       --flake $'.#($in)'
-      --target-host (do $env.get_addr $in)
+      --target-host (do $get_addr $in)
       --build-host $"($builder_addr)"
       --use-remote-sudo)
   }
@@ -105,7 +98,9 @@ export def rswc [
 
   let job = ["--max-jobs" "0"]
 
-  let target_addr = do $env.get_addr $builder
+  let map = (open $map_path | lines | split column ":" name addr)
+
+  let target_addr = do $env.get_addr ($map) $builder
 
   let machine_spec = "x86_64-linux - - -"
 
