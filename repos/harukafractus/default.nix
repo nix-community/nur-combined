@@ -12,7 +12,7 @@
   # The `lib`, `modules`, and `overlay` names are special
   #lib = import ./lib { inherit pkgs; };
   #modules = import ./modules;
-  #overlays = import ./overlays;
+  darwin-overlays = import ./overlays/darwin.nix;
 
   gothic-nguyen = pkgs.callPackage ./pkgs/gothic-nguyen {};
   mozc = pkgs.callPackage ./pkgs/mozc {};
