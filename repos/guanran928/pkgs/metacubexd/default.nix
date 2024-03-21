@@ -18,8 +18,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out
     cp -r ./* $out
+
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script {};

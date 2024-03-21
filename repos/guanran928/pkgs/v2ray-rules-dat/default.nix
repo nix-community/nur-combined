@@ -23,8 +23,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontUnpack = true;
 
   installPhase = ''
+    runHook preInstall
+
     install -Dm644 ${builtins.elemAt finalAttrs.srcs 0} $out/share/v2ray/geoip.dat
     install -Dm644 ${builtins.elemAt finalAttrs.srcs 1} $out/share/v2ray/geosite.dat
+
+    runHook postInstall
   '';
 
   meta = with lib; {

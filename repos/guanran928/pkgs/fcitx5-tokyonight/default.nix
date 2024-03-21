@@ -19,6 +19,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontBuild = true;
 
   installPhase = ''
+    runHook preInstall
+
     install -Dm644 Tokyonight-Day/{arrow.png,panel.png,radio.png} -t $out/share/${finalAttrs.pname}/
     for _variant in Tokyonight-Day Tokyonight-Storm; do
       mkdir -p $out/share/fcitx5/themes/$_variant/
@@ -26,6 +28,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       ln -s $out/share/${finalAttrs.pname}/radio.png $out/share/fcitx5/themes/$_variant/radio.png
       install -Dm644 $_variant/theme.conf $out/share/fcitx5/themes/$_variant/theme.conf
     done
+
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script {};
