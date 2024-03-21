@@ -16,7 +16,7 @@ in {
       systemPackages = with pkgs; [ ntfs3g ];
     };
     services.xserver.displayManager.sessionCommands = ''
-      ${pkgs.udiskie}/bin/udiskie &
+      ${pkgs.udiskie}/bin/udiskie -N &
     '';
   };
 }
