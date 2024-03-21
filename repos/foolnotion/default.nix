@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }: rec {
+{ pkgs ? import <nixpkgs> { } }: rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -48,7 +48,7 @@
   expected-lite = pkgs.callPackage ./pkgs/expected-lite { };
 
   fast_float = pkgs.callPackage ./pkgs/fast_float { };
-  
+
   fastor = pkgs.callPackage ./pkgs/fastor { };
 
   fplus = pkgs.callPackage ./pkgs/fplus { };
@@ -58,6 +58,12 @@
   koivisto = pkgs.callPackage ./pkgs/koivisto { };
 
   lexy = pkgs.callPackage ./pkgs/lexy { };
+
+  libdwarf = pkgs.callPackage ./pkgs/libdwarf { };
+
+  cpptrace = pkgs.callPackage ./pkgs/cpptrace { libdwarf = libdwarf; };
+
+  libassert = pkgs.callPackage ./pkgs/libassert { libdwarf = libdwarf; cpptrace = cpptrace; };
 
   linasm = pkgs.callPackage ./pkgs/linasm { };
 
