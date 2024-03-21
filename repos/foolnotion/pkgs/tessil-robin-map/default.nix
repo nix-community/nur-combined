@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "tessil-robin-map";
-  version = "1.2.1";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "Tessil";
     repo = "robin-map";
     rev = "v${version}";
-    sha256 = "sha256-axVMJHTnGW2c4kGcYhEEAvKbVKYA2oxiYfwjiz7xh6Q=";
+    sha256 = "sha256-33oNUvLofFuM5QyRk+Jc6Q7vvWk68c/QqX0oiELoUrw=";
   };
 
   nativeBuildInputs = [ cmake ];
