@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, modulesPath, ... }:
+{ config, inputs, pkgs, lib, modulesPath, ... }:
 
 {
   imports =
@@ -31,7 +31,13 @@
       "earlyprintk=ttyS0"
       "rootdelay=300"
     ];
+    kernelModules = [
+      "brutal"
+    ];
 
+    extraModulePackages = with config.boot.kernelPackages; [
+      (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
+    ];
     initrd = {
       compressor = "zstd";
       compressorArgs = [ "-19" "-T0" ];
@@ -51,6 +57,7 @@
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
   fileSystems = {
     "/efi" = {
       device = "/dev/sda2";

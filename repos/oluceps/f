@@ -55,11 +55,6 @@ export def d [
 
 const age_pub = /run/agenix/age
 
-export def en [name: string] {
-  rage -e $name -i $age_pub -i ./sec/age-yubikey-identity-7d5d5540.txt.pub -o $'./($name).age'
-  srm $name
-}
-
 export def de [path: string] {
   let tmp_path = (mktemp -t)
   rage -d $path -i $age_pub -o $tmp_path # -i ./age-yubikey-identity-7d5d5540.txt.pub

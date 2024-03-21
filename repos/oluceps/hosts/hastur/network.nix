@@ -53,18 +53,18 @@
     };
 
     netdevs = {
-      bond0 = {
-        netdevConfig = {
-          Kind = "bond";
-          Name = "bond0";
-          # MTUBytes = "1300";
-        };
-        bondConfig = {
-          Mode = "active-backup";
-          PrimaryReselectPolicy = "always";
-          MIIMonitorSec = "1s";
-        };
-      };
+      # bond0 = {
+      #   netdevConfig = {
+      #     Kind = "bond";
+      #     Name = "bond0";
+      #     # MTUBytes = "1300";
+      #   };
+      #   bondConfig = {
+      #     Mode = "active-backup";
+      #     PrimaryReselectPolicy = "always";
+      #     MIIMonitorSec = "1s";
+      #   };
+      # };
 
       wg0 = {
         netdevConfig = {
@@ -128,36 +128,36 @@
         DHCP = "no";
       };
 
-      "20-wired-bond0" = {
+      # "20-wired-bond0" = {
+      #   matchConfig.Name = "eth0";
+
+      #   networkConfig = {
+      #     Bond = "bond0";
+      #     PrimarySlave = true;
+      #   };
+
+      # };
+
+      # "40-wireless-bond1" = {
+      #   matchConfig.Name = "wlan0";
+      #   networkConfig = {
+      #     Bond = "bond1";
+      #   };
+      # };
+
+      "5-eth0" = {
         matchConfig.Name = "eth0";
-
-        networkConfig = {
-          Bond = "bond0";
-          PrimarySlave = true;
-        };
-
-      };
-
-      "40-wireless-bond1" = {
-        matchConfig.Name = "wlan0";
-        networkConfig = {
-          Bond = "bond1";
-        };
-      };
-
-      "5-bond0" = {
-        matchConfig.Name = "bond0";
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 2046;
         dhcpV6Config.RouteMetric = 2046;
         # address = [ "192.168.0.2/24" ];
 
-        networkConfig = {
-          BindCarrier = [ "eth0" "wlan0" ];
-        };
+        # networkConfig = {
+        #   BindCarrier = [ "eth0" "wlan0" ];
+        # };
 
 
-        linkConfig.MACAddress = "fc:62:ba:3a:e1:5f";
+        # linkConfig.MACAddress = "fc:62:ba:3a:e1:5f";
       };
 
       "30-rndis" = {

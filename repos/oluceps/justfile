@@ -24,7 +24,8 @@ build-livecd:
 
 build-bootstrap:
     nom build .#nixosConfigurations.bootstrap.config.system.build.diskoImages
-
+test-bootstrap:
+    nix run github:nix-community/nixos-anywhere -- --flake .#bootstrap --vm-test
 build *args:
     #!/usr/bin/env nu
     use {{loc}}/f
@@ -42,10 +43,10 @@ encrypt *args:
                        reduce {|it, acc| $it + (char newline) + $acc } | fzf
     echo "input file name: "
     let name = (input)
-    let raw_path = (mktemp -t)
-    hx $raw_path
-    rage -e $raw_path -i $age_pub -i {{ yubikey-ident }} -o $'($output_dir)($name).age'
-    srm -C $raw_path
+    let tmp_path = (mktemp -t)
+    hx $tmp_path
+    rage -e $tmp_path -i $age_pub -i {{ yubikey-ident }} -o $'($output_dir)($name).age'
+    srm -C $tmp_path
 
 edit-sec *args:
     #!/usr/bin/env nu
@@ -57,7 +58,6 @@ edit-sec *args:
     let tmp_file = (mktemp -t)
     rage -d $encrypted_file_tob_edit -i $age_pub -o $tmp_file
     hx $tmp_file
-    srm -C $encrypted_file_tob_edit
     rage -e $tmp_file -i $age_pub -i {{ yubikey-ident }} -o $encrypted_file_tob_edit
     srm -C $tmp_file
 
@@ -79,7 +79,7 @@ check:
     f chk
 
 rekey:
-    agenix rekey
+    agenix rekey -a
 
 update:
     nix flake update --commit-lock-file
