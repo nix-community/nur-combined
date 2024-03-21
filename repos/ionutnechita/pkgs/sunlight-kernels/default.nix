@@ -25,6 +25,10 @@ buildLinux (args // rec {
       inherit rev hash;
     };
 
+    extraMakeFlags = [
+	"KBUILD_BUILD_VERSION_TIMESTAMP=SUNLIGHT"
+    ];
+
     structuredExtraConfig = with lib.kernel; {
       # Expert option for built-in default values.
       GKI_HACKS_TO_FIX = yes;
@@ -68,6 +72,8 @@ buildLinux (args // rec {
       HID = yes;
       UHID = yes;
     };
+
+    ignoreConfigErrors = true;
 
     extraMeta = {
       inherit branch;
