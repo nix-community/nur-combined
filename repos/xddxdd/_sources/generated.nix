@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "e133767ff871e019f850ef2c0a311b3f8f0bd290";
+    version = "2cf3c7133592bf7abb7bb808ee8f8f0e6f91bfcb";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "e133767ff871e019f850ef2c0a311b3f8f0bd290";
+      rev = "2cf3c7133592bf7abb7bb808ee8f8f0e6f91bfcb";
       fetchSubmodules = false;
-      sha256 = "sha256-ejabX36snhQTeXDkamCJVpjIBcrDZ5M9EKtTzlJ4qCc=";
+      sha256 = "sha256-Ok64LXjKSiNJxtzJZxBssHnVJrhu6PAlhOL+cKydYo4=";
     };
-    date = "2024-03-19";
+    date = "2024-03-20";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -479,21 +479,21 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.2.0";
+    version = "3.3.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      rev = "3.2.0";
+      rev = "3.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-zEKuEjw8a5hRNULNSkozjuHT6+hcbuTIbVPPImy/TsQ=";
+      sha256 = "sha256-uxpGwK89Xp1xSHh8mdFMbPJZD0ibD/tvtpeKxJvR91s=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.2.0";
+    version = "3.3.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.2.0/kata-static-3.2.0-amd64.tar.xz";
-      sha256 = "sha256-IbuEhKBgRQ1lIvKb7X2I13PChSB3TqosUitvR/0SxKE=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.3.0/kata-static-3.3.0-amd64.tar.xz";
+      sha256 = "sha256-cuKcez7jJeAEm/aUu7hD7QfD6woF2JwrOhY1JB5Lr+g=";
     };
   };
   konnect = {
@@ -838,15 +838,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "37769c92a5e0e65480ed2701c98cf2fb49fa71bf";
+    version = "66ee77021b7ae35929e4659ac3f4b1e7642ddc67";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "37769c92a5e0e65480ed2701c98cf2fb49fa71bf";
+      rev = "66ee77021b7ae35929e4659ac3f4b1e7642ddc67";
       fetchSubmodules = false;
-      sha256 = "sha256-qNz7rXI4QWwKZ28BPC7SJ/VqntY2Dz4CU3XbzjQFcLs=";
+      sha256 = "sha256-BKboIy+eHExJPQOIpIulSZiv39psVm9FWoxVPWV9p+0=";
     };
-    date = "2024-03-19";
+    date = "2024-03-20";
   };
   osdlyrics = {
     pname = "osdlyrics";

@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-03-19",
+        "date": "2024-03-20",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "e133767ff871e019f850ef2c0a311b3f8f0bd290",
-            "sha256": "sha256-ejabX36snhQTeXDkamCJVpjIBcrDZ5M9EKtTzlJ4qCc=",
+            "rev": "2cf3c7133592bf7abb7bb808ee8f8f0e6f91bfcb",
+            "sha256": "sha256-Ok64LXjKSiNJxtzJZxBssHnVJrhu6PAlhOL+cKydYo4=",
             "type": "github"
         },
-        "version": "e133767ff871e019f850ef2c0a311b3f8f0bd290"
+        "version": "2cf3c7133592bf7abb7bb808ee8f8f0e6f91bfcb"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -829,11 +829,11 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.2.0",
-            "sha256": "sha256-zEKuEjw8a5hRNULNSkozjuHT6+hcbuTIbVPPImy/TsQ=",
+            "rev": "3.3.0",
+            "sha256": "sha256-uxpGwK89Xp1xSHh8mdFMbPJZD0ibD/tvtpeKxJvR91s=",
             "type": "github"
         },
-        "version": "3.2.0"
+        "version": "3.3.0"
     },
     "kata-image": {
         "cargoLocks": null,
@@ -844,11 +844,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IbuEhKBgRQ1lIvKb7X2I13PChSB3TqosUitvR/0SxKE=",
+            "sha256": "sha256-cuKcez7jJeAEm/aUu7hD7QfD6woF2JwrOhY1JB5Lr+g=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.2.0/kata-static-3.2.0-amd64.tar.xz"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.3.0/kata-static-3.3.0-amd64.tar.xz"
         },
-        "version": "3.2.0"
+        "version": "3.3.0"
     },
     "konnect": {
         "cargoLocks": null,
@@ -1437,7 +1437,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-03-19",
+        "date": "2024-03-20",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1449,11 +1449,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "37769c92a5e0e65480ed2701c98cf2fb49fa71bf",
-            "sha256": "sha256-qNz7rXI4QWwKZ28BPC7SJ/VqntY2Dz4CU3XbzjQFcLs=",
+            "rev": "66ee77021b7ae35929e4659ac3f4b1e7642ddc67",
+            "sha256": "sha256-BKboIy+eHExJPQOIpIulSZiv39psVm9FWoxVPWV9p+0=",
             "type": "github"
         },
-        "version": "37769c92a5e0e65480ed2701c98cf2fb49fa71bf"
+        "version": "66ee77021b7ae35929e4659ac3f4b1e7642ddc67"
     },
     "osdlyrics": {
         "cargoLocks": null,
