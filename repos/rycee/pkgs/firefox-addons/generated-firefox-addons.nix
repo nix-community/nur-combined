@@ -1666,10 +1666,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2411.0";
+      version = "6.2411.2";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4248373/dashlane-6.2411.0.xpi";
-      sha256 = "c6e8a899eacb00c9129a4cf14b984ef100825f81681c92264595371ad93db113";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250636/dashlane-6.2411.2.xpi";
+      sha256 = "8d2a1c44db250e69774542051ea9cc3ea47d1720885bc7c082d3a29476500bf4";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1747,10 +1747,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240318.85508";
+      version = "125.0.20240320.91724";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251556/deutsch_de_language_pack-125.0.20240318.85508.xpi";
-      sha256 = "81c51490f0fde8b9113978c2e74051525f45b75610750917203975bc7a8633a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252589/deutsch_de_language_pack-125.0.20240320.91724.xpi";
+      sha256 = "4f321e2472f14067fa06428fe476b8a39b6ef95c114f31b48e6fcb3ae4de34e9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2687,10 +2687,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240318.85508";
+      version = "125.0.20240320.91724";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251568/francais_language_pack-125.0.20240318.85508.xpi";
-      sha256 = "74c234ec68b9abd9d4ab0998918ec2e37767fe788f3d8f3edc2c02197fee1a3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252595/francais_language_pack-125.0.20240320.91724.xpi";
+      sha256 = "ea7a75095530d4e25d960db9327a39d43ae8cefc831c2e119a473e16b06c5ee3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4586,10 +4586,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.702";
+      version = "4.805";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241069/youtube_addon-4.702.xpi";
-      sha256 = "292eff2b102b81213371ec2151c5f5844775e01a5ae9092ebab16a1c2cc69638";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251792/youtube_addon-4.805.xpi";
+      sha256 = "fc6567c9bffb8716dca252a225e69744a4017ae0ddd6f3a60ce9e52106bddb7e";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -7020,10 +7020,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.12.0";
+      version = "7.12.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4252236/octotree-7.12.0.xpi";
-      sha256 = "f1b4822095373e63fac232487dfa3edb24767f2dddfc4df7bf9fcba743c928f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4253001/octotree-7.12.1.xpi";
+      sha256 = "19cfa3fa59f9b2b2c782450862db25fb51ca16faccd0e513429539717c2eacf8";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -9580,10 +9580,10 @@
     };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "5.0.1";
+      version = "5.1.0";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4216231/tampermonkey-5.0.1.xpi";
-      sha256 = "a10592bf9c3db57ca94c9b8ad7ff4b58d31d2b26a50e748de05da9f87e8252fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250678/tampermonkey-5.1.0.xpi";
+      sha256 = "939a7b0573cc795eae2dea017b187ddb135d1778bf26f1c513215674512a040b";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
