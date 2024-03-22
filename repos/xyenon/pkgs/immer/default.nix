@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "immer";
-  version = "unstable-2024-02-15";
+  version = "unstable-2024-03-20";
 
   src = fetchFromGitHub {
     owner = "arximboldi";
     repo = pname;
-    rev = "57a8c5ede6f36a8ef9c6e3c82ac6c81f1e5273fd";
-    hash = "sha256-D6QiTeOoBUJScQQl/e1jq4n+ORTzYnKg7LKTP6xacM4=";
+    rev = "d8fd87fc212cadc1d8aa52689e6213c9e57ab28b";
+    hash = "sha256-vGxxV72stV5lH6JfTdgYCABRYTsuqfB0RFXUe+Q7VJ0=";
   };
 
   nativeBuildInputs = [ cmake ];

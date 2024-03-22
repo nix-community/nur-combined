@@ -2,13 +2,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "ModernX";
-  version = "0.2.7.6";
+  version = "0.2.8";
 
   src = fetchFromGitHub {
     owner = "zydezu";
     repo = pname;
     rev = version;
-    hash = "sha256-WWwnxhFMDjlQb0+5+hD9CRe/BYt4CWHw3JGZOI3IQiE=";
+    hash = "sha256-rruscDutFyQCl5sTtQfmtYPcXKWU51/QFbghSOyMC9o=";
   };
 
   dontBuild = true;
