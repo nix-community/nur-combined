@@ -1747,10 +1747,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240320.91724";
+      version = "125.0.20240321.215430";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4252589/deutsch_de_language_pack-125.0.20240320.91724.xpi";
-      sha256 = "4f321e2472f14067fa06428fe476b8a39b6ef95c114f31b48e6fcb3ae4de34e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4253488/deutsch_de_language_pack-125.0.20240321.215430.xpi";
+      sha256 = "6a9a3fbf4c861c05568a5ec95c06618a4ced42afec894037dd35680f5af7a9f5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2687,10 +2687,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240320.91724";
+      version = "125.0.20240321.215430";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4252595/francais_language_pack-125.0.20240320.91724.xpi";
-      sha256 = "ea7a75095530d4e25d960db9327a39d43ae8cefc831c2e119a473e16b06c5ee3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4253450/francais_language_pack-125.0.20240321.215430.xpi";
+      sha256 = "4bb2579452152d17fc12a745c067b3dcc769ccc20744d491f648fd3d0c6b9095";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4631,10 +4631,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.6.1";
+      version = "3.6.2";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243449/indie_wiki_buddy-3.6.1.xpi";
-      sha256 = "f7cb8c309704e58d9bf024f0845db5337b116d2e137d68c42bc55987fdce024f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251384/indie_wiki_buddy-3.6.2.xpi";
+      sha256 = "3cdf0a46da7036b0b64e7e178edf3dca613c39dcfe9386c82658ac44dc6bd1cf";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -5517,10 +5517,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.64";
+      version = "2.6.65";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243456/localcdn_fork_of_decentraleyes-2.6.64.xpi";
-      sha256 = "8032733c1aef04998869b1916a0e30ef479911ab87b4bd84be3f36a1423a41da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251866/localcdn_fork_of_decentraleyes-2.6.65.xpi";
+      sha256 = "06b30659784ce2d3d984b94834c72a2d30d3fb3fcddb936724e361712b4389c4";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -9125,10 +9125,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.5.8";
+      version = "5.5.9";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246981/sponsorblock-5.5.8.xpi";
-      sha256 = "c20dc2f508fcc7ee4939b2e30d151db5273047a639a8a5412cc742bcdf893556";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251917/sponsorblock-5.5.9.xpi";
+      sha256 = "a4ea4938ca5375c3de6966caec5cd63ae458788830abdab49a700fdc39d80f58";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -9230,10 +9230,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.7.9";
+      version = "3.7.10";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4202136/steam_database-3.7.9.xpi";
-      sha256 = "87f93bee3c42c469da72d7fce76db7cecbe843875ea8f098ecafad06940a973b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251832/steam_database-3.7.10.xpi";
+      sha256 = "aee51bce4e6b84b95cadafd804c9f271394ae634fe121d0b9d82c4e6af022f73";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -9243,8 +9243,6 @@
           "storage"
           "https://steamdb.info/*"
           "https://store.steampowered.com/*"
-          "https://store.steampowered.com/checkout/*"
-          "https://store.steampowered.com/cart/*"
           "https://store.steampowered.com/app/*"
           "https://store.steampowered.com/news/app/*"
           "https://store.steampowered.com/account/licenses*"
@@ -9256,7 +9254,6 @@
           "https://store.steampowered.com/app/*/agecheck"
           "https://store.steampowered.com/agecheck/*"
           "https://store.steampowered.com/explore*"
-          "https://store.steampowered.com/checkout/sendgift/*"
           "https://steamcommunity.com/app/*"
           "https://steamcommunity.com/sharedfiles/filedetails*"
           "https://steamcommunity.com/workshop/filedetails*"
@@ -9925,10 +9922,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.8";
+      version = "4.0.10";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251381/tree_style_tab-4.0.8.xpi";
-      sha256 = "2264a8615f57e3936ff56eeea7f343745437adfbbc8f3d8c7ea9426e7efdceb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252861/tree_style_tab-4.0.10.xpi";
+      sha256 = "d13a67005f9d0241b16ef50c4fb37ec11d8cd22fe51fba68550fd0c395440302";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -10386,10 +10383,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.3.11.1438";
+      version = "2024.3.21.842";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4248789/ublock_origin_lite-2024.3.11.1438.xpi";
-      sha256 = "7fbe76e1ab06cfc02fe1033f7a5ea102aa1bfa851598e4fb314305454db812b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4253228/ublock_origin_lite-2024.3.21.842.xpi";
+      sha256 = "e6a009b3f8424f45d7519c4eccdd00cd77ae837e0a50c5cdf66685e4b5f697ec";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -10537,10 +10534,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "8.2.1.1";
+      version = "8.2.2.8";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4238200/video_downloadhelper-8.2.1.1.xpi";
-      sha256 = "2515f890353bf2ec80b91110f110e4596b43f8163d5d224e9cf526530cf53266";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251369/video_downloadhelper-8.2.2.8.xpi";
+      sha256 = "975f9f66f76b4f8055316419c64950a532aa5cb4018ffbb926cf293ed5f300dd";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -10942,10 +10939,10 @@
     };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.16.0";
+      version = "1.17.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4099784/wallabagger-1.16.0.xpi";
-      sha256 = "79859faf6ef0050df74e588184c34f1384e44d91310c1871404698cb6b8e4049";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4253375/wallabagger-1.17.0.xpi";
+      sha256 = "c029d76eb2b30bd55d570bffa0e0dea9913ba6965ea278b94220762755ebb3b5";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
@@ -11056,10 +11053,10 @@
     };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.6.2";
+      version = "3.7.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243335/web_scrobbler-3.6.2.xpi";
-      sha256 = "0011f175594c807ab6b1637906e14270196a415c7144394212482555c888187a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251168/web_scrobbler-3.7.0.xpi";
+      sha256 = "44b3eaf0eacdd6601e0884e9f7c2f837f0c485a5436afb76715a6d517814549c";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
