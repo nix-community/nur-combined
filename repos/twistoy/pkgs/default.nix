@@ -15,5 +15,6 @@ lib.makeScope newScope
     });
     distant = callPackage ./distant {};
     lazygit = callPackage ./lazygit {};
+    tty-copy = callPackage ./tty-copy {};
   }
 )
