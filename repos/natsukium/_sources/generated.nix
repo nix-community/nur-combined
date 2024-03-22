@@ -83,15 +83,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "1a41a6ba35ec4b66a1043803e049c81f9c8ed77d";
+    version = "438b9d22d926569db6e6034e0d333edce5f4d4cf";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "1a41a6ba35ec4b66a1043803e049c81f9c8ed77d";
+      rev = "438b9d22d926569db6e6034e0d333edce5f4d4cf";
       fetchSubmodules = false;
-      sha256 = "sha256-OdIGOxlsyhQg94CI3AgMZWzeTskHZ8Co/9FwwFOH++I=";
+      sha256 = "sha256-jXPMDxiyJ3w4cpRgonlXjdmSJHsnkLhG6NeBjYjeKeo=";
     };
-    date = "2024-03-12";
+    date = "2024-03-21";
   };
   vim-startuptime = {
     pname = "vim-startuptime";
@@ -103,10 +103,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "6.6.3271.50";
+    version = "6.6.3271.53";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.50.universal.dmg";
-      sha256 = "sha256-vnlX+2CAiTZVeq9i3tshAnCUbMhGIa0I67Uc+b7AOp8=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.53.universal.dmg";
+      sha256 = "sha256-4Ny6MWjb6rwwXQsVxbmoe/rBTF2/qtSd36M45RjMM0A=";
     };
   };
 }

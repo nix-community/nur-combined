@@ -141,7 +141,7 @@
     },
     "skkeleton": {
         "cargoLocks": null,
-        "date": "2024-03-12",
+        "date": "2024-03-21",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -153,11 +153,11 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "1a41a6ba35ec4b66a1043803e049c81f9c8ed77d",
-            "sha256": "sha256-OdIGOxlsyhQg94CI3AgMZWzeTskHZ8Co/9FwwFOH++I=",
+            "rev": "438b9d22d926569db6e6034e0d333edce5f4d4cf",
+            "sha256": "sha256-jXPMDxiyJ3w4cpRgonlXjdmSJHsnkLhG6NeBjYjeKeo=",
             "type": "github"
         },
-        "version": "1a41a6ba35ec4b66a1043803e049c81f9c8ed77d"
+        "version": "438b9d22d926569db6e6034e0d333edce5f4d4cf"
     },
     "vim-startuptime": {
         "cargoLocks": null,
@@ -183,10 +183,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vnlX+2CAiTZVeq9i3tshAnCUbMhGIa0I67Uc+b7AOp8=",
+            "sha256": "sha256-4Ny6MWjb6rwwXQsVxbmoe/rBTF2/qtSd36M45RjMM0A=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.50.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.53.universal.dmg"
         },
-        "version": "6.6.3271.50"
+        "version": "6.6.3271.53"
     }
 }
