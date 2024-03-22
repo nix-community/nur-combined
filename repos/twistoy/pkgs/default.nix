@@ -14,5 +14,6 @@ lib.makeScope newScope
       inherit (pkgs.vimUtils) buildVimPlugin;
     });
     distant = callPackage ./distant {};
+    lazygit = callPackage ./lazygit {};
   }
 )
