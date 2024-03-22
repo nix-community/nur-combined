@@ -542,11 +542,11 @@ src.github = "HolyWu/vs-rife"
 fetch.github = "HolyWu/vs-rife"
 
 [wechat-uos]
-src.webpage = "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=wechat-uos"
+src.webpage = "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=wechat-uos-bwrap"
 src.regex = "\"Version\":\"([^\"]+)\""
-src.from_pattern = "(.+):(.+)-(.+)"
-src.to_pattern = "\\2"
-fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_$ver_amd64.deb"
+src.from_pattern = "(.+)-(.+)"
+src.to_pattern = "\\1"
+fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_$ver_amd64.deb"
 
 [win2xcur]
 src.github = "quantum5/win2xcur"

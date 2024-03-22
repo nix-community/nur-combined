@@ -2319,11 +2319,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vVN7w+oPXNTMJ/g1Rpw/AVLIytMXI+gLieNuddyyIYE=",
+            "sha256": "sha256-NxAmZ526JaAzAjtAd9xScFnZBuwD6i2wX2/AEqtAyWs=",
             "type": "url",
-            "url": "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_2.1.5_amd64.deb"
+            "url": "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_1.0.0.238_amd64.deb"
         },
-        "version": "2.1.5"
+        "version": "1.0.0.238"
     },
     "win2xcur": {
         "cargoLocks": null,

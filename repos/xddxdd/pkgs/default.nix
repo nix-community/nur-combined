@@ -193,7 +193,11 @@ mkScope (
     vpp = pkg ./uncategorized/vpp { };
     vs-rife = pkg ./uncategorized/vs-rife { };
     wechat-uos = pkg ./uncategorized/wechat-uos { };
-    wechat-uos-bin = pkg ./uncategorized/wechat-uos/official-bin.nix { };
+    wechat-uos-without-sandbox = pkg ./uncategorized/wechat-uos { enableSandbox=false; };
+
+    # Deprecated alias
+    wechat-uos-bin = self.wechat-uos;
+
     win2xcur = pkg ./uncategorized/win2xcur { };
     wine-wechat = lib.makeOverridable pkg ./uncategorized/wine-wechat { };
     wine-wechat-x86 = lib.makeOverridable pkg ./uncategorized/wine-wechat-x86 { };

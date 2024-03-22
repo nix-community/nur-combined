@@ -71,7 +71,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (109 packages)</summary>
+<summary>Package set: (Uncategorized) (110 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -177,8 +177,9 @@ Or, use variables from this repository in case I change them:
 |  | `vivado-2022_2` | [vivado](https://www.xilinx.com/products/design-tools/vivado.html) | 2022.2 | Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix) |
 |  | `vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | v24.02 | Vector Packet Processing |
 | `Broken` | `vs-rife` | [vs-rife](https://github.com/HolyWu/vs-rife) | v4.2.0 | Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth |
-|  | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 2.1.5 | WeChat desktop (System Electron) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos) |
-|  | `wechat-uos-bin` | [wechat-uos-bin](https://weixin.qq.com/) | 2.1.5 | WeChat desktop (Official binary) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos) |
+|  | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.238 | WeChat desktop with sandbox enabled ($HOME/.local/share/wechat-uos) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
+|  | `wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.238 | WeChat desktop with sandbox enabled ($HOME/.local/share/wechat-uos) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
+|  | `wechat-uos-without-sandbox` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.238 | WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 |  | `win2xcur` | [win2xcur](https://github.com/quantum5/win2xcur) | v0.1.2 | win2xcur is a tool that converts cursors from Windows format (*.cur, *.ani) to Xcursor format. It also contains x2wincur which does the opposite. |
 |  | `wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.9.43 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 |  | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.9.34 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
