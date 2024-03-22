@@ -1,6 +1,7 @@
-{ lib, stdenv, pkgs, fetchFromGitHub, fetchurl, protobuf3_19, ... }:
+{ lib, stdenv, pkgs, fetchFromGitHub, fetchurl, protobuf3_19, gcc12Stdenv, ... }:
 
-stdenv.mkDerivation {
+# using current gcc version 13.2.0 introduced build errors regarding decltype
+gcc12Stdenv.mkDerivation {
   pname = "aws-iot-securetunneling-localproxy";
   version = "3.1.0";
 
