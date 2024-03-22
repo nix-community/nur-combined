@@ -196,6 +196,7 @@ lib.makeScope newScope (
     ### GEOSPATIAL
 
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
+    bbox = callPackage ./geospatial/bbox { };
     c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
     cogdumper = callPackage ./geospatial/cogdumper { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
