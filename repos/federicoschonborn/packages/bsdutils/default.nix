@@ -15,43 +15,41 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "bsdutils";
-    version = "13.2";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "bsdutils";
+  version = "13.2";
 
-    src = fetchFromGitHub {
-      owner = "dcantrell";
-      repo = "bsdutils";
-      rev = "v${finalAttrs.version}";
-      hash = "sha256-sYxx79wQu1HFYKHYgRHqAA2sATXZ7WTxIZB6KBVnatU=";
-    };
+  src = fetchFromGitHub {
+    owner = "dcantrell";
+    repo = "bsdutils";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-sYxx79wQu1HFYKHYgRHqAA2sATXZ7WTxIZB6KBVnatU=";
+  };
 
-    nativeBuildInputs = [
-      byacc
-      cmake # Meson crashes without this.
-      flex
-      meson
-      ninja
-      pkg-config
-    ];
+  nativeBuildInputs = [
+    byacc
+    cmake # Meson crashes without this.
+    flex
+    meson
+    ninja
+    pkg-config
+  ];
 
-    buildInputs = [
-      libedit
-      libxo
-      ncurses6
-      openssl
-    ];
+  buildInputs = [
+    libedit
+    libxo
+    ncurses6
+    openssl
+  ];
 
-    dontUseCmakeConfigure = true;
+  dontUseCmakeConfigure = true;
 
-    passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { };
 
-    meta = {
-      description = "Alternative to GNU coreutils using software from FreeBSD";
-      homepage = "https://github.com/dcantrell/bsdutils";
-      license = lib.licenses.bsd3;
-      maintainers = with lib.maintainers; [ federicoschonborn ];
-    };
-  }
-)
+  meta = {
+    description = "Alternative to GNU coreutils using software from FreeBSD";
+    homepage = "https://github.com/dcantrell/bsdutils";
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+  };
+})

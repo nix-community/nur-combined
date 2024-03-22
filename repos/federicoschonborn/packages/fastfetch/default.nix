@@ -60,95 +60,93 @@
   enableProprietaryGpuDriverApi ? true,
 }:
 
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "fastfetch";
-    version = "2.8.6";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "fastfetch";
+  version = "2.8.9";
 
-    src = fetchFromGitHub {
-      owner = "fastfetch-cli";
-      repo = "fastfetch";
-      rev = finalAttrs.version;
-      hash = "sha256-n15p26zZaote8cB0NfBnb69hb27l4hHBZG+3D1yrrCA=";
-    };
+  src = fetchFromGitHub {
+    owner = "fastfetch-cli";
+    repo = "fastfetch";
+    rev = finalAttrs.version;
+    hash = "sha256-UvAIIkH9PNlvLzlh0jm1kG+4OfWsWtt2LSFbFPm7Yv4=";
+  };
 
-    nativeBuildInputs = [
-      cmake
-      ninja
-      pkg-config
-      python3
-    ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    python3
+  ];
 
-    buildInputs =
-      [ yyjson ]
-      ++ lib.optional enableVulkan vulkan-loader
-      ++ lib.optional enableWayland wayland
-      ++ lib.optional (enableXcb || enableXcbRandr) xorg.libxcb
-      ++ lib.optional enableXrandr xorg.libXrandr
-      ++ lib.optional enableX11 xorg.libX11
-      ++ lib.optional enableDrm libdrm
-      ++ lib.optional enableGio glib
-      ++ lib.optional enableDconf dconf
-      ++ lib.optional enableDbus dbus
-      ++ lib.optional enableXfconf xfce.xfconf
-      ++ lib.optional enableSqlite3 sqlite
-      ++ lib.optional enableRpm rpm
-      ++ lib.optional enableImagemagick7 imagemagick
-      ++ lib.optional enableChafa chafa
-      ++ lib.optional enableZlib zlib
-      ++ lib.optional enableEgl libGL
-      ++ lib.optional enableGlx libglvnd
-      ++ lib.optional enableOsmesa mesa
-      ++ lib.optionals enableOpencl [
-        ocl-icd
-        opencl-headers
-      ]
-      ++ lib.optional enableLibnm networkmanager
-      ++ lib.optional enableFreetype freetype
-      ++ lib.optional enablePulse pulseaudio
-      ++ lib.optional enableDdcutil ddcutil
-      ++ lib.optional enableDirectxHeaders directx-headers;
+  buildInputs =
+    [ yyjson ]
+    ++ lib.optional enableVulkan vulkan-loader
+    ++ lib.optional enableWayland wayland
+    ++ lib.optional (enableXcb || enableXcbRandr) xorg.libxcb
+    ++ lib.optional enableXrandr xorg.libXrandr
+    ++ lib.optional enableX11 xorg.libX11
+    ++ lib.optional enableDrm libdrm
+    ++ lib.optional enableGio glib
+    ++ lib.optional enableDconf dconf
+    ++ lib.optional enableDbus dbus
+    ++ lib.optional enableXfconf xfce.xfconf
+    ++ lib.optional enableSqlite3 sqlite
+    ++ lib.optional enableRpm rpm
+    ++ lib.optional enableImagemagick7 imagemagick
+    ++ lib.optional enableChafa chafa
+    ++ lib.optional enableZlib zlib
+    ++ lib.optional enableEgl libGL
+    ++ lib.optional enableGlx libglvnd
+    ++ lib.optional enableOsmesa mesa
+    ++ lib.optionals enableOpencl [
+      ocl-icd
+      opencl-headers
+    ]
+    ++ lib.optional enableLibnm networkmanager
+    ++ lib.optional enableFreetype freetype
+    ++ lib.optional enablePulse pulseaudio
+    ++ lib.optional enableDdcutil ddcutil
+    ++ lib.optional enableDirectxHeaders directx-headers;
 
-    cmakeFlags = [
-      (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
-      (lib.cmakeBool "ENABLE_SYSTEM_YYJSON" true)
-      (lib.cmakeBool "ENABLE_VULKAN" enableVulkan)
-      (lib.cmakeBool "ENABLE_WAYLAND" enableWayland)
-      (lib.cmakeBool "ENABLE_XCB" enableXcb)
-      (lib.cmakeBool "ENABLE_XCB_RANDR" enableXcbRandr)
-      (lib.cmakeBool "ENABLE_XRANDR" enableXrandr)
-      (lib.cmakeBool "ENABLE_X11" enableX11)
-      (lib.cmakeBool "ENABLE_DRM" enableDrm)
-      (lib.cmakeBool "ENABLE_GIO" enableGio)
-      (lib.cmakeBool "ENABLE_DCONF" enableDconf)
-      (lib.cmakeBool "ENABLE_DBUS" enableDbus)
-      (lib.cmakeBool "ENABLE_XFCONF" enableXfconf)
-      (lib.cmakeBool "ENABLE_SQLITE3" enableSqlite3)
-      (lib.cmakeBool "ENABLE_RPM" enableRpm)
-      (lib.cmakeBool "ENABLE_IMAGEMAGICK7" enableImagemagick7)
-      (lib.cmakeBool "ENABLE_CHAFA" enableChafa)
-      (lib.cmakeBool "ENABLE_ZLIB" enableZlib)
-      (lib.cmakeBool "ENABLE_EGL" enableEgl)
-      (lib.cmakeBool "ENABLE_GLX" enableGlx)
-      (lib.cmakeBool "ENABLE_OSMESA" enableOsmesa)
-      (lib.cmakeBool "ENABLE_OPENCL" enableOpencl)
-      (lib.cmakeBool "ENABLE_LIBNM" enableLibnm)
-      (lib.cmakeBool "ENABLE_FREETYPE" enableFreetype)
-      (lib.cmakeBool "ENABLE_PULSE" enablePulse)
-      (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
-      (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
-      (lib.cmakeBool "ENABLE_PROPRIETARY_GPU_DRIVER_API" enableProprietaryGpuDriverApi)
-    ];
+  cmakeFlags = [
+    (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
+    (lib.cmakeBool "ENABLE_SYSTEM_YYJSON" true)
+    (lib.cmakeBool "ENABLE_VULKAN" enableVulkan)
+    (lib.cmakeBool "ENABLE_WAYLAND" enableWayland)
+    (lib.cmakeBool "ENABLE_XCB" enableXcb)
+    (lib.cmakeBool "ENABLE_XCB_RANDR" enableXcbRandr)
+    (lib.cmakeBool "ENABLE_XRANDR" enableXrandr)
+    (lib.cmakeBool "ENABLE_X11" enableX11)
+    (lib.cmakeBool "ENABLE_DRM" enableDrm)
+    (lib.cmakeBool "ENABLE_GIO" enableGio)
+    (lib.cmakeBool "ENABLE_DCONF" enableDconf)
+    (lib.cmakeBool "ENABLE_DBUS" enableDbus)
+    (lib.cmakeBool "ENABLE_XFCONF" enableXfconf)
+    (lib.cmakeBool "ENABLE_SQLITE3" enableSqlite3)
+    (lib.cmakeBool "ENABLE_RPM" enableRpm)
+    (lib.cmakeBool "ENABLE_IMAGEMAGICK7" enableImagemagick7)
+    (lib.cmakeBool "ENABLE_CHAFA" enableChafa)
+    (lib.cmakeBool "ENABLE_ZLIB" enableZlib)
+    (lib.cmakeBool "ENABLE_EGL" enableEgl)
+    (lib.cmakeBool "ENABLE_GLX" enableGlx)
+    (lib.cmakeBool "ENABLE_OSMESA" enableOsmesa)
+    (lib.cmakeBool "ENABLE_OPENCL" enableOpencl)
+    (lib.cmakeBool "ENABLE_LIBNM" enableLibnm)
+    (lib.cmakeBool "ENABLE_FREETYPE" enableFreetype)
+    (lib.cmakeBool "ENABLE_PULSE" enablePulse)
+    (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
+    (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
+    (lib.cmakeBool "ENABLE_PROPRIETARY_GPU_DRIVER_API" enableProprietaryGpuDriverApi)
+  ];
 
-    passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { };
 
-    meta = {
-      mainProgram = "fastfetch";
-      description = "Like neofetch, but much faster because written in C";
-      homepage = "https://github.com/fastfetch-cli/fastfetch";
-      changelog = "https://github.com/fastfetch-cli/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
-      license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ federicoschonborn ];
-    };
-  }
-)
+  meta = {
+    mainProgram = "fastfetch";
+    description = "Like neofetch, but much faster because written in C";
+    homepage = "https://github.com/fastfetch-cli/fastfetch";
+    changelog = "https://github.com/fastfetch-cli/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ federicoschonborn ];
+  };
+})

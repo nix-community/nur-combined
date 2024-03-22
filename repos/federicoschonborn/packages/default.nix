@@ -27,34 +27,30 @@ let
 
     # Backports
     wlroots_0_17 =
-      pkgs.wlroots_0_17 or (pkgs.wlroots_0_16.overrideAttrs (
-        prevAttrs: {
-          version = "0.17.1";
-          src = pkgs.fetchFromGitLab {
-            domain = "gitlab.freedesktop.org";
-            owner = "wlroots";
-            repo = "wlroots";
-            rev = "3f2aced8c6fd00b0b71da24c790850af2004052b";
-            hash = "sha256-Z0gWM7AQqJOSr2maUtjdgk/MF6pyeyFMMTaivgt+RMI=";
-          };
-          buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
-            pkgs.hwdata
-            pkgs.libdisplay-info
-          ];
-        }
-      ));
+      pkgs.wlroots_0_17 or (pkgs.wlroots.overrideAttrs (prevAttrs: {
+        version = "0.17.2";
+        src = pkgs.fetchFromGitLab {
+          domain = "gitlab.freedesktop.org";
+          owner = "wlroots";
+          repo = "wlroots";
+          rev = "6dce6ae2ed92544b9758b194618e21f4c97f1d6b";
+          hash = "sha256-Of9qykyVnBURc5A2pvCMm7sLbnuuG7OPWLxodQLN2Xg=";
+        };
+        buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
+          pkgs.hwdata
+          pkgs.libdisplay-info
+        ];
+      }));
 
     # Variants
     fastfetchMinimal =
-      (self.fastfetch.overrideAttrs (
-        prevAttrs: {
-          pname = "${prevAttrs.pname}-minimal";
-          meta = prevAttrs.meta // {
-            description = "${prevAttrs.meta.description} (with all features disabled)";
-            mainProgram = "fastfetch";
-          };
-        }
-      )).override
+      (self.fastfetch.overrideAttrs (prevAttrs: {
+        pname = "${prevAttrs.pname}-minimal";
+        meta = prevAttrs.meta // {
+          description = "${prevAttrs.meta.description} (with all features disabled)";
+          mainProgram = "fastfetch";
+        };
+      })).override
         {
           enableVulkan = false;
           enableWayland = false;
@@ -85,14 +81,12 @@ let
         };
 
     gtatoolFull =
-      (self.gtatool.overrideAttrs (
-        prevAttrs: {
-          pname = "${prevAttrs.pname}-full";
-          meta = prevAttrs.meta // {
-            description = "${prevAttrs.meta.description} (with all features enabled)";
-          };
-        }
-      )).override
+      (self.gtatool.overrideAttrs (prevAttrs: {
+        pname = "${prevAttrs.pname}-full";
+        meta = prevAttrs.meta // {
+          description = "${prevAttrs.meta.description} (with all features enabled)";
+        };
+      })).override
         {
           # Broken
           withBashCompletion = false;
@@ -120,14 +114,12 @@ let
         };
 
     libtgdFull =
-      (self.libtgd.overrideAttrs (
-        prevAttrs: {
-          pname = "${prevAttrs.pname}-full";
-          meta = prevAttrs.meta // {
-            description = "${prevAttrs.meta.description} (with all features enabled)";
-          };
-        }
-      )).override
+      (self.libtgd.overrideAttrs (prevAttrs: {
+        pname = "${prevAttrs.pname}-full";
+        meta = prevAttrs.meta // {
+          description = "${prevAttrs.meta.description} (with all features enabled)";
+        };
+      })).override
         {
           withTool = true;
           withDocs = true;
@@ -153,14 +145,12 @@ let
         };
 
     teemFull =
-      (self.teem.overrideAttrs (
-        prevAttrs: {
-          pname = "${prevAttrs.pname}-full";
-          meta = prevAttrs.meta // {
-            description = "${prevAttrs.meta.description} (with all features enabled)";
-          };
-        }
-      )).override
+      (self.teem.overrideAttrs (prevAttrs: {
+        pname = "${prevAttrs.pname}-full";
+        meta = prevAttrs.meta // {
+          description = "${prevAttrs.meta.description} (with all features enabled)";
+        };
+      })).override
         {
           withBzip2 = true;
           withPthread = true;
@@ -171,28 +161,24 @@ let
         };
 
     teemExperimental =
-      (self.teem.overrideAttrs (
-        prevAttrs: {
-          pname = "${prevAttrs.pname}-experimental";
-          meta = prevAttrs.meta // {
-            description = "${prevAttrs.meta.description} (with experimental libraries and applications enabled)";
-          };
-        }
-      )).override
+      (self.teem.overrideAttrs (prevAttrs: {
+        pname = "${prevAttrs.pname}-experimental";
+        meta = prevAttrs.meta // {
+          description = "${prevAttrs.meta.description} (with experimental libraries and applications enabled)";
+        };
+      })).override
         {
           withExperimentalApps = true;
           withExperimentalLibs = true;
         };
 
     teemExperimentalFull =
-      (self.teem.overrideAttrs (
-        prevAttrs: {
-          pname = "${prevAttrs.pname}-experimental-full";
-          meta = prevAttrs.meta // {
-            description = "${prevAttrs.meta.description} (with experimental libraries and applications, and all features enabled)";
-          };
-        }
-      )).override
+      (self.teem.overrideAttrs (prevAttrs: {
+        pname = "${prevAttrs.pname}-experimental-full";
+        meta = prevAttrs.meta // {
+          description = "${prevAttrs.meta.description} (with experimental libraries and applications, and all features enabled)";
+        };
+      })).override
         {
           withExperimentalApps = true;
           withExperimentalLibs = true;
