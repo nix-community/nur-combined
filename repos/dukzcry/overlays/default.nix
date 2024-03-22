@@ -32,6 +32,13 @@ rec {
       qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
     '';
   });
+  haruna = super.haruna.overrideAttrs (oldAttrs: {
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ super.wrapGAppsHook ];
+    dontWrapGApps = true;
+    preFixup = ''
+      qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    '';
+  });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
