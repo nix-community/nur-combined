@@ -9,7 +9,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 with pkgs; rec {
-  # The `lib`, `modules`, and `overlay` names are special
+  # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   hmModules = import ./hm-modules; # Home Manager modules
