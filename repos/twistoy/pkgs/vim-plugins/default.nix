@@ -1,3 +1,9 @@
-_: {
-  gh-actions-nvim = import ./gh-actions-nvim.nix;
+{
+  callPackage,
+  buildVimPlugin,
+  ...
+}: {
+  gh-actions-nvim = callPackage ./gh-actions-nvim.nix {
+    inherit buildVimPlugin;
+  };
 }
