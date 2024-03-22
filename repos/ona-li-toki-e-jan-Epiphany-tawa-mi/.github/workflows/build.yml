@@ -7,7 +7,7 @@ on:
       - master
   schedule:
     # rebuild everyday at 03:55.
-    - cron:  '03 55 * * *'
+    - cron:  '3 55 * * *'
 jobs:
   tests:
     strategy:
