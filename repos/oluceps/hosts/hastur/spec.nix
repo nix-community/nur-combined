@@ -1,4 +1,4 @@
-{ pkgs, config, user, lib, inputs, ... }: {
+{ pkgs, data, config, user, lib, inputs, ... }: {
   # This headless machine uses to perform heavy task.
   # Running database and web services.
 
@@ -359,7 +359,7 @@
         pools = [
           {
             url = "pool.supportxmr.com:443";
-            user = "43WvF2Vv5e2Dpte5w44gHzWbZeLZm9PNNEsxCMRRc66GNVPmNoAaxwPFPurR1hQtNzP4NgY1dtjEohh9LyWLKAvqJUErReS";
+            user = data.xmrAddr;
             keepalive = true;
             tls = true;
             pass = "rha";

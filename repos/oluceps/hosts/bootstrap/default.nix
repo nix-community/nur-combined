@@ -1,7 +1,7 @@
 /* 
-Wed 20 Mar 23:41:49 +08 2024
+  Wed 20 Mar 23:41:49 +08 2024
 
-Azure korea nixos-anywhere apply success
+  Azure korea nixos-anywhere apply success
 
 */
 { withSystem, self, inputs, ... }: {

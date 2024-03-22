@@ -45,8 +45,10 @@
         enable = true;
         factorioPackage = pkgs.factorio-headless-experimental;
         botConfigPath = config.age.secrets.factorio-manager-bot.path;
-        serverSettingsFile = config.age.secrets.factorio-server.path;
-        serverAdminsFile = config.age.secrets.factorio-server.path;
+        initialGameStartArgs = [
+          "--server-settings=${config.age.secrets.factorio-server.path}"
+          "--server-adminlist=${config.age.secrets.factorio-admin.path}"
+        ];
       };
 
       ntfy-sh = {

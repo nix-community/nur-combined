@@ -1,4 +1,4 @@
-{ pkgs, config, user, lib, inputs, ... }: {
+{ pkgs, data, config, user, lib, inputs, ... }: {
   # Mobile device.
 
   system.stateVersion = "23.05"; # Did you read the comment?
@@ -42,17 +42,17 @@
     # prom-ntfy-bridge.enable = true;
 
     sing-box.enable = true;
-    beesd.filesystems = {
-      os = {
-        spec = "/nix";
-        hashTableSizeMB = 512; # 256 *2 *2
-        verbosity = "crit";
-        extraOptions = [
-          "--loadavg-target"
-          "2.0"
-        ];
-      };
-    };
+    # beesd.filesystems = {
+    #   os = {
+    #     spec = "/nix";
+    #     hashTableSizeMB = 512; # 256 *2 *2
+    #     verbosity = "crit";
+    #     extraOptions = [
+    #       "--loadavg-target"
+    #       "2.0"
+    #     ];
+    #   };
+    # };
     snapy.instances = [
       {
         name = "persist";
@@ -184,12 +184,12 @@
         cuda = false;
         cpu = {
           enable = true;
-          max-threads-hint = 70;
+          max-threads-hint = 55;
         };
         pools = [
           {
             url = "pool.supportxmr.com:443";
-            user = "43WvF2Vv5e2Dpte5w44gHzWbZeLZm9PNNEsxCMRRc66GNVPmNoAaxwPFPurR1hQtNzP4NgY1dtjEohh9LyWLKAvqJUErReS";
+            user = data.xmrAddr;
             keepalive = true;
             tls = true;
             pass = "kam";
@@ -306,8 +306,8 @@
 
     sleep.extraConfig = ''
       AllowHibernation=no
-      AllowSuspend=no
     '';
+    # AllowSuspend=no
 
   };
   programs.dconf.enable = true;

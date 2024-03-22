@@ -1,3 +1,4 @@
 /.direnv
-/**/result
-*/decrypted
+/result
+/decrypted
+/result-pre-commit
