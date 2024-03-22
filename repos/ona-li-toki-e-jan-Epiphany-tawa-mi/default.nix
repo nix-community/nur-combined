@@ -14,5 +14,6 @@
   #modules  = import ./modules;               # NixOS modules
   #overlays = import ./overlays;              # nixpkgs overlays
 
-  netcatchat = pkgs.callPackage ./pkgs/netcatchat {};
+  netcatchat       = pkgs.callPackage ./pkgs/netcatchat {};
+  cobol-dvd-thingy = pkgs.callPackage ./pkgs/cobol-dvd-thingy {};
 }
