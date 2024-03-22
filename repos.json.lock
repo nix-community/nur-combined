@@ -1189,8 +1189,8 @@
             "url": "https://github.com/ocfox/nur-pkgs"
         },
         "oluceps": {
-            "rev": "5bd9449f9dcda51d77fdba4367578aab5fa384ba",
-            "sha256": "0s31aysyms3ipjj4vr3amq330mjalxvbwkknzyzac7kir9pkw58f",
+            "rev": "d90dc970326d6f4f2896221635f137f6234ad2a0",
+            "sha256": "1b6b6rv4bxwakw15qa5qcy9igabpmnmj5f74q9s6fdxm2w0r6zy2",
             "url": "https://github.com/oluceps/nur-pkgs"
         },
         "ona-li-toki-e-jan-Epiphany-tawa-mi": {
