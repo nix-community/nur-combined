@@ -4,7 +4,7 @@ buildGoModule {
   pname = "devcontainer-cli-unofficial";
   version = "0.1.5524099953";
 
-  vendorSha256 = "sha256-mp8ahX5vGgVBUKGTHsYovuLUi94RNNBdbWledMAmWls=";
+  vendorHash = "sha256-mp8ahX5vGgVBUKGTHsYovuLUi94RNNBdbWledMAmWls=";
 
   src = fetchFromGitHub {
     owner = "MartinLoeper";
