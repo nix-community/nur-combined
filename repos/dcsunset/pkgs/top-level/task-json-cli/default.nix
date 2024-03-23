@@ -23,6 +23,6 @@ buildNpmPackage rec {
   meta = with lib; {
     description = "Command-line todo management app based on task.json format";
     homepage = "https://github.com/task-json/task.json-cli";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
   };
 }

@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Build your own minor modes for modal editing in Emacs";
     homepage = "https://github.com/DCsunset/modaled";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
   };
 }

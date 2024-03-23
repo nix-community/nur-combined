@@ -58,7 +58,7 @@ symlinkJoin {
   meta = with lib; {
     description = "A self-hosted Local-first Feed Reader written in Python and Preact/React.";
     homepage = "https://github.com/DCsunset/LFReader";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
   };
 }
 

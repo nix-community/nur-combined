@@ -29,7 +29,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Create a group for i3/sway containers to easily switch focus between";
     homepage = "https://github.com/DCsunset/i3-focus-group";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     mainProgram = "i3-focus-group";
   };
 }

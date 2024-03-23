@@ -26,6 +26,6 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A fuse-based filesystem to map ranges in file to individual files.";
     homepage = "https://github.com/DCsunset/rangefs";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
   };
 }

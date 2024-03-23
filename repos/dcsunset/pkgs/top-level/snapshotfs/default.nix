@@ -16,6 +16,6 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A fuse-based read-only filesystem to provide a snapshot view (tar archives) of directories or files without actually creating the archives";
     homepage = "https://github.com/DCsunset/snapshotfs";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
   };
 }

@@ -19,6 +19,6 @@ buildNpmPackage rec {
   meta = with lib; {
     description = "Executing multiple commands in batches concurrently.";
     homepage = "https://github.com/DCsunset/batch-cmd";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
   };
 }
