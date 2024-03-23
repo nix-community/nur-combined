@@ -8,8 +8,6 @@ python3.pkgs.buildPythonApplication rec {
   version = "4.3853256532";
   format  = "setuptools";
 
-  # The latest version (0.1.0) has build errors, which were fixed in this
-  # commit.
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "BitMasher";
