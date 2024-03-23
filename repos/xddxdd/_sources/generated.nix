@@ -1027,7 +1027,7 @@
     pname = "qqmusic";
     version = "1.1.5";
     src = fetchurl {
-      url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_1.1.5_amd64.deb";
+      url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_1.1.5_amd64_.deb";
       sha256 = "sha256-wTtO80S8o4/EeVCvBzaN4xtI3+mShTjNHpq41exfP+g=";
     };
   };

@@ -411,7 +411,7 @@ fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver.deb"
 
 [qqmusic]
 src.aur = "qqmusic-bin"
-fetch.url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_$ver_amd64.deb"
+fetch.url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_$ver_amd64_.deb"
 
 [qsc-key-encoder]
 src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
