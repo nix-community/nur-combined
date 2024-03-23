@@ -53,7 +53,6 @@ in {
       environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
         awl-tray
         moonlight-qt
-        steamlink
       ];
     })
   ];

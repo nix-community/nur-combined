@@ -7,6 +7,7 @@ with lib;
 let
   cfg = config.gtk;
   disableCsd = cfg.enable && cfg.disableCsd;
+  fixDialogs = cfg.enable && cfg.fixDialogs && config.qt.platformTheme == "gnome";
 
   toGtk2File = key: value:
     let
@@ -101,6 +102,11 @@ in
         default = true;
       };
 
+      fixDialogs = mkOption {
+        type = types.bool;
+        default = true;
+      };
+
       font = mkOption {
         type = types.nullOr themeType;
         default = null;
@@ -162,6 +168,19 @@ in
     (mkIf disableCsd {
       environment.variables.GTK_CSD = "0";
       environment.variables.LD_PRELOAD = "${pkgs.nur.repos.dukzcry.gtk3-nocsd}/lib/libgtk3-nocsd.so.0";
+    })
+
+    # https://github.com/NixOS/nixpkgs/issues/87667
+    (mkIf fixDialogs {
+      environment = {
+        systemPackages = [
+          (pkgs.runCommand "gtk3-schemas" {} ''
+            mkdir -p $out/share
+            ln -s ${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}/glib-2.0 $out/share
+          '')
+        ];
+        pathsToLink = [ "/share/glib-2.0" ];
+      };
     })
 
     (mkIf cfg.enable {
