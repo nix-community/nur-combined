@@ -24,6 +24,15 @@ rec {
       });
     };
   };
+  sunpaper = super.sunpaper.overrideAttrs (oldAttrs: rec {
+    postPatch = ''
+      ${oldAttrs.postPatch}
+      substituteInPlace sunpaper.sh \
+        --replace "38.9072N" "55.752163N" --replace "77.0369W" "37.617524E" \
+        --replace "Corporate-Synergy\"" "Lakeside\"" \
+        --replace "sunpaper.sh" "sunpaper"
+    '';
+  });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
