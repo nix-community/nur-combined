@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C++ library for automatic differentiation";
     homepage = "https://github.com/auto-differentiation/XAD";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     platforms = platforms.all;
     #maintainers = with maintainers; [ foolnotion ];
   };
