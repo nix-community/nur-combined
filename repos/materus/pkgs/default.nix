@@ -9,7 +9,7 @@ rec {
   };
 
 
-  ffmpeg6-amf-full = (if pkgs.ffmpeg-full.version != "6.1" then pkgs.callPackage ./apps/ffmpeg {
+  ffmpeg6-amf-full = (if pkgs.lib.versionOlder pkgs.ffmpeg-full.version  "6.1" then pkgs.callPackage ./apps/ffmpeg {
     inherit (pkgs.darwin.apple_sdk.frameworks)
       Cocoa CoreServices CoreAudio CoreMedia AVFoundation MediaToolbox
       VideoDecodeAcceleration VideoToolbox;
