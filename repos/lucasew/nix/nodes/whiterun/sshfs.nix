@@ -14,7 +14,7 @@ in
     "sshfs-TMP2" = {
       path = with pkgs; [ sshfs ];
       script = ''
-        sshfs $(whoami)@riverwood:/home/$(whoami)/TMP2 /home/$(whoami)/TMP2 ${sshfsArgs}
+        exec sshfs $(whoami)@riverwood:/home/$(whoami)/TMP2 /home/$(whoami)/TMP2 ${sshfsArgs}
       '';
       restartIfChanged = true;
     };
@@ -22,7 +22,7 @@ in
     "sshfs-WORKSPACE" = {
       path = with pkgs; [ sshfs ];
       script = ''
-        sshfs $(whoami)@riverwood:/home/$(whoami)/WORKSPACE /home/$(whoami)/WORKSPACE ${sshfsArgs}
+        exec sshfs $(whoami)@riverwood:/home/$(whoami)/WORKSPACE /home/$(whoami)/WORKSPACE ${sshfsArgs}
       '';
       restartIfChanged = true;
     };
