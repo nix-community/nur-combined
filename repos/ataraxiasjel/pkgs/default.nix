@@ -27,6 +27,7 @@ rec {
   rpcs3 = pkgs.qt6Packages.callPackage ./rpcs3 { };
   seadrive-fuse = pkgs.callPackage ./seadrive-fuse { };
   waydroid-script = pkgs.python3Packages.callPackage ./waydroid-script { };
+  whoogle-search = pkgs.python3Packages.callPackage ./whoogle-search { };
   wine-ge = pkgs.callPackage ./wine-ge { };
   wopiserver = pkgs.python3Packages.callPackage ./wopiserver { inherit (python-pkgs) cs3apis; };
 

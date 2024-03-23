@@ -6,5 +6,6 @@
   ocis = ./ocis.nix;
   prometheus-exporters = import ./prometheus-exporters;
   rustic = ./rustic.nix;
+  whoogle = ./whoogle.nix;
   wopiserver = ./wopiserver.nix;
 }

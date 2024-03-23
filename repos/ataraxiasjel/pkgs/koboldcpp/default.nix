@@ -133,7 +133,7 @@ effectiveStdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/LostRuins/koboldcpp";
     description = "A simple one-file way to run various GGML models with KoboldAI's UI.";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ataraxiasjel ];
   };

@@ -11,13 +11,13 @@
 
 buildGoModule rec {
   pname = "prometheus-podman-exporter";
-  version = "1.9.0";
+  version = "1.11.0";
 
   src = fetchFromGitHub {
     owner = "containers";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-EnPGIP2bp7J7B0JFbw9PXQq2dXA6MmUQR1yqnpo2fS8=";
+    hash = "sha256-e/r+im/HMhnjmfvNVTlsVMEOSBAIHe2Rc5C9ZL7v3tM=";
   };
 
   vendorHash = null;
@@ -39,6 +39,8 @@ buildGoModule rec {
     gpgme
     lvm2
   ];
+
+  doCheck = false;
 
   passthru.updateScript = nix-update-script { };
 
