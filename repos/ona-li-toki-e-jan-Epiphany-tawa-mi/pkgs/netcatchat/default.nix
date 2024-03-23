@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash  = "sha256-e30hvGcFbyH9Jc7Vq+FqBgtL+fB+EK4Rz9bCCiW9MHM=";
   };
 
-  buildInputs       = [ bash netcat-openbsd ];
   nativeBuildInputs = [ makeWrapper ];
+  buildInputs       = [ bash netcat-openbsd ];
 
   installPhase = ''
     runHook preInstall

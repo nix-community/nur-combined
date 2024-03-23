@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   # We have to use gnu-cobol.bin because gnu-cobol doesn't properly output it's
   # binary, I think.
-  buildInputs = [ gnu-cobol.bin gmp ];
+  nativeBuildInputs = [ gnu-cobol.bin gmp ];
 
   installPhase = ''
     runHook preInstall

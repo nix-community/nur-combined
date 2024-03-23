@@ -17,4 +17,5 @@
   netcatchat       = pkgs.callPackage ./pkgs/netcatchat {};
   cobol-dvd-thingy = pkgs.callPackage ./pkgs/cobol-dvd-thingy {};
   bitmasher        = pkgs.callPackage ./pkgs/bitmasher {};
+  ilo-li-sina      = pkgs.callPackage ./pkgs/ilo-li-sina {};
 }
