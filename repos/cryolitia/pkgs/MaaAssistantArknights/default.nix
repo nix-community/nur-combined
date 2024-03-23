@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An Arknights assistant";
     homepage = "https://github.com/MaaAssistantArknights/MaaAssistantArknights";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ Cryolitia ];
     mainProgram = "maa";

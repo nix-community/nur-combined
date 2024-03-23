@@ -64,7 +64,7 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "MaaAssistantArknights GUI with Electron & Vue3";
     homepage = "https://github.com/MaaAssistantArknights/MaaX";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ Cryolitia ];
     mainProgram = "MaaX";
