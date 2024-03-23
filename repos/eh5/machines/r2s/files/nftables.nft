@@ -47,15 +47,15 @@ table inet filter {
     reject
   }
 
-  flowtable f {
-    hook ingress priority 0;
-    devices = { intern0, extern0 };
-  }
+  # flowtable f {
+  #   hook ingress priority 0;
+  #   devices = { intern0, extern0 };
+  # }
 
   # allow packets from LAN to WAN, and WAN to LAN if LAN initiated the connection
   chain forward {
     type filter hook forward priority 0; policy drop;
-    meta l4proto tcp flow add @f
+    # meta l4proto tcp flow add @f
 
     iifname { lo, intern0 } accept
 
@@ -71,12 +71,11 @@ table ip nat {
   chain prerouting {
     type nat hook prerouting priority -100; policy accept;
     iifname intern0 ip daddr $chn_ns udp dport 53 redirect
-    iifname extern0 fullcone
   }
 
   # for all packets to WAN, after routing, replace source address with primary IP of WAN interface
   chain postrouting {
     type nat hook postrouting priority 100; policy accept;
-    ip saddr 192.168.1.0/24 oifname extern0 fullcone
+    # iifname intern0 oifname extern0 meta l4proto tcp masquerade
   }
 }

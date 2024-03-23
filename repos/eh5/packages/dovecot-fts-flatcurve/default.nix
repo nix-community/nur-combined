@@ -11,14 +11,14 @@
 }:
 stdenv.mkDerivation rec {
   pname = "dovecot-fts-flatcurve";
-  version = "1.0.0";
+  version = "1.0.2";
   nativeBuildInputs = [ autoconf automake libtool ];
   buildInputs = [ dovecot icu xapian ];
   src = fetchFromGitHub {
     owner = "slusarz";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-nZFsl6Xhbcjhj1l8p0zEbsEirEiLU1CJOWAA7qLpN3g=";
+    sha256 = "sha256-SgnoXWcrs/O7Jtb8SKdX+iPp8n3ao1tO15Epr/rSDdI=";
   };
   preConfigure = ''
     autoreconf -vi

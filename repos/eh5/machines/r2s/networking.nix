@@ -59,6 +59,12 @@
   networking.firewall.enable = false;
 
   systemd.network.enable = true;
+  systemd.network.config = {
+    networkConfig = {
+      ManageForeignRoutingPolicyRules = false;
+      SpeedMeter = true;
+    };
+  };
 
   systemd.network.links."10-intern0" = {
     matchConfig.Path = "platform-ff540000.ethernet";

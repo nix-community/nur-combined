@@ -9,7 +9,7 @@
     before = lib.mkForce [ ];
     after = [ "network-online.target" ];
   };
-  networking.enableNftablesFullcone = true;
+  networking.enableNftablesFullcone = false;
 
   networking.resolvconf.useLocalResolver = true;
   services.resolved.enable = false;

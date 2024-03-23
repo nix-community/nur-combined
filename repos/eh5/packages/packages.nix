@@ -20,7 +20,7 @@ let
     qcef = callPackage ./qcef { };
     udpspeeder = callPackage ./udpspeeder {};
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
-    v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo120Module; };
+    v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo121Module; };
     vlmcsd = callPackage ./vlmcsd { };
   };
 
