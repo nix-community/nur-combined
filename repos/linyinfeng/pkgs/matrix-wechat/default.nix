@@ -34,7 +34,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A Matrix-WeChat puppeting bridge";
     homepage = "https://github.com/duo/matrix-wechat";
-    license = licenses.agpl3;
+    license = licenses.agpl3Plus;
     maintainers = with maintainers; [ yinfeng ];
     broken = !(versionAtLeast (versions.majorMinor trivial.version) "23.11");
   };

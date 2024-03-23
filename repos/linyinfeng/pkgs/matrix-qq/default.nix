@@ -35,7 +35,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A Matrix-QQ puppeting bridge";
     homepage = "https://github.com/duo/matrix-qq";
-    license = licenses.agpl3;
+    license = licenses.agpl3Plus;
     maintainers = with maintainers; [ yinfeng ];
     broken = !(lib.versionAtLeast go.version "1.20");
   };

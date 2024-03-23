@@ -52,7 +52,7 @@ mkYarnPackage rec {
   meta = with lib; {
     description = "Talk to ChatGPT via any Matrix client";
     homepage = "https://github.com/matrixgpt/matrix-chatgpt-bot";
-    license = licenses.agpl3;
+    license = licenses.agpl3Plus;
     maintainers = with maintainers; [ yinfeng ];
   };
 }
