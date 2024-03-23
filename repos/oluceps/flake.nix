@@ -29,7 +29,7 @@
         };
 
         devshells.default.devshell = {
-          packages = with pkgs;[ agenix-rekey just rage b3sum ];
+          packages = with pkgs;[ agenix-rekey just rage b3sum nushell ];
         };
 
         packages =

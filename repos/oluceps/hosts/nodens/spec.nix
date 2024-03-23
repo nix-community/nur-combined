@@ -19,11 +19,6 @@
     factorio-headless
   ];
 
-  systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
-    "nyaw.cert"
-    "nyaw.key"
-  ];
-
   systemd.services.trojan-server.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
     "nyaw.cert"
     "nyaw.key"
@@ -38,6 +33,7 @@
         (n: importService n)
     ) // {
 
+      metrics.enable = true;
       trojan-server.enable = true;
       do-agent.enable = true;
       copilot-gpt4.enable = true;

@@ -89,14 +89,14 @@
           {
             wireguardPeerConfig = {
               PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-              AllowedIPs = [ "10.0.2.2/24" ];
+              AllowedIPs = [ "10.0.2.2/16" ];
               PersistentKeepalive = 15;
             };
           }
           {
             wireguardPeerConfig = {
               PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-              AllowedIPs = [ "10.0.2.3/32" ];
+              AllowedIPs = [ "10.0.2.3/16" ];
               PersistentKeepalive = 15;
             };
           }

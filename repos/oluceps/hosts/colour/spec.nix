@@ -45,13 +45,16 @@
   ];
 
   services = (
-    let importService = n: import ../../services/${n}.nix { inherit pkgs config; }; in lib.genAttrs [
+    let importService = n: import ../../services/${n}.nix { inherit pkgs config lib; }; in lib.genAttrs [
       "openssh"
       "fail2ban"
+      "prometheus"
     ]
       (n: importService n)
   ) // {
 
+    prom-ntfy-bridge.enable = true;
+    metrics.enable = true;
     juicity.instances = [{
       name = "only";
       credentials = [

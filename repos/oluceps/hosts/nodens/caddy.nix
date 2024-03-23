@@ -1,40 +1,18 @@
-{ pkgs, config, ... }: {
+{ pkgs, lib, config, ... }: {
 
-  services.caddy = {
+  systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
+    "nyaw.cert"
+    "nyaw.key"
+  ];
+
+  repack.caddy = {
     enable = true;
-    # package = pkgs.caddy-naive;
     settings = {
-      admin = {
-        listen = "unix//tmp/caddy.sock";
-        config.persist = false;
-      };
-      # logging = {
-      #   logs = {
-      #     debug = {
-      #       level = "debug";
-      #     };
-      #   };
-      # };
       apps = {
         http = {
           servers = {
             srv0 = {
-              listen = [ ":443" ];
-              strict_sni_host = false;
-              metrics = { };
               routes = [
-
-                {
-                  match = [{
-                    host = [ config.networking.fqdn ];
-                    path = [ "/prom" "/prom/*" ];
-                  }];
-                  handle = [{
-                    handler = "reverse_proxy";
-                    upstreams = [{ dial = "10.0.1.2:9090"; }];
-                  }];
-                }
-
                 {
                   handle = [{
                     handler = "subroute";
@@ -70,26 +48,6 @@
                   }];
                   terminal = true;
                 }
-
-                {
-                  match = [{
-                    host = [ config.networking.fqdn ];
-                    path = [ "/caddy" ];
-                  }];
-                  handle = [
-                    {
-                      handler = "authentication";
-                      providers.http_basic.accounts = [{
-                        username = "prometheus";
-                        password = "$2b$05$EGDkhDEoadOvUkJujmyer.944J2Dh4U73TUtb11Z1bVZwd2rjNECO";
-                      }];
-                    }
-                    {
-                      handler = "metrics";
-                    }
-                  ];
-                }
-
                 {
                   handle = [{
                     handler = "subroute";
@@ -339,56 +297,7 @@
                   terminal = true;
                 }
               ];
-              tls_connection_policies = [{
-                certificate_selection = {
-                  any_tag = [ "cert0" ];
-                };
-                match = {
-                  sni = [ "pb.nyaw.xyz" ];
-                };
-              }
-                {
-                  certificate_selection = {
-                    any_tag = [ "cert0" ];
-                  };
-                  match = {
-                    sni = [ "nyaw.xyz" ];
-                  };
-                }
-                { }];
             };
-          };
-        };
-        tls = {
-          automation = {
-            policies = [{
-              subjects = [
-                "matrix.nyaw.xyz"
-                "vault.nyaw.xyz"
-                "pb.nyaw.xyz"
-                "nyaw.xyz"
-                "api.heartrate.nyaw.xyz"
-                config.networking.fqdn
-              ];
-            }
-              {
-                issuers = [{
-                  email = "mn1.674927211@gmail.com";
-                  module = "acme";
-                }
-                  {
-                    email = "mn1.674927211@gmail.com";
-                    module = "zerossl";
-                  }];
-                subjects = [ "ctos.magicb.uk" "magicb.uk" ];
-              }];
-          };
-          certificates = {
-            load_files = [{
-              certificate = "/run/credentials/caddy.service/nyaw.cert";
-              key = "/run/credentials/caddy.service/nyaw.key";
-              tags = [ "cert0" ];
-            }];
           };
         };
       };

@@ -86,13 +86,14 @@
   programs.dconf.enable = true;
 
   services = (
-    let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
+    let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs lib; }; in lib.genAttrs [
       "openssh"
       "mosdns"
       "fail2ban"
       "dae"
       "scrutiny"
       "ddns-go"
+      # "prometheus"
     ]
       (n: importService n)
   ) // {

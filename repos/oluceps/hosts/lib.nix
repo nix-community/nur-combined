@@ -50,11 +50,9 @@ in
 
   genFilteredDirAttrsV2 = dir: excludes:
     with inputs.nixpkgs.lib; genAttrs
-      (with builtins; filter
-        (n: !elem n excludes)
-        (map (removeSuffix ".nix")
-          (attrNames
-            (readDir dir))));
+      (subtractLists excludes
+        (with builtins; map (removeSuffix ".nix")
+          (attrNames (readDir dir))));
 
   genCredPath = config: key: (key + ":" + config.age.secrets.${key}.path);
 

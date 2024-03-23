@@ -40,6 +40,15 @@
   {
 
     # prom-ntfy-bridge.enable = true;
+    # daed = {
+    #   enable = true;
+    #   configDir = "/etc/daed";
+    #   listen = "0.0.0.0:2023";
+    #   openFirewall = {
+    #     enable = true;
+    #     port = 12345;
+    #   };
+    # };
 
     sing-box.enable = true;
     # beesd.filesystems = {
@@ -58,7 +67,7 @@
         name = "persist";
         source = "/persist";
         keep = "2day";
-        timerConfig.onCalendar = "*:0/10";
+        timerConfig.onCalendar = "*:0/3";
       }
       {
         name = "var";
