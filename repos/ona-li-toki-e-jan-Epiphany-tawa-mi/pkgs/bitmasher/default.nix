@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname   = "bitmasher";
-  version = "4.3853256532";
+  version = "5.74351224532";
   format  = "setuptools";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "BitMasher";
     rev   = "RELEASE-V${version}";
-    hash  = "sha256-VkKQ3h+cOPSdl975VTpML3C36DQBAu7yuS/+KPfCtBk=";
+    hash  = "sha256-2jZZOf3vhKVo2JvXQDsW0lpUySTGGTHNbpoxvOwiiiI=";
   };
 
   meta = with lib; {
