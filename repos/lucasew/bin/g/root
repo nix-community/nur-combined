@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+git_root="$PWD"
+while true; do
+  if [ -d "$git_root/.git" ]; then
+    echo "$git_root"
+    break
+  fi
+  git_root_next="$(realpath "$git_root/..")"
+  if [ "$git_root" == "$git_root_next" ]; then
+    echo "'$PWD' is not inside a git repo" >&2
+    exit 1
+  fi
+  git_root="$git_root_next"
+done
