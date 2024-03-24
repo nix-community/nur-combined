@@ -62,7 +62,7 @@ def getenv(key):
 def is_match(regex, text):
     "Check if regex match text"
     from re import finditer
-    m = list(finditer(regex, text))
+    m = [m for m in finditer(regex, text) if m.group() != ""]
     return len(m) != 0
 
 @define_command()
@@ -347,7 +347,7 @@ def simplex(num_vars, obj_type, obj, *restrictions):
     return s.solution
 
 @define_command()
-def pad_bin(number, zfill = 8):
+def pad_bin(number: int, zfill = 8):
     "Pad a binary number"
     return bin(number).__str__()[2:].zfill(zfill)
 
