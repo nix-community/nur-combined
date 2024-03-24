@@ -17,6 +17,7 @@ jobs:
       matrix:
         arch:
           - x86_64
+          # error: Package ‘jasper-4.2.2’ in /nix/store/v11jg47gprsyk91hyynwsam4jga3pavh-source/pkgs/by-name/ja/jasper/package.nix:60 is marked as broken, refusing to evaluate.
           # - aarch64
         nixPath:
           - nixpkgs=channel:nixos-unstable
@@ -68,7 +69,6 @@ jobs:
       uses: DeterminateSystems/magic-nix-cache-action@v4
     - name: Check evaluation
       run: |
-        nix flake update
         nix-env -f . -qa \* --meta --xml \
           --allowed-uris https://static.rust-lang.org \
           --option restrict-eval true \
@@ -79,6 +79,9 @@ jobs:
     - name: Build x86_64 nix packages
       if: ${{ matrix.arch == 'x86_64' }}
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Build x86_64 CUDA nix packages
+      if: ${{ matrix.arch == 'x86_64' }}
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci_cuda.nix -A cacheOutputs
     - name: Build aarch64 nix packages
       if: ${{ matrix.arch == 'aarch64' }}
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci_aarch64.nix -A cacheOutputs

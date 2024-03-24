@@ -12,6 +12,7 @@
 { pkgs ? import <nixpkgs> {
     config = {
       allowUnfree = true;
+      supportCUDA = true;
       # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
       cudaCapabilities = [ "8.6" ];
       cudaEnableForwardCompat = false;

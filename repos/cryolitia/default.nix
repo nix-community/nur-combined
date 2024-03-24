@@ -16,26 +16,18 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  # MaaAssistantArknights = pkgs.callPackage ./pkgs/MaaAssistantArknights { };
+  maa-assistant-arknights = pkgs.callPackage ./pkgs/maa-assistant-arknights { };
 
-  # MaaAssistantArknights-cuda = MaaAssistantArknights.override {
-  #   cudaSupport = true;
-  # };
-
-  # MaaAssistantArknights-beta = MaaAssistantArknights.override {
+  # maa-assistant-arknights-beta = maa-assistant-arknights.override {
   #   maaVersion = "4.28.0";
   #   maaSourceHash = "sha256-SKPKFD70wwmBXqolh8eLmHbL1ckDORiAH+LFBjC+o1A=";
   # };
 
-  # MaaAssistantArknights-beta-cuda = MaaAssistantArknights-beta.override {
-  #   cudaSupport = true;
-  # };
-
-  # onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/MaaAssistantArknights/onnxruntime-cuda-bin.nix { };
+  onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/maa-assistant-arknights/onnxruntime-cuda-bin.nix { };
 
   MaaX = pkgs.callPackage ./pkgs/MaaX { };
 
-  maa-cli = pkgs.callPackage ./pkgs/MaaAssistantArknights/maa-cli.nix { };
+  maa-cli = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-cli.nix { inherit maa-assistant-arknights; };
 
   rime-latex = pkgs.callPackage ./pkgs/rimePackages/rime-latex.nix { };
 

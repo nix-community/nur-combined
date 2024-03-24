@@ -1,4 +1,4 @@
-{ stdenv
+{ stdenvNoCC
 , pkgs
 , lib
 , fetchurl
@@ -22,7 +22,7 @@ let
 
   cuda = import ../common/cuda.nix { inherit cudaPackages; inherit symlinkJoin; };
 
-in stdenv.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
 
   pname = "onnxruntime-cuda-bin";
   version = ver;
@@ -59,6 +59,7 @@ in stdenv.mkDerivation rec {
 
   meta = pkgs.onnxruntime.meta // (with lib; {
     platforms = [ "x86_64-linux" ];
+    broken = stdenvNoCC.hostPlatform.system != "x86_64-linux";
   });
 
 }
