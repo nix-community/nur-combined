@@ -3,7 +3,7 @@
 , fetchurl
 , dpkg
 , makeWrapper
-, electron_25
+, electron_27
 }:
 
 stdenv.mkDerivation rec {
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    makeWrapper ${electron_25}/bin/electron $out/bin/zhiximind-desktop \
+    makeWrapper ${electron_27}/bin/electron $out/bin/zhiximind-desktop \
       --add-flags $out/share/${pname}/resources/app.asar \
       --prefix LD_LIBRARY_PATH : "${
         lib.makeLibraryPath [ stdenv.cc.cc ]

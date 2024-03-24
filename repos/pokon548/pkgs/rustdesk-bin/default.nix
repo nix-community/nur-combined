@@ -5,11 +5,14 @@ let
   version = "1.2.3";
   name = "Rustdesk-${version}";
 
-  src = fetchurl {
-    url =
-      "https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.AppImage";
-    sha256 = "sha256-MJqb50K8Y3mAZOcS0OuHRZh9VfdvMqjZniCJ26eweV4=";
-  };
+  src = lib.warn
+    "${name} from pokon548's NUR is deprecated and will be removed from NUR repo soon. Migrate by changing nur.repos.pokon548.${pname} to pkgs.rustdesk-flutter"
+    fetchurl
+    {
+      url =
+        "https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.AppImage";
+      sha256 = "sha256-MJqb50K8Y3mAZOcS0OuHRZh9VfdvMqjZniCJ26eweV4=";
+    };
 
   appimageContents = appimageTools.extract { inherit name src; };
 
@@ -35,6 +38,6 @@ appimageTools.wrapType2 {
     description =
       "An open-source remote desktop, and alternative to TeamViewer.";
     platforms = [ "x86_64-linux" ];
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
   };
 }
