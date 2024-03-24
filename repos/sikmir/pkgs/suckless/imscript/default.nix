@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "A collection of small and standalone utilities for image processing";
     homepage = "http://gabarro.org/ccn/itut/i.html";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };

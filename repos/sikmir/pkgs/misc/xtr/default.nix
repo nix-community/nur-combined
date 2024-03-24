@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Translation tools for rust";
     inherit (src.meta) homepage;
-    license = with licenses; [ agpl3 mit ];
+    license = with licenses; [ agpl3Only mit ];
     maintainers = [ maintainers.sikmir ];
     mainProgram = "xtr";
   };

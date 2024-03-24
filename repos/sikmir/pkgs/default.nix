@@ -509,6 +509,7 @@ lib.makeScope newScope (
     ### RADIO
 
     acarsdec = callPackage ./radio/acarsdec { };
+    ais-catcher = callPackage ./radio/ais-catcher { };
     aprsc = callPackage ./radio/aprsc { };
     dumphfdl = callPackage ./radio/dumphfdl { };
     dumpvdl2 = callPackage ./radio/dumpvdl2 {
@@ -519,6 +520,7 @@ lib.makeScope newScope (
     gqrx-scanner = callPackage ./radio/gqrx-scanner { };
     libacars = callPackage ./radio/libacars { };
     linrad = callPackage ./radio/linrad { };
+    radiolib = callPackage ./radio/radiolib { };
     rtlsdr-airband = callPackage ./radio/rtlsdr-airband { };
     rtltcp = callPackage ./radio/rtltcp { };
     sdr-modem = callPackage ./radio/sdr-modem { };

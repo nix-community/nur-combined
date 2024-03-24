@@ -29,7 +29,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "A feed aggregator for gemini supporting many formats and protocols";
     homepage = "https://git.nytpu.com/comitium/about/";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     maintainers = [ maintainers.sikmir ];
   };
 }
