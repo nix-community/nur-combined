@@ -4,6 +4,6 @@
   "site_name": "Welcome to LWN.net [LWN.net]",
   "site_url": "https://lwn.net",
   "title": "LWN.net",
-  "url": "https://lwn.net/headlines/newrss",
-  "velocity": 4.583
+  "url": "https://lwn.net/headlines/rss",
+  "velocity": 3.281
 }

@@ -14,14 +14,9 @@
     sandbox.whitelistWayland = true;
     sandbox.whitelistDbus = [ "user" ];  #< so that it can in theory open the image viewer using fdo portal... but it doesn't :|
     sandbox.extraHomePaths = [
+      ".config/dconf"  #< else it segfaults during post-process
       # ".config/megapixels"
-      # ".config/xcb"
-      # ".xcb"
       ".local/share/applications"  #< needed for viewing photos, until i can sort out the portal stuff
-      # ".local/share/icons"
-      # ".icons"  #< actually needed!
-      # ".themes"
-      # ".nix-profile"
       ".cache/mesa_shader_cache"  # loads way faster
       "tmp"
       "Pictures"  #< TODO: make this Pictures/Photos and save photos there

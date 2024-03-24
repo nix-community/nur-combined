@@ -12,11 +12,13 @@
     sandbox.wrapperType = "inplace";  # /share/epiphany/default-bookmarks.rdf refers back to /share; dbus files to /libexec
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
+    sandbox.whitelistDbus = [ "user" ];  #< silently fails to start without it.
     # default sandboxing breaks rendering in weird ways. sites are super zoomed in / not scaled.
     # enabling DRI/DRM (as below) seems to fix that.
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
+      ".config/dconf"  # else will always prompt "make default browser?"
       ".config/epiphany"  #< else it gets angry at launch
       "tmp"
     ];

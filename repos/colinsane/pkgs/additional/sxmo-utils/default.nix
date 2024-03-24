@@ -1,3 +1,6 @@
+# THIS PACKAGE IS NOT MAINTAINED.
+# see the note at the bottom for more details
+#
 { stdenv
 , bash
 , bc
@@ -244,7 +247,13 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~mil/sxmo-utils";
     description = "Contains the scripts and small C programs that glues the sxmo enviroment together";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ colinsane ];
-    platforms = lib.platforms.linux; 
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [
+      # THIS PACKAGE IS NOT MAINTAINED.
+      # if you would like to take over maintainership, message me and i will redirect users to your repository.
+      # - colin@uninsane.org  (email)
+      # - @colin:uninsane.org (matrix)
+    ];
+    broken = true;  # TODO: patch configs/external-services the same way as configs/services
   };
 }

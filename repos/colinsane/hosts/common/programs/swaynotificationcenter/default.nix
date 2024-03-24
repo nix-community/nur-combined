@@ -18,8 +18,6 @@
 let
   cfg = config.sane.programs.swaynotificationcenter;
 
-  mprisIconSize = 48;
-
   fbcli-wrapper = pkgs.writeShellApplication {
     name = "swaync-fbcli";
     runtimeInputs = [
@@ -131,14 +129,7 @@ in
     };
 
     # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
-    packageUnwrapped = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
-      postPatch = (upstream.postPatch or "") + ''
-        # XXX: this might actually be changing the DPI, not the scaling...
-        # in that case, it might be possible to do this in CSS
-        substituteInPlace src/controlCenter/widgets/mpris/mpris_player.ui \
-          --replace '96' '${builtins.toString mprisIconSize}'
-      '';
-    }));
+    packageUnwrapped = pkgs.rmDbusServices pkgs.swaynotificationcenter;
 
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
@@ -179,34 +170,7 @@ in
 
     suggestedPrograms = [ "feedbackd" ];
 
-    fs.".config/swaync/style.css".symlink.text = ''
-      /* these color definitions are used by the built-in style */
-      /* noti-bg defaults `rgb(48, 48, 48)` and is the default button/slider/grid background */
-      @define-color noti-bg rgb(36, 36, 36);
-      @define-color noti-bg-darker rgb(24, 24, 24);
-
-      /* avoid black-on-black text that the default style ships */
-      window {
-        color: rgb(255, 255, 255);
-      }
-
-      /* window behind entire control center. defaults to 25% opacity. */
-      .blank-window {
-        background: rgba(0, 0, 0, 0.5);
-      }
-
-      .widget-buttons-grid>flowbox>flowboxchild>button.toggle {
-        /* text color for inactive buttons, and "Clear All" button.*/
-        color: rgb(172, 172, 172);
-        /* padding defaults to 16px; tighten, so i can squish it all onto one row */
-        padding-left: 0px;
-        padding-right: 0px;
-      }
-      .widget-buttons-grid>flowbox>flowboxchild>button.toggle.active {
-        color: rgb(255, 255, 255);
-        background-color: rgb(0, 110, 190);
-      }
-    '';
+    fs.".config/swaync/style.css".symlink.target = ./style.css;
     fs.".config/swaync/config.json".symlink.text = builtins.toJSON {
       "$schema" = "/etc/xdg/swaync/configSchema.json";
       positionX = "right";
@@ -229,12 +193,14 @@ in
       timeout-critical = 0;
       fit-to-screen = true;  #< have notification center take full vertical screen space
       # control-center-width:
-      # - for SXMO_SWAY_SCALE=1.8 => 400
-      # - for SXMO_SWAY_SCALE=1.6 => 450
+      # pinephone native display is 720 x 1440
+      # - for compositor scale=2.0 => 360
+      # - for compositor scale=1.8 => 400
+      # - for compositor scale=1.6 => 450
       # if it's set to something wider than the screen, then it overflows and items aren't visible.
-      control-center-width = 450;
+      control-center-width = 360;
       control-center-height = 600;
-      notification-window-width = 400;
+      notification-window-width = 360;
       keyboard-shortcuts = true;
       image-visibility = "when-available";
       transition-time = 100;
@@ -284,7 +250,7 @@ in
 
         incoming-im-known-app-name = {
           # trigger notification sound on behalf of these IM clients.
-          app-name = "(Chats|Dino|discord|Element|Fractal|gtkcord4)";
+          app-name = "(Chats|Dino|discord|dissent|Element|Fractal)";
           body = "^(?!Incoming call).*$";  #< don't match Dino Incoming calls
           exec = "${fbcli} --event proxied-message-new-instant";
         };
@@ -437,7 +403,7 @@ in
               active = true;
             }
           # ] ++ lib.optionals config.sane.programs.abaddon.enabled [
-          #   # XXX: disabled in favor of gtkcord4: abaddon has troubles auto-connecting at start
+          #   # XXX: disabled in favor of dissent: abaddon has troubles auto-connecting at start
           #   {
           #     type = "toggle";
           #     label = "󰊴";  # Discord chat client; icons: 󰊴, 🎮
@@ -445,12 +411,12 @@ in
           #     update-command = "${printIsActive}/bin/print-is-active --user abaddon";
           #     active = true;
           #   }
-          ] ++ lib.optionals config.sane.programs.gtkcord4.enabled [
+          ] ++ lib.optionals config.sane.programs.dissent.enabled [
             {
               type = "toggle";
               label = "󰊴";  # Discord chat client; icons: 󰊴, 🎮
-              command = "${systemctl-toggle}/bin/systemctl-toggle --user gtkcord4";
-              update-command = "${printIsActive}/bin/print-is-active --user gtkcord4";
+              command = "${systemctl-toggle}/bin/systemctl-toggle --user dissent";
+              update-command = "${printIsActive}/bin/print-is-active --user dissent";
               active = true;
             }
           ] ++ lib.optionals config.sane.programs.signal-desktop.enabled [
@@ -488,7 +454,7 @@ in
           clear-all-button = true;
         };
         mpris = {
-          image-size = mprisIconSize;
+          image-size = 48;
           image-radius = 8;
         };
         title = {
@@ -505,18 +471,11 @@ in
       # swaync ships its own service, but i want to add `environment` variables and flags for easier debugging.
       # seems that's not possible without defining an entire nix-native service (i.e. this).
       description = "swaynotificationcenter (swaync) desktop notification daemon";
-      after = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
+      depends = [ "sound" ]; #< TODO: else it will NEVER see the pulse socket in its sandbox
+      partOf = [ "graphical-session" ];
 
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/swaync";
-        Type = "simple";
-        # BusName = "org.freedesktop.Notifications";
-        Restart = "on-failure";
-        RestartSec = "10s";
-      };
-      environment.G_MESSAGES_DEBUG = "all";
+      command = "env G_MESSAGES_DEBUG=all swaync";
+      readiness.waitDbus = "org.freedesktop.Notifications";
     };
   };
 

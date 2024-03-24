@@ -1,14 +1,12 @@
-{ config, lib, pkgs, ... }:
-let
-  cfg = config.sane.programs.gnome-keyring;
-in
+{ lib, pkgs, ... }:
 {
   sane.programs.gnome-keyring = {
     packageUnwrapped = pkgs.rmDbusServices pkgs.gnome.gnome-keyring;
     sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];
     sandbox.extraRuntimePaths = [
-      "keyring/control"
+      "keyring"  #< only needs keyring/control, but has to *create* that.
+      # "keyring/control"
     ];
     sandbox.capabilities = [
       # ipc_lock: used to `mlock` the secrets so they don't get swapped out.
@@ -28,9 +26,9 @@ in
     fs.".local/share/keyrings/default" = {
       file.text = "Default_keyring.keyring";  #< no trailing newline
       # wantedBy = [ config.sane.fs."${config.sane.persist.stores.private.origin}".unit ];
-      wantedBeforeBy = [  #< don't create this as part of `multi-user.target`
-        "gnome-keyring.service"  # TODO: sane.programs should declare this dependency for us
-      ];
+      # wantedBeforeBy = [  #< don't create this as part of `multi-user.target`
+      #   "gnome-keyring.service"  # TODO: sane.programs should declare this dependency for us
+      # ];
     };
     # N.B.: certain keyring names have special significance
     # `login.keyring` is forcibly encrypted to the user's password, so that pam gnome-keyring can unlock it on login.
@@ -43,21 +41,20 @@ in
         lock-after=false
       '';
       # wantedBy = [ config.sane.fs."${config.sane.persist.stores.private.origin}".unit ];
-      wantedBeforeBy = [  #< don't create this as part of `multi-user.target`
-        "gnome-keyring.service"
-      ];
+      # wantedBeforeBy = [  #< don't create this as part of `multi-user.target`
+      #   "gnome-keyring.service"
+      # ];
     };
 
     services.gnome-keyring = {
       description = "gnome-keyring-daemon: secret provider";
-      after = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/gnome-keyring-daemon --start --foreground --components=secrets";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "20s";
-      };
+      partOf = [ "graphical-session" ];
+      command = let
+        gkr-start = pkgs.writeShellScriptBin "gnome-keyring-daemon-start" ''
+          mkdir -m 0700 -p $XDG_RUNTIME_DIR/keyring
+          exec gnome-keyring-daemon --start --foreground --components=secrets
+        '';
+      in "${gkr-start}/bin/gnome-keyring-daemon-start";
     };
   };
 }

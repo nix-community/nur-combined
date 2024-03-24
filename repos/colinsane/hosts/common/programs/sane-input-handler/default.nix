@@ -88,7 +88,7 @@ in
       pname = "sane-input-handler";
       srcRoot = ./.;
       pkgs = {
-        inherit (pkgs) coreutils killall playerctl procps sane-open-desktop util-linux wireplumber wvkbd;
+        inherit (pkgs) coreutils killall playerctl procps sane-open-desktop util-linux wireplumber;
         sway = config.sane.programs.sway.package.sway-unwrapped;
       };
     };
@@ -105,7 +105,7 @@ in
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  #< to launch applications
-    sandbox.extraRuntimePaths = [ "sway-ipc.sock" ];
+    sandbox.extraRuntimePaths = [ "sway" ];
     sandbox.extraConfig = [
       "--sane-sandbox-keep-namespace" "pid"
     ];
@@ -127,12 +127,7 @@ in
   #     after = [ "graphical-session.target" ];
   #     wantedBy = [ "graphical-session.target" ];
 
-  #     serviceConfig = {
-  #       ExecStart = "${config.sane.programs.actkbd.package}/bin/actkbd -c /home/colin/.config/actkbd/actkbd.conf";
-  #       Type = "simple";
-  #       Restart = "always";
-  #       RestartSec = "5s";
-  #     };
+  #     serviceConfig.ExecStart = "${config.sane.programs.actkbd.package}/bin/actkbd -c /home/colin/.config/actkbd/actkbd.conf";
   #   };
   # };
 
@@ -149,6 +144,9 @@ in
     power_pressed.power_released.timeout.trigger = "powerbutton_one";
     power_pressed.power_released.timeout.ms = 300;
     power_pressed.power_released.power_pressed.trigger = "powerbutton_two";
+    # map power (short) -> volup/voldown
+    power_pressed.power_released.volup_pressed.trigger = "powerbutton_volup";
+    power_pressed.power_released.voldown_pressed.trigger = "powerbutton_voldown";
 
     # map: volume taps and holds
     volup_pressed = (recurseHold "volup" {}) // {

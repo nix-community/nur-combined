@@ -1,0 +1,109 @@
+/* foreground (text)/background */
+@define-color fg0       #d8d8d8;
+@define-color fg1       #ffffff;
+@define-color bg0       #130c0c;
+@define-color bg1       #1c1716;
+/* green accents */
+@define-color accent-g0 #1f5e54;
+@define-color accent-g1 #418379;
+@define-color accent-g2 #5b938a;
+/* red accents */
+@define-color accent-r0 #c96262;
+@define-color accent-r1 #d27871;
+@define-color accent-r2 #ff8080;
+/* light (teal-white) accents */
+@define-color accent-l0 #e1f0ef;
+@define-color accent-l1 #f9fffc;
+
+* {
+  /* disable box shadows on e.g. buttons, sliders, as they tend to just look like graphical glitches */
+  border-width: 0px;
+  background: none;
+}
+.control-center {
+  background-color: alpha(@bg1, 0.95);
+}
+
+.blank-window {
+  /* dim the entire screen, not just what's behind the control center */
+  background: alpha(@bg0, 0.2);
+}
+
+button {
+  border-width: 2px;
+  border-color: alpha(@bg1, 0.9);
+  color: @fg0;
+  background-color: @bg0;
+  box-shadow: none;
+}
+button:checked {
+  color: @fg1;
+  background-color: @accent-r1;
+  border-color: alpha(@bg1, 0.1);
+}
+
+.widget-mpris-player {
+  box-shadow: 0 0 6px alpha(@bg0, 0.8);
+}
+.widget-mpris-album-art {
+  box-shadow: none;
+}
+
+.widget-mpris > .horizontal > button {
+  background: none;
+  border: none;
+}
+
+.widget-buttons-grid button.toggle {
+  /* text color for inactive buttons, and "Clear All" button.*/
+  /* padding defaults to 16px; tighten, so i can squish it all onto one row */
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.widget-buttons-grid, .widget-backlight, .widget-volume {
+  /* default padding is 8px: tighten */
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* hierarchy is .horizontal > {label, scale > contents > trough > { slider, highlight } } */
+scale {
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+scale trough {
+  padding-left: 9px;
+  padding-right: 9px;
+  border-radius: 9px;
+  background: @bg0;
+}
+scale highlight {
+  border-radius: 9px;
+  margin: 0px;
+  margin-left: -9px;
+  background: @accent-r1;
+}
+scale slider {
+  margin-top: -3px;
+  margin-bottom: -3px;
+  background: @accent-l1;
+  min-height: 25px;
+  min-width: 25px;
+}
+switch {
+  background: @bg0;
+}
+switch:checked {
+  background: @accent-r1;
+}
+switch slider {
+  background: @accent-l1;
+}
+
+.notification {
+  background: alpha(@bg0, 0.8);
+  border-width: 2px;
+  border-color: alpha(@bg1, 0.8);
+}

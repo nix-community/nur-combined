@@ -57,10 +57,10 @@ let
         domain = "gitlab.gnome.org";
         owner = "GNOME";
         repo = "fractal";
-        rev = "6";
-        hash = "sha256-J4Jb7G5Rfou3N7mytetIdLl0dGY5dSvTjnu8aj4kWXQ=";
-        # rev = "5";
-        # hash = "sha256-XHb8HjQ5PDL2sen6qUivDllvYEhKnp1vQynD2Lksi30=";
+        # rev = "6";
+        # hash = "sha256-J4Jb7G5Rfou3N7mytetIdLl0dGY5dSvTjnu8aj4kWXQ=";
+        rev = "8489c25e4b2433642e63fe263fc0145a96e0b9aa";  # 6-unstable-2024-01-31; last commit before libadwaita 1.5
+        hash = "sha256-SZjVQz3gHAJoxhjfq0N7UHs/0MVx8de4FVGxQ5ZJ7sg=";
       };
       codegenUnits = 256;  #< this does get plumbed, but doesn't seem to affect build speed
       outputs = [ "out" ];  # default is "out" and "lib", but that somehow causes cycles

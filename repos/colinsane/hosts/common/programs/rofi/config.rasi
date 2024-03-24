@@ -106,10 +106,12 @@ window {
   /* 520px @ font size 20 gives 13 rows + filter */
   /* 482px @ font size 20 gives 12 rows + filter */
   /* 446px @ font size 20 gives 11 rows + filter */
-  height: calc(446 min 88.8%);
+  /* 90.5% @ font size 20, sway scale 2.0, moby in landscape mode: gives 7 rows + filter */
+  height: calc(446 min 90.5%);
 
   /* anchor the *north* edge of the window at the *north* location of the screen */
   anchor: north;
   location: north;
+  /* 11.2% lines up nicely with Firefox */
   y-offset: 11.2%;
 }

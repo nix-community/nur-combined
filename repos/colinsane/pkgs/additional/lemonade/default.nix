@@ -25,22 +25,22 @@ let
 in
 stdenv.mkDerivation (final: with final; {
   pname = "lemonade";
-  version = "2023.10.29";
+  version = "2024.03.20";
 
   src = fetchFromGitHub {
     owner = "mdwalters";
     repo = "lemonade";
     rev = version;
-    hash = "sha256-E5NDkyChaH/iQSWxWuwNWQQtWELF9tPLMWiJB7j4F4Y=";
+    hash = "sha256-D9V14icURNc+U/GrPjIrCnVBrCw9v4GBmLtaMQABolA=";
   };
 
   postPatch = ''
     # see: <https://github.com/mdwalters/lemonade/issues/9>
     substituteInPlace src/main.py \
-      --replace \
+      --replace-fail \
         "{os.environ['XDG_RUNTIME_DIR']}/app/ml.mdwalters.Lemonade/cache" \
         "{os.environ['HOME']}/.cache/ml.mdwalters.Lemonade" \
-      --replace \
+      --replace-fail \
         'os.path.join(f"{os.environ['"'"'XDG_RUNTIME_DIR'"'"']}/app/ml.mdwalters.Lemonade", "cache")' \
         'os.path.join(f"{os.environ['"'"'HOME'"'"']}/.cache", "ml.mdwalters.Lemonade")'
   '';

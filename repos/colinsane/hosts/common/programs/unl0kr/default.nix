@@ -119,15 +119,28 @@ in
       };
     };
 
-    # lib.mkAfter so that launching the DE happens *after* any other .profile setup.
-    # alternatively, we could recurse: exec a new login shell with some env-var signalling to not launch the DE,
-    #   run with `-c "{cfg.afterLogin}"`
-    fs.".profile".symlink.text = lib.mkAfter ''
-      # if already running a desktop environment, or if running from ssh, then `tty` will show /dev/pts/NN.
-      if [ "$(tty)" = "/dev/${tty}" ]; then
-        ${tryLaunchDefaultDesktop}/bin/tryLaunchDefaultDesktop
-      fi
-    '';
+    fs.".profile".symlink.text = lib.mkMerge [
+      (lib.mkBefore ''
+        primarySessionCommands=()
+        initPrimarySession() {
+          for c in "''${primarySessionCommands[@]}"; do
+            eval "$c"
+          done
+        }
+      '')
+      # lib.mkAfter so that launching the DE happens *after* any other .profile setup.
+      (lib.mkAfter ''
+        # if already running a desktop environment, or if running from ssh, then `tty` will show /dev/pts/NN.
+        if [ "$(tty)" = "/dev/${tty}" ]; then
+          if (( ''${#primarySessionCommands[@]} )); then
+            echo "launching primary session commands in ${builtins.toString cfg.config.delay}s: ''${primarySessionCommands[*]}"
+            # if the `sleep` call here is `Ctrl+C'd`, then it'll exit false and the desktop isn't launched.
+            sleep ${builtins.toString cfg.config.delay} && \
+              initPrimarySession
+          fi
+        fi
+      '')
+    ];
 
     # N.B.: this sandboxing applies to `unl0kr` itself -- the on-screen-keyboard;
     #       NOT to the wrapper which invokes `login`.

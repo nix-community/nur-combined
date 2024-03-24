@@ -91,7 +91,6 @@ in
         speedFactor = 2;
         supportedFeatures = [
           # "big-parallel"  # it can't reliably build webkitgtk
-          "no-binfmt"
         ];
         mandatoryFeatures = [ ];
         sshUser = "nixremote";

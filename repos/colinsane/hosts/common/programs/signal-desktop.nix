@@ -46,18 +46,11 @@ in
 
     services.signal-desktop = {
       description = "signal-desktop Signal Messenger client";
-      after = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];
-      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
+      # depends = [ "graphical-session" ];
+      partOf = lib.mkIf cfg.config.autostart [ "graphical-session" ];
 
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/signal-desktop";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "20s";
-      };
       # for some reason the --ozone-platform-hint=auto flag fails when signal-desktop is launched from a service
-      environment.NIXOS_OZONE_WL = "1";
+      command = "env NIXOS_OZONE_WL=1 signal-desktop";
     };
   };
 }

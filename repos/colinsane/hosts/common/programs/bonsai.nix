@@ -118,18 +118,9 @@ in
 
     services.bonsaid = {
       description = "bonsai: programmable input dispatcher";
-      after = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-
-      script = ''
-        ${pkgs.coreutils}/bin/rm -f $XDG_RUNTIME_DIR/bonsai
-        exec ${cfg.package}/bin/bonsaid -t ${cfg.config.configFile}
-      '';
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "5s";
-      };
+      partOf = [ "graphical-session" ];
+      command = "bonsaid -t ${cfg.config.configFile}";
+      cleanupCommand = "rm -f $XDG_RUNTIME_DIR/bonsai";
     };
   };
 }

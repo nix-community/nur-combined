@@ -90,7 +90,7 @@ in
     ];
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [
-      "sway-ipc.sock"
+      "sway"
       # "sxmo_status"  #< only necessary if relying on sxmo's statusbar periodicals service
     ];
     sandbox.extraPaths = [
@@ -115,17 +115,10 @@ in
 
     services.waybar = {
       description = "swaybar graphical header bar/tray for sway";
-      after = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session" ];
 
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/waybar";
-        Type = "simple";
-        Restart = "on-failure";
-        RestartSec = "10s";
-      };
-      # environment.G_MESSAGES_DEBUG = "all";
+      # env G_MESSAGES_DEBUG=all
+      command = "waybar";
     };
   };
 }

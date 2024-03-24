@@ -60,6 +60,7 @@ in
     "delfin"  # Jellyfin client
     "dialect"  # language translation
     "dino"  # XMPP client
+    "dissent"  # Discord client (formerly known as: gtkcord4)
     # "emote"
     # "evince"  # PDF viewer
     # "flare-signal"  # gtk4 signal client
@@ -82,7 +83,6 @@ in
     "gnome-frog"  # OCR/QR decoder
     "gpodder"
     # "gthumb"
-    "gtkcord4"  # Discord client. 2023/11/21: disabled because v0.0.12 leaks memory
     # "lemoa"  # lemmy app
     "libnotify"  # for notify-send; debugging
     # "lollypop"
@@ -171,9 +171,9 @@ in
       "spotify"  # x86-only
       "steam"
       "tor-browser"  # x86-only
-      "vlc"
+      # "vlc"
       "wireshark"  # could maybe ship the cli as sysadmin pkg
-      "xterm"  # requires Xwayland
+      # "xterm"  # requires Xwayland
       # "zecwallet-lite"  # x86-only
     ]
   );

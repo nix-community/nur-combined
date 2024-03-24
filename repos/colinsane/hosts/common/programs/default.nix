@@ -10,6 +10,7 @@
     ./assorted.nix
     ./audacity.nix
     ./bemenu.nix
+    ./blast-ugjka
     ./bonsai.nix
     ./brave.nix
     ./bubblewrap.nix
@@ -21,11 +22,14 @@
     ./conky
     ./cozy.nix
     ./dconf.nix
+    ./deadd-notification-center
     ./dialect.nix
     ./dino.nix
+    ./dissent.nix
     ./element-desktop.nix
     ./epiphany.nix
     ./evince.nix
+    ./fcitx5.nix
     ./feedbackd.nix
     ./firefox.nix
     ./firejail.nix
@@ -47,7 +51,6 @@
     ./gpodder.nix
     ./grimshot.nix
     ./gthumb.nix
-    ./gtkcord4.nix
     ./handbrake.nix
     ./helix.nix
     ./imagemagick.nix
@@ -64,7 +67,7 @@
     ./mepo.nix
     ./mimeo
     ./mopidy.nix
-    ./mpv.nix
+    ./mpv
     ./msmtp.nix
     ./nautilus.nix
     ./neovim.nix
@@ -84,9 +87,11 @@
     ./rhythmbox.nix
     ./ripgrep.nix
     ./rofi
+    ./s6-rc.nix
     ./sane-input-handler
     ./sane-screenshot.nix
     ./sane-scripts.nix
+    ./schlock.nix
     ./sfeed.nix
     ./signal-desktop.nix
     ./splatmoji.nix
@@ -99,8 +104,10 @@
     ./supertuxkart.nix
     ./sway
     ./sway-autoscaler
+    ./swayidle.nix
     ./swaylock.nix
-    ./swaynotificationcenter.nix
+    ./swaynotificationcenter
+    ./sysvol.nix
     ./tangram.nix
     ./tor-browser.nix
     ./tuba.nix
@@ -112,7 +119,6 @@
     ./wine.nix
     ./wireplumber.nix
     ./wireshark.nix
-    ./wob
     ./wvkbd.nix
     ./xarchiver.nix
     ./xdg-desktop-portal.nix
@@ -126,9 +132,6 @@
     ./zsh
   ];
 
-  config = {
-    # XXX: this might not be necessary. try removing this and cacert.unbundled (servo)?
-    environment.etc."ssl/certs".source = "${pkgs.cacert.unbundled}/etc/ssl/certs/*";
-
-  };
+  # XXX: this might not be necessary. try removing this and cacert.unbundled (servo)?
+  environment.etc."ssl/certs".source = "${pkgs.cacert.unbundled}/etc/ssl/certs/*";
 }

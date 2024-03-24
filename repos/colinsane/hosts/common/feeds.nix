@@ -121,6 +121,7 @@ let
   texts = [
     (fromDb "acoup.blog/feed")  # history, states. author: <https://historians.social/@bretdevereaux/following>
     (fromDb "amosbbatto.wordpress.com" // tech)
+    (fromDb "anish.lakhwara.com" // tech)
     (fromDb "applieddivinitystudies.com" // rat)
     (fromDb "artemis.sh" // tech)
     (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
@@ -161,6 +162,7 @@ let
     (fromDb "palladiummag.com" // uncat)
     (fromDb "philosopher.coach" // rat)  # Peter Saint-Andre -- side project of stpeter.im
     (fromDb "pomeroyb.com" // tech)
+    (fromDb "postmarketos.org/blog" // tech)
     (fromDb "preposterousuniverse.com" // rat)  # Sean Carroll
     (fromDb "profectusmag.com" // uncat)
     (fromDb "project-insanity.org" // tech)  # shared blog by a few NixOS devs, notably onny
@@ -172,9 +174,11 @@ let
     (fromDb "sagacioussuricata.com" // tech)  # ian (Sanctuary)
     (fromDb "semiaccurate.com" // tech)
     (fromDb "sideways-view.com" // rat)  # Paul Christiano
+    (fromDb "slatecave.net" // tech)
     (fromDb "slimemoldtimemold.com" // rat)
     (fromDb "spectrum.ieee.org" // tech)
     (fromDb "stpeter.im/atom.xml" // pol)
+    (fromDb "thediff.co" // pol)  # Byrne Hobart
     # (fromDb "theregister.com" // tech)
     (fromDb "thisweek.gnome.org" // tech)
     (fromDb "tuxphones.com" // tech)
@@ -182,17 +186,15 @@ let
     (fromDb "unintendedconsequenc.es" // rat)
     # (fromDb "vitalik.ca" // tech)  # moved to vitalik.eth.limo
     (fromDb "vitalik.eth.limo" // tech)  # Vitalik Buterin
-    (fromDb "webcurious.co.uk" // uncat)
+    # (fromDb "webcurious.co.uk" // uncat)  # link aggregator; defunct?
     (fromDb "xn--gckvb8fzb.com" // tech)
     (mkSubstack "astralcodexten" // rat // daily)  # Scott Alexander
-    (mkSubstack "byrnehobart" // pol // infrequent)
     # (mkSubstack "doomberg" // tech // weekly)  # articles are all pay-walled
     (mkSubstack "eliqian" // rat // weekly)
     (mkSubstack "oversharing" // pol // daily)
     (mkSubstack "samkriss" // humor // infrequent)
     (mkText "http://benjaminrosshoffman.com/feed" // pol // weekly)
     (mkText "http://boginjr.com/feed" // tech // infrequent)
-    (mkText "https://anish.lakhwara.com/home.html" // tech // weekly)
     (mkText "https://forum.merveilles.town/rss.xml" // pol // infrequent)  #quality RSS list here: <https://forum.merveilles.town/thread/57/share-your-rss-feeds%21-6/>
     # (mkText "https://github.com/Kaiteki-Fedi/Kaiteki/commits/master.atom" // tech // infrequent)
     (mkText "https://jvns.ca/atom.xml" // tech // weekly)  # Julia Evans
@@ -211,6 +213,7 @@ let
     (fromDb "youtube.com/@Exurb1a")
     (fromDb "youtube.com/@hbomberguy")
     (fromDb "youtube.com/@JackStauber")
+    (fromDb "youtube.com/@NativLang")
     (fromDb "youtube.com/@PolyMatter")
     # (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
     (fromDb "youtube.com/@TechnologyConnections" // tech)

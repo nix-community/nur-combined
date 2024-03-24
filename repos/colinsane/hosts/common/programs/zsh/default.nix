@@ -162,10 +162,20 @@ in
           # extra aliases
           # TODO: move to `shellAliases` config?
           function c() {
+            # list a dir after entering it
             cd "$1"
             eza --oneline
           }
+          function deref() {
+            # convert a symlink into a plain file of the same content
+            if [ -L "$1" ] && [ -f "$1" ]; then
+              cp --dereference "$1" "$1.deref"
+              mv -f "$1.deref" "$1"
+            fi
+            chmod u+w "$1"
+          }
           function nd() {
+            # enter a directory, creating it if necessary
             mkdir -p "$1"
             pushd "$1"
           }

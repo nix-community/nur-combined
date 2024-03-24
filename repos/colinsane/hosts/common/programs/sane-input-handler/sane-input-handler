@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils -p killall -p playerctl -p procps -p sane-open-desktop -p sway -p util-linux -p wireplumber -p wvkbd
+#!nix-shell -i bash -p coreutils -p killall -p playerctl -p procps -p sane-open-desktop -p sway -p util-linux -p wireplumber
 
 # input map considerations
 # - using compound actions causes delays.
@@ -85,9 +85,7 @@ allOff() {
 toggleKeyboard() {
   local kbpid=$(pidof "$KEYBOARD")
   if [ -z "$kbpid" ] || ! ( env kill -s RTMIN+0 "$kbpid" ); then
-    echo "sane-input-handler: failed to toggle keyboard; launching manually: $KEYBOARD"
-    # manually launch the keyboard, as a fallback
-    "$KEYBOARD" &
+    echo "sane-input-handler: failed to toggle keyboard: $KEYBOARD"
   fi
 }
 
@@ -153,7 +151,16 @@ dispatchOn() {
     # powerbutton_two: intentional default to screenoff
     "powerhold")
       # power thrice: kill active window
+      # TODO: disable this if locked (with e.g. schlock, swaylock, etc)
       handleWith swaymsg kill
+      ;;
+    "powerbutton_volup")
+      # power (tap) -> volup: rotate CCW
+      handleWith swaymsg -- output '-' transform 90 anticlockwise
+      ;;
+    "powerbutton_voldown")
+      # power (tap) -> voldown: rotate CW
+      handleWith swaymsg -- output '-' transform 90 clockwise
       ;;
 
     "volup_tap_1")
@@ -202,16 +209,16 @@ dispatchInhibited() {
 }
 
 _isAllOn="$(isAllOn && echo 1 || true)"
-_isInhibited="$(isInhibited && echo 1 || true)"
 
-if [ -n "$_isInhibited" ]; then
-  dispatchInhibited
-fi
-
-if [ -n "$_isAllOn" ]; then
-  dispatchOn
-else
+if [ -z "$_isAllOn" ]; then
   dispatchOff
+else
+  _isInhibited="$(isInhibited && echo 1 || true)"
+  if [ -n "$_isInhibited" ]; then
+    dispatchInhibited
+  else
+    dispatchOn
+  fi
 fi
 
 dispatchDefault

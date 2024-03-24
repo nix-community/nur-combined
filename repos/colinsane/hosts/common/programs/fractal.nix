@@ -59,26 +59,19 @@ in
 
     persist.byStore.private = [
       # XXX by default fractal stores its state in ~/.local/share/<build-profile>/<UUID>.
-      ".local/share/hack"    # for debug-like builds
-      ".local/share/stable"  # for normal releases
-      ".local/share/fractal" # for version 5+, i think?
+      # ".local/share/hack"    # for debug-like builds
+      # ".local/share/stable"  # for normal releases
+      ".local/share/fractal" # for version 5+
     ];
 
     suggestedPrograms = [ "gnome-keyring" ];
 
     services.fractal = {
       description = "fractal Matrix client";
-      after = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];
-      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
+      partOf = lib.mkIf cfg.config.autostart [ "graphical-session" ];
 
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/fractal";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "20s";
-      };
-      # environment.G_MESSAGES_DEBUG = "all";
+      # env "G_MESSAGES_DEBUG=all"
+      command = "fractal";
     };
   };
 }

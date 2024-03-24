@@ -5,18 +5,10 @@
 let
   cfg = config.sane.programs.sway;
   wrapSway = configuredSway: let
-    # `wrapSway` exists to launch sway with our desired debugging facilities.
-    # i.e. redirect output to syslog.
-    systemd-cat = "${lib.getBin pkgs.systemd}/bin/systemd-cat";
     swayLauncher = pkgs.writeShellScriptBin "sway" ''
-      # sway defaults to auto-generating a unix domain socket named "sway-ipc.$UID.NNNN.sock",
-      # which allows for multiple sway sessions under the same user.
-      # but the unpredictability makes static sandboxing & such difficult, so hardcode it:
-      export SWAYSOCK="$XDG_RUNTIME_DIR/sway-ipc.sock"
-      export XDG_CURRENT_DESKTOP=sway
-
-      echo "launching sway (sway.desktop)..." | ${systemd-cat} --identifier=sway
-      exec ${configuredSway}/bin/sway 2>&1 | ${systemd-cat} --identifier=sway
+      # delete DISPLAY-related vars from env before launch, else sway will try to connect to a remote display.
+      # (consider: nested sway sessions, where sway actually has a reason to read these)
+      exec env -u DISPLAY -u WAYLAND_DISPLAY "DESIRED_WAYLAND_DISPLAY=$WAYLAND_DISPLAY" ${configuredSway}/bin/sway 2>&1
     '';
   in
     pkgs.symlinkJoin {
@@ -29,12 +21,38 @@ let
       passthru.sway-unwrapped = configuredSway;
     };
   swayPackage = wrapSway (
-    pkgs.sway-unwrapped.override {
-      # wlroots seems to launch Xwayland itself, and i can't easily just do that myself externally.
-      # so in order for the Xwayland it launches to be sandboxed, i need to patch the sandboxed version in here.
-      wlroots = pkgs.wlroots.override {
+    pkgs.waylandPkgs.sway-unwrapped.override {
+      wlroots = (pkgs.waylandPkgs.wlroots.override {
+        # wlroots seems to launch Xwayland itself, and i can't easily just do that myself externally.
+        # so in order for the Xwayland it launches to be sandboxed, i need to patch the sandboxed version in here.
         xwayland = config.sane.programs.xwayland.package;
-      };
+      }).overrideAttrs (upstream: {
+        # 2023/09/08: fix so clicking a notification can activate the corresponding window.
+        # - test: run dino, receive a message while tabbed away, click the desktop notification.
+        #   - if sway activates the dino window (i.e. colors the workspace and tab), then all good
+        #   - do all of this with only a touchscreen (e.g. on mobile phone) -- NOT a mouse/pointer
+        # 2023/12/17: this patch is still necessary
+        ## what this patch does:
+        # - allows any wayland window to request activation, at any time.
+        # - traditionally, wayland only allows windows to request activation if
+        #   the client requesting to transfer control has some connection to a recent user interaction.
+        #   - e.g. the active window may transfer control to any window
+        #   - a window which was very recently active may transfer control to itself
+        ## alternative (longer-term) solutions:
+        # - fix this class of bug in gtk:
+        #   - <https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5782>
+        #   - N.B.: this linked PR doesn't actually fix it
+        # - add xdg_activation_v1 support to SwayNC (my notification daemon):
+        #   - <https://github.com/ErikReider/SwayNotificationCenter/issues/71>
+        #   - mako notification daemon supports activation, can use as a reference
+        #     - all of ~30 LoC, looks straight-forward
+        #     - however, it's not clear that gtk4 (or dino) actually support this mode of activation.
+        #     - i.e. my experience with dino is the same using mako as with SwayNC
+        postPatch = (upstream.postPatch or "") + ''
+          substituteInPlace types/wlr_xdg_activation_v1.c \
+            --replace-fail 'if (token->seat != NULL)' 'if (false && token->seat != NULL)'
+        '';
+      });
 
       # about xwayland:
       # - required by many electron apps, though some electron apps support NIXOS_OZONE_WL=1 for native wayland.
@@ -102,26 +120,27 @@ in
       "blueberry"  # GUI bluetooth manager
       "brightnessctl"
       "conky"  # for a nice background
+      "fcitx5"  # input method; emoji
       "fontconfig"
       # "gnome.gnome-bluetooth"  # XXX(2023/05/14): broken
       # "gnome.gnome-control-center"  # XXX(2023/06/28): depends on webkitgtk4_1
       "pipewire"
       "playerctl"  # for waybar & particularly to have playerctld running
-      "pulsemixer"  # for volume controls
       "rofi"  # menu/launcher
       "rofi-snippets"
       "sane-screenshot"
       "sane-open-desktop"
-      "splatmoji"  # used by sway config
+      # "splatmoji"  # used by sway config
       "sway-contrib.grimshot"  # used by sway config
-      # "swayidle"  # enable if you need it
+      "swayidle"  # enable if you need it
       "swaylock"  # used by sway config
       "swaynotificationcenter"  # notification daemon
+      "sysvol"  # volume notifier
       "unl0kr"  # greeter
       "waybar"  # used by sway config
       "wdisplays"  # like xrandr
+      "wireplumber"  # used by sway config
       "wl-clipboard"
-      "wob"  # render volume changes on-screen
       "xdg-desktop-portal"
       # xdg-desktop-portal-gtk provides portals for:
       # - org.freedesktop.impl.portal.Access
@@ -145,10 +164,10 @@ in
 
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";
-    sandbox.net = "clearnet";  #< for Xwayland (TODO: separate!)
     sandbox.whitelistAudio = true;  # it runs playerctl directly
     sandbox.whitelistDbus = [ "system" "user" ];  # to e.g. launch apps
     sandbox.whitelistDri = true;
+    sandbox.whitelistX = true;  # sway invokes xwayland itself
     sandbox.whitelistWayland = true;
     # needs to *create* the sway socket. could move the sway socket into its own directory, and whitelist just that, but doesn't buy me much.
     sandbox.extraRuntimePaths = [ "/" ];
@@ -162,10 +181,11 @@ in
       "/sys/dev/char"
       "/sys/devices"
     ];
-    sandbox.extraConfig = [
-      "--sane-sandbox-keep-namespace" "pid"
+    sandbox.extraHomePaths = [
+      # bind ALL of ~/.config/sway into the sandbox instead of just the individual configs.
+      # this way `swaymsg -- reload` can work even if the fd for ~/.config/sway/config changes.
+      ".config/sway"
     ];
-
 
     fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
       # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>
@@ -185,30 +205,32 @@ in
       xwayland = if config.sane.programs.xwayland.enabled then "enable" else "disable";
     };
 
-    services.sway-session = {
-      description = "sway-session: active iff sway desktop environment is baseline operational";
-      documentation = [
-        "https://github.com/swaywm/sway/issues/7862"
-        "https://github.com/alebastr/sway-systemd"
-      ];
+    env.XDG_CURRENT_DESKTOP = "sway";
+    # sway defaults to auto-generating a unix domain socket named "sway-ipc.$UID.NNNN.sock",
+    # which allows for multiple sway sessions under the same user.
+    # but the unpredictability makes static sandboxing & such difficult, so hardcode it.
+    # place it in a subdirectory for the same reason:
+    env.SWAYSOCK = "$XDG_RUNTIME_DIR/sway/sway-ipc.sock";
+    # TODO: ensure this is reliable? might not work across sway restarts, etc.
+    env.DISPLAY = ":0";
+    # docs: <https://discourse.ubuntu.com/t/environment-variables-for-wayland-hackers/12750>
+    # N.B.: gtk apps support absolute paths for this; webkit apps (e.g. geary) support only relative paths (relative to $XDG_RUNTIME_DIR)
+    env.WAYLAND_DISPLAY = "wayland/wayland-1";
 
-      # we'd like to start graphical-session after sway is ready, but it's marked `RefuseManualStart` because Lennart.
-      # instead, create `sway-session.service` which `bindsTo` `graphical-session.target`.
-      # we can manually start `sway-session`, and the `bindsTo` means that it will start `graphical-session`,
-      # and then track `graphical-session`s state (that is: it'll stop when graphical-session stops).
-      #
-      # additionally, set `ConditionEnvironment` to guard that the sway environment variables *really have* been imported into systemd.
-      unitConfig.ConditionEnvironment = "SWAYSOCK";
-      # requiredBy = [ "graphical-session.target" ];
-      before = [ "graphical-session.target" ];
-      bindsTo = [ "graphical-session.target" ];
-
-      serviceConfig = {
-        ExecStart = "${pkgs.coreutils}/bin/true";
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
+    services.sway = {
+      description = "sway: tiling wayland desktop environment";
+      dependencyOf = [ "graphical-session" ];
+      command = pkgs.writeShellScript "sway-start" ''
+        # have to create these directories before launching sway so that they're available in the sandbox
+        mkdir -p "$(dirname "$SWAYSOCK")"
+        mkdir -p "$(dirname "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")"
+        mkdir -p /tmp/.X11-unix  # for Xwayland
+        exec sway
+      '';
+      readiness.waitExists = [ "$SWAYSOCK" "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" ];
     };
+    # link the graphical-session into the default target, so sway gets auto-started
+    services.graphical-session.partOf = [ "default" ];
   };
 
 

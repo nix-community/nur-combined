@@ -1,7 +1,4 @@
-{ config, ... }:
-let
-  cfg = config.sane.programs.wireplumber;
-in
+{ ... }:
 {
   sane.programs.wireplumber = {
     sandbox.method = "bwrap";
@@ -34,15 +31,9 @@ in
 
     services.wireplumber = {
       description = "wireplumber: pipewire Multimedia Service Session Manager";
-      after = [ "pipewire.service" ];
-      bindsTo = [ "pipewire.service" ];
-      wantedBy = [ "pipewire.service" ];
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/wireplumber";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "5s";
-      };
+      depends = [ "pipewire" ];
+      partOf = [ "sound" ];
+      command = "wireplumber";
     };
   };
 }

@@ -38,8 +38,13 @@
 
   # sane.gui.sxmo.enable = true;
   sane.programs.sway.enableFor.user.colin = true;
+  sane.programs.swaylock.enableFor.user.colin = false;  #< not usable on touch
+  sane.programs.schlock.enableFor.user.colin = true;
+  sane.programs.swayidle.config.actions.screenoff.delay = 300;
+  sane.programs.swayidle.config.actions.screenoff.enable = true;
   sane.programs.sane-input-handler.enableFor.user.colin = true;
   sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile!
+  sane.programs.fcitx5.enableFor.user.colin = false;  # does not cross compile
   sane.programs.mercurial.enableFor.user.colin = false;  # does not cross compile
   sane.programs.nvme-cli.enableFor.system = false;  # does not cross compile (libhugetlbfs)
 

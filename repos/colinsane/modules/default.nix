@@ -14,7 +14,7 @@
     ./services
     ./sops.nix
     ./ssh.nix
-    ./users.nix
+    ./users
     ./vpn.nix
     ./warnings.nix
     ./wowlan.nix

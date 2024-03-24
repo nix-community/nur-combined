@@ -307,37 +307,35 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    programs.dconf.packages = [
-      (pkgs.writeTextFile {
-        name = "dconf-sway-settings";
-        destination = "/etc/dconf/db/site.d/10_gtk_settings";
-        text = ''
-          [org/gnome/desktop/interface]
-          color-scheme="${cfg.color-scheme}"
-          cursor-theme="${cfg.cursor-theme}"
-          gtk-theme="${cfg.gtk-theme}"
-          icon-theme="${cfg.icon-theme}"
-        '';
-      })
-    ];
-    # environment.systemPackages = lib.attrValues themes;
-    environment.systemPackages = [
-      themes.color-scheme."${cfg.color-scheme}"
-      themes.cursor-theme."${cfg.cursor-theme}"
-      themes.gtk-theme."${cfg.gtk-theme}"
-      themes.icon-theme."${cfg.icon-theme}"
-    ] ++ lib.optionals cfg.all (lib.attrValues unsortedThemes);
+  config.sane.programs.dconf.config.site = lib.mkIf cfg.enable [
+    (pkgs.writeTextFile {
+      name = "dconf-sway-settings";
+      destination = "/etc/dconf/db/site.d/10_gtk_settings";
+      text = ''
+        [org/gnome/desktop/interface]
+        color-scheme="${cfg.color-scheme}"
+        cursor-theme="${cfg.cursor-theme}"
+        gtk-theme="${cfg.gtk-theme}"
+        icon-theme="${cfg.icon-theme}"
+      '';
+    })
+  ];
+  # environment.systemPackages = lib.attrValues themes;
+  config.environment.systemPackages = lib.mkIf cfg.enable ([
+    themes.color-scheme."${cfg.color-scheme}"
+    themes.cursor-theme."${cfg.cursor-theme}"
+    themes.gtk-theme."${cfg.gtk-theme}"
+    themes.icon-theme."${cfg.icon-theme}"
+  ] ++ lib.optionals cfg.all (lib.attrValues unsortedThemes));
 
-    # XXX(2024/02/05): set GSK_RENDERER=cairo to solve graphical edge-case on moby where some JPEGs would render as black!
-    # - repro by loading komikku and viewing images. some fail (particularly mangadex onimai), some work.
-    # - run `GSK_RENDERER=help loupe` to see options.
-    # - TODO: see if i can enable the `vulkan` GSK_RENDERER?
-    # - for more on GSK_RENDERER: <https://blog.gtk.org/2024/01/28/new-renderers-for-gtk/>
-    # XXX(2024/02/21): GSK_RENDERER=cairo breaks `delfin`  (as does GSK_RENDERER=vulkan, when gtk4 is compiled with `vulkanSupport = true`)
-    # - perhaps it's best to let this be defaulted and set it ONLY where needed
-    # - upstream gtk recommends using mesa 24.0 (latest) specifically in response to the GSK renderers triggering new driver bugs,
-    #   so maybe i can update that before re-enabling GSK_RENDERER anywhere else.
-    # environment.variables.GSK_RENDERER = "cairo";
-  };
+  # XXX(2024/02/05): set GSK_RENDERER=cairo to solve graphical edge-case on moby where some JPEGs would render as black!
+  # - repro by loading komikku and viewing images. some fail (particularly mangadex onimai), some work.
+  # - run `GSK_RENDERER=help loupe` to see options.
+  # - TODO: see if i can enable the `vulkan` GSK_RENDERER?
+  # - for more on GSK_RENDERER: <https://blog.gtk.org/2024/01/28/new-renderers-for-gtk/>
+  # XXX(2024/02/21): GSK_RENDERER=cairo breaks `delfin`  (as does GSK_RENDERER=vulkan, when gtk4 is compiled with `vulkanSupport = true`)
+  # - perhaps it's best to let this be defaulted and set it ONLY where needed
+  # - upstream gtk recommends using mesa 24.0 (latest) specifically in response to the GSK renderers triggering new driver bugs,
+  #   so maybe i can update that before re-enabling GSK_RENDERER anywhere else.
+  # environment.variables.GSK_RENDERER = "cairo";
 }

@@ -21,7 +21,7 @@
   "sway/workspaces" = {
     all-outputs = true;
     # force the bar to always show even empty workspaces
-    persistent_workspaces = {
+    persistent-workspaces = {
       "1" = [];
       "2" = [];
       "3" = [];

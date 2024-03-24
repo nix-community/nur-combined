@@ -122,8 +122,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.11.0";
-      hash = "sha256-jFKgsOymAT0vCa/rN83vh27j6ucb9fmMrYrzP6G9Vfo=";
+      version = "11.12.4";
+      hash = "sha256-70elcOd4U+MEfg7IM0FfTBcWoKCKec63wLVdd3emW8M=";
     };
     fx_cast = fetchVersionedAddon rec {
       extid = "fx_cast@matt.tf";
@@ -142,20 +142,18 @@ in (lib.makeScope newScope (self: with self; {
     sidebery = fetchVersionedAddon rec {
       extid = "{3c078156-979c-498b-8990-85f7987dd929}";
       pname = "sidebery";
-      # N.B.: unsure if this URL format is stable
-      # 2024/02/02: nope, dev is inconsistent with releases
       url = let
         versionPrefix = lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version));
       in "https://github.com/mbnuqw/sidebery/releases/download/v${versionPrefix}/sidebery-${version}.xpi";
-      version = "5.1.1.9";
-      hash = "sha256-whQ0v8HyIkFuSpygY4s5EEWL7q7ull+QrpdcP/Ae2dg=";
+      version = "5.2.0.1";
+      hash = "sha256-C6q8X2ZlnDtilQLEj/63SiRkhqnyz4gLp4T7+YhoWwM=";
     };
     sponsorblock = fetchVersionedAddon rec {
       extid = "sponsorBlocker@ajay.app";
       pname = "sponsorblock";
       url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-      version = "5.5.7";
-      hash = "sha256-U++m+aK9ILwnYhtHowUj9s/GzHZxr5Ul4ku51Cpgq3c=";
+      version = "5.5.9";
+      hash = "sha256-lyBrszbjdfMOWZbYwE6DjNtM8wq0Vv1eCcobBKNelWw=";
     };
     ublacklist = fetchVersionedAddon rec {
       extid = "@ublacklist";
@@ -170,8 +168,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.56.1b11";
-      hash = "sha256-+b8wSBlQbvz82PVFMguwdUm1BpPLfj085r9o4jBKfuA=";
+      version = "1.56.1rc2";
+      hash = "sha256-B8YHcl24fYS6dqZHS6xgKx4G1j+ts3DBpySYNA1kcYc=";
     };
   };
 })).overrideScope (self: super:

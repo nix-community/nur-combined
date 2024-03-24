@@ -78,7 +78,8 @@
     # special capabilities "all" and "none" enable all/none of the caps known to the system.
 
     # cap_ipc_lock: required by gnome-keyring (for `mlock`)
-    ^cap_net_admin,^cap_net_raw,^cap_ipc_lock colin
+    # cap_sys_nice: allow realtime scheduling for e.g. audio applications, games
+    ^cap_ipc_lock,^cap_net_admin,^cap_net_raw,^cap_sys_nice colin
 
     # include this `none *` line otherwise non-matching users get maximum inheritable capabilities
     none *

@@ -96,18 +96,15 @@ in
 
     services.feedbackd = {
       description = "feedbackd audio/vibration/led controller";
-      wantedBy = [ "default.target" ];  #< should technically be `sound.target`, but that doesn't seem to get auto-started?
-      serviceConfig = {
-        ExecStart = "${cfg.package}/libexec/feedbackd";
-        Type = "simple";
-        Restart = "on-failure";
-        RestartSec = "10s";
-      };
-      environment = {
-        G_MESSAGES_DEBUG = "all";
-      } // (lib.optionalAttrs cfg.config.proxied {
-        FEEDBACK_THEME = "/home/colin/.config/feedbackd/themes/proxied.json";
-      });
+      partOf = [ "sound" ];
+      command = lib.concatStringsSep " " ([
+        "env"
+        "G_MESSAGES_DEBUG=all"
+      ] ++ lib.optionals cfg.config.proxied [
+        "FEEDBACK_THEME=$HOME/.config/feedbackd/themes/proxied.json"
+      ] ++ [
+        "${cfg.package}/libexec/feedbackd"
+      ]);
     };
   };
 

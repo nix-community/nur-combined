@@ -4,16 +4,25 @@
 #     - <https://github.com/vector-im/element-desktop/issues/1029#issuecomment-1632688224>
 #   - `rm -rf ~/.config/Element/GPUCache`
 #     - <https://github.com/NixOS/nixpkgs/issues/244486>
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   sane.programs.element-desktop = {
-    packageUnwrapped = pkgs.element-desktop.override {
-      # use pre-build electron because otherwise it takes 4 hrs to build from source.
-      electron = pkgs.electron-bin;
-    };
+    packageUnwrapped = (pkgs.element-desktop.override {
+      # use pre-built electron because otherwise it takes 4 hrs to build from source.
+      electron = pkgs.electron_28-bin;
+    }).overrideAttrs (upstream: {
+      # fix to use wayland instead of Xwayland:
+      # - replace `NIXOS_OZONE_WL` non-empty check with `WAYLAND_DISPLAY`
+      # - use `wayland` instead of `auto` because --ozone-platform-hint=auto still prefers X over wayland when both are available
+      # alternatively, set env var: `ELECTRON_OZONE_PLATFORM_HINT=wayland` and ignore all of this
+      installPhase = lib.replaceStrings
+        [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
+        [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
+        upstream.installPhase
+      ;
+    });
     suggestedPrograms = [
       "gnome-keyring"
-      "xwayland"
     ];
 
     sandbox.method = "bwrap";

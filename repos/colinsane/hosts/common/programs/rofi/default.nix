@@ -25,23 +25,18 @@
 { pkgs, ... }:
 let
   rofi-unwrapped = pkgs.rofi-wayland-unwrapped.overrideAttrs (upstream: {
-    # my patches made for tip don't cleanly apply to stable, so advance the entire src
-    src = pkgs.fetchFromGitea {
-      domain = "git.uninsane.org";
-      owner = "colin";
-      repo = "rofi";
-      fetchSubmodules = true;
-      # rev = "dev-sane";  #< fetchFromGitea doesn't support tags (?)
-      rev = "3e7ed93b3a75b964d9c49f1322c9cc886f7d498e";
-      hash = "sha256-wiQtdvnmju42jmi4UR8PYDL119Gt2DQ/3an4dmeMrjE=";
-    };
-    # patches = (upstream.patches or []) ++ [
-    #   (pkgs.fetchpatch {
-    #     url = "https://git.uninsane.org/colin/rofi/commit/d8bb0b9944ec1f3bf7479c9f127ec09d4198e87f.patch";
-    #     name = "run-{shell-,}command: expand `{app_id}` inside the template string";
-    #     hash = "sha256-XiZRvr+BARU7h3OPU0NUUEem3isnUVER69zucSqvNNk=";
-    #   })
-    # ];
+    patches = (upstream.patches or []) ++ [
+      (pkgs.fetchpatch {
+        url = "https://git.uninsane.org/colin/rofi/commit/8e01fcd16f97f4c2a5bc63ade58c894a938f89d9.patch";
+        name = "run-{shell-,}command: expand `{app_id}` inside the template string";
+        hash = "sha256-DXafvvKrNyDOH11lpRdC2ljydb422ttY68oY5K3fKWo=";
+      })
+      (pkgs.fetchpatch {
+        url = "https://git.uninsane.org/colin/rofi/commit/249450a2b58c3cf7ced911cadb8c4c60d3315dd0.patch";
+        name = "filebrowser: include entries of d_type DT_UNKNOWN";
+        hash = "sha256-gz3N4uo7IWzzqaPHHVhby/e9NbtzcFJRQwgdNYxO/Yw=";
+      })
+    ];
   });
   # rofi-emoji = pkgs.rofi-emoji.override {
   #   # plugins must be compiled against the same rofi they're loaded by

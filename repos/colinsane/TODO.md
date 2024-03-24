@@ -57,7 +57,6 @@
 ### user experience
 - xdg-desktop-portal shouldn't kill children on exit
   - *maybe* a job for `setsid -f`?
-- get xdg-desktop-portal{,-gtk} to stop prompting for openers
 - replace starship prompt with something more efficient
   - watch `forkstat`: it does way too much
 - cleanup waybar so that it's not invoking playerctl every 2 seconds

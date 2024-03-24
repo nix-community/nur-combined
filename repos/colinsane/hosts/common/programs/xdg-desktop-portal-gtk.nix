@@ -41,16 +41,11 @@ in
 
     services.xdg-desktop-portal-gtk = {
       description = "xdg-desktop-portal-gtk backend (provides graphical dialogs for xdg-desktop-portal)";
-      after = [ "graphical-session.target" ];
-      before = [ "xdg-desktop-portal.service" ];
-      wantedBy = [ "xdg-desktop-portal.service" ];
+      # depends = [ "graphical-session" ];
+      dependencyOf = [ "xdg-desktop-portal" ];
 
-      serviceConfig = {
-        ExecStart="${cfg.package}/libexec/xdg-desktop-portal-gtk";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "10s";
-      };
+      command = "${cfg.package}/libexec/xdg-desktop-portal-gtk";
+      readiness.waitDbus = "org.freedesktop.impl.portal.desktop.gtk";
     };
   };
 }

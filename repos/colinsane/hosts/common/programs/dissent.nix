@@ -3,10 +3,10 @@
 #   - notification sounds can be handled by swaync
 { config, lib, pkgs, ... }:
 let
-  cfg = config.sane.programs.gtkcord4;
+  cfg = config.sane.programs.dissent;
 in
 {
-  sane.programs.gtkcord4 = {
+  sane.programs.dissent = {
     configOption = with lib; mkOption {
       default = {};
       type = types.submodule {
@@ -17,15 +17,15 @@ in
       };
     };
 
-    packageUnwrapped = pkgs.gtkcord4.overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.dissent.overrideAttrs (upstream: {
       postConfigure = (upstream.postConfigure or "") + ''
-        # gtkcord4 uses go-keyring to interface with the org.freedesktop.secrets provider (i.e. gnome-keyring).
+        # dissent uses go-keyring to interface with the org.freedesktop.secrets provider (i.e. gnome-keyring).
         # go-keyring hardcodes `login.keyring` as the keyring to store secrets in, instead of reading `~/.local/share/keyring/default`.
         # `login.keyring` seems to be a special keyring preconfigured (by gnome-keyring) to encrypt everything to the user's password.
         # that's redundant with my fs-level encryption and makes the keyring less inspectable,
-        # so patch gtkcord4 to use Default_keyring instead.
+        # so patch dissent to use Default_keyring instead.
         # see:
-        # - <https://github.com/diamondburned/gtkcord4/issues/139>
+        # - <https://github.com/diamondburned/dissent/issues/139>
         # - <https://github.com/zalando/go-keyring/issues/46>
         substituteInPlace vendor/github.com/zalando/go-keyring/secret_service/secret_service.go \
           --replace '"login"' '"Default_keyring"'
@@ -51,22 +51,14 @@ in
     ];
 
     persist.byStore.private = [
-      ".cache/gtkcord4"
-      ".config/gtkcord4"  # empty?
+      ".cache/dissent"
+      ".config/dissent"  # empty?
     ];
 
-    services.gtkcord4 = {
-      description = "gtkcord4 Discord client";
-      after = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];
-      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
-
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/gtkcord4";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "20s";
-      };
+    services.dissent = {
+      description = "dissent Discord client";
+      partOf = lib.mkIf cfg.config.autostart [ "graphical-session" ];
+      command = "dissent";
     };
   };
 }

@@ -70,9 +70,9 @@ let
               (p: path-lib.concat [ xdgRuntimeDir p ])
               (
                 sandbox.extraRuntimePaths
-                ++ lib.optionals sandbox.whitelistAudio [ "pipewire-0" "pipewire-0.lock" "pulse" ]  # also pipewire-0-manager, unknown purpose
+                ++ lib.optionals sandbox.whitelistAudio [ "pipewire" "pulse" ]  # this includes pipewire/pipewire-0-manager: is that ok?
                 ++ lib.optionals (builtins.elem "user" sandbox.whitelistDbus) [ "bus" ]
-                ++ lib.optionals sandbox.whitelistWayland [ "wayland-1" "wayland-1.lock" ]  # app can still communicate with wayland server w/o this, if it has net access
+                ++ lib.optionals sandbox.whitelistWayland [ "wayland" ]  # app can still communicate with wayland server w/o this, if it has net access
               )
           );
           allowedPaths = [
@@ -255,18 +255,12 @@ let
         '';
       };
       services = mkOption {
-        # see: <repo:nixos/nixpkgs:nixos/lib/utils.nix>
-        # type = utils.systemdUtils.types.services;
-        # map to listOf attrs so that we can allow multiple assigners to the same service
-        # w/o worrying about merging at this layer, and defer merging to modules/users instead.
-        type = types.attrsOf (types.coercedTo types.attrs (a: [ a ]) (types.listOf types.attrs));
+        type = types.attrsOf types.anything; # options.sane.users.value.type;
         default = {};
         description = ''
-          systemd services to define if this package is enabled.
-          currently only defines USER services -- acts as noop for root-enabled packages.
-
-          conventions are similar to `systemd.services` or `sane.users.<user>.services`.
-          the type at this level is obscured only to as to allow passthrough to `sane.users` w/ proper option merging
+          user services to define if this package is enabled.
+          acts as noop for root-enabled packages.
+          see `sane.users.<user>.services` for options;
         '';
       };
       slowToBuild = mkOption {
@@ -485,14 +479,17 @@ let
       # this gets the symlink into the sandbox, but not the actual secret.
       fs = lib.mapAttrs (_homePath: _secretSrc: {}) config.secrets;
 
-      sandbox.net = lib.mkIf config.sandbox.whitelistX "localhost";
-
-      sandbox.extraPaths = lib.mkIf config.sandbox.whitelistDri [
-        # /dev/dri/renderD128: requested by wayland-egl (e.g. KOreader, animatch, geary)
-        # - but everything seems to gracefully fallback to *something* (MESA software rendering?)
-        #   - CPU usage difference between playing videos in Gtk apps (e.g. fractal) with v.s. without DRI is 10% v.s. 90%.
-        # - GPU attack surface is *large*: <https://security.stackexchange.com/questions/182501/modern-linux-gpu-driver-security>
-        "/dev/dri" "/sys/dev/char" "/sys/devices" # (lappy: "/sys/devices/pci0000:00", moby needs something different)
+      sandbox.extraPaths = lib.mkMerge [
+        (lib.mkIf config.sandbox.whitelistDri [
+          # /dev/dri/renderD128: requested by wayland-egl (e.g. KOreader, animatch, geary)
+          # - but everything seems to gracefully fallback to *something* (MESA software rendering?)
+          #   - CPU usage difference between playing videos in Gtk apps (e.g. fractal) with v.s. without DRI is 10% v.s. 90%.
+          # - GPU attack surface is *large*: <https://security.stackexchange.com/questions/182501/modern-linux-gpu-driver-security>
+          "/dev/dri" "/sys/dev/char" "/sys/devices" # (lappy: "/sys/devices/pci0000:00", moby needs something different)
+        ])
+        (lib.mkIf config.sandbox.whitelistX [
+          "/tmp/.X11-unix"
+        ])
       ];
       sandbox.extraConfig = lib.mkIf config.sandbox.usePortal [
         "--sane-sandbox-portal"
@@ -542,8 +539,7 @@ let
 
     # conditionally persist relevant user dirs and create files
     sane.users = lib.mapAttrs (user: en: lib.optionalAttrs (en && p.enabled) {
-      inherit (p) persist;
-      services = lib.mapAttrs (_: lib.mkMerge) p.services;
+      inherit (p) persist services;
       environment = p.env;
       fs = lib.mkMerge [
         p.fs

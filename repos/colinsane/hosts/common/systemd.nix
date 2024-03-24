@@ -1,13 +1,20 @@
 { pkgs, ... }:
+let
+  # N.B.: systemd doesn't like to honor its timeout settings.
+  # a timeout of 20s is actually closer to 70s,
+  # because it allows 20s, then after the 20s passes decides to allow 40s, then 60s,
+  # finally it peacefully kills stuff, and then 10s later actually kills shit.
+  haltTimeout = 10;
+in
 {
   systemd.extraConfig = ''
     # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
-    DefaultTimeoutStopSec=20
+    DefaultTimeoutStopSec=${builtins.toString haltTimeout}
   '';
 
   systemd.user.extraConfig = ''
     # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
-    DefaultTimeoutStopSec=20
+    DefaultTimeoutStopSec=${builtins.toString haltTimeout}
   '';
 
   services.journald.extraConfig = ''
@@ -46,7 +53,7 @@
       Delegate = [ "pids" "memory" "cpu" ];
       DelegateSubgroup = "init.scope";
       TasksMax = "infinity";
-      TimeoutStopSec = "20s";  #< default: 120s
+      TimeoutStopSec = "${builtins.toString haltTimeout}s";  #< default: 120s
       KeyringMode = "inherit";
       OOMScoreAdjust = 100;
       MemoryPressureWatch = "skip";

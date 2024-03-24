@@ -79,11 +79,6 @@
     HandleLidSwitch=lock
   '';
 
-  # some packages build only if binfmt *isn't* present
-  nix.settings.system-features = lib.mkIf (config.boot.binfmt.emulatedSystems == []) [
-    "no-binfmt"
-  ];
-
   # services.snapper.configs = {
   #   root = {
   #     subvolume = "/";

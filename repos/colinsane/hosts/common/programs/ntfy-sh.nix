@@ -4,7 +4,7 @@
 #
 # send a test notification with:
 # - `ntfy pub "https://ntfy.uninsane.org/$(cat ~/.config/ntfy-sh/topic)" test`
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.ntfy-sh;
 in
@@ -27,16 +27,13 @@ in
 
     services.ntfy-sub = {
       description = "listen for push-notifications";
-      wantedBy = lib.mkIf cfg.config.autostart [ "default.target" ];
-      script = ''
-        topic=$(cat ~/.config/ntfy-sh/topic)
-        ntfy sub "https://ntfy.uninsane.org:2587/$topic"
-      '';
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "20s";
-      };
+      partOf = lib.mkIf cfg.config.autostart [ "default" ];
+      command = let
+        sub = pkgs.writeShellScriptBin "ntfy-sub" ''
+          topic=$(cat ~/.config/ntfy-sh/topic)
+          exec ntfy sub "https://ntfy.uninsane.org:2587/$topic"
+        '';
+      in "${sub}/bin/ntfy-sub";
     };
   };
 }

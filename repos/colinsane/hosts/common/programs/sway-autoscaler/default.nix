@@ -31,14 +31,14 @@ in
 
     services.sway-autoscaler = {
       description = "adjust global desktop scale to match the activate application";
-      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/sway-autoscaler --loop-sec ${builtins.toString cfg.config.interval}";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "10s";
-      };
-      environment.SWAY_DEFAULT_SCALE = builtins.toString cfg.config.defaultScale;
+      partOf = lib.mkIf cfg.config.autostart [ "graphical-session" ];
+      command = lib.escapeShellArgs [
+        "env"
+        "SWAY_DEFAULT_SCALE=${builtins.toString cfg.config.defaultScale}"
+        "sway-autoscaler"
+        "--loop-sec"
+        (builtins.toString cfg.config.interval)
+      ];
     };
   };
 }

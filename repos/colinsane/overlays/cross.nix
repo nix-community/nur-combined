@@ -985,6 +985,10 @@ in with final; {
   #   '';
   # });
 
+  # hyprland = prev.hyprland.overrideAttrs (_: {
+  #   depsBuildBuild = [ pkg-config ];
+  # });
+
   # 2024/02/27: upstreaming is blocked on gconf
   # "setup: line 1595: ant: command not found"
   # i2p = mvToNativeInputs [ ant gettext ] prev.i2p;
@@ -2022,6 +2026,12 @@ in with final; {
   #     "-Dman-pages=disabled"
   #   ];
   # });
+  # waybar = (prev.waybar.override { runTests = false; }).overrideAttrs (upstream: {
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #     wayland-scanner
+  #   ];
+  #   strictDeps = true;
+  # });
 
   webkitgtk = prev.webkitgtk.overrideAttrs (upstream: {
     # fixes "wayland-scanner: line 5: syntax error: unterminated quoted string"
@@ -2063,12 +2073,12 @@ in with final; {
 
   # 2024/02/29: upstreaming is blocked on libei (unless Xwayland config option is disabled in nixpkgs)
   #             out for PR: <https://github.com/NixOS/nixpkgs/pull/292415>
-  # wlroots = prev.wlroots.overrideAttrs (upstream: {
-  #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
-  #     # incorrectly specified as `buildInputs` in nixpkgs.
-  #     hwdata
-  #   ];
-  # });
+  wlroots = prev.wlroots.overrideAttrs (upstream: {
+    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      # incorrectly specified as `buildInputs` in nixpkgs.
+      hwdata
+    ];
+  });
 
   # wrapFirefox = prev.wrapFirefox.override {
   #   buildPackages = buildPackages // {

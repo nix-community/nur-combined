@@ -3,6 +3,13 @@
 # mpv docs:
 # - <https://mpv.io/manual/master>
 # - <https://github.com/mpv-player/mpv/wiki>
+# extensions i use:
+# - <https://github.com/jonniek/mpv-playlistmanager>
+# other extensions that could be useful:
+# - list: <https://github.com/stax76/awesome-mpv>
+# - list: <https://nudin.github.io/mpv-script-directory/>
+# - browse DLNA shares: <https://github.com/chachmu/mpvDLNA>
+# - act as a DLNS renderer (sink): <https://github.com/xfangfang/Macast>
 # debugging:
 # - enter console by pressing backtick.
 #   > `set volume 50`     -> sets application volume to 50%
@@ -12,6 +19,10 @@
 #   - and then just `print(...)` from lua & it'll show in terminal
 # - invoke mpv with `--no-config` to have it not read ~/.config/mpv/*
 # - press `i` to show decoder info
+#
+# usage tips:
+# - `<` or `>` to navigate prev/next-file-in-folder  (uosc)
+# - shift+enter to view the playlist, then arrow-keys to navigate (mpv-playlistmanager)
 { config, lib, pkgs, ... }:
 
 let
@@ -31,7 +42,8 @@ let
       # `ao-volume` isn't actually an observable property.
       # as of 2024/03/02, they *may* be working on that:
       # - <https://github.com/mpv-player/mpv/pull/13604#issuecomment-1971665736>
-      # in the meantime, just query the volume every tick (i.e. frame)
+      # in the meantime, just query the volume every tick (i.e. frame).
+      # alternative is mpv's JSON IPC feature, where i could notify its socket whenever pipewire volume changes.
       cat <<EOF >> src/uosc/main.lua
       function update_ao_volume()
         local vol = mp.get_property('ao-volume')
@@ -62,6 +74,7 @@ in
     packageUnwrapped = with pkgs; wrapMpv mpv-unwrapped {
       scripts = [
         mpvScripts.mpris
+        mpvScripts.mpv-playlistmanager
         uosc
         # pkgs.mpv-uosc-latest
       ];
@@ -96,6 +109,12 @@ in
       # ];
     };
 
+    suggestedPrograms = [
+      "blast-to-default"
+      "go2tv"
+      "xdg-terminal-exec"
+    ];
+
     sandbox.method = "bwrap";
     sandbox.autodetectCliPaths = true;
     sandbox.net = "all";
@@ -105,6 +124,7 @@ in
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".config/mpv"  #< else mpris plugin crashes on launch
+      ".local/share/applications"  #< for xdg-terminal-exec (go2tv)
       # it's common for album (or audiobook, podcast) images/lyrics/metadata to live adjacent to the primary file.
       # CLI detection is too poor to pick those up, so expose the common media dirs to the sandbox to make that *mostly* work.
       "Books/local"
@@ -119,103 +139,13 @@ in
       # for `watch_later`
       ".local/state/mpv"
     ];
-    fs.".config/mpv/input.conf".symlink.text = let
-      execInTerm = "${pkgs.xdg-terminal-exec}/bin/xdg-terminal-exec";
-    in ''
-      # docs:
-      # - <https://mpv.io/manual/master/#list-of-input-commands>
-      # - script-binding: <https://mpv.io/manual/master/#command-interface-script-binding>
-      # - properties: <https://mpv.io/manual/master/#property-list>
-
-      # let volume/power keys be interpreted by the system.
-      # this is important for sxmo.
-      # mpv defaults is POWER = close, VOLUME_{UP,DOWN} = adjust application-level volume
-      POWER ignore
-      VOLUME_UP ignore
-      VOLUME_DOWN ignore
-
-      # uosc menu
-      # text after the shebang is parsed by uosc to construct the menu and names
-      menu        script-binding uosc/menu
-      s           script-binding uosc/subtitles          #! Subtitles
-      a           script-binding uosc/audio              #! Audio tracks
-      q           script-binding uosc/stream-quality     #! Stream quality
-      p           script-binding uosc/items              #! Playlist
-      c           script-binding uosc/chapters           #! Chapters
-      >           script-binding uosc/next               #! Navigation > Next
-      <           script-binding uosc/prev               #! Navigation > Prev
-      o           script-binding uosc/open-file          #! Navigation > Open file
-      #           set video-aspect-override "-1"         #! Utils > Aspect ratio > Default
-      #           set video-aspect-override "16:9"       #! Utils > Aspect ratio > 16:9
-      #           set video-aspect-override "4:3"        #! Utils > Aspect ratio > 4:3
-      #           set video-aspect-override "2.35:1"     #! Utils > Aspect ratio > 2.35:1
-      #           script-binding uosc/audio-device       #! Utils > Audio devices
-      #           script-binding uosc/editions           #! Utils > Editions
-      ctrl+s      async screenshot                       #! Utils > Screenshot
-      alt+i       script-binding uosc/keybinds           #! Utils > Key bindings
-      O           script-binding uosc/show-in-directory  #! Utils > Show in directory
-      #           script-binding uosc/open-config-directory #! Utils > Open config directory
-      #           set pause yes; run ${execInTerm} go2tv -v "''${stream-open-filename}" #! Cast
-      #           set pause yes; run ${execInTerm} go2tv -u "''${stream-open-filename}" #! Cast (...) > Stream
-      #           set pause yes; run go2tv #! Cast (...) > GUI
-      # TODO: unify "Cast" and "Cast (stream)" options above.
-    '';
-    fs.".config/mpv/mpv.conf".symlink.text = ''
-      save-position-on-quit=yes
-      keep-open=yes
-
-      # force GUI, even for tracks w/o album art
-      # see: <https://www.reddit.com/r/mpv/comments/rvrrpt/oscosdgui_and_arch_linux/>
-      player-operation-mode=pseudo-gui
-
-      # use uosc instead (for On Screen Controls)
-      osc=no
-      # uosc provides its own seeking/volume indicators, so you also don't need this
-      osd-bar=no
-      # uosc will draw its own window controls if you disable window border
-      border=no
-
-      # ao=alsa so that uosc can work with ao-volume (see my uosc patch)
-      ao=alsa
-      # with `ao-volume`, the max actually is 100.
-      # to go higher you'll have to use the system's native controls.
-      volume-max=100
-    '';
-    fs.".config/mpv/script-opts/osc.conf".symlink.text = ''
-      # make the on-screen controls *always* visible
-      # unfortunately, this applies to full-screen as well
-      # - docs: <https://mpv.io/manual/master/#on-screen-controller-visibility>
-      # if uosc is installed, this file is unused
-      visibility=always
-    '';
-    fs.".config/mpv/script-opts/uosc.conf".symlink.text = let
-      play_pause_btn = "cycle:play_arrow:pause:no=pause/yes=play_arrow";
-      rev_btn = "command:replay_10:seek -10";
-      fwd_btn = "command:forward_30:seek 30";
-    in ''
-      # docs:
-      # - <https://github.com/tomasklaen/uosc>
-      # - <https://github.com/tomasklaen/uosc/blob/main/src/uosc.conf>
-      # - <https://superuser.com/questions/1775550/add-new-buttons-to-mpv-uosc-ui>
-      timeline_style=bar
-      timeline_persistency=paused,audio
-      controls_persistency=paused,audio
-      volume_persistency=audio
-      volume_opacity=0.75
-
-      # speed_persistency=paused,audio
-      # vvv  want a close button?
-      top_bar=always
-      top_bar_persistency=paused,audio
-
-      controls=menu,<video>subtitles,<has_many_audio>audio,<has_many_video>video,<has_many_edition>editions,<stream>stream-quality,space,${rev_btn},${play_pause_btn},${fwd_btn},space,speed:1.0,gap,<video>fullscreen
-
-      text_border=6.0
-      font_bold=yes
-      color=foreground=ff8080,background_text=ff8080
-
-      ui_scale=1.0
-    '';
+    fs.".config/mpv/scripts/sane/main.lua".symlink.target = ./sane-main.lua;
+    fs.".config/mpv/input.conf".symlink.target = ./input.conf;
+    fs.".config/mpv/mpv.conf".symlink.target = ./mpv.conf;
+    fs.".config/mpv/script-opts/osc.conf".symlink.target = ./osc.conf;
+    fs.".config/mpv/script-opts/console.conf".symlink.target = ./console.conf;
+    fs.".config/mpv/script-opts/uosc.conf".symlink.target = ./uosc.conf;
+    fs.".config/mpv/script-opts/playlistmanager.conf".symlink.target = ./playlistmanager.conf;
 
     # mime.priority = 200;  # default = 100; 200 means to yield to other apps
     mime.priority = 50;  # default = 100; 50 in order to take precedence over vlc.

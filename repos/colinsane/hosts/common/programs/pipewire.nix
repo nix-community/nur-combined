@@ -1,5 +1,5 @@
 # administer with pw-cli, pw-mon, pw-top commands
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.pipewire;
 in
@@ -28,27 +28,36 @@ in
       ".config/pulse"
     ];
 
+    # see: <https://docs.pipewire.org/page_module_protocol_native.html>
+    # defaults to placing the socket in /run/user/$id/{pipewire-0,pipewire-0-manager,...}
+    # but that's trickier to sandbox
+    env.PIPEWIRE_RUNTIME_DIR = "$XDG_RUNTIME_DIR/pipewire";
+
     services.pipewire = {
       description = "pipewire: multimedia service";
-      after = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/pipewire";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "5s";
-      };
+      partOf = [ "sound" ];
+      # env PIPEWIRE_LOG_SYSTEMD=false"
+      # env PIPEWIRE_DEBUG"*:3,mod.raop*:5,pw.rtsp-client*:5"
+      command = pkgs.writeShellScript "pipewire-start" ''
+        mkdir -p $PIPEWIRE_RUNTIME_DIR
+        exec pipewire
+      '';
+      readiness.waitExists = [
+        "$PIPEWIRE_RUNTIME_DIR/pipewire-0"
+        "$PIPEWIRE_RUNTIME_DIR/pipewire-0-manager"
+      ];
+      cleanupCommand = ''rm -f "$PIPEWIRE_RUNTIME_DIR/{pipewire-0,pipewire-0.lock,pipewire-0-manager,pipewire-0-manager.lock}"'';
     };
     services.pipewire-pulse = {
       description = "pipewire-pulse: Pipewire compatibility layer for PulseAudio clients";
-      after = [ "pipewire.service" ];
-      wantedBy = [ "pipewire.service" ];
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/pipewire-pulse";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "5s";
-      };
+      depends = [ "pipewire" ];
+      partOf = [ "sound" ];
+      command = "pipewire-pulse";
+      readiness.waitExists = [
+        "$XDG_RUNTIME_DIR/pulse/native"
+        "$XDG_RUNTIME_DIR/pulse/pid"
+      ];
+      cleanupCommand = ''rm -f "$XDG_RUNTIME_DIR/pulse/{native,pid}"'';
     };
   };
 

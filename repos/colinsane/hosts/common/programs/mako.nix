@@ -53,13 +53,8 @@
     # on environment.packages, but then logs are blackholed.
     services.mako = {
       description = "mako desktop notification daemon";
-      wantedBy = [ "graphical-session.target" ];
-
-      serviceConfig.ExecStart = "${config.sane.programs.mako.package}/bin/mako";
-      serviceConfig.Type = "simple";
-      # mako will predictably fail if launched before the wayland server is fully initialized
-      serviceConfig.Restart = "on-failure";
-      serviceConfig.RestartSec = "10s";
+      partOf = [ "graphical-session" ];
+      command = "${config.sane.programs.mako.package}/bin/mako";
     };
   };
 }

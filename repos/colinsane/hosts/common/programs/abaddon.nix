@@ -87,13 +87,8 @@ in
 
     services.abaddon = {
       description = "unofficial Discord chat client";
-      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/abaddon";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "20s";
-      };
+      partOf = lib.mkIf cfg.config.autostart [ "graphical-session" ];
+      command = "abaddon";
     };
   };
 }

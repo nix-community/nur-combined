@@ -33,6 +33,33 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/298001";
+    saneCommit = "d599839060400762a67d2c01d15b102ffe75e703";
+    title = "gnupg: fix cross compilation";
+    hash = "sha256-d3kD2/UyMzzdBkiEdWtCibbWiPWBZLUWRry1TMkS25g=";
+  })
+
+  (fetchpatch' {
+    # fixes build break
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/297984";
+    title = "handbrake: 1.6.1 -> 1.7.3";
+    hash = "sha256-9CshjlhJRKCXBPZslyTdLnlfHSX+f0nrz+dqayClB8w=";
+  })
+
+  (fetchpatch' {
+    # fixes build break
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/297929";
+    title = "space-cadet-pinball: 2.0.1 -> 2.1.0";
+    hash = "sha256-XntS18eEnB29zjV8jWTzVI0JUHWysjv1Z/ooIW4nvEo=";
+  })
+  (fetchpatch' {
+    # fixes build break
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/297581";
+    title = "pwvucontrol: 0.2 -> 0.3.1";
+    hash = "sha256-OX6qx4WbQzZR2bu04nPHk9lURGH7kN0TRmeKOXfzCT8=";
+  })
+
+  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/292868";
     saneCommit = "f090c1cd6bb5bbb14a86ec90ced78ca1a165a4fe";
     title = "mpvScripts.uosc: 5.1.1 -> 5.2.0";
@@ -41,24 +68,10 @@ in [
   })
 
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/288518";
-    saneCommit = "20c9492d303be7cbad560e3d83bc47ab4b1e93f7";
-    title = "procmail: support cross compilation";
-    hash = "sha256-cC9GBF5tCeJ2GDSjMjlG4hYStIJPEoRBAK9/KhJiiIo=";
-  })
-
-  (fetchpatch' {
+    # TODO: rebase (or split into smaller PRs)
     prUrl = "https://github.com/NixOS/nixpkgs/pull/292415";
     title = "sway/hyprland: cross compilation fixes";
-    hash = "sha256-MgqeTufPek0cUELXjHWoSfDU5Pl9wtwnjWBlnqabHu8=";
-  })
-
-  (fetchpatch' {
-    # this forces an expensive rebuild, mostly just to reduce moby's closure by 40 MiB (if even)
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/291942";
-    title = "imagemagick, graphicsmagick: remove build coreutils from cross-compiled output";
-    hash = "sha256-XtQtB1gq25TE5hFiWUH8bdk6VV9CxcKlA6ffVJvHqZo=";
-    merged.staging = "20240228181608";
+    hash = "sha256-IDf8OcZzFgw0DalxzBqbqP7TZVnZkzoRHQ51RlR1xWc=";
   })
 
   # (fetchpatch' {
@@ -150,14 +163,6 @@ in [
   #   hash = "sha256-oQEM3EZfAOmfZzDu9faCqyOFZsdHYGn1mVBgkxt68Zg=";
   # })
 
-  # TODO: splatmoji PR is out-of-date
-  # (fetchpatch' {
-  #   title = "splatmoji: init at 1.2.0";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
-  #   saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
-  #   hash = "sha256-abLakAWaRfc8tgu4IwUdR/w8GAuSl+OhQkYozlprD0c=";
-  # })
-
   # (fetchpatch {
   #   # stdenv: fix cc for pseudo-crosscompilation
   #   # closed because it breaks pkgsStatic (as of 2023/02/12)
@@ -165,11 +170,6 @@ in [
   #   hash = "sha256-eTwEbVULYjmOW7zUFcTUqvBZqUFjHTKFhvmU2m3XQeo=";
   # })
 
-  (fetchpatch' {
-    title = "conky: enable Wayland support and cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/278071";
-    hash = "sha256-e6o+Vjd3KCI9dFj0TdAWyyqfreX8cf0RfYGdyvebYC0=";
-  })
   (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/240602";

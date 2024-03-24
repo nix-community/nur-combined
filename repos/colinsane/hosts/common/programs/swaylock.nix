@@ -28,6 +28,11 @@ in
     sandbox.whitelistWayland = true;
   };
 
+  sane.programs.swayidle.config = lib.mkIf cfg.enabled {
+    actions.swaylock.desktop = "swaylock.desktop";
+    actions.swaylock.delay = 1800;
+  };
+
   security.pam.services = lib.mkIf cfg.enabled {
     swaylock = {};
   };

@@ -79,6 +79,7 @@ in
       "powertop"
       "pstree"
       "ripgrep"
+      "s6-rc"  # service manager
       "screen"
       "smartmontools"  # smartctl
       # "socat"
@@ -166,6 +167,7 @@ in
     ];
 
     consoleMediaUtils = declPackageSet [
+      "blast-ugjka"  # cast audio to UPNP/DLNA devices (via pulseaudio sink)
       # "catt"  # cast videos to chromecast
       "ffmpeg"
       "go2tv"  # cast videos to UPNP/DLNA device (i.e. tv).
@@ -396,6 +398,7 @@ in
     gh.persist.byStore.private = [ ".config/gh" ];
 
     gimp.sandbox.method = "bwrap";
+    gimp.sandbox.whitelistX = true;
     gimp.sandbox.whitelistWayland = true;
     gimp.sandbox.extraHomePaths = [
       "Pictures/albums"
@@ -920,7 +923,7 @@ in
     xwayland.sandbox.method = "bwrap";
     xwayland.sandbox.wrapperType = "inplace";  #< consumers use it as a library (e.g. wlroots)
     xwayland.sandbox.whitelistWayland = true;  #< just assuming this is needed
-    xwayland.sandbox.net = "clearnet";  #< just assuming this is needed (X11 traffic)
+    xwayland.sandbox.whitelistX = true;
     xwayland.sandbox.whitelistDri = true;  #< would assume this gives better gfx perf
 
     xterm.sandbox.enable = false;  # need to be able to do everything

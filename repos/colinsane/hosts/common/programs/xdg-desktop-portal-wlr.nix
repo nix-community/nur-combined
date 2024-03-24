@@ -26,16 +26,11 @@ in
 
     services.xdg-desktop-portal-wlr = {
       description = "xdg-desktop-portal-wlr backend (provides screenshot functionality for xdg-desktop-portal)";
-      after = [ "graphical-session.target" ];
-      before = [ "xdg-desktop-portal.service" ];
-      wantedBy = [ "xdg-desktop-portal.service" ];
+      # depends = [ "graphical-session" ];
+      dependencyOf = [ "xdg-desktop-portal" ];
 
-      serviceConfig = {
-        ExecStart="${cfg.package}/libexec/xdg-desktop-portal-wlr";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "10s";
-      };
+      command = "${cfg.package}/libexec/xdg-desktop-portal-wlr";
+      readiness.waitDbus = "org.freedesktop.impl.portal.desktop.wlr";
     };
   };
 }

@@ -20,6 +20,7 @@ let
     sane-lib = import ../modules/lib final';
 
     ### ADDITIONAL PACKAGES
+    blast-ugjka = callPackage ./additional/blast-ugjka { };
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     chatty-latest = callPackage ./additional/chatty-latest { };
@@ -31,6 +32,7 @@ let
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
     firefox-extensions = lib.recurseIntoAttrs (callPackage ./additional/firefox-extensions { });
     flare-signal-nixified = callPackage ./additional/flare-signal-nixified { };
+    geary-gtk4 = callPackage ./additional/geary-gtk4 { };
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
     gpodder-adaptive = callPackage ./additional/gpodder-adaptive { };
     gpodder-adaptive-configured = callPackage ./additional/gpodder-configured {
@@ -59,13 +61,19 @@ let
     sane-screenshot = callPackage ./additional/sane-screenshot { };
     sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
     sane-weather = callPackage ./additional/sane-weather { };
+    schlock = callPackage ./additional/schlock { };
     signal-desktop-from-src = callPackage ./additional/signal-desktop-from-src { };
     static-nix-shell = callPackage ./additional/static-nix-shell { };
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
+    swaylock-mobile = callPackage ./additional/swaylock-mobile { };
+    swaylock-plugin = callPackage ./additional/swaylock-plugin { };
+    sxmo_swaylock = callPackage ./additional/sxmo_swaylock { };
     sxmo-utils = callPackage ./additional/sxmo-utils { };
+    sysvol = callPackage ./additional/sysvol { };
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
     tree-sitter-nix-shell = callPackage ./additional/tree-sitter-nix-shell { };
     trivial-builders = lib.recurseIntoAttrs (callPackage ./additional/trivial-builders { });
+    wvkbd-mk = callPackage ./additional/wvkbd-mk { };
     inherit (trivial-builders)
       copyIntoOwnPackage
       linkIntoOwnPackage
@@ -125,7 +133,7 @@ let
 
     helix = callPackage ./patched/helix { inherit (unpatched) helix; };
 
-    ibus = callPackage ./patched/ibus { inherit (unpatched) ibus; };
+    # ibus = callPackage ./patched/ibus { inherit (unpatched) ibus; };
 
     # jackett doesn't allow customization of the bind address: this will probably always be here.
     jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };

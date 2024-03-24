@@ -48,6 +48,9 @@ let
     env = (unwrapped.env or {}) // {
       SANE_SANDBOX_DISABLE = 1;
     };
+    # TODO: handle multi-output packages; until then, squash lib into the main output, particularly for `libexec`.
+    # (this line here only affects `inplace` style wrapping)
+    outputs = lib.remove "lib" (unwrapped.outputs or [ "out" ]);
     nativeBuildInputs = (unwrapped.nativeBuildInputs or []) ++ [
       fakeSaneSandboxed
     ];

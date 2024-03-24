@@ -322,6 +322,8 @@ in
           defaultPref("widget.use-xdg-desktop-portal.mime-handler", 1);
           defaultPref("widget.use-xdg-desktop-portal.open-uri", 1);
 
+          defaultPref("browser.toolbars.bookmarks.visibility", "never");
+
           // auto-open mpv:// URIs without prompting.
           // can do this with other protocols too (e.g. matrix?). see about:config for common handlers.
           defaultPref("network.protocol-handler.external.mpv", true);

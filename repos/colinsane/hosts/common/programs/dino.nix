@@ -68,26 +68,17 @@ in
 
     services.dino = {
       description = "dino XMPP client";
-      after = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];
-      wantedBy = lib.mkIf cfg.config.autostart [ "graphical-session.target" ];
-
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/dino";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "20s";
-      };
+      partOf = lib.mkIf cfg.config.autostart [ "graphical-session" ];
 
       # audio buffering; see: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/FAQ#pipewire-buffering-explained>
       # dino defaults to 10ms mic buffer, which causes underruns, which Dino handles *very* poorly
       # as in, the other end of the call will just not receive sound from us for a couple seconds.
       # pipewire uses power-of-two buffering for the mic itself. that would put us at 21.33 ms, but this env var supports only whole numbers (21ms ends up not power-of-two).
       # also, Dino's likely still doing things in 10ms batches internally anyway.
-      environment.PULSE_LATENCY_MSEC = "20";
-
+      #
       # note that debug logging during calls produces so much journal spam that it pegs the CPU and causes dropped audio
-      # environment.G_MESSAGES_DEBUG = "all";
+      # env G_MESSAGES_DEBUG = "all";
+      command = "env PULSE_LATENCY_MSEC=20 dino";
     };
   };
 }

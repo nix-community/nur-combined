@@ -48,4 +48,25 @@
   programs.less.enable = lib.mkForce false;
   environment.variables.PAGER = lib.mkOverride 900 "";  # mkDefault sets 1000. non-override is 100. 900 will beat the nixpkgs `mkDefault` but not anyone else.
   environment.variables.EDITOR = lib.mkOverride 900 "";
+
+  # several packages (dconf, modemmanager, networkmanager, gvfs, polkit, udisks, bluez/blueman, feedbackd, etc)
+  # will add themselves to the dbus search path.
+  # i prefer dbus to only search XDG paths (/share/dbus-1) for service files, as that's more introspectable.
+  # see: <repo:nixos/nixpkgs:nixos/modules/services/system/dbus.nix>
+  # TODO: sandbox dbus? i pretty explicitly don't want to use it as a launcher.
+  services.dbus.packages = lib.mkForce [
+    "/run/current-system/sw"
+    # config.system.path
+    # pkgs.dbus
+    # pkgs.polkit.out
+    # pkgs.modemmanager
+    # pkgs.networkmanager
+    # pkgs.udisks
+    # pkgs.wpa_supplicant
+  ];
+
+  # systemd by default forces shitty defaults for e.g. /tmp/.X11-unix.
+  # nixos propagates those in: <nixos/modules/system/boot/systemd/tmpfiles.nix>
+  # by overwriting this with an empty file, we can effectively remove it.
+  environment.etc."tmpfiles.d/x11.conf".text = "# (removed by Colin)";
 }

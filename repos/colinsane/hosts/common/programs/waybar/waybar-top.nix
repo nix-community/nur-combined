@@ -25,7 +25,7 @@ in
     max-length = 50;
   };
 
-  "sway/workspaces".persistent_workspaces = lib.mkIf (persistWorkspaces != []) (
+  "sway/workspaces".persistent-workspaces = lib.mkIf (persistWorkspaces != []) (
     lib.genAttrs persistWorkspaces (_: [])
   );
 

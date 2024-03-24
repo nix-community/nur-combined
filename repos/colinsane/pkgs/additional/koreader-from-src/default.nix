@@ -1,3 +1,11 @@
+# to update:
+# - first, figure the rev for `koreader-base`:
+#   - inside `koreader` repo:
+#     - `git submodule status base`
+#     - or `git log base`
+# - inside `koreader-base` repo:
+#   - `git diff old-rev..new-rev thirdparty`
+#
 # koreader's native build process
 # 1. git clone each dependency lib into base/thirdparty/$lib
 # 2. git checkout a specific rev into base/thirdparty/$lib/build/$platform
@@ -15,39 +23,25 @@
 #
 # TODO:
 # - don't vendor fonts
-# - package enough of KOReader's deps to remove `sources.nix`
-#   - SDL2 (only used by macos??)
-#   - FBINK
-#   - NANOSVG  (slightly complicated; koreader needs access to its source code)
-#   - SRELL
-# - build crengine dep via nixpkgs `coolreader` pkg (with source patched to <https://github.com/koreader/crengine>)?
 { lib
 , autoPatchelfHook
 , autoconf
 , automake
 , buildPackages
-, callPackage
 , cmake
-, dpkg
 , fetchFromGitHub
-, fetchgit
+, fetchFromGitLab
 , fetchurl
 , gettext
 , git
 , libtool
 , luajit
 , makeWrapper
-, perl
 , pkg-config
-, pkgs
-, python3
-, ragel
 , stdenv
-, substituteAll
-, which
+, symlinkJoin
 
 # third-party dependencies which KOReader would ordinarily vendor
-, symlinkJoin
 , curl
 , czmq
 , djvulibre
@@ -64,6 +58,7 @@
 , libpng
 , libunibreak
 , libwebp
+, nanosvg
 , openssl
 , openssh
 , sdcv
@@ -76,7 +71,6 @@
 , zsync
 }:
 let
-  sources = callPackage ./sources.nix { luajit = luajit52; };
   version = "2024.03";
   src = fetchFromGitHub {
     owner = "koreader";
@@ -86,6 +80,115 @@ let
     rev = "v${version}";
     hash = "sha256-/51pOGSAoaS0gOKlqNKruwaKY5qylzCpeNUrWyzYTpA=";
   };
+
+  fbink-src-ko = fetchFromGitHub {
+    owner = "NiLuJe";
+    repo = "FBInk";
+    name = "fbink";  # where to unpack this in `srcs`
+    rev = "1a989b30a195ca240a3cf37f9de61b4b3c7e891c";
+    hash = "sha256-lXjAX0BoHW3L1E54d5J+wiAlAZXVmj9Y1Un8yaCwO8w=";
+  };
+
+  kobo-usbms-src-ko = fetchFromGitHub {
+    owner = "koreader";
+    repo = "KoboUSBMS";
+    name = "kobo-usbms";  # where to unpack this in `srcs`
+    rev = "v1.3.9";
+    hash = "sha256-91B0FUnmpE6TP4Lg5mj6z/U1DZQTKiPhG3ccCSgY4mQ=";
+  };
+
+  leptonica-src-ko = fetchFromGitHub {
+    # k2pdf needs leptonica src, because it actually patches it and builds it itself:
+    # - `cp -f $(LEPTONICA_MOD)/dewarp2.c $(LEPTONICA_DIR)/src/dewarp2.c`
+    # -  i.e. cp -f /build/koreader/base/thirdparty/libk2pdfopt/build/aarch64-unknown-linux-gnu/libk2pdfopt-prefix/src/libk2pdfopt/leptonica_mod/dewarp2.c ...
+    # k2pdf uses an old leptonica -- like 2015-2017-ish (1.74.1).
+    # seems it can be at least partially updated, by replacing `numaGetMedianVariation` with `numaGetMedianDevFromMedian` (drop-in replacement)
+    # and replacing references to `liblept.so` with `libleptonica.so`,
+    # but eventually this requires patching the tesseract Makefiles. could get intense, idk.
+    owner = "DanBloomberg";
+    repo = "leptonica";
+    name = "leptonica";  # where to unpack this in `srcs`
+    rev = "1.74.1";
+    hash = "sha256-SDXKam768xvZZvTbXe3sssvZyeLEEiY97Vrzx8hoc6g=";
+  };
+
+  libk2pdfopt-src-ko = fetchFromGitHub {
+    owner = "koreader";
+    repo = "libk2pdfopt";
+    name = "libk2pdfopt";  # where to unpack this in `srcs`
+    rev = "09f1e011a618c8ec06b4caa67079682119d2aaa7";
+    hash = "sha256-37sZ46dG6Z1Wk7NrhKAKl5j9r1bN6g01cd5Iyt/2coM=";
+  };
+
+  lodepng-src-ko = fetchFromGitHub {
+    owner = "lvandeve";
+    repo = "lodepng";
+    name = "lodepng";  # where to unpack this in `srcs`
+    rev = "d398e0f10d152a5d17fa30463474dc9f56523f9c";
+    hash = "sha256-ApOHUgU6X1rHwyjAHA/0Nt+buDFqY2ttXEnEvdrRl3A=";
+  };
+
+  lunasvg-src-ko = fetchFromGitHub {
+    owner = "sammycage";
+    repo = "lunasvg";
+    name = "lunasvg";  # where to unpack this in `srcs`
+    rev = "59d6f6ba835c1b7c7a0f9d4ea540ec3981777885";
+    hash = "sha256-gW2ikakS6Omz5upmy26nAo/jkGHYO2kjlB3UmKJBh1k=";
+  };
+
+  minizip-src-ko = fetchFromGitHub {
+    # this is actually just a very old version (2015) of `minizip-ng`
+    owner = "nmoinvaz";
+    repo = "minizip";
+    name = "minizip";  # where to unpack this in `srcs`
+    rev = "0b46a2b4ca317b80bc53594688883f7188ac4d08";
+    hash = "sha256-P/3MMMGYDqD9NmkYvw/thKpUNa3wNOSlBBjANHSonAg=";
+  };
+
+  mupdf-src-ko = fetchFromGitHub {
+    owner = "ArtifexSoftware";
+    repo = "mupdf";
+    name = "mupdf";  # where to unpack this in `srcs`
+    fetchSubmodules = true;  # specifically for jbig2dec, mujs, openjpeg
+    rev = "1.13.0";
+    hash = "sha256-pQejRon9fO9A1mhz3oLjBr1j4HveDLcQIWjR1/Rpy5Q=";
+  };
+
+  nanosvg-headers-ko = symlinkJoin {
+    # koreader's heavily-patched mupdf is dependent on a koreader-specific `stb_image_write` extension to nanosvg.
+    # nanosvg is used as a header-only library, so just patch that extension straight into the src.
+    name = "nanosvg-headers-ko";
+    paths = [
+      "${nanosvg.src}/src"
+      "${src}/base/thirdparty/nanosvg"
+    ];
+  };
+
+  popen-noshell-src-ko = fetchFromGitHub {
+    owner = "famzah";
+    repo = "popen-noshell";
+    name = "popen-noshell";
+    rev = "e715396a4951ee91c40a98d2824a130f158268bb";
+    hash = "sha256-JeBZMsg6ZUGSnyZ4eds4w63gM/L73EsAnLaHOPpL6iM=";
+  };
+
+  tesseract-src-ko = fetchFromGitHub {
+    # TODO: try using nixpkgs' tesseract.src (i doubt it will work)
+    owner = "tesseract-ocr";
+    repo = "tesseract";
+    name = "tesseract";
+    rev = "60176fc5ae5e7f6bdef60c926a4b5ea03de2bfa7";
+    hash = "sha256-FQvlrJ+Uy7+wtUxBuS5NdoToUwNRhYw2ju8Ya8MLyQw=";
+  };
+
+  turbo-src-ko = fetchFromGitHub {
+    owner = "kernelsauce";
+    repo = "turbo";
+    name = "turbo";
+    rev = "v2.1.3";
+    hash = "sha256-vBRkFdc5a0FIt15HBz3TnqMZ+GGsqjEefnfJEpuVTBs=";
+  };
+
   # XXX: for some inscrutable reason, `enable52Compat` is *partially* broken, only when cross compiling.
   # `table.unpack` is non-nil, but `table.pack` is nil.
   # the normal path is for `enable52Compat` to set `env.NIX_CFLAGS_COMPILE = "-DLUAJIT_ENABLE_LUA52COMPAT";`
@@ -97,34 +200,74 @@ let
       "${src}/base/thirdparty/luajit/koreader-luajit-enable-table_pack.patch"
     ];
   });
-  luaEnv = luajit52.withPackages (ps: with ps; [
-    (buildLuarocksPackage {
-      # needed by KOReader's lua-Spore
-      pname = "luajson";
-      version = "1.3.4-1";
-      src = fetchgit {
-        url = "https://github.com/harningt/luajson.git";
-        # rev = "1.3.4";
-        # 1.3.4 (released 2017) has some incompatible bugs with lpeg library.
-        # see: <https://github.com/harningt/luajson/commit/6ecaf9bea8b121a9ffca5a470a2080298557b55d>
-        rev = "6ecaf9bea8b121a9ffca5a470a2080298557b55d";
-        hash = "sha256-56G0NqIpavKHMQWUxy+Bp7G4ZKrQwUZ2C5e7GJxUJeg=";
+
+  overlayedLuaPkgs = luaPkgs: let
+    ps = with ps; {
+      luajson = buildLuarocksPackage rec {
+        # needed by KOReader's lua-Spore
+        pname = "luajson";
+        version = "1.3.4-1";
+        src = fetchFromGitHub {
+          owner = "harningt";
+          repo = "luajson";
+          # rev = "1.3.4";
+          # 1.3.4 (released 2017) has some incompatible bugs with lpeg library.
+          # see: <https://github.com/harningt/luajson/commit/6ecaf9bea8b121a9ffca5a470a2080298557b55d>
+          rev = "6ecaf9bea8b121a9ffca5a470a2080298557b55d";
+          hash = "sha256-56G0NqIpavKHMQWUxy+Bp7G4ZKrQwUZ2C5e7GJxUJeg=";
+        };
+        knownRockspec = (fetchurl {
+          url = "mirror://luarocks/${pname}-${version}.rockspec";
+          hash = "sha256-+S4gfa6QaOMmOCDX8TxBq3kFWlbaEeiSMxCfefYakv0=";
+        }).outPath;
+        propagatedBuildInputs = [ lpeg ];
       };
-      knownRockspec = (fetchurl {
-        url = "mirror://luarocks/luajson-1.3.4-1.rockspec";
-        hash = "sha256-+S4gfa6QaOMmOCDX8TxBq3kFWlbaEeiSMxCfefYakv0=";
-      }).outPath;
-      propagatedBuildInputs = [ lpeg ];
-    })
+      htmlparser = buildLuarocksPackage rec {
+        pname = "htmlparser";  #< name of the rockspec, not the repo
+        version = "0.3.9-1";
+        src = fetchFromGitHub {
+          owner = "msva";
+          repo = "lua-htmlparser";
+          # the rockspec was added to the repo *after* v0.3.9 was tagged
+          rev = "5ce9a775a345cf458c0388d7288e246bb1b82bff";
+          hash = "sha256-aSTLSfqz/MIDFVRwtBlDNBUhPb7KqOl32/Y62Hdec1s=";
+        };
+        knownRockspec = "${src}/rockspecs/${pname}-${version}.rockspec";
+      };
+      lua-spore = buildLuarocksPackage rec {
+        pname = "lua-spore";  #< name of the rockspec, not the repo
+        version = "0.3.3-1";
+        src = fetchFromGitLab {
+          domain = "framagit.org";
+          owner = "fperrad";
+          repo = "lua-Spore";
+          rev = "0.3.3";
+          hash = "sha256-wb7ykJsndoq0DazHpfXieUcBBptowYqD/eTTN/EK/6g=";
+        };
+        knownRockspec = "${src}/rockspec/${pname}-${version}.rockspec";
+        propagatedBuildInputs = [
+          luajson
+          luasocket
+        ];
+      };
+    } // luaPkgs;
+  in ps;
+
+  luaEnv = luajit52.withPackages (ps: with (overlayedLuaPkgs ps); [
+    luajson
+    htmlparser
+    lua-spore
     lpeg
     luasec
     luasocket
     rapidjson
   ]);
+
   rockspecFor = luaPkgName: let
-    pkg = luaEnv.pkgs."${luaPkgName}";
+    pkg = (overlayedLuaPkgs luaEnv.pkgs)."${luaPkgName}";
   in
     "${luaEnv}/${pkg.rocksSubdir}/${luaPkgName}/${pkg.rockspecVersion}/${luaPkgName}-${pkg.rockspecVersion}.rockspec";
+
   crossTargets = {
     # koreader-base Makefile targets to use when compiling for the given host platform
     # only used when cross compiling
@@ -134,24 +277,6 @@ let
     "debian"
   else
     crossTargets."${stdenv.hostPlatform.parsed.cpu.name}";
-
-  fakeBuildDep = buildPackages.writeShellScript "fake-build-ko-dep" ''
-    set -x
-    lib="$1"
-    build_dir="$2"
-    prebuilt="$3"
-    mkdir -p "$build_dir/$lib-prefix/src"
-    rm -rf "$build_dir/$lib-prefix/src/$lib"
-    rm -rf "$build_dir/$lib-prefix/src/$lib-build"
-    # the library build directory koreader uses isn't consistently named, but we can cover most cases ($lib or $lib-build).
-    # we have to copy the full tree rather than just symlink because koreader/base/Makefile.third
-    # is copying lib/*.so into include/.
-    # seriously, wtf are they doing over there.
-    cp -R "$prebuilt" "$build_dir/$lib-prefix/src/$lib"
-    cp -R "$prebuilt" "$build_dir/$lib-prefix/src/$lib-build"
-    # ln -s "$prebuilt" "$build_dir/$lib-prefix/src/$lib"
-    # ln -s "$prebuilt" "$build_dir/$lib-prefix/src/$lib-build"
-  '';
 
   getContrib = pkg: stdenv.mkDerivation {
     inherit (pkg) name src;
@@ -192,15 +317,8 @@ let
   # - -I${ZLIB_DIR}/include
   zlibAll = fhsLib zlib { lib=false; include=true; flatLib=true; flatInclude=true; contrib=true; };
 
-  libunibreak' = libunibreak.overrideAttrs (canon: {
-    patches = (canon.patches or []) ++ [
-      "${src}/base/thirdparty/libunibreak/add_lb_get_char_class.patch"
-    ];
-  });
-
   # values to provide to koreader/base/Makefile.defs.
   # should be ok to put this in `makeFlags` array, but i can't get that to work!
-  # LUAROCKS_BINARY substitution is to support the cross-compilation case (i.e. emulate it during the build process)
   makefileDefs = ''
     CURL_LIB="${lib.getLib curl}/lib/libcurl.so" \
     CURL_DIR="${lib.getDev curl}" \
@@ -209,6 +327,7 @@ let
     DJVULIBRE_LIB="${lib.getLib djvulibre}/lib/libdjvulibre.so" \
     DJVULIBRE_LIB_LINK_FLAG="-L ${lib.getLib djvulibre}/lib -l:libdjvulibre.so" \
     DJVULIBRE_DIR="${djvulibreAll}" \
+    FBINK_DIR="$NIX_BUILD_TOP/fbink" \
     FREETYPE_LIB="${lib.getLib freetype}/lib/libfreetype.so" \
     FREETYPE_LIB_LINK_FLAG="-L ${lib.getLib freetype}/lib -l:libfreetype.so" \
     FREETYPE_DIR="${lib.getDev freetype}" \
@@ -228,33 +347,46 @@ let
     JPEG_LIB_LINK_FLAG="-L ${lib.getLib libjpeg_turbo}/lib -l:libjpeg.so" \
     JPEG_DIR="${lib.getDev libjpeg_turbo}" \
     TURBOJPEG_LIB="${lib.getLib libjpeg_turbo}/lib/libturbojpeg.so" \
+    K2PDFOPT_DIR="$NIX_BUILD_TOP/libk2pdfopt" \
+    KOBO_USBMS_DIR="$NIX_BUILD_TOP/kobo-usbms" \
+    LEPTONICA_DIR="$NIX_BUILD_TOP/leptonica" \
     LIBICONV="${lib.getLib libiconvReal}/lib/libiconv.so" \
     LIBICONV_DIR="${lib.getDev libiconvReal}" \
-    LIBUNIBREAK_LIB="${lib.getLib libunibreak'}/lib/libunibreak.so" \
-    LIBUNIBREAK_DIR="${libAndDev libunibreak'}" \
-    LIBUNIBREAK_LIB_LINK_FLAG="-L ${lib.getLib libunibreak'}/lib -l:libunibreak.so" \
+    LIBUNIBREAK_LIB="${lib.getLib libunibreak}/lib/libunibreak.so" \
+    LIBUNIBREAK_DIR="${libAndDev libunibreak}" \
+    LIBUNIBREAK_LIB_LINK_FLAG="-L ${lib.getLib libunibreak}/lib -l:libunibreak.so" \
     LIBWEBP_LIB="${lib.getLib libwebp}/lib/libwebp.so" \
     LIBWEBPDEMUX_LIB="${lib.getLib libwebp}/lib/libwebpdemux.so" \
     LIBWEBPSHARPYUV_LIB="${lib.getLib libwebp}/lib/libwebpsharpyuv.so" \
     LIBWEBP_DIR="${lib.getDev libwebp}" \
+    LODEPNG_DIR="$NIX_BUILD_TOP/lodepng" \
     LPEG_ROCK="${rockspecFor "lpeg"}" \
-    LUAROCKS_BINARY="${lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) (stdenv.hostPlatform.emulator buildPackages)} ${luajit52}/bin/lua ${luaEnv.pkgs.luarocks}/bin/.luarocks-wrapped" \
+    LUNASVG_DIR="$NIX_BUILD_TOP/lunasvg" \
     LUAJIT="${luaEnv}/bin/luajit" \
     LUAJIT_JIT="${luaEnv}/share/lua/5.1/jit" \
     LUAJIT_LIB="${lib.getLib luaEnv}/lib/libluajit-5.1.so" \
     LUASEC="${luaEnv}/share/lua/5.1/ssl/" \
     LUASOCKET="${luaEnv}/share/lua/5.1/socket/" \
+    LUA_HTMLPARSER_ROCK="${rockspecFor "htmlparser"}" \
     LUA_INCDIR="${lib.getDev luaEnv}/include" \
     LUA_LIBDIR="${lib.getLib luaEnv}/lib/libluajit-5.1.so" \
     LUA_RAPIDJSON_ROCK="${rockspecFor "rapidjson"}" \
+    LUA_SPORE_ROCK="${rockspecFor "lua-spore"}" \
+    MINIZIP_DIR="$NIX_BUILD_TOP/minizip" \
+    MUPDF_DIR="$NIX_BUILD_TOP/mupdf" \
+    NANOSVG_HEADERS="${nanosvg-headers-ko}" \
+    NANOSVG_INCLUDE_DIR="${nanosvg-headers-ko}" \
     OPENSSL_LIB="${lib.getLib openssl}/lib/libssl.so" \
     OPENSSL_DIR="${opensslAll}" \
     SSL_LIB="${lib.getLib openssl}/lib/libssl.so.3" \
     CRYPTO_LIB="${lib.getLib openssl}/lib/libcrypto.so" \
     PNG_LIB="${lib.getLib libpng}/lib/libpng.so" \
     PNG_DIR="${libAndDev libpng}" \
+    POPEN_NOSHELL_DIR="$NIX_BUILD_TOP/popen-noshell" \
     SQLITE_LIB="${lib.getLib sqlite}/lib/libsqlite3.so" \
     SQLITE_DIR="${lib.getDev sqlite}" \
+    TESSERACT_DIR="$NIX_BUILD_TOP/tesseract" \
+    TURBO_DIR="$NIX_BUILD_TOP/turbo" \
     UTF8PROC_LIB="${lib.getLib utf8proc}/lib/libutf8proc.so" \
     UTF8PROC_DIR="${utf8procAll}" \
     ZLIB="${lib.getLib zlib}/lib/libz.so" \
@@ -297,7 +429,7 @@ let
     libiconvReal
     libjpeg_turbo
     libpng
-    libunibreak'
+    libunibreak
     libwebp
     openssl
     openssh
@@ -314,30 +446,30 @@ in
 stdenv.mkDerivation rec {
   pname = "koreader-from-src";
   inherit version;
-  srcs = [ src ] ++ (lib.mapAttrsToList
-    (name: src: fetchgit (
-      {
-        inherit name;
-      } // src.source // {
-        # koreader sometimes specifies the rev as `tags/FOO`.
-        # we need to remember that to place the repo where it expects, but we have to strip it here for fetchgit to succeed.
-        rev = lib.removePrefix "tags/" src.source.rev;
-      }
-    ))
-    sources.thirdparty
-  );
+  srcs = [
+    src
+    fbink-src-ko
+    kobo-usbms-src-ko
+    leptonica-src-ko
+    libk2pdfopt-src-ko
+    lodepng-src-ko
+    lunasvg-src-ko
+    minizip-src-ko
+    mupdf-src-ko
+    popen-noshell-src-ko
+    tesseract-src-ko
+    turbo-src-ko
+  ];
 
   patches = [
-    ./debug.patch  #< not needed to build, just helps debug packaging issues
-    ./no_rm_build_dirs.patch
-    ./lua-Spore-no-luajson.patch  #< TODO: test this at runtime! we ship luajson, but just don't expose it via luarocks
+    # ./debug.patch  #< not needed to build, just helps debug packaging issues
     ./rss-no-interrupt-on-image-failure.patch  # just a preference
   ];
 
   sourceRoot = "koreader";
 
   nativeBuildInputs = [
-    buildPackages.stdenv.cc  # TODO: move to depsBuildBuild?
+    buildPackages.stdenv.cc
     autoconf  # autotools is used by some thirdparty libraries
     automake
     autoPatchelfHook  # used by us, in fixupPhase, to ensure substituted thirdparty deps can be loaded at runtime
@@ -346,11 +478,9 @@ stdenv.mkDerivation rec {
     libtool
     makeWrapper
     pkg-config
-    luaEnv.pkgs.luarocks
   ];
   buildInputs = [
-    # luajson
-    luaEnv
+    luaEnv  #< specifically for lua.h
   ];
 
   postPatch = ''
@@ -365,6 +495,18 @@ stdenv.mkDerivation rec {
         --replace-quiet 'ffi.load("libs/' 'ffi.load("'
     done
 
+    # don't force-rebuild third-party components, else we can't replace them with our own
+    substituteInPlace base/Makefile.third \
+      --replace-fail '	-rm ' '	# -rm'
+
+    # make some sources writable, particularly so koreader can apply its patches (by default only the `sourceRoot` is writable)
+    chmod -R u+w "$NIX_BUILD_TOP"/{fbink,kobo-usbms,leptonica,libk2pdfopt,lodepng,lunasvg,minizip,mupdf,popen-noshell,tesseract,turbo}
+    # koreader builds these deps itself: we mock out the download stage, and it does the rest
+    for dep in fbink kobo-usbms libk2pdfopt lodepng lunasvg minizip mupdf popen-noshell turbo; do
+      # sed -i 's/DOWNLOAD_COMMAND .*/DOWNLOAD_COMMAND ""/' "base/thirdparty/$dep/CMakeLists.txt"
+      sed -i "s:DOWNLOAD_COMMAND .*:DOWNLOAD_COMMAND rm -fd $dep $dep-build \\&\\& ln -s $NIX_BUILD_TOP/$dep $dep \\&\\& ln -s $NIX_BUILD_TOP/$dep $dep-build :" "base/thirdparty/$dep/CMakeLists.txt"
+    done
+
     # lots of places in Makefile.third (incorrectly) assume lib paths are relative to CURDIR,
     # so link /nix into CURDIR to allow them to work anyway
     ln -s /nix base/nix
@@ -372,79 +514,12 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
   buildPhase = ''
-    link_lib_into_build_dir() {
-      lib="$1"
-      rev="$2"
-      platform="$3"
-      prebuilt="$4"
-
-      lib_src="../$lib"
-      cmake_lists="base/thirdparty/$lib/CMakeLists.txt"
-      build_dir="base/thirdparty/$lib/build/$platform"
-
-      # link the nix clone into the directory koreader would use for checkout
-      # ref="base/thirdparty/$l/build/git_checkout"
-      # echo "linking thirdparty library $l $ref -> $deref"
-      # mkdir -p "$ref"
-      # ln -s "$deref" "$ref/$l"
-      # mv "$deref" "$ref/$l"
-      # cp -R "$deref" "$ref/$l"
-      # needs to be writable for koreader to checkout it specific revision
-      # chmod u+w -R "$ref/$l/.git"
-
-      # koreader wants to clone each library into this git_checkout dir,
-      # then checkout a specific revision,
-      # and then copy that checkout into the build/working directory further down.
-      # instead, we replicate that effect here, and by creating these "stamp" files
-      # koreader will know to skip the `git clone` and `git checkout` calls.
-      # the logic we're spoofing lives in koreader/base/thirdparty/cmake_modules/koreader_thirdparty_git.cmake
-      stamp_dir="$build_dir/git_checkout/stamp"
-      stamp_info="$stamp_dir/$lib-gitinfo-$rev.txt"
-      stamp_clone="$stamp_dir/$lib-gitclone-lastrun.txt"
-      echo "creating stamps for $lib: $stamp_clone > $stamp_info"
-      # mkdir $(dirname ..) to handle the case where `$rev` contains slashes
-      mkdir -p $(dirname "$stamp_info")
-      # koreader-base decides whether to redo the git checkout based on a timestamp compare of these two stamp files
-      touch -d "last week" $(dirname "$stamp_info")  #< XXX: necessary?
-      touch -d "last week" "$stamp_info"
-      touch -d "next week" "$stamp_clone"
-
-      # koreader would copy the checkout into this build/working directory,
-      # but because we spoof the stamps to work around other git errors,
-      # copy it there on koreader's behalf
-      prefix="$build_dir/$lib-prefix"
-      mkdir -p "$prefix/src"
-      cp -R "$lib_src" "$prefix/src/$lib"
-      # src dir needs to be writable for koreader to apply its own patches
-      chmod u+w -R "$prefix/src/$lib"
-
-      if [ -n "$prebuilt" ]; then
-        abs_build_dir="$(realpath "$build_dir")"
-        sed -i 's/INSTALL_COMMAND .*/INSTALL_COMMAND ""/' "$cmake_lists"
-        sed -i \
-          "s:BUILD_COMMAND .*:BUILD_COMMAND ${fakeBuildDep} $lib $abs_build_dir $prebuilt:" \
-          "$cmake_lists"
-      fi
-    }
-
-    ${builtins.concatStringsSep "\n" (lib.mapAttrsToList
-      (name: src:
-        let
-          # for machine-agnostic libraries (e.g. pure lua), koreader doesn't build them in a flavored directory
-          machine = if src.machineAgnostic or false then "" else stdenv.hostPlatform.config;
-        in
-          ''link_lib_into_build_dir "${name}" "${src.source.rev}" "${machine}" "${src.package or ""}"''
-      )
-      sources.thirdparty
-    )}
-
     # outDir should match OUTPUT_DIR in koreader-base
-    outDir="/build/koreader/base/build/${stdenv.hostPlatform.config}"
+    outDir="$NIX_BUILD_TOP/koreader/base/build/${stdenv.hostPlatform.config}"
     mkdir -p "$outDir"
     ${symlinkThirdpartyBins "$outDir"}
 
     make ${makeFlags}
-
   '';
 
   env = lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) {
@@ -482,7 +557,12 @@ stdenv.mkDerivation rec {
 
   passthru = {
     # exposed for debugging
-    inherit luajit52 luaEnv;
+    inherit luajit52 luaEnv mupdf-src-ko nanosvg-headers-ko rockspecFor;
+    inherit (overlayedLuaPkgs luaEnv.pkgs)
+      luajson
+      htmlparser
+      lua-spore
+    ;
   };
 
   meta = with lib; {

@@ -1,6 +1,10 @@
 # to preview fonts:
 # - `font-manager` (gui)
 #   - useful to determine official name; codepoint support
+# docs:
+# - <https://slatecave.net/notebook/fontconfig/>
+# debugging:
+# - `fc-conflist` -> show all config files loaded
 { config, lib, pkgs, ... }:
 let
   # nerdfonts takes popular open fonts and patches them to support a wider range of glyphs, notably emoji.
@@ -32,10 +36,10 @@ in
     sandbox.method = "bwrap";  # TODO:sandbox: untested
     sandbox.autodetectCliPaths = "existingOrParent";  #< this might be overkill; or, how many programs reference fontconfig internally?
 
-    persist.byStore.plaintext = [
-      # < 10 MiB
-      ".cache/fontconfig"
-    ];
+    # persist.byStore.plaintext = [
+    #   # < 10 MiB. however, nixos generates its own fontconfig cache at build time now.
+    #   ".cache/fontconfig"
+    # ];
   };
 
   fonts = lib.mkIf config.sane.programs.fontconfig.enabled {
@@ -43,8 +47,8 @@ in
     fontconfig.defaultFonts = {
       emoji = [
         "Noto Color Emoji"
-        "Font Awesome 6 Free"
-        "Font Awesome 6 Brands"
+        # "Font Awesome 6 Free"
+        # "Font Awesome 6 Brands"
       ];
       monospace = [
         "Hack Nerd Font Propo"
@@ -66,7 +70,7 @@ in
       # TODO: reduce this font set.
       # - probably need only one of dejavu/freefont/liberation
       dejavu_fonts  # 10 MiB; DejaVu {Sans,Serif,Sans Mono,Math TeX Gyre}; also available as a NerdFonts (Sans Mono only)
-      font-awesome  #  2 MiB; Font Awesome 6 {Free,Brands}
+      # font-awesome  #  2 MiB; Font Awesome 6 {Free,Brands}
       freefont_ttf  # 11 MiB; Free{Mono,Sans,Serif}
       gyre-fonts    #  4 MiB; Tex Gyre *; ttf substitutes for standard PostScript fonts
       # hack-font     #  1 MiB; Hack; also available as a NerdFonts

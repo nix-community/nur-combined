@@ -54,42 +54,35 @@ in
 
     services.xdg-desktop-portal = {
       description = "xdg-desktop-portal freedesktop.org portal (URI opener, file chooser, etc)";
-      after = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-
-      serviceConfig = {
-        ExecStart="${cfg.package}/libexec/xdg-desktop-portal";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "10s";
-      };
+      partOf = [ "graphical-session" ];
 
       # tracking issue for having xdg-desktop-portal locate portals via more standard directories, obviating this var:
       # - <https://github.com/flatpak/xdg-desktop-portal/issues/603>
       # i can actually almost omit it today; problem is that if you don't set it it'll look for `sway-portals.conf` in ~/.config/xdg-desktop-portal
       # but then will check its *own* output dir for {gtk,wlr}.portal.
       # arguable if that's a packaging bug, or limitation...
-      environment.XDG_DESKTOP_PORTAL_DIR = "%E/xdg-desktop-portal";
-
-      # environment.G_MESSAGES_DEBUG = "all";  #< also applies to all apps launched by the portal
+      command = lib.concatStringsSep " " [
+        "env"
+        "XDG_DESKTOP_PORTAL_DIR=$HOME/.config/xdg-desktop-portal"
+        # "G_MESSAGES_DEBUG=all"  #< also applies to all apps launched by the portal
+        "${cfg.package}/libexec/xdg-desktop-portal"
+      ];
+      readiness.waitDbus = "org.freedesktop.portal.Desktop";
     };
 
     services.xdg-permission-store = {
       # xdg-desktop-portal would *usually* dbus-activate this.
       # this service might not strictly be necssary. xdg-desktop-portal does warn if it's not present, though.
       description = "xdg-permission-store: lets xdg-desktop-portal know which handlers are 'safe'";
-      after = [ "graphical-session.target" ];
-      before = [ "xdg-desktop-portal.service" ];
-      wantedBy = [ "xdg-desktop-portal.service" ];
+      # after = [ "graphical-session" ];
+      dependencyOf = [ "xdg-desktop-portal" ];
 
-      serviceConfig = {
-        ExecStart="${cfg.package}/libexec/xdg-permission-store";
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "10s";
-      };
-      environment.XDG_DESKTOP_PORTAL_DIR = "%E/xdg-desktop-portal";
+      command = lib.concatStringsSep " " [
+        "env"
+        "XDG_DESKTOP_PORTAL_DIR=$HOME/.config/xdg-desktop-portal"
+        "${cfg.package}/libexec/xdg-permission-store"
+      ];
+      readiness.waitDbus = "org.freedesktop.impl.portal.PermissionStore";
     };
     # also available: ${cfg.package}/libexec/xdg-document-portal
     # - <https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Documents.html>

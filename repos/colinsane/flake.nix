@@ -48,6 +48,11 @@
     # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=nixos-staging-next";
     nixpkgs-next-unpatched.url = "github:nixos/nixpkgs?ref=staging-next";
 
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs-unpatched";
+    };
+
     mobile-nixos = {
       # <https://github.com/nixos/mobile-nixos>
       # only used for building disk images, not relevant after deployment
@@ -76,6 +81,7 @@
     self,
     nixpkgs-unpatched,
     nixpkgs-next-unpatched ? nixpkgs-unpatched,
+    nixpkgs-wayland,
     mobile-nixos,
     sops-nix,
     uninsane-dot-org,
@@ -184,9 +190,18 @@
           let
             mobile = (import "${mobile-nixos}/overlay/overlay.nix");
             uninsane = uninsane-dot-org.overlays.default;
+            wayland = final: prev: {
+              # default is to dump the packages into `waylandPkgs` *and* the toplevel.
+              # but i just want the `waylandPkgs` set
+              inherit (nixpkgs-wayland.overlays.default final prev)
+                waylandPkgs
+                new-wayland-protocols  #< 2024/03/10: nixpkgs-wayland assumes this will be in the toplevel
+              ;
+            };
           in
             (mobile final prev)
             // (uninsane final prev)
+            // (wayland final prev)
           ;
       };
 

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   sane.programs.conky = {
     # TODO: non-sandboxed `conky` still ships via `sxmo-utils`, but unused
@@ -14,6 +14,7 @@
 
     fs.".config/conky/conky.conf".symlink.target =
       let
+        # TODO: make this just another `suggestedPrograms`!
         battery_estimate = pkgs.static-nix-shell.mkBash {
           pname = "battery_estimate";
           srcRoot = ./.;
@@ -26,14 +27,8 @@
 
     services.conky = {
       description = "conky dynamic desktop background";
-      after = [ "graphical-session.target" ];
-      # partOf = [ "graphical-session.target" ];  # propagate stop/restart signal from graphical-session to this unit
-      wantedBy = [ "graphical-session.target" ];
-
-      serviceConfig.ExecStart = "${config.sane.programs.conky.package}/bin/conky";
-      serviceConfig.Type = "simple";
-      serviceConfig.Restart = "on-failure";
-      serviceConfig.RestartSec = "10s";
+      partOf = [ "graphical-session" ];
+      command = "conky";
     };
   };
 }
