@@ -17,4 +17,8 @@
   abella-modded = pkgs.callPackage ./pkgs/abella-modded {
     ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_12;
   };
+
+  ott-sweirich = pkgs.callPackage ./pkgs/ott-sweirich {
+    ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_12;
+  };
 }
