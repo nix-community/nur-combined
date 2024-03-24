@@ -612,19 +612,6 @@ in
 
     lua = {};
 
-    "mate.engrampa".packageUnwrapped = pkgs.rmDbusServices pkgs.mate.engrampa;
-    "mate.engrampa".sandbox.method = "bwrap";  # TODO:sandbox: untested
-    "mate.engrampa".sandbox.whitelistWayland = true;
-    "mate.engrampa".sandbox.autodetectCliPaths = "existingOrParent";
-    "mate.engrampa".sandbox.extraHomePaths = [
-      "archive"
-      "Books/local"
-      "Books/servo"
-      "records"
-      "ref"
-      "tmp"
-    ];
-
     mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
     mercurial.sandbox.net = "clearnet";
     mercurial.sandbox.whitelistPwd = true;

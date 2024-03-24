@@ -23,7 +23,31 @@ in
   sane.programs.xdg-desktop-portal = {
     # rmDbusServices: because we care about ordering with the rest of the desktop, and don't want something else to auto-start this.
     packageUnwrapped = pkgs.rmDbusServicesInPlace (
-      pkgs.xdg-desktop-portal.overrideAttrs (upstream: {
+      (pkgs.xdg-desktop-portal.overrideAttrs (upstream: let
+        useOwnSrc = upstream.version == "1.18.2";
+      in lib.warnIf (!useOwnSrc) "xdg-desktop-portal package pin is outdated" lib.optionalAttrs useOwnSrc {
+        # use a nightly version to fix a crash observced with moby + mpv + alsa
+        # fixed presumably by 1e15771665c8a9c3645d101c749e192ada95ab2c
+        #   GLib-GObject-CRITICAL **: 06:09:34.061: g_object_ref: assertion '!object_already_finalized' failed
+        #   active task has backtrace: close_requests_in_thread_func -> g_mutex_lock -> __aarch64_cas4_acq_rel
+        version = "1.18.2-unstable-2024-03-11";
+        src = pkgs.fetchFromGitHub {
+          owner = "flatpak";
+          repo = "xdg-desktop-portal";
+          rev = "9423046dfa0a1488ce069f377c26a70034bb42b9";
+          hash = "sha256-VGCJ1CyxaDyg2X3Pcnf+83ZXEiQpAqFvkvjoxd678t4=";
+        };
+        mesonFlags = upstream.mesonFlags ++ [
+          "-Ddocumentation=disabled"  # post 2023-11-19, docs require Sphinx, which i don't understand
+        ];
+        nativeBuildInputs = upstream.nativeBuildInputs ++ [
+          pkgs.buildPackages.python3
+        ];
+
+        postPatch = (upstream.postPatch or "") + ''
+          patchShebangs --build src/generate-method-info.py
+        '';
+      })).overrideAttrs (upstream: {
         postPatch = (upstream.postPatch or "") + ''
           # wherever we have a default mime association, don't prompt the user to choose an app.
           # tracking issues about exposing this formally:
@@ -64,7 +88,7 @@ in
       command = lib.concatStringsSep " " [
         "env"
         "XDG_DESKTOP_PORTAL_DIR=$HOME/.config/xdg-desktop-portal"
-        # "G_MESSAGES_DEBUG=all"  #< also applies to all apps launched by the portal
+        "G_MESSAGES_DEBUG=xdg-desktop-portal=all"
         "${cfg.package}/libexec/xdg-desktop-portal"
       ];
       readiness.waitDbus = "org.freedesktop.portal.Desktop";

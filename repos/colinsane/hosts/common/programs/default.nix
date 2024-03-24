@@ -27,6 +27,7 @@
     ./dino.nix
     ./dissent.nix
     ./element-desktop.nix
+    ./engrampa.nix
     ./epiphany.nix
     ./evince.nix
     ./fcitx5.nix

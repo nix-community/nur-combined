@@ -118,16 +118,8 @@ let
 
     browserpass = callPackage ./patched/browserpass { inherit (unpatched) browserpass; };
 
-    engrampa = callPackage ./patched/engrampa { inherit (unpatched) mate; };
-
     # mozilla keeps nerfing itself and removing configuration options
     firefox-unwrapped = callPackage ./patched/firefox-unwrapped { inherit (unpatched) firefox-unwrapped; };
-
-    gnome = unpatched.gnome.overrideScope (gself: gsuper: {
-      gnome-control-center = import ./patched/gnome-control-center {
-        inherit (gsuper) gnome-control-center;
-      };
-    });
 
     gocryptfs = callPackage ./patched/gocryptfs { inherit (unpatched) gocryptfs; };
 
