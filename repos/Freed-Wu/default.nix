@@ -37,6 +37,7 @@ let
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
+    stardict-ecdict = callPackage ./pkgs/data/misc/stardict-ecdict { };
 
     lsp-tree-sitter = callPackage ./pkgs/development/python-modules/lsp-tree-sitter { };
     tree-sitter-muttrc = callPackage ./pkgs/development/python-modules/tree-sitter-muttrc { };
