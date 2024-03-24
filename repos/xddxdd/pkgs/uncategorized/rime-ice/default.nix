@@ -20,6 +20,6 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "Rime 配置：雾凇拼音 | 长期维护的简体词库 ";
     homepage = "https://dvel.me/posts/rime-ice/";
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
   };
 }

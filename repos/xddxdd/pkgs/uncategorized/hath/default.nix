@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Hentai@Home";
     homepage = "https://e-hentai.org/";
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
   };
 }

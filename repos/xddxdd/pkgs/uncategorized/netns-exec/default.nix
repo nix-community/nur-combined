@@ -17,6 +17,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Run command in Linux network namespace as normal user";
     homepage = "https://github.com/pekman/netns-exec";
-    license = licenses.gpl2;
+    license = licenses.gpl2Only;
   };
 }

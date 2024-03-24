@@ -14,6 +14,6 @@ buildGoModule rec {
   meta = with lib; {
     description = "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint";
     homepage = "https://github.com/xddxdd/bird-lg-go";
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
   };
 }

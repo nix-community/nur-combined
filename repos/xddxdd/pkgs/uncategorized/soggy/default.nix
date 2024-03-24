@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Experimental server emulator for a game I forgot its name";
     homepage = "https://github.com/LDAsuku/soggy";
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
   };
 }

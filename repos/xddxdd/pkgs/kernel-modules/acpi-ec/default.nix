@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Kernel module to access directly to the ACPI EC";
     homepage = "https://github.com/musikid/acpi_ec";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
   };
 }

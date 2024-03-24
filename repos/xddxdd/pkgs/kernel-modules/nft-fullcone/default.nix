@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Nftables fullcone expression kernel module";
     homepage = "https://github.com/fullcone-nat-nftables/nft-fullcone";
-    license = lib.licenses.gpl3;
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
   };
 }

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "DPDK kernel modules or add-ons";
     homepage = "https://git.dpdk.org/dpdk-kmods/";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
   };
 }
