@@ -8,20 +8,22 @@
 , libcpr
 , onnxruntime
 , opencv
+, isBeta ? false
 }:
 
 let
   fastdeploy = callPackage ./fastdeploy-ppocr.nix { };
+  sources = lib.importJSON ./pin.json;
 in
 stdenv.mkDerivation (finalAttr: {
-  pname = "maa-assistant-arknights";
-  version = "5.2.0";
+  pname = "maa-assistant-arknights" + lib.optionalString isBeta "-beta";
+  version = if isBeta then sources.beta.version else sources.stable.version;
 
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "MaaAssistantArknights";
     rev = "v${finalAttr.version}";
-    hash = "sha256-vxGJHm1StQNN+0IVlGMqKVKW56LH6KUC94utDn7FcNo=";
+    hash = if isBeta then sources.beta.hash else sources.stable.hash;
   };
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=maa-assistant-arknights
@@ -61,6 +63,8 @@ stdenv.mkDerivation (finalAttr: {
     "-DINSTALL_PYTHON=ON"
     "-DMAA_VERSION=v${finalAttr.version}"
   ];
+
+  passthru.updateScript = ./update.sh;
 
   postInstall = ''
     mkdir -p $out/share/${finalAttr.pname}

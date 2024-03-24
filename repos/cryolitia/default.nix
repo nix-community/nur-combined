@@ -18,10 +18,7 @@ rec {
 
   maa-assistant-arknights = pkgs.callPackage ./pkgs/maa-assistant-arknights { };
 
-  # maa-assistant-arknights-beta = maa-assistant-arknights.override {
-  #   maaVersion = "4.28.0";
-  #   maaSourceHash = "sha256-SKPKFD70wwmBXqolh8eLmHbL1ckDORiAH+LFBjC+o1A=";
-  # };
+  maa-assistant-arknights-beta = maa-assistant-arknights.override { isBeta = true; };
 
   onnxruntime-cuda-bin = pkgs.callPackage ./pkgs/maa-assistant-arknights/onnxruntime-cuda-bin.nix { };
 

@@ -65,7 +65,6 @@ jobs:
         name: cryolitia
         extraPullNames: nix-community, cuda-maintainers
     - name: Setup Github Caches
-      if: ${{ matrix.arch == 'aarch64' }}
       uses: DeterminateSystems/magic-nix-cache-action@v4
     - name: Check evaluation
       run: |
