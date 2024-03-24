@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if ! which python3 >/dev/null 2>/dev/null; then
+	python_out=$(nix eval --raw "$(sd d root)#pkgs.python3.outPath")
+	nix-store -r $python_out >/dev/null
+	export PATH=$PATH:$python_out/bin
+	# echo $python_out
+fi
+
+export PYTHONPATH=$PYTHONPATH:$(sd d root)/bin/.calc
+
+python -m commoncalc "$@"

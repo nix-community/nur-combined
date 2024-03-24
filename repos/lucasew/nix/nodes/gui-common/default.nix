@@ -46,6 +46,7 @@ in {
   programs.dconf.enable = true;
   services.dbus.packages = with pkgs; [ dconf ];
   services.gvfs.enable = true;
+  services.tumbler.enable = true;
 
   programs.ssh = {
     startAgent = true;
