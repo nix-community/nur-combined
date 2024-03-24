@@ -89,14 +89,14 @@
           {
             wireguardPeerConfig = {
               PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-              AllowedIPs = [ "10.0.2.2/16" ];
+              AllowedIPs = [ "10.0.1.2/32" "192.168.1.0/24" ];
               PersistentKeepalive = 15;
             };
           }
           {
             wireguardPeerConfig = {
               PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-              AllowedIPs = [ "10.0.2.3/16" ];
+              AllowedIPs = [ "10.0.1.3/32" "10.234.0.0/24" ];
               PersistentKeepalive = 15;
             };
           }
@@ -104,37 +104,15 @@
           {
             wireguardPeerConfig = {
               PublicKey = "PkprQcw4kYLiX1Ix8FcIje1x0yie/gjheX7UbxQ7OUw=";
-              AllowedIPs = [ "10.0.2.4/32" ];
+              AllowedIPs = [ "10.0.1.4/32" ];
               PersistentKeepalive = 15;
             };
           }
           {
             wireguardPeerConfig = {
-              PublicKey = "S15atcarZFdphevBkA/c8jMyL71JeS4DcrrpLZJOcj0=";
-              AllowedIPs = [ "10.0.2.5/32" ];
-              PersistentKeepalive = 15;
-            };
-          }
-
-          {
-            wireguardPeerConfig = {
-              PublicKey = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk=";
-              AllowedIPs = [ "10.0.2.6/32" ];
-              PersistentKeepalive = 15;
-            };
-          }
-
-          {
-            wireguardPeerConfig = {
-              PublicKey = "kDWOvV5AJ++zRQeTn12kd9x45JvxNqnwhPnB9HkzK0c=";
-              PersistentKeepalive = 15;
-            };
-          }
-
-          {
-            wireguardPeerConfig = {
-              PublicKey = "83NjKIMSJxSorKEhxbD8lEu0Xa9rbAyGkRD77xsTsWQ=";
-              AllowedIPs = [ "10.0.2.15/32" ];
+              PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+              AllowedIPs = [ "10.0.1.1/32" ];
+              Endpoint = "144.126.208.183:51820";
               PersistentKeepalive = 15;
             };
           }
@@ -147,7 +125,7 @@
       "10-wg0" = {
         matchConfig.Name = "wg0";
         address = [
-          "10.0.2.1/24"
+          "10.0.1.9/24"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";

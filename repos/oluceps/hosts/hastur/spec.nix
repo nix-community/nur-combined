@@ -88,7 +88,7 @@
   services = (
     let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs lib; }; in lib.genAttrs [
       "openssh"
-      "mosdns"
+      "mosproxy"
       "fail2ban"
       "dae"
       "scrutiny"
@@ -97,6 +97,12 @@
     ]
       (n: importService n)
   ) // {
+    prometheus.exporters.node = {
+      enable = true;
+      listenAddress = "0.0.0.0";
+      enabledCollectors = [ "systemd" ];
+      disabledCollectors = [ "arp" ];
+    };
 
     prom-ntfy-bridge.enable = true;
     # xserver.videoDrivers = [ "nvidia" ];
@@ -264,7 +270,6 @@
         #type database DBuser origin-address auth-method
         # ipv4
         host  all      all     127.0.0.1/32   trust
-        host  all      all     10.0.2.1/24   trust
         host  all      all     10.0.1.1/24   trust
         host  all      all     10.0.0.1/24   trust
         # ipv6

@@ -27,11 +27,16 @@ in
       metrics_path = "/caddy";
       static_configs = [{ inherit targets; }];
     }
-    # {
-    #   job_name = "mosdns";
-    #   metrics_path = "/metrics";
-    #   static_configs = [{ targets = [ "localhost:9092" ]; }];
-    # }
+    {
+      job_name = "mosproxy";
+      metrics_path = "/metrics";
+      static_configs = [{
+        targets = [
+          "10.0.1.2:9092"
+          "10.0.1.3:9092"
+        ];
+      }];
+    }
     {
       job_name = "metrics";
       scheme = "https";
@@ -40,6 +45,14 @@ in
         password_file = config.age.secrets.prom.path;
       };
       static_configs = [{ inherit targets; }];
+    }
+
+    {
+      job_name = "metrics-prv";
+      scheme = "http";
+      static_configs = [{
+        targets = [ "10.0.1.2:9100" "10.0.1.3:9100" ];
+      }];
     }
     # {
     #   job_name = "http";

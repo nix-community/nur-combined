@@ -18,7 +18,6 @@ router
       await fetch(Deno.env.get("TOPIC"), {
         method: "POST",
         headers: {
-          "tags": "red_circle",
           "prio": "high",
         },
         body: msg,

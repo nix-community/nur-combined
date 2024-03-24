@@ -1,4 +1,5 @@
 { lib, config, pkgs, ... }:
+# metrics for exposed machine
 let
   cfg = config.services.metrics;
 in

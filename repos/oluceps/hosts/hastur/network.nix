@@ -78,30 +78,18 @@
         wireguardPeers = [
           {
             wireguardPeerConfig = {
-              PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.2.0/16" ];
-              Endpoint = "127.0.0.1:41821";
+              PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+              AllowedIPs = [ "10.0.1.1/32" ];
+              Endpoint = "127.0.0.1:41820";
               PersistentKeepalive = 15;
             };
           }
-        ];
-      };
 
-      wg1 = {
-        netdevConfig = {
-          Kind = "wireguard";
-          Name = "wg1";
-          MTUBytes = "1300";
-        };
-        wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.wg.path;
-        };
-        wireguardPeers = [
           {
             wireguardPeerConfig = {
-              PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-              AllowedIPs = [ "10.0.1.0/16" ];
-              Endpoint = "127.0.0.1:41820";
+              PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
+              AllowedIPs = [ "10.0.1.9/32" "10.0.0.0/24" ];
+              Endpoint = "127.0.0.1:41821";
               PersistentKeepalive = 15;
             };
           }
@@ -114,14 +102,6 @@
       "10-wg0" = {
         matchConfig.Name = "wg0";
         # IP addresses the client interface will have
-        address = [
-          "10.0.2.2/24"
-        ];
-        DHCP = "no";
-      };
-
-      "10-wg1" = {
-        matchConfig.Name = "wg1";
         address = [
           "10.0.1.2/24"
         ];

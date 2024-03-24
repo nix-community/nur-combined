@@ -78,7 +78,7 @@
           {
             wireguardPeerConfig = {
               PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.2.0/24" ];
+              AllowedIPs = [ "10.0.1.9/32" ];
               Endpoint = "127.0.0.1:41821";
               PersistentKeepalive = 15;
             };
@@ -105,7 +105,7 @@
       "10-wg0" = {
         matchConfig.Name = "wg0";
         address = [
-          "10.0.2.6/24"
+          "10.0.1.6/24"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";

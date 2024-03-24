@@ -55,6 +55,7 @@ edit-sec *args:
                                   | each {|| ls $in } | flatten | $in.name |
                                   reduce {|it, acc| $it + (char newline) + $acc } |
                                   fzf
+    if (not ($encrypted_file_tob_edit | path exists)) { print -e "Not found"; exit }
     let tmp_file = (mktemp -t)
     rage -d $encrypted_file_tob_edit -i $age_pub -o $tmp_file
     hx $tmp_file
