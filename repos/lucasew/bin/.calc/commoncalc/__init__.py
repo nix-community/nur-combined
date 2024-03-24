@@ -4,31 +4,43 @@
 
 # utility functions to calculate stuff
 
+from .__common import define_command
+
 import os
 import sys
 
+@define_command()
 def reverse_txt(value):
+    "Reverse a text"
     return value[::-1]
 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
+@define_command()
 def b64d(data):
+    "Decode base64"
     from base64 import b64decode
     decoded = b64decode(data)
     return decoded.decode('utf-8')
 
+@define_command()
 def b64e(data):
+    "Encode base64"
     from base64 import b64encode
     raw = bytes(data, 'utf-8')
     encoded = b64encode(raw)
     return encoded.decode('utf-8')
 
+@define_command()
 def urlencode(data):
+    "Urlencode data"
     import urllib.parse
     return urllib.parse.quote_plus(data)
 
+@define_command()
 def urldecode(data):
+    "Urldecode data"
     import urllib.parse
     return urllib.parse.unquote(data)
 
@@ -40,16 +52,22 @@ def eval_print(stmt, globals=globals(), locals=locals()):
         print("Run statement: ", stmt)
     print(eval(stmt, globals, locals))
 
+@define_command()
 def getenv(key):
+    "Get environment variable"
     from os import environ
     return environ.get(key)
 
+@define_command()
 def is_match(regex, text):
+    "Check if regex match text"
     from re import finditer
     m = list(finditer(regex, text))
     return len(m) != 0
 
+@define_command()
 def simplex(num_vars, obj_type, obj, *restrictions):
+    "Apply the simplex method"
     from fractions import Fraction
     from warnings import warn
     class Simplex(object):
@@ -328,21 +346,29 @@ def simplex(num_vars, obj_type, obj, *restrictions):
     s = Simplex(int(num_vars), restrictions, (obj_type, obj))
     return s.solution
 
+@define_command()
 def pad_bin(number, zfill = 8):
+    "Pad a binary number"
     return bin(number).__str__()[2:].zfill(zfill)
 
+@define_command()
 def is_binary_expr(expr):
+    "Check if expression is binary"
     for c in expr:
         if c not in ["0", "1"]:
             return False
     return True
 
+@define_command()
 def parse_binary_expr(expr):
+    "Try to parse a binary expression"
     if is_binary_expr(expr):
         return eval("0b%s" %(expr))
     raise TypeError("'%s' is not a binary expression", expr)
 
+@define_command()
 class IP():
+    "Calculations around IPv4 addresses"
     def __init__(self, expr, try_binary = False):
         if type(expr) == list and len(expr) == 4:
             self._ip = [int(str(v)) for v in expr]
@@ -464,7 +490,9 @@ class IP():
         cls = self.get_class()
         return "<IP(%s): %s>" %(cls, str(self))
 
+@define_command()
 def subrede(level):
+    "Get the subnet mask from the slash part of a IP"
     if type(level) == int and level > 0 and level < 32:
         ones = level
         zeroes = 32 - level
@@ -479,7 +507,9 @@ def subrede(level):
                 ret.append("0")
         return IP("".join(ret), try_binary = True)
 
+@define_command()
 def meu_ip():
+    "Get current IP"
     from urllib.request import urlopen
     with urlopen("http://ifconfig.me") as response:
         return IP(response.read().decode('utf-8'))
@@ -492,7 +522,9 @@ def benchmark(iters, fn, *args):
     return timeit(call(fn, *args), number=iters)
 
 
+@define_command()
 def frac(*args):
+    "Basically define a fraction"
     from fractions import Fraction
     return Fraction(*args)
 
@@ -505,58 +537,23 @@ def expand_list(*elems):
 def inspect(*elems):
     return elems
 
+@define_command()
 def sort(elems, **args):
+    "Sort a list"
     elems = list(elems)
     elems.sort(**args)
     return elems
 
+@define_command()
 def reverse(elems):
+    "Reverse a list"
     elems = list(elems)
     elems.reverse()
     return elems
 
+@define_command()
 def get_args():
+    "Get argv"
     from sys import argv
     return argv[1:]
-
-SUBCOMMANDS = {}
-
-def _define_subcommand(name: str):
-    def _register(func):
-        SUBCOMMANDS[name] = func
-        return func
-    return _register
-
-@_define_subcommand("-")
-def _cmd_from_stdin(*args):
-    code = sys.stdin.read()
-    _cmd_eval_all(code)
-
-@_define_subcommand("eval_all")
-def _cmd_eval_all(*args):
-    code = " ".join(args)
-    print(eval(code))
-
-@_define_subcommand("eval")
-def _cmd_eval(*args):
-    for arg in args:
-        print(eval(arg))
-
-@_define_subcommand("repl")
-def _cmd_repl(*args):
-    for arg in args:
-        exec(arg)
-    import readline, rlcompleter
-    from code import InteractiveConsole
-    readline.parse_and_bind("tab: complete")
-    InteractiveConsole(globals()).interact()
-
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        eprint("missing args")
-        eprint("subcommands: " + " ".join(SUBCOMMANDS.keys()))
-        exit(1)
-    args = sys.argv[2:]
-    command = SUBCOMMANDS[sys.argv[1]](*args)
-
 
