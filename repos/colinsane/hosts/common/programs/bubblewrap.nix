@@ -21,12 +21,12 @@
         # note that invoking bwrap with capabilities in the 'init' namespace does NOT grant the sandboxed process
         # capabilities in the 'init' namespace. it's a limitation of namespaces that namespaced processes can
         # never receive capabilities in their parent namespace.
-        substituteInPlace bubblewrap.c --replace \
+        substituteInPlace bubblewrap.c --replace-fail \
           'die ("Unexpected capabilities but not setuid, old file caps config?");' \
           '// die ("Unexpected capabilities but not setuid, old file caps config?");'
 
         # enable debug printing
-        # substituteInPlace utils.h --replace \
+        # substituteInPlace utils.h --replace-fail \
         #   '#define __debug__(x)' \
         #   '#define __debug__(x) printf x'
       '';

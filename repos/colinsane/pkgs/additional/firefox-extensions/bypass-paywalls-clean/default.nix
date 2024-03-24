@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
   # which avoids breaking manual updates
   postPatch = ''
     substituteAllInPlace background.js \
-    --replace 'ext_api.runtime.openOptionsPage()' 'true' \
-    --replace ' fetch(' ' false && fetch('
+      --replace-fail 'ext_api.runtime.openOptionsPage()' 'true' \
+      --replace-fail ' fetch(' ' false && fetch('
   '';
 
   nativeBuildInputs = [ zip ];

@@ -185,6 +185,7 @@ in (lib.makeScope newScope (self: with self; {
       # (if you have one, feel free to share your nix package)
       #
       # NB: in source this is `alreadyInstalled: false`, but the build process hates Booleans or something
+      # TODO(2024/03/23): this is broken (replacement doesn't match). but maybe not necessary anymore?
       substituteInPlace js/*.js \
         --replace 'alreadyInstalled:!1' 'alreadyInstalled:!0'
     '';

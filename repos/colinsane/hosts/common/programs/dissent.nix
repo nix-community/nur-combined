@@ -28,7 +28,7 @@ in
         # - <https://github.com/diamondburned/dissent/issues/139>
         # - <https://github.com/zalando/go-keyring/issues/46>
         substituteInPlace vendor/github.com/zalando/go-keyring/secret_service/secret_service.go \
-          --replace '"login"' '"Default_keyring"'
+          --replace-fail '"login"' '"Default_keyring"'
       '';
     });
     sandbox.method = "bwrap";

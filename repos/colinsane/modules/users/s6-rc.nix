@@ -60,7 +60,7 @@ let
     logger = serviceToFs' {
       name = "logger:${name}";
       consumerFor = name;
-      run = ''exec s6-log -- T p'${name}:' "${logBase}/${name}"'';
+      run = ''s6-log -- T p'${name}:' "${logBase}/${name}"'';
       type = "longrun";
     };
   in (serviceToFs' {
@@ -91,7 +91,7 @@ let
       "data".dir = {
         "check".executable = maybe (check != null) ''
           #!/bin/sh
-          exec ${check}
+          ${check}
         '';
       };
       # N.B.: if this service is a bundle, then dependencies.d is ignored
@@ -101,14 +101,40 @@ let
       ;
       "finish".executable = maybe (finish != null) ''
         #!/bin/sh
-        exec ${finish}
+        ${finish}
       '';
       "notification-fd".text = maybe (check != null) "3";
       "producer-for".text = maybe (producerFor != null) producerFor;
       "run".executable = maybe (run != null) ''
         #!/bin/sh
-        echo "starting: s6-${name}"
-        exec ${maybe-notify}${run} 2>&1
+        log() {
+          printf 's6[%s]: %s\n' '${name}' "$1" | tee /dev/stderr
+        }
+        log "preparing"
+
+        # s6 is too gentle when i ask it to stop a service,
+        # so explicitly kill children on exit.
+        # see: <https://stackoverflow.com/a/2173421>
+        # before changing this, test that the new version actually kills a service with `s6-rc down <svcname>`
+        down() {
+          log "trapped on abort signal"
+          # "trap -": to avoid recursing
+          trap - SIGINT SIGQUIT SIGTERM
+          log "killing process group"
+          # "kill 0" means kill the current process group (i.e. all descendants)
+          kill 0
+          exit 0
+        }
+        trap down SIGINT SIGQUIT SIGTERM
+
+        log "starting"
+        # run the service from $HOME by default.
+        # particularly, this impacts things like "what directory does my terminal open in".
+        # N.B. do not run the notifier from $HOME, else it won't know where to find the `data/check` program.
+        # N.B. must be run with `&` + `wait`, else we lose the ability to `trap`.
+        ${maybe-notify}env --chdir="$HOME" ${run} <&0 &
+        wait
+        log "exiting"
       '';
     };
   };

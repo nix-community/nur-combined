@@ -485,8 +485,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     # patch for newer openssl
-    substituteInPlace --fail base/ffi/crypto.lua \
-      --replace 'ffi.load("libs/libcrypto.so.1.1")' 'ffi.load("libcrypto.so")'
+    substituteInPlace base/ffi/crypto.lua \
+      --replace-fail 'ffi.load("libs/libcrypto.so.1.1")' 'ffi.load("libcrypto.so")'
 
     # dlopen libraries by name only, allowing them to be found via LD_LIBRARY_PATH
     # instead of just via $out/libs. this is required whenever we direct KOreader to use system libs instead of its vendored libs.

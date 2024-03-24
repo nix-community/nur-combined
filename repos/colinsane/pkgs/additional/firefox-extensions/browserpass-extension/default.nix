@@ -48,10 +48,10 @@ in stdenv.mkDerivation {
     #
     # alternative would be to patchShebangs in the node_modules dir.
     substituteInPlace src/Makefile \
-      --replace "yarn install" "true" \
-      --replace '	$(PRETTIER)' '	node $(PRETTIER)' \
-      --replace '	$(LESSC)' '	node $(LESSC)' \
-      --replace '	$(BROWSERIFY)' '	node $(BROWSERIFY)'
+      --replace-fail "yarn install" "true" \
+      --replace-fail '	$(PRETTIER)' '	node $(PRETTIER)' \
+      --replace-fail '	$(LESSC)' '	node $(LESSC)' \
+      --replace-fail '	$(BROWSERIFY)' '	node $(BROWSERIFY)'
   '';
 
   preBuild = ''

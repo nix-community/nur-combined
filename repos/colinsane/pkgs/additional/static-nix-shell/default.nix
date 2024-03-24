@@ -73,8 +73,8 @@ in rec {
 
       patchPhase = ''
         substituteInPlace ${srcPath} \
-          --replace '#!/usr/bin/env nix-shell' '#!${interpreter}' \
-          --replace \
+          --replace-fail '#!/usr/bin/env nix-shell' '#!${interpreter}' \
+          --replace-fail \
             '#!nix-shell -i ${interpreterName}${pkgsStr}' \
             '# nix deps evaluated statically'
       '';
@@ -85,7 +85,7 @@ in rec {
         mv ${srcPath} $out/bin/${srcPath}
 
         # ensure that all nix-shell references were substituted
-        (! grep nix-shell $out/bin/${srcPath}) || exit 1
+        (! grep '#![ \t]*nix-shell' $out/bin/${srcPath}) || exit 1
 
       '' + lib.optionalString doWrap ''
         # add runtime dependencies to PATH

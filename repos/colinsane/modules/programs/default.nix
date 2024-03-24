@@ -68,12 +68,7 @@ let
           fullRuntimePaths = lib.optionals (userName != null) (
             builtins.map
               (p: path-lib.concat [ xdgRuntimeDir p ])
-              (
-                sandbox.extraRuntimePaths
-                ++ lib.optionals sandbox.whitelistAudio [ "pipewire" "pulse" ]  # this includes pipewire/pipewire-0-manager: is that ok?
-                ++ lib.optionals (builtins.elem "user" sandbox.whitelistDbus) [ "bus" ]
-                ++ lib.optionals sandbox.whitelistWayland [ "wayland" ]  # app can still communicate with wayland server w/o this, if it has net access
-              )
+              sandbox.extraRuntimePaths
           );
           allowedPaths = [
             "/nix/store"
@@ -386,6 +381,13 @@ let
           allow the program full access to whichever directory it was launched from.
         '';
       };
+      sandbox.whitelistS6 = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow the program to start/stop s6 services.
+        '';
+      };
       sandbox.whitelistWayland = mkOption {
         type = types.bool;
         default = false;
@@ -479,18 +481,22 @@ let
       # this gets the symlink into the sandbox, but not the actual secret.
       fs = lib.mapAttrs (_homePath: _secretSrc: {}) config.secrets;
 
-      sandbox.extraPaths = lib.mkMerge [
-        (lib.mkIf config.sandbox.whitelistDri [
+      sandbox.extraPaths =
+        lib.optionals config.sandbox.whitelistDri [
           # /dev/dri/renderD128: requested by wayland-egl (e.g. KOreader, animatch, geary)
           # - but everything seems to gracefully fallback to *something* (MESA software rendering?)
           #   - CPU usage difference between playing videos in Gtk apps (e.g. fractal) with v.s. without DRI is 10% v.s. 90%.
           # - GPU attack surface is *large*: <https://security.stackexchange.com/questions/182501/modern-linux-gpu-driver-security>
           "/dev/dri" "/sys/dev/char" "/sys/devices" # (lappy: "/sys/devices/pci0000:00", moby needs something different)
-        ])
-        (lib.mkIf config.sandbox.whitelistX [
-          "/tmp/.X11-unix"
-        ])
-      ];
+        ]
+        ++ lib.optionals config.sandbox.whitelistX [ "/tmp/.X11-unix" ]
+      ;
+      sandbox.extraRuntimePaths =
+        lib.optionals config.sandbox.whitelistAudio [ "pipewire" "pulse" ]  # this includes pipewire/pipewire-0-manager: is that ok?
+        ++ lib.optionals (builtins.elem "user" config.sandbox.whitelistDbus) [ "bus" ]
+        ++ lib.optionals config.sandbox.whitelistWayland [ "wayland" ]  # app can still communicate with wayland server w/o this, if it has net access
+        ++ lib.optionals config.sandbox.whitelistS6 [ "s6" ]  # TODO: this allows re-writing the services themselves: don't allow that!
+      ;
       sandbox.extraConfig = lib.mkIf config.sandbox.usePortal [
         "--sane-sandbox-portal"
       ];

@@ -1,0 +1,65 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p s6 -p s6-rc -p systemd
+
+# for default $PATH to take precedence over nix-shell PATH if invoked interactively,
+# otherwise we invoke a s6-rc which does not know where to find files.
+export PATH="/etc/profiles/per-user/$(whoami)/bin:/run/current-system/sw/bin:$PATH"
+
+action="$1"
+type="$2"
+service="$3"
+
+log() {
+  if [ -n "$SWAYNC_SERVICES_DEBUG" ]; then
+    printf "%s\n" "$1"
+  fi
+}
+
+checkActive() {
+  case "$type" in
+    systemd)
+      systemctl is-active "$service.service" > /dev/null && echo true || echo false
+      ;;
+    s6)
+      s6-svstat -o wantedup "$XDG_RUNTIME_DIR/s6/live/servicedirs/$service"
+      ;;
+  esac
+}
+startService() {
+  log "startService: $service"
+  case "$type" in
+    systemd)
+      /run/wrappers/bin/sudo systemctl start "$service"
+      ;;
+    s6)
+      s6-rc start "$service"
+      ;;
+  esac
+}
+stopService() {
+  log "stopService: $service"
+  case "$type" in
+    systemd)
+      /run/wrappers/bin/sudo systemctl stop "$service"
+      ;;
+    s6)
+      s6-rc stop "$service"
+      ;;
+  esac
+}
+
+case "$action" in
+  print)
+    checkActive
+    ;;
+  toggle)
+    case "$(checkActive)" in
+      false)
+        startService
+        ;;
+      true)
+        stopService
+        ;;
+    esac
+    ;;
+esac

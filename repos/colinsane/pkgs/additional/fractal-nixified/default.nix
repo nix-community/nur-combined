@@ -106,9 +106,9 @@ let
       # patch so meson will invoke our `crate2nix_cmd.sh` instead of cargo
       postPatch = ''
         substituteInPlace src/meson.build \
-          --replace 'cargo_options,'  "" \
-          --replace "cargo, 'build',"  "'bash', 'crate2nix_cmd.sh'," \
-          --replace "'src' / rust_target" "'target/bin'"
+          --replace-fail 'cargo_options,'  "" \
+          --replace-fail "cargo, 'build',"  "'bash', 'crate2nix_cmd.sh'," \
+          --replace-fail "'src' / rust_target" "'target/bin'"
       '';
       postConfigure = ''
         # copied from <pkgs/development/tools/build-managers/meson/setup-hook.sh>
@@ -318,7 +318,7 @@ let
       # just update this patch to reflect the right-hand side
       # CARGO_MANIFEST_LINKS = "ring_core_0_17_7";
       postPatch = (attrs.postPatch or "") + ''
-        substituteInPlace build.rs --replace \
+        substituteInPlace build.rs --replace-fail \
           'links = std::env::var("CARGO_MANIFEST_LINKS").unwrap();' 'links = "ring_core_0_17_7".to_string();'
       '';
     };

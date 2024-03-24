@@ -25,7 +25,7 @@ let
     buildPhase = ''
       runHook preBuild
       substituteAll "$src" sane-sandboxed \
-        --replace '@out@' "$out"
+        --replace-fail '@out@' "$out"
       runHook postBuild
     '';
 
