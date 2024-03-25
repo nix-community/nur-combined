@@ -48,6 +48,13 @@ rustPlatform.buildRustPackage rec {
       --prefix PATH : "${lib.makeBinPath [
         android-tools git
       ]}"
+
+    mkdir -p $out/share/zsh/site-functions/
+    mkdir -p $out/share/bash-completion/completions/
+    mkdir -p $out/share/fish/vendor_completions.d/
+    $out/bin/maa complete zsh > $out/share/zsh/site-functions/_maa
+    $out/bin/maa complete bash > $out/share/bash-completion/completions/maa.bash
+    $out/bin/maa complete fish > $out/share/fish/vendor_completions.d/maa.fish
   '';
 
   meta = with lib; {
