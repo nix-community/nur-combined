@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ++ [ bzip2 ];
 
   meta = with lib; {
-    description = "Compressor/archiver for creating and modifying zipfiles";
+    description = "Compressor/archiver for creating and modifying zipfiles [with bzip2 support]";
     homepage = "http://www.info-zip.org";
     license = licenses.bsdOriginal;
     platforms = platforms.all;

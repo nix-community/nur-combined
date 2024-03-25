@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p bash git jq
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")"/..
 
 keep_tempdir=false
 
@@ -181,9 +181,16 @@ if [[ "$rc" == "0" ]]; then
     echo '<html lang="en">'
     echo '<head>'
     echo '<meta charset="utf-8">'
-    echo '<title>NUR packages</title>'
+    # no. github markdown renderer shows this as plain text
+    #echo '<title>NUR packages</title>'
     echo '</head>'
     echo '<body>'
+    echo '<h1>nur-packages</h1>'
+    #echo '<h2>nur.repos.'$repo_name'</h2>'
+
+    # no. this is too wide for github blob api
+    # same layout as
+    if false; then
     echo '<table>'
 
     echo '<thead>'
@@ -196,14 +203,109 @@ if [[ "$rc" == "0" ]]; then
 
     echo '<tbody>'
 
-    echo "$packages_json" | jq -r 'to_entries[] | "<tr>\n<td>\(if .value.meta.homepage == null then "" else "<a href=\"\(.value.meta.homepage)\">" end)\(.value.name)\(if .value.meta.homepage == null then "" else "</a>" end)</td>\n<td><a href=\"file://\(.value.meta.position | sub(":(?<x>[0-9]+)$"; "#L\(.x)"))\">nur.repos.'"$repo_name"'.\(.key)</a></td>\n<td>\(.value.meta.description)</td>\n</tr>\n"'
+    echo "$packages_json" | jq -r '
+      to_entries[] |
+      "<tr>\n<td>\(
+        if .value.meta.homepage == null then ""
+        else "<a href=\"\(.value.meta.homepage)\">"
+        end
+      )\(.value.name)\(
+        if .value.meta.homepage == null then ""
+        else "</a>"
+        end
+      )</td>\n<td><a href=\"\(
+        .value.meta.position | sub(":(?<x>[0-9]+)$"; "#L\(.x)") | .[('${#repo_path}'+1):]
+      )\">nur.repos.'"$repo_name"'.\(.key)</a></td>\n<td>\(
+        if .value.meta.description == null then "" else
+        .value.meta.description |
+        gsub("&"; "&amp;") |
+        gsub("<"; "&lt;") |
+        gsub(">"; "&gt;") |
+        gsub("\n"; "&#10;") |
+        .
+        end
+      )</td>\n</tr>"
+    '
 
     echo '</tbody>'
 
     echo '</table>'
+
+    elif false; then
+
+    # vertical layout: h3 div div div
+    echo "$packages_json" | jq -r '
+      to_entries[] |
+      "<h3>" + .key + "</h3>\n" +
+      "<div><a href=\"" + (
+        .value.meta.position | sub(":(?<x>[0-9]+)$"; "#L\(.x)") | .[('${#repo_path}'+1):]
+      ) + "\">nur.repos.'"$repo_name"'." + .key + "</a></div>\n" +
+      "<div>" + (
+        if .value.meta.homepage == null then ""
+        else "<a href=\"" + .value.meta.homepage + "\">"
+        end
+      ) + .value.name + (
+        if .value.meta.homepage == null then ""
+        else "</a>"
+        end
+      ) + "</div>\n" +
+      "<div>" + (
+        if .value.meta.description == null then "" else
+        .value.meta.description |
+        gsub("&"; "&amp;") |
+        gsub("<"; "&lt;") |
+        gsub(">"; "&gt;") |
+        gsub("\n"; "<br>") |
+        .
+        end
+      ) + "</div>"
+    '
+
+    else
+
+    # inline layout: li
+    echo '<ul>'
+    echo "$packages_json" | jq -r '
+      to_entries[] |
+      "<li id=\"nur.repos.'"$repo_name"'." + .key + "\"><a href=\"" + (
+        .value.meta.position | sub(":(?<x>[0-9]+)$"; "#L\(.x)") | .[('${#repo_path}'+1):]
+      ) + "\">nur.repos.'"$repo_name"'." + .key + "</a> -\n" +
+      (
+        if .value.meta.homepage == null then ""
+        else "<a href=\"" + .value.meta.homepage + "\">"
+        end
+      ) + .value.name + (
+        if .value.meta.homepage == null then ""
+        else "</a>"
+        end
+      ) + " -\n" +
+      (
+        if .value.meta.description == null then "" else
+        .value.meta.description |
+        gsub("&"; "&amp;") |
+        gsub("<"; "&lt;") |
+        gsub(">"; "&gt;") |
+        gsub("\n"; "<br>") |
+        .
+        end
+      ) + "</li>"
+    '
+    echo '</ul>'
+    echo '<h2>see also</h2>'
+    echo '<ul>'
+    echo '<li><a href="https://github.com/nix-community/NUR">github.com/nix-community/NUR</a></li>'
+    echo '<li><a href="https://nur.nix-community.org/">nur.nix-community.org</a></li>'
+    echo '<li><a href="https://nur.nix-community.org/repos/'$repo_name'/">nur.nix-community.org/repos/'$repo_name'</a></li>'
+    echo '</ul>'
+
+    fi
+
     echo '</body>'
     echo '</html>'
   ) >$tempdir/packages.html
+
+  echo "writing $source_repo_path/readme.md"
+  cp $tempdir/packages.html "$source_repo_path/readme.md"
 
   echo writing $tempdir/packages.json
   echo "$packages_json" >$tempdir/packages.json

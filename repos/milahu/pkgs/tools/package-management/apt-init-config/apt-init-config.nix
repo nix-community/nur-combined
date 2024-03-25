@@ -16,4 +16,9 @@ writeShellApplication {
 
   # disable shellcheck
   checkPhase = "";
+
+  meta = with lib; {
+    description = ''init config files for apt so you can run "apt update"'';
+    license = licenses.mit;
+  };
 }

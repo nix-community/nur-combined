@@ -29,7 +29,7 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Birdge is a multi-level proxy that supports clients and servers with multiple protocols. SSHProxy/HTTPProxy/Socks4/Socks5/Shadowsocks";
+    description = "Birdge is a multi-level proxy that supports clients and servers with multiple protocols: SSHProxy, HTTPProxy, Socks4, Socks5, Shadowsocks";
     homepage = "https://github.com/wzshiming/bridge";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
