@@ -68,7 +68,7 @@
       }; import ./default.nix
         {
           inherit pkgs;
-        } // gpd-linuxcontrols.legacyPackages.${system} // (
+        } // (if (system == "x86_64-linux") then gpd-linuxcontrols.legacyPackages.${system} else { }) // (
         if (builtins.elem system systems-linux) then
           import ./linux-specific.nix
             {
@@ -79,7 +79,7 @@
 
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
-      hydraJobs.build = import ./default.nix {
+      hydraJobs = nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) (import ./default.nix {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config = {
@@ -92,7 +92,7 @@
             };
           };
         };
-      };
+      });
 
       nixosModules = import ./modules;
     };
