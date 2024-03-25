@@ -76,7 +76,7 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build x86_64 nix packages
-      if: ${{ matrix.arch == 'x86_64' && matrix.cuda == 'disable' }}
+      if: ${{ matrix.arch == 'x86_64' }}
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Build aarch64 nix packages
       if: ${{ matrix.arch == 'aarch64' }}
