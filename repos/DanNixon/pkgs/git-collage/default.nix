@@ -8,19 +8,19 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "git-collage";
-  version = "0.4.0";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "DanNixon";
     repo = "${pname}";
     rev = "v${version}";
-    hash = "sha256-+1ro/4MGdehwg2T95UMix4hoQNNLtpvPPM2oOBasxeY=";
+    hash = "sha256-LznCU6SlYcsPK3A5OXUwhVEZWdOm4utIGznZCEsHzo4=";
   };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ];
 
-  cargoHash = "sha256-bJfEtxePDeqCB1vX7IM26lc0QRlubE7WDjO+EjieffE=";
+  cargoHash = "sha256-mO0EE5vjLqe1A/gjdNOkwxCWNCa9OvULwV6gkTh302Q=";
 
   meta = {
     description = "A tool for selectively mirroring Git repositories.";
