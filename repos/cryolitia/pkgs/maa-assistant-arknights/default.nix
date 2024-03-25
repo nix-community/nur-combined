@@ -49,6 +49,8 @@ stdenv.mkDerivation (finalAttr: {
     asio
     cmake
     fastdeploy.cmake
+  ] ++ lib.optionals cudaSupport [
+    cudaPackages.cuda_nvcc
   ];
 
   buildInputs = [
@@ -56,7 +58,15 @@ stdenv.mkDerivation (finalAttr: {
     libcpr
     onnxruntime
     opencv
-  ];
+  ] ++ lib.optionals cudaSupport (with cudaPackages; [
+    cuda_cccl # cub/cub.cuh
+    libcublas # cublas_v2.h
+    libcurand # curand.h
+    libcusparse # cusparse.h
+    libcufft # cufft.h
+    cudnn # cudnn.h
+    cuda_cudart
+  ]);
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=None"
@@ -65,8 +75,6 @@ stdenv.mkDerivation (finalAttr: {
     "-DINSTALL_RESOURCE=ON"
     "-DINSTALL_PYTHON=ON"
     "-DMAA_VERSION=v${finalAttr.version}"
-  ] ++ lib.optional cudaSupport [
-    "-DCUDA_TOOLKIT_ROOT_DIR=${cudaPackages.cudatoolkit}"
   ];
 
   passthru.updateScript = ./update.sh;
