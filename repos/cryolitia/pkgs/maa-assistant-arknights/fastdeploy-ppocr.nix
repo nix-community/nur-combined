@@ -54,7 +54,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     (lib.cmakeFeature "CMAKE_BUILD_TYPE" "None")
-    (lib.cmakeFeature "BUILD_SHARED_LIBS" "ON")
+    (lib.cmakeBool "BUILD_SHARED_LIBS" true)
   ] ++ lib.optionals cudaSupport [
     (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitecturesString)
   ];

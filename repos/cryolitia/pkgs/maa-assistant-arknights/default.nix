@@ -75,10 +75,10 @@ stdenv.mkDerivation (finalAttr: {
 
   cmakeFlags = [
     (lib.cmakeFeature "CMAKE_BUILD_TYPE" "None")
-    (lib.cmakeFeature "USE_MAADEPS" "OFF")
-    (lib.cmakeFeature "BUILD_SHARED_LIBS" "ON")
-    (lib.cmakeFeature "INSTALL_RESOURCE" "ON")
-    (lib.cmakeFeature "INSTALL_PYTHON" "ON")
+    (lib.cmakeBool "USE_MAADEPS" false)
+    (lib.cmakeBool "BUILD_SHARED_LIBS" true)
+    (lib.cmakeBool "INSTALL_RESOURCE" true)
+    (lib.cmakeBool "INSTALL_PYTHON" true)
     (lib.cmakeFeature "MAA_VERSION" "v${finalAttr.version}")
   ];
 
