@@ -20,7 +20,7 @@ let
 in
 effectiveStdenv.mkDerivation (finalAttrs: {
   pname = "fastdeploy-ppocr";
-  version = "20231009-unstable";
+  version = "0-unstable-2023-10-09";
 
   src = fetchFromGitHub {
     owner = "Cryolitia";
@@ -53,8 +53,8 @@ effectiveStdenv.mkDerivation (finalAttrs: {
   ]);
 
   cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=None"
-    "-DBUILD_SHARED_LIBS=ON"
+    (lib.cmakeFeature "CMAKE_BUILD_TYPE" "None")
+    (lib.cmakeFeature "BUILD_SHARED_LIBS" "ON")
   ] ++ lib.optionals cudaSupport [
     (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitecturesString)
   ];

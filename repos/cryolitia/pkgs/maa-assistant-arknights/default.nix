@@ -31,16 +31,21 @@ stdenv.mkDerivation (finalAttr: {
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=maa-assistant-arknights
   postPatch = ''
-    sed -e 's/RUNTIME\sDESTINATION\s\./ /g' \
-        -e 's/LIBRARY\sDESTINATION\s\./ /g' \
-        -e 's/PUBLIC_HEADER\sDESTINATION\s\./ /g' -i CMakeLists.txt
-    sed -e 's/find_package(asio /# find_package(asio /g' \
-        -e 's/asio::asio/ /g' -i CMakeLists.txt
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'RUNTIME DESTINATION .' ' ' \
+      --replace-fail 'LIBRARY DESTINATION .' ' ' \
+      --replace-fail 'PUBLIC_HEADER DESTINATION .' ' '
+
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'find_package(asio ' '# find_package(asio ' \
+      --replace-fail 'asio::asio' ' '
 
     shopt -s globstar nullglob
-    sed -i 's/onnxruntime\/core\/session\///g' src/MaaCore/**/{*.h,*.cpp,*.hpp,*.cc}
 
-    sed -i 's/ONNXRuntime/onnxruntime/g' CMakeLists.txt
+    substituteInPlace src/MaaCore/**/{*.h,*.cpp,*.hpp,*.cc} \
+      --replace 'onnxruntime/core/session/' ""
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'ONNXRuntime' 'onnxruntime'
 
     cp -v ${fastdeploy.cmake}/Findonnxruntime.cmake cmake/
   '';
@@ -69,12 +74,12 @@ stdenv.mkDerivation (finalAttr: {
   ]);
 
   cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=None"
-    "-DUSE_MAADEPS=OFF"
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DINSTALL_RESOURCE=ON"
-    "-DINSTALL_PYTHON=ON"
-    "-DMAA_VERSION=v${finalAttr.version}"
+    (lib.cmakeFeature "CMAKE_BUILD_TYPE" "None")
+    (lib.cmakeFeature "USE_MAADEPS" "OFF")
+    (lib.cmakeFeature "BUILD_SHARED_LIBS" "ON")
+    (lib.cmakeFeature "INSTALL_RESOURCE" "ON")
+    (lib.cmakeFeature "INSTALL_PYTHON" "ON")
+    (lib.cmakeFeature "MAA_VERSION" "v${finalAttr.version}")
   ];
 
   passthru.updateScript = ./update.sh;

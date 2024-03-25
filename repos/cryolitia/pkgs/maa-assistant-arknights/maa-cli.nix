@@ -2,6 +2,7 @@
 , stdenv
 , rustPlatform
 , fetchFromGitHub
+, installShellFiles
 , makeWrapper
 , pkg-config
 , openssl
@@ -22,6 +23,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [
+    installShellFiles
     makeWrapper
     pkg-config
   ];
@@ -49,12 +51,10 @@ rustPlatform.buildRustPackage rec {
         android-tools git
       ]}"
 
-    mkdir -p $out/share/zsh/site-functions/
-    mkdir -p $out/share/bash-completion/completions/
-    mkdir -p $out/share/fish/vendor_completions.d/
-    $out/bin/maa complete zsh > $out/share/zsh/site-functions/_maa
-    $out/bin/maa complete bash > $out/share/bash-completion/completions/maa.bash
-    $out/bin/maa complete fish > $out/share/fish/vendor_completions.d/maa.fish
+    installShellCompletion --cmd maa \
+      --bash <($out/bin/maa complete bash) \
+      --fish <($out/bin/maa complete fish) \
+      --zsh <($out/bin/maa complete zsh)
   '';
 
   meta = with lib; {
