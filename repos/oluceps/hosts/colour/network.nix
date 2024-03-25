@@ -20,21 +20,6 @@
     enableIPv6 = true;
     nftables = {
       enable = true;
-      # for hysteria port hopping
-      ruleset = ''
-        table ip nat {
-        	chain prerouting {
-        		type nat hook prerouting priority filter; policy accept;
-        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
-        	}
-        }
-        table ip6 nat {
-        	chain prerouting {
-        		type nat hook prerouting priority filter; policy accept;
-        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
-        	}
-        }
-      '';
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
