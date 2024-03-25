@@ -1698,10 +1698,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.5.9";
+      version = "1.5.10";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4248489/dearrow-1.5.9.xpi";
-      sha256 = "8e23a3720d9c5d8853cf934345fed9027bf857e57dbe86c0bc8993565db656a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251914/dearrow-1.5.10.xpi";
+      sha256 = "ca77107436a021060ed18de0ccb8acdc6b3de7c6e4e764f6cefb30334eb0446a";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1747,10 +1747,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240321.215430";
+      version = "124.0.20240321.230221";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4253488/deutsch_de_language_pack-125.0.20240321.215430.xpi";
-      sha256 = "6a9a3fbf4c861c05568a5ec95c06618a4ced42afec894037dd35680f5af7a9f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4253802/deutsch_de_language_pack-124.0.20240321.230221.xpi";
+      sha256 = "d69649bc26717fc3fae5639ae8fd8ccd25bee1fc0e46c6afbf29820d5da6547c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1783,10 +1783,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "4.1.0";
+      version = "4.2.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4215473/dictionaries-4.1.0.xpi";
-      sha256 = "070e6e2df277a0aadd73310528c358d4c2dbab30bb6278ef0cd8af5483191e9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4254681/dictionaries-4.2.0.xpi";
+      sha256 = "f6c6b58703bad8cd569abbc902c9e385d5e11376c671e04bcd948d5f707f7d50";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -2687,10 +2687,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240321.215430";
+      version = "124.0.20240321.230221";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4253450/francais_language_pack-125.0.20240321.215430.xpi";
-      sha256 = "4bb2579452152d17fc12a745c067b3dcc769ccc20744d491f648fd3d0c6b9095";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4253784/francais_language_pack-124.0.20240321.230221.xpi";
+      sha256 = "6b36f83c4209bda5d44a4971f4ee1d13423a372e8b613d7071e8221937e558b2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5055,21 +5055,20 @@
     };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.6.0";
+      version = "0.3.8";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4235536/kagi_search_for_firefox-0.6.0.xpi";
-      sha256 = "4e0c7419378166fed21b1c4d64e0ca0b42cde28d4233a6a9c7d0b2d6a881c50e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4173642/kagi_search_for_firefox-0.3.8.xpi";
+      sha256 = "97df6e38d7f9531efff5360c744d3f32386d7289975ed5eb818491fbdcecf20b";
       meta = with lib;
       {
         homepage = "https://kagi.com";
         description = "A simple helper extension for setting Kagi as a default search engine, and automatically logging in to Kagi in private browsing windows.";
-        license = licenses.mit;
+        license = licenses.mpl20;
         mozPermissions = [
           "cookies"
           "declarativeNetRequestWithHostAccess"
           "webRequest"
           "storage"
-          "contextMenus"
         ];
         platforms = platforms.all;
       };
@@ -6515,10 +6514,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.10.1";
+      version = "11.12.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4242329/ether_metamask-11.10.1.xpi";
-      sha256 = "728ee6e988fecbe312b644d28d6591478ba15afb3193f8bf74d76052ad132502";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251470/ether_metamask-11.12.2.xpi";
+      sha256 = "ddcea096d03fb3a8e2e202f3ed5e3811a523956d54e87fffbefbab8d91f448f1";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -7056,10 +7055,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.28.0";
+      version = "6.29.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4244068/okta_browser_plugin-6.28.0.xpi";
-      sha256 = "2a0766052631788fdc895f0a898d4a97de1a0f6c1fe55e27ce511032f019c029";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4250756/okta_browser_plugin-6.29.0.xpi";
+      sha256 = "9b3624a8af8b9068b2f8af58b3c0b9b8ccca5ba7e82fbb6df3058fc6f019c424";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
