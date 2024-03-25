@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mongoose";
-  version = "7.12";
+  version = "7.13";
 
   src = fetchFromGitHub {
     owner = "cesanta";
     repo = "mongoose";
     rev = finalAttrs.version;
-    hash = "sha256-cDaPK9ubXX9x/iJZqEgMxTm/VAFslnA4agtQbhQRc6I=";
+    hash = "sha256-9XHUE8SVOG/X7SIB52C8EImPx4XZ7B/5Ojwmb0PkiuI=";
   };
 
   buildInputs = [ mbedtls ];

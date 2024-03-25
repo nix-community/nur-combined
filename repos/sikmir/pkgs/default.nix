@@ -377,6 +377,7 @@ lib.makeScope newScope (
     messenger-gtk = callPackage ./misc/messenger-gtk { };
     miband4 = callPackage ./misc/miband4 { };
     mitzasql = callPackage ./misc/mitzasql { };
+    mjs = callPackage ./misc/mjs { };
     modbus-tools = callPackage ./misc/modbus-tools {
       inherit (darwin.apple_sdk.frameworks) IOKit;
     };

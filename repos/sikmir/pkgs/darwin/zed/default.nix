@@ -2,11 +2,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zed";
-  version = "0.127.3";
+  version = "0.127.4";
 
   src = fetchurl {
     url = "https://zed.dev/api/releases/stable/${finalAttrs.version}/Zed.dmg";
-    hash = "sha256-fT8g02GNfcqjVGX0aO750DzXIExdWrEwOl1vHW6UO1Q=";
+    hash = "sha256-7iIewLdm4XtJdTm9VF/JLiB3DKahvZCwm53khZ7eWQ4=";
   };
 
   sourceRoot = ".";
