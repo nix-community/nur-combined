@@ -15,11 +15,11 @@ hash_beta=$(nix-prefetch-github MaaAssistantArknights MaaAssistantArknights --re
 cat > $directory/pin.json << EOF
 {
   "stable": {
-    "version": "$version_stable",
+    "version": "${version_stable#*v}",
     "hash": "$hash_stable"
   },
   "beta": {
-    "version": "$version_beta",
+    "version": "${version_beta#*v}",
     "hash": "$hash_beta"
   }
 }

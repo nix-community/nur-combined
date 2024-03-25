@@ -1,4 +1,5 @@
 { lib
+, config
 , callPackage
 , stdenv
 , fetchFromGitHub
@@ -9,6 +10,8 @@
 , onnxruntime
 , opencv
 , isBeta ? false
+, cudaSupport ? config.cudaSupport
+, cudaPackages ? { }
 }:
 
 let
@@ -22,7 +25,7 @@ stdenv.mkDerivation (finalAttr: {
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "MaaAssistantArknights";
-    rev = "${finalAttr.version}";
+    rev = "v${finalAttr.version}";
     hash = if isBeta then sources.beta.hash else sources.stable.hash;
   };
 
@@ -61,7 +64,9 @@ stdenv.mkDerivation (finalAttr: {
     "-DBUILD_SHARED_LIBS=ON"
     "-DINSTALL_RESOURCE=ON"
     "-DINSTALL_PYTHON=ON"
-    "-DMAA_VERSION=${finalAttr.version}"
+    "-DMAA_VERSION=v${finalAttr.version}"
+  ] ++ lib.optional cudaSupport [
+    "-DCUDA_TOOLKIT_ROOT_DIR=${cudaPackages.cudatoolkit}"
   ];
 
   passthru.updateScript = ./update.sh;

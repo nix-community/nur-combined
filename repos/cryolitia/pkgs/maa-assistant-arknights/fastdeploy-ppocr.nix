@@ -66,7 +66,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "MaaAssistantArknights stripped-down version of FastDeploy";
-    homepage = "https://github.com/MaaAssistantArknights/FastDeploy/";
+    homepage = "https://github.com/MaaAssistantArknights/FastDeploy";
     platforms = platforms.linux;
     license = licenses.apsl20;
     broken = cudaSupport && stdenv.hostPlatform.system != "x86_64-linux";
