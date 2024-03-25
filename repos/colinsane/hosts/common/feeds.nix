@@ -83,6 +83,7 @@ let
     (fromDb "fulltimenix.com" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
+    (fromDb "nixpkgs.news" // tech)
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy

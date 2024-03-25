@@ -1,0 +1,9 @@
+{
+  "description": "A weekly recap of news from the Nix ecosystem.",
+  "is_podcast": false,
+  "site_name": "nixpkgs.news",
+  "site_url": "https://nixpkgs.news",
+  "title": "nixpkgs.news",
+  "url": "https://nixpkgs.news/rss.xml",
+  "velocity": 0.143
+}
