@@ -83,7 +83,6 @@ let
     (fromDb "fulltimenix.com" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
-    (fromDb "nixpkgs.news" // tech)
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
@@ -159,6 +158,7 @@ let
     (fromDb "mg.lol" // tech)
     (fromDb "mindingourway.com" // rat)
     (fromDb "morningbrew.com/feed" // pol)
+    (fromDb "nixpkgs.news" // tech)
     (fromDb "overcomingbias.com" // rat)  # Robin Hanson
     (fromDb "palladiummag.com" // uncat)
     (fromDb "philosopher.coach" // rat)  # Peter Saint-Andre -- side project of stpeter.im
@@ -202,6 +202,7 @@ let
     (mkText "https://linuxphoneapps.org/blog/atom.xml" // tech // infrequent)
     (mkText "https://nixos.org/blog/announcements-rss.xml" // tech // infrequent)  # more nixos stuff here, but unclear how to subscribe: <https://nixos.org/blog/categories.html>
     (mkText "https://nixos.org/blog/stories-rss.xml" // tech // weekly)
+    (mkText "https://solar.lowtechmagazine.com/posts/index.xml" // tech // weekly)
     # (mkText "https://til.simonwillison.net/tils/feed.atom" // tech // weekly)
     # (mkText "https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss" // pol // weekly)  # Matt Levine (preview/paywalled)
     (mkText "https://www.stratechery.com/rss" // pol // weekly)  # Ben Thompson
