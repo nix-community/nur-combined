@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttr: {
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "MaaAssistantArknights";
-    rev = "v${finalAttr.version}";
+    rev = "${finalAttr.version}";
     hash = if isBeta then sources.beta.hash else sources.stable.hash;
   };
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttr: {
     "-DBUILD_SHARED_LIBS=ON"
     "-DINSTALL_RESOURCE=ON"
     "-DINSTALL_PYTHON=ON"
-    "-DMAA_VERSION=v${finalAttr.version}"
+    "-DMAA_VERSION=${finalAttr.version}"
   ];
 
   passthru.updateScript = ./update.sh;
