@@ -7,17 +7,27 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
+let
 
-rec {
-  ryzen-smu = pkgs.linuxPackages.callPackage ./pkgs/linux/ryzen-smu.nix { };
+  lib = pkgs.lib;
 
-  bmi260 = pkgs.linuxPackages.callPackage ./pkgs/linux/bmi260.nix { };
+  linux-packages = [
+    {
+      name = "";
+      package = pkgs.linuxPackages;
+    }
+    {
+      name = "_zen";
+      package = pkgs.linuxPackages_zen;
+    }
+    {
+      name = "_latest";
+      package = pkgs.linuxPackages_latest;
+    }
+  ];
 
-  ryzen-smu-zen = pkgs.linuxPackages_zen.callPackage ./pkgs/linux/ryzen-smu.nix { };
+in lib.attrsets.mergeAttrsList (lib.lists.forEach linux-packages (linux-package: lib.attrsets.mapAttrs' (name: package: lib.attrsets.nameValuePair (name + linux-package.name) (linux-package.package.callPackage package {})) {
+  ryzen-smu = ./pkgs/linux/ryzen-smu.nix;
 
-  bmi260-zen = pkgs.linuxPackages_zen.callPackage ./pkgs/linux/bmi260.nix { };
-
-  ryzen-smu-latest = pkgs.linuxPackages_latest.callPackage ./pkgs/linux/ryzen-smu.nix { };
-
-  bmi260-latest = pkgs.linuxPackages_latest.callPackage ./pkgs/linux/bmi260.nix { };
-}
+  bmi260 = ./pkgs/linux/bmi260.nix;
+}))
