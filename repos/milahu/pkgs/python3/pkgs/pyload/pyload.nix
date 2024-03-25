@@ -30,13 +30,13 @@ buildPythonApplication rec {
 
   # versions https://github.com/pyload/pyload/issues/4339
   # https://pypi.org/project/pyload-ng/#history
-  version = "0.5.0b3.dev74"; # 2023-10-17
+  version = "0.5.0b3.dev81"; # 2024-02-29
 
   src = fetchFromGitHub {
     owner = "pyload";
     repo = "pyload";
-    rev = "a65a968696f85c52c1f835d6d5dc22fd52fca12a";
-    sha256 = "sha256-23j2zvcvnIU5kZXhgZIAOGPJFk9JQbK9VLbvPuW53XY=";
+    rev = "72dc08d7b560cf30d1b420c9c9760e37233dc799";
+    sha256 = "sha256-JZuuGW5rKLyKiQAfWDFXMYtBGlXqv1bv6t2gJcNsOy4=";
   };
 
   # relax versions

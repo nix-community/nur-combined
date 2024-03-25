@@ -17,7 +17,7 @@ buildGoModule rec {
     sha256 = "sha256-Hm8K0ilFEuvYxyplmAcb476L1id06ePcwluxWts1/ZY=";
   };
 
-  vendorSha256 = "sha256-acbOktk5A0IIfILT81D9O4AL6wCRX8H/9sm8iHrjgOg=";
+  vendorHash = "sha256-acbOktk5A0IIfILT81D9O4AL6wCRX8H/9sm8iHrjgOg=";
 
   propagatedBuildInputs = [
     pandoc

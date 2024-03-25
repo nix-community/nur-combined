@@ -57,7 +57,7 @@ let
       sha256 = aether-sha256;
     } + "/aether-core"; # the go.mod file is in /aether-core
 
-    vendorSha256 = "042q726cnvz8igjkkw22qh7196wfhpy2k3d0xhmdpjqp6rfryy9m";
+    vendorHash = "042q726cnvz8igjkkw22qh7196wfhpy2k3d0xhmdpjqp6rfryy9m";
     runVend = true; # rewrite vendor folder?
 
     # fix: mkdir /homeless-shelter: permission denied

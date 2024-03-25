@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "simple-node-logger": "^21.8.12",
+    "base64-js": "^1.5.1",
+    "fs-extra": "^11.1.1",
+    "got": "^11.8.2",
+    "open": "^9.1.0",
+    "tmp": "0.2.1"
+  }
+}

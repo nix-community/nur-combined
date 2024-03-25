@@ -861,7 +861,7 @@ rec {
       throw "sourceHashFunc: spec.type '${spec.type}' is not supported. Supported types: 'github'";
 
   node_modules =
-    { src
+    { src ? /var/empty
     , packageJson ? src + "/package.json"
     , packageLockJson ? src + "/package-lock.json"
     , buildInputs ? [ ]
@@ -910,8 +910,8 @@ rec {
         patchedPackagefileData = patchPackagefile sourceOptions patchedLockfileData packagefile;
 
         # TODO allow to override pname and version
-        pname = patchedLockfileData.result.name;
-        version = patchedLockfileData.result.version;
+        pname = patchedLockfileData.result.name or "package";
+        version = patchedLockfileData.result.version or "0.0.0";
 
         patchedLockfilePath = patchedLockfile pname version patchedLockfileData;
         patchedPackagefilePath = patchedPackagefile pname version patchedPackagefileData;

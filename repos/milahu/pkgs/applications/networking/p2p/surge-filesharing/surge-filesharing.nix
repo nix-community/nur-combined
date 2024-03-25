@@ -21,7 +21,7 @@ let
     hash = "sha256-cqo+Dqd9zL2LkoZyWjsTaY3lPegpFU9n1LwMKywrgjA=";
   };
 
-  vendorSha256 = "sha256-ctk2ztjgN1u5vGWbW80NxbIBPYVjwW0bx/J5xNjtHVw=";
+  vendorHash = "sha256-ctk2ztjgN1u5vGWbW80NxbIBPYVjwW0bx/J5xNjtHVw=";
 
   src-frontend = src + "/frontend";
 
@@ -65,7 +65,7 @@ in
 
 buildGoModule rec {
   pname = "surge";
-  inherit version src vendorSha256;
+  inherit version src vendorHash;
 
   nativeBuildInputs = [
     wails

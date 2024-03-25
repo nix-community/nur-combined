@@ -4,7 +4,7 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "js2py";
-  version = "0.71";
+  version = "0.74";
 
   # build from source hangs
   /*
@@ -18,7 +18,7 @@ python3.pkgs.buildPythonPackage rec {
   src = python3.pkgs.fetchPypi rec {
     pname = "Js2Py";
     inherit version format;
-    sha256 = "sha256-fz36MMS446w+3WTDYclQqMJYejCoaFSuuMH/tvTdJLQ=";
+    sha256 = "sha256-QKUIp54vjWJOPy5gT5Ch5vRqx1tBbX9HRZOf9KLpXgk=";
     dist = python;
     python = "py3";
   };

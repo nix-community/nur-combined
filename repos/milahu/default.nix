@@ -342,6 +342,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       tree-sitter-languages = callPackage ./pkgs/python3/pkgs/tree-sitter-languages/tree-sitter-languages.nix { };
 
+      stream-zip = callPackage ./pkgs/python3/pkgs/stream-zip/stream-zip.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -704,6 +706,26 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   apt-file = perlPackages.callPackage ./pkgs/tools/package-management/apt-file/apt-file.nix { };
 
   e9patch = callPackage ./pkgs/development/tools/e9patch/e9patch.nix { };
+
+  sqlite = callPackage ./pkgs/development/libraries/sqlite { };
+
+  inherit (callPackage ./pkgs/development/libraries/sqlite/tools.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
+  }) sqlite-analyzer sqldiff;
+
+  sqlar = callPackage ./pkgs/development/libraries/sqlite/sqlar.nix { };
+
+  sqlite-interactive = (sqlite.override { interactive = true; }).bin;
+
+  sqlite-reuse-schema = sqlite.override { sqliteBranch = "reuse-schema"; };
+
+  sqlite-interactive-reuse-schema = sqlite.override { interactive = true; sqliteBranch = "reuse-schema"; };
+
+  tree-sitter = pkgs.makeOverridable (callPackage ./pkgs/development/tools/parsing/tree-sitter) {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Security CoreServices;
+  };
+
+  vdhcoapp = callPackage ./pkgs/tools/video/vdhcoapp { };
 
 }
 
