@@ -83,7 +83,7 @@ jobs:
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Build x86_64 CUDA nix packages
       if: ${{ matrix.arch == 'x86_64' && matrix.cuda == 'enable' }}
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci_cuda.nix -A cacheOutputs
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci_cuda.nix -A cacheOutputs -v
     - name: Build aarch64 nix packages
       if: ${{ matrix.arch == 'aarch64' }}
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci_aarch64.nix -A cacheOutputs
