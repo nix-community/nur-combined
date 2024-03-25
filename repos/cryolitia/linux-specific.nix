@@ -8,15 +8,16 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」"
-
 rec {
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
-
   ryzen-smu = pkgs.linuxPackages.callPackage ./pkgs/linux/ryzen-smu.nix { };
 
-  bmi260 = pkgs.linuxPackages_latest.callPackage ./pkgs/linux/bmi260.nix { };
+  bmi260 = pkgs.linuxPackages.callPackage ./pkgs/linux/bmi260.nix { };
+
+  ryzen-smu-zen = pkgs.linuxPackages_zen.callPackage ./pkgs/linux/ryzen-smu.nix { };
+
+  bmi260-zen = pkgs.linuxPackages_zen.callPackage ./pkgs/linux/bmi260.nix { };
+
+  ryzen-smu-latest = pkgs.linuxPackages_latest.callPackage ./pkgs/linux/ryzen-smu.nix { };
+
+  bmi260-latest = pkgs.linuxPackages_latest.callPackage ./pkgs/linux/bmi260.nix { };
 }

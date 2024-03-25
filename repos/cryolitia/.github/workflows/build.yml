@@ -22,9 +22,6 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-        cuda:
-          - enable
-          - disable
     runs-on: ubuntu-latest
     steps:
     - name: Free Disk Space (Ubuntu)
@@ -33,7 +30,7 @@ jobs:
         # this might remove tools that are actually needed,
         # if set to "true" but frees about 6 GB
         tool-cache: false
-        
+
         # all of these default to true, but feel free to set to
         # "false" if necessary for your workflow
         android: true
@@ -81,9 +78,6 @@ jobs:
     - name: Build x86_64 nix packages
       if: ${{ matrix.arch == 'x86_64' && matrix.cuda == 'disable' }}
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-    - name: Build x86_64 CUDA nix packages
-      if: ${{ matrix.arch == 'x86_64' && matrix.cuda == 'enable' }}
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci_cuda.nix -A cacheOutputs -v
     - name: Build aarch64 nix packages
       if: ${{ matrix.arch == 'aarch64' }}
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci_aarch64.nix -A cacheOutputs

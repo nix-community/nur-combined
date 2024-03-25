@@ -60,21 +60,39 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
-      legacyPackages = (forAllSystems (system: ( with {
+      legacyPackages = (forAllSystems (system: (with {
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
         };
-      }; import ./default.nix {
-        inherit pkgs;
-      } // gpd-linuxcontrols.legacyPackages.${system} // (
-        if ( builtins.elem system systems-linux ) then 
-        import ./linux-specific.nix {
+      }; import ./default.nix
+        {
           inherit pkgs;
-        } else { } )
+        } // gpd-linuxcontrols.legacyPackages.${system} // (
+        if (builtins.elem system systems-linux) then
+          import ./linux-specific.nix
+            {
+              inherit pkgs;
+            } else { }
+      )
       )));
 
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+
+      hydraJobs.build = import ./default.nix {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config = {
+            config = {
+              allowUnfree = true;
+              cudaSupport = true;
+              # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
+              cudaCapabilities = [ "8.6" ];
+              cudaEnableForwardCompat = false;
+            };
+          };
+        };
+      };
 
       nixosModules = import ./modules;
     };
