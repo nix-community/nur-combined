@@ -8,9 +8,6 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  dontConfigure = true;
-  dontBuild = true;
-
   meta = with lib; {
     homepage = "https://github.com/Freed-Wu/undollar";
     description = "strip the dollar sign from the beginning of the terminal command and an 'unpercentage' is provided for zsh user";

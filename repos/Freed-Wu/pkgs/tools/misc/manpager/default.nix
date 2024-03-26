@@ -6,9 +6,6 @@
 stdenvNoCC.mkDerivation rec {
   inherit (mySources.manpager) pname version src;
 
-  dontConfigure = true;
-  dontBuild = true;
-
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
