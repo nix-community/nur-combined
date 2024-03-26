@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "310586ad429649e0682c9dd4da648a02dd6dd9e3";
+    version = "c118f18386c6fd7f6fa748e8f8bc5f4aa6a5d59e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "310586ad429649e0682c9dd4da648a02dd6dd9e3";
+      rev = "c118f18386c6fd7f6fa748e8f8bc5f4aa6a5d59e";
       fetchSubmodules = false;
-      sha256 = "sha256-qw4e+3zWEl0ca7a3kQuk3NRaoyWHyqTTTMBgJ7Pc9S8=";
+      sha256 = "sha256-On24xG2ByRPPUVxGQOaOo62nKgxqc4I8/vpgtfPtGo8=";
     };
-    date = "2024-03-21";
+    date = "2024-03-25";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -418,16 +418,16 @@
   };
   grasscutter-resources = {
     pname = "grasscutter-resources";
-    version = "b09934e7b9a6e5ce063e5565d33f20d72614e030";
+    version = "74089192be9daf4bf3729be8d69981fa2615faa8";
     src = fetchgit {
       url = "https://gitlab.com/YuukiPS/GC-Resources.git";
-      rev = "b09934e7b9a6e5ce063e5565d33f20d72614e030";
+      rev = "74089192be9daf4bf3729be8d69981fa2615faa8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-7D5EJYxo4124asGJCYe6gL7pKMkEVr0CuahzKDXchB8=";
+      sha256 = "sha256-h+Aqe0IbXSuHZ1iitcyXOuh9fltcmTAO9yGwE/30zH8=";
     };
-    date = "2023-11-23";
+    date = "2024-03-25";
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
@@ -533,15 +533,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "d183ed326609a0e0087f339b0eb948de9d33035d";
+    version = "36be57445d8ca53f7095160fde548efe82ace09d";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "d183ed326609a0e0087f339b0eb948de9d33035d";
+      rev = "36be57445d8ca53f7095160fde548efe82ace09d";
       fetchSubmodules = false;
-      sha256 = "sha256-d6zENV28eteSI8my6ZXfhuai5FA5D3krLObYHKdikUo=";
+      sha256 = "sha256-BFDa5NUr02lFPcT4Hnb2rjGAi+2cXvh1SHLfqX/zLlI=";
     };
-    date = "2024-03-15";
+    date = "2024-03-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -993,10 +993,10 @@
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.2.1+ds-2";
+    version = "8.2.2+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_armhf.deb";
-      sha256 = "sha256-ftnQOJn1Ow0GapkHgyl04YrKxF1PIhyOkdHHoTN2y1Q=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_armhf.deb";
+      sha256 = "sha256-rdnTiISZ6Dx21RW9ntkzGdNT6tsuVL5roiJ2+oBvEuo=";
     };
   };
   qemu-user-static-i386 = {
@@ -1009,18 +1009,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.5_240305_amd64_01";
+    version = "Linux/QQ_3.2.6_240322_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.5_240305_amd64_01.deb";
-      sha256 = "sha256-x/OU02oZYIKy4po/2buYKkSLaC3okfQBjF9is9nWCew=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.6_240322_amd64_01.deb";
+      sha256 = "sha256-Ek1lZcp9Ge0E4c/9mRSNRVIQNF6qATE3t0gLRvIvpFk=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.5_240305_arm64_01";
+    version = "Linux/QQ_3.2.6_240322_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.5_240305_arm64_01.deb";
-      sha256 = "sha256-v2WHWCgw6/OWGdk0HAxIlVnjndsmhVPodmajjeTISBM=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.6_240322_arm64_01.deb";
+      sha256 = "sha256-mzJNZUeNr2m19JvW7D9f5Xn4Gse/TlhK1e3cHPz7fOQ=";
     };
   };
   qqmusic = {
@@ -1091,15 +1091,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "440ac15a13238ab51ff14ff7ca2d40d104eba6a6";
+    version = "ab648212584a5e54bf72583ba729e9d82c7f4888";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "440ac15a13238ab51ff14ff7ca2d40d104eba6a6";
+      rev = "ab648212584a5e54bf72583ba729e9d82c7f4888";
       fetchSubmodules = false;
-      sha256 = "sha256-+H9kEryP6yq43KYsXAY+CtivlkTK/ioshjlpVNgPow4=";
+      sha256 = "sha256-n/89Os25hAJRjIwqfgmUCHigIWDOQ4V6DPIlv6xYBzk=";
     };
-    date = "2024-03-20";
+    date = "2024-03-24";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-03-21",
+        "date": "2024-03-25",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "310586ad429649e0682c9dd4da648a02dd6dd9e3",
-            "sha256": "sha256-qw4e+3zWEl0ca7a3kQuk3NRaoyWHyqTTTMBgJ7Pc9S8=",
+            "rev": "c118f18386c6fd7f6fa748e8f8bc5f4aa6a5d59e",
+            "sha256": "sha256-On24xG2ByRPPUVxGQOaOo62nKgxqc4I8/vpgtfPtGo8=",
             "type": "github"
         },
-        "version": "310586ad429649e0682c9dd4da648a02dd6dd9e3"
+        "version": "c118f18386c6fd7f6fa748e8f8bc5f4aa6a5d59e"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -713,7 +713,7 @@
     },
     "grasscutter-resources": {
         "cargoLocks": null,
-        "date": "2023-11-23",
+        "date": "2024-03-25",
         "extract": null,
         "name": "grasscutter-resources",
         "passthru": null,
@@ -723,12 +723,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b09934e7b9a6e5ce063e5565d33f20d72614e030",
-            "sha256": "sha256-7D5EJYxo4124asGJCYe6gL7pKMkEVr0CuahzKDXchB8=",
+            "rev": "74089192be9daf4bf3729be8d69981fa2615faa8",
+            "sha256": "sha256-h+Aqe0IbXSuHZ1iitcyXOuh9fltcmTAO9yGwE/30zH8=",
             "type": "git",
             "url": "https://gitlab.com/YuukiPS/GC-Resources.git"
         },
-        "version": "b09934e7b9a6e5ce063e5565d33f20d72614e030"
+        "version": "74089192be9daf4bf3729be8d69981fa2615faa8"
     },
     "hoyo-glyphs": {
         "cargoLocks": null,
@@ -912,7 +912,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-03-15",
+        "date": "2024-03-23",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -924,11 +924,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "d183ed326609a0e0087f339b0eb948de9d33035d",
-            "sha256": "sha256-d6zENV28eteSI8my6ZXfhuai5FA5D3krLObYHKdikUo=",
+            "rev": "36be57445d8ca53f7095160fde548efe82ace09d",
+            "sha256": "sha256-BFDa5NUr02lFPcT4Hnb2rjGAi+2cXvh1SHLfqX/zLlI=",
             "type": "github"
         },
-        "version": "d183ed326609a0e0087f339b0eb948de9d33035d"
+        "version": "36be57445d8ca53f7095160fde548efe82ace09d"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1724,11 +1724,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ftnQOJn1Ow0GapkHgyl04YrKxF1PIhyOkdHHoTN2y1Q=",
+            "sha256": "sha256-rdnTiISZ6Dx21RW9ntkzGdNT6tsuVL5roiJ2+oBvEuo=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.1+ds-2_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_armhf.deb"
         },
-        "version": "8.2.1+ds-2"
+        "version": "8.2.2+ds-2"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -1754,11 +1754,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-x/OU02oZYIKy4po/2buYKkSLaC3okfQBjF9is9nWCew=",
+            "sha256": "sha256-Ek1lZcp9Ge0E4c/9mRSNRVIQNF6qATE3t0gLRvIvpFk=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.5_240305_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.6_240322_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.5_240305_amd64_01"
+        "version": "Linux/QQ_3.2.6_240322_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1769,11 +1769,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-v2WHWCgw6/OWGdk0HAxIlVnjndsmhVPodmajjeTISBM=",
+            "sha256": "sha256-mzJNZUeNr2m19JvW7D9f5Xn4Gse/TlhK1e3cHPz7fOQ=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.5_240305_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.6_240322_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.5_240305_arm64_01"
+        "version": "Linux/QQ_3.2.6_240322_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -1892,7 +1892,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-03-20",
+        "date": "2024-03-24",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1904,11 +1904,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "440ac15a13238ab51ff14ff7ca2d40d104eba6a6",
-            "sha256": "sha256-+H9kEryP6yq43KYsXAY+CtivlkTK/ioshjlpVNgPow4=",
+            "rev": "ab648212584a5e54bf72583ba729e9d82c7f4888",
+            "sha256": "sha256-n/89Os25hAJRjIwqfgmUCHigIWDOQ4V6DPIlv6xYBzk=",
             "type": "github"
         },
-        "version": "440ac15a13238ab51ff14ff7ca2d40d104eba6a6"
+        "version": "ab648212584a5e54bf72583ba729e9d82c7f4888"
     },
     "rime-moegirl": {
         "cargoLocks": null,
