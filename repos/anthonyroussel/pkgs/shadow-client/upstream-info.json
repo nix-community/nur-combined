@@ -14,18 +14,18 @@
     "releaseDate": "2024-03-11T08:49:45.167Z"
   },
   "preprod": {
-    "version": "8.0.10253",
+    "version": "8.0.10261",
     "files": [
       {
-        "url": "ShadowPCBeta-8.0.10253.AppImage",
-        "sha512": "hgBcp774MpiqqdMX2M996WF2tsEVvWsxQXFjpE0ZSfs4DadnGu2kyn1JDiqwv56ZDN11qVeFxhyZx0aI6Q6ntQ==",
-        "size": 178448927,
-        "blockMapSize": 186931
+        "url": "ShadowPCBeta-8.0.10261.AppImage",
+        "sha512": "tfV0FsHJ9sfPQxsA1SiWLOgrjfxj0KmleEwN9Tqaqi2fxn0YVND3Tn2PTrAXzMb+Ve+J1l4fVx2+9gucC8Glog==",
+        "size": 178448901,
+        "blockMapSize": 186905
       }
     ],
-    "path": "ShadowPCBeta-8.0.10253.AppImage",
-    "sha512": "hgBcp774MpiqqdMX2M996WF2tsEVvWsxQXFjpE0ZSfs4DadnGu2kyn1JDiqwv56ZDN11qVeFxhyZx0aI6Q6ntQ==",
-    "releaseDate": "2024-03-13T10:10:00.402Z"
+    "path": "ShadowPCBeta-8.0.10261.AppImage",
+    "sha512": "tfV0FsHJ9sfPQxsA1SiWLOgrjfxj0KmleEwN9Tqaqi2fxn0YVND3Tn2PTrAXzMb+Ve+J1l4fVx2+9gucC8Glog==",
+    "releaseDate": "2024-03-26T10:04:06.033Z"
   },
   "testing": {
     "version": "8.0.10258",
