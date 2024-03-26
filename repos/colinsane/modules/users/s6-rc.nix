@@ -249,6 +249,32 @@ let
     })
     services
   ;
+
+  # create a template s6 "live" dir, which can be copied at runtime in /run/user/{uid}/s6/live.
+  # this is like a minimal versio of `s6-rc-init`, but tightly coupled to my setup
+  # wherein the scandir is external and selectively links back to the livedir
+  mkLiveDir = compiled: pkgs.runCommandLocal "s6-livedir" {} ''
+    mkdir $out
+    touch $out/lock
+    touch $out/prefix  # no prefix: empty
+
+    mkdir $out/compiled
+    cp ${compiled}/{db,lock,n,resolve.cdb} $out/compiled
+
+    touch $out/state
+    mkdir $out/servicedirs
+    mkdir $out/servicedirs/.s6-svscan
+    for svc in $(ls ${compiled}/servicedirs); do
+      # s6-rc-init gives each service one byte of state, initialized to zero. i mimic that here:
+      echo -n '\x00' >> $out/state
+      mkdir $out/servicedirs/$svc
+      # don't auto-start the service when i add the supervisor
+      touch $out/servicedirs/$svc/down
+      # s6-rc needs to know if the service supports readiness notifications,
+      # as this will determine if it waits for it when starting.
+      ln -s ${compiled}/servicedirs/$svc/notification-fd $out/servicedirs/$svc/notification-fd
+    done
+  '';
 in
 {
   options.sane.users = with lib; mkOption {
@@ -261,7 +287,9 @@ in
       compiled = compileServices sources;
       uid = config'.users.users."${name}".uid;
       scanDir = mkScanDir "/run/user/${builtins.toString uid}/s6/live" compiled;
+      liveDir = mkLiveDir compiled;
     in {
+      fs.".config/s6/live".symlink.target = liveDir;
       fs.".config/s6/scandir".symlink.target = scanDir;
       fs.".config/s6/compiled".symlink.target = compiled;
       # exposed only for convenience
@@ -269,42 +297,13 @@ in
 
       fs.".profile".symlink.text = ''
         function initS6Dirs() {
-          local S6_RUN_DIR="$XDG_RUNTIME_DIR/s6"
-          local COMPILED="$S6_RUN_DIR/compiled"
-          local LIVE="$S6_RUN_DIR/live"
-          local SCANDIR="$S6_RUN_DIR/scandir"
+          local LIVE="$XDG_RUNTIME_DIR/s6/live"
 
-          rm -rf "$COMPILED" "$LIVE" "$SCANDIR"
-          mkdir -p "$SCANDIR"
-          s6-svscan "$SCANDIR" &
-          local SVSCAN=$!
-
-          # the scandir is just links back into the compiled dir,
-          # so the compiled dir therefore needs to be writable:
-          rm -rf "$COMPILED"
-          cp --dereference -R "$HOME/.config/s6/compiled" "$COMPILED"
-          chmod -R 0700 "$COMPILED"
-
-          s6-rc-init -c "$COMPILED" -l "$LIVE" "$SCANDIR"
-          # kill the svscan process:
-          s6-svscanctl -tb "$SCANDIR"
-          wait "$SVSCAN"
-
-          # cleanup the servicedirs: remove files which s6-svscan will want to create for itself.
-          rm "$LIVE/servicedirs"/*/supervise/{control,death_tally,lock,status}
-          rmdir "$LIVE/servicedirs"/*/{event,supervise}
-          # remove files which just aren't needed (because they live in the s6-svscan dir instead)
-          rm "$LIVE/servicedirs"/*/{run,run.user,finish,finish.user,notification-fd}
-          rm -rf "$LIVE/servicedirs"/*/data
-          # ^ so wait, after this every live/servicedirs/FOO directory is literally just an empty directory.
-          #   i can *surely* simplify all of this; maybe not even invoke s6-rc-init here at *all*.
-
-          mkdir "$LIVE/servicedirs/.s6-svscan"
-
-          # remove unnecessary, duplicated dirs
-          rm -rf "$SCANDIR"
-          rm -rf "$COMPILED/servicedirs"
-          rm "$LIVE/scandir"
+          mkdir -p "$LIVE"  # create parent dirs
+          rm -rf "$LIVE"/*  # remove old state
+          # the live dir needs to be read+write. initialize it via the template in ~/.config/s6:
+          cp -R "$HOME/.config/s6/live"/* "$LIVE"
+          chmod -R 0700 "$LIVE"
 
           # ensure the log dir, since that'll be needed by every service.
           # the log dir should already exist by now (nixos persistence); create it just in case something went wrong.
@@ -313,8 +312,7 @@ in
         function startS6() {
           local S6_TARGET="''${1-default}"
 
-          local S6_RUN_DIR="$XDG_RUNTIME_DIR/s6"
-          local LIVE="$S6_RUN_DIR/live"
+          local LIVE="$XDG_RUNTIME_DIR/s6/live"
 
           test -e "$LIVE" || initS6Dirs
 
