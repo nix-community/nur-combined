@@ -22,6 +22,7 @@
 , flatbuffers
 , llvm_16
 , cubeb
+, enableDiscordRpc ? false
 , faudioSupport ? true
 , faudio
 , SDL2
@@ -31,12 +32,12 @@
 
 let
   # Keep these separate so the update script can regex them
-  rpcs3GitVersion = "16205-40adf4b94";
-  rpcs3Version = "0.0.31-16205-40adf4b94";
-  rpcs3Revision = "40adf4b94441d9f0284fa714b96c3f6346f7caf7";
-  rpcs3Hash = "sha256-vAp/xAjukAF4rzzsA7GwRwUSJAw+4SlqRTNutlFyqfA=";
+  rpcs3GitVersion = "16236-efbf044ea";
+  rpcs3Version = "0.0.31-16236-efbf044ea";
+  rpcs3Revision = "efbf044ea08a0cee103acaf664f55e8eaa452c63";
+  rpcs3Hash = "sha256-NQnKQWh/bk4LbE9SwEJSGPON2guIMG/geR12ApxADNE=";
 
-  inherit (qt6Packages) qtbase qtmultimedia wrapQtAppsHook;
+  inherit (qt6Packages) qtbase qtmultimedia wrapQtAppsHook qtwayland;
 in
 stdenv.mkDerivation {
   pname = "rpcs3";
@@ -62,30 +63,32 @@ stdenv.mkDerivation {
   '';
 
   cmakeFlags = [
-    "-DUSE_SYSTEM_ZLIB=ON"
-    "-DUSE_SYSTEM_LIBUSB=ON"
-    "-DUSE_SYSTEM_LIBPNG=ON"
-    "-DUSE_SYSTEM_FFMPEG=ON"
-    "-DUSE_SYSTEM_CURL=ON"
-    "-DUSE_SYSTEM_WOLFSSL=ON"
-    "-DUSE_SYSTEM_FAUDIO=ON"
-    "-DUSE_SYSTEM_PUGIXML=ON"
-    "-DUSE_SYSTEM_FLATBUFFERS=ON"
-    "-DUSE_SYSTEM_SDL=ON"
-    "-DWITH_LLVM=ON"
-    "-DBUILD_LLVM=OFF"
-    "-DUSE_NATIVE_INSTRUCTIONS=OFF"
-    "-DUSE_FAUDIO=${if faudioSupport then "ON" else "OFF"}"
+    (lib.cmakeBool "USE_SYSTEM_ZLIB" true)
+    (lib.cmakeBool "USE_SYSTEM_LIBUSB" true)
+    (lib.cmakeBool "USE_SYSTEM_LIBPNG" true)
+    (lib.cmakeBool "USE_SYSTEM_FFMPEG" true)
+    (lib.cmakeBool "USE_SYSTEM_CURL" true)
+    (lib.cmakeBool "USE_SYSTEM_WOLFSSL" true)
+    (lib.cmakeBool "USE_SYSTEM_FAUDIO" true)
+    (lib.cmakeBool "USE_SYSTEM_PUGIXML" true)
+    (lib.cmakeBool "USE_SYSTEM_FLATBUFFERS" true)
+    (lib.cmakeBool "USE_SYSTEM_SDL" true)
+    (lib.cmakeBool "USE_SDL" true)
+    (lib.cmakeBool "WITH_LLVM" true)
+    (lib.cmakeBool "BUILD_LLVM" false)
+    (lib.cmakeBool "USE_NATIVE_INSTRUCTIONS" false)
+    (lib.cmakeBool "USE_DISCORD_RPC" enableDiscordRpc)
+    (lib.cmakeBool "USE_FAUDIO" faudioSupport)
   ];
 
   nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook ];
 
   buildInputs = [
     qtbase qtmultimedia openal glew vulkan-headers vulkan-loader libpng ffmpeg
-    libevdev zlib libusb1 curl wolfssl python3 pugixml flatbuffers llvm_16 libSM
+    libevdev zlib libusb1 curl wolfssl python3 pugixml SDL2 flatbuffers llvm_16 libSM
   ] ++ cubeb.passthru.backendLibs
-    ++ lib.optionals faudioSupport [ faudio SDL2 ]
-    ++ lib.optional waylandSupport wayland;
+    ++ lib.optional faudioSupport faudio
+    ++ lib.optionals waylandSupport [ wayland qtwayland ];
 
   postInstall = ''
     # Taken from https://wiki.rpcs3.net/index.php?title=Help:Controller_Configuration
@@ -97,7 +100,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "PS3 emulator/debugger";
     homepage = "https://rpcs3.net/";
-    maintainers = with maintainers; [ abbradar neonfuz ilian zane ataraxiasjel ];
+    maintainers = with maintainers; [ abbradar neonfuz ilian zane ];
     license = licenses.gpl2Only;
     platforms = [ "x86_64-linux" "aarch64-linux" ];
     mainProgram = "rpcs3";
