@@ -5,14 +5,14 @@
 }:
 python3Packages.buildPythonPackage rec {
   pname = "ollama";
-  version = "0.1.6";
+  version = "0.1.7";
   format = "pyproject";
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Zjb/da5UrAdlItzcQGeLFBIIMl0cxdhXhVWfGXsRB94=";
+    hash = "sha256-xHEoaiu+ncmYZCiDHGejpsJ+f7Xj31X0HB4ouNAKgKc=";
   };
   patches = [
-    ./bump-httpx-to-0.26.0.patch
+    ./loosen-httpx-constraint.patch
   ];
 
   nativeBuildInputs = [
