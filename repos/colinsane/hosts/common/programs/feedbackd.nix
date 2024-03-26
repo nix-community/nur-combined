@@ -96,7 +96,8 @@ in
 
     services.feedbackd = {
       description = "feedbackd audio/vibration/led controller";
-      partOf = [ "sound" ];
+      depends = [ "sound" ];
+      partOf = [ "default" ];
       command = lib.concatStringsSep " " ([
         "env"
         "G_MESSAGES_DEBUG=all"

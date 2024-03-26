@@ -142,6 +142,7 @@ let
     (fromDb "edwardsnowden.substack.com" // pol // text)
     (fromDb "fasterthanli.me" // tech)
     (fromDb "gwern.net" // rat)
+    (fromDb "hardcoresoftware.learningbyshipping.com" // tech)  # Steven Sinofsky
     (fromDb "harihareswara.net" // tech // pol)  # rec by Cory Doctorow
     (fromDb "ianthehenry.com" // tech)
     (fromDb "idiomdrottning.org" // uncat)
