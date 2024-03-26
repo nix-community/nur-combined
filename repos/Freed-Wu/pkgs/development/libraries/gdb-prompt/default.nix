@@ -1,6 +1,6 @@
-{ lib, fetchFromGitHub, stdenv, gdb }:
+{ lib, fetchFromGitHub, stdenvNoCC, gdb }:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   name = "gdb-prompt";
   src = fetchFromGitHub {
     owner = "Freed-Wu";
@@ -8,6 +8,9 @@ stdenv.mkDerivation rec {
     rev = "b837d39b40c5f9cf4bacff547d2c9e35ddfcc80e";
     hash = "sha256-ojqOXtCkhjko6tBaGAPB4XTIyFaVYFljCUJSdmLfkSY=";
   };
+
+  dontConfigure = true;
+  dontBuild = true;
 
   buildInputs = [ gdb ];
   installPhase = ''

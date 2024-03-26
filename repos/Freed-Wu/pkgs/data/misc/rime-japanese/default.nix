@@ -10,6 +10,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-/mIIyCu8V95ArKo/vIS3qAiD8InUmk8fAF/wejxRxGw=";
   };
 
+  dontConfigure = true;
+  dontBuild = true;
+
   installPhase = ''
     runHook preInstall
     install -Dm644 $src/*.yaml -t $out/share/rime-data

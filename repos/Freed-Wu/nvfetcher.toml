@@ -1,3 +1,11 @@
+[windows10-icons]
+src.github = "B00merang-Artwork/Windows-10"
+fetch.github = "B00merang-Artwork/Windows-10"
+
+[windows10-themes]
+src.github = "B00merang-Project/Windows-10"
+fetch.github = "B00merang-Project/Windows-10"
+
 [undollar]
 src.github = "Freed-Wu/undollar"
 fetch.github = "Freed-Wu/undollar"

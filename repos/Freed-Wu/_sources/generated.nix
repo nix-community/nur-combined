@@ -168,6 +168,28 @@
       sha256 = "sha256-HyWZz7wYnKDID8zs/a96YByjoPO7vKRAPZg6rL17sQ4=";
     };
   };
+  windows10-icons = {
+    pname = "windows10-icons";
+    version = "1.0";
+    src = fetchFromGitHub {
+      owner = "B00merang-Artwork";
+      repo = "Windows-10";
+      rev = "1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-Yz6a7FcgPfzz4w8cKp8oq7/usIBUUZV7qhVmDewmzrI=";
+    };
+  };
+  windows10-themes = {
+    pname = "windows10-themes";
+    version = "3.2.1";
+    src = fetchFromGitHub {
+      owner = "B00merang-Project";
+      repo = "Windows-10";
+      rev = "3.2.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-O8sKYHyr1gX1pQRTTSw/kHREJ5MujbVjmLHJHbrUcRM=";
+    };
+  };
   xilinx-language-server = {
     pname = "xilinx-language-server";
     version = "0.0.4";

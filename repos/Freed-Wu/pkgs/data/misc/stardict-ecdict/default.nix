@@ -9,6 +9,7 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
   };
   buildInputs = [ unzip ];
 
+  dontConfigure = true;
   dontBuild = true;
 
   installPhase = ''

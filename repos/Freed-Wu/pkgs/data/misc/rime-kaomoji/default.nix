@@ -10,6 +10,7 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     hash = "sha256-Zf52XdjKWSzlGfS1c9fZ7/xjPK8gJKZ5JB0Oj0B031k=";
   };
 
+  dontConfigure = true;
   dontBuild = true;
 
   installPhase = ''

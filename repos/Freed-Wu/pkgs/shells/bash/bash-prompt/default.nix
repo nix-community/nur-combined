@@ -1,10 +1,10 @@
 { lib
-, stdenv
+, stdenvNoCC
 , zsh-powerlevel10k
 , fetchFromGitHub
 , wakatime
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   name = "bash-prompt";
   src = fetchFromGitHub {
     owner = "Freed-Wu";
@@ -12,6 +12,9 @@ stdenv.mkDerivation rec {
     rev = "f6d81a940afb00fc19fa0c87b6ce2bfe623aabb8";
     hash = "sha256-Yu+eeDBbTkp3bPXKlGGz3K/PbZCsGRgd9XEUUvkggTU=";
   };
+
+  dontConfigure = true;
+  dontBuild = true;
 
   buildInputs = [ zsh-powerlevel10k wakatime ];
 

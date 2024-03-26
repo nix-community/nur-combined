@@ -16,6 +16,9 @@ tcl.mkTclDerivation rec {
     hash = "sha256-R55o6Ezj2N2F8I3XObysJQN7dF+V0iopyU20Nz4Ln8I=";
   };
 
+  dontConfigure = true;
+  dontBuild = true;
+
   buildInputs = [ tclreadline tcllib expect wakatime ];
   installPhase = ''
     install -d $out/lib

@@ -1,12 +1,15 @@
 { mySources
 , lib
-, stdenv
+, stdenvNoCC
 , cmake
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   inherit (mySources.undollar) pname version src;
 
   nativeBuildInputs = [ cmake ];
+
+  dontConfigure = true;
+  dontBuild = true;
 
   meta = with lib; {
     homepage = "https://github.com/Freed-Wu/undollar";

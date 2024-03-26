@@ -38,6 +38,9 @@ let
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
     stardict-ecdict = callPackage ./pkgs/data/misc/stardict-ecdict { };
+    # https://github.com/NixOS/nixpkgs/pull/237972
+    windows10-icons = callPackage ./pkgs/data/misc/windows10-icons { };
+    windows10-themes = callPackage ./pkgs/data/misc/windows10-themes { };
 
     lsp-tree-sitter = callPackage ./pkgs/development/python-modules/lsp-tree-sitter { };
     tree-sitter-muttrc = callPackage ./pkgs/development/python-modules/tree-sitter-muttrc { };

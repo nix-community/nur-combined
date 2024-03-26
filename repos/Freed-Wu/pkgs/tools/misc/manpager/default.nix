@@ -1,10 +1,13 @@
 { mySources
 , lib
-, stdenv
+, stdenvNoCC
 , cmake
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   inherit (mySources.manpager) pname version src;
+
+  dontConfigure = true;
+  dontBuild = true;
 
   nativeBuildInputs = [ cmake ];
 
