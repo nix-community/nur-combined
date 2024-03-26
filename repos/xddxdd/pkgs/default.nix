@@ -114,6 +114,7 @@ mkScope (
     click-loglevel = pkg ./uncategorized/click-loglevel { };
     cloudpan189-go = pkg ./uncategorized/cloudpan189-go { };
     cockpy = pkg ./uncategorized/cockpy { };
+    decluttarr = pkg ./uncategorized/decluttarr { };
     deepspeech-gpu = ifNotCI (pkg ./uncategorized/deepspeech-gpu { });
     deepspeech-wrappers = ifNotCI (pkg ./uncategorized/deepspeech-gpu/wrappers.nix { });
     dingtalk = pkg ./uncategorized/dingtalk { };
@@ -121,6 +122,7 @@ mkScope (
     douban-openapi-server = pkg ./uncategorized/douban-openapi-server { };
     drone-file-secret = pkg ./uncategorized/drone-file-secret { };
     drone-vault = pkg ./uncategorized/drone-vault { };
+    electron_11 = pkg ./uncategorized/electron_11 { };
     etherguard = pkg ./uncategorized/etherguard { };
     fastapi-dls = pkg ./uncategorized/fastapi-dls { };
     fcitx5-breeze = pkg ./uncategorized/fcitx5-breeze { };
@@ -193,7 +195,7 @@ mkScope (
     vpp = pkg ./uncategorized/vpp { };
     vs-rife = pkg ./uncategorized/vs-rife { };
     wechat-uos = pkg ./uncategorized/wechat-uos { };
-    wechat-uos-without-sandbox = pkg ./uncategorized/wechat-uos { enableSandbox=false; };
+    wechat-uos-without-sandbox = pkg ./uncategorized/wechat-uos { enableSandbox = false; };
 
     # Deprecated alias
     wechat-uos-bin = self.wechat-uos;

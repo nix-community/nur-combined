@@ -434,6 +434,26 @@
         },
         "version": "5e7121e45ff283d30097da381fd7e97c4bb61364"
     },
+    "decluttarr": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "decluttarr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ManiMatter",
+            "repo": "decluttarr",
+            "rev": "v1.31.0",
+            "sha256": "sha256-0f4OWriRvuTLlYj1pZS8EqO47KrQ3waC/JCKQbmA9bI=",
+            "type": "github"
+        },
+        "version": "v1.31.0"
+    },
     "dingtalk": {
         "cargoLocks": null,
         "date": null,

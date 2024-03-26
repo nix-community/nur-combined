@@ -95,6 +95,10 @@ fetch.github = "xddxdd/coredns"
 src.git = "https://github.com/cryptodev-linux/cryptodev-linux.git"
 fetch.github = "cryptodev-linux/cryptodev-linux"
 
+[decluttarr]
+src.github_tag = "ManiMatter/decluttarr"
+fetch.github = "ManiMatter/decluttarr"
+
 [dingtalk]
 # src.aur = "dingtalk-bin"
 src.manual = "7.0.50.30831"

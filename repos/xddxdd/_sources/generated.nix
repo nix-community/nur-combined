@@ -253,6 +253,17 @@
     };
     date = "2023-12-12";
   };
+  decluttarr = {
+    pname = "decluttarr";
+    version = "v1.31.0";
+    src = fetchFromGitHub {
+      owner = "ManiMatter";
+      repo = "decluttarr";
+      rev = "v1.31.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-0f4OWriRvuTLlYj1pZS8EqO47KrQ3waC/JCKQbmA9bI=";
+    };
+  };
   dingtalk = {
     pname = "dingtalk";
     version = "7.0.50.30831";
