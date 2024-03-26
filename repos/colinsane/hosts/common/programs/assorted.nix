@@ -552,6 +552,10 @@ in
     iproute2.sandbox.method = "landlock";
     iproute2.sandbox.net = "all";
     iproute2.sandbox.capabilities = [ "net_admin" ];
+    iproute2.sandbox.extraPaths = [
+      "/run/netns"  # for `ip netns ...` to work
+      "/var/run/netns"
+    ];
 
     iptables.sandbox.method = "landlock";
     iptables.sandbox.net = "all";

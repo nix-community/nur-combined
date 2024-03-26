@@ -3,10 +3,14 @@
 #
 # config precedence (higher precedence overrules lower precedence):
 # - Default Values < Environment Variables < YAML Configuraiton File < Command Line Arguments
+#
+# debugging:
+# - soulseek is just *flaky*. if you see e.g. DNS errors, even though you can't replicate them via `dig` or `getent ahostsv4`, just give it 10 minutes to work out:
+#   - "Soulseek.AddressException: Failed to resolve address 'vps.slsknet.org': Resource temporarily unavailable"
 { config, lib, ... }:
 {
   sane.persist.sys.byStore.plaintext = [
-    { user = "slskd"; group = "slskd"; path = "/var/lib/slskd"; method = "bind"; }
+    { user = "slskd"; group = "media"; path = "/var/lib/slskd"; method = "bind"; }
   ];
   sops.secrets."slskd_env" = {
     owner = config.users.users.slskd.name;
@@ -15,7 +19,7 @@
 
   users.users.slskd.extraGroups = [ "media" ];
 
-  sane.ports.ports."50000" = {
+  sane.ports.ports."50300" = {
     protocol = [ "tcp" ];
     # not visible to WAN: i run this in a separate netns
     visibleTo.ovpn = true;
@@ -28,12 +32,14 @@
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "http://10.0.1.6:5001";
+      proxyPass = "http://10.0.1.6:5030";
       proxyWebsockets = true;
     };
   };
 
   services.slskd.enable = true;
+  services.slskd.domain = null;  # i'll manage nginx for it
+  services.slskd.group = "media";
   # env file, for auth (SLSKD_SLSK_PASSWORD, SLSKD_SLSK_USERNAME)
   services.slskd.environmentFile = config.sops.secrets.slskd_env.path;
   services.slskd.settings = {
@@ -68,7 +74,6 @@
       NetworkNamespacePath = "/run/netns/ovpns";
       Restart = lib.mkForce "always";  # exits "success" when it fails to connect to soulseek server
       RestartSec = "60s";
-      Group = "media";
     };
   };
 }

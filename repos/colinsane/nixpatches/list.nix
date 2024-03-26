@@ -37,21 +37,9 @@ in [
     saneCommit = "d599839060400762a67d2c01d15b102ffe75e703";
     title = "gnupg: fix cross compilation";
     hash = "sha256-d3kD2/UyMzzdBkiEdWtCibbWiPWBZLUWRry1TMkS25g=";
+    merged.staging = "20240326000000";
   })
 
-  (fetchpatch' {
-    # fixes build break
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/297984";
-    title = "handbrake: 1.6.1 -> 1.7.3";
-    hash = "sha256-9CshjlhJRKCXBPZslyTdLnlfHSX+f0nrz+dqayClB8w=";
-  })
-
-  (fetchpatch' {
-    # fixes build break
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/297929";
-    title = "space-cadet-pinball: 2.0.1 -> 2.1.0";
-    hash = "sha256-XntS18eEnB29zjV8jWTzVI0JUHWysjv1Z/ooIW4nvEo=";
-  })
   (fetchpatch' {
     # fixes build break
     prUrl = "https://github.com/NixOS/nixpkgs/pull/297581";
@@ -74,21 +62,6 @@ in [
     hash = "sha256-IDf8OcZzFgw0DalxzBqbqP7TZVnZkzoRHQ51RlR1xWc=";
   })
 
-  # (fetchpatch' {
-  #   title = "nixos/slskd: allow omitting username from yaml config";
-  #   saneCommit = "541c37e8689b6422ea07be1395f1a63357bb0c63";
-  #   hash = "sha256-xQEj/oIfNcE4td9jxzDzhlnIYpncOOdXZuswkmcLNuk=";
-  # })
-  # (fetchpatch' {
-  #   title = "nixos/slskd: don't enable nginx unless nginx.enable was set";
-  #   saneCommit = "ea084e5739a68436cc240aeca5c10b92de1e3138";
-  #   hash = "sha256-25zB5eM1WBVEigmrq1mY9GXwEkS/jf5v7BCfmN6Wux4=";
-  # })
-  (fetchpatch' {
-    title = "nixos/slskd: option fixes";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/270646";
-    hash = "sha256-5brmmPfYp7G+5Dr5q2skWSwkrEwsRAe/UetoN0AqGjY=";
-  })
   (fetchpatch' {
     title = "gcr: remove build gnupg from runtime closure";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/263158";

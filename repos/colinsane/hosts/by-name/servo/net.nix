@@ -87,7 +87,7 @@ in
         }
       ];
       preSetup = ''
-        ${ip} netns add ovpns || echo "ovpns already exists"
+        ${ip} netns add ovpns || (test -e /run/netns/ovpns && echo "ovpns already exists")
       '';
       postShutdown = ''
         ${in-ns} ip link del ovpns-veth-b || echo "couldn't delete ovpns-veth-b"
