@@ -20,8 +20,6 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    # https://github.com/tree-sitter-grammars/tree-sitter-requirements/issues/3
-    broken = true;
     homepage = "https://github.com/tree-sitter-grammars/tree-sitter-requirements";
     description = "requirements.txt grammar for tree-sitter";
     license = licenses.mit;
