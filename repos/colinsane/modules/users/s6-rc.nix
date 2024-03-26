@@ -1,5 +1,6 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
+  config' = config;
   logBase = "$HOME/.local/share/s6/logs";
   maybe = cond: value: if cond then value else null;
 
@@ -33,6 +34,14 @@ let
         executable = true;
         text = obj.executable;
       }
+    else
+      pkgs.emptyDirectory
+  else if obj ? symlink then
+    if obj.symlink != null then
+      pkgs.runCommandLocal "s6-${path}" { } ''
+        mkdir -p "$out/$(dirname "${path}")"
+        ln -s "${obj.symlink}" "$out/${path}"
+      ''
     else
       pkgs.emptyDirectory
   else throw "don't know how to convert fs item at path ${path} to derivation: ${obj}";
@@ -179,6 +188,37 @@ let
     '';
   };
 
+  # to decrease sandbox escaping, i want to run s6-svscan on a read-only directory
+  # so other programs can't edit the service scripts.
+  # in practice, that means putting the servicedirs in /nix/store, and linking selective pieces of state
+  # towards /run/user/{uid}/s6/live/..., the latter is shared with s6-rc.
+  mkScanDir = livedir: compiled: pkgs.runCommandLocal "s6-scandir" { } ''
+    cp -R "${compiled}/servicedirs" "$out"
+    cd "$out"
+    chmod u+w .
+    for d in *; do
+      chmod u+w "$d"
+      ln -s "${livedir}/servicedirs/$d/down" "$d"
+      ln -s "${livedir}/servicedirs/$d/event" "$d"
+      ln -s "${livedir}/servicedirs/$d/supervise" "$d"
+    done
+    # these builtin s6-rc services try to create `s` (socket) and `s.lock` inside their directory, when launched.
+    # they don't seem to follow symlinks, so patch in a full path.
+    # note that other services will try to connect directly to this service's `./s` file, so keeping symlinks around as well is a good idea.
+    substituteInPlace "s6rc-fdholder/run" \
+      --replace-fail 's6-fdholder-daemon -1 -i data/rules -- s' 's6-fdholder-daemon -1 -i data/rules -- ${livedir}/servicedirs/s6rc-fdholder/s' \
+      --replace-fail 's6-ipcclient -l0 -- s' 's6-ipcclient -l0 -- ${livedir}/servicedirs/s6rc-fdholder/s'
+    substituteInPlace "s6rc-oneshot-runner/run" \
+      --replace-fail 's6-ipcserver-socketbinder -- s' 's6-ipcserver-socketbinder -- ${livedir}/servicedirs/s6rc-oneshot-runner/s'
+    ln -s "${livedir}/servicedirs/s6rc-fdholder/s" s6rc-fdholder/s
+    ln -s "${livedir}/servicedirs/s6rc-fdholder/s.lock" s6rc-fdholder/s.lock
+    ln -s "${livedir}/servicedirs/s6rc-oneshot-runner/s" s6rc-oneshot-runner/s
+    ln -s "${livedir}/servicedirs/s6rc-oneshot-runner/s.lock" s6rc-oneshot-runner/s.lock
+
+    rm -rf .s6-svscan
+    ln -s "${livedir}/servicedirs/.s6-svscan" .
+  '';
+
   # transform the `user.services` attrset into a s6 services list.
   s6SvcsFromConfigServices = services: lib.mapAttrsToList
     (name: service: {
@@ -212,29 +252,29 @@ let
 in
 {
   options.sane.users = with lib; mkOption {
-    type = types.attrsOf (types.submodule ({ config, ...}: let
+    type = types.attrsOf (types.submodule ({ config, name, ...}: let
       sources = genServices (
         lib.converge pushDownDependencies (
           s6SvcsFromConfigServices config.services
         )
       );
+      compiled = compileServices sources;
+      uid = config'.users.users."${name}".uid;
+      scanDir = mkScanDir "/run/user/${builtins.toString uid}/s6/live" compiled;
     in {
-      # N.B.: `compiled` needs to be writable (for locks -- maybe i can use symlinks to dodge this someday):
-      # i populate it to ~/.config as a well-known place, and then copy it to /run before actually using it live.
-      fs.".config/s6/compiled".symlink.target = compileServices sources;
+      fs.".config/s6/scandir".symlink.target = scanDir;
+      fs.".config/s6/compiled".symlink.target = compiled;
       # exposed only for convenience
       fs.".config/s6/sources".symlink.target = sources;
 
       fs.".profile".symlink.text = ''
-        function startS6() {
-          local S6_TARGET="''${1:-default}"
-
+        function initS6Dirs() {
           local S6_RUN_DIR="$XDG_RUNTIME_DIR/s6"
           local COMPILED="$S6_RUN_DIR/compiled"
           local LIVE="$S6_RUN_DIR/live"
           local SCANDIR="$S6_RUN_DIR/scandir"
 
-          rm -rf "$SCANDIR"
+          rm -rf "$COMPILED" "$LIVE" "$SCANDIR"
           mkdir -p "$SCANDIR"
           s6-svscan "$SCANDIR" &
           local SVSCAN=$!
@@ -245,18 +285,60 @@ in
           cp --dereference -R "$HOME/.config/s6/compiled" "$COMPILED"
           chmod -R 0700 "$COMPILED"
 
-          s6-rc-init -c "$COMPILED" -l "$LIVE" -d "$SCANDIR"
+          s6-rc-init -c "$COMPILED" -l "$LIVE" "$SCANDIR"
+          # kill the svscan process:
+          s6-svscanctl -tb "$SCANDIR"
+          wait "$SVSCAN"
+
+          # cleanup the servicedirs: remove files which s6-svscan will want to create for itself.
+          rm "$LIVE/servicedirs"/*/supervise/{control,death_tally,lock,status}
+          rmdir "$LIVE/servicedirs"/*/{event,supervise}
+          # remove files which just aren't needed (because they live in the s6-svscan dir instead)
+          rm "$LIVE/servicedirs"/*/{run,run.user,finish,finish.user,notification-fd}
+          rm -rf "$LIVE/servicedirs"/*/data
+          # ^ so wait, after this every live/servicedirs/FOO directory is literally just an empty directory.
+          #   i can *surely* simplify all of this; maybe not even invoke s6-rc-init here at *all*.
+
+          mkdir "$LIVE/servicedirs/.s6-svscan"
+
+          # remove unnecessary, duplicated dirs
+          rm -rf "$SCANDIR"
+          rm -rf "$COMPILED/servicedirs"
+          rm "$LIVE/scandir"
+
+          # ensure the log dir, since that'll be needed by every service.
+          # the log dir should already exist by now (nixos persistence); create it just in case something went wrong.
+          mkdir -p "${logBase}"
+        }
+        function startS6() {
+          local S6_TARGET="''${1-default}"
+
+          local S6_RUN_DIR="$XDG_RUNTIME_DIR/s6"
+          local LIVE="$S6_RUN_DIR/live"
+
+          test -e "$LIVE" || initS6Dirs
+
+          s6-svscan "$(realpath "$HOME/.config/s6/scandir")" &
+          local SVSCAN=$!
+
+          # wait for `supervise` processes to appear.
+          # this part would normally be done by `s6-rc-init`.
+          # maybe there's a more clever way: don't kill `s6-svscan` above, somehow run it on the /nix/store/... path from the very beginning.
+          for d in $LIVE/servicedirs/*; do
+            while ! s6-svok "$d" ; do
+              sleep 0.1
+            done
+          done
 
           if [ -n "$S6_TARGET" ]; then
-            s6-rc -l "$LIVE" start "$S6_TARGET"
+            s6-rc -b -l "$LIVE" start "$S6_TARGET"
           fi
 
           echo 's6 initialized: Ctrl+C to stop'
           wait "$SVSCAN"
         }
         function startS6WithLogging() {
-          # the log dir should already exist by now (nixos persistence); create it just in case something went wrong.
-          mkdir -p "${logBase}"
+          mkdir -p "${logBase}"  #< needs to exist for parallel s6-log call
           startS6 2>&1 | tee /dev/stderr | s6-log -- T "${logBase}/catchall"
         }
 
