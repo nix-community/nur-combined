@@ -17,17 +17,6 @@
       sha256 = "sha256-7L2h91ZpB+VhUlP5kOa4lpKzr8LnkjXcP8I45M9Lrgk=";
     };
   };
-  g3kb-switch = {
-    pname = "g3kb-switch";
-    version = "1.4";
-    src = fetchFromGitHub {
-      owner = "lyokha";
-      repo = "g3kb-switch";
-      rev = "1.4";
-      fetchSubmodules = false;
-      sha256 = "sha256-mcZduHcteZ+nS0YEZG5DfmpA8xrnLhwxumq6hLuLPIs=";
-    };
-  };
   lsp-tree-sitter = {
     pname = "lsp-tree-sitter";
     version = "0.0.15";
