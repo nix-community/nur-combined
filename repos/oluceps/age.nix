@@ -30,6 +30,7 @@
         "nyaw.cert" = { rekeyFile = ./sec/nyaw.cert.age; mode = "640"; owner = "root"; group = "users"; };
         hyst-us = { rekeyFile = ./sec/hyst-us.age; mode = "640"; owner = "root"; group = "users"; name = "hyst-us.yaml"; };
         hyst-us-cli = { rekeyFile = ./sec/hyst-us-cli.age; mode = "640"; owner = "root"; group = "users"; name = "hyst-us-cli.yaml"; };
+        hyst-az-cli = { rekeyFile = ./sec/hyst-az-cli.age; mode = "640"; owner = "root"; group = "users"; name = "hyst-az-cli.yaml"; };
         atuin = { rekeyFile = ./sec/atuin.age; mode = "640"; owner = user; group = "users"; };
         atuin_key = { rekeyFile = ./sec/atuin_key.age; mode = "640"; owner = user; group = "users"; };
       };

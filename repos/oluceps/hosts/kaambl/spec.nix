@@ -108,7 +108,7 @@
       }
       {
         name = "colour";
-        configFile = config.age.secrets.hyst-az-cli-kam.path;
+        configFile = config.age.secrets.hyst-az-cli.path;
       }
     ];
 

@@ -99,7 +99,7 @@
       hysteria.instances = [
         {
           name = "colour";
-          configFile = config.age.secrets.hyst-az-cli-has.path;
+          configFile = config.age.secrets.hyst-az-cli.path;
         }
       ];
 

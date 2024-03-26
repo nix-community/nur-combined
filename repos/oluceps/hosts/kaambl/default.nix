@@ -42,6 +42,7 @@
         ../../users.nix
         ../../sysvars.nix
         inputs.niri.nixosModules.niri
+        ../graphBase.nix
       ]
         ++
         [
