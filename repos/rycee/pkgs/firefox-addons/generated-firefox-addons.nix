@@ -691,10 +691,10 @@
     };
     "bibbot" = buildFirefoxXpiAddon {
       pname = "bibbot";
-      version = "0.35.0";
+      version = "0.36.0";
       addonId = "voebbot@stefanwehrmeyer.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4227873/bibbot-0.35.0.xpi";
-      sha256 = "d0c0933fd0b6b50ae77e47ccb899374dd35a38c86a086326000fa3d3a907c4e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255347/bibbot-0.36.0.xpi";
+      sha256 = "4a35eeb9ac6eaed1d99456769c66c06e78d5a3832030186cb8805d907e60ca1b";
       meta = with lib;
       {
         homepage = "https://github.com/stefanw/bibbot";
@@ -1747,10 +1747,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240321.230221";
+      version = "125.0.20240325.91408";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4253802/deutsch_de_language_pack-124.0.20240321.230221.xpi";
-      sha256 = "d69649bc26717fc3fae5639ae8fd8ccd25bee1fc0e46c6afbf29820d5da6547c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255044/deutsch_de_language_pack-125.0.20240325.91408.xpi";
+      sha256 = "a12fd2b83de11f7e959e8b16f49d63d901261e6d1756f01c69029c63b759f596";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1783,10 +1783,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "4.2.0";
+      version = "4.2.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4254681/dictionaries-4.2.0.xpi";
-      sha256 = "f6c6b58703bad8cd569abbc902c9e385d5e11376c671e04bcd948d5f707f7d50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255324/dictionaries-4.2.1.xpi";
+      sha256 = "2b15fa7dcc83aa038cca672ef7618f5df1008264c255bbeb929966395ad469f7";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -1928,10 +1928,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.25.0";
+      version = "2.25.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241282/dualsub-2.25.0.xpi";
-      sha256 = "6c6d44fa20d01e956d4c1ae828a5dd27d35362b8002f47960843cfb5160ba2ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255733/dualsub-2.25.1.xpi";
+      sha256 = "c124934ef57d4aeb3629a811a685214a75e4445142777af961543e6a71586f72";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2687,10 +2687,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240321.230221";
+      version = "125.0.20240325.91408";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4253784/francais_language_pack-124.0.20240321.230221.xpi";
-      sha256 = "6b36f83c4209bda5d44a4971f4ee1d13423a372e8b613d7071e8221937e558b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255035/francais_language_pack-125.0.20240325.91408.xpi";
+      sha256 = "da440a468212928046ff91ffcf16b8a4a1715ba610668a0706eae931e88025d7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4557,10 +4557,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.3.2";
+      version = "1.3.4";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4250116/immersive_translate-1.3.2.xpi";
-      sha256 = "ee4f0a9cfe86e2ff745348616fcc4bf71de3858bfc172153ed3aee5f2b147cba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4254007/immersive_translate-1.3.4.xpi";
+      sha256 = "3da486cd345a8a8c061338e9d33a3b78ac6cf6d9a77c00680bbfdfcc67b82e9a";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5580,10 +5580,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.9.7";
+      version = "0.9.8";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197469/mal_sync-0.9.7.xpi";
-      sha256 = "e24d8dd4d36af0bb892892e1d44a1d7aa151248afbfe1187a7c04a3b971c59aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255650/mal_sync-0.9.8.xpi";
+      sha256 = "d9fc831cf2fedf0fb2eccae7f33b19a16c98b982d4509dd138c2e83dcecf484f";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -5604,7 +5604,6 @@
           "https://media.kitsu.io/"
           "https://api.simkl.com/"
           "https://www.netflix.com/"
-          "https://vrv.co/"
           "https://discover.hulu.com/"
           "https://www.primevideo.com/"
           "https://www.crunchyroll.com/"
@@ -5677,6 +5676,10 @@
           "*://*.aniwave.bz/watch2gether/*"
           "*://*.aniwave.ws/watch/*"
           "*://*.aniwave.ws/watch2gether/*"
+          "*://*.aniwave.vc/watch/*"
+          "*://*.aniwave.vc/watch2gether/*"
+          "*://*.aniwave.li/watch/*"
+          "*://*.aniwave.li/watch2gether/*"
           "*://*.crunchyroll.com/*"
           "*://mangadex.org/*"
           "*://*.gogoanime.tv/*"
@@ -5712,6 +5715,8 @@
           "*://*.gogoanimehd.to/*"
           "*://*.gogoanime3.net/*"
           "*://*.gogoanimehd.io/*"
+          "*://*.anitaku.to/*"
+          "*://*.gogoanime3.co/*"
           "*://*.www.turkanime.tv/video/*"
           "*://*.www.turkanime.tv/anime/*"
           "*://*.www.turkanime.net/video/*"
@@ -5731,7 +5736,6 @@
           "*://*.animeflv.net/anime/*"
           "*://*.animeflv.net/ver/*"
           "*://jkanime.net/*"
-          "*://vrv.co/*"
           "*://proxer.me/*"
           "*://proxer.net/*"
           "*://*.aniflix.tv/*"
@@ -5741,7 +5745,8 @@
           "*://*.kaas.to/*"
           "*://*.kickassanime.ro/*"
           "*://*.kickassanime.am/*"
-          "*://*.wakanim.tv/*"
+          "*://*.kickassanimes.io/*"
+          "*://*.kickassanime.mx/*"
           "*://shinden.pl/episode/*"
           "*://shinden.pl/series/*"
           "*://shinden.pl/titles/*"
@@ -5755,6 +5760,7 @@
           "*://manganato.com/*"
           "*://readmanganato.com/*"
           "*://chapmanganato.com/*"
+          "*://chapmanganato.to/*"
           "*://*.neko-sama.fr/*"
           "*://animecat.net/*"
           "*://www.animezone.pl/odcinki/*"
@@ -5839,6 +5845,19 @@
           "*://cyclingresolution.com/*"
           "*://comollamarle.com/*"
           "*://fashionandcomplements.com/*"
+          "*://gamesnacion.com/*"
+          "*://topamotor.com/*"
+          "*://motorwithpassion.com/*"
+          "*://gamesnewses.com/*"
+          "*://technewsroll.com/*"
+          "*://infonombre.com/*"
+          "*://animationdraw.com/*"
+          "*://recetasdegina.com/*"
+          "*://mislyfashion.com/*"
+          "*://techingro.com/*"
+          "*://motoralm.com/*"
+          "*://tocanimation.com/*"
+          "*://letsmotorgo.com/*"
           "*://mangaplus.shueisha.co.jp/*"
           "*://*.japscan.ws/*"
           "*://*.animesvision.com.br/*"
@@ -5859,6 +5878,7 @@
           "*://monoschinos.com/*"
           "*://monoschinos2.com/*"
           "*://animefire.net/*"
+          "*://animefire.plus/*"
           "*://otakufr.co/*"
           "*://mangatx.com/*"
           "*://manhuafast.com/*"
@@ -5888,12 +5908,12 @@
           "*://manhuaplus.com/manga*"
           "*://readm.org/manga/*"
           "*://www.readm.org/manga/*"
+          "*://*.readm.today/manga/*"
           "*://tioanime.com/anime/*"
           "*://tioanime.com/ver/*"
+          "*://yugenanime.tv/*"
           "*://yugenani.me/*"
           "*://yugen.to/*"
-          "*://yugenanime.ro/*"
-          "*://yugenanime.tv/*"
           "*://*.mangasee123.com/manga*"
           "*://*.mangasee123.com/read-online*"
           "*://*.okanime.com/animes/*"
@@ -5906,7 +5926,9 @@
           "*://*.asuracomics.com/*"
           "*://asuratoon.com/*"
           "*://an1me.nl/*"
+          "*://an1me.to/*"
           "*://mangajar.com/manga/*"
+          "*://mangajar.pro/manga/*"
           "*://*.otakustv.com/anime/*"
           "*://demo.komga.org/*"
           "*://animewho.com/*"
@@ -5920,6 +5942,9 @@
           "*://guya.cubari.moe/*"
           "*://mangahub.io/*"
           "*://comick.app/*"
+          "*://comick.ink/*"
+          "*://comick.cc/*"
+          "*://comick.io/*"
           "*://www.bentomanga.com/*"
           "*://bentomanga.com/*"
           "*://mangasushi.net/manga*"
@@ -5927,12 +5952,10 @@
           "*://readmanhua.net/manga*"
           "*://flamecomics.com/*"
           "*://immortalupdates.com/manga*"
-          "*://zoro.to/*"
-          "*://zoro.moe/*"
-          "*://zoro.sx/*"
-          "*://zoro.pm/*"
-          "*://sanji.to/*"
           "*://aniwatch.to/*"
+          "*://aniwatch.nz/*"
+          "*://aniwatch.se/*"
+          "*://hianime.to/*"
           "*://www.funimation.com/shows/*"
           "*://www.funimation.com/*/shows/*"
           "*://www.funimation.com/v/*"
@@ -5945,7 +5968,7 @@
           "*://dynasty-scans.com/*"
           "*://aniworld.to/*"
           "*://betteranime.net/anime/*"
-          "*://*.bilibilicomics.com/*"
+          "*://*.manga.bilibili.com/*"
           "*://mangareader.to/*"
           "*://animeonsen.xyz/*"
           "*://www.animeonsen.xyz/*"
@@ -5963,6 +5986,7 @@
           "*://sovetromantica.com/anime/*"
           "*://ani.wtf/anime/*"
           "*://animationdigitalnetwork.fr/*"
+          "*://animationdigitalnetwork.de/*"
           "*://aniyan.net/*"
           "*://docchi.pl/*"
           "*://franime.fr/*"
@@ -5977,17 +6001,24 @@
           "*://*.animeko.co/*"
           "*://animego.org/anime/*"
           "*://animeflix.live/*"
+          "*://animeflix.icu/*"
+          "*://animeflix.ro/*"
           "*://*.luciferdonghua.in/*"
           "*://*.luciferdonghua.co.in/*"
           "*://neoxscans.com/*"
           "*://*.neoxscans.net/*"
-          "*://anix.to/anime/*"
+          "*://*.anix.to/anime/*"
+          "*://*.anix.ac/anime/*"
+          "*://*.anix.vc/anime/*"
           "*://www.hinatasoul.com/anime*"
           "*://www.hinatasoul.com/videos/*"
           "*://ogladajanime.pl/*"
           "*://hachi.moe/*"
           "*://witanime.sbs/*"
           "*://witanime.pics/*"
+          "*://suwayomi-webui-preview.github.io/*"
+          "*://manhuaus.com/*"
+          "*://*.taiyo.moe/*"
           "*://*.openload.co/*"
           "*://*.openload.pw/*"
           "*://*.streamango.com/*"
@@ -6000,7 +6031,6 @@
           "*://*.rapidvideo.com/*"
           "*://*.rapidvid.to/*"
           "*://*.static.crunchyroll.com/*"
-          "*://*.static.vrv.co/*"
           "*://*.vidstreaming.io/*"
           "*://*.vidstreaming.me/*"
           "*://*.vidstreamingvw.xyz/*"
@@ -6042,6 +6072,7 @@
           "*://*.yourupload.com/*"
           "*://*.vidlox.me/*"
           "*://*.kwik.cx/*"
+          "*://*.kwik.si/*"
           "*://*.mega.nz/*"
           "*://*.animeflv.net/*"
           "*://*.hqq.tv/*"
@@ -6063,7 +6094,6 @@
           "*://www.ani-stream.com/*"
           "*://flex.aniflex.org/public/dist/*"
           "*://animedaisuki.moe/embed/*"
-          "*://*.wakanim.tv/*/*/*/embeddedplayer/*"
           "*://superitu.com/embed/*"
           "*://www.dailymotion.com/embed/*"
           "*://vev.io/embed/*"
@@ -6099,6 +6129,12 @@
           "*://*.moeclip.com/embed/*"
           "*://*.mixdrop.co/e/*"
           "*://*.mixdrop.to/e/*"
+          "*://*.mdbekjwqa.pw/e/*"
+          "*://*.mdfx9dc8n.net/e/*"
+          "*://*.mdzsmutpcvykb.net/e/*"
+          "*://*.mixdropjmk.pw/e/*"
+          "*://*.mixdrop21.net/e/*"
+          "*://*.mixdrop.si/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -6228,6 +6264,10 @@
           "*://*.goone.pro/streaming.php?*"
           "*://*.goone.pro/load.php?*"
           "*://*.goone.pro/loadserver.php?*"
+          "*://*.embtaku.pro/embedplus*"
+          "*://*.embtaku.pro/streaming.php?*"
+          "*://*.embtaku.pro/load.php?*"
+          "*://*.embtaku.pro/loadserver.php?*"
           "*://vivo.sx/embed/*"
           "*://ani.googledrive.stream/vidstreaming/*"
           "*://play.api-web.site/*"
@@ -6261,6 +6301,8 @@
           "*://vizcloud.co/e/*"
           "*://vidplay.site/e/*"
           "*://vidplay.lol/e/*"
+          "*://vidplay.online/e/*"
+          "*://ea1928580f.site/e/*"
           "*://streamsb.net/*"
           "*://streamsb.com/*"
           "*://sbembed.com/*"
@@ -6374,6 +6416,20 @@
           "*://nonesnanking.com/e/*"
           "*://kathleenmemberhistory.com/e/*"
           "*://denisegrowthwide.com/e/*"
+          "*://troyyourlead.com/e/*"
+          "*://stevenimaginelittle.com/e/*"
+          "*://edwardarriveoften.com/e/*"
+          "*://lukecomparetwo.com/e/*"
+          "*://kennethofficialitem.com/e/*"
+          "*://bradleyviewdoctor.com/e/*"
+          "*://jamiesamewalk.com/e/*"
+          "*://seanshowcould.com/e/*"
+          "*://johntryopen.com/e/*"
+          "*://morganoperationface.com/e/*"
+          "*://markstyleall.com/e/*"
+          "*://jayservicestuff.com/e/*"
+          "*://vincentincludesuccessful.com/e/*"
+          "*://brookethoughi.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -6432,11 +6488,17 @@
           "*://www.animeworld.tv/api/episode/serverPlayerAnimeWorld?id=*"
           "*://www.animeworld.so/api/episode/serverPlayerAnimeWorld?id=*"
           "*://filemoon.sx/e/*"
+          "*://kerapoxy.cc/e/*"
+          "*://vpcxz19p.xyz/e/*"
+          "*://filemoon.top/e/*"
+          "*://fmoonembed.pro/e/*"
+          "*://rgeyyddl.skin/e/*"
           "*://mb.toonanime.xyz/dist/*"
           "*://aniyan.net/jwplayer/*"
           "*://*.googlevideo.com/videoplayback?*"
           "*://*.streamhide.to/e/*"
           "*://api.animeflix.live/*"
+          "*://api.animeflix.dev/*"
           "*://megacloud.tv/*"
           "*://vixcloud.cc/*"
           "*://vixcloud.co/*"
@@ -6444,6 +6506,10 @@
           "*://*.4shared.com/*"
           "*://*.videa.hu/*"
           "*://*.soraplay.xyz/*"
+          "*://streamwish.to/e/*"
+          "*://sfastwish.com/e/*"
+          "*://awish.pro/e/*"
+          "*://alions.pro/v/*"
         ];
         platforms = platforms.all;
       };
@@ -6657,10 +6723,10 @@
     };
     "multiple-tab-handler" = buildFirefoxXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.1.12";
+      version = "3.1.13";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233377/multiple_tab_handler-3.1.12.xpi";
-      sha256 = "8a1ecc77e7064b3fd84899d45c9fe10640845df35f96773f76530925550e517f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255656/multiple_tab_handler-3.1.13.xpi";
+      sha256 = "19f3629b3c5de97e28d1ef696f04a89a26c10a040b0048bfd3f2a757008bee37";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -7019,10 +7085,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.12.1";
+      version = "7.12.2";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4253001/octotree-7.12.1.xpi";
-      sha256 = "19cfa3fa59f9b2b2c782450862db25fb51ca16faccd0e513429539717c2eacf8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255575/octotree-7.12.2.xpi";
+      sha256 = "7cf0002f38da744f4075a306b7e0e7e35cbd89d1d5b1c0c4ae3f0d4da221133b";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -7150,6 +7216,19 @@
           "https://*/**"
           "http://*/**"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "omori-headspace-by-lemon" = buildFirefoxXpiAddon {
+      pname = "omori-headspace-by-lemon";
+      version = "1.0";
+      addonId = "{f1b7aef0-b095-4976-af76-27f6344a128e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069986/omori_headspace_by_lemon-1.0.xpi";
+      sha256 = "1840478ad9fff5e6f31930ee7c8ffd6a84f504bac0cd30646a6919eae7ee95f3";
+      meta = with lib;
+      {
+        description = "This theme will skin your UI to look like the Headspace sky from OMORI!";
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };
@@ -7344,10 +7423,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.33";
+      version = "1.0.41";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4187095/paperpile_addon-1.0.33.xpi";
-      sha256 = "9e30230eb017fe432dddd229daa10715f5b162c0b015745ba6d4320936b5bb6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255216/paperpile_addon-1.0.41.xpi";
+      sha256 = "ae79afd4c4175bd81993aebfeefd6f8c2bb4b4a30dc07f7e3a120bd2e7001b89";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -7364,6 +7443,8 @@
           "scripting"
           "<all_urls>"
           "storage"
+          "unlimitedStorage"
+          "declarativeNetRequestWithHostAccess"
           "*://app.paperpile.com/*"
         ];
         platforms = platforms.all;
@@ -8404,6 +8485,26 @@
         platforms = platforms.all;
       };
     };
+    "read-aloud" = buildFirefoxXpiAddon {
+      pname = "read-aloud";
+      version = "1.67.1";
+      addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4219454/read_aloud-1.67.1.xpi";
+      sha256 = "60b921d74d276ee218cbbabe55dd1143844de4dd2d056b84c641a70d0c34e940";
+      meta = with lib;
+      {
+        description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "activeTab"
+          "menus"
+          "identity"
+          "storage"
+          "https://translate.google.com/"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "reddit-comment-collapser" = buildFirefoxXpiAddon {
       pname = "reddit-comment-collapser";
       version = "5.1.1";
@@ -9171,7 +9272,7 @@
       sha256 = "61006315267ecf23b8fa0325c259075c3381de944d988d7e40c26391e7bcf5aa";
       meta = with lib;
       {
-        homepage = "https://github.com/igorlogius/startup-tabs/";
+        homepage = "https://github.com/igorlogius";
         description = "Open a set of bookmarks as tabs on browser startup by simply selecting a bookmark folder which contains them.";
         license = licenses.bsd2;
         mozPermissions = [ "tabs" "bookmarks" "storage" ];
@@ -9293,6 +9394,31 @@
         description = "Find your people on Mastodon";
         license = licenses.mit;
         mozPermissions = [ "storage" "https://*/*" "http://*/*" ];
+        platforms = platforms.all;
+      };
+    };
+    "stylebot-web" = buildFirefoxXpiAddon {
+      pname = "stylebot-web";
+      version = "3.1.3";
+      addonId = "{52bda3fd-dc48-4b3d-a7b9-58af57879f1e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3979493/stylebot_web-3.1.3.xpi";
+      sha256 = "f3f606dff3b77e1ad7ab0b516d6ce7196af119604af240a5881af4dfe0e27f4e";
+      meta = with lib;
+      {
+        homepage = "https://stylebot.dev/";
+        description = "Change the appearance of the web instantly";
+        license = licenses.mit;
+        mozPermissions = [
+          "tabs"
+          "storage"
+          "identity"
+          "contextMenus"
+          "unlimitedStorage"
+          "https://drive.google.com/*"
+          "https://www.googleapis.com/*"
+          "https://fonts.googleapis.com/*"
+          "<all_urls>"
+        ];
         platforms = platforms.all;
       };
     };
@@ -9993,10 +10119,10 @@
     };
     "tst-active-tab-on-scroll-bar" = buildFirefoxXpiAddon {
       pname = "tst-active-tab-on-scroll-bar";
-      version = "1.3.1";
+      version = "1.3.2";
       addonId = "tst-active-tab-on-scrollbar@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233388/tst_active_tab_on_scroll_bar-1.3.1.xpi";
-      sha256 = "8895bb1aa623813bb53133c805d805744144fe32649e8b9512b14104346993c2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255623/tst_active_tab_on_scroll_bar-1.3.2.xpi";
+      sha256 = "48b1e34aff6f0432167d62f34c1a59015260cdf624e3860a75a4ed502bf88b6b";
       meta = with lib;
       {
         description = "Provides a marker to indicate active tab position in Tree Style Tab sidebar.";
@@ -10035,10 +10161,10 @@
     };
     "tst-indent-line" = buildFirefoxXpiAddon {
       pname = "tst-indent-line";
-      version = "1.3.1";
+      version = "1.3.2";
       addonId = "tst-indent-line@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233395/tst_indent_line-1.3.1.xpi";
-      sha256 = "3896a6ba7450d3b48b320d9338f23fa162bc9b64f9aeac0c663eca56ec55b8af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255629/tst_indent_line-1.3.2.xpi";
+      sha256 = "51dbbef66cf7f8df57170c31be926fec1ec08a3a7150b37d86a11b715e3c5fd0";
       meta = with lib;
       {
         description = "Provides indent line for Tree Style Tab sidebar.";
@@ -10049,10 +10175,10 @@
     };
     "tst-lock-tree-collapsed" = buildFirefoxXpiAddon {
       pname = "tst-lock-tree-collapsed";
-      version = "1.4.1";
+      version = "1.4.2";
       addonId = "tst-lock-tree-collapsed@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4233389/tst_lock_tree_collapsed-1.4.1.xpi";
-      sha256 = "a311dcd23a5a521bc0c0551ad0c6bc83d6a4f73d58f2160baaa306095590c7db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255644/tst_lock_tree_collapsed-1.4.2.xpi";
+      sha256 = "6af8e4d03f7984f0e1db38b975b7cdd12bb57319333b5a9218ecc43c4989f6ae";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/tst-lock-tree-collapsed";
@@ -10064,10 +10190,10 @@
     };
     "tst-more-tree-commands" = buildFirefoxXpiAddon {
       pname = "tst-more-tree-commands";
-      version = "1.5";
+      version = "1.5.1";
       addonId = "tst-more-tree-commands@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4001424/tst_more_tree_commands-1.5.xpi";
-      sha256 = "11496b6b7a463241602802cb5c5b3af81102b64fb75c4c5cf6d82521586ae023";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255633/tst_more_tree_commands-1.5.1.xpi";
+      sha256 = "698bb52891454c18af3ebf4803546f18d990206d099f4f3721a1e65c91120fca";
       meta = with lib;
       {
         description = "Provides extra tree manipulation commands for Tree Style Tab.";
@@ -10423,10 +10549,10 @@
     };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "6.3.1";
+      version = "6.4.4";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4209163/ukrainian_dictionary-6.3.1.xpi";
-      sha256 = "114c6cc04cf68ccd059cc0dd0a69bd246230a965e55b2770833744ad46013c7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4255824/ukrainian_dictionary-6.4.4.xpi";
+      sha256 = "47f2714c36dc2ce40f6ae6d13f44bf01909dbc01f7b43b8d922a24d22439e8ec";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
@@ -11036,6 +11162,28 @@
         platforms = platforms.all;
       };
     };
+    "web-developer" = buildFirefoxXpiAddon {
+      pname = "web-developer";
+      version = "2.0.5";
+      addonId = "{c45c406e-ab73-11d8-be73-000a95be3b12}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3484096/web_developer-2.0.5.xpi";
+      sha256 = "4a2f20e32e5a09ec23f395f6023d2a90b28a0e4b231474edc07e311b309c6ff4";
+      meta = with lib;
+      {
+        homepage = "http://chrispederick.com/work/web-developer/firefox/";
+        description = "The Web Developer extension adds various web developer tools to the browser.";
+        license = licenses.lgpl3;
+        mozPermissions = [
+          "clipboardWrite"
+          "cookies"
+          "history"
+          "storage"
+          "tabs"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "web-eid" = buildFirefoxXpiAddon {
       pname = "web-eid";
       version = "2.2.1";
@@ -11281,6 +11429,20 @@
         platforms = platforms.all;
       };
     };
+    "webhint" = buildFirefoxXpiAddon {
+      pname = "webhint";
+      version = "2.4.15";
+      addonId = "{e748cb59-4901-4bea-b74a-1d8dab98e3c7}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251870/webhint-2.4.15.xpi";
+      sha256 = "f79fc5420e7318a3ba9f4cda2325f001aaa55cce3a42a18c6f3adcb18c122047";
+      meta = with lib;
+      {
+        homepage = "https://webhint.io";
+        description = "Check for best practices and common errors with your site's accessibility, speed, security and more.";
+        mozPermissions = [ "<all_urls>" "webNavigation" "devtools" ];
+        platforms = platforms.all;
+      };
+    };
     "widegithub" = buildFirefoxXpiAddon {
       pname = "widegithub";
       version = "2.2.0";
@@ -11409,6 +11571,30 @@
           "storage"
           "tabs"
           "unlimitedStorage"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "yomitan" = buildFirefoxXpiAddon {
+      pname = "yomitan";
+      version = "23.12.29.0";
+      addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4217782/yomitan-23.12.29.0.xpi";
+      sha256 = "6cff708019bd5c53879b3c50ddb6b1f49e842d1c47272c10569041a2d3dbcd60";
+      meta = with lib;
+      {
+        homepage = "https://github.com/themoeway/yomitan";
+        description = "Japanese dictionary with Anki integration";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "clipboardWrite"
+          "unlimitedStorage"
+          "declarativeNetRequest"
+          "scripting"
+          "http://*/*"
+          "https://*/*"
+          "file://*/*"
         ];
         platforms = platforms.all;
       };

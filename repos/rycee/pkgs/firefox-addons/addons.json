@@ -847,6 +847,9 @@
     "slug": "omnivore"
   },
   {
+    "slug": "omori-headspace-by-lemon"
+  },
+  {
     "slug": "one-click-wayback"
   },
   {
@@ -1004,6 +1007,9 @@
     "slug": "react-devtools"
   },
   {
+    "slug": "read-aloud"
+  },
+  {
     "slug": "reddit-enhancement-suite"
   },
   {
@@ -1153,6 +1159,9 @@
   {
     "slug": "styl-us",
     "pname": "stylus"
+  },
+  {
+    "slug": "stylebot-web"
   },
   {
     "slug": "substitoot"
@@ -1410,6 +1419,9 @@
     "pname": "wayback-machine"
   },
   {
+    "slug": "web-developer"
+  },
+  {
     "slug": "web-eid-webextension",
     "pname": "web-eid"
   },
@@ -1418,6 +1430,9 @@
   },
   {
     "slug": "web-search-navigator"
+  },
+  {
+    "slug": "webhint"
   },
   {
     "slug": "widegithub"
@@ -1441,6 +1456,9 @@
   {
     "slug": "xbs",
     "pname": "xbrowsersync"
+  },
+  {
+    "slug": "yomitan"
   },
   {
     "slug": "youronlinechoices-plugin",
