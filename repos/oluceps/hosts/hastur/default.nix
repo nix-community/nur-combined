@@ -33,6 +33,7 @@
                   "agenix-rekey"
                   "misskey"
                   "nixpkgs-wayland"
+                  "attic"
                 ]);
             };
           }
@@ -45,7 +46,6 @@
           ../persist.nix
           ../secureboot.nix
           ../../packages.nix
-          ../../services/misc.nix
           ../../misc.nix
           ../../sysvars.nix
           ../../age.nix
@@ -61,15 +61,17 @@
           ./misskey.nix
 
           ./vaultwarden.nix
-          inputs.niri.nixosModules.niri
+
 
           # ../graphBase.nix
         ]
           ++
-          [
-            inputs.aagl.nixosModules.default
-            inputs.disko.nixosModules.default
+          (with inputs; [
+            aagl.nixosModules.default
+            disko.nixosModules.default
+            attic.nixosModules.atticd
+            inputs.niri.nixosModules.niri
             # inputs.j-link.nixosModule
-          ];
+          ]);
       });
 }

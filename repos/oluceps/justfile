@@ -26,14 +26,16 @@ build-bootstrap:
     nom build .#nixosConfigurations.bootstrap.config.system.build.diskoImages
 test-bootstrap:
     nix run github:nix-community/nixos-anywhere -- --flake .#bootstrap --vm-test
+
+
 build *args:
     #!/usr/bin/env nu
-    use {{loc}}/f
+    use {{loc}}/fn/f
     f b {{ args }}
 
 deploy *args:
     #!/usr/bin/env nu
-    use {{loc}}/f
+    use {{loc}}/fn/f
     f d {{ args }}
 
 encrypt *args:
@@ -64,19 +66,19 @@ edit-sec *args:
 
 decrypt *args:
     #!/usr/bin/env nu
-    use {{loc}}/f
+    use {{loc}}/fn/f
     ['./sec' '{{ home }}/Sec'] |
       each {|| ls $in } | flatten | $in.name |
               reduce {|it, acc| $it + (char newline) + $acc } | fzf | str trim | f de $in
 
 remote-switch *args:
     #!/usr/bin/env nu
-    use {{loc}}/f
+    use {{loc}}/fn/f
     f rswc {{ args }}
 
 check:
     #!/usr/bin/env nu
-    use {{loc}}/f
+    use {{loc}}/fn/f
     f chk
 
 rekey:

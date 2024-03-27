@@ -16,40 +16,43 @@
     niri.enable = true;
     sway.enable = true;
   };
-  systemd.services.atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-  systemd.services.restic-backups-persist = {
-    serviceConfig.Environment = [ "GOGC=20" ];
-  };
-
-  # systemd.services.tester = {
-  #   serviceConfig = {
-  #     Type = "simple";
-  #     ExecStart = "exit 3";
-  #     ExecStopPost = lib.genNtfyMsgScriptPath "tags warning prio high" "info" "test";
-  #   };
-  #   wantedBy = [ "multi-user.target" ];
-  # };
-
-  # hardware = {
-  #   nvidia = {
-  #     package = config.boot.kernelPackages.nvidiaPackages.latest;
-  #     modesetting.enable = true;
-  #     powerManagement.enable = false;
-  #     open = true;
-  #   };
-
-  #   opengl = {
-  #     enable = true;
-  #     # extraPackages = with pkgs; [
-  #     #   rocm-opencl-icd
-  #     #   rocm-opencl-runtime
-  #     # ];
-  #     driSupport = true;
-  #     driSupport32Bit = true;
-  #   };
-  # };
-
   systemd = {
+    services = {
+      atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
+      restic-backups-persist.serviceConfig.Environment = [ "GOGC=20" ];
+      btrfs-scrub-persist.serviceConfig.ExecStopPost =
+        lib.genNtfyMsgScriptPath "tags red_circle prio high" "error" "btrfs scrub failed on hastur";
+    };
+
+    # systemd.services.tester = {
+    #   serviceConfig = {
+    #     Type = "simple";
+    #     ExecStart = "exit 3";
+    #     ExecStopPost = lib.genNtfyMsgScriptPath "tags warning prio high" "info" "test";
+    #   };
+    #   wantedBy = [ "multi-user.target" ];
+    # };
+
+    # hardware = {
+    #   nvidia = {
+    #     package = config.boot.kernelPackages.nvidiaPackages.latest;
+    #     modesetting.enable = true;
+    #     powerManagement.enable = false;
+    #     open = true;
+    #   };
+
+    #   opengl = {
+    #     enable = true;
+    #     # extraPackages = with pkgs; [
+    #     #   rocm-opencl-icd
+    #     #   rocm-opencl-runtime
+    #     # ];
+    #     driSupport = true;
+    #     driSupport32Bit = true;
+    #   };
+    # };
+
+
     # Given that our systems are headless, emergency mode is useless.
     # We prefer the system to attempt to continue booting so
     # that we can hopefully still access it remotely.
@@ -74,6 +77,7 @@
       AllowSuspend=no
       AllowHibernation=no
     '';
+
   };
 
   # photoprism minio
@@ -88,11 +92,12 @@
   services = (
     let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs lib; }; in lib.genAttrs [
       "openssh"
-      "mosproxy"
+      # "mosproxy"
       "fail2ban"
       "dae"
       "scrutiny"
       "ddns-go"
+      "atticd"
       # "prometheus"
     ]
       (n: importService n)
@@ -133,17 +138,17 @@
     tailscale = { enable = true; openFirewall = true; };
 
     sing-box.enable = false;
-    # beesd.filesystems = {
-    #   os = {
-    #     spec = "LABEL=nixos";
-    #     hashTableSizeMB = 1024; # 256 *2 *2
-    #     verbosity = "crit";
-    #     extraOptions = [
-    #       "--loadavg-target"
-    #       "5.0"
-    #     ];
-    #   };
-    # };
+    beesd.filesystems = {
+      os = {
+        spec = "LABEL=nixos";
+        hashTableSizeMB = 1024; # 256 *2 *2
+        verbosity = "crit";
+        extraOptions = [
+          "-c"
+          "6"
+        ];
+      };
+    };
     restic.backups.solid = {
       passwordFile = config.age.secrets.wg.path;
       repositoryFile = config.age.secrets.restic-repo.path;
@@ -354,7 +359,7 @@
       ];
     };
     xmrig = {
-      enable = true;
+      enable = false;
       settings = {
         autosave = true;
         opencl = false;

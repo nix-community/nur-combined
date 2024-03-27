@@ -96,6 +96,10 @@
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
     };
+    attic = {
+      url = "github:zhaofengli/attic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # niri.inputs.niri-src.url = "github:YaLTeR/niri";
     devshell.url = "github:numtide/devshell";
     nixpkgs-wayland = {

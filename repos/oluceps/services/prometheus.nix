@@ -87,7 +87,7 @@ in
         }
         {
           alert = "DiskFull";
-          expr = ''node_filesystem_avail_bytes{mountpoint=~"/persist|/data"} / node_filesystem_size_bytes < 0.1'';
+          expr = ''node_filesystem_avail_bytes{mountpoint=~"/persist"} / node_filesystem_size_bytes < 0.1'';
         }
         {
           alert = "UnitFailed";

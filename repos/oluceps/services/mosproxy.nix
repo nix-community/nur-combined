@@ -21,13 +21,13 @@ in
     ];
     servers = [
       {
-        listen = "127.0.0.1:53";
+        listen = "[::]:53";
         protocol = "udp";
         quic = { max_streams = 100; };
         udp = { multi_routes = false; };
       }
       {
-        listen = "127.0.0.1:53";
+        listen = "[::]:53";
         protocol = "gnet";
         tcp = { max_concurrent_queries = 100; };
       }

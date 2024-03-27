@@ -11,6 +11,12 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+    fileSystems = [ "/persist" ];
+  };
+
   boot = {
     loader.efi = {
       canTouchEfiVariables = true;

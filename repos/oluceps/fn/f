@@ -6,7 +6,7 @@ export-env {
   $env.get_addr = { |map, per| $map | where name == $per | $in.addr.0 }
 }
 
-export def b [
+export def br [
   nodes?: list<string>
   --builder (-b): string = "hastur"
 ] {
@@ -27,6 +27,16 @@ export def b [
     (nix build $'.#nixosConfigurations.($in).config.system.build.toplevel'
       --builders $"($target_addr) ($machine_spec)"
       ...($job) -vvv) 
+  }
+
+}
+
+export def b [
+  nodes?: list<string>
+] {
+
+  $nodes | par-each {|| 
+    (nix build $'.#nixosConfigurations.($in).config.system.build.toplevel') 
   }
 
 }
@@ -54,6 +64,7 @@ export def d [
 }
 
 const age_pub = /run/agenix/age
+
 
 export def de [path: string] {
   let tmp_path = (mktemp -t)
@@ -85,19 +96,4 @@ export def chk [] {
     filter {|i|
       not ($i.name | path basename | $in in $allow)
     }
-}
-
-export def rswc [
-  --builder (-b): string = "hastur"
-] {
-
-  let job = ["--max-jobs" "0"]
-
-  let map = (open $map_path | lines | split column ":" name addr)
-
-  let target_addr = do $env.get_addr ($map) $builder
-
-  let machine_spec = "x86_64-linux - - -"
-
-  nh os switch --no-nom -- --builders $"($target_addr)"
 }

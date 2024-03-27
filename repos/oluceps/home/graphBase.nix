@@ -1,22 +1,4 @@
 { pkgs, lib, config, inputs, ... }: {
-  home.file.".blerc".text = ''
-    bleopt term_true_colors=none
-    bleopt prompt_ruler=empty-line
-    ble-face -s command_builtin_dot       fg=yellow,bold
-    ble-face -s command_builtin           fg=yellow
-    ble-face -s filename_directory        underline,fg=magenta
-    ble-face -s filename_directory_sticky underline,fg=white,bg=magenta
-    ble-face -s command_function          fg=blue
-
-    function ble/prompt/backslash:my/starship-right {
-      local right
-      ble/util/assign right '${pkgs.starship}/bin/starship prompt --right'
-      ble/prompt/process-prompt-string "$right"
-    }
-    bleopt prompt_rps1="\n\n\q{my/starship-right}"
-    bleopt prompt_ps1_final="\033[1m=>\033[0m "
-    bleopt prompt_rps1_transient="same-dir"
-  '';
 
   home.packages = with pkgs;[
     qq
@@ -139,7 +121,6 @@
     element-desktop-wayland
     # thunderbird
     # fluffychat
-    discord-canary
     scrcpy
 
     alacritty
@@ -170,8 +151,6 @@
     vial
 
     ncdu_2 # disk space info
-
-    btop
 
     smartmontools
     android-tools

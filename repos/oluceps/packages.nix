@@ -14,6 +14,11 @@ let
     # ];
 
     cmd = [
+
+      btop
+      atuin
+      minio-client
+      attic
       deno
       ntfy-sh
       _7zz
