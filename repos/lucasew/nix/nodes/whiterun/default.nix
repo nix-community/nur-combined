@@ -24,6 +24,8 @@ in {
     ./container-nat.nix
   ];
 
+  services.fusionsolar-reporter.enable = true;
+
   services.guix.enable = true;
 
   services.escrivao.enable = true;
