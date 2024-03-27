@@ -11,27 +11,27 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "d565d8ada1c2e00c3182b57ea6bc6497ebb7bdef";
+    version = "12124a7a88f0dce783d9f285334b08960d469e74";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "d565d8ada1c2e00c3182b57ea6bc6497ebb7bdef";
+      rev = "12124a7a88f0dce783d9f285334b08960d469e74";
       fetchSubmodules = false;
-      sha256 = "sha256-RLbkHfnnXIJjaYLhfHleSztfPmcms5k0gy3slrYp20Y=";
+      sha256 = "sha256-Qi9BpVRx85V/GUd68zmgwyR/oZ9bKWFfFKL669fYfI4=";
     };
-    date = "2024-03-12";
+    date = "2024-03-25";
   };
   nixfmt = {
     pname = "nixfmt";
-    version = "a81f922a2b362f347a6cbecff5fb14f3052bc25d";
+    version = "3e0abf986d5de06ed186b8a93b5239497edbf121";
     src = fetchFromGitHub {
       owner = "NixOS";
       repo = "nixfmt";
-      rev = "a81f922a2b362f347a6cbecff5fb14f3052bc25d";
+      rev = "3e0abf986d5de06ed186b8a93b5239497edbf121";
       fetchSubmodules = false;
-      sha256 = "sha256-2+uwwVWWrtqAQGSIODq8/D8eBc0++9Jv9HakspSvsFg=";
+      sha256 = "sha256-Hqk7Q4gqd+ZINMqZulAaqzwIZ1TyrgDJ/egRSZfUbVg=";
     };
-    date = "2024-03-19";
+    date = "2024-03-26";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
