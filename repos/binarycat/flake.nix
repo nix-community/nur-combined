@@ -20,6 +20,6 @@
       });
       packages = self.legacyPackages;
         #forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
-      lib = self.packages."${builtins.currentSystem}".lib;
+      lib = self.packages.x86_64-linux.lib;
     };
 }

@@ -46,4 +46,5 @@ in {
 
     #lists.uniqueLazy = foldl (acc: e: if elem e acc then acc else acc ++ [ e ]) [];
   testers = pkgs.callPackage ./test { inherit lib; };
+  inherit (lib.testers) getMetaUrls;
 }
