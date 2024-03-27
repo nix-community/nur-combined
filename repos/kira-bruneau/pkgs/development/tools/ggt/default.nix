@@ -6,20 +6,20 @@
 
 buildNpmPackage rec {
   pname = "ggt";
-  version = "1.0.1";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "gadget-inc";
     repo = "ggt";
     rev = "refs/tags/v${version}";
-    hash = "sha256-Y5obv/iPIqEEY0jhi1DfGNzeTLBM2Zh6FH4PPVJ4QAQ=";
+    hash = "sha256-2z+PkL3AYZze4w7FlFEDhsYGsI7dri+wuBV4tuknkgg=";
   };
 
   postPatch = ''
     ln -s npm-shrinkwrap.json package-lock.json
   '';
 
-  npmDepsHash = "sha256-6dcsFejVcPpv7O+QaSJtgNcx/r9xWgjBXzz1qtoZoMk=";
+  npmDepsHash = "sha256-gLfpyQ0d45ii1Tmcrcp3zKZuOCSAINZedVhvbP/Q+DM=";
 
   passthru.updateScript = nix-update-script { };
 
