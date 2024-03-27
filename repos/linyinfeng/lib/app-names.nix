@@ -40,11 +40,6 @@ let
     (empty "fishPlugins/replay")
     (trivial "icalingua-plus-plus")
     (trivial "lpac")
-    {
-      "lpac_1" = {
-        "lpac_1" = "lpac";
-      };
-    }
     (trivial "matrix-chatgpt-bot")
     {
       "matrix-media-repo" = {

@@ -1,0 +1,79 @@
+[
+  {
+    "eum": "89033023",
+    "country": "FR",
+    "manufacturer": "Thales",
+    "products": [
+      { "pattern": "89033023424110*", "name": "Amazfit" },
+      { "pattern": "89033023424210*", "name": "TicWatch" },
+      { "pattern": "89033023425110*", "name": "Lenovo" },
+      { "pattern": "890330234261000000000121*", "name": "OPPO" },
+      { "pattern": "890330234261000000000173*", "name": "HONOR" },
+      { "pattern": "890330234262*", "name": "Pixel 6 Series" },
+      { "pattern": "890330234271*", "name": "Pixel 7 Series" },
+      { "pattern": "89033023553419*", "name": "Pixel 8 Series" }
+    ]
+  },
+  {
+    "eum": "89033024",
+    "country": "FR",
+    "manufacturer": "IDEMIA",
+    "products": [
+      { "pattern": "890330240681027499102*", "chip": "ST33G1M2STL8EMQ4", "name": "AVNET eUICC" },
+      { "pattern": "890330240681*", "name": "AVNET eUICC" }
+    ]
+  },
+  { "eum": "89034011", "country": "ES", "manufacturer": "Valid" },
+  { "eum": "89043051", "country": "AT", "manufacturer": "NXP" },
+  { "eum": "89044047", "country": "GB", "manufacturer": "Truphone" },
+  {
+    "eum": "89049032",
+    "country": "DE",
+    "manufacturer": "G+D",
+    "products": [
+      { "pattern": "890490321030288823*", "chip": "ST33G1M2LCL9EMM4", "name": "Entrust?" },
+      { "pattern": "890490320030088823*", "chip": "ST33G1M2STL8ENH0", "name": "Apple" },
+      { "pattern": "890490320040088826*", "chip": "ST33G1M2STL8ENL0", "name": "Apple" },
+      { "pattern": "890490320050088826*", "chip": "ST33G1M2STL8ENP0", "name": "Apple" },
+      { "pattern": "890490320060088826*", "chip": "ST33J2M0STL9DZB0", "name": "Apple" },
+      { "pattern": "890490320070088826*", "chip": "ST33J2M0STL9DZD0", "name": "Apple" },
+      { "pattern": "8904903200?0088826*", "name": "Apple" },
+      { "pattern": "89049032007?0888*", "name": "Apple" },
+      { "pattern": "8904903200713683*", "name": "Apple" },
+      { "pattern": "89049032000001000000002*", "name": "Pixel 2 Series" },
+      { "pattern": "89049032000001000000035*", "name": "Pixel 4 Series" }
+    ]
+  },
+  { "eum": "89049038", "country": "DE", "manufacturer": "G+D" },
+  {
+    "eum": "89086001",
+    "country": "CN",
+    "manufacturer": "Hengbao",
+    "products": [{ "pattern": "89086001202200101019000001*", "name": "Abardeen" }]
+  },
+  {
+    "eum": "89086029",
+    "country": "CN",
+    "manufacturer": "Wuhan Tianyu",
+    "products": [
+      { "pattern": "890860292022000001210107*", "name": "TicWatch GTW" },
+      { "pattern": "8908602920220000212100006*", "name": "CUCC VN007+" }
+    ]
+  },
+  {
+    "eum": "89086030",
+    "country": "CN",
+    "manufacturer": "Eastcompeace",
+    "products": [
+      { "pattern": "89086030202200000022217630*", "name": "eSIM.me" },
+      { "pattern": "89086030202200000022281675*", "name": "eSIM.me" },
+      { "pattern": "89086030202200000023100930*", "name": "5ber.eSIM" }
+    ]
+  },
+  {
+    "eum": "89086034",
+    "country": "CN",
+    "manufacturer": "<unknown>",
+    "products": [{ "pattern": "89086034202200001021*", "name": "CUCC VN007+" }]
+  }
+]

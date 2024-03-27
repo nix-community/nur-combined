@@ -2,7 +2,6 @@
   callPackage,
   buildGoModule,
   fetchFromGitHub,
-  fetchurl,
   pkg-config,
   gtk3,
   xorg,
@@ -10,7 +9,6 @@
   glfw,
   makeWrapper,
   lib,
-  nix-update-script,
 }:
 
 let
@@ -18,29 +16,19 @@ let
 in
 buildGoModule rec {
   pname = "easylpac";
-  version = "0.7.1";
+  version = "0.7.2";
   src = fetchFromGitHub {
     owner = "creamlike1024";
     repo = "EasyLPAC";
     rev = version;
-    sha256 = "sha256-SouEaSYx5IFRQ/5tyGL+noHjxPWl9w46F9Mts2XaZJw=";
+    sha256 = "sha256-xbSImrwhJSBGVwHgwAavXfRqTmASov2QBcUFRqrkNRI=";
   };
   proxyVendor = true;
-  vendorHash = "sha256-MotrZGwVhD6+qhDaoDbyMiNv0000mO9p0ceJSrhw5e0=";
+  vendorHash = "sha256-aivuY9ep7QOtYNpHkSZSAHdHrpbTsL3fLbE5AFktHF0=";
 
-  env = {
-    EUM_REGISTRY_FILE = fetchurl {
-      url = "https://euicc-manual.septs.app/docs/pki/eum/manifest.json";
-      hash = "sha256-B3Hx96IqPEX7pbkbVZlK6Tk3teRrxD0HjHMTOshFSwY=";
-    };
-    CI_REGISTRY_FILE = fetchurl {
-      url = "https://euicc-manual.septs.app/docs/pki/ci/manifest.json";
-      hash = "sha256-LQSXWYlfqhl6T2y5QCRX0EWFyBvcTPe/mcnAmma9fiA=";
-    };
-  };
   postConfigure = ''
-    cp --verbose "$EUM_REGISTRY_FILE" eum-registry.json
-    cp --verbose "$CI_REGISTRY_FILE" ci-registry.json
+    cp --verbose "${./eum-registry.json}" eum-registry.json
+    cp --verbose "${./ci-registry.json}"  ci-registry.json
   '';
 
   nativeBuildInputs = [
@@ -61,7 +49,11 @@ buildGoModule rec {
     inherit workDir;
 
     updateScriptEnabled = true;
-    updateScript = nix-update-script { attrPath = pname; };
+    updateScript =
+      let
+        script = callPackage ./update.nix { };
+      in
+      [ "${script}/bin/update-easylpac" ];
   };
 
   meta = with lib; {
