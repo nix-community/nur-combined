@@ -3,7 +3,7 @@
 }:
 let
   inherit (pkgs.lib) filterAttrs;
-  inherit (pkgs.lib.attrsets) mapAttrs;
+  inherit (pkgs.lib.attrsets) mapAttrs foldlAttrs;
   inherit (pkgs.lib.lists) foldl elem;
   inherit (pkgs.lib.strings) hasPrefix;
   inherit (builtins) readDir pathExists attrNames isAttrs;
@@ -44,6 +44,6 @@ in {
     withPrefix = pre: filterAttrs (name: _: hasPrefix pre name);
   };
 
-  #lists.uniqueLazy = foldl (acc: e: if elem e acc then acc else acc ++ [ e ]) [];
+    #lists.uniqueLazy = foldl (acc: e: if elem e acc then acc else acc ++ [ e ]) [];
   testers = pkgs.callPackage ./test { inherit lib; };
 }
