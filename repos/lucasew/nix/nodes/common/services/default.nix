@@ -5,6 +5,7 @@
     ./cloud-savegame.nix
     ./cockpit-extra.nix
     ./escrivao
+    ./fusionsolar
     ./invidious.nix
     ./magnetico.nix
     ./miniflux.nix

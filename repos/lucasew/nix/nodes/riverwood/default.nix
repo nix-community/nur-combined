@@ -26,6 +26,8 @@ in
     thunderbird
   ];
 
+  services.fusionsolar-reporter.enable = true;
+
   services.guix.enable = true;
 
   services.php-utils.enable = true;
