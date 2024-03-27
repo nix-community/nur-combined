@@ -34,6 +34,7 @@ let
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
     (trivial "icalingua-plus-plus")
+    (trivial "lpac")
     (trivial "matrix-chatgpt-bot")
     {
       "matrix-media-repo" = {

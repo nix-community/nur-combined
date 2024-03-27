@@ -116,6 +116,26 @@
         },
         "version": "v2.11.1"
     },
+    "lpac": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "lpac",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "estkme-group",
+            "repo": "lpac",
+            "rev": "v2.0.0",
+            "sha256": "sha256-trOT5g8RhjltUeGDe8zNFuKb//mClvpPm/mC/NgdW4c=",
+            "type": "github"
+        },
+        "version": "v2.0.0"
+    },
     "mstickereditor": {
         "cargoLocks": {
             "Cargo.lock": [

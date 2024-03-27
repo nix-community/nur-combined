@@ -81,6 +81,17 @@
       sha256 = "sha256-etQ98EhHGx6zmYLKBl6w3xXATX1AoSt41sIZjA3JBUc=";
     };
   };
+  lpac = {
+    pname = "lpac";
+    version = "v2.0.0";
+    src = fetchFromGitHub {
+      owner = "estkme-group";
+      repo = "lpac";
+      rev = "v2.0.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-trOT5g8RhjltUeGDe8zNFuKb//mClvpPm/mC/NgdW4c=";
+    };
+  };
   mstickereditor = {
     pname = "mstickereditor";
     version = "v0.3.3";

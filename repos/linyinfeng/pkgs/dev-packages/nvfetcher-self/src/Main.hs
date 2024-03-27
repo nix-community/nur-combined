@@ -12,6 +12,7 @@ main = runNvFetcher packageSet
 packageSet :: PackageSet ()
 packageSet = do
   ghPkg "cowrie" "cowrie"
+  ghPkg "estkme-group" "lpac"
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "matrix-org" "synapse-s3-storage-provider"
   ghPkg "trojan-gfw" "trojan"

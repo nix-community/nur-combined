@@ -33,6 +33,7 @@ lib.makeScope newScope (
       callPackage ./fish-plugins { fishPluginsToplevel = pkgs.fishPlugins; }
     );
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
+    lpac = callPackage ./lpac { };
     matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot {
       matrix-sdk-crypto-nodejs =
         if pkgs.matrix-sdk-crypto-nodejs.version == "0.1.0-beta.3" then
