@@ -26,6 +26,7 @@ lib.makeScope newScope (
     cf-terraforming = callPackage ./cf-terraforming { };
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
+    easylpac = callPackage ./easylpac { };
     emacsPackages = lib.recurseIntoAttrs (
       callPackage ./emacs-packages { emacsPackagesToplevel = pkgs.emacsPackages; }
     );
@@ -34,6 +35,7 @@ lib.makeScope newScope (
     );
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
     lpac = callPackage ./lpac { };
+    lpac_1 = callPackage ./lpac/1.nix { };
     matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot {
       matrix-sdk-crypto-nodejs =
         if pkgs.matrix-sdk-crypto-nodejs.version == "0.1.0-beta.3" then

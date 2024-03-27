@@ -29,12 +29,22 @@ let
         "dpt-rp1-py" = "dptrp1";
       };
     }
+    {
+      "easylpac" = {
+        "EasyLPAC" = "EasyLPAC";
+      };
+    }
     (trivial "emacsPackages/pyim-greatdict")
     (empty "fishPlugins/bang-bang")
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
     (trivial "icalingua-plus-plus")
     (trivial "lpac")
+    {
+      "lpac_1" = {
+        "lpac_1" = "lpac";
+      };
+    }
     (trivial "matrix-chatgpt-bot")
     {
       "matrix-media-repo" = {

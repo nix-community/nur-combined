@@ -43,6 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "C-based eUICC LPA";
     homepage = "https://github.com/estkme-group/lpac";
+    mainProgram = "lpac";
     license = [ licenses.agpl3Plus ] ++ optional libeuicc licenses.lgpl21Plus;
     maintainers = with maintainers; [ yinfeng ];
   };
