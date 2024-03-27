@@ -706,6 +706,9 @@
         "nginx": {
             "url": "https://github.com/nginxinc/nur"
         },
+        "nim65s": {
+            "url": "https://github.com/nim65s/nur-packages"
+        },
         "nix-data": {
             "url": "https://github.com/Jake-Gillberg/nix-data"
         },
