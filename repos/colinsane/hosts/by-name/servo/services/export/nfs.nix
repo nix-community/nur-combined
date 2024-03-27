@@ -26,7 +26,7 @@
     description = "NFS server portmapper";
   };
   sane.ports.ports."2049" = {
-    protocol = [ "tcp" ];
+    protocol = [ "tcp" "udp" ];
     visibleTo.lan = true;
     description = "NFS server";
   };
@@ -50,6 +50,23 @@
   services.nfs.server.lockdPort = 4001;
   services.nfs.server.mountdPort = 4002;
   services.nfs.server.statdPort = 4000;
+
+  services.nfs.extraConfig = ''
+    [nfsd]
+    # XXX: NFS over UDP REQUIRES SPECIAL CONFIG TO AVOID DATA LOSS.
+    # see `man 5 nfs`: "Using NFS over UDP on high-speed links".
+    # it's actually just a general property of UDP over IPv4 (IPv6 fixes it).
+    # both the client and the server should configure a shorter-than-default IPv4 fragment reassembly window to mitigate.
+    # OTOH, tunneling NFS over Wireguard also bypasses this weakness, because a mis-assembled packet would not have a valid signature.
+    udp=y
+
+    [exports]
+    # all export paths are relative to rootdir.
+    # for NFSv4, the export with fsid=0 behaves as `/` publicly,
+    # but NFSv3 implements no such feature.
+    # using `rootdir` instead of relying on `fsid=0` allows consistent export paths regardless of NFS proto version
+    rootdir=/var/export
+  '';
 
   # format:
   #   fspoint	visibility(options)
@@ -85,13 +102,20 @@
       in "${export} 10.78.79.0/22(${lib.concatStringsSep "," lanOpts}) 10.0.10.0/24(${lib.concatStringsSep "," vpnOpts})";
   in lib.concatStringsSep "\n" [
     (fmtExport {
-      export = "/var/export";
+      export = "/";
       baseOpts = [ "crossmnt" "fsid=root" ];
       extraLanOpts = [ "ro" ];
       extraVpnOpts = [ "rw" "no_root_squash" ];
     })
     (fmtExport {
-      export = "/var/export/playground";
+      # provide /media as an explicit export. NFSv4 can transparently mount a subdir of an export, but NFSv3 can only mount paths which are exports.
+      export = "/media";
+      baseOpts = [ "crossmnt" ];  # TODO: is crossmnt needed here?
+      extraLanOpts = [ "ro" ];
+      extraVpnOpts = [ "rw" "no_root_squash" ];
+    })
+    (fmtExport {
+      export = "/playground";
       baseOpts = [
         "mountpoint"
         "all_squash"
