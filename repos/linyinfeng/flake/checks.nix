@@ -1,13 +1,9 @@
-{
-  config,
-  self,
-  inputs,
-  ...
-}:
+{ self, inputs, ... }:
 
 {
   perSystem =
     {
+      config,
       system,
       self',
       pkgs,
@@ -15,10 +11,7 @@
       ...
     }:
     let
-      pkgsStable = import inputs.nixos-stable {
-        inherit system;
-        inherit (config.nixpkgs) config;
-      };
+      pkgsStable = import inputs.nixos-stable config.nixpkgs;
     in
     {
       checks = inputs.flake-utils.lib.flattenTree {

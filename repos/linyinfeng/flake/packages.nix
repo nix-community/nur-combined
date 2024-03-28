@@ -12,13 +12,12 @@ let
     pkgs: lib.attrsets.removeAttrs pkgs [ "packages" ] // { packages' = pkgs.packages; };
 in
 {
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
   perSystem =
     { self', pkgs, ... }:
     {
+      nixpkgs.config = {
+        allowUnfree = true;
+      };
       legacyPackages = adjustLegacyPackages (self.lib.makePackages pkgs ../pkgs { selfLib = self.lib; });
       packages = inputs.flake-utils.lib.flattenTree (self'.legacyPackages);
     };
