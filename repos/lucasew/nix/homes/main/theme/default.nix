@@ -33,8 +33,11 @@ in
     };
   };
   programs.bash.bashrcExtra = ''
-    ${shellThemeFromScheme {
-      scheme = colors;
-    }}
+    function setup_colors {
+      ${shellThemeFromScheme {
+        scheme = colors;
+      }}
+    }
+    setup_colors
   '';
 }
