@@ -31,7 +31,7 @@ in
 
     calendar = mkOption {
       type = types.str;
-      default = "19:00:01";
+      default = "20:00:01";
       description = "When to run the report";
     };
   };
