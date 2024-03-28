@@ -11,6 +11,7 @@ import os
 from sys import stderr
 import email, smtplib, ssl
 from shutil import which
+from datetime import datetime
 
 from email import encoders
 from email.mime.base import MIMEBase
@@ -30,10 +31,12 @@ parser.add_argument('--smtp-server', default=os.getenv("SMTP_SERVER"))
 parser.add_argument('--smtp-destinations', default=os.getenv("SMTP_DESTINATIONS"))
 args = parser.parse_args()
 
+now = datetime.today()
+
 message = MIMEMultipart()
 message['From'] = args.smtp_user
 message['To'] = args.smtp_destinations.replace(' ', ', ')
-message["Subject"] = f"Relatório do dia FusionSolar"
+message["Subject"] = f"Relatório do dia {str(now).split(' ')[0]} FusionSolar"
 
 service = webdriver.chrome.service.Service(executable_path=which("chromedriver"))
 # options = webdriver.ChromeOptions()
@@ -93,6 +96,9 @@ for station in stations_data:
 
 email_text.append("")
 email_text.append("Os gráficos de geração estão em anexo.")
+email_text.append("")
+email_text.append(f"Dados obtidos em: {str(now)}")
+
 
 message.attach(MIMEText("\n".join(email_text), 'plain'))
 for attachment in attachments:
