@@ -15,6 +15,7 @@ buildPythonApplication rec {
   postPatch = ''
     sed -i "/get_version/d" pyproject.toml
     echo "__version__ = '${version}'.removeprefix('v')" > src/palworld_exporter/__init__.py
+    sed -i "s/prometheus-client>=0.19,<0.20/prometheus-client/g" pyproject.toml
   '';
 
   propagatedBuildInputs = [
