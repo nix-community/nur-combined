@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "c118f18386c6fd7f6fa748e8f8bc5f4aa6a5d59e";
+    version = "4d7f364b12246f91b63f8f9bb29d4e2095d95342";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "c118f18386c6fd7f6fa748e8f8bc5f4aa6a5d59e";
+      rev = "4d7f364b12246f91b63f8f9bb29d4e2095d95342";
       fetchSubmodules = false;
-      sha256 = "sha256-On24xG2ByRPPUVxGQOaOo62nKgxqc4I8/vpgtfPtGo8=";
+      sha256 = "sha256-QCu6JXysTtaBJrcV5fRF0Pl4IJcbsxYpS+CpzIfdHWc=";
     };
-    date = "2024-03-25";
+    date = "2024-03-27";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -255,13 +255,13 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.31.0";
+    version = "v1.33.0";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.31.0";
+      rev = "v1.33.0";
       fetchSubmodules = false;
-      sha256 = "sha256-0f4OWriRvuTLlYj1pZS8EqO47KrQ3waC/JCKQbmA9bI=";
+      sha256 = "sha256-uD4NgzXrj6wmVDMFZwZqQRdCRCzmRtgiNQitr6SCulg=";
     };
   };
   dingtalk = {
@@ -442,15 +442,15 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "9914343c51384e45496522074c6cc6b15394543c";
+    version = "1c02c254ef501918e684d6ef003a93d3e5e5abb7";
     src = fetchFromGitHub {
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "9914343c51384e45496522074c6cc6b15394543c";
+      rev = "1c02c254ef501918e684d6ef003a93d3e5e5abb7";
       fetchSubmodules = false;
-      sha256 = "sha256-c4AyuP2eDeJ1rG61BBCIlnDdPe2+DPhLnxIQJW7VVJ4=";
+      sha256 = "sha256-AiAv7InMSmQschyVnarkBdLGNBSZgGd3r72HGRT2DGc=";
     };
-    date = "2023-10-06";
+    date = "2024-03-27";
   };
   hoyo-glyphs-star-rail-neue = {
     pname = "hoyo-glyphs-star-rail-neue";
@@ -616,13 +616,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.8.1-xanmod1";
+    version = "6.8.2-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.8.1-xanmod1";
+      rev = "6.8.2-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-FF/1gijFmYzKk4XoXfwtCQ5eGlwFW2l80O43Y4aSx1g=";
+      sha256 = "sha256-JddPg/EWJZq5EIemcaULM5c6yLGkfb2E6shxxq37N3M=";
     };
   };
   linux-xanmod-6_0 = {
@@ -649,13 +649,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.22-xanmod1";
+    version = "6.6.23-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.22-xanmod1";
+      rev = "6.6.23-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-vpWUdzgI8i/1r5nMp0tx+x67GDTnjQF5ueITIl36lvA=";
+      sha256 = "sha256-RaHM7eZDuOtEdISO6trTLE1QN91VFyXe0NuwLvvz9p4=";
     };
   };
   nbfc-linux-lantian = {
@@ -936,13 +936,13 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V1.8.5757";
+    version = "V1.8.5760";
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic";
-      rev = "V1.8.5757";
+      rev = "V1.8.5760";
       fetchSubmodules = false;
-      sha256 = "sha256-d2CK+OSkMxmAt8qogCyG/J841JI9qG+3xM8TVoWe96Q=";
+      sha256 = "sha256-BBPWeLR6CA+2uJZDxqISjbZdWe9AvHE9sW8P1BmrhPY=";
     };
   };
   procps4 = {
@@ -988,34 +988,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "8.2.2+ds-2";
+    version = "8.2.2+ds-2+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_amd64.deb";
-      sha256 = "sha256-FNHqJdl22upd9UeffozjeHJBAlDKoCom1X7qoQqNry0=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2+b1_amd64.deb";
+      sha256 = "sha256-BATxAZPBZY7qJdL1Q1yOMlbWWkbFEfCgxn8OJo/94ds=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "8.2.2+ds-2";
+    version = "8.2.2+ds-2+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_arm64.deb";
-      sha256 = "sha256-VnUawl3oCiJJeioo4lrPUTMwLLW4iFDb1R2ri/kMp6g=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2+b1_arm64.deb";
+      sha256 = "sha256-Nvvi/pnL420sH1lkAgJEKJQsim4mPygB9OHgwEzDjFk=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.2.2+ds-2";
+    version = "8.2.2+ds-2+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_armhf.deb";
-      sha256 = "sha256-rdnTiISZ6Dx21RW9ntkzGdNT6tsuVL5roiJ2+oBvEuo=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2+b1_armhf.deb";
+      sha256 = "sha256-WaaiSK+w3zvZh1pL20DPIWPgBtq96fs1bnbps8/dGZA=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.2.2+ds-2";
+    version = "8.2.2+ds-2+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2_i386.deb";
-      sha256 = "sha256-19x1vgqXf3gQVPPts587uh6eKoM73oU9+E+UdgyO4hw=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2+b1_i386.deb";
+      sha256 = "sha256-7QDqOff3a7un/JGzKx6CcF5ntxRrLCwV1ugnCjciCTg=";
     };
   };
   qq-amd64 = {
