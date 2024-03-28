@@ -8,6 +8,7 @@
 # - 1. identify disk IDs: `ls -l /dev/disk/by-id`
 # - 2. pool these disks: `zpool create -f -m legacy pool raidz ata-ST4000VN008-2DR166_WDH0VB45 ata-ST4000VN008-2DR166_WDH17616 ata-ST4000VN008-2DR166_WDH0VC8Q ata-ST4000VN008-2DR166_WDH17680`
 #   - legacy documented: <https://superuser.com/questions/790036/what-is-a-zfs-legacy-mount-point>
+# - 3. enable acl support: `zfs set acltype=posixacl pool`
 #
 # import pools: `zpool import pool`
 # show zfs datasets: `zfs list` (will be empty if haven't imported)
@@ -43,6 +44,7 @@
   fileSystems."/mnt/pool" = {
     device = "pool";
     fsType = "zfs";
+    # options = [ "acl" ];
   };
   # services.zfs.zed = ... # TODO: zfs can send me emails when disks fail
   sane.programs.sysadminUtils.suggestedPrograms = [ "zfs" ];
@@ -82,6 +84,12 @@
   };
   sane.fs."/mnt/usb-hdd".mount = {};
 
+  # FIRST TIME SETUP FOR MEDIA DIRECTORY:
+  # - set the group stick bit: `sudo find /var/media -type d -exec chmod g+s {} +`
+  #   - this ensures new files/dirs inherit the group of their parent dir (instead of the user who creates them)
+  # - ensure everything under /var/media is mounted with `-o acl`, to support acls
+  # - ensure all files are rwx by group: `setfacl --modify --recursive d:g::rwx /var/media`
+  #   - alternatively, `d:g:media:rwx` to grant `media` group even when file has a different owner, but that's a bit complex
   sane.persist.sys.byStore.plaintext = [{
     path = "/var/media";
     method = "bind";  #< this HAS to be `bind` if we're going to persist the whole thing but create subdirs, as below.

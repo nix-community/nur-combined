@@ -92,7 +92,10 @@ in
     };
   };
 
-  users.users.sftpgo.extraGroups = [ "export" ];
+  users.users.sftpgo.extraGroups = [
+    "export"
+    "media"
+  ];
 
   systemd.services.sftpgo = {
     after = [ "network-online.target" ];
