@@ -41,7 +41,8 @@
       { "pattern": "89049032007?0888*", "name": "Apple" },
       { "pattern": "8904903200713683*", "name": "Apple" },
       { "pattern": "89049032000001000000002*", "name": "Pixel 2 Series" },
-      { "pattern": "89049032000001000000035*", "name": "Pixel 4 Series" }
+      { "pattern": "89049032000001000000035*", "name": "Pixel 4 Series" },
+      { "pattern": "89049032000001000000044*", "name": "Pixel 5 Series" }
     ]
   },
   { "eum": "89049038", "country": "DE", "manufacturer": "G+D" },
