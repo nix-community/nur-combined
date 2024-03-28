@@ -49,11 +49,15 @@ in {
   gruppled-white-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors {
     theme = "gruppled_white_lite";
   };
+  ndcurves = pkgs.callPackage ./pkgs/ndcurves { };
   osgqt = pkgs.libsForQt5.callPackage ./pkgs/osgqt { };
   omniorb = pkgs.omniorb.overrideAttrs (finalAttrs: previousAttrs: {
     postInstall = "rm $out/${pkgs.python3.sitePackages}/omniidl_be/__init__.py";
   });
-  omniorbpy = pkgs.python3Packages.toPythonModule (pkgs.callPackage ./pkgs/omniorbpy {
+  py-ndcurves = pkgs.python3Packages.toPythonModule (pkgs.callPackage ./pkgs/ndcurves {
+    pythonSupport = true;
+  });
+  py-omniorbpy = pkgs.python3Packages.toPythonModule (pkgs.callPackage ./pkgs/omniorbpy {
     inherit (pkgs) python3Packages;
   });
   qpoases = pkgs.callPackage ./pkgs/qpoases { };
