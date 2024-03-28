@@ -222,7 +222,7 @@
 
   fonts = {
     enableDefaultPackages = true;
-    fontDir.enable = false;
+    fontDir.enable = true;
     enableGhostscriptFonts = false;
     packages = with pkgs; [
 
