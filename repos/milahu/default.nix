@@ -731,6 +731,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   vdhcoapp = callPackage ./pkgs/tools/video/vdhcoapp { };
 
+  mpv-downmix-gui = python3.pkgs.callPackage ./pkgs/tools/video/mpv-downmix-gui/mpv-downmix-gui.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
