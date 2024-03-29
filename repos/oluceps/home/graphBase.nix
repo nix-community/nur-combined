@@ -10,7 +10,7 @@
     wpsoffice
     fractal
     mari0
-    anyrun
+    # anyrun
     # factorio
     loupe
     gedit

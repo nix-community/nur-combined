@@ -12,6 +12,7 @@
       sync_frequency = "10m";
       sync_address = "https://api.atuin.nyaw.xyz";
       search_mode = "fuzzy"; # 'prefix' | 'fulltext' | 'fuzzy'
+      sync.record = true;
 
       ##: options: 'global' (default) | 'host' | 'session' | 'directory'
       filter_mode = "global";

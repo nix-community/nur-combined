@@ -25,6 +25,7 @@
     clang-tools
     haskell-language-server
     cmake-language-server
+    arduino-language-server
     typst-lsp
     vhdl-ls
     delve

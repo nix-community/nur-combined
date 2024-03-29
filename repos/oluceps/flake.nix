@@ -4,10 +4,16 @@
     let extraLibs = (import ./hosts/lib.nix inputs);
     in
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }: {
-      imports = (import ./hosts inputs) ++ (with inputs;[
-        pre-commit-hooks.flakeModule
-        devshell.flakeModule
-      ]);
+      imports =
+        (with inputs;[
+          pre-commit-hooks.flakeModule
+          devshell.flakeModule
+        ])
+        ++ [
+          ./hosts
+          ./hosts/livecd
+          ./hosts/bootstrap
+        ];
       debug = false;
       systems = [ "x86_64-linux" "aarch64-linux" "riscv64-linux" ];
       perSystem = { pkgs, system, inputs', ... }: {
@@ -17,6 +23,7 @@
           overlays = with inputs;[
             agenix-rekey.overlays.default
             fenix.overlays.default
+            colmena.overlays.default
             self.overlays.default
           ];
         };
@@ -29,7 +36,7 @@
         };
 
         devshells.default.devshell = {
-          packages = with pkgs;[ agenix-rekey just rage b3sum nushell ];
+          packages = with pkgs;[ agenix-rekey just rage b3sum nushell colmena ];
         };
 
         packages =
@@ -47,6 +54,8 @@
 
       flake = {
         lib = inputs.nixpkgs.lib.extend inputs.self.overlays.lib;
+
+        nixosConfigurations = ((inputs.colmena.lib.makeHive inputs.self.colmena).introspect (x: x)).nodes;
 
         agenix-rekey = inputs.agenix-rekey.configure {
           userFlake = inputs.self;
@@ -87,7 +96,7 @@
     });
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-22.url = "github:NixOS/nixpkgs?rev=c91d0713ac476dfb367bbe12a7a048f6162f039c";
     nixpkgs-rebuild.url = "github:SuperSandro2000/nixpkgs?rev=449114c6240520433a650079c0b5440d9ecf6156";
@@ -95,6 +104,10 @@
     nh = {
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
+    };
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     attic = {
       url = "github:zhaofengli/attic";

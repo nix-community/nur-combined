@@ -1,47 +1,24 @@
-{ withSystem, self, inputs, ... }:
-{
-  flake.nixosConfigurations.nodens = withSystem "x86_64-linux" (_ctx@{ config, inputs', system, ... }:
-    let inherit (self) lib; in lib.nixosSystem
-      {
-        specialArgs = {
-          inherit lib self inputs inputs';
-          inherit (config) packages;
-          inherit (lib) data;
-          user = "elen";
-        };
-        modules = lib.sharedModules ++ [
-          {
-            nixpkgs = {
-              hostPlatform = system;
-              config = {
-                # contentAddressedByDefault = true;
-                allowUnfree = true;
-              };
-              overlays = (import ../../overlays.nix inputs)
-                ++
-                (lib.genOverlays [
-                  "self"
-                  "fenix"
-                  "nuenv"
-                  "agenix-rekey"
-                  "nixpkgs-wayland"
-                ]);
-            };
-          }
+{ lib, user, inputs, ... }: {
+  deployment = {
+    targetHost = "nyaw.xyz";
+    targetPort = 22;
+    targetUser = user;
+  };
 
-          ./hardware.nix
-          ./network.nix
-          ./rekey.nix
-          ./spec.nix
-          ./caddy.nix
-          ../../age.nix
-          ../../packages.nix
-          ../../misc.nix
-          ../../users.nix
+  imports =
+    lib.sharedModules ++ [
+      ./hardware.nix
+      ./network.nix
+      ./rekey.nix
+      ./spec.nix
+      ./caddy.nix
+      ../../age.nix
+      ../../packages.nix
+      ../../misc.nix
+      ../../users.nix
 
-          inputs.factorio-manager.nixosModules.default
-          inputs.tg-online-keeper.nixosModules.default
+      inputs.factorio-manager.nixosModules.default
+      inputs.tg-online-keeper.nixosModules.default
 
-        ];
-      });
+    ];
 }

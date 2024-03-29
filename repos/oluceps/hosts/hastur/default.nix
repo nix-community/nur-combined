@@ -1,77 +1,46 @@
-{ withSystem, self, inputs, ... }:
-{
-  flake.nixosConfigurations.hastur = withSystem "x86_64-linux" (_ctx@{ config, inputs', ... }:
-    let inherit (self) lib; in lib.nixosSystem
-      {
-        specialArgs = {
-          inherit lib self inputs inputs';
-          inherit (config) packages;
-          inherit (lib) data;
-          user = "riro";
-        };
-        modules = lib.sharedModules ++ [
-          {
-            nixpkgs = {
-              hostPlatform = "x86_64-linux";
-              config = {
-                # contentAddressedByDefault = true;
-                allowUnfree = true;
-                allowBroken = false;
-                segger-jlink.acceptLicense = true;
-                allowUnsupportedSystem = true;
-                permittedInsecurePackages = lib.mkForce [ "electron-25.9.0" ];
+{ lib, user, inputs, ... }: {
+  deployment = {
+    targetHost = "10.0.1.2";
+    targetPort = 22;
+    buildOnTarget = true;
+    targetUser = user;
+  };
 
-              };
-              overlays = (import ../../overlays.nix inputs)
-                ++
-                (lib.genOverlays [
-                  "self"
-                  "fenix"
-                  "berberman"
-                  "nuenv"
-                  "android-nixpkgs"
-                  "agenix-rekey"
-                  "misskey"
-                  "nixpkgs-wayland"
-                  "attic"
-                ]);
-            };
-          }
-          ./hardware.nix
-          ./network.nix
-          ./rekey.nix
-          ./spec.nix
-          ./matrix.nix
+  imports =
+    lib.sharedModules ++ [
 
-          ../persist.nix
-          ../secureboot.nix
-          ../../packages.nix
-          ../../misc.nix
-          ../../sysvars.nix
-          ../../age.nix
+      ./hardware.nix
+      ./network.nix
+      ./rekey.nix
+      ./spec.nix
+      ./matrix.nix
 
-          ../sysctl.nix
+      ../persist.nix
+      ../secureboot.nix
+      ../../packages.nix
+      ../../misc.nix
+      ../../sysvars.nix
+      ../../age.nix
 
-          inputs.home-manager.nixosModules.default
-          ../../home
+      ../sysctl.nix
 
-          ../../users.nix
+      inputs.home-manager.nixosModules.default
+      ../../home
 
-          inputs.misskey.nixosModules.default
-          ./misskey.nix
+      ../../users.nix
 
-          ./vaultwarden.nix
+      inputs.misskey.nixosModules.default
+      ./misskey.nix
 
+      ./vaultwarden.nix
 
-          # ../graphBase.nix
-        ]
-          ++
-          (with inputs; [
-            aagl.nixosModules.default
-            disko.nixosModules.default
-            attic.nixosModules.atticd
-            inputs.niri.nixosModules.niri
-            # inputs.j-link.nixosModule
-          ]);
-      });
+    ]
+    ++
+    (with inputs; [
+      aagl.nixosModules.default
+      disko.nixosModules.default
+      attic.nixosModules.atticd
+      inputs.niri.nixosModules.niri
+      # inputs.j-link.nixosModule
+    ]);
 }
