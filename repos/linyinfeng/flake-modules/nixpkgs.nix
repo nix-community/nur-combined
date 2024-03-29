@@ -28,6 +28,14 @@ in
       _file = ./nixpkgs.nix;
       # https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/default.nix
       options.nixpkgs = {
+        path = lib.mkOption {
+          type = lib.types.path;
+          default = inputs.nixpkgs;
+          defaultText = "inputs.nixpkgs";
+          description = ''
+            Path to nixpkgs to be imported.
+          '';
+        };
         localSystem = lib.mkOption {
           type = lib.types.attrs;
           default = {
@@ -68,7 +76,15 @@ in
       };
 
       config = {
-        _module.args.pkgs = import inputs.nixpkgs cfg;
+        _module.args.pkgs = import cfg.path {
+          inherit (cfg)
+            localSystem
+            crossSystem
+            config
+            overlays
+            crossOverlays
+            ;
+        };
       };
     }
   );
