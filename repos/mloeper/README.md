@@ -29,3 +29,14 @@ https://github.com/NixOS/nixpkgs/tree/master/pkgs/build-support/dotnet/build-dot
 
 https://ryantm.github.io/nixpkgs/contributing/coding-conventions/
 
+
+### The pain with submodules
+
+I want to cache some nix packages that I authored in other GitHub repositories.
+Currently, there is a lack of consent how to do this properly on NUR.
+
+There are [git submodule and fetchTree](https://discourse.nixos.org/t/nixos-build-flake-cant-read-a-file-in-a-submodule/21932) approaches, but neither looks straightforward to me.
+To be pragmatic here, I just use a git subtree to include my upstream packages as they are relatively small in size.
+The moment a proper solution emerges, I will replace this workaround. If you know a better solution, feel free to post me on [LinkedIn](https://www.linkedin.com/in/martinloeper).
+
+`git subtree add --prefix pkgs/s3-browser-cli https://github.com/nesto-software/s3-browser-cli.git main --squash`

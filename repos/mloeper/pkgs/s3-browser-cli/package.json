@@ -1,0 +1,26 @@
+{
+  "name": "s3-browser-cli",
+  "version": "1.0.1",
+  "type": "module",
+  "description": "An s3 browser cli binary to select files interactively",
+  "main": "index.js",
+  "author": "Martin Löper <martin.loeper@nesto-software.de>",
+  "repository": "https://github.com/nesto-software/s3-browser-cli",
+  "license": "MIT",
+  "bin": {
+    "s3select": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "rjson": "rjson"
+  },
+  "dependencies": {
+    "inquirer": "^1.2.3",
+    "@nesto-software/inquirer-s3": "1.0.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.3",
+    "@types/yargs": "^17.0.32"
+  }
+}

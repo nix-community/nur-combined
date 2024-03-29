@@ -35,4 +35,5 @@ rec {
   mongosh = pkgs.callPackage ./pkgs/mongosh { };
   atlas-cli = pkgs.callPackage ./pkgs/atlas-cli { };
   nosql-workbench = pkgs.callPackage ./pkgs/nosql-workbench { };
+  s3-browser-cli = pkgs.callPackage ./pkgs/s3-browser-cli/pkgs { };
 }
