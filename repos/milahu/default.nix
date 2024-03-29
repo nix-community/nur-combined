@@ -344,6 +344,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       stream-zip = callPackage ./pkgs/python3/pkgs/stream-zip/stream-zip.nix { };
 
+      pygubu = callPackage ./pkgs/python3/pkgs/pygubu/pygubu.nix { };
+
+      pygubu-designer = callPackage ./pkgs/python3/pkgs/pygubu-designer/pygubu-designer.nix { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
