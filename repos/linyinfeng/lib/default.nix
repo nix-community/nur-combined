@@ -6,4 +6,5 @@
   makeApps = import ./make-apps.nix { inherit lib; };
   appNames = import ./app-names.nix { inherit lib; };
   getUpdateScripts = import ./get-update-scripts.nix { inherit lib; };
+  parseLinuxConfig = import ./parse-linux-config.nix { inherit lib; };
 }
