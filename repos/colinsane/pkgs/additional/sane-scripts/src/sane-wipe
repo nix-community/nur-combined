@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p dconf -p libsecret -p systemd
+#!nix-shell -i bash -p dconf -p libsecret -p s6-rc
 
 help() {
   echo "usage: sane-wipe <resource>"
@@ -52,7 +52,7 @@ wipe_flare() {
 }
 
 wipe_fractal() {
-  systemctl --user stop fractal
+  s6-rc stop fractal
 
   # first, ensure the relevant secrets are unlocked
   secret-tool search --all --unlock 'xdg:schema' 'org.gnome.Fractal'

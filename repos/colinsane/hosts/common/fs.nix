@@ -5,6 +5,31 @@
 { lib, pkgs, sane-lib, ... }:
 
 let
+  curlftpfs = pkgs.curlftpfs.overrideAttrs (upstream: {
+    # apply a timeout not just to the connect operation, but to every operation.
+    # without this, operations will hang for 2*<TCP timeout>, e.g. 4m20s.
+    # better would be to use CURLOPT_LOW_SPEED_TIME/CURLOPT_LOW_SPEED_LIMIT,
+    # but those options don't seem to apply.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace ftpfs.c --replace-fail \
+        'curl_easy_setopt_or_die(easy, CURLOPT_CONNECTTIMEOUT, ftpfs.connect_timeout);' \
+        'curl_easy_setopt_or_die(easy, CURLOPT_CONNECTTIMEOUT, ftpfs.connect_timeout); curl_easy_setopt_or_die(easy, CURLOPT_TIMEOUT, ftpfs.connect_timeout);'
+    ''
+    # fuse mount programs need to ignore certain "meta" keys that could be in /etc/fstab.
+    # see: <https://github.com/libfuse/sshfs/issues/96>
+    + ''
+      substituteInPlace ftpfs.c --replace-fail \
+        'FUSE_OPT_END' \
+        '/* These may come in from /etc/fstab - we just ignore them */ FUSE_OPT_KEY("auto", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("noauto", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("user", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("nouser", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("users", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("_netdev", FUSE_OPT_KEY_DISCARD), FUSE_OPT_END'
+    '';
+    # `mount` clears PATH before calling the mount helper (see util-linux/lib/env.c),
+    # so the traditional /etc/fstab approach of fstype=fuse and device = curlftpfs#URI doesn't work.
+    # instead, install a `mount.curlftpfs` mount helper. this is what programs like `gocryptfs` do.
+    postInstall = (upstream.postInstall or "") + ''
+      ln -s curlftpfs $out/bin/mount.fuse.curlftpfs
+      ln -s curlftpfs $out/bin/mount.curlftpfs
+    '';
+  });
   fsOpts = rec {
     common = [
       "_netdev"
@@ -23,15 +48,15 @@ let
     # N.B.: `remote-fs.target` is a dependency of multi-user.target, itself of graphical.target.
     # hence, omitting `noauto` can slow down boots.
     noauto = [ "noauto" ];
-    # lazyMount: defer mounting until first access from userspace
+    # lazyMount: defer mounting until first access from userspace.
+    # see: `man systemd.automount`, `man automount`, `man autofs`
     lazyMount = noauto ++ automount;
     wg = [
       "x-systemd.requires=wireguard-wg-home.service"
       "x-systemd.after=wireguard-wg-home.service"
     ];
 
-    ssh = common ++ [
-      "identityfile=/home/colin/.ssh/id_ed25519"
+    fuse = [
       "allow_other"  # allow users other than the one who mounts it to access it. needed, if systemd is the one mounting this fs (as root)
       # allow_root: allow root to access files on this fs (if mounted by non-root, else it can always access them).
       #             N.B.: if both allow_root and allow_other are specified, then only allow_root takes effect.
@@ -44,7 +69,18 @@ let
       # with default_permissions, sshfs doesn't tunnel file ops from users until checking that said user could perform said op on an equivalent local fs.
       "default_permissions"
     ];
-    sshColin = ssh ++ [
+    fuseColin = fuse ++ [
+      "uid=1000"
+      "gid=100"
+    ];
+
+    ssh = common ++ fuse ++ [
+      "identityfile=/home/colin/.ssh/id_ed25519"
+      # i *think* idmap=user means that `colin` on `localhost` and `colin` on the remote are actually treated as the same user, even if their uid/gid differs?
+      # i.e., local colin's id is translated to/from remote colin's id on every operation?
+      "idmap=user"
+    ];
+    sshColin = ssh ++ fuseColin ++ [
       # follow_symlinks: remote files which are symlinks are presented to the local system as ordinary files (as the target of the symlink).
       #                  if the symlink target does not exist, the presentation is unspecified.
       #                  symlinks which point outside the mount ARE followed. so this is more capable than `transform_symlinks`
@@ -52,9 +88,6 @@ let
       # symlinks on the remote fs which are absolute paths are presented to the local system as relative symlinks pointing to the expected data on the remote fs.
       # only symlinks which would point inside the mountpoint are translated.
       "transform_symlinks"
-      "idmap=user"
-      "uid=1000"
-      "gid=100"
     ];
     # sshRoot = ssh ++ [
     #   # we don't transform_symlinks because that breaks the validity of remote /nix stores
@@ -67,18 +100,39 @@ let
     # actimeo=n  = how long (in seconds) to cache file/dir attributes (default: 3-60s)
     # bg         = retry failed mounts in the background
     # retry=n    = for how many minutes `mount` will retry NFS mount operation
+    # intr       = allow Ctrl+C to abort I/O (it will error with `EINTR`)
     # soft       = on "major timeout", report I/O error to userspace
+    # softreval  = on "major timeout", service the request using known-stale cache results instead of erroring -- if such cache data exists
     # retrans=n  = how many times to retry a NFS request before giving userspace a "server not responding" error (default: 3)
     # timeo=n    = number of *deciseconds* to wait for a response before retrying it (default: 600)
     #              note: client uses a linear backup, so the second request will have double this timeout, then triple, etc.
+    # proto=udp  = encapsulate protocol ops inside UDP packets instead of a TCP session.
+    #              requires `nfsvers=3` and a kernel compiled with `NFS_DISABLE_UDP_SUPPORT=n`.
+    #              UDP might be preferable to TCP because the latter is liable to hang for ~100s (kernel TCP timeout) after a link drop.
+    #              however, even UDP has issues with `umount` hanging.
+    #
+    # N.B.: don't change these without first testing the behavior of sandboxed apps on a flaky network.
     nfs = common ++ [
-      # "actimeo=10"
-      "bg"
-      "retrans=4"
+      # "actimeo=5"
+      # "bg"
+      "retrans=1"
       "retry=0"
+      # "intr"
       "soft"
-      "timeo=15"
+      "softreval"
+      "timeo=30"
       "nofail"  # don't fail remote-fs.target when this mount fails  (not an option for sshfs else would be common)
+      # "proto=udp"  # default kernel config doesn't support NFS over UDP: <https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1964093> (see comment 11).
+      # "nfsvers=3"  # NFSv4+ doesn't support UDP at *all*. it's ok to omit nfsvers -- server + client will negotiate v3 based on udp requirement. but omitting causes confusing mount errors when the server is *offline*, because the client defaults to v4 and thinks the udp option is a config error.
+      # "x-systemd.idle-timeout=10"  # auto-unmount after this much inactivity
+    ];
+
+    # manually perform a ftp mount via e.g.
+    #   curlftpfs -o ftpfs_debug=2,user=anonymous:anonymous,connect_timeout=10 -f -s ftp://servo-hn /mnt/my-ftp
+    ftp = common ++ fuseColin ++ [
+      # "ftpfs_debug=2"
+      "user=colin:ipauth"
+      "connect_timeout=10"
     ];
   };
   remoteHome = host: {
@@ -128,28 +182,34 @@ lib.mkMerge [
     # but it decreases working memory under the heaviest of loads by however much space the compressed memory occupies (e.g. 50% if 2:1; 25% if 4:1)
     zramSwap.memoryPercent = 100;
 
-    # fileSystems."/mnt/servo-nfs" = {
-    #   device = "servo-hn:/";
+    # fileSystems."/mnt/servo/media" = {
+    #   device = "servo-hn:/media";
     #   noCheck = true;
     #   fsType = "nfs";
-    #   options = fsOpts.nfs ++ fsOpts.automount ++ fsOpts.wg;
+    #   options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
+    # };
+    # fileSystems."/mnt/servo/playground" = {
+    #   device = "servo-hn:/playground";
+    #   noCheck = true;
+    #   fsType = "nfs";
+    #   options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
     # };
     fileSystems."/mnt/servo/media" = {
       device = "servo-hn:/media";
       noCheck = true;
-      fsType = "nfs";
-      options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
+      fsType = "fuse.curlftpfs";
+      options = fsOpts.ftp ++ fsOpts.lazyMount ++ fsOpts.wg;
+    };
+    fileSystems."/mnt/servo/playground" = {
+      device = "servo-hn:/playground";
+      noCheck = true;
+      fsType = "fuse.curlftpfs";
+      options = fsOpts.ftp ++ fsOpts.lazyMount ++ fsOpts.wg;
     };
     sane.fs."/mnt/servo/media" = sane-lib.fs.wanted {
       dir.acl.user = "colin";
       dir.acl.group = "users";
       dir.acl.mode = "0750";
-    };
-    fileSystems."/mnt/servo/playground" = {
-      device = "servo-hn:/playground";
-      noCheck = true;
-      fsType = "nfs";
-      options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
     };
     sane.fs."/mnt/servo/playground" = sane-lib.fs.wanted {
       dir.acl.user = "colin";
@@ -166,6 +226,7 @@ lib.mkMerge [
     programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
     environment.systemPackages = [
       pkgs.sshfs-fuse
+      curlftpfs
     ];
   }
 

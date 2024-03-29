@@ -254,7 +254,8 @@ in
 
     "sane-scripts.wipe".sandbox = {
       method = "bwrap";
-      whitelistDbus = [ "user" ];  #< for `secret-tool` and `systemd --user stop <service>
+      whitelistDbus = [ "user" ];  #< for `secret-tool`
+      whitelistS6 = true;  #< for stopping services before wiping
       extraHomePaths = [
         # could be more specific, but at a maintenance cost.
         # TODO: needs updating, now that persisted data lives behind symlinks!

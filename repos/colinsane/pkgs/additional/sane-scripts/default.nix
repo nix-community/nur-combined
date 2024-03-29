@@ -201,7 +201,7 @@ let
     wipe = static-nix-shell.mkBash {
       pname = "sane-wipe";
       srcRoot = ./src;
-      pkgs = [ "dconf" "libsecret" "systemd" ];
+      pkgs = [ "dconf" "libsecret" "s6-rc" ];
     };
   };
 in sane-bin // {
