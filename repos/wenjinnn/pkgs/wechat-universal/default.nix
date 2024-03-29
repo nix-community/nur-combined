@@ -204,7 +204,7 @@ let
       '';
 
       meta = with lib; {
-        description = "Messaging app";
+        description = "Wechat universal version for linux";
         homepage = "https://weixin.qq.com/";
         license = licenses.unfree;
         platforms = [ "x86_64-linux" "aarch64-linux" "loongarch64-linux" ];
