@@ -16,7 +16,9 @@ let
   # - see: <https://xnux.eu/log/094.html>
   # - `wget https://xff.cz/kernels/git/orange-pi-active.bundle`
   # - `git fetch torvalds`
-  # - `git bundle unbundle orange-pi-active.bundle`
+  # - `curl -o .bundle https://xff.cz/kernels/git/orange-pi-active.bundle`
+  # - `git fetch .bundle '+refs/heads/*:refs/remotes/megi/*'`
+  #   - OR: `git bundle unbundle .bundle`
   # - there should be some new tag, like `refs/tags/orange-pi-6.4-20230907-1427`
   # checkout the revision associated with the tag, then:
   # - manually retag it, because `git bundle` doesn't actually import the tag
@@ -34,9 +36,9 @@ let
   # - orange-pi is listed as the "main integration branch".
   #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` tags are "formal" releases
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
-  rev = "orange-pi-6.7-20240211-1928";
-  base = "6.7.4";
-  hash = "sha256-wngHUrs9NeKcb7TYusRYRsWH9VwAW+gBwBPgq9QGjfs=";
+  rev = "orange-pi-6.7-20240306-2359";
+  base = "6.7.9";
+  hash = "sha256-UQanb0l9yNWrccQLuKNln4CfvoaMy9zDKtBhnDG7yPE=";
   # set to empty if not a release candidate, else `-rc<N>`
   rc = "";
 
