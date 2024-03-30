@@ -20,36 +20,6 @@
 
 # Modules
 
-## qemu-user-static
-
-[**qemu-user-static**](./modules/qemu-user-static.nix) enables executing foreign-architecture
-containers with QEMU and binfmt_misc (only available on `x86_64-linux`). This module pulls an OCI
-container that automagically sets up the necessary configuration, and sets up an one-shot systemd
-service to start the container on boot.
-
-To use this module, add the following to your `configuration.nix`:
-
-```nix
-{
-  imports = [ pkgs.nur.repos.kugland.modules.qemu-user-static ];
-  virtualisation.qemu-user-static = {
-    enable = true;
-    autoStart = true; # If you want the container to start on boot
-  };
-}
-```
-
-To check if the module is working, try:
-
-```sh
-$ docker run --rm -it --platform linux/s390x alpine uname -m
-```
-
-If everything is set up correctly, you should see `s390x` printed to the terminal, which, unless
-you actually have a s390x machine, means that the container is being executed with QEMU.
-
-For more information, check out `qemu-user-static`’s [GitHub repository](https://github.com/multiarch/qemu-user-static).
-
 ## google-authenticator-singlesecret
 
 **I’m not a security expert, so use this at your own risk.**
