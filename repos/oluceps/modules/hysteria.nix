@@ -57,7 +57,7 @@ in
           (s: acc: acc // {
             "hysteria-${s.name}" = {
               wantedBy = [ "multi-user.target" ];
-              after = [ "network-online.target" "dae.service" ];
+              after = [ "network-online.target" ];
               wants = [ "network-online.target" ];
               description = "hysteria daemon";
               serviceConfig =

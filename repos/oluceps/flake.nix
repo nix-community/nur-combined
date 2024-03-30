@@ -13,6 +13,7 @@
           ./hosts
           ./hosts/livecd
           ./hosts/bootstrap
+          ./hosts/resq
         ];
       debug = false;
       systems = [ "x86_64-linux" "aarch64-linux" "riscv64-linux" ];
@@ -60,7 +61,7 @@
         agenix-rekey = inputs.agenix-rekey.configure {
           userFlake = inputs.self;
           nodes = with inputs.nixpkgs.lib;
-            filterAttrs (n: _: !elem n [ "livecd" "bootstrap" ]) inputs.self.nixosConfigurations;
+            filterAttrs (n: _: !elem n [ "resq" "livecd" "bootstrap" ]) inputs.self.nixosConfigurations;
         };
 
         overlays =

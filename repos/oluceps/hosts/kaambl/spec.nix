@@ -27,7 +27,7 @@
   programs.sway.enable = true;
 
   services = (
-    let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
+    let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs user; }; in lib.genAttrs [
       "openssh"
       "mosproxy"
       # "coredns"

@@ -90,7 +90,7 @@
   programs.dconf.enable = true;
 
   services = (
-    let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs lib; }; in lib.genAttrs [
+    let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs lib user; }; in lib.genAttrs [
       "openssh"
       # "mosproxy"
       "fail2ban"

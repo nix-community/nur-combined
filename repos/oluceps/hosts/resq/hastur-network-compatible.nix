@@ -4,13 +4,9 @@
   services.resolved.extraConfig = "DNS=192.168.1.1";
   networking = {
     resolvconf.useLocalResolver = true;
-    # useHostResolvConf = true;
-    hosts = {
-      "127.0.0.1" = [ "attic.nyaw.xyz" ];
-    };
-
-    hostName = "hastur"; # Define your hostname.
+    hostName = "resq"; # Define your hostname.
     domain = "nyaw.xyz";
+    wireless.enable = lib.mkForce false;
     # replicates the default behaviour.
     enableIPv6 = true;
     interfaces.eth0.wakeOnLan.enable = true;
@@ -21,7 +17,7 @@
       enable = true;
       trustedInterfaces = [ "virbr0" "wg*" "podman*" "dae0" ];
       allowedUDPPorts = [ 8080 5173 51820 9918 8013 ];
-      allowedTCPPorts = [ 22 8080 9900 2222 5173 1900 ];
+      allowedTCPPorts = [ 8080 9900 2222 5173 1900 ];
     };
     nftables.enable = true;
     networkmanager.enable = lib.mkForce false;
@@ -75,7 +71,7 @@
           MTUBytes = "1300";
         };
         wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.wg.path;
+          PrivateKeyFile = lib.readToStore /run/agenix/wg;
         };
         wireguardPeers = [
           {

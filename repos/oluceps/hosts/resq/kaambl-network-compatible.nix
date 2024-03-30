@@ -1,30 +1,34 @@
-{ lib, config, ... }: {
+{ config
+, lib
+, ...
+}: {
   services.resolved.enable = lib.mkForce true;
-  # services.resolved.enable = true;
-  services.resolved.extraConfig = "DNS=192.168.1.1";
   networking = {
     resolvconf.useLocalResolver = true;
-    # useHostResolvConf = true;
-    hosts = {
-      "127.0.0.1" = [ "attic.nyaw.xyz" ];
+    firewall = {
+      checkReversePath = false;
+      enable = true;
+      trustedInterfaces = [ "virbr0" "wg0" "wg1" "podman*" ];
+      allowedUDPPorts = [ 8080 5173 3330 8880 ];
+      allowedTCPPorts = [ 8080 9900 2222 5173 3330 8880 ];
     };
 
-    hostName = "hastur"; # Define your hostname.
-    domain = "nyaw.xyz";
-    # replicates the default behaviour.
-    enableIPv6 = true;
-    interfaces.eth0.wakeOnLan.enable = true;
+    wireless.enable = lib.mkForce false;
     wireless.iwd.enable = true;
     useNetworkd = true;
     useDHCP = false;
-    firewall = {
-      enable = true;
-      trustedInterfaces = [ "virbr0" "wg*" "podman*" "dae0" ];
-      allowedUDPPorts = [ 8080 5173 51820 9918 8013 ];
-      allowedTCPPorts = [ 22 8080 9900 2222 5173 1900 ];
-    };
+
+    hostName = "resq"; # Define your hostname.
+    domain = "nyaw.xyz";
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
+    # Per-interface useDHCP will be mandatory in the future, so this generated config
+    # replicates the default behaviour.
+    enableIPv6 = true;
+
     nftables.enable = true;
     networkmanager.enable = lib.mkForce false;
+    networkmanager.dns = "none";
 
   };
   systemd.network = {
@@ -33,12 +37,7 @@
     wait-online = {
       enable = true;
       anyInterface = true;
-      ignoredInterfaces = [ "wlan0" ];
-    };
-
-    links."10-eth0" = {
-      matchConfig.MACAddress = "3c:7c:3f:22:49:80";
-      linkConfig.Name = "eth0";
+      ignoredInterfaces = [ "wlan" "wg*" ];
     };
 
     links."30-rndis" = {
@@ -49,24 +48,12 @@
         MACAddressPolicy = "persistent";
       };
     };
-    links."40-wlan0" = {
-      matchConfig.MACAddress = "70:66:55:e7:1c:b1";
+    links."40-wlan" = {
+      matchConfig.Driver = "ath11k_pci";
       linkConfig.Name = "wlan0";
     };
 
     netdevs = {
-      bond0 = {
-        netdevConfig = {
-          Kind = "bond";
-          Name = "bond0";
-          # MTUBytes = "1300";
-        };
-        bondConfig = {
-          Mode = "active-backup";
-          PrimaryReselectPolicy = "always";
-          MIIMonitorSec = "1s";
-        };
-      };
 
       wg0 = {
         netdevConfig = {
@@ -75,18 +62,17 @@
           MTUBytes = "1300";
         };
         wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.wg.path;
+          PrivateKeyFile = lib.readToStore /run/agenix/wgk;
         };
         wireguardPeers = [
           {
             wireguardPeerConfig = {
               PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-              AllowedIPs = [ "10.0.1.1/32" ];
+              AllowedIPs = [ "10.0.1.1/24" ];
               Endpoint = "127.0.0.1:41820";
               PersistentKeepalive = 15;
             };
           }
-
           {
             wireguardPeerConfig = {
               PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
@@ -103,43 +89,25 @@
     networks = {
       "10-wg0" = {
         matchConfig.Name = "wg0";
-        # IP addresses the client interface will have
         address = [
-          "10.0.1.2/24"
+          "10.0.1.3/24"
         ];
         DHCP = "no";
       };
 
-      "20-wired-bond0" = {
-        matchConfig.Name = "eth0";
-
-        networkConfig = {
-          Bond = "bond0";
-          PrimarySlave = true;
-        };
-
-      };
-
-      "40-wireless-bond1" = {
+      "20-wireless" = {
         matchConfig.Name = "wlan0";
-        networkConfig = {
-          Bond = "bond1";
-        };
-      };
-
-      "5-bond0" = {
-        matchConfig.Name = "bond0";
         DHCP = "yes";
-        dhcpV4Config.RouteMetric = 2046;
+        dhcpV4Config.RouteMetric = 2040;
         dhcpV6Config.RouteMetric = 2046;
-        # address = [ "192.168.0.2/24" ];
-
         networkConfig = {
-          BindCarrier = [ "eth0" "wlan0" ];
+          DNSSEC = true;
+          MulticastDNS = true;
+          DNSOverTLS = true;
         };
-
-
-        linkConfig.MACAddress = "fc:62:ba:3a:e1:5f";
+        # # REALLY IMPORTANT
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
       };
 
       "30-rndis" = {
