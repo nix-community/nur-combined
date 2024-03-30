@@ -86,15 +86,15 @@
   };
   attic = {
     pname = "attic";
-    version = "6eabc3f02fae3683bffab483e614bebfcd476b21";
+    version = "4dbdbee45728d8ce5788db6461aaaa89d98081f0";
     src = fetchFromGitHub {
       owner = "zhaofengli";
       repo = "attic";
-      rev = "6eabc3f02fae3683bffab483e614bebfcd476b21";
+      rev = "4dbdbee45728d8ce5788db6461aaaa89d98081f0";
       fetchSubmodules = false;
-      sha256 = "sha256-wSZjK+rOXn+UQiP1NbdNn5/UW6UcBxjvlqr2wh++MbM=";
+      sha256 = "sha256-0O4v6e4a1toxXZ2gf5INhg4WPE5C5T+SVvsBt+45Mcc=";
     };
-    date = "2024-02-14";
+    date = "2024-03-29";
   };
   baidunetdisk = {
     pname = "baidunetdisk";
@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "45ba2b0e29ec2d95a283aecc5644e16487b4dafc";
+    version = "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "45ba2b0e29ec2d95a283aecc5644e16487b4dafc";
+      rev = "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50";
       fetchSubmodules = false;
-      sha256 = "sha256-28pe8wx0rfrzHJBRkUZNO89eej7BfwUPkg+Fxk0BmWA=";
+      sha256 = "sha256-5F84jnsPGSovsEVfsCglHQjlS7v/fuE25T1I0BriWIw=";
     };
-    date = "2024-03-28";
+    date = "2024-03-29";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -255,13 +255,13 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.33.0";
+    version = "v1.34.0";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.33.0";
+      rev = "v1.34.0";
       fetchSubmodules = false;
-      sha256 = "sha256-uD4NgzXrj6wmVDMFZwZqQRdCRCzmRtgiNQitr6SCulg=";
+      sha256 = "sha256-zO8G9DYMj2cQI5D/pnfUf9Iqq4qAkLF6QD7SfuDHpGI=";
     };
   };
   dingtalk = {
@@ -977,13 +977,13 @@
   };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
-    version = "release-4.6.3.10";
+    version = "release-4.6.4.10";
     src = fetchFromGitHub {
       owner = "c0re100";
       repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.6.3.10";
+      rev = "release-4.6.4.10";
       fetchSubmodules = false;
-      sha256 = "sha256-O25sJmpyOwhtjrCbN4srKjcNDxEPHwX08MY+AM8QaCU=";
+      sha256 = "sha256-wrkc11H4t96D6qr9N/2CzG93zeNv7I1g9ieXyc4x5wk=";
     };
   };
   qemu-user-static-amd64 = {

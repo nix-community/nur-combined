@@ -141,7 +141,7 @@
     },
     "attic": {
         "cargoLocks": null,
-        "date": "2024-02-14",
+        "date": "2024-03-29",
         "extract": null,
         "name": "attic",
         "passthru": null,
@@ -153,11 +153,11 @@
             "name": null,
             "owner": "zhaofengli",
             "repo": "attic",
-            "rev": "6eabc3f02fae3683bffab483e614bebfcd476b21",
-            "sha256": "sha256-wSZjK+rOXn+UQiP1NbdNn5/UW6UcBxjvlqr2wh++MbM=",
+            "rev": "4dbdbee45728d8ce5788db6461aaaa89d98081f0",
+            "sha256": "sha256-0O4v6e4a1toxXZ2gf5INhg4WPE5C5T+SVvsBt+45Mcc=",
             "type": "github"
         },
-        "version": "6eabc3f02fae3683bffab483e614bebfcd476b21"
+        "version": "4dbdbee45728d8ce5788db6461aaaa89d98081f0"
     },
     "baidunetdisk": {
         "cargoLocks": null,
@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-03-28",
+        "date": "2024-03-29",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "45ba2b0e29ec2d95a283aecc5644e16487b4dafc",
-            "sha256": "sha256-28pe8wx0rfrzHJBRkUZNO89eej7BfwUPkg+Fxk0BmWA=",
+            "rev": "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50",
+            "sha256": "sha256-5F84jnsPGSovsEVfsCglHQjlS7v/fuE25T1I0BriWIw=",
             "type": "github"
         },
-        "version": "45ba2b0e29ec2d95a283aecc5644e16487b4dafc"
+        "version": "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -448,11 +448,11 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.33.0",
-            "sha256": "sha256-uD4NgzXrj6wmVDMFZwZqQRdCRCzmRtgiNQitr6SCulg=",
+            "rev": "v1.34.0",
+            "sha256": "sha256-zO8G9DYMj2cQI5D/pnfUf9Iqq4qAkLF6QD7SfuDHpGI=",
             "type": "github"
         },
-        "version": "v1.33.0"
+        "version": "v1.34.0"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -1699,11 +1699,11 @@
             "name": null,
             "owner": "c0re100",
             "repo": "qBittorrent-Enhanced-Edition",
-            "rev": "release-4.6.3.10",
-            "sha256": "sha256-O25sJmpyOwhtjrCbN4srKjcNDxEPHwX08MY+AM8QaCU=",
+            "rev": "release-4.6.4.10",
+            "sha256": "sha256-wrkc11H4t96D6qr9N/2CzG93zeNv7I1g9ieXyc4x5wk=",
             "type": "github"
         },
-        "version": "release-4.6.3.10"
+        "version": "release-4.6.4.10"
     },
     "qemu-user-static-amd64": {
         "cargoLocks": null,
