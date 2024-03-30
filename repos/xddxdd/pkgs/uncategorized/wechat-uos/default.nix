@@ -223,7 +223,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description =
       if enableSandbox then
-        "WeChat desktop with sandbox enabled ($HOME/.local/share/wechat-uos) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)"
+        "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)"
       else
         "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)";
     homepage = "https://weixin.qq.com/";
