@@ -46,6 +46,13 @@ driver = webdriver.Chrome(
     # options=options,
     service=service
 )
+
+driver.delete_all_cookies()
+driver.execute_cdp_cmd('Storage.clearDataForOrigin', {
+    "origin": '*',
+    "storageTypes": 'all',
+})
+
 print('[*] Login', file=stderr)
 driver.get("https://intl.fusionsolar.huawei.com/pvmswebsite/login/build/index.html#/LOGIN")
 driver.find_element(By.CSS_SELECTOR, "div#username > input").send_keys(args.user)
@@ -53,26 +60,46 @@ password_input = driver.find_element(By.CSS_SELECTOR, "div#password > input")
 password_input.send_keys(args.password)
 password_input.send_keys(Keys.ENTER)
 time.sleep(10)
-print('[*] Homepage', file=stderr)
-driver.get("https://intl.fusionsolar.huawei.com")
-time.sleep(10)
-print('[*] Tentando listar estações', file=stderr)
-stations = driver.find_elements(By.CSS_SELECTOR, "tbody.ant-table-tbody a.nco-home-list-text-ellipsis")
-print('stations', stations, file=stderr)
+
+stations_data = []
+remaining_trys = 5
+
+while len(stations_data) == 0:
+    if 'view/station' in driver.current_url:
+        print('[*] Redirecionamento corno realizado, pulando etapa', file=stderr)
+        print('[*] URL do redirecionamento corno: ', driver.current_url)
+        stations_data.append(dict(
+            url=driver.current_url,
+            name="Unica",
+        ))
+        break
+    print('[*] Homepage', file=stderr)
+    driver.get("https://intl.fusionsolar.huawei.com")
+    time.sleep(10)
+    print('[*] Tentando listar estações', file=stderr)
+    stations = driver.find_elements(By.CSS_SELECTOR, "a.nco-home-list-text-ellipsis")
+    print('stations', stations, file=stderr)
+    if len(stations) == 0:
+        print("[*] Zero estações encontradas, tentando de novo", file=stderr)
+        remaining_trys -= 1
+        print("[*] URL atual: ", driver.current_url, file=stderr)
+        if remaining_trys == 0:
+            print('[*] Sem estações, desistindo...', file=stderr)
+            exit(1)
+    else:
+        for station in stations:
+            station_data = dict(
+                url=station.get_attribute('href'),
+                name=station.text 
+            )
+            print(station_data, file=stderr)
+            stations_data.append(station_data)
 
 email_text = []
 
 email_text.append("Quantidade de energia produzida em cada base")
 email_text.append("")
 
-stations_data = []
-for station in stations:
-    station_data = dict(
-        url=station.get_attribute('href'),
-        name=station.text 
-    )
-    print(station_data, file=stderr)
-    stations_data.append(station_data)
 
 attachments = []
 for station in stations_data:
