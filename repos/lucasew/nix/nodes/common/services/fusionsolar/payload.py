@@ -61,18 +61,31 @@ password_input.send_keys(args.password)
 password_input.send_keys(Keys.ENTER)
 time.sleep(10)
 
+shitty_modal_candidates = driver.find_elements(By.CSS_SELECTOR, "div.dpdesign-modal.nco-privacy-confirm-modal")
+if len(shitty_modal_candidates) > 0:
+    print('[*] Encontrada porcaria de modal para autorização de espionagem', file=stderr)
+    shitty_modal = shitty_modal_candidates[0]
+    shitty_checkbox = shitty_modal.find_element(By.CSS_SELECTOR, "div.dpdesign-modal.nco-privacy-confirm-modal input.dpdesign-checkbox-input")
+    if shitty_checkbox.is_selected:
+        shitty_checkbox.click()
+    shitty_button = shitty_modal.find_element(By.CSS_SELECTOR, "button.dpdesign-btn.dpdesign-btn-primary.dpdesign-btn.dpdesign-btn-primary")
+    time.sleep(1)
+    shitty_button.click()
+    time.sleep(10)
+# time.sleep(999999)
+
 stations_data = []
 remaining_trys = 5
 
 while len(stations_data) == 0:
-    if 'view/station' in driver.current_url:
-        print('[*] Redirecionamento corno realizado, pulando etapa', file=stderr)
-        print('[*] URL do redirecionamento corno: ', driver.current_url)
-        stations_data.append(dict(
-            url=driver.current_url,
-            name="Unica",
-        ))
-        break
+    # if 'view/station' in driver.current_url:
+    #     print('[*] Redirecionamento corno realizado, pulando etapa', file=stderr)
+    #     print('[*] URL do redirecionamento corno: ', driver.current_url)
+    #     stations_data.append(dict(
+    #         url=driver.current_url,
+    #         name="Unica",
+    #     ))
+    #     break
     print('[*] Homepage', file=stderr)
     driver.get("https://intl.fusionsolar.huawei.com")
     time.sleep(10)
@@ -86,14 +99,13 @@ while len(stations_data) == 0:
         if remaining_trys == 0:
             print('[*] Sem estações, desistindo...', file=stderr)
             exit(1)
-    else:
-        for station in stations:
-            station_data = dict(
-                url=station.get_attribute('href'),
-                name=station.text 
-            )
-            print(station_data, file=stderr)
-            stations_data.append(station_data)
+    for station in stations:
+        station_data = dict(
+            url=station.get_attribute('href'),
+            name=station.text 
+        )
+        print(station_data, file=stderr)
+        stations_data.append(station_data)
 
 email_text = []
 
@@ -110,7 +122,7 @@ for station in stations_data:
     time.sleep(10)
     the_canvas = driver.find_element(By.CSS_SELECTOR, ".nco-single-energy-body canvas")
     canvas_b64 = driver.execute_script("return arguments[0].toDataURL('image/png').substring(21);", the_canvas)
-    amount_produced = float(driver.find_element(By.CSS_SELECTOR, "span.value").text)
+    amount_produced = float(driver.find_element(By.CSS_SELECTOR, "span.value").text.replace(',', '.'))
     email_text.append(f"{station_name}: {amount_produced}kWh")
     print(f'[*] Produzido hoje: {amount_produced}kWh', file=stderr)
     print(f'[*] Salvando dados da estação "{station_name}"', file=stderr)
@@ -137,6 +149,8 @@ if len(smtp_port) == 0:
     smtp_port = 465
 else:
     smtp_port = int(smtp_port[0])
+
+print('[*] Enviando emails', file=stderr)
 
 with smtplib.SMTP_SSL(smtp_server, smtp_port, context=context) as server:
     server.login(args.smtp_user, args.smtp_passwd)
