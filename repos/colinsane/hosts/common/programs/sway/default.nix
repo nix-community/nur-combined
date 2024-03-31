@@ -10,6 +10,8 @@ let
         echo "warning: required directory not found (create it?): $(dirname "$SWAYSOCK")"
       test -e "$(dirname "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")" || \
         echo "warning: required directory not found (create it?): $(dirname "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")"
+      test -e /tmp/.X11-unix || \
+        echo "warning: required directory not found (create it?): /tmp/.X11-unix"
       # delete DISPLAY-related vars from env before launch, else sway will try to connect to a remote display.
       # (consider: nested sway sessions, where sway actually has a reason to read these)
       exec env -u DISPLAY -u WAYLAND_DISPLAY "DESIRED_WAYLAND_DISPLAY=$WAYLAND_DISPLAY" ${configuredSway}/bin/sway 2>&1
@@ -168,17 +170,16 @@ in
 
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";
+    sandbox.net = "all";  # TODO: shouldn't be needed! but without this, mouse/kb hotplug doesn't work.
     sandbox.whitelistAudio = true;  # it runs playerctl directly
     sandbox.whitelistDbus = [ "system" "user" ];  # to e.g. launch apps
     sandbox.whitelistDri = true;
     sandbox.whitelistX = true;  # sway invokes xwayland itself
     sandbox.whitelistWayland = true;
-    sandbox.extraRuntimePaths = [ "sway" "wayland" ];
+    sandbox.extraRuntimePaths = [ "/" ];  # TODO: should need just "sway". but even if i sandbox EVERY entry under run individually, it fails!
     sandbox.extraPaths = [
-      # TODO: sway isn't handling hotplugged mouse/kb. they do show up in its environment: it may be that i need to bind some udev-related path for it to be detected.
-      # whitelisting net fixes the kb hotplug: why?
       "/dev/input"
-      "/run/systemd"
+      "/run/systemd/sessions"
       "/run/udev"
       "/sys/class/backlight"
       "/sys/class/drm"
