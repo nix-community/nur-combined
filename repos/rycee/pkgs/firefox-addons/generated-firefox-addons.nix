@@ -1047,6 +1047,21 @@
         platforms = platforms.all;
       };
     };
+    "clearcache" = buildFirefoxXpiAddon {
+      pname = "clearcache";
+      version = "4.0";
+      addonId = "clearcache@michel.de.almeida";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240060/clearcache-4.0.xpi";
+      sha256 = "48ac3bae170fb6b411b3706f9a3aa5ad24309f8a9fd772c6310e5a9c066bdcb0";
+      meta = with lib;
+      {
+        homepage = "https://github.com/TenSoja/clear-cache";
+        description = "Clear browser cache with a single click or via the F9 key.\n\nF9 Fever! ;)";
+        license = licenses.mpl20;
+        mozPermissions = [ "browsingData" "notifications" "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
       version = "1.26.1";
@@ -6975,6 +6990,20 @@
         description = "Opens all PDF files directly in the browser.";
         license = licenses.mit;
         mozPermissions = [ "webRequest" "webRequestBlocking" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
+    "nord123" = buildFirefoxXpiAddon {
+      pname = "nord123";
+      version = "1.1";
+      addonId = "{3360db90-83f8-4291-8872-377ba50fb47c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3692469/nord123-1.1.xpi";
+      sha256 = "08016b531c3c63b320f065f115bd326a56856a1c4e3cb442d4d14c998ccd7012";
+      meta = with lib;
+      {
+        description = "A theme with the nord color scheme.";
+        license = licenses.cc-by-30;
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };

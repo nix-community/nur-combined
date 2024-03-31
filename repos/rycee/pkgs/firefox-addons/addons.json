@@ -131,6 +131,9 @@
     "slug": "censor-tracker"
   },
   {
+    "slug": "clearcache"
+  },
+  {
     "slug": "clearurls"
   },
   {
@@ -794,6 +797,9 @@
   {
     "pname": "theme-nord-polar-night",
     "slug": "nord-polar-night-theme"
+  },
+  {
+    "slug": "nord123"
   },
   {
     "slug": "nos2x-fox",
