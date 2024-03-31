@@ -25,7 +25,7 @@
   gnome2,
   gnutls,
   graphite2,
-  gtk2,
+  gtk3,
   harfbuzz,
   icu63,
   krb5,
@@ -39,7 +39,6 @@
   libpng,
   libpsl,
   libpulseaudio,
-  libsForQt5,
   libssh2,
   libthai,
   libxcrypt-legacy,
@@ -84,7 +83,7 @@ let
     gnome2.gtkglext
     gnutls
     graphite2
-    gtk2
+    gtk3
     harfbuzz
     icu63
     krb5
@@ -98,12 +97,11 @@ let
     libpng
     libpsl
     libpulseaudio
-    libsForQt5.qtbase
     libssh2
     libthai
     libxcrypt-legacy
     libxkbcommon
-    mesa.drivers
+    mesa
     mtdev
     nghttp2
     nspr
@@ -148,7 +146,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
-    libsForQt5.wrapQtAppsHook
+    qt5.wrapQtAppsHook
     copyDesktopItems
   ];
   buildInputs = libraries;
@@ -170,10 +168,12 @@ stdenv.mkDerivation rec {
     rm -f release/libapr*
     rm -f release/libcrypto.so.*
     rm -f release/libcurl.so.*
+    rm -f release/libdouble-conversion.so.*
     rm -f release/libEGL*
     rm -f release/libfontconfig*
     rm -f release/libfreetype*
     rm -f release/libfribidi*
+    rm -f release/libgbm.*
     rm -f release/libgdk*
     rm -f release/libGLES*
     rm -f release/libgtk*
@@ -196,6 +196,9 @@ stdenv.mkDerivation rec {
     rm -f release/libstdc++.so.6
     rm -f release/libstdc++*
     rm -f release/libunistring*
+    rm -f release/libvk*
+    rm -f release/libvulkan*
+    rm -f release/libxcb*
     rm -f release/libz*
     rm -rf release/engines-1_1
     rm -rf release/imageformats
@@ -218,7 +221,11 @@ stdenv.mkDerivation rec {
     makeWrapper $out/lib/com.alibabainc.dingtalk $out/bin/dingtalk \
       "''${qtWrapperArgs[@]}" \
       --argv0 "com.alibabainc.dingtalk" \
-      --set WAYLAND_DISPLAY "" \
+      --chdir $out/lib \
+      --unset WAYLAND_DISPLAY \
+      --set QT_QPA_PLATFORM "xcb" \
+      --set QT_AUTO_SCREEN_SCALE_FACTOR 1 \
+      --prefix LD_PRELOAD : "$out/lib/libcef.so" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
     # App Menu

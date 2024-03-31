@@ -28,7 +28,7 @@ let
     libdrm
     libgcrypt
     libva
-    mesa.drivers
+    mesa
     nspr
     nss
     pciutils

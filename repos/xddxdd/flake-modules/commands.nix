@@ -82,6 +82,10 @@
           cat result > README.md
         '';
 
+        search-lib = ''
+          ${pkgs.nix-index}/bin/nix-locate -w "$@" | grep -v "("
+        '';
+
         trace = ''
           rm -rf trace.txt*
           strace -ff --trace=%file -o trace.txt "$@"

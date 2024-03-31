@@ -266,10 +266,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.0.50.30831";
+    version = "7.5.0.40221";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.0.50.30831_amd64.deb";
-      sha256 = "sha256-ZO65cSYyNTMoMJj8LbjBcmpf0+M04SFRlVIIrqUB+TE=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.0.40221_amd64.deb";
+      sha256 = "sha256-G1ffi3zCCVDd3EqUH0gvpa96LS8V2cZqx3pWN4frKBI=";
     };
   };
   douban-openapi-server = {

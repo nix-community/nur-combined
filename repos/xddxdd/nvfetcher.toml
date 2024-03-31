@@ -100,8 +100,7 @@ src.github_tag = "ManiMatter/decluttarr"
 fetch.github = "ManiMatter/decluttarr"
 
 [dingtalk]
-# src.aur = "dingtalk-bin"
-src.manual = "7.0.50.30831"
+src.aur = "dingtalk-bin"
 fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_$ver_amd64.deb"
 
 [douban-openapi-server]
