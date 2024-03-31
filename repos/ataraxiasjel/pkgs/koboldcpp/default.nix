@@ -45,9 +45,7 @@ let
 
     nativeBuildInputs = lib.optionals cudaSupport [
       cudaPackages.cuda_nvcc
-      # TODO: Replace with autoAddDriverRunpath
-      # once https://github.com/NixOS/nixpkgs/pull/275241 has been merged
-      cudaPackages.autoAddOpenGLRunpathHook
+      cudaPackages.autoAddDriverRunpath
     ];
 
     buildInputs =
@@ -79,6 +77,11 @@ let
       ++ lib.optionals openclSupport [ "LLAMA_CLBLAST=1" ]
       ++ lib.optionals blasSupport [ "LLAMA_OPENBLAS=1" ]
       ++ lib.optionals vulkanSupport [ "LLAMA_VULKAN=1" ];
+
+    preBuild = lib.optionalString cudaSupport ''
+      substituteInPlace Makefile \
+        --replace "-lcuda " "-lcuda -L${cudaPackages.cuda_cudart.lib}/lib/stubs "
+    '';
 
     installPhase = ''
       runHook preInstall
