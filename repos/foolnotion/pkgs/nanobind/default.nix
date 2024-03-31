@@ -1,5 +1,4 @@
 { lib, stdenv, fetchFromGitHub, cmake, robin-map, python,
-buildShared ? false,
 enableTesting ? false
 }:
 
@@ -18,18 +17,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ python cmake ];
 
   cmakeFlags = [
-    "-DNB_TEST=OFF"
+    "-DNB_TEST=${if enableTesting then "YES" else "NO"}"
   ];
-
-  installPhase = ''
-    ls -la $src
-    mkdir -p $out/include $out/ext $out/src $out/cmake
-    cp -r $src/include $out
-    cp -r $src/cmake $out
-    cp -r $src/src $out
-    cp -r $src/ext $out
-  '';
-
 
   meta = with lib; {
     description = "Small binding library that exposes C++ types in Python and vice versa";
