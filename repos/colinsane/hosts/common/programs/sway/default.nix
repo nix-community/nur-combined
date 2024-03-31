@@ -172,6 +172,7 @@ in
     # needs to *create* the sway socket. could move the sway socket into its own directory, and whitelist just that, but doesn't buy me much.
     sandbox.extraRuntimePaths = [ "/" ];
     sandbox.extraPaths = [
+      # TODO: sway isn't handling hotplugged mouse/kb. they do show up in its environment: it may be that i need to bind some udev-related path for it to be detected
       "/dev/input"
       "/run/systemd"
       "/run/udev"

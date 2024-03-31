@@ -1,3 +1,8 @@
+# BUILD THE CONFIG WITH:
+# - `nix build '.#hostConfigs.moby.boot.kernelPackages.kernel.configfile'`
+# other people using pinephone kernels:
+# - postmarketOS (pmaports)
+#   - uses megi's kernel; their kernel config is embedded in their pmaports repo
 { lib
 , buildLinux
 , fetchpatch
@@ -64,7 +69,7 @@ let
     INPUT_GPIO_VIBRA = yes;
     INPUT_PWM_VIBRA = yes;
     PWM_SUN4I = yes;
-    # DRM_SUN4I = yes;
+    # DRM_SUN4I = yes;  # DRM_SUN* defaults to module.
     # DRM_SUN8I_MIXER = yes;
     # DRM_SUN6I_DSI = yes;
 
@@ -90,6 +95,20 @@ let
     # ../drivers/media/i2c/ov8858.c:1834:27: error: implicit declaration of function 'compat_ptr'
     VIDEO_OV8858 = no;
     BES2600 = no;  # fails to compile
+    ### RUNTIME FIXES AFTER <https://github.com/NixOS/nixpkgs/pull/298332>
+    # pmOS kernel config is in pmaports repo:
+    # - CONFIG_FB_SIMPLE=y
+    # - CONFIG_DRM_SIMPLEDRM is unset
+    # - CONFIG_SYSFB_SIMPLEFB is not referenced
+    # these config values are speculative: could probably be made smaller
+    FB_SIMPLE = lib.mkForce yes;
+    DRM_SIMPLEDRM = lib.mkForce no;  #< conflicts (supposedly) with FB_SIMPLE
+    SYSFB_SIMPLEFB = lib.mkForce no;
+    # downgrade these from "yes" to "module", to match previous config.
+    DRM = lib.mkForce module;
+    RC_CORE = lib.mkForce module;
+    DRM_KMS_HELPER = lib.mkForce module;
+    # AGP = lib.mkForce no;  # "Accelerated Graphics Port" (idk)
     #
     ### RELEVANT CONFIGS INHERITED FROM NIXOS DEFAULTS (OR ABOVE ADDITIONS):
     #
@@ -107,6 +126,22 @@ let
     # CONFIG_BT_HCIUART_SERDEV=y
     # CONFIG_BT_HCIUART_H4=y
     # CONFIG_BT_HCIUART_LL=y
+    # CONFIG_DRM_LIMA=m
+    # CONFIG_DRM_BRIDGE=y
+    # CONFIG_DRM_PANEL_BRIDGE=y
+    # CONFIG_DRM_PANFROST=m
+    # CONFIG_DRM_PANEL_ORIENTATION_QUIRKS=y
+    # CONFIG_DRM_PANEL_SIMPLE=m
+    # CONFIG_DRM_PANEL_SITRONIX_ST7703=m
+    # CONFIG_DRM_SUN4I=m
+    # CONFIG_DRM_SUN6I_DSI=m
+    # CONFIG_DRM_SUN8I_DW_HDMI=m
+    # CONFIG_DRM_SUN8I_MIXER=m
+    # CONFIG_DRM_SUN8I_TCON_TOP=m
+    # CONFIG_FB_CORE=y
+    # CONFIG_FB_DEVICE=y
+    # CONFIG_FB_NOTIFY=y
+    # CONFIG_FB_MODE_HELPERS=y
     # CONFIG_RTL_CARDS=m
     # CONFIG_RTLWIFI=m
     # CONFIG_RTLWIFI_PCI=m

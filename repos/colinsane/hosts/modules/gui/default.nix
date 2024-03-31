@@ -18,8 +18,6 @@ in
     "animatch"
     "gnome-2048"
     "gnome.hitori"  # like sudoku
-    "superTux"  # keyboard-only controls
-    "superTuxKart"  # poor FPS on pinephone
   ];
   sane.programs.pcGameApps = declPackageSet [
     # "andyetitmoves" # TODO: fix build!
@@ -42,6 +40,8 @@ in
     # "powermanga"    # STYLISH space invaders derivative (keyboard-only)
     "shattered-pixel-dungeon"  # doesn't cross compile
     "space-cadet-pinball"  # LMB/RMB controls (bindable though. volume buttons?)
+    "superTux"  # keyboard-only controls
+    "superTuxKart"  # poor FPS on pinephone
     "tumiki-fighters" # keyboard-only
     "vvvvvv"  # keyboard-only controls
     # "wine"
@@ -57,7 +57,7 @@ in
     # "abaddon"  # discord client
     "alacritty"  # terminal emulator
     "dconf"  # required by many packages, but not well-documented :(
-    "delfin"  # Jellyfin client
+    # "delfin"  # Jellyfin client
     "dialect"  # language translation
     "dino"  # XMPP client
     "dissent"  # Discord client (formerly known as: gtkcord4)

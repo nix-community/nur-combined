@@ -40,7 +40,7 @@ class ConfEntry:
             attr_val = getattr(self, attr_name)
             return f"{attr_name.upper()} {attr_val}"
 
-        fdtdir = self.format_attr("fdtdir") if self.fdtdir is not None else ""
+        fdtdir = format_attr("fdtdir") if self.fdtdir is not None else ""
         return f"""
 {format_attr("label")}
   {format_attr("menu")}

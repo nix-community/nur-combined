@@ -1,5 +1,6 @@
 ## BUGS
 - ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
+- sway mouse/kb hotplug doesn't work
 - `nix` operations from lappy hang when `desko` is unreachable
   - could at least direct the cache to `http://desko-hn:5001`
 

@@ -1,5 +1,15 @@
-{ config, lib, pkgs, utils, ... }:
+# this builds a disk image which can be flashed onto a HDD, SD card, etc, and boot a working image.
+# debug the image by building one of:
+# - `nix build '.#imgs.$host' --builders "" -v`
+# - `nix build '.#imgs.$host.passthru.{bootFsImg,nixFsImg,withoutBootloader}'`
+# then loop-mounting it:
+# - `sudo losetup -Pf ./result/nixos.img`
+# - `mkdir /tmp/nixos.boot`
+# - `sudo mount /dev/loop0p1 /tmp/nixos.boot`, and look inside
+#
 # TODO: replace mobile-nixos parts with Disko <https://github.com/nix-community/disko>
+#   or just inline them here.
+{ config, lib, pkgs, utils, ... }:
 
 with lib;
 let
@@ -62,6 +72,14 @@ in
         N.B.: setting this to something other than 512B is not well tested.
       '';
     };
+    sane.image.installBootloader = mkOption {
+      default = null;
+      type = types.nullOr types.str;
+      description = ''
+        command which takes the full disk image and installs hw-specific bootloader (u-boot, tow-boot, etc).
+        for EFI-native systems (most x86_64), can be left empty.
+      '';
+    };
   };
   config = let
     # return true if super starts with sub
@@ -90,10 +108,52 @@ in
       "ext4" = pkgs.imageBuilder.fileSystem.makeExt4;
       "btrfs" = pkgs.imageBuilder.fileSystem.makeBtrfs;
     };
-  in
-  lib.mkIf cfg.enable
-  {
-    system.build.img-without-firmware = with pkgs; pkgs.imageBuilder.diskImage.makeGPT {
+
+    bootFsImg = fsBuilderMapBoot."${bootFs.fsType}" {
+      # fs properties
+      name = "ESP";
+      partitionID = vfatUuidFromFs bootFs;
+      # partition properties
+      partitionLabel = "EFI System";
+      partitionUUID = "44444444-4444-4444-4444-4444${vfatUuidFromFs bootFs}";
+      size = cfg.bootPartSize;
+      inherit (cfg) sectorSize;
+      blockSize = cfg.sectorSize;  # has to be a multiple of sectorSize
+
+      populateCommands = let
+        extras = builtins.toString (builtins.map (d: "cp -R ${d}/* ./") cfg.extraBootFiles);
+      in ''
+        echo "running installBootLoader"
+        ${config.boot.loader.generic-extlinux-compatible.populateCmd} -c ${config.system.build.toplevel} -d .
+        echo "ran installBootLoader"
+        ${extras}
+        echo "copied extraBootFiles"
+      '';
+    };
+    nixFsImg = fsBuilderMapNix."${nixFs.fsType}" {
+      # fs properties
+      name = "NIXOS_SYSTEM";
+      partitionID = uuidFromFs nixFs;
+      # partition properties
+      partitionLabel = "Linux filesystem";
+      partitionUUID = uuidFromFs nixFs;
+      # inherit (cfg) sectorSize;  # imageBuilder only supports sectorSize for vfat. btrfs defaults to a 4096B sector size, somehow it abstracts over the drive's sector size?
+
+      populateCommands = let
+        closureInfo = pkgs.buildPackages.closureInfo { rootPaths = config.system.build.toplevel; };
+        extraRelPaths = builtins.toString (builtins.map (p: "./" + builtins.toString(relPath nixFs.mountPoint p)) cfg.extraDirectories);
+      in ''
+        mkdir -p ./${storeRelPath} ${extraRelPaths}
+        echo "Copying system closure..."
+        while IFS= read -r path; do
+          echo "  Copying $path"
+          cp -prf "$path" ./${storeRelPath}
+        done < "${closureInfo}/store-paths"
+        echo "Done copying system closure..."
+        cp -v ${closureInfo}/registration ./nix-path-registration
+      '';
+    };
+    img = (pkgs.imageBuilder.diskImage.makeGPT {
       name = "nixos";
       diskID = vfatUuidFromFs bootFs;
       # leave some space for firmware
@@ -102,52 +162,28 @@ in
       headerHole = cfg.extraGPTPadding;
       partitions = [
         (pkgs.imageBuilder.gap cfg.firstPartGap)
-        (fsBuilderMapBoot."${bootFs.fsType}" {
-          # fs properties
-          name = "ESP";
-          partitionID = vfatUuidFromFs bootFs;
-          # partition properties
-          partitionLabel = "EFI System";
-          partitionUUID = "44444444-4444-4444-4444-4444${vfatUuidFromFs bootFs}";
-          size = cfg.bootPartSize;
-          inherit (cfg) sectorSize;
-          blockSize = cfg.sectorSize;  # has to be a multiple of sectorSize
-
-          populateCommands = let
-            extras = builtins.toString (builtins.map (d: "cp -R ${d}/* ./") cfg.extraBootFiles);
-          in ''
-            echo "running installBootLoader"
-            ${config.system.build.installBootLoader} ${config.system.build.toplevel} -d .
-            echo "ran installBootLoader"
-            ${extras}
-            echo "copied extraBootFiles"
-          '';
-        })
-        (fsBuilderMapNix."${nixFs.fsType}" {
-          # fs properties
-          name = "NIXOS_SYSTEM";
-          partitionID = uuidFromFs nixFs;
-          # partition properties
-          partitionLabel = "Linux filesystem";
-          partitionUUID = uuidFromFs nixFs;
-          # inherit (cfg) sectorSize;  # imageBuilder only supports sectorSize for vfat. btrfs defaults to a 4096B sector size, somehow it abstracts over the drive's sector size?
-
-          populateCommands = let
-            closureInfo = buildPackages.closureInfo { rootPaths = config.system.build.toplevel; };
-            extraRelPaths = builtins.toString (builtins.map (p: "./" + builtins.toString(relPath nixFs.mountPoint p)) cfg.extraDirectories);
-          in ''
-            mkdir -p ./${storeRelPath} ${extraRelPaths}
-            echo "Copying system closure..."
-            while IFS= read -r path; do
-              echo "  Copying $path"
-              cp -prf "$path" ./${storeRelPath}
-            done < "${closureInfo}/store-paths"
-            echo "Done copying system closure..."
-            cp -v ${closureInfo}/registration ./nix-path-registration
-          '';
-        })
+        bootFsImg
+        nixFsImg
       ];
+    }) // {
+      passthru = {
+        inherit bootFsImg nixFsImg;
+      };
     };
-    system.build.img = lib.mkDefault config.system.build.img-without-firmware;
+  in
+  lib.mkIf cfg.enable
+  {
+    system.build.img = (if cfg.installBootloader == null then
+      img
+    else pkgs.runCommand "nixos-with-bootloader" {} ''
+      cp -vR ${img} $out
+      chmod -R +w $out
+      ${cfg.installBootloader}
+    '') // {
+      passthru = {
+        inherit bootFsImg nixFsImg;
+        withoutBootloader = img;
+      };
+    };
   };
 }
