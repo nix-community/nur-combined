@@ -18,7 +18,7 @@ let
 
   pythonEnv = python3.withPackages (
     ps: with ps; [
-      (betterproto.overrideAttrs (old: {
+      (betterproto.overridePythonAttrs (old: {
         doCheck = false;
       }))
       bottle
