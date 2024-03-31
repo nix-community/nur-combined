@@ -26,6 +26,7 @@
   # scrub all zfs pools weekly:
   services.zfs.autoScrub.enable = true;
   boot.extraModprobeConfig = ''
+    ### zfs_arc_max tunable:
     # ZFS likes to use half the ram for its own cache and let the kernel push everything else to swap.
     # so, reduce its cache size
     # see: <https://askubuntu.com/a/1290387>
@@ -34,7 +35,13 @@
     # for all tunables, see: `man 4 zfs`
     # to update these parameters without rebooting:
     # - `echo '4294967296' | sane-sudo-redirect /sys/module/zfs/parameters/zfs_arc_max`
-    options zfs zfs_arc_max=4294967296
+    ### zfs_bclone_enabled tunable
+    # this allows `cp --reflink=always FOO BAR` to work. i.e. shallow copies.
+    # it's unstable as of 2.2.3. led to *actual* corruption in 2.2.1, but hopefully better by now.
+    # - <https://github.com/openzfs/zfs/issues/405>
+    # note that `du -h` won't *always* show the reduced size for reflink'd files (?).
+    # `zpool get all | grep clone` seems to be the way to *actually* see how much data is being deduped
+    options zfs zfs_arc_max=4294967296 zfs_bclone_enabled=1
   '';
   # to be able to mount the pool like this, make sure to tell zfs to NOT manage it itself.
   # otherwise local-fs.target will FAIL and you will be dropped into a rescue shell.
