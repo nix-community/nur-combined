@@ -189,6 +189,7 @@ let
     # (fromDb "vitalik.ca" // tech)  # moved to vitalik.eth.limo
     (fromDb "vitalik.eth.limo" // tech)  # Vitalik Buterin
     # (fromDb "webcurious.co.uk" // uncat)  # link aggregator; defunct?
+    (fromDb "willow.phantoma.online")  # wizard@xyzzy.link
     (fromDb "xn--gckvb8fzb.com" // tech)
     (mkSubstack "astralcodexten" // rat // daily)  # Scott Alexander
     # (mkSubstack "doomberg" // tech // weekly)  # articles are all pay-walled
