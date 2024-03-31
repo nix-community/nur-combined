@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50";
+    version = "89745e7a8ea557b7f2609763c05387661b94417e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50";
+      rev = "89745e7a8ea557b7f2609763c05387661b94417e";
       fetchSubmodules = false;
-      sha256 = "sha256-5F84jnsPGSovsEVfsCglHQjlS7v/fuE25T1I0BriWIw=";
+      sha256 = "sha256-45vSZ1z1JjE6yfVKlMxUDHqQlo19JxO+IHM9BBCXhqI=";
     };
-    date = "2024-03-29";
+    date = "2024-03-30";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -255,13 +255,13 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.34.0";
+    version = "v1.35.0";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.34.0";
+      rev = "v1.35.0";
       fetchSubmodules = false;
-      sha256 = "sha256-zO8G9DYMj2cQI5D/pnfUf9Iqq4qAkLF6QD7SfuDHpGI=";
+      sha256 = "sha256-yhLxROG+ggJvAlcRhQXKnxuwe1Q9XQzpy6cBRT4OQSg=";
     };
   };
   dingtalk = {
@@ -680,18 +680,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.77";
+    version = "2.0.78";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.77/netboot.xyz.efi";
-      sha256 = "sha256-19raFHKY+i58tFpq2ax1adNI+L7peGu4QY681JYjt7A=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.78/netboot.xyz.efi";
+      sha256 = "sha256-87Kj3PL0euQM5o5nNIeqiMnZPzUQB1Ml+5t+DsCEI/s=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.77";
+    version = "2.0.78";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.77/netboot.xyz.lkrn";
-      sha256 = "sha256-QFVvx3GZQoezFiMt7sIR8whkiQHNvEqkfEJZrbZCpj8=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.78/netboot.xyz.lkrn";
+      sha256 = "sha256-RUcv9rQlZuduXh9p439qrS1SAplI0wD9ZHknV94Etfs=";
     };
   };
   netns-exec = {

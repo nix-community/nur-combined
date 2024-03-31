@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-03-29",
+        "date": "2024-03-30",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50",
-            "sha256": "sha256-5F84jnsPGSovsEVfsCglHQjlS7v/fuE25T1I0BriWIw=",
+            "rev": "89745e7a8ea557b7f2609763c05387661b94417e",
+            "sha256": "sha256-45vSZ1z1JjE6yfVKlMxUDHqQlo19JxO+IHM9BBCXhqI=",
             "type": "github"
         },
-        "version": "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50"
+        "version": "89745e7a8ea557b7f2609763c05387661b94417e"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -448,11 +448,11 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.34.0",
-            "sha256": "sha256-zO8G9DYMj2cQI5D/pnfUf9Iqq4qAkLF6QD7SfuDHpGI=",
+            "rev": "v1.35.0",
+            "sha256": "sha256-yhLxROG+ggJvAlcRhQXKnxuwe1Q9XQzpy6cBRT4OQSg=",
             "type": "github"
         },
-        "version": "v1.34.0"
+        "version": "v1.35.0"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -1174,11 +1174,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-19raFHKY+i58tFpq2ax1adNI+L7peGu4QY681JYjt7A=",
+            "sha256": "sha256-87Kj3PL0euQM5o5nNIeqiMnZPzUQB1Ml+5t+DsCEI/s=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.77/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.78/netboot.xyz.efi"
         },
-        "version": "2.0.77"
+        "version": "2.0.78"
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
@@ -1189,11 +1189,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-QFVvx3GZQoezFiMt7sIR8whkiQHNvEqkfEJZrbZCpj8=",
+            "sha256": "sha256-RUcv9rQlZuduXh9p439qrS1SAplI0wD9ZHknV94Etfs=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.77/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.78/netboot.xyz.lkrn"
         },
-        "version": "2.0.77"
+        "version": "2.0.78"
     },
     "netns-exec": {
         "cargoLocks": null,
