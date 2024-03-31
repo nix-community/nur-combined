@@ -13,7 +13,7 @@
       type = "s3";
       region = "ap-east-1";
       bucket = "attic";
-      endpoint = "http://localhost:9000";
+      endpoint = "https://api.s3.nyaw.xyz";
     };
 
     # Data chunking

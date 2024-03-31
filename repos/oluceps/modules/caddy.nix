@@ -25,7 +25,7 @@ in
         listen = "unix//tmp/caddy.sock";
         config.persist = false;
       };
-      # logging.logs.debug.level = "debug";
+      logging.logs.debug.level = "debug";
       apps = {
         http.grace_period = "1s";
         http.servers.srv0 = {

@@ -15,6 +15,7 @@ let
     "btop"
     "hyfetch"
     "starship"
+    "direnv"
   ];
 
   fullModule = (with builtins;attrNames

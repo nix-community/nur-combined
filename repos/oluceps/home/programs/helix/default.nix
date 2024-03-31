@@ -23,7 +23,7 @@
     # taplo
     rustfmt
     clang-tools
-    haskell-language-server
+    # haskell-language-server
     cmake-language-server
     arduino-language-server
     typst-lsp

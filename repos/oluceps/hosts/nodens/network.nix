@@ -5,9 +5,6 @@
   networking = {
     domain = "nyaw.xyz";
     resolvconf.useLocalResolver = true;
-    hosts = {
-      "10.0.1.2" = [ "attic.nyaw.xyz" ];
-    };
     firewall = {
       checkReversePath = false;
       enable = true;

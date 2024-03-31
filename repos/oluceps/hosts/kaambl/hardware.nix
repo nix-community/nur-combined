@@ -106,7 +106,7 @@
       efiSysMountPoint = "/efi";
     };
 
-    supportedFilesystems = [ "bcachefs" ];
+    supportedFilesystems = [ "bcachefs" "ntfs" ];
     initrd = {
       systemd = {
         enable = true;
@@ -157,14 +157,14 @@
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
       (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
-      shufflecake
+      # shufflecake
     ];
     kernelPackages =
       # (import inputs.nixpkgs-pin {
       #   system = "x86_64-linux";
       # })
       pkgs.linuxPackages_latest;
-      # inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-zen3;
+    # inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-zen3;
 
     # kernelPatches =
     #   let patchPath = ../../.attachs/cachyos-kernel;

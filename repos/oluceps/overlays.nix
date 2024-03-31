@@ -11,7 +11,7 @@ let system = "x86_64-linux"; in [
         "prismlauncher"
         "resign"
         # "anyrun"
-        "devenv"
+        # "devenv"
         "attic"
       ]
       (n: inputs.${n}.packages.${system}.default)

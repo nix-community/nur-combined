@@ -3,6 +3,7 @@
     targetHost = "10.0.1.2";
     targetPort = 22;
     buildOnTarget = true;
+    allowLocalDeployment = true;
     targetUser = user;
   };
 
@@ -14,6 +15,7 @@
       ./rekey.nix
       ./spec.nix
       ./matrix.nix
+      ./caddy.nix
 
       ../persist.nix
       ../secureboot.nix

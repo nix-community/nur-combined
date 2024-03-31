@@ -53,6 +53,13 @@
                     routes = [{
                       handle = [{
                         handler = "reverse_proxy";
+                        transport = {
+                          protocol = "http";
+                          tls = {
+                            # server_name = "api.s3.nyaw.xyz";
+                            insecure_skip_verify = true;
+                          };
+                        };
                         upstreams = [{
                           dial = "10.0.1.2:9000";
                         }];
@@ -70,8 +77,15 @@
                     routes = [{
                       handle = [{
                         handler = "reverse_proxy";
+                        transport = {
+                          protocol = "http";
+                          tls = {
+                            server_name = "attic.nyaw.xyz";
+                            # insecure_skip_verify = true;
+                          };
+                        };
                         upstreams = [{
-                          dial = "attic.nyaw.xyz";
+                          dial = "10.0.1.2:443";
                         }];
                       }];
                     }];

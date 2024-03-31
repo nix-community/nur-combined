@@ -6,7 +6,7 @@
     resolvconf.useLocalResolver = true;
     # useHostResolvConf = true;
     hosts = {
-      "127.0.0.1" = [ "attic.nyaw.xyz" ];
+      "127.0.0.1" = [ "attic.nyaw.xyz" "api.s3.nyaw.xyz" ];
     };
 
     hostName = "hastur"; # Define your hostname.

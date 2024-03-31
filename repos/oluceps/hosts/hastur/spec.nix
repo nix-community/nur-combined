@@ -11,10 +11,18 @@
     algorithm = "zstd";
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 10d";
+  };
+
   programs = {
-    anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
-    niri.enable = true;
-    sway.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      silent = true;
+    };
   };
   systemd = {
     services = {
@@ -176,10 +184,10 @@
     #   environmentFile = config.age.secrets.cloudflare-garden-00.path;
     # };
     compose-up.instances = [
-      {
-        name = "misskey";
-        workingDirectory = "/home/${user}/Src/misskey";
-      }
+      # {
+      #   name = "misskey";
+      #   workingDirectory = "/home/${user}/Src/misskey";
+      # }
       {
         name = "nextchat";
         workingDirectory = "/home/${user}/Src/ChatGPT-Next-Web";
@@ -209,38 +217,6 @@
     ];
 
     gvfs.enable = true;
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command =
-            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.writeShellScript "sway" ''
-          export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-          exec sway
-        ''}";
-          user = "greeter";
-        };
-
-      };
-    };
-
-    keycloak = {
-      enable = false;
-      settings = {
-        http-host = "10.0.1.2";
-        http-port = 8125;
-        proxy = "edge";
-        hostname-strict-backchannel = true;
-        hostname = "id.nyaw.xyz";
-        cache = "local";
-      };
-      database.passwordFile = toString (pkgs.writeText "password" "keycloak");
-    };
-
-    surrealdb = {
-      enable = true;
-      port = 8713;
-    };
 
     postgresqlBackup = {
       enable = true;
