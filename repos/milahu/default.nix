@@ -733,6 +733,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   mpv-downmix-gui = python3.pkgs.callPackage ./pkgs/tools/video/mpv-downmix-gui/mpv-downmix-gui.nix { };
 
+  zenity = callPackage ./pkgs/development/tools/misc/zenity/zenity.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
