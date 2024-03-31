@@ -30,42 +30,6 @@ let
       login -p ${cfg.config.user}
     '';
   };
-  tryLaunchDefaultDesktop = pkgs.writeShellScriptBin "tryLaunchDefaultDesktop" ''
-    # return an array of paths to .desktop files which contain wayland sessions.
-    getWaylandDesktops() {
-      _desktops=()
-      _xdgDirs=(''${XDG_DATA_DIRS//:/ })
-      for _dataDir in ''${_xdgDirs[@]}; do
-        for _maybeDesktop in $_dataDir/wayland-sessions/*.desktop; do
-          # if no matches, bash will give literally "<path>/*.desktop", with the asterisk
-          if [ -e "$_maybeDesktop" ]; then
-            _desktops+=("$_maybeDesktop")
-          fi
-        done
-      done
-      echo "''${_desktops[@]}"
-    }
-
-    # IF there's any desktop files, then launch the first one
-    tryLaunchDefaultDesktop() {
-      _desktops=($(getWaylandDesktops))
-      if [ -n "$_desktops" ]; then
-        _firstDesktop="''${_desktops[0]}"
-        if command -v gio > /dev/null; then
-          _gio="gio"
-        else
-          _gio="${lib.getBin pkgs.glib}/bin/gio"
-        fi
-
-        echo "launching $(basename $_firstDesktop) session in ${builtins.toString cfg.config.delay}s"
-        # if the `sleep` call here is `Ctrl+C'd`, then it'll exit false and the desktop isn't launched.
-        sleep ${builtins.toString cfg.config.delay} && \
-          "$_gio" launch "$_firstDesktop"
-      fi
-    }
-
-    tryLaunchDefaultDesktop
-  '';
 in
 {
   sane.programs.unl0kr = {
@@ -121,6 +85,7 @@ in
 
     fs.".profile".symlink.text = lib.mkMerge [
       (lib.mkBefore ''
+        # setup primarySessionCommands here and let any other nix config populate it later
         primarySessionCommands=()
         initPrimarySession() {
           for c in "''${primarySessionCommands[@]}"; do
@@ -161,11 +126,6 @@ in
 
   # unl0kr is run as root, and especially with sandboxing, needs to be installed for root if expected to work.
   sane.programs.unl0kr.enableFor.system = lib.mkIf (builtins.any (en: en) (builtins.attrValues cfg.enableFor.user)) true;
-
-  environment.pathsToLink = lib.mkIf cfg.enabled [
-    # so we can figure out what to auto-launch
-    "/share/wayland-sessions"
-  ];
 
   systemd = lib.mkIf cfg.enabled {
     # prevent nixos-rebuild from killing us after a redeploy

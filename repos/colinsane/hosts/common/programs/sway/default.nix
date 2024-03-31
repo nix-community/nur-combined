@@ -6,6 +6,10 @@ let
   cfg = config.sane.programs.sway;
   wrapSway = configuredSway: let
     swayLauncher = pkgs.writeShellScriptBin "sway" ''
+      test -e "$(dirname "$SWAYSOCK")" || \
+        echo "warning: required directory not found (create it?): $(dirname "$SWAYSOCK")"
+      test -e "$(dirname "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")" || \
+        echo "warning: required directory not found (create it?): $(dirname "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")"
       # delete DISPLAY-related vars from env before launch, else sway will try to connect to a remote display.
       # (consider: nested sway sessions, where sway actually has a reason to read these)
       exec env -u DISPLAY -u WAYLAND_DISPLAY "DESIRED_WAYLAND_DISPLAY=$WAYLAND_DISPLAY" ${configuredSway}/bin/sway 2>&1
@@ -169,10 +173,10 @@ in
     sandbox.whitelistDri = true;
     sandbox.whitelistX = true;  # sway invokes xwayland itself
     sandbox.whitelistWayland = true;
-    # needs to *create* the sway socket. could move the sway socket into its own directory, and whitelist just that, but doesn't buy me much.
-    sandbox.extraRuntimePaths = [ "/" ];
+    sandbox.extraRuntimePaths = [ "sway" "wayland" ];
     sandbox.extraPaths = [
-      # TODO: sway isn't handling hotplugged mouse/kb. they do show up in its environment: it may be that i need to bind some udev-related path for it to be detected
+      # TODO: sway isn't handling hotplugged mouse/kb. they do show up in its environment: it may be that i need to bind some udev-related path for it to be detected.
+      # whitelisting net fixes the kb hotplug: why?
       "/dev/input"
       "/run/systemd"
       "/run/udev"

@@ -337,7 +337,7 @@ in
         }
         function startS6WithLogging() {
           mkdir -p "${logBase}"  #< needs to exist for parallel s6-log call
-          startS6 2>&1 | tee /dev/stderr | s6-log -- T "${logBase}/catchall"
+          startS6 2>&1 | s6-log -- T "${logBase}/catchall"
         }
 
         primarySessionCommands+=('startS6WithLogging &')
