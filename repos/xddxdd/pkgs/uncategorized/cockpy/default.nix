@@ -18,7 +18,9 @@ let
 
   pythonEnv = python3.withPackages (
     ps: with ps; [
-      betterproto
+      (betterproto.overrideAttrs (old: {
+        doCheck = false;
+      }))
       bottle
       colorama
       cython
