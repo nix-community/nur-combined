@@ -588,8 +588,8 @@
             "url": "https://github.com/fooker/nur-packages"
         },
         "foolnotion": {
-            "rev": "e491bb2b6972dffeb028501dbb424198c1cb7bff",
-            "sha256": "1l3mmh1l1pjqynpdbw0wzsbw7hr01hqi393q467p45mkr583bbq5",
+            "rev": "6ec68aafeeb8a204b3eb2bedaaf178f46995d8ab",
+            "sha256": "12lfd644cmm6pd3j3lkcr1zacpfwdh7yvr990nmwy0w958pcl711",
             "url": "https://github.com/foolnotion/nur-pkg"
         },
         "fortuneteller2k": {
@@ -1007,8 +1007,8 @@
             "url": "https://github.com/Mikilio/nur-packages"
         },
         "milahu": {
-            "rev": "ae0b960eb9972c3b193e6581a46959aab8ff298e",
-            "sha256": "0wd5lskbzx2nv0ki9yqzb4242jaymhplfraw9r0y8ij3kpha67g2",
+            "rev": "3da932b80c47713bedc6aefdaaa7ec1425be4cb2",
+            "sha256": "1g27hsipinw900f5a9f73xj98v1pj08qajabcn289h7ympsayk89",
             "submodules": true,
             "url": "https://github.com/milahu/nur-packages"
         },
