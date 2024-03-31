@@ -171,6 +171,10 @@ fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
 fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"
 
+[hoyo-glyphs-font-ainee]
+src.manual = "1.000"
+fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/font-ainee-1.000/Font-Ainee-1.000.zip"
+
 [hoyo-glyphs-star-rail-neue]
 src.manual = "1.100"
 fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/star-rail-neue-1.100/Star-Rail-Neue-1.100.zip"

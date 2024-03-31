@@ -13,6 +13,7 @@ stdenvNoCC.mkDerivation rec {
     sources.hoyo-glyphs-star-rail-neue.src
     sources.hoyo-glyphs-teyvat-black.src
     sources.hoyo-glyphs-xianzhou-seal.src
+    sources.hoyo-glyphs-font-ainee.src
   ];
 
   sourceRoot = ".";

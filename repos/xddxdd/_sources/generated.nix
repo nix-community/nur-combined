@@ -452,6 +452,14 @@
     };
     date = "2024-03-27";
   };
+  hoyo-glyphs-font-ainee = {
+    pname = "hoyo-glyphs-font-ainee";
+    version = "1.000";
+    src = fetchurl {
+      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/font-ainee-1.000/Font-Ainee-1.000.zip";
+      sha256 = "sha256-sgXvUveqzmDonB5+Q5zJEXYPg8cMimK+shwaWSVFkII=";
+    };
+  };
   hoyo-glyphs-star-rail-neue = {
     pname = "hoyo-glyphs-star-rail-neue";
     version = "1.100";

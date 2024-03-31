@@ -770,6 +770,21 @@
         },
         "version": "1c02c254ef501918e684d6ef003a93d3e5e5abb7"
     },
+    "hoyo-glyphs-font-ainee": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hoyo-glyphs-font-ainee",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-sgXvUveqzmDonB5+Q5zJEXYPg8cMimK+shwaWSVFkII=",
+            "type": "url",
+            "url": "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/font-ainee-1.000/Font-Ainee-1.000.zip"
+        },
+        "version": "1.000"
+    },
     "hoyo-glyphs-star-rail-neue": {
         "cargoLocks": null,
         "date": null,
