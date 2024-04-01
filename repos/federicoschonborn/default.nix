@@ -7,4 +7,5 @@
 #     nix-build -A mypackage
 {
   pkgs ? import <nixpkgs> { },
-}: import ./packages { inherit pkgs; }
+}:
+import ./packages { inherit pkgs; }
