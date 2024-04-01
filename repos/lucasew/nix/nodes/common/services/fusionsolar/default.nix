@@ -61,7 +61,7 @@ in
         Group = cfg.group;
       };
       script = ''
-        exec ${lib.getExe pkgs.xvfb-run} ${python.interpreter} ${./payload.py}
+        exec ${lib.getExe pkgs.xvfb-run} --server-args="-screen 0, 1024x768x24"  ${python.interpreter} ${./payload.py}
       '';
     };
   };

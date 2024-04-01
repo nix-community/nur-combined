@@ -55,24 +55,30 @@ driver.execute_cdp_cmd('Storage.clearDataForOrigin', {
 
 print('[*] Login', file=stderr)
 driver.get("https://intl.fusionsolar.huawei.com/pvmswebsite/login/build/index.html#/LOGIN")
-driver.find_element(By.CSS_SELECTOR, "div#username > input").send_keys(args.user)
-password_input = driver.find_element(By.CSS_SELECTOR, "div#password > input")
+time.sleep(10)
+driver.find_element(By.CSS_SELECTOR, "div#username input").send_keys(args.user)
+password_input = driver.find_element(By.CSS_SELECTOR, "div#password input")
 password_input.send_keys(args.password)
 password_input.send_keys(Keys.ENTER)
 time.sleep(10)
+
+cooke_close_buttons = driver.find_elements(By.CSS_SELECTOR, "i.cookiePolicy-icon")
+for cooke_close_button in cooke_close_buttons:
+    print('[*] Fechando diálogo de cookie ocupando espaço', file=stderr)
+    cooke_close_button.click()
 
 shitty_modal_candidates = driver.find_elements(By.CSS_SELECTOR, "div.dpdesign-modal.nco-privacy-confirm-modal")
 if len(shitty_modal_candidates) > 0:
     print('[*] Encontrada porcaria de modal para autorização de espionagem', file=stderr)
     shitty_modal = shitty_modal_candidates[0]
-    shitty_checkbox = shitty_modal.find_element(By.CSS_SELECTOR, "div.dpdesign-modal.nco-privacy-confirm-modal input.dpdesign-checkbox-input")
+    shitty_checkbox = shitty_modal.find_element(By.CSS_SELECTOR, "input")
     if shitty_checkbox.is_selected:
         shitty_checkbox.click()
-    shitty_button = shitty_modal.find_element(By.CSS_SELECTOR, "button.dpdesign-btn.dpdesign-btn-primary.dpdesign-btn.dpdesign-btn-primary")
+    shitty_button = shitty_modal.find_element(By.CSS_SELECTOR, "button")
     time.sleep(1)
+
     shitty_button.click()
     time.sleep(10)
-# time.sleep(999999)
 
 stations_data = []
 remaining_trys = 5
