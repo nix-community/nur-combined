@@ -18,7 +18,9 @@
 
   autodiff = pkgs.callPackage ./pkgs/autodiff { };
 
-  berserk = pkgs.callPackage ./pkgs/berserk { };
+  berserk = pkgs.callPackage ./pkgs/berserk {
+    stdenv = pkgs.llvmPackages_latest.stdenv;
+  };
 
   boost-hana = pkgs.callPackage ./pkgs/boost-hana { };
 
