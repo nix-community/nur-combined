@@ -2,29 +2,29 @@
 # vim: set ft=nix ts=2 sw=2 sts=2 et sta
 {
 system ? builtins.currentSystem
-, pkgs
 , lib
 , fetchurl
 , installShellFiles
+, stdenvNoCC
 }:
 let
   shaMap = {
-    x86_64-linux = "1w1wiz2vk6nrrbz5z6wwgm38whk4cq6wsbp38h3ayaw53qgf338q";
-    aarch64-linux = "02bfyh4xpb6xn036qznvndscd0b6wxpdmc7kh4nfz6lmdbj2zzm1";
-    x86_64-darwin = "0nl6g4ffzp9aldsr3pynda6ig4nca372qr8ds73g2s4nw5v95afq";
-    aarch64-darwin = "0grzpghp82kc2w8mnxvab7amc4822wwqgz384lxagx2hcd4bkwrq";
+    x86_64-linux = "1v5r2df13fg3cq0h4chpi5gps8gbp1kxlnsy48r62wfv6x2w6wrn";
+    aarch64-linux = "0jvsf23cddvjq41k9rki4z09ma4k7plqc4qg8wh86ni6v12zxq93";
+    x86_64-darwin = "0va3py3s603blmi0259p3hg6kmc0di8r600id5iwr0llp9c8lj62";
+    aarch64-darwin = "03iwy3dl3krc091mql4qbqjkh4ggsyz5c8cjqk84sjn2qppn87zj";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.35.3/nfpm_2.35.3_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.35.3/nfpm_2.35.3_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.35.3/nfpm_2.35.3_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.35.3/nfpm_2.35.3_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.36.0/nfpm_2.36.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.36.0/nfpm_2.36.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.36.0/nfpm_2.36.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.36.0/nfpm_2.36.0_Darwin_arm64.tar.gz";
   };
 in
-pkgs.stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "nfpm";
-  version = "2.35.3";
+  version = "2.36.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
