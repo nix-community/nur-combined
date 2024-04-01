@@ -214,28 +214,6 @@
         platforms = platforms.all;
       };
     };
-    "angular-devtools" = buildFirefoxXpiAddon {
-      pname = "angular-devtools";
-      version = "1.0.11";
-      addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4242281/angular_devtools-1.0.11.xpi";
-      sha256 = "b2f2f2c5e68aa6069e7b08e2fcd80329b709bbb80a34990689946dd1224aebdb";
-      meta = with lib;
-      {
-        homepage = "https://angular.io/devtools";
-        description = "Angular DevTools extends Firefox DevTools adding Angular specific debugging and profiling capabilities.";
-        license = licenses.mit;
-        mozPermissions = [
-          "activeTab"
-          "http://*/*"
-          "https://*/*"
-          "file:///*"
-          "devtools"
-          "<all_urls>"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "annotations-restored" = buildFirefoxXpiAddon {
       pname = "annotations-restored";
       version = "1.2";
@@ -1003,10 +981,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.5.1";
+      version = "7.6.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228770/castkodi-7.5.1.xpi";
-      sha256 = "c182e1895a4c3b00874117c50c225f86ea4c7a108e22df05e3b1166ae402f43e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257898/castkodi-7.6.0.xpi";
+      sha256 = "9e52a8b8b2980a91b4fbbdd5e8bd1a7f8dbe13eb5593f1e30e60e0cbd50e38ef";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -8657,10 +8635,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.3.20";
+      version = "24.4.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4252355/refined_github-24.3.20.xpi";
-      sha256 = "ad3cc2317f57e5e6bd3101714a6dc6369f878cc619814e6628781ad34dd29716";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258070/refined_github-24.4.1.xpi";
+      sha256 = "d12f8f307954ac6b0ad28612442b47bca1c340089bcf6cf15088b8490a4d730e";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
