@@ -1,4 +1,4 @@
-{ pkgs } :
+{ pkgs }:
 pkgs.buildGoModule rec {
   pname = "realm-cli";
   version = "1.2.0";
@@ -10,7 +10,7 @@ pkgs.buildGoModule rec {
     sha256 = "05q3adzbvb8j39rpj2rac6k4sxajkbmmhfnwmxrnwq6mmk2vzw8x";
   };
 
-  vendorSha256 = "18vvib3wa6ssiazir8fiagpzamnd4famyh99yhfc2bi2jz9h4h06"; 
+  vendorHash = "sha256-BkAC05ciLsEc9ClBX5UjzVb171PRoRy/ilobxceKe6M=";
   #some tests fails, because i dont build the node-transpiler shit
   #so skip tests
   checkPhase = ''
