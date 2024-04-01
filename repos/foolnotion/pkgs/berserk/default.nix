@@ -1,13 +1,13 @@
 { lib, stdenv, fetchurl, fetchFromGitHub }:
 
 let
-  version = "12.1";
-  nnueFile = "berserk-fb675dad41b4.nn";
-  nnueVersion = "12";
+  version = "13";
+  nnueFile = "berserk-d43206fe90e4.nn";
+  nnueVersion = "13";
   nnue = fetchurl {
     name = nnueFile;
     url = "https://github.com/jhonnold/berserk/releases/download/${nnueVersion}/${nnueFile}";
-    hash = "sha256-+2ddrUG0X3KgMDefECJBJwSmhVT3A8y0B0dAQ2QLr8c=";
+    hash = "sha256-1DIG/pDk1HFoFMfnnifwBgsN+DlTnshA7uWk74oxM90=";
   };
 in stdenv.mkDerivation rec {
   pname = "berserk";
@@ -17,23 +17,23 @@ in stdenv.mkDerivation rec {
     owner = "jhonnold";
     repo = "berserk";
     rev = "refs/tags/${version}";
-    hash = "sha256-jiYbR5XzNPzLjqO1DWRNsFwxNqhIVOpshguJHugqD3I=";
+    hash = "sha256-5X58u9RyBmm7l6nft3hTIajwNKVWrlPFO7IMtSdcbPM=";
   };
 
   preConfigure = ''
     cd src
     substituteInPlace makefile --replace-fail native x86-64-v3
-    substituteInPlace makefile --replace-fail ": clone-networks" ":"
-    cp ${nnue} networks/${nnueFile}
+    substituteInPlace makefile --replace-fail ": download-network" ":"
+    cp ${nnue} ${nnueFile}
   '';
 
   installPhase = ''
     mkdir -p $out/bin
     install berserk $out/bin/
-    install networks/${nnueFile} $out/bin/
+    install ${nnueFile} $out/bin/
   '';
 
-  makeFlags = [ "VERSION=${version}" "PREFIX=$(out)"];
+  makeFlags = [ "VERBOSE=1" "VERSION=${version}" "PREFIX=$(out)" ];
   enableParallelBuilding = true;
 
   meta = with lib; {
