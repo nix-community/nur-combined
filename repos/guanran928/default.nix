@@ -13,7 +13,6 @@
 
   fcitx5-tokyonight = pkgs.callPackage ./pkgs/fcitx5-tokyonight {};
   metacubexd = pkgs.callPackage ./pkgs/metacubexd {};
-  mpvScripts.modernx = pkgs.callPackage ./pkgs/mpvScripts/modernx {inherit (pkgs.mpvScripts) buildLua;};
   picom-ft-labs = pkgs.callPackage ./pkgs/picom-ft-labs {};
   telegram-swift-bin = pkgs.callPackage ./pkgs/telegram-swift-bin {};
   v2ray-rules-dat = pkgs.callPackage ./pkgs/v2ray-rules-dat {};
