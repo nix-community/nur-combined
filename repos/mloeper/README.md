@@ -40,3 +40,5 @@ To be pragmatic here, I just use a git subtree to include my upstream packages a
 The moment a proper solution emerges, I will replace this workaround. If you know a better solution, feel free to post me on [LinkedIn](https://www.linkedin.com/in/martinloeper).
 
 `git subtree add --prefix pkgs/s3-browser-cli https://github.com/nesto-software/s3-browser-cli.git main --squash`
+
+To update the subtree, run: `git subtree pull --prefix pkgs/s3-browser-cli https://github.com/nesto-software/s3-browser-cli.git main --squash`

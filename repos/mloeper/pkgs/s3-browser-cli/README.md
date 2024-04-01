@@ -25,9 +25,16 @@ Our research considered the following similar tools:
 
 `nix profile install github:nesto-software/s3-browser-cli`
 
+Builds are cached on *nesto* cachix with the following pubkey:   
+`nesto.cachix.org-1:lIoJWOEaqqvUmcSzncCwRntE9HP7NopO1Q5HdtN7Jr8=`
+
+Package is also distributed on [NUR](https://nur.nix-community.org/repos/mloeper/).
+
 ## Synopsis
 
 `s3select [options]`
+
+Note: You must be logged-in to an AWS account on the CLI. That is, the AWS-SDK built into this tool must be able to locate credentials either via config file or env vars.
 
 ### Options
 

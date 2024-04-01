@@ -41,7 +41,7 @@ stdenv.mkDerivation
   meta = with lib;
     {
       homepage = "https://github.com/nesto-software/s3-browser-cli";
-      description = "Nesto Jira Connector";
+      description = "A cli tool to select s3 keys interactively";
 
       license = licenses.mit;
       platforms = platforms.all;
