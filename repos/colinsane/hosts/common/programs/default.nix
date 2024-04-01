@@ -21,6 +21,7 @@
     ./chatty.nix
     ./conky
     ./cozy.nix
+    ./curlftpfs.nix
     ./dconf.nix
     ./deadd-notification-center
     ./dialect.nix

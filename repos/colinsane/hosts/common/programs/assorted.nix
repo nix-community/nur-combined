@@ -821,6 +821,8 @@ in
 
     sqlite = {};
 
+    sshfs-fuse = {};  # used by fs.nix
+
     strace.sandbox.enable = false;  #< needs to `exec` its args, and therefore support *anything*
 
     subversion.sandbox.method = "bwrap";

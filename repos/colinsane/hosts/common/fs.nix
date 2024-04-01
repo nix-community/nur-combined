@@ -2,34 +2,9 @@
 # - x-systemd options: <https://www.freedesktop.org/software/systemd/man/systemd.mount.html>
 # - fuse options: `man mount.fuse`
 
-{ lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, sane-lib, utils, ... }:
 
 let
-  curlftpfs = pkgs.curlftpfs.overrideAttrs (upstream: {
-    # apply a timeout not just to the connect operation, but to every operation.
-    # without this, operations will hang for 2*<TCP timeout>, e.g. 4m20s.
-    # better would be to use CURLOPT_LOW_SPEED_TIME/CURLOPT_LOW_SPEED_LIMIT,
-    # but those options don't seem to apply.
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace ftpfs.c --replace-fail \
-        'curl_easy_setopt_or_die(easy, CURLOPT_CONNECTTIMEOUT, ftpfs.connect_timeout);' \
-        'curl_easy_setopt_or_die(easy, CURLOPT_CONNECTTIMEOUT, ftpfs.connect_timeout); curl_easy_setopt_or_die(easy, CURLOPT_TIMEOUT, ftpfs.connect_timeout);'
-    ''
-    # fuse mount programs need to ignore certain "meta" keys that could be in /etc/fstab.
-    # see: <https://github.com/libfuse/sshfs/issues/96>
-    + ''
-      substituteInPlace ftpfs.c --replace-fail \
-        'FUSE_OPT_END' \
-        '/* These may come in from /etc/fstab - we just ignore them */ FUSE_OPT_KEY("auto", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("noauto", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("user", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("nouser", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("users", FUSE_OPT_KEY_DISCARD), FUSE_OPT_KEY("_netdev", FUSE_OPT_KEY_DISCARD), FUSE_OPT_END'
-    '';
-    # `mount` clears PATH before calling the mount helper (see util-linux/lib/env.c),
-    # so the traditional /etc/fstab approach of fstype=fuse and device = curlftpfs#URI doesn't work.
-    # instead, install a `mount.curlftpfs` mount helper. this is what programs like `gocryptfs` do.
-    postInstall = (upstream.postInstall or "") + ''
-      ln -s curlftpfs $out/bin/mount.fuse.curlftpfs
-      ln -s curlftpfs $out/bin/mount.curlftpfs
-    '';
-  });
   fsOpts = rec {
     common = [
       "_netdev"
@@ -136,6 +111,7 @@ let
     ];
   };
   remoteHome = host: {
+    sane.programs.sshfs-fuse.enableFor.system = true;
     fileSystems."/mnt/${host}/home" = {
       device = "colin@${host}:/home/colin";
       fsType = "fuse.sshfs";
@@ -146,6 +122,54 @@ let
       dir.acl.user = "colin";
       dir.acl.group = "users";
       dir.acl.mode = "0700";
+    };
+  };
+  remoteServo = subdir: {
+    sane.programs.curlftpfs.enableFor.system = true;
+    sane.fs."/mnt/servo/${subdir}" = sane-lib.fs.wanted {
+      dir.acl.user = "colin";
+      dir.acl.group = "users";
+      dir.acl.mode = "0750";
+    };
+    fileSystems."/mnt/servo/${subdir}" = {
+      device = "ftp://servo-hn:/${subdir}";
+      noCheck = true;
+      fsType = "fuse.curlftpfs";
+      options = fsOpts.ftp ++ fsOpts.noauto ++ fsOpts.wg;
+      # fsType = "nfs";
+      # options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
+    };
+    systemd.services."automount-servo-${utils.escapeSystemdPath subdir}" = let
+      fs = config.fileSystems."/mnt/servo/${subdir}";
+    in {
+      # this is a *flaky* network mount, especially on moby.
+      # if done as a normal autofs mount, access will eternally block when network is dropped.
+      # notably, this would block *any* sandboxed app which allows media access, whether they actually try to use that media or not.
+      # a practical solution is this: mount as a service -- instead of autofs -- and unmount on timeout error, in a restart loop.
+      # until the ftp handshake succeeds, nothing is actually mounted to the vfs, so this doesn't slow down any I/O when network is down.
+      description = "automount /mnt/servo/${subdir} in a fault-tolerant and non-blocking manner";
+      after = [ "network-online.target" ];
+      requires = [ "network-online.target" ];
+      wantedBy = [ "default.target" ];
+
+      serviceConfig.Type = "simple";
+      serviceConfig.ExecStart = lib.escapeShellArgs [
+        "/usr/bin/env"
+        "PATH=/run/current-system/sw/bin"
+        "mount.${fs.fsType}"
+        "-f"  # foreground (i.e. don't daemonize)
+        "-s"  # single-threaded (TODO: it's probably ok to disable this?)
+        "-o"
+        (lib.concatStringsSep "," (lib.filter (o: !lib.hasPrefix "x-systemd." o) fs.options))
+        fs.device
+        "/mnt/servo/${subdir}"
+      ];
+      # not sure if this configures a linear, or exponential backoff.
+      # but the first restart will be after `RestartSec`, and the n'th restart (n = RestartSteps) will be RestartMaxDelaySec after the n-1'th exit.
+      serviceConfig.Restart = "always";
+      serviceConfig.RestartSec = "10s";
+      serviceConfig.RestartMaxDelaySec = "120s";
+      serviceConfig.RestartSteps = "5";
     };
   };
 in
@@ -182,41 +206,6 @@ lib.mkMerge [
     # but it decreases working memory under the heaviest of loads by however much space the compressed memory occupies (e.g. 50% if 2:1; 25% if 4:1)
     zramSwap.memoryPercent = 100;
 
-    # fileSystems."/mnt/servo/media" = {
-    #   device = "servo-hn:/media";
-    #   noCheck = true;
-    #   fsType = "nfs";
-    #   options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
-    # };
-    # fileSystems."/mnt/servo/playground" = {
-    #   device = "servo-hn:/playground";
-    #   noCheck = true;
-    #   fsType = "nfs";
-    #   options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
-    # };
-    fileSystems."/mnt/servo/media" = {
-      device = "servo-hn:/media";
-      noCheck = true;
-      fsType = "fuse.curlftpfs";
-      options = fsOpts.ftp ++ fsOpts.lazyMount ++ fsOpts.wg;
-    };
-    fileSystems."/mnt/servo/playground" = {
-      device = "servo-hn:/playground";
-      noCheck = true;
-      fsType = "fuse.curlftpfs";
-      options = fsOpts.ftp ++ fsOpts.lazyMount ++ fsOpts.wg;
-    };
-    sane.fs."/mnt/servo/media" = sane-lib.fs.wanted {
-      dir.acl.user = "colin";
-      dir.acl.group = "users";
-      dir.acl.mode = "0750";
-    };
-    sane.fs."/mnt/servo/playground" = sane-lib.fs.wanted {
-      dir.acl.user = "colin";
-      dir.acl.group = "users";
-      dir.acl.mode = "0750";
-    };
-
     # environment.pathsToLink = [
     #   # needed to achieve superuser access for user-mounted filesystems (see sshRoot above)
     #   # we can only link whole directories here, even though we're only interested in pkgs.openssh
@@ -224,14 +213,23 @@ lib.mkMerge [
     # ];
 
     programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
-    environment.systemPackages = [
-      pkgs.sshfs-fuse
-      curlftpfs
-    ];
   }
 
   (remoteHome "desko")
   (remoteHome "lappy")
   (remoteHome "moby")
+  # this granularity of servo media mounts is necessary to support sandboxing:
+  # for flaky mounts, we can only bind the mountpoint itself into the sandbox,
+  # so it's either this or unconditionally bind all of media/.
+  (remoteServo "media/archive")
+  (remoteServo "media/Books")
+  (remoteServo "media/collections")
+  # (remoteServo "media/datasets")
+  (remoteServo "media/freeleech")
+  (remoteServo "media/games")
+  (remoteServo "media/Music")
+  (remoteServo "media/Pictures/macros")
+  (remoteServo "media/Videos")
+  (remoteServo "playground")
 ]
 
