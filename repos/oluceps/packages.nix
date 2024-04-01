@@ -15,6 +15,7 @@ let
 
     cmd = [
 
+      direnv
       btop
       atuin
       minio-client

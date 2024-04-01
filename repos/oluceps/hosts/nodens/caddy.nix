@@ -293,14 +293,15 @@
                   handle = [{
                     handler = "subroute";
                     routes = [{
-                      handle = [{
-                        handler = "headers";
-                        response = {
-                          set = {
-                            Content-Type = [ "application/json" ];
+                      handle = [
+                        {
+                          handler = "headers";
+                          response = {
+                            set = {
+                              Content-Type = [ "application/json" ];
+                            };
                           };
-                        };
-                      }
+                        }
                         {
                           handler = "headers";
                           response = {
@@ -308,7 +309,8 @@
                               Access-Control-Allow-Origin = [ "*" ];
                             };
                           };
-                        }];
+                        }
+                      ];
                       match = [{
                         path = [ "/.well-known/matrix/*" ];
                       }];

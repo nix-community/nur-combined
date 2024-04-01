@@ -19,6 +19,7 @@ router
         method: "POST",
         headers: {
           "prio": "high",
+          "Authorization": "Bearer tk_1de9fawbsx54apyefl6w9am8h92jg"
         },
         body: msg,
       });

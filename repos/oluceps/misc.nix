@@ -56,7 +56,6 @@
         "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
-        "dev:q113qnHgjtHEiiaU/eFcT0mIQZg9cbu9nPYja6ojhqI="
       ];
       substituters = (map (n: "https://${n}.cachix.org")
         [ "nix-community" "nur-pkgs" "hyprland" "helix" "nixpkgs-wayland" "anyrun" "ezkea" "devenv" "colmena" ])
@@ -64,7 +63,6 @@
       [
         "https://cache.nixos.org"
         "https://cache.ngi0.nixos.org"
-        "https://attic.nyaw.xyz/dev"
         # "https://mirror.sjtu.edu.cn/nix-channels/store"
       ];
       auto-optimise-store = true;

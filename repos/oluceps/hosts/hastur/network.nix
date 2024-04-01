@@ -7,6 +7,7 @@
     # useHostResolvConf = true;
     hosts = {
       "127.0.0.1" = [ "attic.nyaw.xyz" "api.s3.nyaw.xyz" ];
+      "10.0.1.1" = [ "nodens.nyaw.xyz" ];
     };
 
     hostName = "hastur"; # Define your hostname.
@@ -81,7 +82,7 @@
           {
             wireguardPeerConfig = {
               PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-              AllowedIPs = [ "10.0.1.1/32" ];
+              AllowedIPs = [ "10.0.1.0/24" ];
               Endpoint = "127.0.0.1:41820";
               PersistentKeepalive = 15;
             };
@@ -90,7 +91,7 @@
           {
             wireguardPeerConfig = {
               PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.1.9/32" "10.0.0.0/24" ];
+              AllowedIPs = [ "10.0.1.9/32" "10.0.1.0/24" ];
               Endpoint = "127.0.0.1:41821";
               PersistentKeepalive = 15;
             };

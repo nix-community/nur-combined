@@ -17,19 +17,12 @@
     options = "--delete-older-than 10d";
   };
 
-  programs = {
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      silent = true;
-    };
-  };
   systemd = {
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-      restic-backups-persist.serviceConfig.Environment = [ "GOGC=20" ];
-      btrfs-scrub-persist.serviceConfig.ExecStopPost =
-        lib.genNtfyMsgScriptPath "tags red_circle prio high" "error" "btrfs scrub failed on hastur";
+      restic-backups-solid.serviceConfig.Environment = [ "GOGC=20" ];
+      # btrfs-scrub-persist.serviceConfig.ExecStopPost =
+      #   lib.genNtfyMsgScriptPath "tags red_circle prio high" "error" "btrfs scrub failed on hastur";
     };
 
     # systemd.services.tester = {
@@ -92,15 +85,13 @@
   networking.firewall.allowedTCPPorts =
     [ 9000 9001 6622 ] ++ [ config.services.photoprism.port ];
 
-  xdg.portal.wlr.enable = true;
-  xdg.portal.enable = true;
-
-  programs.dconf.enable = true;
+  systemd.services.prometheus.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
+    "prom"
+  ];
 
   services = (
     let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs lib user; }; in lib.genAttrs [
       "openssh"
-      # "mosproxy"
       "fail2ban"
       "dae"
       "scrutiny"
@@ -110,16 +101,11 @@
       "postgresql"
       "photoprism"
       "mysql"
-      # "prometheus"
+      "prometheus"
     ]
       (n: importService n)
   ) // {
-    prometheus.exporters.node = {
-      enable = true;
-      listenAddress = "0.0.0.0";
-      enabledCollectors = [ "systemd" ];
-      disabledCollectors = [ "arp" ];
-    };
+    metrics.enable = true;
     fwupd.enable = true;
 
     prom-ntfy-bridge.enable = true;
@@ -196,14 +182,16 @@
       }
     ];
 
-    hysteria.instances = [{
-      name = "nodens";
-      configFile = config.age.secrets.hyst-us-cli.path;
-    }
+    hysteria.instances = [
       {
-        name = "colour";
-        configFile = config.age.secrets.hyst-az-cli.path;
-      }];
+        name = "nodens";
+        configFile = config.age.secrets.hyst-us-cli.path;
+      }
+      # {
+      #   name = "colour";
+      #   configFile = config.age.secrets.hyst-az-cli.path;
+      # }
+    ];
 
     shadowsocks.instances = [
       {
@@ -222,7 +210,7 @@
       enable = true;
       location = "/var/lib/backup/postgresql";
       compression = "zstd";
-      startAt = "weekly";
+      startAt = "*-*-* 04:00:00";
     };
 
     pipewire = {

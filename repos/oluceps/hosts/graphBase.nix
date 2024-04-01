@@ -5,8 +5,35 @@
       enable = true;
       inherit ((import ../home/graphBase.nix { inherit config pkgs lib inputs user; }).xdg.mimeApps) defaultApplications;
     };
+    portal.wlr.enable = true;
+    portal.enable = true;
   };
+  programs = {
+    dconf.enable = true;
+    anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
+    # niri.enable = true;
+    sway.enable = true;
+    wireshark = { enable = true; package = pkgs.wireshark; };
+    kdeconnect.enable = true;
+    adb.enable = true;
+    command-not-found.enable = false;
+    steam = {
+      enable = true;
+      package = pkgs.steam.override {
+        extraPkgs = pkgs: [ pkgs.maple-mono-SC-NF ];
+      };
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
 
+    gnupg = {
+      agent = {
+        enable = false;
+        pinentryPackage = pkgs.pinentry-curses;
+        enableSSHSupport = true;
+      };
+    };
+  };
   environment.systemPackages =
     lib.flatten (lib.attrValues
       (with pkgs;{
@@ -157,31 +184,6 @@
     enable = true;
     platformTheme = "gnome";
     style = "adwaita";
-  };
-  programs = {
-    anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
-    niri.enable = true;
-    sway.enable = true;
-    wireshark = { enable = true; package = pkgs.wireshark; };
-    kdeconnect.enable = true;
-    adb.enable = true;
-    command-not-found.enable = false;
-    steam = {
-      enable = true;
-      package = pkgs.steam.override {
-        extraPkgs = pkgs: [ pkgs.maple-mono-SC-NF ];
-      };
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    };
-
-    gnupg = {
-      agent = {
-        enable = false;
-        pinentryPackage = pkgs.pinentry-curses;
-        enableSSHSupport = true;
-      };
-    };
   };
   security = {
     pam.services.swaylock = { };

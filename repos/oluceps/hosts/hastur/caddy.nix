@@ -51,7 +51,7 @@
               ];
               tls_connection_policies = [
                 {
-                  match = { sni = [ "attic.nyaw.xyz" ]; };
+                  match = { sni = [ "attic.nyaw.xyz" "hastur.nyaw.xyz" ]; };
                   certificate_selection = { any_tag = [ "cert0" ]; };
                 }
                 {

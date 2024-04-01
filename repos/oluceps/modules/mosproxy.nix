@@ -26,6 +26,8 @@ in
       after = [ "network.target" ]
         ++ lib.optional (cfg.redisPort != null) "redis-mosproxy.service";
       wantedBy = [ "multi-user.target" ];
+      wants = [ "nss-lookup.target" ];
+      before = [ "nss-lookup.target" ];
       restartTriggers = [ configFile ];
       serviceConfig = {
         Restart = "on-failure";

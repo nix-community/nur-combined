@@ -10,13 +10,13 @@ in
   config = lib.mkIf cfg.enable {
     services.prometheus.exporters.node = {
       enable = true;
-      listenAddress = "127.0.0.1";
+      listenAddress = "0.0.0.0";
       enabledCollectors = [ "systemd" ];
       disabledCollectors = [ "arp" ];
     };
     services.prometheus.exporters.blackbox = {
       enable = true;
-      listenAddress = "127.0.0.1";
+      listenAddress = "0.0.0.0";
       configFile = (pkgs.formats.yaml { }).generate "config.yml" {
         modules = {
           http_2xx = {

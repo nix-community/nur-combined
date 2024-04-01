@@ -37,7 +37,7 @@
       metrics.enable = true;
       trojan-server.enable = true;
       do-agent.enable = true;
-      copilot-gpt4.enable = true;
+      # copilot-gpt4.enable = true;
       factorio-manager = {
         enable = true;
         factorioPackage = pkgs.factorio-headless-experimental;
@@ -53,7 +53,7 @@
         settings = {
           listen-http = ":2586";
           behind-proxy = true;
-          auth-default-access = "read-write";
+          auth-default-access = "deny-all";
           base-url = "http://ntfy.nyaw.xyz";
         };
       };
