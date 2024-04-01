@@ -6,7 +6,7 @@ let
   cfg = config.services.inadyn;
 
   # check if a value of an attrset is not null or an empty collection
-  nonEmptyValue = _: v: ! isNull v && v != [ ] && v != { };
+  nonEmptyValue = _: v: v != null && v != [ ] && v != { };
 
   renderOption = k: v:
     if builtins.elem k [ "provider" "custom" ] then
@@ -80,10 +80,44 @@ in
       enable = mkEnableOption (mdDoc ''
         synchronise your machine's IP address with a dynamic DNS provider using inadyn
       '');
+      user = mkOption {
+        default = "inadyn";
+        type = types.str;
+        description = lib.mdDoc ''
+          User account under which inadyn runs.
+
+          ::: {.note}
+          If left as the default value this user will automatically be created
+          on system activation, otherwise you are responsible for
+          ensuring the user exists before the inadyn service starts.
+          :::
+        '';
+      };
+      group = mkOption {
+        default = "inadyn";
+        type = types.str;
+        description = lib.mdDoc ''
+          Group account under which inadyn runs.
+
+          ::: {.note}
+          If left as the default value this user will automatically be created
+          on system activation, otherwise you are responsible for
+          ensuring the user exists before the inadyn service starts.
+          :::
+        '';
+      };
       interval = mkOption {
         default = "*-*-* *:*:00";
-        description = mdDoc "How often to check the current IP.";
+        description = mdDoc ''
+          How often to check the current IP.
+          Uses the format described in {manpage}`systemd.time(7)`";
+        '';
         type = str;
+      };
+      logLevel = lib.mkOption {
+        type = lib.types.enum [ "none" "err" "warning" "info" "notice" "debug" ];
+        default = "notice";
+        description = lib.mdDoc "Set inadyn's log level.";
       };
       settings = mkOption {
         default = { };
@@ -168,15 +202,16 @@ in
         startAt = cfg.interval;
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = ''${pkgs.inadyn}/bin/inadyn -f ''${CREDENTIALS_DIRECTORY}/config --cache-dir /var/cache/inadyn -1 --foreground -l debug'';
+          ExecStart = ''${lib.getExe pkgs.inadyn} -f ${configFile} --cache-dir ''${CACHE_DIRECTORY}/inadyn -1 --foreground -l ${cfg.logLevel}'';
           LoadCredential = "config:${configFile}";
           CacheDirectory = "inadyn";
 
-          DynamicUser = true;
+          User = cfg.user;
+          Group = cfg.group;
           UMask = "0177";
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
-          RestrictAddressFamilies = "AF_INET AF_INET6";
+          RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
           NoNewPrivileges = true;
           PrivateDevices = true;
           PrivateTmp = true;
@@ -201,6 +236,15 @@ in
       };
 
       timers.inadyn.timerConfig.Persistent = true;
+    };
+
+    users.users.inadyn = mkIf (cfg.user == "inadyn") {
+      group = cfg.group;
+      isSystemUser = true;
+    };
+
+    users.groups = mkIf (cfg.group == "inadyn") {
+      inadyn = { };
     };
   };
 }
