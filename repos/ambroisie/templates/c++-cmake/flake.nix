@@ -52,7 +52,7 @@
 
             meta = with lib; {
               description = "A C++ project";
-              homepage = "https://gitea.belanyi.fr/ambroisie/project";
+              homepage = "https://git.belanyi.fr/ambroisie/project";
               license = licenses.mit;
               maintainers = with maintainers; [ ambroisie ];
               platforms = platforms.unix;

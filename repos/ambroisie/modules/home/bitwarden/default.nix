@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.my.home.bitwarden;
 in
@@ -6,12 +6,7 @@ in
   options.my.home.bitwarden = with lib; {
     enable = my.mkDisableOption "bitwarden configuration";
 
-    pinentry = mkOption {
-      type = types.str;
-      default = "tty";
-      example = "gtk2";
-      description = "Which pinentry interface to use";
-    };
+    pinentry = mkPackageOption pkgs "pinentry" { default = [ "pinentry-tty" ]; };
   };
 
   config = lib.mkIf cfg.enable {

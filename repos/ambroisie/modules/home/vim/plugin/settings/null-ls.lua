@@ -28,38 +28,16 @@ null_ls.register({
     }),
 })
 
--- Haskell
-null_ls.register({
-    null_ls.builtins.formatting.brittany.with({
-        -- Only used if available
-        condition = utils.is_executable_condition("brittany"),
-    }),
-})
-
 -- Nix
 null_ls.register({
     null_ls.builtins.formatting.nixpkgs_fmt.with({
-        -- Only used if available, but prefer rnix if available
-        condition = function()
-            return utils.is_executable("nixpkgs-fmt")
-                and not utils.is_executable("rnix-lsp")
-                and not utils.is_executable("nil")
-        end,
+        -- Only used if available
+        condition = utils.is_executable_condition("nixpkgs-fmt"),
     }),
 })
 
 -- Python
 null_ls.register({
-    null_ls.builtins.diagnostics.flake8.with({
-        -- Only used if available, but prefer pflake8 if available
-        condition = function()
-            return utils.is_executable("flake8") and not utils.is_executable("pflake8")
-        end,
-    }),
-    null_ls.builtins.diagnostics.pyproject_flake8.with({
-        -- Only used if available
-        condition = utils.is_executable_condition("pflake8"),
-    }),
     null_ls.builtins.diagnostics.mypy.with({
         -- Only used if available
         condition = utils.is_executable_condition("mypy"),
@@ -81,22 +59,6 @@ null_ls.register({
 
 -- Shell (non-POSIX)
 null_ls.register({
-    null_ls.builtins.code_actions.shellcheck.with({
-        -- Restrict to bash and zsh
-        filetypes = { "bash", "zsh" },
-        -- Only used if available
-        condition = utils.is_executable_condition("shellcheck"),
-    }),
-    null_ls.builtins.diagnostics.shellcheck.with({
-        -- Show error code in message
-        diagnostics_format = "[#{c}] #{m}",
-        -- Require explicit empty string test, use bash dialect
-        extra_args = { "-s", "bash", "-o", "avoid-nullary-conditions" },
-        -- Restrict to bash and zsh
-        filetypes = { "bash", "zsh" },
-        -- Only used if available
-        condition = utils.is_executable_condition("shellcheck"),
-    }),
     null_ls.builtins.formatting.shfmt.with({
         -- Indent with 4 spaces, simplify the code, indent switch cases,
         -- add space after redirection, use bash dialect
@@ -110,22 +72,6 @@ null_ls.register({
 
 -- Shell (POSIX)
 null_ls.register({
-    null_ls.builtins.code_actions.shellcheck.with({
-        -- Restrict to POSIX sh
-        filetypes = { "sh" },
-        -- Only used if available
-        condition = utils.is_executable_condition("shellcheck"),
-    }),
-    null_ls.builtins.diagnostics.shellcheck.with({
-        -- Show error code in message
-        diagnostics_format = "[#{c}] #{m}",
-        -- Require explicit empty string test
-        extra_args = { "-o", "avoid-nullary-conditions" },
-        -- Restrict to POSIX sh
-        filetypes = { "sh" },
-        -- Only used if available
-        condition = utils.is_executable_condition("shellcheck"),
-    }),
     null_ls.builtins.formatting.shfmt.with({
         -- Indent with 4 spaces, simplify the code, indent switch cases,
         -- add space after redirection, use POSIX

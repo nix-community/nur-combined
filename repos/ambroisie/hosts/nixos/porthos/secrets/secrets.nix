@@ -31,8 +31,14 @@ in
     publicKeys = all;
   };
 
-  "lohr/secret.age".publicKeys = all;
-  "lohr/ssh-key.age".publicKeys = all;
+  "lohr/secret.age" = {
+    owner = "lohr";
+    publicKeys = all;
+  };
+  "lohr/ssh-key.age" = {
+    owner = "lohr";
+    publicKeys = all;
+  };
 
   "matrix/mail.age" = {
     owner = "matrix-synapse";

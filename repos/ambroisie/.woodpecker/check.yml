@@ -9,15 +9,15 @@ steps:
 
 - name: notifiy
   image: bash
-  secrets:
-  - source: matrix_homeserver
-    target: address
-  - source: matrix_roomid
-    target: room
-  - source: matrix_username
-    target: user
-  - source: matrix_password
-    target: pass
+  environment:
+    ADDRESS:
+      from_secret: matrix_homeserver
+    ROOM:
+      from_secret: matrix_roomid
+    USER:
+      from_secret: matrix_username
+    PASS:
+      from_secret: matrix_password
   commands:
   - nix run '.#matrix-notifier'
   when:

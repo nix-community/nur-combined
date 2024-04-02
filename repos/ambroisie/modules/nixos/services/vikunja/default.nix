@@ -30,8 +30,6 @@ in
       frontendScheme = "https";
       frontendHostname = vikunjaDomain;
 
-      setupNginx = false;
-
       database = {
         type = "postgres";
         user = "vikunja";
@@ -61,28 +59,11 @@ in
     # This is a weird setup
     my.services.nginx.virtualHosts = {
       ${subdomain} = {
-        # Serve the root for the web-ui
-        root = config.services.vikunja.package-frontend;
-
-        extraConfig = {
-          locations = {
-            "/" = {
-              tryFiles = "try_files $uri $uri/ /";
-            };
-
-            # Serve the API through a UNIX socket
-            "~* ^/(api|dav|\\.well-known)/" = {
-              proxyPass = "http://unix:${socketPath}";
-              extraConfig = ''
-                client_max_body_size 20M;
-              '';
-            };
-          };
-        };
+        socket = socketPath;
       };
     };
 
-    systemd.services.vikunja-api = {
+    systemd.services.vikunja = {
       serviceConfig = {
         # Use a system user to simplify using the CLI
         DynamicUser = lib.mkForce false;

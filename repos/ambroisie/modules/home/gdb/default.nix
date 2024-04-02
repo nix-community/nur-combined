@@ -26,7 +26,14 @@ in
         gdb
       ];
 
-      xdg.configFile."gdb/gdbinit".source = ./gdbinit;
+      xdg = {
+        configFile."gdb/gdbinit".source = ./gdbinit;
+        dataFile. "gdb/.keep".text = "";
+      };
+
+      home.sessionVariables = {
+        GDBHISTFILE = "${config.xdg.dataHome}/gdb/gdb_history";
+      };
     }
 
     (lib.mkIf cfg.rr.enable {

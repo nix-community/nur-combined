@@ -59,21 +59,6 @@ in
           "LOHR_HOME=${lohrHome}"
           "LOHR_CONFIG="
         ];
-        ExecStartPre = lib.mkIf (cfg.sshKeyFile != null) ''+${
-          pkgs.writeScript "copy-ssh-key" ''
-            #!${pkgs.bash}/bin/bash
-            # Ensure the key is not there
-            mkdir -p '${lohrHome}/.ssh'
-            rm -f '${lohrHome}/.ssh/id_ed25519'
-
-            # Move the key into place
-            cp ${cfg.sshKeyFile} '${lohrHome}/.ssh/id_ed25519'
-
-            # Fix permissions
-            chown -R lohr:lohr '${lohrHome}/.ssh'
-            chmod -R 0700 '${lohrHome}/.ssh'
-          ''
-        }'';
         ExecStart =
           let
             configFile = settingsFormat.generate "lohr-config.yaml" cfg.setting;
@@ -101,6 +86,25 @@ in
     my.services.nginx.virtualHosts = {
       lohr = {
         inherit (cfg) port;
+      };
+    };
+
+    # SSH key provisioning
+    systemd.tmpfiles.settings."10-lohr" = lib.mkIf (cfg.sshKeyFile != null) {
+      "${lohrHome}/.ssh" = {
+        d = {
+          user = "lohr";
+          group = "lohr";
+          mode = "0700";
+        };
+      };
+      "${lohrHome}/.ssh/id_ed25519" = {
+        "L+" = {
+          user = "lohr";
+          group = "lohr";
+          mode = "0700";
+          argument = cfg.sshKeyFile;
+        };
       };
     };
   };

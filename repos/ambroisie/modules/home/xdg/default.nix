@@ -42,12 +42,9 @@ in
     ANDROID_USER_HOME = "${configHome}/android";
     CARGO_HOME = "${dataHome}/cargo";
     DOCKER_CONFIG = "${configHome}/docker";
-    GDBHISTFILE = "${dataHome}/gdb/gdb_history";
     GRADLE_USER_HOME = "${dataHome}/gradle";
     HISTFILE = "${dataHome}/bash/history";
     INPUTRC = "${configHome}/readline/inputrc";
-    LESSHISTFILE = "${dataHome}/less/history";
-    LESSKEY = "${configHome}/less/lesskey";
     PSQL_HISTORY = "${dataHome}/psql_history";
     PYTHONPYCACHEPREFIX = "${cacheHome}/python/";
     PYTHONUSERBASE = "${dataHome}/python/";
@@ -55,5 +52,6 @@ in
     REDISCLI_HISTFILE = "${dataHome}/redis/rediscli_history";
     REPO_CONFIG_DIR = "${configHome}/repo";
     XCOMPOSECACHE = "${dataHome}/X11/xcompose";
+    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configHome}/java";
   };
 }

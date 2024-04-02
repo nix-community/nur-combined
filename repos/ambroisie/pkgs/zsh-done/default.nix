@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     description = ''
       A zsh plug-in to receive notifications when long processes finish
     '';
-    homepage = "https://gitea.belanyi.fr/ambroisie/zsh-done";
+    homepage = "https://git.belanyi.fr/ambroisie/zsh-done";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ambroisie ];

@@ -29,16 +29,17 @@ if utils.is_executable("clangd") then
     })
 end
 
--- Nix
-if utils.is_executable("nil") then
-    lspconfig.nil_ls.setup({
+-- Haskell
+if utils.is_executable("haskell-language-server-wrapper") then
+    lspconfig.hls.setup({
         capabilities = capabilities,
         on_attach = lsp.on_attach,
     })
 end
 
-if utils.is_executable("rnix-lsp") then
-    lspconfig.rnix.setup({
+-- Nix
+if utils.is_executable("nil") then
+    lspconfig.nil_ls.setup({
         capabilities = capabilities,
         on_attach = lsp.on_attach,
     })
@@ -52,9 +53,25 @@ if utils.is_executable("pyright") then
     })
 end
 
+if utils.is_executable("ruff-lsp") then
+    lspconfig.ruff_lsp.setup({
+        capabilities = capabilities,
+        on_attach = lsp.on_attach,
+    })
+end
+
 -- Rust
 if utils.is_executable("rust-analyzer") then
     lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
+        on_attach = lsp.on_attach,
+    })
+end
+
+-- Shell
+if utils.is_executable("bash-language-server") then
+    lspconfig.bashls.setup({
+        filetypes = { "bash", "sh", "zsh" },
         capabilities = capabilities,
         on_attach = lsp.on_attach,
     })

@@ -105,7 +105,7 @@ in
       nixpkgs-fmt
 
       # Shell
-      shellcheck
+      nodePackages.bash-language-server
       shfmt
     ];
   };

@@ -65,8 +65,6 @@ in
       {
         enable = true;
 
-        appName = "Ambroisie's forge";
-
         user = "git";
         group = "git";
 
@@ -88,6 +86,10 @@ in
         mailerPasswordFile = lib.mkIf cfg.mail.enable cfg.mail.passwordFile;
 
         settings = {
+          DEFAULT = {
+            APP_NAME = "Ambroisie's forge";
+          };
+
           server = {
             HTTP_PORT = cfg.port;
             DOMAIN = forgejoDomain;

@@ -10,7 +10,7 @@ local function list_spell_languages()
 end
 
 local function list_lsp_clients()
-    local client_names = utils.list_lsp_clients()
+    local client_names = utils.list_lsp_clients(0)
 
     if #client_names == 0 then
         return ""

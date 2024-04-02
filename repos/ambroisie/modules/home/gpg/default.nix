@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.my.home.gpg;
 in
@@ -6,12 +6,7 @@ in
   options.my.home.gpg = with lib; {
     enable = my.mkDisableOption "gpg configuration";
 
-    pinentry = mkOption {
-      type = types.str;
-      default = "tty";
-      example = "gtk2";
-      description = "Which pinentry interface to use";
-    };
+    pinentry = mkPackageOption pkgs "pinentry" { default = [ "pinentry-tty" ]; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -22,7 +17,7 @@ in
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true; # One agent to rule them all
-      pinentryFlavor = cfg.pinentry;
+      pinentryPackage = cfg.pinentry;
       extraConfig = ''
         allow-loopback-pinentry
       '';

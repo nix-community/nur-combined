@@ -51,8 +51,7 @@ M.on_attach = function(client, bufnr)
     local wk = require("which-key")
 
     local function list_workspace_folders()
-        local utils = require("ambroisie.utils")
-        utils.dump(vim.lsp.buf.list_workspace_folders())
+        vim.print(vim.lsp.buf.list_workspace_folders())
     end
 
     local function cycle_diagnostics_display()

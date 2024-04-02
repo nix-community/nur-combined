@@ -5,6 +5,6 @@
   };
   "c++-meson" = {
     path = ./c++-meson;
-    description = "A C++ project using CMake";
+    description = "A C++ project using Meson";
   };
 }

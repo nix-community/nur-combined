@@ -73,6 +73,13 @@ in
     my.services.nginx.virtualHosts = {
       recipes = {
         inherit (cfg) port;
+
+        extraConfig = {
+          # Allow bulk upload of recipes for import/export
+          locations."/".extraConfig = ''
+            client_max_body_size 0;
+          '';
+        };
       };
     };
   };
