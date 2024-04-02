@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass
+from enum import Enum
 
 import logging
 import os.path
@@ -9,12 +10,22 @@ import subprocess
 
 logger = logging.getLogger(__name__)
 
+# where to store the torrents as downloaded
+TORRENT_DIR="/var/media"
+
+class MediaType(Enum):
+    Film = "film"
+    Show = "show"
+    Book = "book"
+    Audiobook = "audiobook"
+    VisualNovel = "vn"  # manga/comics
+
 @dataclass
 class MediaMeta:
     title: str | None
     prefix: str | None
     author: str | None
-    type_: "film" | "show" | "book" | "audiobook" | "vn"  # TODO: use enumeration
+    type_: MediaType
     freeleech: bool
     archive: bool
 
@@ -35,18 +46,18 @@ class MediaMeta:
         title = None
         type_ = None
         if args.film:
-            type_ = "film"
+            type_ = MediaType.Film
         if args.show != None:
-            type_ = "show"
+            type_ = MediaType.Show
             title = args.show
         if args.book != None:
-            type_ = "book"
+            type_ = MediaType.Book
             title = args.book
         if args.audiobook != None:
-            type_ = "audiobook"
+            type_ = MediaType.Audiobook
             title = args.audiobook
         if args.vn != None:
-            type_ = "vn"
+            type_ = MediaType.VisualNovel
             title = args.vn
         assert type_ is not None, "no torrent type specified!"
         assert not (args.freeleech and args.archive), "--freeleech and --archive are mutually exclusive"
@@ -61,15 +72,15 @@ class MediaMeta:
 
     @property
     def type_path(self) -> str:
-        return dict(
-            film="Videos/Film/",
-            show="Videos/Shows/",
-            book="Books/Books/",
-            audiobook="Books/Audiobooks/",
-            vn="Books/Visual/",
-        )[self.type_]
+        return {
+            MediaType.Film="Videos/Film/",
+            MediaType.Show="Videos/Shows/",
+            MediaType.Book="Books/Books/",
+            MediaType.Audiobook="Books/Audiobooks/",
+            MediaType.VisualNovel="Books/Visual/",
+        }[self.type_]
 
-    def fs_path(self, base: str="/var/media/") -> None:
+    def fs_path(self, base: str=TORRENT_DIR) -> None:
         return os.path.join(
             base,
             self.prefix or "",
