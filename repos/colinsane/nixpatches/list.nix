@@ -33,27 +33,11 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
-    # libnice is the NAT traversal library used by Dino.
-    # this patch isn't critical, but good to be running latest release when debugging
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/296583";
-    title = "libnice: 0.1.21 -> 0.1.22";
-    hash = "sha256-14/EOGbWtgn+Ls86m4apnlEyKNtdUghWZGesLD1Z/I0=";
-    merged.staging = "20240324130000";
-  })
-
-  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/298001";
     saneCommit = "d599839060400762a67d2c01d15b102ffe75e703";
     title = "gnupg: fix cross compilation";
     hash = "sha256-d3kD2/UyMzzdBkiEdWtCibbWiPWBZLUWRry1TMkS25g=";
     merged.staging = "20240326000000";
-  })
-
-  (fetchpatch' {
-    # fixes build break
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/297581";
-    title = "pwvucontrol: 0.2 -> 0.3.1";
-    hash = "sha256-OX6qx4WbQzZR2bu04nPHk9lURGH7kN0TRmeKOXfzCT8=";
   })
 
   (fetchpatch' {
@@ -65,7 +49,6 @@ in [
   })
 
   (fetchpatch' {
-    # TODO: rebase (or split into smaller PRs)
     prUrl = "https://github.com/NixOS/nixpkgs/pull/292415";
     title = "sway/hyprland: cross compilation fixes";
     hash = "sha256-IDf8OcZzFgw0DalxzBqbqP7TZVnZkzoRHQ51RlR1xWc=";

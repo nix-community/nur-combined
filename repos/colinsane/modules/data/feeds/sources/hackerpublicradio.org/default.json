@@ -1,0 +1,9 @@
+{
+  "description": "Hacker Public Radio is an podcast that releases shows every weekday Monday through Friday. Our shows are produced by the community (you) and can be on any topic that are of interest to hackers and hobbyists.",
+  "is_podcast": true,
+  "site_name": "Hacker Public Radio ~ The Technology Community Podcast",
+  "site_url": "https://hackerpublicradio.org",
+  "title": "Hacker Public Radio",
+  "url": "https://hackerpublicradio.org/hpr_spx_rss.php",
+  "velocity": 0.692
+}

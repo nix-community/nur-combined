@@ -81,6 +81,7 @@ let
     (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
     (fromDb "feeds.transistor.fm/acquired" // tech)
     (fromDb "fulltimenix.com" // tech)
+    (fromDb "hackerpublicradio.org" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
