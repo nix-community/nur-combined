@@ -25,6 +25,7 @@ lib.makeScope newScope (self: {
   mucalc = self.callPackage ./mucalc { };
   opensurge = self.callPackage ./opensurge { };
   qv = self.callPackage ./qv { };
+  raze = self.callPackage ./raze { };
   srb2p = self.callPackage ./srb2p { };
   surgescript = self.callPackage ./surgescript { };
   teem = self.callPackage ./teem { };
@@ -148,6 +149,15 @@ lib.makeScope newScope (self: {
         withPoppler = true;
         withTiff = true;
       };
+
+  razeFull =
+    (self.raze.overrideAttrs (prevAttrs: {
+      pname = "${prevAttrs.pname}-full";
+      meta = prevAttrs.meta // {
+        description = "${prevAttrs.meta.description} (with all features enabled)";
+      };
+    })).override
+      { withGtk3 = true; };
 
   teemFull =
     (self.teem.overrideAttrs (prevAttrs: {
