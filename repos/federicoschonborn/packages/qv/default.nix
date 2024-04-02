@@ -4,10 +4,8 @@
   fetchFromGitHub,
   cmake,
   ninja,
-  wrapQtAppsHook,
+  qt6,
   libtgd,
-  qtbase,
-  qtwayland,
   nix-update-script,
 }:
 
@@ -25,13 +23,13 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     ninja
-    wrapQtAppsHook
+    qt6.wrapQtAppsHook
   ];
 
   buildInputs = [
     libtgd
-    qtbase
-    qtwayland
+    qt6.qtbase
+    qt6.qtwayland
   ];
 
   passthru.updateScript = nix-update-script {

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    systems.url = "github:nix-systems/default";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -11,26 +12,25 @@
   };
 
   outputs =
-    { nixpkgs, flake-parts, ... }@inputs:
+    {
+      nixpkgs,
+      systems,
+      flake-parts,
+      ...
+    }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+      systems = import systems;
 
       perSystem =
         {
           lib,
           config,
           pkgs,
-          system,
           ...
         }:
         {
-          legacyPackages = import ./. { inherit pkgs; };
-          packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) config.legacyPackages;
+          legacyPackages = pkgs.callPackage ./packages { };
+          packages = lib.filterAttrs (_: lib.isDerivation) config.legacyPackages;
 
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [

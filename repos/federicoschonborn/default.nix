@@ -8,4 +8,5 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-import ./packages { inherit pkgs; }
+
+pkgs.callPackage ./packages { }
