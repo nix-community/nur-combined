@@ -14,6 +14,11 @@
 # but at present it has no "start in tray" type of option: it must render a window.
 #
 # outstanding bugs:
+# - NAT holepunching burns CPU/NET when multiple interfaces are up
+#   - fix by just `ip link set ovpnd-xyz down`
+#     - setting `wg-home` down *seems* to be not necessary
+#   - characterized by UPnP/SOAP error 500/718 in wireshark
+#   - seems it asks router A to open a port mapping for an IP address which belongs to a different subnet...
 # - mic is sometimes disabled at call start despite presenting as enabled
 #   - fix is to toggle it off -> on in the Dino UI
 # - default mic gain is WAY TOO MUCH (heavily distorted)
@@ -29,7 +34,7 @@
 #   - possibly Dino should be updated internally: `info.rate / 100` -> `info.rate / 50`.
 #     - i think that affects the batching for echo cancellation, adaptive gain control, etc.
 #
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.dino;
 in
@@ -44,6 +49,24 @@ in
         };
       };
     };
+
+    packageUnwrapped = pkgs.dino.overrideAttrs (upstream: {
+      # i'm updating experimentally to see if it improves call performance.
+      # i don't *think* this is actually necessary; i don't notice any difference.
+      version = "0.4.3-unstable-2024-04-01";
+      src = lib.warnIf (lib.versionOlder "0.4.3" upstream.version) "dino update: safe to remove sane patches" pkgs.fetchFromGitHub {
+        owner = "dino";
+        repo = "dino";
+        rev = "d9fa4daa6a7d16f5f0e2183a77ee2d07849dd9f3";
+        hash = "sha256-vJBIMsMLlK8Aw19fD2aFNtegXkjOqEgb3m1hi3fE5DE=";
+      };
+      checkPhase = ''
+        runHook preCheck
+        ./xmpp-vala-test
+        # ./signal-protocol-vala-test  # doesn't exist anymore
+        runHook postCheck
+      '';
+    });
 
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";
