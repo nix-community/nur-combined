@@ -104,6 +104,7 @@ let
     (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow
     (fromDb "wakingup.libsyn.com" // pol)  # Sam Harris
     (fromDb "werenotwrong.fireside.fm" // pol)
+    (mkPod "https://sfconservancy.org/casts/the-corresponding-source/feeds/ogg/" // tech)
 
     # (fromDb "feeds.libsyn.com/421877" // rat)  # Less Wrong Curated
     # (fromDb "feeds.megaphone.fm/hubermanlab" // uncat)  # Daniel Huberman on sleep
