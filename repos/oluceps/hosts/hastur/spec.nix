@@ -20,7 +20,7 @@
   systemd = {
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-      restic-backups-solid.serviceConfig.Environment = [ "GOGC=20" ];
+      # restic-backups-solid.serviceConfig.Environment = [ "GOGC=20" ];
       # btrfs-scrub-persist.serviceConfig.ExecStopPost =
       #   lib.genNtfyMsgScriptPath "tags red_circle prio high" "error" "btrfs scrub failed on hastur";
     };
@@ -147,22 +147,43 @@
         ];
       };
     };
-    restic.backups.solid = {
-      passwordFile = config.age.secrets.wg.path;
-      repositoryFile = config.age.secrets.restic-repo.path;
-      environmentFile = config.age.secrets.restic-envs.path;
-      paths = [ "/persist" "/var" ];
-      extraBackupArgs = [
-        "--one-file-system"
-        "--exclude-caches"
-        "--no-scan"
-        "--retry-lock 2h"
-      ];
-      timerConfig = {
-        OnCalendar = "daily";
-        RandomizedDelaySec = "4h";
-        FixedRandomDelay = true;
-        Persistent = true;
+    restic = {
+      backups = {
+        # solid = {
+        #   passwordFile = config.age.secrets.wg.path;
+        #   repositoryFile = config.age.secrets.restic-repo.path;
+        #   environmentFile = config.age.secrets.restic-envs.path;
+        #   paths = [ "/persist" "/var" ];
+        #   extraBackupArgs = [
+        #     "--one-file-system"
+        #     "--exclude-caches"
+        #     "--no-scan"
+        #     "--retry-lock 2h"
+        #   ];
+        #   timerConfig = {
+        #     OnCalendar = "daily";
+        #     RandomizedDelaySec = "4h";
+        #     FixedRandomDelay = true;
+        #     Persistent = true;
+        #   };
+        # };
+        critic = {
+          passwordFile = config.age.secrets.wg.path;
+          repositoryFile = config.age.secrets.restic-repo-crit.path;
+          environmentFile = config.age.secrets.restic-envs-crit.path;
+          paths = [ "/var/lib/backup" "/var/lib/private/matrix-conduit" ];
+          extraBackupArgs = [
+            "--exclude-caches"
+            "--no-scan"
+            "--retry-lock 2h"
+          ];
+          timerConfig = {
+            OnCalendar = "daily";
+            RandomizedDelaySec = "4h";
+            FixedRandomDelay = true;
+            Persistent = true;
+          };
+        };
       };
     };
     # cloudflared = {

@@ -152,7 +152,7 @@
 
     ncdu_2 # disk space info
 
-    smartmontools
+    
     android-tools
     zellij
     # netease-cloud-music-gtk

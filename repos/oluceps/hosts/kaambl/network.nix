@@ -4,6 +4,10 @@
 }: {
   services.resolved.enable = lib.mkForce false;
   networking = {
+    hosts = {
+      "10.0.1.2" = [ "attic.nyaw.xyz" "s3.nyaw.xyz" ];
+      "10.0.1.1" = [ "nodens.nyaw.xyz" ];
+    };
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
@@ -67,19 +71,27 @@
           {
             wireguardPeerConfig = {
               PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-              AllowedIPs = [ "10.0.1.1/24" ];
+              AllowedIPs = [ "10.0.1.0/24" ];
               Endpoint = "127.0.0.1:41820";
               PersistentKeepalive = 15;
             };
           }
           {
             wireguardPeerConfig = {
-              PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.1.9/32" "10.0.0.0/24" ];
-              Endpoint = "127.0.0.1:41821";
+              PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
+              AllowedIPs = [ "10.0.2.0/24" ];
+              Endpoint = "116.196.112.43:51820";
               PersistentKeepalive = 15;
             };
           }
+          # {
+          #   wireguardPeerConfig = {
+          #     PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
+          #     AllowedIPs = [ "10.0.1.9/32" "10.0.1.0/24" ];
+          #     Endpoint = "127.0.0.1:41821";
+          #     PersistentKeepalive = 15;
+          #   };
+          # }
         ];
       };
     };
@@ -90,6 +102,7 @@
         matchConfig.Name = "wg0";
         address = [
           "10.0.1.3/24"
+          "10.0.2.3/24"
         ];
         DHCP = "no";
       };

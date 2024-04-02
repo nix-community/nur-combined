@@ -97,7 +97,6 @@
               PersistentKeepalive = 15;
             };
           }
-
           {
             wireguardPeerConfig = {
               PublicKey = "0wLrznvd32gloUHwgFqv+vlybBtEYQaUOwgqyfa3Fl4=";
@@ -105,13 +104,18 @@
               PersistentKeepalive = 15;
             };
           }
-
           {
             wireguardPeerConfig = {
-              PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.1.9/32" "10.0.0.0/24" ];
+              PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
+              AllowedIPs = [ "10.0.0.0/16" ];
             };
           }
+          # {
+          #   wireguardPeerConfig = {
+          #     PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
+          #     AllowedIPs = [ "10.0.1.9/32" "10.0.0.0/24" ];
+          #   };
+          # }
         ];
       };
     };
@@ -122,6 +126,7 @@
         matchConfig.Name = "wg1";
         address = [
           "10.0.1.1/24"
+          "10.0.2.1/24"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";

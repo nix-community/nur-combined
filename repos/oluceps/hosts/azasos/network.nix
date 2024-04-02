@@ -1,12 +1,8 @@
-{ config
-, lib
+{ lib
+, config
 , ...
 }: {
-  services = {
-    mosdns.enable = true;
-    resolved.enable = !config.services.mosdns.enable;
-  };
-  networking.domain = "tencent-shanghai";
+  networking.domain = "nyaw.xyz";
   networking = {
     resolvconf.useLocalResolver = true;
     firewall = {
@@ -26,16 +22,33 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     enableIPv6 = true;
+    nftables = {
 
-    # interfaces.enp4s0.useDHCP = true;
-    #  interfaces.wlp5s0.useDHCP = true;
-    #
-    # Configure network proxy if necessary
-    # proxy.default = "http://127.0.0.1:7890";
+      # interfaces.enp4s0.useDHCP = true;
+      #  interfaces.wlp5s0.useDHCP = true;
+      #
+      # Configure network proxy if necessary
+      # proxy.default = "http://127.0.0.1:7890";
 
-    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+      # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-    nftables.enable = true;
+      enable = true;
+
+      ruleset = ''
+        table ip nat {
+        	chain prerouting {
+        		type nat hook prerouting priority filter; policy accept;
+        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
+        	}
+        }
+        table ip6 nat {
+        	chain prerouting {
+        		type nat hook prerouting priority filter; policy accept;
+        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
+        	}
+        }
+      '';
+    };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
 
@@ -49,102 +62,66 @@
       ignoredInterfaces = [ "wg0" "wg1" ];
     };
 
-    links."10-ens5" = {
-      matchConfig.MACAddress = "52:54:00:99:b9:31";
-      linkConfig.Name = "ens5";
+    links."10-eth0" = {
+      matchConfig.MACAddress = "fa:16:3e:d3:09:f8";
+      linkConfig.Name = "eth0";
     };
 
     netdevs = {
 
-      # wg0 = {
-      #   netdevConfig = {
-      #     Kind = "wireguard";
-      #     Name = "wg0";
-      #     MTUBytes = "1300";
-      #   };
-      #   wireguardConfig = {
-      #     PrivateKeyFile = config.age.secrets.wga.path;
-      #     ListenPort = 51820;
-      #   };
-      #   wireguardPeers = [
-      #     {
-      #       wireguardPeerConfig = {
-      #         PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-      #         AllowedIPs = [ "10.0.0.2/32" ];
-      #         PersistentKeepalive = 15;
-      #       };
-      #     }
-      #     {
-      #       wireguardPeerConfig = {
-      #         PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-      #         AllowedIPs = [ "10.0.0.3/32" ];
-      #         PersistentKeepalive = 15;
-      #       };
-      #     }
-
-      #     {
-      #       wireguardPeerConfig = {
-      #         PublicKey = "PkprQcw4kYLiX1Ix8FcIje1x0yie/gjheX7UbxQ7OUw=";
-      #         AllowedIPs = [ "10.0.0.4/32" ];
-      #         PersistentKeepalive = 15;
-      #       };
-      #     }
-
-      #     # {
-      #     #   wireguardPeerConfig = {
-      #     #     PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-      #     #     AllowedIPs = [
-      #     #       "10.0.1.0/24"
-      #     #       "10.0.0.0/24"
-      #     #     ];
-      #     #     Endpoint = "144.126.208.183:51820";
-      #     #     PersistentKeepalive = 15;
-      #     #   };
-      #     # }
-
-      #     {
-      #       wireguardPeerConfig = {
-      #         PublicKey = "TcqM0iPp4Dw1IceB88qw/hSiPWXAzT9GECVT36eyzgc=";
-      #         AllowedIPs = [ "10.0.0.6/32" ];
-      #         PersistentKeepalive = 15;
-      #       };
-      #     }
-
-      #     {
-      #       wireguardPeerConfig = {
-      #         PublicKey = "kDWOvV5AJ++zRQeTn12kd9x45JvxNqnwhPnB9HkzK0c=";
-      #         # AllowedIPs = [ "10.0.0.6/32" ];
-      #         PersistentKeepalive = 15;
-      #       };
-      #     }
-
-      #     {
-      #       wireguardPeerConfig = {
-      #         PublicKey = "83NjKIMSJxSorKEhxbD8lEu0Xa9rbAyGkRD77xsTsWQ=";
-      #         AllowedIPs = [ "10.0.0.15/32" ];
-      #         PersistentKeepalive = 15;
-      #       };
-      #     }
-      #   ];
-      # };
+      wg0 = {
+        netdevConfig = {
+          Kind = "wireguard";
+          Name = "wg0";
+          MTUBytes = "1300";
+        };
+        wireguardConfig = {
+          PrivateKeyFile = config.age.secrets.wga.path;
+          ListenPort = 51820;
+        };
+        wireguardPeers = [
+          {
+            wireguardPeerConfig = {
+              PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
+              AllowedIPs = [ "10.0.2.2/32" ];
+              PersistentKeepalive = 15;
+            };
+          }
+          {
+            wireguardPeerConfig = {
+              PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
+              AllowedIPs = [ "10.0.2.3/32" ];
+              PersistentKeepalive = 15;
+            };
+          }
+          {
+            wireguardPeerConfig = {
+              PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+              AllowedIPs = [ "10.0.0.0/24" ];
+              Endpoint = "127.0.0.1:41820";
+              PersistentKeepalive = 15;
+            };
+          }
+        ];
+      };
     };
 
 
     networks = {
-      # "10-wg0" = {
-      #   matchConfig.Name = "wg0";
-      #   address = [
-      #     "10.0.0.5/24"
-      #     "10.0.1.5/24"
-      #   ];
-      #   networkConfig = {
-      #     IPMasquerade = "ipv4";
-      #     IPForward = true;
-      #   };
-      # };
+      "10-wg0" = {
+        matchConfig.Name = "wg0";
+        address = [
+          "10.0.1.8/24"
+          "10.0.2.8/24"
+        ];
+        networkConfig = {
+          IPMasquerade = "ipv4";
+          IPForward = true;
+        };
+      };
 
       "20-wired" = {
-        matchConfig.Name = "ens5";
+        matchConfig.Name = "eth0";
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 2046;
         dhcpV6Config.RouteMetric = 2046;

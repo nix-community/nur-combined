@@ -27,6 +27,15 @@ build-bootstrap:
 test-bootstrap:
     nix run github:nix-community/nixos-anywhere -- --flake .#bootstrap --vm-test
 
+build-all-host:
+    #!/usr/bin/env nu
+    nix eval --impure --expr "builtins.foldl' (acc: elem: acc + elem + \" \" ) \"\" (with builtins;
+      (filter (n: !(elem n [\"resq\"])) (attrNames (getFlake (toString ./.) ).nixosConfigurations)))"
+      | str trim --char '"'
+      | str trim --char (char newline)
+      | str replace " \"" ''
+      | split row ' '
+      | par-each { || nix build $'.#nixosConfigurations.($in).config.system.build.toplevel'; attic push dev ./result }
 
 build *args:
     #!/usr/bin/env nu

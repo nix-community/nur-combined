@@ -5,7 +5,7 @@ let
     "nodens"
     "kaambl"
     # "abhoth"
-    # "azasos"
+    "azasos"
   ];
 in
 {

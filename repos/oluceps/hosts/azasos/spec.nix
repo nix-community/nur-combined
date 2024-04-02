@@ -2,7 +2,7 @@
 {
   # server inside the cage.
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "24.05";
 
   nix.gc = {
     automatic = true;
@@ -19,14 +19,21 @@
     (
       let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
         "openssh"
-        "mosdns"
+        # "mosdns"
         "fail2ban"
         "dae"
+        "mosproxy"
       ]
         (n: importService n)
     ) // {
-      dae.enable = true;
       sing-box.enable = true;
+
+      hysteria.instances = [
+        {
+          name = "nodens";
+          configFile = config.age.secrets.hyst-us-cli.path;
+        }
+      ];
     };
 
   networking.firewall = {

@@ -36,38 +36,20 @@
                     routes = [{
                       handle = [{
                         handler = "reverse_proxy";
+                        transport = {
+                          protocol = "http";
+                          tls = {
+                            server_name = "s3.nyaw.xyz";
+                          };
+                        };
                         upstreams = [{
-                          dial = "10.0.1.2:9001";
+                          dial = "10.0.1.2:443";
                         }];
                       }];
                     }];
                   }];
                   match = [{
                     host = [ "s3.nyaw.xyz" ];
-                  }];
-                  terminal = true;
-                }
-                {
-                  handle = [{
-                    handler = "subroute";
-                    routes = [{
-                      handle = [{
-                        handler = "reverse_proxy";
-                        transport = {
-                          protocol = "http";
-                          tls = {
-                            # server_name = "api.s3.nyaw.xyz";
-                            insecure_skip_verify = true;
-                          };
-                        };
-                        upstreams = [{
-                          dial = "10.0.1.2:9000";
-                        }];
-                      }];
-                    }];
-                  }];
-                  match = [{
-                    host = [ "api.s3.nyaw.xyz" ];
                   }];
                   terminal = true;
                 }

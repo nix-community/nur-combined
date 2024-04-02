@@ -46,7 +46,7 @@
                 };
                 content = {
                   type = "btrfs";
-                  extraArgs = [ "-f" "--csum xxhash64" ];
+                  extraArgs = [ "-f" "--csum xxhash64" "--features" "block-group-tree" ];
                   subvolumes = {
                     "/persist" = {
                       mountpoint = "/persist";

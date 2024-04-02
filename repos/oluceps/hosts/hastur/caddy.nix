@@ -44,20 +44,20 @@
                     }];
                   }];
                   match = [{
-                    host = [ "api.s3.nyaw.xyz" ];
+                    host = [ "s3.nyaw.xyz" ];
                   }];
                   terminal = true;
                 }
               ];
               tls_connection_policies = [
                 {
-                  match = { sni = [ "attic.nyaw.xyz" "hastur.nyaw.xyz" ]; };
+                  match = { sni = [ "attic.nyaw.xyz" "hastur.nyaw.xyz" "s3.nyaw.xyz" ]; };
                   certificate_selection = { any_tag = [ "cert0" ]; };
                 }
-                {
-                  match = { sni = [ "api.s3.nyaw.xyz" ]; };
-                  certificate_selection = { any_tag = [ "certs3" ]; };
-                }
+                # {
+                #   match = { sni = [ "api.s3.nyaw.xyz" ]; };
+                #   certificate_selection = { any_tag = [ "certs3" ]; };
+                # }
               ];
             };
           };

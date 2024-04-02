@@ -1,6 +1,6 @@
-_: {
+{ osConfig, ... }: {
   programs.starship = {
-    enable = true;
+    enable = !osConfig.programs.starship.enable;
     enableNushellIntegration = false;
 
     settings = {

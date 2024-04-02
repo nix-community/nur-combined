@@ -15,6 +15,8 @@ let
 
     cmd = [
 
+      smartmontools
+      difftastic
       direnv
       btop
       atuin
@@ -44,7 +46,7 @@ let
     # # ripgrep-all 
 
 
-    info = [ freshfetch htop onefetch hardinfo qjournalctl hyprpicker imgcat nix-index ccze ];
+    info = [ freshfetch htop onefetch hardinfo hyprpicker imgcat nix-index ccze ];
 
   };
 in

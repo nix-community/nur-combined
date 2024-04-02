@@ -6,7 +6,7 @@
     resolvconf.useLocalResolver = true;
     # useHostResolvConf = true;
     hosts = {
-      "127.0.0.1" = [ "attic.nyaw.xyz" "api.s3.nyaw.xyz" ];
+      "127.0.0.1" = [ "attic.nyaw.xyz" "s3.nyaw.xyz" ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
     };
 
@@ -81,6 +81,14 @@
         wireguardPeers = [
           {
             wireguardPeerConfig = {
+              PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
+              AllowedIPs = [ "10.0.2.0/24" ];
+              Endpoint = "116.196.112.43:51820";
+              PersistentKeepalive = 15;
+            };
+          }
+          {
+            wireguardPeerConfig = {
               PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
               AllowedIPs = [ "10.0.1.0/24" ];
               Endpoint = "127.0.0.1:41820";
@@ -88,14 +96,14 @@
             };
           }
 
-          {
-            wireguardPeerConfig = {
-              PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.1.9/32" "10.0.1.0/24" ];
-              Endpoint = "127.0.0.1:41821";
-              PersistentKeepalive = 15;
-            };
-          }
+          # {
+          #   wireguardPeerConfig = {
+          #     PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
+          #     AllowedIPs = [ "10.0.1.9/32" "10.0.1.0/24" ];
+          #     Endpoint = "127.0.0.1:41821";
+          #     PersistentKeepalive = 15;
+          #   };
+          # }
         ];
       };
     };
@@ -107,6 +115,7 @@
         # IP addresses the client interface will have
         address = [
           "10.0.1.2/24"
+          "10.0.2.2/24"
         ];
         DHCP = "no";
       };
