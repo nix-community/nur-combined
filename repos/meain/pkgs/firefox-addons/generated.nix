@@ -14,11 +14,11 @@
           fullName = "All Rights Reserved";
           url = "https://addons.mozilla.org/en-US/firefox/addon/animated-kitty-cat/";
           free = false;
-          };
+        };
         mozPermissions = [];
         platforms = platforms.all;
-        };
       };
+    };
     "aw-watcher-web" = buildFirefoxXpiAddon {
       pname = "aw-watcher-web";
       version = "0.4.8";
@@ -38,10 +38,10 @@
           "storage"
           "http://localhost:5600/api/*"
           "http://localhost:5666/api/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "awesome-rss" = buildFirefoxXpiAddon {
       pname = "awesome-rss";
       version = "1.3.5";
@@ -54,8 +54,8 @@
         license = licenses.gpl3;
         mozPermissions = [ "tabs" "storage" "<all_urls>" ];
         platforms = platforms.all;
-        };
       };
+    };
     "containerise" = buildFirefoxXpiAddon {
       pname = "containerise";
       version = "3.9.0";
@@ -75,10 +75,10 @@
           "webRequestBlocking"
           "storage"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "ghostpage" = buildFirefoxXpiAddon {
       pname = "ghostpage";
       version = "0.4.0";
@@ -91,8 +91,8 @@
         license = licenses.mit;
         mozPermissions = [ "tabs" ];
         platforms = platforms.all;
-        };
       };
+    };
     "global-speed" = buildFirefoxXpiAddon {
       pname = "global-speed";
       version = "2.9.9971";
@@ -107,17 +107,17 @@
           fullName = "All Rights Reserved";
           url = "https://github.com/polywock/globalSpeed/issues/247";
           free = false;
-          };
+        };
         mozPermissions = [
           "storage"
           "https://*/*"
           "http://*/*"
           "file://*/*"
           "webNavigation"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "mastodon4-redirect" = buildFirefoxXpiAddon {
       pname = "mastodon4-redirect";
       version = "1.4";
@@ -130,8 +130,8 @@
         license = licenses.mit;
         mozPermissions = [ "storage" "*://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "nattynote" = buildFirefoxXpiAddon {
       pname = "nattynote";
       version = "2.1.1";
@@ -145,14 +145,14 @@
         license = licenses.gpl3;
         mozPermissions = [ "storage" "unlimitedStorage" "*://*.youtube.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "netflix-prime-auto-skip" = buildFirefoxXpiAddon {
       pname = "netflix-prime-auto-skip";
-      version = "1.0.70";
+      version = "1.0.96";
       addonId = "NetflixPrime@Autoskip.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197108/netflix_prime_auto_skip-1.0.70.xpi";
-      sha256 = "4251d976f85c5497a6941e99ad048c7234486b252b59c3cda49bc82fa89ef7f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251264/netflix_prime_auto_skip-1.0.96.xpi";
+      sha256 = "ba753df31cfb53115c7927340e84e8d1cba4ec98b471f27657d9307ddc0f0517";
       meta = with lib;
       {
         homepage = "https://github.com/Dreamlinerm/Netflix-Prime-Auto-Skip";
@@ -160,6 +160,10 @@
         license = licenses.gpl3;
         mozPermissions = [
           "storage"
+          "webRequest"
+          "webRequestBlocking"
+          "*://*.disneyplus.com/*"
+          "*://*.starplus.com/*"
           "*://*.primevideo.com/*"
           "*://*.amazon.com/*"
           "*://*.amazon.co.jp/*"
@@ -168,14 +172,13 @@
           "*://*.netflix.com/*"
           "*://*.netflix.ca/*"
           "*://*.netflix.com.au/*"
-          "*://*.disneyplus.com/*"
           "*://*.hotstar.com/*"
           "*://*.crunchyroll.com/*"
           "https://static.crunchyroll.com/vilos-v2/web/vilos/player.html*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "notifications-preview-github" = buildFirefoxXpiAddon {
       pname = "notifications-preview-github";
       version = "23.4.6";
@@ -189,8 +192,8 @@
         license = licenses.bsd2;
         mozPermissions = [ "storage" "https://github.com/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "smartreader" = buildFirefoxXpiAddon {
       pname = "smartreader";
       version = "1.6";
@@ -203,17 +206,17 @@
         license = licenses.mpl20;
         mozPermissions = [ "<all_urls>" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
-        };
       };
+    };
     "try-another-search-engine" = buildFirefoxXpiAddon {
       pname = "try-another-search-engine";
-      version = "0.9.1";
+      version = "0.10.0";
       addonId = "{14c48e36-100d-4d9b-a11a-890112654de9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3980199/try_another_search_engine-0.9.1.xpi";
-      sha256 = "02adb5b8dba750b4bff1d10d5a024ca4c97d1882966268abaf7af1c79f42f781";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252190/try_another_search_engine-0.10.0.xpi";
+      sha256 = "0fd3dbe371f308d7a0c524b894bf3fcf37c1399083586942c5dfe83f08393c7e";
       meta = with lib;
       {
-        description = "Allows quick cycling through predefined search engines (Seznam 🐶, Google, Bing &amp; DuckDuckGo 🦆) results\n\nCollects anonymous data about switching search engines. This behaviour can be turned off.";
+        description = "Allows quick cycling through predefined search engines (Seznam 🐶, Google, Bing, Brave &amp; DuckDuckGo 🦆) results\n\nCollects anonymous data about switching search engines. This behaviour can be turned off.";
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
@@ -223,10 +226,11 @@
           "*://www.google.com/*"
           "*://www.google.cz/*"
           "*://duckduckgo.com/*"
-          ];
+          "*://search.brave.com/*"
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "unofficial-hypothesis" = buildFirefoxXpiAddon {
       pname = "unofficial-hypothesis";
       version = "1.470.0.2";
@@ -244,16 +248,16 @@
           "tabs"
           "identity"
           "contextMenus"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
+    };
     "watchmarker-for-youtube" = buildFirefoxXpiAddon {
       pname = "watchmarker-for-youtube";
-      version = "4.4.2";
+      version = "4.6.1";
       addonId = "yourect@coderect.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4180200/watchmarker_for_youtube-4.4.2.xpi";
-      sha256 = "b2a7963a311a0e2169af3f6edd1c6198d98fc92b523c574e6e27ca2051194932";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231706/watchmarker_for_youtube-4.6.1.xpi";
+      sha256 = "a9c804bb9af200404bb809d248a50d2c6482bc322dd24914f76fad1cf29a1c80";
       meta = with lib;
       {
         homepage = "http://sniklaus.com/";
@@ -267,10 +271,10 @@
           "cookies"
           "webRequest"
           "webRequestBlocking"
+          "https://www.youtube.com/*"
           "*://www.youtube.com/*"
-          "*://*.ytimg.com/vi/*/*"
-          ];
+        ];
         platforms = platforms.all;
-        };
       };
-    }
+    };
+  }
