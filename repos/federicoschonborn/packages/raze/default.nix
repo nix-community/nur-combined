@@ -9,6 +9,7 @@
   libwebp,
   SDL2,
   zmusic,
+  nix-update-script,
 
   withGtk3 ? false,
   gtk3,
@@ -39,6 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ lib.optional withGtk3 gtk3;
 
   cmakeFlags = [ (lib.cmakeBool "DYN_GTK" false) ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "raze";

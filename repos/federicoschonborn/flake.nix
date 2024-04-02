@@ -9,6 +9,28 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        gitignore.follows = "gitignore";
+        flake-compat.follows = "";
+      };
+    };
+
+    # Indirect
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,6 +38,7 @@
       nixpkgs,
       systems,
       flake-parts,
+      pre-commit-hooks,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -26,6 +49,7 @@
           lib,
           config,
           pkgs,
+          system,
           ...
         }:
         {
@@ -39,6 +63,11 @@
               nix-output-monitor
               nix-tree
             ];
+
+            shellHook = ''
+              ${config.checks.pre-commit-check.shellHook}
+              just --list
+            '';
           };
 
           apps.update = {
@@ -47,7 +76,7 @@
               pkgs.writeShellApplication {
                 name = "update";
                 text = ''
-                  nix-shell "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
+                  nix-shell --show-trace "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
                     --arg include-overlays "[(import ./overlay.nix)]" \
                     --arg predicate '(
                       let prefix = builtins.toPath ./packages; prefixLen = builtins.stringLength prefix;
@@ -56,6 +85,21 @@
                 '';
               }
             );
+          };
+
+          checks = {
+            pre-commit-check = pre-commit-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                # Nix
+                nixfmt = {
+                  enable = true;
+                  package = config.formatter;
+                };
+                deadnix.enable = true;
+                statix.enable = true;
+              };
+            };
           };
 
           formatter = pkgs.nixfmt-rfc-style;

@@ -8,3 +8,6 @@ update-git-commits.txt
 
 # Direnv
 .direnv
+
+# Pre Commit Hooks
+.pre-commit-config.yaml
