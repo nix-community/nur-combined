@@ -26,8 +26,9 @@ in
 
     services.xdg-desktop-portal-wlr = {
       description = "xdg-desktop-portal-wlr backend (provides screenshot functionality for xdg-desktop-portal)";
-      # depends = [ "graphical-session" ];
+      depends = [ "pipewire" ];  # refuses to start without it
       dependencyOf = [ "xdg-desktop-portal" ];
+      # partOf = [ "graphical-session" ];
 
       command = "${cfg.package}/libexec/xdg-desktop-portal-wlr";
       readiness.waitDbus = "org.freedesktop.impl.portal.desktop.wlr";

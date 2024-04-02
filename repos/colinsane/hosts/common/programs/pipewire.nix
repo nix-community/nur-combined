@@ -1,4 +1,6 @@
 # administer with pw-cli, pw-mon, pw-top commands
+#
+# performance tuning: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Performance-tuning>
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.pipewire;
@@ -9,6 +11,16 @@ in
 
     # sandbox.method = "landlock";  #< also works
     sandbox.method = "bwrap";
+    sandbox.whitelistDbus = [
+      # dbus is used for rtkit integration
+      # rtkit runs on the system bus.
+      # xdg-desktop-portal then exposes this to the user bus.
+      # therefore, user bus should be all that's needed, but...
+      # xdg-desktop-portal-wlr depends on pipewire, hence pipewire has to start before xdg-desktop-portal.
+      # then, pipewire has to talk specifically to rtkit (system) and not go through xdp.
+      # "user"
+      "system"
+    ];
     sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
     sandbox.extraConfig = [
       "--sane-sandbox-keep-namespace" "pid"
@@ -36,6 +48,7 @@ in
     services.pipewire = {
       description = "pipewire: multimedia service";
       partOf = [ "sound" ];
+      # depends = [ "xdg-desktop-portal" ];  # for Realtime portal (dependency cycle)
       # env PIPEWIRE_LOG_SYSTEMD=false"
       # env PIPEWIRE_DEBUG"*:3,mod.raop*:5,pw.rtsp-client*:5"
       command = pkgs.writeShellScript "pipewire-start" ''
@@ -85,5 +98,7 @@ in
   # this might require more configuration (e.g. polkit-related) to work exactly as desired.
   # - readme outlines requirements: <https://github.com/heftig/rtkit>
   # XXX(2023/10/12): rtkit does not play well on moby. any application sending audio out dies after 10s.
-  # security.rtkit.enable = lib.mkIf cfg.enabled true;
+  # - note that `rtkit-daemon` can be launched with a lot of config: pipewire docs (top of this file)
+  #   suggest using a much less aggressive canary. maybe try that?
+  security.rtkit.enable = lib.mkIf cfg.enabled true;
 }

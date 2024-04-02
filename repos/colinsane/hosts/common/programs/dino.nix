@@ -99,9 +99,14 @@ in
       # pipewire uses power-of-two buffering for the mic itself. that would put us at 21.33 ms, but this env var supports only whole numbers (21ms ends up not power-of-two).
       # also, Dino's likely still doing things in 10ms batches internally anyway.
       #
+      # further: decrease the "niceness" of dino, so that it can take precedence over anything else.
+      # ideally this would target just the audio processing, rather than the whole program.
+      # pipewire is the equivalent of `nice -n -21`, so probably don't want to go any more extreme than that.
+      # nice -n -15 chosen arbitrarily; not optimized
+      #
       # note that debug logging during calls produces so much journal spam that it pegs the CPU and causes dropped audio
       # env G_MESSAGES_DEBUG = "all";
-      command = "env PULSE_LATENCY_MSEC=20 dino";
+      command = "env PULSE_LATENCY_MSEC=20 nice -n -15 dino";
     };
   };
 }
