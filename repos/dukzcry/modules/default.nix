@@ -3,7 +3,6 @@ rec {
   #
   # my-module = ./my-module;
   logitech-k380 = ./logitech-k380.nix;
-  gtk = ./gtk.nix;
   hidpi = ./hidpi.nix;
   jack = ./jack.nix;
   pulseaudio = ./pulseaudio.nix;
@@ -30,4 +29,6 @@ rec {
   udisks = ./udisks.nix;
   local-variables = ./local-variables.nix;
   gaming = ./gaming.nix;
+  theme = ./theme.nix;
+  sunpaper = ./sunpaper.nix;
 }

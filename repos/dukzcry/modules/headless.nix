@@ -85,5 +85,24 @@ in {
         output ${cfg.output} resolution ${toString resolution.x}x${toString resolution.y}
       '');
     })
+    (mkIf (cfg.xorg || cfg.wayland) {
+      security.polkit.extraConfig = ''
+        polkit.addRule(function(action, subject) {
+          if (action.id == "org.freedesktop.login1.power-off" ||
+            action.id == "org.freedesktop.login1.power-off-ignore-inhibit" ||
+            action.id == "org.freedesktop.login1.power-off-multiple-sessions" ||
+            action.id == "org.freedesktop.login1.set-reboot-parameter" ||
+            action.id == "org.freedesktop.login1.set-reboot-to-firmware-setup" ||
+            action.id == "org.freedesktop.login1.set-reboot-to-boot-loader-menu" ||
+            action.id == "org.freedesktop.login1.set-reboot-to-boot-loader-entry" ||
+            action.id == "org.freedesktop.login1.reboot" ||
+            action.id == "org.freedesktop.login1.reboot-ignore-inhibit" ||
+            action.id == "org.freedesktop.login1.reboot-multiple-sessions"
+          ) {
+            return polkit.Result.AUTH_SELF_KEEP;
+          }
+        });
+      '';
+    })
   ];
 }

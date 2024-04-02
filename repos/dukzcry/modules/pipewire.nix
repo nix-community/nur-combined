@@ -15,7 +15,7 @@ in {
     nixpkgs.config.pulseaudio = true;
     programs.dconf.enable = mkDefault true;
     environment = {
-      systemPackages = with pkgs; [ pavucontrol easyeffects ];
+      systemPackages = with pkgs; [ pavucontrol ];
     };
     services.pipewire.enable = true;
     services.pipewire.pulse.enable = true;

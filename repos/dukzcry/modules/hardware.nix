@@ -82,7 +82,7 @@ in {
       boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
-      services.hidpi.console = true;
+      boot.initrd.kernelModules = [ "amdgpu" ];
     })
   ];
 }

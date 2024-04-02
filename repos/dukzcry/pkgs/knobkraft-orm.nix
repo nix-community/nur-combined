@@ -55,7 +55,7 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Free modern cross-platform MIDI Sysex Librarian";
     homepage = src.meta.homepage;
-    license = licenses.agpl3;
+    license = licenses.agpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
   };

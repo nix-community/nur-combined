@@ -24,11 +24,11 @@ rec {
       });
     };
   };
-  sunpaper = super.sunpaper.overrideAttrs (oldAttrs: rec {
-    postPatch = ''
-      ${oldAttrs.postPatch}
-      substituteInPlace sunpaper.sh \
-        --replace "sunpaper.sh" "sunpaper"
+  # https://github.com/swaywm/sway/issues/3111#issuecomment-508958733
+  sway-unwrapped = super.sway-unwrapped.overrideAttrs (oldAttrs: rec {
+    postUnpack = ''
+      substituteInPlace source/sway/commands/bind.c \
+        --replace "if ((binding->flags & BINDING_CODE) == 0) {" "if (false) {"
     '';
   });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {

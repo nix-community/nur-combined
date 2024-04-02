@@ -13,7 +13,6 @@ with pkgs.lib; {
       in if list == [] then acc
          else acc ++ (foldmap seed [(func x acc')] func xs);
   };
-  # https://github.com/NixOS/nixpkgs/issues/36299
   ip4 = rec {
     type = types.attrs // {
       name = "ip4";

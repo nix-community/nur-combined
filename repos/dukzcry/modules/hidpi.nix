@@ -1,5 +1,3 @@
-# https://github.com/NixOS/nixpkgs/issues/22652#issuecomment-927163685
-
 { config, pkgs, lib, ... }:
 
 with lib;
@@ -35,8 +33,6 @@ in
         type = types.nullOr types.int;
         default = null;
       };
-
-      console = mkEnableOption "fix hidpi console font";
     };
   };
 
@@ -56,19 +52,6 @@ in
       # workaround: for qt5 taken from plasma
       environment.variables.QT_AUTO_SCREEN_SCALE_FACTOR = "0";
       environment.variables.QT_SCREEN_SCALE_FACTORS = toString (cfg.dpi / 96.0);
-    })
-
-    # https://github.com/NixOS/nixpkgs/issues/274545
-    (mkIf cfg.console {
-      console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
-      systemd.services.my-reload-systemd-vconsole-setup =
-        { wantedBy = [ "graphical.target" ];
-          after = [ "graphical.target" ];
-          serviceConfig =
-            { RemainAfterExit = true;
-              ExecStart = "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup";
-            };
-        };
     })
   ];
 }
