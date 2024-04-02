@@ -15,6 +15,9 @@
 #   - whereas OpenURI requires a URI argument, DynamicLauncher is just "launch an app by <app_id>.desktop"
 #   - example (glib): `gdbus call --session --timeout 10 --dest org.freedesktop.portal.Desktop --object-path /org/freedesktop/portal/desktop --method org.freedesktop.portal.DynamicLauncher.Launch 'audacity.desktop' "{}"`
 #   - .desktop files are searched for in ~/.local/share/xdg-desktop-portal/applications
+#
+# debugging:
+# - show available portals: <https://codeberg.org/tytan652/door-knocker>
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.xdg-desktop-portal;

@@ -1,3 +1,8 @@
+# tips/tricks
+# - audio recording
+#   - default recording input will be silent, on lappy.
+#   - Audio Setup -> Rescan Audio Devices ...
+#   - Audio Setup -> Recording device -> sysdefault
 { pkgs, ... }:
 {
   sane.programs.audacity = {
@@ -19,6 +24,9 @@
       "Music"
       # audacity needs the entire config dir mounted if running in a sandbox
       ".config/audacity"
+    ];
+    sandbox.extraPaths = [
+      "/dev/snd"  # for recording audio inputs to work
     ];
 
     # disable first-run splash screen

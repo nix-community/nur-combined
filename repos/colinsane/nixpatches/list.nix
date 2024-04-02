@@ -33,6 +33,15 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
+    # libnice is the NAT traversal library used by Dino.
+    # this patch isn't critical, but good to be running latest release when debugging
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/296583";
+    title = "libnice: 0.1.21 -> 0.1.22";
+    hash = "sha256-14/EOGbWtgn+Ls86m4apnlEyKNtdUghWZGesLD1Z/I0=";
+    merged.staging = "20240324130000";
+  })
+
+  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/298001";
     saneCommit = "d599839060400762a67d2c01d15b102ffe75e703";
     title = "gnupg: fix cross compilation";
