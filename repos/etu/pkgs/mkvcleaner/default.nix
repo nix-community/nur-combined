@@ -23,7 +23,7 @@ in
       description = "bulk-remux mkv-files from tracks of unwanted languages";
       homepage = "https://github.com/etu/${pname}";
       changelog = "https://github.com/etu/${pname}/releases/tag/${version}";
-      license = licenses.isc;
+      license = licenses.gpl3Plus;
       maintainers = [maintainers.etu];
       platforms = platforms.all;
     };
