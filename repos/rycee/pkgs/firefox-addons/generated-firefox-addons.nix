@@ -1740,10 +1740,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240329.91918";
+      version = "124.0.20240401.114208";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257227/deutsch_de_language_pack-125.0.20240329.91918.xpi";
-      sha256 = "869e2f23d249215da9269a09fd3db5d0f046f769f8ce9329d6b7adedbbbbf22f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258563/deutsch_de_language_pack-124.0.20240401.114208.xpi";
+      sha256 = "0e02439f7bf38354705a80bc4868c6e409fe571993e5d63e8c3cf4bddf60faba";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -1921,10 +1921,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.25.1";
+      version = "2.26.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255733/dualsub-2.25.1.xpi";
-      sha256 = "c124934ef57d4aeb3629a811a685214a75e4445142777af961543e6a71586f72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258650/dualsub-2.26.0.xpi";
+      sha256 = "a4d6fc6d1842789f6965a527e7e2253054413354a56d871cb6b002699d6bfa16";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2421,10 +2421,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.72";
+      version = "6.1.73";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243023/flagfox-6.1.72.xpi";
-      sha256 = "e86e74636f641512d2237a90fa97d7ccd491399e85b05e0965da71b4340252be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257814/flagfox-6.1.73.xpi";
+      sha256 = "235f9a7f88956666b295808335aaa5460bbd2e4f48236845e520022ea41a6ac4";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -2680,10 +2680,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240329.91918";
+      version = "124.0.20240401.114208";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257215/francais_language_pack-125.0.20240329.91918.xpi";
-      sha256 = "2ae0e7840e4544a74eace3c1ec7aa4d47484b2269ac7d7be6184d4108386b20b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258482/francais_language_pack-124.0.20240401.114208.xpi";
+      sha256 = "bee44a3e38494a567abb4a8d5a799680e27d49155cf3e5b1cbd8b8e5fe932b01";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3027,10 +3027,10 @@
     };
     "github-isometric-contributions" = buildFirefoxXpiAddon {
       pname = "github-isometric-contributions";
-      version = "1.1.29";
+      version = "1.1.30";
       addonId = "isometric-contributions@jasonlong.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257762/github_isometric_contributions-1.1.29.xpi";
-      sha256 = "e1ff15fb7968d53ee161e050342a3402735ddf3e6d2df68955771f72fe120e0d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258665/github_isometric_contributions-1.1.30.xpi";
+      sha256 = "7ddd0d58dab722773d78311eafa1630c18d20897345e7a85b84918253cd2dddd";
       meta = with lib;
       {
         description = "Renders an isometric pixel view of GitHub contribution graphs.";
@@ -3514,10 +3514,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.214.2";
+      version = "1.0.215";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4237055/hover_zoom_plus-1.0.214.2.xpi";
-      sha256 = "1e83b38d553467df63e4f82ec0536b581fbf4bbccfaf969750e275c7c1a1d119";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258583/hover_zoom_plus-1.0.215.xpi";
+      sha256 = "6013637b846333a53d3cef3592eceb20e426ab24e6e4e1635d3032d6048faf5f";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4459,6 +4459,8 @@
           "*://*.tapas.io/*"
           "*://*.sspai.com/*"
           "*://*.bsky.app/*"
+          "*://*.onzemondial.com/*"
+          "*://*.cineserie.com/*"
         ];
         platforms = platforms.all;
       };
@@ -5130,10 +5132,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.0.2";
+      version = "1.9.0.3";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4250129/keepassxc_browser-1.9.0.2.xpi";
-      sha256 = "abbc78e65c9d129c43ee5097f9a038b3e8de05c088b92baaae33f6c0c9f57d4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257616/keepassxc_browser-1.9.0.3.xpi";
+      sha256 = "f153b29f6a05f7cb1fc83952f75f55e803573229800df737fa831d1f877c943e";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -8239,10 +8241,10 @@
     };
     "pronoundb" = buildFirefoxXpiAddon {
       pname = "pronoundb";
-      version = "0.14.1";
+      version = "0.14.2";
       addonId = "firefox-addon@pronoundb.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119845/pronoundb-0.14.1.xpi";
-      sha256 = "aad93ea20e8ec347c1db489754f3d4a3d1e0a6d226af12430dc3e9902d261b61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258610/pronoundb-0.14.2.xpi";
+      sha256 = "9eb49be67a01ac0b3eed087ea97e303fd081615ab7e6f15cafd31df2709944cf";
       meta = with lib;
       {
         homepage = "https://pronoundb.org";
