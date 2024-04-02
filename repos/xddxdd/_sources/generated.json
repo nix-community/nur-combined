@@ -1789,11 +1789,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Ek1lZcp9Ge0E4c/9mRSNRVIQNF6qATE3t0gLRvIvpFk=",
+            "sha256": "sha256-I6v4hbkmgTWOv4kCNoImCwHHA8nZlalcKVuljJPFgVc=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.6_240322_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240401_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.6_240322_amd64_01"
+        "version": "Linux/QQ_3.2.7_240401_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1804,11 +1804,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mzJNZUeNr2m19JvW7D9f5Xn4Gse/TlhK1e3cHPz7fOQ=",
+            "sha256": "sha256-x3bEFLUJbWeh2YVQYmJYqOSe/ALQ3qx46fAwqH/35po=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.6_240322_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240401_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.6_240322_arm64_01"
+        "version": "Linux/QQ_3.2.7_240401_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,

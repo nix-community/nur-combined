@@ -1028,18 +1028,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.6_240322_amd64_01";
+    version = "Linux/QQ_3.2.7_240401_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.6_240322_amd64_01.deb";
-      sha256 = "sha256-Ek1lZcp9Ge0E4c/9mRSNRVIQNF6qATE3t0gLRvIvpFk=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240401_amd64_01.deb";
+      sha256 = "sha256-I6v4hbkmgTWOv4kCNoImCwHHA8nZlalcKVuljJPFgVc=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.6_240322_arm64_01";
+    version = "Linux/QQ_3.2.7_240401_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.6_240322_arm64_01.deb";
-      sha256 = "sha256-mzJNZUeNr2m19JvW7D9f5Xn4Gse/TlhK1e3cHPz7fOQ=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240401_arm64_01.deb";
+      sha256 = "sha256-x3bEFLUJbWeh2YVQYmJYqOSe/ALQ3qx46fAwqH/35po=";
     };
   };
   qqmusic = {

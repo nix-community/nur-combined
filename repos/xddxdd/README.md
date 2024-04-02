@@ -154,7 +154,7 @@ Or, use variables from this repository in case I change them:
 |  | `qbittorrent-enhanced-edition` | [qbittorrent-enhanced-edition](https://www.qbittorrent.org) | release-4.6.4.10 | Featureful free software BitTorrent client |
 |  | `qbittorrent-enhanced-edition-nox` | [qbittorrent-enhanced-edition](https://www.qbittorrent.org) | release-4.6.4.10 | Featureful free software BitTorrent client |
 |  | `qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 8.2.2+ds-2+b1 | A generic and open source machine emulator and virtualizer |
-|  | `qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.6 | QQ for Linux |
+|  | `qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.7 | QQ for Linux |
 |  | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.5 | Tencent QQ Music (Packaging script adapted from https://aur.archlinux.org/packages/qqmusic-bin) |
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.012.04-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.052.01 | Linux device driver for Realtek Ethernet controllers |
