@@ -177,6 +177,7 @@
             "--no-scan"
             "--retry-lock 2h"
           ];
+          pruneOpts = [ "--keep-daily 3" ];
           timerConfig = {
             OnCalendar = "daily";
             RandomizedDelaySec = "4h";
