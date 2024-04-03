@@ -14,7 +14,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
+  #example-package = pkgs.callPackage ./pkgs/example-package { };
+  yacy = pkgs.callPackage ./pkgs/yacy { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
