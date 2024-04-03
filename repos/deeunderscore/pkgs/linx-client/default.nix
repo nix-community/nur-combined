@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-QptwZlh7YJiDz7EsOhx7DLreiq/QcH1fRKHpu4s6nZk=";
   };
   
-  vendorSha256 = "sha256-3bzJgS5Vzo3pvHmFT+zSiiw/1/LxC1pLPFVPmSzt+iE=";
+  vendorHash= "sha256-3bzJgS5Vzo3pvHmFT+zSiiw/1/LxC1pLPFVPmSzt+iE=";
 
   meta = {
     description = "Client for linx-server";
