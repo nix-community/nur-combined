@@ -539,10 +539,10 @@
     };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
-      version = "1.4.3";
+      version = "1.4.4";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232400/batchcamp-1.4.3.xpi";
-      sha256 = "7d8ac3120e44ed278847d67388be2955df5e6242e746c66af4cbd28f05697676";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259122/batchcamp-1.4.4.xpi";
+      sha256 = "c8c584f2a173e204eb926a50c817f419a3f31095a3d6970a297432f391b967c9";
       meta = with lib;
       {
         homepage = "https://github.com/hyphmongo/batchcamp";
@@ -1921,10 +1921,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.26.0";
+      version = "2.26.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258650/dualsub-2.26.0.xpi";
-      sha256 = "a4d6fc6d1842789f6965a527e7e2253054413354a56d871cb6b002699d6bfa16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259129/dualsub-2.26.1.xpi";
+      sha256 = "acdb59bf564f7cbb5180e061f4645798ceab22f716fe5995a68b88bab1b2b688";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -10186,10 +10186,10 @@
     };
     "tst-lock-tree-collapsed" = buildFirefoxXpiAddon {
       pname = "tst-lock-tree-collapsed";
-      version = "1.4.2";
+      version = "1.4.3";
       addonId = "tst-lock-tree-collapsed@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255644/tst_lock_tree_collapsed-1.4.2.xpi";
-      sha256 = "6af8e4d03f7984f0e1db38b975b7cdd12bb57319333b5a9218ecc43c4989f6ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259052/tst_lock_tree_collapsed-1.4.3.xpi";
+      sha256 = "d7e25f5407ca1b9e57d3eca88fd9e7762805ed27c306377c5b8afc7f2570f796";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/tst-lock-tree-collapsed";
@@ -10632,10 +10632,10 @@
     };
     "unwanted-twitch" = buildFirefoxXpiAddon {
       pname = "unwanted-twitch";
-      version = "23.10.17";
+      version = "24.3.30";
       addonId = "unwanted@twitch.tv";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4182683/unwanted_twitch-23.10.17.xpi";
-      sha256 = "33749d909c04897e48098aea68ab685077faec89b5f8a96eaf0e5d8b75c9df9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257695/unwanted_twitch-24.3.30.xpi";
+      sha256 = "3d55b58bdbf9ff16da15e8c175bb38d4bab2a791afcbef53f186415dcb4f162a";
       meta = with lib;
       {
         homepage = "https://github.com/kwaschny/unwanted-twitch";
