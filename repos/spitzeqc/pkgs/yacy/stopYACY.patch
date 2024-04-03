@@ -1,0 +1,7 @@
+--- a/stopYACY.sh       1969-12-31 19:00:01.000000000 -0500
++++ b/stopYACY.sh       2024-03-30 13:15:18.154638888 -0400
+@@ -8,3 +8,3 @@ 
+ if [ -z "$YACY_DATA_PATH" ]; then
+-	YACY_DATA_PATH="DATA"
++	YACY_DATA_PATH="$HOME/.cache/yacy/DATA"
+ fi

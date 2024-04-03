@@ -1,0 +1,116 @@
+--- a/startYACY.sh      1969-12-31 19:00:01.000000000 -0500
++++ b/startYACY.sh      2024-03-30 02:20:34.155660394 -0400
+@@ -24,7 +24,7 @@
+ then
+     echo "The java command is not executable."
+     echo "Either you have not installed java or it is not in your PATH"
+-    #Cron supports setting the path in 
++    #Cron supports setting the path in
+     #echo "Has this script been invoked by CRON?"
+     #echo "if so, please set PATH in the crontab, or set the correct path in the variable in this script."
+     exit 1
+@@ -46,8 +46,8 @@
+ }
+ 
+ #startup YaCy
+-YACY_PARENT_DATA_PATH="`dirname $0`"
+-cd "$YACY_PARENT_DATA_PATH"
++YACY_PARENT_DATA_PATH="$HOME/.cache/yacy/"
++cd `dirname $0`
+ 
+ case "$OS" in
+     *"BSD"|"Darwin")
+@@ -55,7 +55,7 @@
+         then
+             echo "WARNING: Unfortunately this script does not support long options in $OS."
+         fi
+-        
++
+         options="`getopt hdlptsg: $*`"
+ ;;
+   *)
+@@ -81,11 +81,11 @@
+ for option in $options;do
+     if [ $isparameter -ne 1 ];then #option
+         case $option in
+-            -h|--help) 
++            -h|--help)
+                 usage
+                 exit 3
+                 ;;
+-            -l|--logging) 
++            -l|--logging)
+                 LOGGING=1
+                 if [ $DEBUG -eq 1 ];then
+                     echo "can not combine -l and -d"
+@@ -126,7 +126,7 @@
+                 GUI=1
+                 isparameter=1
+                 ;;
+-        esac #case option 
++        esac #case option
+     else #parameter
+         if [ $option = "--" ];then #option / parameter separator
+             isparameter=1;
+@@ -141,6 +141,7 @@
+     fi #parameter or option?
+ done
+ 
++STARTUP=1
+ if [ ! -z "$parameter" ] && [ "$STARTUP" -eq 1 -o "$GUI" -eq 1 ]; then
+     # The data path is explicitely provided with startup or gui option
+     YACY_PARENT_DATA_PATH=$parameter
+@@ -153,8 +154,8 @@
+ 
+ #echo $options;exit 0 #DEBUG for getopts
+ 
+-#check if Linux system supports large memory pages or if OS is Solaris which 
+-#supports large memory pages since version 9 
++#check if Linux system supports large memory pages or if OS is Solaris which
++#supports large memory pages since version 9
+ #(according to http://java.sun.com/javase/technologies/hotspot/largememory.jsp)
+ ENABLEHUGEPAGES=0;
+ 
+@@ -162,7 +163,7 @@
+ then
+     HUGEPAGESTOTAL="`cat /proc/meminfo | grep HugePages_Total | sed s/[^0-9]//g`"
+     if [ -n "$HUGEPAGESTOTAL" ] && [ $HUGEPAGESTOTAL -ne 0 ]
+-    then 
++    then
+         ENABLEHUGEPAGES=1
+     fi
+     # the G1 GC is on by default in Java7, so we try that here as well
+@@ -173,7 +174,7 @@
+     # It was reported that the same option causes good performance on solaris.
+     JAVA_ARGS="$JAVA_ARGS -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode"
+     ENABLEHUGEPAGES=1
+-fi 
++fi
+ 
+ #turn on support for large memory pages if supported by OS
+ if [ $ENABLEHUGEPAGES -eq 1 ]
+@@ -206,7 +207,7 @@
+ 
+     PORT="`grep ^port= "$CONFIGFILE" | sed 's/^[^=]*=//'`";
+     if [ -z "$PORT" ]; then PORT="8090"; fi;
+-    
++
+ #    for i in `grep javastart "$CONFIGFILE"`;do
+ #        i="${i#javastart_*=}";
+ #        JAVA_ARGS="-$i $JAVA_ARGS";
+@@ -228,7 +229,14 @@
+ 
+ if [ $STARTUP -eq 1 ] #startup
+ then
+-    cmdline="$cmdline -startup \"$parameter\""
++    echo $YACY_PARENT_DATA_PATH
++    DATA_PATH="$YACY_PARENT_DATA_PATH"
++    if [ -n "$parameter" ]; then
++        DATA_PATH="$parameter"
++    fi
++    echo $DATA_PATH
++    cmdline="$cmdline -startup $DATA_PATH"
++
+ elif [ $GUI -eq 1 ];then #gui
+     cmdline="$cmdline -gui $parameter"
+ fi

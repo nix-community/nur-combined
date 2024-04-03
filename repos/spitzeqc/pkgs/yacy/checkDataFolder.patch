@@ -1,0 +1,5 @@
+--- a/bin/checkDataFolder.sh
++++ b/bin/checkDataFolder.sh
+@@ -10,1 +10,1 @@
+-	YACY_DATA_PATH="$YACY_APP_PATH/DATA"
++	YACY_DATA_PATH="$HOME/.cache/yacy/DATA"
