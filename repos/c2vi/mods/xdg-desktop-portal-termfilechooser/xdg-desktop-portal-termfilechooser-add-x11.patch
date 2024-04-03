@@ -1,0 +1,10 @@
+diff --git a/termfilechooser.portal b/termfilechooser.portal
+index f072ba0..65f21d8 100644
+--- a/termfilechooser.portal
++++ b/termfilechooser.portal
+@@ -1,4 +1,4 @@
+ [portal]
+ DBusName=org.freedesktop.impl.portal.desktop.termfilechooser
+ Interfaces=org.freedesktop.impl.portal.FileChooser;
+-UseIn=i3;wlroots;sway;Wayfire;river;mate;lxde;openbox;unity;pantheon
++UseIn=i3;wlroots;sway;Wayfire;river;mate;lxde;openbox;unity;pantheon;x11

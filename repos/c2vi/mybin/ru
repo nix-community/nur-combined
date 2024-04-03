@@ -1,0 +1,112 @@
+#!/bin/bash
+
+if [ "$1" == "sync-school" ]
+then
+~/work/config/scripts/sync-school.sh
+
+elif [ "$1" == "rm-last-char" ]
+then
+truncate -s-1 $2
+
+# total rubish
+# cat $1 | xxd -ps | sed '$ s/.$//' $2 | xxd -r -ps > /tmp/1234; mv /tmp/1234 $2
+
+
+elif [ "$1" == "rm-tab-cur" ]
+then
+ssh tab "rm /sdcard/note/CUR/*"
+
+
+elif [ "$1" == "mnt-wechner" ]
+then
+rclone mount --vfs-cache-mode full -vvvv onedrive-school:projekt-autobatterie ~/work/htl/projekt/wechner/mnt
+
+
+elif [ "$1" == "mnt-school" ]
+then
+rclone mount --vfs-cache-mode full -vvvv onedrive-school: ~/mnt
+
+
+
+elif [ "$1" == "wstunnel" ]
+then
+wstunnel -L 55555:127.0.0.1:49388 ws://sebastian.dns.army:49389
+
+
+
+elif [ "$1" == "speed-test-nixos-iso" ]
+then
+wget -O /tmp/speed-test.iso "https://dl.t2sde.org/binary/2022/t2-22.6-x86-64-minimal-desktop-gcc-glibc.iso"
+rm /tmp/speed-test.iso
+
+
+elif [ "$1" == "speed-test-upload" ]
+then
+host=$2
+echo upload to $host
+cat /dev/random | pv | ssh $host "cat > /dev/null"
+
+elif [ "$1" == "speed-test-download" ]
+then
+host=$2
+echo download from $host
+ssh $host "cat /dev/random" | pv > /dev/null
+
+
+elif [ "$1" == "p" ]
+then
+ping orf.at
+
+
+elif [ "$1" == "mnt-files-local" ]
+then
+sudo mount -t cifs //192.168.1.2/files /home/me/files -o x-gvfs-hide,rw,defaults,nofail,credentials=/home/me/work/here/secrets/rpi-share-files,uid=1000,iocharset=utf8,gid=1000
+
+
+
+
+elif [ "$1" == "mnt-files-remote" ]
+then
+sshfs -o default_permissions,idmap=user,uid=1000,gid=1000 files:/home/files/storage/files /home/me/files
+
+	#fusermount -u /home/sebastian/files
+	#fusermount -u /home/sebastian/lan
+
+
+elif [ "$1" == "mnt-lan-remote" ]
+then
+sshfs -o default_permissions,idmap=user,uid=1000,gid=1000 files:/home/files/storage/lan /home/me/lan
+
+
+elif [ "$1" == "mnt-lan-local" ]
+then
+sudo mount -t cifs //192.168.1.2/lan /home/me/lan -o x-gvfs-hide,username=guest,defaults,nofail,guest,uid=1000,gid=1000,iocharset=utf8
+
+
+elif [ "$1" == "bat" ]
+then
+now=$(cat /sys/class/power_supply/BAT0/charge_now)
+full=$(cat /sys/class/power_supply/BAT0/charge_full)
+stat=$(python -c "print( round($now / float($full) *100) )")
+echo BAT0 at: ${stat}%
+
+
+
+elif [ "$1" == "bstat" ]
+then
+cat /sys/class/power_supply/BAT0/status
+
+
+elif [ "$1" == "hibernate" ]
+then
+sudo systemctl hibernate
+
+
+elif [ "$1" == "suspend" ]
+then
+sudo systemctl suspend
+
+
+fi
+
+

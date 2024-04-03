@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xinput enable "Logitech Wireless Mouse"
+

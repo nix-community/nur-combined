@@ -1,0 +1,242 @@
+# Opener for lf
+
+# En general, deberías delegar la apertura de ficheros a tu abridor de
+# recursos (e.g. xdg-open, mimeo), recomiendo ponerlo en la variable de
+# entorno $OPENER y luego configurar sus reglas de asociaciones entre tipos
+# MIME y lanzadores .desktop (e.g. ~/.config/applications/mimeapps.list)
+# Sin embargo, acá se puede programar comportamiento más avanzado basado
+# en más características de los ficheros y/o específicamente para lf
+# Tipos MIME IANA oficiales: https://www.iana.org/assignments/media-types/media-types.xhtml
+
+cmd open ${{
+
+	# Demonizador de comandos, en orden de preferencia
+	dem() {
+		{ setsid -f "$@" >/dev/null 2>&1& } \
+			|| ({ nohup "$@" >/dev/null 2>&1& } &) \
+			|| (exec "$@" >/dev/null 2>&1&)
+	}
+
+	real_f="$(readlink -f $f || realpath $f)" \
+
+	mime_type="$(\
+		exiftool -s3 -MIMEType "$real_f" 2>/dev/null \
+			|| file --dereference -b --mime-type -- "$real_f" 2>/dev/null
+	)"
+
+	case "$mime_type" in
+	(application/pdf | application/postscript | image/vnd.djvu |  application/epub*)
+		dem "${READER:-zathura}" $fx
+	;;
+	(text/html)
+		case "${f##*.}" in
+		(xls) dem localc $f ;;
+		(*) "${EDITOR:-nvim}" $fx
+		esac
+	;;
+	(text/troff)
+		case "${f##*.}" in
+		([0-9] | [01]p | [23]*) man $fx ;;
+		(*) "${EDITOR:-nvim}" $fx
+		esac
+	;;
+	( text/* | application/json | application/javascript | \
+	application/pgp-encrypted | inode/x-empty | application/octet-stream | \
+	application/x-gettext-translation )
+		"${EDITOR:-nvim}" $fx
+	;;
+	(image/x-*)
+		dem "${IMAGE_EDITOR:-gimp}" $fx
+	;;
+	(image/* )
+		case "$(tty)" in
+		("/dev/tty"*) # En tty imágenes pueden ser mostradas con mpv
+			"${MPV:-mpv}" --keep-open $fx
+		;;
+		(*) dem "${IMAGE_VIEWER:-vimiv}" $fx
+		esac
+	;;
+	(audio/*)
+		case "$(tty)" in
+		("/dev/tty"*) # No demonizar en tty
+			"${AUDIO_PLAYER:-"${MPV:-mpv}"}" --audio-display=no $fx
+		;;
+		(*) dem "${TERMINAL:-alacritty}" -e "${AUDIO_PLAYER:-"${MPV:-mpv}"}" --audio-display=no $fx
+		esac
+	;;
+	(video/*)
+		case "$(tty)" in
+		("/dev/tty"*) # No demonizar en tty
+			"${VIDEO_PLAYER:-"${MPV:-mpv}"}" $fx
+		;;
+		# TODO: handle video/webm like previewer
+		(*) dem "${VIDEO_PLAYER:-"${MPV:-mpv}"}" $fx
+		esac
+	;;
+	(application/vnd.sqlite3)
+		sqlite3 $fx
+	;;
+#		text/xml)
+#			;;
+	(application/zip)
+		case "${f##*.}" in
+		(kra) dem krita $f ;;
+		(*)
+			for f in $fx; do
+				"${OPENER:-xdg-open}" $f
+			done
+		esac
+	;;
+	(*)
+		case "$f" in
+		# TODO: redo this with mime types, not extensions
+		( *.tar.bz | *.tar.bz2 | *.tbz | \
+		*.tbz2 | *.tar.gz | *.tgz | *.tar.lzma | \
+		*.tar.xz | *.txz | *.zip | *.rar | *.iso)
+			mntdir="$f-archivemount"
+			if ! [ -d "$mntdir" ]; then
+				mkdir -- "$mntdir"
+				archivemount "$f" "$mntdir"
+				printf -- "%s\n" "$mntdir" >> "/tmp/__lf_archivemount_$id"
+			fi
+			lf -remote "send $id cd '$mntdir'"
+			lf -remote "send $id reload"
+		;;
+		esac
+
+		# Delegate opening to resource opener
+
+		#pwhich() {
+		#	hash "$1" >/dev/null 2>&1 && command -v -- "$1"
+		#}
+		#[ "$OPENER" ] || OPENER=$(pwhich xdg-open)
+		for f in $fx; do
+			dem "${OPENER:-xdg-open}" $f
+			#"${OPENER:-"${EDITOR:-nvim}"}" $f
+			# ${OPENER:-"xdg-open"} $f || "${EDITOR:-"nvim"}" $f
+		done
+		;;
+	esac
+}}
+
+ # Bug: In my AwesomeWM some JPGs or webm don't show the window until is tiled
+
+cmd openwith ${{
+
+	dem() {
+		{ setsid -f "$@" >/dev/null 2>&1& } \
+			|| ({ nohup "$@" >/dev/null 2>&1& } &) \
+			|| (exec "$@" >/dev/null 2>&1&)
+	}
+
+	real_f="$(readlink -f $f || realpath $f)" \
+	mime_type="$(\
+		exiftool -s3 -MIMEType "$real_f" \
+			|| file --dereference -b --mime-type -- "$real_f"
+	)"
+
+	menu_select() {
+		nl -nln | fzf --with-nth 2.. | cut -d' ' -f1
+	}
+
+	# TODO: hacer que se puedan abrir con múltiples a la vez (fzf +m)
+	case "$mime_type" in
+	( text/* | application/json | application/javascript | \
+	application/pgp-encrypted | inode/x-empty | application/octet-stream )
+		app=$(menu_select <<-\EOF
+		$EDITOR
+		$EDITOR (new terminal)
+		nano
+		nano (new terminal)
+		EOF
+		)
+		case "$app" in
+		(1) "${EDITOR:-nvim}" $fx ;;
+		(2) dem "${TERMINAL:-alacritty}" -e "$EDITOR" $fx ;;
+		(3) nano $fx ;;
+		(4) dem "${TERMINAL:-alacritty}" -e nano $fx ;;
+		esac
+	;;
+
+	(image/svg+xml | image/png | image/jpeg | image/gif )
+		app=$(menu_select <<-\EOF
+		vimiv
+		gimp
+		mpv
+		krita
+		inkscape
+		EOF
+		)
+		case "$app" in
+		(1) dem vimiv $fx ;;
+		(2) dem gimp $fx ;;
+		(3)
+			case "$(tty)" in
+			# Demonizing on tty makes it impossible to quit
+			("/dev/tty"*) "${MPV:-mpv}" --keep-open=yes $fx ;;
+			(*) dem "${MPV:-mpv}" --keep-open=yes $fx ;;
+			esac
+		;;
+		(4) dem krita $fx ;;
+		(5) dem inkscape $fx ;;
+		esac
+	;;
+
+	(image/x-*)
+		app=$(menu_select <<-\EOF
+		gimp
+		vimiv
+		mpv
+		EOF
+		)
+		case "$app" in
+		(1) dem gimp $fx ;;
+		(2) dem vimiv $fx ;;
+		(3)
+			case "$(tty)" in
+			# Demonizing on tty makes it impossible to quit
+			("/dev/tty"*) "${MPV:-mpv}" --keep-open=yes $fx ;;
+			(*) dem "${MPV:-mpv}" --keep-open=yes $fx ;;
+			esac
+			;;
+		esac
+	;;
+
+	(audio/*)
+		app=$(menu_select <<-\EOF
+		mpv (force terminal)
+		mpv (background)
+		mpv (background, only audio)
+		mpv (foreground)
+		mpv (foreground, only audio)
+		mpv (force window)
+		EOF
+		)
+		case "$app" in
+		(1) dem "${TERMINAL:-alacritty}" -e "$MPV" --audio-display=no $fx ;;
+		(2) dem "${MPV:-mpv}" $fx ;;
+		(3) dem "${MPV:-mpv}" --audio-display=no $fx ;;
+		(4) "${MPV:-mpv}" $fx ;;
+		(5) echo; "${MPV:-mpv}" --audio-display=no $fx ;;
+		(6) dem "${MPV:-mpv}" --force-window $fx ;;
+		esac
+	;;
+
+	(video/*)
+		app=$(menu_select <<-\EOF
+		mpv
+		mpv (background, only audio)
+		mpv (foreground, only audio)
+		kdenlive
+		EOF
+		)
+		case "$app" in
+		(1) dem "${MPV:-mpv}" $fx ;;
+		(2) dem "${MPV:-mpv}" --video=no --audio-display=no $fx ;;
+		(3) echo; "${MPV:-mpv}" --video=no --audio-display=no $fx ;;
+		(4) dem "${VIDEO_EDITOR:-kdenlive}" $fx ;;
+		esac
+	esac
+}}
+
+# vim: ft=lf

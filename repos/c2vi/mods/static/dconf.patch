@@ -1,0 +1,68 @@
+diff --git a/client/meson.build b/client/meson.build
+index 0308dc2..1f80046 100644
+--- a/client/meson.build
++++ b/client/meson.build
+@@ -35,11 +35,11 @@ client_deps = [
+ symbol_map = join_paths(meson.current_source_dir(), 'symbol.map')
+ ldflags = cc.get_supported_link_arguments('-Wl,--version-script,@0@'.format(symbol_map))
+ 
+-libdconf = shared_library(
++libdconf = static_library(
+   'dconf',
+   sources: sources,
+-  version: libversion,
+-  soversion: soversion,
++  #version: libversion,
++  #soversion: soversion,
+   include_directories: top_inc,
+   dependencies: client_deps,
+   c_args: dconf_c_args,
+diff --git a/gsettings/meson.build b/gsettings/meson.build
+index 9463453..1233d6a 100644
+--- a/gsettings/meson.build
++++ b/gsettings/meson.build
+@@ -6,7 +6,7 @@ backend_deps = [
+ symbol_map = join_paths(meson.current_source_dir(), 'symbol.map')
+ ldflags = cc.get_supported_link_arguments('-Wl,--version-script,@0@'.format(symbol_map))
+ 
+-libdconf_settings = shared_library(
++libdconf_settings = static_library(
+   'dconfsettings',
+   sources: 'dconfsettingsbackend.c',
+   include_directories: top_inc,
+diff --git a/tests/meson.build b/tests/meson.build
+index 19f693a..81967a6 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -50,19 +50,19 @@ endforeach
+ 
+ symbol_test = find_program('abicheck.sh')
+ 
+-abi_tests = [
+-  ['gsettings', libdconf_settings, files('../gsettings/symbols.txt')[0]],
+-  ['libdconf', libdconf, files('../client/symbols.txt')[0]],
+-]
++#abi_tests = [
++  #['gsettings', libdconf_settings, files('../gsettings/symbols.txt')[0]],
++  #['libdconf', libdconf, files('../client/symbols.txt')[0]],
++#]
+ 
+-foreach abi_test: abi_tests
+-  test(
+-    abi_test[0],
+-    symbol_test,
+-    env: envs,
+-    args: [abi_test[1].full_path(), abi_test[2]],
+-  )
+-endforeach
++#foreach abi_test: abi_tests
++  #test(
++    #abi_test[0],
++    #symbol_test,
++    #env: envs,
++    #args: [abi_test[1].full_path(), abi_test[2]],
++  #)
++#endforeach
+ 
+ 
+ python3 = find_program('python3', required: false)

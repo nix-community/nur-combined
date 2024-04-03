@@ -1,0 +1,60 @@
+diff --git a/Makefile.in b/Makefile.in
+index 3d235ad..1cd36ea 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -27,7 +27,7 @@ PWD = $(shell pwd)
+ 
+ OFILES = main.o report.o header.o buffering_write.o cachetest.o
+ 
+-export STATIC 
++export STATIC = TRUE
+ export VERSION
+ 
+ ifeq ($(STATIC),TRUE)
+@@ -71,20 +71,10 @@ install:
+ 	$(INSTALL) -d -m 0755 $(INCLUDEDIR)
+ 	$(INSTALL) -m 0644 $(srcdir)/paranoia/cdda_paranoia.h $(INCLUDEDIR)
+ 	$(INSTALL) -d -m 0755 $(LIBDIR)
+-	$(INSTALL) -m 0644 $(srcdir)/paranoia/libcdda_paranoia.so.0.$(VERSION) $(LIBDIR)
+ 	$(INSTALL) -m 0644 $(srcdir)/paranoia/libcdda_paranoia.a $(LIBDIR)
+ 	$(INSTALL) -m 0644 $(srcdir)/interface/cdda_interface.h $(INCLUDEDIR)
+-	$(INSTALL) -m 0644 $(srcdir)/interface/libcdda_interface.so.0.$(VERSION) $(LIBDIR)
+ 	$(INSTALL) -m 0644 $(srcdir)/interface/libcdda_interface.a $(LIBDIR)
+ 	$(INSTALL) -m 0644 $(srcdir)/utils.h $(INCLUDEDIR)
+-	ln -fs libcdda_interface.so.0.$(VERSION) \
+-		$(LIBDIR)/libcdda_interface.so.0
+-	ln -fs libcdda_interface.so.0.$(VERSION) \
+-		$(LIBDIR)/libcdda_interface.so
+-	ln -fs libcdda_paranoia.so.0.$(VERSION) \
+-		$(LIBDIR)/libcdda_paranoia.so.0
+-	ln -fs libcdda_paranoia.so.0.$(VERSION) \
+-		$(LIBDIR)/libcdda_paranoia.so
+ 
+ cdparanoia:	$(OFILES) $(LIBDEP)
+ 		$(LD) $(CFLAGS) $(LDFLAGS) $(OFILES) \
+diff --git a/interface/Makefile.in b/interface/Makefile.in
+index 40c6098..ac430ac 100644
+--- a/interface/Makefile.in
++++ b/interface/Makefile.in
+@@ -23,7 +23,7 @@ OFILES = scan_devices.o	common_interface.o cooked_interface.o interface.o\
+ 
+ export VERSION
+ 
+-all: lib slib
++all: lib
+ 
+ debug: 
+ 	$(MAKE) libcdda_interface.a CFLAGS="$(DEBUG)"
+diff --git a/paranoia/Makefile.in b/paranoia/Makefile.in
+index 89d0328..7bb7c16 100644
+--- a/paranoia/Makefile.in
++++ b/paranoia/Makefile.in
+@@ -24,7 +24,7 @@ OFILES = paranoia.o p_block.o overlap.o gap.o isort.o
+ LIBS = ../interface/libcdda_interface.a -lm
+ export VERSION
+ 
+-all: lib slib
++all: lib
+ 
+ debug: 
+ 	$(MAKE) libcdda_paranoia.a CFLAGS="$(DEBUG)"

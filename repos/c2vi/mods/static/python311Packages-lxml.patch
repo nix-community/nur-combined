@@ -1,0 +1,39 @@
+diff --git a/buildlibxml.py b/buildlibxml.py
+index ab2efad..22fa8f6 100644
+--- a/buildlibxml.py
++++ b/buildlibxml.py
+@@ -278,7 +278,10 @@ def download_libxml2(dest_dir, version=None):
+         from_location = "https://gitlab.gnome.org/GNOME/libxml2/-/archive/dea91c97debeac7c1aaf9c19f79029809e23a353/"
+         version = "dea91c97debeac7c1aaf9c19f79029809e23a353"
+     else:
+-        from_location = http_find_latest_version_directory(LIBXML2_LOCATION, version=version)
++        pass
++        #from_location = http_find_latest_version_directory(LIBXML2_LOCATION, version=version)
++    version = "2.12.4"
++    from_location = "https://download.gnome.org/sources/libxml2/2.12/"
+ 
+     return download_library(dest_dir, from_location, 'libxml2',
+                             version_re, filename, version=version)
+@@ -289,7 +292,8 @@ def download_libxslt(dest_dir, version=None):
+     #version_re = re.compile(r'LATEST_LIBXSLT_IS_([0-9.]+[0-9](?:-[abrc0-9]+)?)')
+     version_re = re.compile(r'libxslt-([0-9.]+[0-9]).tar.xz')
+     filename = 'libxslt-%s.tar.xz'
+-    from_location = http_find_latest_version_directory(LIBXSLT_LOCATION, version=version)
++    #from_location = http_find_latest_version_directory(LIBXSLT_LOCATION, version=version)
++    from_location = "https://download.gnome.org/sources/libxslt/1.1/"
+     return download_library(dest_dir, from_location, 'libxslt',
+                             version_re, filename, version=version)
+ 
+diff --git a/setupinfo.py b/setupinfo.py
+index 90b1de4..2284de3 100644
+--- a/setupinfo.py
++++ b/setupinfo.py
+@@ -152,6 +152,8 @@ def ext_modules(static_include_dirs, static_library_dirs,
+         cythonize_directives['linetrace'] = True
+ 
+     result = []
++    modules = []
++    module_files = []
+     for module, src_file in zip(modules, module_files):
+         is_py = module in COMPILED_MODULES
+         main_module_source = src_file + (

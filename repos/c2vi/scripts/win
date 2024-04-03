@@ -1,0 +1,158 @@
+#!/bin/bash
+
+
+#default_vm_name=windp
+#default_vm_uuid=12650dba-6232-40d8-9863-6c2bb267a0c9
+
+default_vm_name=win
+default_vm_uuid=win
+#default_vm_uuid=6a412143-871f-4838-bacd-5dcfa5fa95c3
+
+username=me
+password=$(cat ~/work/here/secrets/win-vm-pwd)
+
+if [ "$1" == "-o" ];then
+	cmd=$5
+	username=$4
+	default_vm_name=$2
+	default_vm_uuid=$2
+	default_vm_ip=$3
+
+else
+	cmd=$1
+fi
+
+#do stuff
+
+if [ "$cmd" == "st" ];then
+	sudo umount /home/sebastian/winwork
+
+	#virsh -c qemu:///system attach-disk 12650dba-6232-40d8-9863-6c2bb267a0c9 /dev/nvme0n1 sdd --targetbus virtio --persistent
+
+	virsh -c qemu:///system start $default_vm_uuid
+
+	#sleep 30
+	#sudo mount -t cifs //192.168.122.4/winwork /home/sebastian/winwork -o user=$username -o password=$password -o uid=1000 -o gid=1000
+
+
+elif [ "$cmd" == "h" ];then
+	sudo mount /home/sebastian/winwork
+
+elif [ "$cmd" == "c" ];then
+	virt-manager --connect qemu:///system --show-domain-editor $default_vm_uuid
+
+elif [ "$cmd" == "sm" ];then
+	sudo umount /home/sebastian/winwork
+	virsh -c qemu:///system managedsave $default_vm_uuid
+
+elif [ "$cmd" == "s" ];then
+	virsh -c qemu:///system domstate $default_vm_uuid
+
+
+elif [ "$cmd" == "ld" ];then
+	virsh -c qemu:///system domblklist --domain $default_vm_uuid --details
+	echo ----------------------------------------
+	virsh -c qemu:///system dumpxml $default_vm_uuid | grep sdd
+
+
+elif [ "$cmd" == "w" ];then
+	virsh -c qemu:///system attach-disk $default_vm_uuid /dev/nvme0n1 sdd --targetbus virtio --persistent
+	sleep 0.5
+	sudo mount -t cifs //$default_vm_ip/winwork /home/sebastian/winwork -o user=$username -o password=$password -o uid=1000 -o gid=1000
+
+elif [ "$cmd" == "m" ];then
+	sudo mount -t cifs //$default_vm_ip/winwork /home/sebastian/winwork -o user=$username -o password=$password -o uid=1000 -o gid=1000
+
+elif [ "$cmd" == "u" ];then
+	virsh -c qemu:///system attach-disk $default_vm_uuid /dev/nvme0n1 sdd --targetbus usb --persistent
+	sleep 0.5
+	sudo mount -t cifs //$default_vm_ip/winwork /home/sebastian/winwork -o user=$username -o password=$password -o uid=1000 -o gid=1000
+
+
+elif [ "$cmd" == "uu" ];then
+	virsh -c qemu:///system detach-disk $default_vm_uuid /dev/nvme0n1 --persistent
+	sudo umount /home/sebastian/winwork
+
+elif [ "$cmd" == "uw" ];then
+	#sudo modprobe shpchp
+	#sudo modprobe acpiphp
+	virsh -c qemu:///system detach-disk $default_vm_uuid /dev/nvme0n1 --persistent
+	virsh -c qemu:///system shutdown $default_vm_uuid
+
+elif [ "$cmd" == "sp" ];then
+	virsh -c qemu:///system shutdown $default_vm_uuid
+	virsh -c qemu:///system shutdown $default_vm_uuid
+	virsh -c qemu:///system shutdown $default_vm_uuid
+
+	#sleep 15
+
+	#virsh -c qemu:///system detach-disk $default_vm_uuid /dev/nvme0n1 --persistent
+	#sudo mount /home/sebastian/winwork
+
+
+
+elif [ "$cmd" == "p" ];then
+	sudo umount /home/sebastian/winwork
+	virsh -c qemu:///system suspend $default_vm_uuid
+
+	#sleep 0.2
+	#kill -SIGSTOP $(pgrep qemu)
+
+
+elif [ "$cmd" == "up" ];then
+	#kill -SIGCONT $(pgrep qemu)
+	#sleep 0.2
+	virsh -c qemu:///system resume $default_vm_uuid
+
+	sleep 0.2
+	sudo mount -t cifs //$default_vm_ip/winwork /home/sebastian/winwork -o user=$username -o password=$password -o uid=1000 -o gid=1000
+
+
+elif [ "$cmd" == "f" ];then
+	RDP_SCALE=100
+	MULTI_FLAG="span"
+	RDP_USER=$username
+	RDP_PASS=$password
+	RDP_IP=$default_vm_ip
+
+	xfreerdp ${RDP_FLAGS} /u:"${RDP_USER}" /p:"${RDP_PASS}" /v:${RDP_IP} /scale:${RDP_SCALE} /dynamic-resolution +clipboard +auto-reconnect +home-drive /wm-class:"Microsoft Windows" -grab-keyboard 1> /dev/null 2> /dev/null &
+	#xfreerdp ${RDP_FLAGS} /u:"${RDP_USER}" /p:"${RDP_PASS}" /v:${RDP_IP} /scale:${RDP_SCALE} /dynamic-resolution +clipboard +auto-reconnect +home-drive /wm-class:"Microsoft Windows" -grab-keyboard
+	#
+elif [ "$cmd" == "fl" ];then
+	RDP_SCALE=100
+	MULTI_FLAG="span"
+	RDP_USER=$username
+	RDP_PASS=$password
+	RDP_IP=$default_vm_ip
+
+	xfreerdp ${RDP_FLAGS} /u:"${RDP_USER}" /p:"${RDP_PASS}" /v:${RDP_IP} /scale:${RDP_SCALE} /dynamic-resolution +clipboard +auto-reconnect +home-drive /wm-class:"Microsoft Windows" -grab-keyboard
+
+elif [ "$cmd" == "fup" ];then
+	#kill -SIGCONT $(pgrep qemu)
+	#echo cont
+	#sleep 0.2
+	virsh -c qemu:///system resume $default_vm_uuid
+
+	sleep 0.4
+	sudo mount -t cifs //$default_vm_ip/winwork /home/sebastian/winwork -o user=$username -o password=$password -o uid=1000 -o gid=1000
+
+	sleep 0.2
+	RDP_SCALE=100
+	MULTI_FLAG="span"
+	RDP_USER=$username
+	RDP_PASS=$password
+	RDP_IP=$default_vm_ip
+
+	xfreerdp ${RDP_FLAGS} /u:"${RDP_USER}" /p:"${RDP_PASS}" /v:${RDP_IP} /scale:${RDP_SCALE} /dynamic-resolution +clipboard +auto-reconnect +home-drive /wm-class:"Microsoft Windows" -grab-keyboard 1> /dev/null 2> /dev/null &
+
+elif [ "$cmd" == "l" ];then
+	looking-glass-client -m KEY_END
+
+fi
+
+
+
+
+
+
+

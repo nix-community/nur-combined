@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xinput disable "Logitech Wireless Mouse"
+

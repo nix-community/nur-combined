@@ -1,0 +1,16 @@
+diff --git a/meson.build b/meson.build
+index 8225b6f..f416565 100644
+--- a/meson.build
++++ b/meson.build
+@@ -109,6 +109,11 @@ install_data(
+     install_dir: join_paths(get_option('datadir'), 'xdg-desktop-portal-termfilechooser'),
+ )
+ 
++install_data(
++    'contrib/lf-wrapper.sh',
++    install_dir: join_paths(get_option('datadir'), 'xdg-desktop-portal-termfilechooser'),
++)
++
+ scdoc = dependency('scdoc', required: get_option('man-pages'), version: '>= 1.9.7')
+ if scdoc.found()
+     man_pages = ['xdg-desktop-portal-termfilechooser.5.scd']

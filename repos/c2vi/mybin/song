@@ -1,0 +1,3 @@
+#!/bin/bash
+
+SONG_CONF_PATH=~/work/things/cool-songs.json ~/scripts/song $@

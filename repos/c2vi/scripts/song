@@ -1,0 +1,309 @@
+#!/usr/bin/env python3
+
+# written while listening to mocking bird on loop
+# if you really went through my config in that much detail... 
+# ... to stumble upon this weired script i wrote a long time ago
+# ... please message me on discord (@c2vi) about it!!
+
+from datetime import datetime
+import sys
+import json
+import requests
+import base64
+import os
+
+with open("~/.mysecrets/spotify-client-id", "r") as file:
+    CLIENT_ID = file.read()
+with open("~/.mysecrets/spotify-client-secret", "r") as file:
+    CLIENT_SECRET = file.read()
+
+LIST_COUNT = 6
+FILL_TO = 45
+
+CONF_PATH = os.getenv("SONG_CONF_PATH")
+if CONF_PATH == "":
+    print("No SONG_CONF_PATH environment variable found")
+    exit(1)
+
+
+def get_token():
+    url = "https://accounts.spotify.com/api/token"
+    form_data = {"grant_type": "client_credentials"}
+
+
+    message = CLIENT_ID + ":" + CLIENT_SECRET
+    message_bytes = message.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    auth_base64 = base64_bytes.decode('ascii')
+
+
+    headers = {
+            "user-agent": "Hi Spotify.....xD",
+            "Authorization": f"Basic {auth_base64}",
+            }
+
+    x = requests.post(url, headers=headers, data=form_data)
+
+    data = x.json()
+    return data["access_token"]
+
+def spotify_search(name):
+    token = get_token()
+    url = "https://api.spotify.com/v1/search"
+
+    headers = {
+            "user-agent": "Hi Spotify.....xD",
+            "Authorization": f"Bearer {token}",
+            }
+
+    params = {"q": name, "type": "track"}
+
+    x = requests.get(url, headers=headers, params=params)
+
+    data = x.json()
+    count = 0
+    for track in data["tracks"]["items"]:
+        count += 1
+        if count > LIST_COUNT:
+            break
+
+        #print(track.keys())
+        name = track["name"]
+        artists = get_artists(track)
+
+        out = f"{count}) {name}"
+        out = fill(out)
+        out += f"BY: {artists}"
+        print(out)
+
+    try:
+        number = int(input("NUMBER: "))
+        return data["tracks"]["items"][number -1]
+    except:
+        exit(1)
+
+def get_artists(track):
+    artists = ""
+    for artist in track["artists"]:
+        if artists != "":
+            artists += " --- " + artist["name"]
+        else: 
+            artists += artist["name"]
+
+    return artists
+
+def add_track(track, pos = None):
+    # get the track id
+    # first letter , or first two, ....
+    count = 1
+    myid = track["name"][0:count]
+    while get_track_pos(myid) != -1:
+        count += 1
+        myid = track["name"][0:count]
+
+        if count == 2000:
+            print("Count went to 2000 in add_track")
+            exit(1)
+
+    mytrack = {
+        "id": track["id"],
+        "name": track["name"],
+        "artists": get_artists(track),
+        "myid": myid,
+    }
+
+    if pos == None:
+        config["now"].append(mytrack)
+    else:
+        config["now"].insert(pos -1, mytrack)
+
+    config["log"].append({
+        "type": "add",
+        "track": mytrack,
+        "time": now.strftime("%m/%d/%Y-%H:%M:%S"),
+    })
+
+def set_track(track_id, pos):
+    mytrack = get_track_from_myid(track_id)
+    old_pos = get_track_pos(track_id)
+    config["now"].pop(old_pos)
+    config["now"].insert(pos, mytrack)
+
+    config["log"].append({
+        "type": "move",
+        "track": mytrack,
+        "time": now.strftime("%m/%d/%Y-%H:%M:%S"),
+        "from": old_pos +1,
+        "to": pos +1,
+    })
+
+
+def get_track_pos(track_or_myid):
+    id = ""
+    if type(track_or_myid) == dict:
+        id = track_or_myid["myid"]
+    else:
+        id = track_or_myid
+
+    count = 0
+    for track in config["now"]:
+        if track["myid"] == id:
+            return count
+
+        count += 1
+
+    return -1
+
+def get_track_from_myid(myid):
+    for track in config["now"]:
+        if track["myid"] == myid:
+            return track
+    print(f"Track {myid} not found")
+    exit(1)
+
+
+def remove_track(track_or_myid):
+    myid = ""
+    if type(track_or_myid) == dict:
+        myid = track_or_myid["myid"]
+    else:
+        myid = track_or_myid
+
+    config["log"].append({
+        "type": "remove",
+        "track": get_track_from_myid(myid),
+        "time": now.strftime("%m/%d/%Y-%H:%M:%S"),
+    })
+
+    new_tracks = []
+    for track in config["now"]:
+        if track["myid"] != myid:
+            new_tracks.append(track)
+
+    config["now"] = new_tracks
+
+def list_track():
+    count = 0
+    for track in config["now"]:
+        count += 1
+        out = str(count) + ") " + track["myid"]
+        out = fill(out, l=10)
+        out += track["name"]
+        out = fill(out)
+        out += "BY: " + track["artists"]
+        print(out)
+
+def fill(string, l = FILL_TO):
+    count = 0
+    while len(string) < l:
+        string += " "
+        count += 1
+    return string
+
+def log():
+    for entry in config["log"]:
+        typ = entry["type"]
+        name = entry["track"]["name"]
+        time = entry["time"]
+        if typ == "move":
+            fro = entry["from"]
+            to = entry["to"]
+            print(f"MOVE \t from {fro} to {to} \t {time} \t {name}")
+
+        elif typ == "add":
+            print(f"ADD \t {time} \t {name}")
+
+        elif typ == "remove":
+            print(f"REMOVE \t {time} \t {name}")
+
+def main():
+    searh_term = " ".join(args[2:len(args)])
+    if args[1] == "s":
+        track = spotify_search(searh_term)
+
+    elif args[1] == "a" or args[1] == "add":
+        try:
+            pos = int(args[2])
+            print("Inserting at pos:", pos)
+            searh_term = " ".join(args[3:len(args)])
+            track = spotify_search(searh_term)
+            add_track(track, pos = pos)
+        except:
+            track = spotify_search(searh_term)
+            add_track(track)
+
+    elif args[1] == "rm":
+        remove_track(args[2])
+
+    elif args[1] == "l":
+        list_track()
+
+    elif args[1] == "st" or args[1] == "set":
+        set_track(args[2], int(args[3]) -1)
+
+        list_track()
+
+    elif args[1] == "up":
+        pos = get_track_pos(args[2])
+        delta = 1
+        try:
+            delta = int(args[3])
+        except:
+            pass
+
+        set_track(args[2], pos - delta)
+        list_track()
+
+    elif args[1] == "down" or args[1] == "dn":
+        pos = get_track_pos(args[2])
+        delta = 1
+        try:
+            delta = int(args[3])
+        except:
+            pass
+
+        set_track(args[2], pos + delta)
+        list_track()
+
+    elif args[1] == "log" and len(args) >= 3 and args[2] == "rm":
+        num = 1
+        try:
+            num = int(args[3])
+        except:
+            pass
+
+        config["log"] = config["log"][0:-num]
+        log()
+
+    elif args[1] == "log":
+        log()
+
+    else:
+        print("Unknown command!")
+        exit(1)
+
+if __name__ == "__main__":
+
+    args = sys.argv
+
+    now = datetime.now()
+
+
+    # read config
+    with open(CONF_PATH, "r") as file:
+        config = json.loads(file.read())
+
+    # init config
+    if config.get("log", None) == None:
+        config["log"] = []
+
+    if config.get("now", None) == None:
+        config["now"] = []
+
+    main()
+
+    # write config
+    with open(CONF_PATH, "w") as file:
+        file.write(json.dumps(config))
+
+

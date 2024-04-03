@@ -1,0 +1,19 @@
+#!/bin/bash
+
+v_flag=""
+flag=""
+
+while getopts ':v:' flag; do
+  case "${flag}" in
+    v) v_flag="${OPTARG}";;
+    *) echo "invalid flag"
+       exit 1 ;;
+  esac
+done
+
+if [[ "$v_flag" == "" ]]
+then
+	find . -not -type d | xargs grep $@ 2>/dev/null
+else
+	find . -not -type d | grep -v "$v_flag" | xargs grep $@ 2>/dev/null
+fi

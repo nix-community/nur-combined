@@ -1,0 +1,202 @@
+#!/bin/bash
+# shellcheck disable=SC2222
+
+# File preview handler for lf.
+# Dependencies:
+#	- GNU 'file' or similar (file detection)
+#	- bat (text)
+#	- uebergzug (images, videos, pdf, fonts)
+#	- ffmpegthumbnailer (videos)
+#	- exiftool (metadata/audio, and file detection for .webm files)
+#	- jq (json and metadata)
+#	- lynx (html/web pages)
+#	- pdftoppm (pdf)
+#	- odt2txt (odt)
+#	- convert from imagemagick (fonts)
+#	- atool (archives)
+#	- gpg (PGP encrypted files)
+#	- man (troff manuals)
+#	- Other: stat, cut, sha256sum
+
+# Notes:
+#	- If using alacritty's same process: 'alacritty msg create-window', previews only show in first window
+
+set -C -f
+IFS='
+'
+
+# Display an image with certain path, width, height, x, y
+# Usage: image "$path_to_image" "$width" "$height" "$x" "$y" "$fallback_path"
+image() {
+  # shellcheck disable=all
+  set +u
+  set +e
+	if [ -f "$1" ] && [ "$DISPLAY" ] && [ ! "$WAYLAND_DISPLAY" ]
+	then
+		printf '{"action": "add", "identifier": "PREVIEW", "path": "%s", "width": "%s", "height": "%s", "scaler": "contain", "x": "%s", "y": "%s"}\n' \
+			"$1" "$(($2-1))" "$(($3-1))" "$4" "$5" > "$FIFO_UEBERZUG"
+	else
+		exiftool -j "$6" | jq -C
+	fi
+}
+
+ifub() {
+  # shellcheck disable=all
+	if [ "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+		command -V ueberzug >/dev/null 2>&1
+	fi
+}
+
+# Note that the cache file name is a function of file information, meaning if
+# an image appears in multiple places across the machine, it will not have to
+# be regenerated once seen.
+
+create_cache() {
+  # shellcheck disable=all
+	CACHE="${XDG_CACHE_HOME:-"$HOME/.cache"}/lf/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' \
+		-- "$(readlink -f "$1" || realpath "$1" )" \
+		| sha256sum \
+		| cut -d' ' -f1)"
+}
+
+mime_preview() {
+  # shellcheck disable=all
+	# The 'ran_guard' variable is there in case I need to do recursion
+	# because the initial mime_type variable wasn't enough to determine
+	# an adequate preview
+	case "$mime_type","$ran_guard" in
+	(image/svg+xml,0 | image/svg)
+		create_cache "$1"
+		[ -f "$CACHE.png" ] \
+			|| rsvg-convert  -o "$CACHE.png" -a -w "1000" -b '#1f2430' "$1"
+		image "$CACHE.png" "$2" "$3" "$4" "$5" "$1"
+	;;
+	(image/*,0)
+		image "$1" "$2" "$3" "$4" "$5" "$1"
+	;;
+	(text/html,0)
+		lynx -width="$4" -display_charset=utf-8 -dump -- "$1"
+	;;
+	(text/troff,0)
+		case "${1##*.}" in
+		([0-9] | [01]p | [23]*)
+			man ./ "$1" | col -b
+		;;
+		(*)
+			bat --terminal-width "$(($4*7/9))" -f "$1" --style=numbers
+		esac
+	;;
+	(text/*,0 | */xml,0 | application/javascript,0 | application/x-subrip,0 )
+		bat --terminal-width "$(($4*7/9))" -f "$1" --style=numbers
+	;;
+	( application/x-pie-executable,0 | application/x-executable,0 | \
+	application/x-sharedlib,0)
+		objdump -d "$1" -M intel
+		#readelf -WCa "$1"
+		#hexdump -C "$1" || xxd "$1"
+	;;
+	(application/json,0)
+		case "${1##*.}" in
+		(ipynb)
+			# Needs my fork of ipynb-py-convert
+			ipynb-py-convert --stdout "$1" \
+				| bat --terminal-width "$(($4*7/9))" --color=always -l python --style=numbers
+		;;
+		(*) jq -C < "$1" ;;
+		esac
+	;;
+	(application/zip,0 | application/x-7z-compressed,0 )
+		atool --list -- "$1"
+	;;
+	(audio/*,[01])
+		exiftool -j "$1" | jq -C
+	;;
+	(video/webm,0)
+		# file --mime-type doesn't distinguish well between "video/webm"
+		# actual webm videos or webm audios, but exiftool does, thus
+		# re-run this function with new mimetype
+		mime_type="$(exiftool -s3 -MIMEType "$1")" \
+		ran_guard=$((ran_guard+1))
+		mime_preview "$@"
+		;;
+	(video/*,[01])
+		create_cache "$1"
+		[ -f "$CACHE" ] \
+			|| ffmpegthumbnailer -i "$1" -o "$CACHE" -s 0
+		image "$CACHE" "$2" "$3" "$4" "$5" "$1"
+	;;
+	(*/pdf,0 | */postscript,0)  # .pdf, .ps
+		create_cache "$1"
+		[ -f "$CACHE.jpg" ] \
+			|| pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
+		image "$CACHE.jpg" "$2" "$3" "$4" "$5" "$1"
+	;;
+	(application/font*,0 | application/*opentype,0 | font/sfnt,0)  # .ttf, .otf
+		create_cache "$1"
+		[ -f "$CACHE.png" ] \
+			|| convert -size "800x800" "xc:#000000" -fill "#ffffff" \
+				-pointsize "72" -font "$1" -gravity center -annotate +0+0 \
+				"ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\nabcdefghijklm\nnopqrstuvwxyz\n1234567890\n!@#$\%^&*,.;:\n_-=+'\"|\\(){}[]" \
+				"$CACHE.png"
+		image "$CACHE.png" "$2" "$3" "$4" "$5" "$1"
+	;;
+	(*opendocument*,0) # .odt, .ods
+		CCt='	' \
+		bytes=$(du -sb "$1") bytes="${bytes%%"$CCt"*}"
+		if [ "$bytes" -lt 150000 ]; then
+			odt2txt "$1"
+		else
+			printf "file too big too preview quickly\n"
+		fi
+	;;
+	(*ms-excel,0)  # .xls
+		xls2csv -- "$1" \
+			| bat --terminal-width "$(($4*7/9))" --color=always -l csv --style=numbers
+	;;
+	#(application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)  # .xslx
+		# https://github.com/dilshod/xlsx2csv
+		#xlsx2csv -- "$1"
+	#;;
+	#(text/rtf,0 | *msword,0 )  # .doc, doesn't always work
+		#catdoc -- "$1"
+	#;;
+	#(*wordprocessingml.document|*/epub+zip|*/x-fictionbook+xml)  # .docx
+		#pandoc -s -t markdown -- "$1"
+	#;;
+	#(message/rfc822)
+		# https://github.com/djcb/mu
+		#mu view -- "${FILE_PATH}" && exit 5
+	#;;
+	# TODO: add lf command to decrypt it and show the decrypted file in preview window
+	(application/pgp-encrypted,0)
+		printf "PGP armored ASCII \033[1;31mencrypted\033[m file,\ntry using gpg to decrypt it\n\n"
+		cat "$1"
+		#gpg -d -- "$1"
+	;;
+	(application/octet-stream,0)
+		#extension="${1##*.}" extension="${extension%"$1"}"
+		case "${1##*.}" in
+		(gpg)
+			printf "OpenPGP \033[1;31mencrypted\033[m file,\ntry using gpg to decrypt it\n\n"
+		;;
+		(*) exiftool -j "$1" | jq -C
+		esac
+	;;
+	(application/vnd.sqlite3,0)
+		# TODO: handle multiple tables, maybe it's better to show tables and columns in a tree format
+		table=$(sqlite3 "$1" '.tables')
+		sqlite3 "$1" ".headers on" ".mode markdown" "select * from $table"
+		;;
+	esac
+	return 1
+}
+
+main() {
+  # shellcheck disable=all
+	mime_type="$(file --dereference -b --mime-type -- "$1")"
+  "echo hiiiiiiiiiiiiiiiiii $mime_type"
+	ran_guard=0
+	mime_preview "$@" || return $?
+}
+
+main "$@" || exit $?

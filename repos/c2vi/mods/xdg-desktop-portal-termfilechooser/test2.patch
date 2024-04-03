@@ -1,0 +1,21 @@
+diff --git a/src/filechooser/filechooser.c b/src/filechooser/filechooser.c
+index 6cecec6..bd9ba7f 100644
+--- a/src/filechooser/filechooser.c
++++ b/src/filechooser/filechooser.c
+@@ -19,6 +19,7 @@ static const char interface_name[] = "org.freedesktop.impl.portal.FileChooser";
+ static int exec_filechooser(void *data, bool writing, bool multiple, bool directory, char *path, char ***selected_files, size_t *num_selected_files) {
+     struct xdpw_state *state = data;
+     char *cmd_script = state->config->filechooser_conf.cmd;
++    logprint(ERROR, "hiiiiiiiiiiiiiii ... cmd_script: %s", cmd_script);
+     if (!cmd_script) {
+         logprint(ERROR, "cmd not specified");
+         return -1;
+@@ -33,7 +34,7 @@ static int exec_filechooser(void *data, bool writing, bool multiple, bool direct
+     snprintf(cmd, str_size, "%s %d %d %d \"%s\" \"%s\"", cmd_script, multiple, directory, writing, path, PATH_PORTAL);
+ 
+     remove(PATH_PORTAL);
+-    logprint(TRACE, "executing command: %s", cmd);
++    logprint(ERROR, "executing command: %s", cmd);
+     int ret = system(cmd);
+     if (ret) {
+         logprint(ERROR, "could not execute %s: %d", cmd, errno);

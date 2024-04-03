@@ -1,0 +1,13 @@
+diff --git a/tests/repository/meson.build b/tests/repository/meson.build
+index 1744538..a95f083 100644
+--- a/tests/repository/meson.build
++++ b/tests/repository/meson.build
+@@ -4,7 +4,7 @@ if glib_dep.type_name() == 'pkgconfig'
+     'gitestrepo': typelibs,
+     'giteststructinfo': typelibs,
+     'gitestthrows': typelibs,
+-    'gitypelibtest': [regress_typelib],
++    #'gitypelibtest': [regress_typelib],
+   }
+ 
+   repository_test_env = environment()

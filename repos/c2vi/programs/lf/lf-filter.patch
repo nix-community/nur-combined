@@ -1,0 +1,13 @@
+diff --git a/nav.go b/nav.go
+index c32fc97..95cc2ce 100644
+--- a/nav.go
++++ b/nav.go
+@@ -1774,7 +1774,7 @@ func searchMatch(name, pattern string) (matched bool, err error) {
+ 	if gOpts.globsearch {
+ 		return filepath.Match(pattern, name)
+ 	}
+-	return strings.Contains(name, pattern), nil
++	return strings.HasPrefix(name, pattern), nil
+ }
+ 
+ func (nav *nav) searchNext() (bool, error) {

@@ -1,0 +1,59 @@
+#!/bin/bash
+
+#revert: 
+
+#svn st | grep ^D | cut -c 9- | sed 's/^/"/' | sed 's/$/"/' | xargs svn revert -R
+#svn st | grep ^A | cut -c 9- | sed 's/^/"/' | sed 's/$/"/' | xargs svn revert -R
+
+
+if [ "$1" == "cut" ]
+then
+	cut -c 9- | sed 's/^/"/' | sed 's/$/"/'
+fi
+
+
+if [ "$1" == "e" ]
+then
+	if [ "$2" == "" ]
+	then
+		export SVN_EDITOR=nvim
+		echo "DONE: export SVN_EDITOR=nvim"
+
+	else
+		export SVN_EDITOR=nvim
+		svn propedit svn:ignore $2
+	fi
+fi
+
+
+if [ "$1" == "ignore" ]
+then
+	if [ -t 0 ]
+	then
+		echo
+	else
+		# have a pipe
+		cat >> ./svn-ignore
+	fi
+	# do if no or some pipe ... apply the things in the svn-ignore file
+	cat ./svn-ignore | sed 's/$/\/../' | while read p; do svn propdel svn:ignore $p 1>/dev/null; done
+
+	cat ./svn-ignore | sed 's\^\./\' | while read p; do
+		name=$(echo -en "$p" | tr "/" "\n" | tail -n 1)
+		path=${p%/*}
+		prop=$(svn propget svn:ignore $path)
+		svn propset svn:ignore "${prop}"$'\n'"${name}" $path
+		echo prop: $prop
+		echo path: $path
+	done
+fi
+
+
+if [ "$1" == "up" ]
+then
+	echo "-----------------------------------------------------------------"
+	svn st | grep ^? | cut -c 9- | sed 's/^/"/' | sed 's/$/"@/' | xargs svn add
+	svn st | grep ^! | cut -c 9- | sed 's/^/"/' | sed 's/$/"@/' | xargs svn rm
+	echo "-----------------------------------------------------------------"
+	svn ci -m "$2"
+fi

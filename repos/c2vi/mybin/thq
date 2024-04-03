@@ -1,0 +1,181 @@
+#!/usr/bin/env python3
+
+DIR = "/home/me/work/things/storage/thq"
+FILE = DIR + "/main.json"
+EDITOR = "nvim"
+
+import os
+import click
+from click_aliases import ClickAliasedGroup
+
+# python.....
+true = True
+false = False
+
+class JSON:
+    from json import dumps as stringify
+    from json import loads as parse
+
+
+@click.group(cls=ClickAliasedGroup)
+def main():
+    pass
+
+@main.command(aliases=["al"])
+def add_link():
+    global data
+    lnk = input("LINK: ")
+    new = {
+        "type": "link",
+        "val": lnk
+    }
+    data.append(new)
+
+@main.command(aliases=["als"])
+def add_links():
+    global data
+
+    lns = []
+    while true:
+        lnk = input("LINK: ")
+        if lnk == "":
+            break
+        else:
+            lns.append(lnk)
+
+    new = {
+        "type": "links",
+        "val": lns
+    }
+    data.append(new)
+
+@main.command(aliases=["ae"])
+def add_edit():
+    os.system(f'{EDITOR} {DIR}/edit-file')
+    with open(f'{DIR}/edit-file', "r") as file:
+        st = file.read()
+
+    os.remove(f'{DIR}/edit-file')
+
+    new = {
+        "type": "string",
+        "val": st
+    }
+    data.append(new)
+
+@main.command(aliases=["af"])
+def add_file():
+    global data
+
+    os.system("mv " + file + " " + DIR + "/files")
+    name = file.split("/")[-1]
+    print(name)
+    new = {
+        "type": "file",
+        "val": name
+    }
+    data.append(new)
+
+
+@main.command(aliases=["a"])
+@click.argument("text", nargs=-1)
+def add(text):
+    global data
+            
+    new = {
+        "type": "string",
+        "val": " ".join(text)
+    }
+    data.append(new)
+
+@main.command(aliases=["g"])
+def get():
+    global data
+    if len(data) == 0:
+        print("Nothing to do...")
+        return
+
+    now = data[0]
+    with open(f'{DIR}/now.json', "w") as file:
+        file.write(JSON.stringify(now))
+
+    data.pop(0)
+
+    if now["type"] == "string":
+        print("now")
+
+    elif now["type"] == "link":
+        os.system("firefox " + now["val"])
+
+    elif now["type"] == "links":
+        for link in now["val"]:
+            os.system("firefox " + link)
+
+    elif now["type"] == "file":
+        print("FILE: " + now["val"])
+        #os.system("zath " + now["val"])
+
+@main.command(aliases=["ar"])
+def archive_now():
+    with open(f'{DIR}/now.json', "r") as file:
+        now = JSON.parse(file.read())
+
+    if not os.path.exists(FILE + "/archive.json"):
+        f = open(FILE + "/archive.json", "w")
+        f.write(JSON.stringify({"main": []}))
+        f.close()
+
+    with open(f'{DIR}/archive.json', "r+") as ar_file:
+        archive = JSON.parse(ar_file.read())
+        archive["main"].append(now)
+        ar_file.write(JSON.stringify(archive))
+
+@main.command(aliases=["n"])
+def now():
+    with open(f'{DIR}/now.json', "r") as file:
+        print(file.read())
+
+@main.command()
+def all():
+    global data
+    print(JSON.stringify(data))
+
+@main.command(aliases=["ea"])
+def edit_all():
+    os.system(f'{EDITOR} {DIR}/main.json')
+
+
+@main.command(aliases=["l"])
+def get_len():
+    global data
+    print(len(data))
+
+@main.result_callback()
+def process_result(result, **kwargs):
+    global data
+    with open(FILE, "w") as file:
+        file.write(JSON.stringify(data))
+
+
+#############################################################################
+# main
+
+if __name__ == "__main__":
+
+    if not os.path.exists(DIR):
+        os.mkdir(DIR) 
+        os.mkdir(DIR + "/files") 
+ 
+    if not os.path.exists(FILE):
+        f = open(FILE, "w")
+        f.write(JSON.stringify([]))
+        f.close()
+
+    global data
+    with open(FILE, "r") as file:
+        data = JSON.parse(file.read())
+
+    main()
+
+
+

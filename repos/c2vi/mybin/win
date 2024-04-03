@@ -1,0 +1,3 @@
+#!/bin/bash
+
+~/work/config/scripts/win -o main-win 192.168.122.98 sebastian $@

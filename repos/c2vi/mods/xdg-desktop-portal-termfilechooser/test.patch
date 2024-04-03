@@ -1,0 +1,14 @@
+diff --git a/contrib/ranger-wrapper.sh b/contrib/ranger-wrapper.sh
+index 88bc697..b5d3fe0 100755
+--- a/contrib/ranger-wrapper.sh
++++ b/contrib/ranger-wrapper.sh
+@@ -25,6 +25,9 @@ save="$3"
+ path="$4"
+ out="$5"
+ 
++echo hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
++read
++
+ cmd="/usr/bin/ranger"
+ termcmd="${TERMCMD:-/usr/bin/kitty}"
+ 

@@ -1,0 +1,20 @@
+diff --git a/buildtools/wafsamba/wscript b/buildtools/wafsamba/wscript
+index dcc8a65..3e42d43 100644
+--- a/buildtools/wafsamba/wscript
++++ b/buildtools/wafsamba/wscript
+@@ -305,7 +305,15 @@ def configure(conf):
+     conf.CHECK_CC_ENV()
+ 
+     conf.load('compiler_c')
++
++    # This seems to be the only way to not include the -Wl,-Bdynamic in the linker gcc cmdline
++    # because it is assumed as a common gcc flag in $src/third_party/waf/waflib/Tools/gcc.py
++    # and disabled only for certain platforms with no way to disable it from eg an ENV Variable
++    # export SHLIB_MARKER = "" is picked up by waf (just before conf.load conf.env.SHLIB_MARKER is "")
++    # but the conf.load("compiler_c") overwrites that
++    # on the alpine static build it is no problem to have both -Wl,-Bdynamic and -Wl,-Bstatic
++    # but on nix it is a problem
++    conf.env.SHLB_MARKER = ""
+ 
+     conf.CHECK_STANDARD_LIBPATH()
+ 
