@@ -8,36 +8,39 @@
 rec {
   # https://github.com/NixOS/nixpkgs/pull/129806
   # https://github.com/lovesegfault/nix-config/blob/master/nix/overlays/linux-lto.nix
+
+  noBintools = {
+    bootBintools = null;
+    bootBintoolsNoLibc = null;
+  };
+  hostLLVM = pkgs.pkgsBuildHost.llvmPackages_latest.override noBintools;
+  buildLLVM = pkgs.pkgsBuildBuild.llvmPackages_latest.override noBintools;
+
+  ltoMakeflags = [
+    "LLVM=1"
+    "LLVM_IAS=1"
+    "CC=${buildLLVM.clangUseLLVM}/bin/clang"
+    "LD=${buildLLVM.lld}/bin/ld.lld"
+    "HOSTLD=${hostLLVM.lld}/bin/ld.lld"
+    "AR=${buildLLVM.llvm}/bin/llvm-ar"
+    "HOSTAR=${hostLLVM.llvm}/bin/llvm-ar"
+    "NM=${buildLLVM.llvm}/bin/llvm-nm"
+    "STRIP=${buildLLVM.llvm}/bin/llvm-strip"
+    "OBJCOPY=${buildLLVM.llvm}/bin/llvm-objcopy"
+    "OBJDUMP=${buildLLVM.llvm}/bin/llvm-objdump"
+    "READELF=${buildLLVM.llvm}/bin/llvm-readelf"
+    "HOSTCC=${hostLLVM.clangUseLLVM}/bin/clang"
+    "HOSTCXX=${hostLLVM.clangUseLLVM}/bin/clang++"
+  ];
+
   stdenvLLVM =
     let
-      noBintools = {
-        bootBintools = null;
-        bootBintoolsNoLibc = null;
-      };
-      hostLLVM = pkgs.pkgsBuildHost.llvmPackages_latest.override noBintools;
-      buildLLVM = pkgs.pkgsBuildBuild.llvmPackages_latest.override noBintools;
-
       mkLLVMPlatform =
         platform:
         platform
         // {
           linux-kernel = platform.linux-kernel // {
-            makeFlags = (platform.linux-kernel.makeFlags or [ ]) ++ [
-              "LLVM=1"
-              "LLVM_IAS=1"
-              "CC=${buildLLVM.clangUseLLVM}/bin/clang"
-              "LD=${buildLLVM.lld}/bin/ld.lld"
-              "HOSTLD=${hostLLVM.lld}/bin/ld.lld"
-              "AR=${buildLLVM.llvm}/bin/llvm-ar"
-              "HOSTAR=${hostLLVM.llvm}/bin/llvm-ar"
-              "NM=${buildLLVM.llvm}/bin/llvm-nm"
-              "STRIP=${buildLLVM.llvm}/bin/llvm-strip"
-              "OBJCOPY=${buildLLVM.llvm}/bin/llvm-objcopy"
-              "OBJDUMP=${buildLLVM.llvm}/bin/llvm-objdump"
-              "READELF=${buildLLVM.llvm}/bin/llvm-readelf"
-              "HOSTCC=${hostLLVM.clangUseLLVM}/bin/clang"
-              "HOSTCXX=${hostLLVM.clangUseLLVM}/bin/clang++"
-            ];
+            makeFlags = (platform.linux-kernel.makeFlags or [ ]) ++ ltoMakeflags;
           };
         };
 
@@ -124,6 +127,8 @@ rec {
     lib.nameValuePair name (buildLinux {
       inherit lib;
       stdenv = if lto then stdenvLLVM else stdenv;
+
+      extraMakeFlags = if lto then ltoMakeflags else [ ];
 
       inherit version src;
       modDirVersion =
