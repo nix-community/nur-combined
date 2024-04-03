@@ -54,6 +54,7 @@ in
 
     "sane-scripts.bt-add".sandbox = {
       method = "bwrap";
+      autodetectCliPaths = "existing";  #< for adding a .torrent from disk
       net = "clearnet";
       # TODO: migrate `transmission_passwd` to `secrets` api
       extraPaths = [ "/run/secrets/transmission_passwd" ];

@@ -95,7 +95,7 @@
   # - set the group stick bit: `sudo find /var/media -type d -exec chmod g+s {} +`
   #   - this ensures new files/dirs inherit the group of their parent dir (instead of the user who creates them)
   # - ensure everything under /var/media is mounted with `-o acl`, to support acls
-  # - ensure all files are rwx by group: `setfacl --modify --recursive d:g::rwx /var/media`
+  # - ensure all files are rwx by group: `setfacl --recursive --modify d:g::rwx /var/media`
   #   - alternatively, `d:g:media:rwx` to grant `media` group even when file has a different owner, but that's a bit complex
   sane.persist.sys.byStore.plaintext = [{
     path = "/var/media";

@@ -11,7 +11,7 @@ import subprocess
 logger = logging.getLogger(__name__)
 
 # where to store the torrents as downloaded
-TORRENT_DIR="/var/media"
+TORRENT_DIR="/var/media/torrents"
 
 class MediaType(Enum):
     Film = "film"
@@ -73,11 +73,11 @@ class MediaMeta:
     @property
     def type_path(self) -> str:
         return {
-            MediaType.Film="Videos/Film/",
-            MediaType.Show="Videos/Shows/",
-            MediaType.Book="Books/Books/",
-            MediaType.Audiobook="Books/Audiobooks/",
-            MediaType.VisualNovel="Books/Visual/",
+            MediaType.Film:        "Videos/Film/",
+            MediaType.Show:        "Videos/Shows/",
+            MediaType.Book:        "Books/Books/",
+            MediaType.Audiobook:   "Books/Audiobooks/",
+            MediaType.VisualNovel: "Books/Visual/",
         }[self.type_]
 
     def fs_path(self, base: str=TORRENT_DIR) -> None:

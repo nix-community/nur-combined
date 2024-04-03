@@ -22,11 +22,50 @@ let
         --replace-fail 'set(TR_USER_AGENT_PREFIX "''${TR_SEMVER}")' 'set(TR_USER_AGENT_PREFIX "3.00")'
     '';
   });
+  download-dir = "/var/media/torrents";
+  torrent-done = pkgs.writeShellApplication {
+    name = "torrent-done";
+    runtimeInputs = with pkgs; [
+      rsync
+      util-linux
+    ];
+    text = ''
+      destructive() {
+        if [ -n "''${TR_DRY_RUN-}" ]; then
+          echo "$*"
+        else
+          "$@"
+        fi
+      }
+      if [[ "$TR_TORRENT_DIR" =~ ^.*freeleech.*$ ]]; then
+        # freeleech torrents have no place in my permanent library
+        echo "freeleech: nothing to do"
+        exit 0
+      fi
+      if ! [[ "$TR_TORRENT_DIR" =~ ^${download-dir}/.*$ ]]; then
+        echo "unexpected torrent dir, aborting: $TR_TORRENT_DIR"
+        exit 0
+      fi
+
+      REL_DIR="''${TR_TORRENT_DIR#${download-dir}/}"
+      MEDIA_DIR="/var/media/$REL_DIR"
+
+      destructive mkdir -p "$(dirname "$MEDIA_DIR")"
+      destructive rsync -arv "$TR_TORRENT_DIR/" "$MEDIA_DIR/"
+      # dedupe the whole media library.
+      # yeah, a bit excessive: move this to a cron job if that's problematic.
+      destructive hardlink /var/media --reflink=always --ignore-time --verbose
+    '';
+  };
 in
 {
   sane.persist.sys.byStore.plaintext = [
     # TODO: mode? we need this specifically for the stats tracking in .config/
     { user = "transmission"; group = config.users.users.transmission.group; path = "/var/lib/transmission"; method = "bind"; }
+  ];
+  sane.persist.sys.byStore.ext = [
+    # TODO: move ALL /var/media to the same zfs pool; remove this
+    { user = "transmission"; group = "media"; path = download-dir; method = "bind"; }
   ];
   users.users.transmission.extraGroups = [ "media" ];
 
@@ -72,11 +111,23 @@ in
     # see: https://git.zknt.org/mirror/transmission/commit/cfce6e2e3a9b9d31a9dafedd0bdc8bf2cdb6e876?lang=bg-BG
     anti-brute-force-enabled = false;
 
-    download-dir = "/var/media";
-    incomplete-dir = "/var/media/incomplete";
+    inherit download-dir;
+    incomplete-dir = "${download-dir}/incomplete";
     # transmission regularly fails to move stuff from the incomplete dir to the main one, so disable:
-    # TODO: uncomment this line!
     incomplete-dir-enabled = false;
+
+    # env vars available in script:
+    # - TR_APP_VERSION - Transmission's short version string, e.g. `4.0.0`
+    # - TR_TIME_LOCALTIME
+    # - TR_TORRENT_BYTES_DOWNLOADED - Number of bytes that were downloaded for this torrent
+    # - TR_TORRENT_DIR - Location of the downloaded data
+    # - TR_TORRENT_HASH - The torrent's info hash
+    # - TR_TORRENT_ID
+    # - TR_TORRENT_LABELS - A comma-delimited list of the torrent's labels
+    # - TR_TORRENT_NAME - Name of torrent (not filename)
+    # - TR_TORRENT_TRACKERS - A comma-delimited list of the torrent's trackers' announce URLs
+    script-torrent-done-enabled = true;
+    script-torrent-done-filename = "${torrent-done}/bin/torrent-done";
   };
 
   systemd.services.transmission.after = [ "wireguard-wg-ovpns.service" ];
@@ -86,6 +137,7 @@ in
     NetworkNamespacePath = "/run/netns/ovpns";
     Restart = "on-failure";
     RestartSec = "30s";
+    BindPaths = [ "/var/media" ];  #< so it can move completed torrents into the media library
   };
 
   # service to automatically backup torrents i add to transmission
