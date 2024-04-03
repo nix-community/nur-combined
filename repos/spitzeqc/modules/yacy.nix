@@ -33,10 +33,10 @@ in
       systemd.services.yacy = {
         description = "YaCy Web Crawler/Indexer & Search Engine";
         wantedBy = [ "multi-user.target" ];
-        environment = { YACY_DATA_PATH = "${cfg.dataFolder}"; };
+        environment = { YACY_DATA_PATH = "${cfg.dataFolder}/DATA"; };
         serviceConfig = {
           Type = "forking";
-          ExecStart = "${binStartYacy} -s $YACY_DATA_PATH";
+          ExecStart = "${binStartYacy} -s ${cfg.dataFolder}";
           ExecStop = "${binStopYacy}";
           Restart = "on-failure";
         };
