@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "zug";
-  version = "unstable-2023-10-15";
+  version = "unstable-2024-03-26";
 
   src = fetchFromGitHub {
     owner = "arximboldi";
     repo = pname;
-    rev = "4e8617e6baf7d277b54354abade5703363140792";
-    hash = "sha256-Ti0EurhGQgWSXzSOlH9/Zsp6kQ/+qGjWbfHGTPpfehs=";
+    rev = "7c22cc138e2a9a61620986d1a7e1e9730123f22b";
+    hash = "sha256-/0HnSUmmyX49L6pJk9QlviFF2FYi5o+x++94wwYwWjk=";
   };
 
   nativeBuildInputs = [ cmake ];
