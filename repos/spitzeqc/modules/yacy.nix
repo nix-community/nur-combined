@@ -2,6 +2,7 @@
 with lib;
 let
   cfg = config.services.yacy;
+  nur = import (builtins.fetchTarball "https://github.com/spitzeqc/nur-packages/archive/master.tar.gz") {};
 in
 {
   options = with types; {
@@ -17,7 +18,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "yacy" { };
+      package = mkPackageOption nur "yacy" { };
     };
   };
 
