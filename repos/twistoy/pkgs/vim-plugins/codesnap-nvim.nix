@@ -37,7 +37,12 @@
         rustPlatform.bindgenHook
         libuv
       ]
-      ++ lib.optional stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
+      ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk_11_0.frameworks; [
+        AppKit
+        ApplicationServices
+        CoreVideo
+        Security
+      ]);
   };
 in
   buildVimPlugin {
