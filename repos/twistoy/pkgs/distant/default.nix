@@ -4,7 +4,8 @@
   fetchFromGitHub,
   openssl,
   stdenv,
-  perl
+  perl,
+  darwin,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "distant";
@@ -24,9 +25,16 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [
-    openssl
-  ];
+  buildInputs =
+    [
+      openssl
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk_11_0.frameworks; [
+      AppKit
+      ApplicationServices
+      CoreVideo
+      Security
+    ]);
 
   cargoSha256 = "7MNNdm4b9u5YNX04nBtKcrw+phUlpzIXo0tJVfcgb40=";
 

@@ -9,7 +9,7 @@
   fugit2-nvim = callPackage ./fugit2-nvim.nix {
     inherit buildVimPlugin;
   };
-  codesnap-nvim = callPackage ./codesnap-nvim.nix {
-    inherit buildVimPlugin;
-  };
+  # codesnap-nvim = callPackage ./codesnap-nvim.nix {
+  #   inherit buildVimPlugin;
+  # };
 }
