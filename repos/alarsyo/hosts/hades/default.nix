@@ -112,11 +112,6 @@ in {
       secretKeyFile = config.age.secrets."paperless/secret-key".path;
     };
 
-    photoprism = {
-      enable = true;
-      port = 8084;
-    };
-
     pleroma = {
       enable = true;
       port = 8086;
