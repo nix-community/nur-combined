@@ -1,17 +1,17 @@
 { pkgs, lib, fetchFromGitea }:
 pkgs.rustPlatform.buildRustPackage rec {
   pname = "todoit";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitea {
     domain = "git.ixhby.dev";
     owner = "ixhbinphoenix";
     repo = "todoit";
     rev = version;
-    hash = "sha256-IGXop8Ei/uTtWMjS/dmV4fr7qcJvCy5PQFjfDf/u0Dc=";
+    hash = "sha256-0hWKespkIeyLopGjgxhPh8SlGc0hWddNUFHS/PyYcrs=";
   };
 
-  cargoHash = "sha256-6lH5KlfA4meAkyLd9bRUKfhllV10PK0fsS3M609xeT0=";
+  cargoHash = "sha256-4jWt8kd57/SSaT3QiobjHBuyQB+Md9HUu0b8woI7XB8=";
 
   meta = with lib; {
     description = "CLI Tool for showing all TODO's in a project";
