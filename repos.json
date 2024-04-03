@@ -933,6 +933,9 @@
         "souxd": {
             "url": "https://github.com/souxd/souxd-nur"
         },
+        "spitzeqc": {
+            "url": "https://github.com/spitzeqc/nur-packages"
+        },
         "splintah": {
             "url": "https://github.com/splintah/nurpkgs"
         },
