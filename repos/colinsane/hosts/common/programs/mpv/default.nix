@@ -27,7 +27,33 @@
 
 let
   cfg = config.sane.programs.mpv;
+  # uosc = pkgs.mpvScripts.uosc.overrideAttrs (_: {
+  #   src = pkgs.fetchFromGitea {
+  #     domain = "git.uninsane.org";
+  #     owner = "colin";
+  #     repo = "uosc";
+  #     rev = "sane-0.2";
+  #     hash = "sha256-j5hX+lAf7mHx4vqI0shOekmOh4aZsOiRb3rPs8vQ4qo=";
+  #     # for version > 4.7.0, we can use nixpkgs src and set `patches` to a fetch of my one custom commit
+  #   };
+  #   patches = [];
+
+  #   scriptPath = "scripts/uosc";
+  #   installPhase = ''
+  #     mkdir -p $out/share/mpv/scripts
+  #     cp -a scripts/uosc $out/share/mpv/scripts/uosc
+  #     cp -r fonts $out/share
+  #   '';
+  # });
   uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: {
+    version = "5.2.0-unstable-2024-03-13";
+    src = lib.warnIf (lib.versionOlder "5.2.0" upstream.version) "uosc outdated; remove patch?" pkgs.fetchFromGitHub {
+      owner = "tomasklaen";
+      repo = "uosc";
+      rev = "6fa34c31d0a5290dee83282205768d15111df7d8";
+      hash = "sha256-qxyNZHmH33bKRp4heFSC+RtvSApIfbVFt4otfS351nE=";
+    };
+
     # patch so that the volume control corresponds to `ao-volume`, i.e. the system-wide volume.
     # this is particularly nice for moby, because it avoids the awkwardness that system volume
     # is hard to adjust while screen is on.
@@ -68,13 +94,23 @@ let
       EOF
     '';
   });
+  mpv-unwrapped = pkgs.mpv-unwrapped.overrideAttrs (upstream: {
+    version = "0.37.0-unstable-2024-03-31";
+    src = lib.warnIf (lib.versionOlder "0.37.0" upstream.version) "mpv outdated; remove patch?" pkgs.fetchFromGitHub {
+      owner = "mpv-player";
+      repo = "mpv";
+      rev = "4ce4bf1795e6dfd6f1ddf07fb348ce5d191ab1dc";
+      hash = "sha256-nOGuHq7SWDAygROV7qHtezDv1AsMpseImI8TVd3F+Oc=";
+    };
+    patches = [];
+  });
 in
 {
   sane.programs.mpv = {
-    packageUnwrapped = with pkgs; wrapMpv mpv-unwrapped {
+    packageUnwrapped = pkgs.wrapMpv mpv-unwrapped {
       scripts = [
-        mpvScripts.mpris
-        mpvScripts.mpv-playlistmanager
+        pkgs.mpvScripts.mpris
+        pkgs.mpvScripts.mpv-playlistmanager
         uosc
         # pkgs.mpv-uosc-latest
       ];

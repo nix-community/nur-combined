@@ -63,10 +63,6 @@ in
     # TODO: mode? we need this specifically for the stats tracking in .config/
     { user = "transmission"; group = config.users.users.transmission.group; path = "/var/lib/transmission"; method = "bind"; }
   ];
-  sane.persist.sys.byStore.ext = [
-    # TODO: move ALL /var/media to the same zfs pool; remove this
-    { user = "transmission"; group = "media"; path = download-dir; method = "bind"; }
-  ];
   users.users.transmission.extraGroups = [ "media" ];
 
   services.transmission.enable = true;
