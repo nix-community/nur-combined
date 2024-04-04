@@ -22,6 +22,10 @@ stdenv.mkDerivation rec {
     "-DQUICKCPPLIB_USE_SYSTEM_SPAN_LITE=1"
   ];
 
+  preConfigure = ''
+    substituteInPlace cmakelib/quickcpplibConfig.override.cmake.in --replace-fail find_dependency find_package
+  '';
+
   meta = with lib; {
     description = "Library to eliminate all the tedious hassle when making state-of-the-art C++ 14 - 23 libraries.";
     homepage = "https://github.com/ned14/quickcpplib";

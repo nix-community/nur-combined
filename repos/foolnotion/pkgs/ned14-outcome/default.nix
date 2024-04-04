@@ -23,6 +23,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_DISABLE_FIND_PACKAGE_Git=ON"
   ];
 
+  preConfigure = ''
+    substituteInPlace CMakeLists.txt --replace-fail find_dependency find_package
+  '';
+
   meta = with lib; {
     description = "C++14 library for reporting and handling function failures";
     homepage = "https://ned14.github.io/outcome/";
