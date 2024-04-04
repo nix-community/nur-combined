@@ -12,7 +12,7 @@ echo "[*] Evaluating ref \"$flakeRef\"" >&2
 drvPath=$(nix eval "$flakeRef" --raw)
 
 echo "[*] Sending derivation closure to \"$NIX_RBUILD_TARGET\"" >&2
-nix-copy-closure --to "$NIX_RBUILD_TARGET" "$drvPath"
+nix-copy-closure -s --to "$NIX_RBUILD_TARGET" "$drvPath"
 
 echo "[*] Building derivation \"drvPath\" on \"$NIX_RBUILD_TARGET\"" >&2
 

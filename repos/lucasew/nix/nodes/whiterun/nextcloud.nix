@@ -64,9 +64,9 @@ in {
 
     services.postgresql = {
       ensureDatabases = [ "nextcloud" ];
-      ensureUsers = [
-        {name = "nextcloud"; ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";}
-      ];
+      # ensureUsers = [
+      #   {name = "nextcloud"; ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";}
+      # ];
     };
   };
 }

@@ -6,6 +6,10 @@ let
   };
   cloud-savegame = pkgs.callPackage "${self.inputs.cloud-savegame}/package.nix" {};
   cfg = config.services.cloud-savegame;
+
+  separator = lib.head (cfg.settings.global.separator or [","]);
+  normalizedSettings = lib.mapAttrs (k: v: lib.mapAttrs (k: v: if lib.isList v then if lib.length v == 0 then lib.head v else (lib.concatStringsSep separator (map toString v)) else v) v) cfg.settings;
+  
 in {
   options.services.cloud-savegame = {
     enable = mkEnableOption "Cloud savegame";
@@ -60,13 +64,14 @@ in {
 
       type = ini.type;
 
-      apply = value: let
-        atom = val: if ((builtins.typeOf val) == "list") then
-          (builtins.concatStringsSep (cfg.settings.general.divider or ",") (map (toString) val))
-        else if ((builtins.typeOf val) == "set") then
-          (builtins.mapAttrs (k: v: atom v) val)
-        else (toString val);
-      in ini.generate "cloud-savegame-settings.ini" (atom value);
+      # apply = value: let
+      #   atom = val: if ((builtins.typeOf val) == "list") then
+      #     if (builtins.length val) == 0 then builtins.head val
+      #     else (builtins.concatStringsSep (cfg.settings.general.divider or ",") (map (toString) val))
+      #   else if ((builtins.typeOf val) == "set") then
+      #     (builtins.mapAttrs (k: v: atom v) val)
+      #   else (toString val);
+      # in ini.generate "cloud-savegame-settings.ini" (atom value);
 
       example = builtins.fromTOML "${self.inputs.cloud-savegame}/demo.cfg";
 
@@ -85,7 +90,7 @@ in {
       flatout-2.installdir= ["~/.local/share/Steam/steamapps/common/FlatOut2" ];
     };
 
-    environment.etc."cloud-savegame-settings.ini".source =  cfg.settings;
+    environment.etc."cloud-savegame-settings.ini".source = pkgs.writeText "cloud-savegame-settings.ini" (lib.generators.toINI {} normalizedSettings);
 
     systemd.user = {
       timers.cloud-savegame = {

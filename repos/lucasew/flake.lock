@@ -120,11 +120,11 @@
     "dotenv": {
       "flake": false,
       "locked": {
-        "lastModified": 1611174470,
-        "narHash": "sha256-/HssR3ouOuF/YMV59r0sDrJ0VwAwXyzO1XjT/JM5rSA=",
+        "lastModified": 1712248522,
+        "narHash": "sha256-3+ZTMsghfMrHLyZ3cw7i2rwLuXBaikB3BtO+Ln2CqrY=",
         "owner": "lucasew",
         "repo": "dotenv",
-        "rev": "c831ecac919d51c385d60a319081185d9f94a8e1",
+        "rev": "a46b5b113e9626435fe8aa854134ad0705502edc",
         "type": "github"
       },
       "original": {
@@ -415,11 +415,11 @@
     "nixgram": {
       "flake": false,
       "locked": {
-        "lastModified": 1611597144,
-        "narHash": "sha256-vZNtB9lqqqk/yalEmaMXl0ZZP84guwgb8p1934a+0RQ=",
+        "lastModified": 1712247264,
+        "narHash": "sha256-H8rAQj0HTiN5b7lb2qJmUj37jANH8yRwzvMsTANfNd4=",
         "owner": "lucasew",
         "repo": "nixgram",
-        "rev": "9cab8548ab26b44d513d6af28333ad92ec686028",
+        "rev": "12284deb15dfeeab130c0e9bc337860f0e13a953",
         "type": "github"
       },
       "original": {
@@ -542,11 +542,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1712159163,
-        "narHash": "sha256-dOQAAr9adh00rlCg/eq6GwXo+pH0VC7RyE5uWzzAFLo=",
+        "lastModified": 1712192574,
+        "narHash": "sha256-LbbVOliJKTF4Zl2b9salumvdMXuQBr2kuKP5+ZwbYq4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "67e2bc037137e4fdcf6b3132a4f54c165726500b",
+        "rev": "f480f9d09e4b4cf87ee6151eba068197125714de",
         "type": "github"
       },
       "original": {
@@ -627,11 +627,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1712227568,
-        "narHash": "sha256-fySksp8RxCJRLsdlscLxsWBGPQ6GyzHPKeHL9MhYj3E=",
+        "lastModified": 1712245605,
+        "narHash": "sha256-8jIKZ6fPtzMN0u+WQoIVu82XqJOHKxnK7lhE9W9cJ2o=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "3881be4b7511a48d762a34c4b2b303608211972a",
+        "rev": "2786b1392a274da350b673bf6c21cf96b1654854",
         "type": "github"
       },
       "original": {
@@ -643,11 +643,11 @@
     "pocket2kindle": {
       "flake": false,
       "locked": {
-        "lastModified": 1622762849,
-        "narHash": "sha256-shlDw5QHH6Regl2LxdurrNqx8IMxnQgsaqsxpRaprQY=",
+        "lastModified": 1712248031,
+        "narHash": "sha256-6rWAEwWjKMH+1Q6WvldsYec7ZmIA8h4XfeFtcwmeKEE=",
         "owner": "lucasew",
         "repo": "pocket2kindle",
-        "rev": "2b100790585dcd699000fee636efdc3a1e36a1ef",
+        "rev": "112662daf13ddfc6a3d1b61ade1f0e4adfdcb214",
         "type": "github"
       },
       "original": {
@@ -675,11 +675,11 @@
     "redial-proxy": {
       "flake": false,
       "locked": {
-        "lastModified": 1610661010,
-        "narHash": "sha256-nWGbj6uNjPMP/HhvP6k9bnjI9ktBYt6sfD2LsC7mTgA=",
+        "lastModified": 1712248853,
+        "narHash": "sha256-cFnNNOjGuzPR0FfCvT3tMRX1+8Db1rdA1FEYaF44WoM=",
         "owner": "lucasew",
         "repo": "redial_proxy",
-        "rev": "82fdf673d8e800e9ecacaeb9a9a1e873f80c5355",
+        "rev": "53855fd1b1e42a3ea5a82c6251dfa3010084c418",
         "type": "github"
       },
       "original": {
@@ -784,11 +784,11 @@
     "send2kindle": {
       "flake": false,
       "locked": {
-        "lastModified": 1663719539,
-        "narHash": "sha256-o5fFWl71953BGDmRmSmtMj2GlG4DCSirDmv1fRlCzLE=",
+        "lastModified": 1712248696,
+        "narHash": "sha256-YNFwDvfBaIGdsnGe7/srTnLdNeVPOxYXkjmNor5nMQM=",
         "owner": "lucasew",
         "repo": "send2kindle",
-        "rev": "adee92dd3bf7037dcac3a5c8d7d55533e4825990",
+        "rev": "1cdf6e860cedb690b389e86a2ae0c8e98555060e",
         "type": "github"
       },
       "original": {

@@ -254,8 +254,8 @@ in
 
   cached-nix-shell = callPackage flake.inputs.src-cached-nix-shell { pkgs = prev; };
 
-  ollama-cuda = prev.ollama.override { enableCuda = true; };
-  ollama-rocm = prev.ollama.override { enableRocm = true; };
+  ollama-cuda = prev.ollama.override { acceleration = "cuda"; };
+  ollama-rocm = prev.ollama.override { acceleration = "rocm"; };
 
   arcan = prev.arcan.override { useTracy = false; };
 

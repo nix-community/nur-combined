@@ -25,17 +25,18 @@
       '') (lib.attrValues global.nodeIps));
 
       ensureDatabases = lib.flatten (lib.attrValues config.services.postgresql.userSpecificDatabases);
-      ensureUsers = (map ({name, value}: {
-        inherit name;
-        ensurePermissions = lib.listToAttrs (map (database: {
-          name = "DATABASE \"${database}\"";
-          value = "ALL PRIVILEGES";
-        }) value);
-        ensureClauses = {
-          login = true;
-        };
+      # TODO: fix the dropped module
+      # ensureUsers = (map ({name, value}: {
+      #   inherit name;
+      #   ensurePermissions = lib.listToAttrs (map (database: {
+      #     name = "${database}.*";
+      #     value = "ALL PRIVILEGES";
+      #   }) value);
+        # ensureClauses = {
+        #   login = true;
+        # };
         
-      }) (lib.attrsToList config.services.postgresql.userSpecificDatabases));
+      # }) (lib.attrsToList config.services.postgresql.userSpecificDatabases));
     };
   };
 }
