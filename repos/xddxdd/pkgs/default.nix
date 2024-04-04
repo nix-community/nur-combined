@@ -135,7 +135,6 @@ mkScope (
     google-earth-pro = pkg ./uncategorized/google-earth-pro { };
     gopherus = pkg ./uncategorized/gopherus { };
     grasscutter = pkg ./uncategorized/grasscutter { };
-    hanyi-wenhei = pkg ./uncategorized/hanyi-wenhei { };
     hath = pkg ./uncategorized/hath { };
     hesuvi-hrir = pkg ./uncategorized/hesuvi-hrir { };
     hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs { };
