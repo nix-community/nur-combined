@@ -1,5 +1,5 @@
 
-{ lib, stdenv, fetchFromGitHub, cmake, git }:
+{ lib, stdenv, fetchFromGitHub, cmake, git, byte-lite, span-lite }:
 
 stdenv.mkDerivation rec {
   pname = "ned14-quickcpplib";
@@ -14,6 +14,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake git ];
+
+  buildInputs = [ byte-lite span-lite ];
+
+  cmakeFlags = [
+    "-DQUICKCPPLIB_USE_SYSTEM_BYTE_LITE=1"
+    "-DQUICKCPPLIB_USE_SYSTEM_SPAN_LITE=1"
+  ];
 
   meta = with lib; {
     description = "Library to eliminate all the tedious hassle when making state-of-the-art C++ 14 - 23 libraries.";
