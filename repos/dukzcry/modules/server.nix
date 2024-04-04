@@ -34,7 +34,6 @@ in {
           jellyfin-media-player
           transmission-remote-gtk
           cockpit-client
-          remmina
         ];
       };
       services.tor.enable = lib.mkForce false;
@@ -53,6 +52,7 @@ in {
       environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
         awl-tray
         moonlight-qt
+        steamlink
       ];
     })
   ];
