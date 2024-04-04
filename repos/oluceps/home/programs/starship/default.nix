@@ -1,4 +1,5 @@
-{ osConfig, ... }: {
+{ osConfig, ... }:
+{
   programs.starship = {
     enable = !osConfig.programs.starship.enable;
     enableNushellIntegration = false;
@@ -83,7 +84,6 @@
       nix_shell = {
         format = "[$symbol$state( \($name\))]($style) ";
       };
-
     };
   };
 }

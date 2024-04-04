@@ -1,4 +1,8 @@
-{ kernel, stdenv, fetchFromGitHub }:
+{
+  kernel,
+  stdenv,
+  fetchFromGitHub,
+}:
 stdenv.mkDerivation (finalAttrs: {
   name = "tcp-brutal";
   src = fetchFromGitHub {

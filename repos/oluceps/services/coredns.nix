@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   enable = true;
   package = pkgs.coredns.override {
     externalPlugins = [

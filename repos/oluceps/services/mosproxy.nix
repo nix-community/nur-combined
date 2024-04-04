@@ -11,25 +11,43 @@ in
       mem_size = 1048576;
       redis = "unix:///run/redis-mosproxy/redis.sock";
     };
-    metrics = { addr = "0.0.0.0:9092"; };
-    ecs = { enabled = true; };
-    log = { queries = true; };
+    metrics = {
+      addr = "0.0.0.0:9092";
+    };
+    ecs = {
+      enabled = true;
+    };
+    log = {
+      queries = true;
+    };
 
     rules = [
-      { forward = "ali"; reject = 0; }
-      { forward = "dot"; reject = 0; }
+      {
+        forward = "ali";
+        reject = 0;
+      }
+      {
+        forward = "dot";
+        reject = 0;
+      }
     ];
     servers = [
       {
         listen = "[::]:53";
         protocol = "udp";
-        quic = { max_streams = 100; };
-        udp = { multi_routes = false; };
+        quic = {
+          max_streams = 100;
+        };
+        udp = {
+          multi_routes = false;
+        };
       }
       {
         listen = "[::]:53";
         protocol = "gnet";
-        tcp = { max_concurrent_queries = 100; };
+        tcp = {
+          max_concurrent_queries = 100;
+        };
       }
     ];
     upstreams = [

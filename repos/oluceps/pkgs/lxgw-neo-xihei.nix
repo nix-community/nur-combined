@@ -1,6 +1,7 @@
-{ fetchurl
-, stdenv
-, lib
+{
+  fetchurl,
+  stdenv,
+  lib,
 }:
 
 stdenv.mkDerivation rec {
@@ -20,7 +21,10 @@ stdenv.mkDerivation rec {
     description = ''
       SHSans-derived CJK font family with a more concise & modern look
     '';
-    license = with licenses;[ mit ofl ];
+    license = with licenses; [
+      mit
+      ofl
+    ];
     platforms = platforms.all;
   };
 }

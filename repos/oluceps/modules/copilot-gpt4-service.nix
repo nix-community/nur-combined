@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -21,7 +26,6 @@ in
           "CACHE=false"
         ];
       };
-
     };
   };
 
@@ -42,7 +46,6 @@ in
         Environment = cfg.env;
       };
     };
-
   };
 
   meta.maintainers = with lib.maintainers; [ oluceps ];

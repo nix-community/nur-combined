@@ -1,18 +1,19 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, enableGUI ? false # upstream working in progress
-, pkg-config
-, glfw
-, xorg
-, libXcursor
-, libXrandr
-, libXinerama
-, xinput
-, libXi
-, libXxf86vm
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  enableGUI ? false, # upstream working in progress
+  pkg-config,
+  glfw,
+  xorg,
+  libXcursor,
+  libXrandr,
+  libXinerama,
+  xinput,
+  libXi,
+  libXxf86vm,
 }:
-buildGoModule rec{
+buildGoModule rec {
   pname = "bepass";
   version = "1.6.2";
 
@@ -25,9 +26,7 @@ buildGoModule rec{
 
   vendorHash = "sha256-SiggDy6vc19yIw15g45yjl8gscE91zUoR6woECbAtR0=";
 
-  subPackages = [
-    "cmd/cli"
-  ];
+  subPackages = [ "cmd/cli" ];
   proxyVendor = true;
   nativeBuildInputs = lib.optionals enableGUI [ pkg-config ];
   buildInputs = lib.optionals enableGUI [

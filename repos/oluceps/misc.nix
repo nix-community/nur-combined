@@ -1,18 +1,13 @@
 # original configuration.nix w
-{ inputs
-, config
-, pkgs
-, lib
-, user
-, ...
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  user,
+  ...
 }:
 {
-  nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/${user}/Src/nixos";
-  };
   systemd.services.nix-daemon = {
     serviceConfig.LimitNOFILE = lib.mkForce 500000000;
   };
@@ -39,9 +34,7 @@
     };
 
     settings = {
-      nix-path = [
-        "nixpkgs=${pkgs.path}"
-      ];
+      nix-path = [ "nixpkgs=${pkgs.path}" ];
       keep-outputs = true;
       keep-derivations = true;
       trusted-public-keys = [
@@ -57,14 +50,23 @@
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
       ];
-      substituters = (map (n: "https://${n}.cachix.org")
-        [ "nix-community" "nur-pkgs" "hyprland" "helix" "nixpkgs-wayland" "anyrun" "ezkea" "devenv" "colmena" ])
-      ++
-      [
-        "https://cache.nixos.org"
-        "https://cache.ngi0.nixos.org"
-        # "https://mirror.sjtu.edu.cn/nix-channels/store"
-      ];
+      substituters =
+        (map (n: "https://${n}.cachix.org") [
+          "nix-community"
+          "nur-pkgs"
+          "hyprland"
+          "helix"
+          "nixpkgs-wayland"
+          "anyrun"
+          "ezkea"
+          "devenv"
+          "colmena"
+        ])
+        ++ [
+          "https://cache.nixos.org"
+          "https://cache.ngi0.nixos.org"
+          # "https://mirror.sjtu.edu.cn/nix-channels/store"
+        ];
       auto-optimise-store = true;
       experimental-features = [
         "nix-command"
@@ -78,7 +80,10 @@
       auto-allocate-uids = true;
       use-cgroups = true;
 
-      trusted-users = [ "root" "${user}" ];
+      trusted-users = [
+        "root"
+        "${user}"
+      ];
       # Avoid disk full
       max-free = lib.mkDefault (1000 * 1000 * 1000);
       min-free = lib.mkDefault (128 * 1000 * 1000);
@@ -88,7 +93,6 @@
     daemonCPUSchedPolicy = lib.mkDefault "batch";
     daemonIOSchedClass = lib.mkDefault "idle";
     daemonIOSchedPriority = lib.mkDefault 7;
-
 
     extraOptions = ''
       !include ${config.age.secrets.gh-token.path}
@@ -129,16 +133,14 @@
 
     bpftune.enable = true;
 
-    journald.extraConfig =
-      ''
-        SystemMaxUse=1G
-      '';
+    journald.extraConfig = ''
+      SystemMaxUse=1G
+    '';
 
     dbus = {
       enable = true;
       implementation = "broker";
     };
-
   };
 
   documentation = {
@@ -169,37 +171,46 @@
     nix-ld.enable = true;
     fish = {
       enable = true;
-      shellAliases = {
-        j = "just";
-        nd = "cd /home/${user}/Src/nixos";
-        swc = "sudo nixos-rebuild switch --flake /home/${user}/Src/nixos";
-        #--log-format internal-json -v 2>&1 | nom --json";
-        daso = "sudo";
-        daos = "sudo";
-        off = "poweroff";
-        mg = "kitty +kitten hyperlinked_grep --smart-case $argv .";
-        kls = "lsd --icon never --hyperlink auto";
-        lks = "lsd --icon never --hyperlink auto";
-        sl = "lsd --icon never --hyperlink auto";
-        ls = "lsd --icon never --hyperlink auto";
-        l = "lsd --icon never --hyperlink auto -lh";
-        la = "lsd --icon never --hyperlink auto -la";
-        g = "lazygit";
-        "cd.." = "cd ..";
-        up = "nix flake update --commit-lock-file /etc/nixos && swc";
-        fp = "fish --private";
-        e = "exit";
-        rp = "rustplayer";
-        y = "yazi";
-        i = "kitty +kitten icat";
-        ".." = "cd ..";
-        "。。" = "cd ..";
-        "..." = "cd ../..";
-        "。。。" = "cd ../..";
-        "...." = "cd ../../..";
-        "。。。。" = "cd ../../..";
-      } // lib.genAttrs [ "rha" "lsa" "tcs" "ubt" "rka" "dgs" "rt" ] (n: "ssh ${n} -t fish");
-
+      shellAliases =
+        {
+          j = "just";
+          nd = "cd /home/${user}/Src/nixos";
+          swc = "sudo nixos-rebuild switch --flake /home/${user}/Src/nixos";
+          #--log-format internal-json -v 2>&1 | nom --json";
+          daso = "sudo";
+          daos = "sudo";
+          off = "poweroff";
+          mg = "kitty +kitten hyperlinked_grep --smart-case $argv .";
+          kls = "lsd --icon never --hyperlink auto";
+          lks = "lsd --icon never --hyperlink auto";
+          sl = "lsd --icon never --hyperlink auto";
+          ls = "lsd --icon never --hyperlink auto";
+          l = "lsd --icon never --hyperlink auto -lh";
+          la = "lsd --icon never --hyperlink auto -la";
+          g = "lazygit";
+          "cd.." = "cd ..";
+          up = "nix flake update --commit-lock-file /etc/nixos && swc";
+          fp = "fish --private";
+          e = "exit";
+          rp = "rustplayer";
+          y = "yazi";
+          i = "kitty +kitten icat";
+          ".." = "cd ..";
+          "。。" = "cd ..";
+          "..." = "cd ../..";
+          "。。。" = "cd ../..";
+          "...." = "cd ../../..";
+          "。。。。" = "cd ../../..";
+        }
+        // lib.genAttrs [
+          "rha"
+          "lsa"
+          "tcs"
+          "ubt"
+          "rka"
+          "dgs"
+          "rt"
+        ] (n: "ssh ${n} -t fish");
 
       shellInit = ''
         fish_vi_key_bindings
@@ -259,5 +270,4 @@
       };
     };
   };
-
 }

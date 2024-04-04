@@ -1,6 +1,14 @@
-{ pkgs, lib, user, config, ... }:
-let cfg = config.programs.swww;
-in {
+{
+  pkgs,
+  lib,
+  user,
+  config,
+  ...
+}:
+let
+  cfg = config.programs.swww;
+in
+{
   options.programs.swww = {
     enable = lib.options.mkEnableOption "swww";
   };
@@ -18,7 +26,9 @@ in {
         Restart = "on-failure";
       };
 
-      Install = { WantedBy = [ "sway-session.target" ]; };
+      Install = {
+        WantedBy = [ "sway-session.target" ];
+      };
     };
   };
 }

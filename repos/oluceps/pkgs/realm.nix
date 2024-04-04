@@ -1,8 +1,6 @@
-{ fetchFromGitHub
-, rustPlatform
-}:
+{ fetchFromGitHub, rustPlatform }:
 
-rustPlatform.buildRustPackage rec{
+rustPlatform.buildRustPackage rec {
   pname = "realm";
   version = "2.5.0";
 
@@ -16,5 +14,4 @@ rustPlatform.buildRustPackage rec{
   cargoHash = "sha256-QQGeGuGPZh5zAfPZx+EKJmxg8M2vfDuluX+ph7X8kx4=";
 
   RUSTC_BOOTSTRAP = 1;
-
 }

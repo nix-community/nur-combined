@@ -1,7 +1,8 @@
-{ user
-, pkgs
-, lib
-, ...
+{
+  user,
+  pkgs,
+  lib,
+  ...
 }:
 # let mkSpan = abbr: content: "<span color='#8aadf4'>${abbr}</span> ${content}";
 # in
@@ -35,19 +36,20 @@
               ];
             in
             if user == "riro" then
-            # [ "tray" ] ++
+              # [ "tray" ] ++
               base
-            else if user == "elen"
-            then [
-              "idle_inhibitor"
-              "network"
-              "temperature"
-              "cpu"
-              "memory"
-              "battery"
-              "pulseaudio"
-            ]
-            else base;
+            else if user == "elen" then
+              [
+                "idle_inhibitor"
+                "network"
+                "temperature"
+                "cpu"
+                "memory"
+                "battery"
+                "pulseaudio"
+              ]
+            else
+              base;
           "sway/mode" = {
             format = " {}";
           };
@@ -93,7 +95,13 @@
           battery = {
             format = "{capacity}% {icon}";
             format-alt = "{time} {icon}";
-            format-icons = [ "󰁺" "󰁻" "󰁼" "󰂀" "󰁹" ];
+            format-icons = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰂀"
+              "󰁹"
+            ];
             format-charging = "{capacity}% 󰂄";
             interval = 10;
             states = {
@@ -148,7 +156,10 @@
             format = "{icon}";
             format-alt = "{percent}% {icon}";
             format-alt-click = "click-right";
-            format-icons = [ "" "" ];
+            format-icons = [
+              ""
+              ""
+            ];
             on-scroll-down = "light -A 1";
             on-scroll-up = "light -U 1";
           };

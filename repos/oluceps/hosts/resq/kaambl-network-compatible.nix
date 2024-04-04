@@ -1,16 +1,31 @@
-{ config
-, lib
-, ...
-}: {
+{ config, lib, ... }:
+{
   services.resolved.enable = lib.mkForce true;
   networking = {
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
       enable = true;
-      trustedInterfaces = [ "virbr0" "wg0" "wg1" "podman*" ];
-      allowedUDPPorts = [ 8080 5173 3330 8880 ];
-      allowedTCPPorts = [ 8080 9900 2222 5173 3330 8880 ];
+      trustedInterfaces = [
+        "virbr0"
+        "wg0"
+        "wg1"
+        "podman*"
+      ];
+      allowedUDPPorts = [
+        8080
+        5173
+        3330
+        8880
+      ];
+      allowedTCPPorts = [
+        8080
+        9900
+        2222
+        5173
+        3330
+        8880
+      ];
     };
 
     wireless.enable = lib.mkForce false;
@@ -29,7 +44,6 @@
     nftables.enable = true;
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
-
   };
   systemd.network = {
     enable = true;
@@ -37,7 +51,10 @@
     wait-online = {
       enable = true;
       anyInterface = true;
-      ignoredInterfaces = [ "wlan" "wg*" ];
+      ignoredInterfaces = [
+        "wlan"
+        "wg*"
+      ];
     };
 
     links."30-rndis" = {
@@ -76,7 +93,10 @@
           {
             wireguardPeerConfig = {
               PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.1.9/32" "10.0.0.0/24" ];
+              AllowedIPs = [
+                "10.0.1.9/32"
+                "10.0.0.0/24"
+              ];
               Endpoint = "127.0.0.1:41821";
               PersistentKeepalive = 15;
             };
@@ -85,13 +105,10 @@
       };
     };
 
-
     networks = {
       "10-wg0" = {
         matchConfig.Name = "wg0";
-        address = [
-          "10.0.1.3/24"
-        ];
+        address = [ "10.0.1.3/24" ];
         DHCP = "no";
       };
 
@@ -121,7 +138,6 @@
           DNSSEC = true;
         };
       };
-
     };
   };
 }

@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 with lib;
 let
@@ -23,21 +24,20 @@ in
       default = { };
     };
   };
-  config =
-    mkIf cfg.enable {
-      systemd.services.rustypaste = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        description = "pastebin";
+  config = mkIf cfg.enable {
+    systemd.services.rustypaste = {
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      description = "pastebin";
 
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${cfg.package}/bin/rustypaste";
-          StateDirectory = "paste";
-          Environment = "CONFIG=${settingsFormat.generate "config.toml" cfg.settings}";
-          Restart = "on-failure";
-        };
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${cfg.package}/bin/rustypaste";
+        StateDirectory = "paste";
+        Environment = "CONFIG=${settingsFormat.generate "config.toml" cfg.settings}";
+        Restart = "on-failure";
       };
     };
+  };
 }

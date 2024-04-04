@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   enable = true;
   package = pkgs.mariadb_1011;
   dataDir = "/var/lib/mysql";

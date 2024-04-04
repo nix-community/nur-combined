@@ -1,16 +1,42 @@
-{ lib
-, config
-, ...
-}: {
+{ lib, config, ... }:
+{
   networking = {
     domain = "nyaw.xyz";
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
       enable = true;
-      trustedInterfaces = [ "virbr0" "wg0" "wg1" ];
-      allowedUDPPorts = [ 80 443 8080 5173 23180 4444 51820 1935 1985 10080 8000 ];
-      allowedTCPPorts = [ 80 443 8080 9900 2222 5173 8448 1935 1985 10080 8000 ];
+      trustedInterfaces = [
+        "virbr0"
+        "wg0"
+        "wg1"
+      ];
+      allowedUDPPorts = [
+        80
+        443
+        8080
+        5173
+        23180
+        4444
+        51820
+        1935
+        1985
+        10080
+        8000
+      ];
+      allowedTCPPorts = [
+        80
+        443
+        8080
+        9900
+        2222
+        5173
+        8448
+        1935
+        1985
+        10080
+        8000
+      ];
     };
 
     useNetworkd = true;
@@ -23,7 +49,6 @@
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
-
   };
   systemd.network = {
     enable = true;
@@ -31,7 +56,10 @@
     wait-online = {
       enable = true;
       anyInterface = true;
-      ignoredInterfaces = [ "wg0" "wg1" ];
+      ignoredInterfaces = [
+        "wg0"
+        "wg1"
+      ];
     };
 
     links."eth0" = {
@@ -74,14 +102,20 @@
           {
             wireguardPeerConfig = {
               PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-              AllowedIPs = [ "10.0.1.2/32" "192.168.1.0/24" ];
+              AllowedIPs = [
+                "10.0.1.2/32"
+                "192.168.1.0/24"
+              ];
               PersistentKeepalive = 15;
             };
           }
           {
             wireguardPeerConfig = {
               PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-              AllowedIPs = [ "10.0.1.3/32" "10.234.0.0/24" ];
+              AllowedIPs = [
+                "10.0.1.3/32"
+                "10.234.0.0/24"
+              ];
               PersistentKeepalive = 15;
             };
           }
@@ -109,9 +143,7 @@
 
       "10-wg0" = {
         matchConfig.Name = "wg0";
-        address = [
-          "10.0.1.9/24"
-        ];
+        address = [ "10.0.1.9/24" ];
         networkConfig = {
           IPMasquerade = "ipv4";
           IPForward = true;

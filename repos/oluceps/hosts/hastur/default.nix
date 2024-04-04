@@ -1,4 +1,10 @@
-{ lib, user, inputs, ... }: {
+{
+  lib,
+  user,
+  inputs,
+  ...
+}:
+{
   deployment = {
     targetHost = "10.0.1.2";
     targetPort = 22;
@@ -8,8 +14,9 @@
   };
 
   imports =
-    lib.sharedModules ++ [
-
+    lib.sharedModules
+    ++ [
+      ../../services
       ./hardware.nix
       ./network.nix
       ./rekey.nix
@@ -35,10 +42,8 @@
       ./misskey.nix
 
       ./vaultwarden.nix
-
     ]
-    ++
-    (with inputs; [
+    ++ (with inputs; [
       aagl.nixosModules.default
       disko.nixosModules.default
       attic.nixosModules.atticd

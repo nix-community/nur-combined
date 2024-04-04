@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -38,11 +43,17 @@ let
     non_blocking_saving = cfg.nonBlockingSaving;
   } // cfg.extraSettings;
   serverSettingsFile =
-    if cfg.serverSettingsFile != "" then cfg.serverSettingsFile
-    else pkgs.writeText "server-settings.json" (builtins.toJSON (filterAttrsRecursive (n: v: v != null) serverSettings));
+    if cfg.serverSettingsFile != "" then
+      cfg.serverSettingsFile
+    else
+      pkgs.writeText "server-settings.json" (
+        builtins.toJSON (filterAttrsRecursive (n: v: v != null) serverSettings)
+      );
   serverAdminsFile =
-    if cfg.serverSettingsFile != "" then cfg.serverAdminsFile
-    else pkgs.writeText "server-adminlist.json" (builtins.toJSON cfg.admins);
+    if cfg.serverSettingsFile != "" then
+      cfg.serverAdminsFile
+    else
+      pkgs.writeText "server-adminlist.json" (builtins.toJSON cfg.admins);
   modDir = pkgs.factorio-utils.mkModDirDrv cfg.mods cfg.mods-dat;
 in
 {
@@ -182,7 +193,9 @@ in
       extraSettings = mkOption {
         type = types.attrs;
         default = { };
-        example = { admins = [ "username" ]; };
+        example = {
+          admins = [ "username" ];
+        };
         description = lib.mdDoc ''
           Extra game configuration that will go into server-settings.json
         '';
@@ -284,7 +297,8 @@ in
         Restart = "always";
         DynamicUser = true;
         StateDirectory = cfg.stateDirName;
-        LoadCredential = lib.optional (cfg.serverSettingsFile != "") "server-settings.json:${cfg.serverSettingsFile}"
+        LoadCredential =
+          lib.optional (cfg.serverSettingsFile != "") "server-settings.json:${cfg.serverSettingsFile}"
           ++ lib.optional (cfg.serverAdminsFile != "") "server-admins.json:${cfg.serverAdminsFile}";
         UMask = "0007";
         ExecStart = toString [
@@ -293,10 +307,22 @@ in
           "--port=${toString cfg.port}"
           "--bind=${cfg.bind}"
           (optionalString (!cfg.loadLatestSave) "--start-server=${mkSavePath cfg.saveName}")
-          "--server-settings=${if cfg.serverSettingsFile == "" then serverSettingsFile else "$\{CREDENTIALS_DIRECTORY}/server-settings.json" }"
+          "--server-settings=${
+            if cfg.serverSettingsFile == "" then
+              serverSettingsFile
+            else
+              "$\{CREDENTIALS_DIRECTORY}/server-settings.json"
+          }"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
           (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
-          (optionalString (cfg.admins != [ ] || cfg.serverAdminsFile != "") "--server-adminlist=${if cfg.serverAdminsFile == "" then serverAdminsFile else "$\{CREDENTIALS_DIRECTORY}/server-admins.json"}")
+          (optionalString (cfg.admins != [ ] || cfg.serverAdminsFile != "")
+            "--server-adminlist=${
+              if cfg.serverAdminsFile == "" then
+                serverAdminsFile
+              else
+                "$\{CREDENTIALS_DIRECTORY}/server-admins.json"
+            }"
+          )
         ];
 
         # Sandboxing
@@ -308,7 +334,12 @@ in
         ProtectControlGroups = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         RestrictRealtime = true;
         RestrictNamespaces = true;
         MemoryDenyWriteExecute = true;

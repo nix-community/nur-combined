@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.mosproxy;
@@ -23,8 +28,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.mosproxy = {
       description = "mosproxy Daemon";
-      after = [ "network.target" ]
-        ++ lib.optional (cfg.redisPort != null) "redis-mosproxy.service";
+      after = [ "network.target" ] ++ lib.optional (cfg.redisPort != null) "redis-mosproxy.service";
       wantedBy = [ "multi-user.target" ];
       wants = [ "nss-lookup.target" ];
       before = [ "nss-lookup.target" ];

@@ -1,8 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
-buildGoModule rec{
+buildGoModule rec {
   pname = "glider";
   version = "0.16.3";
 

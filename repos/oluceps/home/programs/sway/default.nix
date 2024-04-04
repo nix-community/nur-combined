@@ -1,10 +1,12 @@
-{ config
-, pkgs
-, lib
-, osConfig
-, user
-, ...
-}: {
+{
+  config,
+  pkgs,
+  lib,
+  osConfig,
+  user,
+  ...
+}:
+{
 
   wayland.windowManager.sway =
     let
@@ -73,7 +75,9 @@
         };
         window.commands = [
           {
-            criteria = { app_id = "gcr-prompter"; };
+            criteria = {
+              app_id = "gcr-prompter";
+            };
             command = "floating enable";
           }
         ];
@@ -81,8 +85,8 @@
           { command = "fcitx5 -d"; }
           { command = with pkgs; "${lib.getExe systemd-run-app} ${firefox}"; }
           { command = with pkgs; "${lib.getExe systemd-run-app} ${lib.getExe tdesktop}"; }
-          { command = with deps; "${wl-paste} --type text --watch ${cliphist} store"; } #Stores only text data
-          { command = with deps; "${wl-paste} --type image --watch ${cliphist} store"; } #Stores image data
+          { command = with deps; "${wl-paste} --type text --watch ${cliphist} store"; } # Stores only text data
+          { command = with deps; "${wl-paste} --type image --watch ${cliphist} store"; } # Stores image data
         ];
         gaps = {
           inner = 2;
@@ -138,25 +142,28 @@
                 scale = "1.25";
               };
             }
-          else if osConfig.networking.hostName == "kaambl" then {
-            eDP-1 = {
-              bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
-              mode = "2160x1440";
-              scale = "2";
-            };
-            HDMI-A-1 = {
-              bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
-              mode = "2560x1660";
-              scale = "2";
-            };
-          } else {
+          else if osConfig.networking.hostName == "kaambl" then
+            {
+              eDP-1 = {
+                bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
+                mode = "2160x1440";
+                scale = "2";
+              };
+              HDMI-A-1 = {
+                bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
+                mode = "2560x1660";
+                scale = "2";
+              };
+            }
+          else
+            {
 
-            eDP-1 = {
-              bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
-              mode = "1366x768";
-              scale = "1";
+              eDP-1 = {
+                bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
+                mode = "1366x768";
+                scale = "1";
+              };
             };
-          };
 
         window.hideEdgeBorders = "smart";
         keybindings =
@@ -164,8 +171,9 @@
             inherit (config.wayland.windowManager.sway.config) modifier;
             fuzzelArgs = "-I -l 7 -x 8 -y 7 -P 9 -b ede3e7d9 -r 3 -t 8b614db3 -C ede3e7d9 -f 'Maple Mono SC NF:style=Regular:size=15' -P 10 -B 7";
           in
-          with pkgs; lib.mkOptionDefault
-            ({
+          with pkgs;
+          lib.mkOptionDefault (
+            {
               # "blur" = "enable";
               "${modifier}+h" = "focus left";
               "${modifier}+j" = "focus down";
@@ -198,18 +206,33 @@
               "${modifier}+shift+r" = "exec ${lib.getExe screen-recorder-toggle}";
             }
             # override default
-            // (lib.listToAttrs ((map (n: { name = "${modifier}+Shift+${n}"; value = null; })) [ "h" "j" "k" "l" ]))
-            // (lib.listToAttrs ((map (n: { name = "${modifier}+Shift+${toString n}"; value = null; })) (lib.range 1 9)))
-            // (lib.listToAttrs ((map (n: { name = "${modifier}+Ctrl+${toString n}"; value = "move container to workspace number ${toString n}"; })) (lib.range 1 9)))
-            )
-        ;
+            // (lib.listToAttrs (
+              (map (n: {
+                name = "${modifier}+Shift+${n}";
+                value = null;
+              }))
+                [
+                  "h"
+                  "j"
+                  "k"
+                  "l"
+                ]
+            ))
+            // (lib.listToAttrs (
+              (map (n: {
+                name = "${modifier}+Shift+${toString n}";
+                value = null;
+              }))
+                (lib.range 1 9)
+            ))
+            // (lib.listToAttrs (
+              (map (n: {
+                name = "${modifier}+Ctrl+${toString n}";
+                value = "move container to workspace number ${toString n}";
+              }))
+                (lib.range 1 9)
+            ))
+          );
       };
     };
 }
-
-
-
-
-
-
-

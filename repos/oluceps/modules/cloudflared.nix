@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -33,13 +38,18 @@ in
       type = types.str;
       default = "";
     };
-
   };
 
   config = mkIf cfg.enable {
     systemd.services.cloudflared-tunnel = ({
-      after = [ "network.target" "network-online.target" ];
-      wants = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
+      wants = [
+        "network.target"
+        "network-online.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         User = cfg.user;
@@ -48,8 +58,7 @@ in
         ExecStart = "${cfg.package}/bin/cloudflared --no-autoupdate tunnel run --token $TOKEN";
         Restart = "on-failure";
       };
-    })
-    ;
+    });
 
     users.users = mkIf (cfg.user == "cloudflared") {
       cloudflared = {
@@ -58,8 +67,6 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "cloudflared") {
-      cloudflared = { };
-    };
+    users.groups = mkIf (cfg.group == "cloudflared") { cloudflared = { }; };
   };
 }

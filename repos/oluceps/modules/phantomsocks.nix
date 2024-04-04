@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -15,13 +20,10 @@ in
 
       settings = mkOption {
         default = { };
-        type = types.submodule {
-          freeformType = settingsFormat.type;
-        };
+        type = types.submodule { freeformType = settingsFormat.type; };
       };
 
       package = mkPackageOptionMD pkgs "phantomsocks" { };
-
     };
   };
 
@@ -52,7 +54,6 @@ in
         Restart = "on-failure";
       };
     };
-
   };
 
   meta.maintainers = with lib.maintainers; [ oluceps ];

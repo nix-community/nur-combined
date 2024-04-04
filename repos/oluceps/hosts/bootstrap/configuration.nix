@@ -1,17 +1,14 @@
-{ lib
-, data
-, modulesPath
-, ...
-}: {
-  imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
-  ];
+{
+  lib,
+  data,
+  modulesPath,
+  ...
+}:
+{
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   time.timeZone = "America/Los_Angeles";
-  networking.nameservers = [
-    "8.8.8.8"
-  ];
-
+  networking.nameservers = [ "8.8.8.8" ];
 
   users.mutableUsers = false;
   users.users.root = {
@@ -66,7 +63,10 @@
     };
     initrd = {
       compressor = "zstd";
-      compressorArgs = [ "-19" "-T0" ];
+      compressorArgs = [
+        "-19"
+        "-T0"
+      ];
       systemd.enable = true;
 
       kernelModules = [
@@ -75,7 +75,6 @@
         "hv_utils"
         "hv_storvsc"
       ];
-
     };
   };
 }

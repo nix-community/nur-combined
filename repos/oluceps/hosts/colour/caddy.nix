@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
 
   systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
     "nyaw.cert"
@@ -15,37 +16,41 @@
             srv0 = {
               routes = [
                 {
-                  handle = [{
-                    handler = "subroute";
-                    routes = [{
-                      handle = [{
-                        handler = "reverse_proxy";
-                        upstreams = [{
-                          dial = "10.0.1.3:7001";
-                        }];
-                      }];
-                    }];
-                  }];
-                  match = [{
-                    host = [ "dokidoki.nyaw.xyz" ];
-                  }];
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "10.0.1.3:7001"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "dokidoki.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
                 {
-                  handle = [{
-                    handler = "subroute";
-                    routes = [{
-                      handle = [{
-                        handler = "reverse_proxy";
-                        upstreams = [{
-                          dial = "10.0.1.3:7000";
-                        }];
-                      }];
-                    }];
-                  }];
-                  match = [{
-                    host = [ "api.heartrate.nyaw.xyz" ];
-                  }];
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "10.0.1.3:7000"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "api.heartrate.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
 

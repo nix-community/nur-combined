@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 with lib;
 let
@@ -17,12 +18,10 @@ in
       type = types.package;
       default = pkgs.rathole;
     };
-
   };
   config =
     let
       configFile = config.age.secrets.rat.path;
-
     in
     mkIf cfg.enable {
       systemd.services.rathole = {
@@ -38,11 +37,6 @@ in
           RestartSec = "5s";
           Restart = "on-failure";
         };
-
       };
-
     };
-
-
 }
-

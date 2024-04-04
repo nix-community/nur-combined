@@ -1,5 +1,8 @@
 { pkgs, ... }:
-let inherit (pkgs) lib; in {
+let
+  inherit (pkgs) lib;
+in
+{
   enable = true;
   settings = {
     PasswordAuthentication = lib.mkForce false;

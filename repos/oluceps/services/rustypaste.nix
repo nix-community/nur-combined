@@ -1,7 +1,10 @@
-{ ... }: {
+{ ... }:
+{
   enable = true;
   settings = {
-    config = { refresh_rate = "3s"; };
+    config = {
+      refresh_rate = "3s";
+    };
     landing_page = {
       content_type = "text/plain; charset=utf-8";
       text = ''
@@ -27,7 +30,10 @@
     paste = {
       default_expiry = "128h";
       default_extension = "txt";
-      delete_expired_files = { enabled = true; interval = "1h"; };
+      delete_expired_files = {
+        enabled = true;
+        interval = "1h";
+      };
       duplicate_files = true;
       mime_blacklist = [
         "application/x-dosexec"
@@ -35,15 +41,40 @@
         "application/java-vm"
       ];
       mime_override = [
-        { mime = "image/jpeg"; regex = "^.*\\.jpg$"; }
-        { mime = "image/png"; regex = "^.*\\.png$"; }
-        { mime = "image/svg+xml"; regex = "^.*\\.svg$"; }
-        { mime = "video/webm"; regex = "^.*\\.webm$"; }
-        { mime = "video/x-matroska"; regex = "^.*\\.mkv$"; }
-        { mime = "application/octet-stream"; regex = "^.*\\.bin$"; }
-        { mime = "text/plain"; regex = "^.*\\.(log|txt|diff|sh|rs|toml)$"; }
+        {
+          mime = "image/jpeg";
+          regex = "^.*\\.jpg$";
+        }
+        {
+          mime = "image/png";
+          regex = "^.*\\.png$";
+        }
+        {
+          mime = "image/svg+xml";
+          regex = "^.*\\.svg$";
+        }
+        {
+          mime = "video/webm";
+          regex = "^.*\\.webm$";
+        }
+        {
+          mime = "video/x-matroska";
+          regex = "^.*\\.mkv$";
+        }
+        {
+          mime = "application/octet-stream";
+          regex = "^.*\\.bin$";
+        }
+        {
+          mime = "text/plain";
+          regex = "^.*\\.(log|txt|diff|sh|rs|toml)$";
+        }
       ];
-      random_url = { separator = "-"; type = "petname"; words = 2; };
+      random_url = {
+        separator = "-";
+        type = "petname";
+        words = 2;
+      };
     };
     server = {
       address = "127.0.0.1:3999";

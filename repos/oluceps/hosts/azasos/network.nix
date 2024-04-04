@@ -1,16 +1,34 @@
-{ lib
-, config
-, ...
-}: {
+{ lib, config, ... }:
+{
   networking.domain = "nyaw.xyz";
   networking = {
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
       enable = true;
-      trustedInterfaces = [ "virbr0" "wg0" "wg1" ];
-      allowedUDPPorts = [ 80 443 8080 5173 23180 4444 51820 ];
-      allowedTCPPorts = [ 80 443 8080 9900 2222 5173 8448 ];
+      trustedInterfaces = [
+        "virbr0"
+        "wg0"
+        "wg1"
+      ];
+      allowedUDPPorts = [
+        80
+        443
+        8080
+        5173
+        23180
+        4444
+        51820
+      ];
+      allowedTCPPorts = [
+        80
+        443
+        8080
+        9900
+        2222
+        5173
+        8448
+      ];
     };
 
     useNetworkd = true;
@@ -51,7 +69,6 @@
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
-
   };
   systemd.network = {
     enable = true;
@@ -59,7 +76,10 @@
     wait-online = {
       enable = true;
       anyInterface = true;
-      ignoredInterfaces = [ "wg0" "wg1" ];
+      ignoredInterfaces = [
+        "wg0"
+        "wg1"
+      ];
     };
 
     links."10-eth0" = {
@@ -105,7 +125,6 @@
         ];
       };
     };
-
 
     networks = {
       "10-wg0" = {

@@ -1,7 +1,8 @@
-{ pkgs
-, user
-, lib
-, ...
+{
+  pkgs,
+  user,
+  lib,
+  ...
 }:
 let
 
@@ -26,10 +27,9 @@ let
     "screen-recorder-toggle"
     "systemd-run-app"
   ];
-
-
 in
-builtins.readFile ./mocha + (with deps; ''
+builtins.readFile ./mocha
++ (with deps; ''
   # env = LIBVA_DRIVER_NAME,nvidia
   # env = XDG_SESSION_TYPE,wayland
   # env = GBM_BACKEND,nvidia-drm
@@ -67,5 +67,5 @@ builtins.readFile ./mocha + (with deps; ''
 
   exec-once=${systemd-run-app} ${tdesktop}
   exec-once=${systemd-run-app} ${firefox}
-'') + builtins.readFile ./general
-
+'')
++ builtins.readFile ./general

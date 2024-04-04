@@ -1,4 +1,8 @@
-{ appimageTools, lib, fetchurl }:
+{
+  appimageTools,
+  lib,
+  fetchurl,
+}:
 
 appimageTools.wrapType2 rec {
   pname = "techmino";
@@ -8,7 +12,6 @@ appimageTools.wrapType2 rec {
     url = "https://github.com/26F-Studio/Techmino/releases/download/v${version}/Techmino_Linux.AppImage";
     sha256 = "sha256-5DiY9JHfEt/JNFyqZeU8oDLBenHklcjoUT0XRCsnjtM=";
   };
-
 
   meta = with lib; {
     description = "Techmino";

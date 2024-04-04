@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   enable = true;
   collector = {
     enable = true;
@@ -14,9 +15,7 @@
     openFirewall = true;
 
     notify = {
-      urls = [
-        "ntfy://ntfy.nyaw.xyz/info"
-      ];
+      urls = [ "ntfy://ntfy.nyaw.xyz/info" ];
     };
   };
 }

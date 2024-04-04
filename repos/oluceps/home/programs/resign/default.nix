@@ -1,8 +1,7 @@
 { lib, pkgs, ... }:
 {
   xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
-    ${lib.fileContents
-    "${pkgs.gnome3.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
+    ${lib.fileContents "${pkgs.gnome3.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
     Hidden=true
   '';
   systemd.user = {

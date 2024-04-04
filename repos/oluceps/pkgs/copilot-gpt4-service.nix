@@ -1,7 +1,8 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, ...
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  ...
 }:
 buildGoModule {
   pname = "copilot-gpt4-service";

@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
 
   systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
     "nyaw.cert"
@@ -15,44 +16,56 @@
             srv0 = {
               routes = [
                 {
-                  handle = [{
-                    handler = "subroute";
-                    routes = [{
-                      handle = [{
-                        handler = "reverse_proxy";
-                        upstreams = [{
-                          dial = "localhost:8083";
-                        }];
-                      }];
-                    }];
-                  }];
-                  match = [{
-                    host = [ "attic.nyaw.xyz" ];
-                  }];
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "localhost:8083"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "attic.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
                 {
-                  handle = [{
-                    handler = "subroute";
-                    routes = [{
-                      handle = [{
-                        handler = "reverse_proxy";
-                        upstreams = [{
-                          dial = "localhost:9000";
-                        }];
-                      }];
-                    }];
-                  }];
-                  match = [{
-                    host = [ "s3.nyaw.xyz" ];
-                  }];
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "localhost:9000"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "s3.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
               ];
               tls_connection_policies = [
                 {
-                  match = { sni = [ "attic.nyaw.xyz" "hastur.nyaw.xyz" "s3.nyaw.xyz" ]; };
-                  certificate_selection = { any_tag = [ "cert0" ]; };
+                  match = {
+                    sni = [
+                      "attic.nyaw.xyz"
+                      "hastur.nyaw.xyz"
+                      "s3.nyaw.xyz"
+                    ];
+                  };
+                  certificate_selection = {
+                    any_tag = [ "cert0" ];
+                  };
                 }
                 # {
                 #   match = { sni = [ "api.s3.nyaw.xyz" ]; };

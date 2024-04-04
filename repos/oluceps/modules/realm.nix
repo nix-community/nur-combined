@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -15,13 +20,10 @@ in
 
       settings = mkOption {
         default = { };
-        type = types.submodule {
-          freeformType = settingsFormat.type;
-        };
+        type = types.submodule { freeformType = settingsFormat.type; };
       };
 
       package = mkPackageOptionMD pkgs "realm" { };
-
     };
   };
 
@@ -37,11 +39,13 @@ in
         Type = "simple";
         DynamicUser = true;
         ExecStart = "${lib.getExe cfg.package} -c ${settingsFile}";
-        AmbientCapabilities = [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = [
+          "CAP_NET_ADMIN"
+          "CAP_NET_BIND_SERVICE"
+        ];
         Restart = "on-failure";
       };
     };
-
   };
 
   meta.maintainers = with lib.maintainers; [ oluceps ];

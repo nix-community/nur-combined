@@ -1,23 +1,24 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, gettext
-, glib
-, gjs
-, ninja
-, gtk4
-, webkitgtk
-, gsettings-desktop-schemas
-, wrapGAppsHook
-, desktop-file-utils
-, gobject-introspection
-, glib-networking
-, pkg-config
-, appstream-glib
-, adw-gtk3
-, libadwaita
-, webkitgtk_6_0
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  gettext,
+  glib,
+  gjs,
+  ninja,
+  gtk4,
+  webkitgtk,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
+  desktop-file-utils,
+  gobject-introspection,
+  glib-networking,
+  pkg-config,
+  appstream-glib,
+  adw-gtk3,
+  libadwaita,
+  webkitgtk_6_0,
 }:
 
 stdenv.mkDerivation {
@@ -32,7 +33,12 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ meson ninja wrapGAppsHook pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    wrapGAppsHook
+    pkg-config
+  ];
 
   buildInputs = [
     gettext

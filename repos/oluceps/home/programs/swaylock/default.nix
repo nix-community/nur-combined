@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.swaylock.settings = {
     show-failed-attempts = true;
     daemonize = true;

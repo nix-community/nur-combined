@@ -1,4 +1,13 @@
-{ pkgs, data, config, user, lib, inputs, ... }: {
+{
+  pkgs,
+  data,
+  config,
+  user,
+  lib,
+  inputs,
+  ...
+}:
+{
   # This headless machine uses to perform heavy task.
   # Running database and web services.
 
@@ -53,7 +62,6 @@
     #   };
     # };
 
-
     # Given that our systems are headless, emergency mode is useless.
     # We prefer the system to attempt to continue booting so
     # that we can hopefully still access it remotely.
@@ -78,33 +86,33 @@
       AllowSuspend=no
       AllowHibernation=no
     '';
-
   };
 
   # photoprism minio
-  networking.firewall.allowedTCPPorts =
-    [ 9000 9001 6622 ] ++ [ config.services.photoprism.port ];
+  networking.firewall.allowedTCPPorts = [
+    9000
+    9001
+    6622
+  ] ++ [ config.services.photoprism.port ];
 
   systemd.services.prometheus.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
     "prom"
   ];
 
-  services = (
-    let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs lib user; }; in lib.genAttrs [
-      "openssh"
-      "fail2ban"
-      "dae"
-      "scrutiny"
-      "ddns-go"
-      "atticd"
-      "atuin"
-      "postgresql"
-      "photoprism"
-      "mysql"
-      "prometheus"
-    ]
-      (n: importService n)
-  ) // {
+  srv = {
+    openssh = true;
+    fail2ban = true;
+    dae = true;
+    scrutiny = true;
+    ddns-go = true;
+    atticd = true;
+    atuin = true;
+    postgresql = true;
+    photoprism = true;
+    mysql = true;
+    prometheus = true;
+  };
+  services = {
     metrics.enable = true;
     fwupd.enable = true;
 
@@ -133,7 +141,10 @@
       }
     ];
 
-    tailscale = { enable = true; openFirewall = true; };
+    tailscale = {
+      enable = true;
+      openFirewall = true;
+    };
 
     sing-box.enable = false;
     beesd.filesystems = {
@@ -171,7 +182,10 @@
           passwordFile = config.age.secrets.wg.path;
           repositoryFile = config.age.secrets.restic-repo-crit.path;
           environmentFile = config.age.secrets.restic-envs-crit.path;
-          paths = [ "/var/lib/backup" "/var/lib/private/matrix-conduit" ];
+          paths = [
+            "/var/lib/backup"
+            "/var/lib/private/matrix-conduit"
+          ];
           extraBackupArgs = [
             "--exclude-caches"
             "--no-scan"
@@ -192,10 +206,10 @@
     #   environmentFile = config.age.secrets.cloudflare-garden-00.path;
     # };
     compose-up.instances = [
-      # {
-      #   name = "misskey";
-      #   workingDirectory = "/home/${user}/Src/misskey";
-      # }
+      {
+        name = "misskey";
+        workingDirectory = "/home/${user}/Src/misskey";
+      }
       {
         name = "nextchat";
         workingDirectory = "/home/${user}/Src/ChatGPT-Next-Web";
@@ -269,7 +283,6 @@
           }
         ];
       };
-
     };
   };
 }

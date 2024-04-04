@@ -1,9 +1,10 @@
-{ stdenvNoCC
-, lib
-, fetchurl
-, unzip
-, ...
-} @ args:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  unzip,
+  ...
+}@args:
 
 stdenvNoCC.mkDerivation rec {
   pname = "maoken-tangyuan";
@@ -23,10 +24,9 @@ stdenvNoCC.mkDerivation rec {
     find . -name '*.ttc' -exec install -Dt $out/share/fonts/truetype {} \;
   '';
   meta = with lib; {
-    description =
-      ''
-        TangYuan/MaoKen TangYuan font
-      '';
+    description = ''
+      TangYuan/MaoKen TangYuan font
+    '';
     homepage = "https://open.oppomobile.com/bbs/forum.php?mod=viewthread&tid=2274";
     #    maintainers = with maintainers; [ oluceps ];
   };

@@ -1,4 +1,9 @@
-{ withSystem, self, inputs, ... }:
+{
+  withSystem,
+  self,
+  inputs,
+  ...
+}:
 let
   generalHost = [
     # "colour"
@@ -9,10 +14,17 @@ let
   ];
 in
 {
-  flake = withSystem "x86_64-linux" ({ config, inputs', system, ... }:
+  flake = withSystem "x86_64-linux" (
+    {
+      config,
+      inputs',
+      system,
+      ...
+    }:
     {
       colmena =
-        let inherit (self) lib;
+        let
+          inherit (self) lib;
         in
         {
           meta = {
@@ -23,34 +35,46 @@ in
                 segger-jlink.acceptLicense = true;
                 allowUnsupportedSystem = true;
               };
-              overlays = (import ../overlays.nix inputs)
-              ++
-              (lib.genOverlays [
-                "self"
-                "fenix"
-                "nuenv"
-                "agenix-rekey"
-                "android-nixpkgs"
-                "nixpkgs-wayland"
-                "berberman"
-                "attic"
-                "misskey"
-              ]);
+              overlays =
+                (import ../overlays.nix inputs)
+                ++ (lib.genOverlays [
+                  "self"
+                  "fenix"
+                  "nuenv"
+                  "agenix-rekey"
+                  "android-nixpkgs"
+                  "nixpkgs-wayland"
+                  "berberman"
+                  "attic"
+                  "misskey"
+                ]);
             };
 
             nodeNixpkgs = { };
 
             specialArgs = {
-              inherit lib self inputs inputs';
+              inherit
+                lib
+                self
+                inputs
+                inputs'
+                ;
               inherit (config) packages;
               inherit (lib) data;
             };
 
-            nodeSpecialArgs = {
-              hastur = { user = "riro"; };
-            } // (lib.genAttrs generalHost
-              (n: { user = "elen"; }));
+            nodeSpecialArgs =
+              {
+                hastur = {
+                  user = "riro";
+                };
+              }
+              // (lib.genAttrs generalHost (n: {
+                user = "elen";
+              }));
           };
-        } // (lib.genAttrs (generalHost ++ [ "hastur" ]) (h: ./. + "/${h}"));
-    });
+        }
+        // (lib.genAttrs (generalHost ++ [ "hastur" ]) (h: ./. + "/${h}"));
+    }
+  );
 }

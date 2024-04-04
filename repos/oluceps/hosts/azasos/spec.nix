@@ -1,4 +1,10 @@
-{ pkgs, config, lib, inputs, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}:
 {
   # server inside the cage.
 
@@ -14,33 +20,29 @@
     supportedFilesystems = [ "tcp_bbr" ];
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
+  srv = {
+    openssh = true;
+    # mosdns = true;
+    fail2ban = true;
+    dae = true;
+    mosproxy = true;
+  };
 
-  services =
-    (
-      let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
-        "openssh"
-        # "mosdns"
-        "fail2ban"
-        "dae"
-        "mosproxy"
-      ]
-        (n: importService n)
-    ) // {
-      sing-box.enable = true;
+  services = {
+    sing-box.enable = true;
 
-      hysteria.instances = [
-        {
-          name = "nodens";
-          configFile = config.age.secrets.hyst-us-cli.path;
-        }
-      ];
-    };
+    hysteria.instances = [
+      {
+        name = "nodens";
+        configFile = config.age.secrets.hyst-us-cli.path;
+      }
+    ];
+  };
 
   networking.firewall = {
     allowedUDPPorts = [ 6059 ];
     allowedTCPPorts = [ 6059 ];
   };
-
 
   programs = {
     git.enable = true;
@@ -67,9 +69,7 @@
       #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
       rebootTime = "30s";
     };
-
   };
 
-  systemd.tmpfiles.rules = [
-  ];
+  systemd.tmpfiles.rules = [ ];
 }

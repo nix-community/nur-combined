@@ -2,7 +2,12 @@
 pkgs.writeShellApplication {
   name = "runwin";
   text = ''
-    ${pkgs.qemu.override { smbdSupport = true; hostCpuOnly = true; }}/bin/qemu-system-x86_64 \
+    ${
+      pkgs.qemu.override {
+        smbdSupport = true;
+        hostCpuOnly = true;
+      }
+    }/bin/qemu-system-x86_64 \
       -nodefaults \
       -machine q35 -accel kvm -cpu host,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time \
       -smp sockets=1,cores=6 -m 8G \

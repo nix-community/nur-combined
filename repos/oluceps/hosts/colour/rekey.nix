@@ -5,7 +5,12 @@
     rekey.hostPubkey = data.keys.colourHostPubKey;
 
     secrets = {
-      prom = { rekeyFile = ../../sec/prom.age; mode = "640"; owner = "prometheus"; group = "users"; };
+      prom = {
+        rekeyFile = ../../sec/prom.age;
+        mode = "640";
+        owner = "prometheus";
+        group = "users";
+      };
     };
   };
 }

@@ -1,4 +1,10 @@
-{ pkgs, user, lib, config, ... }:
+{
+  pkgs,
+  user,
+  lib,
+  config,
+  ...
+}:
 
 {
 
@@ -33,6 +39,4 @@
       XDG_DATA_HOME = "\${HOME}/.local/share";
     };
   };
-
 }
-

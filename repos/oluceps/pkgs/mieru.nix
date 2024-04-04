@@ -1,6 +1,7 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
@@ -17,8 +18,10 @@ buildGoModule rec {
   vendorHash = "sha256-Mn2cUj3Xs6nFnwMZziPdQQyfB88P+SqlWxs70WxYscM=";
   proxyVendor = true;
 
-
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "A socks5 / HTTP / HTTPS proxy to bypass censorship";

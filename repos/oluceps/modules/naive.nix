@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 with lib;
 let
@@ -15,9 +16,8 @@ in
     };
     package = mkOption {
       type = types.package;
-      default = pkgs.nur-pkgs.naiveproxy;
+      default = pkgs.emptyDirectory;
     };
-
   };
   config =
     let
@@ -45,11 +45,6 @@ in
           ];
           Restart = "on-failure";
         };
-
       };
-
     };
-
-
 }
-

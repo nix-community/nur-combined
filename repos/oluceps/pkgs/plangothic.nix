@@ -1,6 +1,7 @@
-{ fetchFromGitHub
-, stdenv
-, lib
+{
+  fetchFromGitHub,
+  stdenv,
+  lib,
 }:
 
 stdenv.mkDerivation {
@@ -27,7 +28,6 @@ stdenv.mkDerivation {
     sha256 = "sha256-7/WObo/gLGc/1+RznR1mSZmhtO5CfcTiu6oOnPjaGx8=";
   };
 
-
   installPhase = ''
     mkdir -p $out/share/fonts/truetype/
     cp *.ttf $out/share/fonts/truetype/
@@ -37,11 +37,13 @@ stdenv.mkDerivation {
     description = ''
       SHSans-derived CJK font family with a more concise & modern look
     '';
-    license = with licenses;[ mit ofl ];
+    license = with licenses; [
+      mit
+      ofl
+    ];
     platforms = platforms.all;
     maintainers = with maintainers; [ oluceps ];
   };
 
   #    find . -name  '*.ttf'    -exec install -Dt $out/share/fonts/truetype {} \;
 }
-

@@ -1,4 +1,10 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
@@ -13,13 +19,20 @@
   boot = {
     loader.grub.device = "/dev/vda";
     initrd = {
-      availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
+      availableKernelModules = [
+        "ata_piix"
+        "uhci_hcd"
+        "xen_blkfront"
+        "vmw_pvscsi"
+      ];
       kernelModules = [ "nvme" ];
 
       compressor = "zstd";
-      compressorArgs = [ "-19" "-T0" ];
+      compressorArgs = [
+        "-19"
+        "-T0"
+      ];
       systemd.enable = true;
-
     };
 
     tmp.cleanOnBoot = true;
@@ -30,10 +43,12 @@
     ];
 
     kernelPackages = pkgs.linuxPackages_latest;
-
   };
 
-  fileSystems."/" = { device = "/dev/vda1"; fsType = "ext4"; };
+  fileSystems."/" = {
+    device = "/dev/vda1";
+    fsType = "ext4";
+  };
 
   # fileSystems."/persist".neededForBoot = true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

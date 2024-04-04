@@ -28,51 +28,73 @@ let
     ];
   };
 
-  genModules = map (let m = i: inputs.${i}.nixosModules; in i: (m i).default or (m i).${i});
+  genModules = map (
+    let
+      m = i: inputs.${i}.nixosModules;
+    in
+    i: (m i).default or (m i).${i}
+  );
 
-  pkgs = import inputs.nixpkgs { system = "x86_64-linux"; overlays = [ inputs.nuenv.overlays.default ]; };
+  pkgs = import inputs.nixpkgs {
+    system = "x86_64-linux";
+    overlays = [ inputs.nuenv.overlays.default ];
+  };
 in
 {
   inherit data genModules;
 
   genOverlays = map (i: inputs.${i}.overlays.default);
 
-  sharedModules = [
-  ] ++ (genModules [ "agenix-rekey" "ragenix" "impermanence" "lanzaboote" "nh" "self" ])
-  ++ (with inputs.dae.nixosModules;[ dae daed ]);
+  sharedModules =
+    [ ]
+    ++ (genModules [
+      "agenix-rekey"
+      "ragenix"
+      "impermanence"
+      "lanzaboote"
+      "self"
+    ])
+    ++ (with inputs.dae.nixosModules; [
+      dae
+      daed
+    ]);
 
-  genFilteredDirAttrs = dir: excludes:
-    inputs.nixpkgs.lib.genAttrs
-      (with builtins; filter
-        (n: !elem n excludes)
-        (attrNames
-          (readDir dir)));
+  genFilteredDirAttrs =
+    dir: excludes:
+    inputs.nixpkgs.lib.genAttrs (with builtins; filter (n: !elem n excludes) (attrNames (readDir dir)));
 
-  genFilteredDirAttrsV2 = dir: excludes:
-    with inputs.nixpkgs.lib; genAttrs
-      (subtractLists excludes
-        (with builtins; map (removeSuffix ".nix")
-          (attrNames (readDir dir))));
+  genFilteredDirAttrsV2 =
+    dir: excludes:
+    with inputs.nixpkgs.lib;
+    genAttrs (
+      subtractLists excludes (with builtins; map (removeSuffix ".nix") (attrNames (readDir dir)))
+    );
 
   genCredPath = config: key: (key + ":" + config.age.secrets.${key}.path);
 
-  genNtfyMsgScriptPath = header: level: body:
-    pkgs.lib.getExe (pkgs.nuenv.writeScriptBin
-      {
+  genNtfyMsgScriptPath =
+    header: level: body:
+    pkgs.lib.getExe (
+      pkgs.nuenv.writeScriptBin {
         name = "post-ntfy-msg";
         script = "http post --password $in --headers [${header}] https://ntfy.nyaw.xyz/${level} ${body}";
-      });
+      }
+    );
 
-  capitalize = str:
+  capitalize =
+    str:
     with pkgs.lib.strings;
     concatStrings [
-      (toUpper
-        (substring 0 1 str))
+      (toUpper (substring 0 1 str))
       (substring 1 16 str)
     ];
 
-  readToStore = p: toString (pkgs.writeTextFile {
-    name = builtins.baseNameOf p;
-    text = builtins.readFile p;
-  });
+  readToStore =
+    p:
+    toString (
+      pkgs.writeTextFile {
+        name = builtins.baseNameOf p;
+        text = builtins.readFile p;
+      }
+    );
 }

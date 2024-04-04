@@ -39,7 +39,9 @@
         prompt-prev = "Control+Shift+z";
         prompt-next = "Control+Shift+x";
       };
-      cursor = { blink = "yes"; };
+      cursor = {
+        blink = "yes";
+      };
       mouse = {
         alternate-scroll-mode = "yes";
         hide-when-typing = "yes";
@@ -53,6 +55,5 @@
         uri-characters = ''abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+="'()[]'';
       };
     };
-
   };
 }

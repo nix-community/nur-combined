@@ -1,6 +1,13 @@
-{ pkgs, lib, config, inputs, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
+{
 
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     qq
     gtkcord4
     celeste
@@ -19,7 +26,12 @@
     jetbrains.idea-ultimate
     jetbrains.clion
     # jetbrains.rust-rover
-    (pkgs.callPackage "${inputs.nixpkgs}/pkgs/development/embedded/openocd" { extraHardwareSupport = [ "cmsis-dap" "jlink" ]; })
+    (pkgs.callPackage "${inputs.nixpkgs}/pkgs/development/embedded/openocd" {
+      extraHardwareSupport = [
+        "cmsis-dap"
+        "jlink"
+      ];
+    })
 
     # bottles
 
@@ -48,7 +60,6 @@
 
     gimp
     imv
-
 
     veracrypt
     openpgp-card-tools
@@ -152,7 +163,6 @@
 
     ncdu_2 # disk space info
 
-    
     android-tools
     zellij
     # netease-cloud-music-gtk
@@ -183,17 +193,23 @@
 
   android-sdk.enable = true;
 
-  android-sdk.packages = sdk: with sdk; [
-    # build-tools-31-0-0
-    cmdline-tools-latest
-    # emulator
-    # platforms-android-31
-    # sources-android-31
-  ];
+  android-sdk.packages =
+    sdk: with sdk; [
+      # build-tools-31-0-0
+      cmdline-tools-latest
+      # emulator
+      # platforms-android-31
+      # sources-android-31
+    ];
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode.fhsWithPackages (ps: with ps; [ rustup zlib ]);
+    package = pkgs.vscode.fhsWithPackages (
+      ps: with ps; [
+        rustup
+        zlib
+      ]
+    );
   };
 
   programs.pandoc.enable = true;
@@ -210,44 +226,40 @@
       name = "Fluent";
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-
   };
 
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = {
-      "tg" = [ "org.telegram.desktop.desktop" ];
+    defaultApplications =
+      {
+        "tg" = [ "org.telegram.desktop.desktop" ];
 
-      "application/pdf" = [ "sioyek.desktop" ];
-      "ppt/pptx" = [ "wps-office-wpp.desktop" ];
-      "doc/docx" = [ "wps-office-wps.desktop" ];
-      "xls/xlsx" = [ "wps-office-et.desktop" ];
-    }
-    //
-    lib.genAttrs [
-      "x-scheme-handler/unknown"
-      "x-scheme-handler/about"
-      "x-scheme-handler/http"
-      "x-scheme-handler/https"
-      "x-scheme-handler/mailto"
-      "text/html"
-    ]
-      # (_: "brave-browser.desktop")
-      (_: "firefox.desktop")
-    //
-    lib.genAttrs [
-      "image/gif"
-      "image/webp"
-      "image/png"
-      "image/jpeg"
-    ]
-      (_: "org.gnome.Loupe.desktop")
-    //
-    lib.genAttrs [
-      "inode/directory"
-      "inode/mount-point"
-    ]
-      (_: "org.gnome.Nautilus");
+        "application/pdf" = [ "sioyek.desktop" ];
+        "ppt/pptx" = [ "wps-office-wpp.desktop" ];
+        "doc/docx" = [ "wps-office-wps.desktop" ];
+        "xls/xlsx" = [ "wps-office-et.desktop" ];
+      }
+      // lib.genAttrs
+        [
+          "x-scheme-handler/unknown"
+          "x-scheme-handler/about"
+          "x-scheme-handler/http"
+          "x-scheme-handler/https"
+          "x-scheme-handler/mailto"
+          "text/html"
+        ]
+        # (_: "brave-browser.desktop")
+        (_: "firefox.desktop")
+      // lib.genAttrs [
+        "image/gif"
+        "image/webp"
+        "image/png"
+        "image/jpeg"
+      ] (_: "org.gnome.Loupe.desktop")
+      // lib.genAttrs [
+        "inode/directory"
+        "inode/mount-point"
+      ] (_: "org.gnome.Nautilus");
   };
 
   services = {
@@ -256,7 +268,10 @@
       enable = false;
       systemdTarget = "sway-session.target";
       timeouts = [
-        { timeout = 900; command = "${pkgs.swaylock}/bin/swaylock"; }
+        {
+          timeout = 900;
+          command = "${pkgs.swaylock}/bin/swaylock";
+        }
         {
           timeout = 905;
           command = ''${pkgs.sway}/bin/swaymsg "output * dpms off"'';
@@ -264,7 +279,10 @@
         }
       ];
       events = [
-        { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock"; }
+        {
+          event = "lock";
+          command = "${pkgs.swaylock}/bin/swaylock";
+        }
       ];
     };
   };

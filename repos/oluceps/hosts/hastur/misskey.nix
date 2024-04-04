@@ -4,7 +4,7 @@
     enable = true;
     port = 6379;
   };
-  services.misskey.enable = true;
+  services.misskey.enable = false;
   environment.etc."misskey/default.yml".text = pkgs.lib.generators.toYAML { } {
     url = "https://nyaw.xyz/";
     port = 3000;

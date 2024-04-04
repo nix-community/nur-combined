@@ -1,87 +1,90 @@
 inputs:
-let system = "x86_64-linux"; in [
-  (final: prev:
-    prev.lib.genAttrs
-      [
-        "hyprland"
-        "hyprpicker"
-        "clash-meta"
-        "nil"
-        "ragenix"
-        "prismlauncher"
-        "resign"
-        "nix-direnv"
-        # "anyrun"
-        # "devenv"
-        "attic"
-      ]
-      (n: inputs.${n}.packages.${system}.default)
+let
+  system = "x86_64-linux";
+in
+[
+  (
+    final: prev:
+    prev.lib.genAttrs [
+      "nil"
+      "ragenix"
+      "prismlauncher"
+      "resign"
+      "nix-direnv"
+      "attic"
+    ] (n: inputs.${n}.packages.${system}.default)
     # //
     # GUI applications overlay. for stability
     # prev.lib.genAttrs [ "hyprland" ] (n: (import inputs.nixpkgs-gui { inherit system; }).${n})
 
-    //
-    {
+    // {
       # lazygit =
       #   (import inputs.nixpkgs-gui
       #     {
       #       inherit system;
       #     }).lazygit;
-      inherit ((import inputs.nixpkgs-master {
-        inherit system; config.allowUnfree = true;
-      })) monaspace factorio-headless-experimental linuxPackages_latest;
+      inherit
+        (
+          (import inputs.nixpkgs-master {
+            inherit system;
+            config.allowUnfree = true;
+          })
+        )
+        monaspace
+        factorio-headless-experimental
+        linuxPackages_latest
+        ;
 
       helix = inputs.helix.packages.${system}.default.override {
-        includeGrammarIf = grammar:
-          prev.lib.any
-            (name: grammar.name == name)
-            [
-              "toml"
-              "rust"
-              "nix"
-              "lua"
-              "make"
-              "protobuf"
-              "yaml"
-              "json"
-              "markdown"
-              "html"
-              "css"
-              "zig"
-              "c"
-              "cpp"
-              "go"
-              "python"
-              "bash"
-              "kotlin"
-              "fish"
-              "javascript"
-              "typescript"
-              "sway"
-              "diff"
-              "comment"
-              "vue"
-              "nu"
-              "typst"
-              "scheme"
-              "just"
-            ];
+        includeGrammarIf =
+          grammar:
+          prev.lib.any (name: grammar.name == name) [
+            "toml"
+            "rust"
+            "nix"
+            "lua"
+            "make"
+            "protobuf"
+            "yaml"
+            "json"
+            "markdown"
+            "html"
+            "css"
+            "zig"
+            "c"
+            "cpp"
+            "go"
+            "python"
+            "bash"
+            "kotlin"
+            "fish"
+            "javascript"
+            "typescript"
+            "sway"
+            "diff"
+            "comment"
+            "vue"
+            "nu"
+            "typst"
+            "scheme"
+            "just"
+          ];
       };
 
       # sha256 = "0000000000000000000000000000000000000000000000000000";
 
-      gnome = prev.gnome.overrideScope' (gnomeFinal: gnomePrev: {
-        mutter = gnomePrev.mutter.overrideAttrs (old: {
-          src = prev.fetchgit {
-            url = "https://gitlab.gnome.org/vanvugt/mutter.git";
-            # GNOME 45: triple-buffering-v4-45
-            rev = "0b896518b2028d9c4d6ea44806d093fd33793689";
-            sha256 = "sha256-mzNy5GPlB2qkI2KEAErJQzO//uo8yO0kPQUwvGDwR4w=";
-          };
-        });
-      });
-
-      nur-pkgs = inputs.nur-pkgs.packages.${system};
+      gnome = prev.gnome.overrideScope' (
+        gnomeFinal: gnomePrev: {
+          mutter = gnomePrev.mutter.overrideAttrs (old: {
+            src = prev.fetchgit {
+              url = "https://gitlab.gnome.org/vanvugt/mutter.git";
+              # GNOME 45: triple-buffering-v4-45
+              rev = "0b896518b2028d9c4d6ea44806d093fd33793689";
+              sha256 = "sha256-mzNy5GPlB2qkI2KEAErJQzO//uo8yO0kPQUwvGDwR4w=";
+            };
+          });
+        }
+      );
 
       blesh = prev.blesh.overrideAttrs (old: {
         src = prev.fetchzip {
@@ -116,7 +119,6 @@ let system = "x86_64-linux"; in [
       #   };
       # };
 
-
       # sway-unwrapped =
       #   (import inputs.nixpkgs-gui
       #     {
@@ -137,16 +139,16 @@ let system = "x86_64-linux"; in [
       #     '');
       #   });
 
-      picom = prev.picom.overrideAttrs
-        (old: {
-          src = prev.fetchFromGitHub {
-            owner = "yshui";
-            repo = "picom";
-            rev = "0fe4e0a1d4e2c77efac632b15f9a911e47fbadf3";
-            sha256 = "sha256-daLb7ebMVeL+f8WydH4DONkUA+0D6d+v+pohJb2qjOo=";
-          };
-        });
-      phantomsocks = with prev;
+      picom = prev.picom.overrideAttrs (old: {
+        src = prev.fetchFromGitHub {
+          owner = "yshui";
+          repo = "picom";
+          rev = "0fe4e0a1d4e2c77efac632b15f9a911e47fbadf3";
+          sha256 = "sha256-daLb7ebMVeL+f8WydH4DONkUA+0D6d+v+pohJb2qjOo=";
+        };
+      });
+      phantomsocks =
+        with prev;
         buildGoModule rec {
           pname = "phantomsocks";
           version = "unstable-2023-11-30";
@@ -212,8 +214,6 @@ let system = "x86_64-linux"; in [
           meta.mainProgram = "dae";
         };
 
-
-
       # dae-unstable = prev.dae.overrideAttrs (old:
       #   let
       #     version = "unstable";
@@ -233,17 +233,14 @@ let system = "x86_64-linux"; in [
       #     }).goModules;
       #   });
 
-      via = prev.via.overrideAttrs
-        (old: rec{
-          version = "2.0.5";
-          src = prev.fetchurl {
-            url = "https://github.com/the-via/releases/releases/download/v${version}/via-${version}-linux.AppImage";
-            name = "via-${version}-linux.AppImage";
-            sha256 = "sha256-APNtzfeV6z8IF20bomcgMq7mwcK1fbDdFF77Xr0UPOs=";
-
-          };
-        }
-        );
+      via = prev.via.overrideAttrs (old: rec {
+        version = "2.0.5";
+        src = prev.fetchurl {
+          url = "https://github.com/the-via/releases/releases/download/v${version}/via-${version}-linux.AppImage";
+          name = "via-${version}-linux.AppImage";
+          sha256 = "sha256-APNtzfeV6z8IF20bomcgMq7mwcK1fbDdFF77Xr0UPOs=";
+        };
+      });
 
       # waybar = prev.waybar.overrideAttrs (old: {
       #   patchPhase = ''
@@ -251,7 +248,6 @@ let system = "x86_64-linux"; in [
       #   '';
       #   mesonFlags = old.mesonFlags ++ [ "-Dexperimental=true" ];
       # });
-
 
       # rathole = prev.rathole.overrideAttrs
       #   (old: rec {
@@ -313,7 +309,6 @@ let system = "x86_64-linux"; in [
       #        };
       #      });
 
-
       #      tdesktop = prev.tdesktop.overrideAttrs (old: {
       #        pname = "t64";
       #        version = "1.0.46";
@@ -328,74 +323,67 @@ let system = "x86_64-linux"; in [
       #      });
       #
 
+      record-status = prev.writeShellScriptBin "record-status" ''
+        pid=`pgrep wf-recorder`
+        status=$?
+        if [ $status != 0 ]
+        then
+          echo '';
+        else
+          echo '';
+        fi;
+      '';
 
+      screen-recorder-toggle = prev.writeShellScriptBin "screen-recorder-toggle" ''
+        pid=`${prev.procps}/bin/pgrep wl-screenrec`
+        status=$?
+        if [ $status != 0 ]
+        then
+          ${prev.wl-screenrec}/bin/wl-screenrec -g "$(${prev.slurp}/bin/slurp)" -f $HOME/Videos/record/$(date +'recording_%Y-%m-%d-%H%M%S.mp4');
+        else
+          ${prev.procps}/bin/pkill --signal SIGINT wl-screenrec
+        fi;
+      '';
 
-      record-status = prev.writeShellScriptBin
-        "record-status"
-        ''
-          pid=`pgrep wf-recorder`
-          status=$?
-          if [ $status != 0 ]
-          then
-            echo '';
-          else
-            echo '';
-          fi;
-        '';
-
-      screen-recorder-toggle = prev.writeShellScriptBin
-        "screen-recorder-toggle"
-        ''
-          pid=`${prev.procps}/bin/pgrep wl-screenrec`
-          status=$?
-          if [ $status != 0 ]
-          then
-            ${prev.wl-screenrec}/bin/wl-screenrec -g "$(${prev.slurp}/bin/slurp)" -f $HOME/Videos/record/$(date +'recording_%Y-%m-%d-%H%M%S.mp4');
-          else
-            ${prev.procps}/bin/pkill --signal SIGINT wl-screenrec
-          fi;
-        '';
-
-      save-clipboard-to = prev.writeShellScriptBin
-        "save-clipboard-to"
-        ''
-          wl-paste > $HOME/Pictures/Screenshots/$(date +'shot_%Y-%m-%d-%H%M%S.png')
-        '';
-      switch-mute = final.nuenv.writeScriptBin
-        {
-          name = "switch-mute";
-          script = let pamixer = prev.lib.getExe prev.pamixer; in ''
+      save-clipboard-to = prev.writeShellScriptBin "save-clipboard-to" ''
+        wl-paste > $HOME/Pictures/Screenshots/$(date +'shot_%Y-%m-%d-%H%M%S.png')
+      '';
+      switch-mute = final.nuenv.writeScriptBin {
+        name = "switch-mute";
+        script =
+          let
+            pamixer = prev.lib.getExe prev.pamixer;
+          in
+          ''
             ${pamixer} --get-mute | str trim | if $in == "false" { ${pamixer} -m } else { ${pamixer} -u }
           '';
-        };
+      };
 
-      clean-home = final.nuenv.writeScriptBin
-        {
-          name = "clean-home";
-          script = ''
-            cd /home/riro/
-            ls | each {|i| findmnt $i.name | if $in == "" { rm -rf $i.name}}
-            cd -
-          '';
-        };
-      systemd-run-app = prev.writeShellApplication
-        {
-          name = "systemd-run-app";
-          text = ''
-            name=$(${final.uutils-coreutils-noprefix}/bin/basename "$1")
-            id=$(${final.openssl}/bin/openssl rand -hex 4)
-            exec systemd-run \
-              --user \
-              --scope \
-              --unit "$name-$id" \
-              --slice=app \
-              --same-dir \
-              --collect \
-              --property PartOf=graphical-session.target \
-              --property After=graphical-session.target \
-              -- "$@"
-          '';
-        };
-    })
-
+      clean-home = final.nuenv.writeScriptBin {
+        name = "clean-home";
+        script = ''
+          cd /home/riro/
+          ls | each {|i| findmnt $i.name | if $in == "" { rm -rf $i.name}}
+          cd -
+        '';
+      };
+      systemd-run-app = prev.writeShellApplication {
+        name = "systemd-run-app";
+        text = ''
+          name=$(${final.uutils-coreutils-noprefix}/bin/basename "$1")
+          id=$(${final.openssl}/bin/openssl rand -hex 4)
+          exec systemd-run \
+            --user \
+            --scope \
+            --unit "$name-$id" \
+            --slice=app \
+            --same-dir \
+            --collect \
+            --property PartOf=graphical-session.target \
+            --property After=graphical-session.target \
+            -- "$@"
+        '';
+      };
+    }
+  )
 ]

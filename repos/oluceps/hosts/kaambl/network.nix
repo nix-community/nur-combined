@@ -1,20 +1,38 @@
-{ config
-, lib
-, ...
-}: {
+{ config, lib, ... }:
+{
   services.resolved.enable = lib.mkForce false;
   networking = {
     hosts = {
-      "10.0.1.2" = [ "attic.nyaw.xyz" "s3.nyaw.xyz" ];
+      "10.0.1.2" = [
+        "attic.nyaw.xyz"
+        "s3.nyaw.xyz"
+      ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
     };
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
       enable = true;
-      trustedInterfaces = [ "virbr0" "wg0" "wg1" "podman*" ];
-      allowedUDPPorts = [ 8080 5173 3330 8880 ];
-      allowedTCPPorts = [ 8080 9900 2222 5173 3330 8880 ];
+      trustedInterfaces = [
+        "virbr0"
+        "wg0"
+        "wg1"
+        "podman*"
+      ];
+      allowedUDPPorts = [
+        8080
+        5173
+        3330
+        8880
+      ];
+      allowedTCPPorts = [
+        8080
+        9900
+        2222
+        5173
+        3330
+        8880
+      ];
     };
 
     wireless.iwd.enable = true;
@@ -32,7 +50,6 @@
     nftables.enable = true;
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
-
   };
   systemd.network = {
     enable = true;
@@ -40,7 +57,10 @@
     wait-online = {
       enable = true;
       anyInterface = true;
-      ignoredInterfaces = [ "wlan" "wg*" ];
+      ignoredInterfaces = [
+        "wlan"
+        "wg*"
+      ];
     };
 
     links."30-rndis" = {
@@ -96,7 +116,6 @@
       };
     };
 
-
     networks = {
       "10-wg0" = {
         matchConfig.Name = "wg0";
@@ -133,7 +152,6 @@
           DNSSEC = true;
         };
       };
-
     };
   };
 }

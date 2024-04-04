@@ -1,5 +1,9 @@
-{ inputs, system, user, ... }:
-
+{
+  inputs,
+  system,
+  user,
+  ...
+}:
 
 let
   homeProfile = ./home.nix;
@@ -11,13 +15,12 @@ in
     users.${user} = {
       imports = [
         homeProfile
-        inputs.hyprland.homeManagerModules.default
         inputs.android-nixpkgs.hmModule
         inputs.anyrun.homeManagerModules.default
-        #        
       ];
     };
-    extraSpecialArgs = { inherit inputs system user; };
+    extraSpecialArgs = {
+      inherit inputs system user;
+    };
   };
-
 }

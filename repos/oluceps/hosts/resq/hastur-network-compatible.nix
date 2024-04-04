@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   services.resolved.enable = lib.mkForce true;
   # services.resolved.enable = true;
   services.resolved.extraConfig = "DNS=192.168.1.1";
@@ -15,13 +16,29 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      trustedInterfaces = [ "virbr0" "wg*" "podman*" "dae0" ];
-      allowedUDPPorts = [ 8080 5173 51820 9918 8013 ];
-      allowedTCPPorts = [ 8080 9900 2222 5173 1900 ];
+      trustedInterfaces = [
+        "virbr0"
+        "wg*"
+        "podman*"
+        "dae0"
+      ];
+      allowedUDPPorts = [
+        8080
+        5173
+        51820
+        9918
+        8013
+      ];
+      allowedTCPPorts = [
+        8080
+        9900
+        2222
+        5173
+        1900
+      ];
     };
     nftables.enable = true;
     networkmanager.enable = lib.mkForce false;
-
   };
   systemd.network = {
     enable = true;
@@ -86,7 +103,10 @@
           {
             wireguardPeerConfig = {
               PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.1.9/32" "10.0.0.0/24" ];
+              AllowedIPs = [
+                "10.0.1.9/32"
+                "10.0.0.0/24"
+              ];
               Endpoint = "127.0.0.1:41821";
               PersistentKeepalive = 15;
             };
@@ -95,14 +115,11 @@
       };
     };
 
-
     networks = {
       "10-wg0" = {
         matchConfig.Name = "wg0";
         # IP addresses the client interface will have
-        address = [
-          "10.0.1.2/24"
-        ];
+        address = [ "10.0.1.2/24" ];
         DHCP = "no";
       };
 
@@ -113,7 +130,6 @@
           Bond = "bond0";
           PrimarySlave = true;
         };
-
       };
 
       "40-wireless-bond1" = {
@@ -131,9 +147,11 @@
         # address = [ "192.168.0.2/24" ];
 
         networkConfig = {
-          BindCarrier = [ "eth0" "wlan0" ];
+          BindCarrier = [
+            "eth0"
+            "wlan0"
+          ];
         };
-
 
         linkConfig.MACAddress = "fc:62:ba:3a:e1:5f";
       };
@@ -149,7 +167,6 @@
           DNSSEC = true;
         };
       };
-
     };
   };
 }

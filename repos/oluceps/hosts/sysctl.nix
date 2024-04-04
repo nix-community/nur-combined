@@ -1,5 +1,5 @@
-{ ...
-}: {
+{ ... }:
+{
   boot = {
     kernel.sysctl = {
       "kernel.panic" = 10;

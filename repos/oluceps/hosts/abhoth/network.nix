@@ -1,7 +1,5 @@
-{ config
-, lib
-, ...
-}: {
+{ config, lib, ... }:
+{
   services = {
     mosdns.enable = true;
     resolved.enable = !config.services.mosdns.enable;
@@ -11,9 +9,33 @@
     firewall = {
       checkReversePath = false;
       enable = true;
-      trustedInterfaces = [ "virbr0" "wg0" "wg1" ];
-      allowedUDPPorts = [ 80 443 8080 5173 23180 4444 51820 3330 8880 ];
-      allowedTCPPorts = [ 80 443 8080 9900 2222 5173 8448 3330 8880 ];
+      trustedInterfaces = [
+        "virbr0"
+        "wg0"
+        "wg1"
+      ];
+      allowedUDPPorts = [
+        80
+        443
+        8080
+        5173
+        23180
+        4444
+        51820
+        3330
+        8880
+      ];
+      allowedTCPPorts = [
+        80
+        443
+        8080
+        9900
+        2222
+        5173
+        8448
+        3330
+        8880
+      ];
     };
 
     useNetworkd = true;
@@ -37,7 +59,6 @@
     nftables.enable = true;
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
-
   };
   systemd.network = {
     enable = true;
@@ -45,7 +66,10 @@
     wait-online = {
       enable = true;
       anyInterface = true;
-      ignoredInterfaces = [ "wg0" "wg1" ];
+      ignoredInterfaces = [
+        "wg0"
+        "wg1"
+      ];
     };
 
     links."10-ens5" = {
@@ -127,7 +151,6 @@
         ];
       };
     };
-
 
     networks = {
       "10-wg0" = {

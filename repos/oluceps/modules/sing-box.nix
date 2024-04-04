@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 with lib;
 let
@@ -15,12 +16,14 @@ in
       default = false;
     };
     webPanel = mkOption {
-      type = with types; submodule {
-        options = {
-          enable = mkEnableOption (mdDoc "enable");
-          package = mkPackageOptionMD pkgs "metacubexd" { };
+      type =
+        with types;
+        submodule {
+          options = {
+            enable = mkEnableOption (mdDoc "enable");
+            package = mkPackageOptionMD pkgs "metacubexd" { };
+          };
         };
-      };
       default = {
         enable = true;
         package = pkgs.metacubexd;
@@ -34,11 +37,10 @@ in
       type = types.str;
       default = config.age.secrets.sing.path;
     };
-
   };
-  config =
-    mkIf cfg.enable {
-      systemd.services.sing-box = {
+  config = mkIf cfg.enable {
+    systemd.services.sing-box =
+      {
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];
         wants = [ "network-online.target" ];
@@ -60,15 +62,9 @@ in
           ];
           Restart = "on-failure";
         };
-
       }
       // lib.optionalAttrs cfg.webPanel.enable {
         preStart = "ln -sfT ${cfg.webPanel.package} $STATE_DIRECTORY/web";
-      }
-      ;
-
-    };
-
-
+      };
+  };
 }
-

@@ -1,4 +1,10 @@
-{ inputs, pkgs, config, lib, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   # server inside the cage.
 
@@ -15,21 +21,21 @@
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
 
-  environment.systemPackages = with pkgs;[
-    factorio-headless
-  ];
+  environment.systemPackages = with pkgs; [ factorio-headless ];
 
   services =
     (
-      let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
+      let
+        importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; };
+      in
+      lib.genAttrs [
         "openssh"
         "mosdns"
         "fail2ban"
         "dae"
-      ]
-        (n: importService n)
-    ) //
-    {
+      ] (n: importService n)
+    )
+    // {
       sing-box.enable = true;
 
       juicity.instances = [
@@ -43,7 +49,10 @@
         enable = true;
         settings = {
           endpoints = [
-            { local = "0.0.0.0:5000"; remote = "nyaw.xyz:4432"; }
+            {
+              local = "0.0.0.0:5000";
+              remote = "nyaw.xyz:4432";
+            }
           ];
         };
       };
@@ -68,7 +77,6 @@
     allowedUDPPorts = [ 6059 ];
     allowedTCPPorts = [ 6059 ];
   };
-
 
   programs = {
     git.enable = true;
@@ -95,9 +103,7 @@
       #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
       rebootTime = "30s";
     };
-
   };
 
-  systemd.tmpfiles.rules = [
-  ];
+  systemd.tmpfiles.rules = [ ];
 }

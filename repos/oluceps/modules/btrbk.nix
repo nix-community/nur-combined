@@ -1,18 +1,22 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 with lib;
 let
   cfg = config.services.btrbk;
 in
 {
-  options.services.btrbk =
-    {
-      enable = mkEnableOption "btrbk service";
-      config = mkOption {
-        type = types.str;
-        default = null;
-      };
+  options.services.btrbk = {
+    enable = mkEnableOption "btrbk service";
+    config = mkOption {
+      type = types.str;
+      default = null;
     };
+  };
   config = mkIf cfg.enable {
 
     environment.systemPackages = [ pkgs.btrbk ];
@@ -22,8 +26,10 @@ in
       serviceConfig = {
         Type = "oneshot";
         ExecStart =
-          let cfgFile = pkgs.writeText "btrbk.conf" cfg.config;
-          in "${pkgs.btrbk}/bin/btrbk run -c ${cfgFile}";
+          let
+            cfgFile = pkgs.writeText "btrbk.conf" cfg.config;
+          in
+          "${pkgs.btrbk}/bin/btrbk run -c ${cfgFile}";
       };
     };
 
@@ -36,6 +42,4 @@ in
       };
     };
   };
-
-
 }

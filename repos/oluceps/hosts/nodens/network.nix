@@ -1,14 +1,16 @@
-{ config
-, lib
-, ...
-}: {
+{ config, lib, ... }:
+{
   networking = {
     domain = "nyaw.xyz";
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
       enable = true;
-      trustedInterfaces = [ "virbr0" "wg0" "wg1" ];
+      trustedInterfaces = [
+        "virbr0"
+        "wg0"
+        "wg1"
+      ];
       allowedUDPPorts = [
         80
         443
@@ -21,7 +23,17 @@
         8880
         34197 # factorio
       ];
-      allowedTCPPorts = [ 80 443 8080 9900 2222 5173 8448 3330 8880 ];
+      allowedTCPPorts = [
+        80
+        443
+        8080
+        9900
+        2222
+        5173
+        8448
+        3330
+        8880
+      ];
     };
 
     useNetworkd = true;
@@ -50,7 +62,6 @@
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
-
   };
   systemd.network = {
     enable = true;
@@ -58,7 +69,10 @@
     wait-online = {
       enable = false;
       anyInterface = true;
-      ignoredInterfaces = [ "wg0" "wg1" ];
+      ignoredInterfaces = [
+        "wg0"
+        "wg1"
+      ];
     };
 
     links."10-eth0" = {
@@ -119,7 +133,6 @@
         ];
       };
     };
-
 
     networks = {
       "10-wg1" = {

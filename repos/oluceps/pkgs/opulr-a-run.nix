@@ -1,4 +1,8 @@
-{ qemu, writeShellApplication, fd_iuBrGE }:
+{
+  qemu,
+  writeShellApplication,
+  fd_iuBrGE,
+}:
 
 writeShellApplication {
   name = "opulr-a-run";

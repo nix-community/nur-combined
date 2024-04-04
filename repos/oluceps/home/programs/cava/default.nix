@@ -1,3 +1,1 @@
-_: {
-  xdg.configFile."cava/config".source = ./config;
-}
+_: { xdg.configFile."cava/config".source = ./config; }

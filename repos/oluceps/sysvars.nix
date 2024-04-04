@@ -1,7 +1,5 @@
-{ user
-, config
-, ...
-}: {
+{ user, config, ... }:
+{
   environment.sessionVariables = {
     # SYSTEMD_LOG_LEVEL = "debug";
     EDITOR = "hx";

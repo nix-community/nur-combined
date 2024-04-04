@@ -1,3 +1,4 @@
-{ inputs, config, ... }: {
+{ inputs, config, ... }:
+{
   enable = true;
 }

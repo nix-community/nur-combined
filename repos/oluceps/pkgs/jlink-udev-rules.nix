@@ -1,6 +1,4 @@
-{ stdenv
-, writeText
-}:
+{ stdenv, writeText }:
 ## Usage
 # In NixOS, simply add this package to services.udev.packages:
 #   services.udev.packages = [ pkgs.opensk-udev-rules ];
@@ -387,6 +385,4 @@ stdenv.mkDerivation (finalAttrs: {
     install -D ${rule} $out/lib/udev/rules.d/99-jlink.rules
     runHook postInstall
   '';
-
 })
-

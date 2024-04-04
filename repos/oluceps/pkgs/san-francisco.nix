@@ -1,8 +1,9 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-, ...
-} @ args:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  ...
+}@args:
 
 stdenvNoCC.mkDerivation rec {
   pname = "san-francisco";

@@ -1,7 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-,
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
 }:
 ## Usage
 # In NixOS, simply add this package to services.udev.packages:
@@ -32,5 +32,4 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.asl20;
     maintainers = with maintainers; [ oluceps ];
   };
-}
-)
+})

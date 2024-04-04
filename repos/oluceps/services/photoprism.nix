@@ -1,4 +1,5 @@
-{ config, user, ... }: {
+{ config, user, ... }:
+{
   enable = true;
   originalsPath = "/var/lib/private/photoprism/originals";
   address = "[::]";

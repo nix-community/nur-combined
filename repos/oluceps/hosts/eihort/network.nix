@@ -1,15 +1,43 @@
-{ lib
-, config
-, ...
-}: {
+{ lib, config, ... }:
+{
   networking = {
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
       enable = true;
-      trustedInterfaces = [ "virbr0" "wg0" "wg1" ];
-      allowedUDPPorts = [ 80 443 8080 5173 23180 4444 51820 1935 1985 10080 8000 ];
-      allowedTCPPorts = [ 80 443 8080 9900 2222 5173 8448 1935 1985 10080 8000 9000 9001 ];
+      trustedInterfaces = [
+        "virbr0"
+        "wg0"
+        "wg1"
+      ];
+      allowedUDPPorts = [
+        80
+        443
+        8080
+        5173
+        23180
+        4444
+        51820
+        1935
+        1985
+        10080
+        8000
+      ];
+      allowedTCPPorts = [
+        80
+        443
+        8080
+        9900
+        2222
+        5173
+        8448
+        1935
+        1985
+        10080
+        8000
+        9000
+        9001
+      ];
     };
     hostId = "0bc55a2e";
     useNetworkd = true;
@@ -23,7 +51,6 @@
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
-
   };
   systemd.network = {
     enable = true;
@@ -31,7 +58,10 @@
     wait-online = {
       enable = true;
       anyInterface = true;
-      ignoredInterfaces = [ "wg0" "wg1" ];
+      ignoredInterfaces = [
+        "wg0"
+        "wg1"
+      ];
     };
 
     links."eth0" = {
@@ -104,9 +134,7 @@
       # };
       "10-wg0" = {
         matchConfig.Name = "wg0";
-        address = [
-          "10.0.1.6/24"
-        ];
+        address = [ "10.0.1.6/24" ];
         networkConfig = {
           IPMasquerade = "ipv4";
           IPForward = true;

@@ -1,44 +1,43 @@
-{ pkgs
-, lib
-, ...
-}:
+{ pkgs, lib, ... }:
 {
   xdg.configFile =
     let
       settingsFormat = pkgs.formats.toml { };
     in
     {
-      "helix/languages.toml".source =
-        settingsFormat.generate "config.toml" (import ./languages.nix { inherit pkgs lib; });
-      "helix/themes/catppuccin_macchiato.toml".source =
-        settingsFormat.generate "catppuccin_macchiato.toml" (import ./catppuccin_macchiato.nix);
+      "helix/languages.toml".source = settingsFormat.generate "config.toml" (
+        import ./languages.nix { inherit pkgs lib; }
+      );
+      "helix/themes/catppuccin_macchiato.toml".source = settingsFormat.generate "catppuccin_macchiato.toml" (import ./catppuccin_macchiato.nix);
     };
 
   # lsps
-  home.packages = with pkgs;[
-    rust-analyzer
-    nil
-    shfmt
-    nixpkgs-fmt
-    # taplo
-    rustfmt
-    clang-tools
-    # haskell-language-server
-    cmake-language-server
-    arduino-language-server
-    typst-lsp
-    vhdl-ls
-    delve
-    python311Packages.python-lsp-server
-  ]
-  ++ (with pkgs.nodePackages_latest; [
-    vscode-json-languageserver-bin
-    vscode-html-languageserver-bin
-    vscode-css-languageserver-bin
-    bash-language-server
-    vls
-    prettier
-  ]);
+  home.packages =
+    with pkgs;
+    [
+      rust-analyzer
+      nil
+      shfmt
+      nixfmt-rfc-style
+      # taplo
+      rustfmt
+      clang-tools
+      # haskell-language-server
+      cmake-language-server
+      arduino-language-server
+      typst-lsp
+      vhdl-ls
+      delve
+      python311Packages.python-lsp-server
+    ]
+    ++ (with pkgs.nodePackages_latest; [
+      vscode-json-languageserver-bin
+      vscode-html-languageserver-bin
+      vscode-css-languageserver-bin
+      bash-language-server
+      vls
+      prettier
+    ]);
 
   programs.helix = {
     enable = true;
@@ -52,7 +51,9 @@
         true-color = true;
         cursorline = true;
         color-modes = true;
-        soft-wrap = { enable = false; };
+        soft-wrap = {
+          enable = false;
+        };
 
         lsp = {
           enable = true;
@@ -75,7 +76,10 @@
         file-picker.hidden = false;
 
         statusline = {
-          left = [ "mode" "spinner" ];
+          left = [
+            "mode"
+            "spinner"
+          ];
           center = [ "file-name" ];
           right = [
             "diagnostics"
@@ -87,7 +91,6 @@
           ];
           separator = "│";
         };
-
       };
 
       keys.normal = {
@@ -101,7 +104,6 @@
         C-k = map (_: "move_line_up") (lib.range 0 4);
         C-e = "scroll_down";
         C-y = "scroll_up";
-
       };
       keys.select = {
         C-j = map (_: "extend_line_down") (lib.range 0 4);

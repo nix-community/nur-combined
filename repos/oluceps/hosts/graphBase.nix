@@ -1,9 +1,28 @@
-{ config, pkgs, lib, inputs, user, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  user,
+  ...
+}:
 {
   xdg = {
     mime = {
       enable = true;
-      inherit ((import ../home/graphBase.nix { inherit config pkgs lib inputs user; }).xdg.mimeApps) defaultApplications;
+      inherit
+        ((import ../home/graphBase.nix {
+          inherit
+            config
+            pkgs
+            lib
+            inputs
+            user
+            ;
+        }).xdg.mimeApps
+        )
+        defaultApplications
+        ;
     };
     portal.wlr.enable = true;
     portal.enable = true;
@@ -13,15 +32,16 @@
     anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
     # niri.enable = true;
     sway.enable = true;
-    wireshark = { enable = true; package = pkgs.wireshark; };
+    wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
     kdeconnect.enable = true;
     adb.enable = true;
     command-not-found.enable = false;
     steam = {
       enable = true;
-      package = pkgs.steam.override {
-        extraPkgs = pkgs: [ pkgs.maple-mono-SC-NF ];
-      };
+      package = pkgs.steam.override { extraPkgs = pkgs: [ pkgs.maple-mono-SC-NF ]; };
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     };
@@ -34,10 +54,21 @@
       };
     };
   };
-  environment.systemPackages =
-    lib.flatten (lib.attrValues
-      (with pkgs;{
-        crypt = [ minisign rage age-plugin-yubikey cryptsetup tpm2-tss tpm2-tools yubikey-manager yubikey-manager-qt monero-cli ];
+  environment.systemPackages = lib.flatten (
+    lib.attrValues (
+      with pkgs;
+      {
+        crypt = [
+          minisign
+          rage
+          age-plugin-yubikey
+          cryptsetup
+          tpm2-tss
+          tpm2-tools
+          yubikey-manager
+          yubikey-manager-qt
+          monero-cli
+        ];
 
         # python = [ (python311.withPackages (ps: with ps; [ pandas requests absl-py tldextract bleak matplotlib clang ])) ];
 
@@ -93,15 +124,26 @@
           pv
           devenv
           gnome.dconf-editor
-          [ swagger-codegen3 bump2version openssl linuxPackages_latest.perf cloud-utils ]
-          [ bpf-linker gdb gcc gnumake cmake ] # clang-tools_15 llvmPackages_latest.clang ]
+          [
+            swagger-codegen3
+            bump2version
+            openssl
+            linuxPackages_latest.perf
+            cloud-utils
+          ]
+          [
+            bpf-linker
+            gdb
+            gcc
+            gnumake
+            cmake
+          ] # clang-tools_15 llvmPackages_latest.clang ]
           # [ openocd ]
           lua
           delta
           # nodejs-18_x
           switch-mute
           go
-
 
           nix-tree
           kotlin
@@ -110,7 +152,6 @@
           rustup
           tmux
           # awscli2
-
 
           trunk
           cargo-expand
@@ -124,7 +165,10 @@
 
         web = [ hugo ];
 
-        de = with gnomeExtensions;[ simple-net-speed paperwm ];
+        de = with gnomeExtensions; [
+          simple-net-speed
+          paperwm
+        ];
 
         virt = [
           # virt-manager
@@ -139,25 +183,31 @@
           lunar-run
           virt-viewer
         ];
-        fs = [ gparted e2fsprogs fscrypt-experimental f2fs-tools compsize ];
+        fs = [
+          gparted
+          e2fsprogs
+          fscrypt-experimental
+          f2fs-tools
+          compsize
+        ];
 
-        cmd =
-          [
-            metasploit
-            # linuxKernel.packages.linux_latest_libre.cpupower
-            clean-home
-            just
-            typst
-            cosmic-term
-            acpi
-          ];
+        cmd = [
+          metasploit
+          # linuxKernel.packages.linux_latest_libre.cpupower
+          clean-home
+          just
+          typst
+          cosmic-term
+          acpi
+        ];
         bluetooth = [ bluetuith ];
 
         sound = [ pulseaudio ];
 
         display = [ cage ];
-
-      }));
+      }
+    )
+  );
   virtualisation = {
     libvirtd = {
       enable = false;
@@ -175,7 +225,6 @@
           ];
       };
       qemu.swtpm.enable = true;
-
     };
     waydroid.enable = false;
   };
@@ -196,11 +245,10 @@
       enable = true;
       settings = rec {
         initial_session = {
-          command =
-            "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.writeShellScript "sway" ''
-          export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-          exec sway
-        ''}";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.writeShellScript "sway" ''
+            export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+            exec sway
+          ''}";
           inherit user;
         };
         default_session = initial_session;
@@ -209,7 +257,7 @@
 
     acpid.enable = true;
     udev = {
-      packages = with pkgs;[
+      packages = with pkgs; [
         android-udev-rules
         # qmk-udev-rules
         jlink-udev-rules
@@ -230,8 +278,6 @@
     };
   };
 
-
-
   systemd.user.services.nix-index = {
     environment = config.networking.proxy.envVars;
     script = ''
@@ -248,44 +294,73 @@
     startAt = "weekly";
   };
 
-
   fonts = {
     enableDefaultPackages = true;
     fontDir.enable = true;
     enableGhostscriptFonts = false;
-    packages = with pkgs; [
+    packages =
+      with pkgs;
+      [
 
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "JetBrainsMono"
-          "FantasqueSansMono"
-        ];
-      })
-      source-han-sans
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
-      twemoji-color-font
-      maple-mono-SC-NF
-      maple-mono-otf
-      maple-mono-autohint
-      cascadia-code
-      intel-one-mono
-      monaspace
-    ]
-    ++ (with pkgs.glowsans; [ glowsansSC glowsansTC glowsansJ ])
-    ++ (with nur-pkgs; [ san-francisco plangothic maoken-tangyuan lxgw-neo-xihei ]);
+        (nerdfonts.override {
+          fonts = [
+            "FiraCode"
+            "JetBrainsMono"
+            "FantasqueSansMono"
+          ];
+        })
+        source-han-sans
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+        twemoji-color-font
+        maple-mono-SC-NF
+        maple-mono-otf
+        maple-mono-autohint
+        cascadia-code
+        intel-one-mono
+        monaspace
+      ]
+      ++ (with pkgs.glowsans; [
+        glowsansSC
+        glowsansTC
+        glowsansJ
+      ])
+      ++ (with pkgs; [
+        san-francisco
+        plangothic
+        maoken-tangyuan
+        lxgw-neo-xihei
+      ]);
     #"HarmonyOS Sans SC" "HarmonyOS Sans TC"
     fontconfig = {
       subpixel.rgba = "none";
       antialias = true;
       hinting.enable = false;
       defaultFonts = lib.mkForce {
-        serif = [ "Glow Sans SC" "Glow Sans TC" "Glow Sans J" "Noto Serif" "Noto Serif CJK SC" "Noto Serif CJK TC" "Noto Serif CJK JP" ];
-        monospace = [ "Monaspace Neon" "Maple Mono" "SF Mono" "Fantasque Sans Mono" ];
-        sansSerif = [ "Hanken Grotesk" "Glow Sans SC" ];
-        emoji = [ "twemoji-color-font" "noto-fonts-emoji" ];
+        serif = [
+          "Glow Sans SC"
+          "Glow Sans TC"
+          "Glow Sans J"
+          "Noto Serif"
+          "Noto Serif CJK SC"
+          "Noto Serif CJK TC"
+          "Noto Serif CJK JP"
+        ];
+        monospace = [
+          "Monaspace Neon"
+          "Maple Mono"
+          "SF Mono"
+          "Fantasque Sans Mono"
+        ];
+        sansSerif = [
+          "Hanken Grotesk"
+          "Glow Sans SC"
+        ];
+        emoji = [
+          "twemoji-color-font"
+          "noto-fonts-emoji"
+        ];
       };
     };
   };
@@ -305,5 +380,4 @@
       ];
     };
   };
-
 }

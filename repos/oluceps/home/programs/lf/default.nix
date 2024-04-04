@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = [ pkgs.lf ];
   programs.lf = {
     enable = true;
@@ -11,4 +12,3 @@
   xdg.configFile."lf/lf_kitty_clean".source = ./lf_kitty_clean;
   xdg.configFile."lf/lf_kitty_preview".source = ./lf_kitty_preview;
 }
-

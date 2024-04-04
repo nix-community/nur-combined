@@ -1,9 +1,10 @@
-{ config
-, pkgs
-, lib
-, user
-, osConfig
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  user,
+  osConfig,
+  ...
 }:
 
 let
@@ -18,25 +19,23 @@ let
     "direnv"
   ];
 
-  fullModule = (with builtins;attrNames
-    (lib.filterAttrs (n: _: !elem n [ "hyprland" ])  # one or more of them conflict with gnome  "sway" "hyprland" "waybar"
-      (readDir ./programs)));
+  fullModule = (
+    with builtins;
+    attrNames (
+      lib.filterAttrs (n: _: !elem n [ "hyprland" ]) # one or more of them conflict with gnome  "sway" "hyprland" "waybar"
+        (readDir ./programs)
+    )
+  );
 
-  optionalGraphicComponents =
-    lib.optionals osConfig.security.rtkit.enable; # is there a better way to identify fancy machine
+  optionalGraphicComponents = lib.optionals osConfig.security.rtkit.enable; # is there a better way to identify fancy machine
 in
 {
   imports =
     let
-      canonicalizedModule =
-        (lib.unique (baseModule
-          ++ optionalGraphicComponents fullModule
-        ));
+      canonicalizedModule = (lib.unique (baseModule ++ optionalGraphicComponents fullModule));
     in
-    (map (d: ./programs + d)
-      (map (n: "/" + n)
-        canonicalizedModule
-      )) ++ optionalGraphicComponents [ ./graphBase.nix ];
+    (map (d: ./programs + d) (map (n: "/" + n) canonicalizedModule))
+    ++ optionalGraphicComponents [ ./graphBase.nix ];
   home = {
     stateVersion = "22.11";
     username = user;
@@ -121,8 +120,6 @@ in
       };
     };
 
-
-
     home-manager.enable = true;
     fzf = {
       enable = true;
@@ -145,5 +142,5 @@ in
     };
   };
 
-  home.packages = with pkgs;[ atuin ];
+  home.packages = with pkgs; [ atuin ];
 }

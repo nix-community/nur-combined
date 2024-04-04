@@ -1,5 +1,10 @@
 # original from NickCao/flakes
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.repack.caddy;
   format = pkgs.formats.json { };
@@ -11,9 +16,7 @@ in
     repack.caddy = {
       enable = lib.mkEnableOption "caddy api gateway";
       settings = lib.mkOption {
-        type = lib.types.submodule {
-          freeformType = format.type;
-        };
+        type = lib.types.submodule { freeformType = format.type; };
         default = { };
       };
     };
@@ -33,43 +36,51 @@ in
           strict_sni_host = false;
           routes = [
             {
-              match = [{
-                host = [ config.networking.fqdn ];
-                path = [ "/prom" "/prom/*" ];
-              }];
+              match = [
+                {
+                  host = [ config.networking.fqdn ];
+                  path = [
+                    "/prom"
+                    "/prom/*"
+                  ];
+                }
+              ];
               handle = [
                 {
                   handler = "authentication";
-                  providers.http_basic.accounts = [{
-                    username = "prometheus";
-                    password = "$2b$05$eZjq0oUqZzxgqdRaCRsKROuE96w9Y0aKSri3uGPccckPivESAinB6";
-                  }];
+                  providers.http_basic.accounts = [
+                    {
+                      username = "prometheus";
+                      password = "$2b$05$eZjq0oUqZzxgqdRaCRsKROuE96w9Y0aKSri3uGPccckPivESAinB6";
+                    }
+                  ];
                 }
                 {
                   handler = "reverse_proxy";
-                  upstreams = [{ dial = "10.0.1.2:9090"; }];
+                  upstreams = [ { dial = "10.0.1.2:9090"; } ];
                 }
               ];
             }
             {
-              match = [{
-                host = [ config.networking.fqdn ];
-                path = [ "/caddy" ];
-              }];
+              match = [
+                {
+                  host = [ config.networking.fqdn ];
+                  path = [ "/caddy" ];
+                }
+              ];
               handle = [
                 {
                   handler = "authentication";
-                  providers.http_basic.accounts = [{
-                    username = "prometheus";
-                    password = "$2b$05$bKuO7ehC6wKR28/pfhJZOuNyQFUtF7FwhkPFLwcbCMhfLRNUV54vm";
-                  }];
+                  providers.http_basic.accounts = [
+                    {
+                      username = "prometheus";
+                      password = "$2b$05$bKuO7ehC6wKR28/pfhJZOuNyQFUtF7FwhkPFLwcbCMhfLRNUV54vm";
+                    }
+                  ];
                 }
-                {
-                  handler = "metrics";
-                }
+                { handler = "metrics"; }
               ];
             }
-
           ];
           metrics = { };
         };
@@ -111,10 +122,12 @@ in
         Environment = [ "XDG_DATA_HOME=%S" ];
       };
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       requires = [ "network-online.target" ];
       reloadTriggers = [ configfile ];
     };
   };
-
 }

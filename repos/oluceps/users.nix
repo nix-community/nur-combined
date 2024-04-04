@@ -1,9 +1,11 @@
-{ pkgs
-, user
-, data
-, lib
-, ...
-}: {
+{
+  pkgs,
+  user,
+  data,
+  lib,
+  ...
+}:
+{
   users = {
     users = {
       nixosvmtest = {
@@ -14,7 +16,10 @@
 
       root = {
         initialHashedPassword = lib.mkForce data.keys.hashedPasswd;
-        openssh.authorizedKeys.keys = with data.keys;[ sshPubKey skSshPubKey ];
+        openssh.authorizedKeys.keys = with data.keys; [
+          sshPubKey
+          skSshPubKey
+        ];
       };
 
       ${user} = {
@@ -32,16 +37,16 @@
         ];
         shell = pkgs.fish;
 
-        openssh.authorizedKeys.keys = with data.keys;[ sshPubKey skSshPubKey ];
+        openssh.authorizedKeys.keys = with data.keys; [
+          sshPubKey
+          skSshPubKey
+        ];
       };
       root.shell = pkgs.fish;
-
     };
     groups.nixosvmtest = { };
 
     mutableUsers = lib.mkForce false;
-
-
   };
 
   security = {

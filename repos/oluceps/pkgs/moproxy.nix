@@ -1,10 +1,11 @@
-{ fetchFromGitHub
-, rustPlatform
-, fetchurl
-, lib
+{
+  fetchFromGitHub,
+  rustPlatform,
+  fetchurl,
+  lib,
 }:
 
-rustPlatform.buildRustPackage rec{
+rustPlatform.buildRustPackage rec {
   pname = "moproxy";
   version = "0.5.1";
 
@@ -25,7 +26,9 @@ rustPlatform.buildRustPackage rec{
       };
     in
     ''
-      sed -i '15s/.*/let zip_path = PathBuf::from("${lib.escape ["/"]  (toString webBundle)}");/' build.rs
+      sed -i '15s/.*/let zip_path = PathBuf::from("${
+        lib.escape [ "/" ] (toString webBundle)
+      }");/' build.rs
     '';
 
   meta = with lib; {

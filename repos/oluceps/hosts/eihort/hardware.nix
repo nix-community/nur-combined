@@ -1,4 +1,11 @@
-{ config, inputs, pkgs, lib, modulesPath, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
 
 {
 
@@ -28,9 +35,20 @@
 
     initrd = {
       compressor = "zstd";
-      compressorArgs = [ "-19" "-T0" ];
+      compressorArgs = [
+        "-19"
+        "-T0"
+      ];
       systemd.enable = true;
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "mpt3sas" ];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"
+        "mpt3sas"
+      ];
       kernelModules = [
         "tpm"
         "tpm_tis"
@@ -65,7 +83,10 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/efi";
-                mountOptions = [ "fmask=0077" "dmask=0077" ];
+                mountOptions = [
+                  "fmask=0077"
+                  "dmask=0077"
+                ];
               };
             };
 
@@ -73,22 +94,53 @@
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" "--csum xxhash64" ];
+                extraArgs = [
+                  "-f"
+                  "--csum xxhash64"
+                ];
                 subvolumes = {
                   "root" = {
                     mountpoint = "/";
-                    mountOptions = [ "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" "nosuid" "nodev" ];
+                    mountOptions = [
+                      "compress-force=zstd:1"
+                      "noatime"
+                      "discard=async"
+                      "space_cache=v2"
+                      "nosuid"
+                      "nodev"
+                    ];
                   };
                   "home" = {
-                    mountOptions = [ "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" "nosuid" "nodev" ];
+                    mountOptions = [
+                      "compress-force=zstd:1"
+                      "noatime"
+                      "discard=async"
+                      "space_cache=v2"
+                      "nosuid"
+                      "nodev"
+                    ];
                     mountpoint = "/home";
                   };
                   "nix" = {
-                    mountOptions = [ "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" "nosuid" "nodev" ];
+                    mountOptions = [
+                      "compress-force=zstd:1"
+                      "noatime"
+                      "discard=async"
+                      "space_cache=v2"
+                      "nosuid"
+                      "nodev"
+                    ];
                     mountpoint = "/nix";
                   };
                   "var" = {
-                    mountOptions = [ "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" "nosuid" "nodev" ];
+                    mountOptions = [
+                      "compress-force=zstd:1"
+                      "noatime"
+                      "discard=async"
+                      "space_cache=v2"
+                      "nosuid"
+                      "nodev"
+                    ];
                     mountpoint = "/var";
                   };
                 };

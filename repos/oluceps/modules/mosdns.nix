@@ -1,13 +1,16 @@
 # Originally from https://github.com/EHfive/flakes/blob/main/modules/mosdns/default.nix
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.mosdns;
   configFormat = pkgs.formats.yaml { };
   configFile =
-    if cfg.configFile != null
-    then cfg.configFile
-    else configFormat.generate "mosdns.yaml" cfg.config;
+    if cfg.configFile != null then cfg.configFile else configFormat.generate "mosdns.yaml" cfg.config;
 in
 {
   options.services.mosdns = {
@@ -26,10 +29,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
-      assertion = (cfg.configFile != null) -> (cfg.config == { });
-      message = "Either but not both `configFile` and `config` should be specified for mosdns.";
-    }];
+    assertions = [
+      {
+        assertion = (cfg.configFile != null) -> (cfg.config == { });
+        message = "Either but not both `configFile` and `config` should be specified for mosdns.";
+      }
+    ];
 
     systemd.services.mosdns = {
       description = "mosdns Daemon";

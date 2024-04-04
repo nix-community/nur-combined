@@ -1,9 +1,8 @@
-{ user, ... }: {
+{ user, ... }:
+{
 
   environment.persistence."/persist" = {
-    directories = [
-      "/root/.ssh"
-    ];
+    directories = [ "/root/.ssh" ];
     files = [ "/root/.bash_history" ];
     users.${user} = {
       files = [
@@ -22,7 +21,10 @@
         "Music"
         "Tools"
         "Vault"
-        { directory = "Sec"; mode = "0700"; }
+        {
+          directory = "Sec";
+          mode = "0700";
+        }
         ".npm-packages"
         ".npm"
         ".pip"
@@ -41,10 +43,15 @@
         ".steam"
         "Android"
         "Games"
-        { directory = ".gnupg"; mode = "0700"; }
-        { directory = ".ssh"; mode = "0700"; }
+        {
+          directory = ".gnupg";
+          mode = "0700";
+        }
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
       ];
     };
   };
 }
-  

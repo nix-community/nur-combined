@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   virtualisation.podman = {
@@ -25,16 +31,20 @@
         ];
       in
       # chain call
-      toString (lib.getExe (pkgs.nuenv.writeScriptBin {
-        name = "mount";
-        script =
-          let
-            mount = "/run/current-system/sw/bin/mount --onlyonce -o noatime,nodev,nosuid -t bcachefs ${lib.concatStringsSep ":" diskId} /three";
-          in
-          ''
-            do { ${mount} } | complete
-          '';
-      }));
+      toString (
+        lib.getExe (
+          pkgs.nuenv.writeScriptBin {
+            name = "mount";
+            script =
+              let
+                mount = "/run/current-system/sw/bin/mount --onlyonce -o noatime,nodev,nosuid -t bcachefs ${lib.concatStringsSep ":" diskId} /three";
+              in
+              ''
+                do { ${mount} } | complete
+              '';
+          }
+        )
+      );
     wantedBy = [ "multi-user.target" ];
   };
 
@@ -49,15 +59,18 @@
   services =
 
     (
-      let importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; }; in lib.genAttrs [
+      let
+        importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; };
+      in
+      lib.genAttrs [
         "openssh"
         "mosdns"
         "fail2ban"
         "dae"
         "scrutiny"
-      ]
-        (n: importService n)
-    ) // {
+      ] (n: importService n)
+    )
+    // {
       # zfs.autoScrub.enable = true;
 
       btrfs.autoScrub = {
@@ -66,7 +79,10 @@
         fileSystems = [ "/" ];
       };
       resolved.enable = lib.mkForce false;
-      tailscale = { enable = true; openFirewall = true; };
+      tailscale = {
+        enable = true;
+        openFirewall = true;
+      };
       report = {
         enable = true;
         calendars = [ "*-*-* 12:00:00" ];
@@ -78,7 +94,6 @@
         rootCredentialsFile = config.age.secrets.minio.path;
         dataDir = [ "/three/bucket/data" ];
       };
-
 
       snapy.instances = [
         {
@@ -113,7 +128,6 @@
           };
         }
       ];
-
     };
 
   programs = {
@@ -135,12 +149,9 @@
       #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
       rebootTime = "30s";
     };
-
   };
 
-  systemd.tmpfiles.rules = [
-  ];
+  systemd.tmpfiles.rules = [ ];
 
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }

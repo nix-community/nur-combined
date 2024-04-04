@@ -1,12 +1,13 @@
-{ fetchFromGitHub
-, pkgs
-, lib
+{
+  fetchFromGitHub,
+  pkgs,
+  lib,
 }:
 let
   rustPlatform = pkgs.makeRustPlatform { inherit (pkgs.fenix.minimal) cargo rustc; };
 in
 
-rustPlatform.buildRustPackage rec{
+rustPlatform.buildRustPackage rec {
   pname = "trojan-rs";
   version = "0.16.0";
 

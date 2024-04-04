@@ -1,10 +1,14 @@
-{ config, inputs, pkgs, lib, modulesPath, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
 
 {
-  imports =
-    [
-      (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   zramSwap = {
     enable = true;
@@ -31,18 +35,18 @@
       "earlyprintk=ttyS0"
       "rootdelay=300"
     ];
-    kernelModules = [
-      "brutal"
-    ];
+    kernelModules = [ "brutal" ];
 
     extraModulePackages = with config.boot.kernelPackages; [
       (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
     ];
     initrd = {
       compressor = "zstd";
-      compressorArgs = [ "-19" "-T0" ];
+      compressorArgs = [
+        "-19"
+        "-T0"
+      ];
       systemd.enable = true;
-
 
       kernelModules = [
         "hv_vmbus" # for hyper-V
@@ -52,29 +56,51 @@
       ];
     };
 
-    kernelPackages =
-      pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  fileSystems = {
-    "/efi" = {
-      device = "/dev/sda2";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  fileSystems =
+    {
+      "/efi" = {
+        device = "/dev/sda2";
+        fsType = "vfat";
+        options = [
+          "fmask=0077"
+          "dmask=0077"
+        ];
+      };
 
-    "/" = {
-      device = "/dev/sda3";
-      fsType = "btrfs";
-      options = [ "subvol=/root" "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" ];
-    };
-  } // lib.genAttrs [ "/home" "/nix" "/var" ] (name: {
-    device = "/dev/sda3";
-    fsType = "btrfs";
-    options = [ "subvol=${name}" "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" "nosuid" "nodev" ];
-  });
-
-
+      "/" = {
+        device = "/dev/sda3";
+        fsType = "btrfs";
+        options = [
+          "subvol=/root"
+          "compress-force=zstd:1"
+          "noatime"
+          "discard=async"
+          "space_cache=v2"
+        ];
+      };
+    }
+    // lib.genAttrs
+      [
+        "/home"
+        "/nix"
+        "/var"
+      ]
+      (name: {
+        device = "/dev/sda3";
+        fsType = "btrfs";
+        options = [
+          "subvol=${name}"
+          "compress-force=zstd:1"
+          "noatime"
+          "discard=async"
+          "space_cache=v2"
+          "nosuid"
+          "nodev"
+        ];
+      });
 }
