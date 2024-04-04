@@ -19,7 +19,7 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "0ggwws02xi0b0jbczphc3x4qjl9h6rp27hbh5rlnmzygjbhnlwg9";
   };
-  vendorSha256 = "1ifs2lwc8inkagbgc5nlhd5rzm64w9m0q088kqmjiky4kr06b6ma";
+  vendorHash = "sha256-qpplQJ7EzygrnggBDGrixNSfS4PUFvbWU9NGxDgV2sU=";
 
   modRoot = "./api";
 
