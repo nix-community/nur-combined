@@ -10,16 +10,21 @@ let
   uiPort = 1234;  # default ui port is 1234
   backendPort = 8536; # default backend port is 8536
   #^ i guess the "backend" port is used for federation?
-  pict-rs = pkgs.pict-rs.overrideAttrs (upstream: {
-    # as of v 0.4.2, all non-GIF video is forcibly transcoded.
-    # that breaks lemmy, because of the request latency.
-    # and it eats up hella CPU.
-    # pict-rs is iffy around video altogether: mp4 seems the best supported.
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace src/validate.rs \
-        --replace 'if transcode_options.needs_reencode() {' 'if false {'
-    '';
-  });
+  pict-rs = pkgs.pict-rs;
+  # pict-rs = pkgs.pict-rs.overrideAttrs (upstream: {
+  #   # as of v0.4.2, all non-GIF video is forcibly transcoded.
+  #   # that breaks lemmy, because of the request latency.
+  #   # and it eats up hella CPU.
+  #   # pict-rs is iffy around video altogether: mp4 seems the best supported.
+  #   # XXX: this patch no longer applies after 0.5.10 -> 0.5.11 update.
+  #   #      git log is hard to parse, but *suggests* that video is natively supported
+  #   #      better than in the 0.4.2 days, e.g. 5fd59fc5b42d31559120dc28bfef4e5002fb509e
+  #   #      "Change commandline flag to allow disabling video, since it is enabled by default"
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     substituteInPlace src/validate.rs \
+  #       --replace 'if transcode_options.needs_reencode() {' 'if false {'
+  #   '';
+  # });
 in {
   services.lemmy = {
     enable = true;
