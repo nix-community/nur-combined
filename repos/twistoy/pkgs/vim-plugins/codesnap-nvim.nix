@@ -11,25 +11,38 @@
   luajit,
   ...
 }: let
-  version = "1.1.4";
+  version = "1.1.7";
   codesnap-nvim-src = fetchFromGitHub {
     owner = "mistricky";
     repo = "codesnap.nvim";
     rev = "v${version}";
-    sha256 = "qU0fxW0/25MBlYlzLEJFYBGu7RnO+ItqD0zhBzthYno=";
+    sha256 = "sha256-TrDF7zhv7pJHJfQfNjpT3+F91h3kUm982oWbbExA/eY=";
   };
   codesnap-nvim-bin = rustPlatform.buildRustPackage {
     pname = "codesnap-nvim";
     inherit version;
     src = "${codesnap-nvim-src}/generator";
-    cargoSha256 = "Z9vZVq1I8ChKagBFOb7IPKPcFA5mU/YGybno+EKCoUU=";
+    cargoSha256 = "sha256-nM/Zh6UknyPTTqnULR2Yn9ityKYLPV7pnfXvkT+Spw4=";
 
     LIBCLANG_PATH = "${llvmPackages_17.libclang.lib}/lib";
 
-    NIX_LDFLAGS = lib.optionalString stdenv.cc.isClang "-l${stdenv.cc.libcxx.cxxabi.libName}";
-    NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-fno-lto";
-
     doCheck = false;
+
+    prePatch = ''
+      mkdir -p .cargo/
+
+      echo '[target.x86_64-apple-darwin]' > .cargo/config.toml
+      echo 'rustflags = [' >> .cargo/config.toml
+      echo '  "-C", "link-arg=-undefined",' >> .cargo/config.toml
+      echo '  "-C", "link-arg=dynamic_lookup",' >> .cargo/config.toml
+      echo ']' >> .cargo/config.toml
+
+      echo '[target.aarch64-apple-darwin]' >> .cargo/config.toml
+      echo 'rustflags = [' >> .cargo/config.toml
+      echo '  "-C", "link-arg=-undefined",' >> .cargo/config.toml
+      echo '  "-C", "link-arg=dynamic_lookup",' >> .cargo/config.toml
+      echo ']' >> .cargo/config.toml
+    '';
 
     nativeBuildInputs = [
       pkg-config
