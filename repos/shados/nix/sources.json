@@ -298,5 +298,14 @@
         "type": "tarball",
         "url": "https://github.com/daedreth/URXVTConfig/archive/f5140f98b66b3d3b85f265297aded859f4d71235.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "usb-resetter": {
+        "builtin": false,
+        "pname": "usb_resetter",
+        "sha256": "0fk1qgs2k2k9y1aay9n2wc2zj1qzcvihmrxhvi4cwdbd13p8c3h1",
+        "type": "tarball",
+        "url": "mirror://pypi/u/usb_resetter/usb_resetter-1.3.0.tar.gz",
+        "url_template": "mirror://pypi/u/<pname>/<pname>-<version>.tar.gz",
+        "version": "1.3.0"
     }
 }
