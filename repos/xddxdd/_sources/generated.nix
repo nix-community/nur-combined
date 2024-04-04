@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "9973ae15f9996c5bd0c9fb05ac97ccae9de46c8f";
+    version = "7f1fee3a051ee65e3411d16735bb62b8c8b9d28a";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "9973ae15f9996c5bd0c9fb05ac97ccae9de46c8f";
+      rev = "7f1fee3a051ee65e3411d16735bb62b8c8b9d28a";
       fetchSubmodules = false;
-      sha256 = "sha256-6xRSA+t7+gSvbdU3iUPDViyisniy0AEdytGK5ZzCKOg=";
+      sha256 = "sha256-R9y8i5jQk9xkJRtb4JCadtV4QnATCPlm0g+2EBhq7Rg=";
     };
-    date = "2024-04-02";
+    date = "2024-04-03";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -552,15 +552,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "3dd478e1573799e2852faa1333b324fb643252d0";
+    version = "5ac9bcfb2f27ead3ff177fbce8e4b1f599fbac47";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "3dd478e1573799e2852faa1333b324fb643252d0";
+      rev = "5ac9bcfb2f27ead3ff177fbce8e4b1f599fbac47";
       fetchSubmodules = false;
-      sha256 = "sha256-zoRTL9/3RvUB4gqjGWNZQj2Mde5iI/CFooPffa7J47I=";
+      sha256 = "sha256-p3/C/DqLXxNyMnecktxU2g+n3PNcVrV7cgOlTMDgBZA=";
     };
-    date = "2024-04-02";
+    date = "2024-04-03";
   };
   libqcef = {
     pname = "libqcef";
@@ -624,13 +624,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.8.2-xanmod1";
+    version = "6.8.3-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.8.2-xanmod1";
+      rev = "6.8.3-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-JddPg/EWJZq5EIemcaULM5c6yLGkfb2E6shxxq37N3M=";
+      sha256 = "sha256-2ip0zwGHkdh53jWwrIDqKwvdzkCtU1vnD/GK2i0eEBQ=";
     };
   };
   linux-xanmod-6_0 = {
@@ -657,13 +657,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.23-xanmod1";
+    version = "6.6.24-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.23-xanmod1";
+      rev = "6.6.24-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-RaHM7eZDuOtEdISO6trTLE1QN91VFyXe0NuwLvvz9p4=";
+      sha256 = "sha256-XUV8mxo4uZESIKCpWfmPi8J8+4TiKoSFqh/YTew/chc=";
     };
   };
   nbfc-linux-lantian = {
@@ -1028,18 +1028,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.7_240401_amd64_01";
+    version = "Linux/QQ_3.2.7_240403_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240401_amd64_01.deb";
-      sha256 = "sha256-I6v4hbkmgTWOv4kCNoImCwHHA8nZlalcKVuljJPFgVc=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240403_amd64_01.deb";
+      sha256 = "sha256-7XdxkILIkWMBJLd/xz79SqytMJeDYbrhexHxv2C402U=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.7_240401_arm64_01";
+    version = "Linux/QQ_3.2.7_240403_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240401_arm64_01.deb";
-      sha256 = "sha256-x3bEFLUJbWeh2YVQYmJYqOSe/ALQ3qx46fAwqH/35po=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240403_arm64_01.deb";
+      sha256 = "sha256-XUp6Gw0z9QSm/qTuYgTJ1mN/T3YN16tV+/QYaRV9urs=";
     };
   };
   qqmusic = {
