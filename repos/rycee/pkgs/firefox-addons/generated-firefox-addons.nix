@@ -1412,10 +1412,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.23.1";
+      version = "3.23.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4227066/control_panel_for_twitter-3.23.1.xpi";
-      sha256 = "524e6ec32ba21845b69ffae30b761f20094deac05d759d9dbfc9ba6adbf3de1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258775/control_panel_for_twitter-3.23.2.xpi";
+      sha256 = "bc16a55260b9a972e189794bac87ffa6ba4007f0745e0017b4042871969eca58";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1637,10 +1637,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.80";
+      version = "4.9.81";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4249607/darkreader-4.9.80.xpi";
-      sha256 = "a93f1250b72cc27fe4a9b02be062c68fb079e45a1233d562852b48e1e9b99307";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257392/darkreader-4.9.81.xpi";
+      sha256 = "71413cde04cca328b64fbad24e63c716759d1154fa7e016a728366230e0e0122";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1659,10 +1659,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2413.0";
+      version = "6.2413.2";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4254865/dashlane-6.2413.0.xpi";
-      sha256 = "3135246510d79216f63eb11b1701f26784187b8817590cdd188527291cc87948";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257037/dashlane-6.2413.2.xpi";
+      sha256 = "7efbe306bc3c49c703c4114198754780f9ce691aaaff0234eeb2c450c4ed343c";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1740,10 +1740,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "124.0.20240401.114208";
+      version = "125.0.20240403.91602";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258563/deutsch_de_language_pack-124.0.20240401.114208.xpi";
-      sha256 = "0e02439f7bf38354705a80bc4868c6e409fe571993e5d63e8c3cf4bddf60faba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259369/deutsch_de_language_pack-125.0.20240403.91602.xpi";
+      sha256 = "5064f2c593601659cff66489a2017aafb50dc44f026ba1fbb00f48956d39b940";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2680,10 +2680,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "124.0.20240401.114208";
+      version = "125.0.20240403.91602";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258482/francais_language_pack-124.0.20240401.114208.xpi";
-      sha256 = "bee44a3e38494a567abb4a8d5a799680e27d49155cf3e5b1cbd8b8e5fe932b01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259413/francais_language_pack-125.0.20240403.91602.xpi";
+      sha256 = "994d39853b1c0df22ba0a8db145b4d3412f8da8f4979abfaee288460e134cff4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5075,10 +5075,10 @@
     };
     "keepa" = buildFirefoxXpiAddon {
       pname = "keepa";
-      version = "4.16";
+      version = "4.19";
       addonId = "amptra@keepa.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243128/keepa-4.16.xpi";
-      sha256 = "399225a531df3d0ae9920278253798390bbbb6e0579f9b38c1239d7b93119e96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257674/keepa-4.19.xpi";
+      sha256 = "7fe354647e4a4074812c272bd70d2fa59ee6fefe2c2228fc21f6c1f76619f283";
       meta = with lib;
       {
         homepage = "https://Keepa.com";
@@ -5340,10 +5340,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.6.3";
+      version = "1.6.4";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4224827/leechblock_ng-1.6.3.xpi";
-      sha256 = "a98594b2c39d8e8689192f41325bccf7ad2dfebf8b385c9f3c3bb3795190a21a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258055/leechblock_ng-1.6.4.xpi";
+      sha256 = "6e0cb398d96b1c3afc3f837785f25716a6db65010bc4725d9edc73732e75e7be";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -7095,10 +7095,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.12.2";
+      version = "7.12.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255575/octotree-7.12.2.xpi";
-      sha256 = "7cf0002f38da744f4075a306b7e0e7e35cbd89d1d5b1c0c4ae3f0d4da221133b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259331/octotree-7.12.3.xpi";
+      sha256 = "3b357d06c85068fb8550e86700849ff8ad688a73d186e02232de8a8293c5e61a";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -7259,10 +7259,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.21.0";
+      version = "2.22.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4242854/1password_x_password_manager-2.21.0.xpi";
-      sha256 = "45a18b6101ab3354a522902d82a151648269670b7cfec42086a1ce853f5b053c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4256845/1password_x_password_manager-2.22.1.xpi";
+      sha256 = "57bd35718625d9fd890600b37cfa3d40541950b2ce2a5247e697623f5e93fba2";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -8497,10 +8497,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.67.1";
+      version = "1.68.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4219454/read_aloud-1.67.1.xpi";
-      sha256 = "60b921d74d276ee218cbbabe55dd1143844de4dd2d056b84c641a70d0c34e940";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257109/read_aloud-1.68.0.xpi";
+      sha256 = "a8de743bdef9126e63fa8b6712d0a9107f97e315058f38aeb0b8657b717671a2";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -8511,6 +8511,7 @@
           "identity"
           "storage"
           "https://translate.google.com/"
+          "https://piper.ttstool.com/"
         ];
         platforms = platforms.all;
       };
@@ -8537,10 +8538,10 @@
     };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.17";
+      version = "5.24.4";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4092764/reddit_enhancement_suite-5.22.17.xpi";
-      sha256 = "f49827c7684076dbf6890741dbbc31e82c180f87cb3fd745216ba2432398b1d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257183/reddit_enhancement_suite-5.24.4.xpi";
+      sha256 = "86cf6958c54604b9f1dcc7e925c1c18bdf3ed2a8e098608964527e6b359d057c";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -8553,6 +8554,7 @@
           "tabs"
           "history"
           "storage"
+          "scripting"
           "unlimitedStorage"
         ];
         platforms = platforms.all;
@@ -9952,10 +9954,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.12.1";
+      version = "3.13.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240795/toolkit_for_ynab-3.12.1.xpi";
-      sha256 = "93d867886332b197a5d5ec627b78306f36db85be8a620ba0e90342685b9d9312";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259795/toolkit_for_ynab-3.13.0.xpi";
+      sha256 = "2f930978690200fe95da844291611a519f309eb834854295730203c6c6db1efc";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
@@ -9973,10 +9975,10 @@
     };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.36";
+      version = "0.2.37";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4179419/torrent_control-0.2.36.xpi";
-      sha256 = "61db97752cb8ee2cc6d708b5ebb547ee966f9b3a98a6153de1a86bba0081a8c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259549/torrent_control-0.2.37.xpi";
+      sha256 = "ac446f4d286bda15a897b2c98ca6d442f352dab8842d05b9360817569f795851";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
@@ -10479,10 +10481,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.56.0";
+      version = "1.57.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4237670/ublock_origin-1.56.0.xpi";
-      sha256 = "f5fbeeac511ca4e10a74723413727fda8e6f9236c726d16eb54ade1fbe7be5be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4257361/ublock_origin-1.57.0.xpi";
+      sha256 = "393736f7350b3ef4a849e4e31b63ed6e9ec33f6e7a4c662595c543a01b10447e";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
