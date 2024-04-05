@@ -3,26 +3,13 @@
 with lib;
 let
   cfg = config.programs.sunpaper;
-  sunpaper = pkgs.sunpaper.overrideAttrs (oldAttrs: rec {
-    buildInputs = oldAttrs.buildInputs ++ [ pkgs.makeWrapper ];
-    postPatch = ''
-      ${oldAttrs.postPatch}
-      substituteInPlace sunpaper.sh \
-        --replace "sunpaper.sh" "sunpaper" \
-        --replace "$out/share/sunpaper/images/" "/run/current-system/sw/share/sunpaper/images/"
-    '';
-    postInstall = ''
-      wrapProgram $out/bin/sunpaper \
-        --prefix PATH : ${lib.makeBinPath (with pkgs; [ swww pywal wget bc ])}
-    '';
-  });
 in {
   options.programs.sunpaper = {
     enable = mkEnableOption "Sunpaper dynamic wallpaper";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ sunpaper ];
+    environment.systemPackages = [ pkgs.nur.repos.dukzcry.sunpaper ];
     environment.pathsToLink = [ "/share/sunpaper" ];
   };
 }
