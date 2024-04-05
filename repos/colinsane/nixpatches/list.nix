@@ -33,6 +33,13 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/301919";
+    saneCommit = "5468e6802aa060dee755b0019a612f605270d90d";
+    title = "nixos/mautrix-meta: fix lax enable check";
+    hash = "sha256-e5Yf/HzP0tfY6fuo6A8XrYvAwZOrQCIfRqPBcX+Tfg4=";
+  })
+
+  (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/298001";
     saneCommit = "d599839060400762a67d2c01d15b102ffe75e703";
     title = "gnupg: fix cross compilation";
