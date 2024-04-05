@@ -20,7 +20,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  vendorHash = "sha256-DNvggVdwZSI6wyA6hsEFbvSvAty4hDvQCDnurHg1xsY=";
+  vendorHash = "sha256-ZTtHY//xT/rJcRsXC6JK0/GghEZ8/qaea0NCipJd478=";
 
   subPackages = [ "cmd/grpcserver" ];
 
