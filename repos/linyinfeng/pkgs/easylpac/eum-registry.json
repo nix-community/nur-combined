@@ -37,9 +37,8 @@
       { "pattern": "890490320050088826*", "chip": "ST33G1M2STL8ENP0", "name": "Apple, 2019" },
       { "pattern": "890490320060088826*", "chip": "ST33J2M0STL9DZB0", "name": "Apple, 2020" },
       { "pattern": "890490320070088826*", "chip": "ST33J2M0STL9DZD0", "name": "Apple, 2021" },
-      { "pattern": "8904903200?0088826*", "name": "Apple" },
-      { "pattern": "89049032007?0888*", "name": "Apple" },
-      { "pattern": "8904903200713683*", "name": "Apple" },
+      { "pattern": "890490320071088800*", "name": "Apple, 2022" },
+      { "pattern": "890490320072088889*", "name": "Apple, 2023" },
       { "pattern": "89049032000001000000002*", "name": "Pixel 2 Series" },
       { "pattern": "89049032000001000000035*", "name": "Pixel 4 Series" },
       { "pattern": "89049032000001000000044*", "name": "Pixel 5 Series" }
