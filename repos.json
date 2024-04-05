@@ -713,6 +713,9 @@
         "nginx": {
             "url": "https://github.com/nginxinc/nur"
         },
+        "nikpkgs": {
+            "url": "https://github.com/nikp123/nur-packages"
+        },
         "nim65s": {
             "url": "https://github.com/nim65s/nur-packages"
         },
