@@ -2,6 +2,7 @@
 
 nsxiv.overrideAttrs ({ src, patches ? [ ], postPatch ? "", ... }: {
   # old version because patches are not updated yet.
+  version = "31";
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "nsxiv";
