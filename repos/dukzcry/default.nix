@@ -43,4 +43,5 @@ rec {
   steamlink = callPackage ./pkgs/steamlink.nix {};
   sunshine = callPackage ./pkgs/sunshine {};
   ydcmd = callPackage ./pkgs/ydcmd.nix {};
+  modplay = callPackage ./pkgs/modplay.nix {};
 }
