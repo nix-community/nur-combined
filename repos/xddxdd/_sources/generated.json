@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-04-03",
+        "date": "2024-04-04",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "7f1fee3a051ee65e3411d16735bb62b8c8b9d28a",
-            "sha256": "sha256-R9y8i5jQk9xkJRtb4JCadtV4QnATCPlm0g+2EBhq7Rg=",
+            "rev": "cc335b9d7419c2f0a5a51bf5bbad0004f898b9df",
+            "sha256": "sha256-XCP79cXhZ1MWdkuEjWmzJ8qOtb8dqpht2ka7qsCIXVM=",
             "type": "github"
         },
-        "version": "7f1fee3a051ee65e3411d16735bb62b8c8b9d28a"
+        "version": "cc335b9d7419c2f0a5a51bf5bbad0004f898b9df"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -448,11 +448,11 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.35.0",
-            "sha256": "sha256-yhLxROG+ggJvAlcRhQXKnxuwe1Q9XQzpy6cBRT4OQSg=",
+            "rev": "v1.35.1",
+            "sha256": "sha256-qFOPTK3Zf1b0ACNYawjCSBBtJv9ZrjP99OMJHR+jWPU=",
             "type": "github"
         },
-        "version": "v1.35.0"
+        "version": "v1.35.1"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -947,7 +947,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-04-03",
+        "date": "2024-04-04",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -959,11 +959,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "5ac9bcfb2f27ead3ff177fbce8e4b1f599fbac47",
-            "sha256": "sha256-p3/C/DqLXxNyMnecktxU2g+n3PNcVrV7cgOlTMDgBZA=",
+            "rev": "7a6df815bbb218e4490064a1558b09edea410576",
+            "sha256": "sha256-+DZIaoxhhombUJCSpoU8SB+8BuDE5k9pgq8LDMHtoEA=",
             "type": "github"
         },
-        "version": "5ac9bcfb2f27ead3ff177fbce8e4b1f599fbac47"
+        "version": "7a6df815bbb218e4490064a1558b09edea410576"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1079,11 +1079,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.8.3-xanmod1",
-            "sha256": "sha256-2ip0zwGHkdh53jWwrIDqKwvdzkCtU1vnD/GK2i0eEBQ=",
+            "rev": "6.8.4-xanmod1",
+            "sha256": "sha256-NQeUz50aBRvbHqhoOGv5CFQKKlKeCUEkCA8uf9W0f0k=",
             "type": "github"
         },
-        "version": "6.8.3-xanmod1"
+        "version": "6.8.4-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1139,11 +1139,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.24-xanmod1",
-            "sha256": "sha256-XUV8mxo4uZESIKCpWfmPi8J8+4TiKoSFqh/YTew/chc=",
+            "rev": "6.6.25-xanmod1",
+            "sha256": "sha256-f375jX0BTlccJoeEFDQ2ZaVWQhcnWqcSNYHzGjS2DQo=",
             "type": "github"
         },
-        "version": "6.6.24-xanmod1"
+        "version": "6.6.25-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
