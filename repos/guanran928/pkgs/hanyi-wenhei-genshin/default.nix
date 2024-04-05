@@ -12,18 +12,15 @@ assert (lib.asserts.assertMsg (variant == "ja-jp" || variant == "zh-cn") ''hanyi
     version = "1.00"; # from font metadata
 
     # found on Genshin Cloud Gaming (https://ys.mihoyo.com/cloud/)
-    src = let
-      fetchFont = hash:
-        fetchurl {
-          inherit hash;
-          url = "https://webstatic.mihoyo.com/common/clgm-static/ys/fonts/${variant}.ttf";
-        };
-    in
-      {
-        ja-jp = fetchFont "sha256-5Yn722yp6LRyNCEHarlWDFK0IieaGjXylTdWwZcm0Ig=";
-        zh-cn = fetchFont "sha256-wxMg6z15zDKGUArweW7DkO1C2GImnFdVqvh0xud1CDM=";
-      }
-      .${variant};
+    src = fetchurl {
+      url = "https://webstatic.mihoyo.com/common/clgm-static/ys/fonts/${variant}.ttf";
+      hash =
+        {
+          ja-jp = "sha256-5Yn722yp6LRyNCEHarlWDFK0IieaGjXylTdWwZcm0Ig=";
+          zh-cn = "sha256-wxMg6z15zDKGUArweW7DkO1C2GImnFdVqvh0xud1CDM=";
+        }
+        .${variant};
+    };
 
     dontUnpack = true;
     dontPatch = true;
