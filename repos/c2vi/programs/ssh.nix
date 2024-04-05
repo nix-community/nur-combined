@@ -64,14 +64,21 @@
 				hostname = "140.238.213.48";
 				user = "ubuntu";
 			};
-
+      hec-builder = {
+				hostname = "10.5.5.56";
+				user = "root";
+      };
+      storage = {
+				hostname = "10.5.5.50";
+				user = "root";
+      };
 		};
 	};
 
    home.file.".ssh/known_hosts".force = true;
    home.file.".ssh/known_hosts".text = ''
       hpm ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+FpaNOf+ao6RCa6e43vAHFcQZTGu45rIqAG3Vx0/M8
-      lush ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFevbQp0XTZOVFZTDMKzgsZn4NNEIN+SFMqUhSbF5WFo
+      lush ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILNQClF4DQhO1jSkVWhusp1wfxadSsDclg0TbFGbR+Gy
       github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
       rpi ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOX+6B6Axx7AqgCm1H1rrou/3yOLeOLcTd8s0In0mOIY
       files ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOX+6B6Axx7AqgCm1H1rrou/3yOLeOLcTd8s0In0mOIY

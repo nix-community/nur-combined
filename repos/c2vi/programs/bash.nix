@@ -44,6 +44,7 @@
 		};
 
 		shellAliases = {
+      ports = "${pkgs.lsof}/bin/lsof -i -P -n";
       losetup = "${pkgs.util-linux}/bin/losetup";
       log = let
         log = pkgs.writeShellApplication {

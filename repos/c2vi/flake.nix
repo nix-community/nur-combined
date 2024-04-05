@@ -119,7 +119,7 @@
       		system = "x86_64-linux";
       		modules = [
          		./hosts/main.nix
-					  ./hardware/my-hp-laptop.nix
+					  ./hardware/hpm-laptop.nix
       		];
    		};
 

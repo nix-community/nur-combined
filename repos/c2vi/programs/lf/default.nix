@@ -1,4 +1,4 @@
-{ pkgs, self, confDir, ... }@params:
+{ pkgs, self, confDir, system, inputs, ... }@params:
 {
   home.file.".config/lf/icons".source = "${self}/programs/lf/icons";
 	programs.lf = let
@@ -28,7 +28,10 @@
     ];
     text = builtins.readFile "${self}/programs/lf/previewer";
   };
-  mylfWrapper = pkgs.writeShellApplication {
+  # use newest version of ueberzug from nixpkgs unstable because: https://github.com/ueber-devel/ueberzug/issues/15
+  # mylfWrapper = let myUeberzug = inputs.nixpkgs-unstable.legacyPackages.${system}.ueberzug;
+  mylfWrapper = let myUeberzug = pkgs.ueberzug.overrideAttrs (final: prev: { version = "18.2.2"; });
+    in pkgs.writeShellApplication {
       name = "lf";
 
       #runtimeInputs = with pkgs; [ curl w3m ];
@@ -66,7 +69,7 @@
             [ -d "''${XDG_CACHE_HOME}/lf" ] || mkdir -p "''${XDG_CACHE_HOME}/lf"
             export FIFO_UEBERZUG="''${XDG_CACHE_HOME}/lf/ueberzug-$$"
             mkfifo "$FIFO_UEBERZUG"
-            ${pkgs.ueberzug}/bin/ueberzug layer -s < "$FIFO_UEBERZUG" -p json &
+            ${myUeberzug}/bin/ueberzug layer -s < "$FIFO_UEBERZUG" -p json &
             exec 3> "$FIFO_UEBERZUG"
             trap cleanup HUP INT QUIT TERM PWR EXIT
             ${mylf}/bin/lf "$@" 3>&-

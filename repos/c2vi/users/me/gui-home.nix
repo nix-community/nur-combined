@@ -81,6 +81,7 @@
 
     # use signal from unstable, because the app itself says it would to update to be usable
 		self.inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.signal-desktop
+		self.inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.ticktick
 		element-desktop
 		discord
 		wireshark
@@ -103,9 +104,9 @@
     rustc
 
 		#localPacketTracer8
-		(ciscoPacketTracer8.overrideAttrs (prev: final: {
-      src = /home/me/work/software/CiscoPacketTracer_821_Ubuntu_64bit.deb;
-    }))
+		#(ciscoPacketTracer8.overrideAttrs (prev: final: {
+      #src = /home/me/work/software/CiscoPacketTracer_821_Ubuntu_64bit.deb;
+    #}))
 
 		#ciscoPacketTracer8
 
@@ -142,7 +143,7 @@
                 if fields[1] != '00000000' or not int(fields[3], 16) & 2:
                   # If not default route or not RTF_GATEWAY, skip it
                   continue
-                if fields[0] != "wlp2s0":
+                if fields[0] != "wlo1":
                   # only check on wlan interface
                   continue
 
@@ -217,7 +218,7 @@
                 continue
 
             # do arp scan
-            ips = subprocess.run(["sudo", "${pkgs.arp-scan}/bin/arp-scan", "-l", "-x", "-I", "wlp2s0"], capture_output=True)
+            ips = subprocess.run(["sudo", "${pkgs.arp-scan}/bin/arp-scan", "-l", "-x", "-I", "wlo1"], capture_output=True)
             for line in ips.stdout.decode("utf-8").split("\n"):
               #print("arp-scan line:", line)
               try:
@@ -250,6 +251,9 @@
           with open("/etc/current_hosts", "w") as file:
             lines = []
             for key, val in old.items():
+              if val is None:
+                print(f"val for {key} was None, skipping")
+                continue
               lines.append(val + " " + key)
             file.write("\n".join(lines) + "\n")
 
