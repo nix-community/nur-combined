@@ -9,7 +9,18 @@
 # - list: <https://github.com/stax76/awesome-mpv>
 # - list: <https://nudin.github.io/mpv-script-directory/>
 # - browse DLNA shares: <https://github.com/chachmu/mpvDLNA>
-# - act as a DLNS renderer (sink): <https://github.com/xfangfang/Macast>
+# - act as a DLNA renderer (sink): <https://github.com/xfangfang/Macast>
+# - update watch_later periodically -- not just on exit: <https://gist.github.com/CyberShadow/2f71a97fb85ed42146f6d9f522bc34ef>
+#   - <https://github.com/AN3223/dotfiles/blob/master/.config/mpv/scripts/auto-save-state.lua>
+# - touch shortcuts (double-tap L/R portions of window to seek, etc): <https://github.com/christoph-heinrich/mpv-touch-gestures>
+#   - <https://github.com/omeryagmurlu/mpv-gestures>
+# - jellyfin client: <https://github.com/EmperorPenguin18/mpv-jellyfin>
+#   - DLNA client (player only: no casting): <https://github.com/chachmu/mpvDLNA>
+# - search videos on Youtube: <https://github.com/rozari0/mpv-youtube-search>
+#   - <https://github.com/CogentRedTester/mpv-scripts/blob/master/youtube-search.lua>
+# - sponsorblock: <https://codeberg.org/jouni/mpv_sponsorblock_minimal>
+# - screenshot-to-clipboard: <https://github.com/zc62/mpv-scripts/blob/master/screenshot-to-clipboard.js>
+# - mpv-as-image-viewer: <https://github.com/guidocella/mpv-image-config>
 # debugging:
 # - enter console by pressing backtick.
 #   > `set volume 50`     -> sets application volume to 50%
@@ -17,6 +28,7 @@
 #   > `show-text "vol: ${volume}"`  -> get the volume
 # - show script output by running mpv with `--msg-level=all=trace`
 #   - and then just `print(...)` from lua & it'll show in terminal
+#   - requires that mpv.conf NOT include player-operation-mode=pseudo-gui
 # - invoke mpv with `--no-config` to have it not read ~/.config/mpv/*
 # - press `i` to show decoder info
 #
@@ -27,24 +39,6 @@
 
 let
   cfg = config.sane.programs.mpv;
-  # uosc = pkgs.mpvScripts.uosc.overrideAttrs (_: {
-  #   src = pkgs.fetchFromGitea {
-  #     domain = "git.uninsane.org";
-  #     owner = "colin";
-  #     repo = "uosc";
-  #     rev = "sane-0.2";
-  #     hash = "sha256-j5hX+lAf7mHx4vqI0shOekmOh4aZsOiRb3rPs8vQ4qo=";
-  #     # for version > 4.7.0, we can use nixpkgs src and set `patches` to a fetch of my one custom commit
-  #   };
-  #   patches = [];
-
-  #   scriptPath = "scripts/uosc";
-  #   installPhase = ''
-  #     mkdir -p $out/share/mpv/scripts
-  #     cp -a scripts/uosc $out/share/mpv/scripts/uosc
-  #     cp -r fonts $out/share
-  #   '';
-  # });
   uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: {
     version = "5.2.0-unstable-2024-03-13";
     src = lib.warnIf (lib.versionOlder "5.2.0" upstream.version) "uosc outdated; remove patch?" pkgs.fetchFromGitHub {
@@ -53,12 +47,54 @@ let
       rev = "6fa34c31d0a5290dee83282205768d15111df7d8";
       hash = "sha256-qxyNZHmH33bKRp4heFSC+RtvSApIfbVFt4otfS351nE=";
     };
+    # src = pkgs.fetchFromGitea {
+    #   domain = "git.uninsane.org";
+    #   owner = "colin";
+    #   repo = "uosc";
+    #   rev = "dev-sane-5.2.0";
+    #   hash = "sha256-lpqk4nnCxDZr/Y7/seM4VyR30fVrDAT4VP7C8n88lvA=";
+    # };
 
-    # patch so that the volume control corresponds to `ao-volume`, i.e. the system-wide volume.
-    # this is particularly nice for moby, because it avoids the awkwardness that system volume
-    # is hard to adjust while screen is on.
-    # note that only under alsa (`-ao=alsa`) does `ao-volume` actually correspond to system volume.
     postPatch = (upstream.postPatch or "") + ''
+      ### patch so touch controls work well with sway 1.9+
+      ### in particular, "mouse.hover" is *always* false for touch events (i guess this is a bug in mpv?)
+      ### and a touch release event is always followed by a mouse move to the cursor (that's a sway thing) which doesn't make sense.
+      # 1. always listen for mbtn_left events, even before a hover event would activate a zone:
+      substituteInPlace src/uosc/lib/cursor.lua \
+        --replace-fail \
+          "if binding and cursor:collides_with(zone.hitbox)" \
+          "if binding"
+      # 2. uosc already simulates mouse movements on touch down, but because of the hover handling, they get misunderstood as mouse leaves.
+      #    so, bypass the cursor:leave() check.
+      substituteInPlace src/uosc/lib/cursor.lua \
+        --replace-fail \
+          "handle_mouse_pos(nil, mp.get_property_native('mouse-pos'))" \
+          "local mpos = mp.get_property_native('mouse-pos')
+           cursor:move(mpos.x, mpos.y)
+           cursor.hover_raw = mpos.hover"
+      # 3. explicitly fire a cursor:leave on touch release, so that all zones are deactivated (and control visibility goes back to default state)
+      substituteInPlace src/uosc/lib/cursor.lua \
+        --replace-fail \
+          "cursor:create_handler('primary_up')" \
+          "function(...)
+             cursor:trigger('primary_up', ...)
+             if not cursor.hover_raw then
+               cursor:leave()
+             end
+           end"
+      # 4. sometimes we get a touch movement shortly AFTER touch is released:
+      #    detect that and ignore it
+      substituteInPlace src/uosc/lib/cursor.lua \
+        --replace-fail \
+          "cursor:move(mouse.x, mouse.y)" \
+          "local last_down = cursor.last_event['primary_down'] or { time = 0 }
+           local last_up = cursor.last_event['primary_up'] or { time = 0 }
+           if cursor.hover_raw or last_down.time >= last_up.time then cursor:move(mouse.x, mouse.y) end"
+
+      ### patch so that the volume control corresponds to `ao-volume`, i.e. the system-wide volume.
+      ### this is particularly nice for moby, because it avoids the awkwardness that system volume
+      ### is hard to adjust while screen is on.
+      ### note that only under alsa (`-ao=alsa`) does `ao-volume` actually correspond to system volume.
       substituteInPlace src/uosc/main.lua \
         --replace-fail "mp.observe_property('volume'" "mp.observe_property('ao-volume'"
       substituteInPlace src/uosc/elements/Volume.lua \
