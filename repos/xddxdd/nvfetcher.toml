@@ -191,6 +191,10 @@ fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzh
 src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 fetch.github = "strongtz/i915-sriov-dkms"
 
+[jproxy]
+src.manual = "v3.4.1"
+fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/windows-$ver.zip"
+
 [kata-containers]
 src.github_tag = "kata-containers/kata-containers"
 src.include_regex = "^[0-9\\.]+$"

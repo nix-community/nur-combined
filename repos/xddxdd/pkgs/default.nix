@@ -138,6 +138,7 @@ mkScope (
     hath = pkg ./uncategorized/hath { };
     hesuvi-hrir = pkg ./uncategorized/hesuvi-hrir { };
     hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs { };
+    jproxy = pkg ./uncategorized/jproxy { };
     kaixinsong-fonts = pkg ./uncategorized/kaixinsong-fonts { };
     kata-image = pkg ./uncategorized/kata-image { };
     kata-runtime = pkg ./uncategorized/kata-runtime { };

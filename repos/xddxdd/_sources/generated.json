@@ -850,6 +850,21 @@
         },
         "version": "82755c2bc58491be31c7ac43fec3b2ff2aea3242"
     },
+    "jproxy": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "jproxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-DPYHHIc6bH8X3tUcEd4xE0W/Q5BBBofdEtM9x3T+0vk=",
+            "type": "url",
+            "url": "https://github.com/LuckyPuppy514/jproxy/releases/download/v3.4.1/windows-v3.4.1.zip"
+        },
+        "version": "v3.4.1"
+    },
     "kata-containers": {
         "cargoLocks": null,
         "date": null,

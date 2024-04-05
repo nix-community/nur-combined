@@ -496,6 +496,14 @@
     };
     date = "2024-01-29";
   };
+  jproxy = {
+    pname = "jproxy";
+    version = "v3.4.1";
+    src = fetchurl {
+      url = "https://github.com/LuckyPuppy514/jproxy/releases/download/v3.4.1/windows-v3.4.1.zip";
+      sha256 = "sha256-DPYHHIc6bH8X3tUcEd4xE0W/Q5BBBofdEtM9x3T+0vk=";
+    };
+  };
   kata-containers = {
     pname = "kata-containers";
     version = "3.3.0";
