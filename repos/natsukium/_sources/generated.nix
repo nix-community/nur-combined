@@ -103,10 +103,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "6.6.3271.55";
+    version = "6.6.3271.57";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.55.universal.dmg";
-      sha256 = "sha256-AzyjcPyNUsULW7ZNhoBaVuFF+KVx+0JcmQ6ejUSRwtI=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.6.3271.57.universal.dmg";
+      sha256 = "sha256-5pdlHD6zdqDyRZRn3JPNHNjT9CE6rCAQNG4WYLl8gbs=";
     };
   };
 }
