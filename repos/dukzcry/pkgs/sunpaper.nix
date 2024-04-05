@@ -7,8 +7,8 @@ stdenvNoCC.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "repos-holder";
     repo = "sunpaper";
-    rev = "c2a6e2b47472f10d545d7361f3da5b8e1e95d892";
-    hash = "sha256-M2zFt0/9Xgoz1i0PRVlpaUW1ndau3/GzKsiLdYzyoQQ=";
+    rev = "81e4dfc94d753d05c70bc30bcfd6ad81b6cbbaa2";
+    hash = "sha256-p1jPRUwxRgqQ/irSMqAyIOzdku05gt/OrlevGUxwMjE=";
   };
 
   buildInputs = [ makeWrapper ];
