@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A quick hack to play tracker music on *nix";
     license = licenses.free;
-    homepage = src.meta.homepage;
+    homepage = "https://gitlab.com/dukzcry/crap/-/tree/master/modplay";
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
   };
