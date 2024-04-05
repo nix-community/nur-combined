@@ -35,6 +35,9 @@
                 for (( i=0; i<''${#SPECIFIED_HASH[@]}; i++ )); do
                   echo "Auto replace ''${SPECIFIED_HASH[$i]} with ''${GOT_HASH[$i]}"
                   sed -i "s#''${SPECIFIED_HASH[$i]}#''${GOT_HASH[$i]}#g" $(find pkgs/ -name \*.nix) || true
+                  SPECIFIED_HASH_OLD=$(nix hash convert --to nix32 "''${SPECIFIED_HASH[$i]}")
+                  echo "Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[$i]}"
+                  sed -i "s#''${SPECIFIED_HASH_OLD}#''${GOT_HASH[$i]}#g" $(find pkgs/ -name \*.nix) || true
                 done
               fi
             fi
@@ -83,7 +86,7 @@
         '';
 
         search-lib = ''
-          ${pkgs.nix-index}/bin/nix-locate -w "$@" | grep -v "("
+          ${inputs'.nix-index-database.packages.default}/bin/nix-locate -w "$@" | grep -v "("
         '';
 
         trace = ''
