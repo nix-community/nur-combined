@@ -8066,10 +8066,10 @@
     };
     "privacy-pass" = buildFirefoxXpiAddon {
       pname = "privacy-pass";
-      version = "4.0.1";
+      version = "4.0.2";
       addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4220646/privacy_pass-4.0.1.xpi";
-      sha256 = "956f61fc556dcebb405fb49c0c024860808cd6a4b9cc2b4be084448f160acdda";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258867/privacy_pass-4.0.2.xpi";
+      sha256 = "48e832600bdd47639d17ed2a99ea74d2eb1e12728e8b743a7057420b7f72102f";
       meta = with lib;
       {
         homepage = "https://github.com/cloudflare/pp-browser-extension";
@@ -9278,10 +9278,10 @@
     };
     "startup-bookmarks" = buildFirefoxXpiAddon {
       pname = "startup-bookmarks";
-      version = "1.7.13";
+      version = "1.7.14";
       addonId = "{d026fcc5-d071-4ddd-bbc0-66ccf814693d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4224878/startup_bookmarks-1.7.13.xpi";
-      sha256 = "61006315267ecf23b8fa0325c259075c3381de944d988d7e40c26391e7bcf5aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4260058/startup_bookmarks-1.7.14.xpi";
+      sha256 = "9cb45f679be853caa10401db8c95e2a1c79691775d85eadda21e48da10f86396";
       meta = with lib;
       {
         homepage = "https://github.com/igorlogius";
@@ -10060,10 +10060,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.10";
+      version = "4.0.11";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4252861/tree_style_tab-4.0.10.xpi";
-      sha256 = "d13a67005f9d0241b16ef50c4fb37ec11d8cd22fe51fba68550fd0c395440302";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259083/tree_style_tab-4.0.11.xpi";
+      sha256 = "ec53eb91431544981ea19e372a2b07f14c9264a9eb3b96a7b00570d4beb18ee0";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -10950,10 +10950,10 @@
     };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "2.0.6";
+      version = "2.1.2";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4191523/vimium_ff-2.0.6.xpi";
-      sha256 = "94a2d7e88596b65891747d48837deb5440780d57db7ae330d1d7d43d5fe64922";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259790/vimium_ff-2.1.2.xpi";
+      sha256 = "3b9d43ee277ff374e3b1153f97dc20cb06e654116a833674c79b43b8887820e1";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
