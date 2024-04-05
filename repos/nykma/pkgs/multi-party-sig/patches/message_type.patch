@@ -1,0 +1,19 @@
+diff --git a/src/multi-party-sig/mpc-flow/mpc-parallel-v2/message_type.h b/src/multi-party-sig/mpc-flow/mpc-parallel-v2/message_type.h
+index ad94f69..3948348 100644
+--- a/src/multi-party-sig/mpc-flow/mpc-parallel-v2/message_type.h
++++ b/src/multi-party-sig/mpc-flow/mpc-parallel-v2/message_type.h
+@@ -6,12 +6,13 @@
+ #define SAFEHERON_MPC_FLOW_MPC_PARALLEL_V2_MESSAGE_TYPE_H
+ 
+ #include <string>
++#include <stdint.h>
+ 
+ namespace safeheron {
+ namespace mpc_flow {
+ namespace mpc_parallel_v2 {
+ 
+-enum MessageType : std::uint8_t {
++enum MessageType : uint8_t {
+     None = 0,
+     P2P = 1,
+     BROADCAST = 2,

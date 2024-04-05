@@ -1,0 +1,36 @@
+diff --git a/src/multi-party-sig/mpc-flow/mpc-parallel-v2/mpc_round.h b/src/multi-party-sig/mpc-flow/mpc-parallel-v2/mpc_round.h
+index 2e84363..76e11e5 100644
+--- a/src/multi-party-sig/mpc-flow/mpc-parallel-v2/mpc_round.h
++++ b/src/multi-party-sig/mpc-flow/mpc-parallel-v2/mpc_round.h
+@@ -8,6 +8,7 @@
+ #include <string>
+ #include <vector>
+ #include <cassert>
++#include <stdint.h>
+ 
+ #include "multi-party-sig/mpc-flow/mpc-parallel-v2/message_type.h"
+ #include "multi-party-sig/mpc-flow/mpc-parallel-v2/error_info.h"
+diff --git a/src/multi-party-sig/mpc-flow/mpc-parallel/LazyBCValidator.h b/src/multi-party-sig/mpc-flow/mpc-parallel/LazyBCValidator.h
+index 686c27f..c08504b 100644
+--- a/src/multi-party-sig/mpc-flow/mpc-parallel/LazyBCValidator.h
++++ b/src/multi-party-sig/mpc-flow/mpc-parallel/LazyBCValidator.h
+@@ -7,6 +7,7 @@
+ 
+ #include <string>
+ #include <vector>
++#include <stdint.h>
+ 
+ namespace safeheron {
+ namespace mpc_flow {
+diff --git a/src/multi-party-sig/mpc-flow/mpc-parallel/mpc_context.h b/src/multi-party-sig/mpc-flow/mpc-parallel/mpc_context.h
+index 5b3e04b..fda7d4c 100644
+--- a/src/multi-party-sig/mpc-flow/mpc-parallel/mpc_context.h
++++ b/src/multi-party-sig/mpc-flow/mpc-parallel/mpc_context.h
+@@ -9,6 +9,7 @@
+ #include <utility>
+ #include <vector>
+ #include <cassert>
++#include <stdint.h>
+ #include <iostream>
+ #include "multi-party-sig/mpc-flow/mpc-parallel/mpc_round.h"
+ 

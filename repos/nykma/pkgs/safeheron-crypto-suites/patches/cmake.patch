@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4d60775..1abc40c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -20,7 +20,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED "")
+ 
+ include_directories(src)
+ 
+-target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE /usr/local/lib)
++# target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE /usr/local/lib)
+ target_link_libraries(${CMAKE_PROJECT_NAME}
+         ${PROTOBUF_LIBRARIES}
+         OpenSSL::Crypto

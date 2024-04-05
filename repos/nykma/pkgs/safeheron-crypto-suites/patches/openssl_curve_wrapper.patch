@@ -1,0 +1,12 @@
+diff --git a/src/crypto-suites/crypto-curve/openssl_curve_wrapper.cpp b/src/crypto-suites/crypto-curve/openssl_curve_wrapper.cpp
+index 8e71109..7f45e69 100644
+--- a/src/crypto-suites/crypto-curve/openssl_curve_wrapper.cpp
++++ b/src/crypto-suites/crypto-curve/openssl_curve_wrapper.cpp
+@@ -1,6 +1,7 @@
+ #include <cassert>
+ #include <openssl/ec.h>
+ #include <cstring>
++#include <memory>
+ #include "crypto-suites/common/ByteArrayDeleter.h"
+ #include "crypto-suites/crypto-curve/openssl_curve_wrapper.h"
+ #include "crypto-suites/common/custom_assert.h"

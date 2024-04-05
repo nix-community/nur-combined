@@ -1,0 +1,11 @@
+diff --git a/src/crypto-suites/crypto-bn/bn.h b/src/crypto-suites/crypto-bn/bn.h
+index fdaee5c..47365a5 100644
+--- a/src/crypto-suites/crypto-bn/bn.h
++++ b/src/crypto-suites/crypto-bn/bn.h
+@@ -2,5 +2,6 @@
+ #define SAFEHERON_BIG_NUMBER_H
+
+ #include<string>
++#include <stdint.h>
+
+ struct bignum_st;

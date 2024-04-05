@@ -1,0 +1,48 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 1977f2f..b0c2039 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -9,10 +9,9 @@ find_package(OpenSSL REQUIRED)
+ 
+ find_package(SafeheronCryptoSuites REQUIRED)
+ 
+-target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE /usr/local/lib)
+ target_link_libraries(${CMAKE_PROJECT_NAME}
+         ${PROTOBUF_LIBRARIES}
+         OpenSSL::Crypto
+         -ldl
+         SafeheronCryptoSuites
+-        )
+\ No newline at end of file
++        )
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 96c5e51..3cd252a 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -5,11 +5,6 @@ pkg_search_module(PROTOBUF REQUIRED protobuf)  # this looks for opencv.pc file
+ include_directories(
+         ${GTEST_INCLUDE_DIRS}
+         "../src"
+-        /usr/local/include
+-)
+-
+-link_directories(
+-        /usr/local/lib
+ )
+ 
+ link_libraries(
+@@ -28,7 +23,6 @@ if (${ENABLE_SNAP_SCOPE})
+     set(NO_MPC_GG20 TRUE)
+ endif()
+ 
+-
+ if (NOT ${NO_MPC_GG18})
+     # gg18
+     add_executable(gg18.key_gen_test gg18/key_gen_test.cpp CTimer.cpp)
+@@ -96,6 +90,3 @@ if (NOT ${NO_MPC_CMP})
+     add_executable(cmp.sign_t_n_mt_test cmp/sign_t_n_mt_test.cpp)
+     add_test(NAME cmp.sign_t_n_test COMMAND cmp.sign_t_n_mt_test)
+ endif()
+-
+-
+-

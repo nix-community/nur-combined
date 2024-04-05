@@ -1,0 +1,12 @@
+diff --git a/src/crypto-suites/exception/located_exception.h b/src/crypto-suites/exception/located_exception.h
+index aa8761d..1eaa19f 100644
+--- a/src/crypto-suites/exception/located_exception.h
++++ b/src/crypto-suites/exception/located_exception.h
+@@ -6,6 +6,7 @@
+ #define EXCEPTION_BUF_SIZE_MESSAGE 128
+ 
+ #include <string>
++#include <cstring>
+ #include <stdexcept>
+ 
+ namespace safeheron{

@@ -1,0 +1,12 @@
+diff --git a/src/crypto-suites/crypto-bip32/hd_path.h b/src/crypto-suites/crypto-bip32/hd_path.h
+index 9a486d5..0f75ac7 100644
+--- a/src/crypto-suites/crypto-bip32/hd_path.h
++++ b/src/crypto-suites/crypto-bip32/hd_path.h
+@@ -8,6 +8,7 @@
+ 
+ #include <string>
+ #include <vector>
++#include <stdint.h>
+ 
+ namespace safeheron {
+ namespace bip32 {
