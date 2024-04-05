@@ -4,7 +4,7 @@
   fetchurl,
   type ? "ttf",
 }:
-assert (lib.asserts.assertMsg (type == "ttf" || type == "otf") ''hanyi-wenhei: `type` must be "ttf" or "otf"'');
+assert lib.assertOneOf "hanyi-wenhei: `type`" type ["ttf" "otf"];
   stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "hanyi-wenhei";
     version = "5.00";

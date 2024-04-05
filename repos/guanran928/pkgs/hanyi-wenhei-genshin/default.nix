@@ -6,7 +6,7 @@
 }:
 # the only difference between "ja-jp" and "zh-cn" is the Kanji/Hanzi part, due to the stupid Han unification
 # https://en.wikipedia.org/wiki/Han_unification
-assert (lib.asserts.assertMsg (variant == "ja-jp" || variant == "zh-cn") ''hanyi-wenhei-genshin: `variant` must be "ja-jp" or "zh-cn"'');
+assert lib.assertOneOf "hanyi-wenhei-genshin: `variant`" variant ["ja-jp" "zh-cn"];
   stdenvNoCC.mkDerivation {
     pname = "hanyi-wenhei-genshin";
     version = "1.00"; # from font metadata
