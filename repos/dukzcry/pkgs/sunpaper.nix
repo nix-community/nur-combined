@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchFromGitLab, makeWrapper, wallutils }:
+{ lib, stdenvNoCC, fetchFromGitLab, makeWrapper, wallutils, swww, pywal, wget, bc }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "sunpaper";
@@ -7,8 +7,8 @@ stdenvNoCC.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "repos-holder";
     repo = "sunpaper";
-    rev = "81e4dfc94d753d05c70bc30bcfd6ad81b6cbbaa2";
-    hash = "sha256-p1jPRUwxRgqQ/irSMqAyIOzdku05gt/OrlevGUxwMjE=";
+    rev = "b335b721c415edde246c4838e8e193bbc7357d1c";
+    hash = "sha256-8ItNc71wtzXfdMIse3A55h0gJs29YYyzPGbGWnuuHXA=";
   };
 
   buildInputs = [ makeWrapper ];
@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p "$out/share/sunpaper/images"
     cp -R images $out/share/sunpaper/
     wrapProgram $out/bin/sunpaper.sh \
-      --prefix PATH : ${lib.makeBinPath [ wallutils ]}
+      --prefix PATH : ${lib.makeBinPath [ wallutils swww pywal wget bc ]}
   '';
 
   meta = {
