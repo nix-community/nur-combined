@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "dukzcry";
     repo = "crap";
-    rev = "fc462ba5c7f56a739785e6aae639f8d343728312";
-    sha256 = "sha256-PWaQCUq7wTGFfj7YC24xKK21RC1Gg16ix6xpy0RDS80=";
+    rev = "27255fb36fa7f5c955b3e18667b5ffa481269a55";
+    sha256 = "sha256-YfubOPWjoWMAOXcY8yuVu3tIKtruSTwnLW583CNHsJg=";
   };
 
   buildInputs = [ makeWrapper ];
