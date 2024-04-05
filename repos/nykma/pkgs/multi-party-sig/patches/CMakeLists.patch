@@ -46,3 +46,18 @@ index 96c5e51..3cd252a 100644
 -
 -
 -
+diff --git a/cmake/MultiPartySigConfig.cmake.in b/cmake/MultiPartySigConfig.cmake.in
+index 2eec741..a409d86 100644
+--- a/cmake/MultiPartySigConfig.cmake.in
++++ b/cmake/MultiPartySigConfig.cmake.in
+@@ -7,8 +7,8 @@ get_filename_component(_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/../../../" ABS
+ 
+ 
+ @PACKAGE_INIT@
+-set_and_check(MultiPartySig_INCLUDE_DIR  "${_INSTALL_PREFIX}/include/safeheron")
+-set_and_check(MultiPartySig_INCLUDE_DIRS "${_INSTALL_PREFIX}/include/safeheron")
++set_and_check(MultiPartySig_INCLUDE_DIR  "${_INSTALL_PREFIX}/include")
++set_and_check(MultiPartySig_INCLUDE_DIRS "${_INSTALL_PREFIX}/include")
+ set_and_check(MultiPartySig_LIBRARY_DIR "${_INSTALL_PREFIX}/lib")
+ 
+ MESSAGE(STATUS "###################################")
