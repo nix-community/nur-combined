@@ -735,6 +735,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   zenity = callPackage ./pkgs/development/tools/misc/zenity/zenity.nix { };
 
+  writable-nix-store = callPackage ./pkgs/development/tools/misc/writable-nix-store { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
