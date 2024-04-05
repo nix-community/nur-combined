@@ -14,7 +14,7 @@
 
   imports = lib.sharedModules ++ [
 
-    ../../services
+    ../../srv
     inputs.disko.nixosModules.default
     ./hardware.nix
     ./network.nix

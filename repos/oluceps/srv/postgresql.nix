@@ -3,8 +3,8 @@
   enable = true;
   package = pkgs.postgresql_16;
   enableTCPIP = true;
-  port = 5432;
   settings = {
+    port = 5432;
     max_connections = 100;
     shared_buffers = "2GB";
     effective_cache_size = "6GB";

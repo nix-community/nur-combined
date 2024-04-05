@@ -9,8 +9,13 @@
 }:
 {
   systemd.services.nix-daemon = {
-    serviceConfig.LimitNOFILE = lib.mkForce 500000000;
+    serviceConfig = {
+      LimitNOFILE = lib.mkForce 500000000;
+      PrivateTmp = true;
+    };
   };
+
+  boot.tmp.useTmpfs = true;
 
   virtualisation = {
     vmVariant = {

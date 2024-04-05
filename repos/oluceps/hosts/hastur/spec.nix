@@ -100,17 +100,17 @@
   ];
 
   srv = {
-    openssh = true;
-    fail2ban = true;
-    dae = true;
-    scrutiny = true;
-    ddns-go = true;
-    atticd = true;
-    atuin = true;
-    postgresql = true;
-    photoprism = true;
-    mysql = true;
-    prometheus = true;
+    openssh.enable = true;
+    fail2ban.enable = true;
+    dae.enable = true;
+    scrutiny.enable = true;
+    ddns-go.enable = true;
+    atticd.enable = true;
+    atuin.enable = true;
+    postgresql.enable = true;
+    photoprism.enable = true;
+    mysql.enable = true;
+    prometheus.enable = true;
   };
   services = {
     metrics.enable = true;
@@ -261,28 +261,6 @@
       enable = true;
       region = "ap-east-1";
       rootCredentialsFile = config.age.secrets.minio.path;
-    };
-
-    xmrig = {
-      enable = false;
-      settings = {
-        autosave = true;
-        opencl = false;
-        cuda = false;
-        cpu = {
-          enable = true;
-          max-threads-hint = 90;
-        };
-        pools = [
-          {
-            url = "pool.supportxmr.com:443";
-            user = data.xmrAddr;
-            keepalive = true;
-            tls = true;
-            pass = "rha";
-          }
-        ];
-      };
     };
   };
 }

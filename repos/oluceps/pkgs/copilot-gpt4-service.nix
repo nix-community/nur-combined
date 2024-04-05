@@ -9,10 +9,10 @@ buildGoModule {
   version = "rolling";
 
   src = fetchFromGitHub {
-    owner = "aaamoon";
+    owner = "newskyforest";
     repo = "copilot-gpt4-service";
-    rev = "b6b23a1c13d39d9f7082e318c00c16412034c593";
-    hash = "sha256-ulaLQXSUV5Rr715B9Vvle6RhE6NvItcuzt3PRIuWBT8=";
+    rev = "f86509850e23265fa16588a6f7098d2a51e448a3";
+    hash = "sha256-LfUnJMWviSh7+socVZRBNiirsCJXPOR0XhohPTEZOGc=";
   };
 
   vendorHash = "sha256-oy/LjwAcMiPHpowxwFo8HRspAYMeTID4pa5u+uRyeWM=";

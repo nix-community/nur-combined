@@ -30,9 +30,7 @@ in
             config.allowUnfree = true;
           })
         )
-        monaspace
         factorio-headless-experimental
-        linuxPackages_latest
         ;
 
       helix = inputs.helix.packages.${system}.default.override {

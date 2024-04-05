@@ -21,11 +21,11 @@
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
   srv = {
-    openssh = true;
-    # mosdns = true;
-    fail2ban = true;
-    dae = true;
-    mosproxy = true;
+    openssh.enable = true;
+    # mosdns .enable= true;
+    fail2ban.enable = true;
+    dae.enable = true;
+    mosproxy.enable = true;
   };
 
   services = {

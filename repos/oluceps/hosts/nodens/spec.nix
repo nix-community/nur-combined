@@ -29,9 +29,9 @@
   ];
 
   srv = {
-    openssh = true;
-    fail2ban = true;
-    rustypaste = true;
+    openssh.enable = true;
+    fail2ban.enable = true;
+    rustypaste.enable = true;
   };
   services = {
     metrics.enable = true;

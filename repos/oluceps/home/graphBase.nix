@@ -9,7 +9,7 @@
 
   home.packages = with pkgs; [
     qq
-    gtkcord4
+    dissent
     celeste
     stellarium
     celluloid

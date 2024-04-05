@@ -33,10 +33,10 @@
   programs.sway.enable = true;
 
   srv = {
-    openssh = true;
-    mosproxy = true;
-    fail2ban = true;
-    dae = true;
+    openssh.enable = true;
+    mosproxy.enable = true;
+    fail2ban.enable = true;
+    dae.enable = true;
   };
 
   services = {
@@ -48,17 +48,7 @@
     };
 
     sing-box.enable = true;
-    # beesd.filesystems = {
-    #   os = {
-    #     spec = "/nix";
-    #     hashTableSizeMB = 512; # 256 *2 *2
-    #     verbosity = "crit";
-    #     extraOptions = [
-    #       "--loadavg-target"
-    #       "2.0"
-    #     ];
-    #   };
-    # };
+
     snapy.instances = [
       {
         name = "persist";
@@ -77,11 +67,6 @@
       enable = true;
       openFirewall = true;
     };
-
-    # cloudflared = {
-    #   enable = true;
-    #   environmentFile = config.age.secrets.cloudflare-garden-00.path;
-    # };
 
     compose-up.instances = [
       # {
@@ -190,36 +175,6 @@
       };
     };
 
-    xmrig = {
-      enable = false;
-      settings = {
-        autosave = true;
-        opencl = false;
-        cuda = false;
-        cpu = {
-          enable = true;
-          max-threads-hint = 55;
-        };
-        pools = [
-          {
-            url = "pool.supportxmr.com:443";
-            user = data.xmrAddr;
-            keepalive = true;
-            tls = true;
-            pass = "kam";
-          }
-        ];
-      };
-    };
-
-    # factorio-manager = {
-    #   enable = false;
-    #   factorioPackage = pkgs.factorio-headless;
-    #   botConfigPath = config.age.secrets.factorio-manager-bot.path;
-    #   serverSettingsFile = config.age.secrets.factorio-server.path;
-    #   serverAdminsFile = config.age.secrets.factorio-server.path;
-    # };
-
     factorio = {
       enable = false;
       openFirewall = true;
@@ -265,57 +220,17 @@
         };
       };
     };
-    # sundial.enable = true;
-
-    # xserver = {
-    #   videoDrivers = [ "amdgpu" ];
-    #   enable = true;
-    #   displayManager = {
-    #     # sddm.enable = true;
-    #     gdm = {
-    #       enable = false;
-    #     };
-
-    #   };
-    #   desktopManager = {
-    #     # plasma5.enable = true;
-    #     gnome.enable = false;
-    #   };
-    # };
   };
 
-  # services.udev = {
-  #   packages = with pkgs; [ gnome.gnome-settings-daemon ];
-  # };
-
-  # environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
   systemd = {
     enableEmergencyMode = true;
     watchdog = {
-      # systemd will send a signal to the hardware watchdog at half
-      # the interval defined here, so every 10s.
-      # If the hardware watchdog does not get a signal for 20s,
-      # it will forcefully reboot the system.
       runtimeTime = "20s";
-      # Forcefully reboot if the final stage of the reboot
-      # hangs without progress for more than 30s.
-      # For more info, see:
-      #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
       rebootTime = "30s";
     };
-
     sleep.extraConfig = ''
       AllowHibernation=no
     '';
-    # AllowSuspend=no
-  };
-  programs.dconf.enable = true;
-  programs = {
-    anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
-    anime-borb-launcher.enable = true;
-    honkers-railway-launcher.enable = true;
-    honkers-launcher.enable = true;
-    # niri.enable = true;
   };
   systemd.tmpfiles.rules = [
     # "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
