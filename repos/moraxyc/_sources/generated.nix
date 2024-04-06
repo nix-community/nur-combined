@@ -3,50 +3,50 @@
 {
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "8d99c122d2e5e3152de31a37ccda260b78f55d5c";
+    version = "e11ac27e37ce100c2ad197a73ece9b46bf46737c";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "8d99c122d2e5e3152de31a37ccda260b78f55d5c";
+      rev = "e11ac27e37ce100c2ad197a73ece9b46bf46737c";
       fetchSubmodules = false;
-      sha256 = "sha256-fXGFS9m8L3w64loZBWqpbSD58/O4crCQ7MA+qzmR1+E=";
+      sha256 = "sha256-HK0BLewhy8xCaf3PGCnj3pmDMF6/LDEjvSyGQfK1ZnM=";
     };
-    date = "2023-12-04";
+    date = "2024-04-02";
   };
   liboqs = {
     pname = "liboqs";
-    version = "890a6aa448598a019e72b5431d8ba8e0a5dbcc85";
+    version = "32afec8fccd77a264e6104764986ce46d120f5ff";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "890a6aa448598a019e72b5431d8ba8e0a5dbcc85";
+      rev = "32afec8fccd77a264e6104764986ce46d120f5ff";
       fetchSubmodules = false;
-      sha256 = "sha256-3sj8xItngfUQ6W85QCWOQpcXLFVbgLGvqjCs5VBaUlc=";
+      sha256 = "sha256-XDne5dJ6y0xtWOtrwJqwp2nfJudeYZxXi1T6OkY6Fd4=";
     };
-    date = "2024-02-27";
+    date = "2024-04-05";
   };
   nezha-agent = {
     pname = "nezha-agent";
-    version = "v0.16.2";
+    version = "v0.16.4";
     src = fetchFromGitHub {
       owner = "nezhahq";
       repo = "agent";
-      rev = "v0.16.2";
+      rev = "v0.16.4";
       fetchSubmodules = false;
-      sha256 = "sha256-IeD0jEsXsICTTr+6VsOLtH+HZpVk8DR55Z+sv/S28hs=";
+      sha256 = "sha256-xXv2FVPsl8BR51VMrFreaS3UQLEJwfObY4OeMMb8pms=";
     };
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "19e5a975a249d11e38937de80651bc855bb7ec3c";
+    version = "66ee77021b7ae35929e4659ac3f4b1e7642ddc67";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "19e5a975a249d11e38937de80651bc855bb7ec3c";
+      rev = "66ee77021b7ae35929e4659ac3f4b1e7642ddc67";
       fetchSubmodules = false;
-      sha256 = "sha256-yDQ+yzARLV8wuiAydFm1obpwPqqUDKU0ORzFF4D+6Cw=";
+      sha256 = "sha256-BKboIy+eHExJPQOIpIulSZiv39psVm9FWoxVPWV9p+0=";
     };
-    date = "2024-02-24";
+    date = "2024-03-20";
   };
   qsc-key-encoder = {
     pname = "qsc-key-encoder";

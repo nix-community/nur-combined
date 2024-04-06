@@ -128,9 +128,9 @@
         formatter = pkgs.alejandra;
 
         apps = lib.mapAttrs (n: v: flake-utils.lib.mkApp {drv = v;}) commands;
-
       };
 
+      overlay = self.overlays.default;
       overlays = {
         default = final: prev:
           import ./pkgs null {

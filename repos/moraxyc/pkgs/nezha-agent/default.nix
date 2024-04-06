@@ -8,7 +8,7 @@
 buildGoModule rec {
   pname = "nezha-agent";
   inherit (sources.nezha-agent) version src;
-  vendorHash = "sha256-Cat731ODnHIfbizDcOztmyIXOBSWPHT/0Pf4XuG+7TI=";
+  vendorHash = "sha256-ZlheRFgl3vsUXVx8PKZQ59kme2NC31OQAL6EaNhbf70=";
   CGO_ENABLED = 0;
 
   ldflags = [
