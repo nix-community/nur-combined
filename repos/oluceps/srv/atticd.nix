@@ -39,5 +39,9 @@
       # The preferred maximum size of a chunk, in bytes
       max-size = 256 * 1024; # 256 KiB
     };
+    garbage-collection = {
+      interval = "1 days";
+      default-retention-period = "7 days";
+    };
   };
 }

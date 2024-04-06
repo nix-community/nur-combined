@@ -76,7 +76,6 @@
                                 protocol = "http";
                                 tls = {
                                   server_name = "attic.nyaw.xyz";
-                                  # insecure_skip_verify = true;
                                 };
                               };
                               upstreams = [ { dial = "10.0.1.2:443"; } ];

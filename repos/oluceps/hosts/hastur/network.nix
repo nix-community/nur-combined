@@ -1,10 +1,20 @@
 { lib, config, ... }:
 {
-  services.resolved.enable = lib.mkForce true;
-  # services.resolved.enable = true;
-  services.resolved.extraConfig = "DNS=192.168.1.1";
+  services.resolved = {
+    llmnr = "false";
+    dnssec = "false";
+    extraConfig = ''
+      MulticastDNS=off
+    '';
+    fallbackDns = [ "8.8.8.8#dns.google" ];
+    # dnsovertls = "true";
+  };
   networking = {
     resolvconf.useLocalResolver = true;
+    nameservers = [
+      "223.5.5.5#dns.alidns.com"
+      "120.53.53.53#dot.pub"
+    ];
     # useHostResolvConf = true;
     hosts = {
       "127.0.0.1" = [

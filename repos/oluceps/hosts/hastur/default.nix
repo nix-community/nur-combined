@@ -23,6 +23,7 @@
       ./spec.nix
       ./matrix.nix
       ./caddy.nix
+      # ./nginx.nix
 
       ../persist.nix
       ../secureboot.nix

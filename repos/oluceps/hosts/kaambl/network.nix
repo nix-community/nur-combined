@@ -1,15 +1,30 @@
 { config, lib, ... }:
 {
-  services.resolved.enable = lib.mkForce false;
+  services.resolved = {
+    llmnr = "false";
+    dnssec = "false";
+    extraConfig = ''
+      MulticastDNS=off
+    '';
+    fallbackDns = [ "8.8.8.8#dns.google" ];
+    # dnsovertls = "true";
+  };
   networking = {
     hosts = {
       "10.0.1.2" = [
-        "attic.nyaw.xyz"
         "s3.nyaw.xyz"
+      ];
+      "10.0.2.2" = [
+        "attic.nyaw.xyz"
       ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
     };
-    resolvconf.useLocalResolver = true;
+    nameservers = [
+      "223.5.5.5#dns.alidns.com"
+      "120.53.53.53#dot.pub"
+    ];
+    # resolvconf.useLocalResolver = lib.mkForce true;
+    resolvconf.enable = false;
     firewall = {
       checkReversePath = false;
       enable = true;
@@ -137,8 +152,8 @@
           DNSOverTLS = true;
         };
         # # REALLY IMPORTANT
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
+        dhcpV4Config.UseDNS = true;
+        dhcpV6Config.UseDNS = true;
       };
 
       "30-rndis" = {

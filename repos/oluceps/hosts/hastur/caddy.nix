@@ -67,10 +67,6 @@
                     any_tag = [ "cert0" ];
                   };
                 }
-                # {
-                #   match = { sni = [ "api.s3.nyaw.xyz" ]; };
-                #   certificate_selection = { any_tag = [ "certs3" ]; };
-                # }
               ];
             };
           };
@@ -80,11 +76,6 @@
             certificate = "/run/credentials/caddy.service/nyaw.cert";
             key = "/run/credentials/caddy.service/nyaw.key";
             tags = [ "cert0" ];
-          }
-          {
-            certificate = "{env.STATE_DIRECTORY}/certificates/acme-v02.api.letsencrypt.org-directory/api.s3.nyaw.xyz/api.s3.nyaw.xyz.crt";
-            key = "{env.STATE_DIRECTORY}/certificates/acme-v02.api.letsencrypt.org-directory/api.s3.nyaw.xyz/api.s3.nyaw.xyz.key";
-            tags = [ "certs3" ];
           }
         ];
       };

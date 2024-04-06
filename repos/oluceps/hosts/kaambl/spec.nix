@@ -2,6 +2,7 @@
   pkgs,
   data,
   config,
+  lib,
   ...
 }:
 {
@@ -34,8 +35,8 @@
 
   srv = {
     openssh.enable = true;
-    mosproxy.enable = true;
     fail2ban.enable = true;
+    # coredns.enable = true;
     dae.enable = true;
   };
 
@@ -64,7 +65,7 @@
       }
     ];
     tailscale = {
-      enable = true;
+      enable = false;
       openFirewall = true;
     };
 

@@ -1,5 +1,6 @@
 { lib, config, ... }:
 {
+  services.resolved.enable = lib.mkForce false;
   networking.domain = "nyaw.xyz";
   networking = {
     resolvconf.useLocalResolver = true;
@@ -103,21 +104,25 @@
           {
             wireguardPeerConfig = {
               PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-              AllowedIPs = [ "10.0.2.2/32" ];
+              AllowedIPs = [
+                "10.0.2.2/32"
+              ];
               PersistentKeepalive = 15;
             };
           }
           {
             wireguardPeerConfig = {
               PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-              AllowedIPs = [ "10.0.2.3/32" ];
+              AllowedIPs = [
+                "10.0.2.3/32"
+              ];
               PersistentKeepalive = 15;
             };
           }
           {
             wireguardPeerConfig = {
               PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-              AllowedIPs = [ "10.0.0.0/24" ];
+              AllowedIPs = [ "10.0.0.0/16" ];
               Endpoint = "127.0.0.1:41820";
               PersistentKeepalive = 15;
             };

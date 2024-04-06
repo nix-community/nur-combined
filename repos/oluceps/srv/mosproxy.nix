@@ -11,7 +11,7 @@ in
       mem_size = 1048576;
       redis = "unix:///run/redis-mosproxy/redis.sock";
     };
-    metrics = {
+    api = {
       addr = "0.0.0.0:9092";
     };
     ecs = {
