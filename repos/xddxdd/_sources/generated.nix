@@ -125,10 +125,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.13.0-2";
+    version = "1.13.2-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.0-2/io.github.msojocs.bilibili_1.13.0-2_amd64.deb";
-      sha256 = "sha256-svTD8YZBFj0K9/3ggojiH+8cMRkCxHr/hHTC24NL2tE=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.2-1/io.github.msojocs.bilibili_1.13.2-1_amd64.deb";
+      sha256 = "sha256-yqgQNsTD4iT54LJYEbV6dk7OD7KoZvX61XERYQ4MsSA=";
     };
   };
   bird-lg-go = {
@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "cc335b9d7419c2f0a5a51bf5bbad0004f898b9df";
+    version = "f2ac1b32a9a88802cb71eb6f321128179549341f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "cc335b9d7419c2f0a5a51bf5bbad0004f898b9df";
+      rev = "f2ac1b32a9a88802cb71eb6f321128179549341f";
       fetchSubmodules = false;
-      sha256 = "sha256-XCP79cXhZ1MWdkuEjWmzJ8qOtb8dqpht2ka7qsCIXVM=";
+      sha256 = "sha256-3iplO7Vc2zKHs9zxeOgtU9rO0qeoLQ6tITfHi2AZaI0=";
     };
-    date = "2024-04-04";
+    date = "2024-04-05";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -560,15 +560,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "7a6df815bbb218e4490064a1558b09edea410576";
+    version = "32afec8fccd77a264e6104764986ce46d120f5ff";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "7a6df815bbb218e4490064a1558b09edea410576";
+      rev = "32afec8fccd77a264e6104764986ce46d120f5ff";
       fetchSubmodules = false;
-      sha256 = "sha256-+DZIaoxhhombUJCSpoU8SB+8BuDE5k9pgq8LDMHtoEA=";
+      sha256 = "sha256-XDne5dJ6y0xtWOtrwJqwp2nfJudeYZxXi1T6OkY6Fd4=";
     };
-    date = "2024-04-04";
+    date = "2024-04-05";
   };
   libqcef = {
     pname = "libqcef";
@@ -911,13 +911,13 @@
   };
   palworld-worldoptions = {
     pname = "palworld-worldoptions";
-    version = "v1.8.0";
+    version = "v1.9.0";
     src = fetchFromGitHub {
       owner = "legoduded";
       repo = "palworld-worldoptions";
-      rev = "v1.8.0";
+      rev = "v1.9.0";
       fetchSubmodules = false;
-      sha256 = "sha256-K9Ds6kQ9whrD15kP5NXTqryTYpYTdeetq5foSrEPlQ4=";
+      sha256 = "sha256-p08zBn4GpQSl5zhyR5rUHhvCw5CBND3VEI01bJvWrp8=";
     };
   };
   payload-dumper-go = {
@@ -1126,15 +1126,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "ab648212584a5e54bf72583ba729e9d82c7f4888";
+    version = "7ea7a678855aae794e922649f9fd9629e60a797a";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "ab648212584a5e54bf72583ba729e9d82c7f4888";
+      rev = "7ea7a678855aae794e922649f9fd9629e60a797a";
       fetchSubmodules = false;
-      sha256 = "sha256-n/89Os25hAJRjIwqfgmUCHigIWDOQ4V6DPIlv6xYBzk=";
+      sha256 = "sha256-ux1ZTopdAwQoZhnx8cDRjWZTiLGXJxtn177R9XNiAdc=";
     };
-    date = "2024-03-24";
+    date = "2024-04-06";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
