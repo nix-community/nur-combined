@@ -41,7 +41,6 @@ lib.makeScope newScope (
     qtcreator-bin = callPackage ./darwin/qtcreator/bin.nix { };
     qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
     sequel-ace = callPackage ./darwin/sequel-ace { };
-    sloth = callPackage ./darwin/sloth { };
     zed = callPackage ./darwin/zed { };
 
     ### DATA
