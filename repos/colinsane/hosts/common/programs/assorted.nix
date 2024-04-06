@@ -275,13 +275,24 @@ in
     dig.sandbox.net = "all";
 
     # creds, but also 200 MB of node modules, etc
+    discord.persist.byStore.private = [ ".config/discord" ];
+    discord.suggestedPrograms = [ "xwayland" ];
     discord.sandbox.method = "bwrap";
     discord.sandbox.wrapperType = "inplace";  #< /opt-style packaging
     discord.sandbox.whitelistAudio = true;
     discord.sandbox.whitelistDbus = [ "user" ];  # needed for xdg-open
     discord.sandbox.whitelistWayland = true;
+    discord.sandbox.whitelistX = true;
     discord.sandbox.net = "clearnet";
-    discord.persist.byStore.private = [ ".config/discord" ];
+    discord.sandbox.extraHomePaths = [
+      # still needs these paths despite it using the portal's file-chooser :?
+      "Pictures/cat"
+      "Pictures/Screenshots"
+      "Pictures/servo-macros"
+      "Videos/local"
+      "Videos/servo"
+      "tmp"
+    ];
 
     dtc.sandbox.method = "bwrap";
     dtc.sandbox.autodetectCliPaths = true;  # TODO:sandbox: untested
