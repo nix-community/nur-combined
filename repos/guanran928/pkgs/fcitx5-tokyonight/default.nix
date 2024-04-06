@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Fcitx5 theme using TokyoNight colorscheme";
     homepage = "https://github.com/ch3n9w/fcitx5-Tokyonight";
-    license = lib.getLicenseFromSpdxId "GPL-3.0-only";
+    license = getLicenseFromSpdxId "GPL-3.0-only";
     platforms = platforms.all;
   };
 })

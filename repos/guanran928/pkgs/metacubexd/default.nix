@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Clash.Meta Dashboard, The Official One, XD";
     homepage = "https://github.com/MetaCubeX/metacubexd";
-    license =  lib.getLicenseFromSpdxId "MIT";
+    license = getLicenseFromSpdxId "MIT";
     platforms = platforms.all;
   };
 })

@@ -33,7 +33,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed.";
     homepage = "https://telegram.org";
-    license = lib.getLicenseFromSpdxId "GPL-2.0-only";
+    license = getLicenseFromSpdxId "GPL-2.0-only";
     platforms = platforms.darwin;
   };
 }
