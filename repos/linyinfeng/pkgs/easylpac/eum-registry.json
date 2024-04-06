@@ -23,9 +23,21 @@
       { "pattern": "890330240681*", "name": "AVNET eUICC" }
     ]
   },
-  { "eum": "89034011", "country": "ES", "manufacturer": "Valid" },
-  { "eum": "89043051", "country": "AT", "manufacturer": "NXP" },
-  { "eum": "89044047", "country": "GB", "manufacturer": "Truphone" },
+  {
+    "eum": "89034011",
+    "country": "ES",
+    "manufacturer": "Valid"
+  },
+  {
+    "eum": "89043051",
+    "country": "AT",
+    "manufacturer": "NXP"
+  },
+  {
+    "eum": "89044047",
+    "country": "GB",
+    "manufacturer": "Truphone"
+  },
   {
     "eum": "89049032",
     "country": "DE",
@@ -44,7 +56,11 @@
       { "pattern": "89049032000001000000044*", "name": "Pixel 5 Series" }
     ]
   },
-  { "eum": "89049038", "country": "DE", "manufacturer": "G+D" },
+  {
+    "eum": "89049038",
+    "country": "DE",
+    "manufacturer": "G+D"
+  },
   {
     "eum": "89086001",
     "country": "CN",
