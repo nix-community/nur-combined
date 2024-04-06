@@ -1,13 +1,8 @@
 {
-  lib,
-  newScope,
-  fetchFromGitLab,
-  wlroots,
-  hwdata,
-  libdisplay-info,
+  pkgs ? import <nixpkgs> { },
 }:
 
-lib.makeScope newScope (self: {
+pkgs.lib.makeScope pkgs.newScope (self: {
   bsdutils = self.callPackage ./bsdutils { };
   cargo-aoc = self.callPackage ./cargo-aoc { };
   fastfetch = self.callPackage ./fastfetch { };
@@ -33,9 +28,9 @@ lib.makeScope newScope (self: {
   wisp = self.callPackage ./wisp { };
 
   # Backports
-  wlroots_0_17 = wlroots.overrideAttrs (prevAttrs: {
+  wlroots_0_17 = pkgs.wlroots.overrideAttrs (prevAttrs: {
     version = "0.17.2";
-    src = fetchFromGitLab {
+    src = pkgs.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
       owner = "wlroots";
       repo = "wlroots";
@@ -43,8 +38,8 @@ lib.makeScope newScope (self: {
       hash = "sha256-Of9qykyVnBURc5A2pvCMm7sLbnuuG7OPWLxodQLN2Xg=";
     };
     buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
-      hwdata
-      libdisplay-info
+      pkgs.hwdata
+      pkgs.libdisplay-info
     ];
   });
 

@@ -9,4 +9,4 @@
   pkgs ? import <nixpkgs> { },
 }:
 
-pkgs.callPackage ./packages { }
+import ./packages { inherit pkgs; }
