@@ -162,6 +162,7 @@ mkScope (
     palworld-exporter = pkg ./uncategorized/palworld-exporter { };
     palworld-worldoptions = pkg ./uncategorized/palworld-worldoptions { };
     payload-dumper-go = pkg ./uncategorized/payload-dumper-go { };
+    peerbanhelper = pkg ./uncategorized/peerbanhelper { };
     phpmyadmin = pkg ./uncategorized/phpmyadmin { };
     phppgadmin = pkg ./uncategorized/phppgadmin { };
     procps4 = pkg ./uncategorized/procps4 { };

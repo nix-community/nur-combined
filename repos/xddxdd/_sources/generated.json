@@ -1605,6 +1605,21 @@
         },
         "version": "1.2.2"
     },
+    "peerbanhelper": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "peerbanhelper",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-VNwSNFOI2PsqODUgpjVTW4aPW7DqX5IyLoLecSxlsIQ=",
+            "type": "url",
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v2.3/PeerBanHelper.jar"
+        },
+        "version": "v2.3"
+    },
     "phpmyadmin": {
         "cargoLocks": null,
         "date": null,

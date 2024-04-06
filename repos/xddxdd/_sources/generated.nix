@@ -931,6 +931,14 @@
       sha256 = "sha256-P20/Nd2YOW9A9/OkpavVRBAi/ueYp812zZvVLnwX67Y=";
     };
   };
+  peerbanhelper = {
+    pname = "peerbanhelper";
+    version = "v2.3";
+    src = fetchurl {
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v2.3/PeerBanHelper.jar";
+      sha256 = "sha256-VNwSNFOI2PsqODUgpjVTW4aPW7DqX5IyLoLecSxlsIQ=";
+    };
+  };
   phpmyadmin = {
     pname = "phpmyadmin";
     version = "5.2.1";

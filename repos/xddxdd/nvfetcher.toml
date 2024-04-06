@@ -359,6 +359,10 @@ fetch.github = "legoduded/palworld-worldoptions"
 src.github = "ssut/payload-dumper-go"
 fetch.github = "ssut/payload-dumper-go"
 
+[peerbanhelper]
+src.github = "Ghost-chu/PeerBanHelper"
+fetch.url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/$ver/PeerBanHelper.jar"
+
 [phpmyadmin]
 src.github_tag = "phpmyadmin/phpmyadmin"
 src.include_regex = "RELEASE_([0-9_]*)"
