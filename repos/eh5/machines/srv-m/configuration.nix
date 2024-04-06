@@ -103,7 +103,6 @@ in
     lsof
     nftables
     screen
-    v2ray-next
   ] ++ (with config.boot.kernelPackages; [
     cpupower
   ]);
