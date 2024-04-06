@@ -90,7 +90,6 @@ $ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.netease-c
 | stalwart-imap         | Stalwart IMAP server (imap-to-jmap proxy)                  | \*            |
 | stalwart-jmap         | Stalwart JMAP server                                       | \*            |
 | ubootNanopiR2s        | U-Boot images for NanoPi R2S                               | aarch64-linux |
-| v2ray-next            | V2Ray v5                                                   | \*            |
 
 ### Extra
 
@@ -112,7 +111,6 @@ Adds all base packages listed above.
 | mosdns                  | mosdns service                                                             | `services.mosdns.*`            |
 | stalwart-jmap           | Stalwart JMAP server                                                       | `services.stalwart-jmap.*`     |
 | system-tarball-extlinux | `config.system.build.tarball` for systems using EXTLINUX style boot loader | `system.enableExtlinuxTarball` |
-| v2ray-next              | V2Ray v5 service                                                           | `services.v2ray-next.*`        |
 | v2ray-rules-dat         | Auto update V2Ray rules dat                                                | `services.v2ray-rules-dat.*`   |
 | default                 | Imports all above modules                                                  |                                |
 

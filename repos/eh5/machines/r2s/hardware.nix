@@ -54,7 +54,7 @@
     initrd = {
       includeDefaultModules = false;
     };
-    blacklistedKernelModules = [ "hantro_vpu" "drm" "lima" "videodev" ];
+    blacklistedKernelModules = [ "hantro_vpu" "drm" "lima" "rockchip_vdec" ];
     tmp.useTmpfs = true;
   };
 

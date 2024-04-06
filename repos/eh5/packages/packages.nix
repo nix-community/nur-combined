@@ -9,6 +9,7 @@ let
 
   self_base = {
     dovecot-fts-flatcurve = callPackage ./dovecot-fts-flatcurve { };
+    einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
     libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
     mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo121Module; };
@@ -18,9 +19,8 @@ let
     nftables-fullcone = callPackage ./nftables-fullcone { };
     nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
     qcef = callPackage ./qcef { };
-    udpspeeder = callPackage ./udpspeeder {};
+    udpspeeder = callPackage ./udpspeeder { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
-    v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo121Module; };
     vlmcsd = callPackage ./vlmcsd { };
   };
 

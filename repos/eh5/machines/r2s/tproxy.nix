@@ -23,7 +23,7 @@ in
 
   systemd.services.sing-box = {
     serviceConfig = {
-      CPUWeight = "90%";
+      CPUQuota = "90%";
       SupplementaryGroups = [ config.users.groups.direct-net.name ];
     };
   };

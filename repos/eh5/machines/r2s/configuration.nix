@@ -74,6 +74,7 @@
     file
     htop
     iperf
+    libgpiod
     lm_sensors
     lsof
     mtr

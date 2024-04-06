@@ -31,14 +31,6 @@ in
   };
   security.dhparams.enable = true;
 
-  # V2Ray
-  services.v2ray-next = {
-    enable = false;
-    useV5Format = true;
-    configFile = secrets."v2ray.v5.json".path;
-  };
-  # systemd.services.v2ray-next.requires = [ "acme-finished-${certName}.target" ];
-
   # sing-box
   services.sing-box = {
     enable = true;
