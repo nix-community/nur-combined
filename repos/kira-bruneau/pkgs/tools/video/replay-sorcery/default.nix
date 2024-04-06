@@ -14,14 +14,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "replay-sorcery";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "matanui159";
     repo = "ReplaySorcery";
     rev = "refs/tags/${finalAttrs.version}";
     fetchSubmodules = true;
-    sha256 = "sha256-HPkSOwfwcg4jLUzKfqdXgLu7mgD5H4wb9d2BrqWQeHc=";
+    hash = "sha256-MxsEoWA+NArkaOeMg2birOWxzrZaNNoxoSoNHRGT094=";
   };
 
   patches = [
@@ -45,12 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional pulseaudioSupport libpulseaudio;
 
   cmakeFlags = [
-    "-DRS_SYSTEMD_DIR=${placeholder "out"}/lib/systemd/user"
-
-    # SETUID & SETGID permissions required for hardware accelerated
-    # video capture can't be set during the build. Use the NixOS
-    # module if you want hardware accelerated video capture.
-    "-DRS_SETID=OFF"
+    "-DRS_SYSTEMD_DIR=${placeholder "out"}/lib/systemd"
   ];
 
   passthru.updateScript = nix-update-script { };

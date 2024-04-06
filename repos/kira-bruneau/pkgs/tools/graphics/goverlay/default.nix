@@ -39,13 +39,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "goverlay";
-  version = "0.7.1";
+  version = "1.10";
 
   src = fetchFromGitHub {
     owner = "benjamimgois";
     repo = "goverlay";
     rev = "refs/tags/${finalAttrs.version}";
-    sha256 = "sha256-oXkGrMHjs8uui0pzGYW8jnttet/5IX0r8eat0n5saFk=";
+    sha256 = "sha256-GzybO+CrTRrQ/STYnJDl+8LbonErd6tniRGivbxTZEc=";
   };
 
   outputs = [ "out" "man" ];
