@@ -50,10 +50,7 @@
       { "pattern": "890490320060088826*", "chip": "ST33J2M0STL9DZB0", "name": "Apple, 2020" },
       { "pattern": "890490320070088826*", "chip": "ST33J2M0STL9DZD0", "name": "Apple, 2021" },
       { "pattern": "890490320071088800*", "chip": "ST33J2M0STL9DZF2", "name": "Apple, 2022" },
-      { "pattern": "890490320072088889*", "chip": "ST33J2M0STL9DZH2", "name": "Apple, 2023" },
-      { "pattern": "89049032000001000000002*", "name": "Pixel 2 Series" },
-      { "pattern": "89049032000001000000035*", "name": "Pixel 4 Series" },
-      { "pattern": "89049032000001000000044*", "name": "Pixel 5 Series" }
+      { "pattern": "890490320072088889*", "chip": "ST33J2M0STL9DZH2", "name": "Apple, 2023" }
     ]
   },
   {
@@ -85,11 +82,5 @@
       { "pattern": "89086030202200000022281675*", "name": "eSIM.me" },
       { "pattern": "89086030202200000023100930*", "name": "5ber.eSIM" }
     ]
-  },
-  {
-    "eum": "89086034",
-    "country": "CN",
-    "manufacturer": "<unknown>",
-    "products": [{ "pattern": "89086034202200001021*", "name": "CUCC VN007+" }]
   }
 ]
