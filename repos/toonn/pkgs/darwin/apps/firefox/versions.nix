@@ -1,7 +1,11 @@
 { lib }:
 # To update run:
 # nix-prefetch-url --name 'firefox-app-<version>.dmg' 'https://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US'
-let versions = builtins.mapAttrs (n: v: v // { "version" = n; }) {
+let inherit (builtins) attrNames compareVersions mapAttrs;
+    inherit (lib) recursiveUpdate;
+    inherit (lib.lists) foldr;
+    addVersion = mapAttrs (n: v: v // { "version" = n; });
+    versions = addVersion {
       "86.0" = {
         sha256 = "04jslsfg073xb965hvbm7vdrdymkaiyyrgclv9qdpcyplis82rxc";
       };
@@ -236,15 +240,29 @@ let versions = builtins.mapAttrs (n: v: v // { "version" = n; }) {
       "115.0.3" = {
         sha256 = "18rzwzb7xcdssggjzl711cqfw81xn7h018jnsym2qdcm1xnn3cln";
       };
+      # No longer supported on macOS 10.14 and below
       "116.0" = {
         sha256 = "1gs0adfb3lqmx4vy3388r1fck0lnb1pkzd452w9dqz3378mb3g59";
       };
-    };
-    latestVersion = lib.lists.foldr (v: lV:
-                                      if builtins.compareVersions v lV == 1
-                                      then v
-                                      else lV
-                                    )
-                                    "86.0"
-                                    (builtins.attrNames versions);
-in versions // { "latest" = versions."${latestVersion}"; }
+    } // { esr = addVersion {
+             # Security updates until September 2024
+             "115.1.0esr" = {
+               sha256 = "1v4wlg5cind0kqkxzakqa6d1gian2yjaxmk1vrw6nwl7zcc1aj7h";
+             };
+             "115.2.0esr" = {
+               sha256 = "0qcbjqqppgw547xcawdcddbg1jl7si327av6xlniqf4dhmq48yq2";
+             };
+           };
+         };
+    latestVersion = versions: default: foldr (v: lV:
+                                               if compareVersions v lV == 1
+                                               then v
+                                               else lV
+                                             )
+                                             default
+                                             (attrNames versions);
+in recursiveUpdate
+     versions
+     { "latest" = versions."${latestVersion versions "86.0"}";
+       esr."latest" = versions.esr."${latestVersion versions.esr "115.1.0esr"}";
+     }
