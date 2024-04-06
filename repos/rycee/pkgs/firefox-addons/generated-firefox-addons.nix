@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildFirefoxXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.6.4";
+      version = "1.7.0";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251878/2fas_two_factor_authentication-1.6.4.xpi";
-      sha256 = "5f0f45a9804f00b6d905911ed61549ff8c32b7037f0c0d3ac5b2ad943968ed1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4260315/2fas_two_factor_authentication-1.7.0.xpi";
+      sha256 = "86587973a8aaf87de496540ee1d2e216a3f267ddcb1c0cce1596915a3f88f209";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -42,6 +42,7 @@
           "storage"
           "notifications"
           "contextMenus"
+          "webNavigation"
           "https://*.2fas.com/*"
           "wss://*.2fas.com/*"
           "https://*/*"
@@ -1740,10 +1741,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240403.91602";
+      version = "125.0.20240405.130120";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259369/deutsch_de_language_pack-125.0.20240403.91602.xpi";
-      sha256 = "5064f2c593601659cff66489a2017aafb50dc44f026ba1fbb00f48956d39b940";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4260597/deutsch_de_language_pack-125.0.20240405.130120.xpi";
+      sha256 = "5f3dcccb27fc84080ef8230b79b18ad2baadc4e553d0f20cde5d92b2c7d33c83";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2244,10 +2245,10 @@
     };
     "fastforwardteam" = buildFirefoxXpiAddon {
       pname = "fastforwardteam";
-      version = "0.2334";
+      version = "0.2383";
       addonId = "addon@fastforward.team";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4177101/fastforwardteam-0.2334.xpi";
-      sha256 = "d790219622469f08316b41c0d01abf2b584a37fa87b45666a74bd30cffb95ed0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4258067/fastforwardteam-0.2383.xpi";
+      sha256 = "eec6328df3df1afe2cb6a331f6907669d804235551ea766d48655f8f831caf28";
       meta = with lib;
       {
         homepage = "https://fastforward.team";
@@ -2680,10 +2681,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240403.91602";
+      version = "125.0.20240405.130120";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259413/francais_language_pack-125.0.20240403.91602.xpi";
-      sha256 = "994d39853b1c0df22ba0a8db145b4d3412f8da8f4979abfaee288460e134cff4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4260605/francais_language_pack-125.0.20240405.130120.xpi";
+      sha256 = "30980bd8d75bb6e8e5f9bae8a2776111f31af6a649cf43a4b4cb1ca7e2c5800a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4557,10 +4558,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.3.4";
+      version = "1.4.6";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4254007/immersive_translate-1.3.4.xpi";
-      sha256 = "3da486cd345a8a8c061338e9d33a3b78ac6cf6d9a77c00680bbfdfcc67b82e9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259896/immersive_translate-1.4.6.xpi";
+      sha256 = "6ce27cde1df9b798d339d383e32f0bf038074270abaa17c8d5f94002aa3a79e4";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7095,10 +7096,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.12.3";
+      version = "7.12.4";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259331/octotree-7.12.3.xpi";
-      sha256 = "3b357d06c85068fb8550e86700849ff8ad688a73d186e02232de8a8293c5e61a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4260281/octotree-7.12.4.xpi";
+      sha256 = "9eaf12e264c4be7950eaf7d18339f3d009a94d79f1354f51905a6048affbcb2a";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
