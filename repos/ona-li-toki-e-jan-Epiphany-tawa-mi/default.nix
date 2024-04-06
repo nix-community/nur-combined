@@ -9,10 +9,10 @@
 { pkgs ? import <nixpkgs> { } }:
 
 {
-  #lib      = import ./lib { inherit pkgs; };        # Functions
-  #modules  = import ./modules;                      # NixOS modules
-  #overlays = import ./overlays;                     # nixpkgs overlays
-  hmModules = import ./hm-modules { inherit pkgs; }; # Home Manager modules.
+  #lib      = import ./lib { inherit pkgs; };  # Functions
+  #modules  = import ./modules;                # NixOS modules
+  #overlays = import ./overlays;               # nixpkgs overlays
+  hmModules = import ./hm-modules;            # Home Manager modules.
 
   # My software.
   netcatchat       = pkgs.callPackage ./pkgs/netcatchat {};
