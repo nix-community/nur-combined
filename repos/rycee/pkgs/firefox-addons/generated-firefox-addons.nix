@@ -66,6 +66,32 @@
         platforms = platforms.all;
       };
     };
+    "adblocker-ultimate" = buildFirefoxXpiAddon {
+      pname = "adblocker-ultimate";
+      version = "3.8.21";
+      addonId = "adblockultimate@adblockultimate.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4236795/adblocker_ultimate-3.8.21.xpi";
+      sha256 = "6de30ea68d966d6fb6c388aa6bbe8ea6c16c7f0a7d6339ea00c50e3e4999ce89";
+      meta = with lib;
+      {
+        homepage = "https://adblockultimate.net";
+        description = "Completely remove ALL ads. No “acceptable” ads or whitelisted advertisers allowed. This free extensions also helps block trackers and malware.";
+        license = licenses.lgpl3;
+        mozPermissions = [
+          "tabs"
+          "<all_urls>"
+          "webRequest"
+          "webRequestBlocking"
+          "webNavigation"
+          "storage"
+          "unlimitedStorage"
+          "contextMenus"
+          "http://*/*"
+          "https://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "add-custom-search-engine" = buildFirefoxXpiAddon {
       pname = "add-custom-search-engine";
       version = "4.2";
@@ -468,6 +494,21 @@
           "*://store.steampowered.com/"
           "*://store.steampowered.com/?*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "auto-sort-bookmarks" = buildFirefoxXpiAddon {
+      pname = "auto-sort-bookmarks";
+      version = "3.4.5";
+      addonId = "sortbookmarks@bouanto";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3948412/auto_sort_bookmarks-3.4.5.xpi";
+      sha256 = "8cbeb04f2c46dcd28a6762c7a4ebd617124a8b1854a94fec15af37fd247b86fd";
+      meta = with lib;
+      {
+        homepage = "https://github.com/eric-bixby/auto-sort-bookmarks-webext";
+        description = "Sort bookmarks by multiple criteria";
+        license = licenses.gpl3;
+        mozPermissions = [ "bookmarks" "downloads" "history" "storage" "tabs" ];
         platforms = platforms.all;
       };
     };
@@ -5004,6 +5045,30 @@
         platforms = platforms.all;
       };
     };
+    "javascript-restrictor" = buildFirefoxXpiAddon {
+      pname = "javascript-restrictor";
+      version = "0.17";
+      addonId = "jsr@javascriptrestrictor";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190089/javascript_restrictor-0.17.xpi";
+      sha256 = "e6b62983b1854176622b3c16d31e97395e6dc353507fa1831718b1200bbdad81";
+      meta = with lib;
+      {
+        homepage = "https://jshelter.org";
+        description = "JShelter controls the APIs provided by the browser. The goal is to improve the privacy and security of the user running the extension.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "tabs"
+          "webRequest"
+          "webRequestBlocking"
+          "webNavigation"
+          "dns"
+          "<all_urls>"
+          "notifications"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "joplin-web-clipper" = buildFirefoxXpiAddon {
       pname = "joplin-web-clipper";
       version = "2.11.2";
@@ -7582,6 +7647,21 @@
         description = "Unofficial Firefox add-on for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/9195797232dc4f996eff7bc68a67ac5b906f828efd0d0ebded52b3b4ef47556d/http%3A//Pinboard.in\" rel=\"nofollow\">Pinboard.in</a>. Bookmark web pages &amp; add notes easily. Keyboard command: Alt + p";
         license = licenses.mpl20;
         mozPermissions = [ "activeTab" "menus" ];
+        platforms = platforms.all;
+      };
+    };
+    "pipewire-screenaudio" = buildFirefoxXpiAddon {
+      pname = "pipewire-screenaudio";
+      version = "0.3.4";
+      addonId = "pipewire-screenaudio@icenjim";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4186504/pipewire_screenaudio-0.3.4.xpi";
+      sha256 = "a74714514f490b6d5c36e32b88510ae3e5e7f1afdcb29c2041a836d3aa484cbe";
+      meta = with lib;
+      {
+        homepage = "https://github.com/IceDBorn/pipewire-screenaudio";
+        description = "Passthrough pipewire audio to WebRTC screenshare";
+        license = licenses.gpl3;
+        mozPermissions = [ "nativeMessaging" "<all_urls>" ];
         platforms = platforms.all;
       };
     };

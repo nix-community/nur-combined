@@ -20,6 +20,9 @@
     "slug": "a11ycss"
   },
   {
+    "slug": "adblocker-ultimate"
+  },
+  {
     "slug": "add-custom-search-engine"
   },
   {
@@ -51,6 +54,9 @@
   },
   {
     "slug": "augmented-steam"
+  },
+  {
+    "slug": "auto-sort-bookmarks"
   },
   {
     "slug": "auto-tab-discard"
@@ -589,6 +595,9 @@
     }
   },
   {
+    "slug": "javascript-restrictor"
+  },
+  {
     "slug": "joplin-web-clipper"
   },
   {
@@ -921,6 +930,9 @@
   },
   {
     "slug": "pinboard"
+  },
+  {
+    "slug": "pipewire-screenaudio"
   },
   {
     "slug": "plasma-integration"
