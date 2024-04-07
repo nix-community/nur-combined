@@ -37,7 +37,10 @@ jobs:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
           # - nixpkgs=channel:nixos-23.11
-    runs-on: ubuntu-latest
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
