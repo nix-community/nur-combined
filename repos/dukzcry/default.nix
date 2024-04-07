@@ -44,5 +44,4 @@ rec {
   sunshine = callPackage ./pkgs/sunshine {};
   ydcmd = callPackage ./pkgs/ydcmd.nix {};
   modplay = callPackage ./pkgs/modplay.nix {};
-  sunpaper = callPackage ./pkgs/sunpaper.nix {};
 }
