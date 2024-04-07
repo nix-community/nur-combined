@@ -1,0 +1,55 @@
+From fece6d2606c41c190c07e9c423e09d929b6532c5 Mon Sep 17 00:00:00 2001
+From: Adam Woods <squirmy.dev@gmail.com>
+Date: Sun, 7 Apr 2024 13:15:09 +1000
+Subject: [PATCH] patch: dependencies
+
+Issues:
+  1. The package URL for mxcl was missing the `.git` extension
+  2. The version of Spectre does not work with the version of XCTest in
+     `swiftPackages.XCTest`
+
+Co-authored-by: Zhenbo Li <lizhenbo@yahoo.com>
+---
+ Package.resolved | 6 +++---
+ Package.swift    | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Package.resolved b/Package.resolved
+index 3ae8a3da..84addf97 100644
+--- a/Package.resolved
++++ b/Package.resolved
+@@ -57,10 +57,10 @@
+     {
+       "identity" : "spectre",
+       "kind" : "remoteSourceControl",
+-      "location" : "https://github.com/kylef/Spectre.git",
++      "location" : "https://github.com/endle/Spectre.git",
+       "state" : {
+-        "revision" : "26cc5e9ae0947092c7139ef7ba612e34646086c7",
+-        "version" : "0.10.1"
++        "revision" : "6330ee3073bfd6567573414698ffe675415e0ec2",
++        "version" : "0.10.2"
+       }
+     },
+     {
+diff --git a/Package.swift b/Package.swift
+index 47483494..f1a5fbf8 100644
+--- a/Package.swift
++++ b/Package.swift
+@@ -14,11 +14,11 @@ let package = Package(
+         .package(url: "https://github.com/kylef/PathKit.git", from: "1.0.1"),
+         .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.0"),
+         .package(url: "https://github.com/yonaskolb/JSONUtilities.git", from: "4.2.0"),
+-        .package(url: "https://github.com/kylef/Spectre.git", from: "0.9.2"),
++        .package(url: "https://github.com/endle/Spectre.git", from: "0.10.2"),
+         .package(url: "https://github.com/onevcat/Rainbow.git", from: "4.0.0"),
+         .package(url: "https://github.com/tuist/XcodeProj.git", exact: "8.13.0"),
+         .package(url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.3"),
+-        .package(url: "https://github.com/mxcl/Version", from: "2.0.0"),
++        .package(url: "https://github.com/mxcl/Version.git", from: "2.0.0"),
+         .package(url: "https://github.com/SwiftDocOrg/GraphViz.git", exact: "0.2.0"),
+         .package(url: "https://github.com/freddi-kit/ArtifactBundleGen", exact: "0.0.6")
+     ],
+-- 
+2.44.0
+
