@@ -6,9 +6,12 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
-  sway-lone-titlebar-unwrapped = (pkgs.sway-unwrapped.overrideAttrs (
+  sway-lone-titlebar-unwrapped =
+    (pkgs.sway-unwrapped.overrideAttrs (
       finalAttrs: previousAttrs: {
         src = pkgs.fetchFromGitHub {
           owner = "svalaskevicius";
@@ -31,35 +34,30 @@ let
           patches = [ ];
         };
       };
-in {
+  osgqt = pkgs.libsForQt5.callPackage ./pkgs/osgqt { };
+  qgv = pkgs.libsForQt5.callPackage ./pkgs/qgv { };
+in
+{
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  gruppled-black-cursors = pkgs.callPackage ./pkgs/gruppled-cursors {
-    theme = "gruppled_black";
-  };
+  inherit osgqt qgv;
+
+  gepetto-viewer = pkgs.libsForQt5.callPackage ./pkgs/gepetto-viewer { inherit osgqt qgv; };
+  gruppled-black-cursors = pkgs.callPackage ./pkgs/gruppled-cursors { theme = "gruppled_black"; };
   gruppled-black-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors {
     theme = "gruppled_black_lite";
   };
-  gruppled-white-cursors = pkgs.callPackage ./pkgs/gruppled-cursors {
-    theme = "gruppled_white";
-  };
+  gruppled-white-cursors = pkgs.callPackage ./pkgs/gruppled-cursors { theme = "gruppled_white"; };
   gruppled-white-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors {
     theme = "gruppled_white_lite";
   };
   ndcurves = pkgs.callPackage ./pkgs/ndcurves { };
-  osgqt = pkgs.libsForQt5.callPackage ./pkgs/osgqt { };
-  omniorb = pkgs.omniorb.overrideAttrs (finalAttrs: previousAttrs: {
-    postInstall = "rm $out/${pkgs.python3.sitePackages}/omniidl_be/__init__.py";
-  });
-  py-ndcurves = pkgs.python3Packages.toPythonModule (pkgs.callPackage ./pkgs/ndcurves {
-    pythonSupport = true;
-  });
-  py-omniorbpy = pkgs.python3Packages.toPythonModule (pkgs.callPackage ./pkgs/omniorbpy {
-    inherit (pkgs) python3Packages;
-  });
+  py-ndcurves = pkgs.python3Packages.toPythonModule (
+    pkgs.callPackage ./pkgs/ndcurves { pythonSupport = true; }
+  );
   qpoases = pkgs.callPackage ./pkgs/qpoases { };
   sauce-code-pro = pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; };
   sway-lone-titlebar = pkgs.sway.override { sway-unwrapped = sway-lone-titlebar-unwrapped; };
