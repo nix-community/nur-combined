@@ -22,10 +22,8 @@
   };
   srv = {
     openssh.enable = true;
-    # mosdns .enable= true;
     fail2ban.enable = true;
     dae.enable = true;
-    mosproxy.enable = true;
   };
 
   services = {

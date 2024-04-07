@@ -8,6 +8,11 @@
   ...
 }:
 {
+
+  systemd.sysusers.enable = true;
+  system.etc.overlay.enable = true;
+  system.etc.overlay.mutable = false;
+
   systemd.services.nix-daemon = {
     serviceConfig = {
       LimitNOFILE = lib.mkForce 500000000;
@@ -45,7 +50,7 @@
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
+        # "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
         "nur-pkgs.cachix.org-1:PAvPHVwmEBklQPwyNZfy4VQqQjzVIaFOkYYnmnKco78="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
@@ -69,7 +74,7 @@
         ])
         ++ [
           "https://cache.nixos.org"
-          "https://cache.ngi0.nixos.org"
+          # "https://cache.ngi0.nixos.org"
           # "https://mirror.sjtu.edu.cn/nix-channels/store"
         ];
       auto-optimise-store = true;
@@ -104,7 +109,7 @@
     '';
   };
 
-  time.timeZone = "Asia/Singapore";
+  # time.timeZone = "Asia/Singapore";
 
   console = {
     # font = "LatArCyrHeb-16";

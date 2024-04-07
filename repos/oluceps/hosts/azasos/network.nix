@@ -1,8 +1,21 @@
 { lib, config, ... }:
 {
-  services.resolved.enable = lib.mkForce false;
+
+  services.resolved = {
+    llmnr = "false";
+    dnssec = "false";
+    extraConfig = ''
+      MulticastDNS=off
+    '';
+    fallbackDns = [ "8.8.8.8#dns.google" ];
+    # dnsovertls = "true";
+  };
   networking.domain = "nyaw.xyz";
   networking = {
+    nameservers = [
+      "223.5.5.5#dns.alidns.com"
+      "120.53.53.53#dot.pub"
+    ];
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
@@ -104,18 +117,14 @@
           {
             wireguardPeerConfig = {
               PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-              AllowedIPs = [
-                "10.0.2.2/32"
-              ];
+              AllowedIPs = [ "10.0.2.2/32" ];
               PersistentKeepalive = 15;
             };
           }
           {
             wireguardPeerConfig = {
               PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-              AllowedIPs = [
-                "10.0.2.3/32"
-              ];
+              AllowedIPs = [ "10.0.2.3/32" ];
               PersistentKeepalive = 15;
             };
           }
@@ -142,6 +151,16 @@
           IPMasquerade = "ipv4";
           IPForward = true;
         };
+
+        # routes = [
+        #   {
+        #     routeConfig = {
+        #       Destination = "192.168.1.0/24";
+        #       Gateway = "10.0.2.8";
+        #       Scope = "link";
+        #     };
+        #   }
+        # ];
       };
 
       "20-wired" = {

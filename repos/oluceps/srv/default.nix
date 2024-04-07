@@ -6,7 +6,7 @@ let
 
   allSrvPathNoSuffix = map (removeSuffix ".nix") allSrvPath;
 
-  existSrvOpt = filter (n: builtins.hasAttr n args.config.services) allSrvPathNoSuffix;
+  existSrvOpt = filter (n: args.config.services ? ${n}) allSrvPathNoSuffix;
 in
 {
   options.srv = genAttrs allSrvPathNoSuffix (sn: {

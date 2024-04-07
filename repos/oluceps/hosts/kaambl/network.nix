@@ -11,12 +11,8 @@
   };
   networking = {
     hosts = {
-      "10.0.1.2" = [
-        "s3.nyaw.xyz"
-      ];
-      "10.0.2.2" = [
-        "attic.nyaw.xyz"
-      ];
+      "10.0.1.2" = [ "s3.nyaw.xyz" ];
+      "10.0.2.2" = [ "attic.nyaw.xyz" ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
     };
     nameservers = [
@@ -139,6 +135,15 @@
           "10.0.2.3/24"
         ];
         DHCP = "no";
+        routes = [
+          {
+            routeConfig = {
+              Destination = "192.168.1.0/24";
+              Gateway = "10.0.2.3";
+              Scope = "link";
+            };
+          }
+        ];
       };
 
       "20-wireless" = {
