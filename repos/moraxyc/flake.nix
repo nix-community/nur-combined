@@ -70,9 +70,8 @@
               KEY_FLAG=""
               [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
               [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-              export PATH=${pkgs.nix-prefetch-scripts}/bin:$PATH
-              ${inputs.nvfetcher.packages."${system}".default}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
-              ${readme}
+              export PYTHONPATH=${pkgs.python3Packages.packaging}/lib/python${pkgs.python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
+              ${inputs.nvfetcher.packages.default}/bin/nvfetcher $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
             '';
 
             nur-check = ''
@@ -85,12 +84,6 @@
               bin/nur eval "$FLAKEDIR"
               cd "$FLAKEDIR"
               rm -rf "$TMPDIR"
-            '';
-
-            readme = ''
-              set -euo pipefail
-              nix build .#_meta.readme
-              cat result > README.md
             '';
 
             trace = ''
@@ -108,7 +101,6 @@
               ${py}/bin/python3 pkgs/nvidia-grid/update.py
               ${py}/bin/python3 pkgs/openj9-ibm-semeru/update.py
               ${py}/bin/python3 pkgs/openjdk-adoptium/update.py
-              ${readme}
             '';
           };
       in rec {

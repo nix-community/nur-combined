@@ -45,13 +45,15 @@ jobs:
           platforms: all
 
       - name: Install nix
-        uses: cachix/install-nix-action@v25
+        uses: cachix/install-nix-action@v26
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
+            keep-going = true
+            log-lines = 25
 
       - name: Setup cachix
         uses: cachix/cachix-action@v14
@@ -76,8 +78,12 @@ jobs:
 
       - name: Build nix packages
         run: |
-          nix flake update
           env TMPDIR=/nix/tmpdir nix run .#ci -- ${{ matrix.system }}
+
+      - name: Commit back to repository
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'auto: update package hashes'
 
   test-nur-eval:
     strategy:
@@ -99,7 +105,7 @@ jobs:
           image: tonistiigi/binfmt:latest
           platforms: all
       - name: Install nix
-        uses: cachix/install-nix-action@v25
+        uses: cachix/install-nix-action@v26
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -110,11 +116,11 @@ jobs:
         run: |
           nix run .#nur-check
 
-          #  update-nur:
-          #    runs-on: ubuntu-latest
-          #    needs:
-          #      - build-packages
-          #      - test-nur-eval
-          #    steps:
-          #      - name: Trigger NUR update
-          #        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=moraxyc"
+  # update-nur:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - build-packages
+  #     - test-nur-eval
+  #   steps:
+  #     - name: Trigger NUR update
+  #       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=moraxyc"
