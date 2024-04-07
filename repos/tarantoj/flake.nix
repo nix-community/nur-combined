@@ -18,7 +18,10 @@
   in {
     legacyPackages = forAllSystems (system:
       import ./default.nix {
-        pkgs = import nixpkgs {inherit system;};
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {allowUnfree = true;};
+        };
       });
     packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
   };
