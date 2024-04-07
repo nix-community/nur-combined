@@ -4,16 +4,17 @@ let
   inherit (pkgs) lib cabextract writeShellScriptBin;
   inherit (lib) makeBinPath;
 in
-{ is64bits ? false
-, wine ? if is64bits then pkgs.wineWowPackages.stable else pkgs.wine
-, wineFlags ? ""
-, executable
-, chdir ? null
-, name
-, tricks ? [ ]
-, setupScript ? ""
-, firstrunScript ? ""
-, home ? ""
+{
+  is64bits ? false,
+  wine ? if is64bits then pkgs.wineWowPackages.stable else pkgs.wine,
+  wineFlags ? "",
+  executable,
+  chdir ? null,
+  name,
+  tricks ? [ ],
+  setupScript ? "",
+  firstrunScript ? "",
+  home ? "",
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
@@ -24,14 +25,8 @@ let
   WINENIX_PROFILES = "$HOME/WINENIX_PROFILES";
   PATH = makeBinPath requiredPackages;
   NAME = name;
-  HOME =
-    if home == ""
-    then "${WINENIX_PROFILES}/${name}"
-    else home;
-  WINEARCH =
-    if is64bits
-    then "win64"
-    else "win32";
+  HOME = if home == "" then "${WINENIX_PROFILES}/${name}" else home;
+  WINEARCH = if is64bits then "win64" else "win32";
   setupHook = ''
     ${wine}/bin/wineboot
   '';
@@ -48,7 +43,8 @@ let
         '';
       in
       tricksCmd
-    else "";
+    else
+      "";
   script = writeShellScriptBin name ''
     export APP_NAME="${NAME}"
     export WINEARCH=${WINEARCH}
@@ -71,9 +67,7 @@ let
       ln -s "$HOME" "$WINEPREFIX/drive_c/users/$USER"
       ${firstrunScript}
     fi
-    ${if chdir != null 
-      then ''cd "${chdir}"'' 
-      else ""}
+    ${if chdir != null then ''cd "${chdir}"'' else ""}
     if [ ! "$REPL" == "" ]; # if $REPL is setup then start a shell in the context
     then
       bash

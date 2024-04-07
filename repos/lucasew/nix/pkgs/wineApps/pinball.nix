@@ -1,4 +1,12 @@
-{ wine, wrapWine, makeDesktopItem, fetchurl, unrar, symlinkJoin, ... }:
+{
+  wine,
+  wrapWine,
+  makeDesktopItem,
+  fetchurl,
+  unrar,
+  symlinkJoin,
+  ...
+}:
 # FIXME: Can't hear that lovely music and the sound effects
 let
   wine = wine.override {
@@ -20,17 +28,18 @@ let
       popd
     '';
   };
-desktop = makeDesktopItem {
-  name = "Pinball";
-  desktopName = "Pinbal - Space Cadet";
-  icon = fetchurl {
-    url = "https://www.chip.de/ii/1/8/8/0/2/9/2/3/028c4582789e6c07.jpg";
-    sha256 = "1lwsnsp4hxwqwprjidgmxksaz13ib98w34r6nxkhcip1z0bk1ilz";
+  desktop = makeDesktopItem {
+    name = "Pinball";
+    desktopName = "Pinbal - Space Cadet";
+    icon = fetchurl {
+      url = "https://www.chip.de/ii/1/8/8/0/2/9/2/3/028c4582789e6c07.jpg";
+      sha256 = "1lwsnsp4hxwqwprjidgmxksaz13ib98w34r6nxkhcip1z0bk1ilz";
+    };
+    type = "Application";
+    exec = "${bin}/bin/pinball";
   };
-  type = "Application";
-  exec = "${bin}/bin/pinball";
-};
-in symlinkJoin {
+in
+symlinkJoin {
   name = "pinball-app";
   paths = [
     bin

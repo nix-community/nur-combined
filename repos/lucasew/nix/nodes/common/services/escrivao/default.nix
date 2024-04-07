@@ -1,8 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.services.escrivao;
-  python = pkgs.python3.withPackages (p: [p.python-telegram-bot]);
+  python = pkgs.python3.withPackages (p: [ p.python-telegram-bot ]);
 in
 
 {
@@ -29,7 +34,7 @@ in
         isSystemUser = true;
         group = cfg.user;
       };
-      groups.${cfg.user} = {};
+      groups.${cfg.user} = { };
     };
     systemd.services.escrivao = {
       description = "Transcreve áudios no Telegram";

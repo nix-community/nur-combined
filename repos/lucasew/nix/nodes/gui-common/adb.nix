@@ -1,7 +1,8 @@
-{pkgs, global, ...}:
+{ pkgs, global, ... }:
 let
   inherit (global) username;
-in {
+in
+{
   users.users.${username}.extraGroups = [ "adbusers" ];
 
   programs.adb.enable = true;
@@ -9,5 +10,4 @@ in {
     gnome3.gnome-settings-daemon
     android-udev-rules
   ];
-
 }

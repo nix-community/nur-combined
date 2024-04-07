@@ -1,48 +1,55 @@
-{ stdenv
-, lib
-, cmake
-, colmap
-, ffmpeg
-, cudatoolkit
-, zlib
-, gnumake
-, fetchFromGitHub
-, runCommand
-, cacert
-, fetchgit
-, addOpenGLRunpath
-, python3Packages
-, makeWrapper
-, git
-, xorg
-, pkg-config
-, libGL
-, vulkan-headers
-, vulkan-loader
-, glew
-, glslang
-, autoPatchelfHook
-, ninja
+{
+  stdenv,
+  lib,
+  cmake,
+  colmap,
+  ffmpeg,
+  cudatoolkit,
+  zlib,
+  gnumake,
+  fetchFromGitHub,
+  runCommand,
+  cacert,
+  fetchgit,
+  addOpenGLRunpath,
+  python3Packages,
+  makeWrapper,
+  git,
+  xorg,
+  pkg-config,
+  libGL,
+  vulkan-headers,
+  vulkan-loader,
+  glew,
+  glslang,
+  autoPatchelfHook,
+  ninja,
 }:
 
 stdenv.mkDerivation {
   pname = "instantngp";
   version = "2023.04.14-unstable";
 
-  src = runCommand "source-instantngp" {
-    nativeBuildInputs = [ git cacert ];
-    outputHashMode = "recursive";
-    outputHashAlgo = "sha256";
-    outputHash = "sha256-QfRjkuf6rrjihmulLX8BbJrerbsySHGk2jVbgHRGXIA=";
-    rev = "8ff8075153102567de1c2e659dafa914348e320a";
-    repo = "https://github.com/nvlabs/instant-ngp";
-  } ''
-    git clone --recursive $repo $out
-    cd $out
-    git checkout $rev
-    rm .git -rf
-    echo $out
-  '';
+  src =
+    runCommand "source-instantngp"
+      {
+        nativeBuildInputs = [
+          git
+          cacert
+        ];
+        outputHashMode = "recursive";
+        outputHashAlgo = "sha256";
+        outputHash = "sha256-QfRjkuf6rrjihmulLX8BbJrerbsySHGk2jVbgHRGXIA=";
+        rev = "8ff8075153102567de1c2e659dafa914348e320a";
+        repo = "https://github.com/nvlabs/instant-ngp";
+      }
+      ''
+        git clone --recursive $repo $out
+        cd $out
+        git checkout $rev
+        rm .git -rf
+        echo $out
+      '';
 
   enableParallelBuilding = true;
 
@@ -108,19 +115,22 @@ stdenv.mkDerivation {
     # runHook postInstall
   '';
 
-  pythonWrapped = (python3Packages.python.withPackages (p: with p; [
-    colmap
-    ffmpeg
-    # python stuff
-    commentjson
-    imageio
-    numpy
-    opencv3
-    pillow
-    pyquaternion
-    scipy
-    tqdm
-  ])).interpreter;
+  pythonWrapped =
+    (python3Packages.python.withPackages (
+      p: with p; [
+        colmap
+        ffmpeg
+        # python stuff
+        commentjson
+        imageio
+        numpy
+        opencv3
+        pillow
+        pyquaternion
+        scipy
+        tqdm
+      ]
+    )).interpreter;
 
   # libcuda needs to be resolved during runtime
   autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];

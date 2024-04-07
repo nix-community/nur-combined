@@ -10,7 +10,10 @@ in
   config = lib.mkIf cfg.enable {
     services.escrivao = {
       tokenFile = "/run/secrets/escrivao-token";
-      extraArgs = [ "--worker-socket" workerSocket ];
+      extraArgs = [
+        "--worker-socket"
+        workerSocket
+      ];
     };
     sops.secrets.escrivao-token = {
       sopsFile = ../../secrets/escrivao-token;
@@ -19,9 +22,7 @@ in
       format = "binary";
     };
     systemd.services.escrivao = {
-      after = [
-        "${config.services.python-microservices.services.${workerName}.unitName}.socket"
-      ];
+      after = [ "${config.services.python-microservices.services.${workerName}.unitName}.socket" ];
     };
   };
 }

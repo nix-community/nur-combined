@@ -1,7 +1,8 @@
 { lib, pkgs, ... }:
 let
   inherit (lib.hm.gvariant) mkTuple;
-in {
+in
+{
   dconf.settings = {
     "org/gnome/desktop/background" = {
       picture-options = "zoom";
@@ -9,14 +10,20 @@ in {
       secondary-color = "#000000";
     };
     "org/gnome/desktop/interface" = {
-      color-scheme = if pkgs.custom.colors.isDark
-        then "prefer-dark"
-        else "prefers-light"
-      ;
+      color-scheme = if pkgs.custom.colors.isDark then "prefer-dark" else "prefers-light";
     };
     "org/gnome/desktop/input-sources" = {
       current = "uint32 0";
-      sources = [(mkTuple ["xkb" "br"]) (mkTuple ["xkb" "us"])];
+      sources = [
+        (mkTuple [
+          "xkb"
+          "br"
+        ])
+        (mkTuple [
+          "xkb"
+          "us"
+        ])
+      ];
       xkb-options = [ "terminate:ctrl_alt_bksp" ];
     };
     "org/gnome/desktop/peripherals/keyboard" = {

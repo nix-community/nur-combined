@@ -1,4 +1,9 @@
-{pkgs, config, lib, ...}:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   inherit (lib) mkEnableOption mkOption types;
   cfg = config.vps.pgbackup;

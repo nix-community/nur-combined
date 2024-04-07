@@ -4,7 +4,12 @@ let
   inherit (final) callPackage;
   inherit (prev) lib writeShellScript;
   inherit (lib) recursiveUpdate;
-  inherit (builtins) toString length head tail;
+  inherit (builtins)
+    toString
+    length
+    head
+    tail
+    ;
 in
 let
   cp = f: (callPackage f) { };
@@ -12,13 +17,13 @@ in
 {
   inherit flake;
   bumpkin = rec {
-      bumpkin = cp flake.inputs.bumpkin;
-      inputs = bumpkin.loadBumpkin {
-        inputFile = ../bumpkin.json;
-        outputFile = ../bumpkin.json.lock;
-      };
-      unpacked = (cp ./lib/unpackRecursive.nix) inputs;
+    bumpkin = cp flake.inputs.bumpkin;
+    inputs = bumpkin.loadBumpkin {
+      inputFile = ../bumpkin.json;
+      outputFile = ../bumpkin.json.lock;
     };
+    unpacked = (cp ./lib/unpackRecursive.nix) inputs;
+  };
 
   nbr = import "${flake.inputs.nbr}" { pkgs = final; };
 
@@ -30,10 +35,10 @@ in
       pynvim_pp = prev.pynvim_pp.overrideAttrs (old: {
         src = flake.inputs.src-python-pynvim_pp;
       });
-      rtfunicode = final.callPackage ./pkgs/python/rtfunicode {};
-      pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode {};
-      kenlm = final.callPackage ./pkgs/python/kenlm {};
-      facenet-pytorch = final.callPackage ./pkgs/python/facenet-pytorch {};
+      rtfunicode = final.callPackage ./pkgs/python/rtfunicode { };
+      pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode { };
+      kenlm = final.callPackage ./pkgs/python/kenlm { };
+      facenet-pytorch = final.callPackage ./pkgs/python/facenet-pytorch { };
       face_recognition = prev.face_recognition.overrideAttrs (old: {
         dontUsePytestCheck = true;
         dontUseSetuptoolsCheck = true;
@@ -52,40 +57,45 @@ in
     })
   ];
 
-  python3PackagesBin = prev.python3Packages.overrideScope (self: super: {
-    torch = super.pytorch-bin;
-    # torch = super.torch-bin // {
-    #   inherit (super.torch) cudaCapabilities cxxdev;
-    #   cudaSupport = true;
-    # };
-    torchaudio = super.torchaudio-bin;
-    torchvision = super.torchvision-bin;
-  });
+  python3PackagesBin = prev.python3Packages.overrideScope (
+    self: super: {
+      torch = super.pytorch-bin;
+      # torch = super.torch-bin // {
+      #   inherit (super.torch) cudaCapabilities cxxdev;
+      #   cudaSupport = true;
+      # };
+      torchaudio = super.torchaudio-bin;
+      torchvision = super.torchvision-bin;
+    }
+  );
 
-  python3PackagesCuda = prev.python3Packages.overrideScope (_: _: {
-    cudaSupport = true;
-  });
+  python3PackagesCuda = prev.python3Packages.overrideScope (_: _: { cudaSupport = true; });
 
-  lib = prev.lib.extend (final: prev: {
-    jpg2png = cp ./lib/jpg2png.nix;
-    buildDockerEnv = cp ./lib/buildDockerEnv.nix;
-    climod = cp flake.inputs.climod;
-  });
+  lib = prev.lib.extend (
+    final: prev: {
+      jpg2png = cp ./lib/jpg2png.nix;
+      buildDockerEnv = cp ./lib/buildDockerEnv.nix;
+      climod = cp flake.inputs.climod;
+    }
+  );
 
-  bin = builtins.mapAttrs (k: v: final.stdenvNoCC.mkDerivation {
-    name = k;
-    dontUnpack = true;
+  bin = builtins.mapAttrs (
+    k: v:
+    final.stdenvNoCC.mkDerivation {
+      name = k;
+      dontUnpack = true;
 
-    nativeBuildInputs = [ final.makeWrapper ];
+      nativeBuildInputs = [ final.makeWrapper ];
 
-    installPhase = ''
-      mkdir $out/bin -p
-      install -m 755 ${../bin}/${k} $out/bin/${k}
-      wrapProgram $out/bin/${k} \
-        --set NIX_PATH nixpkgs=${final.path}:nixpkgs-overlays=${flake.outPath}/nix/compat/overlay.nix:home-manager=${flake.inputs.home-manager}:nur=${flake.inputs.nur}
-    '';
-    meta.mainProgram = k;
-  }) (builtins.readDir ../bin);
+      installPhase = ''
+        mkdir $out/bin -p
+        install -m 755 ${../bin}/${k} $out/bin/${k}
+        wrapProgram $out/bin/${k} \
+          --set NIX_PATH nixpkgs=${final.path}:nixpkgs-overlays=${flake.outPath}/nix/compat/overlay.nix:home-manager=${flake.inputs.home-manager}:nur=${flake.inputs.nur}
+      '';
+      meta.mainProgram = k;
+    }
+  ) (builtins.readDir ../bin);
 
   devenv = final.writeShellScriptBin "devenv" ''
     nix run ${flake.inputs.devenv}# -- "$@"
@@ -93,7 +103,7 @@ in
 
   ctl = cp ./pkgs/ctl;
   cmdlinegl = cp ./pkgs/cmdlinegl;
-  
+
   personal-utils = cp ./pkgs/personal-utils.nix;
   fhsctl = cp ./pkgs/fhsctl.nix;
   comby = cp ./pkgs/comby.nix;
@@ -128,9 +138,7 @@ in
   #     };
   #   });
   # };
-  nur = import flake.inputs.nur {
-    pkgs = prev;
-  };
+  nur = import flake.inputs.nur { pkgs = prev; };
 
   pulseaudio-module-xrdp = cp ./pkgs/pulseaudio-module-xrdp.nix;
 
@@ -177,13 +185,17 @@ in
   };
 
   script-directory = prev.script-directory.overrideAttrs (old: {
-    postInstall = (old.postInstall or "") + ''
-      installShellCompletion --bash ${prev.fetchurl {
-        name = "sd";
-        url = "https://raw.githubusercontent.com/lucasew/sd/7ae91cca81a69eae8a37b001b4b07b088e2c49fa/_sd.bash";
-        hash = "sha256-BVFpec814CmbjFvZ++U4RR+6gTv9x4ojFgAYzJp0rQs=";
-      }}
-    '';
+    postInstall =
+      (old.postInstall or "")
+      + ''
+        installShellCompletion --bash ${
+          prev.fetchurl {
+            name = "sd";
+            url = "https://raw.githubusercontent.com/lucasew/sd/7ae91cca81a69eae8a37b001b4b07b088e2c49fa/_sd.bash";
+            hash = "sha256-BVFpec814CmbjFvZ++U4RR+6gTv9x4ojFgAYzJp0rQs=";
+          }
+        }
+      '';
   });
 
   script-directory-wrapper = final.writeShellScriptBin "sdw" ''
@@ -245,12 +257,17 @@ in
     };
   });
 
-  mopidyPackages = prev.mopidyPackages.overrideScope (self: super: {
-    mopidy-ytmusic = super.mopidy-ytmusic.overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ super.pythonPackages.pythonRelaxDepsHook ];
-      pythonRelaxDeps = [ "ytmusicapi" "pytube" ];
-    });
-  });
+  mopidyPackages = prev.mopidyPackages.overrideScope (
+    self: super: {
+      mopidy-ytmusic = super.mopidy-ytmusic.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ super.pythonPackages.pythonRelaxDepsHook ];
+        pythonRelaxDeps = [
+          "ytmusicapi"
+          "pytube"
+        ];
+      });
+    }
+  );
 
   cached-nix-shell = callPackage flake.inputs.src-cached-nix-shell { pkgs = prev; };
 

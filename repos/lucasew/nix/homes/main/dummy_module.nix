@@ -1,4 +1,9 @@
-{pkgs, config, lib, ...}:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   inherit (lib) mkEnableOption mkIf;
   inherit (pkgs) writeShellScriptBin;
@@ -15,9 +20,5 @@ in
       enable = mkEnableOption "Hello world module PoC";
     };
   };
-  config = mkIf cfg.enable {
-    home.packages = [
-      helloworld
-    ];
-  };
+  config = mkIf cfg.enable { home.packages = [ helloworld ]; };
 }

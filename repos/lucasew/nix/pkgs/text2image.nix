@@ -1,7 +1,8 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, xxd
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  xxd,
 }:
 
 stdenv.mkDerivation {
@@ -18,8 +19,8 @@ stdenv.mkDerivation {
   buildInputs = [ xxd ];
 
   postPatch = ''
-  substituteInPlace text2image.c \
-    --replace 'fopen("font/cmunrm.ttf", "rb")' 'fopen(path, "rb")'
+    substituteInPlace text2image.c \
+      --replace 'fopen("font/cmunrm.ttf", "rb")' 'fopen(path, "rb")'
   '';
 
   installPhase = ''

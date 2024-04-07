@@ -1,4 +1,11 @@
-{self, global, pkgs, config, lib, ... }@args:
+{
+  self,
+  global,
+  pkgs,
+  config,
+  lib,
+  ...
+}@args:
 let
   inherit (self) inputs;
   inherit (global) username;
@@ -6,25 +13,22 @@ let
 in
 {
   imports = [
-      ./hardware-configuration.nix
-      ../gui-common
+    ./hardware-configuration.nix
+    ../gui-common
 
-      "${self.inputs.nixos-hardware}/common/cpu/intel/kaby-lake"
-      "${self.inputs.nixos-hardware}/common/gpu/intel"
-      "${self.inputs.nixos-hardware}/common/pc/laptop/ssd"
+    "${self.inputs.nixos-hardware}/common/cpu/intel/kaby-lake"
+    "${self.inputs.nixos-hardware}/common/gpu/intel"
+    "${self.inputs.nixos-hardware}/common/pc/laptop/ssd"
 
-      ./kvm.nix
-      ./networking.nix
-      ./plymouth.nix
-      ./remote-build.nix
-      ./tuning.nix
-      ./test_socket_activated
-    ]
-  ;
-
-  environment.systemPackages = with pkgs; [
-    thunderbird
+    ./kvm.nix
+    ./networking.nix
+    ./plymouth.nix
+    ./remote-build.nix
+    ./tuning.nix
+    ./test_socket_activated
   ];
+
+  environment.systemPackages = with pkgs; [ thunderbird ];
 
   services.guix.enable = true;
 
@@ -114,7 +118,7 @@ in
 
   virtualisation.kvmgt.enable = false;
   virtualisation.spiceUSBRedirection.enable = true;
- 
+
   # programs.steam.enable = true;
 
   programs.kdeconnect.enable = true;
@@ -135,12 +139,16 @@ in
   };
 
   gc-hold.paths = with pkgs; [
-    go gopls
+    go
+    gopls
     # zig zls
     # terraform
     # ansible vagrant
-    gnumake cmake
-    clang gdb ccls
+    gnumake
+    cmake
+    clang
+    gdb
+    ccls
     # python3Packages.pylsp-mypy
     # nodejs yarn
     # openjdk11 maven ant
@@ -153,7 +161,7 @@ in
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
- 
+
   environment.dotd."/etc/trab/nhaa".enable = true;
   services.screenkey.enable = true;
 
@@ -167,5 +175,4 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.03"; # Did you read the comment?
-
 }

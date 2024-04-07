@@ -1,4 +1,10 @@
-{ self, pkgs, config, lib, ... }:
+{
+  self,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) types mkEnableOption mkIf;
@@ -15,7 +21,7 @@ in
         isSystemUser = true;
         group = "pocket2kindle";
       };
-      groups.pocket2kindle = {};
+      groups.pocket2kindle = { };
     };
 
     sops.secrets.pocket2kindle = {
@@ -27,7 +33,11 @@ in
 
     systemd.services.pocket2kindle = {
       description = "Transforma uma quantidade de artigos para enviar para um kindle";
-      path = with pkgs; [ dotenv p2k calibre ];
+      path = with pkgs; [
+        dotenv
+        p2k
+        calibre
+      ];
       stopIfChanged = true;
       serviceConfig = {
         # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04

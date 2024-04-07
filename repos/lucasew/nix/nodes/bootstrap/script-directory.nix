@@ -6,7 +6,5 @@
     export SD_CAT=cat
   '';
 
-  environment.systemPackages = [
-    pkgs.script-directory
-  ];
+  environment.systemPackages = [ pkgs.script-directory ];
 }

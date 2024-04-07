@@ -1,14 +1,14 @@
-{ buildNpmPackage
-, fetchFromGitHub
-, lib
-, esbuild
-, buildGoModule
-, nodejs
-, python3Packages
+{
+  buildNpmPackage,
+  fetchFromGitHub,
+  lib,
+  esbuild,
+  buildGoModule,
+  nodejs,
+  python3Packages,
 }:
 
 let
-
 
   src = fetchFromGitHub {
     owner = "ollama-webui";
@@ -19,19 +19,24 @@ let
   version = "unstable-2024-01-19";
 
   esbuild' = esbuild.override {
-    buildGoModule = args: buildGoModule (args // rec {
-      version = "0.18.20";
-      src = fetchFromGitHub {
-        owner = "evanw";
-        repo = "esbuild";
-        rev = "v${version}";
-        hash = "sha256-mED3h+mY+4H465m02ewFK/BgA1i/PQ+ksUNxBlgpUoI=";
-      };
-      # vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-    });
+    buildGoModule =
+      args:
+      buildGoModule (
+        args
+        // rec {
+          version = "0.18.20";
+          src = fetchFromGitHub {
+            owner = "evanw";
+            repo = "esbuild";
+            rev = "v${version}";
+            hash = "sha256-mED3h+mY+4H465m02ewFK/BgA1i/PQ+ksUNxBlgpUoI=";
+          };
+          # vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+        }
+      );
   };
-
-in buildNpmPackage {
+in
+buildNpmPackage {
   pname = "ollama-webui";
   inherit version src;
   format = "other";
@@ -44,9 +49,7 @@ in buildNpmPackage {
     runHook postBuild
   '';
 
-  nativeBuildInputs = [
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ python3Packages.wrapPython ];
 
   pythonPath = [
     python3Packages.fastapi

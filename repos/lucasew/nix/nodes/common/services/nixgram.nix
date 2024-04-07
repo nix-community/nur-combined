@@ -1,7 +1,19 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkPackageOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkPackageOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.services.nixgram;
 in
 
@@ -17,7 +29,7 @@ in
     };
     customCommands = mkOption {
       type = types.attrsOf types.str;
-      default = {};
+      default = { };
       example = {
         echo = ''echo "$@"'';
       };
@@ -45,10 +57,12 @@ in
       description = "nixgram service";
       requires = [ "network-online.target" ];
       script = "nixgram";
-      path = [ cfg.package ] ++ (lib.pipe cfg.customCommands [
-        (builtins.mapAttrs (k: v: pkgs.writeShellScriptBin "nixgram-${k}" v))
-        (builtins.attrValues)
-      ]);
+      path =
+        [ cfg.package ]
+        ++ (lib.pipe cfg.customCommands [
+          (builtins.mapAttrs (k: v: pkgs.writeShellScriptBin "nixgram-${k}" v))
+          (builtins.attrValues)
+        ]);
       serviceConfig = {
         Restart = "on-failure";
         DynamicUser = true;

@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   bin = pkgs.wrapWine {
     name = "dead_space";
@@ -6,9 +6,7 @@ let
     home = "/run/media/lucasew/Dados/DADOS/Lucas/";
     chdir = "/run/media/lucasew/Dados/DADOS/Jogos/Dead Space";
     wineFlags = "explorer /desktop=name,1366x768";
-    tricks = [
-      "d3dx9_36"
-    ];
+    tricks = [ "d3dx9_36" ];
     firstrunScript = ''
       # gamepad camera fix
       # source: https://www.youtube.com/watch?v=KMMoRstSgRw
@@ -16,4 +14,5 @@ let
       echo "Pad.RightStick.Y = Borked" > "$HOME/Documents/Electronic Arts/Dead Space/joypad.txt"
     '';
   };
-in bin
+in
+bin

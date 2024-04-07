@@ -1,10 +1,14 @@
-{global, pkgs, ...}:
+{ global, pkgs, ... }:
 let
   inherit (global) username;
-in {
+in
+{
   nix = {
     settings = {
-      trusted-users = [username "@wheel"];
+      trusted-users = [
+        username
+        "@wheel"
+      ];
       experimental-features = [
         "nix-command"
         "flakes"

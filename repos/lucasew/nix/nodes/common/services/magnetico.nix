@@ -16,7 +16,7 @@ in
       extraOptions = [ "-v" ]; # verbose
     };
 
-    systemd.services.magneticod.wantedBy = mkForce []; # disable start on boot
+    systemd.services.magneticod.wantedBy = mkForce [ ]; # disable start on boot
 
     networking.firewall.allowedTCPPorts = [ config.services.magnetico.crawler.port ];
 

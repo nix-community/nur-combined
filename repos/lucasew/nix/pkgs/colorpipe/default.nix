@@ -1,6 +1,7 @@
-{ lib
-, writeShellScriptBin
-, flake
+{
+  lib,
+  writeShellScriptBin,
+  flake,
 }:
 let
   inherit (flake.outputs.colors) colors;

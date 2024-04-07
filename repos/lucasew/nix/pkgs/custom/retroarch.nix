@@ -1,6 +1,13 @@
-{pkgs ? import <nixpkgs> {}}:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
-  fetchRetro = { repo, rev, sha256 }:
+  fetchRetro =
+    {
+      repo,
+      rev,
+      sha256,
+    }:
     pkgs.fetchgit {
       inherit rev sha256;
       url = "https://github.com/libretro/${repo}.git";
@@ -13,7 +20,7 @@ let
         rev = "8d610a69a97a3c6197f205747d4563bad49511cd";
         sha256 = "1hrv2a4brydi3vrqm05a9cc0636jp7scy5ch6szw9m3pr645i35r";
       };
-      patches = [];
+      patches = [ ];
     };
 
     dolphin = pkgs.libretro.dolphin.override {
@@ -24,18 +31,23 @@ let
       };
     };
   };
-  cores = let
-    enabledCores = {
-      inherit (libretro) beetle-snes citra dosbox mupen64plus scummvm;
-    };
-    values = builtins.attrValues enabledCores;
-    filterFn = item: ((builtins.typeOf item) == "set") && (builtins.hasAttr "name" item);
-    filtered = builtins.filter filterFn values;
-    result = filtered;
-  in result;
-  retroarch = pkgs.retroarch.override {
-    inherit cores;
-  };
-in pkgs.wrapRetroArch { 
-  inherit retroarch;
-}
+  cores =
+    let
+      enabledCores = {
+        inherit (libretro)
+          beetle-snes
+          citra
+          dosbox
+          mupen64plus
+          scummvm
+          ;
+      };
+      values = builtins.attrValues enabledCores;
+      filterFn = item: ((builtins.typeOf item) == "set") && (builtins.hasAttr "name" item);
+      filtered = builtins.filter filterFn values;
+      result = filtered;
+    in
+    result;
+  retroarch = pkgs.retroarch.override { inherit cores; };
+in
+pkgs.wrapRetroArch { inherit retroarch; }

@@ -1,5 +1,10 @@
-{ pkgs, lib, self, ... }:
+{
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (self) colors;
-in {
-}
+in
+{ }

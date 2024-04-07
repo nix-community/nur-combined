@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   systemd.services."open-port-tcp@" = {
     description = "Opens TCP port in the firewall";
     serviceConfig = {

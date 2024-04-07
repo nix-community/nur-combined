@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   bin = pkgs.wrapWine {
     name = "nfsu2";
@@ -12,4 +12,5 @@ let
       "corefonts"
     ];
   };
-in bin
+in
+bin

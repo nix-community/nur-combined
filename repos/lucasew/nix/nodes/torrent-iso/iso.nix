@@ -7,8 +7,9 @@ let
     url = "https://releases.nixos.org/nixos/20.09/nixos-20.09.1500.edb26126d98/nixexprs.tar.xz";
     sha256 = "1crsnd7r5zm5sdb1y7swnk9in4qgxjlw548cjkai70i1cz5s6g64";
   };
-  pkgs = import nixpkgs {};
-in {
+  pkgs = import nixpkgs { };
+in
+{
   imports = [
     # Provide an initial copy of the NixOS channel so that the user
     # doesn't need to run "nix-channel --update" first.
@@ -18,7 +19,7 @@ in {
     # Kernel 5.8 tem melhor performance de IO
   ];
   boot = {
-    supportedFilesystems = ["ntfs"];
+    supportedFilesystems = [ "ntfs" ];
     kernelPackages = pkgs.linuxPackages_5_8;
   };
   # boot.kernelPackages = pkgs.linuxPackages_5_8;
@@ -58,13 +59,11 @@ in {
   services.openssh = {
     enable = true;
     allowSFTP = true;
-    authorizedKeysFiles = [
-      "/persist/ssh_authorized_keys"
-    ];
+    authorizedKeysFiles = [ "/persist/ssh_authorized_keys" ];
     banner = ''
-    beep
-      
-      boop
+      beep
+        
+        boop
     '';
     forwardX11 = true;
     hostKeys = [

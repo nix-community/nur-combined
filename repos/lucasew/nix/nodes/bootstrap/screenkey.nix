@@ -1,7 +1,19 @@
-{ config, pkgs, lib, ... }: let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   cfg = config.services.screenkey;
-in {
+in
+{
   options = {
     services.screenkey = {
       enable = mkEnableOption "Screenkey";

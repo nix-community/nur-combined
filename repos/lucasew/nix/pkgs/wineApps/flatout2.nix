@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   bin = pkgs.wrapWine {
     name = "flatout2";
@@ -6,8 +6,7 @@ let
     home = "/run/media/lucasew/Dados/DADOS/Lucas/";
     chdir = "/run/media/lucasew/Dados/DADOS/Jogos/FlatOut 2";
     wineFlags = "explorer /desktop=name,1366x768";
-    tricks = [
-      "d3dx9"
-    ];
+    tricks = [ "d3dx9" ];
   };
-in bin
+in
+bin

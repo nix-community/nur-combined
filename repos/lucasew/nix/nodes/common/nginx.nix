@@ -6,7 +6,8 @@ let
   ipAttrs = attrValues global.nodeIps;
   ips = flatten (map (attrValues) ipAttrs);
   ipExprs = map (ip: "allow ${ip};") ips;
-in {
+in
+{
   services.nginx = {
     appendHttpConfig = ''
       ${concatStringsSep "\n" ipExprs}

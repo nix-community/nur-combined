@@ -1,7 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.programs.kdeconnect;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     systemd.user.services.kdeconnect = {
       enable = true;

@@ -7,7 +7,10 @@
         ListenStream = "/run/systemd-wakeup-test";
       };
       partOf = [ "wakeup-test.service" ];
-      wantedBy = [ "sockets.target" "multi-user.target" ];
+      wantedBy = [
+        "sockets.target"
+        "multi-user.target"
+      ];
     };
     services.wakeup-test = {
       script = ''

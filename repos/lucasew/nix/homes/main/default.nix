@@ -1,8 +1,15 @@
-{ global, pkgs, lib, self, ... }:
+{
+  global,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (lib.hm.gvariant) mkTuple;
   inherit (pkgs.custom) colors;
-in {
+in
+{
 
   imports = [
     ../base/default.nix
@@ -23,7 +30,6 @@ in {
   programs.man.enable = true;
 
   programs.qutebrowser.enable = true;
-
 
   home = {
     homeDirectory = /home/lucasew;
@@ -91,7 +97,7 @@ in {
       fi
       "$EDITOR" "$@"
     '')
-  ] ;
+  ];
 
   # programs.hello-world.enable = true;
 

@@ -1,8 +1,9 @@
-{ pidgin
-, purple-discord
-, purple-slack
-, purple-matrix
-, }:
+{
+  pidgin,
+  purple-discord,
+  purple-slack,
+  purple-matrix,
+}:
 let
   plugins = [
     purple-discord
@@ -11,7 +12,5 @@ let
   ];
 in
 
-pidgin.override {
-  inherit plugins;
-}
+pidgin.override { inherit plugins; }
 # pidgin.withPlugins (p: with p; [purple-discord purple-slack purple-matrix])

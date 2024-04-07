@@ -1,14 +1,19 @@
-{ config, lib, pkgs, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf config.services.mopidy.enable {
     home.packages = [ pkgs.ncmpcpp ];
     services.mopidy = {
       settings = {
-      #   mopify = {
-      #     enabled = true;
-      #     debug = false;
-      #   };
+        #   mopify = {
+        #     enabled = true;
+        #     debug = false;
+        #   };
         mpd = {
           hostname = "::";
         };

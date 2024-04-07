@@ -1,4 +1,9 @@
-{pkgs, lib, colors ? null, ...}:
+{
+  pkgs,
+  lib,
+  colors ? null,
+  ...
+}:
 pkgs.wrapEmacs {
   magit.enable = true;
   lsp = {
@@ -40,4 +45,3 @@ pkgs.wrapEmacs {
   ];
   initEl.pos = builtins.readFile ./custom.el;
 }
-

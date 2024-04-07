@@ -1,4 +1,4 @@
-{polybar}:
+{ polybar }:
 polybar.override {
   alsaSupport = true;
   pulseSupport = true;

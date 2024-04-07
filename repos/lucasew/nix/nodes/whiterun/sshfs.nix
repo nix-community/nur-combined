@@ -3,7 +3,8 @@
 let
   sshfsArgs = lib.escapeShellArgs [
     "-f"
-    "-o" "reconnect,ServerAliveInterval=15,ServerAliveCountMax=3"
+    "-o"
+    "reconnect,ServerAliveInterval=15,ServerAliveCountMax=3"
   ];
 in
 

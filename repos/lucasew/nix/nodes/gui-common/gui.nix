@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   services.xserver = {
     desktopManager.xterm.enable = false;
     displayManager.lightdm = {
@@ -8,7 +9,7 @@
         blur = true;
       };
     };
-};
+  };
 
   fonts.packages = with pkgs; [
     siji

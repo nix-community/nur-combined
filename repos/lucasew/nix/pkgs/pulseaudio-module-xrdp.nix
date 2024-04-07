@@ -1,10 +1,11 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, nix-update-script
-, pulseaudio
-, autoreconfHook
-, pkg-config
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+  pulseaudio,
+  autoreconfHook,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {
@@ -25,7 +26,12 @@ stdenv.mkDerivation rec {
       cp ./* $out -rfv
     '';
     outputs = [ "out" ];
-    phases = [ "unpackPhase" "patchPhase" "configurePhase" "installPhase" ];
+    phases = [
+      "unpackPhase"
+      "patchPhase"
+      "configurePhase"
+      "installPhase"
+    ];
   });
 
   preConfigure = ''
@@ -49,7 +55,11 @@ stdenv.mkDerivation rec {
       --replace 'Exec=@pkglibexecdir@/load_pa_modules.sh' "Exec=$out/bin/pulseaudio_xrdp_init"
   '';
 
-  nativeBuildInputs = [ pulseaudio.dev autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    pulseaudio.dev
+    autoreconfHook
+    pkg-config
+  ];
 
   passthru = {
     updateScript = nix-update-script { };

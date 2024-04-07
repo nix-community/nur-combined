@@ -1,9 +1,10 @@
-{ writeShellScriptBin
-, makeDesktopItem
-, rdesktop
-, symlinkJoin
-, fechurl
-, ...
+{
+  writeShellScriptBin,
+  makeDesktopItem,
+  rdesktop,
+  symlinkJoin,
+  fechurl,
+  ...
 }:
 let
   bin = writeShellScriptBin "rdp-w10" ''
@@ -18,7 +19,8 @@ let
     };
     exec = "${bin}/bin/rdp-w10";
   };
-in symlinkJoin {
+in
+symlinkJoin {
   name = "rdp-w10";
   paths = [
     bin

@@ -1,8 +1,6 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
-  imports = [
-    ../base/default.nix
-  ];
+  imports = [ ../base/default.nix ];
   home.packages = with pkgs; [
     nix-option
     custom.neovim

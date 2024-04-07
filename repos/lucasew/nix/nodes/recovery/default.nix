@@ -1,4 +1,9 @@
-{ pkgs, modulesPath, lib, ... }:
+{
+  pkgs,
+  modulesPath,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -7,7 +12,10 @@
   ];
 
   boot = {
-    supportedFilesystems = [ "ntfs" "zfs" ];
+    supportedFilesystems = [
+      "ntfs"
+      "zfs"
+    ];
     plymouth = {
       enable = true;
       theme = "breeze";
@@ -19,9 +27,7 @@
           url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/skyrim.svg";
           sha256 = "sha256-l0dPfNdOxOpty+kJfwyC7R26Xv4R7IkleCKkOQFN9SY=";
         };
-        nativeBuildInputs = with pkgs; [
-          inkscape
-        ];
+        nativeBuildInputs = with pkgs; [ inkscape ];
         buildPhase = ''
           inkscape --export-type="png" $src -o wallpaper.png -w 150 -h 210 -o wallpaper.png
         '';
@@ -48,5 +54,4 @@
     host.enable = false;
     guest.enable = true;
   };
-
 }

@@ -1,6 +1,11 @@
-{lib, config, ...}:
+{ lib, config, ... }:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.services.nix-redirect-tmp;
 in
 {
@@ -20,9 +25,9 @@ in
     };
   };
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d ${cfg.location} 755 root root 0"
-    ];
-    systemd.services.nix-daemon.environment = { TMPDIR = cfg.location; };
+    systemd.tmpfiles.rules = [ "d ${cfg.location} 755 root root 0" ];
+    systemd.services.nix-daemon.environment = {
+      TMPDIR = cfg.location;
+    };
   };
 }

@@ -1,7 +1,8 @@
-{ buildPythonPackage
-, fetchPypi
-, pillow
-, torchvision
+{
+  buildPythonPackage,
+  fetchPypi,
+  pillow,
+  torchvision,
 }:
 
 buildPythonPackage rec {
@@ -15,7 +16,10 @@ buildPythonPackage rec {
 
   doCheck = false; # pypi version doesn't ship with tests
 
-  pythonImportsCheck = ["facenet_pytorch"];
+  pythonImportsCheck = [ "facenet_pytorch" ];
 
-  propagatedBuildInputs = [ pillow torchvision ];
+  propagatedBuildInputs = [
+    pillow
+    torchvision
+  ];
 }

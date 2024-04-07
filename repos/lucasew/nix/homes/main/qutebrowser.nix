@@ -1,14 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   c = builtins.mapAttrs (k: v: "#${v}") pkgs.custom.colors.colors;
   stylesheetBase16Variables = pkgs.writeText "base16.css" ''
     :root {
-      ${builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs (k: v: "--${k}: ${v};") c))}
+      ${
+        builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs (k: v: "--${k}: ${v};") c))
+      }
     }
   '';
-
-in {
+in
+{
   config = lib.mkIf config.programs.qutebrowser.enable {
     programs.qutebrowser = {
       keyBindings = {
@@ -46,7 +53,9 @@ in {
         ml = "https://lista.mercadolivre.com.br/{}";
       };
       settings = {
-        content = { user_stylesheets = map (item: "${item}") [ stylesheetBase16Variables ]; };
+        content = {
+          user_stylesheets = map (item: "${item}") [ stylesheetBase16Variables ];
+        };
         colors = {
 
           completion = {

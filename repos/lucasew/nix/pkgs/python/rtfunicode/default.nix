@@ -1,6 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-}:
+{ buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "rtfunicode";
@@ -13,7 +11,7 @@ buildPythonPackage rec {
 
   doCheck = false; # pypi version doesn't ship with tests
 
-  pythonImportsCheck = ["rtfunicode"];
+  pythonImportsCheck = [ "rtfunicode" ];
 
   propagatedBuildInputs = [ ];
 }

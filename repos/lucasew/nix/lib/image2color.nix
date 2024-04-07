@@ -1,5 +1,6 @@
-{ image
-, pkgs ? import <nixpkgs> { }
+{
+  image,
+  pkgs ? import <nixpkgs> { },
 }:
 let
   inherit (pkgs) imagemagick runCommand;

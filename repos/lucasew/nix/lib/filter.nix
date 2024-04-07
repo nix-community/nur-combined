@@ -1,9 +1,10 @@
 let
   inherit (builtins) length head tail;
 
-  filter = fn: items:
-    if (length items) == 0
-    then [ ]
+  filter =
+    fn: items:
+    if (length items) == 0 then
+      [ ]
     else
       let
         h = head items;

@@ -1,36 +1,38 @@
-{ mkShell
-, writeShellScript
-, writeShellScriptBin
-, bash
-, nix
-, lib
-, ...
+{
+  mkShell,
+  writeShellScript,
+  writeShellScriptBin,
+  bash,
+  nix,
+  lib,
+  ...
 }:
-{ name ? "docker-env"
-, cr ? "docker"
-, ...
-} @ args:
+{
+  name ? "docker-env",
+  cr ? "docker",
+  ...
+}@args:
 let
-  shellArgs = builtins.removeAttrs args [ "name" "cr" ];
-  shell = mkShell (shellArgs // {
-    buildInputs = shellArgs.buildInputs or [ ] ++ [ nix ];
-  });
-  containerScript = writeShellScript name
-    (
-      let
-        shellScript = builtins.readFile shell;
-        shellScript' = lib.splitString "\n" shellScript;
-        shellScript'' = builtins.filter (line: builtins.match "^declare[^$]*" line != null) shellScript';
-        shellScript''' = builtins.concatStringsSep "\n" shellScript'';
-      in
-      ''
-        ${shellScript'''}
-        HOME=/app
-        mkdir /app -p
-        cd /app
-        "$@"
-      ''
-    );
+  shellArgs = builtins.removeAttrs args [
+    "name"
+    "cr"
+  ];
+  shell = mkShell (shellArgs // { buildInputs = shellArgs.buildInputs or [ ] ++ [ nix ]; });
+  containerScript = writeShellScript name (
+    let
+      shellScript = builtins.readFile shell;
+      shellScript' = lib.splitString "\n" shellScript;
+      shellScript'' = builtins.filter (line: builtins.match "^declare[^$]*" line != null) shellScript';
+      shellScript''' = builtins.concatStringsSep "\n" shellScript'';
+    in
+    ''
+      ${shellScript'''}
+      HOME=/app
+      mkdir /app -p
+      cd /app
+      "$@"
+    ''
+  );
 in
 writeShellScriptBin name ''
   ARGS=()

@@ -1,4 +1,4 @@
-{ config, ...}:
+{ config, ... }:
 
 {
   services.nginx.virtualHosts."nix-cache.${config.networking.hostName}.${config.networking.domain}" = {

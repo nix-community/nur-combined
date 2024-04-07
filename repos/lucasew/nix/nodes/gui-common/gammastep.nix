@@ -1,7 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkOption types mkIf mkPackageOption;
+  inherit (lib)
+    mkOption
+    types
+    mkIf
+    mkPackageOption
+    ;
   settingsFormat = pkgs.formats.ini { };
   cfg = config.services.gammastep;
 in
@@ -17,7 +27,7 @@ in
       '';
     };
 
-    package = mkPackageOption pkgs "gammastep" {};
+    package = mkPackageOption pkgs "gammastep" { };
 
     temperature = {
       day = mkOption {
@@ -45,7 +55,6 @@ in
         Configuration for gammastep.
       '';
     };
-
   };
   config = mkIf cfg.enable {
     services.gammastep.settings = {
@@ -58,8 +67,7 @@ in
         lon = config.location.longitude;
       };
     };
-    environment.etc."gammastep.ini".source =
-      settingsFormat.generate "gammastep.ini" cfg.settings;
+    environment.etc."gammastep.ini".source = settingsFormat.generate "gammastep.ini" cfg.settings;
 
     systemd.user.services.gammastep = {
       path = [ cfg.package ];

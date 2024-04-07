@@ -1,13 +1,19 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   inherit (pkgs) writeShellScript rclone;
   inherit (builtins) toString;
-  dlnaify = {path, name, extraFlags ? ""}: 
-  let
-    drv = writeShellScript "dlna" ''
-      ${rclone}/bin/rclone serve dlna --read-only --name "${name}" "${toString path}" ${extraFlags}
-    '';
-  in "${drv}";
+  dlnaify =
+    {
+      path,
+      name,
+      extraFlags ? "",
+    }:
+    let
+      drv = writeShellScript "dlna" ''
+        ${rclone}/bin/rclone serve dlna --read-only --name "${name}" "${toString path}" ${extraFlags}
+      '';
+    in
+    "${drv}";
 in
 {
   config = {

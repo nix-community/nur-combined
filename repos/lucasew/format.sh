@@ -1,3 +1,4 @@
-#! /usr/bin/env bash
+#! /usr/bin/env -S sd nix shell
+#! nix-shell -p nixfmt-rfc-style
 
-nix-shell -p nixpkgs-fmt --run 'nixpkgs-fmt ./**/*.nix'
+nixfmt -v $(find -type f -name '*.nix' )

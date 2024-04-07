@@ -4,7 +4,12 @@
     allowExtraArguments = true;
     description = "Send documents to kindle";
     flags = [
-      { description = "Convert documents before sending"; keywords = [ "-c" ]; variable = "KINDLE_CONVERT_EBOOK"; validator = "bool"; }
+      {
+        description = "Convert documents before sending";
+        keywords = [ "-c" ];
+        variable = "KINDLE_CONVERT_EBOOK";
+        validator = "bool";
+      }
     ];
     action.bash = ''
       ARGS=()
@@ -18,6 +23,5 @@
       done
       ${"$"}{ARGS[@]} "$@"
     '';
-
   };
 }

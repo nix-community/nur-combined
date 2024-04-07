@@ -1,4 +1,9 @@
-{pkgs, lib, config, ...}:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with pkgs.custom.colors.colors;
 let
   inherit (pkgs) i3lock-color;
@@ -27,13 +32,13 @@ let
     "--keyhl-color=${base08}"
     "--bshl-color=${base08}"
   ];
-in lib.mkIf (config.programs.xss-lock.enable && config.services.xserver.windowManager.i3.enable) {
+in
+lib.mkIf (config.programs.xss-lock.enable && config.services.xserver.windowManager.i3.enable) {
   programs.xss-lock = {
     lockerCommand = lib.mkDefault ''
       ${i3lock-color}/bin/i3lock-color ${concatStringsSep " " (map toString locker-params)}
     '';
-    extraOptions = [];
+    extraOptions = [ ];
   };
   systemd.user.services.xss-lock.restartIfChanged = true;
-
 }

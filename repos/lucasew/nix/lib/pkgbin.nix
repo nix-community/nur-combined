@@ -1,4 +1,7 @@
-{ name, pkgs ? import <nixpkgs> { } }:
+{
+  name,
+  pkgs ? import <nixpkgs> { },
+}:
 let
   pkg = pkgs."${name}";
 in

@@ -1,4 +1,9 @@
-{self, pkgs, lib, ...}:
+{
+  self,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (self) inputs;
   inherit (lib) mkDefault;
@@ -27,7 +32,10 @@ in
     ./postgres-backup.nix
   ];
 
-  boot.supportedFilesystems = [ "nfs" "btrfs" ];
+  boot.supportedFilesystems = [
+    "nfs"
+    "btrfs"
+  ];
 
   services.lvm.enable = mkDefault false;
 
@@ -51,13 +59,14 @@ in
           "/home/lucasew/TMP2"
           "/run/media"
         ];
-        extra_homes = [
-          "/run/media/lucasew/Dados/DADOS/Lucas"
-        ];
+        extra_homes = [ "/run/media/lucasew/Dados/DADOS/Lucas" ];
       };
 
       flatout-2 = {
-        installdir= [ "~/.local/share/Steam/steamapps/common/FlatOut2" "/run/media/lucasew/Dados/DADOS/Jogos/FlatOut 2"];
+        installdir = [
+          "~/.local/share/Steam/steamapps/common/FlatOut2"
+          "/run/media/lucasew/Dados/DADOS/Jogos/FlatOut 2"
+        ];
       };
 
       farming-simulator-2013 = {
@@ -66,13 +75,9 @@ in
     };
   };
 
-
-
   services.unstore = {
     # enable = true;
-    paths = [
-      "flake.nix"
-    ];
+    paths = [ "flake.nix" ];
   };
 
   boot.loader.grub.memtest86.enable = true;

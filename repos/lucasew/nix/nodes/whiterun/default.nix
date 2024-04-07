@@ -1,9 +1,17 @@
-{self, global, pkgs, config, lib, ...}@args:
+{
+  self,
+  global,
+  pkgs,
+  config,
+  lib,
+  ...
+}@args:
 let
   inherit (self) inputs;
   inherit (global) username;
   hostname = "whiterun";
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
     ../gui-common
@@ -34,7 +42,7 @@ in {
     enable = true;
     enableTCPIP = true;
     userSpecificDatabases = {
-      test = ["demo"];
+      test = [ "demo" ];
     };
   };
 
@@ -48,9 +56,13 @@ in {
   };
   services.python-microservices.services.stt-ptbr = {
     script = builtins.readFile ./python-microservice-stt-ptbr.py;
-    python = pkgs.python3.withPackages (p: with pkgs.python3PackagesBin; [
-      transformers torchaudio pytorch
-    ]);
+    python = pkgs.python3.withPackages (
+      p: with pkgs.python3PackagesBin; [
+        transformers
+        torchaudio
+        pytorch
+      ]
+    );
   };
 
   services.ollama.enable = true;
@@ -60,10 +72,12 @@ in {
   services.restic.server.enable = true;
   services.restic.server.dataDir = "/media/storage/backup/restic";
 
-
   fileSystems."/media/downloads" = {
     device = "/dev/disk/by-label/downloads";
-    options = [ "commit=60" "noatime" ];
+    options = [
+      "commit=60"
+      "noatime"
+    ];
     fsType = "ext4";
   };
 
@@ -94,7 +108,6 @@ in {
     fsType = "none";
     options = [ "bind" ];
   };
-
 
   services.nginx.enable = true;
 
@@ -143,9 +156,7 @@ in {
     calendar = "00:00:01";
     settings = {
       search = {
-        paths = [
-          "/media/downloads/steam/steamapps/compatdata"
-        ];
+        paths = [ "/media/downloads/steam/steamapps/compatdata" ];
       };
       flatout-2 = {
         installdir = [ "/media/downloads/steam/steamapps/common/FlatOut2" ];
@@ -160,7 +171,10 @@ in {
   # services.magnetico.enable = true;
 
   boot = {
-    supportedFilesystems = [ "ntfs" "xfs" ];
+    supportedFilesystems = [
+      "ntfs"
+      "xfs"
+    ];
     loader = {
       efi.canTouchEfiVariables = true;
       grub = {
@@ -172,13 +186,11 @@ in {
   };
   hardware.opengl.driSupport = true;
   hardware.opengl.extraPackages = with pkgs; [
-     rocmPackages.rocm-runtime
-     rocm-opencl-icd
-     rocm-opencl-runtime
+    rocmPackages.rocm-runtime
+    rocm-opencl-icd
+    rocm-opencl-runtime
   ];
-  hardware.opengl.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-  ];
+  hardware.opengl.extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
 
   programs.steam.enable = true;
 

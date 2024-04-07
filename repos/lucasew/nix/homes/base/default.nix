@@ -1,4 +1,12 @@
-{ global, pkgs, config, self, lib, bumpkin, ...}:
+{
+  global,
+  pkgs,
+  config,
+  self,
+  lib,
+  bumpkin,
+  ...
+}:
 let
   inherit (self) inputs outputs;
   inherit (lib) mkDefault;
@@ -32,10 +40,10 @@ in
   programs = {
     tmux.enable = true;
     git = {
-        enable = true;
-        userName = global.username;
-        userEmail = global.email;
-        package = mkDefault pkgs.gitMinimal;
+      enable = true;
+      userName = global.username;
+      userEmail = global.email;
+      package = mkDefault pkgs.gitMinimal;
     };
   };
 }

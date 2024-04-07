@@ -1,16 +1,39 @@
-{ self, config, pkgs, lib, ... }:
+{
+  self,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
-  inherit (lib) mkOption mkIf mkEnableOption types optionalString optionals;
+  inherit (lib)
+    mkOption
+    mkIf
+    mkEnableOption
+    types
+    optionalString
+    optionals
+    ;
   ini = pkgs.formats.ini {
-    listToValue = value: builtins.concatStringsSep config.options.services.cloud-savegame.settings.general.divider;
+    listToValue =
+      value: builtins.concatStringsSep config.options.services.cloud-savegame.settings.general.divider;
   };
-  cloud-savegame = pkgs.callPackage "${self.inputs.cloud-savegame}/package.nix" {};
+  cloud-savegame = pkgs.callPackage "${self.inputs.cloud-savegame}/package.nix" { };
   cfg = config.services.cloud-savegame;
 
-  separator = lib.head (cfg.settings.global.separator or [","]);
-  normalizedSettings = lib.mapAttrs (k: v: lib.mapAttrs (k: v: if lib.isList v then if lib.length v == 0 then lib.head v else (lib.concatStringsSep separator (map toString v)) else v) v) cfg.settings;
-  
-in {
+  separator = lib.head (cfg.settings.global.separator or [ "," ]);
+  normalizedSettings = lib.mapAttrs (
+    k: v:
+    lib.mapAttrs (
+      k: v:
+      if lib.isList v then
+        if lib.length v == 0 then lib.head v else (lib.concatStringsSep separator (map toString v))
+      else
+        v
+    ) v
+  ) cfg.settings;
+in
+{
   options.services.cloud-savegame = {
     enable = mkEnableOption "Cloud savegame";
 
@@ -77,8 +100,8 @@ in {
 
       default = {
         general.divider = ",";
-        search.paths="~";
-        flatout-2.installdir= ["~/.local/share/Steam/steamapps/common/FlatOut2" ];
+        search.paths = "~";
+        flatout-2.installdir = [ "~/.local/share/Steam/steamapps/common/FlatOut2" ];
       };
     };
   };
@@ -86,11 +109,13 @@ in {
   config = mkIf cfg.enable {
     services.cloud-savegame.settings = {
       general.divider = ",";
-      search.paths="~";
-      flatout-2.installdir= ["~/.local/share/Steam/steamapps/common/FlatOut2" ];
+      search.paths = "~";
+      flatout-2.installdir = [ "~/.local/share/Steam/steamapps/common/FlatOut2" ];
     };
 
-    environment.etc."cloud-savegame-settings.ini".source = pkgs.writeText "cloud-savegame-settings.ini" (lib.generators.toINI {} normalizedSettings);
+    environment.etc."cloud-savegame-settings.ini".source =
+      pkgs.writeText "cloud-savegame-settings.ini"
+        (lib.generators.toINI { } normalizedSettings);
 
     systemd.user = {
       timers.cloud-savegame = {
@@ -105,8 +130,16 @@ in {
 
       services.cloud-savegame = {
         enable = true;
-        path = with pkgs; [ ]
-        ++ (optionals cfg.enableGit (with pkgs; [ git openssh ]));
+        path =
+          with pkgs;
+          [ ]
+          ++ (optionals cfg.enableGit (
+            with pkgs;
+            [
+              git
+              openssh
+            ]
+          ));
 
         environment = {
           OUTPUT_DIR = cfg.outputDir;

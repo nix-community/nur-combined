@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
 
   networking.ports.grafana-web.enable = true;
   # networking.ports.grafana-web.port = lib.mkDefault 49150;
@@ -40,7 +46,10 @@
     exporters = {
       node = {
         enable = true;
-        enabledCollectors = [ "logind" "systemd"];
+        enabledCollectors = [
+          "logind"
+          "systemd"
+        ];
         inherit (config.networking.ports.prometheus-node_exporter) port;
       };
       zfs.enable = true;
@@ -53,13 +62,20 @@
         runAsLocalSuperUser = true;
       };
     };
-    scrapeConfigs = (map (item: {
-      job_name = item;
-      static_configs = [
-        {
-          targets = ["127.0.0.1:${toString config.services.prometheus.exporters.${item}.port}"];
-        }
-      ];
-    })  ["node" "zfs" "nginx" "postgres"]);
+    scrapeConfigs = (
+      map
+        (item: {
+          job_name = item;
+          static_configs = [
+            { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.${item}.port}" ]; }
+          ];
+        })
+        [
+          "node"
+          "zfs"
+          "nginx"
+          "postgres"
+        ]
+    );
   };
 }

@@ -1,9 +1,17 @@
-{pkgs, lib, global, self, config, ...}:
+{
+  pkgs,
+  lib,
+  global,
+  self,
+  config,
+  ...
+}:
 let
   inherit (pkgs) dotenv;
   inherit (global) username rootPath;
   inherit (lib) mkOverride;
-in {
+in
+{
   imports = [
     ../common/default.nix
     "${self.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
@@ -30,24 +38,18 @@ in {
     # alibot.enable = true;
     # pgbackup.enable = true;
   };
-  
+
   environment.persistence."/persist" = {
     hideMounts = true;
-    files = [
-      "/etc/machine-id"
-    ];
-    directories = [
-      "/backups"
-    ];
+    files = [ "/etc/machine-id" ];
+    directories = [ "/backups" ];
     users.${username}.directories = [
       "WORKSPACE"
       "TMP2"
     ];
   };
 
-  swapDevices = [
-    { device = "/persist/swapfile"; }
-  ];
+  swapDevices = [ { device = "/persist/swapfile"; } ];
 
   nixpkgs.config.allowUnfree = true;
   networking.hostName = "ravenrock";
@@ -59,10 +61,16 @@ in {
   networking.firewall = {
     enable = true;
     allowedTCPPortRanges = [
-      {from = 6969; to = 6980; }
+      {
+        from = 6969;
+        to = 6980;
+      }
     ];
     allowedUDPPortRanges = [
-      {from = 6969; to = 6980; }
+      {
+        from = 6969;
+        to = 6980;
+      }
     ];
     allowedTCPPorts = [
       # 22

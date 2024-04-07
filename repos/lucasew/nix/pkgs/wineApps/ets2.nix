@@ -1,4 +1,10 @@
-{ pkgs, wrapWine, fetchurl, makeDesktopItem, ... }:
+{
+  pkgs,
+  wrapWine,
+  fetchurl,
+  makeDesktopItem,
+  ...
+}:
 let
   bin = wrapWine {
     name = "ets2";

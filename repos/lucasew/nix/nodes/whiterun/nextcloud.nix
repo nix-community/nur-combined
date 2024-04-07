@@ -1,11 +1,20 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf config.services.nextcloud.enable {
     services.nextcloud.package = pkgs.nextcloud27;
     users.users.nextcloud = {
-      extraGroups = [ "admin-password" "render" ];
+      extraGroups = [
+        "admin-password"
+        "render"
+      ];
     };
     services.nextcloud = {
       configureRedis = true;
@@ -50,8 +59,8 @@ in {
     };
 
     systemd.services.nextcloud-setup = {
-      requires = ["postgresql.service"];
-      after = ["postgresql.service"];
+      requires = [ "postgresql.service" ];
+      after = [ "postgresql.service" ];
 
       script = ''
         # extra steps

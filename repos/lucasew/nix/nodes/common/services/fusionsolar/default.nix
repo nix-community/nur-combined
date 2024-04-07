@@ -1,11 +1,19 @@
-{ config, lib, pkgs, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkOption mkEnableOption types mkIf;
+  inherit (lib)
+    mkOption
+    mkEnableOption
+    types
+    mkIf
+    ;
   cfg = config.services.fusionsolar-reporter;
-  python = pkgs.python3.withPackages (p: with p; [
-    selenium
-  ]);
+  python = pkgs.python3.withPackages (p: with p; [ selenium ]);
 in
 
 {
@@ -43,7 +51,7 @@ in
     };
     systemd.timers.fusionsolar-reporter = {
       description = "Fusionsolar reporter timer";
-      wantedBy = ["timers.target"];
+      wantedBy = [ "timers.target" ];
       timerConfig = {
         OnCalendar = cfg.calendar;
         AccuracySec = "30m";
@@ -52,8 +60,11 @@ in
     };
     systemd.services.fusionsolar-reporter = {
       enable = true;
-      path = with pkgs; [ chromedriver chromium ];
-      requires = ["network-online.target"];
+      path = with pkgs; [
+        chromedriver
+        chromium
+      ];
+      requires = [ "network-online.target" ];
       serviceConfig = {
         EnvironmentFile = cfg.environmentFile;
         DynamicUser = true;

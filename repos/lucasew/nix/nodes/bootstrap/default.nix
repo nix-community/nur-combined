@@ -1,8 +1,23 @@
-{global, pkgs, lib, self, config, ...}:
+{
+  global,
+  pkgs,
+  lib,
+  self,
+  config,
+  ...
+}:
 let
-  inherit (pkgs) vim gitMinimal tmux xclip killall script-directory-wrapper;
+  inherit (pkgs)
+    vim
+    gitMinimal
+    tmux
+    xclip
+    killall
+    script-directory-wrapper
+    ;
   inherit (global) username;
-in {
+in
+{
   imports = [
     ./bash-extra.nix
     ./colors.nix

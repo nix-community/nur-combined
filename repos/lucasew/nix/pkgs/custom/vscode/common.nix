@@ -1,4 +1,7 @@
-{pkgs ? import <nixpkgs> {}, ...}:
+{
+  pkgs ? import <nixpkgs> { },
+  ...
+}:
 {
   identifier = pkgs.lib.mkDefault "common";
   extensions = [

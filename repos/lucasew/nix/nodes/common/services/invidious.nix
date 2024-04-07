@@ -24,4 +24,3 @@ lib.mkIf config.services.invidious.enable {
     };
   };
 }
-

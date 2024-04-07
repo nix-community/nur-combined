@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
   inherit (pkgs) writeShellScriptBin;
 in
@@ -25,7 +27,7 @@ writeShellScriptBin "pkg" ''
   - $(bold "show"): show information about a given package
   "
     }
-  
+
     if [ $# == 0 ]; then
       COMMAND=" "
     else

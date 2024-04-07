@@ -1,8 +1,6 @@
 { config, self, ... }:
 {
-  imports = [
-    self.inputs.sops-nix.nixosModules.sops
-  ];
+  imports = [ self.inputs.sops-nix.nixosModules.sops ];
 
   sops.secrets.ssh-alias = {
     sopsFile = ../../secrets/ssh-alias;

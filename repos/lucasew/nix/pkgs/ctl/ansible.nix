@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   subcommands.ansible = {
     allowExtraArguments = true;
     description = "Run ansible in dotfiles folder";

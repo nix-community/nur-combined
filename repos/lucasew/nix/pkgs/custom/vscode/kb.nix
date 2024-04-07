@@ -1,9 +1,10 @@
-{ pkgs ? import <nixpkgs> {}, ...}:
+{
+  pkgs ? import <nixpkgs> { },
+  ...
+}:
 {
   identifier = "kb";
-  imports = [
-    ./common.nix
-  ];
+  imports = [ ./common.nix ];
   extensions = [
     {
       publisher = "foam";

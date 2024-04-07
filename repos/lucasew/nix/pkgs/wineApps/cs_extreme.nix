@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   bin = pkgs.wrapWine {
     name = "cs_extreme";
@@ -10,4 +10,5 @@ let
       "vb6run"
     ];
   };
-in bin
+in
+bin

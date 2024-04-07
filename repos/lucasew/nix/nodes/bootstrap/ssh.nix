@@ -1,4 +1,4 @@
-{...}:
+{ ... }:
 {
   services.openssh = {
     enable = true;

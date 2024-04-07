@@ -1,12 +1,13 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, cmake
-, boost
-, eigen
-, zlib
-, bzip2
-, lzma
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  cmake,
+  boost,
+  eigen,
+  zlib,
+  bzip2,
+  lzma,
 }:
 
 buildPythonPackage {
@@ -27,7 +28,13 @@ buildPythonPackage {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost eigen zlib bzip2 lzma ];
+  buildInputs = [
+    boost
+    eigen
+    zlib
+    bzip2
+    lzma
+  ];
 
   meta = {
     description = "aster and Smaller Language Model Queries";

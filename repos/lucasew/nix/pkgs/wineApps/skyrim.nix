@@ -1,4 +1,9 @@
-{ appimage-wrap, makeDesktopItem, writeShellScriptBin, buildEnv }:
+{
+  appimage-wrap,
+  makeDesktopItem,
+  writeShellScriptBin,
+  buildEnv,
+}:
 let
   entry = writeShellScriptBin "skyrim" ''
     ${appimage-wrap}/bin/appimage-wrap ~/WORKSPACE/ANNEX/Software/AppImage/The_Elder_Scrolls_V_Skyrim_Special_Edition.AppImage "$@"
@@ -9,7 +14,8 @@ let
     desktopName = "The Elder Scrolls: Skyrim";
     categories = [ "Game" ];
   };
-in buildEnv {
+in
+buildEnv {
   name = "skyrim";
   paths = [
     entry

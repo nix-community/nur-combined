@@ -1,4 +1,13 @@
-{ pkgs, fetchzip, fetchurl, stdenv, wineStable, makeDesktopItem, writeShellScriptBin, ... }:
+{
+  pkgs,
+  fetchzip,
+  fetchurl,
+  stdenv,
+  wineStable,
+  makeDesktopItem,
+  writeShellScriptBin,
+  ...
+}:
 let
   paint = fetchzip {
     url = "https://archive.org/download/MSPaintWinXP/mspaint%20WinXP%20English.zip";

@@ -1,15 +1,16 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoreconfHook
-, SDL
-, SDL_image
-, ftgl
-, pkg-config
-, libGLU
-, freetype
-, perl
-, autoconf
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  SDL,
+  SDL_image,
+  ftgl,
+  pkg-config,
+  libGLU,
+  freetype,
+  perl,
+  autoconf,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -46,7 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   configurePhase = "true";
   # doConfigure = false;
-
 
   nativeBuildInputs = [
     # autoreconfHook

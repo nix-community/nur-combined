@@ -1,8 +1,20 @@
-{pkgs, lib, config, options, ...}:
+{
+  pkgs,
+  lib,
+  config,
+  options,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.services.php-utils;
-in {
+in
+{
   options.services.php-utils = {
     enable = mkEnableOption "php-utils";
     user = mkOption {
@@ -23,13 +35,12 @@ in {
         createHome = true;
         home = "/srv/php-utils/data";
         group = cfg.user;
-        extraGroups = [
-          "docker"
-        ];
+        extraGroups = [ "docker" ];
       };
-      groups."${cfg.user}" = {};
+      groups."${cfg.user}" = { };
     };
-    services.phpfpm.pools.utils = { # From https://nixos.wiki/wiki/Nginx
+    services.phpfpm.pools.utils = {
+      # From https://nixos.wiki/wiki/Nginx
       inherit (cfg) user;
       settings = {
         pm = "dynamic";

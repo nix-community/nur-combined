@@ -1,4 +1,10 @@
-{pkgs, config, lib, global, ...}:
+{
+  pkgs,
+  config,
+  lib,
+  global,
+  ...
+}:
 let
   domain = "vaultwarden." + config.vps.domain;
 in

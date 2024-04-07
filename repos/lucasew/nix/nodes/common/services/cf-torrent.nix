@@ -1,13 +1,26 @@
-{ pkgs, self, lib, config, ... }:
+{
+  pkgs,
+  self,
+  lib,
+  config,
+  ...
+}:
 let
   cfg = config.services.cf-torrent;
-  inherit (lib) mkEnableOption mkOption types mkIf mkDefault;
-in {
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    mkDefault
+    ;
+in
+{
   options.services.cf-torrent = {
     enable = mkEnableOption "cf-torrent";
     package = mkOption {
       description = "Which cf-torrent package to use";
-      default = pkgs.callPackage self.inputs.cf-torrent {};
+      default = pkgs.callPackage self.inputs.cf-torrent { };
       type = types.package;
     };
     port = mkOption {
@@ -17,7 +30,7 @@ in {
     };
     shutdownTimeout = mkOption {
       description = "Time in ms to shutdown the service when inactive";
-      default = 10*1000;
+      default = 10 * 1000;
       type = types.int;
     };
   };
@@ -39,7 +52,10 @@ in {
         ListenStream = cfg.port;
       };
       partOf = [ "cf-torrent.service" ];
-      wantedBy = [ "sockets.target" "multi-user.target" ];
+      wantedBy = [
+        "sockets.target"
+        "multi-user.target"
+      ];
     };
     systemd.services.cf-torrent = {
       inherit (cfg.package.meta) description;

@@ -6,17 +6,23 @@ in
 
 {
   imports = [
-    ({config, ...}: {
-      config = lib.mkIf config.services.invidious.enable {
-        services.nitter.preferences.replaceYouTube = "invidious.${config.networking.hostName}.${config.networking.domain}";
-      };
-    })
+    (
+      { config, ... }:
+      {
+        config = lib.mkIf config.services.invidious.enable {
+          services.nitter.preferences.replaceYouTube = "invidious.${config.networking.hostName}.${config.networking.domain}";
+        };
+      }
+    )
 
-    ({config, ...}: {
-      config = lib.mkIf config.services.libreddit.enable {
-        services.nitter.preferences.replaceReddit = "libreddit.${config.networking.hostName}.${config.networking.domain}";
-      };
-    })
+    (
+      { config, ... }:
+      {
+        config = lib.mkIf config.services.libreddit.enable {
+          services.nitter.preferences.replaceReddit = "libreddit.${config.networking.hostName}.${config.networking.domain}";
+        };
+      }
+    )
   ];
   config = lib.mkIf config.services.nitter.enable {
     networking.ports.nitter.enable = true;

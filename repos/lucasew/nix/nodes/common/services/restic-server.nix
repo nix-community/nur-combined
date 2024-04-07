@@ -23,9 +23,7 @@
       {
         job_name = "restic-server";
         static_configs = [
-          {
-            targets = ["127.0.0.1:${toString config.networking.ports.restic-server.port}" ];
-          }
+          { targets = [ "127.0.0.1:${toString config.networking.ports.restic-server.port}" ]; }
         ];
       }
     ];

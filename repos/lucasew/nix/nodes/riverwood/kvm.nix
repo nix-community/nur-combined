@@ -1,4 +1,10 @@
-{self, global, lib, pkgs, ...}:
+{
+  self,
+  global,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (global) username;
 in
@@ -8,9 +14,7 @@ in
       enable = lib.mkDefault true;
       vgpus = {
         "i91-GVTg_V5_8" = {
-          uuid = [
-            "130e9604-32a2-4824-9d47-34b3f6e0c857"
-          ];
+          uuid = [ "130e9604-32a2-4824-9d47-34b3f6e0c857" ];
         };
       };
     };
@@ -18,13 +22,23 @@ in
   };
 
   imports = [
-    ({config, ...}: {
-      config = lib.mkIf (config.virtualisation.kvmgt.enable) {
-        boot = {
-          kernelParams = [ "intel_iommu=on" "i915.enable_gvt=1" ];
-          kernelModules = [ "kvmgt" "vfio-iommu-type1" "mdev" ];
+    (
+      { config, ... }:
+      {
+        config = lib.mkIf (config.virtualisation.kvmgt.enable) {
+          boot = {
+            kernelParams = [
+              "intel_iommu=on"
+              "i915.enable_gvt=1"
+            ];
+            kernelModules = [
+              "kvmgt"
+              "vfio-iommu-type1"
+              "mdev"
+            ];
+          };
         };
-      };
-    })
+      }
+    )
   ];
 }

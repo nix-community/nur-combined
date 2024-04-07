@@ -1,7 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nix.settings = {
-      min-free = 1  * 1024*1024*1024;
-      max-free = 10 * 1024*1024*1024;
+    min-free = 1 * 1024 * 1024 * 1024;
+    max-free = 10 * 1024 * 1024 * 1024;
   };
 
   services.auto-cpufreq.enable = true;
@@ -16,9 +17,7 @@
         intel-ocl
         vaapiIntel
       ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [
-        vaapiIntel
-      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
     };
   };
 

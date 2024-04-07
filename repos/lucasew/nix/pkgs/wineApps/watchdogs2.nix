@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, ... }:
 # FIXME: buggy graphics. Other DirectX implementations are glitching and the stock one have buggy colors.
 let
   bin = pkgs.wrapWine {
@@ -13,4 +13,5 @@ let
       "d3dx11_43"
     ];
   };
-in bin
+in
+bin
