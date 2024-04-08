@@ -90,6 +90,7 @@ in
                   ];
                   NoNewPrivileges = true;
                   Restart = "on-failure";
+                  RestartSec="5s";
                 };
             };
           }

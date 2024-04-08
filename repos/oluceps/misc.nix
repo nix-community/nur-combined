@@ -16,7 +16,7 @@
   systemd.services.nix-daemon = {
     serviceConfig = {
       LimitNOFILE = lib.mkForce 500000000;
-      PrivateTmp = true;
+      Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
     };
   };
 
@@ -161,6 +161,7 @@
 
   systemd.tmpfiles.rules = [
     "C /var/cache/tuigreet/lastuser - - - - ${pkgs.writeText "lastuser" "${user}"}"
+    "d /var/tmp/nix-daemon 0755 root root -"
   ];
 
   i18n.defaultLocale = "en_GB.UTF-8";

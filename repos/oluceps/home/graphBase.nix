@@ -161,8 +161,6 @@
 
     vial
 
-    ncdu_2 # disk space info
-
     android-tools
     zellij
     # netease-cloud-music-gtk

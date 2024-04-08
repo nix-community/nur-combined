@@ -36,7 +36,7 @@ build-all-host:
     | str replace ' ]' ''
     | str trim
     | split row ' '
-    | par-each { || nix build $'.#nixosConfigurations.($in).config.system.build.toplevel'; attic push dev ./result }
+    | par-each { || nix build $'.#nixosConfigurations.($in).config.system.build.toplevel' -L; attic push dev ./result }
 
 build *args:
     #!/usr/bin/env nu
