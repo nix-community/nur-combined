@@ -14,7 +14,7 @@
   in
     utils.lib.eachSystem hydraSystems (system: let
       pkgs = import nixpkgs {inherit system;};
-      packages = import ./default.nix {inherit pkgs;};
+      packages = lib.filterAttrs (name: value: builtins.elem system (value.meta.platforms or [system])) (import ./default.nix {inherit pkgs;});
     in {
       packages = lib.filterAttrs (name: value: lib.isDerivation value) packages;
       legacyPackages = lib.filterAttrs (name: value: ! lib.isDerivation value) packages;
