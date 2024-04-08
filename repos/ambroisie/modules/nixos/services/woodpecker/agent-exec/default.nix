@@ -44,6 +44,8 @@ in
       serviceConfig = {
         # Same option as upstream, without @setuid
         SystemCallFilter = lib.mkForce "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @swap";
+        # NodeJS requires RWX memory...
+        MemoryDenyWriteExecute = lib.mkForce false;
 
         BindPaths = [
           "/nix/var/nix/daemon-socket/socket"
