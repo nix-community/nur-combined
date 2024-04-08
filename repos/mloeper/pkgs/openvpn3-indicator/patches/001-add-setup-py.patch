@@ -1,0 +1,20 @@
+diff --git a/setup.py b/setup.py
+index e69de29..2e95659 100644
+--- a/setup.py
++++ b/setup.py
+@@ -0,0 +1,14 @@
++#!/usr/bin/env python
++
++from distutils.core import setup
++
++setup(name='Distutils',
++      version='0.1',
++      description='Simple GTK indicator GUI for OpenVPN3',
++      author='Grzegorz Gutowski',
++      author_email='rzegorz.gutowski@uj.edu.pl',
++      url='https://github.com/OpenVPN/openvpn3-indicator',
++      package_dir = {'': 'src'},
++      packages=['openvpn3_indicator', 'openvpn3_indicator.dialogs'],
++      entry_points={'console_scripts': ['openvpn3-indicator=openvpn3_indicator:main']},
++     )
+\ No newline at end of file
