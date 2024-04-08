@@ -42,7 +42,7 @@ stdenv.mkDerivation
 
   meta = with lib; {
     homepage = "https://github.com/Dashlane/dashlane-cli";
-    description = "A Dashlane CLI";
+    description = "The official Dashlane CLI";
 
     # for SSO, see: https://github.com/Dashlane/dashlane-cli/blob/28fd4ec19c79738aa75acb8672cdd1691f8a7465/src/modules/auth/sso/index.ts#L4
     longDescription = ''
