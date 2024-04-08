@@ -152,7 +152,6 @@ in packages // {
     };
   };
 
-  zotero-connector = import ./zotero.nix {
-    inherit buildFirefoxXpiAddon fetchurl lib stdenv;
-  };
+  zotero-connector =
+    import ./zotero.nix { inherit buildFirefoxXpiAddon fetchurl lib stdenv; };
 }

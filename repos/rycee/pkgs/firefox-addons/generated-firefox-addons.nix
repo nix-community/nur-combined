@@ -1366,6 +1366,21 @@
         platforms = platforms.all;
       };
     };
+    "competitive-companion" = buildFirefoxXpiAddon {
+      pname = "competitive-companion";
+      version = "2.51.1";
+      addonId = "{74e326aa-c645-4495-9287-b6febc5565a7}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4251244/competitive_companion-2.51.1.xpi";
+      sha256 = "18a5af9a6d810b7f900610f602f921f7ed334f351ef1e812eea3f9acc99e941e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/jmerle/competitive-companion";
+        description = "Parses competitive programming problems and sends them to various tools like CP Editor and CPH.";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "contextMenus" "storage" "scripting" ];
+        platforms = platforms.all;
+      };
+    };
     "conex" = buildFirefoxXpiAddon {
       pname = "conex";
       version = "0.9.7";
@@ -1701,10 +1716,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2413.2";
+      version = "6.2413.3";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257037/dashlane-6.2413.2.xpi";
-      sha256 = "7efbe306bc3c49c703c4114198754780f9ce691aaaff0234eeb2c450c4ed343c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259613/dashlane-6.2413.3.xpi";
+      sha256 = "8be1da86bee8de3d51ab894b0540582f6b818ca278282777edb8512597ef4400";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -7476,10 +7491,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.4.1";
+      version = "2024.4.2";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261407/pakkujs-2024.4.1.xpi";
-      sha256 = "b271090eb309d5ef4d4b8d2343edb4762fbaca4db58e08a34e444d346ce34841";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261614/pakkujs-2024.4.2.xpi";
+      sha256 = "90a92effccb8e810e6cde448777ec5e34128fd9feaccb16fcce1022d045cd806";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -10600,10 +10615,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.3.30.1062";
+      version = "2024.4.8.931";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257694/ublock_origin_lite-2024.3.30.1062.xpi";
-      sha256 = "1235c8e6cd6486be27624fac2da4fb7d41526376dad2f4071a319642e740fc82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261761/ublock_origin_lite-2024.4.8.931.xpi";
+      sha256 = "cb2edf390dcd89f3ee36a4db34fd2d6fc9bd6a5095c914acb8818e2e85d9294d";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
