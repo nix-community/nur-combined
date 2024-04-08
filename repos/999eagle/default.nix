@@ -14,5 +14,6 @@
   subwoofer = pkgs.callPackage ./pkgs/subwoofer {};
   swayaudioidleinhibit = pkgs.callPackage ./pkgs/swayaudioidleinhibit.nix {};
   synapse-find-unreferenced-state-groups = pkgs.callPackage ./pkgs/synapse-find-unreferenced-state-groups.nix {};
+  what = pkgs.callPackage ./pkgs/what {};
   wys = pkgs.callPackage ./pkgs/wys {};
 }
