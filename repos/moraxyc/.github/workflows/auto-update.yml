@@ -9,6 +9,8 @@ on:
 jobs:
   auto-update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       GIT_SSL_NO_VERIFY: 'true'
     steps:

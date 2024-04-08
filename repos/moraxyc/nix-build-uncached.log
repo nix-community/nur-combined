@@ -1,0 +1,37 @@
+$ nix --version
+$ nix-build --dry-run ci.nix -A x86_64-linux --show-trace
+these 33 paths will be fetched (33.17 MiB download, 153.43 MiB unpacked):
+  /nix/store/s279kslfwqlnx79df9ygj9f758x3skda-brotli-1.1.0-lib
+  /nix/store/sl7v70zwsjgvbgw2mdiazgvp1s2f9mqy-cyrus-imapd-3.8.2
+  /nix/store/m6pcxanx6cr0hgxqg5rrcynb3xxs9pqh-cyrus-sasl-2.1.28
+  /nix/store/dha8k8rdp5ny1axyq73hvywi5j8zixdf-db-5.3.28
+  /nix/store/q6jyzkl2f1capj5yc0rq65i0zfm9b82k-glib-2.78.4
+  /nix/store/876lq8ad582h6lb118ay9bql66z8jgia-gmp-with-cxx-6.3.0
+  /nix/store/qwnmd1a9zxfjqgkhv3jyyf86r9jm4gsq-icu4c-73.2
+  /nix/store/fa8i4di9wzdjd7cj726j7awlrm2k7skb-jansson-2.14
+  /nix/store/d5wvzzmqx3dkmp36r1vzz69gak6x5bkx-keyutils-1.6.3-lib
+  /nix/store/26q13qq7kr0yd0qq3cpxlb9vksdh09nn-libchardet-1.0.6
+  /nix/store/f8ipgi6l1n1c0wr1r5aj40phnd6fkmv8-libffi-3.4.6
+  /nix/store/f6sb2q1pw9w7nibcmcjas85sxfhfxyis-libical-3.0.17
+  /nix/store/li8plf2qixrlrlny7qhw5ylgq01h3z7q-libkrb5-1.21.2
+  /nix/store/hmf4nmykf657qi7i0mra1jsfc7myy6m8-libselinux-3.6
+  /nix/store/12bz70j4lnlz0gdy6rlvpkflss8czf0f-libsrs2-1.0.18
+  /nix/store/qa3mv3niykbdycn9xsm1xbcf7gxs74sa-libxcrypt-4.4.36
+  /nix/store/ii7r1shwrbl9rcv6nn6mfvih5qcb742p-libxml2-2.12.6
+  /nix/store/7kc3g69kklvyi4qq7nms7a0amvg7nygw-lz4-1.9.4
+  /nix/store/y8xz4w3pi18jw3j8m329827afrwipd24-nettle-3.9.1
+  /nix/store/dvwbmkf5gqwly9ysp6sld4c6iwmqijm3-nghttp2-1.60.0-lib
+  /nix/store/p25ghy7y53lyc834xnw5mrhfq096wa4x-openssl-3.0.13
+  /nix/store/af81s49bcy6mxr2l1wi59jazm6qflg4a-openssl-3.0.13-bin
+  /nix/store/23wj46rlzy1vda0mkh4n33a1bbs294sm-openssl-3.0.13-dev
+  /nix/store/gsyvgp6bs6cnd3928c9ldbvgws2swqhl-perl-5.38.2
+  /nix/store/8qrjr2bd2zvrd2dkqcygr7sph751hgzg-popt-1.19
+  /nix/store/20b8i8m7fbdzm3r535a17p0xpc6dg1g9-rsync-3.2.7
+  /nix/store/2fyssg5qqdbpvbv96xj6xcww0mkbwgca-shapelib-1.6.0
+  /nix/store/1w71mlr329lqpjbws9q3hzxvq6zzi5z3-sqlite-3.45.2
+  /nix/store/zh3swclb0bkkkfqpw4jqm3pwp1kiqg0v-util-linux-minimal-2.39.3-lib
+  /nix/store/g1pnj9c7gl3xfcbxmglhic4apbgziy65-wslay-1.1.1
+  /nix/store/8lh3phrzx5gixzmrr38swx86xhvvkx11-xapian-1.4.25
+  /nix/store/267p2hq9jn8f5radclirw8nfv067zh8j-xxHash-0.8.2
+  /nix/store/ss6gh67xv5jw6jh0l7dwmyx9823wvb60-zstd-1.5.5
+
