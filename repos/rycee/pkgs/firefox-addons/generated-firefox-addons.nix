@@ -1023,10 +1023,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.6.0";
+      version = "7.7.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257898/castkodi-7.6.0.xpi";
-      sha256 = "9e52a8b8b2980a91b4fbbdd5e8bd1a7f8dbe13eb5593f1e30e60e0cbd50e38ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261289/castkodi-7.7.0.xpi";
+      sha256 = "4475ff5e2ecf822721e6cd14d0456ace1970af4c4d6bd8357efc1a77f9dee898";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -7476,23 +7476,21 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "10.2.10";
+      version = "2024.4.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4242078/pakkujs-10.2.10.xpi";
-      sha256 = "6feb62bc9bc0c3467dd84ee79b51741bdc7b20c27da17641f70927195fb81dc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261407/pakkujs-2024.4.1.xpi";
+      sha256 = "b271090eb309d5ef4d4b8d2343edb4762fbaca4db58e08a34e444d346ce34841";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
         description = "瞬间过滤B站(<a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4d0b4461e26c11562fa1a512258f7f68dd57fa773da49fcb021256804f09b1fc/http%3A//bilibili.com\">bilibili.com</a>)刷屏的相似弹幕，还你清爽的弹幕视频体验。\t\n*a tweak for a Chinese website. Please ignore this add-on if you are not a user of <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4d0b4461e26c11562fa1a512258f7f68dd57fa773da49fcb021256804f09b1fc/http%3A//bilibili.com\">bilibili.com</a>.*";
         license = licenses.gpl3;
         mozPermissions = [
-          "*://*.bilibili.com/*"
-          "webRequest"
-          "webRequestBlocking"
           "notifications"
           "storage"
-          "ws://*.bilibili.com/*"
-          "wss://*.bilibili.com/*"
+          "declarativeNetRequestWithHostAccess"
+          "*://*.bilibili.com/*"
+          "https://www.bilibili.com/robots.txt?pakku_sandbox"
         ];
         platforms = platforms.all;
       };
@@ -10173,10 +10171,10 @@
     };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.24.0";
+      version = "1.24.1";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4208422/tridactyl_vim-1.24.0.xpi";
-      sha256 = "9e70bccf7ced3a87e4cf6a5dc6210a884fa9a46a79ee19177367a28c02aaa04b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261352/tridactyl_vim-1.24.1.xpi";
+      sha256 = "ab63fe1554471c280f234409393172fc58e1bb2ca527f4329d983b028073e19c";
       meta = with lib;
       {
         homepage = "https://tridactyl.xyz";
