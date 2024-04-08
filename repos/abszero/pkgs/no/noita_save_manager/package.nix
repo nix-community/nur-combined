@@ -61,5 +61,6 @@ python3.pkgs.buildPythonApplication rec {
     maintainers = with maintainers; [ weathercold ];
     mainProgram = "noita_save_manager";
     platforms = platforms.linux;
+    broken = true;
   };
 }

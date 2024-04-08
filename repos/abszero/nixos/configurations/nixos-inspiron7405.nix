@@ -9,7 +9,6 @@ let
   mainModule = {
     abszero = {
       users.admins = [ "weathercold" ];
-      networking.supplicant.enableInsecureSSLCiphers = true;
       services.xray = recursiveUpdate
         proxySettings
         {
