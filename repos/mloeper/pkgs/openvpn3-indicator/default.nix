@@ -42,7 +42,7 @@ python311Packages.buildPythonPackage {
   postInstall = ''
     cp -r $src/share $out/share
 
-    substituteInPlace $out/share/applications/net.openvpn.openvpn3_indicator.desktop --replace "/usr/bin/openvpn3-indicator" "$out/bin/openvpn3-indicator"
+    substituteInPlace $out/share/applications/net.openvpn.openvpn3_indicator.desktop --replace "/usr/bin/openvpn3-indicator" "openvpn3-indicator"
   '';
   meta = {
     description = "Simple GTK indicator GUI for OpenVPN 3 Linux";
