@@ -1,22 +1,27 @@
 {
-  description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
-    let
-      systems = [
-        "x86_64-linux"
-        "i686-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
-      ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-    in
-    {
-      packages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
-      });
-      overlay = import ./overlay.nix;
+  description = "Nix User Repository";
+
+  outputs = { self }: {
+    overlay = final: prev: {
+      nur = import ./default.nix {
+        nurpkgs = prev;
+        pkgs = prev;
+      };
     };
+    nixosModules.nur = { lib, pkgs, ... }: {
+      options.nur = lib.mkOption {
+        type = lib.mkOptionType {
+          name = "nur";
+          description = "An instance of the Nix User repository";
+          check = builtins.isAttrs;
+        };
+        description = "Use this option to import packages from NUR";
+        default = import self {
+          nurpkgs = pkgs;
+          pkgs = pkgs;
+        };
+      };
+    };
+    hmModules.nur = self.nixosModules.nur;
+  };
 }

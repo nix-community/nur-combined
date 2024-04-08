@@ -1,22 +1,27 @@
-# This file describes your repository contents.
-# It should return a set of nix derivations
-# and optionally the special attributes `lib`, `modules` and `overlays`.
-# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
-# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
-# commands such as:
-#     nix-build -A mypackage
+{ nurpkgs ? import <nixpkgs> {} # For nixpkgs dependencies used by NUR itself
+  # Dependencies to call NUR repos with
+, pkgs ? null
+, repoOverrides ? { }
+}:
 
-{ pkgs ? import <nixpkgs> { } }:
+let
+  manifest = (builtins.fromJSON (builtins.readFile ./repos.json)).repos;
+  lockedRevisions = (builtins.fromJSON (builtins.readFile ./repos.json.lock)).repos;
 
-{
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  inherit (nurpkgs) lib;
 
-  chatterino7 = pkgs.libsForQt5.callPackage ./pkgs/chatterino7 { };
-  emulationstation-de = pkgs.callPackage ./pkgs/emulationstation-de { };
-  klassy = pkgs.libsForQt5.callPackage ./pkgs/klassy { };
-  koi = pkgs.libsForQt5.callPackage ./pkgs/koi { };
-  notesnook = pkgs.callPackage ./pkgs/notesnook { };
+  repoSource = name: attr: import ./lib/repoSource.nix {
+    inherit name attr manifest lockedRevisions lib;
+    inherit (nurpkgs) fetchgit fetchzip;
+  };
+
+  createRepo = name: attr: import ./lib/evalRepo.nix {
+    inherit name pkgs lib;
+    inherit (attr) url;
+    src = repoSource name attr + ("/" + (attr.file or ""));
+  };
+
+in {
+  repos =  (lib.mapAttrs createRepo manifest) // repoOverrides;
+  repo-sources = lib.mapAttrs repoSource manifest;
 }
