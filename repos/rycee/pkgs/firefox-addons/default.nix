@@ -151,4 +151,8 @@ in packages // {
       platforms = platforms.all;
     };
   };
+
+  zotero-connector = import ./zotero.nix {
+    inherit buildFirefoxXpiAddon fetchurl lib stdenv;
+  };
 }

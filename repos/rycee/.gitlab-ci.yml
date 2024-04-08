@@ -60,6 +60,7 @@ Update Firefox addons:
     - git config --global user.name 'rybot'
   script:
     - git pull --ff-only origin $CI_COMMIT_REF_NAME
+    - pkgs/firefox-addons/zotero-update.sh pkgs/firefox-addons/zotero.nix
     - mozilla-addons-to-nix $ADDONS_INPUT $ADDONS_OUTPUT
     - |
       if [ "$(git status --porcelain --untracked-files=no)" ] ; then
