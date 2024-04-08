@@ -57,6 +57,27 @@
         export PYTHONPATH=${pkgs.python3Packages.packaging}/lib/python${pkgs.python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
         ${inputs'.nvfetcher.packages.default}/bin/nvfetcher $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
       '';
+      nur-check = ''
+        set -euo pipefail
+        TMPDIR=$(mktemp -d)
+        FLAKEDIR=$(pwd)
+
+        git clone --depth=1 https://github.com/nix-community/NUR.git "$TMPDIR"
+        cd "$TMPDIR"
+
+        cp ${../repos.json} repos.json
+        rm -f repos.json.lock
+
+        bin/nur update
+        bin/nur eval "$FLAKEDIR"
+
+        git clone --single-branch "https://github.com/nix-community/nur-combined.git"
+        cp repos.json repos.json.lock nur-combined/
+        bin/nur index nur-combined > index.json
+
+        cd "$FLAKEDIR"
+        rm -rf "$TMPDIR"
+      '';
 
       update = ''
         set -euo pipefail
