@@ -153,7 +153,7 @@ stdenv.mkDerivation rec {
       "--enable-backup"
       "--enable-replication"
       "--enable-unit-tests"
-      "--with-pidfile=/run/cyrus-imap/master.pid"
+      "--with-pidfile=/run/cyrus/master.pid"
       "--with-zlib=${zlib}"
       "--with-libcap=${libcap}"
     ]
