@@ -220,6 +220,9 @@
       inherit overlays;
       inherit pkgs;
       inherit self;
+
+      formatter.x86_64-linux = pkgs.nixfmt-rfc-style;
+
       colors = colors // {
         colors = colors.palette;
       };
