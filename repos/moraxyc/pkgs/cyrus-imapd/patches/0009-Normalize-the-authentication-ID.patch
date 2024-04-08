@@ -1,0 +1,96 @@
+Description: Normalize the authentication ID
+ By normalize, it is intended that;
+    1) Authentication IDs all can be lowercased for more accurate
+       comparison without being volatile to, say, user error, and
+    2) Any leading or trailing blank space can be stripped
+Author: "Jeroen van Meeuwen (Kolab Systems)" <vanmeeuwen@kolabsys.com>
+Forwarded: https://github.com/cyrusimap/cyrus-imapd/pull/3283
+Reviewed-By: Xavier Guimard <yadd@debian.org
+Last-Update: 2022-02-23
+
+--- a/imap/global.c
++++ b/imap/global.c
+@@ -355,6 +355,8 @@
+                                   config_getswitch(IMAPOPT_UNIX_GROUP_ENABLE));
+         libcyrus_config_setswitch(CYRUSOPT_USERNAME_TOLOWER,
+                                   config_getswitch(IMAPOPT_USERNAME_TOLOWER));
++        libcyrus_config_setswitch(CYRUSOPT_NORMALIZEUID,
++        			  config_getswitch(CYRUSOPT_NORMALIZEUID));
+         libcyrus_config_setswitch(CYRUSOPT_SKIPLIST_UNSAFE,
+                                   config_getswitch(IMAPOPT_SKIPLIST_UNSAFE));
+         libcyrus_config_setstring(CYRUSOPT_TEMP_PATH,
+--- a/lib/auth_unix.c
++++ b/lib/auth_unix.c
+@@ -150,9 +150,11 @@
+ static const char *mycanonifyid(const char *identifier, size_t len)
+ {
+     static char retbuf[81];
++    char backup[81];
+     struct group *grp;
+     char *p;
+     int username_tolower = 0;
++    int ic,rbc;
+ 
+     if (!len) len = strlen(identifier);
+     if (len >= sizeof(retbuf)) return NULL;
+@@ -194,6 +196,22 @@
+         }
+     }
+ 
++    if( (libcyrus_config_getswitch(CYRUSOPT_NORMALIZEUID) == 1) ) {
++        strcpy(backup,retbuf);
++       /* remove leading blanks */
++       for(ic=0; isblank(backup[ic]); ic++);
++       for(rbc=0; backup[ic]; ic++) {
++            retbuf[rbc] = ( isalpha(backup[ic]) ?
++                 tolower(backup[ic]) : backup[ic] );
++            rbc++;
++       }
++       retbuf[rbc] = '\0';
++       /* remove trailing blanks */
++       for(--rbc; isblank(retbuf[rbc]); rbc--) {
++            retbuf[rbc] = '\0';
++       }
++    }
++
+     return retbuf;
+ }
+ 
+--- a/lib/imapoptions
++++ b/lib/imapoptions
+@@ -3270,6 +3270,11 @@
+ { "fastmailsharing", 0, SWITCH, "3.0.0" }
+ /* If enabled, use FastMail style sharing (oldschool full server paths) */
+ 
++{ "normalizeuid", 0, SWITCH }
++/* Lowercase uid and strip leading and trailing blanks. It is recommended
++   to set this to yes, especially if OpenLDAP is used as authentication
++   source. */
++
+ /*
+ .SH SEE ALSO
+ .PP
+--- a/lib/libcyr_cfg.c
++++ b/lib/libcyr_cfg.c
+@@ -160,6 +160,10 @@
+       CFGVAL(long, 0),
+       CYRUS_OPT_SWITCH },
+ 
++    { CYRUSOPT_NORMALIZEUID,
++      CFGVAL(long, 1),
++      CYRUS_OPT_SWITCH },
++
+     { CYRUSOPT_LAST, { NULL }, CYRUS_OPT_NOTOPT }
+ };
+ 
+--- a/lib/libcyr_cfg.h
++++ b/lib/libcyr_cfg.h
+@@ -107,6 +107,8 @@
+     CYRUSOPT_SKIPLIST_ALWAYS_CHECKPOINT,
+     /* ACL override */
+     CYRUSOPT_ACL_ADMIN_IMPLIES_WRITE,
++    /* Lowercase uid and strip leading and trailing blanks (OFF) */
++    CYRUSOPT_NORMALIZEUID,
+ 
+     CYRUSOPT_LAST
+ 

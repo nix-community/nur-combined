@@ -1,18 +1,3 @@
-[boringssl-oqs]
-src.git = "https://github.com/open-quantum-safe/boringssl.git"
-fetch.github = "open-quantum-safe/boringssl"
-
-[liboqs]
-src.git = "https://github.com/open-quantum-safe/liboqs.git"
-fetch.github = "open-quantum-safe/liboqs"
-
-[openssl-oqs-provider]
-src.git = "https://github.com/open-quantum-safe/oqs-provider.git"
-fetch.github = "open-quantum-safe/oqs-provider"
-
-[qsc-key-encoder]
-src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
-fetch.github = "Quantum-Safe-Collaboration/qsc-key-encoder"
-[nezha-agent]
-src.github = "nezhahq/agent"
-fetch.github = "nezhahq/agent"
+[cyrus-imapd]
+src.github = "cyrusimap/cyrus-imapd"
+fetch.github = "cyrusimap/cyrus-imapd"

@@ -1,0 +1,64 @@
+Description: Fix syslog prefix
+ Make sure all programs log (to syslog) with "cyrus/<program>" as the
+ log prefix.
+Author: Sven Mueller <debian@incase.de>
+Forwarded: https://github.com/cyrusimap/cyrus-imapd/pull/3279
+Rewieved-By: Xavier Guimard <yadd@debian.org>
+Last-Update: 2020-02-10
+
+--- a/imap/global.c
++++ b/imap/global.c
+@@ -158,6 +158,9 @@
+     return SYSLOG_FACILITY;
+ }
+ 
++/* syslog prefix tag */
++static char syslog_prefix[20];
++
+ struct cyrus_module {
+     void (*done)(void *rock);
+     void *rock;
+@@ -234,7 +237,9 @@
+         openlog(ident_buf, syslog_opts, SYSLOG_FACILITY);
+     }
+     else {
+-        openlog(config_ident, syslog_opts, SYSLOG_FACILITY);
++	strncpy(syslog_prefix, "cyrus/", sizeof(syslog_prefix));
++	strncat(syslog_prefix, config_ident, sizeof(syslog_prefix) - 7);
++        openlog(syslog_prefix, syslog_opts, SYSLOG_FACILITY);
+     }
+ 
+     /* Load configuration file.  This will set config_dir when it finds it */
+--- a/ptclient/ptexpire.c
++++ b/ptclient/ptexpire.c
+@@ -108,7 +108,7 @@
+     const char *fname;
+     char *alt_config = NULL, *tofree = NULL;
+ 
+-    openlog("ptexpire", LOG_PID, SYSLOG_FACILITY);
++    openlog("cyrus/ptexpire", LOG_PID, SYSLOG_FACILITY);
+ 
+     /* keep this in alphabetical order */
+     static const char short_options[] = "C:E:";
+--- a/ptclient/test.c
++++ b/ptclient/test.c
+@@ -58,7 +58,7 @@
+     cacheid=cache;
+   } else
+     cacheid=NULL;
+-  openlog("pttest", LOG_PID, SYSLOG_FACILITY);
++  openlog("cyrus/pttest", LOG_PID, SYSLOG_FACILITY);
+ 
+   if (!auth_setid(argv[1],cacheid))
+     printf ("Auth_memberof(%s,%s) is %d\n", argv[1], argv[2],
+--- a/ptclient/test2.c
++++ b/ptclient/test2.c
+@@ -45,7 +45,7 @@
+ 
+ int main(void) {
+   char cacheid[16]="4224423";
+-  openlog("testr", LOG_PID, SYSLOG_FACILITY);
++  openlog("cyrus/testr", LOG_PID, SYSLOG_FACILITY);
+ 
+   if (!auth_setid("cg2v@club.cc.cmu.edu",cacheid))
+     printf ("Auth_memberof(cg2v,cg2v:me) is %d\n",

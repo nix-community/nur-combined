@@ -1,0 +1,80 @@
+#!/usr/bin/env sh
+MYNAME=cyrus
+CYRUS_BINPATH=PLACEHOLDER_BINPATH
+
+usage() {
+    cat <<EOF
+usage: ${MYNAME} COMMAND [ARGS]
+
+The most commonly used cyr commands are:
+   cyradm        enter cyrus-imapd admin shell
+   reconstruct   reconstruct mailboxes
+   quota         report and optionally fix quota usage
+   squatter      reindex mailboxes
+   mbpath        translate mailbox names to filesystem paths
+   mboxlist      perform operations on the mailbox list database
+   check         perform a consistency check of the cyrus mailstore
+   tls_prune     prune expired sessions from the TLS sessions database
+   ctl_cyrusdb   perform operations common to all Cyrus databases
+   expire        expire messages and duplicate delivery database entries
+   arbitron      arbitron mailboxes
+   cvt_cyrusdb   convert a database file between cyrus database formats
+   arbitronsort  sorts arbitron(8) output
+   ipurge        delete mail from IMAP mailbox or partition based on age or size
+   makedirs      Sets up the Cyrus IMAPd system directories (spools)
+
+EOF
+    exit 1
+}
+
+RUNNAME="$(basename "${0}")"
+
+case "$(basename ${0})" in
+    "${MYNAME}")
+	[ -z "${1}" ] && {
+	    echo "ERROR: Command cannot be empty"
+	    echo
+	    usage
+	}
+	COMMAND="${1}"
+	shift
+	;;
+    cyrreconstruct|cyrquota)
+	COMMAND="${RUNNAME#cyr}"
+	;;
+    cyrus-makedirs)
+	COMMAND=${RUNNAME#cyrus-}
+	;;
+    *)
+	COMMAND="${RUNNAME}"
+	;;
+esac
+
+[ -z "${COMMAND}" ] && usage
+
+case "${COMMAND}" in
+    help|--help)
+	if [ -n "${1}" ]; then
+	    exec man ${1}
+	else
+	    usage
+        fi
+	exit 1
+	;;
+esac
+
+if [ ! -f "${CYRUS_BINPATH}/${COMMAND}" ]; then
+    if [ -f "${CYRUS_BINPATH}/cyr_${COMMAND}" ]; then
+	COMMAND="cyr_${COMMAND}"
+    elif [ -f "${CYRUS_BINPATH}/ctl_${COMMAND}" ]; then
+	COMMAND="ctl_${COMMAND}"
+    elif [ "${COMMAND}" = "check" ]; then
+	COMMAND="chk_cyrus"
+    else
+	echo "ERROR: ${COMMAND}: Unknown command or command not installed"
+	echo
+	usage
+    fi
+fi
+
+exec "${CYRUS_BINPATH}/${COMMAND}" "${@}"

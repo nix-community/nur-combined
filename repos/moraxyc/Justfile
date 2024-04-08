@@ -5,8 +5,7 @@ check:
     nix flake check .
 
 update:
-    nix flake update
-    nvfetcher -c nvfetcher.toml -o _sources
+    nix run .#update
 
-push cachix target=("$(readlink result)"):
+cache target=("./result"):
     cachix push moraxyc {{target}}

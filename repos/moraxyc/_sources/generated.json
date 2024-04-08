@@ -1,49 +1,9 @@
 {
-    "boringssl-oqs": {
-        "cargoLocks": null,
-        "date": "2024-04-02",
-        "extract": null,
-        "name": "boringssl-oqs",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "open-quantum-safe",
-            "repo": "boringssl",
-            "rev": "e11ac27e37ce100c2ad197a73ece9b46bf46737c",
-            "sha256": "sha256-HK0BLewhy8xCaf3PGCnj3pmDMF6/LDEjvSyGQfK1ZnM=",
-            "type": "github"
-        },
-        "version": "e11ac27e37ce100c2ad197a73ece9b46bf46737c"
-    },
-    "liboqs": {
-        "cargoLocks": null,
-        "date": "2024-04-05",
-        "extract": null,
-        "name": "liboqs",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "open-quantum-safe",
-            "repo": "liboqs",
-            "rev": "32afec8fccd77a264e6104764986ce46d120f5ff",
-            "sha256": "sha256-XDne5dJ6y0xtWOtrwJqwp2nfJudeYZxXi1T6OkY6Fd4=",
-            "type": "github"
-        },
-        "version": "32afec8fccd77a264e6104764986ce46d120f5ff"
-    },
-    "nezha-agent": {
+    "cyrus-imapd": {
         "cargoLocks": null,
         "date": null,
         "extract": null,
-        "name": "nezha-agent",
+        "name": "cyrus-imapd",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -51,52 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "nezhahq",
-            "repo": "agent",
-            "rev": "v0.16.4",
-            "sha256": "sha256-xXv2FVPsl8BR51VMrFreaS3UQLEJwfObY4OeMMb8pms=",
+            "owner": "cyrusimap",
+            "repo": "cyrus-imapd",
+            "rev": "cyrus-imapd-3.8.2",
+            "sha256": "sha256-5I4EaLnxu2M1a79XmxUh1PXq703EfI73/9aohKg7jyc=",
             "type": "github"
         },
-        "version": "v0.16.4"
-    },
-    "openssl-oqs-provider": {
-        "cargoLocks": null,
-        "date": "2024-03-20",
-        "extract": null,
-        "name": "openssl-oqs-provider",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "open-quantum-safe",
-            "repo": "oqs-provider",
-            "rev": "66ee77021b7ae35929e4659ac3f4b1e7642ddc67",
-            "sha256": "sha256-BKboIy+eHExJPQOIpIulSZiv39psVm9FWoxVPWV9p+0=",
-            "type": "github"
-        },
-        "version": "66ee77021b7ae35929e4659ac3f4b1e7642ddc67"
-    },
-    "qsc-key-encoder": {
-        "cargoLocks": null,
-        "date": "2023-03-30",
-        "extract": null,
-        "name": "qsc-key-encoder",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "Quantum-Safe-Collaboration",
-            "repo": "qsc-key-encoder",
-            "rev": "1b6289dac9f7caf89d26bad2f1cf3cd628507af2",
-            "sha256": "sha256-fslq2BlNtnUve7enWXzWGc8xUh8clmHs+QjPozjinHM=",
-            "type": "github"
-        },
-        "version": "1b6289dac9f7caf89d26bad2f1cf3cd628507af2"
+        "version": "cyrus-imapd-3.8.2"
     }
 }

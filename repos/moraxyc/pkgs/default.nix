@@ -28,13 +28,15 @@ mode: {
 
   mkScope = f:
     builtins.removeAttrs
-    (lib.makeScope pkgs.newScope (self: let
-      pkg = self.newScope {
-        inherit mkScope;
-        sources = self.callPackage ../_sources/generated.nix {};
-      };
-    in
-      f self pkg))
+    (lib.makeScope pkgs.newScope (
+      self: let
+        pkg = self.newScope {
+          inherit mkScope;
+          sources = self.callPackage ../_sources/generated.nix {};
+        };
+      in
+        f self pkg
+    ))
     [
       "newScope"
       "callPackage"
@@ -43,12 +45,11 @@ mode: {
       "packages"
     ];
 in
-  mkScope (self: pkg: let
-    # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
-  in {
-    # Package groups
-
-    boringssl-oqs = pkg ./boringssl-oqs {};
-    liboqs = pkg ./liboqs {};
-    openssl-oqs-provider = pkg ./openssl-oqs-provider {};
-  })
+  mkScope (
+    self: pkg: let
+      # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
+      mergePkgs = self.callPackage ../flakes/fn/merge-pkgs.nix {enableWrapper = mode != "nur";};
+    in {
+      cyrus-imapd = pkg ./cyrus-imapd {};
+    }
+  )
