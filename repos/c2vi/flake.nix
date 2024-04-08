@@ -190,6 +190,14 @@
         ];
       };
 
+   		"hec-tmp" = nixpkgs.lib.nixosSystem rec {
+        system = "aarch64-linux";
+        specialArgs = { inherit inputs confDir workDir secretsDir persistentDir self system; };
+        modules = [
+          ./hosts/tmp-hec.nix
+        ];
+      };
+
       # my headless nixos vm
    		"loki" = nixpkgs.lib.nixosSystem {
 			  inherit specialArgs;

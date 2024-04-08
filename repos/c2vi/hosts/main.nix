@@ -318,7 +318,7 @@
         id = "hot";
         uuid = "ab51de8a-9742-465a-928b-be54a83ab6a3";
         type = "wifi";
-        autoconnect = "false";
+        autoconnect = false;
         interface-name = "wlp2s0";
       };
       wifi = {
@@ -329,6 +329,30 @@
 
       ipv4 = {
         method = "shared";
+      };
+    };
+
+    share = {
+      connection = {
+        id = "share";
+        uuid = "f55f34e3-4595-4642-b1f6-df3185bc0a04";
+        type = "ethernet";
+        autoconnect = false;
+        interface-name = "enp1s0";
+      };
+
+      ethernet = {
+        mac-address = "F4:39:09:4A:DF:0E";
+      };
+
+      ipv4 = {
+        address1 = "192.168.4.1/24";
+        method = "shared";
+      };
+
+      ipv6 = {
+        addr-gen-mode = "stable-privacy";
+        method = "auto";
       };
     };
 
