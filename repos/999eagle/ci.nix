@@ -13,7 +13,7 @@ with builtins; let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   skipBuild = n: n == "openmoji";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+  isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true && elem pkgs.system (p.meta.platforms or [pkgs.system]);
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
