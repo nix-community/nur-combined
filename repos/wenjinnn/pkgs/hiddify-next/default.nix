@@ -53,6 +53,9 @@ in stdenv.mkDerivation rec {
     cp ${hiddify}/bin/${name} $out/bin/hiddify
     cp -a ${appimageContents}/${pname}.desktop $out/share/applications/
     cp -a ${appimageContents}/usr/share/icons $out/share/
+
+    substituteInPlace $out/share/applications/${pname}.desktop \
+      --replace 'LD_LIBRARY_PATH=usr/lib ' ''''''
     runHook postInstall
   '';
 
