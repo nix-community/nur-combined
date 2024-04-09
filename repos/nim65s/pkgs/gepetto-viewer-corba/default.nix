@@ -9,12 +9,12 @@
   omniorb,
   omniorbpy,
   pkg-config,
-  python3,
+  python3Packages,
   qtbase,
   wrapQtAppsHook,
 }:
 let
-  python = python3.withPackages (p: [ omniorbpy ]);
+  python = python3Packages.python.withPackages (ps: [ ps.boost omniorbpy ]);
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "gepetto-viewer-corba";

@@ -8,14 +8,14 @@
   openscenegraph,
   osgqt,
   pkg-config,
-  python3,
+  python3Packages,
   qgv,
   qtbase,
   wrapQtAppsHook,
   python-qt,
 }:
 let
-  python = python3.withPackages (pkgs: [ pkgs.boost ]);
+  python = python3Packages.python.withPackages (ps: [ ps.boost ]);
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "gepetto-viewer";
@@ -39,6 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     python-qt
     qtbase
     osgqt
+    python
   ];
 
   nativeBuildInputs = [
@@ -51,7 +52,6 @@ stdenv.mkDerivation (finalAttrs: {
   propagatedBuildInputs = [
     openscenegraph
     osgqt
-    python
     qgv
   ];
 
