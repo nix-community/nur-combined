@@ -9,18 +9,19 @@
 , qt6
 , qwt
 , fftw
+, enableHiFiGui ? true
 , ...
 }:
 let
   # we need a valid version for SETUPTOOLS_SCM
   version = "0.2.5";
-  rev = "e21da865a424dbf2288c827435fba50b2a04a7f8";
+  rev = "3b5cdfb04487ea60754fd8341132dee402a2c778";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "oyvindln";
     repo = "vhs-decode";
-    sha256 = "sha256-mYMnHG1mPIz/YDrnwhHbSr8TI3W6sJXHLV8em8rV7ao=";
+    sha256 = "sha256-BLsauiEG8ZsSscbI2ex/obhMBuguhRGuMkvMlMGwdGI=";
   };
 
   py-vhs-decode = python3Packages.buildPythonApplication {
@@ -34,23 +35,31 @@ let
 
     buildInputs = [
       ffmpeg
-    ];
+    ]
+    ++ lib.optionals enableHiFiGui [ qt6.qtbase ]
+    ++ lib.optionals (stdenv.isLinux && enableHiFiGui) [ qt6.qtwayland ];
 
     nativeBuildInputs = with python3Packages; [
       setuptools_scm
-    ];
+    ] ++ lib.optionals enableHiFiGui [ qt6.wrapQtAppsHook ];
 
-    propagatedBuildInputs = with python3Packages; [
-      cython
-      numpy
-      jupyter
-      numba
-      pandas
-      scipy
-      matplotlib
-      soundfile
-      samplerate
-    ];
+    propagatedBuildInputs = with python3Packages;
+      [
+        cython
+        numpy
+        jupyter
+        numba
+        pandas
+        scipy
+        matplotlib
+        soundfile
+        sounddevice
+        samplerate
+      ] ++ lib.optionals enableHiFiGui [ pyqt6 ];
+
+    postFixup = lib.optionalString enableHiFiGui ''
+      wrapQtApp $out/bin/hifi-decode
+    '';
   };
 
   vhs-decode-tools = stdenv.mkDerivation {
@@ -63,7 +72,8 @@ let
     ];
 
     buildInputs = [
-      qt6.qttools
+      qt6.qtbase
+      qt6.qtwayland
       qt6.wrapQtAppsHook
       qwt
       ffmpeg
