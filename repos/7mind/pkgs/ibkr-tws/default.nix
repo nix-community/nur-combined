@@ -1,28 +1,29 @@
-{ lib
-, stdenv
-, makeWrapper
-, jdk11
-, fetchurl
-, glib
-, gtk3
-, pango
-, cairo
-, libX11
-, libGL
-, chromium
-, xorg
-, cups
-, mesa
-, alsa-lib
-, libxkbcommon
-, libdrm
-, nspr
-, nss
-, atk
-, dbus
-, expat
-, at-spi2-atk
-, at-spi2-core
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  jdk11,
+  fetchurl,
+  glib,
+  gtk3,
+  pango,
+  cairo,
+  libX11,
+  libGL,
+  chromium,
+  xorg,
+  cups,
+  mesa,
+  alsa-lib,
+  libxkbcommon,
+  libdrm,
+  nspr,
+  nss,
+  atk,
+  dbus,
+  expat,
+  at-spi2-atk,
+  at-spi2-core,
 }:
 
 let
@@ -31,7 +32,7 @@ let
     urls = [
       "https://download2.interactivebrokers.com/installers/tws/stable-standalone/tws-stable-standalone-linux-x64.sh"
     ];
-    sha256 = "sha256-ZJ5P9XMOESlUCxBS22GzvIzp+08DZPvp0NnZv3b0MY4=";
+    sha256 = "sha256-l8532dQIgUlN9L++3Y8qLeRu9/vof2/aMLySXZlq4hw=";
   };
   jre = jdk11.override { enableJavaFX = true; };
   dynamicLibraries = [
