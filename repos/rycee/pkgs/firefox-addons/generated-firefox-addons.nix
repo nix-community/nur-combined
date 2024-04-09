@@ -1368,10 +1368,10 @@
     };
     "competitive-companion" = buildFirefoxXpiAddon {
       pname = "competitive-companion";
-      version = "2.51.1";
+      version = "2.52.0";
       addonId = "{74e326aa-c645-4495-9287-b6febc5565a7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251244/competitive_companion-2.51.1.xpi";
-      sha256 = "18a5af9a6d810b7f900610f602f921f7ed334f351ef1e812eea3f9acc99e941e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261954/competitive_companion-2.52.0.xpi";
+      sha256 = "26b4752872310c13e02631f671dd023b7d0348ee9db62c132d3d965a39835736";
       meta = with lib;
       {
         homepage = "https://github.com/jmerle/competitive-companion";
@@ -1797,10 +1797,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240405.130120";
+      version = "125.0.20240408.174943";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4260597/deutsch_de_language_pack-125.0.20240405.130120.xpi";
-      sha256 = "5f3dcccb27fc84080ef8230b79b18ad2baadc4e553d0f20cde5d92b2c7d33c83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261982/deutsch_de_language_pack-125.0.20240408.174943.xpi";
+      sha256 = "92f29896bc33217cbfd2736b099056089de88f2370c03173feedd9827e95399f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2737,10 +2737,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240405.130120";
+      version = "125.0.20240408.174943";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4260605/francais_language_pack-125.0.20240405.130120.xpi";
-      sha256 = "30980bd8d75bb6e8e5f9bae8a2776111f31af6a649cf43a4b4cb1ca7e2c5800a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262059/francais_language_pack-125.0.20240408.174943.xpi";
+      sha256 = "0c14725b4327e2e01f64d3d2d50dbc7d2688f65799112bf3a9e28f63e0e696a2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3571,10 +3571,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.215";
+      version = "1.0.215.1";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258583/hover_zoom_plus-1.0.215.xpi";
-      sha256 = "6013637b846333a53d3cef3592eceb20e426ab24e6e4e1635d3032d6048faf5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261837/hover_zoom_plus-1.0.215.1.xpi";
+      sha256 = "cf01b041accd832640fe5faa346adaebfa4c3c1c346be662df6ee2619021992f";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
