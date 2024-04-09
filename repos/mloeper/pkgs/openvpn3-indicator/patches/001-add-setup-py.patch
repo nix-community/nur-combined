@@ -7,7 +7,7 @@ index e69de29..2e95659 100644
 +
 +from distutils.core import setup
 +
-+setup(name='Distutils',
++setup(name='openvpn3-indicator',
 +      version='0.1',
 +      description='Simple GTK indicator GUI for OpenVPN3',
 +      author='Grzegorz Gutowski',
