@@ -6,9 +6,6 @@ let
         nativeBuildInputs = with pkgs;
           [ (emacs-gtk.pkgs.emacsWithPackages (epkgs: [ epkgs.use-package ])) ];
       } "emacs --script ${./use-package-list.el} ${initEl} > $out || true")));
-
-  allGrammars = p:
-    builtins.filter pkgs.lib.attrsets.isDerivation (builtins.attrValues p);
 in {
   home = {
     packages = with pkgs; [ emacs-all-the-icons-fonts ];
@@ -19,11 +16,11 @@ in {
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs-gtk;
+    package = pkgs.emacs29-gtk3;
     extraConfig = builtins.readFile ./init.el;
     extraPackages = epkgs:
       (fromUsePackage epkgs ./init.el) ++ (with epkgs; [
-        (tree-sitter-langs.withPlugins allGrammars)
+        treesit-grammars.with-all-grammars
         pkgs.my.emacsPackages.eglot-tempel
         epkgs.llvm-mode
         epkgs.exwm

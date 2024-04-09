@@ -20,6 +20,7 @@
   (scroll-margin 15)
   (visible-bell t)
   (cursor-type 'bar)
+  (bidi-inhibit-bpa t) ; faster with long lines
   (use-short-answers t) ; y or n instead of yes or no
   (indent-tabs-mode t)
   (standard-indent 8)
@@ -161,6 +162,7 @@
   :custom
   (proced-auto-update-flag t)
   (proced-tree-flag t)
+  (proced-enable-color-flag t)
   (proced-filter 'all))
 
 (use-package daemons
@@ -210,10 +212,17 @@
   :custom
   (global-superword-mode t))
 
+(use-package newcomment
+  :bind (([remap comment-dwim] . comment-line)))
+
 (use-package whitespace
   :custom
   (whitespace-style '(face trailing tabs spaces space-mark tab-mark))
   (global-whitespace-mode t))
+
+(use-package so-long
+  :custom
+  (global-so-long-mode t))
 
 (use-package diff-hl
   :ensure t
@@ -278,14 +287,7 @@
   (mood-line-show-eol-style t)
   (mood-line-show-encoding-information t)
   :config
-  (defun mood-line-segment-buffer-name () nil) ; Show only in mode line
-  (setq-default header-line-format
-                '(" "
-                  (:eval (propertize (if buffer-file-name
-                                         (abbreviate-file-name buffer-file-name) "%b")
-                                     'face 'mood-line-buffer-name))
-                  " "
-                  which-func-current)))
+  (defun mood-line-segment-buffer-name () nil)) ; Show only in mode line
 
 (use-package which-key
   :ensure t
@@ -318,13 +320,10 @@
              (if-let ((proj (project-current nil)))
                  (setq-local default-directory (project-root proj))))))
 
-(use-package which-func
-  :custom
-  (which-func-mode t)
-  (which-func-unknown "")
+(use-package breadcrumb
+  :ensure t
   :config
-  (setq mode-line-misc-info
-        (assq-delete-all 'which-function-mode mode-line-misc-info)))
+  (breadcrumb-mode 1))
 
 (use-package gud
   :hook gud-tooltip-mode)
@@ -334,7 +333,6 @@
   :hook (after-init . flymake-collection-hook-setup))
 
 (use-package eglot
-  :ensure t
   :hook (eglot-managed-mode
          . (lambda ()
              (add-hook 'flymake-diagnostic-functions 'eglot-flymake-backend)
@@ -355,13 +353,6 @@
               ("<tab>" . tempel-next)
               ("TAB" . tempel-next)))
 
-(use-package tree-sitter
-  :ensure t
-  :custom
-  (global-tree-sitter-mode)
-  :config
-  (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode))
-
 (use-package dired
   :hook (dired-mode . dired-hide-details-mode)
   :bind (:map dired-mode-map
@@ -371,7 +362,10 @@
   (dired-recursive-deletes 'always) ;; Don't confirm.
   (dired-recursive-copies 'always)
   (dired-dwim-target t)
+  (dired-find-subdir t)
   (dired-kill-when-opening-new-dired-buffer t))
+
+(use-package dired-x)
 
 (use-package dired-subtree
   :ensure t
@@ -385,7 +379,9 @@
 
 (use-package all-the-icons-dired
   :ensure t
-  :hook (dired-mode . all-the-icons-dired-mode))
+  :hook (dired-mode . all-the-icons-dired-mode)
+  :custom
+  (all-the-icons-dired-monochrome nil))
 
 (use-package direnv
   :ensure t
@@ -405,7 +401,14 @@
          ([remap bookmark-jump] . consult-bookmark)
          ([remap project-switch-to-buffer] . consult-project-buffer)
          ([remap yank-pop] . consult-yank-pop)
-         ([remap goto-line] . consult-goto-line)))
+         ([remap goto-line] . consult-goto-line)
+         ("M-g f" . consult-flymake)
+         ("M-g m" . consult-mark)
+         ("M-g i" . consult-imenu)
+         ("M-g I" . consult-imenu-multi))
+  :init
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref))
 
 (use-package marginalia
   :ensure t
@@ -416,6 +419,13 @@
   :ensure t
   :config
   (all-the-icons-completion-mode))
+
+(use-package shell
+  :bind (([remap shell] . new-shell))
+  :config
+  (defun new-shell ()
+    (interactive)
+    (shell (generate-new-buffer "*shell*"))))
 
 (use-package bash-completion
   :ensure t
@@ -429,6 +439,12 @@
     (bash-completion-dynamic-complete-nocomint
      (save-excursion (eshell-bol) (point))
      (point) t)))
+
+(use-package coterm
+  :ensure t
+  :bind ("C-;" . coterm-char-mode-cycle)
+  :config
+  (coterm-mode))
 
 (use-package eshell
   :hook (eshell-mode . bash-completion-from-eshell)
@@ -479,14 +495,8 @@
   :ensure t
   :hook (nix-mode . eglot-ensure)
   :custom
-  (nix-indent-function #'nix-indent-line))
-
-(use-package company-nixos-options
-  :ensure t
-  :hook (nix-mode . company-nixos-options)
-  :config
-  (add-to-list 'completion-at-point-functions
-               (cape-company-to-capf #'company-nixos-options) t))
+  (nix-indent-function #'nix-indent-line)
+  (nix-repl-executable-args '("repl" "--show-trace")))
 
 (use-package haskell-mode
   :ensure t

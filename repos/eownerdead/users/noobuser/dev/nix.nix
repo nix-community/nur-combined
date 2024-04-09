@@ -6,12 +6,12 @@
     nixfmt
     statix
     hydra-check
-    cached-nix-shell
     nix-output-monitor
     comma
     nix-tree
     nurl
     nix-init
+    nixpkgs-review
   ];
 
   programs.nix-index = {

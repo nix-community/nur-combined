@@ -35,7 +35,6 @@ in {
       "www.eownerdead.dedyn.io" = cfSSLConfig // {
         locations."/".root = ./www.null.dedyn.io;
       };
-      "git.eownerdead.dedyn.io" = cfSSLConfig;
       "libretranslate.eownerdead.dedyn.io" = cfSSLConfig;
     };
     enableReload = true;

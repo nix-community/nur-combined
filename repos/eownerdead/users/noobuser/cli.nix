@@ -40,5 +40,6 @@
       enableBashIntegration = true;
       options = [ "--cmd" "cd" ];
     };
+    jq.enable = true;
   };
 }

@@ -5,7 +5,6 @@
     ../noobuser/gpg.nix
     ../noobuser/pass.nix
     ../noobuser/firefox.nix
-    ../noobuser/fish.nix
     ../noobuser/emacs
 
     ../noobuser/dev/nix.nix
@@ -41,6 +40,8 @@
       (isabelle.withComponents (p: [ p.isabelle-linter ]))
       anki
       tigervnc
+      wayfire
+      patched
     ];
   };
 
