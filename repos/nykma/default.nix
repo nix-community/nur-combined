@@ -10,4 +10,5 @@ rec {
   safeheron-crypto-suites = pkgs.callPackage ./pkgs/safeheron-crypto-suites { };
   multi-party-sig = pkgs.callPackage ./pkgs/multi-party-sig { safeheron-crypto-suites = safeheron-crypto-suites; };
   orca-slicer = pkgs.callPackage ./pkgs/orca-slicer { };
+  snips-sh = pkgs.callPackage ./pkgs/snips.sh { };
 }
