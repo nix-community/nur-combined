@@ -78,6 +78,16 @@ in
   };
   hpp-centroidal-dynamics = pkgs.callPackage ./pkgs/hpp-centroidal-dynamics { inherit qpoases; };
   ndcurves = pkgs.callPackage ./pkgs/ndcurves { };
+  py-gepetto-viewer = pkgs.python3Packages.toPythonModule (
+    pkgs.libsForQt5.callPackage ./pkgs/gepetto-viewer {
+      inherit osgqt python-qt qgv;
+    }
+  );
+  py-gepetto-viewer-corba = pkgs.python3Packages.toPythonModule (
+    pkgs.libsForQt5.callPackage ./pkgs/gepetto-viewer-corba {
+      inherit gepetto-viewer omniorb omniorbpy;
+    }
+  );
   py-ndcurves = pkgs.python3Packages.toPythonModule (
     pkgs.callPackage ./pkgs/ndcurves { pythonSupport = true; }
   );
