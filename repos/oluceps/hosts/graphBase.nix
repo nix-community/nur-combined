@@ -115,52 +115,7 @@
           # native wayland support (unstable)
           wineWowPackages.waylandFull
         ];
-        dev = [
-          friture
-          qemu-utils
-          yubikey-personalization
-          racket
-          resign
-          pv
-          devenv
-          gnome.dconf-editor
-          [
-            swagger-codegen3
-            bump2version
-            openssl
-            linuxPackages_latest.perf
-            cloud-utils
-          ]
-          [
-            bpf-linker
-            gdb
-            gcc
-            gnumake
-            cmake
-          ] # clang-tools_15 llvmPackages_latest.clang ]
-          # [ openocd ]
-          lua
-          delta
-          # nodejs-18_x
-          switch-mute
-          go
-
-          nix-tree
-          kotlin
-          jre17_minimal
-          inotify-tools
-          rustup
-          tmux
-          # awscli2
-
-          trunk
-          cargo-expand
-          wasmer
-          wasmtime
-          comma
-          nix-update
-          nodejs_latest.pkgs.pnpm
-        ];
+        
         db = [ mongosh ];
 
         web = [ hugo ];

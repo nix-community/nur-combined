@@ -111,6 +111,7 @@
     photoprism.enable = true;
     mysql.enable = true;
     prometheus.enable = true;
+    vaultwarden.enable = true;
   };
   services = {
     metrics.enable = true;

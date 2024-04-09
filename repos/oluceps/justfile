@@ -22,6 +22,9 @@ default:
 build-livecd:
     nom build .#nixosConfigurations.livecd.config.system.build.isoImage
 
+build-cache:
+    nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+
 build-bootstrap:
     nom build .#nixosConfigurations.bootstrap.config.system.build.diskoImages
 test-bootstrap:

@@ -11,7 +11,7 @@
 
   systemd.sysusers.enable = true;
   system.etc.overlay.enable = true;
-  system.etc.overlay.mutable = false;
+  system.etc.overlay.mutable = true;
 
   systemd.services.nix-daemon = {
     serviceConfig = {
@@ -162,6 +162,7 @@
   systemd.tmpfiles.rules = [
     "C /var/cache/tuigreet/lastuser - - - - ${pkgs.writeText "lastuser" "${user}"}"
     "d /var/tmp/nix-daemon 0755 root root -"
+    "d /var/lib/ssh 0755 root root -"
   ];
 
   i18n.defaultLocale = "en_GB.UTF-8";

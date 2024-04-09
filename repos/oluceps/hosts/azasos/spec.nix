@@ -28,6 +28,7 @@
 
   services = {
     sing-box.enable = true;
+    metrics.enable = true;
 
     hysteria.instances = [
       {

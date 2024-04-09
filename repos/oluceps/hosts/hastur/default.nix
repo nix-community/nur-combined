@@ -42,7 +42,6 @@
       inputs.misskey.nixosModules.default
       ./misskey.nix
 
-      ./vaultwarden.nix
     ]
     ++ (with inputs; [
       aagl.nixosModules.default
