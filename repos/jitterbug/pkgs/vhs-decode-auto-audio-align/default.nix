@@ -24,11 +24,12 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out/bin
-    cp -r VhsDecodeAutoAudioAlign.exe $out/bin
-    cp -r Binah.dll $out/bin
+    cp -r VhsDecodeAutoAudioAlign.exe $out/bin/.VhsDecodeAutoAudioAlign.exe
+    cp -r Binah.dll $out/bin/Binah.dll
 
     makeWrapper "${mono}/bin/mono" "$out/bin/VhsDecodeAutoAudioAlign.exe" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ "$out" ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ "$out" ]} \
+      --add-flags $out/bin/.VhsDecodeAutoAudioAlign.exe
 
     runHook postInstall
   '';
