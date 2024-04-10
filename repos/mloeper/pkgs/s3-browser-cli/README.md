@@ -60,12 +60,16 @@ Note: The *objectPrefix* must be a *folder*, i.e. a key's prefix not the full ob
 
 ## Shell Script Usage Example
 
+We developed this tool to facilitate interactive s3 key selection into a shell variable. You could run e.g. `aws s3 cp ${SELECTED_S3_KEY_URI} <path>` subsequently to download the selected file. Use the following code snippet to read the user input into a shell variable:
+
 ```bash
 TMP_FILE=$(mktemp)
 s3select --redirect 3>$TMP_FILE
 
-SELECTED_S3_KEY=$(cat $TMP_FILE | jq -r '.prefix')
+SELECTED_S3_KEY_URI=$(cat $TMP_FILE | jq -r '.s3Uri')
 ```
+
+Note: When using the `--redirect` option, you have to pass the file descriptor 3 to the s3select binary. This might not work if you call the binary via a wrapper like `npm run` or `pnpm exec`. Call the utility in *node_modules/.bin` instead.
 
 **Why is getting the output so difficult?**
 

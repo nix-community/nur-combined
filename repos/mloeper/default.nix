@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs }:
+{ pkgs ? import <nixpkgs> { }
+, ...
+}:
 
 rec {
   modules = import ./modules;
@@ -33,9 +35,9 @@ rec {
   mongosh = pkgs.callPackage ./pkgs/mongosh { };
   atlas-cli = pkgs.callPackage ./pkgs/atlas-cli { };
   nosql-workbench = pkgs.callPackage ./pkgs/nosql-workbench { };
-  #s3-browser-cli = pkgs.callPackage ./pkgs/s3-browser-cli/pkgs { };
-  #openvpn3 = pkgs.callPackage ./pkgs/openvpn3 { };
-  #openvpn3-indicator = pkgs.callPackage ./pkgs/openvpn3-indicator {
-  #openvpn3 = openvpn3; # we use our custom openvpn3 package which is a bump v20 -> v21
-  #};
+  s3-browser-cli = pkgs.callPackage ./pkgs/s3-browser-cli/pkgs { };
+  openvpn3 = pkgs.callPackage ./pkgs/openvpn3 { };
+  openvpn3-indicator = pkgs.callPackage ./pkgs/openvpn3-indicator {
+    openvpn3 = openvpn3; # we use our custom openvpn3 package which is a bump v20 -> v21
+  };
 }
