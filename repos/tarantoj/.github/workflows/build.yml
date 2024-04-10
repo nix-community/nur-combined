@@ -11,7 +11,7 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '10 3 * * *'
 jobs:
-  tests:
+  build:
     strategy:
       matrix:
         # Set this to notify the global nur package registry that changes are

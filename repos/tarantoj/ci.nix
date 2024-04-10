@@ -12,7 +12,7 @@
 with builtins; let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false) && (hasAttr "platforms" p.meta && elem pkgs.hostPlatform p.meta.platforms or true) && p.meta.license.free or true;
+  isBuildable = p: !(p.meta.broken or false) && (!(hasAttr "platforms" p.meta) || elem pkgs.hostPlatform p.meta.platforms);
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
