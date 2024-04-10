@@ -1,8 +1,6 @@
 { lib
 , stdenv
 , appimageTools
-, copyDesktopItems
-, makeDesktopItem
 , fetchurl
 }: let
   pname = "hiddify";
@@ -18,7 +16,6 @@
     extraPkgs = pkgs: with pkgs; [ 
       libepoxy
     ];
-
   };
 
 in stdenv.mkDerivation rec {
@@ -30,23 +27,6 @@ in stdenv.mkDerivation rec {
     inherit name src;
   };
 
-  # nativeBuildInputs = [ copyDesktopItems ];
-  # desktopItems = [
-  #   (makeDesktopItem rec {
-  #     name = pname;
-  #     desktopName = "Hiddify";
-  #     genericName = desktopName;
-  #     comment = meta.description;
-  #     exec = "${pname} %u";
-  #     icon = pname;
-  #     terminal = false;
-  #     type = "Application";
-  #     categories = [ "Network" ];
-  #     keywords = [ desktopName ];
-  #   })
-  # ];
-
-  # TODO: Extract cura-icon from AppImage source.
   installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share/applications
@@ -60,10 +40,12 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "(appimage version) Multi-platform auto-proxy client, supporting Sing-box, X-ray, TUIC, Hysteria, Reality, Trojan, SSH etc. It’s an open-source, secure and ad-free.";
+    description = "Multi-platform auto-proxy client (appimage version)";
+    longDescription = ''
+      Multi-platform auto-proxy client, supporting Sing-box, X-ray, TUIC, Hysteria, Reality, Trojan, SSH etc. It’s an open-source, secure and ad-free.
+    '';
     homepage = "https://github.com/hiddify/hiddify-next";
     license = licenses.cc-by-nc-sa-40;
     platforms = [ "x86_64-linux" ];
   };
-
 }
