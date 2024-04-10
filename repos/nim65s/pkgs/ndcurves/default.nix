@@ -5,6 +5,7 @@
   cmake,
   boost,
   eigen,
+  jrl-cmakemodules,
   pinocchio,
   pythonSupport ? false,
   python3Packages,
@@ -18,8 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "loco-3d";
     repo = finalAttrs.pname;
     rev = "v${finalAttrs.version}";
-    fetchSubmodules = true;
-    hash = "sha256-I0vYzL8FFlAAP158eAEO+13HOGGUWntX8JY1VSXI8Sc=";
+    hash = "sha256-Er7JrIv8rAdNcncqhCBuCXyf4nD1iiviJhFBkwK2NW4=";
   };
 
   outputs = [
@@ -29,7 +29,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [
+    cmake
+    jrl-cmakemodules
+  ];
 
   propagatedBuildInputs =
     lib.optionals (!pythonSupport) [ pinocchio ]

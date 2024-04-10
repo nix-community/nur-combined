@@ -5,6 +5,7 @@
   boost,
   cmake,
   doxygen,
+  jrl-cmakemodules,
   openscenegraph,
   osgqt,
   pkg-config,
@@ -25,8 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "gepetto";
     repo = finalAttrs.pname;
     rev = "v${finalAttrs.version}";
-    fetchSubmodules = true;
-    hash = "sha256-x+32/jywFq2A5lF7bDhh/9SoaIZeCUkYknug18qEN6Y=";
+    hash = "sha256-e+MYEJA98U+ZUv2Aza/S7CGbQSJht7xFtmx229HmlOs=";
   };
 
   outputs = [
@@ -45,6 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     doxygen
+    jrl-cmakemodules
     wrapQtAppsHook
     pkg-config
   ];

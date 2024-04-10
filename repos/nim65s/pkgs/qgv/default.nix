@@ -4,6 +4,7 @@
   lib,
   cmake,
   graphviz,
+  jrl-cmakemodules,
   qtbase,
   qttools,
   wrapQtAppsHook,
@@ -17,8 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "gepetto";
     repo = finalAttrs.pname;
     rev = "v${finalAttrs.version}";
-    fetchSubmodules = true;
-    hash = "sha256-V9OfdjArTZMOxwYJw7ohPOGuKX1yqb3bGifrlzEMO1I=";
+    hash = "sha256-NUMCVqXw7euwxm4vISU8qYFfvV5HbAJsj/IjyxEjCPw=";
   };
 
   buildInputs = [
@@ -28,6 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     cmake
+    jrl-cmakemodules
     wrapQtAppsHook
   ];
 

@@ -6,6 +6,7 @@
   boost,
   cddlib,
   eigen,
+  jrl-cmakemodules,
   pythonSupport ? false,
   python3Packages,
   qpoases,
@@ -24,7 +25,6 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "humanoid-path-planner";
     repo = finalAttrs.pname;
     rev = "v${finalAttrs.version}";
-    fetchSubmodules = true;
     hash = "sha256-En99yno9xC1ItDJiRpfujEmvPazMDlzPJQZlMiDWG2c=";
   };
 
@@ -35,7 +35,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [
+    cmake
+    jrl-cmakemodules
+  ];
 
   propagatedBuildInputs = [
     boost

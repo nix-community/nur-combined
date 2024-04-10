@@ -12,9 +12,13 @@
   python3Packages,
   qtbase,
   wrapQtAppsHook,
+  jrl-cmakemodules,
 }:
 let
-  python = python3Packages.python.withPackages (ps: [ ps.boost omniorbpy ]);
+  python = python3Packages.python.withPackages (ps: [
+    ps.boost
+    omniorbpy
+  ]);
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "gepetto-viewer-corba";
@@ -24,8 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "gepetto";
     repo = finalAttrs.pname;
     rev = "v${finalAttrs.version}";
-    fetchSubmodules = true;
-    hash = "sha256-N05nGHf2dxI3A+tZblnt3j0Bh5CnNMm5pSTD+iC5omg=";
+    hash = "sha256-/bpAs4ca/+QjWEGuHhuDT8Ts2Ggg+DZWETZfjho6E0w=";
   };
 
   outputs = [
@@ -36,7 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace src/CMakeLists.txt \
-      --replace-fail "ARGUMENTS $" "ARGUMENTS -p${python}/${python.sitePackages} $"
+      --replace-fail "ARGUMENTS $" "ARGUMENTS -p${python}/${python.sitePackages} $" \
+      --replace-fail '$'{CMAKE_SOURCE_DIR}/cmake '$'{JRL_CMAKE_MODULES}
   '';
 
   buildInputs = [
@@ -49,6 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     doxygen
+    jrl-cmakemodules
     wrapQtAppsHook
     pkg-config
   ];
