@@ -1469,10 +1469,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.23.2";
+      version = "3.24.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258775/control_panel_for_twitter-3.23.2.xpi";
-      sha256 = "bc16a55260b9a972e189794bac87ffa6ba4007f0745e0017b4042871969eca58";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261485/control_panel_for_twitter-3.24.0.xpi";
+      sha256 = "d4595f71e21f3911a0babcfa287be084dac0e6ea742991b05b3c318669b68368";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1592,10 +1592,10 @@
     };
     "copy-selected-tabs-to-clipboard" = buildFirefoxXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
-      version = "1.6.2";
+      version = "1.6.3";
       addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4194967/copy_selected_tabs_to_clipboar-1.6.2.xpi";
-      sha256 = "e311bdf51289ee2a1df13b46a030a677064deab55ba39912e88d16fd6d5e4c9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262355/copy_selected_tabs_to_clipboar-1.6.3.xpi";
+      sha256 = "a1d9481084c753a5c5915c6bb8125c7a749f918a5ffbfb1f273e93a88858f28f";
       meta = with lib;
       {
         description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
@@ -1694,10 +1694,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.81";
+      version = "4.9.82";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257392/darkreader-4.9.81.xpi";
-      sha256 = "71413cde04cca328b64fbad24e63c716759d1154fa7e016a728366230e0e0122";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4260787/darkreader-4.9.82.xpi";
+      sha256 = "df2e0c5498c08caa8452cd21f627d6dce0b2251047602ab2417c2e1dd7350697";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1978,10 +1978,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.26.1";
+      version = "2.27.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259129/dualsub-2.26.1.xpi";
-      sha256 = "acdb59bf564f7cbb5180e061f4645798ceab22f716fe5995a68b88bab1b2b688";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262186/dualsub-2.27.0.xpi";
+      sha256 = "86fe8c8b0739d0c03ed47ce950ad2fbe65870821a67c73c2df58307588df78ea";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3556,10 +3556,10 @@
     };
     "hoppscotch" = buildFirefoxXpiAddon {
       pname = "hoppscotch";
-      version = "0.32";
+      version = "0.33";
       addonId = "postwoman-firefox@postwoman.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4249999/hoppscotch-0.32.xpi";
-      sha256 = "84a7bf299a5d6fc72b2e2a41c3bcad6b7b1d1c71ece5df37279c0e2b0718b65a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262201/hoppscotch-0.33.xpi";
+      sha256 = "73e2272b5f9aaa4d57d34e0cb61b28722f7090517ecd9f2f1d8f21e598abf8d1";
       meta = with lib;
       {
         homepage = "https://github.com/hoppscotch/hoppscotch-extension";
@@ -8591,10 +8591,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.68.0";
+      version = "1.69.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257109/read_aloud-1.68.0.xpi";
-      sha256 = "a8de743bdef9126e63fa8b6712d0a9107f97e315058f38aeb0b8657b717671a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261659/read_aloud-1.69.0.xpi";
+      sha256 = "69de81c0f4c962550637f87546a496821db919deab3c05b2315891d53d382bc3";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -8733,10 +8733,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.4.1";
+      version = "24.4.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258070/refined_github-24.4.1.xpi";
-      sha256 = "d12f8f307954ac6b0ad28612442b47bca1c340089bcf6cf15088b8490a4d730e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262441/refined_github-24.4.9.xpi";
+      sha256 = "7bbc82d7d991f8f776ff47167b0c9e7c05043e83c0d85e1b6711e1e2777f3284";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9188,10 +9188,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.45";
+      version = "1.22.46";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4249603/single_file-1.22.45.xpi";
-      sha256 = "c5956270a4e098edd309e3f6279c27ff5713ad4222aba1f4a84e7cc9fb9aea26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259991/single_file-1.22.46.xpi";
+      sha256 = "b63928f13e7a964d9be3cebd33483a5791ebe28363f0271de76bb75344579ad0";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10154,10 +10154,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.11";
+      version = "4.0.12";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259083/tree_style_tab-4.0.11.xpi";
-      sha256 = "ec53eb91431544981ea19e372a2b07f14c9264a9eb3b96a7b00570d4beb18ee0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4260305/tree_style_tab-4.0.12.xpi";
+      sha256 = "e6ac13b311a251e47238c8eb0e07779f2e10d6b782be879126bd83c219813bd8";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
