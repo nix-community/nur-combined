@@ -10,6 +10,10 @@
     targetHost = "116.196.112.43";
     targetPort = 22;
     targetUser = user;
+    privilegeEscalationCommand = [
+      "doas"
+      "--"
+    ];
   };
 
   imports = lib.sharedModules ++ [

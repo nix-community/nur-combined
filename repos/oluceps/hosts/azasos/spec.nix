@@ -30,6 +30,22 @@
     sing-box.enable = true;
     metrics.enable = true;
 
+    realm = {
+      enable = true;
+      settings = {
+        log.level = "warn";
+        network = {
+          no_tcp = false;
+          use_udp = true;
+        };
+        endpoints = [
+          {
+            listen = "[::]:8448";
+            remote = "10.0.2.2:43000";
+          }
+        ];
+      };
+    };
     hysteria.instances = [
       {
         name = "nodens";

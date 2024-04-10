@@ -36,6 +36,7 @@
   srv = {
     openssh.enable = true;
     fail2ban.enable = true;
+    # srs.enable = true;
     # coredns.enable = true;
     dae.enable = true;
   };
@@ -88,10 +89,10 @@
         name = "nodens";
         configFile = config.age.secrets.hyst-us-cli.path;
       }
-      {
-        name = "colour";
-        configFile = config.age.secrets.hyst-az-cli.path;
-      }
+      # {
+      #   name = "colour";
+      #   configFile = config.age.secrets.hyst-az-cli.path;
+      # }
     ];
 
     phantomsocks = {

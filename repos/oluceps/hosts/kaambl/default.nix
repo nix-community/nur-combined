@@ -9,6 +9,10 @@
     targetHost = "10.0.1.3";
     targetUser = user;
     allowLocalDeployment = true;
+    privilegeEscalationCommand = [
+      "doas"
+      "--"
+    ];
   };
 
   imports = lib.sharedModules ++ [

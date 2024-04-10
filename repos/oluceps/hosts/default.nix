@@ -47,6 +47,7 @@ in
                   "berberman"
                   "attic"
                   "misskey"
+                  "nix-minecraft"
                 ]);
             };
 

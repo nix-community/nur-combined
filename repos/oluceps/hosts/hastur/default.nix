@@ -11,6 +11,10 @@
     buildOnTarget = true;
     allowLocalDeployment = true;
     targetUser = user;
+    privilegeEscalationCommand = [
+      "doas"
+      "--"
+    ];
   };
 
   imports =
@@ -41,13 +45,13 @@
 
       inputs.misskey.nixosModules.default
       ./misskey.nix
-
     ]
     ++ (with inputs; [
       aagl.nixosModules.default
       disko.nixosModules.default
       attic.nixosModules.atticd
-      inputs.niri.nixosModules.niri
+      niri.nixosModules.niri
+      nix-minecraft.nixosModules.minecraft-servers
       # inputs.j-link.nixosModule
     ]);
 }

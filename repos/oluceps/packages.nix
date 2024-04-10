@@ -8,6 +8,19 @@
 let
   p = with pkgs; {
 
+    python = [
+      (python311.withPackages (
+        ps: with ps; [
+          pandas
+          requests
+          absl-py
+          tldextract
+          bleak
+          matplotlib
+          clang
+        ]
+      ))
+    ];
     dev = [
       friture
       qemu-utils
@@ -109,6 +122,7 @@ let
     # ];
 
     cmd = [
+      mcrcon
 
       asciinema
       smartmontools

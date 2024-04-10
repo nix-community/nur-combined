@@ -59,6 +59,7 @@
       with pkgs;
       {
         crypt = [
+          mieru
           minisign
           rage
           age-plugin-yubikey
@@ -70,7 +71,7 @@
           monero-cli
         ];
 
-        # python = [ (python311.withPackages (ps: with ps; [ pandas requests absl-py tldextract bleak matplotlib clang ])) ];
+
 
         lang = [
           [

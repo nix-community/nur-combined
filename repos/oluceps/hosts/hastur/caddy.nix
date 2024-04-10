@@ -43,6 +43,25 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
+                              upstreams = [ { dial = "localhost:8888"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
+                  terminal = true;
+                }
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
                               upstreams = [ { dial = "localhost:9000"; } ];
                             }
                           ];
@@ -59,6 +78,7 @@
                   match = {
                     sni = [
                       "attic.nyaw.xyz"
+                      "api.atuin.nyaw.xyz"
                       "hastur.nyaw.xyz"
                       "s3.nyaw.xyz"
                     ];

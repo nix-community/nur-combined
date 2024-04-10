@@ -144,6 +144,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     tg-online-keeper.url = "github:oluceps/TelegramOnlineKeeper";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     # tg-online-keeper.url = "/home/elen/Src/tg-online-keeper";
     disko = {
       url = "github:nix-community/disko";
@@ -179,7 +180,7 @@
       url = "github:tadfisher/android-nixpkgs";
     };
     # path:/home/riro/Src/flake.nix
-    dae.url = "github:daeuniverse/flake.nix";
+    dae.url = "github:daeuniverse/flake.nix/unstable";
     # dae.url = "/home/elen/Src/flake.nix";
     # nixyDomains.url = "";
     nixyDomains.url = "github:oluceps/nixyDomains";
