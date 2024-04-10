@@ -1,5 +1,5 @@
 diff --git a/src/rsbuild.h.in b/src/rsbuild.h.in
-index 70d9dc2..0809aae 100644
+index ff0a0f6..5529556 100644
 --- a/src/rsbuild.h.in
 +++ b/src/rsbuild.h.in
 @@ -20,7 +20,7 @@
@@ -10,4 +10,4 @@ index 70d9dc2..0809aae 100644
 +#define RS_BUILD_GLOBAL_CONFIG "/etc/replay-sorcery.conf"
  #define RS_BUILD_LOCAL_CONFIG "%s/.config/replay-sorcery.conf"
  
- #cmakedefine RS_BUILD_UNISTD_FOUND
+ #cmakedefine RS_BUILD_PTHREAD_FOUND

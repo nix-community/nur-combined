@@ -8,17 +8,17 @@
 }:
 
 let
-  rev = "1851d8fa2a27d3fd8deeeb29cd21c3002b8351ba";
+  rev = "0dbbd7f401da1bedd1a9146df6127233d601435b";
 in
 melpaBuild {
   pname = "acm-terminal";
-  version = "unstable-2023-12-06"; # 13:26 UTC
+  version = "20230601.1326"; # 13:26 UTC
 
   src = fetchFromGitHub {
     owner = "twlz0ne";
     repo = "acm-terminal";
     inherit rev;
-    sha256 = "sha256-EYhFrOo0j0JSNTdcZCbyM0iLxaymUXi1u6jZy8lTOaY=";
+    sha256 = "sha256-Opouy9A6z0YUT1zxZq1yHx+r/hwNE93JDwfa1fMWNgc=";
   };
 
   commit = rev;
