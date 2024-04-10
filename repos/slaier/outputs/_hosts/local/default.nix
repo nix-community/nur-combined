@@ -19,6 +19,7 @@ let
     nix
     openfortivpn
     podman
+    radicale
     sing-box
     sops
     spotify
