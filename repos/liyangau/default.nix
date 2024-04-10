@@ -14,7 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  deck = pkgs.callPackage ./pkgs/deck { };
+  # deck = pkgs.callPackage ./pkgs/deck { };
   case-cli = pkgs.callPackage ./pkgs/case-cli { };
   hexo-cli = pkgs.callPackage ./pkgs/hexo-cli { };
   kong-portal-cli = pkgs.callPackage ./pkgs/kong-portal-cli { };
