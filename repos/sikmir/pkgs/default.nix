@@ -424,6 +424,7 @@ lib.makeScope newScope (
     xtr = callPackage ./misc/xtr {
       inherit (darwin.apple_sdk.frameworks) Foundation;
     };
+    youtimetrack = callPackage ./misc/youtimetrack { };
 
     ### MQTT
 
