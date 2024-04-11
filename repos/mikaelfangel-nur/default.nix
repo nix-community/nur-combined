@@ -18,7 +18,6 @@
   gitpolite = pkgs.callPackage ./pkgs/gi/gitpolite { };
   quiet = pkgs.callPackage ./pkgs/qu/quiet { };
   rmosxf = pkgs.callPackage ./pkgs/rm/rmosxf { };
-  ugrep-indexer = pkgs.callPackage ./pkgs/ug/ugrep-indexer {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
