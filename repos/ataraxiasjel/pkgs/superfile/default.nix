@@ -8,12 +8,12 @@
 
 buildGoModule rec {
   pname = "superfile";
-  version = "v1.0.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "MHNightCat";
     repo = "superfile";
-    rev = version;
+    rev = "v${version}";
     hash = "sha256-FDsEzmFshwT3ZhIwS0YmhzAVVTbamvok2yco3A0mB3Q=";
   } + "/src";
 

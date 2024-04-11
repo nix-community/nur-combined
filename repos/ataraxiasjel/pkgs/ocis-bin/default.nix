@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = ./update.sh;
+  # passthru.updateScript = ./update.sh;
 
   meta = with lib; {
     description = "ownCloud Infinite Scale Stack";

@@ -3,11 +3,10 @@
 , fetchFromGitHub
 , gtk-engine-murrine
 , jdupes
-, nix-update-script
 }:
 
 builtins.mapAttrs
-  (pname: attrs: stdenv.mkDerivation (attrs // rec {
+  (pname: attrs: stdenv.mkDerivation (attrs // {
     inherit pname;
 
     version = "unstable-2023-05-30";
@@ -24,10 +23,6 @@ builtins.mapAttrs
     nativeBuildInputs = [ jdupes ];
 
     propagatedUserEnvPkgs = [ gtk-engine-murrine ];
-
-    passthru.updateScript = nix-update-script {
-      extraArgs = [ "--version=branch" ];
-    };
 
     meta = with lib; {
       description = "A GTK theme based on the Tokyo Night colour palette";

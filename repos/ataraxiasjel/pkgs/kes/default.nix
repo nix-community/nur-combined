@@ -6,13 +6,13 @@
 
 buildGoModule rec {
   pname = "kes";
-  version = "2024-03-13T17-52-13Z";
+  version = "2024-03-28T12-56-37Z";
 
   src = fetchFromGitHub {
     owner = "minio";
     repo = "kes";
     rev = version;
-    hash = "sha256-ilI2cuoFiuCaz/euTaMvE3I+A3se5B7zBKGUU4B8aPE=";
+    hash = "sha256-iOdwMqhZEhYE6iEiDHKURpZ1hwqO6sjuYkqfD+DvkXI=";
   };
 
   vendorHash = "sha256-Li9xOSa1N1frYesZSyCB2qZUJibNcbWHc6vnuHq0fWM=";

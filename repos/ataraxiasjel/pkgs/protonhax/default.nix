@@ -1,36 +1,27 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, tinycc
 , nix-update-script
 }:
 
 stdenv.mkDerivation rec {
   pname = "protonhax";
-  version = "1.0.4";
+  version = "1.0.5";
 
   src = fetchFromGitHub {
     owner = "jcnils";
     repo = pname;
     rev = version;
-    hash = "sha256-3s1pmHcQy/xJS6ke0Td3tkXAhXcTuJ4mb3Dtpxb2/6o=";
+    hash = "sha256-5G4MCWuaF/adSc9kpW/4oDWFFRpviTKMXYAuT2sFf9w=";
   };
 
-  nativeBuildInputs = [ tinycc ];
-
-  buildPhase = ''
-    runHook preBuild
-
-    make
-
-    runHook postBuild
-  '';
+  dontBuild = true;
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
-    cp {protonhax,envload} $out/bin
+    cp protonhax $out/bin
 
     runHook postInstall
   '';
