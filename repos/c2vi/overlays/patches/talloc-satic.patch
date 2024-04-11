@@ -1,10 +1,10 @@
 diff --git a/buildtools/wafsamba/wscript b/buildtools/wafsamba/wscript
-index dcc8a65..3e42d43 100644
+index 30cb366..56b939a 100644
 --- a/buildtools/wafsamba/wscript
 +++ b/buildtools/wafsamba/wscript
-@@ -305,7 +305,15 @@ def configure(conf):
+@@ -303,6 +303,15 @@ def configure(conf):
      conf.CHECK_CC_ENV()
- 
+
      conf.load('compiler_c')
 +
 +    # This seems to be the only way to not include the -Wl,-Bdynamic in the linker gcc cmdline
@@ -14,7 +14,7 @@ index dcc8a65..3e42d43 100644
 +    # but the conf.load("compiler_c") overwrites that
 +    # on the alpine static build it is no problem to have both -Wl,-Bdynamic and -Wl,-Bstatic
 +    # but on nix it is a problem
-+    conf.env.SHLB_MARKER = ""
- 
++    conf.env.SHLIB_MARKER = ""
+
      conf.CHECK_STANDARD_LIBPATH()
- 
+
