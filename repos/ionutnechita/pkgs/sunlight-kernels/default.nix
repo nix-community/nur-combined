@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.8.4-lowlatency-sunlight1";
+  modDirVersion = "6.8.5-lowlatency-sunlight1";
 
   parts = lib.splitString "-" modDirVersion;
 
@@ -14,7 +14,7 @@ let
 
   rev = "${version}-${flavour}-${suffix}";
 
-  hash = "sha256-cX/rxQpHxf7DXE+YpF60AiC1ooOvaf9YBfFq7iwP3aE=";
+  hash = "sha256-XCehri8HmLotE2XHwMpJL3tsbc5YX7+mj+pisxzqRyY=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -58,6 +58,9 @@ buildLinux (args // rec {
 
       # WineSync driver for fast kernel-backed Wine.
       WINESYNC = module;
+
+      # Full Cone NAT driver.
+      NFT_FULLCONE = module;
 
       # OpenRGB driver.
       I2C_NCT6775 = module;
