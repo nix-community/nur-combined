@@ -87,6 +87,7 @@ in
     p7zip
     pavucontrol
     pciutils
+    qrencode
     rust-petname
     safeeyes
     sops
