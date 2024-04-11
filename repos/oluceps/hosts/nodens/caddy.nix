@@ -117,13 +117,13 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
-                              transport = {
-                                protocol = "http";
-                                tls = {
-                                  server_name = "api.atuin.nyaw.xyz";
-                                };
-                              };
-                              upstreams = [ { dial = "10.0.1.2:443"; } ];
+                              # transport = {
+                              #   protocol = "http";
+                              #   tls = {
+                              #     server_name = "api.atuin.nyaw.xyz";
+                              #   };
+                              # };
+                              upstreams = [ { dial = "10.0.1.2:8888"; } ];
                             }
                           ];
                         }

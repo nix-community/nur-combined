@@ -12,10 +12,7 @@
   networking = {
     hosts = {
       "10.0.1.2" = [ "s3.nyaw.xyz" ];
-      "10.0.2.2" = [
-        "attic.nyaw.xyz"
-        "api.atuin.nyaw.xyz"
-      ];
+      "10.0.2.2" = [ "attic.nyaw.xyz" ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
     };
     nameservers = [

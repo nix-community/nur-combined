@@ -78,7 +78,6 @@
                   match = {
                     sni = [
                       "attic.nyaw.xyz"
-                      "api.atuin.nyaw.xyz"
                       "hastur.nyaw.xyz"
                       "s3.nyaw.xyz"
                     ];

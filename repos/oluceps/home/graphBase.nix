@@ -21,7 +21,7 @@
     # factorio
     loupe
     gedit
-    logseq
+    # logseq
     jetbrains.pycharm-professional
     jetbrains.idea-ultimate
     jetbrains.clion
