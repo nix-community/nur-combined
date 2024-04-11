@@ -1978,10 +1978,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.27.0";
+      version = "2.28.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262186/dualsub-2.27.0.xpi";
-      sha256 = "86fe8c8b0739d0c03ed47ce950ad2fbe65870821a67c73c2df58307588df78ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262679/dualsub-2.28.0.xpi";
+      sha256 = "8233e0360d311f2099d81e8a0fbe9310eb709bd1d3546a0b63febf823fe249b7";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2323,10 +2323,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.3";
+      version = "1.3.4";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257438/faststream-1.3.3.xpi";
-      sha256 = "633b9e4ca4c1cfcec848a1b6fb22b91942a1272088c295ac71fc5152178a6acc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4263043/faststream-1.3.4.xpi";
+      sha256 = "c54d860b588374cfb0fd369cf86d433a0bfeb00bf2a4ab296ef46213d24bec2b";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -7491,10 +7491,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.4.2";
+      version = "2024.4.3";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261614/pakkujs-2024.4.2.xpi";
-      sha256 = "90a92effccb8e810e6cde448777ec5e34128fd9feaccb16fcce1022d045cd806";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262811/pakkujs-2024.4.3.xpi";
+      sha256 = "57a8a64042149a0520f2965dcca294a8572433780fb0a4ec961e2c1f62864c15";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -10575,10 +10575,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.57.0";
+      version = "1.57.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257361/ublock_origin-1.57.0.xpi";
-      sha256 = "393736f7350b3ef4a849e4e31b63ed6e9ec33f6e7a4c662595c543a01b10447e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261710/ublock_origin-1.57.2.xpi";
+      sha256 = "9928e79a52cecf7cfa231fdb0699c7d7a427660d94eb10d711ed5a2f10d2eb89";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
