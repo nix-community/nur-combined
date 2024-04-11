@@ -11,8 +11,8 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "mpv-downmix-gui";
-    rev = "27b9e601e6210f8907dc27aa644f57126a4aeb6c";
-    hash = "sha256-bAhOjKTURK3rTkRDet7RQz9H4KFA8/PvFErqC6X3iyo=";
+    rev = "206532476350113754b9db8750dd1f742ec36673";
+    hash = "sha256-votmE1Qq78UCBAH+nFdYojfLqacUORVfU4pEOFpuqZw=";
   };
 
   nativeBuildInputs = [

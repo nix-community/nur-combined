@@ -567,7 +567,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   unarr = callPackage ./pkgs/tools/archivers/unarr/unarr.nix { };
 
-  zip = callPackage ./pkgs/tools/archivers/zip { };
+  zip-with-bzip2 = callPackage ./pkgs/tools/archivers/zip { };
 
   # https://github.com/NixOS/nixpkgs/pull/244713
   # libarchive: 3.6.2 -> 3.7.0
@@ -736,6 +736,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   zenity = callPackage ./pkgs/development/tools/misc/zenity/zenity.nix { };
 
   writable-nix-store = callPackage ./pkgs/development/tools/misc/writable-nix-store { };
+
+  qaac-bin = callPackage ./pkgs/applications/audio/qaac-bin { };
 
 }
 
