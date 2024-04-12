@@ -9,6 +9,7 @@
       { "pattern": "89033023425110*", "name": "Lenovo" },
       { "pattern": "890330234261000000000121*", "name": "OPPO" },
       { "pattern": "890330234261000000000173*", "name": "HONOR" },
+      { "pattern": "89033023426120*", "name": "Rakuten Hand 5G" },
       { "pattern": "890330234262*", "name": "Pixel 6 Series" },
       { "pattern": "890330234271*", "name": "Pixel 7 Series" },
       { "pattern": "89033023553419*", "name": "Pixel 8 Series" }
