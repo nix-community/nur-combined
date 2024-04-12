@@ -1,10 +1,10 @@
 {
   lib,
   writeShellScriptBin,
-  flake,
+  custom,
 }:
 let
-  inherit (flake.outputs.colors) colors;
+  inherit (custom.colors) colors;
   inherit (lib) attrNames concatStringsSep;
   sedstep = key: "sed 's;%${key}%;${colors.${key}};g'";
 in

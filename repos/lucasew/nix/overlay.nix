@@ -176,12 +176,12 @@ in
     colors-lib-contrib = import "${flake.inputs.nix-colors}/lib/contrib" { pkgs = prev; };
     # wallpaper = ./wall.jpg;
     wallpaper = colors-lib-contrib.nixWallpaperFromScheme {
-      scheme = colors;
+      scheme = final.custom.colors;
       width = 1366;
       height = 768;
       logoScale = 2;
     };
-    inherit (flake.outputs) colors;
+    colors = flake.colors.${prev.system};
   };
 
   script-directory = prev.script-directory.overrideAttrs (old: {

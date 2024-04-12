@@ -128,13 +128,11 @@
       nbr,
       nur,
       nixos-hardware,
+      flake-utils,
       ...
     }@inputs:
+      flake-utils.lib.eachSystem ["x86_64-linux"] (system:
     let
-      inherit (builtins) concatStringsSep;
-
-      system = builtins.currentSystem or "x86_64-linux";
-
       bootstrapPkgs = import nixpkgs {
         inherit system;
         overlays = [ ]; # essential, infinite loop if not when using overlays
@@ -146,8 +144,6 @@
       };
 
       pkgs = mkPkgs { inherit system; };
-
-      mapAttrValues = pkgs.callPackage ./nix/lib/mapAttrValues.nix { };
 
       mkPkgs =
         {
@@ -174,10 +170,10 @@
             ];
           };
           overlays =
-            if disableOverlays then [ ] else (overlays ++ (builtins.attrValues self.outputs.overlays));
+            if disableOverlays then [ ] else (overlays ++ (builtins.attrValues self.outputs.overlays.${system}));
         };
 
-      global = rec {
+      global = {
         username = "lucasew";
         email = "lucas59356@gmail.com";
         nodeIps = {
@@ -195,7 +191,7 @@
           };
         };
         selectedDesktopEnvironment = "i3";
-        environmentShell = with pkgs; ''
+        environmentShell = ''
           source ${self}/bin/source_me
           export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/nix/compat/overlay.nix:home-manager=${home-manager}:nur=${nur}
         '';
@@ -221,10 +217,10 @@
       # inherit (extraArgs) bumpkin;
       inherit global;
       inherit overlays;
-      inherit pkgs;
+      legacyPackages = pkgs;
       inherit self;
 
-      formatter.x86_64-linux = pkgs.nixfmt-rfc-style;
+      formatter = pkgs.nixfmt-rfc-style;
 
       colors = colors // {
         colors = colors.palette;
@@ -240,7 +236,7 @@
         };
       };
 
-      packages.x86_64-linux = {
+      packages = {
         default = pkgs.writeShellScriptBin "default" ''
           ${global.environmentShell}
           "$@"
@@ -248,9 +244,9 @@
 
         deploy =
           let
-            home = self.homeConfigurations.main.activationPackage;
-            riverwood = self.nixosConfigurations.riverwood.config.system.build.toplevel;
-            whiterun = self.nixosConfigurations.whiterun.config.system.build.toplevel;
+            home = self.homeConfigurations.${system}.main.activationPackage;
+            riverwood = self.nixosConfigurations.${system}.riverwood.config.system.build.toplevel;
+            whiterun = self.nixosConfigurations.${system}.whiterun.config.system.build.toplevel;
           in
           pkgs.writeShellScriptBin "deploy" ''
              nix-copy-closure --to riverwood ${riverwood} ${home}
@@ -280,6 +276,43 @@
              fi
 
           '';
+
+        release = pkgs.stdenv.mkDerivation {
+          pname = "nixcfg-release";
+          version = "${self.rev or (builtins.throw "Commita!")}";
+
+          preferLocalBuild = true;
+
+          dontUnpack = true;
+          buildInputs =
+            [ ]
+            # ++ (with pkgs.custom; [ neovim ])
+            # ++ (with pkgs.custom; [ firefox tixati emacs ])
+            # ++ (with pkgs.custom.vscode; [ common programming ])
+            ++ (with self.nixosConfigurations.${system}; [
+              riverwood.config.system.build.toplevel
+              whiterun.config.system.build.toplevel
+              # ivarstead.config.system.build.toplevel
+            ])
+            ++ (with self.homeConfigurations.${system}; [ main.activationPackage ])
+          # ++ (with self.devShells.${system}; [
+          #   (pkgs.writeShellScriptBin "s" "echo ${default.outPath}")
+          # ])
+          # ++ (let
+          #   flattenItems = items: if pkgs.lib.isDerivation items
+          #     then items
+          #     else if pkgs.lib.isAttrs items then pkgs.lib.flatten ((map (flattenItems) (builtins.attrValues items)))
+          #     else []
+          # ;
+          # in map (item: (pkgs.writeShellScriptBin "source" "echo ${item}")) (flattenItems bumpkinInputs))
+          ;
+          installPhase = ''
+            echo $version > $out
+            for input in $buildInputs; do
+              echo $input >> $out
+            done
+          '';
+        };
       };
 
       nixosConfigurations = pkgs.callPackage ./nix/nodes {
@@ -318,7 +351,7 @@
         };
       };
 
-      devShells.${system}.default = pkgs.mkShell {
+      devShells.default = pkgs.mkShell {
         name = "nixcfg-shell";
         buildInputs = with pkgs; [
           ctl
@@ -346,41 +379,5 @@
           echo Shell setup complete!
         '';
       };
-      release = pkgs.stdenv.mkDerivation {
-        pname = "nixcfg-release";
-        version = "${self.rev or (builtins.throw "Commita!")}";
-
-        preferLocalBuild = true;
-
-        dontUnpack = true;
-        buildInputs =
-          [ ]
-          # ++ (with pkgs.custom; [ neovim ])
-          # ++ (with pkgs.custom; [ firefox tixati emacs ])
-          # ++ (with pkgs.custom.vscode; [ common programming ])
-          ++ (with self.nixosConfigurations; [
-            riverwood.config.system.build.toplevel
-            whiterun.config.system.build.toplevel
-            # ivarstead.config.system.build.toplevel
-          ])
-          ++ (with self.homeConfigurations; [ main.activationPackage ])
-        # ++ (with self.devShells.${system}; [
-        #   (pkgs.writeShellScriptBin "s" "echo ${default.outPath}")
-        # ])
-        # ++ (let
-        #   flattenItems = items: if pkgs.lib.isDerivation items
-        #     then items
-        #     else if pkgs.lib.isAttrs items then pkgs.lib.flatten ((map (flattenItems) (builtins.attrValues items)))
-        #     else []
-        # ;
-        # in map (item: (pkgs.writeShellScriptBin "source" "echo ${item}")) (flattenItems bumpkinInputs))
-        ;
-        installPhase = ''
-          echo $version > $out
-          for input in $buildInputs; do
-            echo $input >> $out
-          done
-        '';
-      };
-    };
+    });
 }
