@@ -1,0 +1,6 @@
+# Rust build directory
+/target
+
+# Nix generated files
+/.pre-commit-config.yaml
+/result
