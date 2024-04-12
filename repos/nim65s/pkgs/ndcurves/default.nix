@@ -19,7 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "loco-3d";
     repo = finalAttrs.pname;
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Er7JrIv8rAdNcncqhCBuCXyf4nD1iiviJhFBkwK2NW4=";
+    fetchSubmodules = true;
+    hash = "sha256-I0vYzL8FFlAAP158eAEO+13HOGGUWntX8JY1VSXI8Sc=";
   };
 
   outputs = [
