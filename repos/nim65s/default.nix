@@ -56,6 +56,41 @@ let
       qgv
       ;
   };
+  ndcurves = pkgs.callPackage ./pkgs/ndcurves { inherit jrl-cmakemodules; };
+  py-ndcurves = pkgs.python3Packages.toPythonModule (
+    pkgs.callPackage ./pkgs/ndcurves {
+      inherit jrl-cmakemodules;
+      pythonSupport = true;
+    }
+  );
+  hpp-centroidal-dynamics = pkgs.callPackage ./pkgs/hpp-centroidal-dynamics {
+    inherit jrl-cmakemodules qpoases;
+  };
+  py-hpp-centroidal-dynamics = pkgs.python3Packages.toPythonModule (
+    pkgs.callPackage ./pkgs/hpp-centroidal-dynamics {
+      pythonSupport = true;
+      inherit jrl-cmakemodules qpoases;
+    }
+  );
+  hpp-bezier-com-traj = pkgs.callPackage ./pkgs/hpp-bezier-com-traj {
+    inherit
+      hpp-centroidal-dynamics
+      py-hpp-centroidal-dynamics
+      ndcurves
+      py-ndcurves
+      ;
+  };
+  py-hpp-bezier-com-traj = pkgs.python3Packages.toPythonModule (
+    pkgs.callPackage ./pkgs/hpp-bezier-com-traj {
+      pythonSupport = true;
+      inherit
+        hpp-centroidal-dynamics
+        py-hpp-centroidal-dynamics
+        ndcurves
+        py-ndcurves
+        ;
+    }
+  );
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -68,19 +103,20 @@ in
     jrl-cmakemodules
     omniorb
     omniorbpy
+    ndcurves
     osgqt
+    hpp-centroidal-dynamics
+    hpp-bezier-com-traj
+    py-ndcurves
+    py-hpp-centroidal-dynamics
+    py-hpp-bezier-com-traj
     python-qt
     qgv
     qpoases
     ;
 
   gepetto-viewer-corba = pkgs.libsForQt5.callPackage ./pkgs/gepetto-viewer-corba {
-    inherit
-      gepetto-viewer
-      jrl-cmakemodules
-      omniorb
-      omniorbpy
-      ;
+    inherit gepetto-viewer omniorb omniorbpy;
   };
   gruppled-black-cursors = pkgs.callPackage ./pkgs/gruppled-cursors { theme = "gruppled_black"; };
   gruppled-black-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors {
@@ -90,10 +126,6 @@ in
   gruppled-white-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors {
     theme = "gruppled_white_lite";
   };
-  hpp-centroidal-dynamics = pkgs.callPackage ./pkgs/hpp-centroidal-dynamics {
-    inherit jrl-cmakemodules qpoases;
-  };
-  ndcurves = pkgs.callPackage ./pkgs/ndcurves { inherit jrl-cmakemodules; };
   py-gepetto-viewer = pkgs.python3Packages.toPythonModule (
     pkgs.libsForQt5.callPackage ./pkgs/gepetto-viewer {
       inherit
@@ -106,24 +138,7 @@ in
   );
   py-gepetto-viewer-corba = pkgs.python3Packages.toPythonModule (
     pkgs.libsForQt5.callPackage ./pkgs/gepetto-viewer-corba {
-      inherit
-        gepetto-viewer
-        jrl-cmakemodules
-        omniorb
-        omniorbpy
-        ;
-    }
-  );
-  py-ndcurves = pkgs.python3Packages.toPythonModule (
-    pkgs.callPackage ./pkgs/ndcurves {
-      inherit jrl-cmakemodules;
-      pythonSupport = true;
-    }
-  );
-  py-hpp-centroidal-dynamics = pkgs.python3Packages.toPythonModule (
-    pkgs.callPackage ./pkgs/hpp-centroidal-dynamics {
-      pythonSupport = true;
-      inherit jrl-cmakemodules qpoases;
+      inherit gepetto-viewer omniorb omniorbpy;
     }
   );
   sauce-code-pro = pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; };

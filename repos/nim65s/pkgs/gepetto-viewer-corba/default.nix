@@ -12,7 +12,6 @@
   python3Packages,
   qtbase,
   wrapQtAppsHook,
-  jrl-cmakemodules,
 }:
 let
   python = python3Packages.python.withPackages (ps: [
@@ -53,7 +52,6 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     doxygen
-    jrl-cmakemodules
     wrapQtAppsHook
     pkg-config
   ];

@@ -45,12 +45,12 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     doxygen
-    jrl-cmakemodules
     wrapQtAppsHook
     pkg-config
   ];
 
   propagatedBuildInputs = [
+    jrl-cmakemodules
     openscenegraph
     osgqt
     qgv

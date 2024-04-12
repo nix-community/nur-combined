@@ -28,11 +28,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     cmake
-    jrl-cmakemodules
     wrapQtAppsHook
   ];
 
-  propagatedBuildInputs = [ graphviz ];
+  propagatedBuildInputs = [
+    graphviz
+    jrl-cmakemodules
+  ];
 
   meta = {
     homepage = "https://github.com/gepetto/qgv";

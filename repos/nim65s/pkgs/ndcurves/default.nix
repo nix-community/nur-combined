@@ -13,14 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ndcurves";
-  version = "1.3.1";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "loco-3d";
     repo = finalAttrs.pname;
     rev = "v${finalAttrs.version}";
-    fetchSubmodules = true;
-    hash = "sha256-I0vYzL8FFlAAP158eAEO+13HOGGUWntX8JY1VSXI8Sc=";
+    hash = "sha256-XJ3VSSGKSJ+x3jc4408PGHTYg3nC7o/EeFnbKBELefs=";
   };
 
   outputs = [
@@ -30,16 +29,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-    jrl-cmakemodules
-  ];
+  nativeBuildInputs = [ cmake ];
 
   propagatedBuildInputs =
-    lib.optionals (!pythonSupport) [ pinocchio ]
-    ++ lib.optionals pythonSupport [ python3Packages.pinocchio ];
+    [ jrl-cmakemodules ]
+    ++ lib.optionals (!pythonSupport) [ pinocchio ]
+    ++ lib.optionals pythonSupport [
+      python3Packages.eigenpy
+      python3Packages.pinocchio
+    ];
 
-  cmakeFlags = lib.optionals pythonSupport [ "-DBUILD_PYTHON_INTERFACE=ON" ];
+  cmakeFlags = [ (lib.cmakeBool "BUILD_PYTHON_INTERFACE" pythonSupport) ];
 
   doCheck = true;
 

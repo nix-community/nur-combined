@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "humanoid-path-planner";
     repo = finalAttrs.pname;
     rev = "v${finalAttrs.version}";
-    hash = "sha256-En99yno9xC1ItDJiRpfujEmvPazMDlzPJQZlMiDWG2c=";
+    hash = "sha256-oy9FX4V9k0hNOfYLQsvXBx21eIBht0lWcuiVuXf6zk4=";
   };
 
   outputs = [
@@ -35,19 +35,22 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-    jrl-cmakemodules
-  ];
+  nativeBuildInputs = [ cmake ];
 
   propagatedBuildInputs = [
     boost
     cddlib
     eigen
+    jrl-cmakemodules
     qpoases
   ] ++ lib.optionals pythonSupport [ python ];
 
-  cmakeFlags = lib.optionals (!pythonSupport) [ "-DBUILD_PYTHON_INTERFACE=OFF" ];
+  cmakeFlags = [ (lib.cmakeBool "BUILD_PYTHON_INTERFACE" pythonSupport) ];
+
+  postFixup = ''
+    substituteInPlace $dev/lib/cmake/${finalAttrs.pname}/${finalAttrs.pname}Config.cmake \
+      --replace-fail $out/lib/cmake $dev/lib/cmake
+  '';
 
   doCheck = true;
 
