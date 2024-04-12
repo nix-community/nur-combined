@@ -22,6 +22,13 @@ in {
       value = pkgs.callPackage (./pkgs/emacs + "/${p}") { };
     }) (mylib.listSubdirNames ./pkgs/emacs)
   );
+
+  cspellDicts = builtins.listToAttrs (
+    map (p: {
+      name = p;
+      value = pkgs.callPackage (./pkgs/cspell-dicts + "/${p}") { };
+    }) (mylib.listSubdirNames ./pkgs/cspell-dicts)
+  );
 } // (builtins.listToAttrs (
   # top-level
   map (p: {
