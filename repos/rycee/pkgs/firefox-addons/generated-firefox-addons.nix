@@ -4614,10 +4614,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.4.6";
+      version = "1.4.8";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259896/immersive_translate-1.4.6.xpi";
-      sha256 = "6ce27cde1df9b798d339d383e32f0bf038074270abaa17c8d5f94002aa3a79e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262425/immersive_translate-1.4.8.xpi";
+      sha256 = "1cf737554b0c26958123dd3c8f99ee0940573f8c120ab58d3d42d71817f112b2";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7491,10 +7491,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.4.3";
+      version = "2024.4.4";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262811/pakkujs-2024.4.3.xpi";
-      sha256 = "57a8a64042149a0520f2965dcca294a8572433780fb0a4ec961e2c1f62864c15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4263349/pakkujs-2024.4.4.xpi";
+      sha256 = "18046bd4eb13e2f150dd62bc9bc1c11e06cb97ac1b7a7505a2d338a9c97c96e8";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -7503,6 +7503,7 @@
         mozPermissions = [
           "notifications"
           "storage"
+          "contextMenus"
           "declarativeNetRequestWithHostAccess"
           "*://*.bilibili.com/*"
           "https://www.bilibili.com/robots.txt?pakku_sandbox"
