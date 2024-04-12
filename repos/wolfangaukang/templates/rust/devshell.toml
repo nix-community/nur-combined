@@ -1,0 +1,11 @@
+# https://numtide.github.io/devshell
+imports = [
+  "language.rust"
+]
+
+[devshell]
+packages = [
+  "gcc", # Linker
+  "lldb", # DAP
+  "rust-analyzer" # LSP
+]

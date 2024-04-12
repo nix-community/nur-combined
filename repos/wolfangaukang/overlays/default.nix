@@ -10,4 +10,5 @@ let
     (import ./shnsplit-24w.nix)
   ];
 
-in overlays
+in
+overlays

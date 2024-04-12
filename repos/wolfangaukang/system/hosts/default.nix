@@ -1,6 +1,8 @@
-{ inputs, overlays, mkNixos }:
+{ inputs, overlays, localLib }:
 
 let
+  inherit (localLib) mkNixos;
+  inherit (inputs.nixpkgs.lib) nixosSystem;
   baseUsers = {
     system = [ "root" "bjorn" ];
     hm = [ "bjorn" ];
@@ -8,10 +10,20 @@ let
 
 in
 {
-  eyjafjallajokull = mkNixos {
+  arenal = nixosSystem {
+    modules = [ ./arenal ];
+    specialArgs = { inherit inputs localLib overlays; hostname = "arenal"; };
+  };
+
+  irazu = nixosSystem {
+    modules = [ ./irazu ];
+    specialArgs = { inherit inputs localLib overlays; hostname = "irazu"; };
+  };
+
+  barva = mkNixos {
     inherit inputs overlays;
     users = baseUsers.system;
-    hostname = "eyjafjallajokull";
+    hostname = "barva";
     enable-impermanence = true;
     enable-sops = true;
     enable-hm = true;
@@ -19,42 +31,19 @@ in
     enable-sops-hm = true;
   };
 
-  holuhraun = mkNixos {
-    inherit inputs overlays;
-    users = baseUsers.system;
-    hostname = "holuhraun";
-    enable-impermanence = true;
-    enable-sops = true;
-    enable-hm = true;
-    hm-users = baseUsers.hm;
-    enable-impermanence-hm = true;
-    enable-sops-hm = true;
-  };
-
-  torfajokull = mkNixos {
-    inherit inputs overlays;
-    users = baseUsers.system;
-    hostname = "torfajokull";
-    enable-impermanence = true;
-    enable-sops = true;
-    enable-hm = true;
-    hm-users = baseUsers.hm;
-    enable-sops-hm = true;
-  };
-
-  Katla =
+  chopo =
     let
       users = [ "nixos" ];
-    in mkNixos {
+    in
+    mkNixos {
       inherit inputs overlays users;
-      hostname = "katla";
+      hostname = "chopo";
       hm-users = users;
       extra-special-args = { inherit users; };
     };
 
-  vm = mkNixos {
-    inherit inputs overlays;
-    users = [ "root" ];
-    hostname = "raudholar";
+  vm = nixosSystem {
+    modules = [ ./pocosol ];
+    specialArgs = { inherit inputs localLib overlays; hostname = "pocosol"; };
   };
 }

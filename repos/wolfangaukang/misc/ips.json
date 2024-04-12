@@ -1,0 +1,16 @@
+{
+  "networking": {
+    "networks": {
+      "brume": "10.11.12",
+      "flint": "192.168.8",
+      "activos": "10.147.20"
+    },
+    "suffixes": {
+      "grimsnes": "112",
+      "surtsey": "203",
+      "irazu": "88",
+      "arenal": "151",
+      "barva": "235"
+    }
+  }
+}

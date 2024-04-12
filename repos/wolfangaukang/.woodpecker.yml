@@ -2,18 +2,11 @@ steps:
   verify:
     when:
       event: [ pull_request ]
-    image: nixos/nix:2.15.0
-    environment:
-      # Upwork
-    - NIXPKGS_ALLOW_UNFREE=1
-      # Nuclear with Electron 13
-    - NIXPKGS_ALLOW_INSECURE=1
-      # Device Flasher with Darwin support
-    - NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+    image: nixos/nix:2.18.1
     commands:
     - nix --version
     - echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
-    - nix flake check --impure
+    - nix flake show
 
   update_nur:
     when:

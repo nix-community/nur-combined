@@ -2,15 +2,15 @@
 
 {
   extensions = with pkgs.vscode-extensions; [
-    arrterian.nix-env-selector
+    mkhl.direnv
     gruntfuggly.todo-tree
-    hashicorp.terraform
     jnoortheen.nix-ide
-    ms-python.python
     timonwong.shellcheck
     viktorqvarfordt.vscode-pitch-black-theme
     vscodevim.vim
     yzhang.markdown-all-in-one
+    #hashicorp.terraform
+    #ms-python.python
   ];
   settings = {
     "editor.insertSpaces" = false;

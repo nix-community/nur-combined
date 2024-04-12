@@ -6,7 +6,8 @@ let
   orange = "#d34324";
   yellow = "#f2dc5d";
 
-in {
+in
+{
   # Ensure Iosevka is there
   imports = [
     #"${self}/home/profiles/configurations/fonts.nix"

@@ -3,7 +3,8 @@
 let
   user = "nixos";
 
-in {
+in
+{
   home = {
     username = user;
     homeDirectory = "/home/${user}";

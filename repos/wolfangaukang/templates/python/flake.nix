@@ -2,57 +2,40 @@
   description = "Template for Python projects that uses Poetry";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-21.11";
-    poetry2nix.url = "github:nix-community/poetry2nix";
-    utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, poetry2nix, utils }:
+  outputs = { nixpkgs, poetry2nix, ... }:
     let
-      # General project settings
-      name = "project";
-      projectDir = ./.;
+      systems = nixpkgs.lib.systems.flakeExposed;
+      forEachSystem = nixpkgs.lib.genAttrs systems;
+      pkgsFor = forEachSystem (system: import nixpkgs {
+        overlays = [ poetry2nix.overlays.default ];
+        inherit system;
+      });
+      projectDir = nixpkgs.lib.cleanSource ./.;
 
     in
-    (utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            poetry2nix.overlay
-            (nixpkgs.lib.composeExtensions poetry2nix.overlay (final: prev: {
-              ${name} = final.poetry2nix.mkPoetryApplication {
-                inherit projectDir;
-                #inherit overrides projectDir;
-              };
-            }))
-          ];
-        };
+    {
+      devShells = forEachSystem (system:
+        let
+          pkgs = pkgsFor.${system};
+          inherit (pkgs) mkShell poetry;
+          inherit (pkgs.python3Packages) python-lsp-server;
+          devEnv = pkgs.poetry2nix.mkPoetryEnv { inherit projectDir; };
 
-        # In case you need to run an override on a certain library to build
-        #customOverrides = self: super: {
-        #  library-name = super.library-name.overrideAttrs(old: {
-        #    buildInputs = old.buildInputs ++ [ self.library-to-override ];
-        #  });
-        #};
-        #overrides = pkgs.poetry2nix.overrides.withDefaults (customOverrides);
-
-        # Other project settings
-        extraPkgs = with pkgs; [ poetry ];
-
-      in rec {
-        # nix build
-        packages.${name} = pkgs.${name};
-        defaultPackage = packages.${name};
-
-        # nix run (don't create if you are building a library)
-        apps.${name} = utils.lib.mkApp { drv = packages.${name}; };
-        defaultApp = apps.${name};
-
-        devShell = pkgs.mkShell {
-          inputsFrom = [ defaultPackage ];
-          buildInputs = extraPkgs;
-        };
-      }
-    ));
+        in
+        {
+          default = mkShell { buildInputs = [ devEnv poetry python-lsp-server ]; };
+        });
+      formatter = forEachSystem (system: pkgsFor.${system}.nixpkgs-fmt);
+    };
 }

@@ -3,18 +3,11 @@
 with lib;
 let
   cfg = config.profile.specialisations;
-  sr_cfg = config.profile.specialisations.work.simplerisk;
   g_cfg = config.profile.specialisations.gaming;
-  docker_cfg = config.virtualisation.docker;
-  podman_cfg = config.virtualisation.podman;
-  qemu_cfg = config.virtualisation.libvirtd;
-  vbox_cfg = config.virtualisation.virtualbox;
-  vmware_cfg = config.virtualisation.vmware;
 
   inherit (inputs) self;
-  inherit (lib) mkForce;
-  inherit (pkgs) retroarch;
   inherit (pkgs.pkgsi686Linux) libva;
+  notify-send = lib.getExe pkgs.libnotify;
 
 in
 {
@@ -136,8 +129,8 @@ in
               enable = true;
               settings = {
                 custom = {
-                  start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
-                  end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+                  start = "${notify-send} 'GameMode started'";
+                  end = "${notify-send} 'GameMode ended'";
                 };
               };
             };
@@ -146,9 +139,6 @@ in
               gamescopeSession.enable = cfg.gaming.steam.enableGamescope;
             };
           };
-          nixpkgs.config.allowUnfreePredicate = (
-            pkg: builtins.elem (getName pkg) [ "steam" "steam-original" "steam-runtime" ]
-          );
           hardware.opengl = {
             extraPackages32 = [ libva ];
             setLdLibraryPath = true;

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 let
@@ -18,14 +18,14 @@ in
         '';
       };
       extraPkgs = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = ''
           List of extra packages to install with Docker
         '';
       };
       dockerGroupMembers = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = ''
           List of users to add to Docker group
@@ -41,7 +41,7 @@ in
         '';
       };
       extraPkgs = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = ''
           List of extra packages to install with Podman
@@ -57,14 +57,14 @@ in
         '';
       };
       extraPkgs = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = ''
           List of extra packages to install with Qemu
         '';
       };
       libvirtdGroupMembers = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = ''
           List of users to add to libvirtd group
@@ -87,14 +87,14 @@ in
         '';
       };
       extraPkgs = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = ''
           List of extra packages to install with VirtualBox
         '';
       };
       vboxusersGroupMembers = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = ''
           List of users to add to vboxusers group
@@ -110,7 +110,7 @@ in
         '';
       };
       extraPkgs = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = ''
           List of extra packages to install with VMWare Workstation
@@ -118,7 +118,6 @@ in
       };
     };
   };
-
   config = mkMerge [
     (mkIf cfg.docker.enable {
       environment.systemPackages = cfg.docker.extraPkgs;
@@ -132,7 +131,10 @@ in
     (mkIf cfg.qemu.enable {
       environment.systemPackages = cfg.qemu.extraPkgs;
       users.extraGroups.libvirtd.members = cfg.qemu.libvirtdGroupMembers;
-      virtualisation.libvirtd.enable = true;
+      virtualisation = {
+        libvirtd.enable = true;
+        spiceUSBRedirection.enable = true;
+      };
     })
     (mkIf cfg.virtualbox.enable {
       environment.systemPackages = cfg.virtualbox.extraPkgs;

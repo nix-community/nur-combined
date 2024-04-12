@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ lib, ... }: {
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "sslmate-agent"
@@ -14,7 +14,7 @@
       "testing2".secret = "teste";
     };
     defaultOrders = {
-      keyUser = "bjorn";   
+      keyUser = "bjorn";
     };
     orders = {
       "testingorder" = {
@@ -28,3 +28,4 @@
     };
   };
 }
+

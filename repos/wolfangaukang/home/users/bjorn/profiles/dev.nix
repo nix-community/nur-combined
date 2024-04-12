@@ -1,27 +1,54 @@
-{ config, ... }:
+{ inputs, config, pkgs, ... }:
 
+let
+  userEmail = "d.ol.rod@tutanota.com";
+  userName = "P.";
+  mkdir-devshell = pkgs.writeScriptBin "mkdir-devshell" (builtins.readFile "${inputs.dotfiles}/bin/devshell/mkdir-devshell");
+
+in
 {
+  home.packages = [ mkdir-devshell ];
   programs = {
     git = {
+      # FIXME: Make me private
+      inherit userName userEmail;
       enable = true;
-      extraConfig = {
-        # FIXME: Create reference to identity key on ssh settings
-        core.sshCommand = "ssh -i ${config.home.homeDirectory}/.ssh/Keys/id";
-        init.defaultBranch = "main";
-      };
+      extraConfig.init.defaultBranch = "main";
       signing = {
         # FIXME: Make me private
         key = "F90110C7";
         signByDefault = true;
       };
-      # FIXME x2: Make me private
-      userName = "P. R. d. O.";
-      userEmail = "d.ol.rod@tutanota.com";
+    };
+    mercurial = {
+      # FIXME: Make me private
+      inherit userName userEmail;
+      enable = true;
+      ignores = [
+        ".direnv"
+      ];
     };
     gpg.enable = true;
     direnv = {
       enable = true;
       nix-direnv.enable = true;
+    };
+    ssh = {
+      enable = true;
+      matchBlocks =
+        let
+          idkey = user: {
+            inherit user;
+            identityFile = "${config.home.homeDirectory}/.ssh/Keys/id";
+          };
+        in
+        {
+          "github.com" = idkey "git";
+          "gitlab.com" = idkey "git";
+          "codeberg.org" = idkey "git";
+          "git.sr.ht" = idkey "git";
+          "hg.sr.ht" = idkey "hg";
+        };
     };
   };
   services = {
@@ -29,7 +56,7 @@
       enable = true;
       # FIXME: Check my purpose
       enableScDaemon = false;
-      pinentryFlavor = "curses";
+      pinentryPackage = pkgs.pinentry-curses;
     };
   };
 }

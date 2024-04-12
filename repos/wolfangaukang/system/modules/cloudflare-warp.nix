@@ -5,7 +5,8 @@ with lib;
 let
   cfg = config.services.cloudflare-warp;
 
-in {
+in
+{
   meta.maintainers = with maintainers; [ wolfangaukang ];
 
   options = {

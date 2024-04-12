@@ -12,7 +12,7 @@
     lua-language-server
 
     # Nix
-    rnix-lsp
+    nil
 
     # Python
     # TODO: See how to set up python-lsp-server
@@ -53,7 +53,7 @@
     {
       plugin = nvim-lspconfig;
       type = "lua";
-      config =  ''
+      config = ''
         ${builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-lspconfig.lua"}
         lspconfig.rust_analyzer.setup({
           settings = {

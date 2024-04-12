@@ -4,7 +4,7 @@ let
   inherit (inputs) dotfiles;
   battery-module = {
     format = "{capacity}% {icon}";
-    format-icons = ["" "" "" "" ""];
+    format-icons = [ "" "" "" "" "" ];
     states = {
       "warning" = 20;
       "critical" = 15;
@@ -44,7 +44,8 @@ let
     format = " {}";
   };
 
-in {
+in
+{
   home.packages = with pkgs; [ pamixer ];
   programs.waybar = {
     enable = true;

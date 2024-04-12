@@ -18,7 +18,8 @@ let
     };
   };
 
-in {
+in
+{
   programs.alacritty.package = alacritty-bin;
   home.packages = (with pkgs.nixGL.auto; [ nixGLDefault ]) ++ [ alacritty-desktop ];
 }

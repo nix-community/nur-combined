@@ -1,0 +1,6 @@
+# https://numtide.github.io/devshell
+[devshell]
+packages = [
+  "shellcheck",
+  "bash-language-server"
+]

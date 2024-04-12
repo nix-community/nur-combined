@@ -3,7 +3,8 @@
 let
   inherit (inputs) self;
 
-in {
+in
+{
   # Ensure Iosevka is there
   imports = [
     #"${self}/home/profiles/configurations/fonts.nix"

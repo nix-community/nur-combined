@@ -1,22 +1,57 @@
-{ inputs
-, config
+{ config
 , lib
 , pkgs
-, ... }:
+, ...
+}:
 
 let
-  inherit (lib) maintainers types mkIf mkMerge mkOption;
-  inherit (inputs) self dotfiles;
+  inherit (lib) maintainers types mkEnableOption mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.gui;
+  ccfg = config.defaultajAgordoj.cli;
   jsonFormat = pkgs.formats.json { };
   bcfg = cfg.browsers;
   settings = {
     vscode = import ../settings/vscode.nix { inherit pkgs; };
     chromium = import ../settings/chromium.nix;
     firefox = import ../settings/firefox { inherit config lib pkgs; };
+    alacritty = import ../settings/alacritty.nix {
+      size = cfg.terminal.alacritty.font.size;
+      fontFamily = cfg.terminal.alacritty.font.family;
+    };
+    kitty = import ../settings/kitty.nix {
+      font = cfg.terminal.kitty.font;
+      theme = cfg.terminal.kitty.theme;
+    };
   };
 
-in {
+  terminalFontType = types.submodule {
+    options = {
+      size = mkOption {
+        default = 8.0;
+        type = types.number;
+        description = ''
+          Font size to apply to all terminals
+        '';
+      };
+      family = mkOption {
+        default = null;
+        type = types.nullOr types.str;
+        description = ''
+          Font family to apply to all terminals
+        '';
+      };
+      package = mkOption {
+        default = null;
+        type = types.nullOr types.package;
+        description = ''
+          Package where the fonts are located
+        '';
+      };
+    };
+  };
+
+in
+{
   options.defaultajAgordoj.gui = {
     enable = mkOption {
       default = false;
@@ -27,7 +62,7 @@ in {
     };
     # The reason for this is to not install gui components on cli-only setups
     extraPkgs = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf types.package;
       description = ''
         List of packages to install when this module is enabled
@@ -76,19 +111,36 @@ in {
       };
     };
     terminal = {
-      enableAlacritty = mkOption {
-        default = true;
-        type = types.bool;
-        description = ''
-          Enables Alacritty terminal
-        '';
+      font = mkOption {
+        type = types.nullOr terminalFontType;
+        default = null;
+        description = "Font setup to use on all terminals";
       };
-      enableKitty = mkOption {
-        default = false;
-        type = types.bool;
-        description = ''
-          Enables Kiity terminal
-        '';
+      kitty = {
+        enable = mkEnableOption "Enables Kitty Terminal" // { default = true; };
+        font = mkOption {
+          type = types.nullOr terminalFontType;
+          default = cfg.terminal.font;
+          description = "Font setup to use on Kitty";
+        };
+        theme = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = "Theme to use on Kitty";
+        };
+      };
+      alacritty = {
+        enable = mkEnableOption "Enables Alacritty terminal";
+        font = mkOption {
+          type = types.nullOr terminalFontType;
+          default = cfg.terminal.font;
+          description = "Font setup to use on Alacritty";
+        };
+        theme = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = "Theme to use on Alacritty";
+        };
       };
     };
     vscode = {
@@ -107,14 +159,14 @@ in {
         '';
       };
       extraExtensions = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = ''
           VSCode extensions to install
         '';
       };
       extraSettings = mkOption {
-        default = {};
+        default = { };
         type = jsonFormat.type;
         description = ''
           Settings to add to the extra settings
@@ -141,33 +193,39 @@ in {
       };
     })
     (mkIf bcfg.firefox.enable {
-       programs.firefox =
-         {
-           enable = true;
-           package = settings.firefox.package;
-           profiles = settings.firefox.profiles;
-         };
-       home.packages = with pkgs; [ vdhcoapp ];
-     })
+      programs.firefox =
+        {
+          enable = true;
+          package = settings.firefox.package;
+          profiles = settings.firefox.profiles;
+        };
+      home.packages = with pkgs; [ vdhcoapp ];
+    })
     (mkIf bcfg.chromium.enable {
-       programs.chromium = {
-         enable = true;
-         package = bcfg.chromium.package;
-         extensions = settings.chromium.extensionCodes;
-       };
-     })
-    (mkIf cfg.terminal.enableAlacritty {
-       programs.alacritty.enable = true;
-       home.file.".config/alacritty/alacritty.yml".source = "${dotfiles}/config/alacritty/config.yml";
-     })
-    (mkIf cfg.terminal.enableKitty {
-       programs.kitty = {
-         enable = true;
-         # Need to solve this
-         #package = iosevka-nerdfonts;
-         #name = "Iosevka Term";
-       };
-     })
+      programs.chromium = {
+        enable = true;
+        package = bcfg.chromium.package;
+        extensions = settings.chromium.extensionCodes;
+      };
+    })
+    (mkIf cfg.terminal.alacritty.enable {
+      programs.alacritty = {
+        enable = true;
+        settings = settings.alacritty;
+      };
+    })
+    (mkIf cfg.terminal.kitty.enable {
+      programs.kitty = {
+        enable = true;
+        font = settings.kitty.font;
+        theme = settings.kitty.theme;
+        shellIntegration = {
+          mode = settings.kitty.shellIntegrationMode;
+          enableFishIntegration = ccfg.shell.enableFish;
+          enableZshIntegration = ccfg.shell.enableZsh;
+        };
+      };
+    })
   ]);
 
   meta.maintainers = with maintainers; [ wolfangaukang ];

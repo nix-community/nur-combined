@@ -3,7 +3,8 @@
 let
   inherit (lib) mkForce;
 
-in {
+in
+{
   profile.virtualization = {
     podman.enable = mkForce false;
     qemu.enable = mkForce false;

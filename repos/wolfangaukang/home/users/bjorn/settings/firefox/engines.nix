@@ -6,7 +6,8 @@
     "Searx (searx.work)" =
       let
         url = "https://searx.work";
-      in {
+      in
+      {
         iconURL = "${url}/static/themes/simple/img/favicon.png";
         urls = [{
           template = "${url}/search";
@@ -21,7 +22,8 @@
     "MetaGer" =
       let
         url = "https://metager.org";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{
           template = "${url}/meta/meta.ger3";
@@ -81,7 +83,8 @@
     "Sourcegraph" =
       let
         url = "https://sourcegraph.com";
-      in {
+      in
+      {
         iconURL = "${url}/.assets/img/sourcegraph-mark.svg?v2";
         urls = [{
           template = "${url}/search";
@@ -96,7 +99,8 @@
     "GitHub" =
       let
         url = "https://github.com";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{ template = "${url}/search?q={searchTerms}"; }];
         definedAliases = [ "@gh" "@github" ];
@@ -110,7 +114,8 @@
     "Piped (piped.mha.fi)" =
       let
         url = "https://piped.mha.fi";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{ template = "${url}/results?search_query={searchTerms}"; }];
         definedAliases = [ "@piped" ];
@@ -119,7 +124,8 @@
     "Google Maps" =
       let
         url = "https://maps.google.com";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{ template = "${url}/?&q={searchTerms}"; }];
         definedAliases = [ "@maps" "@gmaps" "@googlemaps" ];
@@ -128,7 +134,8 @@
     "Merriam-Webster" =
       let
         url = "https://www.merriam-webster.com";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{ template = "${url}/dictionary/{searchTerms}"; }];
         definedAliases = [ "@mw" "@merriamwebster" "@en" "@english" ];
@@ -136,7 +143,8 @@
     "Priberam" =
       let
         url = "https://dicionario.priberam.org";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{ template = "${url}/{searchTerms}"; }];
         definedAliases = [ "@priberam" "@pt" "@portugues" ];
@@ -144,7 +152,8 @@
     "RAE" =
       let
         url = "https://dle.rae.es";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{ template = "${url}/{searchTerms}"; }];
         definedAliases = [ "@rae" "@es" "@espanol" ];
@@ -153,7 +162,8 @@
     "Crates (Rust)" =
       let
         url = "https://crates.io";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{ template = "${url}/search?q={searchTerms}"; }];
         definedAliases = [ "@crates" ];
@@ -161,7 +171,8 @@
     "PyPI (Python)" =
       let
         url = "https://pypi.org";
-      in {
+      in
+      {
         iconURL = "${url}/static/images/favicon.35549fe8.ico";
         urls = [{ template = "${url}/search/?q={searchTerms}"; }];
         definedAliases = [ "@pypi" ];
@@ -170,7 +181,8 @@
     "Shellcheck (Shell)" =
       let
         url = "https://www.shellcheck.net/wiki";
-      in {
+      in
+      {
         iconURL = "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.shellcheck.net&size=32";
         urls = [{ template = "${url}/{searchTerms}"; }];
         definedAliases = [ "@shellcheck" ];
@@ -178,7 +190,8 @@
     "Metal Archives - Bands" =
       let
         url = "https://www.metal-archives.com";
-      in {
+      in
+      {
         iconURL = "${url}/favicon.ico";
         urls = [{
           template = "${url}/search?";

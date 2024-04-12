@@ -7,7 +7,7 @@
     ../common/udiskie.nix
     ../common/waybar.nix
   ];
-  
+
   home = {
     file.".config/wayfire.ini".source = ../../../../config/wayfire/wayfire.ini;
   };

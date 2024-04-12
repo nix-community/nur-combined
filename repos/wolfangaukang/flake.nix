@@ -12,112 +12,72 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
-    impermanence.url = "github:nix-community/impermanence";
-    nixgl.url = "github:guibou/nixGL";
+    nixgl = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    impermanence.url = "github:nix-community/impermanence";
     nur.url = "github:nix-community/NUR";
-    sops.url = "github:Mic92/sops-nix";
-    utils.url = "github:numtide/flake-utils";
-
-    # Personal projects
-    sab.url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot?ref=main";
-    dotfiles = {
-      url = "git+https://codeberg.org/wolfangaukang/dotfiles?ref=main";
-      flake = false;
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixos-stable";
+      };
     };
 
-    # Temporary
-    # Remove this one after PR 3675 from home-manager is merged
-    hm-firejail.url = "github:VAWVAW/home-manager/firejail";
+    # Personal projects
+    sab = {
+      url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dotfiles = {
+      url = "git+https://codeberg.org/wolfangaukang/dotfiles";
+      flake = false;
+    };
+    multifirefox = {
+      url = "git+https://codeberg.org/wolfangaukang/multifirefox";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixos, nixpkgs, utils, nixgl, nur, ... }@inputs:
+  outputs = { self, nixos, nixpkgs, multifirefox, nur, sab, ... }@inputs:
     let
+      inherit (nixpkgs.lib) genAttrs systems;
       local = {
-        lib = import ./lib { inherit inputs; };
+        lib = import ./lib { inherit inputs; inherit (nixpkgs) lib; };
         overlays = import ./overlays { inherit inputs; };
       };
 
       overlays = [
-        nixgl.overlay
+        multifirefox.overlays.default
         nur.overlay
+        sab.overlays.default
       ] ++ (local.overlays);
 
-      systems = [ "x86_64-linux" ];
+      forEachSystem = genAttrs systems.flakeExposed;
+      pkgsFor = forEachSystem (system: import nixpkgs { inherit overlays system; });
 
-      systemPkgs = nixpkgs.legacyPackages;
-      forEachSystem = f: nixos.lib.genAttrs systems (system: f systemPkgs.${system});
+    in
+    {
+      packages = forEachSystem (system: (import ./pkgs { pkgs = pkgsFor.${system}; }) // {
+        multifirefox = pkgsFor.${system}.multifirefox;
+        stream-alert-bot = pkgsFor.${system}.stream-alert-bot;
+      });
+      devShells = forEachSystem (system: import ./shells { pkgs = pkgsFor.${system}; });
+      formatter = forEachSystem (system: pkgsFor.${system}.nixpkgs-fmt);
 
-    in {
-      # Needed to make packages.python3Packages work on nix flake check
-      packages = forEachSystem (pkgs: utils.lib.flattenTree (import ./pkgs/top-level { inherit pkgs; }));
-      devShells = forEachSystem (pkgs: import ./shells { inherit pkgs; });
-      formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
+      overlays.default = final: prev: { nix-agordoj = self.packages.${final.system}; };
+      templates = import ./templates;
 
       nixosModules = import ./system/modules;
       homeManagerModules = import ./home/modules;
 
-      nixosConfigurations =
-        let
-          baseUsers = {
-            system = [ "root" "bjorn" ];
-            hm = [ "bjorn" ];
-          };
-
-        in {
-          eyjafjallajokull = local.lib.mkNixos {
-            inherit inputs overlays;
-            users = baseUsers.system;
-            hostname = "eyjafjallajokull";
-            enable-impermanence = true;
-            enable-sops = true;
-            enable-hm = true;
-            hm-users = baseUsers.hm;
-            enable-sops-hm = true;
-          };
-
-          holuhraun = local.lib.mkNixos {
-            inherit inputs overlays;
-            users = baseUsers.system;
-            hostname = "holuhraun";
-            enable-impermanence = true;
-            enable-sops = true;
-            enable-hm = true;
-            hm-users = baseUsers.hm;
-            enable-impermanence-hm = true;
-            enable-sops-hm = true;
-          };
-
-          torfajokull = local.lib.mkNixos {
-            inherit inputs overlays;
-            users = baseUsers.system;
-            hostname = "torfajokull";
-            enable-impermanence = true;
-            enable-sops = true;
-            enable-hm = true;
-            hm-users = baseUsers.hm;
-            enable-sops-hm = true;
-          };
-
-          Katla =
-            let
-              users = [ "nixos" ];
-            in local.lib.mkNixos {
-              inherit inputs overlays users;
-              hostname = "katla";
-              hm-users = users;
-              extra-special-args = { inherit users; };
-            };
-
-          vm = local.lib.mkNixos {
-            inherit inputs overlays;
-            users = [ "root" ];
-            hostname = "raudholar";
-          };
-        };
+      nixosConfigurations = import ./system/hosts { inherit inputs overlays; localLib = local.lib; };
     };
 }

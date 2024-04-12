@@ -3,6 +3,7 @@
 let
   inherit (inputs) dotfiles;
 
-in {
+in
+{
   home.file.".config/bashblog".source = "${dotfiles}/config/bashblog";
 }

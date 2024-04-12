@@ -37,7 +37,7 @@ in
         '';
       };
       coresToLoad = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = ''
           Cores to load on Retroarch (recommended when using bare or normal)
@@ -45,7 +45,7 @@ in
       };
     };
     extraPkgs = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf types.package;
       description = ''
         List of extra packages to install

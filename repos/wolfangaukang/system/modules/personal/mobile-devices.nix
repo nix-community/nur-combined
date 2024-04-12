@@ -26,7 +26,7 @@ in
           '';
         };
         adbusersGroupMembers = mkOption {
-          default = [];
+          default = [ ];
           type = types.listOf types.str;
           description = ''
             List of users to add to adbusers group

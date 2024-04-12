@@ -6,7 +6,7 @@ let
     , username
     , system
     , inputs
-    , overlays ? []
+    , overlays ? [ ]
     , channel ? inputs.nixpkgs
     , pkgs ? channel.legacyPackages.${system}
     }:
@@ -14,7 +14,8 @@ let
     let
       inherit (inputs.home-manager.lib) homeManagerConfiguration;
 
-    in homeManagerConfiguration {
+    in
+    homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = { inherit username inputs; };
       modules = [
@@ -29,4 +30,5 @@ let
         }
       ];
     };
-in self
+in
+self

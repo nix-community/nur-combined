@@ -1,0 +1,5 @@
+# https://numtide.github.io/devshell
+[devshell]
+packages = [
+  "dprint"
+]

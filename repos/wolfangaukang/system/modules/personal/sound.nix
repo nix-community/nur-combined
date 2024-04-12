@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 let
@@ -16,7 +16,7 @@ in
         Enables sound
       '';
     };
-    enableOSSEmulation  = mkOption {
+    enableOSSEmulation = mkOption {
       default = false;
       type = types.bool;
       description = ''
@@ -48,7 +48,7 @@ in
         '';
       };
       audioGroupMembers = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = ''
           List of members for the audio group
@@ -64,7 +64,18 @@ in
         enableOSSEmulation = mkIf cfg.enableOSSEmulation true;
       };
     }
-    (mkIf cfg.pipewire.enable (import ../../profiles/services/pipewire.nix { inherit lib; }))
+    (mkIf cfg.pipewire.enable {
+      hardware.pulseaudio.enable = mkForce false;
+      services.pipewire = {
+        enable = true;
+        alsa = {
+          enable = true;
+          support32Bit = true;
+        };
+        jack.enable = true;
+        pulse.enable = true;
+      };
+    })
     (mkIf cfg.pulseaudio.enable {
       hardware.pulseaudio.enable = true;
       users.extraGroups.audio.members = cfg.pulseaudio.audioGroupMembers;

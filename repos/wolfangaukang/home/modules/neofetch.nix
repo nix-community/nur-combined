@@ -1,11 +1,12 @@
 { config, lib, pkgs, ... }:
 
-let 
+let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.programs.neofetch;
   shellCommand = "${cfg.package}/bin/neofetch";
 
-in {
+in
+{
   options.programs.neofetch = {
     enable = mkOption {
       default = false;
@@ -20,7 +21,7 @@ in {
       description = ''
         The Neofetch package to install
       '';
-    }; 
+    };
     startOnBash = mkOption {
       default = false;
       type = types.bool;

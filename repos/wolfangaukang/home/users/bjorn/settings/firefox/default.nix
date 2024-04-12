@@ -4,9 +4,9 @@ let
   inherit (pkgs.nur.repos.rycee) firefox-addons;
   searchEngines = import ./engines.nix;
 
-in rec {
+in
+rec {
   package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-    extraNativeMessagingHosts = with pkgs; [ vdhcoapp ];
     extraPolicies = {
       DisableFirefoxStudies = true;
       DisablePocket = true;

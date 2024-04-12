@@ -2,7 +2,6 @@
 
 with lib;
 let
-  inherit (inputs) dotfiles;
   cfg = config.profile.moonlander;
 
 in
@@ -34,11 +33,10 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    { environment.systemPackages = cfg.extraPkgs; }
-    (import ../../profiles/hardware/moonlander.nix {
-      inherit lib dotfiles;
-      ignoreLayoutSettings = cfg.ignoreLayoutSettings;
-    })
+    {
+      environment.systemPackages = cfg.extraPkgs;
+      hardware.keyboard.zsa.enable = true;
+      services.xserver.extraConfig = mkIf cfg.ignoreLayoutSettings ''${builtins.readFile "${inputs.dotfiles}/config/xorg/99-moonlander.conf"}'';
+    }
   ]);
 }
-

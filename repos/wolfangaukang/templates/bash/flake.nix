@@ -2,42 +2,34 @@
   description = "Template for Bash projects";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-21.11";
-    utils.url = "github:numtide/flake-utils";
+    devshell.url = "github:numtide/devshell";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, utils }:
+  outputs = { devshell, nixpkgs, ... }:
     let
-      # General project settings
-      name = "project";
+      systems = nixpkgs.lib.systems.flakeExposed;
+      forEachSystem = nixpkgs.lib.genAttrs systems;
+      pkgsFor = forEachSystem (system: import nixpkgs {
+        inherit system;
+        overlays = [ devshell.overlays.default ];
+      });
 
     in
-    (utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
-      let
-        pkgs = system: import nixpkgs {
-          inherit system;
-          # Picking from ./nix/project.nix to have a single maintenance point
-          overlays = [
-            (final: prev: {
-              ${name} = prev.callPackage ./nix/${name}.nix { };
-            })
-          ];
-        };
-
-      in rec {
-        legacyPackages = pkgs system;
-
-        packages = utils.lib.flattenTree {
-          inherit (legacyPackages) project;
-        };
-        defaultPackage = packages.${name};
-
-        apps.${name} = utils.lib.mkApp { drv = packages.${name}; };
-        defaultApp = apps.${name};
-
-        devShell = legacyPackages.mkShell {
-          buildInputs = with legacyPackages; [ shellcheck ];
-        };
-      }
-    ));
+    {
+      packages = forEachSystem (system: {
+        default = pkgsFor.${system}.callPackage ./package.nix { };
+      });
+      devShells = forEachSystem (system:
+        let
+          inherit (pkgsFor.${system}.devshell) mkShell importTOML;
+        in
+        {
+          default = mkShell { imports = [ (importTOML ./devshell.toml) ]; };
+        });
+      formatter = forEachSystem (system: pkgsFor.${system}.nixpkgs-fmt);
+    };
 }

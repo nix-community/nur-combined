@@ -1,8 +1,7 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) concatStrings maintainers types mkIf mkMerge mkOption;
-  inherit (inputs) self;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
   settings.firefox = import ../settings/firefox { inherit config lib pkgs; };
 
@@ -13,7 +12,7 @@ let
       "\""
     ];
 
-  generateWildcardSSMConnectionString = { profile, region ? "" }: generateSSMConnectionString { target = "$(echo %h | awk -F '_' 'NR==1{print $2}')"; inherit profile region;  };
+  generateWildcardSSMConnectionString = { profile, region ? "" }: generateSSMConnectionString { target = "$(echo %h | awk -F '_' 'NR==1{print $2}')"; inherit profile region; };
 
   cfg = config.defaultajAgordoj.work;
 
@@ -37,8 +36,6 @@ in
         # GUI
         keybase-gui
         remmina
-        #signumone-ks
-        upwork-require
 
         # CLI
         awscli2
@@ -71,7 +68,8 @@ in
             let
               user = "pedro";
               identityFile = "${config.home.homeDirectory}/.ssh/Keys/devices/servers";
-            in {
+            in
+            {
               vpn = {
                 inherit user identityFile;
                 proxyCommand = generateSSMConnectionString { target = "i-009d4ed7fd7372feb"; profile = user; };
@@ -86,7 +84,7 @@ in
               };
               elk = {
                 inherit user identityFile;
-                proxyCommand = generateSSMConnectionString { target = "i-0fd41698004c0d538"; profile = user; };
+                proxyCommand = generateSSMConnectionString { target = "i-0a83d0bc2e5b71538"; profile = user; };
               };
               dev-k8s-m = {
                 inherit user identityFile;

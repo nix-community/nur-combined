@@ -15,11 +15,11 @@ Structure:
 - `pkgs/`: Packages I generally use to maintain by myself because of urgency or to make them available through NUR (WIP).
 - `shells/`: Contains definitions for development shells used.
 - `system/`: NixOS related configurations, like build setup for my hosts. Has a `common` directory to share anything related. The ones currently active are:
-  - `eyjafjallajokull`
-  - `holuhraun`
-  - `torfajokull`
-  - `katla` (Using NixOS-WSL)
-  - `raudholar` (A VM)
+  - `arenal`
+  - `irazu`
+  - `barva`
+  - `chopo` (Using NixOS-WSL)
+  - `pocosol` (A VM)
 - `templates/`: Useful for new projects. Currently, there are only for Python and Bash projects.
 - `flake.nix`: My flake.
 - `default.nix`: This is for the old way of importing stuff from this repo. Only supports modules and pkgs.

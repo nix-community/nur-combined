@@ -1,0 +1,14 @@
+# https://numtide.github.io/devshell
+imports = [
+  "language.perl"
+]
+
+[language.perl]
+libraryPaths = [
+  "$(pwd)"
+]
+
+[devshell]
+packages = [
+  "perlnavigator"
+]

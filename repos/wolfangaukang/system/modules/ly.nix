@@ -12,7 +12,8 @@ let
   mk_save = cfg.defaultUser != null;
   tty = "tty${toString xcfg.tty}";
 
-  save_file = if !mk_save then "" else pkgs.writeText "ly-prefs" ''
+  save_file = if !mk_save then "" else
+  pkgs.writeText "ly-prefs" ''
     ${cfg.defaultUser}
     ${toString cfg.defaultSessionIndex}
   '';
@@ -44,7 +45,8 @@ let
     exec ${dmcfg.xserverBin} ${toString dmcfg.xserverArgs} "$@"
   '';
 
-in {
+in
+{
   meta.maintainers = with maintainers; [ wolfangaukang ];
 
   options = {
@@ -109,10 +111,10 @@ in {
     environment.etc."ly/config.ini" = { mode = "0444"; text = lyconfig; };
 
     security.pam.services.ly.text = ''
-        auth       substack     login
-        account    include      login
-        password   substack     login
-        session    include      login
+      auth       substack     login
+      account    include      login
+      password   substack     login
+      session    include      login
     '';
 
     services.xserver.displayManager.job.execCmd = ''
@@ -123,7 +125,7 @@ in {
 
     systemd.services.ly = {
       unitConfig = {
-        Wants= [
+        Wants = [
           "systemd-user-sessions.service"
         ];
         After = [
@@ -157,6 +159,6 @@ in {
       group = "ly";
     };
 
-    users.groups.ly = {};
+    users.groups.ly = { };
   };
 }

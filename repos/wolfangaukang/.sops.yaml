@@ -8,9 +8,9 @@ keys:
     - &bjorn_p age13cgztmk4ncsf0j4dquhae5j9memjnpux24ec3hn4rjxlj4ecrgaqxuxcku
 
   - &hosts:
-    - &holuhraun age17gm2cha0zhf55fmchuzq0d2hvggp42xxq3hheqgmhy4cmge7s42qvvqn5f
-    - &eyjafjallajokull age1qc7yq0j066kh8r4lftr4wkrfpqmqjkuxl97c6jqgdkjkggfvg9tqhku4h8
-    - &torfajokull age1evuvvyh966c5crnmx0cyevqw6dqnn76lyqvmmla633j0mvsufsysc5w9em
+    - &irazu age17gm2cha0zhf55fmchuzq0d2hvggp42xxq3hheqgmhy4cmge7s42qvvqn5f
+    - &arenal age1qc7yq0j066kh8r4lftr4wkrfpqmqjkuxl97c6jqgdkjkggfvg9tqhku4h8
+    - &barva age1evuvvyh966c5crnmx0cyevqw6dqnn76lyqvmmla633j0mvsufsysc5w9em
 
 creation_rules:
   - path_regex: system/hosts/common/secrets.ya?ml$
@@ -18,27 +18,27 @@ creation_rules:
     - pgp:
       - *bjorn
       age:
-      - *holuhraun
-      - *eyjafjallajokull
-      - *torfajokull
-  - path_regex: system/hosts/eyjafjallajokull/secrets.ya?ml$
+      - *irazu
+      - *arenal
+      - *barva
+  - path_regex: system/hosts/arenal/secrets.ya?ml$
     key_groups:
     - pgp:
       - *bjorn
       age:
-      - *eyjafjallajokull
-  - path_regex: system/hosts/holuhraun/secrets.ya?ml$
+      - *arenal
+  - path_regex: system/hosts/irazu/secrets.ya?ml$
     key_groups:
     - pgp:
       - *bjorn
       age:
-      - *holuhraun
-  - path_regex: system/hosts/torfajokull/secrets.ya?ml$
+      - *irazu
+  - path_regex: system/hosts/barva/secrets.ya?ml$
     key_groups:
     - pgp:
       - *bjorn
       age:
-      - *torfajokull
+      - *barva
   - path_regex: home/users/bjorn/secrets.ya?ml$
     key_groups:
     - pgp:

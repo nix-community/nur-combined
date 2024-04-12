@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -6,8 +6,6 @@
 
     ./profiles/dev.nix
     ./profiles/fonts.nix
-
-    "${inputs.hm-firejail}/modules/programs/firejail.nix"
   ];
 
   home = {
@@ -22,7 +20,6 @@
       peaclock
       tree
       shellcheck
-
     ];
   };
 
@@ -58,38 +55,30 @@
         };
       };
     };
-    # TODO: Review
     gui = {
       enable = true;
+      terminal = {
+        font = {
+          family = "MesloLGS NF";
+          package = pkgs.meslo-lgs-nf;
+        };
+        kitty = {
+          enable = true;
+          theme = "Black Metal";
+        };
+      };
       extraPkgs = with pkgs; [
         calibre
         keepassxc
         libreoffice
+        mpv
         multifirefox
         raven-reader
         sigil
         thunderbird
-        vlc
       ];
       vscode.enable = true;
       browsers.chromium.enable = true;
-    };
-  };
-
-  programs = {
-    neofetch.enable = true;
-    sab = {
-      enable = true;
-      bots = {
-        trovo = {
-          settingsPath = "${config.home.homeDirectory}/Projektujo/Python/stream-alert-bot/etc/settings-trovo.yml";
-          consumerType = "trovo";
-        };
-        twitch = {
-          settingsPath = "${config.home.homeDirectory}/Projektujo/Python/stream-alert-bot/etc/settings-twitch.yml";
-          consumerType = "twitch";
-        };
-      };
     };
   };
 }

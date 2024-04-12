@@ -4,14 +4,17 @@ let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   inherit (inputs) self dotfiles;
 
-  settings.neovim = import "${self}/home/users/bjorn/settings/neovim.nix" { inherit dotfiles pkgs; };
+  settings = {
+    helix = import "${self}/home/users/bjorn/settings/helix.nix";
+    neovim = import "${self}/home/users/bjorn/settings/neovim.nix" { inherit dotfiles pkgs; };
+    fish = import "${self}/home/users/bjorn/settings/fish.nix" { inherit pkgs; };
+  };
 
   cfg = config.defaultajAgordoj.cli;
 
   shellAliases = {
     ".." = "cd ..";
     "ed" = "$EDITOR";
-    "mkdir-devshell" = "nix flake new -t 'github:numtide/devshell'";
   };
 
 in
@@ -53,7 +56,14 @@ in
           default = false;
           type = types.bool;
           description = ''
-            Sets Helix as default editor
+            Sets Helix as default editor (check https://github.com/helix-editor/helix/tree/master/runtime/themes)
+          '';
+        };
+        theme = mkOption {
+          default = "ayu_dark";
+          type = types.str;
+          description = ''
+            Helix theme to use
           '';
         };
       };
@@ -108,52 +118,55 @@ in
         fish = {
           enable = true;
           shellAliases = shellAliases;
+          plugins = settings.fish.plugins;
         };
         nix-index = {
           enable = true;
           enableFishIntegration = true;
         };
       };
-
     })
     (mkIf cfg.enableTmux {
-       programs.tmux =
-         let
-           terminal = "screen-256color";
-         in {
-           enable = true;
-           package = pkgs.tmux;
-           clock24 = true;
-           terminal = terminal;
-           extraConfig = ''
-             set-option -sa terminal-overrides ',${terminal}:RGB'
-           '';
-        # Neovim related (https://github.com/neovim/neovim/wiki/FAQ#esc-in-tmux-or-gnu-screen-is-delayed)
+      programs.tmux =
+        let
+          terminal = "screen-256color";
+        in
+        {
+          enable = true;
+          package = pkgs.tmux;
+          clock24 = true;
+          terminal = terminal;
+          extraConfig = ''
+            set-option -sa terminal-overrides ',${terminal}:RGB'
+          '';
+          # Neovim related (https://github.com/neovim/neovim/wiki/FAQ#esc-in-tmux-or-gnu-screen-is-delayed)
         } // (mkIf config.programs.neovim.enable { escapeTime = 10; });
     })
     (mkIf cfg.editors.helix.enable {
       programs.helix = {
         enable = true;
         defaultEditor = cfg.editors.helix.default;
-        settings = {
-          editor.soft-wrap = {
-            enable = true;
-            wrap-indicator = "↪ ";
-          };
-        };
+        settings = settings.helix { theme = cfg.editors.helix.theme; };
       };
-      home.packages = with pkgs; [
-        # Bash
-        nodePackages.bash-language-server
-        # Markdown
-        marksman
-        # Nix
-        nil
-        # TOML
-        taplo
-        # YAML
-        yaml-language-server
-      ];
+      home =
+        let
+          themeName = cfg.editors.helix.theme;
+        in
+        {
+          file.".config/helix/themes/${themeName}.toml".source = "${pkgs.helix}/lib/runtime/themes/${themeName}.toml";
+          packages = with pkgs; [
+            # Bash
+            nodePackages.bash-language-server
+            # Markdown
+            marksman
+            # Nix
+            nil
+            # TOML
+            taplo
+            # YAML
+            yaml-language-server
+          ];
+        };
     })
     (mkIf cfg.editors.neovim.enable {
       programs.neovim = {
@@ -165,7 +178,8 @@ in
         vimAlias = true;
         extraPackages = with pkgs; [
           # nvim-spectre
-          gnused ripgrep
+          gnused
+          ripgrep
 
           # clipboard
           xclip

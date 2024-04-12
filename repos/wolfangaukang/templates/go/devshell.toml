@@ -1,0 +1,16 @@
+imports = [
+  "language.go"
+]
+
+[devshell]
+packages = [
+  "gopls"
+]
+
+[[env]]
+name = "GOPATH"
+eval = "$HOME/.go"
+
+[[env]]
+name = "PATH"
+prefix = "$(go env GOPATH)/bin"

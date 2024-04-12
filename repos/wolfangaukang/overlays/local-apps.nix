@@ -13,8 +13,7 @@ final: prev:
   #  dontBuild = false;
   #  dontConfigure = false;
   #} );
-  upwork-require = prev.callPackage ../pkgs/applications/misc/upwork {};
-  burpsuite = prev.callPackage ../pkgs/tools/networking/burpsuite/ce.nix {};
-  multifirefox = prev.callPackage ../pkgs/applications/networking/browsers/multifirefox {};
-  vdhcoapp = prev.callPackage ../pkgs/tools/misc/vdhcoapp {};
+  #upwork-require = prev.callPackage ../pkgs/applications/misc/upwork {};
+  burpsuite = prev.callPackage ../pkgs/burpsuite/ce.nix { };
+  vdhcoapp = prev.callPackage ../pkgs/vdhcoapp { };
 }

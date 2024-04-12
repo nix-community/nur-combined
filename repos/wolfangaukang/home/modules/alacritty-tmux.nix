@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let 
+let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.programs.alacritty.tmux;
   cfg_tmux = config.programs.tmux;
@@ -10,7 +10,8 @@ let
     fi
   '';
 
-in {
+in
+{
   options.programs.alacritty.tmux = {
     startTmuxOnBash = mkOption {
       default = false;
