@@ -36,13 +36,12 @@
 }:
 stdenv.mkDerivation(finalAttrs: {
   pname = "suyu";
-  version = "dev-10-04-2024";
+  version = "v0.0.3";
 
   src = fetchgit {
     url = "https://git.suyu.dev/suyu/suyu.git";
-#    ref = "dev";
-    rev = "2caadffe4d64de38a4835c2553a7a66d92eb7d4b";
-    hash = "sha256-zwlbXYZQ9jGYWVvDsN1iqpC+oVbtVX5qG9zJdmr91FY=";
+    rev = "2b16baf506886ab7df9c4df0b48ae43e047aa593";
+    hash = "sha256-wLUPNRDR22m34OcUSB1xHd+pT7/wx0pHYAZj6LnEN4g=";
     fetchSubmodules = true;
   };
 
