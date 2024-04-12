@@ -24,6 +24,9 @@
 		inputs.home-manager.nixosModules.home-manager
 		../users/me/gui.nix
 		../users/root/default.nix
+
+    # see: https://github.com/NixOS/nixpkgs/issues/300081
+    "${inputs.nixpkgs-unstable}/nixos/modules/virtualisation/incus.nix" 
 	];
 
 
@@ -35,7 +38,6 @@
     looking-glass-client
     swtpm
     win-virtio
-    todoist-electron
   ];
 
 
@@ -247,7 +249,7 @@
         id = "htl";
         uuid = "0d3af539-9abd-4417-b882-cbff96fc3490";
         type = "wifi";
-        interface-name = "wlp2s0";
+        interface-name = "wlo1";
       };
       ipv4 = {
         method = "auto";
@@ -292,7 +294,7 @@
         id = "pw";
         uuid = "e0103dac-7da0-4e32-a01b-487b8c4c813c";
         type = "wifi";
-        interface-name = "wlp2s0";
+        interface-name = "wlo1";
       };
 
       wifi = {
@@ -313,13 +315,38 @@
       };
     };
 
+    hec = {
+      connection = {
+        id = "hec";
+        uuid = "a84fdbd8-af9c-4e2d-9185-7676e9d139f4";
+        type = "wifi";
+        interface-name = "wlo1";
+      };
+
+      wifi = {
+        hidden = "true";
+        mode = "infrastructure";
+        ssid = builtins.readFile "${secretsDir}/hec-wifi-ssid";
+      };
+
+      wifi-security = {
+        key-mgmt = "wpa-psk";
+        psk = builtins.readFile "${secretsDir}/hec-wifi-password";
+      };
+
+      ipv4 = {
+        #address1 = "192.168.20.11/24";
+        method = "auto";
+      };
+    };
+
     hot = {
       connection = {
         id = "hot";
         uuid = "ab51de8a-9742-465a-928b-be54a83ab6a3";
         type = "wifi";
         autoconnect = false;
-        interface-name = "wlp2s0";
+        interface-name = "wlo1";
       };
       wifi = {
         mac-address = "0C:96:E6:E3:64:03";
@@ -455,7 +482,16 @@
       #qemuOvmfPackage = pkgs.OVMFFull;
     };
 
+
+    # see: https://github.com/NixOS/nixpkgs/issues/300081
+    disabledModules = [ "virtualisation/incus.nix" ]; 
+    networking.nftables.enable = true;
+    # client package now separated...
+    virtualisation.incus.clientPackage = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.incus;
     virtualisation.incus.enable = true;
+    #virtualisation.incus.package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.incus;
+    users.users.me.extraGroups = [ "incus-admin" ];
+
 
     virtualisation.podman.enable = true;
 
