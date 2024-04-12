@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "c3d7aba10e14b98170b8d27c7f40e9c24c4d5eaf";
+    version = "a6c866323cd03aa25b99a266917e5eb29f88be39";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "c3d7aba10e14b98170b8d27c7f40e9c24c4d5eaf";
+      rev = "a6c866323cd03aa25b99a266917e5eb29f88be39";
       fetchSubmodules = false;
-      sha256 = "sha256-bS1gjzk+Z+TiNVNCa8q7HQIMUK+k8w9PwEIVItGY58A=";
+      sha256 = "sha256-387JyWptTVi1iDf1jxKibus6oIv3NaEE0wBNZNbzvy4=";
     };
-    date = "2024-04-06";
+    date = "2024-04-11";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -266,10 +266,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.5.0.40221";
+    version = "7.5.10.404071";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.0.40221_amd64.deb";
-      sha256 = "sha256-G1ffi3zCCVDd3EqUH0gvpa96LS8V2cZqx3pWN4frKBI=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.10.404071_amd64.deb";
+      sha256 = "sha256-2cmxvsagH0CaH0QkSh4M4BkTk8wOWlBmvKY5dKDrk9Y=";
     };
   };
   douban-openapi-server = {
@@ -334,16 +334,16 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "5b3959848710449495f26d635d0f178064d52d89";
+    version = "ef542ec8215595398a702d1c6338171c2bcd6108";
     src = fetchgit {
       url = "https://gitea.publichub.eu/oscar.krause/fastapi-dls.git";
-      rev = "5b3959848710449495f26d635d0f178064d52d89";
+      rev = "ef542ec8215595398a702d1c6338171c2bcd6108";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-UsoDLvcFe59te+DxmAHgCJNKQ8R2OtEPos5jCuTrTfM=";
+      sha256 = "sha256-Nngb2LBvJPmhf6NkwamvALbxBLEkovz4cqQx/gEzsmY=";
     };
-    date = "2024-02-27";
+    date = "2024-04-09";
   };
   fcitx5-breeze = {
     pname = "fcitx5-breeze";
@@ -355,13 +355,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.16";
+    version = "v3.3.17";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.16";
+      rev = "v3.3.17";
       fetchSubmodules = false;
-      sha256 = "sha256-pf5sibZ9Vjc98UOVTEUlKrBoXXKiykrt+szXLbNJB3k=";
+      sha256 = "sha256-mCHR9DP+Dprp06W/yIccqdNvwgruSqZokVwRhmGvz8A=";
     };
   };
   flasgger = {
@@ -486,15 +486,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "82755c2bc58491be31c7ac43fec3b2ff2aea3242";
+    version = "1e1daf4d0321d3d80586153d526bfb47f4eb29df";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "82755c2bc58491be31c7ac43fec3b2ff2aea3242";
+      rev = "1e1daf4d0321d3d80586153d526bfb47f4eb29df";
       fetchSubmodules = false;
-      sha256 = "sha256-ayY+oXt96CAVfJ49Pbu5sd6SzkCOThhiPjJrZMxD+YY=";
+      sha256 = "sha256-UVnBKJmXIE7G1p4yo4UU/TIz3mO5GhjU5Kb7+C+h0O4=";
     };
-    date = "2024-01-29";
+    date = "2024-04-07";
   };
   jproxy = {
     pname = "jproxy";
@@ -560,15 +560,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "32afec8fccd77a264e6104764986ce46d120f5ff";
+    version = "6f0c46187c94f763c5f4cd703ff633c4b28f3035";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "32afec8fccd77a264e6104764986ce46d120f5ff";
+      rev = "6f0c46187c94f763c5f4cd703ff633c4b28f3035";
       fetchSubmodules = false;
-      sha256 = "sha256-XDne5dJ6y0xtWOtrwJqwp2nfJudeYZxXi1T6OkY6Fd4=";
+      sha256 = "sha256-Joca61ycWo3m20rmxoboQS3GKCCtwE60cTlOc7Appws=";
     };
-    date = "2024-04-05";
+    date = "2024-04-09";
   };
   libqcef = {
     pname = "libqcef";
@@ -632,13 +632,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.8.4-xanmod1";
+    version = "6.8.5-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.8.4-xanmod1";
+      rev = "6.8.5-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-NQeUz50aBRvbHqhoOGv5CFQKKlKeCUEkCA8uf9W0f0k=";
+      sha256 = "sha256-CPq6CxyQY/y7f0FV4JSWucyo4rfIsfmVY/f15Lv0/TI=";
     };
   };
   linux-xanmod-6_0 = {
@@ -665,13 +665,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.25-xanmod1";
+    version = "6.6.26-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.25-xanmod1";
+      rev = "6.6.26-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-f375jX0BTlccJoeEFDQ2ZaVWQhcnWqcSNYHzGjS2DQo=";
+      sha256 = "sha256-XC0HRp0t4qeGReU2oY231P5kdzvkl71uILlF9tdwgX4=";
     };
   };
   nbfc-linux-lantian = {
@@ -865,15 +865,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "66ee77021b7ae35929e4659ac3f4b1e7642ddc67";
+    version = "b544ba2b1c71ff51e8a8736af8d7cc40893cf4ff";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "66ee77021b7ae35929e4659ac3f4b1e7642ddc67";
+      rev = "b544ba2b1c71ff51e8a8736af8d7cc40893cf4ff";
       fetchSubmodules = false;
-      sha256 = "sha256-BKboIy+eHExJPQOIpIulSZiv39psVm9FWoxVPWV9p+0=";
+      sha256 = "sha256-tPDb0Df2LQY5sS+gAJ4doPFmVRwQMk6EpgOjCQp9SQU=";
     };
-    date = "2024-03-20";
+    date = "2024-04-08";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -933,10 +933,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v2.3";
+    version = "v2.8";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v2.3/PeerBanHelper.jar";
-      sha256 = "sha256-VNwSNFOI2PsqODUgpjVTW4aPW7DqX5IyLoLecSxlsIQ=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v2.8/PeerBanHelper.v2.8.Linux.zip";
+      sha256 = "sha256-l6xVDcOB2cj2k8ktKcGkKz15wMP2dwoqWJ+jD7DtV+E=";
     };
   };
   phpmyadmin = {
@@ -1044,18 +1044,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.7_240403_amd64_01";
+    version = "Linux/QQ_3.2.7_240410_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240403_amd64_01.deb";
-      sha256 = "sha256-7XdxkILIkWMBJLd/xz79SqytMJeDYbrhexHxv2C402U=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240410_amd64_01.deb";
+      sha256 = "sha256-1JuuSWcOzBOCx3+0BI9HIW7nDTw79jvsSYA065mh+cw=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.7_240403_arm64_01";
+    version = "Linux/QQ_3.2.7_240410_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240403_arm64_01.deb";
-      sha256 = "sha256-XUp6Gw0z9QSm/qTuYgTJ1mN/T3YN16tV+/QYaRV9urs=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240410_arm64_01.deb";
+      sha256 = "sha256-aS+bPql7AH3zXAmR2zgIH1hUQUQzaBDd+4zmXYf5rcc=";
     };
   };
   qqmusic = {
@@ -1126,15 +1126,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "c9a2d01eb8ccbbdee571d7313e9b0ba21b198e2f";
+    version = "83aa7087e2862adc66bc25604a42e461178e8a47";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "c9a2d01eb8ccbbdee571d7313e9b0ba21b198e2f";
+      rev = "83aa7087e2862adc66bc25604a42e461178e8a47";
       fetchSubmodules = false;
-      sha256 = "sha256-I6R9cCCfxKMNBR0WOw8kcegJNjqlz80vd8SGaQfbhvs=";
+      sha256 = "sha256-53/EbA7UOb3jGfMYNNcMU8g4aDTDqxHujdleHerTphI=";
     };
-    date = "2024-04-06";
+    date = "2024-04-10";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1293,15 +1293,15 @@
   };
   transmission-web-control = {
     pname = "transmission-web-control";
-    version = "9018e35d12d2e20c9ec01b8a858ecaa2c3ce96f4";
+    version = "f02a47aff2680de10c2269e22a3d0b37a318dbcd";
     src = fetchFromGitHub {
       owner = "ronggang";
       repo = "transmission-web-control";
-      rev = "9018e35d12d2e20c9ec01b8a858ecaa2c3ce96f4";
+      rev = "f02a47aff2680de10c2269e22a3d0b37a318dbcd";
       fetchSubmodules = false;
-      sha256 = "sha256-A9EW27LGJ6asqvnZqBRe57/hzBDaS/m7ud45o9BHWE8=";
+      sha256 = "sha256-AFvotbGc7ytevOdWQa8RwgQccqEghW0UrQMpAsDtfgg=";
     };
-    date = "2024-03-20";
+    date = "2024-04-09";
   };
   uesave = {
     pname = "uesave";

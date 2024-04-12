@@ -94,7 +94,7 @@ Or, use variables from this repository in case I change them:
 |  | `decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | v1.35.1 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed. |
 |  | `deepspeech-gpu` | [deepspeech-gpu](https://github.com/mozilla/DeepSpeech) | 0.9.3 | Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers. |
 |  | `deepspeech-wrappers` | [deepspeech](https://github.com/mozilla/DeepSpeech) | 0.9.3 | Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers. |
-|  | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.5.0.40221 | 钉钉 |
+|  | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.5.10.404071 | 钉钉 |
 |  | `dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.0.0 | DN42 Pingfinder |
 |  | `douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | c7e2a0f59ba5cfb2d10a31013547686a4afab99d | A Douban API server that provides an unofficial APIs for media information gathering |
 |  | `dpdk-kmod` | [dpdk-kmod](https://git.dpdk.org/dpdk-kmods/) | e721c733cd24206399bebb8f0751b0387c4c1595 | DPDK kernel modules or add-ons |
@@ -102,9 +102,9 @@ Or, use variables from this repository in case I change them:
 |  | `drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | v1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | f622f2a15b91fc54286f3d1f95d59adebab1a4f7 | Layer2 version of wireguard with Floyd Warshall implement in go |
-|  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 5b3959848710449495f26d635d0f178064d52d89 | Minimal Delegated License Service (DLS) |
+|  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | ef542ec8215595398a702d1c6338171c2bcd6108 | Minimal Delegated License Service (DLS) |
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 2.0.0 | Fcitx5 theme to match KDE's Breeze style |
-|  | `flaresolverr` | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.3.16 | Proxy server to bypass Cloudflare protection |
+|  | `flaresolverr` | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.3.17 | Proxy server to bypass Cloudflare protection |
 |  | `flasgger` | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | ftp.proxy - FTP Proxy Server |
 |  | `genshin-checkin-helper` | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | b9e36543bfe5b042e015463e5d0398cd234cba90 | More than check-in for Genshin Impact. |
@@ -116,7 +116,7 @@ Or, use variables from this repository in case I change them:
 |  | `hath` | [hath](https://e-hentai.org/) | 1.6.1 | Hentai@Home |
 |  | `hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
 |  | `hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 1c02c254ef501918e684d6ef003a93d3e5e5abb7 | Constructed scripts by Hoyoverse 米哈游的架空文字  |
-|  | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 82755c2bc58491be31c7ac43fec3b2ff2aea3242 | DKMS module of Linux i915 driver with SR-IOV support |
+|  | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 1e1daf4d0321d3d80586153d526bfb47f4eb29df | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | v3.4.1 | A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate  |
 |  | `kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `kata-image` | [kata-image](https://github.com/kata-containers/kata-containers) | 3.3.0 | Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix) |
@@ -125,7 +125,7 @@ Or, use variables from this repository in case I change them:
 |  | `konnect` | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.6 | A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
-|  | `liboqs` | [liboqs](https://openquantumsafe.org) | 32afec8fccd77a264e6104764986ce46d120f5ff | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs` | [liboqs](https://openquantumsafe.org) | 6f0c46187c94f763c5f4cd703ff633c4b28f3035 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | ff3448cb3f86f42946d4c9eb01ccaa994f174fe0 | Qt5 binding of CEF |
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.78 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | `netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
@@ -140,13 +140,13 @@ Or, use variables from this repository in case I change them:
 |  | `oci-arm-host-capacity` | [oci-arm-host-capacity](https://github.com/hitrov/oci-arm-host-capacity) | 369de7b2851f1b22db34f95ba02001d5c9f839c7 | This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain. |
 |  | `onepush` | [onepush](https://gitlab.com/y1ndan/onepush) | 8b09e62330ad74ba3221bfc2b080d1732a1dcc55 | A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk. |
 |  | `openssl-oqs` | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | A cryptographic library that implements the SSL and TLS protocols |
-|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 66ee77021b7ae35929e4659ac3f4b1e7642ddc67 | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | b544ba2b1c71ff51e8a8736af8d7cc40893cf4ff | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
 |  | `ovpn-dco` | [ovpn-dco](https://github.com/OpenVPN/ovpn-dco) | 2aa7f931803f81d2745b0cefafb63654a35cc3d5 | OpenVPN Data Channel Offload in the linux kernel |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | v1.3.1 | Prometheus exporter for Palword Server |
 |  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | v1.9.0 | A tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers |
 |  | `payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | An android OTA payload dumper written in Go |
-|  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | v2.3 | 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission |
+|  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | v2.8 | 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | A web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.7-mod | The premier web-based administration tool for PostgreSQL |
 |  | `procps4` | [procps4](https://gitlab.com/procps-ng/procps) | 4.0.4 | Utilities that give information about processes using the /proc filesystem |
@@ -161,7 +161,7 @@ Or, use variables from this repository in case I change them:
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.052.01 | Linux device driver for Realtek Ethernet controllers |
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | 【极光拼音】输入方案 |
 |  | `rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | RIME 词库增强 |
-|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | c9a2d01eb8ccbbdee571d7313e9b0ba21b198e2f | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
+|  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | 83aa7087e2862adc66bc25604a42e461178e8a47 | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
 |  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20240309 | Releases for dict of zh.moegirl.org.cn |
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20240210 | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197 | A small app to generate a long path in traceroute. |
@@ -253,28 +253,28 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianLinuxXanmod.generic` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.generic-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.latest-generic` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.latest-generic-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.latest-x86_64-v1` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.latest-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.latest-x86_64-v2` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.latest-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.latest-x86_64-v3` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.latest-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.latest-x86_64-v4` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.latest-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-generic` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-generic-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-x86_64-v1` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-x86_64-v2` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-x86_64-v3` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-x86_64-v4` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.generic` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.generic-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-generic` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-generic-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-x86_64-v1` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-x86_64-v2` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-x86_64-v3` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-x86_64-v4` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-generic` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-generic-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v1` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v2` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v3` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v4` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | `lantianLinuxXanmod.v6_0-generic` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
 |  | `lantianLinuxXanmod.v6_0-generic-lto` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | `lantianLinuxXanmod.v6_0-x86_64-v1` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
@@ -295,24 +295,24 @@ Or, use variables from this repository in case I change them:
 |  | `lantianLinuxXanmod.v6_1-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | `lantianLinuxXanmod.v6_1-x86_64-v4` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
 |  | `lantianLinuxXanmod.v6_1-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-generic` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-generic-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v1` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v2` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v3` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v4` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.6.25-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.x86_64-v1` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.x86_64-v2` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.x86_64-v3` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.x86_64-v4` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.8.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-generic` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-generic-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v1` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v2` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v3` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v4` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.6.26-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.x86_64-v1` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.x86_64-v2` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.x86_64-v3` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.x86_64-v4` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.8.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 </details>
 
 <details>

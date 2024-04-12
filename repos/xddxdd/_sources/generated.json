@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-04-06",
+        "date": "2024-04-11",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "c3d7aba10e14b98170b8d27c7f40e9c24c4d5eaf",
-            "sha256": "sha256-bS1gjzk+Z+TiNVNCa8q7HQIMUK+k8w9PwEIVItGY58A=",
+            "rev": "a6c866323cd03aa25b99a266917e5eb29f88be39",
+            "sha256": "sha256-387JyWptTVi1iDf1jxKibus6oIv3NaEE0wBNZNbzvy4=",
             "type": "github"
         },
-        "version": "c3d7aba10e14b98170b8d27c7f40e9c24c4d5eaf"
+        "version": "a6c866323cd03aa25b99a266917e5eb29f88be39"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -463,11 +463,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-G1ffi3zCCVDd3EqUH0gvpa96LS8V2cZqx3pWN4frKBI=",
+            "sha256": "sha256-2cmxvsagH0CaH0QkSh4M4BkTk8wOWlBmvKY5dKDrk9Y=",
             "type": "url",
-            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.0.40221_amd64.deb"
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.10.404071_amd64.deb"
         },
-        "version": "7.5.0.40221"
+        "version": "7.5.10.404071"
     },
     "douban-openapi-server": {
         "cargoLocks": null,
@@ -570,7 +570,7 @@
     },
     "fastapi-dls": {
         "cargoLocks": null,
-        "date": "2024-02-27",
+        "date": "2024-04-09",
         "extract": null,
         "name": "fastapi-dls",
         "passthru": null,
@@ -580,12 +580,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5b3959848710449495f26d635d0f178064d52d89",
-            "sha256": "sha256-UsoDLvcFe59te+DxmAHgCJNKQ8R2OtEPos5jCuTrTfM=",
+            "rev": "ef542ec8215595398a702d1c6338171c2bcd6108",
+            "sha256": "sha256-Nngb2LBvJPmhf6NkwamvALbxBLEkovz4cqQx/gEzsmY=",
             "type": "git",
             "url": "https://gitea.publichub.eu/oscar.krause/fastapi-dls.git"
         },
-        "version": "5b3959848710449495f26d635d0f178064d52d89"
+        "version": "ef542ec8215595398a702d1c6338171c2bcd6108"
     },
     "fcitx5-breeze": {
         "cargoLocks": null,
@@ -616,11 +616,11 @@
             "name": null,
             "owner": "FlareSolverr",
             "repo": "FlareSolverr",
-            "rev": "v3.3.16",
-            "sha256": "sha256-pf5sibZ9Vjc98UOVTEUlKrBoXXKiykrt+szXLbNJB3k=",
+            "rev": "v3.3.17",
+            "sha256": "sha256-mCHR9DP+Dprp06W/yIccqdNvwgruSqZokVwRhmGvz8A=",
             "type": "github"
         },
-        "version": "v3.3.16"
+        "version": "v3.3.17"
     },
     "flasgger": {
         "cargoLocks": null,
@@ -832,7 +832,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2024-01-29",
+        "date": "2024-04-07",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -844,11 +844,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "82755c2bc58491be31c7ac43fec3b2ff2aea3242",
-            "sha256": "sha256-ayY+oXt96CAVfJ49Pbu5sd6SzkCOThhiPjJrZMxD+YY=",
+            "rev": "1e1daf4d0321d3d80586153d526bfb47f4eb29df",
+            "sha256": "sha256-UVnBKJmXIE7G1p4yo4UU/TIz3mO5GhjU5Kb7+C+h0O4=",
             "type": "github"
         },
-        "version": "82755c2bc58491be31c7ac43fec3b2ff2aea3242"
+        "version": "1e1daf4d0321d3d80586153d526bfb47f4eb29df"
     },
     "jproxy": {
         "cargoLocks": null,
@@ -962,7 +962,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-04-05",
+        "date": "2024-04-09",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -974,11 +974,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "32afec8fccd77a264e6104764986ce46d120f5ff",
-            "sha256": "sha256-XDne5dJ6y0xtWOtrwJqwp2nfJudeYZxXi1T6OkY6Fd4=",
+            "rev": "6f0c46187c94f763c5f4cd703ff633c4b28f3035",
+            "sha256": "sha256-Joca61ycWo3m20rmxoboQS3GKCCtwE60cTlOc7Appws=",
             "type": "github"
         },
-        "version": "32afec8fccd77a264e6104764986ce46d120f5ff"
+        "version": "6f0c46187c94f763c5f4cd703ff633c4b28f3035"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1094,11 +1094,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.8.4-xanmod1",
-            "sha256": "sha256-NQeUz50aBRvbHqhoOGv5CFQKKlKeCUEkCA8uf9W0f0k=",
+            "rev": "6.8.5-xanmod1",
+            "sha256": "sha256-CPq6CxyQY/y7f0FV4JSWucyo4rfIsfmVY/f15Lv0/TI=",
             "type": "github"
         },
-        "version": "6.8.4-xanmod1"
+        "version": "6.8.5-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1154,11 +1154,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.25-xanmod1",
-            "sha256": "sha256-f375jX0BTlccJoeEFDQ2ZaVWQhcnWqcSNYHzGjS2DQo=",
+            "rev": "6.6.26-xanmod1",
+            "sha256": "sha256-XC0HRp0t4qeGReU2oY231P5kdzvkl71uILlF9tdwgX4=",
             "type": "github"
         },
-        "version": "6.6.25-xanmod1"
+        "version": "6.6.26-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1487,7 +1487,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-03-20",
+        "date": "2024-04-08",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1499,11 +1499,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "66ee77021b7ae35929e4659ac3f4b1e7642ddc67",
-            "sha256": "sha256-BKboIy+eHExJPQOIpIulSZiv39psVm9FWoxVPWV9p+0=",
+            "rev": "b544ba2b1c71ff51e8a8736af8d7cc40893cf4ff",
+            "sha256": "sha256-tPDb0Df2LQY5sS+gAJ4doPFmVRwQMk6EpgOjCQp9SQU=",
             "type": "github"
         },
-        "version": "66ee77021b7ae35929e4659ac3f4b1e7642ddc67"
+        "version": "b544ba2b1c71ff51e8a8736af8d7cc40893cf4ff"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1614,11 +1614,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VNwSNFOI2PsqODUgpjVTW4aPW7DqX5IyLoLecSxlsIQ=",
+            "sha256": "sha256-l6xVDcOB2cj2k8ktKcGkKz15wMP2dwoqWJ+jD7DtV+E=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v2.3/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v2.8/PeerBanHelper.v2.8.Linux.zip"
         },
-        "version": "v2.3"
+        "version": "v2.8"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -1819,11 +1819,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7XdxkILIkWMBJLd/xz79SqytMJeDYbrhexHxv2C402U=",
+            "sha256": "sha256-1JuuSWcOzBOCx3+0BI9HIW7nDTw79jvsSYA065mh+cw=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240403_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240410_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.7_240403_amd64_01"
+        "version": "Linux/QQ_3.2.7_240410_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1834,11 +1834,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XUp6Gw0z9QSm/qTuYgTJ1mN/T3YN16tV+/QYaRV9urs=",
+            "sha256": "sha256-aS+bPql7AH3zXAmR2zgIH1hUQUQzaBDd+4zmXYf5rcc=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240403_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240410_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.7_240403_arm64_01"
+        "version": "Linux/QQ_3.2.7_240410_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -1957,7 +1957,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-04-06",
+        "date": "2024-04-10",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -1969,11 +1969,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "c9a2d01eb8ccbbdee571d7313e9b0ba21b198e2f",
-            "sha256": "sha256-I6R9cCCfxKMNBR0WOw8kcegJNjqlz80vd8SGaQfbhvs=",
+            "rev": "83aa7087e2862adc66bc25604a42e461178e8a47",
+            "sha256": "sha256-53/EbA7UOb3jGfMYNNcMU8g4aDTDqxHujdleHerTphI=",
             "type": "github"
         },
-        "version": "c9a2d01eb8ccbbdee571d7313e9b0ba21b198e2f"
+        "version": "83aa7087e2862adc66bc25604a42e461178e8a47"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -2257,7 +2257,7 @@
     },
     "transmission-web-control": {
         "cargoLocks": null,
-        "date": "2024-03-20",
+        "date": "2024-04-09",
         "extract": null,
         "name": "transmission-web-control",
         "passthru": null,
@@ -2269,11 +2269,11 @@
             "name": null,
             "owner": "ronggang",
             "repo": "transmission-web-control",
-            "rev": "9018e35d12d2e20c9ec01b8a858ecaa2c3ce96f4",
-            "sha256": "sha256-A9EW27LGJ6asqvnZqBRe57/hzBDaS/m7ud45o9BHWE8=",
+            "rev": "f02a47aff2680de10c2269e22a3d0b37a318dbcd",
+            "sha256": "sha256-AFvotbGc7ytevOdWQa8RwgQccqEghW0UrQMpAsDtfgg=",
             "type": "github"
         },
-        "version": "9018e35d12d2e20c9ec01b8a858ecaa2c3ce96f4"
+        "version": "f02a47aff2680de10c2269e22a3d0b37a318dbcd"
     },
     "uesave": {
         "cargoLocks": null,
