@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
     owner = "jeremy-rifkin";
     repo = "libassert";
     rev = "v${version}";
-    hash = "sha256-YJdyq3+H5VmuFbL12aQrdnHLJWEL8XP/o9KJtMBjxOI=";
+    hash = "sha256-HzLeu1LxPdBSZjKfs8Y3kxEHmi5EpYNQb84x5FKd1hE=";
   };
 
   nativeBuildInputs = [ cmake ];
