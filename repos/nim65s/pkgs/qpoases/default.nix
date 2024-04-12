@@ -14,14 +14,14 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "coin-or";
     repo = finalAttrs.pname;
     rev = "releases/${finalAttrs.version}";
-    sha256 = "sha256-NWKwKYdXJD8lGorhTFWJmYeIhSCO00GHiYx+zHEJk0M=";
+    hash = "sha256-NWKwKYdXJD8lGorhTFWJmYeIhSCO00GHiYx+zHEJk0M=";
   };
 
   patches = [
     (fetchpatch {
       name = "shared-libs.patch";
       url = "https://github.com/coin-or/qpOASES/pull/109/commits/cb49b52c17e0b638c88ff92f4c59e347cd82a332.patch";
-      sha256 = "sha256-6IoJHCFVCZpf3+Im1f64VwV5vj+bbbwCSF0vqpdd5Os=";
+      hash = "sha256-6IoJHCFVCZpf3+Im1f64VwV5vj+bbbwCSF0vqpdd5Os=";
     })
   ];
 

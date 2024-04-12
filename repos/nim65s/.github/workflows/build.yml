@@ -11,14 +11,14 @@ jobs:
   tests:
     strategy:
       matrix:
-        nurRepo:
-          - nim65s
-        cachixName:
-          - nim65s-nur
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
           #- nixpkgs=channel:nixos-23.11
+        nurRepo:
+          - nim65s
+        cachixName:
+          - nim65s-nur
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
