@@ -9,16 +9,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxo";
-  version = "1.6.0";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "Juniper";
     repo = "libxo";
     rev = finalAttrs.version;
-    hash = "sha256-iTB/zADckrLe6pfNa76CDYf6iozI+WUScd/IQlvFhnE=";
+    hash = "sha256-WFoYslS1RW9IPHoxrUu79SRrzaPh4DL5TBfgZD1n33A=";
   };
-
-  patches = [ ./remove-sysctl-include.patch ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
