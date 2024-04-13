@@ -9,12 +9,30 @@
   };
 
   networking = {
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+      "9.9.9.9"
+      "149.112.112.112"
+    ];
+    search = [ "~." ]; # Always use global name servers
     dhcpcd.enable = false;
-    networkmanager = {
+    # networkmanager = {
+    #   enable = true;
+    #   wifi = {
+    #     backend = "iwd";
+    #     macAddress = "random";
+    #   };
+    # };
+    wireless.iwd = {
       enable = true;
-      wifi = {
-        # backend = "iwd";
-        macAddress = "random";
+      settings = {
+        General = {
+          EnableNetworkConfiguration = true;
+          AddressRandomization = "network";
+        };
+        Network.NameResolvingService = "systemd"; # Use resolved
+        Settings.AlwaysRandomizeAddress = true;
       };
     };
   };
@@ -23,9 +41,18 @@
     automatic-timezoned.enable = true;
     pipewire = {
       enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
       pulse.enable = true;
+    };
+    resolved = {
+      enable = true;
+      fallbackDns = [ ]; # disable fallback DNS
+      dnsovertls = "true";
+      dnssec = "true";
+      llmnr = "false";
     };
   };
 
