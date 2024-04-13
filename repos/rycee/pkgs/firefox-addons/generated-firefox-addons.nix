@@ -789,10 +789,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.2.1";
+      version = "2024.3.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246600/bitwarden_password_manager-2024.2.1.xpi";
-      sha256 = "f2db399e5a0915e4fd7e4906c32c72eac4a2b7bb4b4acacd892fff18e73085d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261683/bitwarden_password_manager-2024.3.1.xpi";
+      sha256 = "c55dbcc014ac7782c1c0e7b31cf859e97da43a308d886b87efcd13e7cb5fc510";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -800,6 +800,7 @@
         license = licenses.gpl3;
         mozPermissions = [
           "<all_urls>"
+          "*://*/*"
           "tabs"
           "contextMenus"
           "storage"
@@ -807,11 +808,10 @@
           "clipboardRead"
           "clipboardWrite"
           "idle"
-          "http://*/*"
-          "https://*/*"
           "webRequest"
           "webRequestBlocking"
           "file:///*"
+          "https://*/*"
           "https://lastpass.com/export.php"
         ];
         platforms = platforms.all;
@@ -1716,10 +1716,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2413.3";
+      version = "6.2415.3";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259613/dashlane-6.2413.3.xpi";
-      sha256 = "8be1da86bee8de3d51ab894b0540582f6b818ca278282777edb8512597ef4400";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4263429/dashlane-6.2415.3.xpi";
+      sha256 = "8c941288fe6ffd32b061a7382a374e6ccdf43570196ed9893eb4ec56de034b22";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3217,10 +3217,10 @@
     };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.911.0";
+      version = "8.912.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4247452/grammarly_1-8.911.0.xpi";
-      sha256 = "fe48318f867c70bc6e260fcfe71a8c24ff18f8ccc9f2a6c3bbb6ea291e9807fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262513/grammarly_1-8.912.0.xpi";
+      sha256 = "6e380ddffaacda256e153cb928c0c9206c6730398d549e0a91d6fdccc9dd95a0";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -7491,10 +7491,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.4.4";
+      version = "2024.4.5";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4263349/pakkujs-2024.4.4.xpi";
-      sha256 = "18046bd4eb13e2f150dd62bc9bc1c11e06cb97ac1b7a7505a2d338a9c97c96e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4263809/pakkujs-2024.4.5.xpi";
+      sha256 = "1db9b7833035109ec9706a1170c40a9647d94330638c4a714a7054608820f54c";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -8336,10 +8336,10 @@
     };
     "pronoundb" = buildFirefoxXpiAddon {
       pname = "pronoundb";
-      version = "0.14.2";
+      version = "0.14.3";
       addonId = "firefox-addon@pronoundb.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258610/pronoundb-0.14.2.xpi";
-      sha256 = "9eb49be67a01ac0b3eed087ea97e303fd081615ab7e6f15cafd31df2709944cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4263681/pronoundb-0.14.3.xpi";
+      sha256 = "a7797863887f0c2d76e735571d88a6d3b08d3b68383cd59f70e93894f071e7c8";
       meta = with lib;
       {
         homepage = "https://pronoundb.org";
@@ -9274,6 +9274,21 @@
           "tabs"
           "<all_urls>"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "snowflake" = buildFirefoxXpiAddon {
+      pname = "snowflake";
+      version = "0.8.0";
+      addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261713/torproject_snowflake-0.8.0.xpi";
+      sha256 = "5a00e40bd2917133658bda860388792c934f98fb060315fc6dec2bd30e88e558";
+      meta = with lib;
+      {
+        homepage = "https://snowflake.torproject.org/";
+        description = "Help people in censored countries access the Internet without restrictions. Once you install and enable the extension, wait for the snowflake icon to turn green, this means a censored user is connecting through your extension to access the Internet!";
+        license = licenses.bsd3;
+        mozPermissions = [ "storage" ];
         platforms = platforms.all;
       };
     };
