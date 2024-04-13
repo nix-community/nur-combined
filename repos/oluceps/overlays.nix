@@ -1,7 +1,4 @@
-inputs:
-let
-  system = "x86_64-linux";
-in
+inputs':
 [
   (
     final: prev:
@@ -13,7 +10,7 @@ in
       "nix-direnv"
       "attic"
       "radicle"
-    ] (n: inputs.${n}.packages.${system}.default)
+    ] (n: inputs'.${n}.packages.default)
     # //
     # GUI applications overlay. for stability
     # prev.lib.genAttrs [ "hyprland" ] (n: (import inputs.nixpkgs-gui { inherit system; }).${n})
@@ -26,15 +23,15 @@ in
       #     }).lazygit;
       inherit
         (
-          (import inputs.nixpkgs-master {
-            inherit system;
+          (import inputs'.nixpkgs-master {
+            # inherit system;
             config.allowUnfree = true;
           })
         )
         factorio-headless-experimental
         ;
 
-      helix = inputs.helix.packages.${system}.default.override {
+      helix = inputs'.helix.packages.default.override {
         includeGrammarIf =
           grammar:
           prev.lib.any (name: grammar.name == name) [
@@ -101,7 +98,7 @@ in
       #     sha256 = "sha256-nYA8W7iabaepiIsxDrCkG/WIFNrVdubk/AtFhIvYJB8=";
       #   };
       # });
-      sway-unwrapped = inputs.nixpkgs-wayland.packages.${system}.sway-unwrapped;
+      sway-unwrapped = inputs'.nixpkgs-wayland.packages.sway-unwrapped;
       # sway-unwrapped = prev.callPackage "${inputs.RyanGibb}/pkgs/sway-im/package.nix" {
       #   libdrm = final.libdrm;
       #   wlroots = prev.callPackage "${inputs.RyanGibb}/pkgs/wlroots/default.nix" {
@@ -130,7 +127,7 @@ in
       #     system = "x86_64-linux";
       #   }).pkgsCross.aarch64-multiplatform.OVMF.fd;
 
-      scx = inputs.nyx.packages.${prev.system}.scx;
+      scx = inputs'.nyx.packages.scx;
       # fishPlugins.foreign-env = prev.fishPlugins.foreign-env.overrideAttrs
       #   (old: {
       #     preInstall = old.preInstall + (with prev; ''

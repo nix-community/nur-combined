@@ -36,7 +36,7 @@ in
                 allowUnsupportedSystem = true;
               };
               overlays =
-                (import ../overlays.nix inputs)
+                (import ../overlays.nix inputs')
                 ++ (lib.genOverlays [
                   "self"
                   "fenix"

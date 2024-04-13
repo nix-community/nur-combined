@@ -19,9 +19,9 @@ _: {
         inherit commandLineArgs;
       };
 
-      brave = {
-        enable = true;
-        inherit commandLineArgs;
-      };
+      # brave = {
+      #   enable = true;
+      #   inherit commandLineArgs;
+      # };
     };
 }
