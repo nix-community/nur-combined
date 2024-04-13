@@ -3,9 +3,9 @@ on:
   pull_request:
   workflow_dispatch:
   push:
-    branches:
-      - trival
-      - main
+    paths:
+      - 'flake.lock'
+      - 'pkgs'
       
   schedule:
     # rebuild everyday at 2:51
