@@ -2,6 +2,7 @@
 {
   programs.tmux = {
     enable = true;
+    catppuccin.enable = true;
     baseIndex = 1;
     escapeTime = 10;
     shell = "${pkgs.fish}/bin/fish";
