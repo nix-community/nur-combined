@@ -33,6 +33,7 @@
       dockerCompat = true;
     };
   };
+  catppuccin.flavour = "frappe";
   nix = {
     package = pkgs.nixVersions.stable;
     registry = {

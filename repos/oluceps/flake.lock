@@ -299,6 +299,21 @@
         "type": "github"
       }
     },
+    "catppuccin": {
+      "locked": {
+        "lastModified": 1712890104,
+        "narHash": "sha256-56RS7wdJ2QDUNCQt/9lx8MFcwuTdVQnzBV+9QToLLmM=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "850c26a3a2474b0d068abc89c905f536cca415de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "colmena": {
       "inputs": {
         "flake-compat": "flake-compat_6",
@@ -4693,6 +4708,7 @@
         "attic": "attic",
         "atuin": "atuin",
         "berberman": "berberman",
+        "catppuccin": "catppuccin",
         "colmena": "colmena",
         "conduit": "conduit",
         "dae": "dae",

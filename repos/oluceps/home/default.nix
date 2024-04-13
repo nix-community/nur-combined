@@ -17,6 +17,7 @@ in
         homeProfile
         inputs.android-nixpkgs.hmModule
         inputs.anyrun.homeManagerModules.default
+        inputs.catppuccin.homeManagerModules.catppuccin
       ];
     };
     extraSpecialArgs = {

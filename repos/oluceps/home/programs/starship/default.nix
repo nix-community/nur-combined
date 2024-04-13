@@ -3,6 +3,7 @@
   programs.starship = {
     enable = !osConfig.programs.starship.enable;
     enableNushellIntegration = false;
+    catppuccin.enable = true;
 
     settings = {
       add_newline = false;
