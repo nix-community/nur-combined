@@ -96,6 +96,7 @@
       max-free = lib.mkDefault (1000 * 1000 * 1000);
       min-free = lib.mkDefault (128 * 1000 * 1000);
       builders-use-substitutes = true;
+      allow-import-from-derivation = false;
     };
 
     daemonCPUSchedPolicy = lib.mkDefault "batch";

@@ -45,8 +45,6 @@
       root.shell = pkgs.fish;
     };
     groups.nixosvmtest = { };
-
-    # mutableUsers = false;
   };
 
   security = {
