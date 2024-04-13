@@ -67,7 +67,10 @@ in
                 "network-online.target"
                 "nss-lookup.target"
               ];
-              wants = [ "network-online.target" ];
+              wants = [
+                "network-online.target"
+                "nss-lookup.target"
+              ];
               description = "hysteria daemon";
               serviceConfig =
                 let
@@ -90,7 +93,7 @@ in
                   ];
                   NoNewPrivileges = true;
                   Restart = "on-failure";
-                  RestartSec="5s";
+                  RestartSec = "5s";
                 };
             };
           }

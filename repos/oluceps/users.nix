@@ -46,7 +46,7 @@
     };
     groups.nixosvmtest = { };
 
-    # mutableUsers = lib.mkForce false;
+    mutableUsers = lib.mkForce false;
   };
 
   security = {

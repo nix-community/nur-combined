@@ -12,6 +12,7 @@ in
       "resign"
       "nix-direnv"
       "attic"
+      "radicle"
     ] (n: inputs.${n}.packages.${system}.default)
     # //
     # GUI applications overlay. for stability

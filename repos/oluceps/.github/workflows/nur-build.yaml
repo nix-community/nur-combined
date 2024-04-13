@@ -4,7 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - trival
+      - main
+      
   schedule:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
@@ -17,7 +19,7 @@ jobs:
         nurRepo:
           - oluceps
         cachixName:
-          - nur-pkgs
+          - nixos-config
         nixPath:
           - nixpkgs=channel:nixos-unstable
     runs-on: ubuntu-latest
@@ -56,5 +58,5 @@ jobs:
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && github.repository == 'oluceps/nur-pkgs' }}
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && github.repository == 'oluceps/nixos-config' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"

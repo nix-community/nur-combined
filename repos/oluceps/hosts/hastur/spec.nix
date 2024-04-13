@@ -112,7 +112,40 @@
     mysql.enable = true;
     prometheus.enable = true;
     vaultwarden.enable = true;
-    minecraft-servers.enable = true;
+    minecraft-servers.enable = false;
+
+    phantomsocks = {
+      enable = true;
+      override = {
+        settings.interfaces = [
+          {
+            device = "bond0";
+            dns = "tcp://208.67.220.220:5353";
+            hint = "w-seq,https,w-md5";
+            name = "default";
+          }
+          {
+            device = "bond0";
+            dns = "tcp://208.67.220.220:443";
+            hint = "ipv6,w-seq,w-md5";
+            name = "v6";
+          }
+          {
+            device = "bond0";
+            dns = "tcp://208.67.220.220:443";
+            hint = "df";
+            name = "df";
+          }
+          {
+            device = "bond0";
+            dns = "tcp://208.67.220.220:5353";
+            hint = "http,ttl";
+            name = "http";
+            ttl = 15;
+          }
+        ];
+      };
+    };
   };
   services = {
     metrics.enable = true;

@@ -30,7 +30,10 @@ in
         "network-online.target"
         "nss-lookup.target"
       ];
-      wants = [ "network-online.target" ];
+      wants = [
+        "network-online.target"
+        "nss-lookup.target"
+      ];
       description = "prom-ntfy-bridge Daemon";
       serviceConfig = {
         Type = "simple";

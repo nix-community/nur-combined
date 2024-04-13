@@ -22,6 +22,7 @@ let
       ))
     ];
     dev = [
+      radicle
       friture
       qemu-utils
       yubikey-personalization

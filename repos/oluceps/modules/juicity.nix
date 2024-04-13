@@ -68,6 +68,10 @@ in
             "network.target"
             "nss-lookup.target"
           ];
+          wants = [
+            "network.target"
+            "nss-lookup.target"
+          ];
           description = "juicity daemon";
           serviceConfig =
             let
