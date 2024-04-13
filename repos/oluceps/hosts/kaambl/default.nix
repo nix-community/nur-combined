@@ -30,9 +30,11 @@
     ../../packages.nix
     ../../misc.nix
     ../../users.nix
-    ../../sysvars.nix
-    inputs.niri.nixosModules.niri
+    ../sysvars.nix
+    # inputs.niri.nixosModules.niri
     ../graphBase.nix
+
+    ./caddy.nix
 
     inputs.aagl.nixosModules.default
     inputs.disko.nixosModules.default

@@ -22,6 +22,7 @@
         "s3.nyaw.xyz"
       ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
+      "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
     };
 
     hostName = "hastur"; # Define your hostname.

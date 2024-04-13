@@ -9,6 +9,7 @@ let
     "nodens"
     # "colour"
     "hastur"
+    "kaambl"
   ];
 in
 {

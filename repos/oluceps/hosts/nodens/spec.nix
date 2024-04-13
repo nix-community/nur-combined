@@ -10,6 +10,9 @@
 
   system.stateVersion = "22.11";
 
+  users.mutableUsers = false;
+  system.etc.overlay.mutable = false;
+
   nix.gc = {
     automatic = true;
     dates = "weekly";

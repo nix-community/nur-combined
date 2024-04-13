@@ -12,6 +12,8 @@
   # Running database and web services.
 
   system.stateVersion = "22.11"; # Did you read the comment?
+  users.mutableUsers = true;
+  system.etc.overlay.mutable = true;
 
   zramSwap = {
     enable = false;

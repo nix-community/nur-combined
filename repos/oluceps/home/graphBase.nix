@@ -22,9 +22,9 @@
     loupe
     gedit
     # logseq
-    jetbrains.pycharm-professional
-    jetbrains.idea-ultimate
-    jetbrains.clion
+    # jetbrains.pycharm-professional
+    # jetbrains.idea-ultimate
+    # jetbrains.clion
     # jetbrains.rust-rover
     (pkgs.callPackage "${inputs.nixpkgs}/pkgs/development/embedded/openocd" {
       extraHardwareSupport = [
