@@ -134,7 +134,7 @@ in
   services.libreddit.enable = true;
   services.invidious.enable = true;
 
-  services.boinc.enable = true;
+  # services.boinc.enable = true;
 
   services.xserver.displayManager.autoLogin = {
     enable = true;
