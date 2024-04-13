@@ -236,6 +236,8 @@ in
 
   arcan = prev.arcan.override { useTracy = false; };
 
+  movfuscator = prev.callPackage ./pkgs/movfuscator { };
+
   regex101 = prev.callPackage flake.inputs.regex101 { };
 
   # nix = prev.nixVersions.nix_2_15;
