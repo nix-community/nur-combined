@@ -80,33 +80,11 @@ in
         environment.systemPackages = with pkgs; [
           chromium
           firefox
-          super-pkgs.pulseaudio-module-xrdp
         ];
-        environment.etc."xrdp/sesman.ini".source = "${rdpConfDir}/sesman.ini";
         services.xrdp = {
           enable = true;
-          package = pkgs.xrdp.overrideAttrs (old: {
-            configureFlags = old.configureFlags ++ [
-              "--enable-mp3lame"
-              "--enable-vsock"
-              "--enable-pixman"
-              "--enable-rdpsndaudin"
-              "--enable-tjpeg"
-              "--enable-devel-logging"
-            ];
-            buildInputs = old.buildInputs ++ [
-              pkgs.lame
-              pkgs.pixman
-              pkgs.libjpeg_turbo
-            ];
-            postPatch = ''
-              ${old.postPatch}
-              substituteInPlace configure.ac --replace /usr/include/ ""
-            '';
-          });
-          confDir = rdpConfDir;
-          openFirewall = true;
           defaultWindowManager = ''xfce4-session'';
+          audio.enable = true;
         };
         users.users.test = {
           isNormalUser = true;

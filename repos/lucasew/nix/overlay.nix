@@ -29,31 +29,8 @@ in
 
   pythonPackagesExtensions = [
     (final: prev: {
-      std2 = prev.std2.overrideAttrs (old: {
-        src = flake.inputs.src-python-std2;
-      });
-      pynvim_pp = prev.pynvim_pp.overrideAttrs (old: {
-        src = flake.inputs.src-python-pynvim_pp;
-      });
-      rtfunicode = final.callPackage ./pkgs/python/rtfunicode { };
       pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode { };
       kenlm = final.callPackage ./pkgs/python/kenlm { };
-      facenet-pytorch = final.callPackage ./pkgs/python/facenet-pytorch { };
-      face_recognition = prev.face_recognition.overrideAttrs (old: {
-        dontUsePytestCheck = true;
-        dontUseSetuptoolsCheck = true;
-        # dontCheck = true;
-        # doCheck = false;
-      });
-      dlib = prev.dlib.overrideAttrs (old: {
-        dontUsePytestCheck = true;
-        openblas = prev.pkgs.blas;
-        postPatch = ''
-          ${old.postPatch or ""}
-          rm -rf tools/python/test/*
-          printf "def test_dummy():\n\tassert True\n" > tools/python/test/test_dummy.py
-        '';
-      });
     })
   ];
 
@@ -79,26 +56,8 @@ in
     }
   );
 
-  bin = builtins.mapAttrs (
-    k: v:
-    final.stdenvNoCC.mkDerivation {
-      name = k;
-      dontUnpack = true;
-
-      nativeBuildInputs = [ final.makeWrapper ];
-
-      installPhase = ''
-        mkdir $out/bin -p
-        install -m 755 ${../bin}/${k} $out/bin/${k}
-        wrapProgram $out/bin/${k} \
-          --set NIX_PATH nixpkgs=${final.path}:nixpkgs-overlays=${flake.outPath}/nix/compat/overlay.nix:home-manager=${flake.inputs.home-manager}:nur=${flake.inputs.nur}
-      '';
-      meta.mainProgram = k;
-    }
-  ) (builtins.readDir ../bin);
-
   devenv = final.writeShellScriptBin "devenv" ''
-    nix run ${flake.inputs.devenv}# -- "$@"
+    nix run ${flake.inputs.devenv} -- "$@"
   '';
 
   ctl = cp ./pkgs/ctl;
@@ -138,9 +97,8 @@ in
   #     };
   #   });
   # };
+  
   nur = import flake.inputs.nur { pkgs = prev; };
-
-  pulseaudio-module-xrdp = cp ./pkgs/pulseaudio-module-xrdp.nix;
 
   wineApps = {
     cs_extreme = cp ./pkgs/wineApps/cs_extreme.nix;

@@ -108,11 +108,6 @@
     regex101.url = "github:lucasew/regex101";
     regex101.flake = false;
 
-    # src-python-std2.url = "github:ms-jpq/std2/std";
-    # src-python-std2.flake = false;
-
-    # src-python-pynvim_pp.url = "github:ms-jpq/pynvim_pp/pp";
-    # src-python-pynvim_pp.flake = false;
     src-cached-nix-shell.url = "github:xzfc/cached-nix-shell";
     src-cached-nix-shell.flake = false;
   };
@@ -226,16 +221,6 @@
         colors = colors.palette;
       };
 
-      homeConfigurations = pkgs.callPackage ./nix/homes {
-        inherit extraArgs;
-        nodes = {
-          main = {
-            modules = [ ./nix/homes/main ];
-            inherit pkgs;
-          };
-        };
-      };
-
       packages = {
         default = pkgs.writeShellScriptBin "default" ''
           ${global.environmentShell}
@@ -244,9 +229,9 @@
 
         deploy =
           let
-            home = self.homeConfigurations.${system}.main.activationPackage;
-            riverwood = self.nixosConfigurations.${system}.riverwood.config.system.build.toplevel;
-            whiterun = self.nixosConfigurations.${system}.whiterun.config.system.build.toplevel;
+            home = self.packages.${system}.homeConfigurations.main.activationPackage;
+            riverwood = self.packages.${system}.nixosConfigurations.riverwood.config.system.build.toplevel;
+            whiterun = self.packages.${system}.nixosConfigurations.whiterun.config.system.build.toplevel;
           in
           pkgs.writeShellScriptBin "deploy" ''
              nix-copy-closure --to riverwood ${riverwood} ${home}
@@ -289,12 +274,12 @@
             # ++ (with pkgs.custom; [ neovim ])
             # ++ (with pkgs.custom; [ firefox tixati emacs ])
             # ++ (with pkgs.custom.vscode; [ common programming ])
-            ++ (with self.nixosConfigurations.${system}; [
+            ++ (with self.packages.${system}.nixosConfigurations; [
               riverwood.config.system.build.toplevel
               whiterun.config.system.build.toplevel
               # ivarstead.config.system.build.toplevel
             ])
-            ++ (with self.homeConfigurations.${system}; [ main.activationPackage ])
+            ++ (with self.packages.${system}.homeConfigurations; [ main.activationPackage ])
           # ++ (with self.devShells.${system}; [
           #   (pkgs.writeShellScriptBin "s" "echo ${default.outPath}")
           # ])
@@ -335,6 +320,16 @@
             };
             demo = {
               modules = [ ./nix/nodes/demo ];
+              inherit pkgs;
+            };
+          };
+        };
+
+        homeConfigurations = pkgs.callPackage ./nix/homes {
+          inherit extraArgs;
+          nodes = {
+            main = {
+              modules = [ ./nix/homes/main ];
               inherit pkgs;
             };
           };
