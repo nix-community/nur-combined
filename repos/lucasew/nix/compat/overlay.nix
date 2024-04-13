@@ -1,3 +1,3 @@
-(builtins.attrValues (import ../../default.nix).overlays.${builtins.currentSystem})
+(builtins.attrValues (import ../../default.nix).overlays)
 # # else
 # []

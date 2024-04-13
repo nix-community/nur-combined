@@ -313,42 +313,43 @@
             done
           '';
         };
-      };
 
-      nixosConfigurations = pkgs.callPackage ./nix/nodes {
-        inherit extraArgs;
-        nodes = {
-          ravenrock = {
-            modules = [ ./nix/nodes/ravenrock ];
-            inherit pkgs;
-          };
-          riverwood = {
-            modules = [ ./nix/nodes/riverwood ];
-            inherit pkgs;
-          };
-          whiterun = {
-            modules = [ ./nix/nodes/whiterun ];
-            inherit pkgs;
-          };
-          recovery = {
-            modules = [ ./nix/nodes/recovery ];
-            inherit pkgs;
-          };
-          demo = {
-            modules = [ ./nix/nodes/demo ];
-            inherit pkgs;
+        nixosConfigurations = pkgs.callPackage ./nix/nodes {
+          inherit extraArgs;
+          nodes = {
+            ravenrock = {
+              modules = [ ./nix/nodes/ravenrock ];
+              inherit pkgs;
+            };
+            riverwood = {
+              modules = [ ./nix/nodes/riverwood ];
+              inherit pkgs;
+            };
+            whiterun = {
+              modules = [ ./nix/nodes/whiterun ];
+              inherit pkgs;
+            };
+            recovery = {
+              modules = [ ./nix/nodes/recovery ];
+              inherit pkgs;
+            };
+            demo = {
+              modules = [ ./nix/nodes/demo ];
+              inherit pkgs;
+            };
           };
         };
-      };
 
-      nixOnDroidConfigurations = pkgs.callPackage ./nix/nixOnDroidConfigurations {
-        inherit extraArgs mkPkgs;
-        nodes = {
-          default = {
-            modules = [ ./nix/nixOnDroid/default ];
-            system = "aarch64-linux";
+        nixOnDroidConfigurations = pkgs.callPackage ./nix/nixOnDroidConfigurations {
+          inherit extraArgs mkPkgs;
+          nodes = {
+            default = {
+              modules = [ ./nix/nixOnDroid/default ];
+              system = "aarch64-linux";
+            };
           };
         };
+
       };
 
       devShells.default = pkgs.mkShell {
