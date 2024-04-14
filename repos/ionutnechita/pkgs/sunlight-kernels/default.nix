@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.8.5-lowlatency-sunlight1";
+  modDirVersion = "6.8.6-lowlatency-sunlight1";
 
   parts = lib.splitString "-" modDirVersion;
 
@@ -14,7 +14,7 @@ let
 
   rev = "${version}-${flavour}-${suffix}";
 
-  hash = "sha256-XCehri8HmLotE2XHwMpJL3tsbc5YX7+mj+pisxzqRyY=";
+  hash = "sha256-5avBsgWgqnvFXTYurM5y934DajwYzely72yEkg+8Z38=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -80,7 +80,7 @@ buildLinux (args // rec {
 
     extraMeta = {
       inherit branch;
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [ ionutnechita ];
       description = "Sunlight Kernel. Built with custom settings and new features
                      built to provide a stable, responsive and smooth desktop experience";
     };
