@@ -739,6 +739,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   qaac-bin = callPackage ./pkgs/applications/audio/qaac-bin { };
 
+  stp = callPackage ./pkgs/applications/science/logic/stp { };
+
+  klee = callPackage ./pkgs/applications/science/logic/klee { };
+
+  s2e = callPackage ./pkgs/development/libraries/s2e { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
