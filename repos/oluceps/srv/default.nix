@@ -4,12 +4,12 @@ with lib;
 let
   allSrvPath = (lib.subtractLists [ "default.nix" ] (with builtins; attrNames (readDir ./.)));
 
-  allSrvPathNoSuffix = map (removeSuffix ".nix") allSrvPath;
+  allSrvName = map (removeSuffix ".nix") allSrvPath;
 
-  existSrvOpt = filter (n: args.config.services ? ${n}) allSrvPathNoSuffix;
+  existSrvName = filter (n: args.config.services ? ${n}) allSrvName;
 in
 {
-  options.srv = genAttrs allSrvPathNoSuffix (sn: {
+  options.srv = genAttrs allSrvName (sn: {
     enable = mkEnableOption "${sn} service";
     /*
       Introduce this in per hosts and use with
@@ -21,13 +21,13 @@ in
     };
   });
 
-  config.services = genAttrs existSrvOpt (
+  config.services = genAttrs existSrvName (
     n:
     (
       let
         perSrv = args.config.srv.${n};
       in
-      (mkIf (perSrv.enable) ((import ./${n}.nix args) // perSrv.override))
+      (mkIf (perSrv.enable) ((removeAttrs (import ./${n}.nix args) [ "attach" ]) // perSrv.override))
     )
   );
 }

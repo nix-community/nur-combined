@@ -19,4 +19,8 @@
   };
   # backupDir = "/var/lib/bitwarden_rs/backup";
   environmentFile = config.age.secrets.vault.path;
+
+  attach = {
+    srv.postgresql.enable = true;
+  };
 }
