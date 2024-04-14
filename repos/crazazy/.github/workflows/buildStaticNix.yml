@@ -24,7 +24,7 @@ jobs:
       - name: Install Nix
         # You may pin to the exact commit or the version.
         # uses: cachix/install-nix-action@07da2520eebede906fbeefa9dd0a2b635323909d
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v25
         with:
 
           # Set NIX_PATH environment variable.
@@ -38,7 +38,7 @@ jobs:
           rm result
  
       - name: Upload results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: nixStatic
           path: ./results.tar.gz

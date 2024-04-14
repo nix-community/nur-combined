@@ -11,10 +11,10 @@
   };
   enso = {
     pname = "enso";
-    version = "2023.2.1-nightly.2023.12.1";
+    version = "2024.1.1-nightly.2024.3.26";
     src = fetchurl {
-      url = "https://github.com/enso-org/enso/releases/download/2023.2.1-nightly.2023.12.1/enso-linux-2023.2.1-nightly.2023.12.1.AppImage";
-      sha256 = "sha256-0SwVAgdE6KfSK1O8bdG+A1FylMr2xnlvxnPmCnHjbNU=";
+      url = "https://github.com/enso-org/enso/releases/download/2024.1.1-nightly.2024.3.26/enso-linux-x86_64-2024.1.1-nightly.2024.3.26.AppImage";
+      sha256 = "sha256-umZw7nAeRoHzos8xYmCJMflN0zcmLj17y3sYgwN14dQ=";
     };
   };
   guile-config = {
@@ -35,10 +35,10 @@
   };
   seamonkey = {
     pname = "seamonkey";
-    version = "2.53.18.1";
+    version = "2.53.18.2";
     src = fetchzip {
-      url = "https://archive.seamonkey-project.org/releases/2.53.18.1/linux-x86_64/en-US/seamonkey-2.53.18.1.en-US.linux-x86_64.tar.bz2";
-      sha256 = "sha256-qU9D17IqKabwg/riR9SQCgS3RZk5HcunOwVCHw4gzI4=";
+      url = "https://archive.seamonkey-project.org/releases/2.53.18.2/linux-x86_64/en-US/seamonkey-2.53.18.2.en-US.linux-x86_64.tar.bz2";
+      sha256 = "sha256-sgkEhgyWMisyrK/ZxlgbpMKZV9/AdbcyjbsjYZhY0k0=";
     };
   };
   trufflesqueak = {
@@ -59,21 +59,22 @@
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "e94bae2e320fbfd9d3f1e52945ad12e00e0a6ec8";
+    version = "b783f55bd8c287241b5a623c159aa134c9b3b9e9";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "e94bae2e320fbfd9d3f1e52945ad12e00e0a6ec8";
+      rev = "b783f55bd8c287241b5a623c159aa134c9b3b9e9";
       fetchSubmodules = true;
-      sha256 = "sha256-xQk9SsZXsQ5koFh9eG1y+ju4x+vDfR1+ig/V7Rmwb54=";
+      sha256 = "sha256-ZNhoUY1Fx9B6xhfhGrjBrdtLh2ASRcEGy/8KBgscQpI=";
     };
     cargoLock."./Cargo.lock" = {
-      lockFile = ./wasmfxtime-e94bae2e320fbfd9d3f1e52945ad12e00e0a6ec8/./Cargo.lock;
+      lockFile = ./wasmfxtime-b783f55bd8c287241b5a623c159aa134c9b3b9e9/./Cargo.lock;
       outputHashes = {
-        "wit-bindgen-0.16.0" = "sha256-j4QpPNa4G4VknvDipECzPCEsrL0G9aX9/810otzfAwI=";
-        "wasm-encoder-0.41.0" = "sha256-JyIO9jOn/5ibnL+6dSrwuoV9jz7hY+1HuVc3ye0r4+I=";
+        "wasm-encoder-0.202.0" = "sha256-kmDsebivrx2irch2T/giJ5TLCxiM1CKrpvaWeK++yTw=";
+        "wit-bindgen-0.22.0" = "sha256-UrJ0NR3h48LajjHPLr9rJFaSU+qr9hYv/0d/ghl5rGs=";
+        "wasm-encoder-0.201.0" = "sha256-uDU6dJPY4ymtFK8bOVG25TohRFc0m78U0m1oAlooCME=";
       };
     };
-    date = "2024-02-09";
+    date = "2024-04-12";
   };
 }
