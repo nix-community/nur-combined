@@ -108,7 +108,7 @@
       nixpkgs' = patchNixpkgs "master" nixpkgs-unpatched;
       nixpkgsCompiledBy = system: nixpkgs'.legacyPackages."${system}";
 
-      evalHost = { name, local, target, light ? false, nixpkgs ? nixpkgs' }: nixpkgs.lib.nixosSystem {
+      evalHost = { name, local, target, variant ? null, nixpkgs ? nixpkgs' }: nixpkgs.lib.nixosSystem {
         system = target;
         modules = [
           {
@@ -120,8 +120,11 @@
             # so avoid specifying hostPlatform.system on non-cross builds, so i can use upstream caches.
             nixpkgs.hostPlatform.system = target;
           })
-          (optionalAttrs light {
-            sane.enableSlowPrograms = false;
+          (optionalAttrs (variant == "light") {
+            sane.maxBuildCost = 1;
+          })
+          (optionalAttrs (variant == "min") {
+            sane.maxBuildCost = 0;
           })
           (import ./hosts/instantiate.nix { hostName = name; })
           self.nixosModules.default
@@ -139,11 +142,13 @@
         hosts = {
           servo       = { name = "servo";  local = "x86_64-linux"; target = "x86_64-linux";  };
           desko       = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  };
-          desko-light = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  light = true; };
+          desko-light = { name = "desko";  local = "x86_64-linux"; target = "x86_64-linux";  variant = "light"; };
           lappy       = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  };
-          lappy-light = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  light = true; };
+          lappy-light = { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  variant = "light"; };
+          lappy-min =   { name = "lappy";  local = "x86_64-linux"; target = "x86_64-linux";  variant = "min"; };
           moby        = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; };
-          moby-light  = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; light = true; };
+          moby-light  = { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; variant = "light"; };
+          moby-min  =   { name = "moby";   local = "x86_64-linux"; target = "aarch64-linux"; variant = "min"; };
           rescue      = { name = "rescue"; local = "x86_64-linux"; target = "x86_64-linux";  };
         };
         hostsNext = mapAttrs' (h: v: {
@@ -408,14 +413,17 @@
             desko-light = deployApp "desko-light" "desko" "switch";
             lappy       = deployApp "lappy"       "lappy" "switch";
             lappy-light = deployApp "lappy-light" "lappy" "switch";
+            lappy-min   = deployApp "lappy-min"   "lappy" "switch";
             moby        = deployApp "moby"        "moby"  "switch";
             moby-light  = deployApp "moby-light"  "moby"  "switch";
+            moby-min  =   deployApp "moby-min"    "moby"  "switch";
             moby-test   = deployApp "moby"        "moby"  "test";
             servo       = deployApp "servo"       "servo" "switch";
 
             # like `nixos-rebuild --flake . switch`
-            self        = deployApp "$(hostname)"       ""      "switch";
-            self-light  = deployApp "$(hostname)-light" ""      "switch";
+            self        = deployApp "$(hostname)"       "" "switch";
+            self-light  = deployApp "$(hostname)-light" "" "switch";
+            self-min    = deployApp "$(hostname)-min"   "" "switch";
 
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "deploy-all" ''
@@ -431,12 +439,16 @@
             desko-light = deployApp "desko-light" "desko" null;
             lappy       = deployApp "lappy"       "lappy" null;
             lappy-light = deployApp "lappy-light" "lappy" null;
+            lappy-min   = deployApp "lappy-min"   "lappy" null;
             moby        = deployApp "moby"        "moby"  null;
             moby-light  = deployApp "moby-light"  "moby"  null;
+            moby-min    = deployApp "moby-min"    "moby"  null;
             servo       = deployApp "servo"       "servo" null;
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "predeploy-all" ''
-              # copy the -light variants first; this might be run while waiting on a full build. or the full build failed.
+              # copy the -min/-light variants first; this might be run while waiting on a full build. or the full build failed.
+              nix run '.#preDeploy.moby-min' -- "$@"
+              nix run '.#preDeploy.lappy-min' -- "$@"
               nix run '.#preDeploy.moby-light' -- "$@"
               nix run '.#preDeploy.lappy-light' -- "$@"
               nix run '.#preDeploy.desko-light' -- "$@"
@@ -541,6 +553,9 @@
               ''
                 # build minimally-usable hosts first, then their full image.
                 # this gives me a minimal image i can deploy or copy over, early.
+                ${checkHost "lappy-min"}
+                ${checkHost "moby-min"}
+
                 ${checkHost "desko-light"}
                 ${checkHost "moby-light"}
                 ${checkHost "lappy-light"}

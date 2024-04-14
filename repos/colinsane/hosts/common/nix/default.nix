@@ -53,7 +53,7 @@
 
   # allow `nix-shell` (and probably nix-index?) to locate our patched and custom packages.
   # this is actually a no-op, and the real action happens in assigning `nix.settings.nix-path`.
-  nix.nixPath = (lib.optionals config.sane.enableSlowPrograms [
+  nix.nixPath = (lib.optionals (config.sane.maxBuildCost >= 2) [
     "nixpkgs=${pkgs.path}"
   ]) ++ [
     # note the import starts at repo root: this allows `./overlay/default.nix` to access the stuff at the root
@@ -65,10 +65,10 @@
 
   # ensure new deployments have a source of this repo with which they can bootstrap.
   # this however changes on every commit and can be slow to copy for e.g. `moby`.
-  environment.etc."nixos" = lib.mkIf config.sane.enableSlowPrograms {
+  environment.etc."nixos" = lib.mkIf (config.sane.maxBuildCost >= 2) {
     source = ../../..;
   };
-  environment.etc."nix/registry.json" = lib.mkIf (!config.sane.enableSlowPrograms) {
+  environment.etc."nix/registry.json" = lib.mkIf (config.sane.maxBuildCost < 2) {
     enable = false;
   };
 

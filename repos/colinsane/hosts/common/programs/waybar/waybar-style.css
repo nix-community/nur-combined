@@ -52,7 +52,7 @@ window#waybar {
 
 #workspaces button.urgent {
   /* keep synchronized with `client.urgent` in ~/.config/sway/config */
-  background-color: #ff8080;
+  background-color: #ff968b;
 }
 
 #backlight,

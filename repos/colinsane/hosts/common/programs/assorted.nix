@@ -89,6 +89,7 @@ in
       "tree"
       "usbutils"  # lsusb
       "util-linux"  # lsblk, lscpu, etc
+      "valgrind"
       "wget"
       "wirelesstools"  # iwlist
       # "xq"  # jq for XML
@@ -108,7 +109,6 @@ in
     #   - debugging?
     consoleUtils = declPackageSet [
       "alsaUtils"  # for aplay, speaker-test
-      "strings"
       # "cdrtools"
       # "clinfo"
       # "dmidecode"
@@ -123,6 +123,7 @@ in
       # "gopass"
       # "gopass-jsonapi"
       # "helix"  # text editor
+      "htop"  # needed as a user package, for ~/.config/htop
       # "libsecret"  # for managing user keyrings (secret-tool)
       # "lm_sensors"  # for sensors-detect
       # "lshw"
@@ -136,6 +137,7 @@ in
       "nmon"
       # "node2nix"
       # "oathToolkit"  # for oathtool
+      "objdump"
       # "ponymix"
       "pulsemixer"
       "python3-repl"
@@ -148,6 +150,7 @@ in
       "sops"  # for manually viewing secrets; outside `sane-secrets` (TODO: improve sane-secrets!)
       "speedtest-cli"
       # "ssh-to-age"
+      "strings"
       "sudo"
       # "tageditor"  # music tagging
       # "unar"
@@ -521,16 +524,6 @@ in
     host.sandbox.method = "landlock";
     host.sandbox.net = "all";  #< technically, only needs to contact localhost's DNS server
 
-    htop.sandbox.method = "landlock";
-    htop.sandbox.extraPaths = [
-      "/proc"
-      "/sys/devices"
-    ];
-    htop.persist.byStore.plaintext = [
-      # consider setting `show_program_path=0` and either `hide_userland_threads=1` or `show_thread_names=1`
-      ".config/htop"
-    ];
-
     iftop.sandbox.method = "landlock";
     iftop.sandbox.capabilities = [ "net_raw" ];
 
@@ -758,7 +751,7 @@ in
     ];
 
     qemu.sandbox.enable = false;  #< it's a launcher
-    qemu.slowToBuild = true;
+    qemu.buildCost = 1;
 
     rsync.sandbox.method = "bwrap";
     rsync.sandbox.net = "clearnet";
@@ -882,6 +875,8 @@ in
       "/sys/devices"
       "/sys/bus/usb"
     ];
+
+    valgrind = {};
 
     visidata.sandbox.method = "bwrap";  # TODO:sandbox: untested
     visidata.sandbox.autodetectCliPaths = true;

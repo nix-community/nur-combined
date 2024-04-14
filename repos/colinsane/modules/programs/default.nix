@@ -258,9 +258,9 @@ let
           see `sane.users.<user>.services` for options;
         '';
       };
-      slowToBuild = mkOption {
-        type = types.bool;
-        default = false;
+      buildCost = mkOption {
+        type = types.enum [ 0 1 2 ];
+        default = 0;
         description = ''
           whether this package is very slow, or has unique dependencies which are very slow to build.
           marking packages like this can be used to achieve faster, but limited, rebuilds/deploys (by omitting the package).
@@ -466,7 +466,7 @@ let
 
     config = let
       enabledForUser = builtins.any (en: en) (lib.attrValues config.enableFor.user);
-      passesSlowTest = saneCfg.enableSlowPrograms || !config.slowToBuild;
+      passesSlowTest = config.buildCost <= saneCfg.maxBuildCost;
     in {
       enabled = (config.enableFor.system || enabledForUser) && passesSlowTest;
       package = if config.packageUnwrapped == null then
@@ -602,11 +602,12 @@ in
       type = types.attrsOf toPkgSpec;
       default = {};
     };
-    sane.enableSlowPrograms = mkOption {
-      type = types.bool;
-      default = true;
+    sane.maxBuildCost = mkOption {
+      type = types.enum [ 0 1 2 ];
+      default = 2;
       description = ''
-        whether to ship programs which are uniquely slow to build.
+        max build cost of programs to ship.
+        set to 0 to get the fastest, but most restrictive build.
       '';
     };
     sane.sandboxHelper = mkOption {

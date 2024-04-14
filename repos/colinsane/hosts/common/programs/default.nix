@@ -21,6 +21,7 @@
     ./chatty.nix
     ./conky
     ./cozy.nix
+    ./cups.nix
     ./curlftpfs.nix
     ./dconf.nix
     ./deadd-notification-center
@@ -53,8 +54,10 @@
     ./gpodder.nix
     ./grimshot.nix
     ./gthumb.nix
+    ./gvfs.nix
     ./handbrake.nix
     ./helix.nix
+    ./htop
     ./imagemagick.nix
     ./jellyfin-media-player.nix
     ./kdenlive.nix
@@ -79,6 +82,7 @@
     ./nix-index.nix
     ./notejot.nix
     ./ntfy-sh.nix
+    ./objdump.nix
     ./obsidian.nix
     ./offlineimap.nix
     ./open-in-mpv.nix

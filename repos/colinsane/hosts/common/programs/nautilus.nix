@@ -10,6 +10,10 @@
       ]);
     }));
 
+    suggestedPrograms = [
+      "gvfs"  # browse ftp://, etc
+    ];
+
     sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];  # for portals launching apps
     sandbox.whitelistWayland = true;

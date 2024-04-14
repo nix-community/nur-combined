@@ -28,6 +28,7 @@
   sane.nixcache.substituters.desko = false;
   sane.nixcache.remote-builders.desko = false;
 
+  sane.programs.cups.enableFor.user.colin = true;
   sane.programs.sway.enableFor.user.colin = true;
   sane.programs.iphoneUtils.enableFor.user.colin = true;
   sane.programs.steam.enableFor.user.colin = true;

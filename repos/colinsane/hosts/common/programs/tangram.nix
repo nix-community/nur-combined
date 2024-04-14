@@ -27,7 +27,7 @@ in
       '' + (upstream.preFixup or "");
     });
 
-    slowToBuild = true;  # only true for cross-compiled tangram
+    buildCost = 1;
 
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";

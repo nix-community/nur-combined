@@ -1,10 +1,21 @@
 ## BUGS
+- schlock (moby) doesn't seem to actually run
+- mpv: no way to exit fullscreen video on moby
+  - uosc hides controls on FS, and touch doesn't support unhiding
+- i accidentally create sub-splits in sway all the time
+  - especially on moby => unusable
+  - like toplevel is split L/R, and then the L is a tabbed view and the R is a tabbed view
+- Signal restart loop drains battery
+  - decrease s6 restart time?
+- sane-sysvol hangs mpv exit
+- `ssh` access doesn't grant same linux capabilities as login
 - ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
 - sway mouse/kb hotplug doesn't work
 - `nix` operations from lappy hang when `desko` is unreachable
   - could at least direct the cache to `http://desko-hn:5001`
 
 ## REFACTORING:
+- REMOVE DEPRECATED `crypt` from sftpgo_auth_hook
 - consolidate ~/dev and ~/ref
   - ~/dev becomes a link to ~/ref/cat/mine
 - fold hosts/common/home/ssh.nix -> hosts/common/users/colin.nix
@@ -29,6 +40,7 @@
 
 ## IMPROVEMENTS:
 ### security/resilience
+- add FTPS support for WAN users of uninsane.org (and possibly require it?)
 - validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
@@ -56,6 +68,7 @@
   - integrate `nix check` into Gitea actions?
 
 ### user experience
+- give `mpv` better `nice`ness?
 - xdg-desktop-portal shouldn't kill children on exit
   - *maybe* a job for `setsid -f`?
 - replace starship prompt with something more efficient
@@ -80,6 +93,7 @@
   - numberlink (generic name for Flow Free). not packaged in Nix
   - Neverball (https://neverball.org/screenshots.php). nix: as `neverball`
   - blurble (https://linuxphoneapps.org/games/app.drey.blurble/). nix: not as of 2024-02-05
+  - Trivia Quiz (https://linuxphoneapps.org/games/io.github.nokse22.trivia-quiz/)
 
 #### moby
 - fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>

@@ -81,11 +81,13 @@ let
     (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
     (fromDb "feeds.transistor.fm/acquired" // tech)
     (fromDb "fulltimenix.com" // tech)
+    (fromDb "futureofcoding.org/episodes" // tech)
     (fromDb "hackerpublicradio.org" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
+    (fromDb "omny.fm/shows/money-stuff-the-podcast")  # Matt Levine
     (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     (fromDb "originstories.libsyn.com" // uncat)
     (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
@@ -151,6 +153,7 @@ let
     (fromDb "interconnected.org/home/feed" // rat)  # Matt Webb -- engineering-ish, but dreamy
     (fromDb "jeffgeerling.com" // tech)
     (fromDb "jefftk.com" // tech)
+    (fromDb "jwz.org/blog" // tech // pol)  # DNA lounge guy, loooong-time blogger
     (fromDb "kill-the-newsletter.com/feeds/joh91bv7am2pnznv.xml" // pol)  # Matt Levine - Money Stuff
     (fromDb "kosmosghost.github.io/index.xml" // tech)
     # (fromDb "lesswrong.com" // rat)
@@ -183,6 +186,7 @@ let
     (fromDb "spectrum.ieee.org" // tech)
     (fromDb "stpeter.im/atom.xml" // pol)
     (fromDb "thediff.co" // pol)  # Byrne Hobart
+    (fromDb "thesideview.co" // uncat)  # like Palladium magazine
     # (fromDb "theregister.com" // tech)
     (fromDb "thisweek.gnome.org" // tech)
     (fromDb "tuxphones.com" // tech)

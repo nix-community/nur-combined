@@ -16,7 +16,7 @@
       "tmp"
     ];
 
-    slowToBuild = true;
+    buildCost = 2;
 
     # disable first-run stuff
     fs.".config/libreoffice/4/user/registrymodifications.xcu".symlink.text = ''

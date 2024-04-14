@@ -33,10 +33,11 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/301919";
-    saneCommit = "5468e6802aa060dee755b0019a612f605270d90d";
-    title = "nixos/mautrix-meta: fix lax enable check";
-    hash = "sha256-e5Yf/HzP0tfY6fuo6A8XrYvAwZOrQCIfRqPBcX+Tfg4=";
+    # NECESSARY FOR DINO CALLS TO WORK ON AARCH64: <https://gitlab.freedesktop.org/gstreamer/orc/-/issues/64>
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/291661";
+    title = "orc: 0.4.36 -> 0.4.38";
+    hash = "sha256-ULav0vt3QlI8lKcCVKP986H/GjBZqUYLwOHJ3XppAeo=";
+    merged.staging = "20240406000000";
   })
 
   (fetchpatch' {
@@ -45,14 +46,6 @@ in [
     title = "gnupg: fix cross compilation";
     hash = "sha256-d3kD2/UyMzzdBkiEdWtCibbWiPWBZLUWRry1TMkS25g=";
     merged.staging = "20240326000000";
-  })
-
-  (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/292868";
-    saneCommit = "f090c1cd6bb5bbb14a86ec90ced78ca1a165a4fe";
-    title = "mpvScripts.uosc: 5.1.1 -> 5.2.0";
-    # hash = "sha256-oGRysTvCrN8buMSpdAOg87cyqJAffwgwAVZ73ocKsIY=";
-    hash = "sha256-AzkMYm9Pm85Xfm+nd44oKIULZYGyMXulmjFbutouysc=";
   })
 
   (fetchpatch' {

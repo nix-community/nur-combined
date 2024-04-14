@@ -256,14 +256,6 @@ in
     # icon-theme = lib.mkDefault "Flat-Remix-Grey-Light";  # requires qtbase
   };
 
-  services.gvfs = lib.mkIf cfg.enabled {
-    enable = true;  # allow nautilus to mount remote filesystems (e.g. ftp://...)
-    package = lib.mkDefault (pkgs.gvfs.override {
-      # i don't need to mount samba shares, and samba build is expensive/flaky (mostly for cross, but even problematic on native)
-      samba = null;
-    });
-  };
-
 
   # TODO: this can go elsewhere
   networking.networkmanager.enable = lib.mkIf cfg.enabled true;

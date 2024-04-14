@@ -7,6 +7,7 @@ let
   pkgs = import ./pkgs.nix;
   preferences = import ./preferences.nix;
   cross = import ./cross.nix;
+  pkgs-debug = import ./pkgs-debug.nix;
 
   isCross = prev.stdenv.hostPlatform != prev.stdenv.buildPlatform;
   ifCross = overlay: if isCross then overlay else (_: _: {});
@@ -19,4 +20,5 @@ in
     pkgs
     preferences
     (ifCross cross)
+    pkgs-debug
   ]

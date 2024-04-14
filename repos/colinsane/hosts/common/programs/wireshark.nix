@@ -13,6 +13,6 @@ in
     ];
 
     fs.".config/wireshark".dir = {};
-    slowToBuild = true;
+    buildCost = 1;
   };
 }

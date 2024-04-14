@@ -14,10 +14,12 @@
   boot.loader.efi.canTouchEfiVariables = false;
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
+  sane.programs.cups.enableFor.user.colin = true;
+  sane.programs.stepmania.enableFor.user.colin = true;
   sane.programs.sway.enableFor.user.colin = true;
+
   sane.programs."gnome.geary".config.autostart = true;
   sane.programs.signal-desktop.config.autostart = true;
-  sane.programs.stepmania.enableFor.user.colin = true;
 
   sops.secrets.colin-passwd.neededForUsers = true;
 

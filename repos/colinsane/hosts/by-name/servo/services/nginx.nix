@@ -89,6 +89,16 @@ in
         disable_symlinks on;
       '';
     };
+    locations."/share/Milkbags/" = {
+      alias = "/var/media/Videos/Milkbags/";
+      extraConfig = ''
+        # autoindex => render directory listings
+        autoindex on;
+        # don't follow any symlinks when serving files
+        # otherwise it allows a directory escape
+        disable_symlinks on;
+      '';
+    };
 
     # allow matrix users to discover that @user:uninsane.org is reachable via matrix.uninsane.org
     locations."= /.well-known/matrix/server".extraConfig =

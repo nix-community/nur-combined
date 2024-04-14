@@ -30,6 +30,7 @@
     ];
 
     mime.associations = {
+      "image/avif" = "org.gnome.Loupe.desktop";
       "image/gif" = "org.gnome.Loupe.desktop";
       "image/heif" = "org.gnome.Loupe.desktop";  # apple codec
       "image/png" = "org.gnome.Loupe.desktop";

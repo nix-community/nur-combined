@@ -91,43 +91,37 @@ let
            local last_up = cursor.last_event['primary_up'] or { time = 0 }
            if cursor.hover_raw or last_down.time >= last_up.time then cursor:move(mouse.x, mouse.y) end"
 
-      ### patch so that the volume control corresponds to `ao-volume`, i.e. the system-wide volume.
+      ### patch so that uosc volume control is routed to sane-sysvol.
       ### this is particularly nice for moby, because it avoids the awkwardness that system volume
       ### is hard to adjust while screen is on.
-      ### note that only under alsa (`-ao=alsa`) does `ao-volume` actually correspond to system volume.
+      ### previously i used ao-volume instead of sane-sysvol: but that forced `ao=alsa`
+      ### and came with heavy perf penalties (especially when adjusting the volume)
       substituteInPlace src/uosc/main.lua \
-        --replace-fail "mp.observe_property('volume'" "mp.observe_property('ao-volume'"
+        --replace-fail \
+          "mp.observe_property('volume'" \
+          "mp.observe_property('user-data/sane-sysvol/volume'" \
+        --replace-fail \
+          "mp.observe_property('mute'" \
+          "mp.observe_property('user-data/sane-sysvol/mute'"
       substituteInPlace src/uosc/elements/Volume.lua \
-        --replace-fail "mp.commandv('set', 'volume'" "mp.commandv('set', 'ao-volume'" \
-        --replace-fail "mp.set_property_native('volume'" "mp.set_property('ao-volume'"
+        --replace-fail \
+          "mp.commandv('set', 'volume'" \
+          "mp.set_property_number('user-data/sane-sysvol/volume'" \
+        --replace-fail \
+          "mp.set_property_native('volume'" \
+          "mp.set_property_number('user-data/sane-sysvol/volume'" \
+        --replace-fail \
+          "mp.set_property_native('mute'" \
+          "mp.set_property_bool('user-data/sane-sysvol/mute'" \
+        --replace-fail \
+          "mp.commandv('cycle', 'mute')" \
+          "mp.set_property_bool('user-data/sane-sysvol/mute', not mp.get_property_bool('user-data/sane-sysvol/mute'))"
 
-      # `ao-volume` isn't actually an observable property.
-      # as of 2024/03/02, they *may* be working on that:
-      # - <https://github.com/mpv-player/mpv/pull/13604#issuecomment-1971665736>
-      # in the meantime, just query the volume every tick (i.e. frame).
-      # alternative is mpv's JSON IPC feature, where i could notify its socket whenever pipewire volume changes.
-      cat <<EOF >> src/uosc/main.lua
-      function update_ao_volume()
-        local vol = mp.get_property('ao-volume')
-        if vol ~= nil then
-          vol = tonumber(vol)
-          if vol ~= state.volume then
-            set_state('volume', vol)
-            request_render()
-          end
-        end
-      end
-      -- tick seems to occur on every redraw (even when volume is hidden).
-      -- in practice: for every new frame of the source, or whenever the cursor is moved.
-      mp.register_event('tick', update_ao_volume)
-      -- if paused and cursor isn't moving, then `tick` isn't called. fallback to a timer.
-      mp.add_periodic_timer(2, update_ao_volume)
-      -- invoke immediately to ensure state.volume is non-nil
-      update_ao_volume()
-      if state.volume == nil then
-        state.volume = 0
-      end
-      EOF
+      # tweak the top-bar "maximize" button to actually act as a "fullscreen" button.
+      substituteInPlace src/uosc/elements/TopBar.lua \
+        --replace-fail \
+          'get_maximized_command,' \
+          '"cycle fullscreen",'
     '';
   });
   mpv-unwrapped = pkgs.mpv-unwrapped.overrideAttrs (upstream: {
@@ -143,7 +137,7 @@ let
 in
 {
   sane.programs.mpv = {
-    packageUnwrapped = pkgs.wrapMpv mpv-unwrapped {
+    packageUnwrapped = pkgs.wrapMpv (mpv-unwrapped.override { lua = pkgs.luajit; }) {
       scripts = [
         pkgs.mpvScripts.mpris
         pkgs.mpvScripts.mpv-playlistmanager
@@ -211,7 +205,9 @@ in
       # for `watch_later`
       ".local/state/mpv"
     ];
-    fs.".config/mpv/scripts/sane/main.lua".symlink.target = ./sane-main.lua;
+    fs.".config/mpv/scripts/sane-cast/main.lua".symlink.target = ./sane-cast-main.lua;
+    fs.".config/mpv/scripts/sane-sysvol/main.lua".symlink.target = ./sane-sysvol/main.lua;
+    fs.".config/mpv/scripts/sane-sysvol/non_blocking_popen.lua".symlink.target = ./sane-sysvol/non_blocking_popen.lua;
     fs.".config/mpv/input.conf".symlink.target = ./input.conf;
     fs.".config/mpv/mpv.conf".symlink.target = ./mpv.conf;
     fs.".config/mpv/script-opts/osc.conf".symlink.target = ./osc.conf;

@@ -35,8 +35,9 @@ font @font@
 client.focused          #1f5e54 #418379 #ffffff
 client.focused_inactive #1f5e54 #5f676a #ffffff
 client.unfocused        #1f5e54 #1f554c #b4b4b4
-client.urgent           #ff8080 #ff8080 #ffffff
+client.urgent           #ff968b #ff968b #ffffff
 
+# TODO: populate background from /run/current-system/sw/etc/... instead of hard-coded nix path
 output '*' bg "@background@" fill
 
 ### pixel boundary between windows
@@ -89,12 +90,12 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 
 #### layout
-bindsym $mod+b splith
-bindsym $mod+v splitv
 bindsym $mod+f fullscreen toggle
-bindsym $mod+a focus parent
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+# bindsym $mod+b splith
+# bindsym $mod+v splitv
+# bindsym $mod+a focus parent
 # bindsym $mod+Shift+space floating toggle
 # bindsym $mod+space focus mode_toggle
 bindsym $mod+r mode resize

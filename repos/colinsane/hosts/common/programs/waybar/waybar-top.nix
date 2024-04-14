@@ -62,13 +62,13 @@ in
     escape = true;
     format = "{icon}";  # or "{icon} {}" to include notif count
     format-icons = {
-      notification = "<span foreground='#ff8080'><sup></sup></span>";
+      notification = "<span foreground='#ff968b'><sup></sup></span>";
       none = "";
-      dnd-notification = "<span foreground='#ff8080'><sup></sup></span>";
+      dnd-notification = "<span foreground='#ff968b'><sup></sup></span>";
       dnd-none = "";
-      inhibited-notification = "<span foreground='#ff8080'><sup></sup></span>";
+      inhibited-notification = "<span foreground='#ff968b'><sup></sup></span>";
       inhibited-none = "";
-      dnd-inhibited-notification = "<span foreground='#ff8080'><sup></sup></span>";
+      dnd-inhibited-notification = "<span foreground='#ff968b'><sup></sup></span>";
       dnd-inhibited-none = "";
     };
     tooltip = false;

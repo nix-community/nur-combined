@@ -2033,24 +2033,6 @@ in with final; {
   #   strictDeps = true;
   # });
 
-  webkitgtk = prev.webkitgtk.overrideAttrs (upstream: {
-    # fixes "wayland-scanner: line 5: syntax error: unterminated quoted string"
-    # also: `/nix/store/nnnn-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner: line 0: syntax error: unexpected word (expecting ")")`
-    # verbose error:
-    #   [6376/6819] Generating ../../WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c
-    #   FAILED: WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c /build/webkitgtk-2.40.5/build/WebKitGTK/DerivedSources/pointer-constraints-unstable-v1-protocol.c 
-    #   cd /build/webkitgtk-2.40.5/build/Source/WebKit && /nix/store/6xbpap00kkdgrayizbc61mzf19ygsp9j-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner private-code //nix/store/26nypvflsc8ggbdkns0wjvh4mjrj>
-    #   /nix/store/6xbpap00kkdgrayizbc61mzf19ygsp9j-wayland-aarch64-unknown-linux-gnu-1.22.0-bin/bin/wayland-scanner: line 5: syntax error: unterminated quoted string
-    # with this i can maybe remove `wayland` from nativeBuildInputs, too?
-    # note that `webkitgtk` != `webkitgtk_6_0`, so this patch here might be totally unnecessary.
-    # 2023/11/06: hostPkgs.moby.webkitgtk_6_0 builds fine on servo; stock pkgsCross.aarch64-multiplatform.webkitgtk_6_0 does not.
-    # 2023/11/06: out for PR: <https://github.com/NixOS/nixpkgs/pull/265968>
-    cmakeFlags = upstream.cmakeFlags ++ [
-      "-DWAYLAND_SCANNER=${buildPackages.wayland-scanner}/bin/wayland-scanner"
-    ];
-  });
-  # webkitgtk = prev.webkitgtk.override { stdenv = ccacheStdenv; };
-
   # 2024/02/27: upstreaming is unblocked
   webp-pixbuf-loader = prev.webp-pixbuf-loader.overrideAttrs (upstream: {
     # fixes: "Builder called die: Cannot wrap '/nix/store/kpp8qhzdjqgvw73llka5gpnsj0l4jlg8-gdk-pixbuf-aarch64-unknown-linux-gnu-2.42.10/bin/gdk-pixbuf-thumbnailer' because it is not an executable file"
