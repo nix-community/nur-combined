@@ -146,8 +146,9 @@
             {
               eDP-1 = {
                 bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
-                mode = "2160x1440";
+                mode = "2160x1440@60Hz";
                 scale = "2";
+                adaptive_sync = "on";
               };
               HDMI-A-1 = {
                 bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";

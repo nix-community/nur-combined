@@ -24,8 +24,6 @@
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
 
-  environment.systemPackages = with pkgs; [ factorio-headless ];
-
   systemd.services.trojan-server.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
     "nyaw.cert"
     "nyaw.key"
@@ -43,7 +41,7 @@
     # copilot-gpt4.enable = true;
     factorio-manager = {
       enable = true;
-      factorioPackage = pkgs.factorio-headless-experimental;
+      factorioPackage = pkgs.factorio-headless;
       botConfigPath = config.age.secrets.factorio-manager-bot.path;
       initialGameStartArgs = [
         "--server-settings=${config.age.secrets.factorio-server.path}"

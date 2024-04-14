@@ -169,7 +169,7 @@
     factorio-manager = {
       url = "github:asoul-rec/factorio-manager";
       # url = "/home/elen/Src/factorio-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun = {
       url = "github:Kirottu/anyrun";
