@@ -25,7 +25,7 @@ fetch.tarball = "https://github.com/CakeML/cakeml/releases/download/$ver/cake-x6
 
 [enso]
 src.github = "enso-org/enso"
-fetch.url = "https://github.com/enso-org/enso/releases/download/$ver/enso-linux-$ver.AppImage"
+fetch.url = "https://github.com/enso-org/enso/releases/download/$ver/enso-linux-x86_64-$ver.AppImage"
 
 [wasmfxtime]
 src.git = "https://github.com/wasmfx/wasmfxtime"
