@@ -378,6 +378,10 @@ fetch.github = "ReimuHakurei/phppgadmin"
 src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 
+[plasma-desktop-lyrics]
+src.github = "chiyuki0325/PlasmaDesktopLyrics"
+fetch.github = "chiyuki0325/PlasmaDesktopLyrics"
+
 [procps4]
 src.archpkg = "procps-ng"
 fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-$ver.tar.xz"

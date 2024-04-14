@@ -165,6 +165,7 @@ mkScope (
     peerbanhelper = pkg ./uncategorized/peerbanhelper { };
     phpmyadmin = pkg ./uncategorized/phpmyadmin { };
     phppgadmin = pkg ./uncategorized/phppgadmin { };
+    plasma-desktop-lyrics = pkg ./uncategorized/plasma-desktop-lyrics { };
     procps4 = pkg ./uncategorized/procps4 { };
     pterodactyl-wings = pkg ./uncategorized/pterodactyl-wings { };
     py-rcon = pkg ./uncategorized/py-rcon { };

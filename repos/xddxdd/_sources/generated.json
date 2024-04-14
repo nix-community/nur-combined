@@ -1675,6 +1675,26 @@
         },
         "version": "V1.8.5760"
     },
+    "plasma-desktop-lyrics": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "plasma-desktop-lyrics",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "chiyuki0325",
+            "repo": "PlasmaDesktopLyrics",
+            "rev": "v0.1",
+            "sha256": "sha256-FnZAGqyG/0IkDPlh09HfvdXHtnZRJs/70NUcsrp+bHA=",
+            "type": "github"
+        },
+        "version": "v0.1"
+    },
     "procps4": {
         "cargoLocks": null,
         "date": null,

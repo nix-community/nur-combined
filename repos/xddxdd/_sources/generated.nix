@@ -969,6 +969,17 @@
       sha256 = "sha256-BBPWeLR6CA+2uJZDxqISjbZdWe9AvHE9sW8P1BmrhPY=";
     };
   };
+  plasma-desktop-lyrics = {
+    pname = "plasma-desktop-lyrics";
+    version = "v0.1";
+    src = fetchFromGitHub {
+      owner = "chiyuki0325";
+      repo = "PlasmaDesktopLyrics";
+      rev = "v0.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-FnZAGqyG/0IkDPlh09HfvdXHtnZRJs/70NUcsrp+bHA=";
+    };
+  };
   procps4 = {
     pname = "procps4";
     version = "4.0.4";
