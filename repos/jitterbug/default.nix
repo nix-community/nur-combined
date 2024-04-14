@@ -16,5 +16,6 @@
   domesdayduplicator = pkgs.callPackage ./pkgs/domesdayduplicator { };
   misrc-extract = pkgs.callPackage ./pkgs/misrc-extract { };
   vhs-decode-auto-audio-align = pkgs.callPackage ./pkgs/vhs-decode-auto-audio-align { };
+  ab-av1 = pkgs.callPackage ./pkgs/ab-av1 { };
   #tzpfms = pkgs.callPackage ./pkgs/tzpfms { };
 }

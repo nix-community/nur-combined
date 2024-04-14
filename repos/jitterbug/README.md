@@ -17,6 +17,7 @@ This repo contains packages for vhs-decoding on NixOS.
 - [vapoursynth-vsrawsource](https://github.com/JuniorIsAJitterbug/vsrawsource) - Raw format reader for VapourSynth.
 - [pyhht](https://github.com/jaidevd/pyhht) - A Python module for the Hilbert Huang Transform. (required for old vhs-decode builds)
 - [amcdx-video-patcher-cli](https://mogurenko.com) - AMCDX Video Patcher CLI.
+- [ab-av1](https://github.com/alexheretic/ab-av1) - AV1 video encoding tool with fast VMAF sampling & automatic encoder crf calculation.
 - [ltfs](https://github.com/LinearTapeFileSystem/ltfs) - Reference LTFS implementation.
 - [stfs](https://github.com/pojntfx/stfs) - Simple Tape File System (STFS), a file system for tapes and tar files.
 - [tzpfms](https://git.sr.ht/~nabijaczleweli/tzpfms) - TPM-based encryption keys for ZFS datasets. (disabled)
