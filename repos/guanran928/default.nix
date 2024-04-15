@@ -14,6 +14,7 @@
   fcitx5-tokyonight = pkgs.callPackage ./pkgs/fcitx5-tokyonight {};
   hanyi-wenhei = pkgs.callPackage ./pkgs/hanyi-wenhei {};
   hanyi-wenhei-genshin = pkgs.callPackage ./pkgs/hanyi-wenhei-genshin {};
+  harmonyos-sans = pkgs.callPackage ./pkgs/harmonyos-sans {};
   metacubexd = pkgs.callPackage ./pkgs/metacubexd {};
   misans = pkgs.callPackage ./pkgs/misans {};
   picom-ft-labs = pkgs.callPackage ./pkgs/picom-ft-labs {};
