@@ -29,5 +29,8 @@ llvmPackages.stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/lib
     cp src/libq.a $out/lib
+
+    cd .. # leave build/
+    cp -r include $out # install qqueue.h etc
   '';
 }

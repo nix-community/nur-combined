@@ -27,5 +27,6 @@ llvmPackages.stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/lib
     cp src/libcoroutine.a $out/lib
+    cp -r ../include $out
   '';
 }

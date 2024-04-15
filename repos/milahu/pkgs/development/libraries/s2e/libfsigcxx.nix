@@ -23,10 +23,15 @@ llvmPackages.stdenv.mkDerivation rec {
     boost
   ];
 
+  propagatedBuildInputs = [
+    boost
+  ];
+
   # TODO dont build: sigtest
 
   installPhase = ''
     mkdir -p $out/lib
     cp src/libfsigc++.a $out/lib
+    cp -r ../include $out
   '';
 }
