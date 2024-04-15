@@ -77,8 +77,6 @@ in
 
   krane = callPackage ./applications/networking/cluster/krane { };
 
-  lightdm-webkit2-greeter = callPackage ./applications/display-managers/lightdm-webkit2-greeter { };
-
   linuxPackages = recurseIntoAttrs (linuxModulesOverlay (prev.linuxPackages // linuxPackages) prev.linuxPackages);
 
   mangohud = callPackage ./tools/graphics/mangohud rec {
