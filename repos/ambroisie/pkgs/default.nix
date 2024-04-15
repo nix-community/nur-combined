@@ -1,7 +1,5 @@
 { pkgs }:
 pkgs.lib.makeScope pkgs.newScope (pkgs: {
-  bt-migrate = pkgs.callPackage ./bt-migrate { };
-
   bw-pass = pkgs.callPackage ./bw-pass { };
 
   change-audio = pkgs.callPackage ./change-audio { };
@@ -11,8 +9,6 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
   comma = pkgs.callPackage ./comma { };
 
   diff-flake = pkgs.callPackage ./diff-flake { };
-
-  digestpp = pkgs.callPackage ./digestpp { };
 
   dragger = pkgs.callPackage ./dragger { };
 
@@ -29,8 +25,6 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
   osc777 = pkgs.callPackage ./osc777 { };
 
   rbw-pass = pkgs.callPackage ./rbw-pass { };
-
-  sqlite_orm = pkgs.callPackage ./sqlite_orm { };
 
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };
 
