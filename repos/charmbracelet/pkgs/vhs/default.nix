@@ -2,51 +2,58 @@
 # vim: set ft=nix ts=2 sw=2 sts=2 et sta
 {
 system ? builtins.currentSystem
-, pkgs
 , lib
 , fetchurl
 , installShellFiles
-, makeWrapper
-, stdenv
+, stdenvNoCC
 , ffmpeg
 , ttyd
 , chromium
+, makeWrapper
 }:
 let
   shaMap = {
-    i686-linux = "07lgxrmr37ya0f3xydlhhkn6crpbhr7d2n9avvaf9rgygvmcmymi";
-    x86_64-linux = "1m4nks2x6f0xl7ahqaahf9ig0335px1qj2rkk5a4g2fznph4713l";
-    armv7l-linux = "1bbmf96kg847q3yi8gcblpbapxbw01yrdn6848al65z2rmvxz61j";
-    aarch64-linux = "1fkicvqi4gl5b6immz96xp8sng4ndphg1axl3x2kgym5s5g77lx1";
-    x86_64-darwin = "0zb5pxp24mlhfia0hx0xrngv1h5zy08x6521sl5530sjxw15vw8g";
-    aarch64-darwin = "0ayl0ys5x19kv046yvp2vjka0bpdwgz4lly3nwvr9zcymz4vc2jn";
+    i686-linux = "1cav1w7d3v98bg9cmn5xs0rrj6z0iivfmqwrpynspyn6srlj9cqy";
+    x86_64-linux = "0kzzzj1w15w2bsdpyqhgf3m8nxa0cinfd0x8gfxv9m5zkb77gii0";
+    armv7l-linux = "1nsxfvq0x9c6l1za170wyl0zd8jqciwnzskc15bqhxpmvij4lmgm";
+    aarch64-linux = "1mka2ca0g7rfwd7zwz75j0hb8ncv7b0rnriw51sivjy9nkbivrgj";
+    x86_64-darwin = "0jarnfp0izr7bff7yfcvbhkwa1630q7wp5s8si7zp65ad3vag7pi";
+    aarch64-darwin = "1jl3a7p1ha8f4gy08bgzrn36xv78ksyy4g5rq0s4if6w65ib1y32";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.7.1/vhs_0.7.1_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.7.1/vhs_0.7.1_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.7.1/vhs_0.7.1_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.7.1/vhs_0.7.1_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/vhs/releases/download/v0.7.1/vhs_0.7.1_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/vhs/releases/download/v0.7.1/vhs_0.7.1_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.7.2/vhs_0.7.2_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.7.2/vhs_0.7.2_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.7.2/vhs_0.7.2_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/vhs/releases/download/v0.7.2/vhs_0.7.2_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/vhs/releases/download/v0.7.2/vhs_0.7.2_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/vhs/releases/download/v0.7.2/vhs_0.7.2_Darwin_arm64.tar.gz";
+  };
+  sourceRootMap = {
+    i686-linux = "vhs_0.7.2_Linux_i386";
+    x86_64-linux = "vhs_0.7.2_Linux_x86_64";
+    armv7l-linux = "vhs_0.7.2_Linux_arm";
+    aarch64-linux = "vhs_0.7.2_Linux_arm64";
+    x86_64-darwin = "vhs_0.7.2_Darwin_x86_64";
+    aarch64-darwin = "vhs_0.7.2_Darwin_arm64";
   };
 in
-pkgs.stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "vhs";
-  version = "0.7.1";
+  version = "0.7.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
   };
 
-  sourceRoot = ".";
+  sourceRoot = sourceRootMap.${system};
 
   nativeBuildInputs = [ installShellFiles makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin
     cp -vr ./vhs $out/bin/vhs
-    wrapProgram $out/bin/vhs --prefix PATH : ${lib.makeBinPath (lib.optionals stdenv.isLinux [ chromium ] ++ [ ffmpeg ttyd ])}
+    wrapProgram $out/bin/vhs --prefix PATH : ${lib.makeBinPath (lib.optionals stdenvNoCC.isLinux [ chromium ] ++ [ ffmpeg ttyd ])}
     installManPage ./manpages/vhs.1.gz
     installShellCompletion ./completions/*
   '';
