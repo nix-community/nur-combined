@@ -33,6 +33,18 @@ in
     };
   };
 
+  sane.programs.swaync-fbcli = {
+    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+      pname = "swaync-fbcli";
+      srcRoot = ./.;
+      pkgs = [
+        "feedbackd"
+        "procps"
+        "swaynotificationcenter"
+      ];
+    };
+  };
+
   sane.programs.swaynotificationcenter = {
     configOption = with lib; mkOption {
       type = types.submodule {
@@ -51,6 +63,11 @@ in
 
     # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
     packageUnwrapped = pkgs.rmDbusServices pkgs.swaynotificationcenter;
+    suggestedPrograms = [
+      "feedbackd"
+      "swaync-fbcli"  #< used to sound ringer
+      "swaync-service-dispatcher"  #< used when toggling buttons
+    ];
 
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
@@ -89,11 +106,6 @@ in
     # so, explicitly specify the desired backend.
     # the glib code which consumes this is `g_notification_backend_new_default`, calling into `_g_io_module_get_default_type`.
     env.GNOTIFICATION_BACKEND = "freedesktop";
-
-    suggestedPrograms = [
-      "feedbackd"
-      "swaync-service-dispatcher"  #< used when toggling buttons
-    ];
 
     fs.".config/swaync/style.css".symlink.target = ./style.css;
     fs.".config/swaync/config.json".symlink.text = builtins.toJSON {
