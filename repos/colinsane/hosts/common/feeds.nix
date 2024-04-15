@@ -130,7 +130,6 @@ let
     (fromDb "artemis.sh" // tech)
     (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
     (fromDb "austinvernon.site" // tech)
-    # (fromDb "balajis.com" // pol)  # Balaji
     (fromDb "ben-evans.com/benedictevans" // pol)
     (fromDb "bitbashing.io" // tech)
     (fromDb "bitsaboutmoney.com" // uncat)
@@ -141,8 +140,6 @@ let
     (fromDb "blog.thalheim.io" // tech)  # Mic92
     (fromDb "bunniestudios.com" // tech)  # Bunnie Juang
     (fromDb "capitolhillseattle.com" // pol)
-    # (fromDb "drewdevault.com" // tech)
-    # (fromDb "econlib.org" // pol)
     (fromDb "edwardsnowden.substack.com" // pol // text)
     (fromDb "fasterthanli.me" // tech)
     (fromDb "gwern.net" // rat)
@@ -156,7 +153,6 @@ let
     (fromDb "jwz.org/blog" // tech // pol)  # DNA lounge guy, loooong-time blogger
     (fromDb "kill-the-newsletter.com/feeds/joh91bv7am2pnznv.xml" // pol)  # Matt Levine - Money Stuff
     (fromDb "kosmosghost.github.io/index.xml" // tech)
-    # (fromDb "lesswrong.com" // rat)
     (fromDb "linmob.net" // tech)
     (fromDb "lwn.net" // tech)
     (fromDb "lynalden.com" // pol)
@@ -171,7 +167,6 @@ let
     (fromDb "pomeroyb.com" // tech)
     (fromDb "postmarketos.org/blog" // tech)
     (fromDb "preposterousuniverse.com" // rat)  # Sean Carroll
-    (fromDb "profectusmag.com" // uncat)
     (fromDb "project-insanity.org" // tech)  # shared blog by a few NixOS devs, notably onny
     (fromDb "putanumonit.com" // rat)  # mostly dating topics. not advice, or humor, but looking through a social lens
     (fromDb "richardcarrier.info" // rat)
@@ -186,34 +181,40 @@ let
     (fromDb "spectrum.ieee.org" // tech)
     (fromDb "stpeter.im/atom.xml" // pol)
     (fromDb "thediff.co" // pol)  # Byrne Hobart
-    (fromDb "thesideview.co" // uncat)  # like Palladium magazine
-    # (fromDb "theregister.com" // tech)
     (fromDb "thisweek.gnome.org" // tech)
     (fromDb "tuxphones.com" // tech)
     (fromDb "uninsane.org" // tech)
     (fromDb "unintendedconsequenc.es" // rat)
-    # (fromDb "vitalik.ca" // tech)  # moved to vitalik.eth.limo
     (fromDb "vitalik.eth.limo" // tech)  # Vitalik Buterin
-    # (fromDb "webcurious.co.uk" // uncat)  # link aggregator; defunct?
     (fromDb "willow.phantoma.online")  # wizard@xyzzy.link
     (fromDb "xn--gckvb8fzb.com" // tech)
     (mkSubstack "astralcodexten" // rat // daily)  # Scott Alexander
-    # (mkSubstack "doomberg" // tech // weekly)  # articles are all pay-walled
     (mkSubstack "eliqian" // rat // weekly)
     (mkSubstack "oversharing" // pol // daily)
     (mkSubstack "samkriss" // humor // infrequent)
     (mkText "http://benjaminrosshoffman.com/feed" // pol // weekly)
     (mkText "http://boginjr.com/feed" // tech // infrequent)
     (mkText "https://forum.merveilles.town/rss.xml" // pol // infrequent)  #quality RSS list here: <https://forum.merveilles.town/thread/57/share-your-rss-feeds%21-6/>
-    # (mkText "https://github.com/Kaiteki-Fedi/Kaiteki/commits/master.atom" // tech // infrequent)
     (mkText "https://jvns.ca/atom.xml" // tech // weekly)  # Julia Evans
     (mkText "https://linuxphoneapps.org/blog/atom.xml" // tech // infrequent)
     (mkText "https://nixos.org/blog/announcements-rss.xml" // tech // infrequent)  # more nixos stuff here, but unclear how to subscribe: <https://nixos.org/blog/categories.html>
     (mkText "https://nixos.org/blog/stories-rss.xml" // tech // weekly)
     (mkText "https://solar.lowtechmagazine.com/posts/index.xml" // tech // weekly)
+    (mkText "https://www.stratechery.com/rss" // pol // weekly)  # Ben Thompson
+
+    # (fromDb "balajis.com" // pol)  # Balaji
+    # (fromDb "drewdevault.com" // tech)
+    # (fromDb "econlib.org" // pol)
+    # (fromDb "lesswrong.com" // rat)
+    # (fromDb "profectusmag.com" // pol)  # some conservative/libertarian think tank
+    # (fromDb "thesideview.co" // uncat)  # spiritual journal; RSS items are stubs
+    # (fromDb "theregister.com" // tech)
+    # (fromDb "vitalik.ca" // tech)  # moved to vitalik.eth.limo
+    # (fromDb "webcurious.co.uk" // uncat)  # link aggregator; defunct?
+    # (mkSubstack "doomberg" // tech // weekly)  # articles are all pay-walled
+    # (mkText "https://github.com/Kaiteki-Fedi/Kaiteki/commits/master.atom" // tech // infrequent)
     # (mkText "https://til.simonwillison.net/tils/feed.atom" // tech // weekly)
     # (mkText "https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss" // pol // weekly)  # Matt Levine (preview/paywalled)
-    (mkText "https://www.stratechery.com/rss" // pol // weekly)  # Ben Thompson
   ];
 
   videos = [
@@ -225,13 +226,14 @@ let
     (fromDb "youtube.com/@JackStauber")
     (fromDb "youtube.com/@NativLang")
     (fromDb "youtube.com/@PolyMatter")
-    # (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
     (fromDb "youtube.com/@TechnologyConnections" // tech)
     (fromDb "youtube.com/@TheB1M")
     (fromDb "youtube.com/@TomScottGo")
     (fromDb "youtube.com/@Vihart")
     (fromDb "youtube.com/@Vox")
     (fromDb "youtube.com/@Vsauce")
+
+    # (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
   ];
 
   images = [
