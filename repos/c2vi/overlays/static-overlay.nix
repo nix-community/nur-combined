@@ -1,5 +1,5 @@
 
-final: prev: {
+final: prev: rec {
 
   # talloc for proot
   talloc = prev.talloc.overrideAttrs (innerFinal: innerPrev: {
@@ -17,6 +17,48 @@ final: prev: {
     '';
     */
   });
+
+  # docutils for proot
+  docutils = prev.docutils.overrideAttrs (innerFinal: innerPrev: {
+    postInstall = "echo hiiiiiiiiiiiiiiiiiiiiiiiiiii; function setuptoolsCheckPhase(){ echo '#ILoveChecks'; };";
+  });
+
+  # proot
+  proot = prev.proot.overrideAttrs (innerFinal: innerPrev: {
+    #nativeBuildInputs = innerPrev.buildInputs or [] ++ [ prev.pkg-config final.docutils final.python311Packages.unicodedata2 ];
+    #nativeBuildInputs = innerPrev.nativebuildInputs or [] ++ [ final.pkg-config final.docutils ];
+    nativeBuildInputs = [ final.pkg-config ];
+    postBuild = "";
+    postInstall = "";
+  });
+
+
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (
+      python-final: python-prev: {
+        tomli = python-prev.tomli.overrideAttrs (innerFinal: innerPrev: {
+          postInstall = "echo hiiiiiiiiiiiiiiiiiiiiiiiiiii tooooooooooooooooooooooooooooooooooooooooooooooooooo; function unittestCheckPhase(){ echo '#ILoveChecks'; };";
+        });
+      }
+    )
+  ];
+
+
+
+
+
+  python311Packages-tomli = prev.python311Packages.tomli.overrideAttrs (innerFinal: innerPrev: {
+    #doCheck = false;
+    postInstall = "echo hiiiiiiiiiiiiiiiiiiiiiiiiiii; function unittestCheckPhase(){ echo '#ILoveChecks'; };";
+    installCheckPhase = "";
+    setuptoolsCheckPhase = "";
+  });
+
+  #python311Packages = prev.python311Packages // { tomli = python311Packages-tomli; lxml = python311Packages-lxml; };
+
+  #pythonPackagesOverlays = prev.pythonPackagesOverlays ++ [
+
+
 
   # for static builds
   duktape = prev.duktape.overrideAttrs (innerFinal: innerPrev: {
@@ -67,7 +109,7 @@ final: prev: {
   #buildPackges = prev.buildPackges // {gobject-introspection = prev.callPackage ./static/gobject-introspection.nix { inherit nixpkgs; };};
   # .... gobject-introspection is just not made for dyn linking
 
-  python311Packages = prev.python311Packages // { lxml = prev.python311Packages.lxml.overrideAttrs (innerFinal: innerPrev: 
+  python311Packages-lxml = prev.python311Packages.lxml.overrideAttrs (innerFinal: innerPrev: 
     let
       libxmlSrc = prev.fetchurl {
         url = "mirror://gnome/sources/libxml2/${prev.lib.versions.majorMinor "2.12.4"}/libxml2-2.12.4.tar.xz";
@@ -119,7 +161,6 @@ final: prev: {
         #mv ./libs/libxslt-1.1.37.tar.xz ./libs/libxslt-1.1.37.tar.gz
         #mv ./libs/libxml2-2.10.4.tar.xz ./libs/libxml2-2.10.4.tar.gz
     });
-  };
 
   pkgsStatic = prev.pkgsStatic // {
     libglvnd = prev.libglvnd;
