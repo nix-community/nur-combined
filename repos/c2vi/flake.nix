@@ -244,8 +244,8 @@
               #services.xserver.enable = true;
               #services.xserver.desktopManager.plasma5.enable = true;
 
-              #services.xserver.desktopManager.xterm.enable = false;
-              #services.xserver.desktopManager.xfce.enable = treu;
+              services.xserver.desktopManager.xterm.enable = false;
+              services.xserver.desktopManager.xfce.enable = true;
 
               #services.xserver.desktopManager.gnome.enable = true;
             })
@@ -268,7 +268,7 @@
             # */
 
             # boot loader and filesystem
-            /*
+            # /*
             ({ ... }: {
               fileSystems."/" = {
                 device = "/dev/disk/by-uuid/6518e61e-7120-48ef-81a3-5eae0f67297e";
@@ -293,11 +293,11 @@
             # modules
          		#./hosts/the-most-default.nix
             #./users/root/default.nix
-            ./users/me/headless.nix
-		        inputs.home-manager.nixosModules.home-manager
-		        ./common/all.nix
-            ./common/nixos.nix
-            "${workDir}/htl/net-ksn/AA07/http-server.nix"
+            #./users/me/headless.nix
+		        #inputs.home-manager.nixosModules.home-manager
+		        #./common/all.nix
+            #./common/nixos.nix
+            #"${workDir}/htl/net-ksn/AA07/http-server.nix"
       		];
 			};
 
@@ -441,5 +441,8 @@
     home.me = import ./users/me/gui-home.nix;
     top = builtins.mapAttrs (name: value: value.config.system.build.toplevel) (self.nixOnDroidConfigurations // self.nixosConfigurations);
     #nur = let nur-systems = [ "x86_64-linux" "aarch64-linux" ]; in flake-utils.eachDefaultSystem (system: inputs.nixpkgs-unstable.legacyPackages.${system}.callPackage ./nur.nix {});
+    overlays = {
+      static = import ./overlays/static-overlay.nix;
+    };
 	};
 }
