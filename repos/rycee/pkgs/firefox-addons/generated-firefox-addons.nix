@@ -11700,10 +11700,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "23.12.29.0";
+      version = "24.4.7.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4217782/yomitan-23.12.29.0.xpi";
-      sha256 = "6cff708019bd5c53879b3c50ddb6b1f49e842d1c47272c10569041a2d3dbcd60";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4264443/yomitan-24.4.7.0.xpi";
+      sha256 = "2423116c865ee1713af441d154f6ed32d896b50719fc189cf49a530988877244";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
