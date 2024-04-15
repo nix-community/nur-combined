@@ -28,7 +28,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc ''
+        description = ''
           Whether to enable lightdm-webkit2-greeter as the lightdm greeter.
         '';
       };
@@ -36,7 +36,7 @@ in
       debugMode = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc ''
+        description = ''
           Show a context menu on right click, which provides access to developer tools.
         '';
       };
@@ -44,7 +44,7 @@ in
       detectThemeErrors = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc ''
+        description = ''
           Provide an option to load a fallback theme when theme errors are detected.
         '';
       };
@@ -52,7 +52,7 @@ in
       screensaverTimeout = mkOption {
         type = types.int;
         default = 300;
-        description = lib.mdDoc ''
+        description = ''
           Blank the screen after this many seconds of inactivity.
           This only takes effect if launched as a lock-screen (eg. dm-tool lock).
         '';
@@ -61,7 +61,7 @@ in
       secureMode = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc ''
+        description = ''
           Don't allow themes to make remote http requests.
         '';
       };
@@ -70,7 +70,7 @@ in
         format = mkOption {
           type = types.str;
           default = "LT";
-          description = lib.mdDoc ''
+          description = ''
             A moment.js format string so the greeter can generate localized time for display.
 
             See http://momentjs.com/docs/#/displaying/format/ for available options.
@@ -80,7 +80,7 @@ in
         language = mkOption {
           type = types.str;
           default = "auto";
-          description = lib.mdDoc ''
+          description = ''
             Language to use when displaying the time or "auto" to use the system's language.
           '';
         };
@@ -96,7 +96,7 @@ in
             hash = "sha256-TfNhwM8xVAEWQa5bBdv8WlmE3Q9AkpworEDDGsLbR4I=";
           }
         '';
-        description = lib.mdDoc ''
+        description = ''
           Path to webkit theme or name of a builtin theme.
         '';
       };
@@ -106,7 +106,7 @@ in
           type = types.path;
           default = dirOf ldmcfg.background;
           example = literalExpression "\${pkgs.gnome.gnome-backgrounds}/share/backgrounds/gnome";
-          description = lib.mdDoc ''
+          description = ''
             Path to directory that contains background images for use by themes.
           '';
         };
@@ -117,7 +117,7 @@ in
             url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/4f041870efa1a6f0799ef4b32bb7be2cafee7a74/logo/nixos.svg";
             hash = "sha256-E+qpO9SSN44xG5qMEZxBAvO/COPygmn8r50HhgCRDSw=";
           };
-          description = lib.mdDoc ''
+          description = ''
             Path to logo image for use by greeter themes.
           '';
         };
@@ -125,7 +125,7 @@ in
         userImage = mkOption {
           type = types.path;
           default = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          description = lib.mdDoc ''
+          description = ''
             Default user image/avatar. This is used by themes for users that have no .face image.
           '';
         };
