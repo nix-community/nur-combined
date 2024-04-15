@@ -17,4 +17,6 @@
   suyu-dev = pkgs.callPackage ./pkgs/suyu {
     branch = "dev";
   };
+
+  go-hass-agent = pkgs.callPackage ./pkgs/go-hass-agent {};
 }
