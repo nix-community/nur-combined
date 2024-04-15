@@ -1,7 +1,24 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash git jq
+#! /usr/bin/env bash
 
-cd "$(dirname "$0")"/..
+# check dependencies
+required_bins="nix git jq"
+for bin in $required_bins; do
+  if ! command -v $bin >/dev/null; then
+    echo "error: missing dependency: $bin"
+    exit 1
+  fi
+done
+
+# find repo root
+cd "$(dirname "$0")"
+# note: .git can be a file with "git worktree"
+while ! [ -e .git ]; do
+  cd ..
+  if [ "$PWD" == "/" ]; then
+    echo "error: not found repo root"
+    exit 1
+  fi
+done
 
 keep_tempdir=false
 
