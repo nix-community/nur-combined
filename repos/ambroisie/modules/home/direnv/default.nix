@@ -7,9 +7,9 @@ in
     enable = my.mkDisableOption "direnv configuration";
 
     defaultFlake = mkOption {
-      type = types.str;
-      default = "pkgs";
-      example = "nixpkgs";
+      type = with types; nullOr str;
+      default = null;
+      example = "pkgs";
       description = ''
         Which flake from the registry should be used for
         <command>use pkgs</command> by default.
@@ -40,7 +40,7 @@ in
       lib.my.genAttrs' files linkLibFile;
 
     home.sessionVariables = {
-      DIRENV_DEFAULT_FLAKE = cfg.defaultFlake;
+      DIRENV_DEFAULT_FLAKE = lib.mkIf (cfg.defaultFlake != null) cfg.defaultFlake;
     };
   };
 }
