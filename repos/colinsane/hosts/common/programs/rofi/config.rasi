@@ -2,11 +2,13 @@
  * to show keybindings: `rofi -show keys`
  * to show theme config: `rofi -dump-theme`
  * - for live theme switching: `rofi-theme-selector`
+ *
+ * to see <span ...> markup: <https://docs.gtk.org/Pango/pango_markup.html>
  */
 
 configuration {
   modes: "combi";
-  font: "mono 20";
+  font: "sans 19";
   show-icons: true;
   kb-accept-entry: "Return,KP_Enter,XF86PowerOff";
   kb-row-up: "Up,XF86AudioRaiseVolume";
@@ -22,11 +24,14 @@ configuration {
   }
   /* combi-display-format: "{mode} {text}"; */
   /* combi-display-format: "{text}"; */
-  combi-display-format: "{mode}{text}";
+  /* HACK: combi-display-format: "{mode}...</span>" expects `{mode}` to include <span>, allowing each mode to use custom styling */
+  combi-display-format: "{mode}{text}</span>";
   combi-modes: "filebrowser,drun";
 
   drun {
-    display-name: " ";
+    display-name: "<span>";
+    /* icons in /run/current-system/sw/share/icons/Adwaita/16x16/mimetypes */
+    fallback-icon: "application-x-executable";
   }
   drun-use-desktop-cache: true;
 
@@ -35,17 +40,19 @@ configuration {
     /* directory: "/home"; */
 
     /* display-name: text to prepend in combi mode */
-    display-name: "/";
+    display-name: "<span stretch='semicondensed' size='90%'>";
     /* `command` is the prefix to prepend (along with a space) *before* passing it off to `run-command` */
     command: "xdg-open";
     directories-first: true;
     /* sorting-method: name/atime/ctime/mtime */
     sorting-method: "name";
     show-hidden: false;
+    fallback-icon: "application-x-generic";
   }
 
   run {
     display-name: "run ";
+    fallback-icon: "application-x-executable";
   }
   /* launch applications via my own launcher, which directs them through to xdg-desktop-portal */
   run-command: "rofi-run-command '{app_id}.desktop' {cmd}";
@@ -107,11 +114,27 @@ window {
   /* 482px @ font size 20 gives 12 rows + filter */
   /* 446px @ font size 20 gives 11 rows + filter */
   /* 90.5% @ font size 20, sway scale 2.0, moby in landscape mode: gives 7 rows + filter */
-  height: calc(446 min 90.5%);
+  /* 94% @ font size 19, sway scale 2.0, moby in landscape mode: gives 7 rows + filter */
+  /* 465 @ font size 19, sway scale 2.0 gives 11 rows + filter */
+  /* 427 @ font size 19, sway scale 2.0 gives 10 rows + filter */
+  height: calc(429 min 94.0%);
 
   /* anchor the *north* edge of the window at the *north* location of the screen */
   anchor: north;
   location: north;
-  /* 11.2% lines up nicely with Firefox */
-  y-offset: 11.2%;
+  /* 8.2% lines up nicely with Firefox */
+  y-offset: 8.2%;
+
+  /* padding: top right bottom left */
+  padding: 4px 0px 1px 0px;
+}
+element {
+  border: 0;
+  margin: 0.5px;
+  /* padding: top right bottom left */
+  padding: 0 0 0 4px;
+  spacing: 6px;  /* spacing between icon and text */
+}
+element-icon {
+  size: 0.8em;
 }

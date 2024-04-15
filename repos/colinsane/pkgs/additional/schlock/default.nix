@@ -30,6 +30,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-Ot86vALt1kkzbBocwh9drCycbRIw2jMKJU4ODe9PYQM=";
   };
 
+  # wlroots (and thereby sway) no longer supports the outdated zwlr_input_inhibit_manager_v1 protocol.
+  # it was removed 2023/11: <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4440>
+  # in favor of ext-session-lock-v1
+  # - see: <https://wayland.app/protocols/wlr-input-inhibitor-unstable-v1>
+  #
+  # schlock errors if the compositor doesn't support that (for security reasons), but
+  # schlock's approach is fundamentally flawed to begin with: so just patch out that check
+  # until i have a longer-term solution.
+  postPatch = ''
+    substituteInPlace main.c \
+      --replace-fail 'if (!state.input_inhibit_manager)' 'if (false)' \
+      --replace-fail 'zwlr_input_inhibit_manager_v1_get_inhibitor' '// '
+  '';
+
   nativeBuildInputs = [
     copyDesktopItems
     meson

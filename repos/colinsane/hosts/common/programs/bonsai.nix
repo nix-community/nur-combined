@@ -119,7 +119,8 @@ in
     services.bonsaid = {
       description = "bonsai: programmable input dispatcher";
       partOf = [ "graphical-session" ];
-      command = "bonsaid -t ${cfg.config.configFile}";
+      # nice -n -11 chosen arbitrarily. i hope this will allow for faster response to inputs, but without audio underruns (pipewire is -21, dino -15-ish)
+      command = "nice -n -11 bonsaid -t ${cfg.config.configFile}";
       cleanupCommand = "rm -f $XDG_RUNTIME_DIR/bonsai";
     };
   };
