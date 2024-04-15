@@ -39,8 +39,8 @@ in
       in
       lib.my.genAttrs' files linkLibFile;
 
-    home.sessionVariables = {
-      DIRENV_DEFAULT_FLAKE = lib.mkIf (cfg.defaultFlake != null) cfg.defaultFlake;
+    home.sessionVariables = lib.mkIf (cfg.defaultFlake != null) {
+      DIRENV_DEFAULT_FLAKE = cfg.defaultFlake;
     };
   };
 }
