@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation rec {
   pname = "iptux";
-  version = "0.8.4";
+  version = "0.8.5";
 
   src = fetchFromGitHub {
     owner = "iptux-src";
     repo = "iptux";
     rev = "v${version}";
-    hash = "sha256-GdEd/u9t/5kD9U+jNSlT6iYjNs7pPJqu9S6Kvp71OB0=";
+    hash = "sha256-JhmOwSfu1ydl8v+PkORdUOHEdPvqiAhKTCpNT9LF374=";
   };
 
   buildInputs = [
