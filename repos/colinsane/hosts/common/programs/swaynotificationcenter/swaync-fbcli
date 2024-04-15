@@ -2,14 +2,44 @@
 #!nix-shell -i bash -p feedbackd -p procps -p swaynotificationcenter
 
 action="$1"
-shift
-fbcliargs=("$@")
+event="$2"
+
+
+log() {
+  if [ -n "$SWAYNC_FBCLI_DEBUG" ]; then
+    printf "%s\n" "$1"
+  fi
+}
+
+child=
 
 # kill children if killed, to allow that killing this parent process will end the real fbcli call
 cleanup() {
-  echo "aborting fbcli notification (PID $child)"
+  log "aborting fbcli notification (PID $child)"
   pkill -P "$child"
   exit 0  # exit cleanly to avoid swaync alerting a script failure
+}
+
+startInline() {
+  local timeout=
+  case "$event" in
+    phone-incoming-call)
+      timeout=20
+      ;;
+    *)
+      ;;
+  esac
+
+  fbcliArgs=(fbcli --event "$event")
+  if [ -n "$timeout" ]; then
+    fbcliArgs+=(-t "$timeout")
+  fi
+
+  # feedbackd stops playback when the caller exits
+  # and fbcli will exit immediately if it has no stdin.
+  # so spoof a stdin.
+  log "${fbcliArgs[*]}"
+  sleep $((3 + ${timeout:+ + $timeout})) | ${fbcliArgs[@]}
 }
 
 start() {
@@ -22,22 +52,21 @@ start() {
 
   trap cleanup SIGINT SIGQUIT SIGTERM
 
-  # feedbackd stops playback when the caller exits
-  # and fbcli will exit immediately if it has no stdin.
-  # so spoof a stdin.
-  # TODO: this maybe pegs CPU at 100% when receiving a call, and never exits?
-  /bin/sh -c "true | fbcli ${fbcliargs[*]}" &
+  startInline &
   child=$!
   wait
 }
 
 stop() {
-  pkill -e -f "swaync-fbcli start ${fbcliargs[*]}"
+  pkill --echo --signal SIGINT --full "swaync-fbcli(-wrapped)? start $event"
 }
 
 case "$action" in
   start)
     start
+    ;;
+  startInline)
+    startInline  # support this for debugging
     ;;
   stop)
     stop

@@ -175,4 +175,8 @@ in
     LOGIN_RETRIES = 1;
     FAIL_DELAY = 1;  #< delay this long after failed loging before allowing retry
   };
+
+  environment.etc."unl0kr.conf" = lib.mkIf cfg.enabled {
+    source = ./unl0kr.conf;
+  };
 }

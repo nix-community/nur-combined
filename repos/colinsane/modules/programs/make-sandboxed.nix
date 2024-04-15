@@ -39,7 +39,7 @@ let
 
   # take an existing package, which may have a `bin/` folder as well as `share/` etc,
   # and patch the `bin/` items in-place
-  sandboxBinariesInPlace = binMap: sane-sandboxed': extraSandboxArgsStr: pkgName: pkg: pkg.overrideAttrs (unwrapped: {
+  sandboxBinariesInPlace = sane-sandboxed': extraSandboxArgsStr: pkgName: pkg: pkg.overrideAttrs (unwrapped: {
     # disable the sandbox and inject a minimal fake sandboxer which understands that flag,
     # in order to support packages which invoke sandboxed apps in their check phase.
     # note that it's not just for packages which invoke their *own* binaries in check phase,
@@ -61,33 +61,9 @@ let
     ];
 
     postFixup = (unwrapped.postFixup or "") + ''
-      getProfileFromBinMap() {
-        case "$1" in
-          ${builtins.concatStringsSep "\n" (lib.mapAttrsToList
-            (bin: profile: ''
-              (${bin})
-                echo "${profile}"
-              ;;
-            '')
-            binMap
-          )}
-          (*)
-            ;;
-        esac
-      }
       sandboxWrap() {
         local _dir="$1"
         local _name="$2"
-        local _profileFromBinMap="$(getProfileFromBinMap $_name)"
-
-        local _profiles=("$_profileFromBinMap" "$_name" "${pkgName}" "${unwrapped.pname or ""}" "${unwrapped.name or ""}")
-        # filter to just the unique profiles
-        local _profileArgs=(${extraSandboxArgsStr})
-        for _profile in "''${_profiles[@]}"; do
-          if [ -n "$_profile" ] && ! [[ " ''${_profileArgs[@]} " =~ " $_profile " ]]; then
-            _profileArgs+=("--sane-sandbox-profile" "$_profile")
-          fi
-        done
 
         # N.B.: unlike `makeWrapper`, we place the unwrapped binary in a subdirectory and *preserve its name*.
         # the upside of this is that for applications which read "$0" to decide what to do (e.g. busybox, git)
@@ -102,12 +78,8 @@ let
         else
           mv "$_dir/$_name" "$_dir/.sandboxed/"
         fi
-        cat <<EOF >> "$_dir/$_name"
-    #!${runtimeShell}
-    exec ${sane-sandboxed'} \
-    ''${_profileArgs[@]} \
-    "$_dir/.sandboxed/$_name" "\$@"
-    EOF
+        echo '#!${runtimeShell}' > "$_dir/$_name"
+        echo 'exec ${sane-sandboxed'} --sane-sandbox-profile ${pkgName}' "$_dir/.sandboxed/$_name" '"$@"' >> "$_dir/$_name"
         chmod +x "$_dir/$_name"
       }
 
@@ -295,7 +267,7 @@ let
     };
   });
 
-  make-sandboxed = { pkgName, package, wrapperType, binMap ? {}, embedSandboxer ? false, extraSandboxerArgs ? [], passthru ? {} }@args:
+  make-sandboxed = { pkgName, package, wrapperType, embedSandboxer ? false, extraSandboxerArgs ? [], passthru ? {} }@args:
   let
     unsandboxed = package;
     sane-sandboxed' = if embedSandboxer then
@@ -316,7 +288,6 @@ let
     # regardless of which one is chosen here, all other options are exposed via `passthru`.
     sandboxedBy = {
       inplace = sandboxBinariesInPlace
-        binMap
         sane-sandboxed'
         extraSandboxerArgsStr
         pkgName
@@ -324,7 +295,6 @@ let
 
       wrappedDerivation = let
         sandboxedBin = sandboxBinariesInPlace
-          binMap
           sane-sandboxed'
           extraSandboxerArgsStr
           pkgName

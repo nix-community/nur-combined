@@ -41,7 +41,7 @@ let
     else
       let
         makeProfile = pkgs.callPackage ./make-sandbox-profile.nix { };
-        makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { sane-sandboxed = config.sane.sandboxHelper; };
+        makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { sane-sandboxed = config.sane.programs.sane-sandboxed.package; };
 
         # removeStorePaths: [ str ] -> [ str ], but remove store paths, because nix evals aren't allowed to contain any (for purity reasons?)
         removeStorePaths = paths: lib.filter (p: !(lib.hasPrefix "/nix/store" p)) paths;
@@ -107,7 +107,6 @@ let
         makeSandboxedArgs = {
           inherit pkgName package;
           inherit (sandbox)
-            binMap
             embedSandboxer
             wrapperType
           ;
@@ -329,16 +328,6 @@ let
           - "parent" => allow access to the directory containing any file (whether that file exists or not). useful for certain media viewers/library managers.
           - "existingOrParent" => add the path if it exists; if not, add its parent if that exists. useful for programs which create files or directories.
           - "existingFileOrParent" => add the path if it exists and is file-like; if not, add its parent if that exists. useful for programs which create files.
-        '';
-      };
-      sandbox.binMap = mkOption {
-        type = types.attrsOf types.str;
-        default = {};
-        description = ''
-          map binName -> sandboxAs.
-          for example,
-            if the package ships `bin/mpv` and `bin/umpv`, this module might know how to sandbox `mpv` but not `umpv`.
-            then set `sandbox.binMap.umpv = "mpv";` to sandbox `bin/umpv` with the same rules as `bin/mpv`
         '';
       };
       sandbox.capabilities = mkOption {
@@ -610,22 +599,6 @@ in
         set to 0 to get the fastest, but most restrictive build.
       '';
     };
-    sane.sandboxHelper = mkOption {
-      type = types.package;
-      default = pkgs.callPackage ./sane-sandboxed.nix {
-        bubblewrap = cfg.bubblewrap.package;
-        firejail = cfg.firejail.package;
-        landlock-sandboxer = pkgs.landlock-sandboxer.override {
-          # not strictly necessary (landlock ABI is versioned), however when sandboxer version != kernel version,
-          # the sandboxer may nag about one or the other wanting to be updated.
-          linux = config.boot.kernelPackages.kernel;
-        };
-      };
-      description = ''
-        `sane-sandbox` package.
-        exposed to facilitate debugging, e.g. `nix build '.#hostConfigs.desko.sane.sandboxHelper'`
-      '';
-    };
     sane.strictSandboxing = mkOption {
       type = types.enum [ false "warn" "assert" ];
       default = "warn";
@@ -651,7 +624,7 @@ in
       (take (sane-lib.mkTypedMerge take configs))
       {
         environment.pathsToLink = [ "/share/sane-sandboxed" ];
-        environment.systemPackages = [ config.sane.sandboxHelper ];
+        sane.programs.sane-sandboxed.enableFor.system = true;
         # expose the pkgs -- as available to the system -- as a build target.
         system.build.pkgs = pkgs;
       }

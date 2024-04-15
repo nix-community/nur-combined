@@ -58,6 +58,7 @@ let
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
     rtl8723cs-wowlan = callPackage ./additional/rtl8723cs-wowlan { };
     sane-open-desktop = callPackage ./additional/sane-open-desktop { };
+    sane-sandboxed = callPackage ./additional/sane-sandboxed { };
     sane-screenshot = callPackage ./additional/sane-screenshot { };
     sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
     sane-weather = callPackage ./additional/sane-weather { };

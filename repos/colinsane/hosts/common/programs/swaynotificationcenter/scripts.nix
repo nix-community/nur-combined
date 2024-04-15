@@ -28,39 +28,39 @@
   # should also be possible to trigger via any messaging app
   fbcli-test-im = {
     body = "test:message";
-    exec = "swaync-fbcli start --event proxied-message-new-instant";
+    exec = "swaync-fbcli start proxied-message-new-instant";
   };
   fbcli-test-call = {
     body = "test:call";
-    exec = "swaync-fbcli start --event phone-incoming-call -t 20";
+    exec = "swaync-fbcli start phone-incoming-call";
   };
   fbcli-test-call-stop = {
     body = "test:call-stop";
-    exec = "swaync-fbcli stop --event phone-incoming-call -t 20'";
+    exec = "swaync-fbcli stop phone-incoming-call";
   };
 
   incoming-im-known-app-name = {
     # trigger notification sound on behalf of these IM clients.
     app-name = "(Chats|Dino|discord|dissent|Element|Fractal)";
     body = "^(?!Incoming call).*$";  #< don't match Dino Incoming calls
-    exec = "swaync-fbcli start --event proxied-message-new-instant";
+    exec = "swaync-fbcli start proxied-message-new-instant";
   };
   incoming-im-known-desktop-entry = {
     # trigger notification sound on behalf of these IM clients.
     # these clients don't have an app-name (listed as "<unknown>"), but do have a desktop-entry
     desktop-entry = "com.github.uowuo.abaddon";
-    exec = "swaync-fbcli start --event proxied-message-new-instant";
+    exec = "swaync-fbcli start proxied-message-new-instant";
   };
   incoming-call = {
     app-name = "Dino";
     body = "^Incoming call$";
-    exec = "swaync-fbcli start --event phone-incoming-call -t 20";
+    exec = "swaync-fbcli start phone-incoming-call";
   };
   incoming-call-acted-on = {
     # when the notification is clicked, stop sounding the ringer
     app-name = "Dino";
     body = "^Incoming call$";
     run-on = "action";
-    exec = "swaync-fbcli stop --event phone-incoming-call -t 20";
+    exec = "swaync-fbcli stop phone-incoming-call";
   };
 }

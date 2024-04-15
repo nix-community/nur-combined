@@ -95,6 +95,7 @@
     ./rofi
     ./s6-rc.nix
     ./sane-input-handler
+    ./sane-sandboxed.nix
     ./sane-screenshot.nix
     ./sane-scripts.nix
     ./schlock.nix
