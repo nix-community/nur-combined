@@ -47,8 +47,12 @@ let
 
       # firefox requires addons to have an id field when sideloading:
       # - <https://extensionworkshop.com/documentation/publish/distribute-sideloading/>
-      NEW_MANIFEST=$(jq '. + {"applications": { "gecko": { "id": "${extid}" }}, "browser_specific_settings":{"gecko":{"id": "${extid}"}}}' manifest.json)
-      echo "$NEW_MANIFEST" > manifest.json
+      for m in manifest.json manifest_v2.json manifest_v3.json; do
+        if test -e "$m"; then
+          NEW_MANIFEST=$(jq '. + {"applications": { "gecko": { "id": "${extid}" }}, "browser_specific_settings":{"gecko":{"id": "${extid}"}}}' "$m")
+          echo "$NEW_MANIFEST" > "$m"
+        fi
+      done
 
       runHook postPatch
     '';
@@ -65,12 +69,17 @@ let
     '';
   } // args')).overrideAttrs (final: upstream: {
     passthru = (upstream.passthru or {}) // {
+      unwrapped = addon;
       withAttrs = attrs: wrapAddon addon (args // attrs);
       withPostPatch = postPatch: final.passthru.withAttrs { inherit postPatch; };
       # given an addon, repackage it without some `perm`ission
       withoutPermission = perm: final.passthru.withPostPatch ''
-        NEW_MANIFEST=$(jq 'del(.permissions[] | select(. == "${perm}"))' manifest.json)
-        echo "$NEW_MANIFEST" > manifest.json
+        for m in manifest.json manifest_v2.json manifest_v3.json; do
+          if test -e "$m"; then
+            NEW_MANIFEST=$(jq 'del(.permissions[] | select(. == "${perm}"))' "$m")
+            echo "$NEW_MANIFEST" > "$m"
+          fi
+        done
       '';
     };
   });
@@ -116,14 +125,15 @@ in (lib.makeScope newScope (self: with self; {
     browserpass-extension = callPackage ./browserpass-extension { };
     bypass-paywalls-clean = callPackage ./bypass-paywalls-clean { };
     ctrl-shift-c-should-copy = callPackage ./ctrl-shift-c-should-copy { };
+    i-still-dont-care-about-cookies = callPackage ./i-still-dont-care-about-cookies { };
     open-in-mpv = callPackage ./open-in-mpv { };
 
     ether-metamask = fetchVersionedAddon rec {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "11.12.4";
-      hash = "sha256-70elcOd4U+MEfg7IM0FfTBcWoKCKec63wLVdd3emW8M=";
+      version = "11.14.0";
+      hash = "sha256-VXfJndT+MDEPbIJGjyCxdbMtwPRojgxjwQdY59ygZGc=";
     };
     fx_cast = fetchVersionedAddon rec {
       extid = "fx_cast@matt.tf";
@@ -145,8 +155,8 @@ in (lib.makeScope newScope (self: with self; {
       url = let
         versionPrefix = lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version));
       in "https://github.com/mbnuqw/sidebery/releases/download/v${versionPrefix}/sidebery-${version}.xpi";
-      version = "5.2.0.1";
-      hash = "sha256-C6q8X2ZlnDtilQLEj/63SiRkhqnyz4gLp4T7+YhoWwM=";
+      version = "5.2.0.7";
+      hash = "sha256-vbMicJc8c6njx6Rn8TIEktoHSZDzoUr29uX9iFapy0w=";
     };
     sponsorblock = fetchVersionedAddon rec {
       extid = "sponsorBlocker@ajay.app";
@@ -168,8 +178,8 @@ in (lib.makeScope newScope (self: with self; {
       # N.B.: a handful of versions are released unsigned
       # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
       url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-      version = "1.56.1rc2";
-      hash = "sha256-B8YHcl24fYS6dqZHS6xgKx4G1j+ts3DBpySYNA1kcYc=";
+      version = "1.57.3b3";
+      hash = "sha256-mwSikDhqNt7h6CMOowooaxrEpZca62YDmOhmC72K9co=";
     };
   };
 })).overrideScope (self: super:

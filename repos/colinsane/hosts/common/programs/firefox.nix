@@ -207,6 +207,10 @@ in
           package = pkgs.firefox-extensions.i2p-in-private-browsing;
           enable = lib.mkDefault config.services.i2p.enable;
         };
+        i-still-dont-care-about-cookies = {
+          package = pkgs.firefox-extensions.i-still-dont-care-about-cookies;
+          enable = lib.mkDefault true;
+        };
         open-in-mpv = {
           # test: `open-in-mpv 'mpv:///open?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ'`
           package = pkgs.firefox-extensions.open-in-mpv;
