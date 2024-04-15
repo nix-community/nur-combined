@@ -30,6 +30,13 @@ final: prev: rec {
     nativeBuildInputs = [ final.pkg-config ];
     postBuild = "";
     postInstall = "";
+
+    # so i was wondering, why the static proot had so many dependencies in it's closure
+    # because a static binary should have none
+    # found: https://github.com/NixOS/nixpkgs/issues/83667
+    # and: https://github.com/NixOS/nixpkgs/pull/83793
+    # so adding a dev outpt, where the nix-support/propagated-build-inputs should end up
+    outputs = [ "out" "dev" ];
   });
 
 
