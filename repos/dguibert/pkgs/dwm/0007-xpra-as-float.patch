@@ -18,7 +18,7 @@ index bc5be7f..ec2b5b9 100644
 +	{ "Xpra",     NULL,       NULL,       0,            1,           -1 },
  	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
  };
- 
--- 
+
+--
 2.19.2
 

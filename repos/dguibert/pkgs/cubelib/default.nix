@@ -1,22 +1,29 @@
-{ stdenv, fetchurl, zlib, pkgconfig, which, autoreconfHook }:
-
+{
+  stdenv,
+  lib,
+  fetchurl,
+  zlib,
+  pkg-config,
+  which,
+  autoreconfHook,
+}:
 stdenv.mkDerivation {
-  name = "cubelib-4.4.3";
+  name = "cubelib-4.6";
   src = fetchurl {
-    url = "http://apps.fz-juelich.de/scalasca/releases/cube/4.4/dist/cubelib-4.4.3.tar.gz";
-    sha256 = "13bshh315hkpgf1pb8anw7slid24dhz7qp8ab571jdxsln0zmm5w";
+    url = "http://apps.fz-juelich.de/scalasca/releases/cube/4.6/dist/cubelib-4.6.tar.gz";
+    sha256 = "sha256-Nur/p2iNuLkwTJ5Iyl3E7cLLZlOKr0hle5tczXl5OFs=";
   };
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
   postConfigure = ''
-    ${stdenv.lib.optionalString stdenv.cc.isIntel or false ''
-    # remove wrong lib path
-    echo "PATCHING libtool"
-    sed -i.bak -e 's@\(intel-compilers-.*/lib\)\\"@\1@' build-frontend/libtool
+    ${lib.optionalString stdenv.cc.isIntel or false ''
+      # remove wrong lib path
+      echo "PATCHING libtool"
+      sed -i.bak -e 's@\(intel-compilers-.*/lib\)\\"@\1@' build-frontend/libtool
     ''}
   '';
-  nativeBuildInputs = [ pkgconfig which autoreconfHook ];
+  nativeBuildInputs = [pkg-config which autoreconfHook];
   configureFlags = [
-    "${stdenv.lib.optionalString stdenv.cc.isIntel or false "--with-nocross-compiler-suite=intel"}"
+    "${lib.optionalString stdenv.cc.isIntel or false "--with-nocross-compiler-suite=intel"}"
   ];
   enableParallelBuilding = true;
 }

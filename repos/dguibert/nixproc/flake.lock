@@ -1,0 +1,174 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1614513358,
+        "narHash": "sha256-LakhOx3S1dRjnh0b5Dg3mbZyH0ToC9I8Y2wKSkBaTzU=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5466c5bbece17adaab2d82fae80b46e807611bf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1614933464,
+        "narHash": "sha256-SKz9mQlJ32qhj1QVFji6RxWSvMkdgRpgu0skCdy3wqU=",
+        "owner": "dguibert",
+        "repo": "nix",
+        "rev": "8e81b61bdfa72567ba3d39875d5e870fcbb74930",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dguibert",
+        "ref": "pu",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
+    "nix-ccache": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1592238424,
+        "narHash": "sha256-ysTi7+l+dE72ubCYv69S3gUFpzqWR+aI6P2GcXdZPKQ=",
+        "owner": "dguibert",
+        "repo": "nix-ccache",
+        "rev": "edea4b70204980cad6edcea495ec07fd71bc3353",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dguibert",
+        "ref": "pu",
+        "repo": "nix-ccache",
+        "type": "github"
+      }
+    },
+    "nix-processmgmt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1616442910,
+        "narHash": "sha256-9voWNRNJDcy11vZ5Idyj7bYZ7ABrx8u4JKjoPm+IVD4=",
+        "owner": "svanderburg",
+        "repo": "nix-processmgmt",
+        "rev": "d2fbca9208b3790048b7731a2fd78c3447a5e52e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "svanderburg",
+        "repo": "nix-processmgmt",
+        "type": "github"
+      }
+    },
+    "nix-processmgmt-services": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1616334491,
+        "narHash": "sha256-vHuxWttDpD03Pjs5wPTFt3JH8GB5WBF2yAIoJP83Du0=",
+        "owner": "svanderburg",
+        "repo": "nix-processmgmt-services",
+        "rev": "878ea506e0026d617076e2bbeba5a20a3b8e2a6e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "svanderburg",
+        "repo": "nix-processmgmt-services",
+        "type": "github"
+      }
+    },
+    "nixos-rocm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1613957036,
+        "narHash": "sha256-WeKlpE97Ye22i1/YQJxe7+n/4E0UBNhQjTPaq/J54h0=",
+        "owner": "nixos-rocm",
+        "repo": "nixos-rocm",
+        "rev": "188f7d7dc754478c3d2dda4871b67837a90a8e59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos-rocm",
+        "repo": "nixos-rocm",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1614309161,
+        "narHash": "sha256-93kRxDPyEW9QIpxU71kCaV1r+hgOgP6/aVgC7vvO8IU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0e499fde7af3c28d63e9b13636716b86c3162b93",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-20.09-small",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1616263597,
+        "narHash": "sha256-+yU5W3X7Yyn7YPX+1Xy69Fh73PZf8Sxb+I4qsqVUXPg=",
+        "owner": "dguibert",
+        "repo": "nixpkgs",
+        "rev": "8f10a4e9e191141028bfcb4ccf4064790cc4ef31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dguibert",
+        "ref": "pu",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nur_dguibert_envs": {
+      "inputs": {
+        "nix": [
+          "nix"
+        ],
+        "nix-ccache": "nix-ccache",
+        "nixos-rocm": "nixos-rocm",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "envs",
+        "lastModified": 1615994176,
+        "narHash": "sha256-+ncE57YRkU/B5H2/GS/YRiyDhIKus5PpxK2C+dgLWiA=",
+        "type": "git",
+        "url": "file:///home/dguibert/nur-packages?dir=envs"
+      },
+      "original": {
+        "dir": "envs",
+        "type": "git",
+        "url": "file:///home/dguibert/nur-packages?dir=envs"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nix": "nix",
+        "nix-processmgmt": "nix-processmgmt",
+        "nix-processmgmt-services": "nix-processmgmt-services",
+        "nixpkgs": "nixpkgs_2",
+        "nur_dguibert_envs": "nur_dguibert_envs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

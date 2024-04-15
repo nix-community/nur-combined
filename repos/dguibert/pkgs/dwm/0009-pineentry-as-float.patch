@@ -18,7 +18,7 @@ index 3b5fff0..13a4d91 100644
 +	{ "Pinentry",     NULL,       NULL,       0,            1,           -1 },
  	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
  };
- 
--- 
+
+--
 2.19.2
 

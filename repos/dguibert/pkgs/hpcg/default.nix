@@ -1,8 +1,11 @@
-{ stdenv, fetchFromGitHub
-, blas ? openblas, openblas
-, mpi ? openmpi, openmpi
+{
+  stdenv,
+  fetchFromGitHub,
+  blas ? openblas,
+  openblas,
+  mpi ? openmpi,
+  openmpi,
 }:
-
 stdenv.mkDerivation {
   name = "hpcg-3.0.0.45-g5455949";
   src = fetchFromGitHub {
@@ -12,9 +15,9 @@ stdenv.mkDerivation {
     sha256 = "0wf3hdi4y4scc3cphfjfx3ywcakvynf2gkkf2qjhbily9cl2553p";
   };
 
-  buildInputs = [ mpi ];
+  buildInputs = [mpi];
 
-  phases = [ "unpackPhase" "buildPhase" ];
+  phases = ["unpackPhase" "buildPhase"];
   buildPhase = ''
     make arch=Linux_MPI CXX=mpicxx
     mkdir -p $out/bin

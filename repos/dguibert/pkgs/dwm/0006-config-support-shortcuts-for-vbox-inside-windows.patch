@@ -26,6 +26,6 @@ index d4a51be..bc5be7f 100644
  	{ MODKEY,                       XK_Return,    zoom,           {0} },
  	{ MODKEY,                       XK_Tab,       view,           {0} },
  	{ MODKEY|ShiftMask,             XK_c,         killclient,     {0} },
--- 
+--
 2.19.2
 

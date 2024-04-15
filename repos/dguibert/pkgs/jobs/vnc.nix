@@ -1,16 +1,20 @@
-{ pkgs
-, scheduler
+{
+  pkgs,
+  mkJob,
 }:
 with pkgs; {
-  job = scheduler.runJob {
+  job = mkJob {
     name = "vnc-${toString builtins.currentTime}";
-    options = {
-      partition="BDW-14c_edr_128gb_2400"; # to get the same check across partitions
-      time="00:03:00";
-      exclusive=false;
-      ntasks="1";
-    };
-    buildInputs = [ pkgs.tigervnc pkgs.perl pkgs.xorg.xauth pkgs.openssh pkgs.xterm /*pkgs.virtualgl*/ ];
+    buildInputs = [
+      pkgs.tigervnc
+      pkgs.perl
+      pkgs.xorg.xauth
+      pkgs.openssh
+      pkgs.xterm
+      /*
+      pkgs.virtualgl
+      */
+    ];
     script = ''
       ${figlet}/bin/figlet "Node Check"
       set -xuef -o pipefail

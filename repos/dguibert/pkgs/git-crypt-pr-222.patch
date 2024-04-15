@@ -1,0 +1,34 @@
+From 2da5e0016e53aba381046063c24c07f1bee3d824 Mon Sep 17 00:00:00 2001
+From: Morgan Wahl <morgan@addgene.org>
+Date: Thu, 3 Jun 2021 23:27:06 -0400
+Subject: [PATCH] Move internal state dir to 'common' subdir in git path.
+
+---
+ commands.cpp | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/commands.cpp b/commands.cpp
+index 81c401d..f825d7b 100644
+--- a/commands.cpp
++++ b/commands.cpp
+@@ -243,17 +243,17 @@ static std::string get_internal_state_path ()
+ 	std::vector<std::string>	command;
+ 	command.push_back("git");
+ 	command.push_back("rev-parse");
+-	command.push_back("--git-dir");
++	command.push_back("--git-path");
++	command.push_back("common/git-crypt");
+
+ 	std::stringstream		output;
+
+ 	if (!successful_exit(exec_command(command, output))) {
+-		throw Error("'git rev-parse --git-dir' failed - is this a Git repository?");
++		throw Error("'git rev-parse --git-path common/git-crypt' failed - is this a Git repository?");
+ 	}
+
+ 	std::string			path;
+ 	std::getline(output, path);
+-	path += "/git-crypt";
+
+ 	return path;
+ }

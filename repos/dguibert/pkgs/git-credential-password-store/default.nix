@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, gnugrep }:
-
+{
+  stdenv,
+  fetchFromGitHub,
+  gnugrep,
+}:
 stdenv.mkDerivation {
   name = "git-credential-password-store";
   src = fetchFromGitHub {
@@ -10,5 +13,5 @@ stdenv.mkDerivation {
   };
   preBuild = "ln -s GNUmakefile Makefile";
   installFlags = "PREFIX=$(out)";
-  buildInputs = [ gnugrep ];
+  buildInputs = [gnugrep];
 }

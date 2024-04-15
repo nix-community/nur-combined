@@ -25,7 +25,7 @@
 *         accordance with the STREAM Run Rules must be clearly
 *         labelled whenever they are published.  Examples of
 *         proper labelling include:
-*         "tuned STREAM benchmark results" 
+*         "tuned STREAM benchmark results"
 *         "based on a variant of the STREAM benchmark code"
 *         Other comparable, clear and reasonable labelling is
 *         acceptable.
@@ -48,7 +48,7 @@
 * Most of the content is currently hosted at:
 *          http://www.cs.virginia.edu/stream/
 *
-* BRIEF INSTRUCTIONS: 
+* BRIEF INSTRUCTIONS:
 *       0) See http://www.cs.virginia.edu/stream/ref.html for details
 *       1) STREAM requires a timing function called mysecond().
 *          Several examples are provided in this directory.
@@ -64,7 +64,7 @@
 *          that makes each array 4x larger than the last-level cache.
 *          The intent is to determine the *best* sustainable bandwidth
 *          available with this simple coding.  Of course, lower values
-*          are usually fairly easy to obtain on cached machines, but 
+*          are usually fairly easy to obtain on cached machines, but
 *          by keeping the test to the *best* results, the answers are
 *          easier to interpret.
 *          You may put the arrays in common or not, at your discretion.

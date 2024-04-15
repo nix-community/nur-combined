@@ -1,0 +1,7 @@
+https://github.com/NixOS/nix/issues/7265
+
+$ nix build && cat ./result; # Works
+$ rm ./result;
+$ nix develop;
+$ genericBuild;
+bash: /private/tmp/nix-build-whoops-env.drv-0/.attr-1dy8mlivplr3m6ln28k025l0w4ax5kfv4miq9z4qgb1r1xwv0vis: No such file or directory

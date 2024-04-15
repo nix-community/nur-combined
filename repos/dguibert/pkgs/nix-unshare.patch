@@ -1,0 +1,31 @@
+--- a/tests/common.sh.in	2021-08-04 11:55:34.400660961 +0200
++++ b/tests/common.sh.in	2021-08-04 11:57:26.550734269 +0200
+@@ -118,10 +118,6 @@
+   startDaemon
+ }
+
+-if [[ $(uname) == Linux ]] && [[ -L /proc/self/ns/user ]] && unshare --user true; then
+-    _canUseSandbox=1
+-fi
+-
+ isDaemonNewer () {
+   [[ -n "${NIX_DAEMON_PACKAGE:-}" ]] || return 0
+   local requiredVersion="$1"
+@@ -134,8 +130,15 @@
+ }
+
+ canUseSandbox() {
+-    if [[ ! $_canUseSandbox ]]; then
+-        echo "Sandboxing not supported, skipping this test..."
++    if [[ $(uname) != Linux ]]; then return 1; fi
++
++    if [ ! -L /proc/self/ns/user ]; then
++        echo "Kernel doesn't support user namespaces, skipping this test..."
++        return 1
++    fi
++
++    if ! unshare --user true ; then
++        echo "Unprivileged user namespaces disabled by sysctl, skipping this test..."
+         return 1
+     fi
+

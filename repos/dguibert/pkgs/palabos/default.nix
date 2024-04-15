@@ -1,5 +1,7 @@
-{ stdenv, fetchurl }:
-
+{
+  stdenv,
+  fetchurl,
+}:
 stdenv.mkDerivation rec {
   name = "palabos-v2.0r0";
 
@@ -12,6 +14,6 @@ stdenv.mkDerivation rec {
   };
   meta = {
     homepage = "http://www.palabos.org";
-    broken=true;
+    broken = true;
   };
 }

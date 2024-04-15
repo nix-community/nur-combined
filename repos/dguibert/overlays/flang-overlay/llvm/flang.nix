@@ -1,9 +1,21 @@
-{ stdenv, fetchFromGitHub, cmake, clang, openmp, llvm, version, python, flang_src, libpgmath 
-, wrapCC
-}:
-
-let
-  gcc_ = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  clang,
+  openmp,
+  llvm,
+  version,
+  python,
+  flang_src,
+  libpgmath,
+  wrapCC,
+}: let
+  gcc_ =
+    if stdenv.cc.isGNU
+    then stdenv.cc.cc
+    else stdenv.cc.cc.gcc;
   gcc = wrapCC (gcc_.override {
     name = "gcc";
     langFortran = true;
@@ -14,8 +26,8 @@ let
   self = stdenv.mkDerivation {
     name = "flang-${version}";
 
-    buildInputs = [ cmake gcc llvm clang python ];
-    propagatedBuildInputs = [ openmp libpgmath ];
+    buildInputs = [cmake gcc llvm clang python];
+    propagatedBuildInputs = [openmp libpgmath];
 
     NIX_CFLAGS_COMPILE = "-Wno-error=unused-result -Wno-builtin-memcpy-chk-size";
 
@@ -23,7 +35,7 @@ let
 
     cmakeFlags = [
       "-DTARGET_ARCHITECTURE=x86_64" # uname -i
-      "-DTARGET_OS=Linux"            # uname -s
+      "-DTARGET_OS=Linux" # uname -s
       "-DCMAKE_CXX_COMPILER=clang++"
       "-DCMAKE_C_COMPILER=clang"
       "-DCMAKE_Fortran_COMPILER=flang"
@@ -40,19 +52,22 @@ let
 
     enableParallelBuilding = false; # https://github.com/conda-forge/flang-feedstock/issues/4
 
-    passthru = {
-      isClang = true;
-      langFortran = true;
-      inherit llvm;
-    } // stdenv.lib.optionalAttrs stdenv.isLinux {
-      inherit gcc;
-    };
+    passthru =
+      {
+        isClang = true;
+        langFortran = true;
+        inherit llvm;
+      }
+      // lib.optionalAttrs stdenv.isLinux {
+        inherit gcc;
+      };
 
     meta = {
       description = "A fortran frontend for the llvm compiler";
-      homepage    = http://llvm.org/;
-      license     = stdenv.lib.licenses.ncsa;
-      platforms   = stdenv.lib.platforms.all;
+      homepage = http://llvm.org/;
+      license = lib.licenses.ncsa;
+      platforms = lib.platforms.all;
     };
   };
-in self
+in
+  self

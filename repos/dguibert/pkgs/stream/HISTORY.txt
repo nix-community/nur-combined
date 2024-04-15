@@ -13,7 +13,7 @@ Revisions as of Thu Feb 19 08:16:57 CST 2009
 Note that the codes in the "Versions" subdirectory should be
 considered obsolete -- the versions of stream.c and stream.f
 in this main directory include the OpenMP directives and structure
-for creating "TUNED" versions.  
+for creating "TUNED" versions.
 
 Only the MPI version in the "Versions" subdirectory should be
 of any interest, and I have not recently checked that version for
@@ -98,7 +98,7 @@ To clarify:
   * For parallel machines, the wallclock timer is required.
   * For time-shared systems, the cpu timer is more reliable,
         though less accurate.
-    
+
 
 -------------------------------------------------------------------------
 
@@ -111,13 +111,13 @@ Revisions as of Wed Oct 25 09:40:32 EDT 1995
 
     Two timers are provided --- second_cpu.c and second_wall.c
     second_cpu.c measures cpu time, while second_wall.c measures
-    elapsed (real) time.   
+    elapsed (real) time.
 
     For single-user machines, the wallclock timer is preferred.
     For parallel machines, the wallclock timer is required.
     For time-shared systems, the cpu timer is more reliable,
     though less accurate.
-    
+
 (2) cstream.c has been removed -- use stream_d.c
 
 (3) stream_wall.f has been removed --- to do parallel aggregate
@@ -142,11 +142,11 @@ Revisions as of Wed Oct 25 09:40:32 EDT 1995
 
     I expect that I will report just the best number, but
     if there is a serious discrepancy between the reference
-    case and the "best" case, I reserve the right to report 
+    case and the "best" case, I reserve the right to report
     both.
 
     Of course, I also reserve the right to reject any results
     that I do not trust....
 --
-John D. McCalpin, Ph.D.        
+John D. McCalpin, Ph.D.
 john@mccalpin.com

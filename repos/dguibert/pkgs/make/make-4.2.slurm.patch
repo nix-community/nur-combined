@@ -20,11 +20,11 @@
 +    argv = argx;
 +  }
 +  /* END OF SLURM PATCH */
- 
+
    /* Divert child output if we want to capture it.  */
    if (out && out->syncout)
 @@ -2157,6 +2173,8 @@
- 
+
    /* Run the command.  */
    exec_command (argv, envp);
 +

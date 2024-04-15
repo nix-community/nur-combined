@@ -1,23 +1,23 @@
-From ad2d7ffd0875ea52a5426adc01124d9a33be7283 Mon Sep 17 00:00:00 2001
+From 2f84026c06567f170e8131dfaeeb74525aca40b7 Mon Sep 17 00:00:00 2001
 From: David Guibert <david.guibert@gmail.com>
 Date: Mon, 18 Feb 2019 14:31:27 +0100
-Subject: [PATCH 1/3] theme from base16-c_header
+Subject: [PATCH 1/2] theme from base16-c_header
 
 ---
- base16-c_header.h | 28 ++++++++++++++++++++++++++++
- config.def.h      | 35 ++++++++++++++++++-----------------
- 2 files changed, 46 insertions(+), 17 deletions(-)
+ base16-c_header.h | 28 +++++++++++++++++++
+ config.def.h      | 68 ++++++++++++++++++++++++++---------------------
+ 2 files changed, 66 insertions(+), 30 deletions(-)
  create mode 100644 base16-c_header.h
 
 diff --git a/base16-c_header.h b/base16-c_header.h
 new file mode 100644
-index 0000000..e7334a5
+index 0000000..0dd99ea
 --- /dev/null
 +++ b/base16-c_header.h
 @@ -0,0 +1,28 @@
 +/* base16-c_header (https://github.com/m1sports20/base16-c_header)
 + * by Michael Spradling (http://mspradling.com)
-+ * Solarized Light schema by Ethan Schoonover (modified by aramisgithub)
++ * Solarized Dark *Light* schema by Ethan Schoonover (modified by aramisgithub)
 + *
 + * This is a standard c header that can be included in any c project.
 +*/
@@ -25,32 +25,32 @@ index 0000000..e7334a5
 +#ifndef BASE16_COLORS
 +#define BASE16_COLORS
 +
-+static const char base00[] = "#fdf6e3";
-+static const char base01[] = "#eee8d5";
-+static const char base02[] = "#93a1a1";
-+static const char base03[] = "#839496";
-+static const char base04[] = "#657b83";
-+static const char base05[] = "#586e75";
-+static const char base06[] = "#073642";
-+static const char base07[] = "#002b36";
-+static const char base08[] = "#dc322f";
-+static const char base09[] = "#cb4b16";
-+static const char base0A[] = "#b58900";
-+static const char base0B[] = "#859900";
-+static const char base0C[] = "#2aa198";
-+static const char base0D[] = "#268bd2";
-+static const char base0E[] = "#6c71c4";
-+static const char base0F[] = "#d33682";
++static const char base00[] = "#002b36"; //#fdf6e3";
++static const char base01[] = "#073642"; //#eee8d5";
++static const char base02[] = "#586e75"; //#93a1a1";
++static const char base03[] = "#657b83"; //#839496";
++static const char base04[] = "#839496"; //#657b83";
++static const char base05[] = "#93a1a1"; //#586e75";
++static const char base06[] = "#eee8d5"; //#073642";
++static const char base07[] = "#fdf6e3"; //#002b36";
++static const char base08[] = "#dc322f"; //#dc322f";
++static const char base09[] = "#cb4b16"; //#cb4b16";
++static const char base0A[] = "#b58900"; //#b58900";
++static const char base0B[] = "#859900"; //#859900";
++static const char base0C[] = "#2aa198"; //#2aa198";
++static const char base0D[] = "#268bd2"; //#268bd2";
++static const char base0E[] = "#6c71c4"; //#6c71c4";
++static const char base0F[] = "#d33682"; //#d33682";
 +
 +#endif
 diff --git a/config.def.h b/config.def.h
-index 0e01717..ab6bc0c 100644
+index 6f05dce..f990a25 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -1,11 +1,12 @@
  /* See LICENSE file for copyright and license details. */
 +#include "base16-c_header.h"
- 
+
  /*
   * appearance
   *
@@ -59,12 +59,17 @@ index 0e01717..ab6bc0c 100644
 -static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
 +static char *font = "Terminus:pixelsize=14:antialias=true:autohint=true";
  static int borderpx = 2;
- 
+
  /*
-@@ -85,24 +86,24 @@ unsigned int tabspaces = 8;
+@@ -94,41 +95,48 @@ char *termname = "st-256color";
+ unsigned int tabspaces = 8;
+
  /* Terminal colors (16 first used in escape sequence) */
++// /https://raw.githubusercontent.com/aaron-williamson/base16-st/master/colors/base16-solarized-dark-256.h
++// Base16 Solarized Dark dark - simple terminal color setup
++// Ethan Schoonover (modified by aramisgithub)
  static const char *colorname[] = {
- 	/* 8 normal colors */
+-	/* 8 normal colors */
 -	"black",
 -	"red3",
 -	"green3",
@@ -73,16 +78,8 @@ index 0e01717..ab6bc0c 100644
 -	"magenta3",
 -	"cyan3",
 -	"gray90",
-+	base00,
-+	base08,
-+	base0B,
-+	base0A,
-+	base0D,
-+	base0E,
-+	base0C,
-+	base05,
- 
- 	/* 8 bright colors */
+-
+-	/* 8 bright colors */
 -	"gray50",
 -	"red",
 -	"green",
@@ -91,17 +88,57 @@ index 0e01717..ab6bc0c 100644
 -	"magenta",
 -	"cyan",
 -	"white",
-+	base03,
-+	base09,
-+	base01,
-+	base02,
-+	base04,
-+	base06,
-+	base0F,
-+	base07,
- 
++	/* Normal colors */
++	"#002b36", /*  0: Base 00 - Black   */
++	"#dc322f", /*  1: Base 08 - Red     */
++	"#859900", /*  2: Base 0B - Green   */
++	"#b58900", /*  3: Base 0A - Yellow  */
++	"#268bd2", /*  4: Base 0D - Blue    */
++	"#6c71c4", /*  5: Base 0E - Magenta */
++	"#2aa198", /*  6: Base 0C - Cyan    */
++	"#93a1a1", /*  7: Base 05 - White   */
++
++	/* Bright colors */
++	"#657b83", /*  8: Base 03 - Bright Black */
++	"#dc322f", /*  9: Base 08 - Red          */
++	"#859900", /* 10: Base 0B - Green        */
++	"#b58900", /* 11: Base 0A - Yellow       */
++	"#268bd2", /* 12: Base 0D - Blue         */
++	"#6c71c4", /* 13: Base 0E - Magenta      */
++	"#2aa198", /* 14: Base 0C - Cyan         */
++	"#fdf6e3", /* 15: Base 05 - Bright White */
++
++	/* A few more colors */
++
++	"#cb4b16", /* 16: Base 09 */
++	"#d33682", /* 17: Base 0F */
++	"#073642", /* 18: Base 01 */
++	"#586e75", /* 19: Base 02 */
++	"#839496", /* 20: Base 04 */
++	"#eee8d5", /* 21: Base 06 */
+
  	[255] = 0,
- 
--- 
-2.19.2
+
+-	/* more colors can be added after 255 to use with DefaultXX */
+-	"#cccccc",
+-	"#555555",
++	[256] = "#93a1a1", /* default fg: Base 05 */
++	[257] = "#002b36", /* default bg: Base 00 */
+ };
+
+-
+-/*
+- * Default colors (colorname index)
+- * foreground, background, cursor, reverse cursor
+- */
+-unsigned int defaultfg = 7;
+-unsigned int defaultbg = 0;
++// Foreground, background, cursor, and reversed cursor colors
++unsigned int defaultfg = 256;
++unsigned int defaultbg = 257;
+ static unsigned int defaultcs = 256;
+ static unsigned int defaultrcs = 257;
+
+--
+2.30.0
 

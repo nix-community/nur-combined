@@ -14,13 +14,13 @@ index cac01ed..ac3c70f 100644
 @@ -1,4 +1,5 @@
  /* See LICENSE file for copyright and license details. */
 +#include <X11/XF86keysym.h>
- 
+
  /* appearance */
  static const unsigned int borderpx  = 1;        /* border pixel of windows */
 @@ -63,6 +64,11 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn()
  static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
  static const char *termcmd[]  = { "urxvtc", NULL };
- 
+
 +// for pulse compatible //
 +static const char *pulseup[] = { "amixer", "-q", "sset", "Master", "1%+", NULL };
 +static const char *pulsedown[]= { "amixer", "-q", "sset", "Master", "1%-", NULL };
@@ -37,8 +37,8 @@ index cac01ed..ac3c70f 100644
 +        { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = pulsedown } },
 +        { 0,                            XF86XK_AudioMute,        spawn, {.v = pulsetoggle } },
  };
- 
+
  /* button definitions */
--- 
+--
 2.19.2
 

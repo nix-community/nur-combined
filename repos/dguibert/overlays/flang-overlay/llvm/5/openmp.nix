@@ -1,5 +1,15 @@
-{ stdenv, fetchFromGitHub, cmake, llvm, version, perl, python, gfortran, hwloc }:
-
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  llvm,
+  version,
+  perl,
+  python,
+  gfortran,
+  hwloc,
+}:
 stdenv.mkDerivation {
   name = "openmp-${version}";
 
@@ -10,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "0jnhp0lp6xhi18m2bk9qjvnqg80rsaqyp3b6s629xh084bf8ifv4";
   };
 
-  buildInputs = [ cmake llvm perl python gfortran hwloc ];
+  buildInputs = [cmake llvm perl python gfortran hwloc];
 
   cmakeFlags = [
     "-DCMAKE_CXX_FLAGS=-std=c++11"
@@ -24,9 +34,8 @@ stdenv.mkDerivation {
 
   meta = {
     description = "An OpenMP runtime for the llvm compiler";
-    homepage    = http://llvm.org/;
-    license     = stdenv.lib.licenses.ncsa;
-    platforms   = stdenv.lib.platforms.all;
+    homepage = http://llvm.org/;
+    license = lib.licenses.ncsa;
+    platforms = lib.platforms.all;
   };
-
 }

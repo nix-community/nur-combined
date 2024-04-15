@@ -1,79 +1,116 @@
-{ stdenv, fetchurl, fetchpatch, gfortran, perl, libnl
-, rdma-core, zlib, numactl, libevent, hwloc
-, openucx ? null
-, libfabric ? null
+{
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  gfortran,
+  perl,
+  libnl,
+  rdma-core,
+  zlib,
+  numactl,
+  libevent,
+  hwloc,
+  targetPackages,
+  symlinkJoin,
+  libpsm2,
+  libfabric,
+  pmix,
+  ucx,
+  # Enable CUDA support
+  cudaSupport ? false,
+  cudaPackages,
+  # Enable the Sun Grid Engine bindings
+  enableSGE ? false,
+  # Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
+  enablePrefix ? false,
+  # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
+  fabricSupport ? stdenv.isLinux && stdenv.isx86_64,
+  # Enable the Slurm bindings
+  enableSlurm ? true,
+  slurm ? null,
+  lib,
+  openmpi,
+} @ args: let
+  args_ = builtins.removeAttrs args ["lib" "openmpi" "enableSlurm" "slurm" "fetchpatch"];
 
-# Enable the Sun Grid Engine bindings
-, enableSGE ? false
+  openmpi_2_0_2 = lib.upgradeOverride (openmpi.override args_) (oldAttrs: rec {
+    version = "2.0.2";
+    src = with lib.versions;
+      fetchurl {
+        url = "https://www.open-mpi.org/software/ompi/v${major version}.${minor version}/downloads/${oldAttrs.pname}-${version}.tar.gz";
+        #url = "https://download.open-mpi.org/release/open-mpi/v2.0/openmpi-2.0.2.tar.gz";
+        sha256 = "sha256-MpFMxkeA05gAZvO+OSCwKM04HJTRJipVQV/B0AK64KU=";
+      };
+    buildInputs =
+      oldAttrs.buildInputs
+      ++ lib.optionals enableSlurm [
+        slurm
+        /*
+        pmix
+        */
+      ];
+    configureFlags =
+      oldAttrs.configureFlags
+      ++ lib.optionals enableSlurm [
+        "--with-slurm"
+        "--with-pmix=internal"
+        "--enable-mpi-fortran=all"
+        #"--with-hwloc"
+        #"--with-libevent"
+      ];
+  });
 
-# Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
-, enablePrefix ? false
-}:
+  openmpi_4_0_2 = lib.upgradeOverride (openmpi.override args_) (oldAttrs: rec {
+    version = "4.0.2";
+    src = with lib.versions;
+      fetchurl {
+        url = "https://www.open-mpi.org/software/ompi/v${major version}.${minor version}/downloads/${oldAttrs.pname}-${version}.tar.bz2";
+        sha256 = "0ms0zvyxyy3pnx9qwib6zaljyp2b3ixny64xvq3czv3jpr8zf2wh";
+      };
+    buildInputs =
+      oldAttrs.buildInputs
+      ++ lib.optionals enableSlurm [slurm pmix];
+    configureFlags =
+      oldAttrs.configureFlags
+      ++ [
+        "--with-cma"
+        "--enable-mpi-fortran=all"
+      ]
+      ++ lib.optional enableSlurm "--with-slurm --with-pmi=${pmix}"
+      ++ lib.optional (ucx != null) "--enable-mca-no-build=btl-uct";
+  });
 
-let
-  version = "4.0.0";
+  openmpi_4_1_1 = lib.upgradeOverride (openmpi.override args_) (oldAttrs: rec {
+    #openmpi_4_1_1 = lib.upgradeOverride (openmpi) (oldAttrs: rec {
+    version = "4.1.1";
+    src = with lib.versions;
+      fetchurl {
+        url = "https://www.open-mpi.org/software/ompi/v${major version}.${minor version}/downloads/${oldAttrs.pname}-${version}.tar.bz2";
+        sha256 = "1nkwq123vvmggcay48snm9qqmrh0bdzpln0l1jnp26niidvplkz2";
+      };
 
-in stdenv.mkDerivation rec {
-  name = "openmpi-${version}";
+    buildInputs =
+      oldAttrs.buildInputs
+      ++ lib.optionals enableSlurm [
+        slurm
+        /*
+        pmix
+        */
+      ];
+    configureFlags =
+      oldAttrs.configureFlags
+      ++ [
+        "--with-cma"
+        "--enable-mpi-fortran=all"
+      ]
+      ++ lib.optional enableSlurm "--with-slurm --with-pmi=${pmix}"
+      ++ lib.optional (ucx != null) "--enable-mca-no-build=btl-uct";
+  });
 
-  src = with stdenv.lib.versions; fetchurl {
-    url = "http://www.open-mpi.org/software/ompi/v${major version}.${minor version}/downloads/${name}.tar.bz2";
-    sha256 = "0srnjwzsmyhka9hhnmqm86qck4w3xwjm8g6sbns58wzbrwv8l2rg";
+  self = {
+    inherit openmpi_2_0_2;
+    inherit openmpi_4_0_2;
+    inherit openmpi_4_1_1;
   };
-
-  patches = [ (fetchpatch {
-   # Fix a bug that ignores OMPI_MCA_rmaps_base_oversubscribe (upstream patch).
-   # This bug breaks the test from libs, such as scalapack,
-   # on machines with less than 4 cores.
-   url = https://github.com/open-mpi/ompi/commit/98c8492057e6222af6404b352430d0dd7553d253.patch;
-   sha256 = "1mpd8sxxprgfws96qqlzvqf58pn2vv2d0qa8g8cpv773sgw3b3gj";
-  }) ];
-
-  postPatch = ''
-    patchShebangs ./
-  '';
-
-  buildInputs = with stdenv; [ gfortran zlib openucx libfabric ]
-    ++ lib.optionals isLinux [ libnl numactl libevent hwloc ]
-    ++ lib.optional (isLinux || isFreeBSD) rdma-core;
-
-  nativeBuildInputs = [ perl ];
-
-  configureFlags = with stdenv; [ "--disable-mca-dso" ]
-    ++ lib.optional isLinux  "--with-libnl=${libnl.dev}"
-    ++ lib.optional enableSGE "--with-sge"
-    ++ lib.optional enablePrefix "--enable-mpirun-prefix-by-default"
-    ##++ [ "--enable-mpi1-compatibility" ] # to avoid porting libraries (https://www.open-mpi.org/faq/?category=mpi-removed)
-    ;
-
-  # Hack like in
-  # https://oasis3mct.cerfacs.fr/svn/trunk/oasis3-mct/lib/mct/configure
-  # # With Intel ifc, ignore the quoted -mGLOB_options_string stuff (quoted
-  # # $LIBS confuse us, and the libraries appear later in the output anyway).
-  # *mGLOB_options_string*)
-  #   ac_fc_v_output=`echo $ac_fc_v_output | sed 's/"-mGLOB[^"]*"/ /g'` ;;
-  #
-  # but autoconf has a fix in lib/autoconf/fortran.m4 since 2003-10-08
-  # http://www.susaaland.dk/sharedoc/autoconf-2.59/ChangeLog
-  postConfigure = stdenv.lib.optionalString (stdenv.cc.isIntel or false) ''
-    echo "PATCHING config.status"
-    find -name config.status | xargs -n 1 --verbose sed -i -e "s@lib\"'@/lib'@"
-  '';
-
-  enableParallelBuilding = true;
-
-  postInstall = ''
-    rm -f $out/lib/*.la
-   '';
-
-  doCheck = true;
-
-  meta = with stdenv.lib; {
-    homepage = http://www.open-mpi.org/;
-    description = "Open source MPI-3 implementation";
-    longDescription = "The Open MPI Project is an open source MPI-3 implementation that is developed and maintained by a consortium of academic, research, and industry partners. Open MPI is therefore able to combine the expertise, technologies, and resources from all across the High Performance Computing community in order to build the best MPI library available. Open MPI offers advantages for system and software vendors, application developers and computer science researchers.";
-    maintainers = with maintainers; [ markuskowa ];
-    license = licenses.bsd3;
-    platforms = platforms.unix;
-  };
-}
+in
+  self

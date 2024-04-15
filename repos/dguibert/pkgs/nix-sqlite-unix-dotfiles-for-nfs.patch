@@ -1,0 +1,39 @@
+From d4c2001f70310183489540d5c9017028d7d95529 Mon Sep 17 00:00:00 2001
+From: David Guibert <david.guibert@gmail.com>
+Date: Wed, 16 Dec 2020 16:00:04 +0100
+Subject: [PATCH] nix: sqlite unix dotfiles for nfs
+
+---
+ src/libstore/globals.hh | 12 ++++++------
+ src/libstore/sqlite.cc  |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
+index 6b4775683..18c6d6302 100644
+--- a/src/libstore/globals.hh
++++ b/src/libstore/globals.hh
+@@ -204,7 +204,7 @@ public:
+           default is `true`.
+         )"};
+
+-    Setting<bool> useSQLiteWAL{this, !isWSL1(), "use-sqlite-wal",
++    Setting<bool> useSQLiteWAL{this, false /*!isWSL1()*/, "use-sqlite-wal",
+         "Whether SQLite should use WAL mode."};
+
+     Setting<bool> syncBeforeRegistering{this, false, "sync-before-registering",
+diff --git a/src/libstore/sqlite.cc b/src/libstore/sqlite.cc
+index f5935ee5c..0ae2d7dae 100644
+--- a/src/libstore/sqlite.cc
++++ b/src/libstore/sqlite.cc
+@@ -28,7 +28,7 @@ namespace nix {
+ SQLite::SQLite(const Path & path, bool create)
+ {
+     if (sqlite3_open_v2(path.c_str(), &db,
+-            SQLITE_OPEN_READWRITE | (create ? SQLITE_OPEN_CREATE : 0), 0) != SQLITE_OK)
++            SQLITE_OPEN_READWRITE | (create ? SQLITE_OPEN_CREATE : 0), "unix-dotfile") != SQLITE_OK)
+         throw Error("cannot open SQLite database '%s'", path);
+
+     if (sqlite3_busy_timeout(db, 60 * 60 * 1000) != SQLITE_OK)
+--
+2.29.2
+

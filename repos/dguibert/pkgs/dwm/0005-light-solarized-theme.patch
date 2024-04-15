@@ -13,7 +13,7 @@ index ac3c70f..d4a51be 100644
 +++ b/config.def.h
 @@ -2,7 +2,7 @@
  #include <X11/XF86keysym.h>
- 
+
  /* appearance */
 -static const unsigned int borderpx  = 1;        /* border pixel of windows */
 +static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -41,6 +41,6 @@ index ac3c70f..d4a51be 100644
  static const char *colors[][3]      = {
  	/*               fg         bg         border   */
  	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
--- 
+--
 2.19.2
 

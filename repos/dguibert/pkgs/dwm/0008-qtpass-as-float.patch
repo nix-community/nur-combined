@@ -18,7 +18,7 @@ index ec2b5b9..3b5fff0 100644
 +	{ "QtPass",     NULL,       NULL,       0,            1,           -1 },
  	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
  };
- 
--- 
+
+--
 2.19.2
 

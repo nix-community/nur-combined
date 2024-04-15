@@ -1,13 +1,20 @@
-{ stdenvNoCC, runCommand, git, git-annex, fetchurl }:
-
-{ file ? builtins.baseNameOf url
-, repo ? "${builtins.getEnv "HOME"}/nur-packages/downloads"
-, name ? builtins.baseNameOf url
-, recursiveHash ? false
-, sha256
-, url
+{
+  stdenvNoCC,
+  runCommand,
+  git,
+  git-annex,
+  fetchurl,
+  isHydra ? true,
+}: {
+  file ? builtins.baseNameOf url,
+  repo ? "${builtins.getEnv "HOME"}/nur-packages/downloads",
+  name ? builtins.baseNameOf url,
+  recursiveHash ? false,
+  sha256,
+  url,
 }:
-
+/*
+  if isHydra then
 runCommand name ({
   nativeBuildInputs = [ git git-annex ];
 
@@ -28,3 +35,6 @@ runCommand name ({
     fi
 )
 ''
+#else
+*/
+fetchurl {inherit name recursiveHash sha256 url;}

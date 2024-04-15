@@ -1,0 +1,1511 @@
+#+title: DG Emacs Config
+#+author: David Guibert
+#+Description: Personal Emacs config.
+#+startup: showeverything
+#+options: toc:2
+
+* Table of Contents :toc:
+- [[#package-management][Package management]]
+- [[#evil-mode][Evil mode]]
+- [[#general-keybindings][General Keybindings]]
+- [[#ivy-counsel][Ivy (counsel)]]
+- [[#gui-tweaks][Gui Tweaks]]
+  - [[#disable-menubar-toolbars-and-scrollbars][Disable Menubar, Toolbars and Scrollbars]]
+  - [[#turn-off-some-crufty-defaults][Turn off some crufty defaults]]
+  - [[#zooming-inout][Zooming In/Out]]
+- [[#org-mode][Org Mode]]
+  - [[#enabling-table-of-contents][Enabling Table of Contents]]
+  - [[#enabling-org-bullets][Enabling Org Bullets]]
+  - [[#disable-electric-indent][Disable Electric Indent]]
+  - [[#source-code-block-tag-expansion-structure-templates][Source code block tag expansion (structure templates)]]
+- [[#sudo-edit][Sudo edit]]
+- [[#which-key][Which-Key]]
+- [[#raw-configuration-from-initel][Raw configuration from init.el]]
+- [[#server][Server]]
+- [[#org-mode-1][Org-mode]]
+  - [[#org-mode-configuration][org-mode configuration]]
+  - [[#org-attach][Org attach]]
+  - [[#org-id][Org-Id]]
+  - [[#org-caldav][org-caldav]]
+  - [[#org-present][org-present]]
+- [[#theme][Theme]]
+- [[#notmuch][Notmuch]]
+- [[#magit][Magit]]
+- [[#org-roam-note][Org-roam (note)]]
+- [[#denote-note-taking][Denote (note taking)]]
+  - [[#create-note-using-org-capture][Create note using Org capture]]
+  - [[#use-org-dynamic-blocks][Use Org dynamic blocks]]
+  - [[#minibuffer-histories][Minibuffer histories]]
+  - [[#split-an-org-subtree-into-its-own-note][Split an Org subtree into its own note]]
+  - [[#consult-notes][Consult-notes]]
+- [[#terminal][Terminal]]
+  - [[#eat-emulate-a-terminal][Eat (emulate a terminal)]]
+- [[#syntax-modes][syntax modes]]
+- [[#bibtex][Bibtex]]
+
+* Package management
+:PROPERTIES:
+:ID:       692d50dc-6b4e-47bf-b35c-0686ec3cb38c
+:END:
+
+Configure use-package to use system (nix) packages
+inspired from https://www.srid.ca/vanilla-emacs-nixos.html
+#+begin_src emacs-lisp
+(require 'package)
+(setq package-archives nil)
+(require 'use-package)
+#+end_src
+
+Setup use package that must use system packages
+#+begin_src emacs-lisp
+(use-package use-package-ensure-system-package :ensure t)
+#+end_src
+
+Load custom module files from user directory (like: notmuch-switch-identity, notmuch-agenda)
+#+begin_src emacs-lisp
+(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
+#+end_src
+* Evil mode
+#+begin_src emacs-lisp
+  (use-package evil
+    :ensure t
+    :init ;; tweak evil's configuration before loading it
+    (setq
+         evil-search-module 'evil-search
+         evil-vsplit-window-right t
+         evil-split-window-below t
+         evil-want-integration t
+         evil-want-keybinding nil)
+    :config ;; tweak evil after loading it
+    (evil-mode)
+    (evil-set-initial-state 'message-buffer-mode 'normal)
+    (evil-set-initial-state 'dashboard-mode 'normal)
+  )
+(use-package evil-collection
+    :after evil
+    :config
+    (setq evil-collection-mode-list '(dashboard dired ibuffer))
+    (evil-collection-init))
+#+end_src
+* General Keybindings
+#+begin_src emacs-lisp
+  (use-package general
+    :defines dg/leader-keys
+    :config
+    (general-evil-setup)
+    (general-create-definer dg/leader-keys
+      :keymaps '(normal insert visual emacs)
+      :prefix "SPC" ;; set leader
+      :global-prefix "C-SPC") ;; access leader in insert mode
+
+    (dg/leader-keys
+    "." '(find-file :wk "Find file")
+    "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit emacs config")
+    "TAB TAB" '(comment-line :wk "Comment lines"))
+
+  (dg/leader-keys
+    "b" '(:ignore t :wk "buffer")
+    "b b" '(switch-to-buffer :wk "Switch buffer")
+    "b i" '(ibuffer :wk "Ibuffer")
+    "b k" '(kill-this-buffer :wk "Kill this buffer")
+    "b n" '(next-buffer :wk "Next buffer")
+    "b p" '(previous-buffer :wk "Previous buffer")
+    "b r" '(revert-buffer :wk "Reload buffer"))
+
+  (dg/leader-keys
+    "e" '(:ignore t :wk "Evaluate")
+    "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
+    "e d" '(eval-defun :wk "Evaluate defun containing or after point")
+    "e e" '(eval-expression :wk "Evaluate and elisp expression")
+    "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
+    "e r" '(eval-region :wk "Evaluate elisp in region"))
+
+   (dg/leader-keys
+    "h" '(:ignore t :wk "Help")
+    "h f" '(describe-function :wk "Describe function")
+    "h v" '(describe-variable :wk "Describe variable")
+    "h r r" '((lambda () (interactive) (load-file user-init-file)) :wk "Reload emacs config"))
+
+   (dg/leader-keys
+    "t" '(:ignore t :wk "Toggle")
+    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+    "t t" '(visual-line-mode :wk "Toggle truncated lines"))
+)
+#+end_src
+
+* Ivy (counsel)
+
+    Ivy, a generic completion mechanism for Emacs.
+    Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
+    Ivy-rich allows us to add descriptions alongside the commands in M-x.
+
+    #+begin_src emacs-lisp
+(use-package counsel
+  :after ivy
+  :config (counsel-mode))
+
+(use-package ivy
+  :bind
+  ;; ivy-resume resumes the last Ivy-based completion.
+  (("C-c C-r" . ivy-resume)
+   ("C-x B" . ivy-switch-buffer-other-window))
+  :diminish
+  :custom
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq enable-recursive-minibuffers t)
+  :config
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-ignore-order)))
+  (ivy-mode))
+
+(use-package all-the-icons-ivy-rich
+  :init (all-the-icons-ivy-rich-mode 1))
+
+(use-package ivy-rich
+  :after ivy
+  :init (ivy-rich-mode 1) ;; this gets us descriptions in M-x.
+  :custom
+  (ivy-virtual-abbreviate 'full
+                          ivy-rich-switch-buffer-align-virtual-buffer t
+                          ivy-rich-path-style 'abbrev)
+  :config
+  (ivy-set-display-transformer 'ivy-switch-buffer
+                               'ivy-rich-switch-buffer-transformer))
+    #+end_src
+
+* Gui Tweaks
+** Disable Menubar, Toolbars and Scrollbars
+
+#+begin_src emacs-lisp
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+; emacs-nox does not have scroll bars
+(if (boundp 'scroll-bar-mode) (scroll-bar-mode -1) nil)
+#+end_src
+** Turn off some crufty defaults
+:PROPERTIES:
+:ID:       3fc0f504-f1ae-4202-b7ae-e9f77a526fca
+:END:
+
+#+begin_src emacs-lisp
+(setq
+ inhibit-startup-message t inhibit-startup-echo-area-message (user-login-name)
+ initial-major-mode 'fundamental-mode initial-scratch-message nil
+ fill-column 120
+ locale-coding-system 'utf-8
+ )
+
+(setq-default
+ tab-width 2
+ indent-tabs-mode nil
+ )
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+** Zooming In/Out
+
+You can use the bindings CTRL plus =/- for zooming in/out. You can also use CTRL plus the mouse wheel for zooming in/out.
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+#+end_src
+
+* Org Mode
+** Enabling Table of Contents
+
+#+begin_src emacs-lisp
+  (use-package toc-org
+      :commands toc-org-enable
+      :init (add-hook 'org-mode-hook 'toc-org-enable))
+#+end_src
+
+** Enabling Org Bullets
+
+Org-bullets gives us attractive bullets rather than asterisks.
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  (use-package org-bullets
+    :ensure t
+    :after org
+    :hook (org-mode . org-bullets-mode)
+    ;:custom
+    ;(org-bullets-bullet-list '("◉" "○" "●" "►" "•"))
+    )
+#+end_src
+
+** Disable Electric Indent
+
+Org mode source blocks have some really weird and annoying default indentation behavior. I think this has to do with electric-indent-mode, which is turned on by default in Emacs. So let’s turn it OFF!
+
+#+begin_src emacs-lisp
+(electric-indent-mode -1)
+#+end_src
+
+** Source code block tag expansion (structure templates)
+
+Org-tempo is not a separate package but a module within org that can be enabled. Org-tempo allows for ‘<s’ followed by TAB to expand to a begin_src tag.
+#+begin_src emacs-lisp
+  (require 'org-tempo) ; for <s TAB to insert code block
+
+(add-to-list 'org-structure-template-alist '("sh" . "src shell")) ; <sh TAB
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp")) ; <el TAB
+(add-to-list 'org-structure-template-alist '("py" . "src python")) ; <py TAB
+#+end_src
+
+* Sudo edit
+[[https://github.com/nflath/sudo-edit][sudo-edit]] gives us the ability to open files with sudo privileges or switch over to editing with sudo privileges if we initially opened the file without such privileges.
+
+#+begin_src emacs-lisp
+(use-package sudo-edit
+  :config
+    (dg/leader-keys
+      "f u" '(sudo-edit-find-file :wk "Sudo find file")
+      "f U" '(sudo-edit :wk "Sudo edit file")))
+#+end_src
+
+* Which-Key
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :init
+      (which-key-mode 1)
+    :diminish which-key-mode
+    :config
+    (setq which-key-side-window-location 'bottom
+	  which-key-sort-order #'which-key-key-order-alpha
+	  which-key-sort-uppercase-first nil
+	  which-key-add-column-padding 1
+	  which-key-max-display-columns nil
+	  which-key-min-display-lines 6
+	  which-key-side-window-slot -10
+	  which-key-side-window-max-height 0.25
+	  which-key-idle-delay 0.3
+	  which-key-max-description-length 25
+	  which-key-allow-imprecise-window-fit t
+	  which-key-separator " → " ))
+#+end_src
+
+* Raw configuration from init.el
+:PROPERTIES:
+:ID:       7ff82e2a-3d81-4265-80fe-abb14eebf786
+:END:
+#+begin_src emacs-lisp
+
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+  (global-hl-line-mode t)
+  ;;(set-fringe-mode 10) ; Give some breathing room
+
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; Make ESC quit prompts
+
+  ;; Stop creating annoying files
+  (setq
+   make-backup-files nil
+   auto-save-default nil
+   create-lockfiles nil
+   )
+
+  ;; Improved handling of clipboard in GNU/Linux and otherwise.
+  (setq
+   select-enable-clipboard t
+   select-enable-primary t
+   save-interprogram-paste-before-kill t
+   mouse-yank-at-point t
+   )
+
+  (use-package direnv
+    :ensure t
+    :config
+    (add-to-list 'warning-suppress-types '(direnv))
+    (direnv-mode))
+
+  (use-package notmuch-agenda
+    :defer t
+    :ensure nil
+    :commands notmuch-agenda-insert-part)
+
+  (use-package rainbow-delimiters
+    :ensure t
+    :hook (prog-mode . rainbow-delimiters-mode))
+
+  (use-package gnuplot
+    :ensure t)
+
+  ;(require 'cl-lib)
+  ;(setq auto-mode-alist
+  ;      (cl-remove-if (lambda (x) (eq (cdr x) 'git-rebase-mode))
+  ;                    auto-mode-alist))
+  ;  ;; Don't use magit for interactive rebase
+  ;  ;; (has own entire key-map, doesn't allow text-file editing).
+  ;(while (rassoc 'git-rebase-mode auto-mode-alist)
+  ;  (setq auto-mode-alist
+  ;        (assq-delete-all (car (rassoc 'git-rebase-mode auto-mode-alist))
+  ;                         auto-mode-alist)))
+
+  ;(use-package tramp
+  ;  :ensure t
+  ;  :demand t
+  ;  :init
+    (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt")
+  ;  :config
+  ;  ;;(setq tramp-verbose 6)
+  (setq tramp-default-method "sshx")
+  ;;
+    (setq vc-ignore-dir-regexp
+          (format "\\(%s\\)\\|\\(%s\\)"
+            vc-ignore-dir-regexp
+            tramp-file-name-regexp))
+  ;
+    ;; Honor remote PATH.
+    ; (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+    (setq tramp-completion-reread-directory-timeout nil)
+    (setq tramp-default-remote-shell "/bin/bash")
+    (setq tramp-encoding-shell "/bin/bash")
+  ;  ;; Allow ssh connections to persist.
+  ;  ;;
+  ;  ;; This seems to maybe cause tramp to hang a lot.
+  ;  (customize-set-variable 'tramp-use-ssh-controlmaster-options nil)
+  ;  )
+
+  ;(require 'tramp)
+
+  (use-package pdf-tools :ensure t) ;; required for org-noter
+  (use-package org-noter
+    :ensure t
+    :after (:any org pdf-view)
+    :config
+    (setq
+     ;; The WM can handle splits
+     org-noter-notes-window-location 'other-frame
+     ;; Please stop opening frames
+     org-noter-always-create-frame nil
+     ;; I want to see the whole file
+     org-noter-hide-other nil
+     ;; Everything is relative to the main notes file
+     ;org-noter-notes-search-path (list org_notes)
+     )
+    )
+
+  ;;;;;; Actually start using templates
+  ;;(setq org-capture-templates
+  ;;  '(("m" "Email Workflow")
+  ;;    ("mf" "Follow Up" entry (file+olp "~/Documents/roam/Mail.org" "Follow Up")
+  ;;     "* TODO Follow up with %:fromname on %:subject\nSCHEDULED:%t\n%a\n%i" :immediate-finish t)
+  ;;    ("mr" "Read Later" entry (file+olp "~/Documents/roam/Mail.org" "Read Later")
+  ;;     "* TODO Read %:subject\nSCHEDULED:%t\n%a\n\n%i" :immediate-finish t)
+  ;;   ))
+  ;;        ;; Firefox and Chrome
+  ;;                     '("P" "Protocol" entry ; key, name, type
+  ;;                       (file+headline +org-capture-notes-file "Inbox") ; target
+  ;;                       "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"
+  ;;                       :prepend t ; properties
+  ;;                       :kill-buffer t))
+  ;;        (add-to-list 'org-capture-templates
+  ;;                     '("L" "Protocol Link" entry
+  ;;                       (file+headline +org-capture-notes-file "Inbox")
+  ;;                       "* %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n"
+  ;;                       :prepend t
+  ;;                       :kill-buffer t))
+
+  (use-package org-ref
+    :ensure t
+    :config
+    (setq
+     org-ref-completion-library 'org-ref-ivy-cite
+     org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+     org-ref-default-bibliography (list "/home/dguibert/Documents/bib.bib")
+     org-ref-bibliography-notes "/home/dguibert/Documents/notes/bibnotes.org"
+     org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
+     org-ref-notes-directory "/home/dguibert/Documents/notes"
+     org-ref-notes-function 'orb-edit-notes
+     ))
+
+
+(custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(helm-minibuffer-history-key "M-p")
+  )
+
+  ;; support multiple email accounts (required in private.el)
+  (autoload 'gnus-alias-determine-identity "gnus-alias" "" t)
+  (add-to-list 'load-path (expand-file-name "site-lisp" (substitute-in-file-name "$HOME/.emacs.private")))
+  (require 'private nil t) ;; t=no signaling an error
+
+  (savehist-mode 1)
+  (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+
+  (setq ediff-diff-options "-w")
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+  (use-package auctex
+    :defer t
+    :ensure t
+    :config
+    (setq TeX-PDF-mode t))
+
+  ;; move customization variables to a separate file and load it
+  (setq custom-file (expand-file-name "custom-vars.el" user-emacs-directory))
+  (load custom-file 'noerror 'nomessage)
+
+  ;; revert buffers when the underlying file has changed
+  (global-auto-revert-mode 1)
+  ;; revert dired and other buffers
+  (setq golbal-auto-revert-non-file-buffers t)
+
+  (use-package nix-mode
+    :ensure t
+    :mode "\\.nix\\'")
+
+  (use-package yaml-mode
+    :ensure t)
+
+  (use-package shrface
+    :ensure t
+    :defer t
+    :config
+    (shrface-basic)
+    (shrface-trial)
+    (shrface-default-keybindings) ; setup default keybindings
+    (setq shrface-href-versatile t))
+
+  (use-package eww
+    :defer t
+    :init
+    (add-hook 'eww-after-render-hook #'shrface-mode)
+    :config
+    (require 'shrface))
+
+  (use-package request :ensure t)
+
+  (defun request-url-as-org (url)
+    (interactive "sRequest url: ")
+    (require 'shrface)
+    (require 'request)
+    (request url
+      :parser 'buffer-string
+      :headers '(("User-Agent" . "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36"))
+      :sync nil
+      :success (cl-function
+                (lambda (&key data &allow-other-keys)
+                  (let ((shrface-request-url url))
+                    (shrface-html-export-as-org data))))))
+
+#+end_src
+
+* Server
+:PROPERTIES:
+:ID:       c6d3a05c-fb74-40b3-9da9-178479c7d901
+:END:
+#+begin_src emacs-lisp
+  (require 'server)
+  (unless (server-running-p)
+      (server-start))
+#+end_src
+* Org-mode
+:PROPERTIES:
+:ID:       4247b6da-9f64-4732-9eca-7f8c65f96252
+:END:
+** org-mode configuration
+:PROPERTIES:
+:ID:       3e3e1483-e380-4eb8-8ab1-d3a58820c8e7
+:END:
+#+begin_src emacs-lisp
+;; Org Mode Configuration ------------------------------------------------------
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)))
+
+(defun efs/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (visual-line-mode 1))
+
+                                        ; https://emacs.stackexchange.com/a/63562
+(defun ek/babel-ansi ()
+  (when-let ((beg (org-babel-where-is-src-block-result nil nil)))
+    (save-excursion
+      (goto-char beg)
+      (when (looking-at org-babel-result-regexp)
+        (let ((end (org-babel-result-end))
+              (ansi-color-context-region nil))
+          (ansi-color-apply-on-region beg end))))))
+
+(add-hook 'org-babel-after-execute-hook 'ek/babel-ansi)
+
+(defun efs/org-font-setup ()
+    (org-display-inline-images)
+    (setq fill-column 75)
+    (abbrev-mode)
+    (org-indent-mode)
+
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.2)
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :weight 'regular :height (cdr face)))
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+;(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-date nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-footnote nil :inherit 'fixed-pitch)
+nil)
+; https://yannesposito.com/posts/0015-how-i-use-org-mode/index.html
+
+(use-package org :ensure t
+  :hook (org-mode . efs/org-mode-setup)
+  :init
+  ;; Proper code blocks
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+  ;; Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python  . t)
+     (shell   . t)
+                                        ;(C       . t)
+                                        ;(C++     . t)
+                                        ;(fortran . t)
+                                        ;(awk     . t)
+     (gnuplot . t)
+     (latex   . t)
+     (emacs-lisp . t)))
+    ;;; execute block evaluation without confirmation
+  (setq org-latex-listings t)
+                                        ;(setq org-confirm-babel-evaluate nil)
+  (setq org-ellipsis " ▾")
+  ;; Agenda
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  ;; Encoding
+  (setq org-export-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+  (set-charset-priority 'unicode)
+  (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+  ;; Don't allow editing of folded regions
+  (setq org-catch-invisible-edits 'error)
+  ;; Start agenda on Monday
+  (setq org-agenda-start-on-weekday 1)
+  ;; Enable indentation view, does not effect file
+  (setq org-startup-indented t)
+  ;; Attachments
+  (setq org-id-method (quote uuidgen))
+  (setq org-attach-directory "attach/")
+  (efs/org-font-setup)
+
+  :bind
+  (("\C-ca" . org-agenda)
+   ("\C-cl" . org-store-link)
+   ("\C-cc" . org-capture)
+   )
+  :config
+  ;;(org-mode-config)
+  (setq org-extend-today-until 4
+        org-use-effective-time t)
+  (setq org-todo-keywords
+        '((sequence "TODO(t)"
+                    "IN-PROGRESS(p)"
+                    "|"
+                    "DONE(d)"
+                    "HOLD(h@/!)"
+                    "CANCELED(c@/!)"
+                    "HANDLED(l@/!)")
+          (sequence "|" "PAUSE(p)" "CHAT(c)" "EMAIL(e)" "MEETING(m)" "REVIEW(r)" "GEEK(g)")))
+
+    ;;; Look & Feel
+
+  ;; I like to have something different than ellipsis because I often use them
+  ;; myself.
+  ;;(setq org-ellipsis " [+]")
+  (setq org-agenda-files '("~/Documents/roam"))
+  (custom-set-faces '(org-ellipsis ((t (:foreground "gray40" :underline nil)))))
+
+  (setq org-tags-column 69)
+
+  ;; src block indentation / editing / syntax highlighting
+  (setq org-src-fontify-natively t
+        org-src-window-setup 'current-window ;; edit in current window
+        org-src-preserve-indentation t ;; do not put two spaces on the left
+        org-src-tab-acts-natively t)
+
+  ;; *** Templates
+  ;; the %a refer to the place you are in emacs when you make the capture
+  ;; that's very neat when you do that in an email for example.
+  (setq org-capture-templates
+        '(("t" "todo"         entry (file "~/Documents/roam/inbox.org")
+           "* TODO %?\n%U\n- ref :: %a\n")
+          ;; time tracker (clocked tasks)
+          ("g" "geek"         entry (file+olp+datetree "~/Documents/roam/tracker.org")
+           "* GEEK %?         :perso:\n%U\n- ref :: %a\n"
+           :prepend t :tree-type week :clock-in t :clock-keep t)
+          ("c" "chat"         entry (file+olp+datetree "~/Documents/roam/tracker.org")
+           "* CHAT %?         :work:chat:\n%U\n- ref :: %a\n"
+           :prepend t :tree-type week :clock-in t :clock-keep t)
+          ("e" "email"        entry (file+olp+datetree "~/Documents/roam/tracker.org")
+           "* EMAIL %?        :work:email:\n%U\n- ref :: %a\n"
+           :prepend t :tree-type week :clock-in t :clock-keep t)
+          ("m" "meeting"      entry (file+olp+datetree "~/Documents/roam/tracker.org")
+           "* MEETING %?      :work:meeting:\n%U\n- ref :: %a\n"
+           :prepend t :tree-type week :clock-in t :clock-keep t)
+          ("r" "review"       entry (file+olp+datetree "~/Documents/roam/tracker.org")
+           "* REVIEW %?       :work:review:\n%U\n- ref :: %a\n"
+           :prepend t :tree-type week :clock-in t :clock-keep t)
+          ("w" "work"         entry (file+olp+datetree "~/Documents/roam/tracker.org")
+           "* IN-PROGRESS %?  :work:\n%U\n- ref :: %a\n"
+           :prepend t :tree-type week :clock-in t :clock-keep t)
+          ("p" "pause"        entry (file+olp+datetree "~/Documents/roam/tracker.org")
+           "* PAUSE %?        :pause:\n%U\n- ref :: %a\n"
+           :prepend t :tree-type week :clock-in t :clock-keep t)
+          ("i" "interruption" entry (file+olp+datetree "~/Documents/roam/tracker.org")
+           "* IN-PROGRESS %?  :interruption:work:\n%U\n- ref :: %a\n"
+           :prepend t :tree-type week :clock-in t :clock-keep t)
+          ("s" "sport" entry (file+olp+datetree "~/Documents/roam/sport.org")
+           "* %^T %?  :sport:%^g%^{TYPE}p%^{TIME}p%^{DISTANCE}p%^{HEARTRATE}p%^{MAXHEARRATE}p%^{PACE}p"
+           :prepend t :tree-type month :jump-to-captured t)
+          ("S" "sport (planned)" entry (file+olp+datetree "~/Documents/roam/sport.org")
+           "* %^t %?  :sport:%^g%^{TIME}p%^{DISTANCE}p"
+           :prepend t :tree-type month :jump-to-captured t)
+          ("f" "chore"        entry (file "~/Documents/roam/inbox.org")
+           "* IN-PROGRESS %?  :chore:\n%U\n"
+           :clock-in t :clock-keep t)))
+
+  ;; How to create default clocktable
+  (setq org-clock-clocktable-default-properties
+        '(:scope subtree :maxlevel 4 :timestamp t :link t :tags t :narrow 36! :match "work"))
+
+  ;; How to display default clock report in agenda view
+  (setq org-agenda-clockreport-parameter-plist
+        '(:lang "en" :maxlevel 4 :fileskip0 t :link t :indent t :narrow 80!))
+
+  ;; *** Projectile; default TODO file to create in your projects
+  (setq org-projectile-file "inbox.org")
+
+  (setq org-refile-targets
+        '((nil :maxlevel . 5)
+          (org-agenda-files :maxlevel . 5)))
+
+  ;; *** Agenda
+  (setq org-log-into-drawer t) ;; hide the log state change history a bit better
+  (setq org-deadline-warning-days 7)
+  (setq org-habit-show-habits-only-for-today nil)
+  (setq org-habit-graph-column 65)
+  (setq org-duration-format 'h:mm) ;; show hours at max, not days
+  (setq org-agenda-compact-blocks t)
+  ;; default show today
+  (setq org-agenda-span 'day)
+                                        ;(setq org-agenda-start-day "-0d")
+                                        ; (setq org-agenda-start-on-weekday nil)
+  (setq org-agenda-window-setup 'only-window)
+
+  ;; ** Org Annotate
+
+  ;; Ability to take annotate some files, can of double usage with org-capture.
+  ;; Still, I keep that keyboard shortcut here.
+  ;; (evil-leader/set-key "oa" 'org-annotate-file)
+  (setq org-annotate-file-storage-file "~/Documents/roam/annotations.org")
+
+  ;; ** Org colums
+  ;; Can be nice sometime to have that column view
+  ;; give a felling of Excel view
+  (setq org-columns-default-format
+        "%TODO %3PRIORITY %40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM %8TAGS(TAG)")
+
+  ;; Org Babel
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(;; other Babel languages
+     (shell . t)
+     ;;(http . t) ; require ob-http
+     (clojure . t)
+     (haskell . t)
+     (plantuml . t) ;; UML graphs
+     (gnuplot . t)))
+  (setq org-plantuml-jar-path "~/bin/plantuml.jar")
+
+  (defun get-image-width (fname)
+    "Returns the min of image width and window width, unless :width
+  is defined in an attr_org line."
+    (let* ((link (save-match-data (org-element-context)))
+           (paragraph (let ((e link))
+                        (while (and (setq e (org-element-property
+                                             :parent e))
+                                    (not (eq (org-element-type e)
+                                             'paragraph))))
+                        e))
+           (attr_org (org-element-property :attr_org paragraph))
+           (pwidth (plist-get
+                    (org-export-read-attribute :attr_org  paragraph) :width))
+           (width (when pwidth (string-to-number pwidth)))
+           open
+           img-buf)
+
+      (unless width
+        (setq open (find-buffer-visiting fname)
+              img-buf (or open (find-file-noselect fname))
+              width (min (window-width nil :pixels)
+                         (car (image-size (with-current-buffer img-buf (image-get-display-property)) :pixels))))
+
+        (unless open (kill-buffer img-buf)))
+      width))
+
+  (defun around-image-display (orig-fun file width)
+    (apply orig-fun (list file (get-image-width file))))
+
+  (advice-add 'org--create-inline-image :around #'around-image-display)
+  )
+
+;; *** Refile mapped to SPC y o r
+;;(map! :leader :desc "org-refile" "y o r" #'org-refile)
+;;(map! :leader "y o c" #'org-columns)
+(dg/leader-keys
+  "yor" #'org-refile
+  "yoc" #'org-columns
+  "X" #'org-capture
+                                        ;X ;; capture a new task, write a description, the n C-c C-c, save that in tracker.org
+                                        ;mco ;; stop clock on that task, if you capture a new time tracking tasks you don't need to clock-out
+  "mco" #'org-clock-out
+                                        ;no;; jump to current time tracked tasks
+  "no" #'org-clock-goto
+                                        ;q ;;add/remove tags to that task
+  "yt" #'org-agenda-set-tags
+  )
+
+(use-package org-mime
+  :ensure t)
+
+(use-package ob-async
+  :ensure t
+  :config
+  ;; 2022-10-22 cperl: A workaround for :async not working
+  ;; sometimes as described at
+  ;; https://github.com/astahlman/ob-async/issues/75
+  (defun no-hide-overlays (orig-fun &rest args)
+    (setq org-babel-hide-result-overlays nil))
+  (advice-add 'ob-async-org-babel-execute-src-block :before #'no-hide-overlays))
+
+(use-package org-super-agenda
+  :ensure t
+  :after org-agenda
+  :custom (org-super-agenda-groups
+           '( ;; Each group has an implicit boolean OR operator between its selectors.
+             (:name "Overdue" :deadline past :order 0)
+             (:name "Evening Habits" :and (:habit t :tag "evening") :order 8)
+             (:name "Habits" :habit t :order 6)
+             (:name "Today" ;; Optionally specify section name
+                    :time-grid t  ;; Items that appear on the time grid (scheduled/deadline with time)
+                    :order 3)     ;; capture the today first but show it in order 3
+             (:name "Low Priority" :priority "C" :tag "maybe" :order 7)
+             (:name "Due Today" :deadline today :order 1)
+             (:name "Important"
+                    :and (:priority "A" :not (:todo ("DONE" "CANCELED")))
+                    :order 2)
+             (:name "Due Soon" :deadline future :order 4)
+             (:name "Todo (not habit)" :not (:habit t) :order 5)
+             (:todo "TODO" :order 6)
+             (:name "Waiting" :todo ("WAITING" "HOLD") :order 9)))
+  (org-agenda nil "a")
+  :config
+  (setq org-super-agenda-header-map nil)
+  (org-super-agenda-mode t))
+
+(use-package ol-notmuch :ensure t)
+
+(use-package org-contrib :ensure t)
+(require 'org-collector)
+
+
+#+end_src
+** Org attach
+#+begin_src emacs-lisp
+(use-package org-attach-screenshot
+  :bind (("C-c i" . org-attach-screenshot))
+  :config
+  (setq org-attach-screenshot-command-line "screenshot %f")
+  )
+#+end_src
+** Org-Id
+#+begin_src emacs-lisp
+(use-package org-id-cleanup)
+#+end_src
+
+** org-caldav
+#+begin_src emacs-lisp
+(use-package org-caldav
+ :config
+    (setq org-caldav-inbox "~/org/cal_inbox.org")
+	  (setq org-caldav-calendar-id "calendar")
+	  (setq org-caldav-url "http://localhost:1080/users/david.guibert@atos.net")
+	  (setq org-caldav-files '("~/org/calendar.org"))
+    (setq org-caldav-save-directory "~/org")
+    (setq org-caldav-debug-level 2)
+)
+  (defun my/caldav-sync-perso ()
+    "Sync my local calendar in ~/org/calendar.org with my remote calendar"
+    (interactive)
+    (let ((org-caldav-inbox "~/org/cal_inbox.org")
+	  (org-caldav-calendar-id "calendar")
+	  (org-caldav-url "http://localhost:1080/users/david.guibert@atos.net")
+	  (org-caldav-files '("~/org/calendar.org")))
+      (call-interactively 'org-caldav-sync)))
+#+end_src
+** org-present
+#+begin_src emacs-lisp
+(use-package hide-mode-line)
+(use-package visual-fill-column)
+(use-package org-present)
+(eval-after-load "org-present"
+  '(progn
+     (add-hook 'org-present-mode-hook
+               (lambda ()
+(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background . 90))
+                 (setq visual-fill-column-width 210)
+                 (setq visual-fill-column-center-text t)
+                 (visual-fill-column-mode 1)
+                 (visual-line-mode 1)
+                 (hide-mode-line-mode 1)
+                 (setq header-line-format " ")
+                 (org-display-inline-images) ;; can also use org-starup-with-inline-images
+                 (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
+                                                    (header-line (:height 4.0) variable-pitch)
+                                                    (org-document-title (:height 4.0) org-document-title)
+                                                    (org-code (:height 1.55) org-code)
+                                                    (org-verbatim (:height 1.55) org-verbatim)
+                                                    ;(org-block (:height 1.25) org-block)
+                                                    (org-block-begin-line (:height 0.7) org-block)))
+;; https://emacs.stackexchange.com/questions/19880/font-size-control-of-latex-previews-in-org-files
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+                 ;(org-present-big)
+                 (org-display-inline-images)
+                 (org-present-hide-cursor)
+                 (org-present-read-only)))
+     (add-hook 'org-present-mode-quit-hook
+               (lambda ()
+(set-frame-parameter nil 'alpha-background 100)
+(add-to-list 'default-frame-alist '(alpha-background . 100))
+                 ;; reset font customizations
+                 (setq-local face-remapping-alist '((default variable-pitch default)))
+;; https://emacs.stackexchange.com/questions/19880/font-size-control-of-latex-previews-in-org-files
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))
+                 ;; stop centering the presentation
+                 (visual-fill-column-mode 0)
+                 (visual-line-mode 0)
+                 (hide-mode-line-mode 0)
+                 (setq header-line-format nil)
+                 (org-present-small)
+                 (org-remove-inline-images)
+                 (org-present-show-cursor)
+                 (org-present-read-write)))))
+#+end_src
+
+#+begin_src emacs-lisp
+(defun my/org-present-prepare-slide (buffer-name heading)
+  ;; Show only top-level headlines
+  (org-overview)
+
+  ;; Unfold the current entry
+  (org-show-entry)
+
+  ;; Show only direct subheadings of the slide but don't expand them
+  (org-show-children))
+(add-hook 'org-present-after-navigate-functions 'my/org-present-prepare-slide)
+#+end_src
+
+#+begin_src emacs-lisp
+(dg/leader-keys
+  "s s" '(org-present :wk "launch org-present")
+  "<left>" '(org-present-prev :wk "org-present-prev")
+  "<right>" '(org-present-next :wk "org-present-next"))
+#+end_src
+* Theme
+:PROPERTIES:
+:ID:       867c0c49-54ce-4c0f-b62a-95dd2cfb90b9
+:END:
+#+begin_src emacs-lisp
+;(add-to-list 'default-frame-alist
+;	       '(font . "Hack Nerd Font Mono-12"))
+; https://emacs.stackexchange.com/questions/3912/force-using-fixed-width-font-in-org-mode
+(setq solarized-use-variable-pitch nil
+      solarized-scale-org-headlines nil)
+
+(use-package all-the-icons
+:if (display-graphic-p)
+)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode .(lambda() (all-the-icons-dired-mode t))))
+
+(use-package doom-themes
+  :ensure t
+  :after all-the-icons
+  :config
+  (setq
+   doom-themes-enable-bold t
+   doom-themes-enable-italic t)
+  ;(load-theme 'doom-vibrant t)
+  ;(load-theme 'doom-solarized-light t)
+  (load-theme 'doom-solarized-dark t)
+  ;(if (boundp 'scroll-bar-mode)
+  ;  (load-theme 'doom-solarized-dark t)
+  ;  (load-theme 'doom-solarized-light t)
+  ;  )
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+#+end_src
+
+* Notmuch
+:PROPERTIES:
+:ID:       b8e0e65f-8d33-40ec-bf9d-51d8cd052c62
+:END:
+#+begin_src emacs-lisp
+  (use-package notmuch
+    :ensure t
+    :init
+    ;(setq message-directory "~/Maildir")
+    (setq send-mail-function 'sendmail-send-it)
+    ;; Send from correct email account
+    (setq message-sendmail-f-is-eval 't)
+    ; sendmail: cannot use both --from and --read-envelope-from
+    ;(setq message-sendmail-extra-arguments '("--read-envelope-from"))
+    (setq mail-specify-envelope-from 't)
+    (setq mail-envelope-from 'header)
+    (setq message-sendmail-envelope-from 'header)
+    ;; Setting proper from, fixes i-did-not-set--mail-host-address--so-tickle-me
+    (setq mail-host-address "orsin.net")
+    (setq user-full-name "David Guibert")
+    :bind
+    (:map notmuch-search-mode-map
+     ("d" . (lambda() "mark message as deleted" (interactive) (notmuch-search-add-tag (list "+deleted" "-inbox"))))
+     ("u" . notmuch-mark-read)
+     ("i" . notmuch-mark-inbox)
+     ("g" . notmuch-refresh-this-buffer)
+     ("@" . notmuch-search-person)
+     :map notmuch-show-mode-map
+     ("d" . (lambda ()
+        "toggle deleted tag for message"
+        (interactive)
+        (if (member "deleted" (notmuch-show-get-tags))
+            (notmuch-show-tag (list "-deleted"))
+          (notmuch-show-tag (list "+deleted" "-inbox")))))
+     ("U" . notmuch-mark-read)
+     ("u" . notmuch-skip-to-unread)
+     )
+    :custom
+    (notmuch-search-oldest-first nil)
+    (notmuch-saved-searches
+     '((:name "unread" :query "tag:inbox and tag:unread")
+       (:name "action" :query "tag:action")
+       (:name "waiting" :query "tag:waiting")
+       (:name "respond" :query "tag:respond")
+       (:name "inbox" :query "tag:inbox" :key "i")
+       (:name "flagged" :query "tag:flagged" :key "f")
+       (:name "drafts" :query "tag:draft" :key "d")
+       (:name "all mail" :query "*" :key "a")
+       (:name "recent"
+              :query "date:\"this week\""
+              :key "r"
+              )))
+    ;(notmuch-identities
+    ; '("David Guibert <david.guibert@gmail.com>"))
+    (notmuch-fcc-dirs
+     '(("david.guibert@gmail.com" . "david.guibert@gmail.com/mail -unread +sent")))
+    ;(notmuch-draft-folders
+    ; '(("david\\.guibert@gmail\\.com" . "david.guibert/mail +draft")))
+
+    (notmuch-address-selection-function
+     (lambda
+       (prompt collection initial-input)
+       (completing-read prompt collection nil nil nil
+                        (quote notmuch-address-history))))
+    :config
+    (dg/leader-keys
+      "m m" #'notmuch
+    )
+    (setq notmuch-show-logo nil)
+    ;; Writing email
+    ;;(setq message-default-mail-headers "Cc: \nBcc: \n") ;; Always show BCC
+    (setq notmuch-always-prompt-for-sender 't)
+    ;; postponed message is put in the following draft directory
+    (setq message-auto-save-directory "~/Maildir/draft")
+    (setq message-kill-buffer-on-exit t)
+    ;; change the directory to store the sent mail
+    ;(setq message-directory "~/mail/")
+    ;;; PGP Encryption
+    ;(add-hook 'message-setup-hook 'mml-secure-sign-pgpmime)
+    ;(setq notmuch-crypto-process-mime t)
+    ;; Saving sent mail in folders depending on from
+    (require 'org-mime)
+
+    (defun notmuch-mark-read ()
+      (interactive)
+      (notmuch-toggle-tag '("unread") t))
+
+    (defun notmuch-search-person ()
+      (interactive)
+      (let* ((options (notmuch-address-options ""))
+             (choice (ivy-completing-read
+                      "Person: "
+                      options
+                      nil
+                      nil
+                      ;; (plist-get  :authors)
+                      "" ;; TODO get author email addresses here? or stick them at the start?
+                      )))
+        (when choice
+          (notmuch-search (format "from: %s or to:%s" choice choice)))))
+
+    (defun notmuch-toggle-tag (tags advance)
+      (let* ((cur-tags
+              (cl-case major-mode
+                (notmuch-search-mode
+                 (notmuch-search-get-tags))
+
+                (notmuch-show-mode
+                 (notmuch-show-get-tags))))
+             (action (if (cl-intersection cur-tags tags :test 'string=) "-" "+"))
+       (arg (mapcar (lambda (x) (concat action x)) tags)))
+
+        (cl-case major-mode
+          (notmuch-search-mode
+           (notmuch-search-tag arg)
+           (when advance (notmuch-search-next-thread)))
+          (notmuch-show-mode
+           (notmuch-show-tag arg)
+           (when advance (notmuch-show-next-matching-message))))))
+
+    (defun notmuch-mark-inbox ()
+      (interactive)
+      (notmuch-toggle-tag '("inbox") t))
+
+    (defun notmuch-mark-read ()
+      (interactive)
+      (notmuch-toggle-tag '("unread") t))
+
+    (defun notmuch-expand-calendar-parts (o msg part depth &optional hide)
+      (funcall o
+               msg part depth (and hide
+                                   (not (string= (downcase (plist-get part :content-type))
+                                                 "text/calendar")))))
+
+    (advice-add 'notmuch-show-insert-bodypart :around #'notmuch-expand-calendar-parts)
+
+    (fset 'notmuch-show-insert-part-text/calendar #'notmuch-agenda-insert-part)
+
+    (require 'notmuch-switch-identity)
+
+  )
+
+#+end_src
+
+This code means to attach all marked dired "normal" files to a new message buffer if none exist or add attachments to an existing message buffer:
+Open dired buffer with `C-x 4 d`
+#+begin_src emacs-lisp
+(defun compose-attach-marked-files ()
+  "Compose mail and attach all the marked files from a dired buffer."
+  (interactive)
+  (let ((files (dired-get-marked-files)))
+    (compose-mail nil nil nil t)
+    (dolist (file files)
+          (if (file-regular-p file)
+              (mml-attach-file file
+                               (mm-default-file-encoding file)
+                               nil "attachment")
+            (message "skipping non-regular file %s" file)))))
+#+end_src
+
+* Magit
+:PROPERTIES:
+:ID:       99e7efb4-7af3-4d2f-a97e-4ebaca3501b1
+:END:
+#+begin_src emacs-lisp
+  (use-package magit
+    :ensure t
+    :custom
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+    ;; Don't use magit for interactive rebase
+    ;; (has own entire key-map, doesn't allow text-file editing).
+    (setq auto-mode-alist (rassq-delete-all #'git-rebase-mode auto-mode-alist))
+    )
+
+  (use-package forge
+    :ensure t
+    :after magit)
+#+end_src
+
+* Org-roam (note)
+#+begin_src emacs-lisp
+  ; https://rgoswami.me/posts/org-note-workflow/
+  ; https://lucidmanager.org/productivity/taking-notes-with-emacs-org-mode-and-org-roam/
+  (use-package org-roam
+    :ensure t
+    :demand t  ;; Ensure org-roam is loaded by default
+    :init
+    (setq org-roam-v2-ack t)
+    :custom
+    (org-roam-directory "~/Documents/roam")
+    (org-roam-completion-everywhere t)
+    (org-roam-dailies-capture-templates
+     '(("d" "default" entry "* %<%I:%M %p>: %?"
+               :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+    (org-roam-capture-templates
+     '(("d" "default" plain
+        "%?"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+        :unnarrowed t)
+       ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+        :unnarrowed t)
+       ("b" "book notes" plain (file "~/Documents/roam/templates/BookNoteTemplate.org")
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+         :unnarrowed t)
+       ))
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n i" . org-roam-node-insert)
+           ("C-c n I" . org-roam-node-insert-immediate)
+           ("C-c n p" . my/org-roam-find-project)
+           ("C-c n t" . my/org-roam-capture-task)
+           ("C-c n b" . my/org-roam-capture-inbox)
+           :map org-mode-map
+           ("C-M-i" . completion-at-point)
+           :map org-roam-dailies-map
+           ("Y" . org-roam-dailies-capture-yesterday)
+           ("T" . org-roam-dailies-capture-tomorrow))
+    :bind-keymap
+    ("C-c n d" . org-roam-dailies-map)
+    :config
+    (setq org-roam-verbose nil  ; https://youtu.be/fn4jIlFwuLU
+          org-roam-buffer-no-delete-other-windows t ; make org-roam buffer sticky
+          )
+    (require 'org-roam-dailies) ;; Ensure the keymap is available
+                                          ;(org-roam-db-autosync-mode)
+    (org-roam-setup))
+
+  (defun org-roam-node-insert-immediate (arg &rest args)
+    (interactive "P")
+    (let ((args (push arg args))
+          (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                    '(:immediate-finish t)))))
+      (apply #'org-roam-node-insert args)))
+
+  (defun my/org-roam-filter-by-tag (tag-name)
+    (lambda (node)
+      (member tag-name (org-roam-node-tags node))))
+
+  (defun my/org-roam-list-notes-by-tag (tag-name)
+    (mapcar #'org-roam-node-file
+            (seq-filter
+             (my/org-roam-filter-by-tag tag-name)
+             (org-roam-node-list))))
+
+;  (defun my/org-roam-refresh-agenda-list ()
+;    (interactive)
+;    (setq org-agenda-files (list "~/Documents/roam/")))
+;  ;        (delq nil (delete-dups
+;  ;                   (my/org-roam-list-notes-by-tag "Project")))))
+;
+;  ;; Build the agenda list the first time for the session
+;  (my/org-roam-refresh-agenda-list)
+
+  (defun my/org-roam-project-finalize-hook ()
+    "Adds the captured project file to `org-agenda-files' if the
+  capture was not aborted."
+    ;; Remove the hook since it was added temporarily
+    (remove-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+    ;; Add project file to the agenda list if the capture was confirmed
+    (unless org-note-abort
+      (with-current-buffer (org-capture-get :buffer)
+        (add-to-list 'org-agenda-files (buffer-file-name)))))
+
+  (defun my/org-roam-find-project ()
+    (interactive)
+    ;; Add the project file to the agenda after capture is finished
+    (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+    ;; Select a project file to open, creating it if necessary
+    (org-roam-node-find
+     nil
+     nil
+     (my/org-roam-filter-by-tag "Project")
+     :templates
+     '(("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
+        :unnarrowed t))))
+
+  (defun my/org-roam-capture-inbox ()
+    (interactive)
+    (org-roam-capture- :node (org-roam-node-create)
+                       :templates '(("i" "inbox" plain "* %?"
+                                     :if-new (file+head "inbox.org" "#+title: Inbox\n")))))
+
+  (defun my/org-roam-capture-task ()
+    (interactive)
+    ;; Add the project file to the agenda after capture is finished
+    (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+    ;; Capture the new task, creating the project file if necessary
+    (org-roam-capture- :node (org-roam-node-read
+                              nil
+                              (my/org-roam-filter-by-tag "Project"))
+                       :templates '(("p" "project" plain "** TODO %?"
+                                     :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                            "#+title: ${title}\n#+category: ${title}\n#+filetags: Project"
+                                                            ("Tasks"))))))
+
+  (use-package org-roam-bibtex
+    :ensure t
+    :after (org-roam)
+    :hook (org-roam-mode . org-roam-bibtex-mode)
+    :config
+    (setq org-roam-bibtex-preformat-keywords
+          '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
+    (setq orb-templates
+          '(("r" "ref" plain (function org-roam-capture--get-point)
+             ""
+             :file-name "${slug}"
+             :head "#+TITLE: ${=key=}: ${title}\n#+ROAM_KEY: ${ref}
+
+  - tags ::
+  - keywords :: ${keywords}
+
+  \n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n  :NOTER_PAGE: \n  :END:\n\n"
+
+             :unnarrowed t))))
+#+end_src
+* Denote (note taking)
+:PROPERTIES:
+:ID:       9d837c97-2026-45f0-a3b1-f861b7f186c4
+:END:
+https://protesilaos.com/emacs/denote
+[[https://www.youtube.com/watch?v=mLzFJcLpDFI][Emacs: introduction to Denote (simple note-taking)]]
+
+#+begin_src emacs-lisp
+(use-package denote
+  :ensure t
+  :config
+  (setq
+   denote-directory (expand-file-name "~/Documents/denotes/")
+   denote-known-keywords '("project" "testing" "emacs" "denote")
+   denote-file-type nil ;; default Org
+   )
+  (add-hook 'dired-mode-hook #'denote-dired-mode)
+  (dg/leader-keys
+    "n" '(:ignore t :wk "Denote")
+    "n n" #'denote
+    "n c" #'denote-open-or-create
+    "n N" #'denote-type
+    "n d" #'denote-date
+    "n z" #'denote-signature ; "zettelkasten" mnemonic
+    "n s" #'denote-subdirectory
+    "n t" #'denote-template
+    ;; If you intend to use Denote with a variety of file types, it is
+    ;; easier to bind the link-related commands to the `global-map', as
+    ;; shown here.  Otherwise follow the same pattern for `org-mode-map',
+    ;; `markdown-mode-map', and/or `text-mode-map'.
+    "n i" #'denote-link ; "insert" mnemonic
+    "n I" #'denote-add-links
+    "n b" #'denote-backlinks
+    "n f f" #'denote-find-link
+    "n f b" #'denote-find-backlink
+    ;; Note that `denote-rename-file' can work from any context, not just
+    ;; Dired bufffers.  That is why we bind it here to the `global-map'.
+    "n r" #'denote-rename-file
+    "n R" #'denote-rename-file-using-front-matter
+    )
+  )
+
+(use-package citar
+  :custom
+  (citar-bibliography '("~/Documents/bib.bib"
+                        "~/Documents/biblio/biblio.bib"
+                        "~/Documents/cv/dguibert.bib"
+                        )))
+
+(use-package citar-denote)
+(citar-denote-mode)
+#+end_src
+
+** Create note using Org capture
+
+For integration with org-capture, the user must first add the relevant template. Such as:
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org-capture
+  (add-to-list 'org-capture-templates
+               '("N" "New note (with Denote)" plain
+               (file denote-last-path)
+               (function
+                (lambda ()
+                  (denote-org-capture-with-prompts :title :keywords :subdirectory)))
+                 :no-save t
+                 :immediate-finish nil
+                 :kill-buffer t
+                 :jump-to-captured t)))
+#+end_src
+
+** Use Org dynamic blocks
+
+Denote can optionally integrate with Org mode’s “dynamic blocks” facility. Start by loading the relevant library:
+
+#+begin_src emacs-lisp
+;; Register Denote's Org dynamic blocks
+(require 'denote-org-extras)
+#+end_src
+
+These two types of blocks are named denote-links and denote-backlinks respectively. The latter does not accept any parameters, while the former does, which we explain below by also demonstrating how dynamic blocks are written.
+
+A dynamic block looks like this:
+
+#+BEGIN: denote-links :regexp "_journal"
+
+#+END:
+
+Depending on one’s workflow, the dynamic block can be instructed to list only those links which are missing from the current buffer (similar to denote-add-missing-links). Adding the :missing-only parameter with a non-nil value achieves this effect.
+
+** Minibuffer histories
+#+begin_src emacs-lisp
+(require 'savehist)
+(setq savehist-file (locate-user-emacs-file "savehist"))
+(setq history-length 1000)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history t)
+(add-hook 'after-init-hook #'savehist-mode)
+#+end_src
+
+** Split an Org subtree into its own note
+
+With Org files in particular, it is common to have nested headings which could be split off into their own standalone notes. In Org parlance, an entry with all its subheadings is a “subtree”. With the following code, the user places the point inside the heading they want to split off and invokes the command my-denote-org-extract-subtree. It will create a note using the heading’s text and tags for the new file. The contents of the subtree become the contents of the new note and are removed from the old one.
+
+#+begin_src emacs-lisp
+(defun my-denote-org-extract-subtree (&optional silo)
+  "Create new Denote note using current Org subtree.
+Make the new note use the Org file type, regardless of the value
+of `denote-file-type'.
+
+With an optional SILO argument as a prefix (\\[universal-argument]),
+ask user to select a SILO from `my-denote-silo-directories'.
+
+Use the subtree title as the note's title.  If available, use the
+tags of the heading are used as note keywords.
+
+Delete the original subtree."
+  (interactive
+   (list (when current-prefix-arg
+           (completing-read "Select a silo: " my-denote-silo-directories nil t))))
+  (if-let ((text (org-get-entry))
+           (heading (org-get-heading :no-tags :no-todo :no-priority :no-comment)))
+      (let ((element (org-element-at-point))
+            (tags (org-get-tags))
+            (denote-user-enforced-denote-directory silo))
+        (delete-region (org-entry-beginning-position)
+                       (save-excursion (org-end-of-subtree t) (point)))
+        (denote heading
+                tags
+                'org
+                nil
+                (or
+                 ;; Check PROPERTIES drawer for :created: or :date:
+                 (org-element-property :CREATED element)
+                 (org-element-property :DATE element)
+                 ;; Check the subtree for CLOSED
+                 (org-element-property :raw-value
+                                       (org-element-property :closed element))))
+        (insert text))
+    (user-error "No subtree to extract; aborting")))
+#+end_src
+
+** Consult-notes
+#+begin_src emacs-lisp
+(use-package consult-notes
+  :commands (consult-notes
+             consult-notes-search-in-all-notes
+             ;; if using org-roam
+             consult-notes-org-roam-find-node
+             consult-notes-org-roam-find-node-relation)
+  :config
+  (setq consult-notes-file-dir-sources
+        '(("Org"              ?o "~/Documents/roam")
+          ("Denote"        ?n "~/Documents/notes")
+          ("Work"           ?w "~/work/notes")))
+  (consult-notes-org-headings-mode)
+  (when (locate-library "denote")
+    (consult-notes-denote-mode))
+  ;; search only for text files in denote dir
+  (setq consult-notes-denote-files-function (function denote-directory-text-only-files)))
+#+end_src
+
+* Terminal
+** Eat (emulate a terminal)
+#+begin_src emacs-lisp
+(use-package eat
+  :config
+  (eat-eshell-mode)
+  (setq eshell-visualcommands '())
+)
+#+end_src
+
+* syntax modes
+#+begin_src emacs-lisp
+(use-package cmake-mode :ensure t)
+(use-package dockerfile-mode :ensure t)
+
+
+#+end_src
+
+* Bibtex
+Emacs bibtex-mode uses templates to add new entries. To add a reference, use the bibtex-entry function (C-c C-b). Use the minibuffer completion to select the relevant type. Emacs also provides a shortcut for each type of literature. To see a list of possible entry types, use the C-c C-e ? keyboard shortcut.
+
+ You can also use bibtex-fill-entry function (C-c C-q) to align the text. The table below summarises the most salient keyboard shortcuts and functions available in bibtex-mode.
+
+See [[https://lucidmanager.org/productivity/emacs-bibtex-mode/][Manage your literature with Emacs BibTeX Mode]] for more details.
+
+BibTeX is old but stable software that was last updated in 1988 and has as such some minor limitations. The BibLaTeX dialect is a newer version. To change bibtex-mode to BibLaTeX, change the bibtex-dialect variable in the configuration to biblatex.
+#+begin_src emacs-lisp
+(use-package bibtex
+    :custom
+    (bibtex-dialect 'BibTeX)
+    (bibtex-user-optional-fields
+     '(("keywords" "Keywords to describe the entry" "")
+       ("file" "Link to document file." ":")))
+    (bibtex-align-at-equal-sign t))
+#+end_src

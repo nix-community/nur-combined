@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+declare -A UPDATE
+UPDATE[default]=true
+
+usage() { echo "$0 usage:" && grep " -.*) \#" $0; }
+options=$(getopt -o h --long update:,no-update: -- "$@")
+[ $? -eq 0 ] || {
+  usage
+  exit 1
+}
+
+eval set -- "$options"
+while true; do
+  case "$1" in
+    -h|--help) # display this message
+      usage; exit 0
+      ;;
+    --update)
+      shift
+      UPDATE[$1]=true
+      ;;
+    --no-update)
+      shift
+      UPDATE[$1]=false
+      ;;
+    --)
+      shift
+      break
+      ;;
+  esac
+  shift
+done
+
+set -xuef -o pipefail
+
+git-is-merged () {
+  merge_destination_branch=$1
+  merge_source_branch=$2
+
+  #git merge-base --is-ancestor $merge_source_branch $merge_destination_branch && echo "merged" || echo "not merged"
+  git merge-base --is-ancestor $merge_source_branch $merge_destination_branch && return 0 || return 1
+}
+
+set -eux -o pipefail
+
+if ${UPDATE[master]:-${UPDATE[default]}}; then
+    git checkout master
+    nix flake lock --update-input nixpkgs --commit-lock-file
+    mr push
+fi
+
+if ${UPDATE[spartan]:-${UPDATE[default]}}; then
+    git checkout host/spartan
+    git-is-merged host/spartan master || git merge master
+    (
+        nix run --no-write-lock-file .#nix -- nix flake lock --update-input upstream --commit-lock-file
+    )
+fi
+
+if ${UPDATE[levante]:-${UPDATE[default]}}; then
+    git checkout host/levante || git checkout -b host/levante master
+    git-is-merged host/levante master || git merge master
+    (
+        nix run --no-write-lock-file .#nix -- nix flake lock --update-input upstream --commit-lock-file
+    )
+fi
+
+if ${UPDATE[lumi]:-${UPDATE[default]}}; then
+    git checkout host/lumi || git checkout -b host/lumi master
+    git-is-merged host/lumi master || git merge master
+    (
+        nix run --no-write-lock-file .#nix -- nix flake lock --update-input upstream --commit-lock-file
+    )
+fi
+
+if ${UPDATE[host]:-${UPDATE[default]}}; then
+    git checkout host/default || git checkout -b host/default master
+    git-is-merged host/default master || git merge master
+    (
+        nix run --no-write-lock-file .#nix -- nix flake lock --update-input upstream --commit-lock-file
+    )
+fi
+
+git checkout master

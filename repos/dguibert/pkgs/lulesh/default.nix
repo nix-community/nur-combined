@@ -1,9 +1,11 @@
-{ stdenv, fetchFromGitHub
-, openmpi
-, mpi ? openmpi
-, suffix ? ""
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  openmpi,
+  mpi ? openmpi,
+  suffix ? "",
 }:
-
 stdenv.mkDerivation {
   name = "lulesh-2.0.3";
 
@@ -14,15 +16,15 @@ stdenv.mkDerivation {
     sha256 = "0w3lsds2h812zni5z9blpfj4gfadz9n0727qnjf5q60sf6ps96l3";
   };
 
-  buildInputs = [ mpi ];
+  buildInputs = [mpi];
 
   configurePhase = ''
-    ${stdenv.lib.optionalString stdenv.cc.isIntel or false ''
-    export MACHINE=-xCORE-AVX2
-    make MPICXX="mpiicpc -DUSE_MPI=1" SERCXX="icpc -DUSE_MPI=0" CXXFLAGS="-g -O3 $MACHINE -qopenmp -I. -Wall" LDFLAGS="-g -O3 $MACHINE -qopenmp"
+    ${lib.optionalString stdenv.cc.isIntel or false ''
+      export MACHINE=-xCORE-AVX2
+      make MPICXX="mpiicpc -DUSE_MPI=1" SERCXX="icpc -DUSE_MPI=0" CXXFLAGS="-g -O3 $MACHINE -qopenmp -I. -Wall" LDFLAGS="-g -O3 $MACHINE -qopenmp"
     ''}
-    ${stdenv.lib.optionalString stdenv.cc.isGNU or false ''
-    make MPICXX="mpicxx -DUSE_MPI=1" SERCXX="g++ -DUSE_MPI=0" CXXFLAGS="-g -O3 -fopenmp -I. -Wall" LDFLAGS="-g -O3 -fopenmp"
+    ${lib.optionalString stdenv.cc.isGNU or false ''
+      make MPICXX="mpicxx -DUSE_MPI=1" SERCXX="g++ -DUSE_MPI=0" CXXFLAGS="-g -O3 -fopenmp -I. -Wall" LDFLAGS="-g -O3 -fopenmp"
     ''}
   '';
   installPhase = ''

@@ -1,0 +1,13 @@
+diff --git a/src/libstore/local-store.cc b/src/libstore/local-store.cc
+index 46e8138b..d8779bd9 100644
+--- a/src/libstore/local-store.cc
++++ b/src/libstore/local-store.cc
+@@ -458,6 +458,8 @@ static void canonicalisePathMetaData_(const Path & path, uid_t fromUid, InodesSe
+             /* Ignore SELinux security labels since these cannot be
+                removed even by root. */
+             if (eaName == "security.selinux") continue;
++            if (eaName == "lustre.lov") continue;
++            if (eaName == "system.nfs4_acl") continue;
+             if (lremovexattr(path.c_str(), eaName.c_str()) == -1)
+                 throw SysError("removing extended attribute '%s' from '%s'", eaName, path);
+         }

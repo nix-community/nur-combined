@@ -5,7 +5,7 @@ index 94d426b..37f7794 100644
 @@ -333,6 +333,21 @@ int main(int argc, char **argv) {
      ActiveIncludeOption = "-I" + ActiveIncludeDir;
    }
- 
+
 +  /// Nix-specific multiple-output handling: override ActiveLibDir if --link-shared
 +  if (!IsInDevelopmentTree) {
 +    bool WantShared = true;

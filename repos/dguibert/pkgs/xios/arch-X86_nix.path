@@ -8,7 +8,7 @@ MPI_LIB=""
 
 HDF5_INCDIR=""
 HDF5_LIBDIR=""
-HDF5_LIB=""
+HDF5_LIB="-lhdf5"
 
 BOOST_INCDIR="-I@boost@/include"
 BOOST_LIBDIR=""

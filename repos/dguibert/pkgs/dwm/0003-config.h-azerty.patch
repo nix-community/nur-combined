@@ -13,7 +13,7 @@ index 2d824d1..cac01ed 100644
 +++ b/config.def.h
 @@ -48,7 +48,7 @@ static const Layout layouts[] = {
  };
- 
+
  /* key definitions */
 -#define MODKEY Mod1Mask
 +#define MODKEY Mod4Mask
@@ -26,7 +26,7 @@ index 2d824d1..cac01ed 100644
  static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 -static const char *termcmd[]  = { "st", NULL };
 +static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
- 
+
  static Key keys[] = {
 -	/* modifier                     key        function        argument */
 -	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -97,8 +97,8 @@ index 2d824d1..cac01ed 100644
 +	TAGKEYS(                        XK_ccedilla,                  8)
 +	{ MODKEY|ShiftMask,             XK_q,         quit,           {0} },
  };
- 
+
  /* button definitions */
--- 
+--
 2.19.2
 
