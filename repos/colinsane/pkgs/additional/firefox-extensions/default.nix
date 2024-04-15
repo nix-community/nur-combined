@@ -127,6 +127,7 @@ in (lib.makeScope newScope (self: with self; {
     ctrl-shift-c-should-copy = callPackage ./ctrl-shift-c-should-copy { };
     i-still-dont-care-about-cookies = callPackage ./i-still-dont-care-about-cookies { };
     open-in-mpv = callPackage ./open-in-mpv { };
+    sidebery = callPackage ./sidebery { };
 
     ether-metamask = fetchVersionedAddon rec {
       extid = "webextension@metamask.io";
@@ -148,15 +149,6 @@ in (lib.makeScope newScope (self: with self; {
       url = "https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/${version}/i2ppb@eyedeekay.github.io.xpi";
       version = "1.49";
       hash = "sha256-LnR5z3fqNJywlr/khFdV4qloKGQhbxNZQvWCEgz97DU=";
-    };
-    sidebery = fetchVersionedAddon rec {
-      extid = "{3c078156-979c-498b-8990-85f7987dd929}";
-      pname = "sidebery";
-      url = let
-        versionPrefix = lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version));
-      in "https://github.com/mbnuqw/sidebery/releases/download/v${versionPrefix}/sidebery-${version}.xpi";
-      version = "5.2.0.7";
-      hash = "sha256-vbMicJc8c6njx6Rn8TIEktoHSZDzoUr29uX9iFapy0w=";
     };
     sponsorblock = fetchVersionedAddon rec {
       extid = "sponsorBlocker@ajay.app";
