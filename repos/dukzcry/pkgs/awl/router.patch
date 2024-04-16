@@ -74,7 +74,7 @@ index 22a1cea..fc94b36 100644
  	} else {
 -		copy(data.Src, senderIP)
 -		copy(data.Dst, d.localIP)
-+		// assumes both peers have same network configuration
++		// assumes both peers have the same ipNet definition
 +		if network.Contains(data.Src) {
 +			copy(data.Src, senderIP)
 +		}
