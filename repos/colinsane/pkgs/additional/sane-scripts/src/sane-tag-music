@@ -3,6 +3,32 @@
 #
 # mutagen docs:
 # - <https://mutagen.readthedocs.io/en/latest/>
+"""
+tool which runs over a complete music library or a subset of it and:
+- detect tags which are missing or likely incorrect
+- write new tags to existing media
+  - new tags are specified manually (--artist, --album, ...)
+  - OR determined via file path
+
+this tool does NOT move or rename files. it only edits tags.
+
+USAGE: cd MUSIC_LIBRARY_TOP && sane-tag-music [--dry-run] [options] DIRECTORY [DIRECTORY ...]
+
+scans DIRECTORY and guesses artist/album/title for each track, based on path relative to pwd.
+if the guessed tags look more correct than the existing tags (i.e. if the existing file is missing a tag),
+then this updates the tags on-disk to reflect their path.
+
+DIRECTORY: specify `.` to scan the entire library.
+
+options:
+--dry-run: only show what would be done, don't actually do it.
+--force: apply path-based tag to each file, even those which already have tags.
+--verbose
+  --album ALBUM           manually specify the tag, rather than guessing from path.
+  --album-artist ARTIST   often combined with DIRECTORY to tag an entire artist or album.
+  --artist ARTIST
+  --tile TITLE
+"""
 
 from dataclasses import dataclass
 
@@ -230,7 +256,6 @@ class Tags:
             parse_track(comps[1])
 
         return tags
-
 
 
 class AudioFile:
