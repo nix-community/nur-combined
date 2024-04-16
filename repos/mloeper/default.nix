@@ -40,4 +40,5 @@ rec {
   openvpn3-indicator = pkgs.callPackage ./pkgs/openvpn3-indicator {
     openvpn3 = openvpn3; # we use our custom openvpn3 package which is a bump v20 -> v21
   };
+  nodejs_20_11_1 = pkgs.callPackage ./pkgs/nodejs { };
 }

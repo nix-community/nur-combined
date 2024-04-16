@@ -17,7 +17,7 @@ jobs:
           - nesto
         nixPath:
           # sync this revision with flake.lock input nixpkgs in nesto-nixos
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/c757e9bd77b16ca2e03c89bf8bc9ecb28e0c06ad.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/2726f127c15a4cc9810843b96cad73c7eb39e443.tar.gz
           - nixpkgs=channel:nixpkgs-unstable
     runs-on: ubuntu-latest
     steps:
