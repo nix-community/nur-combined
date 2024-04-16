@@ -8,6 +8,7 @@
   brotli,
   gd,
   git,
+  liburing,
   libxcrypt,
   libxml2,
   libxslt,
@@ -25,6 +26,11 @@ let
   patchUseOpensslMd5Sha1 = fetchurl {
     url = "https://github.com/kn007/patch/raw/master/use_openssl_md5_sha1.patch";
     sha256 = "1db5mjkxl6vxg4pic4v6g8bi8q9v5psj8fbjmjls1nfvxpz6nhvr";
+  };
+
+  patchUring = fetchurl {
+    url = "https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_io_uring.patch";
+    sha256 = "1cgpnhyd2kfqvh32yap651snvq1qvxc1cxvyrjc0vvxcw38d14p8";
   };
 
   patchNixEtag = substituteAll {
@@ -49,6 +55,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     brotli
     gd
+    liburing
     libxcrypt
     libxml2
     libxslt
@@ -86,6 +93,7 @@ stdenv.mkDerivation rec {
       ${patch ./patches/nginx-plain-proxy.patch}
       ${patch patchNixEtag}
       ${patch ./patches/nix-skip-check-logs-path.patch}
+      ${patch patchUring}
       sed -i 's#"/usr/include/libxml2"#"${libxml2.dev}/include/libxml2"#g' auto/lib/libxslt/conf
       popd
 
