@@ -999,10 +999,10 @@
     };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
-      version = "1.9";
+      version = "1.10.1";
       addonId = "CanvasBlocker@kkapsner.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4097901/canvasblocker-1.9.xpi";
-      sha256 = "5248c2c2dedd14b8aa2cd73f9484285d9453e93339f64fcf04a3d63c859cf3d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262820/canvasblocker-1.10.1.xpi";
+      sha256 = "dae3b648f0b559b8b08cdad8adaaba2fcde3aa7baf0ffe9b2cbca5a3373c98b7";
       meta = with lib;
       {
         homepage = "https://github.com/kkapsner/CanvasBlocker/";
@@ -1694,10 +1694,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.82";
+      version = "4.9.83";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4260787/darkreader-4.9.82.xpi";
-      sha256 = "df2e0c5498c08caa8452cd21f627d6dce0b2251047602ab2417c2e1dd7350697";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262984/darkreader-4.9.83.xpi";
+      sha256 = "a43cca2449de202d17040b0d91b2fb3ed4dd58ac81ec5d3fde4c9940d326c822";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1797,10 +1797,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240408.174943";
+      version = "126.0.20240415.141835";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261982/deutsch_de_language_pack-125.0.20240408.174943.xpi";
-      sha256 = "92f29896bc33217cbfd2736b099056089de88f2370c03173feedd9827e95399f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4264872/deutsch_de_language_pack-126.0.20240415.141835.xpi";
+      sha256 = "e8570f97663c53c423e5daa4e00c0663efc5266437bd2e3d1024f843260482a9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2737,10 +2737,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240408.174943";
+      version = "126.0.20240415.141835";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262059/francais_language_pack-125.0.20240408.174943.xpi";
-      sha256 = "0c14725b4327e2e01f64d3d2d50dbc7d2688f65799112bf3a9e28f63e0e696a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4264897/francais_language_pack-126.0.20240415.141835.xpi";
+      sha256 = "0c72da9c55dadba351d9da07a0b3cb1f82a7ac6d9f4d5f73fe906c448b1415fd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7491,10 +7491,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.4.5";
+      version = "2024.4.7";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4263809/pakkujs-2024.4.5.xpi";
-      sha256 = "1db9b7833035109ec9706a1170c40a9647d94330638c4a714a7054608820f54c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4265110/pakkujs-2024.4.7.xpi";
+      sha256 = "e5e4a8c68ade1a0229026f78bfa22cdf1fc92a1e76e705636a046e9cc39bbb35";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -7504,6 +7504,7 @@
           "notifications"
           "storage"
           "contextMenus"
+          "scripting"
           "declarativeNetRequestWithHostAccess"
           "*://*.bilibili.com/*"
           "https://www.bilibili.com/robots.txt?pakku_sandbox"
@@ -10170,10 +10171,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.12";
+      version = "4.0.13";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4260305/tree_style_tab-4.0.12.xpi";
-      sha256 = "e6ac13b311a251e47238c8eb0e07779f2e10d6b782be879126bd83c219813bd8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262807/tree_style_tab-4.0.13.xpi";
+      sha256 = "85b2e86f316080f955897340f5eabb8cd0ffae752eea769f637a282e6f6bb951";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
