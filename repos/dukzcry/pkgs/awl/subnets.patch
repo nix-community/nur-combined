@@ -1,0 +1,116 @@
+diff --git a/service/tunnel.go b/service/tunnel.go
+index 81ce29f..74cc11b 100644
+--- a/service/tunnel.go
++++ b/service/tunnel.go
+@@ -8,6 +8,7 @@ import (
+ 	"net"
+ 	"sync"
+ 	"time"
++	"os"
+ 
+ 	"github.com/anywherelan/awl/config"
+ 	"github.com/anywherelan/awl/protocol"
+@@ -21,6 +22,8 @@ const (
+ 	packetHandlersChanCap = 200
+ )
+ 
++var routerAddr = os.Getenv("AWL_ROUTER")
++
+ type Tunnel struct {
+ 	p2p          P2p
+ 	conf         *config.Config
+@@ -29,9 +32,11 @@ type Tunnel struct {
+ 	peersLock    sync.RWMutex
+ 	peerIDToPeer map[peer.ID]*VpnPeer
+ 	netIPToPeer  map[string]*VpnPeer
++	network      *net.IPNet
+ }
+ 
+ func NewTunnel(p2pService P2p, device *vpn.Device, conf *config.Config) *Tunnel {
++	ip, mask := conf.VPNLocalIPMask()
+ 	tunnel := &Tunnel{
+ 		p2p:          p2pService,
+ 		conf:         conf,
+@@ -39,6 +44,7 @@ func NewTunnel(p2pService P2p, device *vpn.Device, conf *config.Config) *Tunnel
+ 		logger:       log.Logger("awl/service/tunnel"),
+ 		peerIDToPeer: make(map[peer.ID]*VpnPeer),
+ 		netIPToPeer:  make(map[string]*VpnPeer),
++		network:      &net.IPNet{IP: ip, Mask: mask},
+ 	}
+ 	tunnel.RefreshPeersList()
+ 	go tunnel.backgroundReadPackets()
+@@ -123,7 +129,7 @@ func (t *Tunnel) RefreshPeersList() {
+ 			outboundCh: make(chan *vpn.Packet, packetHandlersChanCap),
+ 		}
+ 		t.peerIDToPeer[peerID] = vpnPeer
+-		t.netIPToPeer[string(localIP)] = vpnPeer
++		t.netIPToPeer[localIP.String()] = vpnPeer
+ 		vpnPeer.Start(t)
+ 	}
+ 
+@@ -134,7 +140,7 @@ func (t *Tunnel) RefreshPeersList() {
+ 		}
+ 		vpnPeer.Close(t)
+ 		delete(t.peerIDToPeer, vpnPeer.peerID)
+-		delete(t.netIPToPeer, string(vpnPeer.localIP))
++		delete(t.netIPToPeer, vpnPeer.localIP.String())
+ 	}
+ }
+ 
+@@ -145,7 +151,7 @@ func (t *Tunnel) Close() {
+ 	for _, vpnPeer := range t.peerIDToPeer {
+ 		vpnPeer.Close(t)
+ 		delete(t.peerIDToPeer, vpnPeer.peerID)
+-		delete(t.netIPToPeer, string(vpnPeer.localIP))
++		delete(t.netIPToPeer, vpnPeer.localIP.String())
+ 	}
+ }
+ 
+@@ -153,7 +159,12 @@ func (t *Tunnel) backgroundReadPackets() {
+ 	// TODO: batch read
+ 	for packet := range t.device.OutboundChan() {
+ 		t.peersLock.RLock()
+-		vpnPeer, ok := t.netIPToPeer[string(packet.Dst)]
++		var vpnPeer *VpnPeer
++		var ok bool
++		vpnPeer, ok = t.netIPToPeer[packet.Dst.String()]
++		if !ok && routerAddr != "" {
++			vpnPeer, ok = t.netIPToPeer[routerAddr]
++		}
+ 		if !ok {
+ 			t.device.PutTempPacket(packet)
+ 			t.peersLock.RUnlock()
+@@ -280,7 +291,7 @@ func (vp *VpnPeer) backgroundInboundHandler(t *Tunnel) {
+ 			t.device.PutTempPacket(packet)
+ 			continue
+ 		}
+-		err := t.device.WritePacket(packet, vp.localIP)
++		err := t.device.WritePacket(packet, vp.localIP, t.network)
+ 		if err != nil {
+ 			t.logger.Warnf("write packet to vpn: %v", err)
+ 		}
+diff --git a/vpn/vpn.go b/vpn/vpn.go
+index 22a1cea..c94eff0 100644
+--- a/vpn/vpn.go
++++ b/vpn/vpn.go
+@@ -80,13 +80,17 @@ func (d *Device) PutTempPacket(data *Packet) {
+ }
+ 
+ // TODO: batch write
+-func (d *Device) WritePacket(data *Packet, senderIP net.IP) error {
++func (d *Device) WritePacket(data *Packet, senderIP net.IP, network *net.IPNet) error {
+ 	if data.IsIPv6 {
+ 		// TODO: implement. We need to set Device.localIP ipv6 instead of ipv4
+ 		return nil
+ 	} else {
+-		copy(data.Src, senderIP)
+-		copy(data.Dst, d.localIP)
++		if network.Contains(data.Src) {
++			copy(data.Src, senderIP)
++		}
++		if network.Contains(data.Dst) {
++			copy(data.Dst, d.localIP)
++		}
+ 	}
+ 	data.RecalculateChecksum()
+ 

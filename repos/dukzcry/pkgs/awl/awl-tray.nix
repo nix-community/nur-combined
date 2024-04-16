@@ -5,7 +5,7 @@ let
 in buildGoModule rec {
   pname = "awl-tray";
 
-  inherit (common) version src;
+  inherit (common) version src patches;
 
   buildInputs = [ makeWrapper ];
 
