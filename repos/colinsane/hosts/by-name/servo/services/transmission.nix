@@ -28,6 +28,7 @@ let
     runtimeInputs = with pkgs; [
       acl
       coreutils
+      findutils
       rsync
       util-linux
     ];
@@ -55,8 +56,16 @@ let
       destructive mkdir -p "$(dirname "$MEDIA_DIR")"
       destructive rsync -arv "$TR_TORRENT_DIR/" "$MEDIA_DIR/"
       # make the media rwx by anyone in the group
-      destructive chmod g+rw,a+rx "$MEDIA_DIR/"
-      destructive setfacl --recursive --modify d:g::rwx "$MEDIA_DIR/"
+      destructive find "$MEDIA_DIR" -type d -exec setfacl --recursive --modify d:g::rwx,o::rx {} \;
+      destructive find "$MEDIA_DIR" -type d -exec chmod g+rw,a+rx {} \;
+      # if there's a single directory inside the media dir, then inline that
+      subdirs=("$MEDIA_DIR"/*)
+      if [ ''${#subdirs} -eq 1 ]; then
+        dirname="''${subdirs[0]}"
+        if [ -d "$dirname" ]; then
+          mv "$dirname"/* "$MEDIA_DIR/" && rmdir "$dirname"
+        fi
+      fi
       # dedupe the whole media library.
       # yeah, a bit excessive: move this to a cron job if that's problematic.
       destructive hardlink /var/media --reflink=always --ignore-time --verbose

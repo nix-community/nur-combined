@@ -25,7 +25,7 @@ in
 
     config :pleroma, Pleroma.Web.Endpoint,
       url: [host: "fed.uninsane.org", scheme: "https", port: 443],
-      http: [ip: {127, 0, 0, 1}, port: 4000]
+      http: [ip: {127, 0, 0, 1}, port: 4040]
     #   secret_key_base: "{secrets.pleroma.secret_key_base}",
     #   signing_salt: "{secrets.pleroma.signing_salt}"
 
@@ -167,7 +167,7 @@ in
     enableACME = true;
     # inherit kTLS;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:4000";
+      proxyPass = "http://127.0.0.1:4040";
       recommendedProxySettings = true;
       # documented: https://git.pleroma.social/pleroma/pleroma/-/blob/develop/installation/pleroma.nginx
       extraConfig = ''
