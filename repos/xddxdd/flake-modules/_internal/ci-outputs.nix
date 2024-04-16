@@ -37,11 +37,11 @@ in
       ...
     }:
     let
-      inherit (pkgs.callPackage ../helpers/is-buildable.nix { }) isBuildable;
+      inherit (pkgs.callPackage ../../helpers/is-buildable.nix { }) isBuildable;
       outputsOf = p: map (o: p.${o}) p.outputs;
     in
     rec {
-      ciPackages = lib.filterAttrs (n: isBuildable) (import ../pkgs "ci" { inherit inputs pkgs; });
+      ciPackages = lib.filterAttrs (n: isBuildable) (import ../../pkgs "ci" { inherit inputs pkgs; });
       ciOutputs = lib.flatten (lib.mapAttrsToList (_: outputsOf) ciPackages);
     };
 }

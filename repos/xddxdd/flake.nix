@@ -22,10 +22,10 @@
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./flake-modules/ci-outputs.nix
-        ./flake-modules/commands.nix
-        ./flake-modules/modules-test-nixos-config.nix
-        ./flake-modules/nixpkgs-options.nix
+        ./flake-modules/_internal/ci-outputs.nix
+        ./flake-modules/_internal/commands.nix
+        ./flake-modules/_internal/modules-test-nixos-config.nix
+        ./flake-modules/_internal/nixpkgs-options.nix
       ];
 
       systems = [
@@ -42,6 +42,10 @@
               pkgs = prev;
               inherit inputs;
             };
+        };
+
+        flakeModules = {
+          auto-colmena-hive = import ./flake-modules/auto-colmena-hive.nix;
         };
 
         nixosModules = {
