@@ -27,6 +27,7 @@ pkgs.lib.makeScope pkgs.newScope (
     qv = callPackage ./qv { };
     raze = callPackage ./raze { };
     srb2p = callPackage ./srb2p { };
+    supermodel = callPackage ./supermodel { };
     surgescript = callPackage ./surgescript { };
     teem = callPackage ./teem { };
     thunderbird-gnome-theme = callPackage ./thunderbird-gnome-theme { };

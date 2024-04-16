@@ -13,18 +13,18 @@
   wayland-protocols,
   wlroots_0_17,
   xorg,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "magpie-wayland";
-  version = "unstable-2024-04-08";
+  version = "0.9.3-unstable-2024-04-13";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "magpie";
-    rev = "a1fb21f6f6f1bec4e259cd9aacc632e2bc7d73fc";
-    hash = "sha256-6pl47ReE4U62N6FVZqMjliGa8Qmik9952N0rZ/RLMro=";
+    rev = "f0fcf8eec3bb70caea2944b9ca067dabd0d15859";
+    hash = "sha256-uEUuwlb3rpERIwwSKwjwkUA/d4m+O/zdYr9Pw61RmnU=";
   };
 
   nativeBuildInputs = [
@@ -45,7 +45,12 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = unstableGitUpdater { branch = "v1"; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch=v1"
+    ];
+  };
 
   meta = {
     mainProgram = "magpie-wm";

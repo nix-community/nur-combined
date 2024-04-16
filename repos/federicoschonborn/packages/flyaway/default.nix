@@ -14,12 +14,12 @@
   wayland-protocols,
   wlroots_0_16,
   xorg,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "flyaway";
-  version = "unstable-2023-07-04";
+  version = "0-unstable-2023-07-04";
 
   src = fetchFromGitLab {
     owner = "serebit";
@@ -47,7 +47,12 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     mainProgram = "flyaway";
