@@ -24,14 +24,14 @@
   # - SWAYNC_SUMMARY
 
   # rules to use for testing. trigger with:
-  # - `notify-send test test:message` (etc)
+  # - `notify-send --app-id=foo subject body` (etc)
   # should also be possible to trigger via any messaging app
   fbcli-test-im = {
     body = "test:message";
     exec = "swaync-fbcli start proxied-message-new-instant";
   };
   fbcli-test-call = {
-    body = "test:call";
+    body = "test:call-start";
     exec = "swaync-fbcli start phone-incoming-call";
   };
   fbcli-test-call-stop = {

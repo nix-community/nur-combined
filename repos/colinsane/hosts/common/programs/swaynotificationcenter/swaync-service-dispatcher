@@ -10,7 +10,7 @@ type="$2"
 service="$3"
 
 log() {
-  if [ -n "$SWAYNC_SERVICES_DEBUG" ]; then
+  if [ -n "$SWAYNC_DEBUG" ]; then
     printf "%s\n" "$1"
   fi
 }

@@ -1,22 +1,27 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p feedbackd -p procps -p swaynotificationcenter
+#!nix-shell -i bash -p feedbackd -p procps -p swaynotificationcenter -p util-linux
+
+# this script does some really unusual indirection with the `start` action:
+# IT'S INTENTIONAL.
+# swaync is picky about how its scripts are terminated. not a great idea to directly signal them.
 
 action="$1"
 event="$2"
 
 
 log() {
-  if [ -n "$SWAYNC_FBCLI_DEBUG" ]; then
-    printf "%s\n" "$1"
+  if [ -n "$SWAYNC_DEBUG" ]; then
+    printf "%s\n" "$1" >&2
   fi
 }
 
-child=
-
 # kill children if killed, to allow that killing this parent process will end the real fbcli call
 cleanup() {
-  log "aborting fbcli notification (PID $child)"
-  pkill -P "$child"
+  log "aborting fbcli notification"
+  # "trap -": to avoid recursing
+  trap - SIGINT SIGQUIT SIGTERM
+  # "kill 0" means kill the current process group (i.e. all descendants)
+  kill 0
   exit 0  # exit cleanly to avoid swaync alerting a script failure
 }
 
@@ -35,38 +40,44 @@ startInline() {
     fbcliArgs+=(-t "$timeout")
   fi
 
+  trap cleanup SIGINT SIGQUIT SIGTERM
+
   # feedbackd stops playback when the caller exits
   # and fbcli will exit immediately if it has no stdin.
-  # so spoof a stdin.
+  # so spoof a stdin
+  # and do so asynchronously so that we don't block our signal handler.
   log "${fbcliArgs[*]}"
-  sleep $((3 + ${timeout:+ + $timeout})) | ${fbcliArgs[@]}
+  # bash -c "sleep $((3 + ${timeout:+ + $timeout})) | ${fbcliArgs[*]}" &
+  # (sleep $((3 + ${timeout:+ + $timeout})) | ${fbcliArgs[*]}) &
+  sleep $((3 + ${timeout:+ + $timeout})) | ${fbcliArgs[*]} &
+  wait
 }
 
 start() {
   # if in Do Not Disturb, don't do any feedback
   # TODO: better solution is to actually make use of feedbackd profiles.
   #       i.e. set profile to `quiet` when in DnD mode
-  if [ "$SWAYNC_URGENCY" != "Critical" ] && [ "$(swaync-client --get-dnd)" = "true" ]; then
+  if [ "$SWAYNC_URGENCY" != "Critical" ] && [ "$(swaync-client --get-dnd --skip-wait)" = "true" ]; then
+    log "DND: skipping"
     exit
   fi
 
-  trap cleanup SIGINT SIGQUIT SIGTERM
-
-  startInline &
-  child=$!
-  wait
+  log "$0 start-inline $event"
+  # XXX(2024/04/15): don't pass stdin/stdout/stderr, else swaync is liable to get confused and peg CPU to 100%
+  setsid -f "$0" start-inline "$event"  > /dev/null 2> /dev/null < /dev/null || true
 }
 
 stop() {
-  pkill --echo --signal SIGINT --full "swaync-fbcli(-wrapped)? start $event"
+  pkill --echo --full "swaync-fbcli(-wrapped)? start-inline $event" || true
 }
+
 
 case "$action" in
   start)
     start
     ;;
-  startInline)
-    startInline  # support this for debugging
+  start-inline)
+    startInline  # used internally by the `start` action
     ;;
   stop)
     stop

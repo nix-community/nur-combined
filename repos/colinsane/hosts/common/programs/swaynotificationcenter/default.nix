@@ -41,6 +41,7 @@ in
         "feedbackd"
         "procps"
         "swaynotificationcenter"
+        "util-linux"
       ];
     };
   };
