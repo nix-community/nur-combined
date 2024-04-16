@@ -739,6 +739,7 @@ in
 
     pwvucontrol.sandbox.method = "bwrap";
     pwvucontrol.sandbox.whitelistAudio = true;
+    pwvucontrol.sandbox.whitelistDri = true;  # else perf on moby is unusable
     pwvucontrol.sandbox.whitelistWayland = true;
 
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [

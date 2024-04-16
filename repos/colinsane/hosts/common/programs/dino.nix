@@ -22,8 +22,7 @@
 # - mic is sometimes disabled at call start despite presenting as enabled
 #   - fix is to toggle it off -> on in the Dino UI
 # - default mic gain is WAY TOO MUCH (heavily distorted)
-# - TODO: dino should have more optimal niceness/priority to ensure it can process its buffers
-#   - possibly this is solved by enabling RealtimeKit (rtkit)
+# - opening pavucontrol during a call causes pipewire to crash, and after pw crash the dino call is permanently mute
 # - TODO: see if Dino calls work better with `echo full > /sys/kernel/debug/sched/preempt`
 #
 # probably fixed:
@@ -33,6 +32,7 @@
 #   - this was further fixed by setting PULSE_LATENCY_MSEC=20.
 #   - possibly Dino should be updated internally: `info.rate / 100` -> `info.rate / 50`.
 #     - i think that affects the batching for echo cancellation, adaptive gain control, etc.
+#   - dino *should* be able to use Pipewire directly for calls instead of going through pulse, but had trouble achieving that in actuality
 #
 { config, lib, pkgs, ... }:
 let
