@@ -95,9 +95,6 @@
         "amesgen": {
             "url": "https://github.com/amesgen/nur-packages"
         },
-        "andersontorres": {
-            "url": "https://github.com/AndersonTorres/nur-packages"
-        },
         "angr": {
             "url": "https://github.com/angr/nixpkgs"
         },
@@ -457,12 +454,6 @@
         "immae": {
             "url": "https://git.immae.eu/perso/Immae/Config/Nix/NUR.git"
         },
-        "imsofi": {
-            "url": "https://github.com/imsofi/nur-pkgs"
-        },
-        "infinitivewitch": {
-            "url": "https://github.com/infinitivewitch/nurspellbook"
-        },
         "instantos": {
             "url": "https://github.com/instantOS/nix"
         },
@@ -521,9 +512,6 @@
         },
         "jorsn": {
             "url": "https://github.com/jorsn/nur-packages"
-        },
-        "joshuafern": {
-            "url": "https://github.com/JoshuaFern/nur-package-lab"
         },
         "jpts": {
             "url": "https://github.com/jpts/nur"
@@ -734,9 +722,6 @@
         "nnb": {
             "url": "https://github.com/NNBnh/nur-packages"
         },
-        "nodeselector": {
-            "url": "https://github.com/nodeselector/nur-packages"
-        },
         "noneucat": {
             "url": "https://git.sr.ht/~noneucat/nur-packages"
         },
@@ -782,9 +767,6 @@
         "p3psi": {
             "url": "https://github.com/p3psi-boo/p3psi-nur"
         },
-        "pamplemousse": {
-            "url": "https://github.com/pamplemousse/nur-packages"
-        },
         "pascalthesing": {
             "url": "https://github.com/PascalThesing/NUR"
         },
@@ -822,10 +804,6 @@
         "priegger": {
             "file": "nur.nix",
             "url": "https://git.sr.ht/~priegger/nur-packages"
-        },
-        "procyon": {
-            "file": "nix/nur/default.nix",
-            "url": "https://github.com/UnidealisticRaccoon/SnowyBurrow"
         },
         "progsyn": {
             "url": "https://github.com/mistzzt/program-synthesis-nur"
@@ -934,9 +912,6 @@
         "smaret": {
             "url": "https://github.com/smaret/nur-packages"
         },
-        "smolsnail": {
-            "url": "https://github.com/smolsnail/nur-packages"
-        },
         "some-pkgs": {
             "url": "https://github.com/SomeoneSerge/pkgs"
         },
@@ -972,9 +947,6 @@
         },
         "thaumy": {
             "url": "https://github.com/Thaumy/nur-pkgs"
-        },
-        "thilobillerbeck": {
-            "url": "https://github.com/thilobillerbeck/nur-packages"
         },
         "tilpner": {
             "url": "https://github.com/tilpner/nur-packages"
