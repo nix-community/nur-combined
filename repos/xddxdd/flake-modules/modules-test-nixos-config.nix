@@ -21,6 +21,7 @@
               device = "tmpfs";
               fsType = "tmpfs";
             };
+            nixpkgs.config.allowUnfree = true;
 
             # Add all CI packages
             environment.systemPackages = builtins.attrValues self.ciPackages."${system}";
