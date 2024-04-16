@@ -1,6 +1,0 @@
-_extends: .github
-repository:
-  description: The Unholy NUR repository
-  homepage: https://github.com/infinitivewitch/nurspellbook
-  name: nurspellbook
-  topics: nur, nur-packages, nix, nixos, flake, nix-flake
