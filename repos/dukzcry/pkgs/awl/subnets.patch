@@ -1,0 +1,116 @@
+# patch similar to
+# https://github.com/mudler/edgevpn/pull/2
+# https://github.com/alecbcs/hyprspace/pull/62
+diff --git a/config/config.go b/config/config.go
+index 14d9ed9..92e01d3 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -66,6 +66,7 @@ type (
+ 	VPNConfig struct {
+ 		InterfaceName string `json:"interfaceName"`
+ 		IPNet         string `json:"ipNet"`
++		Router        string `json:"router"`
+ 	}
+ 	KnownPeer struct {
+ 		// Hex-encoded multihash representing a peer ID
+diff --git a/service/tunnel.go b/service/tunnel.go
+index 81ce29f..01541d9 100644
+--- a/service/tunnel.go
++++ b/service/tunnel.go
+@@ -29,9 +29,12 @@ type Tunnel struct {
+ 	peersLock    sync.RWMutex
+ 	peerIDToPeer map[peer.ID]*VpnPeer
+ 	netIPToPeer  map[string]*VpnPeer
++	network      *net.IPNet
++	router       string
+ }
+ 
+ func NewTunnel(p2pService P2p, device *vpn.Device, conf *config.Config) *Tunnel {
++	ip, mask := conf.VPNLocalIPMask()
+ 	tunnel := &Tunnel{
+ 		p2p:          p2pService,
+ 		conf:         conf,
+@@ -39,6 +42,8 @@ func NewTunnel(p2pService P2p, device *vpn.Device, conf *config.Config) *Tunnel
+ 		logger:       log.Logger("awl/service/tunnel"),
+ 		peerIDToPeer: make(map[peer.ID]*VpnPeer),
+ 		netIPToPeer:  make(map[string]*VpnPeer),
++		network:      &net.IPNet{IP: ip, Mask: mask},
++		router:       conf.VPNConfig.Router,
+ 	}
+ 	tunnel.RefreshPeersList()
+ 	go tunnel.backgroundReadPackets()
+@@ -123,7 +128,7 @@ func (t *Tunnel) RefreshPeersList() {
+ 			outboundCh: make(chan *vpn.Packet, packetHandlersChanCap),
+ 		}
+ 		t.peerIDToPeer[peerID] = vpnPeer
+-		t.netIPToPeer[string(localIP)] = vpnPeer
++		t.netIPToPeer[localIP.String()] = vpnPeer
+ 		vpnPeer.Start(t)
+ 	}
+ 
+@@ -134,7 +139,7 @@ func (t *Tunnel) RefreshPeersList() {
+ 		}
+ 		vpnPeer.Close(t)
+ 		delete(t.peerIDToPeer, vpnPeer.peerID)
+-		delete(t.netIPToPeer, string(vpnPeer.localIP))
++		delete(t.netIPToPeer, vpnPeer.localIP.String())
+ 	}
+ }
+ 
+@@ -145,7 +150,7 @@ func (t *Tunnel) Close() {
+ 	for _, vpnPeer := range t.peerIDToPeer {
+ 		vpnPeer.Close(t)
+ 		delete(t.peerIDToPeer, vpnPeer.peerID)
+-		delete(t.netIPToPeer, string(vpnPeer.localIP))
++		delete(t.netIPToPeer, vpnPeer.localIP.String())
+ 	}
+ }
+ 
+@@ -153,7 +158,12 @@ func (t *Tunnel) backgroundReadPackets() {
+ 	// TODO: batch read
+ 	for packet := range t.device.OutboundChan() {
+ 		t.peersLock.RLock()
+-		vpnPeer, ok := t.netIPToPeer[string(packet.Dst)]
++		var vpnPeer *VpnPeer
++		var ok bool
++		vpnPeer, ok = t.netIPToPeer[packet.Dst.String()]
++		if !ok && t.router != "" {
++			vpnPeer, ok = t.netIPToPeer[t.router]
++		}
+ 		if !ok {
+ 			t.device.PutTempPacket(packet)
+ 			t.peersLock.RUnlock()
+@@ -280,7 +290,7 @@ func (vp *VpnPeer) backgroundInboundHandler(t *Tunnel) {
+ 			t.device.PutTempPacket(packet)
+ 			continue
+ 		}
+-		err := t.device.WritePacket(packet, vp.localIP)
++		err := t.device.WritePacket(packet, vp.localIP, t.network)
+ 		if err != nil {
+ 			t.logger.Warnf("write packet to vpn: %v", err)
+ 		}
+diff --git a/vpn/vpn.go b/vpn/vpn.go
+index 22a1cea..c94eff0 100644
+--- a/vpn/vpn.go
++++ b/vpn/vpn.go
+@@ -80,13 +80,17 @@ func (d *Device) PutTempPacket(data *Packet) {
+ }
+ 
+ // TODO: batch write
+-func (d *Device) WritePacket(data *Packet, senderIP net.IP) error {
++func (d *Device) WritePacket(data *Packet, senderIP net.IP, network *net.IPNet) error {
+ 	if data.IsIPv6 {
+ 		// TODO: implement. We need to set Device.localIP ipv6 instead of ipv4
+ 		return nil
+ 	} else {
+-		copy(data.Src, senderIP)
+-		copy(data.Dst, d.localIP)
++		if network.Contains(data.Src) {
++			copy(data.Src, senderIP)
++		}
++		if network.Contains(data.Dst) {
++			copy(data.Dst, d.localIP)
++		}
+ 	}
+ 	data.RecalculateChecksum()
+ 

@@ -42,4 +42,5 @@ rec {
       runHook postInstall
     '';
   });
+  patches = [ ./subnets.patch ];
 }

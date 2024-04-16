@@ -5,7 +5,7 @@ let
 in buildGoModule rec {
   pname = "awl";
 
-  inherit (common) version src;
+  inherit (common) version src patches;
 
   preBuild = ''
     cp -r ${common.awl_flutter} static
