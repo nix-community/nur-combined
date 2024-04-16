@@ -67,6 +67,7 @@ mkScope (
       asterisk = pkg ./lantian-customized/asterisk { };
       attic-telnyx-compatible = ifNotNUR (pkg ./lantian-customized/attic-telnyx-compatible { });
       coredns = pkg ./lantian-customized/coredns { };
+      firefox-icon-mikozilla-fireyae = pkg ./lantian-customized/firefox-icon-mikozilla-fireyae { };
       librime-with-plugins = pkg ./lantian-customized/librime-with-plugins { };
       nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
       nginx = pkg ./lantian-customized/nginx { };
