@@ -71,6 +71,8 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build nix packages
+      env: 
+        NIXPKGS_ALLOW_UNFREE: 1
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A buildOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
