@@ -7,8 +7,8 @@
   mkNugetDeps,
 }: let
   nugetName = "JetBrains.ReSharper.GlobalTools";
-  version = "2023.3.4";
-  nugetSha256 = "sha256-FWGgZXjQTTefYr/1X+av1XreQMauzWAfZ0FbOSysxJk=";
+  version = "2024.1.0";
+  nugetSha256 = "sha256-vpA+FVaN7nNFUc+XUefs8j9iASkqhteoMYhx7NHFIes=";
   pname = "jb";
 in
   buildDotnetModule {
