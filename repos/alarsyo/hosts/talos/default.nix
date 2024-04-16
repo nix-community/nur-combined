@@ -152,6 +152,7 @@
     enable = true;
     wayland.enable = true;
   };
+  services.xserver.displayManager.defaultSession = "plasmawayland";
   services.xserver.desktopManager.plasma5.enable = true;
   services.power-profiles-daemon.enable = true;
 
