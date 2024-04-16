@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-04-11",
+        "date": "2024-04-15",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "a6c866323cd03aa25b99a266917e5eb29f88be39",
-            "sha256": "sha256-387JyWptTVi1iDf1jxKibus6oIv3NaEE0wBNZNbzvy4=",
+            "rev": "2a8751e91294b7831f96d055883a42e0648970e3",
+            "sha256": "sha256-Z8QMfJK5guXrlzHzMnEU9juUvYbgrjvBTt2OgK+SYxI=",
             "type": "github"
         },
-        "version": "a6c866323cd03aa25b99a266917e5eb29f88be39"
+        "version": "2a8751e91294b7831f96d055883a42e0648970e3"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -463,11 +463,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2cmxvsagH0CaH0QkSh4M4BkTk8wOWlBmvKY5dKDrk9Y=",
+            "sha256": "sha256-vw5G2h+RtvtbYr3G7KY40XN9cnlsmERkzk84AyCurdY=",
             "type": "url",
-            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.10.404071_amd64.deb"
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.10.404099_amd64.deb"
         },
-        "version": "7.5.10.404071"
+        "version": "7.5.10.404099"
     },
     "douban-openapi-server": {
         "cargoLocks": null,
@@ -962,7 +962,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-04-09",
+        "date": "2024-04-15",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -974,11 +974,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "6f0c46187c94f763c5f4cd703ff633c4b28f3035",
-            "sha256": "sha256-Joca61ycWo3m20rmxoboQS3GKCCtwE60cTlOc7Appws=",
+            "rev": "7b6d9f3326295fc80ea0c9026f3dd9d57f8436de",
+            "sha256": "sha256-6ZvuUx14hym2fw1ZnkJQIB7BNxbRsMHXnxia4+lxc38=",
             "type": "github"
         },
-        "version": "6f0c46187c94f763c5f4cd703ff633c4b28f3035"
+        "version": "7b6d9f3326295fc80ea0c9026f3dd9d57f8436de"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1022,7 +1022,7 @@
     },
     "librime-lua": {
         "cargoLocks": null,
-        "date": "2024-03-08",
+        "date": "2024-04-13",
         "extract": null,
         "name": "librime-lua",
         "passthru": null,
@@ -1034,11 +1034,11 @@
             "name": null,
             "owner": "hchunhui",
             "repo": "librime-lua",
-            "rev": "20ddea907e0b0c9c60d1dcb6b102bee38697cb5c",
-            "sha256": "sha256-kU3pceqQoIM4pypPg2nLLnnyrgQSUEWZW9VLmmPJltU=",
+            "rev": "7c1b93965962b7c480d4d7f1a947e4712a9f0c5f",
+            "sha256": "sha256-H/ufyHIfYjAjF/Dt3CilL4x9uAXGcF1BkdAgzIbSGA8=",
             "type": "github"
         },
-        "version": "20ddea907e0b0c9c60d1dcb6b102bee38697cb5c"
+        "version": "7c1b93965962b7c480d4d7f1a947e4712a9f0c5f"
     },
     "librime-octagram": {
         "cargoLocks": null,
@@ -1094,11 +1094,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.8.5-xanmod1",
-            "sha256": "sha256-CPq6CxyQY/y7f0FV4JSWucyo4rfIsfmVY/f15Lv0/TI=",
+            "rev": "6.8.6-xanmod1",
+            "sha256": "sha256-7GsiIl3rcLm/u2zxrjpP6dTxn7w/6at22gaU//mLlzw=",
             "type": "github"
         },
-        "version": "6.8.5-xanmod1"
+        "version": "6.8.6-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1154,11 +1154,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.26-xanmod1",
-            "sha256": "sha256-XC0HRp0t4qeGReU2oY231P5kdzvkl71uILlF9tdwgX4=",
+            "rev": "6.6.27-xanmod1",
+            "sha256": "sha256-MYvt7QWRdUybbhva6B4MOYrwnJfuu/qvMlnaGKcO1Hw=",
             "type": "github"
         },
-        "version": "6.6.26-xanmod1"
+        "version": "6.6.27-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1324,11 +1324,11 @@
             "name": null,
             "owner": "nginx",
             "repo": "njs",
-            "rev": "0.8.3",
-            "sha256": "sha256-749RVhMR5Cs6nBqnteQ3pe9xRDL3t//77+h09vg8HrE=",
+            "rev": "0.8.4",
+            "sha256": "sha256-SooPFx4WNEezPD+W/wmMLY+FdkGRoojLNUFbhn3Riyg=",
             "type": "github"
         },
-        "version": "0.8.3"
+        "version": "0.8.4"
     },
     "ngx_brotli": {
         "cargoLocks": null,
@@ -1487,7 +1487,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-04-08",
+        "date": "2024-04-12",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1499,11 +1499,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "b544ba2b1c71ff51e8a8736af8d7cc40893cf4ff",
-            "sha256": "sha256-tPDb0Df2LQY5sS+gAJ4doPFmVRwQMk6EpgOjCQp9SQU=",
+            "rev": "0ec51eca39d72867f309878f5bb9002f1c3e07fb",
+            "sha256": "sha256-9iVslcBLLzQ4ACS7xsTj4wOLZO56DWWPjKRVmCXaW7I=",
             "type": "github"
         },
-        "version": "b544ba2b1c71ff51e8a8736af8d7cc40893cf4ff"
+        "version": "0ec51eca39d72867f309878f5bb9002f1c3e07fb"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1614,11 +1614,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-l6xVDcOB2cj2k8ktKcGkKz15wMP2dwoqWJ+jD7DtV+E=",
+            "sha256": "sha256-mi/7NrbYMsNpFPcBO94D8ICfjIFj6hJRihwyg6RPL1I=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v2.8/PeerBanHelper.v2.8.Linux.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v3.1.1/PeerBanHelper.v3.1.1.Linux.zip"
         },
-        "version": "v2.8"
+        "version": "v3.1.1"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -1859,11 +1859,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-1JuuSWcOzBOCx3+0BI9HIW7nDTw79jvsSYA065mh+cw=",
+            "sha256": "sha256-g9Vk4cxY7AwRSo/tu8jWP/Btl6t4CEQzNgCklx+XUgM=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240410_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240412_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.7_240410_amd64_01"
+        "version": "Linux/QQ_3.2.7_240412_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1874,11 +1874,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aS+bPql7AH3zXAmR2zgIH1hUQUQzaBDd+4zmXYf5rcc=",
+            "sha256": "sha256-VhwLUDHN6v6wdRDnvcSVAGhsO4qdIKop0et7m4uNFwY=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240410_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240412_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.7_240410_arm64_01"
+        "version": "Linux/QQ_3.2.7_240412_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -1997,7 +1997,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-04-10",
+        "date": "2024-04-16",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2009,11 +2009,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "83aa7087e2862adc66bc25604a42e461178e8a47",
-            "sha256": "sha256-53/EbA7UOb3jGfMYNNcMU8g4aDTDqxHujdleHerTphI=",
+            "rev": "91101b20b097fffa224d0dc906d14556b13315b9",
+            "sha256": "sha256-W+0oV/3N75/j1SBlrSrEBNby+Df+oQXboOeswzJVQLo=",
             "type": "github"
         },
-        "version": "83aa7087e2862adc66bc25604a42e461178e8a47"
+        "version": "91101b20b097fffa224d0dc906d14556b13315b9"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -2459,11 +2459,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9t5AoODFtR2qcEVhidEPf8Hn3NNhaM+K/LFwNe/aZoY=",
+            "sha256": "sha256-lgKsuFQI7kjuaJRo9jVlSW37EvH+Ia1nSqQjAp44hWw=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.9.43/WeChatSetup-3.9.9.43.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.10.19/WeChatSetup-3.9.10.19.exe"
         },
-        "version": "3.9.9.43"
+        "version": "3.9.10.19"
     },
     "wine-wechat-x86": {
         "cargoLocks": null,
@@ -2474,11 +2474,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-U/SdPuuwCxd/STRngiDHmib+vjrqiN2LoCykDG/459w=",
+            "sha256": "sha256-5qaJDi/smGvMesUuxqtn2Q16AoIyXK+ADGWAB+q6O3M=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.9.34/WeChatSetupX86-3.9.9.34.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.10.16/WeChatSetupX86-3.9.10.16.exe"
         },
-        "version": "3.9.9.34"
+        "version": "3.9.10.16"
     },
     "xstatic-asciinema-player": {
         "cargoLocks": null,
