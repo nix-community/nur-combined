@@ -54,6 +54,7 @@
           openssl-oqs-provider = import ./modules/openssl-oqs-provider.nix;
           plasma-desktop-lyrics = import ./modules/plasma-desktop-lyrics.nix;
           qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix;
+          wireguard-remove-lingering-links = import ./modules/wireguard-remove-lingering-links.nix;
         };
       };
 
