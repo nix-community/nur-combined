@@ -32,12 +32,12 @@ class MediaMeta:
     @classmethod
     def add_arguments(self, parser: ArgumentParser) -> None:
         parser.add_argument("--prefix", help="additional path component before anything implied by the other options (but after the base media dir")
-        parser.add_argument("--film", action="store_true")
-        parser.add_argument("--show", help="ShowTitle")
-        parser.add_argument("--book", help="BookTitle")
-        parser.add_argument("--audiobook", help="AudiobookTitle")
-        parser.add_argument("--vn", help="VisualNovelTitle  (for comics/manga)")
-        parser.add_argument("--author", help="FirstnameLastname")
+        parser.add_argument("--film", help="Film.Title-year")
+        parser.add_argument("--show", help="Show.Title")
+        parser.add_argument("--book", help="Book.Title")
+        parser.add_argument("--audiobook", help="Audiobook.Title")
+        parser.add_argument("--vn", help="Visual.Novel.Title  (for comics/manga)")
+        parser.add_argument("--author", help="Firstname.Lastname")
         parser.add_argument("--freeleech", action="store_true", help="not interested in the data, only in seeding")
         parser.add_argument("--archive", action="store_true", help="not interested in the data, except for archival")
 
@@ -47,6 +47,7 @@ class MediaMeta:
         type_ = None
         if args.film:
             type_ = MediaType.Film
+            title = args.film
         if args.show != None:
             type_ = MediaType.Show
             title = args.show

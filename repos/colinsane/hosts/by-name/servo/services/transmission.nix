@@ -26,6 +26,8 @@ let
   torrent-done = pkgs.writeShellApplication {
     name = "torrent-done";
     runtimeInputs = with pkgs; [
+      acl
+      coreutils
       rsync
       util-linux
     ];
@@ -52,6 +54,9 @@ let
 
       destructive mkdir -p "$(dirname "$MEDIA_DIR")"
       destructive rsync -arv "$TR_TORRENT_DIR/" "$MEDIA_DIR/"
+      # make the media rwx by anyone in the group
+      destructive chmod g+rw,a+rx "$MEDIA_DIR/"
+      destructive setfacl --recursive --modify d:g::rwx "$MEDIA_DIR/"
       # dedupe the whole media library.
       # yeah, a bit excessive: move this to a cron job if that's problematic.
       destructive hardlink /var/media --reflink=always --ignore-time --verbose
