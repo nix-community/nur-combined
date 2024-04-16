@@ -45,6 +45,7 @@
         };
 
         flakeModules = {
+          auto-apps-shell = import ./flake-modules/auto-apps-shell.nix;
           auto-colmena-hive = import ./flake-modules/auto-colmena-hive.nix;
         };
 
