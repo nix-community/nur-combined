@@ -583,7 +583,7 @@
             "rev": "ef542ec8215595398a702d1c6338171c2bcd6108",
             "sha256": "sha256-Nngb2LBvJPmhf6NkwamvALbxBLEkovz4cqQx/gEzsmY=",
             "type": "git",
-            "url": "https://gitea.publichub.eu/oscar.krause/fastapi-dls.git"
+            "url": "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
         },
         "version": "ef542ec8215595398a702d1c6338171c2bcd6108"
     },

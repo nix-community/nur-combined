@@ -336,7 +336,7 @@
     pname = "fastapi-dls";
     version = "ef542ec8215595398a702d1c6338171c2bcd6108";
     src = fetchgit {
-      url = "https://gitea.publichub.eu/oscar.krause/fastapi-dls.git";
+      url = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git";
       rev = "ef542ec8215595398a702d1c6338171c2bcd6108";
       fetchSubmodules = false;
       deepClone = false;
