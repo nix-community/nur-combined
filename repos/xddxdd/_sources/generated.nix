@@ -980,6 +980,18 @@
       sha256 = "sha256-FnZAGqyG/0IkDPlh09HfvdXHtnZRJs/70NUcsrp+bHA=";
     };
   };
+  plasma-panel-transparency-toggle = {
+    pname = "plasma-panel-transparency-toggle";
+    version = "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c";
+    src = fetchFromGitHub {
+      owner = "sanjay-kr-commit";
+      repo = "panelTransparencyToggleForPlasma6";
+      rev = "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c";
+      fetchSubmodules = false;
+      sha256 = "sha256-S1RAyVYlcuojtRmgfQQS1d2H0mVIsZQeztstbvw8keQ=";
+    };
+    date = "2023-11-25";
+  };
   procps4 = {
     pname = "procps4";
     version = "4.0.4";

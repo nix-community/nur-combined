@@ -382,6 +382,10 @@ fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 src.github = "chiyuki0325/PlasmaDesktopLyrics"
 fetch.github = "chiyuki0325/PlasmaDesktopLyrics"
 
+[plasma-panel-transparency-toggle]
+src.git = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6.git"
+fetch.github = "sanjay-kr-commit/panelTransparencyToggleForPlasma6"
+
 [procps4]
 src.archpkg = "procps-ng"
 fetch.url = "https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-$ver.tar.xz"
