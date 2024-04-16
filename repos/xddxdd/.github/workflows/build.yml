@@ -63,6 +63,13 @@ jobs:
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+      - name: Setup Attic cache
+        uses: ryanccn/attic-action@v0
+        with:
+          endpoint: https://attic.xuyh0120.win
+          cache: lantian
+          token: ${{ secrets.ATTIC_TOKEN }}
+
       - name: Set nix daemon tmpdir path
         run: |
           sudo mkdir -p /nix/tmpdir
