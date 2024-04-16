@@ -1,8 +1,0 @@
-[licenses]
-default = "deny"
-unlicensed = "deny"
-copyleft = "warn"
-allow = [
-  "MIT"
-]
-
