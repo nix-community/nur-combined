@@ -16,7 +16,6 @@ rec {
   sunshine = ./sunshine.nix;
   regdomain = ./regdomain.nix;
   rkn = ./rkn.nix;
-  edgevpn = ./edgevpn.nix;
   awl = ./awl.nix;
   cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
