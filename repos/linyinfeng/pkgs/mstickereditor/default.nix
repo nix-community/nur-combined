@@ -30,6 +30,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/LuckyTurtleDev/mstickereditor";
     description = "Import sticker packs from telegram, to be used at the Maunium sticker picker for Matrix";
     license = licenses.asl20;
+    broken = !(versionAtLeast (versions.majorMinor trivial.version) "24.05");
     maintainers = with maintainers; [ yinfeng ];
   };
 }

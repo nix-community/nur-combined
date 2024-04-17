@@ -139,7 +139,7 @@
     "mstickereditor": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./mstickereditor-v0.3.3/Cargo.lock",
+                "./mstickereditor-v0.3.4/Cargo.lock",
                 {}
             ]
         },
@@ -155,11 +155,11 @@
             "name": null,
             "owner": "LuckyTurtleDev",
             "repo": "mstickereditor",
-            "rev": "v0.3.3",
-            "sha256": "sha256-7QHGcntKM5tF4fJ3qej90zGO3HOJc/W8Yc8K4JOVfDQ=",
+            "rev": "v0.3.4",
+            "sha256": "sha256-BPSt/2cgfTPdrcECwV1IW9F+CXZ89Jiq3O7Q8fFJqHA=",
             "type": "github"
         },
-        "version": "v0.3.3"
+        "version": "v0.3.4"
     },
     "mutter-mobile-shell": {
         "cargoLocks": null,
@@ -383,12 +383,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "18b74f86df44282c6d00cd09af5e497e011f2521",
-            "sha256": "sha256-2L8A2NJbVmoF41L2j/nPdL/nhItePd+3lvQLmLvprC0=",
+            "rev": "dc4f52d4d0896fbaa7c9535903dc9d141de655ac",
+            "sha256": "sha256-mE0AgBcdCPc7inN/EywZjEYrV3mW8GHMQHttIjpphi8=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "18b74f86df44282c6d00cd09af5e497e011f2521"
+        "version": "dc4f52d4d0896fbaa7c9535903dc9d141de655ac"
     },
     "rime-loengfan": {
         "cargoLocks": null,
