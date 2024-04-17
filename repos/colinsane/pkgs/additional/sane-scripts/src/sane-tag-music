@@ -12,7 +12,7 @@ tool which runs over a complete music library or a subset of it and:
 
 this tool does NOT move or rename files. it only edits tags.
 
-USAGE: cd MUSIC_LIBRARY_TOP && sane-tag-music [options] fix-tags|fix-paths [more-options] DIRECTORY [DIRECTORY ...]
+USAGE: cd MUSIC_LIBRARY_TOP && sane-tag-music [options] show|fix-tags|fix-paths [more-options] DIRECTORY [DIRECTORY ...]
 
 scans DIRECTORY and guesses artist/album/title for each track, based on path relative to pwd.
 if the guessed tags look more correct than the existing tags (i.e. if the existing file is missing a tag),
@@ -23,11 +23,13 @@ DIRECTORY: specify `.` to scan the entire library.
 options:
 --dry-run: only show what would be done, don't actually do it.
 --verbose
---force: apply path-based tag to each file, even those which already have tags (only for fix-tags)
   --album ALBUM           manually specify the tag, rather than guessing from path.
   --album-artist ARTIST   often combined with DIRECTORY to tag an entire artist or album.
   --artist ARTIST
   --tile TITLE
+
+fix-tags options:
+--force: apply path-based tag to each file, even those which already have tags (only for fix-tags)
 """
 
 from dataclasses import dataclass
@@ -147,6 +149,17 @@ class Tags:
             self.albumartist = [ self.albumartist[0].strip() ]
         if len(self.album) == 1:
             self.album = [ self.album[0].strip() ]
+
+    def cleanup_trackno(self) -> None:
+        self.tracknumber = self.tracknumber[:]  # to avoid modifying shared structures
+        for i, v in enumerate(self.tracknumber):
+            # some tracks specify trackno as e.g. `4/11`.
+            if v.count("/") == 1:
+                trackno, last = v.split("/")
+                try:
+                    if int(trackno) <= int(last):
+                        self.tracknumber[i] = trackno.lstrip('0')
+                except: pass
 
     def expand_shorthands(self) -> None:
         va = ["V.A.", "Various"]
@@ -351,6 +364,16 @@ class Tagger:
         self.force = force
         self.manual_tags = manual_tags
 
+    def show(self, path_: str) -> None:
+        file_ = AudioFile.new(path_)
+        if not file_:
+            logger.debug(f"skipping unsupported file: {path_}")
+            return
+
+        tags = file_.tags_on_disk()
+        logger.info(f"tags for {path_}:")
+        logger.info(f"  {tags}")
+
     def tag_file(self, path_: str) -> None:
         file_ = AudioFile.new(path_)
         if not file_:
@@ -366,6 +389,7 @@ class Tagger:
             new_tags = old_tags.union(additional_tags)
         new_tags = new_tags.union(self.manual_tags)
         new_tags.trim_fields()
+        new_tags.cleanup_trackno()
         new_tags.expand_shorthands()
         new_tags.promote_albumartist()
         new_tags.rewrite_singles()
@@ -445,6 +469,10 @@ def main():
 
     subparsers = parser.add_subparsers(help="operation")
 
+    show_parser = subparsers.add_parser("show")
+    show_parser.set_defaults(subcommand="show")
+    show_parser.add_argument("path", nargs="+", help="relative path to a file or directory to show")
+
     fix_tags_parser = subparsers.add_parser("fix-tags")
     fix_tags_parser.set_defaults(subcommand="fix_tags")
     fix_tags_parser.add_argument('--force', action='store_true', help="give higher credence to path-based and manual tags than any existing tags")
@@ -473,7 +501,10 @@ def main():
         manual_tags=manual_tags,
     )
 
-    if args.subcommand == "fix_tags":
+    if args.subcommand == "show":
+        for p in files:
+            tagger.show(p)
+    elif args.subcommand == "fix_tags":
         for p in files:
             tagger.tag_file(p)
     elif args.subcommand == "fix_paths":
