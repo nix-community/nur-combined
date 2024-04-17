@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gtk3-nocsd";
-  version = "2016-07-17";
+  version = "2022-10-15";
 
   src = fetchFromGitHub {
     owner = "fredldotme";
