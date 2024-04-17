@@ -23,6 +23,7 @@
 #   - fix is to toggle it off -> on in the Dino UI
 # - default mic gain is WAY TOO MUCH (heavily distorted)
 # - opening pavucontrol during a call causes pipewire to crash, and after pw crash the dino call is permanently mute
+# - on lappy/desktop, right-clicking the mic button allows to toggle audio devices, but impossible to trigger this on moby/touch screen!
 # - TODO: see if Dino calls work better with `echo full > /sys/kernel/debug/sched/preempt`
 #
 # probably fixed:
