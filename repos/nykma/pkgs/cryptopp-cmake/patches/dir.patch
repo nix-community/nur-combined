@@ -11,7 +11,7 @@ index 0600f26..debeec6 100644
 -datadir=${prefix}/@CMAKE_INSTALL_DATAROOTDIR@/cryptopp
 +libdir=@CMAKE_INSTALL_FULL_LIBDIR@
 +includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
-+datadir=@CMAKE_INSTALL_FULL_DATAROOTDIR@/cryptopp
++datadir=@CMAKE_INSTALL_FULL_DATAROOTDIR@
  
  Name: Crypto++
  URL: https://cryptopp.com/
