@@ -42,11 +42,17 @@ in
 
   config = lib.mkIf config.services.xserver.windowManager.i3.enable {
     # https://thomashunter.name/i3-configurator/
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = [
       lockerSpace
       custom_rofi
-      kitty
     ];
+    services.xserver.displayManager.lightdm = {
+      greeters.enso = {
+        enable = true;
+        blur = true;
+      };
+    };
+
     services.xserver.windowManager.i3 = {
       configFile = "/etc/i3config";
       extraPackages = with pkgs; [

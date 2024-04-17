@@ -48,6 +48,7 @@ in
     git-remote-gcrypt
     appimage-wrap
     xorg.xkill
+    kitty
   ];
 
   programs.dconf.enable = true;

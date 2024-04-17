@@ -4,10 +4,6 @@
     desktopManager.xterm.enable = false;
     displayManager.lightdm = {
       background = pkgs.custom.wallpaper;
-      greeters.enso = {
-        enable = true;
-        blur = true;
-      };
     };
   };
 

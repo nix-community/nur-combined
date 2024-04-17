@@ -14,7 +14,6 @@
 
   config = lib.mkIf config.programs.hyprland.enable {
     programs.hyprland.xwayland.enable = true;
-    services.xserver.displayManager.lightdm.enable = true;
     services.xserver.enable = true;
 
     services.dunst.enable = true;
@@ -138,7 +137,7 @@
     xdg.portal = {
       enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-wlr
       ];
     };
 
