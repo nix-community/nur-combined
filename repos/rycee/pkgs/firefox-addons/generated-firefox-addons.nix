@@ -1797,10 +1797,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "126.0.20240415.141835";
+      version = "125.0.20240416.43247";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4264872/deutsch_de_language_pack-126.0.20240415.141835.xpi";
-      sha256 = "e8570f97663c53c423e5daa4e00c0663efc5266437bd2e3d1024f843260482a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4265379/deutsch_de_language_pack-125.0.20240416.43247.xpi";
+      sha256 = "7985f76d4e8ca03af2e48558f38f851329297c995abdd83467799ff3363509c4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2737,10 +2737,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "126.0.20240415.141835";
+      version = "125.0.20240416.43247";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4264897/francais_language_pack-126.0.20240415.141835.xpi";
-      sha256 = "0c72da9c55dadba351d9da07a0b3cb1f82a7ac6d9f4d5f73fe906c448b1415fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4265337/francais_language_pack-125.0.20240416.43247.xpi";
+      sha256 = "5781da7c1a15585083d5c8359311e2382a37e049a9b5426315734f618d1437f6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -8337,10 +8337,10 @@
     };
     "pronoundb" = buildFirefoxXpiAddon {
       pname = "pronoundb";
-      version = "0.14.3";
+      version = "0.14.4";
       addonId = "firefox-addon@pronoundb.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4263681/pronoundb-0.14.3.xpi";
-      sha256 = "a7797863887f0c2d76e735571d88a6d3b08d3b68383cd59f70e93894f071e7c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4265542/pronoundb-0.14.4.xpi";
+      sha256 = "a8841abca87356def610defece4a5cc236b9660fc3da69fa7cf3ff281409e4be";
       meta = with lib;
       {
         homepage = "https://pronoundb.org";
@@ -8349,7 +8349,6 @@
         mozPermissions = [
           "activeTab"
           "storage"
-          "https://*.pronoundb.org/*"
           "https://*.discord.com/*"
           "https://*.github.com/*"
           "https://*.modrinth.com/*"
