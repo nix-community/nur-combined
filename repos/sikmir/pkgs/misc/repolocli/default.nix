@@ -12,11 +12,11 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoPatches = [ ./cargo-lock.patch ];
-  cargoHash = "sha256-jpsWnDQVwlgKL0P77mOCeeUHsWeG26C3L2SJV3U3im4=";
+  cargoHash = "sha256-TeOxfD6mqihBalx9lwP7qH2/LaXnPVCkTP/f16rpjJM=";
 
   nativeBuildInputs = [ pkg-config makeWrapper ];
 
-  buildInputs = [ openssl ]
+  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ curl libiconv ];
 
   postInstall = ''

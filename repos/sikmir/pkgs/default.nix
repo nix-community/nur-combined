@@ -477,6 +477,7 @@ lib.makeScope newScope (
     cykhash = callPackage ./osm/cykhash { };
     gcgn-converter = callPackage ./osm/gcgn-converter { };
     imposm = callPackage ./osm/imposm { };
+    level0 = callPackage ./osm/level0 { };
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive = callPackage ./osm/maperitive { };
