@@ -1067,6 +1067,39 @@
         platforms = platforms.all;
       };
     };
+    "chatgptbox" = buildFirefoxXpiAddon {
+      pname = "chatgptbox";
+      version = "2.5.2";
+      addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4254479/chatgptbox-2.5.2.xpi";
+      sha256 = "a0809232eb9e8d7a6d7949ab3792c16bf402b056877ca2618caeb1a56f69d218";
+      meta = with lib;
+      {
+        homepage = "https://github.com/josStorer/chatGPTBox";
+        description = "This extension integrates ChatGPT into the browser deeply, and provides chat windows, search engines and commonly used websites integration, and selection tools.";
+        license = licenses.mit;
+        mozPermissions = [
+          "cookies"
+          "storage"
+          "contextMenus"
+          "unlimitedStorage"
+          "tabs"
+          "webRequest"
+          "https://*.openai.com/"
+          "https://*.bing.com/"
+          "wss://*.bing.com/*"
+          "https://*.poe.com/"
+          "https://*.google.com/"
+          "https://claude.ai/"
+          "https://*.moonshot.cn/*"
+          "<all_urls>"
+          "https://*/*"
+          "http://*/*"
+          "file://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "clearcache" = buildFirefoxXpiAddon {
       pname = "clearcache";
       version = "4.0";
@@ -1797,10 +1830,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240416.43247";
+      version = "126.0.20240417.91940";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4265379/deutsch_de_language_pack-125.0.20240416.43247.xpi";
-      sha256 = "7985f76d4e8ca03af2e48558f38f851329297c995abdd83467799ff3363509c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4266153/deutsch_de_language_pack-126.0.20240417.91940.xpi";
+      sha256 = "27737d0857f8858f0973abe79ef0aa8294fbe9d6cd8f79812cb2a3894becc0cc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2737,10 +2770,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240416.43247";
+      version = "126.0.20240417.91940";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4265337/francais_language_pack-125.0.20240416.43247.xpi";
-      sha256 = "5781da7c1a15585083d5c8359311e2382a37e049a9b5426315734f618d1437f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4266115/francais_language_pack-126.0.20240417.91940.xpi";
+      sha256 = "7722303057ecfe38a3d3ef89ff9dbff45583851ccfa78cdb1c3c6089f47aac14";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -11700,10 +11733,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.4.7.0";
+      version = "24.4.16.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4264443/yomitan-24.4.7.0.xpi";
-      sha256 = "2423116c865ee1713af441d154f6ed32d896b50719fc189cf49a530988877244";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4266306/yomitan-24.4.16.0.xpi";
+      sha256 = "43fe52301aaefc51abb9525f3ec906dc0642c4562370f30a33ee4ae82c3c19f6";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
@@ -11776,10 +11809,10 @@
     };
     "youtube-recommended-videos" = buildFirefoxXpiAddon {
       pname = "youtube-recommended-videos";
-      version = "1.6.3";
+      version = "1.6.7";
       addonId = "myallychou@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4210197/youtube_recommended_videos-1.6.3.xpi";
-      sha256 = "c2a323ad12f72d887a51b019c748facbdc87b2f71238139fcbea0e2b10a04d04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4263531/youtube_recommended_videos-1.6.7.xpi";
+      sha256 = "bb6d68b8df48c8ece44e4152783cfe401a7da6c275176366b2faa9ea78740d15";
       meta = with lib;
       {
         homepage = "https://unhook.app";
