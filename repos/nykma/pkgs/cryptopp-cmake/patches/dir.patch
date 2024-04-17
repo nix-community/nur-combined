@@ -1,0 +1,17 @@
+diff --git a/cryptopp/config.pc.in b/cryptopp/config.pc.in
+index 0600f26..debeec6 100644
+--- a/cryptopp/config.pc.in
++++ b/cryptopp/config.pc.in
+@@ -1,9 +1,9 @@
+ # Crypto++ package configuration file
+ 
+ prefix=@CMAKE_INSTALL_PREFIX@
+-libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
+-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+-datadir=${prefix}/@CMAKE_INSTALL_DATAROOTDIR@/cryptopp
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
++datadir=@CMAKE_INSTALL_FULL_DATAROOTDIR@/cryptopp
+ 
+ Name: Crypto++
+ URL: https://cryptopp.com/

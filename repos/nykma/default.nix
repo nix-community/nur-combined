@@ -9,6 +9,7 @@ rec {
   snipaste = pkgs.callPackage ./pkgs/snipaste { };
   safeheron-crypto-suites = pkgs.callPackage ./pkgs/safeheron-crypto-suites { };
   multi-party-sig = pkgs.callPackage ./pkgs/multi-party-sig { safeheron-crypto-suites = safeheron-crypto-suites; };
+  cryptopp-cmake = pkgs.callPackage ./pkgs/cryptopp-cmake { };
   orca-slicer = pkgs.callPackage ./pkgs/orca-slicer { };
   snips-sh = pkgs.callPackage ./pkgs/snips.sh { };
 }
