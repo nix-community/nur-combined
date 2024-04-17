@@ -13,6 +13,9 @@
   services.nscd.enable = lib.mkForce false;
   system.nssModules = lib.mkForce [];
 
+  # disable touch clicks because i always tap while typing
+  services.xserver.libinput.touchpad.tappingButtonMap = null;
+
 
 	imports = [
 		../common/all.nix
