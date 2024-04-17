@@ -68,6 +68,7 @@
   - integrate `nix check` into Gitea actions?
 
 ### user experience
+- rofi: sort items case-insensitively
 - give `mpv` better `nice`ness?
 - xdg-desktop-portal shouldn't kill children on exit
   - *maybe* a job for `setsid -f`?
@@ -94,6 +95,7 @@
   - Neverball (https://neverball.org/screenshots.php). nix: as `neverball`
   - blurble (https://linuxphoneapps.org/games/app.drey.blurble/). nix: not as of 2024-02-05
   - Trivia Quiz (https://linuxphoneapps.org/games/io.github.nokse22.trivia-quiz/)
+- sane-sync-music: remove empty dirs
 
 #### moby
 - fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>

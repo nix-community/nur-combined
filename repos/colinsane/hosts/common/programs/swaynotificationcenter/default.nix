@@ -222,6 +222,9 @@ in
         };
         volume = {
           label = " ";
+          # show-per-app: adds a drop-down, which when clicked allows control per app
+          show-per-app = true;
+          animation-duration = 130;
         };
       };
     };

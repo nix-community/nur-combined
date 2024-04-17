@@ -12,7 +12,7 @@ tool which runs over a complete music library or a subset of it and:
 
 this tool does NOT move or rename files. it only edits tags.
 
-USAGE: cd MUSIC_LIBRARY_TOP && sane-tag-music [--dry-run] [options] DIRECTORY [DIRECTORY ...]
+USAGE: cd MUSIC_LIBRARY_TOP && sane-tag-music [options] fix-tags|fix-paths [more-options] DIRECTORY [DIRECTORY ...]
 
 scans DIRECTORY and guesses artist/album/title for each track, based on path relative to pwd.
 if the guessed tags look more correct than the existing tags (i.e. if the existing file is missing a tag),
@@ -22,8 +22,8 @@ DIRECTORY: specify `.` to scan the entire library.
 
 options:
 --dry-run: only show what would be done, don't actually do it.
---force: apply path-based tag to each file, even those which already have tags.
 --verbose
+--force: apply path-based tag to each file, even those which already have tags (only for fix-tags)
   --album ALBUM           manually specify the tag, rather than guessing from path.
   --album-artist ARTIST   often combined with DIRECTORY to tag an entire artist or album.
   --artist ARTIST
@@ -34,6 +34,7 @@ from dataclasses import dataclass
 
 import argparse
 import logging
+import os
 import os.path
 import mutagen.easyid3
 import mutagen.flac
@@ -70,6 +71,18 @@ def loose_compare_lists(a: list[str], b: list[str]) -> bool:
     a = sorted(clean_for_loose_compare(i) for i in a)
     b = sorted(clean_for_loose_compare(i) for i in b)
     return a == b
+
+def clean_for_fs(a: str, single_field: bool=False) -> str:
+    preserve = 'abcdefghijklmnopqrstuvwxyz0123456789._-'
+    a = a.replace(" ", ".")
+    if single_field:
+        a = a.replace("-", ".")
+
+    a = "".join(l for l in a if l.lower() in preserve)
+
+    while ".." in a:
+        a = a.replace("..", ".")
+    return a
 
 @dataclass
 class Tags:
@@ -174,6 +187,17 @@ class Tags:
         for artist in self.albumartist[::-1] + self.artist[::-1]:
             if loose_compare_str(self.album[0], "Singles") or loose_compare_str(self.album[0], artist):
                 self.album = [ artist ]
+
+    def to_path(self, ext: str) -> str | None:
+        artist = self.albumartist or self.artist
+        if not (artist and self.album and self.tracknumber and self.title and ext):
+            return None
+
+        artist = clean_for_fs(artist[0], single_field=False)
+        album = clean_for_fs(self.album[0], single_field=True)
+        trackno = clean_for_fs(self.tracknumber[0], single_field=True)
+        title_ext = clean_for_fs(self.title[0] + f".{ext}", single_field=True)
+        return f"{artist}/{album}/{trackno}-{title_ext}"
 
     @staticmethod
     def from_path(p: str) -> 'Tags':
@@ -355,16 +379,26 @@ class Tagger:
             if self.guard_dry_run("writing tags"):
                 file_.write_tags(new_tags)
 
-    def tag_file_tree(self, root: str) -> None:
-        for dir_, subdirs, files_ in os.walk(root):
-            for f in files_:
-                self.tag_file(os.path.join(dir_, f))
+    def fix_path(self, path_: str) -> None:
+        file_ = AudioFile.new(path_)
+        if not file_:
+            logger.debug(f"skipping unsupported file: {path_}")
+            return
 
-    def tag_file_or_tree(self, path_: str) -> None:
-        if os.path.isdir(path_):
-            self.tag_file_tree(path_)
-        else:
-            self.tag_file(path_)
+        tags = self.manual_tags.union(file_.tags_on_disk())
+        new_path = tags.to_path(os.path.splitext(path_)[1])
+        if new_path is None:
+            logger.debug(f"skipping untagged file: {path_}")
+            logger.debug(f"  {tags}")
+            return
+
+        if new_path == path_:
+            return self.skip_unchanged(path_, tags)
+
+        if self.confirm():
+            if self.guard_dry_run(f"moving file: {path_} -> {new_path}"):
+                # os.renames creates the necessary parents, and then prunes leaf directories
+                os.renames(path_, new_path)
 
     def show_tagdif(self, path_: str, old_tags: Tags, new_tags: Tags):
         logger.info(f"updating tags for {path_}")
@@ -387,25 +421,45 @@ class Tagger:
         return True
 
 
+def walk_files(*roots: str) -> None:
+    for root in roots:
+        if os.path.isdir(root):
+            for dir_, subdirs, files_ in os.walk(root):
+                for f in files_:
+                    yield os.path.join(dir_, f)
+        else:
+            yield root
+
+
 def main():
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
     parser = argparse.ArgumentParser(description="augment music tags based on library path")
-    parser.add_argument("path", nargs="+", help="relative path to a file to tag")
     parser.add_argument('--dry-run', action='store_true')
-    parser.add_argument('--force', action='store_true', help="give higher credence to path-based and manual tags than any existing tags")
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--album', help="manually specify the tag")
     parser.add_argument('--album-artist', help="manually specify the tag")
     parser.add_argument('--artist', help="manually specify the tag")
     parser.add_argument('--title', help="manually specify the tag")
 
+    subparsers = parser.add_subparsers(help="operation")
+
+    fix_tags_parser = subparsers.add_parser("fix-tags")
+    fix_tags_parser.set_defaults(subcommand="fix_tags")
+    fix_tags_parser.add_argument('--force', action='store_true', help="give higher credence to path-based and manual tags than any existing tags")
+    fix_tags_parser.add_argument("path", nargs="+", help="relative path to a file to tag")
+
+    fix_paths_parser = subparsers.add_parser("fix-paths")
+    fix_paths_parser.set_defaults(subcommand="fix_paths")
+    fix_paths_parser.add_argument("path", nargs="+", help="relative path to a file to tag")
+
     args = parser.parse_args()
 
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
+    files = list(walk_files(*args.path))
     manual_tags = Tags(
         album=[args.album] if args.album else [],
         albumartist=[args.album_artist] if args.album_artist else [],
@@ -415,12 +469,19 @@ def main():
 
     tagger = Tagger(
         dry_run=args.dry_run,
-        force=args.force,
-        manual_tags=manual_tags
+        force=getattr(args, "force", False),
+        manual_tags=manual_tags,
     )
 
-    for p in args.path:
-        tagger.tag_file_or_tree(p)
+    if args.subcommand == "fix_tags":
+        for p in files:
+            tagger.tag_file(p)
+    elif args.subcommand == "fix_paths":
+        for p in files:
+            print(p)
+            tagger.fix_path(p)
+
+
 
 if __name__ == '__main__':
     main()
