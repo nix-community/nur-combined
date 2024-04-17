@@ -26,7 +26,8 @@ options:
   --album ALBUM           manually specify the tag, rather than guessing from path.
   --album-artist ARTIST   often combined with DIRECTORY to tag an entire artist or album.
   --artist ARTIST
-  --tile TITLE
+  --title TITLE
+  --trackno TRACK_NUMBER
 
 fix-tags options:
 --force: apply path-based tag to each file, even those which already have tags (only for fix-tags)
@@ -466,6 +467,7 @@ def main():
     parser.add_argument('--album-artist', help="manually specify the tag")
     parser.add_argument('--artist', help="manually specify the tag")
     parser.add_argument('--title', help="manually specify the tag")
+    parser.add_argument('--trackno', help="manually specify the tag")
 
     subparsers = parser.add_subparsers(help="operation")
 
@@ -493,6 +495,7 @@ def main():
         albumartist=[args.album_artist] if args.album_artist else [],
         artist=[args.artist] if args.artist else [],
         title=[args.title] if args.title else [],
+        tracknumber=[args.trackno] if args.trackno is not None else [],
     )
 
     tagger = Tagger(
