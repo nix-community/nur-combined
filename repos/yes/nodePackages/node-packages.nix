@@ -2074,13 +2074,13 @@ let
         sha512 = "ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==";
       };
     };
-    "rollup-4.14.2" = {
+    "rollup-4.14.3" = {
       name = "rollup";
       packageName = "rollup";
-      version = "4.14.2";
+      version = "4.14.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-4.14.2.tgz";
-        sha512 = "WkeoTWvuBoFjFAhsEOHKRoZ3r9GfTyhh7Vff1zwebEFLEFjT1lG3784xEgKiTa7E+e70vsC81roVL2MP4tgEEQ==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-4.14.3.tgz";
+        sha512 = "ag5tTQKYsj1bhrFC9+OEWqb5O6VYgtQDO9hPDBMmIbePwhfSr+ExlcU741t8Dhw5DkPCQf6noz0jb36D6W9/hw==";
       };
     };
     "safe-buffer-5.1.2" = {
@@ -3089,7 +3089,7 @@ in
       sources."path-parse-1.0.7"
       sources."picomatch-2.3.1"
       sources."resolve-1.22.8"
-      sources."rollup-4.14.2"
+      sources."rollup-4.14.3"
       sources."supports-preserve-symlinks-flag-1.0.0"
     ];
     buildInputs = globalBuildInputs;
@@ -3127,7 +3127,7 @@ in
       sources."minimatch-5.1.6"
       sources."once-1.4.0"
       sources."picomatch-2.3.1"
-      sources."rollup-4.14.2"
+      sources."rollup-4.14.3"
       sources."wrappy-1.0.2"
     ];
     buildInputs = globalBuildInputs;
@@ -3153,7 +3153,7 @@ in
       sources."@types/estree-1.0.5"
       sources."estree-walker-2.0.2"
       sources."picomatch-2.3.1"
-      sources."rollup-4.14.2"
+      sources."rollup-4.14.3"
     ];
     buildInputs = globalBuildInputs;
     meta = {
@@ -3185,7 +3185,7 @@ in
       sources."buffer-from-1.1.2"
       sources."commander-2.20.3"
       sources."randombytes-2.1.0"
-      sources."rollup-4.14.2"
+      sources."rollup-4.14.3"
       sources."safe-buffer-5.2.1"
       sources."serialize-javascript-6.0.2"
       sources."smob-1.5.0"
