@@ -24,7 +24,7 @@ lib.mkIf false
   # services.calibre-web.options.calibreLibrary = svc-dir;
 
   services.nginx.virtualHosts."calibre.uninsane.org" = {
-    addSSL = true;
+    forceSSL = true;
     enableACME = true;
     locations."/" = {
       proxyPass = "http://${ip}:${builtins.toString port}";

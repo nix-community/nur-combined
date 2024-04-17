@@ -12,7 +12,7 @@ in
   services.komga.port = 11319;  # chosen at random
 
   services.nginx.virtualHosts."komga.uninsane.org" = {
-    addSSL = true;
+    forceSSL = true;
     enableACME = true;
     locations."/" = {
       proxyPass = "http://127.0.0.1:${builtins.toString port}";

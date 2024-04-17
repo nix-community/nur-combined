@@ -75,7 +75,7 @@
   # Jellyfin multimedia server
   # this is mostly taken from the official jellfin.org docs
   services.nginx.virtualHosts."jelly.uninsane.org" = {
-    addSSL = true;
+    forceSSL = true;
     enableACME = true;
     # inherit kTLS;
 

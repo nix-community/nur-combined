@@ -58,6 +58,7 @@ let
       # make the media rwx by anyone in the group
       destructive find "$MEDIA_DIR" -type d -exec setfacl --recursive --modify d:g::rwx,o::rx {} \;
       destructive find "$MEDIA_DIR" -type d -exec chmod g+rw,a+rx {} \;
+
       # if there's a single directory inside the media dir, then inline that
       subdirs=("$MEDIA_DIR"/*)
       if [ ''${#subdirs} -eq 1 ]; then
@@ -66,6 +67,15 @@ let
           mv "$dirname"/* "$MEDIA_DIR/" && rmdir "$dirname"
         fi
       fi
+
+      # remove noisy files:
+      find "$MEDIA_DIR/" -type f \
+           -iname 'www.YTS.*.jpg' \
+        -o -iname 'WWW.YIFY*.COM.jpg' \
+        -o -iname 'YIFY*.com.txt' \
+        -o -iname 'YTS*.com.txt' \
+        -exec rm {} \;
+
       # dedupe the whole media library.
       # yeah, a bit excessive: move this to a cron job if that's problematic.
       destructive hardlink /var/media --reflink=always --ignore-time --verbose
@@ -95,8 +105,8 @@ in
     # DOCUMENTATION/options list: <https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md#options>
 
     # message-level = 3;  #< enable for debug logging. 0-3, default is 2.
-    # 0.0.0.0 => allow rpc from any host: we gate it via firewall and auth requirement
-    rpc-bind-address = "0.0.0.0";
+    # 10.0.1.6 => allow rpc only from the root servo ns. it'll tunnel things to the net, if need be.
+    rpc-bind-address = "10.0.1.6";
     #rpc-host-whitelist = "bt.uninsane.org";
     #rpc-whitelist = "*.*.*.*";
     rpc-authentication-required = true;
@@ -105,6 +115,10 @@ in
     # /var/lib/transmission/.config/transmission-daemon/settings.json
     rpc-password = "{503fc8928344f495efb8e1f955111ca5c862ce0656SzQnQ5";
     rpc-whitelist-enabled = false;
+
+    # force behind ovpns in case the NetworkNamespace fails somehow
+    bind-address-ipv4 = "185.157.162.178";
+    port-forwarding-enabled = false;
 
     # hopefully, make the downloads world-readable
     # umask = 0;  #< default is 2: i.e. deny writes from world

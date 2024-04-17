@@ -124,12 +124,13 @@ def getAuthResponse(ip: str, username: str, password: str) -> dict:
   return a sftpgo auth response either denying the user or approving them
   with a set of permissions.
   """
-  if isTrustedCred(password) and username != "colin":
-    # allow r/w access from those with a special token
-    return mkAuthOk(username, permissions = {
-      "/": PERM_RW,
-      "/playground": PERM_RW,
-    })
+  # TODO: allow external access only after i enable FTPS/ssl
+  # if isTrustedCred(password) and username != "colin":
+  #   # allow r/w access from those with a special token
+  #   return mkAuthOk(username, permissions = {
+  #     "/": PERM_RW,
+  #     "/playground": PERM_RW,
+  #   })
   if isWireguard(ip):
     # allow any user from wireguard
     return mkAuthOk(username, permissions = {
