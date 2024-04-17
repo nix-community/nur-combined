@@ -27,7 +27,7 @@ appimageTools.wrapType2 {
     install -Dm 444  ${appimageContents}/${pname}.png -t $out/share/pixmaps
 
     substituteInPlace $out/share/applications/$DESKTOP_FILE \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
+      --replace 'Exec=bin/${pname}' 'Exec=${pname}'
   '';
 
   meta = with lib; {
