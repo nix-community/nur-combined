@@ -244,6 +244,69 @@ let inherit (builtins) attrNames compareVersions mapAttrs;
       "116.0" = {
         sha256 = "1gs0adfb3lqmx4vy3388r1fck0lnb1pkzd452w9dqz3378mb3g59";
       };
+      "116.0.1" = {
+        sha256 = "1zfx14fqan7k3ppq16869nvh477ff0bryajshw27j6dly3gq5y0n";
+      };
+      "116.0.2" = {
+        sha256 = "0h4bzzb73pwl427gz8yxj8x65dzr6hd21cvm60w4ipl843rpfj8m";
+      };
+      "116.0.3" = {
+        sha256 = "0k8yfs9b4a4vxl8nvx1j45najykq8pvqwffrikxzs939idywkbvv";
+      };
+      "117.0" = {
+        sha256 = "0n72asppiqckddx0pm0kn4yskbhz5b1nflvrcinvbzm0grmcv7zb";
+      };
+      "117.0.1" = {
+        sha256 = "04prl8ffhdhypwnk61j94h0jkahhfj0rr0ng1rrls1yjjzym788i";
+      };
+      "118.0" = {
+        sha256 = "02cw9ibif53y5zkbzk5rr8vwxknrgckih3h92q33rrmdk5zishng";
+      };
+      "118.0.1" = {
+        sha256 = "1sad5qxipwdcc6cq6jrvvsxi58bcp0v6knwxyw6dq170xi8ihiwq";
+      };
+      "118.0.2" = {
+        sha256 = "11p5lm913gdmmffacsvjcr7jkwlj7rnmblbbk1ihfdm1d8hwm35b";
+      };
+      "119.0" = {
+        sha256 = "1sg2r8ybgkh3rb68jdxiqzqaymvsm8sapjzmdbfgngzv4gv65a4y";
+      };
+      "120.0" = {
+        sha256 = "1aggfg8x14d3ay0y1pd6n73isc2b06n1qjnki02dvsr408vb2xq9";
+      };
+      "121.0" = {
+        sha256 = "1k79filhhq2jlvg53yika0lzi0pnms3rxbija655ab4whl9x6ip1";
+      };
+      "122.0" = {
+        sha256 = "1m4mhyvb12pb57j1gmic4ba8yq8zj62iirqc85i4014b73jqzmnc";
+      };
+      "123.0" = {
+        sha256 = "1wd8p15kz93pv812g2fgzn48kgii1p53f4bd6iywybcpvw31qcl0";
+      };
+      "119.0.1" = {
+        sha256 = "00bp9340if8igmkywp8d60magabv14dk78xhrsdy4n9svxhzgap8";
+      };
+      "120.0.1" = {
+        sha256 = "0bax6fhzjwhzfphnlpj1l9yj4x8vcjqj8n5h9lrzsjbwwnpvl35k";
+      };
+      "121.0.1" = {
+        sha256 = "1wmcf91rbn49p3cq912di800ivvw8fbjwpk279avmwmwpfd5jjr3";
+      };
+      "122.0.1" = {
+        sha256 = "0apb3mwh78c4glvfwvd4mmjk9n1arr1y9f7a56vli797r8ji8wj2";
+      };
+      "123.0.1" = {
+        sha256 = "1izqdhdxl6g9casba39wc4nn9y605nmd7kknwj6qr0vwpsn5p21m";
+      };
+      "124.0" = {
+        sha256 = "0s0r2jqz8aip9hv2x42xrm160irrb70rhn1v94w837kjr1g12xlq";
+      };
+      "124.0.1" = {
+        sha256 = "1ymwdqic3rbw6gj2n77ab3w8zybmza409hkn7qcnbkwnf8l61cmp";
+      };
+      "124.0.2" = {
+        sha256 = "0dhx2mdiw6y79bdhh6sshjj0w8xbn5m16s5gs0b1g5ggd69qjv7l";
+      };
     } // { esr = addVersion {
              # Security updates until September 2024
              "115.1.0esr" = {
@@ -251,6 +314,42 @@ let inherit (builtins) attrNames compareVersions mapAttrs;
              };
              "115.2.0esr" = {
                sha256 = "0qcbjqqppgw547xcawdcddbg1jl7si327av6xlniqf4dhmq48yq2";
+             };
+             "115.10.0esr" = {
+               sha256 = "0qcbjqqppgw547xcawdcddbg1jl7si327av6xlniqf4dhmq48yq2";
+             };
+             "115.2.1esr" = {
+               sha256 = "0n71wgs29jqvm9jwn03wcp0m098jy2h2svjiavyplp3661ksrb3f";
+             };
+             "115.3.0esr" = {
+               sha256 = "0pqhyiwwh9gd7f6k8lckiyx87d436v4s5hqsmcp8n7p48x6bsp8p";
+             };
+             "115.3.1esr" = {
+               sha256 = "03kqb49gj69azh41ad0cj3d3cayb6xr1xsjwsmgjl1nrqz1mk5lw";
+             };
+             "115.4.0esr" = {
+               sha256 = "1sggchnkadyf6gpsp1hlinac2skdjkc26l99vwjrcvvavnszqlys";
+             };
+             "115.5.0esr" = {
+               sha256 = "0v51y9a5vc6hp2dv4gx40fdxsngdvafn337hczfyv811gfqpby9d";
+             };
+             "115.6.0esr" = {
+               sha256 = "031vb55giwqaxd43zkmahwzn9r5klpr9yhh5qb8x1vahzgjxbmzs";
+             };
+             "115.7.0esr" = {
+               sha256 = "0gj32c2nw8kb9mmx1rwkbb5y6d8dl4q0z56rib3fhwwyvy9lvgvl";
+             };
+             "115.8.0esr" = {
+               sha256 = "1qvhl6vj15x4jf3gadipw59vxncn8bjrilhvn4879f30x12cznky";
+             };
+             "115.10.0esr" = {
+               sha256 = "1325r5fym8j8bcq9n44mdh4zjp7yrrxzzx0kghq3fvsg3w4w4iii";
+             };
+             "115.9.0esr" = {
+               sha256 = "0l8s69a6jrf6f8qlby36hdl1qa5l1hnxrbx71dgzsxl781b19cmb";
+             };
+             "115.9.1esr" = {
+               sha256 = "1pm3j1180qlscrsz0042f5gnrsmw9rsg2gzsx3b0p9gvv4lnvda4";
              };
            };
          };
