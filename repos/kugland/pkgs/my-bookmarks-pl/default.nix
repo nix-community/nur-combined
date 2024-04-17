@@ -1,10 +1,10 @@
-{
-  pkgs,
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  perlPackages,
-  makeWrapper,
+{ pkgs
+, lib
+, stdenvNoCC
+, fetchFromGitHub
+, perlPackages
+, makeWrapper
+,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "my-bookmarks.pl";
@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
     rofi
   ];
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     runHook preInstall

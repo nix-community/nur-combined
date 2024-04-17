@@ -1,9 +1,9 @@
-{
-  pkgs,
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  buildRustPackage ? rustPlatform.buildRustPackage,
+{ pkgs
+, lib
+, fetchFromGitHub
+, rustPlatform
+, buildRustPackage ? rustPlatform.buildRustPackage
+,
 }:
 buildRustPackage rec {
   pname = "neocities-deploy";
@@ -19,6 +19,6 @@ buildRustPackage rec {
     description = "A command-line tool for deploying your Neocities site";
     homepage = "https://github.com/kugland/neocities-deploy";
     license = licenses.gpl3;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

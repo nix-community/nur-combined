@@ -1,14 +1,14 @@
 # This package is already merged into nixpkgs unstable, but I'll keep it here to
 # use it until it and to cache its build on cachix until it goes to stable.
-{
-  lib,
-  fetchFromGitLab,
-  cmake,
-  extra-cmake-modules,
-  ffmpeg,
-  openal,
-  stdenv,
-  libsForQt5,
+{ lib
+, fetchFromGitLab
+, cmake
+, extra-cmake-modules
+, ffmpeg
+, openal
+, stdenv
+, libsForQt5
+,
 }:
 stdenv.mkDerivation rec {
   pname = "subtitlecomposer";
@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-RKS3VTtpxnox0hzessMHmoGPpT+Ho0b3fxtQMGw9OrM=";
   };
 
-  nativeBuildInputs = [cmake extra-cmake-modules libsForQt5.wrapQtAppsHook];
+  nativeBuildInputs = [ cmake extra-cmake-modules libsForQt5.wrapQtAppsHook ];
   buildInputs =
-    [ffmpeg openal]
+    [ ffmpeg openal ]
     ++ (with libsForQt5; [
       kcodecs
       kconfig
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://invent.kde.org/multimedia/subtitlecomposer/-/blob/master/ChangeLog";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
     mainProgram = "subtitlecomposer";
     platforms = with platforms; linux ++ freebsd ++ windows;
   };

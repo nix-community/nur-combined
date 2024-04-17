@@ -1,12 +1,13 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
+{ pkgs
+, lib
+, config
+, ...
+}:
+let
   cfg = config.security.google-authenticator-singlesecret;
-  escapeCLang = str: lib.strings.escapeC [''"'' ''\'' "\n" "\t" "\r"] str;
-in {
+  escapeCLang = str: lib.strings.escapeC [ ''"'' ''\'' "\n" "\t" "\r" ] str;
+in
+{
   options = {
     security.google-authenticator-singlesecret = {
       enable = lib.mkEnableOption "Enable Google Authenticator (single secret)";
@@ -31,20 +32,22 @@ in {
     nixpkgs.overlays = [
       (final: prev: {
         google-authenticator = prev.google-authenticator.overrideAttrs (attrs: {
-          patches = [./singlesecret.patch];
-          preBuild = let
-            user = escapeCLang cfg.user;
-            secret = escapeCLang (cfg.secret-dir + "/secret");
-            echo =
-              if cfg.echo
-              then "1"
-              else "0";
-          in ''
-            sed -i -e 's|@TOTP_AUTH_USER@|"${user}"|' \
-                   -e 's|@TOTP_AUTH_SECRET@|"${secret}"|' \
-                   -e 's|@TOTP_AUTH_ECHO@|${echo}|' \
-                   src/pam_google_authenticator.c
-          '';
+          patches = [ ./singlesecret.patch ];
+          preBuild =
+            let
+              user = escapeCLang cfg.user;
+              secret = escapeCLang (cfg.secret-dir + "/secret");
+              echo =
+                if cfg.echo
+                then "1"
+                else "0";
+            in
+            ''
+              sed -i -e 's|@TOTP_AUTH_USER@|"${user}"|' \
+                     -e 's|@TOTP_AUTH_SECRET@|"${secret}"|' \
+                     -e 's|@TOTP_AUTH_ECHO@|${echo}|' \
+                     src/pam_google_authenticator.c
+            '';
         });
       })
     ];
@@ -59,7 +62,7 @@ in {
         shell = "${pkgs.shadow}/bin/nologin";
         hashedPassword = "!";
       };
-      groups.${cfg.user} = {};
+      groups.${cfg.user} = { };
     };
     environment.systemPackages = with pkgs; [
       google-authenticator

@@ -1,11 +1,11 @@
-{
-  pkgs,
-  lib,
-  python3Packages,
-  buildPythonPackage ? python3Packages.buildPythonPackage,
-  fetchPypi ? python3Packages.fetchPypi,
-  auditok,
-  pysubs2,
+{ pkgs
+, lib
+, python3Packages
+, buildPythonPackage ? python3Packages.buildPythonPackage
+, fetchPypi ? python3Packages.fetchPypi
+, auditok
+, pysubs2
+,
 }:
 buildPythonPackage rec {
   pname = "ffsubsync";
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     description = "Automagically synchronize subtitles with video";
     homepage = "https://github.com/smacke/ffsubsync";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
   };
 }
