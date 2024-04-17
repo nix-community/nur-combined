@@ -913,7 +913,7 @@ dependencies = [
 
 [[package]]
 name = "mstickereditor"
-version = "0.3.4"
+version = "0.3.5"
 dependencies = [
  "anyhow",
  "basic-toml",
@@ -935,7 +935,7 @@ dependencies = [
 
 [[package]]
 name = "mstickerlib"
-version = "0.2.1"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "derive-getters",

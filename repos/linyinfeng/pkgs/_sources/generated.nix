@@ -94,16 +94,16 @@
   };
   mstickereditor = {
     pname = "mstickereditor";
-    version = "v0.3.4";
+    version = "v0.3.5";
     src = fetchFromGitHub {
       owner = "LuckyTurtleDev";
       repo = "mstickereditor";
-      rev = "v0.3.4";
+      rev = "v0.3.5";
       fetchSubmodules = false;
-      sha256 = "sha256-BPSt/2cgfTPdrcECwV1IW9F+CXZ89Jiq3O7Q8fFJqHA=";
+      sha256 = "sha256-yRUeAN24jsO+lgAuN2mqr6WHKLpd1mXTwI0Choh1Ecs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./mstickereditor-v0.3.4/Cargo.lock;
+      lockFile = ./mstickereditor-v0.3.5/Cargo.lock;
       outputHashes = {
 
       };
