@@ -348,6 +348,12 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       pygubu-designer = callPackage ./pkgs/python3/pkgs/pygubu-designer/pygubu-designer.nix { };
 
+      pkg-metadata = callPackage ./pkgs/python3/pkgs/pkg-metadata { };
+
+      get-pip = callPackage ./pkgs/python3/pkgs/get-pip { };
+
+      wenv = callPackage ./pkgs/python3/pkgs/wenv { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -740,6 +746,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   qaac-bin = callPackage ./pkgs/applications/audio/qaac-bin { };
 
   s2e = callPackage ./pkgs/development/libraries/s2e { };
+
+  fetchtorrent = callPackage ./pkgs/build-support/fetchtorrent { };
 
 }
 
