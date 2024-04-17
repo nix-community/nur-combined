@@ -12,9 +12,6 @@
   inputs.nix.url = "github:dguibert/nix/pu"; # boehmgc 8.2.4
   inputs.nix.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.nix-custom-store.url = "github:dguibert/nix-custom-store";
-  inputs.nix-custom-store.inputs.nix.follows = "nix";
-
   # for overlays/updated-from-flake.nix
   inputs.dwl-src.flake = false;
   inputs.dwl-src.url = "github:dguibert/dwl/pu";

@@ -8,7 +8,6 @@
       inherit system;
       overlays = [
         inputs.nix.overlays.default
-        inputs.nix-custom-store.overlays.default
         (final: prev: import ../../overlays/default final (prev // {inherit inputs;}))
         (final: prev: import ../../overlays/extra-builtins final (prev // {inherit inputs;}))
         (final: prev: import ../../overlays/updated-from-flake.nix final (prev // {inherit inputs;}))
