@@ -8,6 +8,9 @@
 # - soulseek is just *flaky*. if you see e.g. DNS errors, even though you can't replicate them via `dig` or `getent ahostsv4`, just give it 10 minutes to work out:
 #   - "Soulseek.AddressException: Failed to resolve address 'vps.slsknet.org': Resource temporarily unavailable"
 { config, lib, ... }:
+
+# TODO: disabled until i can ensure sandboxing (i.e. use `sane-ip-check` in pre-start)
+lib.mkIf false
 {
   sane.persist.sys.byStore.plaintext = [
     { user = "slskd"; group = "media"; path = "/var/lib/slskd"; method = "bind"; }
