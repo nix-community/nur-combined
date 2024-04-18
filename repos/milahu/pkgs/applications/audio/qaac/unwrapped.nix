@@ -10,7 +10,7 @@
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "qaac-bin";
+  pname = "qaac-unwrapped";
   version = "2.82";
 
   src = fetchurl {
@@ -150,6 +150,14 @@ stdenvNoCC.mkDerivation rec {
     #!/bin/sh
     # disable wine error messages by default
     export WINEDEBUG="\''${WINEDEBUG:=-all}"
+    # disable wine GUI
+    unset DISPLAY
+    # use a separate wine prefix
+    export WINEPREFIX="\''${WINEPREFIX:=$HOME/.cache/qaac/wine}"
+    # make it work in bubblewrap
+    # fix: wine: could not load ntdll.so
+    # https://unix.stackexchange.com/a/670754/295986
+    export WINEDLLPATH=${wine64}/lib/wine/x86_64-unix
     exec ${wine64}/bin/wine64 $out/opt/qaac/''${bin}64.exe "\$@"
     EOF
     chmod +x $out/bin/$bin
