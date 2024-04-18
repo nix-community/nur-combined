@@ -26,6 +26,10 @@ python3.pkgs.buildPythonApplication rec {
   version = "0.5.1";
   pyproject = true;
 
+  defaultArch = "win32";
+  defaultPythonVersion = python3-win32-zip.version;
+  wenvCache = "share/wenv/cache";
+
   src = fetchFromGitHub {
     owner = "pleiszenburg";
     repo = "wenv";
@@ -39,6 +43,16 @@ python3.pkgs.buildPythonApplication rec {
     name = "python-${version}-embed-win32.zip";
     url = "https://www.python.org/ftp/python/${version}/${name}";
     hash = "sha256-RHgGJP56Wd5CkEz3BuW19OJP3GUWUAYMnEqA7XnmhHw=";
+    passthru = {
+      inherit version;
+    };
+  };
+
+  python3-amd64-zip = fetchurl rec {
+    version = "3.11.7";
+    name = "python-${version}-embed-amd64.zip";
+    url = "https://www.python.org/ftp/python/${version}/${name}";
+    hash = "sha256-pSiLY7YhiQLpGE11tasqqh03uKpXCYGTRk1qSKugFJY=";
     passthru = {
       inherit version;
     };
@@ -94,6 +108,98 @@ python3.pkgs.buildPythonApplication rec {
       --replace-fail \
         'install_location = os.path.abspath(__file__)' \
         'return os.environ["HOME"] + "/.cache/wenv"' \
+      --replace-fail \
+        '        if key == "no_pth_file":' \
+        "$(
+          echo '        if key == "wenv_bin":'
+          #echo '            return "wenv"'
+          echo '            return "'$out'/bin/wenv"'
+          echo '        if key == "no_pth_file":'
+        )" \
+      --replace-fail \
+        '        if key == "arch":' \
+        "$(
+          echo '        if key == "arch":'
+          echo '            return "${defaultArch}"'
+        )" \
+      --replace-fail \
+        '        if key == "offline":' \
+        "$(
+          echo '        if key == "offline":'
+          echo '            return True'
+        )" \
+      --replace-fail \
+        "return PythonVersion(self['arch'], " \
+        'return PythonVersion.from_config(self["arch"], "${defaultPythonVersion}") # ' \
+      --replace-fail \
+        '        if key == "wine_bin_win32":' \
+        "$(
+          echo '        if key == "wine_bin_win32":'
+          echo '            return "${wine}/bin/wine"'
+        )" \
+      --replace-fail \
+        '        if key == "wine_bin_win64":' \
+        "$(
+          echo '        if key == "wine_bin_win64":'
+          echo '            return "${wine64}/bin/wine64"'
+        )" \
+      --replace-fail \
+        '        if key == "cache":' \
+        "$(
+          echo '        if key == "cache":'
+          #echo '            return "'$out'/${wenvCache}"'
+          # use the default wenv cache only when reading from cache
+          # when writing to cache, use the original default cache
+          # os.path.join(self["prefix"], "share", "wenv", "cache")
+          #echo '            if self._cmd != "cache": return "'$out'/${wenvCache}"'
+          # quick hack:
+          echo '            if len(sys.argv) < 2 or sys.argv[1] != "cache": return "'$out'/${wenvCache}"'
+        )" \
+
+    substituteInPlace src/wenv/_core/env.py \
+      --replace-fail \
+        '"wenv",' \
+        'self._p["wenv_bin"],' \
+      ${""/*
+        fix: wine: '/home/user/.cache/wenv/share/wenv/win64' is a 32-bit installation, it cannot support 64-bit applications.
+        but still, this does not work with arch = "win64"...
+
+        wine: failed to open L"C:\\windows\\syswow64\\rundll32.exe": c0000135
+        wine: failed to load L"\\??\\C:\\windows\\syswow64\\ntdll.dll" error c0000135
+
+        /home/user/.cache/wenv/share/wenv/win64/drive_c/windows/syswow64/ is empty
+      */} \
+      --replace-fail \
+        '"wine",' \
+        'self._wine_dict[self._p["arch"]],' \
+
+    ${""/*
+      # no. Env.cli is called after Env.__init__
+
+      # TODO refactor "class Env" in wenv/_core/env.py
+      # move code from __init__ to cli
+      # so that "class EnvConfig" in wenv/_core/config.py
+      # can see the "cmd" from cli
+      # so we can have different default configs for different cli commands
+      # but no... better to make the "cache" config a list of paths:
+
+      # ideally the "cache" config should be a list of paths
+      # for reading from the cache, all cache paths are used
+      # for writing to the cache, the first writable cache path is used
+
+      --replace-fail \
+        '        if cmd in self._cli_dict.keys():' \
+        "$(
+          echo '        self._cmd = cmd'
+          echo '        if cmd in self._cli_dict.keys():'
+        )" \
+    */}
+
+    # needed for zugbruecke/core/config.py
+    cat >>src/wenv/__init__.py <<EOF
+    _default_pythonversion = "${defaultPythonVersion}"
+    _default_arch = "${defaultArch}"
+    EOF
   '';
 
   # TODO patch wenv/_core/pythonversion.py to handle different platforms: 32bit vs 64bit
@@ -175,8 +281,10 @@ python3.pkgs.buildPythonApplication rec {
     EOF
   */
 
-  wenvCache = "share/wenv/cache";
-
+  # no. these defaults only affect the wenv CLI
+  # but not the wenv python module
+  # -> substituteInPlace src/wenv/_core/config.py
+  /*
   makeWrapperArgs = [
     "--set-default" "WENV_ARCH" "win32"
     "--set-default" "WENV_PYTHONVERSION" python3-win32-zip.version
@@ -184,9 +292,13 @@ python3.pkgs.buildPythonApplication rec {
     "--set-default" "WENV_WINE_BIN_WIN64" "${wine64}/bin/wine64"
     "--set-default" "WENV_OFFLINE" "1"
     "--set-default" "WENV_CACHE" "$out/${wenvCache}"
+    # the original wenv/_core/env.py tries to call "wenv"
+    # but that is not in PATH when using wenv in python
+    "--set-default" "WENV_WENV_BIN" "$out/bin/wenv"
     # no. WENV_PREFIX must be writable
     #"--set-default" "WENV_PREFIX" "$out/..."
   ];
+  */
 
   postPhases = "postDist";
 
@@ -227,13 +339,14 @@ python3.pkgs.buildPythonApplication rec {
   ''
     mkdir wenv-cache
     ln -s -v ${python3-win32-zip} wenv-cache/${python3-win32-zip.name}
+    ln -s -v ${python3-amd64-zip} wenv-cache/${python3-amd64-zip.name}
     ln -s -v ${python3}/${python3.sitePackages}/../site.py wenv-cache/site.py
 
     #mkdir wenv-cache/packages
 
     cat >wenv-cache/get-pip.py <<EOF
     #!/usr/bin/env python3
-    print("get-pip.py: noop. dst seems to be deleted after get-pip.py is done")
+    print("get-pip.py: noop")
     EOF
 
     ${""/*
@@ -285,6 +398,7 @@ python3.pkgs.buildPythonApplication rec {
     mkdir -p $out/$wenvCache
     pushd $out/$wenvCache
     ln -s -v ${python3-win32-zip} ${python3-win32-zip.name}
+    ln -s -v ${python3-amd64-zip} ${python3-amd64-zip.name}
     # TODO verify. python-3.11.7.stable/Lib/site.py already exists
     # see also https://github.com/pleiszenburg/wenv/issues/25
     ln -s -v ${python3}/${python3.sitePackages}/../site.py site.py

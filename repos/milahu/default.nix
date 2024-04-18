@@ -354,6 +354,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       wenv = callPackage ./pkgs/python3/pkgs/wenv { };
 
+      zugbruecke = callPackage ./pkgs/python3/pkgs/zugbruecke { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

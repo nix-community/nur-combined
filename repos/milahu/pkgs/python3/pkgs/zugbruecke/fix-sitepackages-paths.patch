@@ -1,0 +1,41 @@
+--- a/src/zugbruecke/core/wenv.py
++++ b/src/zugbruecke/core/wenv.py
+@@ -62,8 +62,11 @@
+         raise OSError(f'"{dest:s}" could not be created / does not exist')
+     if not os.path.islink(dest):
+         warnings.warn(f'"{dest:s}" is not a symlink', RuntimeWarning)
+-    if os.readlink(dest) != src:
+-        warnings.warn(f'"{dest:s}" points to the wrong source', RuntimeWarning)
++    else:
++        if os.readlink(dest) != src:
++            warnings.warn(f'replacing symlink {repr(dest)}:\n  a: {repr(os.readlink(dest))}\n  b: {repr(src)}', RuntimeWarning)
++            os.unlink(dest)
++            os.symlink(src, dest)
+ 
+ 
+ # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ -117,14 +117,16 @@
+ 
+         # Dist path in unix-python site-packages
+         unix_dist_path = None
+-        for sitepackages in site.getsitepackages() + [site.getusersitepackages()]:
+-            if dist_name.lower() not in [item.lower() for item in os.listdir(sitepackages)]:
+-                continue
+-            unix_dist_path = os.path.abspath(
+-                os.path.join(sitepackages, dist_name)
+-            )
+-            break
+-        if unix_dist_path is None:
++
++        if name == "zugbruecke":
++            unix_dist_path = os.path.realpath(os.path.dirname(__file__) + "../../../" + dist_name)
++        elif name == "wenv":
++            import wenv
++            unix_dist_path = os.path.realpath(os.path.dirname(wenv.__file__) + "/../" + dist_name)
++        else:
++            raise Exception(f"FIXME find dist path of package {name}")
++
++        if not os.path.exists(unix_dist_path):
+             raise ValueError('dist-info for package could not be found', name)
+ 
+         # Dist path in wine-python site-packages
