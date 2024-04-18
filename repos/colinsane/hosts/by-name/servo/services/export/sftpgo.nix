@@ -24,8 +24,14 @@ in
     "21" = {
       protocol = [ "tcp" ];
       visibleTo.lan = true;
-      visibleTo.wan = true;
+      # visibleTo.wan = true;
       description = "colin-FTP server";
+    };
+    "990" = {
+      protocol = [ "tcp" ];
+      visibleTo.lan = true;
+      visibleTo.wan = true;
+      description = "colin-FTPS server";
     };
   } // (sane-lib.mapToAttrs
     (port: {
@@ -39,6 +45,13 @@ in
     })
     (lib.range 50050 50100)
   );
+
+  # use nginx/acme to produce a cert for FTPS
+  services.nginx.virtualHosts."ftp.uninsane.org" = {
+    addSSL = true;
+    enableACME = true;
+  };
+  sane.dns.zones."uninsane.org".inet.CNAME."ftp" = "native";
 
   services.sftpgo = {
     enable = true;
@@ -58,6 +71,20 @@ in
             port = 21;
             debug = true;
           }
+          {
+            # binding this means any wireguard client can connect
+            address = "10.0.10.5";
+            port = 990;
+            debug = true;
+            tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.
+          }
+          {
+            # binding this means any LAN client can connect (also WAN traffic forwarded from the gateway)
+            address = "10.78.79.51";
+            port = 990;
+            debug = true;
+            tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.
+          }
         ];
 
         # active mode is susceptible to "bounce attacks", without much benefit over passive mode
@@ -68,6 +95,9 @@ in
           end = 50100;
         };
 
+        certificate_file = "/var/lib/acme/ftp.uninsane.org/full.pem";
+        certificate_key_file = "/var/lib/acme/ftp.uninsane.org/key.pem";
+
         banner = ''
           Welcome, friends, to Colin's FTP server! Also available via NFS on the same host, but LAN-only.
 
@@ -75,7 +105,7 @@ in
           Username: "anonymous"
           Password: "anonymous"
 
-          CONFIGURE YOUR CLIENT FOR "PASSIVE" mode, e.g. `ftp --passive uninsane.org`.
+          CONFIGURE YOUR CLIENT FOR "PASSIVE" MODE, e.g. `ftp --passive ftp.uninsane.org`.
           Please let me know if anything's broken or not as it should be. Otherwise, browse and transfer freely :)
         '';
 
@@ -95,6 +125,7 @@ in
   users.users.sftpgo.extraGroups = [
     "export"
     "media"
+    "nginx"  # to access certs
   ];
 
   systemd.services.sftpgo = {
