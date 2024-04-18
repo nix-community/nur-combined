@@ -126,6 +126,7 @@ let
     (fromDb "acoup.blog/feed")  # history, states. author: <https://historians.social/@bretdevereaux/following>
     (fromDb "amosbbatto.wordpress.com" // tech)
     (fromDb "anish.lakhwara.com" // tech)
+    (fromDb "apenwarr.ca/log/rss.php" // tech)  # CEO of tailscale
     (fromDb "applieddivinitystudies.com" // rat)
     (fromDb "artemis.sh" // tech)
     (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
