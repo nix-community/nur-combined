@@ -64,6 +64,7 @@
     ./komikku.nix
     ./koreader
     ./less.nix
+    ./lftp.nix
     ./libreoffice.nix
     ./lemoa.nix
     ./loupe.nix
