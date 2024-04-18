@@ -172,6 +172,8 @@
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 2046;
         dhcpV6Config.RouteMetric = 2046;
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
         # address = [ "192.168.0.2/24" ];
 
         networkConfig = {
