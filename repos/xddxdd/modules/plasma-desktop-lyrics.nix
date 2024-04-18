@@ -22,7 +22,11 @@
       after = [ "network.target" ];
       before = [ "plasma-plasmashell.service" ];
       wantedBy = [ "default.target" ];
-      serviceConfig.ExecStart = "${pkgs.plasma-desktop-lyrics}/bin/PlasmaDesktopLyrics";
+      serviceConfig = {
+        ExecStart = "${pkgs.plasma-desktop-lyrics}/bin/PlasmaDesktopLyrics";
+        Restart = "on-failure";
+        RestartSec = "3";
+      };
     };
   };
 }
