@@ -139,7 +139,7 @@
     "mstickereditor": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./mstickereditor-v0.3.5/Cargo.lock",
+                "./mstickereditor-v0.3.6/Cargo.lock",
                 {}
             ]
         },
@@ -155,11 +155,11 @@
             "name": null,
             "owner": "LuckyTurtleDev",
             "repo": "mstickereditor",
-            "rev": "v0.3.5",
-            "sha256": "sha256-yRUeAN24jsO+lgAuN2mqr6WHKLpd1mXTwI0Choh1Ecs=",
+            "rev": "v0.3.6",
+            "sha256": "sha256-Q4NL8CSGYlwBfN9FQZCcVagDFEc1jHMlCFdCedob+x0=",
             "type": "github"
         },
-        "version": "v0.3.5"
+        "version": "v0.3.6"
     },
     "mutter-mobile-shell": {
         "cargoLocks": null,
@@ -373,7 +373,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-04-18",
+        "date": "2024-04-19",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -383,12 +383,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a13b80837e6df1123c1d8e608b5b8510c6ef7848",
-            "sha256": "sha256-g5YMJ3yY3QxG+sx7nmrTWyKUnH12O49m1JTzlD4dKSw=",
+            "rev": "7d348f6a48ff1c9c0d232b5b58f8c36544c9705c",
+            "sha256": "sha256-15qD3ktz1pf8jSeJDeyZ1J8a/RQMyVWHTF56nW0F46c=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "a13b80837e6df1123c1d8e608b5b8510c6ef7848"
+        "version": "7d348f6a48ff1c9c0d232b5b58f8c36544c9705c"
     },
     "rime-loengfan": {
         "cargoLocks": null,
