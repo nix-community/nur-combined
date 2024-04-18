@@ -69,12 +69,12 @@ let
       fi
 
       # remove noisy files:
-      find "$MEDIA_DIR/" -type f \
+      find "$MEDIA_DIR/" -type f \(\
            -iname 'www.YTS.*.jpg' \
         -o -iname 'WWW.YIFY*.COM.jpg' \
         -o -iname 'YIFY*.com.txt' \
         -o -iname 'YTS*.com.txt' \
-        -exec rm {} \;
+        \) -exec rm {} \;
 
       # dedupe the whole media library.
       # yeah, a bit excessive: move this to a cron job if that's problematic.
