@@ -14,7 +14,4 @@
   };
   port = 20800;
 
-  attach = {
-    srv.mysql.enable = true;
-  };
 }
