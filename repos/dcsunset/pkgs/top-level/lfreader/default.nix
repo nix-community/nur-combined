@@ -7,13 +7,13 @@
 
 let
   pname = "lfreader";
-  version = "1.3.1";
+  version = "1.3.2";
   name = "${pname}-${version}";
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "LFReader";
     rev = "v${version}";
-    hash = "sha256-UY/JLsNx8S92O/pPQ1HEaNPxvPpRqHzmspUnR6y+7RM=";
+    hash = "sha256-pIO1NND7GTDb84hXtMOfXlCcGnDJ5zxX2c+w4dEp4+s=";
   };
 
   frontendDrv = buildNpmPackage {
@@ -21,7 +21,7 @@ let
     name = "${name}-frontend";
     sourceRoot = "${src.name}/frontend";
 
-    npmDepsHash = "sha256-UwRYI/CGD5qLqxtK29ZYTtUHL00sldFhBWJ4McJXkfw=";
+    npmDepsHash = "sha256-CsRQHLQdetSStb/zoWDzMZq6DPCP0oGgldHRuza5w/4=";
 
     installPhase = ''
       runHook preInstall
