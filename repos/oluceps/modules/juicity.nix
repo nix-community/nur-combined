@@ -64,9 +64,11 @@ in
     );
 
     # only allow udp port since juicity based on udp
-    networking.firewall.allowedUDPPorts = lib.foldr (
-      s: acc: acc ++ (lib.optional (s.enable && (s.openFirewall != null)) s.openFirewall)
-    ) [ ] (builtins.attrValues cfg.instances);
+    networking.firewall.allowedUDPPorts = lib.unique (
+      lib.foldr (
+        s: acc: acc ++ (lib.optional (s.enable && (s.openFirewall != null)) s.openFirewall)
+      ) [ ] (builtins.attrValues cfg.instances)
+    );
 
     systemd.services = mapAttrs' (
       name: opts:
