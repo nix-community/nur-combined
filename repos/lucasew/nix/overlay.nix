@@ -161,7 +161,7 @@ in
   });
 
   script-directory-wrapper = final.writeShellScriptBin "sdw" ''
-    PATH=$PATH:${final.script-directory}/bin:${final.bash}/bin
+    PATH=$PATH:${final.script-directory}/bin:/run/current-system/sw/bin
     export SD_ROOT="$(SD_ROOT=${../bin} sd d root)/bin"
     sd "$@"
   '';

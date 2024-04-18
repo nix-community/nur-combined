@@ -34,7 +34,8 @@
 
     systemd.user.services.nm-applet = {
       path = with pkgs; [ networkmanagerapplet ];
-      script = "nm-applet";
+      script = "exec nm-applet";
+      restartIfChanged = true;
     };
     systemd.user.services.blueberry-tray = {
       path = with pkgs; [
@@ -44,6 +45,7 @@
         }))
       ];
       script = "blueberry-tray; while true; do sleep 3600; done";
+      restartIfChanged = true;
     };
 
     systemd.user.services.swayidle = {
@@ -54,6 +56,7 @@
         config.programs.hyprland.package
         playerctl
       ];
+      restartIfChanged = true;
       script =
         with pkgs.custom.colors.colors;
         let
@@ -95,7 +98,7 @@
           ];
         in
         ''
-          swayidle -w -d \
+          exec swayidle -w -d \
             idlehint 600 \
             timeout 605 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' \
             lock 'swaylock -f ${lib.concatStringsSep " " swaylock-list-args}' \
@@ -137,7 +140,7 @@
     };
 
     systemd.user.services.polkit-agent = {
-      script = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
+      script = "exec ${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
     };
 
     environment.systemPackages = with pkgs; [
@@ -149,6 +152,7 @@
       brightnessctl
       gscreenshot
       xwaylandvideobridge
+      wl-clipboard
       custom.rofi_wayland
     ];
   };
