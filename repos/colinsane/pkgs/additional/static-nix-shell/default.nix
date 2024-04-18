@@ -95,10 +95,14 @@ in rec {
 
         runHook postInstall
       '';
+      meta = {
+        mainProgram = srcPath;
+      } // (attrs.meta or {});
     } // extraDerivArgs // (removeAttrs attrs [
       "extraMakeWrapperArgs"
       "interpreter"
       "interpreterName"
+      "meta"
       "nativeBuildInputs"
       "pkgExprs"
       "pkgsEnv"

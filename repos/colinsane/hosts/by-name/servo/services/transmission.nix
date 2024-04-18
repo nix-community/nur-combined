@@ -159,6 +159,8 @@ in
   systemd.services.transmission.serviceConfig = {
     # run this behind the OVPN static VPN
     NetworkNamespacePath = "/run/netns/ovpns";
+    ExecStartPre = [ "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect 185.157.162.178" ];  # abort if public IP is not as expected
+
     Restart = "on-failure";
     RestartSec = "30s";
     BindPaths = [ "/var/media" ];  #< so it can move completed torrents into the media library

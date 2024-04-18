@@ -1,9 +1,13 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.requests ps.sane-lib.ssdp ])" -p miniupnpc
+"""
+sane-ip-check: query the IP address of this machine as seen by an external Internet host.
+"""
 
 # best to run this with an external timeout. e.g.
 # - `timeout 60 sane-ip-check`
 
+import argparse
 import json
 import logging
 import requests
@@ -24,29 +28,15 @@ def get_wan_fallback():
     else:
         return ip
 
-if __name__ == '__main__':
-    logging.basicConfig()
-
-    format = "plaintext"
-    try_upnp = True
-
-    for arg in sys.argv[1:]:
-        if arg == "-v":
-            logging.getLogger().setLevel(logging.INFO)
-        elif arg == "-vv":
-            logging.getLogger().setLevel(logging.DEBUG)
-        elif arg == "--json":
-            format = "json"
-        elif arg == "--no-upnp":
-            try_upnp = False
-        else:
-            raise RuntimeError(f"invalid CLI argument {arg!r}")
-
+def main(format: str, try_upnp: bool, expect: str|None) -> None:
     upnp_details = get_any_wan() if try_upnp else None
     if upnp_details:
         root_dev, _lan_ip, wan_ip = upnp_details
     else:
         root_dev, wan_ip = "", get_wan_fallback()
+
+    if expect:
+        assert wan_ip == expect, f"actual IP {wan_ip} != expected IP {expect}"
 
     if format == "plaintext":
         print(wan_ip)
@@ -55,3 +45,28 @@ if __name__ == '__main__':
             wan=wan_ip,
             upnp=root_dev,
         )))
+
+if __name__ == '__main__':
+    logging.basicConfig()
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("-v", action="store_true", help="be verbose")
+    parser.add_argument("-vv", action="store_true", help="be more verbose")
+    parser.add_argument("--json", action="store_true", help="output results in json format")
+    parser.add_argument("--no-upnp", action="store_true", help="instead of asking the gateway for its IP address, discover my IP by querying a third-party public service")
+    parser.add_argument("--expect", default=None, help="exit with error if IP address isn't as specified")
+
+    format = "plaintext"
+    try_upnp = True
+    args = parser.parse_args()
+
+    if args.v:
+        logging.getLogger().setLevel(logging.INFO)
+    if args.vv:
+        logging.getLogger().setLevel(logging.DEBUG)
+    if args.json:
+        format = "json"
+    if args.no_upnp:
+        try_upnp = False
+
+    main(format=format, try_upnp=try_upnp, expect=args.expect)
