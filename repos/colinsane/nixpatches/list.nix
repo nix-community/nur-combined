@@ -33,6 +33,12 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/304862";
+    title = "trust-dns: 0.24.0 -> 0.24.1";
+    hash = "sha256-PvNBY2ekVTokWiAnhVo/NtDfLjUBvg/Ri/DPz3BMOHA=";
+  })
+
+  (fetchpatch' {
     # NECESSARY FOR DINO CALLS TO WORK ON AARCH64: <https://gitlab.freedesktop.org/gstreamer/orc/-/issues/64>
     prUrl = "https://github.com/NixOS/nixpkgs/pull/291661";
     title = "orc: 0.4.36 -> 0.4.38";
