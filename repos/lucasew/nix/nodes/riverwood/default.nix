@@ -51,8 +51,8 @@ in
       '';
     };
   };
-  services.xserver.windowManager.i3.enable = true;
-  # programs.hyprland.enable = true;
+  # services.xserver.windowManager.i3.enable = true;
+  programs.hyprland.enable = true;
 
   programs.sunshine.enable = true;
 

@@ -13,7 +13,13 @@
   ];
 
   config = lib.mkIf config.programs.hyprland.enable {
-    programs.hyprland.xwayland.enable = true;
+    programs.hyprland = {
+      xwayland.enable = true;
+      portalPackage = pkgs.xdg-desktop-portal-wlr // {
+        override = args: pkgs.xdg-desktop-portal-wlr.override (builtins.removeAttrs args ["hyprland"]);
+      };
+    };
+
     services.xserver.enable = true;
 
     services.dunst.enable = true;
@@ -134,15 +140,7 @@
       script = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
     };
 
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-      ];
-    };
-
     environment.systemPackages = with pkgs; [
-      custom.rofi
       swaylock
       gnome.eog # eye of gnome
       xfce.ristretto
@@ -151,6 +149,7 @@
       brightnessctl
       gscreenshot
       xwaylandvideobridge
+      custom.rofi_wayland
     ];
   };
 }
