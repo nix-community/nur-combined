@@ -86,12 +86,22 @@ in
     };
   };
 
-  config = {
-    services.autossh.sessions = map (name:
-      let session = cfg.sessions.${name}; in
+  config = lib.mkIf ((builtins.length (builtins.attrNames cfg.sessions)) > 0) {
+    users = {
+      users.autossh = {
+        isSystemUser = true;
+        description = "autossh";
+        group = "autossh";
+        shell = "${pkgs.shadow}/bin/nologin";
+      };
+      groups.autossh = {};
+    };
+    services.autossh.sessions = map
+      (name:
+        let session = cfg.sessions.${name}; in
         {
           inherit name;
-          user = "nobody";
+          user = "autossh";
           monitoringPort = 0;
           extraArguments = lib.concatStringsSep " " ([
             "-N"
@@ -108,7 +118,8 @@ in
       )
       (builtins.attrNames cfg.sessions);
 
-    systemd.services = builtins.listToAttrs (map (name:
+    systemd.services = builtins.listToAttrs (map
+      (name:
         {
           name = "autossh-${name}";
           value = {
