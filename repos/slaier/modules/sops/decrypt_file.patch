@@ -1,9 +1,9 @@
 diff --git a/pkgs/sops-install-secrets/main.go b/pkgs/sops-install-secrets/main.go
-index 34756de..cf4bcd0 100644
+index 2597fc5..eea3819 100644
 --- a/pkgs/sops-install-secrets/main.go
 +++ b/pkgs/sops-install-secrets/main.go
-@@ -265,30 +265,38 @@ func decryptSecret(s *secret, sourceFiles map[string]plainData) error {
- 			return fmt.Errorf("Failed to decrypt '%s': %w", s.SopsFile, err)
+@@ -268,30 +268,38 @@ func decryptSecret(s *secret, sourceFiles map[string]plainData) error {
+ 			return fmt.Errorf("failed to decrypt '%s': %w", s.SopsFile, err)
  		}
  
 -		switch s.Format {
@@ -12,35 +12,35 @@ index 34756de..cf4bcd0 100644
  			sourceFile.binary = plain
 -		case Yaml:
 -			if err := yaml.Unmarshal(plain, &sourceFile.data); err != nil {
--				return fmt.Errorf("Cannot parse yaml of '%s': %w", s.SopsFile, err)
+-				return fmt.Errorf("cannot parse yaml of '%s': %w", s.SopsFile, err)
 -			}
--		case Json:
+-		case JSON:
 -			if err := json.Unmarshal(plain, &sourceFile.data); err != nil {
--				return fmt.Errorf("Cannot parse json of '%s': %w", s.SopsFile, err)
+-				return fmt.Errorf("cannot parse json of '%s': %w", s.SopsFile, err)
 +		} else {
 +			switch s.Format {
 +			case Binary, Dotenv, Ini:
 +				sourceFile.binary = plain
 +			case Yaml:
 +				if err := yaml.Unmarshal(plain, &sourceFile.data); err != nil {
-+					return fmt.Errorf("Cannot parse yaml of '%s': %w", s.SopsFile, err)
++					return fmt.Errorf("cannot parse yaml of '%s': %w", s.SopsFile, err)
 +				}
-+			case Json:
++			case JSON:
 +				if err := json.Unmarshal(plain, &sourceFile.data); err != nil {
-+					return fmt.Errorf("Cannot parse json of '%s': %w", s.SopsFile, err)
++					return fmt.Errorf("cannot parse json of '%s': %w", s.SopsFile, err)
 +				}
 +			default:
-+				return fmt.Errorf("Secret of type %s in %s is not supported", s.Format, s.SopsFile)
++				return fmt.Errorf("secret of type %s in %s is not supported", s.Format, s.SopsFile)
  			}
 -		default:
--			return fmt.Errorf("Secret of type %s in %s is not supported", s.Format, s.SopsFile)
+-			return fmt.Errorf("secret of type %s in %s is not supported", s.Format, s.SopsFile)
  		}
  	}
 -	switch s.Format {
 -	case Binary, Dotenv, Ini:
 +	if s.Key == "" {
  		s.value = sourceFile.binary
--	case Yaml, Json:
+-	case Yaml, JSON:
 -		strVal, err := recurseSecretKey(sourceFile.data, s.Key)
 -		if err != nil {
 -			return fmt.Errorf("secret %s in %s is not valid: %w", s.Name, s.SopsFile, err)
@@ -48,7 +48,7 @@ index 34756de..cf4bcd0 100644
 +		switch s.Format {
 +		case Binary, Dotenv, Ini:
 +			s.value = sourceFile.binary
-+		case Yaml, Json:
++		case Yaml, JSON:
 +			strVal, err := recurseSecretKey(sourceFile.data, s.Key)
 +			if err != nil {
 +				return fmt.Errorf("secret %s in %s is not valid: %w", s.Name, s.SopsFile, err)
@@ -59,12 +59,12 @@ index 34756de..cf4bcd0 100644
  	}
  	sourceFiles[s.SopsFile] = sourceFile
  	return nil
-@@ -445,7 +453,7 @@ func (app *appContext) validateSopsFile(s *secret, file *secretFile) error {
+@@ -454,7 +462,7 @@ func (app *appContext) validateSopsFile(s *secret, file *secretFile) error {
  			s.Name, s.SopsFile, s.Format,
  			file.firstSecret.Format, file.firstSecret.Name)
  	}
--	if app.checkMode != Manifest && (!(s.Format == Binary || s.Format == Dotenv || s.Format == Ini)) {
-+	if app.checkMode != Manifest && (!(s.Format == Binary || s.Format == Dotenv || s.Format == Ini) && s.Key != "") {
+-	if app.checkMode != Manifest && (s.Format != Binary && s.Format != Dotenv && s.Format != Ini) {
++	if app.checkMode != Manifest && (s.Format != Binary && s.Format != Dotenv && s.Format != Ini) && s.Key != "" {
  		_, err := recurseSecretKey(file.keys, s.Key)
  		if err != nil {
  			return fmt.Errorf("secret %s in %s is not valid: %w", s.Name, s.SopsFile, err)

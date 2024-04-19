@@ -16,6 +16,7 @@
         ms-vscode-remote.remote-ssh
         redhat.vscode-yaml
         shardulm94.trailing-spaces
+        skellock.just
         tamasfe.even-better-toml
         timonwong.shellcheck
         tyriar.sort-lines
