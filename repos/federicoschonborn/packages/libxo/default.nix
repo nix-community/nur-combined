@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxo";
-  version = "1.7.0";
+  version = "1.7.4";
 
   src = fetchFromGitHub {
     owner = "Juniper";
     repo = "libxo";
     rev = finalAttrs.version;
-    hash = "sha256-WFoYslS1RW9IPHoxrUu79SRrzaPh4DL5TBfgZD1n33A=";
+    hash = "sha256-t1LQ4zUyjn1997nE0p3fWFqtTLPkSNqNRUhh+GfWi+o=";
   };
 
   nativeBuildInputs = [ autoreconfHook ];
