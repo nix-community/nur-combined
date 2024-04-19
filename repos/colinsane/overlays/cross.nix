@@ -512,12 +512,12 @@ in with final; {
   });
 
   # 2023/12/08: upstreaming is blocked on rpm
-  dtrx = prev.dtrx.override {
-    # `binutils` is the nix wrapper, which reads nix-related env vars
-    # before passing on to e.g. `ld`.
-    # dtrx probably only needs `ar` at runtime, not even `ld`.
-    binutils = binutils-unwrapped;
-  };
+  # dtrx = prev.dtrx.override {
+  #   # `binutils` is the nix wrapper, which reads nix-related env vars
+  #   # before passing on to e.g. `ld`.
+  #   # dtrx probably only needs `ar` at runtime, not even `ld`.
+  #   binutils = binutils-unwrapped;
+  # };
 
   # emacs = prev.emacs.override {
   #   # fixes "configure: error: cannot run test program while cross compiling"
@@ -1833,14 +1833,14 @@ in with final; {
   # };
   # 2023/07/30: upstreaming requires some changes, as configure tries to invoke our `python`
   # implemented (broken) on servo cross-staging-2023-07-30 branch
-  rpm = prev.rpm.overrideAttrs (upstream: {
-    # fixes "python too old". might also be specifiable as a configure flag?
-    env = upstream.env // lib.optionalAttrs (upstream.version == "4.18.1") {
-      # 4.19.0 upgrade should fix cross compilation.
-      # see: <https://github.com/NixOS/nixpkgs/pull/260558>
-      PYTHON = python3.interpreter;
-    };
-  });
+  # rpm = prev.rpm.overrideAttrs (upstream: {
+  #   # fixes "python too old". might also be specifiable as a configure flag?
+  #   env = upstream.env // lib.optionalAttrs (upstream.version == "4.18.1") {
+  #     # 4.19.0 upgrade should fix cross compilation.
+  #     # see: <https://github.com/NixOS/nixpkgs/pull/260558>
+  #     PYTHON = python3.interpreter;
+  #   };
+  # });
 
   # samba = prev.samba.overrideAttrs (_upstream: {
   #   # we get "cannot find C preprocessor: aarch64-unknown-linux-gnu-cpp", but ONLY when building with the ccache stdenv.

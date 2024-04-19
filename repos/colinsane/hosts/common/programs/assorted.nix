@@ -301,10 +301,6 @@ in
     dtc.sandbox.method = "bwrap";
     dtc.sandbox.autodetectCliPaths = true;  # TODO:sandbox: untested
 
-    dtrx.sandbox.method = "bwrap";
-    dtrx.sandbox.whitelistPwd = true;
-    dtrx.sandbox.autodetectCliPaths = "existing";  #< for the archive
-
     duplicity = {};
 
     e2fsprogs.sandbox.method = "landlock";

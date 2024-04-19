@@ -33,17 +33,12 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/304862";
-    title = "trust-dns: 0.24.0 -> 0.24.1";
-    hash = "sha256-PvNBY2ekVTokWiAnhVo/NtDfLjUBvg/Ri/DPz3BMOHA=";
-  })
-
-  (fetchpatch' {
     # NECESSARY FOR DINO CALLS TO WORK ON AARCH64: <https://gitlab.freedesktop.org/gstreamer/orc/-/issues/64>
     prUrl = "https://github.com/NixOS/nixpkgs/pull/291661";
     title = "orc: 0.4.36 -> 0.4.38";
     hash = "sha256-ULav0vt3QlI8lKcCVKP986H/GjBZqUYLwOHJ3XppAeo=";
     merged.staging = "20240406000000";
+    merged.staging-next = "20240418000000";
   })
 
   (fetchpatch' {
@@ -52,6 +47,7 @@ in [
     title = "gnupg: fix cross compilation";
     hash = "sha256-d3kD2/UyMzzdBkiEdWtCibbWiPWBZLUWRry1TMkS25g=";
     merged.staging = "20240326000000";
+    merged.staging-next = "20240418000000";
   })
 
   (fetchpatch' {
@@ -85,11 +81,11 @@ in [
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/262268";
   #   hash = "sha256-TxQiR+OS4YriLNViTg4H78Z3f3IjBVodiFAkOUCeNic=";
   # })
-  (fetchpatch' {
-    title = "rpm: 4.18.1 -> 4.19.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/260558";
-    hash = "sha256-kwod+6SbUZechzbmu1D4Hlh6pYiPD18wcqetk0OIOrA=";
-  })
+  # (fetchpatch' {
+  #   title = "rpm: 4.18.1 -> 4.19.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/260558";
+  #   hash = "sha256-kwod+6SbUZechzbmu1D4Hlh6pYiPD18wcqetk0OIOrA=";
+  # })
 
   # (fetchpatch' {
   #   # XXX: doesn't cleanly apply; fetch `firefox-pmos-mobile` branch from my git instead

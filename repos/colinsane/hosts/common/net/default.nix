@@ -60,8 +60,5 @@
   networking.networkmanager.plugins = lib.mkForce [];
 
   # keyfile.path = where networkmanager should look for connection credentials
-  networking.networkmanager.extraConfig = ''
-    [keyfile]
-    path=/var/lib/NetworkManager/system-connections
-  '';
+  networking.networkmanager.settings.keyfile.path = "/var/lib/NetworkManager/system-connections";
 }

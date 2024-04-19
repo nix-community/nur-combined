@@ -28,6 +28,7 @@
     ./dialect.nix
     ./dino.nix
     ./dissent.nix
+    ./dtrx.nix
     ./element-desktop.nix
     ./engrampa.nix
     ./epiphany.nix
