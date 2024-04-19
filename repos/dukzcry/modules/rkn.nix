@@ -97,16 +97,36 @@ in {
             -max 3
         '';
       });
+      services.dnsmasq.settings = {
+        server = [ "/onion/${cfg.address}#9053" ];
+        rebind-domain-ok = "onion";
+      };
+    })
+    (mkIf (cfg.enable && cfg.tor.enable && config.networking.nftables.enable) {
+      networking.nftables.tables = {
+        rkn = {
+          family = "ip";
+          content = ''
+            chain out {
+              type nat hook output priority mangle;
+              ip protocol tcp ip saddr ${cfg.address} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
+              ip protocol tcp ip daddr ${ip4.networkCIDR cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
+            }
+            chain pre {
+              type nat hook prerouting priority dstnat;
+              ip protocol tcp ip daddr ${ip4.networkCIDR cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
+            }
+          '';
+        };
+      };
+    })
+    (mkIf (cfg.enable && cfg.tor.enable && !config.networking.nftables.enable) {
       networking.firewall.extraCommands = ''
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -s ${cfg.address} -j DNAT --to-destination ${cfg.address}:9040
         # onion
         iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
       '';
-      services.dnsmasq.settings = {
-        server = [ "/onion/${cfg.address}#9053" ];
-        rebind-domain-ok = "onion";
-      };
     })
   ];
 }

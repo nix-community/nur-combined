@@ -19,7 +19,20 @@ in {
         [ remmina ydcmd ];
       programs.evolution.plugins = [ pkgs.evolution-ews ];
     })
-    (mkIf cfg.server {
+    (mkIf (cfg.server && config.networking.nftables.enable) {
+      networking.nftables.tables = {
+        job = {
+          family = "ip";
+          content = ''
+            chain post {
+              type nat hook postrouting priority srcnat;
+              oifname "job" counter masquerade
+            }
+          '';
+        };
+      };
+    })
+    (mkIf (cfg.server && !config.networking.nftables.enable) {
       networking.firewall.extraCommands = ''
         iptables -t nat -A POSTROUTING -o job -j MASQUERADE
       '';
