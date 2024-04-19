@@ -14,7 +14,8 @@
   system.nssModules = lib.mkForce [];
 
   # disable touch clicks because i always tap while typing
-  services.xserver.libinput.touchpad.tappingButtonMap = null;
+  #services.xserver.libinput.touchpad.tappingButtonMap = null;
+  services.xserver.libinput.touchpad.tapping = false;
 
 
 	imports = [
