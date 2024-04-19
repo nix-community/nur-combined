@@ -1,6 +1,5 @@
 patch similar to
 https://github.com/mudler/edgevpn/pull/2
-https://github.com/alecbcs/hyprspace/pull/62
 diff --git a/config/config.go b/config/config.go
 index 14d9ed9..92e01d3 100644
 --- a/config/config.go
