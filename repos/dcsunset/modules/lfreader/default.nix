@@ -54,6 +54,19 @@ in {
       description = "Log level";
     };
 
+    swagger = {
+      jsUrl = mkOption {
+        type = types.str;
+        default = "https://unpkg.com/swagger-ui-dist@5.16.0/swagger-ui-bundle.js";
+        description = "Swagger JS URL";
+      };
+      cssUrl = mkOption {
+        type = types.str;
+        default = "https://unpkg.com/swagger-ui-dist@5.16.0/swagger-ui.css";
+        description = "Swagger CSS URL";
+      };
+    };
+
     user = mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -77,6 +90,8 @@ in {
         LFREADER_USER_AGENT = cfg.userAgent;
         LFREADER_TIMEOUT = toString cfg.timeout;
         LFREADER_LOG_LEVEL = cfg.logLevel;
+        LFREADER_SWAGGER_JS_URL = cfg.swagger.jsUrl;
+        LFREADER_SWAGGER_CSS_URL = cfg.swagger.cssUrl;
       };
       serviceConfig = {
         ExecStart = ''
