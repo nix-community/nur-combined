@@ -2,5 +2,6 @@
 call ftplugined#check_undo_ft()
 
 " Add comment format
-setlocal commentstring=#\ %s
-let b:undo_ftplugin.='|setlocal commentstring<'
+setlocal comments=b://,s1:/*,mb:*,ex:*/
+setlocal commentstring=//\ %s
+let b:undo_ftplugin.='|setlocal comments< commentstring<'
