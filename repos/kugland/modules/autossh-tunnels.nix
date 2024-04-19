@@ -94,7 +94,7 @@ in
         group = "autossh";
         shell = "${pkgs.shadow}/bin/nologin";
       };
-      groups.autossh = {};
+      groups.autossh = { };
     };
     services.autossh.sessions = map
       (name:
