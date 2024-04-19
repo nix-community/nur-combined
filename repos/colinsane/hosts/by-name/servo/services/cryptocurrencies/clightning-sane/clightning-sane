@@ -1,6 +1,22 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.pyln-client ])"
 
+"""
+clightning-sane: helper to perform common Lightning node admin operations:
+- view channel balances
+- rebalance channels
+
+COMMON OPERATIONS:
+- view channel balances: `clightning-sane status`
+- rebalance channels to improve routability (without paying any fees): `clightning-sane autobalance`
+
+FULL OPERATION:
+- `clightning-sane status --full`
+  - `P$`: represents how many msats i've captured in fees from this channel.
+  - `COST`: rough measure of how much it's "costing" me to let my channel partner hold funds on his side of the channel.
+            this is based on the notion that i only capture fees from outbound transactions, and so the channel partner holding all liquidity means i can't capture fees on that liquidity.
+"""
+
 # pyln-client docs: <https://github.com/ElementsProject/lightning/tree/master/contrib/pyln-client>
 # terminology:
 # - "scid": "Short Channel ID", e.g. 123456x7890x0
@@ -726,7 +742,7 @@ def main():
     logging.basicConfig()
     logger.setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(description="rebalance lightning channel balances")
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--verbose", action="store_true", help="more logging")
     parser.add_argument("--min-msat", default="999", help="min transaction size")
     parser.add_argument("--max-msat", default="1000000", help="max transaction size")
