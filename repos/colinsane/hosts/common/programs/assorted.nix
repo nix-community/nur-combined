@@ -791,7 +791,7 @@ in
     sops.sandbox.method = "bwrap";  # TODO:sandbox: untested
     sops.sandbox.extraHomePaths = [
       ".config/sops"
-      "dev/nixos"
+      "nixos"
       # TODO: sops should only need access to knowledge/secrets,
       # except that i currently put its .sops.yaml config in the root of ~/knowledge
       "knowledge"
