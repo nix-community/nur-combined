@@ -152,6 +152,7 @@
   services = {
     metrics.enable = true;
     fwupd.enable = true;
+    radicle.enable = true;
     realm = {
       enable = true;
       settings = {
