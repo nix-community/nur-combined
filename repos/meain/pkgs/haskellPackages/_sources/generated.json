@@ -1,0 +1,22 @@
+{
+    "kmonad": {
+        "cargoLocks": null,
+        "date": "2022-05-01",
+        "extract": null,
+        "name": "kmonad",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jchtt",
+            "repo": "kmonad",
+            "rev": "d57f0b596aa4d2648b526a32d633d4df57866578",
+            "sha256": "sha256-Jk/64c3BVuWshCT5XlylQfZb3OXlmlJSAurSQsst/JU=",
+            "type": "github"
+        },
+        "version": "d57f0b596aa4d2648b526a32d633d4df57866578"
+    }
+}

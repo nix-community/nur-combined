@@ -1,0 +1,4 @@
+[kmonad]
+src.git = "https://github.com/jchtt/kmonad"
+fetch.github = "jchtt/kmonad"
+src.branch = "dev_jc_fixtaphold"

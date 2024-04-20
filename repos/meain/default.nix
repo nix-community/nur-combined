@@ -7,7 +7,15 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
+let
+  callPackage' = pkg:
+    pkgs.callPackage pkg {
+      inherit pkgs callPackage';
+      sources = pkgs.callPackage (pkg + "/_sources/generated.nix") { };
+    };
 
+  callPackages = pkg: pkgs.lib.recurseIntoAttrs (callPackage' pkg);
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -43,6 +51,9 @@
   pulseaudio-virtualmic = pkgs.callPackage ./pkgs/pulseaudio-virtualmic { };
   chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
   logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
+
+  # RUn nvfetcher in the haskellPackages directory to update sources
+  haskellPackages = callPackages ./pkgs/haskellPackages;
 
   ## programming
   # buf = pkgs.callPackage ./pkgs/buf {};
