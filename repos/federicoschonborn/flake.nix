@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     systems.url = "github:nix-systems/default";
 
     flake-parts = {
@@ -14,7 +15,7 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
         flake-utils.follows = "flake-utils";
         gitignore.follows = "gitignore";
         flake-compat.follows = "";
@@ -60,6 +61,7 @@
             packages = with pkgs; [
               jq
               just
+              nix-inspect
               nix-output-monitor
               nix-tree
             ];

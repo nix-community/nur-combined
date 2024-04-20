@@ -8,6 +8,7 @@ pkgs.lib.makeScope pkgs.newScope (
     inherit (self) callPackage;
   in
   {
+    biplanes-revival = callPackage ./biplanes-revival { };
     bsdutils = callPackage ./bsdutils { };
     cargo-aoc = callPackage ./cargo-aoc { };
     fastfetch = callPackage ./fastfetch { };

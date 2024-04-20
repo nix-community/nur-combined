@@ -14,7 +14,7 @@
   wayland-protocols,
   wlroots_0_16,
   xorg,
-  nix-update-script,
+# nix-update-script,
 }:
 
 stdenv.mkDerivation {
@@ -47,12 +47,12 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  # passthru.updateScript = nix-update-script {
+  #   extraArgs = [
+  #     "--version"
+  #     "branch"
+  #   ];
+  # };
 
   meta = {
     mainProgram = "flyaway";

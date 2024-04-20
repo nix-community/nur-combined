@@ -2,7 +2,7 @@ just := just_executable()
 
 system := env("SYSTEM", arch() + "-" + if os() =~ "macos|ios" { "darwin" } else { os() })
 
-export NIX_BUILD_FLAGS := env("NIX_BUILD_FLAGS", "")
+export NIX_FLAGS := env("NIX_FLAGS", "")
 
 [private]
 @default:
@@ -10,35 +10,44 @@ export NIX_BUILD_FLAGS := env("NIX_BUILD_FLAGS", "")
 
 # Build all packages.
 build-all:
-    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --no-link" {{ just }} build $(nix flake show --json 2>/dev/null | jq -r '.packages."{{ system }}" | keys[]')
+    @env NIX_FLAGS="$NIX_FLAGS --no-link" {{ just }} build $(nix flake show --json 2>/dev/null | jq -r '.packages."{{ system }}" | keys[]')
 
 # Build all packages against the stable channel.
 build-all-stable:
-    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --override-input nixpkgs github:NixOS/nixpkgs/nixos-23.11" {{ just }} build-all
+    @env NIX_FLAGS="$NIX_FLAGS --inputs-from . --override-input nixpkgs nixpkgs-stable" {{ just }} build-all
 
 # Rebuild all packages.
 rebuild-all:
-    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --rebuild" {{ just }} build-all
+    @env NIX_FLAGS="$NIX_FLAGS --rebuild" {{ just }} build-all
 
 # Rebuild all packages against the stable branch.
 rebuild-all-stable:
-    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --rebuild" {{ just }} build-all-stable
+    @env NIX_FLAGS="$NIX_FLAGS --rebuild" {{ just }} build-all-stable
 
 # Build one or more packages.
 build +PACKAGES:
-    PACKAGES="{{ PACKAGES }}"; nom build -L ${NIX_BUILD_FLAGS[@]} $(echo ".#${PACKAGES// / .#}")
+    PACKAGES="{{ PACKAGES }}"; nom build -L ${NIX_FLAGS[@]} $(echo ".#${PACKAGES// / .#}")
 
 # Build one or more packages against the stable channel.
 build-stable +PACKAGES:
-    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --override-input nixpkgs github:NixOS/nixpkgs/nixos-23.11" {{ just }} build {{ PACKAGES }}
+    @env NIX_FLAGS="$NIX_FLAGS --inputs-from . --override-input nixpkgs nixpkgs-stable" {{ just }} build {{ PACKAGES }}
 
 # Rebuild one or more packages.
 rebuild +PACKAGES:
-    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --rebuild" {{ just }} build {{ PACKAGES }}
+    @env NIX_FLAGS="$NIX_FLAGS --rebuild" {{ just }} build {{ PACKAGES }}
 
 # Rebuild one or more packages against the stable channel.
 rebuild-stable +PACKAGES:
-    @env NIX_BUILD_FLAGS="$NIX_BUILD_FLAGS --rebuild" {{ just }} build-stable {{ PACKAGES }}
+    @env NIX_FLAGS="$NIX_FLAGS --rebuild" {{ just }} build-stable {{ PACKAGES }}
+
+run PACKAGE:
+    nix run --log-format internal-json -v ".#{{ PACKAGE }}" ${NIX_FLAGS[@]} |& nom --json
+
+run-stable PACKAGE:
+    @env NIX_FLAGS="$NIX_FLAGS --inputs-from . --override-input nixpkgs nixpkgs-stable" {{ just }} run {{ PACKAGE }}
 
 tree PACKAGE: (build PACKAGE)
     nix-tree ".#{{ PACKAGE }}"
+
+inspect:
+    nix-inspect --path .
