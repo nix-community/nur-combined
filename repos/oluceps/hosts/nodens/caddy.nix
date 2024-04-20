@@ -117,6 +117,25 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
+                              upstreams = [ { dial = "10.0.1.2:8084"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "seed.nyaw.xyz" ]; } ];
+                  terminal = true;
+                }
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
                               # transport = {
                               #   protocol = "http";
                               #   tls = {
