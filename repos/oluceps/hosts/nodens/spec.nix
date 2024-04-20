@@ -35,6 +35,23 @@
     rustypaste.enable = true;
   };
   services = {
+
+    realm = {
+      enable = true;
+      settings = {
+        log.level = "warn";
+        network = {
+          no_tcp = false;
+          use_udp = true;
+        };
+        endpoints = [
+          {
+            listen = "[::]:8776";
+            remote = "10.0.1.2:8776";
+          }
+        ];
+      };
+    };
     metrics.enable = true;
     trojan-server.enable = true;
     do-agent.enable = true;

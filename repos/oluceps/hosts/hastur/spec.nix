@@ -152,7 +152,10 @@
   services = {
     metrics.enable = true;
     fwupd.enable = true;
-    radicle.enable = true;
+    radicle = {
+      enable = true;
+      envFile = config.age.secrets.radicle-pass.path;
+    };
     realm = {
       enable = true;
       settings = {
