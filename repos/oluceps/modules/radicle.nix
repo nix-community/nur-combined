@@ -25,7 +25,11 @@ in
       type = types.str;
       default = "/home/seed/.radicle";
     };
-    package = mkPackageOption pkgs "radicle";
+    package = mkPackageOption pkgs "radicle" { };
+    envFile = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
   };
   config = mkIf cfg.enable {
     users.users.seed = {
@@ -52,7 +56,7 @@ in
           "RUST_BACKTRACE=1"
           "RUST_LOG=info"
         ];
-
+        EnvironmentFile = cfg.envFile;
         KillMode = "process";
         Restart = "always";
         RestartSec = 3;

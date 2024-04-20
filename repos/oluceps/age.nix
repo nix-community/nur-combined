@@ -65,6 +65,7 @@
         "restic-envs"
         "restic-envs-crit"
         "attic"
+        "radicle-pass"
       ])
       // (genBoot [
         "db.key"
