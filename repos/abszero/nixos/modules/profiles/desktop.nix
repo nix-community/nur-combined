@@ -17,24 +17,24 @@
     ];
     search = [ "~." ]; # Always use global name servers
     dhcpcd.enable = false;
-    # networkmanager = {
-    #   enable = true;
-    #   wifi = {
-    #     backend = "iwd";
-    #     macAddress = "random";
-    #   };
-    # };
-    wireless.iwd = {
+    networkmanager = {
       enable = true;
-      settings = {
-        General = {
-          EnableNetworkConfiguration = true;
-          AddressRandomization = "network";
-        };
-        Network.NameResolvingService = "systemd"; # Use resolved
-        Settings.AlwaysRandomizeAddress = true;
+      wifi = {
+        # backend = "iwd";
+        macAddress = "random";
       };
     };
+    # wireless.iwd = {
+    #   enable = true;
+    #   settings = {
+    #     General = {
+    #       EnableNetworkConfiguration = true;
+    #       AddressRandomization = "network";
+    #     };
+    #     Network.NameResolvingService = "systemd"; # Use resolved
+    #     Settings.AlwaysRandomizeAddress = true;
+    #   };
+    # };
   };
 
   services = {
