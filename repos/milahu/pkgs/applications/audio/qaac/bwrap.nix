@@ -37,6 +37,7 @@ stdenvNoCC.mkDerivation rec {
     EOF
     # write fixed body of wrapper script
     cat ${./bwrap-common.sh}
+    # argparse.sh based on parse-helptext
     if [ "$bin" = "qaac" ]; then
       cat ${./bwrap-qaac.sh}
     elif [ "$bin" = "refalac" ]; then
