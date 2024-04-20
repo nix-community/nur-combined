@@ -39,7 +39,8 @@ in
   config = mkIf cfg.enable {
     users.users.seed = {
       description = "radicle seed user";
-      isNormalUser = true;
+      isSystemUser = true;
+      createHome = true;
       group = "seed";
     };
     users.groups.seed = { };
