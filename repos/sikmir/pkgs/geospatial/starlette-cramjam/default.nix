@@ -12,6 +12,11 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-InxnMpyYg0m92oJfn7YbHECTQE9WMB9MwpoN3slxK7M=";
   };
 
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail "cramjam>=2.4,<2.7" "cramjam"
+  '';
+
   nativeBuildInputs = with python3Packages; [ flit ];
 
   propagatedBuildInputs = with python3Packages; [
