@@ -12,6 +12,7 @@
     # NIX_LDFLAGS = "--verbose";
     # WLR_RENDERER = "vulkan";
     PATH = [ "/home/${user}/.npm-packages/bin" ];
+    RAD_HOME = "/home/${user}/.local/share/radicle";
     NTFY_AUTH_FILE = config.services.ntfy-sh.settings.auth-file or "";
   };
 }

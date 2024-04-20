@@ -167,6 +167,11 @@
     "machine-id".text = "b08dfa6083e7567a1921a715000001fb\n";
   };
   programs = {
+    ssh = {
+      startAgent = true;
+      enableAskPassword = true;
+      askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+    };
 
     git.enable = true;
     bash = {
