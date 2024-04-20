@@ -13,6 +13,7 @@ lib.makeScope newScope (
   {
     inherit librime;
     withRimeDeps = callPackage ./with-rime-deps { };
+    withRimeDeps' = callPackage ./with-rime-deps-prime { };
     inherit (hooks) rimeDataBuildHook;
     rime-bopomofo = callPackage ./rime-bopomofo { };
     rime-cangjie = callPackage ./rime-cangjie { };
