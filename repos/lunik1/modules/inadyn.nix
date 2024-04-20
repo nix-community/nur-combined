@@ -239,7 +239,7 @@ in
     };
 
     users.users.inadyn = mkIf (cfg.user == "inadyn") {
-      group = cfg.group;
+      inherit (cfg) group;
       isSystemUser = true;
     };
 
