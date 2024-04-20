@@ -10,7 +10,9 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      lutris wine steamPackages.steam-fhsenv-without-steam.run
+      # https://github.com/lutris/lutris/issues/5121
+      wine wine64
+      lutris steamPackages.steam-fhsenv-without-steam.run
     ];
     programs.gamescope.enable = true;
     programs.gamescope.capSysNice = true;
