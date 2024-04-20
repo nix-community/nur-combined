@@ -258,6 +258,10 @@
         set fish_cursor_default block blink
         set fish_cursor_insert line blink
         set fish_cursor_replace_one underscore blink
+
+        if test -z "$SSH_AUTH_SOCK" -a -n "$XDG_RUNTIME_DIR"
+          set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent"
+        end
       '';
       interactiveShellInit = ''
         # Need to declare here, since something buggy.
