@@ -33,15 +33,12 @@
     flatpak.enable = true;
     gnome.gnome-keyring.enable = true; # For storing vscode auth token
     mpd.enable = true;
-    xserver = {
+    xserver.libinput = {
       enable = true;
-      libinput = {
-        enable = true;
-        touchpad = {
-          clickMethod = "clickfinger";
-          naturalScrolling = true;
-          disableWhileTyping = true;
-        };
+      touchpad = {
+        clickMethod = "clickfinger";
+        naturalScrolling = true;
+        disableWhileTyping = true;
       };
     };
   };
