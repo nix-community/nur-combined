@@ -6,7 +6,6 @@
   ninja,
   pkg-config,
   libvpx,
-  libwebp,
   SDL2,
   zmusic,
   nix-update-script,
@@ -17,13 +16,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "raze";
-  version = "1.9.1";
+  version = "1.10.0";
 
   src = fetchFromGitHub {
     owner = "ZDoom";
     repo = "Raze";
     rev = finalAttrs.version;
-    hash = "sha256-lXBH2uLAV7wF/sO5t86EB8gwubWkpm56A6E42wJX68I=";
+    hash = "sha256-0u6jusVGe1X0f/jY5bixWZFMQ1vIIHI/jw35oQ3D0nI=";
   };
 
   nativeBuildInputs = [
@@ -34,7 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     libvpx
-    libwebp
     SDL2
     zmusic
   ] ++ lib.optional withGtk3 gtk3;
