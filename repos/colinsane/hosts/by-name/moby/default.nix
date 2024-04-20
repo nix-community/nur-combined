@@ -62,18 +62,8 @@
   # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`
   sane.programs.firefox.env = lib.mkForce {};
   sane.programs.epiphany.env.BROWSER = "epiphany";
-
-  # note the .conf.d approach: using ~/.config/pipewire/pipewire.conf directly breaks all audio,
-  # presumably because that deletes the defaults entirely whereas the .conf.d approach selectively overrides defaults
-  sane.user.fs.".config/pipewire/pipewire.conf.d/10-fix-dino-mic-cutout.conf".symlink.text = ''
-    # config docs: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire#properties>
-    # useful to run `pw-top` to see that these settings are actually having effect,
-    # and `pw-metadata` to see if any settings conflict (e.g. max-quantum < min-quantum)
-    #
-    # restart pipewire after editing these files:
-    # - `systemctl --user restart pipewire`
-    # - pipewire users will likely stop outputting audio until they are also restarted
-    #
+  sane.programs.pipewire.config = {
+    # tune so Dino doesn't drop audio
     # there's seemingly two buffers for the mic (see: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/FAQ#pipewire-buffering-explained>)
     # 1. Pipewire buffering out of the driver and into its own member.
     # 2. Pipewire buffering into Dino.
@@ -84,11 +74,9 @@
     # `pw-metadata -n settings 0 clock.force-quantum 1024` reduces to about 1 error per second.
     # `pw-metadata -n settings 0 clock.force-quantum 2048` reduces to 1 error every < 10s.
     # pipewire default config includes `clock.power-of-two-quantum = true`
-    context.properties = {
-      default.clock.min-quantum = 2048
-      default.clock.max-quantum = 8192
-    }
-  '';
+    min-quantum = 2048;
+    max-quantum = 8192;
+  };
 
   boot.loader.efi.canTouchEfiVariables = false;
   # /boot space is at a premium. default was 20.

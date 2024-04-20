@@ -7,6 +7,20 @@ let
 in
 {
   sane.programs.pipewire = {
+     configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.min-quantum = mkOption {
+          type = types.int;
+          default = 16;
+        };
+        options.max-quantum = mkOption {
+          type = types.int;
+          default = 2048;
+        };
+      };
+    };
+
     suggestedPrograms = [ "wireplumber" ];
 
     # sandbox.method = "landlock";  #< also works
@@ -39,6 +53,27 @@ in
       # pulseaudio cookie
       ".config/pulse"
     ];
+
+    # note the .conf.d approach: using ~/.config/pipewire/pipewire.conf directly breaks all audio,
+    # presumably because that deletes the defaults entirely whereas the .conf.d approach selectively overrides defaults
+    fs.".config/pipewire/pipewire.conf.d/10-sane-config.conf".symlink.text = ''
+      # config docs: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire#properties>
+      # useful to run `pw-top` to see that these settings are actually having effect,
+      # and `pw-metadata` to see if any settings conflict (e.g. max-quantum < min-quantum)
+      #
+      # restart pipewire after editing these files:
+      # - `systemctl --user restart pipewire`
+      # - pipewire users will likely stop outputting audio until they are also restarted
+      #
+      # there's seemingly two buffers for the mic (see: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/FAQ#pipewire-buffering-explained>)
+      # 1. Pipewire buffering out of the driver and into its own member.
+      # 2. Pipewire buffering into each specific app (e.g. Dino).
+      # note that pipewire default config includes `clock.power-of-two-quantum = true`
+      context.properties = {
+        default.clock.min-quantum = ${builtins.toString cfg.config.min-quantum}
+        default.clock.max-quantum = ${builtins.toString cfg.config.max-quantum}
+      }
+    '';
 
     # see: <https://docs.pipewire.org/page_module_protocol_native.html>
     # defaults to placing the socket in /run/user/$id/{pipewire-0,pipewire-0-manager,...}
