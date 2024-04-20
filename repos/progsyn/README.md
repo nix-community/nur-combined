@@ -1,37 +1,27 @@
-# program-synthesis-nur
+# Nix Derivations for Program Synthesis Tools
 
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
+![Build and populate cache](https://github.com/mistzzt/program-synthesis-nur/workflows/Build%20and%20populate%20cache/badge.svg)
+[![Cachix Cache](https://img.shields.io/badge/cachix-mistzzt-blue.svg)](https://mistzzt.cachix.org)
 
-## Setup
+This repository hosts Nix derivations for program synthesis-related tools.
+Its aim is to consolidate the efforts of individuals who set up and run these tools by leveraging the reproducibility power of Nix.
+Contributions are welcomed!
 
-1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) to start a repo based on this template. (Do _not_ fork it.)
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Choose your CI: Depending on your preference you can use github actions (recommended) or [Travis ci](https://travis-ci.com).
-   - Github actions: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer
-     to a random value as described in the file
-   - Travis ci: Change your NUR repo name and optionally your cachix repo name in 
-   [.travis.yml](./.travis.yml). Than enable travis in your repo. You can add a cron job in the repository settings on travis to keep your cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
+## Getting Started with Our Nix Flake Template
 
-## README template
+We provide [`template.nix`](./template.nix), a minimal Nix flake template that defines a development shell environment with `z3`, `cvc5`, and `Sketch`.
 
-# nur-packages
+### Quick Setup Guide
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
+1. **Initialize Your Project**: Copy the `template.nix` file into your project's root directory and rename it to `flake.nix`
+2. **Customize Your Environment/Package**: Change your devShell environment or define your packages
+3. **Launch/Build**: Use `nix develop` to enter the default devShell, or use `nix build` to build your package
 
-<!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/<YOUR-GITHUB-USER>/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+## More Nix-Enabled Program Synthesis Tools
 
-<!--
-Uncomment this if you use travis:
+- EUSolver: https://github.com/mistzzt/EUSolver
+- Synduce: https://github.com/mistzzt/Synduce
+- parsynt: https://github.com/mistzzt/parsynt
+- Opera: https://github.com/utopia-group/Opera
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
-
+If you're working with or developing a tool that you believe should be listed here, please reach out.
