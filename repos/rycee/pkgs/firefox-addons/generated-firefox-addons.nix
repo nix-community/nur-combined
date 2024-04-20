@@ -1749,10 +1749,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2415.3";
+      version = "6.2416.3";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4263429/dashlane-6.2415.3.xpi";
-      sha256 = "8c941288fe6ffd32b061a7382a374e6ccdf43570196ed9893eb4ec56de034b22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4266744/dashlane-6.2416.3_wKdyFkw.xpi";
+      sha256 = "323495623f5b997ffb4e56e5554d47f4dbffcc670b9cbf7513f72b8d3ee26b77";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1830,10 +1830,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "126.0.20240417.91940";
+      version = "125.0.20240419.144423";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4266153/deutsch_de_language_pack-126.0.20240417.91940.xpi";
-      sha256 = "27737d0857f8858f0973abe79ef0aa8294fbe9d6cd8f79812cb2a3894becc0cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4267553/deutsch_de_language_pack-125.0.20240419.144423.xpi";
+      sha256 = "6a3d81ca912289b189cf06621b76be0b4e7fecb233de949d726ebfb6281e0986";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2770,10 +2770,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "126.0.20240417.91940";
+      version = "125.0.20240419.144423";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4266115/francais_language_pack-126.0.20240417.91940.xpi";
-      sha256 = "7722303057ecfe38a3d3ef89ff9dbff45583851ccfa78cdb1c3c6089f47aac14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4267497/francais_language_pack-125.0.20240419.144423.xpi";
+      sha256 = "758935593bfa91916287bb964215b0809f39a8c02bc3df733441b83ae1032c93";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2827,10 +2827,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.12.8";
+      version = "8.12.9";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4253969/ghostery-8.12.8.xpi";
-      sha256 = "39531ccced091ad0ae1e0331b155180988e30716602f3c30dfcc6529b164b26f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4264747/ghostery-8.12.9.xpi";
+      sha256 = "270f168e645bdcca96f6d3c6e2a3a9055758ae8103dd6fac45cf4eeac8e618ff";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -5095,10 +5095,10 @@
     };
     "javascript-restrictor" = buildFirefoxXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.17";
+      version = "0.18";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4190089/javascript_restrictor-0.17.xpi";
-      sha256 = "e6b62983b1854176622b3c16d31e97395e6dc353507fa1831718b1200bbdad81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4267401/javascript_restrictor-0.18.xpi";
+      sha256 = "819fe58516b16eb88b0cd02241d182c58d307ee2c282575f4424601c843c15db";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -9707,10 +9707,10 @@
     };
     "tab-reloader" = buildFirefoxXpiAddon {
       pname = "tab-reloader";
-      version = "0.6.1";
+      version = "0.6.3";
       addonId = "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4069787/tab_reloader-0.6.1.xpi";
-      sha256 = "775a96538999ec88868d68ad8909b2bbbfe8fd49f0d7ced2339139e0c88b11b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4265440/tab_reloader-0.6.3.xpi";
+      sha256 = "086102fb5938197f81d9b2c35c2cd1ded8624ff6e5fe94609acc3e31501d26b2";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-reloader.html";
