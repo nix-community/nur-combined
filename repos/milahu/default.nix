@@ -356,6 +356,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       zugbruecke = callPackage ./pkgs/python3/pkgs/zugbruecke { };
 
+      parse-helptext = callPackage ./pkgs/python3/pkgs/parse-helptext { };
+
     #}))); # python3.pkgs
 
   #}))); # python3

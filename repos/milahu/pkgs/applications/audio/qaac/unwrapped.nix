@@ -148,12 +148,27 @@ stdenvNoCC.mkDerivation rec {
     for bin in qaac refalac; do
     cat >$out/bin/$bin <<EOF
     #!/bin/sh
+    # parse args
+    show_help=false
+    [ \$# == 0 ] && show_help=true
+    for a in "\$@"; do
+      case "\$a" in
+        -h|--help)
+          show_help=true
+        ;;
+      esac
+    done
+    if \$show_help && [ "\$QAAC_SHOW_REAL_HELP" != 1 ]; then
+      # show cached help text. this is terribly slow with wine
+      cat $out/share/doc/qaac/$bin.txt
+      exit 1
+    fi
     # disable wine error messages by default
     export WINEDEBUG="\''${WINEDEBUG:=-all}"
     # disable wine GUI
     unset DISPLAY
     # use a separate wine prefix
-    export WINEPREFIX="\''${WINEPREFIX:=$HOME/.cache/qaac/wine}"
+    export WINEPREFIX="\''${WINEPREFIX:=\$HOME/.cache/qaac/wine}"
     # make it work in bubblewrap
     # fix: wine: could not load ntdll.so
     # https://unix.stackexchange.com/a/670754/295986
@@ -162,6 +177,17 @@ stdenvNoCC.mkDerivation rec {
     EOF
     chmod +x $out/bin/$bin
     done
+
+    # cache help texts. these are terribly slow with wine
+    mkdir -p $out/share/doc/qaac
+    mkdir -p $TMP/.cache/qaac/wine # fix: wine: chdir: No such file or directory
+    for bin in qaac refalac; do
+      echo writing $out/share/doc/qaac/$bin.txt
+      HOME=$TMP \
+      QAAC_SHOW_REAL_HELP=1 \
+      $out/bin/$bin --help >$out/share/doc/qaac/$bin.txt || true
+    done
+    rm -rf $TMP/.cache/qaac
   '';
 
   meta = with lib; {
