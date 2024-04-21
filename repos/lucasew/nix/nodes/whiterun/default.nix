@@ -30,6 +30,8 @@ in
     ./escrivao.nix
     # ./container-inet-rdp.nix
     ./container-nat.nix
+    ./rtorrent.nix
+    ./transmission.nix
   ];
 
   services.fusionsolar-reporter.enable = true;
@@ -91,18 +93,6 @@ in
     # fsType = "ext4";
   };
 
-  fileSystems."/var/lib/transmission/Downloads" = {
-    device = "/media/downloads/TORRENTS";
-    fsType = "none";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/var/lib/transmission/.incomplete" = {
-    device = "/media/downloads/TORRENTS/.incomplete";
-    fsType = "none";
-    options = [ "bind" ];
-  };
-
   fileSystems."/var/backup" = {
     device = "/media/storage/backup/var";
     fsType = "none";
@@ -121,6 +111,8 @@ in
   services.hardware.openrgb.enable = true;
 
   services.transmission.enable = true;
+
+  services.rtorrent.enable = true;
 
   services.miniflux.enable = true;
   # services.nitter.enable = true;
