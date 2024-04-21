@@ -110,7 +110,7 @@ in
 
   services.hardware.openrgb.enable = true;
 
-  services.transmission.enable = true;
+  # services.transmission.enable = true;
 
   services.rtorrent.enable = true;
 
