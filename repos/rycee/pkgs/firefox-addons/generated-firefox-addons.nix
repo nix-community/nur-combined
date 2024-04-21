@@ -7524,10 +7524,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.4.7";
+      version = "2024.5.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4265110/pakkujs-2024.4.7.xpi";
-      sha256 = "e5e4a8c68ade1a0229026f78bfa22cdf1fc92a1e76e705636a046e9cc39bbb35";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4267923/pakkujs-2024.5.1.xpi";
+      sha256 = "136dbd8e2fc7412e33e249c6d101a6bd7ebb5297b21807b09add2846cbfab1c2";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
