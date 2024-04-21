@@ -178,6 +178,10 @@
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     script = ''
+      # The {Rx,Tx}BufferSize systemd.link options for intern0 is not working, set manually
+      ${pkgs.ethtool}/bin/ethtool -G intern0 rx 1024
+      ${pkgs.ethtool}/bin/ethtool -G intern0 tx 1024
+      # Figure out why use these CPU mask combination?
       echo 8 > /proc/irq/24/smp_affinity
       echo 2 > /proc/irq/47/smp_affinity
       echo 7 > /sys/class/net/extern0/queues/rx-0/rps_cpus
