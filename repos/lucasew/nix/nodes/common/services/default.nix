@@ -22,6 +22,6 @@
     ./restic-server.nix
     ./ollama.nix
     ./python-microservices
-    ./rtorrent.nix
+    ./rtorrent
   ];
 }
