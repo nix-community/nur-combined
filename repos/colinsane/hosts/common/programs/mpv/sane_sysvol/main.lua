@@ -1,5 +1,5 @@
-msg = require('mp.msg')
-msg.trace('sane-sysvol: load: begin')
+msg = require("mp.msg")
+msg.trace("load: begin")
 
 non_blocking_popen = require("non_blocking_popen")
 
@@ -26,7 +26,7 @@ function subprocess(args)
   mp.command_native({
     name = "subprocess",
     args = args,
-    -- these arguments below probably don't matter: copied from sane-cast
+    -- these arguments below probably don't matter: copied from sane_cast
     detach = false,
     capture_stdout = false,
     capture_stderr = false,
@@ -89,7 +89,7 @@ function sysvol_new()
 
       msg.debug("announcing volume change to mpv:", old_mpv_vol, new_mpv_vol)
       self.sysvol = sysvol
-      mp.set_property_number("user-data/sane-sysvol/volume", new_mpv_vol)
+      mp.set_property_number("user-data/sane_sysvol/volume", new_mpv_vol)
     end,
     change_sysmute = function(self, mute)
       if mute == nil then
@@ -122,7 +122,7 @@ function sysvol_new()
 
       msg.debug("announcing mute to mpv:", mute)
       self.sysmute = mute
-      mp.set_property_bool("user-data/sane-sysvol/mute", mute)
+      mp.set_property_bool("user-data/sane_sysvol/mute", mute)
     end
   }
 end
@@ -220,11 +220,11 @@ function pwmon_new()
 
         if new_vol ~= old_vol then
           msg.debug("pipewire volume change:", old_vol, new_vol)
-          mp.set_property_number("user-data/sane-sysvol/pw-mon-volume", new_vol)
+          mp.set_property_number("user-data/sane_sysvol/pw-mon-volume", new_vol)
         end
         if new_mute ~= old_mute then
           msg.debug("pipewire mute change:", old_mute, new_mute)
-          mp.set_property_bool("user-data/sane-sysvol/pw-mon-mute", new_mute)
+          mp.set_property_bool("user-data/sane_sysvol/pw-mon-mute", new_mute)
         end
       end
     end,
@@ -242,12 +242,12 @@ function pwmon_new()
   }
 end
 
-mp.set_property_number("user-data/sane-sysvol/volume", 0)
-mp.set_property_bool("user-data/sane-sysvol/mute", true)
+mp.set_property_number("user-data/sane_sysvol/volume", 0)
+mp.set_property_bool("user-data/sane_sysvol/mute", true)
 
 local sysvol = sysvol_new()
 local first_sysvol_announcement = true
-mp.observe_property("user-data/sane-sysvol/volume", "native", function(_, val)
+mp.observe_property("user-data/sane_sysvol/volume", "native", function(_, val)
   -- we must set the volume property early -- before we actually know the volume
   -- else other modules will think it's `nil` and error.
   -- but we DON'T want the value we set to actually impact the system volume
@@ -256,12 +256,12 @@ mp.observe_property("user-data/sane-sysvol/volume", "native", function(_, val)
   end
   first_sysvol_announcement = false
 end)
-mp.observe_property("user-data/sane-sysvol/pw-mon-volume", "native", function(_, val)
+mp.observe_property("user-data/sane_sysvol/pw-mon-volume", "native", function(_, val)
   sysvol:on_sysvol_change(val)
 end)
 
 local first_sysmute_announcement = true
-mp.observe_property("user-data/sane-sysvol/mute", "native", function(_, val)
+mp.observe_property("user-data/sane_sysvol/mute", "native", function(_, val)
   -- we must set the mute property early -- before we actually know the mute
   -- else other modules will think it's `nil` and error.
   -- but we DON'T want the value we set to actually impact the system mute
@@ -270,11 +270,11 @@ mp.observe_property("user-data/sane-sysvol/mute", "native", function(_, val)
   end
   first_sysmute_announcement = false
 end)
-mp.observe_property("user-data/sane-sysvol/pw-mon-mute", "native", function(_, val)
+mp.observe_property("user-data/sane_sysvol/pw-mon-mute", "native", function(_, val)
   sysvol:on_sysmute_change(val)
 end)
 
 local pwmon = pwmon_new()
-mp.register_event('tick', function() pwmon:service() end)
+mp.register_event("tick", function() pwmon:service() end)
 
-msg.trace("sane-sysvol: load: complete")
+msg.trace("load: complete")

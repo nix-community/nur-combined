@@ -91,31 +91,31 @@ let
            local last_up = cursor.last_event['primary_up'] or { time = 0 }
            if cursor.hover_raw or last_down.time >= last_up.time then cursor:move(mouse.x, mouse.y) end"
 
-      ### patch so that uosc volume control is routed to sane-sysvol.
+      ### patch so that uosc volume control is routed to sane_sysvol.
       ### this is particularly nice for moby, because it avoids the awkwardness that system volume
       ### is hard to adjust while screen is on.
-      ### previously i used ao-volume instead of sane-sysvol: but that forced `ao=alsa`
+      ### previously i used ao-volume instead of sane_sysvol: but that forced `ao=alsa`
       ### and came with heavy perf penalties (especially when adjusting the volume)
       substituteInPlace src/uosc/main.lua \
         --replace-fail \
           "mp.observe_property('volume'" \
-          "mp.observe_property('user-data/sane-sysvol/volume'" \
+          "mp.observe_property('user-data/sane_sysvol/volume'" \
         --replace-fail \
           "mp.observe_property('mute'" \
-          "mp.observe_property('user-data/sane-sysvol/mute'"
+          "mp.observe_property('user-data/sane_sysvol/mute'"
       substituteInPlace src/uosc/elements/Volume.lua \
         --replace-fail \
           "mp.commandv('set', 'volume'" \
-          "mp.set_property_number('user-data/sane-sysvol/volume'" \
+          "mp.set_property_number('user-data/sane_sysvol/volume'" \
         --replace-fail \
           "mp.set_property_native('volume'" \
-          "mp.set_property_number('user-data/sane-sysvol/volume'" \
+          "mp.set_property_number('user-data/sane_sysvol/volume'" \
         --replace-fail \
           "mp.set_property_native('mute'" \
-          "mp.set_property_bool('user-data/sane-sysvol/mute'" \
+          "mp.set_property_bool('user-data/sane_sysvol/mute'" \
         --replace-fail \
           "mp.commandv('cycle', 'mute')" \
-          "mp.set_property_bool('user-data/sane-sysvol/mute', not mp.get_property_bool('user-data/sane-sysvol/mute'))"
+          "mp.set_property_bool('user-data/sane_sysvol/mute', not mp.get_property_bool('user-data/sane_sysvol/mute'))"
 
       # tweak the top-bar "maximize" button to actually act as a "fullscreen" button.
       substituteInPlace src/uosc/elements/TopBar.lua \
@@ -137,43 +137,50 @@ let
 in
 {
   sane.programs.mpv = {
-    packageUnwrapped = pkgs.wrapMpv (mpv-unwrapped.override { lua = pkgs.luajit; }) {
-      scripts = [
-        pkgs.mpvScripts.mpris
-        pkgs.mpvScripts.mpv-playlistmanager
-        uosc
-        # pkgs.mpv-uosc-latest
-      ];
-      # extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
-      #   # 2023/08/29: fixes an error where mpv on moby launches with the message
-      #   #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
-      #   #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
-      #   #
-      #   #   this is likely a regression for mpv 0.36.0.
-      #   #   the actual error message *appears* to come from the mesa library, but it's tough to trace.
-      #   #
-      #   # 2024/03/02: no longer necessary, with mesa 23.3.1: <https://github.com/NixOS/nixpkgs/pull/265740>
-      #   #
-      #   # backend compatibility (2023/10/22):
-      #   # run with `--vo=help` to see a list of all output options.
-      #   # non-exhaustive (W=works, F=fails, A=audio-only, U=audio+ui only (no video))
-      #   # ? null             Null video output
-      #   # A (default)
-      #   # A dmabuf-wayland   Wayland dmabuf video output
-      #   # A libmpv           render API for libmpv  (mpv plays the audio, but doesn't even render a window)
-      #   # A vdpau            VDPAU with X11
-      #   # F drm              Direct Rendering Manager (software scaling)
-      #   # F gpu-next         Video output based on libplacebo
-      #   # F vaapi            VA API with X11
-      #   # F x11              X11 (software scaling)
-      #   # F xv               X11/Xv
-      #   # U gpu              Shader-based GPU Renderer
-      #   # W caca             libcaca  (terminal rendering)
-      #   # W sdl              SDL 2.0 Renderer
-      #   # W wlshm            Wayland SHM video output (software scaling)
-      #   "--add-flags" "--vo=${cfg.config.vo}"
-      # ];
-    };
+    packageUnwrapped = pkgs.wrapMpv
+      (mpv-unwrapped.override rec {
+        # N.B.: populating `self` to `luajit` is necessary for the resulting `lua.withPackages` function to preserve my override.
+        # i use enable52Compat in order to get `table.unpack`.
+        # i think using `luajit` here instead of `lua` is optional, just i get better perf with it :)
+        lua = pkgs.luajit.override { enable52Compat = true; self = lua; };
+      })
+      {
+        scripts = [
+          pkgs.mpvScripts.mpris
+          pkgs.mpvScripts.mpv-playlistmanager
+          uosc
+          # pkgs.mpv-uosc-latest
+        ];
+        # extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
+        #   # 2023/08/29: fixes an error where mpv on moby launches with the message
+        #   #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
+        #   #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
+        #   #
+        #   #   this is likely a regression for mpv 0.36.0.
+        #   #   the actual error message *appears* to come from the mesa library, but it's tough to trace.
+        #   #
+        #   # 2024/03/02: no longer necessary, with mesa 23.3.1: <https://github.com/NixOS/nixpkgs/pull/265740>
+        #   #
+        #   # backend compatibility (2023/10/22):
+        #   # run with `--vo=help` to see a list of all output options.
+        #   # non-exhaustive (W=works, F=fails, A=audio-only, U=audio+ui only (no video))
+        #   # ? null             Null video output
+        #   # A (default)
+        #   # A dmabuf-wayland   Wayland dmabuf video output
+        #   # A libmpv           render API for libmpv  (mpv plays the audio, but doesn't even render a window)
+        #   # A vdpau            VDPAU with X11
+        #   # F drm              Direct Rendering Manager (software scaling)
+        #   # F gpu-next         Video output based on libplacebo
+        #   # F vaapi            VA API with X11
+        #   # F x11              X11 (software scaling)
+        #   # F xv               X11/Xv
+        #   # U gpu              Shader-based GPU Renderer
+        #   # W caca             libcaca  (terminal rendering)
+        #   # W sdl              SDL 2.0 Renderer
+        #   # W wlshm            Wayland SHM video output (software scaling)
+        #   "--add-flags" "--vo=${cfg.config.vo}"
+        # ];
+      };
 
     suggestedPrograms = [
       "blast-to-default"
@@ -205,9 +212,9 @@ in
       # for `watch_later`
       ".local/state/mpv"
     ];
-    fs.".config/mpv/scripts/sane-cast/main.lua".symlink.target = ./sane-cast-main.lua;
-    fs.".config/mpv/scripts/sane-sysvol/main.lua".symlink.target = ./sane-sysvol/main.lua;
-    fs.".config/mpv/scripts/sane-sysvol/non_blocking_popen.lua".symlink.target = ./sane-sysvol/non_blocking_popen.lua;
+    fs.".config/mpv/scripts/sane_cast/main.lua".symlink.target = ./sane_cast/main.lua;
+    fs.".config/mpv/scripts/sane_sysvol/main.lua".symlink.target = ./sane_sysvol/main.lua;
+    fs.".config/mpv/scripts/sane_sysvol/non_blocking_popen.lua".symlink.target = ./sane_sysvol/non_blocking_popen.lua;
     fs.".config/mpv/input.conf".symlink.target = ./input.conf;
     fs.".config/mpv/mpv.conf".symlink.target = ./mpv.conf;
     fs.".config/mpv/script-opts/osc.conf".symlink.target = ./osc.conf;
