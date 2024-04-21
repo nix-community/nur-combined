@@ -8,7 +8,10 @@
   boot.kernel.sysctl = {
     "net.core.default_qdisc" = "cake";
     "net.core.somaxconn" = 65536;
-    "net.core.netdev_max_backlog" = 65536;
+    "net.core.netdev_max_backlog" = 10000;
+    "net.core.rps_sock_flow_entries" = 32768;
+    "net.core.dev_weight" = 600;
+
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.ipv4.tcp_fastopen" = 3;
     "net.ipv4.tcp_keepalive_time" = 60;
@@ -71,6 +74,9 @@
     linkConfig = {
       Name = "intern0";
       MACAddress = "fe:1b:f3:16:82:a6";
+      RxBufferSize = 1024;
+      TxBufferSize = 1024;
+      TransmitQueueLength = 2000;
     };
   };
 
@@ -79,6 +85,8 @@
     linkConfig = {
       Name = "extern0";
       MACAddress = "ea:ce:b4:a1:ce:94";
+      RxBufferSize = 4096;
+      TransmitQueueLength = 2000;
     };
   };
 
@@ -162,5 +170,20 @@
         Table = 200;
       };
     }];
+  };
+
+  systemd.services."tweak-network-settings" = {
+    description = "Tweak network settings";
+    serviceConfig = { Type = "simple"; };
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    script = ''
+      echo 8 > /proc/irq/24/smp_affinity
+      echo 2 > /proc/irq/47/smp_affinity
+      echo 7 > /sys/class/net/extern0/queues/rx-0/rps_cpus
+      echo d > /sys/class/net/intern0/queues/rx-0/rps_cpus
+      echo 2048 > /sys/class/net/extern0/queues/rx-0/rps_flow_cnt
+      echo 2048 > /sys/class/net/intern0/queues/rx-0/rps_flow_cnt
+    '';
   };
 }

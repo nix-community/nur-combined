@@ -12,7 +12,7 @@ in
     group = acmeCert.group;
   };
 
-  services.stalwart-mail.enable = true;
+  services.stalwart-mail.enable = false;
   services.stalwart-mail.settings = {
     include.files = [ secrets."stalwart.toml".path ];
 

@@ -32,7 +32,7 @@ in
       };
       "stalwart.toml" = {
         owner = "stalwart-mail";
-        restartUnits = [ "stalwart-mail.service" ];
+        # restartUnits = [ "stalwart-mail.service" ];
       };
     };
   };

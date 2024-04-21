@@ -70,6 +70,23 @@ in
       Spam.specialUse = "Junk";
       Templates.auto = "create";
     };
+    sieve = {
+      pipeBins = [
+        "${pipeBin}/pipe/bin/sa-learn-spam.sh"
+        "${pipeBin}/pipe/bin/sa-learn-ham.sh"
+      ];
+      extensions = [
+        "variables"
+        "fileinto"
+        "envelope"
+        "subaddress"
+        "mailbox"
+        "duplicate"
+      ];
+      globalExtensions = [
+        "vnd.dovecot.environment"
+      ];
+    };
     sieve.scripts = {
       after = builtins.toFile "spam.sieve" ''
         require ["variables", "fileinto", "envelope", "subaddress", "mailbox", "duplicate"];
@@ -92,6 +109,19 @@ in
         }
       '';
     };
+    imapsieve.mailbox = [
+      {
+        name = "Junk";
+        causes = [ "COPY" ];
+        before = ./files/imap_sieve/report-spam.sieve;
+      }
+      {
+        name = "*";
+        from = "JUNK";
+        causes = [ "COPY" ];
+        before = ./files/imap_sieve/report-ham.sieve;
+      }
+    ];
   };
 
   services.dovecot2.extraConfig = ''
@@ -194,40 +224,11 @@ in
       separator = /
       inbox = yes
     }
-
-    plugin {
-      sieve_plugins = sieve_imapsieve sieve_extprograms
-      # sieve = ldap:''${secrets.sieveLdap.path};bindir=''${stateDir}/sieve_bin
-
-      # From elsewhere to Spam folder
-      imapsieve_mailbox1_name = Junk
-      imapsieve_mailbox1_causes = COPY
-      imapsieve_mailbox1_before = file:${stateDir}/imap_sieve/report-spam.sieve
-
-      # From Spam folder to elsewhere
-      imapsieve_mailbox2_name = *
-      imapsieve_mailbox2_from = Junk
-      imapsieve_mailbox2_causes = COPY
-      imapsieve_mailbox2_before = file:${stateDir}/imap_sieve/report-ham.sieve
-
-      sieve_pipe_bin_dir = ${pipeBin}/pipe/bin
-
-      sieve_global_extensions = +vnd.dovecot.pipe +vnd.dovecot.environment
-    }
   '';
 
   systemd.services.dovecot2 = {
     requires = [ "openldap.service" ];
     after = [ "openldap.service" ];
-    preStart = ''
-      rm -rf '${stateDir}/imap_sieve'
-      mkdir '${stateDir}/imap_sieve'
-      cp -p "${./files/imap_sieve}"/*.sieve '${stateDir}/imap_sieve/'
-      for k in "${stateDir}/imap_sieve"/*.sieve ; do
-        ${pkgs.dovecot_pigeonhole}/bin/sievec "$k"
-      done
-      chown -R '${dovecot2Cfg.mailUser}:${dovecot2Cfg.mailGroup}' '${stateDir}/imap_sieve'
-    '';
   };
 
   # nixpkgs.overlays = [
