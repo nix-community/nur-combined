@@ -17,6 +17,7 @@
 
   imports = lib.sharedModules ++ [
     ../../srv
+    ../sysvars.nix
     ./hardware.nix
     ./network.nix
     ./rekey.nix

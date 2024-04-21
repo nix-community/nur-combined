@@ -34,7 +34,6 @@
           "wireshark"
           "tss"
           "podman"
-          "seed"
         ];
         shell = pkgs.fish;
 

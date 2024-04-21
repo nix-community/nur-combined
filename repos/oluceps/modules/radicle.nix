@@ -3,6 +3,7 @@
   config,
   inputs',
   lib,
+  user,
   ...
 }:
 let
@@ -20,15 +21,11 @@ in
     enable = mkEnableOption "enable radicle seed node";
     listen = mkOption {
       type = types.str;
-      default = "0.0.0.0:8776";
+      default = "[::]:8776";
     };
     httpListen = mkOption {
       type = types.str;
-      default = "0.0.0.0:8084";
-    };
-    home = mkOption {
-      type = types.str;
-      default = "/home/seed/.radicle";
+      default = "127.0.0.1:8084";
     };
     package = mkPackageOption inputs'.radicle.packages "radicle-full" { };
     envFile = mkOption {
@@ -38,9 +35,7 @@ in
   };
   config = mkIf cfg.enable {
     users.users.seed = {
-      description = "radicle seed user";
       isSystemUser = true;
-      createHome = true;
       group = "seed";
     };
     users.groups.seed = { };
@@ -55,20 +50,21 @@ in
       description = "Radicle Node";
 
       serviceConfig = {
-        User = "seed";
-        Group = "seed";
+        User = user;
         ExecStart = "${cfg.package}/bin/radicle-node --listen ${cfg.listen} --force";
         Environment = [
-          "RAD_HOME=${cfg.home}"
+          "RAD_HOME=/home/${user}/.local/share/radicle"
           "RUST_BACKTRACE=1"
           "RUST_LOG=info"
         ];
         EnvironmentFile = cfg.envFile;
+        # StateDirectory = "radicle";
         KillMode = "process";
         Restart = "always";
         RestartSec = 3;
       };
     };
+
     systemd.services.radicle-httpd = {
       requires = [ "network-online.target" ];
       after = [
@@ -76,21 +72,22 @@ in
         "network.target"
       ];
       wantedBy = [ "multi-user.target" ];
-      description = "Radicle HTTP Daemon";
+      description = "Radicle httpd";
       path = [ pkgs.git ];
 
       serviceConfig = {
-        User = "seed";
-        Group = "seed";
+        User = user;
         ExecStart = "${cfg.package}/bin/radicle-httpd --listen ${cfg.httpListen}";
         Environment = [
-          "RAD_HOME=${cfg.home}"
+          "RAD_HOME=/home/${user}/.local/share/radicle"
           "RUST_BACKTRACE=1"
           "RUST_LOG=info"
         ];
+        EnvironmentFile = cfg.envFile;
+        # StateDirectory = "radicle";
         KillMode = "process";
         Restart = "always";
-        RestartSec = 1;
+        RestartSec = 3;
       };
     };
   };

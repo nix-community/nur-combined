@@ -36,12 +36,7 @@
     rustypaste.enable = true;
   };
   services = {
-
-    radicle = {
-      enable = true;
-      envFile = config.age.secrets.radicle-pass.path;
-      # home = "/home/${user}/.radicle";
-    };
+    radicle.enable = true;
     realm = {
       enable = false;
       settings = {
