@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+loginctl lock-session
+sleep 1
+xset dpms force off

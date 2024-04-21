@@ -244,6 +244,10 @@
             if [[ "$(realpath ${whiterun}/etc/.nixpkgs-used)" == "$(ssh whiterun realpath /etc/.nixpkgs-used)" ]]; then
                whiterun_cmd=switch
              fi
+            if [[ -v DEPLOY_CMD ]]; then
+              riverwood_cmd=$DEPLOY_CMD
+              whiterun_cmd=$DEPLOY_CMD
+            fi
 
              ssh -t riverwood ${home}/bin/home-manager-generation 
              ssh -t whiterun ${home}/bin/home-manager-generation 

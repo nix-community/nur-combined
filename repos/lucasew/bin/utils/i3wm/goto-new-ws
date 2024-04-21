@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+ws=$[ $RANDOM % 100 + 11 ]
+i3-msg workspace number $ws

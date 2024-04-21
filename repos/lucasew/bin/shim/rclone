@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if ! which rclone >/dev/null 2>/dev/null; then
+	rclone_out=$(nix eval --raw "$(sd d root --really)#pkgs.rclone.outPath")
+	nix-store -r $rclone_out >/dev/null
+	export PATH=$PATH:$rclone_out/bin
+	# echo $python_out
+fi
+
+exec rclone "$@"

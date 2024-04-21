@@ -4,6 +4,7 @@ alias cd..='cd ..'
 alias ..='cd ..'
 alias ç='sd'
 alias e=$EDITOR
+alias sdw=sd
 
 function reset_term {
   tput reset

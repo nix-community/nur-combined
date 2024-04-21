@@ -7,35 +7,14 @@
 
 let
   custom_rofi = pkgs.custom.rofi.override { inherit (pkgs.custom) colors; };
-  inherit (pkgs) writeShellScript makeDesktopItem;
+  inherit (pkgs) makeDesktopItem;
   mod = "Mod4";
-  modn = writeShellScript "modn" ''
-    goto_ws=$(i3-msg i3-msg -t get_workspaces | jq '.[] | select(.focused == true) | "i3-msg workspace number " + .name' | sed s/\"//g)
-
-    i3-msg -t get_outputs | jq '.[] | select(.current_workspace != null) |  "i3-msg workspace number " + .current_workspace + ";i3-msg move workspace to output left"' | sed s/\"//g | bash
-
-    echo $goto_ws | bash
-  '';
-  sendToPQP = writeShellScript "sendToPQP" ''
-    ws=$[ $RANDOM % 100 + 11 ]
-    i3-msg move container to workspace number $ws
-    i3-msg workspace number $ws
-  '';
-  gotoNewWs = writeShellScript "gotoNewWs" ''
-    ws=$[ $RANDOM % 100 + 11 ]
-    i3-msg workspace number $ws
-  '';
-  locker = writeShellScript "locker" ''
-    loginctl lock-session
-    sleep 1
-    xset dpms force off
-  '';
   lockerSpace = makeDesktopItem {
     name = "locker";
     desktopName = "Bloquear Tela";
     icon = "lock";
     type = "Application";
-    exec = "${locker}";
+    exec = "sdw utils i3wm lock-screen";
   };
 in
 {
@@ -211,7 +190,6 @@ in
         bindsym $mod+Shift+s sticky toggle
 
         bindsym $mod+Shift+minus move scratchpad
-        bindsym $mod+Shift+p exec toggle-monitor
         bindsym $mod+Shift+q kill
         bindsym $mod+Shift+r restart
         bindsym $mod+Up focus up
@@ -236,17 +214,20 @@ in
         bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
         bindsym XF86AudioMute exec pactl set-sink-volume @DEFAULT_SINK@ toggle
         bindsym XF86AudioMicMute exec pactl set-sink-volume @DEFAULT_SOURCE@ toggle
-        bindsym $mod+l exec ${locker}
-        bindsym $mod+m move workspace to output left
-        bindsym $mod+n exec ${modn}
-        bindsym $mod+b exec ${gotoNewWs}
-        bindsym $mod+Shift+b exec ${sendToPQP}
         bindsym XF86AudioNext exec playerctl next
         bindsym XF86AudioPrev exec playerctl previous
         bindsym XF86AudioPlay exec playerctl play-pause
         bindsym XF86AudioPause exec playerctl play-pause
         bindsym XF86MonBrightnessUp exec brightnessctl s +5%
         bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+
+        bindsym $mod+m move workspace to output left
+
+        bindsym $mod+l exec sdw utils i3wm lock-screen
+        bindsym $mod+n exec sdw utils i3wm modn
+        bindsym $mod+b exec sdw utils i3wm goto-new-ws
+        bindsym $mod+Shift+b exec sdw utils i3wm send2pqp
+        bindsym $mod+Shift+p exec sdw utils i3wm toggle-monitor
 
         bindsym --release Print exec ${pkgs.spectacle}/bin/spectacle
 

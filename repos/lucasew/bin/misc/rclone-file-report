@@ -1,5 +1,4 @@
-#!/usr/bin/env -S sd nix shell
-#! nix-shell -p rclone python3 -i python
+#!/usr/bin/env -S sd shim python3
 #! vim:ft=python
 
 # gets the amount files grouped by time blocks in a rclone folder
@@ -17,7 +16,7 @@ parser.add_argument('-d', type = Path, help = "rclone directory to explore", req
 parser.add_argument('-g', type = int, help = "group things by x seconds", default = 60)
 args = parser.parse_args()
 
-rclone_args = ['rclone', 'lsl', str(args.d)]
+rclone_args = ['sd', 'shim', 'rclone', 'lsl', str(args.d)]
 if args.c is not None:
     rclone_args.append('--config')
     rclone_args.append(str(args.c))

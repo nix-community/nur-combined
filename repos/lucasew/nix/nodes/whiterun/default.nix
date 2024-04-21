@@ -115,9 +115,8 @@ in
 
   programs.sunshine.enable = true;
 
-  # services.xserver.windowManager.i3.enable = true;
-  programs.hyprland.enable = true;
-  # programs.hyprland.enableNvidiaPatches = true; #shouldnt be required as hyprland will start on the AMD gpu
+  services.xserver.windowManager.i3.enable = true;
+  # programs.hyprland.enable = true;
 
   services.hardware.openrgb.enable = true;
 

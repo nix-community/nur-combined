@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if ! which c++ >/dev/null 2>/dev/null; then
+	cxx_out=$(nix eval --raw "$(sd d root --really)#pkgs.stdenv.cc")
+	nix-store -r $cxx_out >/dev/null
+	export PATH=$PATH:$cxx_out/bin
+	# echo $python_out
+fi
+
+exec c++ "$@"
