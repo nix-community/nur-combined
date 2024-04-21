@@ -12,6 +12,7 @@
     dissent
     celeste
     stellarium
+    obsidian
     celluloid
     thiefmd
     wpsoffice
