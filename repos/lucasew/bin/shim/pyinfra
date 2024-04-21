@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if ! which pyinfra >/dev/null 2>/dev/null; then
+	pyinfra_out=$(nix eval --raw "$(sd d root --really)#pkgs.pyinfra.outPath")
+	nix-store -r $pyinfra_out >/dev/null
+	export PATH=$PATH:$pyinfra_out/bin
+	# echo $python_out
+fi
+
+exec pyinfra "$@"
