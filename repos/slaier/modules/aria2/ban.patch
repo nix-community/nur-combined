@@ -1,5 +1,5 @@
 diff --git a/src/DefaultBtInteractive.cc b/src/DefaultBtInteractive.cc
-index da68aa95..18de16c5 100644
+index da68aa95..a7325e17 100644
 --- a/src/DefaultBtInteractive.cc
 +++ b/src/DefaultBtInteractive.cc
 @@ -35,6 +35,7 @@
@@ -16,7 +16,7 @@ index da68aa95..18de16c5 100644
    }
 +  char peerId[PEER_ID_LENGTH];
 +  memcpy(peerId, message->getPeerId(), PEER_ID_LENGTH);
-+  std::regex peerRegex("^-(XL|SD|XF|QD|BN|DL|DT)(\\d+)-");
++  std::regex peerRegex("^-(XL|SD|XF|QD|BN|DL|DT|HP)(\\d+)-");
 +  if (std::regex_search(peerId, peerRegex)) {
 +    peerStorage_->banPeer(peer_->getIPAddress());
 +    throw DL_ABORT_EX(
@@ -26,7 +26,7 @@ index da68aa95..18de16c5 100644
    peer_->setPeerId(message->getPeerId());
  
 diff --git a/src/DefaultPeerStorage.cc b/src/DefaultPeerStorage.cc
-index b4a9fc00..3dbd8cee 100644
+index b4a9fc00..a3345e9f 100644
 --- a/src/DefaultPeerStorage.cc
 +++ b/src/DefaultPeerStorage.cc
 @@ -107,6 +107,11 @@ bool DefaultPeerStorage::addPeer(const std::shared_ptr<Peer>& peer)
@@ -69,7 +69,7 @@ index b4a9fc00..3dbd8cee 100644
 +    A2_LOG_WARN(fmt("Peer %s is already banned.", ipaddr.c_str()));
 +  }
 +  else {
-+    if (bannedPeers_.size() > maxPeerListSize_)
++    if (bannedPeers_.size() >= maxPeerListSize_)
 +      bannedPeers_.clear();
 +    bannedPeers_.insert(ipaddr);
 +  }

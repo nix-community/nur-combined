@@ -4,7 +4,7 @@
     enable = true;
     openPorts = true;
     extraArguments = lib.concatStringsSep " " [
-      "--max-concurrent-downloads=50"
+      "--continue=true"
       "--max-connection-per-server=8"
       "--min-split-size=1M"
       "--http-accept-gzip=true"
@@ -15,6 +15,8 @@
       "--force-save=true"
       "--bt-save-metadata=true"
       "--bt-load-saved-metadata=true"
+      "--bt-detach-seed-only=true"
+      "--bt-max-peers=0"
       ("--bt-tracker=" + (lib.concatStringsSep "," [
         "http://tracker.ipv6tracker.org:80/announce"
         "http://tracker.opentrackr.org:1337/announce"
