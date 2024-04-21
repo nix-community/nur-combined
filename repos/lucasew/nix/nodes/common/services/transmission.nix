@@ -47,6 +47,7 @@ in
     services.transmission = {
       openFirewall = true;
       openPeerPorts = true;
+      downloadDirPermissions = null;
       webHome = pkgs.flood-for-transmission;
       settings = {
         peer-port-random-on-start = true;
