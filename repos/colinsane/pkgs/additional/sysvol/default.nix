@@ -8,13 +8,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "sysvol";
-  version = "0-unstable-2024-02-08";
+  version = "0-unstable-2024-04-11";
 
   src = fetchFromGitHub {
     owner = "AmirDahan";
     repo = "sysvol";
-    rev = "b8a15ca2e52922bceab3f48c5630149674da57e9";
-    hash = "sha256-BaefSRnn6ww3Ut+3ouXKoI/8/vmcPh/QV6dEETr3tog=";
+    rev = "a26809de285ee194436bc55ef701476765c5b15e";
+    hash = "sha256-WiFm5SRQV2up9EBCR9oF0p9F+DQHDQZhxsaUuvpbMw8=";
   };
   postPatch = let
     # i don't know how else to escape this
