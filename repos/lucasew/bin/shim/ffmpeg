@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if ! which ffmpeg >/dev/null 2>/dev/null; then
+	ffmpeg_out=$(nix eval --raw "$(sd d root --really)#pkgs.ffmpeg.outPath")
+	nix-store -r $ffmpeg_out >/dev/null
+	export PATH=$PATH:$ffmpeg_out/bin
+	# echo $python_out
+fi
+
+exec ffmpeg "$@"

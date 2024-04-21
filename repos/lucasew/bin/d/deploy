@@ -29,4 +29,4 @@ if [ -z "$hosts" ]; then
 fi
 
 
-sd app pyinfra --use-sudo-password "$hosts" pyinfra/nixos.py pyinfra/home-manager.py "${args[@]}"
+sd shim pyinfra --use-sudo-password "$hosts" pyinfra/nixos.py pyinfra/home-manager.py "${args[@]}"

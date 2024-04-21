@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if ! which git >/dev/null 2>/dev/null; then
+	git_out=$(nix eval --raw "$(sd d root --really)#pkgs.git.outPath")
+	nix-store -r $git_out >/dev/null
+	export PATH=$PATH:$git_out/bin
+	# echo $python_out
+fi
+
+exec git "$@"

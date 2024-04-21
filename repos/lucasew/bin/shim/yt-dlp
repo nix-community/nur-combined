@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if ! which yt-dlp >/dev/null 2>/dev/null; then
+	ytdlp_out=$(nix eval --raw "$(sd d root --really)#pkgs.yt-dlp.outPath")
+	nix-store -r $ytdlp_out >/dev/null
+	export PATH=$PATH:$ytdlp_out/bin
+	# echo $python_out
+fi
+
+exec yt-dlp "$@"
