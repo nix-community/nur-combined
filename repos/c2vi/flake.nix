@@ -384,6 +384,14 @@
         #text = "cd /home/me/work/log/new; nix develop -c 'python ${workDir}/log/new/client.py'";
         text = ''${inputs.my-log.packages.x86_64-linux.pythonForLog}/bin/python ${workDir}/log/new/client.py "$@"'';
       });
+
+
+      hello-container = mypkgs.dockerTools.buildImage {
+        name = "hello-docker";
+        config = {
+          Cmd = [ "${mypkgs.hello}/bin/hello" ];
+        };
+      };
      
       #test = inputs.firefox.packages.${nixpkgs.legacyPackages.x86_64-linux.pkgs.system}; #.firefox-nightly-bin.overrideAttrs (old: {
         #NIX_CFLAGS_COMPILE = [ (old.NIX_CFLAGS_COMPILE or "") ] ++ [ "-O3" "-march=native" "-fPIC" ];
