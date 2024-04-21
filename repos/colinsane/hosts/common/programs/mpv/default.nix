@@ -185,6 +185,7 @@ in
     suggestedPrograms = [
       "blast-to-default"
       "go2tv"
+      "sane-die-with-parent"
       "xdg-terminal-exec"
     ];
 

@@ -7,12 +7,12 @@
   - like toplevel is split L/R, and then the L is a tabbed view and the R is a tabbed view
 - Signal restart loop drains battery
   - decrease s6 restart time?
-- sane-sysvol hangs mpv exit
 - `ssh` access doesn't grant same linux capabilities as login
 - ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
 - sway mouse/kb hotplug doesn't work
 - `nix` operations from lappy hang when `desko` is unreachable
   - could at least direct the cache to `http://desko-hn:5001`
+- sysvol (volume overlay): when casting with `blast`, sysvol doesn't react to volume changes
 
 ## REFACTORING:
 - REMOVE DEPRECATED `crypt` from sftpgo_auth_hook

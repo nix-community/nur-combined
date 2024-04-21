@@ -30,7 +30,12 @@ function invoke_go2tv_on_open_file(mode)
   invoke_go2tv(true, { mode, path })
 end
 
-mp.add_key_binding(nil, "blast", function() subprocess(false, { "blast-to-default" }) end)
+-- invoke blast in a way where it dies when we die, because:
+-- 1. when mpv exits, it `SIGKILL`s this toplevel subprocess.
+-- 2. `blast-to-default` could be a sandbox wrapper.
+-- 3. bwrap does not pass SIGKILL or SIGTERM to its child.
+-- 4. hence, to properly kill blast, we have to kill all the descendants.
+mp.add_key_binding(nil, "blast", function() subprocess(false, { "sane-die-with-parent", "--descendants", "--use-pgroup", "--catch-sigkill", "blast-to-default" }) end)
 mp.add_key_binding(nil, "go2tv-gui", function() invoke_go2tv(false, {}) end)
 mp.add_key_binding(nil, "go2tv-video", function() invoke_go2tv_on_open_file("-v") end)
 mp.add_key_binding(nil, "go2tv-stream", function() invoke_go2tv_on_open_file("-s") end)

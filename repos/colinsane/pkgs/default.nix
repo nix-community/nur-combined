@@ -57,6 +57,7 @@ let
     pipeline = callPackage ./additional/pipeline { };
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
     rtl8723cs-wowlan = callPackage ./additional/rtl8723cs-wowlan { };
+    sane-die-with-parent = callPackage ./additional/sane-die-with-parent { };
     sane-open-desktop = callPackage ./additional/sane-open-desktop { };
     sane-sandboxed = callPackage ./additional/sane-sandboxed { };
     sane-screenshot = callPackage ./additional/sane-screenshot { };

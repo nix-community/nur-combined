@@ -199,8 +199,9 @@ end
 function pwmon_new()
   return {
     -- non_blocking_popen handle for the pw-mon process
-    -- which can be periodically read and parsed to detect volume changes
-    handle = non_blocking_popen.non_blocking_popen("pw-mon", RD_SIZE),
+    -- which can be periodically read and parsed to detect volume changes.
+    -- we have to use `sane-die-with-parent` otherwise `pw-mon` will still be active even after mpv exits.
+    handle = non_blocking_popen.non_blocking_popen("sane-die-with-parent --descendants pw-mon", RD_SIZE),
     stdout_unparsed = "",
     pwmon_parser = pwmon_parser_new(),
     service = function(self)

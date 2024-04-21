@@ -741,6 +741,7 @@ in
     pwvucontrol.sandbox.whitelistWayland = true;
 
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
+      psutil
       requests
     ]);
     python3-repl.sandbox.method = "bwrap";
@@ -758,6 +759,8 @@ in
     rsync.sandbox.autodetectCliPaths = "existingOrParent";
 
     rustc = {};
+
+    sane-die-with-parent.sandbox.enable = false;  #< it's a launcher; can't sandbox
 
     sane-open-desktop.sandbox.enable = false;  #< trivial script, and all our deps are sandboxed
     sane-open-desktop.suggestedPrograms = [

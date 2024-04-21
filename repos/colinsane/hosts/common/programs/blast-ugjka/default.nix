@@ -44,7 +44,7 @@ in
       # might be possible to remove this, but kinda hard to see a clean way.
       "--sane-sandbox-keep-namespace" "pid"
     ];
-    suggestedPrograms = [ "blast-ugjka" ];
+    suggestedPrograms = [ "blast-ugjka" "sane-die-with-parent" ];
   };
 
   networking.firewall.allowedTCPPorts = lib.mkIf cfg.enabled [ 9000 ];
