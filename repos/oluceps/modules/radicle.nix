@@ -48,7 +48,7 @@ in
       ];
       wantedBy = [ "multi-user.target" ];
       description = "Radicle Node";
-
+      path = [ pkgs.git ];
       serviceConfig = {
         User = user;
         ExecStart = "${cfg.package}/bin/radicle-node --listen ${cfg.listen} --force";
