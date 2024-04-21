@@ -21,7 +21,7 @@ in
     enable = mkEnableOption "enable radicle seed node";
     listen = mkOption {
       type = types.str;
-      default = "[::]:8776";
+      default = "0.0.0.0:8776";
     };
     httpListen = mkOption {
       type = types.str;
