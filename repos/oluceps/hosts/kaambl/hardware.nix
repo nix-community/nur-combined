@@ -134,7 +134,7 @@
 
   services.scx = {
     enable = true;
-    scheduler = "scx_rusty";
+    scheduler = "scx_lavd";
   };
   boot = {
     loader.efi = {
