@@ -9,17 +9,19 @@
 
 { config, lib, pkgs, sane-lib, ... }:
 let
-  sftpgo_external_auth_hook = pkgs.static-nix-shell.mkPython3Bin {
-    pname = "sftpgo_external_auth_hook";
+  external_auth_hook = pkgs.static-nix-shell.mkPython3Bin {
+    pname = "external_auth_hook";
     srcRoot = ./.;
   };
-in
-{
   # Client initiates a FTP "control connection" on port 21.
   # - this handles the client -> server commands, and the server -> client status, but not the actual data
   # - file data, directory listings, etc need to be transferred on an ephemeral "data port".
   # - 50000-50100 is a common port range for this.
   #   50000 is used by soulseek.
+  passiveStart = 50050;
+  passiveEnd   = 50070;
+in
+{
   sane.ports.ports = {
     "21" = {
       protocol = [ "tcp" ];
@@ -43,7 +45,7 @@ in
         description = "colin-FTP server data port range";
       };
     })
-    (lib.range 50050 50100)
+    (lib.range passiveStart passiveEnd)
   );
 
   # use nginx/acme to produce a cert for FTPS
@@ -75,7 +77,7 @@ in
         # however not all clients understand all mode bits (like that `g`, indicating SGID / group sticky bit).
         # instead, only send mode bits which are well-understood.
         # the full set of bits, from which i filter, is found here: <https://pkg.go.dev/io/fs#FileMode>
-        ./sftpgo_safe_fileinfo.patch
+        ./safe_fileinfo.patch
       ];
     };
 
@@ -114,8 +116,8 @@ in
         disable_active_mode = true;
         hash_support = true;
         passive_port_range = {
-          start = 50050;
-          end = 50100;
+          start = passiveStart;
+          end = passiveEnd;
         };
 
         certificate_file = "/var/lib/acme/ftp.uninsane.org/full.pem";
@@ -135,7 +137,7 @@ in
       };
       data_provider = {
         driver = "memory";
-        external_auth_hook = "${sftpgo_external_auth_hook}/bin/sftpgo_external_auth_hook";
+        external_auth_hook = "${external_auth_hook}/bin/external_auth_hook";
         # track_quota:
         # - 0: disable quota tracking
         # - 1: quota is updated on every upload/delete, even if user has no quota restriction

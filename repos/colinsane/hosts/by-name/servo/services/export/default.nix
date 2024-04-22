@@ -2,7 +2,7 @@
 {
   imports = [
     ./nfs.nix
-    ./sftpgo.nix
+    ./sftpgo
   ];
 
   users.groups.export = {};

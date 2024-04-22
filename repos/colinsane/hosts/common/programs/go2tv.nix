@@ -2,8 +2,20 @@
 # - turn the tv off and on again (no, really...)
 #
 # SANITY CHECKS:
-# - `go2tv -u 'https://uninsane.org/share/AmenBreak.mp4'`
+# - `go2tv -u 'https://uninsane.org/share/Milkbags/AmenBreak.mp4'`
 #   - LGTV: works, but not seekable
+#   - Samsung: "Cannot play video."
+# - `go2tv -v /mnt/servo/media/Videos/Milkbags/AmenBreak.mp4`
+#   - Samsung: works
+# - `go2tv -v /mnt/servo/media/Videos/Milkbags/COLIN.webm`
+#   - Samsung: works
+# - `go2tv -v /mnt/servo/media/Videos/Shows/Lucky.Star/S01/S01E01-The.Girl.who.Dashes.Off.mkv`
+#   - Samsung: error 500
+# - `go2tv -tc -v /mnt/servo/media/Videos/Shows/Lucky.Star/S01/S01E01-The.Girl.who.Dashes.Off.mkv`
+#   - Samsung: error 500
+#   - note that it still advertized .mkv to the TV
+# - `cp /mnt/servo/media/Videos/Shows/Lucky.Star/S01/S01E01-The.Girl.who.Dashes.Off.mkv S01E01-The.Girl.who.Dashes.Off.mp4 && go2tv -v S01E01-The.Girl.who.Dashes.Off.mp4`
+#   - Samsung: WORKS
 # - `go2tv -u 'https://youtu.be/p3G5IXn0K7A'`
 #   - LGTV: FAILS ("this file cannot be recognized")
 #     - no fix via transcoding, altering the URI, etc.
@@ -17,6 +29,8 @@
 #   - LGTV: works
 #
 # WHEN TO TRANSCODE:
+# - mkv container + *:
+#   - Samsung: rename to .mp4 and cast that: no need to transcode
 # - mkv container + mpeg-2 video + AC-3/48k stereo audio:
 #   - LGTV: no transcoding needed
 # - mkv container + H.264 video + AAC/48k 5.1 audio:
@@ -27,6 +41,7 @@
 #   - LGTV: no transcoding needed
 # - mkv container + H.265 video + E-AC-3/48k stereo audio:
 #   - LGTV: no transcoding needed
+#
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.go2tv;
