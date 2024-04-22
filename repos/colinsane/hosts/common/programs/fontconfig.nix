@@ -30,6 +30,30 @@ let
   nerdfontPkgs = builtins.map
     (f: pkgs.nerdfonts.override { fonts = [ f ]; })
     wantedNerdfonts;
+
+  # see: <repo:nixos/nixpkgs:nixos/modules/config/fonts/fontconfig.nix>
+  # and: <repo:nixos/nixpkgs:pkgs/development/libraries/fontconfig/make-fonts-cache.nix>
+  # nixpkgs creates a fontconfig cache, but only when *not* cross compiling.
+  # but the alternative is that fonts are cached purely at runtime, in ~/.cache/fontconfig,
+  # and that needs to either be added to the sandbox of *every* app,
+  # or font-heavy apps are several *seconds* slower to launch.
+  #
+  # TODO: upstream this into `make-fonts-cache.nix`?
+  cache = (pkgs.makeFontsCache { fontDirectories = config.fonts.packages; }).overrideAttrs (upstream: {
+    buildCommand = lib.replaceStrings
+      [ "fc-cache" ]
+      [ "${pkgs.stdenv.hostPlatform.emulator pkgs.buildPackages} ${pkgs.fontconfig.bin}/bin/fc-cache" ]
+      upstream.buildCommand
+    ;
+  });
+  cacheConf = pkgs.writeTextDir "etc/fonts/conf.d/01-nixos-cache-cross.conf" ''
+    <?xml version='1.0'?>
+    <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
+    <fontconfig>
+      <!-- Pre-generated font caches -->
+      <cachedir>${cache}</cachedir>
+    </fontconfig>
+  '';
 in
 {
   sane.programs.fontconfig = {
@@ -64,6 +88,8 @@ in
         "DejaVu Sans"
       ];
     };
+    # nixpkgs builds a cache file, but only for non-cross. i want it always, so add my own cache -- but ONLY for cross.
+    fontconfig.confPackages = lib.mkIf (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform) [ cacheConf ];
     #vvv enables dejavu_fonts, freefont_ttf, gyre-fonts, liberation_ttf, unifont, noto-fonts-emoji
     enableDefaultPackages = false;
     packages = with pkgs; [

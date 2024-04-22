@@ -215,7 +215,7 @@ dispatchOn() {
 
 dispatchInhibited() {
   case "$action" in
-    "power_hold")
+    "power_tap_1_hold")
       # power hold: escape hatch in case rofi has hung
       handleWith killall -9 rofi
       ;;
