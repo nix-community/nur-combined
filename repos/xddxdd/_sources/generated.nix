@@ -632,13 +632,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.8.7-xanmod1";
+    version = "6.8.7-xanmod2";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.8.7-xanmod1";
+      rev = "6.8.7-xanmod2";
       fetchSubmodules = false;
-      sha256 = "sha256-S9UooZhMtvfyL2BVUfMBxvPLkZvXm37duWSjcpk5dvY=";
+      sha256 = "sha256-/RhtRASEedYI4Zf9pUiiyDD3SgOL46cutTXo68gjBg8=";
     };
   };
   linux-xanmod-6_0 = {
@@ -665,13 +665,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.28-xanmod1";
+    version = "6.6.28-xanmod2";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.28-xanmod1";
+      rev = "6.6.28-xanmod2";
       fetchSubmodules = false;
-      sha256 = "sha256-0ld4pZIddfkGytxzqgC7AGD3gc2H9mhZbhpbFLD3G+s=";
+      sha256 = "sha256-U5L7i/g808GuUZhLjHE+v0VOQVdTPe+Tnx/rLQoGxx4=";
     };
   };
   nbfc-linux-lantian = {
@@ -1109,7 +1109,7 @@
       repo = "realtek-r8125-dkms";
       rev = "9.013.02-1";
       fetchSubmodules = false;
-      sha256 = "sha256-59eUCGWImkTMU+TNmDDBpDAq49IikCFONmT6YeylvFg=";
+      sha256 = "sha256-MPO7j5VQlUyD1R0aqkt3qwW56YDIg2h6tmtKZImJd/0=";
     };
   };
   r8168 = {

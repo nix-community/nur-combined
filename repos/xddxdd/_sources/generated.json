@@ -1094,11 +1094,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.8.7-xanmod1",
-            "sha256": "sha256-S9UooZhMtvfyL2BVUfMBxvPLkZvXm37duWSjcpk5dvY=",
+            "rev": "6.8.7-xanmod2",
+            "sha256": "sha256-/RhtRASEedYI4Zf9pUiiyDD3SgOL46cutTXo68gjBg8=",
             "type": "github"
         },
-        "version": "6.8.7-xanmod1"
+        "version": "6.8.7-xanmod2"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1154,11 +1154,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.28-xanmod1",
-            "sha256": "sha256-0ld4pZIddfkGytxzqgC7AGD3gc2H9mhZbhpbFLD3G+s=",
+            "rev": "6.6.28-xanmod2",
+            "sha256": "sha256-U5L7i/g808GuUZhLjHE+v0VOQVdTPe+Tnx/rLQoGxx4=",
             "type": "github"
         },
-        "version": "6.6.28-xanmod1"
+        "version": "6.6.28-xanmod2"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1930,7 +1930,7 @@
             "owner": "awesometic",
             "repo": "realtek-r8125-dkms",
             "rev": "9.013.02-1",
-            "sha256": "sha256-59eUCGWImkTMU+TNmDDBpDAq49IikCFONmT6YeylvFg=",
+            "sha256": "sha256-MPO7j5VQlUyD1R0aqkt3qwW56YDIg2h6tmtKZImJd/0=",
             "type": "github"
         },
         "version": "9.013.02-1"
