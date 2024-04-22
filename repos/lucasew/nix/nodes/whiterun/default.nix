@@ -32,6 +32,8 @@ in
     ./container-nat.nix
     ./rtorrent.nix
     ./transmission.nix
+
+    ./poc-rtorrent-sandbox.nix
   ];
 
   services.fusionsolar-reporter.enable = true;
