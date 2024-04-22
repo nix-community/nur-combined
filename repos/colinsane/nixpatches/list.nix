@@ -33,21 +33,10 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
-    # NECESSARY FOR DINO CALLS TO WORK ON AARCH64: <https://gitlab.freedesktop.org/gstreamer/orc/-/issues/64>
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/291661";
-    title = "orc: 0.4.36 -> 0.4.38";
-    hash = "sha256-ULav0vt3QlI8lKcCVKP986H/GjBZqUYLwOHJ3XppAeo=";
-    merged.staging = "20240406000000";
-    merged.staging-next = "20240418000000";
-  })
-
-  (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/298001";
-    saneCommit = "d599839060400762a67d2c01d15b102ffe75e703";
-    title = "gnupg: fix cross compilation";
-    hash = "sha256-d3kD2/UyMzzdBkiEdWtCibbWiPWBZLUWRry1TMkS25g=";
-    merged.staging = "20240326000000";
-    merged.staging-next = "20240418000000";
+    title = "libjxl: fix cross compilation by only conditionally enabling plugins";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/306127";
+    saneCommit = "044b3342d1500fb2b741e87e4d10894f4d8fd716";
+    hash = "sha256-0U1xjihj8pnpJMAN+RxtWz6mujY6AZxgvfRQbfYYD4o=";
   })
 
   (fetchpatch' {

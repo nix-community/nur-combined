@@ -2086,38 +2086,4 @@ in with final; {
 
   # 2023/07/30: upstreaming is blocked on unar (gnustep), unless i also make that optional
   xarchiver = mvToNativeInputs [ libxslt ] prev.xarchiver;
-
-  xdg-utils = let
-    buildResholve = buildPackages.resholve.overrideAttrs (resholve': {
-      meta = (resholve'.meta or { }) // { knownVulnerabilities = [ ]; };
-    });
-  in (prev.xdg-utils.override {
-    resholve = buildResholve;
-  }).overrideAttrs (xdg-utils': let
-      patchedResholve = buildResholve.overrideAttrs (resholve': {
-        # resholve tries to exec `sed` and `awk`. this triggers inscrutable python2.7-specific errors.
-        postPatch = (resholve'.postPatch or "") + ''
-          substituteInPlace  resholve \
-            --replace-fail 'p = Popen(' 'return False; p = Popen('
-        '';
-      });
-    in {
-      # postPatch = (xdg-utils'.postPatch or "") + ''
-      #   substituteInPlace scripts/xdg-screensaver.in \
-      #     --replace-fail 'lockfile_command=`command -v lockfile`' 'lockfile_command='
-      # '';
-
-      # have to patch all `resholve` invocations AGAIN because even though `buildPackages.resholve` is the right architecture now,
-      # the `resholve` passthru args refer to itself, in a way which `overrideAttrs` can't patch.
-      # also, xdg-screensaver resholve fails because `perl -e` is treated differently on native v.s. cross,
-      # so "fake" it as external and then manually patch it (resholve has a better way to do that, but not easily patchable from here).
-      preFixup = (lib.replaceStrings
-        [ "${buildResholve}/bin/resholve" "RESHOLVE_FAKE='external:" ]
-        [ "${patchedResholve}/bin/resholve" "RESHOLVE_FAKE='external:perl;" ]
-        xdg-utils'.preFixup) + ''
-        substituteInPlace $out/bin/xdg-screensaver \
-          --replace-fail '  perl -e' '  ${perl}/bin/perl -e'
-      '';
-    }
-  );
 }
