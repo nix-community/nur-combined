@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-04-15",
+        "date": "2024-04-19",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "2a8751e91294b7831f96d055883a42e0648970e3",
-            "sha256": "sha256-Z8QMfJK5guXrlzHzMnEU9juUvYbgrjvBTt2OgK+SYxI=",
+            "rev": "9ed4786cb383a58db0babc217c6cec5e4ecb538b",
+            "sha256": "sha256-trwqmNJV6ITTc+CKgp8RFLy/bIH5DNTAZlYVcuy0spo=",
             "type": "github"
         },
-        "version": "2a8751e91294b7831f96d055883a42e0648970e3"
+        "version": "9ed4786cb383a58db0babc217c6cec5e4ecb538b"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -448,11 +448,11 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.35.1",
-            "sha256": "sha256-qFOPTK3Zf1b0ACNYawjCSBBtJv9ZrjP99OMJHR+jWPU=",
+            "rev": "v1.41.0",
+            "sha256": "sha256-Y2EK86122JV7uCqV1vSOddR1MVb/a3KwIi99ErHFE4M=",
             "type": "github"
         },
-        "version": "v1.35.1"
+        "version": "v1.41.0"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -570,7 +570,7 @@
     },
     "fastapi-dls": {
         "cargoLocks": null,
-        "date": "2024-04-09",
+        "date": "2024-04-18",
         "extract": null,
         "name": "fastapi-dls",
         "passthru": null,
@@ -580,12 +580,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ef542ec8215595398a702d1c6338171c2bcd6108",
-            "sha256": "sha256-Nngb2LBvJPmhf6NkwamvALbxBLEkovz4cqQx/gEzsmY=",
+            "rev": "42fe066e1a3c92b0d141c5a5f3bd485ca7a8a754",
+            "sha256": "sha256-9i6PAAhG/9MralhpB1IX2j41WRwFhurJXPEKyP17w5c=",
             "type": "git",
             "url": "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
         },
-        "version": "ef542ec8215595398a702d1c6338171c2bcd6108"
+        "version": "42fe066e1a3c92b0d141c5a5f3bd485ca7a8a754"
     },
     "fcitx5-breeze": {
         "cargoLocks": null,
@@ -832,7 +832,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2024-04-07",
+        "date": "2024-04-20",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -844,11 +844,11 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "1e1daf4d0321d3d80586153d526bfb47f4eb29df",
-            "sha256": "sha256-UVnBKJmXIE7G1p4yo4UU/TIz3mO5GhjU5Kb7+C+h0O4=",
+            "rev": "683c978fb9694550eec1d73087f1e45a3b270f01",
+            "sha256": "sha256-snnBomLpR8IrS0pGTzH8RX4sLGnENdqAyOAzIvpKhPc=",
             "type": "github"
         },
-        "version": "1e1daf4d0321d3d80586153d526bfb47f4eb29df"
+        "version": "683c978fb9694550eec1d73087f1e45a3b270f01"
     },
     "jproxy": {
         "cargoLocks": null,
@@ -879,11 +879,11 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.3.0",
-            "sha256": "sha256-uxpGwK89Xp1xSHh8mdFMbPJZD0ibD/tvtpeKxJvR91s=",
+            "rev": "3.4.0",
+            "sha256": "sha256-8KNWZuTEez6eTbIPo6JXkkYVfpWH0EyXd6Y5CfPm5QM=",
             "type": "github"
         },
-        "version": "3.3.0"
+        "version": "3.4.0"
     },
     "kata-image": {
         "cargoLocks": null,
@@ -894,11 +894,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cuKcez7jJeAEm/aUu7hD7QfD6woF2JwrOhY1JB5Lr+g=",
+            "sha256": "sha256-E/LCRCpLvK/dy0c5QovulesmYAUWqW4pV2+g/zEVLkQ=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.3.0/kata-static-3.3.0-amd64.tar.xz"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.4.0/kata-static-3.4.0-amd64.tar.xz"
         },
-        "version": "3.3.0"
+        "version": "3.4.0"
     },
     "konnect": {
         "cargoLocks": null,
@@ -1094,11 +1094,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.8.6-xanmod1",
-            "sha256": "sha256-7GsiIl3rcLm/u2zxrjpP6dTxn7w/6at22gaU//mLlzw=",
+            "rev": "6.8.7-xanmod1",
+            "sha256": "sha256-S9UooZhMtvfyL2BVUfMBxvPLkZvXm37duWSjcpk5dvY=",
             "type": "github"
         },
-        "version": "6.8.6-xanmod1"
+        "version": "6.8.7-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1154,11 +1154,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.27-xanmod1",
-            "sha256": "sha256-MYvt7QWRdUybbhva6B4MOYrwnJfuu/qvMlnaGKcO1Hw=",
+            "rev": "6.6.28-xanmod1",
+            "sha256": "sha256-0ld4pZIddfkGytxzqgC7AGD3gc2H9mhZbhpbFLD3G+s=",
             "type": "github"
         },
-        "version": "6.6.27-xanmod1"
+        "version": "6.6.28-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1487,7 +1487,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-04-12",
+        "date": "2024-04-21",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1499,11 +1499,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "0ec51eca39d72867f309878f5bb9002f1c3e07fb",
-            "sha256": "sha256-9iVslcBLLzQ4ACS7xsTj4wOLZO56DWWPjKRVmCXaW7I=",
+            "rev": "bb4d4007584b55681cf00262ab23509bcab31280",
+            "sha256": "sha256-H0VAkTXLHb8slutqxdupUe/Fn/7nhvgmlr7ALItwgnA=",
             "type": "github"
         },
-        "version": "0ec51eca39d72867f309878f5bb9002f1c3e07fb"
+        "version": "bb4d4007584b55681cf00262ab23509bcab31280"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1614,11 +1614,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mi/7NrbYMsNpFPcBO94D8ICfjIFj6hJRihwyg6RPL1I=",
+            "sha256": "sha256-Qrx26S8IST4kaz+8BbUka2Y5KgauH4ttVMIf9MT2KBE=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v3.1.1/PeerBanHelper.v3.1.1.Linux.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v3.1.4/PeerBanHelper.Linux.v3.1.4.glibc.zip"
         },
-        "version": "v3.1.1"
+        "version": "v3.1.4"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -1697,7 +1697,7 @@
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,
-        "date": "2023-11-25",
+        "date": "2024-04-17",
         "extract": null,
         "name": "plasma-panel-transparency-toggle",
         "passthru": null,
@@ -1709,11 +1709,11 @@
             "name": null,
             "owner": "sanjay-kr-commit",
             "repo": "panelTransparencyToggleForPlasma6",
-            "rev": "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c",
-            "sha256": "sha256-S1RAyVYlcuojtRmgfQQS1d2H0mVIsZQeztstbvw8keQ=",
+            "rev": "739c70ffde6bb7670d57d3507804408ae13edf25",
+            "sha256": "sha256-1VKLkGw9jxJvYDoUgkRjnCT6+ol2dJAmppM61lvVOi8=",
             "type": "github"
         },
-        "version": "a07422fccc1c9e0d45e2233be1d1e07fdba0f29c"
+        "version": "739c70ffde6bb7670d57d3507804408ae13edf25"
     },
     "procps4": {
         "cargoLocks": null,
@@ -1929,11 +1929,11 @@
             "name": null,
             "owner": "awesometic",
             "repo": "realtek-r8125-dkms",
-            "rev": "9.012.04-1",
-            "sha256": "sha256-OUhST4Ez4hew4uBSVrMoqni5OJh0zI/7eqK8W9qjhJk=",
+            "rev": "9.013.02-1",
+            "sha256": "sha256-59eUCGWImkTMU+TNmDDBpDAq49IikCFONmT6YeylvFg=",
             "type": "github"
         },
-        "version": "9.012.04-1"
+        "version": "9.013.02-1"
     },
     "r8168": {
         "cargoLocks": null,
@@ -1949,11 +1949,11 @@
             "name": null,
             "owner": "mtorromeo",
             "repo": "r8168",
-            "rev": "8.052.01",
-            "sha256": "sha256-8nuQd+UVHBEmqRHg+mCWDZ3IgDz/Zje7kodZkSA8sQY=",
+            "rev": "8.053.00",
+            "sha256": "sha256-0bHGs8jyWd+ZiixOoNkBqhS9RjDpRp3vveAgk1YuOWU=",
             "type": "github"
         },
-        "version": "8.052.01"
+        "version": "8.053.00"
     },
     "rime-aurora-pinyin": {
         "cargoLocks": null,
@@ -1997,7 +1997,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-04-16",
+        "date": "2024-04-20",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2009,11 +2009,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "91101b20b097fffa224d0dc906d14556b13315b9",
-            "sha256": "sha256-W+0oV/3N75/j1SBlrSrEBNby+Df+oQXboOeswzJVQLo=",
+            "rev": "d3bbbef8f5696a3afc20ab6736d5e0cbe9b69051",
+            "sha256": "sha256-Diz3iRorbkIkq9YC1jBUZxO9TCSNmEP97IU9tGXy0to=",
             "type": "github"
         },
-        "version": "91101b20b097fffa224d0dc906d14556b13315b9"
+        "version": "d3bbbef8f5696a3afc20ab6736d5e0cbe9b69051"
     },
     "rime-moegirl": {
         "cargoLocks": null,
