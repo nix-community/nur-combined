@@ -17,6 +17,15 @@ in
       '';
     };
 
+    dataDir = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      example = "/mnt/podgrab";
+      description = ''
+        Path to the directory to store the podcasts. Use default if null
+      '';
+    };
+
     port = mkOption {
       type = types.port;
       default = 8080;
@@ -29,7 +38,13 @@ in
     services.podgrab = {
       enable = true;
       inherit (cfg) passwordFile port;
+
+      group = "media";
+      dataDirectory = lib.mkIf (cfg.dataDir != null) cfg.dataDir;
     };
+
+    # Set-up media group
+    users.groups.media = { };
 
     my.services.nginx.virtualHosts = {
       podgrab = {

@@ -10,6 +10,11 @@ in
     adblock = {
       enable = true;
     };
+    # Audiobook and podcast library
+    audiobookshelf = {
+      enable = true;
+      port = 9599;
+    };
     # Backblaze B2 backup
     backup = {
       enable = true;
@@ -134,6 +139,7 @@ in
     podgrab = {
       enable = true;
       passwordFile = secrets."podgrab/password".path;
+      dataDir = "/data/media/podcasts";
       port = 9598;
     };
     # Regular backups

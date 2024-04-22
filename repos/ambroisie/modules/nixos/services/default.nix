@@ -4,6 +4,7 @@
   imports = [
     ./adblock
     ./aria
+    ./audiobookshelf
     ./backup
     ./blog
     ./calibre-web
