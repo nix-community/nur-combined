@@ -102,7 +102,11 @@ stdenv.mkDerivation {
     zydisOld
     liefOld
   ];
-  cmakeFlags = [ "-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}" ];
+  cmakeFlags = [
+    "-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}"
+    "-DLIEF_INCLUDE_DIRS=${liefOld}/include"
+    "-DLIEF_LIBRARIES=${liefOld}/lib/libLIEF.a"
+  ];
 
   meta = with lib; {
     description =
