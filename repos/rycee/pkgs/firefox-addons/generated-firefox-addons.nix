@@ -2190,10 +2190,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.4";
+      version = "1.0.5";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241908/elasticvue-1.0.4.xpi";
-      sha256 = "db8d10e941e36c7acf4d620ed2cccbeac57d97494e85f3420415b513c5f3c137";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4268111/elasticvue-1.0.5.xpi";
+      sha256 = "34758ae12037a4f47db9f0b4ab0ed94923f3e96ab6b1bf89ca68508f95b135ca";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
