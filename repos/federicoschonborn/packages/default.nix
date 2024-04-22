@@ -25,6 +25,7 @@ pkgs.lib.makeScope pkgs.newScope (
     minesector = callPackage ./minesector { };
     mucalc = callPackage ./mucalc { };
     opensurge = callPackage ./opensurge { };
+    pseint = callPackage ./pseint { };
     qv = callPackage ./qv { };
     raze = callPackage ./raze { };
     srb2p = callPackage ./srb2p { };

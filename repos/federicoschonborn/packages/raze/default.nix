@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "raze";
-  version = "1.10.0";
+  version = "1.10.1";
 
   src = fetchFromGitHub {
     owner = "ZDoom";
     repo = "Raze";
     rev = finalAttrs.version;
-    hash = "sha256-0u6jusVGe1X0f/jY5bixWZFMQ1vIIHI/jw35oQ3D0nI=";
+    hash = "sha256-ATz5DsyUpAmaisZHIqr8hUV3tJk6E+qYdzLs86wZrMU=";
   };
 
   nativeBuildInputs = [
