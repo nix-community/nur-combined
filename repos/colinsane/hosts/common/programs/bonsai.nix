@@ -99,17 +99,11 @@ in
             type = types.listOf transitionType;
             default = [];
           };
-          configFile = mkOption {
-            type = types.path;
-            default = pkgs.writeText "bonsai_tree.json" (builtins.toJSON cfg.config.transitions);
-            description = ''
-              configuration file to pass to bonsai.
-              usually auto-generated from the sibling options; exposed mainly for debugging or convenience.
-            '';
-          };
         };
       };
     };
+
+    fs.".config/bonsai/bonsai_tree.json".symlink.text = builtins.toJSON cfg.config.transitions;
 
     sandbox.method = "bwrap";
     sandbox.extraRuntimePaths = [
@@ -120,7 +114,7 @@ in
       description = "bonsai: programmable input dispatcher";
       partOf = [ "graphical-session" ];
       # nice -n -11 chosen arbitrarily. i hope this will allow for faster response to inputs, but without audio underruns (pipewire is -21, dino -15-ish)
-      command = "nice -n -11 bonsaid -t ${cfg.config.configFile}";
+      command = "nice -n -11 bonsaid -t $HOME/.config/bonsai/bonsai_tree.json";
       cleanupCommand = "rm -f $XDG_RUNTIME_DIR/bonsai";
     };
   };

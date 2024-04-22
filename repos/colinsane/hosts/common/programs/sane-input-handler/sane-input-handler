@@ -12,27 +12,46 @@
 #
 # example of a design which considers these things:
 # - when unlocked:
-#   - volup toggle  -> app menu
-#   - voldown press -> keyboard
-#   - voldown hold  -> terminal
-#   - power x2      -> screenoff
-#   - hold power    -> kill app
+#   - volup tap       -> app menu
+#   - volup hold      -> file browser
+#   - voldown press   -> keyboard
+#   - voldown hold    -> terminal
+#   - power x2        -> screenoff
+#   - power tap->hold -> kill app
+#   - power,volup     -> screen rotate CCW
+#   - power,voldown   -> screen rotate CW
+#   - power+volup     -> screenshot
+#   - power+voldown   -> camera
 # - when locked:
-#   - volup tap     -> volume up
-#   - volup hold    -> media seek forward
-#   - voldown tap   -> volume down
-#   - voldown hold  -> media seek backward
-#   - power x1      -> screen on
-#   - power x2      -> play/pause media
-# some trickiness allows for media controls in unlocked mode:
-#   - volup tap     -> enter media mode
-#     - i.e. in this state, vol tap/hold is mapped to volume/seek
-#     - if, after entering media mode, no more taps occur, then we trigger the default app-menu action
+#   - volup tap       -> volume up
+#   - volup hold      -> media seek forward
+#   - voldown tap     -> volume down
+#   - voldown hold    -> media seek backward
+#   - power tap       -> screen on
+#   - power hold      -> play/pause media
 # limitations/downsides:
-# - power mappings means phone is artificially slow to unlock.
-# - media controls when unlocked have quirks:
-#   - mashing voldown to decrease the volume will leave you with a toggled keyboard.
-#   - seeking backward isn't possible except by first tapping volup.
+# - voldown hold is over eager: easy to open terminals when phone is slow.
+#   - remap to voldown tap->hold ?
+#
+# EXAMPLE EVENT FIRINGS:
+# - double-tap voldown:
+#   - voldown_start
+#   - voldown_tap_1
+#   - voldown_tap_2
+# - hold voldown:
+#   - voldown_start
+#   - voldown_hold_1
+#   - voldown_hold_2
+#   - voldown_hold_3
+# - hold power:
+#   - power_hold  (notice: it doesn't fire power_start)
+# - double-tap power:
+#   - power_tap_1
+#   - power_tap_2
+# - power tap-then-hold:
+#   - power_tap_1
+#   - power_tap_1_hold
+
 
 
 # increments to use for volume adjustment (in %)
@@ -106,82 +125,81 @@ handleWith() {
 
 dispatchDefault() {
   case "$action" in
-    "powerbutton_one")
-      # power once => unlock
-      handleWith allOn
-      ;;
-    "powerbutton_two")
+    "power_tap_2")
       # power twice => screenoff
       handleWith allOff
       ;;
-    # powerbutton_three: intentional no-op because overloading the kill-window handler is risky
+    "power_hold")
+      # power twice => toggle media player
+      handleWith playerctl play-pause
+      ;;
 
-    volup_tap*|modal_volup_tap*)
+    volup_tap*)
       handleWith wpctl set-volume @DEFAULT_AUDIO_SINK@ "$VOL_INCR"%+
       ;;
-    voldown_tap*|modal_voldown_tap*)
+    voldown_tap*)
       handleWith wpctl set-volume @DEFAULT_AUDIO_SINK@ "$VOL_INCR"%-
-      ;;
-
-    volup_hold*|modal_volup_hold*)
-      handleWith playerctl position 30+
-      ;;
-    voldown_hold*|modal_voldown_hold*)
-      handleWith playerctl position 10-
       ;;
   esac
 }
 
 dispatchOff() {
   case "$action" in
-    "powerbutton_two")
-      # power twice => toggle media player
-      handleWith playerctl play-pause
-      ;;
-    "powerhold")
-      # power toggle during deep sleep often gets misread as power hold, so treat same
+    "power_tap_1")
+      # power once => unlock
       handleWith allOn
+      ;;
+    volup_hold*)
+      handleWith playerctl position 30+
+      ;;
+    voldown_hold*)
+      handleWith playerctl position 10-
       ;;
   esac
 }
 
 dispatchOn() {
   case "$action" in
-    # powerbutton_one: intentional default to no-op
-    # powerbutton_two: intentional default to screenoff
-    "powerhold")
-      # power thrice: kill active window
+    # power_tap_1: intentional default to no-op (it's important this be unmapped, because events can be misordered with power_tap_1 arriving *after* power_tap_2)
+    # power_tap_2: intentional default to screenoff
+    "power_tap_1_hold")
+      # power tap->hold: kill active window
       # TODO: disable this if locked (with e.g. schlock, swaylock, etc)
       handleWith swaymsg kill
       ;;
-    "powerbutton_volup")
+    "power_and_volup")
+      # power (hold) -> volup: take screenshot
+      handleWith sane-open-desktop sane-screenshot.desktop
+      ;;
+    "power_and_voldown")
+      # power (hold) -> voldown: open camera
+      handleWith sane-open-desktop org.postmarketos.Megapixels.desktop
+      ;;
+    "power_then_volup")
       # power (tap) -> volup: rotate CCW
       handleWith swaymsg -- output '-' transform 90 anticlockwise
       ;;
-    "powerbutton_voldown")
+    "power_then_voldown")
       # power (tap) -> voldown: rotate CW
       handleWith swaymsg -- output '-' transform 90 clockwise
       ;;
 
     "volup_tap_1")
-      # swallow: this could be the start to a media control (multi taps / holds),
-      # or it could be just a single tap -> release, handled next/below
-      handleWith ignore
-      ;;
-    "volup_1")
       # volume up once: system menu
       handleWith sane-open-desktop rofi.desktop
+      ;;
+    "volup_hold_1")
+      # volume up hold: just browse files
+      handleWith sane-open-desktop rofi-filebrowser.desktop
       ;;
 
     "voldown_start")
       # volume down once: toggle keyboard
       handleWith toggleKeyboard
       ;;
-    "voldown_hold_2")
+    "voldown_hold_1")
       # hold voldown to launch terminal
       # note we already triggered the keyboard; that's fine: usually keyboard + terminal go together :)
-      # voldown_hold_1 frequently triggers during short taps meant only to reveal the keyboard,
-      # so prefer a longer hold duration
       handleWith sane-open-desktop xdg-terminal-exec.desktop
       ;;
     "voldown_tap_1")
@@ -197,8 +215,8 @@ dispatchOn() {
 
 dispatchInhibited() {
   case "$action" in
-    "powerhold")
-      # power thrice: escape hatch in case rofi has hung
+    "power_hold")
+      # power hold: escape hatch in case rofi has hung
       handleWith killall -9 rofi
       ;;
     *)

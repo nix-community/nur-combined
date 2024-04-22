@@ -37,6 +37,18 @@ let
         hash = "sha256-gz3N4uo7IWzzqaPHHVhby/e9NbtzcFJRQwgdNYxO/Yw=";
       })
     ];
+
+    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      pkgs.copyDesktopItems
+    ];
+    desktopItems = (upstream.desktopItems or []) ++ [
+      (pkgs.makeDesktopItem {
+        name = "rofi-filebrowser";
+        # alternatively: `rofi -modes filebrowser -show`, however this would require theme tweaking to look good
+        exec = "rofi -combi-modes filebrowser -show";
+        desktopName = "rofi filebrowser";
+      })
+    ];
   });
   # rofi-emoji = pkgs.rofi-emoji.override {
   #   # plugins must be compiled against the same rofi they're loaded by

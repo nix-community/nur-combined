@@ -94,12 +94,17 @@ in
     };
     suggestedPrograms = [
       "bonsai"
+      # dependencies which get pulled in unconditionally:
       "killall"
       "playerctl"
       "procps"
       "sane-open-desktop"
       "sway"
       "wireplumber"
+      # optional integrations:
+      "megapixels"
+      "rofi"
+      "xdg-terminal-exec"
       "wvkbd"
     ];
     sandbox.method = "bwrap";
@@ -138,32 +143,27 @@ in
   sane.programs.bonsai.config.transitions = lib.mkIf cfg.enabled (friendlyToBonsai {
     # map sequences of "events" to an argument to pass to sane-input-handler
 
-    # map: power (short), power (short) x2, power (long)
-    power_pressed.timeout.ms = 900; # press w/o release. this is a long timeout because it's tied to the "kill window" action.
-    power_pressed.timeout.trigger = "powerhold";
-    power_pressed.power_released.timeout.trigger = "powerbutton_one";
-    power_pressed.power_released.timeout.ms = 300;
-    power_pressed.power_released.power_pressed.trigger = "powerbutton_two";
-    # map power (short) -> volup/voldown
-    power_pressed.power_released.volup_pressed.trigger = "powerbutton_volup";
-    power_pressed.power_released.voldown_pressed.trigger = "powerbutton_voldown";
+    # map: power (tap), power (tap) x2
+    power_pressed.power_released.trigger = "power_tap_1";
+    power_pressed.power_released.timeout.ms = 600;  # max time within which a second power press will be recognized
+    power_pressed.power_released.power_pressed.power_released.trigger = "power_tap_2";
+    # map power (hold), power tap -> hold:
+    power_pressed.timeout.trigger = "power_hold";
+    power_pressed.timeout.ms = 600;
+    power_pressed.power_released.power_pressed.timeout.trigger = "power_tap_1_hold";
+    power_pressed.power_released.power_pressed.timeout.ms = 750;  # this is a long timeout because it's tied to the "kill window" action.
+
+    # map: power (tap) -> volup/voldown
+    power_pressed.power_released.volup_pressed.trigger = "power_then_volup";
+    power_pressed.power_released.voldown_pressed.trigger = "power_then_voldown";
+
+    # map: power + volup/voldown
+    power_pressed.volup_pressed.trigger = "power_and_volup";
+    power_pressed.voldown_pressed.trigger = "power_and_voldown";
 
     # map: volume taps and holds
-    volup_pressed = (recurseHold "volup" {}) // {
-      # this either becomes volup_hold_* (via recurseHold, above) or:
-      # - a short volup_tap_1 followed by:
-      #   - a *finalized* volup_1 (i.e. end of action)
-      #   - more taps/holds, in which case we prefix it with `modal_<action>`
-      #     to denote that we very explicitly entered this state.
-      #
-      # it's clunky: i do it this way so that voldown can map to keyboard/terminal in unlock mode
-      #   but trigger media controls in screenoff
-      #   in a way which *still* allows media controls if explicitly entered into via a tap on volup first
-      volup_released = (volumeActions { prefix = "modal_"; }) // {
-        trigger = "volup_tap_1";
-        timeout.ms = 300;
-        timeout.trigger = "volup_1";
-      };
+    volup_pressed = (volumeActions {}).volup_pressed // {
+      trigger = "volup_start";
     };
     voldown_pressed = (volumeActions {}).voldown_pressed // {
       trigger = "voldown_start";
