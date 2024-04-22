@@ -3,8 +3,6 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  boost,
-  eigen,
   jrl-cmakemodules,
   pinocchio,
   pythonSupport ? false,
