@@ -27,5 +27,6 @@
   qemu-3dfx         = pkgs.callPackage ./pkgs/qemu-3dfx { };
   rustdesk-bin      = pkgs.callPackage ./pkgs/rustdesk/appimage.nix { };
   simulide          = pkgs.callPackage ./pkgs/simulide { };
+  tailscale-systray = pkgs.callPackage ./pkgs/tailscale-systray { };
   unison-gitignore  = pkgs.callPackage ./pkgs/unison-gitignore { };
 }
