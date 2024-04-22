@@ -53,6 +53,32 @@ lib.mkIf config.services.rtorrent.enable {
     serviceConfig = {
       MemoryHigh = "1G";
       MemoryMax = "2G";
+
+      # https://github.com/thiagokokada/nix-configs/blob/c069dafd0657efb97e8e0ad7c38fe432c33f012b/nixos/server/rtorrent.nix#L6
+      CapabilityBoundingSet = "";
+      LockPersonality = true;
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      PrivateTmp = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      ProtectSystem = "full";
+      ProtectHome = true;
+      RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      ReadWriteDirectories = [
+        config.services.rtorrent.dataDir
+        config.services.rtorrent.downloadDir
+      ];
+      SystemCallArchitectures = "native";
+      SystemCallFilter = [ "@system-service" "~@privileged" ];
     };
   };
 
@@ -62,6 +88,31 @@ lib.mkIf config.services.rtorrent.enable {
       Group = config.services.rtorrent.group;
       ExecStart = "${lib.getExe pkgs.flood} --port ${toString config.networking.ports.rtorrent-flood.port} --auth none --rtsocket ${config.services.rtorrent.rpcSocket}";
       Restart = "on-failure";
+
+      CapabilityBoundingSet = "";
+      LockPersonality = true;
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      PrivateTmp = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      ReadOnlyDirectories = [ config.services.rtorrent.downloadDir ];
+      ReadWriteDirectories = [
+        "${config.users.users.${config.services.rtorrent.user}.home}/.local/share/flood"
+      ];
+      SystemCallArchitectures = "native";
+      SystemCallFilter = [ "~@privileged" ];
     };
 
     restartIfChanged = true;
@@ -73,6 +124,7 @@ lib.mkIf config.services.rtorrent.enable {
     wantedBy = [ "multi-user.target" ];
 
     after = [ "rtorrent.service" ];
+
   };
 
   services.nginx.virtualHosts."rtorrent.${config.networking.hostName}.${config.networking.domain}" = {
