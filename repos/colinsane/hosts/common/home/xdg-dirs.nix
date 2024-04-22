@@ -3,11 +3,15 @@
 {
   # XDG defines things like ~/Desktop, ~/Downloads, etc.
   # these clutter the home, so i mostly don't use them.
+  # note that several of these are not actually standardized anywhere.
+  # some are even non-conventional, like:
+  # - XDG_PHOTOS_DIR: only works because i patch e.g. megapixels
   sane.user.fs.".config/user-dirs.dirs".symlink.text = ''
     XDG_DESKTOP_DIR="$HOME/.xdg/Desktop"
     XDG_DOCUMENTS_DIR="$HOME/dev"
     XDG_DOWNLOAD_DIR="$HOME/tmp"
     XDG_MUSIC_DIR="$HOME/Music"
+    XDG_PHOTOS_DIR="$HOME/Pictures/Photos"
     XDG_PICTURES_DIR="$HOME/Pictures"
     XDG_PUBLICSHARE_DIR="$HOME/.xdg/Public"
     XDG_SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"

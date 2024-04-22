@@ -1,6 +1,16 @@
-{ ... }:
+{ pkgs, ... }:
 {
   sane.programs.megapixels = {
+    packageUnwrapped = pkgs.megapixels.overrideAttrs (upstream: {
+      postPatch = (upstream.postPatch or "") + ''
+        # 2024/04/21: patch it to save photos in a more specific directory
+        substituteInPlace src/process_pipeline.c \
+          --replace-fail 'XDG_PICTURES_DIR' 'XDG_PHOTOS_DIR'
+        # 2024/04/21: patch it so the folder button works
+        substituteInPlace src/main.c \
+          --replace-fail 'g_get_user_special_dir(G_USER_DIRECTORY_PICTURES)' 'getenv("XDG_PHOTOS_DIR")'
+      '';
+    });
     # megapixels sandboxing is tough:
     # if misconfigured, preview will alternately be OK, black, or only 1/4 of it will be rendered -- with no obvious pattern.
     # adding all of ~ to the sandbox will sometimes (?) fix the flakiness, even when `strace` doesn't show it accessing any files...
@@ -16,10 +26,8 @@
     sandbox.extraHomePaths = [
       ".config/dconf"  #< else it segfaults during post-process
       # ".config/megapixels"
-      ".local/share/applications"  #< needed for viewing photos, until i can sort out the portal stuff
       ".cache/mesa_shader_cache"  # loads way faster
-      "tmp"
-      "Pictures"  #< TODO: make this Pictures/Photos and save photos there
+      "Pictures/Photos"
       # also it addresses a lot via relative path.
     ];
     sandbox.extraPaths = [
@@ -37,6 +45,12 @@
     sandbox.extraRuntimePaths = [
       "dconf"  #< else it's very spammy, and slow
     ];
+    sandbox.extraConfig = [
+      # XXX(2024/04/21): without this it fails to convert .dng -> .jpg.
+      #   "bwrap: open /proc/34/ns/ns failed: No such file or directory"
+      "--sane-sandbox-keep-namespace" "pid"
+    ];
+
     suggestedPrograms = [ "dconf" ];  #< not sure if necessary
   };
 }

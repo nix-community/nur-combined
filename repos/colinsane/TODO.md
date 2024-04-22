@@ -1,5 +1,6 @@
 ## BUGS
 - moby: mpv uosc always starts at 40% volume
+- moby: rofi crashes sporadically
 - mpv: no way to exit fullscreen video on moby
   - uosc hides controls on FS, and touch doesn't support unhiding
 - i accidentally create sub-splits in sway all the time
