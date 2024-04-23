@@ -1,44 +1,12 @@
 {
   "x86_64-linux": {
-    "version": "3.19.1.400",
-    "url": "https://updatecdn.meeting.qq.com/cos/fcdc2a010a25561a4d23e168b677b493/TencentMeeting_0300000000_3.19.1.400_x86_64_default.publish.deb",
-    "sha512": "sha512-W3X9kqmz9HfOvXkfQ9Iynomb78p5DMfzwJcNfAetc5CoNb6Rr3EPGbXbWmWrJ2PlHR9PNuIizmiJ16aNZNzgkg==",
-    "info": {
-      "channel": "0300000000",
-      "platform": "linux",
-      "md5": "fcdc2a010a25561a4d23e168b677b493",
-      "size": 161153760,
-      "url": "https://updatecdn.meeting.qq.com/cos/fcdc2a010a25561a4d23e168b677b493/TencentMeeting_0300000000_3.19.1.400_x86_64_default.publish.deb",
-      "version": "3.19.1.400",
-      "sub-date": "2024-04-03"
-    }
+    "version": "3.19.0.401",
+    "url": "https://updatecdn.meeting.qq.com/cos/bb4001c715553579a8b3e496233331d4/TencentMeeting_0300000000_3.19.0.401_x86_64_default.publish.deb",
+    "sha512": "2814febb1596cb8e6db75a7d71915771a9d6750cf162c3cb9b70379130da41d7fca7b3df1567a8de1d2967d97add4d2fc08764fbf4155a79852c75ea8fed754b"
   },
   "aarch64-linux": {
-    "version": "3.19.1.401",
-    "url": "https://updatecdn.meeting.qq.com/cos/206c30da5545dba38a29ccbc752dec94/TencentMeeting_0300000000_3.19.1.401_arm64_default.publish.deb",
-    "sha512": "sha512-2Eu0Bhft8al9D9O2Z03wUNYsfOGeiv8SMKQtR9GIfKZBrsINcy/Bu97MIzeB2wvgyc6KQS/baNKO7FnQkij2OA==",
-    "info": {
-      "channel": "0300000000",
-      "platform": "linux_arm64",
-      "md5": "206c30da5545dba38a29ccbc752dec94",
-      "size": 144209660,
-      "url": "https://updatecdn.meeting.qq.com/cos/206c30da5545dba38a29ccbc752dec94/TencentMeeting_0300000000_3.19.1.401_arm64_default.publish.deb",
-      "version": "3.19.1.401",
-      "sub-date": "2024-04-17"
-    }
-  },
-  "loongarch64-linux": {
-    "version": "3.19.1.401",
-    "url": "https://updatecdn.meeting.qq.com/cos/23810840e7e8bb38536b2a59ae811343/TencentMeeting_0300000000_3.19.1.401_loongarch64_default.publish.deb",
-    "sha512": "sha512-6Q3Ydr5cLyF8VD8+TA8UnLQ+ltjeloqN//tVr2lZux/F8wfezs8yq9ubJP/06QZgvlAxvbqW18rgDfdNdaPnJQ==",
-    "info": {
-      "channel": "0300000000",
-      "platform": "linux_deb_loongarch64",
-      "md5": "23810840e7e8bb38536b2a59ae811343",
-      "size": 135845236,
-      "url": "https://updatecdn.meeting.qq.com/cos/23810840e7e8bb38536b2a59ae811343/TencentMeeting_0300000000_3.19.1.401_loongarch64_default.publish.deb",
-      "version": "3.19.1.401",
-      "sub-date": "2024-04-17"
-    }
+    "version": "3.19.0.401",
+    "url": "https://updatecdn.meeting.qq.com/cos/0f96a97b0aaea9b9d5d2c2b912ede656/TencentMeeting_0300000000_3.19.0.401_arm64_default.publish.deb",
+    "sha512": "6099ec383e74dc776a9864743c9a2c624a5bea34e2ffb32b3fb57b66016a60dc1356ad3b58c6142ed2f3d9db83fc38ffd9c9661b282bf895e20d837277a07c76"
   }
 }

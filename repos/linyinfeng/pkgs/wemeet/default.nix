@@ -108,7 +108,8 @@ qt5.mkDerivation {
   '';
 
   passthru = {
-    updateScriptEnabled = true;
+    # TODO fix 3.19.1.400
+    updateScriptEnabled = false;
     updateScript =
       let
         script = callPackage ./update.nix { };
