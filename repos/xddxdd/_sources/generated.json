@@ -266,7 +266,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-04-19",
+        "date": "2024-04-22",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "9ed4786cb383a58db0babc217c6cec5e4ecb538b",
-            "sha256": "sha256-trwqmNJV6ITTc+CKgp8RFLy/bIH5DNTAZlYVcuy0spo=",
+            "rev": "b7ba34aea98ac6c997845ca41bd0b40a7ab8fc73",
+            "sha256": "sha256-qKNGRfNLqOnU0jLyGRafS7vC/rSIqQvS5HUUiyetxDI=",
             "type": "github"
         },
-        "version": "9ed4786cb383a58db0babc217c6cec5e4ecb538b"
+        "version": "b7ba34aea98ac6c997845ca41bd0b40a7ab8fc73"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1859,11 +1859,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-g9Vk4cxY7AwRSo/tu8jWP/Btl6t4CEQzNgCklx+XUgM=",
+            "sha256": "sha256-eZMzMaqCF514Wij8BZ0sLoyzjKNArLSFe92tN9WAiu0=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240412_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240422_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.7_240412_amd64_01"
+        "version": "Linux/QQ_3.2.7_240422_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1874,11 +1874,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VhwLUDHN6v6wdRDnvcSVAGhsO4qdIKop0et7m4uNFwY=",
+            "sha256": "sha256-MrLkPHri3ifVy3+WNNs/CKK4Myztw8ZjWFEZDr27mpM=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240412_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240422_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.7_240412_arm64_01"
+        "version": "Linux/QQ_3.2.7_240422_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -1929,11 +1929,11 @@
             "name": null,
             "owner": "awesometic",
             "repo": "realtek-r8125-dkms",
-            "rev": "9.013.02-1",
-            "sha256": "sha256-MPO7j5VQlUyD1R0aqkt3qwW56YDIg2h6tmtKZImJd/0=",
+            "rev": "9.013.02-2",
+            "sha256": "sha256-AeDJZRF03Jo/51A+o57toVpcVljsVPgLLk3rQnuqexQ=",
             "type": "github"
         },
-        "version": "9.013.02-1"
+        "version": "9.013.02-2"
     },
     "r8168": {
         "cargoLocks": null,
@@ -1997,7 +1997,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-04-20",
+        "date": "2024-04-22",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2009,11 +2009,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "d3bbbef8f5696a3afc20ab6736d5e0cbe9b69051",
-            "sha256": "sha256-Diz3iRorbkIkq9YC1jBUZxO9TCSNmEP97IU9tGXy0to=",
+            "rev": "d513c7161c1174b1b9ae64c0fd36118bcb26ab17",
+            "sha256": "sha256-1iy1GE8MkxxQTi4B1/Zem3wEtV9ean3LsKWGYw57cXg=",
             "type": "github"
         },
-        "version": "d3bbbef8f5696a3afc20ab6736d5e0cbe9b69051"
+        "version": "d513c7161c1174b1b9ae64c0fd36118bcb26ab17"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -2512,7 +2512,7 @@
     },
     "zstd-nginx-module": {
         "cargoLocks": null,
-        "date": "2023-10-23",
+        "date": "2024-04-22",
         "extract": null,
         "name": "zstd-nginx-module",
         "passthru": null,
@@ -2524,10 +2524,10 @@
             "name": null,
             "owner": "tokers",
             "repo": "zstd-nginx-module",
-            "rev": "6be764e2bed04f889af824eff2d4dd737ebdab5a",
-            "sha256": "sha256-1gCV7uUsuYnZfb9e8VfjWkUloVINOUH5qzeJ03kIHgs=",
+            "rev": "f4ba115e0b0eaecde545e5f37db6aa18917d8f4b",
+            "sha256": "sha256-N8D3KRpd79O8sdlPngtK9Ii7XT2imS4F+nkqsHMHw/w=",
             "type": "github"
         },
-        "version": "6be764e2bed04f889af824eff2d4dd737ebdab5a"
+        "version": "f4ba115e0b0eaecde545e5f37db6aa18917d8f4b"
     }
 }
