@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001611" = {
+    "caniuse-lite-1.0.30001612" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001611";
+      version = "1.0.30001612";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001611.tgz";
-        sha512 = "19NuN1/3PjA3QI8Eki55N8my4LzfkMCRLgCVfrl/slbSAchQfV0+GwjPrK3rq37As4UCLlM/DHajbKkAqbv92Q==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001612.tgz";
+        sha512 = "lFgnZ07UhaCcsSZgWW0K5j4e69dK1u/ltrL9lTUiFOwNHs12S3UMIEYgBV0Z6C6hRDev7iRnMzzYmKabYdXF9g==";
       };
     };
     "chrome-trace-event-1.0.3" = {
@@ -409,13 +409,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "electron-to-chromium-1.4.745" = {
+    "electron-to-chromium-1.4.746" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.745";
+      version = "1.4.746";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.745.tgz";
-        sha512 = "tRbzkaRI5gbUn5DEvF0dV4TQbMZ5CLkWeTAXmpC9IrYT+GE+x76i9p+o3RJ5l9XmdQlI1pPhVtE9uNcJJ0G0EA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.746.tgz";
+        sha512 = "jeWaIta2rIG2FzHaYIhSuVWqC6KJYo7oSBX4Jv7g+aVujKztfvdpf+n6MGwZdC5hQXbax4nntykLH2juIQrfPg==";
       };
     };
     "enhanced-resolve-5.16.0" = {
@@ -967,13 +967,13 @@ let
         sha512 = "GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==";
       };
     };
-    "terser-5.30.3" = {
+    "terser-5.30.4" = {
       name = "terser";
       packageName = "terser";
-      version = "5.30.3";
+      version = "5.30.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.30.3.tgz";
-        sha512 = "STdUgOUx8rLbMGO9IOwHLpCqolkDITFFQSMYYwKE1N2lY6MVSaeoi10z/EhWxRc6ybqoVmKSkhKYH/XUpl7vSA==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.30.4.tgz";
+        sha512 = "xRdd0v64a8mFK9bnsKVdoNP9GQIKUAaJPTaqEQDL4w/J8WaW4sWXXoMZ+6SimPkfT5bElreXf8m9HnmPc3E1BQ==";
       };
     };
     "terser-webpack-plugin-5.3.10" = {
@@ -1120,13 +1120,13 @@ let
       sources."ajv-keywords-3.5.2"
       sources."browserslist-4.23.0"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001611"
+      sources."caniuse-lite-1.0.30001612"
       sources."chrome-trace-event-1.0.3"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.3"
-      sources."electron-to-chromium-1.4.745"
+      sources."electron-to-chromium-1.4.746"
       sources."enhanced-resolve-5.16.0"
       sources."envinfo-7.12.0"
       sources."es-module-lexer-1.5.0"
@@ -1191,7 +1191,7 @@ let
       sources."supports-color-8.1.1"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."tapable-2.2.1"
-      (sources."terser-5.30.3" // {
+      (sources."terser-5.30.4" // {
         dependencies = [
           sources."commander-2.20.3"
         ];

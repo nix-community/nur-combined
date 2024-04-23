@@ -265,13 +265,13 @@ let
         sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
       };
     };
-    "eslint-9.1.0" = {
+    "eslint-9.1.1" = {
       name = "eslint";
       packageName = "eslint";
-      version = "9.1.0";
+      version = "9.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint/-/eslint-9.1.0.tgz";
-        sha512 = "1TCBecGFQtItia2o39P7Z4BK1X7ByNPxAiWJvwiyTGcOwYnTiiASgMpNA6a+beu8cFPhEDWvPf6mIlYUJv6sgA==";
+        url = "https://registry.npmjs.org/eslint/-/eslint-9.1.1.tgz";
+        sha512 = "b4cRQ0BeZcSEzPpY2PjFY70VbO32K7BStTGtBsnIGdTSEEQzBi8hPBcGQmTG2zUvFr9uLe0TK42bw8YszuHEqg==";
       };
     };
     "eslint-scope-8.0.1" = {
@@ -809,8 +809,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "9.1.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.1.0.tgz"; sha1 = "262625f6b0921f7550f128a0098d05ecaad989c6"; };
+    version = "9.1.1";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.1.1.tgz"; sha1 = "39ec657ccd12813cb4a1dab2f9229dcc6e468271"; };
     dependencies = [
       sources."@aashutoshrathi/word-wrap-1.2.6"
       (sources."@eslint-community/eslint-utils-4.4.0" // {
@@ -845,7 +845,7 @@ let
       sources."debug-4.3.4"
       sources."deep-is-0.1.4"
       sources."escape-string-regexp-4.0.0"
-      sources."eslint-9.1.0"
+      sources."eslint-9.1.1"
       sources."eslint-scope-8.0.1"
       sources."eslint-visitor-keys-4.0.0"
       sources."espree-10.0.1"
