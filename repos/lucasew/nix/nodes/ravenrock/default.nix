@@ -13,13 +13,13 @@ let
 in
 {
   imports = [
-    ../common/default.nix
     "${self.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
-
     "${self.inputs.impermanence}/nixos.nix"
 
     ./modules
     ./nvidia.nix
+
+    ../common
   ];
 
   nix.settings.min-free = 64 * 1024 * 1024; # trigger do gc mais baixo
@@ -51,7 +51,6 @@ in
 
   swapDevices = [ { device = "/persist/swapfile"; } ];
 
-  nixpkgs.config.allowUnfree = true;
   networking.hostName = "ravenrock";
   environment.systemPackages = with pkgs; [
     dotenv
