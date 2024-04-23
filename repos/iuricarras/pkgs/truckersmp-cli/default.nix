@@ -10,6 +10,7 @@
 
 let 
   truckersmp-cli = python312Packages.buildPythonApplication{
+
   pname = "truckersmp-cli";
   version = "0.10.1";
 
@@ -47,7 +48,8 @@ let
   };
 in 
   pkgs.buildFHSEnv {
-    name = "truckersmp-cli";
+    pname = "truckersmp-cli";
+    version = "0.10.1";
     targetPkgs = pkgs: [ truckersmp-cli ];
     runScript = "truckersmp-cli";
 
