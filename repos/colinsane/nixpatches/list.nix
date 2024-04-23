@@ -36,7 +36,7 @@ in [
     title = "libjxl: fix cross compilation by only conditionally enabling plugins";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/306127";
     saneCommit = "044b3342d1500fb2b741e87e4d10894f4d8fd716";
-    hash = "sha256-0U1xjihj8pnpJMAN+RxtWz6mujY6AZxgvfRQbfYYD4o=";
+    hash = "sha256-1DHw9AZSRlCkVq2ZullKPHAAHKIbuj5H0TL1l5OgEkE=";
   })
 
   (fetchpatch' {
