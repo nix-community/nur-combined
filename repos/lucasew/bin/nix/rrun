@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ref="$1"; shift
+
+IFS='#' read -r repo item <<< "$ref"
+
+IFS='/' read -r item binary <<< "$item"
+
+if [ "$repo" == ',' ]; then
+  repo="$(sd d root)"
+fi
+
+# echo $repo
+# echo $item
+# echo $binary
+
+out_path="$(sd nix rbuild "$repo#$item")"
+# echo $out_path
+
+"$out_path/bin/$(ls $out_path/bin | grep "$binary" | head -n 1)" "$@"

@@ -15,9 +15,9 @@ export repo
 
 repo="$(nix flake metadata "$repo" --json | jq -r '.path')"
 
-echo "[*] Resolved flake reference: $repo"
+echo "[*] Resolved flake reference: $repo" >&2
 
-echo "[*] Copying stuff to be evaluated to $NIX_RBUILD_TARGET"
+echo "[*] Copying stuff to be evaluated to $NIX_RBUILD_TARGET" >&2
 nix-copy-closure -s --to "$NIX_RBUILD_TARGET" "$repo"
 
 echo "[*] Evaluating ref \"$ref\"" >&2
@@ -28,14 +28,14 @@ function ssh_run {
 
 BUILD_UUID=$(uuidgen)
 
-ssh_run -t mkdir -p /tmp/rbuild-outputs
+ssh_run -t mkdir -p /tmp/rbuild-outputs >&2
 
-ssh_run -t nom build "$repo#$item" --out-link  /tmp/rbuild-outputs/$BUILD_UUID --show-trace
+ssh_run -t nom build "$repo#$item" --out-link  /tmp/rbuild-outputs/$BUILD_UUID --show-trace >&2
 
 RESULT_OUTPUT="$(ssh_run realpath /tmp/rbuild-outputs/$BUILD_UUID)"
 
 echo "[*] Copying result back: \"$RESULT_OUTPUT\"" >&2
 
-nix-copy-closure --from "$NIX_RBUILD_TARGET" "$RESULT_OUTPUT/"
+nix-copy-closure --from "$NIX_RBUILD_TARGET" "$RESULT_OUTPUT/" >&2
 
 echo "$RESULT_OUTPUT"
