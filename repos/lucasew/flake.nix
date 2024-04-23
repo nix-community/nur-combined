@@ -199,7 +199,7 @@
       };
 
       overlays = {
-        nix-requirefile = import "${inputs.nix-requirefile}/overlay.nix";
+        # nix-requirefile = import "${inputs.nix-requirefile}/overlay.nix";
         borderless-browser = import "${inputs.borderless-browser}/overlay.nix";
         rust-overlay = final: prev: import "${inputs.rust-overlay}/rust-overlay.nix" final prev;
         zzzthis = import ./nix/overlay.nix self;
