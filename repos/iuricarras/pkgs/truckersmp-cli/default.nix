@@ -50,4 +50,10 @@ in
     name = "truckersmp-cli";
     targetPkgs = pkgs: [ truckersmp-cli ];
     runScript = "truckersmp-cli";
+
+    meta = {
+      description = "A simple launcher for TruckersMP to play ATS or ETS2 in multiplayer.";
+      homepage = "https://github.com/truckersmp-cli/truckersmp-cli";
+      license = lib.licenses.mit;
+  };
 }
