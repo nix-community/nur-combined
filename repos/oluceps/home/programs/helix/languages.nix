@@ -84,7 +84,7 @@
       ];
     };
     typst-lsp = {
-      command = "typst-lsp";
+      command = "tinymist";
     };
     texlab = {
       command = "texlab";
@@ -119,7 +119,7 @@
       scope = "source.typst";
       injection-regex = "typ";
       file-types = [ "typ" ];
-      language-servers = [ "typst-lsp" ];
+      language-servers = [ "tinymist" ];
       roots = [ ];
     }
     {

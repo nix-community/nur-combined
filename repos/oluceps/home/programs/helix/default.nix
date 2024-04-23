@@ -29,6 +29,7 @@
       vhdl-ls
       delve
       python311Packages.python-lsp-server
+      tinymist
     ]
     ++ (with pkgs.nodePackages_latest; [
       vscode-json-languageserver-bin
