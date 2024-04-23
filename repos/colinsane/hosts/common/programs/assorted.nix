@@ -760,6 +760,8 @@ in
 
     rustc = {};
 
+    sane-cast = {};  #< TODO: sandbox this the same way i sandbox go2tv
+
     sane-die-with-parent.sandbox.enable = false;  #< it's a launcher; can't sandbox
 
     sane-open-desktop.sandbox.enable = false;  #< trivial script, and all our deps are sandboxed

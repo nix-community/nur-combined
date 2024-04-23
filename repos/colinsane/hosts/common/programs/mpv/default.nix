@@ -184,7 +184,7 @@ in
 
     suggestedPrograms = [
       "blast-to-default"
-      "go2tv"
+      "sane-cast"
       "sane-die-with-parent"
       "xdg-terminal-exec"
     ];
@@ -198,7 +198,7 @@ in
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".config/mpv"  #< else mpris plugin crashes on launch
-      ".local/share/applications"  #< for xdg-terminal-exec (go2tv)
+      ".local/share/applications"  #< for xdg-terminal-exec (sane-cast)
       # it's common for album (or audiobook, podcast) images/lyrics/metadata to live adjacent to the primary file.
       # CLI detection is too poor to pick those up, so expose the common media dirs to the sandbox to make that *mostly* work.
       "Books/local"
