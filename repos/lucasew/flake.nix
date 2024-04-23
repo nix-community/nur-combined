@@ -340,7 +340,7 @@
           };
         };
 
-        nixOnDroidConfigurations = pkgs.callPackage ./nix/nixOnDroidConfigurations {
+        nixOnDroidConfigurations = pkgs.callPackage ./nix/nixOnDroid {
           inherit extraArgs mkPkgs;
           nodes = {
             default = {

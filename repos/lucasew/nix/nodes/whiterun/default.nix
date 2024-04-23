@@ -67,6 +67,8 @@ in
     );
   };
 
+  systemd.forbiddenPaths = [ "/media/storage" ];
+
   services.ollama.enable = true;
 
   networking.interfaces.enp5s0.wakeOnLan.enable = true;

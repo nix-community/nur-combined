@@ -30,6 +30,7 @@ in
     ./unstore.nix
     ./user.nix
     ./postgres-backup.nix
+    ./forbidden-paths.nix
   ];
 
   boot.supportedFilesystems = [
