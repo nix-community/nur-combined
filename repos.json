@@ -398,6 +398,9 @@
         "ggemre": {
             "url": "https://github.com/ggemre/nur-packages"
         },
+        "glostis": {
+            "url": "https://github.com/glostis/nur-packages"
+        },
         "goreleaser": {
             "url": "https://github.com/goreleaser/nur"
         },
@@ -462,6 +465,9 @@
         },
         "iopq": {
             "url": "https://github.com/iopq/nur-packages"
+        },
+        "iuricarras": {
+            "url": "https://github.com/iuricarras/nur-packages"
         },
         "ivar": {
             "url": "https://github.com/IvarWithoutBones/NUR"

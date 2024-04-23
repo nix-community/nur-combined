@@ -637,6 +637,11 @@
             "sha256": "09jrrg79wcrgxlz4x8n5zxm9kwkj6zfkjhfkxnd3ac0blcfhp9a9",
             "url": "https://github.com/ggemre/nur-packages"
         },
+        "glostis": {
+            "rev": "d5ccf4f1db4a1348c4a9b8d871fc5d030bbfec61",
+            "sha256": "0x8b2z2zk5y9v0jc81fda3xk02wqsjgjm7n2zpb4ffsapyjz77vk",
+            "url": "https://github.com/glostis/nur-packages"
+        },
         "goreleaser": {
             "rev": "43b04241a060716101f5632d6952fca0ae7770ce",
             "sha256": "013j7lms0mmaibfzzf9d7p50d5374wapa5mp192rvrlyccazl7jz",
@@ -741,6 +746,11 @@
             "rev": "896c689b7442ee47f915ece4b79e821b3fa59238",
             "sha256": "160yr81hrnk3xpf2mw7wc8ynydm54i0yckrjfdanamidy48jwlp8",
             "url": "https://github.com/iopq/nur-packages"
+        },
+        "iuricarras": {
+            "rev": "54bcbd308cdb4d3dbe902a0114fe725138d5bafc",
+            "sha256": "0hbgnjj991wnmlfbjqn8b4zfla4c3vxhc4bwdhz1rmc4yzxj3rda",
+            "url": "https://github.com/iuricarras/nur-packages"
         },
         "ivar": {
             "rev": "20e9f7b54e15f44a2ca92d1e552ed0d61c834ad1",
