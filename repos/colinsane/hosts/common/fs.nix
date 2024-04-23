@@ -225,10 +225,10 @@ lib.mkMerge [
   (remoteServo "media/Books")
   (remoteServo "media/collections")
   # (remoteServo "media/datasets")
-  (remoteServo "media/freeleech")
   (remoteServo "media/games")
   (remoteServo "media/Music")
   (remoteServo "media/Pictures/macros")
+  (remoteServo "media/torrents")
   (remoteServo "media/Videos")
   (remoteServo "playground")
 ]
