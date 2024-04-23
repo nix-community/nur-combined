@@ -97,6 +97,10 @@ The only thing I'll try to achieve is to make every package that doesn't have ``
 
 Pull requests and issues are welcome, though expect my response to be pretty slow. I don't have much time for playing around with stuff like this.
 
+# I am someone who knows what they're doing, how do I manually compile stuff in here?
+
+Use ``nix-build -A name_of_the_package``.
+
 # License
 
 As per what I agreed to when I attempted to publish this to the NUR, the content of this repo is licensed under MIT, unless stated otherwise.
