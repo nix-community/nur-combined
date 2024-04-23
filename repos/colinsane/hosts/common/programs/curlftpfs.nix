@@ -21,5 +21,15 @@
         ln -s curlftpfs $out/bin/mount.curlftpfs
       '';
     });
+
+    # TODO: try to sandbox this better? maybe i can have fuse (unsandboxed) invoke curlftpfs (sandboxed)?
+    # - landlock gives EPERM
+    # - bwrap just silently doesn't mount it, maybe because of setuid stuff around fuse?
+    # sandbox.method = "capshonly";
+    # sandbox.net = "all";
+    # sandbox.capabilities = [
+    #   "sys_admin"
+    #   "sys_module"
+    # ];
   };
 }

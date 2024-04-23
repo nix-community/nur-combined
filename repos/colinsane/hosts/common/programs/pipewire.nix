@@ -21,10 +21,14 @@ in
       };
     };
 
-    suggestedPrograms = [ "wireplumber" ];
+    suggestedPrograms = [
+      "rtkit"
+      "wireplumber"
+    ];
 
-    # sandbox.method = "landlock";  #< also works
-    sandbox.method = "bwrap";
+    # sandbox.method = "landlock";
+    sandbox.method = "bwrap";  #< also works, but can't claim the full scheduling priority it wants
+    sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [
       # dbus is used for rtkit integration
       # rtkit runs on the system bus.
@@ -37,11 +41,14 @@ in
     ];
     sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
     sandbox.extraConfig = [
-      "--sane-sandbox-keep-namespace" "pid"
+      "--sane-sandbox-keep-namespace" "pid"  #< required for rtkit
     ];
+    # sandbox.capabilities = [
+    #   # if rtkit isn't present, and sandboxing is via landlock, these capabilities allow pipewire to claim higher scheduling priority
+    #   "ipc_lock"
+    #   "sys_nice"
+    # ];
     sandbox.usePortal = false;
-    # needs to *create* the various device files, so needs write access to the /run/user/$uid directory itself
-    sandbox.extraRuntimePaths = [ "/" ];
     sandbox.extraPaths = [
       "/dev/snd"
       # desko/lappy don't need these, but moby complains if not present
@@ -52,6 +59,7 @@ in
     sandbox.extraHomePaths = [
       # pulseaudio cookie
       ".config/pulse"
+      ".config/pipewire"
     ];
 
     # note the .conf.d approach: using ~/.config/pipewire/pipewire.conf directly breaks all audio,
@@ -83,6 +91,7 @@ in
     services.pipewire = {
       description = "pipewire: multimedia service";
       partOf = [ "sound" ];
+      # depends = [ "rtkit" ];
       # depends = [ "xdg-desktop-portal" ];  # for Realtime portal (dependency cycle)
       # env PIPEWIRE_LOG_SYSTEMD=false"
       # env PIPEWIRE_DEBUG"*:3,mod.raop*:5,pw.rtsp-client*:5"
@@ -100,7 +109,10 @@ in
       description = "pipewire-pulse: Pipewire compatibility layer for PulseAudio clients";
       depends = [ "pipewire" ];
       partOf = [ "sound" ];
-      command = "pipewire-pulse";
+      command = pkgs.writeShellScript "pipewire-pulse-start" ''
+        mkdir -p $XDG_RUNTIME_DIR/pulse
+        exec pipewire-pulse
+      '';
       readiness.waitExists = [
         "$XDG_RUNTIME_DIR/pulse/native"
         "$XDG_RUNTIME_DIR/pulse/pid"
@@ -128,12 +140,4 @@ in
   services.udev.packages = lib.mkIf cfg.enabled [
     cfg.package
   ];
-
-  # rtkit/RealtimeKit: allow applications which want realtime audio (e.g. Dino? Pulseaudio server?) to request it.
-  # this might require more configuration (e.g. polkit-related) to work exactly as desired.
-  # - readme outlines requirements: <https://github.com/heftig/rtkit>
-  # XXX(2023/10/12): rtkit does not play well on moby. any application sending audio out dies after 10s.
-  # - note that `rtkit-daemon` can be launched with a lot of config: pipewire docs (top of this file)
-  #   suggest using a much less aggressive canary. maybe try that?
-  security.rtkit.enable = lib.mkIf cfg.enabled true;
 }

@@ -881,7 +881,7 @@ in
       "/sys/bus/usb"
     ];
 
-    valgrind = {};
+    valgrind.sandbox.enable = false;  #< it's a launcher: can't sandbox
 
     visidata.sandbox.method = "bwrap";  # TODO:sandbox: untested
     visidata.sandbox.autodetectCliPaths = true;

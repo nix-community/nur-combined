@@ -117,6 +117,7 @@ class Go2TvDriver:
                 if media.startswith("http://") or media.startswith("https://"):
                     logger.info(f"ignoring compat requirement {dev.compat} for {media}")
                 else:
+                    media = os.path.abspath(media)
                     # TODO: make sure this directory gets cleaned up!
                     dir_ = tempfile.mkdtemp(prefix="sane-cast-")
                     new_name = os.path.join(dir_, os.path.basename(media) + ".mp4")

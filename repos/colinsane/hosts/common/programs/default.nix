@@ -95,6 +95,7 @@
     ./rhythmbox.nix
     ./ripgrep.nix
     ./rofi
+    ./rtkit.nix
     ./s6-rc.nix
     ./sane-input-handler
     ./sane-sandboxed.nix

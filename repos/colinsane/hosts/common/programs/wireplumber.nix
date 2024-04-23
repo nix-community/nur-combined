@@ -3,9 +3,8 @@
   sane.programs.wireplumber = {
     sandbox.method = "bwrap";
     sandbox.whitelistDbus = [
-      # i think this isn't strictly necessary; it just wants to ask the portal for realtime perms
-      # "system"
-      "user"
+      "system"  #< so it can request better scheduling from rtkit
+      "user"  #< TODO: is this needed?
     ];
     sandbox.whitelistAudio = true;
     sandbox.extraPaths = [
@@ -20,6 +19,10 @@
       "/sys/class/sound"
       "/sys/class/video4linux"
       "/sys/devices"
+    ];
+    sandbox.extraConfig = [
+      # needed if i want rtkit to grant this higher scheduling priority
+      "--sane-sandbox-keep-namespace" "pid"
     ];
 
     suggestedPrograms = [ "alsa-ucm-conf" ];
