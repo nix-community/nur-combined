@@ -1830,10 +1830,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240419.144423";
+      version = "126.0.20240422.91940";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4267553/deutsch_de_language_pack-125.0.20240419.144423.xpi";
-      sha256 = "6a3d81ca912289b189cf06621b76be0b4e7fecb233de949d726ebfb6281e0986";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4268499/deutsch_de_language_pack-126.0.20240422.91940.xpi";
+      sha256 = "6de43141f036cb0367553c8ab888602671fc50e379b6f02f9c364fb0f72a7962";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2011,10 +2011,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.28.0";
+      version = "2.29.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262679/dualsub-2.28.0.xpi";
-      sha256 = "8233e0360d311f2099d81e8a0fbe9310eb709bd1d3546a0b63febf823fe249b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4268669/dualsub-2.29.0.xpi";
+      sha256 = "53edda2340bdadd40375875cfce22b4bf2e0b534fe3abb3b1bc49e65ff5d5082";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2770,10 +2770,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240419.144423";
+      version = "126.0.20240422.91940";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4267497/francais_language_pack-125.0.20240419.144423.xpi";
-      sha256 = "758935593bfa91916287bb964215b0809f39a8c02bc3df733441b83ae1032c93";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4268526/francais_language_pack-126.0.20240422.91940.xpi";
+      sha256 = "7f5218f91b5ee135c330fcd29460ffce778fd2ad2ed01faa5f8ba9bf31b23b8a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3589,10 +3589,10 @@
     };
     "hoppscotch" = buildFirefoxXpiAddon {
       pname = "hoppscotch";
-      version = "0.33";
+      version = "0.34";
       addonId = "postwoman-firefox@postwoman.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262201/hoppscotch-0.33.xpi";
-      sha256 = "73e2272b5f9aaa4d57d34e0cb61b28722f7090517ecd9f2f1d8f21e598abf8d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4268773/hoppscotch-0.34.xpi";
+      sha256 = "7b373c2c3651ad7af0c4e3fc3624cdf93275f4acb12d1b23ab64d3b18fc67d99";
       meta = with lib;
       {
         homepage = "https://github.com/hoppscotch/hoppscotch-extension";
@@ -8567,10 +8567,10 @@
     };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
-      version = "6.6.19";
+      version = "6.6.22";
       addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4198542/raindropio-6.6.19.xpi";
-      sha256 = "064ccce0e9e9ddfe9e540d29c6cd132d575a57a443982d344ccc01296067a0fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4266289/raindropio-6.6.22.xpi";
+      sha256 = "b65bd2431e1696ea0650cbf2ec6f84730b06a069117a9e95c47fdac117f45f46";
       meta = with lib;
       {
         homepage = "https://raindrop.io";
