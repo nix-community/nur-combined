@@ -755,6 +755,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   qaac-bwrap = callPackage ./pkgs/applications/audio/qaac/bwrap.nix { };
   qaac-unwrapped = callPackage ./pkgs/applications/audio/qaac/unwrapped.nix { };
 
+  spiral = callPackage ./pkgs/development/compilers/spiral { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
