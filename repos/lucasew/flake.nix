@@ -268,7 +268,8 @@
 
         release = pkgs.stdenv.mkDerivation {
           pname = "nixcfg-release";
-          version = "${self.rev or (builtins.throw "Commita!")}";
+          version = "${toString self.lastModified}-${self.inputs.nixpkgs.rev}";
+          # version = "${self.rev or (builtins.trace "nixpkgs_${nixpkgs.rev}" "Commita!")}";
 
           preferLocalBuild = true;
 

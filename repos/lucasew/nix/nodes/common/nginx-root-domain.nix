@@ -52,11 +52,11 @@ let
           mkDate input.sourceInfo.lastModifiedDate 0 1 2 3 "/" 4 5 "/" 6 7 " " 8 9 ":" 10 11 ":" 12 13 null
         else
           "unknown";
-      fullRev = "${inputName}@${input.shortRev} (${revDate})";
+      fullRev = "${inputName}@${input.shortRev or "unknown"} (${revDate})";
     in
     ''<span><b>${inputName}</b> <span class="hidden-part">${
       input.sourceInfo.lastModifiedDate or "unknown"
-    }-${input.shortRev}</span></span>'';
+    }-${input.shortRev or "unknown"}</span></span>'';
 
   template = ''
     <!DOCTYPE html>
@@ -176,7 +176,7 @@ let
           <section id="versions">
             <h2>Inputs</h2><br>
                 <div class="small-cards-container">
-                  <span><b>nixcfg</b> <span class="hidden-part">${self.shortRev}  (${
+                  <span><b>nixcfg</b> <span class="hidden-part">${self.shortRev or "unknown"}  (${
                     mkDate self.sourceInfo.lastModifiedDate 0 1 2 3 "/" 4 5 "/" 6 7 " " 8 9 ":" 10 11 ":" 12 13 null
                   })</span></span>
 

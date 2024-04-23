@@ -1,10 +1,6 @@
-{ pkgs, self, ... }:
+{ self, ... }:
 let
-  rev =
-    if (self ? rev) then
-      builtins.trace "detected flake hash: ${self.rev}" self.rev
-    else
-      builtins.trace "flake hash not detected!" null;
+  rev = "${toString self.lastModified}-${self.inputs.nixpkgs.rev}";
 in
 {
   system.configurationRevision = rev;

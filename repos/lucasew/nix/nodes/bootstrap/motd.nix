@@ -87,13 +87,13 @@ in
               mkDate input.sourceInfo.lastModifiedDate 0 1 2 3 "/" 4 5 "/" 6 7 " " 8 9 ":" 10 11 ":" 12 13 null
             else
               "unknown";
-          fullRev = "${inputName}@${input.shortRev} (${revDate})";
+          fullRev = "${inputName}@${input.shortRev or "unknown"} (${revDate})";
         in
-        "${inputName}@${input.sourceInfo.lastModifiedDate or "unknown"}-${input.shortRev}";
+        "${inputName}@${input.sourceInfo.lastModifiedDate or "unknown"}-${input.shortRev or "unspecified"}";
     in
     ''
 
-      [34;1mConfiguration:[m nixcfg@${self.shortRev} (${
+      [34;1mConfiguration:[m nixcfg@${self.shortRev or "unknown"} (${
         mkDate self.sourceInfo.lastModifiedDate 0 1 2 3 "/" 4 5 "/" 6 7 " " 8 9 ":" 10 11 ":" 12 13 null
       })
       [34;1mInputs:[m ${
