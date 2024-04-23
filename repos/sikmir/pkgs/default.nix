@@ -402,6 +402,7 @@ lib.makeScope newScope (
     qasync = callPackage ./misc/qasync { };
     qoiview = callPackage ./misc/qoiview { };
     repolocli = callPackage ./misc/repolocli { };
+    rhttp = callPackage ./misc/rhttp { };
     riffraff = callPackage ./misc/riffraff { };
     rst2txt = callPackage ./misc/rst2txt { };
     sdorfehs = callPackage ./misc/sdorfehs { };
