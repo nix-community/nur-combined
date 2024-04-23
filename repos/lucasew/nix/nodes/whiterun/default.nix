@@ -32,8 +32,6 @@ in
     ./container-nat.nix
     ./rtorrent.nix
     ./transmission.nix
-
-    ./poc-rtorrent-sandbox.nix
   ];
 
   services.fusionsolar-reporter.enable = true;
@@ -115,6 +113,7 @@ in
   # services.transmission.enable = true;
 
   services.rtorrent.enable = true;
+  # services.rtorrent.enableSandboxSample = true;
 
   services.miniflux.enable = true;
   # services.nitter.enable = true;
