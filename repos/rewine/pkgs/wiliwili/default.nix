@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, libsForQt5
 , pkg-config
 , cmake
 , mpv
@@ -13,28 +12,23 @@
 , mbedtls
 , openssl
 , curl
-, useDsl ? true
+, useSdl ? false
 }:
-let
-  wrapQtAppsHook = libsForQt5.qt5.wrapQtAppsHook;
-#  inherit ((builtins.getFlake "github:NixOS/nixpkgs/23485f23ff8536592b5178a5d244f84da770bc87").legacyPackages.${stdenv.system}) curl;
-in
 stdenv.mkDerivation rec {
   pname = "wiliwili";
-  version = "1.1.1";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "xfangfang";
     repo = "wiliwili";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-+bYa8xczSr56E9JgjWIZiaj4kfdk+w2aUTuQi+DcZq4=";
+    hash = "sha256-erORsg8RZbSQ43W60R+e1PrL3EPQSx1qe7RSNZ9kKbU=";
   };
 
   nativeBuildInputs = [
     cmake
     pkg-config
-    wrapQtAppsHook
     python3
   ];
 
@@ -46,9 +40,11 @@ stdenv.mkDerivation rec {
     xorg.libXrandr
     xorg.libXinerama
     xorg.libXcursor
-    SDL2
+    xorg.libXi
     mbedtls
     openssl
+  ] ++ lib.optionals useSdl [
+    SDL2
   ];
 
   cmakeFlags = [
@@ -56,7 +52,7 @@ stdenv.mkDerivation rec {
     "-DUSE_SYSTEM_CURL=ON"
     "-DWIN32_TERMINAL=OFF"
     "-DINSTALL=ON"
-    "-DUSE_SDL2=${if useDsl then "ON" else "OFF"}"
+    "-DUSE_SDL2=${if useSdl then "ON" else "OFF"}"
   ];
 
   meta = with lib; {
