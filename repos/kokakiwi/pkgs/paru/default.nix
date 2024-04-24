@@ -70,7 +70,6 @@ in rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Morganamilo/paru";
     changelog = "https://github.com/Morganamilo/paru/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    platforms = with lib.platforms; [ linux ];
     mainProgram = "paru";
   };
 }
