@@ -1,10 +1,10 @@
-{
-  lib,
-  clangStdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  Foundation,
-  IOBluetooth,
+{ lib
+, clangStdenv
+, fetchFromGitHub
+, fetchpatch
+, Foundation
+, IOBluetooth
+,
 }:
 clangStdenv.mkDerivation rec {
   pname = "blueutil";
@@ -20,13 +20,13 @@ clangStdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-inquiry.patch";
       url = "https://patch-diff.githubusercontent.com/raw/toy/blueutil/pull/66.patch";
-      sha256 = "sha256-oGxqJpnepM9C3YOKLOMbhq7cReUQ8Vlk+SxPRRmTQvU=";
+      sha256 = "sha256-S97bnuFQah8zTIETFQQ4+i2S8PKYiJhEe249QnDeGdw=";
     })
   ];
 
   preferLocalBuild = true;
 
-  buildInputs = [Foundation IOBluetooth];
+  buildInputs = [ Foundation IOBluetooth ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wall"
@@ -46,7 +46,7 @@ clangStdenv.mkDerivation rec {
     homepage = "https://github.com/toy/blueutil";
     changelog = "https://github.com/toy/blueutil/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [maintainers.jpts];
+    maintainers = [ maintainers.jpts ];
     platforms = platforms.darwin;
   };
 }
