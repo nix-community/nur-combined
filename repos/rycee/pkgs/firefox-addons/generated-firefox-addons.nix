@@ -2190,10 +2190,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.5";
+      version = "1.0.6";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4268111/elasticvue-1.0.5.xpi";
-      sha256 = "34758ae12037a4f47db9f0b4ab0ed94923f3e96ab6b1bf89ca68508f95b135ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269118/elasticvue-1.0.6.xpi";
+      sha256 = "20595effbdb304ebfe490b5b25c3a1ea541ae69bfae855fc264eb626c74b1154";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -8602,10 +8602,10 @@
     };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "5.0.2";
+      version = "5.1.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4247170/react_devtools-5.0.2.xpi";
-      sha256 = "0b880751b0f63ef4b10ffc436e42f65e5054fd3fc747f7e04733e8173c2dab57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4266360/react_devtools-5.1.0.xpi";
+      sha256 = "f40c6f549006f84f811588ca6473de502ddad3722bfa772537ad39f9f0d2eff9";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
