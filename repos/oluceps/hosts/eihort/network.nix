@@ -47,7 +47,6 @@
     enableIPv6 = true;
     nftables = {
       enable = true;
-      # for hysteria port hopping
     };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
@@ -81,20 +80,6 @@
     };
 
     netdevs = {
-
-      # bond0 = {
-      #   netdevConfig = {
-      #     Kind = "bond";
-      #     Name = "bond0";
-      #     # MTUBytes = "1300";
-      #   };
-      #   bondConfig = {
-      #     Mode = "balance-alb";
-      #     PrimaryReselectPolicy = "always";
-      #     MIIMonitorSec = "1s";
-      #   };
-      # };
-
       wg0 = {
         netdevConfig = {
           Kind = "wireguard";
@@ -118,20 +103,6 @@
     };
 
     networks = {
-
-      # "5-bond0" = {
-      #   matchConfig.Name = "bond0";
-      #   DHCP = "yes";
-      #   dhcpV4Config.RouteMetric = 2046;
-      #   dhcpV6Config.RouteMetric = 2046;
-      #   # address = [ "192.168.0.2/24" ];
-
-      #   networkConfig = {
-      #     BindCarrier = [ "eth0" "eth1" ];
-      #   };
-
-      #   linkConfig.MACAddress = "0c:b8:ec:ff:ec:d3";
-      # };
       "10-wg0" = {
         matchConfig.Name = "wg0";
         address = [ "10.0.1.6/24" ];
@@ -140,31 +111,12 @@
           IPForward = true;
         };
       };
-
-      # "20-wired-eth0" = {
-      #   matchConfig.Name = "eth0";
-
-      #   networkConfig = {
-      #     Bond = "bond0";
-      #     PrimarySlave = true;
-      #   };
-      # };
-
       "5-eth0" = {
         matchConfig.Name = "eth0";
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 2046;
         dhcpV6Config.RouteMetric = 2046;
       };
-
-      # "30-wired-eth1" = {
-      #   matchConfig.Name = "eth1";
-
-      #   networkConfig = {
-      #     Bond = "bond1";
-      #     PrimarySlave = true;
-      #   };
-      # };
     };
   };
 }

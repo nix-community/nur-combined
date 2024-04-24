@@ -16,16 +16,7 @@ let
       skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
     };
     xmrAddr = "83u3a1Sx8wt5hQ9o8eHoSbKDPRwt9uGLJ8b26GHzfZ3Ha17ASekNTMvQk7TnYEqL724UuWQrJbBq7Cvg1HHZqGQc7WsT8RV";
-
-    # azasos: in wall
-    withoutHeads = [
-      # "azasos" # tencent cloud
-      "nodens" # digital ocean
-      # "yidhra" # aws lightsail
-      # "abhoth" # alicloud
-      "colour" # azure
-      "eihort" # nas C222
-    ];
+  
   };
 
   genModules = map (

@@ -5,12 +5,23 @@
   ...
 }:
 let
+
+  /*
+    "hastur" # homeserver    # network censored
+    "azasos" # tencent cloud # network censored
+    "nodens" # digital ocean
+    "yidhra" # aws lightsail
+    "abhoth" # alicloud      # network censored
+    "colour" # azure
+    "eihort" # C222          # network censored
+  */
   generalHost = [
     # "colour"
     "nodens"
     "kaambl"
     # "abhoth"
     "azasos"
+    "eihort"
   ];
 in
 {

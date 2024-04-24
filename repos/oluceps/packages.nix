@@ -231,18 +231,5 @@ in
           :map <C-k> 5k
         '';
       })
-    ]
-    ++ lib.optionals (!(lib.elem config.networking.hostName data.withoutHeads)) (
-      with pkgs.nodePackages;
-      [
-        vscode-json-languageserver
-        typescript-language-server
-        vscode-css-languageserver-bin
-        node2nix
-        markdownlint-cli2
-        prettier
-      ]
-    )
-
-  ;
+    ];
 }

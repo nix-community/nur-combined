@@ -54,116 +54,125 @@
       };
     };
   };
-  environment.systemPackages = lib.flatten (
-    lib.attrValues (
-      with pkgs;
-      {
-        crypt = [
-          mieru
-          minisign
-          rage
-          age-plugin-yubikey
-          cryptsetup
-          tpm2-tss
-          tpm2-tools
-          yubikey-manager
-          yubikey-manager-qt
-          monero-cli
-        ];
+  environment.systemPackages =
+    lib.flatten (
+      lib.attrValues (
+        with pkgs;
+        {
+          crypt = [
+            mieru
+            minisign
+            rage
+            age-plugin-yubikey
+            cryptsetup
+            tpm2-tss
+            tpm2-tools
+            yubikey-manager
+            yubikey-manager-qt
+            monero-cli
+          ];
 
+          lang = [
+            [
+              editorconfig-checker
+              kotlin-language-server
+              sumneko-lua-language-server
+              yaml-language-server
+              tree-sitter
+              stylua
+              biome
+              # black
+            ]
+            # languages related
+            [
+              zig
+              lldb
+              # haskell-language-server
+              gopls
+              cmake-language-server
+              zls
+              android-file-transfer
+              nixpkgs-review
+              shfmt
+            ]
+          ];
+          wine = [
+            # bottles
+            wineWowPackages.stable
 
+            # support 32-bit only
+            # wine
 
-        lang = [
-          [
-            editorconfig-checker
-            kotlin-language-server
-            sumneko-lua-language-server
-            yaml-language-server
-            tree-sitter
-            stylua
-            biome
-            # black
-          ]
-          # languages related
-          [
-            zig
-            lldb
-            # haskell-language-server
-            gopls
-            cmake-language-server
-            zls
-            android-file-transfer
-            nixpkgs-review
-            shfmt
-          ]
-        ];
-        wine = [
-          # bottles
-          wineWowPackages.stable
+            # support 64-bit only
+            (wine.override { wineBuild = "wine64"; })
 
-          # support 32-bit only
-          # wine
+            # wine-staging (version with experimental features)
+            wineWowPackages.staging
 
-          # support 64-bit only
-          (wine.override { wineBuild = "wine64"; })
+            # winetricks (all versions)
+            winetricks
 
-          # wine-staging (version with experimental features)
-          wineWowPackages.staging
+            # native wayland support (unstable)
+            wineWowPackages.waylandFull
+          ];
 
-          # winetricks (all versions)
-          winetricks
+          db = [ mongosh ];
 
-          # native wayland support (unstable)
-          wineWowPackages.waylandFull
-        ];
-        
-        db = [ mongosh ];
+          web = [ hugo ];
 
-        web = [ hugo ];
+          de = with gnomeExtensions; [
+            simple-net-speed
+            paperwm
+          ];
 
-        de = with gnomeExtensions; [
-          simple-net-speed
-          paperwm
-        ];
+          virt = [
+            # virt-manager
+            virtiofsd
+            runwin
+            guix-run
+            runbkworm
+            bkworm
+            arch-run
+            # ubt-rv-run
+            #opulr-a-run
+            lunar-run
+            virt-viewer
+          ];
+          fs = [
+            gparted
+            e2fsprogs
+            fscrypt-experimental
+            f2fs-tools
+            compsize
+          ];
 
-        virt = [
-          # virt-manager
-          virtiofsd
-          runwin
-          guix-run
-          runbkworm
-          bkworm
-          arch-run
-          # ubt-rv-run
-          #opulr-a-run
-          lunar-run
-          virt-viewer
-        ];
-        fs = [
-          gparted
-          e2fsprogs
-          fscrypt-experimental
-          f2fs-tools
-          compsize
-        ];
+          cmd = [
+            metasploit
+            # linuxKernel.packages.linux_latest_libre.cpupower
+            clean-home
+            just
+            typst
+            cosmic-term
+            acpi
+          ];
+          bluetooth = [ bluetuith ];
 
-        cmd = [
-          metasploit
-          # linuxKernel.packages.linux_latest_libre.cpupower
-          clean-home
-          just
-          typst
-          cosmic-term
-          acpi
-        ];
-        bluetooth = [ bluetuith ];
+          sound = [ pulseaudio ];
 
-        sound = [ pulseaudio ];
-
-        display = [ cage ];
-      }
+          display = [ cage ];
+        }
+      )
     )
-  );
+    ++ (with pkgs.nodePackages; [
+      vscode-json-languageserver
+      typescript-language-server
+      vscode-css-languageserver-bin
+      node2nix
+      markdownlint-cli2
+      prettier
+    ])
+
+  ;
   virtualisation = {
     libvirtd = {
       enable = false;
