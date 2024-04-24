@@ -29,6 +29,7 @@
     services.rtorrent = {
       downloadDir = "${config.services.rtorrent.dataDir}/Downloads";
       openFirewall = true;
+      dataPermissions = lib.mkDefault "0755";
       inherit (config.networking.ports.rtorrent-port-0000) port;
       configText = ''
         protocol.pex.set = yes

@@ -34,6 +34,10 @@ in
     ./transmission.nix
   ];
 
+  boot.kernel.sysctl = {
+    "vfs.zfs.arc_sys_free" = 4 * 1024 * 1024 * 1024; # make ZFS free arc before hitting swap
+  };
+
   services.fusionsolar-reporter.enable = true;
 
   services.guix.enable = true;
