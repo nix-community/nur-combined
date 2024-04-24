@@ -3,7 +3,6 @@ with pkgs; rec {
   cmd-markdown = pkgs.callPackage ./pkgs/cmd-markdown { };
   aliyunpan = pkgs.callPackage ./pkgs/aliyunpan { };
   electron-netease-cloud-music = pkgs.callPackage ./pkgs/electron-netease-cloud-music { };
-  gammaray = pkgs.callPackage ./pkgs/gammaray { };
   graphbuilder = pkgs.callPackage ./pkgs/graphbuilder { };
   landrop = pkgs.callPackage ./pkgs/landrop { };
   lx-music-desktop = pkgs.callPackage ./pkgs/lx-music-desktop { };
