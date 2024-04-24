@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "wldbg";
-  version = "unstable-2018-02-18";
+  version = "0.2.0-unstable-2023-10-19";
 
   src = fetchFromGitHub {
     owner = "mchalupa";
     repo = pname;
-    rev = "8ff952ce5ce4081109ccb9ea03cfd6158784a9cf";
-    hash = "sha256-7/ooV8zM7yirEBtevDuER4V7UGA6HrgsoawbtfKcXdQ=";
+    rev = "a443a4ffe4922c8d484ed0679c7f5fcc3e8d00a4";
+    hash = "sha256-wsh56ejOgKZZA8fQbY+imSYaCKZNuAqKPoHWLkrQ2FE=";
   };
 
   patches = [ ./fix-build.diff ];
