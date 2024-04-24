@@ -8,13 +8,14 @@
 }:
 clangStdenv.mkDerivation rec {
   pname = "blueutil";
-  version = "2.9.1";
+  version = "2.9.1post";
 
   src = fetchFromGitHub {
     owner = "toy";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-dxsgMwgBImMxMMD+atgGakX3J9YMO2g3Yjl5zOJ8PW0=";
+    #rev = "v${version}";
+    rev = "dfe7fb2e0e11e53b2288e391c86874618d3ce185";
+    sha256 = "sha256-6DKuWc4GhXtRfUSi+EcvJfzO8TaywRXpoLIEGWyz7VQ=";
   };
   patches = [
     (fetchpatch {
