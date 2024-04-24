@@ -112,7 +112,11 @@ in buildNpmPackage rec {
   '';
 
   meta = {
+    description = "Collaborative office suite, end-to-end encrypted and open-source.";
     homepage = "https://cryptpad.org";
+    changelog = "https://github.com/cryptpad/cryptpad/releases/tag/${version}";
+    license = lib.licenses.agpl3Plus;
+    platforms = lib.platforms.all;
     mainProgram = "cryptpad-server";
   };
 }
