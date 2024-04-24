@@ -43,7 +43,7 @@ let
 
   buildInputs = [ SDL2 steamPackages.steamcmd steamPackages.steam-runtime];
 
-  propagatedBuildInputs = with python312Packages; [ vdf steam-run-native ];
+  propagatedBuildInputs = with python312Packages; [ vdf ];
 
   };
 in 
