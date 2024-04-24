@@ -1,13 +1,8 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, libsForQt515
-, pkg-config
+, libsForQt5
 }:
-let
-  qmake = libsForQt515.qmake;
-  wrapQtAppsHook = libsForQt515.qt5.wrapQtAppsHook;
-in
 stdenv.mkDerivation {
   pname = "GraphBuilder";
   version = "1.3.0";
@@ -19,7 +14,10 @@ stdenv.mkDerivation {
     hash = "sha256-Dh1SoOV6enmlU/BBAigmfXZNJraPrfXUt97bp8edwPU=";
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    libsForQt5.qmake
+    libsForQt5.wrapQtAppsHook
+  ];
 
   installPhase = ''
     install -D GraphBuilder $out/bin/graphbuilder
