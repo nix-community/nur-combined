@@ -358,6 +358,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       parse-helptext = callPackage ./pkgs/python3/pkgs/parse-helptext { };
 
+      spiralpy = callPackage ./pkgs/python3/pkgs/spiralpy {
+        # FIXME scope
+        inherit spiral;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3
