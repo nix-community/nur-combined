@@ -25,8 +25,8 @@ in
       ExecStart = lib.escapeShellArgs [
         "${cfg.package}/libexec/rtkit-daemon"
         "--scheduling-policy=FIFO"
-        "--our-realtime-priority=89"
-        "--max-realtime-priority=88"
+        "--our-realtime-priority=79"
+        "--max-realtime-priority=78"  # N.B.: setting this too aggressively can hang weak devices!
         "--min-nice-level=-19"
         "--rttime-usec-max=2000000"
         "--users-max=100"

@@ -2,10 +2,10 @@
 {
   sane.programs.wireplumber = {
     sandbox.method = "bwrap";
-    sandbox.whitelistDbus = [
-      "system"  #< so it can request better scheduling from rtkit
-      "user"  #< TODO: is this needed?
-    ];
+    # sandbox.whitelistDbus = [
+    #   "system"  #< so it can request better scheduling from rtkit
+    #   # "user"  #< TODO: is this needed?
+    # ];
     sandbox.whitelistAudio = true;
     sandbox.extraPaths = [
       # i think these video inputs (for e.g. webcam) are optional.
@@ -20,10 +20,10 @@
       "/sys/class/video4linux"
       "/sys/devices"
     ];
-    sandbox.extraConfig = [
-      # needed if i want rtkit to grant this higher scheduling priority
-      "--sane-sandbox-keep-namespace" "pid"
-    ];
+    # sandbox.extraConfig = [
+    #   # needed if i want rtkit to grant this higher scheduling priority
+    #   "--sane-sandbox-keep-namespace" "pid"
+    # ];
 
     suggestedPrograms = [ "alsa-ucm-conf" ];
 

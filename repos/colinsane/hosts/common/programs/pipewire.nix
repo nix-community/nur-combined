@@ -1,6 +1,26 @@
 # administer with pw-cli, pw-mon, pw-top commands
 #
 # performance tuning: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Performance-tuning>
+#
+# HAZARDS FOR MOBY:
+# - high-priority threads are liable to stall the lima GPU driver, and leave a half-functional OS state.
+# - symptom is messages like this (with stack traces) in dmesg or journalctl:
+#   - "[drm:lima_sched_timedout_job] *ERROR* lima job timeout"
+#   - and the UI locks up for a couple seconds, and then pipewire + wireplumber crash (but not pipewire-pulse)
+# - related, unconfirmed symptoms:
+#   - "sched: RT throttling activated"
+#   - "BUG: KFENCE: use-after-free read in vchan_complete"
+#     - this one seems to be recoverable
+# - likely to be triggered when using a small pipewire buffer (512 samples), by simple tasks like opening pavucontrol.
+#   - but a lengthier buffer is no sure way to dodge it: it will happen (less frequently) even for buffers of 2048 samples.
+# - seems ANY priority < 0 triggers this, independent of the `nice` setting.
+#   - i only tried SCHED_FIFO, not SCHED_RR (round robin) for the realtime threads.
+# - solution is some combination of:
+#   - DON'T USE RTKIT. rtkit only supports SCHED_FIFO and SCHED_RR: there's no way to use it only for adjusting `nice` values.
+#   - in pipewire.conf, remove all reference to libpipewire-module-rt.
+#     - it's loaded by default. i can either provide a custom pipewire.conf which doesn't load it, or adjust its config so that it intentionally fails.
+#     - without rtkit working, pipewire's module-rt doesn't allow niceness < -11. adjusting `nice`ness here seems to have little effect anyway.
+# - longer term, rtkit (or just rlimit based pipewire module-rt) would be cool to enable: it *does* reduce underruns.
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.pipewire;
@@ -22,32 +42,32 @@ in
     };
 
     suggestedPrograms = [
-      "rtkit"
+      # "rtkit"
       "wireplumber"
     ];
 
-    # sandbox.method = "landlock";
+    # sandbox.method = "landlock";  #< works, including without rtkit
     sandbox.method = "bwrap";  #< also works, but can't claim the full scheduling priority it wants
     sandbox.whitelistAudio = true;
-    sandbox.whitelistDbus = [
-      # dbus is used for rtkit integration
-      # rtkit runs on the system bus.
-      # xdg-desktop-portal then exposes this to the user bus.
-      # therefore, user bus should be all that's needed, but...
-      # xdg-desktop-portal-wlr depends on pipewire, hence pipewire has to start before xdg-desktop-portal.
-      # then, pipewire has to talk specifically to rtkit (system) and not go through xdp.
-      # "user"
-      "system"
-    ];
+    # sandbox.whitelistDbus = [
+    #   # dbus is used for rtkit integration
+    #   # rtkit runs on the system bus.
+    #   # xdg-desktop-portal then exposes this to the user bus.
+    #   # therefore, user bus should be all that's needed, but...
+    #   # xdg-desktop-portal-wlr depends on pipewire, hence pipewire has to start before xdg-desktop-portal.
+    #   # then, pipewire has to talk specifically to rtkit (system) and not go through xdp.
+    #   # "user"
+    #   "system"
+    # ];
     sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
     sandbox.extraConfig = [
-      "--sane-sandbox-keep-namespace" "pid"  #< required for rtkit
+      "--sane-sandbox-keep-namespace" "pid"
     ];
-    # sandbox.capabilities = [
-    #   # if rtkit isn't present, and sandboxing is via landlock, these capabilities allow pipewire to claim higher scheduling priority
-    #   "ipc_lock"
-    #   "sys_nice"
-    # ];
+    sandbox.capabilities = [
+      # if rtkit isn't present, and sandboxing is via landlock, these capabilities allow pipewire to claim higher scheduling priority
+      "ipc_lock"
+      "sys_nice"
+    ];
     sandbox.usePortal = false;
     sandbox.extraPaths = [
       "/dev/snd"
@@ -66,6 +86,7 @@ in
     # presumably because that deletes the defaults entirely whereas the .conf.d approach selectively overrides defaults
     fs.".config/pipewire/pipewire.conf.d/10-sane-config.conf".symlink.text = ''
       # config docs: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Config-PipeWire#properties>
+      # - <repo:pipewire/pipewire:src/daemon/pipewire.conf.in>
       # useful to run `pw-top` to see that these settings are actually having effect,
       # and `pw-metadata` to see if any settings conflict (e.g. max-quantum < min-quantum)
       #
@@ -82,6 +103,44 @@ in
         default.clock.max-quantum = ${builtins.toString cfg.config.max-quantum}
       }
     '';
+    # reduce realtime scheduling priority to prevent GPU instability,
+    # but see the top of this file for other solutions.
+    # fs.".config/pipewire/pipewire.conf.d/20-sane-rtkit.conf".symlink.text = ''
+    #   # documented inside <repo:pipewire/pipewire:/src/modules/module-rt.c>
+    #   context.modules = [{
+    #     name = libpipewire-module-rt
+    #     args = {
+    #       nice.level   = 0
+    #       rt.prio      = 0
+    #       #rt.time.soft = -1
+    #       #rt.time.hard = -1
+    #       rlimits.enabled = false
+    #       rtportal.enabled = false
+    #       rtkit.enabled = true
+    #       #uclamp.min = 0
+    #       #uclamp.max = 1024
+    #     }
+    #     flags = [ ifexists nofail ]
+    #   }]
+    # '';
+    # fs.".config/pipewire/pipewire-pulse.conf.d/20-sane-rtkit.conf".symlink.text = ''
+    #   # documented: <repo:pipewire/pipewire:src/daemon/pipewire-pulse.conf.in>
+    #   context.modules = [{
+    #     name = libpipewire-module-rt
+    #     args = {
+    #       nice.level   = 0
+    #       rt.prio      = 0
+    #       #rt.time.soft = -1
+    #       #rt.time.hard = -1
+    #       rlimits.enabled = false
+    #       rtportal.enabled = false
+    #       rtkit.enabled = true
+    #       #uclamp.min = 0
+    #       #uclamp.max = 1024
+    #     }
+    #     flags = [ ifexists nofail ]
+    #   }]
+    # '';
 
     # see: <https://docs.pipewire.org/page_module_protocol_native.html>
     # defaults to placing the socket in /run/user/$id/{pipewire-0,pipewire-0-manager,...}
@@ -94,10 +153,11 @@ in
       # depends = [ "rtkit" ];
       # depends = [ "xdg-desktop-portal" ];  # for Realtime portal (dependency cycle)
       # env PIPEWIRE_LOG_SYSTEMD=false"
-      # env PIPEWIRE_DEBUG"*:3,mod.raop*:5,pw.rtsp-client*:5"
+      # env PIPEWIRE_DEBUG="*:3,mod.raop*:5,pw.rtsp-client*:5"
       command = pkgs.writeShellScript "pipewire-start" ''
         mkdir -p $PIPEWIRE_RUNTIME_DIR
-        exec pipewire
+        # nice -n -21 comes from pipewire defaults (niceness: -11)
+        exec nice -n -21 pipewire
       '';
       readiness.waitExists = [
         "$PIPEWIRE_RUNTIME_DIR/pipewire-0"
@@ -111,7 +171,7 @@ in
       partOf = [ "sound" ];
       command = pkgs.writeShellScript "pipewire-pulse-start" ''
         mkdir -p $XDG_RUNTIME_DIR/pulse
-        exec pipewire-pulse
+        exec nice -n -21 pipewire-pulse
       '';
       readiness.waitExists = [
         "$XDG_RUNTIME_DIR/pulse/native"
