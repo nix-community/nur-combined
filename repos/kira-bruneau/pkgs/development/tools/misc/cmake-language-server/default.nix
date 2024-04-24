@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonApplication
 , pythonOlder
 , fetchFromGitHub
@@ -68,5 +69,8 @@ buildPythonApplication rec {
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
     mainProgram = "cmake-language-server";
+
+    # pandas (required by poetry) is marked as broken on i686
+    broken = stdenv.isi686;
   };
 }
