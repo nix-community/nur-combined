@@ -6,7 +6,7 @@
 
 buildGoModule rec {
   pname = "wlhax";
-  version = "2022-10-11";
+  version = "unstable-2022-10-11";
 
   src = fetchFromSourcehut {
     owner = "~kennylevinsen";
@@ -15,8 +15,8 @@ buildGoModule rec {
     sha256 = "sha256-94Lxf5w+Kf6TAD7DFaMpWXWTprhiCAFeCyoUZa1e4y0=";
   };
 
-  vendorSha256 = "sha256-1zAKVg+l1frdE+PYgc0sjjQ+v/OJa9b7leikPwbDl3o=";
-
+  vendorHash = "sha256-1zAKVg+l1frdE+PYgc0sjjQ+v/OJa9b7leikPwbDl3o=";
+  
   meta = with lib; {
     description = "Wayland proxy that monitors and displays various application state";
     homepage = "https://git.sr.ht/~kennylevinsen/wlhax";

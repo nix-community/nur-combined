@@ -12,10 +12,8 @@ with pkgs; rec {
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
   typora-legacy = pkgs.callPackage ./pkgs/typora-legacy { };
   wiliwili = pkgs.callPackage ./pkgs/wiliwili { };
-  wio = pkgs.callPackage ./pkgs/wio { inherit wlroots14; };
   wldbg = pkgs.callPackage ./pkgs/wldbg { };
   wlhax = pkgs.callPackage ./pkgs/wlhax { };
-  wlroots14 = pkgs.callPackage ./pkgs/wlroots14 { };
   ukui-interface = pkgs.libsForQt5.callPackage ./pkgs/ukui-interface { };
   libkysdk-base = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-base { };
   #libkysdk-applications = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-applications { inherit libkysdk-base; };
