@@ -40,9 +40,9 @@ in [
   })
 
   (fetchpatch' {
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/292415";
     title = "sway/hyprland: cross compilation fixes";
-    hash = "sha256-IDf8OcZzFgw0DalxzBqbqP7TZVnZkzoRHQ51RlR1xWc=";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/292415";
+    hash = "sha256-e4yZGMBjL8gSa6cEZ87Txe4+GPhYelyE7IRd4TlV0qc=";
   })
 
   (fetchpatch' {
