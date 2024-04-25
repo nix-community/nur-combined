@@ -40,6 +40,7 @@ packageSet = do
   gitPkgBranch "gnome-shell-mobile-shell" "https://gitlab.gnome.org/verdre/gnome-shell.git" "mobile-shell"
   gitPkgBranch "mutter-mobile-shell" "https://gitlab.gnome.org/verdre/mutter.git" "mobile-shell"
   fishPlugins
+  linuxIntelTts
   tgSend
   dotTar
   icalinguaPlusPlus
@@ -84,6 +85,12 @@ icalinguaPlusPlus =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/" <> v <> "/app-x86_64.asar"
+
+linuxIntelTts :: PackageSet ()
+linuxIntelTts =
+  define $
+    package "linux-intel-lts"
+      `fromGitHubTag` ("intel", "linux-intel-lts", (includeRegex .~ Just "lts-v([0-9\\.]+)-linux-([0-9]+T[0-9]+Z)"))
 
 mstickereditor :: PackageSet ()
 mstickereditor =
