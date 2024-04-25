@@ -90,7 +90,7 @@ linuxIntelTts :: PackageSet ()
 linuxIntelTts =
   define $
     package "linux-intel-lts"
-      `fromGitHubTag` ("intel", "linux-intel-lts", (includeRegex .~ Just "lts-v([0-9\\.]+)-linux-([0-9]+T[0-9]+Z)"))
+      `fromGitHubTag` ("intel", "linux-intel-lts", includeRegex ?~ "lts-v([0-9\\.]+)-linux-([0-9]+T[0-9]+Z)")
 
 mstickereditor :: PackageSet ()
 mstickereditor =
