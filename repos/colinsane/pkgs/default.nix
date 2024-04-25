@@ -39,6 +39,7 @@ let
       gpodder = final'.gpodder-adaptive;
     };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
+    hackgregator = callPackage ./additional/hackgregator { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     koreader-from-src = callPackage ./additional/koreader-from-src { };
     landlock-sandboxer = callPackage ./additional/landlock-sandboxer { };
