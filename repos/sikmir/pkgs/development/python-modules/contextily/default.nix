@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "contextily";
-  version = "1.5.0";
+  version = "1.6.0";
   pyproject = true;
   disabled = python3Packages.pythonOlder "3.8";
 
@@ -10,7 +10,7 @@ python3Packages.buildPythonPackage rec {
     owner = "geopandas";
     repo = "contextily";
     rev = "v${version}";
-    hash = "sha256-JSEjxAD7e2LZktKBL5c+64HosY1VlOqn6+vbCX6MzVs=";
+    hash = "sha256-Pkw21EOjRiIhdZvCY6JJ2T2yjShF9Io4NAQZIIjeKpU=";
   };
 
   nativeBuildInputs = with python3Packages; [ setuptools-scm ];

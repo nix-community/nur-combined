@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "prettymapp";
-  version = "2022-12-18";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "chrieke";
     repo = "prettymapp";
-    rev = "26f945ef670cbede8f0561582d280664da09ae96";
-    hash = "sha256-u5LMTQCB6aqUYC/l8z+bQjk4cGiWR7uvRNoTwLxMDlM=";
+    rev = version;
+    hash = "sha256-6UO2+pvtm3t6LjC2v91NJVLVo74Bdx1xzpHqvL15UCg=";
   };
 
   postPatch = "sed -i 's/==.*//' requirements.txt";
@@ -20,6 +20,8 @@ python3Packages.buildPythonPackage rec {
   disabledTests = [
     "test_get_aoi_from_user_input_address"
     "test_get_aoi_from_user_input_rectangle"
+    "test_get_aoi_from_user_input_coordinates"
+    "test_get_osm_geometries_from_xml"
   ];
 
   meta = with lib; {
@@ -27,6 +29,5 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    broken = stdenv.isDarwin; # xyzservices
   };
 }
