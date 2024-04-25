@@ -28,6 +28,7 @@
     portal.enable = true;
   };
   programs = {
+    xwayland.enable = lib.mkForce false;
     dconf.enable = true;
     anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
     # niri.enable = true;
