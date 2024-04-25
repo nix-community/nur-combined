@@ -17,7 +17,6 @@ let
 in
 appimageTools.wrapType2 {
   inherit pname version src;
-  name = pname;
 
   extraPkgs = pkgs: with pkgs; [
     webkitgtk

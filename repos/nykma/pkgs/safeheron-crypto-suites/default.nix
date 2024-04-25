@@ -13,7 +13,6 @@ let
 in
 clangStdenv.mkDerivation {
   pname = "safeheron-crypto-suites";
-  name = "safeheron-crypto-suites";
   version = "1.1.1"; # CMakeFiles says 1.0.1, while git tag says 1.1.1 .
 
   srcs = [ src ];

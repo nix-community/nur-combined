@@ -13,7 +13,6 @@ let
 in
 clangStdenv.mkDerivation {
   pname = "multi-party-sig";
-  name = "multi-party-sig";
   version = "1.0.1";
 
   srcs = [ src ];

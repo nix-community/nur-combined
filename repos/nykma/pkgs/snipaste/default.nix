@@ -7,7 +7,6 @@ in
 appimageTools.wrapType2 {
   inherit version;
   pname = "snipaste";
-  name = "snipaste";
 
   src = fetchurl {
     url = "https://dl.snipaste.com/linux-beta";
