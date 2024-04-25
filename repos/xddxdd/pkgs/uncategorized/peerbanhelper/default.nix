@@ -10,16 +10,13 @@
 stdenvNoCC.mkDerivation rec {
   inherit (sources.peerbanhelper) pname version src;
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ];
+  dontUnpack = true;
 
-  sourceRoot = ".";
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin $out/opt
-    cp PeerBanHelper.jar $out/opt/peerbanhelper.jar
+    cp $src $out/opt/peerbanhelper.jar
 
     makeWrapper ${jre_headless}/bin/java $out/bin/peerbanhelper \
       --add-flags "-jar" \

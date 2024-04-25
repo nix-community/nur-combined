@@ -933,10 +933,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v3.1.4";
+    version = "v3.2.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v3.1.4/PeerBanHelper.Linux.v3.1.4.glibc.zip";
-      sha256 = "sha256-Qrx26S8IST4kaz+8BbUka2Y5KgauH4ttVMIf9MT2KBE=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v3.2.0/PeerBanHelper.v3.2.0.jar";
+      sha256 = "sha256-mkDhtc2pihoG3rawCLUdIL8A2imKOLKxTegRe3vzbAo=";
     };
   };
   phpmyadmin = {
