@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "12m3paz1h3npymy4yvzwkfqw6hl34g6y39i4shxvnkjb1db35bqd";
   };
 
-  vendorSha256 = "sha256-dWzojV3tDA5lLdpAQNC9NaADGyvV7dNOS3x8mfgNNtA=";
+  vendorHash = "sha256-dWzojV3tDA5lLdpAQNC9NaADGyvV7dNOS3x8mfgNNtA=";
 
   patches = [
     ./start-unit-stuck.patch

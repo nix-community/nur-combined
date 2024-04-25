@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = pins.firefox-history-merger.outPath;
 
-  vendorSha256 = "sha256-MSGoJk/UwqkN9mqL4hBlP4DsVcFR2aypcA3ELCmmTxI=";
+  vendorHash = "sha256-MSGoJk/UwqkN9mqL4hBlP4DsVcFR2aypcA3ELCmmTxI=";
 
   meta = with lib; {
     description = "Merge Firefox history and repair missing favicons with ease";
