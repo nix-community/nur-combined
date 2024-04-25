@@ -45,16 +45,20 @@ let
     in
     callPackage pkg { kernel = linux; };
 in
-{
+rec {
   grid = mergePkgs (
     lib.mapAttrs' (
       k: v: lib.nameValuePair (builtins.replaceStrings [ "." ] [ "_" ] k) (gridDriver k v)
     ) sources
   );
 
+  guest = grid;
+
   vgpu = mergePkgs (
     lib.mapAttrs' (
       k: v: lib.nameValuePair (builtins.replaceStrings [ "." ] [ "_" ] k) (vgpuDriver k v)
     ) sources
   );
+
+  host = vgpu;
 }
