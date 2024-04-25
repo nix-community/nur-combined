@@ -1023,10 +1023,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.7.0";
+      version = "7.8.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261289/castkodi-7.7.0.xpi";
-      sha256 = "4475ff5e2ecf822721e6cd14d0456ace1970af4c4d6bd8357efc1a77f9dee898";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269762/castkodi-7.8.0.xpi";
+      sha256 = "9603ef245aa119f36eab9137b089ff019e362e1c5b28f96c97d399e65e31c5e3";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -1830,10 +1830,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "126.0.20240422.91940";
+      version = "126.0.20240424.91756";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4268499/deutsch_de_language_pack-126.0.20240422.91940.xpi";
-      sha256 = "6de43141f036cb0367553c8ab888602671fc50e379b6f02f9c364fb0f72a7962";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269505/deutsch_de_language_pack-126.0.20240424.91756.xpi";
+      sha256 = "0688d6d111011c502f83a641b7a59d8c5e98e7b8317de19d49e90b2b01c37063";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2011,10 +2011,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.29.0";
+      version = "2.30.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4268669/dualsub-2.29.0.xpi";
-      sha256 = "53edda2340bdadd40375875cfce22b4bf2e0b534fe3abb3b1bc49e65ff5d5082";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269683/dualsub-2.30.0.xpi";
+      sha256 = "9e92f34d4f16bb5aec47a46c46b2ffb70a9ce839aebede8cfbe1e2ff66a83833";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2245,10 +2245,10 @@
     };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.124";
+      version = "2.0.124.2";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4264335/enhancer_for_youtube-2.0.124.xpi";
-      sha256 = "a8bf38d16878c7b90666e5d4319c3932661cb2a3e967e9a5b8559c132cb00c98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269135/enhancer_for_youtube-2.0.124.2.xpi";
+      sha256 = "5e1f6a81207adf2afb8c8860c87f8a7786c384433d128ce3a237b7339b9ee09f";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -2770,10 +2770,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "126.0.20240422.91940";
+      version = "126.0.20240424.91756";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4268526/francais_language_pack-126.0.20240422.91940.xpi";
-      sha256 = "7f5218f91b5ee135c330fcd29460ffce778fd2ad2ed01faa5f8ba9bf31b23b8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269541/francais_language_pack-126.0.20240424.91756.xpi";
+      sha256 = "daee17c42162a324514ec3be4dcd9367d388b567bda76258a4ebd4bebcca53d1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7145,10 +7145,10 @@
     };
     "notifier-for-github" = buildFirefoxXpiAddon {
       pname = "notifier-for-github";
-      version = "24.3.27";
+      version = "24.4.24";
       addonId = "{8d1582b2-ff2a-42e0-ba40-42f4ebfe921b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4256003/notifier_for_github-24.3.27.xpi";
-      sha256 = "31bfa71e5efadbcf9187369480e651722667a3eb03e204f5bde4563d89e37815";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269410/notifier_for_github-24.4.24.xpi";
+      sha256 = "db67b2867fbf39a92db382e4ad77ab39ff44a7369eb6b525bff1a8995dbeb1e9";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/notifier-for-github";
@@ -8393,10 +8393,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.16.4";
+      version = "1.16.7";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255648/proton_pass-1.16.4.xpi";
-      sha256 = "d68b2f151a0e143cb26956c767419cb4380f3deebb388159f946821886221f97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4267054/proton_pass-1.16.7.xpi";
+      sha256 = "29a44d48a794a87860f4ceeae1e27d1cb493f42194741041a94bc2caf9f40e7f";
       meta = with lib;
       {
         homepage = "https://proton.me";
