@@ -85,6 +85,7 @@ let
     (fromDb "hackerpublicradio.org" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
+    (fromDb "microarch.club" // tech)
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/money-stuff-the-podcast")  # Matt Levine
@@ -103,6 +104,7 @@ let
     (fromDb "sharkbytes.transistor.fm" // tech)  # Wireshark Podcast o_0
     (fromDb "sscpodcast.libsyn.com" // rat)  # Astral Codex Ten
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)  # Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)
+    (fromDb "theamphour.com" // tech)
     (fromDb "techtalesshow.com" // tech)  # Corbin Davenport
     (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow
     (fromDb "wakingup.libsyn.com" // pol)  # Sam Harris

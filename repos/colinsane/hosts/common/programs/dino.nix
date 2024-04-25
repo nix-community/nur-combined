@@ -97,17 +97,29 @@ in
       # audio buffering; see: <https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/FAQ#pipewire-buffering-explained>
       # dino defaults to 10ms mic buffer, which causes underruns, which Dino handles *very* poorly
       # as in, the other end of the call will just not receive sound from us for a couple seconds.
-      # pipewire uses power-of-two buffering for the mic itself. that would put us at 21.33 ms, but this env var supports only whole numbers (21ms ends up not power-of-two).
-      # also, Dino's likely still doing things in 10ms batches internally anyway.
+      # pipewire uses power-of-two buffering for the mic itself (by default), but this env var supports only whole numbers, which isn't quite reconcilable:
+      # - 1024/48000 = 21.33ms
+      # - 2048/48000 = 42.67ms
+      # - 4096/48000 = 85.33ms
+      # also, Dino's likely still doing things in 10ms batches internally.
+      #
+      # note that this number supposedly is just the buffer size which Dino asks Pulse (pipewire) to share with it.
+      # in theory, it's equivalent to adjusting pipewire's quanta setting, and so isn't additive to the existing pipewire buffers.
+      # (and would also be overriden by pipewire's quanta.min setting).
+      # but in practice, setting this seems to have some more effect beyond just the buffer sizes visible in `pw-top`.
       #
       # further: decrease the "niceness" of dino, so that it can take precedence over anything else.
       # ideally this would target just the audio processing, rather than the whole program.
       # pipewire is the equivalent of `nice -n -21`, so probably don't want to go any more extreme than that.
-      # nice -n -15 chosen arbitrarily; not optimized
+      # nice -n -15 chosen arbitrarily; not optimized (and seems to have very little impact in practice anyway).
+      # buffer size:
+      # - 1024 (PULSE_LATENCY_MSEC=20): `pw-top` shows several underruns per second.
+      # - 2048 (PULSE_LATENCY_MSEC=40): `pw-top` shows very few underruns. maybe 1-2 per minute. but i still get gaps in which the mic "disappears"
+      # - 4096 (PULSE_LATENCY_MSEC=100): `pw-top` shows 0 underruns.
       #
       # note that debug logging during calls produces so much journal spam that it pegs the CPU and causes dropped audio
       # env G_MESSAGES_DEBUG = "all";
-      command = "env PULSE_LATENCY_MSEC=20 nice -n -15 dino";
+      command = "env PULSE_LATENCY_MSEC=100 nice -n -15 dino";
     };
   };
 }
