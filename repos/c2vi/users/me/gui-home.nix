@@ -58,6 +58,7 @@
 		pmutils
 		cntr
 		nil
+    sshfs
 
 
     # gui packages
