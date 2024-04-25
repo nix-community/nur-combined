@@ -121,6 +121,8 @@ in
           # common typos
           "cd.." = "cd ..";
           "cd../" = "cd ../";
+          "ecit" = "exit";
+          "exi5" = "exit";
           "exiy" = "exit";
           # ls helpers (eza is a nicer `ls`
           "l" = "eza --oneline";  # show one entry per line
