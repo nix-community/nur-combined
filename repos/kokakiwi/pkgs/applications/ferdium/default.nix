@@ -198,7 +198,10 @@ in stdenv.mkDerivation (final: {
   '';
 
   meta = {
-    license = with lib; licenses.asl20;
+    description = "All your services in one place built by the community";
+    homepage = "https://ferdium.org/";
+    license = lib.licenses.asl20;
+    platforms = electron.meta.platforms;
     mainProgram = "ferdium";
   };
 })
