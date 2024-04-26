@@ -33,6 +33,14 @@ in [
   # and can be found with `nix-repl  > :lf .  > lastModifiedDate`
 
   (fetchpatch' {
+    # see: <https://github.com/NixOS/nixpkgs/pull/284562#issuecomment-2079104081>
+    title = "nixos/lemmy: fix nginx backend to proxy needed headers";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/306984";
+    saneCommit = "bd87a38b86f889a6902a356ab415eeead881766b";
+    hash = "sha256-53X4ssdp02C8NOUL5mlbhR7qwE9/KWp6iLmz1ljJopE=";
+  })
+
+  (fetchpatch' {
     title = "libjxl: fix cross compilation by only conditionally enabling plugins";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/306127";
     saneCommit = "044b3342d1500fb2b741e87e4d10894f4d8fd716";
