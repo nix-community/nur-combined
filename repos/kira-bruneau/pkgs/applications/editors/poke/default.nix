@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   doCheck = true;
-  nativeCheckInputs = lib.optionals finalAttrs.finalPackage.doCheck [ dejagnu ];
+  nativeCheckInputs = [ dejagnu ];
 
   postInstall = ''
     moveToOutput share/emacs "$out"
@@ -75,16 +75,17 @@ stdenv.mkDerivation (finalAttrs: {
       # Expect the text in format of '<a href="...">poke 2.0</a>'
       new_version="$(curl -s https://www.jemarch.net/poke |
           pcregrep -o1 '>poke ([0-9.]+)</a>')"
-      update-source-version ${finalAttrs.pname} "$new_version"
+      update-source-version poke "$new_version"
     '';
   };
 
-  meta = with lib; {
+  meta = {
     description = "Interactive, extensible editor for binary data";
     homepage = "http://www.jemarch.net/poke";
     changelog = "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${finalAttrs.version}";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres kira-bruneau ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ AndersonTorres kira-bruneau ];
+    platforms = lib.platforms.unix;
+    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 })
