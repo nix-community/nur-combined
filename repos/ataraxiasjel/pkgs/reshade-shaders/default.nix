@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation {
   pname = "reshade-shaders";
-  version = "unstable-2024-03-28";
+  version = "0-unstable-2024-03-28";
 
   src = fetchFromGitHub {
     owner = "crosire";

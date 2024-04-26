@@ -12,7 +12,7 @@
 }:
 let
   pname = "waydroid-script";
-  version = "unstable-2024-01-20";
+  version = "0-unstable-2024-01-20";
   src = fetchFromGitHub {
     repo = "waydroid_script";
     owner = "casualsnek";
@@ -47,7 +47,7 @@ in buildPythonApplication rec {
       inherit pname;
       desc = meta.description;
       version = builtins.replaceStrings [ "-" ] [ "." ]
-        (lib.strings.removePrefix "unstable-" version);
+        (lib.strings.removePrefix "0-unstable-" version);
     };
   in ''
     ln -s ${setup} setup.py

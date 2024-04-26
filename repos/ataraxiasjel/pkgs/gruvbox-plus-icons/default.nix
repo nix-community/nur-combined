@@ -5,15 +5,15 @@
 , nix-update-script
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "gruvbox-plus-icons";
-  version = "unstable-2024-04-11";
+  version = "5.3.1";
 
   src = fetchFromGitHub {
     owner = "SylEleuth";
     repo = "gruvbox-plus-icon-pack";
-    rev = "941a65c21fd62b3d630b17e08343c987939dab6c";
-    hash = "sha256-P18OCf4nnd3YJmoY3/AlTORhKsoY6wYukM9137pdsbA=";
+    rev = "v${version}";
+    hash = "sha256-0WTJQGLZVZ9EqK+e8GgFMAzDUdrdACR4wXE4khvm2+Y=";
   };
 
   dontBuild = true;
@@ -29,9 +29,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Gruvbox Plus icon pack for Linux desktops based on Gruvbox color theme";

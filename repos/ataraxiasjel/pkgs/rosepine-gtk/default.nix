@@ -10,7 +10,7 @@ builtins.mapAttrs
   (pname: attrs: stdenv.mkDerivation (attrs // {
     inherit pname;
 
-    version = "unstable-2023-02-20";
+    version = "0-unstable-2023-02-20";
 
     src = fetchFromGitHub {
       owner = "Fausto-Korpsvart";
