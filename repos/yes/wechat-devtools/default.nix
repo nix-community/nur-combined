@@ -21,7 +21,6 @@ appimageTools.wrapType2 {
 
   extraInstallCommands = ''
     DESKTOP_FILE=io.github.msojocs.wechat_devtools.desktop
-    mv $out/bin/${pname}-${version} $out/bin/${pname}
 
     install -Dm 444 ${appimageContents}/$DESKTOP_FILE -t $out/share/applications
     install -Dm 444  ${appimageContents}/${pname}.png -t $out/share/pixmaps
