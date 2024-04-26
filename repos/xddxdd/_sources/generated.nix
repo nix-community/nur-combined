@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d4347979bc7923ac6753ff2434d4dfaf7912e47d";
+    version = "ad538711f39d732c52c10a0216d969fd0e8e9c7e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d4347979bc7923ac6753ff2434d4dfaf7912e47d";
+      rev = "ad538711f39d732c52c10a0216d969fd0e8e9c7e";
       fetchSubmodules = false;
-      sha256 = "sha256-RXKFlEwaz8a0OJ0eOCZ05Of85MO9Sft1GaJ19Vl+waQ=";
+      sha256 = "sha256-WsdseN3moCNdadjeuX904+zzvBJBVXxYYP2wy7oP/O4=";
     };
-    date = "2024-04-23";
+    date = "2024-04-24";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -560,15 +560,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "2bb1d2584c275a861d2f763e2d16200541bc6f9d";
+    version = "9c8db18ec164492c352fe5748a8badc9f4ce3156";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "2bb1d2584c275a861d2f763e2d16200541bc6f9d";
+      rev = "9c8db18ec164492c352fe5748a8badc9f4ce3156";
       fetchSubmodules = false;
-      sha256 = "sha256-aoWHHsV1r0eVTQlm4nZcgCijI7aphkcC+JU1XUSYv/U=";
+      sha256 = "sha256-/BHe1nIiRMdcr33iGLB8NkB6I1qQi1Q3mtAcBFMZDas=";
     };
-    date = "2024-04-23";
+    date = "2024-04-25";
   };
   libqcef = {
     pname = "libqcef";
@@ -1035,34 +1035,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "8.2.2+ds-2+b1";
+    version = "8.2.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2+b1_amd64.deb";
-      sha256 = "sha256-BATxAZPBZY7qJdL1Q1yOMlbWWkbFEfCgxn8OJo/94ds=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-1_amd64.deb";
+      sha256 = "sha256-G8tbgCnrDO9m4XgvlIQCWKbRwjmljffTX6HS22hbXrc=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "8.2.2+ds-2+b1";
+    version = "8.2.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2+b1_arm64.deb";
-      sha256 = "sha256-Nvvi/pnL420sH1lkAgJEKJQsim4mPygB9OHgwEzDjFk=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-1_arm64.deb";
+      sha256 = "sha256-NqMh6ze9MMTIm22g8nz/bjZWjjfU0+xt7R7jGaFK9yo=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.2.2+ds-2+b1";
+    version = "8.2.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2+b1_armhf.deb";
-      sha256 = "sha256-WaaiSK+w3zvZh1pL20DPIWPgBtq96fs1bnbps8/dGZA=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-1_armhf.deb";
+      sha256 = "sha256-EZ8S+hZDLtcftqstv9Dgw4aHj8vM1pV+mX+atZHohEE=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.2.2+ds-2+b1";
+    version = "8.2.3+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.2+ds-2+b1_i386.deb";
-      sha256 = "sha256-7QDqOff3a7un/JGzKx6CcF5ntxRrLCwV1ugnCjciCTg=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-1_i386.deb";
+      sha256 = "sha256-BR8PXESxwE2x36XGYsP1cHP+jLqBpUeAmZIg4H6a2Ok=";
     };
   };
   qq-amd64 = {
@@ -1149,15 +1149,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "3a50bba1760135421599b9d050ce8abfbe372ded";
+    version = "b0c91af4c37f252e8a77264d0a365642e9c8ec71";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "3a50bba1760135421599b9d050ce8abfbe372ded";
+      rev = "b0c91af4c37f252e8a77264d0a365642e9c8ec71";
       fetchSubmodules = false;
-      sha256 = "sha256-jC+4aTj3cZ9yqbCLbS29wGwUm6WxeCiLfx9X5TEWl08=";
+      sha256 = "sha256-hK8+H9oQH8hvYWBLDLoPUkw8yEiEPFLPKFe06CSSU9w=";
     };
-    date = "2024-04-23";
+    date = "2024-04-26";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
