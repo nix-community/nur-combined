@@ -8,6 +8,7 @@ let
   inherit (lib)
     mkOption
     types
+    mkPackageOption
     mkEnableOption
     mkIf
     ;
@@ -26,8 +27,8 @@ in
         with types;
         submodule {
           options = {
-            enable = mkEnableOption (mdDoc "enable");
-            package = mkPackageOptionMD pkgs "metacubexd" { };
+            enable = mkEnableOption "enable";
+            package = mkPackageOption pkgs "metacubexd" { };
           };
         };
       default = {

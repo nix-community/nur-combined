@@ -26,7 +26,7 @@ in
             serve = mkOption {
               type = types.submodule {
                 options = {
-                  enable = mkEnableOption (lib.mdDoc "server");
+                  enable = mkEnableOption ("server");
                   port = mkOption { type = types.port; };
                 };
               };

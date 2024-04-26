@@ -16,7 +16,8 @@
     with pkgs;
     [
       rust-analyzer
-      nil
+      # nil
+      nixd
       shfmt
       nixfmt-rfc-style
       # taplo

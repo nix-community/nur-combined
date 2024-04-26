@@ -8,6 +8,7 @@
 let
   inherit (lib)
     mkOption
+    mkPackageOption
     types
     mkEnableOption
     mkIf
@@ -21,14 +22,14 @@ in
 
   options = {
     services.realm = {
-      enable = mkEnableOption (lib.mdDoc "realm");
+      enable = mkEnableOption "realm";
 
       settings = mkOption {
         default = { };
         type = types.submodule { freeformType = settingsFormat.type; };
       };
 
-      package = mkPackageOptionMD pkgs "realm" { };
+      package = mkPackageOption pkgs "realm" { };
     };
   };
 

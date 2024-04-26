@@ -8,6 +8,7 @@
 let
   inherit (lib)
     mkOption
+    mkPackageOption
     types
     mkEnableOption
     mkIf
@@ -21,14 +22,14 @@ in
 
   options = {
     services.phantomsocks = {
-      enable = mkEnableOption (lib.mdDoc "phantomsocks");
+      enable = mkEnableOption "phantomsocks";
 
       settings = mkOption {
         default = { };
         type = types.submodule { freeformType = settingsFormat.type; };
       };
 
-      package = mkPackageOptionMD pkgs "phantomsocks" { };
+      package = mkPackageOption pkgs "phantomsocks" { };
     };
   };
 

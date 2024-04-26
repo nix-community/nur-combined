@@ -197,6 +197,7 @@
     };
     resign.url = "github:oluceps/resign";
     nil.url = "github:oxalica/nil";
+    nixd.url = "github:nix-community/nixd";
     nix-direnv.url = "github:nix-community/nix-direnv";
     nix-ld = {
       url = "github:Mic92/nix-ld";

@@ -24,7 +24,7 @@ in
           options = {
             name = mkOption { type = types.str; };
             package = mkPackageOption pkgs "tuic" { };
-            serve = mkEnableOption (lib.mdDoc "server");
+            serve = mkEnableOption "server";
             configFile = mkOption {
               type = types.str;
               default = "/none";

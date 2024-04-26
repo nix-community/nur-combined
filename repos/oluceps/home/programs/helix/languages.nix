@@ -9,6 +9,9 @@
         provideFormatter = true;
       };
     };
+    nixd = {
+      command = "nixd";
+    };
     vscode-html-language-server = {
       command = "html-languageserver";
       args = [ "--stdio" ];
@@ -127,6 +130,7 @@
       formatter = {
         command = "nixfmt";
       };
+      language-servers = [ "nixd" ];
     }
     {
       name = "json";
