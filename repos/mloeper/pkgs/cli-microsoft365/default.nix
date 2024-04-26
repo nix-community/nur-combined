@@ -36,11 +36,13 @@ stdenv.mkDerivation
     export PATH="${nodeDependencies}/bin:$PATH"
     mkdir -p $out/bin
    
-    cp -r dist package.json allCommands.json $out/
+    install -d $out/docs/docs
+    cp -r dist package.json allCommands.json csom.json $out/
+    cp -r docs/docs/_clisettings.mdx docs/docs/cmd $out/docs/docs
     ln -s ${nodeDependencies}/lib/node_modules $out/node_modules
 
     # create cli binary
-    makeWrapper ${pkgs.nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs ]}
+    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs ]}
   '';
 
   meta = with lib; {
