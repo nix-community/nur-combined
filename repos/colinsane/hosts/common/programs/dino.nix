@@ -22,13 +22,12 @@
 # - mic is sometimes disabled at call start despite presenting as enabled
 #   - fix is to toggle it off -> on in the Dino UI
 # - default mic gain is WAY TOO MUCH (heavily distorted)
-# - opening pavucontrol during a call causes pipewire to crash, and after pw crash the dino call is permanently mute
 # - on lappy/desktop, right-clicking the mic button allows to toggle audio devices, but impossible to trigger this on moby/touch screen!
 # - TODO: see if Dino calls work better with `echo full > /sys/kernel/debug/sched/preempt`
 #
 # probably fixed:
 # - once per 1-2 minutes dino will temporarily drop mic input:
-#   - `rtp-WRNING: plugin.vala:148: Warning in pipeline: Can't record audio fast enough
+#   - `rtp-WARNING: plugin.vala:148: Warning in pipeline: Can't record audio fast enough
 #   - this was *partially* fixed by bumping the pipewire mic buffer to 2048 samples (from ~512)
 #   - this was further fixed by setting PULSE_LATENCY_MSEC=20.
 #   - possibly Dino should be updated internally: `info.rate / 100` -> `info.rate / 50`.
@@ -51,7 +50,13 @@ in
       };
     };
 
-    packageUnwrapped = pkgs.dino.overrideAttrs (upstream: {
+    packageUnwrapped = (pkgs.dino.override {
+      # XXX(2024/04/24): build without echo cancelation (i.e. force WITH_VOICE_PROCESSOR to be undefined).
+      # this means that if the other end of the call is on speaker phone, i'm liable to hear my own voice
+      # leave their speaker, enter their mic, and then return to me.
+      # the benefit is a >50% reduction in CPU use. insignificant on any modern PC; make-or-break on a low-power Pinephone.
+      webrtc-audio-processing = null;
+    }).overrideAttrs (upstream: {
       # i'm updating experimentally to see if it improves call performance.
       # i don't *think* this is actually necessary; i don't notice any difference.
       version = "0.4.3-unstable-2024-04-01";
@@ -114,12 +119,12 @@ in
       # nice -n -15 chosen arbitrarily; not optimized (and seems to have very little impact in practice anyway).
       # buffer size:
       # - 1024 (PULSE_LATENCY_MSEC=20): `pw-top` shows several underruns per second.
-      # - 2048 (PULSE_LATENCY_MSEC=40): `pw-top` shows very few underruns. maybe 1-2 per minute. but i still get gaps in which the mic "disappears"
-      # - 4096 (PULSE_LATENCY_MSEC=100): `pw-top` shows 0 underruns.
+      # - 2048 (PULSE_LATENCY_MSEC=50): `pw-top` shows very few underruns: maybe 1-5 per minute. with voice processor disabled, this works well. with it enabled, i still get gaps in which the mic "disappears".
+      # - 4096 (PULSE_LATENCY_MSEC=100): `pw-top` shows 0 underruns. with voice processor disabled, i seem to be permanently muted. with it enabled, this works well.
       #
       # note that debug logging during calls produces so much journal spam that it pegs the CPU and causes dropped audio
       # env G_MESSAGES_DEBUG = "all";
-      command = "env PULSE_LATENCY_MSEC=100 nice -n -15 dino";
+      command = "env PULSE_LATENCY_MSEC=50 nice -n -15 dino";
     };
   };
 }
