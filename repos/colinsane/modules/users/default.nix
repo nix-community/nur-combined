@@ -49,6 +49,15 @@ let
           restart of the service (if applicable) is blocked on this command.
         '';
       };
+      startCommand = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          command which is run to start the service.
+          this command is expected to exit once the service is up, contrary to the normal `command` argument.
+          mutually exclusive to `command`.
+        '';
+      };
       readiness.waitCommand = mkOption {
         type = types.nullOr (types.coercedTo types.package toString types.str);
         default = null;

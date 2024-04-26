@@ -62,10 +62,13 @@ let
   # }
   fsToDerivation = fs: fsItemToDerivation "/" { dir = fs; };
 
-  # infers the service type from the arguments and creates an attrset usable by `fsToDerivation`.
+  # infers some service settings from the arguments and creates an attrset usable by `fsToDerivation`.
   # also configures the service for logging, if applicable.
-  serviceToFs = { name, check, contents, depends, finish, run }: let
-    type = if run != null then "longrun" else "bundle";
+  # type can be:
+  # - "longrun"
+  # - "bundle"
+  # - "oneshot"?
+  serviceToFs = { name, check, contents, depends, finish, run, type }: let
     logger = serviceToFs' {
       name = "logger:${name}";
       consumerFor = name;
@@ -75,8 +78,8 @@ let
   in (serviceToFs' {
     inherit name check depends finish run type;
     contents = maybe (type == "bundle") contents;
-    producerFor = maybe (type == "longrun") "logger:${name}";
-  }) // (lib.optionalAttrs (type == "longrun") logger);
+    producerFor = maybe (type != "bundle") "logger:${name}";
+  }) // (lib.optionalAttrs (type != "bundle") logger);
 
   serviceToFs'= {
     name,
@@ -221,7 +224,7 @@ let
 
   # transform the `user.services` attrset into a s6 services list.
   s6SvcsFromConfigServices = services: lib.mapAttrsToList
-    (name: service: {
+    (name: service: rec {
       inherit name;
       check = service.readiness.waitCommand;
       contents = builtins.attrNames (
@@ -231,7 +234,13 @@ let
         lib.filterAttrs (_: cfg: lib.elem name cfg.dependencyOf) services
       );
       finish = service.cleanupCommand;
-      run = service.command;
+      inherit (if service.startCommand != null then
+          { type="oneshot"; run = service.startCommand; }
+        else if service.command != null then
+          { type="longshot"; run = service.command; }
+        else
+          { type="bundle"; run = null; }
+      ) type run;
     })
     services
   ;

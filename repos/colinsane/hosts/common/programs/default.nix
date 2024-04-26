@@ -29,6 +29,7 @@
     ./dino.nix
     ./dissent.nix
     ./dtrx.nix
+    ./eg25-control.nix
     ./element-desktop.nix
     ./engrampa.nix
     ./epiphany.nix

@@ -9,8 +9,8 @@ let
   };
 in
 {
-  gps = serviceButton "systemd" "eg25-control-gps" "";  # GPS services; other icons: gps, ⌖, 🛰, 🌎, 
-  cell-modem = serviceButton "systemd" "eg25-control-powered" "󰺐";  # icons: 5g, 📡, 📱, ᯤ, ⚡, , 🌐, 📶, 🗼, 󰀂, , 󰺐, 󰩯
+  gps = serviceButton "s6" "eg25-control-gps" "";  # GPS services; other icons: gps, ⌖, 🛰, 🌎, 
+  cell-modem = serviceButton "s6" "eg25-control-powered" "󰺐";  # icons: 5g, 📡, 📱, ᯤ, ⚡, , 🌐, 📶, 🗼, 󰀂, , 󰺐, 󰩯
   vpn = serviceButton "systemd" "wg-quick-vpn-servo" "vpn::hn";
 
   gnome-calls = serviceButton "s6" "gnome-calls" "SIP";

@@ -64,6 +64,5 @@
     "dialout"  # TODO: figure out if dialout is required. that's for /dev/ttyUSB1, but geoclue probably doesn't read that?
   ];
 
-  sane.services.eg25-control.enable = true;
   sane.programs.where-am-i.enableFor.user.colin = true;
 }
