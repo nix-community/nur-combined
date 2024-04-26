@@ -13,6 +13,7 @@
 # to solve captchas, you also need these browser extensions
 # https://github.com/RemiRigal/Yape
 # https://github.com/Tampermonkey/tampermonkey
+# https://github.com/guilryder/chrome-extensions/tree/main/xframe_ignore
 
 { lib
 , fetchFromGitHub
@@ -30,13 +31,13 @@ buildPythonApplication rec {
 
   # versions https://github.com/pyload/pyload/issues/4339
   # https://pypi.org/project/pyload-ng/#history
-  version = "0.5.0b3.dev81"; # 2024-02-29
+  version = "0.5.0b3.dev82"; # 2024-04-21
 
   src = fetchFromGitHub {
     owner = "pyload";
     repo = "pyload";
-    rev = "72dc08d7b560cf30d1b420c9c9760e37233dc799";
-    sha256 = "sha256-JZuuGW5rKLyKiQAfWDFXMYtBGlXqv1bv6t2gJcNsOy4=";
+    rev = "08a759aaf2f7f776801821f582e310bae6a09308";
+    hash = "sha256-B7W0r2QqhaY5lmocvZ8UVwG2y2Qz8CaHGIocQgVGt8U=";
   };
 
   # relax versions
@@ -47,15 +48,17 @@ buildPythonApplication rec {
   # TODO add more deps, so we can use more features
   # https://github.com/pyload/pyload/blob/main/setup.cfg
   buildInputs = [
+  ] ++ (with python3.pkgs; [
+    paver
+  ]);
+
+  propagatedBuildInputs = [
+    # TODO are these actually available on runtime?
     unrar # unfree
     rhino
     spidermonkey
     gocr
   ] ++ (with python3.pkgs; [
-    paver
-  ]);
-
-  propagatedBuildInputs = with python3.pkgs; [
     pycurl
     jinja2
     # fix: error: Package ‘python3.10-Beaker-1.11.0’ in /nix/store/qb3dg4cx5jzk3pa8szzi0ziwnqy33p50-source/pkgs/development/python-modules/beaker/default.nix:72 is marked as insecure, refusing to evaluate.
@@ -87,7 +90,11 @@ buildPythonApplication rec {
     bitmath
     setuptools # pkg_resources https://github.com/pyload/pyload/issues/4143
     certifi
-  ];
+    # optional dependencies
+    colorlog # colorful console logging
+    pillow # for some CAPTCHA plugin
+    slixmpp # XMPP plugin
+  ]);
 
   doCheck = false; # FIXME?
 
