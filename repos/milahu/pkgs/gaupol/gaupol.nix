@@ -28,12 +28,12 @@ https://discourse.nixos.org/t/how-to-provide-gstreamer-to-a-python-gtk-applicati
 
 buildPythonPackage rec {
   pname = "gaupol";
-  version = "1.10.1.20220221";
+  version = "1.14.1"; # 2024-04-02
   src = fetchFromGitHub {
     owner = "otsaloma";
     repo = "gaupol";
-    rev = "5415ecf12b46c2d61259b066104141938eb6e2b3";
-    sha256 = "hYnIwQjs3HBwOAurBZNFyJ7oXFRkrFcgc96tZNVpUk0=";
+    rev = "d851b882dda98f7fc5a7a6dc749ba8c405ad470a";
+    hash = "sha256-g2EHIxeag3d4LioeuVQdbOaDcA09HdAJiF7Af9+7Xjs=";
   };
   propagatedBuildInputs = [
     pygobject3 # gi
