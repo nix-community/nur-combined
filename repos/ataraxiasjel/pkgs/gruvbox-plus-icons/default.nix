@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "SylEleuth";
     repo = "gruvbox-plus-icon-pack";
     rev = "v${version}";
-    hash = "sha256-0WTJQGLZVZ9EqK+e8GgFMAzDUdrdACR4wXE4khvm2+Y=";
+    hash = "sha256-Y+wNmZTVWsg6Hn+fak71jnoZ72Cz/8YYpGWkKr4+C9Q=";
   };
 
   dontBuild = true;
