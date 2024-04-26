@@ -200,22 +200,24 @@
       # platforms-android-31
       # sources-android-31
     ];
+  programs = {
+    vscode = {
+      enable = true;
+      package = pkgs.vscode.fhsWithPackages (
+        ps: with ps; [
+          rustup
+          zlib
+        ]
+      );
+    };
 
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscode.fhsWithPackages (
-      ps: with ps; [
-        rustup
-        zlib
-      ]
-    );
-  };
+    pandoc.enable = true;
 
-  programs.pandoc.enable = true;
-
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs; [ obs-studio-plugins.wlrobs ];
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs; [ obs-studio-plugins.wlrobs ];
+    };
+    swww.enable = true;
   };
 
   gtk = {

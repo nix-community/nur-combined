@@ -33,6 +33,65 @@ nix.settings = {
 };
 ```
 
+## structure
+
+```
+.
+├── age.nix       # agenix rekey config
+├── ci.nix        # both for \n
+├── default.nix   # compatible with nur repo check
+├── flake.lock
+├── flake.nix
+├── fn
+│   ├── alert.ts  # prometheus alert bridge for ntfy
+│   └── f         # nushell module with some functions
+├── home                
+│   ├── default.nix     # home-manager nixos module toplevel
+│   ├── graphBase.nix   # graphic settings
+│   ├── home.nix        # general settings, optionally loads programs and graph config
+│   └── programs (dir)
+├── hosts
+│   ├── default.nix     # colmena settings
+│   ├── hastur (dir)    # machine, to run heavy task
+│   ├── bootstrap (dir) # minimal config for bootstraping, no colmena
+│   ├── resq (dir)      # minimal config for remote resuce, no colmena, with wireguard
+│   ├── livecd (dir)    # livecd
+│   ├── graphBase.nix   # general settings
+│   ├── lib.nix         # common lib
+│   ├── nodens (dir)    # server
+│   ├── persist.nix     # impermanence settings, optional loaded by hosts
+│   ├── secureboot.nix  # lanzaboote secureboot settings
+│   ├── sysctl.nix      # sysctl
+│   ├── sysvars.nix
+│   └── ......          # other server config similar to nodens
+├── justfile
+├── LICENSE
+├── misc.nix
+├── modules (dir)       # nixosModules, autoload by flake, appended to nixosConfig defaultly
+├── overlays.nix
+├── packages.nix        # nixosConfig syswide global packages
+├── pkgs (dir)          # packages, autoload by flake, append to overlay
+├── sec (dir)           # agenix-rekey pubkeys, rekeyed secrets
+├── srv (dir)           # wrapper beyound nixosModule `services.`, predefined service option for reuse
+└── users.nix
+```
+
+#### srv
+
+This is designed for easy play with more services and better reuse service config.
+
+```
+nixosModule option  predefined & repack   srv option
+   services.${}             =>              srv.${}
+
+srv.foo = {
+  enable = true;
+  override = {
+    oldOption = "new"; # override option predefined in /srv/foo.nix
+  };
+}
+```
+
 
 ## References
 
