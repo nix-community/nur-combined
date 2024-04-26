@@ -8,11 +8,11 @@
 
 stdenv.mkDerivation {
   pname = "vhs-decode-auto-audio-align";
-  version = "c21dfede5";
+  version = "1.0.0";
 
   src = fetchurl {
-    url = "https://gitlab.com/wolfre/vhs-decode-auto-audio-align/-/jobs/5875926180/artifacts/raw/vhs-decode-auto-audio-align_0.0.0-c21dfede5.zip";
-    hash = "sha256-FEQ4yhEpuguZmHQ/i7zrahPACgLQ9ATtd6YQRY705dQ=";
+    url = "https://gitlab.com/wolfre/vhs-decode-auto-audio-align/-/jobs/6727665225/artifacts/raw/vhs-decode-auto-audio-align_1.0.0.zip";
+    hash = "sha256-kC50CiGTB3J3LA4E6HNZv7tAkY16zeKQRA/u0WtJ3QE=";
   };
 
   nativeBuildInputs = [
