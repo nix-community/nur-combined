@@ -37,7 +37,7 @@ stdenv.mkDerivation
     mkdir -p $out/bin
    
     install -d $out/docs/docs
-    cp -r dist package.json allCommands.json csom.json $out/
+    cp -r dist package.json allCommands.json allCommandsFull.json csom.json $out/
     cp -r docs/docs/_clisettings.mdx docs/docs/cmd $out/docs/docs
     ln -s ${nodeDependencies}/lib/node_modules $out/node_modules
 
