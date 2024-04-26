@@ -270,7 +270,6 @@ lib.makeScope newScope (
     gpsdate = callPackage ./gnss/gpsdate { };
     pygnssutils = callPackage ./gnss/pygnssutils { };
     pygpsclient = callPackage ./gnss/pygpsclient { };
-    pynmeagps = callPackage ./gnss/pynmeagps { };
     pyrtcm = callPackage ./gnss/pyrtcm { };
     pyspartn = callPackage ./gnss/pyspartn { };
     pyubx2 = callPackage ./gnss/pyubx2 { };
