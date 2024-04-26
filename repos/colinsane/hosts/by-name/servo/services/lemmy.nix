@@ -68,6 +68,17 @@ in {
   services.nginx.virtualHosts."lemmy.uninsane.org" = {
     forceSSL = true;
     enableACME = true;
+    # XXX(2024/04/25): fix that incoming federation actions are rejected for invalid HTTP signatures.
+    # see: <https://github.com/NixOS/nixpkgs/pull/284562#issuecomment-2079104081>
+    # of all these, we only *need* the `Host` header. the others are just nice-to-have.
+    locations."/".extraConfig = ''
+      proxy_set_header        Host $host;
+      proxy_set_header        X-Real-IP $remote_addr;
+      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header        X-Forwarded-Proto $scheme;
+      proxy_set_header        X-Forwarded-Host $host;
+      proxy_set_header        X-Forwarded-Server $host;
+    '';
   };
 
   sane.dns.zones."uninsane.org".inet.CNAME."lemmy" = "native";
