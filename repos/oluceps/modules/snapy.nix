@@ -5,8 +5,14 @@
   utils,
   ...
 }:
-with lib;
 let
+  inherit (lib)
+    mkOption
+    types
+    nameValuePair
+    mkIf
+    ;
+
   cfg = config.services.snapy;
   inherit (utils.systemdUtils.unitOptions) unitOption;
 in

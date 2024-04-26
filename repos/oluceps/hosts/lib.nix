@@ -64,15 +64,6 @@ in
 
   genCredPath = config: key: (key + ":" + config.age.secrets.${key}.path);
 
-  genNtfyMsgScriptPath =
-    header: level: body:
-    pkgs.lib.getExe (
-      pkgs.nuenv.writeScriptBin {
-        name = "post-ntfy-msg";
-        script = "http post --password $in --headers [${header}] https://ntfy.nyaw.xyz/${level} ${body}";
-      }
-    );
-
   capitalize =
     str:
     with pkgs.lib.strings;

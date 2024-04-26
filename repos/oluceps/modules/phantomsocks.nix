@@ -5,9 +5,14 @@
   ...
 }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkOption
+    types
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.services.phantomsocks;
   settingsFormat = pkgs.formats.json { };
   settingsFile = settingsFormat.generate "config.json" cfg.settings;

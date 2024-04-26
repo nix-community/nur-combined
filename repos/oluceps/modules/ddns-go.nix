@@ -4,9 +4,14 @@
   lib,
   ...
 }:
-with lib;
 let
   cfg = config.services.ddns-go;
+  inherit (lib)
+    mkOption
+    types
+    mkPackageOption
+    mkIf
+    ;
 in
 {
   options.services.ddns-go = {

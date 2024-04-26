@@ -5,14 +5,21 @@
   ...
 }:
 
-with lib;
 let
+  inherit (lib)
+    mkOption
+    types
+    mkPackageOption
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.services.scx;
 in
 {
   options.services.scx = {
     enable = mkEnableOption "scx service";
-    package = mkPackageOptionMD pkgs "scx" { };
+    package = mkPackageOption pkgs "scx" { };
     scheduler = mkOption {
       type = types.str;
       default = "scx_rusty";

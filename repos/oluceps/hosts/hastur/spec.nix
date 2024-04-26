@@ -32,8 +32,6 @@
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
       # restic-backups-solid.serviceConfig.Environment = [ "GOGC=20" ];
-      # btrfs-scrub-persist.serviceConfig.ExecStopPost =
-      #   lib.genNtfyMsgScriptPath "tags red_circle prio high" "error" "btrfs scrub failed on hastur";
     };
 
     # systemd.services.tester = {

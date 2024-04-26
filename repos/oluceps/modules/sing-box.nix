@@ -4,8 +4,14 @@
   lib,
   ...
 }:
-with lib;
 let
+  inherit (lib)
+    mkOption
+    types
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.services.sing-box;
 in
 {

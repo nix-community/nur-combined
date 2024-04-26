@@ -4,8 +4,15 @@
   pkgs,
   ...
 }:
-with lib;
 let
+  inherit (lib)
+    mkOption
+    types
+    mkPackageOption
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.services.mosproxy;
   configFormat = pkgs.formats.yaml { };
   configFile = configFormat.generate "mosproxy.yaml" cfg.config;

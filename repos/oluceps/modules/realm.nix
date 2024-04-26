@@ -5,9 +5,14 @@
   ...
 }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkOption
+    types
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.services.realm;
   settingsFormat = pkgs.formats.json { };
   settingsFile = settingsFormat.generate "config.json" cfg.settings;

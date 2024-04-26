@@ -4,8 +4,15 @@
   lib,
   ...
 }:
-with lib;
 let
+  inherit (lib)
+    mkOption
+    types
+    mkPackageOption
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.services.srs;
 in
 {

@@ -1,8 +1,20 @@
 { lib, pkgs, ... }@args:
 
-with lib;
 let
-  allSrvPath = (lib.subtractLists [ "default.nix" ] (with builtins; attrNames (readDir ./.)));
+  inherit (lib)
+    types
+    subtractLists
+    removeSuffix
+    filter
+    genAttrs
+    mkEnableOption
+    mkOption
+    mkIf
+    ;
+
+  inherit (types) lazyAttrsOf unspecified;
+
+  allSrvPath = (subtractLists [ "default.nix" ] (with builtins; attrNames (readDir ./.)));
 
   allSrvName = map (removeSuffix ".nix") allSrvPath;
 
@@ -11,12 +23,8 @@ in
 {
   options.srv = genAttrs allSrvName (sn: {
     enable = mkEnableOption "${sn} service";
-    /*
-      Introduce this in per hosts and use with
-      srv = { a = { enable = true; override = { opt1 = false; };};}
-    */
     override = mkOption {
-      type = lib.types.unspecified;
+      type = lazyAttrsOf unspecified;
       default = { };
     };
   });

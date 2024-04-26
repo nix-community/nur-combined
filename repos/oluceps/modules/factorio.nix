@@ -5,9 +5,17 @@
   ...
 }:
 
-with lib;
-
 let
+  inherit (lib)
+    filterAttrsRecursive
+    mkOption
+    mkEnableOption
+    mkIf
+    optionalString
+    optional
+    literalExpression
+    types
+    ;
   cfg = config.services.factorio;
   name = "Factorio";
   stateDir = "/var/lib/${cfg.stateDirName}";

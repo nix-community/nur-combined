@@ -5,8 +5,15 @@
   pkgs,
   ...
 }:
-with lib;
 let
+  inherit (lib)
+    mkOption
+    types
+    mkPackageOption
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.services.mosdns;
   configFormat = pkgs.formats.yaml { };
   configFile =

@@ -5,33 +5,37 @@
   ...
 }:
 
-with lib;
-
 let
   cfg = config.services.cloudflared;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
 in
 {
   disabledModules = [ "services/networking/cloudflared.nix" ];
   options.services.cloudflared = {
-    enable = mkEnableOption (lib.mdDoc "Cloudflare Tunnel client daemon (formerly Argo Tunnel)");
+    enable = mkEnableOption "Cloudflare Tunnel client daemon (formerly Argo Tunnel)";
 
     user = mkOption {
       type = types.str;
       default = "cloudflared";
-      description = lib.mdDoc "User account under which Cloudflared runs.";
+      description = "User account under which Cloudflared runs.";
     };
 
     group = mkOption {
       type = types.str;
       default = "cloudflared";
-      description = lib.mdDoc "Group under which cloudflared runs.";
+      description = "Group under which cloudflared runs.";
     };
 
     package = mkOption {
       type = types.package;
       default = pkgs.cloudflared;
       defaultText = "pkgs.cloudflared";
-      description = lib.mdDoc "The package to use for Cloudflared.";
+      description = "The package to use for Cloudflared.";
     };
 
     environmentFile = mkOption {

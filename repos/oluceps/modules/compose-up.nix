@@ -4,9 +4,9 @@
   lib,
   ...
 }:
-with lib;
 let
   cfg = config.services.compose-up;
+  inherit (lib) types mkOption mkIf;
 in
 {
   options.services.compose-up = {

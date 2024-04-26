@@ -4,9 +4,15 @@
   lib,
   ...
 }:
-with lib;
 let
   cfg = config.services.hysteria;
+  inherit (lib)
+    mkOption
+    types
+    mkPackageOption
+    mkEnableOption
+    mkIf
+    ;
 in
 {
   options.services.hysteria = {
