@@ -192,6 +192,11 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description = "CLI QuickTime AAC/ALAC encoder [binary build]";
+    longDescription = ''
+      example use:
+
+      ffmpeg -i in.ac3 -f wav -ar 48K - | qaac -s -V100 - -o out.m4a
+    '';
     homepage = "https://github.com/nu774/qaac";
     # https://github.com/nu774/qaac/raw/master/COPYING
     license = licenses.unfree; # FIXME: nix-init did not found a license

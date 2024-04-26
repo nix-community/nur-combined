@@ -1,0 +1,24 @@
+--- a/LibREDasm/CMakeLists.txt
++++ b/LibREDasm/CMakeLists.txt
+@@ -12,8 +12,9 @@
+ 
+ # set(CPM_USE_LOCAL_PACKAGES ON)
+ include(cmake/CPM.cmake) # https://github.com/TheLartians/CPM.cmake
+-CPMAddPackage("gh:gabime/spdlog@1.9.2")
+-CPMAddPackage("gh:nlohmann/json@3.10.5")
++
++find_package(spdlog)
++find_package(nlohmann_json)
+ 
+ if(ENABLE_TESTS)
+     add_subdirectory(tests)
+@@ -70,6 +71,9 @@
+ target_link_libraries(${PROJECT_NAME} PRIVATE taocpp::json spdlog nlohmann_json::nlohmann_json)
+ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+ 
++# fix: error: spdlog/fmt/bundled/core.h: No such file or directory
++target_compile_definitions(${PROJECT_NAME} PRIVATE SPDLOG_FMT_EXTERNAL)
++
+ set_target_properties(${PROJECT_NAME} PROPERTIES
+                       POSITION_INDEPENDENT_CODE ON
+                       CXX_EXTENSIONS OFF

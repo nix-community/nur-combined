@@ -762,6 +762,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   spiral = callPackage ./pkgs/development/compilers/spiral { };
 
+  redasm = callPackage ./pkgs/development/tools/analysis/redasm { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
