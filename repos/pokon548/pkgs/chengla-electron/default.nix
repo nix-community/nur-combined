@@ -23,9 +23,6 @@ appimageTools.wrapAppImage {
 
   extraInstallCommands = ''
     # Add desktop convencience stuffs
-    ls $out/bin/
-    sleep 10
-    mv $out/bin/${pname}-* ${pname}
     install -Dm444 ${appimageContents}/chengla-linux-unofficial.desktop -t $out/share/applications
     install -Dm444 ${appimageContents}/chengla-linux-unofficial.png -t $out/share/pixmaps
     substituteInPlace $out/share/applications/chengla-linux-unofficial.desktop \
