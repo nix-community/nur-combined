@@ -142,12 +142,12 @@ let
   wechat = stdenvNoCC.mkDerivation
     rec {
       pname = "wechat-universal";
-      version = "1.0.0.238";
+      version = "1.0.0.241";
 
       src = {
         x86_64-linux = fetchurl {
           url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
-          hash = "sha256-NxAmZ526JaAzAjtAd9xScFnZBuwD6i2wX2/AEqtAyWs=";
+          hash = "sha256-J2ipc3byBzvVFe+B1k+nsgZo+mwRpBd6LtF/ybAzmKM=";
         };
         aarch64-linux = fetchurl {
           url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_arm64.deb";
