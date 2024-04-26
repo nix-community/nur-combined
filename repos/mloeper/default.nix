@@ -10,6 +10,14 @@
 , ...
 }:
 
+let
+  mloeper = {
+    name = "Martin Löper";
+    email = "martin.loeper@nesto-software.de";
+    github = "MartinLoeper";
+    githubId = 5209395;
+  };
+in
 rec {
   modules = import ./modules;
 
@@ -41,4 +49,9 @@ rec {
     openvpn3 = openvpn3; # we use our custom openvpn3 package which is a bump v20 -> v21
   };
   nodejs_20_11_1 = pkgs.callPackage ./pkgs/nodejs { };
+
+  # TODO(mloeper): try to package postman-cli again in the future if it is not using vercel anymore
+  # postman-cli = pkgs.callPackage ./pkgs/postman-cli {
+  #   inherit mloeper;
+  # };
 }
