@@ -134,5 +134,8 @@
 
     # make Pinephone front LEDs writable by user.
     SUBSYSTEM=="leds", DEVPATH=="*/*:indicator", RUN+="${chmod} g+w /sys%p/brightness", RUN+="${chown} :video /sys%p/brightness"
+
+    # make Modem controllable by user
+    DRIVER=="modem-power", RUN+="${chmod} g+w /sys%p/powered", RUN+="${chown} :networkmanager /sys%p/powered"
   '';
 }

@@ -177,6 +177,7 @@ let
     (fromDb "rifters.com/crawl" // uncat)  # No Moods, Ads or Cutesy Fucking Icons
     (fromDb "righto.com" // tech)  # Ken Shirriff
     (fromDb "rootsofprogress.org" // rat)  # Jason Crawford
+    (fromDb "samuel.dionne-riel.com" // tech)  # SamuelDR
     (fromDb "sagacioussuricata.com" // tech)  # ian (Sanctuary)
     (fromDb "semiaccurate.com" // tech)
     (fromDb "sideways-view.com" // rat)  # Paul Christiano

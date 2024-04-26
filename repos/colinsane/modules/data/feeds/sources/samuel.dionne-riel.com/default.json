@@ -1,0 +1,9 @@
+{
+  "description": "RSS feed for samueldr's blog",
+  "is_podcast": false,
+  "site_name": "Home \u2014 Samuel Dionne-Riel",
+  "site_url": "https://samuel.dionne-riel.com",
+  "title": "Samuel Dionne-Riel \u2014 Blog",
+  "url": "https://samuel.dionne-riel.com/blog/index.xml",
+  "velocity": 0.003
+}

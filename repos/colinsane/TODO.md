@@ -4,6 +4,7 @@
 - moby: my mobile ISP is adding spoofed AAAA records that break things like wireguard
   - it only does this when i use their DNS resolvers though: if i run my own recursive resolver, they won't mess with it.
 - moby: mpv uosc always starts at 40% volume
+  - is this just mpv remembering its last-played volume?
 - moby: rofi crashes sporadically
 - mpv: no way to exit fullscreen video on moby
   - uosc hides controls on FS, and touch doesn't support unhiding
