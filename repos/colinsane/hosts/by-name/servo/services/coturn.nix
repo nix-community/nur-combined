@@ -24,50 +24,57 @@
 #   that is NOT the case when the STUN server and client A are on the same LAN
 #   even if client A contacts the STUN server via its WAN address with port reflection enabled.
 #   hence, there's no obvious way to put the STUN server on the same LAN as either client and expect the rest to work.
+# - there an old version which *half worked*, which is:
+#   - run the turn server in the root namespace.
+#   - bind the turn server to the veth connecting it to the VPN namespace (so it sends outgoing traffic to the right place).
+#   - NAT the turn port range from VPN into root namespace (so it receives incomming traffic).
+#   - this approach would fail the prosody conversations.im check, but i didn't notice *obvious* call routing errors.
 { lib, ... }:
 let
-  # TODO: this range could be larger, but right now that's costly because each element is its own UPnP forward
-  # TURN port range (inclusive)
-  turnPortLow = 49152;
-  turnPortHigh = 49167;
+  # TURN port range (inclusive).
+  # default coturn behavior is to use the upper quarter of all ports. i.e. 49152 - 65535.
+  # i believe TURN allocations expire after either 5 or 10 minutes of inactivity.
+  turnPortLow = 49152; # 49152 = 0xc000
+  turnPortHigh = turnPortLow + 256;
   turnPortRange = lib.range turnPortLow turnPortHigh;
 in
 {
-  sane.ports.ports = lib.mkMerge ([
-    {
-      "3478" = {
-        # this is the "control" port.
-        # i.e. no client data is forwarded through it, but it's where clients request tunnels.
-        protocol = [ "tcp" "udp" ];
-        # visibleTo.lan = true;
-        # visibleTo.wan = true;
-        visibleTo.ovpn = true;
-        description = "colin-stun-turn";
-      };
-      "5349" = {
-        # the other port 3478 also supports TLS/DTLS, but presumably clients wanting TLS will default 5349
-        protocol = [ "tcp" ];
-        # visibleTo.lan = true;
-        # visibleTo.wan = true;
-        visibleTo.ovpn = true;
-        description = "colin-stun-turn-over-tls";
-      };
-    }
-  ] ++ (builtins.map
-    (port: {
-      "${builtins.toString port}" = let
-        count = port - turnPortLow + 1;
-        numPorts = turnPortHigh - turnPortLow + 1;
-      in {
-        protocol = [ "tcp" "udp" ];
-        # visibleTo.lan = true;
-        # visibleTo.wan = true;
-        visibleTo.ovpn = true;
-        description = "colin-turn-${builtins.toString count}-of-${builtins.toString numPorts}";
-      };
-    })
-    turnPortRange
-  ));
+  # the port definitions are only needed if running in the root net namespace
+  # sane.ports.ports = lib.mkMerge ([
+  #   {
+  #     "3478" = {
+  #       # this is the "control" port.
+  #       # i.e. no client data is forwarded through it, but it's where clients request tunnels.
+  #       protocol = [ "tcp" "udp" ];
+  #       # visibleTo.lan = true;
+  #       # visibleTo.wan = true;
+  #       visibleTo.ovpn = true;  # forward traffic from the VPN to the root NS
+  #       description = "colin-stun-turn";
+  #     };
+  #     "5349" = {
+  #       # the other port 3478 also supports TLS/DTLS, but presumably clients wanting TLS will default 5349
+  #       protocol = [ "tcp" ];
+  #       # visibleTo.lan = true;
+  #       # visibleTo.wan = true;
+  #       visibleTo.ovpn = true;
+  #       description = "colin-stun-turn-over-tls";
+  #     };
+  #   }
+  # ] ++ (builtins.map
+  #   (port: {
+  #     "${builtins.toString port}" = let
+  #       count = port - turnPortLow + 1;
+  #       numPorts = turnPortHigh - turnPortLow + 1;
+  #     in {
+  #       protocol = [ "tcp" "udp" ];
+  #       # visibleTo.lan = true;
+  #       # visibleTo.wan = true;
+  #       visibleTo.ovpn = true;
+  #       description = "colin-turn-${builtins.toString count}-of-${builtins.toString numPorts}";
+  #     };
+  #   })
+  #   turnPortRange
+  # ));
 
   services.nginx.virtualHosts."turn.uninsane.org" = {
     # allow ACME to procure a cert via nginx for this domain
@@ -113,12 +120,15 @@ in
     "verbose"
     # "Verbose"  #< even MORE verbosity than "verbose"
     # "no-multicast-peers"  # disables sending to IPv4 broadcast addresses (e.g. 224.0.0.0/3)
-    "listening-ip=10.0.1.5"
+    # "listening-ip=10.0.1.5" "external-ip=185.157.162.178"  #< 2024/04/25: works, if running in root namespace
+    "listening-ip=185.157.162.178" "external-ip=185.157.162.178"
+
+    # old attempts:
     # "external-ip=185.157.162.178/10.0.1.5"
-    "external-ip=185.157.162.178"
     # "listening-ip=10.78.79.51"  # can be specified multiple times; omit for *
     # "external-ip=97.113.128.229/10.78.79.51"
     # "external-ip=97.113.128.229"
     # "mobility"  # "mobility with ICE (MICE) specs support" (?)
   ];
+  systemd.services.coturn.serviceConfig.NetworkNamespacePath = "/run/netns/ovpns";
 }

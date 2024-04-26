@@ -20,7 +20,7 @@
           --ignore-panel=HOSTS \
           --ws-url=wss://sink.uninsane.org:443/ws \
           --port=7890 \
-          -o /var/lib/uninsane/sink/index.html
+          -o /var/lib/goaccess/index.html
       '';
       ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       Type = "simple";
@@ -28,17 +28,19 @@
       RestartSec = "10s";
 
       # hardening
-      WorkingDirectory = "/tmp";
+      # TODO: run as `goaccess` user and add `goaccess` user to group `nginx`.
       NoNewPrivileges = true;
+      PrivateDevices = "yes";
       PrivateTmp = true;
       ProtectHome = "read-only";
-      ProtectSystem = "strict";
-      SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @privileged @reboot @resources @setuid @swap @raw-io";
-      ReadOnlyPaths = "/";
-      ReadWritePaths = [ "/proc/self" "/var/lib/uninsane/sink" ];
-      PrivateDevices = "yes";
       ProtectKernelModules = "yes";
       ProtectKernelTunables = "yes";
+      ProtectSystem = "strict";
+      ReadOnlyPaths = [ "/var/log/nginx" ];
+      ReadWritePaths = [ "/proc/self" "/var/lib/goaccess" ];
+      StateDirectory = "goaccess";
+      SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @privileged @reboot @resources @setuid @swap @raw-io";
+      WorkingDirectory = "/var/lib/goaccess";
     };
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
@@ -49,7 +51,7 @@
     addSSL = true;
     enableACME = true;
     # inherit kTLS;
-    root = "/var/lib/uninsane/sink";
+    root = "/var/lib/goaccess";
 
     locations."/ws" = {
       proxyPass = "http://127.0.0.1:7890";
