@@ -6,7 +6,7 @@
 , xsel
 , nodejs_18
 , makeWrapper
-, defaultBrowserBinaryPath ? "${pkgs.google-chrome}/bin/google-chrome"
+, defaultBrowserBinaryPath ? "${pkgs.firefox}/bin/firefox"
 , ...
 }:
 
@@ -58,5 +58,6 @@ stdenv.mkDerivation
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
     mainProgram = "m365";
+    aliases = [ "m365" ];
   };
 }
