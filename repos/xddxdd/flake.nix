@@ -72,6 +72,7 @@
         }:
         {
           packages = import ./pkgs null { inherit inputs pkgs; };
+          legacyPackages = import ./pkgs "legacy" { inherit inputs pkgs; };
 
           formatter = pkgs.nixfmt-rfc-style;
         };

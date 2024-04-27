@@ -9,6 +9,7 @@
 # - null: Default mode
 # - "ci": from Garnix CI
 # - "nur": from NUR bot
+# - "legacy": from legacyPackages
 mode:
 {
   pkgs ? import <nixpkgs> { },
@@ -47,7 +48,13 @@ mkScope (
   self: pkg:
   let
     # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
-    mergePkgs = self.callPackage ../helpers/merge-pkgs.nix { enableWrapper = mode != "nur"; };
+    mergePkgs = self.callPackage ../helpers/merge-pkgs.nix {
+      enableWrapper =
+        !(builtins.elem mode [
+          "nur"
+          "legacy"
+        ]);
+    };
   in
   {
     # Binary cache information
