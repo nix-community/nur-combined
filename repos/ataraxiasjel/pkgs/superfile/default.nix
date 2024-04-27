@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , makeWrapper
 , exiftool
-, nix-update-script
 }:
 
 buildGoModule rec {
@@ -26,7 +25,7 @@ buildGoModule rec {
       --prefix PATH : ${lib.makeBinPath [ exiftool ]}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = ./update.sh;
 
   meta = with lib; {
     description = "Key Managament Server for Object Storage and more";

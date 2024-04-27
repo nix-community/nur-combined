@@ -77,6 +77,7 @@ jobs:
       if: (github.event_name == 'schedule') && (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
       with:
         commit_message: Automated package updates
+        file_pattern: 'pkgs/**'
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
