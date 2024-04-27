@@ -50,6 +50,7 @@ rec {
   };
   nodejs_20_11_1 = pkgs.callPackage ./pkgs/nodejs { };
   cli-microsoft365 = pkgs.callPackage ./pkgs/cli-microsoft365 { };
+  m365 = cli-microsoft365; # alias for cli-microsoft365
 
   # TODO(mloeper): try to package postman-cli again in the future if it is not using vercel anymore
   # postman-cli = pkgs.callPackage ./pkgs/postman-cli {

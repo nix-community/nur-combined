@@ -6,6 +6,7 @@
 , xsel
 , nodejs_18
 , makeWrapper
+, defaultBrowserBinaryPath ? "${pkgs.google-chrome}/bin/google-chrome"
 , ...
 }:
 
@@ -45,7 +46,7 @@ stdenv.mkDerivation
     ln -s ${nodeDependencies}/lib/node_modules $out/node_modules
 
     # create cli binary
-    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel ]}
+    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --set BROWSER "${defaultBrowserBinaryPath}" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel ]}
   '';
 
   meta = with lib; {
