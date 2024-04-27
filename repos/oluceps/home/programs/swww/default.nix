@@ -56,9 +56,8 @@ in
           "XDG_CACHE_HOME=/home/${user}/.cache"
           "WAYLAND_DISPLAY=wayland-1"
         ];
-        ExecStartPre = "${pkgs.coreutils}/bin/sleep 1";
         ExecStart = ''
-          ${pkgs.swww}/bin/swww img --resize=no -f Nearest ${
+          ${pkgs.swww}/bin/swww img --resize=no ${
             pkgs.fetchurl {
               url = "https://s3.nyaw.xyz/misc/u6-fit.gif";
               sha256 = "17a3xjp91v4syj0rhxylwl9rbvfn73dk0f688hhsm8j0lipbg3r1";
