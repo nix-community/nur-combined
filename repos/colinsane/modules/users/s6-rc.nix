@@ -68,7 +68,7 @@ let
   # - "longrun"
   # - "bundle"
   # - "oneshot"?
-  serviceToFs = { name, check, contents, depends, finish, run, up, type }: let
+  serviceToFs = { name, check, contents, depends, down, finish, run, up, type }: let
     logger = serviceToFs' {
       name = "logger:${name}";
       consumerFor = name;
@@ -76,7 +76,7 @@ let
       type = "longrun";
     };
   in (serviceToFs' {
-    inherit name check depends finish run type up;
+    inherit name check depends down finish run type up;
     contents = maybe (type == "bundle") contents;
     # XXX: apparently `oneshot` services can't have loggers: only `longrun` can log.
     producerFor = maybe (type == "longrun") "logger:${name}";
@@ -89,10 +89,11 @@ let
     consumerFor ? null,
     contents ? null,  #< bundle contents
     depends ? [],
+    up ? null,
     finish ? null,
     producerFor ? null,
     run ? null,
-    up ? null,
+    down ? null,
   }: let
     maybe-notify = lib.optionalString (check != null) "s6-notifyoncheck -n 0 ";
     makeAbortable = op: maybe-notify: cli: ''
@@ -151,7 +152,10 @@ let
       "notification-fd".text = maybe (check != null) "3";
       "producer-for".text = maybe (producerFor != null) producerFor;
       "run".executable = maybe (run != null) (makeAbortable "run" maybe-notify run);
-      "up".executable = maybe (up != null) (makeAbortable "up" "" up);
+      # oneshot transitions are stored inline in the database, and so can't use #!/bin/sh so easily
+      "down".text = maybe (down != null) down;
+      "up".text = maybe (up != null) up;
+      # "up".executable = maybe (up != null) (makeAbortable "up" "" up);
     };
   };
 
@@ -216,7 +220,8 @@ let
       --replace-fail 's6-fdholder-daemon -1 -i data/rules -- s' 's6-fdholder-daemon -1 -i data/rules -- ${livedir}/servicedirs/s6rc-fdholder/s' \
       --replace-fail 's6-ipcclient -l0 -- s' 's6-ipcclient -l0 -- ${livedir}/servicedirs/s6rc-fdholder/s'
     substituteInPlace "s6rc-oneshot-runner/run" \
-      --replace-fail 's6-ipcserver-socketbinder -- s' 's6-ipcserver-socketbinder -- ${livedir}/servicedirs/s6rc-oneshot-runner/s'
+      --replace-fail 's6-ipcserver-socketbinder -- s' 's6-ipcserver-socketbinder -- ${livedir}/servicedirs/s6rc-oneshot-runner/s' \
+      --replace-fail 's6-rc-oneshot-run -l ../.. ' 's6-rc-oneshot-run -l ${livedir} '
     ln -s "${livedir}/servicedirs/s6rc-fdholder/s" s6rc-fdholder/s
     ln -s "${livedir}/servicedirs/s6rc-fdholder/s.lock" s6rc-fdholder/s.lock
     ln -s "${livedir}/servicedirs/s6rc-oneshot-runner/s" s6rc-oneshot-runner/s
@@ -237,7 +242,8 @@ let
       depends = service.depends ++ builtins.attrNames (
         lib.filterAttrs (_: cfg: lib.elem name cfg.dependencyOf) services
       );
-      finish = service.cleanupCommand;
+      down = maybe (type == "oneshot") service.cleanupCommand;
+      finish = maybe (type == "longrun") service.cleanupCommand;
       run = service.command;
       up = service.startCommand;
       type = if service.startCommand != null then
