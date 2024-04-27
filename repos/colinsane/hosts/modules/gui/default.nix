@@ -98,7 +98,7 @@ in
     # "picard"  # music tagging
     # "libsForQt5.plasmatube"  # Youtube player
     "signal-desktop"
-    "spot"  # Gnome Spotfy client
+    "spot"  # Gnome Spotify client
     # "sublime-music"
     # "tdesktop"  # broken on phosh
     # "tokodon"

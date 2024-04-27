@@ -1862,10 +1862,15 @@ in with final; {
     let
       rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
     in {
+      # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
       postPatch = (upstream.postPatch or "") + ''
-        substituteInPlace build-aux/cargo.sh --replace \
-          'OUTPUT_BIN="$CARGO_TARGET_DIR"' \
-          'OUTPUT_BIN="$CARGO_TARGET_DIR/${rustTargetPlatform}"'
+        substituteInPlace src/meson.build \
+          --replace-fail \
+            "find_program('blueprint-compiler')" \
+            "'env', 'GI_TYPELIB_PATH=${buildPackages.gdk-pixbuf.out}/lib/girepository-1.0:${buildPackages.harfbuzz.out}/lib/girepository-1.0:${buildPackages.gtk4.out}/lib/girepository-1.0:${buildPackages.graphene}/lib/girepository-1.0:${buildPackages.libadwaita}/lib/girepository-1.0:${buildPackages.pango.out}/lib/girepository-1.0', find_program('blueprint-compiler')" \
+          --replace-fail \
+            "meson.project_build_root() / cargo_output" \
+            "meson.project_build_root() / 'src' / '${rust.envVars.rustHostPlatformSpec}' / rust_target / meson.project_name()"
       '';
       # nixpkgs sets CARGO_BUILD_TARGET to the build platform target, so correct that.
       buildPhase = ''
