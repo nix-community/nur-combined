@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/nix/store/za4cw9phkrarysb2h5n0pfnqwa3h5s80-nix-update-1.3.1/bin/.nix-update-wrapped", line 9, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/nix/store/za4cw9phkrarysb2h5n0pfnqwa3h5s80-nix-update-1.3.1/lib/python3.11/site-packages/nix_update/__init__.py", line 291, in main
+    package = update(options)
+              ^^^^^^^^^^^^^^^
+  File "/nix/store/za4cw9phkrarysb2h5n0pfnqwa3h5s80-nix-update-1.3.1/lib/python3.11/site-packages/nix_update/update.py", line 361, in update
+    update_hash = update_version(
+                  ^^^^^^^^^^^^^^^
+  File "/nix/store/za4cw9phkrarysb2h5n0pfnqwa3h5s80-nix-update-1.3.1/lib/python3.11/site-packages/nix_update/update.py", line 286, in update_version
+    raise UpdateError("Could not find a url in the derivations src attribute")
+nix_update.errors.UpdateError: Could not find a url in the derivations src attribute
