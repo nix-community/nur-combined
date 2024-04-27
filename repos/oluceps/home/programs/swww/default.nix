@@ -1,8 +1,8 @@
 {
   pkgs,
   lib,
-  user,
   config,
+  user,
   ...
 }:
 let
@@ -16,40 +16,55 @@ in
 
     systemd.user.services.swww-daemon = {
       Unit = {
+        Requires = [ "graphical-session.target" ];
         PartOf = [ "graphical-session.target" ];
         After = [ "graphical-session.target" ];
       };
-
       Service = {
+        Type = "notify";
         ExecStart = "${pkgs.swww}/bin/swww-daemon";
         Restart = "on-failure";
+        Environment = [
+          "WAYLAND_DISPLAY=wayland-1"
+          "XDG_RUNTIME_DIR=/run/user/1000"
+          "PATH=${
+            lib.makeBinPath [
+              pkgs.procps
+              pkgs.swww
+            ]
+          }"
+        ];
       };
-
       Install = {
         WantedBy = [ "sway-session.target" ];
       };
     };
+
     systemd.user.services.swww = {
       Unit = {
         PartOf = [ "graphical-session.target" ];
-        Requires = [
-          "swww-daemon.service"
-          "graphical-session.target"
-        ];
         After = [
           "graphical-session.target"
           "swww-daemon.service"
         ];
+        Requires = [ "swww-daemon.service" ];
       };
-
       Service = {
-        ExecStart = "${lib.getExe pkgs.swww} img --resize=fit ${
-          pkgs.fetchurl {
-            url = "https://s3.nyaw.xyz/misc/u6.gif";
-            hash = "sha256-rlYUaXCdbPNO0yC1ytw2j/U8aMbpVKsRc3uwpClFCgM=";
-          }
-        }";
+        Restart = "on-failure";
         Type = "oneshot";
+        Environment = [
+          "XDG_CACHE_HOME=/home/${user}/.cache"
+          "WAYLAND_DISPLAY=wayland-1"
+        ];
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 1";
+        ExecStart = ''
+          ${pkgs.swww}/bin/swww img --resize=no -f Nearest ${
+            pkgs.fetchurl {
+              url = "https://s3.nyaw.xyz/misc/u6-fit.gif";
+              sha256 = "17a3xjp91v4syj0rhxylwl9rbvfn73dk0f688hhsm8j0lipbg3r1";
+            }
+          }
+        '';
       };
 
       Install = {

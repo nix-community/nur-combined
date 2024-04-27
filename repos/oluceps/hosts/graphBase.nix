@@ -155,6 +155,7 @@
             typst
             cosmic-term
             acpi
+            swww
           ];
           bluetooth = [ bluetuith ];
 
