@@ -16,12 +16,15 @@ fi
 
 # parse help arg
 __help=0
-if [ $# == 0 ]; then __help=1: else
+if [ $# == 0 ]; then __help=1; else
 for a in "$@"; do case "$a" in
   -h|--help) __help=1; break;;
 esac; done
 fi
-if [ $__help = 1 ] && [ "$QAAC_SHOW_REAL_HELP" != 1 ]; then
+if [ -v QAAC_SHOW_REAL_HELP ] && [ "$QAAC_SHOW_REAL_HELP" = 1 ]; then
+  __help=0
+fi
+if [ $__help = 1 ]; then
   # show cached help text. this is terribly slow with wine
   cat $qaac_unwrapped/share/doc/qaac/$bin.txt
   exit 1
@@ -62,6 +65,7 @@ _o=() # Specify output filename
 __lyrics=()
 __artwork=()
 __chapter=() # Set chapter from file.
+__help=0
 
 # parse args
 g(){ if [ -n "$s" ]; then v="${s[0]}"; s=("${s[@]:1}"); return; fi; echo "error: missing value for argument $a" >&2; exit 1; }
@@ -76,8 +80,9 @@ while [ ${#s[@]} != 0 ]; do a="${s[0]}"; s=("${s[@]:1}"); case "$a" in
   --lyrics) g; __lyrics+=("$v"); A+=("$a" "$v"); continue;;
   --artwork) g; __artwork+=("$v"); A+=("$a" "$v"); continue;;
   --chapter) g; __chapter+=("$v"); A+=("$a" "$v"); continue;;
+  -h|--help) __help=1; continue;;
   # skip unused args
-  -h|--help|--formats|--he|--adts|--no-smart-padding|--check|-A|--alac|-D|--decode|--caf|--play|--no-dither|--peak|-N|--normalize|--limiter|--no-delay|--no-matrix-normalize|--no-optimize|-s|--silent|--verbose|-i|--ignorelength|--threading|-n|--nice|--sort-args|-S|--stat|--fname-from-tag|--concat|-R|--raw|--copy-artwork) A+=("$a");;
+  --formats|--he|--adts|--no-smart-padding|--check|-A|--alac|-D|--decode|--caf|--play|--no-dither|--peak|-N|--normalize|--limiter|--no-delay|--no-matrix-normalize|--no-optimize|-s|--silent|--verbose|-i|--ignorelength|--threading|-n|--nice|--sort-args|-S|--stat|--fname-from-tag|--concat|-R|--raw|--copy-artwork) A+=("$a");;
   -a|--abr|-V|--tvbr|-v|--cvbr|-c|--cbr|-q|--quality|-r|--rate|--lowpass|-b|--bits-per-sample|--gain|--drc|--start|--end|--delay|--num-priming|--gapless-mode|--matrix-preset|--chanmap|--chanmask|--text-codepage|--fname-format|--cue-tracks|--raw-channels|--raw-rate|--raw-format|--native-resampler|--title|--artist|--band|--album|--grouping|--composer|--comment|--genre|--date|--track|--disk|--compilation|--artwork-size|--tag|--tag-from-file|--long-tag) g; A+=("$a" "$v");;
   -[^-]*)
     p=()
@@ -91,6 +96,8 @@ while [ ${#s[@]} != 0 ]; do a="${s[0]}"; s=("${s[@]:1}"); case "$a" in
   *) v="$a"; a='--'; __+=("$v"); A+=("$v");;
 esac; done
 
+if [ $# == 0 ]; then __help=1; fi
+
 # require output file path for whitelisting, aka binding
 # otherwise qaac writes to ${input_path%.*}.{m4a,alac,wav,caf} or stdin.{m4a,alac,wav,caf}
 # we could derive the output file path from options  but that is more work
@@ -98,7 +105,7 @@ esac; done
 # -A, --alac             ALAC encoding mode -> ${input_path%.*}.alac (?)
 # -D, --decode           Decode to a WAV file. -> ${input_path%.*}.wav
 # --caf                  Output to CAF file instead of M4A/WAV/AAC. -> ${input_path%.*}.caf
-if [ ${#_o[@]} = 0 ]; then
+if [ $__help = 0 ] && [ ${#_o[@]} = 0 ]; then
   echo "error: no output file path" >&2
   echo >&2
   echo "examples:" >&2
@@ -111,7 +118,7 @@ if [ ${#_o[@]} = 0 ]; then
 fi
 
 # by default, qaac picks the last -o path. lets be more strict here
-if [ ${#_o[@]} != 1 ]; then
+if [ $__help = 0 ] && [ ${#_o[@]} != 1 ]; then
   echo "error: multiple output file paths" >&2
   exit 1
 fi
