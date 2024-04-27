@@ -4,15 +4,6 @@
 
 let
   sources = {
-    "@aashutoshrathi/word-wrap-1.2.6" = {
-      name = "_at_aashutoshrathi_slash_word-wrap";
-      packageName = "@aashutoshrathi/word-wrap";
-      version = "1.2.6";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz";
-        sha512 = "1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==";
-      };
-    };
     "@adobe/css-tools-4.3.3" = {
       name = "_at_adobe_slash_css-tools";
       packageName = "@adobe/css-tools";
@@ -1444,13 +1435,13 @@ let
         sha512 = "lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==";
       };
     };
-    "@swc/core-1.4.17" = {
+    "@swc/core-1.5.0" = {
       name = "_at_swc_slash_core";
       packageName = "@swc/core";
-      version = "1.4.17";
+      version = "1.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@swc/core/-/core-1.4.17.tgz";
-        sha512 = "tq+mdWvodMBNBBZbwFIMTVGYHe9N7zvEaycVVjfvAx20k1XozHbHhRv+9pEVFJjwRxLdXmtvFZd3QZHRAOpoNQ==";
+        url = "https://registry.npmjs.org/@swc/core/-/core-1.5.0.tgz";
+        sha512 = "fjADAC5gOOX54Rpcr1lF9DHLD+nPD5H/zXLtEgK2Ez3esmogT+LfHzCZtUxqetjvaMChKhQ0Pp0ZB6Hpz/tCbw==";
       };
     };
     "@swc/counter-0.1.3" = {
@@ -1462,13 +1453,13 @@ let
         sha512 = "e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==";
       };
     };
-    "@swc/helpers-0.5.10" = {
+    "@swc/helpers-0.5.11" = {
       name = "_at_swc_slash_helpers";
       packageName = "@swc/helpers";
-      version = "0.5.10";
+      version = "0.5.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@swc/helpers/-/helpers-0.5.10.tgz";
-        sha512 = "CU+RF9FySljn7HVSkkjiB84hWkvTaI3rtLvF433+jRSBL2hMu3zX5bGhHS8C80SM++h4xy8hBSnUHFQHmRXSBw==";
+        url = "https://registry.npmjs.org/@swc/helpers/-/helpers-0.5.11.tgz";
+        sha512 = "YNlnKRWF2sVojTpIyzwou9XoTNbzbzONwRhOoniEioF1AtaitTvVZblaQRrAzChWQ1bLYyYSWzM18y4WwgzJ+A==";
       };
     };
     "@swc/types-0.1.6" = {
@@ -1480,13 +1471,13 @@ let
         sha512 = "/JLo/l2JsT/LRd80C3HfbmVpxOAJ11FO2RCEslFrgzLltoP9j8XIbsyDcfCt2WWyX+CM96rBoNM+IToAkFOugg==";
       };
     };
-    "@swc/wasm-1.4.17" = {
+    "@swc/wasm-1.5.0" = {
       name = "_at_swc_slash_wasm";
       packageName = "@swc/wasm";
-      version = "1.4.17";
+      version = "1.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@swc/wasm/-/wasm-1.4.17.tgz";
-        sha512 = "9KMxIxpui8B/Kzrrqj8z474HugBUjpPIrcpPxZu0mNU3Roj3FEAQj4NxQO2qbvCZpL9IeCRAbPto1qEZK+g0iQ==";
+        url = "https://registry.npmjs.org/@swc/wasm/-/wasm-1.5.0.tgz";
+        sha512 = "440UKx9lqYaCNjHMoUfsHRreB3L7diqz2+OrDzgORhtnPekuDR4xXILsTLDCabWU9KM/EbCDFcAVTilkBzz5kA==";
       };
     };
     "@szmarczak/http-timer-1.1.2" = {
@@ -4630,13 +4621,13 @@ let
         sha512 = "iirFqlP3tiFoedNZ7dQcjvechunl054VbW6Ki38T/pabgXMAncduSE0ZXLeVGn1NbmcUJF9Z5TC0EvQ4RIpP9Q==";
       };
     };
-    "electron-to-chromium-1.4.747" = {
+    "electron-to-chromium-1.4.750" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.747";
+      version = "1.4.750";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.747.tgz";
-        sha512 = "+FnSWZIAvFHbsNVmUxhEqWiaOiPMcfum1GQzlWCg/wLigVtshOsjXHyEFfmt6cFK6+HkS3QOJBv6/3OPumbBfw==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.750.tgz";
+        sha512 = "9ItEpeu15hW5m8jKdriL+BQrgwDTXEL9pn4SkillWFu73ZNNNQ2BKKLS+ZHv2vC9UkNhosAeyfxOf/5OSeTCPA==";
       };
     };
     "elliptic-6.5.5" = {
@@ -8662,13 +8653,13 @@ let
         sha512 = "+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==";
       };
     };
-    "optionator-0.9.3" = {
+    "optionator-0.9.4" = {
       name = "optionator";
       packageName = "optionator";
-      version = "0.9.3";
+      version = "0.9.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/optionator/-/optionator-0.9.3.tgz";
-        sha512 = "JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==";
+        url = "https://registry.npmjs.org/optionator/-/optionator-0.9.4.tgz";
+        sha512 = "6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==";
       };
     };
     "ora-5.4.1" = {
@@ -13106,7 +13097,6 @@ let
     version = "3.5.1";
     src = fetchurl { url = "https://registry.npmjs.org/preact-cli/-/preact-cli-3.5.1.tgz"; sha1 = "c0ab61e0004cbd74936c32c6bf50011f99bb58dc"; };
     dependencies = [
-      sources."@aashutoshrathi/word-wrap-1.2.6"
       sources."@adobe/css-tools-4.3.3"
       sources."@ampproject/remapping-2.3.0"
       (sources."@apideck/better-ajv-errors-0.3.6" // {
@@ -13288,11 +13278,11 @@ let
       sources."@rollup/pluginutils-3.1.0"
       sources."@sindresorhus/is-0.14.0"
       sources."@surma/rollup-plugin-off-main-thread-2.2.3"
-      sources."@swc/core-1.4.17"
+      sources."@swc/core-1.5.0"
       sources."@swc/counter-0.1.3"
-      sources."@swc/helpers-0.5.10"
+      sources."@swc/helpers-0.5.11"
       sources."@swc/types-0.1.6"
-      sources."@swc/wasm-1.4.17"
+      sources."@swc/wasm-1.5.0"
       sources."@szmarczak/http-timer-1.1.2"
       sources."@tootallnate/once-2.0.0"
       sources."@trysound/sax-0.2.0"
@@ -13810,7 +13800,7 @@ let
       sources."ee-first-1.1.1"
       sources."ejs-3.1.10"
       sources."ejs-loader-0.5.0"
-      sources."electron-to-chromium-1.4.747"
+      sources."electron-to-chromium-1.4.750"
       (sources."elliptic-6.5.5" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -13869,7 +13859,7 @@ let
           sources."has-flag-4.0.0"
           sources."levn-0.4.1"
           sources."locate-path-6.0.0"
-          sources."optionator-0.9.3"
+          sources."optionator-0.9.4"
           sources."p-limit-3.1.0"
           sources."p-locate-5.0.0"
           sources."prelude-ls-1.2.1"

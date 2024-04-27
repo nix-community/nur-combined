@@ -679,13 +679,13 @@ let
         sha512 = "eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==";
       };
     };
-    "electron-to-chromium-1.4.747" = {
+    "electron-to-chromium-1.4.750" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.747";
+      version = "1.4.750";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.747.tgz";
-        sha512 = "+FnSWZIAvFHbsNVmUxhEqWiaOiPMcfum1GQzlWCg/wLigVtshOsjXHyEFfmt6cFK6+HkS3QOJBv6/3OPumbBfw==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.750.tgz";
+        sha512 = "9ItEpeu15hW5m8jKdriL+BQrgwDTXEL9pn4SkillWFu73ZNNNQ2BKKLS+ZHv2vC9UkNhosAeyfxOf/5OSeTCPA==";
       };
     };
     "encoding-0.1.13" = {
@@ -994,13 +994,13 @@ let
         sha512 = "l0x2DvrW294C9uDCoQe1VSU4gf529FkSZ6leBl4TiqZH/e+0R7hSfHQBNut2mNygDgHwvYHfFLn6Oxb3VWj2rA==";
       };
     };
-    "lru-cache-10.2.0" = {
+    "lru-cache-10.2.1" = {
       name = "lru-cache";
       packageName = "lru-cache";
-      version = "10.2.0";
+      version = "10.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/lru-cache/-/lru-cache-10.2.0.tgz";
-        sha512 = "2bIM8x+VAf6JT4bKAljS1qUWgMsqZRPGJS6FSahIMPVvctcNhyVp7AJu7quxOW9jwkryBReKZY5tY5JYv2n/7Q==";
+        url = "https://registry.npmjs.org/lru-cache/-/lru-cache-10.2.1.tgz";
+        sha512 = "tS24spDe/zXhWbNPErCHs/AGOzbKGHT+ybSBqmdLm8WZ1xXLWvH8Qn71QPAlqVhd0qUTWjy+Kl9JmISgDdEjsA==";
       };
     };
     "lru-cache-5.1.1" = {
@@ -1630,7 +1630,7 @@ let
       sources."convert-source-map-2.0.0"
       sources."debug-4.3.4"
       sources."defaults-1.0.4"
-      sources."electron-to-chromium-1.4.747"
+      sources."electron-to-chromium-1.4.750"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
       sources."es-module-lexer-1.5.0"
@@ -1706,7 +1706,7 @@ let
       sources."path-is-absolute-1.0.1"
       (sources."path-scurry-1.10.2" // {
         dependencies = [
-          sources."lru-cache-10.2.0"
+          sources."lru-cache-10.2.1"
           sources."minipass-7.0.4"
         ];
       })

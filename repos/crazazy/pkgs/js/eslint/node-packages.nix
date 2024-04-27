@@ -4,15 +4,6 @@
 
 let
   sources = {
-    "@aashutoshrathi/word-wrap-1.2.6" = {
-      name = "_at_aashutoshrathi_slash_word-wrap";
-      packageName = "@aashutoshrathi/word-wrap";
-      version = "1.2.6";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz";
-        sha512 = "1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==";
-      };
-    };
     "@eslint-community/eslint-utils-4.4.0" = {
       name = "_at_eslint-community_slash_eslint-utils";
       packageName = "@eslint-community/eslint-utils";
@@ -607,13 +598,13 @@ let
         sha512 = "OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==";
       };
     };
-    "optionator-0.9.3" = {
+    "optionator-0.9.4" = {
       name = "optionator";
       packageName = "optionator";
-      version = "0.9.3";
+      version = "0.9.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/optionator/-/optionator-0.9.3.tgz";
-        sha512 = "JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==";
+        url = "https://registry.npmjs.org/optionator/-/optionator-0.9.4.tgz";
+        sha512 = "6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==";
       };
     };
     "p-limit-3.1.0" = {
@@ -796,6 +787,15 @@ let
         sha512 = "BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==";
       };
     };
+    "word-wrap-1.2.5" = {
+      name = "word-wrap";
+      packageName = "word-wrap";
+      version = "1.2.5";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.5.tgz";
+        sha512 = "BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==";
+      };
+    };
     "yocto-queue-0.1.0" = {
       name = "yocto-queue";
       packageName = "yocto-queue";
@@ -812,7 +812,6 @@ let
     version = "9.1.1";
     src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.1.1.tgz"; sha1 = "39ec657ccd12813cb4a1dab2f9229dcc6e468271"; };
     dependencies = [
-      sources."@aashutoshrathi/word-wrap-1.2.6"
       (sources."@eslint-community/eslint-utils-4.4.0" // {
         dependencies = [
           sources."eslint-visitor-keys-3.4.3"
@@ -882,7 +881,7 @@ let
       sources."minimatch-3.1.2"
       sources."ms-2.1.2"
       sources."natural-compare-1.4.0"
-      sources."optionator-0.9.3"
+      sources."optionator-0.9.4"
       sources."p-limit-3.1.0"
       sources."p-locate-5.0.0"
       sources."parent-module-1.0.1"
@@ -903,6 +902,7 @@ let
       sources."type-check-0.4.0"
       sources."uri-js-4.4.1"
       sources."which-2.0.2"
+      sources."word-wrap-1.2.5"
       sources."yocto-queue-0.1.0"
     ];
     buildInputs = globalBuildInputs;

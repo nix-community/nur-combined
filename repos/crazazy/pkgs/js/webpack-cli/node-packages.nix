@@ -409,13 +409,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "electron-to-chromium-1.4.747" = {
+    "electron-to-chromium-1.4.750" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.747";
+      version = "1.4.750";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.747.tgz";
-        sha512 = "+FnSWZIAvFHbsNVmUxhEqWiaOiPMcfum1GQzlWCg/wLigVtshOsjXHyEFfmt6cFK6+HkS3QOJBv6/3OPumbBfw==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.750.tgz";
+        sha512 = "9ItEpeu15hW5m8jKdriL+BQrgwDTXEL9pn4SkillWFu73ZNNNQ2BKKLS+ZHv2vC9UkNhosAeyfxOf/5OSeTCPA==";
       };
     };
     "enhanced-resolve-5.16.0" = {
@@ -1126,7 +1126,7 @@ let
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.3"
-      sources."electron-to-chromium-1.4.747"
+      sources."electron-to-chromium-1.4.750"
       sources."enhanced-resolve-5.16.0"
       sources."envinfo-7.12.0"
       sources."es-module-lexer-1.5.0"
