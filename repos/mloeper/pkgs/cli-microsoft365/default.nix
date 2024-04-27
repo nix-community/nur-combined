@@ -3,11 +3,14 @@
 , pkgs
 , fetchFromGitHub
 , system ? builtins.currentSystem
+, xsel
+, nodejs_18
+, makeWrapper
 , ...
 }:
 
 let
-  nodejs = pkgs.nodejs_18;
+  nodejs = nodejs_18;
   nodePackages = import ./node2nix {
     inherit pkgs system nodejs;
   };
@@ -24,7 +27,7 @@ stdenv.mkDerivation
     hash = "sha256-0grJccby3FIL6iIZ4gXEgX5hVsdnGNMr2EwRuJXyq+4=";
   };
 
-  buildInputs = with pkgs; [ nodejs makeWrapper ];
+  buildInputs = [ nodejs makeWrapper ];
 
   buildPhase = ''
     ln -s ${nodeDependencies}/lib/node_modules ./node_modules
@@ -42,7 +45,7 @@ stdenv.mkDerivation
     ln -s ${nodeDependencies}/lib/node_modules $out/node_modules
 
     # create cli binary
-    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs ]}
+    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel ]}
   '';
 
   meta = with lib; {
