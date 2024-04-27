@@ -38,6 +38,12 @@ in
     "vfs.zfs.arc_sys_free" = 4 * 1024 * 1024 * 1024; # make ZFS free arc before hitting swap
   };
 
+  services.rsyncnet-remote-backup = {
+    enable = true;
+    calendar = "03/6:00:01";
+  };
+
+
   services.fusionsolar-reporter.enable = true;
 
   services.guix.enable = true;

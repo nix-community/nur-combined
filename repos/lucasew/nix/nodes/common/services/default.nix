@@ -23,5 +23,6 @@
     ./ollama.nix
     ./python-microservices
     ./rtorrent.nix
+    ./rsyncnet-remote-backup.nix
   ];
 }

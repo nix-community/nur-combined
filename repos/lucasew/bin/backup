@@ -51,15 +51,16 @@ if sd is_node whiterun; then
   # backup /var/backup/postgresql/ backup/lucasew/homelab/postgres
 fi
 
-# mirroring of git repos -- new ones using git clone --mirror
-# TODO: is this the right way?
-export GIT_TERMINAL_PROMPT=0
-for repo in $(ssh "$rsyncnet_user" ls git); do
-  echo "[*] Syncando mirror do repo em 'git/$repo'"
-  ssh "$rsyncnet_user" -o SendEnv=GIT_TERMINAL_PROMPT git --git-dir "git/$repo" fetch --all --prune
-done
-
 # deleting empty files
 ssh "$rsyncnet_user" find backup -size 0 -delete
+
+# mirroring of git repos -- new ones using git clone --mirror
+# TODO: is this the right way?
+# export GIT_TERMINAL_PROMPT=0
+# for repo in $(ssh "$rsyncnet_user" ls git); do
+#   echo "[*] Syncando mirror do repo em 'git/$repo'"
+#   ssh "$rsyncnet_user" -o SendEnv=GIT_TERMINAL_PROMPT git --git-dir "git/$repo" fetch --all --prune
+# done
+
 
 ssh "$rsyncnet_user" quota

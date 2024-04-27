@@ -30,6 +30,11 @@ in
 
   environment.systemPackages = with pkgs; [ thunderbird ];
 
+  services.rsyncnet-remote-backup = {
+    enable = true;
+    calendar = "00/6:00:01";
+  };
+
   services.guix.enable = true;
 
   services.php-utils.enable = true;
