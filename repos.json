@@ -314,6 +314,9 @@
             "type": "gitea",
             "url": "https://git.marvid.fr/eeva/nur-packages"
         },
+        "eggflaw": {
+            "url": "https://github.com/Eggflaw/nur-packages"
+        },
         "eh5": {
             "url": "https://github.com/EHfive/flakes"
         },
