@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: '5 3 * * *'  # Rebuild every day at 03:05
 jobs:
-  tests:
+  build:
     strategy:
       matrix:
         nixPath:
@@ -43,5 +43,9 @@ jobs:
             -I $PWD
       - name: Build nix packages
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+  trigger-nur:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
       - name: Trigger NUR update
         run: curl -X POST 'https://nur-update.nix-community.org/update?repo=kokakiwi'

@@ -4,6 +4,7 @@
 
 , fetchFromGitHub
 
+, makeDesktopItem
 , makeWrapper
 , wrapGAppsHook
 
@@ -194,7 +195,8 @@ in stdenv.mkDerivation (final: {
       --set ELECTRON_IS_DEV 0 \
       --add-flags $out/share/ferdium
 
-    install -Dm0644 -t "$out/share/applications" ferdium.desktop
+    ln -s "${final.desktopItem}/share/applications" $out/share/applications
+
     for _size in 16 24 32 48 64 96 128 256 512 1024; do
       install -Dm0644 "build-helpers/images/icons/''${_size}x''${_size}.png" \
         "$out/share/icons/hicolor/''${_size}x''${_size}/apps/ferdium.png"
@@ -202,6 +204,17 @@ in stdenv.mkDerivation (final: {
 
     runHook postInstall
   '';
+
+  desktopItem = makeDesktopItem {
+    name = "ferdium";
+    exec = "ferdium %U";
+    icon = "ferdium";
+    desktopName = "Ferdium";
+    startupWMClass = "Ferdium";
+    terminal = false;
+    comment = final.meta.description;
+    categories = [ "Network" "InstantMessaging" ];
+  };
 
   meta = {
     description = "All your services in one place built by the community";
