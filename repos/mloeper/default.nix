@@ -7,14 +7,6 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { }
-, nix-alien ? (import
-    (
-      builtins.fetchTarball {
-        url = "https://github.com/thiagokokada/nix-alien/tarball/master";
-        sha256 = "1hi8gynzdxgfd0fbxvhyn4fakrnz4v60ap27l35xz646mbkhfzg9";
-      }
-    )
-    { inherit pkgs; }).nix-alien
 , ...
 }:
 
@@ -60,6 +52,6 @@ rec {
   cli-microsoft365 = pkgs.callPackage ./pkgs/cli-microsoft365 { };
   m365 = cli-microsoft365; # alias for cli-microsoft365
   postman-cli = pkgs.callPackage ./pkgs/postman-cli {
-    inherit mloeper nix-alien;
+    inherit mloeper;
   };
 }

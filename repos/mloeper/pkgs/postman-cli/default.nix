@@ -1,4 +1,21 @@
-{ stdenvNoCC, callPackage, lib, mloeper, fetchurl, stdenv, stdenvAdapters, nix-alien, makeWrapper }:
+{ stdenvNoCC
+, callPackage
+, lib
+, pkgs
+, mloeper
+, fetchurl
+, stdenv
+, stdenvAdapters
+, nix-alien ? (import
+    (
+      builtins.fetchTarball {
+        url = "https://github.com/thiagokokada/nix-alien/tarball/master";
+        sha256 = "1hi8gynzdxgfd0fbxvhyn4fakrnz4v60ap27l35xz646mbkhfzg9";
+      }
+    )
+    { inherit pkgs; }).nix-alien
+, makeWrapper
+}:
 
 # it looks like vercel binaries are just not easily packagable on nix since patching the elf binary is not possible
 # see: https://github.com/tweag/nix-marp/pull/1
