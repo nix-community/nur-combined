@@ -1,4 +1,4 @@
-{ stdenvNoCC, callPackage, lib, mloeper, fetchurl, stdenv, autoPatchelfHook, stdenvAdapters }:
+{ stdenvNoCC, callPackage, lib, mloeper, fetchurl, stdenv, stdenvAdapters, nix-alien, makeWrapper }:
 
 # it looks like vercel binaries are just not easily packagable on nix since patching the elf binary is not possible
 # see: https://github.com/tweag/nix-marp/pull/1
@@ -27,14 +27,17 @@ stdenvWithDebugSymbols.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -m755 -D postman-cli $out/bin/postman-cli
+    install -m755 -D postman-cli $out/bin/.postman-cli-wrapped
+    makeWrapper ${nix-alien}/bin/nix-alien $out/bin/postman-cli --add-flags "$out/bin/.postman-cli-wrapped"
     runHook postInstall
   '';
 
   # see: https://nixos.wiki/wiki/Packaging/Binaries
   nativeBuildInputs = [
-    autoPatchelfHook
+    # note: we use nix-alien instead since vercel does not support binary patching
+    #autoPatchelfHook
     stdenvWithDebugSymbols.cc.cc.lib
+    makeWrapper
   ];
 
   src = fetchurl {

@@ -46,7 +46,7 @@ stdenv.mkDerivation
     ln -s ${nodeDependencies}/lib/node_modules $out/node_modules
 
     # create cli binary
-    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --set BROWSER "${defaultBrowserBinaryPath}" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel ]}
+    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --set XDG_CURRENT_DESKTOP X-Generic --set BROWSER "${defaultBrowserBinaryPath}" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel ]}
   '';
 
   meta = with lib; {
@@ -58,6 +58,5 @@ stdenv.mkDerivation
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
     mainProgram = "m365";
-    aliases = [ "m365" ];
   };
 }
