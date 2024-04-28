@@ -18,6 +18,7 @@
   dapnetgateway = pkgs.callPackage ./pkgs/dapnetgateway { };
   dmrgateway = pkgs.callPackage ./pkgs/dmrgateway { };
   git-collage = pkgs.callPackage ./pkgs/git-collage { };
+  keyprs = pkgs.callPackage ./pkgs/keyprs { };
   metty = pkgs.callPackage ./pkgs/metty { };
   mmdvmhost = pkgs.callPackage ./pkgs/mmdvmhost { };
   satorictl-unstable = pkgs.callPackage ./pkgs/satorictl-unstable { };
