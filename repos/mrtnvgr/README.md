@@ -28,6 +28,7 @@
 - [neuralnote](https://github.com/DamRsn/NeuralNote)
 - [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
 - [artworks](https://github.com/mrtnvgr/artworks)
+- [nam-trainer](https://github.com/sdatkinson/neural-amp-modeler)
 
 ### Fetchers
 

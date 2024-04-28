@@ -60,6 +60,7 @@ in rec {
   neuralnote = p ./pkgs/audio/neuralnote { };
   neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };
   artworks = p ./pkgs/audio/artworks { };
+  nam-trainer = p ./pkgs/audio/nam-trainer { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
