@@ -8,6 +8,7 @@
 , makeWrapper
 , defaultBrowserBinaryPath ? "${pkgs.firefox}/bin/firefox"
 , installShellFiles
+, gnugrep
 , ...
 }:
 
@@ -49,7 +50,7 @@ stdenv.mkDerivation
 
     # create cli binary
     # TODO(mloeper): create binaries for m365_chili and microsoft365
-    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --set XDG_CURRENT_DESKTOP X-Generic --set BROWSER "${defaultBrowserBinaryPath}" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel ]}
+    makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --set XDG_CURRENT_DESKTOP X-Generic --set BROWSER "${defaultBrowserBinaryPath}" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel gnugrep ]}
     makeWrapper ${nodejs}/bin/node $out/bin/m365_comp --add-flags "$out/dist/autocomplete.js" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs ]}
 
     runHook postInstall
