@@ -48,8 +48,10 @@ stdenv.mkDerivation
     ln -s ${nodeDependencies}/lib/node_modules $out/node_modules
 
     # create cli binary
+    # TODO(mloeper): create binaries for m365_chili and microsoft365
     makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --set XDG_CURRENT_DESKTOP X-Generic --set BROWSER "${defaultBrowserBinaryPath}" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel ]}
-  
+    makeWrapper ${nodejs}/bin/node $out/bin/m365_comp --add-flags "$out/dist/autocomplete.js" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs ]}
+
     runHook postInstall
   '';
 
@@ -59,6 +61,8 @@ stdenv.mkDerivation
     mkdir -p "$NIX_BUILD_TOP/share/completions"
 
     SHELL=bash HOME="$FAKE_HOME" $out/bin/m365 cli completion sh setup
+    
+    # note: completion does not work atm... zsh does not find it and bash says 'm365_comp: command not found'
     installShellCompletion --bash --cmd m365 "$FAKE_HOME/.m365_comp/completion.sh"
     installShellCompletion --zsh --cmd m365 "$FAKE_HOME/.m365_comp/completion.sh"
   '';
