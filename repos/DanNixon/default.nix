@@ -17,6 +17,7 @@
   aprsgateway = pkgs.callPackage ./pkgs/aprsgateway { };
   dapnetgateway = pkgs.callPackage ./pkgs/dapnetgateway { };
   dmrgateway = pkgs.callPackage ./pkgs/dmrgateway { };
+  emfcamp-schedule-cli = pkgs.callPackage ./pkgs/emfcamp-schedule-cli { };
   git-collage = pkgs.callPackage ./pkgs/git-collage { };
   keyprs = pkgs.callPackage ./pkgs/keyprs { };
   metty = pkgs.callPackage ./pkgs/metty { };
