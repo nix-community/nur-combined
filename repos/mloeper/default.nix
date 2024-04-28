@@ -9,7 +9,10 @@
 { pkgs ? import <nixpkgs> { }
 , nix-alien ? (import
     (
-      builtins.fetchTarball "https://github.com/thiagokokada/nix-alien/tarball/master"
+      builtins.fetchTarball {
+        url = "https://github.com/thiagokokada/nix-alien/tarball/master";
+        sha256 = "0yr13zmnmpcnr0hgqrbj5j70lzzsfh9j55bxq6hcpz60fh1hjy3i";
+      }
     )
     { inherit pkgs; }).nix-alien
 , ...
