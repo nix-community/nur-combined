@@ -15,6 +15,9 @@
     LimitNOFILE = lib.mkForce 500000000;
     Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
   };
+  systemd.oomd.enable = lib.mkForce false;
+
+  srv.earlyoom.enable = true;
 
   boot.tmp.useTmpfs = true;
 

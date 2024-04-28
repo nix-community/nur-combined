@@ -57,10 +57,10 @@ in
           "WAYLAND_DISPLAY=wayland-1"
         ];
         ExecStart = ''
-          ${pkgs.swww}/bin/swww img --resize=no ${
+          ${pkgs.swww}/bin/swww img -t none --resize=no -f Nearest ${
             pkgs.fetchurl {
               url = "https://s3.nyaw.xyz/misc/u6-fit.gif";
-              sha256 = "17a3xjp91v4syj0rhxylwl9rbvfn73dk0f688hhsm8j0lipbg3r1";
+              sha256 = "0p9cilwwmngj7hz3a25sxnqgdd9wavgk0li05w13b8d1hb2nakpb";
             }
           }
         '';

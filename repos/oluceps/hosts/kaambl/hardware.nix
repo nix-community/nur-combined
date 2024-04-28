@@ -133,7 +133,7 @@
   security.tpm2.tctiEnvironment.enable = true;
 
   services.scx = {
-    enable = true;
+    enable = false;
     scheduler = "scx_lavd";
   };
   boot = {
@@ -201,8 +201,8 @@
       # (import inputs.nixpkgs-pin {
       #   system = "x86_64-linux";
       # })
-      # pkgs.linuxPackages_latest;
-      inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-zen3;
+      pkgs.linuxPackages_latest;
+    # inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-zen3;
 
     # kernelPatches =
     #   let patchPath = ../../.attachs/cachyos-kernel;
