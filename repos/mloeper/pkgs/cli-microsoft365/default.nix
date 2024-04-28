@@ -7,6 +7,7 @@
 , nodejs_18
 , makeWrapper
 , defaultBrowserBinaryPath ? "${pkgs.firefox}/bin/firefox"
+, installShellFiles
 , ...
 }:
 
@@ -28,7 +29,8 @@ stdenv.mkDerivation
     hash = "sha256-0grJccby3FIL6iIZ4gXEgX5hVsdnGNMr2EwRuJXyq+4=";
   };
 
-  buildInputs = [ nodejs makeWrapper ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  buildInputs = [ nodejs ];
 
   buildPhase = ''
     ln -s ${nodeDependencies}/lib/node_modules ./node_modules
@@ -47,6 +49,18 @@ stdenv.mkDerivation
 
     # create cli binary
     makeWrapper ${nodejs}/bin/node $out/bin/m365 --add-flags "$out/dist/index.js" --set XDG_CURRENT_DESKTOP X-Generic --set BROWSER "${defaultBrowserBinaryPath}" --inherit-argv0 --set PATH ${lib.makeBinPath [ nodejs xsel ]}
+  
+    runHook postInstall
+  '';
+
+  postInstall = ''
+    FAKE_HOME="$NIX_BUILD_TOP/fake-home"
+    mkdir -p "$FAKE_HOME"
+    mkdir -p "$NIX_BUILD_TOP/share/completions"
+
+    SHELL=bash HOME="$FAKE_HOME" $out/bin/m365 cli completion sh setup
+    installShellCompletion --bash --cmd m365 "$FAKE_HOME/.m365_comp/completion.sh"
+    installShellCompletion --zsh --cmd m365 "$FAKE_HOME/.m365_comp/completion.sh"
   '';
 
   meta = with lib; {
