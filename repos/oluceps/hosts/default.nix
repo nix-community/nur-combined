@@ -45,6 +45,8 @@ in
                 allowUnfree = true;
                 segger-jlink.acceptLicense = true;
                 allowUnsupportedSystem = true;
+                gcc.arch = "x86_64-v4";
+                gcc.tune = "generic";
               };
               overlays =
                 (import ../overlays.nix inputs')
