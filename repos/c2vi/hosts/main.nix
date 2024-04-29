@@ -30,7 +30,7 @@
 		../users/root/default.nix
 
     # see: https://github.com/NixOS/nixpkgs/issues/300081
-    "${inputs.nixpkgs-unstable}/nixos/modules/virtualisation/incus.nix" 
+    #"${inputs.nixpkgs-unstable}/nixos/modules/virtualisation/incus.nix" 
 	];
 
 
@@ -488,10 +488,10 @@
 
 
     # see: https://github.com/NixOS/nixpkgs/issues/300081
-    disabledModules = [ "virtualisation/incus.nix" ]; 
+    #disabledModules = [ "virtualisation/incus.nix" ]; 
     networking.nftables.enable = true;
     # client package now separated...
-    virtualisation.incus.clientPackage = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.incus;
+    #virtualisation.incus.clientPackage = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.incus;
     virtualisation.incus.enable = true;
     #virtualisation.incus.package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.incus;
     users.users.me.extraGroups = [ "incus-admin" ];
