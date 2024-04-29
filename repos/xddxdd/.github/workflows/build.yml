@@ -65,6 +65,7 @@ jobs:
 
       - name: Setup Attic cache
         uses: ryanccn/attic-action@v0
+        continue-on-error: true
         with:
           endpoint: https://attic.xuyh0120.win
           cache: lantian
