@@ -156,15 +156,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ad538711f39d732c52c10a0216d969fd0e8e9c7e";
+    version = "f3e87b869ab220d98c6df07b55ae54b7be0ac1b1";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ad538711f39d732c52c10a0216d969fd0e8e9c7e";
+      rev = "f3e87b869ab220d98c6df07b55ae54b7be0ac1b1";
       fetchSubmodules = false;
-      sha256 = "sha256-WsdseN3moCNdadjeuX904+zzvBJBVXxYYP2wy7oP/O4=";
+      sha256 = "sha256-A3cLSmgY3Bqize1kVOjSIF5LBXI9svuP+FdmRAp2DsI=";
     };
-    date = "2024-04-24";
+    date = "2024-04-27";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -486,15 +486,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "683c978fb9694550eec1d73087f1e45a3b270f01";
+    version = "d2b3b6e374c2f1799fb5bc07aad1f4ed5d058919";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "683c978fb9694550eec1d73087f1e45a3b270f01";
+      rev = "d2b3b6e374c2f1799fb5bc07aad1f4ed5d058919";
       fetchSubmodules = false;
-      sha256 = "sha256-snnBomLpR8IrS0pGTzH8RX4sLGnENdqAyOAzIvpKhPc=";
+      sha256 = "sha256-VyFAvAtIqX+tDvjkpAzWPgKiX5xuIAzsac1xorAz9vk=";
     };
-    date = "2024-04-20";
+    date = "2024-04-28";
   };
   jproxy = {
     pname = "jproxy";
@@ -632,13 +632,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.8.7-xanmod2";
+    version = "6.8.8-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.8.7-xanmod2";
+      rev = "6.8.8-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-/RhtRASEedYI4Zf9pUiiyDD3SgOL46cutTXo68gjBg8=";
+      sha256 = "sha256-6fT9vRjHw775m4ySUAUWU9R0dz/cWYYdZsPCwZjGiXM=";
     };
   };
   linux-xanmod-6_0 = {
@@ -665,13 +665,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.28-xanmod2";
+    version = "6.6.29-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.28-xanmod2";
+      rev = "6.6.29-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-U5L7i/g808GuUZhLjHE+v0VOQVdTPe+Tnx/rLQoGxx4=";
+      sha256 = "sha256-Be2VaW0DQDS0FJUwXM627QaNgrn1B3Hbyq+PiKb7b+k=";
     };
   };
   nbfc-linux-lantian = {
@@ -865,15 +865,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "d7e7f19fd8dfe214e420c5da01c43672eb2a4722";
+    version = "86605d767a0c7de9462ce4eb70891f8d5e8e248f";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "d7e7f19fd8dfe214e420c5da01c43672eb2a4722";
+      rev = "86605d767a0c7de9462ce4eb70891f8d5e8e248f";
       fetchSubmodules = false;
-      sha256 = "sha256-GCE4SE933opSF9VtFNjH4bIkPKEy7DyHAFxR9z7Tt6I=";
+      sha256 = "sha256-Phg6R1muKTKmQdSMGwG7D9g/FmdbqHnmTUsvR9bL3PU=";
     };
-    date = "2024-04-23";
+    date = "2024-04-27";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -933,10 +933,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v3.2.0";
+    version = "v3.3.7";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v3.2.0/PeerBanHelper.v3.2.0.jar";
-      sha256 = "sha256-mkDhtc2pihoG3rawCLUdIL8A2imKOLKxTegRe3vzbAo=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v3.3.7/PeerBanHelper.jar";
+      sha256 = "sha256-pavIkFc/Sd/7rmhVs7e3hnS2S+Ym8Uf3ZwhLWFBjNhA=";
     };
   };
   phpmyadmin = {
@@ -1035,50 +1035,50 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "8.2.3+ds-1";
+    version = "8.2.3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-1_amd64.deb";
-      sha256 = "sha256-G8tbgCnrDO9m4XgvlIQCWKbRwjmljffTX6HS22hbXrc=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-2_amd64.deb";
+      sha256 = "sha256-xw9OzHNW6zu+vLl3ZDE8siHLrRcWF6f+GvyvCM0mFOU=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "8.2.3+ds-1";
+    version = "8.2.3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-1_arm64.deb";
-      sha256 = "sha256-NqMh6ze9MMTIm22g8nz/bjZWjjfU0+xt7R7jGaFK9yo=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-2_arm64.deb";
+      sha256 = "sha256-UVGae8OecChmGHdMlhFsOKgiYVD5k+n3g9G2IYnwbnI=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.2.3+ds-1";
+    version = "8.2.3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-1_armhf.deb";
-      sha256 = "sha256-EZ8S+hZDLtcftqstv9Dgw4aHj8vM1pV+mX+atZHohEE=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-2_armhf.deb";
+      sha256 = "sha256-DiKKyCAKwwk172XVZRZPdw/NBSWWCd+C9JJVaru5lkM=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.2.3+ds-1";
+    version = "8.2.3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-1_i386.deb";
-      sha256 = "sha256-BR8PXESxwE2x36XGYsP1cHP+jLqBpUeAmZIg4H6a2Ok=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.3+ds-2_i386.deb";
+      sha256 = "sha256-GywuMfKb0wRb06asubK4KlkBliukzIX383nzghfF7/g=";
     };
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.7_240422_amd64_01";
+    version = "Linux/QQ_3.2.7_240428_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240422_amd64_01.deb";
-      sha256 = "sha256-eZMzMaqCF514Wij8BZ0sLoyzjKNArLSFe92tN9WAiu0=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240428_amd64_01.deb";
+      sha256 = "sha256-UzQ+URI4ODAE88E54bo8i07UARZZsvNYEhiKPAP/9EE=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.7_240422_arm64_01";
+    version = "Linux/QQ_3.2.7_240428_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240422_arm64_01.deb";
-      sha256 = "sha256-MrLkPHri3ifVy3+WNNs/CKK4Myztw8ZjWFEZDr27mpM=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.7_240428_arm64_01.deb";
+      sha256 = "sha256-G9c6/bag/nK8GLdpAeHlfRsBUDJHtnwsNkQTko1t16Y=";
     };
   };
   qqmusic = {
@@ -1149,15 +1149,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "b0c91af4c37f252e8a77264d0a365642e9c8ec71";
+    version = "a5bbe599fe33db18e9c78a275ddc124d01d9ca3d";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "b0c91af4c37f252e8a77264d0a365642e9c8ec71";
+      rev = "a5bbe599fe33db18e9c78a275ddc124d01d9ca3d";
       fetchSubmodules = false;
-      sha256 = "sha256-hK8+H9oQH8hvYWBLDLoPUkw8yEiEPFLPKFe06CSSU9w=";
+      sha256 = "sha256-6WUYSfGLybZdo2jUO6sefAQqskDQ8Xl1GbjreLRxGqU=";
     };
-    date = "2024-04-26";
+    date = "2024-04-29";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1169,10 +1169,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20240210";
+    version = "20240426";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20240210.dict.yaml";
-      sha256 = "sha256-2Y4M4RrBBxNKGyWx+Y+nmFEsKPukfNsaggIyVrWM204=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20240426.dict.yaml";
+      sha256 = "sha256-CcXyC/vnplJleDlhpgiYhwcA4hHjzqt5K1FMDjmamqc=";
     };
   };
   route-chain = {
@@ -1384,10 +1384,10 @@
   };
   wechat-uos = {
     pname = "wechat-uos";
-    version = "1.0.0.238";
+    version = "1.0.0.241";
     src = fetchurl {
-      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_1.0.0.238_amd64.deb";
-      sha256 = "sha256-NxAmZ526JaAzAjtAd9xScFnZBuwD6i2wX2/AEqtAyWs=";
+      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_1.0.0.241_amd64.deb";
+      sha256 = "sha256-J2ipc3byBzvVFe+B1k+nsgZo+mwRpBd6LtF/ybAzmKM=";
     };
   };
   win2xcur = {
