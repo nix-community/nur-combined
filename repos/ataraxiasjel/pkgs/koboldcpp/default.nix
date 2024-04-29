@@ -4,6 +4,7 @@
   fetchFromGitHub,
   python3,
   customtkinter,
+  autoAddDriverRunpath,
 
   config,
   cudaSupport ? config.cudaSupport,
@@ -45,7 +46,7 @@ let
 
     nativeBuildInputs = lib.optionals cudaSupport [
       cudaPackages.cuda_nvcc
-      cudaPackages.autoAddDriverRunpath
+      autoAddDriverRunpath
     ];
 
     buildInputs =
@@ -80,7 +81,7 @@ let
 
     preBuild = lib.optionalString cudaSupport ''
       substituteInPlace Makefile \
-        --replace "-lcuda " "-lcuda -L${cudaPackages.cuda_cudart.lib}/lib/stubs "
+        --replace-fail "-lcuda " "-lcuda -L${cudaPackages.cuda_cudart.lib}/lib/stubs "
     '';
 
     installPhase = ''
@@ -108,27 +109,33 @@ effectiveStdenv.mkDerivation {
   ];
 
   dontBuild = true;
+  dontPatchELF = true;
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/{bin,lib}
     install -m755 ./koboldcpp.py $out/bin/koboldcpp
     cp ./{klite.embd,kcpp_docs.embd,rwkv_vocab.embd,rwkv_world_vocab.embd} $out/lib
     cp ${koboldcpp-libs}/lib/*.so $out/lib
 
     substituteInPlace $out/bin/koboldcpp \
-      --replace "koboldcpp_default.so" "$out/lib/koboldcpp_default.so" \
-      --replace "koboldcpp_failsafe.so" "$out/lib/koboldcpp_failsafe.so" \
-      --replace "koboldcpp_openblas.so" "$out/lib/koboldcpp_openblas.so" \
-      --replace "koboldcpp_noavx2.so" "$out/lib/koboldcpp_noavx2.so" \
-      --replace "koboldcpp_clblast.so" "$out/lib/koboldcpp_clblast.so" \
-      --replace "koboldcpp_clblast_noavx2.so" "$out/lib/koboldcpp_clblast_noavx2.so" \
-      --replace "koboldcpp_cublas.so" "$out/lib/koboldcpp_cublas.so" \
-      --replace "koboldcpp_hipblas.so" "$out/lib/koboldcpp_hipblas.so" \
-      --replace "koboldcpp_vulkan.so" "$out/lib/koboldcpp_vulkan.so" \
-      --replace "klite.embd" "$out/lib/klite.embd" \
-      --replace "kcpp_docs.embd" "$out/lib/kcpp_docs.embd" \
-      --replace "rwkv_vocab.embd" "$out/lib/rwkv_vocab.embd" \
-      --replace "rwkv_world_vocab.embd" "$out/lib/rwkv_world_vocab.embd"
+      --replace-warn "koboldcpp_default.so" "$out/lib/koboldcpp_default.so" \
+      --replace-quiet "koboldcpp_failsafe.so" "$out/lib/koboldcpp_failsafe.so" \
+      --replace-quiet "koboldcpp_openblas.so" "$out/lib/koboldcpp_openblas.so" \
+      --replace-quiet "koboldcpp_noavx2.so" "$out/lib/koboldcpp_noavx2.so" \
+      --replace-quiet "koboldcpp_clblast.so" "$out/lib/koboldcpp_clblast.so" \
+      --replace-quiet "koboldcpp_clblast_noavx2.so" "$out/lib/koboldcpp_clblast_noavx2.so" \
+      --replace-quiet "koboldcpp_cublas.so" "$out/lib/koboldcpp_cublas.so" \
+      --replace-quiet "koboldcpp_hipblas.so" "$out/lib/koboldcpp_hipblas.so" \
+      --replace-quiet "koboldcpp_vulkan.so" "$out/lib/koboldcpp_vulkan.so" \
+      --replace-quiet "koboldcpp_vulkan_noavx2.so" "$out/lib/koboldcpp_vulkan_noavx2.so" \
+      --replace-warn "klite.embd" "$out/lib/klite.embd" \
+      --replace-warn "kcpp_docs.embd" "$out/lib/kcpp_docs.embd" \
+      --replace-quiet "rwkv_vocab.embd" "$out/lib/rwkv_vocab.embd" \
+      --replace-quiet "rwkv_world_vocab.embd" "$out/lib/rwkv_world_vocab.embd"
+
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script { };
