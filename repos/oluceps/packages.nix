@@ -82,6 +82,7 @@ let
       ]
 
       [
+        rustscan
         stun
         bandwhich
         fscan

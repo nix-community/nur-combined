@@ -15,6 +15,7 @@ let
     ;
 in
 {
+  disabledModules = [ "services/networking/hysteria.nix" ];
   options.services.hysteria = {
     instances = mkOption {
       type = types.listOf (
