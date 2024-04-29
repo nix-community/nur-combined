@@ -31,7 +31,7 @@
     ../../misc.nix
     ../../users.nix
     ../sysvars.nix
-    # inputs.niri.nixosModules.niri
+    inputs.niri.nixosModules.niri
     ../graphBase.nix
 
     ./caddy.nix

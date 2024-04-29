@@ -7,6 +7,18 @@ in
     identityPaths = [ hostPrivKey ];
     rekey.hostPubkey = data.keys.hasturHostPubKey;
     secrets = {
+      id = {
+        rekeyFile = ../../sec/id.age;
+        mode = "400";
+        owner = user;
+        group = "users";
+      };
+      id_sk = {
+        rekeyFile = ../../sec/id_sk.age;
+        mode = "400";
+        owner = user;
+        group = "users";
+      };
       nextchat = {
         rekeyFile = ../../sec/nextchat.age;
         mode = "400";

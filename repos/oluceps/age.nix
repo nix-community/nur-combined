@@ -54,8 +54,6 @@
         "gh-token"
         "age"
         "pub"
-        "id"
-        "id_sk"
         "minio"
         "prism"
         "aws-s3-cred"
