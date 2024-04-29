@@ -31,8 +31,8 @@
     xwayland.enable = lib.mkForce false;
     dconf.enable = true;
     anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
-    niri.enable = true;
-    # sway.enable = true;
+    niri.enable = false;
+    sway.enable = true;
     wireshark = {
       enable = true;
       package = pkgs.wireshark;
@@ -214,7 +214,7 @@
         initial_session = {
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.writeShellScript "sway" ''
             export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-            exec niri-session
+            exec sway
           ''}";
           inherit user;
         };
