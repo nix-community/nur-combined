@@ -55,10 +55,10 @@
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";
-    version = "0.3.1";
+    version = "0.3.2";
     src = fetchurl {
-      url = "https://github.com/qmk/qmk_toolbox/releases/download/0.3.1/QMK.Toolbox.app.zip";
-      sha256 = "sha256-J3yh/VsTSAyU688/GToOI4hOkRFdozxTVvp9Yp/bIlg=";
+      url = "https://github.com/qmk/qmk_toolbox/releases/download/0.3.2/QMK.Toolbox.app.zip";
+      sha256 = "sha256-nM8tNh8m8Smxxt9+ptEMPd+BQtvrlvS+uyZ78Sp2+TA=";
     };
   };
   qutebrowser-darwin = {
