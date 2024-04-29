@@ -12,4 +12,5 @@ rec {
   cryptopp-cmake = pkgs.callPackage ./pkgs/cryptopp-cmake { };
   orca-slicer = pkgs.callPackage ./pkgs/orca-slicer { };
   snips-sh = pkgs.callPackage ./pkgs/snips.sh { };
+  font-apple-color-emoji = pkgs.callPackage ./pkgs/font-apple-color-emoji { };
 }
