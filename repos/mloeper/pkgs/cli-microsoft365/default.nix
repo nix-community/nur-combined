@@ -63,7 +63,7 @@ stdenv.mkDerivation
 
     SHELL=bash HOME="$FAKE_HOME" $out/bin/m365 cli completion sh setup
     
-    # note: completion does not work atm... zsh does not find it and bash says 'm365_comp: command not found'
+    # note: for zsh autocomplete to work, add the following to .zshrc: . <(m365_comp --completion)
     installShellCompletion --bash --cmd m365 "$FAKE_HOME/.m365_comp/completion.sh"
     installShellCompletion --zsh --cmd m365 "$FAKE_HOME/.m365_comp/completion.sh"
   '';
