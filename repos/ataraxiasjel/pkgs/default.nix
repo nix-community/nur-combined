@@ -16,6 +16,7 @@ rec {
   json-liquid-rs = pkgs.callPackage ./json-liquid-rs { };
   kes = pkgs.callPackage ./kes { };
   koboldcpp = pkgs.callPackage ./koboldcpp { inherit (python-pkgs) customtkinter; };
+  koboldcpp-rocm = pkgs.callPackage ./koboldcpp-rocm { inherit (python-pkgs) customtkinter; };
   mpris-ctl = pkgs.callPackage ./mpris-ctl { };
   ocis-bin = pkgs.callPackage ./ocis-bin { };
   ocis-next-bin = pkgs.callPackage ./ocis-bin/next.nix { };

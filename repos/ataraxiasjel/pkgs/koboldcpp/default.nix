@@ -4,7 +4,7 @@
   fetchFromGitHub,
   python3,
   customtkinter,
-  autoAddDriverRunpath,
+  autoAddDriverRunpath ? cudaPackages.autoAddOpenGLRunpathHook, # remove after 24.05
 
   config,
   cudaSupport ? config.cudaSupport,
