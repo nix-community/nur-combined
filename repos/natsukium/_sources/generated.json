@@ -183,10 +183,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nwzJPslbfD/1HBvwp0cN9qr8lgtuaz1fzBV1OxLDgeY=",
+            "sha256": "sha256-Lq+GVikBjXbxTNloVop3gmNTVmrbiG/f1KK/0BF9jjU=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.7.3329.17.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.7.3329.21.universal.dmg"
         },
-        "version": "6.7.3329.17"
+        "version": "6.7.3329.21"
     }
 }
