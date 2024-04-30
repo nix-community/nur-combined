@@ -581,6 +581,26 @@
         },
         "version": "abd1ee98efbf170258fcf43875c21a4259e00b61"
     },
+    "secureboot_objects": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "secureboot_objects",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "microsoft",
+            "repo": "secureboot_objects",
+            "rev": "v1.1.2",
+            "sha256": "sha256-KoNFPgxYICJ+Ly7NLf5VXDTLe/s6Ccgksyi4hbvaaxs=",
+            "type": "github"
+        },
+        "version": "v1.1.2"
+    },
     "swayosd": {
         "cargoLocks": {
             "Cargo.lock": [
