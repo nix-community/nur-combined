@@ -573,6 +573,9 @@
             "file": "nur.nix",
             "url": "https://github.com/lambdadog/nix-extra"
         },
+        "lcx12901": {
+            "url": "https://github.com/lcx12901/nur-nixpkgs"
+        },
         "lheckemann": {
             "url": "https://github.com/lheckemann/nixwip"
         },
