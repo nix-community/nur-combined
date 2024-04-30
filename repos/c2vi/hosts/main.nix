@@ -44,6 +44,9 @@
     win-virtio
   ];
 
+  nix.daemonCPUSchedPolicy = "idle";
+  nix.daemonIONiceLevel = 7;
+  systemd.services.nix-daemon.serviceConfig.Nice = 9;
 
   # enable ntp
   #services.ntp.enable = true;
