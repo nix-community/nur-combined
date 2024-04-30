@@ -6,7 +6,7 @@
       extraLibs = (import ./hosts/lib.nix inputs);
     in
     flake-parts.lib.mkFlake { inherit inputs; } (
-      { withSystem, ... }:
+      { ... }:
       {
         imports =
           (with inputs; [
@@ -29,7 +29,7 @@
           {
             pkgs,
             system,
-            inputs',
+            lib,
             ...
           }:
           {
@@ -46,6 +46,12 @@
 
             pre-commit = {
               check.enable = true;
+              settings.hooks = {
+                nixfmt = {
+                  enable = true;
+                  entry = lib.mkForce "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+                };
+              };
             };
 
             devshells.default.devshell = {
@@ -80,7 +86,9 @@
           agenix-rekey = inputs.agenix-rekey.configure {
             userFlake = inputs.self;
             nodes =
-              with inputs.nixpkgs.lib;
+              let
+                inherit (inputs.nixpkgs.lib) filterAttrs elem;
+              in
               filterAttrs (
                 n: _:
                 !elem n [
