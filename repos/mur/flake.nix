@@ -31,20 +31,19 @@
           {
             legacyPackages = mur;
             packages = packages // {
-              # Default package that creates env with all packages. Pretty self-explanatory.
-              default = pkgs.buildEnv {
-                name = "mur";
-                paths = (builtins.attrValues packages) ++
-                  # We are adding the list-repo package (with bin called "mur")
-                  # to the default environment in order to provide default binary
-                  # for "nix run". It's not included in self'.packages because it
-                  # makes no sense.
-                  [ list-repo ];
-              };
+              default = list-repo;
             };
 
             devShells.default = pkgs.mkShell {
-              buildInputs = [ self'.packages.default ];
+              buildInputs = [
+                # Package that creates env with all packages. Pretty self-explanatory.
+                pkgs.buildEnv
+                {
+                  name = "mur";
+                  paths = (builtins.attrValues packages) ++
+                    [ list-repo ];
+                }
+              ];
             };
           };
       };
