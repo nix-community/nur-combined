@@ -25,7 +25,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/metacubex/mihomo/constant.Version=${lib.substring 0 8 version}"
+    "-X github.com/metacubex/mihomo/constant.Version=alpha-${lib.substring 0 8 version}"
   ];
 
   tags = [

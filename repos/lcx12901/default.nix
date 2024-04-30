@@ -11,6 +11,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  maxmindGeoIp = pkgs.callPackage ./pkgs/maxmindGeoIp {};
+  maxmindGeoIp = pkgs.callPackage ./pkgs/maxmind-geoip {};
   mihomo-meta = pkgs.callPackage ./pkgs/mihomo-meta {};
+
+  cornersSddmTheme = pkgs.callPackage ./pkgs/corners-sddm-theme {};
 }

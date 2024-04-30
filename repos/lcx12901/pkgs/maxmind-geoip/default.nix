@@ -24,4 +24,10 @@ stdenvNoCC.mkDerivation rec {
   passthru = {
     updateScript = nix-update-script {};
   };
+
+  meta = {
+    description = "Create smarter, safer digital experiences with accurate data";
+    homepage = "https://github.com/Dreamacro/maxmind-geoip";
+    maintainers = ["lcx12901"];
+  };
 }
