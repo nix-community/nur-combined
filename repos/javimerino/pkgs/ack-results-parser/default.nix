@@ -7,13 +7,13 @@
 python3Packages.buildPythonApplication {
   pname = "ack-results-parser";
   # Upstream does not do versions
-  version = "0.1.0-20240220-32e04ac47a00";
-  # Temporarily get my python3 conversion branch
+  version = "0.1.0-20240501-c40e521c42d0";
+  # Temporarily get my dont_crash_on_no_driver branch
   src = fetchFromGitHub {
     owner = "JaviMerino";
     repo = "ack-results-parser";
-    rev = "32e04ac47a001db5214ba5941a223fb47886117b";
-    hash = "sha256-N+DMYOKRul+pXsl1B4J0la4ggaqwUevhssFg61iaQj0=";
+    rev = "c40e521c42d08797ed4821e31800d3afdf7ebef6";
+    hash = "sha256-TVVIdwq+BRiB/Rhpdm9I3410MaH7BY900S/h4UC6Yc0=";
   };
   # nose tests have not been converted to python3
   doCheck = false;

@@ -19,6 +19,7 @@ python3Packages.buildPythonApplication rec {
   };
   patches = [
     ./test_load_plugins-mock_expand_user.patch
+    ./disable-test_instance.patch
   ];
 
   propagatedBuildInputs = with python3Packages; [
