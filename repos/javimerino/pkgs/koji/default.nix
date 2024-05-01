@@ -58,6 +58,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
+    broken = versionOlder lib.version "24.05pre"; # koji depends on python3.requests-gssapi, which is not present in 23.11
     description = "A flexible, secure, and reproducible way to build RPM-based software.";
     homepage = "https://pagure.io/koji/";
     maintainers = with maintainers; [ javimerino ];
