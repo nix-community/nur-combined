@@ -5,7 +5,6 @@
 , lib
 , python3Packages
   #, rpm
-, python-requests-gssapi
 , system
 , tzdata
 }:
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     dateutil
     psycopg2
     requests
-    python-requests-gssapi
+    requests-gssapi
     rpm
     six
   ];

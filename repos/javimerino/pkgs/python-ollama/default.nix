@@ -5,15 +5,12 @@
 }:
 python3Packages.buildPythonPackage rec {
   pname = "ollama";
-  version = "0.1.7";
+  version = "0.1.9";
   format = "pyproject";
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-xHEoaiu+ncmYZCiDHGejpsJ+f7Xj31X0HB4ouNAKgKc=";
+    hash = "sha256-9kSEsoDbD6A/uJlYDYo6ha83h/0qhbZ2abdD4xOz+vE=";
   };
-  patches = [
-    ./loosen-httpx-constraint.patch
-  ];
 
   nativeBuildInputs = [
     python3Packages.poetry-core
