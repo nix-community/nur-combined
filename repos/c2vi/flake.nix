@@ -42,7 +42,8 @@
     networkmanager.url = "github:c2vi/nixos-networkmanager-profiles";
 
     robotnix = {
-      url = "github:nix-community/robotnix";
+      #url = "github:nix-community/robotnix";
+      url = "github:c2vi/robotnix/c9e9d9ae8cfe444bee2c0f64a17500bbaf37e4b3";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
 
