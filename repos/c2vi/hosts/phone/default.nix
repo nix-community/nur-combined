@@ -12,5 +12,5 @@
       # signing.keyStorePath = "/var/secrets/android-keys"; # A _string_ of the path for the key store.
 
       # Build with ccache
-      ccache.enable = true;
+      #ccache.enable = true;
 }
