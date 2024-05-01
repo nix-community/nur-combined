@@ -653,10 +653,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.18";
+      version = "7.5.20";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243342/betterttv-7.5.18.xpi";
-      sha256 = "8dea46d16d1349b232f4cd5e42add10d101260a431423375c4526691ed27dd00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4277452/betterttv-7.5.20.xpi";
+      sha256 = "75760d0112b6b6865fb9b4679e8e538b1b2dd3c331cb63e70e8190841b917e02";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -673,10 +673,10 @@
     };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.9.1";
+      version = "2.9.2";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134441/beyond_20-2.9.1.xpi";
-      sha256 = "2587ed0ee4dcd401519682337b76bebad77b86afb86fe9f9dcb4e9a9874f7f55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269920/beyond_20-2.9.2.xpi";
+      sha256 = "dab3670f4ae5b8e67c9be07f28d6b9a10318d6534f146a94a970a68a376599e7";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -1830,10 +1830,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "125.0.20240425.211020";
+      version = "126.0.20240429.91743";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4278851/deutsch_de_language_pack-125.0.20240425.211020.xpi";
-      sha256 = "a15c4074a8fee08a1b8628d60d0b58f8a76c9e685b5984a9205be14fb10aeb44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4279566/deutsch_de_language_pack-126.0.20240429.91743.xpi";
+      sha256 = "b5ae70c99a8764262babd99781d21a736065745e39adc6e58c3df9893165e2a5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2011,10 +2011,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.31.0";
+      version = "2.32.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4279217/dualsub-2.31.0.xpi";
-      sha256 = "7b1163cb0c8bed5fddc784307e79d6355c57ed43129551adac65f8d9a010f997";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4279939/dualsub-2.32.0.xpi";
+      sha256 = "1aeb844f020da31fbad5793eb84a9c0deb60c95bc1b38374e70738ab946ab40e";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2356,10 +2356,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.5";
+      version = "1.3.6";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4266447/faststream-1.3.5.xpi";
-      sha256 = "6bfffc760707a9f801438ed20104c42918f32bd5ca59a66e62c5f91e92c2c4da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4279917/faststream-1.3.6.xpi";
+      sha256 = "7b400fea809790f46d3340c4637d1fd9ab96104dafb5c06c7b662eb1ea0f2f00";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2511,10 +2511,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.73";
+      version = "6.1.74";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257814/flagfox-6.1.73.xpi";
-      sha256 = "235f9a7f88956666b295808335aaa5460bbd2e4f48236845e520022ea41a6ac4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269236/flagfox-6.1.74.xpi";
+      sha256 = "e5783d04b483983b8e980213c568734f9d8cafe1584db505f92ba37e261ff4cd";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -2770,10 +2770,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "125.0.20240425.211020";
+      version = "126.0.20240429.91743";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4278856/francais_language_pack-125.0.20240425.211020.xpi";
-      sha256 = "c6e209c66567ee9e69f70ef85b183d36546d20630a90a30040082472c02756a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4279585/francais_language_pack-126.0.20240429.91743.xpi";
+      sha256 = "778e161d87d582128e302746be267fdb88167c9f29c8ad88d0b33f91790afe68";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4647,10 +4647,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.4.11";
+      version = "1.4.12";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4266522/immersive_translate-1.4.11.xpi";
-      sha256 = "4e3539a4ac6d07600be10e44414e5ad2dc784aedeb6030271e45c0b16edb8e58";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269967/immersive_translate-1.4.12.xpi";
+      sha256 = "25b245320c52bf2bf0b43f55af3fbb3bf21346af4327bf68e89a36d79bf25129";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7524,10 +7524,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.5.2";
+      version = "2024.5.3";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4278901/pakkujs-2024.5.2.xpi";
-      sha256 = "01b2afe1965cd37b2b37a9695e98974cdb3ff2c7acbe42d3abea430c9efaf196";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4279830/pakkujs-2024.5.3.xpi";
+      sha256 = "e7dd3392a1d823845014aaa00bad5ad6916c20f2189a5001c3a8d4a7f1b054b3";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -8468,10 +8468,10 @@
     };
     "purpleadblock" = buildFirefoxXpiAddon {
       pname = "purpleadblock";
-      version = "2.6.4";
+      version = "2.6.5";
       addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4230431/purpleadblock-2.6.4.xpi";
-      sha256 = "b2519095ce4bc93e82b5886ba89fd67b367955cc899652ec76a942bcebddc921";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4280326/purpleadblock-2.6.5.xpi";
+      sha256 = "f4b724e2d26035165a82c8acda822b4fb9fff70e4c3417e3652fdc05f90bf5c2";
       meta = with lib;
       {
         description = "Purple AdBlock is a adblock for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/45c441178c2a4b8efed92eca84091cb4171a2c325f054a4351164ea9d10563f8/http%3A//Twitch.tv\" rel=\"nofollow\">Twitch.tv</a>";
@@ -8567,10 +8567,10 @@
     };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
-      version = "6.6.22";
+      version = "6.6.24";
       addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4266289/raindropio-6.6.22.xpi";
-      sha256 = "b65bd2431e1696ea0650cbf2ec6f84730b06a069117a9e95c47fdac117f45f46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4269679/raindropio-6.6.24.xpi";
+      sha256 = "4c86f5e78e06e7b5978c1f20ce1be659a871556188ef4669b9a2aa826bab660f";
       meta = with lib;
       {
         homepage = "https://raindrop.io";
@@ -9312,10 +9312,10 @@
     };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.8.0";
+      version = "0.8.1";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261713/torproject_snowflake-0.8.0.xpi";
-      sha256 = "5a00e40bd2917133658bda860388792c934f98fb060315fc6dec2bd30e88e558";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270088/torproject_snowflake-0.8.1.xpi";
+      sha256 = "3cc8974834ecc2a3e5a5b26eb6aa2634187f4b7386694d50bec2b9f825ab87af";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
