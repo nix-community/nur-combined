@@ -25,6 +25,7 @@
   # MPV dependencies
   mpv-unwrapped,
   wrapMpv,
+  ...
 }:
 ################################################################################
 # Based on svp package from AUR:

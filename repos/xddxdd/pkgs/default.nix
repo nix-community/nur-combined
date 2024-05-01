@@ -117,6 +117,7 @@ mkScope (
     bird-lg-go = pkg ./uncategorized/bird-lg-go { };
     bird-lgproxy-go = pkg ./uncategorized/bird-lgproxy-go { };
     boringssl-oqs = pkg ./uncategorized/boringssl-oqs { };
+    browser360 = pkg ./uncategorized/browser360 { };
     calibre-cops = pkg ./uncategorized/calibre-cops { };
     chmlib-utils = pkg ./uncategorized/chmlib-utils { };
     click-loglevel = pkg ./uncategorized/click-loglevel { };

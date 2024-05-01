@@ -264,6 +264,36 @@
         },
         "version": "e11ac27e37ce100c2ad197a73ece9b46bf46737c"
     },
+    "browser360-amd64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "browser360-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-v1uLjIfxnBvug1Yu/1slTfoWGD+TI6snPTKRAj3q0AI=",
+            "type": "url",
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1012.21-1_amd64.deb"
+        },
+        "version": "13.3.1012.21"
+    },
+    "browser360-arm64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "browser360-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1xsF4mMapZnf1O4Q+RNpoxpcRZBKgQUV3lc1N+PiuAQ=",
+            "type": "url",
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1012.21-1_arm64.deb"
+        },
+        "version": "13.3.1012.21"
+    },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
         "date": "2024-04-29",

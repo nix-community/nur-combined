@@ -154,6 +154,22 @@
     };
     date = "2024-04-02";
   };
+  browser360-amd64 = {
+    pname = "browser360-amd64";
+    version = "13.3.1012.21";
+    src = fetchurl {
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1012.21-1_amd64.deb";
+      sha256 = "sha256-v1uLjIfxnBvug1Yu/1slTfoWGD+TI6snPTKRAj3q0AI=";
+    };
+  };
+  browser360-arm64 = {
+    pname = "browser360-arm64";
+    version = "13.3.1012.21";
+    src = fetchurl {
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1012.21-1_arm64.deb";
+      sha256 = "sha256-1xsF4mMapZnf1O4Q+RNpoxpcRZBKgQUV3lc1N+PiuAQ=";
+    };
+  };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
     version = "badf11e2e5421b0a358ecbedf4607f674f8c9a08";
