@@ -14,8 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  ldap-sshkp = pkgs.haskellPackages.callPackage ./pkgs/ldap-sshkp { };
-
   mfbot = pkgs.callPackage ./pkgs/mfbot { };
 
   mfc_l2710dn = pkgs.callPackage ./pkgs/mfc_l2710dn { };
