@@ -5,7 +5,6 @@
 , meson
 , ninja
 , pkg-config
-, check
 , gnunet
 , libextractor
 , libgcrypt
@@ -14,11 +13,11 @@
 
 stdenv.mkDerivation rec {
   pname = "libgnunetchat";
-  version = "0.1.3";
+  version = "0.3.1";
 
   src = fetchurl {
-    url = "mirror://gnu/gnunet/libgnunetchat-${version}.tar.xz";
-    hash = "sha256-+lRjKQsYyyYVxhhgwLE9RNVe0LsT4rTNOqKiJVkAXpI=";
+    url = "mirror://gnu/gnunet/libgnunetchat-${version}.tar.gz";
+    hash = "sha256-IIyKQxaueFJQJ8+mt8Iz44S8FjZ/wIW7vFw/UYMzaA0=";
   };
 
   postPatch = ''
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ meson cmake ninja pkg-config ];
 
-  buildInputs = [ check gnunet libextractor libgcrypt libsodium ];
+  buildInputs = [ gnunet libextractor libgcrypt libsodium ];
 
   doCheck = false;
 

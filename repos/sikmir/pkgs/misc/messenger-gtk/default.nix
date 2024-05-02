@@ -14,17 +14,21 @@
 , libgnunetchat
 , libhandy
 , libnotify
+, libportal
+, libportal-gtk3
 , libsodium
+, libunistring
+, pipewire
 , qrencode
 }:
 
 stdenv.mkDerivation rec {
   pname = "messenger-gtk";
-  version = "0.8.0";
+  version = "0.9.0";
 
   src = fetchurl {
-    url = "mirror://gnu/gnunet/messenger-gtk-${version}.tar.xz";
-    hash = "sha256-Udw1thBu3cBql5KJthC+fTGwx07bvOfEFKLyyK1rtUs=";
+    url = "mirror://gnu/gnunet/messenger-gtk-${version}.tar.gz";
+    hash = "sha256-DqviYQ+zEy75mQEHKi90pkDgps4gM6YrjN9esrCmi0s=";
   };
 
   nativeBuildInputs = [
@@ -43,7 +47,11 @@ stdenv.mkDerivation rec {
     libgnunetchat
     libhandy
     libnotify
+    libportal
+    libportal-gtk3
     libsodium
+    libunistring
+    pipewire
     qrencode
   ];
 
