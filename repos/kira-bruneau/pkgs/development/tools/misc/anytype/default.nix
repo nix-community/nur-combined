@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , anytype-heart
 , anytype-nmh
-, fetchpatch
 , copyDesktopItems
 , makeWrapper
 , pkg-config
@@ -18,24 +17,24 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "3bd7be346cdaaa78d4549c7d6cdb38b26b48773d";
-    hash = "sha256-3EAiAuEhZTGRgfnwbogKrAkPg5LPbe/bU6fNKjdk2bQ=";
+    rev = "1345a644c110949f8a6989078004fbd2af48e345";
+    hash = "sha256-fo3xrlKBunrrLbXwC4KZYqCgRvkuLfLPTfW+CoOrzho=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.39.0";
+  version = "0.40.8";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-Q6tRBTWWq5gwfVSLhNCjaNrbzs5TkgMG4v/LG8MldJg=";
+    hash = "sha256-pTVG18iQ05jjv4qe4K4qLcESbPbAK1YXz1Y+Hs5Z2fg=";
   };
 
-  npmDepsHash = "sha256-V3J4dGMi8u8LxMh6TNJ46lnQCHO53eGg6CJ/Qd1YyIM=";
+  npmDepsHash = "sha256-/5haoJZkXuE6w5rNQqwCrZvnssAfgUJF7GsAdi4ehBQ=";
 
-  # https://github.com/anyproto/anytype-ts/blob/v0.39.0/electron/js/util.js#L223-L230
+  # https://github.com/anyproto/anytype-ts/blob/v0.40.8/electron/js/util.js#L228-L235
   enabledLangs = [
     "cs-CZ" "da-DK" "de-DE"
     "en-US" "es-ES" "fr-FR"
@@ -47,8 +46,8 @@ buildNpmPackage rec {
     "zh-CN" "zh-TW"
   ];
 
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.39.0/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.39.0/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.40.8/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.40.8/electron/hook/locale.js
   postUnpack = ''
     if [ $(cat "$sourceRoot/middleware.version") != ${lib.escapeShellArg anytype-heart.version} ]; then
       echo 'ERROR: middleware version mismatch'
@@ -64,14 +63,6 @@ buildNpmPackage rec {
       ln -s "${l10n-anytype-ts}/locales/$lang.json" "$sourceRoot/dist/lib/json/lang"
     done
   '';
-
-  patches = [
-    # Fix error on startup if ~/.config/google-chrome doesn't exist
-    (fetchpatch {
-      url = "https://github.com/anyproto/anytype-ts/commit/b41bb539eb82ecb32f5d570b63443086615f8dd7.patch";
-      hash = "sha256-XmAFctpjkXCZS+kHPBun0MQhgSwd5kYq7kCZiT+P4X4=";
-    })
-  ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
