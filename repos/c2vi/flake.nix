@@ -322,13 +322,15 @@
     robotnixConfigurations = rec {
       "phone" = inputs.robotnix.lib.robotnixSystem (import ./hosts/phone/default.nix);
       "phone-emulator" = inputs.robotnix.lib.robotnixSystem {
-        productName = nixpkgs.legacyPackages.x86_64-linux.lib.mkForce "sdk_phone_x86_64";
+        # on lineageos wiki (https://wiki.lineageos.org/emulator) they say "sdk_phone_<arch>" 
+        # but that's for breakfast and not choosecombo (which robotnix uses), which adds lineage_ to the front
+        productName = nixpkgs.legacyPackages.x86_64-linux.lib.mkForce "lineage_sdk_phone_x86_64";
         imports = [
           (import ./hosts/phone/default.nix)
         ];
       };
       "phone-emulator-arm" = inputs.robotnix.lib.robotnixSystem {
-        productName = nixpkgs.legacyPackages.x86_64-linux.lib.mkForce "sdk_phone_arm64";
+        productName = nixpkgs.legacyPackages.x86_64-linux.lib.mkForce "lineage_sdk_phone_arm64";
         imports = [
           (import ./hosts/phone/default.nix)
         ];
