@@ -172,15 +172,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "badf11e2e5421b0a358ecbedf4607f674f8c9a08";
+    version = "2786939b5a35e9207ee6cf05c396eeec9f2360e0";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "badf11e2e5421b0a358ecbedf4607f674f8c9a08";
+      rev = "2786939b5a35e9207ee6cf05c396eeec9f2360e0";
       fetchSubmodules = false;
-      sha256 = "sha256-5lj7uqG+zBlniSPu23H9UlDYaXX0kzd9mFe2giPYNGw=";
+      sha256 = "sha256-Q9TVqOwMaYX6rTuN1x5h8pAcnfd995L+RA1cNQjzv30=";
     };
-    date = "2024-04-29";
+    date = "2024-05-01";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -612,15 +612,15 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "7c1b93965962b7c480d4d7f1a947e4712a9f0c5f";
+    version = "cb1152c4bb3be910ad26d67470fbc5ff21570cb5";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "7c1b93965962b7c480d4d7f1a947e4712a9f0c5f";
+      rev = "cb1152c4bb3be910ad26d67470fbc5ff21570cb5";
       fetchSubmodules = false;
-      sha256 = "sha256-H/ufyHIfYjAjF/Dt3CilL4x9uAXGcF1BkdAgzIbSGA8=";
+      sha256 = "sha256-E6pczxHzSY15J1YrTWvWNutN+o/oShTofcv9UdBbzwA=";
     };
-    date = "2024-04-13";
+    date = "2024-05-02";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -1165,15 +1165,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "a5bbe599fe33db18e9c78a275ddc124d01d9ca3d";
+    version = "e9a730f7f464d5fc38b6f69c68598763017afa09";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a5bbe599fe33db18e9c78a275ddc124d01d9ca3d";
+      rev = "e9a730f7f464d5fc38b6f69c68598763017afa09";
       fetchSubmodules = false;
-      sha256 = "sha256-6WUYSfGLybZdo2jUO6sefAQqskDQ8Xl1GbjreLRxGqU=";
+      sha256 = "sha256-yulh2p5gynaRNsCHrKqZPEbUFVvyF4bJwsegb6rJkcU=";
     };
-    date = "2024-04-29";
+    date = "2024-05-02";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
