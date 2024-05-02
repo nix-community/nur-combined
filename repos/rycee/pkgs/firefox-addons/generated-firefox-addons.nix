@@ -1830,10 +1830,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "126.0.20240429.91743";
+      version = "126.0.20240501.22718";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4279566/deutsch_de_language_pack-126.0.20240429.91743.xpi";
-      sha256 = "b5ae70c99a8764262babd99781d21a736065745e39adc6e58c3df9893165e2a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4280624/deutsch_de_language_pack-126.0.20240501.22718.xpi";
+      sha256 = "f4791d1d81b3d80957874fc634e4dbb5851e2fd9d2886d897eed2e9f3c43ae80";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2011,10 +2011,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.32.0";
+      version = "2.33.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4279939/dualsub-2.32.0.xpi";
-      sha256 = "1aeb844f020da31fbad5793eb84a9c0deb60c95bc1b38374e70738ab946ab40e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4280819/dualsub-2.33.0.xpi";
+      sha256 = "30dc970f7b5e82ee62d5fdecc79824ce1daa97f023d783656fe7e15ef7989195";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2770,10 +2770,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "126.0.20240429.91743";
+      version = "126.0.20240501.22718";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4279585/francais_language_pack-126.0.20240429.91743.xpi";
-      sha256 = "778e161d87d582128e302746be267fdb88167c9f29c8ad88d0b33f91790afe68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4280577/francais_language_pack-126.0.20240501.22718.xpi";
+      sha256 = "8e34a23e588414ca60d23cc2c98f2d658f55c1f5562c73817d8a7b8706cd609b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3604,10 +3604,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.215.1";
+      version = "1.0.216";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261837/hover_zoom_plus-1.0.215.1.xpi";
-      sha256 = "cf01b041accd832640fe5faa346adaebfa4c3c1c346be662df6ee2619021992f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4280841/hover_zoom_plus-1.0.216.xpi";
+      sha256 = "1d23e81bbe774b8661e96b04613af0d5295df119d6df0490c67af5157df5aaa0";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4551,6 +4551,17 @@
           "*://*.bsky.app/*"
           "*://*.onzemondial.com/*"
           "*://*.cineserie.com/*"
+          "*://*.opendata.hauts-de-seine.fr/*"
+          "*://*.nature.com/*"
+          "*://*.galerie9art.fr/*"
+          "*://*.worldatlas.com/*"
+          "*://*.kotnauction.com/*"
+          "*://*.techradar.com/*"
+          "*://*.inoreader.com/*"
+          "*://*.unsplash.com/*"
+          "*://*.defense.gov/*"
+          "*://*.mil/*"
+          "*://*.la-croix.com/*"
         ];
         platforms = platforms.all;
       };
@@ -5494,10 +5505,10 @@
     };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.8.2";
+      version = "2.8.4";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4248205/libredirect-2.8.2.xpi";
-      sha256 = "ac23b1c222f7af20c3b817f1514d796df5f5e3d24894dd1ec6a176e5830b8351";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4280925/libredirect-2.8.4.xpi";
+      sha256 = "cd1f5780cf1ae20a05e4e2fbdc5a338c7d0aad9619a0b5824ede024c3a0933f1";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -6714,34 +6725,6 @@
           "http://*/*"
           "https://*/*"
           "*://connect.trezor.io/*/popup.html"
-        ];
-        platforms = platforms.all;
-      };
-    };
-    "modheader" = buildFirefoxXpiAddon {
-      pname = "modheader";
-      version = "4.4.1";
-      addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4161194/modheader_firefox-4.4.1.xpi";
-      sha256 = "b93fba69083bbcb530b9d2bcbbf7aec675eb6f36eec874266f9989d276234586";
-      meta = with lib;
-      {
-        homepage = "https://modheader.com/";
-        description = "Add and modify the HTTP request headers and response headers.\n\nUse ModHeader to:\n- Add / modify request and response headers\n- Add / modify cookies\n- Multi-profile support\n- Filtering based on URL, tab, or window\n- Export and share profiles";
-        license = {
-          shortName = "modheader";
-          fullName = "Terms of Use for ModHeader";
-          url = "https://modheader.com/terms#license-terms";
-          free = false;
-        };
-        mozPermissions = [
-          "alarms"
-          "contextMenus"
-          "webRequest"
-          "storage"
-          "webRequestBlocking"
-          "<all_urls>"
-          "https://modheader.com/*"
         ];
         platforms = platforms.all;
       };
