@@ -1,29 +1,29 @@
-{ lib, stdenv, fetchurl, _7zz, unzip, makeWrapper, cudatext }:
+{ lib, stdenv, fetchurl, _7zz, makeWrapper, cudatext }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
-  version = "1.210.0.0";
+  version = "1.214.0.0";
 
   src = {
     "aarch64-darwin" = fetchurl {
-      url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-aarch64-${finalAttrs.version}.dmg.zip";
-      hash = "sha256-w7ypX5tYtAXaEaJgKXqhgH2ORw3yUSg0lOS3RG4lTbY=";
+      url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-aarch64-${finalAttrs.version}.dmg";
+      hash = "sha256-DU2QtKjPsHBw8hBb2t7cmYvUQ3UodgcW4Hp9kEyEzBI=";
     };
     "x86_64-darwin" = fetchurl {
-      url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg.zip";
-      hash = "sha256-9JQx1btljQ4/ybtEoBKQI00KOh9xp+7BEvuMhL2gKcw=";
+      url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
+      hash = "sha256-oGmUcPmnlqKn4mGVhbnFjM1FJ7H3uUg9Z7MKvt2By2Y=";
     };
   }.${stdenv.hostPlatform.system};
 
   sourceRoot = ".";
 
   # APFS format is unsupported by undmg
-  nativeBuildInputs = [ _7zz unzip makeWrapper ];
+  nativeBuildInputs = [ _7zz makeWrapper ];
+  unpackCmd = "7zz x $curSrc";
 
   installPhase = ''
     runHook preInstall
 
-    7zz x *.dmg
     mkdir -p $out/Applications
     mv *.app $out/Applications
     makeWrapper $out/{Applications/CudaText.app/Contents/MacOS,bin}/cudatext

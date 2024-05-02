@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "bbox";
-  version = "0.5.0-beta1";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "bbox-services";
     repo = "bbox";
     rev = "v${version}";
-    hash = "sha256-ffck1Ets1GyDPRXHjtugtibfHzpygJqJAdjTHYFzhnM=";
+    hash = "sha256-Vhzch4jnWtYQ2/x9tNGph8FDDxB1vRR9L9KVZf3Tha4=";
   };
 
   cargoLock = {
