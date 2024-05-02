@@ -8,7 +8,7 @@ Darwin/macOS builds are manually pushed by me to cachix occasionally. Usually wh
 
 ## Packages
 
-* 3dstool-1.2.6
+* 3dstool-1.2.6 (as \_3dstool attribute)
 * lnshot-0.1.3
 * save3ds-dev-2023-03-28
 * cleaninty-0.1.3

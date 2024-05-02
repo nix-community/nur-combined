@@ -8,13 +8,13 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  "3dstool" = pkgs.callPackage ./pkgs/3dstool { };
+  _3dstool = pkgs.callPackage ./pkgs/3dstool { };
   lnshot = pkgs.callPackage ./pkgs/lnshot { };
   save3ds = pkgs.callPackage ./pkgs/save3ds { };
   cleaninty = pkgs.python3Packages.callPackage ./pkgs/cleaninty { };
@@ -23,4 +23,7 @@
   makebax = pkgs.callPackage ./pkgs/makebax { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
+
+  # compatibility
+  "3dstool" = _3dstool;
 }
