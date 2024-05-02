@@ -1,9 +1,14 @@
 { lib
+, stdenv
 , writeText
 , writeShellScript
-, python3
-, nixpkgs
 , packages
+, coreutils
+, bash
+, git
+, nix
+, nixpkgs
+, python3
 }:
 
 let
@@ -19,5 +24,9 @@ let
   packagesJson = writeText "packages.json" (builtins.toJSON (map packageData packages));
 in
 writeShellScript "update" ''
-  echo "" | ${python3.interpreter} ${nixpkgs + "/maintainers/scripts/update.py"} ${packagesJson} --keep-going --commit "$@"
+  echo "" | ${coreutils}/bin/env -i \
+    HOME="$HOME" \
+    PATH=${bash}/bin:${coreutils}/bin:${git}/bin:${nix}/bin \
+    NIX_PATH=nixpkgs=${nixpkgs} \
+    ${python3.interpreter} ${nixpkgs + "/maintainers/scripts/update.py"} ${packagesJson} --keep-going --commit "$@"
 ''

@@ -8,7 +8,7 @@
 
 swaylock.overrideAttrs (attrs: {
   pname = "swaylock-fprintd";
-  version = "unstable-2023-01-30";
+  version = "0-unstable-2023-01-30";
 
   src = fetchFromGitHub {
     owner = "SL-RU";
