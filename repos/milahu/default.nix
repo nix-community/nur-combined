@@ -363,8 +363,6 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         inherit spiral;
       };
 
-      spdx = callPackage ./pkgs/development/python-modules/spdx { };
-
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -765,6 +763,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   spiral = callPackage ./pkgs/development/compilers/spiral { };
 
   redasm = callPackage ./pkgs/development/tools/analysis/redasm { };
+
+  advanced-microcode-patching-shiva = callPackage ./pkgs/development/tools/analysis/advanced-microcode-patching-shiva { };
 
 }
 
