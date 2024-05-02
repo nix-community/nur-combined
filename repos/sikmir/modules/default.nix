@@ -10,6 +10,7 @@
       openorienteering-mapper = ./home-manager/programs/openorienteering-mapper.nix;
       qmapshack = ./home-manager/programs/qmapshack.nix;
       slack-term = ./home-manager/programs/slack-term.nix;
+      vis = ./home-manager/programs/vis.nix;
     };
   };
 }
