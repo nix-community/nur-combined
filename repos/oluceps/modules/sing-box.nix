@@ -23,14 +23,12 @@ in
       default = false;
     };
     webPanel = mkOption {
-      type =
-        with types;
-        submodule {
-          options = {
-            enable = mkEnableOption "enable";
-            package = mkPackageOption pkgs "metacubexd" { };
-          };
+      type = types.submodule {
+        options = {
+          enable = mkEnableOption "enable";
+          package = mkPackageOption pkgs "metacubexd" { };
         };
+      };
       default = {
         enable = true;
         package = pkgs.metacubexd;

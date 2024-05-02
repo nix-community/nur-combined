@@ -154,7 +154,7 @@
   documentation = {
     enable = true;
     nixos.enable = true;
-    man.enable = false;
+    man.enable = true;
   };
 
   systemd.tmpfiles.rules = [

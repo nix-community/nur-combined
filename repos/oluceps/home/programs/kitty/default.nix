@@ -1,7 +1,7 @@
 { pkgs, user, ... }:
 {
   programs.kitty = {
-    enable = false;
+    enable = true;
     font = {
       name = "Maple Mono";
       size = if user == "elen" then 13.0 else 15;

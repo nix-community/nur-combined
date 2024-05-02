@@ -13,7 +13,7 @@
       style = builtins.readFile ./waybar.css;
       systemd = {
         enable = true;
-        target = "niri-session.target";
+        target = "sway-session.target";
       };
       settings = {
         mainBar = {
