@@ -23,6 +23,9 @@ in
 , wine ? if is64bits then pkgs.wineWowPackages.stagingFull else pkgs.wine-staging
 , wineFlags ? ""
 
+, fsync ? true
+, esync ? true
+
 # Useful for native linux apps that require wine environment (e.g. reaper with yabridge)
 , isWinBin ? true
 , meta ? {}
@@ -49,6 +52,9 @@ in writeTextFile {
     export WINE_NIX="$HOME/.wine-nix"
     export WINEPREFIX="$WINE_NIX/${name}"
     mkdir -p "$WINE_NIX"
+
+    ${optionalString fsync "export WINEFSYNC=1"}
+    ${optionalString esync "export WINEESYNC=1"}
 
     if [ ! -d "$WINEPREFIX" ]; then
       wineboot --init
