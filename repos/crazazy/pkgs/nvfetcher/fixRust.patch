@@ -1,0 +1,25 @@
+From c80d4f35a8d07456e3ffe5269ca058b1ee925bb4 Mon Sep 17 00:00:00 2001
+From: Erik Oosting <crazazy@tilde.cafe>
+Date: Fri, 3 May 2024 18:31:39 +0200
+Subject: [PATCH] Remove caching from rust deps fetching
+
+---
+ src/NvFetcher/FetchRustGitDeps.hs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/NvFetcher/FetchRustGitDeps.hs b/src/NvFetcher/FetchRustGitDeps.hs
+index 9e03cc9..5e6c0e3 100644
+--- a/src/NvFetcher/FetchRustGitDeps.hs
++++ b/src/NvFetcher/FetchRustGitDeps.hs
+@@ -45,7 +45,7 @@ import Text.Parsec.Text
+ -- | Rules of fetch rust git dependencies
+ fetchRustGitDepsRule :: Rules ()
+ fetchRustGitDepsRule = void $
+-  addOracleCache $ \key@(FetchRustGitDepsQ fetcher lockPath) -> do
++  addOracle $ \key@(FetchRustGitDepsQ fetcher lockPath) -> do
+     putInfo . show $ "#" <+> pretty key
+     cargoLock <- head . HMap.elems <$> extractSrc fetcher lockPath
+     deps <- case Toml.decodeWith (Toml.getFieldWith (Toml.getArrayOf rustDepDecoder) "package") cargoLock of
+-- 
+2.44.0
+

@@ -1,4 +1,4 @@
 {nvfetcher}:
 nvfetcher.overrideAttrs (old: {
-  patches = [./deterministic.patch];
+  patches = [./deterministic.patch ./fixRust.patch];
 })

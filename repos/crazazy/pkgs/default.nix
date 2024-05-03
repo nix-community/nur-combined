@@ -22,7 +22,7 @@ in
   nvfetcher = callPackage ./nvfetcher { };
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
   enso = callPackage ./enso { };
-  wasmfxtime = callPackage ./wasmfxtime { };
+  # wasmfxtime = callPackage ./wasmfxtime { };
   # vendor broken. Also in nixpkgs already
   # efm-langserver = callPackage ./efm-langserver { };
   # In nixpkgs already
