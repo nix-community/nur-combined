@@ -1069,10 +1069,10 @@
     };
     "chatgptbox" = buildFirefoxXpiAddon {
       pname = "chatgptbox";
-      version = "2.5.2";
+      version = "2.5.3";
       addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4254479/chatgptbox-2.5.2.xpi";
-      sha256 = "a0809232eb9e8d7a6d7949ab3792c16bf402b056877ca2618caeb1a56f69d218";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4281187/chatgptbox-2.5.3.xpi";
+      sha256 = "06fa881efd41a028b28ea5d4cec9a6d47629514c13b3a7ffe0bb2dd9e2375c52";
       meta = with lib;
       {
         homepage = "https://github.com/josStorer/chatGPTBox";
@@ -1727,10 +1727,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.83";
+      version = "4.9.84";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262984/darkreader-4.9.83.xpi";
-      sha256 = "a43cca2449de202d17040b0d91b2fb3ed4dd58ac81ec5d3fde4c9940d326c822";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4278339/darkreader-4.9.84.xpi";
+      sha256 = "d418b40fc2cb69cfffabf6cc291f2cc5ca4c9d6a99e46562b44f4e2c0148374c";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -4732,10 +4732,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.6.2";
+      version = "3.7.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251384/indie_wiki_buddy-3.6.2.xpi";
-      sha256 = "3cdf0a46da7036b0b64e7e178edf3dca613c39dcfe9386c82658ac44dc6bd1cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4279027/indie_wiki_buddy-3.7.0.xpi";
+      sha256 = "2aafeefa58b20f540d3344e1fd13ff437b64f6ea764dc76f26cdfec2307fda5f";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -7356,10 +7356,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.22.1";
+      version = "2.23.3";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4256845/1password_x_password_manager-2.22.1.xpi";
-      sha256 = "57bd35718625d9fd890600b37cfa3d40541950b2ce2a5247e697623f5e93fba2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4279916/1password_x_password_manager-2.23.3.xpi";
+      sha256 = "e4212296da2064caebdac7e0925467179ae4bbfc01c824672f3ee41aa652654f";
       meta = with lib;
       {
         homepage = "https://1password.com";
