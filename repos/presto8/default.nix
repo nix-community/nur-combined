@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   pscripts = pkgs.callPackage ./pkgs/pscripts { };
+  thumbsup = pkgs.callPackage ./pkgs/thumbsup { };
 }
