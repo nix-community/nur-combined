@@ -1,9 +1,10 @@
 { nvsrcs, wasmtime, rustPlatform }:
-wasmtime.overrideAttrs (old: {
+rustPlatform.buildRustPackage {
   inherit (nvsrcs.wasmfxtime) src version;
-  
-  cargoDeps = rustPlatform.importCargoLock nvsrcs.wasmfxtime.cargoLock."./Cargo.lock";
-  meta = old.meta // {
+  inherit (wasmtime) pname cargoBuildFlags outputs doCheck cargoTestFlags postInstall;
+
+  cargoLock = nvsrcs.wasmfxtime.cargoLock."./Cargo.lock";
+  meta = wasmtime.meta // {
     description = "wasmtime WebAssembly runner with support for delmited continuations";
   };
-})
+}
