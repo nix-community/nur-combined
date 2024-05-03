@@ -40,7 +40,7 @@ jobs:
     - name: Update niv dependencies
       run: |
         GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} nix-shell -p niv --run "niv update"
-        (cd nix/ && $(nix-build --no-out-link ../pkgs -A nvfetcher --arg pkgs "import <nixpkgs> {}")/bin/nvfetcher -c nvfetcher.toml)
+        (cd nix/ && rm -r _sources && $(nix-build --no-out-link ../pkgs -A nvfetcher --arg pkgs "import <nixpkgs> {}")/bin/nvfetcher -c nvfetcher.toml)
 
     - name: Update flakes
       run: |
