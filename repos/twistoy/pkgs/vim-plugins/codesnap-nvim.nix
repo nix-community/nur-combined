@@ -11,18 +11,18 @@
   luajit,
   ...
 }: let
-  version = "1.1.7";
+  version = "1.3.0";
   codesnap-nvim-src = fetchFromGitHub {
     owner = "mistricky";
     repo = "codesnap.nvim";
     rev = "v${version}";
-    sha256 = "sha256-TrDF7zhv7pJHJfQfNjpT3+F91h3kUm982oWbbExA/eY=";
+    sha256 = "sha256-SPD+Muzv50vrynwhZX6TEGpuU9RSdIoT009JXeDitHo=";
   };
   codesnap-nvim-bin = rustPlatform.buildRustPackage {
     pname = "codesnap-nvim";
     inherit version;
     src = "${codesnap-nvim-src}/generator";
-    cargoSha256 = "sha256-nM/Zh6UknyPTTqnULR2Yn9ityKYLPV7pnfXvkT+Spw4=";
+    cargoSha256 = "sha256-pdu4ViQL6vHKH38QPRalQJw4EbS+8OpD/q0gNnkL9as=";
 
     LIBCLANG_PATH = "${llvmPackages_17.libclang.lib}/lib";
 
