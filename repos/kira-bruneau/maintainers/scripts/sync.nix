@@ -19,6 +19,7 @@
 
 let
   syncPaths = writeText "sync-paths" (lib.concatStringsSep "\n" [
+    "nixos/modules/hardware/gpu/intel-gpu-tools.nix"
     "nixos/modules/hardware/xpadneo.nix"
     "nixos/modules/programs/bash/undistract-me.nix"
     "nixos/modules/programs/gamemode.nix"
