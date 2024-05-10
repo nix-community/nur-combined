@@ -60,7 +60,6 @@ in
     unixSocket = "/run/redis-rspamd/redis.sock";
     user = rspamdCfg.user;
   };
-  boot.kernel.sysctl."vm.overcommit_memory" = 1;
 
   systemd.services.rspamd = {
     requires = [ "redis-rspamd.service" ];

@@ -50,9 +50,6 @@
     randomizedDelaySec = "30min";
   };
 
-  # slient redis
-  boot.kernel.sysctl."vm.overcommit_memory" = 1;
-
   services.mosdns = {
     enable = true;
     configFile = config.sops.secrets."mosdns.yaml".path;
