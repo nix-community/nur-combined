@@ -152,9 +152,9 @@
         dhcpV4Config.RouteMetric = 2040;
         dhcpV6Config.RouteMetric = 2046;
         networkConfig = {
-          DNSSEC = true;
-          MulticastDNS = true;
-          DNSOverTLS = true;
+          DNSSEC = false;
+          MulticastDNS = false;
+          DNSOverTLS = false;
         };
         # # REALLY IMPORTANT
         dhcpV4Config.UseDNS = true;

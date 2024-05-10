@@ -84,7 +84,7 @@
     ccid
 
     # nrfconnect
-    nrfutil
+    # nrfutil
     # nrf-command-line-tools
     yubikey-manager
 

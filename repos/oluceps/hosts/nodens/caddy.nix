@@ -307,26 +307,6 @@
                         {
                           handle = [
                             {
-                              handler = "file_server";
-                              hide = [ "/home/riro/c" ];
-                              root = "/var/www/public";
-                            }
-                          ];
-                        }
-                      ];
-                    }
-                  ];
-                  match = [ { host = [ "magicb.uk" ]; } ];
-                  terminal = true;
-                }
-                {
-                  handle = [
-                    {
-                      handler = "subroute";
-                      routes = [
-                        {
-                          handle = [
-                            {
                               handler = "headers";
                               response = {
                                 set = {

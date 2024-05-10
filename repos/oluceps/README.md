@@ -76,23 +76,6 @@ nix.settings = {
 └── users.nix
 ```
 
-#### srv
-
-This is designed for easy play with more services and better reuse service config.
-
-```
-nixosModule option  predefined & repack   srv option
-   services.${}             =>              srv.${}
-
-srv.foo = {
-  enable = true;
-  override = {
-    oldOption = "new"; # override option predefined in /srv/foo.nix
-  };
-}
-```
-
-
 ## References
 
 Excellent configurations that I've learned and copied:  

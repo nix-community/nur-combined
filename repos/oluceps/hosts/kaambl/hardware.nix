@@ -191,12 +191,16 @@
       "zswap.zpool=zsmalloc"
       "systemd.gpt_auto=0"
       "noresume"
+      "acpi_os_name=\"Microsoft Windows NT\""
     ];
-    extraModulePackages = with config.boot.kernelPackages; [
-      v4l2loopback
-      (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
-      # shufflecake
-    ];
+    extraModulePackages =
+      let
+        inherit (config.boot.kernelPackages) v4l2loopback callPackage;
+      in
+      [
+        v4l2loopback
+        (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
+      ];
     kernelPackages =
       # (import inputs.nixpkgs-pin {
       #   system = "x86_64-linux";

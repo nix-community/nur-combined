@@ -137,7 +137,7 @@
           if osConfig.networking.hostName == "hastur" then
             {
               HDMI-A-1 = {
-                bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
+                bg = "${../../../.attachs/wall.jpg} fill";
                 mode = "1920x1080";
                 scale = "1.25";
               };
@@ -145,13 +145,13 @@
           else if osConfig.networking.hostName == "kaambl" then
             {
               eDP-1 = {
-                bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
+                bg = "${../../../.attachs/wall.jpg} fill";
                 mode = "2160x1440@60Hz";
                 scale = "2";
                 adaptive_sync = "on";
               };
               HDMI-A-1 = {
-                bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
+                bg = "${../../../.attachs/wall.jpg} fill";
                 mode = "2560x1660";
                 scale = "2";
               };
@@ -160,7 +160,7 @@
             {
 
               eDP-1 = {
-                bg = "/home/${user}/Src/nixos/.attachs/wall.jpg fill";
+                bg = "${../../../.attachs/wall.jpg} fill";
                 mode = "1366x768";
                 scale = "1";
               };

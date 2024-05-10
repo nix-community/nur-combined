@@ -2,7 +2,7 @@
 {
   services.resolved = {
     llmnr = "false";
-    dnssec = "false";
+    dnssec = "no";
     extraConfig = ''
       MulticastDNS=off
     '';
@@ -194,7 +194,7 @@
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
         networkConfig = {
-          DNSSEC = true;
+          DNSSEC = false;
         };
       };
     };
