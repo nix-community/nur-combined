@@ -24,4 +24,5 @@ in {
   yuzu-mainline = yuzuPackages.mainline; # Added 2023-12-29
 
   gitignore = pkgs.callPackage ./pkgs/gitignore {};
+  dotnet-t4 = pkgs.callPackage ./pkgs/dotnet-t4 {};
 }
