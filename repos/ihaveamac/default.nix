@@ -14,6 +14,8 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  hmModules = import ./hm-modules;
+
   _3dstool = pkgs.callPackage ./pkgs/3dstool { };
   lnshot = pkgs.callPackage ./pkgs/lnshot { };
   save3ds = pkgs.callPackage ./pkgs/save3ds { };
@@ -21,6 +23,10 @@ rec {
   rvthtool = pkgs.callPackage ./pkgs/rvthtool { };
   themethod3 = pkgs.callPackage ./pkgs/themethod3 { };
   makebax = pkgs.callPackage ./pkgs/makebax { };
+  ctrtool = pkgs.callPackage ./pkgs/ctrtool { };
+  makerom = pkgs.callPackage ./pkgs/makerom { };
+
+  kwin-move-window = pkgs.callPackage ./pkgs/kwin-move-window { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 
